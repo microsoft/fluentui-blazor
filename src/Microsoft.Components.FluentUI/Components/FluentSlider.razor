@@ -1,0 +1,38 @@
+@inherits FluentInputBase<int>
+@using System.Globalization
+<fluent-slider orientation="@Orientation.ToAttributeValue()" min="@Min" max="@Max" step="@Step" value="@BindConverter.FormatValue(CurrentValue)" @onchange="@(EventCallback.Factory.CreateBinder<string>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))" readonly="@Readonly" disabled="@Disabled" @attributes="AdditionalAttributes">@ChildContent</fluent-slider>
+@code{
+
+    [Parameter] public Orientation? Orientation { get; set; }
+
+    [Parameter] public int? Min { get; set; }
+
+    [Parameter] public int? Max { get; set; }
+
+    [Parameter] public int? Step { get; set; }
+
+    [Parameter] public bool? Disabled { get; set; }
+
+    [Parameter] public bool? Readonly { get; set; }
+
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    protected override bool TryParseValueFromString(string value, out int result, out string validationErrorMessage)
+    {
+        if (BindConverter.TryConvertTo<int>(value, CultureInfo.InvariantCulture, out result))
+        {
+            validationErrorMessage = null;
+            return true;
+        }
+        else
+        {
+            validationErrorMessage = string.Format(CultureInfo.InvariantCulture, "The {0} field must be a number.", DisplayName ?? FieldIdentifier.FieldName);
+            return false;
+        }
+    }
+
+    protected override string FormatValueAsString(int value)
+    {
+        return BindConverter.FormatValue(value, CultureInfo.InvariantCulture);
+    }
+}

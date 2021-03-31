@@ -1,0 +1,229 @@
+@page "/webcomponents/{Target?}"
+@using FluentUIServerSample.Components
+<div class="main">
+  <h1 class="head">Fluent components test page</h1>
+  <nav class="navigation">
+      <ul>
+          <li>
+              <NavLink href="webcomponents/Accordion">Accordion</NavLink>
+          </li>
+          <li>
+              <NavLink href="webcomponents/Anchor">Anchor</NavLink>
+          </li>
+          <li>
+              <NavLink href="webcomponents/NavLinkAnchor">NavLink anchor</NavLink>
+          </li>
+          <li>
+              <NavLink href="webcomponents/Badge">Badge</NavLink>
+          </li>
+          <li>
+              <NavLink href="webcomponents/BreadcrumbItem">Breadcrumb Item</NavLink>
+          </li>
+          <li>
+              <NavLink href="webcomponents/Breadcrumb">Breadcrumb</NavLink>
+          </li>
+          <li>
+              <NavLink href="webcomponents/Button">Button</NavLink>
+          </li>
+          <li>
+              <NavLink href="webcomponents/Card">Card</NavLink>
+          </li>
+          <li>
+              <NavLink href="webcomponents/Checkbox">Checkbox</NavLink>
+          </li>
+          <li>
+              <NavLink href="webcomponents/Combobox">Combobox</NavLink>
+          </li>
+          <li>
+              <NavLink href="webcomponents/Dialog">Dialog</NavLink>
+          </li>
+          <li>
+              <NavLink href="webcomponents/Divider">Divider</NavLink>
+          </li>
+          <li>
+              <NavLink href="webcomponents/Flipper">Flipper</NavLink>
+          </li>
+          <li>
+              <NavLink href="webcomponents/ListboxOption">Listbox option</NavLink>
+          </li>
+          <li>
+              <NavLink href="webcomponents/Listbox">Listbox</NavLink>
+          </li>
+          <li>
+              <NavLink href="webcomponents/MenuItem">Menu item</NavLink>
+          </li>
+          <li>
+              <NavLink href="webcomponents/Menu">Menu</NavLink>
+          </li>
+          <li>
+              <NavLink href="webcomponents/ProgressRing">Progress Ring</NavLink>
+          </li>
+          <li>
+              <NavLink href="webcomponents/Progress">Progress</NavLink>
+          </li>
+          <li>
+              <NavLink href="webcomponents/RadioGroup">Radio Group</NavLink>
+          </li>
+          <li>
+              <NavLink href="webcomponents/Radio">Radio</NavLink>
+          </li>
+          <li>
+              <NavLink href="webcomponents/Select">Select</NavLink>
+          </li>
+          <li>
+              <NavLink href="webcomponents/Skeleton">Skeleton</NavLink>
+          </li>
+          <li>
+              <NavLink href="webcomponents/SliderLabel">Slider label</NavLink>
+          </li>
+          <li>
+              <NavLink href="webcomponents/Slider">Slider</NavLink>
+          </li>
+          <li>
+              <NavLink href="webcomponents/Switch">Switch</NavLink>
+          </li>
+          <li>
+              <NavLink href="webcomponents/Tabs">Tabs</NavLink>
+          </li>
+          <li>
+              <NavLink href="webcomponents/TextArea">Text area</NavLink>
+          </li>
+          <li>
+              <NavLink href="webcomponents/TextField">Text field</NavLink>
+          </li>
+          <li>
+              <NavLink href="webcomponents/TreeItem">Tree item</NavLink>
+          </li>
+          <li>
+              <NavLink href="webcomponents/TreeView">Tree view</NavLink>
+          </li>
+      </ul>
+  </nav>
+  <div class="content">
+  @switch(Target)
+  {
+      case "Accordion":
+      <FluentAccordionTest></FluentAccordionTest>
+      break;
+      case "Anchor":
+      <FluentAnchorTest></FluentAnchorTest>
+      break;
+      case "NavLinkAnchor":
+      <NavLinkFluentAnchorTest></NavLinkFluentAnchorTest>
+      break;
+      case "Badge":
+      <FluentBadgeTest></FluentBadgeTest>
+      break;
+      case "BreadcrumbItem":
+      <FluentBreadcrumbItemTest></FluentBreadcrumbItemTest>
+      break;
+      case "Breadcrumb":
+      <FluentBreadcrumbTest></FluentBreadcrumbTest>
+      break;
+      case "Button":
+      <FluentButtonTest></FluentButtonTest>
+      break;
+      case "Card":
+      <FluentCardTest></FluentCardTest>
+      break;
+      case "Checkbox":
+      <FluentCheckboxTest></FluentCheckboxTest>
+      break;
+      case "Combobox":
+      <FluentComboboxTest></FluentComboboxTest>
+      break;
+      case "Dialog":
+      <FluentDialogTest></FluentDialogTest>
+      break;
+      case "Divider":
+      <FluentDividerTest></FluentDividerTest>
+      break;
+      case "Flipper":
+      <FluentFlipperTest></FluentFlipperTest>
+      break;
+      case "ListboxOption":
+      <FluentListboxOptionTest></FluentListboxOptionTest>
+      break;
+      case "Listbox":
+      <FluentListboxTest></FluentListboxTest>
+      break;
+      case "MenuItem":
+      <FluentMenuItemTest></FluentMenuItemTest>
+      break;
+      case "Menu":
+      <FluentMenuTest></FluentMenuTest>
+      break;
+      case "ProgressRing":
+      <FluentProgressRingTest></FluentProgressRingTest>
+      break;
+      case "Progress":
+      <FluentProgressTest></FluentProgressTest>
+      break;
+      case "RadioGroup":
+      <FluentRadioGroupTest></FluentRadioGroupTest>
+      break;
+      case "Radio":
+      <FluentRadioTest></FluentRadioTest>
+      break;
+      case "Select":
+      <FluentSelectTest></FluentSelectTest>
+      break;
+      case "Skeleton":
+      <FluentSkeletonTest></FluentSkeletonTest>
+      break;
+      case "SliderLabel":
+      <FluentSliderLabelTest></FluentSliderLabelTest>
+      break;
+      case "Slider":
+      <FluentSliderTest></FluentSliderTest>
+      break;
+      case "Switch":
+      <FluentSwitchTest></FluentSwitchTest>
+      break;
+      case "Tabs":
+      <FluentTabsTest></FluentTabsTest>
+      break;
+      case "TextArea":
+      <FluentTextAreaTest></FluentTextAreaTest>
+      break;
+      case "TextField":
+      <FluentTextFieldTest></FluentTextFieldTest>
+      break;
+      case "TreeItem":
+      <FluentTreeItemTest></FluentTreeItemTest>
+      break;
+      case "TreeView":
+      <FluentTreeViewTest></FluentTreeViewTest>
+      break;
+      default:
+      <p>No component selected</p>
+      break;
+  }
+  </div>
+</div>
+
+<style>
+  .main {
+    display:grid;
+    grid-template-areas: 'head head'
+                         'navigation content';
+    grid-template-rows: auto 1fr;
+    grid-template-columns: auto 1fr;
+  }
+
+  .head {
+    grid-area: head;
+  }
+
+  .navigation {
+    grid-area: navigation;
+  }
+
+  .navigation > ul {
+    list-style: none;
+  }
+</style>
+
+@code{
+  [Parameter] public string Target { get; set; } = null;
+}

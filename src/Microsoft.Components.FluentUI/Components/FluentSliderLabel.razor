@@ -1,0 +1,10 @@
+<fluent-slider-label position="@Position" hide-mark="@HideMark" @attributes="AdditionalAttributes">@ChildContent</fluent-slider-label>
+@code{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    [Parameter] public int? Position { get; set; }
+
+    [Parameter] public bool? HideMark { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)] public IDictionary<string, object> AdditionalAttributes { get; set; }
+}

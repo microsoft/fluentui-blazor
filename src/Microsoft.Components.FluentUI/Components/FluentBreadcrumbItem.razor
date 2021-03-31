@@ -1,0 +1,9 @@
+<fluent-breadcrumb-item href="@Href" @attributes="AdditionalAttributes">@ChildContent</fluent-breadcrumb-item>
+@code
+{
+    [Parameter] public string Href { get; set; }
+
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)] public IDictionary<string, object> AdditionalAttributes { get; set; }
+}

@@ -1,0 +1,24 @@
+﻿@page "/"
+@namespace FluentUIServerSample.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="module" src="https://unpkg.com/@@fluentui/web-components"></script>
+    <link rel="stylesheet" href="~/site.css" />
+    <title>FluentUIServerSample</title>
+    <base href="~/" />
+</head>
+<body>
+    <fluent-design-system-provider use-defaults>
+        <component type="typeof(App)" render-mode="ServerPrerendered" />
+        <script src="_framework/blazor.server.js"></script>
+    </fluent-design-system-provider>
+</body>
+</html>
