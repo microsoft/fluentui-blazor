@@ -1,4 +1,4 @@
-# Contributing to Blazor.FluentUI
+# Contributing
 
 ## Getting started
 
@@ -6,7 +6,7 @@
 
 To begin you'll need Git and .NET setup on your machine.
 
-Blazor.FluentUI uses Git as its source control system. If you haven't already installed it, you can download it [here](https://git-scm.com/downloads) or if you prefer a GUI-based approach, try [GitHub Desktop](https://desktop.github.com/).
+The `blazor-fluentui` repo uses Git as its source control system. If you haven't already installed it, you can download it [here](https://git-scm.com/downloads) or if you prefer a GUI-based approach, try [GitHub Desktop](https://desktop.github.com/).
 
 Once Git is installed, you'll also need .NET. Instructions and downloads for your preferred OS can be found [here](https://dotnet.microsoft.com/download).
 
@@ -16,7 +16,7 @@ The above steps are a one-time setup for your machine and do not need to be repe
 
 ### Cloning the repository
 
-Now that your machine is setup, you can clone the Blazor.FluentUI repository. Open a terminal and run this command:
+Now that your machine is setup, you can clone the `blazor-fluentui` repository. Open a terminal and run this command:
 
 ```shell
 git clone https://github.com/dotnet/blazor-fluentui.git

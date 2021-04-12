@@ -1,8 +1,8 @@
-# Blazor.FluentUI
+# Blazor FluentUI
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![.NET C#](https://img.shields.io/badge/.NET-C%23-blue)](https://img.shields.io/badge/.NET-C%23-blue)
-[![NuGet version](https://badge.fury.io/nu/Blazor.FluentUI.svg)](https://badge.fury.io/nu/Blazor.FluentUI)
+[![NuGet version](https://badge.fury.io/nu/Microsoft.Components.FluentUI.svg)](https://badge.fury.io/nu/Microsoft.Components.FluentUI)
 
 [![Discord](https://img.shields.io/badge/chat%20on-discord-7289da.svg)](https://discord.gg/FcSNfg4)
 [![Twitter](https://img.shields.io/twitter/follow/fast_ui.svg?style=social&label=Follow)](https://twitter.com/intent/follow?screen_name=fast_ui)
@@ -11,7 +11,7 @@
 
 ## Introduction
 
-`Blazor.FluentUI` is a lightweight wrapper around Microsoft's official FluentUI Web Components. The FluentUI Web Components are built on [FAST](https://www.fast.design/) and work in every major browser. To get up and running with `Blazor.FluentUI` see [the Blazor guide](https://www.fast.design/docs/integrations/blazor).
+The `Microsoft.Components.FluentUI` package provides a lightweight set of wrappers around Microsoft's official FluentUI Web Components. The FluentUI Web Components are built on [FAST](https://www.fast.design/) and work in every major browser. To get up and running with `Microsoft.Components.FluentUI` see [the Blazor guide](https://www.fast.design/docs/integrations/blazor).
 
 The source for `@fluentui/web-components` is hosted in [the Fluent UI monorepo](https://github.com/microsoft/fluentui/tree/master/packages/web-components).
 
