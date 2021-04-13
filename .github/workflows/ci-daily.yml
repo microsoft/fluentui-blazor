@@ -1,4 +1,4 @@
-name: CI - Blazor for FluentUI Components
+name: CI - Validation for Blazor / FluentUI
 
 on:
   push:
