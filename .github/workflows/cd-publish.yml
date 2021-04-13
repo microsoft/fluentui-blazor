@@ -4,8 +4,8 @@ on:
   workflow_dispatch
 
 jobs:
-  build:
-
+  publish:
+    name: setup, build, validate, and publish
     runs-on: ubuntu-latest
     if: contains('nicholasrice,awentzel,eisenbergeffect', github.actor)
 
@@ -13,21 +13,26 @@ jobs:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
+        
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
+        
     - name: Restore dependencies
       run: dotnet restore
+      
     - name: Build
       run: dotnet build --no-restore
+      
     - name: Test
       run: dotnet test --no-build --verbosity normal
+      
     - name: Publish NuGet
       uses: brandedoutcast/publish-nuget@v2.5.5
       with:
         # Filepath of the project to be packaged, relative to root of repository
-        PROJECT_FILE_PATH: 
+        PROJECT_FILE_PATH: ./src/Microsoft.Components.FluentUI.csproj
         # NuGet package id, used for version detection & defaults to project name
         PACKAGE_NAME: # optional
         # Filepath with version info, relative to root of repository & defaults to PROJECT_FILE_PATH
