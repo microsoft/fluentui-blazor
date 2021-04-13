@@ -5,7 +5,6 @@
     <Authors>Rob Eisenberg, Nicholas Rice, Aaron Wentzel</Authors>
     <Copyright>2021</Copyright>
     <NeutralLanguage>en</NeutralLanguage>
-    <PackageLicenseUrl>https://github.com/dotnet/blazor-fluentui/blob/main/LICENSE</PackageLicenseUrl>
     <Owners>Microsoft Corporation</Owners>
     <PackageProjectUrl>https://github.com/dotnet/blazor-fluentui</PackageProjectUrl>
     <Summary>Fluent UI Web Components library for Blazor on .NET</Summary>
