@@ -9,11 +9,11 @@
     <PackageProjectUrl>https://github.com/dotnet/blazor-fluentui</PackageProjectUrl>
     <Summary>Fluent UI Web Components library for Blazor on .NET</Summary>
     <PackageTags>Web Components, .NET, FluentUI, FAST, Blazor, .NET 5.0</PackageTags>
-    <Title>Microsoft Fluent UI Components LIbrary for Blazor on FAST</Title>
+    <Title>Microsoft Fluent UI Components Library for Blazor on FAST</Title>
     <Description>Authored by the Microsoft FAST team.</Description>
     <SignAssembly>false</SignAssembly>
-    <PackageVersion>0.0.1</PackageVersion>
-    <ReleaseVersion>0.0.1</ReleaseVersion>
+    <PackageVersion>0.0.2</PackageVersion>
+    <ReleaseVersion>0.0.2</ReleaseVersion>
     <SynchReleaseVersion>false</SynchReleaseVersion>
   </PropertyGroup>
 
@@ -21,7 +21,7 @@
     <Optimize>true</Optimize>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    <DocumentationFile>bin\Debug\net5.0\Microsoft.Components.FluentUI.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\net5.0\Microsoft.AspNetCore.Components.FluentUI.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <SupportedPlatform Include="browser" />
