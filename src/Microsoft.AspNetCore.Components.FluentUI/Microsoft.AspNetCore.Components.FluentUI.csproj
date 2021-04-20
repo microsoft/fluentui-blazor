@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <Authors>Rob Eisenberg, Nicholas Rice, Aaron Wentzel</Authors>
+    <Authors>Microsoft Corporation.</Authors>
     <Copyright>2021</Copyright>
     <NeutralLanguage>en</NeutralLanguage>
     <Owners>Microsoft Corporation</Owners>
