@@ -7,7 +7,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Microsoft.Components.FluentUI
+namespace Microsoft.AspNetCore.Components.FluentUI
 {
     public abstract class FluentInputBase<TValue> : ComponentBase, IDisposable
     {
