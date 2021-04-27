@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <PackageId>Microsoft.Fast.Components.FluentUI</PackageId> 
     <Authors>Microsoft Corporation.</Authors>
     <Copyright>2021</Copyright>
     <NeutralLanguage>en</NeutralLanguage>
