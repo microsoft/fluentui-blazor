@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -7,7 +7,8 @@
     <Copyright>2021</Copyright>
     <NeutralLanguage>en</NeutralLanguage>
     <Owners>Microsoft Corporation</Owners>
-    <PackageProjectUrl>https://github.com/dotnet/blazor-fluentui</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/microsoft/fast-blazor</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Summary>Fluent UI Web Components library for Blazor on .NET</Summary>
     <PackageTags>Web Components, .NET, FluentUI, FAST, Blazor, .NET 5.0</PackageTags>
     <Title>Microsoft Fluent UI Components Library for Blazor on FAST</Title>
@@ -21,8 +22,10 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <Optimize>true</Optimize>
     <WarningLevel>4</WarningLevel>
+    <NullableReferenceTypes>true</NullableReferenceTypes>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    <DocumentationFile>bin\Debug\net5.0\Microsoft.AspNetCore.Components.FluentUI.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\net5.0\Microsoft.Fast.Components.FluentUI.xml</DocumentationFile>
+    <NoWarn>1701;1702,8669,1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <SupportedPlatform Include="browser" />
