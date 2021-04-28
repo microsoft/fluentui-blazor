@@ -22,6 +22,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <Optimize>true</Optimize>
     <WarningLevel>4</WarningLevel>
+    <NullableReferenceTypes>true</NullableReferenceTypes>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <DocumentationFile>bin\Debug\net5.0\Microsoft.AspNetCore.Components.FluentUI.xml</DocumentationFile>
   </PropertyGroup>
