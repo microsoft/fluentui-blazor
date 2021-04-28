@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Microsoft.AspNetCore.Components.FluentUI
+namespace Microsoft.Fast.Components.FluentUI
 {
     public enum Appearance
     {

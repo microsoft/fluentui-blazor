@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Microsoft.Fast.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Microsoft.AspNetCore.Components.FluentUI
+namespace Microsoft.Fast.Components.FluentUI
 {
     // Checkbox like items
     [BindElement("fluent-checkbox", null, "checked", "onchange")]

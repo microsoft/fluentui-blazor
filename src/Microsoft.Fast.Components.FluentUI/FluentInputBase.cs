@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
+﻿using Microsoft.Fast.Components;
+using Microsoft.Fast.Components.Forms;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Microsoft.AspNetCore.Components.FluentUI
+namespace Microsoft.Fast.Components.FluentUI
 {
     public abstract class FluentInputBase<TValue> : ComponentBase, IDisposable
     {
