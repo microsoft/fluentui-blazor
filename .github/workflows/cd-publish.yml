@@ -31,7 +31,7 @@ jobs:
     - name: Publish NuGet
       uses: brandedoutcast/publish-nuget@v2.5.5
       with:
-        PROJECT_FILE_PATH: ./src/Microsoft.Fast.Components.FluentUI.csproj
+        PROJECT_FILE_PATH: src/Microsoft.Fast.Components.FluentUI.csproj
         NUGET_KEY: ${{secrets.NUGET_API_KEY}}
         VERSION_REGEX: ^\s*<Version>(.*)<\/Version>\s*$
         #VERSION_STATIC: 0.0.2
