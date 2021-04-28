@@ -7,7 +7,7 @@ jobs:
   publish:
     name: setup, build, validate, and publish
     runs-on: ubuntu-latest
-    if: contains('nicholasrice,awentzel,eisenbergeffect', github.actor)
+    if: contains('nicholasrice,awentzel,eisenbergeffect,Ibrahimmaga', github.actor)
 
     steps:
     - uses: actions/checkout@v2
