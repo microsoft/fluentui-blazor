@@ -125,7 +125,7 @@ We were able to wrap the components without much effort and following a very mec
   `<fluent-component attribute="@Property" @attributes="AdditionalAttributes">@ChildContent</fluent-component>`
 * Can this component be used within a form/have a "value" bound to it?
   * Look at `BindAttributes.cs` to define the bindings for the custom element.
-  * Check the docs [here](https://docs.microsoft.com/en-us/dotnet/api/microsoft.Fast.components.bindelementattribute.-ctor?view=aspnetcore-5.0) for details.
+  * Check the docs [here](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.bindelementattribute.-ctor?view=aspnetcore-5.0) for details.
   * Consider extending `FluentInputBase<TValue>` to integrate with Blazor forms and validation.
 * Does this component integrate with an existing primitive on the framework?
   * Strongly consider subclassing the existing primitive to offer the same functionality.

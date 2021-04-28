@@ -5,11 +5,11 @@ VisualStudioVersion = 16.6.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{30F6D568-0EFB-479D-8D69-C51CE5CABC22}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Fast.Components.FluentUI", "src\Microsoft.Fast.Components.FluentUI\Microsoft.Fast.Components.FluentUI.csproj", "{9AA1E7D0-AFBB-4EAA-BC77-42CC0F07EA0D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Fast.Components.FluentUI", "src\Microsoft.Fast.Components.FluentUI\Microsoft.Fast.Components.FluentUI.csproj", "{9AA1E7D0-AFBB-4EAA-BC77-42CC0F07EA0D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{71623095-9CCB-40BA-A0A7-4A739DA8E913}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUIServerSample", "examples\FluentUIServerSample\FluentUIServerSample.csproj", "{7D1B008E-A527-49C1-A12D-AF56E1903695}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentUIServerSample", "examples\FluentUIServerSample\FluentUIServerSample.csproj", "{7D1B008E-A527-49C1-A12D-AF56E1903695}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
