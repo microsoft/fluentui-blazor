@@ -8,6 +8,7 @@
     <NeutralLanguage>en</NeutralLanguage>
     <Owners>Microsoft Corporation</Owners>
     <PackageProjectUrl>https://github.com/dotnet/blazor-fluentui</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Summary>Fluent UI Web Components library for Blazor on .NET</Summary>
     <PackageTags>Web Components, .NET, FluentUI, FAST, Blazor, .NET 5.0</PackageTags>
     <Title>Microsoft Fluent UI Components Library for Blazor on FAST</Title>
