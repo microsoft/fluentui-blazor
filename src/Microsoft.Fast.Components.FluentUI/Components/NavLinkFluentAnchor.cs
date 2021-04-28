@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Microsoft.AspNetCore.Components.FluentUI
+namespace Microsoft.Fast.Components.FluentUI
 {
     public class NavLinkFluentAnchor : NavLink
     {       
