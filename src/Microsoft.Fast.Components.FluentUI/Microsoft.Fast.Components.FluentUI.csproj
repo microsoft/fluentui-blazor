@@ -17,6 +17,7 @@
     <PackageVersion>0.0.2</PackageVersion>
     <ReleaseVersion>0.0.2</ReleaseVersion>
     <SynchReleaseVersion>false</SynchReleaseVersion>
+    <PackOnBuild>true</PackOnBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -24,7 +25,7 @@
     <WarningLevel>4</WarningLevel>
     <NullableReferenceTypes>true</NullableReferenceTypes>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    <DocumentationFile>bin\Debug\net5.0\Microsoft.AspNetCore.Components.FluentUI.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\net5.0\Microsoft.Fast.Components.FluentUI.xml</DocumentationFile>
     <NoWarn>1701;1702,8669,1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
