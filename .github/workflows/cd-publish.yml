@@ -34,7 +34,7 @@ jobs:
         PROJECT_FILE_PATH: src/Microsoft.Fast.Components.FluentUI/Microsoft.Fast.Components.FluentUI.csproj
         NUGET_KEY: ${{secrets.NUGET_API_KEY}}
         VERSION_REGEX: ^\s*<Version>(.*)<\/Version>\s*$
-        #VERSION_STATIC: 0.0.2
+        VERSION_STATIC: 0.0.2
         TAG_FORMAT: v*
 
         
