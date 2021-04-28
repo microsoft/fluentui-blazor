@@ -1,4 +1,4 @@
-# Blazor FluentUI
+# FAST Blazor FluentUI
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![.NET C#](https://img.shields.io/badge/.NET-C%23-blue)](https://img.shields.io/badge/.NET-C%23-blue)
