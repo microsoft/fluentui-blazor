@@ -3,8 +3,8 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <PackageId>Microsoft.Fast.Components.FluentUI</PackageId> 
-    <Authors>Microsoft Corporation.</Authors>
-    <Copyright>2021</Copyright>
+    <Authors>Microsoft</Authors>
+    <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
     <NeutralLanguage>en</NeutralLanguage>
     <Owners>Microsoft Corporation</Owners>
     <PackageProjectUrl>https://github.com/microsoft/fast-blazor</PackageProjectUrl>
