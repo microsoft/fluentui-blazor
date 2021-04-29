@@ -17,11 +17,6 @@
     <PackageVersion>0.0.2</PackageVersion>
     <ReleaseVersion>0.0.2</ReleaseVersion>
     <SynchReleaseVersion>false</SynchReleaseVersion>
-    <trustedSigners>
-       <author name="microsoft">
-            <certificate fingerprint="AA12DA22A49BCE7D5C1AE64CC1F3D892F150DA76140F210ABD2CBFFCA2C18A27" hashAlgorithm="SHA256" allowUntrustedRoot="false" />
-        </author>
-    </trustedSigners>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
