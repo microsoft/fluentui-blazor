@@ -32,3 +32,25 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'pack'
+    packagesToPack: '**/*.csproj'
+    versioningScheme: 'off'
+  displayName: 'Create Package'
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg;!$(Build.ArtifactStagingDirectory)/*.symbols.nupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'NugetServiceConnect'
+    
+- task: EsrpCodeSigning@1
+  inputs:
+    ConnectedServiceName: 'FAST-NuGet-Publishing-SC'
+    FolderPath: 'src\myapp\$(BuildConfiguration)\Release'
+    Pattern: '*.dll,*.exe'
+    SessionTimeout: '60'
+    MaxConcurrency: '50'
+    MaxRetryAttempts: '5'
