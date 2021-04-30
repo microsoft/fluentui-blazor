@@ -21,6 +21,7 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 
+
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
@@ -32,3 +33,23 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+- task: EsrpCodeSigning@1
+  inputs:
+    ConnectedServiceName: 'FAST-NuGet-Publishing-SC'
+    FolderPath: 'src\myapp\$(BuildConfiguration)\Release'
+    Pattern: '*.dll,*.exe'
+    SessionTimeout: '60'
+    MaxConcurrency: '50'
+    MaxRetryAttempts: '5'
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'pack'
+    packagesToPack: '**/*.csproj'
+    versioningScheme: 'off'
+- task: NuGetCommand@2
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    nuGetFeedType: 'internal'
+    publishVstsFeed: 'b664c239-0000-4fa9-92c3-95b7f27d846a/366033a2-7aa6-4091-8ef1-856293cf5a9d'
