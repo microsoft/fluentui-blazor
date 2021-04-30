@@ -38,13 +38,6 @@ steps:
     packagesToPack: '**/*.csproj'
     versioningScheme: 'off'
   displayName: 'Create Package'
-
-- task: NuGetCommand@2
-  inputs:
-    command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg;!$(Build.ArtifactStagingDirectory)/*.symbols.nupkg'
-    nuGetFeedType: 'external'
-    publishFeedCredentials: 'NugetServiceConnect'
     
 - task: EsrpCodeSigning@1
   inputs:
@@ -54,3 +47,10 @@ steps:
     SessionTimeout: '60'
     MaxConcurrency: '50'
     MaxRetryAttempts: '5'
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg;!$(Build.ArtifactStagingDirectory)/*.symbols.nupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'FAST-NuGet-Publishing-SC'
