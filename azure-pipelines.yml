@@ -40,6 +40,42 @@ steps:
     FolderPath: 'src\Microsoft.Fast.Components.FluentUI\$(BuildConfiguration)\net5.0'
     Pattern: '*.dll'
     signConfigType: 'inlineSignParams'
+    inlineOperation: |
+      [{
+      "keyCode": "CP-401405",
+      "operationSetCode": "SigntoolSign",
+      "parameters": [{
+      "parameterName": "OpusName",
+      "parameterValue": "Microsoft"
+      },
+      {
+      "parameterName": "OpusInfo",
+      "parameterValue": "http://www.microsoft.com"
+      },
+      {
+      "parameterName": "FileDigest",
+      "parameterValue": "/fd \"SHA256\""
+      },
+      {
+      "parameterName": "PageHash",
+      "parameterValue": "/NPH"
+      },
+      {
+      "parameterName": "TimeStamp",
+      "parameterValue": "/tr \"http://rfc3161.gtm.corp.microsoft.com/TSS/HttpTspServer\" /td sha256"
+      }
+      ],
+      "toolName": "sign",
+      "toolVersion": "1.0"
+      },
+      {
+      "keyCode": "CP-230012",
+      "operationSetCode": "SigntoolVerify",
+      "parameters": [],
+      "toolName": "sign",
+      "toolVersion": "1.0"
+      }
+      ]
     SessionTimeout: '60'
     MaxConcurrency: '50'
     MaxRetryAttempts: '5'
