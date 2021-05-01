@@ -34,17 +34,15 @@ steps:
     packagesToPack: '**/*.csproj'
     versioningScheme: 'off'
   displayName: 'Create Package'
-
 - task: EsrpCodeSigning@1
   inputs:
     ConnectedServiceName: 'FAST-NuGet-Publishing-SC'
-    FolderPath: 'src\Microsoft.Fast.Components.FluentUI\$(BuildConfiguration)\Release'
+    FolderPath: 'src\Microsoft.Fast.Components.FluentUI\$(BuildConfiguration)\net5.0'
     Pattern: '*.dll'
     signConfigType: 'inlineSignParams'
     SessionTimeout: '60'
     MaxConcurrency: '50'
     MaxRetryAttempts: '5'
-
 - task: NuGetCommand@2
   inputs:
     command: 'push'
