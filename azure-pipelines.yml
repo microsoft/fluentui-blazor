@@ -34,17 +34,16 @@ steps:
     packagesToPack: '**/*.csproj'
     versioningScheme: 'off'
   displayName: 'Create Package'
+
 - task: EsrpCodeSigning@1
   inputs:
-      ConnectedServiceName: 'FAST-NuGet-Publishing-SC'
-      FolderPath: 'src\myapp\$(BuildConfiguration)\Release'
-      signType: 'batchSigning'
-      batchSignPolicyFile: 'src\myapp\$(build.sourcesdirectory)\input.json'
-      SessionTimeout: '60'
-      MaxConcurrency: '50'
-      MaxRetryAttempts: '5'
-
-- task: EsrpClientTool@1
+    ConnectedServiceName: 'FAST-NuGet-Publishing-SC'
+    FolderPath: 'src\Microsoft.Fast.Components.FluentUI\$(BuildConfiguration)\Release'
+    Pattern: '*.dll'
+    signConfigType: 'inlineSignParams'
+    SessionTimeout: '60'
+    MaxConcurrency: '50'
+    MaxRetryAttempts: '5'
 
 - task: NuGetCommand@2
   inputs:
