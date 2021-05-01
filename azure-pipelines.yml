@@ -39,15 +39,7 @@ steps:
     versioningScheme: 'off'
   displayName: 'Create Package'
 
-- task: EsrpCodeSigning@1
-  inputs:
-    ConnectedServiceName: 'FAST-NuGet-Publishing-SC'
-    FolderPath: 'src\myapp\$(BuildConfiguration)\Release'
-    Pattern: '*.dll,*.exe'
-    OpusInfo: 'https://github.com/microsoft/fast-blazor'
-    SessionTimeout: '60'
-    MaxConcurrency: '50'
-    MaxRetryAttempts: '5'
+- task: EsrpClientTool@1
 - task: NuGetCommand@2
   inputs:
     command: 'push'
