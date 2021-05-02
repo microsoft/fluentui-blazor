@@ -77,9 +77,12 @@ steps:
       {
       "keyCode": "CP-230012",
       "operationSetCode": "SigntoolVerify",
-      "parameters": [],
-      "toolName": "sign",
-      "toolVersion": "1.0"
+      "parameters": [{
+        "parameterName": "VerifyAll",
+        "parameterValue": "/all"
+        }],
+        "toolName": "sign",
+        "toolVersion": "1.0"
       }
       ]
     SessionTimeout: '60'
