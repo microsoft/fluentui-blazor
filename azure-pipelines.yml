@@ -37,7 +37,7 @@ steps:
 - task: EsrpCodeSigning@1
   inputs:
     ConnectedServiceName: 'FAST-NuGet-Publishing-SC'
-    FolderPath: 'src\Microsoft.Fast.Components.FluentUI\$(BuildConfiguration)\net5.0'
+    FolderPath: 'src\Microsoft.Fast.Components.FluentUI\bin\Release'
     Pattern: 'Microsoft.Fast.Components.FluentUI.dll'
     signConfigType: 'inlineSignParams'
     inlineOperation: |
@@ -61,6 +61,6 @@ steps:
 - task: NuGetCommand@2
   inputs:
     command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg;!$(Build.ArtifactStagingDirectory)/*.symbols.nupkg'
+    packagesToPush: 'src/Microsoft.Fast.Components.FluentUI/bin/Release/*.nupkg;!src/Microsoft.Fast.Components.FluentUI/bin/Release/*.symbols.nupkg'
     nuGetFeedType: 'external'
     publishFeedCredentials: 'NugetServiceConnect'
