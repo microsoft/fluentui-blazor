@@ -38,7 +38,7 @@ steps:
 - task: EsrpCodeSigning@1
   inputs:
     ConnectedServiceName: 'FAST-NuGet-Publishing-SC'
-    FolderPath: '${{ parameters.layoutRoot }}/bin'
+    FolderPath: '$(agent.builddirectory)\src/Microsoft.Fast.Components.FluentUI'
     Pattern: |
       Agent.*.dll
       Agent.*.exe
