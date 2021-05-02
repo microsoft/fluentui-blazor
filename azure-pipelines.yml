@@ -31,7 +31,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'pack'
-    packagesToPack: 'src/Microsoft.Fast.Components.FluentUI.csproj'
+    packagesToPack: '**/*.csproj'
     versioningScheme: 'off'
   displayName: 'Create Package'
 - task: EsrpCodeSigning@1
