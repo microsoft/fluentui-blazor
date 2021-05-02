@@ -34,30 +34,58 @@ steps:
     packagesToPack: '**/*.csproj'
     versioningScheme: 'off'
   displayName: 'Create Package'
+
 - task: EsrpCodeSigning@1
   inputs:
     ConnectedServiceName: 'FAST-NuGet-Publishing-SC'
-    FolderPath: 'src\Microsoft.Fast.Components.FluentUI\bin\Release'
-    Pattern: 'Microsoft.Fast.Components.FluentUI.dll'
+    FolderPath: '${{ parameters.layoutRoot }}/bin'
+    Pattern: |
+      Agent.*.dll
+      Agent.*.exe
+      Microsoft.VisualStudio.Services.Agent.dll
+      AgentService.exe
+    UseMinimatch: true
     signConfigType: 'inlineSignParams'
     inlineOperation: |
       [{
-      "keyCode": "CP-401405",
-      "operationSetCode": "NuGetSign",
-      "parameters": [ ],
+      "keyCode": "CP-230012",
+      "operationSetCode": "SigntoolSign",
+      "parameters": [{
+      "parameterName": "OpusName",
+      "parameterValue": "Microsoft"
+      },
+      {
+      "parameterName": "OpusInfo",
+      "parameterValue": "http://www.microsoft.com"
+      },
+      {
+      "parameterName": "FileDigest",
+      "parameterValue": "/fd \"SHA256\""
+      },
+      {
+      "parameterName": "PageHash",
+      "parameterValue": "/NPH"
+      },
+      {
+      "parameterName": "TimeStamp",
+      "parameterValue": "/tr \"http://rfc3161.gtm.corp.microsoft.com/TSS/HttpTspServer\" /td sha256"
+      }
+      ],
       "toolName": "sign",
       "toolVersion": "1.0"
       },
       {
-      "keyCode": "CP-401405",
-      "operationSetCode": "NuGetVerify",
-      "parameters": [ ],
+      "keyCode": "CP-230012",
+      "operationSetCode": "SigntoolVerify",
+      "parameters": [],
       "toolName": "sign",
       "toolVersion": "1.0"
-      }]
+      }
+      ]
     SessionTimeout: '60'
     MaxConcurrency: '50'
     MaxRetryAttempts: '5'
+  displayName: Sign Agent Assemblies (Authenticode Signing)
 - task: NuGetCommand@2
   inputs:
     command: 'push'
