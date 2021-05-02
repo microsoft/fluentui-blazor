@@ -31,7 +31,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'pack'
-    packagesToPack: '**/*.csproj'
+    packagesToPack: 'src/Microsoft.Fast.Components.FluentUI.csproj'
     versioningScheme: 'off'
   displayName: 'Create Package'
 - task: EsrpCodeSigning@1
@@ -44,14 +44,14 @@ steps:
       [{
       "keyCode": "CP-401405",
       "operationSetCode": "NuGetSign",
-      "parameters": {},
+      "parameters": [ ],
       "toolName": "sign",
       "toolVersion": "1.0"
       },
       {
       "keyCode": "CP-401405",
       "operationSetCode": "NuGetVerify",
-      "parameters": {},
+      "parameters": [ ],
       "toolName": "sign",
       "toolVersion": "1.0"
       }]
