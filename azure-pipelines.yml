@@ -29,13 +29,6 @@ steps:
   inputs:
     command: 'test'
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'pack'
-    packagesToPack: '**/Microsoft.Fast.Components.FluentUI.csproj'
-    versioningScheme: 'off'
-  displayName: 'Create Package'
-
 - task: NuGetCommand@2
   inputs:
     command: 'pack'
@@ -47,7 +40,7 @@ steps:
     ConnectedServiceName: 'FAST-NuGet-Publishing-SC'
     FolderPath: '$(Build.ArtifactStagingDirectory)'
     Pattern: |
-      *.dll
+      **/*.dll
     UseMinimatch: true
     signConfigType: 'inlineSignParams'
     inlineOperation: |
