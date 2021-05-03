@@ -38,7 +38,7 @@ steps:
 - task: EsrpCodeSigning@1
   inputs:
     ConnectedServiceName: 'FAST-NuGet-Publishing-SC'
-    FolderPath: '$(agent.builddirectory)\src\Microsoft.Fast.Components.FluentUI\bin'
+    FolderPath: '$(agent.builddirectory)\src\Microsoft.Fast.Components.FluentUI\bin\Release'
     Pattern: |
       Microsoft.Fast.Components.FluentUI.dll
     UseMinimatch: true
