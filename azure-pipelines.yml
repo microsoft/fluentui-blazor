@@ -30,7 +30,7 @@ steps:
   inputs:
     command: 'test'
 
-- task: NuGetCommand@2
+- task: DotNetCoreCLI@2
   inputs:
     command: 'pack'
     packagesToPack: '**/Microsoft.Fast.Components.FluentUI.csproj'
