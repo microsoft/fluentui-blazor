@@ -39,7 +39,7 @@ steps:
 - task: NuGetCommand@2
   inputs:
     command: 'pack'
-    packagesToPack: '**/Microsoft.Fast.Components.FluentUI.csproj,!**/*.Test.csproj'
+    packagesToPack: '**/Microsoft.Fast.Components.FluentUI.csproj'
     versioningScheme: 'off'
 
 - task: EsrpCodeSigning@1
