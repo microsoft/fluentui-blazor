@@ -10,7 +10,7 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  solution: '**/*.sln'
+  solution: 'src\Microsoft.Fast.Components.FluentUI\Microsoft.Fast.Components.FluentUI.csproj'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
@@ -23,6 +23,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
+    nugetConfigPath: $(solution)
 
 - task: DotNetCoreCLI@2
   inputs:
@@ -35,10 +36,16 @@ steps:
     versioningScheme: 'off'
   displayName: 'Create Package'
 
+- task: NuGetCommand@2
+  inputs:
+    command: 'pack'
+    packagesToPack: '**/Microsoft.Fast.Components.FluentUI.csproj,!**/*.Test.csproj'
+    versioningScheme: 'off'
+
 - task: EsrpCodeSigning@1
   inputs:
     ConnectedServiceName: 'FAST-NuGet-Publishing-SC'
-    FolderPath: '$(agent.builddirectory)\src\Microsoft.Fast.Components.FluentUI\obj\Release\net5.0'
+    FolderPath: '**/Microsoft.Fast.Components.FluentUI.csproj'
     Pattern: |
       Microsoft.Fast.Components.FluentUI.dll
     UseMinimatch: true
