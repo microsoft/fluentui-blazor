@@ -38,57 +38,33 @@ steps:
 - task: EsrpCodeSigning@1
   inputs:
     ConnectedServiceName: 'FAST-NuGet-Publishing-SC'
-    FolderPath: '$(agent.builddirectory)\src/Microsoft.Fast.Components.FluentUI\bin'
+    FolderPath: '$(agent.builddirectory)\src\Microsoft.Fast.Components.FluentUI\bin'
     Pattern: |
-      Agent.*.dll
-      Agent.*.exe
-      Microsoft.VisualStudio.Services.Agent.dll
-      AgentService.exe
+      Microsoft.Fast.Components.FluentUI.dll
     UseMinimatch: true
     signConfigType: 'inlineSignParams'
     inlineOperation: |
-      [{
-      "keyCode": "CP-230012",
-      "operationSetCode": "SigntoolSign",
-      "parameters": [{
-      "parameterName": "OpusName",
-      "parameterValue": "Microsoft"
-      },
-      {
-      "parameterName": "OpusInfo",
-      "parameterValue": "http://www.microsoft.com"
-      },
-      {
-      "parameterName": "FileDigest",
-      "parameterValue": "/fd \"SHA256\""
-      },
-      {
-      "parameterName": "PageHash",
-      "parameterValue": "/NPH"
-      },
-      {
-      "parameterName": "TimeStamp",
-      "parameterValue": "/tr \"http://rfc3161.gtm.corp.microsoft.com/TSS/HttpTspServer\" /td sha256"
-      }
-      ],
-      "toolName": "sign",
-      "toolVersion": "1.0"
-      },
-      {
-      "keyCode": "CP-230012",
-      "operationSetCode": "SigntoolVerify",
-      "parameters": [{
-        "parameterName": "VerifyAll",
-        "parameterValue": "/all"
-        }],
-        "toolName": "sign",
-        "toolVersion": "1.0"
-      }
+      [
+        {
+            "KeyCode" : "CP-401405",
+            "OperationCode" : "NuGetSign",
+            "Parameters" : [ ],
+            "ToolName" : "sign",
+            "ToolVersion" : "1.0"
+        },
+        {
+            "KeyCode" : "CP-401405",
+            "OperationCode" : "NuGetVerify",
+            "Parameters" : [ ],
+            "ToolName" : "sign",
+            "ToolVersion" : "1.0"
+        }
       ]
     SessionTimeout: '60'
     MaxConcurrency: '50'
     MaxRetryAttempts: '5'
   displayName: Sign Agent Assemblies (Authenticode Signing)
+
 - task: NuGetCommand@2
   inputs:
     command: 'push'
