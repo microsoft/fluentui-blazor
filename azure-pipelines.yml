@@ -49,6 +49,7 @@ steps:
     FolderPath: '$(Build.ArtifactStagingDirectory)'
     Pattern: |
       **/*.dll
+      **/*.nupkg
     UseMinimatch: true
     signConfigType: 'inlineSignParams'
     inlineOperation: |
