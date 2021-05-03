@@ -1,8 +1,8 @@
-# FAST Blazor FluentUI
+# Microsoft.Fast
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![.NET C#](https://img.shields.io/badge/.NET-C%23-blue)](https://img.shields.io/badge/.NET-C%23-blue)
-[![NuGet version](https://badge.fury.io/nu/Microsoft.Components.FluentUI.svg)](https://badge.fury.io/nu/Microsoft.Components.FluentUI)
+[![NuGet version](https://badge.fury.io/nu/Microsoft.Fast.Components.FluentUI.svg)](https://badge.fury.io/nu/Microsoft.Fast.Components.FluentUI)
 
 [![Discord](https://img.shields.io/badge/chat%20on-discord-7289da.svg)](https://discord.gg/FcSNfg4)
 [![Twitter](https://img.shields.io/twitter/follow/fast_ui.svg?style=social&label=Follow)](https://twitter.com/intent/follow?screen_name=fast_ui)
