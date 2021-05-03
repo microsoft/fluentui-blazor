@@ -30,13 +30,6 @@ steps:
   inputs:
     command: 'test'
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'pack'
-    packagesToPack: '**/Microsoft.Fast.Components.FluentUI.csproj'
-    versioningScheme: 'off'
-  displayName: 'Create Package'
-
 - task: NuGetCommand@2
   inputs:
     command: 'pack'
@@ -70,7 +63,7 @@ steps:
         }
       ]
     SessionTimeout: '60'
-    MaxConcurrency: '50'
+    MaxConcurrency: '200'
     MaxRetryAttempts: '5'
   displayName: Sign Agent Assemblies (Authenticode Signing)
 
