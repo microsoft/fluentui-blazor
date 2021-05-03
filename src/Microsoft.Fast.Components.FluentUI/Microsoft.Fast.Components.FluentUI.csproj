@@ -27,6 +27,7 @@
     <DocumentationFile>bin\Debug\net5.0\Microsoft.Fast.Components.FluentUI.xml</DocumentationFile>
     <NoWarn>1701;1702,8669,1591</NoWarn>
   </PropertyGroup>
+  
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
