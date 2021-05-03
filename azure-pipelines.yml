@@ -45,7 +45,7 @@ steps:
 - task: EsrpCodeSigning@1
   inputs:
     ConnectedServiceName: 'FAST-NuGet-Publishing-SC'
-    FolderPath: '$(Build.ArtifactStagingDirectory)\Microsoft.Fast.Components.FluentUI.dll'
+    FolderPath: '$(Build.ArtifactStagingDirectory)\'
     Pattern: |
       Microsoft.Fast.Components.FluentUI.dll
     UseMinimatch: true
