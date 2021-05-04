@@ -50,14 +50,14 @@ steps:
         {
             "KeyCode" : "CP-401405",
             "OperationCode" : "NuGetSign",
-            "Parameters" : [ ],
+            "Parameters" : { },
             "ToolName" : "sign",
             "ToolVersion" : "1.0"
         },
         {
             "KeyCode" : "CP-401405",
             "OperationCode" : "NuGetVerify",
-            "Parameters" : [ ],
+            "Parameters" : { },
             "ToolName" : "sign",
             "ToolVersion" : "1.0"
         }
