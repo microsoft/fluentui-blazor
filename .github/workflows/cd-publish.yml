@@ -18,29 +18,29 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-      - name: Setup .NET Core ${{ env.DOTNET_VERSION }}
-        uses: actions/setup-dotnet@v1
+    - name: Setup .NET Core ${{ env.DOTNET_VERSION }}
+      uses: actions/setup-dotnet@v1
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
-      - name: Install dependencies
-        run: dotnet restore
-      - name: Build
-        run: dotnet build --configuration ${{ env.CONFIGURATION }} --no-restore
-      - name: Package
-        run: dotnet pack --configuration ${{ env.CONFIGURATION }} --no-build --output ${{ env.OUTPUT_PATH }} -p:PackageVersion="${GITHUB_REF#refs/*/v}"
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --configuration ${{ env.CONFIGURATION }} --no-restore
+    - name: Package
+      run: dotnet pack --configuration ${{ env.CONFIGURATION }} --no-build --output ${{ env.OUTPUT_PATH }} -p:PackageVersion="${GITHUB_REF#refs/*/v}"
         working-directory: ${{ github.workspace }}/src/Microsoft.Fast.Components.FluentUI/Microsoft.Fast.Components.FluentUI.csproj
-      - name: Upload
-        uses: actions/upload-artifact@v2
+    - name: Upload
+      uses: actions/upload-artifact@v2
         with:
           name: packages
           path: ${{ env.OUTPUT_PATH }}
 
   publish-nuget:
     steps:
-
+      shell: powershell
     - task: DotNetCoreCLI@2
-    displayName: '.NET Pack'
-    inputs:
+      displayName: '.NET Pack'
+      inputs:
       command: custom
       custom: 'pack'
       projects: src/Microsoft.Fast.Components.FluentUI/Microsoft.Fast.Components.FluentUI.csproj
