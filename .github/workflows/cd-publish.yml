@@ -20,8 +20,8 @@ jobs:
     - uses: actions/checkout@v2
     - name: Setup .NET Core ${{ env.DOTNET_VERSION }}
       uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
+      with:
+        dotnet-version: ${{env.DOTNET_VERSION}}
     - name: Install dependencies
       run: dotnet restore
     - name: Build
@@ -31,9 +31,9 @@ jobs:
         working-directory: ${{ github.workspace }}/src/Microsoft.Fast.Components.FluentUI/Microsoft.Fast.Components.FluentUI.csproj
     - name: Upload
       uses: actions/upload-artifact@v2
-        with:
-          name: packages
-          path: ${{ env.OUTPUT_PATH }}
+      with:
+        name: packages
+        path: ${{ env.OUTPUT_PATH }}
 
   publish-nuget:
     steps:
@@ -86,15 +86,15 @@ jobs:
         publishLocation: Container
 
     - uses: actions/download-artifact@v2
-        with:
-          name: packages
-          path: ${{ env.OUTPUT_PATH }}
+      with:
+        name: packages
+        path: ${{ env.OUTPUT_PATH }}
 
-      - name: Setup .NET Core ${{ env.DOTNET_VERSION }}
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
+    - name: Setup .NET Core ${{ env.DOTNET_VERSION }}
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      - name: Publish
-        run: dotnet nuget push --api-key ${{ secrets.NUGET_API_KEY }} --source ${{ env.NUGET_SOURCE }} "*.nupkg"
+    - name: Publish
+      run: dotnet nuget push --api-key ${{ secrets.NUGET_API_KEY }} --source ${{ env.NUGET_SOURCE }} "*.nupkg"
         working-directory: ${{ env.OUTPUT_PATH }}
