@@ -70,6 +70,6 @@ steps:
 - task: NuGetCommand@2
   inputs:
     command: 'push'
-    packagesToPush: 'src/Microsoft.Fast.Components.FluentUI/bin/Release/*.nupkg;!src/Microsoft.Fast.Components.FluentUI/bin/Release/*.symbols.nupkg'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)\*.nupkg;'
     nuGetFeedType: 'external'
     publishFeedCredentials: 'NugetServiceConnect'
