@@ -11,7 +11,7 @@ jobs:
   build job:
     name: setup, build, validate, and publish
     runs-on: windows-latest
-    if: contains('nicholasrice,awentzel,eisenbergeffect,Ibrahimmaga', github.actor)
+    if: contains('nicholasrice,awentzel,eisenbergeffect,ibrahimmaga', github.actor)
 
     steps:
     - uses: actions/checkout@v2
