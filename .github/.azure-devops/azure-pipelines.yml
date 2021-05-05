@@ -1,7 +1,7 @@
 name: Microsoft Fast-Blazor Publish
 
-trigger:
-- main
+pr: none
+trigger: none
 
 pool:
   vmImage: 'windows-latest'
