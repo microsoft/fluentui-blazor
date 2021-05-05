@@ -21,6 +21,11 @@ steps:
     restoreSolution: '$(project)'
     
 - task: DotNetCoreCLI@2
+  inputs:
+    command: 'custom'
+    custom: 'dotnet nuget push '$[(Build.ArtifactStagingDirectory)\(ls -t *.nupkg)]' --api-key GITHUB_PAT --source "github"'
+
+- task: DotNetCoreCLI@2
   displayName: Build
   inputs:
     command: 'build'
@@ -71,7 +76,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'custom'
-    custom: 'dotnet nuget push $(Build.ArtifactStagingDirectory)\$[ls -t *.nupkg] --api-key GITHUB_PAT --source "github"'
+    custom: 'dotnet nuget push '$[(Build.ArtifactStagingDirectory)\(ls -t *.nupkg)]' --api-key GITHUB_PAT --source "github"'
 
 # - task: NuGetCommand@2
 #   displayName: Publish to GitHub
