@@ -15,15 +15,20 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
     - name: Setup .NET Core 
       uses: actions/setup-dotnet@v1
+
     - name: Install dependencies
       run: dotnet restore
-    - name: Build
+
+    - name: dotnet Build
       run: dotnet build --configuration ${{ env.CONFIGURATION }} --no-restore
-    - name: Package
+
+    - name: Create Package
       run: dotnet pack --configuration ${{ env.CONFIGURATION }} --no-build --output ${{ env.OUTPUT_PATH }} -p:PackageVersion="${GITHUB_REF#refs/*/v}"
         working-directory: ${{ github.workspace }}/src/Microsoft.Fast.Components.FluentUI/Microsoft.Fast.Components.FluentUI.csproj
+
     - name: Upload
       uses: actions/upload-artifact@v2
       with:
@@ -33,6 +38,7 @@ jobs:
   publish-nuget:
     steps:
       shell: powershell
+      
     - task: DotNetCoreCLI@2
       displayName: '.NET Pack'
       inputs:
@@ -73,6 +79,7 @@ jobs:
         targetType: Inline
         script: |
           Get-ChildItem -Path $(Build.ArtifactStagingDirectory) -Include CodeSignSummary-*.md -Recurse | Remove-Item -Force
+
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Artifacts'
       inputs:
