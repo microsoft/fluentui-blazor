@@ -35,7 +35,7 @@ steps:
   displayName: Pack
   inputs:
     command: 'pack'
-    packagesToPack: '**/Microsoft.Fast.Components.FluentUI.csproj'
+    packagesToPack: '$(project)'
     versioningScheme: 'off'
 
 - task: EsrpCodeSigning@1
