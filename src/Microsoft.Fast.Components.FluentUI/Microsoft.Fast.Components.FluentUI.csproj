@@ -13,9 +13,9 @@
     <PackageTags>Web Components, .NET, FluentUI, FAST, Blazor, .NET 5.0</PackageTags>
     <Title>Microsoft Fluent UI Components Library for Blazor on FAST</Title>
     <Description>Authored by the Microsoft FAST team.</Description>
-    <SignAssembly>false</SignAssembly>
-    <PackageVersion>0.0.2</PackageVersion>
-    <ReleaseVersion>0.0.2</ReleaseVersion>
+    <SignAssembly>true</SignAssembly>
+    <PackageVersion>0.0.3</PackageVersion>
+    <ReleaseVersion>0.0.3</ReleaseVersion>
     <SynchReleaseVersion>false</SynchReleaseVersion>
   </PropertyGroup>
 
