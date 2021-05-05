@@ -23,7 +23,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'custom'
-    custom: 'dotnet nuget push '$[(Build.ArtifactStagingDirectory)\(ls -t *.nupkg)]' --api-key GITHUB_PAT --source "github"'
+    custom: 'dotnet nuget push $[(Build.ArtifactStagingDirectory)\(ls -t *.nupkg)] --api-key GITHUB_PAT --source "github"'
 
 - task: DotNetCoreCLI@2
   displayName: Build
@@ -73,10 +73,10 @@ steps:
     MaxConcurrency: '200'
     MaxRetryAttempts: '5'
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'custom'
-    custom: 'dotnet nuget push '$[(Build.ArtifactStagingDirectory)\(ls -t *.nupkg)]' --api-key GITHUB_PAT --source "github"'
+# - task: DotNetCoreCLI@2
+#   inputs:
+#     command: 'custom'
+#     custom: 'dotnet nuget push '$[(Build.ArtifactStagingDirectory)\(ls -t *.nupkg)]' --api-key GITHUB_PAT --source "github"'
 
 # - task: NuGetCommand@2
 #   displayName: Publish to GitHub
@@ -86,10 +86,10 @@ steps:
 #     nuGetFeedType: 'external'
 #     publishFeedCredentials: 'GitHubServiceConnect'
 
-- task: NuGetCommand@2
-  displayName: Publish to NuGet
-  inputs:
-    command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)\*.nupkg;'
-    nuGetFeedType: 'external'
-    publishFeedCredentials: 'NugetServiceConnect'
+# - task: NuGetCommand@2
+#   displayName: Publish to NuGet
+#   inputs:
+#     command: 'push'
+#     packagesToPush: '$(Build.ArtifactStagingDirectory)\*.nupkg;'
+#     nuGetFeedType: 'external'
+#     publishFeedCredentials: 'NugetServiceConnect'
