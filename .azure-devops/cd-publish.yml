@@ -73,13 +73,13 @@ steps:
     command: 'custom'
     custom: 'dotnet nuget push $(Build.ArtifactStagingDirectory)\*.nupkg --api-key GITHUB_PAT --source "github"'
 
-- task: NuGetCommand@2
-  displayName: Publish to GitHub
-  inputs:
-    command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)\*.nupkg;'
-    nuGetFeedType: 'external'
-    publishFeedCredentials: 'GitHubServiceConnect'
+# - task: NuGetCommand@2
+#   displayName: Publish to GitHub
+#   inputs:
+#     command: 'push'
+#     packagesToPush: '$(Build.ArtifactStagingDirectory)\*.nupkg;'
+#     nuGetFeedType: 'external'
+#     publishFeedCredentials: 'GitHubServiceConnect'
 
 - task: NuGetCommand@2
   displayName: Publish to NuGet
