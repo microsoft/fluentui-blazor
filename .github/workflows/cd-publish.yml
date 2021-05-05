@@ -5,7 +5,6 @@ on:
 
 env:
   OUTPUT_PATH: ${{ github.workspace }}/.nupkg
-  NUGET_SOURCE: "https://api.nuget.org/v3/index.json"
   CONFIGURATION: Release
 
 jobs:
