@@ -69,17 +69,17 @@ steps:
     MaxRetryAttempts: '5'
 
 - task: NuGetCommand@2
-  displayName: Publish to NuGet
-  inputs:
-    command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)\*.nupkg;'
-    nuGetFeedType: 'external'
-    publishFeedCredentials: 'NugetServiceConnect'
-
-- task: NuGetCommand@2
   displayName: Publish to GitHub
   inputs:
     command: 'push'
     packagesToPush: '$(Build.ArtifactStagingDirectory)\*.nupkg;'
     nuGetFeedType: 'external'
     publishFeedCredentials: 'GitHubServiceConnect'
+
+- task: NuGetCommand@2
+  displayName: Publish to NuGet
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)\*.nupkg;'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'NugetServiceConnect'
