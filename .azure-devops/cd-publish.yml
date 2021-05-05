@@ -68,6 +68,11 @@ steps:
     MaxConcurrency: '200'
     MaxRetryAttempts: '5'
 
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'custom'
+    custom: 'dotnet nuget push $(Build.ArtifactStagingDirectory)\*.nupkg --api-key GITHUB_PAT --source "github"'
+
 - task: NuGetCommand@2
   displayName: Publish to GitHub
   inputs:
