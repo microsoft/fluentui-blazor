@@ -71,7 +71,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'custom'
-    custom: 'dotnet nuget push $(Build.ArtifactStagingDirectory)\*.nupkg --api-key GITHUB_PAT --source "github"'
+    custom: 'dotnet nuget push $(Build.ArtifactStagingDirectory) --api-key GITHUB_PAT --source "github"'
 
 # - task: NuGetCommand@2
 #   displayName: Publish to GitHub
