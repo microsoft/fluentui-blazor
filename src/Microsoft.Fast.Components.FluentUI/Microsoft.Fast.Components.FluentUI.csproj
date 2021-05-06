@@ -14,8 +14,8 @@
     <Title>Microsoft Fluent UI Components Library for Blazor on FAST</Title>
     <Description>Authored by the Microsoft FAST team.</Description>
     <SignAssembly>true</SignAssembly>
-    <PackageVersion>0.0.4</PackageVersion>
-    <ReleaseVersion>0.0.4</ReleaseVersion>
+    <PackageVersion>0.1.0</PackageVersion>
+    <ReleaseVersion>0.1.0</ReleaseVersion>
     <SynchReleaseVersion>false</SynchReleaseVersion>
   </PropertyGroup>
 
