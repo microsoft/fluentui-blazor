@@ -1,7 +1,17 @@
-﻿.active {
+﻿body {
+    --body-font: Segoe UI, sans-serif;
+    font-family: var(--body-font);
+    margin: 0;
+}
+
+.active {
     color: yellow;
 }
 
 .nav-link-fluent-active {
     color: red;
+}
+
+*:not(:defined) {
+    display: none;
 }
