@@ -71,7 +71,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'custom'
-    custom: 'nuget push $(Build.ArtifactStagingDirectory)\Microsoft.Fast.FluentUI.0.0.4.nupkg --api-key $(GITHUB_PAT) --source "github"'
+    custom: 'nuget add source https://nuget.pkg.github.com/microsoft/index.json -n github -u awentzel -p $(GITHUB_PAT) && nuget push $(Build.ArtifactStagingDirectory)\Microsoft.Fast.FluentUI.0.0.4.nupkg --api-key $(GITHUB_PAT) --source "github"'
 
 # - task: NuGetCommand@2
 #   displayName: Publish to GitHub
