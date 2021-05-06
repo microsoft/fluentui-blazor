@@ -7,7 +7,7 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  project: 'src\Microsoft.Fast.Components.FluentUI\Microsoft.Fast.Components.FluentUI.csproj'
+  project: '**/Microsoft.Fast.Components.FluentUI.csproj'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
@@ -35,7 +35,7 @@ steps:
   displayName: Pack
   inputs:
     command: 'pack'
-    packagesToPack: '**/Microsoft.Fast.Components.FluentUI.csproj'
+    packagesToPack: '$(project'
     versioningScheme: 'off'
 
 - task: EsrpCodeSigning@1
@@ -68,23 +68,10 @@ steps:
     MaxConcurrency: '200'
     MaxRetryAttempts: '5'
 
-- task: DotNetCoreCLI@2
+- task: NuGetCommand@2
+  displayName: Publish to NuGet
   inputs:
-    command: 'custom'
-    custom: 'nuget add source https://nuget.pkg.github.com/microsoft/index.json -n github -u awentzel -p $(GITHUB_PAT) && nuget push $(Build.ArtifactStagingDirectory)\Microsoft.Fast.FluentUI.0.0.4.nupkg --api-key $(GITHUB_PAT) --source "github"'
-
-# - task: NuGetCommand@2
-#   displayName: Publish to GitHub
-#   inputs:
-#     command: 'push'
-#     packagesToPush: '$(Build.ArtifactStagingDirectory)\*.nupkg;'
-#     nuGetFeedType: 'external'
-#     publishFeedCredentials: 'GitHubServiceConnect'
-
-# - task: NuGetCommand@2
-#   displayName: Publish to NuGet
-#   inputs:
-#     command: 'push'
-#     packagesToPush: '$(Build.ArtifactStagingDirectory)\*.nupkg;'
-#     nuGetFeedType: 'external'
-#     publishFeedCredentials: 'NugetServiceConnect'
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)\*.nupkg;'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'NugetServiceConnect'
