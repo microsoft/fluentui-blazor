@@ -11,9 +11,40 @@
 
 ## Introduction
 
-The `Microsoft.Fast.Components.FluentUI` package provides a lightweight set of wrappers around Microsoft's official FluentUI Web Components. The FluentUI Web Components are built on [FAST](https://www.fast.design/) and work in every major browser. To get up and running with `Microsoft.Fast.Components.FluentUI` see [the Blazor guide](https://www.fast.design/docs/integrations/blazor).
+The `Microsoft.Fast.Components.FluentUI` package provides a lightweight set of wrappers around Microsoft's official FluentUI Web Components. The FluentUI Web Components are built on [FAST](https://www.fast.design/) and work in every major browser. To get up and running with `Microsoft.Fast.Components.FluentUI` see the Getting Started section below.
 
 The source for `@fluentui/web-components` is hosted in [the Fluent UI monorepo](https://github.com/microsoft/fluentui/tree/master/packages/web-components).
+
+## Getting Started
+
+To get started using `Microsoft.Fast.Components.FluentUI`, you will need both the Nuget package and the accompanying Web Component implementations. First, install [the Nuget package](https://www.nuget.org/packages/Microsoft.Fast.Components.FluentUI/). If using the .NET CLI, you can run the following command to accomplish that.
+
+```shell
+dotnet add package Microsoft.Fast.Components.FluentUI
+```
+
+Next, add a script tag to your index or main layout to reference the web components:
+
+```html
+<script type="module" src="https://unpkg.com/@fluentui/web-components"></script>
+```
+
+> **Note:** If the script reference is added to a `.razor` or `.cshtml` file, you will need to escape the `@` with a second `@` like so `https://unpkg.com/@@fluentui/web-components`.
+
+With the dependencies added, you must next enable the Fluent Design System itself by wrapping your HTML with a `fluent-design-system-provider` element. Here's an example of what that might look like:
+
+```html
+<body>
+    <fluent-design-system-provider use-defaults>
+        <component type="typeof(App)" render-mode="ServerPrerendered" />
+        <script src="_framework/blazor.server.js"></script>
+    </fluent-design-system-provider>
+</body>
+```
+
+While you can have multiple design system providers, the most common configuration is to have a single provider that wraps your entire application. You'll likely also want to add the `use-defaults` attribute, to ensure that the default settings for FluentUI are applied.
+
+Once these steps are completed, you can then begin using the components throughout your Blazor application. Take a look in the `examples` folder of this repository to see how to use the various components.
 
 ## Joining the Community
 
