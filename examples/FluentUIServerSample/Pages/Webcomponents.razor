@@ -1,7 +1,7 @@
 @page "/webcomponents/{Target?}"
 @using FluentUIServerSample.Components
 <div class="main">
-  <fluent-design-system-provider role="navigation" class="navigation" background-color="#E5E5E5">
+  <FluentDesignSystemProvider role="navigation" class="navigation" background-color="#E5E5E5">
     <h1 class="head">Fluent components test page</h1>
       <ul>
           <li>
@@ -98,7 +98,7 @@
               <FluentAnchor href="webcomponents/TreeView" Appearance="@(@Target == "TreeView" ? Appearance.Neutral : Appearance.Stealth)">Tree View</FluentAnchor>
           </li>
       </ul>
-  </fluent-design-system-provider>
+  </FluentDesignSystemProvider>
   <div class="content">
   @switch(Target)
   {
