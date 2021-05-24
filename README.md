@@ -31,18 +31,22 @@ Next, add a script tag to your index or main layout to reference the web compone
 
 > **Note:** If the script reference is added to a `.razor` or `.cshtml` file, you will need to escape the `@` with a second `@` like so `https://unpkg.com/@@fluentui/web-components`.
 
-With the dependencies added, you must next enable the Fluent Design System itself by wrapping your HTML with a `fluent-design-system-provider` element. Here's an example of what that might look like:
+With the dependencies added, you must next enable the Fluent Design System itself by wrapping your HTML with a `<FluentDesignSystemProvider>` component. A good place to do this is in the `App.razor` file.  Here's an example of what that might look like:
 
-```html
-<body>
-    <fluent-design-system-provider use-defaults>
-        <component type="typeof(App)" render-mode="ServerPrerendered" />
-        <script src="_framework/blazor.server.js"></script>
-    </fluent-design-system-provider>
-</body>
+```
+<FluentDesignSystemProvider>
+    <Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true">
+        <Found Context="routeData">
+            <RouteView RouteData="@routeData" />
+        </Found>
+        <NotFound>
+            <p>Sorry, there's nothing at this address.</p>
+        </NotFound>
+    </Router>
+</FluentDesignSystemProvider>
 ```
 
-While you can have multiple design system providers, the most common configuration is to have a single provider that wraps your entire application. You'll likely also want to add the `use-defaults` attribute, to ensure that the default settings for FluentUI are applied.
+While you can have multiple design system providers, the most common configuration is to have a single provider that wraps your entire application. The code above does exactely that. The component ensures that the default settings for FluentUI are applied (by adding the `use-defaults` attribute in the output). An example of using an additional design system provider (with extra attributes) can be found in the `FluentUIServerSample` in the file `Webcomponents.razor` 
 
 Once these steps are completed, you can then begin using the components throughout your Blazor application. Take a look in the `examples` folder of this repository to see how to use the various components.
 
