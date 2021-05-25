@@ -7,14 +7,16 @@
     <fluent-text-field @bind-value="TextFieldValueExplicit" />
     <p>Text field explicit @TextFieldValueExplicit</p>
 </div>
-<div>
-    <fluent-number-field  @bind="NumberFieldValueImplicit" />
+@*implicit bind for number field does not work!
+    <div>
+    <fluent-number-field @bind="NumberFieldValueImplicit" />
     <p>Number field implicit @NumberFieldValueImplicit</p>
 </div>
-@*<div>
-    <fluent-number-field @bind-value="NumberFieldValueExplicit" />
+    *@
+<div>
+    <fluent-number-field @bind-value="NumberFieldValueExplicit" @bind-value:event="oninput" />
     <p>Number field explicit @NumberFieldValueExplicit</p>
-</div>*@
+</div>
 <div>
     <fluent-text-area @bind="TextAreaValueImplicit" />
     <p>Text area explicit @TextAreaValueImplicit</p>

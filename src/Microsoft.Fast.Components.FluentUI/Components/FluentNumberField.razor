@@ -1,4 +1,4 @@
-@inherits FluentInputBase<TValue>
+@inherits FluentInputBase<TValue?>
 @typeparam TValue
 @using System.Globalization;
 @using System.Reflection;
@@ -10,6 +10,8 @@
                      min="@Min"
                      max="@Max"
                      maxlength="@MaxLength"
+                     minlength="@MinLength"
+                     size="@Size"
                      @onchange="@(EventCallback.Factory.CreateBinder<string>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
                      readonly="@Readonly"
                      disabled="@Disabled"
@@ -28,9 +30,9 @@
 
     [Parameter] public bool? Autofocus { get; set; }
 
-    [Parameter] public Resize? Resize { get; set; }
+    [Parameter] public int Size { get; set; } = 20;
 
-    [Parameter] public NumberFieldAppearance? Appearance { get; set; }
+    [Parameter] public Appearance? Appearance { get; set; }
 
     [Parameter] public string Placeholder { get; set; }
 
@@ -38,13 +40,13 @@
 
     [Parameter] public RenderFragment ChildContent { get; set; }
 
-    [Parameter] public TValue Min { get; set; } = GetMinOrMaxValue("MinValue");
-    [Parameter] public TValue Max { get; set; } = GetMinOrMaxValue("MaxValue");
-    //[Parameter] public int MinLength { get; set; } = 10;
-    [Parameter] public int MaxLength { get; set; } = 99;
+    [Parameter] public string Min { get; set; } = GetMinOrMaxValue("MinValue");
+    [Parameter] public string Max { get; set; } = GetMinOrMaxValue("MaxValue");
+    [Parameter] public int MinLength { get; set; } = 1;
+    [Parameter] public int MaxLength { get; set; } = 14;
     [Parameter] public int Step { get; set; } = _stepAttributeValue;
 
-    private readonly static int _stepAttributeValue; 
+    private readonly static int _stepAttributeValue;
 
     static FluentNumberField()
     {
@@ -67,8 +69,6 @@
         }
     }
 
-
-
     protected override bool TryParseValueFromString(string value, out TValue result, out string validationErrorMessage)
     {
         if (BindConverter.TryConvertTo<TValue>(value, CultureInfo.InvariantCulture, out result))
@@ -78,7 +78,7 @@
         }
         else
         {
-            validationErrorMessage = string.Format(CultureInfo.InvariantCulture, ParsingErrorMessage, /*DisplayName ??*/ FieldIdentifier.FieldName);
+            validationErrorMessage = string.Format(CultureInfo.InvariantCulture, ParsingErrorMessage, FieldIdentifier.FieldName);
             return false;
         }
     }
@@ -119,18 +119,43 @@
         }
     }
 
-    private static TValue GetMinOrMaxValue(string name)
+    private static string GetMinOrMaxValue(string name)
     {
-        FieldInfo field = typeof(TValue).GetField(name,
-            BindingFlags.Public | BindingFlags.Static);
+        var targetType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
+
+        FieldInfo field = targetType.GetField(name, BindingFlags.Public | BindingFlags.Static);
         if (field == null)
         {
-            // There's no TypeArgumentException, unfortunately. You might want
-            // to create one :)
-            throw new InvalidOperationException
-                ("Invalid type argument for NumericUpDown<T>: " +
-                 typeof(TValue).Name);
+            throw new InvalidOperationException("Invalid type argument for FluentNumberField<TValue?>: " + typeof(TValue).Name);
         }
-        return (TValue)field.GetValue(null);
+
+        var value = field.GetValue(null);
+
+
+        if (targetType == typeof(int) || targetType == typeof(short))
+        {
+            return value.ToString();
+        }
+
+        if (targetType == typeof(long))
+        {
+            //Precision in underlying Fast script is limited to 12 digits
+            return name == "MinValue" ? "-999999999999" : "999999999999";
+        }
+        if (targetType == typeof(float))
+        {
+            return ((float)value).ToString(CultureInfo.InvariantCulture);
+        }
+        if (targetType == typeof(double))
+        {
+            return ((double)value).ToString(CultureInfo.InvariantCulture);
+        }
+        if (targetType == typeof(decimal))
+        {
+            return ((decimal)value).ToString("G12", CultureInfo.InvariantCulture);
+        }
+
+        // This should never occur
+        return "0";
     }
 }
