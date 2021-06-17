@@ -1,9 +1,17 @@
-<fluent-dialog Modal="@Modal" @attributes="AdditionalAttributes">@ChildContent</fluent-dialog>
+<fluent-dialog id="@Id" Modal="@Modal" @attributes="AdditionalAttributes" hidden="@(Hidden)">@ChildContent</fluent-dialog>
 @code
 {
+    [Parameter] public string Id { get; set; }
+
     [Parameter] public bool? Modal { get; set; }
 
     [Parameter] public RenderFragment ChildContent { get; set; }
 
     [Parameter(CaptureUnmatchedValues = true)] public IDictionary<string, object> AdditionalAttributes { get; set; }
+
+    public bool Hidden { get; set; } = true;
+
+    public void Show() => Hidden = false;
+
+    public void Hide() => Hidden = true;
 }

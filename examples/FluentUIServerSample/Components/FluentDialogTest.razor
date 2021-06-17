@@ -3,8 +3,28 @@
       <h2 id="heading">Dialog with aria-labelledby support</h2>
       <button>Button (should autofocus)</button>
   </fluent-dialog> -->
-<FluentDialog id="foo" aria-label="Simple dialog" Modal="true">
+<FluentDialog @ref="MyFluentDialog" Id="foo" aria-label="Simple dialog" Modal="true" >
     <h2>Dialog with text and button. The button should recieve focus</h2>
     <button>Button A</button>
     <button id="element" autofocus>Should autofocus</button>
+    <button @onclick="OnCloseModalButtonClick">Close dialog</button>
 </FluentDialog>
+
+@if (MyFluentDialog == null)
+{
+<p>MyFluentDialog is null</p>
+}
+else
+{
+<p>Modal hidden value: @MyFluentDialog.Hidden</p>
+}
+
+<button @onclick="OnOpenModalButtonClick">Open dialog</button>
+
+@code{
+    private FluentDialog MyFluentDialog;
+    public bool IsModalOpen;
+
+    private void OnOpenModalButtonClick() => MyFluentDialog.Show();
+    private void OnCloseModalButtonClick() => MyFluentDialog.Hide();
+}
