@@ -1,5 +1,20 @@
 @inherits FluentInputBase<string>
-<fluent-text-field autofocus="@Autofocus" appearance="@Appearance.ToAttributeValue()" value="@BindConverter.FormatValue(CurrentValue)" @onchange="@(EventCallback.Factory.CreateBinder<string>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))" readonly="@Readonly" disabled="@Disabled" required="@Required" placeholder="@Placeholder" @attributes="AdditionalAttributes">@ChildContent</fluent-text-field>
+<fluent-text-field autofocus="@Autofocus"
+                   appearance="@Appearance.ToAttributeValue()"
+                   value="@BindConverter.FormatValue(CurrentValue)"
+                   @onchange="@(EventCallback.Factory.CreateBinder<string>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
+                   type="@TextFieldType.ToAttributeValue()"
+                   size="@Size"
+                   minlength="@MinLength"
+                   maxlength="@MaxLength"
+                   spellcheck="@Spellcheck"
+                   readonly="@Readonly"
+                   disabled="@Disabled"
+                   required="@Required"
+                   placeholder="@Placeholder"
+                   @attributes="AdditionalAttributes">
+    @ChildContent
+</fluent-text-field>
 @code{
     [Parameter] public bool? Disabled { get; set; }
 
@@ -9,11 +24,22 @@
 
     [Parameter] public bool? Autofocus { get; set; }
 
-    [Parameter] public Resize? Resize { get; set; }
+    [Parameter] public int? Size { get; set; }
 
     [Parameter] public Appearance? Appearance { get; set; }
 
+    [Parameter] public TextFieldType? TextFieldType { get; set; }
+
     [Parameter] public string Placeholder { get; set; }
+
+    [Parameter] public int? MinLength { get; set; }
+
+    [Parameter] public int? MaxLength { get; set; }
+
+    [Parameter] public bool? Spellcheck { get; set; }
+
+    //Pattern
+    //List
 
     [Parameter] public RenderFragment ChildContent { get; set; }
 
