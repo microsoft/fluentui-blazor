@@ -1,30 +1,28 @@
-<!-- <fluent-dialog hidden>Hidden dialog with text</fluent-dialog> -->
-<!-- <fluent-dialog id="foo" aria-labelledby="heading" modal="true">
-      <h2 id="heading">Dialog with aria-labelledby support</h2>
-      <button>Button (should autofocus)</button>
-  </fluent-dialog> -->
-<FluentDialog @ref="MyFluentDialog" id="foo" aria-label="Simple dialog" Modal="true" >
-    <h2>Dialog with text and button. The button should recieve focus</h2>
-    <button>Button A</button>
-    <button id="element" autofocus>Should autofocus</button>
-    <button @onclick="OnCloseModalButtonClick">Close dialog</button>
+<FluentDialog @ref="MyFluentDialog" id="foo" aria-label="Simple dialog" Modal="true">
+    <h2>Dialog referenced to object</h2>
+    <button @onclick="OnCloseModalRefButtonClick">Close dialog with component object function</button>
 </FluentDialog>
 
-@if (MyFluentDialog == null)
-{
-<p>MyFluentDialog is null</p>
-}
-else
-{
-<p>Modal hidden value: @MyFluentDialog.Hidden</p>
-}
+<FluentDialog Hidden="ModalHidden" id="foo" aria-label="Simple dialog" Modal="true">
+    <h2>Dialog referenced with variable</h2>
+    <button @onclick="OnCloseModalParameterButtonClick">Close dialog updating the variable</button>
+</FluentDialog>
 
-<button @onclick="OnOpenModalButtonClick">Open dialog</button>
+<p>MyFluentDialog.Hidden value: @MyFluentDialog?.Hidden</p>
+<p>ModalHidden value: @ModalHidden</p>
+
+<button @onclick="OnOpenModalRefButtonClick">Open dialog with ref</button>
+<button @onclick="OnOpenModalParameterButtonClick">Open dialog with variable</button>
 
 @code{
     private FluentDialog MyFluentDialog;
-    public bool IsModalOpen;
+    public bool IsModalOpen { get; set; }
+    public bool ModalHidden { get; set; } = true;
 
-    private void OnOpenModalButtonClick() => MyFluentDialog.Show();
-    private void OnCloseModalButtonClick() => MyFluentDialog.Hide();
+
+    private void OnOpenModalRefButtonClick() => MyFluentDialog.Show();
+    private void OnCloseModalRefButtonClick() => MyFluentDialog.Hide();
+
+    private void OnOpenModalParameterButtonClick() => ModalHidden = false;
+    private void OnCloseModalParameterButtonClick() => ModalHidden = true;
 }

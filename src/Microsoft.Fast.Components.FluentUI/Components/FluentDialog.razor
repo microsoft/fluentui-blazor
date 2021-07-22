@@ -7,7 +7,7 @@
 
     [Parameter(CaptureUnmatchedValues = true)] public IDictionary<string, object> AdditionalAttributes { get; set; }
 
-    public bool Hidden { get; set; } = true;
+    [Parameter] public bool Hidden { get; set; } = false;
 
     public void Show() => Hidden = false;
 
