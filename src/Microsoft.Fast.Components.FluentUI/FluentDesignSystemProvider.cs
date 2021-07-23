@@ -16,14 +16,12 @@ namespace Microsoft.Fast.Components.FluentUI
         {
             builder.OpenElement(0, "fluent-design-system-provider");
 
-            if (AdditionalAttributes == null || AdditionalAttributes.Count == 0)
-                builder.AddAttribute(1, "use-defaults");
-            else
+            if (AdditionalAttributes != null && AdditionalAttributes.Count > 0) {
                 builder.AddMultipleAttributes(1, AdditionalAttributes);
+            }
 
             builder.AddContent(2, ChildContent);
             builder.CloseElement();
-
         }
     }
 }
