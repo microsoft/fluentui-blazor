@@ -8,6 +8,14 @@
     <p>Text field explicit @TextFieldValueExplicit</p>
 </div>
 <div>
+    <fluent-number-field @bind="NumberFieldValueImplicit" />
+    <p>Number field implicit @NumberFieldValueImplicit</p>
+</div>
+<div>
+    <fluent-number-field @bind-value="NumberFieldValueExplicit" />
+    <p>Number field explicit @NumberFieldValueExplicit</p>
+</div>
+<div>
     <fluent-text-area @bind="TextAreaValueImplicit" />
     <p>Text area explicit @TextAreaValueImplicit</p>
 </div>
@@ -115,6 +123,8 @@
 @code {
     string TextFieldValueImplicit;
     string TextFieldValueExplicit;
+    int NumberFieldValueImplicit;
+    int NumberFieldValueExplicit;
     string TextAreaValueImplicit;
     string TextAreaValueExplicit;
     bool CheckboxValueImplicit;
@@ -133,4 +143,5 @@
     int ListboxIndexValueExplicit;
     string ComboboxValueImplicit;
     string ComboboxValueExplicit;
+
 }
