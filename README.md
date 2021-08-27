@@ -23,11 +23,16 @@ To get started using `Microsoft.Fast.Components.FluentUI`, you will need both th
 dotnet add package Microsoft.Fast.Components.FluentUI
 ```
 
-Next, add a script tag to your index or main layout to reference the web components:
+Next, add a script tag to your project.
 
 ```html
 <script type="module" src="https://unpkg.com/@fluentui/web-components"></script>
 ```
+
+Depending on what type of Blazor project you are building, it will go into one of two places:
+
+* For a Blazor Server project, add the script tag to your `_Host.cshtml` file.
+* For a Blazor WASM project, add the script tag to your index or main layout.
 
 > **Note:** If the script reference is added to a `.razor` or `.cshtml` file, you will need to escape the `@` with a second `@` like so `https://unpkg.com/@@fluentui/web-components`.
 
