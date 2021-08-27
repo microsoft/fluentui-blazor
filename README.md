@@ -31,7 +31,13 @@ Next, add a script tag to your index or main layout to reference the web compone
 
 > **Note:** If the script reference is added to a `.razor` or `.cshtml` file, you will need to escape the `@` with a second `@` like so `https://unpkg.com/@@fluentui/web-components`.
 
-Once these steps are completed, you can then begin using the components throughout your Blazor application. Take a look in the `examples` folder of this repository to see how to use the various components.
+Once these steps are completed, you can then begin using the components throughout your Blazor application by adding the following `using` statement to your views:
+
+```cs
+@using Microsoft.Fast.Components.FluentUI
+```
+
+Take a look in the `examples` folder of this repository to see how to use the various components.
 
 ## Joining the Community
 
