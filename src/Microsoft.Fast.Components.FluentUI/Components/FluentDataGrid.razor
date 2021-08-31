@@ -1,0 +1,50 @@
+﻿
+<fluent-data-grid generate-header=@GenerateHeader
+                  grid-template-columns=@GridTemplateColumns
+                  rowsData=@RowsData
+                  @attributes="AdditionalAttributes">
+    @if (RowItemTemplate != null)
+    {
+        @RowItemTemplate
+    }
+    @ChildContent
+</fluent-data-grid>
+
+@code
+{
+    // FAST Attributes
+    [Parameter]
+    public GenerateHeaderOptions GenerateHeader { get; set; } = GenerateHeaderOptions.Default;
+
+    [Parameter]
+    public string GridTemplateColumns { get; set; } = null;
+
+    // FAST Properties
+    [Parameter]
+    public List<object> RowsData { get; set; }
+
+    [Parameter]
+    public ColumnDefinition[] ColumnDefinitions { get; set; }
+
+    [Parameter]
+    public RenderFragment<string> RowItemTemplate { get; set; }
+
+    //[Parameter]
+    //public RenderFragment<TCellItem> CellItemTemplate { get; set; }
+
+    //[Parameter]
+    //public RenderFragment<TCellItem> HeaderCellItemTemplate { get; set; }
+
+    [Parameter]
+    public int FocusRowIndex { get; set; }
+
+    [Parameter]
+    public int FocusColumnIndex { get; set; }
+
+    // General Blazor parameters
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IDictionary<string, object> AdditionalAttributes { get; set; }
+}

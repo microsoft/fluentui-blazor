@@ -1,0 +1,40 @@
+﻿<fluent-data-grid-row row-index=@RowIndex
+					  grid-template-columns=@GridTemplateColumns
+					  row-type=@RowType @attributes="AdditionalAttributes">
+	@ChildContent
+</fluent-data-grid-row>
+@code
+{
+	// FAST Attributes
+	[Parameter]
+	public int? RowIndex { get; set; }
+
+	[Parameter]
+	public string? GridTemplateColumns { get; set; }
+
+	[Parameter]
+	public DataGridRowType RowType { get; set; } = DataGridRowType.Default;
+
+	// FAST Properties
+	[Parameter]
+	public object[] RowData { get; set; }
+
+	[Parameter]
+	public ColumnDefinition[] ColumnDefinitions { get; set; }
+
+	[Parameter]
+	public string CellItemTemplate { get; set; }
+
+	[Parameter]
+	public string HeaderCellItemTemplate { get; set; }
+
+	// General Blazor parameters
+	[Parameter]
+	public RenderFragment ChildContent { get; set; }
+
+	[Parameter(CaptureUnmatchedValues = true)]
+	public IDictionary<string, object> AdditionalAttributes { get; set; }
+
+	[Parameter]
+	public EventCallback<FocusEventArgs> RowFocussed{ get; set; }
+}

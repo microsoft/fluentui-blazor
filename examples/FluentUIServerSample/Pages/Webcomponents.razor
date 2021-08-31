@@ -35,6 +35,9 @@
             <FluentAnchor href="webcomponents/Combobox" Appearance="@(@Target == "Combobox" ? Appearance.Neutral : Appearance.Stealth)">Combobox</FluentAnchor>
         </li>
         <li>
+            <FluentAnchor href="webcomponents/Datagrid" Appearance="@(@Target == "Datagrid" ? Appearance.Neutral : Appearance.Stealth)">Data grid</FluentAnchor>
+        </li>
+        <li>
             <FluentAnchor href="webcomponents/Dialog" Appearance="@(@Target == "Dialog" ? Appearance.Neutral : Appearance.Stealth)">Dialog</FluentAnchor>
         </li>
         <li>
@@ -134,6 +137,9 @@
               break;
           case "Combobox":
               <FluentComboboxTest></FluentComboboxTest>
+              break;
+          case "Datagrid":
+              <FluentDataGridTest></FluentDataGridTest>
               break;
           case "Dialog":
               <FluentDialogTest></FluentDialogTest>

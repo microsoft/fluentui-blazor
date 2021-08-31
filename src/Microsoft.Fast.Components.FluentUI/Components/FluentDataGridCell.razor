@@ -1,0 +1,34 @@
+﻿<fluent-data-grid-cell cell-type=@CellType grid-column=@GridColumn @attributes="AdditionalAttributes">@ChildContent</fluent-data-grid-cell>
+@code
+{
+
+	// FAST Attributes
+	[Parameter] 
+	public DataGridCellType CellType { get; set; } = DataGridCellType.Default;
+	
+	[Parameter] 
+	public int GridColumn { get; set; }
+
+	// FAST Properties
+	[Parameter]
+	public object[] RowData { get; set; }
+
+	[Parameter]
+	public ColumnDefinition[] ColumnDefinitions { get; set; }
+
+	[Parameter]
+	public string CellItemTemplate { get; set; }
+
+	[Parameter]
+	public string HeaderCellItemTemplate { get; set; }
+
+	// General Blazor parameters
+	[Parameter]
+	public RenderFragment ChildContent { get; set; }
+
+	[Parameter(CaptureUnmatchedValues = true)]
+	public IDictionary<string, object> AdditionalAttributes { get; set; }
+
+	[Parameter]
+public EventCallback<FocusEventArgs> CellFocussed{ get; set; }
+}

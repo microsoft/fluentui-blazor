@@ -1,0 +1,31 @@
+﻿<h2>Default grid</h2>
+<FluentDataGrid @ref="MyFluentDataGrid" id="defaultGrid" RowsData="baseRows" >
+
+</FluentDataGrid>
+
+<h2>Manual grid</h2>
+<FluentDataGrid id="manualGrid" GenerateHeader=GenerateHeaderOptions.None GridTemplateColumns="1fr 1fr" >
+	<FluentDataGridRow RowType="DataGridRowType.Header">
+		<FluentDataGridCell GridColumn=1 CellType="DataGridCellType.ColumnHeader">Column 1</FluentDataGridCell>
+		<FluentDataGridCell GridColumn=2 CellType="DataGridCellType.ColumnHeader">Column 2</FluentDataGridCell>
+	</FluentDataGridRow>
+	<FluentDataGridRow>
+		<FluentDataGridCell GridColumn=1>1.1</FluentDataGridCell>
+		<FluentDataGridCell GridColumn=2>1.2</FluentDataGridCell>
+	</FluentDataGridRow>
+	<FluentDataGridRow>
+		<FluentDataGridCell GridColumn=1>2.1</FluentDataGridCell>
+		<FluentDataGridCell GridColumn=2> 2.2</FluentDataGridCell>
+	</FluentDataGridRow>
+</FluentDataGrid>
+
+@code{
+	private FluentDataGrid MyFluentDataGrid;
+
+	List<object> baseRows = new List<object>
+	{
+		( name: "Rob", age: "19" ),
+		( name: "Bob", age: "20" )
+	};
+
+}
