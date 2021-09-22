@@ -1,50 +1,71 @@
-﻿
-<fluent-data-grid generate-header=@GenerateHeader
+﻿@typeparam TItem
+<fluent-data-grid generate-header=none
                   grid-template-columns=@GridTemplateColumns
-                  rowsData=@RowsData
-                  @attributes="AdditionalAttributes">
-    @if (RowItemTemplate != null)
+                  @attributes="@AdditionalAttributes">
+    @if (GenerateHeader != GenerateHeaderOptions.None)
     {
-        @RowItemTemplate
+        DataGridRowType headerType = DataGridRowType.Header;
+        if (GenerateHeader == GenerateHeaderOptions.Sticky)
+            headerType = DataGridRowType.StickyHeader;
+
+        <FluentDataGridRow RowType=headerType TItem=TItem>
+            @{
+                int gridColumn = 1;
+                foreach (ColumnDefinition<TItem> column in ColumnDefinitions)
+                {
+                    <FluentDataGridCell GridColumn=@(gridColumn++) CellType=DataGridCellType.ColumnHeader>@column.Title</FluentDataGridCell>
+                }
+            }
+        </FluentDataGridRow>
     }
-    @ChildContent
+
+    @if (RowsData == null)
+    {
+        @ChildContent
+    }
+    else
+    {
+        int index = 1;
+        foreach (TItem item in RowsData)
+        {
+            if (RowItemTemplate != null)
+            {
+                @RowItemTemplate(item)
+            }
+            else
+            {
+                <FluentDataGridRow GridTemplateColumns=@GridTemplateColumns ColumnDefinitions=@ColumnDefinitions RowIndex=@(index++) TItem=TItem RowData=@item />
+            }
+        }
+    }
 </fluent-data-grid>
 
 @code
 {
     // FAST Attributes
     [Parameter]
-    public GenerateHeaderOptions GenerateHeader { get; set; } = GenerateHeaderOptions.Default;
+    public GenerateHeaderOptions? GenerateHeader { get; set; } = GenerateHeaderOptions.Default;
 
     [Parameter]
-    public string GridTemplateColumns { get; set; } = null;
+    public string? GridTemplateColumns { get; set; } = "";
 
-    // FAST Properties
+    //FAST Properties
     [Parameter]
-    public List<object> RowsData { get; set; }
-
-    [Parameter]
-    public ColumnDefinition[] ColumnDefinitions { get; set; }
+    public List<TItem> RowsData { get; set; }
 
     [Parameter]
-    public RenderFragment<string> RowItemTemplate { get; set; }
-
-    //[Parameter]
-    //public RenderFragment<TCellItem> CellItemTemplate { get; set; }
-
-    //[Parameter]
-    //public RenderFragment<TCellItem> HeaderCellItemTemplate { get; set; }
+    public IEnumerable<ColumnDefinition<TItem>> ColumnDefinitions { get; set; }
 
     [Parameter]
-    public int FocusRowIndex { get; set; }
-
-    [Parameter]
-    public int FocusColumnIndex { get; set; }
+    public RenderFragment<TItem>? RowItemTemplate { get; set; } = null;
 
     // General Blazor parameters
     [Parameter]
     public RenderFragment ChildContent { get; set; }
 
+
     [Parameter(CaptureUnmatchedValues = true)]
     public IDictionary<string, object> AdditionalAttributes { get; set; }
+
+
 }
