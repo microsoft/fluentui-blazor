@@ -95,6 +95,9 @@
             <FluentAnchor href="webcomponents/TextField" Appearance="@(@Target == "TextField" ? Appearance.Neutral : Appearance.Stealth)">Text Field</FluentAnchor>
         </li>
         <li>
+            <FluentAnchor href="webcomponents/Toolbar" Appearance="@(@Target == "Toolbar" ? Appearance.Neutral : Appearance.Stealth)">Toolbar</FluentAnchor>
+        </li>
+        <li>
             <FluentAnchor href="webcomponents/TreeItem" Appearance="@(@Target == "TreeItem" ? Appearance.Neutral : Appearance.Stealth)">Tree Item</FluentAnchor>
         </li>
         <li>
@@ -194,6 +197,9 @@
               break;
           case "TextField":
               <FluentTextFieldTest></FluentTextFieldTest>
+              break;
+          case "Toolbar":
+              <FluentToolbarTest></FluentToolbarTest>
               break;
           case "TreeItem":
               <FluentTreeItemTest></FluentTreeItemTest>

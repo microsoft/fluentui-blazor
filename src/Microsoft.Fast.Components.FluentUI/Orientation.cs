@@ -6,6 +6,7 @@ namespace Microsoft.Fast.Components.FluentUI
 {
     public enum Orientation
     {
+        Horizontal,
         Vertical
     }
 
