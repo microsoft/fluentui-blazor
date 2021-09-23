@@ -2,6 +2,8 @@
                  position=@Position.ToAttributeValue()
                  delay=@Delay
                  visible=@Visible
+                 horizontal-viewport-lock=@HorizontalViewportLock
+                 vertical-viewport-lock=@VerticalViewportLock
                  @attributes="AdditionalAttributes">
     @ChildContent
 </fluent-tooltip>
@@ -15,8 +17,14 @@
     [Parameter]
     public int? Delay { get; set; } = 300;
 
-     [Parameter]
+    [Parameter]
     public bool? Visible { get; set; } = false;
+
+    [Parameter]
+    public bool? HorizontalViewportLock { get; set; } = false;
+
+    [Parameter]
+    public bool? VerticalViewportLock { get; set; } = false;
 
     [Parameter]
     public RenderFragment ChildContent { get; set; }
