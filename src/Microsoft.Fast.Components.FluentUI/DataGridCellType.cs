@@ -7,7 +7,8 @@ namespace Microsoft.Fast.Components.FluentUI
     public enum DataGridCellType
     {
         Default,
-        ColumnHeader
+        ColumnHeader,
+        RowHeader
     }
 
     internal static class CellTypeExtensions
