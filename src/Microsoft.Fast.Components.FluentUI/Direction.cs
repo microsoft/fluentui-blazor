@@ -13,8 +13,8 @@ namespace Microsoft.Fast.Components.FluentUI
     internal static class DirectionExtensions
     {
         private static Dictionary<Direction, string> _directionValues =
-            Enum.GetValues<Direction>().ToDictionary(id => id, id => Enum.GetName(id).ToLowerInvariant());
+            Enum.GetValues<Direction>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());
 
-        public static string ToAttributeValue(this Direction? value) => value == null ? null : _directionValues[value.Value];
+        public static string? ToAttributeValue(this Direction? value) => value == null ? null : _directionValues[value.Value];
     }
 }
