@@ -15,12 +15,12 @@
 <button @onclick="OnOpenModalParameterButtonClick">Open dialog with variable</button>
 
 @code{
-    private FluentDialog MyFluentDialog;
+    private FluentDialog? MyFluentDialog;
     public bool ModalHidden { get; set; } = true;
 
 
-    private void OnOpenModalRefButtonClick() => MyFluentDialog.Show();
-    private void OnCloseModalRefButtonClick() => MyFluentDialog.Hide();
+    private void OnOpenModalRefButtonClick() => MyFluentDialog!.Show();
+    private void OnCloseModalRefButtonClick() => MyFluentDialog!.Hide();
 
     private void OnOpenModalParameterButtonClick() => ModalHidden = false;
     private void OnCloseModalParameterButtonClick() => ModalHidden = true;
