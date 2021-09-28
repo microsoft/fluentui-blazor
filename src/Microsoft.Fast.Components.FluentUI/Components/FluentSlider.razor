@@ -15,7 +15,7 @@
 
     [Parameter] public bool? Readonly { get; set; }
 
-    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
 
     protected override bool TryParseValueFromString(string value, out int result, out string validationErrorMessage)
     {
@@ -31,7 +31,7 @@
         }
     }
 
-    protected override string FormatValueAsString(int value)
+    protected override string? FormatValueAsString(int value)
     {
         return BindConverter.FormatValue(value, CultureInfo.InvariantCulture);
     }

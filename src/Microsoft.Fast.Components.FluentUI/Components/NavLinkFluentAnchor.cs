@@ -1,16 +1,12 @@
-
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Routing;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Microsoft.Fast.Components.FluentUI
 {
     public class NavLinkFluentAnchor : NavLink
-    {       
-        [Parameter] public string Href { get; set; }
+    {
+        [Parameter] public string? Href { get; set; }
 
         [Parameter] public Appearance? Appearance { get; set; }
 

@@ -34,14 +34,14 @@
 
     [Parameter] public Appearance? Appearance { get; set; }
 
-    [Parameter] public string Placeholder { get; set; }
+    [Parameter] public string? Placeholder { get; set; }
 
     [Parameter] public string ParsingErrorMessage { get; set; } = "The {0} field must be a number.";
 
-    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
 
-    [Parameter] public string Min { get; set; } = GetMinOrMaxValue("MinValue");
-    [Parameter] public string Max { get; set; } = GetMinOrMaxValue("MaxValue");
+    [Parameter] public string? Min { get; set; } = GetMinOrMaxValue("MinValue");
+    [Parameter] public string? Max { get; set; } = GetMinOrMaxValue("MaxValue");
     [Parameter] public int MinLength { get; set; } = 1;
     [Parameter] public int MaxLength { get; set; } = 14;
     [Parameter] public int Step { get; set; } = _stepAttributeValue;
@@ -119,7 +119,7 @@
         }
     }
 
-    private static string GetMinOrMaxValue(string name)
+    private static string? GetMinOrMaxValue(string name)
     {
         var targetType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
 

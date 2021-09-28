@@ -30,7 +30,7 @@
 
     [Parameter] public TextFieldType? TextFieldType { get; set; }
 
-    [Parameter] public string Placeholder { get; set; }
+    [Parameter] public string? Placeholder { get; set; }
 
     [Parameter] public int? MinLength { get; set; }
 
@@ -41,7 +41,7 @@
     //Pattern
     //List
 
-    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
 
     protected override bool TryParseValueFromString(string value, out string result, out string validationErrorMessage)
     {
