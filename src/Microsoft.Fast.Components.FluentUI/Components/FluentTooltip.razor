@@ -1,0 +1,34 @@
+<fluent-tooltip  anchor=@Anchor
+                 position=@Position.ToAttributeValue()
+                 delay=@Delay
+                 visible=@Visible
+                 horizontal-viewport-lock=@HorizontalViewportLock
+                 vertical-viewport-lock=@VerticalViewportLock
+                 @attributes="AdditionalAttributes">
+    @ChildContent
+</fluent-tooltip>
+@code{
+    [Parameter]
+    public string? Anchor { get; set; }
+
+    [Parameter]
+    public TooltipPosition? Position { get; set; }
+
+    [Parameter]
+    public int? Delay { get; set; } = 300;
+
+    [Parameter]
+    public bool? Visible { get; set; } = false;
+
+    [Parameter]
+    public bool? HorizontalViewportLock { get; set; } = false;
+
+    [Parameter]
+    public bool? VerticalViewportLock { get; set; } = false;
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IDictionary<string, object> AdditionalAttributes { get; set; }
+}
