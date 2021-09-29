@@ -21,7 +21,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <Optimize>true</Optimize>
+    <Optimize>False</Optimize>
     <WarningLevel>4</WarningLevel>
     <NullableReferenceTypes>true</NullableReferenceTypes>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
