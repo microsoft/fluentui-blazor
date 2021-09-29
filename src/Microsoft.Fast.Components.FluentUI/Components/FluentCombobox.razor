@@ -1,5 +1,12 @@
-@inherits FluentInputBase<string>
-<fluent-combobox value="@BindConverter.FormatValue(CurrentValue)" @onchange="@(EventCallback.Factory.CreateBinder<string>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))" filled="@Filled" disabled="@Disabled" autocomplete="@Autocomplete.ToAttributeValue()" @attributes="AdditionalAttributes">@ChildContent</fluent-combobox>
+@inherits FluentInputBase<string?>
+<fluent-combobox value="@BindConverter.FormatValue(CurrentValue)" 
+                 @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))" 
+                 filled="@Filled" 
+                 disabled="@Disabled" 
+                 autocomplete="@Autocomplete.ToAttributeValue()" 
+                 @attributes="AdditionalAttributes">
+    @ChildContent
+</fluent-combobox>
 @code
 {
     [Parameter] public bool? Filled { get; set; }
@@ -12,7 +19,7 @@
     
     [Parameter] public RenderFragment? ChildContent { get; set; }
 
-    protected override bool TryParseValueFromString(string value, out string result, out string validationErrorMessage)
+    protected override bool TryParseValueFromString(string? value, out string? result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
         result = value;
         validationErrorMessage = null;

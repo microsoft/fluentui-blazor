@@ -1,6 +1,12 @@
 @inherits FluentInputBase<bool>
 @using System.Globalization
-<fluent-checkbox href="@Href" disabled="@Disabled" checked="@BindConverter.FormatValue(CurrentValue)" @onchange="EventCallback.Factory.CreateBinder<bool>(this, __value => CurrentValue = __value, CurrentValue)" required="@Required" @attributes="AdditionalAttributes">@ChildContent</fluent-checkbox>
+<fluent-checkbox href="@Href" 
+                 disabled="@Disabled" 
+                 checked="@BindConverter.FormatValue(CurrentValue)"
+                 @onchange="EventCallback.Factory.CreateBinder<bool>(this, __value => CurrentValue = __value, CurrentValue)" 
+                 required="@Required" @attributes="AdditionalAttributes">
+    @ChildContent
+</fluent-checkbox>
 @code
 {
     [Parameter] public string? Href { get; set; }
@@ -11,6 +17,6 @@
 
     [Parameter] public RenderFragment? ChildContent { get; set; }
 
-    protected override bool TryParseValueFromString(string value, out bool result, out string validationErrorMessage) =>
+    protected override bool TryParseValueFromString(string? value, out bool result, [NotNullWhen(false)] out string? validationErrorMessage) =>
         throw new NotSupportedException($"This component does not parse string inputs. Bind to the '{nameof(CurrentValue)}' property, not '{nameof(CurrentValueAsString)}'.");
 }
