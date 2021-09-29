@@ -1,257 +1,261 @@
 @page "/webcomponents/{Target?}"
 @using FluentUIServerSample.Components
 <div class="main">
-  <FluentDesignSystemProvider role="navigation" class="navigation" background-color="#E5E5E5">
-    <h1 class="head">Fluent components test page</h1>
-    <ul>
-        <li>
-            <FluentAnchor href="webcomponents/Accordion" Appearance="@(@Target == "Accordion" ? Appearance.Neutral : Appearance.Stealth)">Accordion</FluentAnchor>
-        </li>
-        <li>
-            <FluentAnchor href="webcomponents/Anchor" Appearance="@(@Target == "Anchor" ? Appearance.Neutral : Appearance.Stealth)">Anchor</FluentAnchor>
-        </li>
-        <li>
-            <FluentAnchor href="webcomponents/NavLinkAnchor" Appearance="@(@Target == "NavLinkAnchor" ? Appearance.Neutral : Appearance.Stealth)">NavLink Anchor</FluentAnchor>
-        </li>
-        <li>
-            <FluentAnchor href="webcomponents/Badge" Appearance="@(@Target == "Badge" ? Appearance.Neutral : Appearance.Stealth)">Badge</FluentAnchor>
-        </li>
-        <li>
-            <FluentAnchor href="webcomponents/BreadcrumbItem" Appearance="@(@Target == "BreadcrumbItem" ? Appearance.Neutral : Appearance.Stealth)">Breadcrumb Item</FluentAnchor>
-        </li>
-        <li>
-            <FluentAnchor href="webcomponents/Breadcrumb" Appearance="@(@Target == "Breadcrumb" ? Appearance.Neutral : Appearance.Stealth)">Breadcrumb</FluentAnchor>
-        </li>
-        <li>
-            <FluentAnchor href="webcomponents/Button" Appearance="@(@Target == "Button" ? Appearance.Neutral : Appearance.Stealth)">Button</FluentAnchor>
-        </li>
-        <li>
-            <FluentAnchor href="webcomponents/Card" Appearance="@(@Target == "Card" ? Appearance.Neutral : Appearance.Stealth)">Card</FluentAnchor>
-        </li>
-        <li>
-            <FluentAnchor href="webcomponents/Checkbox" Appearance="@(@Target == "Checkbox" ? Appearance.Neutral : Appearance.Stealth)">Checkbox</FluentAnchor>
-        </li>
-        <li>
-            <FluentAnchor href="webcomponents/Combobox" Appearance="@(@Target == "Combobox" ? Appearance.Neutral : Appearance.Stealth)">Combobox</FluentAnchor>
-        </li>
-        <li>
-            <FluentAnchor href="webcomponents/Dialog" Appearance="@(@Target == "Dialog" ? Appearance.Neutral : Appearance.Stealth)">Dialog</FluentAnchor>
-        </li>
-        <li>
-            <FluentAnchor href="webcomponents/Divider" Appearance="@(@Target == "Divider" ? Appearance.Neutral : Appearance.Stealth)">Divider</FluentAnchor>
-        </li>
-        <li>
-            <FluentAnchor href="webcomponents/Flipper" Appearance="@(@Target == "Flipper" ? Appearance.Neutral : Appearance.Stealth)">Flipper</FluentAnchor>
-        </li>
-        <li>
-            <FluentAnchor href="webcomponents/ListboxOption" Appearance="@(@Target == "ListboxOption" ? Appearance.Neutral : Appearance.Stealth)">Listbox Option</FluentAnchor>
-        </li>
-        <li>
-            <FluentAnchor href="webcomponents/Listbox" Appearance="@(@Target == "Listbox" ? Appearance.Neutral : Appearance.Stealth)">Listbox</FluentAnchor>
-        </li>
-        <li>
-            <FluentAnchor href="webcomponents/MenuItem" Appearance="@(@Target == "MenuItem" ? Appearance.Neutral : Appearance.Stealth)">Menu Item</FluentAnchor>
-        </li>
-        <li>
-            <FluentAnchor href="webcomponents/Menu" Appearance="@(@Target == "Menu" ? Appearance.Neutral : Appearance.Stealth)">Menu</FluentAnchor>
-        </li>
-        <li>
-            <FluentAnchor href="webcomponents/NumberField" Appearance="@(@Target == "NumberField" ? Appearance.Neutral : Appearance.Stealth)">Number Field</FluentAnchor>
-        </li>
-        <li>
-            <FluentAnchor href="webcomponents/ProgressRing" Appearance="@(@Target == "ProgressRing" ? Appearance.Neutral : Appearance.Stealth)">Progress Ring</FluentAnchor>
-        </li>
-        <li>
-            <FluentAnchor href="webcomponents/Progress" Appearance="@(@Target == "Progress" ? Appearance.Neutral : Appearance.Stealth)">Progress</FluentAnchor>
-        </li>
-        <li>
-            <FluentAnchor href="webcomponents/RadioGroup" Appearance="@(@Target == "RadioGroup" ? Appearance.Neutral : Appearance.Stealth)">Radio Group</FluentAnchor>
-        </li>
-        <li>
-            <FluentAnchor href="webcomponents/Radio" Appearance="@(@Target == "Radio" ? Appearance.Neutral : Appearance.Stealth)">Radio</FluentAnchor>
-        </li>
-        <li>
-            <FluentAnchor href="webcomponents/Select" Appearance="@(@Target == "Select" ? Appearance.Neutral : Appearance.Stealth)">Select</FluentAnchor>
-        </li>
-        <li>
-            <FluentAnchor href="webcomponents/Skeleton" Appearance="@(@Target == "Skeleton" ? Appearance.Neutral : Appearance.Stealth)">Skeleton</FluentAnchor>
-        </li>
-        <li>
-            <FluentAnchor href="webcomponents/SliderLabel" Appearance="@(@Target == "SliderLabel" ? Appearance.Neutral : Appearance.Stealth)">SliderLabel</FluentAnchor>
-        </li>
-        <li>
-            <FluentAnchor href="webcomponents/Slider" Appearance="@(@Target == "Slider" ? Appearance.Neutral : Appearance.Stealth)">Slider</FluentAnchor>
-        </li>
-        <li>
-            <FluentAnchor href="webcomponents/Switch" Appearance="@(@Target == "Switch" ? Appearance.Neutral : Appearance.Stealth)">Switch</FluentAnchor>
-        </li>
-        <li>
-            <FluentAnchor href="webcomponents/Tabs" Appearance="@(@Target == "Tabs" ? Appearance.Neutral : Appearance.Stealth)">Tabs</FluentAnchor>
-        </li>
-        <li>
-            <FluentAnchor href="webcomponents/TextArea" Appearance="@(@Target == "TextArea" ? Appearance.Neutral : Appearance.Stealth)">TextArea</FluentAnchor>
-        </li>
-        <li>
-            <FluentAnchor href="webcomponents/TextField" Appearance="@(@Target == "TextField" ? Appearance.Neutral : Appearance.Stealth)">Text Field</FluentAnchor>
-        </li>
-        <li>
-            <FluentAnchor href="webcomponents/TreeItem" Appearance="@(@Target == "TreeItem" ? Appearance.Neutral : Appearance.Stealth)">Tree Item</FluentAnchor>
-        </li>
-        <li>
-            <FluentAnchor href="webcomponents/TreeView" Appearance="@(@Target == "TreeView" ? Appearance.Neutral : Appearance.Stealth)">Tree View</FluentAnchor>
-        </li>
-    </ul>
-  </FluentDesignSystemProvider>
-  <div class="content">
-      @switch (Target)
-      {
-          case "Accordion":
-              <FluentAccordionTest></FluentAccordionTest>
-              break;
-          case "Anchor":
-              <FluentAnchorTest></FluentAnchorTest>
-              break;
-          case "NavLinkAnchor":
-              <NavLinkFluentAnchorTest></NavLinkFluentAnchorTest>
-              break;
-          case "Badge":
-              <FluentBadgeTest></FluentBadgeTest>
-              break;
-          case "BreadcrumbItem":
-              <FluentBreadcrumbItemTest></FluentBreadcrumbItemTest>
-              break;
-          case "Breadcrumb":
-              <FluentBreadcrumbTest></FluentBreadcrumbTest>
-              break;
-          case "Button":
-              <FluentButtonTest></FluentButtonTest>
-              break;
-          case "Card":
-              <FluentCardTest></FluentCardTest>
-              break;
-          case "Checkbox":
-              <FluentCheckboxTest></FluentCheckboxTest>
-              break;
-          case "Combobox":
-              <FluentComboboxTest></FluentComboboxTest>
-              break;
-          case "Dialog":
-              <FluentDialogTest></FluentDialogTest>
-              break;
-          case "Divider":
-              <FluentDividerTest></FluentDividerTest>
-              break;
-          case "Flipper":
-              <FluentFlipperTest></FluentFlipperTest>
-              break;
-          case "ListboxOption":
-              <FluentListboxOptionTest></FluentListboxOptionTest>
-              break;
-          case "Listbox":
-              <FluentListboxTest></FluentListboxTest>
-              break;
-          case "MenuItem":
-              <FluentMenuItemTest></FluentMenuItemTest>
-              break;
-          case "Menu":
-              <FluentMenuTest></FluentMenuTest>
-              break;
-          case "NumberField":
-              <FluentNumberFieldTest></FluentNumberFieldTest>
-              break;
-          case "ProgressRing":
-              <FluentProgressRingTest></FluentProgressRingTest>
-              break;
-          case "Progress":
-              <FluentProgressTest></FluentProgressTest>
-              break;
-          case "RadioGroup":
-              <FluentRadioGroupTest></FluentRadioGroupTest>
-              break;
-          case "Radio":
-              <FluentRadioTest></FluentRadioTest>
-              break;
-          case "Select":
-              <FluentSelectTest></FluentSelectTest>
-              break;
-          case "Skeleton":
-              <FluentSkeletonTest></FluentSkeletonTest>
-              break;
-          case "SliderLabel":
-              <FluentSliderLabelTest></FluentSliderLabelTest>
-              break;
-          case "Slider":
-              <FluentSliderTest></FluentSliderTest>
-              break;
-          case "Switch":
-              <FluentSwitchTest></FluentSwitchTest>
-              break;
-          case "Tabs":
-              <FluentTabsTest></FluentTabsTest>
-              break;
-          case "TextArea":
-              <FluentTextAreaTest></FluentTextAreaTest>
-              break;
-          case "TextField":
-              <FluentTextFieldTest></FluentTextFieldTest>
-              break;
-          case "TreeItem":
-              <FluentTreeItemTest></FluentTreeItemTest>
-              break;
-          case "TreeView":
-              <FluentTreeViewTest></FluentTreeViewTest>
-              break;
-          default:
-              <p>No component selected</p>
-              break;
-      }
-  </div>
+    <FluentDesignSystemProvider role="navigation" class="navigation" background-color="#E5E5E5">
+        <h1 class="head">Fluent components test page</h1>
+        <ul>
+            <li>
+                <FluentAnchor href="webcomponents/Accordion" Appearance="@(@Target == "Accordion" ? Appearance.Neutral : Appearance.Stealth)">Accordion</FluentAnchor>
+            </li>
+            <li>
+                <FluentAnchor href="webcomponents/Anchor" Appearance="@(@Target == "Anchor" ? Appearance.Neutral : Appearance.Stealth)">Anchor</FluentAnchor>
+            </li>
+            <li>
+                <FluentAnchor href="webcomponents/NavLinkAnchor" Appearance="@(@Target == "NavLinkAnchor" ? Appearance.Neutral : Appearance.Stealth)">NavLink Anchor</FluentAnchor>
+            </li>
+            <li>
+                <FluentAnchor href="webcomponents/Badge" Appearance="@(@Target == "Badge" ? Appearance.Neutral : Appearance.Stealth)">Badge</FluentAnchor>
+            </li>
+            <li>
+                <FluentAnchor href="webcomponents/BreadcrumbItem" Appearance="@(@Target == "BreadcrumbItem" ? Appearance.Neutral : Appearance.Stealth)">Breadcrumb Item</FluentAnchor>
+            </li>
+            <li>
+                <FluentAnchor href="webcomponents/Breadcrumb" Appearance="@(@Target == "Breadcrumb" ? Appearance.Neutral : Appearance.Stealth)">Breadcrumb</FluentAnchor>
+            </li>
+            <li>
+                <FluentAnchor href="webcomponents/Button" Appearance="@(@Target == "Button" ? Appearance.Neutral : Appearance.Stealth)">Button</FluentAnchor>
+            </li>
+            <li>
+                <FluentAnchor href="webcomponents/Card" Appearance="@(@Target == "Card" ? Appearance.Neutral : Appearance.Stealth)">Card</FluentAnchor>
+            </li>
+            <li>
+                <FluentAnchor href="webcomponents/Checkbox" Appearance="@(@Target == "Checkbox" ? Appearance.Neutral : Appearance.Stealth)">Checkbox</FluentAnchor>
+            </li>
+            <li>
+                <FluentAnchor href="webcomponents/Combobox" Appearance="@(@Target == "Combobox" ? Appearance.Neutral : Appearance.Stealth)">Combobox</FluentAnchor>
+            </li>
+            <li>
+                <FluentAnchor href="webcomponents/Dialog" Appearance="@(@Target == "Dialog" ? Appearance.Neutral : Appearance.Stealth)">Dialog</FluentAnchor>
+            </li>
+            <li>
+                <FluentAnchor href="webcomponents/Divider" Appearance="@(@Target == "Divider" ? Appearance.Neutral : Appearance.Stealth)">Divider</FluentAnchor>
+            </li>
+            <li>
+                <FluentAnchor href="webcomponents/Flipper" Appearance="@(@Target == "Flipper" ? Appearance.Neutral : Appearance.Stealth)">Flipper</FluentAnchor>
+            </li>
+            <li>
+                <FluentAnchor href="webcomponents/ListboxOption" Appearance="@(@Target == "ListboxOption" ? Appearance.Neutral : Appearance.Stealth)">Listbox Option</FluentAnchor>
+            </li>
+            <li>
+                <FluentAnchor href="webcomponents/Listbox" Appearance="@(@Target == "Listbox" ? Appearance.Neutral : Appearance.Stealth)">Listbox</FluentAnchor>
+            </li>
+            <li>
+                <FluentAnchor href="webcomponents/MenuItem" Appearance="@(@Target == "MenuItem" ? Appearance.Neutral : Appearance.Stealth)">Menu Item</FluentAnchor>
+            </li>
+            <li>
+                <FluentAnchor href="webcomponents/Menu" Appearance="@(@Target == "Menu" ? Appearance.Neutral : Appearance.Stealth)">Menu</FluentAnchor>
+            </li>
+            <li>
+                <FluentAnchor href="webcomponents/NumberField" Appearance="@(@Target == "NumberField" ? Appearance.Neutral : Appearance.Stealth)">Number Field</FluentAnchor>
+            </li>
+            <li>
+                <FluentAnchor href="webcomponents/ProgressRing" Appearance="@(@Target == "ProgressRing" ? Appearance.Neutral : Appearance.Stealth)">Progress Ring</FluentAnchor>
+            </li>
+            <li>
+                <FluentAnchor href="webcomponents/Progress" Appearance="@(@Target == "Progress" ? Appearance.Neutral : Appearance.Stealth)">Progress</FluentAnchor>
+            </li>
+            <li>
+                <FluentAnchor href="webcomponents/RadioGroup" Appearance="@(@Target == "RadioGroup" ? Appearance.Neutral : Appearance.Stealth)">Radio Group</FluentAnchor>
+            </li>
+            <li>
+                <FluentAnchor href="webcomponents/Radio" Appearance="@(@Target == "Radio" ? Appearance.Neutral : Appearance.Stealth)">Radio</FluentAnchor>
+            </li>
+            <li>
+                <FluentAnchor href="webcomponents/Select" Appearance="@(@Target == "Select" ? Appearance.Neutral : Appearance.Stealth)">Select</FluentAnchor>
+            </li>
+            <li>
+                <FluentAnchor href="webcomponents/Skeleton" Appearance="@(@Target == "Skeleton" ? Appearance.Neutral : Appearance.Stealth)">Skeleton</FluentAnchor>
+            </li>
+            <li>
+                <FluentAnchor href="webcomponents/SliderLabel" Appearance="@(@Target == "SliderLabel" ? Appearance.Neutral : Appearance.Stealth)">SliderLabel</FluentAnchor>
+            </li>
+            <li>
+                <FluentAnchor href="webcomponents/Slider" Appearance="@(@Target == "Slider" ? Appearance.Neutral : Appearance.Stealth)">Slider</FluentAnchor>
+            </li>
+            <li>
+                <FluentAnchor href="webcomponents/Switch" Appearance="@(@Target == "Switch" ? Appearance.Neutral : Appearance.Stealth)">Switch</FluentAnchor>
+            </li>
+            <li>
+                <FluentAnchor href="webcomponents/Tabs" Appearance="@(@Target == "Tabs" ? Appearance.Neutral : Appearance.Stealth)">Tabs</FluentAnchor>
+            </li>
+            <li>
+                <FluentAnchor href="webcomponents/TextArea" Appearance="@(@Target == "TextArea" ? Appearance.Neutral : Appearance.Stealth)">TextArea</FluentAnchor>
+            </li>
+            <li>
+                <FluentAnchor href="webcomponents/TextField" Appearance="@(@Target == "TextField" ? Appearance.Neutral : Appearance.Stealth)">Text Field</FluentAnchor>
+            </li>
+            <li>
+                <FluentAnchor href="webcomponents/Tooltip" Appearance="@(@Target == "Tooltip" ? Appearance.Neutral : Appearance.Stealth)">Tooltip</FluentAnchor>
+            </li>
+            <li>
+                <FluentAnchor href="webcomponents/TreeItem" Appearance="@(@Target == "TreeItem" ? Appearance.Neutral : Appearance.Stealth)">Tree Item</FluentAnchor>
+            </li>
+            <li>
+                <FluentAnchor href="webcomponents/TreeView" Appearance="@(@Target == "TreeView" ? Appearance.Neutral : Appearance.Stealth)">Tree View</FluentAnchor>
+            </li>
+        </ul>
+    </FluentDesignSystemProvider>
+    <div class="content">
+        @switch (Target)
+        {
+            case "Accordion":
+                <FluentAccordionTest></FluentAccordionTest>
+                break;
+            case "Anchor":
+                <FluentAnchorTest></FluentAnchorTest>
+                break;
+            case "NavLinkAnchor":
+                <NavLinkFluentAnchorTest></NavLinkFluentAnchorTest>
+                break;
+            case "Badge":
+                <FluentBadgeTest></FluentBadgeTest>
+                break;
+            case "BreadcrumbItem":
+                <FluentBreadcrumbItemTest></FluentBreadcrumbItemTest>
+                break;
+            case "Breadcrumb":
+                <FluentBreadcrumbTest></FluentBreadcrumbTest>
+                break;
+            case "Button":
+                <FluentButtonTest></FluentButtonTest>
+                break;
+            case "Card":
+                <FluentCardTest></FluentCardTest>
+                break;
+            case "Checkbox":
+                <FluentCheckboxTest></FluentCheckboxTest>
+                break;
+            case "Combobox":
+                <FluentComboboxTest></FluentComboboxTest>
+                break;
+            case "Dialog":
+                <FluentDialogTest></FluentDialogTest>
+                break;
+            case "Divider":
+                <FluentDividerTest></FluentDividerTest>
+                break;
+            case "Flipper":
+                <FluentFlipperTest></FluentFlipperTest>
+                break;
+            case "ListboxOption":
+                <FluentListboxOptionTest></FluentListboxOptionTest>
+                break;
+            case "Listbox":
+                <FluentListboxTest></FluentListboxTest>
+                break;
+            case "MenuItem":
+                <FluentMenuItemTest></FluentMenuItemTest>
+                break;
+            case "Menu":
+                <FluentMenuTest></FluentMenuTest>
+                break;
+            case "NumberField":
+                <FluentNumberFieldTest></FluentNumberFieldTest>
+                break;
+            case "ProgressRing":
+                <FluentProgressRingTest></FluentProgressRingTest>
+                break;
+            case "Progress":
+                <FluentProgressTest></FluentProgressTest>
+                break;
+            case "RadioGroup":
+                <FluentRadioGroupTest></FluentRadioGroupTest>
+                break;
+            case "Radio":
+                <FluentRadioTest></FluentRadioTest>
+                break;
+            case "Select":
+                <FluentSelectTest></FluentSelectTest>
+                break;
+            case "Skeleton":
+                <FluentSkeletonTest></FluentSkeletonTest>
+                break;
+            case "SliderLabel":
+                <FluentSliderLabelTest></FluentSliderLabelTest>
+                break;
+            case "Slider":
+                <FluentSliderTest></FluentSliderTest>
+                break;
+            case "Switch":
+                <FluentSwitchTest></FluentSwitchTest>
+                break;
+            case "Tabs":
+                <FluentTabsTest></FluentTabsTest>
+                break;
+            case "TextArea":
+                <FluentTextAreaTest></FluentTextAreaTest>
+                break;
+            case "TextField":
+                <FluentTextFieldTest></FluentTextFieldTest>
+                break;
+            case "Tooltip":
+                <FluentTooltipTest></FluentTooltipTest>
+                break;
+            case "TreeView":
+                <FluentTreeViewTest></FluentTreeViewTest>
+                break;
+            default:
+                <p>No component selected</p>
+                break;
+        }
+    </div>
 </div>
 
 <style>
-  .main {
-    display:grid;
-    grid-template-areas: 'navigation content';
-    grid-template-columns: 1fr 3fr;
-    min-height: 100vh;
-  }
+    .main {
+        display: grid;
+        grid-template-areas: 'navigation content';
+        grid-template-columns: 1fr 3fr;
+        min-height: 100vh;
+    }
 
-  .head {
-    grid-area: head;
-  }
+    .head {
+        grid-area: head;
+    }
 
-  .navigation {
-    grid-area: navigation;
-    padding-left: calc(var(--design-unit) * 3px);
-  }
+    .navigation {
+        grid-area: navigation;
+        padding-left: calc(var(--design-unit) * 3px);
+    }
 
-  .navigation > ul {
-    list-style: none;
-    padding: 0;
-  }
+        .navigation > ul {
+            list-style: none;
+            padding: 0;
+        }
 
-  .navigation h1 {
-      font-size: var(--type-ramp-plus-1-font-size);
-      line-height: var(--type-ramp-plus-1-line-height);
-      padding: 0 calc((10 + (var(--design-unit) * 2 * var(--density))) * 1px);
-  }
-  .content {
-    --elevation: 2;
-    --background-luminance: 1;
-    padding-inline-start: calc(var(--design-unit) * 6px);
-    box-shadow: 0 0 calc((var(--elevation) * 0.225px) + 2px) rgba(0, 0, 0, calc(.11 * (2 - var(--background-luminance, 1)))), 0 calc(var(--elevation) * 0.4px) calc((var(--elevation) * 0.9px)) rgba(0, 0, 0, calc(.13 * (2 - var(--background-luminance, 1))));
-  }
+        .navigation h1 {
+            font-size: var(--type-ramp-plus-1-font-size);
+            line-height: var(--type-ramp-plus-1-line-height);
+            padding: 0 calc((10 + (var(--design-unit) * 2 * var(--density))) * 1px);
+        }
+
+    .content {
+        --elevation: 2;
+        --background-luminance: 1;
+        padding-inline-start: calc(var(--design-unit) * 6px);
+        box-shadow: 0 0 calc((var(--elevation) * 0.225px) + 2px) rgba(0, 0, 0, calc(.11 * (2 - var(--background-luminance, 1)))), 0 calc(var(--elevation) * 0.4px) calc((var(--elevation) * 0.9px)) rgba(0, 0, 0, calc(.13 * (2 - var(--background-luminance, 1))));
+    }
 
 
-  .navigation fluent-anchor {
-      width: 100%;
-  }
+    .navigation fluent-anchor {
+        width: 100%;
+    }
 
-  .navigation fluent-anchor::part(control) {
-      justify-content: start;
-  }
+        .navigation fluent-anchor::part(control) {
+            justify-content: start;
+        }
 </style>
 
-@code{
-  [Parameter] public string Target { get; set; } = null;
+@code {
+    [Parameter] public string Target { get; set; } = null;
 }
