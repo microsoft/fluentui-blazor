@@ -1,0 +1,22 @@
+﻿<fluent-data-grid-cell cell-type=@CellType.ToAttributeValue()
+					   grid-column=@GridColumn
+					   attributes="@AdditionalAttributes">
+	@ChildContent
+</fluent-data-grid-cell>
+@code
+{
+
+	// FAST Attributes
+	[Parameter]
+	public DataGridCellType? CellType { get; set; } = DataGridCellType.Default;
+
+	[Parameter]
+	public int GridColumn { get; set; }
+
+	// General Blazor parameters
+	[Parameter]
+	public RenderFragment ChildContent { get; set; }
+
+	[Parameter(CaptureUnmatchedValues = true)]
+	public IDictionary<string, object> AdditionalAttributes { get; set; }
+}

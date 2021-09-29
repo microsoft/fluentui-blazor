@@ -1,0 +1,38 @@
+﻿@typeparam TItem
+<fluent-data-grid-row row-index=@RowIndex
+					  grid-template-columns=@GridTemplateColumns
+					  row-type=@RowType.ToAttributeValue()
+					  @attributes="@AdditionalAttributes">
+		@for(int index=0; index<ColumnDefinitions?.Count(); index++)
+		{
+			ColumnDefinition<TItem> column = ColumnDefinitions?.ElementAt(index);
+			<FluentDataGridCell GridColumn=@(index+1)>@(column.FieldSelector!(RowData)?.ToString())</FluentDataGridCell>
+		}
+	@ChildContent
+</fluent-data-grid-row>
+@code
+{
+	// FAST Attributes
+	[Parameter]
+	public int? RowIndex { get; set; }
+
+	[Parameter]
+	public string? GridTemplateColumns { get; set; } = null;
+
+	[Parameter]
+	public DataGridRowType? RowType { get; set; } = DataGridRowType.Default;
+
+	// FAST Properties
+	[Parameter]
+	public TItem RowData { get; set; }
+
+	[Parameter]
+	public IEnumerable<ColumnDefinition<TItem>>? ColumnDefinitions { get; set; }
+
+	// General Blazor parameters
+	[Parameter]
+	public RenderFragment ChildContent { get; set; }
+
+	[Parameter(CaptureUnmatchedValues = true)]
+	public IDictionary<string, object> AdditionalAttributes { get; set; }
+}
