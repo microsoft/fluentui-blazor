@@ -1,7 +1,57 @@
 @page "/webcomponents/{Target?}"
+
+<style>
+  .main {
+    display:grid;
+    grid-template-areas: 'navigation content';
+    grid-template-columns: 1fr 3fr;
+    min-height: 100vh;
+  }
+
+  .head {
+    grid-area: head;
+  }
+
+  .navigation {
+    background-color: var(--fill-color);
+    color: var(--neutral-foreground-rest);
+    grid-area: navigation;
+    padding-left: calc(var(--design-unit) * 3px);
+  }
+
+  .navigation > ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .navigation h1 {
+      font-size: var(--type-ramp-plus-1-font-size);
+      line-height: var(--type-ramp-plus-1-line-height);
+      padding: 0 calc((10 + (var(--design-unit) * 2 * var(--density))) * 1px);
+  }
+  .content {
+    --elevation: 2;
+    background-color: var(--fill-color);
+    color: var(--neutral-foreground-rest);
+    padding-inline-start: calc(var(--design-unit) * 6px);
+    box-shadow: 0 0 calc((var(--elevation) * 0.225px) + 2px) rgba(0, 0, 0, calc(.11 * (2 - var(--background-luminance, 1)))), 0 calc(var(--elevation) * 0.4px) calc((var(--elevation) * 0.9px)) rgba(0, 0, 0, calc(.13 * (2 - var(--background-luminance, 1))));
+  }
+
+
+  .navigation fluent-anchor {
+      width: 100%;
+  }
+
+  .navigation fluent-anchor::part(control) {
+      justify-content: start;
+  }
+</style>
+
 @using FluentUIServerSample.Components
+<FluentDesignSystemProvider>
+
 <div class="main">
-  <FluentDesignSystemProvider role="navigation" class="navigation" background-color="#E5E5E5">
+  <FluentDesignSystemProvider role="navigation" class="navigation" >
     <h1 class="head">Fluent components test page</h1>
     <ul>
         <li>
@@ -113,7 +163,7 @@
         <span slot="checked-message">rtl</span>
     </FluentSwitch>
 
-    <FluentSwitch onclick="document.darkTheme = !document.darkTheme; document.getElementsByTagName('fluent-design-system-provider')[0].setAttribute('background-color', darkTheme ? '#333333' : '#F7F7F7');">
+    <FluentSwitch onclick="document.darkTheme = !document.darkTheme; document.getElementsByTagName('fluent-design-system-provider')[0].setAttribute('base-layer-luminance', darkTheme ? '0' : '1');">
         <span style="padding-inline-end: 8px;"> Theme</span>
         <span slot="checked-message">Dark</span>
         <span slot="unchecked-message">Light</span>
@@ -223,50 +273,8 @@
       }
   </div>
 </div>
+</FluentDesignSystemProvider>
 
-<style>
-  .main {
-    display:grid;
-    grid-template-areas: 'navigation content';
-    grid-template-columns: 1fr 3fr;
-    min-height: 100vh;
-  }
-
-  .head {
-    grid-area: head;
-  }
-
-  .navigation {
-    grid-area: navigation;
-    padding-left: calc(var(--design-unit) * 3px);
-  }
-
-  .navigation > ul {
-    list-style: none;
-    padding: 0;
-  }
-
-  .navigation h1 {
-      font-size: var(--type-ramp-plus-1-font-size);
-      line-height: var(--type-ramp-plus-1-line-height);
-      padding: 0 calc((10 + (var(--design-unit) * 2 * var(--density))) * 1px);
-  }
-  .content {
-    --elevation: 2;
-    --background-luminance: 1;
-    padding-inline-start: calc(var(--design-unit) * 6px);
-    box-shadow: 0 0 calc((var(--elevation) * 0.225px) + 2px) rgba(0, 0, 0, calc(.11 * (2 - var(--background-luminance, 1)))), 0 calc(var(--elevation) * 0.4px) calc((var(--elevation) * 0.9px)) rgba(0, 0, 0, calc(.13 * (2 - var(--background-luminance, 1))));
-  }
-
-
-  .navigation fluent-anchor {
-      width: 100%;
-  }
-
-  .navigation fluent-anchor::part(control) {
-      justify-content: start;
-  }
-</style>
 
 @code{
   [Parameter] public string? Target { get; set; } = null;
