@@ -98,6 +98,12 @@
             <FluentAnchor href="webcomponents/TextField" Appearance="@(@Target == "TextField" ? Appearance.Neutral : Appearance.Stealth)">Text Field</FluentAnchor>
         </li>
         <li>
+            <FluentAnchor href="webcomponents/Toolbar" Appearance="@(@Target == "Toolbar" ? Appearance.Neutral : Appearance.Stealth)">Toolbar</FluentAnchor>
+        </li>
+        <li>
+            <FluentAnchor href="webcomponents/Tooltip" Appearance="@(@Target == "Tooltip" ? Appearance.Neutral : Appearance.Stealth)">Tooltip</FluentAnchor>
+        </li>
+        <li>
             <FluentAnchor href="webcomponents/TreeItem" Appearance="@(@Target == "TreeItem" ? Appearance.Neutral : Appearance.Stealth)">Tree Item</FluentAnchor>
         </li>
         <li>
@@ -201,6 +207,12 @@
           case "TextField":
               <FluentTextFieldTest></FluentTextFieldTest>
               break;
+          case "Toolbar":
+              <FluentToolbarTest></FluentToolbarTest>
+              break;
+          case "Tooltip":
+               <FluentTooltipTest></FluentTooltipTest>
+               break;
           case "TreeItem":
               <FluentTreeItemTest></FluentTreeItemTest>
               break;
@@ -215,49 +227,50 @@
 </div>
 
 <style>
-  .main {
-    display:grid;
-    grid-template-areas: 'navigation content';
-    grid-template-columns: 1fr 3fr;
-    min-height: 100vh;
-  }
+    .main {
+        display: grid;
+        grid-template-areas: 'navigation content';
+        grid-template-columns: 1fr 3fr;
+        min-height: 100vh;
+    }
 
-  .head {
-    grid-area: head;
-  }
+    .head {
+        grid-area: head;
+    }
 
-  .navigation {
-    grid-area: navigation;
-    padding-left: calc(var(--design-unit) * 3px);
-  }
+    .navigation {
+        grid-area: navigation;
+        padding-left: calc(var(--design-unit) * 3px);
+    }
 
-  .navigation > ul {
-    list-style: none;
-    padding: 0;
-  }
+        .navigation > ul {
+            list-style: none;
+            padding: 0;
+        }
 
-  .navigation h1 {
-      font-size: var(--type-ramp-plus-1-font-size);
-      line-height: var(--type-ramp-plus-1-line-height);
-      padding: 0 calc((10 + (var(--design-unit) * 2 * var(--density))) * 1px);
-  }
-  .content {
-    --elevation: 2;
-    --background-luminance: 1;
-    padding-inline-start: calc(var(--design-unit) * 6px);
-    box-shadow: 0 0 calc((var(--elevation) * 0.225px) + 2px) rgba(0, 0, 0, calc(.11 * (2 - var(--background-luminance, 1)))), 0 calc(var(--elevation) * 0.4px) calc((var(--elevation) * 0.9px)) rgba(0, 0, 0, calc(.13 * (2 - var(--background-luminance, 1))));
-  }
+        .navigation h1 {
+            font-size: var(--type-ramp-plus-1-font-size);
+            line-height: var(--type-ramp-plus-1-line-height);
+            padding: 0 calc((10 + (var(--design-unit) * 2 * var(--density))) * 1px);
+        }
+
+    .content {
+        --elevation: 2;
+        --background-luminance: 1;
+        padding-inline-start: calc(var(--design-unit) * 6px);
+        box-shadow: 0 0 calc((var(--elevation) * 0.225px) + 2px) rgba(0, 0, 0, calc(.11 * (2 - var(--background-luminance, 1)))), 0 calc(var(--elevation) * 0.4px) calc((var(--elevation) * 0.9px)) rgba(0, 0, 0, calc(.13 * (2 - var(--background-luminance, 1))));
+    }
 
 
-  .navigation fluent-anchor {
-      width: 100%;
-  }
+    .navigation fluent-anchor {
+        width: 100%;
+    }
 
-  .navigation fluent-anchor::part(control) {
-      justify-content: start;
-  }
+        .navigation fluent-anchor::part(control) {
+            justify-content: start;
+        }
 </style>
 
-@code{
-  [Parameter] public string Target { get; set; } = null;
+@code {
+    [Parameter] public string Target { get; set; } = null;
 }
