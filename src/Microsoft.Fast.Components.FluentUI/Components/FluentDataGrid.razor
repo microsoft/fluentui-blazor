@@ -13,7 +13,16 @@
                 int gridColumn = 1;
                 foreach (ColumnDefinition<TItem> column in ColumnDefinitions)
                 {
-                    <FluentDataGridCell GridColumn=@(gridColumn++) CellType=DataGridCellType.ColumnHeader>@column.Title</FluentDataGridCell>
+                    <FluentDataGridCell GridColumn=@(gridColumn++) CellType=DataGridCellType.ColumnHeader>
+                    @if (HeaderCellTemplate != null)
+                    {
+                        @HeaderCellTemplate(column)
+                    }
+                    else
+                    {
+                        @column.Title
+                    }
+                    </FluentDataGridCell>
                 }
             }
         </FluentDataGridRow>
@@ -56,6 +65,9 @@
     [Parameter]
     public IEnumerable<ColumnDefinition<TItem>> ColumnDefinitions { get; set; }
 
+    [Parameter]
+    public RenderFragment<ColumnDefinition<TItem>>? HeaderCellTemplate { get; set; } = null;
+  
     [Parameter]
     public RenderFragment<TItem>? RowItemTemplate { get; set; } = null;
 
