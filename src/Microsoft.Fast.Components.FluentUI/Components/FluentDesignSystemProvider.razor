@@ -1,0 +1,133 @@
+<fluent-design-system-provider
+    no-paint="@NoPaint"
+    fill-color="@FillColor"
+    accent-base-color="@AccentBaseColor"
+    neutral-base-color=@NeutralBaseColor
+    density="@Density"
+    design-unit="@DesignUnit"
+    direction="@Direction.ToAttributeValue()"
+    base-height-multiplier="@BaseHeightMultiplier"
+    base-horizontal-spacing-multiplier="@BaseHorizontalSpacingMultiplier"
+    control-corner-radius="@ControlCornerRadius"
+    stroke-width="@StrokeWidth"
+    focus-stroke-width="@FocusStrokeWidth"
+    disabled-opacity="@DisabledOpacity"
+    type-ramp-minus2-font-size="@TypeRampMinus2FontSize"
+    type-ramp-minus2-line-height="@TypeRampMinus2LineHeight"
+    type-ramp-minus1-font-size="@TypeRampMinus1FontSize"
+    type-ramp-minus1-line-height="@TypeRampMinus1LineHeight"
+    type-ramp-base-font-size="@TypeRampBaseFontSize"
+    type-ramp-base-line-height="@TypeRampBaseLineHeight"
+    type-ramp-plus1-font-size="@TypeRampPlus1FontSize"
+    type-ramp-plus1-line-height="@TypeRampPlus1LineHeight"
+    type-ramp-plus2-font-size="@TypeRampPlus2FontSize"
+    type-ramp-plus2-line-height="@TypeRampPlus2LineHeight"
+    type-ramp-plus3-font-size="@TypeRampPlus3FontSize"
+    type-ramp-plus3-line-height="@TypeRampPlus3LineHeight"
+    type-ramp-plus4-font-size="@TypeRampPlus4FontSize"
+    type-ramp-plus4-line-height="@TypeRampPlus4LineHeight"
+    type-ramp-plus5-font-size="@TypeRampPlus5FontSize"
+    type-ramp-plus5-line-height="@TypeRampPlus5LineHeight"
+    type-ramp-plus6-font-size="@TypeRampPlus6FontSize"
+    type-ramp-plus6-line-height="@TypeRampPlus6LineHeight"
+    accent-fill-rest-delta="@AccentFillRestDelta"
+    accent-fill-hover-delta="@AccentFillHoverDelta"
+    accent-fill-active-delta="@AccentFillActiveDelta"
+    accent-fill-focus-delta="@AccentFillFocusDelta"
+    accent-foreground-rest-delta="@AccentForegroundRestDelta"
+    accent-foreground-hover-delta="@AccentForegroundHoverDelta"
+    accent-foreground-active-delta="@AccentForegroundActiveDelta"
+    accent-foreground-focus-delta="@AccentForegroundFocusDelta"
+    neutral-fill-rest-delta="@NeutralFillRestDelta"
+    neutral-fill-hover-delta="@NeutralFillHoverDelta"
+    neutral-fill-active-delta="@NeutralFillActiveDelta"
+    neutral-fill-focus-delta="@NeutralFillFocusDelta"
+    neutral-fill-input-rest-delta="@NeutralFillInputRestDelta"
+    neutral-fill-input-hover-delta="@NeutralFillInputHoverDelta"
+    neutral-fill-input-active-delta="@NeutralFillInputActiveDelta"
+    neutral-fill-input-focus-delta="@NeutralFillInputFocusDelta"
+    neutral-fill-layer-rest-delta="@NeutralFillLayerRestDelta"
+    neutral-fill-stealth-rest-delta="@NeutralFillStealthRestDelta"
+    neutral-fill-stealth-hover-delta="@NeutralFillStealthHoverDelta"
+    neutral-fill-stealth-active-delta="@NeutralFillStealthActiveDelta"
+    neutral-fill-stealth-focus-delta="@NeutralFillStealthFocusDelta"
+    neutral-fill-strong-hover-delta="@NeutralFillStrongHoverDelta"
+    neutral-fill-strong-active-delta="@NeutralFillStrongActiveDelta"
+    neutral-fill-strong-focus-delta="@NeutralFillStrongFocusDelta"
+    neutral-stroke-divider-rest-delta="@NeutralStrokeDividerRestDelta"
+    neutral-stroke-rest-delta="@NeutralStrokeRestDelta"
+    neutral-stroke-hover-delta="@NeutralStrokeHoverDelta"
+    neutral-stroke-active-delta="@NeutralStrokeActiveDelta"
+    neutral-stroke-focus-delta="@NeutralStrokeFocusDelta"
+    base-layer-luminance="@BaseLayerLuminance"
+    @attributes="AdditionalAttributes"
+>
+@ChildContent
+</fluent-design-system-provider>
+@code
+{
+    [Parameter] public bool? NoPaint { get; set; }
+    [Parameter] public string? FillColor { get; set; }
+    [Parameter] public string? AccentBaseColor { get; set; }
+    [Parameter] public string? NeutralBaseColor { get; set; }
+    [Parameter] public int? Density { get; set;}
+    [Parameter] public int? DesignUnit { get; set;}
+    [Parameter] public LocalizationDirection? Direction { get; set;}
+    [Parameter] public int? BaseHeightMultiplier { get; set;}
+    [Parameter] public int? BaseHorizontalSpacingMultiplier { get; set;}
+    [Parameter] public int? ControlCornerRadius { get; set;}
+    [Parameter] public int? StrokeWidth { get; set;}
+    [Parameter] public int? FocusStrokeWidth { get; set;}
+    [Parameter] public float? DisabledOpacity { get; set;}
+    [Parameter] public float? TypeRampMinus2FontSize { get; set;}
+    [Parameter] public float? TypeRampMinus2LineHeight { get; set;}
+    [Parameter] public float? TypeRampMinus1FontSize { get; set;}
+    [Parameter] public float? TypeRampMinus1LineHeight { get; set;}
+    [Parameter] public float? TypeRampBaseFontSize { get; set;}
+    [Parameter] public float? TypeRampBaseLineHeight { get; set;}
+    [Parameter] public float? TypeRampPlus1FontSize { get; set;}
+    [Parameter] public float? TypeRampPlus1LineHeight { get; set;}
+    [Parameter] public float? TypeRampPlus2FontSize { get; set;}
+    [Parameter] public float? TypeRampPlus2LineHeight { get; set;}
+    [Parameter] public float? TypeRampPlus3FontSize { get; set;}
+    [Parameter] public float? TypeRampPlus3LineHeight { get; set;}
+    [Parameter] public float? TypeRampPlus4FontSize { get; set;}
+    [Parameter] public float? TypeRampPlus4LineHeight { get; set;}
+    [Parameter] public float? TypeRampPlus5FontSize { get; set;}
+    [Parameter] public float? TypeRampPlus5LineHeight { get; set;}
+    [Parameter] public float? TypeRampPlus6FontSize { get; set;}
+    [Parameter] public float? TypeRampPlus6LineHeight { get; set;}
+    [Parameter] public int? AccentFillRestDelta { get; set; }
+    [Parameter] public int? AccentFillHoverDelta { get; set; }
+    [Parameter] public int? AccentFillActiveDelta { get; set; }
+    [Parameter] public int? AccentFillFocusDelta { get; set; }
+    [Parameter] public int? AccentForegroundRestDelta { get; set; }
+    [Parameter] public int? AccentForegroundHoverDelta { get; set; }
+    [Parameter] public int? AccentForegroundActiveDelta { get; set; }
+    [Parameter] public int? AccentForegroundFocusDelta { get; set; }
+    [Parameter] public int? NeutralFillRestDelta { get; set; }
+    [Parameter] public int? NeutralFillHoverDelta { get; set; }
+    [Parameter] public int? NeutralFillActiveDelta { get; set; }
+    [Parameter] public int? NeutralFillFocusDelta { get; set; }
+    [Parameter] public int? NeutralFillInputRestDelta { get; set; }
+    [Parameter] public int? NeutralFillInputHoverDelta { get; set; }
+    [Parameter] public int? NeutralFillInputActiveDelta { get; set; }
+    [Parameter] public int? NeutralFillInputFocusDelta { get; set; }
+    [Parameter] public int? NeutralFillLayerRestDelta { get; set; }
+    [Parameter] public int? NeutralFillStealthRestDelta { get; set; }
+    [Parameter] public int? NeutralFillStealthHoverDelta { get; set; }
+    [Parameter] public int? NeutralFillStealthActiveDelta { get; set; }
+    [Parameter] public int? NeutralFillStealthFocusDelta { get; set; }
+    [Parameter] public int? NeutralFillStrongHoverDelta { get; set; }
+    [Parameter] public int? NeutralFillStrongActiveDelta { get; set; }
+    [Parameter] public int? NeutralFillStrongFocusDelta { get; set; }
+    [Parameter] public int? NeutralStrokeDividerRestDelta { get; set; }
+    [Parameter] public int? NeutralStrokeRestDelta { get; set; }
+    [Parameter] public int? NeutralStrokeHoverDelta { get; set; }
+    [Parameter] public int? NeutralStrokeActiveDelta { get; set; }
+    [Parameter] public int? NeutralStrokeFocusDelta { get; set; }
+    [Parameter] public float? BaseLayerLuminance { get; set; }
+
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)] public IDictionary<string, object> AdditionalAttributes { get; set; }
+}
