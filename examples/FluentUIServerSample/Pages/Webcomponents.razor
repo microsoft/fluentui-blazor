@@ -1,7 +1,7 @@
 @page "/webcomponents/{Target?}"
 @using FluentUIServerSample.Components
 <div class="main">
-  <FluentDesignSystemProvider role="navigation" class="navigation" background-color="#E5E5E5">
+  <FluentDesignSystemProvider role="navigation" class="navigation" FillColor="#E5E5E5">
     <h1 class="head">Fluent components test page</h1>
     <ul>
         <li>
@@ -9,6 +9,9 @@
         </li>
         <li>
             <FluentAnchor href="webcomponents/Anchor" Appearance="@(@Target == "Anchor" ? Appearance.Neutral : Appearance.Stealth)">Anchor</FluentAnchor>
+        </li>
+        <li>
+            <FluentAnchor href="webcomponents/AnchoredRegion" Appearance="@(@Target == "AnchoredRegion" ? Appearance.Neutral : Appearance.Stealth)">Anchored Region</FluentAnchor>
         </li>
         <li>
             <FluentAnchor href="webcomponents/NavLinkAnchor" Appearance="@(@Target == "NavLinkAnchor" ? Appearance.Neutral : Appearance.Stealth)">NavLink Anchor</FluentAnchor>
@@ -45,6 +48,9 @@
         </li>
         <li>
             <FluentAnchor href="webcomponents/Flipper" Appearance="@(@Target == "Flipper" ? Appearance.Neutral : Appearance.Stealth)">Flipper</FluentAnchor>
+        </li>
+        <li>
+            <FluentAnchor href="webcomponents/HorizontalScroll" Appearance="@(@Target == "HorizontalScroll" ? Appearance.Neutral : Appearance.Stealth)">Horizontal Scroll</FluentAnchor>
         </li>
         <li>
             <FluentAnchor href="webcomponents/ListboxOption" Appearance="@(@Target == "ListboxOption" ? Appearance.Neutral : Appearance.Stealth)">Listbox Option</FluentAnchor>
@@ -120,6 +126,9 @@
           case "Anchor":
               <FluentAnchorTest></FluentAnchorTest>
               break;
+          case "AnchoredRegion":
+              <FluentAnchoredRegionTest></FluentAnchoredRegionTest>
+              break;
           case "NavLinkAnchor":
               <NavLinkFluentAnchorTest></NavLinkFluentAnchorTest>
               break;
@@ -156,6 +165,9 @@
           case "Flipper":
               <FluentFlipperTest></FluentFlipperTest>
               break;
+          case "HorizontalScroll":
+                <FluentHorizontalScrollTest></FluentHorizontalScrollTest>
+                break;
           case "ListboxOption":
               <FluentListboxOptionTest></FluentListboxOptionTest>
               break;
