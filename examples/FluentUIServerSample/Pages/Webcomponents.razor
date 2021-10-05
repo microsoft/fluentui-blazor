@@ -11,6 +11,9 @@
             <FluentAnchor href="webcomponents/Anchor" Appearance="@(@Target == "Anchor" ? Appearance.Neutral : Appearance.Stealth)">Anchor</FluentAnchor>
         </li>
         <li>
+            <FluentAnchor href="webcomponents/AnchoredRegion" Appearance="@(@Target == "AnchoredRegion" ? Appearance.Neutral : Appearance.Stealth)">Anchored Region</FluentAnchor>
+        </li>
+        <li>
             <FluentAnchor href="webcomponents/NavLinkAnchor" Appearance="@(@Target == "NavLinkAnchor" ? Appearance.Neutral : Appearance.Stealth)">NavLink Anchor</FluentAnchor>
         </li>
         <li>
@@ -119,6 +122,9 @@
               break;
           case "Anchor":
               <FluentAnchorTest></FluentAnchorTest>
+              break;
+          case "AnchoredRegion":
+              <FluentAnchoredRegionTest></FluentAnchoredRegionTest>
               break;
           case "NavLinkAnchor":
               <NavLinkFluentAnchorTest></NavLinkFluentAnchorTest>
