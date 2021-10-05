@@ -51,7 +51,7 @@
 <FluentDesignSystemProvider>
 
 <div class="main">
-  <FluentDesignSystemProvider role="navigation" class="navigation" FillColor="#E5E5E5">
+  <FluentDesignSystemProvider role="navigation" class="navigation" >
     <h1 class="head">Fluent components test page</h1>
     <ul>
         <li>
@@ -168,7 +168,7 @@
     </ul>
   </FluentDesignSystemProvider>
   <div class="content">
-      <div style="direction: ltr;display: grid;grid-auto-flow: column;grid-template-columns: min-content;grid-gap: 12px;">
+      <div style="direction: ltr;display: grid;grid-auto-flow: column;grid-template-columns: min-content;gap: 12px;">
     <script suppress-error='BL9992'>
       darkTheme = false;
     </script>
@@ -178,7 +178,7 @@
         <span slot="checked-message">rtl</span>
     </FluentSwitch>
 
-    <FluentSwitch onclick="document.darkTheme = !document.darkTheme; document.getElementsByTagName('fluent-design-system-provider')[0].setAttribute('base-layer-luminance', darkTheme ? '0' : '1');">
+    <FluentSwitch onclick="document.darkTheme = !document.darkTheme; document.getElementsByTagName('fluent-design-system-provider')[0].setAttribute('base-layer-luminance', darkTheme ? '0' : '1'); document.getElementsByTagName('fluent-design-system-provider')[1].setAttribute('base-layer-luminance', darkTheme ? '0' : '1');">
         <span style="padding-inline-end: 8px;"> Theme</span>
         <span slot="checked-message">Dark</span>
         <span slot="unchecked-message">Light</span>

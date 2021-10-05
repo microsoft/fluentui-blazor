@@ -128,6 +128,6 @@
     [Parameter] public int? NeutralStrokeFocusDelta { get; set; }
     [Parameter] public float? BaseLayerLuminance { get; set; }
 
-    [Parameter] public RenderFragment ChildContent { get; set; }
-    [Parameter(CaptureUnmatchedValues = true)] public IDictionary<string, object> AdditionalAttributes { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)] public IDictionary<string, object>? AdditionalAttributes { get; set; }
 }

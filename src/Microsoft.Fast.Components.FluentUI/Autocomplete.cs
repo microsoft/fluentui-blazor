@@ -13,7 +13,7 @@ namespace Microsoft.Fast.Components.FluentUI
 
     internal static class AutocompleteExtensions
     {
-        private static Dictionary<Autocomplete, string> _autocompleteValues =
+        private static readonly Dictionary<Autocomplete, string> _autocompleteValues =
             Enum.GetValues<Autocomplete>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());
 
         public static string? ToAttributeValue(this Autocomplete? value) => value == null ? null : _autocompleteValues[value.Value];
@@ -27,7 +27,7 @@ namespace Microsoft.Fast.Components.FluentUI
 
     internal static class PositionExtensions
     {
-        private static Dictionary<Position, string> _positionValues =
+        private static readonly Dictionary<Position, string> _positionValues =
             Enum.GetValues<Position>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());
 
         public static string? ToAttributeValue(this Position? value) => value == null ? null : _positionValues[value.Value];

@@ -13,9 +13,9 @@ namespace Microsoft.Fast.Components.FluentUI
 
     internal static class ScalingExtensions
     {
-        private static Dictionary<Scaling, string> _scalingValues =
-            Enum.GetValues<Scaling>().ToDictionary(id => id, id => Enum.GetName(id).ToLowerInvariant());
+        private static readonly Dictionary<Scaling, string> _scalingValues =
+            Enum.GetValues<Scaling>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());
 
-        public static string ToAttributeValue(this Scaling? value) => value == null ? null : _scalingValues[value.Value];
+        public static string? ToAttributeValue(this Scaling? value) => value == null ? null : _scalingValues[value.Value];
     }
 }

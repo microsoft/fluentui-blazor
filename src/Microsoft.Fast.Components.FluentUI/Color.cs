@@ -12,7 +12,7 @@ namespace Microsoft.Fast.Components.FluentUI
 
     internal static class ColorExtensions
     {
-        private static Dictionary<Color, string> _colorValues =
+        private static readonly Dictionary<Color, string> _colorValues =
             Enum.GetValues<Color>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());
 
         public static string? ToAttributeValue(this Color? value) => value == null ? null : _colorValues[value.Value];
@@ -26,7 +26,7 @@ namespace Microsoft.Fast.Components.FluentUI
 
     internal static class FillExtensions
     {
-        private static Dictionary<Fill, string> _fillValues =
+        private static readonly Dictionary<Fill, string> _fillValues =
             Enum.GetValues<Fill>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());
 
         public static string? ToAttributeValue(this Fill? value) => value == null ? null : _fillValues[value.Value];

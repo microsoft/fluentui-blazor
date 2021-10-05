@@ -11,7 +11,7 @@ namespace Microsoft.Fast.Components.FluentUI
 
     internal static class ExpandModeExtensions
     {
-        private static Dictionary<ExpandMode, string> _expandModeValues =
+        private static readonly Dictionary<ExpandMode, string> _expandModeValues =
             Enum.GetValues<ExpandMode>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());
 
         public static string? ToAttributeValue(this ExpandMode? value) => value == null ? null : _expandModeValues[value.Value];
