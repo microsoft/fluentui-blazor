@@ -61,7 +61,10 @@
 <FluentTextField Readonly="true" @bind-Value=SelectedRowInfo>Selected Row</FluentTextField>
 <FluentDataGrid id="selectableGrid" RowsData=RowsGrid2 ColumnDefinitions=ColumnsGrid2 GridTemplateColumns="1fr 1fr 1fr 1fr">
     <RowItemTemplate>        
-        <FluentDataGridRow class="hoverIndicator" @onclick="() => selectedRow = context" style="@(selectedRow == context ? "background-color:lightgray;" : "")" 
+        <FluentDataGridRow class="hoverIndicator" 
+            @onclick="() => selectedRow = context"
+            @onkeydown=@((args) => {if (args.Key == "Enter" || args.Key == " ") { selectedRow = context;}})
+            style="@(selectedRow == context ? "background-color:lightgray;" : "")" 
             TItem=SampleGrid2Data ColumnDefinitions="ColumnsGrid2" RowData="context" />
     </RowItemTemplate>
 </FluentDataGrid>
