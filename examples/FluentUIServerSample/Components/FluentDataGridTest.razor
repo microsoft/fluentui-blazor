@@ -51,16 +51,18 @@
 <h2>Grid with Selectable Rows</h2>
 <style>
     /* Do not use style tags in production code Blazor.  Use isolated css instead. */
+    .hoverIndicator {
+
+    }
     .hoverIndicator:hover {
         background-color:#eeeeee;
     }
 </style>
 <FluentTextField Readonly="true" @bind-Value=SelectedRowInfo>Selected Row</FluentTextField>
 <FluentDataGrid id="selectableGrid" RowsData=RowsGrid2 ColumnDefinitions=ColumnsGrid2 GridTemplateColumns="1fr 1fr 1fr 1fr">
-    <RowItemTemplate>
-        <div @onclick="() => selectedRow = context" class="hoverIndicator" style="@(selectedRow == context ? "background-color:lightgray;" : "")" >
-            <FluentDataGridRow TItem=SampleGrid2Data ColumnDefinitions="ColumnsGrid2" RowData="context"></FluentDataGridRow>
-        </div>
+    <RowItemTemplate>        
+        <FluentDataGridRow class="hoverIndicator" @onclick="() => selectedRow = context" style="@(selectedRow == context ? "background-color:lightgray;" : "")" 
+            TItem=SampleGrid2Data ColumnDefinitions="ColumnsGrid2" RowData="context" />
     </RowItemTemplate>
 </FluentDataGrid>
 
