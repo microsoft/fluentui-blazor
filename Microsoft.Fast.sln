@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentUI.Demo.Server", "exa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentUI.Demo.Shared", "examples\FluentUI.Demo.Shared\FluentUI.Demo.Shared.csproj", "{CEE536EE-1F7E-4B50-8397-27E8C287C7A1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUI.Demo.Client", "examples\FluentUI.Demo.Client\FluentUI.Demo.Client.csproj", "{57790DB9-2EE1-4D78-BA73-9F63D8466F02}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,18 @@ Global
 		{CEE536EE-1F7E-4B50-8397-27E8C287C7A1}.Release|x64.Build.0 = Release|Any CPU
 		{CEE536EE-1F7E-4B50-8397-27E8C287C7A1}.Release|x86.ActiveCfg = Release|Any CPU
 		{CEE536EE-1F7E-4B50-8397-27E8C287C7A1}.Release|x86.Build.0 = Release|Any CPU
+		{57790DB9-2EE1-4D78-BA73-9F63D8466F02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57790DB9-2EE1-4D78-BA73-9F63D8466F02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57790DB9-2EE1-4D78-BA73-9F63D8466F02}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{57790DB9-2EE1-4D78-BA73-9F63D8466F02}.Debug|x64.Build.0 = Debug|Any CPU
+		{57790DB9-2EE1-4D78-BA73-9F63D8466F02}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{57790DB9-2EE1-4D78-BA73-9F63D8466F02}.Debug|x86.Build.0 = Debug|Any CPU
+		{57790DB9-2EE1-4D78-BA73-9F63D8466F02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57790DB9-2EE1-4D78-BA73-9F63D8466F02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57790DB9-2EE1-4D78-BA73-9F63D8466F02}.Release|x64.ActiveCfg = Release|Any CPU
+		{57790DB9-2EE1-4D78-BA73-9F63D8466F02}.Release|x64.Build.0 = Release|Any CPU
+		{57790DB9-2EE1-4D78-BA73-9F63D8466F02}.Release|x86.ActiveCfg = Release|Any CPU
+		{57790DB9-2EE1-4D78-BA73-9F63D8466F02}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +81,7 @@ Global
 		{9AA1E7D0-AFBB-4EAA-BC77-42CC0F07EA0D} = {30F6D568-0EFB-479D-8D69-C51CE5CABC22}
 		{1E1FFAAA-063F-47F8-A2C2-18AB6432994D} = {71623095-9CCB-40BA-A0A7-4A739DA8E913}
 		{CEE536EE-1F7E-4B50-8397-27E8C287C7A1} = {71623095-9CCB-40BA-A0A7-4A739DA8E913}
+		{57790DB9-2EE1-4D78-BA73-9F63D8466F02} = {71623095-9CCB-40BA-A0A7-4A739DA8E913}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0A3E27AA-91CB-4D3F-9C1E-390E3AA8DEC1}
