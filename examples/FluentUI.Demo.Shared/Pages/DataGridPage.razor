@@ -49,6 +49,23 @@
     </HeaderCellTemplate>
 </FluentDataGrid>
 
+<h2>Grid with Selectable Rows</h2>
+<style>
+    /* Do not use style tags in production code Blazor.  Use isolated css instead. */
+    .hoverIndicator:hover {
+        background-color:#eeeeee;
+    }
+</style>
+<FluentTextField Readonly="true" @bind-Value=SelectedRowInfo>Selected Row</FluentTextField>
+<FluentDataGrid id="selectableGrid" RowsData=RowsGrid2 ColumnDefinitions=ColumnsGrid2 GridTemplateColumns="1fr 1fr 1fr 1fr">
+    <RowItemTemplate>
+        <FluentDataGridRow class="hoverIndicator"
+            @onclick="() => selectedRow = context"
+            @onkeydown=@((args) => {if (args.Key == "Enter" || args.Key == " ") { selectedRow = context;}})
+            style="@(selectedRow == context ? "background-color:lightgray;" : "")"
+            TItem=SampleGrid2Data ColumnDefinitions="ColumnsGrid2" RowData="context" />
+    </RowItemTemplate>
+</FluentDataGrid>
 
 @code {
 
@@ -73,6 +90,9 @@
     private ColumnDefinition<SampleGrid3Data>? lastSortColumn = null;
     private bool isAscending = false;
     public string filterValue = "";
+
+    private SampleGrid2Data? selectedRow = null;
+    public string SelectedRowInfo { get => (selectedRow == null ? "" : $"Item1: {selectedRow.Item1}"); set => _ = value; }
 
     List<SampleGrid1Data> RowsGrid1 = new()
     {

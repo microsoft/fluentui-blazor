@@ -1,9 +1,5 @@
 ﻿@inject NavigationManager navigationmanager
-<div class="top-row ps-3 navbar">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">Home</a>
-    </div>
-</div>
+
 
 <FluentDesignSystemProvider role="navigation" class="navigation">
     <h1 class="head">FluentUI Web Components</h1>
@@ -16,9 +12,6 @@
         </li>
         <li>
             <FluentAnchor Href="AnchoredRegionPage" Appearance=@SetAppearance("AnchoredRegionPage")>Anchored Region</FluentAnchor>
-        </li>
-        <li>
-            <FluentAnchor Href="NavLinkAnchorPage" Appearance=@SetAppearance("NavLinkAnchorPage")>NavLink Anchor</FluentAnchor>
         </li>
         <li>
             <FluentAnchor Href="BadgePage" Appearance=@SetAppearance("BadgePage")>Badge</FluentAnchor>
@@ -134,7 +127,11 @@
 
     private void LocationChanged(object? sender, LocationChangedEventArgs e)
     {
-        target = new Uri(e.Location).Segments[1];
+        Uri uri = new Uri(e.Location);
+        if (uri.Segments.Count() > 1)
+            target = uri.Segments[1];
+        else
+            target = "";
         StateHasChanged();
     }
 
