@@ -5,7 +5,7 @@
 
 <PageTitle>Fluent UI WC demo page</PageTitle>
 
-<FluentDesignSystemProvider>
+<FluentDesignSystemProvider @ref=fdsp Direction=@dir BaseLayerLuminance=@baseLayerLuminance>
     <div class="container">
         <div class="header">
             <a href="/">Home</a>
@@ -20,15 +20,14 @@
                 <main>
                     <article class="content px-4">
                         <div style="grid-gap: 12px; padding-top: 12px;">
-                            <script suppress-error='BL9992'>
-                                darkTheme = false;
-                            </script>
-                            <FluentSwitch onclick="document.dir = document.dir === 'rtl' ? 'ltr' : 'rtl'; document.getElementsByTagName('fluent-design-system-provider')[0].setAttribute('direction', document.dir);">
+                            <FluentSwitch @onclick=SwitchDirection Checked=@isRTL>
+                                @*onclick="document.dir = document.dir === 'rtl' ? 'ltr' : 'rtl'; document.getElementsByTagName('fluent-design-system-provider')[0].setAttribute('direction', document.dir);"*@
                                 <span style="padding-inline-end: 8px;">Direction</span>
                                 <span slot="unchecked-message">ltr</span>
                                 <span slot="checked-message">rtl</span>
                             </FluentSwitch>
-                            <FluentSwitch onclick="document.darkTheme = !document.darkTheme; document.getElementsByTagName('fluent-design-system-provider')[0].setAttribute('base-layer-luminance', darkTheme ? '0' : '1'); document.getElementsByTagName('fluent-design-system-provider')[1].setAttribute('base-layer-luminance', darkTheme ? '0' : '1');">
+                            <FluentSwitch @onclick=SwitchTheme Checked=@darkTheme>
+                                @*onclick="document.darkTheme = !document.darkTheme; document.getElementsByTagName('fluent-design-system-provider')[0].setAttribute('base-layer-luminance', darkTheme ? '0' : '1'); document.getElementsByTagName('fluent-design-system-provider')[1].setAttribute('base-layer-luminance', darkTheme ? '0' : '1');"*@
                                 <span style="padding-inline-end: 8px;"> Theme</span>
                                 <span slot="checked-message">Dark</span>
                                 <span slot="unchecked-message">Light</span>
