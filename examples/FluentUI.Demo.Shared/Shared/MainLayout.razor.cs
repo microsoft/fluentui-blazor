@@ -1,9 +1,13 @@
+using Microsoft.AspNetCore.Components;
 using Microsoft.Fast.Components.FluentUI;
+using Microsoft.JSInterop;
 
 namespace FluentUI.Demo.Shared
 {
     public partial class MainLayout
     {
+        [Inject] IJSRuntime? JSRuntime { get; set; }
+
         static FluentDesignSystemProvider fdsp = new();
         static LocalizationDirection? dir = fdsp.Direction;
         static float? baseLayerLuminance = fdsp.BaseLayerLuminance;
@@ -11,7 +15,7 @@ namespace FluentUI.Demo.Shared
         bool darkTheme = baseLayerLuminance == 1;
         bool isRTL = dir == LocalizationDirection.rtl;
 
-        public void SwitchDirection()
+        public async Task SwitchDirectionAsync()
         {
             isRTL = !isRTL;
 
@@ -19,6 +23,8 @@ namespace FluentUI.Demo.Shared
                 dir = LocalizationDirection.rtl;
             else
                 dir = LocalizationDirection.ltr;
+
+            await JSRuntime!.InvokeVoidAsync("SwitchDirection", dir.Value.ToString());
         }
 
         public void SwitchTheme()

@@ -11,6 +11,11 @@
     <link href="css/site.css" rel="stylesheet" />
     <link href="FluentUI.Demo.Server.styles.css" rel="stylesheet" />
     <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
+    <script>
+        function SwitchDirection(dir) {
+            document.dir = dir;
+        }
+    </script>
 </head>
 <body>
     @RenderBody()
