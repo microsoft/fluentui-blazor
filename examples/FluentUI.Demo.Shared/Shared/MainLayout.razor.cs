@@ -15,7 +15,7 @@ namespace FluentUI.Demo.Shared
         public async Task SwitchDirectionAsync()
         {
             dir = dir == LocalizationDirection.rtl ? LocalizationDirection.ltr : LocalizationDirection.rtl;
-            await JSRuntime!.InvokeVoidAsync("switchDirection", dir.Value.ToString());
+            await JSRuntime!.InvokeVoidAsync("switchDirection", dir.ToString());
         }
 
         public void SwitchTheme()
