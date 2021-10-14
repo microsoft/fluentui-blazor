@@ -8,29 +8,19 @@ namespace FluentUI.Demo.Shared
     {
         [Inject] IJSRuntime? JSRuntime { get; set; }
 
-        static FluentDesignSystemProvider fdsp = new();
-        static LocalizationDirection? dir = fdsp.Direction;
-        static float? baseLayerLuminance = fdsp.BaseLayerLuminance;
-
-        bool darkTheme = baseLayerLuminance == 1;
-        bool isRTL = dir == LocalizationDirection.rtl;
+        FluentDesignSystemProvider fdsp = new();
+        LocalizationDirection? dir;
+        float? baseLayerLuminance;
 
         public async Task SwitchDirectionAsync()
         {
-            isRTL = !isRTL;
-
-            if (isRTL)
-                dir = LocalizationDirection.rtl;
-            else
-                dir = LocalizationDirection.ltr;
-
-            await JSRuntime!.InvokeVoidAsync("SwitchDirection", dir.Value.ToString());
+            dir = dir == LocalizationDirection.rtl ? LocalizationDirection.ltr : LocalizationDirection.rtl;
+            await JSRuntime!.InvokeVoidAsync("switchDirection", dir.Value.ToString());
         }
 
         public void SwitchTheme()
         {
-            darkTheme = !darkTheme;
-            baseLayerLuminance = darkTheme ? 0 : 1;
+            baseLayerLuminance = baseLayerLuminance == 0 ? 1 : 0;
         }
     }
 }
