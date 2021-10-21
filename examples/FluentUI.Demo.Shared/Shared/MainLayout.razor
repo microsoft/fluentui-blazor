@@ -19,7 +19,7 @@
             <div class="content">
                 <main>
                     <article class="content px-4">
-                        <div style="grid-gap: 12px; padding-top: 12px;">
+                        <div style="gap: 12px; padding-top: 12px;">
                             <FluentSwitch @onchange="SwitchDirectionAsync">
                                 <span style="padding-inline-end: 8px;">Direction</span>
                                 <span slot="unchecked-message">ltr</span>
@@ -31,9 +31,15 @@
                                 <span slot="unchecked-message">Light</span>
                             </FluentSwitch>
                         </div>
-                        @Body
+                        <ErrorBoundary @ref="errorBoundary">
+                            <ChildContent>
+                                @Body
+                            </ChildContent>
+                            <ErrorContent Context="ex">
+                                 <p class="error">@ex.Message</p>
+                            </ErrorContent>
+                        </ErrorBoundary>19
                     </article>
-
                 </main>
             </div>
         </div>

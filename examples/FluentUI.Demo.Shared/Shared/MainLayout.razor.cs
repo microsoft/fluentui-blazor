@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Fast.Components.FluentUI;
 using Microsoft.JSInterop;
 
@@ -8,6 +9,7 @@ namespace FluentUI.Demo.Shared
     {
         [Inject] IJSRuntime? JSRuntime { get; set; }
 
+        ErrorBoundary? errorBoundary;
         FluentDesignSystemProvider fdsp = new();
         LocalizationDirection? dir;
         float? baseLayerLuminance;
@@ -21,6 +23,11 @@ namespace FluentUI.Demo.Shared
         public void SwitchTheme()
         {
             baseLayerLuminance = baseLayerLuminance == 0 ? 1 : 0;
+        }
+
+        protected override void OnParametersSet()
+        {
+            errorBoundary?.Recover();
         }
     }
 }
