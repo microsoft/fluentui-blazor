@@ -2,9 +2,9 @@ name: CI - Validation for Blazor / FluentUI
 
 on:
   push:
-    branches: [ net6 ]
+    branches: [ main ]
   pull_request:
-    branches: [ net6 ]
+    branches: [ main ]
 
 jobs:
   build:
