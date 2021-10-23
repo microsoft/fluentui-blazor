@@ -37,7 +37,7 @@
 
 <h2>Sorting/Filtering grid</h2>
 <FluentTextField @oninput="FilterChanged">Filter Fruit</FluentTextField>
-<FluentDataGrid id="sortingGrid" GridTemplateColumns="1fr 1fr 1fr 1fr" RowsData=SortedRowsGrid ColumnDefinitions=SortingColumnsGrid>
+<FluentDataGrid id="sortingGrid" GridTemplateColumns="1fr 1fr 1fr" RowsData=SortedRowsGrid ColumnDefinitions=SortingColumnsGrid>
     <HeaderCellTemplate >
         <FluentButton @onclick=@(()=>SortColumn(context))>
             @context.Title
@@ -49,7 +49,7 @@
     </HeaderCellTemplate>
 </FluentDataGrid>
 
-<h2>Grid with Selectable Rows</h2>
+@*<h2>Grid with Selectable Rows</h2>
 <style>
     /* Do not use style tags in production code Blazor.  Use isolated css instead. */
     .hoverIndicator:hover {
@@ -65,7 +65,7 @@
             style="@(selectedRow == context ? "background-color:lightgray;" : "")"
             TItem=SampleGrid2Data ColumnDefinitions="ColumnsGrid2" RowData="context" />
     </RowItemTemplate>
-</FluentDataGrid>
+</FluentDataGrid>*@
 
 @code {
 
