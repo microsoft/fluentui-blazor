@@ -6,14 +6,17 @@
 
 .container {
     display: grid;
-    grid-template-rows: 60px auto;
-    grid-auto-columns: 1fr;
+    grid-template-columns: 1fr;
+    grid-template-rows: 60px 1fr;
     gap: 0px 0px;
     grid-auto-flow: row;
+    grid-template-areas:
+        "header"
+        "main";
 }
 
 .header {
-    grid-area: 1 / 1 / 3 / 2;
+    grid-area: header;
     background-color: #f7f7f7;
     border-bottom: 1px solid #d6d5d5;
     justify-content: flex-start;
@@ -23,6 +26,7 @@
     white-space: nowrap;
     padding-left: 1.5rem;
 }
+
     .header a {
         padding-inline-end: 10px;
     }
@@ -33,17 +37,17 @@
     grid-template-rows: 1fr;
     gap: 0px 0px;
     grid-auto-flow: row;
-    grid-area: 2 / 1 / 3 / 2;
+    grid-template-areas:
+        "navigation content";
+    grid-area: main;
 }
 
-
 .navigation {
-    grid-area: 1 / 1 / 2 / 3;
+    grid-area: navigation;
     background-color: var(--fill-color);
     color: var(--neutral-foreground-rest);
     padding-left: calc(var(--design-unit) * 3px);
 }
-
     .navigation > ul {
         list-style: none;
         padding: 0;
@@ -65,7 +69,7 @@
         }
 
 .content {
-    grid-area: 1 / 2 / 2 / 3;
+    grid-area: content;
     --elevation: 2;
     background-color: var(--fill-color);
     color: var(--neutral-foreground-rest);
