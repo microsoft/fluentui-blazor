@@ -12,7 +12,7 @@
                 <FluentTextField @bind-Value=@context.Name></FluentTextField>
             </FluentDataGridCell>
             <FluentDataGridCell GridColumn=2>
-                <FluentNumberField @bind-Value=@context.Age></FluentNumberField>
+                <FluentNumberField TValue="int" @bind-Value=@context.Age></FluentNumberField>
             </FluentDataGridCell>
         </FluentDataGridRow>
 
@@ -38,7 +38,7 @@
 <h2>Sorting/Filtering grid</h2>
 <FluentTextField @oninput="FilterChanged">Filter Fruit</FluentTextField>
 <FluentDataGrid id="sortingGrid" GridTemplateColumns="1fr 1fr 1fr" RowsData=SortedRowsGrid ColumnDefinitions=SortingColumnsGrid>
-    <HeaderCellTemplate >
+    <HeaderCellTemplate>
         <FluentButton @onclick=@(()=>SortColumn(context))>
             @context.Title
             @if (context.Title == lastSortColumn?.Title)
@@ -82,11 +82,11 @@
     }
 
     public record SampleGrid2Data(string Item1, string Item2, string Item3, string Item4);
-    public record SampleGrid3Data(string fruit, string cost, string color);
+    public record SampleGrid3Data(string Fruit, string Cost, string Color);
 
-    public List<ColumnDefinition<SampleGrid1Data>> ColumnsGrid1 = new List<ColumnDefinition<SampleGrid1Data>>();
-    public List<ColumnDefinition<SampleGrid2Data>> ColumnsGrid2 = new List<ColumnDefinition<SampleGrid2Data>>();
-    public List<ColumnDefinition<SampleGrid3Data>> SortingColumnsGrid = new List<ColumnDefinition<SampleGrid3Data>>();
+    public List<ColumnDefinition<SampleGrid1Data>> ColumnsGrid1 = new ();
+    public List<ColumnDefinition<SampleGrid2Data>> ColumnsGrid2 = new ();
+    public List<ColumnDefinition<SampleGrid3Data>> SortingColumnsGrid = new ();
     private ColumnDefinition<SampleGrid3Data>? lastSortColumn = null;
     private bool isAscending = false;
     public string filterValue = "";
@@ -130,9 +130,9 @@
         ColumnsGrid2.Add(new ColumnDefinition<SampleGrid2Data>("Item 3", x => x.Item3));
         ColumnsGrid2.Add(new ColumnDefinition<SampleGrid2Data>("Item 4", x => x.Item4));
 
-        SortingColumnsGrid.Add(new ColumnDefinition<SampleGrid3Data>("Fruit", x => x.fruit));
-        SortingColumnsGrid.Add(new ColumnDefinition<SampleGrid3Data>("Cost", x => x.cost));
-        SortingColumnsGrid.Add(new ColumnDefinition<SampleGrid3Data>("Color", x => x.color));
+        SortingColumnsGrid.Add(new ColumnDefinition<SampleGrid3Data>("Fruit", x => x.Fruit));
+        SortingColumnsGrid.Add(new ColumnDefinition<SampleGrid3Data>("Cost", x => x.Cost));
+        SortingColumnsGrid.Add(new ColumnDefinition<SampleGrid3Data>("Color", x => x.Color));
 
         SortedRowsGrid = RawSortedRowsGrid;
 
@@ -149,7 +149,7 @@
         }
         else
         {
-            SortedRowsGrid = RawSortedRowsGrid.Where(x => x.fruit.Contains(filter)).ToList();
+            SortedRowsGrid = RawSortedRowsGrid.Where(x => x.Fruit.Contains(filter)).ToList();
         }
         if (lastSortColumn != null)
         {

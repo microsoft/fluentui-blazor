@@ -11,12 +11,12 @@
     gap: 0px 0px;
     grid-auto-flow: row;
     grid-template-areas:
-        "header"
+        "siteheader"
         "main";
 }
 
-.header {
-    grid-area: header;
+.siteheader {
+    grid-area: siteheader;
     background-color: #f7f7f7;
     border-bottom: 1px solid #d6d5d5;
     justify-content: flex-start;
@@ -27,7 +27,7 @@
     padding-left: 1.5rem;
 }
 
-    .header a {
+    .siteheader a {
         padding-inline-end: 10px;
     }
 
