@@ -12,7 +12,7 @@
                      maxlength="@MaxLength"
                      minlength="@MinLength"
                      size="@Size"
-                     change="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
+                     @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
                      readonly="@Readonly"
                      disabled="@Disabled"
                      required="@Required"
