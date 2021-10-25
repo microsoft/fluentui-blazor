@@ -1,12 +1,13 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 namespace Microsoft.Fast.Components.FluentUI
 {
     public abstract class FluentInputBase<TValue> : ComponentBase, IDisposable
@@ -85,17 +86,6 @@ namespace Microsoft.Fast.Components.FluentUI
             get => FormatValueAsString(CurrentValue);
             set
             {
-                //if (EditContext == null)
-                //{
-                //    if (TryParseValueFromString(value, out var parsedValue, out var _))
-                //    {
-                //        CurrentValue = parsedValue;
-                //    }
-
-                //    // If we are not in the context of an edit form, don't do anything with the current value.
-                //    return;
-                //}
-
                 _parsingValidationMessages?.Clear();
 
                 bool parsingFailed;
