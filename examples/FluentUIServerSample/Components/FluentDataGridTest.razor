@@ -36,7 +36,7 @@
 
 <h2>Sorting/Filtering grid</h2>
 <FluentTextField @oninput="FilterChanged">Filter Fruit</FluentTextField>
-<FluentDataGrid id="sortingGrid" GridTemplateColumns="1fr 1fr 1fr 1fr" RowsData=SortedRowsGrid ColumnDefinitions=SortingColumnsGrid>
+<FluentDataGrid id="sortingGrid" GridTemplateColumns="1fr 1fr 1fr" RowsData=SortedRowsGrid ColumnDefinitions=SortingColumnsGrid>
     <HeaderCellTemplate >
         <FluentButton @onclick=@(()=>SortColumn(context))>
             @context.Title

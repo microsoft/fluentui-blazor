@@ -2,7 +2,7 @@
 <fluent-select value="@BindConverter.FormatValue(CurrentValue)"
                @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
                disabled="@Disabled"
-               filled="@Filled"
+               appearance="@Appearance.ToAttributeValue()"
                name="@Name"
                position="@Position.ToAttributeValue()"
                @attributes="AdditionalAttributes">
@@ -11,7 +11,7 @@
 @code{
     [Parameter] public bool? Disabled { get; set; }
 
-    [Parameter] public bool? Filled { get; set; }
+    [Parameter] public Appearance? Appearance { get; set; }
 
     [Parameter] public string? Name { get; set; }
 
