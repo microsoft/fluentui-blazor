@@ -9,7 +9,7 @@
 # the `language` matrix defined below to confirm you have the correct set of
 # supported CodeQL languages.
 #
-name: "CI - Security Scanning"
+name: "Security Scanning"
 
 on:
   push:
@@ -37,13 +37,21 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+        include-prerelease: true
+        
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v1
       with:
         languages: ${{ matrix.language }}
 
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v1
+    - if: matrix.language == 'csharp' 
+      name: Manually build CSharp on .NET 6
+      run: |
+        dotnet build
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
