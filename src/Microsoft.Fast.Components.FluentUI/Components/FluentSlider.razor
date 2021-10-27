@@ -1,6 +1,16 @@
 @inherits FluentInputBase<int>
 @using System.Globalization
-<fluent-slider orientation="@Orientation.ToAttributeValue()" min="@Min" max="@Max" step="@Step" value="@BindConverter.FormatValue(CurrentValue)" @onchange="@(EventCallback.Factory.CreateBinder<string>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))" readonly="@Readonly" disabled="@Disabled" @attributes="AdditionalAttributes">@ChildContent</fluent-slider>
+<fluent-slider orientation="@Orientation.ToAttributeValue()"
+               min="@Min"
+               max="@Max"
+               step="@Step"
+               value="@BindConverter.FormatValue(CurrentValue)"
+               @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
+               readonly="@Readonly"
+               disabled="@Disabled"
+               @attributes="AdditionalAttributes">
+    @ChildContent
+</fluent-slider>
 @code{
 
     [Parameter] public Orientation? Orientation { get; set; }
@@ -15,9 +25,9 @@
 
     [Parameter] public bool? Readonly { get; set; }
 
-    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
 
-    protected override bool TryParseValueFromString(string value, out int result, out string validationErrorMessage)
+    protected override bool TryParseValueFromString(string? value, out int result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
         if (BindConverter.TryConvertTo<int>(value, CultureInfo.InvariantCulture, out result))
         {
@@ -31,7 +41,7 @@
         }
     }
 
-    protected override string FormatValueAsString(int value)
+    protected override string? FormatValueAsString(int value)
     {
         return BindConverter.FormatValue(value, CultureInfo.InvariantCulture);
     }

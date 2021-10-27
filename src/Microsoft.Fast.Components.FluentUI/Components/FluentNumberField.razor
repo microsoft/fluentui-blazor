@@ -1,4 +1,4 @@
-@inherits FluentInputBase<TValue?>
+@inherits FluentInputBase<TValue>
 @typeparam TValue
 @using System.Globalization;
 @using System.Reflection;
@@ -12,7 +12,7 @@
                      maxlength="@MaxLength"
                      minlength="@MinLength"
                      size="@Size"
-                     change="@(EventCallback.Factory.CreateBinder<string>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
+                     @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
                      readonly="@Readonly"
                      disabled="@Disabled"
                      required="@Required"
@@ -34,14 +34,14 @@
 
     [Parameter] public Appearance? Appearance { get; set; }
 
-    [Parameter] public string Placeholder { get; set; }
+    [Parameter] public string? Placeholder { get; set; }
 
     [Parameter] public string ParsingErrorMessage { get; set; } = "The {0} field must be a number.";
 
-    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
 
-    [Parameter] public string Min { get; set; } = GetMinOrMaxValue("MinValue");
-    [Parameter] public string Max { get; set; } = GetMinOrMaxValue("MaxValue");
+    [Parameter] public string? Min { get; set; } = GetMinOrMaxValue("MinValue");
+    [Parameter] public string? Max { get; set; } = GetMinOrMaxValue("MaxValue");
     [Parameter] public int MinLength { get; set; } = 1;
     [Parameter] public int MaxLength { get; set; } = 14;
     [Parameter] public int Step { get; set; } = _stepAttributeValue;
@@ -69,7 +69,7 @@
         }
     }
 
-    protected override bool TryParseValueFromString(string value, out TValue result, out string validationErrorMessage)
+    protected override bool TryParseValueFromString(string? value, out TValue? result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
         if (BindConverter.TryConvertTo<TValue>(value, CultureInfo.InvariantCulture, out result))
         {
@@ -119,11 +119,11 @@
         }
     }
 
-    private static string GetMinOrMaxValue(string name)
+    private static string? GetMinOrMaxValue(string name)
     {
         var targetType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
 
-        FieldInfo field = targetType.GetField(name, BindingFlags.Public | BindingFlags.Static);
+        FieldInfo? field = targetType.GetField(name, BindingFlags.Public | BindingFlags.Static);
         if (field == null)
         {
             throw new InvalidOperationException("Invalid type argument for FluentNumberField<TValue?>: " + typeof(TValue).Name);
@@ -131,30 +131,31 @@
 
         var value = field.GetValue(null);
 
+        if (value is not null)
+        {
+            if (targetType == typeof(int) || targetType == typeof(short))
+            {
+                return value.ToString();
+            }
 
-        if (targetType == typeof(int) || targetType == typeof(short))
-        {
-            return value.ToString();
+            if (targetType == typeof(long))
+            {
+                //Precision in underlying Fast script is limited to 12 digits
+                return name == "MinValue" ? "-999999999999" : "999999999999";
+            }
+            if (targetType == typeof(float))
+            {
+                return ((float)value).ToString(CultureInfo.InvariantCulture);
+            }
+            if (targetType == typeof(double))
+            {
+                return ((double)value).ToString(CultureInfo.InvariantCulture);
+            }
+            if (targetType == typeof(decimal))
+            {
+                return ((decimal)value).ToString("G12", CultureInfo.InvariantCulture);
+            }
         }
-
-        if (targetType == typeof(long))
-        {
-            //Precision in underlying Fast script is limited to 12 digits
-            return name == "MinValue" ? "-999999999999" : "999999999999";
-        }
-        if (targetType == typeof(float))
-        {
-            return ((float)value).ToString(CultureInfo.InvariantCulture);
-        }
-        if (targetType == typeof(double))
-        {
-            return ((double)value).ToString(CultureInfo.InvariantCulture);
-        }
-        if (targetType == typeof(decimal))
-        {
-            return ((decimal)value).ToString("G12", CultureInfo.InvariantCulture);
-        }
-
         // This should never occur
         return "0";
     }

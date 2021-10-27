@@ -36,13 +36,13 @@
 
 <h2>Sorting/Filtering grid</h2>
 <FluentTextField @oninput="FilterChanged">Filter Fruit</FluentTextField>
-<FluentDataGrid id="sortingGrid" GridTemplateColumns="1fr 1fr 1fr 1fr" RowsData=SortedRowsGrid ColumnDefinitions=SortingColumnsGrid>
+<FluentDataGrid id="sortingGrid" GridTemplateColumns="1fr 1fr 1fr" RowsData=SortedRowsGrid ColumnDefinitions=SortingColumnsGrid>
     <HeaderCellTemplate >
         <FluentButton @onclick=@(()=>SortColumn(context))>
-            @context.Title 
+            @context.Title
             @if (context.Title == lastSortColumn?.Title)
             {
-                @(isAscending ? " ↑" : " ↓")                
+                @(isAscending ? " ↑" : " ↓")
             }
         </FluentButton>
     </HeaderCellTemplate>
@@ -73,13 +73,13 @@
     private bool isAscending = false;
     public string filterValue = "";
 
-    List<SampleGrid1Data> RowsGrid1 = new List<SampleGrid1Data>()
+    List<SampleGrid1Data> RowsGrid1 = new()
     {
         new SampleGrid1Data("Rob", 19 ),
         new SampleGrid1Data("Bob", 20 )
     };
 
-    List<SampleGrid2Data> RowsGrid2 = new List<SampleGrid2Data>()
+    List<SampleGrid2Data> RowsGrid2 = new()
     {
         new SampleGrid2Data("value 1-1", "value 2-1", "value 3-1", "value 4-1" ),
         new SampleGrid2Data("value 1-2", "value 2-2", "value 3-2", "value 4-2" ),
@@ -87,7 +87,7 @@
         new SampleGrid2Data("value 1-4", "value 2-4", "value 3-4", "value 4-4" )
 
     };
-        
+
     List<SampleGrid3Data> RawSortedRowsGrid = new List<SampleGrid3Data>()
     {
         new SampleGrid3Data("apples", "$1.50", "red" ),
@@ -96,7 +96,7 @@
         new SampleGrid3Data("oranges", "$1.25", "orange" )
 
     };
-    List<SampleGrid3Data> SortedRowsGrid;
+    List<SampleGrid3Data> SortedRowsGrid = new();
 
 
     protected override void OnInitialized()
@@ -112,7 +112,7 @@
         SortingColumnsGrid.Add(new ColumnDefinition<SampleGrid3Data>("Fruit", x => x.fruit));
         SortingColumnsGrid.Add(new ColumnDefinition<SampleGrid3Data>("Cost", x => x.cost));
         SortingColumnsGrid.Add(new ColumnDefinition<SampleGrid3Data>("Color", x => x.color));
-        
+
         SortedRowsGrid = RawSortedRowsGrid;
 
         base.OnInitialized();
@@ -121,7 +121,7 @@
     private void FilterChanged(ChangeEventArgs args)
     {
         var filter = args.Value as string;
-        
+
         if (string.IsNullOrWhiteSpace(filter))
         {
             SortedRowsGrid = RawSortedRowsGrid;
@@ -132,9 +132,9 @@
         }
         if (lastSortColumn != null)
         {
-            SortedRowsGrid.Sort(new CustomComparer(lastSortColumn.FieldSelector, isAscending));
+            SortedRowsGrid.Sort(new CustomComparer(lastSortColumn.FieldSelector!, isAscending));
         }
-        
+
     }
 
     private void SortColumn(ColumnDefinition<SampleGrid3Data> columnDefinition)
@@ -148,7 +148,7 @@
             lastSortColumn = columnDefinition;
             isAscending = true;
         }
-        SortedRowsGrid.Sort(new CustomComparer(columnDefinition.FieldSelector, isAscending));
+        SortedRowsGrid.Sort(new CustomComparer(columnDefinition.FieldSelector!, isAscending));
     }
 
     class CustomComparer : IComparer<SampleGrid3Data>
@@ -162,10 +162,10 @@
             _isAscending = isAscending;
         }
 
-        int IComparer<SampleGrid3Data>.Compare(SampleGrid3Data x, SampleGrid3Data y)
+        int IComparer<SampleGrid3Data>.Compare(SampleGrid3Data? x, SampleGrid3Data? y)
         {
-            var xs = _selector(x) as string;
-            var ys = _selector(y) as string;
+            var xs = _selector(x!) as string;
+            var ys = _selector(y!) as string;
             if (xs == null || ys == null)
                 return 0;
             return string.Compare(xs, ys) * (_isAscending ? 1 : -1);

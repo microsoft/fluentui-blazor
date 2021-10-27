@@ -1,8 +1,8 @@
-@inherits FluentInputBase<string>
+@inherits FluentInputBase<string?>
 <fluent-text-field autofocus="@Autofocus"
                    appearance="@Appearance.ToAttributeValue()"
                    value="@BindConverter.FormatValue(CurrentValue)"
-                   @onchange="@(EventCallback.Factory.CreateBinder<string>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
+                   @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
                    type="@TextFieldType.ToAttributeValue()"
                    size="@Size"
                    minlength="@MinLength"
@@ -30,7 +30,7 @@
 
     [Parameter] public TextFieldType? TextFieldType { get; set; }
 
-    [Parameter] public string Placeholder { get; set; }
+    [Parameter] public string? Placeholder { get; set; }
 
     [Parameter] public int? MinLength { get; set; }
 
@@ -41,9 +41,9 @@
     //Pattern
     //List
 
-    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
 
-    protected override bool TryParseValueFromString(string value, out string result, out string validationErrorMessage)
+    protected override bool TryParseValueFromString(string? value, out string? result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
         result = value;
         validationErrorMessage = null;

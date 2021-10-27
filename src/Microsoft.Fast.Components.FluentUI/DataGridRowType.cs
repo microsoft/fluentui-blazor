@@ -14,9 +14,9 @@ namespace Microsoft.Fast.Components.FluentUI
 
     internal static class DataGridRowTypeExtensions
     {
-        private static Dictionary<DataGridRowType, string> _dataGridRowTypeValues =
-            Enum.GetValues<DataGridRowType>().ToDictionary(id => id, id => string.Join("-", Regex.Split(Enum.GetName(id), @"(?<!^)(?=[A-Z](?![A-Z]|$))")).ToLowerInvariant());
+        private static readonly Dictionary<DataGridRowType, string> _dataGridRowTypeValues =
+            Enum.GetValues<DataGridRowType>().ToDictionary(id => id, id => string.Join("-", Regex.Split(Enum.GetName(id)!, @"(?<!^)(?=[A-Z](?![A-Z]|$))")).ToLowerInvariant());
 
-        public static string ToAttributeValue(this DataGridRowType? value) => value == null ? null : _dataGridRowTypeValues[value.Value];
+        public static string? ToAttributeValue(this DataGridRowType? value) => value == null ? null : _dataGridRowTypeValues[value.Value];
     }
 }

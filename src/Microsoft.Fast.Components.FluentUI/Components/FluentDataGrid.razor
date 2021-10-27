@@ -11,7 +11,7 @@
         <FluentDataGridRow RowType=headerType TItem=TItem>
             @{
                 int gridColumn = 1;
-                foreach (ColumnDefinition<TItem> column in ColumnDefinitions)
+                foreach (ColumnDefinition<TItem> column in ColumnDefinitions!)
                 {
                     <FluentDataGridCell GridColumn=@(gridColumn++) CellType=DataGridCellType.ColumnHeader>
                     @if (HeaderCellTemplate != null)
@@ -60,10 +60,10 @@
 
     //FAST Properties
     [Parameter]
-    public List<TItem> RowsData { get; set; }
+    public List<TItem>? RowsData { get; set; }
 
     [Parameter]
-    public IEnumerable<ColumnDefinition<TItem>> ColumnDefinitions { get; set; }
+    public IEnumerable<ColumnDefinition<TItem>>? ColumnDefinitions { get; set; }
 
     [Parameter]
     public RenderFragment<ColumnDefinition<TItem>>? HeaderCellTemplate { get; set; } = null;
@@ -73,11 +73,11 @@
 
     // General Blazor parameters
     [Parameter]
-    public RenderFragment ChildContent { get; set; }
+    public RenderFragment? ChildContent { get; set; }
 
 
     [Parameter(CaptureUnmatchedValues = true)]
-    public IDictionary<string, object> AdditionalAttributes { get; set; }
+    public IDictionary<string, object>? AdditionalAttributes { get; set; }
 
 
 }

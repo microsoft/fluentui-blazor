@@ -1,17 +1,25 @@
-@inherits FluentInputBase<string>
-<fluent-select value="@BindConverter.FormatValue(CurrentValue)" @onchange="@(EventCallback.Factory.CreateBinder<string>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))" disabled="@Disabled" filled="@Filled" name="@Name" position="@Position.ToAttributeValue()" @attributes="AdditionalAttributes">@ChildContent</fluent-select>
+@inherits FluentInputBase<string?>
+<fluent-select value="@BindConverter.FormatValue(CurrentValue)"
+               @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
+               disabled="@Disabled"
+               filled="@Filled"
+               name="@Name"
+               position="@Position.ToAttributeValue()"
+               @attributes="AdditionalAttributes">
+    @ChildContent
+</fluent-select>
 @code{
     [Parameter] public bool? Disabled { get; set; }
 
     [Parameter] public bool? Filled { get; set; }
 
-    [Parameter] public string Name { get; set; }
-    
+    [Parameter] public string? Name { get; set; }
+
     [Parameter] public Position? Position { get; set; }
 
-    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
 
-    protected override bool TryParseValueFromString(string value, out string result, out string validationErrorMessage)
+    protected override bool TryParseValueFromString(string? value, out string? result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
         result = value;
         validationErrorMessage = null;

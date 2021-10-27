@@ -13,9 +13,9 @@ namespace Microsoft.Fast.Components.FluentUI
 
     internal static class LocalizationDirectionExtensions
     {
-        private static Dictionary<LocalizationDirection, string> _directionValues =
-            Enum.GetValues<LocalizationDirection>().ToDictionary(id => id, id => Enum.GetName(id).ToLowerInvariant());
+        private static readonly Dictionary<LocalizationDirection, string> _directionValues =
+            Enum.GetValues<LocalizationDirection>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());
 
-        public static string ToAttributeValue(this LocalizationDirection? value) => value == null ? null : _directionValues[value.Value];
+        public static string? ToAttributeValue(this LocalizationDirection? value) => value == null ? null : _directionValues[value.Value];
     }
 }
