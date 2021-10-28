@@ -1,5 +1,5 @@
 @inherits FluentInputBase<string?>
-<fluent-combobox value="@BindConverter.FormatValue(CurrentValue)"
+<fluent-combobox current-value="@BindConverter.FormatValue(CurrentValue)"
                  @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
                  appearance="@Appearance.ToAttributeValue()"
                  disabled="@Disabled"
