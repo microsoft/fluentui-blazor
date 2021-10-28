@@ -19,7 +19,7 @@ steps:
   displayName: 'Install .net core 6.0 (preview)'
   inputs:
     packageType: sdk
-    version: '6.0.100-rc.2'
+    version: '6.0.100-rc.2.21505.57'
     installationPath: $(Agent.ToolsDirectory)/dotnet
 
 - task: NuGetCommand@2
