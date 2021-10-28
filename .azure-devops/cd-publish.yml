@@ -1,4 +1,4 @@
-name: Microsoft Fast-Blazor Publish
+name: Publish Microsoft Fast-Blazor
 
 pr: none
 trigger: none
@@ -15,11 +15,18 @@ steps:
 - task: NuGetToolInstaller@1
   displayName: Install NuGet tools
 
+- task: UseDotNet@2
+  displayName: 'Install .net core 6.0 (preview)'
+  inputs:
+    packageType: sdk
+    version: '6.0.100-rc.2'
+    installationPath: $(Agent.ToolsDirectory)/dotnet
+
 - task: NuGetCommand@2
   displayName: Install dependencies
   inputs:
     restoreSolution: '$(project)'
-    
+
 - task: DotNetCoreCLI@2
   displayName: Build
   inputs:
