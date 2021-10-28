@@ -18,9 +18,8 @@ steps:
 - task: UseDotNet@2
   displayName: 'Install .net core 6.0 (preview)'
   inputs:
-    packageType: sdk
-    version: '6.0.100-rc.2.21505.57'
-    installationPath: $(Agent.ToolsDirectory)/dotnet
+    version: 6.0.x
+    includePreviewVersions: true
 
 - task: NuGetCommand@2
   displayName: Install dependencies
