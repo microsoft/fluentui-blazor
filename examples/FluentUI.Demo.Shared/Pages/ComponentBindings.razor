@@ -7,9 +7,9 @@
     <div>
         <label for="SelectValue">Select Value</label>
         <FluentSelect Name="SelectValue" @bind-Value="Form.SelectValue">
-            <FluentOption Value="One">1</FluentOption>
-            <FluentOption Value="Two">2</FluentOption>
-            <FluentOption Value="Three">3</FluentOption>
+            <FluentOption Value="One">One</FluentOption>
+            <FluentOption Value="Two">Two</FluentOption>
+            <FluentOption Value="Three">Three</FluentOption>
         </FluentSelect>
     </div>
     <div>
@@ -90,9 +90,9 @@
         <div>
             <label for="SelectValue">Select Value</label>
             <FluentSelect Name="SelectValue" @bind-Value="Form.SelectValue">
-                <FluentOption Value="One">1</FluentOption>
-                <FluentOption Value="Two">2</FluentOption>
-                <FluentOption Value="Three">3</FluentOption>
+                <FluentOption Value="One">One</FluentOption>
+                <FluentOption Value="Two">Two</FluentOption>
+                <FluentOption Value="Three">Three</FluentOption>
             </FluentSelect>
             <p><ValidationMessage For="() => Form.SelectValue" /></p>
         </div>
@@ -153,9 +153,22 @@
 </div>
 
 @code {
-    private FormModel Form { get; set; } = new();
+    public FormModel Form { get; set; } = new();
 
-    private class FormModel
+    /// <summary>
+    /// Within this constructor you can set default values for the form fields through the FormModel
+    /// </summary>
+    public ComponentBindings()
+    {
+
+        //Form.SelectValue = "Two";
+        //Form.TextFieldValue = "TextFieldValue";
+        //Form.NumberFieldValue = 123;
+        //Form.TextAreaValue = "TextAreaValue";
+        //Form.ComboboxValue = "Help!";
+    }
+
+    public class FormModel
     {
         [Required]
         public string? SelectValue { get; set; }
@@ -178,9 +191,4 @@
         [Required]
         public bool CheckboxValue { get; set; }
     }
-
-    private FormModel _formModel = new FormModel();
-
-    public string SelectValue = "Two";
-    public string TextFieldValue = "Initial";
 }
