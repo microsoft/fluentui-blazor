@@ -4,7 +4,7 @@ pr: none
 trigger: none
 
 pool:
-  vmImage: 'windows-latest'
+  vmImage: 'windows-2022'
 
 variables:
   project: '**/Microsoft.Fast.Components.FluentUI.csproj'
@@ -14,6 +14,11 @@ variables:
 steps:
 - task: NuGetToolInstaller@1
   displayName: Install NuGet tools
+
+- task: UseDotNet@2
+  displayName: 'Install .NET 2.1 for ESRP Code Sign tool'  
+  inputs:    
+    version: 2.1.x
 
 - task: UseDotNet@2
   displayName: 'Install .net core 6.0 (preview)'
