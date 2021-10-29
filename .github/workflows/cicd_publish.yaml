@@ -1,0 +1,72 @@
+name: "Build, Sign, Publish"
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.gitignore'
+      - '**/*.gitattributes'
+  workflow_dispatch:
+    branches:
+      - main
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.gitignore'
+      - '**/*.gitattributes'
+      
+jobs:
+  build:
+    name: Build, Pack, Publish 
+    runs-on: ubuntu-latest
+    env:
+      DOTNET_CLI_TELEMETRY_OPTOUT: 1
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+      DOTNET_NOLOGO: true
+      DOTNET_GENERATE_ASPNET_CERTIFICATE: false
+      DOTNET_ADD_GLOBAL_TOOLS_TO_PATH: false
+      DOTNET_MULTILEVEL_LOOKUP: 0
+      PROJECT: "src/Microsoft.Fast.Components.FluentUI/Microsoft.Fast.Components.FuentUI.csproj"
+      BUILD_ARCH: "Any CPU"
+      BUILD_CONFIG: "Release"
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup .NET 2.1 for ESRP Sign tool
+      uses: actions/setup-dotnet@v1.8.1
+      with:
+        dotnet-version: 2.1.x
+
+    - name: Setup .NET 6
+      uses: actions/setup-dotnet@v1.8.1
+      with:
+        dotnet-version: 6.0.x
+        include-prerelease: true
+
+    - name: Restore
+      run: dotnet restore ${{ env.PROJECT }}
+
+    - name: Build
+      run: dotnet build ${{ env.PROJECT }} --configuration ${{ env.BUILD_CONFIG }} --no-restore
+
+    - name: Test
+      run: dotnet test
+
+    - name: Pack
+      run: dotnet pack ${{ env.PROJECT }} --configuration ${{ env.BUILD_CONFIG }} -o packed --no-build
+
+    # Code signing tool goes here
+    # example of signing using a code-sign cert
+    #- name: Sign package
+    #  run: dotnet nuget sign **/*.nupkg --certificate-path ${{ steps.cert_file.outputs.filePath }} --certificate-password ${{ secrets.CERT_PWD }} --timestamper http://timestamp.digicert.com
+
+    - name: Publish to NuGet
+      run: dotnet nuget push **/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
+
+    - name: Publish artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: signednupkg
+        path: packed
