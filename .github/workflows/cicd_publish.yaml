@@ -62,8 +62,9 @@ jobs:
     #- name: Sign package
     #  run: dotnet nuget sign **/*.nupkg --certificate-path ${{ steps.cert_file.outputs.filePath }} --certificate-password ${{ secrets.CERT_PWD }} --timestamper http://timestamp.digicert.com
 
-    - name: Publish to NuGet
-      run: dotnet nuget push **/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
+    # Uses an API key as the creds
+    #- name: Publish to NuGet
+    #  run: dotnet nuget push **/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
 
     - name: Publish artifacts
       uses: actions/upload-artifact@v2
