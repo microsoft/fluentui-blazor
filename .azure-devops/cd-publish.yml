@@ -4,7 +4,7 @@ pr: none
 trigger: none
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'windows-2022'
 
 variables:
   project: '**/Microsoft.Fast.Components.FluentUI.csproj'
