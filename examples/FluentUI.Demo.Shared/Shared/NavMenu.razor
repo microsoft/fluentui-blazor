@@ -1,0 +1,140 @@
+﻿@inject NavigationManager navigationmanager
+
+
+<FluentDesignSystemProvider role="navigation" class="navigation">
+    <h1 class="head">FluentUI Web Components</h1>
+    <ul>
+        <li>
+            <FluentAnchor Href="AccordionPage" Appearance=@SetAppearance("AccordionPage")>Accordion</FluentAnchor>
+        </li>
+        <li>
+            <FluentAnchor Href="AnchorPage" Appearance=@SetAppearance("AnchorPage")>Anchor</FluentAnchor>
+        </li>
+        <li>
+            <FluentAnchor Href="AnchoredRegionPage" Appearance=@SetAppearance("AnchoredRegionPage")>Anchored Region</FluentAnchor>
+        </li>
+        <li>
+            <FluentAnchor Href="BadgePage" Appearance=@SetAppearance("BadgePage")>Badge</FluentAnchor>
+        </li>
+        <li>
+            <FluentAnchor Href="BreadcrumbItemPage" Appearance=@SetAppearance("BreadcrumbItemPage")>Breadcrumb Item</FluentAnchor>
+        </li>
+        <li>
+            <FluentAnchor Href="BreadcrumbPage" Appearance=@SetAppearance("BreadcrumbPage")>Breadcrumb</FluentAnchor>
+        </li>
+        <li>
+            <FluentAnchor Href="ButtonPage" Appearance=@SetAppearance("ButtonPage")>Button</FluentAnchor>
+        </li>
+        <li>
+            <FluentAnchor Href="CardPage" Appearance=@SetAppearance("CardPage")>Card</FluentAnchor>
+        </li>
+        <li>
+            <FluentAnchor Href="CheckboxPage" Appearance=@SetAppearance("CheckboxPage")>Checkbox</FluentAnchor>
+        </li>
+        <li>
+            <FluentAnchor Href="ComboboxPage" Appearance=@SetAppearance("ComboboxPage")>Combobox</FluentAnchor>
+        </li>
+        <li>
+            <FluentAnchor Href="DatagridPage" Appearance=@SetAppearance("DatagridPage")>Data grid</FluentAnchor>
+        </li>
+        <li>
+            <FluentAnchor Href="DialogPage" Appearance=@SetAppearance("DialogPage")>Dialog</FluentAnchor>
+        </li>
+        <li>
+            <FluentAnchor Href="DividerPage" Appearance=@SetAppearance("DividerPage")>Divider</FluentAnchor>
+        </li>
+        <li>
+            <FluentAnchor Href="FlipperPage" Appearance=@SetAppearance("FlipperPage")>Flipper</FluentAnchor>
+        </li>
+        <li>
+            <FluentAnchor Href="HorizontalScrollPage" Appearance=@SetAppearance("HorizontalScrollPage")>Horizontal Scroll</FluentAnchor>
+        </li>
+        <li>
+            <FluentAnchor Href="ListboxOptionPage" Appearance=@SetAppearance("ListboxOptionPage")>Listbox Option</FluentAnchor>
+        </li>
+        <li>
+            <FluentAnchor Href="ListboxPage" Appearance=@SetAppearance("ListboxPage")>Listbox</FluentAnchor>
+        </li>
+        <li>
+            <FluentAnchor Href="MenuItemPage" Appearance=@SetAppearance("MenuItemPage")>Menu Item</FluentAnchor>
+        </li>
+        <li>
+            <FluentAnchor Href="MenuPage" Appearance=@SetAppearance("MenuPage")>Menu</FluentAnchor>
+        </li>
+        <li>
+            <FluentAnchor Href="NumberFieldPage" Appearance=@SetAppearance("NumberFieldPage")>Number Field</FluentAnchor>
+        </li>
+        <li>
+            <FluentAnchor Href="ProgressRingPage" Appearance=@SetAppearance("ProgressRingPage")>Progress Ring</FluentAnchor>
+        </li>
+        <li>
+            <FluentAnchor Href="ProgressPage" Appearance=@SetAppearance("ProgressPage")>Progress</FluentAnchor>
+        </li>
+        <li>
+            <FluentAnchor Href="RadioGroupPage" Appearance=@SetAppearance("RadioGroupPage")>Radio Group</FluentAnchor>
+        </li>
+        <li>
+            <FluentAnchor Href="RadioPage" Appearance=@SetAppearance("RadioPage")>Radio</FluentAnchor>
+        </li>
+        <li>
+            <FluentAnchor Href="SelectPage" Appearance=@SetAppearance("SelectPage")>Select</FluentAnchor>
+        </li>
+        <li>
+            <FluentAnchor Href="SkeletonPage" Appearance=@SetAppearance("SkeletonPage")>Skeleton</FluentAnchor>
+        </li>
+        <li>
+            <FluentAnchor Href="SliderLabelPage" Appearance=@SetAppearance("SliderLabelPage")>SliderLabel</FluentAnchor>
+        </li>
+        <li>
+            <FluentAnchor Href="SliderPage" Appearance=@SetAppearance("SliderPage")>Slider</FluentAnchor>
+        </li>
+        <li>
+            <FluentAnchor Href="SwitchPage" Appearance=@SetAppearance("SwitchPage")>Switch</FluentAnchor>
+        </li>
+        <li>
+            <FluentAnchor Href="TabsPage" Appearance=@SetAppearance("TabsPage")>Tabs</FluentAnchor>
+        </li>
+        <li>
+            <FluentAnchor Href="TextAreaPage" Appearance=@SetAppearance("TextAreaPage")>TextArea</FluentAnchor>
+        </li>
+        <li>
+            <FluentAnchor Href="TextFieldPage" Appearance=@SetAppearance("TextFieldPage")>Text Field</FluentAnchor>
+        </li>
+        <li>
+            <FluentAnchor Href="ToolbarPage" Appearance=@SetAppearance("ToolbarPage")>Toolbar</FluentAnchor>
+        </li>
+        <li>
+            <FluentAnchor Href="TooltipPage" Appearance=@SetAppearance("TooltipPage")>Tooltip</FluentAnchor>
+        </li>
+        <li>
+            <FluentAnchor Href="TreeItemPage" Appearance=@SetAppearance("TreeItemPage")>Tree Item</FluentAnchor>
+        </li>
+        <li>
+            <FluentAnchor Href="TreeViewPage" Appearance=@SetAppearance("TreeViewPage")>Tree View</FluentAnchor>
+        </li>
+    </ul>
+</FluentDesignSystemProvider>
+
+
+@code {
+    private string? target;
+
+    protected override void OnInitialized()
+    {
+        navigationmanager.LocationChanged += LocationChanged;
+        base.OnInitialized();
+    }
+
+    private void LocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        Uri uri = new Uri(e.Location);
+        if (uri.Segments.Count() > 1)
+            target = uri.Segments[1];
+        else
+            target = "";
+        StateHasChanged();
+    }
+
+    private Appearance SetAppearance(string location) => (location == target) ? Appearance.Neutral : Appearance.Stealth;
+
+}
