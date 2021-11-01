@@ -5,8 +5,8 @@
 					  @attributes="@AdditionalAttributes">
 		@for(int index=0; index<ColumnDefinitions?.Count(); index++)
 		{
-			ColumnDefinition<TItem> column = ColumnDefinitions?.ElementAt(index);
-			<FluentDataGridCell GridColumn=@(index+1)>@(column.FieldSelector!(RowData)?.ToString())</FluentDataGridCell>
+			ColumnDefinition<TItem> column = ColumnDefinitions!.ElementAt(index);
+			<FluentDataGridCell GridColumn=@(index+1)>@(column.FieldSelector!(RowData!)?.ToString())</FluentDataGridCell>
 		}
 	@ChildContent
 </fluent-data-grid-row>
@@ -24,15 +24,15 @@
 
 	// FAST Properties
 	[Parameter]
-	public TItem RowData { get; set; }
+	public TItem? RowData { get; set; }
 
 	[Parameter]
 	public IEnumerable<ColumnDefinition<TItem>>? ColumnDefinitions { get; set; }
 
 	// General Blazor parameters
 	[Parameter]
-	public RenderFragment ChildContent { get; set; }
+	public RenderFragment? ChildContent { get; set; }
 
 	[Parameter(CaptureUnmatchedValues = true)]
-	public IDictionary<string, object> AdditionalAttributes { get; set; }
+	public IDictionary<string, object>? AdditionalAttributes { get; set; }
 }

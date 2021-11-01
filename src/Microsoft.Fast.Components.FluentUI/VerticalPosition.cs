@@ -13,9 +13,9 @@ namespace Microsoft.Fast.Components.FluentUI
 
     internal static class VerticalDefaultPositionExtensions
     {
-        private static Dictionary<VerticalPosition, string> _positionValues =
-            Enum.GetValues<VerticalPosition>().ToDictionary(id => id, id => Enum.GetName(id).ToLowerInvariant());
+        private static readonly Dictionary<VerticalPosition, string> _positionValues =
+            Enum.GetValues<VerticalPosition>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());
 
-        public static string ToAttributeValue(this VerticalPosition? value) => value == null ? null : _positionValues[value.Value];
+        public static string? ToAttributeValue(this VerticalPosition? value) => value == null ? null : _positionValues[value.Value];
     }
 }

@@ -21,13 +21,13 @@
     /// The html id of the HTMLElement used as the anchor around which the positioning region is placed. This must be set for the component's positioning logic to be active.
     /// </summary>
     [Parameter]
-    public string Anchor { get; set; }
+    public string? Anchor { get; set; }
 
     /// <summary>
     /// The ID of the HTMLElement to be used as the viewport used to determine available layout space around the anchor element. If unset the parent element of the anchored region is used.
     /// </summary>
     [Parameter]
-    public string Viewport { get; set; }
+    public string? Viewport { get; set; }
 
     /// <summary>
     /// Default is 'uncontrolled'.
@@ -96,8 +96,8 @@
     public UpdateMode? AutoUpdateMode { get; set; } = UpdateMode.Anchor;
 
     [Parameter]
-    public RenderFragment ChildContent { get; set; }
+    public RenderFragment? ChildContent { get; set; }
 
     [Parameter(CaptureUnmatchedValues = true)]
-    public IDictionary<string, object> AdditionalAttributes { get; set; }
+    public IDictionary<string, object>? AdditionalAttributes { get; set; }
 }

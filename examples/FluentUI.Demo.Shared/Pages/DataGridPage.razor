@@ -1,0 +1,195 @@
+﻿@page "/DatagridPage"
+<h2>Grids from data collections</h2>
+<FluentDataGrid id="defaultGrid" RowsData=RowsGrid1 ColumnDefinitions=ColumnsGrid1 GridTemplateColumns="1fr 1fr" />
+<br />
+<FluentDataGrid id="defaultGrid2" RowsData=RowsGrid2 ColumnDefinitions=ColumnsGrid2 />
+
+<h2>Grid with RowItemTemplate</h2>
+<FluentDataGrid id="defaultGrid3" RowsData=RowsGrid1 ColumnDefinitions=ColumnsGrid1 GridTemplateColumns="1fr 1fr">
+    <RowItemTemplate>
+        <FluentDataGridRow TItem=SampleGrid1Data>
+            <FluentDataGridCell GridColumn=1>
+                <FluentTextField @bind-Value=@context.Name></FluentTextField>
+            </FluentDataGridCell>
+            <FluentDataGridCell GridColumn=2>
+                <FluentNumberField TValue="int" @bind-Value=@context.Age></FluentNumberField>
+            </FluentDataGridCell>
+        </FluentDataGridRow>
+
+    </RowItemTemplate>
+</FluentDataGrid>
+
+<h2>Manual grid</h2>
+<FluentDataGrid id="manualGrid" GenerateHeader=GenerateHeaderOptions.None GridTemplateColumns="1fr 1fr" TItem=string>
+    <FluentDataGridRow TItem=string RowType="DataGridRowType.Header">
+        <FluentDataGridCell GridColumn=1 CellType="DataGridCellType.ColumnHeader">Column 1</FluentDataGridCell>
+        <FluentDataGridCell GridColumn=2 CellType="DataGridCellType.ColumnHeader">Column 2</FluentDataGridCell>
+    </FluentDataGridRow>
+    <FluentDataGridRow TItem=string>
+        <FluentDataGridCell GridColumn=1>1.1</FluentDataGridCell>
+        <FluentDataGridCell GridColumn=2>1.2</FluentDataGridCell>
+    </FluentDataGridRow>
+    <FluentDataGridRow TItem=string>
+        <FluentDataGridCell GridColumn=1>2.1</FluentDataGridCell>
+        <FluentDataGridCell GridColumn=2> 2.2</FluentDataGridCell>
+    </FluentDataGridRow>
+</FluentDataGrid>
+
+<h2>Sorting/Filtering grid</h2>
+<FluentTextField @oninput="FilterChanged">Filter Fruit</FluentTextField>
+<FluentDataGrid id="sortingGrid" GridTemplateColumns="1fr 1fr 1fr" RowsData=SortedRowsGrid ColumnDefinitions=SortingColumnsGrid>
+    <HeaderCellTemplate>
+        <FluentButton @onclick=@(()=>SortColumn(context))>
+            @context.Title
+            @if (context.Title == lastSortColumn?.Title)
+            {
+                @(isAscending ? " ↑" : " ↓")
+            }
+        </FluentButton>
+    </HeaderCellTemplate>
+</FluentDataGrid>
+
+@*<h2>Grid with Selectable Rows</h2>
+<style>
+    /* Do not use style tags in production code Blazor.  Use isolated css instead. */
+    .hoverIndicator:hover {
+        background-color:#eeeeee;
+    }
+</style>
+<FluentTextField Readonly="true" @bind-Value=SelectedRowInfo>Selected Row</FluentTextField>
+<FluentDataGrid id="selectableGrid" RowsData=RowsGrid2 ColumnDefinitions=ColumnsGrid2 GridTemplateColumns="1fr 1fr 1fr 1fr">
+    <RowItemTemplate>
+        <FluentDataGridRow class="hoverIndicator"
+            @onclick="() => selectedRow = context"
+            @onkeydown=@((args) => {if (args.Key == "Enter" || args.Key == " ") { selectedRow = context;}})
+            style="@(selectedRow == context ? "background-color:lightgray;" : "")"
+            TItem=SampleGrid2Data ColumnDefinitions="ColumnsGrid2" RowData="context" />
+    </RowItemTemplate>
+</FluentDataGrid>*@
+
+@code {
+
+    public class SampleGrid1Data
+    {
+        public string Name { get; set; }
+        public int Age { get; set; }
+
+        public SampleGrid1Data(string name, int age)
+        {
+            Name = name;
+            Age = age;
+        }
+    }
+
+    public record SampleGrid2Data(string Item1, string Item2, string Item3, string Item4);
+    public record SampleGrid3Data(string Fruit, string Cost, string Color);
+
+    public List<ColumnDefinition<SampleGrid1Data>> ColumnsGrid1 = new ();
+    public List<ColumnDefinition<SampleGrid2Data>> ColumnsGrid2 = new ();
+    public List<ColumnDefinition<SampleGrid3Data>> SortingColumnsGrid = new ();
+    private ColumnDefinition<SampleGrid3Data>? lastSortColumn = null;
+    private bool isAscending = false;
+    public string filterValue = "";
+
+    private SampleGrid2Data? selectedRow = null;
+    public string SelectedRowInfo { get => (selectedRow == null ? "" : $"Item1: {selectedRow.Item1}"); set => _ = value; }
+
+    List<SampleGrid1Data> RowsGrid1 = new()
+    {
+        new SampleGrid1Data("Rob", 19 ),
+        new SampleGrid1Data("Bob", 20 )
+    };
+
+    List<SampleGrid2Data> RowsGrid2 = new()
+    {
+        new SampleGrid2Data("value 1-1", "value 2-1", "value 3-1", "value 4-1" ),
+        new SampleGrid2Data("value 1-2", "value 2-2", "value 3-2", "value 4-2" ),
+        new SampleGrid2Data("value 1-3", "value 2-3", "value 3-3", "value 4-3" ),
+        new SampleGrid2Data("value 1-4", "value 2-4", "value 3-4", "value 4-4" )
+
+    };
+
+    List<SampleGrid3Data> RawSortedRowsGrid = new List<SampleGrid3Data>()
+    {
+        new SampleGrid3Data("apples", "$1.50", "red" ),
+        new SampleGrid3Data("bananas", "$0.99", "yellow" ),
+        new SampleGrid3Data("grapes", "$1.99", "purple" ),
+        new SampleGrid3Data("oranges", "$1.25", "orange" )
+
+    };
+    List<SampleGrid3Data> SortedRowsGrid = new();
+
+
+    protected override void OnInitialized()
+    {
+        ColumnsGrid1.Add(new ColumnDefinition<SampleGrid1Data>("Name", x => x.Name));
+        ColumnsGrid1.Add(new ColumnDefinition<SampleGrid1Data>("Age", x => x.Age));
+
+        ColumnsGrid2.Add(new ColumnDefinition<SampleGrid2Data>("Item 1", x => x.Item1));
+        ColumnsGrid2.Add(new ColumnDefinition<SampleGrid2Data>("Item 2", x => x.Item2));
+        ColumnsGrid2.Add(new ColumnDefinition<SampleGrid2Data>("Item 3", x => x.Item3));
+        ColumnsGrid2.Add(new ColumnDefinition<SampleGrid2Data>("Item 4", x => x.Item4));
+
+        SortingColumnsGrid.Add(new ColumnDefinition<SampleGrid3Data>("Fruit", x => x.Fruit));
+        SortingColumnsGrid.Add(new ColumnDefinition<SampleGrid3Data>("Cost", x => x.Cost));
+        SortingColumnsGrid.Add(new ColumnDefinition<SampleGrid3Data>("Color", x => x.Color));
+
+        SortedRowsGrid = RawSortedRowsGrid;
+
+        base.OnInitialized();
+    }
+
+    private void FilterChanged(ChangeEventArgs args)
+    {
+        var filter = args.Value as string;
+
+        if (string.IsNullOrWhiteSpace(filter))
+        {
+            SortedRowsGrid = RawSortedRowsGrid;
+        }
+        else
+        {
+            SortedRowsGrid = RawSortedRowsGrid.Where(x => x.Fruit.Contains(filter)).ToList();
+        }
+        if (lastSortColumn != null)
+        {
+            SortedRowsGrid.Sort(new CustomComparer(lastSortColumn.FieldSelector!, isAscending));
+        }
+
+    }
+
+    private void SortColumn(ColumnDefinition<SampleGrid3Data> columnDefinition)
+    {
+        if (lastSortColumn?.Title == columnDefinition.Title)
+        {
+            isAscending = !isAscending;
+        }
+        else
+        {
+            lastSortColumn = columnDefinition;
+            isAscending = true;
+        }
+        SortedRowsGrid.Sort(new CustomComparer(columnDefinition.FieldSelector!, isAscending));
+    }
+
+    class CustomComparer : IComparer<SampleGrid3Data>
+    {
+        Func<SampleGrid3Data, object> _selector;
+        bool _isAscending;
+
+        public CustomComparer(Func<SampleGrid3Data, object> selector, bool isAscending)
+        {
+            _selector = selector;
+            _isAscending = isAscending;
+        }
+
+        int IComparer<SampleGrid3Data>.Compare(SampleGrid3Data? x, SampleGrid3Data? y)
+        {
+            var xs = _selector(x!) as string;
+            var ys = _selector(y!) as string;
+            if (xs == null || ys == null)
+                return 0;
+            return string.Compare(xs, ys) * (_isAscending ? 1 : -1);
+        }
+    }
+}

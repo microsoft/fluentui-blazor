@@ -13,9 +13,9 @@ namespace Microsoft.Fast.Components.FluentUI
 
     internal static class GenerateHeaderExtensions
     {
-        private static Dictionary<GenerateHeaderOptions, string> _generateHeaderValues =
-            Enum.GetValues<GenerateHeaderOptions>().ToDictionary(id => id, id => Enum.GetName(id).ToLowerInvariant());
+        private static readonly Dictionary<GenerateHeaderOptions, string> _generateHeaderValues =
+            Enum.GetValues<GenerateHeaderOptions>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());
 
-        public static string ToAttributeValue(this GenerateHeaderOptions? value) => value == null ? null : _generateHeaderValues[value.Value];
+        public static string? ToAttributeValue(this GenerateHeaderOptions? value) => value == null ? null : _generateHeaderValues[value.Value];
     }
 }

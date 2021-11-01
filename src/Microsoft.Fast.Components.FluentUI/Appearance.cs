@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Microsoft.Fast.Components.FluentUI
 {
@@ -19,9 +17,9 @@ namespace Microsoft.Fast.Components.FluentUI
 
     internal static class AppearanceExtensions
     {
-        private static Dictionary<Appearance, string> _appearanceValues =
-            Enum.GetValues<Appearance>().ToDictionary(id => id, id => Enum.GetName(id).ToLowerInvariant());
+        private static readonly Dictionary<Appearance, string> _appearanceValues =
+            Enum.GetValues<Appearance>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());
 
-        public static string ToAttributeValue(this Appearance? value) => value == null ? null : _appearanceValues[value.Value];
+        public static string? ToAttributeValue(this Appearance? value) => value == null ? null : _appearanceValues[value.Value];
     }
 }

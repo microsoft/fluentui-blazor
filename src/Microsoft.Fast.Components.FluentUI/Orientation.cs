@@ -12,9 +12,9 @@ namespace Microsoft.Fast.Components.FluentUI
 
     internal static class OrientationExtensions
     {
-        private static Dictionary<Orientation, string> _orientationValues =
-            Enum.GetValues<Orientation>().ToDictionary(id => id, id => Enum.GetName(id).ToLowerInvariant());
+        private static readonly Dictionary<Orientation, string> _orientationValues =
+            Enum.GetValues<Orientation>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());
 
-        public static string ToAttributeValue(this Orientation? value) => value == null ? null : _orientationValues[value.Value];
+        public static string? ToAttributeValue(this Orientation? value) => value == null ? null : _orientationValues[value.Value];
     }
 }
