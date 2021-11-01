@@ -1,0 +1,159 @@
+@page "/AnchoredRegionPage"
+<h1>Anchored region</h1>
+<div style="height:100%;overflow:hidden;display:flex;flex-direction:column">
+    <FluentAnchoredRegion Anchor="anchor-fixed" VerticalPositioningMode="Positioning.Dynamic" VerticalScaling="Scaling.Anchor" VerticalInset="false" HorizontalPositioningMode="Positioning.Locktodefault" HorizontalDefaultPosition="HorizontalPosition.Right" HorizontalScaling="Scaling.Content" style="z-index: 11; position: absolute; transform: translate(590.047px, 20px); height: 20px;" Viewport="" VerticalDefaultPosition="VerticalPosition.Unset" AutoUpdateMode="UpdateMode.Anchor" class="loaded inset-bottom right">
+        <div style="height:100%;width:100%;background:#00f">outside</div>
+    </FluentAnchoredRegion>
+    <div style="position:fixed;height:80px;width:100%;background:#a9a9a9;overflow:hidden;display:flex;z-index:10" id="fixed-header">
+        <h1>Anchored region</h1>
+        <button id="anchor-fixed" style="margin-left:200px;margin-top:20px;height:20px"> anchor in fixed container </button>
+        <FluentAnchoredRegion Anchor="anchor-fixed" VerticalPositioningMode="Positioning.Dynamic" VerticalScaling="Scaling.Anchor" HorizontalPositioningMode="Positioning.Dynamic" HorizontalScaling="Scaling.Anchor" HorizontalInset="false" Viewport="" HorizontalDefaultPosition="HorizontalPosition.Unset" VerticalDefaultPosition="VerticalPosition.Unset" AutoUpdateMode="UpdateMode.Anchor" class="loaded bottom inset-left" style="position: absolute; transform: translate(429.047px, 40px); width: 161px; height: 20px;">
+            <div style="height:100%;width:100%;background:#ff0">inside</div>
+        </FluentAnchoredRegion>
+    </div>
+    <div style="margin-top:80px;overflow:auto;height:100%">
+        <h4>Dynamic - default</h4>
+        <div id="viewport-default" style="position:relative;height:400px;width:400px;background:#d3d3d3;overflow:scroll">
+            <div style="height:1000px;width:1000px">
+                <button id="anchor-default" style="margin-left:500px;margin-top:500px">anchor</button>
+                <FluentAnchoredRegion Anchor="anchor-default" Viewport="viewport-default" VerticalPositioningMode="Positioning.Dynamic" HorizontalPositioningMode="Positioning.Dynamic" HorizontalDefaultPosition="HorizontalPosition.Unset" HorizontalScaling="Scaling.Content" VerticalDefaultPosition="VerticalPosition.Unset" VerticalScaling="Scaling.Content" AutoUpdateMode="UpdateMode.Anchor" class="loaded top left" style="position: absolute; transform: translate(400px, -121px); width: unset; height: unset;">
+                    <div style="height:100px;width:100px;background:#ff0" />
+                </FluentAnchoredRegion>
+            </div>
+        </div>
+        <h4>Lock to default</h4>
+        <div id="viewport-locked" style="height:400px;width:400px;background:#d3d3d3;overflow:scroll;position:relative">
+            <div style="height:1000px;width:1000px">
+                <FluentAnchoredRegion Anchor="anchor-locked" Viewport="viewport-locked" VerticalPositioningMode="Positioning.Locktodefault" VerticalDefaultPosition="VerticalPosition.Bottom" HorizontalPositioningMode="Positioning.Locktodefault" HorizontalDefaultPosition="HorizontalPosition.Right" HorizontalScaling="Scaling.Content" VerticalScaling="Scaling.Content" AutoUpdateMode="UpdateMode.Anchor" class="loaded bottom right" style="position: absolute; transform: translate(557px, 521px); width: unset; height: unset;">
+                    <div style="height:150px;width:150px;background:green" />
+                </FluentAnchoredRegion>
+                <div style="position:relative;height:0;width:0">
+                    <FluentAnchoredRegion Anchor="anchor-locked" Viewport="viewport-locked" VerticalPositioningMode="Positioning.Locktodefault" VerticalDefaultPosition="VerticalPosition.Bottom" HorizontalPositioningMode="Positioning.Locktodefault" HorizontalDefaultPosition="HorizontalPosition.Right" HorizontalScaling="Scaling.Content" VerticalScaling="Scaling.Content" AutoUpdateMode="UpdateMode.Anchor" class="loaded bottom right" style="position: absolute; transform: translate(557px, 521px); width: unset; height: unset;">
+                        <div style="height:100px;width:100px;background:#ff0" />
+                    </FluentAnchoredRegion>
+                </div>
+                <FluentAnchoredRegion Anchor="anchor-locked" Viewport="viewport-locked" VerticalPositioningMode="Positioning.Locktodefault" VerticalDefaultPosition="VerticalPosition.Bottom" HorizontalPositioningMode="Positioning.Locktodefault" HorizontalDefaultPosition="HorizontalPosition.Right" HorizontalScaling="Scaling.Content" VerticalScaling="Scaling.Content" AutoUpdateMode="UpdateMode.Anchor" class="loaded bottom right" style="position: absolute; transform: translate(557px, 521px); width: unset; height: unset;">
+                    <div style="height:50px;width:50px;background:#00f" />
+                </FluentAnchoredRegion>
+                <div />
+                <button id="anchor-locked" style="margin-left:500px;margin-top:500px">anchor</button>
+            </div>
+        </div>
+        <h4>Scaling via update</h4>
+        <div id="viewport-scaling-update" style="height:400px;width:400px;background:#d3d3d3;overflow:scroll;position:relative">
+            <div style="height:1000px;width:1000px;overflow:hidden">
+                <button id="anchor-scaling-update" style="margin-left:500px;margin-top:500px">anchor</button>
+                <FluentAnchoredRegion id="region-scaling-update" Anchor="anchor-scaling-update" Viewport="viewport-scaling-update" VerticalPositioningMode="Positioning.Dynamic" VerticalScaling="Scaling.Fill" HorizontalPositioningMode="Positioning.Dynamic" HorizontalScaling="Scaling.Fill" HorizontalDefaultPosition="HorizontalPosition.Unset" VerticalDefaultPosition="VerticalPosition.Unset" AutoUpdateMode="UpdateMode.Anchor" class="loaded top left" style="position: absolute; transform: translate(0px, -521px); width: 500px; height: 500px;">
+                    <div style="height:100%;width:100%;background:#ff0" />
+                </FluentAnchoredRegion>
+            </div>
+        </div>
+        <h4>Scaling via offset</h4>
+        <div id="viewport-scaling-offset" style="height:400px;width:400px;background:#d3d3d3;overflow:scroll;position:relative">
+            <div style="height:1000px;width:1000px;overflow:hidden">
+                <button id="anchor-scaling-offset" style="margin-left:500px;margin-top:500px">anchor</button>
+                <FluentAnchoredRegion id="region-scaling-offset" Anchor="anchor-scaling-offset" Viewport="viewport-scaling-offset" VerticalPositioningMode="Positioning.Dynamic" VerticalScaling="Scaling.Fill" HorizontalPositioningMode="Positioning.Dynamic" HorizontalScaling="Scaling.Fill" HorizontalDefaultPosition="HorizontalPosition.Unset" VerticalDefaultPosition="VerticalPosition.Unset" AutoUpdateMode="UpdateMode.Anchor" class="loaded top left" style="position: absolute; transform: translate(0px, -521px); width: 500px; height: 500px;">
+                    <div style="height:100%;width:100%;background:#ff0" />
+                </FluentAnchoredRegion>
+            </div>
+        </div>
+        <h4>Inset</h4>
+        <div id="viewport-inset" style="position:relative;height:400px;width:400px;background:#d3d3d3;overflow:scroll">
+            <div style="height:1000px;width:1000px;overflow:hidden">
+                <button id="anchor-inset" style="margin-left:500px;margin-top:500px">anchor</button>
+                <FluentAnchoredRegion Anchor="anchor-inset" Viewport="viewport-inset" VerticalPositioningMode="Positioning.Dynamic" VerticalInset="false" HorizontalPositioningMode="Positioning.Dynamic" HorizontalInset="false" HorizontalDefaultPosition="HorizontalPosition.Unset" HorizontalScaling="Scaling.Content" VerticalDefaultPosition="VerticalPosition.Unset" VerticalScaling="Scaling.Content" AutoUpdateMode="UpdateMode.Anchor" class="loaded inset-top inset-left" style="position: absolute; transform: translate(457px, -100px); width: unset; height: unset;">
+                    <div style="height:100px;width:100px;background:#ff0;opacity:.5" />
+                </FluentAnchoredRegion>
+            </div>
+        </div>
+        <h4>Thresholds</h4>
+        <div id="viewport-thresholds" style="position:relative;height:400px;width:400px;background:#d3d3d3;overflow:scroll">
+            <div style="height:1000px;width:1000px;overflow:hidden">
+                <button id="anchor-thresholds" style="margin-left:500px;margin-top:500px">anchor</button>
+                <FluentAnchoredRegion Anchor="anchor-thresholds" Viewport="viewport-thresholds" VerticalPositioningMode="Positioning.Dynamic" VerticalDefaultPosition="VerticalPosition.Top" vertical-threshold="0" HorizontalPositioningMode="Positioning.Dynamic" HorizontalDefaultPosition="HorizontalPosition.Left" HorizontalThreshold="200" HorizontalScaling="Scaling.Content" VerticalScaling="Scaling.Content" AutoUpdateMode="UpdateMode.Anchor" class="loaded top left" style="position: absolute; transform: translate(400px, -121px); width: unset; height: unset;">
+                    <div style="height:100px;width:100px;background:#ff0" />
+                </FluentAnchoredRegion>
+            </div>
+        </div>
+        <h4>Toggle anchor</h4>
+        <div id="viewport-toggle-anchor" style="position:relative;height:400px;width:400px;background:#d3d3d3;overflow:scroll">
+            <div style="height:1000px;width:1000px;overflow:hidden">
+                <button id="toggle-anchor-anchor1" style="margin-left:400px;margin-top:500px">Set anchor 1</button>
+                <button id="toggle-anchor-anchor2">Set anchor 2</button>
+                <FluentAnchoredRegion id="toggle-anchor-region" Anchor="toggle-anchor-anchor1" Viewport="viewport-toggle-anchor" VerticalPositioningMode="Positioning.Dynamic" HorizontalPositioningMode="Positioning.Dynamic" HorizontalDefaultPosition="HorizontalPosition.Unset" HorizontalScaling="Scaling.Content" VerticalDefaultPosition="VerticalPosition.Unset" VerticalScaling="Scaling.Content" AutoUpdateMode="UpdateMode.Anchor" class="loaded top left" style="position: absolute; transform: translate(300px, -121px); width: unset; height: unset;">
+                    <div style="height:100px;width:100px;background:#ff0" />
+                </FluentAnchoredRegion>
+            </div>
+        </div>
+        <h4>Toggle positions and size</h4>
+        <div id="viewport-toggle-positions" style="position:relative;height:400px;width:400px;background:#d3d3d3;overflow:scroll">
+            <div style="height:1000px;width:1000px;overflow:hidden">
+                <button id="anchor-toggle-positions" style="margin-left:400px;margin-top:500px">anchor</button>
+                <FluentAnchoredRegion id="toggle-positions-region" Anchor="anchor-toggle-positions" Viewport="viewport-toggle-positions" VerticalPositioningMode="Positioning.Locktodefault" VerticalDefaultPosition="VerticalPosition.Bottom" HorizontalPositioningMode="Positioning.Locktodefault" HorizontalDefaultPosition="HorizontalPosition.Right" HorizontalScaling="Scaling.Content" VerticalScaling="Scaling.Content" AutoUpdateMode="UpdateMode.Anchor" class="loaded bottom right" style="position: absolute; transform: translate(457px, 0px); width: unset; height: unset;">
+                    <div id="toggle-positions-small" style="height:50px;width:50px;background:#ff0" hidden="true" />
+                    <div id="toggle-positions-large" style="height:100px;width:100px;background:#ff0" />
+                </FluentAnchoredRegion>
+                <div style="margin-top:20px;display:flex;flex-direction:row">
+                    <button id="toggle-positions-horizontal" style="margin-left:250px;margin-top:120px"> toggle horizontal </button>
+                    <button id="toggle-positions-vertical" style="margin-top:120px">toggle vertical</button>
+                    <button id="toggle-positions-small" style="margin-top:120px">small</button>
+                    <button id="toggle-positions-large" style="margin-top:120px">large</button>
+                </div>
+            </div>
+        </div>
+        <h4>RTL-dynamic</h4>
+        <div id="viewport-rtl-dynamic" style="position:relative;height:400px;width:400px;background:#d3d3d3;overflow:scroll" dir="rtl">
+            <div style="height:1000px;width:1000px">
+                <FluentAnchoredRegion Anchor="anchor-rtl-dynamic" Viewport="viewport-rtl-dynamic" VerticalPositioningMode="Positioning.Dynamic" VerticalDefaultPosition="VerticalPosition.Top" HorizontalPositioningMode="Positioning.Dynamic" HorizontalDefaultPosition="HorizontalPosition.Unset" HorizontalScaling="Scaling.Content" VerticalScaling="Scaling.Content" AutoUpdateMode="UpdateMode.Anchor" class="loaded top right" style="position: absolute; transform: translate(-399.766px, 400px); width: unset; height: unset;">
+                    <div style="height:100px;width:100px;background:#ff0" />
+                </FluentAnchoredRegion>
+                <button id="anchor-rtl-dynamic" style="margin-right:500px;margin-top:500px">anchor</button>
+            </div>
+        </div>
+        <h4>Size to anchor</h4>
+        <div id="viewport-anchor-sized" style="position:relative;height:400px;width:400px;background:#d3d3d3;overflow:scroll">
+            <div style="height:1000px;width:1000px">
+                <FluentAnchoredRegion Anchor="anchor-anchor-sized" Viewport="viewport-anchor-sized" VerticalPositioningMode="Positioning.Dynamic" VerticalScaling="Scaling.Anchor" HorizontalPositioningMode="Positioning.Dynamic" HorizontalScaling="Scaling.Anchor" HorizontalInset="false" HorizontalDefaultPosition="HorizontalPosition.Unset" VerticalDefaultPosition="VerticalPosition.Unset" AutoUpdateMode="UpdateMode.Anchor" class="loaded top inset-left" style="position: absolute; transform: translate(500px, 479px); width: 57px; height: 21px;">
+                    <div style="height:100%;width:100%;background:#ff0" />
+                </FluentAnchoredRegion>
+                <button id="anchor-anchor-sized" style="margin-left:500px;margin-top:500px">anchor</button>
+            </div>
+        </div>
+        <h4>RTL-fill</h4>
+        <div id="viewport-rtl-fill" dir="rtl" style="position:relative;height:400px;width:400px;background:#d3d3d3;overflow:scroll">
+            <div style="height:1000px;width:1000px">
+                <button id="anchor-rtl-fill" style="margin-right:500px;margin-top:500px">anchor</button>
+                <FluentAnchoredRegion Anchor="anchor-rtl-fill" Viewport="viewport-rtl-fill" VerticalPositioningMode="Positioning.Dynamic" VerticalScaling="Scaling.Fill" HorizontalPositioningMode="Positioning.Dynamic" HorizontalScaling="Scaling.Fill" HorizontalDefaultPosition="HorizontalPosition.Unset" VerticalDefaultPosition="VerticalPosition.Unset" AutoUpdateMode="UpdateMode.Anchor" class="loaded top right" style="position: absolute; transform: translate(0px, -521px); width: 499.766px; height: 500px;">
+                    <div style="height:100%;width:100%;background:#ff0" />
+                </FluentAnchoredRegion>
+            </div>
+        </div>
+        <h4>Start &amp; End</h4>
+        <div id="viewport-se" style="position:relative;height:400px;width:400px;background:#d3d3d3;overflow:scroll">
+            <div style="height:1000px;width:1000px">
+                <button id="anchor-se" style="margin-left:500px;margin-top:500px">anchor</button>
+                <FluentAnchoredRegion Anchor="anchor-se" Viewport="viewport-se" HorizontalPositioningMode="Positioning.Locktodefault" HorizontalDefaultPosition="HorizontalPosition.Start" HorizontalScaling="Scaling.Content" VerticalPositioningMode="Positioning.Uncontrolled" VerticalDefaultPosition="VerticalPosition.Unset" VerticalScaling="Scaling.Content" AutoUpdateMode="UpdateMode.Anchor" class="loaded left" style="position: absolute; transform: translate(400px, 0px); width: unset;">
+                    <div style="height:100px;width:100px;background:#ff0" />
+                </FluentAnchoredRegion>
+                <FluentAnchoredRegion Anchor="anchor-se" Viewport="viewport-se" HorizontalPositioningMode="Positioning.Locktodefault" HorizontalDefaultPosition="HorizontalPosition.End" HorizontalScaling="Scaling.Content" VerticalPositioningMode="Positioning.Uncontrolled" VerticalDefaultPosition="VerticalPosition.Unset" VerticalScaling="Scaling.Content" AutoUpdateMode="UpdateMode.Anchor" class="loaded right" style="position: absolute; transform: translate(557px, 0px); width: unset;">
+                    <div style="height:100px;width:100px;background:green" />
+                </FluentAnchoredRegion>
+            </div>
+        </div>
+        <h4>RTL-Start &amp; End</h4>
+        <div id="viewport-rtl-se" dir="rtl" style="position:relative;height:400px;width:400px;background:#d3d3d3;overflow:scroll">
+            <div style="height:1000px;width:1000px">
+                <button id="anchor-rtl-se" style="margin-right:500px;margin-top:500px">anchor</button>
+                <FluentAnchoredRegion Anchor="anchor-rtl-se" Viewport="viewport-rtl-se" HorizontalPositioningMode="Positioning.Locktodefault" HorizontalDefaultPosition="HorizontalPosition.Start" HorizontalScaling="Scaling.Content" VerticalPositioningMode="Positioning.Uncontrolled" VerticalDefaultPosition="VerticalPosition.Unset" VerticalScaling="Scaling.Content" AutoUpdateMode="UpdateMode.Anchor" class="loaded right" style="position: absolute; transform: translate(-399.766px, 0px); width: unset;">
+                    <div style="height:100px;width:100px;background:#ff0" />
+                </FluentAnchoredRegion>
+                <FluentAnchoredRegion Anchor="anchor-rtl-se" Viewport="viewport-rtl-se" HorizontalPositioningMode="Positioning.Locktodefault" HorizontalDefaultPosition="HorizontalPosition.End" HorizontalScaling="Scaling.Content" VerticalPositioningMode="Positioning.Uncontrolled" VerticalDefaultPosition="VerticalPosition.Unset" VerticalScaling="Scaling.Content" AutoUpdateMode="UpdateMode.Anchor" class="loaded left" style="position: absolute; transform: translate(-556.766px, 0px); width: unset;">
+                    <div style="height:100px;width:100px;background:green" />
+                </FluentAnchoredRegion>
+            </div>
+        </div>
+    </div>
+    <FluentAnchoredRegion Anchor="anchor-fixed" VerticalPositioningMode="Positioning.Dynamic" VerticalScaling="Scaling.Anchor" VerticalInset="false" HorizontalPositioningMode="Positioning.Locktodefault" HorizontalDefaultPosition="HorizontalPosition.Left" fixed-placement="" style="z-index: 11; position: fixed; transform: translate(330.047px, 20px); width: unset; height: 20px;" Viewport="" HorizontalScaling="Scaling.Content" VerticalDefaultPosition="VerticalPosition.Unset" AutoUpdateMode="UpdateMode.Anchor" class="loaded inset-bottom left">
+        <div style="height:100%;width:100%;background:#00f;z-index:11">outside &amp; fixed</div>
+    </FluentAnchoredRegion>
+</div>

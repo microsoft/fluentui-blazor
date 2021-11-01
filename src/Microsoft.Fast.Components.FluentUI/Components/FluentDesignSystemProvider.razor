@@ -72,7 +72,7 @@
     [Parameter] public string? NeutralBaseColor { get; set; }
     [Parameter] public int? Density { get; set;}
     [Parameter] public int? DesignUnit { get; set;}
-    [Parameter] public LocalizationDirection? Direction { get; set;}
+    [Parameter] public LocalizationDirection? Direction { get; set; } = LocalizationDirection.ltr;
     [Parameter] public int? BaseHeightMultiplier { get; set;}
     [Parameter] public int? BaseHorizontalSpacingMultiplier { get; set;}
     [Parameter] public int? ControlCornerRadius { get; set;}
@@ -130,4 +130,5 @@
 
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter(CaptureUnmatchedValues = true)] public IDictionary<string, object>? AdditionalAttributes { get; set; }
+
 }
