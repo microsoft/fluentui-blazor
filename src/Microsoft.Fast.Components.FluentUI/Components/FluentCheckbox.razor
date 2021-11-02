@@ -1,9 +1,9 @@
 @inherits FluentInputBase<bool>
-@using System.Globalization
-<fluent-checkbox disabled="@Disabled" 
+<fluent-checkbox disabled="@Disabled"
+                 current-checked="@BindConverter.FormatValue(CurrentValue)"
                  checked="@BindConverter.FormatValue(CurrentValue)"
-                 @onchange="EventCallback.Factory.CreateBinder<bool>(this, __value => CurrentValue = __value, CurrentValue)" 
-                 required="@Required" 
+                 @onchange="EventCallback.Factory.CreateBinder<bool>(this, __value => CurrentValue = __value, CurrentValue)"
+                 required="@Required"
                  readonly="@Readonly"
                  @attributes="AdditionalAttributes">
     @ChildContent

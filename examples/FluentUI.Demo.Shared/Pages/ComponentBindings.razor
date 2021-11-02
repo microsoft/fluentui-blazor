@@ -77,6 +77,10 @@
             </FluentSliderLabel>
         </FluentSlider>
     </div>
+    <div>
+        <label for="SwitchValue">Switch Value</label>
+        <FluentSwitch Name="SwitchValue" @bind-Value="Form.SwitchValue" />
+    </div>
 </div>
 <h4>Values:</h4>
 <dl>
@@ -96,6 +100,8 @@
     <dd>@Form.CheckboxValue</dd>
     <dt>Slider</dt>
     <dd>@Form.SliderValue</dd>
+    <dt>Switch</dt>
+    <dd>@Form.SwitchValue</dd>
 </dl>
 <p></p>
 
@@ -166,6 +172,10 @@
             <label for="CheckboxValue">Checkbox Value</label>
             <FluentCheckbox Name="CheckboxValue" @bind-Value="Form.CheckboxValue" />
         </div>
+        <div>
+            <label for="StandardCheckbox">Standard Checkbox Value</label>
+            <InputCheckbox Name="StandardCheckbox" @bind-Value="Form.CheckboxValue" />
+        </div>
         <div style="width: 500px;">
             <label for="SliderValue">Slider Value</label>
             <FluentSlider id="SliderValue" Orientation="Orientation.Horizontal" Min="0" Max="100" Step="10" @bind-Value="Form.SliderValue">
@@ -182,6 +192,10 @@
                     100&#8451;
                 </FluentSliderLabel>
             </FluentSlider>
+        </div>
+        <div>
+            <label for="SwitchValue">Switch Value</label>
+            <FluentSwitch Name="SwitchValue" @bind-Value="Form.SwitchValue" />
         </div>
         <input type="submit" value="Send" />
         <FluentButton>Submit</FluentButton>
@@ -230,5 +244,8 @@
 
         [Required]
         public int SliderValue { get; set; }
+
+        [Required]
+        public bool SwitchValue { get; set; }
     }
 }
