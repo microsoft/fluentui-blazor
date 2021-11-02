@@ -1,14 +1,28 @@
 @inherits FluentInputBase<string?>
-<fluent-radio-group Name="@Name" Required="@Required" Orientation="@Orientation.ToAttributeValue()" @attributes="AdditionalAttributes">@ChildContent</fluent-radio-group>
-@code{
 
-    [Parameter] public string? Name { get; set; }
+<fluent-radio-group name="@Name"
+                    current-value="@CurrentValue"
+                    value="@Value"
+                    required="@Required"
+                    orientation="@Orientation.ToAttributeValue()"
+                    @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValue = __value, CurrentValue))"
+                    @attributes="AdditionalAttributes">
+    @ChildContent
+</fluent-radio-group>
 
-    [Parameter] public bool? Required { get; set; }
+@code {
 
-    [Parameter] public Orientation? Orientation { get; set; }
+    [Parameter]
+    public string? Name { get; set; }
 
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter]
+    public bool? Required { get; set; }
+
+    [Parameter]
+    public Orientation? Orientation { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
     protected override bool TryParseValueFromString(string? value, out string? result, [NotNullWhen(false)] out string? validationErrorMessage)
     {

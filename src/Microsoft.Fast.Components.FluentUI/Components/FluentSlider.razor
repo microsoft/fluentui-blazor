@@ -4,7 +4,7 @@
                min="@Min"
                max="@Max"
                step="@Step"
-               value="@BindConverter.FormatValue(CurrentValue)"
+               current-value="@BindConverter.FormatValue(CurrentValue)"
                @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
                readonly="@Readonly"
                disabled="@Disabled"

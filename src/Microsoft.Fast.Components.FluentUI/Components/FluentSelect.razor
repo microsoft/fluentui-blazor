@@ -1,5 +1,5 @@
 @inherits FluentInputBase<string?>
-<fluent-select value="@BindConverter.FormatValue(CurrentValue)"
+<fluent-select current-value="@BindConverter.FormatValue(CurrentValue)"
                @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
                disabled="@Disabled"
                appearance="@Appearance.ToAttributeValue()"
