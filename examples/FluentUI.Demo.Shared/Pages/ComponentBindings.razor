@@ -81,16 +81,7 @@
         <label for="SwitchValue">Switch Value</label>
         <FluentSwitch Name="SwitchValue" @bind-Value="Form.SwitchValue" />
     </div>
-    <div>
-        <label for="ListboxValue">Listbox Value</label>
-        <FluentListbox @bind-Value=Form.ListboxValue>
-            <FluentOption Value="one">This is option 1</FluentOption>
-            <FluentOption Value="2" Disabled="true">This option is disabled</FluentOption>
-            <FluentOption Value="hi">This option is selected by default </FluentOption>
-            <FluentOption Value="4">This option is not selected by default</FluentOption>
-        </FluentListbox>
-    </div>
-    <h4>Values:</h4>
+    x from ComponentBindings p<h4>Values:</h4>
     <dl>
         <dt>Select</dt>
         <dd>@Form.SelectValue</dd>
@@ -110,8 +101,6 @@
         <dd>@Form.SliderValue</dd>
         <dt>Switch</dt>
         <dd>@Form.SwitchValue</dd>
-        <dt>Listbox</dt>
-        <dd>@Form.ListboxValue</dd>
     </dl>
     <p></p>
 
@@ -203,15 +192,6 @@
                 <label for="SwitchValue">Switch Value</label>
                 <FluentSwitch Name="SwitchValue" @bind-Value="Form.SwitchValue" />
             </div>
-            <div>
-                <label for="ListboxValue">Listbox Value</label>
-                <FluentListbox @bind-Value=Form.ListboxValue>
-                    <FluentOption Value="one">This is option 1</FluentOption>
-                    <FluentOption Value="2" Disabled="true">This option is disabled</FluentOption>
-                    <FluentOption Value="hi">This option is selected by default </FluentOption>
-                    <FluentOption Value="4">This option is not selected by default</FluentOption>
-                </FluentListbox>
-            </div>
             <input type="submit" value="Send" />
             <FluentButton>Submit</FluentButton>
         </EditForm>
@@ -233,7 +213,6 @@
         //Form.TextAreaValue = "TextAreaValue";
         //Form.ComboboxValue = "Help!";
         Form.SliderValue = 70;
-        Form.ListboxValue = "hi";
     }
 
     public class FormModel
@@ -264,9 +243,5 @@
 
         [Required]
         public bool SwitchValue { get; set; }
-
-        [Required]
-        public string? ListboxValue { get; set; }
-
     }
-    }
+}
