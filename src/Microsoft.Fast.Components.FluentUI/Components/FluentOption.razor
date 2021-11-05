@@ -1,13 +1,7 @@
-<fluent-option Disabled="@Disabled" Value="@Value" Selected="@Selected" @attributes="AdditionalAttributes">@ChildContent</fluent-option>
-@code
-{
-    [Parameter] public bool? Disabled { get; set; }
-    
-    [Parameter] public string? Value { get; set; }
-
-    [Parameter] public bool? Selected { get; set; }
-
-    [Parameter(CaptureUnmatchedValues = true)] public IDictionary<string, object>? AdditionalAttributes { get; set; }
-
-    [Parameter] public RenderFragment? ChildContent { get; set; }
-}
+<fluent-option disabled="@Disabled"
+               value="@BindConverter.FormatValue(Value?.ToString())"
+               selected="@Context.CurrentValue?.Equals(Value)"
+               onchange=@Context.ChangeEventCallback
+               @attributes="AdditionalAttributes">
+    @ChildContent
+</fluent-option>

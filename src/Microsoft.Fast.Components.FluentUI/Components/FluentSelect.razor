@@ -1,28 +1,12 @@
 @inherits FluentInputBase<string?>
-<fluent-select current-value="@BindConverter.FormatValue(CurrentValue)"
-               @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
-               disabled="@Disabled"
-               appearance="@Appearance.ToAttributeValue()"
-               name="@Name"
-               position="@Position.ToAttributeValue()"
-               @attributes="AdditionalAttributes">
-    @ChildContent
-</fluent-select>
-@code{
-    [Parameter] public bool? Disabled { get; set; }
-
-    [Parameter] public Appearance? Appearance { get; set; }
-
-    [Parameter] public string? Name { get; set; }
-
-    [Parameter] public Position? Position { get; set; }
-
-    [Parameter] public RenderFragment? ChildContent { get; set; }
-
-    protected override bool TryParseValueFromString(string? value, out string? result, [NotNullWhen(false)] out string? validationErrorMessage)
-    {
-        result = value;
-        validationErrorMessage = null;
-        return true;
-    }
-}
+<CascadingValue TValue=FluentOptionContext IsFixed=true Value=_context @key=_context>
+    <fluent-select current-value="@CurrentValueAsString"
+                   @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
+                   disabled="@Disabled"
+                   appearance="@Appearance.ToAttributeValue()"
+                   name="@Name"
+                   position="@Position.ToAttributeValue()"
+                   @attributes="AdditionalAttributes">
+        @ChildContent
+    </fluent-select>
+</CascadingValue>

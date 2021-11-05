@@ -1,7 +1,6 @@
 @inherits FluentInputBase<bool>
 <fluent-checkbox disabled="@Disabled"
                  current-checked="@BindConverter.FormatValue(CurrentValue)"
-                 checked="@BindConverter.FormatValue(CurrentValue)"
                  @onchange="EventCallback.Factory.CreateBinder<bool>(this, __value => CurrentValue = __value, CurrentValue)"
                  required="@Required"
                  readonly="@Readonly"
