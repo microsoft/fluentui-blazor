@@ -1,7 +1,7 @@
 @inherits FluentInputBase<bool>
 <fluent-switch disabled="@Disabled"
                current-checked="@CurrentValue"
-               @onchange="EventCallback.Factory.CreateBinder<bool>(this, __value => CurrentValue = __value, CurrentValue)"
+               @onfluentcheckedchange="(__value) => CurrentValue = __value.Checked"
                required="@Required"
                @attributes="AdditionalAttributes">
     @ChildContent

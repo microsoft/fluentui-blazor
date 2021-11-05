@@ -1,7 +1,7 @@
 @inherits FluentInputBase<bool>
 <fluent-checkbox disabled="@Disabled"
                  current-checked="@BindConverter.FormatValue(CurrentValue)"
-                 @onchange="EventCallback.Factory.CreateBinder<bool>(this, __value => CurrentValue = __value, CurrentValue)"
+                 @onfluentcheckedchange="(__value) => CurrentValue = __value.Checked"
                  required="@Required"
                  readonly="@Readonly"
                  @attributes="AdditionalAttributes">
@@ -21,6 +21,6 @@
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    protected override bool TryParseValueFromString(string? value, out bool result, [NotNullWhen(false)] out string? validationErrorMessage) =>
+     protected override bool TryParseValueFromString(string? value, out bool result, [NotNullWhen(false)] out string? validationErrorMessage) =>
         throw new NotSupportedException($"This component does not parse string inputs. Bind to the '{nameof(CurrentValue)}' property, not '{nameof(CurrentValueAsString)}'.");
 }
