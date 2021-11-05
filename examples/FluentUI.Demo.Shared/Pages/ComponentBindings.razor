@@ -225,7 +225,7 @@
     public ComponentBindings()
     {
 
-        //Form.SelectValue = "Two";
+        Form.SelectValue = "Two";
         //Form.TextFieldValue = "TextFieldValue";
         //Form.NumberFieldValue = 123;
         //Form.TextAreaValue = "TextAreaValue";
@@ -258,5 +258,8 @@
 
         [Required]
         public int SliderValue { get; set; }
+
+        [Required]
+        public bool SwitchValue { get; set; }
     }
 }
