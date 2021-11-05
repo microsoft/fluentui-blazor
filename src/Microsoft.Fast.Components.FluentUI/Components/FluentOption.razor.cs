@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI
 {
-    public partial class FluentOption : ComponentBase
+    public partial class FluentOption<TValue> : ComponentBase
     {
         internal FluentOptionContext? Context { get; private set; }
 
@@ -41,7 +41,7 @@ namespace Microsoft.Fast.Components.FluentUI
 
             if (Context == null)
             {
-                throw new InvalidOperationException($"{GetType()} must have an ancestor {typeof(FluentSelect)}, {typeof(FluentListbox)} or {typeof(FluentCombobox)} " +
+                throw new InvalidOperationException($"{GetType()} must have an ancestor of type FluentSelect, FluentListbox or FluentCombobox " +
                     $"with a matching 'Name' property, if specified.");
             }
         }

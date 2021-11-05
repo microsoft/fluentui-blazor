@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI
 {
-    public partial class FluentCombobox
+    public partial class FluentCombobox<TValue> : FluentInputBase<TValue>
     {
         private readonly string _defaultSelectName = Guid.NewGuid().ToString("N");
         private FluentOptionContext? _context;
@@ -49,11 +49,7 @@ namespace Microsoft.Fast.Components.FluentUI
             _context = new FluentOptionContext(CascadedContext, selectName, CurrentValue, fieldClass, changeEventCallback);
         }
 
-        protected override bool TryParseValueFromString(string? value, out string? result, [NotNullWhen(false)] out string? validationErrorMessage)
-        {
-            result = value;
-            validationErrorMessage = null;
-            return true;
-        }
+        protected override bool TryParseValueFromString(string? value, out TValue? result, [NotNullWhen(false)] out string? validationErrorMessage)
+            => this.TryParseSelectableValueFromString(value, out result, out validationErrorMessage);
     }
 }

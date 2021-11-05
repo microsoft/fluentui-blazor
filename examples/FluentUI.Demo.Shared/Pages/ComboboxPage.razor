@@ -2,7 +2,7 @@
 <h1>Combobox</h1>
 
 <h2>Default</h2>
-<FluentCombobox id="combobox">
+<FluentCombobox id="combobox" @bind-Value="@comboboxValue">
     <FluentOption>Please Please Me</FluentOption>
     <FluentOption>With The Beatles</FluentOption>
     <FluentOption>A Hard Day's Night</FluentOption>
@@ -19,7 +19,7 @@
 </FluentCombobox>
 
 <h2>Filled</h2>
-<FluentCombobox id="combobox" Appearance="Appearance.Filled">
+<FluentCombobox id="combobox" Appearance="Appearance.Filled" @bind-Value="@comboboxValue">
     <FluentOption>Please Please Me</FluentOption>
     <FluentOption>With The Beatles</FluentOption>
     <FluentOption>A Hard Day's Night</FluentOption>
@@ -36,7 +36,7 @@
 </FluentCombobox>
 
 <h2>Default Selected</h2>
-<FluentCombobox id="combobox-with-default">
+<FluentCombobox id="combobox-with-default" @bind-Value="@comboboxValue">
     <FluentOption>William Hartnell</FluentOption>
     <FluentOption>Patrick Troughton</FluentOption>
     <FluentOption>Jon Pertwee</FluentOption>
@@ -53,7 +53,7 @@
 </FluentCombobox>
 
 <h2>Initial Value</h2>
-<FluentCombobox id="combobox-with-initial-value" Value="Christopher Eccleston">
+<FluentCombobox id="combobox-with-initial-value" @bind-Value="@comboboxValue" >
     <FluentOption>William Hartnell</FluentOption>
     <FluentOption>Patrick Troughton</FluentOption>
     <FluentOption>Jon Pertwee</FluentOption>
@@ -72,7 +72,7 @@
 <h2>Combobox with Autocomplete</h2>
 
 <h3>Inline Autocomplete</h3>
-<FluentCombobox id="combobox-with-inline-autocomplete" Autocomplete="Autocomplete.Inline">
+<FluentCombobox id="combobox-with-inline-autocomplete" Autocomplete="Autocomplete.Inline" @bind-Value="@comboboxValue">
     <FluentOption>William Hartnell</FluentOption>
     <FluentOption>Patrick Troughton</FluentOption>
     <FluentOption>Jon Pertwee</FluentOption>
@@ -89,7 +89,7 @@
 </FluentCombobox>
 
 <h3>List Autocomplete</h3>
-<FluentCombobox id="combobox-with-list-autocomplete" Autocomplete="Autocomplete.List">
+<FluentCombobox id="combobox-with-list-autocomplete" Autocomplete="Autocomplete.List" @bind-Value="@comboboxValue">
     <FluentOption>William Hartnell</FluentOption>
     <FluentOption>Patrick Troughton</FluentOption>
     <FluentOption>Jon Pertwee</FluentOption>
@@ -106,7 +106,7 @@
 </FluentCombobox>
 
 <h3>Both Autocomplete</h3>
-<FluentCombobox id="combobox-with-both-autocomplete" Autocomplete="Autocomplete.Both">
+<FluentCombobox id="combobox-with-both-autocomplete" Autocomplete="Autocomplete.Both" @bind-Value="@comboboxValue">
     <FluentOption>William Hartnell</FluentOption>
     <FluentOption>Patrick Troughton</FluentOption>
     <FluentOption>Jon Pertwee</FluentOption>
@@ -123,7 +123,7 @@
 </FluentCombobox>
 
 <h2>Disabled Combobox</h2>
-<FluentCombobox Disabled="true">
+<FluentCombobox Disabled="true" @bind-Value="@comboboxValue">
     <FluentOption>Extra Small</FluentOption>
     <FluentOption>Small</FluentOption>
     <FluentOption>Medium</FluentOption>
@@ -134,7 +134,7 @@
 <h2>Combobox with disabled items</h2>
 
 <h3>Combobox with alternating disabled items</h3>
-<FluentCombobox id="combobox-with-every-other-disabled">
+<FluentCombobox id="combobox-with-every-other-disabled" @bind-Value="@comboboxValue">
     <FluentOption>Extra Small</FluentOption>
     <FluentOption Disabled="true">Small</FluentOption>
     <FluentOption>Medium</FluentOption>
@@ -143,7 +143,7 @@
 </FluentCombobox>
 
 <h3>Combobox with adjacent disabled items at start of list</h3>
-<FluentCombobox id="combobox-with-adjacent-disabled-start">
+<FluentCombobox id="combobox-with-adjacent-disabled-start" @bind-Value="@comboboxValue">
     <FluentOption Disabled="true">Extra Small</FluentOption>
     <FluentOption Disabled="true">Small</FluentOption>
     <FluentOption>Medium</FluentOption>
@@ -152,7 +152,7 @@
 </FluentCombobox>
 
 <h3>Combobox with adjacent disabled items in middle of list</h3>
-<FluentCombobox id="combobox-with-adjacent-disabled-middle">
+<FluentCombobox id="combobox-with-adjacent-disabled-middle" @bind-Value="@comboboxValue">
     <FluentOption>Extra Small</FluentOption>
     <FluentOption Disabled="true">Small</FluentOption>
     <FluentOption Disabled="true">Medium</FluentOption>
@@ -161,7 +161,7 @@
 </FluentCombobox>
 
 <h3>Combobox with adjacent disabled items at end of list</h3>
-<FluentCombobox id="combobox-with-adjacent-disabled-end">
+<FluentCombobox id="combobox-with-adjacent-disabled-end" @bind-Value="@comboboxValue">
     <FluentOption>Extra Small</FluentOption>
     <FluentOption>Small</FluentOption>
     <FluentOption>Medium</FluentOption>
@@ -170,7 +170,7 @@
 </FluentCombobox>
 
 <h3>Combobox with all but one item disabled</h3>
-<FluentCombobox id="combobox-with-all-but-one-disabled">
+<FluentCombobox id="combobox-with-all-but-one-disabled" @bind-Value="@comboboxValue">
     <FluentOption Disabled="true">Extra Small</FluentOption>
     <FluentOption Disabled="true">Small</FluentOption>
     <FluentOption Disabled="true">Medium</FluentOption>
@@ -179,7 +179,7 @@
 </FluentCombobox>
 
 <h3>Combobox with all items disabled</h3>
-<FluentCombobox id="combobox-with-all-disabled">
+<FluentCombobox id="combobox-with-all-disabled" @bind-Value="@comboboxValue">
     <FluentOption Disabled="true">Extra Small</FluentOption>
     <FluentOption Disabled="true">Small</FluentOption>
     <FluentOption Disabled="true">Medium</FluentOption>
@@ -188,7 +188,7 @@
 </FluentCombobox>
 
 <h2>Combobox with placeholder</h2>
-<FluentCombobox placeholder="Please select a size" id="combobox-with-placeholder">
+<FluentCombobox placeholder="Please select a size" id="combobox-with-placeholder" @bind-Value="@comboboxValue">
     <FluentOption>Extra Small</FluentOption>
     <FluentOption>Small</FluentOption>
     <FluentOption>Medium</FluentOption>
@@ -197,10 +197,10 @@
 </FluentCombobox>
 
 <h2>Combobox with no items</h2>
-<FluentCombobox id="combobox-with-no-items"></FluentCombobox>
+<FluentCombobox id="combobox-with-no-items" @bind-Value="@comboboxValue"></FluentCombobox>
 
 <h2>Combobox with long list</h2>
-<FluentCombobox id="combobox-with-long-list" Autocomplete="Autocomplete.Both">
+<FluentCombobox id="combobox-with-long-list" Autocomplete="Autocomplete.Both" @bind-Value="@comboboxValue">
     <FluentOption>Alabama</FluentOption>
     <FluentOption>Alaska</FluentOption>
     <FluentOption>Arizona</FluentOption>
@@ -256,13 +256,17 @@
 <h2>Forced positions</h2>
 
 <h3>Combobox with forced position above</h3>
-<FluentCombobox id="combobox-with-forced-position-above" Position="Position.Above">
+<FluentCombobox id="combobox-with-forced-position-above" Position="Position.Above" @bind-Value="@comboboxValue">
     <FluentOption>Position forced above</FluentOption>
     <FluentOption>Option Two</FluentOption>
 </FluentCombobox>
 
 <h3>Combobox with forced position below</h3>
-<FluentCombobox id="combobox-with-forced-position-below" Position="Position.Below">
+<FluentCombobox id="combobox-with-forced-position-below" Position="Position.Below" @bind-Value="@comboboxValue">
     <FluentOption>Position forced below</FluentOption>
     <FluentOption>Option Two</FluentOption>
 </FluentCombobox>
+
+@code{
+    string? comboboxValue = "Christopher Eccleston";
+}
