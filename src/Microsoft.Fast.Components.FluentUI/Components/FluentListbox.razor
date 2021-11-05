@@ -1,9 +1,9 @@
 @inherits FluentInputBase<string?>
 <CascadingValue TValue=FluentOptionContext IsFixed=true Value=_context @key=_context>
-    <fluent-listbox @attributes="AdditionalAttributes"
-                    current-value="@CurrentValueAsString"
+    <fluent-listbox current-value="@CurrentValueAsString"
                     @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
-                    name="@Name">
+                    name="@Name"
+                    @attributes="AdditionalAttributes">
         @ChildContent
     </fluent-listbox>
 </CascadingValue>
