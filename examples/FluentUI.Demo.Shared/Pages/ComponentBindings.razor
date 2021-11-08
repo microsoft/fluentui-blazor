@@ -1,192 +1,220 @@
 ﻿@page "/componentbindings"
 @using System.ComponentModel.DataAnnotations
-<h3>Usage</h3>
+<style>
+    .control-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: calc(var(--design-unit) * 6px);
+    }
 
-<div>
-    <h1>Fluent components no form</h1>
-    <div>
-        <label for="SelectValue">Select Value</label>
-        <FluentSelect Name="SelectValue" @bind-Value="Form.SelectValue">
-            <FluentOption Value="One">One</FluentOption>
-            <FluentOption Value="Two">Two</FluentOption>
-            <FluentOption Value="Three">Three</FluentOption>
-        </FluentSelect>
-    </div>
-    <div>
-        <label for="TextFieldValue">Text field Value</label>
-        <FluentTextField Name="TextFieldValue" @bind-Value="Form.TextFieldValue" />
-    </div>
-    <div>
-        <label for="NumberFieldValue">Number field Value</label>
-        <FluentNumberField Name="NumberFieldValue" @bind-Value="Form.NumberFieldValue" />
-    </div>
-    <div>
-        <label for="TextAreaValue">Text area Value</label>
-        <FluentTextField Name="TextAreaValue" @bind-Value="Form.TextAreaValue" />
-    </div>
-    <div>
-        <label for="ComboboxValue">Combobox Value</label>
-        <FluentCombobox Name="ComboboxValue" @bind-Value="Form.ComboboxValue">
-            <FluentOption>Please Please Me</FluentOption>
-            <FluentOption>With The Beatles</FluentOption>
-            <FluentOption>A Hard Day's Night</FluentOption>
-            <FluentOption>Beatles for Sale</FluentOption>
-            <FluentOption>Help!</FluentOption>
-            <FluentOption>Rubber Soul</FluentOption>
-            <FluentOption>Revolver</FluentOption>
-            <FluentOption>Sgt. Pepper's Lonely Hearts Club Band</FluentOption>
-            <FluentOption>Magical Mystery Tour</FluentOption>
-            <FluentOption>The Beatles</FluentOption>
-            <FluentOption>Yellow Submarine</FluentOption>
-            <FluentOption>Abbey Road</FluentOption>
-            <FluentOption>Let It Be</FluentOption>
-        </FluentCombobox>
-    </div>
-    <div>
-        <label for="RadioGroupValue">Radio group Value</label>
-        <FluentRadioGroup Name="RadioGroupValue" @bind-Value="Form.RadioGroupValue">
-            <FluentRadio Value="apples">Apples</FluentRadio>
-            <FluentRadio Value="oranges">Oranges</FluentRadio>
-            <FluentRadio Value="bananas">Bananas</FluentRadio>
-            <FluentRadio Value="kiwi">Kiwi</FluentRadio>
-            <FluentRadio Value="grapefruit">Grapefruit</FluentRadio>
-            <FluentRadio Value="mango">Mango</FluentRadio>
-            <FluentRadio Value="blueberries">Blueberries</FluentRadio>
-            <FluentRadio Value="strawberries">Strawberries</FluentRadio>
-            <FluentRadio Value="pineapple">Pineapple</FluentRadio>
-        </FluentRadioGroup>
-    </div>
-    <div>
-        <label for="CheckboxValue">Checkbox Value</label>
-        <FluentCheckbox Name="CheckboxValue" @bind-Value="Form.CheckboxValue" />
-    </div>
-    <div style="width: 500px;">
-        <label for="SliderValue">Slider Value</label>
-        <FluentSlider id="SliderValue" Orientation="Orientation.Horizontal" Min="0" Max="100" Step="10" @bind-Value="Form.SliderValue">
-            <FluentSliderLabel Position="0">
-                0&#8451;
-            </FluentSliderLabel>
-            <FluentSliderLabel Position="10">
-                10&#8451;
-            </FluentSliderLabel>
-            <FluentSliderLabel Position="90">
-                90&#8451;
-            </FluentSliderLabel>
-            <FluentSliderLabel Position="100">
-                100&#8451;
-            </FluentSliderLabel>
-        </FluentSlider>
-    </div>
-</div>
-<h4>Values:</h4>
-<dl>
-    <dt>Select</dt>
-    <dd>@Form.SelectValue</dd>
-    <dt>Text field</dt>
-    <dd>@Form.TextFieldValue</dd>
-    <dt>Number field</dt>
-    <dd>@Form.NumberFieldValue</dd>
-    <dt>Text area</dt>
-    <dd>@Form.TextAreaValue</dd>
-    <dt>Combobox</dt>
-    <dd>@Form.ComboboxValue</dd>
-    <dt>Radio group</dt>
-    <dd>@Form.RadioGroupValue</dd>
-    <dt>Checkbox</dt>
-    <dd>@Form.CheckboxValue</dd>
-    <dt>Slider</dt>
-    <dd>@Form.SliderValue</dd>
-</dl>
-<p></p>
+</style>
+    <div class="control-container">
+        <div>
+            <h1>Components without EditForm</h1>
+            <div>
+                <p><label for="SelectValue">Select Value</label></p>
+                <FluentSelect Name="SelectValue" @bind-Value="Form.SelectValue">
+                    <FluentOption Value="One">One</FluentOption>
+                    <FluentOption Value="Two">Two</FluentOption>
+                    <FluentOption Value="Three">Three</FluentOption>
+                </FluentSelect>
+            </div>
+            <div>
+                <FluentTextField Name="TextFieldValue" @bind-Value="Form.TextFieldValue">
+                    Text Field Value
+                </FluentTextField>
+            </div>
+            <div>
+                <FluentNumberField Name="NumberFieldValue" @bind-Value="Form.NumberFieldValue">
+                    Number Field Value
+                </FluentNumberField>
+            </div>
+            <div>
+                <FluentTextField Name="TextAreaValue" @bind-Value="Form.TextAreaValue">
+                    TextArea Value
+                </FluentTextField>
+            </div>
+            <div>
+                <p><label for="ComboboxValue">Combobox Value</label></p>
+                <FluentCombobox Name="ComboboxValue" @bind-Value="Form.ComboboxValue">
+                    <FluentOption>Please Please Me</FluentOption>
+                    <FluentOption>With The Beatles</FluentOption>
+                    <FluentOption>A Hard Day's Night</FluentOption>
+                    <FluentOption>Beatles for Sale</FluentOption>
+                    <FluentOption>Help!</FluentOption>
+                    <FluentOption>Rubber Soul</FluentOption>
+                    <FluentOption>Revolver</FluentOption>
+                    <FluentOption>Sgt. Pepper's Lonely Hearts Club Band</FluentOption>
+                    <FluentOption>Magical Mystery Tour</FluentOption>
+                    <FluentOption>The Beatles</FluentOption>
+                    <FluentOption>Yellow Submarine</FluentOption>
+                    <FluentOption>Abbey Road</FluentOption>
+                    <FluentOption>Let It Be</FluentOption>
+                </FluentCombobox>
+            </div>
+            <div>
+                <p><label for="RadioGroupValue">Radio group Value</label></p>
+                <FluentRadioGroup Name="RadioGroupValue" @bind-Value="Form.RadioGroupValue"
+                    Orientation="Orientation.Vertical">
+                    <FluentRadio Value="apples">Apples</FluentRadio>
+                    <FluentRadio Value="oranges">Oranges</FluentRadio>
+                    <FluentRadio Value="bananas">Bananas</FluentRadio>
+                    <FluentRadio Value="kiwi">Kiwi</FluentRadio>
+                    <FluentRadio Value="grapefruit">Grapefruit</FluentRadio>
+                    <FluentRadio Value="mango">Mango</FluentRadio>
+                    <FluentRadio Value="blueberries">Blueberries</FluentRadio>
+                    <FluentRadio Value="strawberries">Strawberries</FluentRadio>
+                    <FluentRadio Value="pineapple">Pineapple</FluentRadio>
+                </FluentRadioGroup>
+            </div>
+            <div>
+                <FluentCheckbox Name="CheckboxValue" @bind-Value="Form.CheckboxValue">
+                    Checkbox Value
+                </FluentCheckbox>
+            </div>
+            <div style="max-width: 500px;">
+                <label for="SliderValue">Slider Value</label>
+                <FluentSlider id="SliderValue" Orientation="Orientation.Horizontal" Min="0" Max="100" Step="10"
+                    @bind-Value="Form.SliderValue">
+                    <FluentSliderLabel Position="0">
+                        0&#8451;
+                    </FluentSliderLabel>
+                    <FluentSliderLabel Position="10">
+                        10&#8451;
+                    </FluentSliderLabel>
+                    <FluentSliderLabel Position="90">
+                        90&#8451;
+                    </FluentSliderLabel>
+                    <FluentSliderLabel Position="100">
+                        100&#8451;
+                    </FluentSliderLabel>
+                </FluentSlider>
+            </div>
+        </div>
 
-<div>
-    <h1>Fluent form</h1>
-    <EditForm Model="Form">
-        <DataAnnotationsValidator />
         <div>
-            <ValidationSummary />
+            <h1>Component within EditForm</h1>
+            <EditForm Model="Form">
+                <DataAnnotationsValidator />
+                <div>
+                    <ValidationSummary />
+                </div>
+                <div>
+                    <p><label for="SelectValue">Select Value</label></p>
+                    <FluentSelect Name="SelectValue" @bind-Value="Form.SelectValue">
+                        <FluentOption Value="One">One</FluentOption>
+                        <FluentOption Value="Two">Two</FluentOption>
+                        <FluentOption Value="Three">Three</FluentOption>
+                    </FluentSelect>
+                    <span>
+                        <ValidationMessage For="() => Form.SelectValue" />
+                    </span>
+                </div>
+                <div>
+                    <FluentTextField Name="TextFieldValue" @bind-Value="Form.TextFieldValue">
+                        Text Field Value
+                    </FluentTextField>
+                    <span>
+                        <ValidationMessage For="() => Form.TextFieldValue" />
+                    </span>
+                </div>
+                <div>
+                    <FluentNumberField Name="NumberFieldValue" @bind-Value="Form.NumberFieldValue">
+                        Number Field Value
+                    </FluentNumberField>
+                    <span>
+                        <ValidationMessage For="() => Form.NumberFieldValue" />
+                    </span>
+                </div>
+                <div>
+                    <FluentTextField Name="TextAreaValue" @bind-Value="Form.TextAreaValue">
+                        TextArea Value
+                    </FluentTextField>
+                    <span>
+                        <ValidationMessage For="() => Form.TextAreaValue" />
+                    </span>
+                </div>
+                <div>
+                    <p><label for="ComboboxValue">Combobox Value</label></p>
+                    <FluentCombobox Name="ComboboxValue" @bind-Value="Form.ComboboxValue">
+                        <FluentOption>Please Please Me</FluentOption>
+                        <FluentOption>With The Beatles</FluentOption>
+                        <FluentOption>A Hard Day's Night</FluentOption>
+                        <FluentOption>Beatles for Sale</FluentOption>
+                        <FluentOption>Help!</FluentOption>
+                        <FluentOption>Rubber Soul</FluentOption>
+                        <FluentOption>Revolver</FluentOption>
+                        <FluentOption>Sgt. Pepper's Lonely Hearts Club Band</FluentOption>
+                        <FluentOption>Magical Mystery Tour</FluentOption>
+                        <FluentOption>The Beatles</FluentOption>
+                        <FluentOption>Yellow Submarine</FluentOption>
+                        <FluentOption>Abbey Road</FluentOption>
+                        <FluentOption>Let It Be</FluentOption>
+                    </FluentCombobox>
+                </div>
+                <div>
+                    <p><label for="RadioGroupValue">Radio group Value</label></p>
+                    <FluentRadioGroup Name="RadioGroupValue" @bind-Value="Form.RadioGroupValue"
+                        Orientation="Orientation.Vertical">
+                        <FluentRadio Value="apples">Apples</FluentRadio>
+                        <FluentRadio Value="oranges">Oranges</FluentRadio>
+                        <FluentRadio Value="bananas">Bananas</FluentRadio>
+                        <FluentRadio Value="kiwi">Kiwi</FluentRadio>
+                        <FluentRadio Value="grapefruit">Grapefruit</FluentRadio>
+                        <FluentRadio Value="mango">Mango</FluentRadio>
+                        <FluentRadio Value="blueberries">Blueberries</FluentRadio>
+                        <FluentRadio Value="strawberries">Strawberries</FluentRadio>
+                        <FluentRadio Value="pineapple">Pineapple</FluentRadio>
+                    </FluentRadioGroup>
+                </div>
+                <div>
+                    <FluentCheckbox Name="CheckboxValue" @bind-Value="Form.CheckboxValue">
+                        Checkbox Value
+                    </FluentCheckbox>
+                </div>
+                <div style="max-width: 500px;">
+                    <label for="SliderValue">Slider Value</label>
+                    <FluentSlider id="SliderValue" Orientation="Orientation.Horizontal" Min="0" Max="100" Step="10"
+                        @bind-Value="Form.SliderValue">
+                        <FluentSliderLabel Position="0">
+                            0&#8451;
+                        </FluentSliderLabel>
+                        <FluentSliderLabel Position="10">
+                            10&#8451;
+                        </FluentSliderLabel>
+                        <FluentSliderLabel Position="90">
+                            90&#8451;
+                        </FluentSliderLabel>
+                        <FluentSliderLabel Position="100">
+                            100&#8451;
+                        </FluentSliderLabel>
+                    </FluentSlider>
+                </div>
+                <FluentButton style="margin-top: calc(var(--design-unit) * 6px)">Submit</FluentButton>
+            </EditForm>
         </div>
-        <div>
-            <label for="SelectValue">Select Value</label>
-            <FluentSelect Name="SelectValue" @bind-Value="Form.SelectValue">
-                <FluentOption Value="One">One</FluentOption>
-                <FluentOption Value="Two">Two</FluentOption>
-                <FluentOption Value="Three">Three</FluentOption>
-            </FluentSelect>
-            <p><ValidationMessage For="() => Form.SelectValue" /></p>
-        </div>
-        <div>
-            <label for="TextFieldValue">Text field Value</label>
-            <FluentTextField Name="TextFieldValue" @bind-Value="Form.TextFieldValue" />
-            <p><ValidationMessage For="() => Form.TextFieldValue" /></p>
-        </div>
-        <div>
-            <label for="NumberFieldValue">Number field Value</label>
-            <FluentNumberField Name="NumberFieldValue" @bind-Value="Form.NumberFieldValue" />
-            <p><ValidationMessage For="() => Form.NumberFieldValue" /></p>
-        </div>
-        <div>
-            <label for="TextAreaValue">Text area Value</label>
-            <FluentTextField Name="TextAreaValue" @bind-Value="Form.TextAreaValue" />
-            <p><ValidationMessage For="() => Form.TextAreaValue" /></p>
-        </div>
-        <div>
-            <label for="ComboboxValue">Combobox Value</label>
-            <FluentCombobox Name="ComboboxValue" @bind-Value="Form.ComboboxValue">
-                <FluentOption>Please Please Me</FluentOption>
-                <FluentOption>With The Beatles</FluentOption>
-                <FluentOption>A Hard Day's Night</FluentOption>
-                <FluentOption>Beatles for Sale</FluentOption>
-                <FluentOption>Help!</FluentOption>
-                <FluentOption>Rubber Soul</FluentOption>
-                <FluentOption>Revolver</FluentOption>
-                <FluentOption>Sgt. Pepper's Lonely Hearts Club Band</FluentOption>
-                <FluentOption>Magical Mystery Tour</FluentOption>
-                <FluentOption>The Beatles</FluentOption>
-                <FluentOption>Yellow Submarine</FluentOption>
-                <FluentOption>Abbey Road</FluentOption>
-                <FluentOption>Let It Be</FluentOption>
-            </FluentCombobox>
-        </div>
-        <div>
-            <label for="RadioGroupValue">Radio group Value</label>
-            <FluentRadioGroup Name="RadioGroupValue" @bind-Value="Form.RadioGroupValue">
-                <FluentRadio Value="apples">Apples</FluentRadio>
-                <FluentRadio Value="oranges">Oranges</FluentRadio>
-                <FluentRadio Value="bananas">Bananas</FluentRadio>
-                <FluentRadio Value="kiwi">Kiwi</FluentRadio>
-                <FluentRadio Value="grapefruit">Grapefruit</FluentRadio>
-                <FluentRadio Value="mango">Mango</FluentRadio>
-                <FluentRadio Value="blueberries">Blueberries</FluentRadio>
-                <FluentRadio Value="strawberries">Strawberries</FluentRadio>
-                <FluentRadio Value="pineapple">Pineapple</FluentRadio>
-            </FluentRadioGroup>
-        </div>
-        <div>
-            <label for="CheckboxValue">Checkbox Value</label>
-            <FluentCheckbox Name="CheckboxValue" @bind-Value="Form.CheckboxValue" />
-        </div>
-        <div style="width: 500px;">
-            <label for="SliderValue">Slider Value</label>
-            <FluentSlider id="SliderValue" Orientation="Orientation.Horizontal" Min="0" Max="100" Step="10" @bind-Value="Form.SliderValue">
-                <FluentSliderLabel Position="0">
-                    0&#8451;
-                </FluentSliderLabel>
-                <FluentSliderLabel Position="10">
-                    10&#8451;
-                </FluentSliderLabel>
-                <FluentSliderLabel Position="90">
-                    90&#8451;
-                </FluentSliderLabel>
-                <FluentSliderLabel Position="100">
-                    100&#8451;
-                </FluentSliderLabel>
-            </FluentSlider>
-        </div>
-        <input type="submit" value="Send" />
-        <FluentButton>Submit</FluentButton>
-    </EditForm>
-</div>
+    <div>
+        <h4>Values:</h4>
+        <dl>
+            <dt>Select</dt>
+            <dd>@Form.SelectValue</dd>
+            <dt>Text field</dt>
+            <dd>@Form.TextFieldValue</dd>
+            <dt>Number field</dt>
+            <dd>@Form.NumberFieldValue</dd>
+            <dt>Text area</dt>
+            <dd>@Form.TextAreaValue</dd>
+            <dt>Combobox</dt>
+            <dd>@Form.ComboboxValue</dd>
+            <dt>Radio group</dt>
+            <dd>@Form.RadioGroupValue</dd>
+            <dt>Checkbox</dt>
+            <dd>@Form.CheckboxValue</dd>
+            <dt>Slider</dt>
+            <dd>@Form.SliderValue</dd>
+        </dl>
+    </div>
+    </div>
 
 @code {
     public FormModel Form { get; set; } = new();
@@ -197,7 +225,7 @@
     public ComponentBindings()
     {
 
-        //Form.SelectValue = "Two";
+        Form.SelectValue = "Two";
         //Form.TextFieldValue = "TextFieldValue";
         //Form.NumberFieldValue = 123;
         //Form.TextAreaValue = "TextAreaValue";
@@ -230,5 +258,8 @@
 
         [Required]
         public int SliderValue { get; set; }
+
+        [Required]
+        public bool SwitchValue { get; set; }
     }
 }

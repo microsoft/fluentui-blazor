@@ -1,9 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI
 {
@@ -55,6 +51,8 @@ namespace Microsoft.Fast.Components.FluentUI
 
     [BindElement("fluent-number-field", null, "value", "onchange")]
     [BindElement("fluent-number-field", "value", "value", "onchange")]
+
+
 
     public static class BindAttributes
     {
