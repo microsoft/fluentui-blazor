@@ -16,7 +16,7 @@
 
 The `Microsoft.Fast.Components.FluentUI` package provides a lightweight set of [Blazor](https://blazor.net) component wrappers around Microsoft's official FluentUI Web Components. The FluentUI Web Components are built on [FAST](https://www.fast.design/) and work in every major browser. To get up and running with `Microsoft.Fast.Components.FluentUI` see the Getting Started section below.
 
-The source for `@fluentui/web-components` is hosted in the [Fluent UI](https://github.com/microsoft/fluentui/tree/master/packages/web-components) mono-repository. An implementation of  current Fluent Web Components can be found at https://aka.ms/fluentwebcomponents.
+The source for `@fluentui/web-components` is hosted in the [Fluent UI](https://github.com/microsoft/fluentui/tree/master/packages/web-components) mono-repository. Documentation on the components is available on [docs.microsoft.com](https://docs.microsoft.com/en-us/fluent-ui/web-components/).
 
 ## Getting Started
 
@@ -41,8 +41,22 @@ Depending on what type of Blazor project you are building, it will go into one o
 
 Once these steps are completed, you can then begin using the components throughout your Blazor application by adding the following `using` statement to your views:
 
-```cs
+```razor
 @using Microsoft.Fast.Components.FluentUI
+```
+
+Here's an example of what page with a card and button would look like:
+
+```razor
+@page "/"
+@using Microsoft.Fast.Components.FluentUI
+
+<FluentCard>
+  <h2>Hello World!</h2>
+  <FluentButton Appearance="@Appearance.Accent">
+    Click Me
+  </FluentButton>
+</FluentCard>
 ```
 
 Take a look in the `examples` folder of this repository to see how to use the various components.
@@ -50,6 +64,8 @@ Take a look in the `examples` folder of this repository to see how to use the va
 ## Joining the Community
 
 Looking to get answers to questions or engage with us in realtime? Our community is most active [on Discord](https://discord.gg/FcSNfg4). Submit requests and issues on [GitHub](https://github.com/dotnet/blazor-fluentui/issues/new/choose), or join us by contributing on [some good first issues via GitHub](https://github.com/dotnet/blazor-fluentui/labels/community:good-first-issue).
+
+If you don't find a component you're looking for, it's best to create the issue in our FAST repo [here](https://github.com/microsoft/fast) and limit issues on this repo to bugs in the Blazor component wrappers or Blazor-specific features.
 
 We look forward to building an amazing open source community with you!
 
