@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 using Microsoft.AspNetCore.Components;
@@ -30,6 +31,9 @@ namespace Microsoft.Fast.Components.FluentUI
         /// </summary>
         [Parameter]
         public RenderFragment? ChildContent { get; set; }
+
+        [Parameter]
+        public IList<Option<TValue>>? Items { get; set; }
 
         [CascadingParameter]
         private FluentOptionContext? CascadedContext { get; set; }

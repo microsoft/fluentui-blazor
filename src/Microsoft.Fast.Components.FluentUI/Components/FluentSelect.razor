@@ -10,6 +10,16 @@
                    name="@Name"
                    position="@Position.ToAttributeValue()"
                    @attributes="AdditionalAttributes">
+    @if (Items is not null && Items.Any())
+    {
+        foreach (Option<TValue> option in Items)
+        {
+            <FluentOption Value=@option.Key Selected="option.Selected" Disabled=option.Disabled>@option.Value</FluentOption>
+        }
+    }
+    else
+    {
         @ChildContent
+    }
     </fluent-select>
 </CascadingValue>

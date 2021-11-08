@@ -1,8 +1,8 @@
 @typeparam TValue
 <fluent-option disabled="@Disabled"
                value="@BindConverter.FormatValue(Value?.ToString())"
-               selected="@Context.CurrentValue?.Equals(Value)"
-               onchange=@Context.ChangeEventCallback
+               selected="@(Selected ?? Context?.CurrentValue?.Equals(Value))"
+               onchange=@Context?.ChangeEventCallback
                @attributes="AdditionalAttributes">
     @ChildContent
 </fluent-option>

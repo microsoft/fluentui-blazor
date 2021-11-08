@@ -16,7 +16,7 @@ namespace Microsoft.Fast.Components.FluentUI
         /// Gets or sets the value of this option.
         /// </summary>
         [Parameter]
-        public string? Value { get; set; }
+        public TValue? Value { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the parent container component.

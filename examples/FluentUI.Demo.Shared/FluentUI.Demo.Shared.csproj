@@ -7,6 +7,10 @@
     <UseRazorSourceGenerator>false</UseRazorSourceGenerator>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Remove="Pages\ListboxOptionPage.razor" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <SupportedPlatform Include="browser" />
