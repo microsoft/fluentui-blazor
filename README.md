@@ -4,20 +4,23 @@
 [![.NET C#](https://img.shields.io/badge/.NET-C%23-blue)](https://docs.microsoft.com/en-us/dotnet/csharp/)
 [![Nuget](https://img.shields.io/nuget/v/Microsoft.Fast.Components.FluentUI)](https://www.nuget.org/packages/Microsoft.Fast.Components.FluentUI/)
 
+[![Validate PRs](https://github.com/microsoft/fast-blazor/actions/workflows/ci-validate.yml/badge.svg)](https://github.com/microsoft/fast-blazor/actions/workflows/ci-validate.yml)
+[![Validate Security](https://github.com/microsoft/fast-blazor/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/microsoft/fast-blazor/actions/workflows/codeql-analysis.yml)
+
 [![Discord](https://img.shields.io/badge/chat%20on-discord-7289da.svg)](https://discord.gg/FcSNfg4)
 [![Twitter](https://img.shields.io/twitter/follow/fast_ui.svg?style=social&label=Follow)](https://twitter.com/intent/follow?screen_name=fast_ui)
 
-:star: We appreciate your star, it helps!
+:star:  We appreciate your star, it helps!
 
 ## Introduction
 
 The `Microsoft.Fast.Components.FluentUI` package provides a lightweight set of [Blazor](https://blazor.net) component wrappers around Microsoft's official FluentUI Web Components. The FluentUI Web Components are built on [FAST](https://www.fast.design/) and work in every major browser. To get up and running with `Microsoft.Fast.Components.FluentUI` see the Getting Started section below.
 
-The source for `@fluentui/web-components` is hosted in [the Fluent UI monorepo](https://github.com/microsoft/fluentui/tree/master/packages/web-components). An implementation of all the current Fluent Web Components can be found at https://aka.ms/fluentwebcomponents.
+The source for `@fluentui/web-components` is hosted in the [Fluent UI](https://github.com/microsoft/fluentui/tree/master/packages/web-components) mono-repository. An implementation of  current Fluent Web Components can be found at https://aka.ms/fluentwebcomponents.
 
 ## Getting Started
 
-To get started using `Microsoft.Fast.Components.FluentUI`, you will need both the Nuget package and the accompanying Web Component implementations. First, install [the Nuget package](https://www.nuget.org/packages/Microsoft.Fast.Components.FluentUI/). If using the .NET CLI, you can run the following command to accomplish that.
+To get started using `Microsoft.Fast.Components.FluentUI`, you will need both the Nuget package and the accompanying Web Component implementations. First, install the [Nuget package](https://www.nuget.org/packages/Microsoft.Fast.Components.FluentUI/). If using the .NET CLI, you can run the following command to accomplish that.
 
 ```shell
 dotnet add package Microsoft.Fast.Components.FluentUI
@@ -53,5 +56,5 @@ We look forward to building an amazing open source community with you!
 ## Contact
 
 * Join the community and chat with us in real-time on [Discord](https://discord.gg/FcSNfg4).
-* Submit requests and issues on [GitHub](https://github.com/dotnet/blazor-fluentui/issues/new/choose).
-* Contribute by helping out on some of our recommended first issues on [GitHub](https://github.com/dotnet/blazor-fluentui/labels/community:good-first-issue).
+* Submit requests and issues on [GitHub](https://github.com/microsoft/fast-blazor/issues/new/choose).
+* Contribute by helping out on some of our recommended first issues on [GitHub](https://github.com/microsoft/fast-blazor/labels/community:good-first-issue).
