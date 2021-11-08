@@ -16,15 +16,15 @@ The above steps are a one-time setup for your machine and do not need to be repe
 
 ### Cloning the repository
 
-Now that your machine is setup, you can clone the `blazor-fluentui` repository. Open a terminal and run this command:
+Now that your machine is setup, you can clone the `FAST-Blazor` repository. Open a terminal and run this command:
 
 ```shell
-git clone https://github.com/dotnet/blazor-fluentui.git
+git clone https://github.com/microsoft/fast-blazor.git
 ```
 Cloning via SSH:
 
 ```shell
-git clone git@github.com:dotnet/blazor-fluentui.git
+git clone git@github.com:microsoft/fast-blazor.git
 ```
 
 ### Installing and building
@@ -43,20 +43,6 @@ If you'd like to contribute by fixing a bug, implementing a feature, or even cor
 
 If you are merging a pull request, be sure to use the pull request title as the commit title. The title should follow the [conventional commit guidelines](https://www.conventionalcommits.org/). It is recommended that if you are merging in pull requests regularly that you add a browser extension that will auto-correct the title for you. A few that should do this are [Refined GitHub](https://github.com/sindresorhus/refined-github) and [Squashed Merge Message](https://github.com/zachwhaley/squashed-merge-message).
 
-### Documenting breaking changes
-
-Make sure to document the migration strategy in a `MIGRATION.md` file in the `docs` folder.
-
-Example of how to format `MIGRATION.md`:
-
-```md
-# Migrating from previous versions
-
-## v1 to v2
-
-- Export `Foo` has been renamed to `Bar`.
-- `Bat` has been updated to use the new API [`BatConfig`](link/to/api).
-```
 
 ## Contribution policy
 
