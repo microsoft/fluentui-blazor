@@ -1,6 +1,8 @@
 ﻿body {
     --body-font: Segoe UI, sans-serif;
     font-family: var(--body-font);
+    font-size: var(--type-ramp-base-font-size);
+    line-height: var(--type-ramp-base-line-height);
     margin: 0;
 }
 
