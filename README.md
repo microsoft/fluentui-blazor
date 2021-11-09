@@ -20,42 +20,62 @@ The source for `@fluentui/web-components` is hosted in the [Fluent UI](https://g
 
 ## Getting Started
 
-To get started using `Microsoft.Fast.Components.FluentUI`, you will need both the Nuget package and the accompanying Web Component implementations. First, install the [Nuget package](https://www.nuget.org/packages/Microsoft.Fast.Components.FluentUI/). If using the .NET CLI, you can run the following command to accomplish that.
+To get started using the Fluent UI Web Components for Blazor, you will first need to install [the official Nuget package for Fluent UI](https://www.nuget.org/packages/Microsoft.Fast.Components.FluentUI/). You can use the following command:
 
 ```shell
 dotnet add package Microsoft.Fast.Components.FluentUI
 ```
 
-Next, add a script tag to your project.
+Next, you need to add the web components script. You can either add the script from CDN directly, or you can install it with NPM, whichever you prefer.
+
+To add the script from CDN use the following markup:
 
 ```html
-<script type="module" src="https://unpkg.com/@fluentui/web-components"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/@fluentui/web-components/dist/web-components.min.js"></script>
 ```
 
-Depending on what type of Blazor project you are building, it will go into one of two places:
+The markup above always references the latest release of the components. When deploying to production, you will want to ship with a specific version. Here's an example of the markup for that:
 
-* For a Blazor Server project, add the script tag to your `_Host.cshtml` file.
-* For a Blazor WASM project, add the script tag to your index or main layout.
+```html
+<script type="module" src="https://cdn.jsdelivr.net/npm/@fluentui/web-components@2.0.2/dist/web-components.min.js"></script>
+```
 
-> **Note:** If the script reference is added to a `.razor` or `.cshtml` file, you will need to escape the `@` with a second `@` like so `https://unpkg.com/@@fluentui/web-components`.
+The best place to put the script tag is typically in your `index.html` file in the script section at the bottom of the `<body>`.
 
-Once these steps are completed, you can then begin using the components throughout your Blazor application by adding the following `using` statement to your views:
+If you wish to leverage NPM instead, run the following command:
+
+```shell
+npm install --save @fluentui/web-components
+```
+
+You can locate the single file script build in the following location:
+
+```shell
+node_modules/@fluentui/web-components/dist/web-components.min.js
+```
+
+Copy this to your `wwwroot/script` folder and reference it with a script tag as described above.
+
+> **Note**:
+>
+> If you are setting up Fluent UI Web Components on a Blazor Server project, you will need to escape the `@` character by repeating it in the source link. For more information check out the [Razor Pages syntax documentation](/aspnet/core/mvc/views/razor).
+
+### Using the FluentUI Web Components
+
+With the package installed and the script configured, you can begin using the Fluent UI Web Components in the same way as any other Blazor component. Just be sure to add the following using statement to your views:
 
 ```razor
 @using Microsoft.Fast.Components.FluentUI
 ```
 
-Here's an example of what page with a card and button would look like:
+Here's a small example of a `FluentCard` with a `FluentButton` that uses the Fluent "Accent" appearance:
 
 ```razor
-@page "/"
 @using Microsoft.Fast.Components.FluentUI
 
 <FluentCard>
   <h2>Hello World!</h2>
-  <FluentButton Appearance="@Appearance.Accent">
-    Click Me
-  </FluentButton>
+  <FluentButton Appearance="@Appearance.Accent">Click Me</FluentButton>
 </FluentCard>
 ```
 
