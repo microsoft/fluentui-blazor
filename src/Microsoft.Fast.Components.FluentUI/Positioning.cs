@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Microsoft.Fast.Components.FluentUI
+﻿namespace Microsoft.Fast.Components.FluentUI;
+public enum Positioning
 {
-    public enum Positioning
-    {
-        Uncontrolled,
-        Locktodefault,
-        Dynamic
-    }
+    Uncontrolled,
+    Locktodefault,
+    Dynamic
+}
 
-    internal static class PositioningExtensions
-    {
-        private static readonly Dictionary<Positioning, string> _positioningValues =
-            Enum.GetValues<Positioning>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());
+internal static class PositioningExtensions
+{
+    private static readonly Dictionary<Positioning, string> _positioningValues =
+        Enum.GetValues<Positioning>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());
 
-        public static string? ToAttributeValue(this Positioning? value) => value == null ? null : _positioningValues[value.Value];
-    }
+    public static string? ToAttributeValue(this Positioning? value) => value == null ? null : _positioningValues[value.Value];
 }
