@@ -21,6 +21,8 @@ public partial class FluentListbox<TValue> : FluentInputBase<TValue>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    [Parameter]
+    public IEnumerable<Option<TValue>>? OptionItems { get; set; }
 
     [CascadingParameter] private FluentOptionContext? CascadedContext { get; set; }
 

@@ -6,6 +6,16 @@
                     @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
                     name="@Name"
                     @attributes="AdditionalAttributes">
+    @if (OptionItems is not null)
+    {
+        foreach (Option<TValue> option in OptionItems)
+        {
+            <FluentOption Value=@option.Key Selected="option.Selected" Disabled=option.Disabled>@option.Value</FluentOption>
+        }
+    }
+    else
+    {
         @ChildContent
+    }
     </fluent-listbox>
 </CascadingValue>

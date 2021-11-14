@@ -18,6 +18,12 @@
     <FluentOption>Let It Be</FluentOption>
 </FluentCombobox>
 
+<h2>From list of string items</h2>
+<FluentCombobox OptionItems=@stringOptions />
+
+<h2>From list of int items</h2>
+<FluentCombobox OptionItems=@intOptions />
+
 <h2>Filled</h2>
 <FluentCombobox id="combobox" Appearance="Appearance.Filled" @bind-Value="@comboboxValue">
     <FluentOption>Please Please Me</FluentOption>
@@ -269,4 +275,22 @@
 
 @code{
     string? comboboxValue = "Christopher Eccleston";
+    string? selectValue;
+    int selectValue2;
+
+    List<Option<string>> stringOptions = new()
+        {
+            { new Option<string> { Key = "1", Value = "One" } },
+            { new Option<string> { Key = "2", Value = "Two", Selected = true } },
+            { new Option<string> { Key = "3", Value = "Three" } }
+
+        };
+
+    List<Option<int>> intOptions = new()
+        {
+            { new Option<int> { Key = 1, Value = 1, Disabled = true } },
+            { new Option<int> { Key = 2, Value = 2 } },
+            { new Option<int> { Key = 3, Value = 3 } }
+
+        };
 }

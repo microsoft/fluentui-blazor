@@ -8,6 +8,12 @@
     <FluentOption Selected="true">This option is selected by default</FluentOption>
 </FluentListbox>
 
+<h2>From list of string items</h2>
+<FluentListbox OptionItems=@stringOptions />
+
+<h2>From list of int items</h2>
+<FluentListbox OptionItems=@intOptions />
+
 <h2>Long list</h2>
 <FluentListbox @bind-Value=@listboxValue>
     <FluentOption Value="@("AL")">Alabama</FluentOption>
@@ -63,4 +69,23 @@
 </FluentListbox>
 @code{
     string? listboxValue;
+
+    string? selectValue;
+    int selectValue2;
+
+    List<Option<string>> stringOptions = new()
+        {
+            { new Option<string> { Key = "1", Value = "One" } },
+            { new Option<string> { Key = "2", Value = "Two", Selected = true } },
+            { new Option<string> { Key = "3", Value = "Three" } }
+
+        };
+
+    List<Option<int>> intOptions = new()
+        {
+            { new Option<int> { Key = 1, Value = 1, Disabled = true } },
+            { new Option<int> { Key = 2, Value = 2 } },
+            { new Option<int> { Key = 3, Value = 3 } }
+
+        };
 }

@@ -31,7 +31,7 @@ public partial class FluentSelect<TValue> : FluentInputBase<TValue>
     public RenderFragment? ChildContent { get; set; }
 
     [Parameter]
-    public IList<Option<TValue>>? Items { get; set; }
+    public IEnumerable<Option<TValue>>? OptionItems { get; set; }
 
     [CascadingParameter]
     private FluentOptionContext? CascadedContext { get; set; }
