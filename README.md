@@ -79,7 +79,29 @@ Here's a small example of a `FluentCard` with a `FluentButton` that uses the Flu
 </FluentCard>
 ```
 
-Take a look in the `examples` folder of this repository to see how to use the various components.
+### Configuring the Design System
+
+The Fluent UI Web Components are built on FAST's Adaptive UI technology, which enables design customization and personalization, while automatically maintaining accessibility. This is accomplished through setting various "design tokens". The easiest way to accomplish this in Blazor is to wrap the entire UI in a `FluentDesignSystemProvider`. This special element has a number of properties you can set to configure the tokens to your desired settings. Here's an example of changing the "accent base color" and switching the system into dark mode:
+
+```html
+<FluentDesignSystemProvider AccentBaseColor="#464EB8" BaseLayerLuminance="0">
+    <Router AppAssembly="@typeof(App).Assembly">
+        <Found Context="routeData">
+            <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+        </Found>
+        <NotFound>
+            <PageTitle>Not found</PageTitle>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <p role="alert">Sorry, there's nothing at this address.</p>
+            </LayoutView>
+        </NotFound>
+    </Router>
+</FluentDesignSystemProvider>
+```
+
+> **Note**: Provider token attributes can be changed on-th-fly like any other Blazor component attribute.
+
+For a list of all available token attributes, [see here](https://github.com/microsoft/fast-blazor/blob/main/src/Microsoft.Fast.Components.FluentUI/Components/FluentDesignSystemProvider.razor#L69). More examples for other components can be found in the `examples` folder [of this repository](https://github.com/microsoft/fast-blazor).
 
 ## Joining the Community
 
