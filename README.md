@@ -101,6 +101,19 @@ The Fluent UI Web Components are built on FAST's Adaptive UI technology, which e
 
 > **Note**: Provider token attributes can be changed on-th-fly like any other Blazor component attribute.
 
+If you are attempting to configure the components for integration into a specific Microsoft product, the following table provides `AccentBaseColor` values you can use:
+
+Product | AccentBaseColor
+------- | ---------------
+| Office | #D83B01 |
+| Word | #185ABD |
+| Excel | #107C41 |
+| PowerPoint | #C43E1C |
+| Teams | #6264A7 |
+| OneNote | #7719AA |
+| SharePoint | #03787C |
+| Stream | #BC1948 |
+
 For a list of all available token attributes, [see here](https://github.com/microsoft/fast-blazor/blob/main/src/Microsoft.Fast.Components.FluentUI/Components/FluentDesignSystemProvider.razor#L69). More examples for other components can be found in the `examples` folder [of this repository](https://github.com/microsoft/fast-blazor).
 
 ## Joining the Community
