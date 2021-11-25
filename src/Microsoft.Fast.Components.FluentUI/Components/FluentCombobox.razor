@@ -10,9 +10,9 @@
                      required="@Required"
                      autocomplete="@Autocomplete.ToAttributeValue()"
                      @attributes="AdditionalAttributes">
-    @if (OptionItems is not null)
+    @if (Items is not null)
     {
-        foreach (Option<TValue> option in OptionItems)
+        foreach (Option<TValue> option in Items)
         {
             <FluentOption Value=@option.Key Selected="option.Selected" Disabled=option.Disabled>@option.Value</FluentOption>
         }

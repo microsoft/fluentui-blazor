@@ -37,7 +37,7 @@ public partial class FluentCombobox<TValue> : FluentInputBase<TValue>
     public RenderFragment? ChildContent { get; set; }
 
     [Parameter]
-    public IEnumerable<Option<TValue>>? OptionItems { get; set; }
+    public IEnumerable<Option<TValue>>? Items { get; set; }
 
 
     [CascadingParameter]
@@ -52,6 +52,6 @@ public partial class FluentCombobox<TValue> : FluentInputBase<TValue>
         _context = new FluentOptionContext(CascadedContext, selectName, CurrentValue, fieldClass, changeEventCallback);
     }
 
-    protected override bool TryParseValueFromString(string? value, out TValue? result, [NotNullWhen(false)] out string? validationErrorMessage)
-        => this.TryParseSelectableValueFromString(value, out result, out validationErrorMessage);
+    protected override bool TryParseValueFromString(string? value, out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
+        => this.TryParseSelectableValueFromString(value, out result!, out validationErrorMessage);
 }

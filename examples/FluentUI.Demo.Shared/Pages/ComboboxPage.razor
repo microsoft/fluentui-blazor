@@ -19,10 +19,10 @@
 </FluentCombobox>
 
 <h2>From list of string items</h2>
-<FluentCombobox OptionItems=@stringOptions />
+<FluentCombobox Items=@stringOptions />
 
 <h2>From list of int items</h2>
-<FluentCombobox OptionItems=@intOptions />
+<FluentCombobox Items=@intOptions />
 
 <h2>Filled</h2>
 <FluentCombobox id="combobox" Appearance="Appearance.Filled" @bind-Value="@comboboxValue">
@@ -275,8 +275,6 @@
 
 @code{
     string? comboboxValue = "Christopher Eccleston";
-    string? selectValue;
-    int selectValue2;
 
     List<Option<string>> stringOptions = new()
         {

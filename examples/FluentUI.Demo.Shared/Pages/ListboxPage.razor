@@ -9,10 +9,10 @@
 </FluentListbox>
 
 <h2>From list of string items</h2>
-<FluentListbox OptionItems=@stringOptions />
+<FluentListbox Items=@stringOptions />
 
 <h2>From list of int items</h2>
-<FluentListbox OptionItems=@intOptions />
+<FluentListbox Items=@intOptions />
 
 <h2>Long list</h2>
 <FluentListbox @bind-Value=@listboxValue>
@@ -69,9 +69,6 @@
 </FluentListbox>
 @code{
     string? listboxValue;
-
-    string? selectValue;
-    int selectValue2;
 
     List<Option<string>> stringOptions = new()
         {

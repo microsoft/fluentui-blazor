@@ -31,7 +31,7 @@ public partial class FluentSelect<TValue> : FluentInputBase<TValue>
     public RenderFragment? ChildContent { get; set; }
 
     [Parameter]
-    public IEnumerable<Option<TValue>>? OptionItems { get; set; }
+    public IEnumerable<Option<TValue>>? Items { get; set; }
 
     [CascadingParameter]
     private FluentOptionContext? CascadedContext { get; set; }
@@ -46,5 +46,5 @@ public partial class FluentSelect<TValue> : FluentInputBase<TValue>
     }
 
     protected override bool TryParseValueFromString(string? value, out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
-        => this.TryParseSelectableValueFromString(value, out result, out validationErrorMessage);
+        => this.TryParseSelectableValueFromString(value, out result!, out validationErrorMessage);
 }
