@@ -2,14 +2,13 @@ using System.Collections.Generic;
 
 using Microsoft.AspNetCore.Components;
 
-namespace Microsoft.Fast.Components.FluentUI
-{
-    public partial class FluentTabPanel
-    {
-        [Parameter]
-        public RenderFragment? ChildContent { get; set; }
+namespace Microsoft.Fast.Components.FluentUI;
 
-        [Parameter(CaptureUnmatchedValues = true)]
-        public IDictionary<string, object>? AdditionalAttributes { get; set; }
-    }
+public partial class FluentTabPanel
+{
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IDictionary<string, object>? AdditionalAttributes { get; set; }
 }
