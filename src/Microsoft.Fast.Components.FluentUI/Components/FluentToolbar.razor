@@ -2,13 +2,3 @@
                 @attributes="AdditionalAttributes">
     @ChildContent
 </fluent-toolbar>
-@code{
-    [Parameter]
-    public Orientation? Orientation { get; set; } = FluentUI.Orientation.Horizontal;
-
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
-
-    [Parameter(CaptureUnmatchedValues = true)]
-    public IDictionary<string, object>? AdditionalAttributes { get; set; }
-}
