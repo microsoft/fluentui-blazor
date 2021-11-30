@@ -3,9 +3,13 @@ name: Validate
 on:
   push:
     branches: [ main ]
+    paths-ignore:
+      - '**.md'
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches: [ main ]
+    paths-ignore:
+      - '**.md'
 
 jobs:
   build:
