@@ -29,9 +29,17 @@ dotnet add package Microsoft.Fast.Components.FluentUI
 Next, you need to add the web components script. You can either add the script from CDN directly, or you can install it with NPM, whichever you prefer.
 
 To add the script from CDN use the following markup:
+
+```html
+<script type="module" src="https://cdn.jsdelivr.net/npm/@fluentui/web-components/dist/web-components.min.js"></script>
+```
+
+The markup above always references the latest release of the components. When deploying to production, you will want to ship with a specific version. Here's an example of the markup for that:
+
 ```
 <script type="module" src="https://cdn.jsdelivr.net/npm/@fluentui/web-components@2.0.2/dist/web-components.min.js"></script>
 ```
+
 The best place to put the script tag is typically in your `index.html` (`_Layout.cshtml` for blazor server project) file in the script section at the bottom of the `<body>`.
 
 If you wish to leverage NPM instead, run the following command:
@@ -48,7 +56,7 @@ node_modules/@fluentui/web-components/dist/web-components.min.js
 
 Copy this to your `wwwroot/script` folder and reference it with a script tag as described above.
 
-> **Note**:
+> :notebook: **Note**
 >
 > If you are setting up Fluent UI Web Components on a Blazor Server project, you will need to escape the `@` character by repeating it in the source link. For more information check out the [Razor Pages syntax documentation](/aspnet/core/mvc/views/razor).
 
@@ -70,7 +78,9 @@ Here's a small example of a `FluentCard` with a `FluentButton` that uses the Flu
   <FluentButton Appearance="@Appearance.Accent">Click Me</FluentButton>
 </FluentCard>
 ```
-> :bulb: Pro tip - You can add `@using Microsoft.Fast.Components.FluentUI` to namespace collection in `_Imports.razor`, so that you can avoid repeating it in every single razor page.
+> :bulb: **Tip**
+> 
+> You can add `@using Microsoft.Fast.Components.FluentUI` to namespace collection in `_Imports.razor`, so that you can avoid repeating it in every single razor page.
 
 
 ### Configuring the Design System
@@ -93,7 +103,9 @@ The Fluent UI Web Components are built on FAST's Adaptive UI technology, which e
 </FluentDesignSystemProvider>
 ```
 
-> **Note**: Provider token attributes can be changed on-th-fly like any other Blazor component attribute.
+> :notebook: **Note**
+> 
+> Provider token attributes can be changed on-th-fly like any other Blazor component attribute.
 
 If you are attempting to configure the components for integration into a specific Microsoft product, the following table provides `AccentBaseColor` values you can use:
 
