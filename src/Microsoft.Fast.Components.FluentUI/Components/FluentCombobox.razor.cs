@@ -1,9 +1,9 @@
-using System;
 using System.Diagnostics.CodeAnalysis;
 
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
+
 public partial class FluentCombobox
 {
     private readonly string _defaultSelectName = Guid.NewGuid().ToString("N");
