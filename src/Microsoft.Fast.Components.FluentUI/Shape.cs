@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿namespace Microsoft.Fast.Components.FluentUI;
 
-namespace Microsoft.Fast.Components.FluentUI
+public enum Shape
 {
-    public enum Shape
-    {
-        Rect,
-        Circle
-    }
+    Rect,
+    Circle
+}
 
-    internal static class ShapeExtensions
-    {
-        private static readonly Dictionary<Shape, string> _orientationValues =
-            Enum.GetValues<Shape>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());
+internal static class ShapeExtensions
+{
+    private static readonly Dictionary<Shape, string> _orientationValues =
+        Enum.GetValues<Shape>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());
 
-        public static string? ToAttributeValue(this Shape? value) => value == null ? null : _orientationValues[value.Value];
-    }
+    public static string? ToAttributeValue(this Shape? value) => value == null ? null : _orientationValues[value.Value];
 }
