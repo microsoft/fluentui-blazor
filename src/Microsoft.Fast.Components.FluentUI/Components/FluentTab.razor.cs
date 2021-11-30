@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;

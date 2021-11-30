@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
@@ -22,11 +20,13 @@ public partial class FluentAnchoredRegion
     /// </summary>
     [Parameter]
     public Positioning? HorizontalPositioningMode { get; set; } = Positioning.Uncontrolled;
+
     /// <summary>
     /// Default is 'unset'
     /// </summary>
     [Parameter]
     public HorizontalPosition? HorizontalDefaultPosition { get; set; } = HorizontalPosition.Unset;
+
     /// <summary>
     /// Indicates whether the region should overlap the anchor on the horizontal axis. Default is false which places the region adjacent to the anchor element.
     /// </summary>
@@ -44,16 +44,19 @@ public partial class FluentAnchoredRegion
     /// </summary>
     [Parameter]
     public Scaling? HorizontalScaling { get; set; } = Scaling.Content;
+
     /// <summary>
     /// Default is "Uncontrolled"
     /// </summary>
     [Parameter]
     public Positioning? VerticalPositioningMode { get; set; } = Positioning.Uncontrolled;
+
     /// <summary>
     /// Default is "Unset"
     /// </summary>
     [Parameter]
     public VerticalPosition? VerticalDefaultPosition { get; set; } = VerticalPosition.Unset;
+
     /// <summary>
     /// Indicates whether the region should overlap the anchor on the vertical axis. Default is false which places the region adjacent to the anchor element.
     /// </summary>
@@ -71,6 +74,7 @@ public partial class FluentAnchoredRegion
     /// </summary>
     [Parameter]
     public Scaling? VerticalScaling { get; set; } = Scaling.Content;
+
     /// <summary>
     /// Default is "Anchor". In 'anchor' mode only anchor resizes and attribute changes will provoke an update. In 'auto' mode the component also updates because of - any scroll event on the document, window resizes and viewport resizes
     /// </summary>
