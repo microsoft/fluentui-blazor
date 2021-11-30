@@ -32,8 +32,7 @@ To add the script from CDN use the following markup:
 ```
 <script type="module" src="https://cdn.jsdelivr.net/npm/@fluentui/web-components@2.0.2/dist/web-components.min.js"></script>
 ```
-
-The best place to put the script tag is typically in your `index.html` file in the script section at the bottom of the `<body>`.
+The best place to put the script tag is typically in your `index.html` (`_Layout.cshtml` for blazor server project) file in the script section at the bottom of the `<body>`.
 
 If you wish to leverage NPM instead, run the following command:
 
@@ -71,6 +70,8 @@ Here's a small example of a `FluentCard` with a `FluentButton` that uses the Flu
   <FluentButton Appearance="@Appearance.Accent">Click Me</FluentButton>
 </FluentCard>
 ```
+> :bulb: Pro tip - You can add `@using Microsoft.Fast.Components.FluentUI` to namespace collection in `_Imports.razor`, so that you can avoid repeating it in every single razor page.
+
 
 ### Configuring the Design System
 
