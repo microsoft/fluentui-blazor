@@ -1,6 +1,4 @@
-﻿
-
-export function afterStarted(Blazor) {
+﻿export function afterStarted(Blazor) {
     Blazor.registerCustomEventType('fluentcheckedchange', {
         browserEventName: 'change',
         createEventArgs: event => {
@@ -9,6 +7,4 @@ export function afterStarted(Blazor) {
             };
         }
     });
-    let body = document.body;
-    direction.setValueFor(body, 'rtl');
 }
