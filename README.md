@@ -40,7 +40,7 @@ The markup above always references the latest release of the components. When de
 <script type="module" src="https://cdn.jsdelivr.net/npm/@fluentui/web-components@2.0.2/dist/web-components.min.js"></script>
 ```
 
-The best place to put the script tag is typically in your `index.html` file in the script section at the bottom of the `<body>`.
+The best place to put the script tag is typically in your `index.html` (`_Layout.cshtml` for blazor server project) file in the script section at the bottom of the `<body>`.
 
 If you wish to leverage NPM instead, run the following command:
 
@@ -56,7 +56,7 @@ node_modules/@fluentui/web-components/dist/web-components.min.js
 
 Copy this to your `wwwroot/script` folder and reference it with a script tag as described above.
 
-> **Note**:
+> :notebook: **Note**
 >
 > If you are setting up Fluent UI Web Components on a Blazor Server project, you will need to escape the `@` character by repeating it in the source link. For more information check out the [Razor Pages syntax documentation](/aspnet/core/mvc/views/razor).
 
@@ -78,8 +78,49 @@ Here's a small example of a `FluentCard` with a `FluentButton` that uses the Flu
   <FluentButton Appearance="@Appearance.Accent">Click Me</FluentButton>
 </FluentCard>
 ```
+> :bulb: **Tip**
+> 
+> You can add `@using Microsoft.Fast.Components.FluentUI` to namespace collection in `_Imports.razor`, so that you can avoid repeating it in every single razor page.
 
-Take a look in the `examples` folder of this repository to see how to use the various components.
+
+### Configuring the Design System
+
+The Fluent UI Web Components are built on FAST's Adaptive UI technology, which enables design customization and personalization, while automatically maintaining accessibility. This is accomplished through setting various "design tokens". The easiest way to accomplish this in Blazor is to wrap the entire UI in a `FluentDesignSystemProvider`. This special element has a number of properties you can set to configure the tokens to your desired settings. Here's an example of changing the "accent base color" and switching the system into dark mode:
+
+```html
+<FluentDesignSystemProvider AccentBaseColor="#464EB8" BaseLayerLuminance="0">
+    <Router AppAssembly="@typeof(App).Assembly">
+        <Found Context="routeData">
+            <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+        </Found>
+        <NotFound>
+            <PageTitle>Not found</PageTitle>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <p role="alert">Sorry, there's nothing at this address.</p>
+            </LayoutView>
+        </NotFound>
+    </Router>
+</FluentDesignSystemProvider>
+```
+
+> :notebook: **Note**
+> 
+> Provider token attributes can be changed on-th-fly like any other Blazor component attribute.
+
+If you are attempting to configure the components for integration into a specific Microsoft product, the following table provides `AccentBaseColor` values you can use:
+
+Product | AccentBaseColor
+------- | ---------------
+| Office | #D83B01 |
+| Word | #185ABD |
+| Excel | #107C41 |
+| PowerPoint | #C43E1C |
+| Teams | #6264A7 |
+| OneNote | #7719AA |
+| SharePoint | #03787C |
+| Stream | #BC1948 |
+
+For a list of all available token attributes, [see here](https://github.com/microsoft/fast-blazor/blob/main/src/Microsoft.Fast.Components.FluentUI/Components/FluentDesignSystemProvider.razor#L69). More examples for other components can be found in the `examples` folder [of this repository](https://github.com/microsoft/fast-blazor).
 
 ## Joining the Community
 

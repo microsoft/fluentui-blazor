@@ -1,7 +1,7 @@
-﻿using System;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 
 namespace Microsoft.Fast.Components.FluentUI;
+
 public class ColumnDefinition<TItem>
 {
     public string ColumnDataKey { get; set; }

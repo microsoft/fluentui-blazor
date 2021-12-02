@@ -1,11 +1,1 @@
 <fluent-flipper direction="@Direction.ToAttributeValue()" disabled="@Disabled" @attributes="AdditionalAttributes">@ChildContent</fluent-flipper>
-@code
-{
-    [Parameter] public bool? Disabled { get; set; }
-
-    [Parameter] public Direction? Direction { get; set; }
-
-    [Parameter] public RenderFragment? ChildContent { get; set; }
-
-    [Parameter(CaptureUnmatchedValues = true)] public IDictionary<string, object>? AdditionalAttributes { get; set; }
-}
