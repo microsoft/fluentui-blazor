@@ -1,6 +1,7 @@
-<fluent-anchor href="@Href" appearance="@Appearance.ToAttributeValue()" @attributes="AdditionalAttributes">@ChildContent</fluent-anchor>
+<fluent-anchor @ref=TagReference href="@Href" appearance="@Appearance.ToAttributeValue()" @attributes="AdditionalAttributes">@ChildContent</fluent-anchor>
 @code
 {
+    [Parameter] public ElementReference TagReference { get; set; }
     [Parameter] public string? Href { get; set; }
 
     [Parameter] public Appearance? Appearance { get; set; }

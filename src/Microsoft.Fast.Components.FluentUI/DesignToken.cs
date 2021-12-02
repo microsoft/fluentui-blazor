@@ -5,10 +5,16 @@ namespace Microsoft.Fast.Components.FluentUI;
 
 public class DesignToken<T>
 {
+
+    /// <summary>
+    /// The default value of the token
+    /// </summary>
+    public T? DefaultValue { get; set; }
+
     /// <summary>
     /// The value of the token
     /// </summary>
-    public T? DefaultValue { get; set; }
+    public T? Value { get; set; }
 
     /// <summary>
     /// The name of the token
@@ -18,34 +24,31 @@ public class DesignToken<T>
     /// <summary>
     /// A list of elements for which the DesignToken has a value set
     /// </summary>
-    public List<DesignTokenValue<T>>? AppliedTo { get; set; }
+    public List<ElementReference>? AppliedTo { get; set; } = new();
 
     public DesignToken()
     {
-        AppliedTo = new List<DesignTokenValue<T>>();
+
     }
 
     public DesignToken(string name)
     {
         Name = name;
-        AppliedTo = new List<DesignTokenValue<T>>();
     }
 
-    public void SetValueFor(ElementReference element, T value)
+    public async Task SetValueFor(ElementReference element, T value)
     {
+        Value = value;
         if (AppliedTo! != null)
-            AppliedTo.Add(new(element, value));
+            AppliedTo.Add(element);
+
+
     }
 
     public T? GetValueFor(ElementReference element)
     {
-        if (AppliedTo != null)
-        {
-            DesignTokenValue<T>? x = AppliedTo.First(x => x.Element.Equals(element));
-            return x.Value;
-        }
+        return Value;
 
-        return DefaultValue;
     }
 
     //DeleteValueFor
@@ -56,7 +59,7 @@ public class DesignToken<T>
     //Unsubscribe
 }
 
-public class CSSDesignToken<T> : DesignToken<T>
-{
-    public string? CSSCustomProperty { get; set; }
-}
+//public class CSSDesignToken<T> : DesignToken<T>
+//{
+//    public string? CSSCustomProperty { get; set; }
+//}

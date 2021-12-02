@@ -5,23 +5,8 @@
 
 <h1>Blazor Fluent UI Web Components home page</h1>
 
-<FluentAnchor @ref="ancestor" Appearance="Appearance.Filled" Href="handlers" >Web components handlers</FluentAnchor>
+<FluentAnchor TagReference=ancestor Appearance="Appearance.Filled" Href="handlers" >Web components handlers</FluentAnchor>
 <FluentAnchor Appearance="Appearance.Filled" Href="bindings" >Web components bindings</FluentAnchor>
 <FluentAnchor @ref="decendant" Appearance="Appearance.Filled" Href="componentbindings" >Blazor component bindings</FluentAnchor>
 
 
-@code{
-    //DesignToken<string> specialColor = new DesignToken<string>("special-color");
-
-    FluentAnchor ancestor;
-    FluentAnchor decendant;
-
-    //protected override void OnInitialized()
-    //{
-    //    specialColor.SetValueFor(ancestor, "#FFFFFF");
-    //    specialColor.SetValueFor(decendant, "#F7F7F7");
-
-    //    base.OnInitialized();
-    //}
-
-}
