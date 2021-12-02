@@ -62,5 +62,13 @@
 } from 'https://cdn.jsdelivr.net/npm/@fluentui/web-components/dist/web-components.min.js'
 
 export function setBaseHeightMultiplier(element, value) {
-    baseHeightMultiplier.setValueFor(element, value);
+
+    var x = document.querySelectorAll(element);
+    var i;
+    for (i = 0; i < x.length; i++) {
+        baseHeightMultiplier.setValueFor(x[i], value);
+    }
+
+    //var x = document.querySelector(element);
+    //baseHeightMultiplier.setValueFor(x, value);
 }
