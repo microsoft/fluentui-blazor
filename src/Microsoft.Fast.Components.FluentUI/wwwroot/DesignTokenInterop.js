@@ -72,3 +72,15 @@ export function setBaseHeightMultiplier(element, value) {
     //var x = document.querySelector(element);
     //baseHeightMultiplier.setValueFor(x, value);
 }
+
+export function setValueFor(designtoken, element, value) {
+
+    var x = document.querySelectorAll(element);
+    var i;
+    for (i = 0; i < x.length; i++) {
+        eval(designtoken).setValueFor(x[i], value);
+    }
+
+    //var x = document.querySelector(element);
+    //baseHeightMultiplier.setValueFor(x, value);
+}

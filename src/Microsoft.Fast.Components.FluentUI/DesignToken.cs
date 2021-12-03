@@ -3,55 +3,55 @@ using Microsoft.JSInterop;
 
 namespace Microsoft.Fast.Components.FluentUI
 {
-    public class DesignToken<T> : ComponentBase, IAsyncDisposable
+    public class DesignToken<T> : IAsyncDisposable
     {
+
         private readonly Lazy<Task<IJSObjectReference>>? moduleTask;
 
-        [Inject]
-        public IJSRuntime JSRuntime { get; set; } = default!;
+        private IJSObjectReference? module;
+
+
+        private IJSRuntime JSRuntime { get; set; } = default!;
 
         [Parameter]
-        public Func<ComponentBase>? GetControl { get; set; }
-
-        [Parameter]
-        public string? Element { get; set; }
+        public string? Selector { get; set; }
 
         [Parameter]
         public T? Value { get; set; }
 
+        [Parameter]
+        public string? Name { get; set; }
+
+        /// <summary>
+        /// Constructs an instance of DesignToken"/>.
+        /// </summary>
         public DesignToken()
         {
-            moduleTask = new(() => JSRuntime.InvokeAsync<IJSObjectReference>(
-                  "import", "./_content/Microsoft.Fast.Components.FluentUI/DesignTokenInterop.js").AsTask());
         }
 
-        protected override async Task OnAfterRenderAsync(bool firstRender)
+
+        public DesignToken(IJSRuntime jsRuntime, string name)
         {
-            //if (GetControl is null)
-            //    throw new ArgumentNullException(nameof(GetControl));
-            if (firstRender)
-            {
-                var module = await moduleTask!.Value;
-                //await module.InvokeVoidAsync("setBaseHeightMultiplier", GetControl(), Value);
+            moduleTask = new(() => jsRuntime.InvokeAsync<IJSObjectReference>(
+                "import", "./_content/Microsoft.Fast.Components.FluentUI/DesignTokenInterop.js").AsTask());
 
-                await module.InvokeVoidAsync("setBaseHeightMultiplier", Element, Value);
-            }
-
+            Name = name;
         }
 
-        public async ValueTask SetValueFor(string element, T value)
+        public async ValueTask SetValueFor(string selector, T value)
         {
-            var module = await moduleTask!.Value;
-            await module.InvokeVoidAsync("setBaseHeightMultiplier", element, value);
+            module = await moduleTask!.Value;
+            await module.InvokeVoidAsync("setValueFor", Name, selector, value);
 
         }
+
         public async ValueTask DisposeAsync()
         {
-            if (moduleTask is not null && moduleTask.IsValueCreated)
+            if (module is not null)
             {
-                var module = await moduleTask.Value;
                 await module.DisposeAsync();
             }
+
         }
     }
 }

@@ -6,13 +6,16 @@ namespace FluentUI.Demo.Shared.Pages;
 
 public partial class Index
 {
-    [Inject] IJSRuntime? jsRuntime { get; set; } = default!;
+    [Inject]
+    private IJSRuntime? jsRuntime { get; set; }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        DesignToken<int> baseHeightMultiplier = new();
-        await baseHeightMultiplier.SetValueFor("#secondanchor", 52);
-        //await baseHeightMultiplier.SetValueFor(".bigbutton", 48);
+        DesignToken<int>? dt = new(jsRuntime!, "baseHeightMultiplier");
+        await dt.SetValueFor("#secondanchor", 52);
+
+        DesignToken<float>? dt2 = new(jsRuntime!, "baseLayerLuminance");
+        await dt2.SetValueFor(".bigbutton", 0);
 
         await base.OnAfterRenderAsync(firstRender);
     }
