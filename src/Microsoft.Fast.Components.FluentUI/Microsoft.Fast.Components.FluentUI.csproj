@@ -14,10 +14,11 @@
     <Title>Microsoft Fluent UI Components Library for Blazor on FAST</Title>
     <Description>Authored by the Microsoft FAST team.</Description>
     <SignAssembly>true</SignAssembly>
-    <PackageVersion>1.0.0</PackageVersion>
-    <ReleaseVersion>1.0.0</ReleaseVersion>
+    <PackageVersion>1.1.0</PackageVersion>
+    <ReleaseVersion>1.1.0</ReleaseVersion>
     <SynchReleaseVersion>false</SynchReleaseVersion>
     <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <DebugType>embedded</DebugType>
