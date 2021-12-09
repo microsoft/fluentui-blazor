@@ -1,6 +1,7 @@
 ﻿@typeparam TItem
 @inherits FluentComponentBase
-<fluent-data-grid-row row-index=@RowIndex
+<fluent-data-grid-row @ref=Element
+					  row-index=@RowIndex
 					  grid-template-columns=@GridTemplateColumns
 					  row-type=@RowType.ToAttributeValue()
 					  @attributes="@AdditionalAttributes">

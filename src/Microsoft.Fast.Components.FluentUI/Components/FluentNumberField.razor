@@ -2,7 +2,8 @@
 @typeparam TValue
 @using System.Globalization;
 @using System.Reflection;
-<fluent-number-field autofocus="@Autofocus"
+<fluent-number-field @ref=Element
+                     autofocus="@Autofocus"
                      appearance="@Appearance.ToAttributeValue()"
                      current-value="@BindConverter.FormatValue(CurrentValue)"
                      step="@Step"

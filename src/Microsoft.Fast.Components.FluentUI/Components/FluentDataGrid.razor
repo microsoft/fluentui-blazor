@@ -1,6 +1,7 @@
 ﻿@typeparam TItem
 @inherits FluentComponentBase
-<fluent-data-grid generate-header=none
+<fluent-data-grid @ref=Element
+                  generate-header=none
                   grid-template-columns=@GridTemplateColumns
                   @attributes="@AdditionalAttributes">
     @if (GenerateHeader != GenerateHeaderOptions.None)
