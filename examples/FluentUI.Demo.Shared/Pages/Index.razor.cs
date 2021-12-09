@@ -13,13 +13,13 @@ public partial class Index
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        DesignToken<int> dt = new(JSRuntime!, "baseHeightMultiplier");
+        DesignToken<int> dt = new(JSRuntime!, StandardDesignTokens.BaseHeightMultiplier);
         await dt.SetValueFor("#secondanchor", 52);
 
-        DesignToken<float> dt2 = new(JSRuntime!, "baseLayerLuminance");
+        DesignToken<float> dt2 = new(JSRuntime!, StandardDesignTokens.BaseLayerLuminance);
         await dt2.SetValueFor(".bigbutton", 0);
 
-        DesignToken<int> dt3 = new DesignToken<int>(JSRuntime!, "baseHeightMultiplier").WithDefault(25);
+        DesignToken<int> dt3 = new DesignToken<int>(JSRuntime!, StandardDesignTokens.BaseHeightMultiplier).WithDefault(25);
         await dt3.SetValueFor(anchorRef.Element);
 
         int x = await dt3.GetValueFor(anchorRef.Element);
