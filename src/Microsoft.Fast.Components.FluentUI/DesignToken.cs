@@ -5,14 +5,9 @@ namespace Microsoft.Fast.Components.FluentUI
 {
     public class DesignToken<T> : IAsyncDisposable
     {
-
         private readonly Lazy<Task<IJSObjectReference>>? moduleTask;
-
         private IJSObjectReference? module;
-
-
-        private IJSRuntime JSRuntime { get; set; } = default!;
-
+       
         [Parameter]
         public string? Selector { get; set; }
 
@@ -25,16 +20,15 @@ namespace Microsoft.Fast.Components.FluentUI
         /// <summary>
         /// Constructs an instance of DesignToken"/>.
         /// </summary>
-        public DesignToken()
-        {
-        }
-
-
-        public DesignToken(IJSRuntime jsRuntime, string name)
+        public DesignToken(IJSRuntime jsRuntime)
         {
             moduleTask = new(() => jsRuntime.InvokeAsync<IJSObjectReference>(
                 "import", "./_content/Microsoft.Fast.Components.FluentUI/DesignTokenInterop.js").AsTask());
+        }
 
+
+        public DesignToken(IJSRuntime jsRuntime, string name) : this(jsRuntime)
+        {
             Name = name;
         }
 
@@ -45,12 +39,13 @@ namespace Microsoft.Fast.Components.FluentUI
 
         }
 
-        public async ValueTask SetValueFor(ElementReference? element, T value)
+        public async ValueTask SetValueFor(ElementReference element, T value)
         {
             module = await moduleTask!.Value;
             await module.InvokeVoidAsync("setValueFor", Name, element, value);
 
         }
+        
 
         public async ValueTask DisposeAsync()
         {
