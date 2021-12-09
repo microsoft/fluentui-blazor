@@ -4,6 +4,8 @@ namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentAnchor
 {
+    public ElementReference Element { get; protected set; }
+
     [Parameter]
     public string? Href { get; set; }
 

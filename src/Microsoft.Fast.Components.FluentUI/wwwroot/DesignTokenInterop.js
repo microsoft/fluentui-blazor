@@ -61,26 +61,21 @@
     neutralStrokeDividerRestDelta
 } from 'https://cdn.jsdelivr.net/npm/@fluentui/web-components/dist/web-components.min.js'
 
-export function setBaseHeightMultiplier(element, value) {
 
-    var x = document.querySelectorAll(element);
-    var i;
-    for (i = 0; i < x.length; i++) {
-        baseHeightMultiplier.setValueFor(x[i], value);
-    }
+export function setValueForSelector(designtoken, selector, value) {
 
-    //var x = document.querySelector(element);
-    //baseHeightMultiplier.setValueFor(x, value);
-}
-
-export function setValueFor(designtoken, element, value) {
-
-    var x = document.querySelectorAll(element);
+    var x = document.querySelectorAll(selector);
     var i;
     for (i = 0; i < x.length; i++) {
         eval(designtoken).setValueFor(x[i], value);
     }
+}
 
-    //var x = document.querySelector(element);
-    //baseHeightMultiplier.setValueFor(x, value);
+export function setValueFor(designtoken, element, value) {
+    if (element instanceof HTMLElement) {
+        eval(designtoken).setValueFor(element, value);
+    }
+    else {
+        throw new Error('Unable to set value for an invalid element.');
+    }
 }

@@ -41,7 +41,14 @@ namespace Microsoft.Fast.Components.FluentUI
         public async ValueTask SetValueFor(string selector, T value)
         {
             module = await moduleTask!.Value;
-            await module.InvokeVoidAsync("setValueFor", Name, selector, value);
+            await module.InvokeVoidAsync("setValueForSelector", Name, selector, value);
+
+        }
+
+        public async ValueTask SetValueFor(ElementReference? element, T value)
+        {
+            module = await moduleTask!.Value;
+            await module.InvokeVoidAsync("setValueFor", Name, element, value);
 
         }
 
