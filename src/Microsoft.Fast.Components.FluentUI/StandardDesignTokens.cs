@@ -2,9 +2,8 @@
 {
     public static class StandardDesignTokens
     {
-        public const string BaseHeightMultiplier = "baseHeightMultiplier";
-        public const string BaseWidthMultiplier = "baseWidthMultiplier";
         public const string BodyFont = "bodyFont";
+        public const string BaseHeightMultiplier = "baseHeightMultiplier";
         public const string BaseHorizontalSpacingMultiplier = "baseHorizontalSpacingMultiplier";
         public const string BaseLayerLuminance = "baseLayerLuminance";
         public const string ControlCornerRadius = "controlCornerRadius";

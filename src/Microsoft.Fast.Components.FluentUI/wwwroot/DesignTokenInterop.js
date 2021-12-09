@@ -2,7 +2,6 @@
     StandardLuminance,
     bodyFont,
     baseHeightMultiplier,
-    baseWidthMultiplier,
     baseHorizontalSpacingMultiplier,
     baseLayerLuminance,
     controlCornerRadius,
