@@ -19,8 +19,16 @@ public partial class Index
         DesignToken<float> dt2 = new(JSRuntime!, "baseLayerLuminance");
         await dt2.SetValueFor(".bigbutton", 0);
 
-        DesignToken<int> dt3 = new(JSRuntime!, "baseHeightMultiplier");
-        await dt3.SetValueFor(anchorRef.Element, 25);
+        DesignToken<int> dt3 = new DesignToken<int>(JSRuntime!, "baseHeightMultiplier").WithDefault(25);
+        await dt3.SetValueFor(anchorRef.Element);
+
+        int x = await dt3.GetValueFor(anchorRef.Element);
+
+        await dt3.DeleteValueFor(anchorRef.Element);
+
+        //DesignToken<string> dt4 = new DesignToken<string>(JSRuntime!, "baseHeightMultiplier");
+        // Throws error; no DefaultValue set and no Value supplied as parameter
+        //await dt4.SetValueFor(anchorRef.Element);
 
         await base.OnAfterRenderAsync(firstRender);
     }

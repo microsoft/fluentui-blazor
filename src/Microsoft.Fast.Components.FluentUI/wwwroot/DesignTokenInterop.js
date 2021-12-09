@@ -79,3 +79,45 @@ export function setValueFor(designtoken, element, value) {
         throw new Error('Unable to set value for an invalid element.');
     }
 }
+
+export function deleteValueForSelector(designtoken, selector) {
+
+    var x = document.querySelectorAll(selector);
+    var i;
+    for (i = 0; i < x.length; i++) {
+        eval(designtoken).deleteValueFor(x[i]);
+    }
+}
+
+export function deleteValueFor(designtoken, element) {
+    if (element instanceof HTMLElement) {
+        eval(designtoken).deleteValueFor(element);
+    }
+    else {
+        throw new Error('Unable to delete value for an invalid element.');
+    }
+}
+
+export function getValueForSelector(designtoken, selector) {
+
+    var x = document.querySelector(selector);
+    
+    const value = eval(designtoken).getValueFor(x);
+
+    if (value !== undefined) {
+        return value;
+    }
+}
+
+export function getValueFor(designtoken, element) {
+    if (element instanceof HTMLElement) {
+        const value = eval(designtoken).getValueFor(element);
+
+        if (value !== undefined) {
+            return value;
+        }
+    }
+    else {
+        throw new Error('Unable to delete value for an invalid element.');
+    }
+}
