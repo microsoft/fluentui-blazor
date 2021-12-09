@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
-public partial class FluentButton
+public partial class FluentButton : FluentComponentBase
 {
     [Parameter]
     public Appearance? Appearance { get; set; }
@@ -11,10 +11,4 @@ public partial class FluentButton
 
     [Parameter]
     public bool? Autofocus { get; set; }
-
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
-
-    [Parameter(CaptureUnmatchedValues = true)]
-    public IDictionary<string, object>? AdditionalAttributes { get; set; }
 }

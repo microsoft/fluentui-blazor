@@ -1,6 +1,6 @@
 @inherits FluentInputBase<string?>
 <CascadingValue TValue=FluentOptionContext IsFixed=true Value=_context @key=_context>
-    <fluent-combobox current-value="@BindConverter.FormatValue(CurrentValue)"
+<fluent-combobox current-value="@BindConverter.FormatValue(CurrentValue)"
                      @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
                      appearance="@Appearance.ToAttributeValue()"
                      disabled="@Disabled"

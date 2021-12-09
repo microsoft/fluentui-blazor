@@ -1,4 +1,5 @@
 ﻿@typeparam TItem
+@inherits FluentComponentBase
 <fluent-data-grid-row row-index=@RowIndex
 					  grid-template-columns=@GridTemplateColumns
 					  row-type=@RowType.ToAttributeValue()
@@ -6,7 +7,7 @@
 		@for(int index=0; index<ColumnDefinitions?.Count(); index++)
 		{
 			ColumnDefinition<TItem> column = ColumnDefinitions!.ElementAt(index);
-			<FluentDataGridCell GridColumn=@(index+1)>@(column.FieldSelector!(RowData!)?.ToString())</FluentDataGridCell>
+			<fluentDataGridCell GridColumn=@(index+1)>@(column.FieldSelector!(RowData!)?.ToString())</FluentDataGridCell>
 		}
 	@ChildContent
 </fluent-data-grid-row>

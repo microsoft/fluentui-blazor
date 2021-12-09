@@ -1,10 +1,9 @@
 using System.Diagnostics.CodeAnalysis;
-
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentTextField
+public partial class FluentTextField : FluentInputBase<string?>
 {
     [Parameter]
     public bool? Disabled { get; set; }
@@ -38,11 +37,6 @@ public partial class FluentTextField
 
     [Parameter]
     public bool? Spellcheck { get; set; }
-
-    //Pattern
-    //List
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
 
     protected override bool TryParseValueFromString(string? value, out string? result, [NotNullWhen(false)] out string? validationErrorMessage)
     {

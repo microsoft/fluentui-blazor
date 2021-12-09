@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentOption : ComponentBase
+public partial class FluentOption : FluentComponentBase 
 {
     internal FluentOptionContext? Context { get; private set; }
 
@@ -22,12 +22,6 @@ public partial class FluentOption : ComponentBase
 
     [Parameter]
     public bool? Selected { get; set; }
-
-    [Parameter(CaptureUnmatchedValues = true)]
-    public IDictionary<string, object>? AdditionalAttributes { get; set; }
-
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
 
     [CascadingParameter] private FluentOptionContext? CascadedContext { get; set; }
 

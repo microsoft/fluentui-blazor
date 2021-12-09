@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentRadioGroup
+public partial class FluentRadioGroup : FluentInputBase<string?>
 {
     [Parameter]
     public string? Name { get; set; }
@@ -14,9 +14,6 @@ public partial class FluentRadioGroup
 
     [Parameter]
     public Orientation? Orientation { get; set; }
-
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
 
     protected override bool TryParseValueFromString(string? value, out string? result, [NotNullWhen(false)] out string? validationErrorMessage)
     {

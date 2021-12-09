@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentSkeleton
+public partial class FluentSkeleton : FluentComponentBase
 {
     [Parameter]
     public Shape? Shape { get; set; }
@@ -12,10 +12,4 @@ public partial class FluentSkeleton
 
     [Parameter]
     public string? Pattern { get; set; }
-
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
-
-    [Parameter(CaptureUnmatchedValues = true)]
-    public IDictionary<string, object>? AdditionalAttributes { get; set; }
 }

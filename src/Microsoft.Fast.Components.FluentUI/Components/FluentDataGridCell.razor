@@ -1,4 +1,5 @@
-﻿<fluent-data-grid-cell cell-type=@CellType.ToAttributeValue()
+﻿@inherits FluentComponentBase
+<fluent-data-grid-cell cell-type=@CellType.ToAttributeValue()
 					   grid-column=@GridColumn
 					   attributes="@AdditionalAttributes">
 	@ChildContent

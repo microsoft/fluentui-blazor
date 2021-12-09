@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentListbox
+public partial class FluentListbox : FluentInputBase<string?>
 {
     private readonly string _defaultSelectName = Guid.NewGuid().ToString("N");
     private FluentOptionContext? _context;
@@ -15,14 +15,7 @@ public partial class FluentListbox
     [Parameter]
     public string? Name { get; set; }
 
-    /// <summary>
-    /// Gets or sets the child content to be rendering inside the <see cref="FluentListbox"/>.
-    /// </summary>
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
-
-
-    [CascadingParameter] private FluentOptionContext? CascadedContext { get; set; }
+     [CascadingParameter] private FluentOptionContext? CascadedContext { get; set; }
 
     /// <inheritdoc/>
     protected override void OnParametersSet()

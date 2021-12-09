@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentNumberField<TValue>
+public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
 {
     [Parameter]
     public bool? Disabled { get; set; }
@@ -29,9 +29,7 @@ public partial class FluentNumberField<TValue>
 
     [Parameter]
     public string ParsingErrorMessage { get; set; } = "The {0} field must be a number.";
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
-
+    
     [Parameter]
     public string? Min { get; set; } = GetMinOrMaxValue("MinValue");
     [Parameter]
@@ -58,7 +56,7 @@ public partial class FluentNumberField<TValue>
         }
     }
 
-    protected override bool TryParseValueFromString(string? value, out TValue? result, [NotNullWhen(false)] out string? validationErrorMessage)
+    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
         if (BindConverter.TryConvertTo<TValue>(value, CultureInfo.InvariantCulture, out result))
         {

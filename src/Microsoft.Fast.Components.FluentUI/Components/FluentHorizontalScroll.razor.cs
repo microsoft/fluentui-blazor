@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentHorizontalScroll
+public partial class FluentHorizontalScroll : FluentComponentBase
 {
     /// <summary>
     /// Description: Scroll speed in pixels per second
@@ -15,10 +15,4 @@ public partial class FluentHorizontalScroll
     /// </summary>
     [Parameter]
     public string? Easing { get; set; }
-
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
-
-    [Parameter(CaptureUnmatchedValues = true)]
-    public IDictionary<string, object>? AdditionalAttributes { get; set; }
 }

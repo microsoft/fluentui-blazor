@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentSelect
+public partial class FluentSelect : FluentInputBase<string?>
 {
     private readonly string _defaultSelectName = Guid.NewGuid().ToString("N");
     private FluentOptionContext? _context;
@@ -22,12 +22,6 @@ public partial class FluentSelect
 
     [Parameter]
     public Position? Position { get; set; }
-
-    /// <summary>
-    /// Gets or sets the child content to be rendering inside the <see cref="FluentSelect"/>.
-    /// </summary>
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
 
     [CascadingParameter]
     private FluentOptionContext? CascadedContext { get; set; }

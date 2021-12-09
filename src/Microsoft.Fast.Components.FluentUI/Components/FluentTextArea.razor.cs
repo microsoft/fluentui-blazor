@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentTextArea
+public partial class FluentTextArea : FluentInputBase<string?>
 {
     [Parameter]
     public bool? Disabled { get; set; }
@@ -26,9 +26,6 @@ public partial class FluentTextArea
 
     [Parameter]
     public string? Placeholder { get; set; }
-
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
 
     protected override bool TryParseValueFromString(string? value, out string? result, [NotNullWhen(false)] out string? validationErrorMessage)
     {

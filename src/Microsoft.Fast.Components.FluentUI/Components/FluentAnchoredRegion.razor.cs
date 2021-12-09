@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
-public partial class FluentAnchoredRegion
+public partial class FluentAnchoredRegion : FluentComponentBase
 {
     /// <summary>
     /// The html id of the HTMLElement used as the anchor around which the positioning region is placed. This must be set for the component's positioning logic to be active.
@@ -80,9 +80,4 @@ public partial class FluentAnchoredRegion
     /// </summary>
     [Parameter]
     public UpdateMode? AutoUpdateMode { get; set; } = UpdateMode.Anchor;
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
-
-    [Parameter(CaptureUnmatchedValues = true)]
-    public IDictionary<string, object>? AdditionalAttributes { get; set; }
 }
