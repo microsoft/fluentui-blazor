@@ -6,8 +6,7 @@ namespace Microsoft.Fast.Components.FluentUI
 {
     public class DesignToken<T> : IAsyncDisposable
     {
-        private readonly Lazy<Task<IJSObjectReference>>? moduleTask;
-        private IJSObjectReference? module;
+        private readonly Lazy<Task<IJSObjectReference>> moduleTask;
        
         [Parameter]
         public T? Value { get; set; }
@@ -34,7 +33,7 @@ namespace Microsoft.Fast.Components.FluentUI
 
         public DesignToken<T> WithDefault(T value)
         {
-            this.DefaultValue = value;
+            DefaultValue = value;
             return this;
         }
 
@@ -43,14 +42,14 @@ namespace Microsoft.Fast.Components.FluentUI
             if (DefaultValue == null)
                 throw new ArgumentNullException(nameof(DefaultValue), $"{nameof(DefaultValue)} should be set before calling SetValueFor");
 
-            module = await moduleTask!.Value;
+            IJSObjectReference module = await moduleTask.Value;
             await module.InvokeVoidAsync("setValueForSelector", Name, selector, DefaultValue);
 
         }
 
         public async ValueTask SetValueFor(string selector, T value)
         {
-            module = await moduleTask!.Value;
+            IJSObjectReference module = await moduleTask.Value;
             await module.InvokeVoidAsync("setValueForSelector", Name, selector, value);
 
         }
@@ -60,39 +59,39 @@ namespace Microsoft.Fast.Components.FluentUI
             if (DefaultValue == null)
                 throw new ArgumentNullException(nameof(DefaultValue), $"{nameof(DefaultValue)} should be set before calling SetValueFor");
 
-            module = await moduleTask!.Value;
+            IJSObjectReference module = await moduleTask.Value;
             await module.InvokeVoidAsync("setValueFor", Name, element, DefaultValue);
 
         }
 
         public async ValueTask SetValueFor(ElementReference element, T value)
         {
-            module = await moduleTask!.Value;
+            IJSObjectReference module = await moduleTask.Value;
             await module.InvokeVoidAsync("setValueFor", Name, element, value);
 
         }
 
         public async ValueTask DeleteValueFor(string selector)
         {
-            module = await moduleTask!.Value;
+            IJSObjectReference module = await moduleTask.Value;
             await module.InvokeVoidAsync("deleteValueForSelector", Name, selector);
         }
 
         public async ValueTask DeleteValueFor(ElementReference element)
         {
-            module = await moduleTask!.Value;
+            IJSObjectReference module = await moduleTask.Value;
             await module.InvokeVoidAsync("deleteValueFor", Name, element);
         }
 
         public async ValueTask<T> GetValueFor(string selector)
         {
-            module = await moduleTask!.Value;
+            IJSObjectReference module = await moduleTask.Value;
             return await module.InvokeAsync<T>("getValueForSelector", Name, selector);
         }
 
         public async ValueTask<T> GetValueFor(ElementReference element)
         {
-            module = await moduleTask!.Value;
+            IJSObjectReference module = await moduleTask.Value;
             return await module.InvokeAsync<T>("getValueFor", Name, element);
         }
 
@@ -100,8 +99,9 @@ namespace Microsoft.Fast.Components.FluentUI
         [SuppressMessage("Usage", "CA1816:Dispose methods should call SuppressFinalize", Justification = "<Pending>")]
         public async ValueTask DisposeAsync()
         {
-            if (module is not null)
+            if (moduleTask.IsValueCreated)
             {
+                IJSObjectReference module = await moduleTask.Value;
                 await module.DisposeAsync();
             }
 
