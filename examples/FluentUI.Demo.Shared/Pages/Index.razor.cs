@@ -7,29 +7,31 @@ namespace FluentUI.Demo.Shared.Pages;
 public partial class Index
 {
     [Inject]
+    private DesignTokens? DesignTokens { get; set; }
+
+    [Inject]
     private IJSRuntime? JSRuntime { get; set; }
 
     private FluentAnchor anchorRef = default!;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        DesignToken<int> dt = new(JSRuntime!, StandardDesignTokens.BaseHeightMultiplier);
-        await dt.SetValueFor("#secondanchor", 52);
+        if (DesignTokens is not null)
+        {
+            await DesignTokens.BaseHeightMultiplier.SetValueFor("#secondanchor", 52);
+            await DesignTokens.BaseLayerLuminance.SetValueFor(".bigbutton", 0);
 
-        DesignToken<float> dt2 = new(JSRuntime!, StandardDesignTokens.BaseLayerLuminance);
-        await dt2.SetValueFor(".bigbutton", 0);
+            await DesignTokens.BaseHeightMultiplier.WithDefault(25).SetValueFor(anchorRef.Element);
 
-        DesignToken<int> dt3 = new DesignToken<int>(JSRuntime!, StandardDesignTokens.BaseHeightMultiplier).WithDefault(25);
-        await dt3.SetValueFor(anchorRef.Element);
+            //int x = await DesignTokens.BaseHeightMultiplier.GetValueFor(anchorRef.Element);
 
-        int x = await dt3.GetValueFor(anchorRef.Element);
+            //await DesignTokens.BaseHeightMultiplier.DeleteValueFor(anchorRef.Element);
+            //await DesignTokens.BaseHeightMultiplier.SetValueFor(anchorRef.Element);
 
-        await dt3.DeleteValueFor(anchorRef.Element);
-
-        //DesignToken<string> dt4 = new DesignToken<string>(JSRuntime!, "baseHeightMultiplier");
-        // Throws error; no DefaultValue set and no Value supplied as parameter
-        //await dt4.SetValueFor(anchorRef.Element);
-
+            //Create your own DesingToken
+            //DesignToken<string> specialColor = new(JSRuntime!, "special-color");
+            //await specialColor.SetValueFor("#secondanchor", "green");
+        }
         await base.OnAfterRenderAsync(firstRender);
     }
 }

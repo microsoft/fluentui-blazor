@@ -5,43 +5,41 @@
 
 <PageTitle>Fluent UI WC demo page</PageTitle>
 
-<FluentDesignSystemProvider @ref=fdsp Direction=@dir BaseLayerLuminance=@baseLayerLuminance>
-    <div class="container">
-        <div class="siteheader">
-            <a href="/">Home</a>
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+<div class="container">
+    <div class="siteheader">
+        <a href="/">Home</a>
+        <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+    </div>
+    <div class="main">
+        <div class="navigation">
+            <NavMenu />
         </div>
-        <div class="main">
-            <div class="navigation">
-                <NavMenu />
-            </div>
 
-            <div class="content">
-                <main>
-                    <article class="content px-4">
-                        <div style="gap: 12px; padding-top: 12px;">
-                            <FluentSwitch @onchange="SwitchDirectionAsync">
-                                <span style="padding-inline-end: 8px;">Direction</span>
-                                <span slot="unchecked-message">ltr</span>
-                                <span slot="checked-message">rtl</span>
-                            </FluentSwitch>
-                            <FluentSwitch @onchange=SwitchTheme >
-                                <span style="padding-inline-end: 8px;"> Theme</span>
-                                <span slot="checked-message">Dark</span>
-                                <span slot="unchecked-message">Light</span>
-                            </FluentSwitch>
-                        </div>
-                        <ErrorBoundary @ref="errorBoundary">
-                            <ChildContent>
-                                @Body
-                            </ChildContent>
-                            <ErrorContent Context="ex">
-                                 <p class="error">@ex.Message</p>
-                            </ErrorContent>
-                        </ErrorBoundary>
-                    </article>
-                </main>
-            </div>
+        <div class="content">
+            <main>
+                <article class="content px-4">
+                    <div style="gap: 12px; padding-top: 12px;">
+                        <FluentSwitch @onchange="SwitchDirectionAsync">
+                            <span style="padding-inline-end: 8px;">Direction</span>
+                            <span slot="unchecked-message">ltr</span>
+                            <span slot="checked-message">rtl</span>
+                        </FluentSwitch>
+                        <FluentSwitch @onchange=SwitchTheme>
+                            <span style="padding-inline-end: 8px;"> Theme</span>
+                            <span slot="checked-message">Dark</span>
+                            <span slot="unchecked-message">Light</span>
+                        </FluentSwitch>
+                    </div>
+                    <ErrorBoundary @ref="errorBoundary">
+                        <ChildContent>
+                            @Body
+                        </ChildContent>
+                        <ErrorContent Context="ex">
+                            <p class="error">@ex.Message</p>
+                        </ErrorContent>
+                    </ErrorBoundary>
+                </article>
+            </main>
         </div>
     </div>
-</FluentDesignSystemProvider>
+</div>
