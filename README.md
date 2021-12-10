@@ -85,7 +85,7 @@ Here's a small example of a `FluentCard` with a `FluentButton` that uses the Flu
 
 ### Configuring the Design System
 
-The Fluent UI Web Components are built on FAST's Adaptive UI technology, which enables design customization and personalization, while automatically maintaining accessibility. This is accomplished through setting various "design tokens". The easiest way to accomplish this in Blazor is to wrap the entire UI in a `FluentDesignSystemProvider`. This special element has a number of properties you can set to configure the tokens to your desired settings. Here's an example of changing the "accent base color" and switching the system into dark mode:
+The Fluent UI Web Components are built on FAST's Adaptive UI technology, which enables design customization and personalization, while automatically maintaining accessibility. This is accomplished through setting various "design tokens". The easiest way to accomplish this in Blazor is to wrap the entire UI in a `FluentDesignSystemProvider`. This special element has a number of properties you can set to configure the tokens to your desired settings. Here's an example of changing the "accent base color" and switching the system into dark mode (in the file `app.razor`):
 
 ```html
 <FluentDesignSystemProvider AccentBaseColor="#464EB8" BaseLayerLuminance="0">
