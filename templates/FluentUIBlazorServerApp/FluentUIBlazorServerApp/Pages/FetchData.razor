@@ -1,0 +1,48 @@
+﻿@page "/fetchdata"
+
+<PageTitle>Weather forecast</PageTitle>
+
+@using FluentUIBlazorServerApp.Data
+@inject WeatherForecastService ForecastService
+
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from a service.</p>
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <FluentDataGrid id="manualGrid" GenerateHeader=GenerateHeaderOptions.None GridTemplateColumns="1fr 1fr 1fr 2fr" TItem=string>
+        <FluentDataGridRow TItem=string RowType="DataGridRowType.Header">
+            <FluentDataGridCell GridColumn=1 CellType="DataGridCellType.ColumnHeader">Date</FluentDataGridCell>
+            <FluentDataGridCell GridColumn=2 CellType="DataGridCellType.ColumnHeader">Temp. (C)</FluentDataGridCell>
+            <FluentDataGridCell GridColumn=3 CellType="DataGridCellType.ColumnHeader">Temp. (F)</FluentDataGridCell>
+            <FluentDataGridCell GridColumn=4 CellType="DataGridCellType.ColumnHeader">Summary</FluentDataGridCell>
+        </FluentDataGridRow>
+
+        @foreach (var forecast in forecasts)
+        {
+            <FluentDataGridRow TItem=string>
+                <FluentDataGridCell GridColumn=1>@forecast.Date.ToShortDateString()</FluentDataGridCell>
+                <FluentDataGridCell GridColumn=2>@forecast.TemperatureC</FluentDataGridCell>
+                <FluentDataGridCell GridColumn=3>@forecast.TemperatureF</FluentDataGridCell>
+                <FluentDataGridCell GridColumn=4>@forecast.Summary</FluentDataGridCell>
+            </FluentDataGridRow>
+
+        }
+
+    </FluentDataGrid>
+
+}
+
+@code {
+    private WeatherForecast[]? forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+    }
+}
