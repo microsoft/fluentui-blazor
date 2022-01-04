@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32102.18
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUIBlazorWebAssemblyApp", "FluentUIBlazorWebAssemblyApp\FluentUIBlazorWebAssemblyApp.csproj", "{1FC26380-F47D-4CF3-88E5-5CCCC30843B6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUIBlazorWebAssemblyApp", "Content\FluentUIBlazorWebAssemblyApp\FluentUIBlazorWebAssemblyApp.csproj", "{1FC26380-F47D-4CF3-88E5-5CCCC30843B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
