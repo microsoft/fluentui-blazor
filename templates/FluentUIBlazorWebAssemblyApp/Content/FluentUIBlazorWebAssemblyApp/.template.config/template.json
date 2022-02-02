@@ -8,7 +8,7 @@
     "WebAssembly",
     "PWA"
   ],
-  "identity": "Microsoft.Fast.Components.FluentUI.WebAssembly",
+  "identity": "Microsoft.Fast.Templates.FluentUI.WebAssembly",
   "name": "FluentUI Blazor WebAssembly App",
   "shortName": "fluentuiblazorwasm",
   "defaultName": "BlazorApp",

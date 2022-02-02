@@ -6,7 +6,7 @@
     "Web",
     "Blazor"
   ],
-  "identity": "Microsoft.Fast.Components.FluentUI.Server",
+  "identity": "Microsoft.Fast.Templates.FluentUI.Server",
   "name": "FluentUI Blazor Server App",
   "shortName": "fluentuiblazorserver",
   "defaultName": "BlazorApp",

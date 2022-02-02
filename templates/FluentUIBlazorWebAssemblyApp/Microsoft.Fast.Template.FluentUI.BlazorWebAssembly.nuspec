@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
-    <id>Microsoft.Fast.Components.FluentUI.BlazorWebAssembly.Template</id>
+    <id>Microsoft.Fast.Templates.FluentUI.BlazorWebAssembly</id>
     <version>1.0.0</version>
     <description>
       A project template for creating a Blazor app that uses the Fluent UI component library and runs on WebAssembly. This template can be used for web apps with rich dynamic user interfaces (UIs).
