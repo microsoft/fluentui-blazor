@@ -3,10 +3,12 @@
   "author": "Microsoft Fast",
   "sourceName": "FluentUIBlazorWebAssemblyApp",
   "classifications": [
-    "Web",
+    "Linux",
+    "macOS",
+    "Windows",
     "Blazor",
-    "WebAssembly",
-    "PWA"
+    "Cloud",
+    "Web"
   ],
   "identity": "Microsoft.Fast.Templates.FluentUI.WebAssembly",
   "name": "FluentUI Blazor WebAssembly App",

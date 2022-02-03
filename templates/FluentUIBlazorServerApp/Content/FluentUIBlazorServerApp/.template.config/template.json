@@ -3,8 +3,12 @@
   "author": "Microsoft Fast",
   "sourceName": "FluentUIBlazorServerApp",
   "classifications": [
-    "Web",
-    "Blazor"
+    "Linux",
+    "macOS",
+    "Windows",
+    "Blazor",
+    "Cloud",
+    "Web"
   ],
   "identity": "Microsoft.Fast.Templates.FluentUI.Server",
   "name": "FluentUI Blazor Server App",
