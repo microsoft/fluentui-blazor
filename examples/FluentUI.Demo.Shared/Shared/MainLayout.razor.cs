@@ -22,7 +22,7 @@ namespace FluentUI.Demo.Shared
 
         public void SwitchTheme()
         {
-            baseLayerLuminance = baseLayerLuminance == 0 ? 1 : 0;
+            baseLayerLuminance = baseLayerLuminance == 0.2f ? 1 : 0.2f;
         }
 
         protected override void OnParametersSet()
