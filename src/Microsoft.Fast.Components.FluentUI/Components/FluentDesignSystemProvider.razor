@@ -61,7 +61,7 @@
     neutral-stroke-hover-delta="@NeutralStrokeHoverDelta"
     neutral-stroke-active-delta="@NeutralStrokeActiveDelta"
     neutral-stroke-focus-delta="@NeutralStrokeFocusDelta"
-    base-layer-luminance="@BaseLayerLuminance"
+    base-layer-luminance="@BaseLayerLuminance?.ToString(System.Globalization.CultureInfo.InvariantCulture)"
     @attributes="AdditionalAttributes"
 >
 @ChildContent
