@@ -1,0 +1,37 @@
+{
+  "version": "2.0.0",
+  "inputs": [
+    {
+      "type": "pickString",
+      "default": "./examples/FluentUI.Demo.Client",
+      "options": [
+        "FluentUI.Demo.Server",
+        "FluentUI.Demo.Client"
+      ],
+      "id": "projectSelection",
+      "description": "Select project",
+    }
+  ],
+  "tasks": [
+    {
+      "label": "Build library",
+      "type": "shell",
+      "command": "dotnet build",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "Run samples",
+      "type": "shell",
+      "command": "dotnet run --project ${workspaceFolder}/examples/${input:projectSelection}/${input:projectSelection}.csproj",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+  ]
+}

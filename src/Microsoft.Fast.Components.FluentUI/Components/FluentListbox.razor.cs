@@ -33,6 +33,7 @@ public partial class FluentListbox<TValue> : FluentInputBase<TValue>
         var fieldClass = string.Empty;
         var changeEventCallback = EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString);
         _context = new FluentOptionContext(CascadedContext, selectName, CurrentValue, fieldClass, changeEventCallback);
+
     }
     protected override bool TryParseValueFromString(string? value, out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
         => this.TryParseSelectableValueFromString(value, out result!, out validationErrorMessage);

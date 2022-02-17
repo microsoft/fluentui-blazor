@@ -1,13 +1,1 @@
 <fluent-button appearance="@Appearance.ToAttributeValue()" disabled="@Disabled" autofocus="@Autofocus" @attributes="AdditionalAttributes">@ChildContent</fluent-button>
-@code
-{
-    [Parameter] public Appearance? Appearance { get; set; }
-
-    [Parameter] public bool? Disabled { get; set; }
-    
-    [Parameter] public bool? Autofocus { get; set; }
- 
-    [Parameter] public RenderFragment? ChildContent { get; set; }
-
-    [Parameter(CaptureUnmatchedValues = true)] public IDictionary<string, object>? AdditionalAttributes { get; set; }
-}

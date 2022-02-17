@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
 namespace Microsoft.Fast.Components.FluentUI;
+
 public enum Direction
 {
     Previous,

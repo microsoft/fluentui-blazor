@@ -1,7 +1,7 @@
-﻿
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
+
 internal class FluentOptionContext
 {
     private readonly FluentOptionContext? _parentContext;

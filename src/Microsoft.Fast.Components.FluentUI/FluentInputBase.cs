@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
-
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+
 namespace Microsoft.Fast.Components.FluentUI;
 
 public abstract class FluentInputBase<TValue> : ComponentBase, IDisposable
@@ -166,7 +162,6 @@ public abstract class FluentInputBase<TValue> : ComponentBase, IDisposable
             return CombineClassNames(AdditionalAttributes, fieldClass);
         }
     }
-
 
     /// <inheritdoc />
     public override Task SetParametersAsync(ParameterView parameters)
