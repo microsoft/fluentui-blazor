@@ -14,9 +14,18 @@
             <div>
                 <p><label for="SelectValue">Select Value</label></p>
                 <FluentSelect Name="SelectValue" @bind-Value="Form.SelectValue">
-                    <FluentOption Value="One">One</FluentOption>
-                    <FluentOption Value="Two">Two</FluentOption>
-                    <FluentOption Value="Three">Three</FluentOption>
+                    <FluentOption Value="@("One")">One</FluentOption>
+                    <FluentOption Value="@("Two")">Two</FluentOption>
+                    <FluentOption Value="@("Three")">Three</FluentOption>
+                </FluentSelect>
+            </div>
+
+             <div>
+                <p><label for="SelectValue2">Select Value</label></p>
+                <FluentSelect Name="SelectValue2" @bind-Value="Form.NumberFieldValue">
+                    <FluentOption Value=1>1</FluentOption>
+                    <FluentOption Value=2>2</FluentOption>
+                    <FluentOption Value=3>3</FluentOption>
                 </FluentSelect>
             </div>
             <div>
@@ -56,15 +65,15 @@
                 <p><label for="RadioGroupValue">Radio group Value</label></p>
                 <FluentRadioGroup Name="RadioGroupValue" @bind-Value="Form.RadioGroupValue"
                     Orientation="Orientation.Vertical">
-                    <FluentRadio Value="apples">Apples</FluentRadio>
-                    <FluentRadio Value="oranges">Oranges</FluentRadio>
-                    <FluentRadio Value="bananas">Bananas</FluentRadio>
-                    <FluentRadio Value="kiwi">Kiwi</FluentRadio>
-                    <FluentRadio Value="grapefruit">Grapefruit</FluentRadio>
-                    <FluentRadio Value="mango">Mango</FluentRadio>
-                    <FluentRadio Value="blueberries">Blueberries</FluentRadio>
-                    <FluentRadio Value="strawberries">Strawberries</FluentRadio>
-                    <FluentRadio Value="pineapple">Pineapple</FluentRadio>
+                    <FluentRadio Value="@("apples")">Apples</FluentRadio>
+                    <FluentRadio Value="@("oranges")">Oranges</FluentRadio>
+                    <FluentRadio Value="@("bananas")">Bananas</FluentRadio>
+                    <FluentRadio Value="@("kiwi")">Kiwi</FluentRadio>
+                    <FluentRadio Value="@("grapefruit")">Grapefruit</FluentRadio>
+                    <FluentRadio Value="@("mango")">Mango</FluentRadio>
+                    <FluentRadio Value="@("blueberries")">Blueberries</FluentRadio>
+                    <FluentRadio Value="@("strawberries")">Strawberries</FluentRadio>
+                    <FluentRadio Value="@("pineapple")">Pineapple</FluentRadio>
                 </FluentRadioGroup>
             </div>
             <div>
@@ -102,9 +111,9 @@
                 <div>
                     <p><label for="SelectValue">Select Value</label></p>
                     <FluentSelect Name="SelectValue" @bind-Value="Form.SelectValue">
-                        <FluentOption Value="One">One</FluentOption>
-                        <FluentOption Value="Two">Two</FluentOption>
-                        <FluentOption Value="Three">Three</FluentOption>
+                        <FluentOption Value="@("One")">One</FluentOption>
+                        <FluentOption Value="@("Two")">Two</FluentOption>
+                        <FluentOption Value="@("Three")">Three</FluentOption>
                     </FluentSelect>
                     <span>
                         <ValidationMessage For="() => Form.SelectValue" />
@@ -156,15 +165,15 @@
                     <p><label for="RadioGroupValue">Radio group Value</label></p>
                     <FluentRadioGroup Name="RadioGroupValue" @bind-Value="Form.RadioGroupValue"
                         Orientation="Orientation.Vertical">
-                        <FluentRadio Value="apples">Apples</FluentRadio>
-                        <FluentRadio Value="oranges">Oranges</FluentRadio>
-                        <FluentRadio Value="bananas">Bananas</FluentRadio>
-                        <FluentRadio Value="kiwi">Kiwi</FluentRadio>
-                        <FluentRadio Value="grapefruit">Grapefruit</FluentRadio>
-                        <FluentRadio Value="mango">Mango</FluentRadio>
-                        <FluentRadio Value="blueberries">Blueberries</FluentRadio>
-                        <FluentRadio Value="strawberries">Strawberries</FluentRadio>
-                        <FluentRadio Value="pineapple">Pineapple</FluentRadio>
+                        <FluentRadio Value="@("apples")">Apples</FluentRadio>
+                        <FluentRadio Value="@("oranges")">Oranges</FluentRadio>
+                        <FluentRadio Value="@("bananas")">Bananas</FluentRadio>
+                        <FluentRadio Value="@("kiwi")">Kiwi</FluentRadio>
+                        <FluentRadio Value="@("grapefruit")">Grapefruit</FluentRadio>
+                        <FluentRadio Value="@("mango")">Mango</FluentRadio>
+                        <FluentRadio Value="@("blueberries")">Blueberries</FluentRadio>
+                        <FluentRadio Value="@("strawberries")">Strawberries</FluentRadio>
+                        <FluentRadio Value="@("pineapple")">Pineapple</FluentRadio>
                     </FluentRadioGroup>
                 </div>
                 <div>

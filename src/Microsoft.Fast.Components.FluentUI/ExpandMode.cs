@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.Fast.Components.FluentUI;
 
 public enum ExpandMode
 {
