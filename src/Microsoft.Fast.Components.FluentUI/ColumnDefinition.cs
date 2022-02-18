@@ -1,6 +1,4 @@
-﻿using System.Linq.Expressions;
-
-namespace Microsoft.Fast.Components.FluentUI;
+using System.Linq.Expressions;
 
 public class ColumnDefinition<TItem>
 {
