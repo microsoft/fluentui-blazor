@@ -31,7 +31,6 @@ public partial class FluentCombobox<TValue> : FluentInputBase<TValue>
     public Position? Position { get; set; }
 
     /// <summary>
-
     /// Gets or sets the child content to be rendering inside the <see cref="FluentCombobox{TValue}"/>.
     /// </summary>
     [Parameter]
