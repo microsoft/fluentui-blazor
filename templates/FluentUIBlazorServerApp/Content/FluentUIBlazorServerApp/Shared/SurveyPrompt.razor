@@ -1,0 +1,16 @@
+﻿<div class="prompt">
+    <span class="oi oi-pencil me-2" aria-hidden="true"></span>
+    <strong>@Title</strong>
+
+    <p class="text-nowrap">
+        Please take our
+        <FluentAnchor Href="https://go.microsoft.com/fwlink/?linkid=2149017" Appearance=Appearance.Hypertext>brief survey</FluentAnchor>
+        and tell us what you think.
+    </p>
+</div>
+
+@code {
+    // Demonstrates how a parent component can supply parameters
+    [Parameter]
+    public string? Title { get; set; }
+}
