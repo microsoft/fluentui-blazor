@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Microsoft Fast",
+  "sourceName": "FluentUIBlazorServerApp",
+  "classifications": [
+    "Linux",
+    "macOS",
+    "Windows",
+    "Blazor",
+    "Cloud",
+    "Web"
+  ],
+  "identity": "Microsoft.Fast.Templates.FluentUI.Server",
+  "name": "FluentUI Blazor Server App",
+  "shortName": "fluentuiblazorserver",
+  "defaultName": "BlazorApp",
+  "description": "A project template for creating a Blazor app that uses the Fluent UI component library, runs server-side inside an ASP.NET Core app and handles user interactions over a SignalR connection. This template can be used for web apps with rich dynamic user interfaces (UIs).",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "preferNameDirectory": true
+}
