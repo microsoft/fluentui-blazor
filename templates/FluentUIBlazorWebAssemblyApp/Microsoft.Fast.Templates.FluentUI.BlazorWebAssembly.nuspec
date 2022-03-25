@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
-  <metadata>
-    <id>Microsoft.Fast.Templates.FluentUI.BlazorWebAssembly</id>
-    <version>1.0.0</version>
-    <description>
-      A project template for creating a Blazor app that uses the Fluent UI component library and runs on WebAssembly. This template can be used for web apps with rich dynamic user interfaces (UIs).
-    </description>
-    <authors>Microsoft Fast</authors>
-    <license type="expression">MIT</license>
-    <packageTypes>
-      <packageType name="Template" />
-    </packageTypes>
-  </metadata>
-  <files>
-    <file src="Content\**\*.*" exclude="Content\**\bin\**\*.*;Content\**\obj\**\*.*" target="Content" />
-  </files>  
+	<metadata>
+		<id>Microsoft.Fast.Templates.FluentUI.BlazorWebAssembly</id>
+		<version>1.0.0</version>
+		<description>
+			A project template for creating a Blazor app that uses the Fluent UI component library and runs on WebAssembly. This template can be used for web apps with rich dynamic user interfaces (UIs).
+		</description>
+		<authors>Microsoft</authors>
+		<license type="expression">MIT</license>
+		<projectUrl>https://github.com/microsoft/fast-blazor</projectUrl>
+		<readme>README.md</readme>
+		<repository type="git" url="https://github.com/microsoft/fast-blazor.git"></repository>
+		<copyright>© Microsoft Corporation. All rights reserved.</copyright>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<tags>Web Components .NET FluentUI FAST Blazor .NET 6.0</tags>
+		<packageTypes>
+			<packageType name="Template" />
+		</packageTypes>
+	</metadata>
+	<files>
+		<file src="..\README.md" target="" />
+		<file src="Content\**\*.*" exclude="Content\**\bin\**\*.*;Content\**\obj\**\*.*" target="Content" />
+	</files>
 </package>
