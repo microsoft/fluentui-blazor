@@ -2,13 +2,23 @@
 
   <PropertyGroup>
 		<Authors>Microsoft</Authors>
+		<ContentTargetFolders>content</ContentTargetFolders>
 		<Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
+		<Description>A project template for creating a Blazor app that uses the Fluent UI component library and runs on WebAssembly. This template can be used for web apps with rich dynamic user interfaces (UIs).</Description>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<IncludeContentInPack>true</IncludeContentInPack>
+		<IncludeBuildOutput>false</IncludeBuildOutput>
 		<IsPackable>true</IsPackable>
 		<License>MIT</License>
 		<LicenseUrl>https://github.com/microsoft/fast-blazor/blob/main/LICENSE</LicenseUrl>
 		<Nullable>enable</Nullable>
 		<ProjectUrl>https://github.com/microsoft/fast-blazor</ProjectUrl>
+		<PackageId>Microsoft.Fast.Templates.FluentUI.BlazorWebAssembly</PackageId>
+		<PackageTags>templates;fast;fast-blazor;blazor;fluentui;web-assembly</PackageTags>
+		<PackageType>Template</PackageType>
+		<PackageVersion>1.0.0</PackageVersion>
+		<TargetFramework>net6.0</TargetFramework>
+		<Title>Microsoft FAST Fluent UI Blazor Web Assembly</Title>
 		<TargetFramework>net6.0</TargetFramework>
 	</PropertyGroup>
 
