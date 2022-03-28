@@ -2,14 +2,14 @@
 
   <PropertyGroup>
 		<Authors>Microsoft</Authors>
-    <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
+		<Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<IsPackable>true</IsPackable>
-    <License>MIT</License>
-    <LicenseUrl>https://github.com/microsoft/fast-blazor/blob/main/LICENSE</LicenseUrl>
-    <Nullable>enable</Nullable>
+		<License>MIT</License>
+		<LicenseUrl>https://github.com/microsoft/fast-blazor/blob/main/LICENSE</LicenseUrl>
+		<Nullable>enable</Nullable>
 		<ProjectUrl>https://github.com/microsoft/fast-blazor</ProjectUrl>
-  	<TargetFramework>net6.0</TargetFramework>
+		<TargetFramework>net6.0</TargetFramework>
 	</PropertyGroup>
 
   <ItemGroup>
