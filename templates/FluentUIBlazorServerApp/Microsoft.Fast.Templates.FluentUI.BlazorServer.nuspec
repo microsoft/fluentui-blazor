@@ -8,7 +8,7 @@
     </description>
     <id>Microsoft.Fast.Templates.FluentUI.BlazorServer</id>
     <license type="expression">MIT</license>
-    <licenseUrl>https://github.com/microsoft/fast-blazor/blob/main/LICENSE</licenseUrl>
+    <LicenseUrl>https://github.com/microsoft/fast-blazor/blob/main/LICENSE</LicenseUrl>
     <packageTypes>
       <packageType name="Template" />
     </packageTypes>
