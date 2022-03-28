@@ -10,7 +10,6 @@
 		<IncludeBuildOutput>false</IncludeBuildOutput>
 		<IsPackable>true</IsPackable>
 		<License>MIT</License>
-		<LicenseUrl>https://github.com/microsoft/fast-blazor/blob/main/LICENSE</LicenseUrl>
 		<Nullable>enable</Nullable>
 		<PackageId>Microsoft.Fast.Templates.FluentUI.BlazorServer</PackageId>
 		<PackageProjectUrl>https://github.com/microsoft/fast-blazor</PackageProjectUrl>
