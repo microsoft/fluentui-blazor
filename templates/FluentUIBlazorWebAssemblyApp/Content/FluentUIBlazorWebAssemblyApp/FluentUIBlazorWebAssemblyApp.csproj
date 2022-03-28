@@ -1,16 +1,21 @@
 <Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
-	<TargetFramework>net6.0</TargetFramework>
-	<Nullable>enable</Nullable>
-	<ImplicitUsings>enable</ImplicitUsings>
-	<IsPackable>true</IsPackable>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<IsPackable>true</IsPackable>
+		<authors>Microsoft, fast</authors>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://github.com/microsoft/fast-blazor/blob/main/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/microsoft/fast-blazor</projectUrl>
+    <copyright>© Microsoft Corporation. All rights reserved.</copyright>
   </PropertyGroup>
 
   <ItemGroup>
-	<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.1" />
-	<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.1" PrivateAssets="all" />
-	<PackageReference Include="Microsoft.Fast.Components.FluentUI" Version="1.*" />
-  </ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.1" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.Fast.Components.FluentUI" Version="1.*" />
+	</ItemGroup>
 
 </Project>
