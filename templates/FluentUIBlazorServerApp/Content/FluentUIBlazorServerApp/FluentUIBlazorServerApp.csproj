@@ -12,6 +12,7 @@
 		<License>MIT</License>
 		<Nullable>enable</Nullable>
 		<PackageId>Microsoft.Fast.Templates.FluentUI.BlazorServer</PackageId>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/microsoft/fast-blazor</PackageProjectUrl>
 		<PackageTags>templates;fast;fast-blazor;blazor;fluentui</PackageTags>
 		<PackageType>Template</PackageType>
