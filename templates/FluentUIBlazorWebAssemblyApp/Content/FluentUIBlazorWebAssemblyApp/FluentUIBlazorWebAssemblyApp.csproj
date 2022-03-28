@@ -1,16 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
-		<Nullable>enable</Nullable>
+		<Authors>Microsoft</Authors>
+    <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<IsPackable>true</IsPackable>
-		<authors>Microsoft, fast</authors>
-    <license>MIT</license>
-    <licenseUrl>https://github.com/microsoft/fast-blazor/blob/main/LICENSE</licenseUrl>
-    <projectUrl>https://github.com/microsoft/fast-blazor</projectUrl>
-    <copyright>© Microsoft Corporation. All rights reserved.</copyright>
-  </PropertyGroup>
+    <License>MIT</License>
+    <LicenseUrl>https://github.com/microsoft/fast-blazor/blob/main/LICENSE</LicenseUrl>
+    <Nullable>enable</Nullable>
+		<ProjectUrl>https://github.com/microsoft/fast-blazor</ProjectUrl>
+  	<TargetFramework>net6.0</TargetFramework>
+	</PropertyGroup>
 
   <ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.1" />
