@@ -7,7 +7,7 @@ pool:
   vmImage: 'windows-2022'
 
 variables:
-  project: 'templates/FluentUIBlazorServerApp/FluentUIBlazorServerApp.sln'
+  project: 'templates/FluentUIBlazorServerApp/Content/**/*.csproj'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
