@@ -7,12 +7,10 @@
       A project template for creating a Blazor app that uses the Fluent UI component library and runs on WebAssembly. This template can be used for web apps with rich dynamic user interfaces (UIs).
     </description>
     <id>Microsoft.Fast.Templates.FluentUI.BlazorWebAssembly</id>
-    <license type="expression">MIT</license>
     <packageTypes>
       <packageType name="Template" />
     </packageTypes>
-    <projectUrl>https://github.com/microsoft/fast-blazor</projectUrl>
-    <readme>..\README.md</readme>
+    <readme>/Content/README.md</readme>
     <version>1.0.0</version>
   </metadata>
   <files>
