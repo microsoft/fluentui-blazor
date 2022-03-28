@@ -1,4 +1,4 @@
-name: Publish Microsoft Fast-Blazor Templates
+name: Publish Microsoft Fast-Blazor Template - Fluent UI WASM
 
 pr: none
 trigger: none
@@ -7,7 +7,7 @@ pool:
   vmImage: 'windows-2022'
 
 variables:
-  project: 'templates/FluentUIBlazorServerApp/Content/**/*.csproj'
+  project: 'templates/FluentUIBlazorWebAssemblyApp/Content/**/*.csproj'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
