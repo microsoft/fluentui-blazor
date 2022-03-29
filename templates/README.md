@@ -29,6 +29,7 @@ Install the template by running the command:
 ```
 dotnet new -i {path to package}\Microsoft.Fast.Templates.FluentUI.BlazorWebAssembly.{version}.nupkg
 ```
+
 The current version is 1.0.2. After instalation the template will be available to create a new project from both the CLI as from Visual Studio 2022
 
 #### Usage
