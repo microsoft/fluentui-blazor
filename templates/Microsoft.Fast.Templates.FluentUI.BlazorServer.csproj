@@ -1,14 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
+	<PropertyGroup>
 		<Authors>Microsoft</Authors>
-		<ContentTargetFolders>content</ContentTargetFolders>
+		<ContentTargetFolders>Content</ContentTargetFolders>
 		<Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
 		<Description>A project template for creating a Blazor server app that uses the Fluent UI component library and runs server-side inside an ASP.NET Core app and handles user interactions over a SignalR connection. This template can be used for web apps with rich dynamic user interfaces (UIs).</Description>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<IncludeContentInPack>true</IncludeContentInPack>
 		<IncludeBuildOutput>false</IncludeBuildOutput>
-		<IsPackable>true</IsPackable>
 		<License>MIT</License>
 		<Nullable>enable</Nullable>
 		<PackageId>Microsoft.Fast.Templates.FluentUI.BlazorServer</PackageId>
@@ -16,13 +15,15 @@
 		<PackageProjectUrl>https://github.com/microsoft/fast-blazor</PackageProjectUrl>
 		<PackageTags>templates;fast;fast-blazor;blazor;fluentui</PackageTags>
 		<PackageType>Template</PackageType>
-		<PackageVersion>1.0.0</PackageVersion>
+		<PackageVersion>1.0.1</PackageVersion>
 		<TargetFramework>net6.0</TargetFramework>
-		<Title>Microsoft FAST Fluent UI Blazor Server App</Title>
+		<Title>Microsoft FAST Fluent UI Blazor Server Template</Title>
 	</PropertyGroup>
 
-  <ItemGroup>
-		<PackageReference Include="Microsoft.Fast.Components.FluentUI" Version="1.*" />
-  </ItemGroup>
+	<ItemGroup>
+		<Content Include="FluentUIBlazorServerApp\**\*" Exclude="**\bin\**;**\obj\**" />
+		<Content Include="README.md" />
+		<Compile Remove="**\*" />
+	</ItemGroup>
 
 </Project>
