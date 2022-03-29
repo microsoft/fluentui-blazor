@@ -3,7 +3,7 @@ Install the templates by running the command:
 ```
 dotnet new -i {path to package}\Microsoft.Fast.Templates.FluentUI.{version}.nupkg
 ```
-The current version is 2.0.0. After instalation the templates will be available to create a new project from both the CLI as from Visual Studio 2022
+The current version is 1.0.0. After instalation the templates will be available to create a new project from both the CLI as from Visual Studio 2022
 
 #### Usage
 After installing the templates you can create new a project from either the CLI or by creating a new project in Visual studio 2022. 
