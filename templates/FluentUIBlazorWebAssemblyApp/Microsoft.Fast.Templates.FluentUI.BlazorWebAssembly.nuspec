@@ -2,7 +2,8 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
 	<metadata>
 		<id>Microsoft.Fast.Templates.FluentUI.BlazorWebAssembly</id>
-		<version>1.0.0</version>
+		<version>1.0.1</version>
+		<title>Microsoft FAST Fluent UI Blazor WebAssembly template</title>
 		<description>
 			A project template for creating a Blazor app that uses the Fluent UI component library and runs on WebAssembly. This template can be used for web apps with rich dynamic user interfaces (UIs).
 		</description>
@@ -17,9 +18,12 @@
 		<packageTypes>
 			<packageType name="Template" />
 		</packageTypes>
+		<dependencies>
+			<dependency id="Microsoft.Fast.Components.FluentUI" version="[1.2.0,2)" />
+		</dependencies>
 	</metadata>
 	<files>
-		<file src="..\README.md" target="" />
+		<file src="README.md" target="" />
 		<file src="Content\**\*.*" exclude="Content\**\bin\**\*.*;Content\**\obj\**\*.*" target="Content" />
 	</files>
 </package>
