@@ -13,7 +13,7 @@
 		<PackageProjectUrl>https://github.com/microsoft/fast-blazor</PackageProjectUrl>
 		<PackageTags>templates;fast;fast-blazor;blazor;fluentui;web-assembly</PackageTags>
 		<PackageType>Template</PackageType>
-		<PackageVersion>1.0.0</PackageVersion>
+		<PackageVersion>1.0.1</PackageVersion>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<TargetFramework>net6.0</TargetFramework>
 		<Title>Microsoft FAST Fluent UI Blazor Templates</Title>
