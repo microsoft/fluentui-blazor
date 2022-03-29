@@ -7,7 +7,7 @@ pool:
   vmImage: 'windows-2022'
 
 variables:
-  project: 'templates/FluentUIBlazorServerApp/Content/**/*.csproj'
+  project: 'templates/Microsoft.Fast.Templates.FluentUI.BlazorServer.csproj'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
@@ -30,17 +30,6 @@ steps:
   displayName: Install dependencies
   inputs:
     restoreSolution: '$(project)'
-
-- task: DotNetCoreCLI@2
-  displayName: Build
-  inputs:
-    command: 'build'
-    nugetConfigPath: $(project)
-
-- task: DotNetCoreCLI@2
-  displayName: Test
-  inputs:
-    command: 'test'
 
 - task: DotNetCoreCLI@2
   displayName: Pack
