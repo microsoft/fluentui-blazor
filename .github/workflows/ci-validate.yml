@@ -4,12 +4,18 @@ on:
   push:
     branches: [ main ]
     paths-ignore:
-      - '**.md'
+      - '**/*.md'
+      - '**/*.gitignore'
+      - '**/*.gitattributes'
+      - '**/*.yaml'
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches: [ main ]
     paths-ignore:
-      - '**.md'
+      - '**/*.md'
+      - '**/*.gitignore'
+      - '**/*.gitattributes'
+      - '**/*.yaml'
 
 jobs:
   build:
