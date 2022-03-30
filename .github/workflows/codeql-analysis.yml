@@ -18,14 +18,14 @@ on:
       - '**/*.md'
       - '**/*.gitignore'
       - '**/*.gitattributes'
-      - '**/*.yaml'
+      - '**/*.yml'
   pull_request:
     branches: [ main ]
     paths-ignore:
       - '**/*.md'
       - '**/*.gitignore'
       - '**/*.gitattributes'
-      - '**/*.yaml'
+      - '**/*.yml'
   schedule:
     - cron: '0 0 * * 0,3'
 

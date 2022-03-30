@@ -7,7 +7,7 @@ on:
       - '**/*.md'
       - '**/*.gitignore'
       - '**/*.gitattributes'
-      - '**/*.yaml'
+      - '**/*.yml'
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches: [ main ]
@@ -15,7 +15,7 @@ on:
       - '**/*.md'
       - '**/*.gitignore'
       - '**/*.gitattributes'
-      - '**/*.yaml'
+      - '**/*.yml'
 
 jobs:
   build:
