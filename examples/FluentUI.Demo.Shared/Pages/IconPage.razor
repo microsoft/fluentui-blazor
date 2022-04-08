@@ -44,15 +44,15 @@
 </p>
 <h2>Explore Icons</h2>
 <p>
-    <EditForm Model="Form" OnSubmit="SearchIcons">
+    <EditForm Model="Form" >
         <div style="display: flex; flex-wrap: wrap; width: 90%;height: 100px;align-items: center;justify-content: space-between;">
             <div style="display: flex;align-content: center;align-items: center;">
                 <p style="padding-right: 10px;"><label for="Searchterm">Search term</label></p>
-                <FluentTextField Name="Searchterm" @bind-Value="Form.Searchterm" Placeholder="Search.." @oninput="HandleSearchterm"></FluentTextField>
+                <FluentTextField Name="Searchterm" @bind-Value="Form.Searchterm" Placeholder="Search.."></FluentTextField>
             </div>
             <div style="display: flex;align-content: center;align-items: center;">
                 <p style="padding-right: 10px;"><label for="Size">Select Size</label></p>
-                <FluentSelect Name="Size" @bind-Value="Form.Size" @onchange="HandleSize">
+                <FluentSelect Name="Size" @bind-Value="Form.Size" >
                     @foreach (IconSize size in Enum.GetValues<IconSize>())
                     {
                         <FluentOption Value=@size>@((int)size)</FluentOption>
@@ -64,7 +64,7 @@
                 <FluentCheckbox @bind-Value="Form.Filled" @onclick="HandleStyle">Filled</FluentCheckbox>
                 <FluentCheckbox @bind-Value="Form.Regular" @onclick="HandleStyle">Regular</FluentCheckbox>
             </div>
-            <FluentButton type="submit"><FluentIcon Name="@FluentIcons.Search" Size="@IconSize.Size16" Filled=false Slot="start"></FluentIcon> Search</FluentButton>
+            <FluentButton @onclick="HandleSearch"><FluentIcon Name="@FluentIcons.Search" Size="@IconSize.Size16" Filled=false Slot="start"></FluentIcon> Search</FluentButton>
         </div>
     </EditForm>
 </p>
@@ -100,14 +100,14 @@
         {
             Form.Style = false;
         }
-        SearchIcons();
+        HandleSearch();
         StateHasChanged();
 
     }
 
     public void HandleSize()
     {
-        SearchIcons();
+        HandleSearch();
         StateHasChanged();
     }
 
@@ -115,12 +115,12 @@
     {
         if (Form.Searchterm.Length > 2)
         {
-            SearchIcons();
+            HandleSearch();
         }
         StateHasChanged();
     }
 
-    public void SearchIcons()
+    public void HandleSearch()
     {
         icons = FluentIcons.GetFilteredIcons(searchterm: Form.Searchterm, size: Form.Size, filled: Form.Style);
         return;
@@ -128,15 +128,22 @@
 
     public class FormModel
     {
-        public IconSize Size { get; set; } = IconSize.Size24;
+        public IconSize Size { get; set; } 
 
-        public string Searchterm { get; set; } = string.Empty;
+        public string Searchterm { get; set; }
 
-        public bool? Style { get; set; } = null;
+        public bool? Style { get; set; }
 
         public bool Filled { get; set; }
 
         public bool Regular { get; set; }
 
+    }
+    
+    public IconPage ()
+    {
+        Form.Size = IconSize.Size24;
+        Form.Searchterm = string.Empty;
+        Form.Style = null;  
     }
  }
