@@ -1,0 +1,142 @@
+﻿@page "/IconPage"
+@using System.ComponentModel.DataAnnotations
+@using System.Text.RegularExpressions
+@using Microsoft.Fast.Components.FluentUI
+
+<style>
+    .preview {
+        margin: 10px;
+        --card-width: 120px;
+        --card-height: 120px;
+        --elevation: 6;
+    }
+
+        .preview:hover {
+            --elevation: 12;
+        }
+
+        .preview .inner {
+            text-align: center;
+            padding: 10px 10px 0;
+            color: var(--neutral-foreground-rest);
+        }
+
+            .preview .inner svg {
+                height: 80px;
+            }
+
+    .label {
+        text-align: center;
+        padding: 2px 5px;
+        font-size: 10px;
+        font-family: Monaco, monospace;
+        white-space: nowrap;
+        overflow: hidden;
+        background: var(--neutral-stroke-rest);
+    }
+</style>
+
+<h1>Icons</h1>
+<h2>Overview</h2>
+<p>
+    <FluentIcon Name=@FluentIcons.Accessibility Size=IconSize.Size32 Filled=true />
+    <FluentIcon Name=@FluentIcons.AccessibilityCheckmark Size=IconSize.Size24 Filled=true UseAccentColor=false />
+</p>
+<h2>Explore Icons</h2>
+<p>
+    <EditForm Model="Form" OnSubmit="SearchIcons">
+        <div style="display: flex; flex-wrap: wrap; width: 90%;height: 100px;align-items: center;justify-content: space-between;">
+            <div style="display: flex;align-content: center;align-items: center;">
+                <p style="padding-right: 10px;"><label for="Searchterm">Search term</label></p>
+                <FluentTextField Name="Searchterm" @bind-Value="Form.Searchterm" Placeholder="Search.." @oninput="HandleSearchterm"></FluentTextField>
+            </div>
+            <div style="display: flex;align-content: center;align-items: center;">
+                <p style="padding-right: 10px;"><label for="Size">Select Size</label></p>
+                <FluentSelect Name="Size" @bind-Value="Form.Size" @onchange="HandleSize">
+                    @foreach (IconSize size in Enum.GetValues<IconSize>())
+                    {
+                        <FluentOption Value=@size>@((int)size)</FluentOption>
+                    }
+                </FluentSelect>
+            </div>
+
+            <div style="display: flex;align-content: center;align-items: center;">
+                <FluentCheckbox @bind-Value="Form.Filled" @onclick="HandleStyle">Filled</FluentCheckbox>
+                <FluentCheckbox @bind-Value="Form.Regular" @onclick="HandleStyle">Regular</FluentCheckbox>
+            </div>
+            <FluentButton type="submit"><FluentIcon Name="@FluentIcons.Search" Size="@IconSize.Size16" Filled=false Slot="start"></FluentIcon> Search</FluentButton>
+        </div>
+    </EditForm>
+</p>
+<div id="filled" data-is-scrollable="true" style="overflow-y:auto;height:600px;">
+    <div style="display:flex;flex-flow: row wrap;">
+        @foreach (IconModel icon in icons)
+        {
+            <FluentCard class="preview">
+                <div class="inner">
+                    <FluentIcon Name=@icon.Name Size=@icon.Size Filled=@icon.Filled />
+                </div>
+                <div class="label">@icon.Name</div>
+            </FluentCard>
+        }
+    </div>
+</div>
+
+@code {
+    public FormModel Form { get; set; } = new();
+    List<IconModel> icons = new();
+
+    public void HandleStyle()
+    {
+        if (Form.Filled && Form.Regular || !Form.Filled && !Form.Regular)
+        {
+            Form.Style = null;
+        }
+        else if (Form.Filled && !Form.Regular)
+        {
+            Form.Style = true;
+        }
+        else if (!Form.Filled && Form.Regular)
+        {
+            Form.Style = false;
+        }
+        SearchIcons();
+        StateHasChanged();
+
+    }
+
+    public void HandleSize()
+    {
+        SearchIcons();
+        StateHasChanged();
+    }
+
+    public void HandleSearchterm()
+    {
+        if (Form.Searchterm.Length > 2)
+        {
+            SearchIcons();
+        }
+        StateHasChanged();
+    }
+
+    public void SearchIcons()
+    {
+        icons = FluentIcons.GetFilteredIcons(searchterm: Form.Searchterm, size: Form.Size, filled: Form.Style);
+        return;
+    }
+
+    public class FormModel
+    {
+        public IconSize Size { get; set; } = IconSize.Size24;
+
+        public string Searchterm { get; set; } = string.Empty;
+
+        public bool? Style { get; set; } = null;
+
+        public bool Filled { get; set; }
+
+        public bool Regular { get; set; }
+
+    }
+ }
