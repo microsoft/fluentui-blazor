@@ -6,9 +6,6 @@ public partial class FluentIcon
 {
     [Inject]
     private IconService? IconService { get; set; }
-
-    private string name = string.Empty;
-    private string? folder;
     private MarkupString svg;
 
     /// <summary>
@@ -29,15 +26,7 @@ public partial class FluentIcon
     /// </summary>
     [Parameter]
     [EditorRequired]
-    public string Name
-    {
-        get => name;
-        set
-        {
-            name = value;
-            folder = FluentIcons.IconMap.First(x => x.Name == name).Folder;
-        }
-    }
+    public string Name { get; set; } = String.Empty;
 
     /// <summary>
     /// Gets or sets the size of the icon. Defaults to 20. Not all sizes are available for all icons
@@ -59,6 +48,8 @@ public partial class FluentIcon
     {
         if (IconService is not null)
         {
+            string folder = FluentIcons.IconMap.First(x => x.Name == Name).Folder;
+
             string t = await IconService.HttpClient.GetStringAsync($"_content/Microsoft.Fast.Components.FluentUI/icons/{folder}/{ComposedName}.svg");
 
             if (UseAccentColor)
@@ -67,6 +58,7 @@ public partial class FluentIcon
                 t = t.Replace("<svg ", $"<svg slot=\"{Slot}\" ");
 
             svg = (MarkupString)t;
+
         }
     }
 
