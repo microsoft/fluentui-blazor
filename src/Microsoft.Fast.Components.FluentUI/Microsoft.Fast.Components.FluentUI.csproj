@@ -62,8 +62,7 @@
   <ItemGroup>
 	<ProjectReference Include="..\Microsoft.Fast.Components.FluentUI.Generators\Microsoft.Fast.Components.FluentUI.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
-  <Import Project="..\Microsoft.Fast.Components.FluentUI.Generators\FluentIconGenerator.props" />
-
+  
   <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true' Or '$(TF_BUILD)' == 'true'">
 	<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
