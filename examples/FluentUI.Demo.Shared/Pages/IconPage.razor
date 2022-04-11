@@ -120,7 +120,12 @@
 
     public void HandleSize(ChangeEventArgs args)
     {
-        Form.Size = Enum.Parse<IconSize>((string)args.Value);
+        if (!string.IsNullOrEmpty(args.Value?.ToString()))
+        {
+            Form.Size = Enum.Parse<IconSize>((string)args.Value);
+            HandleSearch();
+        }
+        
         HandleSearch();
     }
 
