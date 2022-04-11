@@ -25,7 +25,7 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
 
 
             context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.MSBuildProjectDirectory", out var projectDirectory);
-            string iconsFolder = Path.Combine(Directory.GetParent(projectDirectory).FullName, $"Microsoft.Fast.Components.FluentUI{Path.PathSeparator}wwwroot{Path.PathSeparator}icons{Path.PathSeparator}");
+            string iconsFolder = Path.Combine(Directory.GetParent(projectDirectory).FullName, $"Microsoft.Fast.Components.FluentUI{Path.DirectorySeparatorChar}wwwroot{Path.DirectorySeparatorChar}icons{Path.DirectorySeparatorChar}");
 
             sb.AppendLine("using System.Collections.Generic;\r\n");
             sb.AppendLine("namespace Microsoft.Fast.Components.FluentUI;\r\n");
