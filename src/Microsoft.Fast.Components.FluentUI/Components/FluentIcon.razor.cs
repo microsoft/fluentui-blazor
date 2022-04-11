@@ -1,3 +1,4 @@
+using System.Globalization;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
@@ -35,7 +36,11 @@ public partial class FluentIcon
         set
         {
             name = value;
-            folder = name?.Replace("_", "");
+            if (!string.IsNullOrEmpty(name))
+            {
+                TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+                folder = textInfo.ToTitleCase(name).Replace("_", "");
+            }
         }
     }
 
