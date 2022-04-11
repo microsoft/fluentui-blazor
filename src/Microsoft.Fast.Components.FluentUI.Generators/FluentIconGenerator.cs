@@ -21,7 +21,7 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             List<(string folder, string iconbase)> constants = new();
             List<(string iconbase, int size, bool filled)> icons = new();
 
-            (string name, int size, bool filled) icon;
+            (string folder, string name, int size, bool filled) icon;
 
 
             context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.MSBuildProjectDirectory", out var projectDirectory);
@@ -50,11 +50,13 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
                     if (matches.Count == 0)
                         continue;
 
-                    icon = (matches[0].Groups[1].Value,
+                    icon = (folder,
+                        matches[0].Groups[1].Value,
                         int.Parse(matches[0].Groups[2].Value),
-                        matches[0].Groups[3].Value == "filled");
+                        matches[0].Groups[3].Value == "filled"
+                    );
 
-                    sb.AppendLine($"\t\tnew IconModel(\"{icon.name}\", IconSize.Size{icon.size}, {icon.filled.ToString().ToLower()}),");
+                    sb.AppendLine($"\t\tnew IconModel(\"{icon.folder}\", \"{icon.name}\", IconSize.Size{icon.size}, {icon.filled.ToString().ToLower()}),");
 
                     if (string.IsNullOrEmpty(iconbase))
                     {

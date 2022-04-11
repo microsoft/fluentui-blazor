@@ -1,4 +1,3 @@
-using System.Globalization;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
@@ -8,7 +7,7 @@ public partial class FluentIcon
     [Inject]
     private IconService? IconService { get; set; }
 
-    private string? name;
+    private string name = string.Empty;
     private string? folder;
     private MarkupString svg;
 
@@ -30,17 +29,13 @@ public partial class FluentIcon
     /// </summary>
     [Parameter]
     [EditorRequired]
-    public string? Name
+    public string Name
     {
         get => name;
         set
         {
             name = value;
-            if (!string.IsNullOrEmpty(name))
-            {
-                TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
-                folder = textInfo.ToTitleCase(name).Replace("_", "");
-            }
+            folder = FluentIcons.IconMap.First(x => x.Name == name).Folder;
         }
     }
 
