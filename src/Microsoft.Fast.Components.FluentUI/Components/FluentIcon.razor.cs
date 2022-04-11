@@ -5,7 +5,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentIcon
 {
     [Inject]
-    private HttpClient? Http { get; set; }
+    private IconService? IconService { get; set; }
 
     private string? name;
     private string? folder;
@@ -57,34 +57,16 @@ public partial class FluentIcon
 
     protected override async Task OnParametersSetAsync()
     {
-        if (Http != null)
+        if (IconService is not null)
         {
-            HttpResponseMessage response = await Http.GetAsync($"_content/Microsoft.Fast.Components.FluentUI/icons/{folder}/{ComposedName}.svg");
+            string t = await IconService.HttpClient.GetStringAsync($"_content/Microsoft.Fast.Components.FluentUI/icons/{folder}/{ComposedName}.svg");
 
-            //if (response.StatusCode == HttpStatusCode.NotFound)
-            //    throw new InvalidOperationException($"Icon {folder}/{ComposedName} not found");
-            if (response.IsSuccessStatusCode)
-            {
-                string t = await response.Content.ReadAsStringAsync();
-                if (UseAccentColor)
-                    t = t.Replace("<path ", "<path fill=\"var(--accent-fill-rest)\"");
-                if (!string.IsNullOrEmpty(Slot))
-                    t = t.Replace("<svg ", $"<svg slot=\"{Slot}\" ");
+            if (UseAccentColor)
+                t = t.Replace("<path ", "<path fill=\"var(--accent-fill-rest)\"");
+            if (!string.IsNullOrEmpty(Slot))
+                t = t.Replace("<svg ", $"<svg slot=\"{Slot}\" ");
 
-                svg = (MarkupString)t;
-
-            }
-            else
-                svg = (MarkupString)string.Empty;
-
-            //try
-            //{
-            //    svg = (MarkupString)await Http.GetStringAsync($"_content/Microsoft.Fast.Components.FluentUI/icons/{folder}/{ComposedName}.svg");
-            //}
-            //catch (HttpRequestException)
-            //{
-            //    //throw;
-            //}
+            svg = (MarkupString)t;
         }
     }
 

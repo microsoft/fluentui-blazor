@@ -54,6 +54,8 @@
 
   <ItemGroup>
 	<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.*" />
+	<PackageReference Include="Microsoft.AspNetCore.Hosting.Server.Abstractions" Version="2.2.0" />
+	<PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
 	<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
 

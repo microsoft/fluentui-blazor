@@ -39,12 +39,20 @@
 <h1>Icons</h1>
 <h2>Overview</h2>
 <p>
-    <FluentIcon Name=@FluentIcons.Accessibility Size=IconSize.Size32 Filled=true />
-    <FluentIcon Name=@FluentIcons.AccessibilityCheckmark Size=IconSize.Size24 Filled=true UseAccentColor=false />
+    <dl>
+        <dt>Icon using 'accent-fill-rest' color:<br />
+            <code>&lt;FluentIcon Name=@FluentIcons.Accessibility Size=IconSize.Size32 Filled=true /&gt;</code></dt>
+        <dd><FluentIcon Name=@FluentIcons.Accessibility Size=IconSize.Size32 Filled=true /></dd>
+        <dt>Icon without accent color: <br />
+            <code>&lt;FluentIcon Name=@FluentIcons.AccessibilityCheckmark Size=IconSize.Size24 Filled=true UseAccentColor=false /&gt;</code></dt>
+        <dd><FluentIcon Name=@FluentIcons.AccessibilityCheckmark Size=IconSize.Size24 Filled=true UseAccentColor=false /></dd>
+    </dl>
+    
+    
 </p>
 <h2>Explore Icons</h2>
 <p>
-    <EditForm Model="Form" >
+    <EditForm EditContext="@editContext" >
         <div style="display: flex; flex-wrap: wrap; width: 90%;height: 100px;align-items: center;justify-content: space-between;">
             <div style="display: flex;align-content: center;align-items: center;">
                 <p style="padding-right: 10px;"><label for="Searchterm">Search term</label></p>
@@ -52,7 +60,7 @@
             </div>
             <div style="display: flex;align-content: center;align-items: center;">
                 <p style="padding-right: 10px;"><label for="Size">Select Size</label></p>
-                <FluentSelect Name="Size" @bind-Value="Form.Size" >
+                <FluentSelect TValue="IconSize" Name="Size" @bind-Value="Form.Size" @onchange="@(x => HandleSize(x))">
                     @foreach (IconSize size in Enum.GetValues<IconSize>())
                     {
                         <FluentOption Value=@size>@((int)size)</FluentOption>
@@ -79,11 +87,18 @@
                 <div class="label">@icon.Name</div>
             </FluentCard>
         }
+        @if (icons.Count == 0)
+        {
+        <div style="display: flex;align-content: center;align-items: center;">
+            <p style="padding-right: 10px;">No icons found</p>
+        </div>
+        }
     </div>
 </div>
 
 @code {
-    public FormModel Form { get; set; } = new();
+    private EditContext? editContext;
+    
     List<IconModel> icons = new();
 
     public void HandleStyle()
@@ -101,36 +116,34 @@
             Form.Style = false;
         }
         HandleSearch();
-        StateHasChanged();
-
     }
 
-    public void HandleSize()
+    public void HandleSize(ChangeEventArgs args)
     {
+        Form.Size = Enum.Parse<IconSize>((string)args.Value);
         HandleSearch();
-        StateHasChanged();
     }
 
     public void HandleSearchterm()
     {
-        if (Form.Searchterm.Length > 2)
-        {
-            HandleSearch();
-        }
-        StateHasChanged();
+        HandleSearch();
     }
 
     public void HandleSearch()
     {
-        icons = FluentIcons.GetFilteredIcons(searchterm: Form.Searchterm, size: Form.Size, filled: Form.Style);
+        if (Form.Searchterm is not null && Form.Searchterm.Trim().Length > 2)
+        {
+            icons = FluentIcons.GetFilteredIcons(searchterm: Form.Searchterm.Trim(), size: Form.Size, filled: Form.Style);
+        }
+        StateHasChanged();
         return;
     }
 
     public class FormModel
     {
-        public IconSize Size { get; set; } 
+        public IconSize Size { get; set; }
 
-        public string Searchterm { get; set; }
+        public string? Searchterm { get; set; }
 
         public bool? Style { get; set; }
 
@@ -139,11 +152,16 @@
         public bool Regular { get; set; }
 
     }
-    
-    public IconPage ()
+
+    private FormModel Form = new()
     {
-        Form.Size = IconSize.Size24;
-        Form.Searchterm = string.Empty;
-        Form.Style = null;  
+            Size = IconSize.Size24,
+            Searchterm = "",
+            Style = null,
+    };
+    
+    protected override void OnInitialized()
+    {
+        editContext = new EditContext(Form);
     }
  }
