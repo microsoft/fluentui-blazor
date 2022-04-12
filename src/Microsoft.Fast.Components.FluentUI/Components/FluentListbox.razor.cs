@@ -1,6 +1,9 @@
+using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Components;
+
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentListbox
+public partial class FluentListbox<TValue> : FluentInputBase<TValue>
 {
     private readonly string _defaultSelectName = Guid.NewGuid().ToString("N");
     private FluentOptionContext? _context;
@@ -10,12 +13,6 @@ public partial class FluentListbox
     /// </summary>
     [Parameter]
     public string? Name { get; set; }
-
-    /// <summary>
-    /// Gets or sets the child content to be rendering inside the <see cref="FluentListbox{TValue}"/>.
-    /// </summary>
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
 
     [Parameter]
     public IEnumerable<Option<TValue>>? Items { get; set; }

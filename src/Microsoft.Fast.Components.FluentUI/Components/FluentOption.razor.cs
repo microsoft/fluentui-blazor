@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Components;
+
 namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentOption<TValue> : FluentComponentBase

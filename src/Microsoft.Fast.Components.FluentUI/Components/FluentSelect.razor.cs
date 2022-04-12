@@ -1,3 +1,6 @@
+using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Components;
+
 namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentSelect<TValue> : FluentInputBase<TValue>

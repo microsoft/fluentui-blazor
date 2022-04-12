@@ -1,3 +1,8 @@
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.Reflection;
+using Microsoft.AspNetCore.Components;
+
 namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
@@ -49,10 +54,6 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
     /// </summary>
     [Parameter]
     public string ParsingErrorMessage { get; set; } = "The {0} field must be a number.";
-
-
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
     /// Gets or sets the minimum value

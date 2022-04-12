@@ -1,3 +1,6 @@
+using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Components;
+
 namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentCombobox<TValue> : FluentInputBase<TValue>
@@ -26,11 +29,9 @@ public partial class FluentCombobox<TValue> : FluentInputBase<TValue>
     [Parameter]
     public Position? Position { get; set; }
 
-    /// <summary>
-    /// Gets or sets the child content to be rendering inside the <see cref="FluentCombobox"/>.
-    /// </summary>
     [Parameter]
-    public RenderFragment? ChildContent { get; set; }
+    public IEnumerable<Option<TValue>>? Items { get; set; }
+
 
     [CascadingParameter]
     private FluentOptionContext? CascadedContext { get; set; }
