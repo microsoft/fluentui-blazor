@@ -41,8 +41,8 @@ public partial class FluentNumberField<TValue>
     [Parameter]
     public int MaxLength { get; set; } = 14;
     [Parameter]
-    public int Step { get; set; } = _stepAttributeValue;
-    private readonly static int _stepAttributeValue;
+    public double Step { get; set; } = _stepAttributeValue;
+    private readonly static double _stepAttributeValue;
     static FluentNumberField()
     {
         // Unwrap Nullable<T>, because InputBase already deals with the Nullable aspect

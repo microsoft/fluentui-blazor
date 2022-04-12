@@ -28,6 +28,12 @@
     Minimum value: @(float.MinValue); Maximum value: @(float.MaxValue)
 </p>
 <p>
+    <FluentNumberField Step=0.25 @bind-Value="@exampleFloat">Float</FluentNumberField><br />
+    Example float: @exampleFloat (step=0.25)
+    <br />
+    Minimum value: @(float.MinValue); Maximum value: @(float.MaxValue)
+</p>
+<p>
     <FluentNumberField @bind-Value="@exampleDouble">Double</FluentNumberField><br />
     Example double: @exampleDouble
     <br />
