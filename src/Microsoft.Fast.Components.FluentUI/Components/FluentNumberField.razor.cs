@@ -7,42 +7,89 @@ namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentNumberField<TValue>
 {
+    /// <summary>
+    /// Gets or sets the disabled state
+    /// </summary>
     [Parameter]
     public bool? Disabled { get; set; }
 
+    /// <summary>
+    /// Gets or sets the readonly state
+    /// </summary>
     [Parameter]
     public bool? Readonly { get; set; }
 
+    /// <summary>
+    /// Gets or sets if a value is required
+    /// </summary>
     [Parameter]
     public bool? Required { get; set; }
 
+    /// <summary>
+    /// Gets or sets if the field should automatically receive focus
+    /// </summary>
     [Parameter]
     public bool? Autofocus { get; set; }
 
+    /// <summary>
+    /// Gets or sets the size
+    /// </summary>
     [Parameter]
     public int Size { get; set; } = 20;
+
+    /// <summary>
+    /// Gets or sets the <see cref="FluentUI.Appearance" />
+    /// </summary>
     [Parameter]
     public Appearance? Appearance { get; set; }
 
+    /// <summary>
+    /// Gets or sets the placeholder text
+    /// </summary>
     [Parameter]
     public string? Placeholder { get; set; }
 
+    /// <summary>
+    /// Gets or sets the error message to show when the field can not be parsed
+    /// </summary>
     [Parameter]
     public string ParsingErrorMessage { get; set; } = "The {0} field must be a number.";
+
+
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    /// <summary>
+    /// Gets or sets the minimum value
+    /// </summary>
     [Parameter]
     public string? Min { get; set; } = GetMinOrMaxValue("MinValue");
+
+    /// <summary>
+    /// Gets or sets the maximum value
+    /// </summary>
     [Parameter]
     public string? Max { get; set; } = GetMinOrMaxValue("MaxValue");
+
+    /// <summary>
+    /// Gets or sets the minimum length
+    /// </summary>
     [Parameter]
     public int MinLength { get; set; } = 1;
+
+    /// <summary>
+    /// Gets or sets the maximum lenth
+    /// </summary>
     [Parameter]
     public int MaxLength { get; set; } = 14;
+
+    /// <summary>
+    /// Gets or sets the amount to increase/decrease the number with. Only use whole number when <see cref="Type">TValue</see> is int or long. 
+    /// </summary>
     [Parameter]
-    public int Step { get; set; } = _stepAttributeValue;
-    private readonly static int _stepAttributeValue;
+    public double Step { get; set; } = _stepAttributeValue;
+
+    private readonly static double _stepAttributeValue;
     static FluentNumberField()
     {
         // Unwrap Nullable<T>, because InputBase already deals with the Nullable aspect

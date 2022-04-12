@@ -16,7 +16,7 @@
     Minimum value: -999999999999; Maximum value: 999999999999
 </p>
 <p>
-    <FluentNumberField Value="Int16.MinValue">Short</FluentNumberField>
+    <FluentNumberField Value="short.MinValue">Short</FluentNumberField>
     <br />
     Minimum value: @(short.MinValue); Maximum value: @(short.MaxValue)
 </p>
@@ -24,6 +24,12 @@
 <p>
     <FluentNumberField @bind-Value="@exampleFloat">Float</FluentNumberField><br />
     Example float: @exampleFloat
+    <br />
+    Minimum value: @(float.MinValue); Maximum value: @(float.MaxValue)
+</p>
+<p>
+    <FluentNumberField Step=0.25 @bind-Value="@exampleFloat">Float</FluentNumberField><br />
+    Example float: @exampleFloat (step=0.25)
     <br />
     Minimum value: @(float.MinValue); Maximum value: @(float.MaxValue)
 </p>
