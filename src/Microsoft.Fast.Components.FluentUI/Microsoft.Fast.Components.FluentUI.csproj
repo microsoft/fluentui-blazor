@@ -1,68 +1,66 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
-
+<Project Sdk="Microsoft.NET.Sdk.Razor">
   <PropertyGroup>
-	<TargetFramework>net6.0</TargetFramework>
-	<PackageId>Microsoft.Fast.Components.FluentUI</PackageId>
-	<Authors>Microsoft</Authors>
-	<Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
-	<NeutralLanguage>en</NeutralLanguage>
-	<Owners>Microsoft Corporation</Owners>
-	<PackageProjectUrl>https://github.com/microsoft/fast-blazor</PackageProjectUrl>
-	<PackageLicenseExpression>MIT</PackageLicenseExpression>
-	<Summary>Fluent UI Web Components library for Blazor on .NET</Summary>
-	<PackageTags>Web Components, .NET, FluentUI, FAST, Blazor, .NET 6.0</PackageTags>
-	<Title>Microsoft Fluent UI Components Library for Blazor on FAST</Title>
-	<Description>Authored by the Microsoft FAST team.</Description>
-	<SignAssembly>true</SignAssembly>
-	<PackageVersion>1.3.0</PackageVersion>
-	<ReleaseVersion>1.3.0</ReleaseVersion>
-	<SynchReleaseVersion>false</SynchReleaseVersion>
-	<Nullable>enable</Nullable>
-	<ImplicitUsings>enable</ImplicitUsings>
-	<PublishRepositoryUrl>true</PublishRepositoryUrl>
-	<EmbedUntrackedSources>true</EmbedUntrackedSources>
-	<DebugType>embedded</DebugType>
-	<RepositoryUrl>https://github.com/microsoft/fast-blazor</RepositoryUrl>
-	<RepositoryType>git</RepositoryType>
-	<PackageReadmeFile>README.md</PackageReadmeFile>
-	<EmitCompilerGeneratedFiles>false</EmitCompilerGeneratedFiles>
-	<CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)Generated</CompilerGeneratedFilesOutputPath>
+	  <TargetFramework>net6.0</TargetFramework>
+	  <PackageId>Microsoft.Fast.Components.FluentUI</PackageId>
+    <Authors>Microsoft</Authors>
+    <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
+    <NeutralLanguage>en</NeutralLanguage>
+    <Owners>Microsoft Corporation</Owners>
+    <PackageProjectUrl>https://github.com/microsoft/fast-blazor</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Summary>Fluent UI Web Components library for Blazor on .NET</Summary>
+    <PackageTags>Web Components, .NET, FluentUI, FAST, Blazor, .NET 6.0</PackageTags>
+    <Title>Microsoft Fluent UI Components Library for Blazor on FAST</Title>
+    <Description>Authored by the Microsoft FAST team.</Description>
+    <SignAssembly>true</SignAssembly>
+    <PackageVersion>1.3.0</PackageVersion>
+    <ReleaseVersion>1.3.0</ReleaseVersion>
+    <SynchReleaseVersion>false</SynchReleaseVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <DebugType>embedded</DebugType>
+    <RepositoryUrl>https://github.com/microsoft/fast-blazor</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <EmitCompilerGeneratedFiles>false</EmitCompilerGeneratedFiles>
+    <CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)Generated</CompilerGeneratedFilesOutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-	<Optimize>False</Optimize>
-	<WarningLevel>4</WarningLevel>
-	<NullableReferenceTypes>true</NullableReferenceTypes>
-	<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-	<DocumentationFile>bin\Debug\net6.0\Microsoft.Fast.Components.FluentUI.xml</DocumentationFile>
-	<NoWarn>1701;1702,8669,1591</NoWarn>
+    <Optimize>False</Optimize>
+    <WarningLevel>4</WarningLevel>
+    <NullableReferenceTypes>true</NullableReferenceTypes>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DocumentationFile>bin\Debug\net6.0\Microsoft.Fast.Components.FluentUI.xml</DocumentationFile>
+    <NoWarn>1701;1702,8669,1591</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-	<Optimize>True</Optimize>
+	  <Optimize>True</Optimize>
   </PropertyGroup>
 
   <ItemGroup>
-	<None Include="..\..\README.md">
-	  <Pack>True</Pack>
-	  <PackagePath>\</PackagePath>
-	</None>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
   <ItemGroup>
-	<SupportedPlatform Include="browser" />
-  </ItemGroup>
-
-  <ItemGroup>
-	<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.*" />
-	<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+	  <SupportedPlatform Include="browser" />
   </ItemGroup>
 
   <ItemGroup>
-	<ProjectReference Include="..\Microsoft.Fast.Components.FluentUI.Generators\Microsoft.Fast.Components.FluentUI.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.3" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+	  <ProjectReference Include="..\Microsoft.Fast.Components.FluentUI.Generators\Microsoft.Fast.Components.FluentUI.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
   
   <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true' Or '$(TF_BUILD)' == 'true'">
-	<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+	  <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
-
 </Project>
