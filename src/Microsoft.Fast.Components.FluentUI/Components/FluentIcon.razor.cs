@@ -29,14 +29,23 @@ public partial class FluentIcon
     public string Name { get; set; } = String.Empty;
 
     /// <summary>
-    /// Gets or sets the size of the icon. Defaults to 20. Not all sizes are available for all icons
+    /// Gets or sets the size of the icon. Defaults to 24. Not all sizes are available for all icons
     /// </summary>
     [Parameter]
     [EditorRequired]
     public IconSize Size { get; set; } = IconSize.Size24;
 
+    /// <summary>
+    /// Gets or sets the slot where the icon is displayed in
+    /// </summary>
     [Parameter]
     public string? Slot { get; set; } = null;
+
+    /// <summary>
+    /// Gets or sets the two letter neutral culture variant used. Not all neutral cultures are available for all icons
+    /// </summary>
+    [Parameter]
+    public string? NeutralCultureName { get; set; } = null;
 
     /// <summary>
     /// Gets or sets a collection of additional attributes that will be applied to the input element.
@@ -48,17 +57,43 @@ public partial class FluentIcon
     {
         if (IconService is not null)
         {
+            const string iconpath = "_content/Microsoft.Fast.Components.FluentUI/icons";
+            string result = string.Empty;
+
+            string? nc = NeutralCultureName ?? null;
+
             string folder = FluentIcons.IconMap.First(x => x.Name == Name).Folder;
 
-            string t = await IconService.HttpClient.GetStringAsync($"_content/Microsoft.Fast.Components.FluentUI/icons/{folder}/{ComposedName}.svg");
+
+            string url = $"{iconpath}/{folder}";
+
+            if (nc is not null)
+                url += $"/{nc}";
+
+            url += $"/{ComposedName}.svg";
+
+            try
+            {
+                result = await IconService.HttpClient.GetStringAsync(url);
+            }
+            catch (Exception)
+            {
+                if (NeutralCultureName is not null)
+                {
+                    // Fall back to original icon
+                    url = $"{iconpath}/{folder}/{ComposedName}.svg";
+                    result = await IconService.HttpClient.GetStringAsync(url);
+                }
+                else
+                    result = "Icon not found";
+            }
 
             if (UseAccentColor)
-                t = t.Replace("<path ", "<path fill=\"var(--accent-fill-rest)\"");
+                result = result.Replace("<path ", "<path fill=\"var(--accent-fill-rest)\"");
             if (!string.IsNullOrEmpty(Slot))
-                t = t.Replace("<svg ", $"<svg slot=\"{Slot}\" ");
+                result = result.Replace("<svg ", $"<svg slot=\"{Slot}\" ");
 
-            svg = (MarkupString)t;
-
+            svg = (MarkupString)result;
         }
     }
 
