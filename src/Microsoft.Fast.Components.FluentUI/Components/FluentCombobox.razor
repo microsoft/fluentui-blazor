@@ -1,4 +1,7 @@
-@inherits FluentInputBase<string?>
+@typeparam TValue
+@attribute [CascadingTypeParameter(nameof(TValue))]
+@inherits FluentInputBase<TValue>
+
 <CascadingValue TValue=FluentOptionContext IsFixed=true Value=_context @key=_context>
     <fluent-combobox @ref=Element
                      current-value="@BindConverter.FormatValue(CurrentValue)"
@@ -8,6 +11,16 @@
                      required="@Required"
                      autocomplete="@Autocomplete.ToAttributeValue()"
                      @attributes="AdditionalAttributes">
+    @if (Items is not null)
+    {
+        foreach (Option<TValue> option in Items)
+        {
+            <FluentOption Value=@option.Key Selected="option.Selected" Disabled=option.Disabled>@option.Value</FluentOption>
+        }
+    }
+    else
+    {
         @ChildContent
+    }
     </fluent-combobox>
 </CascadingValue>

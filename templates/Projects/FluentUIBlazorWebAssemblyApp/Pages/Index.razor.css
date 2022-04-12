@@ -1,0 +1,26 @@
+﻿fluent-card {
+    --card-height: 400px;
+    --card-width: 500px;
+    padding: 20px;
+    margin: 12px;
+}
+
+.class-override {
+    height: 163px;
+    width: 300px;
+}
+
+.state-override {
+    --card-width: 350px;
+    --card-height: 300px;
+    --elevation: 6;
+}
+
+    .state-override:hover {
+        --elevation: 12;
+    }
+
+.contents {
+    display: flex;
+    flex-direction: column;
+}

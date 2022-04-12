@@ -17,7 +17,7 @@
         <FluentRadio>Two</FluentRadio>
         <FluentRadio>Three</FluentRadio>
     </FluentRadioGroup>
-    <FluentCombobox class="below outline">
+    <FluentCombobox class="below outline" @bind-Value="@comboboxValue">
         <FluentOption id="option-2">Please Please Me</FluentOption>
         <FluentOption id="option-3">With The Beatles</FluentOption>
         <FluentOption id="option-4">A Hard Day's Night</FluentOption>
@@ -33,7 +33,7 @@
         <FluentOption id="option-14">Let It Be</FluentOption>
     </FluentCombobox>
     <FluentButton>Button</FluentButton>
-    <FluentSelect class="below outline">
+    <FluentSelect class="below outline" @bind-Value="@comboboxValue">
         <FluentOption id="option-15">Option 1</FluentOption>
         <FluentOption id="option-16">Second option</FluentOption>
         <FluentOption id="option-17">Option 3</FluentOption>
@@ -172,3 +172,6 @@
     <svg slot="start"><use href="#icon"></use></svg>
     <svg slot="end"><use href="#icon"></use></svg>
 </FluentToolbar>
+@code{
+    string? comboboxValue;
+}

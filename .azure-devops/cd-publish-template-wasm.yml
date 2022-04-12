@@ -1,0 +1,77 @@
+name: Publish Microsoft Fast-Blazor Template - Fluent UI WASM
+
+pr: none
+trigger: none
+
+pool:
+  vmImage: 'windows-2022'
+
+variables:
+  project: 'templates/Microsoft.Fast.Templates.FluentUI.BlazorWebAssembly.csproj'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+- task: NuGetToolInstaller@1
+  displayName: Install NuGet tools
+
+- task: UseDotNet@2
+  displayName: 'Install .NET 2.1 for ESRP Code Sign tool'  
+  inputs:    
+    version: 2.1.x
+
+- task: UseDotNet@2
+  displayName: 'Install .NET Core 6.0'
+  inputs:
+    version: 6.0.x
+    includePreviewVersions: true
+
+- task: NuGetCommand@2
+  displayName: Install dependencies
+  inputs:
+    restoreSolution: '$(project)'
+
+- task: DotNetCoreCLI@2
+  displayName: Pack
+  inputs:
+    command: 'pack'
+    packagesToPack: $(project)
+    versioningScheme: 'off'
+
+- task: EsrpCodeSigning@1
+  displayName: Code Signing Assemblies (Authenticode Signing)
+  inputs:
+    ConnectedServiceName: 'FAST-NuGet-Publishing-SC'
+    FolderPath: '$(Build.ArtifactStagingDirectory)'
+    Pattern: | 
+      **/*.nupkg
+    UseMinimatch: true
+    signConfigType: 'inlineSignParams'
+    inlineOperation: |
+      [
+        {
+            "KeyCode" : "CP-401405",
+            "OperationCode" : "NuGetSign",
+            "Parameters" : {},
+            "ToolName" : "sign",
+            "ToolVersion" : "1.0"
+        },
+        {
+            "KeyCode" : "CP-401405",
+            "OperationCode" : "NuGetVerify",
+            "Parameters" : {},
+            "ToolName" : "sign",
+            "ToolVersion" : "1.0"
+        }
+      ]
+    SessionTimeout: '60'
+    MaxConcurrency: '200'
+    MaxRetryAttempts: '5'
+
+- task: NuGetCommand@2
+  displayName: Publish to NuGet
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)\*.nupkg;'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'NugetServiceConnect'

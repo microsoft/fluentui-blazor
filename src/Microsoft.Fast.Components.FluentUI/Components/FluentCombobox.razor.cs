@@ -1,10 +1,6 @@
-using System.Diagnostics.CodeAnalysis;
-
-using Microsoft.AspNetCore.Components;
-
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentCombobox : FluentInputBase<string?>
+public partial class FluentCombobox<TValue> : FluentInputBase<TValue>
 {
     private readonly string _defaultSelectName = Guid.NewGuid().ToString("N");
     private FluentOptionContext? _context;
@@ -30,6 +26,12 @@ public partial class FluentCombobox : FluentInputBase<string?>
     [Parameter]
     public Position? Position { get; set; }
 
+    /// <summary>
+    /// Gets or sets the child content to be rendering inside the <see cref="FluentCombobox"/>.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
     [CascadingParameter]
     private FluentOptionContext? CascadedContext { get; set; }
 
@@ -42,10 +44,6 @@ public partial class FluentCombobox : FluentInputBase<string?>
         _context = new FluentOptionContext(CascadedContext, selectName, CurrentValue, fieldClass, changeEventCallback);
     }
 
-    protected override bool TryParseValueFromString(string? value, out string? result, [NotNullWhen(false)] out string? validationErrorMessage)
-    {
-        result = value;
-        validationErrorMessage = null;
-        return true;
-    }
+    protected override bool TryParseValueFromString(string? value, out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
+        => this.TryParseSelectableValueFromString(value, out result!, out validationErrorMessage);
 }

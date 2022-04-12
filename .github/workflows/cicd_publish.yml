@@ -8,6 +8,7 @@ on:
       - '**/*.md'
       - '**/*.gitignore'
       - '**/*.gitattributes'
+      - '**/*.yml'
   workflow_dispatch:
     branches:
       - main
@@ -15,6 +16,7 @@ on:
       - '**/*.md'
       - '**/*.gitignore'
       - '**/*.gitattributes'
+      - '**/*.yml'
       
 jobs:
   build:
