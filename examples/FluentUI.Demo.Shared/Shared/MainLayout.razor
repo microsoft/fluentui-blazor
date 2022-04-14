@@ -5,7 +5,7 @@
 
 <PageTitle>Fluent UI WC demo page</PageTitle>
 
-<div class="container">
+<div class="container" @ref="container">
     <div class="siteheader">
         <a href="/">Home</a>
         <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
@@ -19,7 +19,7 @@
             <main>
                 <article class="content px-4">
                     <div style="gap: 12px; padding-top: 12px;">
-                        <FluentSwitch @onchange="SwitchDirectionAsync">
+                        <FluentSwitch @onchange="SwitchDirection">
                             <span style="padding-inline-end: 8px;">Direction</span>
                             <span slot="unchecked-message">ltr</span>
                             <span slot="checked-message">rtl</span>
@@ -35,7 +35,7 @@
                             @Body
                         </ChildContent>
                         <ErrorContent Context="ex">
-                            <p class="error">@ex.Message</p>
+                            <div class="blazor-error-boundary">@ex.Message</div>
                         </ErrorContent>
                     </ErrorBoundary>
                 </article>

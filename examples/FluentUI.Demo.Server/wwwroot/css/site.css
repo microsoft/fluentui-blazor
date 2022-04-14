@@ -76,6 +76,7 @@
     background-color: var(--fill-color);
     color: var(--neutral-foreground-rest);
     padding-inline-start: calc(var(--design-unit) * 6px);
+    padding-inline-end: calc(var(--design-unit) * 6px);
 }
 
 
@@ -89,6 +90,7 @@
     position: fixed;
     width: 100%;
     z-index: 1000;
+    margin: 20px 0;
 }
 
     #blazor-error-ui .dismiss {

@@ -1,10 +1,15 @@
 ﻿@page "/"
 
-
 <PageTitle>FluentUI WC home page</PageTitle>
 
 <h1>Blazor Fluent UI Web Components home page!</h1>
 
-<FluentAnchor class="bigbutton" Appearance="Appearance.Filled" Href="handlers" >Web components handlers</FluentAnchor>
-<FluentAnchor id="secondanchor" Appearance="Appearance.Filled" Href="bindings" >Web components bindings</FluentAnchor>
-<FluentAnchor @ref="anchorRef" Appearance="Appearance.Filled" Href="componentbindings" >Blazor component bindings</FluentAnchor>
+<FluentAnchor @ref="ref1" Appearance="Appearance.Filled" Href="handlers" >Web components handlers</FluentAnchor>
+<FluentAnchor @ref="ref2" Appearance="Appearance.Filled" Href="bindings" >Web components bindings</FluentAnchor>
+<FluentAnchor @ref="ref3" Appearance="Appearance.Filled" Href="componentbindings" >Blazor component bindings</FluentAnchor>
+<FluentButton @ref="ref4" Appearance="Appearance.Filled" @onclick=OnClick>FluentButton</FluentButton>
+
+<p>
+The value before calling Delete: @theValueBeforeDelete
+The value after calling Delete: @theValueAfterDelete
+</p>
