@@ -1,11 +1,13 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Configuration;
 using Microsoft.JSInterop;
 
 namespace Microsoft.Fast.Components.FluentUI.DesignTokens
 {
     public class DesignToken<T> : IAsyncDisposable
     {
+
         private readonly Lazy<Task<IJSObjectReference>> moduleTask;
 
         private T? _defaultValue;
@@ -15,16 +17,17 @@ namespace Microsoft.Fast.Components.FluentUI.DesignTokens
         /// </summary>
         public string? Name { get; private set; }
 
-        private DesignToken(IJSRuntime jsRuntime)
+        private DesignToken(IJSRuntime jsRuntime, IConfiguration configuration)
         {
+
             moduleTask = new(() => jsRuntime.InvokeAsync<IJSObjectReference>(
-                "import", "https://cdn.jsdelivr.net/npm/@fluentui/web-components/dist/web-components.min.js").AsTask());
+                "import", configuration["FluentWebComponentsScriptSource"]).AsTask());
         }
 
         /// <summary>
         /// Constructs an instance of a DesignToken.
         /// </summary>
-        public DesignToken(IJSRuntime jsRuntime, string name) : this(jsRuntime)
+        public DesignToken(IJSRuntime jsRuntime, IConfiguration configuration, string name) : this(jsRuntime, configuration)
         {
             Name = name;
 
