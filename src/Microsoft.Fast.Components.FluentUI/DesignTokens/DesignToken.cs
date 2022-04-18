@@ -19,9 +19,12 @@ namespace Microsoft.Fast.Components.FluentUI.DesignTokens
 
         private DesignToken(IJSRuntime jsRuntime, IConfiguration configuration)
         {
+            string scriptSource = "https://cdn.jsdelivr.net/npm/@fluentui/web-components/dist/web-components.min.js";
+            if (!string.IsNullOrEmpty(configuration["FluentWebComponentsScriptSource"]))
+                scriptSource = configuration["FluentWebComponentsScriptSource"];
 
             moduleTask = new(() => jsRuntime.InvokeAsync<IJSObjectReference>(
-                "import", configuration["FluentWebComponentsScriptSource"]).AsTask());
+                "import", scriptSource).AsTask());
         }
 
         /// <summary>
