@@ -1,8 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
-
+<Project Sdk="Microsoft.NET.Sdk.Razor">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <PackageId>Microsoft.Fast.Components.FluentUI</PackageId>
+	  <TargetFramework>net6.0</TargetFramework>
+	  <PackageId>Microsoft.Fast.Components.FluentUI</PackageId>
     <Authors>Microsoft</Authors>
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
     <NeutralLanguage>en</NeutralLanguage>
@@ -14,8 +13,8 @@
     <Title>Microsoft Fluent UI Components Library for Blazor on FAST</Title>
     <Description>Authored by the Microsoft FAST team.</Description>
     <SignAssembly>true</SignAssembly>
-    <PackageVersion>1.2.1</PackageVersion>
-    <ReleaseVersion>1.2.1</ReleaseVersion>
+    <PackageVersion>1.3.0</PackageVersion>
+    <ReleaseVersion>1.3.0</ReleaseVersion>
     <SynchReleaseVersion>false</SynchReleaseVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -25,6 +24,8 @@
     <RepositoryUrl>https://github.com/microsoft/fast-blazor</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <EmitCompilerGeneratedFiles>false</EmitCompilerGeneratedFiles>
+    <CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)Generated</CompilerGeneratedFilesOutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -37,7 +38,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <Optimize>True</Optimize>
+	  <Optimize>True</Optimize>
   </PropertyGroup>
 
   <ItemGroup>
@@ -47,7 +48,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <SupportedPlatform Include="browser" />
+	  <SupportedPlatform Include="browser" />
   </ItemGroup>
 
   <ItemGroup>
@@ -55,8 +56,11 @@
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
 
+  <ItemGroup>
+	  <ProjectReference Include="..\Microsoft.Fast.Components.FluentUI.Generators\Microsoft.Fast.Components.FluentUI.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+  </ItemGroup>
+  
   <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true' Or '$(TF_BUILD)' == 'true'">
-    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+	  <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
-
 </Project>
