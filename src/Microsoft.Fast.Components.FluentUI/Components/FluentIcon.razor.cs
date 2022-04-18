@@ -74,18 +74,24 @@ public partial class FluentIcon
 
             try
             {
-                result = await IconService.HttpClient.GetStringAsync(url);
-            }
-            catch (Exception)
-            {
-                if (NeutralCultureName is not null)
+
+                HttpResponseMessage? response = await IconService.HttpClient.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    result = await response.Content.ReadAsStringAsync();
+                }
+                else
                 {
                     // Fall back to original icon
                     url = $"{iconpath}/{folder}/{ComposedName}.svg";
-                    result = await IconService.HttpClient.GetStringAsync(url);
+                    response = await IconService.HttpClient.GetAsync(url);
+                    result = await response.Content.ReadAsStringAsync();
+
                 }
-                else
-                    result = "Icon not found";
+            }
+            catch (Exception)
+            {
+                result = "Icon not found";
             }
 
             if (UseAccentColor)
@@ -96,6 +102,7 @@ public partial class FluentIcon
             svg = (MarkupString)result;
         }
     }
+
 
     public string ComposedName
     {
