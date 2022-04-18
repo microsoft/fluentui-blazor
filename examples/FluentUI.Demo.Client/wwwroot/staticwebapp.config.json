@@ -1,6 +1,6 @@
 {
   "navigationFallback": {
     "rewrite": "/index.html",
-    "exclude": [ "/icons/*" ]
+    "exclude": [ "_content/Microsoft.Fast.Components.FluentUI/icons/*" ]
   }
 }
