@@ -61,6 +61,17 @@ Copy this to your `wwwroot/script` folder and reference it with a script tag as 
 >
 > If you are setting up Fluent UI Web Components on a Blazor Server project, you will need to escape the `@` character by repeating it in the source link. For more information check out the [Razor Pages syntax documentation](/aspnet/core/mvc/views/razor).
 
+In your Program.cs file you need to add the following:
+```csharp
+builder.Services.AddFluentUIComponents();
+```
+
+if you are using Blazor Server, you need to make sure the `HttpClient` service is added:
+
+```csharp
+builder.Services.AddHttpClient();
+```
+
 ### Using the FluentUI Web Components
 
 With the package installed and the script configured, you can begin using the Fluent UI Web Components in the same way as any other Blazor component. Just be sure to add the following using statement to your views:
