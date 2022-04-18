@@ -1,17 +1,13 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.Fast.Components.FluentUI;
 using Microsoft.Fast.Components.FluentUI.DesignTokens;
-using Microsoft.JSInterop;
 
 namespace FluentUI.Demo.Shared.Pages;
 
 public partial class Index
 {
     [Inject]
-    private DesignTokens? DesignTokens { get; set; }
-
-    [Inject]
-    private IJSRuntime? jsRuntime { get; set; }
+    private DesignTokens DesignTokens { get; set; } = default!;
 
     private FluentAnchor ref1 = default!;
     private FluentAnchor ref2 = default!;
@@ -23,7 +19,7 @@ public partial class Index
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender && DesignTokens is not null)
+        if (firstRender)
         {
             await DesignTokens.BaseLayerLuminance.SetValueFor(ref1.Element, 0);
 
@@ -48,11 +44,8 @@ public partial class Index
 
     public async Task OnClick()
     {
-        if (DesignTokens is not null)
-        {
-            await DesignTokens.BaseHeightMultiplier.DeleteValueFor(ref4.Element);
+        await DesignTokens.BaseHeightMultiplier.DeleteValueFor(ref4.Element);
 
-            theValueAfterDelete = await DesignTokens.BaseHeightMultiplier.GetValueFor(ref4.Element);
-        }
+        theValueAfterDelete = await DesignTokens.BaseHeightMultiplier.GetValueFor(ref4.Element);
     }
 }

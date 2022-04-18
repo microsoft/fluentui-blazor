@@ -9,10 +9,10 @@ namespace FluentUI.Demo.Shared
     public partial class MainLayout
     {
         [Inject]
-        IJSRuntime? JSRuntime { get; set; }
+        IJSRuntime JSRuntime { get; set; } = default!;
 
         [Inject]
-        DesignTokens? DesignTokens { get; set; }
+        DesignTokens DesignTokens { get; set; } = default!;
 
         ElementReference container;
 
@@ -24,7 +24,7 @@ namespace FluentUI.Demo.Shared
         public async Task SwitchDirection()
         {
             dir = dir == LocalizationDirection.rtl ? LocalizationDirection.ltr : LocalizationDirection.rtl;
-            await JSRuntime!.InvokeVoidAsync("switchDirection", dir.ToString());
+            await JSRuntime.InvokeVoidAsync("switchDirection", dir.ToString());
         }
 
         public void SwitchTheme()
@@ -40,14 +40,11 @@ namespace FluentUI.Demo.Shared
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
 
-            if (!firstRender && DesignTokens is not null)
+            if (!firstRender)
             {
                 await DesignTokens.BaseLayerLuminance.SetValueFor(container, baseLayerLuminance);
                 //await DesignTokens.Direction.SetValueFor(container, dir.ToString());
             }
-
-            await base.OnAfterRenderAsync(firstRender);
         }
-
     }
 }

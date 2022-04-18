@@ -5,7 +5,8 @@ namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentIcon
 {
     [Inject]
-    private IconService? IconService { get; set; }
+    private IconService IconService { get; set; } = default!;
+
     private MarkupString svg;
 
     /// <summary>
@@ -55,52 +56,50 @@ public partial class FluentIcon
 
     protected override async Task OnParametersSetAsync()
     {
-        if (IconService is not null)
+        const string iconpath = "_content/Microsoft.Fast.Components.FluentUI/icons";
+        string result = string.Empty;
+
+        string? nc = NeutralCultureName ?? null;
+
+        string folder = FluentIcons.IconMap.First(x => x.Name == Name).Folder;
+
+
+        string url = $"{iconpath}/{folder}";
+
+        if (nc is not null)
+            url += $"/{nc}";
+
+        url += $"/{ComposedName}.svg";
+
+        try
         {
-            const string iconpath = "_content/Microsoft.Fast.Components.FluentUI/icons";
-            string result = string.Empty;
 
-            string? nc = NeutralCultureName ?? null;
-
-            string folder = FluentIcons.IconMap.First(x => x.Name == Name).Folder;
-
-
-            string url = $"{iconpath}/{folder}";
-
-            if (nc is not null)
-                url += $"/{nc}";
-
-            url += $"/{ComposedName}.svg";
-
-            try
+            HttpResponseMessage? response = await IconService.HttpClient.GetAsync(url);
+            if (response.IsSuccessStatusCode)
             {
-
-                HttpResponseMessage? response = await IconService.HttpClient.GetAsync(url);
-                if (response.IsSuccessStatusCode)
-                {
-                    result = await response.Content.ReadAsStringAsync();
-                }
-                else
-                {
-                    // Fall back to original icon
-                    url = $"{iconpath}/{folder}/{ComposedName}.svg";
-                    response = await IconService.HttpClient.GetAsync(url);
-                    result = await response.Content.ReadAsStringAsync();
-
-                }
+                result = await response.Content.ReadAsStringAsync();
             }
-            catch (Exception)
+            else
             {
-                result = "Icon not found";
+                // Fall back to original icon
+                url = $"{iconpath}/{folder}/{ComposedName}.svg";
+                response = await IconService.HttpClient.GetAsync(url);
+                result = await response.Content.ReadAsStringAsync();
+
             }
-
-            if (UseAccentColor)
-                result = result.Replace("<path ", "<path fill=\"var(--accent-fill-rest)\"");
-            if (!string.IsNullOrEmpty(Slot))
-                result = result.Replace("<svg ", $"<svg slot=\"{Slot}\" ");
-
-            svg = (MarkupString)result;
         }
+        catch (Exception)
+        {
+            result = "Icon not found";
+        }
+
+        if (UseAccentColor)
+            result = result.Replace("<path ", "<path fill=\"var(--accent-fill-rest)\"");
+        if (!string.IsNullOrEmpty(Slot))
+            result = result.Replace("<svg ", $"<svg slot=\"{Slot}\" ");
+
+        svg = (MarkupString)result;
+
     }
 
 
