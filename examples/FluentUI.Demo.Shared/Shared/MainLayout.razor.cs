@@ -9,10 +9,10 @@ namespace FluentUI.Demo.Shared
     public partial class MainLayout
     {
         [Inject]
-        IJSRuntime JSRuntime { get; set; } = default!;
+        private IJSRuntime JSRuntime { get; set; } = default!;
 
         [Inject]
-        DesignTokens DesignTokens { get; set; } = default!;
+        private BaseLayerLuminance BaseLayerLuminance { get; set; } = default!;
 
         ElementReference container;
 
@@ -42,7 +42,7 @@ namespace FluentUI.Demo.Shared
 
             if (!firstRender)
             {
-                await DesignTokens.BaseLayerLuminance.SetValueFor(container, baseLayerLuminance);
+                await BaseLayerLuminance.SetValueFor(container, baseLayerLuminance);
                 //await DesignTokens.Direction.SetValueFor(container, dir.ToString());
             }
         }

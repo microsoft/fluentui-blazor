@@ -42,6 +42,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DesignTokens\DesignTokens.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="..\..\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>

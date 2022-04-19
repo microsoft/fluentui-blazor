@@ -7,7 +7,13 @@ namespace FluentUI.Demo.Shared.Pages;
 public partial class Index
 {
     [Inject]
-    private DesignTokens DesignTokens { get; set; } = default!;
+    private BaseLayerLuminance BaseLayerLuminance { get; set; } = default!;
+
+    [Inject]
+    private BaseHeightMultiplier BaseHeightMultiplier { get; set; } = default!;
+
+    [Inject]
+    private ControlCornerRadius ControlCornerRadius { get; set; } = default!;
 
     private FluentAnchor ref1 = default!;
     private FluentAnchor ref2 = default!;
@@ -21,22 +27,23 @@ public partial class Index
     {
         if (firstRender)
         {
-            await DesignTokens.BaseLayerLuminance.SetValueFor(ref1.Element, 0);
+            await BaseLayerLuminance.SetValueFor(ref1.Element, 0);
 
             //Enabling this line below will generate an error because no default is set
             //await DesignTokens.BaseHeightMultiplier.SetValueFor(ref2.Element);
 
-            await DesignTokens.BaseHeightMultiplier.WithDefault(25).SetValueFor(ref3.Element);
+            //await DesignTokens.BaseHeightMultiplier.WithDefault(25).SetValueFor(ref3.Element);
+            await BaseHeightMultiplier.WithDefault(25).SetValueFor(ref3.Element);
 
 
 
-            theValueBeforeDelete = await DesignTokens.BaseHeightMultiplier.GetValueFor(ref4.Element);
+            theValueBeforeDelete = await BaseHeightMultiplier.GetValueFor(ref4.Element);
 
-            await DesignTokens.BaseHeightMultiplier.SetValueFor(ref4.Element, 52);
+            await BaseHeightMultiplier.SetValueFor(ref4.Element, 52);
 
-            //ToDo: Create your own DesingToken 
-            //DesignToken<string> specialColor = new(jsRuntime!, "specialColor");
-            //await specialColor.SetValueFor(ref3.Element, "#FF0000");
+            await ControlCornerRadius.SetValueFor(ref4.Element, 15);
+
+
             StateHasChanged();
         }
 
@@ -44,8 +51,8 @@ public partial class Index
 
     public async Task OnClick()
     {
-        await DesignTokens.BaseHeightMultiplier.DeleteValueFor(ref4.Element);
+        await BaseHeightMultiplier.DeleteValueFor(ref4.Element);
 
-        theValueAfterDelete = await DesignTokens.BaseHeightMultiplier.GetValueFor(ref4.Element);
+        theValueAfterDelete = await BaseHeightMultiplier.GetValueFor(ref4.Element);
     }
 }
