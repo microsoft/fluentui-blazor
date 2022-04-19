@@ -12,6 +12,7 @@ public class Constants
     public const string Direction = "direction";
     public const string DisabledOpacity = "disabledOpacity";
     public const string StrokeWidth = "strokeWidth";
+    public const string FillColor = "fillColor";
     public const string FocusStrokeWidth = "focusStrokeWidth";
     public const string TypeRampBaseFontSize = "typeRampBaseFontSize";
     public const string TypeRampBaseLineHeight = "typeRampBaseLineHeight";

@@ -19,6 +19,7 @@ public static class ServiceCollectionExtensions
         services.AddTransient<DesignTokens.Direction>();
         services.AddTransient<DisabledOpacity>();
         services.AddTransient<StrokeWidth>();
+        services.AddTransient<FillColor>();
         services.AddTransient<FocusStrokeWidth>();
         services.AddTransient<TypeRampBaseFontSize>();
         services.AddTransient<TypeRampBaseLineHeight>();
