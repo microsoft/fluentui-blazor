@@ -8,6 +8,11 @@ namespace Microsoft.Fast.Components.FluentUI.DesignTokens;
 /// </summary>
 public sealed class FocusStrokeWidth : DesignToken<int?>
 {
+    public FocusStrokeWidth()
+    {
+        Name = Constants.FocusStrokeWidth;
+    }
+
     /// <summary>
     /// Constructs an instance of the FocusStrokeWidth design token
     /// </summary>

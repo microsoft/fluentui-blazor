@@ -8,6 +8,11 @@ namespace Microsoft.Fast.Components.FluentUI.DesignTokens;
 /// </summary>
 public sealed class Density : DesignToken<int?>
 {
+    public Density()
+    {
+        Name = Constants.Density;
+    }
+
     /// <summary>
     /// Constructs an instance of the Density design token
     /// </summary>

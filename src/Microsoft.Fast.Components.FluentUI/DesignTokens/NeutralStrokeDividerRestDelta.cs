@@ -8,6 +8,11 @@ namespace Microsoft.Fast.Components.FluentUI.DesignTokens;
 /// </summary>
 public sealed class NeutralStrokeDividerRestDelta : DesignToken<int?>
 {
+    public NeutralStrokeDividerRestDelta()
+    {
+        Name = Constants.NeutralStrokeDividerRestDelta;
+    }
+
     /// <summary>
     /// Constructs an instance of the NeutralStrokeDividerRestDelta design token
     /// </summary>

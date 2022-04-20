@@ -8,6 +8,11 @@ namespace Microsoft.Fast.Components.FluentUI.DesignTokens;
 /// </summary>
 public class BodyFont : DesignToken<string>
 {
+    public BodyFont()
+    {
+        Name = Constants.BodyFont;
+    }
+
     /// <summary>
     /// Constructs an instance of the BodyFont design token
     /// </summary>

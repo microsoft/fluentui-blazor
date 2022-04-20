@@ -8,6 +8,12 @@ namespace Microsoft.Fast.Components.FluentUI.DesignTokens;
 /// </summary>
 public sealed class NeutralFillStealthFocusDelta : DesignToken<int?>
 {
+    public NeutralFillStealthFocusDelta()
+    {
+        Name = Constants.NeutralFillStealthFocusDelta;
+
+    }
+
     /// <summary>
     /// Constructs an instance of the NeutralFillStealthFocusDelta design token
     /// </summary>

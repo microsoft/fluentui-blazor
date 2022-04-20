@@ -8,6 +8,11 @@ namespace Microsoft.Fast.Components.FluentUI.DesignTokens;
 /// </summary>
 public sealed class StrokeWidth : DesignToken<int?>
 {
+    public StrokeWidth()
+    {
+        Name = Constants.StrokeWidth;
+    }
+
     /// <summary>
     /// Constructs an instance of the StrokeWidth design token
     /// </summary>

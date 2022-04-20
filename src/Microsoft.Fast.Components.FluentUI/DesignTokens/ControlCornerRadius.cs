@@ -8,6 +8,11 @@ namespace Microsoft.Fast.Components.FluentUI.DesignTokens;
 /// </summary>
 public sealed class ControlCornerRadius : DesignToken<int?>
 {
+    public ControlCornerRadius()
+    {
+        Name = Constants.ControlCornerRadius;
+    }
+
     /// <summary>
     /// Constructs an instance of the ControlCornerRadius design token
     /// </summary>

@@ -8,6 +8,11 @@ namespace Microsoft.Fast.Components.FluentUI.DesignTokens;
 /// </summary>
 public sealed class TypeRampMinus1LineHeight : DesignToken<float?>
 {
+    public TypeRampMinus1LineHeight()
+    {
+        Name = Constants.TypeRampMinus1LineHeight;
+    }
+
     /// <summary>
     /// Constructs an instance of the TypeRampMinus1LineHeight design token
     /// </summary>

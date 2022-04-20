@@ -8,6 +8,11 @@ namespace Microsoft.Fast.Components.FluentUI.DesignTokens;
 /// </summary>
 public sealed class BaseHeightMultiplier : DesignToken<int?>
 {
+    public BaseHeightMultiplier()
+    {
+        Name = Constants.BaseHeightMultiplier;
+    }
+
     /// <summary>
     /// Constructs an instance of a BaseHeightMultiplier design token
     /// </summary>

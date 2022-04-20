@@ -8,6 +8,11 @@ namespace Microsoft.Fast.Components.FluentUI.DesignTokens;
 /// </summary>
 public sealed class NeutralFillStrongActiveDelta : DesignToken<int?>
 {
+    public NeutralFillStrongActiveDelta()
+    {
+        Name = Constants.NeutralFillStrongActiveDelta;
+    }
+
     /// <summary>
     /// Constructs an instance of the NeutralFillStrongActiveDelta design token
     /// </summary>

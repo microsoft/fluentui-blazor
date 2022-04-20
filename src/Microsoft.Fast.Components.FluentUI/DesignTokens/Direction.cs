@@ -8,6 +8,11 @@ namespace Microsoft.Fast.Components.FluentUI.DesignTokens;
 /// </summary>
 public sealed class Direction : DesignToken<string>
 {
+    public Direction()
+    {
+        Name = Constants.Direction;
+    }
+
     /// <summary>
     /// Constructs an instance of the Direction design token
     /// </summary>

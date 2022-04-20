@@ -8,6 +8,11 @@ namespace Microsoft.Fast.Components.FluentUI.DesignTokens;
 /// </summary>
 public sealed class NeutralFillInputHoverDelta : DesignToken<int?>
 {
+    public NeutralFillInputHoverDelta()
+    {
+        Name = Constants.NeutralFillInputHoverDelta;
+    }
+
     /// <summary>
     /// Constructs an instance of the NeutralFillInputHoverDelta design token
     /// </summary>

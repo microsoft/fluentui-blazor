@@ -8,6 +8,11 @@ namespace Microsoft.Fast.Components.FluentUI.DesignTokens;
 /// </summary>
 public sealed class AccentForegroundRestDelta : DesignToken<int?>
 {
+    public AccentForegroundRestDelta()
+    {
+        Name = Constants.AccentForegroundRestDelta;
+    }
+
     /// <summary>
     /// Constructs an instance of the AccentForegroundRestDelta design token
     /// </summary>

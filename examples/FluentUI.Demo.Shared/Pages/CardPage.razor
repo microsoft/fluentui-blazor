@@ -1,114 +1,113 @@
 @page "/CardPage"
-<FluentDesignSystemProvider use-defaults background-color="#F7F7F7" corner-radius="10">
-    <style>
-        fluent-card {
-            --card-height: 400px;
-            --card-width: 500px;
-            padding: 20px;
-            margin: 12px;
+
+<style>
+    fluent-card {
+        --card-height: 400px;
+        --card-width: 500px;
+        padding: 20px;
+        margin: 12px;
+    }
+
+    .class-override {
+        height: 163px;
+        width: 300px;
+    }
+
+    .state-override {
+        --card-width: 350px;
+        --card-height: 300px;
+        --elevation: 6;
+    }
+
+        .state-override:hover {
+            --elevation: 12;
         }
 
-        .class-override {
-            height: 163px;
-            width: 300px;
-        }
+    .contents {
+        display: flex;
+        flex-direction: column;
+    }
+</style>
+<div>
+    <FluentCard class="state-override">Custom size and elevation on hover using CSS</FluentCard>
 
-        .state-override {
-            --card-width: 350px;
-            --card-height: 300px;
-            --elevation: 6;
-        }
-
-            .state-override:hover {
-                --elevation: 12;
-            }
-
-        .contents {
-            display: flex;
-            flex-direction: column;
-        }
-    </style>
-    <div>
-        <FluentCard class="state-override">Custom size and elevation on hover using CSS</FluentCard>
-
-        <FluentDesignSystemProvider BaseLayerLuminance="(float?)0.15">
-            <FluentCard>
-                <div class="contents">
-                    Dark
-                    <FluentButton Appearance="Appearance.Accent">Accent</FluentButton>
-                    <FluentButton Appearance="Appearance.Stealth">Stealth</FluentButton>
-                    <FluentButton Appearance="Appearance.Outline">Outline</FluentButton>
-                    <FluentButton Appearance="Appearance.Lightweight">Lightweight</FluentButton>
-                </div>
-            </FluentCard>
-        </FluentDesignSystemProvider>
-
-        <FluentDesignSystemProvider FillColor="#D6D6D6">
-            <FluentCard neutral-palette-source="#CABA8C">
-                <div class="contents">
-                    Tinted neutral, light
-                    <FluentButton Appearance="Appearance.Accent">Accent</FluentButton>
-                    <FluentButton Appearance="Appearance.Stealth">Stealth</FluentButton>
-                    <FluentButton Appearance="Appearance.Outline">Outline</FluentButton>
-                    <FluentButton Appearance="Appearance.Lightweight">Lightweight</FluentButton>
-                </div>
-            </FluentCard>
-        </FluentDesignSystemProvider>
-
-        <FluentDesignSystemProvider BaseLayerLuminance="(float?)0.15">
-            <FluentCard neutral-palette-source="#CABA8C">
-                <div class="contents">
-                    Tinted neutral, dark
-                    <FluentButton Appearance="Appearance.Accent">Accent</FluentButton>
-                    <FluentButton Appearance="Appearance.Stealth">Stealth</FluentButton>
-                    <FluentButton Appearance="Appearance.Outline">Outline</FluentButton>
-                    <FluentButton Appearance="Appearance.Lightweight">Lightweight</FluentButton>
-                </div>
-            </FluentCard>
-        </FluentDesignSystemProvider>
-
-        <FluentDesignSystemProvider BaseLayerLuminance="(float?)0.15">
-            <FluentCard neutral-palette-source="#CABA8C">
-                <div class="contents">
-                    Tinted neutral, dark
-                    <FluentButton Appearance="Appearance.Accent">Accent</FluentButton>
-                    <FluentButton Appearance="Appearance.Stealth">Stealth</FluentButton>
-                    <FluentButton Appearance="Appearance.Outline">Outline</FluentButton>
-                    <FluentButton Appearance="Appearance.Lightweight">Lightweight</FluentButton>
-                </div>
-                <FluentCard neutral-palette-source="#718E71" style="margin: 0; --card-height: 200px; --card-width: 460px;">
-                    <div class="contents">
-                        Tinted neutral, nested, dark
-                        <FluentButton Appearance="Appearance.Accent">Accent</FluentButton>
-                        <FluentButton Appearance="Appearance.Stealth">Stealth</FluentButton>
-                        <FluentButton Appearance="Appearance.Outline">Outline</FluentButton>
-                        <FluentButton Appearance="Appearance.Lightweight">Lightweight</FluentButton>
-                    </div>
-                </FluentCard>
-            </FluentCard>
-        </FluentDesignSystemProvider>
-
-        <FluentCard card-fill-color="#449544">
+    <BaseLayerLuminance Value="(float?)0.15">
+        <FluentCard BackReference="@context">
             <div class="contents">
-                Custom card background color
+                Dark
                 <FluentButton Appearance="Appearance.Accent">Accent</FluentButton>
                 <FluentButton Appearance="Appearance.Stealth">Stealth</FluentButton>
                 <FluentButton Appearance="Appearance.Outline">Outline</FluentButton>
                 <FluentButton Appearance="Appearance.Lightweight">Lightweight</FluentButton>
             </div>
         </FluentCard>
+    </BaseLayerLuminance>
 
-        <FluentDesignSystemProvider FillColor="#D6D6D6" AccentBaseColor="#718E71" NeutralBaseColor="#A90000">
-            <FluentCard>
+    <FillColor Value="#D6D6D6">
+        <FluentCard neutral-palette-source="#CABA8C" BackReference="@context">
+            <div class="contents">
+                Tinted neutral, light
+                <FluentButton Appearance="Appearance.Accent">Accent</FluentButton>
+                <FluentButton Appearance="Appearance.Stealth">Stealth</FluentButton>
+                <FluentButton Appearance="Appearance.Outline">Outline</FluentButton>
+                <FluentButton Appearance="Appearance.Lightweight">Lightweight</FluentButton>
+            </div>
+        </FluentCard>
+    </FillColor>
+
+    <BaseLayerLuminance Value="(float?)0.15">
+        <FluentCard neutral-palette-source="#CABA8C" BackReference="@context">
+            <div class="contents">
+                Tinted neutral, dark
+                <FluentButton Appearance="Appearance.Accent">Accent</FluentButton>
+                <FluentButton Appearance="Appearance.Stealth">Stealth</FluentButton>
+                <FluentButton Appearance="Appearance.Outline">Outline</FluentButton>
+                <FluentButton Appearance="Appearance.Lightweight">Lightweight</FluentButton>
+            </div>
+        </FluentCard>
+    </BaseLayerLuminance>
+
+    <BaseLayerLuminance Value="(float?)0.15">
+        <FluentCard neutral-palette-source="#CABA8C" BackReference="@context">
+            <div class="contents">
+                Tinted neutral, dark
+                <FluentButton Appearance="Appearance.Accent">Accent</FluentButton>
+                <FluentButton Appearance="Appearance.Stealth">Stealth</FluentButton>
+                <FluentButton Appearance="Appearance.Outline">Outline</FluentButton>
+                <FluentButton Appearance="Appearance.Lightweight">Lightweight</FluentButton>
+            </div>
+            <FluentCard neutral-palette-source="#718E71" style="margin: 0; --card-height: 200px; --card-width: 460px;" BackReference="@context">
                 <div class="contents">
-                    <p>Accent and neutral color by DSP</p>
+                    Tinted neutral, nested, dark
                     <FluentButton Appearance="Appearance.Accent">Accent</FluentButton>
-                    <FluentButton Appearance="Appearance.Neutral">Neutral</FluentButton>
                     <FluentButton Appearance="Appearance.Stealth">Stealth</FluentButton>
                     <FluentButton Appearance="Appearance.Outline">Outline</FluentButton>
                     <FluentButton Appearance="Appearance.Lightweight">Lightweight</FluentButton>
                 </div>
             </FluentCard>
-        </FluentDesignSystemProvider>
-    </div>
-</FluentDesignSystemProvider>
+        </FluentCard>
+    </BaseLayerLuminance>
+
+    <FluentCard card-fill-color="#449544">
+        <div class="contents">
+            Custom card background color
+            <FluentButton Appearance="Appearance.Accent">Accent</FluentButton>
+            <FluentButton Appearance="Appearance.Stealth">Stealth</FluentButton>
+            <FluentButton Appearance="Appearance.Outline">Outline</FluentButton>
+            <FluentButton Appearance="Appearance.Lightweight">Lightweight</FluentButton>
+        </div>
+    </FluentCard>
+
+    <FluentDesignSystemProvider FillColor="#D6D6D6" AccentBaseColor="#718E71" NeutralBaseColor="#A90000">
+        <FluentCard>
+            <div class="contents">
+                <p>Accent and neutral color by DSP</p>
+                <FluentButton Appearance="Appearance.Accent">Accent</FluentButton>
+                <FluentButton Appearance="Appearance.Neutral">Neutral</FluentButton>
+                <FluentButton Appearance="Appearance.Stealth">Stealth</FluentButton>
+                <FluentButton Appearance="Appearance.Outline">Outline</FluentButton>
+                <FluentButton Appearance="Appearance.Lightweight">Lightweight</FluentButton>
+            </div>
+        </FluentCard>
+    </FluentDesignSystemProvider>
+</div>

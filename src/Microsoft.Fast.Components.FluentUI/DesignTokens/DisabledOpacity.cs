@@ -8,6 +8,11 @@ namespace Microsoft.Fast.Components.FluentUI.DesignTokens;
 /// </summary>
 public sealed class DisabledOpacity : DesignToken<float?>
 {
+    public DisabledOpacity()
+    {
+        Name = Constants.DisabledOpacity;
+    }
+
     /// <summary>
     /// Constructs an instance of a DisabledOpacity design token
     /// </summary>

@@ -8,6 +8,11 @@ namespace Microsoft.Fast.Components.FluentUI.DesignTokens;
 /// </summary>
 public sealed class TypeRampPlus2FontSize : DesignToken<float?>
 {
+    public TypeRampPlus2FontSize()
+    {
+        Name = Constants.TypeRampPlus2FontSize;
+    }
+
     /// <summary>
     /// Constructs an instance of the TypeRampPlus2FontSize design token
     /// </summary>

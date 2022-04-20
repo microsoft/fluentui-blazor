@@ -8,6 +8,11 @@ namespace Microsoft.Fast.Components.FluentUI.DesignTokens;
 /// </summary>
 public sealed class DesignUnit : DesignToken<int?>
 {
+    public DesignUnit()
+    {
+        Name = Constants.DesignUnit;
+    }
+
     /// <summary>
     /// Constructs an instance of the DesignUnit design token
     /// </summary>

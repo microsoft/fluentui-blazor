@@ -8,6 +8,11 @@ namespace Microsoft.Fast.Components.FluentUI.DesignTokens;
 /// </summary>
 public sealed class NeutralStrokeHoverDelta : DesignToken<int?>
 {
+    public NeutralStrokeHoverDelta()
+    {
+        Name = Constants.NeutralStrokeHoverDelta;
+    }
+
     /// <summary>
     /// Constructs an instance of the NeutralStrokeHoverDelta design token
     /// </summary>
