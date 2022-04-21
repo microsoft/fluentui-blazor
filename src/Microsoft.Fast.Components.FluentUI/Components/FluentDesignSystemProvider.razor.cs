@@ -32,6 +32,8 @@ public partial class FluentDesignSystemProvider : FluentComponentBase
 
     [Parameter]
     public int? ControlCornerRadius { get; set; }
+    [Parameter]
+    public int? LayerCornerRadius { get; set; }
 
     [Parameter]
     public int? StrokeWidth { get; set; }
