@@ -31,8 +31,8 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             sb.AppendLine("{");
             foreach (FieldInfo info in GetConstants(typeof(DesignTokenConstants)))
             {
-                string camelCase = info.Name[0].ToString().ToLowerInvariant() + info.Name.Substring(1);
-                sb.AppendLine($"\tpublic const string {info.Name} = \"{camelCase}\";");
+                string PascalCase = info.Name[0].ToString().ToUpperInvariant() + info.Name.Substring(1);
+                sb.AppendLine($"\tpublic const string {PascalCase} = \"{info.Name}\";");
             }
             sb.AppendLine("}");
             context.AddSource($"Constants.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
@@ -44,7 +44,7 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             sb.AppendLine("namespace Microsoft.Fast.Components.FluentUI.DesignTokens;");
             foreach (FieldInfo info in GetConstants(typeof(DesignTokenConstants)))
             {
-                string name = info.Name;
+                string name = info.Name[0].ToString().ToUpperInvariant() + info.Name.Substring(1);
                 string type = info.GetValue(null).ToString();
 
                 sb.AppendLine("");
@@ -85,7 +85,7 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             sb.AppendLine("\t{");
             foreach (FieldInfo info in GetConstants(typeof(DesignTokenConstants)))
             {
-                sb.AppendLine($"\t\tservices.AddTransient<{info.Name}>();");
+                sb.AppendLine($"\t\tservices.AddTransient<{info.Name[0].ToString().ToUpperInvariant() + info.Name.Substring(1)}>();");
             }
             sb.AppendLine("	}");
             sb.AppendLine("}");
