@@ -2,7 +2,8 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![.NET C#](https://img.shields.io/badge/.NET-C%23-blue)](https://docs.microsoft.com/en-us/dotnet/csharp/)
-[![Nuget](https://img.shields.io/nuget/v/Microsoft.Fast.Components.FluentUI)](https://www.nuget.org/packages/Microsoft.Fast.Components.FluentUI/)
+![Nuget](https://img.shields.io/nuget/v/Microsoft.Fast.Components.FluentUI?label=NuGet%20Component%20Library)
+![Nuget](https://img.shields.io/nuget/v/Microsoft.Fast.Templates.FluentUI?label=NuGet%20Templates)
 
 [![Validate PRs](https://github.com/microsoft/fast-blazor/actions/workflows/ci-validate.yml/badge.svg)](https://github.com/microsoft/fast-blazor/actions/workflows/ci-validate.yml)
 [![Validate Security](https://github.com/microsoft/fast-blazor/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/microsoft/fast-blazor/actions/workflows/codeql-analysis.yml)
@@ -133,6 +134,53 @@ Product | AccentBaseColor
 | Stream | #BC1948 |
 
 For a list of all available token attributes, [see here](https://github.com/microsoft/fast-blazor/blob/main/src/Microsoft.Fast.Components.FluentUI/Components/FluentDesignSystemProvider.razor#L69). More examples for other components can be found in the `examples` folder [of this repository](https://github.com/microsoft/fast-blazor).
+
+##  Web components / Blazor components mapping, implementation status and remarks
+Web component | Blazor component | Status | Remarks
+----------------- | -------------- | ------ | -------
+|[`<fluent-accordion>`](https://docs.microsoft.com/en-us/fluent-ui/web-components/components/accordion)|`<FluentAccordion>`|✔️|-|
+|`<fluent-accordion-item>`|`<FluentAccordionItem>`|✔️|-|
+|[`<fluent-anchor>`](https://docs.microsoft.com/en-us/fluent-ui/web-components/components/anchor)|`<FluentAnchor>`|✔️|-|
+|[`<fluent-anchored-region>`](https://docs.microsoft.com/en-us/fluent-ui/web-components/components/anchored-region)|`<FluentAnchoredRegion>`|✔️|-|
+|[`<fluent-badge>`](https://docs.microsoft.com/en-us/fluent-ui/web-components/components/badge)|`<FluentBadge>`|✔️|-|
+|[`<fluent-breadcrumb>`](https://docs.microsoft.com/en-us/fluent-ui/web-components/components/breadcrumb)|`<FluentBreadcrumb>`|✔️|-|
+|`<fluent-breadcrumb-item>`|`<FluentBreadcrumbItem>`|✔️|-|
+|[`<fluent-button>`](https://docs.microsoft.com/en-us/fluent-ui/web-components/components/button)|`<FluentButton>`|✔️|-|
+|[`<fluent-card>`](https://docs.microsoft.com/en-us/fluent-ui/web-components/components/card)|`<FluentCard>`|✔️|-|
+|[`<fluent-checkbox>`](https://docs.microsoft.com/en-us/fluent-ui/web-components/components/checkbox)|`<FluentCheckbox>`|✔️|-|
+|[`<fluent-combobox>`](https://docs.microsoft.com/en-us/fluent-ui/web-components/components/combobox)|`<FluentCombobox>`|✔️|-|
+|[`<fluent-data-grid>`](https://docs.microsoft.com/en-us/fluent-ui/web-components/components/grid)|`<FluentDataGrid>`|✔️|-|
+|`<fluent-data-grid-cell>`|`<FluentDataGridCell>`|✔️|-|
+|`<fluent-data-grid-row>`|`<FluentDataGridRow>`|✔️|-|
+|[`<fluent-design-system-provider>`](https://docs.microsoft.com/en-us/fluent-ui/web-components/components/provider)|`<FluentDesignSystemProvider>`|✔️|-|
+|[`<fluent-dialog>`](https://docs.microsoft.com/en-us/fluent-ui/web-components/components/dialog)|`<FluentDialog>`|✔️|-|
+|[`<fluent-divider>`](https://docs.microsoft.com/en-us/fluent-ui/web-components/components/divider)|`<FluentDivider>`|✔️|-|
+|[`<fluent-flipper>`](https://docs.microsoft.com/en-us/fluent-ui/web-components/components/flipper)|`<FluentFlipper>`|✔️|-|
+|[`<fluent-horizontal-scroll>`](https://docs.microsoft.com/en-us/fluent-ui/web-components/components/horizontal-scroll)|`<FluentHorizontalScroll>`|✔️|-|
+|No web component|`<FluentIcon>`|✔️|-|
+|[`<fluent-listbox>`](https://docs.microsoft.com/en-us/fluent-ui/web-components/components/listbox)|`<FluentListbox>`|✔️|-|
+|[`<fluent-menu>`](https://docs.microsoft.com/en-us/fluent-ui/web-components/components/menu)|`<FluentMenu>`|✔️|-|
+|`<fluent-menu-item>`|`<FluentMenuItem>`|✔️|-|
+|[`<fluent-number-field>`](https://docs.microsoft.com/en-us/fluent-ui/web-components/components/number-field)|`<FluentNumberField>`|✔️|-|
+|`<fluent-option>`|`<FluentOption>`|✔️|-|
+|[`<fluent-progress>`](https://docs.microsoft.com/en-us/fluent-ui/web-components/components/progress)|`<FluentProgress>`|✔️|-|
+|[`<fluent-progress-ring>`](https://docs.microsoft.com/en-us/fluent-ui/web-components/components/progress-ring)|`<FluentProgressRing>`|✔️|-|
+|[`<fluent-radio>`](https://docs.microsoft.com/en-us/fluent-ui/web-components/components/radio-group)|`<FluentRadio>`|✔️|-|
+|[`<fluent-radio-group>`](https://docs.microsoft.com/en-us/fluent-ui/web-components/components/radio-group)|`<FluentRadioGroup>`|✔️|-|
+|[`<fluent-select>`](https://docs.microsoft.com/en-us/fluent-ui/web-components/components/select)|`<FluentSelect>`|✔️|-|
+|[`<fluent-skeleton>`](https://docs.microsoft.com/en-us/fluent-ui/web-components/components/skeleton)|`<FluentSkeleton>`|✔️|-|
+|[`<fluent-slider>`](https://docs.microsoft.com/en-us/fluent-ui/web-components/components/slider)|`<FluentSlider>`|✔️|-|
+|`<fluent-slider-label>`|`<FluentSliderLabel>`|✔️|-|
+|[`<fluent-switch>`](https://docs.microsoft.com/en-us/fluent-ui/web-components/components/switch)|`<FluentSwitch>`|✔️|-|
+|[`<fluent-tabs>`](https://docs.microsoft.com/en-us/fluent-ui/web-components/components/tabs)|`<FluentTabs>`|✔️|-|
+|`<fluent-tab>`|`<FluentTab>`|✔️|-|
+|`<fluent-tab-panel>`|`<FluentTabPanel>`|✔️|-|
+|[`<fluent-text-area>`](https://docs.microsoft.com/en-us/fluent-ui/web-components/components/text-area)|`<FluentTextArea>`|✔️|-|
+|[`<fluent-text-field>`](https://docs.microsoft.com/en-us/fluent-ui/web-components/components/text-field)|`<FluentTextField>`|✔️|-|
+|[`<fluent-toolbar>`](https://docs.microsoft.com/en-us/fluent-ui/web-components/components/toolbar)|`<FluentToolbar>`|✔️|-|
+|[`<fluent-tooltip>`](https://docs.microsoft.com/en-us/fluent-ui/web-components/components/tooltip)|`<FluentTooltip>`|✔️|-|
+|[`<fluent-tree-view>`](https://docs.microsoft.com/en-us/fluent-ui/web-components/components/tree-view)|`<FluentTreeView>`|✔️|-|
+|`<fluent-tree-item>`|`<FluentTreeItem>`|✔️|-|
 
 ## Joining the Community
 
