@@ -38,7 +38,6 @@ To add the script from CDN use the following markup:
 The markup above always references the latest release of the components. When deploying to production, you will want to ship with a specific version. Here's an example of the markup for that:
 
 ```html
-
 <script type="module" src="https://cdn.jsdelivr.net/npm/@fluentui/web-components@2.0.2/dist/web-components.min.js"></script>
 ```
 
@@ -118,7 +117,7 @@ The Fluent UI Web Components are built on FAST's Adaptive UI technology, which e
 
 > :notebook: **Note**
 > 
-> Provider token attributes can be changed on-th-fly like any other Blazor component attribute.
+> Provider token attributes can be changed on-the-fly like any other Blazor component attribute.
 
 If you are attempting to configure the components for integration into a specific Microsoft product, the following table provides `AccentBaseColor` values you can use:
 
@@ -134,6 +133,84 @@ Product | AccentBaseColor
 | Stream | #BC1948 |
 
 For a list of all available token attributes, [see here](https://github.com/microsoft/fast-blazor/blob/main/src/Microsoft.Fast.Components.FluentUI/Components/FluentDesignSystemProvider.razor#L69). More examples for other components can be found in the `examples` folder [of this repository](https://github.com/microsoft/fast-blazor).
+
+As of version 1.4 you can also use all of the (160) individual Design Tokens, both from code as in a declarative way in your `.razor` pages. See https://docs.microsoft.com/en-us/fluent-ui/web-components/design-system/design-tokens for more information on how Design Tokens work
+
+### Working with Design Tokens from code
+Given the following `.razor` page:
+```html
+@page "/"
+
+<PageTitle>Design Token Test Page</PageTitle>
+
+<FluentButton @ref="ref1" Appearance="Appearance.Filled">A button</FluentButton>
+<FluentButton @ref="ref2" Appearance="Appearance.Filled">Another button</FluentButton>
+<FluentButton @ref="ref3" Appearance="Appearance.Filled">And one more</FluentButton>
+<FluentButton @ref="ref4" Appearance="Appearance.Filled" @onclick=OnClick>Last button</FluentButton>
+```
+You can use Design Tokens to manipulate the styles from code as follows:
+
+```csharp
+public partial class Index
+{
+    [Inject]
+    private BaseLayerLuminance BaseLayerLuminance { get; set; } = default!;
+
+    [Inject]
+    private BaseHeightMultiplier BaseHeightMultiplier { get; set; } = default!;
+
+    [Inject]
+    private ControlCornerRadius ControlCornerRadius { get; set; } = default!;
+
+    private FluentAnchor ref1 = default!;
+    private FluentAnchor ref2 = default!;
+    private FluentAnchor ref3 = default!;
+    private FluentButton ref4 = default!;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await BaseLayerLuminance.SetValueFor(ref1.Element, 0);
+
+            //Enabling this line below will generate an error because no default is set
+            //await BaseHeightMultiplier.SetValueFor(ref2.Element);
+            
+            await BaseHeightMultiplier.WithDefault(25).SetValueFor(ref3.Element);
+
+            await BaseHeightMultiplier.SetValueFor(ref4.Element, 52);
+            await ControlCornerRadius.SetValueFor(ref4.Element, 15);
+
+            StateHasChanged();
+        }
+    }
+
+    public async Task OnClick()
+    {
+        await BaseHeightMultiplier.DeleteValueFor(ref4.Element);
+    }
+}
+```
+
+### Working with Design Tokens components
+All the Design Tokens can also be used as a component in a razor page directely. It looks like this:
+
+```html
+<BaseLayerLuminance Value="(float?)0.15">
+    <FluentCard BackReference="@context">
+        <div class="contents">
+            Dark
+            <FluentButton Appearance="Appearance.Accent">Accent</FluentButton>
+            <FluentButton Appearance="Appearance.Stealth">Stealth</FluentButton>
+            <FluentButton Appearance="Appearance.Outline">Outline</FluentButton>
+            <FluentButton Appearance="Appearance.Lightweight">Lightweight</FluentButton>
+        </div>
+    </FluentCard>
+</BaseLayerLuminance>
+```
+
+To make this work, you need to create a link between the Design Token component and its child FluentUI components. You do this with the `BackReference="@context"` construct. The restriction is that you can use only one Design Token this way. If you need to set more tokens, keep usin the `<FluentDesignSystemProvider>`
+
 
 ##  Web components / Blazor components mapping, implementation status and remarks
 Web component | Blazor component | Status | Remarks
