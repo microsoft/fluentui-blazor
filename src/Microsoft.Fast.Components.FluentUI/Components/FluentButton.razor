@@ -1,1 +1,11 @@
-<fluent-button appearance="@Appearance.ToAttributeValue()" disabled="@Disabled" autofocus="@Autofocus" @attributes="AdditionalAttributes">@ChildContent</fluent-button>
+<fluent-button appearance="@Appearance.ToAttributeValue()" disabled="@Disabled" autofocus="@Autofocus" @attributes="AdditionalAttributes">
+    @if (!String.IsNullOrEmpty(IconStart))
+    {
+        <FluentIcon Name="@IconStart" Slot="start" Filled="false" Size="@IconSize" UseAccentColor="@IconAccentColor" />
+    }
+    @ChildContent
+    @if (!String.IsNullOrEmpty(IconEnd))
+    {
+        <FluentIcon Name="@IconEnd" Slot="end" Filled="false" Size="@IconSize" UseAccentColor="@IconAccentColor" />
+    }
+</fluent-button>
