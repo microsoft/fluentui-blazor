@@ -11,8 +11,8 @@ public class DesignTokenConstants
     public const string disabledOpacity = "float?";
 
     // Density tokens
-    public const string baseHeightMultiplier = "int?";
-    public const string baseHorizontalSpacingMultiplier = "int?";
+    public const string baseHeightMultiplier = "float?";
+    public const string baseHorizontalSpacingMultiplier = "float?";
     public const string density = "int?";
     public const string designUnit = "int?";
 
