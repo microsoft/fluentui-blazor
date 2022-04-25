@@ -10,7 +10,10 @@ public partial class Index
     private BaseLayerLuminance BaseLayerLuminance { get; set; } = default!;
 
     [Inject]
-    private BaseHeightMultiplier BaseHeightMultiplier { get; set; } = default!;
+    private BodyFont BodyFont { get; set; } = default!;
+
+    [Inject]
+    private StrokeWidth StrokeWidth { get; set; } = default!;
 
     [Inject]
     private ControlCornerRadius ControlCornerRadius { get; set; } = default!;
@@ -20,29 +23,19 @@ public partial class Index
     private FluentAnchor ref3 = default!;
     private FluentButton ref4 = default!;
 
-    private int? theValueBeforeDelete;
-    private int? theValueAfterDelete;
-
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            await BaseLayerLuminance.SetValueFor(ref1.Element, 0);
+            //Set to dark mode
+            await BaseLayerLuminance.SetValueFor(ref1.Element, (float)0.15);
 
-            //Enabling this line below will generate an error because no default is set
-            //await DesignTokens.BaseHeightMultiplier.SetValueFor(ref2.Element);
+            await BodyFont.SetValueFor(ref3.Element, "Comic Sans MS");
 
-            //await DesignTokens.BaseHeightMultiplier.WithDefault(25).SetValueFor(ref3.Element);
-            await BaseHeightMultiplier.WithDefault(25).SetValueFor(ref3.Element);
-
-
-
-            theValueBeforeDelete = await BaseHeightMultiplier.GetValueFor(ref4.Element);
-
-            await BaseHeightMultiplier.SetValueFor(ref4.Element, 52);
-
+            //Set 'border' width for ref4
+            await StrokeWidth.SetValueFor(ref4.Element, 7);
+            //And change conrner radius as well
             await ControlCornerRadius.SetValueFor(ref4.Element, 15);
-
 
             StateHasChanged();
         }
@@ -51,8 +44,7 @@ public partial class Index
 
     public async Task OnClick()
     {
-        await BaseHeightMultiplier.DeleteValueFor(ref4.Element);
-
-        theValueAfterDelete = await BaseHeightMultiplier.GetValueFor(ref4.Element);
+        //Remove the accent color
+        await StrokeWidth.DeleteValueFor(ref4.Element);
     }
 }

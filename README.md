@@ -113,44 +113,46 @@ You can use Design Tokens to manipulate the styles from C# code as follows:
 
 ```csharp
 [Inject]
-private BaseLayerLuminance BaseLayerLuminance { get; set; } = default!;
+    private BaseLayerLuminance BaseLayerLuminance { get; set; } = default!;
 
-[Inject]
-private BaseHeightMultiplier BaseHeightMultiplier { get; set; } = default!;
+    [Inject]
+    private BodyFont BodyFont { get; set; } = default!;
 
-[Inject]
-private ControlCornerRadius ControlCornerRadius { get; set; } = default!;
+    [Inject]
+    private StrokeWidth StrokeWidth { get; set; } = default!;
 
-private FluentAnchor ref1 = default!;
-private FluentAnchor ref2 = default!;
-private FluentAnchor ref3 = default!;
-private FluentButton ref4 = default!;
+    [Inject]
+    private ControlCornerRadius ControlCornerRadius { get; set; } = default!;
 
-protected override async Task OnAfterRenderAsync(bool firstRender)
-{
-    if (firstRender)
+    private FluentAnchor ref1 = default!;
+    private FluentAnchor ref2 = default!;
+    private FluentAnchor ref3 = default!;
+    private FluentButton ref4 = default!;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        //Set to dark mode
-        await BaseLayerLuminance.SetValueFor(ref1.Element, 0);
+        if (firstRender)
+        {
+            //Set to dark mode
+            await BaseLayerLuminance.SetValueFor(ref1.Element, (float)0.15);
+            
+            await BodyFont.SetValueFor(ref3.Element, "Comic Sans MS");
 
-        //Enabling this line below will generate an error because no default is set
-        //await BaseHeightMultiplier.SetValueFor(ref2.Element);
-        
-        //Enlarge the anchor
-        await BaseHeightMultiplier.WithDefault(25).SetValueFor(ref3.Element);
+            //Set 'border' width for ref4
+            await StrokeWidth.SetValueFor(ref4.Element, 7);
+            //And change conrner radius as well
+            await ControlCornerRadius.SetValueFor(ref4.Element, 15);
 
-        //Enlarge the button and make corners more rounded
-        await BaseHeightMultiplier.SetValueFor(ref4.Element, 52);
-        await ControlCornerRadius.SetValueFor(ref4.Element, 15);
+            StateHasChanged();
+        }
 
-        StateHasChanged();
     }
-}
 
-public async Task OnClick()
-{
-    await BaseHeightMultiplier.DeleteValueFor(ref4.Element);
-}
+    public async Task OnClick()
+    {
+        //Remove the accent color
+        await StrokeWidth.DeleteValueFor(ref4.Element);
+    }
 ```
 As can be seen in the code above (with the `ref4.Element`), it is posible to apply multiple tokens to the same component.
 
@@ -182,7 +184,7 @@ To make this work, a link needs to be created between the Design Token component
 > Only one Design Token component at a time can be used this way. If you need to set more tokens, use the code approach as described in Option 1 above.
 
 
-#### (legacy) Option 3: Using the `<FluentDesignSystemProvider>`
+#### Option 3: Using the `<FluentDesignSystemProvider>`
 The third way to customize the design in Blazor is to wrap the entire block you want to manipulate in a `<FluentDesignSystemProvider>`. This special element has a number of properties you can set to configure a subset of the tokens. **Not all tokens are available/supported** and we recommend this to only be used as a fall-back mechanism. The preferred mehod of working with the desgn tokens is to manipulate them from code as described in option 1. 
 
 Here's an example of changing the "accent base color" and switching the system into dark mode (in the file `app.razor`):

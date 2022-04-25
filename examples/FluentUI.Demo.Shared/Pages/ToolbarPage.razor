@@ -185,8 +185,8 @@
         {
             await FillColor.SetValueFor(Toolbar1!.Element, "#333");
             await FillColor.SetValueFor(Toolbar2!.Element, "#333");
-            await BaseLayerLuminance.SetValueFor(Toolbar1!.Element, 0);
-            await BaseLayerLuminance.SetValueFor(Toolbar2!.Element, 0);
+            await BaseLayerLuminance.SetValueFor(Toolbar1!.Element, (float)0.15);
+            await BaseLayerLuminance.SetValueFor(Toolbar2!.Element, (float)0.15);
             
             StateHasChanged();
         }

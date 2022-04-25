@@ -83,18 +83,17 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
         return this;
     }
 
-    /// <summary>
-    /// Sets the value of the for the associated <see cref="ElementReference"/> to the default value
-    /// </summary>
-    /// <param name="element">the associated <see cref="ElementReference"/> </param>
-    /// <exception cref="Exception"></exception>
-    public async ValueTask SetValueFor(ElementReference element)
-    {
-        if (_defaultValue == null)
-            throw new Exception("WithDefault should be called before calling SetValueFor");
-
-        await SetValueFor(element, _defaultValue);
-    }
+    //ToDo Create method
+    ///// <summary>
+    ///// Create a new token
+    ///// </summary>
+    ///// /// <param name="name">The name of the Design Token</param>
+    //public async ValueTask<DesignToken<T>> Create(string name)
+    //{
+    //    IJSObjectReference module = await moduleTask!.Value;
+    //    await module.InvokeAsync<DesignToken<T>>("DesignToken.create", name);
+    //    return this;
+    //}
 
     /// <summary>
     /// Sets the value of the for the associated <see cref="ElementReference"/> to the supplied value

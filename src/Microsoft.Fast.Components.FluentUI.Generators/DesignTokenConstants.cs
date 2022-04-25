@@ -20,8 +20,8 @@ public class DesignTokenConstants
     public const string controlCornerRadius = "int?";
     public const string layerCornerRadius = "int?";
 
-    public const string strokeWidth = "int?";
-    public const string focusStrokeWidth = "int?";
+    public const string strokeWidth = "float?";
+    public const string focusStrokeWidth = "float?";
 
     // Typography values
     public const string bodyFont = "string";
