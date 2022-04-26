@@ -114,151 +114,151 @@ public class DesignTokenConstants
     public const string neutralStrokeStrongFocusDelta = "int?";
 
     // Color recipes
-    public const string neutralBaseColor = "string";
-    public const string accentBaseColor = "string";
+    public const string neutralBaseColor = "System.Drawing.Color";
+    public const string accentBaseColor = "System.Drawing.Color";
 
     // Neutral Layer Card Container
-    public const string neutralLayerCardContainer = "string";
+    public const string neutralLayerCardContainer = "System.Drawing.Color";
 
     // Neutral Layer Floating
-    public const string neutralLayerFloating = "string";
+    public const string neutralLayerFloating = "System.Drawing.Color";
 
     // Neutral Layer 1
-    public const string neutralLayer1 = "string";
+    public const string neutralLayer1 = "System.Drawing.Color";
 
     // Neutral Layer 2
-    public const string neutralLayer2 = "string";
+    public const string neutralLayer2 = "System.Drawing.Color";
 
     // Neutral Layer 3
-    public const string neutralLayer3 = "string";
+    public const string neutralLayer3 = "System.Drawing.Color";
 
     // Neutral Layer 4
-    public const string neutralLayer4 = "string";
+    public const string neutralLayer4 = "System.Drawing.Color";
 
-    public const string fillColor = "string";
+    public const string fillColor = "System.Drawing.Color";
 
     // Accent Fill
-    public const string accentFillRest = "string";
-    public const string accentFillHover = "string";
-    public const string accentFillActive = "string";
-    public const string accentFillFocus = "string";
+    public const string accentFillRest = "System.Drawing.Color";
+    public const string accentFillHover = "System.Drawing.Color";
+    public const string accentFillActive = "System.Drawing.Color";
+    public const string accentFillFocus = "System.Drawing.Color";
 
     // Foreground On Accent
-    public const string foregroundOnAccentRest = "string";
-    public const string foregroundOnAccentHover = "string";
-    public const string foregroundOnAccentActive = "string";
-    public const string foregroundOnAccentFocus = "string";
+    public const string foregroundOnAccentRest = "System.Drawing.Color";
+    public const string foregroundOnAccentHover = "System.Drawing.Color";
+    public const string foregroundOnAccentActive = "System.Drawing.Color";
+    public const string foregroundOnAccentFocus = "System.Drawing.Color";
 
     // Accent Foreground
-    public const string accentForegroundRest = "string";
-    public const string accentForegroundHover = "string";
-    public const string accentForegroundActive = "string";
-    public const string accentForegroundFocus = "string";
+    public const string accentForegroundRest = "System.Drawing.Color";
+    public const string accentForegroundHover = "System.Drawing.Color";
+    public const string accentForegroundActive = "System.Drawing.Color";
+    public const string accentForegroundFocus = "System.Drawing.Color";
 
     // Accent Stroke Control
-    public const string accentStrokeControlRest = "string";
-    public const string accentStrokeControlHover = "string";
-    public const string accentStrokeControlActive = "string";
-    public const string accentStrokeControlFocus = "string";
+    public const string accentStrokeControlRest = "System.Drawing.Color";
+    public const string accentStrokeControlHover = "System.Drawing.Color";
+    public const string accentStrokeControlActive = "System.Drawing.Color";
+    public const string accentStrokeControlFocus = "System.Drawing.Color";
 
     // Neutral Fill
-    public const string neutralFillRest = "string";
-    public const string neutralFillHover = "string";
-    public const string neutralFillActive = "string";
-    public const string neutralFillFocus = "string";
+    public const string neutralFillRest = "System.Drawing.Color";
+    public const string neutralFillHover = "System.Drawing.Color";
+    public const string neutralFillActive = "System.Drawing.Color";
+    public const string neutralFillFocus = "System.Drawing.Color";
 
     // Neutral Fill Input
-    public const string neutralFillInputRest = "string";
-    public const string neutralFillInputHover = "string";
-    public const string neutralFillInputActive = "string";
-    public const string neutralFillInputFocus = "string";
+    public const string neutralFillInputRest = "System.Drawing.Color";
+    public const string neutralFillInputHover = "System.Drawing.Color";
+    public const string neutralFillInputActive = "System.Drawing.Color";
+    public const string neutralFillInputFocus = "System.Drawing.Color";
 
     // Neutral Fill Input Alt
-    public const string neutralFillInputAltRest = "string";
-    public const string neutralFillInputAltHover = "string";
-    public const string neutralFillInputAltActive = "string";
-    public const string neutralFillInputAltFocus = "string";
+    public const string neutralFillInputAltRest = "System.Drawing.Color";
+    public const string neutralFillInputAltHover = "System.Drawing.Color";
+    public const string neutralFillInputAltActive = "System.Drawing.Color";
+    public const string neutralFillInputAltFocus = "System.Drawing.Color";
 
     // Neutral Fill Layer
-    public const string neutralFillLayerRest = "string";
-    public const string neutralFillLayerHover = "string";
-    public const string neutralFillLayerActive = "string";
+    public const string neutralFillLayerRest = "System.Drawing.Color";
+    public const string neutralFillLayerHover = "System.Drawing.Color";
+    public const string neutralFillLayerActive = "System.Drawing.Color";
 
     // Neutral Fill Layer Alt
-    public const string neutralFillLayerAltRest = "string";
+    public const string neutralFillLayerAltRest = "System.Drawing.Color";
 
     // Neutral Fill Secondary
-    public const string neutralFillSecondaryRest = "string";
-    public const string neutralFillSecondaryHover = "string";
-    public const string neutralFillSecondaryActive = "string";
-    public const string neutralFillSecondaryFocus = "string";
+    public const string neutralFillSecondaryRest = "System.Drawing.Color";
+    public const string neutralFillSecondaryHover = "System.Drawing.Color";
+    public const string neutralFillSecondaryActive = "System.Drawing.Color";
+    public const string neutralFillSecondaryFocus = "System.Drawing.Color";
 
     // Neutral Fill Stealth
-    public const string neutralFillStealthRest = "string";
-    public const string neutralFillStealthHover = "string";
-    public const string neutralFillStealthActive = "string";
-    public const string neutralFillStealthFocus = "string";
+    public const string neutralFillStealthRest = "System.Drawing.Color";
+    public const string neutralFillStealthHover = "System.Drawing.Color";
+    public const string neutralFillStealthActive = "System.Drawing.Color";
+    public const string neutralFillStealthFocus = "System.Drawing.Color";
 
     // Neutral Fill Strong
-    public const string neutralFillStrongRest = "string";
+    public const string neutralFillStrongRest = "System.Drawing.Color";
 
-    public const string neutralFillStrongHover = "string";
+    public const string neutralFillStrongHover = "System.Drawing.Color";
 
-    public const string neutralFillStrongActive = "string";
+    public const string neutralFillStrongActive = "System.Drawing.Color";
 
-    public const string neutralFillStrongFocus = "string";
+    public const string neutralFillStrongFocus = "System.Drawing.Color";
 
 
     // Neutral Foreground
-    public const string neutralForegroundRest = "string";
+    public const string neutralForegroundRest = "System.Drawing.Color";
 
-    public const string neutralForegroundHover = "string";
+    public const string neutralForegroundHover = "System.Drawing.Color";
 
-    public const string neutralForegroundActive = "string";
+    public const string neutralForegroundActive = "System.Drawing.Color";
 
-    public const string neutralForegroundFocus = "string";
+    public const string neutralForegroundFocus = "System.Drawing.Color";
 
 
     // Neutral Foreground Hint
-    public const string neutralForegroundHint = "string";
+    public const string neutralForegroundHint = "System.Drawing.Color";
 
 
     // Neutral Stroke
-    public const string neutralStrokeRest = "string";
-    public const string neutralStrokeHover = "string";
-    public const string neutralStrokeActive = "string";
-    public const string neutralStrokeFocus = "string";
+    public const string neutralStrokeRest = "System.Drawing.Color";
+    public const string neutralStrokeHover = "System.Drawing.Color";
+    public const string neutralStrokeActive = "System.Drawing.Color";
+    public const string neutralStrokeFocus = "System.Drawing.Color";
 
     // Neutral Stroke Control
-    public const string neutralStrokeControlRest = "string";
-    public const string neutralStrokeControlHover = "string";
-    public const string neutralStrokeControlActive = "string";
-    public const string neutralStrokeControlFocus = "string";
+    public const string neutralStrokeControlRest = "System.Drawing.Color";
+    public const string neutralStrokeControlHover = "System.Drawing.Color";
+    public const string neutralStrokeControlActive = "System.Drawing.Color";
+    public const string neutralStrokeControlFocus = "System.Drawing.Color";
 
 
     // Neutral Stroke Divider
-    public const string neutralStrokeDividerRest = "string";
+    public const string neutralStrokeDividerRest = "System.Drawing.Color";
 
     // Neutral Stroke Input
-    public const string neutralStrokeInputRest = "string";
-    public const string neutralStrokeInputHover = "string";
-    public const string neutralStrokeInputActive = "string";
-    public const string neutralStrokeInputFocus = "string";
+    public const string neutralStrokeInputRest = "System.Drawing.Color";
+    public const string neutralStrokeInputHover = "System.Drawing.Color";
+    public const string neutralStrokeInputActive = "System.Drawing.Color";
+    public const string neutralStrokeInputFocus = "System.Drawing.Color";
 
     // Neutral Stroke Layer
-    public const string neutralStrokeLayerRest = "string";
-    public const string neutralStrokeLayerHover = "string";
-    public const string neutralStrokeLayerActive = "string";
+    public const string neutralStrokeLayerRest = "System.Drawing.Color";
+    public const string neutralStrokeLayerHover = "System.Drawing.Color";
+    public const string neutralStrokeLayerActive = "System.Drawing.Color";
 
     // Neutral Stroke Strong
-    public const string neutralStrokeStrongRest = "string";
-    public const string neutralStrokeStrongHover = "string";
-    public const string neutralStrokeStrongActive = "string";
-    public const string neutralStrokeStrongFocus = "string";
+    public const string neutralStrokeStrongRest = "System.Drawing.Color";
+    public const string neutralStrokeStrongHover = "System.Drawing.Color";
+    public const string neutralStrokeStrongActive = "System.Drawing.Color";
+    public const string neutralStrokeStrongFocus = "System.Drawing.Color";
 
     // Focus Stroke Outer
-    public const string focusStrokeOuter = "string";
+    public const string focusStrokeOuter = "System.Drawing.Color";
 
     // Focus Stroke Inner
-    public const string focusStrokeInner = "string";
+    public const string focusStrokeInner = "System.Drawing.Color";
 }

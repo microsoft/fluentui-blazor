@@ -59,7 +59,7 @@ Copy this to your `wwwroot/script` folder and reference it with a script tag as 
 
 > :notebook: **Note**
 >
-> If you are setting up Fluent UI Web Components on a Blazor Server project, you will need to escape the `@` character by repeating it in the source link. For more information check out the [Razor Pages syntax documentation](/aspnet/core/mvc/views/razor).
+> If you are setting up Fluent UI Web Components on a Blazor Server project, you will need to escape the `@` character by repeating it in the source link. For more information check out the [Razor Pages syntax documentation](https://docs.microsoft.com/aspnet/core/mvc/views/razor).
 
 In your Program.cs file you need to add the following:
 ```csharp
@@ -113,48 +113,57 @@ You can use Design Tokens to manipulate the styles from C# code as follows:
 
 ```csharp
 [Inject]
-    private BaseLayerLuminance BaseLayerLuminance { get; set; } = default!;
+private BaseLayerLuminance BaseLayerLuminance { get; set; } = default!;
 
-    [Inject]
-    private BodyFont BodyFont { get; set; } = default!;
+[Inject]
+private AccentBaseColor AccentBaseColor { get; set; } = default!;
 
-    [Inject]
-    private StrokeWidth StrokeWidth { get; set; } = default!;
+[Inject]
+private BodyFont BodyFont { get; set; } = default!;
 
-    [Inject]
-    private ControlCornerRadius ControlCornerRadius { get; set; } = default!;
+[Inject]
+private StrokeWidth StrokeWidth { get; set; } = default!;
 
-    private FluentAnchor ref1 = default!;
-    private FluentAnchor ref2 = default!;
-    private FluentAnchor ref3 = default!;
-    private FluentButton ref4 = default!;
+[Inject]
+private ControlCornerRadius ControlCornerRadius { get; set; } = default!;
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            //Set to dark mode
-            await BaseLayerLuminance.SetValueFor(ref1.Element, (float)0.15);
-            
-            await BodyFont.SetValueFor(ref3.Element, "Comic Sans MS");
+private FluentAnchor? ref1;
+private FluentButton? ref2;
+private FluentAnchor? ref3;
+private FluentButton? ref4;
 
-            //Set 'border' width for ref4
-            await StrokeWidth.SetValueFor(ref4.Element, 7);
-            //And change conrner radius as well
-            await ControlCornerRadius.SetValueFor(ref4.Element, 15);
+protected override async Task OnAfterRenderAsync(bool firstRender)
+{
+	if (firstRender)
+	{
+		//Set to dark mode
+		await BaseLayerLuminance.SetValueFor(ref1!.Element, (float)0.15);
 
-            StateHasChanged();
-        }
+		//Set to Excel color
+		await AccentBaseColor.SetValueFor(ref2!.Element, "#185ABD".ToColor());
 
-    }
+		//Set the font
+		await BodyFont.SetValueFor(ref3!.Element, "Comic Sans MS");
 
-    public async Task OnClick()
-    {
-        //Remove the accent color
-        await StrokeWidth.DeleteValueFor(ref4.Element);
-    }
+		//Set 'border' width for ref4
+		await StrokeWidth.SetValueFor(ref4!.Element, 7);
+		//And change conrner radius as well
+		await ControlCornerRadius.SetValueFor(ref4!.Element, 15);
+
+		StateHasChanged();
+	}
+
+}
+
+public async Task OnClick()
+{
+	//Remove the wide border
+	await StrokeWidth.DeleteValueFor(ref4!.Element);
+}
 ```
-As can be seen in the code above (with the `ref4.Element`), it is posible to apply multiple tokens to the same component.
+As can be seen in the code above (with the `ref4.Element`), it is posible to apply multiple tokens to the same component. 
+
+For Design Tokens that work with a color value, it is needed to add the `ToColor()` extension method on the string value. This converts the string into a RGB value that the Design Token can operate with. Internally we are using the `System.Drawing.Color` struct for this and this means you can use all the available methods, operators, etc from that namespace in your code too.
 
 > :notebook: **Note**
 > 
@@ -165,15 +174,15 @@ The Design Tokens can also be used as components in a `.razor` page directely. I
 
 ```html
 <BaseLayerLuminance Value="(float?)0.15">
-    <FluentCard BackReference="@context">
-        <div class="contents">
-            Dark
-            <FluentButton Appearance="Appearance.Accent">Accent</FluentButton>
-            <FluentButton Appearance="Appearance.Stealth">Stealth</FluentButton>
-            <FluentButton Appearance="Appearance.Outline">Outline</FluentButton>
-            <FluentButton Appearance="Appearance.Lightweight">Lightweight</FluentButton>
-        </div>
-    </FluentCard>
+	<FluentCard BackReference="@context">
+		<div class="contents">
+			Dark
+			<FluentButton Appearance="Appearance.Accent">Accent</FluentButton>
+			<FluentButton Appearance="Appearance.Stealth">Stealth</FluentButton>
+			<FluentButton Appearance="Appearance.Outline">Outline</FluentButton>
+			<FluentButton Appearance="Appearance.Lightweight">Lightweight</FluentButton>
+		</div>
+	</FluentCard>
 </BaseLayerLuminance>
 ```
 
@@ -191,17 +200,17 @@ Here's an example of changing the "accent base color" and switching the system i
 
 ```html
 <FluentDesignSystemProvider AccentBaseColor="#464EB8" BaseLayerLuminance="0">
-    <Router AppAssembly="@typeof(App).Assembly">
-        <Found Context="routeData">
-            <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
-        </Found>
-        <NotFound>
-            <PageTitle>Not found</PageTitle>
-            <LayoutView Layout="@typeof(MainLayout)">
-                <p role="alert">Sorry, there's nothing at this address.</p>
-            </LayoutView>
-        </NotFound>
-    </Router>
+	<Router AppAssembly="@typeof(App).Assembly">
+		<Found Context="routeData">
+			<RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+		</Found>
+		<NotFound>
+			<PageTitle>Not found</PageTitle>
+			<LayoutView Layout="@typeof(MainLayout)">
+				<p role="alert">Sorry, there's nothing at this address.</p>
+			</LayoutView>
+		</NotFound>
+	</Router>
 </FluentDesignSystemProvider>
 ```
 

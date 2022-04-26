@@ -38,6 +38,7 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             context.AddSource($"Constants.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
 
             sb.Clear();
+            sb.AppendLine("using System.Drawing;");
             sb.AppendLine("using Microsoft.Extensions.Configuration;");
             sb.AppendLine("using Microsoft.JSInterop;");
             sb.AppendLine("");
