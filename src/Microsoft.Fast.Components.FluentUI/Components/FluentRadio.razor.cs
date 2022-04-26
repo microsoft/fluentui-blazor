@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentRadio
+public partial class FluentRadio : FluentComponentBase
 {
     [Parameter]
     public string? Value { get; set; }
@@ -18,10 +18,4 @@ public partial class FluentRadio
 
     [Parameter]
     public bool? Checked { get; set; }
-
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
-
-    [Parameter(CaptureUnmatchedValues = true)]
-    public IDictionary<string, object>? AdditionalAttributes { get; set; }
 }

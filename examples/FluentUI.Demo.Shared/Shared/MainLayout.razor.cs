@@ -1,23 +1,30 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Fast.Components.FluentUI;
+using Microsoft.Fast.Components.FluentUI.DesignTokens;
 using Microsoft.JSInterop;
 
 namespace FluentUI.Demo.Shared
 {
     public partial class MainLayout
     {
-        [Inject] IJSRuntime? JSRuntime { get; set; }
+        [Inject]
+        private IJSRuntime JSRuntime { get; set; } = default!;
+
+        [Inject]
+        private BaseLayerLuminance BaseLayerLuminance { get; set; } = default!;
+
+        ElementReference container;
 
         ErrorBoundary? errorBoundary;
-        FluentDesignSystemProvider fdsp = new();
-        LocalizationDirection? dir;
-        float? baseLayerLuminance;
 
-        public async Task SwitchDirectionAsync()
+        LocalizationDirection dir;
+        float baseLayerLuminance = 1;
+
+        public async Task SwitchDirection()
         {
             dir = dir == LocalizationDirection.rtl ? LocalizationDirection.ltr : LocalizationDirection.rtl;
-            await JSRuntime!.InvokeVoidAsync("switchDirection", dir.ToString());
+            await JSRuntime.InvokeVoidAsync("switchDirection", dir.ToString());
         }
 
         public void SwitchTheme()
@@ -28,6 +35,16 @@ namespace FluentUI.Demo.Shared
         protected override void OnParametersSet()
         {
             errorBoundary?.Recover();
+        }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+
+            if (!firstRender)
+            {
+                await BaseLayerLuminance.SetValueFor(container, baseLayerLuminance);
+                //await DesignTokens.Direction.SetValueFor(container, dir.ToString());
+            }
         }
     }
 }

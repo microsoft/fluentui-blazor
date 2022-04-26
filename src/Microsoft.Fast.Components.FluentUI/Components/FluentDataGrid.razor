@@ -1,5 +1,7 @@
 ﻿@typeparam TItem
-<fluent-data-grid generate-header=none
+@inherits FluentComponentBase
+<fluent-data-grid @ref=Element
+                  generate-header=none
                   grid-template-columns=@GridTemplateColumns
                   @attributes="@AdditionalAttributes">
     @if (GenerateHeader != GenerateHeaderOptions.None)
@@ -7,13 +9,12 @@
         DataGridRowType headerType = DataGridRowType.Header;
         if (GenerateHeader == GenerateHeaderOptions.Sticky)
             headerType = DataGridRowType.StickyHeader;
-
-        <FluentDataGridRow RowType=headerType TItem=TItem>
+            <fluentDataGridRow RowType=@headerType TItem=TItem>
             @{
                 int gridColumn = 1;
                 foreach (ColumnDefinition<TItem> column in ColumnDefinitions!)
                 {
-                    <FluentDataGridCell GridColumn=@(gridColumn++) CellType=DataGridCellType.ColumnHeader>
+                    <fluentDataGridCell GridColumn=@(gridColumn++) CellType=DataGridCellType.ColumnHeader>
                     @if (HeaderCellTemplate != null)
                     {
                         @HeaderCellTemplate(column)
@@ -43,10 +44,8 @@
             }
             else
             {
-                <FluentDataGridRow GridTemplateColumns=@GridTemplateColumns ColumnDefinitions=@ColumnDefinitions RowIndex=@(index++) TItem=TItem RowData=@item />
+                <fluentDataGridRow GridTemplateColumns=@GridTemplateColumns ColumnDefinitions=@ColumnDefinitions RowIndex=@(index++) TItem=TItem RowData=@item />
             }
         }
     }
 </fluent-data-grid>
-
-

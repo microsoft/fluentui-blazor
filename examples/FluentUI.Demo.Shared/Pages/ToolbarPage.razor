@@ -1,4 +1,7 @@
 @page "/ToolbarPage"
+@using System.Drawing
+@inject FillColor FillColor
+@inject BaseLayerLuminance BaseLayerLuminance
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
     <defs>
         <symbol id="icon" viewBox="0 0 16 16">
@@ -42,8 +45,8 @@
 </FluentToolbar>
 
 <h2>Dark Mode</h2>
-<FluentDesignSystemProvider fill-color="#333" style="padding:10px">
-    <FluentToolbar id="toolbar-fluent-components-two" style="width:100%">
+<div style="padding:10px">
+    <FluentToolbar id="toolbar-fluent-components-two" style="width:100%" @ref=Toolbar1>
         <FluentRadioGroup Value="on">
             <FluentRadio Checked="true">Add</FluentRadio>
             <FluentRadio>Open</FluentRadio>
@@ -61,11 +64,11 @@
             </FluentRadio>
         </FluentRadioGroup>
     </FluentToolbar>
-</FluentDesignSystemProvider>
+</div>
 
 <h2>Slotted End Items w/ Min Width</h2>
-<FluentDesignSystemProvider fill-color="#333" style="padding:10px;min-width:800px">
-    <FluentToolbar id="toolbar-fluent-components-two" style="width:100%">
+<div style="padding:10px;min-width:800px">
+    <FluentToolbar id="toolbar-fluent-components-two" style="width:100%" @ref=Toolbar2>
         <label slot="label">slotted label</label>
         <FluentRadioGroup Value="on">
             <FluentRadio Checked="true">Add</FluentRadio>
@@ -82,7 +85,7 @@
         </FluentRadioGroup>
         <svg slot="end"><use href="#icon"></use></svg>
     </FluentToolbar>
-</FluentDesignSystemProvider>
+</div>
 
 <h2>Toolbar with slotted span label</h2>
 <FluentToolbar id="toolbar-slotted-label">
@@ -174,4 +177,19 @@
 </FluentToolbar>
 @code{
     string? comboboxValue;
+    FluentToolbar? Toolbar1;
+    FluentToolbar? Toolbar2;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await FillColor.SetValueFor(Toolbar1!.Element, "#333".ToColor());
+            await FillColor.SetValueFor(Toolbar2!.Element, "#333".ToColor());
+            await BaseLayerLuminance.SetValueFor(Toolbar1!.Element, (float)0.15);
+            await BaseLayerLuminance.SetValueFor(Toolbar2!.Element, (float)0.15);
+            
+            StateHasChanged();
+        }
+    }
 }

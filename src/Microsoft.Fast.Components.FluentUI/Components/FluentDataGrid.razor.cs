@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
-public partial class FluentDataGrid<TItem>
+public partial class FluentDataGrid<TItem> : FluentComponentBase
 {
     // FAST Attributes
     [Parameter]
@@ -19,10 +19,4 @@ public partial class FluentDataGrid<TItem>
     public RenderFragment<ColumnDefinition<TItem>>? HeaderCellTemplate { get; set; } = null;
     [Parameter]
     public RenderFragment<TItem>? RowItemTemplate { get; set; } = null;
-    // General Blazor parameters
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
-
-    [Parameter(CaptureUnmatchedValues = true)]
-    public IDictionary<string, object>? AdditionalAttributes { get; set; }
 }

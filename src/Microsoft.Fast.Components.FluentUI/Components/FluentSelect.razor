@@ -3,7 +3,8 @@
 @inherits FluentInputBase<TValue>
 
 <CascadingValue TValue=FluentOptionContext IsFixed=true Value=_context @key=_context>
-    <fluent-select current-value="@CurrentValueAsString"
+    <fluent-select @ref=Element
+                   current-value="@CurrentValueAsString"
                    @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
                    disabled="@Disabled"
                    appearance="@Appearance.ToAttributeValue()"

@@ -1,5 +1,4 @@
 using System.Diagnostics.CodeAnalysis;
-
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
@@ -14,12 +13,6 @@ public partial class FluentListbox<TValue> : FluentInputBase<TValue>
     /// </summary>
     [Parameter]
     public string? Name { get; set; }
-
-    /// <summary>
-    /// Gets or sets the child content to be rendering inside the <see cref="FluentListbox{TValue}"/>.
-    /// </summary>
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
 
     [Parameter]
     public IEnumerable<Option<TValue>>? Items { get; set; }

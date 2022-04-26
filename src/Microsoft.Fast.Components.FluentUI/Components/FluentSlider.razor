@@ -1,6 +1,6 @@
 @inherits FluentInputBase<int>
-@using System.Globalization
-<fluent-slider orientation="@Orientation.ToAttributeValue()"
+<fluent-slider @ref=Element
+               orientation="@Orientation.ToAttributeValue()"
                min="@Min"
                max="@Max"
                step="@Step"

@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentDesignSystemProvider
+public partial class FluentDesignSystemProvider : FluentComponentBase
 {
     [Parameter]
     public bool? NoPaint { get; set; }
@@ -32,6 +32,8 @@ public partial class FluentDesignSystemProvider
 
     [Parameter]
     public int? ControlCornerRadius { get; set; }
+    [Parameter]
+    public int? LayerCornerRadius { get; set; }
 
     [Parameter]
     public int? StrokeWidth { get; set; }
@@ -185,10 +187,4 @@ public partial class FluentDesignSystemProvider
 
     [Parameter]
     public float? BaseLayerLuminance { get; set; }
-
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
-
-    [Parameter(CaptureUnmatchedValues = true)]
-    public IDictionary<string, object>? AdditionalAttributes { get; set; }
 }

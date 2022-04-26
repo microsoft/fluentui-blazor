@@ -1,5 +1,6 @@
 @inherits FluentInputBase<string?>
-<fluent-text-field autofocus="@Autofocus"
+<fluent-text-field @ref=Element
+                   autofocus="@Autofocus"
                    appearance="@Appearance.ToAttributeValue()"
                    current-value="@BindConverter.FormatValue(CurrentValue)"
                    @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"

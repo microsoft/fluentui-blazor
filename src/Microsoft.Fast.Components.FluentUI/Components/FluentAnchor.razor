@@ -1,1 +1,7 @@
-<fluent-anchor href="@Href" appearance="@Appearance.ToAttributeValue()" @attributes="AdditionalAttributes">@ChildContent</fluent-anchor>
+@inherits FluentComponentBase
+<fluent-anchor @ref=Element
+               href="@Href"
+               appearance="@Appearance.ToAttributeValue()"
+               @attributes="AdditionalAttributes">
+    @ChildContent
+</fluent-anchor>

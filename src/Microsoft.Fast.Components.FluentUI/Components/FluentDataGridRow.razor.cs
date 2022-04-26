@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentDataGridRow<TItem>
+public partial class FluentDataGridRow<TItem> : FluentComponentBase
 {
     // FAST Attributes
     [Parameter]
@@ -18,11 +18,4 @@ public partial class FluentDataGridRow<TItem>
 
     [Parameter]
     public IEnumerable<ColumnDefinition<TItem>>? ColumnDefinitions { get; set; }
-
-    // General Blazor parameters
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
-
-    [Parameter(CaptureUnmatchedValues = true)]
-    public IDictionary<string, object>? AdditionalAttributes { get; set; }
 }

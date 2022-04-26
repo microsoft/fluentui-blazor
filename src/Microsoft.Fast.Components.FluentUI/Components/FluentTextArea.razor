@@ -1,5 +1,6 @@
 @inherits FluentInputBase<string?>
-<fluent-text-area autofocus="@Autofocus"
+<fluent-text-area @ref=Element
+                  autofocus="@Autofocus"
                   appearance="@Appearance.ToAttributeValue()"
                   resize="@Resize.ToAttributeValue()"
                   current-value="@BindConverter.FormatValue(CurrentValue)"

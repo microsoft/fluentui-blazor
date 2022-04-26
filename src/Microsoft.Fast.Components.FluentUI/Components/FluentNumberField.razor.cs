@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentNumberField<TValue>
+public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
 {
     /// <summary>
     /// Gets or sets the disabled state
@@ -55,10 +55,6 @@ public partial class FluentNumberField<TValue>
     [Parameter]
     public string ParsingErrorMessage { get; set; } = "The {0} field must be a number.";
 
-
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
-
     /// <summary>
     /// Gets or sets the minimum value
     /// </summary>
@@ -105,7 +101,7 @@ public partial class FluentNumberField<TValue>
         }
     }
 
-    protected override bool TryParseValueFromString(string? value, out TValue? result, [NotNullWhen(false)] out string? validationErrorMessage)
+    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
         if (BindConverter.TryConvertTo<TValue>(value, CultureInfo.InvariantCulture, out result))
         {
@@ -127,25 +123,17 @@ public partial class FluentNumberField<TValue>
     protected override string? FormatValueAsString(TValue? value)
     {
         // Avoiding a cast to IFormattable to avoid boxing.
-        switch (value)
+        return value switch
         {
-            case null:
-                return null;
-            case int @int:
-                return BindConverter.FormatValue(@int, CultureInfo.InvariantCulture);
-            case long @long:
-                return BindConverter.FormatValue(@long, CultureInfo.InvariantCulture);
-            case short @short:
-                return BindConverter.FormatValue(@short, CultureInfo.InvariantCulture);
-            case float @float:
-                return BindConverter.FormatValue(@float, CultureInfo.InvariantCulture);
-            case double @double:
-                return BindConverter.FormatValue(@double, CultureInfo.InvariantCulture);
-            case decimal @decimal:
-                return BindConverter.FormatValue(@decimal, CultureInfo.InvariantCulture);
-            default:
-                throw new InvalidOperationException($"Unsupported type {value.GetType()}");
-        }
+            null => null,
+            int @int => BindConverter.FormatValue(@int, CultureInfo.InvariantCulture),
+            long @long => BindConverter.FormatValue(@long, CultureInfo.InvariantCulture),
+            short @short => BindConverter.FormatValue(@short, CultureInfo.InvariantCulture),
+            float @float => BindConverter.FormatValue(@float, CultureInfo.InvariantCulture),
+            double @double => BindConverter.FormatValue(@double, CultureInfo.InvariantCulture),
+            decimal @decimal => BindConverter.FormatValue(@decimal, CultureInfo.InvariantCulture),
+            _ => throw new InvalidOperationException($"Unsupported type {value.GetType()}"),
+        };
     }
 
     private static string? GetMinOrMaxValue(string name)

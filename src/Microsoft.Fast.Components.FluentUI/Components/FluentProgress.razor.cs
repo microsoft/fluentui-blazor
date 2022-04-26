@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentProgress
+public partial class FluentProgress : FluentComponentBase
 {
     [Parameter]
     public int? Min { get; set; }
@@ -15,10 +15,4 @@ public partial class FluentProgress
 
     [Parameter]
     public bool? Paused { get; set; }
-
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
-
-    [Parameter(CaptureUnmatchedValues = true)]
-    public IDictionary<string, object>? AdditionalAttributes { get; set; }
 }

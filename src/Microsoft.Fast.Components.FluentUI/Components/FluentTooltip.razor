@@ -1,9 +1,11 @@
-<fluent-tooltip  anchor=@Anchor
-                 position=@Position.ToAttributeValue()
-                 delay=@Delay
-                 visible=@Visible
-                 horizontal-viewport-lock=@HorizontalViewportLock
-                 vertical-viewport-lock=@VerticalViewportLock
-                 @attributes="AdditionalAttributes">
+@inherits FluentComponentBase
+<fluent-tooltip @ref=Element
+                anchor=@Anchor
+                position=@Position.ToAttributeValue()
+                delay=@Delay
+                visible=@Visible
+                horizontal-viewport-lock=@HorizontalViewportLock
+                vertical-viewport-lock=@VerticalViewportLock
+                @attributes="AdditionalAttributes">
     @ChildContent
 </fluent-tooltip>

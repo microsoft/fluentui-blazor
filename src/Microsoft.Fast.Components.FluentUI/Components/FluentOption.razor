@@ -1,5 +1,7 @@
+@inherits FluentComponentBase
 @typeparam TValue
-<fluent-option disabled="@Disabled"
+<fluent-option @ref=Element
+               disabled="@Disabled"
                value="@BindConverter.FormatValue(Value?.ToString())"
                selected="@(Selected ?? Context?.CurrentValue?.Equals(Value))"
                onchange=@Context?.ChangeEventCallback

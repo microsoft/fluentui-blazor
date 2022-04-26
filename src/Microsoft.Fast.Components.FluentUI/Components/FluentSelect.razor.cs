@@ -23,12 +23,6 @@ public partial class FluentSelect<TValue> : FluentInputBase<TValue>
     [Parameter]
     public Position? Position { get; set; }
 
-    /// <summary>
-    /// Gets or sets the child content to be rendering inside the <see cref="FluentSelect{TValue}"/>.
-    /// </summary>
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
-
     [Parameter]
     public IEnumerable<Option<TValue>>? Items { get; set; }
 

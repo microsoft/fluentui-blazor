@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentTooltip
+public partial class FluentTooltip : FluentComponentBase
 {
     [Parameter]
     public string? Anchor { get; set; }
@@ -18,9 +18,4 @@ public partial class FluentTooltip
     public bool? HorizontalViewportLock { get; set; } = false;
     [Parameter]
     public bool? VerticalViewportLock { get; set; } = false;
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
-
-    [Parameter(CaptureUnmatchedValues = true)]
-    public IDictionary<string, object>? AdditionalAttributes { get; set; }
 }

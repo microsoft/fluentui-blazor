@@ -1,4 +1,6 @@
-<fluent-toolbar orientation=@Orientation.ToAttributeValue()
+@inherits FluentComponentBase
+<fluent-toolbar @ref=Element
+                orientation=@Orientation.ToAttributeValue()
                 @attributes="AdditionalAttributes">
     @ChildContent
 </fluent-toolbar>

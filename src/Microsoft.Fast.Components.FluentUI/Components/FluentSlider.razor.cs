@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentSlider
+public partial class FluentSlider : FluentInputBase<int>
 {
     [Parameter]
     public Orientation? Orientation { get; set; }
@@ -24,9 +24,6 @@ public partial class FluentSlider
 
     [Parameter]
     public bool? Readonly { get; set; }
-
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
 
     protected override bool TryParseValueFromString(string? value, out int result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
