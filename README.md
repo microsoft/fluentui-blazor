@@ -127,9 +127,9 @@ private StrokeWidth StrokeWidth { get; set; } = default!;
 [Inject]
 private ControlCornerRadius ControlCornerRadius { get; set; } = default!;
 
-private FluentAnchor? ref1;
+private FluentButton? ref1;
 private FluentButton? ref2;
-private FluentAnchor? ref3;
+private FluentButton? ref3;
 private FluentButton? ref4;
 
 protected override async Task OnAfterRenderAsync(bool firstRender)
