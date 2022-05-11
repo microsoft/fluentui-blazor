@@ -8,7 +8,7 @@
 		@for(int index=0; index<ColumnDefinitions?.Count(); index++)
 		{
 			ColumnDefinition<TItem> column = ColumnDefinitions!.ElementAt(index);
-			<fluentDataGridCell GridColumn=@(index+1)>@(column.FieldSelector!(RowData!)?.ToString())</FluentDataGridCell>
+			<FluentDataGridCell GridColumn=@(index+1)>@(column.FieldSelector!(RowData!)?.ToString())</FluentDataGridCell>
 		}
 	@ChildContent
 </fluent-data-grid-row>

@@ -9,12 +9,12 @@
         DataGridRowType headerType = DataGridRowType.Header;
         if (GenerateHeader == GenerateHeaderOptions.Sticky)
             headerType = DataGridRowType.StickyHeader;
-            <fluentDataGridRow RowType=@headerType TItem=TItem>
+            <FluentDataGridRow RowType=@headerType TItem=TItem>
             @{
                 int gridColumn = 1;
                 foreach (ColumnDefinition<TItem> column in ColumnDefinitions!)
                 {
-                    <fluentDataGridCell GridColumn=@(gridColumn++) CellType=DataGridCellType.ColumnHeader>
+                    <FluentDataGridCell GridColumn=@(gridColumn++) CellType=DataGridCellType.ColumnHeader>
                     @if (HeaderCellTemplate != null)
                     {
                         @HeaderCellTemplate(column)
@@ -28,7 +28,7 @@
             }
         </FluentDataGridRow>
     }
-
+    
     @if (RowsData == null)
     {
         @ChildContent
@@ -44,7 +44,7 @@
             }
             else
             {
-                <fluentDataGridRow GridTemplateColumns=@GridTemplateColumns ColumnDefinitions=@ColumnDefinitions RowIndex=@(index++) TItem=TItem RowData=@item />
+                <FluentDataGridRow GridTemplateColumns=@GridTemplateColumns ColumnDefinitions=@ColumnDefinitions RowIndex=@(index++) TItem=TItem RowData=@item />
             }
         }
     }
