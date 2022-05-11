@@ -139,7 +139,7 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
     private static string? GetMinOrMaxValue(string name)
     {
         var targetType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
-        FieldInfo? field = targetType.GetField(name, BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.Static);
+        FieldInfo? field = targetType.GetField(name, BindingFlags.IgnoreCase | BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.Static);
         if (field == null)
         {
             throw new InvalidOperationException("Invalid type argument for FluentNumberField<TValue?>: " + typeof(TValue).Name);
