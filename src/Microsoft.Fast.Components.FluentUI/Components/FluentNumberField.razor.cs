@@ -58,13 +58,13 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
     /// Gets or sets the minimum value
     /// </summary>
     [Parameter]
-    public string? Min { get; set; } = GetMinOrMaxValue("MinValue");
+    public string? Min { get; set; } = GetMinValue();
 
     /// <summary>
     /// Gets or sets the maximum value
     /// </summary>
     [Parameter]
-    public string? Max { get; set; } = GetMinOrMaxValue("MaxValue");
+    public string? Max { get; set; } = GetMaxValue();
 
     /// <summary>
     /// Gets or sets the minimum length
@@ -135,48 +135,46 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
         };
     }
 
-    private static string? GetMinOrMaxValue(string name)
+    public static string GetMaxValue()
     {
-        var targetType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
-        //FieldInfo? field = targetType.GetField(name, BindingFlags.IgnoreCase | BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.Static);
-        //if (field == null)
-        //{
-        //    throw new InvalidOperationException("Invalid type argument for FluentNumberField<TValue?>: " + typeof(TValue).Name);
-        //}
-
-        var value = targetType.GetField("MaxValue")!.GetValue(null); //field.GetValue(null);
-
-
-        if (value is not null)
+        TypeCode typeCode = Type.GetTypeCode(typeof(TValue));
+        string value = typeCode switch
         {
-            if (targetType == typeof(int) || targetType == typeof(short))
-            {
-                return value.ToString();
-            }
+            TypeCode.Decimal => decimal.MaxValue.ToString("G12", CultureInfo.InvariantCulture),
+            TypeCode.Double => double.MaxValue.ToString(CultureInfo.InvariantCulture),
+            TypeCode.Int16 => short.MaxValue.ToString(),
+            TypeCode.Int32 => int.MaxValue.ToString(),
+            TypeCode.Int64 => "999999999999",
+            TypeCode.SByte => sbyte.MaxValue.ToString(),
+            TypeCode.Single => float.MaxValue.ToString(CultureInfo.InvariantCulture),
+            TypeCode.UInt16 => ushort.MaxValue.ToString(CultureInfo.InvariantCulture),
+            TypeCode.UInt32 => uint.MaxValue.ToString(),
+            TypeCode.UInt64 => "999999999999",
+            _ => ""
+        };
 
-            if (targetType == typeof(long))
-            {
-                //Precision in underlying FAST script is limited to 12 digits
-                return name == "MinValue" ? "-999999999999" : "999999999999";
-            }
+        return value;
+    }
 
-            if (targetType == typeof(float))
-            {
-                return ((float)value).ToString(CultureInfo.InvariantCulture);
-            }
+    public static string GetMinValue()
+    {
+        TypeCode typeCode = Type.GetTypeCode(typeof(TValue));
+        string value = typeCode switch
+        {
 
-            if (targetType == typeof(double))
-            {
-                return ((double)value).ToString(CultureInfo.InvariantCulture);
-            }
+            TypeCode.Decimal => decimal.MinValue.ToString("G12", CultureInfo.InvariantCulture),
+            TypeCode.Double => double.MinValue.ToString(CultureInfo.InvariantCulture),
+            TypeCode.Int16 => short.MinValue.ToString(),
+            TypeCode.Int32 => int.MinValue.ToString(),
+            TypeCode.Int64 => "-999999999999",
+            TypeCode.SByte => sbyte.MinValue.ToString(),
+            TypeCode.Single => float.MinValue.ToString(CultureInfo.InvariantCulture),
+            TypeCode.UInt16 => ushort.MinValue.ToString(CultureInfo.InvariantCulture),
+            TypeCode.UInt32 => uint.MinValue.ToString(),
+            TypeCode.UInt64 => "-999999999999",
+            _ => ""
+        };
 
-            if (targetType == typeof(decimal))
-            {
-                return ((decimal)value).ToString("G12", CultureInfo.InvariantCulture);
-            }
-        }
-
-        // This should never occur
-        return "0";
+        return value;
     }
 }
