@@ -1,6 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using System.Reflection;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
@@ -139,13 +138,15 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
     private static string? GetMinOrMaxValue(string name)
     {
         var targetType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
-        FieldInfo? field = targetType.GetField(name, BindingFlags.IgnoreCase | BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.Static);
-        if (field == null)
-        {
-            throw new InvalidOperationException("Invalid type argument for FluentNumberField<TValue?>: " + typeof(TValue).Name);
-        }
+        //FieldInfo? field = targetType.GetField(name, BindingFlags.IgnoreCase | BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.Static);
+        //if (field == null)
+        //{
+        //    throw new InvalidOperationException("Invalid type argument for FluentNumberField<TValue?>: " + typeof(TValue).Name);
+        //}
 
-        var value = field.GetValue(null);
+        var value = targetType.GetField("MaxValue")!.GetValue(null); //field.GetValue(null);
+
+
         if (value is not null)
         {
             if (targetType == typeof(int) || targetType == typeof(short))
@@ -155,7 +156,7 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
 
             if (targetType == typeof(long))
             {
-                //Precision in underlying Fast script is limited to 12 digits
+                //Precision in underlying FAST script is limited to 12 digits
                 return name == "MinValue" ? "-999999999999" : "999999999999";
             }
 
