@@ -16,13 +16,13 @@ public partial class FluentAnchoredRegion : FluentComponentBase
     public string? Viewport { get; set; }
 
     /// <summary>
-    /// Default is 'uncontrolled'.
+    /// Default is 'uncontrolled'. See <seealso cref="Positioning"/>
     /// </summary>
     [Parameter]
     public Positioning? HorizontalPositioningMode { get; set; } = Positioning.Uncontrolled;
 
     /// <summary>
-    /// Default is 'unset'
+    /// Default is 'unset'. See <seealso cref="HorizontalPosition"/>
     /// </summary>
     [Parameter]
     public HorizontalPosition? HorizontalDefaultPosition { get; set; } = HorizontalPosition.Unset;
@@ -40,19 +40,19 @@ public partial class FluentAnchoredRegion : FluentComponentBase
     public int HorizontalThreshold { get; set; }
 
     /// <summary>
-    /// Default is "Content"
+    /// Default is "Content". See <seealso cref="Scaling"/>
     /// </summary>
     [Parameter]
     public Scaling? HorizontalScaling { get; set; } = Scaling.Content;
 
     /// <summary>
-    /// Default is "Uncontrolled"
+    /// Default is "Uncontrolled". See <seealso cref="Positioning"/>
     /// </summary>
     [Parameter]
     public Positioning? VerticalPositioningMode { get; set; } = Positioning.Uncontrolled;
 
     /// <summary>
-    /// Default is "Unset"
+    /// Default is "Unset".See <seealso cref="VerticalPosition"/>
     /// </summary>
     [Parameter]
     public VerticalPosition? VerticalDefaultPosition { get; set; } = VerticalPosition.Unset;
@@ -70,13 +70,13 @@ public partial class FluentAnchoredRegion : FluentComponentBase
     public int VerticalThreshold { get; set; }
 
     /// <summary>
-    /// Default is "Content"
+    /// Default is "Content". See <seealso cref="Scaling"/>
     /// </summary>
     [Parameter]
     public Scaling? VerticalScaling { get; set; } = Scaling.Content;
 
     /// <summary>
-    /// Default is "Anchor". In 'anchor' mode only anchor resizes and attribute changes will provoke an update. In 'auto' mode the component also updates because of - any scroll event on the document, window resizes and viewport resizes
+    /// Default is "Anchor". In 'anchor' mode only anchor resizes and attribute changes will provoke an update. In 'auto' mode the component also updates because of - any scroll event on the document, window resizes and viewport resizes. See <seealso cref="UpdateMode"/>
     /// </summary>
     [Parameter]
     public UpdateMode? AutoUpdateMode { get; set; } = UpdateMode.Anchor;

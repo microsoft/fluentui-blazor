@@ -6,6 +6,9 @@ public partial class FluentOption<TValue> : FluentComponentBase
 {
     internal FluentOptionContext? Context { get; private set; }
 
+    /// <summary>
+    /// Gets or sets if the element is disabled
+    /// </summary>
     [Parameter]
     public bool? Disabled { get; set; }
 
@@ -21,6 +24,9 @@ public partial class FluentOption<TValue> : FluentComponentBase
     /// </summary>
     [Parameter] public string? Name { get; set; }
 
+    /// <summary>
+    /// Gets or sets if the element is selected
+    /// </summary>
     [Parameter]
     public bool? Selected { get; set; }
 
