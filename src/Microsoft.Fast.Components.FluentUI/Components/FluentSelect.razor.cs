@@ -14,15 +14,27 @@ public partial class FluentSelect<TValue> : FluentInputBase<TValue>
     [Parameter]
     public string? Name { get; set; }
 
+    /// <summary>
+    /// Gets or sets if the element is disabled
+    /// </summary>
     [Parameter]
     public bool? Disabled { get; set; }
 
+    /// <summary>
+    /// Gets or sets the visual appearance. See <seealso cref="FluentUI.Appearance"/>
+    /// </summary>
     [Parameter]
     public Appearance? Appearance { get; set; }
 
+    /// <summary>
+    /// Gets or sets the position. See <see cref="FluentUI.Position"/>
+    /// </summary>
     [Parameter]
     public Position? Position { get; set; }
 
+    /// <summary>
+    /// Gets or sets the list of items. See <see cref="Option{TValue}"/>
+    /// </summary>
     [Parameter]
     public IEnumerable<Option<TValue>>? Items { get; set; }
 
