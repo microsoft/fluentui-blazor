@@ -7,21 +7,39 @@ namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentSlider : FluentInputBase<int>
 {
+    /// <summary>
+    /// Gets or sets the orentation of the slider. See <see cref="FluentUI.Orientation"/>
+    /// </summary>
     [Parameter]
     public Orientation? Orientation { get; set; }
 
+    /// <summary>
+    /// Gets or sets the slider's minimal value
+    /// </summary>
     [Parameter]
     public int? Min { get; set; }
 
+    /// <summary>
+    /// Gets or sets the slider's maximum value
+    /// </summary>
     [Parameter]
     public int? Max { get; set; }
 
+    /// <summary>
+    /// Gets or sets the slider's step value
+    /// </summary>
     [Parameter]
     public int? Step { get; set; }
 
+    /// <summary>
+    /// Gets or sets if the slider is disabled
+    /// </summary>
     [Parameter]
     public bool? Disabled { get; set; }
 
+    /// <summary>
+    /// Gets or sets if the slider is readonly
+    /// </summary>
     [Parameter]
     public bool? Readonly { get; set; }
 

@@ -14,6 +14,9 @@ public partial class FluentListbox<TValue> : FluentInputBase<TValue>
     [Parameter]
     public string? Name { get; set; }
 
+    /// <summary>
+    /// Gets or sets the list of items. See <see cref="Option{TValue}"/>
+    /// </summary>
     [Parameter]
     public IEnumerable<Option<TValue>>? Items { get; set; }
 
