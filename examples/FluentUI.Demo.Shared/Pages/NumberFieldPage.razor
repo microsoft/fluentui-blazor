@@ -126,7 +126,13 @@
 <h4>With aria-label</h4>
 <FluentNumberField TValue="int?" aria-label="Text field with aria-label"></FluentNumberField>
 
+<!-- Focus Async -->
+<h4>Focus Async</h4>
+<FluentButton @onclick="() => focusTest!.FocusAsync()">FocusAsync</FluentButton> 
+<FluentTextField @ref=focusTest></FluentTextField>
+
 @code{
+    FluentTextField? focusTest;
     int exampleInt { get; set; } = 123;
     long exampleLong { get; set; } = 999999999999;
     float exampleFloat { get; set; } = 123.45f;

@@ -101,3 +101,11 @@
 
 <h4>Maxlength</h4>
 <FluentTextField MaxLength="4">Maxlength</FluentTextField>
+
+<!-- Focus Async -->
+<h4>Focus Async</h4>
+<FluentButton @onclick="() => focusTest!.FocusAsync()">FocusAsync</FluentButton> 
+<FluentTextField @ref=focusTest></FluentTextField>
+@code {
+    FluentTextField? focusTest;
+}
