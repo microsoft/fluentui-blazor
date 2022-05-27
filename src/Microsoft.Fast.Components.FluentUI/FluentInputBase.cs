@@ -201,6 +201,26 @@ public abstract class FluentInputBase<TValue> : FluentComponentBase, IDisposable
         return base.SetParametersAsync(ParameterView.Empty);
     }
 
+    /// <summary>
+    /// Exposes the element's FocusAsync() method.
+    /// </summary>
+    public async void FocusAsync()
+    {
+        await Element!.FocusAsync();
+    }
+
+    /// <summary>
+    /// Exposes the elements FocusAsync(bool preventScroll) method.
+    /// </summary>
+    /// <param name="preventScroll">A Boolean value indicating whether or not the browser should scroll 
+    /// the document to bring the newly-focused element into view. A value of false for preventScroll (the default) 
+    /// means that the browser will scroll the element into view after focusing it. 
+    /// If preventScroll is set to true, no scrolling will occur.</param>
+    public async void FocusAsync(bool preventScroll)
+    {
+        await Element!.FocusAsync(preventScroll);
+    }
+
     private void OnValidateStateChanged(object? sender, ValidationStateChangedEventArgs eventArgs)
     {
         UpdateAdditionalValidationAttributes();
