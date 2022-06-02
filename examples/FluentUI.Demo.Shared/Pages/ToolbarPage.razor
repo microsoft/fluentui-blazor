@@ -1,5 +1,5 @@
 @page "/ToolbarPage"
-@using System.Drawing
+
 @inject FillColor FillColor
 @inject BaseLayerLuminance BaseLayerLuminance
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
@@ -184,8 +184,8 @@
     {
         if (firstRender)
         {
-            await FillColor.SetValueFor(Toolbar1!.Element, "#333".ToColor());
-            await FillColor.SetValueFor(Toolbar2!.Element, "#333".ToColor());
+            await FillColor.SetValueFor(Toolbar1!.Element, "#333".ToSwatch());
+            await FillColor.SetValueFor(Toolbar2!.Element, "#333".ToSwatch());
             await BaseLayerLuminance.SetValueFor(Toolbar1!.Element, (float)0.15);
             await BaseLayerLuminance.SetValueFor(Toolbar2!.Element, (float)0.15);
             

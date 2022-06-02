@@ -129,6 +129,17 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
         return await module.InvokeAsync<T>(Name + ".getValueFor", element);
     }
 
+    /// <summary>
+    /// Convert a hex color string to a value the DesignToken can work with
+    /// </summary>
+    /// <returns>the value</returns>
+    public async ValueTask<object> ParseColorHex(string color)
+    {
+        IJSObjectReference module = await moduleTask!.Value;
+        return await module.InvokeAsync<object>("parseColorHexRGB", color);
+    }
+
+
     [SuppressMessage("Usage", "CA1816:Dispose methods should call SuppressFinalize", Justification = "Not needed")]
     public async ValueTask DisposeAsync()
     {

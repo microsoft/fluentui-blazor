@@ -114,151 +114,151 @@ public class DesignTokenConstants
     public const string neutralStrokeStrongFocusDelta = "int?";
 
     // Color recipes
-    public const string neutralBaseColor = "System.Drawing.Color";
-    public const string accentBaseColor = "System.Drawing.Color";
+    public const string neutralBaseColor = "Swatch";
+    public const string accentBaseColor = "Swatch";
 
     // Neutral Layer Card Container
-    public const string neutralLayerCardContainer = "System.Drawing.Color";
+    public const string neutralLayerCardContainer = "Swatch";
 
     // Neutral Layer Floating
-    public const string neutralLayerFloating = "System.Drawing.Color";
+    public const string neutralLayerFloating = "Swatch";
 
     // Neutral Layer 1
-    public const string neutralLayer1 = "System.Drawing.Color";
+    public const string neutralLayer1 = "Swatch";
 
     // Neutral Layer 2
-    public const string neutralLayer2 = "System.Drawing.Color";
+    public const string neutralLayer2 = "Swatch";
 
     // Neutral Layer 3
-    public const string neutralLayer3 = "System.Drawing.Color";
+    public const string neutralLayer3 = "Swatch";
 
     // Neutral Layer 4
-    public const string neutralLayer4 = "System.Drawing.Color";
+    public const string neutralLayer4 = "Swatch";
 
-    public const string fillColor = "System.Drawing.Color";
+    public const string fillColor = "Swatch";
 
     // Accent Fill
-    public const string accentFillRest = "System.Drawing.Color";
-    public const string accentFillHover = "System.Drawing.Color";
-    public const string accentFillActive = "System.Drawing.Color";
-    public const string accentFillFocus = "System.Drawing.Color";
+    public const string accentFillRest = "Swatch";
+    public const string accentFillHover = "Swatch";
+    public const string accentFillActive = "Swatch";
+    public const string accentFillFocus = "Swatch";
 
     // Foreground On Accent
-    public const string foregroundOnAccentRest = "System.Drawing.Color";
-    public const string foregroundOnAccentHover = "System.Drawing.Color";
-    public const string foregroundOnAccentActive = "System.Drawing.Color";
-    public const string foregroundOnAccentFocus = "System.Drawing.Color";
+    public const string foregroundOnAccentRest = "Swatch";
+    public const string foregroundOnAccentHover = "Swatch";
+    public const string foregroundOnAccentActive = "Swatch";
+    public const string foregroundOnAccentFocus = "Swatch";
 
     // Accent Foreground
-    public const string accentForegroundRest = "System.Drawing.Color";
-    public const string accentForegroundHover = "System.Drawing.Color";
-    public const string accentForegroundActive = "System.Drawing.Color";
-    public const string accentForegroundFocus = "System.Drawing.Color";
+    public const string accentForegroundRest = "Swatch";
+    public const string accentForegroundHover = "Swatch";
+    public const string accentForegroundActive = "Swatch";
+    public const string accentForegroundFocus = "Swatch";
 
     // Accent Stroke Control
-    public const string accentStrokeControlRest = "System.Drawing.Color";
-    public const string accentStrokeControlHover = "System.Drawing.Color";
-    public const string accentStrokeControlActive = "System.Drawing.Color";
-    public const string accentStrokeControlFocus = "System.Drawing.Color";
+    public const string accentStrokeControlRest = "Swatch";
+    public const string accentStrokeControlHover = "Swatch";
+    public const string accentStrokeControlActive = "Swatch";
+    public const string accentStrokeControlFocus = "Swatch";
 
     // Neutral Fill
-    public const string neutralFillRest = "System.Drawing.Color";
-    public const string neutralFillHover = "System.Drawing.Color";
-    public const string neutralFillActive = "System.Drawing.Color";
-    public const string neutralFillFocus = "System.Drawing.Color";
+    public const string neutralFillRest = "Swatch";
+    public const string neutralFillHover = "Swatch";
+    public const string neutralFillActive = "Swatch";
+    public const string neutralFillFocus = "Swatch";
 
     // Neutral Fill Input
-    public const string neutralFillInputRest = "System.Drawing.Color";
-    public const string neutralFillInputHover = "System.Drawing.Color";
-    public const string neutralFillInputActive = "System.Drawing.Color";
-    public const string neutralFillInputFocus = "System.Drawing.Color";
+    public const string neutralFillInputRest = "Swatch";
+    public const string neutralFillInputHover = "Swatch";
+    public const string neutralFillInputActive = "Swatch";
+    public const string neutralFillInputFocus = "Swatch";
 
     // Neutral Fill Input Alt
-    public const string neutralFillInputAltRest = "System.Drawing.Color";
-    public const string neutralFillInputAltHover = "System.Drawing.Color";
-    public const string neutralFillInputAltActive = "System.Drawing.Color";
-    public const string neutralFillInputAltFocus = "System.Drawing.Color";
+    public const string neutralFillInputAltRest = "Swatch";
+    public const string neutralFillInputAltHover = "Swatch";
+    public const string neutralFillInputAltActive = "Swatch";
+    public const string neutralFillInputAltFocus = "Swatch";
 
     // Neutral Fill Layer
-    public const string neutralFillLayerRest = "System.Drawing.Color";
-    public const string neutralFillLayerHover = "System.Drawing.Color";
-    public const string neutralFillLayerActive = "System.Drawing.Color";
+    public const string neutralFillLayerRest = "Swatch";
+    public const string neutralFillLayerHover = "Swatch";
+    public const string neutralFillLayerActive = "Swatch";
 
     // Neutral Fill Layer Alt
-    public const string neutralFillLayerAltRest = "System.Drawing.Color";
+    public const string neutralFillLayerAltRest = "Swatch";
 
     // Neutral Fill Secondary
-    public const string neutralFillSecondaryRest = "System.Drawing.Color";
-    public const string neutralFillSecondaryHover = "System.Drawing.Color";
-    public const string neutralFillSecondaryActive = "System.Drawing.Color";
-    public const string neutralFillSecondaryFocus = "System.Drawing.Color";
+    public const string neutralFillSecondaryRest = "Swatch";
+    public const string neutralFillSecondaryHover = "Swatch";
+    public const string neutralFillSecondaryActive = "Swatch";
+    public const string neutralFillSecondaryFocus = "Swatch";
 
     // Neutral Fill Stealth
-    public const string neutralFillStealthRest = "System.Drawing.Color";
-    public const string neutralFillStealthHover = "System.Drawing.Color";
-    public const string neutralFillStealthActive = "System.Drawing.Color";
-    public const string neutralFillStealthFocus = "System.Drawing.Color";
+    public const string neutralFillStealthRest = "Swatch";
+    public const string neutralFillStealthHover = "Swatch";
+    public const string neutralFillStealthActive = "Swatch";
+    public const string neutralFillStealthFocus = "Swatch";
 
     // Neutral Fill Strong
-    public const string neutralFillStrongRest = "System.Drawing.Color";
+    public const string neutralFillStrongRest = "Swatch";
 
-    public const string neutralFillStrongHover = "System.Drawing.Color";
+    public const string neutralFillStrongHover = "Swatch";
 
-    public const string neutralFillStrongActive = "System.Drawing.Color";
+    public const string neutralFillStrongActive = "Swatch";
 
-    public const string neutralFillStrongFocus = "System.Drawing.Color";
+    public const string neutralFillStrongFocus = "Swatch";
 
 
     // Neutral Foreground
-    public const string neutralForegroundRest = "System.Drawing.Color";
+    public const string neutralForegroundRest = "Swatch";
 
-    public const string neutralForegroundHover = "System.Drawing.Color";
+    public const string neutralForegroundHover = "Swatch";
 
-    public const string neutralForegroundActive = "System.Drawing.Color";
+    public const string neutralForegroundActive = "Swatch";
 
-    public const string neutralForegroundFocus = "System.Drawing.Color";
+    public const string neutralForegroundFocus = "Swatch";
 
 
     // Neutral Foreground Hint
-    public const string neutralForegroundHint = "System.Drawing.Color";
+    public const string neutralForegroundHint = "Swatch";
 
 
     // Neutral Stroke
-    public const string neutralStrokeRest = "System.Drawing.Color";
-    public const string neutralStrokeHover = "System.Drawing.Color";
-    public const string neutralStrokeActive = "System.Drawing.Color";
-    public const string neutralStrokeFocus = "System.Drawing.Color";
+    public const string neutralStrokeRest = "Swatch";
+    public const string neutralStrokeHover = "Swatch";
+    public const string neutralStrokeActive = "Swatch";
+    public const string neutralStrokeFocus = "Swatch";
 
     // Neutral Stroke Control
-    public const string neutralStrokeControlRest = "System.Drawing.Color";
-    public const string neutralStrokeControlHover = "System.Drawing.Color";
-    public const string neutralStrokeControlActive = "System.Drawing.Color";
-    public const string neutralStrokeControlFocus = "System.Drawing.Color";
+    public const string neutralStrokeControlRest = "Swatch";
+    public const string neutralStrokeControlHover = "Swatch";
+    public const string neutralStrokeControlActive = "Swatch";
+    public const string neutralStrokeControlFocus = "Swatch";
 
 
     // Neutral Stroke Divider
-    public const string neutralStrokeDividerRest = "System.Drawing.Color";
+    public const string neutralStrokeDividerRest = "Swatch";
 
     // Neutral Stroke Input
-    public const string neutralStrokeInputRest = "System.Drawing.Color";
-    public const string neutralStrokeInputHover = "System.Drawing.Color";
-    public const string neutralStrokeInputActive = "System.Drawing.Color";
-    public const string neutralStrokeInputFocus = "System.Drawing.Color";
+    public const string neutralStrokeInputRest = "Swatch";
+    public const string neutralStrokeInputHover = "Swatch";
+    public const string neutralStrokeInputActive = "Swatch";
+    public const string neutralStrokeInputFocus = "Swatch";
 
     // Neutral Stroke Layer
-    public const string neutralStrokeLayerRest = "System.Drawing.Color";
-    public const string neutralStrokeLayerHover = "System.Drawing.Color";
-    public const string neutralStrokeLayerActive = "System.Drawing.Color";
+    public const string neutralStrokeLayerRest = "Swatch";
+    public const string neutralStrokeLayerHover = "Swatch";
+    public const string neutralStrokeLayerActive = "Swatch";
 
     // Neutral Stroke Strong
-    public const string neutralStrokeStrongRest = "System.Drawing.Color";
-    public const string neutralStrokeStrongHover = "System.Drawing.Color";
-    public const string neutralStrokeStrongActive = "System.Drawing.Color";
-    public const string neutralStrokeStrongFocus = "System.Drawing.Color";
+    public const string neutralStrokeStrongRest = "Swatch";
+    public const string neutralStrokeStrongHover = "Swatch";
+    public const string neutralStrokeStrongActive = "Swatch";
+    public const string neutralStrokeStrongFocus = "Swatch";
 
     // Focus Stroke Outer
-    public const string focusStrokeOuter = "System.Drawing.Color";
+    public const string focusStrokeOuter = "Swatch";
 
     // Focus Stroke Inner
-    public const string focusStrokeInner = "System.Drawing.Color";
+    public const string focusStrokeInner = "Swatch";
 }
