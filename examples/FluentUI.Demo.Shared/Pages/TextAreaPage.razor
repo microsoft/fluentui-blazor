@@ -90,3 +90,11 @@
 <!-- With aria label -->
 <h4>With aria-label</h4>
 <FluentTextArea aria-label="Text area with aria-label"></FluentTextArea>
+
+<!-- Focus Async -->
+<h4>Focus Async</h4>
+<FluentButton @onclick="() => focusTest!.FocusAsync()">FocusAsync</FluentButton> 
+<FluentTextArea @ref=focusTest></FluentTextArea>
+@code {
+    FluentTextArea? focusTest;
+}
