@@ -1,4 +1,11 @@
 @page "/TabsPage"
+
+<style>
+    :host(disabled) {
+        cursor: not-allowed;
+        opacity: var(--disabled-opacity);
+    }
+</style>
 <h1>Tabs</h1>
 <h4>Default</h4>
 <FluentTabs id="myTab" activeId="TabTwo">
@@ -82,7 +89,7 @@
     </FluentTabPanel>
 </FluentTabs>
 <h4>No active indicator</h4>
-<FluentTabs ActiveIndicator="false" activeId="TabTwo">
+<FluentTabs ActiveIndicator=false activeId="TabTwo">
     <FluentTab id="TabOne">Tab one</FluentTab>
     <FluentTab id="TabTwo">Tab two</FluentTab>
     <FluentTab id="TabThree">Tab three</FluentTab>
@@ -97,11 +104,11 @@
     </FluentTabPanel>
 </FluentTabs>
 <h4>No active indicator - Vertical</h4>
-<FluentTabs ActiveIndicator="false" @bind-ActiveId="@active"  Orientation="Orientation.Vertical" >
+<FluentTabs ActiveIndicator=false @bind-ActiveId="@active"  Orientation="Orientation.Vertical" >
     <FluentTab id="tab1" >Tab one</FluentTab>
     <FluentTab id="tab2">Tab two</FluentTab>
     <FluentTab id="tab3">Tab three</FluentTab>
-    <FluentTab id="tab4" disabled>Tab four</FluentTab>
+    <FluentTab id="tab4" Disabled=true>Tab four</FluentTab>
     <FluentTabPanel>
         Tab one content. This is for testing.
     </FluentTabPanel>

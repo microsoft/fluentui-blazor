@@ -1,8 +1,8 @@
 @inherits FluentComponentBase
 <fluent-tabs @ref=Element 
-             orientation="@Orientation.ToAttributeValue()" 
-             activeId="@ActiveId"
-             activeIndicator="@ActiveIndicator"
+             orientation=@Orientation.ToAttributeValue() 
+             activeid=@ActiveId
+             activeindicator=@ActiveIndicator
              @ontabchange="OnTabChange"
              @attributes="AdditionalAttributes">
     @ChildContent

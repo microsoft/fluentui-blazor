@@ -5,10 +5,10 @@ namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentTabs : FluentComponentBase
 {
     /// <summary>
-    /// Gets or sets if the tab is active
+    /// Gets or sets if the active tab is marked 
     /// </summary>
     [Parameter]
-    public bool? ActiveIndicator { get; set; }
+    public bool ActiveIndicator { get; set; } = true;
 
     /// <summary>
     /// Gets or sets the tab's orentation. See <see cref="FluentUI.Orientation"/>
