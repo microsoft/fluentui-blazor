@@ -7,4 +7,12 @@
             };
         }
     });
+    Blazor.registerCustomEventType('tabchange', {
+        browserEventName: 'change',
+        createEventArgs: event => {
+            return {
+                activeId: event.detail.id
+            };
+        }
+    });
 }

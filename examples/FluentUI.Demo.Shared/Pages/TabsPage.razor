@@ -97,10 +97,11 @@
     </FluentTabPanel>
 </FluentTabs>
 <h4>No active indicator - Vertical</h4>
-<FluentTabs ActiveIndicator="false" Orientation="Orientation.Vertical">
-    <FluentTab>Tab one</FluentTab>
-    <FluentTab>Tab two</FluentTab>
-    <FluentTab>Tab three</FluentTab>
+<FluentTabs ActiveIndicator="false" @bind-ActiveId="@active"  Orientation="Orientation.Vertical" >
+    <FluentTab id="tab1" >Tab one</FluentTab>
+    <FluentTab id="tab2">Tab two</FluentTab>
+    <FluentTab id="tab3">Tab three</FluentTab>
+    <FluentTab id="tab4" disabled>Tab four</FluentTab>
     <FluentTabPanel>
         Tab one content. This is for testing.
     </FluentTabPanel>
@@ -110,4 +111,19 @@
     <FluentTabPanel>
         Tab three content. This is for testing.
     </FluentTabPanel>
+    <FluentTabPanel>
+        Tab four content. This is for testing.
+    </FluentTabPanel>
 </FluentTabs>
+
+<p>Active tab: @active</p>
+
+@code {
+    string active = "tab3";
+    
+    private void HandleTabChange(TabChangeEventArgs  e)
+    {
+        active = e.ActiveId;
+    }
+    
+}

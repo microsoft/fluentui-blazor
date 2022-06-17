@@ -15,4 +15,18 @@ public partial class FluentTabs : FluentComponentBase
     /// </summary>
     [Parameter]
     public Orientation? Orientation { get; set; }
+
+    [Parameter]
+    public string? ActiveId { get; set; }
+
+    /// <summary>
+    /// Gets or sets a callback that updates the bound value.
+    /// </summary>
+    [Parameter]
+    public EventCallback<string?> ActiveIdChanged { get; set; }
+
+    private async Task OnTabChange(TabChangeEventArgs args)
+    {
+        await ActiveIdChanged.InvokeAsync(args.ActiveId);
+    }
 }
