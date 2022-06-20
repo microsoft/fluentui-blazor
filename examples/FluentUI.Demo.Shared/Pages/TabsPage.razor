@@ -1,11 +1,6 @@
 @page "/TabsPage"
 
-<style>
-    :host(disabled) {
-        cursor: not-allowed;
-        opacity: var(--disabled-opacity);
-    }
-</style>
+
 <h1>Tabs</h1>
 <h4>Default</h4>
 <FluentTabs id="myTab" activeId="TabTwo">
@@ -104,7 +99,7 @@
     </FluentTabPanel>
 </FluentTabs>
 <h4>No active indicator - Vertical</h4>
-<FluentTabs ActiveIndicator=false @bind-ActiveId="@active"  Orientation="Orientation.Vertical" >
+<FluentTabs ActiveIndicator=false @bind-ActiveId="@active" Orientation="Orientation.Vertical" >
     <FluentTab id="tab1" >Tab one</FluentTab>
     <FluentTab id="tab2">Tab two</FluentTab>
     <FluentTab id="tab3">Tab three</FluentTab>
@@ -126,11 +121,5 @@
 <p>Active tab: @active</p>
 
 @code {
-    string active = "tab3";
-    
-    private void HandleTabChange(TabChangeEventArgs  e)
-    {
-        active = e.ActiveId;
-    }
-    
+    string active = "tab3";   
 }
