@@ -14,11 +14,11 @@ public partial class FluentTreeItem : FluentComponentBase
     /// Gets or sets if the tree item is selected
     /// </summary>
     [Parameter]
-    public bool? Selected { get; set; }
+    public bool Selected { get; set; } = false;
 
     /// <summary>
-    /// Gets or sets if the tree item is expanded
+    /// Gets or sets if the tree item is expanded (true) or folded (false)
     /// </summary>
     [Parameter]
-    public bool? Expanded { get; set; }
+    public bool Expanded { get; set; } = false;
 }

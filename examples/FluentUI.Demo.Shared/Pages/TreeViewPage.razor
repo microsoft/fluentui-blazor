@@ -1,6 +1,6 @@
 @page "/TreeViewPage"
 <h4>With items (don't render collapsed nodes)</h4>
-<FluentTreeView RenderCollapsedNodes="false">
+<FluentTreeView @bind-CurrentSelected="@currentSelected" @bind-CurrentExpanded="@currentExpanded">
     <FluentTreeItem>
         Root item 1
         <FluentTreeItem>
@@ -14,7 +14,7 @@
     </FluentTreeItem>
     <FluentTreeItem>
         Root item 2
-        <fluent-divider></fluent-divider>
+        <FluentDivider></FluentDivider>
         <FluentTreeItem>
             Flowers
             <FluentTreeItem Disabled="true">Daisy</FluentTreeItem>
@@ -29,12 +29,15 @@
     </FluentTreeItem>
 </FluentTreeView>
 
+<p>Current selected tree item is @currentSelected?.ToString()</p>
+<p>Current expanded tree item is @currentExpanded?.ToString()</p>
+
 <h4>Flat tree</h4>
-<FluentTreeView>
+<FluentTreeView RenderCollapsedNodes=true>
     <FluentTreeItem Selected="true">Daisy</FluentTreeItem>
     <FluentTreeItem>Sunflower</FluentTreeItem>
     <FluentTreeItem>Rose</FluentTreeItem>
-    <fluent-divider></fluent-divider>
+    <FluentDivider></FluentDivider>
     <FluentTreeItem>Petunia</FluentTreeItem>
     <FluentTreeItem>Tulip</FluentTreeItem>
 </FluentTreeView>
@@ -116,3 +119,8 @@
         </FluentTreeItem>
     </FluentTreeItem>
 </FluentTreeView>
+
+@code {
+    ElementReference? currentSelected;
+    ElementReference? currentExpanded;
+}

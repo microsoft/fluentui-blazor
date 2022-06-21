@@ -1,5 +1,5 @@
 ﻿export function afterStarted(Blazor) {
-    Blazor.registerCustomEventType('fluentcheckedchange', {
+    Blazor.registerCustomEventType('checkedchange', {
         browserEventName: 'change',
         createEventArgs: event => {
             return {
@@ -12,6 +12,30 @@
         createEventArgs: event => {
             return {
                 activeId: event.detail.id
+            };
+        }
+    });
+    Blazor.registerCustomEventType('selectedchange', {
+        browserEventName: 'selected-change',
+        createEventArgs: event => {
+            return {
+                affectedItem: event.detail.element
+            };
+        }
+    });
+    Blazor.registerCustomEventType('expandedchange', {
+        browserEventName: 'expanded-change',
+        createEventArgs: event => {
+            return {
+                affectedItem: event.detail.element
+            };
+        }
+    });
+    Blazor.registerCustomEventType('dateselected', {
+        browserEventName: 'dateselected',
+        createEventArgs: event => {
+            return {
+                calendarDateInfo: event.detail
             };
         }
     });

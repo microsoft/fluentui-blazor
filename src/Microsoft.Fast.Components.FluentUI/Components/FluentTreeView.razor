@@ -1,2 +1,9 @@
 @inherits FluentComponentBase
-<fluent-tree-view @ref=Element render-collapsed-nodes="@RenderCollapsedNodes" @attributes="AdditionalAttributes">@ChildContent</fluent-tree-view>
+<fluent-tree-view @ref=Element 
+                  render-collapsed-nodes="@RenderCollapsedNodes" 
+                  currentSelected="@CurrentSelected"
+                  @onselectedchange=@OnSelectedChange
+                  @onexpandedchange=@OnExpandedChange
+                  @attributes="AdditionalAttributes">
+    @ChildContent
+</fluent-tree-view>
