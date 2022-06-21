@@ -10,7 +10,7 @@ public partial class FluentCalendar : FluentComponentBase
     /// Gets or sets if the calendar is readonly 
     /// </summary>
     [Parameter]
-    public bool? Readonly { get; set; }
+    public bool Readonly { get; set; } = false;
 
 
     /// <summary>
@@ -86,19 +86,70 @@ public partial class FluentCalendar : FluentComponentBase
     /// Gets or sets dates to be shown as selected
     /// </summary>
     [Parameter]
-    public IEnumerable<DateOnly>? SelectedDates
+    public List<DateOnly> SelectedDates
     {
         get
         {
-            return selectedDates!.Split(",").Select(x =>
+            if (!ValidateAndSanitizeDatesString())
+                return new();
+            else
             {
-                _ = DateOnly.TryParse(x, out DateOnly d);
-                return d;
-            });
+                return selectedDates!.Split(",").Select(x =>
+                {
+                    _ = DateOnly.TryParse(x, out DateOnly d);
+                    return d;
+                }).OrderBy(d => d).ToList();
+            }
         }
         set
         {
             selectedDates = string.Join(",", value!.Select(x => x.ToString("M-d-yyyy")));
+        }
+    }
+
+    private bool ValidateAndSanitizeDatesString()
+    {
+        if (!string.IsNullOrEmpty(selectedDates))
+        {
+            if (selectedDates.StartsWith(','))
+                selectedDates = selectedDates[1..];
+            if (selectedDates.EndsWith(','))
+                selectedDates = selectedDates[0..^1];
+
+            selectedDates = selectedDates.Replace(",,", ",");
+            return true;
+        }
+        else
+            return false;
+    }
+
+    [Parameter]
+    public EventCallback<List<DateOnly>> SelectedDatesChanged { get; set; }
+
+    private async Task OnDateSelected(CalendarSelectEventArgs args)
+    {
+        if (args.CalendarDateInfo.HasValue)
+        {
+            CalendarDateInfo di = (CalendarDateInfo)args.CalendarDateInfo;
+            DateTime datetime = new(di.Year, di.Month, di.Day);
+
+            DateOnly date = DateOnly.FromDateTime(datetime);
+            string formattedDate = date.ToString("M-d-yyyy");
+
+            if (string.IsNullOrEmpty(selectedDates) || !selectedDates.Contains(formattedDate))
+            {
+                selectedDates = string.Join(",", selectedDates, formattedDate);
+
+            }
+            if (di.Selected && selectedDates.Contains(formattedDate))
+            {
+                selectedDates = selectedDates.Replace(formattedDate, "");
+            }
+
+            if (selectedDates.All(x => x == ','))
+                selectedDates = String.Empty;
+
+            await SelectedDatesChanged.InvokeAsync(SelectedDates);
         }
     }
 }

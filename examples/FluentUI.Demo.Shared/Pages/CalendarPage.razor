@@ -6,9 +6,14 @@
     <FluentCalendar />
 </p>
 
+<h2>Readonly</h2>
+<p>
+    <FluentCalendar Readonly=true />
+</p>
+
 <h2>Show 6 weeks minimal</h2>
 <p>
-    <FluentCalendar MinWeeks="4" />
+    <FluentCalendar MinWeeks="6" />
 </p>
 
 <h2>Disabled dates</h2>
@@ -16,10 +21,17 @@
     <FluentCalendar DisabledDates=@disabledDates />
 </p>
 
-<h2>Selected dates</h2>
+<h2>Selected dates (with @@bind)</h2>
 <p>
-    <FluentCalendar SelectedDates=@selectedDates />
+    <FluentCalendar @bind-SelectedDates=@selectedDates></FluentCalendar>
 </p>
+<p>Selected dates</p>
+<ul>
+@foreach(DateOnly date in selectedDates)
+{
+    <li>@date.ToString("yyyy-MM-dd")</li>
+}
+</ul>
 
 <h2>Day Format = 2 digit</h2>
 <p>

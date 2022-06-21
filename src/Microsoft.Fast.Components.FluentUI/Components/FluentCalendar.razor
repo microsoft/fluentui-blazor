@@ -1,17 +1,17 @@
 @inherits FluentComponentBase
-<fluent-calendar
-    readonly=@Readonly
-    month=@Month
-    year=@Year
-    locale=@Locale
-    day-format=@DayFormat.ToAttributeValue()
-    weekday-format=@WeekdayFormat.ToAttributeValue()
-    month-format=@MonthFormat.ToAttributeValue()
-    year-format=@YearFormat.ToAttributeValue()
-    min-weeks=@MinWeeks
-    disabled-dates=@disabledDates
-    selected-dates=@selectedDates
-    @ref=Element 
-    @attributes="AdditionalAttributes">
-@ChildContent
+<fluent-calendar @ref=Element 
+                 readonly=@Readonly.ToString().ToLower()
+                 month=@Month
+                 year=@Year
+                 locale=@Locale
+                 day-format=@DayFormat.ToAttributeValue()
+                 weekday-format=@WeekdayFormat.ToAttributeValue()
+                 month-format=@MonthFormat.ToAttributeValue()
+                 year-format=@YearFormat.ToAttributeValue()
+                 min-weeks=@MinWeeks
+                 disabled-dates=@disabledDates
+                 selected-dates=@selectedDates
+                 @ondateselected="OnDateSelected"
+                 @attributes="AdditionalAttributes">
+    @ChildContent
 </fluent-calendar>

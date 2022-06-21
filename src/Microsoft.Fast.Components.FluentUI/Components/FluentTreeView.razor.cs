@@ -15,10 +15,10 @@ public partial class FluentTreeView : FluentComponentBase
     /// Gets or sets the currently selected tree item
     /// </summary>
     [Parameter]
-    public ElementReference? CurrentSelected { get; set; }
+    public string? CurrentSelected { get; set; }
 
     [Parameter]
-    public EventCallback<ElementReference?> CurrentSelectedChanged { get; set; }
+    public EventCallback<string?> CurrentSelectedChanged { get; set; }
 
     private async Task OnSelectedChange(TreeChangeEventArgs args)
     {
@@ -29,10 +29,10 @@ public partial class FluentTreeView : FluentComponentBase
     /// Gets or sets the currently selected tree item
     /// </summary>
     [Parameter]
-    public ElementReference? CurrentExpanded { get; set; }
+    public string? CurrentExpanded { get; set; }
 
     [Parameter]
-    public EventCallback<ElementReference?> CurrentExpandedChanged { get; set; }
+    public EventCallback<string?> CurrentExpandedChanged { get; set; }
 
     private async Task OnExpandedChange(TreeChangeEventArgs args)
     {
