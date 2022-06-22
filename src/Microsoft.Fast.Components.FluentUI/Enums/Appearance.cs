@@ -11,7 +11,7 @@ public enum Appearance
     Filled
 }
 
-internal static class AppearanceExtensions
+public static class AppearanceExtensions
 {
     private static readonly Dictionary<Appearance, string> _appearanceValues =
         Enum.GetValues<Appearance>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());

@@ -1,13 +1,19 @@
 @page "/NumberFieldPage"
 <h1>Number field</h1>
 <h4>Default</h4>
-
 <p>
     <FluentNumberField @bind-Value="exampleInt">Integer</FluentNumberField>
     <br />
     Example int: @exampleInt
     <br />
     Minimum value: @(int.MinValue); Maximum value: @(int.MaxValue)
+</p>
+<p>
+    Same as above but bound to oninput event by using component that inherits from the <code>FluentNumberField</code> component<br />
+    See the \Shared folder for the implementation<br />
+    <FluentNumberFieldOnInput @bind-Value="exampleInt2" Appearance="Appearance.Filled">Integer</FluentNumberFieldOnInput>
+    <br />
+    Example int: @exampleInt2
 </p>
 <p>
     <FluentNumberField @bind-Value="exampleLong">Long</FluentNumberField><br />
@@ -34,7 +40,7 @@
     Minimum value: @(float.MinValue); Maximum value: @(float.MaxValue)
 </p>
 <p>
-    <FluentNumberField @bind-Value="@exampleDouble">Double</FluentNumberField><br />
+    <FluentNumberField @bind-Value="@exampleDouble" >Double</FluentNumberField><br />
     Example double: @exampleDouble
     <br />
     Minimum value: @(double.MinValue); Maximum value: @(double.MaxValue)
@@ -134,6 +140,7 @@
 @code{
     FluentTextField? focusTest;
     int exampleInt { get; set; } = 123;
+    int exampleInt2 { get; set; } = 345;
     long exampleLong { get; set; } = 999999999999;
     float exampleFloat { get; set; } = 123.45f;
     double exampleDouble { get; set; } = 456.32d;

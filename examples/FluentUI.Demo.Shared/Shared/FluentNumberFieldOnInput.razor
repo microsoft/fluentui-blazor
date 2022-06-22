@@ -1,0 +1,9 @@
+@inherits FluentNumberField<TValue>
+@typeparam TValue
+<fluent-number-field current-value="@BindConverter.FormatValue(CurrentValue)"
+                     appearance="@Appearance.ToAttributeValue()"
+                     @oninput="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
+                     @attributes="AdditionalAttributes">
+    @ChildContent
+</fluent-number-field>
+
