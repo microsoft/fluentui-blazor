@@ -20,10 +20,14 @@
 <p>
     <FluentCalendar DisabledDates=@disabledDates />
 </p>
+<h2>Selected dates</h2>
+<p>
+    <FluentCalendar SelectedDates=@selectedDates></FluentCalendar>
+</p>
 
 <h2>Selected dates (with @@bind)</h2>
 <p>
-    <FluentCalendar @bind-SelectedDates=@selectedDates></FluentCalendar>
+    <FluentCalendar DisabledDates=@disabledDates @bind-SelectedDates =@selectedDates></FluentCalendar>
 </p>
 <p>Selected dates</p>
 <ul>
@@ -32,6 +36,14 @@
     <li>@date.ToString("yyyy-MM-dd")</li>
 }
 </ul>
+<h2>Selected dates (with @@bind) and diasabled dates not selectable</h2>
+<p>
+    <FluentCalendar DisabledDates=@disabledDates @bind-SelectedDates=@selectedDates DisabledSelectable=false></FluentCalendar>
+</p>
+<h2>Selected dates (with @@bind) and dates outside of shown month not selectable</h2>
+<p>
+    <FluentCalendar DisabledDates=@disabledDates @bind-SelectedDates=@selectedDates OutOfMonthSelectable=false></FluentCalendar>
+</p>
 
 <h2>Day Format = 2 digit</h2>
 <p>
@@ -50,8 +62,6 @@
 
     protected override void OnInitialized()
     {
-        base.OnInitialized();
-
         for (int i = 0; i < 3; i++)
         {
             disabledDates.Add(new DateOnly(currentYear, currentMonth, random.Next(1, daysInMonth)));

@@ -1,17 +1,21 @@
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
+
+
+
 public partial class FluentCalendar : FluentComponentBase
 {
-    private string? disabledDates = null;
-    private string? selectedDates = null;
+    private string? disabledDatesAsString = null;
+    private string? selectedDatesAsString = null;
+
+    private List<DateOnly> _selectedDates = new();
 
     /// <summary>
     /// Gets or sets if the calendar is readonly 
     /// </summary>
     [Parameter]
     public bool Readonly { get; set; } = false;
-
 
     /// <summary>
     /// Gets or sets the month of the calendar to display
@@ -61,6 +65,17 @@ public partial class FluentCalendar : FluentComponentBase
     [Parameter]
     public int MinWeeks { get; set; } = 4;
 
+    /// <summary>
+    /// Gets or sets whether disabled dates are selectable
+    /// </summary>
+    [Parameter]
+    public bool DisabledSelectable { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets whether dates outside of shown month are selectable
+    /// </summary>
+    [Parameter]
+    public bool OutOfMonthSelectable { get; set; } = true;
 
     /// <summary>
     /// Gets or sets dates to be shown as disabled.
@@ -70,7 +85,7 @@ public partial class FluentCalendar : FluentComponentBase
     {
         get
         {
-            return disabledDates!.Split(",").Select(x =>
+            return disabledDatesAsString!.Split(",").Select(x =>
             {
                 _ = DateOnly.TryParse(x, out DateOnly d);
                 return d;
@@ -78,7 +93,7 @@ public partial class FluentCalendar : FluentComponentBase
         }
         set
         {
-            disabledDates = string.Join(",", value!.Select(x => x.ToString("M-d-yyyy")));
+            disabledDatesAsString = string.Join(",", value!.OrderBy(d => d.DayNumber).Select(x => x.ToString("M-d-yyyy")));
         }
     }
 
@@ -88,39 +103,12 @@ public partial class FluentCalendar : FluentComponentBase
     [Parameter]
     public List<DateOnly> SelectedDates
     {
-        get
-        {
-            if (!ValidateAndSanitizeDatesString())
-                return new();
-            else
-            {
-                return selectedDates!.Split(",").Select(x =>
-                {
-                    _ = DateOnly.TryParse(x, out DateOnly d);
-                    return d;
-                }).OrderBy(d => d).ToList();
-            }
-        }
+        get => _selectedDates;
         set
         {
-            selectedDates = string.Join(",", value!.Select(x => x.ToString("M-d-yyyy")));
+            _selectedDates = value.OrderBy(d => d.DayNumber).ToList();
+            selectedDatesAsString = string.Join(",", _selectedDates.Select(x => x.ToString("M-d-yyyy")));
         }
-    }
-
-    private bool ValidateAndSanitizeDatesString()
-    {
-        if (!string.IsNullOrEmpty(selectedDates))
-        {
-            if (selectedDates.StartsWith(','))
-                selectedDates = selectedDates[1..];
-            if (selectedDates.EndsWith(','))
-                selectedDates = selectedDates[0..^1];
-
-            selectedDates = selectedDates.Replace(",,", ",");
-            return true;
-        }
-        else
-            return false;
     }
 
     [Parameter]
@@ -132,24 +120,19 @@ public partial class FluentCalendar : FluentComponentBase
         {
             CalendarDateInfo di = (CalendarDateInfo)args.CalendarDateInfo;
             DateTime datetime = new(di.Year, di.Month, di.Day);
-
             DateOnly date = DateOnly.FromDateTime(datetime);
-            string formattedDate = date.ToString("M-d-yyyy");
 
-            if (string.IsNullOrEmpty(selectedDates) || !selectedDates.Contains(formattedDate))
+            if (!SelectedDates.Contains(date) && (!di.Disabled || DisabledSelectable) && (di.Month == Month || OutOfMonthSelectable))
             {
-                selectedDates = string.Join(",", selectedDates, formattedDate);
-
-            }
-            if (di.Selected && selectedDates.Contains(formattedDate))
-            {
-                selectedDates = selectedDates.Replace(formattedDate, "");
+                SelectedDates.Add(date);
             }
 
-            if (selectedDates.All(x => x == ','))
-                selectedDates = String.Empty;
-
-            await SelectedDatesChanged.InvokeAsync(SelectedDates);
+            if (di.Selected && SelectedDates.Contains(date))
+            {
+                SelectedDates.Remove(date);
+            }
         }
+        await SelectedDatesChanged.InvokeAsync(SelectedDates);
+
     }
 }
