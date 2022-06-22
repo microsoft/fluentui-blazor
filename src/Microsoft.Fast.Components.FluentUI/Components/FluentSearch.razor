@@ -4,7 +4,6 @@
                    appearance="@Appearance.ToAttributeValue()"
                    current-value="@BindConverter.FormatValue(CurrentValue)"
                    @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
-                   type="@TextFieldType.ToAttributeValue()"
                    size="@Size"
                    minlength="@MinLength"
                    maxlength="@MaxLength"

@@ -2,7 +2,7 @@
 <fluent-tabs @ref=Element 
              orientation=@Orientation.ToAttributeValue() 
              activeid=@ActiveId
-             activeindicator=@ActiveIndicator.ToString().ToLower()
+             activeindicator="@(ActiveIndicator)"
              @ontabchange="OnTabChange"
              @attributes="AdditionalAttributes">
     @ChildContent
