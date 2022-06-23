@@ -3,7 +3,7 @@
 
 <h1>Tabs</h1>
 <h4>Default</h4>
-<FluentTabs id="myTab" activeId="TabTwo">
+<FluentTabs id="myTab" @bind-ActiveId="@active">
     <FluentTab id="TabOne">Tab one</FluentTab>
     <FluentTab id="TabTwo">Tab two</FluentTab>
     <FluentTab id="TabThree">Tab three</FluentTab>
@@ -18,6 +18,8 @@
     </FluentTabPanel>
     <div>Testing</div>
 </FluentTabs>
+<p>Active tab: @active</p>
+
 <h4>Vertical</h4>
 <FluentTabs Orientation="Orientation.Vertical">
     <FluentTab>Tab one</FluentTab>
@@ -99,7 +101,7 @@
     </FluentTabPanel>
 </FluentTabs>
 <h4>No active indicator - Vertical</h4>
-<FluentTabs ActiveIndicator=false @bind-ActiveId="@active" Orientation="Orientation.Vertical" >
+<FluentTabs ActiveIndicator=false ActiveId="tab3" Orientation="Orientation.Vertical" >
     <FluentTab id="tab1" >Tab one</FluentTab>
     <FluentTab id="tab2">Tab two</FluentTab>
     <FluentTab id="tab3">Tab three</FluentTab>
@@ -118,8 +120,7 @@
     </FluentTabPanel>
 </FluentTabs>
 
-<p>Active tab: @active</p>
 
 @code {
-    string active = "tab3";   
+    string active = "TabTwo";   
 }

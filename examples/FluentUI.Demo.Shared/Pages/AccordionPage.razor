@@ -1,8 +1,8 @@
 @page "/AccordionPage"
 <h1>Accordion</h1>
 <h4>Default</h4>
-<FluentAccordion>
-    <FluentAccordionItem Expanded="true">
+<FluentAccordion @bind-ActiveId="@active">
+    <FluentAccordionItem Expanded="true" id="AccOne">
         <div slot="start">
             <button>1</button>
         </div>
@@ -12,15 +12,17 @@
         <span slot="heading">Panel one</span>
         Panel one content
     </FluentAccordionItem>
-    <FluentAccordionItem>
+    <FluentAccordionItem id="AccTwo">
         <span slot="heading">Panel two</span>
         Panel two content
     </FluentAccordionItem>
-    <FluentAccordionItem Expanded="true">
+    <FluentAccordionItem Expanded="true" id="AccThree">
         <span slot="heading">Panel three</span>
         Panel three content
     </FluentAccordionItem>
 </FluentAccordion>
+<p>Active accordion item: @active</p>
+
 <h4>Single expand</h4>
 <FluentAccordion ExpandMode="ExpandMode.Single">
     <FluentAccordionItem>
@@ -74,3 +76,7 @@
         Panel three content
     </FluentAccordionItem>
 </FluentAccordion>
+
+@code {
+    string active = "AccTwo";
+}

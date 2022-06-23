@@ -10,4 +10,21 @@ public partial class FluentAccordion : FluentComponentBase
     /// </summary>
     [Parameter]
     public ExpandMode? ExpandMode { get; set; }
+
+    /// <summary>
+    /// Gets or sets the id of the active accordion item
+    /// </summary>
+    [Parameter]
+    public string? ActiveId { get; set; }
+
+    /// <summary>
+    /// Gets or sets a callback that updates the bound value.
+    /// </summary>
+    [Parameter]
+    public EventCallback<string?> ActiveIdChanged { get; set; }
+
+    private async Task OnAccordionChange(AccordionChangeEventArgs args)
+    {
+        await ActiveIdChanged.InvokeAsync(args.ActiveId);
+    }
 }

@@ -39,4 +39,12 @@
             };
         }
     });
+    Blazor.registerCustomEventType('accordionchange', {
+        browserEventName: 'change',
+        createEventArgs: event => {
+            return {
+                activeId: event.detail.id
+            };
+        }
+    });
 }
