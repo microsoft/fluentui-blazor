@@ -57,7 +57,7 @@
 </style>
 
 <h4>Default</h4>
-<FluentHorizontalScroll Speed="600" Easing="ease-in-out" >
+<FluentHorizontalScroll Speed="600" Easing="ease-in-out" @onscrollstart=OnHorizontalScrollStart @onscrollend=OnHorizontalScrollEnd>
     <FluentCard>
         Card number 1
         <FluentButton Appearance="Appearance.Neutral">A button</FluentButton>
@@ -230,3 +230,14 @@
     <FluentCard>Card number 16</FluentCard>
 </FluentHorizontalScroll>
 
+@code {
+    private void OnHorizontalScrollStart(HorizontalScrollChangeEventArgs args)
+    {
+        Console.WriteLine($"{args.Scroll}");
+    }
+    
+    private void OnHorizontalScrollEnd(HorizontalScrollChangeEventArgs args)
+    {
+        Console.WriteLine($"{args.Scroll}");
+    }
+}

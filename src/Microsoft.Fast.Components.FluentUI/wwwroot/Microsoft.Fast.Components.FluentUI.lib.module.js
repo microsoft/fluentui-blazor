@@ -55,4 +55,20 @@
             };
         }
     });
+    Blazor.registerCustomEventType('scrollstart', {
+        browserEventName: 'scrollstart',
+        createEventArgs: event => {
+            return {
+                scroll: event.detail
+            };
+        }
+    });
+    Blazor.registerCustomEventType('scrollend', {
+        browserEventName: 'scrollend',
+        createEventArgs: event => {
+            return {
+                scroll: event.detail
+            };
+        }
+    });
 }
