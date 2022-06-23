@@ -78,7 +78,7 @@
 <h2>Combobox with Autocomplete</h2>
 
 <h3>Inline Autocomplete</h3>
-<FluentCombobox id="combobox-with-inline-autocomplete" Autocomplete="Autocomplete.Inline" @bind-Value="@comboboxValue">
+<FluentCombobox id="combobox-with-inline-autocomplete" Autocomplete="ComboboxAutocomplete.Inline" @bind-Value="@comboboxValue">
     <FluentOption>William Hartnell</FluentOption>
     <FluentOption>Patrick Troughton</FluentOption>
     <FluentOption>Jon Pertwee</FluentOption>
@@ -95,7 +95,7 @@
 </FluentCombobox>
 
 <h3>List Autocomplete</h3>
-<FluentCombobox id="combobox-with-list-autocomplete" Autocomplete="Autocomplete.List" @bind-Value="@comboboxValue">
+<FluentCombobox id="combobox-with-list-autocomplete" Autocomplete="ComboboxAutocomplete.List" @bind-Value="@comboboxValue">
     <FluentOption>William Hartnell</FluentOption>
     <FluentOption>Patrick Troughton</FluentOption>
     <FluentOption>Jon Pertwee</FluentOption>
@@ -112,7 +112,7 @@
 </FluentCombobox>
 
 <h3>Both Autocomplete</h3>
-<FluentCombobox id="combobox-with-both-autocomplete" Autocomplete="Autocomplete.Both" @bind-Value="@comboboxValue">
+<FluentCombobox id="combobox-with-both-autocomplete" Autocomplete="ComboboxAutocomplete.Both" @bind-Value="@comboboxValue">
     <FluentOption>William Hartnell</FluentOption>
     <FluentOption>Patrick Troughton</FluentOption>
     <FluentOption>Jon Pertwee</FluentOption>
@@ -206,7 +206,7 @@
 <FluentCombobox id="combobox-with-no-items" @bind-Value="@comboboxValue"></FluentCombobox>
 
 <h2>Combobox with long list</h2>
-<FluentCombobox id="combobox-with-long-list" Autocomplete="Autocomplete.Both" @bind-Value="@comboboxValue">
+<FluentCombobox id="combobox-with-long-list" Autocomplete="ComboboxAutocomplete.Both" @bind-Value="@comboboxValue">
     <FluentOption>Alabama</FluentOption>
     <FluentOption>Alaska</FluentOption>
     <FluentOption>Arizona</FluentOption>
@@ -262,13 +262,13 @@
 <h2>Forced positions</h2>
 
 <h3>Combobox with forced position above</h3>
-<FluentCombobox id="combobox-with-forced-position-above" Position="Position.Above" @bind-Value="@comboboxValue">
+<FluentCombobox id="combobox-with-forced-position-above" Position="SelectPosition.Above" @bind-Value="@comboboxValue">
     <FluentOption>Position forced above</FluentOption>
     <FluentOption>Option Two</FluentOption>
 </FluentCombobox>
 
 <h3>Combobox with forced position below</h3>
-<FluentCombobox id="combobox-with-forced-position-below" Position="Position.Below" @bind-Value="@comboboxValue">
+<FluentCombobox id="combobox-with-forced-position-below" Position="SelectPosition.Below" @bind-Value="@comboboxValue">
     <FluentOption>Position forced below</FluentOption>
     <FluentOption>Option Two</FluentOption>
 </FluentCombobox>

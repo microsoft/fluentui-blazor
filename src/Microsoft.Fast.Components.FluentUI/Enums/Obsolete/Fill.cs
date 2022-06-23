@@ -1,11 +1,13 @@
 ﻿namespace Microsoft.Fast.Components.FluentUI;
 
+[Obsolete("Use a string value instead", true)]
 public enum Fill
 {
     Highlight,
     Lowlight
 }
 
+[Obsolete("Fill enum is obsolete", true)]
 internal static class FillExtensions
 {
     private static readonly Dictionary<Fill, string> _fillValues =

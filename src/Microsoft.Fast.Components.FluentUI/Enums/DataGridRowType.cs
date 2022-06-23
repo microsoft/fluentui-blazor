@@ -9,7 +9,7 @@ public enum DataGridRowType
     StickyHeader
 }
 
-internal static class DataGridRowTypeExtensions
+public static class DataGridRowTypeExtensions
 {
     private static readonly Dictionary<DataGridRowType, string> _dataGridRowTypeValues =
         Enum.GetValues<DataGridRowType>().ToDictionary(id => id, id => string.Join("-", Regex.Split(Enum.GetName(id)!, @"(?<!^)(?=[A-Z](?![A-Z]|$))")).ToLowerInvariant());

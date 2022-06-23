@@ -27,10 +27,10 @@ public partial class FluentSelect<TValue> : FluentInputBase<TValue>
     public Appearance? Appearance { get; set; }
 
     /// <summary>
-    /// Gets or sets the position. See <see cref="FluentUI.Position"/>
+    /// Gets or sets the position. See <see cref="FluentUI.SelectPosition"/>
     /// </summary>
     [Parameter]
-    public Position? Position { get; set; }
+    public SelectPosition? Position { get; set; }
 
     /// <summary>
     /// Gets or sets the list of items. See <see cref="Option{TValue}"/>

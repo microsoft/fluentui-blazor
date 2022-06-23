@@ -1,5 +1,6 @@
 namespace Microsoft.Fast.Components.FluentUI;
 
+[Obsolete("Use GenerateHeaderOption instead", true)]
 public enum GenerateHeaderOptions
 {
     None,
@@ -7,6 +8,7 @@ public enum GenerateHeaderOptions
     Sticky
 }
 
+[Obsolete("Use GenerateHeaderOptionExtensions instead", true)]
 internal static class GenerateHeaderExtensions
 {
     private static readonly Dictionary<GenerateHeaderOptions, string> _generateHeaderValues =

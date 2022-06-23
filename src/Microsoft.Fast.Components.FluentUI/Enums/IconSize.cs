@@ -37,7 +37,7 @@ public enum IconSize
 
 }
 
-internal static class IconSizeExtensions
+public static class IconSizeExtensions
 {
     private static readonly Dictionary<IconSize, int> _iconSizeValues =
         Enum.GetValues<IconSize>().ToDictionary(id => id, id => (int)id);

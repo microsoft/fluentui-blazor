@@ -1,4 +1,6 @@
 ﻿namespace Microsoft.Fast.Components.FluentUI;
+
+[Obsolete("Use AxisPositioningMode instead", true)]
 public enum Positioning
 {
     Uncontrolled,
@@ -6,6 +8,7 @@ public enum Positioning
     Dynamic
 }
 
+[Obsolete("Use AxisPositioningModeExtensions instead", true)]
 internal static class PositioningExtensions
 {
     private static readonly Dictionary<Positioning, string> _positioningValues =

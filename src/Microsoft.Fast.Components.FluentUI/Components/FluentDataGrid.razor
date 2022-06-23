@@ -4,10 +4,10 @@
                   generate-header=none
                   grid-template-columns=@GridTemplateColumns
                   @attributes="@AdditionalAttributes">
-    @if (GenerateHeader != GenerateHeaderOptions.None)
+    @if (GenerateHeader != GenerateHeaderOption.None)
     {
         DataGridRowType headerType = DataGridRowType.Header;
-        if (GenerateHeader == GenerateHeaderOptions.Sticky)
+        if (GenerateHeader == GenerateHeaderOption.Sticky)
             headerType = DataGridRowType.StickyHeader;
             <FluentDataGridRow RowType=@headerType TItem=TItem>
             @{

@@ -1,2 +1,8 @@
 @inherits FluentComponentBase
-<fluent-badge @ref=Element appearance="@Appearance.ToAttributeValue()" fill="@Fill.ToAttributeValue()" color="@Color.ToAttributeValue()" @attributes="AdditionalAttributes">@ChildContent</fluent-badge>
+<fluent-badge @ref=Element 
+              appearance="@Appearance.ToAttributeValue()" 
+              fill="@Fill" 
+              color="@Color" 
+              @attributes="AdditionalAttributes">
+    @ChildContent
+</fluent-badge>
