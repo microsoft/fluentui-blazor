@@ -47,4 +47,12 @@
             };
         }
     });
+    Blazor.registerCustomEventType('dialogdismiss', {
+        browserEventName: 'dismiss',
+        createEventArgs: event => {
+            return {
+                event: event
+            };
+        }
+    });
 }

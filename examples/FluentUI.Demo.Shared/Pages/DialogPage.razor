@@ -1,7 +1,7 @@
 @page "/DialogPage"
-<FluentDialog @ref="MyFluentDialog" id="foo" aria-label="Simple dialog" Modal="true">
+<FluentDialog @ref="MyFluentDialog" id="foo" aria-label="Simple dialog" Modal="false" @ondialogdismiss=OnDismiss>
     <h2>Dialog referenced to object</h2>
-    <button @onclick="OnCloseModalRefButtonClick">Close dialog with component object function</button>
+    <button @onclick="OnCloseModalRefButtonClick" >Close dialog with component object function</button>
 </FluentDialog>
 
 <FluentDialog Hidden="ModalHidden" id="foo" aria-label="Simple dialog" Modal="true">
@@ -10,6 +10,7 @@
 </FluentDialog>
 
 <p>MyFluentDialog.Hidden value: @MyFluentDialog?.Hidden</p>
+<p>@status</p>
 <p>ModalHidden value: @ModalHidden</p>
 
 <button @onclick="OnOpenModalRefButtonClick">Open dialog with ref</button>
@@ -18,11 +19,23 @@
 @code{
     private FluentDialog? MyFluentDialog;
     public bool ModalHidden { get; set; } = true;
+    private string? status;
 
 
-    private void OnOpenModalRefButtonClick() => MyFluentDialog!.Show();
+    private void OnOpenModalRefButtonClick()
+    {
+        status = "";
+        MyFluentDialog!.Show();
+    }
+    
     private void OnCloseModalRefButtonClick() => MyFluentDialog!.Hide();
 
     private void OnOpenModalParameterButtonClick() => ModalHidden = false;
     private void OnCloseModalParameterButtonClick() => ModalHidden = true;
+
+    private void OnDismiss(EventArgs args)
+    {
+        MyFluentDialog!.Hide();
+        status = "MyFluentDialog was dismissed/canceled";
+    }
 }
