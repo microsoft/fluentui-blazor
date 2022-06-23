@@ -34,6 +34,11 @@
                 </FluentTextField>
             </div>
             <div>
+                <FluentSearch Name="SearchValue" @bind-Value="Form.SearchValue">
+                    Search Value
+                </FluentSearch>
+            </div>
+            <div>
                 <FluentNumberField Name="NumberFieldValue" @bind-Value="Form.NumberFieldValue">
                     Number Field Value
                 </FluentNumberField>
@@ -128,6 +133,14 @@
                     </span>
                 </div>
                 <div>
+                    <FluentSearch Name="SearchValue" @bind-Value="Form.SearchValue">
+                        Search Value
+                    </FluentSearch>
+                    <span>
+                        <ValidationMessage For="() => Form.SearchValue" />
+                    </span>
+                </div>
+                <div>
                     <FluentNumberField Name="NumberFieldValue" @bind-Value="Form.NumberFieldValue">
                         Number Field Value
                     </FluentNumberField>
@@ -209,6 +222,8 @@
             <dd>@Form.SelectValue</dd>
             <dt>Text field</dt>
             <dd>@Form.TextFieldValue</dd>
+            <dt>Search</dt>
+            <dd>@Form.SearchValue</dd>
             <dt>Number field</dt>
             <dd>@Form.NumberFieldValue</dd>
             <dt>Text area</dt>
@@ -249,6 +264,9 @@
 
         [Required]
         public string? TextFieldValue { get; set; }
+        
+        [Required]
+        public string? SearchValue { get; set; }
 
         [Required]
         public int? NumberFieldValue { get; set; }

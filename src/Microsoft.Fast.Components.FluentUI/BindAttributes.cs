@@ -51,7 +51,8 @@ namespace Microsoft.Fast.Components.FluentUI;
 [BindElement("fluent-number-field", null, "value", "onchange")]
 [BindElement("fluent-number-field", "value", "value", "onchange")]
 
-
+[BindElement("fluent-search", null, "value", "onchange")]
+[BindElement("fluent-search", "value", "value", "onchange")]
 
 public static class BindAttributes
 {
