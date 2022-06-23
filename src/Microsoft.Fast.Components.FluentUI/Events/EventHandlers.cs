@@ -12,6 +12,8 @@ namespace Microsoft.Fast.Components.FluentUI;
 [EventHandler("ondismiss", typeof(EventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("onscrollstart", typeof(HorizontalScrollChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("onscrollend", typeof(HorizontalScrollChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
+[EventHandler("oncellfocused", typeof(DataGridCellFocusedEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
+[EventHandler("onrowfocused", typeof(DataGridRowFocusedEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 
 public static class EventHandlers
 {

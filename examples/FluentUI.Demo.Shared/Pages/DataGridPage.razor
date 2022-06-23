@@ -8,7 +8,7 @@
 <FluentDataGrid id="defaultGrid3" RowsData=RowsGrid1 ColumnDefinitions=ColumnsGrid1 GridTemplateColumns="1fr 1fr">
     <RowItemTemplate>
         <FluentDataGridRow TItem=SampleGrid1Data>
-            <FluentDataGridCell GridColumn=1>
+            <FluentDataGridCell GridColumn=1 @oncellfocused=OnCellFocused>
                 <FluentTextField @bind-Value=@context.Name></FluentTextField>
             </FluentDataGridCell>
             <FluentDataGridCell GridColumn=2>
@@ -170,6 +170,14 @@
             isAscending = true;
         }
         SortedRowsGrid.Sort(new CustomComparer(columnDefinition.FieldSelector!, isAscending));
+    }
+
+    private void OnCellFocused(DataGridCellFocusedEventArgs args)
+    {
+        var cell = args.Cell;
+        //var row = args.Row;
+        //var column = args.Column;
+        //var value = args.Value;
     }
 
     class CustomComparer : IComparer<SampleGrid3Data>

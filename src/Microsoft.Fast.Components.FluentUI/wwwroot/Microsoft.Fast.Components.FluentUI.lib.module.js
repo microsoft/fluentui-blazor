@@ -71,4 +71,20 @@
             };
         }
     });
+    Blazor.registerCustomEventType('cellfocused', {
+        browserEventName: 'cell-focused',
+        createEventArgs: event => {
+            return {
+                cell: event.detail
+            };
+        }
+    });
+    Blazor.registerCustomEventType('rowfocused', {
+        browserEventName: 'row-focused',
+        createEventArgs: event => {
+            return {
+                row: event.detail
+            };
+        }
+    });
 }
