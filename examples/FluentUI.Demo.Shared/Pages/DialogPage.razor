@@ -1,5 +1,5 @@
 @page "/DialogPage"
-<FluentDialog @ref="MyFluentDialog" id="foo" aria-label="Simple dialog" Modal="false" @ondialogdismiss=OnDismiss>
+<FluentDialog @ref="MyFluentDialog" id="foo" aria-label="Simple dialog" Modal="false" @ondismiss=OnDismiss>
     <h2>Dialog referenced to object</h2>
     <button @onclick="OnCloseModalRefButtonClick" >Close dialog with component object function</button>
 </FluentDialog>
@@ -33,7 +33,7 @@
     private void OnOpenModalParameterButtonClick() => ModalHidden = false;
     private void OnCloseModalParameterButtonClick() => ModalHidden = true;
 
-    private void OnDismiss(EventArgs args)
+    private void OnDismiss()
     {
         MyFluentDialog!.Hide();
         status = "MyFluentDialog was dismissed/canceled";

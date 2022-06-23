@@ -47,7 +47,7 @@
             };
         }
     });
-    Blazor.registerCustomEventType('dialogdismiss', {
+    Blazor.registerCustomEventType('dismiss', {
         browserEventName: 'dismiss',
         createEventArgs: event => {
             return {
