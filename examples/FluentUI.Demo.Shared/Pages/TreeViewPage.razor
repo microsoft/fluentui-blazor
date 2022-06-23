@@ -1,30 +1,30 @@
 @page "/TreeViewPage"
 <h4>With items (don't render collapsed nodes)</h4>
 <FluentTreeView @bind-CurrentSelected="@currentSelected" @bind-CurrentExpanded="@currentExpanded">
-    <FluentTreeItem>
+    <FluentTreeItem id="root1">
         Root item 1
-        <FluentTreeItem>
+        <FluentTreeItem id="flowers">
             Flowers
-            <FluentTreeItem Disabled="true">Daisy</FluentTreeItem>
-            <FluentTreeItem>Sunflower</FluentTreeItem>
-            <FluentTreeItem>Rose</FluentTreeItem>
+            <FluentTreeItem Disabled="true" id="daisy1">Daisy</FluentTreeItem>
+            <FluentTreeItem id="sunflower1">Sunflower</FluentTreeItem>
+            <FluentTreeItem id="rose1">Rose</FluentTreeItem>
         </FluentTreeItem>
-        <FluentTreeItem>Nested item 2</FluentTreeItem>
-        <FluentTreeItem>Nested item 3</FluentTreeItem>
+        <FluentTreeItem id="nested12">Nested item 2</FluentTreeItem>
+        <FluentTreeItem id="nested13">Nested item 3</FluentTreeItem>
     </FluentTreeItem>
-    <FluentTreeItem>
+    <FluentTreeItem id="root2">
         Root item 2
         <FluentDivider></FluentDivider>
         <FluentTreeItem>
             Flowers
-            <FluentTreeItem Disabled="true">Daisy</FluentTreeItem>
-            <FluentTreeItem>Sunflower</FluentTreeItem>
-            <FluentTreeItem>Rose</FluentTreeItem>
+            <FluentTreeItem Disabled="true" id="daisy2">Daisy</FluentTreeItem>
+            <FluentTreeItem id="sunflower2">Sunflower</FluentTreeItem>
+            <FluentTreeItem id="rose2">Rose</FluentTreeItem>
         </FluentTreeItem>
-        <FluentTreeItem>Nested item 2</FluentTreeItem>
-        <FluentTreeItem>Nested item 3</FluentTreeItem>
+        <FluentTreeItem id="nested22">Nested item 2</FluentTreeItem>
+        <FluentTreeItem id="nested23">Nested item 3</FluentTreeItem>
     </FluentTreeItem>
-    <FluentTreeItem>
+    <FluentTreeItem id="root3">
         Root item 3 - Leaf Erikson
     </FluentTreeItem>
 </FluentTreeView>
