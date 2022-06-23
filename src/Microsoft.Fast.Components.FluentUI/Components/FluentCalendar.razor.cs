@@ -116,22 +116,20 @@ public partial class FluentCalendar : FluentComponentBase
 
     private async Task OnDateSelected(CalendarSelectEventArgs args)
     {
-        if (args.CalendarDateInfo.HasValue)
+        CalendarDateInfo di = args.CalendarDateInfo;
+
+        DateOnly date = DateOnly.FromDateTime(new(di.Year, di.Month, di.Day));
+
+        if (!SelectedDates.Contains(date) && (!di.Disabled || DisabledSelectable) && (di.Month == Month || OutOfMonthSelectable))
         {
-            CalendarDateInfo di = (CalendarDateInfo)args.CalendarDateInfo;
-            DateTime datetime = new(di.Year, di.Month, di.Day);
-            DateOnly date = DateOnly.FromDateTime(datetime);
-
-            if (!SelectedDates.Contains(date) && (!di.Disabled || DisabledSelectable) && (di.Month == Month || OutOfMonthSelectable))
-            {
-                SelectedDates.Add(date);
-            }
-
-            if (di.Selected && SelectedDates.Contains(date))
-            {
-                SelectedDates.Remove(date);
-            }
+            SelectedDates.Add(date);
         }
+
+        if (di.Selected && SelectedDates.Contains(date))
+        {
+            SelectedDates.Remove(date);
+        }
+
         await SelectedDatesChanged.InvokeAsync(SelectedDates);
 
     }
