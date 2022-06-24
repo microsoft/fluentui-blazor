@@ -1,6 +1,6 @@
 ﻿namespace Microsoft.Fast.Components.FluentUI;
 
-public class HorizontalScrollChangeEventArgs : EventArgs
+public class HorizontalScrollEventArgs : EventArgs
 {
     public int Scroll { get; set; }
 }
