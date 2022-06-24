@@ -20,6 +20,23 @@
 </FluentTabs>
 <p>Active tab: @active</p>
 
+<h4>Alternative</h4>
+<FluentTabs id="myTab2" @ontabchange="OnTabChange">
+    <FluentTab id="TabOne2">Tab one</FluentTab>
+    <FluentTab id="TabTwo2">Tab two</FluentTab>
+    <FluentTab id="TabThree2">Tab three</FluentTab>
+    <FluentTabPanel id="TabPanelOne2">
+        Tab one content. This is for testing.
+    </FluentTabPanel>
+    <FluentTabPanel id="TabPanelTwo2">
+        Tab two content. This is for testing.
+    </FluentTabPanel>
+    <FluentTabPanel id="TabPanelThree2">
+        Tab three content. This is for testing.
+    </FluentTabPanel>
+    <div>Testing</div>
+</FluentTabs>
+
 <h4>Vertical</h4>
 <FluentTabs Orientation="Orientation.Vertical">
     <FluentTab>Tab one</FluentTab>
@@ -123,4 +140,9 @@
 
 @code {
     string active = "TabTwo";   
+     
+    private void OnTabChange(TabChangeEventArgs args)
+    {
+        Console.WriteLine($"Tab changed to {args.ActiveId}");
+    }
 }
