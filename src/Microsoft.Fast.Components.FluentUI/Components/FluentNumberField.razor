@@ -5,7 +5,7 @@
 <fluent-number-field @ref=Element
                      autofocus="@Autofocus"
                      appearance="@Appearance.ToAttributeValue()"
-                     current-value="@BindConverter.FormatValue(CurrentValue)"
+                     current-value="@BindConverter.FormatValue(CurrentValue,CultureInfo.InvariantCulture)"
                      step="@Step"
                      min="@Min"
                      max="@Max"

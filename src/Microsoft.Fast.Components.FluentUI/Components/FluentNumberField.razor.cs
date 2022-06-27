@@ -79,14 +79,13 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
     public int MaxLength { get; set; } = 14;
 
     /// <summary>
-    /// Gets or sets the amount to increase/decrease the number with. Only use whole number when <see cref="Type">TValue</see> is int or long. 
+    /// Gets or sets the amount to increase/decrease the number with. Only use whole number when TValue is int or long. 
     /// </summary>
     [Parameter]
     public double Step { get; set; } = _stepAttributeValue;
 
-    private static readonly double _stepAttributeValue = GetStepAttributeValue();
-
-    private static double GetStepAttributeValue()
+    private readonly static double _stepAttributeValue;
+    static FluentNumberField()
     {
         // Unwrap Nullable<T>, because InputBase already deals with the Nullable aspect
         // of it for us. We will only get asked to parse the T for nonempty inputs.
@@ -98,7 +97,7 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
             targetType == typeof(double) ||
             targetType == typeof(decimal))
         {
-            return 1.0f;
+            _stepAttributeValue = 1;
         }
         else
         {
