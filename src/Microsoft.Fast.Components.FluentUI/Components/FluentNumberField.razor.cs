@@ -84,15 +84,21 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
     [Parameter]
     public double Step { get; set; } = _stepAttributeValue;
 
-    private readonly static double _stepAttributeValue;
-    static FluentNumberField()
+    private static readonly double _stepAttributeValue = GetStepAttributeValue();
+
+    private static double GetStepAttributeValue()
     {
         // Unwrap Nullable<T>, because InputBase already deals with the Nullable aspect
         // of it for us. We will only get asked to parse the T for nonempty inputs.
-        var targetType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
-        if (targetType == typeof(int) || targetType == typeof(long) || targetType == typeof(short) || targetType == typeof(float) || targetType == typeof(double) || targetType == typeof(decimal))
+        Type? targetType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
+        if (targetType == typeof(int) ||
+            targetType == typeof(long) ||
+            targetType == typeof(short) ||
+            targetType == typeof(float) ||
+            targetType == typeof(double) ||
+            targetType == typeof(decimal))
         {
-            _stepAttributeValue = 1;
+            return 1.0f;
         }
         else
         {
@@ -137,7 +143,8 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
 
     public static string GetMaxValue()
     {
-        TypeCode typeCode = Type.GetTypeCode(typeof(TValue));
+        Type? targetType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
+        TypeCode typeCode = Type.GetTypeCode(targetType);
         string value = typeCode switch
         {
             TypeCode.Decimal => decimal.MaxValue.ToString("G12", CultureInfo.InvariantCulture),
@@ -158,7 +165,9 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
 
     public static string GetMinValue()
     {
-        TypeCode typeCode = Type.GetTypeCode(typeof(TValue));
+        Type? targetType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
+        TypeCode typeCode = Type.GetTypeCode(targetType);
+
         string value = typeCode switch
         {
 
