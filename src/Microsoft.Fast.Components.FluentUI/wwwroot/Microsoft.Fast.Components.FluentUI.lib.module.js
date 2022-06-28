@@ -55,6 +55,14 @@
             };
         }
     });
+    Blazor.registerCustomEventType('menuchange', {
+        browserEventName: 'change',
+        createEventArgs: event => {
+            return {
+                event: event
+            };
+        }
+    });
     Blazor.registerCustomEventType('scrollstart', {
         browserEventName: 'scrollstart',
         createEventArgs: event => {

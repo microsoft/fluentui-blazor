@@ -10,6 +10,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 [EventHandler("ondateselected", typeof(CalendarSelectEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("onaccordionchange", typeof(AccordionChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("ondismiss", typeof(EventArgs), enableStopPropagation: true, enablePreventDefault: true)]
+[EventHandler("onmenuchange", typeof(EventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("onscrollstart", typeof(HorizontalScrollChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("onscrollend", typeof(HorizontalScrollChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("oncellfocused", typeof(DataGridCellFocusedEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
