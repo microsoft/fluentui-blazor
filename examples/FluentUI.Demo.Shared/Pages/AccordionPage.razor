@@ -1,62 +1,57 @@
 @page "/AccordionPage"
 <h1>Accordion</h1>
 <h4>Default</h4>
-<FluentAccordion @bind-ActiveId="@active">
-    <FluentAccordionItem Expanded="true" id="AccOne">
+<FluentAccordion ActiveId="@activeId" OnAccordionItemChange="HandleOnAccordionItemChange">
+    <FluentAccordionItem Expanded="true" Heading="Panel one">
         <div slot="start">
             <button>1</button>
         </div>
         <div slot="end">
             <button>1</button>
         </div>
-        <span slot="heading">Panel one</span>
         Panel one content
     </FluentAccordionItem>
-    <FluentAccordionItem id="AccTwo">
-        <span slot="heading">Panel two</span>
+    <FluentAccordionItem Heading="Panel two">
         Panel two content
     </FluentAccordionItem>
-    <FluentAccordionItem Expanded="true" id="AccThree">
-        <span slot="heading">Panel three</span>
+    <FluentAccordionItem Expanded="true" Heading="Panel three">
         Panel three content
     </FluentAccordionItem>
 </FluentAccordion>
-<p>Active accordion item: @active</p>
+
+<p>Last changed accordion item: @changed?.Heading</p>
 
 <h4>Single expand</h4>
 <FluentAccordion ExpandMode="ExpandMode.Single">
-    <FluentAccordionItem>
+    <FluentAccordionItem Heading="Panel one">
         <div slot="start">
             <button>1</button>
         </div>
         <div slot="end">
             <button>1</button>
         </div>
-        <span slot="heading">Panel one</span>
         Panel one content
     </FluentAccordionItem>
-    <FluentAccordionItem >
-        <span slot="heading">Panel Two</span>
+    <FluentAccordionItem Heading="Panel two">
         Panel two content
     </FluentAccordionItem>
-    <FluentAccordionItem>
-        <span slot="heading">Panel three</span>
+    <FluentAccordionItem Heading="Panel three">
         Panel three content
     </FluentAccordionItem>
 </FluentAccordion>
+
 <h4>With disabled item</h4>
 <FluentAccordion>
-    <FluentAccordionItem>
+    <FluentAccordionItem Heading="Panel one">
         <div slot="start">
             <button>1</button>
         </div>
         <div slot="end">
             <button>1</button>
         </div>
-        <span slot="heading">Panel two</span>
        Panel one content
     </FluentAccordionItem>
-    <FluentAccordionItem class="disabled">
+    <FluentAccordionItem class="disabled" Heading="Panel two">
         <div slot="start">
             <button>1</button>
         </div>
@@ -65,18 +60,24 @@
         </div>
         Disabled content
     </FluentAccordionItem>
-    <FluentAccordionItem Expanded="true">
+    <FluentAccordionItem Expanded="true" Heading="Panel three">
         <div slot="start">
             <button>1</button>
         </div>
         <div slot="end">
             <button>1</button>
         </div>
-        <span slot="heading">Panel three</span>
         Panel three content
     </FluentAccordionItem>
 </FluentAccordion>
 
 @code {
-    string active = "AccTwo";
+    string activeId = "accordion-1";
+
+    FluentAccordionItem? changed;
+
+    private void HandleOnAccordionItemChange(FluentAccordionItem item)
+    {
+        changed = item;
+    }
 }

@@ -11,7 +11,8 @@
         browserEventName: 'change',
         createEventArgs: event => {
             return {
-                activeId: event.detail.id
+                activeId: event.detail.id,
+                affectedId: event.detail.attributes['tab-id'].value
             };
         }
     });
@@ -19,7 +20,7 @@
         browserEventName: 'selected-change',
         createEventArgs: event => {
             return {
-                affectedItemId: event.detail.attributes['tree-item-id'].value
+                affectedId: event.detail.attributes['tree-item-id'].value
             };
         }
     });
@@ -27,7 +28,7 @@
         browserEventName: 'expanded-change',
         createEventArgs: event => {
             return {
-                affectedItemId: event.detail.attributes['tree-item-id'].value
+                affectedId: event.detail.attributes['tree-item-id'].value
             };
         }
     });
@@ -43,7 +44,8 @@
         browserEventName: 'change',
         createEventArgs: event => {
             return {
-                activeId: event.detail.id
+                activeId: event.detail.id,
+                affectedId: event.detail.attributes['accordion-item-id'].value
             };
         }
     });

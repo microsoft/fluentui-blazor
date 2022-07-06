@@ -30,7 +30,7 @@ public partial class FluentTreeView : FluentComponentBase
 
     public async Task HandleOnSelectedChanged(TreeChangeEventArgs args)
     {
-        string? treeItemId = args.AffectedItemId;
+        string? treeItemId = args.AffectedId;
         if (items.TryGetValue(treeItemId!, out FluentTreeItem? treeItem))
         {
             await CurrentSelectedChanged.InvokeAsync(treeItem);
@@ -40,7 +40,7 @@ public partial class FluentTreeView : FluentComponentBase
 
     public async Task HandleOnExpandedChanged(TreeChangeEventArgs args)
     {
-        string? treeItemId = args.AffectedItemId;
+        string? treeItemId = args.AffectedId;
         if (items.TryGetValue(treeItemId!, out FluentTreeItem? treeItem))
         {
             await OnExpandedChange.InvokeAsync(treeItem);
