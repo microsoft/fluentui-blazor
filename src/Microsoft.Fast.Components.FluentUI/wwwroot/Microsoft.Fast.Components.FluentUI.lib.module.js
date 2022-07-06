@@ -19,7 +19,7 @@
         browserEventName: 'selected-change',
         createEventArgs: event => {
             return {
-                affectedItem: event.detail.id
+                affectedItemId: event.detail.attributes['tree-item-id'].value
             };
         }
     });
@@ -27,7 +27,7 @@
         browserEventName: 'expanded-change',
         createEventArgs: event => {
             return {
-                affectedItem: event.detail.id
+                affectedItemId: event.detail.attributes['tree-item-id'].value
             };
         }
     });

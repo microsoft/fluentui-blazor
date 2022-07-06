@@ -1,36 +1,30 @@
 @page "/TreeViewPage"
 <h4>With items (don't render collapsed nodes)</h4>
-<FluentTreeView @bind-CurrentSelected="@currentSelected" @bind-CurrentExpanded="@currentExpanded">
-    <FluentTreeItem id="root1">
-        Root item 1
-        <FluentTreeItem id="flowers1">
-            Flowers
-            <FluentTreeItem Disabled="true" id="daisy1">Daisy</FluentTreeItem>
-            <FluentTreeItem id="sunflower1">Sunflower</FluentTreeItem>
-            <FluentTreeItem id="rose1">Rose</FluentTreeItem>
+<FluentTreeView @bind-CurrentSelected=currentSelected OnExpandedChange="HandleOnExpandedChanged">
+    <FluentTreeItem Text="Root item 1">
+        <FluentTreeItem Text="Flowers">
+            <FluentTreeItem Disabled="true" Text="Daisy" />
+            <FluentTreeItem Text="Sunflower" />
+            <FluentTreeItem Text="Rose" />
         </FluentTreeItem>
-        <FluentTreeItem id="nested12">Nested item 2</FluentTreeItem>
-        <FluentTreeItem id="nested13">Nested item 3</FluentTreeItem>
+        <FluentTreeItem Text="Nested item 2" />
+        <FluentTreeItem Text="Nested item 3" />
     </FluentTreeItem>
-    <FluentTreeItem id="root2">
-        Root item 2
+    <FluentTreeItem Text="Root item 2" >
         <FluentDivider></FluentDivider>
-        <FluentTreeItem id="flowers2">
-            Flowers
-            <FluentTreeItem Disabled="true" id="daisy2">Daisy</FluentTreeItem>
-            <FluentTreeItem id="sunflower2">Sunflower</FluentTreeItem>
-            <FluentTreeItem id="rose2">Rose</FluentTreeItem>
+        <FluentTreeItem Text="Flowers">
+             <FluentTreeItem Disabled="true" Text="Daisy" />
+            <FluentTreeItem Text="Sunflower" />
+            <FluentTreeItem Text="Rose" />
         </FluentTreeItem>
-        <FluentTreeItem id="nested22">Nested item 2</FluentTreeItem>
-        <FluentTreeItem id="nested23">Nested item 3</FluentTreeItem>
+        <FluentTreeItem Text="Nested item 2" />
+        <FluentTreeItem Text="Nested item 3" />
     </FluentTreeItem>
-    <FluentTreeItem id="root3">
-        Root item 3 - Leaf Erikson
-    </FluentTreeItem>
+    <FluentTreeItem Text="Root item 3 - Leaf Erikson" />
 </FluentTreeView>
 
-<p>Current selected tree item is @currentSelected?.ToString()</p>
-<p>Current expanded tree item is @currentExpanded?.ToString()</p>
+<p>Current selected tree item is @currentSelected?.Text</p>
+<p>Current expanded/collapsed tree item is @currentAffected?.Text</p>
 
 <h4>Flat tree</h4>
 <FluentTreeView RenderCollapsedNodes=true>
@@ -121,6 +115,11 @@
 </FluentTreeView>
 
 @code {
-    string? currentSelected;
-    string? currentExpanded;
+    FluentTreeItem? currentSelected;
+    FluentTreeItem? currentAffected;
+    
+    private void HandleOnExpandedChanged(FluentTreeItem item)
+    {
+        currentAffected = item;
+    }
 }
