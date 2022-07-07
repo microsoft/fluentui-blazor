@@ -6,7 +6,7 @@ public enum Orientation
     Vertical
 }
 
-internal static class OrientationExtensions
+public static class OrientationExtensions
 {
     private static readonly Dictionary<Orientation, string> _orientationValues =
         Enum.GetValues<Orientation>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());

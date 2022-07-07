@@ -33,16 +33,16 @@ public partial class FluentCombobox<TValue> : FluentInputBase<TValue>
     public bool? Required { get; set; }
 
     /// <summary>
-    /// Gets or sets if the element is auto completes
+    /// Gets or sets if the element is auto completes. See <seealso cref="FluentUI.ComboboxAutocomplete"/>
     /// </summary>
     [Parameter]
-    public Autocomplete? Autocomplete { get; set; }
+    public ComboboxAutocomplete? Autocomplete { get; set; }
 
     /// <summary>
-    /// Gets or sets if the position of the element. See <seealso cref="FluentUI.Position"/>
+    /// Gets or sets if the position of the element. See <seealso cref="FluentUI.SelectPosition"/>
     /// </summary>
     [Parameter]
-    public Position? Position { get; set; }
+    public SelectPosition? Position { get; set; }
 
     /// <summary>
     /// Gets or set the list of <see cref="Option{TValue}"/> items 

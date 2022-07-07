@@ -231,12 +231,12 @@
 </FluentHorizontalScroll>
 
 @code {
-    private void OnHorizontalScrollStart(HorizontalScrollChangeEventArgs args)
+    private void OnHorizontalScrollStart(HorizontalScrollEventArgs args)
     {
         Console.WriteLine($"{args.Scroll}");
     }
     
-    private void OnHorizontalScrollEnd(HorizontalScrollChangeEventArgs args)
+    private void OnHorizontalScrollEnd(HorizontalScrollEventArgs args)
     {
         Console.WriteLine($"{args.Scroll}");
     }

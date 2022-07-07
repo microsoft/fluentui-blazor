@@ -9,7 +9,7 @@ public enum HorizontalPosition
     Right
 }
 
-internal static class HorizontalDefaultPositionExtensions
+public static class HorizontalDefaultPositionExtensions
 {
     private static readonly Dictionary<HorizontalPosition, string> _positionValues =
         Enum.GetValues<HorizontalPosition>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());

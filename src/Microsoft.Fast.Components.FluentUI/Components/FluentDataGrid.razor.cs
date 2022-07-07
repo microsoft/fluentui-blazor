@@ -4,10 +4,10 @@ namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentDataGrid<TItem> : FluentComponentBase
 {
     /// <summary>
-    /// Gets or sets the <see cref="GenerateHeaderOptions"/>
+    /// Gets or sets the <see cref="GenerateHeaderOption"/>
     /// </summary>
     [Parameter]
-    public GenerateHeaderOptions? GenerateHeader { get; set; } = GenerateHeaderOptions.Default;
+    public GenerateHeaderOption? GenerateHeader { get; set; } = GenerateHeaderOption.Default;
 
     /// <summary>
     /// Gets or sets the value that gets applied to the css gridTemplateColumns attribute of child rows

@@ -7,7 +7,7 @@ public enum LocalizationDirection
     rtl
 }
 
-internal static class LocalizationDirectionExtensions
+public static class LocalizationDirectionExtensions
 {
     private static readonly Dictionary<LocalizationDirection, string> _directionValues =
         Enum.GetValues<LocalizationDirection>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());

@@ -7,7 +7,7 @@ public enum DataGridCellType
     RowHeader
 }
 
-internal static class CellTypeExtensions
+public static class CellTypeExtensions
 {
     private static readonly Dictionary<DataGridCellType, string> _cellTypeValues =
         Enum.GetValues<DataGridCellType>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());

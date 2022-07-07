@@ -16,10 +16,10 @@ public partial class FluentAnchoredRegion : FluentComponentBase
     public string? Viewport { get; set; }
 
     /// <summary>
-    /// Default is 'uncontrolled'. See <seealso cref="Positioning"/>
+    /// Default is 'uncontrolled'. See <seealso cref="AxisPositioningMode"/>
     /// </summary>
     [Parameter]
-    public Positioning? HorizontalPositioningMode { get; set; } = Positioning.Uncontrolled;
+    public AxisPositioningMode? HorizontalPositioningMode { get; set; } = AxisPositioningMode.Uncontrolled;
 
     /// <summary>
     /// Default is 'unset'. See <seealso cref="HorizontalPosition"/>
@@ -40,16 +40,16 @@ public partial class FluentAnchoredRegion : FluentComponentBase
     public int HorizontalThreshold { get; set; }
 
     /// <summary>
-    /// Default is "Content". See <seealso cref="Scaling"/>
+    /// Default is "Content". See <seealso cref="AxisScalingMode"/>
     /// </summary>
     [Parameter]
-    public Scaling? HorizontalScaling { get; set; } = Scaling.Content;
+    public AxisScalingMode? HorizontalScaling { get; set; } = AxisScalingMode.Content;
 
     /// <summary>
-    /// Default is "Uncontrolled". See <seealso cref="Positioning"/>
+    /// Default is "Uncontrolled". See <seealso cref="AxisPositioningMode"/>
     /// </summary>
     [Parameter]
-    public Positioning? VerticalPositioningMode { get; set; } = Positioning.Uncontrolled;
+    public AxisPositioningMode? VerticalPositioningMode { get; set; } = AxisPositioningMode.Uncontrolled;
 
     /// <summary>
     /// Default is "Unset".See <seealso cref="VerticalPosition"/>
@@ -70,14 +70,14 @@ public partial class FluentAnchoredRegion : FluentComponentBase
     public int VerticalThreshold { get; set; }
 
     /// <summary>
-    /// Default is "Content". See <seealso cref="Scaling"/>
+    /// Default is "Content". See <seealso cref="AxisScalingMode"/>
     /// </summary>
     [Parameter]
-    public Scaling? VerticalScaling { get; set; } = Scaling.Content;
+    public AxisScalingMode? VerticalScaling { get; set; } = AxisScalingMode.Content;
 
     /// <summary>
-    /// Default is "Anchor". In 'anchor' mode only anchor resizes and attribute changes will provoke an update. In 'auto' mode the component also updates because of - any scroll event on the document, window resizes and viewport resizes. See <seealso cref="UpdateMode"/>
+    /// Default is "Anchor". In 'anchor' mode only anchor resizes and attribute changes will provoke an update. In 'auto' mode the component also updates because of - any scroll event on the document, window resizes and viewport resizes. See <seealso cref="AutoUpdateMode"/>
     /// </summary>
     [Parameter]
-    public UpdateMode? AutoUpdateMode { get; set; } = UpdateMode.Anchor;
+    public AutoUpdateMode? UpdateMode { get; set; } = FluentUI.AutoUpdateMode.Anchor;
 }

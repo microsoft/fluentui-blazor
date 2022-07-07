@@ -6,7 +6,7 @@ public enum Shape
     Circle
 }
 
-internal static class ShapeExtensions
+public static class ShapeExtensions
 {
     private static readonly Dictionary<Shape, string> _orientationValues =
         Enum.GetValues<Shape>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());

@@ -11,9 +11,9 @@ public partial class FluentFlipper : FluentComponentBase
     public bool? Disabled { get; set; }
 
     /// <summary>
-    /// Gets or sets the direction. See <see cref="FluentUI.Direction"/>
+    /// Gets or sets the direction. See <see cref="FluentUI.FlipperDirection"/>
     /// </summary>
 
     [Parameter]
-    public Direction? Direction { get; set; }
+    public FlipperDirection? Direction { get; set; }
 }
