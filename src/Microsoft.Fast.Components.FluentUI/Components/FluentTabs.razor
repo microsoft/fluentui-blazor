@@ -3,7 +3,7 @@
 <CascadingValue Value="this" IsFixed="true">
     <fluent-tabs orientation=@Orientation.ToAttributeValue()
                  activeid=@ActiveId
-                 activeindicator="@(ActiveIndicator)"
+                 activeindicator="@(ActiveIndicator.ToString().ToLower())"
                  @ontabchange="HandleOnTabChanged"
                  @attributes="AdditionalAttributes">
         @ChildContent
