@@ -9,7 +9,7 @@ public enum TextFieldType
     Url
 }
 
-internal static class TextFieldTypeExtensions
+public static class TextFieldTypeExtensions
 {
     private static readonly Dictionary<TextFieldType, string> _textFieldTypeValues =
         Enum.GetValues<TextFieldType>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());

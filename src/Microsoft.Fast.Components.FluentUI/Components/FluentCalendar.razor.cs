@@ -1,17 +1,21 @@
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
+
+
+
 public partial class FluentCalendar : FluentComponentBase
 {
-    private string? disabledDates = null;
-    private string? selectedDates = null;
+    private string? disabledDatesAsString = null;
+    private string? selectedDatesAsString = null;
+
+    private List<DateOnly> _selectedDates = new();
 
     /// <summary>
     /// Gets or sets if the calendar is readonly 
     /// </summary>
     [Parameter]
-    public bool? Readonly { get; set; }
-
+    public bool Readonly { get; set; } = false;
 
     /// <summary>
     /// Gets or sets the month of the calendar to display
@@ -61,6 +65,17 @@ public partial class FluentCalendar : FluentComponentBase
     [Parameter]
     public int MinWeeks { get; set; } = 4;
 
+    /// <summary>
+    /// Gets or sets whether disabled dates are selectable
+    /// </summary>
+    [Parameter]
+    public bool DisabledSelectable { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets whether dates outside of shown month are selectable
+    /// </summary>
+    [Parameter]
+    public bool OutOfMonthSelectable { get; set; } = true;
 
     /// <summary>
     /// Gets or sets dates to be shown as disabled.
@@ -70,7 +85,7 @@ public partial class FluentCalendar : FluentComponentBase
     {
         get
         {
-            return disabledDates!.Split(",").Select(x =>
+            return disabledDatesAsString!.Split(",").Select(x =>
             {
                 _ = DateOnly.TryParse(x, out DateOnly d);
                 return d;
@@ -78,7 +93,7 @@ public partial class FluentCalendar : FluentComponentBase
         }
         set
         {
-            disabledDates = string.Join(",", value!.Select(x => x.ToString("M-d-yyyy")));
+            disabledDatesAsString = string.Join(",", value!.OrderBy(d => d.DayNumber).Select(x => x.ToString("M-d-yyyy")));
         }
     }
 
@@ -86,19 +101,36 @@ public partial class FluentCalendar : FluentComponentBase
     /// Gets or sets dates to be shown as selected
     /// </summary>
     [Parameter]
-    public IEnumerable<DateOnly>? SelectedDates
+    public List<DateOnly> SelectedDates
     {
-        get
-        {
-            return selectedDates!.Split(",").Select(x =>
-            {
-                _ = DateOnly.TryParse(x, out DateOnly d);
-                return d;
-            });
-        }
+        get => _selectedDates;
         set
         {
-            selectedDates = string.Join(",", value!.Select(x => x.ToString("M-d-yyyy")));
+            _selectedDates = value.OrderBy(d => d.DayNumber).ToList();
+            selectedDatesAsString = string.Join(",", _selectedDates.Select(x => x.ToString("M-d-yyyy")));
         }
+    }
+
+    [Parameter]
+    public EventCallback<List<DateOnly>> SelectedDatesChanged { get; set; }
+
+    private async Task OnDateSelected(CalendarSelectEventArgs args)
+    {
+        CalendarDateInfo di = args.CalendarDateInfo;
+
+        DateOnly date = DateOnly.FromDateTime(new(di.Year, di.Month, di.Day));
+
+        if (!SelectedDates.Contains(date) && (!di.Disabled || DisabledSelectable) && (di.Month == Month || OutOfMonthSelectable))
+        {
+            SelectedDates.Add(date);
+        }
+
+        if (di.Selected && SelectedDates.Contains(date))
+        {
+            SelectedDates.Remove(date);
+        }
+
+        await SelectedDatesChanged.InvokeAsync(SelectedDates);
+
     }
 }

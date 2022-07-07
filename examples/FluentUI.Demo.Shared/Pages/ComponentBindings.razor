@@ -29,17 +29,22 @@
                 </FluentSelect>
             </div>
             <div>
-                <FluentTextField Name="TextFieldValue" @bind-Value="Form.TextFieldValue">
+                <FluentTextField name="TextFieldValue" @bind-Value="Form.TextFieldValue">
                     Text Field Value
                 </FluentTextField>
             </div>
             <div>
-                <FluentNumberField Name="NumberFieldValue" @bind-Value="Form.NumberFieldValue">
+                <FluentSearch name="SearchValue" @bind-Value="Form.SearchValue">
+                    Search Value
+                </FluentSearch>
+            </div>
+            <div>
+                <FluentNumberField name="NumberFieldValue" @bind-Value="Form.NumberFieldValue">
                     Number Field Value
                 </FluentNumberField>
             </div>
             <div>
-                <FluentTextField Name="TextAreaValue" @bind-Value="Form.TextAreaValue">
+                <FluentTextField name="TextAreaValue" @bind-Value="Form.TextAreaValue">
                     TextArea Value
                 </FluentTextField>
             </div>
@@ -77,7 +82,7 @@
                 </FluentRadioGroup>
             </div>
             <div>
-                <FluentCheckbox Name="CheckboxValue" @bind-Value="Form.CheckboxValue">
+                <FluentCheckbox name="CheckboxValue" @bind-Value="Form.CheckboxValue">
                     Checkbox Value
                 </FluentCheckbox>
             </div>
@@ -120,7 +125,7 @@
                     </span>
                 </div>
                 <div>
-                    <FluentTextField Name="TextFieldValue" @bind-Value="Form.TextFieldValue">
+                    <FluentTextField name="TextFieldValue" @bind-Value="Form.TextFieldValue">
                         Text Field Value
                     </FluentTextField>
                     <span>
@@ -128,7 +133,15 @@
                     </span>
                 </div>
                 <div>
-                    <FluentNumberField Name="NumberFieldValue" @bind-Value="Form.NumberFieldValue">
+                    <FluentSearch name="SearchValue" @bind-Value="Form.SearchValue">
+                        Search Value
+                    </FluentSearch>
+                    <span>
+                        <ValidationMessage For="() => Form.SearchValue" />
+                    </span>
+                </div>
+                <div>
+                    <FluentNumberField name="NumberFieldValue" @bind-Value="Form.NumberFieldValue">
                         Number Field Value
                     </FluentNumberField>
                     <span>
@@ -136,7 +149,7 @@
                     </span>
                 </div>
                 <div>
-                    <FluentTextField Name="TextAreaValue" @bind-Value="Form.TextAreaValue">
+                    <FluentTextField name="TextAreaValue" @bind-Value="Form.TextAreaValue">
                         TextArea Value
                     </FluentTextField>
                     <span>
@@ -177,7 +190,7 @@
                     </FluentRadioGroup>
                 </div>
                 <div>
-                    <FluentCheckbox Name="CheckboxValue" @bind-Value="Form.CheckboxValue">
+                    <FluentCheckbox name="CheckboxValue" @bind-Value="Form.CheckboxValue">
                         Checkbox Value
                     </FluentCheckbox>
                 </div>
@@ -209,6 +222,8 @@
             <dd>@Form.SelectValue</dd>
             <dt>Text field</dt>
             <dd>@Form.TextFieldValue</dd>
+            <dt>Search</dt>
+            <dd>@Form.SearchValue</dd>
             <dt>Number field</dt>
             <dd>@Form.NumberFieldValue</dd>
             <dt>Text area</dt>
@@ -249,9 +264,12 @@
 
         [Required]
         public string? TextFieldValue { get; set; }
+        
+        [Required]
+        public string? SearchValue { get; set; }
 
         [Required]
-        public int? NumberFieldValue { get; set; }
+        public int NumberFieldValue { get; set; }
 
         [Required]
         public string? TextAreaValue { get; set; }

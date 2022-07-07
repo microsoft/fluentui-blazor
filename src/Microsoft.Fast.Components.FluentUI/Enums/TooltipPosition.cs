@@ -10,7 +10,7 @@ public enum TooltipPosition
     End
 }
 
-internal static class TooltipPositionExtensions
+public static class TooltipPositionExtensions
 {
     private static readonly Dictionary<TooltipPosition, string> _tooltipPositionValues =
         Enum.GetValues<TooltipPosition>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());

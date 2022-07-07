@@ -1,5 +1,6 @@
 ﻿namespace Microsoft.Fast.Components.FluentUI;
 
+[Obsolete("Use AxisScalingMode instead", true)]
 public enum Scaling
 {
     Content,
@@ -7,6 +8,7 @@ public enum Scaling
     Anchor
 }
 
+[Obsolete("Use AxisScalingModeExtensions instead", true)]
 internal static class ScalingExtensions
 {
     private static readonly Dictionary<Scaling, string> _scalingValues =

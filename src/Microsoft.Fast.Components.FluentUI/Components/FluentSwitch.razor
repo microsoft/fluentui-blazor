@@ -2,7 +2,7 @@
 <fluent-switch @ref=Element
                disabled="@Disabled"
                current-checked="@CurrentValue"
-               @onfluentcheckedchange="(__value) => CurrentValue = __value.Checked"
+               @oncheckedchange="(__value) => CurrentValue = __value.Checked"
                required="@Required"
                @attributes="AdditionalAttributes">
     @ChildContent

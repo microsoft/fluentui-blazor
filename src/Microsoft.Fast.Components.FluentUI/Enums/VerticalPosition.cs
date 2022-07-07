@@ -7,7 +7,7 @@ public enum VerticalPosition
     Bottom
 }
 
-internal static class VerticalDefaultPositionExtensions
+public static class VerticalDefaultPositionExtensions
 {
     private static readonly Dictionary<VerticalPosition, string> _positionValues =
         Enum.GetValues<VerticalPosition>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());

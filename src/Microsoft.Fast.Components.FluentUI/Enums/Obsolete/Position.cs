@@ -1,11 +1,13 @@
 ﻿namespace Microsoft.Fast.Components.FluentUI;
 
+[Obsolete("Use SelectPosition instead", true)]
 public enum Position
 {
     Above,
     Below
 }
 
+[Obsolete("Use SelectPositionExtensions instead", true)]
 internal static class PositionExtensions
 {
     private static readonly Dictionary<Position, string> _positionValues =

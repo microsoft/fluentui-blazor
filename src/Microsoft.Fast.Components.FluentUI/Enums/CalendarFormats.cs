@@ -40,7 +40,7 @@ public enum YearFormat
     Numeric
 }
 
-internal static class CalendarFormatExtensions
+public static class CalendarFormatsExtensions
 {
     // DayFormat extension
     private static readonly Dictionary<DayFormat, string> _dayFormatValues =

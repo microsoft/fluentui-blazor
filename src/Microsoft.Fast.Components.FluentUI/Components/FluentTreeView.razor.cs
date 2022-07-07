@@ -5,8 +5,37 @@ namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentTreeView : FluentComponentBase
 {
     /// <summary>
-    /// Gets or sets wether to render collapsed nodes
+    /// Gets or sets whether the tree should render nodes under collapsed items
+    /// Defaults to 'false'
     /// </summary>
     [Parameter]
-    public bool? RenderCollapsedNodes { get; set; }
+    public bool RenderCollapsedNodes { get; set; } = false;
+
+    /// <summary>
+    /// Gets or sets the currently selected tree item
+    /// </summary>
+    [Parameter]
+    public string? CurrentSelected { get; set; }
+
+    [Parameter]
+    public EventCallback<string?> CurrentSelectedChanged { get; set; }
+
+    private async Task OnSelectedChange(TreeChangeEventArgs args)
+    {
+        await CurrentSelectedChanged.InvokeAsync(args.AffectedItem);
+    }
+
+    /// <summary>
+    /// Gets or sets the currently selected tree item
+    /// </summary>
+    [Parameter]
+    public string? CurrentExpanded { get; set; }
+
+    [Parameter]
+    public EventCallback<string?> CurrentExpandedChanged { get; set; }
+
+    private async Task OnExpandedChange(TreeChangeEventArgs args)
+    {
+        await CurrentExpandedChanged.InvokeAsync(args.AffectedItem);
+    }
 }

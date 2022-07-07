@@ -1,11 +1,13 @@
 ﻿namespace Microsoft.Fast.Components.FluentUI;
 
+[Obsolete("Use AutoUpdateMode instead", true)]
 public enum UpdateMode
 {
     Anchor,
     Auto
 }
 
+[Obsolete("Use AutoUpdateModeExtensions instead", true)]
 internal static class UpdateModeExtensions
 {
     private static readonly Dictionary<UpdateMode, string> _updateModeValues =

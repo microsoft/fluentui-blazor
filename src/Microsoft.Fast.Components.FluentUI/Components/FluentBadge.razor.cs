@@ -7,13 +7,19 @@ public partial class FluentBadge : FluentComponentBase
     /// Gets or sets the color
     /// </summary>
     [Parameter]
-    public Color? Color { get; set; }
+    public string? Color { get; set; }
 
     /// <summary>
     /// Gets or sets the background color
     /// </summary>
     [Parameter]
-    public Fill? Fill { get; set; }
+    public string? Fill { get; set; }
+
+    /// <summary>
+    /// Gets or sets if the badge is rendered circular
+    /// </summary>
+    [Parameter]
+    public bool Circular { get; set; } = false;
 
     /// <summary>
     /// Gets or sets the visual appearance. See <seealso cref="FluentUI.Appearance"/>

@@ -7,7 +7,7 @@ public enum Resize
     Both
 }
 
-internal static class ResizeExtensions
+public static class ResizeExtensions
 {
     private static readonly Dictionary<Resize, string> _resizeValues =
         Enum.GetValues<Resize>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());

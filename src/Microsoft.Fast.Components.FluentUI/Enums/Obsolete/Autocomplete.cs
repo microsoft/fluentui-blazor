@@ -1,5 +1,6 @@
 namespace Microsoft.Fast.Components.FluentUI;
 
+[Obsolete("Use ComboboxAutoComplete instead", true)]
 public enum Autocomplete
 {
     Inline,
@@ -7,6 +8,7 @@ public enum Autocomplete
     Both
 }
 
+[Obsolete("Use ComboboxAutoCompleteExtensions instead", true)]
 internal static class AutocompleteExtensions
 {
     private static readonly Dictionary<Autocomplete, string> _autocompleteValues =

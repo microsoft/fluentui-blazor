@@ -1,7 +1,9 @@
 @page "/TabsPage"
+
+
 <h1>Tabs</h1>
 <h4>Default</h4>
-<FluentTabs id="myTab" activeId="TabTwo">
+<FluentTabs id="myTab" @bind-ActiveId="@active">
     <FluentTab id="TabOne">Tab one</FluentTab>
     <FluentTab id="TabTwo">Tab two</FluentTab>
     <FluentTab id="TabThree">Tab three</FluentTab>
@@ -16,6 +18,25 @@
     </FluentTabPanel>
     <div>Testing</div>
 </FluentTabs>
+<p>Active tab: @active</p>
+
+<h4>Alternative</h4>
+<FluentTabs id="myTab2" @ontabchange="OnTabChange">
+    <FluentTab id="TabOne2">Tab one</FluentTab>
+    <FluentTab id="TabTwo2">Tab two</FluentTab>
+    <FluentTab id="TabThree2">Tab three</FluentTab>
+    <FluentTabPanel id="TabPanelOne2">
+        Tab one content. This is for testing.
+    </FluentTabPanel>
+    <FluentTabPanel id="TabPanelTwo2">
+        Tab two content. This is for testing.
+    </FluentTabPanel>
+    <FluentTabPanel id="TabPanelThree2">
+        Tab three content. This is for testing.
+    </FluentTabPanel>
+    <div>Testing</div>
+</FluentTabs>
+
 <h4>Vertical</h4>
 <FluentTabs Orientation="Orientation.Vertical">
     <FluentTab>Tab one</FluentTab>
@@ -82,7 +103,7 @@
     </FluentTabPanel>
 </FluentTabs>
 <h4>No active indicator</h4>
-<FluentTabs ActiveIndicator="false" activeId="TabTwo">
+<FluentTabs ActiveIndicator=false activeId="TabTwo">
     <FluentTab id="TabOne">Tab one</FluentTab>
     <FluentTab id="TabTwo">Tab two</FluentTab>
     <FluentTab id="TabThree">Tab three</FluentTab>
@@ -97,10 +118,11 @@
     </FluentTabPanel>
 </FluentTabs>
 <h4>No active indicator - Vertical</h4>
-<FluentTabs ActiveIndicator="false" Orientation="Orientation.Vertical">
-    <FluentTab>Tab one</FluentTab>
-    <FluentTab>Tab two</FluentTab>
-    <FluentTab>Tab three</FluentTab>
+<FluentTabs ActiveIndicator=false ActiveId="tab3" Orientation="Orientation.Vertical" >
+    <FluentTab id="tab1" >Tab one</FluentTab>
+    <FluentTab id="tab2">Tab two</FluentTab>
+    <FluentTab id="tab3">Tab three</FluentTab>
+    <FluentTab id="tab4" Disabled=true>Tab four</FluentTab>
     <FluentTabPanel>
         Tab one content. This is for testing.
     </FluentTabPanel>
@@ -110,4 +132,17 @@
     <FluentTabPanel>
         Tab three content. This is for testing.
     </FluentTabPanel>
+    <FluentTabPanel>
+        Tab four content. This is for testing.
+    </FluentTabPanel>
 </FluentTabs>
+
+
+@code {
+    string active = "TabTwo";   
+     
+    private void OnTabChange(TabChangeEventArgs args)
+    {
+        Console.WriteLine($"Tab changed to {args.ActiveId}");
+    }
+}

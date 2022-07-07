@@ -1,10 +1,12 @@
 namespace Microsoft.Fast.Components.FluentUI;
 
+[Obsolete("Use AccordionExpandMode instead", true)]
 public enum ExpandMode
 {
     Single
 }
 
+[Obsolete("Use AccordionExpandModeExtensions instead", true)]
 internal static class ExpandModeExtensions
 {
     private static readonly Dictionary<ExpandMode, string> _expandModeValues =
