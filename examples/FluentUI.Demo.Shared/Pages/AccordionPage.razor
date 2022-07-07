@@ -1,7 +1,7 @@
 @page "/AccordionPage"
 <h1>Accordion</h1>
 <h4>Default</h4>
-<FluentAccordion ActiveId="@activeId" OnAccordionItemChange="HandleOnAccordionItemChange">
+<FluentAccordion ActiveId="@activeId" > @*OnAccordionItemChange="HandleOnAccordionItemChange"*@
     <FluentAccordionItem Expanded="true" Heading="Panel one">
         <div slot="start">
             <button>1</button>
@@ -21,32 +21,9 @@
 
 <p>Last changed accordion item: @changed?.Heading</p>
 
-<h4>Alternative</h4>
-<FluentAccordion @onaccordionchange=OnAccordionChange>
-    <FluentAccordionItem Expanded="true" id="AccOneAlt">
-        <div slot="start">
-            <button>1</button>
-        </div>
-        <div slot="end">
-            <button>1</button>
-        </div>
-        <span slot="heading">Panel one</span>
-        Panel one content
-    </FluentAccordionItem>
-    <FluentAccordionItem id="AccTwoAlt">
-        <span slot="heading">Panel two</span>
-        Panel two content
-    </FluentAccordionItem>
-    <FluentAccordionItem Expanded="true" id="AccThreeAlt">
-        <span slot="heading">Panel three</span>
-        Panel three content
-    </FluentAccordionItem>
-</FluentAccordion>
-<p>Active accordion item: @active</p>
-
 <h4>Single expand</h4>
 <FluentAccordion ExpandMode="AccordionExpandMode.Single">
-    <FluentAccordionItem>
+    <FluentAccordionItem Heading="Panel one">
         <div slot="start">
             <button>1</button>
         </div>

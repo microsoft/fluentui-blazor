@@ -2,8 +2,9 @@
 
 <CascadingValue Value="this" IsFixed="true">
     <fluent-accordion expand-mode="@ExpandMode.ToAttributeValue()"
-                      @onaccordionchange="HandleOnAccordionChanged"
+                      
                       @attributes="AdditionalAttributes">
         @ChildContent
     </fluent-accordion>
 </CascadingValue>
+@*@onaccordionchange="HandleOnAccordionChanged"*@

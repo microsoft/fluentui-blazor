@@ -17,27 +17,27 @@ public partial class FluentAccordion : FluentComponentBase
     [Parameter]
     public string? ActiveId { get; set; }
 
-    /// <summary>
-    /// Gets or sets a callback that updates the bound value.
-    /// </summary>
-    [Parameter]
-    public EventCallback<string?> ActiveIdChanged { get; set; }
+    ///// <summary>
+    ///// Gets or sets a callback that updates the bound value.
+    ///// </summary>
+    //[Parameter]
+    //public EventCallback<string?> ActiveIdChanged { get; set; }
 
-    /// <summary>
-    /// Gets or sets a callback when a accordion item is changed .
-    /// </summary>
-    [Parameter]
-    public EventCallback<FluentAccordionItem> OnAccordionItemChange { get; set; }
+    ///// <summary>
+    ///// Gets or sets a callback when a accordion item is changed .
+    ///// </summary>
+    //[Parameter]
+    //public EventCallback<FluentAccordionItem> OnAccordionItemChange { get; set; }
 
-    private async Task HandleOnAccordionChanged(AccordionChangeEventArgs args)
-    {
-        string? accordionItemId = args.AffectedId;
-        if (items.TryGetValue(accordionItemId!, out FluentAccordionItem? item))
-        {
-            await OnAccordionItemChange.InvokeAsync(item);
-            await ActiveIdChanged.InvokeAsync(args.ActiveId);
-        }
-    }
+    //private async Task HandleOnAccordionChanged(AccordionChangeEventArgs args)
+    //{
+    //    string? accordionItemId = args.AffectedId;
+    //    if (items.TryGetValue(accordionItemId!, out FluentAccordionItem? item))
+    //    {
+    //        await OnAccordionItemChange.InvokeAsync(item);
+    //        await ActiveIdChanged.InvokeAsync(args.ActiveId);
+    //    }
+    //}
 
     internal void Register(FluentAccordionItem item)
     {
