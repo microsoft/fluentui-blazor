@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Fast.Components.FluentUI.Enums.Obsolete;
+﻿namespace Microsoft.Fast.Components.FluentUI;
 
 [Obsolete("Use AxisScalingMode instead", true)]
 public enum Scaling
