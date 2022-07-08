@@ -1,51 +1,55 @@
-﻿@typeparam TItem
-@inherits FluentComponentBase
-<fluent-data-grid @ref=Element
-                  generate-header=none
-                  grid-template-columns=@GridTemplateColumns
-                  @attributes="@AdditionalAttributes">
-    @if (GenerateHeader != GenerateHeaderOption.None)
-    {
-        DataGridRowType headerType = DataGridRowType.Header;
-        if (GenerateHeader == GenerateHeaderOption.Sticky)
-            headerType = DataGridRowType.StickyHeader;
+﻿@inherits FluentComponentBase
+@typeparam TItem
+@attribute [CascadingTypeParameter(nameof(TItem))]
+
+<CascadingValue Value="this" Name="OwningGrid" IsFixed="true">
+    <fluent-data-grid generate-header=none
+                      grid-template-columns=@GridTemplateColumns
+                      @onrowfocus=HandleOnRowFocus
+                      @attributes="@AdditionalAttributes">
+        @if (GenerateHeader != GenerateHeaderOption.None)
+        {
+            DataGridRowType headerType = DataGridRowType.Header;
+            if (GenerateHeader == GenerateHeaderOption.Sticky)
+                headerType = DataGridRowType.StickyHeader;
             <FluentDataGridRow RowType=@headerType TItem=TItem>
-            @{
-                int gridColumn = 1;
-                foreach (ColumnDefinition<TItem> column in ColumnDefinitions!)
+                @{
+                    int gridColumn = 1;
+                    foreach (ColumnDefinition<TItem> column in ColumnDefinitions!)
+                    {
+                        <FluentDataGridCell TItem=TItem GridColumn=@(gridColumn++) CellType=DataGridCellType.ColumnHeader>
+                            @if (HeaderCellTemplate != null)
+                            {
+                                @HeaderCellTemplate(column)
+                            }
+                            else
+                            {
+                                @column.Title
+                            }
+                        </FluentDataGridCell>
+                    }
+                }
+            </FluentDataGridRow>
+        }
+
+        @if (RowsData == null)
+        {
+            @ChildContent
+        }
+        else
+        {
+            int index = 1;
+            foreach (TItem item in RowsData)
+            {
+                if (RowItemTemplate != null)
                 {
-                    <FluentDataGridCell GridColumn=@(gridColumn++) CellType=DataGridCellType.ColumnHeader>
-                    @if (HeaderCellTemplate != null)
-                    {
-                        @HeaderCellTemplate(column)
-                    }
-                    else
-                    {
-                        @column.Title
-                    }
-                    </FluentDataGridCell>
+                    @RowItemTemplate(item)
+                }
+                else
+                {
+                    <FluentDataGridRow GridTemplateColumns=@GridTemplateColumns ColumnDefinitions=@ColumnDefinitions RowIndex=@(index++) TItem=TItem RowData=@item />
                 }
             }
-        </FluentDataGridRow>
-    }
-    
-    @if (RowsData == null)
-    {
-        @ChildContent
-    }
-    else
-    {
-        int index = 1;
-        foreach (TItem item in RowsData)
-        {
-            if (RowItemTemplate != null)
-            {
-                @RowItemTemplate(item)
-            }
-            else
-            {
-                <FluentDataGridRow GridTemplateColumns=@GridTemplateColumns ColumnDefinitions=@ColumnDefinitions RowIndex=@(index++) TItem=TItem RowData=@item />
-            }
         }
-    }
-</fluent-data-grid>
+    </fluent-data-grid>
+</CascadingValue>

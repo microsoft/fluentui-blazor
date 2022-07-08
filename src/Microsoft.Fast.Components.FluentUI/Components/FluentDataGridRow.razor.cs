@@ -1,9 +1,14 @@
+using System.Globalization;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentDataGridRow<TItem> : FluentComponentBase
+[CascadingTypeParameter(nameof(TItem))]
+public partial class FluentDataGridRow<TItem> : FluentComponentBase, IDisposable
 {
+    internal string RowId { get; } = Guid.NewGuid().ToString("D", CultureInfo.InvariantCulture);
+    private readonly Dictionary<string, FluentDataGridCell> cells = new();
+
     /// <summary>
     /// Gets or sets the index of this row
     /// </summary>
@@ -33,4 +38,40 @@ public partial class FluentDataGridRow<TItem> : FluentComponentBase
     /// </summary>
     [Parameter]
     public IEnumerable<ColumnDefinition<TItem>>? ColumnDefinitions { get; set; }
+
+    /// <summary>
+    /// Gets or sets the owning <see cref="FluentDataGrid{TItem}"/> component
+    /// </summary>
+    [CascadingParameter(Name = "OwningGrid")]
+    public FluentDataGrid<TItem> Owner { get; set; } = default!;
+
+    protected override void OnInitialized()
+    {
+        Owner.Register(this);
+    }
+
+    public void Dispose()
+    {
+        Owner.Unregister(this);
+    }
+
+    internal void Register(FluentDataGridCell cell)
+    {
+        cells.Add(cell.CellId, cell);
+    }
+
+    internal void Unregister(FluentDataGridCell cell)
+    {
+        cells.Remove(cell.CellId);
+    }
+
+    //private async Task HandleOnCellFocus(DataGridCellFocusEventArgs args)
+    //{
+    //    string? cellId = args.CellId;
+    //    if (rows.TryGetValue(cellId!, out FluentDataGridCell<TItem>? cell))
+    //    {
+    //        await OnCellFocus.InvokeAsync(cell);
+    //    }
+    //}
+
 }

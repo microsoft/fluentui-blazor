@@ -17,6 +17,9 @@ public partial class FluentAccordion : FluentComponentBase
     [Parameter]
     public string? ActiveId { get; set; }
 
+    //Commented code below is waiting for changes in the Web Components script
+
+
     ///// <summary>
     ///// Gets or sets a callback that updates the bound value.
     ///// </summary>

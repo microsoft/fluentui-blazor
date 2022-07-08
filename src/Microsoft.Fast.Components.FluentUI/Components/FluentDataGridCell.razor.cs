@@ -1,8 +1,12 @@
+using System.Globalization;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
+
 public partial class FluentDataGridCell : FluentComponentBase
 {
+    internal string CellId { get; } = Guid.NewGuid().ToString("D", CultureInfo.InvariantCulture);
+
     /// <summary>
     /// Gets or sets the cell type. See <see cref="DataGridCellType"/>
     /// </summary>
@@ -14,4 +18,21 @@ public partial class FluentDataGridCell : FluentComponentBase
     /// </summary>
     [Parameter]
     public int GridColumn { get; set; }
+
+    ///// <summary>
+    ///// Gets or sets the owning <see cref="FluentDataGridRow{TItem}"/> component
+    ///// </summary>
+    //[CascadingParameter(Name = "OwningRow")]
+    //public FluentDataGridRow<TItem> Owner { get; set; } = default!;
+
+    //protected override void OnInitialized()
+    //{
+    //    Owner.Register(this);
+    //}
+
+    //public void Dispose()
+    //{
+    //    Owner.Unregister(this);
+    //}
+
 }
