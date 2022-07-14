@@ -6,6 +6,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 [CascadingTypeParameter(nameof(TItem))]
 public partial class FluentDataGridRow<TItem> : FluentComponentBase, IDisposable
 {
+    internal static int index = 0;
     internal string RowId { get; } = Guid.NewGuid().ToString("D", CultureInfo.InvariantCulture);
     private readonly Dictionary<string, FluentDataGridCell> cells = new();
 
@@ -48,6 +49,7 @@ public partial class FluentDataGridRow<TItem> : FluentComponentBase, IDisposable
     protected override void OnInitialized()
     {
         Owner.Register(this);
+        RowIndex = index++;
     }
 
     public void Dispose()
