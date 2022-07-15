@@ -15,7 +15,7 @@
 		<PackageType>Template</PackageType>
 		<PackageVersion>1.0.1</PackageVersion>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<TargetFrameworks>net6.0</TargetFrameworks>
+		<TargetFramework>net6.0</TargetFramework>
 		<Title>Microsoft FAST Fluent UI Blazor Templates</Title>
 	</PropertyGroup>
 

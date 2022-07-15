@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 	<PropertyGroup>
-		<TargetFrameworks>net6.0</TargetFrameworks>
+		<TargetFramework>net6.0</TargetFramework>
 		<PackageId>Microsoft.Fast.Components.FluentUI</PackageId>
 		<Authors>Microsoft</Authors>
 		<Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
