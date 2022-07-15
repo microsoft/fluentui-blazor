@@ -1,9 +1,24 @@
+using System.Globalization;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentTreeItem : FluentComponentBase
+public partial class FluentTreeItem : FluentComponentBase, IDisposable
 {
+    internal string TreeItemId { get; } = Guid.NewGuid().ToString("D", CultureInfo.InvariantCulture);
+
+    /// <summary>
+    /// Gets or sets the owning FluentTreeView
+    /// </summary>
+    [CascadingParameter]
+    public FluentTreeView Owner { get; set; } = default!;
+
+    /// <summary>
+    /// Gets or sets the text of the tree item
+    /// </summary>
+    [Parameter]
+    public string? Text { get; set; }
+
     /// <summary>
     /// Gets or sets if the tree item is disabled
     /// </summary>
@@ -21,4 +36,14 @@ public partial class FluentTreeItem : FluentComponentBase
     /// </summary>
     [Parameter]
     public bool Expanded { get; set; } = false;
+
+    protected override void OnInitialized()
+    {
+        Owner.Register(this);
+    }
+
+    public void Dispose()
+    {
+        Owner.Unregister(this);
+    }
 }

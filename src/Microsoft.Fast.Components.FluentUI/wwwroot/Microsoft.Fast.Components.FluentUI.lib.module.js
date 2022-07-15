@@ -11,7 +11,8 @@
         browserEventName: 'change',
         createEventArgs: event => {
             return {
-                activeId: event.detail.id
+                activeId: event.detail.id,
+                affectedId: event.detail.attributes['tab-id'].value
             };
         }
     });
@@ -19,7 +20,7 @@
         browserEventName: 'selected-change',
         createEventArgs: event => {
             return {
-                affectedItem: event.detail.id
+                affectedId: event.detail.attributes['tree-item-id'].value
             };
         }
     });
@@ -27,7 +28,7 @@
         browserEventName: 'expanded-change',
         createEventArgs: event => {
             return {
-                affectedItem: event.detail.id
+                affectedId: event.detail.attributes['tree-item-id'].value
             };
         }
     });
@@ -39,16 +40,25 @@
             };
         }
     });
-    Blazor.registerCustomEventType('accordionchange', {
-        browserEventName: 'change',
+    //Blazor.registerCustomEventType('accordionchange', {
+    //    browserEventName: 'change',
+    //    createEventArgs: event => {
+    //        return {
+    //            activeId: event.detail.id,
+    //            affectedId: event.detail.attributes['accordion-item-id'].value
+    //        };
+    //    }
+    //});
+    Blazor.registerCustomEventType('dismiss', {
+        browserEventName: 'dismiss',
         createEventArgs: event => {
             return {
-                activeId: event.detail.id
+                event: event
             };
         }
     });
-    Blazor.registerCustomEventType('dismiss', {
-        browserEventName: 'dismiss',
+    Blazor.registerCustomEventType('menuchange', {
+        browserEventName: 'change',
         createEventArgs: event => {
             return {
                 event: event
@@ -71,19 +81,19 @@
             };
         }
     });
-    Blazor.registerCustomEventType('cellfocused', {
+    Blazor.registerCustomEventType('cellfocus', {
         browserEventName: 'cell-focused',
         createEventArgs: event => {
             return {
-                cell: event.detail
+                cellId: event.detail.attributes['cell-id'].value
             };
         }
     });
-    Blazor.registerCustomEventType('rowfocused', {
+    Blazor.registerCustomEventType('rowfocus', {
         browserEventName: 'row-focused',
         createEventArgs: event => {
             return {
-                row: event.detail
+                rowId: event.detail.attributes['row-id'].value
             };
         }
     });

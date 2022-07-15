@@ -1,9 +1,11 @@
 @inherits FluentComponentBase
-<fluent-tree-view @ref=Element 
-                  render-collapsed-nodes="@RenderCollapsedNodes" 
-                  currentSelected="@CurrentSelected"
-                  @onselectedchange=@OnSelectedChange
-                  @onexpandedchange=@OnExpandedChange
-                  @attributes="AdditionalAttributes">
-    @ChildContent
-</fluent-tree-view>
+<CascadingValue Value="this" IsFixed="true">
+    <fluent-tree-view @ref=Element
+                      render-collapsed-nodes="@RenderCollapsedNodes"
+                      currentSelected="@CurrentSelected"
+                      @onselectedchange=HandleOnSelectedChanged
+                      @onexpandedchange=HandleOnExpandedChanged
+                      @attributes="AdditionalAttributes">
+        @ChildContent
+    </fluent-tree-view>
+</CascadingValue>

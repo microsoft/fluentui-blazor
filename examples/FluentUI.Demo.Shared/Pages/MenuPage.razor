@@ -1,7 +1,7 @@
 @page "/MenuPage"
 <h1>Menu</h1>
 <h4>Default</h4>
-<FluentMenu>
+<FluentMenu @onmenuchange=OnMenuChange>
     <FluentMenuItem>Menu item 1</FluentMenuItem>
     <FluentMenuItem>Menu item 2</FluentMenuItem>
     <FluentMenuItem Disabled="true">Menu item 3 Disabled</FluentMenuItem>
@@ -54,3 +54,9 @@
     <div role="menuitem">Menu item 2</div>
     <div role="menuitem">Menu item 3</div>
 </FluentMenu>
+@code{
+    private void OnMenuChange()
+    {
+        Console.WriteLine("Menu changed");
+    }
+}

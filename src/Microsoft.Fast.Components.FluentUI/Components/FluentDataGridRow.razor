@@ -1,14 +1,17 @@
-﻿@typeparam TItem
-@inherits FluentComponentBase
-<fluent-data-grid-row @ref=Element
-					  row-index=@RowIndex
-					  grid-template-columns=@GridTemplateColumns
-					  row-type=@RowType.ToAttributeValue()
-					  @attributes="@AdditionalAttributes">
-		@for(int index=0; index<ColumnDefinitions?.Count(); index++)
-		{
-			ColumnDefinition<TItem> column = ColumnDefinitions!.ElementAt(index);
-			<FluentDataGridCell GridColumn=@(index+1)>@(column.FieldSelector!(RowData!)?.ToString())</FluentDataGridCell>
-		}
-	@ChildContent
-</fluent-data-grid-row>
+﻿@inherits FluentComponentBase
+@typeparam TItem
+@attribute [CascadingTypeParameter(nameof(TItem))]
+<CascadingValue Value="this" Name="OwningRow" IsFixed="true">
+    <fluent-data-grid-row row-id="@RowId"
+                          row-index=@RowIndex
+                          grid-template-columns=@GridTemplateColumns
+                          row-type=@RowType.ToAttributeValue()
+                          @attributes="@AdditionalAttributes">
+        @for (int index = 0; index < ColumnDefinitions?.Count(); index++)
+        {
+            ColumnDefinition<TItem> column = ColumnDefinitions!.ElementAt(index);
+        <FluentDataGridCell GridColumn=@(index + 1)>@(column.FieldSelector!(RowData!)?.ToString())</FluentDataGridCell>
+        }
+        @ChildContent
+    </fluent-data-grid-row>
+</CascadingValue>

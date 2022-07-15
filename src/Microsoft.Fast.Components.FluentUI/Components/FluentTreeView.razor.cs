@@ -4,6 +4,8 @@ namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentTreeView : FluentComponentBase
 {
+    private readonly Dictionary<string, FluentTreeItem> items = new();
+
     /// <summary>
     /// Gets or sets whether the tree should render nodes under collapsed items
     /// Defaults to 'false'
@@ -15,27 +17,43 @@ public partial class FluentTreeView : FluentComponentBase
     /// Gets or sets the currently selected tree item
     /// </summary>
     [Parameter]
-    public string? CurrentSelected { get; set; }
+    public FluentTreeItem CurrentSelected { get; set; } = default!;
 
     [Parameter]
-    public EventCallback<string?> CurrentSelectedChanged { get; set; }
+    public EventCallback<FluentTreeItem> CurrentSelectedChanged { get; set; }
 
-    private async Task OnSelectedChange(TreeChangeEventArgs args)
+    [Parameter]
+    public EventCallback<FluentTreeItem> OnSelectedChange { get; set; }
+
+    [Parameter]
+    public EventCallback<FluentTreeItem> OnExpandedChange { get; set; }
+
+    public async Task HandleOnSelectedChanged(TreeChangeEventArgs args)
     {
-        await CurrentSelectedChanged.InvokeAsync(args.AffectedItem);
+        string? treeItemId = args.AffectedId;
+        if (items.TryGetValue(treeItemId!, out FluentTreeItem? treeItem))
+        {
+            await CurrentSelectedChanged.InvokeAsync(treeItem);
+            await OnSelectedChange.InvokeAsync(treeItem);
+        }
     }
 
-    /// <summary>
-    /// Gets or sets the currently selected tree item
-    /// </summary>
-    [Parameter]
-    public string? CurrentExpanded { get; set; }
-
-    [Parameter]
-    public EventCallback<string?> CurrentExpandedChanged { get; set; }
-
-    private async Task OnExpandedChange(TreeChangeEventArgs args)
+    public async Task HandleOnExpandedChanged(TreeChangeEventArgs args)
     {
-        await CurrentExpandedChanged.InvokeAsync(args.AffectedItem);
+        string? treeItemId = args.AffectedId;
+        if (items.TryGetValue(treeItemId!, out FluentTreeItem? treeItem))
+        {
+            await OnExpandedChange.InvokeAsync(treeItem);
+        }
+    }
+
+    internal void Register(FluentTreeItem item)
+    {
+        items.Add(item.TreeItemId, item);
+    }
+
+    internal void Unregister(FluentTreeItem item)
+    {
+        items.Remove(item.TreeItemId);
     }
 }

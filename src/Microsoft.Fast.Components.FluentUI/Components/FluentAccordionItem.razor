@@ -1,2 +1,7 @@
 @inherits FluentComponentBase
-<fluent-accordion-item @ref=Element expanded="@Expanded" @attributes="AdditionalAttributes">@ChildContent</fluent-accordion-item>
+<fluent-accordion-item accordion-item-id="@AccordionItemId" 
+                       expanded="@Expanded"
+                       @attributes="AdditionalAttributes">
+    <span slot="heading">@Heading</span>
+    @ChildContent
+</fluent-accordion-item>

@@ -4,6 +4,8 @@ namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentTabs : FluentComponentBase
 {
+    private readonly Dictionary<string, FluentTab> tabs = new();
+
     /// <summary>
     /// Gets or sets if the active tab is marked 
     /// </summary>
@@ -20,13 +22,34 @@ public partial class FluentTabs : FluentComponentBase
     public string? ActiveId { get; set; }
 
     /// <summary>
-    /// Gets or sets a callback that updates the bound value.
+    /// Gets or sets a callback when the bound value is changed .
     /// </summary>
     [Parameter]
     public EventCallback<string?> ActiveIdChanged { get; set; }
 
-    private async Task OnTabChange(TabChangeEventArgs args)
+    /// <summary>
+    /// Gets or sets a callback when a tab is changed .
+    /// </summary>
+    [Parameter]
+    public EventCallback<FluentTab> OnTabChange { get; set; }
+
+    private async Task HandleOnTabChanged(TabChangeEventArgs args)
     {
-        await ActiveIdChanged.InvokeAsync(args.ActiveId);
+        string? tabId = args.AffectedId;
+        if (tabs.TryGetValue(tabId!, out FluentTab? tab))
+        {
+            await OnTabChange.InvokeAsync(tab);
+            await ActiveIdChanged.InvokeAsync(args.ActiveId);
+        }
+    }
+
+    internal void Register(FluentTab tab)
+    {
+        tabs.Add(tab.TabId, tab);
+    }
+
+    internal void Unregister(FluentTab tab)
+    {
+        tabs.Remove(tab.TabId);
     }
 }

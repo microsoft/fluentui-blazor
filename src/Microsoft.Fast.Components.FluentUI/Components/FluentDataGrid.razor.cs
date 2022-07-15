@@ -1,8 +1,11 @@
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
+
+[CascadingTypeParameter(nameof(TItem))]
 public partial class FluentDataGrid<TItem> : FluentComponentBase
 {
+    private readonly Dictionary<string, FluentDataGridRow<TItem>> rows = new();
     /// <summary>
     /// Gets or sets the <see cref="GenerateHeaderOption"/>
     /// </summary>
@@ -38,4 +41,29 @@ public partial class FluentDataGrid<TItem> : FluentComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment<TItem>? RowItemTemplate { get; set; } = null;
+
+    /// <summary>
+    /// Gets or sets a callback when a row is focused
+    /// </summary>
+    [Parameter]
+    public EventCallback<FluentDataGridRow<TItem>> OnRowFocus { get; set; }
+
+    private async Task HandleOnRowFocus(DataGridRowFocusEventArgs args)
+    {
+        string? rowId = args.RowId;
+        if (rows.TryGetValue(rowId!, out FluentDataGridRow<TItem>? row))
+        {
+            await OnRowFocus.InvokeAsync(row);
+        }
+    }
+
+    internal void Register(FluentDataGridRow<TItem> row)
+    {
+        rows.Add(row.RowId, row);
+    }
+
+    internal void Unregister(FluentDataGridRow<TItem> row)
+    {
+        rows.Remove(row.RowId);
+    }
 }

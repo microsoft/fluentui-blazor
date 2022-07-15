@@ -5,14 +5,14 @@
 <FluentDataGrid id="defaultGrid2" RowsData=RowsGrid2 ColumnDefinitions=ColumnsGrid2 />
 
 <h2>Grid with RowItemTemplate</h2>
-<FluentDataGrid id="defaultGrid3" RowsData=RowsGrid1 ColumnDefinitions=ColumnsGrid1 GridTemplateColumns="1fr 1fr">
+<FluentDataGrid id="defaultGrid3" RowsData=RowsGrid1 ColumnDefinitions=ColumnsGrid1 GridTemplateColumns="1fr 1fr" TItem=SampleGrid1Data OnRowFocus="HandleRowFocus">
     <RowItemTemplate>
-        <FluentDataGridRow TItem=SampleGrid1Data>
-            <FluentDataGridCell GridColumn=1 @oncellfocused=OnCellFocused>
+        <FluentDataGridRow>
+            <FluentDataGridCell GridColumn=1 >
                 <FluentTextField @bind-Value=@context.Name></FluentTextField>
             </FluentDataGridCell>
             <FluentDataGridCell GridColumn=2>
-                <FluentNumberField TValue="int" @bind-Value=@context.Age></FluentNumberField>
+                <FluentNumberField @bind-Value=@context.Age></FluentNumberField>
             </FluentDataGridCell>
         </FluentDataGridRow>
 
@@ -21,15 +21,15 @@
 
 <h2>Manual grid</h2>
 <FluentDataGrid id="manualGrid" GenerateHeader=GenerateHeaderOption.None GridTemplateColumns="1fr 1fr" TItem=string>
-    <FluentDataGridRow TItem=string RowType="DataGridRowType.Header">
+    <FluentDataGridRow RowType="DataGridRowType.Header">
         <FluentDataGridCell GridColumn=1 CellType="DataGridCellType.ColumnHeader">Column 1</FluentDataGridCell>
         <FluentDataGridCell GridColumn=2 CellType="DataGridCellType.ColumnHeader">Column 2</FluentDataGridCell>
     </FluentDataGridRow>
-    <FluentDataGridRow TItem=string>
+    <FluentDataGridRow>
         <FluentDataGridCell GridColumn=1>1.1</FluentDataGridCell>
         <FluentDataGridCell GridColumn=2>1.2</FluentDataGridCell>
     </FluentDataGridRow>
-    <FluentDataGridRow TItem=string>
+    <FluentDataGridRow>
         <FluentDataGridCell GridColumn=1>2.1</FluentDataGridCell>
         <FluentDataGridCell GridColumn=2> 2.2</FluentDataGridCell>
     </FluentDataGridRow>
@@ -172,12 +172,9 @@
         SortedRowsGrid.Sort(new CustomComparer(columnDefinition.FieldSelector!, isAscending));
     }
 
-    private void OnCellFocused(DataGridCellFocusedEventArgs args)
+    private void HandleRowFocus(FluentDataGridRow<SampleGrid1Data> row)
     {
-        var cell = args.Cell;
-        //var row = args.Row;
-        //var column = args.Column;
-        //var value = args.Value;
+        Console.WriteLine($"Row focused: {row.RowIndex}");
     }
 
     class CustomComparer : IComparer<SampleGrid3Data>

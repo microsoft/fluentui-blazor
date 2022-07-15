@@ -2,5 +2,5 @@
 
 public class TreeChangeEventArgs : EventArgs
 {
-    public string? AffectedItem { get; set; }
+    public string? AffectedId { get; set; }
 }
