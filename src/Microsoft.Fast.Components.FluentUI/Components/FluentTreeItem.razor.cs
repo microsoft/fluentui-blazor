@@ -1,11 +1,10 @@
-using System.Globalization;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentTreeItem : FluentComponentBase, IDisposable
 {
-    internal string TreeItemId { get; } = Guid.NewGuid().ToString("D", CultureInfo.InvariantCulture);
+    internal string TreeItemId { get; } = Identifier.NewId();
 
     /// <summary>
     /// Gets or sets the owning FluentTreeView

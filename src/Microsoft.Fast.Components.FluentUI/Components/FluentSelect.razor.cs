@@ -5,7 +5,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentSelect<TValue> : FluentInputBase<TValue>
 {
-    private readonly string _defaultSelectName = Guid.NewGuid().ToString("N");
+    private readonly string _defaultSelectName = Identifier.NewId();
     private FluentOptionContext? _context;
 
     /// <summary>

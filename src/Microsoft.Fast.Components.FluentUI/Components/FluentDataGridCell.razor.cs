@@ -1,11 +1,10 @@
-using System.Globalization;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentDataGridCell : FluentComponentBase
 {
-    internal string CellId { get; } = Guid.NewGuid().ToString("D", CultureInfo.InvariantCulture);
+    internal string CellId { get; } = Identifier.NewId();
 
     /// <summary>
     /// Gets or sets the cell type. See <see cref="DataGridCellType"/>

@@ -6,7 +6,8 @@ namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentAnchor : FluentComponentBase
 {
     /// <summary>
-    /// The URL this item references.
+    /// If set to a URL, clicking the button will open the referenced document. 
+    /// Use Target parameter to specify where.
     /// </summary>
     [Parameter]
     public string? Href { get; set; }
@@ -17,5 +18,10 @@ public partial class FluentAnchor : FluentComponentBase
     [Parameter]
     public Appearance? Appearance { get; set; }
 
-
+    /// <summary>
+    /// The target attribute specifies where to open the link, if Href is specified. 
+    /// Possible values: _blank | _self | _parent | _top.
+    /// </summary>
+    [Parameter]
+    public string? Target { get; set; }
 }
