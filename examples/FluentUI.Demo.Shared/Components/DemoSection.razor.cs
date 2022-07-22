@@ -1,76 +1,59 @@
-﻿// --------------------------------------------------------------
-// Copyright (c) Microsoft Corporation.  All rights reserved.
-// --------------------------------------------------------------
+﻿using System.Reflection.Metadata;
+using FluentUI.Demo.Generators;
+using Microsoft.AspNetCore.Components;
 
-namespace FluentUI.Demo.Shared.Components
+
+namespace FluentUI.Demo.Shared.Components;
+public partial class DemoSection : ComponentBase
 {
-    using System.Reflection.Metadata;
-    //using Microsoft.Reality.Components.Blazor.Services;
-    using Microsoft.AspNetCore.Components;
+    [Parameter]
+    public string? Title { get; set; }
 
-    public partial class DemoSection : ComponentBase
+    [Parameter]
+    public RenderFragment? Description { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    //No .razor needed
+    public string? CodeFilename { get; set; }
+
+    [Parameter]
+    public bool IsNew { get; set; }
+
+    private bool HasCode { get; set; }
+
+    private string? CodeContents { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        //[Inject]
-        //public ILocalStorageService LocalStorageService { get; set; } = default!;
-
-        [Parameter]
-        public string? Title { get; set; }
-
-        [Parameter]
-        public RenderFragment? Description { get; set; }
-
-        [Parameter]
-        public RenderFragment? ChildContent { get; set; }
-
-        [Parameter]
-        //No .razor needed
-        public string? CodeFilename { get; set; }
-
-        [Parameter]
-        public bool IsNew { get; set; }
-
-        private bool HasCode { get; set; }
-
-        private string? CodeContents { get; set; }
-
-        protected override async Task OnAfterRenderAsync(bool firstRender)
+        if (firstRender)
         {
-            if (firstRender)
+            var isDisplayDemoCode = true;
+            var hasFilename = !string.IsNullOrEmpty(CodeFilename);
+
+            HasCode = hasFilename && isDisplayDemoCode;
+
+            if (HasCode)
             {
-                //var isDisplayDemoCode = await LocalStorageService.GetPropertyAsync<bool>("IsDisplayDemoCode", defaultValue: true);
-                var hasFilename = !string.IsNullOrEmpty(CodeFilename);
-
-                this.HasCode = hasFilename; //&& isDisplayDemoCode;
-
-                if (HasCode)
-                {
-                    SetCodeContents();
-                }
+                SetCodeContents();
             }
-
-            await base.OnAfterRenderAsync(firstRender);
         }
 
-        protected void SetCodeContents()
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    protected void SetCodeContents()
+    {
+        try
         {
-            try
-            {
-                var currentDir = Directory.GetCurrentDirectory();
-                var allFiles = Directory.GetFiles(currentDir, "*.razor", SearchOption.AllDirectories);
-                var filePath = allFiles.FirstOrDefault(x => x.Contains($"{CodeFilename}.razor"));
-
-                if (!File.Exists(filePath))
-                {
-                    return;
-                }
-
-                CodeContents = File.ReadAllText(filePath);
-                StateHasChanged();
-            }
-            catch
-            {
-                //Do Nothing
-            }
+            CodeContents = DemoSnippets.GetRazor($"{CodeFilename}.razor");
+            StateHasChanged();
+        }
+        catch
+        {
+            //Do Nothing
         }
     }
 }

@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<ImplicitUsings>false</ImplicitUsings>
+		<Nullable>disable</Nullable>
+		<LangVersion>10.0</LangVersion>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<Authors>Microsoft</Authors>
+		<Copyright>Copyright © Microsoft</Copyright>
+		<AssemblyFileVersion>$(PackageVersion)</AssemblyFileVersion>
+		<DebugType>portable</DebugType>
+		<PackageVersion>1.0.0</PackageVersion>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.2.0" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.3">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+</Project>
