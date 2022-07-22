@@ -4,13 +4,13 @@
 @if (this.Properties.Any())
 {
     <h3>Properties</h3>
-    <FluentDataGrid RowsData="@this.Properties.ToList()" ColumnDefinitions=@_propertiesGrid>
+    <FluentDataGrid RowsData="@this.Properties.ToList()" ColumnDefinitions=@_propertiesGrid GridTemplateColumns="1fr 1fr 1fr 1fr">
         <RowItemTemplate>
             <FluentDataGridRow>
-                <FluentDataGridCell GridColumn="0">
-                    <FluentBadge>@context.Name</FluentBadge>
-                </FluentDataGridCell>
                 <FluentDataGridCell GridColumn="1">
+                    <FluentBadge Appearance="Appearance.Neutral">@context.Name</FluentBadge>
+                </FluentDataGridCell>
+                <FluentDataGridCell GridColumn="2">
                     @context.Type
 
                     @* Display list of Enumerations (if available) *@
@@ -31,10 +31,10 @@
                         </FluentTooltip>
                     }
                 </FluentDataGridCell>
-                <FluentDataGridCell GridColumn="2">
+                <FluentDataGridCell GridColumn="3">
                     @context.Default
                 </FluentDataGridCell>
-                <FluentDataGridCell GridColumn="3">
+                <FluentDataGridCell GridColumn="4">
                     <div style="white-space: break-spaces">
                         @context.Description
                     </div>
@@ -47,16 +47,16 @@
 @if (this.Events.Any())
 {
     <h3>EventCallbacks</h3>
-    <FluentDataGrid RowsData="@this.Events.ToList()" ColumnDefinitions="@_eventsGrid">
+    <FluentDataGrid RowsData="@this.Events.ToList()" ColumnDefinitions="@_eventsGrid" GridTemplateColumns="1fr 1fr 1fr">
         <RowItemTemplate>
             <FluentDataGridRow>
-                <FluentDataGridCell GridColumn="0">
+                <FluentDataGridCell GridColumn="1">
                     <FluentBadge>@context.Name</FluentBadge>
                 </FluentDataGridCell>
-                <FluentDataGridCell GridColumn="1">
+                <FluentDataGridCell GridColumn="2">
                     @context.Type
                 </FluentDataGridCell>
-                <FluentDataGridCell GridColumn="2">
+                <FluentDataGridCell GridColumn="3">
                     <div style="white-space: break-spaces">
                         @context.Description
                     </div>
@@ -69,23 +69,23 @@
 @if (this.Methods.Any())
 {
     <h3>Methods</h3>
-    <FluentDataGrid RowsData="@this.Methods.ToList()" ColumnDefinitions="@_methodsGrid">
+    <FluentDataGrid RowsData="@this.Methods.ToList()" ColumnDefinitions="@_methodsGrid" GridTemplateColumns="1fr 1fr 1fr 1fr">
 
         <RowItemTemplate>
             <FluentDataGridRow>
-                <FluentDataGridCell GridColumn="0">
+                <FluentDataGridCell GridColumn="1">
                     <FluentBadge>@context.Name</FluentBadge>
                 </FluentDataGridCell>
-                <FluentDataGridCell GridColumn="1">
+                <FluentDataGridCell GridColumn="2">
                     @foreach (var param in @context.Parameters)
                     {
                         @param <br />
                     }
                 </FluentDataGridCell>
-                <FluentDataGridCell GridColumn="2">
+                <FluentDataGridCell GridColumn="3">
                     @context.Type
                 </FluentDataGridCell>
-                <FluentDataGridCell GridColumn="3">
+                <FluentDataGridCell GridColumn="4">
                     <div style="white-space: break-spaces">
                         @context.Description
                     </div>

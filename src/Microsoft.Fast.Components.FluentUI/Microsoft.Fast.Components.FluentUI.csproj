@@ -27,6 +27,7 @@
 		<EmitCompilerGeneratedFiles>false</EmitCompilerGeneratedFiles>
 		<CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)Generated</CompilerGeneratedFilesOutputPath>
 		<LangVersion>latest</LangVersion>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	</PropertyGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -34,7 +35,7 @@
 		<WarningLevel>4</WarningLevel>
 		<NullableReferenceTypes>true</NullableReferenceTypes>
 		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-		<DocumentationFile>bin\Debug\net6.0\Microsoft.Fast.Components.FluentUI.xml</DocumentationFile>
+		<DocumentationFile></DocumentationFile>
 		<NoWarn>1701;1702,8669,1591</NoWarn>
 	</PropertyGroup>
 

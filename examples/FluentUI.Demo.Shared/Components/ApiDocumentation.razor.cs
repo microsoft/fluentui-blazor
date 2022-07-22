@@ -147,6 +147,7 @@ namespace FluentUI.Demo.Shared.Components
         {
             return value.Replace("<see cref=\"", " ")
                         .Replace("<seealso cref=\"!:", " ")
+                        .Replace("<seealso cref=\"P:", " ")
                         .Replace("<seealso cref=\"", " ")
                         .Replace("\"/>", " ")
                         .Replace("\" />", " ");
