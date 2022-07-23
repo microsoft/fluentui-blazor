@@ -3,7 +3,7 @@
 
 @if (this.Properties.Any())
 {
-    <h3>Properties</h3>
+    <h3>@_name Properties</h3>
     <FluentDataGrid RowsData="@this.Properties.ToList()" ColumnDefinitions=@_propertiesGrid GridTemplateColumns="1fr 1fr 1fr 1fr">
         <RowItemTemplate>
             <FluentDataGridRow>
@@ -46,7 +46,7 @@
 
 @if (this.Events.Any())
 {
-    <h3>EventCallbacks</h3>
+    <h3>@_name EventCallbacks</h3>
     <FluentDataGrid RowsData="@this.Events.ToList()" ColumnDefinitions="@_eventsGrid" GridTemplateColumns="1fr 1fr 1fr">
         <RowItemTemplate>
             <FluentDataGridRow>
@@ -68,7 +68,7 @@
 
 @if (this.Methods.Any())
 {
-    <h3>Methods</h3>
+    <h3>@_name Methods</h3>
     <FluentDataGrid RowsData="@this.Methods.ToList()" ColumnDefinitions="@_methodsGrid" GridTemplateColumns="1fr 1fr 1fr 1fr">
 
         <RowItemTemplate>

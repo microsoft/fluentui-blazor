@@ -9,7 +9,7 @@ public partial class FluentAccordion : FluentComponentBase
     /// Controls the expand mode of the Accordion, either allowing single or multiple item expansion <seealso cref="AccordionExpandMode" />.
     /// </summary>
     [Parameter]
-    public AccordionExpandMode? ExpandMode { get; set; }
+    public AccordionExpandMode? ExpandMode { get; set; } = AccordionExpandMode.Multi;
 
     /// <summary>
     /// Gets or sets the id of the active accordion item
