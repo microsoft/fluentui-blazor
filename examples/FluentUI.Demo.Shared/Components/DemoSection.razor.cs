@@ -2,7 +2,6 @@
 using FluentUI.Demo.Generators;
 using Microsoft.AspNetCore.Components;
 
-
 namespace FluentUI.Demo.Shared.Components;
 public partial class DemoSection : ComponentBase
 {
@@ -30,8 +29,8 @@ public partial class DemoSection : ComponentBase
     {
         if (firstRender)
         {
-            var isDisplayDemoCode = true;
-            var hasFilename = !string.IsNullOrEmpty(CodeFilename);
+            bool isDisplayDemoCode = true;
+            bool hasFilename = !string.IsNullOrEmpty(CodeFilename);
 
             HasCode = hasFilename && isDisplayDemoCode;
 

@@ -57,7 +57,7 @@ public partial class ApiDocumentation
             object? obj = Activator.CreateInstance(Component);
             _name = obj!.GetType().Name;
 
-            LoxSmoke.DocXml.DocXmlReader? docReader = new LoxSmoke.DocXml.DocXmlReader(a => a.Location.Replace(".dll", ".xml"));
+            LoxSmoke.DocXml.DocXmlReader? docReader = new(a => a.Location.Replace(".dll", ".xml"));
 
             IEnumerable<MemberInfo>? allProperties = Component.GetProperties().Select(i => (MemberInfo)i);
             IEnumerable<MemberInfo>? allMethods = Component.GetMethods().Where(i => !i.IsSpecialName).Select(i => (MemberInfo)i);

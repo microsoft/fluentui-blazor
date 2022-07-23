@@ -1,0 +1,31 @@
+﻿<FluentAccordion ActiveId="@activeId" > @*OnAccordionItemChange="HandleOnAccordionItemChange"*@
+    <FluentAccordionItem Expanded="true" Heading="Panel one">
+        <div slot="start">
+            <button>1</button>
+        </div>
+        <div slot="end">
+            <button>1</button>
+        </div>
+        Panel one content
+    </FluentAccordionItem>
+    <FluentAccordionItem Heading="Panel two">
+        Panel two content
+    </FluentAccordionItem>
+    <FluentAccordionItem Expanded="true" Heading="Panel three">
+        Panel three content
+    </FluentAccordionItem>
+</FluentAccordion>
+
+<p>Last changed accordion item: @changed?.Heading</p>
+
+
+@code {
+    string activeId = "accordion-1";
+
+    FluentAccordionItem? changed;
+
+    private void HandleOnAccordionItemChange(FluentAccordionItem item)
+    {
+        changed = item;
+    }
+}
