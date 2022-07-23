@@ -33,10 +33,11 @@ namespace FluentUI.Demo.Generators
             sb.AppendLine("\t\tvar metadata = new Dictionary<string,string>() {");
             foreach (var pair in dictionary)
             {
+                sb.Append("\t\t");
                 sb.AppendLine($@"{{ @""{pair.Key}"", @""{pair.Value}"" }},");
             }
             sb.AppendLine("\t\t};");
-
+            sb.Append("\t\t");
             sb.AppendLine($@"var foundPair = metadata.FirstOrDefault(x => x.Key.EndsWith(""\\"" + name ));");
 
             sb.AppendLine("\t\treturn foundPair.Value;");
