@@ -1,33 +1,32 @@
-﻿<div style="margin-left: 50px;">
-    @if (!string.IsNullOrEmpty(Title))
+﻿@if (!string.IsNullOrEmpty(Title))
+{
+    @if (IsNew)
     {
-        @if (IsNew)
-        {
-            <h3>@Title <NewBadge /></h3>
-        }
-        else
-        {
-            <h3>@Title</h3>
-        }
+        <h3>@Title <NewBadge /></h3>
     }
+    else
+    {
+        <h3>@Title</h3>
+    }
+}
 
-    @if (Description != null)
-    {
-        <div class="demo-section-description">
-            @Description
-        </div>
-    }
+@if (Description != null)
+{
+    <div class="demo-section-description">
+        @Description
+    </div>
+}
 
-    @if (ChildContent != null)
-    {
-        <div class="demo-section-Example">
-            @ChildContent
-        </div>
-    }
+@if (ChildContent != null)
+{
+    <div class="demo-section-Example">
+        @ChildContent
+    </div>
+}
 
-    @if (HasCode)
-    {
-        <h4ion>Code</h4ion>
-        <CodeSnippet>@CodeContents</CodeSnippet>
-    }
-</div>
+@if (HasCode)
+{
+    <h4ion>Code</h4ion>
+    <CodeSnippet>@CodeContents</CodeSnippet>
+}
+
