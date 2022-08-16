@@ -16,6 +16,7 @@
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.0-preview.7.*" PrivateAssets="all" />
 	</ItemGroup>
 
+
 	<ItemGroup>
 		<ProjectReference Include="..\FluentUI.Demo.Shared\FluentUI.Demo.Shared.csproj" />
 	</ItemGroup>
