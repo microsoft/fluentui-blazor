@@ -13,8 +13,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="LoxSmoke.DocXml" Version="3.4.5" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.7" />
+		<PackageReference Include="LoxSmoke.DocXml" Version="3.5.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.8" />
 	</ItemGroup>
 	
 	<ItemGroup>
