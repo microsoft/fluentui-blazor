@@ -54,7 +54,7 @@ public class Program
 
 
                                 classBuilder.AppendLine("\t[Parameter]");
-                                classBuilder.AppendLine($"\tpublic {a.type.text} {composedName} {{ get; set; }}\n");
+                                classBuilder.AppendLine($"\tpublic {a.type.text}? {composedName} {{ get; set; }}\n");
 
                                 elementBuilder.AppendLine($"\t{a.name}=@{composedName}");
                             }
