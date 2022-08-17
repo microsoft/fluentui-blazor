@@ -1,13 +1,13 @@
 @inherits FluentInputBase<int>
 <fluent-slider @ref=Element
-               orientation="@Orientation.ToAttributeValue()"
+               readonly="@Readonly"
                min="@Min"
                max="@Max"
                step="@Step"
+               orientation="@Orientation.ToAttributeValue()"
+               disabled="@Disabled"
                current-value="@BindConverter.FormatValue(CurrentValue)"
                @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
-               readonly="@Readonly"
-               disabled="@Disabled"
                @attributes="AdditionalAttributes">
     @ChildContent
 </fluent-slider>

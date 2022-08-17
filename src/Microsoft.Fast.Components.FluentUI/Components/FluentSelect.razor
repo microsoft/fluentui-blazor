@@ -4,12 +4,13 @@
 
 <CascadingValue TValue=FluentOptionContext IsFixed=true Value=_context @key=_context>
     <fluent-select @ref=Element
-                   current-value="@CurrentValueAsString"
-                   @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
+                   open="@Open"
+                   position="@Position.ToAttributeValue()"
+                   multiple="@Multiple"
                    disabled="@Disabled"
                    appearance="@Appearance.ToAttributeValue()"
-                   name="@Name"
-                   position="@Position.ToAttributeValue()"
+                   current-value="@CurrentValueAsString"
+                   @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
                    @attributes="AdditionalAttributes">
     @if (Items is not null)
     {

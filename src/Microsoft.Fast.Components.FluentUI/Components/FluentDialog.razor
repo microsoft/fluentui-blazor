@@ -1,2 +1,11 @@
 @inherits FluentComponentBase
-<fluent-dialog @ref=Element Modal="@Modal" @attributes="AdditionalAttributes" hidden="@(Hidden)">@ChildContent</fluent-dialog>
+<fluent-dialog @ref=Element
+               modal="@Modal"
+               hidden="@(Hidden)"
+               no-focus-trap=@NoFocusTrap
+               aria-describedby=@AriaDescribedby
+               aria-labelledby=@AriaLabelledby
+               aria-label=@AriaLabel
+               @attributes="AdditionalAttributes">
+    @ChildContent
+</fluent-dialog>

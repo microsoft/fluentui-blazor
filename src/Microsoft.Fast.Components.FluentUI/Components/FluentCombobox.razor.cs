@@ -9,6 +9,31 @@ public partial class FluentCombobox<TValue> : FluentInputBase<TValue>
     private FluentOptionContext? _context;
 
     /// <summary>
+    /// Gets or sets if the element is auto completes. See <seealso cref="FluentUI.ComboboxAutocomplete"/>
+    /// </summary>
+    [Parameter]
+    public ComboboxAutocomplete? Autocomplete { get; set; }
+
+    /// <summary>
+    /// The open attribute.
+    /// </summary>
+    [Parameter]
+    public bool? Open { get; set; }
+
+    /// <summary>
+    /// Sets the placeholder value of the element, generally used to provide a hint to the user.
+    /// </summary>
+    [Parameter]
+    public string? Placeholder { get; set; }
+
+    /// <summary>
+    /// The placement for the listbox when the combobox is open.
+    /// See <seealso cref="FluentUI.SelectPosition"/>
+    /// </summary>
+    [Parameter]
+    public SelectPosition? Position { get; set; }
+
+    /// <summary>
     /// Gets or sets the name of the Select.
     /// </summary>
     [Parameter]
@@ -31,18 +56,6 @@ public partial class FluentCombobox<TValue> : FluentInputBase<TValue>
     /// </summary>
     [Parameter]
     public bool? Required { get; set; }
-
-    /// <summary>
-    /// Gets or sets if the element is auto completes. See <seealso cref="FluentUI.ComboboxAutocomplete"/>
-    /// </summary>
-    [Parameter]
-    public ComboboxAutocomplete? Autocomplete { get; set; }
-
-    /// <summary>
-    /// Gets or sets if the position of the element. See <seealso cref="FluentUI.SelectPosition"/>
-    /// </summary>
-    [Parameter]
-    public SelectPosition? Position { get; set; }
 
     /// <summary>
     /// Gets or set the list of <see cref="Option{TValue}"/> items 

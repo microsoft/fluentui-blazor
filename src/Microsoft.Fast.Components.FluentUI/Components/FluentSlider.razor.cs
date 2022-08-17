@@ -8,10 +8,10 @@ namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentSlider : FluentInputBase<int>
 {
     /// <summary>
-    /// Gets or sets the orentation of the slider. See <see cref="FluentUI.Orientation"/>
+    /// Gets or sets if the slider is readonly
     /// </summary>
     [Parameter]
-    public Orientation? Orientation { get; set; }
+    public bool? Readonly { get; set; }
 
     /// <summary>
     /// Gets or sets the slider's minimal value
@@ -32,16 +32,16 @@ public partial class FluentSlider : FluentInputBase<int>
     public int? Step { get; set; }
 
     /// <summary>
+    /// Gets or sets the orentation of the slider. See <see cref="FluentUI.Orientation"/>
+    /// </summary>
+    [Parameter]
+    public Orientation? Orientation { get; set; }
+
+    /// <summary>
     /// Gets or sets if the slider is disabled
     /// </summary>
     [Parameter]
     public bool? Disabled { get; set; }
-
-    /// <summary>
-    /// Gets or sets if the slider is readonly
-    /// </summary>
-    [Parameter]
-    public bool? Readonly { get; set; }
 
     protected override bool TryParseValueFromString(string? value, out int result, [NotNullWhen(false)] out string? validationErrorMessage)
     {

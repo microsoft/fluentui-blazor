@@ -1,5 +1,6 @@
 ﻿namespace Microsoft.Fast.Components.FluentUI;
 
+[Obsolete("Use TextAreaResize instead", true)]
 public enum Resize
 {
     Horizontal,
@@ -7,6 +8,7 @@ public enum Resize
     Both
 }
 
+[Obsolete("Use TextAreaResize instead", true)]
 public static class ResizeExtensions
 {
     private static readonly Dictionary<Resize, string> _resizeValues =

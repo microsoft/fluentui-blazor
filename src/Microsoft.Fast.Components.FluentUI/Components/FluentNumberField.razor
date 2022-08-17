@@ -3,20 +3,22 @@
 @using System.Globalization;
 @using System.Reflection;
 <fluent-number-field @ref=Element
+                     readonly="@Readonly"
                      autofocus="@Autofocus"
-                     appearance="@Appearance.ToAttributeValue()"
-                     current-value="@BindConverter.FormatValue(CurrentValue, CultureInfo.InvariantCulture)"
-                     step=@Step
-                     min="@Min"
-                     max="@Max"
+                     hide-step=@HideStep
+                     placeholder="@Placeholder"
+                     list=@DataList
                      maxlength="@MaxLength"
                      minlength="@MinLength"
                      size="@Size"
+                     step=@Step
+                     max="@Max"
+                     min="@Min"
                      @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
-                     readonly="@Readonly"
                      disabled="@Disabled"
                      required="@Required"
-                     placeholder="@Placeholder"
+                     current-value="@BindConverter.FormatValue(CurrentValue, CultureInfo.InvariantCulture)"
+                     appearance="@Appearance.ToAttributeValue()"
                      @attributes="AdditionalAttributes">
     @ChildContent
 </fluent-number-field>

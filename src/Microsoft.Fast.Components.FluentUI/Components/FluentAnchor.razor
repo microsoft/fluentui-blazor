@@ -1,7 +1,14 @@
 @inherits FluentComponentBase
 <fluent-anchor @ref=Element
-               href="@Href"
-               appearance="@Appearance.ToAttributeValue()"
-               @attributes="AdditionalAttributes">
-    @ChildContent
+			   download=@Download
+			   href=@Href
+			   hreflang=@Hreflang
+			   ping=@Ping
+			   referrerpolicy=@Referrerpolicy
+			   rel=@Rel
+			   target=@Target
+			   type=@Type
+			   appearance="@Appearance.ToAttributeValue()"
+			   @attributes="AdditionalAttributes">
+	@ChildContent
 </fluent-anchor>

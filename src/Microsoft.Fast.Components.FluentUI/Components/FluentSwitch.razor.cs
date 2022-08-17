@@ -6,6 +6,12 @@ namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentSwitch : FluentInputBase<bool>
 {
     /// <summary>
+    /// When true, the control will be immutable by user interaction. See https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/readonly | readonly HTML attribute for more information.
+    /// </summary>
+    [Parameter]
+    public bool? Readonly { get; set; }
+
+    /// <summary>
     /// Gets or sets if the switch is disabled
     /// </summary>
     [Parameter]

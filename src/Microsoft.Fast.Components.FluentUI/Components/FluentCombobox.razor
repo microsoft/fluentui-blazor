@@ -7,6 +7,9 @@
                      current-value="@BindConverter.FormatValue(CurrentValue)"
                      @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
                      appearance="@Appearance.ToAttributeValue()"
+                     open=@Open
+                     placeholder=@Placeholder
+                     position=@Position
                      disabled="@Disabled"
                      required="@Required"
                      autocomplete="@Autocomplete.ToAttributeValue()"

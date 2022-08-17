@@ -12,9 +12,11 @@ public partial class FluentDataGridCell : FluentComponentBase
     [Parameter]
     public DataGridCellType? CellType { get; set; } = DataGridCellType.Default;
 
-    /// <summary>
-    /// Gets or sets the column where the cell should be displayed in
-    /// </summary>
+	/// <summary>
+	/// The column index of the cell.
+	/// This will be applied to the css grid-column-index value
+	/// applied to the cell
+	/// </summary>
     [Parameter]
     public int GridColumn { get; set; }
 

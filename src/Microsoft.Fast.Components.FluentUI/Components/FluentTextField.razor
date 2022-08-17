@@ -1,18 +1,20 @@
 @inherits FluentInputBase<string?>
 <fluent-text-field @ref=Element
+                   readonly="@Readonly"
                    autofocus="@Autofocus"
+                   placeholder="@Placeholder"
+                   type="@TextFieldType.ToAttributeValue()"
+                   list=@DataList
+                   maxlength="@Maxlength"
+                   minlength="@Minlength"
+                   pattern=@Pattern
+                   size="@Size"
+                   spellcheck="@Spellcheck"
                    appearance="@Appearance.ToAttributeValue()"
                    current-value="@BindConverter.FormatValue(CurrentValue)"
-                   @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
-                   type="@TextFieldType.ToAttributeValue()"
-                   size="@Size"
-                   minlength="@MinLength"
-                   maxlength="@MaxLength"
-                   spellcheck="@Spellcheck"
-                   readonly="@Readonly"
                    disabled="@Disabled"
                    required="@Required"
-                   placeholder="@Placeholder"
+                   @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
                    @attributes="AdditionalAttributes">
     @ChildContent
 </fluent-text-field>

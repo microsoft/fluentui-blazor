@@ -1,2 +1,6 @@
 @inherits FluentComponentBase
-<fluent-divider @ref=Element @attributes="AdditionalAttributes">@ChildContent</fluent-divider>
+<fluent-divider @ref=Element
+                role=@Role.ToAttributeValue()
+                orientation=@Orientation.ToAttributeValue()>
+                @ChildContent
+</fluent-divider>

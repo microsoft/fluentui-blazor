@@ -1,14 +1,22 @@
 @inherits FluentInputBase<string?>
 <fluent-text-area @ref=Element
-                  autofocus="@Autofocus"
-                  appearance="@Appearance.ToAttributeValue()"
+                  readOnly="@Readonly"
                   resize="@Resize.ToAttributeValue()"
+                  autofocus="@Autofocus"
+                  form=@Form
+                  list=@DataList
+                  maxlength=@Maxlength
+                  minlength=@Minlength
+                  name=@Name
+                  placeholder="@Placeholder"
+                  cols=@Cols
+                  rows=@Rows
+                  spellcheck=@Spellcheck
+                  appearance="@Appearance.ToAttributeValue()"
                   current-value="@BindConverter.FormatValue(CurrentValue)"
                   @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
-                  readonly="@Readonly"
                   disabled="@Disabled"
                   required="@Required"
-                  placeholder="@Placeholder"
                   @attributes="AdditionalAttributes">
     @ChildContent
 </fluent-text-area>

@@ -6,8 +6,16 @@ namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentDataGrid<TItem> : FluentComponentBase
 {
     private readonly Dictionary<string, FluentDataGridRow<TItem>> rows = new();
+
     /// <summary>
-    /// Gets or sets the <see cref="GenerateHeaderOption"/>
+    /// When true the component will not add itself to the tab queue. Default is false.
+    /// </summary>
+    [Parameter]
+    public bool NoTabbing { get; set; }
+
+    /// <summary>
+    /// Whether the grid should automatically generate a header row and its type
+    /// See <see cref="GenerateHeaderOption"/>
     /// </summary>
     [Parameter]
     public GenerateHeaderOption? GenerateHeader { get; set; } = GenerateHeaderOption.Default;

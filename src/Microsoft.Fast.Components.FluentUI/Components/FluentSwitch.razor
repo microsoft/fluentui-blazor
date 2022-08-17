@@ -1,5 +1,6 @@
 @inherits FluentInputBase<bool>
 <fluent-switch @ref=Element
+               readonly=@Readonly
                disabled="@Disabled"
                current-checked="@CurrentValue"
                @oncheckedchange="(__value) => CurrentValue = __value.Checked"

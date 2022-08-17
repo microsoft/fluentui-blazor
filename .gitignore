@@ -43,3 +43,4 @@ StyleCop.Cache
 UpgradeLog.htm
 .idea
 *.svclog
+/src/CustomElementsParser/GeneratedClasses
