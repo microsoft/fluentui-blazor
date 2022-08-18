@@ -1,15 +1,15 @@
 @inherits FluentComponentBase
-<fluent-button @ref=Element 
-			   form=@FormId
-			   formaction=@Action
-			   formenctype=@Enctype
-			   formmethod=@Method
-			   formtarget=@Target
-			   formnovalidate=@NoValidate
-			   type=@Type
-               appearance="@Appearance.ToAttributeValue()" 
-               disabled="@Disabled"
-               autofocus="@Autofocus"
+<fluent-button @ref=Element
+               autofocus=@Autofocus
+               form=@FormId
+               formaction=@Action
+               formenctype=@Enctype
+               formmethod=@Method
+               formnovalidate=@NoValidate
+               formtarget=@Target
+               type=@Type
+               appearance=@Appearance.ToAttributeValue()
+               disabled=@Disabled
                @attributes="AdditionalAttributes">
     @ChildContent
 </fluent-button>
