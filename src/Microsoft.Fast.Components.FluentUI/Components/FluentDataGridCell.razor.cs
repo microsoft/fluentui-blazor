@@ -1,11 +1,10 @@
-using System.Globalization;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentDataGridCell : FluentComponentBase
 {
-    internal string CellId { get; } = Guid.NewGuid().ToString("D", CultureInfo.InvariantCulture);
+    internal string CellId { get; } = Identifier.NewId();
 
     /// <summary>
     /// Gets or sets the cell type. See <see cref="DataGridCellType"/>
@@ -13,9 +12,11 @@ public partial class FluentDataGridCell : FluentComponentBase
     [Parameter]
     public DataGridCellType? CellType { get; set; } = DataGridCellType.Default;
 
-    /// <summary>
-    /// Gets or sets the column where the cell should be displayed in
-    /// </summary>
+	/// <summary>
+	/// The column index of the cell.
+	/// This will be applied to the css grid-column-index value
+	/// applied to the cell
+	/// </summary>
     [Parameter]
     public int GridColumn { get; set; }
 

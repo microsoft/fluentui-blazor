@@ -133,6 +133,9 @@
 <FluentButton @onclick="() => focusTest!.FocusAsync()">FocusAsync</FluentButton> 
 <FluentTextField @ref=focusTest></FluentTextField>
 
+<!-- Hide Up-Down -->
+<h4>Hide up/down steps</h4>
+<FluentNumberField TValue="int?" HideStep=true></FluentNumberField>
 @code{
     FluentTextField? focusTest;
     int exampleInt { get; set; } = 123;

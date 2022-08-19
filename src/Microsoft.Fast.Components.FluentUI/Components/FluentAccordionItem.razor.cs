@@ -1,12 +1,9 @@
-using System.Globalization;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentAccordionItem : FluentComponentBase, IDisposable
 {
-    internal string AccordionItemId { get; } = Guid.NewGuid().ToString("D", CultureInfo.InvariantCulture);
-
     /// <summary>
     /// Gets or sets the owning FluentTreeView
     /// </summary>
@@ -26,13 +23,27 @@ public partial class FluentAccordionItem : FluentComponentBase, IDisposable
     [Parameter]
     public bool? Expanded { get; set; }
 
+    /// <summary>
+    /// Configures the <see link="https://www.w3.org/TR/wai-aria-1.1/#aria-level">level</see> of the
+    /// heading element.
+    /// Possible values: 1 | 2 | 3 | 4 | 5 | 6
+    /// </summary>
+    [Parameter]
+    public string? HeadingLevel { get; set; }
+
+    /// <summary>
+    /// The item ID
+    /// </summary>
+    internal string Id { get; } = Identifier.NewId();
+
+
     protected override void OnInitialized()
     {
-        Owner.Register(this);
+        Owner?.Register(this);
     }
 
     public void Dispose()
     {
-        Owner.Unregister(this);
+        Owner?.Unregister(this);
     }
 }

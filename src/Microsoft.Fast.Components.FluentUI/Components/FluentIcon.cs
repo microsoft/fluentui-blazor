@@ -1,13 +1,17 @@
+using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentIcon
+public partial class FluentIcon : FluentComponentBase
 {
     [Inject]
     private IconService IconService { get; set; } = default!;
 
-    private MarkupString svg;
+    private string? _svg;
+    private int _size;
 
     /// <summary>
     /// Gets or sets the variant to use: filled (true) or regular (false)
@@ -49,10 +53,11 @@ public partial class FluentIcon
     public string? NeutralCultureName { get; set; } = null;
 
     /// <summary>
-    /// Gets or sets a collection of additional attributes that will be applied to the input element.
+    /// Allows for capturing a mouse click on an icon
     /// </summary>
-    [Parameter(CaptureUnmatchedValues = true)]
-    public IDictionary<string, object>? AdditionalAttributes { get; set; }
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClick { get; set; }
+
 
     protected override async Task OnParametersSetAsync()
     {
@@ -95,13 +100,40 @@ public partial class FluentIcon
 
         if (UseAccentColor)
             result = result.Replace("<path ", "<path fill=\"var(--accent-fill-rest)\"");
-        if (!string.IsNullOrEmpty(Slot))
-            result = result.Replace("<svg ", $"<svg slot=\"{Slot}\" ");
 
-        svg = (MarkupString)result;
+
+        string pattern = "<svg (?<attributes>.*?)>(?<path>.*?)</svg>";
+        Regex regex = new(pattern);
+        MatchCollection matches = regex.Matches(result);
+        Match? match = matches.FirstOrDefault();
+
+        if (match is not null)
+            result = match.Groups["path"].Value;
+
+        _svg = result;
+        _size = Convert.ToInt32(Size);
 
     }
 
+    protected override void BuildRenderTree(RenderTreeBuilder builder)
+    {
+        builder.OpenElement(0, "svg");
+        builder.AddAttribute(1, "slot", Slot);
+        builder.AddMultipleAttributes(2, AdditionalAttributes);
+        builder.AddAttribute(3, "width", _size);
+        builder.AddAttribute(4, "height", _size);
+        builder.AddAttribute(5, "viewBox", $"0 0 {_size} {_size}");
+        builder.AddAttribute(6, "xmlns", "http://www.w3.org/2000/svg");
+        builder.AddAttribute(7, "onclick", OnClickHandler);
+        builder.AddMarkupContent(8, _svg);
+        builder.CloseElement();
+    }
+
+    protected async Task OnClickHandler(MouseEventArgs e)
+    {
+        if (OnClick.HasDelegate)
+            await OnClick.InvokeAsync(e);
+    }
 
     public string ComposedName
     {

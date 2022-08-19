@@ -6,7 +6,7 @@
 
 <h4>Interaction Example</h4>
 <FluentSearch @ref=searchTest @oninput=handleSearchInput Placeholder="Search for State"></FluentSearch><br/>
-<FluentListbox Items=@searchResults  />
+<FluentListbox Options=@searchResults  />
 
 <h4>Full Width</h4>
 <FluentSearch style="width: 100%;"></FluentSearch>
@@ -85,10 +85,10 @@
 <FluentSearch aria-label="Search with aria-label"></FluentSearch>
 
 <h4>Minlength</h4>
-<FluentSearch MinLength="4">Minlength</FluentSearch>
+<FluentSearch Minlength="4">Minlength</FluentSearch>
 
 <h4>Maxlength</h4>
-<FluentSearch MaxLength="4">Maxlength</FluentSearch>
+<FluentSearch Maxlength="4">Maxlength</FluentSearch>
 
 <!-- Focus Async -->
 <h4>Focus Async</h4>

@@ -11,6 +11,12 @@ public partial class FluentFlipper : FluentComponentBase
     public bool? Disabled { get; set; }
 
     /// <summary>
+	/// Indicates the flipper should be hidden from assistive technology. Because flippers are often supplementary navigation, they are often hidden from assistive technology.
+	/// </summary>
+	[Parameter]
+	public bool? AriaHidden { get; set; }
+	
+	    /// <summary>
     /// Gets or sets the direction. See <see cref="FluentUI.FlipperDirection"/>
     /// </summary>
 

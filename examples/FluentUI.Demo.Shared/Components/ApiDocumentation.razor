@@ -1,0 +1,96 @@
+﻿@using System.Globalization;
+@using System.Reflection;
+
+@if (this.Properties.Any())
+{
+    <h3>Properties</h3>
+    <FluentDataGrid RowsData="@this.Properties.ToList()" ColumnDefinitions=@_propertiesGrid GridTemplateColumns="1fr 1fr 1fr 1fr">
+        <RowItemTemplate>
+            <FluentDataGridRow>
+                <FluentDataGridCell GridColumn="1">
+                    <FluentBadge Appearance="Appearance.Neutral">@context.Name</FluentBadge>
+                </FluentDataGridCell>
+                <FluentDataGridCell GridColumn="2">
+                    @context.Type
+
+                    @* Display list of Enumerations (if available) *@
+                    @if (context.EnumValues.Length > 0)
+                    {
+                        var id = Identifier.NewId();
+                        <FluentIcon id="@id"
+                           Name="@FluentIcons.Info"
+                           Size="@IconSize.Size24"
+                           style="margin-left: 10px; vertical-align: top;"
+                           Filled=false
+                           UseAccentColor=false></FluentIcon>
+                        <FluentTooltip Anchor="@id" Position="TooltipPosition.Right">
+                            @foreach (var item in context.EnumValues)
+                            {
+                                @item <br />
+                            }
+                        </FluentTooltip>
+                    }
+                </FluentDataGridCell>
+                <FluentDataGridCell GridColumn="3">
+                    @context.Default
+                </FluentDataGridCell>
+                <FluentDataGridCell GridColumn="4">
+                    <div style="white-space: break-spaces">
+                        @context.Description
+                    </div>
+                </FluentDataGridCell>
+            </FluentDataGridRow>
+        </RowItemTemplate>
+    </FluentDataGrid>
+}
+
+@if (this.Events.Any())
+{
+    <h3>EventCallbacks</h3>
+    <FluentDataGrid RowsData="@this.Events.ToList()" ColumnDefinitions="@_eventsGrid" GridTemplateColumns="1fr 1fr 1fr">
+        <RowItemTemplate>
+            <FluentDataGridRow>
+                <FluentDataGridCell GridColumn="1">
+                    <FluentBadge>@context.Name</FluentBadge>
+                </FluentDataGridCell>
+                <FluentDataGridCell GridColumn="2">
+                    @context.Type
+                </FluentDataGridCell>
+                <FluentDataGridCell GridColumn="3">
+                    <div style="white-space: break-spaces">
+                        @context.Description
+                    </div>
+                </FluentDataGridCell>
+            </FluentDataGridRow>
+        </RowItemTemplate>
+    </FluentDataGrid>
+}
+
+@if (this.Methods.Any())
+{
+    <h3>Methods</h3>
+    <FluentDataGrid RowsData="@this.Methods.ToList()" ColumnDefinitions="@_methodsGrid" GridTemplateColumns="1fr 1fr 1fr 1fr">
+
+        <RowItemTemplate>
+            <FluentDataGridRow>
+                <FluentDataGridCell GridColumn="1">
+                    <FluentBadge>@context.Name</FluentBadge>
+                </FluentDataGridCell>
+                <FluentDataGridCell GridColumn="2">
+                    @foreach (var param in @context.Parameters)
+                    {
+                        @param <br />
+                    }
+                </FluentDataGridCell>
+                <FluentDataGridCell GridColumn="3">
+                    @context.Type
+                </FluentDataGridCell>
+                <FluentDataGridCell GridColumn="4">
+                    <div style="white-space: break-spaces">
+                        @context.Description
+                    </div>
+                </FluentDataGridCell>
+            </FluentDataGridRow>
+        </RowItemTemplate>
+    </FluentDataGrid>
+}

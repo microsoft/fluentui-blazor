@@ -1,10 +1,12 @@
 @inherits FluentInputBase<string?>
 <fluent-radio-group @ref=Element
+                    readonly=@Readonly
+                    disabled=@Disabled
                     name="@Name"
-                    current-value="@CurrentValue"
                     value="@Value"
-                    required="@Required"
                     orientation="@Orientation.ToAttributeValue()"
+                    required="@Required"
+                    current-value="@CurrentValue"
                     @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValue = __value, CurrentValue))"
                     @attributes="AdditionalAttributes">
     @ChildContent

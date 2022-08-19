@@ -1,11 +1,10 @@
-using System.Globalization;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentTreeItem : FluentComponentBase, IDisposable
 {
-    internal string TreeItemId { get; } = Guid.NewGuid().ToString("D", CultureInfo.InvariantCulture);
+    internal string TreeItemId { get; } = Identifier.NewId();
 
     /// <summary>
     /// Gets or sets the owning FluentTreeView
@@ -19,31 +18,33 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
     [Parameter]
     public string? Text { get; set; }
 
-    /// <summary>
-    /// Gets or sets if the tree item is disabled
-    /// </summary>
-    [Parameter]
-    public bool? Disabled { get; set; }
+
 
     /// <summary>
-    /// Gets or sets if the tree item is selected
+    /// When true, the control will be appear expanded by user interaction.
     /// </summary>
     [Parameter]
-    public bool Selected { get; set; } = false;
+    public bool Expanded { get; set; }
 
     /// <summary>
-    /// Gets or sets if the tree item is expanded (true) or folded (false)
+    /// When true, the control will appear selected by user interaction.
     /// </summary>
     [Parameter]
-    public bool Expanded { get; set; } = false;
+    public bool Selected { get; set; }
+
+    /// <summary>
+    /// When true, the control will be immutable by user interaction. <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled">disabled</see> HTML attribute for more information.
+    /// </summary>
+    [Parameter]
+    public bool Disabled { get; set; }
 
     protected override void OnInitialized()
     {
-        Owner.Register(this);
+        Owner?.Register(this);
     }
 
     public void Dispose()
     {
-        Owner.Unregister(this);
+        Owner?.Unregister(this);
     }
 }

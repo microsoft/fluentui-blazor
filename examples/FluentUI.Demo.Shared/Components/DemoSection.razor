@@ -1,0 +1,33 @@
+﻿<div style="margin-left: 50px;">
+    @if (!string.IsNullOrEmpty(Title))
+    {
+        @if (IsNew)
+        {
+            <h3>@Title <NewBadge /></h3>
+        }
+        else
+        {
+            <h3>@Title</h3>
+        }
+    }
+
+    @if (Description != null)
+    {
+        <div class="demo-section-description">
+            @Description
+        </div>
+    }
+
+    @if (ChildContent != null)
+    {
+        <div class="demo-section-Example">
+            @ChildContent
+        </div>
+    }
+
+    @if (HasCode)
+    {
+        <h5>Code</h5>
+        <CodeSnippet>@CodeContents</CodeSnippet>
+    }
+</div>

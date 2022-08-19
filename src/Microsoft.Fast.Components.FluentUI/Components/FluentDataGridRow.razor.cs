@@ -1,4 +1,3 @@
-using System.Globalization;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
@@ -7,7 +6,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentDataGridRow<TItem> : FluentComponentBase, IDisposable
 {
     internal static int index = 0;
-    internal string RowId { get; } = Guid.NewGuid().ToString("D", CultureInfo.InvariantCulture);
+    internal string RowId { get; } = Identifier.NewId();
     private readonly Dictionary<string, FluentDataGridCell> cells = new();
 
     /// <summary>
@@ -17,8 +16,8 @@ public partial class FluentDataGridRow<TItem> : FluentComponentBase, IDisposable
     public int? RowIndex { get; set; }
 
     /// <summary>
-    /// Gets or sets the value that gets applied to the css gridTemplateColumns attribute of child rows
-    /// </summary>
+	/// String that gets applied to the the css gridTemplateColumns attribute for the row
+	/// </summary>
     [Parameter]
     public string? GridTemplateColumns { get; set; } = null;
 
