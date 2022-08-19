@@ -15,7 +15,7 @@
 	<ItemGroup>
 	  <Folder Include="GeneratedClasses\" />
 	</ItemGroup>
-	<Target Name="PreBuild" BeforeTargets="PreBuildEvent" >
+	<Target Name="PreBuild" BeforeTargets="PreBuildEvent" Condition="'$(GITHUB_ACTIONS)' == 'false'">
 	  <Exec Command="cd $(ProjectDir)GeneratedClasses&#xD;&#xA;del *.razor&#xD;&#xA;del *.razor.cs&#xD;&#xA;" />
 	</Target>
 </Project>
