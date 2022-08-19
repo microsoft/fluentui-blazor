@@ -1,19 +1,22 @@
 @inherits FluentComponentBase
 <fluent-anchored-region @ref=Element
-                        anchor="@Anchor"
-                        viewport="@Viewport"
-                        horizontal-positioning-mode="@HorizontalPositioningMode.ToAttributeValue()"
-                        horizontal-default-position="@HorizontalDefaultPosition.ToAttributeValue()"
-                        horizontal-inset="@HorizontalInset"
-                        horizontal-threshold="@HorizontalThreshold"
-                        horizontal-scaling="@HorizontalScaling.ToAttributeValue()"
-                        vertical-positioning-mode="@VerticalPositioningMode.ToAttributeValue()"
-                        vertical-default-position="@VerticalDefaultPosition.ToAttributeValue()"
-                        vertical-inset="@VerticalInset"
-                        vertical-threshold="@VerticalThreshold"
-                        vertical-scaling="@VerticalScaling.ToAttributeValue()"
-                        auto-update-mode="@UpdateMode.ToAttributeValue()"
-                        @attributes="AdditionalAttributes">
-    @ChildContent
+						anchor="@Anchor"
+						viewport="@Viewport"
+						horizontal-positioning-mode="@HorizontalPositioningMode.ToAttributeValue()"
+						horizontal-default-position="@HorizontalDefaultPosition.ToAttributeValue()"
+						horizontal-viewport-lock=@HorizontalViewportLock
+						horizontal-inset="@HorizontalInset"
+						horizontal-threshold="@HorizontalThreshold"
+						horizontal-scaling="@HorizontalScaling.ToAttributeValue()"
+						vertical-positioning-mode="@VerticalPositioningMode.ToAttributeValue()"
+						vertical-default-position="@VerticalDefaultPosition.ToAttributeValue()"
+						vertical-viewport-lock=@VerticalViewportLock
+						vertical-inset="@VerticalInset"
+						vertical-threshold="@VerticalThreshold"
+						vertical-scaling="@VerticalScaling.ToAttributeValue()"
+						fixed-placement=@FixedPlacement
+						auto-update-mode="@AutoUpdateMode.ToAttributeValue()"
+						@attributes="AdditionalAttributes">
+	@ChildContent
 </fluent-anchored-region>
 

@@ -5,11 +5,13 @@
     <fluent-listbox @ref=Element
                     current-value="@CurrentValueAsString"
                     @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
-                    name="@Name"
+                    disabled=@Disabled
+                    size="@Size"
+                    multiple="@Multiple"
                     @attributes="AdditionalAttributes">
-    @if (Items is not null)
+    @if (Options is not null)
     {
-        foreach (Option<TValue> option in Items)
+        foreach (Option<TValue> option in Options)
         {
             <FluentOption Value=@option.Key Selected="option.Selected" Disabled=option.Disabled>@option.Value</FluentOption>
         }

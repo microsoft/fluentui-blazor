@@ -16,8 +16,8 @@ public partial class FluentDataGridRow<TItem> : FluentComponentBase, IDisposable
     public int? RowIndex { get; set; }
 
     /// <summary>
-    /// Gets or sets the value that gets applied to the css gridTemplateColumns attribute of child rows
-    /// </summary>
+	/// String that gets applied to the the css gridTemplateColumns attribute for the row
+	/// </summary>
     [Parameter]
     public string? GridTemplateColumns { get; set; } = null;
 

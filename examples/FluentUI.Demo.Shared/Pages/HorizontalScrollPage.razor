@@ -57,7 +57,7 @@
 </style>
 
 <h4>Default</h4>
-<FluentHorizontalScroll Speed="600" Easing="ease-in-out" @onscrollstart=OnHorizontalScrollStart @onscrollend=OnHorizontalScrollEnd>
+<FluentHorizontalScroll Speed="600" Easing=ScrollEasing.EaseInOut @onscrollstart=OnHorizontalScrollStart @onscrollend=OnHorizontalScrollEnd>
     <FluentCard>
         Card number 1
         <FluentButton Appearance="Appearance.Neutral">A button</FluentButton>
@@ -81,7 +81,7 @@
 
 
 <h4>Full width cards</h4>
-<FluentHorizontalScroll class="full-width" Speed="1200" Easing="ease-in-out" >
+<FluentHorizontalScroll class="full-width" Speed="1200" Easing="ScrollEasing.EaseInOut" >
     <FluentCard>Card number 1</FluentCard>
     <FluentCard>Card number 2</FluentCard>
     <FluentCard>Card number 3</FluentCard>
@@ -91,7 +91,7 @@
 </FluentHorizontalScroll>
 
 <h4>Slow scroll (200 pixels/second)</h4>
-<FluentHorizontalScroll Speed="200" Easing="ease-in-out" >
+<FluentHorizontalScroll Speed=" 200" Easing=ScrollEasing.EaseInOut>
     <FluentCard>Card number 1</FluentCard>
     <FluentCard>Card number 2</FluentCard>
     <FluentCard>Card number 3</FluentCard>
@@ -111,7 +111,7 @@
 </FluentHorizontalScroll>
 
 <h4>Right gradient</h4>
-<FluentHorizontalScroll class="right-gradient" Speed="600" Easing="ease-in-out" >
+<FluentHorizontalScroll class="right-gradient" Speed="600" Easing="ScrollEasing.EaseInOut">
     <FluentCard>Card number 1</FluentCard>
     <FluentCard>Card number 2</FluentCard>
     <FluentCard>Card number 3</FluentCard>
@@ -131,7 +131,7 @@
 </FluentHorizontalScroll>
 
 <h4>Gradient both sides</h4>
-<FluentHorizontalScroll class="both-gradient" Speed="600" Easing="ease-in-out" >
+<FluentHorizontalScroll class="both-gradient" Speed="600" Easing="ScrollEasing.EaseInOut">
     <FluentCard>Card number 1</FluentCard>
     <FluentCard>Card number 2</FluentCard>
     <FluentCard>Card number 3</FluentCard>
@@ -151,7 +151,7 @@
 </FluentHorizontalScroll>
 
 <h4>Varying heights and widths (default middle aligned)</h4>
-<FluentHorizontalScroll class="right-gradient" Speed="600" Easing="ease-in-out" >
+<FluentHorizontalScroll class="right-gradient" Speed="600" Easing="ScrollEasing.EaseInOut">
     <FluentCard>Card number 1</FluentCard>
     <FluentCard style="height:75px">Card number 2</FluentCard>
     <FluentCard style="width:100px;height:300px">Card number 3</FluentCard>
@@ -171,7 +171,7 @@
 </FluentHorizontalScroll>
 
 <h4>Top aligned</h4>
-<FluentHorizontalScroll class="right-gradient top-align" Speed="600" Easing="ease-in-out" >
+<FluentHorizontalScroll class="right-gradient top-align" Speed="600" Easing="ScrollEasing.EaseInOut" >
     <FluentCard>Card number 1</FluentCard>
     <FluentCard style="height:75px">Card number 2</FluentCard>
     <FluentCard style="width:100px;height:300px">Card number 3</FluentCard>
@@ -191,7 +191,7 @@
 </FluentHorizontalScroll>
 
 <h4>Bottom aligned</h4>
-<FluentHorizontalScroll class="right-gradient bottom-align" Speed="600" Easing="ease-in-out" >
+<FluentHorizontalScroll class="right-gradient bottom-align" Speed="600" Easing="ScrollEasing.EaseInOut" >
     <FluentCard>Card number 1</FluentCard>
     <FluentCard style="height:75px">Card number 2</FluentCard>
     <FluentCard style="width:100px;height:300px">Card number 3</FluentCard>
@@ -211,7 +211,7 @@
 </FluentHorizontalScroll>
 
 <h4>Mobile</h4>
-<FluentHorizontalScroll class="right-gradient" view="mobile" Speed="600" Easing="ease-in-out" >
+<FluentHorizontalScroll class="right-gradient" View="HorizontalScrollView.Mobile" Speed="600" Easing="ScrollEasing.EaseInOut" >
     <FluentCard>Card number 1</FluentCard>
     <FluentCard>Card number 2</FluentCard>
     <FluentCard>Card number 3</FluentCard>

@@ -6,11 +6,6 @@ public partial class FluentTabs : FluentComponentBase
 {
     private readonly Dictionary<string, FluentTab> tabs = new();
 
-    /// <summary>
-    /// Gets or sets if the active tab is marked 
-    /// </summary>
-    [Parameter]
-    public bool ActiveIndicator { get; set; } = true;
 
     /// <summary>
     /// Gets or sets the tab's orentation. See <see cref="FluentUI.Orientation"/>
@@ -20,6 +15,12 @@ public partial class FluentTabs : FluentComponentBase
 
     [Parameter]
     public string? ActiveId { get; set; }
+
+    /// <summary>
+    /// Whether or not to show the active indicator 
+    /// </summary>
+    [Parameter]
+    public bool HideActiveIndicator { get; set; }
 
     /// <summary>
     /// Gets or sets a callback when the bound value is changed .

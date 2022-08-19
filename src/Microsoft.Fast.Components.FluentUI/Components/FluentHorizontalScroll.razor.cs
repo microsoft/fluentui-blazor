@@ -9,10 +9,28 @@ public partial class FluentHorizontalScroll : FluentComponentBase
     /// </summary>
     [Parameter]
     public int Speed { get; set; } = 600;
+
     /// <summary>
-    /// Description: Scroll easing
-    /// Possible values: linear, ease-in, ease-out or ease-in-out
+    /// The CSS time value for the scroll transition duration. Overrides the `speed` attribute.
     /// </summary>
     [Parameter]
-    public string? Easing { get; set; }
+    public string? Duration { get; set; }
+
+    /// <summary>
+    /// Attribute used for easing, defaults to ease-in-out
+    /// </summary>
+    [Parameter]
+    public ScrollEasing? Easing { get; set; } = ScrollEasing.EaseInOut;
+
+    /// <summary>
+    /// Attribute to hide flippers from assistive technology
+    /// </summary>
+    [Parameter]
+    public bool? FlippersHiddenFromAt { get; set; }
+
+    /// <summary>
+    /// View: default | mobile
+    /// </summary>
+    [Parameter]
+    public HorizontalScrollView? View { get; set; } = FluentUI.HorizontalScrollView.Default;
 }

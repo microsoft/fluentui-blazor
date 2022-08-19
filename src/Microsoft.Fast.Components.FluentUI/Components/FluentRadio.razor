@@ -1,10 +1,13 @@
 @inherits FluentComponentBase
 <fluent-radio @ref=Element
-              value="@Value"
-              current-checked="@Checked"
-              disabled="@Disabled"
-              required="@Required"
               readonly="@Readonly"
+              id=@Id
+              value="@Value"
+              current-value=@CurrentValue
+              disabled="@Disabled"
+              name=@Name
+              required="@Required"
+              current-checked="@Checked"
               @attributes="AdditionalAttributes">
     @ChildContent
 </fluent-radio>
