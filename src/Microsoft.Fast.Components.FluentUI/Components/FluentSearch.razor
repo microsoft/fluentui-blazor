@@ -4,15 +4,18 @@
                autofocus="@Autofocus"
                placeholder="@Placeholder"
                list=@DataList
-               maxlength="@MaxLength"
-               minlength="@MinLength"
+               maxlength="@Maxlength"
+               minlength="@Minlength"
                pattern=@Pattern
                size="@Size"
                spellcheck="@Spellcheck"
+               id=@Id
+               value=@Value
+               current-value="@BindConverter.FormatValue(CurrentValue)"
                disabled="@Disabled"
+               name=@Name
                required="@Required"
                appearance="@Appearance.ToAttributeValue()"
-               current-value="@BindConverter.FormatValue(CurrentValue)"
                @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
                @attributes="AdditionalAttributes">
     @ChildContent

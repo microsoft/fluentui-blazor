@@ -8,8 +8,13 @@
                formnovalidate=@NoValidate
                formtarget=@Target
                type=@Type
-               appearance=@Appearance.ToAttributeValue()
+               id=@Id
+               value=@Value
+               current-value=@CurrentValue
                disabled=@Disabled
+               name=@Name
+               required=@Required
+               appearance=@Appearance.ToAttributeValue()
                @attributes="AdditionalAttributes">
     @ChildContent
 </fluent-button>

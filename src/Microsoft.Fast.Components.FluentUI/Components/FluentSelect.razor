@@ -7,21 +7,25 @@
                    open="@Open"
                    position="@Position.ToAttributeValue()"
                    multiple="@Multiple"
-                   disabled="@Disabled"
-                   appearance="@Appearance.ToAttributeValue()"
+                   id=@Id
+                   value=@Value
                    current-value="@CurrentValueAsString"
+                   disabled="@Disabled"
+                   name=@Name
+                   required=@Required
+                   appearance="@Appearance.ToAttributeValue()"
                    @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
                    @attributes="AdditionalAttributes">
-    @if (Items is not null)
-    {
-        foreach (Option<TValue> option in Items)
+        @if (Options is not null)
         {
-            <FluentOption Value=@option.Key Selected="option.Selected" Disabled=option.Disabled>@option.Value</FluentOption>
+            foreach (Option<TValue> option in Options)
+            {
+                <FluentOption Value=@option.Key Selected="option.Selected" Disabled=option.Disabled>@option.Value</FluentOption>
+            }
         }
-    }
-    else
-    {
-        @ChildContent
-    }
+        else
+        {
+            @ChildContent
+        }
     </fluent-select>
 </CascadingValue>

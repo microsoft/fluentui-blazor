@@ -10,10 +10,13 @@
                    pattern=@Pattern
                    size="@Size"
                    spellcheck="@Spellcheck"
-                   appearance="@Appearance.ToAttributeValue()"
+                   id=@Id
+                   value=@Value
                    current-value="@BindConverter.FormatValue(CurrentValue)"
                    disabled="@Disabled"
+                   name=@Name
                    required="@Required"
+                   appearance="@Appearance.ToAttributeValue()"
                    @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
                    @attributes="AdditionalAttributes">
     @ChildContent

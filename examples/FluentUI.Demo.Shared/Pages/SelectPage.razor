@@ -18,10 +18,10 @@
 </FluentSelect>
 
 <h2>From list of string items</h2>
-<FluentSelect Items=@stringOptions />
+<FluentSelect Options=@stringOptions />
 
 <h2>From list of int items</h2>
-<FluentSelect Items=@intOptions />
+<FluentSelect Options=@intOptions />
 
 
 <h2>Filled</h2>
@@ -34,7 +34,7 @@
 
 <h2>With Label</h2>
 <label for="shirt-size">Choose a T-Shirt size:</label>
-<FluentSelect id="shirt-size" @bind-Value="@selectValue">
+<FluentSelect Id="shirt-size" @bind-Value="@selectValue">
     <FluentOption Value="@("s")">Small</FluentOption>
     <FluentOption Value="@("m")">Medium</FluentOption>
     <FluentOption Value="@("l")">Large</FluentOption>
@@ -70,7 +70,7 @@
 </FluentSelect>
 
 <h2>Long list</h2>
-<FluentSelect id="state" Name="state" @bind-Value="@selectValue">
+<FluentSelect Id="state" Name="state" @bind-Value="@selectValue">
     <FluentOption Value="@("AL")">Alabama</FluentOption>
     <FluentOption Value="@("AK")">Alaska</FluentOption>
     <FluentOption Value="@("AZ")">Arizona</FluentOption>

@@ -9,13 +9,13 @@ public partial class FluentSearch : FluentInputBase<string?>
     /// Gets or sets if the text area is readonly
     /// </summary>
     [Parameter]
-    public bool? Readonly { get; set; }
+    public bool Readonly { get; set; }
 
     /// <summary>
     /// Gets or sets if the text area is auto focussed
     /// </summary>
     [Parameter]
-    public bool? Autofocus { get; set; }
+    public bool Autofocus { get; set; }
 
     /// <summary>
     /// Gets or sets the placholder text
@@ -30,16 +30,16 @@ public partial class FluentSearch : FluentInputBase<string?>
     public string? DataList { get; set; }
 
     /// <summary>
-    /// Gets or sets the maximum length
+    /// The maximum number of characters a user can enter.
     /// </summary>
     [Parameter]
-    public int? MaxLength { get; set; }
+    public int? Maxlength { get; set; }
 
     /// <summary>
-    /// Gets or sets the minimum length
+    /// The minimum number of characters a user can enter.
     /// </summary>
     [Parameter]
-    public int? MinLength { get; set; }
+    public int? Minlength { get; set; }
 
     /// <summary>
     /// A regular expression that the value must match to pass validation.
@@ -60,17 +60,30 @@ public partial class FluentSearch : FluentInputBase<string?>
     public bool? Spellcheck { get; set; }
 
     /// <summary>
-    /// Gets or sets if the text area is disabled
+    /// The id attribute of the element.Used for label association.
     /// </summary>
     [Parameter]
-    public bool? Disabled { get; set; }
+    public string? Id { get; set; }
+
+    /// <summary>
+    /// Disables the form control, ensuring it doesn't participate in form submission
+    /// </summary>
+    [Parameter]
+    public bool Disabled { get; set; }
 
 
     /// <summary>
-    /// Gets or sets if the text area is required
+    /// The name of the element.Allows access by name from the associated form.
     /// </summary>
     [Parameter]
-    public bool? Required { get; set; }
+    public string? Name { get; set; }
+
+    /// <summary>
+    /// The element needs to have a value
+    /// </summary>
+    [Parameter]
+    public bool Required { get; set; }
+
     /// <summary>
     /// Gets or sets the visual appearance. See <see cref="FluentUI.Appearance"/>
     /// </summary>

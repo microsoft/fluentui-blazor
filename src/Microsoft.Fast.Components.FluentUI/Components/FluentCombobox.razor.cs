@@ -34,10 +34,28 @@ public partial class FluentCombobox<TValue> : FluentInputBase<TValue>
     public SelectPosition? Position { get; set; }
 
     /// <summary>
-    /// Gets or sets the name of the Select.
+    /// The id attribute of the element.Used for label association.
+    /// </summary>
+    [Parameter]
+    public string? Id { get; set; }
+
+    /// <summary>
+    /// Disables the form control, ensuring it doesn't participate in form submission
+    /// </summary>
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    /// <summary>
+    /// The name of the element.Allows access by name from the associated form.
     /// </summary>
     [Parameter]
     public string? Name { get; set; }
+
+    /// <summary>
+    /// The element needs to have a value
+    /// </summary>
+    [Parameter]
+    public bool Required { get; set; }
 
     /// <summary>
     /// Gets or sets the visual appearance. See <seealso cref="FluentUI.Appearance"/>
@@ -46,22 +64,10 @@ public partial class FluentCombobox<TValue> : FluentInputBase<TValue>
     public Appearance? Appearance { get; set; }
 
     /// <summary>
-    /// Gets or sets if the element is disabled
-    /// </summary>
-    [Parameter]
-    public bool? Disabled { get; set; }
-
-    /// <summary>
-    /// Gets or sets if the element is required
-    /// </summary>
-    [Parameter]
-    public bool? Required { get; set; }
-
-    /// <summary>
     /// Gets or set the list of <see cref="Option{TValue}"/> items 
     /// </summary>
     [Parameter]
-    public IEnumerable<Option<TValue>>? Items { get; set; }
+    public IEnumerable<Option<TValue>>? Options { get; set; }
 
 
     [CascadingParameter]

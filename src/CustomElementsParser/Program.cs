@@ -91,6 +91,53 @@ public class Program
                             elementBuilder.AppendLine($"\t{attName}=@{composedName}");
 
                         }
+                        if (d.superclass.name.StartsWith("FormAssociated"))
+                        {
+                            classBuilder.AppendLine("\t/// <summary>");
+                            classBuilder.AppendLine($"\t/// The id attribute of the element.Used for label association.");
+                            classBuilder.AppendLine("\t/// </summary>");
+                            classBuilder.AppendLine("\t[Parameter]");
+                            classBuilder.AppendLine($"\tpublic string? Id {{ get; set; }}\n");
+                            elementBuilder.AppendLine($"\tid=@Id");
+
+                            classBuilder.AppendLine("\t/// <summary>");
+                            classBuilder.AppendLine($"\t/// The value of the element");
+                            classBuilder.AppendLine("\t/// </summary>");
+                            classBuilder.AppendLine("\t[Parameter]");
+                            classBuilder.AppendLine($"\tpublic string? Value {{ get; set; }}\n");
+                            elementBuilder.AppendLine($"\tvalue=@Value");
+
+                            classBuilder.AppendLine("\t/// <summary>");
+                            classBuilder.AppendLine($"\t/// The element's current value ");
+                            classBuilder.AppendLine("\t/// </summary>");
+                            classBuilder.AppendLine("\t[Parameter]");
+                            classBuilder.AppendLine($"\tpublic string? CurrentValue {{ get; set; }}\n");
+                            elementBuilder.AppendLine($"\tcurrent-value=@CurrentValue");
+
+                            classBuilder.AppendLine("\t/// <summary>");
+                            classBuilder.AppendLine($"\t/// Disables the form control, ensuring it doesn't participate in form submission");
+                            classBuilder.AppendLine("\t/// </summary>");
+                            classBuilder.AppendLine("\t[Parameter]");
+                            classBuilder.AppendLine($"\tpublic bool Disabled {{ get; set; }}\n");
+                            elementBuilder.AppendLine($"\tdisabled=@Disabled");
+
+                            classBuilder.AppendLine("\t/// <summary>");
+                            classBuilder.AppendLine($"\t/// The name of the element.Allows access by name from the associated form.");
+                            classBuilder.AppendLine("\t/// </summary>");
+                            classBuilder.AppendLine("\t[Parameter]");
+                            classBuilder.AppendLine($"\tpublic string? Name {{ get; set; }}\n");
+                            elementBuilder.AppendLine($"\tname=@Name");
+
+                            classBuilder.AppendLine("\t/// <summary>");
+                            classBuilder.AppendLine($"\t/// The element needs to have a value");
+                            classBuilder.AppendLine("\t/// </summary>");
+                            classBuilder.AppendLine("\t[Parameter]");
+                            classBuilder.AppendLine($"\tpublic bool Required {{ get; set; }}\n");
+                            elementBuilder.AppendLine($"\trequired=@Required");
+
+
+
+                        }
                     }
                     else
                     {

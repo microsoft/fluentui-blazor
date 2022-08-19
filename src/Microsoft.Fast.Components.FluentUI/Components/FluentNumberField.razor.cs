@@ -11,13 +11,13 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
     /// Gets or sets the readonly state
     /// </summary>
     [Parameter]
-    public bool? Readonly { get; set; }
+    public bool Readonly { get; set; }
 
     /// <summary>
     /// Gets or sets if the field should automatically receive focus
     /// </summary>
     [Parameter]
-    public bool? Autofocus { get; set; }
+    public bool Autofocus { get; set; }
 
     /// <summary>
     /// When true, spin buttons will not be rendered
@@ -75,18 +75,28 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
 
 
     /// <summary>
-    /// Gets or sets the disabled state
+    /// The id attribute of the element.Used for label association.
     /// </summary>
     [Parameter]
-    public bool? Disabled { get; set; }
+    public string? Id { get; set; }
 
     /// <summary>
-    /// Gets or sets if a value is required
+    /// Disables the form control, ensuring it doesn't participate in form submission
     /// </summary>
     [Parameter]
-    public bool? Required { get; set; }
+    public bool Disabled { get; set; }
 
+    /// <summary>
+    /// The name of the element.Allows access by name from the associated form.
+    /// </summary>
+    [Parameter]
+    public string? Name { get; set; }
 
+    /// <summary>
+    /// The element needs to have a value
+    /// </summary>
+    [Parameter]
+    public bool Required { get; set; }
 
     /// <summary>
     /// Gets or sets the <see cref="FluentUI.Appearance" />
@@ -94,15 +104,11 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
     [Parameter]
     public Appearance? Appearance { get; set; }
 
-
     /// <summary>
     /// Gets or sets the error message to show when the field can not be parsed
     /// </summary>
     [Parameter]
     public string ParsingErrorMessage { get; set; } = "The {0} field must be a number.";
-
-
-
 
     private static readonly string _stepAttributeValue = GetStepAttributeValue();
 

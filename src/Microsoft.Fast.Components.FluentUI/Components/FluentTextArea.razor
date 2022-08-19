@@ -7,16 +7,18 @@
                   list=@DataList
                   maxlength=@Maxlength
                   minlength=@Minlength
-                  name=@Name
                   placeholder="@Placeholder"
                   cols=@Cols
                   rows=@Rows
                   spellcheck=@Spellcheck
-                  appearance="@Appearance.ToAttributeValue()"
+                  id=@Id
+                  value=@Value
                   current-value="@BindConverter.FormatValue(CurrentValue)"
-                  @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
                   disabled="@Disabled"
+                  name=@Name
                   required="@Required"
+                  appearance="@Appearance.ToAttributeValue()"
+                  @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
                   @attributes="AdditionalAttributes">
     @ChildContent
 </fluent-text-area>
