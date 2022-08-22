@@ -5,38 +5,38 @@ namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentAnchor : FluentComponentBase
 {
     /// <summary>
-    /// Prompts the user to save the linked URL. <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
+    /// Prompts the user to save the linked URL. See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
     /// </summary>
     [Parameter]
     public string? Download { get; set; }
 
     /// <summary>
-    /// The URL the hyperlink references. <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
+    /// The URL the hyperlink references. See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
     /// Use Target parameter to specify where.
     /// </summary>
     [Parameter]
     public string? Href { get; set; }
 
     /// <summary>
-    /// Hints at the language of the referenced resource. <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
+    /// Hints at the language of the referenced resource. See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
     /// </summary>
     [Parameter]
     public string? Hreflang { get; set; }
 
     /// <summary>
-    /// <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
+    /// See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
     /// </summary>
     [Parameter]
     public string? Ping { get; set; }
 
     /// <summary>
-    /// <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
+    /// See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
     /// </summary>
     [Parameter]
     public string? Referrerpolicy { get; set; }
 
     /// <summary>
-    /// <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
+    /// See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
     /// </summary>
     [Parameter]
     public string? Rel { get; set; }
@@ -49,7 +49,7 @@ public partial class FluentAnchor : FluentComponentBase
     public string? Target { get; set; }
 
     /// <summary>
-    /// <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
+    /// See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
     /// </summary>
     [Parameter]
     public string? Type { get; set; }

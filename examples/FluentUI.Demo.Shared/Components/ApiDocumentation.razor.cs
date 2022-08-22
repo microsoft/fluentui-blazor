@@ -85,7 +85,7 @@ public partial class ApiDocumentation
                                 Name = propertyInfo.Name,
                                 Type = propertyInfo.ToTypeNameString(),
                                 EnumValues = GetEnumValues(propertyInfo),
-                                Default = propertyInfo.GetValue(obj)?.ToString() ?? "null",
+                                Default = propertyInfo.GetValue(obj)?.ToString() ?? string.Empty,
                                 Description = RemoveExtraReferenceTags(docReader.GetMemberComment(propertyInfo))
                             });
                         }
@@ -151,7 +151,9 @@ public partial class ApiDocumentation
                     .Replace("<seealso cref=\"P:", " ")
                     .Replace("<seealso cref=\"", " ")
                     .Replace("\"/>", " ")
-                    .Replace("\" />", " ");
+                    .Replace("\" />", " ")
+                    .Replace("<see href=\"", "<a href=\"")
+                    .Replace("</see>", "</a>");
     }
 
     class MemberDescription

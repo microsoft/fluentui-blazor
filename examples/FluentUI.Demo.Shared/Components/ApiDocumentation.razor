@@ -4,7 +4,7 @@
 @if (this.Properties.Any())
 {
     <h3>@_name Properties</h3>
-    <FluentDataGrid RowsData="@this.Properties.ToList()" ColumnDefinitions=@_propertiesGrid GridTemplateColumns="1fr 1fr 1fr 1fr">
+    <FluentDataGrid RowsData="@this.Properties.ToList()" ColumnDefinitions=@_propertiesGrid GridTemplateColumns="1fr 1fr 0.5fr 1.5fr">
         <RowItemTemplate>
             <FluentDataGridRow>
                 <FluentDataGridCell GridColumn="1">
@@ -36,7 +36,7 @@
                 </FluentDataGridCell>
                 <FluentDataGridCell GridColumn="4">
                     <div style="white-space: break-spaces">
-                        @context.Description
+                        @(new MarkupString(context.Description))
                     </div>
                 </FluentDataGridCell>
             </FluentDataGridRow>
