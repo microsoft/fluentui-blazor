@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis;
@@ -29,7 +30,7 @@ namespace FluentUI.Demo.Generators
 
 
             var files = context.AdditionalFiles;
-            var dictionary = files.ToDictionary(x => x.Path, x => x.GetText().ToString().Replace(@"""", @""""""));
+            var dictionary = files.ToDictionary(x => Path.GetFileName(x.Path), x => x.GetText().ToString().Replace(@"""", @""""""));
             sb.AppendLine("\t\tvar metadata = new Dictionary<string,string>() {");
             foreach (var pair in dictionary)
             {
