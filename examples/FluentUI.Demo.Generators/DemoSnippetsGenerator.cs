@@ -40,7 +40,7 @@ namespace FluentUI.Demo.Generators
             }
             sb.AppendLine("\t\t};");
             sb.Append("\t\t");
-            sb.AppendLine($@"var foundPair = metadata.FirstOrDefault(x => x.Key.EndsWith(""\\"" + name ));");
+            sb.AppendLine($@"var foundPair = metadata.FirstOrDefault(x => x.Key.EndsWith(name + "".razor"" ));");
 
             sb.AppendLine("\t\treturn foundPair.Value;");
 

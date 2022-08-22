@@ -2,6 +2,7 @@
 using FluentUI.Demo.Generators;
 using Microsoft.AspNetCore.Components;
 
+
 namespace FluentUI.Demo.Shared.Components;
 public partial class DemoSection : ComponentBase
 {
@@ -47,7 +48,7 @@ public partial class DemoSection : ComponentBase
     {
         try
         {
-            CodeContents = DemoSnippets.GetRazor($"{CodeFilename}.razor");
+            CodeContents = DemoSnippets.GetRazor($"{CodeFilename}");
             StateHasChanged();
         }
         catch
