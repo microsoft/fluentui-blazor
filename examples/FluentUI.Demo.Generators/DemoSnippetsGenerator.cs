@@ -17,7 +17,8 @@ namespace FluentUI.Demo.Generators
             Debug.WriteLine("Execute code generator");
             // begin creating the source we'll inject into the users compilation
             StringBuilder sb = new();
-            sb.Clear();
+
+            sb.AppendLine($"#pragma warning disable CS1591");
             sb.AppendLine("using System;");
             sb.AppendLine("using System.Collections.Generic;");
             sb.AppendLine("using System.Linq;");
