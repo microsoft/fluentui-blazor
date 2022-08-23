@@ -13,7 +13,39 @@ public abstract class FluentInputBase<TValue> : FluentComponentBase, IDisposable
     private ValidationMessageStore? _parsingValidationMessages;
     private Type? _nullableUnderlyingType;
 
-    [CascadingParameter] private EditContext? CascadedEditContext { get; set; }
+
+    [CascadingParameter]
+    private EditContext? CascadedEditContext { get; set; }
+
+    /// <summary>
+    /// When true, the control will be immutable by user interaction. <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/readonly">readonly</see> HTML attribute for more information.
+    /// </summary>
+    [Parameter]
+    public bool Readonly { get; set; }
+
+    /// <summary>
+    /// The id attribute of the element.Used for label association.
+    /// </summary>
+    [Parameter]
+    public string? Id { get; set; }
+
+    /// <summary>
+    /// Disables the form control, ensuring it doesn't participate in form submission
+    /// </summary>
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    /// <summary>
+    /// The name of the element.Allows access by name from the associated form.
+    /// </summary>
+    [Parameter]
+    public string? Name { get; set; }
+
+    /// <summary>
+    /// The element needs to have a value
+    /// </summary>
+    [Parameter]
+    public bool Required { get; set; }
 
     /// <summary>
     /// Gets or sets the value of the input. This should be used with two-way binding.
@@ -27,18 +59,23 @@ public abstract class FluentInputBase<TValue> : FluentComponentBase, IDisposable
     /// <summary>
     /// Gets or sets a callback that updates the bound value.
     /// </summary>
-    [Parameter] public EventCallback<TValue> ValueChanged { get; set; }
+    [Parameter]
+    public EventCallback<TValue> ValueChanged { get; set; }
 
     /// <summary>
     /// Gets or sets an expression that identifies the bound value.
     /// </summary>
-    [Parameter] public Expression<Func<TValue>>? ValueExpression { get; set; }
+    [Parameter]
+    public Expression<Func<TValue>>? ValueExpression { get; set; }
 
     /// <summary>
     /// Gets or sets the display name for this field.
     /// <para>This value is used when generating error messages when the input value fails to parse correctly.</para>
     /// </summary>
-    [Parameter] public string? DisplayName { get; set; }
+    [Parameter]
+    public string? DisplayName { get; set; }
+
+
 
     /// <summary>
     /// Gets the associated <see cref="AspNetCore.Components.Forms.EditContext"/>.

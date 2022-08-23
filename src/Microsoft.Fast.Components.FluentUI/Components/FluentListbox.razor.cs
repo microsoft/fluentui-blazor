@@ -9,12 +9,6 @@ public partial class FluentListbox<TValue> : FluentInputBase<TValue>
     private FluentOptionContext? _context;
 
     /// <summary>
-    /// The disabled state of the listbox.
-    /// </summary>
-    [Parameter]
-    public bool Disabled { get; set; }
-
-    /// <summary>
     /// The maximum number of options that should be visible in the listbox scroll area.
     /// </summary>
     [Parameter]
