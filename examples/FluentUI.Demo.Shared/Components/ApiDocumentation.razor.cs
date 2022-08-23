@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using DocXml.Reflection;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Fast.Components.FluentUI;
 
 namespace FluentUI.Demo.Shared.Components;
 
