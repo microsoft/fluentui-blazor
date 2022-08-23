@@ -25,8 +25,6 @@ public abstract class FluentComponentBase : ComponentBase
     [Parameter]
     public Reference? BackReference { get; set; }
 
-
-
     /// <summary>
     /// Gets or sets the content to be rendered inside the component
     /// </summary>
