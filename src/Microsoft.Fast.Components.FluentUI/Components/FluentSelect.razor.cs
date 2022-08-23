@@ -63,6 +63,9 @@ public partial class FluentSelect<TValue> : FluentInputBase<TValue>
     [Parameter]
     public IEnumerable<Option<TValue>>? Options { get; set; }
 
+    /// <summary>
+    /// Gets or set the cascaded context 
+    /// </summary>
     [CascadingParameter]
     private FluentOptionContext? CascadedContext { get; set; }
 
