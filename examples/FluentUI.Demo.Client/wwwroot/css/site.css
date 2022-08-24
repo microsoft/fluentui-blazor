@@ -80,6 +80,55 @@
     padding-inline-end: calc(var(--design-unit) * 6px);
 }
 
+blockquote {
+    border-left: 5px solid var(--accent-fill-rest);
+    font-size: var(--type-ramp-base-font-size);
+    font-style: italic;
+    padding: 2px 15px;
+}
+
+p,
+div {
+    font-size: var(--type-ramp-base-font-size);
+    line-height: var(--type-ramp-base-line-height);
+    font-weight: 400;
+}
+
+h1 {
+    font-size: var(--type-ramp-plus-5-font-size);
+    line-height: var(--type-ramp-plus-5-line-height);
+    font-weight: 600;
+}
+
+h2 {
+    font-size: var(--type-ramp-plus-4-font-size);
+    line-height: var(--type-ramp-plus-4-line-height);
+    font-weight: 600;
+}
+
+h3 {
+    font-size: var(--type-ramp-plus-3-font-size);
+    line-height: var(--type-ramp-plus-3-line-height);
+    font-weight: 600;
+}
+
+h4 {
+    font-size: var(--type-ramp-plus-2-font-size);
+    line-height: var(--type-ramp-plus-2-line-height);
+    font-weight: 600;
+}
+
+h5 {
+    font-size: var(--type-ramp-plus-1-font-size);
+    line-height: var(--type-ramp-plus-1-line-height);
+    font-weight: 600;
+}
+
+h6 {
+    font-size: var(--type-ramp-base-font-size);
+    line-height: var(--type-ramp-base-line-height);
+    font-weight: 600;
+} 
 
 #blazor-error-ui {
     background: lightyellow;

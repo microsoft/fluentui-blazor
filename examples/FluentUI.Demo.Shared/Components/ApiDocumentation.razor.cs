@@ -84,7 +84,7 @@ public partial class ApiDocumentation
                             {
                                 MemberType = MemberTypes.Property,
                                 Name = propertyInfo.Name,
-                                Type = propertyInfo.ToTypeNameString(),
+                                Type = IsMarkedAsNullable(propertyInfo) && !propertyInfo.ToTypeNameString().EndsWith('?') ? propertyInfo.ToTypeNameString() + "?" : propertyInfo.ToTypeNameString(),
                                 EnumValues = GetEnumValues(propertyInfo),
                                 Default = propertyInfo.GetValue(obj)?.ToString() ?? string.Empty,
                                 Description = RemoveExtraReferenceTags(docReader.GetMemberComment(propertyInfo))
@@ -127,7 +127,7 @@ public partial class ApiDocumentation
         return _allMembers.Where(i => i.MemberType == type);
     }
 
-    private string[] GetEnumValues(PropertyInfo? propertyInfo)
+    private static string[] GetEnumValues(PropertyInfo? propertyInfo)
     {
         if (propertyInfo != null)
         {
@@ -145,7 +145,7 @@ public partial class ApiDocumentation
         return Array.Empty<string>();
     }
 
-    private string RemoveExtraReferenceTags(string value)
+    private static string RemoveExtraReferenceTags(string value)
     {
         return value.Replace("<see cref=\"", " ")
                     .Replace("<seealso cref=\"!:", " ")
@@ -157,7 +157,12 @@ public partial class ApiDocumentation
                     .Replace("</see>", "</a>");
     }
 
-    class MemberDescription
+    private static bool IsMarkedAsNullable(PropertyInfo p)
+    {
+        return new NullabilityInfoContext().Create(p).WriteState is NullabilityState.Nullable;
+    }
+
+    private class MemberDescription
     {
         public MemberTypes MemberType { get; set; } = MemberTypes.Property;
         public string Name { get; set; } = "";

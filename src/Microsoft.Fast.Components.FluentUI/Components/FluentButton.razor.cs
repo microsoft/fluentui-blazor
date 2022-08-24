@@ -16,31 +16,31 @@ public partial class FluentButton : FluentComponentBase
     public string? FormId { get; set; }
 
     /// <summary>
-    /// <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button">button</see> element for more details.
+    /// See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button">button</see> element for more details.
     /// </summary>
     [Parameter]
     public string? Action { get; set; }
 
     /// <summary>
-    /// <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button">button</see> element for more details.
+    /// See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button">button</see> element for more details.
     /// </summary>
     [Parameter]
     public string? Enctype { get; set; }
 
     /// <summary>
-    /// <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button">button</see> element for more details.
+    /// See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button">button</see> element for more details.
     /// </summary>
     [Parameter]
     public string? Method { get; set; }
 
     /// <summary>
-    /// <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button">button</see> element for more details.
+    /// See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button">button</see> element for more details.
     /// </summary>
     [Parameter]
     public bool? NoValidate { get; set; }
 
     /// <summary>
-    /// <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button">button</see> element for more details.
+    /// See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button">button</see> element for more details.
     /// Possible values: "_self" | "_blank" | "_parent" | "_top"
     /// </summary>
     [Parameter]
@@ -94,5 +94,5 @@ public partial class FluentButton : FluentComponentBase
     /// Gets or sets the visual appearance. See <seealso cref="FluentUI.Appearance"/>
     /// </summary>
     [Parameter]
-    public Appearance? Appearance { get; set; }
+    public Appearance? Appearance { get; set; } = FluentUI.Appearance.Neutral;
 }

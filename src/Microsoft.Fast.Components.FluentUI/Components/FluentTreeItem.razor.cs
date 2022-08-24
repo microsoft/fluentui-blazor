@@ -33,7 +33,7 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
     public bool Selected { get; set; }
 
     /// <summary>
-    /// When true, the control will be immutable by user interaction. <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled">disabled</see> HTML attribute for more information.
+    /// When true, the control will be immutable by user interaction. See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled">disabled</see> HTML attribute for more information.
     /// </summary>
     [Parameter]
     public bool Disabled { get; set; }
