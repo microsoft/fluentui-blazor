@@ -84,11 +84,12 @@ public partial class ApiDocumentation
                             {
                                 MemberType = MemberTypes.Property,
                                 Name = propertyInfo.Name,
-                                Type = IsMarkedAsNullable(propertyInfo) && !propertyInfo.ToTypeNameString().EndsWith('?') ? propertyInfo.ToTypeNameString() + "?" : propertyInfo.ToTypeNameString(),
+                                //Type = IsMarkedAsNullable(propertyInfo) && !propertyInfo.ToTypeNameString().EndsWith('?') ? propertyInfo.ToTypeNameString() + "?" : propertyInfo.ToTypeNameString(),
+                                Type = propertyInfo.ToTypeNameString(),
                                 EnumValues = GetEnumValues(propertyInfo),
                                 Default = propertyInfo.GetValue(obj)?.ToString() ?? string.Empty,
                                 Description = RemoveExtraReferenceTags(docReader.GetMemberComment(propertyInfo))
-                            });
+                            }); ;
                         }
 
                         // Events
