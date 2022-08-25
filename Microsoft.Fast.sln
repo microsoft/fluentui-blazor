@@ -37,7 +37,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Fast.Components.F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentUI.Demo.Generators", "examples\FluentUI.Demo.Generators\FluentUI.Demo.Generators.csproj", "{6CE4DE24-E064-4634-A05F-6A408E410733}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "demo-rework", "examples\demo-rework\demo-rework.csproj", "{E4998672-AF19-4BA0-88F4-94BC028179EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "demo-rework", "examples\demo-rework\demo-rework.csproj", "{E4998672-AF19-4BA0-88F4-94BC028179EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

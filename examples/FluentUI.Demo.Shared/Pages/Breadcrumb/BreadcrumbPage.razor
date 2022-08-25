@@ -1,4 +1,5 @@
-@page "/BreadcrumbPage"
+@page "/Breadcrumb"
+@using FluentUI.Demo.Shared.Pages.Breadcrumb.Examples
 <style>
     fluent-breadcrumb-item::part(content) *::after{
         content: ' '
@@ -8,60 +9,48 @@
     }
 </style>
 <h1>Breadcrumb</h1>
-<h2>Documentation</h2>
+<p>As defined by the <a href="https://w3c.github.io/aria-practices/#breadcrumb" target="_blank" rel="noopener noreferrer">W3C</a>:</p>
+<blockquote><p>A breadcrumb trail consists of a list of links to the parent pages of the current page in hierarchical order. It helps users find their place within a website or web application. Breadcrumbs are often placed horizontally before a page's main content.</p></blockquote>
+
+<ApiDocumentation Component="typeof(FluentBreadcrumbItem)" />
 <ApiDocumentation Component="typeof(FluentBreadcrumb)" />
-<h4>Default</h4>
-<FluentBreadcrumb>
-    <FluentBreadcrumbItem Href="#">
-        Breadcrumb item 1
-    </FluentBreadcrumbItem>
-    <FluentBreadcrumbItem Href="#">
-        Breadcrumb item 2
-    </FluentBreadcrumbItem>
-    <FluentBreadcrumbItem>Breadcrumb item 3</FluentBreadcrumbItem>
-</FluentBreadcrumb>
 
-<h4>Default with custom separator</h4>
-<FluentBreadcrumb>
-    <FluentBreadcrumbItem Href="#">
-        Breadcrumb item 1
-        <FluentIcon Slot="seperator" Name="@FluentIcons.ArrowRight" Size="@IconSize.Size28" Filled=false UseAccentColor=false />
-    </FluentBreadcrumbItem>
-    <FluentBreadcrumbItem Href="#">
-        Breadcrumb item 2
-        <FluentIcon Slot="seperator" Name="@FluentIcons.ArrowRight" Size="@IconSize.Size28" Filled=false UseAccentColor=false />
-    </FluentBreadcrumbItem>
-    <FluentBreadcrumbItem>Breadcrumb item 3</FluentBreadcrumbItem>
-</FluentBreadcrumb>
+<h3>Breadcrumb item examples</h3>
+<DemoSection Title="Default" CodeFilename="BreadcrumbItemDefaultExample">
+    <BreadcrumbItemDefaultExample></BreadcrumbItemDefaultExample>
+</DemoSection>
 
-<h4>With start</h4>
-<FluentBreadcrumb>
-    <FluentBreadcrumbItem Href="#">
-         Breadcrumb item 1
-        <FluentIcon Slot="start" Name="@FluentIcons.Home" Size="@IconSize.Size16" Filled=false UseAccentColor=false />
-    </FluentBreadcrumbItem>
-    <FluentBreadcrumbItem Href="#">
-        Breadcrumb item 2
-        <FluentIcon Slot="start" Name="@FluentIcons.Clipboard" Size="@IconSize.Size16" Filled=false UseAccentColor=false />
-    </FluentBreadcrumbItem>
-    <FluentBreadcrumbItem>
-        Breadcrumb item 3
-        <FluentIcon Slot="start" Name="@FluentIcons.Money" Size="@IconSize.Size16" Filled=false UseAccentColor=false />
-    </FluentBreadcrumbItem>
-</FluentBreadcrumb>
+<DemoSection Title="With custom separator" CodeFilename="BreadcrumbItemWithSeparatorExample">
+    <BreadcrumbItemWithSeparatorExample></BreadcrumbItemWithSeparatorExample>
+</DemoSection>
 
-<h4>With end</h4>
-<FluentBreadcrumb>
-    <FluentBreadcrumbItem Href="#">
-        Breadcrumb item 1
-        <FluentIcon Slot="end" Name="@FluentIcons.Home" Size="@IconSize.Size16" Filled=false UseAccentColor=false />
-    </FluentBreadcrumbItem>
-    <FluentBreadcrumbItem Href="#">
-        Breadcrumb item 2
-        <FluentIcon Slot="end" Name="@FluentIcons.Clipboard" Size="@IconSize.Size16" Filled=false UseAccentColor=false />
-    </FluentBreadcrumbItem>
-    <FluentBreadcrumbItem>
-        Breadcrumb item 3
-        <FluentIcon Slot="end" Name="@FluentIcons.Money" Size="@IconSize.Size16" Filled=false UseAccentColor=false />
-    </FluentBreadcrumbItem>
-</FluentBreadcrumb>
+<DemoSection Title="With start icon" CodeFilename="BreadcrumbItemWithStartExample">
+    <BreadcrumbItemWithStartExample></BreadcrumbItemWithStartExample>
+</DemoSection>
+
+<DemoSection Title="With end icon" CodeFilename="BreadcrumbItemWithEndExample">
+    <BreadcrumbItemWithEndExample></BreadcrumbItemWithEndExample>
+</DemoSection>
+<DemoSection Title="With start, end and custom separator icons" CodeFilename="BreadcrumbItemWithAllExample">
+    <BreadcrumbItemDefaultExample></BreadcrumbItemDefaultExample>
+</DemoSection>
+
+<h3>Breadcrumb examples</h3>
+<DemoSection Title="Default" CodeFilename="BreadcrumbDefaultExample">
+    <BreadcrumbDefaultExample></BreadcrumbDefaultExample>
+</DemoSection>
+
+<DemoSection Title="With custom separator" CodeFilename="BreadcrumbWithSeparatorExample">
+    <BreadcrumbWithSeparatorExample></BreadcrumbWithSeparatorExample>
+</DemoSection>
+
+<DemoSection Title="With start icon" CodeFilename="BreadcrumbWithStartExample">
+    <BreadcrumbWithStartExample></BreadcrumbWithStartExample>
+</DemoSection>
+
+<DemoSection Title="With end icon" CodeFilename="BreadcrumbWithEndExample">
+    <BreadcrumbWithEndExample></BreadcrumbWithEndExample>
+</DemoSection>
+<DemoSection Title="With start, end and custom separator icons" CodeFilename="BreadcrumbWithAllExample">
+    <BreadcrumbDefaultExample></BreadcrumbDefaultExample>
+</DemoSection>
