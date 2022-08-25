@@ -1,0 +1,21 @@
+﻿<h5>Default (clickable) calendar</h5>
+<FluentCalendar OnDateClicked="HandleDateClicked" />
+<p>You clicked on @clickedDate</p>
+
+<h5>Readonly</h5>
+<FluentCalendar Readonly=true />
+
+<h5>Show a minumum of 6 weeks</h5>
+<FluentCalendar MinWeeks="6" />
+
+<h5>2-digit day format</h5>
+<FluentCalendar DayFormat=DayFormat.TwoDigit />
+
+@code {
+    private DateOnly? clickedDate = null;
+
+    private void HandleDateClicked(DateOnly date)
+    {
+        clickedDate = date;
+    }
+}

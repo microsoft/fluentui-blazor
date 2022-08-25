@@ -89,7 +89,7 @@ public partial class ApiDocumentation
                                 EnumValues = GetEnumValues(propertyInfo),
                                 Default = propertyInfo.GetValue(obj)?.ToString() ?? string.Empty,
                                 Description = RemoveExtraReferenceTags(docReader.GetMemberComment(propertyInfo))
-                            }); ;
+                            });
                         }
 
                         // Events

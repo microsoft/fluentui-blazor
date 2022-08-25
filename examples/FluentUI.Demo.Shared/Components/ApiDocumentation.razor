@@ -53,7 +53,7 @@
         <RowItemTemplate>
             <FluentDataGridRow>
                 <FluentDataGridCell GridColumn="1">
-                    <FluentBadge>@context.Name</FluentBadge>
+                    <FluentBadge Appearance="Appearance.Neutral">@context.Name</FluentBadge>
                 </FluentDataGridCell>
                 <FluentDataGridCell GridColumn="2">
                     @context.Type
@@ -76,7 +76,7 @@
         <RowItemTemplate>
             <FluentDataGridRow>
                 <FluentDataGridCell GridColumn="1">
-                    <FluentBadge>@context.Name</FluentBadge>
+                    <FluentBadge Appearance="Appearance.Neutral">@context.Name</FluentBadge>
                 </FluentDataGridCell>
                 <FluentDataGridCell GridColumn="2">
                     @foreach (var param in @context.Parameters)
