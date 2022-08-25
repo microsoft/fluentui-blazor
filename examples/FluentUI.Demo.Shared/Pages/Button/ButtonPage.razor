@@ -1,4 +1,5 @@
 @page "/ButtonPage"
+@using FluentUI.Demo.Shared.Pages.Button.Examples
 
 <h1>Button</h1>
 
@@ -16,55 +17,21 @@
 
 <ApiDocumentation Component="typeof(FluentButton)" />
 
-<h4>Default</h4>
-<FluentButton>Button</FluentButton>
-<h5>disabled</h5>
-<FluentButton Disabled="true">Button</FluentButton>
-<h5>autofocus</h5>
-<FluentButton Autofocus="true">Button</FluentButton>
+<h2>Examples</h2>
+<DemoSection Title="Simple button examples" CodeFilename="ButtonDefaultExamples">
+    <ButtonDefaultExamples></ButtonDefaultExamples>
+</DemoSection>
 
-<h4>Neutral</h4>
-<FluentButton Appearance="Appearance.Neutral">Button</FluentButton>
-<h5>disabled</h5>
-<FluentButton Appearance="Appearance.Neutral" Disabled="true">Button</FluentButton>
+<DemoSection Title="Appearance examples" CodeFilename="ButtonAppearanceExamples">
+    <ButtonAppearanceExamples></ButtonAppearanceExamples>
+</DemoSection>
 
-<h4>Accent</h4>
-<FluentButton Appearance="Appearance.Accent">Button</FluentButton>
-<h5>disabled</h5>
-<FluentButton Appearance="Appearance.Accent" Disabled="true">Button</FluentButton>
+<DemoSection Title="With content and icon" CodeFilename="ButtonIconExamples">
+    <ButtonIconExamples></ButtonIconExamples>
+</DemoSection>
 
-<h4>Lightweight</h4>
-<FluentButton Appearance="Appearance.Lightweight">Button</FluentButton>
-<h5>disabled</h5>
-<FluentButton Appearance="Appearance.Lightweight" Disabled="true">Button</FluentButton>
+<DemoSection Title="With aria-label" CodeFilename="ButtonAriaExample">
+    <ButtonAriaExample></ButtonAriaExample>
+</DemoSection>
 
-<h4>Outline</h4>
-<FluentButton Appearance="Appearance.Outline">Button</FluentButton>
-<h5>disabled</h5>
-<FluentButton Appearance="Appearance.Outline" Disabled="true">Button</FluentButton>
 
-<h4>Stealth</h4>
-<FluentButton Appearance="Appearance.Stealth">Button</FluentButton>
-<h5>disabled</h5>
-<FluentButton Appearance="Appearance.Stealth" Disabled="true">Button</FluentButton>
-
-<h3>With content and icon</h3>
-<h4>With start</h4>
-<FluentButton>
-    Button
-    <FluentIcon Name="@FluentIcons.Globe" Slot="start" Size="@IconSize.Size16" Filled=false />
-</FluentButton>
-
-<h4>With end</h4>
-<FluentButton>
-    <FluentIcon Name="@FluentIcons.Globe" Slot="end" Size="@IconSize.Size16" Filled=false />
-    Button
-</FluentButton>
-
-<h4>Icon in default slot</h4>
-<FluentButton>
-    <FluentIcon Name="@FluentIcons.Globe" Size="@IconSize.Size16" Filled=false />
-</FluentButton>
-
-<h4>With aria-label</h4>
-<FluentButton aria-label="Button with aria-label">Button</FluentButton>
