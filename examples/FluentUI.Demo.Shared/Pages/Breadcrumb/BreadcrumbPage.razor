@@ -1,16 +1,27 @@
 @page "/Breadcrumb"
 @using FluentUI.Demo.Shared.Pages.Breadcrumb.Examples
 <style>
-    fluent-breadcrumb-item::part(content) *::after{
+    fluent-breadcrumb-item::part(content) *::after {
         content: ' '
     }
+
     fluent-breadcrumb-item::part(content) *::before {
         content: ' '
     }
 </style>
 <h1>Breadcrumb</h1>
-<p>As defined by the <a href="https://w3c.github.io/aria-practices/#breadcrumb" target="_blank" rel="noopener noreferrer">W3C</a>:</p>
-<blockquote><p>A breadcrumb trail consists of a list of links to the parent pages of the current page in hierarchical order. It helps users find their place within a website or web application. Breadcrumbs are often placed horizontally before a page's main content.</p></blockquote>
+<p>
+    As defined by the <a href="https://w3c.github.io/aria-practices/#breadcrumb" target="_blank" rel="noopener noreferrer">W3C</a>:
+</p>
+<blockquote>
+    <p>
+        A breadcrumb trail consists of a list of links to the parent pages of the current page in hierarchical order. It helps users find their place within a website or web application. Breadcrumbs are often placed horizontally before a page's main content.
+    </p>
+</blockquote>
+<p>
+    <code>&lt;FluentBreadcrumb&gt;</code> wraps the <code>&lt;fluent-breadcrumb&gt;</code> element, a web component implementation of a breadcrumb functionality leveraging the Fluent UI design system.
+    It uses the <code>&lt;FluentBreadcrumbItem&gt;</code> component for defining the individual breadcrumb items
+</p>
 
 <ApiDocumentation Component="typeof(FluentBreadcrumbItem)" />
 <ApiDocumentation Component="typeof(FluentBreadcrumb)" />
