@@ -6,7 +6,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.Text;
 
 namespace FluentUI.Demo.Generators
 {
@@ -81,7 +80,7 @@ namespace FluentUI.Demo.Generators
             sb.AppendLine("}");
 
             // inject the created source into the users compilation
-            context.AddSource("CodeComments.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
+            //context.AddSource("CodeComments.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
         }
 
         public void Initialize(GeneratorInitializationContext context)
