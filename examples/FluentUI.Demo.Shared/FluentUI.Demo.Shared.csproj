@@ -18,6 +18,7 @@
 
 	<ItemGroup>
 		<AdditionalFiles Include="$(ProjectDir)\Pages\**\Examples\*" />
+		<AdditionalFiles Include="$(ProjectDir)\*.xml" />
 	</ItemGroup>
 
 	<ItemGroup>

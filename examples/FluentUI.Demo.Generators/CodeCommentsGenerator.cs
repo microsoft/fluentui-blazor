@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -24,20 +23,16 @@ namespace FluentUI.Demo.Generators
 
             Debug.WriteLine("Execute code generator");
 
+            var files = context.AdditionalFiles.Where(y => y.Path.EndsWith(".xml"));
 
-            string fullAssemblyName = Path.GetFullPath("C:\\Source\\Blazor\\fast-blazor\\src\\Microsoft.Fast.Components.FluentUI\\bin\\Debug\\net6.0\\Microsoft.Fast.Components.FluentUI.dll");
-            string[] MEMBERS_TO_EXCLUDE = new[] { "AdditionalAttributes", "Equals", "GetHashCode", "GetType", "SetParametersAsync", "ToString" };
 
-            //Assembly myAssembly = Assembly.LoadFrom(fullAssemblyName);
+            string documentationPath = files.First().Path;
 
-            //AssemblyName assemblyName = myAssembly.GetName();
+            //string[] MEMBERS_TO_EXCLUDE = new[] { "AdditionalAttributes", "Equals", "GetHashCode", "GetType", "SetParametersAsync", "ToString" };
+
+
             XDocument xml = null;
-
-            //if (cachedXml.ContainsKey(assemblyName.FullName))
-            //    xml = cachedXml[assemblyName.FullName];
-            //else
-            //    cachedXml[assemblyName.FullName] =
-            xml = XDocument.Load(fullAssemblyName.Replace(".dll", ".xml"));
+            xml = XDocument.Load(documentationPath);
 
 
 

@@ -27,7 +27,7 @@
 		<EmitCompilerGeneratedFiles>false</EmitCompilerGeneratedFiles>
 		<CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)Generated</CompilerGeneratedFilesOutputPath>
 		<LangVersion>latest</LangVersion>
-		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 	</PropertyGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -35,7 +35,6 @@
 		<WarningLevel>4</WarningLevel>
 		<NullableReferenceTypes>true</NullableReferenceTypes>
 		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-		<DocumentationFile></DocumentationFile>
 		<NoWarn>1701;1702,8669,1591</NoWarn>
 	</PropertyGroup>
 
