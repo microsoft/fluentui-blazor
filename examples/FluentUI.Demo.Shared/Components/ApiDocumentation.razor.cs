@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using DocXml.Reflection;
+using FluentUI.Demo.Generators;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Fast.Components.FluentUI;
 
@@ -8,7 +8,6 @@ namespace FluentUI.Demo.Shared.Components;
 /// <summary />
 public partial class ApiDocumentation
 {
-    private string? _name { get; set; }
     private IEnumerable<MemberDescription>? _allMembers = null;
 
     private List<ColumnDefinition<MemberDescription>> _propertiesGrid = new();
@@ -17,9 +16,6 @@ public partial class ApiDocumentation
 
     [Parameter]
     public Type Component { get; set; } = default!;
-
-
-
 
     private IEnumerable<MemberDescription> Properties => GetMembers(MemberTypes.Property);
 
@@ -56,9 +52,6 @@ public partial class ApiDocumentation
         {
             List<MemberDescription>? members = new List<MemberDescription>();
             object? obj = Activator.CreateInstance(Component);
-            _name = obj!.GetType().Name;
-
-            LoxSmoke.DocXml.DocXmlReader? docReader = new(a => a.Location.Replace(".dll", ".xml"));
 
             IEnumerable<MemberInfo>? allProperties = Component.GetProperties().Select(i => (MemberInfo)i);
             IEnumerable<MemberInfo>? allMethods = Component.GetMethods().Where(i => !i.IsSpecialName).Select(i => (MemberInfo)i);
@@ -88,7 +81,7 @@ public partial class ApiDocumentation
                                 Type = propertyInfo.ToTypeNameString(),
                                 EnumValues = GetEnumValues(propertyInfo),
                                 Default = propertyInfo.GetValue(obj)?.ToString() ?? string.Empty,
-                                Description = RemoveExtraReferenceTags(docReader.GetMemberComment(propertyInfo))
+                                Description = CodeComments.GetSummary(Component.Name + "." + propertyInfo.Name)
                             });
                         }
 
@@ -102,7 +95,7 @@ public partial class ApiDocumentation
                                 Name = propertyInfo.Name,
                                 Type = propertyInfo.ToTypeNameString(),
                                 Default = "",
-                                Description = RemoveExtraReferenceTags(docReader.GetMemberComment(propertyInfo))
+                                Description = CodeComments.GetSummary(Component.Name + "." + propertyInfo.Name)
                             });
                         }
                     }
@@ -116,7 +109,7 @@ public partial class ApiDocumentation
                             Name = methodInfo.Name,
                             Parameters = methodInfo.GetParameters().Select(i => $"{i.ToTypeNameString()} {i.Name}").ToArray(),
                             Type = methodInfo.ToTypeNameString(),
-                            Description = RemoveExtraReferenceTags(docReader.GetMemberComment(methodInfo))
+                            Description = CodeComments.GetSummary(Component.Name + "." + methodInfo.Name)
                         });
                     }
                 }
@@ -146,17 +139,6 @@ public partial class ApiDocumentation
         return Array.Empty<string>();
     }
 
-    private static string RemoveExtraReferenceTags(string value)
-    {
-        return value.Replace("<see cref=\"", " ")
-                    .Replace("<seealso cref=\"!:", " ")
-                    .Replace("<seealso cref=\"P:", " ")
-                    .Replace("<seealso cref=\"", " ")
-                    .Replace("\"/>", " ")
-                    .Replace("\" />", " ")
-                    .Replace("<see href=\"", "<a href=\"")
-                    .Replace("</see>", "</a>");
-    }
 
     private static bool IsMarkedAsNullable(PropertyInfo p)
     {

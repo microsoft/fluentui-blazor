@@ -1,5 +1,13 @@
-@page "/ComboboxPage"
+@page "/Combobox"
+
 <h1>Combobox</h1>
+
+<p>As defined by the <a href="https://w3c.github.io/aria-practices/#combobox" target="_blank" rel="noopener noreferrer">W3C</a>:</p>
+<blockquote><p>A combobox is an input widget with an associated popup that enables users to select a value for the combobox from a collection of possible values. In some implementations, the popup presents allowed values, while in other implementations, the popup presents suggested values, and users may either select one of the suggestions or type a value. The popup may be a listbox, grid, tree, or dialog. Many implementations also include a third optional element -- a graphical Open button adjacent to the combobox, which indicates availability of the popup. Activating the Open button displays the popup if suggestions are available.</p></blockquote>
+<p>
+    <code>&lt;FluentCombobox&gt;</code> wraps the <code>&lt;fluent-combobox&gt;</code> element, a web component implementation of a combobox.
+</p>
+
 <ApiDocumentation Component="typeof(FluentCombobox<string>)" />
 
 <h2>Default</h2>
@@ -56,7 +64,7 @@
     <FluentOption>David Tenant</FluentOption>
     <FluentOption>Matt Smith</FluentOption>
     <FluentOption>Peter Capaldi</FluentOption>
-    <FluentOption selected>Jodie Whittaker</FluentOption>
+    <FluentOption Selected="true">Jodie Whittaker</FluentOption>
 </FluentCombobox>
 
 <h2>Initial Value</h2>
@@ -204,7 +212,7 @@
 </FluentCombobox>
 
 <h2>Combobox with no items</h2>
-<FluentCombobox Id="combobox-with-no-items" @bind-Value="@comboboxValue"></FluentCombobox>
+<FluentCombobox Id="combobox-with-no-items" TValue="string"></FluentCombobox>
 
 <h2>Combobox with long list</h2>
 <FluentCombobox Id="combobox-with-long-list" Autocomplete="ComboboxAutocomplete.Both" @bind-Value="@comboboxValue">

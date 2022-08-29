@@ -7,7 +7,7 @@ public partial class FluentTab : FluentComponentBase, IDisposable
     internal string TabId { get; } = Identifier.NewId();
 
     /// <summary>
-    /// When true, the control will be immutable by user interaction. See https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled | disabled HTML attribute for more information.
+    /// When true, the control will be immutable by user interaction. See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled">disabled</see> HTML attribute for more information.
     /// </summary>
     [Parameter]
     public bool Disabled { get; set; } = false;
