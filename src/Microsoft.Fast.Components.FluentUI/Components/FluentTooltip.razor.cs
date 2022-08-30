@@ -29,8 +29,8 @@ public partial class FluentTooltip : FluentComponentBase
     public TooltipPosition? Position { get; set; }
 
     /// <summary>
-    /// Controls when the tooltip updates its position, default is "anchor" which only updates when
-    /// the anchor is resized. "auto" will update on scroll/resize events.
+    /// Controls when the tooltip updates its position, default is anchor which only updates when
+    /// the anchor is resized.  auto will update on scroll/resize events.
     /// Corresponds to anchored-region auto-update-mode.
     /// </summary>
     [Parameter]
