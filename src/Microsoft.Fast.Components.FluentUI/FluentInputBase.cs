@@ -30,7 +30,7 @@ public abstract class FluentInputBase<TValue> : FluentComponentBase, IDisposable
     public string? Id { get; set; }
 
     /// <summary>
-    /// Disables the form control, ensuring it does not participate in form submission
+    /// Disables the form control, ensuring it doesn't participate in form submission
     /// </summary>
     [Parameter]
     public bool Disabled { get; set; }

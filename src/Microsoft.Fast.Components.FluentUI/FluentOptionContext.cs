@@ -50,7 +50,7 @@ internal class FluentOptionContext
     }
 
     /// <summary>
-    /// Finds an <see cref="FluentOptionContext"/> in the context its ancestors with the matching <paramref name="containerName"/>.
+    /// Finds an <see cref="FluentOptionContext"/> in the contextits ancestors with the matching <paramref name="containerName"/>.
     /// </summary>
     /// <param name="containerName">The group name of the ancestor <see cref="FluentOptionContext"/>.</param>
     /// <returns>The <see cref="FluentOptionContext"/>, or <c>null</c> if none was found.</returns>

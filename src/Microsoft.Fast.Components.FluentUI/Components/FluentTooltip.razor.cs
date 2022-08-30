@@ -23,7 +23,7 @@ public partial class FluentTooltip : FluentComponentBase
     public int? Delay { get; set; } = 300;
 
     /// <summary>
-    /// Gets or sets the tooltip position. See <see cref="FluentUI.TooltipPosition"/>
+    /// Gets or sets the tooltip's position. See <see cref="FluentUI.TooltipPosition"/>
     /// </summary>
     [Parameter]
     public TooltipPosition? Position { get; set; }

@@ -67,13 +67,13 @@ public partial class FluentButton : FluentComponentBase
     public string? Value { get; set; }
 
     /// <summary>
-    /// The current value of the element
+    /// The element's current value 
     /// </summary>
     [Parameter]
     public string? CurrentValue { get; set; }
 
     /// <summary>
-    /// Disables the form control, ensuring it does not participate in form submission
+    /// Disables the form control, ensuring it doesn't participate in form submission
     /// </summary>
     [Parameter]
     public bool Disabled { get; set; }
