@@ -8,19 +8,19 @@ namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentSlider : FluentInputBase<int>
 {
     /// <summary>
-    /// Gets or sets the slider's minimal value
+    /// Gets or sets the minimal value
     /// </summary>
     [Parameter]
     public int? Min { get; set; }
 
     /// <summary>
-    /// Gets or sets the slider's maximum value
+    /// Gets or sets the maximum value
     /// </summary>
     [Parameter]
     public int? Max { get; set; }
 
     /// <summary>
-    /// Gets or sets the slider's step value
+    /// Gets or sets the step value
     /// </summary>
     [Parameter]
     public int? Step { get; set; }

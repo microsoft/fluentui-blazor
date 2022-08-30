@@ -5,7 +5,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentSliderLabel : FluentComponentBase
 {
     /// <summary>
-    /// Gets or sets the slider's label position
+    /// Gets or sets the label position
     /// </summary>
     [Parameter]
     public int? Position { get; set; }

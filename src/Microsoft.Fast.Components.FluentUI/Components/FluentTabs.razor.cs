@@ -8,7 +8,7 @@ public partial class FluentTabs : FluentComponentBase
 
 
     /// <summary>
-    /// Gets or sets the tab's orentation. See <see cref="FluentUI.Orientation"/>
+    /// Gets or sets the tab orentation. See <see cref="FluentUI.Orientation"/>
     /// </summary>
     [Parameter]
     public Orientation? Orientation { get; set; }

@@ -85,7 +85,7 @@ namespace FluentUI.Demo.Generators
 
             return value.Trim()
                       .Replace("<summary>\r\n", "")
-                      .Replace("\r\n</summary>", "")
+                      .Replace("</summary>", "")
                       .Replace("<see cref=\"", " ")
                       .Replace("<see href=\"", "<a href=\"")
                       .Replace("</see>", "</a>")

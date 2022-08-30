@@ -5,7 +5,7 @@ public partial class FluentAnchoredRegion : FluentComponentBase
 {
     /// <summary>
     /// The HTML ID of the anchor element this region is positioned relative to
-    /// This must be set for the component's positioning logic to be active.
+    /// This must be set for the positioning logic to be active.
     /// </summary>
     [Parameter]
     public string? Anchor { get; set; }
@@ -19,9 +19,9 @@ public partial class FluentAnchoredRegion : FluentComponentBase
 
     /// <summary>
     /// Sets what logic the component uses to determine horizontal placement.
-    /// 'Locktodefault' forces the default position
-    /// 'Dynamic' decides placement based on available space
-    /// 'Uncontrolled' (default) does not control placement on the horizontal axis
+    /// "Locktodefault" forces the default position
+    /// "Dynamic" decides placement based on available space
+    /// "Uncontrolled" (default) does not control placement on the horizontal axis
     /// See <seealso cref="AxisPositioningMode"/>
     /// </summary>
     [Parameter]
@@ -29,7 +29,7 @@ public partial class FluentAnchoredRegion : FluentComponentBase
 
     /// <summary>
     /// The default horizontal position of the region relative to the anchor element
-    /// Default is 'unset'. See <seealso cref="HorizontalPosition"/>
+    /// Default is "unset". See <seealso cref="HorizontalPosition"/>
     /// </summary>
     [Parameter]
     public HorizontalPosition? HorizontalDefaultPosition { get; set; } = HorizontalPosition.Unset;
@@ -62,9 +62,9 @@ public partial class FluentAnchoredRegion : FluentComponentBase
 
     /// <summary>
     /// Sets what logic the component uses to determine vertical placement.
-    /// 'Locktodefault' forces the default position
-    /// 'Dynamic' decides placement based on available space
-    /// 'Uncontrolled' (default) does not control placement on the vertical axis
+    /// "Locktodefault" forces the default position
+    /// "Dynamic" decides placement based on available space
+    /// "Uncontrolled" (default) does not control placement on the vertical axis
     /// See <seealso cref="AxisPositioningMode"/>
     /// </summary>
     [Parameter]
@@ -113,7 +113,7 @@ public partial class FluentAnchoredRegion : FluentComponentBase
 
     /// <summary>
     /// Defines what triggers the anchored region to revaluate positioning
-    /// Default is "Anchor". In 'anchor' mode only anchor resizes and attribute changes will provoke an update. In 'auto' mode the component also updates because of - any scroll event on the document, window resizes and viewport resizes. See <seealso cref="AutoUpdateMode"/>
+    /// Default is "Anchor". In "anchor" mode only anchor resizes and attribute changes will provoke an update. In "auto" mode the component also updates because of - any scroll event on the document, window resizes and viewport resizes. See <seealso cref="AutoUpdateMode"/>
     /// </summary>
     [Parameter]
     public AutoUpdateMode? AutoUpdateMode { get; set; } = FluentUI.AutoUpdateMode.Anchor;
