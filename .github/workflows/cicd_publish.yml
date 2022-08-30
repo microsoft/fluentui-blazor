@@ -61,7 +61,7 @@ jobs:
         name: signednupkg
         path: packed
   deploy:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     needs: build
     name: Deploy Demo
     steps:
