@@ -21,7 +21,7 @@ on:
 jobs:
   build:
     name: Build, Pack, Publish 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     env:
       DOTNET_CLI_TELEMETRY_OPTOUT: 1
       DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
@@ -85,3 +85,4 @@ jobs:
           app_location: "published/wwwroot"
           api_location: "Api"
           output_location: "published/wwwroot"
+          skip_api_build: true
