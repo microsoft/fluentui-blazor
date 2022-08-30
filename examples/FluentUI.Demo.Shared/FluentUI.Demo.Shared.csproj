@@ -6,8 +6,6 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<UseRazorSourceGenerator>false</UseRazorSourceGenerator>
 		<LangVersion>latest</LangVersion>
-		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
-		<CompilerGeneratedFilesOutputPath>Generated</CompilerGeneratedFilesOutputPath>
 	</PropertyGroup>
 
 	<ItemGroup>
