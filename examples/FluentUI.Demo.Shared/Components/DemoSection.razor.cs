@@ -6,23 +6,20 @@ using Microsoft.AspNetCore.Components;
 namespace FluentUI.Demo.Shared.Components;
 public partial class DemoSection : ComponentBase
 {
-    [Parameter]
-    public string? Title { get; set; }
+    [Parameter, EditorRequired]
+    public string Title { get; set; } = string.Empty;
 
     [Parameter]
     public RenderFragment? Description { get; set; }
 
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
-
-    [Parameter]
+    [Parameter, EditorRequired]
     //No .razor needed
-    public string? CodeFilename { get; set; }
+    public string ExampleFile { get; set; } = string.Empty;
 
     [Parameter]
     public bool IsNew { get; set; }
 
-    private bool HasCode { get; set; }
+    private bool HasCode { get; set; } = false;
 
     private string? CodeContents { get; set; }
 
@@ -30,13 +27,9 @@ public partial class DemoSection : ComponentBase
     {
         if (firstRender)
         {
-            bool isDisplayDemoCode = true;
-            bool hasFilename = !string.IsNullOrEmpty(CodeFilename);
-
-            HasCode = hasFilename && isDisplayDemoCode;
-
-            if (HasCode)
+            if (!string.IsNullOrEmpty(ExampleFile))
             {
+                HasCode = true;
                 SetCodeContents();
             }
         }
@@ -48,7 +41,7 @@ public partial class DemoSection : ComponentBase
     {
         try
         {
-            CodeContents = DemoSnippets.GetRazor($"{CodeFilename}");
+            CodeContents = DemoSnippets.GetRazor($"{ExampleFile}");
             StateHasChanged();
         }
         catch

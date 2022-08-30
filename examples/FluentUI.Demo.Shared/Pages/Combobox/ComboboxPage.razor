@@ -1,37 +1,31 @@
 @page "/Combobox"
 
+@using FluentUI.Demo.Shared.Pages.Combobox.Examples;
+
 <h1>Combobox</h1>
 
 <p>As defined by the <a href="https://w3c.github.io/aria-practices/#combobox" target="_blank" rel="noopener noreferrer">W3C</a>:</p>
-<blockquote><p>A combobox is an input widget with an associated popup that enables users to select a value for the combobox from a collection of possible values. In some implementations, the popup presents allowed values, while in other implementations, the popup presents suggested values, and users may either select one of the suggestions or type a value. The popup may be a listbox, grid, tree, or dialog. Many implementations also include a third optional element -- a graphical Open button adjacent to the combobox, which indicates availability of the popup. Activating the Open button displays the popup if suggestions are available.</p></blockquote>
+<blockquote>
+    <p>
+        A combobox is an input widget with an associated popup that enables users to select a value for the combobox from a collection
+        of possible values. In some implementations, the popup presents allowed values, while in other implementations, the popup presents suggested
+        values, and users may either select one of the suggestions or type a value. The popup may be a listbox, grid, tree, or dialog. Many
+        implementations also include a third optional element -- a graphical Open button adjacent to the combobox, which indicates availability of
+        the popup. Activating the Open button displays the popup if suggestions are available.
+    </p>
+</blockquote>
 <p>
     <code>&lt;FluentCombobox&gt;</code> wraps the <code>&lt;fluent-combobox&gt;</code> element, a web component implementation of a combobox.
 </p>
 
 <ApiDocumentation Component="typeof(FluentCombobox<string>)" />
 
-<h2>Default</h2>
-<FluentCombobox Id="combobox" @bind-Value="@comboboxValue">
-    <FluentOption>Please Please Me</FluentOption>
-    <FluentOption>With The Beatles</FluentOption>
-    <FluentOption>A Hard Day's Night</FluentOption>
-    <FluentOption>Beatles for Sale</FluentOption>
-    <FluentOption>Help!</FluentOption>
-    <FluentOption>Rubber Soul</FluentOption>
-    <FluentOption>Revolver</FluentOption>
-    <FluentOption>Sgt. Pepper's Lonely Hearts Club Band</FluentOption>
-    <FluentOption>Magical Mystery Tour</FluentOption>
-    <FluentOption>The Beatles</FluentOption>
-    <FluentOption>Yellow Submarine</FluentOption>
-    <FluentOption>Abbey Road</FluentOption>
-    <FluentOption>Let It Be</FluentOption>
-</FluentCombobox>
+<h2>Examples</h2>
 
-<h2>From list of string items</h2>
-<FluentCombobox Options=@stringOptions />
+<DemoSection Title="Default examples" ExampleFile="ComboboxDefault"></DemoSection>
 
-<h2>From list of int items</h2>
-<FluentCombobox Options=@intOptions />
+<DemoSection Title="Default examples" ExampleFile="ComboboxDisabled"></DemoSection>
+
 
 <h2>Filled</h2>
 <FluentCombobox Id="combobox" Appearance="Appearance.Filled" @bind-Value="@comboboxValue">
@@ -68,7 +62,7 @@
 </FluentCombobox>
 
 <h2>Initial Value</h2>
-<FluentCombobox Id="combobox-with-initial-value" @bind-Value="@comboboxValue" >
+<FluentCombobox Id="combobox-with-initial-value" @bind-Value="@comboboxValue">
     <FluentOption>William Hartnell</FluentOption>
     <FluentOption>Patrick Troughton</FluentOption>
     <FluentOption>Jon Pertwee</FluentOption>
@@ -137,70 +131,7 @@
     <FluentOption>Jodie Whittaker</FluentOption>
 </FluentCombobox>
 
-<h2>Disabled Combobox</h2>
-<FluentCombobox Disabled="true" @bind-Value="@comboboxValue">
-    <FluentOption>Extra Small</FluentOption>
-    <FluentOption>Small</FluentOption>
-    <FluentOption>Medium</FluentOption>
-    <FluentOption>Large</FluentOption>
-    <FluentOption>Extra Large</FluentOption>
-</FluentCombobox>
 
-<h2>Combobox with disabled items</h2>
-
-<h3>Combobox with alternating disabled items</h3>
-<FluentCombobox Id="combobox-with-every-other-disabled" @bind-Value="@comboboxValue">
-    <FluentOption>Extra Small</FluentOption>
-    <FluentOption Disabled="true">Small</FluentOption>
-    <FluentOption>Medium</FluentOption>
-    <FluentOption Disabled="true">Large</FluentOption>
-    <FluentOption>Extra Large</FluentOption>
-</FluentCombobox>
-
-<h3>Combobox with adjacent disabled items at start of list</h3>
-<FluentCombobox Id="combobox-with-adjacent-disabled-start" @bind-Value="@comboboxValue">
-    <FluentOption Disabled="true">Extra Small</FluentOption>
-    <FluentOption Disabled="true">Small</FluentOption>
-    <FluentOption>Medium</FluentOption>
-    <FluentOption>Large</FluentOption>
-    <FluentOption>Extra Large</FluentOption>
-</FluentCombobox>
-
-<h3>Combobox with adjacent disabled items in middle of list</h3>
-<FluentCombobox Id="combobox-with-adjacent-disabled-middle" @bind-Value="@comboboxValue">
-    <FluentOption>Extra Small</FluentOption>
-    <FluentOption Disabled="true">Small</FluentOption>
-    <FluentOption Disabled="true">Medium</FluentOption>
-    <FluentOption>Large</FluentOption>
-    <FluentOption>Extra Large</FluentOption>
-</FluentCombobox>
-
-<h3>Combobox with adjacent disabled items at end of list</h3>
-<FluentCombobox Id="combobox-with-adjacent-disabled-end" @bind-Value="@comboboxValue">
-    <FluentOption>Extra Small</FluentOption>
-    <FluentOption>Small</FluentOption>
-    <FluentOption>Medium</FluentOption>
-    <FluentOption Disabled="true">Large</FluentOption>
-    <FluentOption Disabled="true">Extra Large</FluentOption>
-</FluentCombobox>
-
-<h3>Combobox with all but one item disabled</h3>
-<FluentCombobox Id="combobox-with-all-but-one-disabled" @bind-Value="@comboboxValue">
-    <FluentOption Disabled="true">Extra Small</FluentOption>
-    <FluentOption Disabled="true">Small</FluentOption>
-    <FluentOption Disabled="true">Medium</FluentOption>
-    <FluentOption Disabled="true">Large</FluentOption>
-    <FluentOption>Extra Large</FluentOption>
-</FluentCombobox>
-
-<h3>Combobox with all items disabled</h3>
-<FluentCombobox Id="combobox-with-all-disabled" @bind-Value="@comboboxValue">
-    <FluentOption Disabled="true">Extra Small</FluentOption>
-    <FluentOption Disabled="true">Small</FluentOption>
-    <FluentOption Disabled="true">Medium</FluentOption>
-    <FluentOption Disabled="true">Large</FluentOption>
-    <FluentOption Disabled="true">Extra Large</FluentOption>
-</FluentCombobox>
 
 <h2>Combobox with placeholder</h2>
 <FluentCombobox Placeholder="Please select a size" Id="combobox-with-placeholder" @bind-Value="@comboboxValue">
@@ -282,7 +213,7 @@
     <FluentOption>Option Two</FluentOption>
 </FluentCombobox>
 
-@code{
+@code {
     string? comboboxValue = "Christopher Eccleston";
 
     List<Option<string>> stringOptions = new()

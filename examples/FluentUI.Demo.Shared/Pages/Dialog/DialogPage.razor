@@ -1,7 +1,28 @@
-@page "/DialogPage"
+@page "/Dialog"
+
+<h1>Dialog</h1>
+
+<p>As defined by the <a href="https://w3c.github.io/aria-practices/#dialog_modal" target="_blank" rel="noopener noreferrer">W3C</a>:</p>
+<blockquote>
+    <p>
+        A dialog is a window overlaid on either the primary window or another dialog window. Windows under a modal dialog are inert.
+        That is, users cannot interact with content outside an active dialog window. Inert content outside an active dialog is typically visually
+        obscured or dimmed so it is difficult to discern, and in some implementations, attempts to interact with the inert content cause the dialog
+        to close.
+    </p>
+    <p>
+        Like non-modal dialogs, modal dialogs contain their tab sequence. That is, Tab and Shift + Tab do not move focus outside
+        the dialog. However, unlike most non-modal dialogs, modal dialogs do not provide means for moving keyboard focus outside the dialog window
+        without closing the dialog.
+    </p>
+</blockquote>
+
+<p><code>&lt;FluentDialog&gt;</code> wraps the <code>&lt;fluent-dialog&gt;</code> element, a web component implementation of a dialog leveraging the Fluent UI design system.</p>
+
+<ApiDocumentation Component="typeof(FluentDialog)" />
 <FluentDialog @ref="MyFluentDialog" id="foo" aria-label="Simple dialog" Modal="false" @ondismiss=OnDismiss>
     <h2>Dialog referenced to object</h2>
-    <button @onclick="OnCloseModalRefButtonClick" >Close dialog with component object function</button>
+    <button @onclick="OnCloseModalRefButtonClick">Close dialog with component object function</button>
 </FluentDialog>
 
 <FluentDialog Hidden="ModalHidden" id="foo" aria-label="Simple dialog" Modal="true">
@@ -16,7 +37,7 @@
 <button @onclick="OnOpenModalRefButtonClick">Open dialog with ref</button>
 <button @onclick="OnOpenModalParameterButtonClick">Open dialog with variable</button>
 
-@code{
+@code {
     private FluentDialog? MyFluentDialog;
     public bool ModalHidden { get; set; } = true;
     private string? status;
@@ -27,7 +48,7 @@
         status = "";
         MyFluentDialog!.Show();
     }
-    
+
     private void OnCloseModalRefButtonClick() => MyFluentDialog!.Hide();
 
     private void OnOpenModalParameterButtonClick() => ModalHidden = false;

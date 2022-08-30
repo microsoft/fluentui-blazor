@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.Text;
 
 namespace FluentUI.Demo.Generators
 {
@@ -41,7 +42,7 @@ namespace FluentUI.Demo.Generators
             sb.AppendLine("\t\t}");
             sb.AppendLine("}");
 
-            //context.AddSource("DemoSnippets.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
+            context.AddSource("DemoSnippets.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
         }
 
         public void Initialize(GeneratorInitializationContext context)

@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.Text;
 
 namespace FluentUI.Demo.Generators
 {
@@ -55,7 +56,7 @@ namespace FluentUI.Demo.Generators
             sb.AppendLine("\t\t}");
             sb.AppendLine("}");
 
-            //context.AddSource("CodeComments.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
+            context.AddSource("CodeComments.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
         }
 
         private static string CleanupParamName(string value)

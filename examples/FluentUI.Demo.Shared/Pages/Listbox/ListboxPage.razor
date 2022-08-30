@@ -1,6 +1,22 @@
-@page "/ListboxPage"
+@page "/Listbox"
+
 <h1>Listbox</h1>
+
+<p>
+    An implementation of a <a href="https://www.w3.org/TR/wai-aria-practices-1.2/#Listbox" target="_blank" rel="noopener noreferrer">listbox</a>. While any
+    DOM content is permissible as a child of the listbox, only <code>FluentOption</code> elements,
+    <code>option</code> elements, and slotted items with <code>role="option"</code> will be treated as options and receive keyboard support.
+</p>
+<p>
+    The <code>&lt;FluentListbox&gt</code> supports data binding, but does not hook in any events.
+</p>
+<p>
+    <code>&lt;FluentListbox&gt;</code> wraps the <code>&lt;fluent-listbox&gt;</code> element, a web component implementation of a listbox leveraging the
+    Fluent UI design system.
+</p>
+
 <ApiDocumentation Component="typeof(FluentListbox<string>)" />
+    
 <h2>Default</h2>
 <FluentListbox @bind-Value=@listboxValue>
     <FluentOption>This option has no value</FluentOption>
@@ -70,7 +86,9 @@
 </FluentListbox>
 
 <h2>Long list with Size set</h2>
-<FluentListbox @bind-Value=@listboxValue Size="7">
+<em>Size parameter not working yet!</em>
+<br />
+<FluentListbox @bind-Value=@listboxValue Size=7>
     <FluentOption Value="@("AL")">Alabama</FluentOption>
     <FluentOption Value="@("AK")">Alaska</FluentOption>
     <FluentOption Value="@("AZ")">Arizona</FluentOption>
@@ -122,7 +140,7 @@
     <FluentOption Value="@("WV")">West Virginia</FluentOption>
     <FluentOption Value="@("WY")">Wyoming</FluentOption>
 </FluentListbox>
-@code{
+@code {
     string? listboxValue;
 
     List<Option<string>> stringOptions = new()
