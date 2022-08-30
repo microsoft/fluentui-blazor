@@ -1,5 +1,7 @@
 @page "/Flipper"
 
+@using FluentUI.Demo.Shared.Pages.Flipper.Examples;
+
 <h1>Flipper</h1>
 
 <p>
@@ -12,27 +14,13 @@
 </p>
 
 <ApiDocumentation Component="typeof(FluentFlipper)" />
-<h4>Default</h4>
-<FluentFlipper></FluentFlipper>
 
-<h4>Previous</h4>
-<FluentFlipper Direction="FlipperDirection.Previous"></FluentFlipper>
 
-<h4>Previous with slotted content</h4>
-<FluentFlipper Direction="FlipperDirection.Previous">
-    <FluentIcon Name="@FluentIcons.ArrowCircleLeft" Slot="previous" Size="@IconSize.Size16" Filled=true UseAccentColor=false />
-</FluentFlipper>
+<h2>Examples</h2>
+<DemoSection Title="General usage" ExampleFile="FlipperDefault"></DemoSection>
 
-<h4>Next</h4>
-<FluentFlipper Direction="FlipperDirection.Next"></FluentFlipper>
+<DemoSection Title="Flipper with custom icons" ExampleFile="FlipperCustomIcons"></DemoSection>
 
-<h4>Next with slotted content</h4>
-<FluentFlipper Direction="FlipperDirection.Next">
-    <FluentIcon Name="@FluentIcons.ArrowCircleRight" Slot="next" Size="@IconSize.Size16" Filled=true UseAccentColor=false />
-</FluentFlipper>
 
-<h4>With aria-hidden</h4>
-<FluentFlipper AriaHidden="false"></FluentFlipper>
 
-<h4>Disabled</h4>
-<FluentFlipper Disabled="true"></FluentFlipper>
+

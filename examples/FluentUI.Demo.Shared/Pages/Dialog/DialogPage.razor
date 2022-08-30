@@ -1,5 +1,7 @@
 @page "/Dialog"
 
+@using FluentUI.Demo.Shared.Pages.Dialog.Examples;
+
 <h1>Dialog</h1>
 
 <p>As defined by the <a href="https://w3c.github.io/aria-practices/#dialog_modal" target="_blank" rel="noopener noreferrer">W3C</a>:</p>
@@ -20,43 +22,9 @@
 <p><code>&lt;FluentDialog&gt;</code> wraps the <code>&lt;fluent-dialog&gt;</code> element, a web component implementation of a dialog leveraging the Fluent UI design system.</p>
 
 <ApiDocumentation Component="typeof(FluentDialog)" />
-<FluentDialog @ref="MyFluentDialog" id="foo" aria-label="Simple dialog" Modal="false" @ondismiss=OnDismiss>
-    <h2>Dialog referenced to object</h2>
-    <button @onclick="OnCloseModalRefButtonClick">Close dialog with component object function</button>
-</FluentDialog>
 
-<FluentDialog Hidden="ModalHidden" id="foo" aria-label="Simple dialog" Modal="true">
-    <h2>Dialog referenced with variable</h2>
-    <button @onclick="OnCloseModalParameterButtonClick">Close dialog updating the variable</button>
-</FluentDialog>
+<h2>Examples</h2>
 
-<p>MyFluentDialog.Hidden value: @MyFluentDialog?.Hidden</p>
-<p>@status</p>
-<p>ModalHidden value: @ModalHidden</p>
+<DemoSection Title="Dialog from referenced object" ExampleFile="DialogFromObject"></DemoSection>
 
-<button @onclick="OnOpenModalRefButtonClick">Open dialog with ref</button>
-<button @onclick="OnOpenModalParameterButtonClick">Open dialog with variable</button>
-
-@code {
-    private FluentDialog? MyFluentDialog;
-    public bool ModalHidden { get; set; } = true;
-    private string? status;
-
-
-    private void OnOpenModalRefButtonClick()
-    {
-        status = "";
-        MyFluentDialog!.Show();
-    }
-
-    private void OnCloseModalRefButtonClick() => MyFluentDialog!.Hide();
-
-    private void OnOpenModalParameterButtonClick() => ModalHidden = false;
-    private void OnCloseModalParameterButtonClick() => ModalHidden = true;
-
-    private void OnDismiss()
-    {
-        MyFluentDialog!.Hide();
-        status = "MyFluentDialog was dismissed/canceled";
-    }
-}
+<DemoSection Title="Dialog from variable" ExampleFile="DialogFromVariable"></DemoSection>

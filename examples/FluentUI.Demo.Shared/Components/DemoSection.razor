@@ -1,4 +1,4 @@
-﻿@inject NavigationManager navigationManager
+﻿@inject NavigationManager NavigationManager
 @if (!string.IsNullOrEmpty(Title))
 {
     @if (IsNew)
@@ -20,17 +20,16 @@
 
 @if (!string.IsNullOrEmpty(ExampleFile) )
 {
-    string target;
-    Uri uri = new Uri(navigationManager.Uri);
-    
+    Uri uri = new Uri(NavigationManager.Uri);
+
     if (uri.Segments.Count() > 1)
-            target = uri.Segments[1];
-        else
-            target = "";
-    
-    <div class="demo-section-Example">
-        <DynamicComponent Type="@(Type.GetType($"FluentUI.Demo.Shared.Pages.{target}.Examples.{ExampleFile}"))"></DynamicComponent>
-    </div>
+    {
+        string target = uri.Segments[1];
+
+        <div class="demo-section-Example">
+            <DynamicComponent Type="@(Type.GetType($"FluentUI.Demo.Shared.Pages.{target}.Examples.{ExampleFile}"))"></DynamicComponent>
+        </div>
+    }
 }
 
 @if (HasCode)
