@@ -21,7 +21,7 @@ on:
 jobs:
   build:
     name: Build, Pack, Publish 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     env:
       DOTNET_CLI_TELEMETRY_OPTOUT: 1
       DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
@@ -61,7 +61,7 @@ jobs:
         name: signednupkg
         path: packed
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     needs: build
     name: Deploy Demo
     steps:
