@@ -53,7 +53,7 @@ namespace FluentUI.Demo.Generators
 
                 sb.Append("\t\t");
                 //sb.AppendLine($@"{{ ""{paramName}"", ""{summary}"" }},");
-                sb.AppendLine($@"[""{paramName}""] = ""Controls the expand mode of the Accordion, either allowing<br />single..."",");
+                sb.AppendLine($@"[""{paramName}""] = ""Configures the <a href='https://www.w3.org/TR/wai-aria-1.1/#aria-level'>level</a> of the<br />heading element.<br />Possible values: 1 | 2 | 3 | 4 | 5 | 6"",");
 
             }
             sb.Remove(sb.Length - 1, 1);
