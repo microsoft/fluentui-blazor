@@ -53,7 +53,7 @@ namespace FluentUI.Demo.Generators
 
                 sb.Append("\t\t");
                 //sb.AppendLine($@"{{ ""{paramName}"", ""{summary}"" }},");
-                sb.AppendLine($@"[""{paramName}""] = ""abcde"",");
+                sb.AppendLine($@"[""{paramName}""] = ""Controls the expand mode of the Accordion, either allowing<br />single..."",");
 
             }
             sb.Remove(sb.Length - 1, 1);
