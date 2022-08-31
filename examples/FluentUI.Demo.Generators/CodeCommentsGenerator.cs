@@ -56,6 +56,7 @@ namespace FluentUI.Demo.Generators
                 sb.AppendLine($@"[""{paramName}""] = ""{summary}"",");
 
             }
+            sb.Remove(sb.Length - 1, 1);
             sb.AppendLine("\t\t};");
             sb.Append("\t\t");
             sb.AppendLine($@"var foundPair = summarydata.FirstOrDefault(x => x.Key.StartsWith(name));");
