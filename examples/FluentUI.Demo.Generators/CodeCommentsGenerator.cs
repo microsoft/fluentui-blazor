@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -16,13 +17,8 @@ namespace FluentUI.Demo.Generators
         {
             Debug.WriteLine("Execute code generator");
 
-            var files = context.AdditionalFiles.Where(y => y.Path.EndsWith(".xml"));
+            IEnumerable<AdditionalText> files = context.AdditionalFiles.Where(y => y.Path.EndsWith(".xml"));
             string documentationPath = files.First().Path;
-
-            string[] MEMBERS_TO_INCLUDE = new[] {
-                "FluentAccordion",
-                "FluentAccordionItem"
-            };
 
             XDocument xml = null;
             xml = XDocument.Load(documentationPath);
@@ -30,7 +26,7 @@ namespace FluentUI.Demo.Generators
             IEnumerable<XElement> members = xml.Descendants("member");
             StringBuilder sb = new();
 
-            sb.AppendLine($"#pragma warning disable CS1591");
+            sb.AppendLine("#pragma warning disable CS1591");
             sb.AppendLine("using System;");
             sb.AppendLine("using System.Collections.Generic;");
             sb.AppendLine("using System.Linq;");
@@ -40,27 +36,17 @@ namespace FluentUI.Demo.Generators
             sb.AppendLine("{");
             sb.AppendLine("\tpublic static string GetSummary(string name)");
             sb.AppendLine("\t{");
-            sb.AppendLine("\t\tvar summarydata = new Dictionary<string,string>() {");
+            sb.AppendLine("\t\tDictionary<string,string> summarydata = new Dictionary<string,string>() {");
             foreach (var m in members)
             {
                 string paramName = CleanupParamName(m.Attribute("name").Value.ToString());
-
-                if (!MEMBERS_TO_INCLUDE.Any(x => paramName.StartsWith(x)))
-                {
-                    continue;
-                }
                 string summary = CleanupSummary(m.Descendants().First().ToString());
 
-
-                sb.Append("\t\t\t");
-                sb.AppendLine($@"{{ ""{paramName}"", ""{summary}"" }},");
-
+                sb.AppendLine("\t\t\t[\"" + paramName + "\"] = \"" + summary + "\", ");
             }
-            sb.Remove(sb.Length - 3, 3);
-            sb.Append("\r\n");
             sb.AppendLine("\t\t};");
             sb.Append("\t\t");
-            sb.AppendLine($@"KeyValuePair<string, string> foundPair = summarydata.FirstOrDefault(x => x.Key.StartsWith(name));");
+            sb.AppendLine("KeyValuePair<string, string> foundPair = summarydata.FirstOrDefault(x => x.Key.StartsWith(name));");
 
             sb.AppendLine("\t\treturn foundPair.Value;");
             sb.AppendLine("\t\t}");
@@ -71,13 +57,10 @@ namespace FluentUI.Demo.Generators
 
         private static string CleanupParamName(string value)
         {
-
             Regex regex = new("[P,T,M,F]:");
             value = regex.Replace(value, "");
 
-
             value = value.Replace("Microsoft.Fast.Components.FluentUI.", "");
-
 
             return value;
         }
@@ -94,12 +77,12 @@ namespace FluentUI.Demo.Generators
             value = regex.Replace(value, "");
 
             return value.Trim()
-                      .Replace("<summary>\r\n", "")
-                      .Replace("\r\n</summary>", "")
+                      .Replace("<summary>" + Environment.NewLine, "")
+                      .Replace(Environment.NewLine + "</summary>", "")
                       .Replace("<see cref=", " ")
                       .Replace("<see href=\"", "<a href=\"")
                       .Replace("</see>", "</a>")
-                      .Replace("\r\n", "<br />")
+                      .Replace(Environment.NewLine, "<br />")
                       .Replace("\"", "'")
                       .Replace("Microsoft.Fast.Components.FluentUI.", "");
         }
