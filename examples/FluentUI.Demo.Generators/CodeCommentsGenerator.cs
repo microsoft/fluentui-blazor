@@ -16,7 +16,7 @@ namespace FluentUI.Demo.Generators
         {
             Debug.WriteLine("Execute code generator");
 
-            var files = context.AdditionalFiles.Where(y => y.Path.EndsWith(".xml"));
+            IEnumerable<AdditionalText> files = context.AdditionalFiles.Where(y => y.Path.EndsWith(".xml"));
             string documentationPath = files.First().Path;
 
             string[] MEMBERS_TO_INCLUDE = new[] {
@@ -39,7 +39,7 @@ namespace FluentUI.Demo.Generators
             sb.AppendLine("{");
             sb.AppendLine("\tpublic static string GetSummary(string name)");
             sb.AppendLine("\t{");
-            sb.AppendLine("\t\tvar summarydata = new Dictionary<string,string>() {");
+            sb.AppendLine("\t\tDictionary<string,string> summarydata = new Dictionary<string,string>() {");
             foreach (var m in members)
             {
                 string paramName = CleanupParamName(m.Attribute("name").Value.ToString());
