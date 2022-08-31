@@ -54,7 +54,7 @@ namespace FluentUI.Demo.Generators
 
                 sb.Append("\t\t");
                 //sb.AppendLine($@"{{ ""{paramName}"", ""{summary}"" }},");
-                sb.AppendLine($@"{{ "" "", "" "" }},");
+                sb.AppendLine($@"{{ ""{paramName}"", "" "" }},");
 
             }
             sb.AppendLine("\t\t};");
