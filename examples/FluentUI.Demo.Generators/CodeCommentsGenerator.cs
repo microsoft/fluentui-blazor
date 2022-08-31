@@ -20,8 +20,7 @@ namespace FluentUI.Demo.Generators
             string documentationPath = files.First().Path;
 
             string[] MEMBERS_TO_INCLUDE = new[] {
-                "FluentAccordion",
-                "FluentAccordionItem"
+                "FluentAccordion"
             };
 
             XDocument xml = null;
@@ -54,7 +53,7 @@ namespace FluentUI.Demo.Generators
 
                 sb.Append("\t\t");
                 //sb.AppendLine($@"{{ ""{paramName}"", ""{summary}"" }},");
-                sb.AppendLine($@"{{ ""{paramName}"", "" "" }},");
+                sb.AppendLine($@"{{ ""{paramName}"", ""{summary}"" }},");
 
             }
             sb.AppendLine("\t\t};");
