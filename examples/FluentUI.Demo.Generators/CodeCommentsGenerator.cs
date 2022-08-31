@@ -19,7 +19,10 @@ namespace FluentUI.Demo.Generators
             var files = context.AdditionalFiles.Where(y => y.Path.EndsWith(".xml"));
             string documentationPath = files.First().Path;
 
-            //string[] MEMBERS_TO_EXCLUDE = new[] { "AdditionalAttributes", "Equals", "GetHashCode", "GetType", "SetParametersAsync", "ToString" };
+            string[] MEMBERS_TO_INCLUDE = new[] {
+                "FluentAccordion",
+                "FluentAccordionItem"
+            };
 
             XDocument xml = null;
             xml = XDocument.Load(documentationPath);
@@ -37,10 +40,15 @@ namespace FluentUI.Demo.Generators
             sb.AppendLine("{");
             sb.AppendLine("\tpublic static string GetSummary(string name)");
             sb.AppendLine("\t{");
-            sb.AppendLine("\t\tvar metadata = new Dictionary<string,string>() {");
+            sb.AppendLine("\t\tvar summarydata = new Dictionary<string,string>() {");
             foreach (var m in members)
             {
                 string paramName = CleanupParamName(m.Attribute("name").Value.ToString());
+
+                if (!MEMBERS_TO_INCLUDE.Any(x => paramName.StartsWith(x)))
+                {
+                    continue;
+                }
                 string summary = CleanupSummary(m.Descendants().First().ToString());
 
 
@@ -50,7 +58,7 @@ namespace FluentUI.Demo.Generators
             }
             sb.AppendLine("\t\t};");
             sb.Append("\t\t");
-            sb.AppendLine($@"var foundPair = metadata.FirstOrDefault(x => x.Key.EndsWith(name));");
+            sb.AppendLine($@"var foundPair = summarydata.FirstOrDefault(x => x.Key.StartsWith(name));");
 
             sb.AppendLine("\t\treturn foundPair.Value;");
             sb.AppendLine("\t\t}");
