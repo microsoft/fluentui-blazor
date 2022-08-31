@@ -16,11 +16,12 @@ namespace FluentUI.Demo.Generators
         {
             Debug.WriteLine("Execute code generator");
 
-            IEnumerable<AdditionalText> files = context.AdditionalFiles.Where(y => y.Path.EndsWith(".xml"));
+            var files = context.AdditionalFiles.Where(y => y.Path.EndsWith(".xml"));
             string documentationPath = files.First().Path;
 
             string[] MEMBERS_TO_INCLUDE = new[] {
-                "FluentAccordion"
+                "FluentAccordion",
+                "FluentAccordionItem"
             };
 
             XDocument xml = null;
@@ -29,7 +30,7 @@ namespace FluentUI.Demo.Generators
             IEnumerable<XElement> members = xml.Descendants("member");
             StringBuilder sb = new();
 
-            sb.AppendLine("#pragma warning disable CS1591");
+            sb.AppendLine($"#pragma warning disable CS1591");
             sb.AppendLine("using System;");
             sb.AppendLine("using System.Collections.Generic;");
             sb.AppendLine("using System.Linq;");
@@ -39,7 +40,7 @@ namespace FluentUI.Demo.Generators
             sb.AppendLine("{");
             sb.AppendLine("\tpublic static string GetSummary(string name)");
             sb.AppendLine("\t{");
-            sb.AppendLine("\t\tDictionary<string,string> summarydata = new Dictionary<string,string>() {");
+            sb.AppendLine("\t\tvar summarydata = new Dictionary<string,string>() {");
             foreach (var m in members)
             {
                 string paramName = CleanupParamName(m.Attribute("name").Value.ToString());
@@ -51,13 +52,15 @@ namespace FluentUI.Demo.Generators
                 string summary = CleanupSummary(m.Descendants().First().ToString());
 
 
-                sb.Append("\t\t");
-                sb.AppendLine("[\"" + paramName + "\"] = \"" + summary + "\", ");
+                sb.Append("\t\t\t");
+                sb.AppendLine($@"{{ ""{paramName}"", ""{summary}"" }},");
+
             }
-            sb.Remove(sb.Length - 1, 1);
+            sb.Remove(sb.Length - 3, 3);
+            sb.Append("\r\n");
             sb.AppendLine("\t\t};");
             sb.Append("\t\t");
-            sb.AppendLine("var foundPair = summarydata.FirstOrDefault(x => x.Key.StartsWith(name));");
+            sb.AppendLine($@"KeyValuePair<string, string> foundPair = summarydata.FirstOrDefault(x => x.Key.StartsWith(name));");
 
             sb.AppendLine("\t\treturn foundPair.Value;");
             sb.AppendLine("\t\t}");
