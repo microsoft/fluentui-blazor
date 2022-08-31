@@ -98,7 +98,7 @@ namespace FluentUI.Demo.Generators
                       .Replace("<see href=\"", "<a href=\"")
                       .Replace("</see>", "</a>")
                       .Replace("\r\n", "<br />")
-                      .Replace("\"", "\\\"")
+                      .Replace("\"", "'")
                       .Replace("Microsoft.Fast.Components.FluentUI.", "");
         }
 

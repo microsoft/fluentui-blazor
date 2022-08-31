@@ -32,7 +32,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAccordionItem.HeadingLevel">
             <summary>
-            Configures the <see link="https://www.w3.org/TR/wai-aria-1.1/#aria-level">level</see> of the
+            Configures the <see href="https://www.w3.org/TR/wai-aria-1.1/#aria-level">level</see> of the
             heading element.
             Possible values: 1 | 2 | 3 | 4 | 5 | 6
             </summary>
@@ -92,7 +92,7 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchoredRegion.Anchor">
             <summary>
             The HTML ID of the anchor element this region is positioned relative to
-            This must be set for the component's positioning logic to be active.
+            This must be set for the component positioning logic to be active.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchoredRegion.Viewport">
@@ -104,16 +104,16 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchoredRegion.HorizontalPositioningMode">
             <summary>
             Sets what logic the component uses to determine horizontal placement.
-            'Locktodefault' forces the default position
-            'Dynamic' decides placement based on available space
-            'Uncontrolled' (default) does not control placement on the horizontal axis
+            Locktodefault forces the default position
+            Dynamic decides placement based on available space
+            Uncontrolled (default) does not control placement on the horizontal axis
             See <seealso cref="T:Microsoft.Fast.Components.FluentUI.AxisPositioningMode"/>
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchoredRegion.HorizontalDefaultPosition">
             <summary>
             The default horizontal position of the region relative to the anchor element
-            Default is 'unset'. See <seealso cref="T:Microsoft.Fast.Components.FluentUI.HorizontalPosition"/>
+            Default is unset. See <seealso cref="T:Microsoft.Fast.Components.FluentUI.HorizontalPosition"/>
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchoredRegion.HorizontalViewportLock">
@@ -141,9 +141,9 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchoredRegion.VerticalPositioningMode">
             <summary>
             Sets what logic the component uses to determine vertical placement.
-            'Locktodefault' forces the default position
-            'Dynamic' decides placement based on available space
-            'Uncontrolled' (default) does not control placement on the vertical axis
+            Locktodefault forces the default position
+            Dynamic decides placement based on available space
+            Uncontrolled (default) does not control placement on the vertical axis
             See <seealso cref="T:Microsoft.Fast.Components.FluentUI.AxisPositioningMode"/>
             </summary>
         </member>
@@ -992,7 +992,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentSliderLabel.Disabled">
             <summary>
-            The disabled state of the label. This is generally controlled by the parent @microsoft/fast-foundation#(FASTSlider:class).
+            The disabled state of the label. This is generally controlled by the parent .
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.Disabled">
@@ -1163,8 +1163,8 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.AutoUpdateMode">
             <summary>
-            Controls when the tooltip updates its position, default is 'anchor' which only updates when
-            the anchor is resized.  'auto' will update on scroll/resize events.
+            Controls when the tooltip updates its position, default is anchor which only updates when
+            the anchor is resized.  auto will update on scroll/resize events.
             Corresponds to anchored-region auto-update-mode.
             </summary>
         </member>
@@ -1206,7 +1206,7 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeView.RenderCollapsedNodes">
             <summary>
             Gets or sets whether the tree should render nodes under collapsed items
-            Defaults to 'false'
+            Defaults to false
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeView.CurrentSelected">
@@ -4186,7 +4186,7 @@
             <summary>
             Gets a CSS class string that combines the <c>class</c> attribute and and a string indicating
             the status of the field being edited (a combination of "modified", "valid", and "invalid").
-            Derived components should typically use this value for the primary HTML element's 'class' attribute.
+            Derived components should typically use this value for the primary HTML element class attribute.
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.SetParametersAsync(Microsoft.AspNetCore.Components.ParameterView)">
@@ -4194,7 +4194,7 @@
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.FocusAsync">
             <summary>
-            Exposes the element's FocusAsync() method.
+            Exposes the FocusAsync() method.
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.FocusAsync(System.Boolean)">
@@ -4214,7 +4214,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentOptionContext.ContainerComponentName">
             <summary>
-            Gets the name of the option 'container' (FluentSelect, FluentListBox, FluentCombobox)
+            Gets the name of the option container (FluentSelect, FluentListBox, FluentCombobox)
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentOptionContext.CurrentValue">
@@ -4244,7 +4244,7 @@
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentOptionContext.FindContextInAncestors(System.String)">
             <summary>
-            Finds an <see cref="T:Microsoft.Fast.Components.FluentUI.FluentOptionContext"/> in the context's ancestors with the matching <paramref name="containerName"/>.
+            Finds an <see cref="T:Microsoft.Fast.Components.FluentUI.FluentOptionContext"/> in the contextits ancestors with the matching <paramref name="containerName"/>.
             </summary>
             <param name="containerName">The group name of the ancestor <see cref="T:Microsoft.Fast.Components.FluentUI.FluentOptionContext"/>.</param>
             <returns>The <see cref="T:Microsoft.Fast.Components.FluentUI.FluentOptionContext"/>, or <c>null</c> if none was found.</returns>

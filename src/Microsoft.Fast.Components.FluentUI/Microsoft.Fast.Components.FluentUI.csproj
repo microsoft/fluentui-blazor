@@ -66,4 +66,8 @@
 	<PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true' Or '$(TF_BUILD)' == 'true'">
 		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
 	</PropertyGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+	  <Exec Command="copy $(ProjectDir)bin\$(Configuration)\net6.0\*.xml $(SolutionDir)\examples\FluentUI.Demo.Shared\" />
+	</Target>
 </Project>
