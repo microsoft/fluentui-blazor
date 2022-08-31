@@ -29,7 +29,7 @@ namespace FluentUI.Demo.Generators
             IEnumerable<XElement> members = xml.Descendants("member");
             StringBuilder sb = new();
 
-            sb.AppendLine($"#pragma warning disable CS1591");
+            sb.AppendLine("#pragma warning disable CS1591");
             sb.AppendLine("using System;");
             sb.AppendLine("using System.Collections.Generic;");
             sb.AppendLine("using System.Linq;");
@@ -52,14 +52,12 @@ namespace FluentUI.Demo.Generators
 
 
                 sb.Append("\t\t");
-                //sb.AppendLine($@"{{ ""{paramName}"", ""{summary}"" }},");
-                sb.AppendLine($@"[""{paramName}""] = ""Configures the <a href='https://www.w3.org/TR/wai-aria-1.1/#aria-level'>level</a> of the<br />heading element.<br />Possible values: 1 | 2 | 3 | 4 | 5 | 6"",");
-
+                sb.AppendLine("[\"" + paramName + "\"] = \"" + summary + "\", ");
             }
             sb.Remove(sb.Length - 1, 1);
             sb.AppendLine("\t\t};");
             sb.Append("\t\t");
-            sb.AppendLine($@"var foundPair = summarydata.FirstOrDefault(x => x.Key.StartsWith(name));");
+            sb.AppendLine("var foundPair = summarydata.FirstOrDefault(x => x.Key.StartsWith(name));");
 
             sb.AppendLine("\t\treturn foundPair.Value;");
             sb.AppendLine("\t\t}");
