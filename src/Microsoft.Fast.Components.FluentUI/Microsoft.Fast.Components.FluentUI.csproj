@@ -32,7 +32,7 @@
 
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
 		<Optimize>False</Optimize>
-		<WarningLevel>4</WarningLevel>
+		<WarningLevel>6</WarningLevel>
 		<NullableReferenceTypes>true</NullableReferenceTypes>
 		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
 		<NoWarn>1701;1702,8669,1591</NoWarn>
@@ -40,6 +40,7 @@
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
 		<Optimize>True</Optimize>
+	<NoWarn>1701;1702,8669,1591</NoWarn>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -61,7 +62,7 @@
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net7.0' ">
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.0-preview.7.*" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0-preview.7.*" />
-		<PackageReference Include="System.Text.Json" Version="7.0.0-preview.6.*" />
+		<PackageReference Include="System.Text.Json" Version="7.0.0-preview.7.*" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -78,7 +79,7 @@
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 		<ItemGroup>
-			<XmlFiles Include="$(ProjectDir)bin\$(Configuration)\net6.0\*.xml"/>
+			<XmlFiles Include="$(ProjectDir)bin\$(Configuration)\$(TargetFramework)\*.xml" />
 		</ItemGroup>
 		<Copy SourceFiles="@(XmlFiles)" DestinationFolder="$(SolutionDir)examples\FluentUI.Demo.Shared" />
 	</Target>
