@@ -2,13 +2,16 @@
 @using System.Reflection;
 @using Microsoft.Fast.Components.FluentUI;
 
-<h2>
-@if (!string.IsNullOrWhiteSpace(GenericLabel))
-        @Component.Name.Replace("`1",$"<{GenericLabel}>") 
+
+@if (string.IsNullOrWhiteSpace(GenericLabel))
+{
+    <h2>@Component.Name Class</h2>
+}
 else
-        @Component.Name
-Class
-</h2>
+{
+    <h2>@Component.Name.Replace("`1",$"<{GenericLabel}>") Class</h2>
+}
+
 @if (this.Properties.Any())
 {
     <h3>Parameters</h3>
@@ -26,11 +29,11 @@ Class
                     {
                         var id = Identifier.NewId();
                         <FluentIcon id="@id"
-                           Name="@FluentIcons.Info"
-                           Size="@IconSize.Size24"
-                           style="margin-left: 10px; vertical-align: top;"
-                           Filled=false
-                           UseAccentColor=false></FluentIcon>
+                            Name="@FluentIcons.Info"
+                            Size="@IconSize.Size24"
+                            style="margin-left: 10px; vertical-align: top;"
+                            Filled=false
+                            UseAccentColor=false></FluentIcon>
                         <FluentTooltip Anchor="@id" Position="TooltipPosition.Right">
                             @foreach (var item in context.EnumValues)
                             {
