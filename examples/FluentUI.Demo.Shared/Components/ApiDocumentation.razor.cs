@@ -14,8 +14,11 @@ public partial class ApiDocumentation
     private List<ColumnDefinition<MemberDescription>> _eventsGrid = new();
     private List<ColumnDefinition<MemberDescription>> _methodsGrid = new();
 
-    [Parameter]
+    [Parameter, EditorRequired]
     public Type Component { get; set; } = default!;
+
+    [Parameter]
+    public string? GenericLabel { get; set; } = null;
 
     private IEnumerable<MemberDescription> Properties => GetMembers(MemberTypes.Property);
 
@@ -78,7 +81,7 @@ public partial class ApiDocumentation
                                 MemberType = MemberTypes.Property,
                                 Name = propertyInfo.Name,
                                 //Type = IsMarkedAsNullable(propertyInfo) && !propertyInfo.ToTypeNameString().EndsWith('?') ? propertyInfo.ToTypeNameString() + "?" : propertyInfo.ToTypeNameString(),
-                                Type = propertyInfo.ToTypeNameString(),
+                                Type = propertyInfo.ToTypeNameString().Replace("<string>", $"<{GenericLabel}>"),
                                 EnumValues = GetEnumValues(propertyInfo),
                                 Default = propertyInfo.GetValue(obj)?.ToString() ?? string.Empty,
                                 Description = CodeComments.GetSummary(Component.Name + "." + propertyInfo.Name)
@@ -93,7 +96,7 @@ public partial class ApiDocumentation
                             {
                                 MemberType = MemberTypes.Event,
                                 Name = propertyInfo.Name,
-                                Type = propertyInfo.ToTypeNameString(),
+                                Type = propertyInfo.ToTypeNameString().Replace("<string>", $"<{GenericLabel}>"),
                                 Default = "",
                                 Description = CodeComments.GetSummary(Component.Name + "." + propertyInfo.Name)
                             });
@@ -108,7 +111,7 @@ public partial class ApiDocumentation
                             MemberType = MemberTypes.Method,
                             Name = methodInfo.Name,
                             Parameters = methodInfo.GetParameters().Select(i => $"{i.ToTypeNameString()} {i.Name}").ToArray(),
-                            Type = methodInfo.ToTypeNameString(),
+                            Type = methodInfo.ToTypeNameString().Replace("<string>", $"<{GenericLabel}>"),
                             Description = CodeComments.GetSummary(Component.Name + "." + methodInfo.Name)
                         });
                     }

@@ -44,6 +44,9 @@ namespace FluentUI.Demo.Generators
 
                 sb.AppendLine("\t\t\t[\"" + paramName + "\"] = \"" + summary + "\", ");
             }
+            int lastComma = sb.ToString().LastIndexOf(',');
+
+            sb.Remove(lastComma, 1);
             sb.AppendLine("\t\t};");
             sb.Append("\t\t");
             sb.AppendLine("KeyValuePair<string, string> foundPair = summarydata.FirstOrDefault(x => x.Key.StartsWith(name));");
@@ -57,10 +60,8 @@ namespace FluentUI.Demo.Generators
 
         private static string CleanupParamName(string value)
         {
-            Regex regex = new("[P,T,M,F]:");
+            Regex regex = new("[P,T,M,F]:Microsoft\\.Fast\\.Components\\.FluentUI\\.");
             value = regex.Replace(value, "");
-
-            value = value.Replace("Microsoft.Fast.Components.FluentUI.", "");
 
             return value;
         }
@@ -70,21 +71,18 @@ namespace FluentUI.Demo.Generators
             Regex regex = new(@"[ ]{2,}");
             value = regex.Replace(value, "");
 
-            regex = new("<seealso cref=\"[!,P,T,M]+:+");
-            value = regex.Replace(value, "");
+            regex = new("<see(?:also)? cref=\"[!,P,T,M]+:+Microsoft\\.Fast\\.Components\\.FluentUI\\.(\\w*)(?<generic>`1)?\"\\s+/>");
+            value = regex.Replace(value, m => m.Groups["generic"].Success ? $"<code>{m.Groups[1].Value}&lt;T&gt;</code>" : $"<code>{m.Groups[1].Value}</code>");
 
-            regex = new("\"\\s+/>");
-            value = regex.Replace(value, "");
+            regex = new("<see href=\"(.*)\">(.*)</see>");
+            value = regex.Replace(value, "<a href=\"$1\">$2</a>");
 
             return value.Trim()
-                      .Replace("<summary>" + Environment.NewLine, "")
-                      .Replace(Environment.NewLine + "</summary>", "")
-                      .Replace("<see cref=", " ")
-                      .Replace("<see href=\"", "<a href=\"")
-                      .Replace("</see>", "</a>")
-                      .Replace(Environment.NewLine, "<br />")
-                      .Replace("\"", "'")
-                      .Replace("Microsoft.Fast.Components.FluentUI.", "");
+                        .Replace("<summary>" + Environment.NewLine, "")
+                        .Replace(Environment.NewLine + "</summary>", "")
+                        .Replace(Environment.NewLine, "<br />")
+                        .Replace("\"", "'")
+                        .Replace("Microsoft.Fast.Components.FluentUI.", "");
         }
 
         public void Initialize(GeneratorInitializationContext context)

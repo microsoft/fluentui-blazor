@@ -2,7 +2,12 @@
 @using System.Reflection;
 @using Microsoft.Fast.Components.FluentUI;
 
-<h2><code>&lt;@Component.Name.Replace("`1","")&gt;</code> Documentation
+<h2>
+@if (!string.IsNullOrWhiteSpace(GenericLabel))
+        @Component.Name.Replace("`1",$"<{GenericLabel}>") 
+else
+        @Component.Name
+Class
 </h2>
 @if (this.Properties.Any())
 {
