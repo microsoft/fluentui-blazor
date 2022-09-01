@@ -40,6 +40,7 @@
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
 		<Optimize>True</Optimize>
+		<NoWarn>1701;1702,8669,1591</NoWarn>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -69,7 +70,7 @@
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 		<ItemGroup>
-			<XmlFiles Include="$(ProjectDir)bin\$(Configuration)\net6.0\*.xml"/>
+			<XmlFiles Include="$(ProjectDir)bin\$(Configuration)\$(TargetFramework)\*.xml" />
 		</ItemGroup>
 		<Copy SourceFiles="@(XmlFiles)" DestinationFolder="$(SolutionDir)examples\FluentUI.Demo.Shared" />
 	</Target>
