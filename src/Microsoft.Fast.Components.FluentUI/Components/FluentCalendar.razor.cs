@@ -18,6 +18,12 @@ public partial class FluentCalendar : FluentComponentBase
     public bool Readonly { get; set; } = false;
 
     /// <summary>
+    /// String repesentation of the full locale including market, calendar type and numbering system
+    /// </summary>
+    [Parameter]
+    public string? Locale { get; set; }
+
+    /// <summary>
     /// Gets or sets the month of the calendar to display
     /// </summary>
     [Parameter]
@@ -30,43 +36,39 @@ public partial class FluentCalendar : FluentComponentBase
     public int Year { get; set; } = DateTime.Now.Year;
 
     /// <summary>
-    /// Locale information which can include market (language and country), calendar type and numbering type.
-    /// </summary>
-    [Parameter]
-    public string? Locale { get; set; }
-
-    /// <summary>
-    ///  Gets or sets formatting for the numbered days.
+    /// Format style for the day
     /// </summary>
     [Parameter]
     public DayFormat? DayFormat { get; set; } = FluentUI.DayFormat.Numeric;
 
     /// <summary>
-    /// Gets or sets formatting for the weekday titles.
+    /// Format style for the week day labels
     /// </summary>
     [Parameter]
     public WeekdayFormat? WeekdayFormat { get; set; } = FluentUI.WeekdayFormat.Short;
 
     /// <summary>
-    /// Gets or sets formatting for the month name in the title.
+    /// Format style for the month label
     /// </summary>
     [Parameter]
     public MonthFormat? MonthFormat { get; set; } = FluentUI.MonthFormat.Long;
 
     /// <summary>
-    /// Gets or sets formatting for the year in the title.
+    /// Format style for the year used in the title
     /// </summary>
     [Parameter]
     public YearFormat? YearFormat { get; set; } = FluentUI.YearFormat.Numeric;
 
     /// <summary>
-    /// Gets or sets the minimum number of weeks to show. This allows for normalizing of calendars so that they take up the same vertical space.
+    /// Minimum number of weeks to show for the month
+    /// This can be used to normalize the calendar view
+    /// when changing or across multiple calendars
     /// </summary>
     [Parameter]
     public int MinWeeks { get; set; } = 4;
 
     /// <summary>
-    /// Gets or sets whether disabled dates are selectable
+    /// A list of dates that should be shown as disabled
     /// </summary>
     [Parameter]
     public bool DisabledSelectable { get; set; } = true;
@@ -85,7 +87,10 @@ public partial class FluentCalendar : FluentComponentBase
     {
         get
         {
-            return disabledDatesAsString!.Split(",").Select(x =>
+            if (string.IsNullOrEmpty(disabledDatesAsString))
+                return null;
+
+            return disabledDatesAsString.Split(",").Select(x =>
             {
                 _ = DateOnly.TryParse(x, out DateOnly d);
                 return d;
@@ -98,7 +103,7 @@ public partial class FluentCalendar : FluentComponentBase
     }
 
     /// <summary>
-    /// Gets or sets dates to be shown as selected
+    /// A list of dates that should be shown as highlighted
     /// </summary>
     [Parameter]
     public List<DateOnly> SelectedDates
@@ -113,6 +118,9 @@ public partial class FluentCalendar : FluentComponentBase
 
     [Parameter]
     public EventCallback<List<DateOnly>> SelectedDatesChanged { get; set; }
+
+    [Parameter]
+    public EventCallback<DateOnly> OnDateClicked { get; set; }
 
     private async Task OnDateSelected(CalendarSelectEventArgs args)
     {
@@ -130,6 +138,7 @@ public partial class FluentCalendar : FluentComponentBase
             SelectedDates.Remove(date);
         }
 
+        await OnDateClicked.InvokeAsync(date);
         await SelectedDatesChanged.InvokeAsync(SelectedDates);
 
     }

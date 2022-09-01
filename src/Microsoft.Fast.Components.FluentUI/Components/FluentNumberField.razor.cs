@@ -6,41 +6,18 @@ namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
 {
-    /// <summary>
-    /// Gets or sets the disabled state
-    /// </summary>
-    [Parameter]
-    public bool? Disabled { get; set; }
-
-    /// <summary>
-    /// Gets or sets the readonly state
-    /// </summary>
-    [Parameter]
-    public bool? Readonly { get; set; }
-
-    /// <summary>
-    /// Gets or sets if a value is required
-    /// </summary>
-    [Parameter]
-    public bool? Required { get; set; }
 
     /// <summary>
     /// Gets or sets if the field should automatically receive focus
     /// </summary>
     [Parameter]
-    public bool? Autofocus { get; set; }
+    public bool Autofocus { get; set; }
 
     /// <summary>
-    /// Gets or sets the size
+    /// When true, spin buttons will not be rendered
     /// </summary>
     [Parameter]
-    public int Size { get; set; } = 20;
-
-    /// <summary>
-    /// Gets or sets the <see cref="FluentUI.Appearance" />
-    /// </summary>
-    [Parameter]
-    public Appearance? Appearance { get; set; }
+    public bool HideStep { get; set; }
 
     /// <summary>
     /// Gets or sets the placeholder text
@@ -49,28 +26,10 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
     public string? Placeholder { get; set; }
 
     /// <summary>
-    /// Gets or sets the error message to show when the field can not be parsed
+    /// Allows associating a <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist">datalist</see> to the element by <see href="https://developer.mozilla.org/en-US/docs/Web/API/Element/id">id</see>.
     /// </summary>
     [Parameter]
-    public string ParsingErrorMessage { get; set; } = "The {0} field must be a number.";
-
-    /// <summary>
-    /// Gets or sets the minimum value
-    /// </summary>
-    [Parameter]
-    public string? Min { get; set; } = GetMinValue();
-
-    /// <summary>
-    /// Gets or sets the maximum value
-    /// </summary>
-    [Parameter]
-    public string? Max { get; set; } = GetMaxValue();
-
-    /// <summary>
-    /// Gets or sets the minimum length
-    /// </summary>
-    [Parameter]
-    public int MinLength { get; set; } = 1;
+    public string? DataList { get; set; }
 
     /// <summary>
     /// Gets or sets the maximum lenth
@@ -79,10 +38,46 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
     public int MaxLength { get; set; } = 14;
 
     /// <summary>
+    /// Gets or sets the minimum length
+    /// </summary>
+    [Parameter]
+    public int MinLength { get; set; } = 1;
+
+    /// <summary>
+    /// Gets or sets the size
+    /// </summary>
+    [Parameter]
+    public int Size { get; set; } = 20;
+
+    /// <summary>
     /// Gets or sets the amount to increase/decrease the number with. Only use whole number when TValue is int or long. 
     /// </summary>
     [Parameter]
     public string Step { get; set; } = _stepAttributeValue;
+
+    /// <summary>
+    /// Gets or sets the maximum value
+    /// </summary>
+    [Parameter]
+    public string? Max { get; set; } = GetMaxValue();
+
+    /// <summary>
+    /// Gets or sets the minimum value
+    /// </summary>
+    [Parameter]
+    public string? Min { get; set; } = GetMinValue();
+
+    /// <summary>
+    /// Gets or sets the <see cref="FluentUI.Appearance" />
+    /// </summary>
+    [Parameter]
+    public Appearance? Appearance { get; set; }
+
+    /// <summary>
+    /// Gets or sets the error message to show when the field can not be parsed
+    /// </summary>
+    [Parameter]
+    public string ParsingErrorMessage { get; set; } = "The {0} field must be a number.";
 
     private static readonly string _stepAttributeValue = GetStepAttributeValue();
 

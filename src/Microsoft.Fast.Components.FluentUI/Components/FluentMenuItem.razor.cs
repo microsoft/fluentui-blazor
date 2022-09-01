@@ -11,6 +11,18 @@ public partial class FluentMenuItem : FluentComponentBase
     public bool? Disabled { get; set; }
 
     /// <summary>
+    /// The expanded state of the element.
+    /// </summary>
+    [Parameter]
+    public bool? Expanded { get; set; }
+
+    /// <summary>
+    /// The role of the element.
+    /// </summary>
+    [Parameter]
+    public MenuItemRole? Role { get; set; }
+
+    /// <summary>
     /// Gets or sets if the element is checked
     /// </summary>
     [Parameter]

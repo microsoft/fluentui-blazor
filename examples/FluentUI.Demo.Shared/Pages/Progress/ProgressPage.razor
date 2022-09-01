@@ -1,0 +1,13 @@
+@page "/ProgressPage"
+<h1>Progress</h1>
+<ApiDocumentation Component="typeof(FluentProgress)" />
+<h4>Default</h4>
+<div style="width: 300px;">
+    <FluentProgress Min="0" Max="100" Value="75"></FluentProgress>
+    <FluentProgress></FluentProgress>
+</div>
+<h4>Paused</h4>
+<div style="width: 300px;">
+    <FluentProgress Paused="true" Min="0" Max="100" Value="75"></FluentProgress>
+    <FluentProgress Paused="true"></FluentProgress>
+</div>

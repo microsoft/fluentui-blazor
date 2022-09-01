@@ -2,7 +2,8 @@ namespace Microsoft.Fast.Components.FluentUI;
 
 public enum AccordionExpandMode
 {
-    Single
+    Single,
+    Multi
 }
 
 public static class AccordionExpandModeExtensions

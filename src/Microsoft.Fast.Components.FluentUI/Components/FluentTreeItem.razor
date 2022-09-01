@@ -1,8 +1,9 @@
 @inherits FluentComponentBase
-<fluent-tree-item tree-item-id="@TreeItemId"
-                  disabled="@Disabled" 
-                  selected="@Selected" 
+<fluent-tree-item @ref=Element
+                  tree-item-id="@TreeItemId"
                   expanded="@Expanded"
+                  selected="@Selected"
+                  disabled="@Disabled"
                   @attributes="AdditionalAttributes">
     @Text
     @ChildContent

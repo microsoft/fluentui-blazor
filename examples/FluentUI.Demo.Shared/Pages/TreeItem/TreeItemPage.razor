@@ -1,0 +1,44 @@
+@page "/TreeItemPage"
+
+<h1>Tree item</h1>
+<ApiDocumentation Component="typeof(FluentTreeItem)" />
+<h4>Default</h4>
+<FluentTreeItem>Tree item</FluentTreeItem>
+
+<h4>Nested</h4>
+<FluentTreeItem>
+    Tree item
+    <FluentTreeItem>Nested tree item</FluentTreeItem>
+</FluentTreeItem>
+
+<h4>Selected</h4>
+<FluentTreeItem Selected="true">Tree item</FluentTreeItem>
+
+<h4>Before content</h4>
+<FluentTreeItem>
+    <FluentIcon Name="@FluentIcons.Globe" Slot="start" Size="@IconSize.Size16" Filled=false UseAccentColor=false />
+    Tree item
+</FluentTreeItem>
+<br />
+<FluentTreeItem Selected="true">
+    <FluentIcon Name="@FluentIcons.Globe" Slot="start" Size="@IconSize.Size16" Filled=false UseAccentColor=false />
+    Tree item
+</FluentTreeItem>
+
+<h4>After content</h4>
+<FluentTreeItem>
+    <FluentIcon Name="@FluentIcons.Globe" Slot="end" Size="@IconSize.Size16" Filled=false UseAccentColor=false />
+    Tree item
+</FluentTreeItem>
+<br />
+<FluentTreeItem Selected="true">
+    <FluentIcon Name="@FluentIcons.Globe" Slot="end" Size="@IconSize.Size16" Filled=false UseAccentColor=false />
+    Tree item
+</FluentTreeItem>
+
+<h4>Disabled</h4>
+<FluentTreeItem Disabled="true">
+    <FluentIcon Name="@FluentIcons.Globe" Slot="end" Size="@IconSize.Size16" Filled=false UseAccentColor=false />
+    Tree item disabled
+    <FluentIcon Name="@FluentIcons.Globe" Slot="start" Size="@IconSize.Size16" Filled=false UseAccentColor=false />
+</FluentTreeItem>

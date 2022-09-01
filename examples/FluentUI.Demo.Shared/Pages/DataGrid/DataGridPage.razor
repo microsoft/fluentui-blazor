@@ -1,0 +1,39 @@
+﻿@page "/DataGrid"
+
+@using FluentUI.Demo.Shared.Pages.DataGrid.Examples;
+
+<h1>Data grid</h1>
+<p>The <code>&lt;FluentDataGrid&gt;</code> component is used to display tabular data. The <code>&lt;FluentDataGridRow&gt;</code> and <code>&lt;FluentDataGridCell&gt;</code> components are typically created programmatically by the parent grid but some authors may find it useful to create them manually.</p>
+<p><code>&lt;FluentDataGrid&gt;</code> wraps the <code>&lt;fluent-data-grid&gt;</code> element, a web component implementation of a data grid leveraging the Fluent UI design system.</p>
+
+<ApiDocumentation Component="typeof(FluentDataGrid<string>)" GenericLabel="TItem" />
+<ApiDocumentation Component="typeof(FluentDataGridRow<string>)" GenericLabel="TItem" />
+<ApiDocumentation Component="typeof(FluentDataGridCell)" />
+
+<h2>Examples</h2>
+
+<DemoSection Title="Grids from data collections" ExampleFile="DataGridFromCollection"></DemoSection>
+
+<DemoSection Title="With RowItemTemplate" ExampleFile="DataGridRowTemplate"></DemoSection>
+
+<DemoSection Title="Manual grid" ExampleFile="DataGridManual"></DemoSection>
+
+<DemoSection Title="Sorting/Filtering grid" ExampleFile="DataGridSortFilter"></DemoSection>
+
+@*<h2>Grid with Selectable Rows</h2>
+<style>
+    /* Do not use style tags in production code Blazor.  Use isolated css instead. */
+    .hoverIndicator:hover {
+        background-color:#eeeeee;
+    }
+</style>
+<FluentTextField Readonly="true" @bind-Value=SelectedRowInfo>Selected Row</FluentTextField>
+<FluentDataGrid id="selectableGrid" RowsData=RowsGrid2 ColumnDefinitions=ColumnsGrid2 GridTemplateColumns="1fr 1fr 1fr 1fr">
+    <RowItemTemplate>
+        <FluentDataGridRow class="hoverIndicator"
+            @onclick="() => selectedRow = context"<p><code>&lt;&gt;</code> wraps the <code>&lt;&gt;</code> element, a web component implementation of a ... leveraging the Fluent UI design system.</p>
+            @onkeydown=@((args) => {if (args.Key == "Enter" || args.Key == " ") { selectedRow = context;}})
+            style="@(selectedRow == context ? "background-color:lightgray;" : "")"
+            TItem=SampleGrid2Data ColumnDefinitions="ColumnsGrid2" RowData="context" />
+    </RowItemTemplate>
+</FluentDataGrid>*@

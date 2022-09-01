@@ -8,10 +8,10 @@ public partial class FluentTreeView : FluentComponentBase
 
     /// <summary>
     /// Gets or sets whether the tree should render nodes under collapsed items
-    /// Defaults to 'false'
+    /// Defaults to false
     /// </summary>
     [Parameter]
-    public bool RenderCollapsedNodes { get; set; } = false;
+    public bool RenderCollapsedNodes { get; set; }
 
     /// <summary>
     /// Gets or sets the currently selected tree item

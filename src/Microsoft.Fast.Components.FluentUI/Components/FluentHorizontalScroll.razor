@@ -1,7 +1,10 @@
 @inherits FluentComponentBase
 <fluent-horizontal-scroll @ref=Element
                           speed=@Speed
-                          easing=@Easing
+                          duration=@Duration
+                          easing=@Easing.ToAttributeValue()
+                          flippers-hidden-from-at=@FlippersHiddenFromAt
+                          view=@View.ToAttributeValue()
                           @attributes="AdditionalAttributes">
     @ChildContent
 </fluent-horizontal-scroll>

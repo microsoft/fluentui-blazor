@@ -1,0 +1,134 @@
+@page "/TabsPage"
+
+
+<h1>Tabs</h1>
+<ApiDocumentation Component="typeof(FluentTabs)" />
+<h4>Default</h4>
+<FluentTabs ActiveId="@activeid" OnTabChange="HandleOnTabChange">
+    <FluentTab Text="Tab one"></FluentTab>
+    <FluentTab Text="Tab two" />
+    <FluentTab Text="Tab three" />
+    <FluentTabPanel>
+        Tab one content. This is for testing.
+    </FluentTabPanel>
+    <FluentTabPanel>
+        Tab two content. This is for testing.
+    </FluentTabPanel>
+    <FluentTabPanel>
+        Tab three content. This is for testing.
+    </FluentTabPanel>
+    <div>Testing</div>
+</FluentTabs>
+
+<p>Active tab changed to: @changedto?.Text</p>
+
+<h4>Vertical</h4>
+<FluentTabs Orientation="Orientation.Vertical">
+    <FluentTab>Tab one</FluentTab>
+    <FluentTab>Tab two</FluentTab>
+    <FluentTab>Tab three</FluentTab>
+    <FluentTabPanel>
+        Tab one content. This is for testing.
+    </FluentTabPanel>
+    <FluentTabPanel>
+        Tab two content. This is for testing.
+    </FluentTabPanel>
+    <FluentTabPanel>
+        Tab three content. This is for testing.
+    </FluentTabPanel>
+</FluentTabs>
+<h4>Supplemental content</h4>
+<FluentTabs>
+    <div slot="start">
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+    </div>
+    <div slot="end">
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+    </div>
+    <FluentTab>Tab one</FluentTab>
+    <FluentTab>Tab two</FluentTab>
+    <FluentTab>Tab three</FluentTab>
+    <FluentTabPanel>
+        Tab one content. This is for testing.
+    </FluentTabPanel>
+    <FluentTabPanel>
+        Tab two content. This is for testing.
+    </FluentTabPanel>
+    <FluentTabPanel>
+        Tab three content. This is for testing.
+    </FluentTabPanel>
+</FluentTabs>
+<h4>Supplemental content - Vertical</h4>
+<FluentTabs Orientation="Orientation.Vertical">
+    <div slot="start">
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+    </div>
+    <div slot="end">
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+    </div>
+    <FluentTab>Tab one</FluentTab>
+    <FluentTab>Tab two</FluentTab>
+    <FluentTab>Tab three</FluentTab>
+    <FluentTabPanel>
+        Tab one content. This is for testing.
+    </FluentTabPanel>
+    <FluentTabPanel>
+        Tab two content. This is for testing.
+    </FluentTabPanel>
+    <FluentTabPanel>
+        Tab three content. This is for testing.
+    </FluentTabPanel>
+</FluentTabs>
+<h4>No active indicator</h4>
+<FluentTabs ActiveIndicator=false activeId="TabTwo">
+    <FluentTab id="TabOne">Tab one</FluentTab>
+    <FluentTab id="TabTwo">Tab two</FluentTab>
+    <FluentTab id="TabThree">Tab three</FluentTab>
+    <FluentTabPanel id="TabPanelOne">
+        Tab one content. This is for testing.
+    </FluentTabPanel>
+    <FluentTabPanel id="TabPanelTwo">
+        Tab two content. This is for testing.
+    </FluentTabPanel>
+    <FluentTabPanel id="TabPanelThree">
+        Tab three content. This is for testing.
+    </FluentTabPanel>
+</FluentTabs>
+<h4>No active indicator - Vertical</h4>
+<FluentTabs ActiveIndicator=false ActiveId="tab3" Orientation="Orientation.Vertical" >
+    <FluentTab id="tab1" >Tab one</FluentTab>
+    <FluentTab id="tab2">Tab two</FluentTab>
+    <FluentTab id="tab3">Tab three</FluentTab>
+    <FluentTab id="tab4" Disabled=true>Tab four</FluentTab>
+    <FluentTabPanel>
+        Tab one content. This is for testing.
+    </FluentTabPanel>
+    <FluentTabPanel>
+        Tab two content. This is for testing.
+    </FluentTabPanel>
+    <FluentTabPanel>
+        Tab three content. This is for testing.
+    </FluentTabPanel>
+    <FluentTabPanel>
+        Tab four content. This is for testing.
+    </FluentTabPanel>
+</FluentTabs>
+
+
+@code {
+    string? activeid = "tab-1";   
+    FluentTab? changedto;
+
+    private void HandleOnTabChange(FluentTab tab)
+    {
+        changedto = tab;
+    }
+}

@@ -15,4 +15,9 @@ public partial class FluentSliderLabel : FluentComponentBase
     /// </summary>
     [Parameter]
     public bool? HideMark { get; set; }
+    /// <summary>
+    /// The disabled state of the label. This is generally controlled by the parent .
+    /// </summary>
+    [Parameter]
+    public bool? Disabled { get; set; }
 }

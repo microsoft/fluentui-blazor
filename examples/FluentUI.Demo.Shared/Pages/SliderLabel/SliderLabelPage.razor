@@ -1,0 +1,36 @@
+@page "/SliderLabelPage"
+<div style="display: grid;">
+    <h1>Slider</h1>
+        <ApiDocumentation Component="typeof(FluentSlider)" />
+    <div style="margin: 20px; position: relative;">
+        <FluentSliderLabel>
+            basic
+        </FluentSliderLabel>
+    </div>
+    <h4>Disabled</h4>
+    <div style="margin: 20px; position: relative;">
+        <FluentSliderLabel Disabled="true">
+            disabled
+        </FluentSliderLabel>
+    </div>
+    <h4>Hide mark</h4>
+    <div style="margin: 20px; position: relative;">
+        <FluentSliderLabel HideMark="true">
+            hide-mark
+        </FluentSliderLabel>
+    </div>
+    <h4>With position</h4>
+    <div style="margin: 20px; position: relative;">
+        <FluentSliderLabel Position="10">
+            pos:10
+        </FluentSliderLabel>
+    </div>
+    <h4>Vertical</h4>
+    <div style="margin: 20px; position: relative;">
+        <FluentSlider Min="0" Max="10" Orientation="Orientation.Vertical">
+            <FluentSliderLabel Position="5">
+                vert
+            </FluentSliderLabel>
+        </FluentSlider>
+    </div>
+</div>

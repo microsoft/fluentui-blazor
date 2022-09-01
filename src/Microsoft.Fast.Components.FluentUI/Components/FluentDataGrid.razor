@@ -3,7 +3,9 @@
 @attribute [CascadingTypeParameter(nameof(TItem))]
 
 <CascadingValue Value="this" Name="OwningGrid" IsFixed="true">
-    <fluent-data-grid generate-header=none
+    <fluent-data-grid @ref=Element
+                      no-tabbing=@NoTabbing
+                      generate-header=none
                       grid-template-columns=@GridTemplateColumns
                       @onrowfocus=HandleOnRowFocus
                       @attributes="@AdditionalAttributes">

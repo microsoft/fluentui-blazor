@@ -4,23 +4,29 @@
 
 <CascadingValue TValue=FluentOptionContext IsFixed=true Value=_context @key=_context>
     <fluent-combobox @ref=Element
-                     current-value="@BindConverter.FormatValue(CurrentValue)"
-                     @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
-                     appearance="@Appearance.ToAttributeValue()"
-                     disabled="@Disabled"
-                     required="@Required"
                      autocomplete="@Autocomplete.ToAttributeValue()"
+                     open=@Open
+                     placeholder=@Placeholder
+                     position=@Position
+                     id=@Id
+                     value=@Value
+                     current-value="@BindConverter.FormatValue(CurrentValue)"
+                     disabled=@Disabled
+                     name=@Name
+                     required="@Required"
+                     appearance="@Appearance.ToAttributeValue()"
+                     @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
                      @attributes="AdditionalAttributes">
-    @if (Items is not null)
-    {
-        foreach (Option<TValue> option in Items)
+        @if (Options is not null)
         {
-            <FluentOption Value=@option.Key Selected="option.Selected" Disabled=option.Disabled>@option.Value</FluentOption>
+            foreach (Option<TValue> option in Options)
+            {
+                <FluentOption Value=@option.Key Selected="option.Selected" Disabled=option.Disabled>@option.Value</FluentOption>
+            }
         }
-    }
-    else
-    {
-        @ChildContent
-    }
+        else
+        {
+            @ChildContent
+        }
     </fluent-combobox>
 </CascadingValue>

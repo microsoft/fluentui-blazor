@@ -85,3 +85,4 @@ jobs:
           app_location: "published/wwwroot"
           api_location: "Api"
           output_location: "published/wwwroot"
+          skip_api_build: true
