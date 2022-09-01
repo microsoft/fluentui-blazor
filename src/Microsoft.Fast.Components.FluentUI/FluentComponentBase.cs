@@ -7,7 +7,7 @@ public abstract class FluentComponentBase : ComponentBase
     private ElementReference _ref;
 
     /// <summary>
-    /// Gets or sets the associated <see cref="ElementReference"/>.
+    /// The associated <see cref="ElementReference"/>.
     /// <para>
     /// May be <see langword="null"/> if accessed before the component is rendered.
     /// </para>
@@ -22,11 +22,14 @@ public abstract class FluentComponentBase : ComponentBase
         }
     }
 
+    /// <summary>
+    /// A reference to the enclosing component.
+    /// </summary>
     [Parameter]
     public Reference? BackReference { get; set; }
 
     /// <summary>
-    /// Gets or sets the content to be rendered inside the component
+    /// Gets or sets the content to be rendered inside the component.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

@@ -4074,15 +4074,20 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentComponentBase.Element">
             <summary>
-            Gets or sets the associated <see cref="T:Microsoft.AspNetCore.Components.ElementReference"/>.
+            The associated <see cref="T:Microsoft.AspNetCore.Components.ElementReference"/>.
             <para>
             May be <see langword="null"/> if accessed before the component is rendered.
             </para>
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentComponentBase.BackReference">
+            <summary>
+            A reference to the enclosing component.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentComponentBase.ChildContent">
             <summary>
-            Gets or sets the content to be rendered inside the component
+            Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentComponentBase.AdditionalAttributes">
