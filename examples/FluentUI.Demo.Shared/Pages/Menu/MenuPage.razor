@@ -1,63 +1,47 @@
-@page "/MenuPage"
+@page "/Menu"
+
+@using FluentUI.Demo.Shared.Pages.Menu.Examples
+
 <h1>Menu</h1>
+
+<p>As defined by the W3C:</p>
+<blockquote>
+    <p>
+        A menu is a widget that offers a list of choices to the user, such as a set of actions or functions. Menu widgets behave like native 
+        operating system menus, such as the menus that pull down from the menubars commonly found at the top of many desktop application windows. 
+        A menu is usually opened, or made visible, by activating a menu button, choosing an item in a menu that opens a sub menu, or by invoking 
+        a command, such as Shift + F10 in Windows, that opens a context specific menu. When a user activates a choice in a menu, the menu usually 
+        closes unless the choice opened a submenu.
+</p>
+</blockquote>
+<p>
+    While any DOM content is permissible as a child of the menu, only <code>&lt;FluentMenuItem&gt;</code>'s and slotted content with a role of 
+    <code>menuitem</code>, <code>menuitemcheckbox</code>, or <code>menuitemradio</code> will receive keyboard support.
+    </p>
+<p>
+    <code>&lt;FluentMenu&gt;</code> applies <code>&lt;FluentMenuItem&gt;</code>'s <code>startColumnCount</code> property based on an evaluation of all 
+    of the <code>&lt;FluentMenuItem&gt;</code> so the content text vertically aligns across all <code>&lt;FluentMenuItem&gt;</code>. If any 
+    <code>&lt;FluentMenuItem&gt;</code> does not have a roll of <code>checkbox</code> or <code>radio</code> or the <code>start</code> slot is not 
+    passed, <code>startColumnCount</code> is set to 0 which applies a <code>indent-0</code> class to all the <code>&lt;FluentMenuItem&gt;</code>s. 
+    If any <code>&lt;FluentMenuItem&gt;</code> has a roll of <code>checkbox</code> or <code>radio</code> or the <code>start</code> slot exists, 
+    <code>startColumnCount</code> is set to 1 which applies a <code>indent-1</code> class to all the <code>&lt;FluentMenuItem&gt</code>s. Or if any 
+    <code>&lt;FluentMenuItem&gt;</code> has a roll of <code>checkbox</code> or <code>radio</code> and the <code>start</code> slot exists, 
+    <code>startColumnCount</code> is set to 2 which applies a <code>indent-2</code> class to all the <code>&lt;FluentMenuItem&gt;</code>s.</p>
+
+<ApiDocumentation Component="typeof(FluentMenuItem)" />
 <ApiDocumentation Component="typeof(FluentMenu)" />
-<h4>Default</h4>
-<FluentMenu @onmenuchange=OnMenuChange>
-    <FluentMenuItem>Menu item 1</FluentMenuItem>
-    <FluentMenuItem>Menu item 2</FluentMenuItem>
-    <FluentMenuItem Disabled="true">Menu item 3 Disabled</FluentMenuItem>
-    <FluentMenuItem>Menu item 4</FluentMenuItem>
-</FluentMenu>
 
-<h4>With Separator</h4>
-<FluentMenu>
-    <FluentMenuItem Role="MenuItemRole.MenuItem">Menu item 1</FluentMenuItem>
-    <FluentMenuItem Role="MenuItemRole.MenuItem">Menu item 2</FluentMenuItem>
-    <FluentDivider />
-    <FluentMenuItem Role="MenuItemRole.MenuItem">Menu item 3</FluentMenuItem>
-    <FluentMenuItem Role="MenuItemRole.MenuItem">
-        Menu item 4
-        <FluentIcon Name="@FluentIcons.Globe" Slot="start" Size="@IconSize.Size16" Filled=false UseAccentColor=false />
-        <FluentIcon Name="@FluentIcons.Globe" Slot="end" Size="@IconSize.Size16" Filled=false UseAccentColor=false />
-    </FluentMenuItem>
-</FluentMenu>
+<h2>Examples</h2>
 
-<h2>With radio buttons and checkboxes</h2>
-<FluentMenu>
-    <FluentMenuItem>Menu item 1</FluentMenuItem>
-    <FluentMenuItem>Menu item 2</FluentMenuItem>
-    <FluentMenuItem>Menu item 3</FluentMenuItem>
-    <FluentDivider></FluentDivider>
-    <FluentMenuItem Role="MenuItemRole.MenuItemCheckbox">Checkbox 1</FluentMenuItem>
-    <FluentMenuItem Role="MenuItemRole.MenuItemCheckbox">
-        Checkbox 2
-        <FluentIcon Name="@FluentIcons.Globe" Slot="checkbox-indicator" Size="@IconSize.Size16" Filled=false UseAccentColor=false />
-    </FluentMenuItem>
-    <FluentDivider></FluentDivider>
-    <FluentMenuItem Role="MenuItemRole.MenuItemRadio">Radio 1.1</FluentMenuItem>
-    <FluentMenuItem Role="MenuItemRole.MenuItemRadio">Radio 1.2</FluentMenuItem>
-    <FluentDivider></FluentDivider>
-    <FluentMenuItem Role="MenuItemRole.MenuItemRadio">
-        Radio 2.1
-        <FluentIcon Name="@FluentIcons.Globe" Slot="start" Size="@IconSize.Size16" Filled=false UseAccentColor=false />
-        <FluentIcon Name="@FluentIcons.RadioButton" Slot="radio-indicator" Size="@IconSize.Size20" Filled=false UseAccentColor=false />        
-    </FluentMenuItem>
-    <FluentMenuItem Role="MenuItemRole.MenuItemRadio">
-        Radio 2.2
-        <FluentIcon Name="@FluentIcons.Globe" Slot="end" Size="@IconSize.Size16" Filled=false UseAccentColor=false />     
-        <FluentIcon Name="@FluentIcons.RadioButton" Slot="radio-indicator" Size="@IconSize.Size20" Filled=false UseAccentColor=false />        
-    </FluentMenuItem>
-</FluentMenu>
+<DemoSection Title="Default menu" ExampleFile="MenuDefault"></DemoSection>
 
-<h4>With standard elements</h4>
-<FluentMenu>
-    <div role="menuitem">Menu item 1</div>
-    <div role="menuitem">Menu item 2</div>
-    <div role="menuitem">Menu item 3</div>
-</FluentMenu>
-@code{
-    private void OnMenuChange()
-    {
-        Console.WriteLine("Menu changed");
-    }
-}
+<DemoSection Title="With Separator" ExampleFile="MenuSeparator"></DemoSection>
+
+<DemoSection Title="With radio buttons and checkboxes" ExampleFile="MenuCheckRadio"></DemoSection>
+
+<DemoSection Title="Nested" ExampleFile="MenuNested"></DemoSection>
+
+<DemoSection Title="With icons" ExampleFile="MenuIcon"></DemoSection>
+
+<DemoSection Title="With standard elements" ExampleFile="MenuStandardElements"></DemoSection>
+

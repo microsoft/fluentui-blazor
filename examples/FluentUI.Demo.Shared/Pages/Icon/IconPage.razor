@@ -73,8 +73,7 @@
     <EditForm EditContext="@editContext" >
         <div style="display: flex; flex-wrap: wrap; width: 90%;height: 100px;align-items: center;justify-content: space-between;">
             <div style="display: flex;align-content: center;align-items: center;">
-                <p style="padding-right: 10px;"><label for="Searchterm">Search term</label></p>
-                <FluentTextField Name="Searchterm" @bind-Value="Form.Searchterm" Placeholder="Search.."></FluentTextField>
+                <FluentSearch Name="Searchterm" @bind-Value="Form.Searchterm" Placeholder="Search.."></FluentSearch>
             </div>
             <div style="display: flex;align-content: center;align-items: center;">
                 <p style="padding-right: 10px;"><label for="Size">Select Size</label></p>
