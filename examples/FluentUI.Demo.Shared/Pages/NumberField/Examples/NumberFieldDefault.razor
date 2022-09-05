@@ -1,0 +1,29 @@
+﻿<p>
+    <FluentNumberField @bind-Value="exampleInt">Integer</FluentNumberField>
+    <br />
+    Example int: @exampleInt
+    <br />
+    Minimum value: @(int.MinValue); Maximum value: @(int.MaxValue)
+</p>
+<p>
+    Same as above but bound to oninput event by using component that inherits from the <code>FluentNumberField</code> component<br />
+    See the \Shared folder for the implementation<br />
+    <FluentNumberFieldOnInput @bind-Value="exampleInt2" Appearance="Appearance.Filled">Integer</FluentNumberFieldOnInput>
+    <br />
+    Example int: @exampleInt2
+</p>
+
+<h5>Focus Async</h5>
+<p style="display:flex">
+    <FluentButton @onclick="() => focusTest!.FocusAsync()">FocusAsync</FluentButton>
+    <FluentTextField @ref=focusTest></FluentTextField>
+</p>
+
+<h5>Hide up/down steps</h5>
+<FluentNumberField TValue="int?" HideStep=true></FluentNumberField>
+
+@code {
+    FluentTextField? focusTest;
+    int exampleInt { get; set; } = 123;
+    int exampleInt2 { get; set; } = 345;
+}

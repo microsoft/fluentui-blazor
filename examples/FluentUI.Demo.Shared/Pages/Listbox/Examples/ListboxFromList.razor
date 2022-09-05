@@ -1,0 +1,23 @@
+﻿<h5>From list of string items</h5>
+<FluentListbox Options=@stringOptions />
+
+<h5>From list of int items</h5>
+<FluentListbox Options=@intOptions />
+
+@code {
+     List<Option<string>> stringOptions = new()
+        {
+            { new Option<string> { Key = "1", Value = "One" } },
+            { new Option<string> { Key = "2", Value = "Two", Selected = true } },
+            { new Option<string> { Key = "3", Value = "Three" } }
+
+        };
+
+    List<Option<int>> intOptions = new()
+        {
+            { new Option<int> { Key = 1, Value = 1, Disabled = true } },
+            { new Option<int> { Key = 2, Value = 2 } },
+            { new Option<int> { Key = 3, Value = 3 } }
+
+        };
+}

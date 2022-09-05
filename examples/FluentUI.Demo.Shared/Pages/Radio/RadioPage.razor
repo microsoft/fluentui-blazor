@@ -1,32 +1,23 @@
-@page "/RadioPage"
+@page "/Radio"
+
+@using FluentUI.Demo.Shared.Pages.Radio.Examples
+
 <h1>Radio</h1>
+
+<p>An implementation of a <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/radio" target="_blank" rel="noopener noreferrer">radio</a>.</p>
+
+<p>
+    <code>&lt;FluentRadio&gt;</code> wraps the <code>&lt;fluent-radio&gt;</code> element, a web component implementation of a radio element leveraging the
+    Fluent UI design system.
+</p>
+
+
 <ApiDocumentation Component="typeof(FluentRadio)" />
 
-<h4>Defaults</h4>
-<FluentRadio></FluentRadio>
-<div>
-    <FluentRadio>label</FluentRadio>
-</div>
+<h2>Examples</h2>
 
-<h4>Checked</h4>
-<FluentRadio Value="checked" Checked="true"></FluentRadio>
+<DemoSection Title="Default" ExampleFile="RadioDefault"></DemoSection>
 
-<!-- Required -->
-<h4>Required</h4>
-<FluentRadio Value="required" Required="true"></FluentRadio>
+<DemoSection Title="States" ExampleFile="RadioState"></DemoSection>
 
-<!-- Disabled -->
-<h4>Disabled</h4>
-<FluentRadio Disabled="true"></FluentRadio>
-<FluentRadio Disabled="true">label</FluentRadio>
-<FluentRadio Disabled="true" Checked="true">checked</FluentRadio>
-
-<h4>Visual vs audio label</h4>
-<FluentRadio>
-    <span aria-label="Audio label">Visible label</span>
-</FluentRadio>
-
-<div style="display: flex; flex-direction: column; margin-top: 12px;">
-    <label id="label1">Outside label</label>
-    <FluentRadio aria-labelledby="label1"></FluentRadio>
-</div>
+<DemoSection Title="Aria label" ExampleFile="RadioAria"></DemoSection>
