@@ -129,6 +129,15 @@ h6 {
     font-weight: 600;
 }
 
+.shell, .sourceCode {
+    background: var(--neutral-fill-stealth-hover);
+    padding: 7px;
+}
+
+code {
+    background: var(--neutral-fill-stealth-hover);
+}
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;

@@ -4107,7 +4107,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.Disabled">
             <summary>
-            Disables the form control, ensuring it doesn't participate in form submission
+            Disables the form control, ensuring it doesn't participate in form submission.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.Name">
@@ -4117,7 +4117,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.Required">
             <summary>
-            The element needs to have a value
+            Whether the element needs to have a value
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.Value">
