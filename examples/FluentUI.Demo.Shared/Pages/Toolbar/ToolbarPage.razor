@@ -1,190 +1,33 @@
-@page "/ToolbarPage"
+@page "/Toolbar"
 
-@inject FillColor FillColor
-@inject BaseLayerLuminance BaseLayerLuminance
+
+@using FluentUI.Demo.Shared.Pages.Toolbar.Examples
 
 <h1>Toolbar</h1>
+
+<p>As defined by the <a href="https://w3c.github.io/aria-practices/#toolbar" target="_blank" rel="noopener noreferrer">W3C</a>:</p>
+<blockquote>
+    <p>
+        A toolbar is a container for grouping a set of controls, such as buttons, menubuttons, or checkboxes.
+    </p>
+    <p>
+        When a set of controls is visually presented as a group, the toolbar role can be used to communicate the presence and
+        purpose of the grouping to screen reader users. Grouping controls into toolbars can also be an effective way of reducing
+        the number of tab stops in the keyboard interface.
+    </p>
+</blockquote>
+<p>
+    <code>&lt;FluentTextField&gt;</code> wraps the <code>&lt;fluent-text-field&gt;</code> element, a web component implementation of a toolbar leveraging the
+    Fluent UI design system.
+</p>
 <ApiDocumentation Component="typeof(FluentToolbar)" />
 
-<h2>Default</h2>
-<FluentToolbar id="toolbar-fluent-components">
-    <FluentButton Appearance="Appearance.Accent">Accent Button</FluentButton>
-    <FluentButton Appearance="Appearance.Stealth">Stealth Button</FluentButton>
-    <FluentRadioGroup value="on">
-        <FluentRadio Checked="true">One</FluentRadio>
-        <FluentRadio>Two</FluentRadio>
-        <FluentRadio>Three</FluentRadio>
-    </FluentRadioGroup>
-    <FluentCombobox class="below outline" @bind-Value="@comboboxValue">
-        <FluentOption id="option-2">Please Please Me</FluentOption>
-        <FluentOption id="option-3">With The Beatles</FluentOption>
-        <FluentOption id="option-4">A Hard Day's Night</FluentOption>
-        <FluentOption id="option-5">Beatles for Sale</FluentOption>
-        <FluentOption id="option-6">Help!</FluentOption>
-        <FluentOption id="option-7">Rubber Soul</FluentOption>
-        <FluentOption id="option-8">Revolver</FluentOption>
-        <FluentOption id="option-9">Sgt. Pepper's Lonely Hearts Club Band</FluentOption>
-        <FluentOption id="option-10">Magical Mystery Tour</FluentOption>
-        <FluentOption id="option-11">The Beatles</FluentOption>
-        <FluentOption id="option-12">Yellow Submarine</FluentOption>
-        <FluentOption id="option-13">Abbey Road</FluentOption>
-        <FluentOption id="option-14">Let It Be</FluentOption>
-    </FluentCombobox>
-    <FluentButton>Button</FluentButton>
-    <FluentSelect class="below outline" @bind-Value="@comboboxValue">
-        <FluentOption id="option-15">Option 1</FluentOption>
-        <FluentOption id="option-16">Second option</FluentOption>
-        <FluentOption id="option-17">Option 3</FluentOption>
-    </FluentSelect>
-    <FluentCheckbox>Checkbox</FluentCheckbox>
-</FluentToolbar>
+<h2>Examples</h2>
 
-<h2>Dark Mode</h2>
-<div style="padding:10px">
-    <FluentToolbar id="toolbar-fluent-components-two" style="width:100%" @ref=Toolbar1>
-        <FluentRadioGroup Value="on">
-            <FluentRadio Checked="true">Add</FluentRadio>
-            <FluentRadio>Open</FluentRadio>
-            <FluentRadio>Copy</FluentRadio>
-            <FluentRadio>Export</FluentRadio>
-            <FluentRadio>Automate</FluentRadio>
-        </FluentRadioGroup>
-        <FluentButton Appearance="Appearance.Stealth">Stealth</FluentButton>
-        <FluentButton Appearance="Appearance.Accent">Refresh</FluentButton>
-        <FluentBadge>21 items</FluentBadge>
-        <FluentRadioGroup slot="end">
-            <FluentRadio>Filter</FluentRadio>
-            <FluentRadio>
-                <FluentTextField placeholder="Search" type="text" Appearance="Appearance.Outline"></FluentTextField>
-            </FluentRadio>
-        </FluentRadioGroup>
-    </FluentToolbar>
-</div>
+<DemoSection Title="Default" ExampleFile="ToolbarDefault"></DemoSection>
 
-<h2>Slotted End Items w/ Min Width</h2>
-<div style="padding:10px;min-width:800px">
-    <FluentToolbar id="toolbar-fluent-components-two" style="width:100%" @ref=Toolbar2>
-        <label slot="label">slotted label</label>
-        <FluentRadioGroup Value="on">
-            <FluentRadio Checked="true">Add</FluentRadio>
-            <FluentRadio>Open</FluentRadio>
-            <FluentRadio>Copy</FluentRadio>
-        </FluentRadioGroup>
-        <FluentButton Appearance="Appearance.Accent">Refresh</FluentButton>
-        <FluentBadge>21 items</FluentBadge>
-        <FluentRadioGroup slot="end">
-            <FluentRadio>Filter</FluentRadio>
-            <FluentRadio>
-                <FluentTextField Placeholder="Search" TextFieldType=TextFieldType.Text Appearance="Appearance.Outline"></FluentTextField>
-            </FluentRadio>
-        </FluentRadioGroup>
-        <svg slot="end"><use href="#icon"></use></svg>
-    </FluentToolbar>
-</div>
+<DemoSection Title="Slotted" ExampleFile="ToolbarSlotted"></DemoSection>
 
-<h2>Toolbar with slotted span label</h2>
-<FluentToolbar id="toolbar-slotted-label">
-    <span slot="label">Span Label</span>
-    <FluentButton>One</FluentButton>
-    <FluentButton>Two</FluentButton>
-    <FluentButton>Three</FluentButton>
-</FluentToolbar>
+<DemoSection Title="Labels" ExampleFile="ToolbarLabels"></DemoSection>
 
-<h2>Toolbar with external label</h2>
-<label id="toolbar-label" for="toolbar-external-label">External label</label>
-<FluentToolbar aria-labelledby="toolbar-label" id="toolbar-external-label">
-    <FluentButton>Two</FluentButton>
-    <FluentButton>Three</FluentButton>
-</FluentToolbar>
-
-<h2>Toolbar with invisible label</h2>
-<FluentToolbar id="toolbar-invisible-label">
-    <FluentButton>Two</FluentButton>
-    <FluentButton>Three</FluentButton>
-</FluentToolbar>
-
-<h2>Vertical orientation</h2>
-<FluentToolbar id="toolbar-vertical-orientation" Orientation="Orientation.Vertical">
-    <span slot="label">Span Label</span>
-    <FluentButton>One</FluentButton>
-    <FluentButton>Two</FluentButton>
-    <FluentButton>Three</FluentButton>
-</FluentToolbar>
-
-<h2>Disabled Elements</h2>
-<FluentToolbar id="toolbar-first-disabled" Orientation="Orientation.Vertical">
-    <FluentCheckbox Disabled="true">One</FluentCheckbox>
-    <FluentCheckbox>Two</FluentCheckbox>
-    <FluentCheckbox>Three</FluentCheckbox>
-</FluentToolbar>
-<FluentToolbar id="toolbar-second-disabled" Orientation="Orientation.Vertical">
-    <FluentCheckbox>One</FluentCheckbox>
-    <FluentCheckbox Disabled="true">Two</FluentCheckbox>
-    <FluentCheckbox>Three</FluentCheckbox>
-</FluentToolbar>
-<FluentToolbar id="toolbar-last-disabled" Orientation="Orientation.Vertical">
-    <FluentCheckbox>One</FluentCheckbox>
-    <FluentCheckbox>Two</FluentCheckbox>
-    <FluentCheckbox Disabled="true">Three</FluentCheckbox>
-</FluentToolbar>
-<FluentToolbar id="toolbar-last-two-disabled" Orientation="Orientation.Vertical">
-    <FluentCheckbox>One</FluentCheckbox>
-    <FluentCheckbox Disabled="true">Two</FluentCheckbox>
-    <FluentCheckbox Disabled="true">Three</FluentCheckbox>
-</FluentToolbar>
-<FluentToolbar id="toolbar-first-last-disabled" Orientation="Orientation.Vertical">
-    <FluentCheckbox Disabled="true">One</FluentCheckbox>
-    <FluentCheckbox>Two</FluentCheckbox>
-    <FluentCheckbox Disabled="true">Three</FluentCheckbox>
-</FluentToolbar>
-<FluentToolbar id="toolbar-first-two-disabled" Orientation="Orientation.Vertical">
-    <span slot="label">Span Label</span>
-    <FluentCheckbox Disabled="true">One</FluentCheckbox>
-    <FluentCheckbox Disabled="true">Two</FluentCheckbox>
-    <FluentCheckbox>Three</FluentCheckbox>
-</FluentToolbar>
-<FluentToolbar id="toolbar-disabled-all" Orientation="Orientation.Vertical">
-    <FluentCheckbox Disabled="true">One</FluentCheckbox>
-    <FluentCheckbox Disabled="true">Two</FluentCheckbox>
-    <FluentCheckbox Disabled="true">Three</FluentCheckbox>
-</FluentToolbar>
-
-<h2>RTL Mode</h2>
-<FluentToolbar id="toolbar-rtl" dir="rtl">
-    <FluentCheckbox>One</FluentCheckbox>
-    <FluentCheckbox>Two</FluentCheckbox>
-    <FluentCheckbox>Three</FluentCheckbox>
-</FluentToolbar>
-<FluentToolbar id="toolbar-rtl-vertical" dir="rtl" Orientation="Orientation.Vertical">
-    <FluentCheckbox>One</FluentCheckbox>
-    <FluentCheckbox>Two</FluentCheckbox>
-    <FluentCheckbox>Three</FluentCheckbox>
-</FluentToolbar>
-
-<h2>Start/End Slots</h2>
-<FluentToolbar id="toolbar-start-end-slots">
-    <FluentIcon Name="@FluentIcons.Globe" Slot="start" Size="@IconSize.Size16" Filled=false UseAccentColor=false />
-    <FluentIcon Name="@FluentIcons.Globe" Slot="end" Size="@IconSize.Size16" Filled=false UseAccentColor=false />  
-</FluentToolbar>
-<FluentToolbar id="toolbar-start-end-slots-vertical" Orientation="Orientation.Vertical">
-    <FluentIcon Name="@FluentIcons.Globe" Slot="start" Size="@IconSize.Size16" Filled=false UseAccentColor=false />
-    <FluentIcon Name="@FluentIcons.Globe" Slot="end" Size="@IconSize.Size16" Filled=false UseAccentColor=false />
-</FluentToolbar>
-@code{
-    string? comboboxValue;
-    FluentToolbar? Toolbar1;
-    FluentToolbar? Toolbar2;
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await FillColor.SetValueFor(Toolbar1!.Element, "#333".ToSwatch());
-            await FillColor.SetValueFor(Toolbar2!.Element, "#333".ToSwatch());
-            await BaseLayerLuminance.SetValueFor(Toolbar1!.Element, (float)0.15);
-            await BaseLayerLuminance.SetValueFor(Toolbar2!.Element, (float)0.15);
-            
-            StateHasChanged();
-        }
-    }
-}
+<DemoSection Title="Vertical" ExampleFile="ToolbarVertical"></DemoSection>

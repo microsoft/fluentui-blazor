@@ -1,108 +1,32 @@
-@page "/TextFieldPage"
+@page "/TextField"
+
+@using FluentUI.Demo.Shared.Pages.TextField.Examples
+
 <h1>Text field</h1>
+
+<p>An implementation of a <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/text" target="_blank" rel="noopener noreferrer">text field</a>. The <code>&lt;FluentTextField&gt;</code> supports two visual appearances, outline and filled, with the control defaulting to the outline appearance.</p>
+<p>
+    <code>&lt;FluentTextField&gt;</code> wraps the <code>&lt;fluent-text-field&gt;</code> element, a web component implementation of a text field leveraging the
+    Fluent UI design system. 
+</p>
+
 <ApiDocumentation Component="typeof(FluentTextField)" />
-<h4>Default</h4>
-<FluentTextField></FluentTextField>
-<FluentTextField>Label</FluentTextField>
 
-<h4>Full Width</h4>
-<FluentTextField style="width: 100%;"></FluentTextField>
+<h2>Examples</h2>
 
-<h4>Placeholder</h4>
-<FluentTextField Placeholder="Placeholder"></FluentTextField>
 
-<!-- Required -->
-<h4>Required</h4>
-<FluentTextField Required="true"></FluentTextField>
+<DemoSection Title="Default" ExampleFile="TextFieldDefault"></DemoSection>
 
-<!-- Disabled -->
-<h4>Disabled</h4>
-<FluentTextField Disabled="true"></FluentTextField>
-<FluentTextField Disabled="true">label</FluentTextField>
-<FluentTextField Disabled="true" Placeholder="placeholder"></FluentTextField>
+<DemoSection Title="Displays" ExampleFile="TextFieldDisplays"></DemoSection>
 
-<!-- Read only -->
-<h4>Read only</h4>
-<FluentTextField Readonly="true" Value="Readonly"></FluentTextField>
-<FluentTextField Readonly="true" Value="Readonly">label</FluentTextField>
+<DemoSection Title="States" ExampleFile="TextFieldStates"></DemoSection>
 
-<!-- Read only -->
-<h4>Autofocus</h4>
-<FluentTextField Autofocus="true">autofocus</FluentTextField>
+<DemoSection Title="Icons" ExampleFile="TextFieldIcons"></DemoSection>
 
-<!-- Start -->
-<h4>With start</h4>
-<FluentTextField>
-    <FluentIcon Name="@FluentIcons.Globe" Slot="start" Size="@IconSize.Size16" Filled=false UseAccentColor=false />
-</FluentTextField>
+<DemoSection Title="Types" ExampleFile="TextFieldTypes"></DemoSection>
 
-<!-- End -->
-<h4>With end</h4>
-<FluentTextField>
-    <FluentIcon Name="@FluentIcons.Globe" Slot="end" Size="@IconSize.Size16" Filled=false UseAccentColor=false />
-</FluentTextField>
+<DemoSection Title="Focus" ExampleFile="TextFieldFocus"></DemoSection>
 
-<h4>Filled</h4>
-<h5>Default</h5>
-<FluentTextField Appearance="Appearance.Filled"></FluentTextField>
-<FluentTextField Appearance="Appearance.Filled">label</FluentTextField>
+<DemoSection Title="Filled Appearance" ExampleFile="TextFieldFilled"></DemoSection>
 
-<h5>Placeholder</h5>
-<FluentTextField Appearance="Appearance.Filled" Placeholder="Placeholder"></FluentTextField>
-
-<!-- Required -->
-<h5>Required</h5>
-<FluentTextField Appearance="Appearance.Filled" Required="true"></FluentTextField>
-
-<!-- Disabled -->
-<h5>Disabled</h5>
-<FluentTextField Appearance="Appearance.Filled" Disabled="true"></FluentTextField>
-<FluentTextField Appearance="Appearance.Filled" Disabled="true">label</FluentTextField>
-<FluentTextField Appearance="Appearance.Filled" Disabled="true" Placeholder="placeholder"></FluentTextField>
-
-<!-- Read only -->
-<h5>Read only</h5>
-<FluentTextField Appearance="Appearance.Filled" Readonly="true" Value="Readonly"></FluentTextField>
-<FluentTextField Appearance="Appearance.Filled" Readonly="true" Value="Readonly">label</FluentTextField>
-
-<!-- With label -->
-<h4>Visual vs audio label</h4>
-<FluentTextField>
-    <span aria-label="Audio label">Visible label</span>
-</FluentTextField>
-
-<!-- With hidden label -->
-<h4>Audio label only</h4>
-<FluentTextField>
-    <span aria-label="Audio label only"></span>
-</FluentTextField>
-
-<!-- With aria-label -->
-<h4>With aria-label</h4>
-<FluentTextField aria-label="Text field with aria-label"></FluentTextField>
-
-<h4>Password</h4>
-<FluentTextField TextFieldType="TextFieldType.Password">Password</FluentTextField>
-
-<h4>Email (with spellcheck)</h4>
-<FluentTextField TextFieldType="TextFieldType.Email" Spellcheck="true">Email (with spellcheck)</FluentTextField>
-
-<h4>Telephone number</h4>
-<FluentTextField TextFieldType="TextFieldType.Tel">Telephone</FluentTextField>
-
-<h4>Url</h4>
-<FluentTextField TextFieldType="TextFieldType.Url">Url</FluentTextField>
-
-<h4>Minlength</h4>
-<FluentTextField Minlength="4">Minlength</FluentTextField>
-
-<h4>Maxlength</h4>
-<FluentTextField Maxlength="4">Maxlength</FluentTextField>
-
-<!-- Focus Async -->
-<h4>Focus Async</h4>
-<FluentButton @onclick="() => focusTest!.FocusAsync()">FocusAsync</FluentButton> 
-<FluentTextField @ref=focusTest></FluentTextField>
-@code {
-    FluentTextField? focusTest;
-}
+<DemoSection Title="Aria" ExampleFile="TextFieldAria"></DemoSection>

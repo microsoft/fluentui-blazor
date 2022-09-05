@@ -24,11 +24,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <AdditionalFiles Include="C:\Source\Blazor\fast-blazor\examples\FluentUI.Demo.Shared\Pages\Select\SelectPage.razor" />
-	  <AdditionalFiles Include="Pages\Slider\Examples\SliderVertical.razor" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<ProjectReference Include="..\..\src\Microsoft.Fast.Components.FluentUI\Microsoft.Fast.Components.FluentUI.csproj" />
 		<ProjectReference Include="..\FluentUI.Demo.Generators\FluentUI.Demo.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 	</ItemGroup>

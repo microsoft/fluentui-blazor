@@ -1,0 +1,11 @@
+﻿<h5>Autofocus</h5>
+<FluentTextField Autofocus="true">autofocus</FluentTextField>
+
+<h5>Focus Async</h5>
+<div style="display:flex">
+    <FluentButton @onclick="() => focusTest!.FocusAsync()">FocusAsync</FluentButton>
+    <FluentTextField @ref=focusTest></FluentTextField>
+</div>
+@code {
+    FluentTextField? focusTest;
+}
