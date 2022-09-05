@@ -52,7 +52,7 @@
 
         _propertiesGrid.Add(new ColumnDefinition<paramDef>("Name", x => x.Name));
         _propertiesGrid.Add(new ColumnDefinition<paramDef>("Type", x => x.Type));
-        _propertiesGrid.Add(new ColumnDefinition<paramDef>("Default", x => x.Default));
+        _propertiesGrid.Add(new ColumnDefinition<paramDef>("Default", x => x.Default ?? ""));
         _propertiesGrid.Add(new ColumnDefinition<paramDef>("Description", x => x.Description));
 
     }

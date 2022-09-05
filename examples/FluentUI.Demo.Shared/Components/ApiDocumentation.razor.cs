@@ -34,7 +34,7 @@ public partial class ApiDocumentation
 
         _propertiesGrid.Add(new ColumnDefinition<MemberDescription>("Name", x => x.Name));
         _propertiesGrid.Add(new ColumnDefinition<MemberDescription>("Type", x => x.Type));
-        _propertiesGrid.Add(new ColumnDefinition<MemberDescription>("Default", x => x.Default));
+        _propertiesGrid.Add(new ColumnDefinition<MemberDescription>("Default", x => x.Default ?? ""));
         _propertiesGrid.Add(new ColumnDefinition<MemberDescription>("Description", x => x.Description));
 
         _eventsGrid.Add(new ColumnDefinition<MemberDescription>("Name", x => x.Name));
