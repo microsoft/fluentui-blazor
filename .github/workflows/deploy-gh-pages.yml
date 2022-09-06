@@ -24,11 +24,11 @@ jobs:
     - name: Publish app
       run: cd ${{ env.CLIENT_APP_ROOT }} && dotnet publish -c Release
 
-    - name: Rewrite base href
-      uses: SteveSandersonMS/ghaction-rewrite-base-href@v1.1.0
-      with:
-        html_glob: ${{ env.PUBLISH_DIR }}/**/*.html
-        base_href: /fluentuiblazor/
+    #- name: Rewrite base href
+    #  uses: SteveSandersonMS/ghaction-rewrite-base-href@v1.1.0
+    #  with:
+    #    html_glob: ${{ env.PUBLISH_DIR }}/**/*.html
+    #    base_href: /fluentuiblazor/
 
     - name: GitHub Pages
       if: success()
