@@ -1,12 +1,13 @@
 ﻿<h5>Autofocus</h5>
 <p>Commented out to prevent page actually jumping to this location. See example code below for implementation.</p>
-@*<FluentTextField Autofocus="true">autofocus</FluentTextField>*@
+@*<FluentSearch Autofocus="true">autofocus</FluentSearch>*@
 
 <h5>Focus Async</h5>
 <div style="display:flex">
     <FluentButton @onclick="() => focusTest!.FocusAsync()">FocusAsync</FluentButton>
-    <FluentTextField @ref=focusTest></FluentTextField>
+    <FluentSearch @ref=focusTest></FluentSearch>
 </div>
+
 @code {
-    FluentTextField? focusTest;
+    FluentSearch? focusTest;
 }

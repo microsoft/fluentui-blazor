@@ -6,12 +6,3 @@
 <h5>Maxlength</h5>
 <FluentSearch Maxlength="4">Maxlength</FluentSearch>
 
-<h5>Focus Async</h5>
-<div style="display:flex">
-    <FluentButton @onclick="() => focusTest!.FocusAsync()">FocusAsync</FluentButton>
-    <FluentSearch @ref=focusTest></FluentSearch>
-</div>
-
-@code {
-    FluentSearch? focusTest;
-}

@@ -4249,7 +4249,7 @@
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentOptionContext.FindContextInAncestors(System.String)">
             <summary>
-            Finds an <see cref="T:Microsoft.Fast.Components.FluentUI.FluentOptionContext"/> in the contextits ancestors with the matching <paramref name="containerName"/>.
+            Finds an <see cref="T:Microsoft.Fast.Components.FluentUI.FluentOptionContext"/> in the context ancestors with the matching <paramref name="containerName"/>.
             </summary>
             <param name="containerName">The group name of the ancestor <see cref="T:Microsoft.Fast.Components.FluentUI.FluentOptionContext"/>.</param>
             <returns>The <see cref="T:Microsoft.Fast.Components.FluentUI.FluentOptionContext"/>, or <c>null</c> if none was found.</returns>
