@@ -143,7 +143,7 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
     [SuppressMessage("Usage", "CA1816:Dispose methods should call SuppressFinalize", Justification = "Not needed")]
     public async ValueTask DisposeAsync()
     {
-        if (moduleTask!.IsValueCreated)
+        if (moduleTask != null && moduleTask.IsValueCreated)
         {
             IJSObjectReference module = await moduleTask.Value;
             await module.DisposeAsync();

@@ -56,7 +56,7 @@
         padding: 0;
     }
 
-    .navigation h1 {
+    .navigation h2 {
         font-size: var(--type-ramp-plus-1-font-size);
         line-height: var(--type-ramp-plus-1-line-height);
         padding: 15px calc((10 + (var(--design-unit) * 2 * var(--density))) * 1px);
