@@ -4,7 +4,7 @@
 		<TargetFramework>net6.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<BlazorWasmPrerenderingRootComponentType>FluentUI.Demo.Shared.App, FluentUi.Demo.Shared</BlazorWasmPrerenderingRootComponentType>
+		<BlazorWasmPrerenderingRootComponentType>FluentUI.Demo.Shared.App, FluentUI.Demo.Shared</BlazorWasmPrerenderingRootComponentType>
 	</PropertyGroup>
 
 	<ItemGroup>
