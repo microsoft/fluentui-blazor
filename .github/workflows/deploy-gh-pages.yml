@@ -1,4 +1,4 @@
-﻿name: DeployToGitHubPages
+name: DeployToGitHubPages
 env:
   CLIENT_APP_ROOT: examples/FluentUI.Demo.Client
   PUBLISH_DIR: examples/FluentUI.Demo.Client/bin/Release/net6.0/publish/wwwroot
@@ -7,7 +7,6 @@ env:
 on:
   push:
     branches: [ main ]
-
 jobs:
   build:
     runs-on: ubuntu-latest
