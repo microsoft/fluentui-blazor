@@ -10,7 +10,7 @@ on:
       - '**/*.yml'
   pull_request:
     types: [opened, synchronize, reopened, closed]
-    branches: [ main ]
+    branches: [ net7 ]
     paths-ignore:
       - '**/*.md'
       - '**/*.gitignore'
@@ -22,11 +22,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v2
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: | 
+          6.0.x
+          7.0.0-preview.7.22375.6
         include-prerelease: true
     - name: Restore dependencies
       run: dotnet restore
@@ -41,16 +43,18 @@ jobs:
     needs: build
     name: Deploy PR
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           submodules: true
       - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v2
         with:
-          dotnet-version: 6.0.x
+          dotnet-version: |
+            6.0.x
+            7.0.0-preview.7.22375.6
           include-prerelease: true
       - name: Build
-        run: dotnet publish -c Release -o published examples/FluentUI.Demo.Client/
+        run: dotnet publish -c Release -o publish -f net7.0 examples/FluentUI.Demo.Client/
       - name: Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
@@ -58,9 +62,10 @@ jobs:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APP_PR_TOKEN }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          app_location: "published/wwwroot"
+          app_location: "publish/wwwroot"
           api_location: "Api"
-          output_location: "published/wwwroot"
+          output_location: "publish/wwwroot"
+          skip_api_build: true
 
   destroy:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
