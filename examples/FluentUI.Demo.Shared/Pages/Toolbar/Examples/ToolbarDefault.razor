@@ -1,0 +1,74 @@
+﻿@inject FillColor FillColor
+@inject BaseLayerLuminance BaseLayerLuminance
+
+<h5>Light mode</h5>
+<FluentToolbar id="toolbar-fluent-components">
+    <FluentButton Appearance="Appearance.Accent">Accent Button</FluentButton>
+    <FluentButton Appearance="Appearance.Stealth">Stealth Button</FluentButton>
+    <FluentRadioGroup value="on">
+        <FluentRadio Checked="true">One</FluentRadio>
+        <FluentRadio>Two</FluentRadio>
+        <FluentRadio>Three</FluentRadio>
+    </FluentRadioGroup>
+    <FluentCombobox class="below outline" @bind-Value="@comboboxValue">
+        <FluentOption id="option-2">Please Please Me</FluentOption>
+        <FluentOption id="option-3">With The Beatles</FluentOption>
+        <FluentOption id="option-4">A Hard Day's Night</FluentOption>
+        <FluentOption id="option-5">Beatles for Sale</FluentOption>
+        <FluentOption id="option-6">Help!</FluentOption>
+        <FluentOption id="option-7">Rubber Soul</FluentOption>
+        <FluentOption id="option-8">Revolver</FluentOption>
+        <FluentOption id="option-9">Sgt. Pepper's Lonely Hearts Club Band</FluentOption>
+        <FluentOption id="option-10">Magical Mystery Tour</FluentOption>
+        <FluentOption id="option-11">The Beatles</FluentOption>
+        <FluentOption id="option-12">Yellow Submarine</FluentOption>
+        <FluentOption id="option-13">Abbey Road</FluentOption>
+        <FluentOption id="option-14">Let It Be</FluentOption>
+    </FluentCombobox>
+    <FluentButton>Button</FluentButton>
+    <FluentSelect class="below outline" @bind-Value="@comboboxValue">
+        <FluentOption id="option-15">Option 1</FluentOption>
+        <FluentOption id="option-16">Second option</FluentOption>
+        <FluentOption id="option-17">Option 3</FluentOption>
+    </FluentSelect>
+    <FluentCheckbox>Checkbox</FluentCheckbox>
+</FluentToolbar>
+
+<h5>Dark Mode</h5>
+<div style="padding:10px">
+    <FluentToolbar id="toolbar-fluent-components-two" style="width:100%" @ref=Toolbar>
+        <FluentRadioGroup Value="on">
+            <FluentRadio Checked="true">Add</FluentRadio>
+            <FluentRadio>Open</FluentRadio>
+            <FluentRadio>Copy</FluentRadio>
+            <FluentRadio>Export</FluentRadio>
+            <FluentRadio>Automate</FluentRadio>
+        </FluentRadioGroup>
+        <FluentButton Appearance="Appearance.Stealth">Stealth</FluentButton>
+        <FluentButton Appearance="Appearance.Accent">Refresh</FluentButton>
+        <FluentBadge>21 items</FluentBadge>
+        <FluentRadioGroup slot="end">
+            <FluentRadio>Filter</FluentRadio>
+            <FluentRadio>
+                <FluentTextField placeholder="Search" type="text" Appearance="Appearance.Outline"></FluentTextField>
+            </FluentRadio>
+        </FluentRadioGroup>
+    </FluentToolbar>
+</div>
+
+@code {
+    string? comboboxValue;
+    FluentToolbar? Toolbar;
+    
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await FillColor.SetValueFor(Toolbar!.Element, "#333".ToSwatch());
+            await BaseLayerLuminance.SetValueFor(Toolbar!.Element, (float)0.15);
+            
+            StateHasChanged();
+        }
+    }
+}

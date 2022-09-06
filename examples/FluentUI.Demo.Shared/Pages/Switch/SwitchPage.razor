@@ -1,46 +1,21 @@
-@page "/SwitchPage"
+@page "/Switch"
+
+@using FluentUI.Demo.Shared.Pages.Switch.Examples
+
 <h1>Switch</h1>
+
+<p>An implementation of a <a href="https://w3c.github.io/aria/#switch" target="_blank" rel="noopener noreferrer">switch</a>.</p>
+<p>
+    <code>&lt;FluentSwitch&gt;</code> wraps the <code>&lt;fluent-switch&gt;</code> element, a web component implementation of a switch leveraging the
+    Fluent UI design system.
+</p>
+
 <ApiDocumentation Component="typeof(FluentSwitch)" />
-<h4>Default</h4>
-<div style="display: flex; flex-direction: column;">
-    <FluentSwitch></FluentSwitch>
-    <FluentSwitch>
-        Dark Mode
-    </FluentSwitch>
-    <FluentSwitch Checked="true">
-        New Feature
-        <span slot="checked-message">On</span>
-        <span slot="unchecked-message">Off</span>
-    </FluentSwitch>
-    <FluentSwitch>
-        Theme
-        <span slot="checked-message">Dark</span>
-        <span slot="unchecked-message">Light</span>
-    </FluentSwitch>
-</div>
 
-<h4>Checked</h4>
-<FluentSwitch Checked="true"></FluentSwitch>
+<h2>Examples</h2>
 
-<!-- Required -->
-<h4>Required</h4>
-<FluentSwitch Required="true"></FluentSwitch>
+<DemoSection Title="Default" ExampleFile="SwitchDefault"></DemoSection>
 
-<!-- Disabled -->
-<h4>Disabled</h4>
-<div style="display: flex; flex-direction: column;">
-    <FluentSwitch Disabled="true"></FluentSwitch>
-    <FluentSwitch Disabled="true">label</FluentSwitch>
-    <FluentSwitch Disabled="true" Checked="true">checked</FluentSwitch>
-    <FluentSwitch Disabled="true" Checked="true">
-        checked
-        <span slot="checked-message">On</span>
-        <span slot="unchecked-message">Off</span>
-    </FluentSwitch>
-</div>
+<DemoSection Title="States" ExampleFile="SwitchStates"></DemoSection>
 
-<h4>Inline</h4>
-<FluentSwitch style="margin-inline-end: 12px;">Light Speed</FluentSwitch>
-<FluentSwitch style="margin-inline-end: 12px;">Ridiculous Speed</FluentSwitch>
-<FluentSwitch style="margin-inline-end: 12px;">Ludicrous Speed</FluentSwitch>
-<FluentSwitch Checked="true">Plaid Speed</FluentSwitch>
+<DemoSection Title="Inline" ExampleFile="SwitchInline"></DemoSection>

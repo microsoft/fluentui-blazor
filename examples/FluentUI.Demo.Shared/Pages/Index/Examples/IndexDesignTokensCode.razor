@@ -1,0 +1,44 @@
+﻿@inject BaseLayerLuminance BaseLayerLuminance
+@inject AccentBaseColor AccentBaseColor
+@inject BodyFont BodyFont
+@inject StrokeWidth StrokeWidth
+@inject ControlCornerRadius ControlCornerRadius
+
+<FluentAnchor @ref="ref1" Appearance="Appearance.Filled" Href="handlers">Web components handlers</FluentAnchor>
+<FluentButton @ref="ref2" Appearance="Appearance.Accent" Href="bindings">Web components bindings</FluentButton>
+<FluentAnchor @ref="ref3" Appearance="Appearance.Filled" Href="componentbindings">Blazor component bindings</FluentAnchor>
+<FluentButton @ref="ref4" Appearance="Appearance.Filled" @onclick=OnClick>Click me to remove the border!</FluentButton>
+
+@code {
+    private FluentAnchor? ref1;
+    private FluentButton? ref2;
+    private FluentAnchor? ref3;
+    private FluentButton? ref4;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            //Set to dark mode
+            await BaseLayerLuminance.SetValueFor(ref1!.Element, (float)0.15);
+
+            await AccentBaseColor.SetValueFor(ref2!.Element, "#107C41".ToSwatch());
+
+            await BodyFont.SetValueFor(ref3!.Element, "Comic Sans MS");
+
+            //Set 'border' width for ref4
+            await StrokeWidth.SetValueFor(ref4!.Element, 7);
+            //And change conrner radius as well
+            await ControlCornerRadius.SetValueFor(ref4!.Element, 15);
+
+            StateHasChanged();
+        }
+
+    }
+
+    public async Task OnClick()
+    {
+        //Remove the accent color
+        await StrokeWidth.DeleteValueFor(ref4!.Element);
+    }
+}

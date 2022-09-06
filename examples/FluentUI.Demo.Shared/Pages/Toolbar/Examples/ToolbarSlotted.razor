@@ -1,0 +1,38 @@
+﻿@inject FillColor FillColor
+@inject BaseLayerLuminance BaseLayerLuminance
+
+<h5>Slotted end Items with minimum width</h5>
+<div style="padding:10px;min-width:800px">
+    <FluentToolbar id="toolbar-fluent-components-two" style="width:100%" @ref=Toolbar>
+        <label slot="label">slotted label</label>
+        <FluentRadioGroup Value="on">
+            <FluentRadio Checked="true">Add</FluentRadio>
+            <FluentRadio>Open</FluentRadio>
+            <FluentRadio>Copy</FluentRadio>
+        </FluentRadioGroup>
+        <FluentButton Appearance="Appearance.Accent">Refresh</FluentButton>
+        <FluentBadge>21 items</FluentBadge>
+        <FluentRadioGroup slot="end">
+            <FluentRadio>Filter</FluentRadio>
+            <FluentRadio>
+                <FluentTextField Placeholder="Search" TextFieldType=TextFieldType.Text Appearance="Appearance.Outline"></FluentTextField>
+            </FluentRadio>
+        </FluentRadioGroup>
+        <FluentIcon Name="@FluentIcons.Globe" Slot="end" Size="@IconSize.Size16" Filled=true UseAccentColor=true />
+    </FluentToolbar>
+</div>
+
+@code {
+    FluentToolbar? Toolbar;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await FillColor.SetValueFor(Toolbar!.Element, "#333".ToSwatch());
+            await BaseLayerLuminance.SetValueFor(Toolbar!.Element, (float)0.15);
+
+            StateHasChanged();
+        }
+    }
+}

@@ -34,7 +34,7 @@ public partial class ApiDocumentation
 
         _propertiesGrid.Add(new ColumnDefinition<MemberDescription>("Name", x => x.Name));
         _propertiesGrid.Add(new ColumnDefinition<MemberDescription>("Type", x => x.Type));
-        _propertiesGrid.Add(new ColumnDefinition<MemberDescription>("Default", x => x.Default));
+        _propertiesGrid.Add(new ColumnDefinition<MemberDescription>("Default", x => x.Default ?? ""));
         _propertiesGrid.Add(new ColumnDefinition<MemberDescription>("Description", x => x.Description));
 
         _eventsGrid.Add(new ColumnDefinition<MemberDescription>("Name", x => x.Name));
@@ -49,7 +49,7 @@ public partial class ApiDocumentation
 
     private IEnumerable<MemberDescription> GetMembers(MemberTypes type)
     {
-        string[] MEMBERS_TO_EXCLUDE = new[] { "AdditionalAttributes", "Equals", "GetHashCode", "GetType", "SetParametersAsync", "ToString" };
+        string[] MEMBERS_TO_EXCLUDE = new[] { "AdditionalAttributes", "BackReference", "ChildContent", "Equals", "GetHashCode", "GetType", "SetParametersAsync", "ToString", "Dispose" };
 
         if (_allMembers == null)
         {
@@ -59,9 +59,9 @@ public partial class ApiDocumentation
             IEnumerable<MemberInfo>? allProperties = Component.GetProperties().Select(i => (MemberInfo)i);
             IEnumerable<MemberInfo>? allMethods = Component.GetMethods().Where(i => !i.IsSpecialName).Select(i => (MemberInfo)i);
 
-            foreach (var memberInfo in allProperties.Union(allMethods))
+            foreach (var memberInfo in allProperties.Union(allMethods).OrderBy(m => m.Name))
             {
-                if (!MEMBERS_TO_EXCLUDE.Contains(memberInfo.Name))
+                if (!MEMBERS_TO_EXCLUDE.Contains(memberInfo.Name) || Component.Name == "FluentComponentBase")
                 {
                     var propertyInfo = memberInfo as PropertyInfo;
                     var methodInfo = memberInfo as MethodInfo;
@@ -83,7 +83,7 @@ public partial class ApiDocumentation
                                 //Type = IsMarkedAsNullable(propertyInfo) && !propertyInfo.ToTypeNameString().EndsWith('?') ? propertyInfo.ToTypeNameString() + "?" : propertyInfo.ToTypeNameString(),
                                 Type = propertyInfo.ToTypeNameString().Replace("<string>", $"<{GenericLabel}>"),
                                 EnumValues = GetEnumValues(propertyInfo),
-                                Default = propertyInfo.GetValue(obj)?.ToString() ?? string.Empty,
+                                Default = propertyInfo.GetValue(obj)?.ToString() ?? "null",
                                 Description = CodeComments.GetSummary(Component.Name + "." + propertyInfo.Name)
                             });
                         }
@@ -97,7 +97,6 @@ public partial class ApiDocumentation
                                 MemberType = MemberTypes.Event,
                                 Name = propertyInfo.Name,
                                 Type = propertyInfo.ToTypeNameString().Replace("<string>", $"<{GenericLabel}>"),
-                                Default = "",
                                 Description = CodeComments.GetSummary(Component.Name + "." + propertyInfo.Name)
                             });
                         }
@@ -155,7 +154,7 @@ public partial class ApiDocumentation
         public string Type { get; set; } = "";
         public string[] EnumValues { get; set; } = Array.Empty<string>();
         public string[] Parameters { get; set; } = Array.Empty<string>();
-        public string Default { get; set; } = "";
+        public string? Default { get; set; } = null;
         public string Description { get; set; } = "";
     }
 }

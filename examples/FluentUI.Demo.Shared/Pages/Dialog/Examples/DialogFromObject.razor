@@ -1,5 +1,5 @@
 ﻿<FluentDialog @ref="MyFluentDialog" id="foo" aria-label="Simple dialog" Modal="false" @ondismiss=OnDismiss>
-    <h2>Dialog referenced to object</h2>
+    <h2>Dialog referenced from object</h2>
     <button @onclick="OnCloseModalRefButtonClick">Close dialog with component object function</button>
 </FluentDialog>
 
@@ -16,7 +16,6 @@
     private FluentDialog? MyFluentDialog;
     public bool ModalHidden { get; set; } = true;
     private string? status;
-
 
     private void OnOpenModalRefButtonClick()
     {

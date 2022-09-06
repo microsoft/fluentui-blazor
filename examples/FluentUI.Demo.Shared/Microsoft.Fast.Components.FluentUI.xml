@@ -4074,15 +4074,20 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentComponentBase.Element">
             <summary>
-            Gets or sets the associated <see cref="T:Microsoft.AspNetCore.Components.ElementReference"/>.
+            The associated <see cref="T:Microsoft.AspNetCore.Components.ElementReference"/>.
             <para>
             May be <see langword="null"/> if accessed before the component is rendered.
             </para>
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentComponentBase.BackReference">
+            <summary>
+            A reference to the enclosing component.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentComponentBase.ChildContent">
             <summary>
-            Gets or sets the content to be rendered inside the component
+            Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentComponentBase.AdditionalAttributes">
@@ -4102,7 +4107,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.Disabled">
             <summary>
-            Disables the form control, ensuring it doesn't participate in form submission
+            Disables the form control, ensuring it doesn't participate in form submission.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.Name">
@@ -4112,7 +4117,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.Required">
             <summary>
-            The element needs to have a value
+            Whether the element needs to have a value
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.Value">
@@ -4194,7 +4199,7 @@
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.FocusAsync">
             <summary>
-            Exposes the FocusAsync() method.
+            Exposes the elements FocusAsync() method.
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.FocusAsync(System.Boolean)">
@@ -4244,7 +4249,7 @@
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentOptionContext.FindContextInAncestors(System.String)">
             <summary>
-            Finds an <see cref="T:Microsoft.Fast.Components.FluentUI.FluentOptionContext"/> in the contextits ancestors with the matching <paramref name="containerName"/>.
+            Finds an <see cref="T:Microsoft.Fast.Components.FluentUI.FluentOptionContext"/> in the context ancestors with the matching <paramref name="containerName"/>.
             </summary>
             <param name="containerName">The group name of the ancestor <see cref="T:Microsoft.Fast.Components.FluentUI.FluentOptionContext"/>.</param>
             <returns>The <see cref="T:Microsoft.Fast.Components.FluentUI.FluentOptionContext"/>, or <c>null</c> if none was found.</returns>

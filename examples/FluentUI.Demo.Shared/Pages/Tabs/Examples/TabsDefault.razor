@@ -1,0 +1,44 @@
+﻿<FluentTabs ActiveId="@activeid" OnTabChange="HandleOnTabChange">
+    <FluentTab Text="Tab one"></FluentTab>
+    <FluentTab Text="Tab two" />
+    <FluentTab Text="Tab three" />
+    <FluentTabPanel>
+        Tab one content. This is for testing.
+    </FluentTabPanel>
+    <FluentTabPanel>
+        Tab two content. This is for testing.
+    </FluentTabPanel>
+    <FluentTabPanel>
+        Tab three content. This is for testing.
+    </FluentTabPanel>
+    <div>Testing</div>
+</FluentTabs>
+
+<p>Active tab changed to: @changedto?.Text</p>
+
+<h5>Vertical</h5>
+<FluentTabs Orientation="Orientation.Vertical">
+    <FluentTab>Tab one</FluentTab>
+    <FluentTab>Tab two</FluentTab>
+    <FluentTab>Tab three</FluentTab>
+    <FluentTabPanel>
+        Tab one content. This is for testing.
+    </FluentTabPanel>
+    <FluentTabPanel>
+        Tab two content. This is for testing.
+    </FluentTabPanel>
+    <FluentTabPanel>
+        Tab three content. This is for testing.
+    </FluentTabPanel>
+</FluentTabs>
+
+@code {
+    string? activeid = "tab-1";
+    FluentTab? changedto;
+
+    private void HandleOnTabChange(FluentTab tab)
+    {
+        changedto = tab;
+    }
+}
+

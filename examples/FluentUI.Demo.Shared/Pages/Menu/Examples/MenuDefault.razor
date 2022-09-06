@@ -1,0 +1,16 @@
+﻿<FluentMenu @onmenuchange=OnMenuChange>
+    <FluentMenuItem>Menu item 1</FluentMenuItem>
+    <FluentMenuItem>Menu item 2</FluentMenuItem>
+    <FluentMenuItem Disabled="true">Menu item 3 Disabled</FluentMenuItem>
+    <FluentMenuItem>Menu item 4</FluentMenuItem>
+</FluentMenu>
+<p>@status</p>
+
+@code{
+    private string status = "";
+    
+    private void OnMenuChange()
+    {
+        status = "Menu item selected";
+    }
+}

@@ -16,31 +16,27 @@ steps:
   displayName: Install NuGet tools
 
 - task: UseDotNet@2
-  displayName: 'Install .NET 2.1 for ESRP Code Sign tool'  
+  displayName: 'Install .NET Core 2.1 for ESRP Code Sign tool'  
   inputs:    
     version: 2.1.x
 
 - task: UseDotNet@2
-  displayName: 'Install .net core 6.0 (preview)'
+  displayName: 'Install .NET 6.0'
   inputs:
     version: 6.0.x
     includePreviewVersions: true
 
-- task: NuGetCommand@2
-  displayName: Install dependencies
+- task: DotNetCoreCLI@2
+  displayName: Restore packages
   inputs:
-    restoreSolution: '$(project)'
+    command: 'restore'
+    projects: $(project)
 
 - task: DotNetCoreCLI@2
   displayName: Build
   inputs:
     command: 'build'
-    nugetConfigPath: $(project)
-
-- task: DotNetCoreCLI@2
-  displayName: Test
-  inputs:
-    command: 'test'
+    projects: $(project)
 
 - task: DotNetCoreCLI@2
   displayName: Pack

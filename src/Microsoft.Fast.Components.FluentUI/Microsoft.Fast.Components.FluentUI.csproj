@@ -13,8 +13,8 @@
 		<Title>Microsoft Fluent UI Components Library for Blazor on FAST</Title>
 		<Description>Authored by the Microsoft FAST team.</Description>
 		<SignAssembly>true</SignAssembly>
-		<PackageVersion>1.5.1</PackageVersion>
-		<ReleaseVersion>1.5.1</ReleaseVersion>
+		<PackageVersion>1.5.2</PackageVersion>
+		<ReleaseVersion>1.5.2</ReleaseVersion>
 		<SynchReleaseVersion>false</SynchReleaseVersion>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
@@ -40,7 +40,8 @@
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
 		<Optimize>True</Optimize>
-	<NoWarn>1701;1702,8669,1591</NoWarn>
+		<NoWarn>1701;1702,8669,1591</NoWarn>
+		
 	</PropertyGroup>
 
 	<ItemGroup>

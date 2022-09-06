@@ -33,6 +33,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".workflows", ".workflows", 
 		.github\workflows\ci-validate.yml = .github\workflows\ci-validate.yml
 		.github\workflows\cicd_publish.yml = .github\workflows\cicd_publish.yml
 		.github\workflows\codeql-analysis.yml = .github\workflows\codeql-analysis.yml
+		.github\workflows\pages.yml = .github\workflows\pages.yml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Fast.Templates.FluentUI", "templates\Microsoft.Fast.Templates.FluentUI.csproj", "{86B789BF-DC71-4B5F-A530-B7CDF17BD293}"

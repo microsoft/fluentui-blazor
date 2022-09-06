@@ -1,40 +1,20 @@
-@page "/TooltipPage"
+@page "/Tooltip"
+
+@using FluentUI.Demo.Shared.Pages.Tooltip.Examples
+
 <h1>Tooltip</h1>
+<p>
+    The <code>&lt;FluentTooltip&gt</code> component is used to provide extra information about another element when it is hovered.
+</p>
+<p>
+    <code>&lt;FluentTooltip&gt;</code> wraps the <code>&lt;fluent-tooltip&gt;</code> element, a web component implementation of a tooltip composition leveraging the
+    Fluent UI design system.
+</p>
 <ApiDocumentation Component="typeof(FluentTooltip)" />
-<p>Hover one of the buttons to have a tooltip appear on hover at the position mentioned</p>
-<div style="height:100px;">
-    <FluentButton id="anchor1" Appearance=Appearance.Accent>Tooltip at the bottom</FluentButton>
-    <FluentTooltip Anchor="anchor1" Position=TooltipPosition.Bottom @ondismiss=OnDismiss>I'm helping!</FluentTooltip>
-</div>
-<div style="height:100px;">
-    <FluentButton id="anchor2" Appearance=Appearance.Accent>Tooltip at the top</FluentButton>
-    <FluentTooltip Anchor="anchor2" Position=TooltipPosition.Top>I'm helping!</FluentTooltip>
-</div>
-<div style="height:100px;">
-    <FluentButton id="anchor3" Appearance=Appearance.Accent>Tooltip at the left</FluentButton>
-    <FluentTooltip Anchor="anchor3" Position=TooltipPosition.Left>I'm helping!</FluentTooltip>
-</div>
-<div style="height:100px;">
-    <FluentButton id="anchor4" Appearance=Appearance.Accent>Tooltip at the right</FluentButton>
-    <FluentTooltip Anchor="anchor4" Position=TooltipPosition.Right>I'm helping!</FluentTooltip>
-</div>
-<p>Different delays</p>
-<div style="height:100px;">
-    <FluentButton id="anchor5" Appearance=Appearance.Accent>Tooltip at the start</FluentButton>
-    <FluentTooltip Anchor="anchor5" Position=TooltipPosition.Start Delay=100>I'm helping!</FluentTooltip>
-</div>
-<div style="height:100px;">
-    <FluentButton id="anchor6" Appearance=Appearance.Accent>Tooltip at the end</FluentButton>
-    <FluentTooltip Anchor="anchor6" Position=TooltipPosition.End Delay=200>I'm helping!</FluentTooltip>
-</div>
-<p>Visible true</p>
-<div style="height:100px;">
-    <FluentButton id="anchor7" Appearance=Appearance.Accent>Tooltip at the end</FluentButton>
-    <FluentTooltip Anchor="anchor7" Position=TooltipPosition.End Delay=200 Visible=true>I'm helping!</FluentTooltip>
-</div>
-@code {
-    private void OnDismiss()
-    {
-        Console.WriteLine("Tooltip dismissed!");
-    }
-}
+
+<h2>Examples</h2>
+
+<DemoSection Title="Default" ExampleFile="TooltipDefault">
+    <Description>Hover one of the buttons to have a tooltip appear on hover at the position mentioned.</Description>
+</DemoSection>
+

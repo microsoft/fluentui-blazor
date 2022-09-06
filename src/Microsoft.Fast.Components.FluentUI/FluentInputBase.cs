@@ -30,7 +30,7 @@ public abstract class FluentInputBase<TValue> : FluentComponentBase, IDisposable
     public string? Id { get; set; }
 
     /// <summary>
-    /// Disables the form control, ensuring it doesn't participate in form submission
+    /// Disables the form control, ensuring it doesn't participate in form submission.
     /// </summary>
     [Parameter]
     public bool Disabled { get; set; }
@@ -42,7 +42,7 @@ public abstract class FluentInputBase<TValue> : FluentComponentBase, IDisposable
     public string? Name { get; set; }
 
     /// <summary>
-    /// The element needs to have a value
+    /// Whether the element needs to have a value
     /// </summary>
     [Parameter]
     public bool Required { get; set; }
@@ -239,7 +239,7 @@ public abstract class FluentInputBase<TValue> : FluentComponentBase, IDisposable
     }
 
     /// <summary>
-    /// Exposes the FocusAsync() method.
+    /// Exposes the elements FocusAsync() method.
     /// </summary>
     public async void FocusAsync()
     {

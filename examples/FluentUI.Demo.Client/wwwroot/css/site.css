@@ -56,7 +56,7 @@
         padding: 0;
     }
 
-    .navigation h1 {
+    .navigation h2 {
         font-size: var(--type-ramp-plus-1-font-size);
         line-height: var(--type-ramp-plus-1-line-height);
         padding: 15px calc((10 + (var(--design-unit) * 2 * var(--density))) * 1px);
@@ -128,7 +128,16 @@ h6 {
     font-size: var(--type-ramp-base-font-size);
     line-height: var(--type-ramp-base-line-height);
     font-weight: 600;
-} 
+}
+
+.shell, .sourceCode {
+    background: var(--neutral-fill-stealth-hover);
+    padding: 7px;
+}
+
+code {
+    background: var(--neutral-fill-stealth-hover);
+}
 
 #blazor-error-ui {
     background: lightyellow;

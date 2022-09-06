@@ -20,16 +20,20 @@
 
 @if (!string.IsNullOrEmpty(ExampleFile) )
 {
+    string target;
     Uri uri = new Uri(NavigationManager.Uri);
 
     if (uri.Segments.Count() > 1)
     {
-        string target = uri.Segments[1];
-
-        <div class="demo-section-Example">
-            <DynamicComponent Type="@(Type.GetType($"FluentUI.Demo.Shared.Pages.{target}.Examples.{ExampleFile}"))"></DynamicComponent>
-        </div>
+        target = uri.Segments[1];
     }
+    else
+    {
+        target = "Index";
+    }   
+    <div class="demo-section-Example">
+        <DynamicComponent Type="@(Type.GetType($"FluentUI.Demo.Shared.Pages.{target}.Examples.{ExampleFile}"))"></DynamicComponent>
+    </div>
 }
 
 @if (HasCode)
