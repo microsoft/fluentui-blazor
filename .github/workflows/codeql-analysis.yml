@@ -13,14 +13,14 @@ name: "Security Scanning"
 
 on:
   push:
-    branches: [ main ]
+    branches: [ net7 ]
     paths-ignore:
       - '**/*.md'
       - '**/*.gitignore'
       - '**/*.gitattributes'
       - '**/*.yml'
   pull_request:
-    branches: [ main ]
+    branches: [ net7 ]
     paths-ignore:
       - '**/*.md'
       - '**/*.gitignore'
