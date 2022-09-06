@@ -41,9 +41,12 @@ jobs:
           
       - name: Publish app
         run: cd ${{ env.CLIENT_APP_ROOT }} && dotnet publish -c Release
-          
-      #- name: Setup Pages
-      #  uses: actions/configure-pages@v2
+        
+      - name: Rewrite base href
+        uses: SteveSandersonMS/ghaction-rewrite-base-href@v1.1.0
+        with:
+          html_glob: ${{ env.PUBLISH_DIR }}/**/*.html
+          base_href: /fast-blazor/
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
