@@ -1,0 +1,41 @@
+﻿name: DeployToGitHubPages
+env:
+  CLIENT_APP_ROOT: examples/FluentUI.Demo.Client
+  PUBLISH_DIR: examples/FluentUI.Demo.Client/bin/Release/net6.0/publish/wwwroot
+
+# Controls when the action will run
+on:
+  push:
+    branches: [ demo-rework ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: '6.0.400'
+        include-prerelease: true
+
+    #- name: Install .NET WebAssembly workload for smaller build output
+    #  run: dotnet workload install wasm-tools --skip-manifest-update
+
+    - name: Publish app
+      run: cd ${{ env.CLIENT_APP_ROOT }} && dotnet publish -c Release
+
+    - name: Rewrite base href
+      uses: SteveSandersonMS/ghaction-rewrite-base-href@v1.1.0
+      with:
+        html_glob: ${{ env.PUBLISH_DIR }}/**/*.html
+        base_href: /fluentuiblazor/
+
+    - name: GitHub Pages
+      if: success()
+      uses: crazy-max/ghaction-github-pages@v3
+      with:
+        target_branch: gh-pages
+        build_dir: ${{ env.PUBLISH_DIR }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
