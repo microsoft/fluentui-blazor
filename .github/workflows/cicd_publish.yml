@@ -42,7 +42,7 @@ jobs:
       with:
         dotnet-version: |
             6.0.x
-            7.0.0-preview.7.22375.6
+            7.0.0-preview.7.x
         include-prerelease: true
 
     - name: Restore
@@ -76,7 +76,7 @@ jobs:
         with:
           dotnet-version: |
             6.0.x
-            7.0.0-preview.7.22375.6
+            7.0.0-preview.7.x
           include-prerelease: true
       - name: Build
         run: dotnet publish -c Release -o publish -f net7.0 examples/FluentUI.Demo.Client/
