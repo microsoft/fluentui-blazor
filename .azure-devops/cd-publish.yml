@@ -26,21 +26,16 @@ steps:
     version: 6.0.x
     includePreviewVersions: true
 
-- task: NuGetCommand@2
+- task: DotNetCoreCLI@2
   displayName: Install dependencies
   inputs:
-    restoreSolution: '$(project)'
+    command: 'restore'
 
 - task: DotNetCoreCLI@2
   displayName: Build
   inputs:
     command: 'build'
     nugetConfigPath: $(project)
-
-- task: DotNetCoreCLI@2
-  displayName: Test
-  inputs:
-    command: 'test'
 
 - task: DotNetCoreCLI@2
   displayName: Pack
