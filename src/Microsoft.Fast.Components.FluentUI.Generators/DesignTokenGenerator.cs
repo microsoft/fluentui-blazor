@@ -25,6 +25,7 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
         {
             StringBuilder? sb = new();
 
+            sb.AppendLine($"#pragma warning disable CS1591");
             sb.AppendLine($"namespace Microsoft.Fast.Components.FluentUI.DesignTokens;");
             sb.AppendLine($"");
             sb.AppendLine("public class Constants");

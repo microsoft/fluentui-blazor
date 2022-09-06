@@ -16,6 +16,14 @@
             document.dir = dir;
         }
     </script>
+    <!-- highlight -->
+    <script>
+        window.HighlightCode = (id) => {
+            var element = document.getElementById(id);
+            if (typeof hljs != "undefined" && hljs != null && element != null)
+                hljs.highlightElement(element);
+        }
+    </script>
 </head>
 <body>
     @RenderBody()
@@ -33,5 +41,16 @@
 
     <script src="_framework/blazor.server.js"></script>
     <script type="module" src="https://cdn.jsdelivr.net/npm/@@fluentui/web-components/dist/web-components.min.js"></script>
+    <!-- highlight -->
+    <link rel="stylesheet" href="https://unpkg.com/@@highlightjs/cdn-assets@@11.5.1/styles/vs.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css">
+    <script type="text/javascript" src="https://unpkg.com/@@highlightjs/cdn-assets@@11.5.1/highlight.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/highlightjs-cshtml-razor/dist/cshtml-razor.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.js"></script>
+    <script>
+        if (hljs != null) {
+            hljs.addPlugin(new CopyButtonPlugin());
+        }
+    </script>
 </body>
 </html>

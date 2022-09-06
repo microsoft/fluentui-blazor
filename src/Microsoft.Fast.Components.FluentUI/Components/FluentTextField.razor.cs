@@ -6,12 +6,6 @@ namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentTextField : FluentInputBase<string?>
 {
     /// <summary>
-    /// Gets or sets if the text area is readonly
-    /// </summary>
-    [Parameter]
-    public bool Readonly { get; set; }
-
-    /// <summary>
     /// Gets or sets if the text area is auto focussed
     /// </summary>
     [Parameter]
@@ -64,30 +58,6 @@ public partial class FluentTextField : FluentInputBase<string?>
     /// </summary>
     [Parameter]
     public bool Spellcheck { get; set; }
-
-    /// <summary>
-    /// The id attribute of the element.Used for label association.
-    /// </summary>
-    [Parameter]
-    public string? Id { get; set; }
-
-    /// <summary>
-    /// Disables the form control, ensuring it doesn't participate in form submission
-    /// </summary>
-    [Parameter]
-    public bool Disabled { get; set; }
-
-    /// <summary>
-    /// The name of the element.Allows access by name from the associated form.
-    /// </summary>
-    [Parameter]
-    public string? Name { get; set; }
-
-    /// <summary>
-    /// The element needs to have a value
-    /// </summary>
-    [Parameter]
-    public bool Required { get; set; }
 
     /// <summary>
     /// Gets or sets the visual appearance. See <see cref="FluentUI.Appearance"/>

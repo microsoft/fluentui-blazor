@@ -1,0 +1,16 @@
+﻿
+<FluentDialog Hidden="ModalHidden" id="foo" aria-label="Simple dialog" Modal="true">
+    <h2>Dialog referenced with variable</h2>
+    <button @onclick="OnCloseModalParameterButtonClick">Close dialog updating the variable</button>
+</FluentDialog>
+
+<p>ModalHidden value: @ModalHidden</p>
+
+<button @onclick="OnOpenModalParameterButtonClick">Open dialog with variable</button>
+
+@code {
+    public bool ModalHidden { get; set; } = true;
+
+    private void OnOpenModalParameterButtonClick() => ModalHidden = false;
+    private void OnCloseModalParameterButtonClick() => ModalHidden = true;
+}

@@ -34,30 +34,6 @@ public partial class FluentCombobox<TValue> : FluentInputBase<TValue>
     public SelectPosition? Position { get; set; }
 
     /// <summary>
-    /// The id attribute of the element.Used for label association.
-    /// </summary>
-    [Parameter]
-    public string? Id { get; set; }
-
-    /// <summary>
-    /// Disables the form control, ensuring it doesn't participate in form submission
-    /// </summary>
-    [Parameter]
-    public bool Disabled { get; set; }
-
-    /// <summary>
-    /// The name of the element.Allows access by name from the associated form.
-    /// </summary>
-    [Parameter]
-    public string? Name { get; set; }
-
-    /// <summary>
-    /// The element needs to have a value
-    /// </summary>
-    [Parameter]
-    public bool Required { get; set; }
-
-    /// <summary>
     /// Gets or sets the visual appearance. See <seealso cref="FluentUI.Appearance"/>
     /// </summary>
     [Parameter]
@@ -69,7 +45,9 @@ public partial class FluentCombobox<TValue> : FluentInputBase<TValue>
     [Parameter]
     public IEnumerable<Option<TValue>>? Options { get; set; }
 
-
+    /// <summary>
+    /// Gets or set the cascaded context 
+    /// </summary>
     [CascadingParameter]
     private FluentOptionContext? CascadedContext { get; set; }
 

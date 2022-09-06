@@ -1,0 +1,17 @@
+﻿<h5>Checked</h5>
+<FluentSwitch Checked="true"></FluentSwitch>
+
+<h5>Required</h5>
+<FluentSwitch Required="true"></FluentSwitch>
+
+<h5>Disabled</h5>
+<div style="display: flex; flex-direction: column;">
+    <FluentSwitch Disabled="true"></FluentSwitch>
+    <FluentSwitch Disabled="true">label</FluentSwitch>
+    <FluentSwitch Disabled="true" Checked="true">checked</FluentSwitch>
+    <FluentSwitch Disabled="true" Checked="true">
+        checked
+        <span slot="checked-message">On</span>
+        <span slot="unchecked-message">Off</span>
+    </FluentSwitch>
+</div>

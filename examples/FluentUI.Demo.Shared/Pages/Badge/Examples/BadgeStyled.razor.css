@@ -1,0 +1,6 @@
+﻿::deep > fluent-badge {
+    --badge-fill-highlight: #ffd800;
+    --badge-fill-lowlight: #333;
+    --badge-color-highlight: #000;
+    --badge-color-lowlight: #fff;
+}

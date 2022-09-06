@@ -1,14 +1,25 @@
 ﻿@using System.Globalization;
 @using System.Reflection;
+@using Microsoft.Fast.Components.FluentUI;
+
+
+@if (string.IsNullOrWhiteSpace(GenericLabel))
+{
+    <h2>@Component.Name Class</h2>
+}
+else
+{
+    <h2>@Component.Name.Replace("`1",$"<{GenericLabel}>") Class</h2>
+}
 
 @if (this.Properties.Any())
 {
-    <h3>Properties</h3>
-    <FluentDataGrid RowsData="@this.Properties.ToList()" ColumnDefinitions=@_propertiesGrid GridTemplateColumns="1fr 1fr 1fr 1fr">
+    <h3>Parameters</h3>
+    <FluentDataGrid RowsData="@this.Properties.ToList()" ColumnDefinitions=@_propertiesGrid GridTemplateColumns="1fr 1fr 0.5fr 1.5fr">
         <RowItemTemplate>
             <FluentDataGridRow>
                 <FluentDataGridCell GridColumn="1">
-                    <FluentBadge Appearance="Appearance.Neutral">@context.Name</FluentBadge>
+                        <code>@context.Name</code>
                 </FluentDataGridCell>
                 <FluentDataGridCell GridColumn="2">
                     @context.Type
@@ -18,11 +29,11 @@
                     {
                         var id = Identifier.NewId();
                         <FluentIcon id="@id"
-                           Name="@FluentIcons.Info"
-                           Size="@IconSize.Size24"
-                           style="margin-left: 10px; vertical-align: top;"
-                           Filled=false
-                           UseAccentColor=false></FluentIcon>
+                            Name="@FluentIcons.Info"
+                            Size="@IconSize.Size24"
+                            style="margin-left: 10px; vertical-align: top;"
+                            Filled=false
+                            UseAccentColor=false></FluentIcon>
                         <FluentTooltip Anchor="@id" Position="TooltipPosition.Right">
                             @foreach (var item in context.EnumValues)
                             {
@@ -36,7 +47,7 @@
                 </FluentDataGridCell>
                 <FluentDataGridCell GridColumn="4">
                     <div style="white-space: break-spaces">
-                        @context.Description
+                        @(new MarkupString(context.Description))
                     </div>
                 </FluentDataGridCell>
             </FluentDataGridRow>
@@ -51,7 +62,7 @@
         <RowItemTemplate>
             <FluentDataGridRow>
                 <FluentDataGridCell GridColumn="1">
-                    <FluentBadge>@context.Name</FluentBadge>
+                    <code>@context.Name</code>
                 </FluentDataGridCell>
                 <FluentDataGridCell GridColumn="2">
                     @context.Type
@@ -74,7 +85,7 @@
         <RowItemTemplate>
             <FluentDataGridRow>
                 <FluentDataGridCell GridColumn="1">
-                    <FluentBadge>@context.Name</FluentBadge>
+                        <code>@context.Name</code>
                 </FluentDataGridCell>
                 <FluentDataGridCell GridColumn="2">
                     @foreach (var param in @context.Parameters)

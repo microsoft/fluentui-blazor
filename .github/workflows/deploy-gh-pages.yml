@@ -6,8 +6,7 @@ env:
 # Controls when the action will run
 on:
   push:
-    branches: [ demo-rework ]
-
+    branches: [ main ]
 jobs:
   build:
     runs-on: ubuntu-latest

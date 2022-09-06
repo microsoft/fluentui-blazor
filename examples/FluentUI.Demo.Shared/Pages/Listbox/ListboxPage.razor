@@ -1,0 +1,30 @@
+@page "/Listbox"
+
+@using FluentUI.Demo.Shared.Pages.Listbox.Examples
+
+<h1>Listbox</h1>
+
+<p>
+    An implementation of a <a href="https://www.w3.org/TR/wai-aria-practices-1.2/#Listbox" target="_blank" rel="noopener noreferrer">listbox</a>. While any
+    DOM content is permissible as a child of the listbox, only <code>FluentOption</code> elements,
+    <code>option</code> elements, and slotted items with <code>role="option"</code> will be treated as options and receive keyboard support.
+</p>
+<p>
+    The <code>&lt;FluentListbox&gt</code> supports data binding, but does not hook in any events.
+</p>
+<p>
+    <code>&lt;FluentListbox&gt;</code> wraps the <code>&lt;fluent-listbox&gt;</code> element, a web component implementation of a listbox leveraging the
+    Fluent UI design system.
+</p>
+
+<ApiDocumentation Component="typeof(FluentListbox<string>)" GenericLabel="TValue"/>
+    
+<h2>Examples</h2>
+
+<DemoSection Title="Default" ExampleFile="ListboxDefault"></DemoSection>
+
+<DemoSection Title="From a C# List" ExampleFile="ListboxFromList"></DemoSection>
+
+<DemoSection Title="Long list" ExampleFile="ListboxLong"></DemoSection>
+
+<DemoSection Title="Long list with Size" ExampleFile="ListboxSize"></DemoSection>

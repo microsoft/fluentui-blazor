@@ -1,33 +1,44 @@
-﻿<div style="margin-left: 50px;">
-    @if (!string.IsNullOrEmpty(Title))
+﻿@inject NavigationManager NavigationManager
+@if (!string.IsNullOrEmpty(Title))
+{
+    @if (IsNew)
     {
-        @if (IsNew)
-        {
-            <h3>@Title <NewBadge /></h3>
-        }
-        else
-        {
-            <h3>@Title</h3>
-        }
+        <h4>@Title <NewBadge /></h4>
     }
+    else
+    {
+        <h4>@Title</h4>
+    }
+}
 
-    @if (Description != null)
-    {
-        <div class="demo-section-description">
-            @Description
-        </div>
-    }
+@if (Description != null)
+{
+    <div class="demo-section-description">
+        @Description
+    </div>
+}
 
-    @if (ChildContent != null)
-    {
-        <div class="demo-section-Example">
-            @ChildContent
-        </div>
-    }
+@if (!string.IsNullOrEmpty(ExampleFile) )
+{
+    string target;
+    Uri uri = new Uri(NavigationManager.Uri);
 
-    @if (HasCode)
+    if (uri.Segments.Count() > 1)
     {
-        <h5>Code</h5>
-        <CodeSnippet>@CodeContents</CodeSnippet>
+        target = uri.Segments[1];
     }
-</div>
+    else
+    {
+        target = "Index";
+    }   
+    <div class="demo-section-Example">
+        <DynamicComponent Type="@(Type.GetType($"FluentUI.Demo.Shared.Pages.{target}.Examples.{ExampleFile}"))"></DynamicComponent>
+    </div>
+}
+
+@if (HasCode)
+{
+    <h5>Code</h5>
+    <CodeSnippet>@CodeContents</CodeSnippet>
+}
+

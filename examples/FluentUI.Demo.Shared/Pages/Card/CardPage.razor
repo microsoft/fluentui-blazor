@@ -1,0 +1,36 @@
+@page "/Card"
+
+@using FluentUI.Demo.Shared.Pages.Card.Examples
+
+<style>
+    fluent-card {
+        --card-height: 400px;
+        --card-width: 500px;
+        padding: 20px;
+        margin: 12px;
+    }
+
+    .class-override {
+        height: 163px;
+        width: 300px;
+    }
+
+    .state-override {
+        --card-width: 350px;
+        --card-height: 300px;
+    }
+
+    .contents {
+        display: flex;
+        flex-direction: column;
+    }
+</style>
+<h1>Card</h1>
+
+<p>The <code>&lt;FluentCard&gt;</code> component is a visual container without semantics that takes children. Cards are snapshots of content that are typically used in a group to present collections of related information.</p>
+<p><code>&lt;FluentCard&gt;</code> wraps the <code>&lt;fluent-card&gt;</code> element, a web component implementation of a card leveraging the Fluent UI design system.</p>
+<ApiDocumentation Component="typeof(FluentCard)" />
+
+<h2>Examples</h2>
+
+<DemoSection Title="Card examples" ExampleFile="CardDefault"></DemoSection>

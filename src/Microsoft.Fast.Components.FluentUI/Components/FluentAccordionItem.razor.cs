@@ -24,7 +24,7 @@ public partial class FluentAccordionItem : FluentComponentBase, IDisposable
     public bool? Expanded { get; set; }
 
     /// <summary>
-    /// Configures the <see link="https://www.w3.org/TR/wai-aria-1.1/#aria-level">level</see> of the
+    /// Configures the <see href="https://www.w3.org/TR/wai-aria-1.1/#aria-level">level</see> of the
     /// heading element.
     /// Possible values: 1 | 2 | 3 | 4 | 5 | 6
     /// </summary>

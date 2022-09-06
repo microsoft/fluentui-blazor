@@ -1,0 +1,38 @@
+@page "/RadioGroup"
+
+@using FluentUI.Demo.Shared.Pages.RadioGroup.Examples
+
+<h1>Radio Group</h1>
+
+<p>As defined by the <a href="https://w3c.github.io/aria-practices/#radiobutton" target="_blank" rel="noopener noreferrer">W3C</a>:</p>
+<blockquote>
+    <p>
+        A radio group is a set of checkable buttons, known as radio buttons, where no more than one of the buttons can be checked 
+        at a time. Some implementations may initialize the set with all buttons in the unchecked state in order to force the user to check one 
+        of the buttons before moving past a certain point in the workflow.
+    </p>
+</blockquote>
+
+<p>
+    While any DOM content is permissible as a child of the radiogroup, only <code>&lt;FluentRadio&gt;</code>'s and slotted content with a role of
+    <code>radio</code> will receive keyboard support.</p>
+
+<p>
+    <code>&lt;FluentRadioGroup&gt;</code> wraps the <code>&lt;fluent-radio-group&gt;</code> element, a web component implementation of a radio group leveraging the
+    Fluent UI design system.
+</p>
+
+
+<ApiDocumentation Component="typeof(FluentRadioGroup)" />
+
+<h2>Examples</h2>
+
+<DemoSection Title="Default" ExampleFile="RadioGroupDefault"></DemoSection>
+
+<DemoSection Title="Ia a toolbar" ExampleFile="RadioGroupToolbar"></DemoSection>
+
+<DemoSection Title="States" ExampleFile="RadioGroupStates"></DemoSection>
+
+<DemoSection Title="Label outside group" ExampleFile="RadioGroupLabelOutside"></DemoSection>
+
+<DemoSection Title="With preset" ExampleFile="RadioGroupPreset"></DemoSection>

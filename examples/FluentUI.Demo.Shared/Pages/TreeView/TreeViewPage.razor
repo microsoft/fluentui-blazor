@@ -1,0 +1,35 @@
+@page "/TreeView"
+
+@using FluentUI.Demo.Shared.Pages.TreeView.Examples
+
+<h1>TreeView</h1>
+<p>As defined by the <a href="https://w3c.github.io/aria/#tree" target="_blank" rel="noopener noreferrer">W3C</a>:</p>
+<blockquote>
+    <p>
+        A tree view widget presents a hierarchical list. Any item in the hierarchy may have child items, and items that have
+        children may be expanded or collapsed to show or hide the children. For example, in a file system navigator that uses
+        a tree view to display folders and files, an item representing a folder can be expanded to reveal the contents of the
+        folder, which may be files, folders, or both.
+    </p>
+</blockquote>
+<p>
+    <code>&lt;FluentTreeView&gt;</code> wraps the <code>&lt;fluent-tree-view&gt;</code> element, a web component implementation of a tree view leveraging the
+    Fluent UI design system. It uses the <code>&lt;FluentTreeItem&gt;</code> component to define the nodes.
+</p>
+
+<ApiDocumentation Component="typeof(FluentTreeItem)" />
+<ApiDocumentation Component="typeof(FluentTreeView)" />
+
+<h2>Examples</h2>
+
+<DemoSection Title="Default with event handling" ExampleFile="TreeViewDefault"></DemoSection>
+
+<DemoSection Title="Flat tree" ExampleFile="TreeViewFlat"></DemoSection>
+
+<DemoSection Title="Some expanded" ExampleFile="TreeViewSomeExpanded"></DemoSection>
+
+<DemoSection Title="Pre-selected tree item" ExampleFile="TreeViewSelectedItem"></DemoSection>
+
+<DemoSection Title="Disabled tree item" ExampleFile="TreeViewDisabledItem"></DemoSection>
+
+<DemoSection Title="With several nested items (expanded)" ExampleFile="TreeViewNested"></DemoSection>

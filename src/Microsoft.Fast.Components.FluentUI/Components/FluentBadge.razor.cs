@@ -25,5 +25,5 @@ public partial class FluentBadge : FluentComponentBase
     /// Gets or sets the visual appearance. See <seealso cref="FluentUI.Appearance"/>
     /// </summary>
     [Parameter]
-    public Appearance? Appearance { get; set; }
+    public Appearance? Appearance { get; set; } = null;
 }

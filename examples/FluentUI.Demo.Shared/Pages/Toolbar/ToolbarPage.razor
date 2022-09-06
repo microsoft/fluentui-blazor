@@ -1,0 +1,33 @@
+@page "/Toolbar"
+
+
+@using FluentUI.Demo.Shared.Pages.Toolbar.Examples
+
+<h1>Toolbar</h1>
+
+<p>As defined by the <a href="https://w3c.github.io/aria-practices/#toolbar" target="_blank" rel="noopener noreferrer">W3C</a>:</p>
+<blockquote>
+    <p>
+        A toolbar is a container for grouping a set of controls, such as buttons, menubuttons, or checkboxes.
+    </p>
+    <p>
+        When a set of controls is visually presented as a group, the toolbar role can be used to communicate the presence and
+        purpose of the grouping to screen reader users. Grouping controls into toolbars can also be an effective way of reducing
+        the number of tab stops in the keyboard interface.
+    </p>
+</blockquote>
+<p>
+    <code>&lt;FluentTextField&gt;</code> wraps the <code>&lt;fluent-text-field&gt;</code> element, a web component implementation of a toolbar leveraging the
+    Fluent UI design system.
+</p>
+<ApiDocumentation Component="typeof(FluentToolbar)" />
+
+<h2>Examples</h2>
+
+<DemoSection Title="Default" ExampleFile="ToolbarDefault"></DemoSection>
+
+<DemoSection Title="Slotted" ExampleFile="ToolbarSlotted"></DemoSection>
+
+<DemoSection Title="Labels" ExampleFile="ToolbarLabels"></DemoSection>
+
+<DemoSection Title="Vertical" ExampleFile="ToolbarVertical"></DemoSection>

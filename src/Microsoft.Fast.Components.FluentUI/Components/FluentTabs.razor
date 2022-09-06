@@ -1,7 +1,8 @@
 @inherits FluentComponentBase
 
 <CascadingValue Value="this" IsFixed="true">
-    <fluent-tabs orientation=@Orientation.ToAttributeValue()
+    <fluent-tabs @ref=Element
+                 orientation=@Orientation.ToAttributeValue()
                  activeid=@ActiveId
                  hide-active-indicator="@(HideActiveIndicator.ToString().ToLower())"
                  @ontabchange="HandleOnTabChanged"

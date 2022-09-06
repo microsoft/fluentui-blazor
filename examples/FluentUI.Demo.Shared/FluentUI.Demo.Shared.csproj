@@ -6,6 +6,8 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<UseRazorSourceGenerator>false</UseRazorSourceGenerator>
 		<LangVersion>latest</LangVersion>
+		<EmitCompilerGeneratedFiles>false</EmitCompilerGeneratedFiles>
+		<CompilerGeneratedFilesOutputPath>Generated</CompilerGeneratedFilesOutputPath>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -13,12 +15,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="LoxSmoke.DocXml" Version="3.5.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.8" />
 	</ItemGroup>
-	
+
 	<ItemGroup>
-		<ProjectReference Include="..\..\src\Microsoft.Fast.Components.FluentUI\Microsoft.Fast.Components.FluentUI.csproj" />
+		<AdditionalFiles Include="$(ProjectDir)\Pages\**\Examples\*" />
+		<AdditionalFiles Include="$(ProjectDir)\*.xml" />
 	</ItemGroup>
 
+	<ItemGroup>
+		<ProjectReference Include="..\..\src\Microsoft.Fast.Components.FluentUI\Microsoft.Fast.Components.FluentUI.csproj" />
+		<ProjectReference Include="..\FluentUI.Demo.Generators\FluentUI.Demo.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+	</ItemGroup>
 </Project>

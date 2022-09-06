@@ -87,7 +87,10 @@ public partial class FluentCalendar : FluentComponentBase
     {
         get
         {
-            return disabledDatesAsString!.Split(",").Select(x =>
+            if (string.IsNullOrEmpty(disabledDatesAsString))
+                return null;
+
+            return disabledDatesAsString.Split(",").Select(x =>
             {
                 _ = DateOnly.TryParse(x, out DateOnly d);
                 return d;
@@ -116,6 +119,9 @@ public partial class FluentCalendar : FluentComponentBase
     [Parameter]
     public EventCallback<List<DateOnly>> SelectedDatesChanged { get; set; }
 
+    [Parameter]
+    public EventCallback<DateOnly> OnDateClicked { get; set; }
+
     private async Task OnDateSelected(CalendarSelectEventArgs args)
     {
         CalendarDateInfo di = args.CalendarDateInfo;
@@ -132,6 +138,7 @@ public partial class FluentCalendar : FluentComponentBase
             SelectedDates.Remove(date);
         }
 
+        await OnDateClicked.InvokeAsync(date);
         await SelectedDatesChanged.InvokeAsync(SelectedDates);
 
     }
