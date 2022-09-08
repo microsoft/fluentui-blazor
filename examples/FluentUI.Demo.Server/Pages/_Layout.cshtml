@@ -10,6 +10,9 @@
     <base href="~/" />
     <link href="css/site.css" rel="stylesheet" />
     <link href="FluentUI.Demo.Server.styles.css" rel="stylesheet" />
+    <!-- highlight -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@@highlightjs/cdn-assets@@11.6.0/styles/vs.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlightjs-copy@@1.0.3/dist/highlightjs-copy.min.css">
     <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
     <script>
         function switchDirection(dir) {
@@ -42,11 +45,9 @@
     <script src="_framework/blazor.server.js"></script>
     <script type="module" src="https://cdn.jsdelivr.net/npm/@@fluentui/web-components/dist/web-components.min.js"></script>
     <!-- highlight -->
-    <link rel="stylesheet" href="https://unpkg.com/@@highlightjs/cdn-assets@@11.5.1/styles/vs.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css">
-    <script type="text/javascript" src="https://unpkg.com/@@highlightjs/cdn-assets@@11.5.1/highlight.min.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/highlightjs-cshtml-razor/dist/cshtml-razor.min.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@@highlightjs/cdn-assets@@11.6.0/highlight.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/highlightjs-cshtml-razor@@2.1.1/dist/cshtml-razor.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/highlightjs-copy@@1.0.3/dist/highlightjs-copy.min.js"></script>
     <script>
         if (hljs != null) {
             hljs.addPlugin(new CopyButtonPlugin());

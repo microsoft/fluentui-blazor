@@ -1,6 +1,6 @@
 ﻿.code-zone {
-    width: calc(100% - 30px);
-    max-width: 1280px;
+    /*width: calc(100% - 30px);*/
+    /*max-width: 1280px;*/
 }
 
 ::deep .hljs {

@@ -1,83 +1,206 @@
-﻿body {
+﻿html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
     --body-font: Segoe UI, sans-serif;
     font-family: var(--body-font);
     font-size: var(--type-ramp-base-font-size);
     line-height: var(--type-ramp-base-line-height);
+    display: flex;
+    flex-wrap: wrap;
     margin: 0;
 }
 
-.container {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 60px 1fr;
-    gap: 0px 0px;
-    grid-auto-flow: row;
-    grid-template-areas:
-        "siteheader"
-        "main";
-}
-
-.siteheader {
-    grid-area: siteheader;
-    background-color: #f7f7f7;
-    border-bottom: 1px solid #d6d5d5;
-    justify-content: flex-start;
-    height: 3.5rem;
+#app {
+    width: 100%;
+    height: 100%;
     display: flex;
-    align-items: center;
-    white-space: nowrap;
-    padding-left: 1.5rem;
+    flex-direction: column;
 }
 
-    .siteheader a {
-        padding-inline-end: 10px;
+#container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    align-items: center;
+    justify-content: flex-start;
+    display: flex;
+    padding: 12px 0;
+    background-color: var(--neutral-layer-4);
+}
+
+    header a {
+        padding: 0px 15px;
+        color: var(--neutral-foreground-rest);
     }
 
-.main {
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-    grid-template-rows: 1fr;
-    gap: 0px 0px;
-    grid-auto-flow: row;
-    grid-template-areas:
-        "navigation content";
-    grid-area: main;
+    header .logo {
+        width: 108px;
+        height: 23px;
+        left: 40px;
+        padding: 0 30px;
+    }
+
+    header .links {
+        padding: 0 100px;
+    }
+
+    header .switches {
+        padding-right: 30px;
+    }
+
+main {
+    display: flex;
+    background-color: var(--neutral-layer-1);
+    color: var(--neutral-foreground-rest);
 }
 
-.navigation {
-    grid-area: navigation;
-    background-color: var(--fill-color);
-    color: var(--neutral-foreground-rest);
-    padding-left: calc(var(--design-unit) * 3px);
+nav {
+    position: fixed;
+    top: 0px;
+    left: -260px;
+    z-index: 1;
+    width: 220px;
+    height: calc(100% - 60px);
+    overflow-y: scroll;
+    padding: 40px 20px 20px;
+    background-color: var(--neutral-layer-3);
+    transition: all 300ms ease-in-out;
 }
-    .navigation > ul {
+
+    nav ul {
         list-style: none;
+        margin: 0;
         padding: 0;
     }
 
-    .navigation h2 {
+        nav ul li {
+            padding: 1px 0;
+        }
+
+    nav h2 {
         font-size: var(--type-ramp-plus-1-font-size);
         line-height: var(--type-ramp-plus-1-line-height);
-        padding: 15px calc((10 + (var(--design-unit) * 2 * var(--density))) * 1px);
+        padding: 15px 0;
         margin: 0;
     }
 
-    .navigation fluent-anchor {
+    nav fluent-anchor {
         width: 100%;
     }
 
-        .navigation fluent-anchor::part(control) {
+        nav fluent-anchor::part(control) {
             justify-content: start;
         }
 
-.content {
-    grid-area: content;
-    --elevation: 2;
-    background-color: var(--fill-color);
-    color: var(--neutral-foreground-rest);
-    padding-inline-start: calc(var(--design-unit) * 6px);
-    padding-inline-end: calc(var(--design-unit) * 6px);
+[dir="rtl"] nav {
+    position: fixed;
+    top: 0;
+    right: -260px;
+    z-index: 1;
+    width: 220px;
+    height: calc(100% - 60px);
+    overflow-y: scroll;
+    padding: 40px 20px 20px;
+    background-color: var(--neutral-layer-2);
+    transition: all 300ms ease-in-out;
 }
+
+
+aside {
+    flex: 0.3;
+    padding: 0 15px;
+    border-left: 1px solid #666;
+}
+
+article {
+    flex: 1;
+    position: relative;
+    z-index: 0;
+    padding: 10px 25px 10px 0;
+    margin: 0 0;
+    overflow: hidden;
+    transition: all 300ms ease-in-out;
+}
+
+[dir="rtl"] article {
+    flex: 1;
+    position: relative;
+    z-index: 0;
+    padding: 10px 0 10px 25px;
+    margin: 0 0;
+    overflow: hidden;
+    transition: all 300ms ease-in-out;
+}
+
+footer {
+    display: flex;
+    justify-content: flex-end;
+    background: var(--neutral-layer-4);
+    color: var(--neutral-foreground-rest);
+    align-items: center;
+    padding: 15px;
+}
+
+#menu-toggle {
+    display: none;
+}
+
+.menu-icon {
+    position: relative;
+    top: 10px;
+    left: 25px;
+    z-index: 2;
+    transition: all 300ms ease-in-out;
+}
+
+[dir="rtl"] .menu-icon {
+    position: relative;
+    top: 10px;
+    right: 25px;
+    z-index: 2;
+    transition: all 300ms ease-in-out;
+}
+
+#menu-toggle:checked ~ nav {
+    left: 0px;
+}
+
+[dir="rtl"] #menu-toggle:checked ~ nav {
+    right: 0px;
+}
+
+#menu-toggle:checked header {
+    padding-left: 220px;
+}
+
+[dir="rtl"] #menu-toggle:checked ~ header {
+    right: 220px;
+}
+
+#menu-toggle:checked + .menu-icon {
+    left: 280px;
+}
+
+[dir="rtl"] #menu-toggle:checked + .menu-icon {
+    right: 280px;
+}
+
+[dir="rtl"] #menu-toggle:checked ~ article {
+    padding-right: 260px;
+    padding-left: 20px;
+}
+
+#menu-toggle:checked ~ article {
+    padding-left: 260px;
+    padding-right: 20px;
+}
+
 
 blockquote {
     border-left: 5px solid var(--accent-fill-rest);
@@ -86,8 +209,7 @@ blockquote {
     padding: 2px 15px;
 }
 
-p,
-div {
+p {
     font-size: var(--type-ramp-base-font-size);
     line-height: var(--type-ramp-base-line-height);
     font-weight: 400;
@@ -167,3 +289,66 @@ code {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+
+@media (max-width: 767px) {
+    header .logo {
+        width: 108px;
+        height: 23px;
+        padding: 0 25px;
+    }
+
+    header .links {
+        padding: 0 0px;
+    }
+
+    header .switches {
+        padding-right: 0px;
+    }
+
+    article {
+        max-width: 100%;
+        margin: 15px auto 0;
+    }
+
+    #menu-toggle:checked ~ article {
+        padding-left: 0;
+    }
+
+    nav ul {
+        text-align: center;
+        max-width: 90%;
+    }
+
+    .menu-icon {
+        left: 20px
+    }
+
+    #menu-toggle:checked ~ nav {
+        width: 100%;
+    }
+
+    #menu-toggle:checked + .menu-icon {
+        left: 87%;
+        top: -25px;
+    }
+
+    [dir="rtl"] #menu-toggle:checked + .menu-icon {
+        right: 87%;
+        top: -25px;
+    }
+
+    @media screen and (max-width: 767px) and (orientation: landscape) {
+
+        nav {
+            padding: 25px 20px;
+        }
+
+            nav ul {
+                margin: 0 0;
+            }
+
+                nav ul li {
+                }
+    }
+}
