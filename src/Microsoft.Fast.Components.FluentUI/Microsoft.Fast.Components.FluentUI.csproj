@@ -8,10 +8,10 @@
 		<Owners>Microsoft Corporation</Owners>
 		<PackageProjectUrl>https://github.com/microsoft/fast-blazor</PackageProjectUrl>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<Summary>Fluent UI Web Components library for Blazor on .NET</Summary>
-		<PackageTags>Web Components, .NET, FluentUI, FAST, Blazor, .NET 6.0</PackageTags>
-		<Title>Microsoft Fluent UI Components Library for Blazor on FAST</Title>
-		<Description>Authored by the Microsoft FAST team.</Description>
+		<Summary>A set of Blazor components wrapping Microsoft’s official Fluent UI Web Components. They implement the latest state of the Fluent design language, are built on FAST and work in every major browser.</Summary>
+		<PackageTags>Web Components, .NET, Fluent UI, FAST, Blazor, .NET 6.0, .NET 7.0</PackageTags>
+		<Title>Microsoft Fluent UI Web Components for Blazor</Title>
+		<Description>A set of Blazor components wrapping Microsoft’s official Fluent UI Web Components. They implement the latest state of the Fluent design language, are built on FAST and work in every major browser.</Description>
 		<SignAssembly>true</SignAssembly>
 		<PackageVersion>1.6.0-preview7</PackageVersion>
 		<ReleaseVersion>1.6.0-preview7</ReleaseVersion>

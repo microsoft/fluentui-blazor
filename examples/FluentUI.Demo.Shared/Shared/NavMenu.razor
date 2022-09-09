@@ -1,8 +1,4 @@
-﻿@inject NavigationManager navigationmanager
-
-
-
-<h2>Base classes</h2>
+﻿<h2>Base classes</h2>
 <ul>
     <li>
         <FluentAnchor Href="FluentComponentBase" Appearance=@SetAppearance("FluentComponentBase")>FluentComponentBase</FluentAnchor>
@@ -122,25 +118,4 @@
 
 
 
-@code {
-    private string? target;
 
-    protected override void OnInitialized()
-    {
-        navigationmanager.LocationChanged += LocationChanged;
-        base.OnInitialized();
-    }
-
-    private void LocationChanged(object? sender, LocationChangedEventArgs e)
-    {
-        Uri uri = new Uri(e.Location);
-        if (uri.Segments.Count() > 1)
-            target = uri.Segments[1];
-        else
-            target = "";
-        StateHasChanged();
-    }
-
-    private Appearance SetAppearance(string location) => (location == target) ? Appearance.Neutral : Appearance.Stealth;
-
-}

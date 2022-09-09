@@ -44,7 +44,7 @@
     </header>
 
     <main>
-        <input type="checkbox" id="menu-toggle" checked/>
+        <input type="checkbox" id="menu-toggle" checked=@menuchecked @onclick=HandleChecked />
         <label for="menu-toggle" class="menu-icon">
             <FluentIcon Name="@FluentIcons.Navigation" Size="IconSize.Size24" Filled=true></FluentIcon>
         </label>
@@ -52,7 +52,7 @@
         <nav>
             <NavMenu />
         </nav>
-
+        
         <article>
             
             <ErrorBoundary @ref="errorBoundary">

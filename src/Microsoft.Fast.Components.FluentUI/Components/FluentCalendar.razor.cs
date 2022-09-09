@@ -11,6 +11,35 @@ public partial class FluentCalendar : FluentComponentBase
 
     private List<DateOnly> _selectedDates = new();
 
+    private IEnumerable<DateOnly>? InternalDisabledDates
+    {
+        get
+        {
+            if (string.IsNullOrEmpty(disabledDatesAsString))
+                return null;
+
+            return disabledDatesAsString.Split(",").Select(x =>
+            {
+                _ = DateOnly.TryParse(x, out DateOnly d);
+                return d;
+            });
+        }
+        set
+        {
+            disabledDatesAsString = string.Join(",", value!.OrderBy(d => d.DayNumber).Select(x => x.ToString("M-d-yyyy")));
+        }
+    }
+
+    private List<DateOnly> InternalSelectedDates
+    {
+        get => _selectedDates;
+        set
+        {
+            _selectedDates = value.OrderBy(d => d.DayNumber).ToList();
+            selectedDatesAsString = string.Join(",", _selectedDates.Select(x => x.ToString("M-d-yyyy")));
+        }
+    }
+
     /// <summary>
     /// Gets or sets if the calendar is readonly 
     /// </summary>
@@ -83,44 +112,31 @@ public partial class FluentCalendar : FluentComponentBase
     /// Gets or sets dates to be shown as disabled.
     /// </summary>
     [Parameter]
-    public IEnumerable<DateOnly>? DisabledDates
-    {
-        get
-        {
-            if (string.IsNullOrEmpty(disabledDatesAsString))
-                return null;
-
-            return disabledDatesAsString.Split(",").Select(x =>
-            {
-                _ = DateOnly.TryParse(x, out DateOnly d);
-                return d;
-            });
-        }
-        set
-        {
-            disabledDatesAsString = string.Join(",", value!.OrderBy(d => d.DayNumber).Select(x => x.ToString("M-d-yyyy")));
-        }
-    }
+    public IEnumerable<DateOnly>? DisabledDates { get; set; }
 
     /// <summary>
     /// A list of dates that should be shown as highlighted
     /// </summary>
     [Parameter]
-    public List<DateOnly> SelectedDates
-    {
-        get => _selectedDates;
-        set
-        {
-            _selectedDates = value.OrderBy(d => d.DayNumber).ToList();
-            selectedDatesAsString = string.Join(",", _selectedDates.Select(x => x.ToString("M-d-yyyy")));
-        }
-    }
+    public List<DateOnly> SelectedDates { get; set; } = new();
 
     [Parameter]
     public EventCallback<List<DateOnly>> SelectedDatesChanged { get; set; }
 
     [Parameter]
     public EventCallback<DateOnly> OnDateClicked { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        if (InternalSelectedDates != SelectedDates)
+        {
+            InternalSelectedDates = SelectedDates;
+        }
+        if (InternalDisabledDates != DisabledDates)
+        {
+            InternalDisabledDates = DisabledDates;
+        }
+    }
 
     private async Task OnDateSelected(CalendarSelectEventArgs args)
     {

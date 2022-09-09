@@ -42,7 +42,6 @@ header {
     header .logo {
         width: 108px;
         height: 23px;
-        left: 40px;
         padding: 0 30px;
     }
 
@@ -155,6 +154,7 @@ footer {
     position: relative;
     top: 10px;
     left: 25px;
+    height: 25px;
     z-index: 2;
     transition: all 300ms ease-in-out;
 }
@@ -201,6 +201,9 @@ footer {
     padding-right: 20px;
 }
 
+a {
+    color: var(--accent-foreground-rest);
+}
 
 blockquote {
     border-left: 5px solid var(--accent-fill-rest);
