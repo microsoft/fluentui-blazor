@@ -30,7 +30,7 @@
         </div>
         <div class="switches">
             <FluentSwitch @onchange="SwitchDirection">
-                <span >Direction</span>
+                <span>Direction</span>
                 <span slot="unchecked-message">ltr</span>
                 <span slot="checked-message">rtl</span>
             </FluentSwitch>
@@ -40,7 +40,7 @@
                 <span slot="unchecked-message">Light</span>
             </FluentSwitch>
         </div>
-        
+
     </header>
 
     <main>
@@ -48,28 +48,26 @@
         <label for="menu-toggle" class="menu-icon">
             <FluentIcon Name="@FluentIcons.Navigation" Size="IconSize.Size24" Filled=true></FluentIcon>
         </label>
-
         <nav>
             <NavMenu />
         </nav>
-        
+
         <article>
-            
+
             <ErrorBoundary @ref="errorBoundary">
                 <ChildContent>
                     @Body
+
+                    @*<aside>
+                    <h2>About section</h2>
+                    <p>Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+                    </aside>*@
                 </ChildContent>
                 <ErrorContent Context="ex">
                     <div class="blazor-error-boundary">@ex.Message</div>
                 </ErrorContent>
             </ErrorBoundary>
         </article>
-        @*<aside>
-            <h2>About section</h2>
-            <p>Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-        </aside>
-*@
-
     </main>
     <footer>
         <small>Microsoft © 2022. All rights reserved.</small>
