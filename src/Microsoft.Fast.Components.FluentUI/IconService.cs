@@ -11,7 +11,7 @@ public class IconService
     {
         HttpClient = httpClient;
         NavigationManager = navigationManager;
-        HttpClient.BaseAddress = new Uri(NavigationManager.BaseUri);
+        HttpClient.BaseAddress ??= new Uri(NavigationManager.BaseUri);
     }
 
 }
