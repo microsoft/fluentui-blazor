@@ -2,7 +2,7 @@ name: Validate
 
 on:
   push:
-    branches: [ net7 ]
+    branches: [ main ]
     paths-ignore:
       - '**/*.md'
       - '**/*.gitignore'
@@ -10,7 +10,7 @@ on:
       - '**/*.yml'
   pull_request:
     types: [opened, synchronize, reopened, closed]
-    branches: [ net7 ]
+    branches: [ main ]
     paths-ignore:
       - '**/*.md'
       - '**/*.gitignore'

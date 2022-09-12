@@ -3,7 +3,7 @@ name: "Build, Sign, Publish"
 on:
   push:
     branches:
-      - net7
+      - main
     paths-ignore:
       - '**/*.md'
       - '**/*.gitignore'
@@ -11,7 +11,7 @@ on:
       - '**/*.yml'
   workflow_dispatch:
     branches:
-      - net7
+      - main
     paths-ignore:
       - '**/*.md'
       - '**/*.gitignore'
