@@ -1,5 +1,6 @@
 ﻿@using FluentUI.Demo.Shared.Shared
 @using Microsoft.AspNetCore.Components
+@using System.Runtime.InteropServices
 @namespace FluentUI.Demo.Shared
 @inherits LayoutComponentBase
 
@@ -70,6 +71,11 @@
         </article>
     </main>
     <footer>
-        <small>Microsoft © 2022. All rights reserved.</small>
+        <div class="version">
+            <small>Running on: @RuntimeInformation.FrameworkDescription</small>
+        </div>
+        <div class="copy">
+            <small>Microsoft © 2022. All rights reserved.</small>
+        </div>
     </footer>
 </div>
