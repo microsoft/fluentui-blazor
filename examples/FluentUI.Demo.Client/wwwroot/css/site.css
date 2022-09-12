@@ -20,13 +20,15 @@
 }
 
 header {
-    align-items: center;
-    justify-content: flex-start;
-    display: flex;
     padding: 12px 0;
     background-color: var(--neutral-layer-4);
-
     grid-area: header;
+    
+    display: grid;
+    grid-template-columns: 150px auto 1fr;
+    grid-template-rows: 1fr;
+    align-items: center;
+    justify-content: flex-start;
 }
 
     header a {
@@ -38,14 +40,18 @@ header {
         width: 108px;
         height: 23px;
         padding: 0 30px;
+        grid-column: 1;
     }
 
     header .links {
-        padding: 0 100px;
+        grid-column: 2;
+        padding: 0 10px
     }
 
     header .switches {
-        padding-right: 30px;
+        grid-column: 3;
+        justify-self: end;
+        padding: 0 20px;
         
     }
 
@@ -128,17 +134,7 @@ footer {
  }
 
 .menu-icon {
-    position: fixed;
-    
-    visibility: hidden;
-}
-
-[dir="rtl"] .menu-icon {
-    position: fixed;
-    top: 75px;
-
-    z-index: 2;
-    transition: all 300ms ease-in-out;
+   display: none;
 }
 
 #menu-toggle:checked > nav {
@@ -150,13 +146,6 @@ footer {
 }
 
 
-#menu-toggle:checked + .menu-icon {
-    left: 200px;
-}
-
-[dir="rtl"] #menu-toggle:checked + .menu-icon {
-    right: 200px;
-}
 
 a {
     color: var(--accent-foreground-rest);
@@ -284,6 +273,15 @@ code {
     }
 
 @media (max-width: 767px) {
+
+    header {
+        grid-area: header;
+        grid-template-columns: 150px auto 1fr;
+        grid-template-rows: 1fr;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
     header .logo {
         width: 108px;
         height: 23px;
@@ -298,7 +296,12 @@ code {
         padding-right: 0px;
     }
 
-
+    main {
+       
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 40px 1fr;
+    }
 
     article {
         grid-area: 1 / 1 / 3 / 3;
@@ -315,32 +318,38 @@ code {
     }
 
     .menu-icon {
-        top: 75px;
-        left: 20px;
+        padding: 10px 20px;
         z-index: 2;
         transition: all 300ms ease-in-out;
+        display: block;
         visibility: visible;
+        grid-row: 1 / 2;
+        grid-column: 1 / 2;
     }
 
-    [dir="rtl"] .menu-icon {
-        top: 75px;
-        right: 20px;
-        z-index: 2;
-        transition: all 300ms ease-in-out;
-        visibility: visible;
+    #menu-toggle ~ nav {
+        display: none;
     }
 
     #menu-toggle:checked ~ nav {
+        display: block;
         grid-area: 1 / 1 / 3 / 3;
     }
 
+    #menu-toggle ~ article {
+        display: block;
+    }
+
+    #menu-toggle:checked ~ article {
+        display: none;
+    }
+
     #menu-toggle:checked + .menu-icon {
-        left: 90%;
-        
+        padding-left: 90%;
     }
 
     [dir="rtl"] #menu-toggle:checked + .menu-icon {
-        right: 90%;
+        
     }
 
     @media screen and (max-width: 767px) and (orientation: landscape) {
@@ -361,8 +370,42 @@ code {
 }
 
 @media (horizontal-viewport-segments: 2) {
-    
 
+    header {
+        grid-area: header;
+        display: grid;
+        grid-template-columns: 150px calc(env(viewport-segment-width 0 0) - 150px) 1fr;
+        grid-template-rows: 1fr;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 12px 0;
+        background-color: var(--neutral-layer-4);
+    }
+
+        header a {
+            padding: 0px 15px;
+            color: var(--neutral-foreground-rest);
+        }
+
+        header .logo {
+            grid-column: 1;
+            width: 108px;
+            height: 23px;
+            padding: 0 30px;
+        }
+
+        header .links {
+            grid-column: 2;
+            justify-self: end;
+            padding: 0;
+        }
+
+        header .switches {
+            margin-inline-start: calc(env(viewport-segment-left 1 0) - env(viewport-segment-right 0 0)); /* hinge width */
+            grid-column: 3;
+            justify-self: end;
+            padding-left: 20px;
+        } 
     main {
         display: grid;
         grid-template-columns: env(viewport-segment-width 0 0) 1fr;
