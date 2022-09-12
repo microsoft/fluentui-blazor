@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Fast.Components.FluentUI;
 using Microsoft.Fast.Components.FluentUI.DesignTokens;
@@ -6,20 +7,48 @@ using Microsoft.JSInterop;
 
 namespace FluentUI.Demo.Shared
 {
-    public partial class MainLayout
+    public partial class MainLayout : IAsyncDisposable
     {
         [Inject]
         private IJSRuntime JSRuntime { get; set; } = default!;
+
+        [Inject]
+        private NavigationManager NavigationManager { get; set; } = default!;
 
         [Inject]
         private BaseLayerLuminance BaseLayerLuminance { get; set; } = default!;
 
         ElementReference container;
 
+        private IJSObjectReference? module;
+        bool menuchecked = true;
+
         ErrorBoundary? errorBoundary;
 
         LocalizationDirection dir;
         float baseLayerLuminance = 1;
+
+        protected override void OnInitialized()
+        {
+            NavigationManager.LocationChanged += LocationChanged;
+            base.OnInitialized();
+        }
+
+        protected override void OnParametersSet()
+        {
+            errorBoundary?.Recover();
+        }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                module = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
+                     "./_content/FluentUI.Demo.Shared/Shared/MainLayout.razor.js");
+            }
+            await BaseLayerLuminance.SetValueFor(container, baseLayerLuminance);
+            //await DesignTokens.Direction.SetValueFor(container, dir.ToString());
+        }
 
         public async Task SwitchDirection()
         {
@@ -32,18 +61,30 @@ namespace FluentUI.Demo.Shared
             baseLayerLuminance = baseLayerLuminance == 0.15f ? 0.98f : 0.15f;
         }
 
-        protected override void OnParametersSet()
+        private void HandleChecked()
         {
-            errorBoundary?.Recover();
+            menuchecked = !menuchecked;
         }
 
-        protected override async Task OnAfterRenderAsync(bool firstRender)
+        private async void LocationChanged(object? sender, LocationChangedEventArgs e)
         {
-
-            if (!firstRender)
+            if (e.IsNavigationIntercepted)
             {
-                await BaseLayerLuminance.SetValueFor(container, baseLayerLuminance);
-                //await DesignTokens.Direction.SetValueFor(container, dir.ToString());
+                bool mobile = await module!.InvokeAsync<bool>("isDevice");
+
+                if (mobile)
+                {
+                    menuchecked = false;
+                    StateHasChanged();
+                }
+            }
+        }
+
+        async ValueTask IAsyncDisposable.DisposeAsync()
+        {
+            if (module is not null)
+            {
+                await module.DisposeAsync();
             }
         }
     }

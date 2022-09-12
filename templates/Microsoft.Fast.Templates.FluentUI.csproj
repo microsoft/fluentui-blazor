@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
+		<TargetFrameworks>net6.0;net7.0</TargetFrameworks>
 		<Authors>Microsoft</Authors>
 		<ContentTargetFolders>Content</ContentTargetFolders>
 		<Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
@@ -15,7 +16,6 @@
 		<PackageType>Template</PackageType>
 		<PackageVersion>1.0.1</PackageVersion>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<TargetFramework>net6.0</TargetFramework>
 		<Title>Microsoft FAST Fluent UI Blazor Templates</Title>
 	</PropertyGroup>
 
