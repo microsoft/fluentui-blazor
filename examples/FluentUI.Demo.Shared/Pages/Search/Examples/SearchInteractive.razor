@@ -1,4 +1,4 @@
-﻿<FluentSearch @ref=searchTest @oninput=handleSearchInput Placeholder="Search for State"></FluentSearch>
+﻿<FluentSearch @ref=searchTest @oninput=handleSearchInput @onchange=handleClear Placeholder="Search for State"></FluentSearch>
 <br />
 <FluentListbox Options=@searchResults />
 
@@ -80,6 +80,14 @@
                     searchResults = temp;
                 }
             }
+        }
+    }
+
+    void handleClear(ChangeEventArgs args)
+    {
+        if (args is not null)
+        {
+            searchResults = defaultResults();
         }
     }
 }
