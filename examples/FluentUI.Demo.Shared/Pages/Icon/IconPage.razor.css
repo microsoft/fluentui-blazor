@@ -1,0 +1,31 @@
+﻿::deep .preview {
+    margin: 10px;
+    --card-width: 120px;
+    --card-height: 120px;
+    --elevation: 6;
+}
+
+    ::deep .preview:hover {
+        --elevation: 12;
+    }
+
+    ::deep .preview .inner {
+        text-align: center;
+        padding: 10px 10px 0;
+        color: var(--neutral-foreground-rest);
+    }
+
+        ::deep .preview .inner svg {
+            height: 80px;
+        }
+
+::deep .label {
+    text-align: center;
+    padding: 2px 5px;
+    font-size: 10px;
+    font-family: Monaco, monospace;
+    white-space: nowrap;
+    overflow: hidden;
+    background: var(--neutral-stroke-rest);
+}
+
