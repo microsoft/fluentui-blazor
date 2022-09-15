@@ -460,6 +460,12 @@
             Gets or sets the rows data
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowsDataProvider">
+            <summary>
+            Supply an async function which (re)loads the rows data. Grid will await this func and update based on the returned items.
+            Use either RowsDataProvider or the RowsData property.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.ColumnDefinitions">
             <summary>
             Gets or sets the column definitions. See <see cref="T:Microsoft.Fast.Components.FluentUI.ColumnDefinition`1"/>
@@ -475,10 +481,22 @@
             Gets or sets the row item template
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.Virtualize">
+            <summary>
+            If true, the results are displayed in a Virtualize component, 
+            allowing for better rendering speed with a large number of rows.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.OnRowFocus">
             <summary>
             Gets or sets a callback when a row is focused
             </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.InvokeRowsDataProvider">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.OnAfterRenderAsync(System.Boolean)">
+            <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGridCell.CellType">
             <summary>

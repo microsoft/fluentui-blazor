@@ -1,0 +1,41 @@
+﻿<div style="height: 400px; overflow-y: auto;">
+    <FluentDataGrid id="defaultGrid" TItem=SampleGridData RowsDataProvider=LoadGridData ColumnDefinitions=Columns />
+</div>
+
+@code {
+    public record SampleGridData(string Item1, string Item2, string Item3, string Item4);
+
+    public List<ColumnDefinition<SampleGridData>> Columns = new();
+
+    List<SampleGridData> RowsGrid = new();
+
+    private SampleGridData[] GenerateSampleGridData(int size)
+    {
+        SampleGridData[] data = new SampleGridData[size];
+
+
+        for (int i = 0; i < size; i++)
+        {
+            data[i] = new SampleGridData($"value {i}-1", $"value {i}-2", $"value {i}-3", $"value {i}-4");
+        }
+        return data;
+    }
+    
+    private Task LoadGridData(IEnumerable<SampleGridData> grid)
+    {
+        grid = GenerateSampleGridData(10000);
+        return Task.CompletedTask; //new ItemsProviderResult<SampleGridData>(data.Skip(request.StartIndex).Take(request.Count), data.Count());
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Columns.Add(new ColumnDefinition<SampleGridData>("Item 1", x => x.Item1));
+        Columns.Add(new ColumnDefinition<SampleGridData>("Item 2", x => x.Item2));
+        Columns.Add(new ColumnDefinition<SampleGridData>("Item 3", x => x.Item3));
+        Columns.Add(new ColumnDefinition<SampleGridData>("Item 4", x => x.Item4));
+
+        //List<SampleGridData> data = await GenerateSampleGridData(10000);
+        //RowsGrid = data;
+        await Task.FromResult(0);
+    }
+}
