@@ -52,7 +52,7 @@ jobs:
       with:
         dotnet-version: |
             6.0.x
-            7.0.100-preview.7.22377.5
+            7.0.x
         include-prerelease: true
         
     - name: Initialize CodeQL
