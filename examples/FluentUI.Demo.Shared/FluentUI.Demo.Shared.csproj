@@ -15,11 +15,11 @@
 	</ItemGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.8" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.9" />
 	</ItemGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net7.0' ">
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.0-preview.7.*" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.0-rc.1.*" />
 	</ItemGroup>
 
 	<ItemGroup>

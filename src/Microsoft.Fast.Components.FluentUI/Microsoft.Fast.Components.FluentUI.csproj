@@ -13,8 +13,8 @@
 		<Title>Microsoft Fluent UI Web Components for Blazor</Title>
 		<Description>A set of Blazor components wrapping Microsoft’s official Fluent UI Web Components. They implement the latest state of the Fluent design language, are built on FAST and work in every major browser.</Description>
 		<SignAssembly>true</SignAssembly>
-		<PackageVersion>1.6.0-preview7</PackageVersion>
-		<ReleaseVersion>1.6.0-preview7</ReleaseVersion>
+		<PackageVersion>1.6.0-rc.1</PackageVersion>
+		<ReleaseVersion>1.6.0-rc.1</ReleaseVersion>
 		<SynchReleaseVersion>false</SynchReleaseVersion>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
@@ -55,15 +55,15 @@
 	</ItemGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.9" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
-		<PackageReference Include="System.Text.Json" Version="6.0.0" />
+		<PackageReference Include="System.Text.Json" Version="6.0.6" />
 	</ItemGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net7.0' ">
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.0-preview.7.*" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0-preview.7.*" />
-		<PackageReference Include="System.Text.Json" Version="7.0.0-preview.7.*" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.0-rc.1.*" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0-rc.1.*" />
+		<PackageReference Include="System.Text.Json" Version="7.0.0-rc.1.*" />
 	</ItemGroup>
 
 	<ItemGroup>
