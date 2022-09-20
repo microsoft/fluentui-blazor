@@ -2,9 +2,10 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Linq.Expressions;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
-namespace Microsoft.Fast.Components.FluentUI.Grid;
+namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary>
 /// Represents a <see cref="FluentDataGrid{TGridItem}"/> column whose cells display a single value.
@@ -68,5 +69,6 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, ISortBuil
 
     /// <inheritdoc />
     protected internal override void CellContent(RenderTreeBuilder builder, TGridItem item)
-        => builder.AddContent(0, _cellTextFunc!(item));
+        => builder.AddContent(10, _cellTextFunc!(item));
+
 }

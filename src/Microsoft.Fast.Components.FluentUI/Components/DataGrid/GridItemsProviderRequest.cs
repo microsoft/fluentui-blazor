@@ -1,7 +1,10 @@
-﻿namespace Microsoft.Fast.Components.FluentUI.Grid;
+// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+
+namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary>
-/// Parameters for data to be supplied by a <see cref="FluentDataGrid{TGridItem}"/>'s <see cref="FluentDataGrid{TGridItem}.ItemsProvider"/>.
+/// Parameters for data to be supplied by a <see cref="FluentDataGrid{TGridItem}"/>'s <see cref="FluentDataGrid{TGridItem}.RowsDataProvider"/>.
 /// </summary>
 /// <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
 public struct GridItemsProviderRequest<TGridItem>
@@ -80,5 +83,3 @@ public struct GridItemsProviderRequest<TGridItem>
     private static string ColumnNotSortableMessage<T>(ColumnBase<T> col)
         => $"The current sort column is of type '{col.GetType().FullName}', which does not implement {nameof(ISortBuilderColumn<TGridItem>)}, so its sorting rules cannot be applied automatically.";
 }
-
-

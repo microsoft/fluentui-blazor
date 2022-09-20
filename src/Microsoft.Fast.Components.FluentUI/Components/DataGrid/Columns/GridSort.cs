@@ -3,7 +3,7 @@
 
 using System.Linq.Expressions;
 
-namespace Microsoft.Fast.Components.FluentUI.Grid;
+namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary>
 /// Represents a sort order specification used within <see cref="FluentDataGrid{TGridItem}"/>.

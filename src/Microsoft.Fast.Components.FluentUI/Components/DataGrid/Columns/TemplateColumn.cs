@@ -1,9 +1,10 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
-namespace Microsoft.Fast.Components.FluentUI.Grid;
+namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary>
 /// Represents a <see cref="FluentDataGrid{TGridItem}"/> column whose cells render a supplied template.
@@ -28,6 +29,8 @@ public class TemplateColumn<TGridItem> : ColumnBase<TGridItem>, ISortBuilderColu
     /// <inheritdoc />
     protected internal override void CellContent(RenderTreeBuilder builder, TGridItem item)
         => builder.AddContent(0, ChildContent(item));
+
+
 
     /// <inheritdoc />
     protected override bool IsSortableByDefault()

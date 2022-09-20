@@ -1,0 +1,90 @@
+fluent-data-grid {
+    --col-gap: 1rem;
+}
+
+::deep .header {
+  height: 42px!important;  
+}
+
+.column-header {
+    align-self: center;
+    padding-inline-start: 0;
+}
+
+    .column-header.col-justify-end {
+        width: 100%;
+        padding-inline-end: 0;
+    }
+
+    .column-header.col-justify-end .col-title {
+        width:fit-content;
+        padding-inline-end: 0;
+    }
+.column-header > ::deep .col-sort-button {
+        width: 100%
+    }
+
+::deep .col-sort-button {
+    font-weight: 600;
+}
+
+    ::deep .col-sort-button::part(control) {
+        font-weight: 600;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+
+::deep .col-justify-center .col-sort-button::part(control) {
+    text-align: center;
+    justify-content: center;
+}
+
+::deep .col-justify-end .col-sort-button::part(control) {
+    text-align: end;
+    justify-content: flex-end;
+}
+
+.col-justify-center {
+    justify-self:center;
+}
+.col-justify-end {
+    justify-self: end;
+}
+
+::deep .col-options-button {
+    width: 1.5rem;
+}
+
+.col-options {
+    position: absolute;
+    background: var(--neutral-layer-2);
+    border: 1px solid var(--neutral-layer-3);
+    border-radius: 0.3rem;
+    box-shadow: 0 3px 8px 1px var(--neutral-layer-4);
+    left: 0;
+    padding: 1rem;
+    z-index: 1;
+}
+
+.col-justify-end .col-options {
+    left: unset;
+    right: 0;
+}
+
+
+::deep > fluent-data-grid-row > fluent-data-grid-cell.grid-cell-placeholder:after {
+    content: '\2026'; /*horizontal ellipsis*/
+    opacity: 0.75;
+}
+
+
+[dir=rtl] .col-options {
+    left: unset;
+    right: 0;
+}
+
+[dir=rtl] .col-justify-end .col-options {
+    right: unset;
+    left: 0;
+}

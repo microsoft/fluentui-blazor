@@ -1,7 +1,10 @@
-﻿namespace Microsoft.Fast.Components.FluentUI.Grid;
+// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+
+namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary>
-/// Holds data being supplied to a <see cref="FluentDataGrid{TGridItem}"/>'s <see cref="FluentDataGrid{TGridItem}.ItemsProvider"/>.
+/// Holds data being supplied to a <see cref="FluentDataGrid{TGridItem}"/>'s <see cref="FluentDataGrid{TGridItem}.RowsDataProvider"/>.
 /// </summary>
 /// <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
 public struct GridItemsProviderResult<TGridItem>
@@ -46,7 +49,5 @@ public static class GridItemsProviderResult
     /// <param name="totalItemCount">The total numer of items that exist. See <see cref="TotalItemCount"/> for details.</param>
     /// <returns>An instance of <see cref="GridItemsProviderResult{TGridItem}"/>.</returns>
     public static GridItemsProviderResult<TGridItem> From<TGridItem>(ICollection<TGridItem> items, int totalItemCount)
-        => new GridItemsProviderResult<TGridItem>(items, totalItemCount);
+        => new(items, totalItemCount);
 }
-
-

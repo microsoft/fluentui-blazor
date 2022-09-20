@@ -1,3 +1,4 @@
+using FluentUI.Demo.Shared.SampleData;
 using Microsoft.Fast.Components.FluentUI;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,7 +8,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddHttpClient();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddFluentUIComponents();
-
+builder.Services.AddScoped<DataSource>();
 
 var app = builder.Build();
 

@@ -1,5 +1,5 @@
 @using Microsoft.AspNetCore.Components.Rendering
-@namespace Microsoft.Fast.Components.FluentUI.Grid
+@namespace Microsoft.Fast.Components.FluentUI
 @typeparam TGridItem
 @{
     InternalGridContext.Grid.AddColumn(this, IsDefaultSort);
@@ -9,7 +9,7 @@
     [CascadingParameter] internal InternalGridContext<TGridItem> InternalGridContext { get; set; } = default!;
 
     /// <summary>
-    /// Title text for the column. This is rendered automatically if <see cref="HeaderTemplate" /> is not used.
+    /// Title text for the column. This is rendered automatically if <see cref="HeaderCellItemTemplate" /> is not used.
     /// </summary>
     [Parameter] public string? Title { get; set; }
 
@@ -28,13 +28,13 @@
     /// An optional template for this column's header cell. If not specified, the default header template
     /// includes the <see cref="Title" /> along with any applicable sort indicators and options buttons.
     /// </summary>
-    [Parameter] public RenderFragment<ColumnBase<TGridItem>>? HeaderTemplate { get; set; }
+    [Parameter] public RenderFragment<ColumnBase<TGridItem>>? HeaderCellItemTemplate { get; set; }
 
     /// <summary>
     /// If specified, indicates that this column has this associated options UI. A button to display this
     /// UI will be included in the header cell by default.
     ///
-    /// If <see cref="HeaderTemplate" /> is used, it is left up to that template to render any relevant
+    /// If <see cref="HeaderCellItemTemplate" /> is used, it is left up to that template to render any relevant
     /// "show options" UI and invoke the grid's <see cref="FluentDataGrid{TGridItem}.ShowColumnOptions(ColumnBase{TGridItem})" />).
     /// </summary>
     [Parameter] public RenderFragment? ColumnOptions { get; set; }
@@ -70,10 +70,16 @@
     /// <param name="item">The data for the row being rendered.</param>
     protected internal abstract void CellContent(RenderTreeBuilder builder, TGridItem item);
 
+    ///// <summary>
+    ///// Overridden by derived components to provide rendering logic for the column's cells.
+    ///// </summary>
+    ///// <param name="item">The data for the row being rendered.</param>
+    //protected internal abstract string? CellContent(TGridItem item);
+
     /// <summary>
     /// Gets or sets a <see cref="RenderFragment" /> that will be rendered for this column's header cell.
     /// This allows derived components to change the header output. However, derived components are then
-    /// responsible for using <see cref="HeaderTemplate" /> within that new output if they want to continue
+    /// responsible for using <see cref="HeaderCellItemTemplate" /> within that new output if they want to continue
     /// respecting that option.
     /// </summary>
     protected internal RenderFragment HeaderContent { get; protected set; }
@@ -96,25 +102,35 @@
         HeaderContent = RenderDefaultHeaderContent;
     }
 
+    public bool ShowSortIcon;
+
     private void RenderDefaultHeaderContent(RenderTreeBuilder __builder)
     {
-        @if (HeaderTemplate is not null)
+        @if (HeaderCellItemTemplate is not null)
         {
-            @HeaderTemplate(this)
+            @HeaderCellItemTemplate(this)
         }
         else
         {
             @if (ColumnOptions is not null && Align != Align.Right)
             {
-                <button class="col-options-button" @onclick="@(() => Grid.ShowColumnOptions(this))"></button>
+                <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptions(this))">
+                    <FluentIcon Name="@FluentIcons.Navigation" Size="IconSize.Size16" Filled=false />
+                </FluentButton>
             }
 
             if (Sortable.HasValue ? Sortable.Value : IsSortableByDefault())
             {
-                <button class="col-title" @onclick="@(() => Grid.SortByColumnAsync(this))">
+                <FluentButton Appearance="Appearance.Stealth" class="col-sort-button" @onclick="@(() => Grid.SortByColumnAsync(this))">
                     <div class="col-title-text">@Title</div>
-                    <div class="sort-indicator" aria-hidden="true"></div>
-                </button>
+                    
+                    
+                    @if (Grid.SortByAscending.HasValue && ShowSortIcon)
+                    {
+                            <FluentIcon Name="@(Grid.SortByAscending.Value ? FluentIcons.ArrowSortUp : FluentIcons.ArrowSortDown)" Size="IconSize.Size16" Filled=false Slot="@(Align == Align.Left ? "end" : "start")" />
+                    }
+                    
+                </FluentButton>
             }
             else
             {
@@ -125,7 +141,9 @@
 
             @if (ColumnOptions is not null && Align == Align.Right)
             {
-                <button class="col-options-button" @onclick="@(() => Grid.ShowColumnOptions(this))"></button>
+                <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptions(this))">
+                    <FluentIcon Name="@FluentIcons.Navigation" Size="IconSize.Size16" Filled=false />
+                </FluentButton>
             }
         }
     }

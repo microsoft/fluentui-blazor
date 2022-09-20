@@ -1,0 +1,14 @@
+/* Contains the title text and sort indicator, and expands to fill as much of the col width as it can */
+.col-title {
+    padding-inline-start: 10px;
+    display: inline-flex;
+}
+
+
+
+/* We put the column title text in its own element primarily so that it can use text-overflow: ellipsis */
+::deep .col-title-text {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}

@@ -15,13 +15,9 @@ else
 @if (this.Properties.Any())
 {
     <h3>Parameters</h3>
-    <FluentDataGrid RowsData="@this.Properties.ToList()" ColumnDefinitions=@_propertiesGrid GridTemplateColumns="1fr 1fr 0.5fr 1.5fr">
-        <RowItemTemplate>
-            <FluentDataGridRow>
-                <FluentDataGridCell GridColumn="1">
-                        <code>@context.Name</code>
-                </FluentDataGridCell>
-                <FluentDataGridCell GridColumn="2">
+    <FluentDataGrid RowsData="@this.Properties.AsQueryable()" GridTemplateColumns="1fr 1fr 0.5fr 1.5fr">
+        <TemplateColumn Title="Name"><code>@context.Name</code></TemplateColumn>
+        <TemplateColumn Title="Type">
                     @context.Type
 
                     @* Display list of Enumerations (if available) *@
@@ -41,67 +37,46 @@ else
                             }
                         </FluentTooltip>
                     }
-                </FluentDataGridCell>
-                <FluentDataGridCell GridColumn="3">
-                    @context.Default
-                </FluentDataGridCell>
-                <FluentDataGridCell GridColumn="4">
-                    <div style="white-space: break-spaces">
-                        @(new MarkupString(context.Description))
-                    </div>
-                </FluentDataGridCell>
-            </FluentDataGridRow>
-        </RowItemTemplate>
+        </TemplateColumn>
+        <PropertyColumn Property="@(c => c.Default)" />
+        <TemplateColumn Title="Description">
+            <div style="white-space: break-spaces">
+                @(new MarkupString(context.Description))
+            </div>
+        </TemplateColumn>        
     </FluentDataGrid>
 }
 
 @if (this.Events.Any())
 {
     <h3>EventCallbacks</h3>
-    <FluentDataGrid RowsData="@this.Events.ToList()" ColumnDefinitions="@_eventsGrid" GridTemplateColumns="1fr 1fr 1fr">
-        <RowItemTemplate>
-            <FluentDataGridRow>
-                <FluentDataGridCell GridColumn="1">
-                    <code>@context.Name</code>
-                </FluentDataGridCell>
-                <FluentDataGridCell GridColumn="2">
-                    @context.Type
-                </FluentDataGridCell>
-                <FluentDataGridCell GridColumn="3">
-                    <div style="white-space: break-spaces">
-                        @context.Description
-                    </div>
-                </FluentDataGridCell>
-            </FluentDataGridRow>
-        </RowItemTemplate>
+    <FluentDataGrid RowsData="@this.Events.AsQueryable()" GridTemplateColumns="1fr 1fr 1fr">
+        <TemplateColumn Title="Name"><code>@context.Name</code></TemplateColumn>
+        <PropertyColumn Property="@(c => c.Type)" />
+        <TemplateColumn Title="Description">
+            <div style="white-space: break-spaces">
+                @(new MarkupString(context.Description))
+            </div>
+        </TemplateColumn>
     </FluentDataGrid>
 }
 
 @if (this.Methods.Any())
 {
     <h3>Methods</h3>
-    <FluentDataGrid RowsData="@this.Methods.ToList()" ColumnDefinitions="@_methodsGrid" GridTemplateColumns="1fr 1fr 1fr 1fr">
-
-        <RowItemTemplate>
-            <FluentDataGridRow>
-                <FluentDataGridCell GridColumn="1">
-                        <code>@context.Name</code>
-                </FluentDataGridCell>
-                <FluentDataGridCell GridColumn="2">
-                    @foreach (var param in @context.Parameters)
-                    {
-                        @param <br />
-                    }
-                </FluentDataGridCell>
-                <FluentDataGridCell GridColumn="3">
-                    @context.Type
-                </FluentDataGridCell>
-                <FluentDataGridCell GridColumn="4">
-                    <div style="white-space: break-spaces">
-                        @context.Description
-                    </div>
-                </FluentDataGridCell>
-            </FluentDataGridRow>
-        </RowItemTemplate>
+    <FluentDataGrid RowsData="@this.Methods.AsQueryable()" GridTemplateColumns="1fr 1fr 1fr 1fr">
+        <TemplateColumn Title="Name"><code>@context.Name</code></TemplateColumn>
+        <TemplateColumn Title="Parameters">
+            @foreach (var param in @context.Parameters)
+            {
+                @param <br />
+            }
+        </TemplateColumn>
+        <PropertyColumn Property="@(c => c.Type)" />
+        <TemplateColumn Title="Description">
+            <div style="white-space: break-spaces">
+                @(new MarkupString(context.Description))
+            </div>
+        </TemplateColumn>        
     </FluentDataGrid>
 }

@@ -1,0 +1,188 @@
+@using Microsoft.AspNetCore.Components.Rendering
+@using Microsoft.Fast.Components.FluentUI.DataGrid
+
+@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentComponentBase
+@typeparam TGridItem
+@attribute [CascadingTypeParameter(nameof(TGridItem))]
+<CascadingValue TValue="InternalGridContext<TGridItem>" IsFixed="true" Value="@_internalGridContext">
+    @{
+        StartCollectingColumns();
+    }
+    @ChildContent
+    <Defer>
+        @{
+            FinishCollectingColumns();
+        }
+        <ColumnsCollectedNotifier TGridItem="TGridItem" />
+
+        <fluent-data-grid @ref=_gridReference
+                          no-tabbing=@NoTabbing
+                          generate-header="none"
+                          grid-template-columns=@GridTemplateColumns
+                          class="@GridClass()"
+                          aria-rowcount="@(_ariaBodyRowCount + 1)"
+                          @onrowfocus=HandleOnRowFocus
+                          @onclosecolumnoptions="CloseColumnOptions">
+            @if (GenerateHeader != GenerateHeaderOption.None)
+            {
+                DataGridRowType headerType = DataGridRowType.Header;
+                if (GenerateHeader == GenerateHeaderOption.Sticky)
+                    headerType = DataGridRowType.StickyHeader;
+                <FluentDataGridRow RowType=@headerType TGridItem=TGridItem>
+                    @_renderColumnHeaders
+                </FluentDataGridRow>
+            }
+
+            @if (Virtualize)
+            {
+                <Virtualize @ref="@_virtualizeComponent"
+                        TItem="(int RowIndex, TGridItem Data)"
+                        ItemSize="@RowsDataSize"
+                        ItemsProvider="@ProvideVirtualizedItems"
+                        ItemContent="@(item => builder => RenderRow(builder, item.RowIndex, item.Data))"
+                        Placeholder="@(placeholderContext => builder => RenderPlaceholderRow(builder, placeholderContext))" />
+            }
+            else
+            {
+                @_renderNonVirtualizedRows
+            }
+
+        </fluent-data-grid>
+    </Defer>
+</CascadingValue>
+
+@code {
+    private void RenderNonVirtualizedRows(RenderTreeBuilder __builder)
+    {
+        var initialRowIndex = (GenerateHeader != GenerateHeaderOption.None) ? 2 : 1; // aria-rowindex is 1-based, plus 1 if there is a header
+        var rowIndex = initialRowIndex;
+        foreach (var item in _currentNonVirtualizedViewItems)
+        {
+            RenderRow(__builder, rowIndex++, item);
+        }
+
+        // When pagination is enabled, by default ensure we render the exact number of expected rows per page,
+        // even if there aren't enough data items. This avoids the layout jumping on the last page.
+        // Consider making this optional.
+        if (Pagination is not null)
+        {
+            while (rowIndex++ < initialRowIndex + Pagination.ItemsPerPage)
+            {
+
+                //<FluentDataGridRow GridTemplateColumns=@GridTemplateColumns aria-rowindex="@(rowIndex)" TGridItem="TGridItem">
+                //</FluentDataGridRow>
+                string? _rowsDataSize = $"height: {RowsDataSize}px";
+                <fluent-data-grid-row grid-template-columns=@GridTemplateColumns aria-rowindex="@rowIndex" style="@_rowsDataSize">
+                </fluent-data-grid-row>
+                
+            }
+        }
+    }
+
+    private void RenderRow(RenderTreeBuilder __builder, int rowIndex, TGridItem item)
+    {
+        string? _rowsDataSize = null;
+        int colIndex = 1;
+        string RowId = Identifier.NewId();
+
+        if (Virtualize)
+        {
+            _rowsDataSize = $"height: {RowsDataSize}px";
+        }
+
+        <fluent-data-grid-row @key="@(RowsDataKey(item))" grid-template-columns=@GridTemplateColumns aria-rowindex="@rowIndex" row-id="@RowId" style="@_rowsDataSize">
+            @foreach (var col in _columns)
+            {
+                string CellId = Identifier.NewId();
+                <fluent-data-grid-cell grid-column=@(colIndex++) class="@ColumnClass(col)" @key="@col" cell-id="@CellId">
+                    @{
+                        col.CellContent(__builder, item);
+                    }
+                </fluent-data-grid-cell>
+
+            }
+        </fluent-data-grid-row>
+        //<FluentDataGridRow @key="@(RowsDataKey(item))" GridTemplateColumns=@GridTemplateColumns aria-rowindex="@rowIndex" TGridItem="TGridItem">
+        //    @foreach (var col in _columns)
+        //    {
+        //        <FluentDataGridCell GridColumn=@(colIndex++) class="@ColumnClass(col)" @key="@col" TGridItem="TGridItem">
+        //            @{
+        //                col.CellContent(__builder, item);
+        //            }
+        //        </FluentDataGridCell>
+        //    }
+        //</FluentDataGridRow>
+    }
+
+    private void RenderPlaceholderRow(RenderTreeBuilder __builder, PlaceholderContext placeholderContext)
+    {
+        string? _rowsDataSize = $"height: {RowsDataSize}px";
+       
+        int colIndex = 1;
+        string RowId = Identifier.NewId();
+        <fluent-data-grid-row grid-template-columns=@GridTemplateColumns aria-rowindex="@(placeholderContext.Index + 1)" row-id="@RowId" style="@_rowsDataSize">
+            @foreach (var col in _columns)
+            {
+                string CellId = Identifier.NewId();
+                <fluent-data-grid-cell class="grid-cell-placeholder @ColumnClass(col)" grid-column=@(colIndex++) @key="@col" cell-id="@CellId">
+                    @{
+                        col.RenderPlaceholderContent(__builder, placeholderContext);
+                    }
+                </fluent-data-grid-cell>
+                //<FluentDataGridCell class="grid-cell-placeholder @ColumnClass(col)" GridColumn=@(colIndex++)  @key="@col" TGridItem="TGridItem">
+                //    @{
+                //        col.RenderPlaceholderContent(__builder, placeholderContext);
+                //    }
+                //</FluentDataGridCell>
+            }
+        </fluent-data-grid-row>
+        //<FluentDataGridRow GridTemplateColumns=@GridTemplateColumns aria-rowindex="@(placeholderContext.Index + 1)" TGridItem="TGridItem">
+
+        //    @foreach (var col in _columns)
+        //    {
+        //        <FluentDataGridCell class="@ColumnClass(col)" @key="@col" GridColumn=@(colIndex++) TGridItem="TGridItem">
+        //            @{
+        //                col.RenderPlaceholderContent(__builder, placeholderContext);
+        //            }
+        //        </FluentDataGridCell>
+        //    }
+        //</FluentDataGridRow>
+    }
+
+    private void RenderColumnHeaders(RenderTreeBuilder __builder)
+    {
+        int colIndex = 1;
+        foreach (var col in _columns)
+        {
+            string CellId = Identifier.NewId();
+            if (_sortByColumn == col)
+                col.ShowSortIcon = true;
+            else
+                col.ShowSortIcon = false;
+            <fluent-data-grid-cell grid-column=@(colIndex++) cell-type=columnheader class="column-header @ColumnHeaderClass(col)" aria-sort="@AriaSortValue(col)" cell-id="@CellId" @key="@col" scope="col">
+                @col.HeaderContent
+                @if (col == _displayOptionsForColumn)
+                {
+                    <div class="col-options">@col.ColumnOptions</div>
+                }
+                @*@if (ResizableColumns)
+                {
+                <div class="col-width-draghandle"></div>
+                }*@
+            </fluent-data-grid-cell>
+                
+            //<FluentDataGridCell GridColumn=@(colIndex++) CellType=DataGridCellType.ColumnHeader class="@ColumnHeaderClass(col)" aria-sort="@AriaSortValue(col)" @key="@col" TGridItem="TGridItem">
+            //    <div class="col-header-content">@col.HeaderContent</div>
+            //    @if (col == _displayOptionsForColumn)
+            //    {
+            //        <div class="col-options">@col.ColumnOptions</div>
+            //    }
+            //    @if (ResizableColumns)
+            //    {
+            //    <div class="col-width-draghandle"></div>
+            //    }
+            //</FluentDataGridCell>
+        }
+    }
+}

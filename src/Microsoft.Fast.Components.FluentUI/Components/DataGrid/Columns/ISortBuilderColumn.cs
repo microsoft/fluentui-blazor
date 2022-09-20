@@ -1,7 +1,7 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
-namespace Microsoft.Fast.Components.FluentUI.Grid;
+namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary>
 /// An interface that, if implemented by a <see cref="ColumnBase{TGridItem}"/> subclass, allows a <see cref="FluentDataGrid{TGridItem}"/>

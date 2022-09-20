@@ -13,50 +13,29 @@
 <h2>FluentComponentBase Class</h2>
 
 <h3>Parameters</h3>
-<FluentDataGrid RowsData="@Properties.ToList()" ColumnDefinitions=@_propertiesGrid GridTemplateColumns="1fr 1fr 0.5fr 1.5fr">
-    <RowItemTemplate>
-        <FluentDataGridRow>
-            <FluentDataGridCell GridColumn="1">
-                <FluentBadge Appearance="Appearance.Neutral">@context.Name</FluentBadge>
-            </FluentDataGridCell>
-            <FluentDataGridCell GridColumn="2">
-                @context.Type
-            </FluentDataGridCell>
-            <FluentDataGridCell GridColumn="3">
-                @context.Default
-            </FluentDataGridCell>
-            <FluentDataGridCell GridColumn="4">
-                <div style="white-space: break-spaces">
-                    @(new MarkupString(context.Description))
-                </div>
-            </FluentDataGridCell>
-        </FluentDataGridRow>
-    </RowItemTemplate>
+<FluentDataGrid RowsData="@Properties.AsQueryable()" GridTemplateColumns="1fr 1fr 0.5fr 1.5fr">
+    <TemplateColumn Title="Name">
+        <code>@context.Name</code>
+    </TemplateColumn>
+    <PropertyColumn Property="@(c => c.Type)" />
+    <PropertyColumn Property="@(c => c.Default)" />
+    <TemplateColumn Title="Description">
+        <div style="white-space: break-spaces">
+            @(new MarkupString(context.Description))
+        </div>
+    </TemplateColumn>
 </FluentDataGrid>
 
 
 @code {
     private record paramDef(string Name, string Type, string? Default, string Description);
-    private List<ColumnDefinition<paramDef>> _propertiesGrid = new();
-
+    
     private List<paramDef> Properties = new List<paramDef>
     {
         new paramDef("AdditionalAttributes"," IReadOnlyDictionary<string, object>?","null","Gets or sets a collection of additional attributes that will be applied to the created element."),
         new paramDef("BackReference","Reference?","null","A reference to the enclosing component."),
         new paramDef("ChildContent","RenderFragment?","null","Gets or sets the content to be rendered inside the component")
     };
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        _propertiesGrid.Add(new ColumnDefinition<paramDef>("Name", x => x.Name));
-        _propertiesGrid.Add(new ColumnDefinition<paramDef>("Type", x => x.Type));
-        _propertiesGrid.Add(new ColumnDefinition<paramDef>("Default", x => x.Default ?? ""));
-        _propertiesGrid.Add(new ColumnDefinition<paramDef>("Description", x => x.Description));
-
-    }
-
 }
 
 

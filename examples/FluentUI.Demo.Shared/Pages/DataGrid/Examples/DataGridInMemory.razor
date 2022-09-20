@@ -1,0 +1,23 @@
+﻿@inject DataSource Data
+
+<div style="height: 400px; overflow-y: scroll;">
+    <FluentDataGrid RowsData="@itemsQueryable">
+        <PropertyColumn Property="@(c => c.Name)" Sortable="true" />
+        <PropertyColumn Property="@(c => c.Medals.Gold)" Sortable="true" Align="Align.Right" />
+        <PropertyColumn Property="@(c => c.Medals.Silver)" Sortable="true" Align="Align.Right" />
+        <PropertyColumn Property="@(c => c.Medals.Bronze)" Sortable="true" Align="Align.Right" />
+        <PropertyColumn Property="@(c => c.Medals.Total)" Sortable="true" Align="Align.Right" />
+    </FluentDataGrid>
+</div>
+
+@code {
+    IQueryable<Country>? itemsQueryable;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // This could use HttpClient's GetFromJsonAsync, or be a direct database query, etc.
+        var items = await Data.GetCountriesAsync();
+
+        itemsQueryable = items.AsQueryable();
+    }
+}

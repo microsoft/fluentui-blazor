@@ -5,6 +5,12 @@
     font-size: var(--type-ramp-base-font-size);
     line-height: var(--type-ramp-base-line-height);
     margin: 0;
+
+    --design-unit: 4;
+    --focus-stroke-width: 2;
+    --stroke-width: 1;
+    --density: 0;
+
 }
 
 #container {

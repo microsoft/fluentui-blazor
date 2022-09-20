@@ -1,7 +1,6 @@
 ﻿using System.Reflection;
 using FluentUI.Demo.Generators;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Fast.Components.FluentUI;
 
 namespace FluentUI.Demo.Shared.Components;
 
@@ -9,10 +8,6 @@ namespace FluentUI.Demo.Shared.Components;
 public partial class ApiDocumentation
 {
     private IEnumerable<MemberDescription>? _allMembers = null;
-
-    private List<ColumnDefinition<MemberDescription>> _propertiesGrid = new();
-    private List<ColumnDefinition<MemberDescription>> _eventsGrid = new();
-    private List<ColumnDefinition<MemberDescription>> _methodsGrid = new();
 
     [Parameter, EditorRequired]
     public Type Component { get; set; } = default!;
@@ -25,27 +20,6 @@ public partial class ApiDocumentation
     private IEnumerable<MemberDescription> Events => GetMembers(MemberTypes.Event);
 
     private IEnumerable<MemberDescription> Methods => GetMembers(MemberTypes.Method);
-
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-
-        _propertiesGrid.Add(new ColumnDefinition<MemberDescription>("Name", x => x.Name));
-        _propertiesGrid.Add(new ColumnDefinition<MemberDescription>("Type", x => x.Type));
-        _propertiesGrid.Add(new ColumnDefinition<MemberDescription>("Default", x => x.Default ?? ""));
-        _propertiesGrid.Add(new ColumnDefinition<MemberDescription>("Description", x => x.Description));
-
-        _eventsGrid.Add(new ColumnDefinition<MemberDescription>("Name", x => x.Name));
-        _eventsGrid.Add(new ColumnDefinition<MemberDescription>("Type", x => x.Type));
-        _eventsGrid.Add(new ColumnDefinition<MemberDescription>("Description", x => x.Description));
-
-        _methodsGrid.Add(new ColumnDefinition<MemberDescription>("Name", x => x.Name));
-        _methodsGrid.Add(new ColumnDefinition<MemberDescription>("Parameters", x => x.Parameters));
-        //MethodsGrid.Add(new ColumnDefinition<MemberDescription>("Return", x => x.Return));
-        _methodsGrid.Add(new ColumnDefinition<MemberDescription>("Description", x => x.Description));
-    }
 
     private IEnumerable<MemberDescription> GetMembers(MemberTypes type)
     {

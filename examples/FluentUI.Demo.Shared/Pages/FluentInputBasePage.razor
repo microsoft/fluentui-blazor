@@ -14,66 +14,48 @@
 <h2>FluentInputBase&lt;TValue&gt; Class</h2>
 
 <h3>Parameters</h3>
-<FluentDataGrid RowsData="@Properties.ToList()" ColumnDefinitions=@_propertiesGrid GridTemplateColumns="1fr 1fr 0.5fr 1.5fr">
-    <RowItemTemplate>
-        <FluentDataGridRow>
-            <FluentDataGridCell GridColumn="1">
-                <FluentBadge Appearance="Appearance.Neutral">@context.Name</FluentBadge>
-            </FluentDataGridCell>
-            <FluentDataGridCell GridColumn="2">
-                @context.Type
-            </FluentDataGridCell>
-            <FluentDataGridCell GridColumn="3">
-                @context.Default
-            </FluentDataGridCell>
-            <FluentDataGridCell GridColumn="4">
-                <div style="white-space: break-spaces">
-                    @(new MarkupString(context.Description))
-                </div>
-            </FluentDataGridCell>
-        </FluentDataGridRow>
-    </RowItemTemplate>
+<FluentDataGrid RowsData="@Properties.AsQueryable()" GridTemplateColumns="1fr 1fr 0.5fr 1.5fr">
+    <TemplateColumn Title="Name">
+        <code>@context.Name</code>
+    </TemplateColumn>
+    <PropertyColumn Property="@(c => c.Type)" />
+    <PropertyColumn Property="@(c => c.Default)" />
+    <TemplateColumn Title="Description">
+        <div style="white-space: break-spaces">
+            @(new MarkupString(context.Description))
+        </div>
+    </TemplateColumn>
 </FluentDataGrid>
 
 <h3>EventCallbacks</h3>
-<FluentDataGrid RowsData="@Callbacks.ToList()" ColumnDefinitions="@_eventsGrid" GridTemplateColumns="1fr 1fr 1fr">
-    <RowItemTemplate>
-        <FluentDataGridRow>
-            <FluentDataGridCell GridColumn="1">
-                <code>@context.Name</code>
-            </FluentDataGridCell>
-            <FluentDataGridCell GridColumn="2">
-                @context.Type
-            </FluentDataGridCell>
-            <FluentDataGridCell GridColumn="3">
-                <div style="white-space: break-spaces">
-                    @context.Description
-                </div>
-            </FluentDataGridCell>
-        </FluentDataGridRow>
-    </RowItemTemplate>
+<FluentDataGrid RowsData="@Callbacks.AsQueryable()" GridTemplateColumns="1fr 1fr 1fr">
+    <TemplateColumn Title="Name">
+        <code>@context.Name</code>
+    </TemplateColumn>
+    <PropertyColumn Property="@(c => c.Type)" />
+    <TemplateColumn Title="Description">
+        <div style="white-space: break-spaces">
+            @(new MarkupString(context.Description))
+        </div>
+    </TemplateColumn>
 </FluentDataGrid>
 
 <h3>Methods</h3>
-<FluentDataGrid RowsData="@Methods.ToList()" ColumnDefinitions="@_methodsGrid" GridTemplateColumns="1fr 1fr 1fr">
-    <RowItemTemplate>
-        <FluentDataGridRow>
-            <FluentDataGridCell GridColumn="1">
-                <code>@context.Name</code>
-            </FluentDataGridCell>
-            <FluentDataGridCell GridColumn="2">
-                @foreach (var param in @context.Parameters.Split(','))
-                {
-                    @param <br />
-                }
-            </FluentDataGridCell>
-            <FluentDataGridCell GridColumn="3">
-                <div style="white-space: break-spaces">
-                    @context.Description
-                </div>
-            </FluentDataGridCell>
-        </FluentDataGridRow>
-    </RowItemTemplate>
+<FluentDataGrid RowsData="@Methods.AsQueryable()" GridTemplateColumns="1fr 1fr 1fr">
+    <TemplateColumn Title="Name">
+        <code>@context.Name</code>
+    </TemplateColumn>
+    <TemplateColumn Title="Parameters">
+        @foreach (var param in @context.Parameters.Split(','))
+        {
+            @param <br />
+        }
+    </TemplateColumn>
+    <TemplateColumn Title="Description">
+        <div style="white-space: break-spaces">
+            @(new MarkupString(context.Description))
+        </div>
+    </TemplateColumn>
 </FluentDataGrid>
 
 @code {
@@ -81,9 +63,6 @@
     private record eventDef(string Name, string Type, string Description);
     private record methodDef(string Name, string Parameters, string Description);
 
-    private List<ColumnDefinition<paramDef>> _propertiesGrid = new();
-    private List<ColumnDefinition<eventDef>> _eventsGrid = new();
-    private List<ColumnDefinition<methodDef>> _methodsGrid = new();
 
     private List<paramDef> Properties = new List<paramDef>
     {
@@ -107,26 +86,6 @@
         new methodDef("FocusAsync","","Exposes the FocusAsync() method."),
         new methodDef("FocusAsync","bool preventScroll","Exposes the elements FocusAsync(bool preventScroll) method.")
     };
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        _propertiesGrid.Add(new ColumnDefinition<paramDef>("Name", x => x.Name));
-        _propertiesGrid.Add(new ColumnDefinition<paramDef>("Type", x => x.Type));
-        _propertiesGrid.Add(new ColumnDefinition<paramDef>("Default", x => x.Default ?? ""));
-        _propertiesGrid.Add(new ColumnDefinition<paramDef>("Description", x => x.Description));
-
-        _eventsGrid.Add(new ColumnDefinition<eventDef>("Name", x => x.Name));
-        _eventsGrid.Add(new ColumnDefinition<eventDef>("Type", x => x.Type));
-        _eventsGrid.Add(new ColumnDefinition<eventDef>("Description", x => x.Description));
-
-        _methodsGrid.Add(new ColumnDefinition<methodDef>("Name", x => x.Name));
-        _methodsGrid.Add(new ColumnDefinition<methodDef>("Parameters", x => x.Parameters));
-        _methodsGrid.Add(new ColumnDefinition<methodDef>("Description", x => x.Description));
-
-    }
-
 }
 
 

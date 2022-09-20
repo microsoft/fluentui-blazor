@@ -1,7 +1,7 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
-namespace Microsoft.Fast.Components.FluentUI.Grid;
+namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary>
 /// Describes the direction in which a <see cref="FluentDataGrid{TGridItem}"/> column is sorted.
