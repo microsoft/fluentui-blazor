@@ -1,9 +1,9 @@
 ﻿@inject DataSource Data
 
-<div class="grid">
-    <FluentDataGrid RowsData="@FilteredItems" Pagination="@pagination">
+<div style="height: 400px; overflow-y: scroll;">
+    <FluentDataGrid RowsData="@FilteredItems" GridTemplateColumns="0.2fr 1fr 0.2fr 0.2fr 0.2fr 0.2fr">
         <TemplateColumn Title="Rank" SortBy="@rankSort" Align="Align.Center" IsDefaultSort="SortDirection.Ascending">
-            <img class="flag" src="flags/@(context.Code).svg" /> 
+            <img class="flag" src="_content/FluentUI.Demo.Shared/flags/@(context.Code).svg" /> 
         </TemplateColumn>
         <PropertyColumn Property="@(c => c.Name)" Sortable="true" Class="country-name">
             <ColumnOptions>
@@ -19,11 +19,10 @@
     </FluentDataGrid>
 </div>
 
-<Paginator Value="@pagination" />
 
 @code {
     IQueryable<Country>? items;
-    PaginationState pagination = new PaginationState { ItemsPerPage = 15 };
+
     string nameFilter = string.Empty;
 
     GridSort<Country> rankSort = GridSort<Country>

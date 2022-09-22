@@ -1,0 +1,9 @@
+﻿/* Ensure all the flags are the same size, and centered */
+.flag { width: 2rem; height: 1rem; margin: auto; }
+
+
+/* Stop country name text from wrapping, and truncate with ellipsis */
+::deep .country-name::part(control) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
