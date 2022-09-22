@@ -271,10 +271,10 @@
              unique identifier, such as a primary key value, for each data item.
             
              This allows the grid to preserve the association between row elements and data items based on their
-             unique identifiers, even when the <see cref="!:TGridItem"/> instances are replaced by new copies (for
+             unique identifiers, even when the <typeparamref name="TGridItem"/> instances are replaced by new copies (for
              example, after a new query against the underlying data store).
             
-             If not set, the @key will be the <see cref="!:TGridItem"/> instance itself.
+             If not set, the @key will be the <typeparamref name="TGridItem"/> instance itself.
              </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.Pagination">
@@ -282,7 +282,7 @@
              Optionally links this <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/> instance with a <see cref="T:Microsoft.Fast.Components.FluentUI.PaginationState"/> model,
              causing the grid to fetch and render only the current page of data.
             
-             This is normally used in conjunction with a <see cref="T:Microsoft.Fast.Components.FluentUI.Paginator"/> component or some other UI logic
+             This is normally used in conjunction with a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentPaginator"/> component or some other UI logic
              that displays and updates the supplied <see cref="T:Microsoft.Fast.Components.FluentUI.PaginationState"/> instance.
              </summary>
         </member>
@@ -478,162 +478,8 @@
             </summary>
             <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
             <param name="items">The items being supplied.</param>
-            <param name="totalItemCount">The total numer of items that exist. See <see cref="!:TotalItemCount"/> for details.</param>
+            <param name="totalItemCount">The total numer of items that exist. See <see cref="P:Microsoft.Fast.Components.FluentUI.GridItemsProviderResult`1.TotalItemCount"/> for details.</param>
             <returns>An instance of <see cref="T:Microsoft.Fast.Components.FluentUI.GridItemsProviderResult`1"/>.</returns>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.ColumnsCollectedNotifier`1">
-            <summary>
-            For internal use only. Do not use.
-            </summary>
-            <typeparam name="TGridItem">For internal use only. Do not use.</typeparam>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.Defer">
-            <summary>
-            For internal use only. Do not use.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.Defer.ChildContent">
-            <summary>
-            For internal use only. Do not use.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.Defer.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
-            <summary>
-            For internal use only. Do not use.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.EventCallbackSubscribable`1">
-            <summary>
-            Represents an event that you may subscribe to. This differs from normal C# events in that the handlers
-            are EventCallback<typeparamref name="T"/>, and so may have async behaviors and cause component re-rendering
-            while retaining error flow.
-            </summary>
-            <typeparam name="T">A type for the eventargs.</typeparam>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.EventCallbackSubscribable`1.InvokeCallbacksAsync(`0)">
-            <summary>
-            Invokes all the registered callbacks sequentially, in an undefined order.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.EventCallbackSubscriber`1">
-            <summary>
-            Represents a subscriber that may be subscribe to an <see cref="T:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.EventCallbackSubscribable`1"/>.
-            The subscription can move between <see cref="T:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.EventCallbackSubscribable`1"/> instances over time,
-            and automatically unsubscribes from earlier <see cref="T:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.EventCallbackSubscribable`1"/> instances
-            whenever it moves to a new one.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.EventCallbackSubscriber`1.SubscribeOrMove(Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.EventCallbackSubscribable{`0})">
-             <summary>
-             Creates a subscription on the <paramref name="subscribable"/>, or moves any existing subscription to it
-             by first unsubscribing from the previous <see cref="T:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.EventCallbackSubscribable`1"/>.
-            
-             If the supplied <paramref name="subscribable"/> is null, no new subscription will be created, but any
-             existing one will still be unsubscribed.
-             </summary>
-             <param name="subscribable"></param>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.EventHandlers">
-            <summary>
-            Configures event handlers for <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/>.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.IAsyncQueryExecutor">
-            <summary>
-            Provides methods for asynchronous evaluation of queries against an <see cref="T:System.Linq.IQueryable`1" />.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.IAsyncQueryExecutor.IsSupported``1(System.Linq.IQueryable{``0})">
-            <summary>
-            Determines whether the <see cref="T:System.Linq.IQueryable`1" /> is supported by this <see cref="T:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.IAsyncQueryExecutor"/> type.
-            </summary>
-            <typeparam name="T">The data type.</typeparam>
-            <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> instance.</param>
-            <returns>True if this <see cref="T:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.IAsyncQueryExecutor"/> instance can perform asynchronous queries for the supplied <paramref name="queryable"/>, otherwise false.</returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.IAsyncQueryExecutor.CountAsync``1(System.Linq.IQueryable{``0})">
-            <summary>
-            Asynchronously counts the items in the <see cref="T:System.Linq.IQueryable`1" />, if supported.
-            </summary>
-            <typeparam name="T">The data type.</typeparam>
-            <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> instance.</param>
-            <returns>The number of items in <paramref name="queryable"/>.</returns>.
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.IAsyncQueryExecutor.ToArrayAsync``1(System.Linq.IQueryable{``0})">
-            <summary>
-            Asynchronously materializes the <see cref="T:System.Linq.IQueryable`1" /> as an array, if supported.
-            </summary>
-            <typeparam name="T">The data type.</typeparam>
-            <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> instance.</param>
-            <returns>The items in the <paramref name="queryable"/>.</returns>.
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.PaginationState">
-            <summary>
-            Holds state to represent pagination in a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/>.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.PaginationState.ItemsPerPage">
-            <summary>
-            Gets or sets the number of items on each page.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.PaginationState.CurrentPageIndex">
-            <summary>
-            Gets the current zero-based page index. To set it, call <see cref="M:Microsoft.Fast.Components.FluentUI.PaginationState.SetCurrentPageIndexAsync(System.Int32)" />.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.PaginationState.TotalItemCount">
-            <summary>
-            Gets the total number of items across all pages, if known. The value will be null until an
-            associated <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/> assigns a value after loading data.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.PaginationState.LastPageIndex">
-            <summary>
-            Gets the zero-based index of the last page, if known. The value will be null until <see cref="P:Microsoft.Fast.Components.FluentUI.PaginationState.TotalItemCount"/> is known.
-            </summary>
-        </member>
-        <member name="E:Microsoft.Fast.Components.FluentUI.PaginationState.TotalItemCountChanged">
-            <summary>
-            An event that is raised when the total item count has changed.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.PaginationState.GetHashCode">
-            <inheritdoc />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.PaginationState.SetCurrentPageIndexAsync(System.Int32)">
-            <summary>
-            Sets the current page index, and notifies any associated <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/>
-            to fetch and render updated data.
-            </summary>
-            <param name="pageIndex">The new, zero-based page index.</param>
-            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.Paginator">
-            <summary>
-            A component that provides a user interface for <see cref="T:Microsoft.Fast.Components.FluentUI.PaginationState"/>.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.Paginator.Value">
-            <summary>
-            Specifies the associated <see cref="T:Microsoft.Fast.Components.FluentUI.PaginationState"/>. This parameter is required.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.Paginator.SummaryTemplate">
-            <summary>
-            Optionally supplies a template for rendering the page count summary.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Paginator.#ctor">
-            <summary>
-            Constructs an instance of <see cref="T:Microsoft.Fast.Components.FluentUI.Paginator" />.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Paginator.OnParametersSet">
-            <inheritdoc />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Paginator.Dispose">
-            <inheritdoc />
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.SortDirection">
             <summary>
@@ -1783,6 +1629,74 @@
             <summary>
             Gets or sets the currently selected tree item
             </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.FluentPaginator">
+            <summary>
+            A component that provides a user interface for <see cref="T:Microsoft.Fast.Components.FluentUI.PaginationState"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPaginator.Value">
+            <summary>
+            Specifies the associated <see cref="T:Microsoft.Fast.Components.FluentUI.PaginationState"/>. This parameter is required.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPaginator.SummaryTemplate">
+            <summary>
+            Optionally supplies a template for rendering the page count summary.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentPaginator.#ctor">
+            <summary>
+            Constructs an instance of <see cref="T:Microsoft.Fast.Components.FluentUI.FluentPaginator" />.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentPaginator.OnParametersSet">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentPaginator.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.PaginationState">
+            <summary>
+            Holds state to represent pagination in a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.PaginationState.ItemsPerPage">
+            <summary>
+            Gets or sets the number of items on each page.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.PaginationState.CurrentPageIndex">
+            <summary>
+            Gets the current zero-based page index. To set it, call <see cref="M:Microsoft.Fast.Components.FluentUI.PaginationState.SetCurrentPageIndexAsync(System.Int32)" />.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.PaginationState.TotalItemCount">
+            <summary>
+            Gets the total number of items across all pages, if known. The value will be null until an
+            associated <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/> assigns a value after loading data.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.PaginationState.LastPageIndex">
+            <summary>
+            Gets the zero-based index of the last page, if known. The value will be null until <see cref="P:Microsoft.Fast.Components.FluentUI.PaginationState.TotalItemCount"/> is known.
+            </summary>
+        </member>
+        <member name="E:Microsoft.Fast.Components.FluentUI.PaginationState.TotalItemCountChanged">
+            <summary>
+            An event that is raised when the total item count has changed.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.PaginationState.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.PaginationState.SetCurrentPageIndexAsync(System.Int32)">
+            <summary>
+            Sets the current page index, and notifies any associated <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/>
+            to fetch and render updated data.
+            </summary>
+            <param name="pageIndex">The new, zero-based page index.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DesignTokens.DesignToken`1.Name">
             <summary>
@@ -4834,6 +4748,92 @@
             Example: f127d9edf14385adb
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.Infrastructure.ColumnsCollectedNotifier`1">
+            <summary>
+            For internal use only. Do not use.
+            </summary>
+            <typeparam name="TGridItem">For internal use only. Do not use.</typeparam>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.Infrastructure.Defer">
+            <summary>
+            For internal use only. Do not use.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Infrastructure.Defer.ChildContent">
+            <summary>
+            For internal use only. Do not use.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Infrastructure.Defer.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
+            <summary>
+            For internal use only. Do not use.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.Infrastructure.EventCallbackSubscribable`1">
+            <summary>
+            Represents an event that you may subscribe to. This differs from normal C# events in that the handlers
+            are EventCallback<typeparamref name="T"/>, and so may have async behaviors and cause component re-rendering
+            while retaining error flow.
+            </summary>
+            <typeparam name="T">A type for the eventargs.</typeparam>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Infrastructure.EventCallbackSubscribable`1.InvokeCallbacksAsync(`0)">
+            <summary>
+            Invokes all the registered callbacks sequentially, in an undefined order.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.Infrastructure.EventCallbackSubscriber`1">
+            <summary>
+            Represents a subscriber that may be subscribe to an <see cref="T:Microsoft.Fast.Components.FluentUI.Infrastructure.EventCallbackSubscribable`1"/>.
+            The subscription can move between <see cref="T:Microsoft.Fast.Components.FluentUI.Infrastructure.EventCallbackSubscribable`1"/> instances over time,
+            and automatically unsubscribes from earlier <see cref="T:Microsoft.Fast.Components.FluentUI.Infrastructure.EventCallbackSubscribable`1"/> instances
+            whenever it moves to a new one.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Infrastructure.EventCallbackSubscriber`1.SubscribeOrMove(Microsoft.Fast.Components.FluentUI.Infrastructure.EventCallbackSubscribable{`0})">
+             <summary>
+             Creates a subscription on the <paramref name="subscribable"/>, or moves any existing subscription to it
+             by first unsubscribing from the previous <see cref="T:Microsoft.Fast.Components.FluentUI.Infrastructure.EventCallbackSubscribable`1"/>.
+            
+             If the supplied <paramref name="subscribable"/> is null, no new subscription will be created, but any
+             existing one will still be unsubscribed.
+             </summary>
+             <param name="subscribable"></param>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.Infrastructure.EventHandlers">
+            <summary>
+            Configures event handlers for <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.Infrastructure.IAsyncQueryExecutor">
+            <summary>
+            Provides methods for asynchronous evaluation of queries against an <see cref="T:System.Linq.IQueryable`1" />.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Infrastructure.IAsyncQueryExecutor.IsSupported``1(System.Linq.IQueryable{``0})">
+            <summary>
+            Determines whether the <see cref="T:System.Linq.IQueryable`1" /> is supported by this <see cref="T:Microsoft.Fast.Components.FluentUI.Infrastructure.IAsyncQueryExecutor"/> type.
+            </summary>
+            <typeparam name="T">The data type.</typeparam>
+            <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> instance.</param>
+            <returns>True if this <see cref="T:Microsoft.Fast.Components.FluentUI.Infrastructure.IAsyncQueryExecutor"/> instance can perform asynchronous queries for the supplied <paramref name="queryable"/>, otherwise false.</returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Infrastructure.IAsyncQueryExecutor.CountAsync``1(System.Linq.IQueryable{``0})">
+            <summary>
+            Asynchronously counts the items in the <see cref="T:System.Linq.IQueryable`1" />, if supported.
+            </summary>
+            <typeparam name="T">The data type.</typeparam>
+            <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> instance.</param>
+            <returns>The number of items in <paramref name="queryable"/>.</returns>.
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Infrastructure.IAsyncQueryExecutor.ToArrayAsync``1(System.Linq.IQueryable{``0})">
+            <summary>
+            Asynchronously materializes the <see cref="T:System.Linq.IQueryable`1" /> as an array, if supported.
+            </summary>
+            <typeparam name="T">The data type.</typeparam>
+            <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> instance.</param>
+            <returns>The items in the <paramref name="queryable"/>.</returns>.
         </member>
     </members>
 </doc>

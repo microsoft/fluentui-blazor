@@ -3,7 +3,7 @@
 
 using Microsoft.AspNetCore.Components;
 
-namespace Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
+namespace Microsoft.Fast.Components.FluentUI.Infrastructure;
 
 /// <summary>
 /// Represents a subscriber that may be subscribe to an <see cref="EventCallbackSubscribable{T}"/>.

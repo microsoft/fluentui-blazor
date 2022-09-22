@@ -3,7 +3,7 @@
 
 using Microsoft.AspNetCore.Components;
 
-namespace Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
+namespace Microsoft.Fast.Components.FluentUI.Infrastructure;
 
 /// <summary>
 /// Configures event handlers for <see cref="FluentDataGrid{TGridItem}"/>.

@@ -1,15 +1,14 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 using Microsoft.AspNetCore.Components;
-using Microsoft.Fast.Components.FluentUI.DataGrid;
-using Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
+using Microsoft.Fast.Components.FluentUI.Infrastructure;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary>
 /// A component that provides a user interface for <see cref="PaginationState"/>.
 /// </summary>
-public partial class Paginator : IDisposable
+public partial class FluentPaginator : IDisposable
 {
     private readonly EventCallbackSubscriber<PaginationState> _totalItemCountChanged;
 
@@ -24,9 +23,9 @@ public partial class Paginator : IDisposable
     [Parameter] public RenderFragment? SummaryTemplate { get; set; }
 
     /// <summary>
-    /// Constructs an instance of <see cref="Paginator" />.
+    /// Constructs an instance of <see cref="FluentPaginator" />.
     /// </summary>
-    public Paginator()
+    public FluentPaginator()
     {
         // The "total item count" handler doesn't need to do anything except cause this component to re-render
         _totalItemCountChanged = new(new EventCallback<PaginationState>(this, null));

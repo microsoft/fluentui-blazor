@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Components;
-using Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
+using Microsoft.Fast.Components.FluentUI.Infrastructure;
 
 namespace Microsoft.Fast.Components.FluentUI;
 

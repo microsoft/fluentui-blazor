@@ -4,7 +4,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
-namespace Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
+namespace Microsoft.Fast.Components.FluentUI.Infrastructure;
 
 // This is used by QuickGrid to move its body rendering to the end of the render queue so we can collect
 // the list of child columns first. It has to be public only because it's used from .razor logic.

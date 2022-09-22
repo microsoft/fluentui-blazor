@@ -3,8 +3,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
-using Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
-
+using Microsoft.Fast.Components.FluentUI.Infrastructure;
 using Microsoft.JSInterop;
 
 namespace Microsoft.Fast.Components.FluentUI;
@@ -64,10 +63,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IAsyncDisp
     /// unique identifier, such as a primary key value, for each data item.
     ///
     /// This allows the grid to preserve the association between row elements and data items based on their
-    /// unique identifiers, even when the <see cref="TGridItem"/> instances are replaced by new copies (for
+    /// unique identifiers, even when the <typeparamref name="TGridItem"/> instances are replaced by new copies (for
     /// example, after a new query against the underlying data store).
     ///
-    /// If not set, the @key will be the <see cref="TGridItem"/> instance itself.
+    /// If not set, the @key will be the <typeparamref name="TGridItem"/> instance itself.
     /// </summary>
     [Parameter] public Func<TGridItem, object> RowsDataKey { get; set; } = x => x!;
 
@@ -75,7 +74,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IAsyncDisp
     /// Optionally links this <see cref="FluentDataGrid{TGridItem}"/> instance with a <see cref="PaginationState"/> model,
     /// causing the grid to fetch and render only the current page of data.
     ///
-    /// This is normally used in conjunction with a <see cref="Paginator"/> component or some other UI logic
+    /// This is normally used in conjunction with a <see cref="FluentPaginator"/> component or some other UI logic
     /// that displays and updates the supplied <see cref="PaginationState"/> instance.
     /// </summary>
     [Parameter] public PaginationState? Pagination { get; set; }
@@ -216,7 +215,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IAsyncDisp
             _checkColumnOptionsPosition = false;
             _ = _jsModule?.InvokeVoidAsync("checkColumnOptionsPosition", _gridReference);
         }
-        await Task.FromResult(0);
     }
 
     // Invoked by descendant columns at a special time during rendering
@@ -230,8 +228,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IAsyncDisp
             {
                 _sortByColumn = column;
                 _sortByAscending = isDefaultSortDirection.Value != SortDirection.Descending;
-
-                //SortByAscending = _sortByAscending;
             }
         }
     }
@@ -265,7 +261,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IAsyncDisp
 
         _sortByColumn = column;
 
-        //SortByAscending = _sortByAscending;
         StateHasChanged(); // We want to see the updated sort order in the header, even before the data query is completed
         return RefreshDataAsync();
     }
@@ -321,7 +316,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IAsyncDisp
             {
                 _currentNonVirtualizedViewItems = result.Items;
                 _ariaBodyRowCount = _currentNonVirtualizedViewItems.Count;
-                //Pagination?.SetTotalItemCountAsync(result.TotalItemCount);
+                Pagination?.SetTotalItemCountAsync(result.TotalItemCount);
                 _pendingDataLoadCancellationTokenSource = null;
             }
         }
@@ -330,7 +325,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IAsyncDisp
     // Gets called both by RefreshDataCoreAsync and directly by the Virtualize child component during scrolling
     private async ValueTask<ItemsProviderResult<(int, TGridItem)>> ProvideVirtualizedItems(ItemsProviderRequest request)
     {
-        //_lastRefreshedPaginationStateHash = Pagination?.GetHashCode();
+        _lastRefreshedPaginationStateHash = Pagination?.GetHashCode();
 
         // Debounce the requests. This eliminates a lot of redundant queries at the cost of slight lag after interactions.
         // TODO: Consider making this configurable, or smarter (e.g., doesn't delay on first call in a batch, then the amount
@@ -432,20 +427,18 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IAsyncDisp
     {
         _currentPageItemsChanged.Dispose();
 
-        await Task.FromResult(0);
-
         try
         {
-            //if (_jsEventDisposable is not null)
-            //{
-            //    await _jsEventDisposable.InvokeVoidAsync("stop");
-            //    await _jsEventDisposable.DisposeAsync();
-            //}
+            if (_jsEventDisposable is not null)
+            {
+                await _jsEventDisposable.InvokeVoidAsync("stop");
+                await _jsEventDisposable.DisposeAsync();
+            }
 
-            //if (_jsModule is not null)
-            //{
-            //    await _jsModule.DisposeAsync();
-            //}
+            if (_jsModule is not null)
+            {
+                await _jsModule.DisposeAsync();
+            }
         }
         catch (JSDisconnectedException)
         {

@@ -3,7 +3,7 @@
 
 using Microsoft.AspNetCore.Components;
 
-namespace Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
+namespace Microsoft.Fast.Components.FluentUI.Infrastructure;
 
 /// <summary>
 /// Represents an event that you may subscribe to. This differs from normal C# events in that the handlers
