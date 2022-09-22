@@ -80,7 +80,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IAsyncDisp
     /// </summary>
     [Parameter] public PaginationState? Pagination { get; set; }
 
-    public bool? SortByAscending => _sortByAscending;
 
     /// <summary>
     /// When true the component will not add itself to the tab queue. Default is false.
@@ -149,6 +148,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IAsyncDisp
 
     // If the PaginationState mutates, it raises this event. We use it to trigger a re-render.
     private readonly EventCallbackSubscriber<PaginationState> _currentPageItemsChanged;
+    public bool? SortByAscending => _sortByAscending;
 
     /// <summary>
     /// Constructs an instance of <see cref="FluentDataGrid{TGridItem}"/>.

@@ -130,11 +130,6 @@
                         col.RenderPlaceholderContent(__builder, placeholderContext);
                     }
                 </fluent-data-grid-cell>
-                //<FluentDataGridCell class="grid-cell-placeholder @ColumnClass(col)" GridColumn=@(colIndex++)  @key="@col" TGridItem="TGridItem">
-                //    @{
-                //        col.RenderPlaceholderContent(__builder, placeholderContext);
-                //    }
-                //</FluentDataGridCell>
             }
         </fluent-data-grid-row>
         //<FluentDataGridRow GridTemplateColumns=@GridTemplateColumns aria-rowindex="@(placeholderContext.Index + 1)" TGridItem="TGridItem">
@@ -166,10 +161,7 @@
                 {
                     <div class="col-options">@col.ColumnOptions</div>
                 }
-                @*@if (ResizableColumns)
-                {
-                <div class="col-width-draghandle"></div>
-                }*@
+                
             </fluent-data-grid-cell>
                 
             //<FluentDataGridCell GridColumn=@(colIndex++) CellType=DataGridCellType.ColumnHeader class="@ColumnHeaderClass(col)" aria-sort="@AriaSortValue(col)" @key="@col" TGridItem="TGridItem">
@@ -177,10 +169,6 @@
             //    @if (col == _displayOptionsForColumn)
             //    {
             //        <div class="col-options">@col.ColumnOptions</div>
-            //    }
-            //    @if (ResizableColumns)
-            //    {
-            //    <div class="col-width-draghandle"></div>
             //    }
             //</FluentDataGridCell>
         }

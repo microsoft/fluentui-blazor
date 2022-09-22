@@ -114,7 +114,6 @@ fluent-data-grid {
     opacity: 0.75;
 }
 
-
 [dir=rtl] .col-options {
     left: unset;
     /*right: 0;*/
