@@ -80,7 +80,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IAsyncDisp
     /// </summary>
     [Parameter] public PaginationState? Pagination { get; set; }
 
-    [Parameter] public bool? SortByAscending { get; set; } = null;
+    public bool? SortByAscending => _sortByAscending;
 
     /// <summary>
     /// When true the component will not add itself to the tab queue. Default is false.
@@ -172,10 +172,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IAsyncDisp
     /// <inheritdoc />
     protected override Task OnParametersSetAsync()
     {
-        if (_sortByAscending != SortByAscending)
-        {
-            _sortByAscending = SortByAscending ?? true;
-        }
+        //if (_sortByAscending != SortByAscending)
+        //{
+        //    _sortByAscending = SortByAscending ?? true;
+        //}
 
         // The associated pagination state may have been added/removed/replaced
         _currentPageItemsChanged.SubscribeOrMove(Pagination?.CurrentPageItemsChanged);
@@ -230,6 +230,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IAsyncDisp
             {
                 _sortByColumn = column;
                 _sortByAscending = isDefaultSortDirection.Value != SortDirection.Descending;
+
+                //SortByAscending = _sortByAscending;
             }
         }
     }
@@ -263,7 +265,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IAsyncDisp
 
         _sortByColumn = column;
 
-        SortByAscending = _sortByAscending;
+        //SortByAscending = _sortByAscending;
         StateHasChanged(); // We want to see the updated sort order in the header, even before the data query is completed
         return RefreshDataAsync();
     }

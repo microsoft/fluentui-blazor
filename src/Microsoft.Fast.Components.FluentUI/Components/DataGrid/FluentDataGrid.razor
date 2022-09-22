@@ -156,7 +156,7 @@
         foreach (var col in _columns)
         {
             string CellId = Identifier.NewId();
-            if (_sortByColumn == col)
+                if (_sortByColumn == col || (_sortByColumn == col && col.IsDefaultSort != null))
                 col.ShowSortIcon = true;
             else
                 col.ShowSortIcon = false;

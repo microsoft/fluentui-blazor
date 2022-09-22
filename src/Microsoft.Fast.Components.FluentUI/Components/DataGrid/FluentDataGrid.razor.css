@@ -16,10 +16,11 @@ fluent-data-grid {
         padding-inline-end: 0;
     }
 
-    .column-header.col-justify-end .col-title {
-        width:fit-content;
-        padding-inline-end: 0;
+    .column-header.col-justify-center {
+        width: 100%;
+        padding: 0;
     }
+
 .column-header > ::deep .col-sort-button {
         width: 100%
     }
@@ -28,11 +29,37 @@ fluent-data-grid {
     font-weight: 600;
 }
 
-    ::deep .col-sort-button::part(control) {
-        font-weight: 600;
-        align-items: center;
-        justify-content: flex-start;
-    }
+::deep .col-title {
+    padding: 0 calc((12 + (var(--design-unit) * 2 * var(--density))) * 1px);
+    display: flex;
+    align-items: center;
+}
+
+::deep .col-title .col-options-button {
+    margin-right: 4px;
+    margin-left: -10px;
+}
+
+[dir=rtl] .column-header ::deep .col-title .col-options-button {
+    margin-left: 4px;
+    margin-right: -10px;
+}
+
+::deep .col-justify-end .col-title .col-options-button {
+    margin-left: 4px;
+    margin-right: -10px;
+}
+
+[dir=rtl] .col-justify-end ::deep .col-title .col-options-button {
+    margin-right: 4px;
+    margin-left: -10px;
+}
+ 
+::deep .col-sort-button::part(control) {
+    font-weight: 600;
+    align-items: center;
+    justify-content: flex-start;
+}
 
 
 ::deep .col-justify-center .col-sort-button::part(control) {
@@ -42,6 +69,10 @@ fluent-data-grid {
 
 ::deep .col-justify-end .col-sort-button::part(control) {
     text-align: end;
+    justify-content: flex-end;
+}
+
+::deep .col-justify-end .col-title {
     justify-content: flex-end;
 }
 
@@ -62,7 +93,7 @@ fluent-data-grid {
     border: 1px solid var(--neutral-layer-3);
     border-radius: 0.3rem;
     box-shadow: 0 3px 8px 1px var(--neutral-layer-4);
-    left: 0;
+    /*left: 0;*/
     padding: 1rem;
     z-index: 1;
 }
@@ -72,6 +103,11 @@ fluent-data-grid {
     right: 0;
 }
 
+::deep .col-title-text {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
 
 ::deep > fluent-data-grid-row > fluent-data-grid-cell.grid-cell-placeholder:after {
     content: '\2026'; /*horizontal ellipsis*/
@@ -81,7 +117,7 @@ fluent-data-grid {
 
 [dir=rtl] .col-options {
     left: unset;
-    right: 0;
+    /*right: 0;*/
 }
 
 [dir=rtl] .col-justify-end .col-options {
