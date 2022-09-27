@@ -1,21 +1,20 @@
 ﻿@inject DataSource Data
 
-<div>
-    <FluentDataGrid RowsData="@Data.People">
-        <TemplateColumn Title="Person" SortBy="@sortByName">
-            <div class="flex items-center">
-                <img class="flag" src="_content/FluentUI.Demo.Shared/flags/@(context.CountryCode).svg" />
-                <nobr>
-                    <strong>@context.LastName</strong>, @context.FirstName
-                </nobr>
-            </div>
-        </TemplateColumn>
-        <TemplateColumn Title="Actions">
-            <FluentButton Appearance="Appearance.Accent" @onclick="@(() => Hire(context))">Hire</FluentButton>
-            <FluentButton Appearance="Appearance.Accent" @onclick="@(() => Fire(context))">Fire</FluentButton>
-        </TemplateColumn>
-    </FluentDataGrid>
-</div>
+<FluentDataGrid RowsData="@Data.People" style="width: 600px;">
+    <TemplateColumn Title="Person" SortBy="@sortByName">
+        <div class="flex items-center">
+            <img class="flag" src="_content/FluentUI.Demo.Shared/flags/@(context.CountryCode).svg" />
+            <nobr>
+                <strong>@context.LastName</strong>, @context.FirstName
+            </nobr>
+        </div>
+    </TemplateColumn>
+    <TemplateColumn Title="Actions">
+        <FluentButton Appearance="Appearance.Accent" @onclick="@(() => Hire(context))">Hire</FluentButton>
+        <FluentButton Appearance="Appearance.Accent" @onclick="@(() => Fire(context))">Fire</FluentButton>
+    </TemplateColumn>
+</FluentDataGrid>
+
 
 <p><strong>@message</strong></p>
 

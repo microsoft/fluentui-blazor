@@ -44,3 +44,4 @@ UpgradeLog.htm
 .idea
 *.svclog
 /src/CustomElementsParser/GeneratedClasses
+/examples/FluentUI.Demo.Shared/wwwroot/examples

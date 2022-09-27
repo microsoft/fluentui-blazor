@@ -14,7 +14,7 @@ fluent-data-grid {
 
     .column-header.col-justify-end {
         width: 100%;
-        padding-inline: 0;
+        padding: 0;
     }
 
     .column-header.col-justify-center {
@@ -79,11 +79,13 @@ fluent-data-grid {
 }
 
 .col-justify-center {
-    justify-self:center;
+    justify-content: center;
+    justify-self: center;
 }
 .col-justify-end {
+    justify-content: end;
     justify-self: end;
-    padding-inline: 20px;
+    padding-inline-end: 20px;
 }
 
 ::deep .col-options-button {
@@ -92,6 +94,7 @@ fluent-data-grid {
 
 .col-options {
     position: absolute;
+    top: 2.2rem;
     background: var(--neutral-layer-2);
     border: 1px solid var(--neutral-layer-3);
     border-radius: 0.3rem;
@@ -103,7 +106,7 @@ fluent-data-grid {
 
 .col-justify-end .col-options {
     left: unset;
-    right: 0;
+    right: 15px;
 }
 
 ::deep .col-title-text {

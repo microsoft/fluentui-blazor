@@ -1,4 +1,5 @@
 ﻿@inject NavigationManager NavigationManager
+
 @if (!string.IsNullOrEmpty(Title))
 {
     @if (IsNew)
@@ -18,27 +19,44 @@
     </div>
 }
 
-@if (!string.IsNullOrEmpty(ExampleFile) )
-{
-    string target;
-    Uri uri = new Uri(NavigationManager.Uri);
-
-    if (uri.Segments.Count() > 1)
+<FluentTabs>
+    <FluentTab Text="Example" />
+    @foreach (string tab in GetSources())
     {
-        target = uri.Segments[1];
+        <FluentTab Text="@TabDisplayName(tab)" />
     }
-    else
-    {
-        target = "Index";
-    }   
-    <div class="demo-section-Example">
-        <DynamicComponent Type="@(Type.GetType($"FluentUI.Demo.Shared.Pages.{target}.Examples.{ExampleFile}"))"></DynamicComponent>
-    </div>
-}
 
-@if (HasCode)
-{
-    <h5>Code</h5>
-    <CodeSnippet>@CodeContents</CodeSnippet>
-}
+    <FluentTabPanel style="max-height: 500px; overflow-y: auto;">
+        @if (Component is not null)
+        {
+            string target;
+            Uri uri = new Uri(NavigationManager.Uri);
+
+            if (uri.Segments.Count() > 1)
+            {
+                target = uri.Segments[1];
+            }
+            else
+            {
+                target = "Index";
+            }
+            <div class="demo-section-Example">
+                <DynamicComponent Type="Component"/>
+            </div>
+        }
+    </FluentTabPanel>
+    @foreach (string tab in GetSources())
+    {
+        <FluentTabPanel style="max-height: 500px; overflow-y: auto;">
+            @if (HasCode)
+            {
+                <CodeSnippet Language="@TabLanguageClass(tab)">@TabPanelsContent[tab]</CodeSnippet>
+            }
+        </FluentTabPanel>
+    }
+
+</FluentTabs>
+
+
+
 

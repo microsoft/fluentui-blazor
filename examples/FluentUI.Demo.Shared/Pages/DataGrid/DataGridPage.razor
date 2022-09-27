@@ -5,14 +5,14 @@
 
 <h1>Data grid</h1>
 <p>
-    The <code>&lt;FluentDataGrid&gt;</code> component is used to display tabular data. The <code>&lt;FluentDataGridRow&gt;</code> 
-    and <code>&lt;FluentDataGridCell&gt;</code> components are typically created programmatically by the parent grid but some 
+    The <code>&lt;FluentDataGrid&gt;</code> component is used to display tabular data. The <code>&lt;FluentDataGridRow&gt;</code>
+    and <code>&lt;FluentDataGridCell&gt;</code> components are typically created programmatically by the parent grid but some
     authors may find it useful to create them manually.
 </p>
 <p>
-    <code>&lt;FluentDataGrid&gt;</code> wraps the <code>&lt;fluent-data-grid&gt;</code> element, a web component implementation 
+    <code>&lt;FluentDataGrid&gt;</code> wraps the <code>&lt;fluent-data-grid&gt;</code> element, a web component implementation
     of a data grid leveraging the Fluent  UI design system. Internally <code>&lt;FluentDataGrid&gt;</code> is using the code from
-    <a href="https://aspnet.github.io/quickgridsamples">QuickGrid</a> with a few adjustments to parameter names to stay in-line 
+    <a href="https://aspnet.github.io/quickgridsamples">QuickGrid</a> with a few adjustments to parameter names to stay in-line
     with the fluent-data-grid web component (see table below)
 </p>
 
@@ -51,17 +51,17 @@
 
 <h2>Examples</h2>
 
-<DemoSection Title="Get started" ExampleFile="DataGridGetStarted">
+<DemoSection Title="Get started" Component="@typeof(DataGridGetStarted)">
     <Description>To begin, add the following code to one of your Blazor page components to render a very simple grid (with sortable columns)</Description>
 </DemoSection>
 
-<DemoSection Title="Typical usage" ExampleFile="DataGridTypical">
+<DemoSection Title="Typical usage" Component="@typeof(DataGridTypical)">
     <Description>
         Here is an example of a data grid that uses in-memory data and enables features including pagination, sorting, filtering, column options and column resizing.
     </Description>
 </DemoSection>
 
-@*<DemoSection Title="Remote data" ExampleFile="DataGridRemoteData">
+@*<DemoSection Title="Remote data" Component="@typeof(DataGridRemoteData)">
     <Description>
         <p>
             If you're using Blazor WebAssembly, it's very common to fetch data from a JSON API on a server. If you want to
@@ -85,12 +85,52 @@
 </DemoSection>*@
 
 
-<DemoSection Title="Virtualized grid" ExampleFile="DataGridVirtualize"></DemoSection>
+<DemoSection Title="Virtualized grid" Component="@typeof(DataGridVirtualize)">
+    <Description>
+        <p>
+            It can be expensive both to fetch and to render large numbers of items. If the amount of data you're
+            displaying might be large, you should use either paging or virtualization.
+        </p>
+        <p>
+            Virtualization provides the appearance of continuous scrolling through an arbitrarily-large data set,
+            while only needing to fetch and render the rows that are currently in the scroll viewport. This can provide
+            excellent performance even when the data set is vast. FluentDataGrid's virtualization feature is built on Blazor's
+            built-in <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/virtualization?view=aspnetcore-6.0">Virtualize component</a>, so it shares the
+            same capabilities, requirements, and limitations.
+        </p>
+        <p>
+            Enabling virtualization is just a matter of passing <code>Virtualize="true"</code>. For it to work
+            properly and reliably, every row rendered must have the same known height. <strong>This is handeled 
+            by the <code>FluentDataGrid</code> code</strong>.
+        </p>
+    </Description>
+</DemoSection>
 
-<DemoSection Title="Template columns" ExampleFile="DataGridTemplateColumns"></DemoSection>
+<DemoSection Title="Template columns" Component="@typeof(DataGridTemplateColumns)">
+    <Description>
+        <p>
+            <code>TemplateColumn</code> uses arbitrary Razor fragments to supply contents for its cells. It can't
+            infer the column's title or sort order automatically.
+        </p>
+    </Description>
+</DemoSection>
 
-<DemoSection Title="Dynamic columns" ExampleFile="DataGridDynamicColumns"></DemoSection>
+<DemoSection Title="Dynamic columns" Component="@typeof(DataGridDynamicColumns)">
+    <Description>
+        <p>
+            You can make columns appear conditionally using normal Razor logic such as <code>@@if</code>. Example:
+        </p>
+    </Description>
+</DemoSection>
 
-<DemoSection Title="Custom paging UI" ExampleFile="DataGridCustomPaging"></DemoSection>
+<DemoSection Title="Custom paging UI" Component="@typeof(DataGridCustomPaging)" CollocatedFiles="@(new[] { "css" })">
+    <Description>
+        <p>
+            You can customize the appearance of <code>Paginator</code> by supplying a <code>SummaryTemplate</code>.
+            If you want further customization, you can create your own alternative UI that works with
+            <code>PaginationState</code>. Example:
+        </p>
+    </Description>
+</DemoSection>
 
-<DemoSection Title="Manual grid" ExampleFile="DataGridManual"></DemoSection>
+<DemoSection Title="Manual grid" Component="@typeof(DataGridManual)"></DemoSection>

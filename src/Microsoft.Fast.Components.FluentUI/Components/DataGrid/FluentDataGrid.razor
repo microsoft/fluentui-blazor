@@ -16,7 +16,8 @@
                           class="@GridClass()"
                           aria-rowcount="@(_ariaBodyRowCount + 1)"
                           @onrowfocus=HandleOnRowFocus
-                          @onclosecolumnoptions="CloseColumnOptions">
+                          @onclosecolumnoptions="CloseColumnOptions"
+                          @attributes="AdditionalAttributes">
             @if (GenerateHeader != GenerateHeaderOption.None)
             {
                 DataGridRowType headerType = DataGridRowType.Header;

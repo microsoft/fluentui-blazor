@@ -3,35 +3,29 @@
 // --------------------------------------------------------------
 
 namespace FluentUI.Demo.Shared.Components;
+
 using Microsoft.AspNetCore.Components;
-using Microsoft.Fast.Components.FluentUI;
 using Microsoft.JSInterop;
 
 /// <summary />
 public partial class CodeSnippet
 {
+    private ElementReference codeElement;
+
     [Inject]
-    private IJSRuntime _js { get; set; } = default!;
+    private IJSRuntime JS { get; set; } = default!;
 
     [Parameter]
     public RenderFragment ChildContent { get; set; } = default!;
 
     [Parameter]
-    public string Language { get; set; } = "language-razor";
-
-    public string Id { get; } = Identifier.NewId();
+    public string Language { get; set; } = "language-cshtml-razor";
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            try
-            {
-                await _js.InvokeVoidAsync("HighlightCode", Id);
-            }
-            catch
-            {
-            }
+            await JS.InvokeVoidAsync("hljs.highlightElement", codeElement);
         }
     }
 }

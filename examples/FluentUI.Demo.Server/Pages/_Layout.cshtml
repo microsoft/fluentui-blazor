@@ -19,14 +19,6 @@
             document.dir = dir;
         }
     </script>
-    <!-- highlight -->
-    <script>
-        window.HighlightCode = (id) => {
-            var element = document.getElementById(id);
-            if (typeof hljs != "undefined" && hljs != null && element != null)
-                hljs.highlightElement(element);
-        }
-    </script>
 </head>
 <body>
     @RenderBody()

@@ -1,4 +1,5 @@
-﻿using System.Reflection.Metadata;
+﻿using System.ComponentModel;
+using System.Reflection.Metadata;
 using FluentUI.Demo.Generators;
 using Microsoft.AspNetCore.Components;
 
@@ -6,47 +7,117 @@ using Microsoft.AspNetCore.Components;
 namespace FluentUI.Demo.Shared.Components;
 public partial class DemoSection : ComponentBase
 {
+    [Inject]
+    private HttpClient Http { get; set; } = default!;
+
     [Parameter, EditorRequired]
     public string Title { get; set; } = string.Empty;
 
     [Parameter]
     public RenderFragment? Description { get; set; }
 
+    /// <summary>
+    /// The component for wich the example will be shown. Enter the name only. '.razor' will be added internally
+    /// </summary>
     [Parameter, EditorRequired]
-    //No .razor needed
-    public string ExampleFile { get; set; } = string.Empty;
+    public Type Component { get; set; } = default!;
+
+    /// <summary>
+    /// Any collocated (isolated) .cs, .css or .js files. Enter the extensions only
+    /// Example: @(new[] { "css", "js" })
+    /// </summary>
+    [Parameter]
+    public string[]? CollocatedFiles { get; set; }
 
     [Parameter]
     public bool IsNew { get; set; }
 
     private bool HasCode { get; set; } = false;
 
-    private string? CodeContents { get; set; }
+    private Dictionary<string, string> TabPanelsContent { get; set; } = new();
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            if (!string.IsNullOrEmpty(ExampleFile))
-            {
-                HasCode = true;
-                SetCodeContents();
-            }
-        }
+            HasCode = true;
+            await SetCodeContentsAsync();
 
-        await base.OnAfterRenderAsync(firstRender);
+        }
     }
 
-    protected void SetCodeContents()
+    protected async Task SetCodeContentsAsync()
     {
         try
         {
-            CodeContents = DemoSnippets.GetRazor($"{ExampleFile}");
-            StateHasChanged();
+            foreach (string source in GetSources())
+            {
+                TabPanelsContent.Add(source, await Http.GetStringAsync($"_content/FluentUI.Demo.Shared/examples/{source}.txt"));
+            }
+
         }
         catch
         {
             //Do Nothing
         }
+    }
+
+    IEnumerable<string> GetSources()
+    {
+        yield return $"{Component.Name}.razor";
+        foreach (string ext in CollocatedFiles ?? Enumerable.Empty<string>())
+        {
+            yield return $"{Component.Name}.razor.{ext}";
+        }
+    }
+
+    static string TabDisplayName(string tabName)
+    {
+
+        if (tabName.EndsWith(".cs"))
+        {
+            return "C#";
+        }
+
+        if (tabName.EndsWith(".razor"))
+        {
+            return "Razor";
+        }
+
+        if (tabName.EndsWith(".css"))
+        {
+            return "CSS";
+        }
+
+        if (tabName.EndsWith(".js"))
+        {
+            return "JavaScript";
+        }
+
+        return tabName;
+    }
+
+    static string? TabLanguageClass(string tabName)
+    {
+        if (tabName.EndsWith(".cs"))
+        {
+            return "language-csharp";
+        }
+
+        if (tabName.EndsWith(".razor"))
+        {
+            return "language-cshtml-razor";
+        }
+
+        if (tabName.EndsWith(".css"))
+        {
+            return "language-css";
+        }
+        if (tabName.EndsWith(".js"))
+        {
+            return "language-javascript";
+        }
+
+        return null;
     }
 }
