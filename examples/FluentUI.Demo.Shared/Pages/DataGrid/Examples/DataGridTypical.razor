@@ -1,19 +1,19 @@
 ﻿@inject DataSource Data
 
-<div style="height: 400px; overflow-y: scroll;">
-    <FluentDataGrid RowsData="@FilteredItems" Pagination="@pagination" GridTemplateColumns="0.2fr 1fr 0.2fr 0.2fr 0.2fr 0.2fr">
+<div style="height: 436px; overflow:auto;">
+    <FluentDataGrid RowsData="@FilteredItems" ResizableColumns=true Pagination="@pagination" GridTemplateColumns="0.2fr 1fr 0.2fr 0.2fr 0.2fr 0.2fr">
         <TemplateColumn Title="Rank" SortBy="@rankSort" Align="Align.Center" IsDefaultSort="SortDirection.Ascending">
             <img class="flag" src="_content/FluentUI.Demo.Shared/flags/@(context.Code).svg" /> 
         </TemplateColumn>
-        <PropertyColumn Property="@(c => c.Name)" Sortable="true" Class="country-name">
+        <PropertyColumn Property="@(c => c.Name)" Sortable="true" >
             <ColumnOptions>
                 <div class="search-box">
                     <FluentSearch type="search" Autofocus=true @bind-Value=nameFilter @oninput="HandleCountryFilter" @onchange="HandleClear" Placeholder="Country name..." />
                 </div>
             </ColumnOptions>
         </PropertyColumn>
-        <PropertyColumn Property="@(c => c.Medals.Gold)" Sortable="true" Align="Align.Right" />
-        <PropertyColumn Property="@(c => c.Medals.Silver)" Sortable="true" Align="Align.Right" />
+        <PropertyColumn Property="@(c => c.Medals.Gold)" Sortable="true" Align="Align.Left" />
+        <PropertyColumn Property="@(c => c.Medals.Silver)" Sortable="true" Align="Align.Center" />
         <PropertyColumn Property="@(c => c.Medals.Bronze)" Sortable="true" Align="Align.Right" />
         <PropertyColumn Property="@(c => c.Medals.Total)" Sortable="true" Align="Align.Right" />
     </FluentDataGrid>
@@ -40,12 +40,15 @@
 
     private void HandleCountryFilter(ChangeEventArgs args)
     {
-        nameFilter = args.Value.ToString();
+        if (args.Value is string value)
+        {
+            nameFilter = value;
+        }
     }
 
     private void HandleClear(ChangeEventArgs args)
     {
-        if (args is not null && string.IsNullOrWhiteSpace(args.Value.ToString()))
+        if (args is not null && string.IsNullOrWhiteSpace(args.Value?.ToString()))
         {
             nameFilter = string.Empty;
         }

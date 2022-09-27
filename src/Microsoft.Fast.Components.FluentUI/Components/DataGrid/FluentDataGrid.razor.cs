@@ -59,6 +59,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IAsyncDisp
     [Parameter] public float RowsDataSize { get; set; } = 32;
 
     /// <summary>
+    /// If true, renders draggable handles around the column headers, allowing the user to resize the columns
+    /// manually. Size changes are not persisted.
+    /// </summary>
+    [Parameter] public bool ResizableColumns { get; set; }
+
+    /// <summary>
     /// Optionally defines a value for @key on each rendered row. Typically this should be used to specify a
     /// unique identifier, such as a primary key value, for each data item.
     ///

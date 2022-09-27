@@ -11,7 +11,7 @@ public partial class FluentSkeleton : FluentComponentBase
     public string? Fill { get; set; }
 
     /// <summary>
-    /// Gets or sets the shape of the skeleton. See <see cref="FluentUI.Shape"/>
+    /// Gets or sets the shape of the skeleton. See <see cref="FluentUI.SkeletonShape"/>
     /// </summary>
     [Parameter]
     public SkeletonShape? Shape { get; set; }

@@ -7,7 +7,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentTextArea : FluentInputBase<string?>
 {
     /// <summary>
-    /// Gets or sets if the text area is resizeable. See <see cref="FluentUI.Resize"/>
+    /// Gets or sets if the text area is resizeable. See <see cref="FluentUI.TextAreaResize"/>
     /// </summary>
     [Parameter]
     public TextAreaResize? Resize { get; set; }

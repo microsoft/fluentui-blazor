@@ -11,7 +11,7 @@ internal static class AsyncQueryExecutorSupplier
     // The primary goal with this is to ensure that:
     //  - If you're using EF Core, then we resolve queries efficiently using its ToXyzAsync async extensions and don't
     //    just fall back on the synchronous IQueryable ToXyz calls
-    //  - ... but without QuickGrid referencing Microsoft.EntityFramework directly. That's because it would bring in
+    //  - ... but without FluentDataGrid referencing Microsoft.EntityFramework directly. That's because it would bring in
     //    heavy dependencies you may not be using (and relying on trimming isn't enough, as it's still desirable to have
     //    heavy unused dependencies for Blazor Server).
     //
@@ -34,7 +34,7 @@ internal static class AsyncQueryExecutorSupplier
                 var providerType = queryable.Provider?.GetType();
                 if (providerType is not null && IsEntityFrameworkProviderTypeCache.GetOrAdd(providerType, IsEntityFrameworkProviderType))
                 {
-                    throw new InvalidOperationException($"The supplied {nameof(IQueryable)} is provided by Entity Framework. To query it efficiently, you must reference the package Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter and call AddQuickGridEntityFrameworkAdapter on your service collection.");
+                    throw new InvalidOperationException($"The supplied {nameof(IQueryable)} is provided by Entity Framework. To query it efficiently, you must call AddFluentDataGridEntityFrameworkAdapter on your service collection.");
                 }
             }
             else if (executor.IsSupported(queryable))

@@ -136,7 +136,10 @@
                 {
                     <div class="col-options">@col.ColumnOptions</div>
                 }
-                
+                @if (ResizableColumns)
+                {
+                    <fluent-divider class="col-width-draghandle" orientation="vertical" aria-orientation="vertical" role="separator"></fluent-divider>
+                }
             </fluent-data-grid-cell>
                 
             //<FluentDataGridCell GridColumn=@(colIndex++) CellType=DataGridCellType.ColumnHeader class="@ColumnHeaderClass(col)" aria-sort="@AriaSortValue(col)" @key="@col" TGridItem="TGridItem">

@@ -117,7 +117,7 @@
                 @if (ColumnOptions is not null && Align != Align.Right)
                 {
                     <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptions(this))">
-                        <FluentIcon Name="@FluentIcons.Navigation" Size="IconSize.Size16" Filled=false />
+                        <FluentIcon Name="@FluentIcons.Filter" Size="IconSize.Size16" Filled=false />
                     </FluentButton>
                 }
                 <FluentButton Appearance="Appearance.Stealth" class="col-sort-button" @onclick="@(() => Grid.SortByColumnAsync(this))">
@@ -133,7 +133,7 @@
                 @if (ColumnOptions is not null && Align == Align.Right)
                 {
                     <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptions(this))">
-                        <FluentIcon Name="@FluentIcons.Navigation" Size="IconSize.Size16" Filled=false />
+                        <FluentIcon Name="@FluentIcons.Filter" Size="IconSize.Size16" Filled=false />
                     </FluentButton>
                 }
             }
@@ -143,14 +143,14 @@
                     @if (ColumnOptions is not null && Align != Align.Right)
                     {
                         <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptions(this))">
-                            <FluentIcon Name="@FluentIcons.Navigation" Size="IconSize.Size16" Filled=false />
+                            <FluentIcon Name="@FluentIcons.Filter" Size="IconSize.Size16" Filled=false />
                         </FluentButton>
                     }
                     <div class="col-title-text">@Title</div>
                     @if (ColumnOptions is not null && Align == Align.Right)
                     {
                     <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptions(this))">
-                        <FluentIcon Name="@FluentIcons.Navigation" Size="IconSize.Size16" Filled=false />
+                            <FluentIcon Name="@FluentIcons.Filter" Size="IconSize.Size16" Filled=false />
                     </FluentButton>
                     }
                 </div>

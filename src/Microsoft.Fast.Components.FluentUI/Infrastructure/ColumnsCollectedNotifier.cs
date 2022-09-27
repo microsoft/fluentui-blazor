@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI.Infrastructure;
 
-// One awkwardness of the way QuickGrid collects its list of child columns is that, during OnParametersSetAsync,
+// One awkwardness of the way FluentDataGrid collects its list of child columns is that, during OnParametersSetAsync,
 // it only knows about the set of columns that were present on the *previous* render. If it's going to trigger a
 // data load during OnParametersSetAsync, that operation can't depend on the current set of columns as it might
 // have changed, or might even still be empty (i.e., on the first render).
@@ -14,10 +14,10 @@ namespace Microsoft.Fast.Components.FluentUI.Infrastructure;
 //
 // - In the future, we could implement the long-wanted feature of being able to query the contents of a RenderFragment
 //   separately from rendering. Then the whole trick of collection-during-rendering would not be needed.
-// - Or, we could factor out most of QuickGrid's internals into some new component QuickGridCore. The parent component,
-//   QuickGrid, would then only be responsible for collecting columns followed by rendering QuickGridCore. So each time
-//   QuickGridCore renders, we'd already have the latest set of columns
-//    - Drawback: since QuickGrid has public API, it's much messier to have to forward all of that to some new child type.
+// - Or, we could factor out most of FluentDataGrid's internals into some new component FluentDataGridCore. The parent component,
+//   FluentDataGrid, would then only be responsible for collecting columns followed by rendering FluentDataGridCore. So each time
+//   FluentDataGridCore renders, we'd already have the latest set of columns
+//    - Drawback: since FluentDataGrid has public API, it's much messier to have to forward all of that to some new child type.
 //    - However, this is arguably the most correct solution in general (at least until option 1 above is implemented)
 // - Or, we could decide it's enough to fix this on the first render (since that's the only time we're going to guarantee
 //   to apply a default sort order), and then as a special case put in some extra component in the render flow that raises

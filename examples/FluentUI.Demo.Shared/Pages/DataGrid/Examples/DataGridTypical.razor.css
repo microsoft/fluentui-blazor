@@ -1,5 +1,9 @@
 ﻿/* Ensure all the flags are the same size, and centered */
-.flag { width: 2rem; height: 1rem; margin: auto; }
+.flag {
+    height: 1rem;
+    margin: auto;
+    border: 1px solid var(--neutral-layer-3);
+}
 
 
 /* Stop country name text from wrapping, and truncate with ellipsis */
