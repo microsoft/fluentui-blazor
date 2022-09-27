@@ -1,28 +1,32 @@
-﻿<FluentDataGrid id="defaultGrid3" RowsData=RowsGrid.AsQueryable() GridTemplateColumns="1fr 1fr">
-    <TemplateColumn Title="Name">
-        <FluentTextField @bind-Value=@context.Name></FluentTextField>
-    </TemplateColumn>
-    <TemplateColumn Title="Age">
-        <FluentNumberField @bind-Value=@context.Age></FluentNumberField>
-    </TemplateColumn>
-</FluentDataGrid>
+﻿@inject DataSource Data
+
+<div>
+    <FluentDataGrid RowsData="@Data.People">
+        <TemplateColumn Title="Person" SortBy="@sortByName">
+            <div class="flex items-center">
+                <img class="flag" src="_content/FluentUI.Demo.Shared/flags/@(context.CountryCode).svg" />
+                <nobr>
+                    <strong>@context.LastName</strong>, @context.FirstName
+                </nobr>
+            </div>
+        </TemplateColumn>
+        <TemplateColumn Title="Actions">
+            <FluentButton Appearance="Appearance.Accent" @onclick="@(() => Hire(context))">Hire</FluentButton>
+            <FluentButton Appearance="Appearance.Accent" @onclick="@(() => Fire(context))">Fire</FluentButton>
+        </TemplateColumn>
+    </FluentDataGrid>
+</div>
+
+<p><strong>@message</strong></p>
 
 @code {
-    public class SampleGridData
-    {
-        public string Name { get; set; }
-        public int Age { get; set; }
+    string message = string.Empty;
 
-        public SampleGridData(string name, int age)
-        {
-            Name = name;
-            Age = age;
-        }
-    }
+    GridSort<Person> sortByName = GridSort<Person>
+        .ByAscending(p => p.LastName)
+        .ThenAscending(p => p.FirstName);
 
-    List<SampleGridData> RowsGrid = new()
-    {
-        new SampleGridData("Rob", 19 ),
-        new SampleGridData("Bob", 20 )
-    };
+    void Hire(Person p) => message = $"You want to hire {p.FirstName} {p.LastName}";
+
+    void Fire(Person p) => message = $"You want to fire {p.FirstName} {p.LastName}";
 }
