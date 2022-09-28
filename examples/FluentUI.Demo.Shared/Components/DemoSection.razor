@@ -19,44 +19,45 @@
     </div>
 }
 
-<FluentTabs>
-    <FluentTab Text="Example" />
-    @foreach (string tab in GetSources())
-    {
-        <FluentTab Text="@TabDisplayName(tab)" />
-    }
+<div class="demo-section-content">
 
-    <FluentTabPanel style="max-height: 500px; overflow-y: auto;">
-        @if (Component is not null)
+    <FluentTabs>
+        <FluentTab Text="Example" />
+        @foreach (string tab in GetSources())
         {
-            string target;
-            Uri uri = new Uri(NavigationManager.Uri);
-
-            if (uri.Segments.Count() > 1)
-            {
-                target = uri.Segments[1];
-            }
-            else
-            {
-                target = "Index";
-            }
-            <div class="demo-section-Example">
-                <DynamicComponent Type="Component"/>
-            </div>
+            <FluentTab Text="@TabDisplayName(tab)" />
         }
-    </FluentTabPanel>
-    @foreach (string tab in GetSources())
-    {
+
         <FluentTabPanel style="max-height: 500px; overflow-y: auto;">
-            @if (HasCode)
+            @if (Component is not null)
             {
-                <CodeSnippet Language="@TabLanguageClass(tab)">@TabPanelsContent[tab]</CodeSnippet>
+                string target;
+                Uri uri = new Uri(NavigationManager.Uri);
+
+                if (uri.Segments.Count() > 1)
+                {
+                    target = uri.Segments[1];
+                }
+                else
+                {
+                    target = "Index";
+                }
+                <div class="demo-section-Example">
+                    <DynamicComponent Type="Component" />
+                </div>
             }
         </FluentTabPanel>
-    }
-
-</FluentTabs>
-
+        @foreach (string tab in GetSources())
+        {
+            <FluentTabPanel style="max-height: 500px; overflow-y: auto;">
+                @if (HasCode)
+                {
+                    <CodeSnippet Language="@TabLanguageClass(tab)">@TabPanelsContent[tab]</CodeSnippet>
+                }
+            </FluentTabPanel>
+        }
+    </FluentTabs>
+</div>
 
 
 
