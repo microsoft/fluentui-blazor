@@ -78,7 +78,7 @@
 	<p>The Design Tokens are manipulated through JavaScript interop working with an <code>ElementReference</code>. There is no JavaScript element until after the component is rendered. This means you can only work with the Design Tokens from code after the component has been rendered in <code>OnAfterRenderAsync</code> and not in any earlier lifecycle methods.</p>
 </blockquote>
 
-<DemoSection Title="Option 2: Using Design Tokens as components" Component="@typeof(IndexDesignTokensComponent)">
+<DemoSection Title="Option 2: Using Design Tokens as components" Component="@typeof(IndexDesignTokensComponent)" CollocatedFiles="@(new[] {"css"})">
 	<Description>
 		<p>The Design Tokens can also be used as components in a <code>.razor</code> page directely. It looks like this:</p>
 	</Description>

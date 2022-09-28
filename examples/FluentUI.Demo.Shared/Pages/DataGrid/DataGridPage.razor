@@ -55,7 +55,7 @@
     <Description>To begin, add the following code to one of your Blazor page components to render a very simple grid (with sortable columns)</Description>
 </DemoSection>
 
-<DemoSection Title="Typical usage" Component="@typeof(DataGridTypical)">
+<DemoSection Title="Typical usage" Component="@typeof(DataGridTypical)" CollocatedFiles="@(new[] {"css"})">
     <Description>
         Here is an example of a data grid that uses in-memory data and enables features including pagination, sorting, filtering, column options and column resizing.
     </Description>
@@ -106,7 +106,7 @@
     </Description>
 </DemoSection>
 
-<DemoSection Title="Template columns" Component="@typeof(DataGridTemplateColumns)">
+<DemoSection Title="Template columns" Component="@typeof(DataGridTemplateColumns)" CollocatedFiles="@(new[] {"css"})">
     <Description>
         <p>
             <code>TemplateColumn</code> uses arbitrary Razor fragments to supply contents for its cells. It can't
