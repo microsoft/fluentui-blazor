@@ -23,7 +23,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<AdditionalFiles Include="$(ProjectDir)\Pages\**\Examples\*" />
 		<AdditionalFiles Include="$(ProjectDir)\*.xml" />
 	</ItemGroup>
 
@@ -40,10 +39,10 @@
 		<ProjectReference Include="..\FluentUI.Demo.Generators\FluentUI.Demo.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 	</ItemGroup>
 
-	<Target Name="CopyExamplesToContentRoot" BeforeTargets="CoreCompile" DependsOnTargets="PrepareForBuild">
+	<Target Name="CopyExamplesToContentRoot" BeforeTargets="CoreBuild">
 		<ItemGroup>
 			<Examples Include="$(ProjectDir)\Pages\**\Examples\*" />
 		</ItemGroup>
-		<Copy SourceFiles="@(Examples)" DestinationFiles="@(Examples->'wwwroot\examples\%(Filename)%(Extension).txt')" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="@(Examples)" DestinationFiles="$(ProjectDir)wwwroot\examples\@(Examples->'%(Filename)%(Extension).txt')" SkipUnchangedFiles="true" />
 	</Target>
 </Project>
