@@ -43,6 +43,6 @@
 		<ItemGroup>
 			<Examples Include="$(ProjectDir)\Pages\**\Examples\*" />
 		</ItemGroup>
-		<Copy SourceFiles="@(Examples)" DestinationFiles="$(ProjectDir)wwwroot\examples\@(Examples->'%(Filename)%(Extension).txt')" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="@(Examples)" DestinationFiles="@(Examples->'$(ProjectDir)wwwroot\examples\%(Filename)%(Extension).txt')" SkipUnchangedFiles="true" />
 	</Target>
 </Project>
