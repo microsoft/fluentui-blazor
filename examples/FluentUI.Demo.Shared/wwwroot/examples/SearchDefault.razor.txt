@@ -1,0 +1,2 @@
+﻿<p>Without a label: <FluentSearch></FluentSearch></p>
+<p>With a label: <FluentSearch>Label</FluentSearch></p>

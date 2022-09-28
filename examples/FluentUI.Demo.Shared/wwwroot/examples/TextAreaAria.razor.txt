@@ -1,0 +1,13 @@
+﻿<h5>Visual vs audio label</h5>
+<FluentTextArea>
+    <span aria-label="Audio label">Visible label</span>
+</FluentTextArea>
+
+<h5>Audio label only</h5>
+<FluentTextArea>
+    <span aria-label="Audio label only"></span>
+</FluentTextArea>
+
+<h5>With aria-label</h5>
+<FluentTextArea aria-label="Text area with aria-label"></FluentTextArea>
+

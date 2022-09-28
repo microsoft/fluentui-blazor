@@ -1,0 +1,11 @@
+﻿<h5>Previous</h5>
+<FluentFlipper Direction="FlipperDirection.Previous"></FluentFlipper>
+
+<h5>Next</h5>
+<FluentFlipper Direction="FlipperDirection.Next"></FluentFlipper>
+
+<h5>With aria-hidden</h5>
+<FluentFlipper AriaHidden="false"></FluentFlipper>
+
+<h5>Disabled</h5>
+<FluentFlipper Disabled="true"></FluentFlipper>

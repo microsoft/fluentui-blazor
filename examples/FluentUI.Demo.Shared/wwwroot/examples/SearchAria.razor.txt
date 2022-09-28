@@ -1,0 +1,12 @@
+﻿<h5>With aria-label</h5>
+<FluentSearch aria-label="Search with aria-label"></FluentSearch>
+
+<h5>Visual vs audio label</h5>
+<FluentSearch>
+    <span aria-label="Audio label">Visible label</span>
+</FluentSearch>
+
+<h5>Audio label only</h5>
+<FluentSearch>
+    <span aria-label="Audio label only"></span>
+</FluentSearch>

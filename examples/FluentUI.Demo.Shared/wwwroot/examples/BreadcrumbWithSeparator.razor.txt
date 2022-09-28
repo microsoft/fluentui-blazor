@@ -1,0 +1,11 @@
+﻿<FluentBreadcrumb>
+    <FluentBreadcrumbItem Href="#">
+        Breadcrumb item 1
+        <FluentIcon Slot="separator" Name="@FluentIcons.ChevronDoubleRight" Size="@IconSize.Size20" Filled=false UseAccentColor=false />
+    </FluentBreadcrumbItem>
+    <FluentBreadcrumbItem Href="#">
+        Breadcrumb item 2
+        <FluentIcon Slot="separator" Name="@FluentIcons.ChevronDoubleRight" Size="@IconSize.Size20" Filled=false UseAccentColor=false />
+    </FluentBreadcrumbItem>
+    <FluentBreadcrumbItem>Breadcrumb item 3</FluentBreadcrumbItem>
+</FluentBreadcrumb>

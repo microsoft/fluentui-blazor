@@ -1,0 +1,70 @@
+﻿<h5>Simplest use</h5>
+<FluentCombobox Id="combobox" @bind-Value="@comboboxValue">
+    <FluentOption>Please Please Me</FluentOption>
+    <FluentOption>With The Beatles</FluentOption>
+    <FluentOption>A Hard Day's Night</FluentOption>
+    <FluentOption>Beatles for Sale</FluentOption>
+    <FluentOption>Help!</FluentOption>
+    <FluentOption>Rubber Soul</FluentOption>
+    <FluentOption>Revolver</FluentOption>
+    <FluentOption>Sgt. Pepper's Lonely Hearts Club Band</FluentOption>
+    <FluentOption>Magical Mystery Tour</FluentOption>
+    <FluentOption>The Beatles</FluentOption>
+    <FluentOption>Yellow Submarine</FluentOption>
+    <FluentOption>Abbey Road</FluentOption>
+    <FluentOption>Let It Be</FluentOption>
+</FluentCombobox>
+
+<h5>From list of string items</h5>
+<FluentCombobox Options=@stringOptions />
+
+<h5>From list of int items</h5>
+<FluentCombobox Options=@intOptions />
+
+<h5>Pre-selected option</h5>
+<FluentCombobox @bind-Value="@comboboxValue2">
+    <FluentOption>William Hartnell</FluentOption>
+    <FluentOption>Patrick Troughton</FluentOption>
+    <FluentOption>Jon Pertwee</FluentOption>
+    <FluentOption>Tom Baker</FluentOption>
+    <FluentOption>Peter Davidson</FluentOption>
+    <FluentOption>Colin Baker</FluentOption>
+    <FluentOption>Sylvester McCoy</FluentOption>
+    <FluentOption>Paul McGann</FluentOption>
+    <FluentOption>Christopher Eccleston</FluentOption>
+    <FluentOption>David Tenant</FluentOption>
+    <FluentOption>Matt Smith</FluentOption>
+    <FluentOption>Peter Capaldi</FluentOption>
+    <FluentOption Selected="true">Jodie Whittaker</FluentOption>
+</FluentCombobox>
+
+<h5>With Placeholder</h5>
+<FluentCombobox Placeholder="Please select a size" @bind-Value="@comboboxValue3">
+    <FluentOption>Extra Small</FluentOption>
+    <FluentOption>Small</FluentOption>
+    <FluentOption>Medium</FluentOption>
+    <FluentOption>Large</FluentOption>
+    <FluentOption>Extra Large</FluentOption>
+</FluentCombobox>
+
+@code {
+    string? comboboxValue = "";
+    string? comboboxValue2 = "Christopher Eccleston";
+    string? comboboxValue3 = "Large";
+
+    List<Option<string>> stringOptions = new()
+        {
+            { new Option<string> { Key = "1", Value = "One" } },
+            { new Option<string> { Key = "2", Value = "Two", Selected = true } },
+            { new Option<string> { Key = "3", Value = "Three" } }
+
+        };
+
+    List<Option<int>> intOptions = new()
+        {
+            { new Option<int> { Key = 1, Value = 1, Disabled = true } },
+            { new Option<int> { Key = 2, Value = 2 } },
+            { new Option<int> { Key = 3, Value = 3 } }
+
+        };
+}

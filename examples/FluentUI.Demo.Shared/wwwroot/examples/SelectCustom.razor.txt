@@ -1,0 +1,11 @@
+﻿<FluentSelect @bind-Value="@selectValue">
+    <FluentIcon Name="@FluentIcons.Globe" Slot="indicator" Size="@IconSize.Size16" Filled=false UseAccentColor=false />
+    <FluentOption>Option One</FluentOption>
+    <FluentOption>Option Two</FluentOption>
+    <FluentOption>Option Three</FluentOption>
+    <FluentOption>Option Four</FluentOption>
+</FluentSelect>
+
+@code {
+    string? selectValue;
+}

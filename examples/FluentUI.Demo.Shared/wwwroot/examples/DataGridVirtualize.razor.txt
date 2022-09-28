@@ -1,0 +1,58 @@
+﻿
+<div style="height: 400px; overflow-y: scroll;">
+    <FluentDataGrid RowsData=@items Virtualize="true" RowsDataSize="32" GridTemplateColumns="1fr 1fr 1fr 1fr">
+        <PropertyColumn Property="@(c => c.Item1)" Sortable="true">
+            <ColumnOptions>
+                <div class="search-box">
+                    <FluentSearch Autofocus="true" Placeholder="Testing..." />
+                </div>
+            </ColumnOptions>
+        </PropertyColumn>
+        <PropertyColumn Property="@(c => c.Item2)" />
+        <PropertyColumn Property="@(c => c.Item3)" Align="Align.Center" />
+        <PropertyColumn Property="@(c => c.Item4)" Align="Align.Right">
+            <ColumnOptions>
+                <div class="search-box">
+                    <FluentSearch Autofocus="true" Placeholder="Testing..." />
+                </div>
+            </ColumnOptions>
+        </PropertyColumn>
+    </FluentDataGrid>
+</div>
+
+
+
+
+@code {
+    public record SampleGridData(string Item1, string Item2, string Item3, string Item4);   
+    
+    IQueryable<SampleGridData>? items = Enumerable.Empty<SampleGridData>().AsQueryable();
+
+    private IQueryable<SampleGridData> GenerateSampleGridData(int size)
+    {
+        SampleGridData[] data = new SampleGridData[size];
+
+
+        for (int i = 0; i < size; i++)
+        {
+            data[i] = new SampleGridData($"value {i}-1", $"value {i}-2", $"value {i}-3", $"value {i}-4");
+        }
+        return data.AsQueryable();
+    }
+    
+    
+
+    protected override void OnInitialized()
+    {
+        items = GenerateSampleGridData(25000);
+    }
+
+    //This is temporarily disabled as we are not using FluentDataGridRow to render the rows 
+    //hence there is no EventCallback hooked up
+    //private void HandleRowFocus(FluentDataGridRow<SampleGridData> row)
+    //{
+    //    Console.WriteLine($"Row focused: {row.RowIndex}");
+    //}
+    
+
+}

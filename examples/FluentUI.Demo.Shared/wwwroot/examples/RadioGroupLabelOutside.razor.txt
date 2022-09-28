@@ -1,0 +1,15 @@
+﻿<h5>With label outside group</h5>
+<div style="display: flex; flex-direction: column; margin-top: 12px;">
+    <label id="label1">Outside label</label>
+    <FluentRadioGroup Required="true" aria-labelledby="label1" Name="fruits" Orientation="Orientation.Vertical">
+        <FluentRadio Value="apples">Apples</FluentRadio>
+        <FluentRadio Value="oranges">Oranges</FluentRadio>
+        <FluentRadio Value="bananas">Bananas</FluentRadio>
+        <FluentRadio Value="kiwi">Kiwi</FluentRadio>
+        <FluentRadio Value="grapefruit">Grapefruit</FluentRadio>
+        <FluentRadio Value="mango">Mango</FluentRadio>
+        <FluentRadio Value="blueberries">Blueberries</FluentRadio>
+        <FluentRadio Value="strawberries">Strawberries</FluentRadio>
+        <FluentRadio Value="pineapple">Pineapple</FluentRadio>
+    </FluentRadioGroup>
+</div>
