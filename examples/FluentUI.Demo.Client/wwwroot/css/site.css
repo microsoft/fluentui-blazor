@@ -25,7 +25,7 @@ header {
     grid-area: header;
     
     display: grid;
-    grid-template-columns: 150px auto 1fr;
+    grid-template-columns: 280px auto 1fr;
     grid-template-rows: 1fr;
     align-items: center;
     justify-content: flex-start;
@@ -53,6 +53,10 @@ header {
         justify-self: end;
         padding: 0 20px;
         
+    }
+    
+    header fluent-switch {
+        width: 9rem;
     }
 
 footer {
@@ -304,6 +308,10 @@ code {
     header .switches {
         padding-right: 0px;
     }
+
+        header .switches .label {
+            padding-inline-end: 14px;
+        }
 
     main {
        

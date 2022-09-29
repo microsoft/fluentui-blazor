@@ -26,7 +26,7 @@ namespace FluentUI.Demo.Shared
         ErrorBoundary? errorBoundary;
 
         LocalizationDirection dir;
-        float baseLayerLuminance = 1;
+        float baseLayerLuminance = 0.98f;
 
         protected override void OnInitialized()
         {
@@ -56,9 +56,11 @@ namespace FluentUI.Demo.Shared
             await JSRuntime.InvokeVoidAsync("switchDirection", dir.ToString());
         }
 
-        public void SwitchTheme()
+        public async void SwitchTheme()
         {
             baseLayerLuminance = baseLayerLuminance == 0.15f ? 0.98f : 0.15f;
+
+            await module!.InvokeVoidAsync("switchHighlightStyle", baseLayerLuminance == 0.15f ? true : false);
         }
 
         private void HandleChecked()

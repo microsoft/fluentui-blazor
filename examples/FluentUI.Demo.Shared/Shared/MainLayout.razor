@@ -30,15 +30,15 @@
             <a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/" target="_blank">About</a>
         </div>
         <div class="switches">
-            <FluentSwitch @onchange="SwitchDirection">
+            <FluentSwitch @onchange="SwitchDirection" title="Switch direction">
                 <span>Direction</span>
                 <span slot="unchecked-message">ltr</span>
                 <span slot="checked-message">rtl</span>
             </FluentSwitch>
-            <FluentSwitch @onchange=SwitchTheme>
-                <span style="padding-inline-end: 14px;"> Theme</span>
-                <span slot="checked-message">Dark</span>
-                <span slot="unchecked-message">Light</span>
+            <FluentSwitch @onchange=SwitchTheme title="Switch theme">
+                <span class="label">Theme</span>
+                <span slot="unchecked-message">light</span>
+                <span slot="checked-message">dark</span>
             </FluentSwitch>
         </div>
 
