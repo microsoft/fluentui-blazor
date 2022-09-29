@@ -20,4 +20,18 @@
 
 <DemoSection Title="Appearance values" Component="@typeof(BadgeAppearance)"></DemoSection>
 
-<DemoSection Title="With custom CSS for Fill and Highlight" Component="@typeof(BadgeStyled)" CollocatedFiles="@(new[] {"css"})"></DemoSection>
+<DemoSection Title="With custom CSS for Fill and Highlight" Component="@typeof(BadgeStyled)" CollocatedFiles="@(new[] {"css"})">
+    <Description>
+        <p>
+            The Fill and Color values can be defined as CSS variables with 'highlight' and 'lowlight' variants:
+        </p>
+        <CodeSnippet Language="language-css">
+            fluent-badge {
+            --badge-fill-highlight: #ffd800;
+            --badge-fill-lowlight: #333;
+            --badge-color-highlight: #000;
+            --badge-color-lowlight: #fff;
+            }
+        </CodeSnippet>
+    </Description>
+</DemoSection>
