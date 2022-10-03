@@ -6,6 +6,9 @@
 
 :root {
     --fb-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --fb-success: #107c10;
+    --fb-error: #d13438;
+    --fb-warning: #817400;
     --fb-code-color: #d63384;
     --fb-highlight-bg: #fff3cd;
 }
