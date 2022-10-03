@@ -36,7 +36,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IAsyncDisp
     /// <summary>
     /// An optional CSS class name. If given, this will be included in the class attribute of the rendered grid.
     /// </summary>
-    [Parameter] public string? Class { get; set; } = null;
+    [Parameter] public string? CssClass { get; set; } = null;
 
     /// <summary>
     /// If true, the grid will be rendered with virtualization. This is normally used in conjunction with
@@ -413,7 +413,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IAsyncDisp
 
     private string? GridClass()
     {
-        string? value = $"{Class} {(_pendingDataLoadCancellationTokenSource is null ? null : "loading")}".Trim();
+        string? value = $"{CssClass} {(_pendingDataLoadCancellationTokenSource is null ? null : "loading")}".Trim();
         if (string.IsNullOrEmpty(value))
             return null;
         else
@@ -423,9 +423,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IAsyncDisp
 
     private static string? ColumnClass(ColumnBase<TGridItem> column) => column.Align switch
     {
-        Align.Center => $"col-justify-center {column.Class}",
-        Align.Right => $"col-justify-end {column.Class}",
-        _ => column.Class,
+        Align.Center => $"col-justify-center {column.CssClass}",
+        Align.Right => $"col-justify-end {column.CssClass}",
+        _ => column.CssClass,
     };
 
     /// <inheritdoc />
