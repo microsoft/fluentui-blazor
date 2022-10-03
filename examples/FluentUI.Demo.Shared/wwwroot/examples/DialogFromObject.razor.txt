@@ -1,8 +1,9 @@
-﻿<FluentDialog @ref="MyFluentDialog" id="foo" aria-label="Simple dialog" Modal="false" @ondismiss=OnDismiss>
-    <h2>Dialog referenced from object</h2>
-    <button @onclick="OnCloseModalRefButtonClick">Close dialog with component object function</button>
-</FluentDialog>
-
+﻿<div>
+    <FluentDialog @ref="MyFluentDialog" id="foo" aria-label="Simple dialog" Modal="false" @ondismiss=OnDismiss>
+        <h2>Dialog referenced from object</h2>
+        <button @onclick="OnCloseModalRefButtonClick">Close dialog with component object function</button>
+    </FluentDialog>
+</div>
 
 
 <p>MyFluentDialog.Hidden value: @MyFluentDialog?.Hidden</p>

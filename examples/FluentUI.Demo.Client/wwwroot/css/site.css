@@ -1,11 +1,7 @@
-﻿body {
+﻿
+
+body {
     height: 100%;
-    --body-font: Segoe UI, sans-serif;
-    font-family: var(--body-font);
-    font-size: var(--type-ramp-base-font-size);
-    line-height: var(--type-ramp-base-line-height);
-   
-    margin: 0;
 }
 
 #container {
@@ -160,66 +156,15 @@ article {
 
 
 
-a {
-    color: var(--accent-foreground-rest);
-}
 
-blockquote {
-    border-left: 5px solid var(--accent-fill-rest);
-    font-size: var(--type-ramp-base-font-size);
-    font-style: italic;
-    padding: 2px 15px;
-}
-
-p {
-    font-size: var(--type-ramp-base-font-size);
-    line-height: var(--type-ramp-base-line-height);
-    font-weight: 400;
-}
-
-h1 {
-    font-size: var(--type-ramp-plus-5-font-size);
-    line-height: var(--type-ramp-plus-5-line-height);
-    font-weight: 600;
-}
-
-h2 {
-    font-size: var(--type-ramp-plus-4-font-size);
-    line-height: var(--type-ramp-plus-4-line-height);
-    font-weight: 600;
-}
-
-h3 {
-    font-size: var(--type-ramp-plus-3-font-size);
-    line-height: var(--type-ramp-plus-3-line-height);
-    font-weight: 600;
-}
-
-h4 {
-    font-size: var(--type-ramp-plus-2-font-size);
-    line-height: var(--type-ramp-plus-2-line-height);
-    font-weight: 600;
-}
-
-h5 {
-    font-size: var(--type-ramp-plus-1-font-size);
-    line-height: var(--type-ramp-plus-1-line-height);
-    font-weight: 600;
-}
-
-h6 {
-    font-size: var(--type-ramp-base-font-size);
-    line-height: var(--type-ramp-base-line-height);
-    font-weight: 600;
-}
 
 .shell, .sourceCode {
-    background: var(--neutral-fill-stealth-hover);
+    background: var(--neutral-stroke-layer-rest);
     padding: 7px;
 }
 
 code {
-    background: var(--neutral-fill-stealth-hover);
+    background: var(--neutral-stroke-layer-rest);
 }
 
 #blazor-error-ui {

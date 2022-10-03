@@ -27,11 +27,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <AdditionalFiles Remove="C:\Source\Blazor\fast-blazor\examples\FluentUI.Demo.Shared\Pages\DataGrid\Examples\DataGridRemoteData.razor" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Content Remove="Pages\DataGrid\Examples\DataGridRemoteData.razor" />
+	  <Content Remove="Pages\DataGrid\Examples\DataGridTemplateColumns2.razor" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -3,20 +3,20 @@
 @inject HttpClient Http
 @inject NavigationManager NavManager
 
-<div style="height: 436px; overflow:auto;" tabindex="-1">
-    <FluentDataGrid RowsDataProvider="foodRecallProvider" Virtualize="true" GenerateHeader="GenerateHeaderOption.Sticky">
-        <PropertyColumn Title="ID" Property="@(c => c.Event_Id)" />
-        <PropertyColumn Property="@(c => c.State)" />
-        <PropertyColumn Property="@(c => c.City)" />
-        <PropertyColumn Title="Company" Property="@(c => c.Recalling_Firm)" />
-        <PropertyColumn Property="@(c => c.Status)" />
+<div style="height: 434px; overflow:auto;" tabindex="-1">
+    <FluentDataGrid RowsDataProvider="foodRecallProvider" Virtualize="true" GenerateHeader="GenerateHeaderOption.Sticky" TGridItem="FoodRecall" >
+        <PropertyColumn Title="ID" Property="@(c => c!.Event_Id)" />
+        <PropertyColumn Property="@(c => c!.State)" />
+        <PropertyColumn Property="@(c => c!.City)" />
+        <PropertyColumn Title="Company" Property="@(c => c!.Recalling_Firm)" />
+        <PropertyColumn Property="@(c => c!.Status)" />
     </FluentDataGrid>
 </div>
 
 <p>Total: <strong>@numResults results found</strong></p>
 
 @code {
-    Microsoft.Fast.Components.FluentUI.GridItemsProvider<FoodRecall> foodRecallProvider;
+    GridItemsProvider<FoodRecall> foodRecallProvider = default!;
     int numResults;
 
     protected override async Task OnInitializedAsync()
