@@ -6,9 +6,14 @@
 
 :root {
     --fb-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    --fb-success: #107c10;
-    --fb-error: #d13438;
-    --fb-warning: #817400;
+    --fb-success-fill: #107c10;
+    --fb-success-background: #dff6dd;
+    --fb-error-fill: #a80000;
+    --fb-error-background: #fde7e9;
+    --fb-warning-fill: #817400;
+    --fb-warning-bakground: #fff4ce;
+    --fb-severe-warning-fill: #d83b01;
+    --fb-severe-warning-background: #fed9cc;
     --fb-code-color: #d63384;
     --fb-highlight-bg: #fff3cd;
 }
