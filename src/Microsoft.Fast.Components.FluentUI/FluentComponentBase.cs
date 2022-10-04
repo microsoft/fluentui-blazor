@@ -23,20 +23,34 @@ public abstract class FluentComponentBase : ComponentBase
     }
 
     /// <summary>
+    /// Optional CSS class names. If given, these will be included in the class attribute of the component.
+    /// </summary>
+    [Parameter]
+    public virtual string? Class { get; set; } = null;
+
+    /// <summary>
+    /// Optional in-line styles. If given, these will be included in the style attribute of the component.
+    /// </summary>
+    [Parameter]
+    public virtual string? Style { get; set; }
+
+
+    /// <summary>
     /// A reference to the enclosing component.
     /// </summary>
     [Parameter]
-    public Reference? BackReference { get; set; }
+    public virtual Reference? BackReference { get; set; }
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>
     [Parameter]
-    public RenderFragment? ChildContent { get; set; }
+    public virtual RenderFragment? ChildContent { get; set; }
 
     /// <summary>
     /// Gets or sets a collection of additional attributes that will be applied to the created element.
     /// </summary>
-    [Parameter(CaptureUnmatchedValues = true)] public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public virtual IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
 }
 

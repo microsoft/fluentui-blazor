@@ -186,7 +186,7 @@ public abstract class FluentInputBase<TValue> : FluentComponentBase, IDisposable
     /// the status of the field being edited (a combination of "modified", "valid", and "invalid").
     /// Derived components should typically use this value for the primary HTML element class attribute.
     /// </summary>
-    protected string CssClass
+    public override string? Class
     {
         get
         {

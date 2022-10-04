@@ -41,7 +41,6 @@
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
 		<Optimize>True</Optimize>
 		<NoWarn>1701;1702,8669,1591</NoWarn>
-		
 	</PropertyGroup>
 
 	<ItemGroup>

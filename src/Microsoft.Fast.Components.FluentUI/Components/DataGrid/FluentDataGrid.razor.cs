@@ -34,11 +34,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IAsyncDisp
     [Parameter] public GridItemsProvider<TGridItem>? RowsDataProvider { get; set; }
 
     /// <summary>
-    /// An optional CSS class name. If given, this will be included in the class attribute of the rendered grid.
-    /// </summary>
-    [Parameter] public string? CssClass { get; set; } = null;
-
-    /// <summary>
     /// If true, the grid will be rendered with virtualization. This is normally used in conjunction with
     /// scrolling and causes the grid to fetch and render only the data around the current scroll viewport.
     /// This can greatly improve the performance when scrolling through large data sets.
@@ -413,7 +408,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IAsyncDisp
 
     private string? GridClass()
     {
-        string? value = $"{CssClass} {(_pendingDataLoadCancellationTokenSource is null ? null : "loading")}".Trim();
+        string? value = $"{Class} {(_pendingDataLoadCancellationTokenSource is null ? null : "loading")}".Trim();
         if (string.IsNullOrEmpty(value))
             return null;
         else
