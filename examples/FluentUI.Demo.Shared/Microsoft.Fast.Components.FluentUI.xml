@@ -35,7 +35,7 @@
             Title text for the column. This is rendered automatically if <see cref="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.HeaderCellItemTemplate" /> is not used.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.CssClass">
+        <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.Class">
             <summary>
             An optional CSS class name. If specified, this is included in the class attribute of table header and body cells
             for this column.
@@ -239,11 +239,6 @@
             
              You should supply either <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowsData"/> or <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowsDataProvider"/>, but not both.
              </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.CssClass">
-            <summary>
-            Optional CSS class names. If given, these will be included in the class attribute of the rendered grid.
-            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.Virtualize">
              <summary>
@@ -4570,7 +4565,7 @@
             </para>
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentComponentBase.CssClass">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentComponentBase.Class">
             <summary>
             Optional CSS class names. If given, these will be included in the class attribute of the component.
             </summary>
@@ -4686,13 +4681,6 @@
             <param name="result">An instance of <typeparamref name="TValue"/>.</param>
             <param name="validationErrorMessage">If the value could not be parsed, provides a validation error message.</param>
             <returns>True if the value could be parsed; otherwise false.</returns>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.CssClass">
-            <summary>
-            Gets a CSS class string that combines the <c>class</c> attribute and and a string indicating
-            the status of the field being edited (a combination of "modified", "valid", and "invalid").
-            Derived components should typically use this value for the primary HTML element class attribute.
-            </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.SetParametersAsync(Microsoft.AspNetCore.Components.ParameterView)">
             <inheritdoc />
@@ -4850,6 +4838,30 @@
             <typeparam name="T">The data type.</typeparam>
             <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> instance.</param>
             <returns>The items in the <paramref name="queryable"/>.</returns>.
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.BuilderExtensions.NullIfEmpty(Microsoft.Fast.Components.FluentUI.Utilities.CssBuilder)">
+            <summary>
+            Used to convert a CssBuilder into a null when it is empty.
+            Usage: class=null causes the attribute to be excluded when rendered.
+            </summary>
+            <param name="builder"></param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.BuilderExtensions.NullIfEmpty(Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder)">
+            <summary>
+            Used to convert a StyleBuilder into a null when it is empty.
+            Usage: style=null causes the attribute to be excluded when rendered.
+            </summary>
+            <param name="builder"></param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.BuilderExtensions.NullIfEmpty(System.String)">
+            <summary>
+            Used to convert a string.IsNullOrEmpty into a null when it is empty.
+            Usage: attribute=null causes the attribute to be excluded when rendered.
+            </summary>
+            <param name="s"></param>
+            <returns>string</returns>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.CssBuilder.Default(System.String)">
             <summary>

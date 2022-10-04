@@ -418,9 +418,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IAsyncDisp
 
     private static string? ColumnClass(ColumnBase<TGridItem> column) => column.Align switch
     {
-        Align.Center => $"col-justify-center {column.CssClass}",
-        Align.Right => $"col-justify-end {column.CssClass}",
-        _ => column.CssClass,
+        Align.Center => $"col-justify-center {column.Class}",
+        Align.Right => $"col-justify-end {column.Class}",
+        _ => column.Class,
     };
 
     /// <inheritdoc />

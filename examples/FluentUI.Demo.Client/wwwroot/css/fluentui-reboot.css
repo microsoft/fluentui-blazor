@@ -147,10 +147,10 @@ dd {
     margin-bottom: 0.5rem;
     margin-left: 0;
 }
-
+/*
 blockquote {
     margin: 0 0 1rem;
-}
+}*/
 
 b,
 strong {
@@ -440,5 +440,3 @@ progress {
 [hidden] {
     display: none !important;
 }
-
-/*# sourceMappingURL=fluentui-reboot.css.map */
