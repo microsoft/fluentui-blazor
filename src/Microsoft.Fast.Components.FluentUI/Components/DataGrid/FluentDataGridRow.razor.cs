@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.Fast.Components.FluentUI.Infrastructure;
+using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
@@ -37,7 +38,7 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IDispos
     [CascadingParameter]
     private InternalGridContext<TGridItem> Owner { get; set; } = default!;
 
-    private string? _rowsDataSize = null;
+    private string? _style = null;
 
     protected override void OnInitialized()
     {
@@ -48,7 +49,13 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IDispos
     protected override void OnParametersSet()
     {
         if (Owner.Grid.Virtualize)
-            _rowsDataSize = $"height: {Owner.Grid.RowsDataSize}px";
+        {
+            _style = new StyleBuilder()
+                 .AddStyle($"height: {Owner.Grid.RowsDataSize}px")
+                 .AddStyle(Style)
+                 .Build();
+        }
+
     }
 
     public void Dispose()

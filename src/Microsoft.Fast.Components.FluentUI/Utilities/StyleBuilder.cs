@@ -2,7 +2,7 @@
 
 public struct StyleBuilder
 {
-    private string stringBuffer;
+    private string? stringBuffer;
 
     /// <summary>
     /// Creates a StyleBuilder used to define conditional in-line style used in a component. Call Build() to return the completed style as a string.
@@ -15,7 +15,7 @@ public struct StyleBuilder
     /// Creates a StyleBuilder used to define conditional in-line style used in a component. Call Build() to return the completed style as a string.
     /// </summary>
     /// <param name="style"></param>
-    public static StyleBuilder Default(string style) => Empty().AddStyle(style);
+    public static StyleBuilder Default(string? style) => Empty().AddStyle(style);
 
     /// <summary>
     /// Creates a StyleBuilder used to define conditional in-line style used in a component. Call Build() to return the completed style as a string.
@@ -33,14 +33,14 @@ public struct StyleBuilder
     /// Adds a conditional in-line style to the builder with space separator and closing semicolon.
     /// </summary>
     /// <param name="style"></param>
-    public StyleBuilder AddStyle(string style) => !string.IsNullOrWhiteSpace(style) ? AddRaw($"{style};") : this;
+    public StyleBuilder AddStyle(string? style) => !string.IsNullOrWhiteSpace(style) ? AddRaw($"{style};") : this;
 
     /// <summary>
     /// Adds a raw string to the builder that will be concatenated with the next style or value added to the builder.
     /// </summary>
     /// <param name="style"></param>
     /// <returns>StyleBuilder</returns>
-    private StyleBuilder AddRaw(string style)
+    private StyleBuilder AddRaw(string? style)
     {
         stringBuffer += style;
         return this;
@@ -136,19 +136,19 @@ public struct StyleBuilder
     /// <returns>StyleBuilder</returns>
     public StyleBuilder AddStyleFromAttributes(IReadOnlyDictionary<string, object> additionalAttributes) =>
         additionalAttributes == null ? this :
-        additionalAttributes.TryGetValue("style", out var c) && c != null ? AddRaw(c.ToString()!) : this;
+        additionalAttributes.TryGetValue("style", out var c) ? AddRaw(c.ToString()) : this;
 
 
     /// <summary>
     /// Finalize the completed Style as a string.
     /// </summary>
     /// <returns>string</returns>
-    public string Build()
+    public string? Build()
     {
         // String buffer finalization code
-        return stringBuffer != null ? stringBuffer.Trim() : string.Empty;
+        return stringBuffer?.Trim();
     }
 
     // ToString should only and always call Build to finalize the rendered string.
-    public override string ToString() => Build();
+    public override string? ToString() => Build();
 }

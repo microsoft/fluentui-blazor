@@ -3,7 +3,8 @@
 @typeparam TGridItem
 @attribute [CascadingTypeParameter(nameof(TGridItem))]
 <CascadingValue Value="this" Name="OwningRow" IsFixed="true">
-    <fluent-data-grid-row style="@_rowsDataSize"
+    <fluent-data-grid-row class="@Class"
+                          style="@_style"
                           row-id="@RowId"
                           row-index=@RowIndex
                           grid-template-columns=@GridTemplateColumns

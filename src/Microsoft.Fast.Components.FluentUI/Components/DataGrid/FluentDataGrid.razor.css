@@ -113,6 +113,7 @@ fluent-data-grid {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    font-weight: 600;
 }
 
 ::deep > fluent-data-grid-row > fluent-data-grid-cell.grid-cell-placeholder:after {
