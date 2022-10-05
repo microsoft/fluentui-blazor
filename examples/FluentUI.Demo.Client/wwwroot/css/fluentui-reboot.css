@@ -5,17 +5,17 @@
  */
 
 :root {
-    --fb-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    --fb-success-fill: #107c10;
-    --fb-success-background: #dff6dd;
-    --fb-error-fill: #a80000;
-    --fb-error-background: #fde7e9;
-    --fb-warning-fill: #817400;
-    --fb-warning-bakground: #fff4ce;
-    --fb-severe-warning-fill: #d83b01;
-    --fb-severe-warning-background: #fed9cc;
-    --fb-code-color: #d63384;
-    --fb-highlight-bg: #fff3cd;
+    --fluentui-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --fluentui-success-fill: #107c10;
+    --fluentui-success-background: #dff6dd;
+    --fluentui-error-fill: #a80000;
+    --fluentui-error-background: #fde7e9;
+    --fluentui-warning-fill: #817400;
+    --fluentui-warning-bakground: #fff4ce;
+    --fluentui-severe-warning-fill: #d83b01;
+    --fluentui-severe-warning-background: #fed9cc;
+    --fluentui-code-color: #d63384;
+    --fluentui-highlight-bg: #fff3cd;
 }
 
 *, *::before, *::after {
@@ -100,11 +100,16 @@ a {
 
 blockquote {
     border-left: 5px solid var(--accent-fill-rest);
+    border-right: none;
     font-size: var(--type-ramp-base-font-size);
     font-style: italic;
     padding: 2px 15px;
 }
 
+[dir='rtl'] blockquote {
+    border-left: none;
+    border-right: 5px solid var(--accent-fill-rest);
+}
 
 abbr[title] {
     -webkit-text-decoration: underline dotted;
@@ -163,7 +168,7 @@ small {
 
 mark {
     padding: 0.1875em;
-    background-color: var(--fb-highlight-bg);
+    background-color: var(--fluentui-highlight-bg);
 }
 
 sub,
@@ -204,7 +209,7 @@ pre,
 code,
 kbd,
 samp {
-    font-family: var(--fb-font-monospace);
+    font-family: var(--fluentui-font-monospace);
     font-size: 1em;
 }
 
@@ -224,7 +229,7 @@ pre {
 
 code {
     font-size: 0.875em;
-    color: var(--fb-code-color);
+    color: var(--fluentui-code-color);
     word-wrap: break-word;
 }
 

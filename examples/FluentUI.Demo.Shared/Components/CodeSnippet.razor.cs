@@ -21,6 +21,9 @@ public partial class CodeSnippet
     [Parameter]
     public string Language { get; set; } = "language-cshtml-razor";
 
+    [Parameter]
+    public string? Style { get; set; } = null;
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
