@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.Fast.Components.FluentUI.Infrastructure;
-using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
@@ -50,10 +49,7 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IDispos
     {
         if (Owner.Grid.Virtualize)
         {
-            _style = new StyleBuilder()
-                 .AddStyle($"height: {Owner.Grid.RowsDataSize}px")
-                 .AddStyle(Style)
-                 .Build();
+            _style = $"height: {Owner.Grid.RowsDataSize}px";
         }
 
     }
