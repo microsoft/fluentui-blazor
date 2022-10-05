@@ -4,7 +4,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.Fast.Components.FluentUI.Infrastructure;
-using Microsoft.Fast.Components.FluentUI.Utilities;
 using Microsoft.JSInterop;
 
 namespace Microsoft.Fast.Components.FluentUI;
@@ -397,24 +396,17 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IAsyncDisp
         }
     }
 
-    private string? AriaSortValue(ColumnBase<TGridItem> column)
-    {
-        return new ValueBuilder()
-            .AddValue("ascending", column == _sortByColumn && _sortByAscending)
-            .AddValue("descending", column == _sortByColumn && !_sortByAscending)
-            .AddValue("none", column != _sortByColumn)
-            .ToString();
-    }
+    private string AriaSortValue(ColumnBase<TGridItem> column)
+         => _sortByColumn == column
+             ? (_sortByAscending ? "ascending" : "descending")
+             : "none";
 
     private string? ColumnHeaderClass(ColumnBase<TGridItem> column)
-    {
-        return new CssBuilder(ColumnClass(column))
-            .AddClass("col-sort-asc", _sortByColumn == column && _sortByAscending)
-            .AddClass("col-sort-desc", _sortByColumn == column && !_sortByAscending)
-            .Build();
-    }
+        => _sortByColumn == column
+        ? $"{ColumnClass(column)} {(_sortByAscending ? "col-sort-asc" : "col-sort-desc")}"
+        : ColumnClass(column);
 
-    private string? GridClassOriginal()
+    private string? GridClass()
     {
         string? value = $"{Class} {(_pendingDataLoadCancellationTokenSource is null ? null : "loading")}".Trim();
         if (string.IsNullOrEmpty(value))
@@ -423,20 +415,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IAsyncDisp
             return value;
     }
 
-    private string? GridClass()
+    private static string? ColumnClass(ColumnBase<TGridItem> column) => column.Align switch
     {
-        return new CssBuilder(Class)
-            .AddClass("loading", _pendingDataLoadCancellationTokenSource is not null)
-            .Build();
-    }
-
-    private static string? ColumnClass(ColumnBase<TGridItem> column)
-    {
-        return new CssBuilder(column.Class)
-            .AddClass("col-justify-center", column.Align == Align.Center)
-            .AddClass("col-justify-right", column.Align == Align.Right)
-            .Build();
-    }
+        Align.Center => $"col-justify-center {column.Class}",
+        Align.Right => $"col-justify-end {column.Class}",
+        _ => column.Class,
+    };
 
     /// <inheritdoc />
     public async ValueTask DisposeAsync()
