@@ -119,13 +119,15 @@ public partial class FluentIcon : FluentComponentBase
     {
         builder.OpenElement(0, "svg");
         builder.AddAttribute(1, "slot", Slot);
-        builder.AddMultipleAttributes(2, AdditionalAttributes);
-        builder.AddAttribute(3, "width", _size);
-        builder.AddAttribute(4, "height", _size);
-        builder.AddAttribute(5, "viewBox", $"0 0 {_size} {_size}");
-        builder.AddAttribute(6, "xmlns", "http://www.w3.org/2000/svg");
-        builder.AddAttribute(7, "onclick", OnClickHandler);
-        builder.AddMarkupContent(8, _svg);
+        builder.AddAttribute(2, "class", Class);
+        builder.AddAttribute(3, "style", Style);
+        builder.AddMultipleAttributes(4, AdditionalAttributes);
+        builder.AddAttribute(5, "width", _size);
+        builder.AddAttribute(6, "height", _size);
+        builder.AddAttribute(7, "viewBox", $"0 0 {_size} {_size}");
+        builder.AddAttribute(8, "xmlns", "http://www.w3.org/2000/svg");
+        builder.AddAttribute(9, "onclick", OnClickHandler);
+        builder.AddMarkupContent(10, _svg);
         builder.CloseElement();
     }
 

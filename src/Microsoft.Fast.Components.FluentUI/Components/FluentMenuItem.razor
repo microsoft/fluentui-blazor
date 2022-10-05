@@ -1,8 +1,10 @@
 @inherits FluentComponentBase
-<fluent-menu-item @ref=Element 
+<fluent-menu-item @ref=Element
+				  class="@Class"
+				  style="@Style"
 				  disabled="@Disabled" 
 				  expanded=@Expanded
-			  	  role=@Role.ToAttributeValue()
+				  role=@Role.ToAttributeValue()
 				  checked="@Checked" 
 				  @attributes="AdditionalAttributes">
 	@ChildContent
