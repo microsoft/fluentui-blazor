@@ -14,7 +14,7 @@
     --fluentui-warning-bakground: #fff4ce;
     --fluentui-severe-warning-fill: #d83b01;
     --fluentui-severe-warning-background: #fed9cc;
-    --fluentui-code-color: #962424;
+    /*--fluentui-code-color: var(--accent-foreground-rest);*/
     --fluentui-highlight-bg: #fff3cd;
 }
 
@@ -233,7 +233,7 @@ pre {
 
 code {
     font-size: 0.875em;
-    color: var(--fluentui-code-color);
+    color: var(--accent-foreground-rest);
     word-wrap: break-word;
 }
 
@@ -296,7 +296,7 @@ label {
 }
 
 button {
-    border-radius: 0;
+    border-radius: var(--control-corner-radius);
 }
 
     button:focus:not(:focus-visible) {
@@ -312,6 +312,7 @@ textarea {
     font-family: inherit;
     font-size: inherit;
     line-height: inherit;
+    border: 1px solid black;
 }
 
 button,
