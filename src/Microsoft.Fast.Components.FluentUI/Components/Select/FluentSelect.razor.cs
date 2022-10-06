@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
+[CascadingTypeParameter(nameof(TValue))]
 public partial class FluentSelect<TValue> : FluentInputBase<TValue>
 {
     private readonly string _defaultSelectName = Identifier.NewId();

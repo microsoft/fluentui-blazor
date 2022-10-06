@@ -42,8 +42,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Fast.Components.F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentUI.Demo.Generators", "examples\FluentUI.Demo.Generators\FluentUI.Demo.Generators.csproj", "{6CE4DE24-E064-4634-A05F-6A408E410733}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FolderCreator", "src\FolderCreator\FolderCreator.csproj", "{79F9CC97-C0D9-44A4-8298-4A919E3C8114}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -138,18 +136,6 @@ Global
 		{6CE4DE24-E064-4634-A05F-6A408E410733}.Release|x64.Build.0 = Release|Any CPU
 		{6CE4DE24-E064-4634-A05F-6A408E410733}.Release|x86.ActiveCfg = Release|Any CPU
 		{6CE4DE24-E064-4634-A05F-6A408E410733}.Release|x86.Build.0 = Release|Any CPU
-		{79F9CC97-C0D9-44A4-8298-4A919E3C8114}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{79F9CC97-C0D9-44A4-8298-4A919E3C8114}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{79F9CC97-C0D9-44A4-8298-4A919E3C8114}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{79F9CC97-C0D9-44A4-8298-4A919E3C8114}.Debug|x64.Build.0 = Debug|Any CPU
-		{79F9CC97-C0D9-44A4-8298-4A919E3C8114}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{79F9CC97-C0D9-44A4-8298-4A919E3C8114}.Debug|x86.Build.0 = Debug|Any CPU
-		{79F9CC97-C0D9-44A4-8298-4A919E3C8114}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{79F9CC97-C0D9-44A4-8298-4A919E3C8114}.Release|Any CPU.Build.0 = Release|Any CPU
-		{79F9CC97-C0D9-44A4-8298-4A919E3C8114}.Release|x64.ActiveCfg = Release|Any CPU
-		{79F9CC97-C0D9-44A4-8298-4A919E3C8114}.Release|x64.Build.0 = Release|Any CPU
-		{79F9CC97-C0D9-44A4-8298-4A919E3C8114}.Release|x86.ActiveCfg = Release|Any CPU
-		{79F9CC97-C0D9-44A4-8298-4A919E3C8114}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -8,7 +8,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// <summary>
 /// A component that provides a user interface for <see cref="PaginationState"/>.
 /// </summary>
-public partial class FluentPaginator : IDisposable
+public partial class FluentPaginator : FluentComponentBase, IDisposable
 {
     private readonly EventCallbackSubscriber<PaginationState> _totalItemCountChanged;
 

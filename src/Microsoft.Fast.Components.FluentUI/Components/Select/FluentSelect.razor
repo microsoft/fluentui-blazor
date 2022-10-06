@@ -1,7 +1,6 @@
-@typeparam TValue
-@attribute [CascadingTypeParameter(nameof(TValue))]
+@namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentInputBase<TValue>
-
+@typeparam TValue
 <CascadingValue TValue=FluentOptionContext IsFixed=true Value=_context @key=_context>
     <fluent-select @ref=Element
                    class="@Class"

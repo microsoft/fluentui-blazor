@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.Fast.Components.FluentUI.DesignTokens;
 
 public class Swatch
 {
