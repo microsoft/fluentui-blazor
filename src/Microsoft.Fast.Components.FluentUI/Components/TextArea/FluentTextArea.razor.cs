@@ -17,6 +17,12 @@ public partial class FluentTextArea : FluentInputBase<string?>
     /// </summary>
     [Parameter]
     public bool Autofocus { get; set; }
+    
+    /// <summary>
+    /// Gets or sets the placholder text
+    /// </summary>
+    [Parameter]
+    public string? Placeholder { get; set; }
 
     /// <summary>
     /// The <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id">id</see> the <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form">form</see> the element is associated to
@@ -42,11 +48,6 @@ public partial class FluentTextArea : FluentInputBase<string?>
     [Parameter]
     public int? Minlength { get; set; }
 
-    /// <summary>
-    /// Gets or sets the placholder text
-    /// </summary>
-    [Parameter]
-    public string? Placeholder { get; set; }
 
     /// <summary>
     /// Sizes the element horizontally by a number of character columns.
@@ -65,7 +66,7 @@ public partial class FluentTextArea : FluentInputBase<string?>
     /// but the UA.
     /// </summary>
     [Parameter]
-    public bool Spellcheck { get; set; }
+    public bool? Spellcheck { get; set; }
 
     /// <summary>
     /// Gets or sets the visual appearance. See <see cref="FluentUI.Appearance"/>

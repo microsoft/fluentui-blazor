@@ -57,7 +57,7 @@ public partial class FluentTextField : FluentInputBase<string?>
     /// Gets or sets the if spellcheck should be used
     /// </summary>
     [Parameter]
-    public bool Spellcheck { get; set; }
+    public bool? Spellcheck { get; set; }
 
     /// <summary>
     /// Gets or sets the visual appearance. See <see cref="FluentUI.Appearance"/>

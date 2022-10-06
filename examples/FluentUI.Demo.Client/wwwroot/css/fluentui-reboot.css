@@ -14,7 +14,7 @@
     --fluentui-warning-bakground: #fff4ce;
     --fluentui-severe-warning-fill: #d83b01;
     --fluentui-severe-warning-background: #fed9cc;
-    --fluentui-code-color: #d63384;
+    --fluentui-code-color: #962424;
     --fluentui-highlight-bg: #fff3cd;
 }
 
@@ -26,6 +26,10 @@
     :root {
         scroll-behavior: smooth;
     }
+}
+
+html {
+    font-family: var(--body-font);
 }
 
 body {
@@ -254,10 +258,10 @@ figure {
     margin: 0 0 1rem;
 }
 
-img,
+/*img,
 svg {
     vertical-align: middle;
-}
+}*/
 
 table {
     caption-side: bottom;
