@@ -1,16 +1,22 @@
 namespace Microsoft.Fast.Components.FluentUI;
 
+/// <summary>
+/// The option for generating a header for the <see cref="FluentDataGrid{TGridItem}" />.
+/// </summary>
 public enum GenerateHeaderOption
 {
+    /// <summary>
+    /// No header row.
+    /// </summary>
     None,
+
+    /// <summary>
+    /// Generate a header row.
+    /// </summary>
     Default,
+
+    /// <summary>
+    /// Generate a sticky header row.
+    /// </summary>
     Sticky
-}
-
-public static class GenerateHeaderOptionExtensions
-{
-    private static readonly Dictionary<GenerateHeaderOption, string> _generateHeaderValues =
-        Enum.GetValues<GenerateHeaderOption>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());
-
-    public static string? ToAttributeValue(this GenerateHeaderOption? value) => value == null ? null : _generateHeaderValues[value.Value];
 }

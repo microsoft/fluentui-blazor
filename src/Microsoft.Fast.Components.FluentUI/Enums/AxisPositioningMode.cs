@@ -1,17 +1,18 @@
 ﻿namespace Microsoft.Fast.Components.FluentUI;
 
+/// <summary>
+/// Values to define the base behavior of a <see cref="FluentAnchoredRegion"/> component on a particular axis.
+/// </summary>
 public enum AxisPositioningMode
 {
+    /// <summary>
+    /// The axis positioning is not controlled.
+    /// </summary>
     Uncontrolled,
+
+    /// <summary />
     Locktodefault,
+
+    /// <summary />
     Dynamic
-}
-
-
-public static class AxisPositioningModeExtensions
-{
-    private static readonly Dictionary<AxisPositioningMode, string> _positioningValues =
-        Enum.GetValues<AxisPositioningMode>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());
-
-    public static string? ToAttributeValue(this AxisPositioningMode? value) => value == null ? null : _positioningValues[value.Value];
 }

@@ -1,15 +1,17 @@
 namespace Microsoft.Fast.Components.FluentUI;
 
+/// <summary>
+/// The direction of the <see cref="FluentFlipper"/> component.
+/// </summary>
 public enum FlipperDirection
 {
+    /// <summary>
+    /// Move to the previous element.
+    /// </summary>
     Previous,
+
+    /// <summary>
+    /// Move to the next element.
+    /// </summary>
     Next
-}
-
-public static class FlipperDirectionExtensions
-{
-    private static readonly Dictionary<FlipperDirection, string> _directionValues =
-        Enum.GetValues<FlipperDirection>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());
-
-    public static string? ToAttributeValue(this FlipperDirection? value) => value == null ? null : _directionValues[value.Value];
 }

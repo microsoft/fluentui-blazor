@@ -1,15 +1,22 @@
 ﻿namespace Microsoft.Fast.Components.FluentUI;
 
+/// <summary>
+///  Defines if a <see cref="FluentAnchoredRegion"/> component updates its position automatically. 
+/// </summary>
 public enum AutoUpdateMode
 {
+    /// <summary>
+    /// The position only updates when the anchor resizes (default)
+    /// </summary>
     Anchor,
+
+    /// <summary>
+    /// The position is updated when:
+    /// - update() is called
+    /// - the anchor resizes
+    /// - the window resizes
+    /// - the viewport resizes
+    /// - any scroll event in the document
+    /// </summary>
     Auto
-}
-
-public static class AutoUpdateModeExtensions
-{
-    private static readonly Dictionary<AutoUpdateMode, string> _updateModeValues =
-        Enum.GetValues<AutoUpdateMode>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());
-
-    public static string? ToAttributeValue(this AutoUpdateMode? value) => value == null ? null : _updateModeValues[value.Value];
 }

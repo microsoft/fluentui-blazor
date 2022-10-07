@@ -1,15 +1,17 @@
 namespace Microsoft.Fast.Components.FluentUI;
 
+/// <summary>
+/// The expand mode of the <see cref="FluentAccordion"/> component.
+/// </summary>
 public enum AccordionExpandMode
 {
+    /// <summary>
+    /// The accordion only allows a single expanded item at a time.
+    /// </summary>
     Single,
+
+    /// <summary>
+    /// The accordion allows multiple items expanded at a time.
+    /// </summary>
     Multi
-}
-
-public static class AccordionExpandModeExtensions
-{
-    private static readonly Dictionary<AccordionExpandMode, string> _expandModeValues =
-        Enum.GetValues<AccordionExpandMode>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());
-
-    public static string? ToAttributeValue(this AccordionExpandMode? value) => value == null ? null : _expandModeValues[value.Value];
 }

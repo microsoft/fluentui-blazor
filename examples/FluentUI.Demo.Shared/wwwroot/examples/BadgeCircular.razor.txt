@@ -1,3 +1,5 @@
-<FluentBadge Circular=true Appearance="Appearance.Accent">
-    Circular
-</FluentBadge>
+<div style="margin-top: 12px; display: flex;">
+    <FluentBadge Circular=true Appearance="Appearance.Accent">
+        Circular
+    </FluentBadge>
+</div>

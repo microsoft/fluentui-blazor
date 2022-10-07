@@ -1,92 +1,90 @@
-﻿namespace Microsoft.Fast.Components.FluentUI;
+﻿using System.ComponentModel;
+
+namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary>
-/// Enum representing the different day formats
+/// Defines the format of days shown in a <see cref="FluentCalendar"/> component.
 /// </summary>
 public enum DayFormat
 {
+    /// <summary>
+    /// The day format uses 2 digits.
+    /// </summary>
+    [Description("2-digit")]
     TwoDigit,
+
+    /// <summary>
+    /// The day format is numeric.
+    /// </summary>
     Numeric
 }
 
 /// <summary>
-/// Enum representing the different weekday formats
+/// Defines the format of the day names shown in a <see cref="FluentCalendar"/> component.
 /// </summary>
 public enum WeekdayFormat
 {
+    /// <summary>
+    /// The day name uses a long format.
+    /// </summary>
     Long,
+
+    /// <summary>
+    /// The day name uses a narrow format.
+    /// </summary>
     Narrow,
+
+    /// <summary>
+    /// The day name uses a short format.
+    /// </summary>
     Short
 }
 
 /// <summary>
-/// Enum representing the different month formats
+/// Defines the format of the months shown in a <see cref="FluentCalendar"/> component.
 /// </summary>
 public enum MonthFormat
 {
+    /// <summary>
+    /// The month number is shown in 2 digits
+    /// </summary>
+    [Description("2-digit")]
     TwoDigit,
+
+    /// <summary>
+    /// The month name uses a long format.
+    /// </summary>
     Long,
+
+    /// <summary>
+    /// The month names uses a narrow format.
+    /// </summary>
     Narrow,
+
+    /// <summary>
+    /// The month is shown in a numeric format.
+    /// </summary>
     Numeric,
+
+    /// <summary>
+    /// The month name uses a short format.
+    /// </summary>
     Short
 }
 
 /// <summary>
-/// Enum representing the different year formats
+/// Defines the format of the years shown in a <see cref="FluentCalendar"/> component.
 /// </summary>
 public enum YearFormat
 {
+    /// <summary>
+    /// The year is shown in a 2 digit format.
+    /// </summary>
+    [Description("2-digit")]
     TwoDigit,
+
+    /// <summary>
+    /// The year is shwn in a numeric format (4 digits).
+    /// </summary>
     Numeric
-}
-
-public static class CalendarFormatsExtensions
-{
-    // DayFormat extension
-    private static readonly Dictionary<DayFormat, string> _dayFormatValues =
-        Enum.GetValues<DayFormat>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());
-
-    public static string? ToAttributeValue(this DayFormat? value)
-    {
-        if (value is null) return null;
-        return value switch
-        {
-            DayFormat.TwoDigit => "2-digit",
-            _ => _dayFormatValues[value.Value],
-        };
-    }
-
-    // WeekdayFormat extension
-    private static readonly Dictionary<WeekdayFormat, string> _weekdayFormatValues =
-        Enum.GetValues<WeekdayFormat>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());
-
-    public static string? ToAttributeValue(this WeekdayFormat? value) => value == null ? null : _weekdayFormatValues[value.Value];
-
-    // MonthFormat extension
-    private static readonly Dictionary<MonthFormat, string> _monthFormatValues =
-        Enum.GetValues<MonthFormat>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());
-
-    public static string? ToAttributeValue(this MonthFormat? value)
-    {
-        if (value is null) return null;
-        return value switch
-        {
-            MonthFormat.TwoDigit => "2-digit",
-            _ => _monthFormatValues[value.Value],
-        };
-    }
-
-    // YearFormat extension 
-    private static readonly Dictionary<YearFormat, string> _yearFormatValues =
-        Enum.GetValues<YearFormat>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());
-
-    public static string? ToAttributeValue(this YearFormat? value)
-    {
-        if (value is null) return null;
-        return value switch
-        {
-            YearFormat.TwoDigit => "2-digit",
-            _ => _yearFormatValues[value.Value],
-        };
-    }
 }

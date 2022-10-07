@@ -1,26 +1,32 @@
-﻿namespace Microsoft.Fast.Components.FluentUI;
+﻿using System.ComponentModel;
 
+namespace Microsoft.Fast.Components.FluentUI;
+
+/// <summary>
+/// The easing function to use when scrolling.
+/// </summary>
 public enum ScrollEasing
 {
+    /// <summary>
+    /// Linear easing.
+    /// </summary>
     Linear,
+
+    /// <summary>
+    /// Ease in.
+    /// </summary>
+    [Description("ease-in")]
     EaseIn,
+
+    /// <summary>
+    /// Ease out.
+    /// </summary>
+    [Description("ease-out")]
     EaseOut,
+
+    /// <summary>
+    /// Ease in then out.
+    /// </summary>
+    [Description("ease-in-out")]
     EaseInOut
-}
-
-public static class ScrollEasingExtensions
-{
-    public static string? ToAttributeValue(this ScrollEasing? value)
-    {
-        if (value is null) return null;
-        return value switch
-        {
-            ScrollEasing.Linear => "linear",
-            ScrollEasing.EaseIn => "ease-in",
-            ScrollEasing.EaseOut => "ease-out",
-            ScrollEasing.EaseInOut => "ease-in-out",
-            _ => throw new NotImplementedException(),
-        };
-    }
-
 }

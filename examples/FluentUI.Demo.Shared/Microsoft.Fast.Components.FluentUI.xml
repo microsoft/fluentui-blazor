@@ -4623,24 +4623,353 @@
             <param name="jsRuntime">IJSRuntime reference</param>
             <param name="configuration">IConfiguration reference</param>
         </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.AccordionExpandMode">
+            <summary>
+            The expand mode of the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentAccordion"/> component.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.AccordionExpandMode.Single">
+            <summary>
+            The accordion only allows a single expanded item at a time.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.AccordionExpandMode.Multi">
+            <summary>
+            The accordion allows multiple items expanded at a time.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.Appearance">
+            <summary>
+            The visual appearance of a component.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.Appearance.Neutral">
+            <summary>
+            Neutral appearance.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.Appearance.Accent">
+            <summary>
+            Uses the current accent color.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.Appearance.Hypertext">
+            <summary>
+            Shown as a link.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.Appearance.Lightweight">
+            <summary />
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.Appearance.Outline">
+            <summary>
+            Show a border.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.Appearance.Stealth">
+            <summary>
+            Reveal on hover
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.Appearance.Filled">
+            <summary>
+            Show filled.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.AutoUpdateMode">
+            <summary>
+             Defines if a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentAnchoredRegion"/> component updates its position automatically. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.AutoUpdateMode.Anchor">
+            <summary>
+            The position only updates when the anchor resizes (default)
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.AutoUpdateMode.Auto">
+            <summary>
+            The position is updated when:
+            - update() is called
+            - the anchor resizes
+            - the window resizes
+            - the viewport resizes
+            - any scroll event in the document
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.AxisPositioningMode">
+            <summary>
+            Values to define the base behavior of a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentAnchoredRegion"/> component on a particular axis.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.AxisPositioningMode.Uncontrolled">
+            <summary>
+            The axis positioning is not controlled.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.AxisPositioningMode.Locktodefault">
+            <summary />
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.AxisPositioningMode.Dynamic">
+            <summary />
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.AxisScalingMode">
+            <summary>
+            Values to define the scaling behavior of a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentAnchoredRegion"/> component on a particular axis.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.AxisScalingMode.Content">
+            <summary>
+            The axis will scale to the content.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.AxisScalingMode.Fill">
+            <summary>
+            The axis will scale to the content or the anchor, whichever is larger.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.AxisScalingMode.Anchor">
+            <summary>
+            The axis will scale to the anchor.
+            </summary>
+        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DayFormat">
             <summary>
-            Enum representing the different day formats
+            Defines the format of days shown in a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentCalendar"/> component.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.DayFormat.TwoDigit">
+            <summary>
+            The day format uses 2 digits.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.DayFormat.Numeric">
+            <summary>
+            The day format is numeric.
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.WeekdayFormat">
             <summary>
-            Enum representing the different weekday formats
+            Defines the format of the day names shown in a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentCalendar"/> component.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.WeekdayFormat.Long">
+            <summary>
+            The day name uses a long format.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.WeekdayFormat.Narrow">
+            <summary>
+            The day name uses a narrow format.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.WeekdayFormat.Short">
+            <summary>
+            The day name uses a short format.
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.MonthFormat">
             <summary>
-            Enum representing the different month formats
+            Defines the format of the months shown in a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentCalendar"/> component.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.MonthFormat.TwoDigit">
+            <summary>
+            The month number is shown in 2 digits
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.MonthFormat.Long">
+            <summary>
+            The month name uses a long format.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.MonthFormat.Narrow">
+            <summary>
+            The month names uses a narrow format.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.MonthFormat.Numeric">
+            <summary>
+            The month is shown in a numeric format.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.MonthFormat.Short">
+            <summary>
+            The month name uses a short format.
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.YearFormat">
             <summary>
-            Enum representing the different year formats
+            Defines the format of the years shown in a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentCalendar"/> component.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.YearFormat.TwoDigit">
+            <summary>
+            The year is shown in a 2 digit format.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.YearFormat.Numeric">
+            <summary>
+            The year is shwn in a numeric format (4 digits).
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.ComboboxAutocomplete">
+            <summary>
+            The type of autocoplete for a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentCombobox`1"/> component.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.ComboboxAutocomplete.Inline">
+            <summary>
+            The combobox will autocomplete inline.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.ComboboxAutocomplete.List">
+            <summary>
+            The combobox will autocomplete on the list values.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.ComboboxAutocomplete.Both">
+            <summary>
+            The combobox will autocomplete inline and on the list values.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.DataGridCellType">
+            <summary>
+            The type of <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGridCell`1"/> in a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.DataGridCellType.Default">
+            <summary>
+            A normal cell.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.DataGridCellType.ColumnHeader">
+            <summary>
+            A header cell.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.DataGridCellType.RowHeader">
+            <summary>
+            Cell is a row header.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.DataGridRowType">
+            <summary>
+            The type of <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGridRow`1"/> in a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.DataGridRowType.Default">
+            <summary>
+            A normal row .
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.DataGridRowType.Header">
+            <summary>
+            A header row.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.DataGridRowType.StickyHeader">
+            <summary>
+            A sticky header row.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.DividerRole">
+            <summary>
+            Defines the role of the divider.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.DividerRole.Separator">
+            <summary>
+            The divider is used as a separator.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.DividerRole.Presentation">
+            <summary>
+            The divider is used for presentation purpose.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.FlipperDirection">
+            <summary>
+            The direction of the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentFlipper"/> component.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.FlipperDirection.Previous">
+            <summary>
+            Move to the previous element.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.FlipperDirection.Next">
+            <summary>
+            Move to the next element.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.GenerateHeaderOption">
+            <summary>
+            The option for generating a header for the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1" />.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.GenerateHeaderOption.None">
+            <summary>
+            No header row.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.GenerateHeaderOption.Default">
+            <summary>
+            Generate a header row.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.GenerateHeaderOption.Sticky">
+            <summary>
+            Generate a sticky header row.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.HorizontalPosition">
+            <summary>
+            Describes the horizontal positioning of a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentAnchoredRegion"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.HorizontalPosition.Unset">
+            <summary>
+            The anchored region position is unset.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.HorizontalPosition.Start">
+            <summary>
+            The anchored region is positioned at the start of the anchor.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.HorizontalPosition.End">
+            <summary>
+            The anchored region is positioned at the end of the anchor.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.HorizontalPosition.Left">
+            <summary>
+            The anchored region is positioned in the left of the anchor.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.HorizontalPosition.Right">
+            <summary>
+            The anchored region is positioned in the right of the anchor.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.HorizontalScrollView">
+            <summary>
+            The horizontal scroll view mode.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.HorizontalScrollView.Default">
+            <summary>
+            The default horizontal scroll view mode.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.HorizontalScrollView.Mobile">
+            <summary>
+            The mobile horizontal scroll view mode.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.IconSize">
+            <summary>
+            The size of the icon.
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.IconSize.Size10">
@@ -4683,6 +5012,177 @@
             FluentUI System Icon font size 48x48
             </summary>
         </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.LocalizationDirection">
+            <summary>
+            The direction of the text.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.LocalizationDirection.ltr">
+            <summary>
+            Left to right.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.LocalizationDirection.rtl">
+            <summary>
+            Right to left.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.MenuItemRole">
+            <summary>
+            The role of the menu item.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.MenuItemRole.MenuItem">
+            <summary>
+            The menu item has a "menuitem" role
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.MenuItemRole.MenuItemCheckbox">
+            <summary>
+            The menu item has a "menuitemcheckbox" role
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.MenuItemRole.MenuItemRadio">
+            <summary>
+            The menu item has a "menuitemradio" role
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.OfficeColor">
+            <summary>
+            The official product colors for Microsoft Office apps.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Access">
+            <summary/>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Exchange">
+            <summary/>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Excel">
+            <summary/>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Office">
+            <summary/>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.OneDrive">
+            <summary/>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.OneNote">
+            <summary/>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Planner">
+            <summary/>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.PowerApps">
+            <summary/>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.PowerPoint">
+            <summary/>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Publisher">
+            <summary/>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.SharePoint">
+            <summary/>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Skype">
+            <summary/>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Sway">
+            <summary/>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Teams">
+            <summary/>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Visio">
+            <summary/>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Word">
+            <summary/>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Yammer">
+            <summary/>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.Orientation">
+            <summary>
+            The orientation of a component.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.Orientation.Horizontal">
+            <summary>
+            The component is oriented horizontally.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.Orientation.Vertical">
+            <summary>
+            The component is oriented vertically.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.ScrollEasing">
+            <summary>
+            The easing function to use when scrolling.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.ScrollEasing.Linear">
+            <summary>
+            Linear easing.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.ScrollEasing.EaseIn">
+            <summary>
+            Ease in.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.ScrollEasing.EaseOut">
+            <summary>
+            Ease out.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.ScrollEasing.EaseInOut">
+            <summary>
+            Ease in then out.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.SelectPosition">
+            <summary>
+            The position of the select component.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.SelectPosition.Above">
+            <summary>
+            The select component is positioned above the anchor.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.SelectPosition.Below">
+            <summary>
+            The select component is positioned below the anchor.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.SkeletonShape">
+            <summary>
+            Indicates what the shape of the Skeleton should be.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.SkeletonShape.Rect">
+            <summary>
+            The shape is rectangular.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.SkeletonShape.Circle">
+            <summary>
+            The shape is circular.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.SliderMode">
+            <summary>
+            The selection mode of the slider
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.SliderMode.SingleValue">
+            <summary>
+            The slider is in single selection mode
+            </summary>
+        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.SortDirection">
             <summary>
             Describes the direction in which a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/> column is sorted.
@@ -4703,6 +5203,111 @@
             Automatic sort order. When used with <see cref="M:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.SortByColumnAsync(Microsoft.Fast.Components.FluentUI.ColumnBase{`0},Microsoft.Fast.Components.FluentUI.SortDirection)"/>,
             the sort order will automatically toggle between <see cref="F:Microsoft.Fast.Components.FluentUI.SortDirection.Ascending"/> and <see cref="F:Microsoft.Fast.Components.FluentUI.SortDirection.Descending"/> on successive calls, and
             resets to <see cref="F:Microsoft.Fast.Components.FluentUI.SortDirection.Ascending"/> whenever the specified column is changed.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.TextAreaResize">
+            <summary>
+            Describes the direction in which a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentTextArea"/> can resize.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.TextAreaResize.Horizontal">
+            <summary>
+            The textarea can only resize horizontally.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.TextAreaResize.Vertical">
+            <summary>
+            The textarea can only resize vertically.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.TextAreaResize.Both">
+            <summary>
+            The textarea can resize both horizontally and vertically.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.TextFieldType">
+            <summary>
+            Describes the type of input of a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentTextField"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.TextFieldType.Text">
+            <summary>
+            The default type of text field
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.TextFieldType.Email">
+            <summary>
+            A text field that is used for email address input.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.TextFieldType.Password">
+            <summary>
+            A text field that is used for password input.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.TextFieldType.Tel">
+            <summary>
+            A text field that is used for telephone number input.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.TextFieldType.Url">
+            <summary>
+            A text field that is used for URL input.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.TooltipPosition">
+            <summary>
+            Describes the position at which a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentTooltip"/> is shown.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.TooltipPosition.Top">
+            <summary>
+            The tooltip is positioned above the anchor element.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.TooltipPosition.Bottom">
+            <summary>
+            The tooltip is positioned below the anchor element.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.TooltipPosition.Left">
+            <summary>
+            The tooltip is positioned to the left of the anchor element.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.TooltipPosition.Right">
+            <summary>
+            The tooltip is positioned to the right of the anchor element.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.TooltipPosition.Start">
+            <summary>
+            The tooltip is positioned at the start of the anchor element.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.TooltipPosition.End">
+            <summary>
+            The tooltip is positioned at the end of the enachor elemenet.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.VerticalPosition">
+            <summary>
+            Describes the vertical positioning of a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentAnchoredRegion"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.VerticalPosition.Unset">
+            <summary>
+            No positioning set
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.VerticalPosition.Top">
+            <summary>
+            Position at the top
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.VerticalPosition.Bottom">
+            <summary>
+            Position at the bottom
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentOptionContext.ContainerComponentName">
@@ -4804,11 +5409,6 @@
              existing one will still be unsubscribed.
              </summary>
              <param name="subscribable"></param>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.Infrastructure.EventHandlers">
-            <summary>
-            Configures event handlers for <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/>.
-            </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.Infrastructure.IAsyncQueryExecutor">
             <summary>

@@ -19,18 +19,13 @@ header {
     padding: 12px 0;
     background-color: var(--neutral-layer-4);
     grid-area: header;
-    
     display: grid;
     grid-template-columns: 280px auto 1fr;
     grid-template-rows: 1fr;
     align-items: center;
     justify-content: flex-start;
+    border-bottom: calc(var(--stroke-width) * 3px) solid var(--accent-fill-rest)
 }
-
-    header a {
-        padding: 0px 15px;
-        color: var(--neutral-foreground-rest);
-    }
 
     header .logo {
         width: 108px;
@@ -44,10 +39,16 @@ header {
         padding: 0 10px
     }
 
+        header .links fluent-anchor {
+            width: 3rem;
+        }
+
     header .switches {
         grid-column: 3;
         justify-self: end;
         padding: 0 20px;
+        display: flex;
+        align-items: center;
         
     }
     
@@ -90,7 +91,7 @@ main {
 nav {
     z-index: 1;
     padding: 40px 20px 20px 20px;
-    background-color: var(--neutral-layer-3);
+    background-color: var(--accent-stroke-control-active);
     transition: all 300ms ease-in-out;
 
     grid-column: 1 / 2;
@@ -154,9 +155,27 @@ article {
     right: 0px;
 }
 
+#color {
+    margin-right: 10px;
+    margin-left: 0;
+}
+
+[dir="rtl"] #color {
+    margin-left: 10px;
+    margin-right: 0;
+}
 
 
-
+label {
+    color: var(--neutral-foreground-rest);
+    font-family: var(--body-font);
+    font-size: var(--type-ramp-base-font-size);
+    line-height: var(--type-ramp-base-line-height);
+    font-weight: initial;
+    font-variation-settings: var(--type-ramp-base-font-variations);
+    margin-inline-end: calc(var(--design-unit) * 2px + 2px);
+    cursor: pointer;
+}
 
 .shell, .sourceCode {
     background: var(--neutral-stroke-layer-rest);

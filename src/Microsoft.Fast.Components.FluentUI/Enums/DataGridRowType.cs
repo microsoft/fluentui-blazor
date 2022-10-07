@@ -1,18 +1,22 @@
-﻿using System.Text.RegularExpressions;
+﻿namespace Microsoft.Fast.Components.FluentUI;
 
-namespace Microsoft.Fast.Components.FluentUI;
-
+/// <summary>
+/// The type of <see cref="FluentDataGridRow{TGridItem}"/> in a <see cref="FluentDataGrid{TGridItem}"/>.
+/// </summary>
 public enum DataGridRowType
 {
+    /// <summary>
+    /// A normal row .
+    /// </summary>
     Default,
+
+    /// <summary>
+    /// A header row.
+    /// </summary>
     Header,
+
+    /// <summary>
+    /// A sticky header row.
+    /// </summary>
     StickyHeader
-}
-
-public static class DataGridRowTypeExtensions
-{
-    private static readonly Dictionary<DataGridRowType, string> _dataGridRowTypeValues =
-        Enum.GetValues<DataGridRowType>().ToDictionary(id => id, id => string.Join("-", Regex.Split(Enum.GetName(id)!, @"(?<!^)(?=[A-Z](?![A-Z]|$))")).ToLowerInvariant());
-
-    public static string? ToAttributeValue(this DataGridRowType? value) => value == null ? null : _dataGridRowTypeValues[value.Value];
 }

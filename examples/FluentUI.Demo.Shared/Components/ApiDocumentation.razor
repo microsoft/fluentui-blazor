@@ -2,7 +2,7 @@
 @using System.Reflection;
 @using Microsoft.Fast.Components.FluentUI;
 
-
+<div>
 @if (string.IsNullOrWhiteSpace(GenericLabel))
 {
     <h2>@Component.Name Class</h2>
@@ -15,7 +15,7 @@ else
 @if (this.Properties.Any())
 {
     <h3>Parameters</h3>
-    <FluentDataGrid RowsData="@this.Properties.AsQueryable()" GridTemplateColumns="1fr 1fr 0.5fr 1.5fr">
+    <FluentDataGrid Class="docgrid" RowsData="@this.Properties.AsQueryable()" GridTemplateColumns="1fr 1fr 0.5fr 1.5fr">
         <TemplateColumn Title="Name"><code>@context.Name</code></TemplateColumn>
         <TemplateColumn Title="Type">
                     @context.Type
@@ -50,7 +50,7 @@ else
 @if (this.Events.Any())
 {
     <h3>EventCallbacks</h3>
-    <FluentDataGrid RowsData="@this.Events.AsQueryable()" GridTemplateColumns="1fr 1fr 1fr">
+    <FluentDataGrid Class="docgrid" RowsData="@this.Events.AsQueryable()" GridTemplateColumns="1fr 1fr 1fr">
         <TemplateColumn Title="Name"><code>@context.Name</code></TemplateColumn>
         <PropertyColumn Property="@(c => c.Type)" />
         <TemplateColumn Title="Description">
@@ -64,7 +64,7 @@ else
 @if (this.Methods.Any())
 {
     <h3>Methods</h3>
-    <FluentDataGrid RowsData="@this.Methods.AsQueryable()" GridTemplateColumns="1fr 1fr 1fr 1fr">
+    <FluentDataGrid Class="docgrid" RowsData="@this.Methods.AsQueryable()" GridTemplateColumns="1fr 1fr 1fr 1fr">
         <TemplateColumn Title="Name"><code>@context.Name</code></TemplateColumn>
         <TemplateColumn Title="Parameters">
             @foreach (var param in @context.Parameters)
@@ -80,3 +80,4 @@ else
         </TemplateColumn>        
     </FluentDataGrid>
 }
+</div>

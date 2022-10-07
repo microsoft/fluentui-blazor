@@ -1,5 +1,8 @@
 ﻿namespace Microsoft.Fast.Components.FluentUI;
 
+/// <summary>
+/// The size of the icon.
+/// </summary>
 public enum IconSize
 {
     /// <summary>
@@ -35,12 +38,4 @@ public enum IconSize
     /// </summary>
     Size48 = 48
 
-}
-
-public static class IconSizeExtensions
-{
-    private static readonly Dictionary<IconSize, int> _iconSizeValues =
-        Enum.GetValues<IconSize>().ToDictionary(id => id, id => (int)id);
-
-    public static int? ToAttributeValue(this IconSize? value) => value == null ? null : _iconSizeValues[value.Value];
 }

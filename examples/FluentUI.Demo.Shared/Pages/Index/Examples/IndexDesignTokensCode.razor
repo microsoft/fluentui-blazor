@@ -4,10 +4,12 @@
 @inject StrokeWidth StrokeWidth
 @inject ControlCornerRadius ControlCornerRadius
 
-<FluentAnchor @ref="ref1" Appearance="Appearance.Filled" Href="handlers">Web components handlers</FluentAnchor>
-<FluentButton @ref="ref2" Appearance="Appearance.Accent" Href="bindings">Web components bindings</FluentButton>
-<FluentAnchor @ref="ref3" Appearance="Appearance.Filled" Href="componentbindings">Blazor component bindings</FluentAnchor>
-<FluentButton @ref="ref4" Appearance="Appearance.Filled" @onclick=OnClick>Click me to remove the border!</FluentButton>
+<div style="margin-top: 12px; display: flex;">
+    <FluentAnchor @ref="ref1" Appearance="Appearance.Filled" Href="handlers">Web components handlers</FluentAnchor>
+    <FluentButton @ref="ref2" Appearance="Appearance.Accent" Href="bindings">Web components bindings</FluentButton>
+    <FluentAnchor @ref="ref3" Appearance="Appearance.Filled" Href="componentbindings">Blazor component bindings</FluentAnchor>
+    <FluentButton @ref="ref4" Appearance="Appearance.Filled" @onclick=OnClick>Click me to remove the border!</FluentButton>
+</div>
 
 @code {
     private FluentAnchor? ref1;

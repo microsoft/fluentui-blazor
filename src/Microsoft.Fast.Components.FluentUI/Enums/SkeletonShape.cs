@@ -1,15 +1,17 @@
 ﻿namespace Microsoft.Fast.Components.FluentUI;
 
+/// <summary>
+/// Indicates what the shape of the Skeleton should be.
+/// </summary>
 public enum SkeletonShape
 {
+    /// <summary>
+    /// The shape is rectangular.
+    /// </summary>
     Rect,
+
+    /// <summary>
+    /// The shape is circular.
+    /// </summary>
     Circle
-}
-
-public static class SkeletonShapeExtensions
-{
-    private static readonly Dictionary<SkeletonShape, string> _shapeValues =
-        Enum.GetValues<SkeletonShape>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());
-
-    public static string? ToAttributeValue(this SkeletonShape? value) => value == null ? null : _shapeValues[value.Value];
 }
