@@ -6,7 +6,7 @@
 .demo-section-example {
     margin: 1rem 0;
     border: calc(var(--stroke-width) * 1px) solid var(--neutral-stroke-rest);
-    padding: 0 1em 1em;
+    padding: 1em;
 }
     ::deep  p {
         margin-top: 1rem;

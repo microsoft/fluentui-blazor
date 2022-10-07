@@ -1,13 +1,11 @@
-<div style="margin-top: 12px; display: flex;">
-    <FluentBadge Appearance="Appearance.Lightweight">
-        Lightweight
-    </FluentBadge>
+<FluentBadge Appearance="Appearance.Lightweight">
+    Lightweight
+</FluentBadge>
 
-    <FluentBadge Appearance="Appearance.Accent">
-        Accent
-    </FluentBadge>
+<FluentBadge Appearance="Appearance.Accent">
+    Accent
+</FluentBadge>
 
-    <FluentBadge Appearance="Appearance.Neutral">
-        Neutral
-    </FluentBadge>
-</div>
+<FluentBadge Appearance="Appearance.Neutral">
+    Neutral
+</FluentBadge>
