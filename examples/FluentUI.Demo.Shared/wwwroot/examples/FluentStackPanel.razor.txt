@@ -1,7 +1,5 @@
 ﻿@namespace FluentUI.Demo.Shared
 @inherits FluentComponentBase
-
 <div class="@ClassValue" style="@StyleValue" @attributes="AdditionalAttributes">
     @ChildContent
 </div>
-

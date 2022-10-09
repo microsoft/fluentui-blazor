@@ -9,7 +9,7 @@
     We hope you will help us test-drive the components and give us feedback (at our <a href="https://github.com/microsoft/fast-blazor/discussions">repo's discussion board'</a>).
 </p>
 
-<DemoSection Component="typeof(FluentLayout)" Title="FluentLayout" CollocatedFiles="@(new[] {"cs", "css"})" ComponentParameters="@(new Dictionary<string, object>(){ {"ChildContent",(RenderFragment)(builder => builder.AddMarkupContent(1,"This is some content displayed in a <code>FluentLayout</code>")) } })">
+<DemoSection Component="typeof(FluentLayout)" Title="FluentLayout" CollocatedFiles="@(new[] {"cs", "css"})" ComponentParameters="@(new Dictionary<string, object>(){ {"ChildContent",(RenderFragment)(builder => builder.AddMarkupContent(1,"<div style=\"display: flex;\">This is some content displayed in a <code>FluentLayout</code></div>")) } })">
     <Description>
         <p>
             The <code>FluentLayout</code> component is a container for other components. It is used to create a layout for a page.
@@ -23,8 +23,16 @@
             &lt;/FluentLayout&gt;
         </CodeSnippet>
     </Description>
-
 </DemoSection>
+
+<DemoSection Component="typeof(FluentBodyContent)" Title="FluentBodyContent" CollocatedFiles="@(new[] {"cs", "css"})" />
+<DemoSection Component="typeof(FluentMainLayout)" Title="FluentMainLayout" CollocatedFiles="@(new[] {"cs"})" />
+<DemoSection Component="typeof(FluentSpacer)" Title="FluentSpacer" CollocatedFiles="@(new[] {"cs" })" />
+<DemoSection Component="typeof(FluentStackPanel)" Title="FluentStackPanel" CollocatedFiles="@(new[] {"cs", "css"})" />
+<DemoSection Component="typeof(FluentHeader)" Title="FluentHeader" CollocatedFiles="@(new[] {"cs", "css"})" />
+<DemoSection Component="typeof(FluentFooter)" Title="FluentFooter" CollocatedFiles="@(new[] {"cs", "css"})" />
+
+<DemoSection Component="typeof(LayoutExample)" Title="Layout example" />
 
 
 @code {

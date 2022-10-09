@@ -5,12 +5,12 @@ namespace FluentUI.Demo.Shared;
 
 public partial class FluentLayout : FluentComponentBase
 {
-    protected string? _class =>
+    protected string? ClassValue =>
         new CssBuilder(Class)
             .AddClass("fluent-layout")
             .Build();
 
-    protected string? _style =>
+    protected string? StyleValue =>
         new StyleBuilder()
             .AddStyle(Style)
             .Build();

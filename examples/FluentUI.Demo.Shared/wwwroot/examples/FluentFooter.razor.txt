@@ -1,0 +1,6 @@
+﻿@namespace FluentUI.Demo.Shared
+@inherits FluentComponentBase
+
+<footer class="@ClassValue" style="@StyleValue" @attributes="AdditionalAttributes">
+    @ChildContent
+</footer>

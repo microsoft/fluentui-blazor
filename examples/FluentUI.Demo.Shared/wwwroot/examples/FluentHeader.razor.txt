@@ -1,0 +1,8 @@
+﻿@namespace FluentUI.Demo.Shared
+@inherits FluentComponentBase
+
+<header class="@ClassValue" style="@StyleValue" @attributes="AdditionalAttributes">
+    <div class="fluent-header-gutters">
+        @ChildContent
+    </div>
+</header>
