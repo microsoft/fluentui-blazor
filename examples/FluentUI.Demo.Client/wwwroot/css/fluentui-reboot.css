@@ -14,13 +14,12 @@
     --fluentui-warning-background: #fff4ce;
     --fluentui-severe-warning-fill: #d83b01;
     --fluentui-severe-warning-background: #fed9cc;
-    /*--fluentui-code-color: var(--accent-foreground-rest);*/
-    --fluentui-highlight-bg: #fff3cd;
     --fluent-presence-away: #ffaa44;
     --fluent-presence-do-not-disturb: #c50f1f;
     --fluent-presence-online: #6bb700;
     --fluent-presence-invisible: #8a8886;
     --fluent-presence-out-of-office: #b4009e;
+    --fluentui-highlight-bg: #fff3cd;
 }
 
 *, *::before, *::after {

@@ -7,6 +7,7 @@
     margin: 1rem 0;
     border: calc(var(--stroke-width) * 1px) solid var(--neutral-stroke-rest);
     padding: 0 1em;
+    min-height: 250px;
 }
     ::deep  p {
         margin-top: 1rem;

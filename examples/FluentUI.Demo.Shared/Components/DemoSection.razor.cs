@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-using System.Reflection.Metadata;
-using FluentUI.Demo.Generators;
+﻿using System.Reflection.Metadata;
 using Microsoft.AspNetCore.Components;
 
 
@@ -21,6 +19,12 @@ public partial class DemoSection : ComponentBase
     /// </summary>
     [Parameter, EditorRequired]
     public Type Component { get; set; } = default!;
+
+    ///<summary>
+    /// Any parameters that need to be supplied to the component
+    /// </summary>
+    [Parameter]
+    public Dictionary<string, object>? ComponentParameters { get; set; }
 
     /// <summary>
     /// Any collocated (isolated) .cs, .css or .js files. Enter the extensions only
@@ -54,7 +58,6 @@ public partial class DemoSection : ComponentBase
             {
                 TabPanelsContent.Add(source, await Http.GetStringAsync($"_content/FluentUI.Demo.Shared/examples/{source}.txt"));
             }
-
         }
         catch
         {

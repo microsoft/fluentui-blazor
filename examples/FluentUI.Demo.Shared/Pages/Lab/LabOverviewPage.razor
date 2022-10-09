@@ -9,6 +9,24 @@
     We hope you will help us test-drive the components and give us feedback (at our <a href="https://github.com/microsoft/fast-blazor/discussions">repo's discussion board'</a>).
 </p>
 
+<DemoSection Component="typeof(FluentLayout)" Title="FluentLayout" CollocatedFiles="@(new[] {"cs", "css"})" ComponentParameters="@(new Dictionary<string, object>(){ {"ChildContent",(RenderFragment)(builder => builder.AddMarkupContent(1,"This is some content displayed in a <code>FluentLayout</code>")) } })">
+    <Description>
+        <p>
+            The <code>FluentLayout</code> component is a container for other components. It is used to create a layout for a page.
+        </p>
+        <p>
+            The <code>FluentLayout</code> component has a <code>ChildContent</code> parameter that can be used to add other components to the layout.
+        </p>
+        <CodeSnippet Language="language-cshtml-cshtml">
+            &lt;FluentLayout&gt;
+                This is some content displayed in a <code>FluentLayout</code>
+            &lt;/FluentLayout&gt;
+        </CodeSnippet>
+    </Description>
+
+</DemoSection>
+
+
 @code {
 
 }
