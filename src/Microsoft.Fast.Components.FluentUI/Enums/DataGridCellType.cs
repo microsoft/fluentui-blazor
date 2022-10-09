@@ -1,3 +1,5 @@
+using System.ComponentModel;
+
 namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary>
@@ -13,10 +15,12 @@ public enum DataGridCellType
     /// <summary>
     /// A header cell.
     /// </summary>
+    [Description("column-header")]
     ColumnHeader,
 
     /// <summary>
     /// Cell is a row header.
     /// </summary>
+    [Description("row-header")]
     RowHeader
 }

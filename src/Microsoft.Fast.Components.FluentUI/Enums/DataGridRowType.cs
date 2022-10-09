@@ -1,4 +1,6 @@
-﻿namespace Microsoft.Fast.Components.FluentUI;
+﻿using System.ComponentModel;
+
+namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary>
 /// The type of <see cref="FluentDataGridRow{TGridItem}"/> in a <see cref="FluentDataGrid{TGridItem}"/>.
@@ -18,5 +20,6 @@ public enum DataGridRowType
     /// <summary>
     /// A sticky header row.
     /// </summary>
+    [Description("sticky-header")]
     StickyHeader
 }

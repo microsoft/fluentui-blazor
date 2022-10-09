@@ -47,9 +47,13 @@ header {
         padding: 0 20px 0 0;
         display: flex;
         align-items: center;
-        
     }
-    
+
+        header .switches .colorgroup {
+            display: flex;
+            align-items: center;
+        }
+
     header fluent-switch {
         width: 9rem;
     }
@@ -63,26 +67,23 @@ footer {
     grid-area: footer;
     padding: 10px 10px;
 }
-    footer .version{
-        grid-column: 2;
-        justify-content:start;
 
+    footer .version {
+        grid-column: 2;
+        justify-content: start;
     }
 
     footer .copy {
         grid-column: 3;
-        
         justify-self: end;
     }
 
 main {
     grid-area: main;
-
     background-color: var(--neutral-layer-1);
     color: var(--neutral-foreground-rest);
-    
     display: grid;
-    grid-template-columns: 280px 1fr ;
+    grid-template-columns: 280px 1fr;
     grid-template-rows: 1fr;
 }
 
@@ -91,7 +92,6 @@ nav {
     padding: 40px 20px 20px 20px;
     background-color: var(--accent-stroke-control-active);
     transition: all 300ms ease-in-out;
-
     grid-column: 1 / 2;
 }
 
@@ -100,6 +100,7 @@ nav {
         margin: 0;
         padding: 0;
     }
+
         nav ul li {
             padding: 2px 0;
         }
@@ -132,17 +133,16 @@ article {
     padding: 10px 25px;
     margin: 0 0;
     overflow-x: hidden;
-
     transition: all 300ms ease-in-out;
     grid-area: 1 / 2;
 }
 
 #menu-toggle {
     display: none;
- }
+}
 
 .menu-icon {
-   display: none;
+    display: none;
 }
 
 #menu-toggle:checked > nav {
@@ -251,33 +251,33 @@ code {
 
     header {
         grid-area: header;
-        grid-template-columns: 150px 75px auto;
+        grid-template-columns: 150px 55px 1fr;
         grid-template-rows: 1fr;
         align-items: center;
         justify-content: flex-start;
     }
 
-    header .logo {
-        width: 108px;
-        height: 23px;
-        padding: 0 25px;
-    }
+        header .logo {
+            width: 108px;
+            height: 23px;
+            padding: 0 25px;
+        }
 
-    header .links {
-        padding: 0 0px;
-    }
+        header .links {
+            padding: 0 0px;
+        }
 
         header .switches {
             flex-direction: column;
         }
 
-        header .switches .label {
-            padding-inline-end: 14px;
-        }
-        
-        header .switches .colorgroup {
-            display:none
-        }
+            header .switches .label {
+                padding-inline-end: 14px;
+            }
+
+            header .switches .colorgroup {
+                display: none
+            }
 
     main {
         display: grid;
@@ -333,7 +333,6 @@ code {
     }
 
     [dir="rtl"] #menu-toggle:checked + .menu-icon {
-        
     }
 
     footer {
@@ -364,11 +363,11 @@ code {
             }
 
                 nav ul li {
-                   
-                   
                 }
     }
 }
+
+
 /* Surface Duo specific styling */
 @media (horizontal-viewport-segments: 2) {
 
@@ -406,7 +405,8 @@ code {
             grid-column: 3;
             justify-self: end;
             padding-left: 20px;
-        } 
+        }
+
     main {
         display: grid;
         grid-template-columns: env(viewport-segment-width 0 0) 1fr;
