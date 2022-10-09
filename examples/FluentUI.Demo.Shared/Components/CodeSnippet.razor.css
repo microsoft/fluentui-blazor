@@ -1,4 +1,9 @@
-﻿::deep .hljs {
+﻿.snippet {
+    margin: 1rem 0;
+    border: calc(var(--stroke-width) * 1px) solid var(--neutral-stroke-rest);
+}
+
+::deep .hljs {
     background-color: var(--neutral-layer-2);
 }
 

@@ -32,14 +32,16 @@
             
         </div>
         <div class="switches">
-            <label for="color">Color: </label>
-            <FluentSelect Id="color" @bind-Value="@selectValue" Position="SelectPosition.Below" @onchange="@(x => HandleColorChange(x))" >
-                <FluentOption Value=@("default")>Default</FluentOption>
-                @foreach (var color in Enum.GetValues<OfficeColor>())
-                {
-                    <FluentOption Value="color.ToAttributeValue()">@color</FluentOption>
-                }
-            </FluentSelect>
+            <span class="colorgroup">
+                <label for="color">Color: </label>
+                <FluentSelect Id="color" @bind-Value="@selectValue" Position="SelectPosition.Below" @onchange="@(x => HandleColorChange(x))" >
+                    <FluentOption Value=@("default")>Default</FluentOption>
+                    @foreach (var color in Enum.GetValues<OfficeColor>())
+                    {
+                        <FluentOption Value="color.ToAttributeValue()">@color</FluentOption>
+                    }
+                </FluentSelect>
+            </span>
             <FluentSwitch @onchange="SwitchDirection" title="Switch direction">
                 <span>Direction</span>
                 <span slot="unchecked-message">ltr</span>
