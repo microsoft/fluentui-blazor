@@ -2,7 +2,7 @@
     display: flex;
     z-index: 10;
     flex-shrink: 0;
-    background-color: var(--accent-base-color);
+    background-color: var(--accent-fill-rest);
     font-family: var(--body-font);
     font-style: normal;
     font-weight: 600;

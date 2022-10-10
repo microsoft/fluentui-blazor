@@ -2,7 +2,7 @@
 
 @if (!string.IsNullOrEmpty(Title))
 {
-    @if (IsNew)
+    @if (New)
     {
         <h4>@Title <NewBadge /></h4>
     }
@@ -25,27 +25,17 @@
         <FluentTab Text="Example" />
         @foreach (string tab in GetSources())
         {
-            <FluentTab Text="@TabDisplayName(tab)" />
+            <FluentTab Text="@GetDisplayName(tab)" />
         }
 
         <FluentTabPanel style="max-height: 535px; overflow-y: auto;">
-            @if (Component is not null)
-            {
-                string target;
-                Uri uri = new Uri(NavigationManager.Uri);
-
-                if (uri.Segments.Count() > 1)
+            <div class="demo-section-example">
+                @ChildContent
+                @if (Component is not null)
                 {
-                    target = uri.Segments[1];
-                }
-                else
-                {
-                    target = "Index";
-                }
-                <div class="demo-section-example">
                     <DynamicComponent Type="Component" Parameters="ComponentParameters" />
-                </div>
-            }
+                }
+            </div>
         </FluentTabPanel>
         @foreach (string tab in GetSources())
         {
@@ -58,6 +48,25 @@
         }
     </FluentTabs>
 </div>
+@if (ShowDownloads)
+{
+    <div class="demo-section-downloads">
+        <FluentSpacer />
+        Download:&nbsp;
+        @foreach (string source in GetSources())
+        {
+            <FluentAnchor Style="width:75px;" Download="@source" Href="@($"_content/FluentUI.Demo.Shared/examples/{source}.txt")">
+                @GetDisplayName(source.Substring(source.LastIndexOf('.')))
+            </FluentAnchor>
+            
+            @if (source != GetSources().Last())
+            {
+                <span>&nbsp;</span>
+            }
+        }
+        
 
+    </div>
+}
 
 

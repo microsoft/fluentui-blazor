@@ -4,11 +4,19 @@
 }
 
 .demo-section-example {
-    margin: 1rem 0;
+    margin: 0.5rem 0;
     border: calc(var(--stroke-width) * 1px) solid var(--neutral-stroke-rest);
-    padding: 0 1em;
+    border-radius: calc(var(--control-corner-radius) * 1px);
+    padding: 1rem 1rem;
     min-height: 250px;
 }
     ::deep  p {
         margin-top: 1rem;
     }
+
+.demo-section-downloads {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-inline-end: 5px;
+}

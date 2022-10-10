@@ -2,12 +2,24 @@
 <h1><FluentIcon Name="@FluentIcons.ArrowReset" Size="IconSize.Size24" Filled=false /> FluentUI Reboot CSS</h1>
 
 <p>
-    This page shows the FluentUI reboot CSS. It is based on Fluent UI's reboot file where we are, of course, using our on CSS variables.
-    Because we are using the standard DesignTokens, there are a lot less variables to declare and set.
+    This page shows the FluentUI reboot CSS. It is based on Bootstrap's reboot file where we are, of course, using our on CSS 
+    variables. Because we are using the standard DesignTokens, there are a lot less variables to declare and set.
+</p>
+<p>
+    This demo site itself is using the reboot file. You can see it in the <code>index.html</code> or <code>_Layout.cshtml</code> 
+    file:
+    <CodeSnippet Language="language-html">
+        &lt;link href="css/fluentui-reboot.css" rel="stylesheet" /&gt;
+    </CodeSnippet>
 </p>
 
+<p>
+    See below for what is actually in the file. You can copy the contents (by using the copy button that appears when you hover 
+    over the code) or you can <FluentAnchor Href="/css/fluentui-reboot.css" Download="fluentui-reboot.css"  Appearance="Appearance.Hypertext">download the file</FluentAnchor>. 
+</p>
 
-<CodeSnippet Language="css" Style="height: 500px; overflow-y:auto">
+<div style="height:500px; overflow-y:scroll;">
+<CodeSnippet Language="css">
  /*!
  * Fluent UI Web Components for Blazor Reboot v0.0.1 
  * Copyright 2022 Microsoft
@@ -465,7 +477,7 @@ progress {
     display: none !important;
 }
 </CodeSnippet>
-
+</div>
 <h2 id="approach">Approach <a class="anchor-link" href="#approach" aria-label="Link to this section: Approach"></a></h2>
 <p>Reboot builds upon Normalize, providing many HTML elements with somewhat opinionated styles using only element selectors. </p>
 <p>Here are our guidelines and reasons for choosing what to override in Reboot:</p>

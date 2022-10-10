@@ -34,7 +34,17 @@ public partial class DemoSection : ComponentBase
     public string[]? CollocatedFiles { get; set; }
 
     [Parameter]
-    public bool IsNew { get; set; }
+    public bool New { get; set; }
+
+    /// <summary>
+    /// Show download links for the example sources
+    /// Default = true
+    /// </summary>
+    [Parameter]
+    public bool ShowDownloads { get; set; } = true;
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
     private bool HasCode { get; set; } = false;
 
@@ -74,30 +84,30 @@ public partial class DemoSection : ComponentBase
         }
     }
 
-    static string TabDisplayName(string tabName)
+    static string GetDisplayName(string name)
     {
 
-        if (tabName.EndsWith(".cs"))
+        if (name.EndsWith(".cs"))
         {
             return "C#";
         }
 
-        if (tabName.EndsWith(".razor"))
+        if (name.EndsWith(".razor"))
         {
             return "Razor";
         }
 
-        if (tabName.EndsWith(".css"))
+        if (name.EndsWith(".css"))
         {
             return "CSS";
         }
 
-        if (tabName.EndsWith(".js"))
+        if (name.EndsWith(".js"))
         {
             return "JavaScript";
         }
 
-        return tabName;
+        return name;
     }
 
     static string? TabLanguageClass(string tabName)

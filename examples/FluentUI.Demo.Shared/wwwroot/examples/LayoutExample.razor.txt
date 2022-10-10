@@ -7,11 +7,10 @@
 <FluentLayout Style="margin-top: 10px;">
     @if (ShowHeader)
     {
-        <FluentHeader >
-            < FluentAppSwitcher />
-            Header Text
+        <FluentHeader>
+            Some Header Text
             <FluentSpacer />
-            < FluentProfileViewer />
+            Aligned to the end
         </FluentHeader>
     }
 
