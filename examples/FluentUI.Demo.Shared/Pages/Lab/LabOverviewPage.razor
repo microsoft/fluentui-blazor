@@ -23,7 +23,7 @@
         
     </Description>
     <ChildContent>
-    <CodeSnippet>
+        <CodeSnippet>
 &lt;FluentLayout&gt;
     This is some content displayed in a FluentLayout
 &lt;/FluentLayout&gt;
@@ -32,13 +32,25 @@
     </ChildContent>
 </DemoSection>
 
-
-
-
-<DemoSection Component="typeof(FluentBodyContent)" Title="FluentBodyContent" CollocatedFiles="@(new[] {"cs", "css"})" />
-<DemoSection Component="typeof(FluentMainLayout)" Title="FluentMainLayout" CollocatedFiles="@(new[] {"cs"})" />
-<DemoSection Component="typeof(FluentSpacer)" Title="FluentSpacer" CollocatedFiles="@(new[] {"cs" })" />
-<DemoSection Component="typeof(FluentStackPanel)" Title="FluentStackPanel" CollocatedFiles="@(new[] {"cs", "css"})" />
+<DemoSection Component="typeof(FluentBodyContent)" Title="FluentBodyContent" CollocatedFiles="@(new[] {"cs", "css"})" ComponentParameters="@(new Dictionary<string, object>(){ {"ChildContent",(RenderFragment)(builder => builder.AddMarkupContent(1,"This is some content displayed in a FluentBodyContent")) } })">
+    <ChildContent>
+      <CodeSnippet>
+&lt;FluentBodyContent&gt;
+    This is some content displayed in a FluentBodyContent
+&lt;/FluentBodyContent&gt;
+      </CodeSnippet>
+    <p>Renders as:</p>
+    </ChildContent>
+</DemoSection>
+<DemoSection Component="typeof(FluentMainLayout)" Title="FluentMainLayout" CollocatedFiles="@(new[] {"cs"})" >
+    
+</DemoSection>
+<DemoSection Component="typeof(FluentSpacer)" Title="FluentSpacer" CollocatedFiles="@(new[] {"cs" })" >
+    
+</DemoSection>
+<DemoSection Component="typeof(FluentStackPanel)" Title="FluentStackPanel" CollocatedFiles="@(new[] {"cs", "css"})" >
+    
+</DemoSection>
 
 <DemoSection 
     Component="typeof(FluentHeader)" 

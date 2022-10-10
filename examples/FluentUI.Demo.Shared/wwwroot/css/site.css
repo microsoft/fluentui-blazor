@@ -18,7 +18,7 @@ header {
     background-color: var(--neutral-layer-4);
     grid-area: header;
     display: grid;
-    grid-template-columns: 280px auto 1fr;
+    grid-template-columns: 280px 1fr auto auto;
     grid-template-rows: 1fr;
     align-items: center;
     justify-content: flex-start;
@@ -32,31 +32,24 @@ header {
         grid-column: 1;
     }
 
-    header .links {
-        grid-column: 2;
-        padding: 0 10px
+    header fluent-switch {
+        width: 9rem;
     }
 
-        header .links fluent-anchor {
-            width: 3rem;
-        }
-
-    header .switches {
+    header .colorgroup {
         grid-column: 3;
+        display: flex;
+        align-items: center;
+    }
+    
+    header .switches {
+        grid-column: 4;
         justify-self: end;
         padding: 0 20px 0 0;
         display: flex;
         align-items: center;
     }
 
-        header .switches .colorgroup {
-            display: flex;
-            align-items: center;
-        }
-
-    header fluent-switch {
-        width: 9rem;
-    }
 
 footer {
     display: grid;
@@ -251,33 +244,30 @@ code {
 
     header {
         grid-area: header;
-        grid-template-columns: 150px 55px 1fr;
-        grid-template-rows: 1fr;
+        grid-template-columns: 150px 1fr;
         align-items: center;
         justify-content: flex-start;
     }
 
         header .logo {
-            width: 108px;
+            width: 160px;
             height: 23px;
             padding: 0 25px;
         }
 
-        header .links {
-            padding: 0 0px;
-        }
 
         header .switches {
             flex-direction: column;
+            grid-column: 2
         }
 
             header .switches .label {
                 padding-inline-end: 14px;
             }
 
-            header .switches .colorgroup {
-                display: none
-            }
+        header .colorgroup {
+            display: none;
+        }
 
     main {
         display: grid;
@@ -355,7 +345,7 @@ code {
     @media screen and (max-width: 767px) and (orientation: landscape) {
 
         nav {
-            padding: 25px 20px;
+            padding: 25px 40px;
         }
 
             nav ul {
@@ -394,17 +384,18 @@ code {
             padding: 0 30px;
         }
 
-        header .links {
-            grid-column: 2;
-            justify-self: end;
-            padding: 0;
-        }
-
         header .switches {
             margin-inline-start: calc(env(viewport-segment-left 1 0) - env(viewport-segment-right 0 0)); /* hinge width */
             grid-column: 3;
+            
             justify-self: end;
             padding-left: 20px;
+        }
+
+        header .colorgroup {
+            grid-column: 2;
+            justify-self: end;
+            z-index: 10;
         }
 
     main {
