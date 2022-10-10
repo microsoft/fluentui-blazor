@@ -66,7 +66,7 @@
 	You can use all of the (~160) individual Design Tokens, both from code as in a declarative way in your <code>.razor</code> pages. See https://docs.microsoft.com/en-us/fluent-ui/web-components/design-system/design-tokens for more information on how Design Tokens work
 </p>
 
-<DemoSection Title="Option 1: Using Design Tokens from C# code" Component="@typeof(IndexDesignTokensCode)">
+<DemoSection Title="Option 1: Using Design Tokens from C# code" Component="@typeof(IndexDesignTokensCode)" ShowDownloads=false>
 	<Description>
 		<p>As can be seen in the code below (with the <code>ref4.Element</code>), it is posible to apply multiple tokens to the same component.</p>
 	</Description>
@@ -78,7 +78,7 @@
 	<p>The Design Tokens are manipulated through JavaScript interop working with an <code>ElementReference</code>. There is no JavaScript element until after the component is rendered. This means you can only work with the Design Tokens from code after the component has been rendered in <code>OnAfterRenderAsync</code> and not in any earlier lifecycle methods.</p>
 </blockquote>
 
-<DemoSection Title="Option 2: Using Design Tokens as components" Component="@typeof(IndexDesignTokensComponent)" CollocatedFiles="@(new[] {"css"})">
+<DemoSection Title="Option 2: Using Design Tokens as components" Component="@typeof(IndexDesignTokensComponent)" CollocatedFiles="@(new[] {"css"})" ShowDownloads=false>
 	<Description>
 		<p>The Design Tokens can also be used as components in a <code>.razor</code> page directely. It looks like this:</p>
 	</Description>
@@ -160,281 +160,11 @@
 </table>
 
 
-<DemoSection Title="Office color examples" Component="@typeof(IndexOfficeColors)">
+<DemoSection Title="Office color examples" Component="@typeof(IndexOfficeColors)" ShowDownloads=false>
 	<Description><p>The result looks like this when applied to a <code>&lt;FluentButton&gt;</code>:</p></Description>
 </DemoSection>
 
-<!--<h2 id="web-components-blazor-components-mapping-implementation-status-and-remarks">Web components / Blazor components mapping, implementation status and remarks</h2>
-<table>
-	<thead>
-		<tr class="header">
-			<th>Web component</th>
-			<th>Blazor component</th>
-			<th>Status</th>
-			<th>Remarks</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr class="odd">
-			<td><a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/components/accordion"><code>&lt;fluent-accordion&gt;</code></a></td>
-			<td><code>&lt;FluentAccordion&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="even">
-			<td><code>&lt;fluent-accordion-item&gt;</code></td>
-			<td><code>&lt;FluentAccordionItem&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="odd">
-			<td><a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/components/anchor"><code>&lt;fluent-anchor&gt;</code></a></td>
-			<td><code>&lt;FluentAnchor&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="even">
-			<td><a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/components/anchored-region"><code>&lt;fluent-anchored-region&gt;</code></a></td>
-			<td><code>&lt;FluentAnchoredRegion&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="odd">
-			<td><a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/components/badge"><code>&lt;fluent-badge&gt;</code></a></td>
-			<td><code>&lt;FluentBadge&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="even">
-			<td><a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/components/breadcrumb"><code>&lt;fluent-breadcrumb&gt;</code></a></td>
-			<td><code>&lt;FluentBreadcrumb&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="odd">
-			<td><code>&lt;fluent-breadcrumb-item&gt;</code></td>
-			<td><code>&lt;FluentBreadcrumbItem&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="even">
-			<td><a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/components/button"><code>&lt;fluent-button&gt;</code></a></td>
-			<td><code>&lt;FluentButton&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="odd">
-			<td><a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/components/card"><code>&lt;fluent-card&gt;</code></a></td>
-			<td><code>&lt;FluentCard&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="even">
-			<td><a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/components/checkbox"><code>&lt;fluent-checkbox&gt;</code></a></td>
-			<td><code>&lt;FluentCheckbox&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="odd">
-			<td><a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/components/combobox"><code>&lt;fluent-combobox&gt;</code></a></td>
-			<td><code>&lt;FluentCombobox&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="even">
-			<td><a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/components/data-grid"><code>&lt;fluent-data-grid&gt;</code></a></td>
-			<td><code>&lt;FluentDataGrid&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="odd">
-			<td><code>&lt;fluent-data-grid-cell&gt;</code></td>
-			<td><code>&lt;FluentDataGridCell&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="even">
-			<td><code>&lt;fluent-data-grid-row&gt;</code></td>
-			<td><code>&lt;FluentDataGridRow&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="odd">
-			<td><a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/components/provider"><code>&lt;fluent-design-system-provider&gt;</code></a></td>
-			<td><code>&lt;FluentDesignSystemProvider&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="even">
-			<td><a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/components/dialog"><code>&lt;fluent-dialog&gt;</code></a></td>
-			<td><code>&lt;FluentDialog&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="odd">
-			<td><a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/components/divider"><code>&lt;fluent-divider&gt;</code></a></td>
-			<td><code>&lt;FluentDivider&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="even">
-			<td><a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/components/flipper"><code>&lt;fluent-flipper&gt;</code></a></td>
-			<td><code>&lt;FluentFlipper&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="odd">
-			<td><a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/components/horizontal-scroll"><code>&lt;fluent-horizontal-scroll&gt;</code></a></td>
-			<td><code>&lt;FluentHorizontalScroll&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="even">
-			<td>No web component</td>
-			<td><code>&lt;FluentIcon&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="odd">
-			<td><a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/components/listbox"><code>&lt;fluent-listbox&gt;</code></a></td>
-			<td><code>&lt;FluentListbox&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="even">
-			<td><a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/components/menu"><code>&lt;fluent-menu&gt;</code></a></td>
-			<td><code>&lt;FluentMenu&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="odd">
-			<td><code>&lt;fluent-menu-item&gt;</code></td>
-			<td><code>&lt;FluentMenuItem&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="even">
-			<td><a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/components/number-field"><code>&lt;fluent-number-field&gt;</code></a></td>
-			<td><code>&lt;FluentNumberField&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="odd">
-			<td><code>&lt;fluent-option&gt;</code></td>
-			<td><code>&lt;FluentOption&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="even">
-			<td><a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/components/progress"><code>&lt;fluent-progress&gt;</code></a></td>
-			<td><code>&lt;FluentProgress&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="odd">
-			<td><a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/components/progress-ring"><code>&lt;fluent-progress-ring&gt;</code></a></td>
-			<td><code>&lt;FluentProgressRing&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="even">
-			<td><a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/components/radio-group"><code>&lt;fluent-radio&gt;</code></a></td>
-			<td><code>&lt;FluentRadio&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="odd">
-			<td><a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/components/radio-group"><code>&lt;fluent-radio-group&gt;</code></a></td>
-			<td><code>&lt;FluentRadioGroup&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="even">
-			<td><a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/components/select"><code>&lt;fluent-select&gt;</code></a></td>
-			<td><code>&lt;FluentSelect&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="odd">
-			<td><a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/components/skeleton"><code>&lt;fluent-skeleton&gt;</code></a></td>
-			<td><code>&lt;FluentSkeleton&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="even">
-			<td><a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/components/slider"><code>&lt;fluent-slider&gt;</code></a></td>
-			<td><code>&lt;FluentSlider&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="odd">
-			<td><code>&lt;fluent-slider-label&gt;</code></td>
-			<td><code>&lt;FluentSliderLabel&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="even">
-			<td><a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/components/switch"><code>&lt;fluent-switch&gt;</code></a></td>
-			<td><code>&lt;FluentSwitch&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="odd">
-			<td><a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/components/tabs"><code>&lt;fluent-tabs&gt;</code></a></td>
-			<td><code>&lt;FluentTabs&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="even">
-			<td><code>&lt;fluent-tab&gt;</code></td>
-			<td><code>&lt;FluentTab&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="odd">
-			<td><code>&lt;fluent-tab-panel&gt;</code></td>
-			<td><code>&lt;FluentTabPanel&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="even">
-			<td><a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/components/text-area"><code>&lt;fluent-text-area&gt;</code></a></td>
-			<td><code>&lt;FluentTextArea&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="odd">
-			<td><a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/components/text-field"><code>&lt;fluent-text-field&gt;</code></a></td>
-			<td><code>&lt;FluentTextField&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="even">
-			<td><a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/components/toolbar"><code>&lt;fluent-toolbar&gt;</code></a></td>
-			<td><code>&lt;FluentToolbar&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="odd">
-			<td><a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/components/tooltip"><code>&lt;fluent-tooltip&gt;</code></a></td>
-			<td><code>&lt;FluentTooltip&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="even">
-			<td><a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/components/tree-view"><code>&lt;fluent-tree-view&gt;</code></a></td>
-			<td><code>&lt;FluentTreeView&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-		<tr class="odd">
-			<td><code>&lt;fluent-tree-item&gt;</code></td>
-			<td><code>&lt;FluentTreeItem&gt;</code></td>
-			<td>✔️</td>
-			<td>-</td>
-		</tr>
-	</tbody>
-</table>-->
+
 <h2 id="joining-the-community">Joining the Community</h2>
 <p>Looking to get answers to questions or engage with us in realtime? Our community is most active <a href="https://discord.gg/FcSNfg4">on Discord</a>. Submit requests and issues on <a href="https://github.com/dotnet/blazor-fluentui/issues/new/choose">GitHub</a>, or join us by contributing on <a href="https://github.com/dotnet/blazor-fluentui/labels/community:good-first-issue">some good first issues via GitHub</a>.</p>
 <p>If you don’t find a component you’re looking for, it’s best to create the issue in our FAST repo <a href="https://github.com/microsoft/fast">here</a> and limit issues on this repo to bugs in the Blazor component wrappers or Blazor-specific features.</p>
@@ -444,4 +174,10 @@
 	<li>Join the community and chat with us in real-time on <a href="https://discord.gg/FcSNfg4">Discord</a>.</li>
 	<li>Submit requests and issues on <a href="https://github.com/microsoft/fast-blazor/issues/new/choose">GitHub</a>.</li>
 	<li>Contribute by helping out on some of our recommended first issues on <a href="https://github.com/microsoft/fast-blazor/labels/community:good-first-issue">GitHub</a>.</li>
+</ul>
+<h2 id="additional-resources">Additional resources</h2>
+<ul>
+	<li>The Microsoft <a href="https://learn.microsoft.com/en-us/fluent-ui/web-components/">Fluent UI Web Components documentation</a></li>
+	<li>The <a href="https://www.fast.design/">FAST</a> site</li>
+	<li>The <a href="https://fluent-components.azurewebsites.net/?path=/docs/getting-started-overview--page">Fluent UI Web Components demo</a> site</li>
 </ul>
