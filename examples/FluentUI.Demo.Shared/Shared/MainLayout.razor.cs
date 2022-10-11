@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Fast.Components.FluentUI;
 using Microsoft.Fast.Components.FluentUI.DesignTokens;
+using Microsoft.Fast.Components.FluentUI.Helpers;
 using Microsoft.JSInterop;
 
 namespace FluentUI.Demo.Shared;
@@ -22,6 +23,9 @@ public partial class MainLayout : IAsyncDisposable
 
     [Inject]
     private AccentBaseColor AccentBaseColor { get; set; } = default!;
+
+    [Inject]
+    private Direction Direction { get; set; } = default!;
 
 
     ElementReference container;
@@ -59,6 +63,7 @@ public partial class MainLayout : IAsyncDisposable
     public async Task SwitchDirection()
     {
         dir = dir == LocalizationDirection.rtl ? LocalizationDirection.ltr : LocalizationDirection.rtl;
+        await Direction.SetValueFor(container, dir.ToAttributeValue());
         await JSRuntime.InvokeVoidAsync("switchDirection", dir.ToString());
     }
 

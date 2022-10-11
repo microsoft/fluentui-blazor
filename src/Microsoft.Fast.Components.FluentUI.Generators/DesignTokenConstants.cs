@@ -7,7 +7,7 @@
 public class DesignTokenConstants
 {
     // General tokens
-    public const string direction = "FluentUI.LocalizationDirection";
+    public const string direction = "string";
     public const string disabledOpacity = "float?";
 
     // Density tokens
