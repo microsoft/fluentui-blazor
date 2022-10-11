@@ -1,0 +1,21 @@
+﻿@namespace FluentUI.Demo.Shared
+@inherits FluentComponentBase
+<CascadingValue Value="this">
+    <CascadingValue Value="@Expanded" Name="NavMenuExpanded">
+        <fluent-tree-view class="@ClassValue"
+                          style="@StyleValue"
+                          id="@Id"
+                          @attributes="AdditionalAttributes">
+            @if (Collapsible)
+            {
+                <FluentButton Appearance="Appearance.Lightweight"
+                             @onclick="Collapsible_Click"
+                             Title="@Title"                             
+                             Class="fluent-navmenu-main-button">
+                    <FluentIcon Name="@(FluentIcons.Navigation)" Size="IconSize.Size20" Slot="start" />
+                </FluentButton>
+            }
+            @ChildContent
+        </fluent-tree-view>
+    </CascadingValue>
+</CascadingValue>

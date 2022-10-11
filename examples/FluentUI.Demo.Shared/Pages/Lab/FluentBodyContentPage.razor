@@ -1,0 +1,20 @@
+﻿@page "/Lab/FluentBodyContent"
+
+<h2>BodyContent</h2>
+
+<ApiDocumentation Component="typeof(FluentBodyContent)" />
+
+<DemoSection Component="typeof(FluentBodyContent)" Title="FluentBodyContent" CollocatedFiles="@(new[] {"cs", "css"})" ComponentParameters="@(new Dictionary<string, object>(){ {"ChildContent",(RenderFragment)(builder => builder.AddMarkupContent(1,"This is some content displayed in a FluentBodyContent component.")) } })">
+    <ChildContent>
+      <CodeSnippet>
+&lt;FluentBodyContent&gt;
+    This is some content displayed in a FluentBodyContent component.
+&lt;/FluentBodyContent&gt;
+      </CodeSnippet>
+    <p>Renders as:</p>
+    </ChildContent>
+</DemoSection>
+
+@code {
+
+}

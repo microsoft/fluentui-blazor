@@ -1,0 +1,29 @@
+﻿@page "/Lab/FluentLayout"
+
+<h2>Layout</h2>
+
+<ApiDocumentation Component="typeof(FluentLayout)" />
+
+<DemoSection Component="typeof(FluentLayout)" Title="FluentLayout" CollocatedFiles="@(new[] {"cs", "css"})" ComponentParameters="@(new Dictionary<string, object>(){ {"ChildContent",(RenderFragment)(builder => builder.AddMarkupContent(1,"<div style=\"display: flex;\">This is some content displayed in a FluentLayout</div>")) } })">
+    <Description>
+        <p>
+            The <code>FluentLayout</code> component is a container for other components. It is used to create a layout for a page.
+        </p>
+        <p>
+            The <code>FluentLayout</code> component has a <code>ChildContent</code> parameter that can be used to add other components to the layout.
+        </p>
+
+    </Description>
+    <ChildContent>
+        <CodeSnippet>
+&lt;FluentLayout&gt;
+    This is some content displayed in a FluentLayout
+&lt;/FluentLayout&gt;
+        </CodeSnippet>
+        <p>Renders as:</p>
+    </ChildContent>
+</DemoSection>
+
+@code {
+
+}

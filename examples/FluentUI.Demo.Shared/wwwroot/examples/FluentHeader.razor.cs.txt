@@ -17,6 +17,9 @@ namespace FluentUI.Demo.Shared
                 .Build();
 
 
+        /// <summary>
+        /// Gets or sets the height of the header.
+        /// </summary>
         [Parameter]
         public string Height { get; set; } = "50px";
     }

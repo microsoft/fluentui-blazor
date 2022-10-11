@@ -52,7 +52,7 @@ public struct StyleBuilder
     /// <param name="prop"></param>
     /// <param name="value">Style to add</param>
     /// <returns>StyleBuilder</returns>
-    public StyleBuilder AddStyle(string prop, string value) => AddRaw($"{prop}:{value};");
+    public StyleBuilder AddStyle(string prop, string? value) => AddRaw($"{prop}:{value};");
 
     /// <summary>
     /// Adds a conditional in-line style to the builder with space separator and closing semicolon..
@@ -61,7 +61,7 @@ public struct StyleBuilder
     /// <param name="value">Style to conditionally add.</param>
     /// <param name="when">Condition in which the style is added.</param>
     /// <returns>StyleBuilder</returns>
-    public StyleBuilder AddStyle(string prop, string value, bool when = true) => when ? this.AddStyle(prop, value) : this;
+    public StyleBuilder AddStyle(string prop, string? value, bool when = true) => when ? this.AddStyle(prop, value) : this;
 
 
     /// <summary>
@@ -80,7 +80,7 @@ public struct StyleBuilder
     /// <param name="value">Style to conditionally add.</param>
     /// <param name="when">Condition in which the style is added.</param>
     /// <returns>StyleBuilder</returns>
-    public StyleBuilder AddStyle(string prop, string value, Func<bool>? when = null) => this.AddStyle(prop, value, when != null && when());
+    public StyleBuilder AddStyle(string prop, string? value, Func<bool>? when = null) => this.AddStyle(prop, value, when != null && when());
 
     /// <summary>
     /// Adds a conditional in-line style to the builder with space separator and closing semicolon..

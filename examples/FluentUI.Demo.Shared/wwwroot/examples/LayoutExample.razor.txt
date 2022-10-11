@@ -13,19 +13,19 @@
             Aligned to the end
         </FluentHeader>
     }
-
+    
     <FluentStackPanel Orientation="Orientation.Horizontal" Width="100%">
         @if (ShowNavMenu)
         {
-            < FluentNavMenu IsExpanded="true" Width="150px">
-                < FluentNavLink Icon="(Icons.Regular.Home)" Text="Item 1" />
-                < FluentNavLink Icon="(Icons.Regular.Cloud)" Text="Item 2" />
-                < FluentNavGroup Icon="(Icons.Regular.Balloon)" Text="Item 3">
-                    < FluentNavLink Icon="(Icons.Regular.LeafOne)" Text="Item 3.1" />
-                    < FluentNavLink Icon="(Icons.Regular.LeafTwo)" Text="Item 3.2" />
-                </ FluentNavGroup>
-                < FluentNavLink Icon="(Icons.Regular.CalendarAgenda)" Text="Item 4" IsDisabled="true" />
-            </ FluentNavMenu>
+            <FluentNavMenu Expanded="true" Width="150px">
+                <FluentNavLink Icon="@FluentIcons.Home" Text="Item 1" />
+                <FluentNavLink Icon="@FluentIcons.Cloud" Text="Item 2" />
+                <FluentNavGroup Text="Item 3">
+                    <FluentNavLink Icon="@FluentIcons.LeafOne" Text="Item 3.1" />
+                    <FluentNavLink Icon="@FluentIcons.LeafTwo" Text="Item 3.2" />
+                </FluentNavGroup>
+                <FluentNavLink Icon="@FluentIcons.CalendarAgenda" Text="Item 4" Disabled="true" />
+            </FluentNavMenu>
         }
 
         @if (ShowBodyContent)

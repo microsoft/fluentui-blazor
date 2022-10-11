@@ -12,76 +12,23 @@
     We hope you will help us test-drive the components and give us feedback (at our <a href="https://github.com/microsoft/fast-blazor/discussions">repo's discussion board'</a>).
 </p>
 
-<DemoSection Component="typeof(FluentLayout)" Title="FluentLayout" CollocatedFiles="@(new[] {"cs", "css"})" ComponentParameters="@(new Dictionary<string, object>(){ {"ChildContent",(RenderFragment)(builder => builder.AddMarkupContent(1,"<div style=\"display: flex;\">This is some content displayed in a FluentLayout</div>")) } })">
-    <Description>
-        <p>
-            The <code>FluentLayout</code> component is a container for other components. It is used to create a layout for a page.
-        </p>
-        <p>
-            The <code>FluentLayout</code> component has a <code>ChildContent</code> parameter that can be used to add other components to the layout.
-        </p>
-        
-    </Description>
-    <ChildContent>
-        <CodeSnippet>
-&lt;FluentLayout&gt;
-    This is some content displayed in a FluentLayout
-&lt;/FluentLayout&gt;
-        </CodeSnippet>
-        <p>Renders as:</p>
-    </ChildContent>
-</DemoSection>
 
-<DemoSection Component="typeof(FluentBodyContent)" Title="FluentBodyContent" CollocatedFiles="@(new[] {"cs", "css"})" ComponentParameters="@(new Dictionary<string, object>(){ {"ChildContent",(RenderFragment)(builder => builder.AddMarkupContent(1,"This is some content displayed in a FluentBodyContent")) } })">
-    <ChildContent>
-      <CodeSnippet>
-&lt;FluentBodyContent&gt;
-    This is some content displayed in a FluentBodyContent
-&lt;/FluentBodyContent&gt;
-      </CodeSnippet>
-    <p>Renders as:</p>
-    </ChildContent>
-</DemoSection>
-<DemoSection Component="typeof(FluentMainLayout)" Title="FluentMainLayout" CollocatedFiles="@(new[] {"cs"})" >
-    
-</DemoSection>
-<DemoSection Component="typeof(FluentSpacer)" Title="FluentSpacer" CollocatedFiles="@(new[] {"cs" })" >
-    
-</DemoSection>
-<DemoSection Component="typeof(FluentStackPanel)" Title="FluentStackPanel" CollocatedFiles="@(new[] {"cs", "css"})" >
-    
-</DemoSection>
 
-<DemoSection 
-    Component="typeof(FluentHeader)" 
-    Title="FluentHeader" 
-    CollocatedFiles="@(new[] {"cs", "css"})" 
-    ComponentParameters="@(new Dictionary<string, object>(){ {"ChildContent",(RenderFragment)(builder => builder.AddMarkupContent(1,"Header text")) } })">
-    <CodeSnippet>
-&lt;FluentHeader&gt;
-    Header text
-&lt;/FluentHeader&gt;
-    </CodeSnippet>
-    <p>Renders as:</p>
-    </DemoSection>
+
+
+
+    
+
+
+
+
   
 
-<DemoSection 
-    Component="typeof(FluentFooter)" 
-    Title="FluentFooter" 
-    CollocatedFiles="@(new[] {"cs", "css"})" 
-    ComponentParameters="@(new Dictionary<string, object>(){ {"ChildContent",(RenderFragment)(builder => builder.AddMarkupContent(1,"Footer text")) } })">
-        <CodeSnippet>
-&lt;FluentFooter&gt;
-    Footer text
-&lt;/FluentFooter&gt;
-        </CodeSnippet>
-        <p>Renders as:</p>
-</DemoSection>
+
 
 <DemoSection Component="typeof(LayoutExample)" Title="Putting it all together" />
 
 
 @code {
-
+    
 }

@@ -1,0 +1,19 @@
+﻿@namespace FluentUI.Demo.Shared
+@inherits FluentComponentBase
+<fluent-tree-item id="@Id"
+                  class="@ClassValue"
+                  style="@StyleValue"
+                  disabled="@Disabled"
+                  expanded="@(NavMenuExpanded ? Expanded : false)"
+                  tabindex="-1"
+                  @onclick="@OnClickHandler"
+                  @attributes="AdditionalAttributes">
+    @if (!string.IsNullOrEmpty(Text) && NavMenuExpanded)
+    {
+        <span class="fluent-navmenu-group-text" style="@(NavMenuExpanded ? null : "display: none;")">@Text</span>
+    }
+    @if (NavMenuExpanded)
+    {
+        @ChildContent
+    }
+</fluent-tree-item>

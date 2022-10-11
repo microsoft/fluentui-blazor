@@ -1,0 +1,21 @@
+﻿@page "/Lab/FluentHeader"
+
+<h2>Header</h2>
+
+<ApiDocumentation Component="typeof(FluentHeader)" />
+
+<DemoSection Component="typeof(FluentHeader)" 
+             Title="FluentHeader" 
+             CollocatedFiles="@(new[] {"cs", "css"})" 
+             ComponentParameters="@(new Dictionary<string, object>(){ {"ChildContent",(RenderFragment)(builder => builder.AddMarkupContent(1,"Header text")) } })">
+    <CodeSnippet>
+&lt;FluentHeader&gt;
+    Header text
+&lt;/FluentHeader&gt;
+    </CodeSnippet>
+    <p>Renders as:</p>
+</DemoSection>
+    
+@code {
+
+}

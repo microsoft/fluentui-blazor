@@ -23,7 +23,7 @@ public partial class ApiDocumentation
 
     private IEnumerable<MemberDescription> GetMembers(MemberTypes type)
     {
-        string[] MEMBERS_TO_EXCLUDE = new[] { "AdditionalAttributes", "BackReference", "ChildContent", "Equals", "GetHashCode", "GetType", "SetParametersAsync", "ToString", "Dispose" };
+        string[] MEMBERS_TO_EXCLUDE = new[] { "AdditionalAttributes", "BackReference", "ChildContent", "Equals", "GetHashCode", "GetType", "SetParametersAsync", "ToString", "Dispose", "Class", "Style" };
 
         if (_allMembers == null)
         {
