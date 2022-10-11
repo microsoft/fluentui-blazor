@@ -9,8 +9,6 @@ namespace FluentUI.Demo.Shared;
 
 public partial class MainLayout : IAsyncDisposable
 {
-    private string? selectValue;
-
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
 
