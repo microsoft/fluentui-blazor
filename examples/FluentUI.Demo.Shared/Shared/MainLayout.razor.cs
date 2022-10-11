@@ -86,8 +86,8 @@ public partial class MainLayout : IAsyncDisposable
         {
             if (value != "default")
             {
-                selectValue = (string)args.Value;
-                await AccentBaseColor.SetValueFor(container, args.Value.ToString()!.ToSwatch());
+                selectValue = value;
+                await AccentBaseColor.SetValueFor(container, value.ToSwatch());
             }
             else
             {
