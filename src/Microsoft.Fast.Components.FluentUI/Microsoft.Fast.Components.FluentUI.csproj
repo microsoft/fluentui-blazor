@@ -9,7 +9,7 @@
 		<PackageProjectUrl>https://github.com/microsoft/fast-blazor</PackageProjectUrl>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<Summary>A set of Blazor components wrapping Microsoft’s official Fluent UI Web Components. They implement the latest state of the Fluent design language, are built on FAST and work in every major browser.</Summary>
-		<PackageTags>Web Components, .NET, Fluent UI, FAST, Blazor, .NET 6.0, .NET 7.0</PackageTags>
+		<PackageTags>Web Components, Fluent UI, FAST, Blazor, .NET6, .NET7</PackageTags>
 		<Title>Microsoft Fluent UI Web Components for Blazor</Title>
 		<Description>A set of Blazor components wrapping Microsoft’s official Fluent UI Web Components. They implement the latest state of the Fluent design language, are built on FAST and work in every major browser.</Description>
 		<SignAssembly>true</SignAssembly>
@@ -60,9 +60,9 @@
 	</ItemGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net7.0' ">
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.0-rc.1.*" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0-rc.1.*" />
-		<PackageReference Include="System.Text.Json" Version="7.0.0-rc.1.*" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.0-rc.2.*" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0-rc.2.*" />
+		<PackageReference Include="System.Text.Json" Version="7.0.0-rc.2.*" />
 	</ItemGroup>
 
 	<ItemGroup>
