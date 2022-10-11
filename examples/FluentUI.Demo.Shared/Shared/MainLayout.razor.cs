@@ -24,7 +24,7 @@ public partial class MainLayout : IAsyncDisposable
     private AccentBaseColor AccentBaseColor { get; set; } = default!;
 
     [Inject]
-    private Direction Direction { get; set; } = default!;
+    private Microsoft.Fast.Components.FluentUI.DesignTokens.Direction Direction { get; set; } = default!;
 
 
     ElementReference container;
@@ -34,7 +34,7 @@ public partial class MainLayout : IAsyncDisposable
 
     ErrorBoundary? errorBoundary;
 
-    LocalizationDirection dir;
+    LocalizationDirection? dir;
     float baseLayerLuminance = 0.98f;
 
     protected override void OnInitialized()
@@ -75,24 +75,6 @@ public partial class MainLayout : IAsyncDisposable
     private void HandleChecked()
     {
         menuchecked = !menuchecked;
-    }
-
-    private async void HandleColorChange(ChangeEventArgs args)
-    {
-        string? value = args.Value?.ToString();
-        if (!string.IsNullOrEmpty(value))
-        {
-            if (value != "default")
-            {
-                selectValue = (string)args.Value;
-                await AccentBaseColor.SetValueFor(container, args.Value.ToString()!.ToSwatch());
-            }
-            else
-            {
-                selectValue = "default";
-                await AccentBaseColor.DeleteValueFor(container);
-            }
-        }
     }
 
     private async void LocationChanged(object? sender, LocationChangedEventArgs e)
