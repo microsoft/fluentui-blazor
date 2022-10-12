@@ -43,6 +43,17 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
         Owner?.Register(this);
     }
 
+    internal void SetSelected(bool value)
+    {
+        Selected = value;
+    }
+
+    internal void SetExpanded(bool value)
+    {
+        Expanded = value;
+    }
+
+
     public void Dispose()
     {
         Owner?.Unregister(this);

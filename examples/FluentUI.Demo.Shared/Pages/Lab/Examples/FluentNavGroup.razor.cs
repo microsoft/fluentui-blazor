@@ -10,7 +10,7 @@ public partial class FluentNavGroup : FluentComponentBase
     private bool _expanded = false;
 
     protected string? ClassValue => new CssBuilder(Class)
-            .Build();
+        .Build();
 
     protected string? StyleValue => new StyleBuilder()
             .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
@@ -18,16 +18,10 @@ public partial class FluentNavGroup : FluentComponentBase
             .Build();
 
     [CascadingParameter]
-    public FluentNavMenu NavMenu { get; set; } = default!;
+    public FluentNavMenu Owner { get; set; } = default!;
 
-    protected override void OnInitialized()
-    {
-        NavMenu.AddNavGroup(this);
-        base.OnInitialized();
-    }
-
-    [Parameter]
-    public string Id { get; set; } = Identifier.NewId();
+    [CascadingParameter(Name = "NavMenuExpanded")]
+    private bool NavMenuExpanded { get; set; }
 
     [Parameter]
     public bool Disabled { get; set; } = false;
@@ -36,19 +30,33 @@ public partial class FluentNavGroup : FluentComponentBase
     public EventCallback<bool> OnExpandedChanged { get; set; }
 
     [Parameter]
-    public bool Expanded
+    public bool Expanded { get; set; } = false;
 
+    [Parameter]
+    public string? Width { get; set; }
+
+    [Parameter]
+    public string Text { get; set; } = "";
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClick { get; set; }
+
+    protected override void OnInitialized()
     {
-        get
+        //Owner.Register(this);
+        Owner.AddNavGroup(this);
+    }
+
+    protected override void OnParametersSet()
+    {
+        if (_expanded != Expanded)
         {
-            return _expanded;
-        }
-        set
-        {
-            _expanded = value;
+            _expanded = Expanded;
             if (OnExpandedChanged.HasDelegate)
-                OnExpandedChanged.InvokeAsync(value);
+                OnExpandedChanged.InvokeAsync(_expanded);
         }
+
+        base.OnParametersSet();
     }
 
     protected void OnExpandedHandler(MouseEventArgs e)
@@ -57,24 +65,12 @@ public partial class FluentNavGroup : FluentComponentBase
             Expanded = !Expanded;
     }
 
-    [Parameter]
-    public string? Width { get; set; }
-
-    [Parameter]
-    public string Text { get; set; } = "";
-
-    [CascadingParameter(Name = "NavMenuExpanded")]
-    private bool NavMenuExpanded { get; set; }
-
-    [Parameter]
-    public EventCallback<MouseEventArgs> OnClick { get; set; }
-
     protected async Task OnClickHandler(MouseEventArgs e)
     {
         if (Disabled)
             return;
 
-        await NavMenu.SelectOnlyThisLinkAsync(null);
+        Owner.SelectOnlyThisLink(null);
 
         if (OnClick.HasDelegate)
             await OnClick.InvokeAsync(e);

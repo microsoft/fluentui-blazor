@@ -1,0 +1,34 @@
+﻿@namespace FluentUI.Demo.Shared
+<h2>Collapsible Navigation Example</h2>
+
+<FluentStackPanel Orientation="Orientation.Horizontal" Width="100%">
+    <div>
+        <FluentNavMenu @bind-Expanded="@Expanded" Width="150px">
+            <FluentNavLink Icon="@(FluentIcons.Home)" Text="Item 1" />
+            <FluentNavLink Icon="@(FluentIcons.Cloud)" Text="Item 2" />
+            <FluentNavGroup Text="Item 3">
+                <FluentNavLink Icon="@(FluentIcons.LeafOne)" Text="Item 3.1" />
+                <FluentNavLink Icon="@(FluentIcons.LeafTwo)" Text="Item 3.2" />
+            </FluentNavGroup>
+            <FluentNavLink Icon="@(FluentIcons.CalendarAgenda)" Text="Item 4" Disabled="true" />
+        </FluentNavMenu>
+    </div>
+    <div style="width: 100%;">
+        <p style="width: 100%; word-break:break-word;">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis lorem lacus.
+            Ut id leo non enim feugiat ultrices. Proin vulputate volutpat urna nec iaculis.
+            Integer dui lacus, fermentum sit amet aliquet in, scelerisque vitae dui.
+            Nulla fringilla sagittis orci eu consectetur. Fusce eget dolor non lectus placerat
+            tincidunt. Pellentesque aliquam non odio ac porttitor. Nam finibus mattis sagittis.
+            Ut hendrerit porttitor massa in aliquam. Duis laoreet fringilla feugiat.
+            Sed maximus, urna in fringilla posuere, enim urna bibendum justo, vel molestie nibh orci nec lectus.
+            Etiam a varius justo. Aenean nisl ante, interdum eget vulputate eget, iaculis ut massa.
+            Suspendisse maximus sed purus id molestie. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        </p>
+    </div>
+</FluentStackPanel>
+
+@code
+{
+    bool Expanded = true;
+}

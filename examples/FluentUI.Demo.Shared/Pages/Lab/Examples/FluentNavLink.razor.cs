@@ -8,8 +8,8 @@ namespace FluentUI.Demo.Shared;
 public partial class FluentNavLink : FluentComponentBase
 {
     protected string? ClassValue => new CssBuilder(Class)
-        .AddClass("fluent-navmenu-link", () => NavMenu.HasSubMenu && NavMenu.HasIcons)
-        .AddClass("fluent-navmenu-link-nogroup", () => !NavMenu.HasSubMenu && NavMenu.HasIcons)
+        .AddClass("fluent-navmenu-link", () => Owner.HasSubMenu && Owner.HasIcons)
+        .AddClass("fluent-navmenu-link-nogroup", () => !Owner.HasSubMenu && Owner.HasIcons)
         .Build();
 
     protected string? StyleValue => new StyleBuilder()
@@ -17,23 +17,11 @@ public partial class FluentNavLink : FluentComponentBase
         .AddStyle(Style)
         .Build();
 
-    [CascadingParameter]
-    public FluentNavMenu NavMenu { get; set; } = default!;
-
-    protected override void OnInitialized()
-    {
-        NavMenu.AddNavLink(this);
-        base.OnInitialized();
-    }
-
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
 
-    /// <summary>
-    /// Gets a reasonably unique ID (ex. 8c8113da982d75a)
-    /// </summary>
-    [Parameter]
-    public string Id { get; set; } = Identifier.NewId();
+    [CascadingParameter]
+    public FluentNavMenu Owner { get; set; } = default!;
 
     [Parameter]
     public bool Disabled { get; set; } = false;
@@ -65,6 +53,11 @@ public partial class FluentNavLink : FluentComponentBase
     [Parameter]
     public EventCallback<MouseEventArgs> OnClick { get; set; }
 
+    protected override void OnInitialized()
+    {
+        //Owner.Register(this);
+        Owner.AddNavLink(this);
+    }
     private bool HasIcon => !string.IsNullOrWhiteSpace(Icon);
 
     protected async Task OnClickHandler(MouseEventArgs e)
@@ -78,7 +71,7 @@ public partial class FluentNavLink : FluentComponentBase
         if (!String.IsNullOrEmpty(Href))
             NavigationManager.NavigateTo(Href);
 
-        await NavMenu.SelectOnlyThisLinkAsync(this);
+        Owner.SelectOnlyThisLink(this);
     }
 
     protected async Task OnKeypressHandler(KeyboardEventArgs e)

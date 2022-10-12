@@ -1,5 +1,22 @@
 ﻿@page "/Lab/FluentNavLink"
 
+<h2>NavLink</h2>
+
+<ApiDocumentation Component="typeof(FluentNavLink)" />
+
+<FluentNavMenu Collapsible=false>
+<DemoSection Component="typeof(FluentNavLink)" 
+             Title="FluentNavLink" 
+             CollocatedFiles="@(new[] {"cs", "css"})" 
+             ComponentParameters="@(new Dictionary<string, object>(){ {"ChildContent",(RenderFragment)(builder => builder.AddMarkupContent(1,"NavLink text")) } })">
+        <CodeSnippet>
+&lt;FluentNavLink&gt;
+    NavLink text
+&lt;/FluentNavLink&gt;
+        </CodeSnippet>
+        <p>Renders as:</p>
+</DemoSection>
+</FluentNavMenu>
 @code {
 
 }

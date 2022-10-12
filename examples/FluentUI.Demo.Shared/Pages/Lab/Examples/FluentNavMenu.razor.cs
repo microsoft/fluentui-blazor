@@ -8,8 +8,8 @@ namespace FluentUI.Demo.Shared;
 
 public partial class FluentNavMenu : FluentComponentBase
 {
-    private const string JAVASCRIPT_FILE = "./_content/FluentUI.Demo.Shared/Pages/Lab/Examples/FluentNavMenu.razor.js";
-    private const string WIDTH_COLLAPSED_MENU = "40px";
+
+    private const string WIDTH_COLLAPSED_MENU = "35px";
     internal readonly List<FluentNavLink> _links = new();
     internal readonly List<FluentNavGroup> _groups = new();
 
@@ -20,22 +20,20 @@ public partial class FluentNavMenu : FluentComponentBase
     protected string? StyleValue => new StyleBuilder()
         .AddStyle("width", Width, () => Expanded && !string.IsNullOrEmpty(Width))
         .AddStyle("width", WIDTH_COLLAPSED_MENU, () => !Expanded)
+        //.AddStyle("min-width", "unset", () => !Expanded)
         .AddStyle(Style)
         .Build();
+
+    [Inject]
+    private NavigationManager NavigationManager { get; set; } = default!;
 
     [Inject]
     private IJSRuntime JS { get; set; } = default!;
 
     private IJSObjectReference Module { get; set; } = default!;
 
-    /// <summary>
-    /// Gets a reasonably unique ID (ex. 8c8113da982d75a)
-    /// </summary>
     [Parameter]
-    public string Id { get; set; } = Identifier.NewId();
-
-    [Parameter]
-    public string? Title { get; set; } //= FluentNavigationResource.NavigationMenuTitle;
+    public string? Title { get; set; } = "Navigation menu";
 
     [Parameter]
     public string? Width { get; set; }
@@ -62,7 +60,6 @@ public partial class FluentNavMenu : FluentComponentBase
     internal int AddNavLink(FluentNavLink link)
     {
         _links.Add(link);
-        StateHasChanged();
         return _links.Count;
     }
 
@@ -72,7 +69,14 @@ public partial class FluentNavMenu : FluentComponentBase
         return _groups.Count;
     }
 
-    internal async Task SelectOnlyThisLinkAsync(FluentNavLink? selectedLink)
+    private void HandleCurrentSelectedChanged(FluentTreeItem item)
+    {
+        string? Href = _links.FirstOrDefault(i => i.Selected)?.Href;
+        if (!String.IsNullOrEmpty(Href))
+            NavigationManager.NavigateTo(Href);
+    }
+
+    internal void SelectOnlyThisLink(FluentNavLink? selectedLink)
     {
         if (selectedLink != null)
         {
@@ -88,15 +92,5 @@ public partial class FluentNavMenu : FluentComponentBase
                 }
             }
         }
-
-        // Select the correct link (with property Selected = true)
-        // Must use Javascript because the Click and Select events are
-        // automatically managed by 'fluent-tree-item' component.
-        if (Module == null)
-        {
-            Module = await JS.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
-        }
-        var selectedLinkId = _links?.FirstOrDefault(i => i.Selected)?.Id ?? "";
-        await Module.InvokeVoidAsync("selectOnlyThisLink", this.Id, selectedLinkId);
     }
 }

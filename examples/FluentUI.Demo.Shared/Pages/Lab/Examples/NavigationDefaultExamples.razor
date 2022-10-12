@@ -1,0 +1,62 @@
+﻿@namespace FluentUI.Demo.Shared
+<h2>Navigation Examples</h2>
+
+
+<FluentStackPanel Orientation="Orientation.Horizontal">
+    <!-- Menu with sub-items and icons -->
+    <FluentNavMenu Collapsible="false">
+        <FluentNavLink Text="Item 1" OnClick="@OnClick" Icon="@(FluentIcons.Home)" Selected="true" />
+        <FluentNavLink Text="Item 2" OnClick="@OnClick" />
+        <FluentNavGroup Text="Item 3" Expanded="true">
+            <FluentNavLink Text="Item 3.1" OnClick="@OnClick" Icon="@(FluentIcons.LeafOne)" />
+            <FluentNavLink Text="Item 3.2" OnClick="@OnClick" Icon="@(FluentIcons.LeafTwo)" />
+        </FluentNavGroup>
+        <FluentNavGroup Text="Item 4" Expanded="true">
+            <FluentNavLink Text="Item 4.1" OnClick="@OnClick" />
+            <FluentNavLink Text="Item 4.2" OnClick="@OnClick" Icon="@(FluentIcons.LeafOne)" />
+        </FluentNavGroup>
+        <FluentNavGroup Text="Item 5" Expanded="true">
+            <FluentNavLink Text="Item 5.1" OnClick="@OnClick" Icon="@(FluentIcons.LeafTwo)" />
+            <FluentNavGroup Text="Item 5.2">
+                <FluentNavLink Text="Item 5.2.1" OnClick="@OnClick" />
+                <FluentNavLink Text="Item 5.2.2" OnClick="@OnClick" />                
+            </FluentNavGroup>
+            <FluentNavGroup Text="Item 5.3">
+                <FluentNavLink Text="Item 5.3.1" OnClick="@OnClick" Icon="@(FluentIcons.LeafOne)" />
+                <FluentNavLink Text="Item 5.3.2" OnClick="@OnClick" />                
+            </FluentNavGroup>
+        </FluentNavGroup>
+        <FluentNavGroup Text="Item with Href" Expanded="true">
+            <FluentNavLink Text="Go to Bing" OnClick="@OnClick" Icon="@(FluentIcons.LeafOne)" Href="https://bing.com" />
+            <FluentNavLink Text="Go to home page" OnClick="@OnClick" Icon="@(FluentIcons.Home)" Href="/" />
+        </FluentNavGroup>
+        <FluentNavLink Text="Last item" OnClick="@OnClick" Icon="@(FluentIcons.LeafThree)" Disabled="true" />
+    </FluentNavMenu>
+
+    <!-- Menu with icons -->
+    <FluentNavMenu>
+        <FluentNavLink Text="Item 1" OnClick="@OnClick" Icon="@(FluentIcons.Home)" />
+        <FluentNavLink Text="Item 2" OnClick="@OnClick" />
+        <FluentNavLink Text="Item 3" OnClick="@OnClick" Icon="@(FluentIcons.LeafOne)" />
+        <FluentNavLink Text="Item 4" OnClick="@OnClick" />
+    </FluentNavMenu>
+
+    <!-- Menu simple -->
+    <FluentNavMenu>
+        <FluentNavLink Text="Item 1" OnClick="@OnClick" />
+        <FluentNavLink Text="Item 2" OnClick="@OnClick" />
+        <FluentNavLink Text="Item 3" OnClick="@OnClick" />
+        <FluentNavLink Text="Item 4" OnClick="@OnClick" />
+    </FluentNavMenu>
+
+</FluentStackPanel>
+
+@code
+{
+    void OnClick(MouseEventArgs e)
+    {
+        Console.WriteLine("Item Clicked");
+    }
+}
+
+

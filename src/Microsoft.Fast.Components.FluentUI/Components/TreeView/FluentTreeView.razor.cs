@@ -33,6 +33,9 @@ public partial class FluentTreeView : FluentComponentBase
         string? treeItemId = args.AffectedId;
         if (items.TryGetValue(treeItemId!, out FluentTreeItem? treeItem))
         {
+            treeItem.SetSelected(args.Selected ?? false);
+            treeItem.SetExpanded(args.Expanded ?? false);
+
             await CurrentSelectedChanged.InvokeAsync(treeItem);
             await OnSelectedChange.InvokeAsync(treeItem);
         }
