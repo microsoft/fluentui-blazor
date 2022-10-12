@@ -22,21 +22,27 @@
 <div class="demo-section-content">
 
     <FluentTabs>
-        <FluentTab Text="Example" />
+        @if (!HideExample)
+        {
+            <FluentTab Text="Example" />
+        }
         @foreach (string tab in GetSources())
         {
             <FluentTab Text="@GetDisplayName(tab)" />
         }
 
-        <FluentTabPanel style="max-height: 535px; overflow-y: auto;">
-            <div class="demo-section-example">
-                @ChildContent
-                @if (Component is not null)
-                {
-                    <DynamicComponent Type="Component" Parameters="ComponentParameters" />
-                }
-            </div>
+        @if (!HideExample)
+        {
+            <FluentTabPanel style="max-height: 535px; overflow-y: auto;">
+                <div class="demo-section-example">
+                    @ChildContent
+                    @if (Component is not null)
+                    {
+                        <DynamicComponent Type="Component" Parameters="ComponentParameters" />
+                    }
+                </div>
         </FluentTabPanel>
+        }
         @foreach (string tab in GetSources())
         {
             <FluentTabPanel style="max-height: 535px; overflow-y: auto;">

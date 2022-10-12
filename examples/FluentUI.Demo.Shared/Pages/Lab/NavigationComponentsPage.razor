@@ -1,0 +1,40 @@
+﻿@page "/Lab/NavigationComponents"
+
+<h2>NavMenu, NavGroup and NavLink</h2>
+<p>
+    The <code>FluentNavGroup</code>, <code>FluentNavLink</code> and <code>FluentNavMenu</code> components can be used to build 
+    hierarchical, collapsible and expandable menus. They can range from simple 1-level deep lists to complex multi-level menu 
+    structures. 
+</p> 
+<p>
+    None of these components are particulary useful when used stand-alone.
+</p>
+
+<ApiDocumentation Component="typeof(FluentNavLink)" />
+<DemoSection Component="typeof(FluentNavLink)" 
+             Title="FluentNavLink" 
+             HideExample=true
+             CollocatedFiles="@(new[] {"cs"})">
+</DemoSection>
+
+<ApiDocumentation Component="typeof(FluentNavGroup)" />
+<DemoSection Component="typeof(FluentNavGroup)"
+             Title="FluentNavGroup"
+             HideExample=true
+             CollocatedFiles="@(new[] {"cs", "css"})">
+</DemoSection>
+
+<ApiDocumentation Component="typeof(FluentNavMenu)" />
+<DemoSection Component="typeof(FluentNavMenu)"
+             Title="FluentNavMenu"
+             HideExample=true
+             CollocatedFiles="@(new[] {"cs", "css"})">
+</DemoSection>
+
+
+<DemoSection Component="typeof(NavigationDefaultExamples)" Title="Examples" />
+
+<DemoSection Component="typeof(NavigationCollapsibleExample)" Title="Collapsible navigation example" />
+
+@code {
+}

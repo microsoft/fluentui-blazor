@@ -43,6 +43,13 @@ public partial class DemoSection : ComponentBase
     [Parameter]
     public bool ShowDownloads { get; set; } = true;
 
+
+    /// <summary>
+    /// Hide the 'Example' tab
+    /// </summary>
+    [Parameter]
+    public bool HideExample { get; set; } = false;
+
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
