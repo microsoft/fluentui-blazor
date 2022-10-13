@@ -79,7 +79,7 @@ public partial class IconPage
     {
         Console.WriteLine($"You clicked on {icon.Name}");
 
-        string Text = $@"<FluentIcon Name=""@FluentIcons.{icon.Folder}"" Size=""IconSize.{icon.Size}"" Filled={icon.Filled.ToString().ToLower()} />";
+        string Text = $@"<FluentIcon Name=""@FluentIcons.{icon.Folder}"" Size=""IconSize.{icon.Size}"" Filled={icon.Filled.ToString().ToLower()} Color=""IconColor.{Form.Color}""/>";
 
         if (module is not null)
         {

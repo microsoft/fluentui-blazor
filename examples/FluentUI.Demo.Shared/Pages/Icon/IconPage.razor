@@ -3,18 +3,29 @@
 <h1>Icons</h1>
 <ApiDocumentation Component="typeof(FluentIcon)" />
 <h2>Overview</h2>
+<h3>Color options</h3>
 <p>
+    Icons can be drawn and filled with a color through the <code>Color</code> parameter which takes a <code>IconColor</code> enumeration value. 
+    <br /><br /> 
+    &nbsp;&nbsp;&nbsp;<code>&lt;FluentIcon Name="@@FluentIcons.Alert"" Size="IconSize.Size48"" Filled=true Color="<em>{&middot;&middot;&middot;}</em>" /&gt;</code>
+    <br /><br />
+    With the code above you can use the following options at the <em>{&middot;&middot;&middot;}</em>:
     <dl>
-        <dt>Icon using the accent color:<br />
-            <code>&lt;FluentIcon Name=@@FluentIcons.Accessibility Size=IconSize.Size32 Filled=true /&gt;</code></dt>
-        <dd><FluentIcon Name=@FluentIcons.Accessibility Size=IconSize.Size32 Filled=true /></dd>
-        <dt>Icon using the neutral foreground color: <br />
-            <code>&lt;FluentIcon Name=@@FluentIcons.AccessibilityCheckmark Size=IconSize.Size24 Filled=true Color=IconColor.Neutral /&gt;</code>
-        </dt>
-        <dd><FluentIcon Name=@FluentIcons.AccessibilityCheckmark Size=IconSize.Size24 Filled=true Color=IconColor.Neutral/></dd>
+        <dt><code>IconColor.Neutral</code> - Uses CSS variable --neutral-forground-rest, adapts to light/dark mode.</dt>
+        <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Filled=true Color="IconColor.Neutral" /></dd>
+        <dt><code>IconColor.Accent</code> - Uses CSS variable --accent-fill-rest.</dt>
+        <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Filled=true Color="IconColor.Accent" /></dd>
+        <dt><code>IconColor.Warning</code> - Uses CSS variable --fluentui-warning-fill<sup>*</sup>.</dt>
+        <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Filled=true Color="IconColor.Warning" /></dd>
+        <dt><code>IconColor.SevereWarning</code> - Uses CSS variable --fluentui-severe-warning-fill<sup>*</sup>.</dt>
+        <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Filled=true Color="IconColor.SevereWarning" /></dd>
+        <dt><code>IconColor.Error</code> - Uses CSS variable --fluentui-error-fill<sup>*</sup>.</dt>
+        <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Filled=true Color="IconColor.Error" /></dd>
+        <dt><code>IconColor.Success</code> - Uses CSS variable --fluentui-success-fill<sup>*</sup>.</dt>
+        <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Filled=true Color="IconColor.Success" /></dd>
     </dl>
-    
-    
+    <strong>(*)</strong>: This color is defined in the <FluentAnchor Href="/Lab/FluentUIReboot" Appearance="Appearance.Hypertext"><code>fluentui-reboot.css</code></FluentAnchor> file. If this file is not being used,
+    a CSS variable with this name and appropriate value needs to be created in another css file.<em>The color value will not be aplied if the CSS variable is not defined</em>
 </p>
 <h2>Culture Aware</h2>
 <p>
@@ -22,15 +33,15 @@
     If a language version of an icon is not found, the original version will be used.
     <dl> 
         <dt>Neutral @@FluentIcons.TextBold icons</dt>
-        <dd style="line-height: 30px; display: flex; align-items: center; margin: 10px 40px;">Filled: <FluentIcon Name=@FluentIcons.TextBold Size=IconSize.Size24 Filled=true /> Regular: <FluentIcon Name=@FluentIcons.TextBold Size=IconSize.Size24 Filled=false /></dd>
+        <dd>Filled: <FluentIcon Name=@FluentIcons.TextBold Size=IconSize.Size24 Filled=true /> Regular: <FluentIcon Name=@FluentIcons.TextBold Size=IconSize.Size24 Filled=false /></dd>
         <dt>French @@FluentIcons.TextBold icons (<code>NeutralCultureName="fr"</code>)</dt>
-        <dd style="line-height: 30px; display: flex; align-items: center; margin: 10px 40px;">Filled: <FluentIcon Name=@FluentIcons.TextBold Size=IconSize.Size24 Filled=true NeutralCultureName="fr" /> Regular: <FluentIcon Name=@FluentIcons.TextBold Size=IconSize.Size24 Filled=false NeutralCultureName="fr"/></dd>
+        <dd>Filled: <FluentIcon Name=@FluentIcons.TextBold Size=IconSize.Size24 Filled=true NeutralCultureName="fr" /> Regular: <FluentIcon Name=@FluentIcons.TextBold Size=IconSize.Size24 Filled=false NeutralCultureName="fr"/></dd>
         <dt>German @@FluentIcons.TextBold icons (<code>NeutralCultureName="de"</code>)</dt>
-        <dd style="line-height: 30px; display: flex; align-items: center; margin: 10px 40px;">Filled: <FluentIcon Name=@FluentIcons.TextBold Size=IconSize.Size24 Filled=true NeutralCultureName="de" /> Regular: <FluentIcon Name=@FluentIcons.TextBold Size=IconSize.Size24 Filled=false NeutralCultureName="de"/></dd>
+        <dd>Filled: <FluentIcon Name=@FluentIcons.TextBold Size=IconSize.Size24 Filled=true NeutralCultureName="de" /> Regular: <FluentIcon Name=@FluentIcons.TextBold Size=IconSize.Size24 Filled=false NeutralCultureName="de"/></dd>
         <dt>Greek @@FluentIcons.TextBold icons (<code>NeutralCultureName="el"</code>) (does not exist, fall back to original)</dt>
-        <dd style="line-height: 30px; display: flex; align-items: center; margin: 10px 40px;">Filled: <FluentIcon Name=@FluentIcons.TextBold Size=IconSize.Size24 Filled=true NeutralCultureName="el" /> Regular: <FluentIcon Name=@FluentIcons.TextBold Size=IconSize.Size24 Filled=false NeutralCultureName="el"/></dd>
+        <dd>Filled: <FluentIcon Name=@FluentIcons.TextBold Size=IconSize.Size24 Filled=true NeutralCultureName="el" /> Regular: <FluentIcon Name=@FluentIcons.TextBold Size=IconSize.Size24 Filled=false NeutralCultureName="el"/></dd>
         <dt>Spanish @@FluentIcons.TextBold icons (<code>NeutralCultureName="es"</code>)</dt>
-        <dd style="line-height: 30px; display: flex; align-items: center; margin: 10px 40px;">Filled: <FluentIcon Name=@FluentIcons.TextBold Size=IconSize.Size24 Filled=true NeutralCultureName="es" /> Regular: <FluentIcon Name=@FluentIcons.TextBold Size=IconSize.Size24 Filled=false NeutralCultureName="es"/></dd>
+        <dd>Filled: <FluentIcon Name=@FluentIcons.TextBold Size=IconSize.Size24 Filled=true NeutralCultureName="es" /> Regular: <FluentIcon Name=@FluentIcons.TextBold Size=IconSize.Size24 Filled=false NeutralCultureName="es"/></dd>
     </dl>
 </p>
 <h2>Explore Icons</h2>

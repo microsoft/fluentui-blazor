@@ -1,4 +1,16 @@
-﻿::deep .preview {
+﻿dl {
+    padding-top: 1rem;
+}
+
+dd {
+    line-height: 30px;
+    display: flex;
+    align-items: center;
+    margin: 10px 40px;
+}
+
+
+::deep .preview {
     margin: 10px;
     --card-width: 120px;
     --card-height: 120px;

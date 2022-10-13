@@ -16,6 +16,7 @@ public enum IconColor
 
     /// <summary>
     /// Use the '--accent-fill-rest' CSS variable color.
+    /// This is the default value.
     /// </summary>
     [Description("--accent-fill-rest")]
     Accent,

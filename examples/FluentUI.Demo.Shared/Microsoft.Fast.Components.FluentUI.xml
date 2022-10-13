@@ -4981,6 +4981,7 @@
         <member name="F:Microsoft.Fast.Components.FluentUI.IconColor.Accent">
             <summary>
             Use the '--accent-fill-rest' CSS variable color.
+            This is the default value.
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.IconColor.Warning">
