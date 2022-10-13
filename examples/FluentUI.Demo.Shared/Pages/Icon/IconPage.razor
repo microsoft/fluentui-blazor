@@ -5,12 +5,13 @@
 <h2>Overview</h2>
 <p>
     <dl>
-        <dt>Icon using 'accent-fill-rest' color:<br />
+        <dt>Icon using the accent color:<br />
             <code>&lt;FluentIcon Name=@@FluentIcons.Accessibility Size=IconSize.Size32 Filled=true /&gt;</code></dt>
         <dd><FluentIcon Name=@FluentIcons.Accessibility Size=IconSize.Size32 Filled=true /></dd>
-        <dt>Icon without accent color: <br />
-            <code>&lt;FluentIcon Name=@@FluentIcons.AccessibilityCheckmark Size=IconSize.Size24 Filled=true UseAccentColor=false /&gt;</code></dt>
-        <dd><FluentIcon Name=@FluentIcons.AccessibilityCheckmark Size=IconSize.Size24 Filled=true UseAccentColor=false /></dd>
+        <dt>Icon using the neutral foreground color: <br />
+            <code>&lt;FluentIcon Name=@@FluentIcons.AccessibilityCheckmark Size=IconSize.Size24 Filled=true Color=IconColor.Neutral /&gt;</code>
+        </dt>
+        <dd><FluentIcon Name=@FluentIcons.AccessibilityCheckmark Size=IconSize.Size24 Filled=true Color=IconColor.Neutral/></dd>
     </dl>
     
     
@@ -40,7 +41,7 @@
                 <FluentSearch Name="Searchterm" @bind-Value="Form.Searchterm" Placeholder="Search.."></FluentSearch>
             </div>
             <div style="display: flex;align-content: center;align-items: center;">
-                <p style="padding-right: 10px;"><label for="Size">Select Size</label></p>
+                <label for="Size">Size</label>
                 <FluentSelect TValue="IconSize" Name="Size" @bind-Value="Form.Size" @onchange="@(x => HandleSize(x))">
                     @foreach (IconSize size in Enum.GetValues<IconSize>())
                     {
@@ -52,6 +53,15 @@
             <div style="display: flex;align-content: center;align-items: center;">
                 <FluentCheckbox @bind-Value="Form.Filled" @onclick="HandleStyle">Filled</FluentCheckbox>
                 <FluentCheckbox @bind-Value="Form.Regular" @onclick="HandleStyle">Regular</FluentCheckbox>
+            </div>
+            <div style="display: flex;align-content: center;align-items: center;">
+                <label for="Color">Color</label>
+                <FluentSelect TValue="IconColor" Name="Color" @bind-Value="Form.Color" @onchange="@(x => HandleColor(x))">
+                    @foreach (IconColor color in Enum.GetValues<IconColor>())
+                    {
+                        <FluentOption Value=@color>@(color)</FluentOption>
+                    }
+                </FluentSelect>
             </div>
             <FluentButton @onclick="HandleSearch"><FluentIcon Name="@FluentIcons.Search" Size="@IconSize.Size16" Filled=false Slot="start"></FluentIcon> Search</FluentButton>
         </div>
@@ -68,7 +78,7 @@
         {
             <FluentCard Class="preview" @onclick="()=> HandleClick(icon)">
                 <div class="inner" >
-                    <FluentIcon Name=@icon.Name Size=@icon.Size Filled=@icon.Filled />
+                    <FluentIcon Name=@icon.Name Size=@icon.Size Filled=@icon.Filled Color="@Form.Color" />
                 </div>
                 <div class="label">@icon.Folder</div>
             </FluentCard>

@@ -52,6 +52,18 @@ public partial class IconPage
         HandleSearch();
     }
 
+    public void HandleColor(ChangeEventArgs args)
+    {
+        if (!string.IsNullOrEmpty(args.Value?.ToString()))
+        {
+            Form.Color = Enum.Parse<IconColor>((string)args.Value);
+            HandleSearch();
+        }
+
+        HandleSearch();
+    }
+
+
     public void HandleSearch()
     {
         if (Form.Searchterm is not null && Form.Searchterm.Trim().Length > 2)
@@ -86,10 +98,11 @@ public partial class IconPage
         public bool Filled { get; set; }
 
         public bool Regular { get; set; }
+
+        public IconColor Color { get; set; }
     }
 
-    private FormModel Form = new()
-    { Size = IconSize.Size24, Searchterm = "", Style = null, };
+    private FormModel Form = new() { Size = IconSize.Size24, Searchterm = "", Style = null, Color = IconColor.Accent };
     protected override void OnInitialized()
     {
         editContext = new EditContext(Form);

@@ -2,6 +2,7 @@ using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.Fast.Components.FluentUI.Helpers;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
@@ -21,17 +22,17 @@ public partial class FluentIcon : FluentComponentBase
     public bool Filled { get; set; }
 
     /// <summary>
-    /// Gets or sets the use of the current Fluent Accent Color
+    /// Gets or sets the icon drawing and fill color <see cref="IconColor"/>
     /// </summary>
     [Parameter]
-    public bool UseAccentColor { get; set; } = true;
+    public IconColor Color { get; set; } = IconColor.Accent;
 
     /// <summary>
     /// Gets or sets the name of the icon. Can be specified by using const value from <c ref="FluentIcons" />
     /// </summary>
     [Parameter]
     [EditorRequired]
-    public string Name { get; set; } = String.Empty;
+    public string Name { get; set; } = string.Empty;
 
     /// <summary>
     /// Gets or sets the size of the icon. Defaults to 24. Not all sizes are available for all icons
@@ -98,9 +99,8 @@ public partial class FluentIcon : FluentComponentBase
             result = "Icon not found";
         }
 
-        if (UseAccentColor)
-            result = result.Replace("<path ", "<path fill=\"var(--accent-fill-rest)\"");
 
+        result = result.Replace("<path ", $"<path fill=\"var({Color.ToAttributeValue()})\"");
 
         string pattern = "<svg (?<attributes>.*?)>(?<path>.*?)</svg>";
         Regex regex = new(pattern);
