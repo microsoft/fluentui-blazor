@@ -1,6 +1,8 @@
-﻿namespace FluentUI.Demo.Shared;
+﻿using Microsoft.AspNetCore.Components;
 
-using Microsoft.AspNetCore.Components;
+// Remember to replace the namespace below with your own project's namespace..
+namespace FluentUI.Demo.Shared;
+
 
 /// <summary />
 public partial class FluentSpacer

@@ -1,4 +1,6 @@
-﻿@namespace FluentUI.Demo.Shared
+﻿@* Remember to replace the namespace below with your own project's namespace. *@
+@namespace FluentUI.Demo.Shared
+
 <FluentSwitch @bind-Value="ShowHeader">Header</FluentSwitch>
 <FluentSwitch @bind-Value="ShowNavMenu">NavMenu</FluentSwitch>
 <FluentSwitch @bind-Value="ShowBodyContent">BodyContent</FluentSwitch>
