@@ -29,3 +29,7 @@
 ::deep .fluent-navmenu-group::part(start) {
     margin-inline-end: 5px;
 }
+
+::deep .fluent-navmenu-group:not([aria-expanded])::part(start) {
+    margin-inline-start: -25px;
+}

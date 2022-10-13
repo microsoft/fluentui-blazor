@@ -3,14 +3,21 @@
 <FluentTreeItem Class="@ClassValue"
                 Style="@StyleValue"
                 Disabled="@Disabled"
-                Expanded="@(NavMenuExpanded ? Expanded : false)"
-                tabindex="-1">
-    @if (!string.IsNullOrEmpty(Text) && NavMenuExpanded)
+                Selected="@Selected"
+                Expanded="@(NavMenuCollapsed ? Expanded : false)"
+                tabindex="-1"
+                @onclick="@OnClickHandler"
+                @onkeydown="@OnKeypressHandler">
+    @if (!string.IsNullOrEmpty(Text) && NavMenuCollapsed)
     {
-        <span class="fluent-navmenu-group-text" style="@(NavMenuExpanded ? null : "display: none;")">@Text</span>
+        <span class="fluent-navmenu-group-text" style="@(NavMenuCollapsed ? null : "display: none;")">@Text</span>
     }
-    @if (NavMenuExpanded)
+    @if (NavMenuCollapsed)
     {
         @ChildContent
+    }
+    else
+    {
+        <FluentIcon Name="@FluentIcons.MoreHorizontal" Size="IconSize.Size20" Filled=false Slot="start" />
     }
 </FluentTreeItem>

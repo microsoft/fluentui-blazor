@@ -20,11 +20,12 @@
     }
     @if (!string.IsNullOrEmpty(Text))
     {
-        <span style="@(NavMenuExpanded ? null : "display: none;")">@Text</span>
+        <span style="@(NavMenuCollapsed ? null : "display: none;")">@Text</span>
     }
     
-    @if (NavMenuExpanded)
+    @if (NavMenuCollapsed)
     {
         @ChildContent
     }
+    
 </FluentTreeItem>

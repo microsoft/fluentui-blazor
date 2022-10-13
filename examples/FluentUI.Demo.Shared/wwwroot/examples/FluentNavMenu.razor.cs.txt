@@ -18,9 +18,9 @@ public partial class FluentNavMenu : FluentComponentBase
         .Build();
 
     protected string? StyleValue => new StyleBuilder()
-        .AddStyle("width", Width, () => Expanded && !string.IsNullOrEmpty(Width))
-        .AddStyle("width", WIDTH_COLLAPSED_MENU, () => !Expanded)
-        //.AddStyle("min-width", "unset", () => !Expanded)
+        .AddStyle("width", Width, () => Collapsed && !string.IsNullOrEmpty(Width))
+        .AddStyle("width", WIDTH_COLLAPSED_MENU, () => !Collapsed)
+        //.AddStyle("min-width", "unset", () => !Collapsed)
         .AddStyle(Style)
         .Build();
 
@@ -43,7 +43,7 @@ public partial class FluentNavMenu : FluentComponentBase
 
     [Parameter]
     [CascadingParameter()]
-    public bool Expanded { get; set; } = true;
+    public bool Collapsed { get; set; } = true;
 
     internal bool HasSubMenu => _groups.Any();
 
@@ -53,7 +53,7 @@ public partial class FluentNavMenu : FluentComponentBase
     {
         if (Collapsible)
         {
-            Expanded = !Expanded;
+            Collapsed = !Collapsed;
         }
     }
 
@@ -89,6 +89,24 @@ public partial class FluentNavMenu : FluentComponentBase
                 else
                 {
                     link.SetSelected(false);
+                }
+            }
+        }
+    }
+
+    internal void SelectOnlyThisGroup(FluentNavGroup? selectedGroup)
+    {
+        if (selectedGroup != null)
+        {
+            foreach (var group in _groups)
+            {
+                if (group == selectedGroup)
+                {
+                    group.SetSelected(true);
+                }
+                else
+                {
+                    group.SetSelected(false);
                 }
             }
         }

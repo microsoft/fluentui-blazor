@@ -10,27 +10,32 @@ public partial class FluentNavGroup : FluentComponentBase
     private bool _expanded = false;
 
     protected string? ClassValue => new CssBuilder(Class)
+        .AddClass("fluent-navmenu-group")
         .Build();
 
     protected string? StyleValue => new StyleBuilder()
-            .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
-            .AddStyle(Style)
-            .Build();
+        .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
+        .AddStyle(Style)
+        .Build();
 
     [CascadingParameter]
     public FluentNavMenu Owner { get; set; } = default!;
 
-    [CascadingParameter(Name = "NavMenuExpanded")]
-    private bool NavMenuExpanded { get; set; }
+    [CascadingParameter(Name = "NavMenuCollapsed")]
+    private bool NavMenuCollapsed { get; set; }
 
     [Parameter]
-    public bool Disabled { get; set; } = false;
+    public bool Disabled { get; set; }
+
+    [Parameter]
+    public bool Selected { get; set; }
+
+
+    [Parameter]
+    public bool Expanded { get; set; }
 
     [Parameter]
     public EventCallback<bool> OnExpandedChanged { get; set; }
-
-    [Parameter]
-    public bool Expanded { get; set; } = false;
 
     [Parameter]
     public string? Width { get; set; }
@@ -43,8 +48,8 @@ public partial class FluentNavGroup : FluentComponentBase
 
     protected override void OnInitialized()
     {
-        //Owner.Register(this);
         Owner.AddNavGroup(this);
+        base.OnInitialized();
     }
 
     protected override void OnParametersSet()
@@ -70,9 +75,22 @@ public partial class FluentNavGroup : FluentComponentBase
         if (Disabled)
             return;
 
-        Owner.SelectOnlyThisLink(null);
+        Owner.SelectOnlyThisGroup(this);
 
         if (OnClick.HasDelegate)
             await OnClick.InvokeAsync(e);
+    }
+
+    protected async Task OnKeypressHandler(KeyboardEventArgs e)
+    {
+        if (e.Code == "Space" || e.Code == "Enter")
+        {
+            await OnClickHandler(new MouseEventArgs());
+        }
+    }
+
+    internal void SetSelected(bool value)
+    {
+        Selected = value;
     }
 }

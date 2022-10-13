@@ -2,7 +2,7 @@
 @inherits FluentComponentBase
 <div>
 <CascadingValue Value="this" IsFixed="true">
-    <CascadingValue Value="@Expanded" Name="NavMenuExpanded">
+    <CascadingValue Value="@Collapsed" Name="NavMenuCollapsed">
         <FluentTreeView Class="@ClassValue" Style="@StyleValue" CurrentSelectedChanged="HandleCurrentSelectedChanged">
             @if (Collapsible)
             {

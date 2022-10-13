@@ -47,8 +47,8 @@ public partial class FluentNavLink : FluentComponentBase
     [Parameter]
     public string? Target { get; set; } = "";
 
-    [CascadingParameter(Name = "NavMenuExpanded")]
-    private bool NavMenuExpanded { get; set; }
+    [CascadingParameter(Name = "NavMenuCollapsed")]
+    private bool NavMenuCollapsed { get; set; }
 
     [Parameter]
     public EventCallback<MouseEventArgs> OnClick { get; set; }
@@ -68,7 +68,7 @@ public partial class FluentNavLink : FluentComponentBase
         if (OnClick.HasDelegate)
             await OnClick.InvokeAsync(e);
 
-        if (!String.IsNullOrEmpty(Href))
+        if (!string.IsNullOrEmpty(Href))
             NavigationManager.NavigateTo(Href);
 
         Owner.SelectOnlyThisLink(this);
