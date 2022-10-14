@@ -21,14 +21,14 @@
 
 <div class="demo-section-content">
 
-    <FluentTabs>
+    <FluentTabs ActiveId="@(!HideExample ? "tab-example" : "tab-razor")">
         @if (!HideExample)
         {
-            <FluentTab Text="Example" />
+            <FluentTab id="tab-example" Text="Example" />
         }
         @foreach (string tab in GetSources())
         {
-            <FluentTab Text="@GetDisplayName(tab)" />
+            <FluentTab id="@("tab-"+@GetDisplayName(tab).Replace("#","").ToLower())" Text="@GetDisplayName(tab)" />
         }
 
         @if (!HideExample)

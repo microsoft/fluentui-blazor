@@ -15,17 +15,22 @@
         <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Filled=true Color="IconColor.Neutral" /></dd>
         <dt><code>IconColor.Accent</code> - Uses CSS variable --accent-fill-rest.</dt>
         <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Filled=true Color="IconColor.Accent" /></dd>
-        <dt><code>IconColor.Warning</code> - Uses CSS variable --fluentui-warning-fill<sup>*</sup>.</dt>
+        <dt><code>IconColor.Warning</code> - Uses CSS variable --warning-fill<sup>*</sup>.</dt>
         <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Filled=true Color="IconColor.Warning" /></dd>
-        <dt><code>IconColor.SevereWarning</code> - Uses CSS variable --fluentui-severe-warning-fill<sup>*</sup>.</dt>
+        <dt><code>IconColor.SevereWarning</code> - Uses CSS variable --severe-warning-fill<sup>*</sup>.</dt>
         <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Filled=true Color="IconColor.SevereWarning" /></dd>
-        <dt><code>IconColor.Error</code> - Uses CSS variable --fluentui-error-fill<sup>*</sup>.</dt>
+        <dt><code>IconColor.Error</code> - Uses CSS variable --error-fill<sup>*</sup>.</dt>
         <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Filled=true Color="IconColor.Error" /></dd>
-        <dt><code>IconColor.Success</code> - Uses CSS variable --fluentui-success-fill<sup>*</sup>.</dt>
+        <dt><code>IconColor.Success</code> - Uses CSS variable --success-fill<sup>*</sup>.</dt>
         <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Filled=true Color="IconColor.Success" /></dd>
     </dl>
-    <strong>(*)</strong>: This color is defined in the <FluentAnchor Href="/Lab/FluentUIReboot" Appearance="Appearance.Hypertext"><code>fluentui-reboot.css</code></FluentAnchor> file. If this file is not being used,
-    a CSS variable with this name and appropriate value needs to be created in another css file.<em>The color value will not be aplied if the CSS variable is not defined</em>
+    <strong>(*)</strong>: This color is defined in the <code>variables.css</code> file. If your site is using 
+    <FluentAnchor Href="/Reboot">Reboot</FluentAnchor> the <code>variables.css</code> file is automatically imported. If you do not 
+    use Reboot, please add the <code>variables.css</code> file to your <code>index.html</code> or <code>_Layout.cshtml</code> file like this:
+    <CodeSnippet Language="language-html">
+ &lt;link href="_content/Microsoft.Fast.Components.FluentUI/css/variables.css" rel="stylesheet" /&gt;
+    </CodeSnippet>
+    <em>The color value will not be aplied if the CSS variable is not defined</em>
 </p>
 <h2>Culture Aware</h2>
 <p>

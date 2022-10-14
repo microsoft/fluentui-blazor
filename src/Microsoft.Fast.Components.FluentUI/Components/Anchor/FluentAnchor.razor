@@ -1,8 +1,8 @@
 @namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentComponentBase
 <fluent-anchor @ref=Element
-			   class="@Class"
-			   style="@Style"
+			   class=@Class
+			   style=@Style
 			   download=@Download
 			   href=@Href
 			   hreflang=@Hreflang
@@ -11,7 +11,9 @@
 			   rel=@Rel
 			   target=@Target
 			   type=@Type
-			   appearance="@Appearance.ToAttributeValue()"
-			   @attributes="AdditionalAttributes">
+			   appearance=@Appearance.ToAttributeValue()
+			   @onclick=OnClickAsync 
+			   @onclick:preventDefault=@_preventDefault
+			   @attributes=@AdditionalAttributes>
 	@ChildContent
 </fluent-anchor>

@@ -1,26 +1,15 @@
-/*!
- * Fluent UI Web Components for Blazor Reboot v0.0.1 
+/*
+ * Fluent UI Web Components for Blazor Reboot v1.0.0 
  * Copyright 2022 Microsoft
-  * Licensed under MIT (https://github.com/microsoft/fast-blazor/blob/main/LICENSE)
+ *  
+ * Normalization of HTML elements, copied and ajusted from Bootstrap's Reboot which is based on Normalize.css 
+ * Licensed under MIT (https://github.com/microsoft/fast-blazor/blob/main/LICENSE)
+ *   
+ * Normalize is licensed under MIT (https://github.com/necolas/normalize.css/blob/master/LICENSE.md) 
+ * Bootstrap is licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 
-:root {
-    --fluentui-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    --fluentui-success-fill: #107c10;
-    --fluentui-success-background: #dff6dd;
-    --fluentui-error-fill: #a80000;
-    --fluentui-error-background: #fde7e9;
-    --fluentui-warning-fill: #817400;
-    --fluentui-warning-background: #fff4ce;
-    --fluentui-severe-warning-fill: #d83b01;
-    --fluentui-severe-warning-background: #fed9cc;
-    --fluent-presence-away: #ffaa44;
-    --fluent-presence-do-not-disturb: #c50f1f;
-    --fluent-presence-online: #6bb700;
-    --fluent-presence-invisible: #8a8886;
-    --fluent-presence-out-of-office: #b4009e;
-    --fluentui-highlight-bg: #fff3cd;
-}
+@import "variables.css";
 
 *, *::before, *::after {
     box-sizing: border-box;
@@ -176,7 +165,7 @@ small {
 
 mark {
     padding: 0.1875em;
-    background-color: var(--fluentui-highlight-bg);
+    background-color: var(--highlight-bg);
 }
 
 sub,
@@ -217,7 +206,7 @@ pre,
 code,
 kbd,
 samp {
-    font-family: var(--fluentui-font-monospace);
+    font-family: var(--font-monospace);
     font-size: 1em;
 }
 

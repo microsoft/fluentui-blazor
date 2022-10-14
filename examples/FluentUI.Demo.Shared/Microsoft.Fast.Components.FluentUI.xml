@@ -186,7 +186,11 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchor.Appearance">
             <summary>
             Gets or sets the visual appearance. See <seealso cref="P:Microsoft.Fast.Components.FluentUI.FluentAnchor.Appearance"/>
+            Defaults to <seealso cref="F:Microsoft.Fast.Components.FluentUI.Appearance.Hypertext"/>
             </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentAnchor.DisposeAsync">
+            <inheritdoc />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentBadge.Color">
             <summary>
@@ -479,6 +483,7 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.Appearance">
             <summary>
             Gets or sets the visual appearance. See <seealso cref="T:Microsoft.Fast.Components.FluentUI.Appearance"/>
+            Defaults to <seealso cref="F:Microsoft.Fast.Components.FluentUI.Appearance.Neutral"/>
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.Readonly">
@@ -4986,29 +4991,29 @@
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.IconColor.Warning">
             <summary>
-            Use the '--fluentui-warning-fill' CSS variable color.
-            Note: This color is defined in the fluentui-reboot.css file. If this file is not being used, 
+            Use the '--warning-fill' CSS variable color.
+            Note: This color is defined in the variables.css file. If this file is not being used, 
             a CSS variable with this name and appropriate value needs to be created.
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.IconColor.SevereWarning">
             <summary>
-            Use the '--fluentui-severe-warning-fill' CSS variable color.
-            Note: This color is defined in the fluentui-reboot.css file. If this file is not being used, 
+            Use the '--severe-warning-fill' CSS variable color.
+            Note: This color is defined in the variables.css file. If this file is not being used, 
             a CSS variable with this name and appropriate value needs to be created.
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.IconColor.Error">
             <summary>
-            Use the '--fluentui-error-fill' CSS variable color.
-            Note: This color is defined in the fluentui-reboot.css file. If this file is not being used, 
+            Use the '--error-fill' CSS variable color.
+            Note: This color is defined in the variables.css file. If this file is not being used, 
             a CSS variable with this name and appropriate value needs to be created.
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.IconColor.Success">
             <summary>
-            Use the '--fluentui-success-fill' CSS variable color.
-            Note: This color is defined in the fluentui-reboot.css file. If this file is not being used, 
+            Use the '--success-fill' CSS variable color.
+            Note: This color is defined in the variables.css file. If this file is not being used, 
             a CSS variable with this name and appropriate value needs to be created.
             </summary>
         </member>

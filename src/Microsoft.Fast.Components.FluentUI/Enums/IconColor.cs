@@ -22,35 +22,35 @@ public enum IconColor
     Accent,
 
     /// <summary>
-    /// Use the '--fluentui-warning-fill' CSS variable color.
-    /// Note: This color is defined in the fluentui-reboot.css file. If this file is not being used, 
+    /// Use the '--warning-fill' CSS variable color.
+    /// Note: This color is defined in the variables.css file. If this file is not being used, 
     /// a CSS variable with this name and appropriate value needs to be created.
     /// </summary>
-    [Description("--fluentui-warning-fill")]
+    [Description("--warning-fill")]
     Warning,
 
     /// <summary>
-    /// Use the '--fluentui-severe-warning-fill' CSS variable color.
-    /// Note: This color is defined in the fluentui-reboot.css file. If this file is not being used, 
+    /// Use the '--severe-warning-fill' CSS variable color.
+    /// Note: This color is defined in the variables.css file. If this file is not being used, 
     /// a CSS variable with this name and appropriate value needs to be created.
     /// </summary>
-    [Description("--fluentui-severe-warning-fill")]
+    [Description("--severe-warning-fill")]
     SevereWarning,
 
     /// <summary>
-    /// Use the '--fluentui-error-fill' CSS variable color.
-    /// Note: This color is defined in the fluentui-reboot.css file. If this file is not being used, 
+    /// Use the '--error-fill' CSS variable color.
+    /// Note: This color is defined in the variables.css file. If this file is not being used, 
     /// a CSS variable with this name and appropriate value needs to be created.
     /// </summary>
-    [Description("--fluentui-error-fill")]
+    [Description("--error-fill")]
     Error,
 
     /// <summary>
-    /// Use the '--fluentui-success-fill' CSS variable color.
-    /// Note: This color is defined in the fluentui-reboot.css file. If this file is not being used, 
+    /// Use the '--success-fill' CSS variable color.
+    /// Note: This color is defined in the variables.css file. If this file is not being used, 
     /// a CSS variable with this name and appropriate value needs to be created.
     /// </summary>
-    [Description("--fluentui-success-fill")]
+    [Description("--success-fill")]
     Success,
 
 
