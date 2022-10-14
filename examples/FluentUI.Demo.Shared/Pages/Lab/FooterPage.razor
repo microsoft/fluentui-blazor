@@ -1,0 +1,21 @@
+﻿@page "/Lab/Footer"
+
+<h2>Footer</h2>
+
+<ApiDocumentation Component="typeof(Footer)" />
+
+
+<DemoSection Component="typeof(Footer)" 
+             Title="Footer" 
+             CollocatedFiles="@(new[] {"cs", "css"})" 
+             ComponentParameters="@(new Dictionary<string, object>(){ {"ChildContent",(RenderFragment)(builder => builder.AddMarkupContent(1,"Footer text")) } })">
+        <CodeSnippet>
+&lt;Footer&gt;
+    Footer text
+&lt;/Footer&gt;
+        </CodeSnippet>
+        <p>Renders as:</p>
+</DemoSection>
+@code {
+
+}

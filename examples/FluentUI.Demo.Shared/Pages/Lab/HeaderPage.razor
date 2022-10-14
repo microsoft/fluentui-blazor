@@ -1,0 +1,21 @@
+﻿@page "/Lab/Header"
+
+<h2>Header</h2>
+
+<ApiDocumentation Component="typeof(Header)" />
+
+<DemoSection Component="typeof(Header)" 
+             Title="Header" 
+             CollocatedFiles="@(new[] {"cs", "css"})" 
+             ComponentParameters="@(new Dictionary<string, object>(){ {"ChildContent",(RenderFragment)(builder => builder.AddMarkupContent(1,"Header text")) } })">
+    <CodeSnippet>
+&lt;Header&gt;
+    Header text
+&lt;/Header&gt;
+    </CodeSnippet>
+    <p>Renders as:</p>
+</DemoSection>
+    
+@code {
+
+}

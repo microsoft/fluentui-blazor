@@ -57,11 +57,11 @@
 @if (ShowDownloads)
 {
     <div class="demo-section-downloads">
-        <FluentSpacer />
+        <Spacer />
         Download:&nbsp;
         @foreach (string source in GetSources())
         {
-            <FluentAnchor Style="width:75px;" Download="@source" Href="@($"_content/FluentUI.Demo.Shared/examples/{source}.txt")">
+            <FluentAnchor Style="width:75px;" Download="@source" Href="@($"_content/FluentUI.Demo.Shared/examples/{source}.txt")" Appearance="Appearance.Neutral">
                 @GetDisplayName(source.Substring(source.LastIndexOf('.')))
             </FluentAnchor>
             

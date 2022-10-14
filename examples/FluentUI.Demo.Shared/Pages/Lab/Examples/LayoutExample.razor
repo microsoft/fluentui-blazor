@@ -6,33 +6,33 @@
 <FluentSwitch @bind-Value="ShowBodyContent">BodyContent</FluentSwitch>
 <FluentSwitch @bind-Value="ShowFooter">Footer</FluentSwitch>
 
-<FluentLayout Style="margin-top: 10px;">
+<Layout Style="margin-top: 10px;">
     @if (ShowHeader)
     {
-        <FluentHeader>
+        <Header>
             Some Header Text
-            <FluentSpacer />
+            <Spacer />
             Aligned to the end
-        </FluentHeader>
+        </Header>
     }
     
-    <FluentStackPanel Orientation="Orientation.Horizontal" Width="100%">
+    <StackPanel Orientation="Orientation.Horizontal" Width="100%">
         @if (ShowNavMenu)
         {
-            <FluentNavMenu Expanded="true" Width="150px">
-                <FluentNavLink Icon="@FluentIcons.Home" Text="Item 1" />
-                <FluentNavLink Icon="@FluentIcons.Cloud" Text="Item 2" />
-                <FluentNavGroup Text="Item 3">
-                    <FluentNavLink Icon="@FluentIcons.LeafOne" Text="Item 3.1" />
-                    <FluentNavLink Icon="@FluentIcons.LeafTwo" Text="Item 3.2" />
-                </FluentNavGroup>
-                <FluentNavLink Icon="@FluentIcons.CalendarAgenda" Text="Item 4" Disabled="true" />
-            </FluentNavMenu>
+            <NavMenu Expanded="true" Width="150px">
+                <NavMenuLink Icon="@FluentIcons.Home" Text="Item 1" />
+                <NavMenuLink Icon="@FluentIcons.Cloud" Text="Item 2" />
+                <NavMenuGroup Text="Item 3">
+                    <NavMenuLink Icon="@FluentIcons.LeafOne" Text="Item 3.1" />
+                    <NavMenuLink Icon="@FluentIcons.LeafTwo" Text="Item 3.2" />
+                </NavMenuGroup>
+                <NavMenuLink Icon="@FluentIcons.CalendarAgenda" Text="Item 4" Disabled="true" />
+            </NavMenu>
         }
 
         @if (ShowBodyContent)
         {
-            <FluentBodyContent Style="background-color: white;">
+            <BodyContent Style="background-color: white;">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis lorem lacus.
                 Ut id leo non enim feugiat ultrices. Proin vulputate volutpat urna nec iaculis.
                 Integer dui lacus, fermentum sit amet aliquet in, scelerisque vitae dui.
@@ -42,17 +42,17 @@
                 Sed maximus, urna in fringilla posuere, enim urna bibendum justo, vel molestie nibh orci nec lectus.
                 Etiam a varius justo. Aenean nisl ante, interdum eget vulputate eget, iaculis ut massa.
                 Suspendisse maximus sed purus id molestie. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </FluentBodyContent>
+            </BodyContent>
         }
-    </FluentStackPanel>
+    </StackPanel>
 
     @if (ShowFooter)
     {
-        <FluentFooter Style="@("height: 40px; color: white; text-align: center;")">
+        <Footer Style="@("height: 40px; color: white; text-align: center;")">
             Footer Text
-        </FluentFooter>
+        </Footer>
     }
-</FluentLayout>
+</Layout>
 
 @code {
     bool ShowHeader = true;

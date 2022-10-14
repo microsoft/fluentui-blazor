@@ -1,0 +1,33 @@
+﻿@* Remember to replace the namespace below with your own project's namespace. *@
+@namespace FluentUI.Demo.Shared
+
+@inherits FluentComponentBase
+<FluentTreeItem Class="@ClassValue"
+                Style="@StyleValue"
+                Disabled="@Disabled"
+                Selected="@Selected"
+                @onclick="@OnClickHandler"
+                @onkeydown="@OnKeypressHandler"
+                tabindex="0">
+    @if (Owner.HasIcons || Owner.HasSubMenu)
+    {
+        @if (HasIcon)
+        {
+            <FluentIcon Name="@Icon" Size="@IconSize.Size20" Slot="start" Filled=false/>
+        }
+        else
+        {
+            <div style="width:20px;" slot="start" />
+        }
+    }
+    @if (!string.IsNullOrEmpty(Text))
+    {
+        <span style="@(NavMenuCollapsed ? null : "display: none;")">@Text</span>
+    }
+    
+    @if (NavMenuCollapsed)
+    {
+        @ChildContent
+    }
+    
+</FluentTreeItem>

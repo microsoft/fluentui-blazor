@@ -1,0 +1,27 @@
+﻿.header {
+    display: flex;
+    z-index: 10;
+    flex-shrink: 0;
+    background-color: var(--accent-fill-rest);
+    font-family: var(--body-font);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    color: var(--neutral-layer-1);
+}
+
+    .header .header-gutters {
+        display: flex;
+        position: relative;
+        align-items: center;
+        width: 100%;
+        margin: 5px 24px;
+    }
+
+.header .header-fixed-top {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+}

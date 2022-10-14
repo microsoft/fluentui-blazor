@@ -1,0 +1,22 @@
+﻿@* Remember to replace the namespace below with your own project's namespace. *@
+@namespace FluentUI.Demo.Shared
+
+@inherits FluentComponentBase
+<div>
+<CascadingValue Value="this" IsFixed="true">
+    <CascadingValue Value="@Collapsed" Name="NavMenuCollapsed">
+        <FluentTreeView Class="@ClassValue" Style="@StyleValue" CurrentSelectedChanged="HandleCurrentSelectedChanged">
+            @if (Collapsible)
+            {
+                <FluentButton Appearance="Appearance.Lightweight"
+                              Class="navmenu-main-button"
+                              @onclick="Collapsible_Click"
+                              title="@Title">
+                    <FluentIcon Name="@(FluentIcons.Navigation)" Size="IconSize.Size20" Slot="start" Filled=false />
+                </FluentButton>
+            }
+            @ChildContent
+        </FluentTreeView>
+    </CascadingValue>
+</CascadingValue>
+</div>
