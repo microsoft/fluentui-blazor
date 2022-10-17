@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
@@ -11,7 +12,7 @@ public partial class FluentAnchor : FluentComponentBase, IAsyncDisposable
     private bool _preventDefault = false;
 
     [Inject]
-    protected IJSRuntime JS { get; set; } = default!;
+    protected IJSRuntime JSRuntime { get; set; } = default!;
 
 
     /// <summary>
@@ -90,7 +91,8 @@ public partial class FluentAnchor : FluentComponentBase, IAsyncDisposable
     {
         if (firstRender)
         {
-            _jsModule = await JS.InvokeAsync<IJSObjectReference>("import", "./_content/Microsoft.Fast.Components.FluentUI/Components/Anchor/FluentAnchor.razor.js");
+            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
+                "./_content/Microsoft.Fast.Components.FluentUI/Components/Anchor/FluentAnchor.razor.js");
         }
     }
 
@@ -104,6 +106,7 @@ public partial class FluentAnchor : FluentComponentBase, IAsyncDisposable
     }
 
     /// <inheritdoc />
+    [SuppressMessage("Usage", "CA1816:Dispose methods should call SuppressFinalize", Justification = "Not needed")]
     public async ValueTask DisposeAsync()
     {
         try
@@ -115,7 +118,7 @@ public partial class FluentAnchor : FluentComponentBase, IAsyncDisposable
         }
         catch (JSDisconnectedException)
         {
-            // The JS side may routinely be gone already if the reason we're disposing is that
+            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
             // the client disconnected. This is not an error.
         }
     }

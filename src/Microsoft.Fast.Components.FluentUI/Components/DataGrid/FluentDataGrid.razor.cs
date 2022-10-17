@@ -1,6 +1,7 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.Fast.Components.FluentUI.Infrastructure;
@@ -107,7 +108,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IAsyncDisp
     public EventCallback<FluentDataGridRow<TGridItem>> OnRowFocus { get; set; }
 
     [Inject] private IServiceProvider Services { get; set; } = default!;
-    [Inject] private IJSRuntime JS { get; set; } = default!;
+    [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
 
     private ElementReference _gridReference;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;
@@ -207,7 +208,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IAsyncDisp
     {
         if (firstRender)
         {
-            _jsModule = await JS.InvokeAsync<IJSObjectReference>("import", "./_content/Microsoft.Fast.Components.FluentUI/Components/DataGrid/FluentDataGrid.razor.js");
+            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
+                "./_content/Microsoft.Fast.Components.FluentUI/Components/DataGrid/FluentDataGrid.razor.js");
             _jsEventDisposable = await _jsModule.InvokeAsync<IJSObjectReference>("init", _gridReference);
         }
 
@@ -274,7 +276,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IAsyncDisp
     public void ShowColumnOptions(ColumnBase<TGridItem> column)
     {
         _displayOptionsForColumn = column;
-        _checkColumnOptionsPosition = true; // Triggers a call to JS to position the options element, apply autofocus, and any other setup
+        _checkColumnOptionsPosition = true; // Triggers a call to JSRuntime to position the options element, apply autofocus, and any other setup
         StateHasChanged();
     }
 
@@ -423,6 +425,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IAsyncDisp
     };
 
     /// <inheritdoc />
+    [SuppressMessage("Usage", "CA1816:Dispose methods should call SuppressFinalize", Justification = "Not needed")]
     public async ValueTask DisposeAsync()
     {
         _currentPageItemsChanged.Dispose();
@@ -442,7 +445,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IAsyncDisp
         }
         catch (JSDisconnectedException)
         {
-            // The JS side may routinely be gone already if the reason we're disposing is that
+            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
             // the client disconnected. This is not an error.
         }
     }

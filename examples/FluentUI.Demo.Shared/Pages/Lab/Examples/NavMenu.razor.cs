@@ -9,8 +9,6 @@ namespace FluentUI.Demo.Shared;
 
 public partial class NavMenu : FluentComponentBase
 {
-
-    private const string WIDTH_COLLAPSED_MENU = "35px";
     internal readonly List<NavMenuLink> _links = new();
     internal readonly List<NavMenuGroup> _groups = new();
 
@@ -20,7 +18,7 @@ public partial class NavMenu : FluentComponentBase
 
     protected string? StyleValue => new StyleBuilder()
         .AddStyle("width", Width, () => Collapsed && !string.IsNullOrEmpty(Width))
-        .AddStyle("width", WIDTH_COLLAPSED_MENU, () => !Collapsed)
+        .AddStyle("width", "35px", () => !Collapsed)
         //.AddStyle("min-width", "unset", () => !Collapsed)
         .AddStyle(Style)
         .Build();

@@ -1,15 +1,16 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Fast.Components.FluentUI;
 using Microsoft.JSInterop;
 
 namespace FluentUI.Demo.Shared.Pages.Icon;
-public partial class IconPage
+public partial class IconPage : IAsyncDisposable
 {
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
 
-    private IJSObjectReference? module;
+    private IJSObjectReference? _jsModule;
 
     private EditContext? editContext;
     List<IconModel> icons = new();
@@ -18,7 +19,7 @@ public partial class IconPage
     {
         if (firstRender)
         {
-            module = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
+            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
                  "./_content/FluentUI.Demo.Shared/Pages/Icon/IconPage.razor.js");
         }
     }
@@ -81,9 +82,9 @@ public partial class IconPage
 
         string Text = $@"<FluentIcon Name=""@FluentIcons.{icon.Folder}"" Size=""IconSize.{icon.Size}"" Filled={icon.Filled.ToString().ToLower()} Color=""IconColor.{Form.Color}""/>";
 
-        if (module is not null)
+        if (_jsModule is not null)
         {
-            await module.InvokeVoidAsync("copyText", Text);
+            await _jsModule.InvokeVoidAsync("copyText", Text);
         }
     }
 
@@ -106,5 +107,23 @@ public partial class IconPage
     protected override void OnInitialized()
     {
         editContext = new EditContext(Form);
+    }
+
+    [SuppressMessage("Usage", "CA1816:Dispose methods should call SuppressFinalize", Justification = "Not needed")]
+
+    public async ValueTask DisposeAsync()
+    {
+        try
+        {
+            if (_jsModule is not null)
+            {
+                await _jsModule.DisposeAsync();
+            }
+        }
+        catch (JSDisconnectedException)
+        {
+            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
+            // the client disconnected. This is not an error.
+        }
     }
 }

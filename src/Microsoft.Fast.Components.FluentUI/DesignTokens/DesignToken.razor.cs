@@ -13,7 +13,7 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
     [Inject]
     private IConfiguration Configuration { get; set; } = default!;
 
-    private Lazy<Task<IJSObjectReference>>? moduleTask;
+    private Lazy<Task<IJSObjectReference>>? _jsModuleTask;
     private Reference Target { get; set; } = new Reference();
 
     private T? _defaultValue;
@@ -70,7 +70,7 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
     {
         string scriptSource = Configuration["FluentWebComponentsScriptSource"] ?? "https://cdn.jsdelivr.net/npm/@fluentui/web-components/dist/web-components.min.js";
 
-        moduleTask = new(() => JSRuntime.InvokeAsync<IJSObjectReference>(
+        _jsModuleTask = new(() => JSRuntime.InvokeAsync<IJSObjectReference>(
             "import", scriptSource).AsTask());
     }
 
@@ -90,7 +90,7 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
     ///// /// <param name="name">The name of the Design Token</param>
     //public async ValueTask<DesignToken<T>> Create(string name)
     //{
-    //    IJSObjectReference module = await moduleTask!.Value;
+    //    IJSObjectReference module = await _jsModuleTask!.Value;
     //    await module.InvokeAsync<DesignToken<T>>("DesignToken.create", name);
     //    return this;
     //}
@@ -103,7 +103,7 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
     /// <returns></returns>
     public async ValueTask SetValueFor(ElementReference element, T value)
     {
-        IJSObjectReference module = await moduleTask!.Value;
+        IJSObjectReference module = await _jsModuleTask!.Value;
         await module.InvokeVoidAsync(Name + ".setValueFor", element, value);
     }
 
@@ -114,7 +114,7 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
     /// <returns></returns>
     public async ValueTask DeleteValueFor(ElementReference element)
     {
-        IJSObjectReference module = await moduleTask!.Value;
+        IJSObjectReference module = await _jsModuleTask!.Value;
         await module.InvokeVoidAsync(Name + ".deleteValueFor", element);
     }
 
@@ -125,7 +125,7 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
     /// <returns>the value</returns>
     public async ValueTask<T> GetValueFor(ElementReference element)
     {
-        IJSObjectReference module = await moduleTask!.Value;
+        IJSObjectReference module = await _jsModuleTask!.Value;
         return await module.InvokeAsync<T>(Name + ".getValueFor", element);
     }
 
@@ -135,7 +135,7 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
     /// <returns>the value</returns>
     public async ValueTask<object> ParseColorHex(string color)
     {
-        IJSObjectReference module = await moduleTask!.Value;
+        IJSObjectReference module = await _jsModuleTask!.Value;
         return await module.InvokeAsync<object>("parseColorHexRGB", color);
     }
 
@@ -143,11 +143,18 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
     [SuppressMessage("Usage", "CA1816:Dispose methods should call SuppressFinalize", Justification = "Not needed")]
     public async ValueTask DisposeAsync()
     {
-        if (moduleTask != null && moduleTask.IsValueCreated)
+        try
         {
-            IJSObjectReference module = await moduleTask.Value;
-            await module.DisposeAsync();
+            if (_jsModuleTask is not null && _jsModuleTask.IsValueCreated)
+            {
+                IJSObjectReference module = await _jsModuleTask.Value;
+                await module.DisposeAsync();
+            }
         }
-
+        catch (JSDisconnectedException)
+        {
+            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
+            // the client disconnected. This is not an error.
+        }
     }
 }

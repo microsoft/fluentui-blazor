@@ -30,7 +30,7 @@ public partial class DemoMainLayout : IAsyncDisposable
 
     ElementReference container;
 
-    private IJSObjectReference? module;
+    private IJSObjectReference? _jsModule;
     bool menuchecked = true;
 
     ErrorBoundary? errorBoundary;
@@ -53,7 +53,7 @@ public partial class DemoMainLayout : IAsyncDisposable
     {
         if (firstRender)
         {
-            module = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
+            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
                  "./_content/FluentUI.Demo.Shared/Shared/DemoMainLayout.razor.js");
         }
         await BaseLayerLuminance.SetValueFor(container, baseLayerLuminance);
@@ -71,7 +71,7 @@ public partial class DemoMainLayout : IAsyncDisposable
     {
         baseLayerLuminance = baseLayerLuminance == 0.15f ? 0.98f : 0.15f;
 
-        await module!.InvokeVoidAsync("switchHighlightStyle", baseLayerLuminance == 0.15f ? true : false);
+        await _jsModule!.InvokeVoidAsync("switchHighlightStyle", baseLayerLuminance == 0.15f ? true : false);
     }
 
     private void HandleChecked()
@@ -101,7 +101,7 @@ public partial class DemoMainLayout : IAsyncDisposable
     {
         if (e.IsNavigationIntercepted)
         {
-            bool mobile = await module!.InvokeAsync<bool>("isDevice");
+            bool mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
 
             if (mobile)
             {
@@ -113,9 +113,17 @@ public partial class DemoMainLayout : IAsyncDisposable
 
     async ValueTask IAsyncDisposable.DisposeAsync()
     {
-        if (module is not null)
+        try
         {
-            await module.DisposeAsync();
+            if (_jsModule is not null)
+            {
+                await _jsModule.DisposeAsync();
+            }
+        }
+        catch (JSDisconnectedException)
+        {
+            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
+            // the client disconnected. This is not an error.
         }
     }
 }
