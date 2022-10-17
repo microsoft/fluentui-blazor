@@ -7,14 +7,14 @@ namespace Microsoft.Fast.Components.FluentUI.DesignTokens;
 
 public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisposable
 {
+    private Lazy<IJSObjectReference> _jsModule = new();
+    private Reference Target { get; set; } = new Reference();
+
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
 
     [Inject]
     private IConfiguration Configuration { get; set; } = default!;
-
-    private Lazy<Task<IJSObjectReference>>? _jsModuleTask;
-    private Reference Target { get; set; } = new Reference();
 
     private T? _defaultValue;
 
@@ -51,7 +51,7 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
         JSRuntime = jsRuntime;
         Configuration = configuration;
 
-        Initialize();
+        //Initialize();
     }
 
     /// <inheritdoc/>
@@ -59,19 +59,22 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
     {
         if (firstRender && Value is not null)
         {
-            Initialize();
+            await WaitForReference();
 
             await SetValueFor(Target.Current, Value);
             StateHasChanged();
         }
     }
 
-    private void Initialize()
+    private async Task WaitForReference()
     {
-        string scriptSource = Configuration["FluentWebComponentsScriptSource"] ?? "https://cdn.jsdelivr.net/npm/@fluentui/web-components/dist/web-components.min.js";
+        if (_jsModule.IsValueCreated is false)
+        {
+            string scriptSource = Configuration["FluentWebComponentsScriptSource"] ?? "https://cdn.jsdelivr.net/npm/@fluentui/web-components/dist/web-components.min.js";
 
-        _jsModuleTask = new(() => JSRuntime.InvokeAsync<IJSObjectReference>(
-            "import", scriptSource).AsTask());
+            _jsModule = new(await JSRuntime.InvokeAsync<IJSObjectReference>("import",
+                scriptSource));
+        }
     }
 
     /// <summary>
@@ -90,9 +93,8 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
     ///// /// <param name="name">The name of the Design Token</param>
     //public async ValueTask<DesignToken<T>> Create(string name)
     //{
-    //    IJSObjectReference module = await _jsModuleTask!.Value;
-    //    await module.InvokeAsync<DesignToken<T>>("DesignToken.create", name);
-    //    return this;
+    //    await WaitForReference();
+    //    return await _jsModule.Value.InvokeAsync<DesignToken<T>>("DesignToken.create", name);
     //}
 
     /// <summary>
@@ -103,8 +105,8 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
     /// <returns></returns>
     public async ValueTask SetValueFor(ElementReference element, T value)
     {
-        IJSObjectReference module = await _jsModuleTask!.Value;
-        await module.InvokeVoidAsync(Name + ".setValueFor", element, value);
+        await WaitForReference();
+        await _jsModule.Value.InvokeVoidAsync(Name + ".setValueFor", element, value);
     }
 
     /// <summary>
@@ -114,8 +116,8 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
     /// <returns></returns>
     public async ValueTask DeleteValueFor(ElementReference element)
     {
-        IJSObjectReference module = await _jsModuleTask!.Value;
-        await module.InvokeVoidAsync(Name + ".deleteValueFor", element);
+        await WaitForReference();
+        await _jsModule.Value.InvokeVoidAsync(Name + ".deleteValueFor", element);
     }
 
     /// <summary>
@@ -125,8 +127,8 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
     /// <returns>the value</returns>
     public async ValueTask<T> GetValueFor(ElementReference element)
     {
-        IJSObjectReference module = await _jsModuleTask!.Value;
-        return await module.InvokeAsync<T>(Name + ".getValueFor", element);
+        await WaitForReference();
+        return await _jsModule.Value.InvokeAsync<T>(Name + ".getValueFor", element);
     }
 
     /// <summary>
@@ -135,8 +137,8 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
     /// <returns>the value</returns>
     public async ValueTask<object> ParseColorHex(string color)
     {
-        IJSObjectReference module = await _jsModuleTask!.Value;
-        return await module.InvokeAsync<object>("parseColorHexRGB", color);
+        await WaitForReference();
+        return await _jsModule.Value.InvokeAsync<object>("parseColorHexRGB", color);
     }
 
 
@@ -145,10 +147,9 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
     {
         try
         {
-            if (_jsModuleTask is not null && _jsModuleTask.IsValueCreated)
+            if (_jsModule.IsValueCreated)
             {
-                IJSObjectReference module = await _jsModuleTask.Value;
-                await module.DisposeAsync();
+                await _jsModule.Value.DisposeAsync();
             }
         }
         catch (JSDisconnectedException)

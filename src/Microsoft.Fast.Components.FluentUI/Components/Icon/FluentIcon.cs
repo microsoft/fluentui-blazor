@@ -3,16 +3,23 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Fast.Components.FluentUI.Helpers;
+using Microsoft.Fast.Components.FluentUI.Infrastructure;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentIcon : FluentComponentBase
 {
+    private const string ICON_ROOT = "_content/Microsoft.Fast.Components.FluentUI/icons";
+    private string? _svg;
+    private int _size;
+    private string? _iconUrl, _iconUrlFallback;
+
+
     [Inject]
     private IconService IconService { get; set; } = default!;
 
-    private string? _svg;
-    private int _size;
+    [Inject]
+    private CacheStorageAccessor CacheStorageAccessor { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets the variant to use: filled (true) or regular (false)
@@ -60,75 +67,75 @@ public partial class FluentIcon : FluentComponentBase
     public EventCallback<MouseEventArgs> OnClick { get; set; }
 
 
-    protected override async Task OnParametersSetAsync()
+    protected override void OnParametersSet()
     {
-        const string iconpath = "_content/Microsoft.Fast.Components.FluentUI/icons";
-        string result = string.Empty;
-
         string? nc = NeutralCultureName ?? null;
-
         string folder = FluentIcons.IconMap.First(x => x.Name == Name).Folder;
 
+        _iconUrl = $"{ICON_ROOT}/{folder}{(nc is not null ? "/" + nc : "")}/{ComposedName}.svg";
+        _iconUrlFallback = $"{ICON_ROOT}/{folder}/{ComposedName}.svg";
+    }
 
-        string url = $"{iconpath}/{folder}";
-
-        if (nc is not null)
-            url += $"/{nc}";
-
-        url += $"/{ComposedName}.svg";
-
-        try
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        string result;
+        if (firstRender && !string.IsNullOrEmpty(_iconUrl) && !string.IsNullOrEmpty(_iconUrlFallback))
         {
+            HttpRequestMessage? message = CreateMessage(_iconUrl);
+            // Get the result from the cache
+            result = await CacheStorageAccessor.GetAsync(message);
 
-            HttpResponseMessage? response = await IconService.HttpClient.GetAsync(url);
-            if (response.IsSuccessStatusCode)
+            if (string.IsNullOrEmpty(result))
             {
-                result = await response.Content.ReadAsStringAsync();
+                //It is not in the cache, get it from the InconService (download)
+                HttpResponseMessage? response = await IconService.HttpClient.SendAsync(message);
+
+                // If unsuccesfull, try with the fallback url. Maybe a non existing neutral culture was specified
+                if (!response.IsSuccessStatusCode)
+                {
+                    message = CreateMessage(_iconUrlFallback);
+                    response = await IconService.HttpClient.SendAsync(message);
+                }
+
+                // Store the result in the cache and get it as well
+                result = await CacheStorageAccessor.PutAndGetAsync(message, response);
+                //result = await CacheStorageAccessor.GetAsync(message);
             }
-            else
-            {
-                // Fall back to original icon
-                url = $"{iconpath}/{folder}/{ComposedName}.svg";
-                response = await IconService.HttpClient.GetAsync(url);
-                result = await response.Content.ReadAsStringAsync();
 
-            }
+            result = result.Replace("<path ", $"<path fill=\"var({Color.ToAttributeValue()})\"");
+
+            string pattern = "<svg (?<attributes>.*?)>(?<path>.*?)</svg>";
+            Regex regex = new(pattern);
+            MatchCollection matches = regex.Matches(result);
+            Match? match = matches.FirstOrDefault();
+
+            if (match is not null)
+                result = match.Groups["path"].Value;
+
+            _svg = result;
+            _size = Convert.ToInt32(Size);
+
+            StateHasChanged();
         }
-        catch (Exception)
-        {
-            result = "Icon not found";
-        }
-
-
-        result = result.Replace("<path ", $"<path fill=\"var({Color.ToAttributeValue()})\"");
-
-        string pattern = "<svg (?<attributes>.*?)>(?<path>.*?)</svg>";
-        Regex regex = new(pattern);
-        MatchCollection matches = regex.Matches(result);
-        Match? match = matches.FirstOrDefault();
-
-        if (match is not null)
-            result = match.Groups["path"].Value;
-
-        _svg = result;
-        _size = Convert.ToInt32(Size);
-
     }
 
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        builder.OpenElement(0, "svg");
-        builder.AddAttribute(1, "slot", Slot);
-        builder.AddAttribute(2, "class", Class);
-        builder.AddAttribute(3, "style", Style);
-        builder.AddMultipleAttributes(4, AdditionalAttributes);
-        builder.AddAttribute(5, "width", _size);
-        builder.AddAttribute(6, "height", _size);
-        builder.AddAttribute(7, "viewBox", $"0 0 {_size} {_size}");
-        builder.AddAttribute(8, "xmlns", "http://www.w3.org/2000/svg");
-        builder.AddAttribute(9, "onclick", OnClickHandler);
-        builder.AddMarkupContent(10, _svg);
-        builder.CloseElement();
+        if (!string.IsNullOrEmpty(_svg))
+        {
+            builder.OpenElement(0, "svg");
+            builder.AddAttribute(1, "slot", Slot);
+            builder.AddAttribute(2, "class", Class);
+            builder.AddAttribute(3, "style", Style);
+            builder.AddMultipleAttributes(4, AdditionalAttributes);
+            builder.AddAttribute(5, "width", _size);
+            builder.AddAttribute(6, "height", _size);
+            builder.AddAttribute(7, "viewBox", $"0 0 {_size} {_size}");
+            builder.AddAttribute(8, "xmlns", "http://www.w3.org/2000/svg");
+            builder.AddAttribute(9, "onclick", OnClickHandler);
+            builder.AddMarkupContent(10, _svg);
+            builder.CloseElement();
+        }
     }
 
     protected async Task OnClickHandler(MouseEventArgs e)
@@ -149,5 +156,5 @@ public partial class FluentIcon : FluentComponentBase
         }
     }
 
-
+    public static HttpRequestMessage CreateMessage(string url) => new HttpRequestMessage(HttpMethod.Get, url);
 }
