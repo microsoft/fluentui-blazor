@@ -54,6 +54,12 @@ public partial class NavMenuLink : FluentComponentBase
     [Parameter]
     public EventCallback<MouseEventArgs> OnClick { get; set; }
 
+    /// <summary>
+    /// Gets or sets the content to be rendered inside the component.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
     protected override void OnInitialized()
     {
         //Owner.Register(this);

@@ -4,7 +4,7 @@
 using System.Collections.Concurrent;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Microsoft.Fast.Components.FluentUI.Infrastructure;
+namespace Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
 
 internal static class AsyncQueryExecutorSupplier
 {

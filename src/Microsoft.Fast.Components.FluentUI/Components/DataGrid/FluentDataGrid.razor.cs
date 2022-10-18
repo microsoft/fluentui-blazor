@@ -4,6 +4,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
+using Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
 using Microsoft.Fast.Components.FluentUI.Infrastructure;
 using Microsoft.JSInterop;
 
@@ -106,6 +107,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IAsyncDisp
     /// </summary>
     [Parameter]
     public EventCallback<FluentDataGridRow<TGridItem>> OnRowFocus { get; set; }
+
+    /// <summary>
+    /// Gets or sets the content to be rendered inside the component.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
     [Inject] private IServiceProvider Services { get; set; } = default!;
     [Inject] private IJSRuntime JSRuntime { get; set; } = default!;

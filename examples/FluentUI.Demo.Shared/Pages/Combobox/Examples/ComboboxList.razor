@@ -1,5 +1,5 @@
 ﻿<h5>With long list</h5>
-<FluentCombobox Id="combobox-with-long-list" Autocomplete="ComboboxAutocomplete.Both" @bind-Value="@comboboxValue">
+<FluentCombobox Id="combobox-with-long-list" Autocomplete="ComboboxAutocomplete.Both" @bind-Value="@comboboxValue" TOption="string">
     <FluentOption>Alabama</FluentOption>
     <FluentOption>Alaska</FluentOption>
     <FluentOption>Arizona</FluentOption>
@@ -53,13 +53,13 @@
 </FluentCombobox>
 
 <h5>With forced position above</h5>
-<FluentCombobox Id="combobox-with-forced-position-above" Position="SelectPosition.Above" @bind-Value="@comboboxValue2">
+<FluentCombobox Id="combobox-with-forced-position-above" Position="SelectPosition.Above" @bind-Value="@comboboxValue2" TOption="string">
     <FluentOption>Position forced above</FluentOption>
     <FluentOption>Option Two</FluentOption>
 </FluentCombobox>
 
 <h5>with forced position below</h5>
-<FluentCombobox Id="combobox-with-forced-position-below" Position="SelectPosition.Below" @bind-Value="@comboboxValue3">
+<FluentCombobox Id="combobox-with-forced-position-below" Position="SelectPosition.Below" @bind-Value="@comboboxValue3" TOption="string">
     <FluentOption>Position forced below</FluentOption>
     <FluentOption>Option Two</FluentOption>
 </FluentCombobox>

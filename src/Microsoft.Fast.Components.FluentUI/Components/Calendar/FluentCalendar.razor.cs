@@ -126,6 +126,12 @@ public partial class FluentCalendar : FluentComponentBase
     [Parameter]
     public EventCallback<DateOnly> OnDateClicked { get; set; }
 
+    /// <summary>
+    /// Gets or sets the content to be rendered inside the component.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
     protected override void OnParametersSet()
     {
         if (InternalSelectedDates != SelectedDates)

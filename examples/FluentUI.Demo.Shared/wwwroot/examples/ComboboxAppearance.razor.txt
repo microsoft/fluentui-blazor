@@ -1,20 +1,20 @@
-﻿<h5>Filled</h5>
-<FluentCombobox Id="combobox" Appearance="Appearance.Filled" @bind-Value="@comboboxValue">
-    <FluentOption>Please Please Me</FluentOption>
-    <FluentOption>With The Beatles</FluentOption>
-    <FluentOption>A Hard Day's Night</FluentOption>
-    <FluentOption>Beatles for Sale</FluentOption>
-    <FluentOption>Help!</FluentOption>
-    <FluentOption>Rubber Soul</FluentOption>
-    <FluentOption>Revolver</FluentOption>
-    <FluentOption>Sgt. Pepper's Lonely Hearts Club Band</FluentOption>
-    <FluentOption>Magical Mystery Tour</FluentOption>
-    <FluentOption>The Beatles</FluentOption>
-    <FluentOption>Yellow Submarine</FluentOption>
-    <FluentOption>Abbey Road</FluentOption>
-    <FluentOption>Let It Be</FluentOption>
+﻿@inject DataSource Data
+
+<h5>Filled</h5>
+<FluentCombobox Id="combobox" 
+                Appearance="Appearance.Filled"                
+                TOption="string"
+                Items="@Data.Hits"
+                @bind-Value="@comboboxValue" 
+                >
+    
 </FluentCombobox>
+<p>
+    Selected Value: @comboboxValue<br />
+    
+</p>
 
 @code {
-    string? comboboxValue;
+    string? comboboxValue = "Help!";
+    //string? comboboxSelected;
 }

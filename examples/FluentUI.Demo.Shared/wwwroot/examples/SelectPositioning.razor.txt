@@ -1,11 +1,11 @@
 ﻿<h5>Forced position above</h5>
-<FluentSelect Position="SelectPosition.Above" @bind-Value="@selectValue">
+<FluentSelect Position="SelectPosition.Above" @bind-Value="@selectValue" TOption="string">
     <FluentOption>Position forced above</FluentOption>
     <FluentOption>Option Two</FluentOption>
 </FluentSelect>
 
 <h5>Forced position below</h5>
-<FluentSelect Position="SelectPosition.Below" @bind-Value="@selectValue">
+<FluentSelect Position="SelectPosition.Below" @bind-Value="@selectValue" TOption="string">
     <FluentOption>Position forced below</FluentOption>
     <FluentOption>Option Two</FluentOption>
 </FluentSelect>

@@ -2,7 +2,6 @@ using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.Fast.Components.FluentUI.Helpers;
 using Microsoft.Fast.Components.FluentUI.Infrastructure;
 
 namespace Microsoft.Fast.Components.FluentUI;
@@ -61,6 +60,12 @@ public partial class FluentIcon : FluentComponentBase
     public string? NeutralCultureName { get; set; } = null;
 
     /// <summary>
+    /// Gets or sets the content to be rendered inside the component.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
     /// Allows for capturing a mouse click on an icon
     /// </summary>
     [Parameter]
@@ -102,9 +107,14 @@ public partial class FluentIcon : FluentComponentBase
                         // If not in cache, get it from the InconService (download)
                         response = await IconService.HttpClient.SendAsync(message);
 
-                        // Store the response in the cache
+                        // Store the response in the cache and get the result
                         result = await CacheStorageAccessor.PutAndGetAsync(message, response);
                     }
+                }
+                else
+                {
+                    // Store the response in the cache and get the result
+                    result = await CacheStorageAccessor.PutAndGetAsync(message, response);
                 }
             }
 

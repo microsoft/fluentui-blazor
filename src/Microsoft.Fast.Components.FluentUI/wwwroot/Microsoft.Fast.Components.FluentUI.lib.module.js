@@ -9,10 +9,12 @@
     });
     Blazor.registerCustomEventType('tabchange', {
         browserEventName: 'change',
+
         createEventArgs: event => {
             return {
-                activeId: event.detail.id,
-                affectedId: event.detail.attributes['tab-id'].value
+                activeId: event.detail?.id,
+                affectedId: event.detail?.attributes['tab-id'].value
+                
             };
         }
     });

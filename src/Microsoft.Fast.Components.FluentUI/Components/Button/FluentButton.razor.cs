@@ -96,4 +96,10 @@ public partial class FluentButton : FluentComponentBase
     /// </summary>
     [Parameter]
     public Appearance? Appearance { get; set; } = FluentUI.Appearance.Neutral;
+
+    /// <summary>
+    /// Gets or sets the content to be rendered inside the component.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 }

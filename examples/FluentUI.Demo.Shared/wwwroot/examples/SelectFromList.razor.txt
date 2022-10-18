@@ -1,23 +1,23 @@
 ﻿<h5>From list of string items</h5>
-<FluentSelect Options=@stringOptions />
+<FluentSelect Items=@stringOptions OptionText="@(i => i.Text)" OptionValue="@(i => i.Value)" />
 
 <h5>From list of int items</h5>
-<FluentSelect Options=@intOptions />
+<FluentSelect Items=@intOptions OptionText="@(i => i.Text.ToString())" OptionValue="@(i => i.Value.ToString())" />
 
 @code {
     List<Option<string>> stringOptions = new()
         {
-            { new Option<string> { Key = "1", Value = "One" } },
-            { new Option<string> { Key = "2", Value = "Two", Selected = true } },
-            { new Option<string> { Key = "3", Value = "Three" } }
+            { new Option<string> { Value = "1", Text = "One" } },
+            { new Option<string> { Value = "2", Text = "Two", Selected = true } },
+            { new Option<string> { Value = "3", Text = "Three" } }
 
         };
 
     List<Option<int>> intOptions = new()
         {
-            { new Option<int> { Key = 1, Value = 1, Disabled = true } },
-            { new Option<int> { Key = 2, Value = 2 } },
-            { new Option<int> { Key = 3, Value = 3 } }
+            { new Option<int> { Value = 1, Text = 1, Disabled = true } },
+            { new Option<int> { Value = 2, Text = 2 } },
+            { new Option<int> { Value = 3, Text = 3 } }
 
         };
 }

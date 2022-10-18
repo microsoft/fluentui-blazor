@@ -20,4 +20,10 @@ public partial class FluentSliderLabel : FluentComponentBase
     /// </summary>
     [Parameter]
     public bool? Disabled { get; set; }
+
+    /// <summary>
+    /// Gets or sets the content to be rendered inside the component.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 }

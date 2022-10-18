@@ -65,6 +65,12 @@ public partial class FluentTextField : FluentInputBase<string?>
     [Parameter]
     public Appearance? Appearance { get; set; }
 
+    /// <summary>
+    /// Gets or sets the content to be rendered inside the component.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
     protected override bool TryParseValueFromString(string? value, out string? result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
         result = value;

@@ -49,26 +49,24 @@ public enum StackPanelVerticalAlignment
 
 public partial class StackPanel : FluentComponentBase
 {
-    protected string? ClassValue =>
-        new CssBuilder(Class)
-            .AddClass("stack-horizontal", () => Orientation == Orientation.Horizontal)
-            .AddClass("stack-vertical", () => Orientation == Orientation.Vertical)
-            .Build();
+    protected string? ClassValue => new CssBuilder(Class)
+        .AddClass("stack-horizontal", () => Orientation == Orientation.Horizontal)
+        .AddClass("stack-vertical", () => Orientation == Orientation.Vertical)
+        .Build();
 
-    protected string? StyleValue =>
-        new StyleBuilder()
-            .AddStyle("align-items", GetHorizontalAlignment(), () => Orientation == Orientation.Vertical)
-            .AddStyle("justify-content", GetVerticalAlignment(), () => Orientation == Orientation.Vertical)
+    protected string? StyleValue => new StyleBuilder()
+        .AddStyle("align-items", GetHorizontalAlignment(), () => Orientation == Orientation.Vertical)
+        .AddStyle("justify-content", GetVerticalAlignment(), () => Orientation == Orientation.Vertical)
 
-            .AddStyle("justify-content", GetHorizontalAlignment(), () => Orientation == Orientation.Horizontal)
-            .AddStyle("align-items", GetVerticalAlignment(), () => Orientation == Orientation.Horizontal)
+        .AddStyle("justify-content", GetHorizontalAlignment(), () => Orientation == Orientation.Horizontal)
+        .AddStyle("align-items", GetVerticalAlignment(), () => Orientation == Orientation.Horizontal)
 
-            .AddStyle("gap", $"{Gap}px", () => Gap.HasValue)
-            .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
-            .AddStyle("flex-wrap", "wrap", () => Wrap)
+        .AddStyle("gap", $"{Gap}px", () => Gap.HasValue)
+        .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
+        .AddStyle("flex-wrap", "wrap", () => Wrap)
 
-            .AddStyle(Style)
-            .Build();
+        .AddStyle(Style)
+        .Build();
 
     /// <summary>
     /// The horizontal alignment of the stack panel
@@ -105,6 +103,12 @@ public partial class StackPanel : FluentComponentBase
     /// </summary>
     [Parameter]
     public int? Gap { get; set; } = 10;
+
+    /// <summary>
+    /// Gets or sets the content to be rendered inside the component.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
     private string GetHorizontalAlignment()
     {

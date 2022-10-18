@@ -41,6 +41,12 @@ public partial class FluentDialog : FluentComponentBase
     [Parameter]
     public string? AriaLabel { get; set; }
 
+    /// <summary>
+    /// Gets or sets the content to be rendered inside the component.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
     public void Show() => Hidden = false;
     public void Hide() => Hidden = true;
 }

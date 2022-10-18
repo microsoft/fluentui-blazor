@@ -33,4 +33,10 @@ public partial class FluentHorizontalScroll : FluentComponentBase
     /// </summary>
     [Parameter]
     public HorizontalScrollView? View { get; set; } = FluentUI.HorizontalScrollView.Default;
+
+    /// <summary>
+    /// Gets or sets the content to be rendered inside the component.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 }

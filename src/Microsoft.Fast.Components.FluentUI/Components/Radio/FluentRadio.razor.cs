@@ -50,4 +50,10 @@ public partial class FluentRadio : FluentComponentBase
     /// </summary>
     [Parameter]
     public bool? Checked { get; set; }
+
+    /// <summary>
+    /// Gets or sets the content to be rendered inside the component.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 }

@@ -79,6 +79,13 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
     [Parameter]
     public string ParsingErrorMessage { get; set; } = "The {0} field must be a number.";
 
+    /// <summary>
+    /// Gets or sets the content to be rendered inside the component.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+
     private static readonly string _stepAttributeValue = GetStepAttributeValue();
 
     private static string GetStepAttributeValue()

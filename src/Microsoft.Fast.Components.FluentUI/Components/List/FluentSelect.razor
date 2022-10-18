@@ -1,0 +1,19 @@
+@namespace Microsoft.Fast.Components.FluentUI
+@inherits ListBase<TOption>
+@typeparam TOption
+<CascadingValue Value="_internalListContext" Name="ListContext" TValue="InternalListContext<TOption>" IsFixed="true">
+    <fluent-select @ref=Element
+                   class="@ClassValue"
+                   style="@StyleValue"
+                   open="@Open"
+                   position="@Position.ToAttributeValue()"
+                   multiple="@Multiple"
+                   id=@Id
+                   disabled="@Disabled"
+                   appearance="@Appearance.ToAttributeValue()"
+                   aria-label="@(!string.IsNullOrWhiteSpace(Title) ? Title : "")"
+                   @onchange="@OnChangedHandlerAsync"
+                   @attributes="AdditionalAttributes">
+       @GetListOptions(Items)
+    </fluent-select>
+</CascadingValue>

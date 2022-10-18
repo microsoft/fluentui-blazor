@@ -21,6 +21,12 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
     public int GridColumn { get; set; }
 
     /// <summary>
+    /// Gets or sets the content to be rendered inside the component.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
     /// Gets or sets the owning <see cref="FluentDataGridRow{TItem}"/> component
     /// </summary>
     [CascadingParameter(Name = "OwningRow")]

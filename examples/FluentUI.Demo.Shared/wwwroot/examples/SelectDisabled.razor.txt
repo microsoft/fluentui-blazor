@@ -1,8 +1,8 @@
-﻿<FluentSelect Disabled="true" @bind-Value="@selectValue">
+﻿<FluentSelect Disabled="true" @bind-Value="@selectValue" TOption="string">
     <FluentOption>This option is not selectable</FluentOption>
 </FluentSelect>
 
-<FluentSelect @bind-Value="@selectValue">
+<FluentSelect @bind-Value="@selectValue" TOption="string">
     <FluentOption Disabled="true">This option is disabled</FluentOption>
     <FluentOption>This option is not disabled</FluentOption>
     <FluentOption>This option is not disabled</FluentOption>

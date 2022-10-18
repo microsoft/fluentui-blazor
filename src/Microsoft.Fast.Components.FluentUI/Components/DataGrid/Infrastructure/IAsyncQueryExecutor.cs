@@ -1,7 +1,7 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
-namespace Microsoft.Fast.Components.FluentUI.Infrastructure;
+namespace Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
 
 /// <summary>
 /// Provides methods for asynchronous evaluation of queries against an <see cref="IQueryable{T}" />.

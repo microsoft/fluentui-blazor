@@ -15,6 +15,11 @@
             Gets or sets the id of the active accordion item
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAccordion.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAccordionItem.Owner">
             <summary>
             Gets or sets the owning FluentTreeView
@@ -35,6 +40,11 @@
             Configures the <see href="https://www.w3.org/TR/wai-aria-1.1/#aria-level">level</see> of the
             heading element.
             Possible values: 1 | 2 | 3 | 4 | 5 | 6
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAccordionItem.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAccordionItem.Id">
@@ -141,6 +151,11 @@
             Default is "Anchor". In 'anchor' mode only anchor resizes and attribute changes will provoke an update. In 'auto' mode the component also updates because of - any scroll event on the document, window resizes and viewport resizes. See <seealso cref="P:Microsoft.Fast.Components.FluentUI.FluentAnchoredRegion.AutoUpdateMode"/>
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchoredRegion.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchor.Download">
             <summary>
             Prompts the user to save the linked URL. See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
@@ -189,6 +204,11 @@
             Defaults to <seealso cref="F:Microsoft.Fast.Components.FluentUI.Appearance.Hypertext"/>
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchor.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentAnchor.DisposeAsync">
             <inheritdoc />
         </member>
@@ -212,6 +232,11 @@
             Gets or sets the visual appearance. See <seealso cref="T:Microsoft.Fast.Components.FluentUI.Appearance"/>
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentBadge.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentComponentBase.Element">
             <summary>
             The associated <see cref="T:Microsoft.AspNetCore.Components.ElementReference"/>.
@@ -233,11 +258,6 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentComponentBase.BackReference">
             <summary>
             A reference to the enclosing component.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentComponentBase.ChildContent">
-            <summary>
-            Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentComponentBase.AdditionalAttributes">
@@ -360,6 +380,11 @@
             </summary>
             <returns>true, if a new dictrionary with copied values was created. false - otherwise.</returns>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentBreadcrumb.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentBreadcrumbItem.Download">
             <summary>
             Prompts the user to save the linked URL. See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
@@ -406,6 +431,11 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentBreadcrumbItem.Appearance">
             <summary>
             Gets or sets the visual appearance. See <seealso cref="P:Microsoft.Fast.Components.FluentUI.FluentBreadcrumbItem.Appearance"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentBreadcrumbItem.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.Autofocus">
@@ -486,6 +516,11 @@
             Defaults to <seealso cref="F:Microsoft.Fast.Components.FluentUI.Appearance.Neutral"/>
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.Readonly">
             <summary>
             Gets or sets if the calendar is readonly 
@@ -553,44 +588,20 @@
             A list of dates that should be shown as highlighted
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCombobox`1.Autocomplete">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.ChildContent">
             <summary>
-            Gets or sets if the element is auto completes. See <seealso cref="T:Microsoft.Fast.Components.FluentUI.ComboboxAutocomplete"/>
+            Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCombobox`1.Open">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCard.ChildContent">
             <summary>
-            The open attribute.
+            Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCombobox`1.Placeholder">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCheckbox.ChildContent">
             <summary>
-            Sets the placeholder value of the element, generally used to provide a hint to the user.
+            Gets or sets the content to be rendered inside the component.
             </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCombobox`1.Position">
-            <summary>
-            The placement for the listbox when the combobox is open.
-            See <seealso cref="T:Microsoft.Fast.Components.FluentUI.SelectPosition"/>
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCombobox`1.Appearance">
-            <summary>
-            Gets or sets the visual appearance. See <seealso cref="T:Microsoft.Fast.Components.FluentUI.Appearance"/>
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCombobox`1.Options">
-            <summary>
-            Gets or set the list of <see cref="T:Microsoft.Fast.Components.FluentUI.Option`1"/> items 
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCombobox`1.CascadedContext">
-            <summary>
-            Gets or set the cascaded context 
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentCombobox`1.OnParametersSet">
-            <inheritdoc/>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.Align">
             <summary>
@@ -896,6 +907,11 @@
             Gets or sets a callback when a row is focused
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.#ctor">
             <summary>
             Constructs an instance of <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/>.
@@ -941,6 +957,11 @@
             applied to the cell
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGridCell`1.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGridCell`1.Owner">
             <summary>
             Gets or sets the owning <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGridRow`1"/> component
@@ -959,6 +980,11 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGridRow`1.RowType">
             <summary>
             Gets or sets the type of row. See <see cref="T:Microsoft.Fast.Components.FluentUI.DataGridRowType"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGridRow`1.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGridRow`1.Owner">
@@ -1070,6 +1096,61 @@
             <param name="totalItemCount">The total numer of items that exist. See <see cref="P:Microsoft.Fast.Components.FluentUI.GridItemsProviderResult`1.TotalItemCount"/> for details.</param>
             <returns>An instance of <see cref="T:Microsoft.Fast.Components.FluentUI.GridItemsProviderResult`1"/>.</returns>
         </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.ColumnsCollectedNotifier`1">
+            <summary>
+            For internal use only. Do not use.
+            </summary>
+            <typeparam name="TGridItem">For internal use only. Do not use.</typeparam>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.Defer">
+            <summary>
+            For internal use only. Do not use.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.Defer.ChildContent">
+            <summary>
+            For internal use only. Do not use.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.Defer.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
+            <summary>
+            For internal use only. Do not use.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.IAsyncQueryExecutor">
+            <summary>
+            Provides methods for asynchronous evaluation of queries against an <see cref="T:System.Linq.IQueryable`1" />.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.IAsyncQueryExecutor.IsSupported``1(System.Linq.IQueryable{``0})">
+            <summary>
+            Determines whether the <see cref="T:System.Linq.IQueryable`1" /> is supported by this <see cref="T:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.IAsyncQueryExecutor"/> type.
+            </summary>
+            <typeparam name="T">The data type.</typeparam>
+            <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> instance.</param>
+            <returns>True if this <see cref="T:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.IAsyncQueryExecutor"/> instance can perform asynchronous queries for the supplied <paramref name="queryable"/>, otherwise false.</returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.IAsyncQueryExecutor.CountAsync``1(System.Linq.IQueryable{``0})">
+            <summary>
+            Asynchronously counts the items in the <see cref="T:System.Linq.IQueryable`1" />, if supported.
+            </summary>
+            <typeparam name="T">The data type.</typeparam>
+            <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> instance.</param>
+            <returns>The number of items in <paramref name="queryable"/>.</returns>.
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.IAsyncQueryExecutor.ToArrayAsync``1(System.Linq.IQueryable{``0})">
+            <summary>
+            Asynchronously materializes the <see cref="T:System.Linq.IQueryable`1" /> as an array, if supported.
+            </summary>
+            <typeparam name="T">The data type.</typeparam>
+            <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> instance.</param>
+            <returns>The items in the <paramref name="queryable"/>.</returns>.
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDesignSystemProvider.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.Modal">
             <summary>
             Indicates the element is modal. When modal, user mouse interaction will be limited to the contents of the element by a modal
@@ -1101,6 +1182,11 @@
             The label surfaced to assistive technologies.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDivider.Role">
             <summary>
             The role of the element.
@@ -1109,6 +1195,11 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDivider.Orientation">
             <summary>
             The orientation of the divider.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDivider.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentFlipper.Disabled">
@@ -1124,6 +1215,11 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentFlipper.Direction">
             <summary>
             Gets or sets the direction. See <see cref="T:Microsoft.Fast.Components.FluentUI.FlipperDirection"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentFlipper.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentHorizontalScroll.Speed">
@@ -1149,6 +1245,11 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentHorizontalScroll.View">
             <summary>
             View: default | mobile
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentHorizontalScroll.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.Filled">
@@ -1181,9 +1282,50 @@
             Gets or sets the two letter neutral culture variant used. Not all neutral cultures are available for all icons
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.OnClick">
             <summary>
             Allows for capturing a mouse click on an icon
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCombobox`1.Autocomplete">
+            <summary>
+            Gets or sets if the element is auto completes. See <seealso cref="T:Microsoft.Fast.Components.FluentUI.ComboboxAutocomplete"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCombobox`1.Open">
+            <summary>
+            The open attribute.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCombobox`1.Placeholder">
+            <summary>
+            Sets the placeholder value of the element, generally used to provide a hint to the user.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCombobox`1.Position">
+            <summary>
+            The placement for the listbox when the combobox is open.
+            See <seealso cref="T:Microsoft.Fast.Components.FluentUI.SelectPosition"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCombobox`1.Appearance">
+            <summary>
+            Gets or sets the visual appearance. See <seealso cref="T:Microsoft.Fast.Components.FluentUI.Appearance"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentListbox`1.Width">
+            <summary>
+            Width style
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentListbox`1.Height">
+            <summary>
+            Height style
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentListbox`1.Size">
@@ -1191,23 +1333,209 @@
             The maximum number of options that should be visible in the listbox scroll area.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentListbox`1.Multiple">
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentListbox`1.OnAfterRenderAsync(System.Boolean)">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOption`1.Disabled">
             <summary>
-            Indicates if the listbox is in multi-selection mode.
+            Gets or sets if the element is disabled
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentListbox`1.Options">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOption`1.Value">
             <summary>
-            Gets or sets the list of options in the listbox. See <see cref="T:Microsoft.Fast.Components.FluentUI.Option`1"/>
+            Gets or sets the value of this option.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentListbox`1.CascadedContext">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOption`1.Selected">
             <summary>
-            Gets or set the cascaded context 
+            Gets or sets if the element is selected
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentListbox`1.OnParametersSet">
-            <inheritdoc/>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOption`1.SelectedChanged">
+            <summary>
+            Called whenever the selection changed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOption`1.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOption`1.OnSelect">
+            <summary>
+            Called whenever the selection changed.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentOption`1.OnSelectHandler">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSelect`1.Open">
+            <summary>
+            The open attribute.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSelect`1.Position">
+            <summary>
+            Reflects the placement for the listbox when the select is open.
+            See <see cref="T:Microsoft.Fast.Components.FluentUI.SelectPosition"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSelect`1.Appearance">
+            <summary>
+            Gets or sets the visual appearance. See <seealso cref="T:Microsoft.Fast.Components.FluentUI.Appearance"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.InternalListContext`1.ValueChanged">
+            <summary>
+            Gets the event callback to be invoked when the selected value is changed.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.ListBase`1">
+            <summary>
+            Component that provides a list of options.
+            </summary>
+            <typeparam name="TOption"></typeparam>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.ClassValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.StyleValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.Id">
+            <summary>
+            Unique identifier.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.Title">
+            <summary>
+            Text used on aria-label attribute.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.Disabled">
+            <summary>
+            If true, will disable the list of items.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            In this case list of FluentOptions
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.OptionText">
+            <summary>
+            Function used to determine which text to display for each option.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.OptionValue">
+            <summary>
+            Function used to determine which text to return for the selected item.
+            ⚠️ Available only if Multiple = false.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.OptionDisabled">
+            <summary>
+            Function used to determine if an option is (initially) disabled.
+            ⚠️ Available only if Multiple = false.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.OptionSelected">
+            <summary>
+            Function used to determine if an option is (initially) selected.
+            ⚠️ Available only if Multiple = false.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.Items">
+            <summary>
+            Data source of all items to display in this list.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.SelectedItem">
+            <summary>
+            Gets or sets the selected item.
+            ⚠️ Available only if Multiple = false.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.SelectedItemChanged">
+            <summary>
+            Called whenever the selection changed.
+            ⚠️ Available only if Multiple = false.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.Value">
+            <summary>
+            Gets or sets the selected value (see <see cref="P:Microsoft.Fast.Components.FluentUI.ListBase`1.OptionValue"/>.
+            ⚠️ Available only if Multiple = false.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.ValueChanged">
+            <summary>
+            Called whenever the selection changed.
+            ⚠️ Available only if Multiple = false.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.Multiple">
+            <summary>
+            If true, the user can select multiple elements.
+            ⚠️ Available only for the FluentSelect and FluentListbox component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.SelectedItems">
+            <summary>
+            Gets or sets all selected items.
+            ⚠️ Available only if Multiple = true.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.SelectedItemsChanged">
+            <summary>
+            Called whenever the selection changed.
+            ⚠️ Available only if Multiple = true.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.MultiSelectionText">
+            <summary>
+            Function to define a customized multiselection text.
+            ⚠️ Available only if Multiple = true.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ListBase`1.#ctor">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ListBase`1.DisabledItem(`0)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ListBase`1.GetOptionSelected(`0)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ListBase`1.GetOptionValue(`0)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ListBase`1.GetOptionText(`0)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ListBase`1.OnSelectedItemChangedHandlerAsync(`0)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ListBase`1.RaiseChangedEvents">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ListBase`1.GetListOptions(System.Collections.Generic.IEnumerable{`0})">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ListBase`1.OnChangedHandlerAsync(Microsoft.AspNetCore.Components.ChangeEventArgs)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ListBase`1.RemoveSelectedItem(`0)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ListBase`1.AddSelectedItem(`0)">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenu.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenuItem.Disabled">
             <summary>
@@ -1227,6 +1555,11 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenuItem.Checked">
             <summary>
             Gets or sets if the element is checked
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenuItem.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNumberField`1.Autofocus">
@@ -1289,35 +1622,17 @@
             Gets or sets the error message to show when the field can not be parsed
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNumberField`1.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentNumberField`1.FormatValueAsString(`0)">
             <summary>
             Formats the value as a string. Derived classes can override this to determine the formatting used for <c>CurrentValueAsString</c>.
             </summary>
             <param name = "value">The value to format.</param>
             <returns>A string representation of the value.</returns>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOption`1.Disabled">
-            <summary>
-            Gets or sets if the element is disabled
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOption`1.Value">
-            <summary>
-            Gets or sets the value of this option.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOption`1.Name">
-            <summary>
-            Gets or sets the name of the parent container component.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOption`1.Selected">
-            <summary>
-            Gets or sets if the element is selected
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentOption`1.OnParametersSet">
-            <inheritdoc />
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.FluentPaginator">
             <summary>
@@ -1407,6 +1722,11 @@
             Gets or sets if the progress element is paused
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentProgress.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentProgressRing.Min">
             <summary>
             Gets or sets the minimum value 
@@ -1425,6 +1745,11 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentProgressRing.Paused">
             <summary>
             Gets or sets if the progress element is paused
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentProgressRing.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadio.Readonly">
@@ -1467,9 +1792,19 @@
             Gets or sets if the element is checked
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadio.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadioGroup.Orientation">
             <summary>
             Gets or sets the orentation of the group. See <see cref="T:Microsoft.Fast.Components.FluentUI.Orientation"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadioGroup.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentSearch.Autofocus">
@@ -1517,39 +1852,10 @@
             Gets or sets the visual appearance. See <see cref="T:Microsoft.Fast.Components.FluentUI.Appearance"/>
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSelect`1.Open">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSearch.ChildContent">
             <summary>
-            The open attribute.
+            Gets or sets the content to be rendered inside the component.
             </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSelect`1.Position">
-            <summary>
-            Reflects the placement for the listbox when the select is open.
-            See <see cref="T:Microsoft.Fast.Components.FluentUI.SelectPosition"/>
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSelect`1.Multiple">
-            <summary>
-            Indicates if the listbox is in multi-selection mode.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSelect`1.Appearance">
-            <summary>
-            Gets or sets the visual appearance. See <seealso cref="T:Microsoft.Fast.Components.FluentUI.Appearance"/>
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSelect`1.Options">
-            <summary>
-            Gets or sets the list of items. See <see cref="T:Microsoft.Fast.Components.FluentUI.Option`1"/>
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSelect`1.CascadedContext">
-            <summary>
-            Gets or set the cascaded context 
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentSelect`1.OnParametersSet">
-            <inheritdoc/>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentSkeleton.Fill">
             <summary>
@@ -1569,6 +1875,11 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentSkeleton.Shimmer">
             <summary>
             Gets or sets if the skeleton is shimmered
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSkeleton.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider.Min">
@@ -1596,6 +1907,11 @@
             The selection mode.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentSliderLabel.Position">
             <summary>
             Gets or sets the slider's label position
@@ -1611,6 +1927,16 @@
             The disabled state of the label. This is generally controlled by the parent .
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSliderLabel.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSwitch.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.Disabled">
             <summary>
             When true, the control will be immutable by user interaction. See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled">disabled</see> HTML attribute for more information.
@@ -1621,9 +1947,19 @@
             Gets or sets the text of the tab
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.Owner">
             <summary>
             Gets or sets the owning FluentTabs component
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabPanel.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.Orientation">
@@ -1634,6 +1970,11 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.HideActiveIndicator">
             <summary>
             Whether or not to show the active indicator 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.ActiveIdChanged">
@@ -1702,6 +2043,11 @@
             Gets or sets the visual appearance. See <see cref="T:Microsoft.Fast.Components.FluentUI.Appearance"/>
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextArea.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextField.Autofocus">
             <summary>
             Gets or sets if the text area is auto focussed
@@ -1752,9 +2098,19 @@
             Gets or sets the visual appearance. See <see cref="T:Microsoft.Fast.Components.FluentUI.Appearance"/>
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextField.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentToolbar.Orientation">
             <summary>
             Gets or sets the toolbar's orentation. See <see cref="T:Microsoft.Fast.Components.FluentUI.Orientation"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToolbar.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.Visible">
@@ -1794,6 +2150,11 @@
             Gets or sets wether the vertical viewport is locked
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Owner">
             <summary>
             Gets or sets the owning FluentTreeView
@@ -1819,6 +2180,11 @@
             When true, the control will be immutable by user interaction. See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled">disabled</see> HTML attribute for more information.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeView.RenderCollapsedNodes">
             <summary>
             Gets or sets whether the tree should render nodes under collapsed items
@@ -1828,6 +2194,11 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeView.CurrentSelected">
             <summary>
             Gets or sets the currently selected tree item
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeView.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DesignTokens.DesignToken`1.Name">
@@ -5360,43 +5731,6 @@
             Position at the bottom
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOptionContext.ContainerComponentName">
-            <summary>
-            Gets the name of the option container (FluentSelect, FluentListBox, FluentCombobox)
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOptionContext.CurrentValue">
-            <summary>
-            Gets the current selected value in the input radio group.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOptionContext.FieldClass">
-            <summary>
-            Gets a css class indicating the validation state of input radio elements.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOptionContext.ChangeEventCallback">
-            <summary>
-            Gets the event callback to be invoked when the selected value is changed.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentOptionContext.#ctor(Microsoft.Fast.Components.FluentUI.FluentOptionContext,System.String,System.Object,System.String,Microsoft.AspNetCore.Components.EventCallback{Microsoft.AspNetCore.Components.ChangeEventArgs})">
-            <summary>
-            Instantiates a new <see cref="T:Microsoft.Fast.Components.FluentUI.FluentOptionContext" />.
-            </summary>
-            <param name="parentContext">The parent <see cref="T:Microsoft.Fast.Components.FluentUI.FluentOptionContext" />.</param>
-            <param name="containerName">The name of the option.</param>
-            <param name="currentValue">The current selected value in the input radio group.</param>
-            <param name="fieldClass">The css class indicating the validation state of input radio elements.</param>
-            <param name="changeEventCallback">The event callback to be invoked when the selected value is changed.</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentOptionContext.FindContextInAncestors(System.String)">
-            <summary>
-            Finds an <see cref="T:Microsoft.Fast.Components.FluentUI.FluentOptionContext"/> in the context ancestors with the matching <paramref name="containerName"/>.
-            </summary>
-            <param name="containerName">The group name of the ancestor <see cref="T:Microsoft.Fast.Components.FluentUI.FluentOptionContext"/>.</param>
-            <returns>The <see cref="T:Microsoft.Fast.Components.FluentUI.FluentOptionContext"/>, or <c>null</c> if none was found.</returns>
-        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.Identifier">
             <summary />
         </member>
@@ -5407,27 +5741,6 @@
             Example: f127d9edf14385adb
             </summary>
             <returns></returns>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.Infrastructure.ColumnsCollectedNotifier`1">
-            <summary>
-            For internal use only. Do not use.
-            </summary>
-            <typeparam name="TGridItem">For internal use only. Do not use.</typeparam>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.Infrastructure.Defer">
-            <summary>
-            For internal use only. Do not use.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.Infrastructure.Defer.ChildContent">
-            <summary>
-            For internal use only. Do not use.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Infrastructure.Defer.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
-            <summary>
-            For internal use only. Do not use.
-            </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.Infrastructure.EventCallbackSubscribable`1">
             <summary>
@@ -5459,35 +5772,6 @@
              existing one will still be unsubscribed.
              </summary>
              <param name="subscribable"></param>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.Infrastructure.IAsyncQueryExecutor">
-            <summary>
-            Provides methods for asynchronous evaluation of queries against an <see cref="T:System.Linq.IQueryable`1" />.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Infrastructure.IAsyncQueryExecutor.IsSupported``1(System.Linq.IQueryable{``0})">
-            <summary>
-            Determines whether the <see cref="T:System.Linq.IQueryable`1" /> is supported by this <see cref="T:Microsoft.Fast.Components.FluentUI.Infrastructure.IAsyncQueryExecutor"/> type.
-            </summary>
-            <typeparam name="T">The data type.</typeparam>
-            <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> instance.</param>
-            <returns>True if this <see cref="T:Microsoft.Fast.Components.FluentUI.Infrastructure.IAsyncQueryExecutor"/> instance can perform asynchronous queries for the supplied <paramref name="queryable"/>, otherwise false.</returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Infrastructure.IAsyncQueryExecutor.CountAsync``1(System.Linq.IQueryable{``0})">
-            <summary>
-            Asynchronously counts the items in the <see cref="T:System.Linq.IQueryable`1" />, if supported.
-            </summary>
-            <typeparam name="T">The data type.</typeparam>
-            <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> instance.</param>
-            <returns>The number of items in <paramref name="queryable"/>.</returns>.
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Infrastructure.IAsyncQueryExecutor.ToArrayAsync``1(System.Linq.IQueryable{``0})">
-            <summary>
-            Asynchronously materializes the <see cref="T:System.Linq.IQueryable`1" /> as an array, if supported.
-            </summary>
-            <typeparam name="T">The data type.</typeparam>
-            <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> instance.</param>
-            <returns>The items in the <paramref name="queryable"/>.</returns>.
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.BuilderExtensions.NullIfEmpty(Microsoft.Fast.Components.FluentUI.Utilities.CssBuilder)">
             <summary>

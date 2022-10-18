@@ -47,4 +47,10 @@ public partial class FluentTooltip : FluentComponentBase
     /// </summary>
     [Parameter]
     public bool VerticalViewportLock { get; set; }
+
+    /// <summary>
+    /// Gets or sets the content to be rendered inside the component.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 }

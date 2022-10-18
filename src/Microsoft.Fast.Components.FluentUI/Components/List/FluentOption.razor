@@ -1,13 +1,14 @@
 @namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentComponentBase
-@typeparam TValue
+@typeparam TOption
 <fluent-option @ref=Element
                class="@Class"
                style="@Style"
+               id="@OptionId"
                disabled="@Disabled"
-               value="@BindConverter.FormatValue(Value?.ToString())"
-               selected="@(Selected ?? Context?.CurrentValue?.Equals(Value))"
-               onchange=@Context?.ChangeEventCallback
+               value="@Value"
+               selected="@(Selected ? "true" : null)"
+               @onclick="@OnSelectHandler"
                @attributes="AdditionalAttributes">
     @ChildContent
 </fluent-option>

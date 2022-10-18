@@ -1,5 +1,5 @@
 ﻿<h5>Inline Autocomplete</h5>
-<FluentCombobox Id="combobox-with-inline-autocomplete" Autocomplete="ComboboxAutocomplete.Inline" @bind-Value="@comboboxValue">
+<FluentCombobox Id="combobox-with-inline-autocomplete" Autocomplete="ComboboxAutocomplete.Inline" @bind-Value="@comboboxValue" TOption="string">
     <FluentOption>William Hartnell</FluentOption>
     <FluentOption>Patrick Troughton</FluentOption>
     <FluentOption>Jon Pertwee</FluentOption>
@@ -16,7 +16,7 @@
 </FluentCombobox>
 
 <h5>List Autocomplete</h5>
-<FluentCombobox Id="combobox-with-list-autocomplete" Autocomplete="ComboboxAutocomplete.List" @bind-Value="@comboboxValue">
+<FluentCombobox Id="combobox-with-list-autocomplete" Autocomplete="ComboboxAutocomplete.List" @bind-Value="@comboboxValue" TOption="string">
     <FluentOption>William Hartnell</FluentOption>
     <FluentOption>Patrick Troughton</FluentOption>
     <FluentOption>Jon Pertwee</FluentOption>
@@ -33,7 +33,7 @@
 </FluentCombobox>
 
 <h5>Both Autocomplete</h5>
-<FluentCombobox Id="combobox-with-both-autocomplete" Autocomplete="ComboboxAutocomplete.Both" @bind-Value="@comboboxValue">
+<FluentCombobox Id="combobox-with-both-autocomplete" Autocomplete="ComboboxAutocomplete.Both" @bind-Value="@comboboxValue" TOption="string">
     <FluentOption>William Hartnell</FluentOption>
     <FluentOption>Patrick Troughton</FluentOption>
     <FluentOption>Jon Pertwee</FluentOption>

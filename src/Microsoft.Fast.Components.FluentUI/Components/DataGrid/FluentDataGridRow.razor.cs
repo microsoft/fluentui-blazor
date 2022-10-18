@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Components;
-using Microsoft.Fast.Components.FluentUI.Infrastructure;
+using Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
@@ -27,6 +27,12 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IDispos
     /// </summary>
     [Parameter]
     public DataGridRowType? RowType { get; set; } = DataGridRowType.Default;
+
+    /// <summary>
+    /// Gets or sets the content to be rendered inside the component.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
     [Parameter]
     public EventCallback<FluentDataGridCell<TGridItem>> OnCellFocus { get; set; }

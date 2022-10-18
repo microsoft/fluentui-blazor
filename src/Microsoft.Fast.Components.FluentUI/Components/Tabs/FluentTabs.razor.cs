@@ -23,6 +23,12 @@ public partial class FluentTabs : FluentComponentBase
     public bool HideActiveIndicator { get; set; }
 
     /// <summary>
+    /// Gets or sets the content to be rendered inside the component.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
     /// Gets or sets a callback when the bound value is changed .
     /// </summary>
     [Parameter]
@@ -36,11 +42,14 @@ public partial class FluentTabs : FluentComponentBase
 
     private async Task HandleOnTabChanged(TabChangeEventArgs args)
     {
-        string? tabId = args.AffectedId;
-        if (tabs.TryGetValue(tabId!, out FluentTab? tab))
+        if (args is not null)
         {
-            await OnTabChange.InvokeAsync(tab);
-            await ActiveIdChanged.InvokeAsync(args.ActiveId);
+            string? tabId = args.AffectedId;
+            if (tabId is not null && tabs.TryGetValue(tabId, out FluentTab? tab))
+            {
+                await OnTabChange.InvokeAsync(tab);
+                await ActiveIdChanged.InvokeAsync(args.ActiveId);
+            }
         }
     }
 

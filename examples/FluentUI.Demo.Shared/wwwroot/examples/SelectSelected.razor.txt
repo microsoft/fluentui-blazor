@@ -1,4 +1,4 @@
-﻿<FluentSelect @bind-Value="@selectValue">
+﻿<FluentSelect @bind-Value="@selectValue" TOption="string">
     <FluentOption>Option One</FluentOption>
     <FluentOption Selected="true">Option Two</FluentOption>
     <FluentOption>Option Three</FluentOption>

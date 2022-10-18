@@ -58,10 +58,10 @@
             </div>
             <div style="display: flex;align-content: center;align-items: center;">
                 <label for="Size">Size</label>
-                <FluentSelect TValue="IconSize" Name="Size" @bind-Value="Form.Size" @onchange="@(x => HandleSize(x))">
+                <FluentSelect TOption="IconSize" Id="Size" @bind-SelectedItem="Form.Size" @onchange="@(x => HandleSize(x))">
                     @foreach (IconSize size in Enum.GetValues<IconSize>())
                     {
-                        <FluentOption Value=@size>@((int)size)</FluentOption>
+                        <FluentOption Value=@size.ToString()>@((int)size)</FluentOption>
                     }
                 </FluentSelect>
             </div>
@@ -72,10 +72,10 @@
             </div>
             <div style="display: flex;align-content: center;align-items: center;">
                 <label for="Color">Color</label>
-                <FluentSelect TValue="IconColor" Name="Color" @bind-Value="Form.Color" @onchange="@(x => HandleColor(x))">
+                <FluentSelect TOption="IconColor" Id="Color" @bind-SelectedItem="Form.Color" @onchange="@(x => HandleColor(x))">
                     @foreach (IconColor color in Enum.GetValues<IconColor>())
                     {
-                        <FluentOption Value=@color>@(color)</FluentOption>
+                        <FluentOption Value=@color.ToString()>@(color)</FluentOption>
                     }
                 </FluentSelect>
             </div>

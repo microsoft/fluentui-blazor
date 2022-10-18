@@ -1,6 +1,6 @@
 ﻿<FluentSearch @ref=searchTest @oninput=handleSearchInput @onchange=handleClear Placeholder="Search for State"></FluentSearch>
 <br />
-<FluentListbox Options=@searchResults />
+<FluentListbox Items=@searchResults TOption="string" />
 
 @code {
     FluentSearch? searchTest;
@@ -59,11 +59,11 @@
         "Wyoming"
     };
 
-    List<Option<string>> searchResults = defaultResults();
+    List<string> searchResults = defaultResults();
 
-    static List<Option<string>> defaultResults()
+    static List<string> defaultResults()
     {
-        return new() { new Option<string> { Key = "", Value = "no results" } };
+        return new() { "no results" };
     }
 
     void handleSearchInput(ChangeEventArgs args)
@@ -74,7 +74,7 @@
             searchResults = defaultResults();
             if (searchTerm.Length > 0)
             {
-                List<Option<string>> temp = searchData.Where(str => str.ToLower().Contains(searchTerm)).Select(str => new Option<string> { Key = str, Value = str }).ToList();
+                List<string> temp = searchData.Where(str => str.ToLower().Contains(searchTerm)).Select(str => str).ToList();
                 if (temp.Count() > 0)
                 {
                     searchResults = temp;

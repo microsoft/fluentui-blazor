@@ -44,6 +44,12 @@ public partial class NavMenu : FluentComponentBase
     [CascadingParameter()]
     public bool Collapsed { get; set; } = true;
 
+    /// <summary>
+    /// Gets or sets the content to be rendered inside the component.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
     internal bool HasSubMenu => _groups.Any();
 
     internal bool HasIcons => _links.Any(i => !String.IsNullOrWhiteSpace(i.Icon));

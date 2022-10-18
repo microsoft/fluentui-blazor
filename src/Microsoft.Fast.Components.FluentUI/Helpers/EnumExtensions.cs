@@ -1,16 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Reflection;
 
-namespace Microsoft.Fast.Components.FluentUI.Helpers;
-
-
-//public static class AccordionExpandModeExtensions
-//{
-//    private static readonly Dictionary<AccordionExpandMode, string> _expandModeValues =
-//        Enum.GetValues<AccordionExpandMode>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());
-
-//    public static string? ToAttributeValue(this AccordionExpandMode? value) => value == null ? null : _expandModeValues[value.Value];
-//}
+namespace Microsoft.Fast.Components.FluentUI;
 
 public static class EnumExtensions
 {

@@ -42,12 +42,6 @@ public abstract class FluentComponentBase : ComponentBase
     public virtual Reference? BackReference { get; set; }
 
     /// <summary>
-    /// Gets or sets the content to be rendered inside the component.
-    /// </summary>
-    [Parameter]
-    public virtual RenderFragment? ChildContent { get; set; }
-
-    /// <summary>
     /// Gets or sets a collection of additional attributes that will be applied to the created element.
     /// </summary>
     [Parameter(CaptureUnmatchedValues = true)]

@@ -1,9 +1,9 @@
 ﻿namespace Microsoft.Fast.Components.FluentUI;
 
-public class Option<TValue>
+public class Option<TType>
 {
-    public TValue? Key { get; set; }
-    public TValue? Value { get; set; }
+    public TType? Value { get; set; }
+    public TType? Text { get; set; }
     public bool Disabled { get; set; } = false;
     public bool Selected { get; set; } = false;
 }

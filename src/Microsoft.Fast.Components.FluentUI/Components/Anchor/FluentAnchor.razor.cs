@@ -72,6 +72,12 @@ public partial class FluentAnchor : FluentComponentBase, IAsyncDisposable
     [Parameter]
     public Appearance? Appearance { get; set; } = FluentUI.Appearance.Hypertext;
 
+    /// <summary>
+    /// Gets or sets the content to be rendered inside the component.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
     protected override void OnParametersSet()
     {
         // If the Href has been specified (asnd it should) and if starts with '#,'

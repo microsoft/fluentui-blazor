@@ -19,6 +19,12 @@ public partial class FluentAccordion : FluentComponentBase
     [Parameter]
     public string? ActiveId { get; set; }
 
+    /// <summary>
+    /// Gets or sets the content to be rendered inside the component.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
     //Commented code below is waiting for changes in the Web Components script
 
 

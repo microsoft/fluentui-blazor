@@ -26,4 +26,10 @@ public partial class FluentBadge : FluentComponentBase
     /// </summary>
     [Parameter]
     public Appearance? Appearance { get; set; } = null;
+
+    /// <summary>
+    /// Gets or sets the content to be rendered inside the component.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 }

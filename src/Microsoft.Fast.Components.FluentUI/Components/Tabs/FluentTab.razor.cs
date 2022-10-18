@@ -19,6 +19,12 @@ public partial class FluentTab : FluentComponentBase, IDisposable
     public string? Text { get; set; }
 
     /// <summary>
+    /// Gets or sets the content to be rendered inside the component.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
     /// Gets or sets the owning FluentTabs component
     /// </summary>
     [CascadingParameter]

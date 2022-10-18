@@ -48,7 +48,6 @@
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>
-		<None Include="wwwroot\js\CacheStorageAccessor.js" />
 	</ItemGroup>
 	<ItemGroup>
 		<SupportedPlatform Include="browser" />

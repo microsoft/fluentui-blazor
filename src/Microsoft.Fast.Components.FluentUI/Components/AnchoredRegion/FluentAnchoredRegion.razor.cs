@@ -117,4 +117,10 @@ public partial class FluentAnchoredRegion : FluentComponentBase
     /// </summary>
     [Parameter]
     public AutoUpdateMode? AutoUpdateMode { get; set; } = FluentUI.AutoUpdateMode.Anchor;
+
+    /// <summary>
+    /// Gets or sets the content to be rendered inside the component.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 }

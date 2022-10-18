@@ -19,6 +19,12 @@ public partial class FluentTreeView : FluentComponentBase
     [Parameter]
     public FluentTreeItem CurrentSelected { get; set; } = default!;
 
+    /// <summary>
+    /// Gets or sets the content to be rendered inside the component.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
     [Parameter]
     public EventCallback<FluentTreeItem> CurrentSelectedChanged { get; set; }
 

@@ -15,6 +15,23 @@ public class DataSource
 
     public IQueryable<Person> People { get; } = _people.AsQueryable();
 
+    public List<string> Hits { get; } = new()
+    {
+        "Please Please Me",
+        "With The Beatles",
+        "A Hard Day's Night",
+        "Beatles for Sale",
+        "Help!",
+        "Rubber Soul",
+        "Revolver",
+        "Sgt. Pepper's Lonely Hearts Club Band",
+        "Magical Mystery Tour",
+        "The Beatles",
+        "Yellow Submarine",
+        "Abbey Road",
+        "Let It Be",
+    };
+
     public Task<Country[]> GetCountriesAsync()
     {
         // In a real application, you'd typically be querying an external data source here.
@@ -32,6 +49,8 @@ public class DataSource
         new Person ( PersonId : 5, FirstName : "Jose", LastName : "Hernandez", CountryCode : "mx", BirthDate : new DateOnly(2011, 5, 3) ),
         new Person ( PersonId : 6, FirstName : "Kenji", LastName : "Sato", CountryCode : "jp", BirthDate : new DateOnly(2004, 1, 9) )
     };
+
+
 
     // Data derived from https://www.kaggle.com/datasets/arjunprasadsarkhel/2021-olympics-in-tokyo,
     // which is licensed as https://creativecommons.org/licenses/by-sa/4.0/

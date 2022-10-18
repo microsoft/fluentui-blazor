@@ -1,10 +1,12 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
-namespace Microsoft.Fast.Components.FluentUI.Infrastructure;
+using Microsoft.Fast.Components.FluentUI.Infrastructure;
 
-// The grid cascades this so that descendant columns can talk back to it. It's an internal type
-// so that it doesn't show up by mistake in unrelated components.
+namespace Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
+
+// The grid cascades this so that descendant columns can talk back to it.
+// It's an internal type so it doesn't show up in unrelated components by mistake.
 internal class InternalGridContext<TGridItem>
 {
     public Dictionary<string, FluentDataGridRow<TGridItem>> Rows { get; set; } = new();

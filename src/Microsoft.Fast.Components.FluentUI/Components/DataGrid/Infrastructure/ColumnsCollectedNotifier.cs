@@ -3,7 +3,7 @@
 
 using Microsoft.AspNetCore.Components;
 
-namespace Microsoft.Fast.Components.FluentUI.Infrastructure;
+namespace Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
 
 // One awkwardness of the way FluentDataGrid collects its list of child columns is that, during OnParametersSetAsync,
 // it only knows about the set of columns that were present on the *previous* render. If it's going to trigger a

@@ -32,6 +32,12 @@ public partial class FluentAccordionItem : FluentComponentBase, IDisposable
     public string? HeadingLevel { get; set; }
 
     /// <summary>
+    /// Gets or sets the content to be rendered inside the component.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
     /// The item ID
     /// </summary>
     internal string Id { get; } = Identifier.NewId();
