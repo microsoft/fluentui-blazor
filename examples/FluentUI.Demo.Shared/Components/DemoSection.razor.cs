@@ -8,6 +8,9 @@ public partial class DemoSection : ComponentBase
     [Inject]
     private HttpClient Http { get; set; } = default!;
 
+    [Inject]
+    private NavigationManager NavigationManager { get; set; } = default!;
+
     [Parameter, EditorRequired]
     public string Title { get; set; } = string.Empty;
 
@@ -71,9 +74,13 @@ public partial class DemoSection : ComponentBase
     {
         try
         {
+            if (Http.BaseAddress is null)
+            {
+                Http.BaseAddress = new Uri(NavigationManager.BaseUri);
+            }
             foreach (string source in GetSources())
             {
-                TabPanelsContent.Add(source, await Http.GetStringAsync($"_content/FluentUI.Demo.Shared/examples/{source}.txt"));
+                TabPanelsContent.Add(source, await Http.GetStringAsync($"./_content/FluentUI.Demo.Shared/examples/{source}.txt"));
             }
         }
         catch

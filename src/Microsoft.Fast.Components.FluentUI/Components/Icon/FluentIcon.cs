@@ -94,12 +94,18 @@ public partial class FluentIcon : FluentComponentBase
                 if (!response.IsSuccessStatusCode)
                 {
                     message = CreateMessage(_iconUrlFallback);
-                    response = await IconService.HttpClient.SendAsync(message);
-                }
 
-                // Store the result in the cache and get it as well
-                result = await CacheStorageAccessor.PutAndGetAsync(message, response);
-                //result = await CacheStorageAccessor.GetAsync(message);
+                    // Check if fallback exists in cache
+                    result = await CacheStorageAccessor.GetAsync(message);
+                    if (string.IsNullOrEmpty(result))
+                    {
+                        // If not in cache, get it from the InconService (download)
+                        response = await IconService.HttpClient.SendAsync(message);
+
+                        // Store the response in the cache
+                        result = await CacheStorageAccessor.PutAndGetAsync(message, response);
+                    }
+                }
             }
 
             result = result.Replace("<path ", $"<path fill=\"var({Color.ToAttributeValue()})\"");
