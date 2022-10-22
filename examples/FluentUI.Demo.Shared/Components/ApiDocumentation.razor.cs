@@ -9,9 +9,25 @@ public partial class ApiDocumentation
 {
     private IEnumerable<MemberDescription>? _allMembers = null;
 
+    /// <summary>
+    /// The Component for which the Parameters, Methods and Events should be displayed
+    /// </summary>
+
     [Parameter, EditorRequired]
     public Type Component { get; set; } = default!;
 
+    /// <summary>
+    /// It Component is a generic type, a generic type argument needs to be provided
+    /// so an instance of the type can be created. 
+    /// This is needed to get and display any default values
+    /// Default for this parameter is 'typeof(string)'
+    /// </summary>
+    [Parameter]
+    public Type InstanceType { get; set; } = typeof(string);
+
+    /// <summary>
+    /// The label used for displaying the type parameter
+    /// </summary>
     [Parameter]
     public string? GenericLabel { get; set; } = null;
 
@@ -27,8 +43,23 @@ public partial class ApiDocumentation
 
         if (_allMembers == null)
         {
-            List<MemberDescription>? members = new List<MemberDescription>();
-            object? obj = Activator.CreateInstance(Component);
+            List<MemberDescription>? members = new();
+
+            object? obj;
+            if (Component.IsGenericType)
+            {
+                if (InstanceType is null)
+                    throw new ArgumentNullException(nameof(InstanceType), "InstanceType must be specified when Component is a generic type");
+
+                // Supply the type to create the generic instance with (needs to be an array)
+                Type[] typeArgs = { InstanceType };
+                Type constructed = Component.MakeGenericType(typeArgs);
+
+                obj = Activator.CreateInstance(constructed);
+            }
+            else
+                obj = Activator.CreateInstance(Component);
+
 
             IEnumerable<MemberInfo>? allProperties = Component.GetProperties().Select(i => (MemberInfo)i);
             IEnumerable<MemberInfo>? allMethods = Component.GetMethods().Where(i => !i.IsSpecialName).Select(i => (MemberInfo)i);
@@ -42,22 +73,21 @@ public partial class ApiDocumentation
 
                     if (propertyInfo != null)
                     {
-                        bool isProperty = memberInfo.GetCustomAttribute<ParameterAttribute>() != null;
+                        bool isParameter = memberInfo.GetCustomAttribute<ParameterAttribute>() != null;
 
-                        bool isEvent = isProperty &&
+                        bool isEvent = isParameter &&
                                        propertyInfo.PropertyType.GetInterface("IEventCallback") != null;
 
-                        // Properties
-                        if (isProperty && !isEvent)
+                        // Parameters
+                        if (isParameter && !isEvent)
                         {
                             members.Add(new MemberDescription()
                             {
                                 MemberType = MemberTypes.Property,
                                 Name = propertyInfo.Name,
-                                //Type = IsMarkedAsNullable(propertyInfo) && !propertyInfo.ToTypeNameString().EndsWith('?') ? propertyInfo.ToTypeNameString() + "?" : propertyInfo.ToTypeNameString(),
-                                Type = propertyInfo.ToTypeNameString().Replace("<string>", $"<{GenericLabel}>"),
+                                Type = propertyInfo.ToTypeNameString(), //.Replace("<string>", $"<{GenericLabel}>"),
                                 EnumValues = GetEnumValues(propertyInfo),
-                                Default = propertyInfo.GetValue(obj)?.ToString() ?? "null",
+                                Default = obj?.GetType().GetProperty(propertyInfo.Name)?.GetValue(obj)?.ToString() ?? "null",
                                 Description = CodeComments.GetSummary(Component.Name + "." + propertyInfo.Name)
                             });
                         }
@@ -65,12 +95,12 @@ public partial class ApiDocumentation
                         // Events
                         if (isEvent)
                         {
-                            string eventTypes = String.Join(", ", propertyInfo.PropertyType.GenericTypeArguments.Select(i => i.Name));
+                            string eventTypes = string.Join(", ", propertyInfo.PropertyType.GenericTypeArguments.Select(i => i.Name));
                             members.Add(new MemberDescription()
                             {
                                 MemberType = MemberTypes.Event,
                                 Name = propertyInfo.Name,
-                                Type = propertyInfo.ToTypeNameString().Replace("<string>", $"<{GenericLabel}>"),
+                                Type = propertyInfo.ToTypeNameString(), //.Replace("<string>", $"<{GenericLabel}>"),
                                 Description = CodeComments.GetSummary(Component.Name + "." + propertyInfo.Name)
                             });
                         }
@@ -84,7 +114,7 @@ public partial class ApiDocumentation
                             MemberType = MemberTypes.Method,
                             Name = methodInfo.Name,
                             Parameters = methodInfo.GetParameters().Select(i => $"{i.ToTypeNameString()} {i.Name}").ToArray(),
-                            Type = methodInfo.ToTypeNameString().Replace("<string>", $"<{GenericLabel}>"),
+                            Type = methodInfo.ToTypeNameString(), //.Replace("<string>", $"<{GenericLabel}>"),
                             Description = CodeComments.GetSummary(Component.Name + "." + methodInfo.Name)
                         });
                     }

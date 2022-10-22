@@ -3,7 +3,7 @@
 @using Microsoft.Fast.Components.FluentUI;
 
 <div>
-@if (string.IsNullOrWhiteSpace(GenericLabel))
+@if (!Component.IsGenericType)
 {
     <h2>@Component.Name Class</h2>
 }
@@ -23,19 +23,18 @@ else
                     @* Display list of Enumerations (if available) *@
                     @if (context.EnumValues.Length > 0)
                     {
+                        
                         var id = Identifier.NewId();
-                        <FluentIcon id="@id"
-                            Name="@FluentIcons.Info"
-                            Size="@IconSize.Size24"
-                            style="margin-left: 10px; vertical-align: top;"
-                            Filled=false
-                            UseAccentColor=false></FluentIcon>
+                        <span id="@id">
+                            <FluentIcon Name="@FluentIcons.Info" Size="@IconSize.Size24" Style="margin-left: 10px; vertical-align: top;" Filled=false Color=IconColor.Accent />
+                        </span>
                         <FluentTooltip Anchor="@id" Position="TooltipPosition.Right">
                             @foreach (var item in context.EnumValues)
                             {
                                 @item <br />
                             }
                         </FluentTooltip>
+
                     }
         </TemplateColumn>
         <PropertyColumn Property="@(c => c.Default)" />

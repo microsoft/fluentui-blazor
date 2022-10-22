@@ -20,6 +20,13 @@ public partial class FluentIcon : FluentComponentBase
     [Inject]
     private CacheStorageAccessor CacheStorageAccessor { get; set; } = default!;
 
+
+    /// <summary>
+    /// Gets or sets the id.
+    /// </summary>
+    [Parameter]
+    public string? Id { get; set; }
+
     /// <summary>
     /// Gets or sets the variant to use: filled (true) or regular (false)
     /// </summary>
@@ -140,16 +147,17 @@ public partial class FluentIcon : FluentComponentBase
         if (!string.IsNullOrEmpty(_svg))
         {
             builder.OpenElement(0, "svg");
-            builder.AddAttribute(1, "slot", Slot);
-            builder.AddAttribute(2, "class", Class);
-            builder.AddAttribute(3, "style", Style);
-            builder.AddMultipleAttributes(4, AdditionalAttributes);
+            builder.AddAttribute(1, "id", Id);
+            builder.AddAttribute(2, "slot", Slot);
+            builder.AddAttribute(3, "class", Class);
+            builder.AddAttribute(4, "style", Style);
             builder.AddAttribute(5, "width", _size);
             builder.AddAttribute(6, "height", _size);
             builder.AddAttribute(7, "viewBox", $"0 0 {_size} {_size}");
             builder.AddAttribute(8, "xmlns", "http://www.w3.org/2000/svg");
             builder.AddAttribute(9, "onclick", OnClickHandler);
-            builder.AddMarkupContent(10, _svg);
+            builder.AddMultipleAttributes(10, AdditionalAttributes);
+            builder.AddMarkupContent(11, _svg);
             builder.CloseElement();
         }
     }

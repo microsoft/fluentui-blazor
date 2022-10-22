@@ -1252,6 +1252,11 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.Id">
+            <summary>
+            Gets or sets the id.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.Filled">
             <summary>
             Gets or sets the variant to use: filled (true) or regular (false)
@@ -5734,7 +5739,7 @@
         <member name="T:Microsoft.Fast.Components.FluentUI.Identifier">
             <summary />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Identifier.NewId">
+        <member name="M:Microsoft.Fast.Components.FluentUI.Identifier.NewId(System.Int32)">
             <summary>
             Returns a new small Id.
             HTML id must start with a letter.
