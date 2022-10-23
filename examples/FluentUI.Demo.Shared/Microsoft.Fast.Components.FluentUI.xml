@@ -1483,7 +1483,7 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.Multiple">
             <summary>
             If true, the user can select multiple elements.
-            ⚠️ Available only for the FluentSelect and FluentListbox component.
+            Only available for the FluentSelect and FluentListbox components.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.SelectedItems">
@@ -1498,10 +1498,10 @@
             ⚠️ Available only if Multiple = true.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.MultiSelectionText">
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.MultipleSelectedText">
             <summary>
-            Function to define a customized multiselection text.
-            ⚠️ Available only if Multiple = true.
+            Function to define a customized text when multiple items selected.
+            Only available if Multiple = true.
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ListBase`1.#ctor">

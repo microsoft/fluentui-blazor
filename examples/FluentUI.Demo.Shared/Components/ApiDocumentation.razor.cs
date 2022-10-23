@@ -88,8 +88,8 @@ public partial class ApiDocumentation
                                 Type = propertyInfo.ToTypeNameString(), //.Replace("<string>", $"<{GenericLabel}>"),
                                 EnumValues = GetEnumValues(propertyInfo),
                                 Default = obj?.GetType().GetProperty(propertyInfo.Name)?.GetValue(obj)?.ToString() ?? "null",
-                                Description = CodeComments.GetSummary(Component.Name + "." + propertyInfo.Name)
-                            });
+                                Description = CodeComments.GetSummary(Component.Name + "." + propertyInfo.Name) ?? CodeComments.GetSummary(Component.BaseType?.Name + "." + propertyInfo.Name)
+                            }); ;
                         }
 
                         // Events
@@ -101,7 +101,7 @@ public partial class ApiDocumentation
                                 MemberType = MemberTypes.Event,
                                 Name = propertyInfo.Name,
                                 Type = propertyInfo.ToTypeNameString(), //.Replace("<string>", $"<{GenericLabel}>"),
-                                Description = CodeComments.GetSummary(Component.Name + "." + propertyInfo.Name)
+                                Description = CodeComments.GetSummary(Component.Name + "." + propertyInfo.Name) ?? CodeComments.GetSummary(Component.BaseType?.Name + "." + propertyInfo.Name)
                             });
                         }
                     }
@@ -115,7 +115,7 @@ public partial class ApiDocumentation
                             Name = methodInfo.Name,
                             Parameters = methodInfo.GetParameters().Select(i => $"{i.ToTypeNameString()} {i.Name}").ToArray(),
                             Type = methodInfo.ToTypeNameString(), //.Replace("<string>", $"<{GenericLabel}>"),
-                            Description = CodeComments.GetSummary(Component.Name + "." + methodInfo.Name)
+                            Description = CodeComments.GetSummary(Component.Name + "." + propertyInfo.Name) ?? CodeComments.GetSummary(Component.BaseType?.Name + "." + propertyInfo.Name)
                         });
                     }
                 }

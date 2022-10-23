@@ -135,7 +135,7 @@ public abstract class ListBase<TOption> : FluentComponentBase
 
     /// <summary>
     /// If true, the user can select multiple elements.
-    /// ⚠️ Available only for the FluentSelect and FluentListbox component.
+    /// Only available for the FluentSelect and FluentListbox components.
     /// </summary>
     [Parameter]
     public virtual bool Multiple { get; set; }
@@ -157,11 +157,11 @@ public abstract class ListBase<TOption> : FluentComponentBase
     public virtual EventCallback<IEnumerable<TOption>?> SelectedItemsChanged { get; set; }
 
     /// <summary>
-    /// Function to define a customized multiselection text.
-    /// ⚠️ Available only if Multiple = true.
+    /// Function to define a customized text when multiple items selected.
+    /// Only available if Multiple = true.
     /// </summary>
     [Parameter]
-    public virtual Func<IEnumerable<TOption>, string> MultiSelectionText { get; set; }
+    public virtual Func<IEnumerable<TOption>, string> MultipleSelectedText { get; set; }
 
 
 
@@ -173,7 +173,7 @@ public abstract class ListBase<TOption> : FluentComponentBase
 
         OptionText = (item) => item?.ToString() ?? null;
         OptionValue = (item) => OptionText.Invoke(item) ?? item?.ToString() ?? null;
-        MultiSelectionText = (items) =>
+        MultipleSelectedText = (items) =>
         {
             if (Items?.Any() == true)
             {

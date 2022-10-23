@@ -19,7 +19,7 @@
 
 <h5>From list of Option&lt;int&gt; items</h5>
 <p>First item in the list is disabled, therefore a <code>OptionDisabled</code> parameter is added</p>
-<FluentCombobox Items=@intOptions 
+<FluentCombobox Items=@intOptions TOption="Option<int>"
                 OptionText="@(i => i.Text.ToString())" 
                 OptionValue="@(i => i.Value.ToString())" 
                 OptionDisabled=@(i => i.Disabled)
