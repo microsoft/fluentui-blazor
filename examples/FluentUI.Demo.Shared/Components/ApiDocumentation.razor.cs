@@ -115,7 +115,7 @@ public partial class ApiDocumentation
                             Name = methodInfo.Name,
                             Parameters = methodInfo.GetParameters().Select(i => $"{i.ToTypeNameString()} {i.Name}").ToArray(),
                             Type = methodInfo.ToTypeNameString(), //.Replace("<string>", $"<{GenericLabel}>"),
-                            Description = CodeComments.GetSummary(Component.Name + "." + propertyInfo.Name) ?? CodeComments.GetSummary(Component.BaseType?.Name + "." + propertyInfo.Name)
+                            Description = CodeComments.GetSummary(Component.Name + "." + methodInfo.Name) ?? CodeComments.GetSummary(Component.BaseType?.Name + "." + methodInfo.Name)
                         });
                     }
                 }

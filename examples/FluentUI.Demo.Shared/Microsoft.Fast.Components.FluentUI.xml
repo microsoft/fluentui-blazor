@@ -1409,7 +1409,8 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.Id">
             <summary>
-            Unique identifier.
+            Unique identifier. If not provided, a random value will be generated.
+            The value will be used as the HTML <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id">global id attribute</see>.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.Title">
@@ -1436,19 +1437,19 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.OptionValue">
             <summary>
             Function used to determine which text to return for the selected item.
-            ⚠️ Available only if Multiple = false.
+            ⚠️ Only available when Multiple = false.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.OptionDisabled">
             <summary>
             Function used to determine if an option is (initially) disabled.
-            ⚠️ Available only if Multiple = false.
+            ⚠️ Only available when Multiple = false.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.OptionSelected">
             <summary>
             Function used to determine if an option is (initially) selected.
-            ⚠️ Available only if Multiple = false.
+            ⚠️ Only available when Multiple = false.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.Items">
@@ -1459,25 +1460,25 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.SelectedItem">
             <summary>
             Gets or sets the selected item.
-            ⚠️ Available only if Multiple = false.
+            ⚠️ Only available when Multiple = false.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.SelectedItemChanged">
             <summary>
             Called whenever the selection changed.
-            ⚠️ Available only if Multiple = false.
+            ⚠️ Only available when Multiple = false.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.Value">
             <summary>
-            Gets or sets the selected value (see <see cref="P:Microsoft.Fast.Components.FluentUI.ListBase`1.OptionValue"/>.
-            ⚠️ Available only if Multiple = false.
+            Gets or sets the selected value <see cref="P:Microsoft.Fast.Components.FluentUI.ListBase`1.OptionValue"/>.
+            ⚠️ Only available when Multiple = false.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.ValueChanged">
             <summary>
             Called whenever the selection changed.
-            ⚠️ Available only if Multiple = false.
+            ⚠️ Only available when Multiple = false.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.Multiple">
@@ -1489,13 +1490,13 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.SelectedItems">
             <summary>
             Gets or sets all selected items.
-            ⚠️ Available only if Multiple = true.
+            ⚠️ Only available when Multiple = true.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.SelectedItemsChanged">
             <summary>
             Called whenever the selection changed.
-            ⚠️ Available only if Multiple = true.
+            ⚠️ Only available when Multiple = true.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.MultipleSelectedText">

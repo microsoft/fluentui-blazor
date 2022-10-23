@@ -27,7 +27,8 @@ public abstract class ListBase<TOption> : FluentComponentBase
         .Build();
 
     /// <summary>
-    /// Unique identifier.
+    /// Unique identifier. If not provided, a random value will be generated.
+    /// The value will be used as the HTML <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id">global id attribute</see>.
     /// </summary>
     [Parameter]
     public virtual string? Id { get; set; } = Identifier.NewId();
@@ -59,21 +60,21 @@ public abstract class ListBase<TOption> : FluentComponentBase
 
     /// <summary>
     /// Function used to determine which text to return for the selected item.
-    /// ⚠️ Available only if Multiple = false.
+    /// ⚠️ Only available when Multiple = false.
     /// </summary>
     [Parameter]
     public virtual Func<TOption, string?> OptionValue { get; set; }
 
     /// <summary>
     /// Function used to determine if an option is (initially) disabled.
-    /// ⚠️ Available only if Multiple = false.
+    /// ⚠️ Only available when Multiple = false.
     /// </summary>
     [Parameter]
     public virtual Func<TOption, bool>? OptionDisabled { get; set; }
 
     /// <summary>
     /// Function used to determine if an option is (initially) selected.
-    /// ⚠️ Available only if Multiple = false.
+    /// ⚠️ Only available when Multiple = false.
     /// </summary>
     [Parameter]
     public virtual Func<TOption, bool>? OptionSelected { get; set; }
@@ -86,21 +87,21 @@ public abstract class ListBase<TOption> : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the selected item.
-    /// ⚠️ Available only if Multiple = false.
+    /// ⚠️ Only available when Multiple = false.
     /// </summary>
     [Parameter]
     public virtual TOption? SelectedItem { get; set; }
 
     /// <summary>
     /// Called whenever the selection changed.
-    /// ⚠️ Available only if Multiple = false.
+    /// ⚠️ Only available when Multiple = false.
     /// </summary>
     [Parameter]
     public virtual EventCallback<TOption?> SelectedItemChanged { get; set; }
 
     /// <summary>
-    /// Gets or sets the selected value (see <see cref="OptionValue"/>.
-    /// ⚠️ Available only if Multiple = false.
+    /// Gets or sets the selected value <see cref="OptionValue"/>.
+    /// ⚠️ Only available when Multiple = false.
     /// </summary>
     [Parameter]
     public virtual string? Value
@@ -128,7 +129,7 @@ public abstract class ListBase<TOption> : FluentComponentBase
 
     /// <summary>
     /// Called whenever the selection changed.
-    /// ⚠️ Available only if Multiple = false.
+    /// ⚠️ Only available when Multiple = false.
     /// </summary>
     [Parameter]
     public virtual EventCallback<string?> ValueChanged { get; set; }
@@ -143,7 +144,7 @@ public abstract class ListBase<TOption> : FluentComponentBase
 
     /// <summary>
     /// Gets or sets all selected items.
-    /// ⚠️ Available only if Multiple = true.
+    /// ⚠️ Only available when Multiple = true.
     /// </summary>
     [Parameter]
     public virtual IEnumerable<TOption>? SelectedItems { get; set; }
@@ -151,7 +152,7 @@ public abstract class ListBase<TOption> : FluentComponentBase
 
     /// <summary>
     /// Called whenever the selection changed.
-    /// ⚠️ Available only if Multiple = true.
+    /// ⚠️ Only available when Multiple = true.
     /// </summary>
     [Parameter]
     public virtual EventCallback<IEnumerable<TOption>?> SelectedItemsChanged { get; set; }
