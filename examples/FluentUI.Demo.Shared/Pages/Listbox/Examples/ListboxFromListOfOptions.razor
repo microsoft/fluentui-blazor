@@ -1,23 +1,49 @@
-﻿<h5>From list of string items</h5>
-<FluentListbox Items=@stringOptions OptionText="@(item => item.Text)" OptionValue="@(item => item.Value)" />
+﻿<h5>From list of Option&lt;string&gt; items</h5>
+<p>Second item in the list is initially selected. We add an <code>OptionSelected</code> parameter to reflect this in the component.</p>
+<FluentListbox Items=@stringOptions 
+               OptionText="@(i => i.Text)" 
+               OptionValue="@(i => i.Value)"
+               OptionSelected="@(i => i.Selected)"
+               @bind-Value="@stringValue" />
+<p>
+    Selected Value: @stringValue<br />
+</p>
 
-<h5>From list of int items</h5>
-<FluentListbox Items=@intOptions OptionText="@(item => item.Text.ToString())" OptionValue="@(item => item.Value.ToString())" />
+<h5>From list of Option&lt;int&gt; items</h5>
+<p>First item in the list is disabled. We add an <code>OptionDisabled</code> parameter to reflect this in the component.</p>
+
+<FluentListbox Items=@intOptions 
+               TOption="Option<int>"
+               OptionText="@(i => i.Text.ToString())" 
+               OptionValue="@(i => i.Value.ToString())"
+               OptionDisabled="@(i => i.Disabled)"
+               @bind-SelectedItem="@selectedIntOption"
+               @bind-Value="@intValue" />
+<p>
+    Selected Value: @intValue<br />
+    Selected Item (strongly typed): <br />
+    Value: @selectedIntOption?.Value (Type: @(selectedIntOption?.Value.GetType())) <br />
+    Text: @selectedIntOption?.Text
+</p>
 
 @code {
-     List<Option<string>> stringOptions = new()
-        {
-            { new Option<string> { Value = "1", Text = "One" } },
-            { new Option<string> { Value = "2", Text = "Two", Selected = true } },
-            { new Option<string> { Value = "3", Text = "Three" } }
+    string? stringValue;
+    string? intValue;
+    Option<int>? selectedIntOption;
+    
+    List<Option<string>> stringOptions = new()
+    {
+        { new Option<string> { Value = "1", Text = "One" } },
+        { new Option<string> { Value = "2", Text = "Two", Selected = true } },
+        { new Option<string> { Value = "3", Text = "Three" } }
 
-        };
+    };
 
-    List<Option<int>> intOptions = new()
-        {
-            { new Option<int> { Value = 1, Text = 1, Disabled = true } },
-            { new Option<int> { Value = 2, Text = 2 } },
-            { new Option<int> { Value = 3, Text = 3 } }
+List<Option<int>> intOptions = new()
+    {
+        { new Option<int> { Value = 1, Text = 1, Disabled = true } },
+        { new Option<int> { Value = 2, Text = 2 } },
+        { new Option<int> { Value = 3, Text = 3 } }
 
-        };
+    };
 }

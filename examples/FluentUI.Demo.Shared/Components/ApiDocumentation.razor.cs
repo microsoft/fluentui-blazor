@@ -7,6 +7,17 @@ namespace FluentUI.Demo.Shared.Components;
 /// <summary />
 public partial class ApiDocumentation
 {
+    private class MemberDescription
+    {
+        public MemberTypes MemberType { get; set; } = MemberTypes.Property;
+        public string Name { get; set; } = "";
+        public string Type { get; set; } = "";
+        public string[] EnumValues { get; set; } = Array.Empty<string>();
+        public string[] Parameters { get; set; } = Array.Empty<string>();
+        public string? Default { get; set; } = null;
+        public string Description { get; set; } = "";
+    }
+
     private IEnumerable<MemberDescription>? _allMembers = null;
 
     /// <summary>
@@ -85,9 +96,9 @@ public partial class ApiDocumentation
                             {
                                 MemberType = MemberTypes.Property,
                                 Name = propertyInfo.Name,
-                                Type = propertyInfo.ToTypeNameString(), //.Replace("<string>", $"<{GenericLabel}>"),
+                                Type = propertyInfo.ToTypeNameString(),
                                 EnumValues = GetEnumValues(propertyInfo),
-                                Default = obj?.GetType().GetProperty(propertyInfo.Name)?.GetValue(obj)?.ToString() ?? "null",
+                                Default = propertyInfo.PropertyType.IsValueType ? obj?.GetType().GetProperty(propertyInfo.Name)?.GetValue(obj)?.ToString() : "",
                                 Description = CodeComments.GetSummary(Component.Name + "." + propertyInfo.Name) ?? CodeComments.GetSummary(Component.BaseType?.Name + "." + propertyInfo.Name)
                             }); ;
                         }
@@ -100,7 +111,7 @@ public partial class ApiDocumentation
                             {
                                 MemberType = MemberTypes.Event,
                                 Name = propertyInfo.Name,
-                                Type = propertyInfo.ToTypeNameString(), //.Replace("<string>", $"<{GenericLabel}>"),
+                                Type = propertyInfo.ToTypeNameString(),
                                 Description = CodeComments.GetSummary(Component.Name + "." + propertyInfo.Name) ?? CodeComments.GetSummary(Component.BaseType?.Name + "." + propertyInfo.Name)
                             });
                         }
@@ -114,7 +125,7 @@ public partial class ApiDocumentation
                             MemberType = MemberTypes.Method,
                             Name = methodInfo.Name,
                             Parameters = methodInfo.GetParameters().Select(i => $"{i.ToTypeNameString()} {i.Name}").ToArray(),
-                            Type = methodInfo.ToTypeNameString(), //.Replace("<string>", $"<{GenericLabel}>"),
+                            Type = methodInfo.ToTypeNameString(),
                             Description = CodeComments.GetSummary(Component.Name + "." + methodInfo.Name) ?? CodeComments.GetSummary(Component.BaseType?.Name + "." + methodInfo.Name)
                         });
                     }
@@ -149,16 +160,5 @@ public partial class ApiDocumentation
     private static bool IsMarkedAsNullable(PropertyInfo p)
     {
         return new NullabilityInfoContext().Create(p).WriteState is NullabilityState.Nullable;
-    }
-
-    private class MemberDescription
-    {
-        public MemberTypes MemberType { get; set; } = MemberTypes.Property;
-        public string Name { get; set; } = "";
-        public string Type { get; set; } = "";
-        public string[] EnumValues { get; set; } = Array.Empty<string>();
-        public string[] Parameters { get; set; } = Array.Empty<string>();
-        public string? Default { get; set; } = null;
-        public string Description { get; set; } = "";
     }
 }

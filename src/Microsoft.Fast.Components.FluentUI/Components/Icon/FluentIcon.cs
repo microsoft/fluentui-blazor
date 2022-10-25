@@ -91,7 +91,7 @@ public partial class FluentIcon : FluentComponentBase
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         string result;
-        if (firstRender && !string.IsNullOrEmpty(_iconUrl) && !string.IsNullOrEmpty(_iconUrlFallback))
+        if (!string.IsNullOrEmpty(_iconUrl) && !string.IsNullOrEmpty(_iconUrlFallback))
         {
             HttpRequestMessage? message = CreateMessage(_iconUrl);
             // Get the result from the cache

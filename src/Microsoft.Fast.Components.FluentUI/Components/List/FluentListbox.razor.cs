@@ -30,10 +30,16 @@ public partial class FluentListbox<TOption> : ListBase<TOption>
     {
         if (firstRender)
         {
-            // a Listbox always has an element selected
-            if (Items != null && Items.Any() && SelectedItem == null && Value == null)
+            // an item may have been selected through the data
+            if (Items != null && Items.Any() && SelectedItem == null && InternalValue == null)
             {
-                SelectedItem = Items.FirstOrDefault();
+                if (OptionSelected is not null)
+                    SelectedItem = Items.FirstOrDefault(i => OptionSelected(i));
+                else if (OptionDisabled is not null)
+                    SelectedItem = Items.FirstOrDefault(i => !OptionDisabled(i));
+                else
+                    // a Listbox always has an element selected
+                    SelectedItem = Items.FirstOrDefault();
             }
             await RaiseChangedEvents();
         }

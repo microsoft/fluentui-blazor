@@ -50,5 +50,5 @@
 </FluentCombobox>
 
 @code {
-    string? comboboxValue = "Christopher Eccleston";
+    string? comboboxValue = "";
 }

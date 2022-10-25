@@ -104,10 +104,4 @@
             searchResults = defaultResults();
         }
     }
-
-    protected override void OnAfterRender(bool firstRender)
-    {
-        if (searchValue == defaultResultsText)
-            searchValue = string.Empty;
-    }
 }

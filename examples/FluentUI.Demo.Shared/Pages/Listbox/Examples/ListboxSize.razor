@@ -1,6 +1,9 @@
-﻿<em>Size parameter not working yet!</em>
-<br />
-<FluentListbox @bind-Value=@listboxValue Size=7 TOption="string">
+﻿<p>
+    <em>Size parameter not working correctly yet!</em> However, the component supports both Height and Width parameters 
+    which can be used to determine the size of the displayed listbox
+</p>
+
+<FluentListbox ValueChanged="@(e => listboxValue = e)" Size=7 TOption="string" Height="200px">
     <FluentOption Value="AL">Alabama</FluentOption>
     <FluentOption Value="AK">Alaska</FluentOption>
     <FluentOption Value="AZ">Arizona</FluentOption>
@@ -53,6 +56,9 @@
     <FluentOption Value="WY">Wyoming</FluentOption>
 </FluentListbox>
 
+<p>
+    Selected value: @listboxValue
+</p>
 @code {
     string? listboxValue;
 }

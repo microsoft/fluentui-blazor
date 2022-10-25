@@ -11,8 +11,9 @@ namespace Microsoft.Fast.Components.FluentUI;
 public abstract class ListBase<TOption> : FluentComponentBase
 {
     private bool _multiple = false;
-    private string? _value;
+
     private List<TOption> _selectedItems = new();
+    private List<string>? _selectedOptions = new();
 
     // We cascade the InternalListContext to descendants, which in turn call it to add themselves to _options
     internal InternalListContext<TOption> _internalListContext;
@@ -25,6 +26,29 @@ public abstract class ListBase<TOption> : FluentComponentBase
     protected virtual string? StyleValue => new StyleBuilder()
         .AddStyle(Style)
         .Build();
+
+    protected string? InternalValue
+    {
+        get
+        {
+            return GetOptionValue(SelectedItem);
+        }
+        set
+        {
+            if (value != null && OptionValue != null && Items != null)
+            {
+                var item = Items.FirstOrDefault(i => GetOptionValue(i) == value);
+
+                if (!Equals(item, SelectedItem))
+                {
+                    SelectedItem = item;
+
+                    // Raise Changed events in another thread
+                    Task.Run(() => RaiseChangedEvents());
+                }
+            }
+        }
+    }
 
     /// <summary>
     /// Unique identifier. If not provided, a random value will be generated.
@@ -104,28 +128,8 @@ public abstract class ListBase<TOption> : FluentComponentBase
     /// ⚠️ Only available when Multiple = false.
     /// </summary>
     [Parameter]
-    public virtual string? Value
-    {
-        get
-        {
-            return GetOptionValue(SelectedItem);
-        }
-        set
-        {
-            if (value != null && OptionValue != null && Items != null)
-            {
-                var item = Items.FirstOrDefault(i => GetOptionValue(i) == value);
+    public virtual string? Value { get; set; }
 
-                if (!Equals(item, SelectedItem))
-                {
-                    SelectedItem = item;
-
-                    // Raise Changed events in another thread
-                    Task.Run(() => RaiseChangedEvents());
-                }
-            }
-        }
-    }
 
     /// <summary>
     /// Called whenever the selection changed.
@@ -136,7 +140,7 @@ public abstract class ListBase<TOption> : FluentComponentBase
 
     /// <summary>
     /// If true, the user can select multiple elements.
-    /// Only available for the FluentSelect and FluentListbox components.
+    /// ⚠️ Only available for the FluentSelect and FluentListbox components.
     /// </summary>
     [Parameter]
     public virtual bool Multiple { get; set; }
@@ -147,7 +151,17 @@ public abstract class ListBase<TOption> : FluentComponentBase
     /// ⚠️ Only available when Multiple = true.
     /// </summary>
     [Parameter]
-    public virtual IEnumerable<TOption>? SelectedItems { get; set; }
+    public virtual IEnumerable<TOption>? SelectedItems //{ get; set; }
+    {
+        get
+        {
+            return _selectedItems;
+        }
+        set
+        {
+            _selectedItems = new List<TOption>(value ?? Array.Empty<TOption>());
+        }
+    }
 
 
     /// <summary>
@@ -159,12 +173,13 @@ public abstract class ListBase<TOption> : FluentComponentBase
 
     /// <summary>
     /// Function to define a customized text when multiple items selected.
-    /// Only available if Multiple = true.
+    /// ⚠️ Only available if Multiple = true.
     /// </summary>
     [Parameter]
     public virtual Func<IEnumerable<TOption>, string> MultipleSelectedText { get; set; }
 
-
+    [Parameter]
+    public virtual List<string>? SelectedOptions { get; set; }
 
     /// <summary />
     public ListBase()
@@ -194,12 +209,17 @@ public abstract class ListBase<TOption> : FluentComponentBase
     protected override void OnParametersSet()
     {
 
-        if (!HasListControlWithGlobalChangedEvent)
+        if (!HasListControlWithGlobalChangedEvent || Items == null)
         {
             if (_internalListContext.ValueChanged.HasDelegate == false)
             {
                 _internalListContext.ValueChanged = ValueChanged;
             }
+        }
+
+        if (InternalValue == null && Value != null || InternalValue != Value)
+        {
+            InternalValue = Value;
         }
 
         if (_multiple != Multiple)
@@ -217,6 +237,11 @@ public abstract class ListBase<TOption> : FluentComponentBase
         {
             _selectedItems = new List<TOption>(SelectedItems ?? Array.Empty<TOption>());
 
+        }
+
+        if (_selectedOptions != SelectedOptions)
+        {
+            SelectedOptions = _selectedOptions;
         }
 
         base.OnParametersSet();
@@ -305,7 +330,7 @@ public abstract class ListBase<TOption> : FluentComponentBase
             return null;
     }
 
-    /// <summary />
+    ///// <summary />
     //protected virtual Task OnValueChangedHandlerAsync(TOption? item)
     //{
     //    return OnSelectedItemChangedHandlerAsync(item);
@@ -354,7 +379,7 @@ public abstract class ListBase<TOption> : FluentComponentBase
                 await SelectedItemChanged.InvokeAsync(SelectedItem);
 
             if (ValueChanged.HasDelegate)
-                await ValueChanged.InvokeAsync(Value);
+                await ValueChanged.InvokeAsync(InternalValue);
         }
     }
 
@@ -387,6 +412,7 @@ public abstract class ListBase<TOption> : FluentComponentBase
                     }
 
                     builder.CloseComponent();
+
                 }
             });
         }
@@ -405,17 +431,13 @@ public abstract class ListBase<TOption> : FluentComponentBase
     }
 
     /// <summary />
-    protected virtual Task OnChangedHandlerAsync(ChangeEventArgs e)
+    protected virtual async Task OnChangedHandlerAsync(ChangeEventArgs e)
     {
         if (e.Value is not null && Items is not null)
         {
-            TOption? item = Items.FirstOrDefault(i => GetOptionText(i) == e.Value.ToString());
+            TOption? item = Items.FirstOrDefault(i => GetOptionValue(i) == e.Value.ToString());
 
-            return OnSelectedItemChangedHandlerAsync(item);
-        }
-        else
-        {
-            return Task.CompletedTask;
+            await OnSelectedItemChangedHandlerAsync(item);
         }
     }
 

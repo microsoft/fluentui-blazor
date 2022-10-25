@@ -1,6 +1,11 @@
 ﻿::deep fluent-tab {
     font-weight: 600;
     font-size: medium;
+    
+}
+
+::deep fluent-tab[aria-selected="true"] {
+    z-index: 0;
 }
 
 .demo-section-example {
@@ -13,6 +18,7 @@
     ::deep  p {
         margin-top: 1rem;
     }
+
 
 .demo-section-downloads {
     display: flex;

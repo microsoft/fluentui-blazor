@@ -1,10 +1,14 @@
-﻿<FluentSelect @bind-Value="@selectValue" TOption="string">
+﻿<FluentSelect ValueChanged="@(e => selectValue = e)" TOption="string">
     <FluentIcon Name="@FluentIcons.Globe" Slot="indicator" Size="@IconSize.Size16" Filled=false Color=IconColor.Neutral />
-    <FluentOption>Option One</FluentOption>
-    <FluentOption>Option Two</FluentOption>
-    <FluentOption>Option Three</FluentOption>
-    <FluentOption>Option Four</FluentOption>
+    <FluentOption Value="1">Option One</FluentOption>
+    <FluentOption Value="2">Option Two</FluentOption>
+    <FluentOption Value="3">Option Three</FluentOption>
+    <FluentOption Value="4">Option Four</FluentOption>
 </FluentSelect>
+
+<p>
+    Selected value: @selectValue
+</p>
 
 @code {
     string? selectValue;

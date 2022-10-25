@@ -7,7 +7,7 @@
               @bind-Value="@selectedValue">
 
 </FluentSelect>
-
+<p></p>
 <h5>Stealth</h5>
 <FluentSelect Appearance="Appearance.Stealth"
               TOption="string"

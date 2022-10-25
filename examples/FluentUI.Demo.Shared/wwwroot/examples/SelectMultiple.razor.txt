@@ -1,0 +1,27 @@
+﻿@inject DataSource Data
+
+<label for="people-listbox">Select persons</label>
+<FluentSelect TOption="Person"
+              Items="@Data.People"
+              Id="people-listbox"
+              Multiple="true"
+              OptionValue="@(p => p.PersonId.ToString())"
+              OptionText="@(p => p.LastName + ", " + p.FirstName)"
+              @bind-SelectedItems="@SelectedItems" />
+
+<p>
+    Selected items: @(String.Join(" - ", SelectedItems.Select(i => i.LastName)))
+</p>
+
+@code
+{
+    IEnumerable<Person> SelectedItems;
+
+    protected override void OnInitialized()
+    {
+        SelectedItems = Data.People.Skip(2).Take(2);
+    }
+    
+    
+
+}

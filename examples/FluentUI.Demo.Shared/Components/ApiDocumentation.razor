@@ -3,15 +3,15 @@
 @using Microsoft.Fast.Components.FluentUI;
 
 <div>
-@if (!Component.IsGenericType)
-{
-    <h2>@Component.Name Class</h2>
-}
-else
-{
     <h2>@Component.Name.Replace("`1",$"<{GenericLabel}>") Class</h2>
-}
 
+@if (Component.BaseType != null && Component.BaseType != typeof(FluentComponentBase))
+{
+    <p>
+        Inherits from <a href="/@Component.BaseType.Name">@Component.BaseType.Name.Replace("`1",$"<{GenericLabel}>")</a>. <br />
+        <em>There might be parameters and/or methods shown here that are inherited from the component's base type but are not applicable to this component.</em>
+    </p>
+}
 @if (this.Properties.Any())
 {
     <h3>Parameters</h3>

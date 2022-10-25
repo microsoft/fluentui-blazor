@@ -76,4 +76,11 @@ public partial class FluentOption<TOption> : FluentComponentBase
         }
     }
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && Selected && ListContext != null && ListContext.ValueChanged.HasDelegate)
+        {
+            await ListContext.ValueChanged.InvokeAsync(Value);
+        }
+    }
 }

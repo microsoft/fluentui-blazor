@@ -1,84 +1,25 @@
 ﻿@inject DataSource Data
 
-<h5>Simplest use</h5>
-<FluentCombobox Id="combobox" Items="@Data.Hits" @bind-Value="@comboboxValue" />
+<h5>Select the best song from the list or type your own</h5>
+<FluentCombobox Id="combobox" Items="@Data.Hits" @bind-Value="@hit" />
 <p>
-    Selected Value: @comboboxValue
+    Selected hit: @hit
 </p>
-
-<h5>From list of Option&lt;string&gt; items</h5>
-<p>Second item in the list is initially selected , therefore a <code>OptionSelected</code> parameter is added</p>
-<FluentCombobox Items=@stringOptions 
-                OptionText="@(i => i.Text)" 
-                OptionValue="@(i => i.Value)" 
-                OptionSelected=@(i => i.Selected)
-                @bind-Value="@comboboxStringListValue" />
-<p>
-    Selected Value: @comboboxStringListValue<br />
-</p>
-
-<h5>From list of Option&lt;int&gt; items</h5>
-<p>First item in the list is disabled, therefore a <code>OptionDisabled</code> parameter is added</p>
-<FluentCombobox Items=@intOptions TOption="Option<int>"
-                OptionText="@(i => i.Text.ToString())" 
-                OptionValue="@(i => i.Value.ToString())" 
-                OptionDisabled=@(i => i.Disabled)
-                @bind-SelectedItem="@selectedIntListOption"
-                @bind-Value="@comboboxIntListValue" />
-<p>
-    Selected Value: @comboboxIntListValue<br />
-    Selected Item (strongly typed): <br />
-    Value: @selectedIntListOption?.Value (Type: @(selectedIntListOption?.Value.GetType())) <br />
-    Text: @selectedIntListOption?.Text
-</p>
-
 
 <h5>Pre-selected option</h5>
-<FluentCombobox TOption="string">
-    <FluentOption>William Hartnell</FluentOption>
-    <FluentOption>Patrick Troughton</FluentOption>
-    <FluentOption>Jon Pertwee</FluentOption>
-    <FluentOption>Tom Baker</FluentOption>
-    <FluentOption>Peter Davidson</FluentOption>
-    <FluentOption>Colin Baker</FluentOption>
-    <FluentOption>Sylvester McCoy</FluentOption>
-    <FluentOption>Paul McGann</FluentOption>
-    <FluentOption>Christopher Eccleston</FluentOption>
-    <FluentOption>David Tenant</FluentOption>
-    <FluentOption>Matt Smith</FluentOption>
-    <FluentOption>Peter Capaldi</FluentOption>
-    <FluentOption Selected="true">Jodie Whittaker</FluentOption>
-</FluentCombobox>
+<FluentCombobox Items="@Data.Names" @bind-Value="@name" />
+<p>
+    Selected name: @name
+</p>
 
 <h5>With Placeholder</h5>
-<FluentCombobox Placeholder="Please select a size" TOption="string">
-    <FluentOption>Extra Small</FluentOption>
-    <FluentOption>Small</FluentOption>
-    <FluentOption>Medium</FluentOption>
-    <FluentOption>Large</FluentOption>
-    <FluentOption>Extra Large</FluentOption>
-</FluentCombobox>
+<FluentCombobox Placeholder="Please select a size" Items="@Data.Sizes" @bind-Value="@size" />
+<p>
+    Selected size: @size
+</p>
 
 @code {
-    string? comboboxValue = "";
-    string? comboboxStringListValue;
-    //Option<string>? selectedStringListOption;
-    string? comboboxIntListValue;
-    Option<int>? selectedIntListOption;
-
-    List<Option<string>> stringOptions = new()
-        {
-            { new Option<string> { Value = "1", Text = "One" } },
-            { new Option<string> { Value = "2", Text = "Two", Selected = true } },
-            { new Option<string> { Value = "3", Text = "Three" } }
-
-        };
-
-    List<Option<int>> intOptions = new()
-        {
-            { new Option<int> { Value = 1, Text = 1, Disabled = true } },
-            { new Option<int> { Value = 2, Text = 2 } },
-            { new Option<int> { Value = 3, Text = 3 } }
-
-        };
+    string? hit = "";
+    string? name = "Nur Sari";
+    string? size = "";
 }

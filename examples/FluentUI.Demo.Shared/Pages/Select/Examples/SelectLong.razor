@@ -1,4 +1,4 @@
-﻿<FluentSelect Id="state" Name="state" @bind-Value="@selectValue" TOption="string">
+﻿<FluentSelect Id="state" name="state" ValueChanged="@(e => selectValue = e)" TOption="string">
     <FluentOption Value="AL">Alabama</FluentOption>
     <FluentOption Value="AK">Alaska</FluentOption>
     <FluentOption Value="AZ">Arizona</FluentOption>
@@ -50,6 +50,9 @@
     <FluentOption Value="WV">West Virginia</FluentOption>
     <FluentOption Value="WY">Wyoming</FluentOption>
 </FluentSelect>
+<p>
+    Selected value: @selectValue
+</p>
 
 @code {
     string? selectValue;

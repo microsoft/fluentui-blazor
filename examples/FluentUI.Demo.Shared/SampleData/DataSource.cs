@@ -15,6 +15,8 @@ public class DataSource
 
     public IQueryable<Person> People { get; } = _people.AsQueryable();
 
+    public List<string> Names = _people.Select(p => $"{p.FirstName} {p.LastName}").ToList();
+
     public List<string> Hits { get; } = new()
     {
         "Please Please Me",
@@ -32,6 +34,17 @@ public class DataSource
         "Let It Be",
     };
 
+    public List<string> Sizes { get; } = new()
+    {
+        "Extra small",
+        "Small",
+        "Medium",
+        "Large",
+        "Extra Large"
+    };
+
+
+
     public Task<Country[]> GetCountriesAsync()
     {
         // In a real application, you'd typically be querying an external data source here.
@@ -47,7 +60,10 @@ public class DataSource
         new Person ( PersonId : 3, FirstName : "Julie", LastName : "Smith", CountryCode : "au", BirthDate : new DateOnly(1958, 10, 10) ),
         new Person ( PersonId : 4, FirstName : "Nur", LastName : "Sari", CountryCode : "id", BirthDate : new DateOnly(1922, 4, 27) ),
         new Person ( PersonId : 5, FirstName : "Jose", LastName : "Hernandez", CountryCode : "mx", BirthDate : new DateOnly(2011, 5, 3) ),
-        new Person ( PersonId : 6, FirstName : "Kenji", LastName : "Sato", CountryCode : "jp", BirthDate : new DateOnly(2004, 1, 9) )
+        new Person ( PersonId : 6, FirstName : "Bert", LastName : "de Vries", CountryCode : "nl", BirthDate : new DateOnly(1999, 6, 9) ),
+        new Person ( PersonId : 7, FirstName : "Jaques", LastName : "Martin", CountryCode : "fr", BirthDate : new DateOnly(2002, 10, 20) ),
+        new Person ( PersonId : 8, FirstName : "Elizabeth", LastName : "Johnson", CountryCode : "gb", BirthDate : new DateOnly(1971, 11, 24) ),
+        new Person ( PersonId : 9, FirstName : "Jakob", LastName : "Berger", CountryCode : "de", BirthDate : new DateOnly(1971, 4, 21) )
     };
 
 

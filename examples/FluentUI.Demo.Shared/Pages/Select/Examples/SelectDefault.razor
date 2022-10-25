@@ -1,28 +1,21 @@
-﻿<FluentSelect @bind-Value="@selectValue" TOption="string">
-    <FluentOption>This option has no value</FluentOption>
-    <FluentOption Disabled="true">This option is disabled</FluentOption>
-    <FluentOption Value="hi">This option has a value</FluentOption>
-    <FluentOption Selected="true">This option is selected by default</FluentOption>
-</FluentSelect>
+﻿@inject DataSource Data
 
-<h5>Default with an int type</h5>
-<FluentSelect @bind-SelectedItem="@selectValue2" TOption="int">
-    <FluentOption Value=1>1</FluentOption>
-    <FluentOption Value=-1 Disabled="true">-1</FluentOption>
-    <FluentOption Value=2>2</FluentOption>
-    <FluentOption Value=3 Selected="true">3</FluentOption>
-</FluentSelect>
+<label for="people-listbox">Select a person</label>
+<FluentSelect TOption="Person"
+              Items="@Data.People"
+              Id="people-listbox"
+              OptionValue="@(p => p.PersonId.ToString())"
+              OptionText="@(p => p.LastName + ", " + p.FirstName)"
+              @bind-Value="@SelectedValue"
+              @bind-SelectedItem="@SelectedItem" />
 
-<h5>With Label</h5>
-<label for="shirt-size">Choose a T-Shirt size:</label>
-<FluentSelect Id="shirt-size" @bind-Value="@selectValue" TOption="string">
-    <FluentOption Value="s">Small</FluentOption>
-    <FluentOption Value="m">Medium</FluentOption>
-    <FluentOption Value="l">Large</FluentOption>
-    <FluentOption Value="xl">Extra Large</FluentOption>
-</FluentSelect>
+<p>
+    Selected value: @SelectedValue <br />
+    Selected item: @SelectedItem?.ToString()
+</p>
 
-@code {
-    string? selectValue;
-    int selectValue2;
+@code
+{
+    Person? SelectedItem;
+    string? SelectedValue = "4";
 }

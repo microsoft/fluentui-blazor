@@ -1,4 +1,4 @@
-﻿<FluentListbox @bind-Value=@listboxValue TOption="string">
+﻿<FluentListbox ValueChanged="@(e => listboxValue = e)" TOption="string">
     <FluentOption Value="AL">Alabama</FluentOption>
     <FluentOption Value="AK">Alaska</FluentOption>
     <FluentOption Value="AZ">Arizona</FluentOption>
@@ -50,7 +50,9 @@
     <FluentOption Value="WV">West Virginia</FluentOption>
     <FluentOption Value="WY">Wyoming</FluentOption>
 </FluentListbox>
-
+<p>
+    Selected value: @listboxValue
+</p>
 @code {
     string? listboxValue;
 }

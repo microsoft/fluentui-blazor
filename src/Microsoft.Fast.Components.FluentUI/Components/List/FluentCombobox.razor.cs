@@ -41,14 +41,42 @@ public partial class FluentCombobox<TOption> : ListBase<TOption>
         if (firstRender)
         {
             // an item may have been selected through the data
-            if (Items != null && Items.Any() && OptionSelected != null && SelectedItem == null && Value == null)
+            if (Items != null && Items.Any() && SelectedItem == null && InternalValue == null)
             {
-                SelectedItem = Items.FirstOrDefault(i => OptionSelected(i));
+                if (OptionSelected is not null)
+                    SelectedItem = Items.FirstOrDefault(i => OptionSelected(i));
+                else if (OptionDisabled is not null)
+                    SelectedItem = Items.FirstOrDefault(i => !OptionDisabled(i));
+
             }
             await RaiseChangedEvents();
         }
 
         await base.OnAfterRenderAsync(firstRender);
+    }
+
+    protected override async Task OnChangedHandlerAsync(ChangeEventArgs e)
+    {
+        if (e.Value is not null && Items is not null)
+        {
+            string? value = e.Value.ToString();
+            TOption? item = Items.FirstOrDefault(i => GetOptionText(i) == value);
+
+            if (item is null)
+            {
+                SelectedItem = default;
+
+                if (SelectedItemChanged.HasDelegate)
+                    await SelectedItemChanged.InvokeAsync(SelectedItem);
+
+                if (ValueChanged.HasDelegate)
+                    await ValueChanged.InvokeAsync(value);
+
+                StateHasChanged();
+            }
+            else
+                await OnSelectedItemChangedHandlerAsync(item);
+        }
     }
 
 }

@@ -13,7 +13,7 @@
         createEventArgs: event => {
             return {
                 activeId: event.detail?.id,
-                affectedId: event.detail?.attributes['tab-id'].value
+                affectedId: event.detail?.attributes['tab-id']?.value
                 
             };
         }

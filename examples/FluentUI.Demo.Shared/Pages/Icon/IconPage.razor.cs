@@ -47,7 +47,6 @@ public partial class IconPage : IAsyncDisposable
         if (!string.IsNullOrEmpty(args.Value?.ToString()))
         {
             Form.Size = Enum.Parse<IconSize>((string)args.Value);
-            HandleSearch();
         }
 
         HandleSearch();
@@ -58,7 +57,6 @@ public partial class IconPage : IAsyncDisposable
         if (!string.IsNullOrEmpty(args.Value?.ToString()))
         {
             Form.Color = Enum.Parse<IconColor>((string)args.Value);
-            HandleSearch();
         }
 
         HandleSearch();
@@ -71,9 +69,6 @@ public partial class IconPage : IAsyncDisposable
         {
             icons = FluentIcons.GetFilteredIcons(searchterm: Form.Searchterm.Trim(), size: Form.Size, filled: Form.Style);
         }
-
-        StateHasChanged();
-        return;
     }
 
     public async void HandleClick(IconModel icon)
@@ -104,13 +99,13 @@ public partial class IconPage : IAsyncDisposable
     }
 
     private FormModel Form = new() { Size = IconSize.Size24, Searchterm = "", Style = null, Color = IconColor.Accent };
+
     protected override void OnInitialized()
     {
         editContext = new EditContext(Form);
     }
 
     [SuppressMessage("Usage", "CA1816:Dispose methods should call SuppressFinalize", Justification = "Not needed")]
-
     public async ValueTask DisposeAsync()
     {
         try

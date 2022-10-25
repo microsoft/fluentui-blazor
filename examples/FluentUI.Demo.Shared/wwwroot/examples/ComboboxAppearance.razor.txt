@@ -1,20 +1,18 @@
 ﻿@inject DataSource Data
-
 <h5>Filled</h5>
 <FluentCombobox Id="combobox" 
                 Appearance="Appearance.Filled"                
                 TOption="string"
                 Items="@Data.Hits"
-                @bind-Value="@comboboxValue" 
-                >
+                @bind-Value="@selectedValue">
     
 </FluentCombobox>
+
 <p>
-    Selected Value: @comboboxValue<br />
+    Selected Value: @selectedValue<br />
     
 </p>
 
 @code {
-    string? comboboxValue = "Help!";
-    //string? comboboxSelected;
+    string? selectedValue = "Help!";
 }

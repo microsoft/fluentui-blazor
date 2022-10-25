@@ -1,7 +1,7 @@
 ﻿<h5>From list of Option&lt;string&gt; items</h5>
 <p>Second item in the list is initially selected. We add an <code>OptionSelected</code> parameter to reflect this in the component.</p>
-<FluentListbox Items=@stringOptions 
-               OptionText="@(i => i.Text)" 
+<FluentSelect Items=@stringOptions
+               OptionText="@(i => i.Text)"
                OptionValue="@(i => i.Value)"
                OptionSelected="@(i => i.Selected)"
                @bind-Value="@stringValue" />
@@ -12,9 +12,9 @@
 <h5>From list of Option&lt;int&gt; items</h5>
 <p>First item in the list is disabled. We add an <code>OptionDisabled</code> parameter to reflect this in the component.</p>
 
-<FluentListbox Items=@intOptions 
+<FluentSelect Items=@intOptions
                TOption="Option<int>"
-               OptionText="@(i => i.Text.ToString())" 
+               OptionText="@(i => i.Text.ToString())"
                OptionValue="@(i => i.Value.ToString())"
                OptionDisabled="@(i => i.Disabled)"
                @bind-SelectedItem="@selectedIntOption"
@@ -30,7 +30,7 @@
     string? stringValue;
     string? intValue;
     Option<int>? selectedIntOption;
-    
+
     List<Option<string>> stringOptions = new()
     {
         { new Option<string> { Value = "1", Text = "One" } },
@@ -39,7 +39,7 @@
 
     };
 
-List<Option<int>> intOptions = new()
+    List<Option<int>> intOptions = new()
     {
         { new Option<int> { Value = 1, Text = 1, Disabled = true } },
         { new Option<int> { Value = 2, Text = 2 } },

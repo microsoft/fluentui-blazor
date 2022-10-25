@@ -30,13 +30,19 @@ public partial class FluentSelect<TOption> : ListBase<TOption>
         if (firstRender)
         {
             // an item may have been selected through the data
-            if (Items != null && Items.Any() && OptionSelected != null && SelectedItem == null && Value == null)
+            if (Items != null && Items.Any() && SelectedItem == null && InternalValue == null && Multiple == false)
             {
-                SelectedItem = Items.FirstOrDefault(i => OptionSelected(i));
+                if (OptionSelected is not null)
+                    SelectedItem = Items.FirstOrDefault(i => OptionSelected(i));
+                else if (OptionDisabled is not null)
+                    SelectedItem = Items.FirstOrDefault(i => !OptionDisabled(i));
+                else
+                    // a Listbox always has an element selected
+                    SelectedItem = Items.FirstOrDefault();
+                await RaiseChangedEvents();
             }
-            await RaiseChangedEvents();
-        }
 
-        await base.OnAfterRenderAsync(firstRender);
+            await base.OnAfterRenderAsync(firstRender);
+        }
     }
 }
