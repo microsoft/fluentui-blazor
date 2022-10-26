@@ -1,7 +1,7 @@
 ﻿@inject DataSource Data
 
 <label for="people-listbox">Select persons</label>
-<FluentSelect TOption="Person"
+<FluentSelect2 TOption="Person"
               Items="@Data.People"
               Id="people-listbox"
               Multiple="true"
@@ -10,12 +10,12 @@
               @bind-SelectedItems="@SelectedItems" />
 
 <p>
-    Selected items: @(String.Join(" - ", SelectedItems.Select(i => i.LastName)))
+    Selected items: @(String.Join(" - ", SelectedItems!.Select(i => i.LastName)))
 </p>
 
 @code
 {
-    IEnumerable<Person> SelectedItems;
+    IEnumerable<Person>? SelectedItems;
 
     protected override void OnInitialized()
     {

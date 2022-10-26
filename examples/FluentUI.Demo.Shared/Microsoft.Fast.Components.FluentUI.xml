@@ -1390,6 +1390,92 @@
             Gets or sets the visual appearance. See <seealso cref="T:Microsoft.Fast.Components.FluentUI.Appearance"/>
             </summary>
         </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.FluentSelect2`1">
+            <summary>
+            A dropdown selection component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSelect2`1.ClassValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSelect2`1.StyleValue">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentSelect2`1.#ctor">
+            <summary>
+            Constructs an instance of <see cref="T:Microsoft.Fast.Components.FluentUI.FluentSelect2`1"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSelect2`1.ChildContent">
+            <summary>
+            Gets or sets the child content to be rendering inside the select element.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSelect2`1.Open">
+            <summary>
+            The open attribute.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSelect2`1.Position">
+            <summary>
+            Reflects the placement for the listbox when the select is open.
+            See <see cref="T:Microsoft.Fast.Components.FluentUI.SelectPosition"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSelect2`1.Appearance">
+            <summary>
+            Gets or sets the visual appearance. See <seealso cref="T:Microsoft.Fast.Components.FluentUI.Appearance"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSelect2`1.Items">
+            <summary>
+            Data source of all items to display in this list.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSelect2`1.OptionText">
+            <summary>
+            Function used to determine which text to display for each option.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSelect2`1.OptionValue">
+            <summary>
+            Function used to determine which text to return for the selected item.
+            ⚠️ Only available when Multiple = false.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSelect2`1.OptionDisabled">
+            <summary>
+            Function used to determine if an option is (initially) disabled.
+            ⚠️ Only available when Multiple = false.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSelect2`1.OptionSelected">
+            <summary>
+            Function used to determine if an option is (initially) selected.
+            ⚠️ Only available when Multiple = false.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentSelect2`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentSelect2`1.TryParseValueFromString(System.String,`0@,System.String@)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentSelect2`1.FormatValueAsString(`0)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentSelect2`1.GetListOptions(System.Collections.Generic.IEnumerable{`0})">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentSelect2`1.GetOptionValue(`0)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentSelect2`1.GetOptionText(`0)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentSelect2`1.GetOptionSelected(`0)">
+            <summary />
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.InternalListContext`1.ValueChanged">
             <summary>
             Gets the event callback to be invoked when the selected value is changed.

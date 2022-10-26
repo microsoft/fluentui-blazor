@@ -10,12 +10,12 @@
               @bind-SelectedItems="@SelectedItems" />
 
 <p>
-    Selected items: @(String.Join(" - ", SelectedItems.Select(i => i.LastName)))
+    Selected items: @(String.Join(" - ", SelectedItems!.Select(i => i.LastName)))
 </p>
 
 @code
 {
-    IEnumerable<Person> SelectedItems;
+    IEnumerable<Person>? SelectedItems;
 
     protected override void OnInitialized()
     {
