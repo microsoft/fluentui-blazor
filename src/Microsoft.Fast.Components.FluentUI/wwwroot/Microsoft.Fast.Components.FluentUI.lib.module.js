@@ -54,15 +54,14 @@
             };
         }
     });
-    //Blazor.registerCustomEventType('accordionchange', {
-    //    browserEventName: 'change',
-    //    createEventArgs: event => {
-    //        return {
-    //            activeId: event.detail.id,
-    //            affectedId: event.detail.attributes['accordion-item-id'].value
-    //        };
-    //    }
-    //});
+    Blazor.registerCustomEventType('accordionchange', {
+        browserEventName: 'change',
+        createEventArgs: event => {
+            return {
+                activeId: event.target.id,
+            };
+        }
+    });
     Blazor.registerCustomEventType('dismiss', {
         browserEventName: 'dismiss',
         createEventArgs: event => {
