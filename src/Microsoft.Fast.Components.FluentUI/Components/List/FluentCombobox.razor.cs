@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 namespace Microsoft.Fast.Components.FluentUI;
 
 [CascadingTypeParameter(nameof(TOption))]
-public partial class FluentCombobox<TOption> : ListBase<TOption>
+public partial class FluentCombobox<TOption> : ListComponentBase<TOption>
 {
     /// <summary>
     /// Gets or sets if the element is auto completes. See <seealso cref="FluentUI.ComboboxAutocomplete"/>
@@ -41,12 +41,12 @@ public partial class FluentCombobox<TOption> : ListBase<TOption>
         if (firstRender)
         {
             // an item may have been selected through the data
-            if (Items != null && Items.Any() && SelectedItem == null && InternalValue == null)
+            if (Items != null && Items.Any() && SelectedOption == null && InternalValue == null)
             {
                 if (OptionSelected is not null)
-                    SelectedItem = Items.FirstOrDefault(i => OptionSelected(i));
+                    SelectedOption = Items.FirstOrDefault(i => OptionSelected(i));
                 else if (OptionDisabled is not null)
-                    SelectedItem = Items.FirstOrDefault(i => !OptionDisabled(i));
+                    SelectedOption = Items.FirstOrDefault(i => !OptionDisabled(i));
 
             }
             await RaiseChangedEvents();
@@ -64,10 +64,10 @@ public partial class FluentCombobox<TOption> : ListBase<TOption>
 
             if (item is null)
             {
-                SelectedItem = default;
+                SelectedOption = default;
 
-                if (SelectedItemChanged.HasDelegate)
-                    await SelectedItemChanged.InvokeAsync(SelectedItem);
+                if (SelectedOptionChanged.HasDelegate)
+                    await SelectedOptionChanged.InvokeAsync(SelectedOption);
 
                 if (ValueChanged.HasDelegate)
                     await ValueChanged.InvokeAsync(value);

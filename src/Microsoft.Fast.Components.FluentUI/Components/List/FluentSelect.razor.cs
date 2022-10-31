@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 namespace Microsoft.Fast.Components.FluentUI;
 
 [CascadingTypeParameter(nameof(TOption))]
-public partial class FluentSelect<TOption> : ListBase<TOption>
+public partial class FluentSelect<TOption> : ListComponentBase<TOption>
 {
     /// <summary>
     /// The open attribute.
@@ -30,15 +30,13 @@ public partial class FluentSelect<TOption> : ListBase<TOption>
         if (firstRender)
         {
             // an item may have been selected through the data
-            if (Items != null && Items.Any() && SelectedItem == null && InternalValue == null && Multiple == false)
+            if (Items != null && Items.Any() && SelectedOption == null && InternalValue == null && !Multiple)
             {
                 if (OptionSelected is not null)
-                    SelectedItem = Items.FirstOrDefault(i => OptionSelected(i));
+                    SelectedOption = Items.FirstOrDefault(i => OptionSelected(i));
                 else if (OptionDisabled is not null)
-                    SelectedItem = Items.FirstOrDefault(i => !OptionDisabled(i));
-                else
-                    // a Listbox always has an element selected
-                    SelectedItem = Items.FirstOrDefault();
+                    SelectedOption = Items.FirstOrDefault(i => !OptionDisabled(i));
+
                 await RaiseChangedEvents();
             }
 

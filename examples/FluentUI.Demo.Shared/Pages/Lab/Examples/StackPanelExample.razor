@@ -3,10 +3,10 @@
 
 <StackPanel>
     <div>
-        Horizontal: <FluentListbox Items=@(Enum.GetValues<StackPanelHorizontalAlignment>()) @bind-SelectedItem="@Horizontal" />
+        Horizontal: <FluentListbox Items=@(Enum.GetValues<StackPanelHorizontalAlignment>()) @bind-SelectedOption="@Horizontal" />
     </div>
     <div>
-        Vertical:   <FluentListbox Items=@(Enum.GetValues<StackPanelVerticalAlignment>()) @bind-SelectedItem="@Vertical"  />
+        Vertical:   <FluentListbox Items=@(Enum.GetValues<StackPanelVerticalAlignment>()) @bind-SelectedOption="@Vertical"  />
     </div>
 </StackPanel>
 <br/><br/>

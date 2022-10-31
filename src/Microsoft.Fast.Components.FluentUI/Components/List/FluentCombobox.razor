@@ -1,9 +1,10 @@
 @namespace Microsoft.Fast.Components.FluentUI
-@inherits ListBase<TOption>
+@inherits ListComponentBase<TOption>
 @typeparam TOption
 
 <CascadingValue Value=@_internalListContext Name="ListContext" TValue="InternalListContext<TOption>" IsFixed=true>
     <fluent-combobox @ref=Element
+                     id="@Id"
                      class="@ClassValue"
                      style="@StyleValue"
                      autocomplete="@Autocomplete.ToAttributeValue()"

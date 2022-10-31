@@ -7,23 +7,37 @@ namespace Microsoft.Fast.Components.FluentUI;
 internal class InternalListContext<TOption>
 {
 
-    public Dictionary<string, FluentOption<TOption>> Options { get; set; } = new();
+    private readonly List<FluentOption<TOption>> options = new();
 
-    public ListBase<TOption> ListComponent { get; }
+    public ListComponentBase<TOption> ListComponent { get; }
 
-    public InternalListContext(ListBase<TOption> listComponent)
+    public InternalListContext(ListComponentBase<TOption> listComponent)
     {
         ListComponent = listComponent;
     }
 
+    /// <summary>
+    /// Gets the list of all select items inside of this select component.
+    /// </summary>
+    protected IEnumerable<FluentOption<TOption>> Options => options;
+
     internal void Register(FluentOption<TOption> option)
     {
-        Options.Add(option.OptionId, option);
+        if (option is null)
+            return;
+
+        if (!options.Contains(option))
+            options.Add(option);
+
     }
 
     internal void Unregister(FluentOption<TOption> option)
     {
-        Options.Remove(option.OptionId);
+        if (option is null)
+            return;
+
+        if (options.Contains(option))
+            options.Remove(option);
     }
 
     /// <summary>

@@ -2,12 +2,12 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentOption<TOption> : FluentComponentBase
+public partial class FluentOption<TOption> : FluentComponentBase, IDisposable
 {
     internal string OptionId { get; } = Identifier.NewId();
 
     [CascadingParameter(Name = "ListContext")]
-    internal InternalListContext<TOption> ListContext { get; set; } = default!;
+    internal InternalListContext<TOption> InternalListContext { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets if the element is disabled
@@ -46,13 +46,28 @@ public partial class FluentOption<TOption> : FluentComponentBase
     [Parameter]
     public EventCallback<string> OnSelect { get; set; }
 
+    protected override Task OnInitializedAsync()
+    {
+        InternalListContext.Register(this);
+
+        return base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && Selected && InternalListContext != null && InternalListContext.ValueChanged.HasDelegate)
+        {
+            await InternalListContext.ValueChanged.InvokeAsync(Value);
+        }
+    }
+
     /// <summary />
     protected async Task OnSelectHandler()
     {
         if (Disabled)
             return;
 
-        if (ListContext == null)
+        if (InternalListContext == null)
         {
             Selected = !Selected;
         }
@@ -68,19 +83,16 @@ public partial class FluentOption<TOption> : FluentComponentBase
         }
         else
         {
-            if (ListContext != null &&
-                ListContext.ValueChanged.HasDelegate)
+            if (InternalListContext != null &&
+                InternalListContext.ValueChanged.HasDelegate)
             {
-                await ListContext.ValueChanged.InvokeAsync(Value);
+                await InternalListContext.ValueChanged.InvokeAsync(Value);
             }
         }
     }
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    public void Dispose()
     {
-        if (firstRender && Selected && ListContext != null && ListContext.ValueChanged.HasDelegate)
-        {
-            await ListContext.ValueChanged.InvokeAsync(Value);
-        }
+        InternalListContext.Unregister(this);
     }
 }

@@ -13,7 +13,7 @@
             <h1>Components without EditForm</h1>
             <div>
                 <p><label for="SelectValue">Select Value</label></p>
-            <FluentSelect Name="SelectValue" @bind-SelectedItem="Form.SelectValue" TOption="string">
+            <FluentSelect Name="SelectValue" @bind-SelectedOption="Form.SelectValue" TOption="string">
                     <FluentOption Value="One">One</FluentOption>
                     <FluentOption Value="Two">Two</FluentOption>
                     <FluentOption Value="Three">Three</FluentOption>
@@ -22,7 +22,7 @@
 
              <div>
                 <p><label for="SelectValue2">Select Value</label></p>
-            <FluentListbox Name="SelectValue2" @bind-SelectedItem="Form.NumberFieldValue" TOption="int">
+            <FluentListbox Name="SelectValue2" @bind-SelectedOption="Form.NumberFieldValue" TOption="int">
                     <FluentOption Value=1>1</FluentOption>
                     <FluentOption Value=2>2</FluentOption>
                     <FluentOption Value=3>3</FluentOption>

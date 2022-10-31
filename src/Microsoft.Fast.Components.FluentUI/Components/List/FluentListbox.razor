@@ -1,15 +1,16 @@
 @namespace Microsoft.Fast.Components.FluentUI
-@inherits ListBase<TOption>
+@inherits ListComponentBase<TOption>
 @typeparam TOption
 <CascadingValue Value="@_internalListContext" Name="ListContext" TValue="InternalListContext<TOption>" IsFixed="true">
     <div style="overflow-y: auto; max-height: @Height; max-width: @Width;">
         <fluent-listbox @ref=Element
+                        id="@Id"
                         class="@ClassValue"
-                        style="@StyleValue width: calc(100% - 8px);"
-                        
+                        style="@StyleValue; width: calc(100% - 8px);"
                         disabled=@Disabled
                         size="@Size"
                         multiple="@Multiple"
+                        aria-label="@(!string.IsNullOrWhiteSpace(Title) ? Title : "")"
                         @onchange="@OnChangedHandlerAsync"
                         @attributes="AdditionalAttributes">
                 @GetListOptions(Items)

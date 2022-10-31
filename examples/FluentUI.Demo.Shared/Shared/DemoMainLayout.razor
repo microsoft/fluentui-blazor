@@ -23,11 +23,11 @@
                     </g>
                 </g>
             </svg>
-
+            
         </div>
         <div class="colorgroup">
             <label for="color">Color: </label>
-            <FluentSelect Id="color" @bind-SelectedItem="@selectValue" Position="SelectPosition.Below" @onchange="@(x => HandleColorChange(x))" TItem="string">
+            <FluentSelect Id="color" @bind-SelectedOption="@selectValue" Position="SelectPosition.Below" @onchange="@(x => HandleColorChange(x))" TItem="string">
                 <FluentOption Value=@("default")>Default</FluentOption>
                 @foreach (var color in Enum.GetValues<OfficeColor>())
                 {

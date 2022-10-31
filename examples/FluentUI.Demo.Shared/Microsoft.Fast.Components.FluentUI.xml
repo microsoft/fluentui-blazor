@@ -1400,152 +1400,157 @@
             Gets or sets the visual appearance. See <seealso cref="T:Microsoft.Fast.Components.FluentUI.Appearance"/>
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.InternalListContext`1.Options">
+            <summary>
+            Gets the list of all select items inside of this select component.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.InternalListContext`1.ValueChanged">
             <summary>
             Gets the event callback to be invoked when the selected value is changed.
             </summary>
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.ListBase`1">
+        <member name="T:Microsoft.Fast.Components.FluentUI.ListComponentBase`1">
             <summary>
             Component that provides a list of options.
             </summary>
             <typeparam name="TOption"></typeparam>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.ClassValue">
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.ClassValue">
             <summary />
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.StyleValue">
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.StyleValue">
             <summary />
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.Id">
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.Id">
             <summary>
             Unique identifier. If not provided, a random value will be generated.
             The value will be used as the HTML <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id">global id attribute</see>.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.Title">
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.Title">
             <summary>
             Text used on aria-label attribute.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.Disabled">
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.Disabled">
             <summary>
             If true, will disable the list of items.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.ChildContent">
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
             In this case list of FluentOptions
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.OptionText">
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.OptionText">
             <summary>
             Function used to determine which text to display for each option.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.OptionValue">
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.OptionValue">
             <summary>
             Function used to determine which text to return for the selected item.
             ⚠️ Only available when Multiple = false.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.OptionDisabled">
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.OptionDisabled">
             <summary>
             Function used to determine if an option is (initially) disabled.
             ⚠️ Only available when Multiple = false.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.OptionSelected">
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.OptionSelected">
             <summary>
             Function used to determine if an option is (initially) selected.
             ⚠️ Only available when Multiple = false.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.Items">
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.Items">
             <summary>
             Data source of all items to display in this list.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.SelectedItem">
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.SelectedOption">
             <summary>
             Gets or sets the selected item.
             ⚠️ Only available when Multiple = false.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.SelectedItemChanged">
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.SelectedOptionChanged">
             <summary>
             Called whenever the selection changed.
             ⚠️ Only available when Multiple = false.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.Value">
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.Value">
             <summary>
-            Gets or sets the selected value <see cref="P:Microsoft.Fast.Components.FluentUI.ListBase`1.OptionValue"/>.
+            Gets or sets the selected value <see cref="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.OptionValue"/>.
             ⚠️ Only available when Multiple = false.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.ValueChanged">
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.ValueChanged">
             <summary>
             Called whenever the selection changed.
             ⚠️ Only available when Multiple = false.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.Multiple">
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.Multiple">
             <summary>
             If true, the user can select multiple elements.
             ⚠️ Only available for the FluentSelect and FluentListbox components.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.SelectedItems">
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.SelectedOptions">
             <summary>
             Gets or sets all selected items.
             ⚠️ Only available when Multiple = true.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.SelectedItemsChanged">
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.SelectedOptionsChanged">
             <summary>
             Called whenever the selection changed.
             ⚠️ Only available when Multiple = true.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ListBase`1.MultipleSelectedText">
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.MultipleSelectedText">
             <summary>
             Function to define a customized text when multiple items selected.
             ⚠️ Only available if Multiple = true.
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ListBase`1.#ctor">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.#ctor">
             <summary />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ListBase`1.DisabledItem(`0)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.DisabledItem(`0)">
             <summary />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ListBase`1.GetOptionSelected(`0)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.GetOptionSelected(`0)">
             <summary />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ListBase`1.GetOptionValue(`0)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.GetOptionValue(`0)">
             <summary />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ListBase`1.GetOptionText(`0)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.GetOptionText(`0)">
             <summary />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ListBase`1.OnSelectedItemChangedHandlerAsync(`0)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.OnSelectedItemChangedHandlerAsync(`0)">
             <summary />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ListBase`1.RaiseChangedEvents">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.RaiseChangedEvents">
             <summary />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ListBase`1.GetListOptions(System.Collections.Generic.IEnumerable{`0})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.GetListOptions(System.Collections.Generic.IEnumerable{`0})">
             <summary />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ListBase`1.OnChangedHandlerAsync(Microsoft.AspNetCore.Components.ChangeEventArgs)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.OnChangedHandlerAsync(Microsoft.AspNetCore.Components.ChangeEventArgs)">
             <summary />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ListBase`1.RemoveSelectedItem(`0)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.RemoveSelectedItem(`0)">
             <summary />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ListBase`1.AddSelectedItem(`0)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.AddSelectedItem(`0)">
             <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenu.ChildContent">
