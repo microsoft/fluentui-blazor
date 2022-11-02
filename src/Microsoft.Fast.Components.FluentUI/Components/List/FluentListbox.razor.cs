@@ -40,8 +40,9 @@ public partial class FluentListbox<TOption> : ListComponentBase<TOption>
                 else
                     // a Listbox always has an element selected
                     SelectedOption = Items.FirstOrDefault();
+
+                await RaiseChangedEvents();
             }
-            await RaiseChangedEvents();
         }
 
         await base.OnAfterRenderAsync(firstRender);

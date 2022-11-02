@@ -40,6 +40,7 @@ internal class InternalListContext<TOption>
             options.Remove(option);
     }
 
+
     /// <summary>
     /// Gets the event callback to be invoked when the selected value is changed.
     /// </summary>

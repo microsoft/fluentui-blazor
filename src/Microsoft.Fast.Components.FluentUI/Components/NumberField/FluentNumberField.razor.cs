@@ -110,7 +110,7 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
 
     protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
-        if (BindConverter.TryConvertTo<TValue>(value, CultureInfo.InvariantCulture, out result))
+        if (BindConverter.TryConvertTo(value, CultureInfo.InvariantCulture, out result))
         {
             validationErrorMessage = null;
             return true;

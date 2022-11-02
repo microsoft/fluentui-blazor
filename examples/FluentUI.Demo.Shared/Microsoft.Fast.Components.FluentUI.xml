@@ -1487,7 +1487,7 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.Value">
             <summary>
             Gets or sets the selected value <see cref="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.OptionValue"/>.
-            ⚠️ Only available when Multiple = false.
+            When Multiple = true this only reflects the first selected option value.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.ValueChanged">
@@ -1512,12 +1512,6 @@
             <summary>
             Called whenever the selection changed.
             ⚠️ Only available when Multiple = true.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.MultipleSelectedText">
-            <summary>
-            Function to define a customized text when multiple items selected.
-            ⚠️ Only available if Multiple = true.
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.#ctor">

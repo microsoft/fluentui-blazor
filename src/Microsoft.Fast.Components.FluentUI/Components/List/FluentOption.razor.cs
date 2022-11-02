@@ -67,10 +67,8 @@ public partial class FluentOption<TOption> : FluentComponentBase, IDisposable
         if (Disabled)
             return;
 
-        if (InternalListContext == null)
-        {
-            Selected = !Selected;
-        }
+        Selected = !Selected;
+
 
         if (SelectedChanged.HasDelegate)
         {

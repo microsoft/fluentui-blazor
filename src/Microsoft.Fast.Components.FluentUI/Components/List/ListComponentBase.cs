@@ -15,6 +15,8 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
     private List<TOption> _selectedOptions = new();
 
 
+
+
     // We cascade the InternalListContext to descendants, which in turn call it to add themselves to _options
     internal InternalListContext<TOption> _internalListContext;
 
@@ -43,6 +45,7 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
                 {
                     SelectedOption = item;
 
+                    Value = value;
                     // Raise Changed events in another thread
                     Task.Run(() => RaiseChangedEvents());
                 }
@@ -125,7 +128,7 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the selected value <see cref="OptionValue"/>.
-    /// ⚠️ Only available when Multiple = false.
+    /// When Multiple = true this only reflects the first selected option value.
     /// </summary>
     [Parameter]
     public virtual string? Value { get; set; }
@@ -160,35 +163,14 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
     [Parameter]
     public virtual EventCallback<IEnumerable<TOption>?> SelectedOptionsChanged { get; set; }
 
-    /// <summary>
-    /// Function to define a customized text when multiple items selected.
-    /// ⚠️ Only available if Multiple = true.
-    /// </summary>
-    [Parameter]
-    public virtual Func<IEnumerable<TOption>, string> MultipleSelectedText { get; set; }
-
-
     /// <summary />
     public ListComponentBase()
     {
         _internalListContext = new(this);
 
-
         OptionText = (item) => item?.ToString() ?? null;
         OptionValue = (item) => OptionText.Invoke(item) ?? item?.ToString() ?? null;
-        MultipleSelectedText = (items) =>
-        {
-            if (Items?.Any() == true)
-            {
-                return string.Join("; ", Items
-                                             .Where(i => items.Contains(i))
-                                             .Select(i => OptionText.Invoke(i) ?? i?.ToString() ?? "--"));
-            }
-            else
-            {
-                return string.Join("; ", items.Select(i => OptionText.Invoke(i) ?? i?.ToString() ?? "--"));
-            }
-        };
+
     }
 
 
@@ -219,17 +201,10 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
             _multiple = Multiple;
         }
 
-
         if (SelectedOptions != null && _selectedOptions != SelectedOptions)
         {
             _selectedOptions = new List<TOption>(SelectedOptions ?? Array.Empty<TOption>());
-
         }
-
-        //if (_selectedOptions != SelectedOptions)
-        //{
-        //    _selectedOptions = SelectedOptions;
-        //}
 
         base.OnParametersSet();
     }
@@ -341,6 +316,7 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
                 AddSelectedItem(item);
                 await RaiseChangedEvents();
             }
+
         }
         else
         {
@@ -365,9 +341,9 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
             if (SelectedOptionChanged.HasDelegate)
                 await SelectedOptionChanged.InvokeAsync(SelectedOption);
 
-            if (ValueChanged.HasDelegate)
-                await ValueChanged.InvokeAsync(InternalValue);
         }
+        if (ValueChanged.HasDelegate)
+            await ValueChanged.InvokeAsync(InternalValue);
     }
 
 
@@ -393,7 +369,7 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
                     }));
 
                     // fluent-listbox doesn't support OnChange
-                    if (HasListControlWithGlobalChangedEvent == false)
+                    if (HasListControlWithGlobalChangedEvent == true)
                     {
                         builder.AddAttribute(i++, "OnSelect", OnSelectCallback(item));
                     }
@@ -425,6 +401,10 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
 
             await OnSelectedItemChangedHandlerAsync(item);
         }
+        if (e.Value is not null && Multiple)
+        {
+            InternalValue = e.Value.ToString();
+        }
     }
 
     /// <summary />
@@ -451,9 +431,6 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
     {
         get
         {
-            if (Multiple)
-                return false;
-
             return (this is FluentCombobox<TOption>) || (this is FluentSelect<TOption>);
         }
     }

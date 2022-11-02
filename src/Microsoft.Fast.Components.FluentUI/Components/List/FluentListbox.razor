@@ -10,6 +10,7 @@
                         disabled=@Disabled
                         size="@Size"
                         multiple="@Multiple"
+                        selectedOptions="@(SelectedOptions != null && SelectedOptions.Any() ? string.Join(',', SelectedOptions.Select(i => GetOptionValue(i))) : null)"
                         aria-label="@(!string.IsNullOrWhiteSpace(Title) ? Title : "")"
                         @onchange="@OnChangedHandlerAsync"
                         @attributes="AdditionalAttributes">
