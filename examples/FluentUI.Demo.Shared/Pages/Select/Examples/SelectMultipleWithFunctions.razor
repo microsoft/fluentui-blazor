@@ -22,7 +22,7 @@
     <em>Reflects the value of the first selected option</em><br />
 </p>
 <p>
-    Selected options: @(SelectedOptions != null ? String.Join(", ", SelectedOptions.Select(i => i.LastName)) : "")<br />
+    Selected options: @(SelectedOptions != null ? String.Join(", ", SelectedOptions.Select(i => i.FirstName)) : "")<br />
     <em>Strongly typed enumeration of the selected options</em>. In this case a concatenated string of the last names of the selected options.
 </p>
 
