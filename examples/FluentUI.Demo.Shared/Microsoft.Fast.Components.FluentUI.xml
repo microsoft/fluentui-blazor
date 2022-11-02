@@ -1452,19 +1452,16 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.OptionValue">
             <summary>
             Function used to determine which text to return for the selected item.
-            ⚠️ Only available when Multiple = false.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.OptionDisabled">
             <summary>
-            Function used to determine if an option is (initially) disabled.
-            ⚠️ Only available when Multiple = false.
+            Function used to determine if an option is disabled.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.OptionSelected">
             <summary>
-            Function used to determine if an option is (initially) selected.
-            ⚠️ Only available when Multiple = false.
+            Function used to determine if an option is initially selected.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.Items">

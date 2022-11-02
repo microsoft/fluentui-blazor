@@ -27,14 +27,19 @@
 </p>
 
 <h5>From list of Option&lt;string&gt; items where multiple can be selected</h5>
-<p>Second item in the list is initially selected. We add an <code>OptionSelected</code> parameter to reflect this in the component.</p>
-<FluentSelect Items=@stringOptions
-              TOption="Option<string>"
-              Multiple=true
-              OptionText="@(i => i.Text)"
-              OptionValue="@(i => i.Value)"
-              OptionSelected="@(i => i.Selected)"
-              @bind-SelectedOptions="@selectedStrings" />
+<p>Items 2, 5 and 8 are initially selected with the <code>OptionSelected</code> function.</p>
+<p>Items with a value higher than 6 2, 5 and 8 are disabled with the <code>OptionDisabled</code> function.</p>
+<p>Item 8 is both selected and disabled and can therefore not be changed.</p>
+<div style="display: block; height: 300px;">
+    <FluentSelect Items=@stringOptions
+                  TOption="Option<string>"
+                  Multiple=true
+                  OptionText="@(i => i.Text)"
+                  OptionValue="@(i => i.Value)"
+                  OptionSelected="@(i => i.Selected)"
+                  OptionDisabled="@(i => int.Parse(i.Value!) > 6)"
+                  @bind-SelectedOptions="@selectedStrings" />
+</div>
 <p>
     Selected strings: @(selectedStrings != null ? string.Join(',', selectedStrings.Select(o => o.Value)) : "")<br />
 </p>
@@ -55,7 +60,7 @@
         { new Option<string> { Value = "6", Text = "Six" } },
         { new Option<string> { Value = "7", Text = "Seven" } },
         { new Option<string> { Value = "8", Text = "Eight", Selected = true } },
-        { new Option<string> { Value = "9", Text = "Three" } }
+        { new Option<string> { Value = "9", Text = "Nine" } }
 
     };
 

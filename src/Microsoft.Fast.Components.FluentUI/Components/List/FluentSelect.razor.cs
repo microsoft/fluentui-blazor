@@ -30,13 +30,22 @@ public partial class FluentSelect<TOption> : ListComponentBase<TOption>
         if (firstRender)
         {
             // an item may have been selected through the data
-            if (Items != null && Items.Any() && SelectedOption == null && InternalValue == null && !Multiple)
+            if (Items != null && Items.Any() && SelectedOption == null && InternalValue == null)
             {
-                if (OptionSelected is not null)
-                    SelectedOption = Items.FirstOrDefault(i => OptionSelected(i));
-                else if (OptionDisabled is not null)
-                    SelectedOption = Items.FirstOrDefault(i => !OptionDisabled(i));
-
+                if (Multiple)
+                {
+                    if (OptionSelected is not null)
+                        SelectedOptions = Items.Where(i => OptionSelected(i));
+                    else if (OptionDisabled is not null)
+                        SelectedOptions = Items.Where(i => !OptionDisabled(i));
+                }
+                else
+                {
+                    if (OptionSelected is not null)
+                        SelectedOption = Items.FirstOrDefault(i => OptionSelected(i));
+                    else if (OptionDisabled is not null)
+                        SelectedOption = Items.FirstOrDefault(i => !OptionDisabled(i));
+                }
                 await RaiseChangedEvents();
             }
 

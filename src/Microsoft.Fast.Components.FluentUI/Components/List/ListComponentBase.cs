@@ -11,11 +11,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 public abstract class ListComponentBase<TOption> : FluentComponentBase
 {
     private bool _multiple = false;
-
     private List<TOption> _selectedOptions = new();
-
-
-
 
     // We cascade the InternalListContext to descendants, which in turn call it to add themselves to _options
     internal InternalListContext<TOption> _internalListContext;
@@ -87,21 +83,18 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
 
     /// <summary>
     /// Function used to determine which text to return for the selected item.
-    /// ⚠️ Only available when Multiple = false.
     /// </summary>
     [Parameter]
     public virtual Func<TOption, string?> OptionValue { get; set; }
 
     /// <summary>
-    /// Function used to determine if an option is (initially) disabled.
-    /// ⚠️ Only available when Multiple = false.
+    /// Function used to determine if an option is disabled.
     /// </summary>
     [Parameter]
     public virtual Func<TOption, bool>? OptionDisabled { get; set; }
 
     /// <summary>
-    /// Function used to determine if an option is (initially) selected.
-    /// ⚠️ Only available when Multiple = false.
+    /// Function used to determine if an option is initially selected.
     /// </summary>
     [Parameter]
     public virtual Func<TOption, bool>? OptionSelected { get; set; }
@@ -173,8 +166,6 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
 
     }
 
-
-
     protected override void OnParametersSet()
     {
 
@@ -203,7 +194,16 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
 
         if (SelectedOptions != null && _selectedOptions != SelectedOptions)
         {
-            _selectedOptions = new List<TOption>(SelectedOptions ?? Array.Empty<TOption>());
+            _selectedOptions = new List<TOption>(SelectedOptions);
+        }
+
+        if (SelectedOptions == null && Items != null & OptionSelected != null)
+        {
+            foreach (TOption item in Items)
+            {
+                if (OptionSelected.Invoke(item) && !_selectedOptions.Contains(item))
+                    _selectedOptions.Add(item);
+            }
         }
 
         base.OnParametersSet();
@@ -220,10 +220,16 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
     {
         if (Multiple)
         {
+
             if (_selectedOptions == null || item == null)
             {
                 return false;
             }
+            else if (OptionSelected != null)
+            {
+                return OptionSelected.Invoke(item);
+            }
+
             else if (OptionValue != null && _selectedOptions != null)
             {
                 foreach (var selectedItem in _selectedOptions)

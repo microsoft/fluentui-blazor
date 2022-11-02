@@ -1,14 +1,5 @@
 ﻿@inject DataSource Data
 
-<p>
-    Selected value: @SelectedValue <br />
-    <em>Reflects the value of the first selected option</em><br />
-</p>
-<p>
-    Selected options: @(String.Join(", ", SelectedOptions!.Select(i => i.LastName)))<br />
-    <em>Strongly typed enumeration of the selected options</em>. In this case a concatenated string of the last names of the selected options.
-</p>
-
 <div style="display: block; height: 300px;">
 <label for="people-listbox2">Select persons</label>
 <FluentSelect TOption="Person"
@@ -21,6 +12,14 @@
               @bind-SelectedOptions="@SelectedOptions" />
 
 </div>
+<p>
+    Selected value: @SelectedValue <br />
+    <em>Reflects the value of the first selected option</em><br />
+</p>
+<p>
+    Selected options: @(String.Join(", ", SelectedOptions!.Select(i => i.LastName)))<br />
+    <em>Strongly typed enumeration of the selected options</em>. In this case a concatenated string of the last names of the selected options.
+</p>
 
 
 @code
