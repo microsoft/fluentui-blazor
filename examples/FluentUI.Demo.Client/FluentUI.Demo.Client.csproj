@@ -4,9 +4,6 @@
 		<TargetFrameworks>net6.0;net7.0</TargetFrameworks>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<RunAOTCompilation>true</RunAOTCompilation>
-		<RunAOTCompilationAfterBuild>true</RunAOTCompilationAfterBuild>
-		<WasmNativeStrip>false</WasmNativeStrip>
 	</PropertyGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
