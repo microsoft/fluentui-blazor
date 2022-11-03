@@ -4,11 +4,14 @@
 		<TargetFrameworks>net6.0;net7.0</TargetFrameworks>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<RunAOTCompilation>true</RunAOTCompilation>
+		<RunAOTCompilationAfterBuild>true</RunAOTCompilationAfterBuild>
+		<WasmNativeStrip>false</WasmNativeStrip>
 	</PropertyGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.9" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.9" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.10" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.10" PrivateAssets="all" />
 	</ItemGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net7.0' ">
