@@ -80,15 +80,22 @@ public partial class FluentAnchor : FluentComponentBase, IAsyncDisposable
 
     protected override void OnParametersSet()
     {
-        // If the Href has been specified (asnd it should) and if starts with '#,'
+        // If the Href has been specified (as it should) and if starts with '#,'
         // we assume the rest of the value contains the id of the element the link points to.
         if (!string.IsNullOrEmpty(Href) && Href.StartsWith('#'))
         {
-
-            // We don't want the default click action to occur, but
-            // rather take care of the click in our own method.
-            _targetId = Href.Substring(1);
+            // We don't want the default click action to occur, but rather take care of the click in our own method.
             _preventDefault = true;
+
+            // Handle text fragment (https://example.org/#test:~:text=foo)
+            // https://github.com/WICG/scroll-to-text-fragment/
+
+            _targetId = Href.Substring(1);
+            int index = _targetId.IndexOf(":~:", StringComparison.Ordinal);
+            if (index > 0)
+            {
+                _targetId = _targetId.Substring(0, index);
+            }
         }
         base.OnParametersSet();
     }
