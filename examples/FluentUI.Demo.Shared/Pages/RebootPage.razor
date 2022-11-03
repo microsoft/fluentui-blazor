@@ -25,8 +25,6 @@
     The file contains a number of CSS variables that are required to be defined for the components to work correctly. See the <FluentAnchor Href="#css-variables" >CSS variables section</FluentAnchor> below for more information.
 </p>
 
-
-
 <h2 id="approach">Approach <a class="anchor-link" href="#approach" aria-label="Link to this section: Approach"></a></h2>
 <p>Reboot builds upon Bootstrap's Reboot which itself  builds upon Normalize, providing many HTML elements with somewhat opinionated styles using only element selectors. </p>
 <p>Here are our guidelines and reasons for choosing what to override in Reboot:</p>
@@ -42,6 +40,26 @@
     file (which Reboot imports). Many more CSS variable are defined are in the Fluent UI Web Components for Blazor library. They are definded 
     through the Fluent UI Web Components scripts and can be used without including or importing any other files besides the 'web-components' script.
 </p>
+<h3><code>variables.css</code> file contents</h3>
+<CodeSnippet Language="css">
+:root {
+    --font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --success-fill: #107c10;
+    --success-background: #dff6dd;
+    --error-fill: #a80000;
+    --error-background: #fde7e9;
+    --warning-fill: #817400;
+    --warning-background: #fff4ce;
+    --severe-warning-fill: #d83b01;
+    --severe-warning-background: #fed9cc;
+    --presence-away: #ffaa44;
+    --presence-do-not-disturb: #c50f1f;
+    --presence-online: #6bb700;
+    --presence-invisible: #8a8886;
+    --presence-out-of-office: #b4009e;
+    --highlight-bg: #fff3cd;
+}
+</CodeSnippet>
 
 <h2 id="page-defaults">Page defaults <a class="anchor-link" href="#page-defaults" aria-label="Link to this section: Page defaults"></a></h2>
 <p>The <code>&lt;html&gt;</code> and <code>&lt;body&gt;</code> elements are updated to provide better page-wide defaults. More specifically:</p>
