@@ -5743,6 +5743,30 @@
             Position at the bottom
             </summary>
         </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.BuilderExtensions.NullIfEmpty(Microsoft.Fast.Components.FluentUI.Utilities.CssBuilder)">
+            <summary>
+            Used to convert a CssBuilder into a null when it is empty.
+            Usage: class=null causes the attribute to be excluded when rendered.
+            </summary>
+            <param name="builder"></param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.BuilderExtensions.NullIfEmpty(Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder)">
+            <summary>
+            Used to convert a StyleBuilder into a null when it is empty.
+            Usage: style=null causes the attribute to be excluded when rendered.
+            </summary>
+            <param name="builder"></param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.BuilderExtensions.NullIfEmpty(System.String)">
+            <summary>
+            Used to convert a string.IsNullOrEmpty into a null when it is empty.
+            Usage: attribute=null causes the attribute to be excluded when rendered.
+            </summary>
+            <param name="s"></param>
+            <returns>string</returns>
+        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.Identifier">
             <summary />
         </member>
@@ -5784,30 +5808,6 @@
              existing one will still be unsubscribed.
              </summary>
              <param name="subscribable"></param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.BuilderExtensions.NullIfEmpty(Microsoft.Fast.Components.FluentUI.Utilities.CssBuilder)">
-            <summary>
-            Used to convert a CssBuilder into a null when it is empty.
-            Usage: class=null causes the attribute to be excluded when rendered.
-            </summary>
-            <param name="builder"></param>
-            <returns>string</returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.BuilderExtensions.NullIfEmpty(Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder)">
-            <summary>
-            Used to convert a StyleBuilder into a null when it is empty.
-            Usage: style=null causes the attribute to be excluded when rendered.
-            </summary>
-            <param name="builder"></param>
-            <returns>string</returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.BuilderExtensions.NullIfEmpty(System.String)">
-            <summary>
-            Used to convert a string.IsNullOrEmpty into a null when it is empty.
-            Usage: attribute=null causes the attribute to be excluded when rendered.
-            </summary>
-            <param name="s"></param>
-            <returns>string</returns>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.CssBuilder.Default(System.String)">
             <summary>

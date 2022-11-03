@@ -17,17 +17,6 @@
             };
         }
     });
-    //Blazor.registerCustomEventType('selectchange', {
-    //    browserEventName: 'change',
-    //    createEventArgs: event => {
-    //        return {
-    //            activeIndex: event.detail._activeIndex, 
-    //            selectedOptions: event.detail._selectedOptions,
-    //            selectedIndex: event.detail._selectedIndex,
-    //            value: event.detail._value
-    //        };
-    //    }
-    //});
     Blazor.registerCustomEventType('selectedchange', {
         browserEventName: 'selected-change',
         createEventArgs: event => {

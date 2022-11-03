@@ -1,4 +1,6 @@
-﻿namespace Microsoft.Fast.Components.FluentUI.Utilities;
+﻿using Microsoft.Fast.Components.FluentUI.Utilities;
+
+namespace Microsoft.Fast.Components.FluentUI;
 
 public static class BuilderExtensions
 {

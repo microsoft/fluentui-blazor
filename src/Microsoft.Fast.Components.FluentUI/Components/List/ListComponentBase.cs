@@ -197,7 +197,7 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
             _selectedOptions = new List<TOption>(SelectedOptions);
         }
 
-        if (SelectedOptions == null && Items != null & OptionSelected != null)
+        if (SelectedOptions == null && Items != null && OptionSelected != null)
         {
             foreach (TOption item in Items)
             {
