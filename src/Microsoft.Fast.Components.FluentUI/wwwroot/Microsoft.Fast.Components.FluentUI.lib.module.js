@@ -7,9 +7,23 @@
             };
         }
     });
+    Blazor.registerCustomEventType('accordionchange', {
+        browserEventName: 'change',
+        createEventArgs: event => {
+            return {
+                activeId: event.target.id,
+            };
+        }
+    });
     Blazor.registerCustomEventType('tabchange', {
         browserEventName: 'change',
         createEventArgs: event => {
+            if (event.target != 'fluent-tabs') {
+                return {
+                    activeId: null,
+                    affectedId: null
+                }
+            }
             return {
                 activeId: event.detail?.id,
                 affectedId: event.detail?.attributes['tab-id']?.value
@@ -40,14 +54,6 @@
         createEventArgs: event => {
             return {
                 calendarDateInfo: event.detail
-            };
-        }
-    });
-    Blazor.registerCustomEventType('accordionchange', {
-        browserEventName: 'change',
-        createEventArgs: event => {
-            return {
-                activeId: event.target.id,
             };
         }
     });
