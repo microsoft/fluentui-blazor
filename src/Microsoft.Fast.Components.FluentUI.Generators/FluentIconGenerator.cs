@@ -20,6 +20,7 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
 
             List<(string folder, string iconbase)> constants = new();
             (string name, int size, bool filled) icon;
+            int iconcount = 0;
 
             context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.MSBuildProjectDirectory", out var projectDirectory);
             string iconsFolder = Path.Combine(Directory.GetParent(projectDirectory).FullName, $"Microsoft.Fast.Components.FluentUI{Path.DirectorySeparatorChar}wwwroot{Path.DirectorySeparatorChar}icons{Path.DirectorySeparatorChar}");
@@ -29,7 +30,7 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             sb.AppendLine("namespace Microsoft.Fast.Components.FluentUI;\r\n");
             sb.AppendLine("public static partial class FluentIcons");
             sb.AppendLine("{");
-            sb.AppendLine("\tpublic static List<IconModel> IconMap = new()");
+            sb.AppendLine("\tpublic static IEnumerable<IconModel> IconMap = new IconModel[$iconcount$]");
             sb.AppendLine("\t{");
 
 
@@ -53,6 +54,7 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
                     );
 
                     sb.AppendLine($"\t\tnew IconModel(\"{icon.name}\", \"{folder}\", IconSize.Size{icon.size}, {icon.filled.ToString().ToLower()}),");
+                    iconcount++;
 
                     if (string.IsNullOrEmpty(iconbase))
                     {
@@ -64,6 +66,8 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
 
             }
             sb.AppendLine("\t};");
+
+            sb.Replace("$iconcount$", iconcount.ToString());
 
             foreach ((string folder, string iconbase) in constants)
             {
