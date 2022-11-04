@@ -70,7 +70,7 @@ public partial class FluentAnchor : FluentComponentBase, IAsyncDisposable
     /// Defaults to <seealso cref="Appearance.Hypertext"/>
     /// </summary>
     [Parameter]
-    public Appearance? Appearance { get; set; } = FluentUI.Appearance.Hypertext;
+    public Appearance? Appearance { get; set; } = FluentUI.Appearance.Neutral;
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.

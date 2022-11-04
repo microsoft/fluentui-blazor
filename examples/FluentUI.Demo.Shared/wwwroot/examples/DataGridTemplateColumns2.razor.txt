@@ -6,9 +6,6 @@
     <TemplateColumn Title="Age">
         <FluentNumberField @bind-Value="@context!.Age" />
     </TemplateColumn>
-    <TemplateColumn Title="Option">
-        <FluentSelect @bind-Value="@context.selectValue" Options=@stringOptions />
-    </TemplateColumn>
 </FluentDataGrid>
 
 
@@ -17,8 +14,7 @@
     {
         public string Name { get; set; }
         public int Age { get; set; }
-        public string? selectValue { get; set; }
-
+        
         public SampleGridData(string name, int age)
         {
             Name = name;
@@ -32,13 +28,5 @@
     {
         new SampleGridData("Rob", 19 ),
         new SampleGridData("Bob", 20 )
-    };
-
-    List<Option<string>> stringOptions = new()
-    {
-        { new Option<string> { Key = "1", Value = "One" } },
-        { new Option<string> { Key = "2", Value = "Two", Selected = true } },
-        { new Option<string> { Key = "3", Value = "Three" } }
-
     };
 }
