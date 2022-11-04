@@ -23,7 +23,7 @@
             //Set to dark mode
             await BaseLayerLuminance.SetValueFor(ref1!.Element, (float)0.15);
 
-            await AccentBaseColor.SetValueFor(ref2!.Element, "#107C41".ToSwatch());
+            //await AccentBaseColor.SetValueFor(ref2!.Element, "#107C41".ToSwatch());
 
             await BodyFont.SetValueFor(ref3!.Element, "Comic Sans MS");
 

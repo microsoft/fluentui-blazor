@@ -18,17 +18,13 @@
     Blazor.registerCustomEventType('tabchange', {
         browserEventName: 'change',
         createEventArgs: event => {
-            if (event.target != 'fluent-tabs') {
+            if (event.target.localName == 'fluent-tabs') { 
                 return {
-                    activeId: null,
-                    affectedId: null
+                    activeId: event.detail?.id,
+                    affectedId: event.detail?.attributes['tab-id']?.value
                 }
-            }
-            return {
-                activeId: event.detail?.id,
-                affectedId: event.detail?.attributes['tab-id']?.value
-                
             };
+            return null;
         }
     });
     Blazor.registerCustomEventType('selectedchange', {
