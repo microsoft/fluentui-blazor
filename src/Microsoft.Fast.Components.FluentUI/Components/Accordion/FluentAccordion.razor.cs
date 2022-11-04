@@ -40,11 +40,14 @@ public partial class FluentAccordion : FluentComponentBase
 
     private async Task HandleOnAccordionChanged(AccordionChangeEventArgs args)
     {
-        string? Id = args.ActiveId;
-        if (items.TryGetValue(Id!, out FluentAccordionItem? item))
+        if (args is not null)
         {
-            await OnAccordionItemChange.InvokeAsync(item);
-            await ActiveIdChanged.InvokeAsync(Id);
+            string? Id = args.ActiveId;
+            if (Id is not null && items.TryGetValue(Id!, out FluentAccordionItem? item))
+            {
+                await OnAccordionItemChange.InvokeAsync(item);
+                await ActiveIdChanged.InvokeAsync(Id);
+            }
         }
     }
 

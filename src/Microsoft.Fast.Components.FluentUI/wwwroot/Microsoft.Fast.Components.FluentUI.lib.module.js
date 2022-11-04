@@ -10,9 +10,12 @@
     Blazor.registerCustomEventType('accordionchange', {
         browserEventName: 'change',
         createEventArgs: event => {
-            return {
-                activeId: event.target.id,
+            if (event.target.localName == 'fluent-accordion-item') {
+                return {
+                    activeId: event.target.id,
+                }
             };
+            return null;
         }
     });
     Blazor.registerCustomEventType('tabchange', {
