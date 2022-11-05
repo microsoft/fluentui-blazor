@@ -4,7 +4,7 @@
         <FluentTextField @bind-Value="@context!.Name" />
     </TemplateColumn>
     <TemplateColumn Title="Age">
-        <FluentNumberField @bind-Value="@context!.Age" />
+        <FluentNumberField @bind-Value="@context!.Age" TValue="int"/>
     </TemplateColumn>
 </FluentDataGrid>
 
