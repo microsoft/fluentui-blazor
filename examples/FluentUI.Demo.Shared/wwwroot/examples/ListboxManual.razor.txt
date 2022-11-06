@@ -5,7 +5,7 @@
     <FluentOption Value="Item 3"><FluentIcon Name="@FluentIcons.Folder" Slot="start" Filled=false Size="IconSize.Size16"></FluentIcon> This option has <b>an icon</b></FluentOption>
     <FluentOption Value="Item 4" Selected=true>
         <div style="display:flex; flex-direction:row">
-            <img style="width:20px" src="_content/FluentUI.Demo.Shared/flags/NL.svg" />This option is selected by default
+            <img style="width:20px" src="_content/FluentUI.Demo.Shared/flags/nl.svg" />This option is selected by default
         </div>
     </FluentOption>
 </FluentListbox>
