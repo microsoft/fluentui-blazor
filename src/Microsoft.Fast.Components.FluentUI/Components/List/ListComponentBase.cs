@@ -199,11 +199,7 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
 
         if (SelectedOptions == null && Items != null && OptionSelected != null)
         {
-            foreach (TOption item in Items)
-            {
-                if (OptionSelected.Invoke(item) && !_selectedOptions.Contains(item))
-                    _selectedOptions.Add(item);
-            }
+            _selectedOptions.AddRange(Items.Where(item => OptionSelected.Invoke(item) && !_selectedOptions.Contains(item)));
         }
 
         base.OnParametersSet();
@@ -281,7 +277,7 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
         if (item != null)
         {
             if (OptionDisabled != null)
-                return OptionDisabled.Invoke(item);
+                return OptionDisabled(item);
             else
                 return Disabled;
         }

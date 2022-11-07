@@ -43,7 +43,7 @@ public partial class FluentAccordion : FluentComponentBase
         if (args is not null)
         {
             string? Id = args.ActiveId;
-            if (!string.IsNullOrEmpty(Id) && items.TryGetValue(Id!, out FluentAccordionItem? item))
+            if (Id is not null && items.TryGetValue(Id!, out FluentAccordionItem? item))
             {
                 await OnAccordionItemChange.InvokeAsync(item);
                 await ActiveIdChanged.InvokeAsync(Id);

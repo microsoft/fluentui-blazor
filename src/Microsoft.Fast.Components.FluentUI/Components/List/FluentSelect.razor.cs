@@ -34,10 +34,10 @@ public partial class FluentSelect<TOption> : ListComponentBase<TOption>
             {
                 if (Multiple)
                 {
-                    if (OptionSelected is not null)
-                        SelectedOptions = Items.Where(i => OptionSelected(i));
-                    else if (OptionDisabled is not null)
-                        SelectedOptions = Items.Where(i => !OptionDisabled(i));
+                    //if (OptionSelected is not null)
+                    //    SelectedOptions = Items.Where(i => OptionSelected.Invoke(i));
+                    //else if (OptionDisabled is not null)
+                    //    SelectedOptions = Items.Where(i => !OptionDisabled.Invoke(i));
                 }
                 else
                 {
@@ -45,8 +45,8 @@ public partial class FluentSelect<TOption> : ListComponentBase<TOption>
                         SelectedOption = Items.FirstOrDefault(i => OptionSelected(i));
                     else if (OptionDisabled is not null)
                         SelectedOption = Items.FirstOrDefault(i => !OptionDisabled(i));
+                    await RaiseChangedEvents();
                 }
-                await RaiseChangedEvents();
             }
 
             await base.OnAfterRenderAsync(firstRender);
