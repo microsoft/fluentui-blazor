@@ -1,15 +1,43 @@
-﻿<FluentSelect ValueChanged="@(e => selectValue = e)" TOption="string">
+﻿<h5>With custom indicator</h5>
+<FluentSelect ValueChanged="@(e => selectValue = e)" TOption="string">
     <FluentIcon Name="@FluentIcons.Globe" Slot="indicator" Size="@IconSize.Size16" Filled=false Color=IconColor.Neutral />
     <FluentOption Value="1">Option One</FluentOption>
     <FluentOption Value="2">Option Two</FluentOption>
     <FluentOption Value="3">Option Three</FluentOption>
     <FluentOption Value="4">Option Four</FluentOption>
 </FluentSelect>
-
 <p>
     Selected value: @selectValue
 </p>
 
+
+<h5>With icons</h5>
+<FluentSelect ValueChanged="@(e => selectValue2 = e)" TOption="string">
+    <FluentOption Value="1">
+        Search
+        <FluentIcon Name="@FluentIcons.Search" Slot="start" Size="IconSize.Size20" Filled=false Color="IconColor.Neutral" />
+     </FluentOption>
+    <FluentOption Value="2" Selected="true">
+        Show
+        <FluentIcon Name="@FluentIcons.AppsList" Slot="start" Size="IconSize.Size20" Filled=false Color="IconColor.Neutral" />
+    </FluentOption>
+    <FluentOption Value="3">
+        Generate
+        <FluentIcon Name="@FluentIcons.Code" Slot="start" Size="IconSize.Size20" Filled=false Color="IconColor.Neutral" />
+    </FluentOption>
+    <FluentOption Value="4">
+        Update
+        <FluentIcon Name="@FluentIcons.ArrowSync" Slot="start" Size="IconSize.Size20" Filled=false Color="IconColor.Neutral" />
+    </FluentOption>
+    <FluentOption Value="4">
+        About
+        <FluentIcon Name="@FluentIcons.Info" Slot="start" Size="IconSize.Size20" Filled=false Color="IconColor.Neutral" />
+    </FluentOption>
+    
+</FluentSelect>
+
+
 @code {
     string? selectValue;
+    string? selectValue2;
 }
