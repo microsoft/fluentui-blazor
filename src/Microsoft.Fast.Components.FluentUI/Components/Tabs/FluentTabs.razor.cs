@@ -45,7 +45,7 @@ public partial class FluentTabs : FluentComponentBase
         if (args is not null)
         {
             string? tabId = args.AffectedId;
-            if (tabId is not null && tabs.TryGetValue(tabId, out FluentTab? tab))
+            if (!string.IsNullOrEmpty(tabId) && tabs.TryGetValue(tabId, out FluentTab? tab))
             {
                 await OnTabChange.InvokeAsync(tab);
                 await ActiveIdChanged.InvokeAsync(args.ActiveId);

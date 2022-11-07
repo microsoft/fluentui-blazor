@@ -15,7 +15,7 @@
                     activeId: event.target.id,
                 }
             };
-            return null;
+            return '';
         }
     });
     Blazor.registerCustomEventType('tabchange', {
@@ -27,7 +27,7 @@
                     affectedId: event.detail.attributes['tab-id']?.value
                 }
             };
-            return null;
+            return '';
         }
     });
     Blazor.registerCustomEventType('selectedchange', {
