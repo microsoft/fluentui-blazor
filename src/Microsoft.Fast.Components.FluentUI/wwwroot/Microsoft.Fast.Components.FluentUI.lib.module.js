@@ -23,8 +23,8 @@
         createEventArgs: event => {
             if (event.target.localName == 'fluent-tabs') { 
                 return {
-                    activeId: event.detail?.id,
-                    affectedId: event.detail?.attributes['tab-id']?.value
+                    activeId: event.detail.id,
+                    affectedId: event.detail.attributes['tab-id']?.value
                 }
             };
             return null;

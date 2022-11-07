@@ -6,7 +6,7 @@
                  style="@Style"
                  orientation=@Orientation.ToAttributeValue()
                  activeid=@ActiveId
-                 hide-active-indicator="@(HideActiveIndicator.ToString().ToLower())"
+                 activeindicator="@(ActiveIndicator.ToString().ToLower())"
                  @ontabchange="HandleOnTabChanged"
                  @attributes="AdditionalAttributes">
         @ChildContent

@@ -20,7 +20,7 @@ public partial class FluentTabs : FluentComponentBase
     /// Whether or not to show the active indicator 
     /// </summary>
     [Parameter]
-    public bool HideActiveIndicator { get; set; }
+    public bool ActiveIndicator { get; set; } = true;
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.

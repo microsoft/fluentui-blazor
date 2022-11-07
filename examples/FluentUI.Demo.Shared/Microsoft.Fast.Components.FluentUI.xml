@@ -1979,7 +1979,7 @@
             Gets or sets the tab's orentation. See <see cref="T:Microsoft.Fast.Components.FluentUI.Orientation"/>
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.HideActiveIndicator">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.ActiveIndicator">
             <summary>
             Whether or not to show the active indicator 
             </summary>
