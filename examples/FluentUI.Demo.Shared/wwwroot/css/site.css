@@ -66,6 +66,20 @@ footer {
         justify-content: start;
     }
 
+        footer .version a {
+            color: var(--neutral-foreground-rest);
+            text-decoration: none;
+        }
+
+            footer .version a:focus {
+                outline: 1px dashed;
+                outline-offset: 3px;
+            }
+
+            footer .version a:hover {
+                text-decoration: underline;
+            }
+
     footer .copy {
         grid-column: 3;
         justify-self: end;
