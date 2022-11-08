@@ -46,10 +46,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="Events\SelectChangeEventArgs.cs" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<None Include="..\..\README.md">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>

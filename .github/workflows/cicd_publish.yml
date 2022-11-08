@@ -41,8 +41,8 @@ jobs:
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: |
-            6.0.x
-            7.0.x
+            6.0.402
+            7.0.100
         include-prerelease: true
 
     - name: Restore
@@ -51,14 +51,12 @@ jobs:
     - name: Build
       run: dotnet build ${{ env.PROJECT }} --configuration ${{ env.BUILD_CONFIG }} --no-restore
 
-    - name: Test
-      run: dotnet test
 
     - name: Pack
       run: dotnet pack ${{ env.PROJECT }} --configuration ${{ env.BUILD_CONFIG }} -o packed --no-build
 
     - name: Publish artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: signednupkg
         path: packed
@@ -75,11 +73,11 @@ jobs:
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: |
-            6.0.x
-            7.0.x
+            6.0.402
+            7.0.100
           include-prerelease: true
-      - name: Build
-        run: dotnet publish -c Release -o publish -f net7.0 examples/FluentUI.Demo.Client/
+      - name: Dotnet Publish
+        run: dotnet publish -c Release -o publish -f net7.0 -r linux-x64 examples/FluentUI.Demo.Client/
       - name: Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
