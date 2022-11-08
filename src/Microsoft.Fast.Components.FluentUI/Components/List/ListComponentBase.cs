@@ -169,7 +169,7 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
     protected override void OnParametersSet()
     {
 
-        if (!HasListControlWithGlobalChangedEvent || Items == null)
+        if (!(this is FluentListbox<TOption>) || Items == null)
         {
             if (_internalListContext.ValueChanged.HasDelegate == false)
             {
@@ -372,7 +372,7 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
                     }));
 
                     // fluent-listbox doesn't support OnChange
-                    if (HasListControlWithGlobalChangedEvent == true)
+                    if (this is FluentListbox<TOption>)
                     {
                         builder.AddAttribute(i++, "OnSelect", OnSelectCallback(item));
                     }
@@ -430,11 +430,9 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
 
     // fluent-combobox and fluent-select can use OnChange event.
     // fluent-listbox cannot use OnChange event.
-    private bool HasListControlWithGlobalChangedEvent
+    private bool HasListControlWithGlobalChangedEvent()
     {
-        get
-        {
-            return (this is FluentCombobox<TOption>) || (this is FluentSelect<TOption>);
-        }
+        return (this is FluentCombobox<TOption>) || (this is FluentSelect<TOption>);
+
     }
 }
