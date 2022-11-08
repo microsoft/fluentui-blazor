@@ -36,7 +36,7 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore
       - name: Build
-        run: dotnet publish -c Release -o publish -f net7.0 -r linux-x64 examples/FluentUI.Demo.Client/
+        run: dotnet publish -c Release -o publish -f net7.0 -r linux-x64 --sc examples/FluentUI.Demo.Client/
       - name: Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
