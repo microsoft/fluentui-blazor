@@ -200,6 +200,7 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
         if (SelectedOptions == null && Items != null && OptionSelected != null)
         {
             _selectedOptions.AddRange(Items.Where(item => OptionSelected.Invoke(item) && !_selectedOptions.Contains(item)));
+            InternalValue = GetOptionValue(_selectedOptions.FirstOrDefault());
         }
 
         base.OnParametersSet();

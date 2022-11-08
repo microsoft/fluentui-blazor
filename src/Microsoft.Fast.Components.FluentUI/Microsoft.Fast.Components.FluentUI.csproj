@@ -66,9 +66,9 @@
 	</ItemGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net7.0' ">
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.0-rc.2.*" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0-rc.2.*" />
-		<PackageReference Include="System.Text.Json" Version="7.0.0-rc.2.*" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
+		<PackageReference Include="System.Text.Json" Version="7.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
