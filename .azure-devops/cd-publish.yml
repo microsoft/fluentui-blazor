@@ -29,7 +29,7 @@ steps:
 - task: UseDotNet@2
   displayName: 'Install .NET 7.0 (RC 2)'
   inputs:
-    version: 7.0.100-rc.2.22477.23
+    version: 7.0.100
     includePreviewVersions: true
 
 - task: DotNetCoreCLI@2
