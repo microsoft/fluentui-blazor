@@ -8,6 +8,7 @@
 		<LangVersion>latest</LangVersion>
 		<EmitCompilerGeneratedFiles>false</EmitCompilerGeneratedFiles>
 		<CompilerGeneratedFilesOutputPath>Generated</CompilerGeneratedFilesOutputPath>
+		<IsTrimmable>false</IsTrimmable>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -15,7 +16,7 @@
 	</ItemGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.10" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.11" />
 	</ItemGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net7.0' ">

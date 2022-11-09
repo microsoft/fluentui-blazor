@@ -28,6 +28,7 @@
 		<LangVersion>latest</LangVersion>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<PublishTrimmed>true</PublishTrimmed>
+		<IsTrimmable>true</IsTrimmable>
 	</PropertyGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -56,9 +57,9 @@
 	</ItemGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.10" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.11" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
-		<PackageReference Include="System.Text.Json" Version="6.0.6" />
+		<PackageReference Include="System.Text.Json" Version="6.0.7" />
 	</ItemGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net7.0' ">
