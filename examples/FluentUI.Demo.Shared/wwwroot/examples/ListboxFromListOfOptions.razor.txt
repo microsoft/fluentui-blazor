@@ -1,5 +1,6 @@
-﻿<h5>From list of Option&lt;string&gt; items</h5>
-<p>Second item in the list is initially selected. We add an <code>OptionSelected</code> parameter to reflect this in the component.</p>
+﻿<h5>From a List of Option&lt;string&gt; items</h5>
+<p>Second item in the list is initially selected through the <code>OptionSelected</code> (Func delegate) parameter.</p>
+
 <FluentListbox Items=@stringOptions 
                OptionText="@(i => i.Text)" 
                OptionValue="@(i => i.Value)"
@@ -9,8 +10,9 @@
     Selected Value: @stringValue<br />
 </p>
 
-<h5>From list of Option&lt;int&gt; items</h5>
-<p>First item in the list is disabled. We add an <code>OptionDisabled</code> parameter to reflect this in the component.</p>
+<h5>From List of Option&lt;int&gt; items</h5>
+<p>First item in the list is disabled through the <code>OptionDisabled</code> (Func delegate) parameter.</p>
+<p><em>Note that none of the options is initially highlighted or selected.</em></p>
 
 <FluentListbox Items=@intOptions 
                TOption="Option<int>"

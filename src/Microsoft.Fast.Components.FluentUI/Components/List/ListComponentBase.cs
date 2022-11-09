@@ -13,7 +13,7 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
     private bool _multiple = false;
     private List<TOption> _selectedOptions = new();
 
-    // We cascade the InternalListContext to descendants, which in turn call it to add themselves to _options
+    // We cascade the InternalListContext to descendants, which in turn call it to add themselves to the options list
     internal InternalListContext<TOption> _internalListContext;
 
     /// <summary />
@@ -35,7 +35,7 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
         {
             if (value != null && OptionValue != null && Items != null)
             {
-                var item = Items.FirstOrDefault(i => GetOptionValue(i) == value);
+                TOption? item = Items.FirstOrDefault(i => GetOptionValue(i) == value);
 
                 if (!Equals(item, SelectedOption))
                 {
@@ -192,15 +192,26 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
             _multiple = Multiple;
         }
 
-        if (SelectedOptions != null && _selectedOptions != SelectedOptions)
+        if (Multiple)
         {
-            _selectedOptions = new List<TOption>(SelectedOptions);
-        }
+            if (SelectedOptions != null && _selectedOptions != SelectedOptions)
+            {
+                _selectedOptions = new List<TOption>(SelectedOptions);
+            }
 
-        if (SelectedOptions == null && Items != null && OptionSelected != null)
+            if (SelectedOptions == null && Items != null && OptionSelected != null)
+            {
+                _selectedOptions.AddRange(Items.Where(item => OptionSelected.Invoke(item) && !_selectedOptions.Contains(item)));
+                InternalValue = GetOptionValue(_selectedOptions.FirstOrDefault());
+            }
+        }
+        else
         {
-            _selectedOptions.AddRange(Items.Where(item => OptionSelected.Invoke(item) && !_selectedOptions.Contains(item)));
-            InternalValue = GetOptionValue(_selectedOptions.FirstOrDefault());
+            if (SelectedOption == null && Items != null && OptionSelected != null)
+            {
+                TOption? item = Items.FirstOrDefault(i => OptionSelected.Invoke(i));
+                InternalValue = GetOptionValue(item);
+            }
         }
 
         base.OnParametersSet();
@@ -295,12 +306,6 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
             return null;
     }
 
-    ///// <summary />
-    //protected virtual Task OnValueChangedHandlerAsync(TOption? item)
-    //{
-    //    return OnSelectedItemChangedHandlerAsync(item);
-    //}
-
     /// <summary />
     protected virtual async Task OnSelectedItemChangedHandlerAsync(TOption? item)
     {
@@ -371,8 +376,8 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
                         content.AddContent(i++, GetOptionText(item));
                     }));
 
-                    // fluent-listbox doesn't support OnChange
-                    if (this is FluentListbox<TOption>)
+                    // Needed in fluent-listbox and fluent-select with mutliple select enabled
+                    if (this is FluentListbox<TOption> || (this is FluentSelect<TOption> && Multiple))
                     {
                         builder.AddAttribute(i++, "OnSelect", OnSelectCallback(item));
                     }
@@ -426,13 +431,5 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
             return;
 
         _selectedOptions.Add(item);
-    }
-
-    // fluent-combobox and fluent-select can use OnChange event.
-    // fluent-listbox cannot use OnChange event.
-    private bool HasListControlWithGlobalChangedEvent()
-    {
-        return (this is FluentCombobox<TOption>) || (this is FluentSelect<TOption>);
-
     }
 }

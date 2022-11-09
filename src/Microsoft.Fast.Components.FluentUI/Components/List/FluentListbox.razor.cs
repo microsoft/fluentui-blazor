@@ -23,28 +23,4 @@ public partial class FluentListbox<TOption> : ListComponentBase<TOption>
     /// </summary>
     [Parameter]
     public int Size { get; set; }
-
-
-    /// <summary />
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            // an item may have been selected through the data
-            if (Items != null && Items.Any() && SelectedOption == null && InternalValue == null && !Multiple)
-            {
-                if (OptionSelected is not null)
-                    SelectedOption = Items.FirstOrDefault(i => OptionSelected(i));
-                else if (OptionDisabled is not null)
-                    SelectedOption = Items.FirstOrDefault(i => !OptionDisabled(i));
-                else
-                    // a Listbox always has an element selected
-                    SelectedOption = Items.FirstOrDefault();
-
-                await RaiseChangedEvents();
-            }
-        }
-
-        await base.OnAfterRenderAsync(firstRender);
-    }
 }

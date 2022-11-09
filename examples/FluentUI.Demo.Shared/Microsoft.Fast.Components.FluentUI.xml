@@ -1348,9 +1348,6 @@
             The maximum number of options that should be visible in the listbox scroll area.
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentListbox`1.OnAfterRenderAsync(System.Boolean)">
-            <summary />
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentOption`1.Disabled">
             <summary>
             Gets or sets if the element is disabled

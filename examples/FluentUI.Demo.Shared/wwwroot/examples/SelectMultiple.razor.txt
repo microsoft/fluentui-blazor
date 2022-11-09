@@ -1,7 +1,7 @@
 ﻿@inject DataSource Data
 
 <div style="display: block; height: 300px;">
-<label for="people-listbox2">Select persons</label>
+<label for="people-listbox2">Select people: </label>
 <FluentSelect TOption="Person"
               Items="@Data.People"
               Id="people-listbox2"

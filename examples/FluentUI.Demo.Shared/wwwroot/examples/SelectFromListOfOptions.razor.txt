@@ -1,6 +1,7 @@
-﻿<h5>From list of Option&lt;string&gt; items</h5>
-<p>Second item in the list is initially selected. We add an <code>OptionSelected</code> parameter to reflect this in the component.</p>
-<FluentSelect Items=@stringOptions
+﻿<h5>From a List of Option&lt;string&gt; items</h5>
+<p>Second item in the list is initially selected through the <code>OptionSelected</code> (Func delegate) parameter.</p>
+
+<FluentSelect Items=@stringOptions1
                OptionText="@(i => i.Text)"
                OptionValue="@(i => i.Value)"
                OptionSelected="@(i => i.Selected)"
@@ -9,16 +10,16 @@
     Selected Value: @stringValue<br />
 </p>
 
-<h5>From list of Option&lt;int&gt; items</h5>
-<p>First item in the list is disabled. We add an <code>OptionDisabled</code> parameter to reflect this in the component.</p>
-
+<h5>From a List of Option&lt;int&gt; items</h5>
+<p>First item in the list is disabled through the <code>OptionDisabled</code> (Func delegate) parameter.</p>
+<p><em>Note that the second option in the list is automatically highlighted but it has <strong>NOT</strong> been selected. It's just the first item in the list available for selection</em></p>
 <FluentSelect Items=@intOptions
-               TOption="Option<int>"
-               OptionText="@(i => i.Text.ToString())"
-               OptionValue="@(i => i.Value.ToString())"
-               OptionDisabled="@(i => i.Disabled)"
-               @bind-SelectedOption="@selectedIntOption"
-               @bind-Value="@intValue" />
+              TOption="Option<int>"
+              OptionText="@(i => i.Text.ToString())"
+              OptionValue="@(i => i.Value.ToString())"
+              OptionDisabled="@(i => i.Disabled)"
+@bind-SelectedOption="@selectedIntOption"
+@bind-Value="@intValue" />
 <p>
     Selected Value: @intValue<br />
     Selected Item (strongly typed): <br />
@@ -26,12 +27,12 @@
     Text: @selectedIntOption?.Text
 </p>
 
-<h5>From list of Option&lt;string&gt; items where multiple can be selected</h5>
-<p>Items 2, 5 and 8 are initially selected with the <code>OptionSelected</code> parameter.</p>
-<p>Items with a value higher than 6 are disabled with the <code>OptionDisabled</code> parameter.</p>
-<p>Item 8 is selected but also disabled and can therefore not be changed.</p>
+<h5>From a list of Option&lt;string&gt; items where multiple can be selected</h5>
+<p>Items 2, 5 and 8 are initially selected through the <code>OptionSelected</code> (Func delegate) parameter.</p>
+<p>Items with a value higher than 6 are disabled through the <code>OptionDisabled</code> (Func delegate) parameter.</p>
+<p><em>Note that Item 8 is selected but also disabled and can therefore <strong>NOT</strong> be changed.</em></p>
 <div style="display: block; height: 300px;">
-    <FluentSelect Items=@stringOptions
+    <FluentSelect Items=@stringOptions2
                   TOption="Option<string>"
                   Multiple=true
                   OptionText="@(i => i.Text)"
@@ -50,7 +51,21 @@
     Option<int>? selectedIntOption;
     IEnumerable<Option<string>>? selectedStrings;
 
-    List<Option<string>> stringOptions = new()
+    static List<Option<string>> stringOptions1 = new()
+    {
+        { new Option<string> { Value = "9", Text = "Nine" } },
+        { new Option<string> { Value = "8", Text = "Eight", Selected = true } },
+        { new Option<string> { Value = "7", Text = "Seven" } },
+        { new Option<string> { Value = "6", Text = "Six" } },
+        { new Option<string> { Value = "5", Text = "Five" } },
+        { new Option<string> { Value = "4", Text = "Four" } },
+        { new Option<string> { Value = "3", Text = "Three" } },
+        { new Option<string> { Value = "2", Text = "Two" } },
+        { new Option<string> { Value = "1", Text = "One" } }
+
+    };
+
+    static List<Option<string>> stringOptions2 = new()
     {
         { new Option<string> { Value = "1", Text = "One" } },
         { new Option<string> { Value = "2", Text = "Two", Selected = true } },

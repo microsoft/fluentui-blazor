@@ -7,15 +7,15 @@
               OptionValue="@(p => p.PersonId.ToString())"
               OptionText="@(p => p.LastName + ", " + p.FirstName)"
               @bind-Value="@SelectedValue"
-              @bind-SelectedOption="@SelectedItem" />
+              @bind-SelectedOption="@SelectedPerson" />
 
 <p>
     Selected value: @SelectedValue <br />
-    Selected item: @SelectedItem?.ToString()
+    Selected person (strongly typed): @SelectedPerson?.ToString()
 </p>
 
 @code
 {
-    Person? SelectedItem;
+    Person? SelectedPerson;
     string? SelectedValue = "4";
 }
