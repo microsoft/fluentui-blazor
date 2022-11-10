@@ -56,12 +56,15 @@
             };
         }
     });
-    Blazor.registerCustomEventType('dismiss', {
-        browserEventName: 'dismiss',
+    Blazor.registerCustomEventType('dialogdismiss', {
+        browserEventName: 'dismiss' ,
         createEventArgs: event => {
-            return {
-                event: event
+            if (event.target.localName == 'fluent-dialog') {
+                return {
+                    reason: event.type
+                };
             };
+            return null;
         }
     });
     Blazor.registerCustomEventType('menuchange', {

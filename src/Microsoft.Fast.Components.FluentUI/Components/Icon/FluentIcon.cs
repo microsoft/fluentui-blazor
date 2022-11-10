@@ -20,7 +20,6 @@ public partial class FluentIcon : FluentComponentBase
     [Inject]
     private CacheStorageAccessor CacheStorageAccessor { get; set; } = default!;
 
-
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
@@ -182,5 +181,5 @@ public partial class FluentIcon : FluentComponentBase
         }
     }
 
-    public static HttpRequestMessage CreateMessage(string url) => new HttpRequestMessage(HttpMethod.Get, url);
+    public static HttpRequestMessage CreateMessage(string url) => new(HttpMethod.Get, url);
 }

@@ -1,7 +1,0 @@
-﻿::deep .fluent-navmenu-link::part(start) {
-    margin-inline-start: -25px;
-}
-
-.fluent-navmenu-link-nogroup::part(start) {
-    margin-inline-start: -10px;
-}

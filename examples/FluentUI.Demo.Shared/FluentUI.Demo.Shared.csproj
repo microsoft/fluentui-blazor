@@ -36,6 +36,10 @@
 		<ProjectReference Include="..\FluentUI.Demo.Generators\FluentUI.Demo.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="wwwroot\examples\" />
+	</ItemGroup>
+
 	<Target Name="CopyExamplesToContentRoot" BeforeTargets="CoreBuild">
 		<ItemGroup>
 			<Examples Include="$(ProjectDir)\Pages\**\Examples\*" />

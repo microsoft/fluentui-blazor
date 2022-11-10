@@ -1172,9 +1172,9 @@
             Gets or sets if the dialog is hidden
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.NoFocusTrap">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.TrapFocus">
             <summary>
-            Indicates that the dialog should not trap focus.
+            Indicates that the dialog should trap focus.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.AriaDescribedby">
@@ -5909,6 +5909,26 @@
             Finalize the completed CSS Classes as a string.
             </summary>
             <returns>string</returns>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.Utilities.LinkerFlags.JsonSerialized">
+            <summary>
+            Flags for a member that is JSON (de)serialized.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.Utilities.LinkerFlags.Component">
+            <summary>
+            Flags for a component
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.Utilities.LinkerFlags.JSInvokable">
+            <summary>
+            Flags for a JSInvokable type.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.Utilities.JSModule">
+            <summary>
+            Helper for loading any JavaScript (ES6) module and calling its exports
+            </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.Default(System.String,System.String)">
             <summary>
