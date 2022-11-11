@@ -13,6 +13,7 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
     [Generator]
     public class FluentIconGenerator : ISourceGenerator
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("MicrosoftCodeAnalysisCorrectness", "RS1035:Do not use APIs banned for analyzers", Justification = "The whole purpose of this generator is to process directories...")]
         public void Execute(GeneratorExecutionContext context)
         {
             StringBuilder? sb = new();
@@ -23,6 +24,7 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             int iconcount = 0;
 
             context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.MSBuildProjectDirectory", out var projectDirectory);
+
             string iconsFolder = Path.Combine(Directory.GetParent(projectDirectory).FullName, $"Microsoft.Fast.Components.FluentUI{Path.DirectorySeparatorChar}wwwroot{Path.DirectorySeparatorChar}icons{Path.DirectorySeparatorChar}");
 
             sb.AppendLine($"#pragma warning disable CS1591");
@@ -37,6 +39,7 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             foreach (string foldername in Directory.EnumerateDirectories(iconsFolder))
             {
                 string folder = foldername.Substring(foldername.LastIndexOf(Path.DirectorySeparatorChar) + 1);
+
                 string iconbase = string.Empty;
 
                 foreach (string file in Directory.EnumerateFiles(foldername, "*.svg"))

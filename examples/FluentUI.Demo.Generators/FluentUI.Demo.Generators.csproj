@@ -4,14 +4,15 @@
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<ImplicitUsings>false</ImplicitUsings>
 		<Nullable>disable</Nullable>
-		<LangVersion>10.0</LangVersion>
+		<LangVersion>latest</LangVersion>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 		<Authors>Microsoft</Authors>
 		<Copyright>Copyright © Microsoft</Copyright>
 		<AssemblyFileVersion>$(PackageVersion)</AssemblyFileVersion>
 		<DebugType>portable</DebugType>
-		<PackageVersion>1.0.0</PackageVersion>
+		<PackageVersion>2.0.0</PackageVersion>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
 	</PropertyGroup>
 
 	<ItemGroup>

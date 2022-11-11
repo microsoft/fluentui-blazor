@@ -66,6 +66,7 @@ namespace FluentUI.Demo.Generators
             return value;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("MicrosoftCodeAnalysisCorrectness", "RS1035:Do not use APIs banned for analyzers", Justification = "Need to use Envrionment to ensure the right newline is generated for platform it is being builtand run on")]
         private static string CleanupSummary(string value)
         {
             Regex regex = new(@"[ ]{2,}");
@@ -77,12 +78,14 @@ namespace FluentUI.Demo.Generators
             regex = new("<see href=\"(.*)\">(.*)</see>");
             value = regex.Replace(value, "<a href=\"$1\">$2</a>");
 
+
             return value.Trim()
                         .Replace("<summary>" + Environment.NewLine, "")
                         .Replace(Environment.NewLine + "</summary>", "")
                         .Replace(Environment.NewLine, "<br />")
                         .Replace("\"", "'")
                         .Replace("Microsoft.Fast.Components.FluentUI.", "");
+
         }
 
         public void Initialize(GeneratorInitializationContext context)

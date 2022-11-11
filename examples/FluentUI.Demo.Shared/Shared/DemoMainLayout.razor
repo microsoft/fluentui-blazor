@@ -58,23 +58,22 @@
         <nav>
             <DemoNavMenu />
         </nav>
-
-        <article>
-
+        <div class="content">
             <ErrorBoundary @ref="errorBoundary">
                 <ChildContent>
-                    @Body
-
-                    @*<aside>
-                    <h2>About section</h2>
-                    <p>Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-                    </aside>*@
+                    <article>
+                        @Body
+                    </article>
+                    <aside>
+                        <h2>About section</h2>
+                        <p>Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+                    </aside>
                 </ChildContent>
                 <ErrorContent Context="ex">
                     <div class="blazor-error-boundary">@ex.Message</div>
                 </ErrorContent>
             </ErrorBoundary>
-        </article>
+        </div>
     </main>
     <footer>
         <div class="version">
