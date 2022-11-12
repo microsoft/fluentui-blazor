@@ -23,7 +23,7 @@
                     </g>
                 </g>
             </svg>
-            
+
         </div>
         <div class="colorgroup">
             <label for="color">Color: </label>
@@ -36,7 +36,7 @@
             </FluentSelect>
         </div>
         <div class="switches">
-            
+
             <FluentSwitch @onchange="SwitchDirection" title="Switch direction">
                 <span>Direction</span>
                 <span slot="unchecked-message">ltr</span>
@@ -58,22 +58,21 @@
         <nav>
             <DemoNavMenu />
         </nav>
-        <div class="content">
-            <ErrorBoundary @ref="errorBoundary">
-                <ChildContent>
-                    <article>
+        <ErrorBoundary @ref="errorBoundary">
+            <ChildContent>
+                <div class="content">
+                    <article id="article">
                         @Body
                     </article>
                     <aside>
-                        <h2>About section</h2>
-                        <p>Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+                        <TableOfContents />
                     </aside>
-                </ChildContent>
-                <ErrorContent Context="ex">
-                    <div class="blazor-error-boundary">@ex.Message</div>
-                </ErrorContent>
-            </ErrorBoundary>
-        </div>
+                </div>
+            </ChildContent>
+            <ErrorContent Context="ex">
+                <div class="blazor-error-boundary">@ex.Message</div>
+            </ErrorContent>
+        </ErrorBoundary>
     </main>
     <footer>
         <div class="version">

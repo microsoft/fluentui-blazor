@@ -42,7 +42,7 @@
 
 <CodeSnippet>builder.Services.AddHttpClient();</CodeSnippet>
 
-<h3 id="using-the-fluentui-web-components">Using the Fluent UI Web Components</h3>
+<h2 id="using-the-fluentui-web-components">Using the Fluent UI Web Components</h2>
 <p>With the package installed and the script configured, you can begin using the Fluent UI Web Components in the same way as any other Blazor component. Just be sure to add the following using statement to your views:</p>
 <CodeSnippet>@@using Microsoft.Fast.Components.FluentUI</CodeSnippet>
 
@@ -61,7 +61,7 @@
 	<p>You can add <code>@@using Microsoft.Fast.Components.FluentUI</code> to the namespace collection in <code>_Imports.razor</code>, so that you can avoid repeating it in every single razor page.</p>
 </blockquote>
 
-<h3 id="configuring-the-design-system">Configuring the Design System</h3>
+<h2 id="configuring-the-design-system">Configuring the Design System</h2>
 <p>The Fluent UI Web Components are built on FAST’s Adaptive UI technology, which enables design customization and personalization, while automatically maintaining accessibility. This is accomplished through setting various “Design Tokens”.
 	You can use all of the (~160) individual Design Tokens, both from code as in a declarative way in your <code>.razor</code> pages. See https://docs.microsoft.com/en-us/fluent-ui/web-components/design-system/design-tokens for more information on how Design Tokens work
 </p>
@@ -90,7 +90,7 @@
 	<p>Only one Design Token component at a time can be used this way. If you need to set more tokens, use the code approach as described in Option 1 above.</p>
 </blockquote>
 
-<h4 id="option-3-using-the-fluentdesignsystemprovider">Option 3: Using the <code>&lt;FluentDesignSystemProvider&gt;</code></h4>
+<h3 id="option-3-using-the-fluentdesignsystemprovider">Option 3: Using the <code>&lt;FluentDesignSystemProvider&gt;</code></h3>
 <p>The third way to customize the design in Blazor is to wrap the entire block you want to manipulate in a <code>&lt;FluentDesignSystemProvider&gt;</code>. This special element has a number of properties you can set to configure a subset of the tokens. <strong>Not all tokens are available/supported</strong> and we recommend this to only be used as a fall-back mechanism. The preferred mehod of working with the desgn tokens is to manipulate them from code as described in option 1.</p>
 <p>Here’s an example of changing the “accent base color” and switching the system into dark mode (in the file <code>app.razor</code>):</p>
 <CodeSnippet>
@@ -114,7 +114,7 @@
 	<p>FluentDesignSystemProvider token attributes can be changed on-the-fly like any other Blazor component attribute.</p>
 </blockquote>
 
-<h4 id="colors-for-integration-with-specific-microsoft-products">Colors for integration with specific Microsoft products</h4>
+<h2 id="colors-for-integration-with-specific-microsoft-products">Colors for integration with specific Microsoft products</h2>
 <p>If you are attempting to configure the components for integration into a specific Microsoft product, the following table provides <code>AccentBaseColor</code> values you can use:</p>
 <table>
 	<thead>
@@ -160,7 +160,7 @@
 </table>
 
 
-<DemoSection Title="Office color examples" Component="@typeof(IndexOfficeColors)" ShowDownloads=false>
+<DemoSection Title="Examples" Component="@typeof(IndexOfficeColors)" ShowDownloads=false>
 	<Description><p>The result looks like this when applied to a <code>&lt;FluentButton&gt;</code>:</p></Description>
 </DemoSection>
 

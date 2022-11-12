@@ -2,11 +2,11 @@
 {
     @if (New)
     {
-        <h4>@Title <NewBadge /></h4>
+        <h3 id="@Title.Replace(' ','-').ToLower()">@Title <NewBadge /></h3>
     }
     else
     {
-        <h4>@Title</h4>
+        <h3 id="@Title.Replace(' ','-').ToLower()">@Title</h3>
     }
 }
 

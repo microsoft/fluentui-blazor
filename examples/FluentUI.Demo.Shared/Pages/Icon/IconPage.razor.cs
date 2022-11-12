@@ -75,7 +75,7 @@ public partial class IconPage : IAsyncDisposable
     {
         Console.WriteLine($"You clicked on {icon.Name}");
 
-        string Text = $@"<FluentIcon Name=""@FluentIcons.{icon.Folder}"" Size=""IconSize.{icon.Size}"" Filled={icon.Filled.ToString().ToLower()} Color=""IconColor.{Form.Color}""/>";
+        string Text = $@"<FluentIcon Name=""@FluentIcons.{icon.Folder}"" Size=""@IconSize.{icon.Size}"" Filled={icon.Filled.ToString().ToLower()} Color=""@IconColor.{Form.Color}""/>";
 
         if (_jsModule is not null)
         {

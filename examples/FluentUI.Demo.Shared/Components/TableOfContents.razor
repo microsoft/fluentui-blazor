@@ -1,0 +1,13 @@
+﻿<h2>On this page:</h2>
+<div>
+    <FluentAccordion>
+        <FluentAccordionItem Expanded="true" Heading="On this page" id="toc" role="doc-toc">
+            <FluentIcon Slot="start" Name="@FluentIcons.TextBulletListTree" Size="@IconSize.Size20" Filled=false Color="@IconColor.Accent" />
+            @GetTocItems(Anchors)
+        </FluentAccordionItem>
+
+    </FluentAccordion>
+
+
+    <FluentButton Appearance=Appearance.Accent @onclick="BackToTop" Id="backtotop" title="Go to top of page">Back to top</FluentButton>
+</div>

@@ -3,7 +3,7 @@
 @using Microsoft.Fast.Components.FluentUI;
 
 <div>
-    <h2>@Component.Name.Replace("`1",$"<{GenericLabel}>") Class</h2>
+    <h2 id="@_id">@_displayName</h2>
 
 @if (Component.BaseType != null && Component.BaseType != typeof(FluentComponentBase))
 {
@@ -14,7 +14,7 @@
 }
 @if (this.Properties.Any())
 {
-    <h3>Parameters</h3>
+    <h3 id="@(_id + "_parameters")">Parameters</h3>
     <FluentDataGrid Class="docgrid" RowsData="@this.Properties.AsQueryable()" GridTemplateColumns="1fr 1fr 0.5fr 1.5fr">
         <TemplateColumn Title="Name"><code>@context.Name</code></TemplateColumn>
         <TemplateColumn Title="Type">
@@ -48,7 +48,7 @@
 
 @if (this.Events.Any())
 {
-    <h3>EventCallbacks</h3>
+    <h3 id="@(_id)_callbacks">EventCallbacks</h3>
     <FluentDataGrid Class="docgrid" RowsData="@this.Events.AsQueryable()" GridTemplateColumns="1fr 1fr 1fr">
         <TemplateColumn Title="Name"><code>@context.Name</code></TemplateColumn>
         <PropertyColumn Property="@(c => c.Type)" />
@@ -62,7 +62,7 @@
 
 @if (this.Methods.Any())
 {
-    <h3>Methods</h3>
+     <h3 id="@(_id)_methods">Methods</h3>
     <FluentDataGrid Class="docgrid" RowsData="@this.Methods.AsQueryable()" GridTemplateColumns="1fr 1fr 1fr 1fr">
         <TemplateColumn Title="Name"><code>@context.Name</code></TemplateColumn>
         <TemplateColumn Title="Parameters">

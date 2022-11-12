@@ -19,6 +19,7 @@ public partial class ApiDocumentation
     }
 
     private IEnumerable<MemberDescription>? _allMembers = null;
+    private string? _displayName, _id;
 
     /// <summary>
     /// The Component for which the Parameters, Methods and Events should be displayed
@@ -41,6 +42,12 @@ public partial class ApiDocumentation
     /// </summary>
     [Parameter]
     public string? GenericLabel { get; set; } = null;
+
+    protected override void OnParametersSet()
+    {
+        _displayName = Component.Name.Replace("`1", $"<{GenericLabel}>") + " Class";
+        _id = _displayName.Replace(' ', '-').ToLowerInvariant();
+    }
 
     private IEnumerable<MemberDescription> Properties => GetMembers(MemberTypes.Property);
 

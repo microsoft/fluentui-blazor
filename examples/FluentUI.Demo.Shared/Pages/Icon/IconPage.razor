@@ -2,8 +2,8 @@
 
 <h1>Icons</h1>
 <ApiDocumentation Component="typeof(FluentIcon)" />
-<h2>Overview</h2>
-<h3>Color options</h3>
+<h2 id="overview">Overview</h2>
+<h3 id="color-options">Color options</h3>
 <p>
     Icons can be drawn and filled with a color through the <code>Color</code> parameter which takes a <code>IconColor</code> enumeration value. 
     <br /><br /> 
@@ -32,7 +32,7 @@
     </CodeSnippet>
     <em>The color value will not be aplied if the CSS variable is not defined</em>
 </p>
-<h2>Culture Aware</h2>
+<h2 id="culture-aware">Culture Aware</h2>
 <p>
     Some icons offer alternatives for specific languages (neutral cultures). You can specify a language to use for the icon by using the <code>NeutralCultureName</code> parameter and giving it the two letter ISO code of the culture.
     If a language version of an icon is not found, the original version will be used.
@@ -49,7 +49,7 @@
         <dd>Filled: <FluentIcon Name=@FluentIcons.TextBold Size=IconSize.Size24 Filled=true NeutralCultureName="es" /> Regular: <FluentIcon Name=@FluentIcons.TextBold Size=IconSize.Size24 Filled=false NeutralCultureName="es"/></dd>
     </dl>
 </p>
-<h2>Explore Icons</h2>
+<h2 id="explore-icons">Explore Icons</h2>
 <p>
     <EditForm EditContext="@editContext" >
         <div style="display: flex; flex-wrap: wrap; width: 90%;height: 100px;align-items: center;justify-content: space-between;">
