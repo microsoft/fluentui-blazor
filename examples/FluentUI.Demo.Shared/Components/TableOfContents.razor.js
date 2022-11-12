@@ -39,7 +39,7 @@ window.onscroll = function ()
 
 function scrollFunction() {
     if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        backToTopButton.style.display = "block";
+        backToTopButton.style.display = "flex";
     } else {
         backToTopButton.style.display = "none";
     }

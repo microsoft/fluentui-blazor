@@ -144,7 +144,7 @@ article {
 }
 
 aside {
-    padding: 0 15px;
+    padding: 1rem;
     border-left: 1px solid var(--neutral-stroke-divider-rest);
     grid-area: 1 / 2;
 }
@@ -377,6 +377,27 @@ code {
 
                 nav ul li {
                 }
+    }
+}
+
+@media (max-width: 1024px) {
+    fluent-select::part(control) {
+        width: 150px;
+    }
+    header {
+        grid-template-columns: 280px 1fr 220px auto;
+    }
+    .content {
+        display: grid;
+        grid-template-columns: auto;
+    }
+    aside {
+        grid-area: 1 / 1 / 2 / 2
+    }
+
+    article {
+        grid-area: 2 / 1 / 2 / 2;
+        padding-top: 3em;
     }
 }
 
