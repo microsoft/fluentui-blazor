@@ -1,9 +1,8 @@
-﻿<h2>On this page:</h2>
-<div>
+﻿<div>
     <FluentAccordion>
-        <FluentAccordionItem Expanded="true" Heading="On this page" id="toc" role="doc-toc">
+        <FluentAccordionItem Expanded="_expanded" Heading="On this page" id="toc" role="doc-toc">
             <FluentIcon Slot="start" Name="@FluentIcons.TextBulletListTree" Size="@IconSize.Size20" Filled=false Color="@IconColor.Accent" />
-            @GetTocItems(Anchors)
+            @GetTocItems(_anchors)
         </FluentAccordionItem>
 
     </FluentAccordion>

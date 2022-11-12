@@ -5,10 +5,11 @@ using Microsoft.JSInterop;
 
 namespace FluentUI.Demo.Shared.Components;
 
-public partial class TableOfContents : IDisposable
+public partial class TableOfContents : IAsyncDisposable
 {
     private record Anchor(string Level, string Text, string Href, Anchor[] Anchors);
-    private Anchor[]? Anchors;
+    private Anchor[]? _anchors;
+    private bool _expanded = true;
 
     private IJSObjectReference _jsModule = default!;
 
@@ -29,6 +30,15 @@ public partial class TableOfContents : IDisposable
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
                 "./_content/FluentUI.Demo.Shared/Components/TableOfContents.razor.js");
             await QueryDom();
+
+            IJSObjectReference _jsModule2 = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
+                "./_content/FluentUI.Demo.Shared/Shared/DemoMainLayout.razor.js");
+            bool mobile = await _jsModule2!.InvokeAsync<bool>("isDevice");
+
+            if (mobile)
+            {
+                _expanded = false;
+            }
         }
     }
 
@@ -39,7 +49,7 @@ public partial class TableOfContents : IDisposable
 
     private async Task QueryDom()
     {
-        Anchors = await _jsModule.InvokeAsync<Anchor[]?>("queryDomForTocEntries");
+        _anchors = await _jsModule.InvokeAsync<Anchor[]?>("queryDomForTocEntries");
         StateHasChanged();
     }
 
@@ -55,28 +65,12 @@ public partial class TableOfContents : IDisposable
         await QueryDom();
     }
     
-    
-
-
     private RenderFragment? GetTocItems(IEnumerable<Anchor>? items)
     {
         if (items is not null)
         {
             return new RenderFragment(builder =>
             {
-                //        @if(Anchors is not null)
-                //{
-                //    < ul >
-                //    @foreach(Anchor anchor in Anchors)
-                //    {
-                //        < li >
-                //            < FluentAnchor Href = "@anchor.Href" Appearance = "Appearance.Hypertext" > @anchor.Text </ FluentAnchor >
-                //        </ li >
-                //    }
-                //    </ ul >
-
-                //}
-
                 int i = 0;
 
                 builder.OpenElement(i++, "ul");
@@ -110,10 +104,23 @@ public partial class TableOfContents : IDisposable
         }
 
     }
-
-    void IDisposable.Dispose()
+    
+    async ValueTask IAsyncDisposable.DisposeAsync()
     {
-        // Unsubscribe from the event when our component is disposed
-        NavigationManager.LocationChanged -= LocationChanged;
+        try
+        {
+            // Unsubscribe from the event when our component is disposed
+            NavigationManager.LocationChanged -= LocationChanged;
+            
+            if (_jsModule is not null)
+            {
+                await _jsModule.DisposeAsync();
+            }
+        }
+        catch (JSDisconnectedException)
+        {
+            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
+            // the client disconnected. This is not an error.
+        }
     }
 }
