@@ -14,11 +14,10 @@
 <ApiDocumentation Component="typeof(FluentBadge)" />
 
 <h2>Examples</h2>
-<DemoSection Title="Default" Component="@typeof(BadgeDefault)"></DemoSection>
+
+<DemoSection Title="Appearances" Component="@typeof(BadgeAppearance)"></DemoSection>
 
 <DemoSection Title="Circular" Component="@typeof(BadgeCircular)"></DemoSection>
-
-<DemoSection Title="Appearance values" Component="@typeof(BadgeAppearance)"></DemoSection>
 
 <DemoSection Title="With custom CSS for Fill and Highlight" Component="@typeof(BadgeStyled)" CollocatedFiles="@(new[] {"css"})">
     <Description>
@@ -26,12 +25,12 @@
             The Fill and Color values can be defined as CSS variables with 'highlight' and 'lowlight' variants:
         </p>
         <CodeSnippet Language="language-css">
-            fluent-badge {
-            --badge-fill-highlight: #ffd800;
-            --badge-fill-lowlight: #333;
-            --badge-color-highlight: #000;
-            --badge-color-lowlight: #fff;
-            }
+fluent-badge {
+    --badge-fill-highlight: #ffd800;
+    --badge-fill-lowlight: #333;
+    --badge-color-highlight: #000;
+    --badge-color-lowlight: #fff;
+}
         </CodeSnippet>
     </Description>
 </DemoSection>

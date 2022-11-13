@@ -3,6 +3,15 @@
 <h1>Icons</h1>
 <ApiDocumentation Component="typeof(FluentIcon)" />
 <h2 id="overview">Overview</h2>
+
+<h3>Icon placement inside other components</h3
+<p>
+    A lot of the web components have named slots that declare locations in which content can be rendered. 
+    FluentIcon leverages this capability through it's <code>Slot</code> parameter. With this you can for 
+    example render the icon in front (<code>Slot="start"</code>) or after (<code>Slot="end"</code>) a 
+    label in a <code>FluentButton</code> component.
+</p> 
+
 <h3 id="color-options">Color options</h3>
 <p>
     Icons can be drawn and filled with a color through the <code>Color</code> parameter which takes a <code>IconColor</code> enumeration value. 
@@ -25,7 +34,7 @@
         <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Filled=true Color="IconColor.Success" /></dd>
     </dl>
     <strong>(*)</strong>: This color is defined in the <code>variables.css</code> file. If your site is using 
-    <FluentAnchor Href="/Reboot">Reboot</FluentAnchor> the <code>variables.css</code> file is automatically imported. If you do not 
+    <FluentAnchor Href="/Reboot" Appearance="Appearance.Hypertext">Reboot</FluentAnchor> the <code>variables.css</code> file is automatically imported. If you do not 
     use Reboot, please add the <code>variables.css</code> file to your <code>index.html</code> or <code>_Layout.cshtml</code> file like this:
     <CodeSnippet Language="language-html">
  &lt;link href="_content/Microsoft.Fast.Components.FluentUI/css/variables.css" rel="stylesheet" /&gt;

@@ -8,12 +8,16 @@
     z-index: 0;
 }
 
+::deep p {
+    font-weight: 600;
+}
+
 .demo-section-example {
     margin: 0.5rem 0;
     border: calc(var(--stroke-width) * 1px) solid var(--neutral-stroke-rest);
     border-radius: calc(var(--control-corner-radius) * 1px);
     padding: 1rem 1rem;
-    min-height: 250px;
+    min-height: 100px;
 }
     ::deep  p {
         margin-top: 1rem;

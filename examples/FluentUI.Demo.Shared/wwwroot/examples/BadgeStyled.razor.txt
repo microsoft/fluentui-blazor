@@ -1,6 +1,8 @@
-<FluentBadge Fill="highlight" Color="highlight">
-    Badge
-</FluentBadge>
-<FluentBadge Fill="lowlight" Color="lowlight">
-    Badge
-</FluentBadge>
+<div>
+    <FluentBadge Fill="highlight" Color="highlight">
+        Badge
+    </FluentBadge>
+    <FluentBadge Fill="lowlight" Color="lowlight">
+        Badge
+    </FluentBadge>
+</div>

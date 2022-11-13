@@ -240,6 +240,7 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentBadge.Appearance">
             <summary>
             Gets or sets the visual appearance. See <seealso cref="T:Microsoft.Fast.Components.FluentUI.Appearance"/>
+            Possible values are Accent (default), Neutral or Lightweight
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentBadge.ChildContent">
