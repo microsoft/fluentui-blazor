@@ -1,10 +1,10 @@
-﻿<h5>Checked</h5>
+﻿<h4>Checked</h4>
 <FluentRadio Value="checked" Checked="true"></FluentRadio>
 
-<h5>Required</h5>
+<h4>Required</h4>
 <FluentRadio Value="required" Required="true"></FluentRadio>
 
-<h5>Disabled</h5>
+<h4>Disabled</h4>
 <FluentRadio Disabled="true"></FluentRadio>
 <FluentRadio Disabled="true">label</FluentRadio>
 <FluentRadio Disabled="true" Checked="true">checked</FluentRadio>

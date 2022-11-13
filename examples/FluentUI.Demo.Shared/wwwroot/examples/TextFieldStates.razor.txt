@@ -1,12 +1,12 @@
 ﻿
-<h5>Required</h5>
+<h4>Required</h4>
 <FluentTextField Required="true"></FluentTextField>
 
-<h5>Disabled</h5>
+<h4>Disabled</h4>
 <FluentTextField Disabled="true"></FluentTextField>
 <FluentTextField Disabled="true">label</FluentTextField>
 <FluentTextField Disabled="true" Placeholder="placeholder"></FluentTextField>
 
-<h5>Read only</h5>
+<h4>Read only</h4>
 <FluentTextField Readonly="true" Value="Readonly"></FluentTextField>
 <FluentTextField Readonly="true" Value="Readonly">label</FluentTextField>

@@ -1,17 +1,17 @@
-﻿<h5>Full Width</h5>
+﻿<h4>Full Width</h4>
 <FluentSearch style="width: 100%;"></FluentSearch>
 
-<h5>Placeholder</h5>
+<h4>Placeholder</h4>
 <FluentSearch Placeholder="Placeholder"></FluentSearch>
 
-<h5>Required</h5>
+<h4>Required</h4>
 <FluentSearch Required="true"></FluentSearch>
 
-<h5>Disabled</h5>
+<h4>Disabled</h4>
 <FluentSearch Disabled="true"></FluentSearch>
 <FluentSearch Disabled="true">label</FluentSearch>
 <FluentSearch Disabled="true" Placeholder="placeholder"></FluentSearch>
 
-<h5>Read only</h5>
+<h4>Read only</h4>
 <FluentSearch Readonly="true" Value="Readonly"></FluentSearch>
 <FluentSearch Readonly="true" Value="Readonly">label</FluentSearch>

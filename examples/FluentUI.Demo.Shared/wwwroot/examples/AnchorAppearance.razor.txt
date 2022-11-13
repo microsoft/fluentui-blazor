@@ -1,10 +1,10 @@
-﻿<h5>Neutral</h5>
+﻿<h4>Neutral</h4>
 <FluentAnchor Href="#" Appearance="Appearance.Neutral">Button</FluentAnchor>
 
-<h5>Accent</h5>
+<h4>Accent</h4>
 <FluentAnchor Href="#" Appearance="Appearance.Accent">Anchor</FluentAnchor>
 
-<h5>Hypertext</h5>
+<h4>Hypertext</h4>
 <FluentAnchor Href="#" Appearance="Appearance.Hypertext">Anchor</FluentAnchor>
 
 <p>
@@ -14,11 +14,11 @@
     dicta perspiciatis commodi consequatur reprehenderit laborum aliquid minima. Neque, recusandae. Adipisci.
 </p>
 
-<h5>Lightweight</h5>
+<h4>Lightweight</h4>
 <FluentAnchor Href="#" Appearance="Appearance.Lightweight">Anchor</FluentAnchor>
 
-<h5>Outline</h5>
+<h4>Outline</h4>
 <FluentAnchor Href="#" Appearance="Appearance.Outline">Anchor</FluentAnchor>
 
-<h5>Stealth</h5>
+<h4>Stealth</h4>
 <FluentAnchor Href="#" Appearance="Appearance.Stealth">Anchor</FluentAnchor>

@@ -1,10 +1,10 @@
-﻿<h5>Checked</h5>
+﻿<h4>Checked</h4>
 <FluentSwitch Checked="true"></FluentSwitch>
 
-<h5>Required</h5>
+<h4>Required</h4>
 <FluentSwitch Required="true"></FluentSwitch>
 
-<h5>Disabled</h5>
+<h4>Disabled</h4>
 <div style="display: flex; flex-direction: column;">
     <FluentSwitch Disabled="true"></FluentSwitch>
     <FluentSwitch Disabled="true">label</FluentSwitch>

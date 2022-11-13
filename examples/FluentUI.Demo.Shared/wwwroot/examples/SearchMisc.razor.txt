@@ -1,8 +1,8 @@
 ﻿
 
-<h5>Minlength</h5>
+<h4>Minlength</h4>
 <FluentSearch Minlength="4">Minlength</FluentSearch>
 
-<h5>Maxlength</h5>
+<h4>Maxlength</h4>
 <FluentSearch Maxlength="4">Maxlength</FluentSearch>
 

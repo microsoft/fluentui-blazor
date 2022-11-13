@@ -1,18 +1,18 @@
-﻿<h5>Default</h5>
+﻿<h4>Default</h4>
 <FluentTextArea Appearance="Appearance.Filled"></FluentTextArea>
 <FluentTextArea Appearance="Appearance.Filled">
     <span>label</span>
 </FluentTextArea>
 
-<h5>Placeholder</h5>
+<h4>Placeholder</h4>
 <FluentTextArea Appearance="Appearance.Filled" Placeholder="Placeholder"></FluentTextArea>
 
 <!-- Required -->
-<h5>Required</h5>
+<h4>Required</h4>
 <FluentTextArea Appearance="Appearance.Filled" Required="true"></FluentTextArea>
 
 <!-- Disabled -->
-<h5>Disabled</h5>
+<h4>Disabled</h4>
 <FluentTextArea Appearance="Appearance.Filled" Disabled="true"></FluentTextArea>
 <FluentTextArea Appearance="Appearance.Filled" Disabled="true">
     <span>label</span>
@@ -20,7 +20,7 @@
 <FluentTextArea Appearance="Appearance.Filled" Disabled="true" Placeholder="placeholder"></FluentTextArea>
 
 <!-- Read only -->
-<h5>Read only</h5>
+<h4>Read only</h4>
 <FluentTextArea Appearance="Appearance.Filled" Value="Readonly text area" Readonly="true">
     label
 </FluentTextArea>

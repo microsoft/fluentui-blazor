@@ -8,7 +8,7 @@
     </FluentRadioGroup>
 </div>
 
-<h5>Single radio</h5>
+<h4>Single radio</h4>
 <div style="display: flex; flex-direction: column; margin-top: 12px;">
     <FluentRadioGroup Name="players">
         <label style="color: --var(neutral-foreground-rest);" slot="label">

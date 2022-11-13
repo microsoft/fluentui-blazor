@@ -1,18 +1,18 @@
 ﻿@inject DataSource Data
 
-<h5>Select the best song from the list or type your own</h5>
+<h4>Select the best song from the list or type your own</h4>
 <FluentCombobox Id="combobox" Items="@Data.Hits" @bind-Value="@hit" />
 <p>
     Selected hit: @hit
 </p>
 
-<h5>Pre-selected option</h5>
+<h4>Pre-selected option</h4>
 <FluentCombobox Items="@Data.Names" @bind-Value="@name" />
 <p>
     Selected name: @name
 </p>
 
-<h5>With Placeholder</h5>
+<h4>With Placeholder</h4>
 <FluentCombobox Placeholder="Please select a size" Items="@Data.Sizes" @bind-Value="@size" />
 <p>
     Selected size: @size

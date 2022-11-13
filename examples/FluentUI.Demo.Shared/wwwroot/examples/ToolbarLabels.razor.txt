@@ -1,4 +1,4 @@
-﻿<h5>Toolbar with slotted span label</h5>
+﻿<h4>Toolbar with slotted span label</h4>
 <FluentToolbar id="toolbar-slotted-label">
     <span slot="label">Span Label</span>
     <FluentButton>One</FluentButton>
@@ -6,14 +6,14 @@
     <FluentButton>Three</FluentButton>
 </FluentToolbar>
 
-<h5>Toolbar with external label</h5>
+<h4>Toolbar with external label</h4>
 <label id="toolbar-label" for="toolbar-external-label">External label</label>
 <FluentToolbar aria-labelledby="toolbar-label" id="toolbar-external-label">
     <FluentButton>Two</FluentButton>
     <FluentButton>Three</FluentButton>
 </FluentToolbar>
 
-<h5>Toolbar with invisible label</h5>
+<h4>Toolbar with invisible label</h4>
 <FluentToolbar id="toolbar-invisible-label">
     <FluentButton>Two</FluentButton>
     <FluentButton>Three</FluentButton>

@@ -1,10 +1,10 @@
-﻿<h5>Disabled Select</h5>
+﻿<h4>Disabled Select</h4>
 <FluentSelect Disabled="true" @bind-Value="@selectValue" TOption="string">
     <FluentOption>This option is not selectable</FluentOption>
 </FluentSelect>
 <br />
 
-<h5>Disabled Option</h5>
+<h4>Disabled Option</h4>
 <FluentSelect @bind-Value="@selectValue" TOption="string">
     <FluentOption Disabled="true">This option is disabled</FluentOption>
     <FluentOption>This option is not disabled</FluentOption>
@@ -12,7 +12,7 @@
 </FluentSelect>
 <br />
 
-<h5>Selected Option</h5>
+<h4>Selected Option</h4>
 <FluentSelect @bind-Value="@selectValue" TOption="string">
     <FluentOption>Option One</FluentOption>
     <FluentOption Selected="true">Option Two</FluentOption>

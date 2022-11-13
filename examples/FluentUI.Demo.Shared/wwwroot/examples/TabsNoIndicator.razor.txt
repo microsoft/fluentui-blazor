@@ -1,4 +1,4 @@
-﻿<h5>No active indicator</h5>
+﻿<h4>No active indicator</h4>
 <FluentTabs ActiveIndicator=false activeId="TabTwo">
     <FluentTab id="TabOne">Tab one</FluentTab>
     <FluentTab id="TabTwo">Tab two</FluentTab>
@@ -14,7 +14,7 @@
     </FluentTabPanel>
 </FluentTabs>
 
-<h5>No active indicator - Vertical</h5>
+<h4>No active indicator - Vertical</h4>
 <FluentTabs ActiveIndicator=false ActiveId="tab3" Orientation="Orientation.Vertical">
     <FluentTab id="tab1">Tab one</FluentTab>
     <FluentTab id="tab2">Tab two</FluentTab>

@@ -1,8 +1,8 @@
-﻿<h5>Default</h5>
+﻿<h4>Default</h4>
 <FluentDivider></FluentDivider>
 
-<h5>Role="Presentation""</h5>
+<h4>Role="Presentation""</h4>
 <FluentDivider Role="DividerRole.Presentation"></FluentDivider>
 
-<h5>Role="Separator""</h5>
+<h4>Role="Separator""</h4>
 <FluentDivider Role="DividerRole.Separator"></FluentDivider>

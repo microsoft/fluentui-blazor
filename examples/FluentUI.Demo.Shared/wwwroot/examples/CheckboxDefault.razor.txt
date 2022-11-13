@@ -1,21 +1,21 @@
-﻿<h5>Standard</h5>
+﻿<h4>Standard</h4>
 <p>Without a label: <FluentCheckbox></FluentCheckbox></p>
 <p>With a label: <FluentCheckbox>label</FluentCheckbox></p>
 
-<h5>Checked</h5>
+<h4>Checked</h4>
 <FluentCheckbox Checked="true"></FluentCheckbox>
 
 <!-- Required -->
-<h5>Required</h5>
+<h4>Required</h4>
 <FluentCheckbox Required="true"></FluentCheckbox>
 
 <!-- Disabled -->
-<h5>Disabled</h5>
+<h4>Disabled</h4>
 <FluentCheckbox Disabled="true"></FluentCheckbox>
 <FluentCheckbox Disabled="true">label</FluentCheckbox>
 <FluentCheckbox Disabled="true" Checked="true">Checked="true"</FluentCheckbox>
 
-<h5>Inline</h5>
+<h4>Inline</h4>
 <FluentCheckbox Checked="true">Apples</FluentCheckbox>
 <FluentCheckbox Checked="true">Bananas</FluentCheckbox>
 <FluentCheckbox>Honeydew</FluentCheckbox>

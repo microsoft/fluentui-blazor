@@ -1,21 +1,21 @@
-﻿<h5>Default</h5>
+﻿<h4>Default</h4>
 <FluentSearch Appearance="Appearance.Filled"></FluentSearch>
 <FluentSearch Appearance="Appearance.Filled">label</FluentSearch>
 
-<h5>Placeholder</h5>
+<h4>Placeholder</h4>
 <FluentSearch Appearance="Appearance.Filled" Placeholder="Placeholder"></FluentSearch>
 
 <!-- Required -->
-<h5>Required</h5>
+<h4>Required</h4>
 <FluentSearch Appearance="Appearance.Filled" Required="true"></FluentSearch>
 
 <!-- Disabled -->
-<h5>Disabled</h5>
+<h4>Disabled</h4>
 <FluentSearch Appearance="Appearance.Filled" Disabled="true"></FluentSearch>
 <FluentSearch Appearance="Appearance.Filled" Disabled="true">label</FluentSearch>
 <FluentSearch Appearance="Appearance.Filled" Disabled="true" Placeholder="placeholder"></FluentSearch>
 
 <!-- Read only -->
-<h5>Read only</h5>
+<h4>Read only</h4>
 <FluentSearch Appearance="Appearance.Filled" Readonly="true" Value="Readonly"></FluentSearch>
 <FluentSearch Appearance="Appearance.Filled" Readonly="true" Value="Readonly">label</FluentSearch>

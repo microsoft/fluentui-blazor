@@ -1,6 +1,6 @@
 ﻿@inject DataSource Data
 
-<h5>Filled</h5>
+<h4>Filled</h4>
 <FluentSelect Appearance="Appearance.Filled"                
               TOption="string"
               Items="@Data.Hits"
@@ -8,7 +8,7 @@
 
 </FluentSelect>
 <p></p>
-<h5>Stealth</h5>
+<h4>Stealth</h4>
 <FluentSelect Appearance="Appearance.Stealth"
               TOption="string"
               Items="@Data.Hits"

@@ -1,4 +1,4 @@
-﻿<h5>Selected dates (with @@bind)</h5>
+﻿<h4>Selected dates (with @@bind)</h4>
 <FluentCalendar DisabledDates=@disabledDates @bind-SelectedDates =@selectedDates></FluentCalendar>
 
 <p>Selected dates</p>
@@ -9,10 +9,10 @@
     }
 </ul>
 
-<h5>Selected dates (with @@bind) and diasabled dates not selectable</h5>
+<h4>Selected dates (with @@bind) and diasabled dates not selectable</h4>
 <FluentCalendar DisabledDates=@disabledDates @bind-SelectedDates=@selectedDates DisabledSelectable=false></FluentCalendar>
 
-<h5>Selected dates (with @@bind) and dates outside of shown month not selectable</h5>
+<h4>Selected dates (with @@bind) and dates outside of shown month not selectable</h4>
 <FluentCalendar DisabledDates=@disabledDates @bind-SelectedDates=@selectedDates OutOfMonthSelectable=false></FluentCalendar>
 
 

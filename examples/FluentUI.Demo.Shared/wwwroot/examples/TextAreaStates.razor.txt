@@ -1,13 +1,13 @@
-﻿<h5>Required</h5>
+﻿<h4>Required</h4>
 <FluentTextArea Required="true"></FluentTextArea>
 
-<h5>Disabled</h5>
+<h4>Disabled</h4>
 <FluentTextArea Disabled="true"></FluentTextArea>
 <FluentTextArea Disabled="true">
     <span>label</span>
 </FluentTextArea>
 <FluentTextArea Disabled="true" Placeholder="placeholder"></FluentTextArea>
 
-<h5>Read only</h5>
+<h4>Read only</h4>
 <FluentTextArea Readonly="true" Value="Readonly text area"></FluentTextArea>
 <FluentTextArea Readonly="true" Value="Readonly text area">label</FluentTextArea>

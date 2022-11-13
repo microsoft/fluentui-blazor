@@ -1,5 +1,5 @@
 ﻿<div>
-    <h5>Varying heights and widths (default middle aligned)</h5>
+    <h4>Varying heights and widths (default middle aligned)</h4>
     <FluentHorizontalScroll Speed="600" Easing="ScrollEasing.EaseInOut">
         <FluentCard>Card number 1</FluentCard>
         <FluentCard style="height:75px">Card number 2</FluentCard>
@@ -19,7 +19,7 @@
         <FluentCard>Card number 16</FluentCard>
     </FluentHorizontalScroll>
 
-    <h5>Top aligned</h5>
+    <h4>Top aligned</h4>
     <FluentHorizontalScroll class="top-align" Speed="600" Easing="ScrollEasing.EaseInOut">
         <FluentCard>Card number 1</FluentCard>
         <FluentCard style="height:75px">Card number 2</FluentCard>
@@ -39,7 +39,7 @@
         <FluentCard>Card number 16</FluentCard>
     </FluentHorizontalScroll>
 
-    <h5>Bottom aligned</h5>
+    <h4>Bottom aligned</h4>
     <FluentHorizontalScroll class="bottom-align" Speed="600" Easing="ScrollEasing.EaseInOut">
         <FluentCard>Card number 1</FluentCard>
         <FluentCard style="height:75px">Card number 2</FluentCard>
@@ -60,7 +60,7 @@
     </FluentHorizontalScroll>
 </div>
 
-<h5>Mobile</h5>
+<h4>Mobile</h4>
 <FluentHorizontalScroll View="HorizontalScrollView.Mobile" Speed="600" Easing="ScrollEasing.EaseInOut">
     <FluentCard>Card number 1</FluentCard>
     <FluentCard>Card number 2</FluentCard>

@@ -1,4 +1,4 @@
-﻿<h5>From list of Option&lt;string&gt; items</h5>
+﻿<h4>From list of Option&lt;string&gt; items</h4>
 <p>Second item in the list is initially selected through the <code>OptionSelected</code> (Func delegate) parameter.</p>
 
 <FluentCombobox Items=@stringOptions
@@ -10,7 +10,7 @@
     Selected Value: @stringValue<br />
 </p>
 
-<h5>From list of Option&lt;int&gt; items</h5>
+<h4>From list of Option&lt;int&gt; items</h4>
 <p>First item in the list is disabled through the <code>OptionDisabled</code> (Func delegate) parameter.</p>
 <p><em>Note that none of the options is initially highlighted or selected.</em></p>
 

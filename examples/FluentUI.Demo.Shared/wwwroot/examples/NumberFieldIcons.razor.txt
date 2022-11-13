@@ -1,10 +1,10 @@
-﻿<h5>With start</h5>
+﻿<h4>With start</h4>
 <FluentNumberField TValue="int?">
     <FluentIcon Name="@FluentIcons.Globe" Slot="start" Size="@IconSize.Size16" Filled=false UseAccentColor=false />  
 </FluentNumberField>
 
 
-<h5>With end</h5>
+<h4>With end</h4>
 <FluentNumberField TValue="int?">
     <FluentIcon Name="@FluentIcons.Globe" Slot="end" Size="@IconSize.Size16" Filled=false UseAccentColor=false />  
 </FluentNumberField>

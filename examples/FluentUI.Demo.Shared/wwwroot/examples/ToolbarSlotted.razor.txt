@@ -1,7 +1,7 @@
 ﻿@inject FillColor FillColor
 @inject BaseLayerLuminance BaseLayerLuminance
 
-<h5>Slotted end Items with minimum width</h5>
+<h4>Slotted end Items with minimum width</h4>
 <div style="padding:10px;min-width:800px">
     <FluentToolbar id="toolbar-fluent-components-two" style="width:100%" @ref=Toolbar>
         <label slot="label">slotted label</label>

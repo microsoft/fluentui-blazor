@@ -1,5 +1,5 @@
-﻿<h5>Full Width</h5>
+﻿<h4>Full Width</h4>
 <FluentTextArea style="width: 100%;"></FluentTextArea>
 
-<h5>Placeholder</h5>
+<h4>Placeholder</h4>
 <FluentTextArea Placeholder="Placeholder"></FluentTextArea>

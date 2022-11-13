@@ -1,4 +1,4 @@
-﻿<h5>Horizontal</h5>
+﻿<h4>Horizontal</h4>
 <FluentTabs>
     <div slot="start">
         <FluentButton>1</FluentButton>
@@ -24,7 +24,7 @@
     </FluentTabPanel>
 </FluentTabs>
 
-<h5>Vertical</h5>
+<h4>Vertical</h4>
 <FluentTabs Orientation="Orientation.Vertical">
     <div slot="start">
         <FluentButton>1</FluentButton>

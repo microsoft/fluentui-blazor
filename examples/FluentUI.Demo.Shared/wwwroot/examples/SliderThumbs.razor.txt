@@ -1,4 +1,4 @@
-﻿<h5>Custom thumb</h5>
+﻿<h4>Custom thumb</h4>
 <FluentSlider Min="0" Max="100" Step="10">
     <FluentSliderLabel Position="0">0</FluentSliderLabel>
     <FluentSliderLabel Position="10">10</FluentSliderLabel>

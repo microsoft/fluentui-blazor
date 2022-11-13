@@ -1,12 +1,12 @@
-﻿<h5>Visual vs audio label</h5>
+﻿<h4>Visual vs audio label</h4>
 <FluentNumberField TValue="int?">
     <span aria-label="Audio label">Visible label</span>
 </FluentNumberField>
 
-<h5>Audio label only</h5>
+<h4>Audio label only</h4>
 <FluentNumberField TValue="int?">
     <span aria-label="Audio label only"></span>
 </FluentNumberField>
 
-<h5>With aria-label</h5>
+<h4>With aria-label</h4>
 <FluentNumberField TValue="int?" aria-label="Text field with aria-label"></FluentNumberField>
