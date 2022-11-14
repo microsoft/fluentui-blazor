@@ -32,16 +32,21 @@
         <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Filled=true Color="IconColor.Error" /></dd>
         <dt><code>IconColor.Success</code> - Uses CSS variable --success-fill<sup>*</sup>.</dt>
         <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Filled=true Color="IconColor.Success" /></dd>
+        <dt><code>IconColor.Fill</code> - Uses CSS variable --fill-color, adapts to light/dark mode<sup>**</sup>.</dt>
+        <dd style="background-color: var(--accent-fill-rest); width:48px"><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Filled=true Color="IconColor.Fill" /></dd>
         <dt><code>IconColor.Custom</code> - Supply your own color value through the <code>CustomColor</code> parameter. Needs to be formatted as an HTML hex color string (#rrggbb or #rgb).</dt>
         <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Filled=true Color="IconColor.Custom" CustomColor="#570078" /></dd>
     </dl>
-    <strong>(*)</strong>: This color is defined in the <code>variables.css</code> file. If your site is using 
+    <strong>(*)</strong>: This color is defined in the <code>variables.css</code> file. If your site is using     
     <FluentAnchor Href="/Reboot" Appearance="Appearance.Hypertext">Reboot</FluentAnchor> the <code>variables.css</code> file is automatically imported. If you do not 
-    use Reboot, please add the <code>variables.css</code> file to your <code>index.html</code> or <code>_Layout.cshtml</code> file like this:
+    use Reboot, please add the <code>variables.css</code> file to your <code>index.html</code> or <code>_Layout.cshtml</code> file like this: 
+    (<em><strong>the color values will not be aplied if the CSS variables are not defined</strong></em>):
     <CodeSnippet Language="language-html">
  &lt;link href="_content/Microsoft.Fast.Components.FluentUI/css/variables.css" rel="stylesheet" /&gt;
     </CodeSnippet>
-    <em><strong>The color values will not be aplied if the CSS variables are not defined</strong></em>
+    
+    <br/>
+    <strong>(**)</strong>: Background color has been set through inline style, otherwise icon would be (nearly) invisible.
 </p>
 <h2 id="culture-aware">Culture Aware</h2>
 <p>

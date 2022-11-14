@@ -283,7 +283,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.Id">
             <summary>
-            The id attribute of the element.Used for label association.
+            The id attribute of the element. Used for label association.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.Disabled">
@@ -1554,6 +1554,11 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenu.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenuItem.Id">
+            <summary>
+            Gets or sets if the id
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenuItem.Disabled">
@@ -5407,10 +5412,14 @@
             a CSS variable with this name and appropriate value needs to be created.
             </summary>
         </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.IconColor.Fill">
+            <summary>
+            Use the '--fill-color' CSS variable color, adapts to light/dark mode.
+            </summary>
+        </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.IconColor.Custom">
             <summary>
             Supply an HTML hex color string value (#rrggbb or #rgb) for the CustomColor parameter.
-            If no CustomColor supplied value defaults to CSS variable --neutral-forground-rest, adapts to light/dark mode.
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.IconSize">
