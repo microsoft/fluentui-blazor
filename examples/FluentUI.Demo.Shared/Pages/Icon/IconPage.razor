@@ -112,7 +112,7 @@
         @foreach (IconModel icon in icons)
         {
             <FluentCard Class="preview" @onclick="()=> HandleClick(icon)">
-                <div class="inner" >
+                <div class="inner" style="background-color: @(Form.Color == IconColor.Fill ? "var(--accent-fill-rest)" : "")" >
                     <FluentIcon Name=@icon.Name Size=@icon.Size Filled=@icon.Filled Color="@Form.Color" />
                 </div>
                 <div class="label">@icon.Folder</div>
