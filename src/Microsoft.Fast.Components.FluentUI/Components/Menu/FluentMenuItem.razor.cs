@@ -5,6 +5,12 @@ namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentMenuItem : FluentComponentBase
 {
     /// <summary>
+    /// Gets or sets if the id
+    /// </summary>
+    [Parameter]
+    public string? Id { get; set; }
+
+    /// <summary>
     /// Gets or sets if the element is disabled
     /// </summary>
     [Parameter]
@@ -33,4 +39,10 @@ public partial class FluentMenuItem : FluentComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        Id ??= Identifier.NewId();
+        base.OnParametersSet();
+    }
 }

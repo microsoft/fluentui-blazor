@@ -71,7 +71,8 @@
         browserEventName: 'change',
         createEventArgs: event => {
             return {
-                event: event
+                id: event.target.id,
+                value: event.target.innerHTML
             };
         }
     });
