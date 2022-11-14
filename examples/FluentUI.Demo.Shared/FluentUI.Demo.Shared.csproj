@@ -43,6 +43,7 @@
 	<Target Name="CopyExamplesToContentRoot" BeforeTargets="CoreBuild">
 		<ItemGroup>
 			<Examples Include="$(ProjectDir)\Pages\**\Examples\*" />
+			<Examples Include="$(ProjectDir)\Components\*" />
 		</ItemGroup>
 		<Copy SourceFiles="@(Examples)" DestinationFiles="@(Examples->'$(ProjectDir)wwwroot\examples\%(Filename)%(Extension).txt')" SkipUnchangedFiles="true" />
 	</Target>

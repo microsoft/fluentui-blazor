@@ -54,12 +54,14 @@ public partial class FluentCalendar : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the month of the calendar to display
+    /// Defaults to current month
     /// </summary>
     [Parameter]
     public int Month { get; set; } = DateTime.Now.Month;
 
     /// <summary>
     /// Gets or sets the year of the calendar to display
+    /// Defaults to current year
     /// </summary>
     [Parameter]
     public int Year { get; set; } = DateTime.Now.Year;

@@ -67,7 +67,7 @@ public partial class FluentAnchor : FluentComponentBase, IAsyncDisposable
 
     /// <summary>
     /// Gets or sets the visual appearance. See <seealso cref="Appearance"/>
-    /// Defaults to <seealso cref="Appearance.Hypertext"/>
+    /// Defaults to <seealso cref="Appearance.Neutral"/>
     /// </summary>
     [Parameter]
     public Appearance? Appearance { get; set; } = FluentUI.Appearance.Neutral;

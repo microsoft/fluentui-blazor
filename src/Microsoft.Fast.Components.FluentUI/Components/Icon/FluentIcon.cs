@@ -89,7 +89,7 @@ public partial class FluentIcon : FluentComponentBase
 
     protected override async Task OnParametersSetAsync()
     {
-        string? color = IconColor.Neutral.ToAttributeValue();
+        string? color;
         
         string result;
         string? nc = NeutralCultureName ?? null;
@@ -120,8 +120,6 @@ public partial class FluentIcon : FluentComponentBase
 
         string folder = FluentIcons.IconMap.First(x => x.Name == Name).Folder;
 
-
-        
         _iconUrl = $"{ICON_ROOT}/{folder}{(nc is not null ? "/" + nc : "")}/{ComposedName}.svg";
         _iconUrlFallback = $"{ICON_ROOT}/{folder}/{ComposedName}.svg";
 

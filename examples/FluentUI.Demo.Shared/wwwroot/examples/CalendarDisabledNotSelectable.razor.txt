@@ -1,5 +1,4 @@
-﻿<p>Selected dates</p>
-<FluentCalendar DisabledDates=@disabledDates @bind-SelectedDates =@selectedDates></FluentCalendar>
+﻿<FluentCalendar DisabledDates=@disabledDates @bind-SelectedDates=@selectedDates DisabledSelectable=false></FluentCalendar>
 
 <p>Selected dates</p>
 <ul>
@@ -8,13 +7,6 @@
         <li>@date.ToString("yyyy-MM-dd")</li>
     }
 </ul>
-
-<p>Disabled dates not selectable</p>
-<FluentCalendar DisabledDates=@disabledDates @bind-SelectedDates=@selectedDates DisabledSelectable=false></FluentCalendar>
-
-<p>Dates outside of shown month not selectable</p>
-<FluentCalendar DisabledDates=@disabledDates @bind-SelectedDates=@selectedDates OutOfMonthSelectable=false></FluentCalendar>
-
 
 
 @code {

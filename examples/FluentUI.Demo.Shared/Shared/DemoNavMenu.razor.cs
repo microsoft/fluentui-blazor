@@ -4,7 +4,7 @@ using Microsoft.Fast.Components.FluentUI;
 
 namespace FluentUI.Demo.Shared.Shared
 {
-    public partial class DemoNavMenu
+    public partial class DemoNavMenu : IDisposable
     {
         [Inject]
         private NavigationManager NavigationManager { get; set; } = default!;
@@ -19,13 +19,19 @@ namespace FluentUI.Demo.Shared.Shared
         private void LocationChanged(object? sender, LocationChangedEventArgs e)
         {
             Uri uri = new(e.Location);
-            if (uri.Segments.Count() > 1)
+            if (uri.Segments.Length > 1)
                 target = uri.Segments[1];
             else
                 target = "";
-            StateHasChanged();
+            //StateHasChanged();
         }
 
-        private Appearance SetAppearance(string location) => (location == target) ? Appearance.Neutral : Appearance.Stealth;
+        //private Appearance SetAppearance(string location) => (location == target) ? Appearance.Accent : Appearance.Neutral;
+
+        void IDisposable.Dispose()
+        {
+            // Unsubscribe from the event when our component is disposed
+            NavigationManager.LocationChanged -= LocationChanged;
+        }
     }
 }

@@ -1,0 +1,82 @@
+﻿@using System.Globalization;
+@using System.Reflection;
+@using Microsoft.Fast.Components.FluentUI;
+
+<div>
+    <h2 id="@_id">@_displayName</h2>
+
+@if (Component.BaseType != null && Component.BaseType != typeof(FluentComponentBase))
+{
+    <p>
+        Inherits from <a href="/@Component.BaseType.Name">@Component.BaseType.Name.Replace("`1",$"<{GenericLabel}>")</a>. <br />
+        <em>There might be parameters and/or methods shown here that are inherited from the component's base type but are not applicable to this component.</em>
+    </p>
+}
+@if (this.Properties.Any())
+{
+    <h3 id="@(_id + "_parameters")">Parameters</h3>
+    <FluentDataGrid Class="docgrid" RowsData="@this.Properties.AsQueryable()" GridTemplateColumns="1fr 1fr 0.5fr 1.5fr">
+        <TemplateColumn Title="Name"><code>@context.Name</code></TemplateColumn>
+        <TemplateColumn Title="Type">
+                    @context.Type
+
+                    @* Display list of Enumerations (if available) *@
+                    @if (context.EnumValues.Length > 0)
+                    {
+                        
+                        var id = Identifier.NewId();
+                        <span id="@id">
+                            <FluentIcon Name="@FluentIcons.Info" Size="@IconSize.Size24" Style="margin-left: 10px; vertical-align: top;" Filled=false Color=IconColor.Accent />
+                        </span>
+                        <FluentTooltip Anchor="@id" Position="TooltipPosition.Right">
+                            @foreach (var item in context.EnumValues)
+                            {
+                                @item <br />
+                            }
+                        </FluentTooltip>
+
+                    }
+        </TemplateColumn>
+        <PropertyColumn Property="@(c => c.Default)" />
+        <TemplateColumn Title="Description">
+            <div style="white-space: break-spaces">
+                @(new MarkupString(context.Description))
+            </div>
+        </TemplateColumn>        
+    </FluentDataGrid>
+}
+
+@if (this.Events.Any())
+{
+    <h3 id="@(_id)_callbacks">EventCallbacks</h3>
+    <FluentDataGrid Class="docgrid" RowsData="@this.Events.AsQueryable()" GridTemplateColumns="1fr 1fr 1fr">
+        <TemplateColumn Title="Name"><code>@context.Name</code></TemplateColumn>
+        <PropertyColumn Property="@(c => c.Type)" />
+        <TemplateColumn Title="Description">
+            <div style="white-space: break-spaces">
+                @(new MarkupString(context.Description))
+            </div>
+        </TemplateColumn>
+    </FluentDataGrid>
+}
+
+@if (this.Methods.Any())
+{
+     <h3 id="@(_id)_methods">Methods</h3>
+    <FluentDataGrid Class="docgrid" RowsData="@this.Methods.AsQueryable()" GridTemplateColumns="1fr 1fr 1fr 1fr">
+        <TemplateColumn Title="Name"><code>@context.Name</code></TemplateColumn>
+        <TemplateColumn Title="Parameters">
+            @foreach (var param in @context.Parameters)
+            {
+                @param <br />
+            }
+        </TemplateColumn>
+        <PropertyColumn Property="@(c => c.Type)" />
+        <TemplateColumn Title="Description">
+            <div style="white-space: break-spaces">
+                @(new MarkupString(context.Description))
+            </div>
+        </TemplateColumn>        
+    </FluentDataGrid>
+}
+</div>

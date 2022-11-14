@@ -211,7 +211,7 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchor.Appearance">
             <summary>
             Gets or sets the visual appearance. See <seealso cref="P:Microsoft.Fast.Components.FluentUI.FluentAnchor.Appearance"/>
-            Defaults to <seealso cref="F:Microsoft.Fast.Components.FluentUI.Appearance.Hypertext"/>
+            Defaults to <seealso cref="F:Microsoft.Fast.Components.FluentUI.Appearance.Neutral"/>
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchor.ChildContent">
@@ -545,11 +545,13 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.Month">
             <summary>
             Gets or sets the month of the calendar to display
+            Defaults to current month
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.Year">
             <summary>
             Gets or sets the year of the calendar to display
+            Defaults to current year
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.DayFormat">
