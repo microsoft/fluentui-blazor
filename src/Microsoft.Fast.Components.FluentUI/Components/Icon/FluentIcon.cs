@@ -1,3 +1,4 @@
+﻿using System.Drawing;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
@@ -34,13 +35,21 @@ public partial class FluentIcon : FluentComponentBase
     public bool Filled { get; set; }
 
     /// <summary>
-    /// Gets or sets the icon drawing and fill color <see cref="IconColor"/>
+    /// Gets or sets the icon drawing and fill color. Value comes from the <see cref="IconColor"/> enumeration
     /// </summary>
     [Parameter]
     public IconColor Color { get; set; } = IconColor.Accent;
 
     /// <summary>
-    /// Gets or sets the name of the icon. Can be specified by using const value from <c ref="FluentIcons" />
+    /// Gets or sets the icon drawing and fill color to a custom value.
+    /// Needs to be formatted as an HTML hex color string (#rrggbb or #rgb)
+    /// ⚠️ Only available when IconColor is set to IconColor.Custom.
+    /// </summary>
+    [Parameter]
+    public string? CustomColor { get; set; }
+
+    /// <summary>
+    /// Gets or sets the name of the icon. Can be specified by using const value from <see cref="FluentIcons" />
     /// </summary>
     [Parameter]
     [EditorRequired]
@@ -80,10 +89,39 @@ public partial class FluentIcon : FluentComponentBase
 
     protected override async Task OnParametersSetAsync()
     {
+        string? color = IconColor.Neutral.ToAttributeValue();
+        
         string result;
         string? nc = NeutralCultureName ?? null;
+
+        if (Color != IconColor.Custom)
+        {
+            if (CustomColor != null)
+                throw new ArgumentException("CustomColor can only be used when Color is set to IconColor.Custom. ");
+            else
+                color = $"var({Color.ToAttributeValue()})";
+        }
+        else
+        {
+            if (CustomColor is null)
+                throw new ArgumentException("CustomColor must be set when Color is set to IconColor.Custom. ");
+            else
+            {
+#if NET7_0_OR_GREATER
+                if (!CheckRGBString().IsMatch(CustomColor))
+#else
+                if (!Regex.IsMatch(CustomColor, "^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$"))
+#endif
+                    throw new ArgumentException("CustomColor must be a valid HTML hex color string (#rrggbb or #rgb). ");
+                else
+                    color = CustomColor;
+             }
+        }
+
         string folder = FluentIcons.IconMap.First(x => x.Name == Name).Folder;
 
+
+        
         _iconUrl = $"{ICON_ROOT}/{folder}{(nc is not null ? "/" + nc : "")}/{ComposedName}.svg";
         _iconUrlFallback = $"{ICON_ROOT}/{folder}/{ComposedName}.svg";
 
@@ -126,7 +164,7 @@ public partial class FluentIcon : FluentComponentBase
 
             if (!string.IsNullOrEmpty(result))
             {
-                result = result.Replace("<path ", $"<path fill=\"var({Color.ToAttributeValue()})\"");
+                result = result.Replace("<path ", $"<path fill=\"{color}\"");
 
                 string pattern = "<svg (?<attributes>.*?)>(?<path>.*?)</svg>";
                 Regex regex = new(pattern);
@@ -182,4 +220,10 @@ public partial class FluentIcon : FluentComponentBase
     }
 
     public static HttpRequestMessage CreateMessage(string url) => new(HttpMethod.Get, url);
+
+#if NET7_0_OR_GREATER
+    [GeneratedRegex("^#(?:[a-fA-F0-9]{6}|[a-fA-F0-9]{3})$")]
+    private static partial Regex CheckRGBString();
+#endif
+    
 }

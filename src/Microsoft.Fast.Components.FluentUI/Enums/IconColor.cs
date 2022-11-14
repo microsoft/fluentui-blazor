@@ -53,6 +53,10 @@ public enum IconColor
     [Description("--success-fill")]
     Success,
 
-
-
+    /// <summary>
+    /// Supply an HTML hex color string value (#rrggbb or #rgb) for the CustomColor parameter.
+    /// If no CustomColor supplied value defaults to CSS variable --neutral-forground-rest, adapts to light/dark mode.
+    /// </summary>
+    [Description("--neutral-foreground-rest")]
+    Custom,
 }

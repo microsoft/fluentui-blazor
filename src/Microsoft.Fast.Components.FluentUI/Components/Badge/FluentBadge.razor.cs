@@ -45,4 +45,4 @@ public partial class FluentBadge : FluentComponentBase
 
         return base.OnParametersSetAsync();
     }
-    }
+}

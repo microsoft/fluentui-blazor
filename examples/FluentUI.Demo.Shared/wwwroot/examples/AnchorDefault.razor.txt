@@ -1,8 +1,8 @@
-﻿<h4>Default</h4>
+﻿<p>Default</p>
 <FluentAnchor Href="#">Anchor</FluentAnchor>
 
-<h4>With target</h4>
+<p>With target</p>
 <FluentAnchor Href="https://microsoft.com" Target="_blank">Anchor</FluentAnchor>
 
-<h4>With aria-label</h4>
+<p>With aria-label</p>
 <FluentAnchor Href="#" aria-label="Anchor with aria-label"></FluentAnchor>

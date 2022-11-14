@@ -7,7 +7,7 @@
 <p>Hypertext</p>
 <FluentAnchor Href="#" Appearance="Appearance.Hypertext">Anchor</FluentAnchor>
 
-<p>
+<p style="font-weight:400;">
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt ut aliquam quas quod ipsam cupiditate, voluptate,
     corrupti
     <FluentAnchor Appearance="Appearance.Hypertext" Href="#">doloremque totam</FluentAnchor>

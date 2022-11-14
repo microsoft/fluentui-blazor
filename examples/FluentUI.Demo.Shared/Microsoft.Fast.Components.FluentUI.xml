@@ -1275,12 +1275,19 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.Color">
             <summary>
-            Gets or sets the icon drawing and fill color <see cref="T:Microsoft.Fast.Components.FluentUI.IconColor"/>
+            Gets or sets the icon drawing and fill color. Value comes from the <see cref="T:Microsoft.Fast.Components.FluentUI.IconColor"/> enumeration
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.CustomColor">
+            <summary>
+            Gets or sets the icon drawing and fill color to a custom value.
+            Needs to be formatted as an HTML hex color string (#rrggbb or #rgb)
+            ⚠️ Only available when IconColor is set to IconColor.Custom.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.Name">
             <summary>
-            Gets or sets the name of the icon. Can be specified by using const value from <c ref="FluentIcons" />
+            Gets or sets the name of the icon. Can be specified by using const value from <see cref="T:Microsoft.Fast.Components.FluentUI.FluentIcons" />
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.Size">
@@ -5396,6 +5403,12 @@
             Use the '--success-fill' CSS variable color.
             Note: This color is defined in the variables.css file. If this file is not being used, 
             a CSS variable with this name and appropriate value needs to be created.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.IconColor.Custom">
+            <summary>
+            Supply an HTML hex color string value (#rrggbb or #rgb) for the CustomColor parameter.
+            If no CustomColor supplied value defaults to CSS variable --neutral-forground-rest, adapts to light/dark mode.
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.IconSize">
