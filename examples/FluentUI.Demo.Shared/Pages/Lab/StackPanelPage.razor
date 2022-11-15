@@ -6,8 +6,21 @@
 
 <h2>Example</h2>
 
-<DemoSection Component="typeof(StackPanel)" Title="StackPanel" CollocatedFiles="@(new[] {"cs", "css"})">
-
+<DemoSection Component="typeof(StackPanel)" Title="StackPanel" CollocatedFiles="@(new[] {"cs", "css"})"
+             ComponentParameters="@(new Dictionary<string, object>(){ {"ChildContent",(RenderFragment)(builder => builder.AddMarkupContent(1,"<div class=\"demopanel\">This is some content displayed in a div</div><div class=\"demopanel\">This is some content displayed in a div</div>")) } })">
+    <ChildContent>
+        <CodeSnippet>
+&lt;StackPanel&gt;
+    &lt;div&gt;
+        This is some content displayed in a div
+    &lt;/div&gt;
+    &lt;div&gt;
+        This is some content displayed in a div
+    &lt;/div&gt;
+&lt;/StackPanel&gt;
+        </CodeSnippet>
+        <p>Renders as:</p>
+    </ChildContent>
 </DemoSection>
 
 <DemoSection Component="typeof(StackPanelExample)" Title="StackPanel usage" />

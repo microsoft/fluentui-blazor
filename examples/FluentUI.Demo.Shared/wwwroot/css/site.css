@@ -196,6 +196,10 @@ code {
     background: var(--neutral-stroke-layer-rest);
 }
 
+.demopanel {
+    border: 1px dashed red;
+}
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;

@@ -1,10 +1,10 @@
 ﻿@* Remember to replace the namespace below with your own project's namespace. *@
 @namespace FluentUI.Demo.Shared
 
-<FluentSwitch @bind-Value="ShowHeader">Header</FluentSwitch>
-<FluentSwitch @bind-Value="ShowNavMenu">NavMenu</FluentSwitch>
-<FluentSwitch @bind-Value="ShowBodyContent">BodyContent</FluentSwitch>
-<FluentSwitch @bind-Value="ShowFooter">Footer</FluentSwitch>
+<FluentSwitch Style="width: 150px;" @bind-Value="ShowHeader">Header</FluentSwitch>
+<FluentSwitch Style="width: 150px;" @bind-Value="ShowNavMenu">NavMenu</FluentSwitch>
+<FluentSwitch Style="width: 150px;" @bind-Value="ShowBodyContent">BodyContent</FluentSwitch>
+<FluentSwitch Style="width: 150px;" @bind-Value="ShowFooter">Footer</FluentSwitch>
 
 <Layout Style="margin-top: 10px;">
     @if (ShowHeader)
@@ -32,7 +32,7 @@
 
         @if (ShowBodyContent)
         {
-            <BodyContent Style="background-color: white;">
+            <BodyContent>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis lorem lacus.
                 Ut id leo non enim feugiat ultrices. Proin vulputate volutpat urna nec iaculis.
                 Integer dui lacus, fermentum sit amet aliquet in, scelerisque vitae dui.
