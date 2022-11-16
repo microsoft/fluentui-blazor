@@ -6,9 +6,9 @@ using Microsoft.Fast.Components.FluentUI.Utilities;
 namespace FluentUI.Demo.Shared;
 
 /// <summary>
-/// Determines the horizontal alignment of the content within the <see cref="FluentStackPanel"/>.
+/// Determines the horizontal alignment of the content within the <see cref="Stack"/>.
 /// </summary>
-public enum StackPanelHorizontalAlignment
+public enum StackHorizontalAlignment
 {
     /// <summary>
     /// The content is aligned to the left.
@@ -27,9 +27,9 @@ public enum StackPanelHorizontalAlignment
 }
 
 /// <summary>
-/// Determines the vertical alignment of the content within the <see cref="FluentStackPanel"/>.
+/// Determines the vertical alignment of the content within the <see cref="Stack"/>.
 /// </summary>
-public enum StackPanelVerticalAlignment
+public enum StackVerticalAlignment
 {
     /// <summary>
     /// The content is aligned to the top.
@@ -47,7 +47,7 @@ public enum StackPanelVerticalAlignment
     Bottom,
 }
 
-public partial class StackPanel : FluentComponentBase
+public partial class Stack : FluentComponentBase
 {
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("stack-horizontal", () => Orientation == Orientation.Horizontal)
@@ -61,7 +61,8 @@ public partial class StackPanel : FluentComponentBase
         .AddStyle("justify-content", GetHorizontalAlignment(), () => Orientation == Orientation.Horizontal)
         .AddStyle("align-items", GetVerticalAlignment(), () => Orientation == Orientation.Horizontal)
 
-        .AddStyle("gap", $"{Gap}px", () => Gap.HasValue)
+        .AddStyle("column-gap", $"{HorizontalGap}px", () => HorizontalGap.HasValue)
+        .AddStyle("row-gap", $"{VerticalGap}px", () => VerticalGap.HasValue)
         .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
         .AddStyle("flex-wrap", "wrap", () => Wrap)
 
@@ -69,40 +70,46 @@ public partial class StackPanel : FluentComponentBase
         .Build();
 
     /// <summary>
-    /// The horizontal alignment of the stack panel
+    /// The horizontal alignment of the components in the stack. 
     /// </summary>
     [Parameter]
-    public StackPanelHorizontalAlignment HorizontalAlignment { get; set; } = StackPanelHorizontalAlignment.Left;
+    public StackHorizontalAlignment HorizontalAlignment { get; set; } = StackHorizontalAlignment.Left;
 
     /// <summary>
-    /// The vertical alignment of the stack panel
+    /// The vertical alignment of the components in the stack.
     /// </summary>
     [Parameter]
-    public StackPanelVerticalAlignment VerticalAlignment { get; set; } = StackPanelVerticalAlignment.Top;
+    public StackVerticalAlignment VerticalAlignment { get; set; } = StackVerticalAlignment.Top;
 
     /// <summary>
-    /// The orientation of the stack panel
+    /// Gets or set the orientation of the stacked components. 
     /// </summary>
     [Parameter]
     public Orientation Orientation { get; set; } = Orientation.Horizontal;
 
     /// <summary>
-    /// The width of the stack panel as a string (default = 100%)
+    /// The width of the stack as a percentage string (default = 100%).
     /// </summary>
     [Parameter]
     public string? Width { get; set; } = "100%";
 
     /// <summary>
-    /// Gets or sets the stack panel to wrap
+    /// Gets or sets if the stack wraps.
     /// </summary>
     [Parameter]
     public bool Wrap { get; set; } = false;
 
     /// <summary>
-    /// Gets or sets the gap between components in the stack panel
+    /// Gets or sets the gap between horizontally stacked components (in pixels).
     /// </summary>
     [Parameter]
-    public int? Gap { get; set; } = 10;
+    public int? HorizontalGap { get; set; } = 10;
+
+    /// <summary>
+    /// Gets or sets the gap between vertically stacked components (in pixels).
+    /// </summary>
+    [Parameter]
+    public int? VerticalGap { get; set; } = 10;
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
@@ -114,9 +121,9 @@ public partial class StackPanel : FluentComponentBase
     {
         return HorizontalAlignment switch
         {
-            StackPanelHorizontalAlignment.Left => "start",
-            StackPanelHorizontalAlignment.Center => "center",
-            StackPanelHorizontalAlignment.Right => "end",
+            StackHorizontalAlignment.Left => "start",
+            StackHorizontalAlignment.Center => "center",
+            StackHorizontalAlignment.Right => "end",
             _ => "start",
         };
     }
@@ -125,9 +132,9 @@ public partial class StackPanel : FluentComponentBase
     {
         return VerticalAlignment switch
         {
-            StackPanelVerticalAlignment.Top => "start",
-            StackPanelVerticalAlignment.Center => "center",
-            StackPanelVerticalAlignment.Bottom => "end",
+            StackVerticalAlignment.Top => "start",
+            StackVerticalAlignment.Center => "center",
+            StackVerticalAlignment.Bottom => "end",
             _ => "start",
         };
     }

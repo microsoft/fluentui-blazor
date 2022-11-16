@@ -1,11 +1,8 @@
 ﻿@* Remember to replace the namespace below with your own project's namespace. *@
 @namespace FluentUI.Demo.Shared
 
-@if (Width is null)
-{
-    <div style="flex-grow: 1;" />
-}
-else
-{
-    <span style="margin-inline-start: @(Width)px;" />
+<h3>SpacerWidthExample</h3>
+
+@code {
+
 }

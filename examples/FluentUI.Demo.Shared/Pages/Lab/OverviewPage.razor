@@ -6,32 +6,33 @@
 </div>
 
 <p>
-    The incubation lab is were we test things out. Some of the expirements might make it into the library, others we offer here so you can copy 
-    them to your project in aneasy way. If we hear you don't like/want them, they might even end up in the trashcan.
+    The incubation lab is were we test things out. Some of the expirements might make it into the library, others are offered here to copy 
+    them to your project in an easy way. Some might even end up in the trashcan.
 </p>
 <p>
-    As these components are not part of the official library, they are not included in the NuGet package. Also, note that we only 
-    offer support for these specific components on a best effort base.
+    As these components are not part of the official library, they are not included in the NuGet package. Also, please note that we only 
+    offer support for these specific components through the <a href="https://github.com/microsoft/fast-blazor/">GitHub repository</a> on a best effort base.
     <br />
     We hope you will help us test-drive the components, both here in the demo environment but also in your own projects, and give us 
     feedback (at our <a href="https://github.com/microsoft/fast-blazor/discussions">repo's discussion board'</a>).
 </p>
 <p>
     Most components will show download links for the Razor (<code>.razor</code>), C# (<code>.cs</code>), CSS (<code>.css</code>) and JavaScript 
-    (<code>.js</code>) files (if applicable for that specific component). This makes it easy to test the components inside of your own projects.
+    (<code>.js</code>) files (if applicable for that specific component). This makes it easy to test the components inside your own projects.
 </p>
 <p>
-    <strong>Please be aware that if you download the files to use in your own projects, you need to replace the default <code>FluentUI.Demo.Shared</code> namespace with your own project's namespace'</strong>
+    <strong>Please be aware that if you download the files to use in your own projects, you need to replace the <code>FluentUI.Demo.Shared</code> namespace with your own project's namespace</strong>
 </p>
+<p class="small">Inspiration (and large parts of the implementations) for some of these compoments comes from an interal Microsoft project and contributor. Many thanks!</p>
 
 <h2>Example</h2>
-
+ 
 <DemoSection Component="typeof(LayoutExample)" Title="Putting it all together">
     <Description>
         This demo show a number of the lab components working together. More specifically the following components:
         <ul>
             <li><FluentAnchor Appearance=Appearance.Hypertext Href="/Lab/Layout">Layout</FluentAnchor></li>
-            <li><FluentAnchor Appearance=Appearance.Hypertext Href="/Lab/StackPanel">StackPanel</FluentAnchor></li>
+            <li><FluentAnchor Appearance=Appearance.Hypertext Href="/Lab/Stack">Stack</FluentAnchor></li>
             <li><FluentAnchor Appearance=Appearance.Hypertext Href="/Lab/NavMenu">NavMenu, NavMenuGroup and NavMenuLink</FluentAnchor></li>
             <li><FluentAnchor Appearance=Appearance.Hypertext Href="/Lab/Header">Header</FluentAnchor></li>
             <li><FluentAnchor Appearance=Appearance.Hypertext Href="/Lab/BodyContent">BodyContent</FluentAnchor></li>
@@ -42,6 +43,7 @@
         <br />
         The components use sensible default regarding margins, padding, etc. This should make it easy to implement them in your own projects 
         without you needing to do a lot of CSS adjustments.
+        <p>If you want to use this example in your own project, you can download the <code>.razor</code> file below. To end up with working situation, you also need to download the files for all the other components mentioned above.</p>
     </Description>
 </DemoSection>
 

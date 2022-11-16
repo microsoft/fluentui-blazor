@@ -198,7 +198,10 @@ code {
 
 .demopanel {
     border: 1px dashed red;
+    padding: 5px;
 }
+
+
 
 #blazor-error-ui {
     background: lightyellow;

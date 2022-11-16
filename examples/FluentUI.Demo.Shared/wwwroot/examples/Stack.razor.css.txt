@@ -7,8 +7,3 @@
     display: flex;
     flex-direction: row;
 }
-
-/*From main layout component*/
-.main-layout-stack-panel {
-    height: calc(100vh - var(--header-height));
-}

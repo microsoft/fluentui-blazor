@@ -20,6 +20,24 @@ public partial class TableOfContents : IAsyncDisposable
     [Inject]
     protected NavigationManager NavigationManager { get; set; } = default!;
 
+    /// <summary>
+    /// Gets or sets the heading for the ToC 
+    /// Defaults to 'In this article'
+    /// </summary>
+    [Parameter]
+    public string Heading { get; set; } = "In this article";
+
+    /// <summary>
+    /// Gets or sets if a 'Back to top' button should be rendered.
+    /// Defaults to true
+    /// </summary>
+    [Parameter]
+    public bool ShowBackButton { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets the content to be rendered inside the component.
+    /// </summary>
+
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 

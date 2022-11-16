@@ -6,10 +6,23 @@
 
 <h2>Example</h2>
 
-<DemoSection Component="typeof(Spacer)" Title="Spacer" CollocatedFiles="@(new[] {"cs" })" >
-    
+<DemoSection Component="typeof(Spacer)" Title="Spacer" CollocatedFiles="@(new[] {"cs"})" HideExample=true>
+    <Description>
+        The purpose of this component is to generate space between other components. As we are creating a spacer here, 
+        renderin it by itself wouldn't really make sense<br />
+        Copy the Razor and C# files to your project with the buttons below.<br /><br />
+        The other examples on this page will demonstrate the usage of this component more clearly.
+    </Description>
 </DemoSection>
     
-@code {
+<DemoSection Component="typeof(SpacerFlexExample)" Title="Spacers with flexible width">
+    <Description>
+        The icons are shown with a flexible width (default) <code>Spacer</code> in between. The block just uses the total width and spreads the space evenly.
+    </Description>
+</DemoSection>
 
-}
+<DemoSection Component="typeof(SpacerWidthExample)" Title="Spacers with set width">
+    <Description>
+        The icons are shown with a 50 pixel width <code>Spacer</code> in between. The block just uses the width it needs 
+    </Description>
+</DemoSection>

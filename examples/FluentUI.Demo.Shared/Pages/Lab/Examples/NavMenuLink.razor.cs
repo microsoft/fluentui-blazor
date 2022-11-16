@@ -14,7 +14,7 @@ public partial class NavMenuLink : FluentComponentBase
         .Build();
 
     protected string? StyleValue => new StyleBuilder()
-        .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
+        .AddStyle("width", $"{Width}px", () => Width.HasValue)
         .AddStyle(Style)
         .Build();
 
@@ -24,33 +24,60 @@ public partial class NavMenuLink : FluentComponentBase
     [CascadingParameter]
     public NavMenu Owner { get; set; } = default!;
 
+    /// <summary>
+    /// Gets or sets whether the link is disabled.
+    /// </summary>
     [Parameter]
     public bool Disabled { get; set; } = false;
 
+    /// <summary>
+    /// Gets or sets whether the link is selected.
+    /// </summary>
     [Parameter]
     public bool Selected { get; set; } = false;
 
+    /// <summary>
+    /// Callback function for when the selected state changes.
+    /// </summary>
     [Parameter]
     public EventCallback<bool> SelectedChanged { get; set; }
 
+    /// <summary>
+    /// Gets or sets the name of the icon to display with the link
+    /// </summary>
     [Parameter]
     public string Icon { get; set; } = "";
 
+    /// <summary>
+    /// Gets or sets the width of the link (in pixels).
+    /// </summary>
     [Parameter]
-    public string? Width { get; set; }
+    public int? Width { get; set; }
 
+    /// <summary>
+    /// Gets or sets the text of the link.
+    /// </summary>
     [Parameter]
     public string Text { get; set; } = "";
 
+    /// <summary>
+    /// Gets or sets the destination of the link.
+    /// </summary>
     [Parameter]
     public string? Href { get; set; } = "";
 
+    /// <summary>
+    /// Gets orsets the target of the link.
+    /// </summary>
     [Parameter]
     public string? Target { get; set; } = "";
 
     [CascadingParameter(Name = "NavMenuCollapsed")]
     private bool NavMenuCollapsed { get; set; }
 
+    /// <summary>
+    /// Callback function for when the link is clicked.
+    /// </summary>
     [Parameter]
     public EventCallback<MouseEventArgs> OnClick { get; set; }
 

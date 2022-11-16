@@ -4,7 +4,7 @@
 <h2>Navigation Examples</h2>
 
 
-<StackPanel Orientation="Orientation.Horizontal">
+<Stack Orientation="Orientation.Horizontal">
     <!-- Menu with sub-items and icons -->
     <NavMenu Collapsible="false">
         <NavMenuLink Text="Item 1" @onclick="OnClick" Icon="@(FluentIcons.Home)" Selected="true" />
@@ -51,7 +51,7 @@
         <NavMenuLink Text="Item 4" @onclick="OnClick" />
     </NavMenu>
 
-</StackPanel>
+</Stack>
 
 @code
 {

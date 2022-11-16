@@ -1,0 +1,36 @@
+﻿@* Remember to replace the namespace below with your own project's namespace. *@
+@namespace FluentUI.Demo.Shared
+
+<p>Alignment of the Stack content elements:</p>
+<Stack>
+    <div style="width: 150px;">
+        Horizontal<FluentListbox Items=@(Enum.GetValues<StackHorizontalAlignment>()) @bind-SelectedOption="@Horizontal" />
+    </div>
+    <div style="width: 150px;">
+        Vertical<FluentListbox Items=@(Enum.GetValues<StackVerticalAlignment>()) @bind-SelectedOption="@Vertical"  />
+    </div>
+</Stack>
+
+<p>Result:</p>
+<Stack Orientation="Orientation.Vertical"
+                 HorizontalAlignment="@Horizontal"
+                 VerticalAlignment="@Vertical"
+                 VerticalGap="20"
+                 Style="height: 200px; border: 1px dotted var(--accent-fill-rest)">
+    <div class="demopanel">Vertical item 1</div>
+    <div class="demopanel">Vertical item 2</div>
+    <Stack Orientation="Orientation.Horizontal"
+                     HorizontalAlignment="@Horizontal"
+                     VerticalAlignment="@Vertical"
+                     HorizontalGap="4"
+                     Style="border: 1px dotted var(--accent-fill-rest)">
+        <div class="demopanel" style="width: 150px">Horizontal <br />item 1</div>
+        <div class="demopanel">Horizontal item 2</div>
+    </Stack>
+</Stack>
+
+@code
+{
+    StackHorizontalAlignment Horizontal;
+    StackVerticalAlignment Vertical;
+}

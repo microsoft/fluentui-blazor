@@ -17,7 +17,7 @@ public partial class NavMenu : FluentComponentBase
         .Build();
 
     protected string? StyleValue => new StyleBuilder()
-        .AddStyle("width", Width, () => Collapsed && !string.IsNullOrEmpty(Width))
+        .AddStyle("width", $"{Width}px", () => Collapsed && Width.HasValue)
         .AddStyle("width", "35px", () => !Collapsed)
         //.AddStyle("min-width", "unset", () => !Collapsed)
         .AddStyle(Style)
@@ -31,15 +31,28 @@ public partial class NavMenu : FluentComponentBase
 
     private IJSObjectReference Module { get; set; } = default!;
 
+    /// <summary>
+    /// Gets or sets the title of the navigation menu
+    /// Default to "Navigation menu"
+    /// </summary>
     [Parameter]
     public string? Title { get; set; } = "Navigation menu";
 
+    /// <summary>
+    /// Gets or sets the width of the menu (in pixels).
+    /// </summary>
     [Parameter]
-    public string? Width { get; set; }
+    public int? Width { get; set; }
 
+    /// <summary>
+    /// Gets or sets whether the menu can be collapsed.
+    /// </summary>
     [Parameter]
     public bool Collapsible { get; set; } = true;
 
+    /// <summary>
+    /// Gets or sets whether the menu is collapsed.
+    /// </summary>
     [Parameter]
     [CascadingParameter()]
     public bool Collapsed { get; set; } = true;

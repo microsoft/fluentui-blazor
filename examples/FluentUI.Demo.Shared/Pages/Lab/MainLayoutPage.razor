@@ -14,8 +14,8 @@
     {
         {"Header", (RenderFragment)(builder => builder.AddMarkupContent(0,"<h3>Fluent UI Components</h3>"))},
         {"SubHeader", (RenderFragment)(builder => builder.AddMarkupContent(1,"<p>A subheader here</p>"))},
-        {"Body", (RenderFragment)(builder => builder.AddMarkupContent(2,"<p>Lorum ipsum</p>"))},
-        {"NavMenuItems", (RenderFragment)(builder => {
+        {"Body", (RenderFragment)(builder => builder.AddMarkupContent(2,"Lorum ipsum..."))},
+        {"NavMenuContent", (RenderFragment)(builder => {
                 builder.OpenComponent<NavMenuLink>(3);
                 builder.AddAttribute(4, "Href", "/");
                 builder.AddAttribute(5, "Text", "Home");

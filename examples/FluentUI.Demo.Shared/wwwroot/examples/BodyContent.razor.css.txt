@@ -5,5 +5,5 @@
     align-items: flex-start;
     height: 100%;
     width: 100%;
-    color: var(--fill-color);
+    
 }

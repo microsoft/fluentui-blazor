@@ -14,7 +14,7 @@ public partial class NavMenuGroup : FluentComponentBase
         .Build();
 
     protected string? StyleValue => new StyleBuilder()
-        .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
+        .AddStyle("width", $"{Width}px", () => Width.HasValue)
         .AddStyle(Style)
         .Build();
 
@@ -24,25 +24,45 @@ public partial class NavMenuGroup : FluentComponentBase
     [CascadingParameter(Name = "NavMenuCollapsed")]
     private bool NavMenuCollapsed { get; set; }
 
+    /// <summary>
+    /// Gets or sets whether the menu group is disabled
+    /// </summary>
     [Parameter]
     public bool Disabled { get; set; }
 
+    /// <summary>
+    /// Gets or sets whether the menu group is selected
+    /// </summary>
     [Parameter]
     public bool Selected { get; set; }
 
-
+    /// <summary>
+    /// Gets or sets whether the menu group is expanded
+    /// </summary>
     [Parameter]
     public bool Expanded { get; set; }
 
+    /// <summary>
+    /// Callback function for when the menu group is expanded
+    /// </summary>
     [Parameter]
     public EventCallback<bool> OnExpandedChanged { get; set; }
 
+    /// <summary>
+    /// Gets or sets the width of the menu group
+    /// </summary>
     [Parameter]
-    public string? Width { get; set; }
+    public int? Width { get; set; }
 
+    /// <summary>
+    /// Gets or sets the text of the menu group
+    /// </summary>
     [Parameter]
     public string Text { get; set; } = "";
 
+    /// <summary>
+    /// Callback function for when the menu group is clicked
+    /// </summary>
     [Parameter]
     public EventCallback<MouseEventArgs> OnClick { get; set; }
 

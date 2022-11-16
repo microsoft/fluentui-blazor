@@ -18,12 +18,16 @@ namespace FluentUI.Demo.Generators
             Debug.WriteLine("Execute code generator");
 
             IEnumerable<AdditionalText> files = context.AdditionalFiles.Where(y => y.Path.EndsWith(".xml"));
-            string documentationPath = files.First().Path;
+            List<XElement> members = new();
 
-            XDocument xml = null;
-            xml = XDocument.Load(documentationPath);
+            foreach (AdditionalText file in files)
+            {
+                XDocument xml = null;
+                xml = XDocument.Load(file.Path);
 
-            IEnumerable<XElement> members = xml.Descendants("member");
+                members.AddRange(xml.Descendants("member"));
+            }
+           
             StringBuilder sb = new();
 
             sb.AppendLine("#pragma warning disable CS1591");
@@ -61,6 +65,10 @@ namespace FluentUI.Demo.Generators
         private static string CleanupParamName(string value)
         {
             Regex regex = new("[P,T,M,F]:Microsoft\\.Fast\\.Components\\.FluentUI\\.");
+            value = regex.Replace(value, "");
+            regex = new("[P,T,M,F]:FluentUI\\.Demo\\.Shared\\.Components\\.");
+            value = regex.Replace(value, "");
+            regex = new("[P,T,M,F]:FluentUI\\.Demo\\.Shared\\.");
             value = regex.Replace(value, "");
 
             return value;

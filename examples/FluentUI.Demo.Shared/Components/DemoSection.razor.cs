@@ -82,6 +82,7 @@ public partial class DemoSection : ComponentBase
             {
                 TabPanelsContent.Add(source, await Http.GetStringAsync($"./_content/FluentUI.Demo.Shared/examples/{source}.txt"));
             }
+            StateHasChanged();
         }
         catch
         {
