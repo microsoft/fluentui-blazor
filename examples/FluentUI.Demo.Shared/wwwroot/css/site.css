@@ -119,6 +119,15 @@ nav {
         margin: 0;
     }
 
+    nav h3 {
+        font-size: var(--type-ramp-base-font-size);
+        line-height: var(--type-ramp-minus-1-line-height);
+        
+        padding: 10px 0;
+        margin: 0;
+    }
+
+
     nav fluent-anchor {
         width: 100%;
         color: var(--fill-color);

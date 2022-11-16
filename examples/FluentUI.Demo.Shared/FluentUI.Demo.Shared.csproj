@@ -6,8 +6,6 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<UseRazorSourceGenerator>true</UseRazorSourceGenerator>
 		<LangVersion>latest</LangVersion>
-		<EmitCompilerGeneratedFiles>false</EmitCompilerGeneratedFiles>
-		<CompilerGeneratedFilesOutputPath>Generated</CompilerGeneratedFilesOutputPath>
 		<IsTrimmable>false</IsTrimmable>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	</PropertyGroup>
@@ -54,6 +52,11 @@
 
 	<ItemGroup>
 	  <Folder Include="wwwroot\examples\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="Components/*.razor.css" CssScope="b-fl" />
+		<None Update="Pages/*/*.razor.css" CssScope="b-fl" />
 	</ItemGroup>
 
 	<Target Name="CopyExamplesToContentRoot" BeforeTargets="CoreBuild">

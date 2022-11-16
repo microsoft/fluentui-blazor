@@ -16,7 +16,7 @@
         </NavMenu>
     </div>
     <div style="width: 100%;">
-        <p style="width: 100%; word-break:break-word;">
+        
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis lorem lacus.
             Ut id leo non enim feugiat ultrices. Proin vulputate volutpat urna nec iaculis.
             Integer dui lacus, fermentum sit amet aliquet in, scelerisque vitae dui.
@@ -26,7 +26,7 @@
             Sed maximus, urna in fringilla posuere, enim urna bibendum justo, vel molestie nibh orci nec lectus.
             Etiam a varius justo. Aenean nisl ante, interdum eget vulputate eget, iaculis ut massa.
             Suspendisse maximus sed purus id molestie. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        </p>
+        
     </div>
 </Stack>
 

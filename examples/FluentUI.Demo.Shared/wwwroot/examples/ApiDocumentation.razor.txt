@@ -2,10 +2,10 @@
 @using System.Reflection;
 @using Microsoft.Fast.Components.FluentUI;
 
-<div>
+
     <h2 id="@_id">@_displayName</h2>
 
-@if (Component.BaseType != null && Component.BaseType != typeof(FluentComponentBase))
+@if (Component.BaseType != null && Component.BaseType != typeof(FluentComponentBase) && Component.BaseType.Name.StartsWith("Fluent"))
 {
     <p>
         Inherits from <a href="/@Component.BaseType.Name">@Component.BaseType.Name.Replace("`1",$"<{GenericLabel}>")</a>. <br />
@@ -79,4 +79,3 @@
         </TemplateColumn>        
     </FluentDataGrid>
 }
-</div>

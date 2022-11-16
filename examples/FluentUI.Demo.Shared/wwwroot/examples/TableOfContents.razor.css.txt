@@ -11,7 +11,7 @@
     padding-right: 1rem;
 }
 
-::deep li {
+li {
     text-overflow: ellipsis;
 }
 
@@ -42,8 +42,19 @@ li {
 ::deep fluent-button {
     display: none;
     position: fixed;
-    bottom: 20px;
-    right: 30px;
+    bottom: 45px;
+    right: 20px;
+    left: unset;
+    z-index: 99;
+    cursor: pointer;
+}
+
+[dir="rtl"] ::deep fluent-button {
+    display: none;
+    position: fixed;
+    bottom: 45px;
+    left: 20px;
+    right: unset;
     z-index: 99;
     cursor: pointer;
 }
