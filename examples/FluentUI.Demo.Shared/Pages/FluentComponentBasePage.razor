@@ -35,6 +35,7 @@
         new paramDef("AdditionalAttributes"," IReadOnlyDictionary<string, object>?","null","Gets or sets a collection of additional attributes that will be applied to the created element."),
         new paramDef("BackReference","Reference?","null","A reference to the enclosing component."),
         new paramDef("Class","string?","null","Optional CSS class names. If given, these will be included in the class attribute of the component."),
+        new paramDef("Element","ElementReference","null","The associated web component.<br /><br />May be 'null' if accessed before the component is rendered.<br />"),
         new paramDef("Style","string?","null","Optional in-line styles. If given, these will be included in the style attribute of the component.")
     };
 }

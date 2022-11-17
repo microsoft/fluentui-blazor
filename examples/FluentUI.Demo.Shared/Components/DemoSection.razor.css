@@ -14,7 +14,7 @@
     margin-bottom: 10px;
 }
 
-::deep p {
+::deep .heavy {
     font-weight: 600;
 }
 

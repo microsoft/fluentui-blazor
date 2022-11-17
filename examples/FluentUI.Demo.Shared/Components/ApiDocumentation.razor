@@ -2,7 +2,7 @@
 @using System.Reflection;
 @using Microsoft.Fast.Components.FluentUI;
 
-
+<div>
     <h2 id="@_id">@_displayName</h2>
 
 @if (Component.BaseType != null && Component.BaseType != typeof(FluentComponentBase) && Component.BaseType.Name.StartsWith("Fluent"))
@@ -79,3 +79,4 @@
         </TemplateColumn>        
     </FluentDataGrid>
 }
+</div>

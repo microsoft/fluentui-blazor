@@ -120,7 +120,7 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
     public virtual EventCallback<TOption?> SelectedOptionChanged { get; set; }
 
     /// <summary>
-    /// Gets or sets the selected value <see cref="OptionValue"/>.
+    /// Gets or sets the selected value.
     /// When Multiple = true this only reflects the first selected option value.
     /// </summary>
     [Parameter]

@@ -92,7 +92,7 @@ public partial class FluentButton : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the visual appearance. See <seealso cref="FluentUI.Appearance"/>
-    /// Defaults to <seealso cref="Appearance.Neutral"/>
+    /// Defaults to <seealso cref="FluentUI.Appearance.Neutral"/>
     /// </summary>
     [Parameter]
     public Appearance? Appearance { get; set; } = FluentUI.Appearance.Neutral;

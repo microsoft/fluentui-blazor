@@ -80,10 +80,14 @@ namespace FluentUI.Demo.Generators
             Regex regex = new(@"[ ]{2,}");
             value = regex.Replace(value, "");
 
-            regex = new("<see(?:also)? cref=\"[!,P,T,M]+:+Microsoft\\.Fast\\.Components\\.FluentUI\\.(\\w*)(?<generic>`1)?\"\\s+/>");
+            regex = new("<see(?:also)? cref=[\"|'][!,P,T,M,F]+:+Microsoft\\.Fast\\.Components\\.FluentUI\\.([\\w|\\.]*)(?<generic>`\\d)?[\"|']\\s*/>");
             value = regex.Replace(value, m => m.Groups["generic"].Success ? $"<code>{m.Groups[1].Value}&lt;T&gt;</code>" : $"<code>{m.Groups[1].Value}</code>");
 
-            regex = new("<see href=\"(.*)\">(.*)</see>");
+            regex = new("<see(?:also)? cref=[\"|'][!,P,T,M,F]+:+([\\w|\\.|`|(|)|{|}|,]*)[\"|']\\s*/>");
+            value = regex.Replace(value, m => $"<code>{m.Groups[1].Value}</code>");
+
+
+            regex = new("<see href=\"(.*?)\">(.*?)</see>");
             value = regex.Replace(value, "<a href=\"$1\">$2</a>");
 
 
@@ -92,7 +96,13 @@ namespace FluentUI.Demo.Generators
                         .Replace(Environment.NewLine + "</summary>", "")
                         .Replace(Environment.NewLine, "<br />")
                         .Replace("\"", "'")
-                        .Replace("Microsoft.Fast.Components.FluentUI.", "");
+                        .Replace("Microsoft.Fast.Components.FluentUI.", "")
+                        .Replace("FluentDataGrid`1.","")
+                        .Replace("System.Linq.", "")
+                        .Replace("System.Linq.Queryable.", "")
+                        .Replace("System.Collections.", "")
+                        .Replace("`1", "<T>")
+                        .Replace("`0", "<U>"); 
 
         }
 
