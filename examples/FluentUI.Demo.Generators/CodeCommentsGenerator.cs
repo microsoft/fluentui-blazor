@@ -86,7 +86,9 @@ namespace FluentUI.Demo.Generators
             regex = new("<see(?:also)? cref=[\"|'][!,P,T,M,F]+:+([\\w|\\.|`|(|)|{|}|,]*)[\"|']\\s*/>");
             value = regex.Replace(value, m => $"<code>{m.Groups[1].Value}</code>");
 
-
+            regex = new("<see langword=[\"|']([\\w|\\.|`|(|)|{|}|,]*)[\"|']\\s*/>");
+            value = regex.Replace(value, m => $"<code>{m.Groups[1].Value}</code>");
+            
             regex = new("<see href=\"(.*?)\">(.*?)</see>");
             value = regex.Replace(value, "<a href=\"$1\">$2</a>");
 
