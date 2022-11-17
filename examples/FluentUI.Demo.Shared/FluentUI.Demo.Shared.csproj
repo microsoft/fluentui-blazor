@@ -39,6 +39,7 @@
 
 	<ItemGroup>
 		<AdditionalFiles Include="$(ProjectDir)\*.xml" />
+		<AdditionalFiles Include="$(ProjectDir)bin\$(Configuration)\$(TargetFramework)\*.xml" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -54,23 +55,11 @@
 	  <Folder Include="wwwroot\examples\" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<None Update="Components/*.razor.css" CssScope="b-fl" />
-		<None Update="Pages/*/*.razor.css" CssScope="b-fl" />
-	</ItemGroup>
-
 	<Target Name="CopyExamplesToContentRoot" BeforeTargets="CoreBuild">
 		<ItemGroup>
 			<Examples Include="$(ProjectDir)\Pages\**\Examples\*" />
 			<Examples Include="$(ProjectDir)\Components\*" />
 		</ItemGroup>
 		<Copy SourceFiles="@(Examples)" DestinationFiles="@(Examples->'$(ProjectDir)wwwroot\examples\%(Filename)%(Extension).txt')" SkipUnchangedFiles="true" />
-	</Target>
-
-	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<ItemGroup>
-			<XmlFiles Include="$(ProjectDir)bin\$(Configuration)\$(TargetFramework)\*.xml" />
-		</ItemGroup>
-		<Copy SourceFiles="@(XmlFiles)" DestinationFolder="$(SolutionDir)examples\FluentUI.Demo.Shared" />
 	</Target>
 </Project>

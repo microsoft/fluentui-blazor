@@ -11,9 +11,6 @@
     padding-right: 1rem;
 }
 
-li {
-    text-overflow: ellipsis;
-}
 
 li {
     text-overflow: ellipsis;
