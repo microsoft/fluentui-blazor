@@ -7,10 +7,8 @@ public abstract class FluentComponentBase : ComponentBase
     private ElementReference _ref;
 
     /// <summary>
-    /// The associated <see cref="ElementReference"/>.
-    /// <para>
+    /// The associated web component. 
     /// May be <see langword="null"/> if accessed before the component is rendered.
-    /// </para>
     /// </summary>
     public ElementReference Element
     {

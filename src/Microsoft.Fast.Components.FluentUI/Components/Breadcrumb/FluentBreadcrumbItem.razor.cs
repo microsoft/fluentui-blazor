@@ -53,9 +53,9 @@ public partial class FluentBreadcrumbItem : FluentComponentBase
     /// </summary>
     [Parameter]
     public string? Type { get; set; }
-
+    
     /// <summary>
-    /// Gets or sets the visual appearance. See <seealso cref="Appearance"/>
+    /// Gets or sets the visual appearance. See <seealso cref="FluentUI.Appearance"/>
     /// </summary>
     [Parameter]
     public Appearance? Appearance { get; set; }
