@@ -7,7 +7,7 @@
 		<UseRazorSourceGenerator>true</UseRazorSourceGenerator>
 		<LangVersion>latest</LangVersion>
 		<IsTrimmable>false</IsTrimmable>
-		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -38,11 +38,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<AdditionalFiles Include="$(ProjectDir)bin\$(Configuration)\$(TargetFramework)\*.xml" />
+		<AdditionalFiles Include="$(ProjectDir)\*.xml"  />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Remove="Pages\RawBindings.razor" />
+		<Content Remove="Pages\RawBindings.razor" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -51,14 +51,21 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="wwwroot\examples\" />
+		<Folder Include="wwwroot\examples\" />
 	</ItemGroup>
-
+	
 	<Target Name="CopyExamplesToContentRoot" BeforeTargets="CoreBuild">
 		<ItemGroup>
 			<Examples Include="$(ProjectDir)\Pages\**\Examples\*" />
 			<Examples Include="$(ProjectDir)\Components\*" />
 		</ItemGroup>
 		<Copy SourceFiles="@(Examples)" DestinationFiles="@(Examples->'$(ProjectDir)wwwroot\examples\%(Filename)%(Extension).txt')" SkipUnchangedFiles="true" />
+	</Target>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<ItemGroup Condition=" '$(TargetFramework)' == 'net7.0' ">
+			<XmlFiles Include="$(ProjectDir)bin\$(Configuration)\$(TargetFramework)\*.xml" />
+		</ItemGroup>
+		<Copy SourceFiles="@(XmlFiles)" DestinationFolder="$(SolutionDir)examples\FluentUI.Demo.Shared" SkipUnchangedFiles="true" Condition=" '$(TargetFramework)' == 'net7.0' " />
 	</Target>
 </Project>

@@ -40,7 +40,7 @@ namespace FluentUI.Demo.Generators
             sb.AppendLine("{");
             sb.AppendLine("\tpublic static string GetSummary(string name)");
             sb.AppendLine("\t{");
-            sb.AppendLine("\t\tDictionary<string,string> summarydata = new Dictionary<string,string>() {");
+            sb.AppendLine("\t\tDictionary<string, string> summarydata = new Dictionary<string, string>() {");
             foreach (var m in members)
             {
                 string paramName = CleanupParamName(m.Attribute("name").Value.ToString());
@@ -83,7 +83,7 @@ namespace FluentUI.Demo.Generators
             regex = new("<see(?:also)? cref=[\"|'][!,P,T,M,F]+:+Microsoft\\.Fast\\.Components\\.FluentUI\\.([\\w|\\.]*)(?<generic>`\\d)?[\"|']\\s*/>");
             value = regex.Replace(value, m => m.Groups["generic"].Success ? $"<code>{m.Groups[1].Value}&lt;T&gt;</code>" : $"<code>{m.Groups[1].Value}</code>");
 
-            regex = new("<see(?:also)? cref=[\"|'][!,P,T,M,F]+:+([\\w|\\.|`|(|)|{|}|,]*)[\"|']\\s*/>");
+            regex = new("<see(?:also)? cref=[\"|'][!,P,T,M,F]+:+([\\w|\\.|`|\\(|\\)|\\{|\\}|\\,]*)[\"|']\\s*/>");
             value = regex.Replace(value, m => $"<code>{m.Groups[1].Value}</code>");
 
             regex = new("<see langword=[\"|']([\\w|\\.|`|(|)|{|}|,]*)[\"|']\\s*/>");
