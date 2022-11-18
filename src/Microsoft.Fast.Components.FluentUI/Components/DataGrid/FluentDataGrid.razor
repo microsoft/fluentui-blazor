@@ -17,9 +17,9 @@
                           class="@GridClass()"
                           style="@Style"
                           aria-rowcount="@(_ariaBodyRowCount + 1)"
-                          @onrowfocus=HandleOnRowFocus
-                          @onclosecolumnoptions="CloseColumnOptions"
-                          @attributes="AdditionalAttributes">
+        @onrowfocus=HandleOnRowFocus
+        @onclosecolumnoptions="CloseColumnOptions"
+        @attributes="AdditionalAttributes">
             @if (GenerateHeader != GenerateHeaderOption.None)
             {
                 DataGridRowType headerType = DataGridRowType.Header;
@@ -33,11 +33,11 @@
             @if (Virtualize)
             {
                 <Virtualize @ref="@_virtualizeComponent"
-                        TItem="(int RowIndex, TGridItem Data)"
-                        ItemSize="@RowsDataSize"
-                        ItemsProvider="@ProvideVirtualizedItems"
-                        ItemContent="@(item => builder => RenderRow(builder, item.RowIndex, item.Data))"
-                        Placeholder="@(placeholderContext => builder => RenderPlaceholderRow(builder, placeholderContext))" />
+                            TItem="(int RowIndex, TGridItem Data)"
+                            ItemSize="@RowsDataSize"
+                            ItemsProvider="@ProvideVirtualizedItems"
+                            ItemContent="@(item => builder => RenderRow(builder, item.RowIndex, item.Data))"
+                            Placeholder="@(placeholderContext => builder => RenderPlaceholderRow(builder, placeholderContext))" />
             }
             else
             {
@@ -63,64 +63,37 @@
     {
         string? _rowsDataSize = null;
         int colIndex = 1;
-        string RowId = Identifier.NewId();
-
+        
         if (Virtualize)
         {
             _rowsDataSize = $"height: {RowsDataSize}px";
         }
-
-        <fluent-data-grid-row @key="@(RowsDataKey(item))" grid-template-columns=@GridTemplateColumns aria-rowindex="@rowIndex" row-id="@RowId" style="@_rowsDataSize">
+        
+        <FluentDataGridRow @key="@(RowsDataKey(item))" GridTemplateColumns=@GridTemplateColumns aria-rowindex="@rowIndex" Style="@_rowsDataSize" TGridItem="TGridItem">
             @foreach (var col in _columns)
             {
-                string CellId = Identifier.NewId();
-                <fluent-data-grid-cell grid-column=@(colIndex++) class="@ColumnClass(col)" @key="@col" cell-id="@CellId">
-                    @{
-                        col.CellContent(__builder, item);
-                    }
-                </fluent-data-grid-cell>
+                <FluentDataGridCell GridColumn=@(colIndex++) class="@ColumnClass(col)" @key="@col" TGridItem="TGridItem">
+                        @((RenderFragment)(__builder => col.CellContent(__builder, item)))
+                </FluentDataGridCell>
             }
-        </fluent-data-grid-row>
-        //<FluentDataGridRow @key="@(RowsDataKey(item))" GridTemplateColumns=@GridTemplateColumns aria-rowindex="@rowIndex" TGridItem="TGridItem">
-        //    @foreach (var col in _columns)
-        //    {
-        //        <FluentDataGridCell GridColumn=@(colIndex++) class="@ColumnClass(col)" @key="@col" TGridItem="TGridItem">
-        //            @{
-        //                col.CellContent(__builder, item);
-        //            }
-        //        </FluentDataGridCell>
-        //    }
-        //</FluentDataGridRow>
+        </FluentDataGridRow>
     }
 
     private void RenderPlaceholderRow(RenderTreeBuilder __builder, PlaceholderContext placeholderContext)
     {
         string? _rowsDataSize = $"height: {RowsDataSize}px";
-       
+
         int colIndex = 1;
-        string RowId = Identifier.NewId();
-        <fluent-data-grid-row grid-template-columns=@GridTemplateColumns aria-rowindex="@(placeholderContext.Index + 1)" row-id="@RowId" style="@_rowsDataSize">
+       
+        
+        <FluentDataGridRow GridTemplateColumns=@GridTemplateColumns aria-rowindex="@(placeholderContext.Index + 1)" Style="@_rowsDataSize" TGridItem="TGridItem">
             @foreach (var col in _columns)
             {
-                string CellId = Identifier.NewId();
-                <fluent-data-grid-cell class="grid-cell-placeholder @ColumnClass(col)" grid-column=@(colIndex++) @key="@col" cell-id="@CellId">
-                    @{
-                        col.RenderPlaceholderContent(__builder, placeholderContext);
-                    }
-                </fluent-data-grid-cell>
+                <FluentDataGridCell class="@("grid-cell-placeholder " + @ColumnClass(col))" @key="@col" GridColumn=@(colIndex++) TGridItem="TGridItem">
+                    @((RenderFragment)(__builder => col.RenderPlaceholderContent(__builder, placeholderContext)))
+                </FluentDataGridCell>
             }
-        </fluent-data-grid-row>
-        //<FluentDataGridRow GridTemplateColumns=@GridTemplateColumns aria-rowindex="@(placeholderContext.Index + 1)" TGridItem="TGridItem">
-
-        //    @foreach (var col in _columns)
-        //    {
-        //        <FluentDataGridCell class="@ColumnClass(col)" @key="@col" GridColumn=@(colIndex++) TGridItem="TGridItem">
-        //            @{
-        //                col.RenderPlaceholderContent(__builder, placeholderContext);
-        //            }
-        //        </FluentDataGridCell>
-        //    }
-        //</FluentDataGridRow>
+        </FluentDataGridRow>
     }
 
     private void RenderColumnHeaders(RenderTreeBuilder __builder)
@@ -129,11 +102,12 @@
         foreach (var col in _columns)
         {
             string CellId = Identifier.NewId();
-                if (_sortByColumn == col || (_sortByColumn == col && col.IsDefaultSort != null))
+            if (_sortByColumn == col || (_sortByColumn == col && col.IsDefaultSort != null))
                 col.ShowSortIcon = true;
             else
                 col.ShowSortIcon = false;
-            <fluent-data-grid-cell grid-column=@(colIndex++) cell-type=columnheader class="column-header @ColumnHeaderClass(col)" aria-sort="@AriaSortValue(col)" cell-id="@CellId" @key="@col" scope="col">
+           
+            <FluentDataGridCell GridColumn=@(colIndex++) CellType=DataGridCellType.ColumnHeader class="@("column-header " + @ColumnHeaderClass(col))" aria-sort="@AriaSortValue(col)" @key="@col" scope="col" TGridItem="TGridItem">
                 @col.HeaderContent
                 @if (col == _displayOptionsForColumn)
                 {
@@ -141,17 +115,9 @@
                 }
                 @if (ResizableColumns)
                 {
-                    <fluent-divider class="col-width-draghandle" orientation="vertical" aria-orientation="vertical" role="separator"></fluent-divider>
+                    <FluentDivider class="col-width-draghandle" Orientation="Orientation.Vertical" Role="DividerRole.Separator" />
                 }
-            </fluent-data-grid-cell>
-                
-            //<FluentDataGridCell GridColumn=@(colIndex++) CellType=DataGridCellType.ColumnHeader class="@ColumnHeaderClass(col)" aria-sort="@AriaSortValue(col)" @key="@col" TGridItem="TGridItem">
-            //    <div class="col-header-content">@col.HeaderContent</div>
-            //    @if (col == _displayOptionsForColumn)
-            //    {
-            //        <div class="col-options">@col.ColumnOptions</div>
-            //    }
-            //</FluentDataGridCell>
+            </FluentDataGridCell>
         }
     }
 }

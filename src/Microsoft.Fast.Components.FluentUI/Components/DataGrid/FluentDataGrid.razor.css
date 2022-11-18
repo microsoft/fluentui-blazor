@@ -2,96 +2,6 @@ fluent-data-grid {
     --col-gap: 1rem;
 }
 
-::deep .header {
-  height: 42px!important;  
-}
-
-.column-header {
-    display: flex;
-    align-self: center;
-    padding-inline: 0;
-}
-
-    .column-header.col-justify-end {
-        width: 100%;
-        padding: 0;
-    }
-
-    .column-header.col-justify-center {
-        width: 100%;
-        padding: 0;
-    }
-
-.column-header > ::deep .col-sort-button {
-        width: 100%;
-        padding-inline-end: 5px;
-    }
-
-::deep .col-sort-button {
-    font-weight: 600;
-}
-
-::deep .col-title {
-    padding: 0 calc((12 + (var(--design-unit) * 2 * var(--density))) * 1px);
-    display: flex;
-    align-items: center;
-}
-
-::deep .col-title .col-options-button {
-    margin-right: 4px;
-    margin-left: -10px;
-}
-
-[dir=rtl] .column-header ::deep .col-title .col-options-button {
-    margin-left: 4px;
-    margin-right: -10px;
-}
-
-::deep .col-justify-end .col-title .col-options-button {
-    margin-left: 4px;
-    margin-right: -10px;
-}
-
-[dir=rtl] .col-justify-end ::deep .col-title .col-options-button {
-    margin-right: 4px;
-    margin-left: -10px;
-}
- 
-::deep .col-sort-button::part(control) {
-    font-weight: 600;
-    align-items: center;
-    justify-content: start;
-}
-
-
-::deep .col-justify-center .col-sort-button::part(control) {
-    text-align: center;
-    justify-content: center;
-}
-
-::deep .col-justify-end .col-sort-button::part(control) {
-    text-align: end;
-    justify-content: end;
-}
-
-::deep .col-justify-end .col-title {
-    justify-content: end;
-}
-
-.col-justify-center {
-    justify-content: center;
-    justify-self: center;
-}
-.col-justify-end {
-    justify-content: end;
-    justify-self: end;
-    padding-inline-end: 20px;
-}
-
-::deep .col-options-button {
-    width: 1.5rem;
-}
-
 .col-options {
     position: absolute;
     top: 2.2rem;
@@ -99,9 +9,13 @@ fluent-data-grid {
     border: 1px solid var(--neutral-layer-3);
     border-radius: 0.3rem;
     box-shadow: 0 3px 8px 1px var(--neutral-layer-4);
-    /*left: 0;*/
     padding: 1rem;
     z-index: 1;
+}
+
+[dir=rtl] .col-options {
+    left: unset;
+    
 }
 
 .col-justify-end .col-options {
@@ -109,11 +23,9 @@ fluent-data-grid {
     right: 15px;
 }
 
-::deep .col-title-text {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    font-weight: 600;
+[dir=rtl] .col-justify-end .col-options {
+    right: unset;
+    left: 15px;
 }
 
 ::deep > fluent-data-grid-row > fluent-data-grid-cell.grid-cell-placeholder:after {
@@ -121,17 +33,9 @@ fluent-data-grid {
     opacity: 0.75;
 }
 
-[dir=rtl] .col-options {
-    left: unset;
-    /*right: 0;*/
-}
 
-[dir=rtl] .col-justify-end .col-options {
-    right: unset;
-    left: 0;
-}
 
-.col-width-draghandle {
+::deep .col-width-draghandle {
     height: auto;
     width: 4px;
     right: calc(var(--col-gap)/2 - 0.5rem);
@@ -145,7 +49,3 @@ fluent-data-grid {
         background: var(--neutral-stroke-divider-rest);
     }
 
-fluent-data-grid-cell {
-    text-overflow: ellipsis;
-    padding-inline-start:10px;
-}

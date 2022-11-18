@@ -363,23 +363,22 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
         {
             return new RenderFragment(builder =>
             {
-                int i = 0;
                 foreach (TOption item in items)
                 {
-                    builder.OpenComponent<FluentOption<TOption>>(i++);
-                    builder.AddAttribute(i++, "Value", GetOptionValue(item));
-                    builder.AddAttribute(i++, "Selected", GetOptionSelected(item));
-                    builder.AddAttribute(i++, "Disabled", GetOptionDisabled(item));
+                    builder.OpenComponent<FluentOption<TOption>>(0);
+                    builder.AddAttribute(1, "Value", GetOptionValue(item));
+                    builder.AddAttribute(2, "Selected", GetOptionSelected(item));
+                    builder.AddAttribute(3, "Disabled", GetOptionDisabled(item));
 
-                    builder.AddAttribute(i++, "ChildContent", (RenderFragment)(content =>
+                    builder.AddAttribute(4, "ChildContent", (RenderFragment)(content =>
                     {
-                        content.AddContent(i++, GetOptionText(item));
+                        content.AddContent(5, GetOptionText(item));
                     }));
 
                     // Needed in fluent-listbox and fluent-select with mutliple select enabled
                     if (this is FluentListbox<TOption> || (this is FluentSelect<TOption> && Multiple))
                     {
-                        builder.AddAttribute(i++, "OnSelect", OnSelectCallback(item));
+                        builder.AddAttribute(6, "OnSelect", OnSelectCallback(item));
                     }
 
                     builder.CloseComponent();

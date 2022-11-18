@@ -15,12 +15,12 @@ public enum DataGridCellType
     /// <summary>
     /// A header cell.
     /// </summary>
-    [Description("column-header")]
+    [Description("columnheader")]
     ColumnHeader,
 
     /// <summary>
     /// Cell is a row header.
     /// </summary>
-    [Description("row-header")]
+    [Description("rowheader")]
     RowHeader
 }
