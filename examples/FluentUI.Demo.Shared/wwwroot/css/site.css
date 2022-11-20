@@ -96,7 +96,7 @@ main {
 
 nav {
     z-index: 1;
-    padding: 40px 20px 20px 20px;
+    padding: 2.5rem 1.5rem;
     background-color: var(--neutral-layer-3);
     transition: all 300ms ease-in-out;
     grid-column: 1 / 2;
@@ -145,7 +145,7 @@ nav {
 
 article {
     grid-area: 1 / 1;
-    padding: 10px 25px;
+    padding: 2.2rem 1.5rem;
     margin: 0 0;
     overflow-x: hidden;
     transition: all 300ms ease-in-out;
@@ -153,7 +153,7 @@ article {
 }
 
 aside {
-    padding: 1rem;
+    padding: 2rem 1.5rem;
     border-left: 1px solid var(--neutral-stroke-divider-rest);
     grid-area: 1 / 2;
 }

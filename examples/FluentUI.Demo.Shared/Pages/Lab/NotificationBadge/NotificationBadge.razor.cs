@@ -11,7 +11,7 @@ public partial class NotificationBadge : FluentComponentBase
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("notification-badge")
         .Build();
-    
+
     /// <summary />
     protected string? StyleValue => new StyleBuilder()
         .AddStyle("left", $"{LeftPosition}%", () => LeftPosition.HasValue)
@@ -46,7 +46,7 @@ public partial class NotificationBadge : FluentComponentBase
     /// </summary>
     [Parameter]
     public int? LeftPosition { get; set; } = 50;
-    
+
     /// <summary>
     /// Bottom position of the badge in percentage.
     /// By default, this value is 50 to center the badge.

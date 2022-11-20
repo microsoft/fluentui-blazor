@@ -51,15 +51,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="wwwroot\examples\" />
+		<Folder Include="wwwroot\sources\" />
 	</ItemGroup>
 	
 	<Target Name="CopyExamplesToContentRoot" BeforeTargets="CoreBuild">
 		<ItemGroup>
-			<Examples Include="$(ProjectDir)\Pages\**\Examples\*" />
-			<Examples Include="$(ProjectDir)\Components\*" />
+			<Sources Include="$(ProjectDir)\Pages\**\Examples\*" />
+			<Sources Include="$(ProjectDir)\Pages\Lab\**" />
+			<Sources Include="$(ProjectDir)\Components\*" />
 		</ItemGroup>
-		<Copy SourceFiles="@(Examples)" DestinationFiles="@(Examples->'$(ProjectDir)wwwroot\examples\%(Filename)%(Extension).txt')" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="@(Sources)" DestinationFiles="@(Sources->'$(ProjectDir)wwwroot\sources\%(Filename)%(Extension).txt')" SkipUnchangedFiles="true" />
 	</Target>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">

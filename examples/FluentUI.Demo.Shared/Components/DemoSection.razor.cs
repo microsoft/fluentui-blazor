@@ -80,7 +80,7 @@ public partial class DemoSection : ComponentBase
             }
             foreach (string source in GetSources())
             {
-                TabPanelsContent.Add(source, await Http.GetStringAsync($"./_content/FluentUI.Demo.Shared/examples/{source}.txt"));
+                TabPanelsContent.Add(source, await Http.GetStringAsync($"./_content/FluentUI.Demo.Shared/sources/{source}.txt"));
             }
             StateHasChanged();
         }
