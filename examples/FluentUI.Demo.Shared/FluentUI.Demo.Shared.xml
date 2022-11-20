@@ -336,6 +336,66 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="T:FluentUI.Demo.Shared.NotificationBadge">
+            <summary />
+        </member>
+        <member name="P:FluentUI.Demo.Shared.NotificationBadge.ClassValue">
+            <summary />
+        </member>
+        <member name="P:FluentUI.Demo.Shared.NotificationBadge.StyleValue">
+            <summary />
+        </member>
+        <member name="P:FluentUI.Demo.Shared.NotificationBadge.ChildContent">
+            <summary>
+            Child content of component, the content that the badge will apply to.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.NotificationBadge.Badge">
+            <summary>
+            Content you want inside the badge.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.NotificationBadge.BadgeContent">
+            <summary>
+            Content you want inside the badge, to customize the badge content.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.NotificationBadge.LeftPosition">
+            <summary>
+            Left position of the badge in percentage.
+            By default, this value is 50 to center the badge.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.NotificationBadge.BottomPosition">
+            <summary>
+            Bottom position of the badge in percentage.
+            By default, this value is 50 to center the badge.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.NotificationBadge.Fill">
+            <summary>
+            Default design of this badge using colors from theme.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.NotificationBadge.BackgroundColor">
+            <summary>
+            Background color to replace the color inferred from <see cref="P:FluentUI.Demo.Shared.NotificationBadge.Fill"/> property.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.NotificationBadge.Color">
+            <summary>
+            Font color to replace the color inferred from <see cref="P:FluentUI.Demo.Shared.NotificationBadge.Fill"/> property.
+            </summary>
+        </member>
+        <member name="M:FluentUI.Demo.Shared.NotificationBadge.GetBackgroundColor">
+            <summary />
+        </member>
+        <member name="M:FluentUI.Demo.Shared.NotificationBadge.GetBorderColor">
+            <summary />
+        </member>
+        <member name="M:FluentUI.Demo.Shared.NotificationBadge.GetFontColor">
+            <summary />
+        </member>
         <member name="T:FluentUI.Demo.Shared.ReflectionExtensions">
             <summary>
             Reflection extension methods with supporting properties.

@@ -59,12 +59,10 @@
     justify-self: center;
 }
 
-
 .col-justify-end {
     justify-self: end;
     padding-inline-end: 20px;
 }
-    
 
     .col-justify-end .col-title {
         justify-content: end;

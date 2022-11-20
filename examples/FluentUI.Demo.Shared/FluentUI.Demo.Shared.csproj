@@ -38,7 +38,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<AdditionalFiles Include="$(ProjectDir)\*.xml"  />
+		<AdditionalFiles Include="$(ProjectDir)\*.xml" />
 	</ItemGroup>
 
 	<ItemGroup>

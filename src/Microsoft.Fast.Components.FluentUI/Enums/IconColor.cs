@@ -54,10 +54,16 @@ public enum IconColor
     Success,
 
     /// <summary>
-    /// Use the '--fill-color' CSS variable color, adapts to light/dark mode.
+    /// Use the '--neutral-fill-rest' CSS variable color, adapts to light/dark mode.
     /// </summary>
-    [Description("--fill-color")]
+    [Description("--neutral-fill-rest")]
     Fill,
+
+    /// <summary>
+    /// Use the '--neutral-fill-inverse-rest' CSS variable color, adapts to light/dark mode.
+    /// </summary>
+    [Description("--neutral-fill-inverse-rest")]
+    FillInverse,
 
     /// <summary>
     /// Supply an HTML hex color string value (#rrggbb or #rgb) for the CustomColor parameter.
