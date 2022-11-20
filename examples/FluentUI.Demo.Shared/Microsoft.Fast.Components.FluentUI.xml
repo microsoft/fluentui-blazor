@@ -1275,14 +1275,14 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.Color">
             <summary>
-            Gets or sets the icon drawing and fill color. Value comes from the <see cref="T:Microsoft.Fast.Components.FluentUI.IconColor"/> enumeration
+            Gets or sets the icon drawing and fill color. Value comes from the <see cref="T:Microsoft.Fast.Components.FluentUI.Color"/> enumeration
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.CustomColor">
             <summary>
             Gets or sets the icon drawing and fill color to a custom value.
             Needs to be formatted as an HTML hex color string (#rrggbb or #rgb)
-            ⚠️ Only available when IconColor is set to IconColor.Custom.
+            ⚠️ Only available when Color is set to Color.Custom.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.Name">
@@ -5223,6 +5223,66 @@
             The year is shwn in a numeric format (4 digits).
             </summary>
         </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.Color">
+            <summary>
+            The color to use for the drawing icons, badges, etc.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.Color.Neutral">
+            <summary>
+            Use the '--neutral-foreground-rest' CSS variable color to draw the icon. 
+            Icon is drawn in the same color as the standard text. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.Color.Accent">
+            <summary>
+            Use the '--accent-fill-rest' CSS variable color.
+            This is the default value.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.Color.Warning">
+            <summary>
+            Use the '--warning-fill' CSS variable color.
+            Note: This color is defined in the variables.css file. If this file is not being used, 
+            a CSS variable with this name and appropriate value needs to be created.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.Color.SevereWarning">
+            <summary>
+            Use the '--severe-warning-fill' CSS variable color.
+            Note: This color is defined in the variables.css file. If this file is not being used, 
+            a CSS variable with this name and appropriate value needs to be created.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.Color.Error">
+            <summary>
+            Use the '--error-fill' CSS variable color.
+            Note: This color is defined in the variables.css file. If this file is not being used, 
+            a CSS variable with this name and appropriate value needs to be created.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.Color.Success">
+            <summary>
+            Use the '--success-fill' CSS variable color.
+            Note: This color is defined in the variables.css file. If this file is not being used, 
+            a CSS variable with this name and appropriate value needs to be created.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.Color.Fill">
+            <summary>
+            Use the '--neutral-fill-rest' CSS variable color, adapts to light/dark mode.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.Color.FillInverse">
+            <summary>
+            Use the '--neutral-fill-inverse-rest' CSS variable color, adapts to light/dark mode.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.Color.Custom">
+            <summary>
+            Supply an HTML hex color string value (#rrggbb or #rgb) for the CustomColor parameter.
+            </summary>
+        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.ComboboxAutocomplete">
             <summary>
             The type of autocoplete for a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentCombobox`1"/> component.
@@ -5391,66 +5451,6 @@
         <member name="F:Microsoft.Fast.Components.FluentUI.HorizontalScrollView.Mobile">
             <summary>
             The mobile horizontal scroll view mode.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.IconColor">
-            <summary>
-            The color to use for the icon.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.IconColor.Neutral">
-            <summary>
-            Use the '--neutral-foreground-rest' CSS variable color to draw the icon. 
-            Icon is drawn in the same color as the standard text. 
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.IconColor.Accent">
-            <summary>
-            Use the '--accent-fill-rest' CSS variable color.
-            This is the default value.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.IconColor.Warning">
-            <summary>
-            Use the '--warning-fill' CSS variable color.
-            Note: This color is defined in the variables.css file. If this file is not being used, 
-            a CSS variable with this name and appropriate value needs to be created.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.IconColor.SevereWarning">
-            <summary>
-            Use the '--severe-warning-fill' CSS variable color.
-            Note: This color is defined in the variables.css file. If this file is not being used, 
-            a CSS variable with this name and appropriate value needs to be created.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.IconColor.Error">
-            <summary>
-            Use the '--error-fill' CSS variable color.
-            Note: This color is defined in the variables.css file. If this file is not being used, 
-            a CSS variable with this name and appropriate value needs to be created.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.IconColor.Success">
-            <summary>
-            Use the '--success-fill' CSS variable color.
-            Note: This color is defined in the variables.css file. If this file is not being used, 
-            a CSS variable with this name and appropriate value needs to be created.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.IconColor.Fill">
-            <summary>
-            Use the '--neutral-fill-rest' CSS variable color, adapts to light/dark mode.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.IconColor.FillInverse">
-            <summary>
-            Use the '--neutral-fill-inverse-rest' CSS variable color, adapts to light/dark mode.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.IconColor.Custom">
-            <summary>
-            Supply an HTML hex color string value (#rrggbb or #rgb) for the CustomColor parameter.
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.IconSize">

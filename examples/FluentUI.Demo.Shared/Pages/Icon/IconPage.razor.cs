@@ -56,7 +56,7 @@ public partial class IconPage : IAsyncDisposable
     {
         if (!string.IsNullOrEmpty(args.Value?.ToString()))
         {
-            Form.Color = Enum.Parse<IconColor>((string)args.Value);
+            Form.Color = Enum.Parse<Color>((string)args.Value);
         }
 
         HandleSearch();
@@ -95,10 +95,10 @@ public partial class IconPage : IAsyncDisposable
 
         public bool Regular { get; set; }
 
-        public IconColor Color { get; set; }
+        public Color Color { get; set; }
     }
 
-    private FormModel Form = new() { Size = IconSize.Size24, Searchterm = "", Style = null, Color = IconColor.Accent };
+    private FormModel Form = new() { Size = IconSize.Size24, Searchterm = "", Style = null, Color = Color.Accent };
 
     protected override void OnInitialized()
     {

@@ -26,7 +26,7 @@
                         
                         var id = Identifier.NewId();
                         <span id="@id">
-                            <FluentIcon Name="@FluentIcons.Info" Size="@IconSize.Size24" Style="margin-left: 10px; vertical-align: top;" Filled=false Color=IconColor.Accent />
+                            <FluentIcon Name="@FluentIcons.Info" Size="@IconSize.Size24" Style="margin-left: 10px; vertical-align: top;" Filled=false Color=Color.Accent />
                         </span>
                         <FluentTooltip Anchor="@id" Position="TooltipPosition.Right">
                             @foreach (var item in context.EnumValues)

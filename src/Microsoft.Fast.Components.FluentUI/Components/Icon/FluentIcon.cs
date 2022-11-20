@@ -35,15 +35,15 @@ public partial class FluentIcon : FluentComponentBase
     public bool Filled { get; set; }
 
     /// <summary>
-    /// Gets or sets the icon drawing and fill color. Value comes from the <see cref="IconColor"/> enumeration
+    /// Gets or sets the icon drawing and fill color. Value comes from the <see cref="FluentUI.Color"/> enumeration
     /// </summary>
     [Parameter]
-    public IconColor Color { get; set; } = IconColor.Accent;
+    public Color Color { get; set; } = Color.Accent;
 
     /// <summary>
     /// Gets or sets the icon drawing and fill color to a custom value.
     /// Needs to be formatted as an HTML hex color string (#rrggbb or #rgb)
-    /// ⚠️ Only available when IconColor is set to IconColor.Custom.
+    /// ⚠️ Only available when Color is set to Color.Custom.
     /// </summary>
     [Parameter]
     public string? CustomColor { get; set; }
@@ -94,12 +94,12 @@ public partial class FluentIcon : FluentComponentBase
         string result;
         string? nc = NeutralCultureName ?? null;
 
-        if (Color != IconColor.Custom)
+        if (Color != Color.Custom)
         {
             if (CustomColor != null)
                 throw new ArgumentException("CustomColor can only be used when Color is set to IconColor.Custom. ");
             else
-                color = $"var({Color.ToAttributeValue()})";
+                color = Color.ToAttributeValue();
         }
         else
         {

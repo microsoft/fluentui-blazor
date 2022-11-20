@@ -3,7 +3,7 @@
 
 <NotificationBadge Badge="99+" Fill="Fill.Highlight">
     <FluentButton Appearance="Appearance.Neutral" >
-        <FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size24" Filled=false Color="IconColor.Neutral" />
+        <FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size24" Filled=false Color="Color.Neutral" />
     </FluentButton>
 </NotificationBadge>
 
@@ -11,14 +11,14 @@
 
 <NotificationBadge Badge="5" Fill="Fill.Lowlight">
     <FluentButton Appearance="Appearance.Accent">
-        <FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size24" Filled=false Color="IconColor.Fill" />
+        <FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size24" Filled=false Color="Color.Fill" />
     </FluentButton>
 </NotificationBadge>
 
 <Spacer Width="25" />
 
-<NotificationBadge Badge="9" BackgroundColor="red">
+<NotificationBadge Badge="9" BackgroundColor="@Color.Error.ToAttributeValue()">
     <FluentButton Appearance="Appearance.Filled">
-        <FluentIcon Name="@FluentIcons.Mail" Size="IconSize.Size24" Filled=false Color="IconColor.FillInverse" />
+        <FluentIcon Name="@FluentIcons.Mail" Size="IconSize.Size24" Filled=false Color="Color.FillInverse" />
     </FluentButton>
 </NotificationBadge>
