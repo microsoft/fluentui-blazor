@@ -27,7 +27,7 @@ namespace FluentUI.Demo.Generators
 
                 members.AddRange(xml.Descendants("member"));
             }
-           
+
             StringBuilder sb = new();
 
             sb.AppendLine("#pragma warning disable CS1591");
@@ -83,12 +83,15 @@ namespace FluentUI.Demo.Generators
             regex = new("<see(?:also)? cref=[\"|'][!,P,T,M,F]+:+Microsoft\\.Fast\\.Components\\.FluentUI\\.([\\w|\\.]*)(?<generic>`\\d)?[\"|']\\s*/>");
             value = regex.Replace(value, m => m.Groups["generic"].Success ? $"<code>{m.Groups[1].Value}&lt;T&gt;</code>" : $"<code>{m.Groups[1].Value}</code>");
 
+            regex = new("<see(?:also)? cref=[\"|'][!,P,T,M,F]+:+FluentUI\\.Demo\\.Shared\\.([\\w|\\.]*)(?<generic>`\\d)?[\"|']\\s*/>");
+            value = regex.Replace(value, m => m.Groups["generic"].Success ? $"<code>{m.Groups[1].Value}&lt;T&gt;</code>" : $"<code>{m.Groups[1].Value}</code>");
+
             regex = new("<see(?:also)? cref=[\"|'][!,P,T,M,F]+:+([\\w|\\.|`|\\(|\\)|\\{|\\}|\\,]*)[\"|']\\s*/>");
             value = regex.Replace(value, m => $"<code>{m.Groups[1].Value}</code>");
 
             regex = new("<see langword=[\"|']([\\w|\\.|`|(|)|{|}|,]*)[\"|']\\s*/>");
             value = regex.Replace(value, m => $"<code>{m.Groups[1].Value}</code>");
-            
+
             regex = new("<see href=\"(.*?)\">(.*?)</see>");
             value = regex.Replace(value, "<a href=\"$1\">$2</a>");
 
@@ -99,12 +102,12 @@ namespace FluentUI.Demo.Generators
                         .Replace(Environment.NewLine, "<br />")
                         .Replace("\"", "'")
                         .Replace("Microsoft.Fast.Components.FluentUI.", "")
-                        .Replace("FluentDataGrid`1.","")
+                        .Replace("FluentDataGrid`1.", "")
                         .Replace("System.Linq.", "")
                         .Replace("System.Linq.Queryable.", "")
                         .Replace("System.Collections.", "")
                         .Replace("`1", "<T>")
-                        .Replace("`0", "<U>"); 
+                        .Replace("`0", "<U>");
 
         }
 

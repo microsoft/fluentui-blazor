@@ -11,7 +11,7 @@
                 Need to write Badge and BadgeContent on the same line 
                 to use :empty' css correctly.
             *@
-            string text = Count.ToString();
+            string? text = Count.ToString();
             if (Count > Max)
             {
                 text = $@"{Max}{(ShowOverflow ? "+" : "")}";

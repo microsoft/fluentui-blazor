@@ -7,7 +7,7 @@
     padding-left: 1rem;
 }
 
-[dir="rtl"] ::deep ul:first-of-type {
+[dir="rtl"] * ::deep ul:first-of-type {
     padding-right: 1rem;
 }
 
@@ -46,7 +46,7 @@ li {
     cursor: pointer;
 }
 
-[dir="rtl"] ::deep fluent-button {
+[dir="rtl"] * ::deep fluent-button {
     display: none;
     position: fixed;
     bottom: 45px;

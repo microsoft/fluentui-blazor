@@ -125,19 +125,19 @@
             By default, this value is 50 to center the badge.
             </summary>
         </member>
-        <member name="P:FluentUI.Demo.Shared.CounterBadge.Fill">
+        <member name="P:FluentUI.Demo.Shared.CounterBadge.Appearance">
             <summary>
             Default design of this badge using colors from theme.
             </summary>
         </member>
         <member name="P:FluentUI.Demo.Shared.CounterBadge.BackgroundColor">
             <summary>
-            Background color to replace the color inferred from <see cref="P:FluentUI.Demo.Shared.CounterBadge.Fill"/> property.
+            Background color to replace the color inferred from <see cref="T:Microsoft.Fast.Components.FluentUI.Fill"/> property.
             </summary>
         </member>
         <member name="P:FluentUI.Demo.Shared.CounterBadge.Color">
             <summary>
-            Font color to replace the color inferred from <see cref="P:FluentUI.Demo.Shared.CounterBadge.Fill"/> property.
+            Font color to replace the color inferred from <see cref="T:Microsoft.Fast.Components.FluentUI.Fill"/> property.
             </summary>
         </member>
         <member name="P:FluentUI.Demo.Shared.CounterBadge.Dot">

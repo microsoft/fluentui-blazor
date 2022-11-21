@@ -1,7 +1,7 @@
 ﻿@* Remember to replace the namespace below with your own project's namespace. *@
 @namespace FluentUI.Demo.Shared
 
-<CounterBadge Count="100" Fill="Fill.Highlight">
+<CounterBadge Count="100" Appearance="Appearance.Lightweight">
     <FluentButton Appearance="Appearance.Neutral" >
         <FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size24" Filled=false Color="Color.Neutral" />
     </FluentButton>
@@ -9,7 +9,7 @@
 
 <Spacer Width="25" />
 
-<CounterBadge Count="5" Fill="Fill.Lowlight">
+<CounterBadge Count="5" Appearance="Appearance.Neutral">
     <FluentButton Appearance="Appearance.Accent">
         <FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size24" Filled=false Color="Color.Fill" />
     </FluentButton>
@@ -25,7 +25,7 @@
 
 <Spacer Width="25" />
 
-<CounterBadge Count="0" Fill="Fill.Highlight" ShowZero=true> 
+<CounterBadge Count="0" Appearance="Appearance.Accent" ShowZero=true> 
     <FluentButton Appearance="Appearance.Neutral">
         <FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size24" Filled=false Color="Color.Neutral" />
     </FluentButton>
