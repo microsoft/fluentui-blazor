@@ -109,6 +109,11 @@ public partial class CounterBadge : FluentComponentBase
         {
             throw new ArgumentException("Both BackgroundColor and Color must be set.");
         }
+        if (BackgroundColor is Microsoft.Fast.Components.FluentUI.Color.Custom ||
+            Color is Microsoft.Fast.Components.FluentUI.Color.Custom)
+        {
+            throw new ArgumentException("Color.Custom is not supported.");
+        }
 
         if (Appearance != Microsoft.Fast.Components.FluentUI.Appearance.Accent &&
             Appearance != Microsoft.Fast.Components.FluentUI.Appearance.Lightweight &&

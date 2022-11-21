@@ -165,7 +165,7 @@ public partial class CounterBadge : FluentComponentBase
         return Appearance switch
         {
             Microsoft.Fast.Components.FluentUI.Appearance.Accent => Microsoft.Fast.Components.FluentUI.Color.Fill,
-            Microsoft.Fast.Components.FluentUI.Appearance.Lightweight => Microsoft.Fast.Components.FluentUI.Color.Accent,
+            Microsoft.Fast.Components.FluentUI.Appearance.Lightweight => Microsoft.Fast.Components.FluentUI.Color.FillInverse,
             Microsoft.Fast.Components.FluentUI.Appearance.Neutral => Microsoft.Fast.Components.FluentUI.Color.Fill,
             _ => throw new ArgumentException("CounterBadge Appearance needs to be one of Accent, Lightweight or Neutral."),
         }; ;
