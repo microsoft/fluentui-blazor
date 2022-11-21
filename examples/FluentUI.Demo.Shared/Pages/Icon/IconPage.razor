@@ -14,37 +14,40 @@
 
 <h3 id="color-options">Color options</h3>
 <p>
-    Icons can be drawn and filled with a color through the <code>Color</code> parameter which takes a <code>IconColor</code> enumeration value. 
+    Icons can be drawn and filled with a color through the <code>Color</code> parameter which takes a <code>Color</code> enumeration value. 
     <br /><br /> 
     &nbsp;&nbsp;&nbsp;<code>&lt;FluentIcon Name="@@FluentIcons.Alert"" Size="IconSize.Size48"" Filled=true Color="<em>{&middot;&middot;&middot;}</em>" /&gt;</code>
     <br /><br />
     With the code above you can use the following options at the <em>{&middot;&middot;&middot;}</em>:
     <dl>
-        <dt><code>IconColor.Neutral</code> - Uses CSS variable --neutral-forground-rest, adapts to light/dark mode.</dt>
+        <dt><code>Color.Neutral</code> - Uses CSS variable --neutral-forground-rest, adapts to light/dark mode.</dt>
         <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Filled=true Color="Color.Neutral" /></dd>
        
-        <dt><code>IconColor.Accent</code> - Uses CSS variable --accent-fill-rest.</dt>
+        <dt><code>Color.Accent</code> - Uses CSS variable --accent-fill-rest.</dt>
         <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Filled=true Color="Color.Accent" /></dd>
         
-        <dt><code>IconColor.Warning</code> - Uses CSS variable --warning-fill<sup>*</sup>.</dt>
+        <dt><code>Color.Warning</code> - Uses CSS variable --warning-fill<sup>*</sup>.</dt>
         <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Filled=true Color="Color.Warning" /></dd>
         
-        <dt><code>IconColor.SevereWarning</code> - Uses CSS variable --severe-warning-fill<sup>*</sup>.</dt>
+        <dt><code>Color.SevereWarning</code> - Uses CSS variable --severe-warning-fill<sup>*</sup>.</dt>
         <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Filled=true Color="Color.SevereWarning" /></dd>
         
-        <dt><code>IconColor.Error</code> - Uses CSS variable --error-fill<sup>*</sup>.</dt>
+        <dt><code>Color.Error</code> - Uses CSS variable --error-fill<sup>*</sup>.</dt>
         <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Filled=true Color="Color.Error" /></dd>
         
-        <dt><code>IconColor.Success</code> - Uses CSS variable --success-fill<sup>*</sup>.</dt>
+        <dt><code>Color.Success</code> - Uses CSS variable --success-fill<sup>*</sup>.</dt>
         <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Filled=true Color="Color.Success" /></dd>
         
-        <dt><code>IconColor.Fill</code> - Uses CSS variable --neutral-fill-rest, adapts to light/dark mode<sup>**</sup>.</dt>
+        <dt><code>Color.Fill</code> - Uses CSS variable --neutral-fill-rest, adapts to light/dark mode<sup>**</sup>.</dt>
         <dd style="background-color: var(--accent-fill-rest); width:48px"><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Filled=true Color="Color.Fill" /></dd>
         
-        <dt><code>IconColor.FillInverse</code> - Uses CSS variable --neutral-fill-inverse-rest, adapts to light/dark mode<sup>**</sup>.</dt>
+        <dt><code>Color.FillInverse</code> - Uses CSS variable --neutral-fill-inverse-rest, adapts to light/dark mode<sup>**</sup>.</dt>
         <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Filled=true Color="Color.FillInverse" /></dd>
         
-        <dt><code>IconColor.Custom</code> - Supply your own color value through the <code>CustomColor</code> parameter. Needs to be formatted as an HTML hex color string (#rrggbb or #rgb).</dt>
+        <dt><code>Color.Lightweight</code> - Uses CSS variable --neutral-layer-1, adapts to light/dark mode<sup>**</sup>.</dt>
+        <dd style="background-color: var(--accent-fill-rest); width:48px"><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Filled=true Color="Color.Lightweight" /></dd>
+        
+        <dt><code>Color.Custom</code> - Supply your own color value through the <code>CustomColor</code> parameter. Needs to be formatted as an HTML hex color string (#rrggbb or #rgb).</dt>
         <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Filled=true Color="Color.Custom" CustomColor="#570078" /></dd>
     </dl>
     <strong>(*)</strong>: This color is defined in the <code>variables.css</code> file. If your site is using     

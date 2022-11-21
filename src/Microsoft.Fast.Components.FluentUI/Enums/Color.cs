@@ -66,6 +66,12 @@ public enum Color
     FillInverse,
 
     /// <summary>
+    /// Use the '--neutral-layer-1' CSS variable color, adapts to light/dark mode.
+    /// </summary>
+    [Description("var(--neutral-layer-1)")]
+    Lightweight,
+
+    /// <summary>
     /// Supply an HTML hex color string value (#rrggbb or #rgb) for the CustomColor parameter.
     /// </summary>
     [Description("var(--neutral-foreground-rest)")]

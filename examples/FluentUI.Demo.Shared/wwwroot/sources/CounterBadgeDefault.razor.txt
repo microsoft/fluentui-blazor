@@ -1,7 +1,7 @@
 ﻿@* Remember to replace the namespace below with your own project's namespace. *@
 @namespace FluentUI.Demo.Shared
 
-<CounterBadge Count="100" Appearance="Appearance.Lightweight">
+<CounterBadge Count="100" Appearance="Appearance.Accent">
     <FluentButton Appearance="Appearance.Neutral" >
         <FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size24" Filled=false Color="Color.Neutral" />
     </FluentButton>
@@ -17,7 +17,24 @@
 
 <Spacer Width="25" />
 
-<CounterBadge Count="9" BackgroundColor="@Color.Error.ToAttributeValue()">
+<CounterBadge Count="5" Appearance="Appearance.Lightweight">
+    <FluentButton Appearance="Appearance.Accent">
+        <FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size24" Filled=false Color="Color.Fill" />
+    </FluentButton>
+</CounterBadge>
+
+<Spacer Width="25" />
+
+<CounterBadge Count="5" Appearance="Appearance.Lightweight" BackgroundColor="Color.Lightweight"  Color="Color.Error"> 
+    <FluentButton Appearance="Appearance.Accent">
+        <FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size24" Filled=false Color="Color.Fill" />
+    </FluentButton>
+</CounterBadge>
+
+<Spacer Width="25" />
+
+
+<CounterBadge Count="9" BackgroundColor="@Color.Error" Color="Color.Fill">
     <FluentButton Appearance="Appearance.Filled">
         <FluentIcon Name="@FluentIcons.Mail" Size="IconSize.Size24" Filled=false Color="Color.FillInverse" />
     </FluentButton>

@@ -5278,6 +5278,11 @@
             Use the '--neutral-fill-inverse-rest' CSS variable color, adapts to light/dark mode.
             </summary>
         </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.Color.Lightweight">
+            <summary>
+            Use the '--neutral-layer-1' CSS variable color, adapts to light/dark mode.
+            </summary>
+        </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.Color.Custom">
             <summary>
             Supply an HTML hex color string value (#rrggbb or #rgb) for the CustomColor parameter.
@@ -5356,21 +5361,6 @@
         <member name="F:Microsoft.Fast.Components.FluentUI.DividerRole.Presentation">
             <summary>
             The divider is used for presentation purpose.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.Fill">
-            <summary>
-            Defines the type of fill for a component
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.Fill.Highlight">
-            <summary>
-            Use a highlight fill color (usually the active accent color)
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.Fill.Lowlight">
-            <summary>
-            Use a lowlight fill color (usually the active neutral color)
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.FlipperDirection">

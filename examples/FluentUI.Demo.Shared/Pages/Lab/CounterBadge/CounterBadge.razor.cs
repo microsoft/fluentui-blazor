@@ -17,9 +17,9 @@ public partial class CounterBadge : FluentComponentBase
         .AddStyle("left", $"{LeftPosition}%", () => LeftPosition.HasValue)
         .AddStyle("bottom", $"{BottomPosition}%", () => BottomPosition.HasValue)
         .AddStyle(Style)
-        .AddStyle("background-color", GetBackgroundColor())
-        .AddStyle("color", GetFontColor())
-        .AddStyle("border", $"1px solid {GetBorderColor()}")
+        .AddStyle("background-color", GetBackgroundColor().ToAttributeValue())
+        .AddStyle("color", GetFontColor().ToAttributeValue())
+        .AddStyle("border", $"1px solid {GetBorderColor().ToAttributeValue()}")
         .Build();
 
     /// <summary>
@@ -70,16 +70,16 @@ public partial class CounterBadge : FluentComponentBase
     public Appearance? Appearance { get; set; } = Microsoft.Fast.Components.FluentUI.Appearance.Accent;
 
     /// <summary>
-    /// Background color to replace the color inferred from <see cref="Fill"/> property.
+    /// Background color to replace the color inferred from property.
     /// </summary>
     [Parameter]
-    public string? BackgroundColor { get; set; }
+    public Color? BackgroundColor { get; set; }
 
     /// <summary>
-    /// Font color to replace the color inferred from <see cref="Fill"/> property.
+    /// Font color to replace the color inferred from property.
     /// </summary>
     [Parameter]
-    public string? Color { get; set; }
+    public Color? Color { get; set; }
 
     /// <summary>
     ///  If just a dot should be displayed without the count.
@@ -105,6 +105,11 @@ public partial class CounterBadge : FluentComponentBase
 
     protected override Task OnParametersSetAsync()
     {
+        if (BackgroundColor is not null && Color is null || BackgroundColor is null && Color is not null)
+        {
+            throw new ArgumentException("Both BackgroundColor and Color must be set.");
+        }
+
         if (Appearance != Microsoft.Fast.Components.FluentUI.Appearance.Accent &&
             Appearance != Microsoft.Fast.Components.FluentUI.Appearance.Lightweight &&
             Appearance != Microsoft.Fast.Components.FluentUI.Appearance.Neutral)
@@ -116,7 +121,7 @@ public partial class CounterBadge : FluentComponentBase
     }
 
     /// <summary />
-    private string GetBackgroundColor()
+    private Color? GetBackgroundColor()
     {
         if (BackgroundColor != null)
         {
@@ -125,15 +130,15 @@ public partial class CounterBadge : FluentComponentBase
 
         return Appearance switch
         {
-            Microsoft.Fast.Components.FluentUI.Appearance.Accent => "var(--accent-fill-rest)",
-            Microsoft.Fast.Components.FluentUI.Appearance.Lightweight => "var(--neutral-fill-stealth-rest)",
-            Microsoft.Fast.Components.FluentUI.Appearance.Neutral => "var(--neutral-fill-rest)",
+            Microsoft.Fast.Components.FluentUI.Appearance.Accent => Microsoft.Fast.Components.FluentUI.Color.Accent,
+            Microsoft.Fast.Components.FluentUI.Appearance.Lightweight => Microsoft.Fast.Components.FluentUI.Color.Lightweight,
+            Microsoft.Fast.Components.FluentUI.Appearance.Neutral => Microsoft.Fast.Components.FluentUI.Color.Neutral,
             _ => throw new ArgumentException("CounterBadge Appearance needs to be one of Accent, Lightweight or Neutral."),
         };
     }
 
     /// <summary />
-    private string GetBorderColor()
+    private Color? GetBorderColor()
     {
         if (BackgroundColor != null)
         {
@@ -142,15 +147,15 @@ public partial class CounterBadge : FluentComponentBase
 
         return Appearance switch
         {
-            Microsoft.Fast.Components.FluentUI.Appearance.Accent => "var(--accent-fill-hover)",
-            Microsoft.Fast.Components.FluentUI.Appearance.Lightweight => "var(--neutral-fill-stealth-hover)",
-            Microsoft.Fast.Components.FluentUI.Appearance.Neutral => "var(--neutral-fill-hover)",
+            Microsoft.Fast.Components.FluentUI.Appearance.Accent => Microsoft.Fast.Components.FluentUI.Color.Accent,
+            Microsoft.Fast.Components.FluentUI.Appearance.Lightweight => Microsoft.Fast.Components.FluentUI.Color.Accent,
+            Microsoft.Fast.Components.FluentUI.Appearance.Neutral => Microsoft.Fast.Components.FluentUI.Color.Neutral,
             _ => throw new ArgumentException("CounterBadge Appearance needs to be one of Accent, Lightweight or Neutral."),
         };
     }
 
     /// <summary />
-    private string GetFontColor()
+    private Color? GetFontColor()
     {
         if (Color != null)
         {
@@ -159,10 +164,10 @@ public partial class CounterBadge : FluentComponentBase
 
         return Appearance switch
         {
-            Microsoft.Fast.Components.FluentUI.Appearance.Accent => "var(--neutral-fill-rest)",
-            Microsoft.Fast.Components.FluentUI.Appearance.Lightweight => "var(--accent-fill-rest)",
-            Microsoft.Fast.Components.FluentUI.Appearance.Neutral => "var(--neutral-fill-inverse-rest)",
+            Microsoft.Fast.Components.FluentUI.Appearance.Accent => Microsoft.Fast.Components.FluentUI.Color.Fill,
+            Microsoft.Fast.Components.FluentUI.Appearance.Lightweight => Microsoft.Fast.Components.FluentUI.Color.FillInverse,
+            Microsoft.Fast.Components.FluentUI.Appearance.Neutral => Microsoft.Fast.Components.FluentUI.Color.Fill,
             _ => throw new ArgumentException("CounterBadge Appearance needs to be one of Accent, Lightweight or Neutral."),
-        };
+        }; ;
     }
 }

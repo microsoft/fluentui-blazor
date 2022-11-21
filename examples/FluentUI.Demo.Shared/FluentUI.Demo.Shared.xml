@@ -132,12 +132,12 @@
         </member>
         <member name="P:FluentUI.Demo.Shared.CounterBadge.BackgroundColor">
             <summary>
-            Background color to replace the color inferred from <see cref="T:Microsoft.Fast.Components.FluentUI.Fill"/> property.
+            Background color to replace the color inferred from property.
             </summary>
         </member>
         <member name="P:FluentUI.Demo.Shared.CounterBadge.Color">
             <summary>
-            Font color to replace the color inferred from <see cref="T:Microsoft.Fast.Components.FluentUI.Fill"/> property.
+            Font color to replace the color inferred from property.
             </summary>
         </member>
         <member name="P:FluentUI.Demo.Shared.CounterBadge.Dot">
