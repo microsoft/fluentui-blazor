@@ -1,23 +1,25 @@
-﻿.notification-container {
+﻿.counterbadge-container {
     position: relative;
     display: inline-block;
 }
 
-.notification-badge {
+.counterbadge {
     position: absolute;
     z-index: 10;
-    font-size: 11px;
-    border-radius: 10px;
+    font-size: var(--type-ramp-minus-2-font-size);
+    font-weight: 600;
+    border-radius: 10000px;
     letter-spacing: 0;
-    min-width: 12px;
+    min-width: 10px;
     padding: 4px 4px;
     line-height: 1;
     text-align: center;
     text-indent: 0;
     white-space: nowrap;
     box-sizing: content-box;
+    cursor: default;
 }
 
-    .notification-badge:empty {
+    .counterbadge:empty {
         display: none;
     }

@@ -82,6 +82,91 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="T:FluentUI.Demo.Shared.CounterBadge">
+            <summary />
+        </member>
+        <member name="P:FluentUI.Demo.Shared.CounterBadge.ClassValue">
+            <summary />
+        </member>
+        <member name="P:FluentUI.Demo.Shared.CounterBadge.StyleValue">
+            <summary />
+        </member>
+        <member name="P:FluentUI.Demo.Shared.CounterBadge.ChildContent">
+            <summary>
+            Child content of component, the content that the badge will apply to.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.CounterBadge.Count">
+            <summary>
+            Number displayed inside the badge.
+            Can be enriched with a plus sign with <see cref="P:FluentUI.Demo.Shared.CounterBadge.ShowOverflow"/>
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.CounterBadge.BadgeContent">
+            <summary>
+            Content you want inside the badge, to customize the badge content.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.CounterBadge.Max">
+            <summary>
+            Max number that can be displayed inside the badge.
+            Default is 99.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.CounterBadge.LeftPosition">
+            <summary>
+            Left position of the badge in percentage.
+            By default, this value is 50 to center the badge.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.CounterBadge.BottomPosition">
+            <summary>
+            Bottom position of the badge in percentage.
+            By default, this value is 50 to center the badge.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.CounterBadge.Fill">
+            <summary>
+            Default design of this badge using colors from theme.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.CounterBadge.BackgroundColor">
+            <summary>
+            Background color to replace the color inferred from <see cref="P:FluentUI.Demo.Shared.CounterBadge.Fill"/> property.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.CounterBadge.Color">
+            <summary>
+            Font color to replace the color inferred from <see cref="P:FluentUI.Demo.Shared.CounterBadge.Fill"/> property.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.CounterBadge.Dot">
+            <summary>
+             If just a dot should be displayed without the count.
+             Defaults to false.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.CounterBadge.ShowZero">
+             <summary>
+             If the counter badge should be displayed when the count is zero.
+             Defaults to false.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.CounterBadge.ShowOverflow">
+             <summary>
+             If an plus sign should be displayed when the <see cref="P:FluentUI.Demo.Shared.CounterBadge.Count"/> is greater than <see cref="P:FluentUI.Demo.Shared.CounterBadge.Max"/>.
+             Defaults to true.
+            </summary>
+        </member>
+        <member name="M:FluentUI.Demo.Shared.CounterBadge.GetBackgroundColor">
+            <summary />
+        </member>
+        <member name="M:FluentUI.Demo.Shared.CounterBadge.GetBorderColor">
+            <summary />
+        </member>
+        <member name="M:FluentUI.Demo.Shared.CounterBadge.GetFontColor">
+            <summary />
+        </member>
         <member name="P:FluentUI.Demo.Shared.Footer.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
@@ -247,66 +332,6 @@
             <summary>
             Gets or sets the content to be rendered inside the component.
             </summary>
-        </member>
-        <member name="T:FluentUI.Demo.Shared.NotificationBadge">
-            <summary />
-        </member>
-        <member name="P:FluentUI.Demo.Shared.NotificationBadge.ClassValue">
-            <summary />
-        </member>
-        <member name="P:FluentUI.Demo.Shared.NotificationBadge.StyleValue">
-            <summary />
-        </member>
-        <member name="P:FluentUI.Demo.Shared.NotificationBadge.ChildContent">
-            <summary>
-            Child content of component, the content that the badge will apply to.
-            </summary>
-        </member>
-        <member name="P:FluentUI.Demo.Shared.NotificationBadge.Badge">
-            <summary>
-            Content you want inside the badge.
-            </summary>
-        </member>
-        <member name="P:FluentUI.Demo.Shared.NotificationBadge.BadgeContent">
-            <summary>
-            Content you want inside the badge, to customize the badge content.
-            </summary>
-        </member>
-        <member name="P:FluentUI.Demo.Shared.NotificationBadge.LeftPosition">
-            <summary>
-            Left position of the badge in percentage.
-            By default, this value is 50 to center the badge.
-            </summary>
-        </member>
-        <member name="P:FluentUI.Demo.Shared.NotificationBadge.BottomPosition">
-            <summary>
-            Bottom position of the badge in percentage.
-            By default, this value is 50 to center the badge.
-            </summary>
-        </member>
-        <member name="P:FluentUI.Demo.Shared.NotificationBadge.Fill">
-            <summary>
-            Default design of this badge using colors from theme.
-            </summary>
-        </member>
-        <member name="P:FluentUI.Demo.Shared.NotificationBadge.BackgroundColor">
-            <summary>
-            Background color to replace the color inferred from <see cref="P:FluentUI.Demo.Shared.NotificationBadge.Fill"/> property.
-            </summary>
-        </member>
-        <member name="P:FluentUI.Demo.Shared.NotificationBadge.Color">
-            <summary>
-            Font color to replace the color inferred from <see cref="P:FluentUI.Demo.Shared.NotificationBadge.Fill"/> property.
-            </summary>
-        </member>
-        <member name="M:FluentUI.Demo.Shared.NotificationBadge.GetBackgroundColor">
-            <summary />
-        </member>
-        <member name="M:FluentUI.Demo.Shared.NotificationBadge.GetBorderColor">
-            <summary />
-        </member>
-        <member name="M:FluentUI.Demo.Shared.NotificationBadge.GetFontColor">
-            <summary />
         </member>
         <member name="T:FluentUI.Demo.Shared.Spacer">
             <summary />

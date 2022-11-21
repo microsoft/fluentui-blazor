@@ -6,12 +6,12 @@
 public enum Fill
 {
     /// <summary>
-    /// Use a highlight fill color (ususally the active accent color)
+    /// Use a highlight fill color (usually the active accent color)
     /// </summary>
     Highlight,
 
     /// <summary>
-    /// Use a lowlight fill color (ususally the active neutral color)
+    /// Use a lowlight fill color (usually the active neutral color)
     /// </summary>
     Lowlight
 }

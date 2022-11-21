@@ -5,11 +5,11 @@ using Microsoft.Fast.Components.FluentUI.Utilities;
 namespace FluentUI.Demo.Shared;
 
 /// <summary />
-public partial class NotificationBadge : FluentComponentBase
+public partial class CounterBadge : FluentComponentBase
 {
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
-        .AddClass("notification-badge")
+        .AddClass("counterbadge")
         .Build();
 
     /// <summary />
@@ -29,16 +29,25 @@ public partial class NotificationBadge : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Content you want inside the badge.
+    /// Number displayed inside the badge.
+    /// Can be enriched with a plus sign with <see cref="ShowOverflow"/>
     /// </summary>
-    [Parameter]
-    public string? Badge { get; set; }
+    [Parameter, EditorRequired]
+    public int? Count { get; set; }
 
     /// <summary>
     /// Content you want inside the badge, to customize the badge content.
     /// </summary>
     [Parameter]
     public RenderFragment? BadgeContent { get; set; }
+
+    /// <summary>
+    /// Max number that can be displayed inside the badge.
+    /// Default is 99.
+    /// </summary>
+    [Parameter]
+    public int? Max { get; set; } = 99;
+
 
     /// <summary>
     /// Left position of the badge in percentage.
@@ -71,6 +80,27 @@ public partial class NotificationBadge : FluentComponentBase
     /// </summary>
     [Parameter]
     public string? Color { get; set; }
+
+    /// <summary>
+    ///  If just a dot should be displayed without the count.
+    ///  Defaults to false.
+    /// </summary>
+    [Parameter]
+    public bool Dot { get; set; } = false;
+
+    /// <summary>
+    /// If the counter badge should be displayed when the count is zero.
+    /// Defaults to false.
+    ///</summary>
+    [Parameter]
+    public bool ShowZero { get; set; } = false;
+
+    /// <summary>
+    /// If an plus sign should be displayed when the <see cref="Count"/> is greater than <see cref="Max"/>.
+    /// Defaults to true.
+    ///</summary>
+    [Parameter]
+    public bool ShowOverflow { get; set; } = true;
 
     /// <summary />
     private string GetBackgroundColor()
