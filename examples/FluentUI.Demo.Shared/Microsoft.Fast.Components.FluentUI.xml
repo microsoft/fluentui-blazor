@@ -485,8 +485,8 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.Type">
             <summary>
-            The button type.
-            Possible values: "submit" | "reset" | "button"
+            The button type. See <see cref="T:Microsoft.Fast.Components.FluentUI.ButtonType"/> for more details.
+            Default is ButtonType.Button"
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.Id">
@@ -5140,6 +5140,26 @@
             The axis will scale to the anchor.
             </summary>
         </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.ButtonType">
+            <summary>
+            The type of button.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.ButtonType.Button">
+            <summary>
+            Regular button.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.ButtonType.Submit">
+            <summary>
+            Submit button.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.ButtonType.Reset">
+            <summary>
+            Reset button.
+            </summary>
+        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DayFormat">
             <summary>
             Defines the format of days shown in a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentCalendar"/> component.
@@ -5616,6 +5636,32 @@
             <summary>
             The component is oriented vertically.
             </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.PresenceState">
+            <summary>
+            Represents the presence status.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.PresenceState.Busy">
+            <summary />
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.PresenceState.OutOfOffice">
+            <summary />
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.PresenceState.Away">
+            <summary />
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.PresenceState.Available">
+            <summary />
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.PresenceState.Offline">
+            <summary />
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.PresenceState.DoNotDisturb">
+            <summary />
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.PresenceState.Unknown">
+            <summary />
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.ScrollEasing">
             <summary>

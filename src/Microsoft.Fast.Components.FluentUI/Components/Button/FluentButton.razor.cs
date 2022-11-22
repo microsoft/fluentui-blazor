@@ -48,11 +48,11 @@ public partial class FluentButton : FluentComponentBase
 
 
     /// <summary>
-    /// The button type.
-    /// Possible values: "submit" | "reset" | "button"
+    /// The button type. See <see cref="ButtonType"/> for more details.
+    /// Default is ButtonType.Button"
     /// </summary>
     [Parameter]
-    public string? Type { get; set; }
+    public ButtonType? Type { get; set; } = ButtonType.Button;
 
     /// <summary>
     /// The id attribute of the element.Used for label association.
