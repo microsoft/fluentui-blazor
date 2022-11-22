@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
@@ -11,8 +10,13 @@ public partial class FluentIcon : FluentComponentBase
 {
     private const string ICON_ROOT = "_content/Microsoft.Fast.Components.FluentUI/icons";
     private string? _svg;
+    private string? _iconUrl;
+    private string? _iconUrlFallback;
+    private string? _color;
+    private string? _folder;
+    private string? _prevResult;
+
     private int _size;
-    private string? _iconUrl, _iconUrlFallback;
 
 
     [Inject]
@@ -28,21 +32,22 @@ public partial class FluentIcon : FluentComponentBase
     public string? Id { get; set; }
 
     /// <summary>
-    /// Gets or sets the variant to use: filled (true) or regular (false)
+    /// Gets or sets the <see cref="IconVariant"/> to use. 
+    /// Defaults to Regular
     /// </summary>
     [Parameter]
-    [EditorRequired]
-    public bool Filled { get; set; }
+    public IconVariant Variant { get; set; } = IconVariant.Regular;
 
     /// <summary>
-    /// Gets or sets the icon drawing and fill color. Value comes from the <see cref="FluentUI.Color"/> enumeration
+    /// Gets or sets the icon drawing and fill color. 
+    /// Value comes from the <see cref="FluentUI.Color"/> enumeration. Defaults to Accent.
     /// </summary>
     [Parameter]
     public Color Color { get; set; } = Color.Accent;
 
     /// <summary>
-    /// Gets or sets the icon drawing and fill color to a custom value.
-    /// Needs to be formatted as an HTML hex color string (#rrggbb or #rgb)
+    /// Gets or sets the icon drawing and fill _color to a custom value.
+    /// Needs to be formatted as an HTML hex _color string (#rrggbb or #rgb)
     /// ⚠️ Only available when Color is set to Color.Custom.
     /// </summary>
     [Parameter]
@@ -56,10 +61,9 @@ public partial class FluentIcon : FluentComponentBase
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the size of the icon. Defaults to 24. Not all sizes are available for all icons
+    /// Gets or sets the <see cref="IconSize"/> of the icon. Defaults to 24. Not all sizes are available for all icons
     /// </summary>
     [Parameter]
-    [EditorRequired]
     public IconSize Size { get; set; } = IconSize.Size24;
 
     /// <summary>
@@ -75,23 +79,16 @@ public partial class FluentIcon : FluentComponentBase
     public string? NeutralCultureName { get; set; } = null;
 
     /// <summary>
-    /// Gets or sets the content to be rendered inside the component.
-    /// </summary>
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
-
-    /// <summary>
     /// Allows for capturing a mouse click on an icon
     /// </summary>
     [Parameter]
     public EventCallback<MouseEventArgs> OnClick { get; set; }
 
 
-    protected override async Task OnParametersSetAsync()
+    //protected override async Task OnParametersSetAsync()
+    protected override void OnParametersSet()
     {
-        string? color;
-        
-        string result;
+        //string result;
         string? nc = NeutralCultureName ?? null;
 
         if (Color != Color.Custom)
@@ -99,7 +96,7 @@ public partial class FluentIcon : FluentComponentBase
             if (CustomColor != null)
                 throw new ArgumentException("CustomColor can only be used when Color is set to IconColor.Custom. ");
             else
-                color = Color.ToAttributeValue();
+                _color = Color.ToAttributeValue();
         }
         else
         {
@@ -114,14 +111,19 @@ public partial class FluentIcon : FluentComponentBase
 #endif
                     throw new ArgumentException("CustomColor must be a valid HTML hex color string (#rrggbb or #rgb). ");
                 else
-                    color = CustomColor;
-             }
+                    _color = CustomColor;
+            }
         }
 
-        string folder = FluentIcons.IconMap.First(x => x.Name == Name).Folder;
+        _folder = FluentIcons.IconMap.First(x => x.Name == Name).Folder;
 
-        _iconUrl = $"{ICON_ROOT}/{folder}{(nc is not null ? "/" + nc : "")}/{ComposedName}.svg";
-        _iconUrlFallback = $"{ICON_ROOT}/{folder}/{ComposedName}.svg";
+        _iconUrl = $"{ICON_ROOT}/{_folder}{(nc is not null ? "/" + nc : "")}/{ComposedName}.svg";
+        _iconUrlFallback = $"{ICON_ROOT}/{_folder}/{ComposedName}.svg";
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        string result;
 
         if (!string.IsNullOrEmpty(_iconUrl) && !string.IsNullOrEmpty(_iconUrlFallback))
         {
@@ -129,13 +131,13 @@ public partial class FluentIcon : FluentComponentBase
             // Get the result from the cache
             result = await CacheStorageAccessor.GetAsync(message);
 
-            if (string.IsNullOrEmpty(result))
+            if (string.IsNullOrEmpty(result) && firstRender)
             {
-                //It is not in the cache, get it from the InconService (download)
+                //It is not in the cache, get it from the IconService (download)
                 HttpResponseMessage? response = await IconService.HttpClient.SendAsync(message);
 
-                // If unsuccesfull, try with the fallback url. Maybe a non existing neutral culture was specified
-                if (!response.IsSuccessStatusCode && _iconUrl != _iconUrlFallback)
+                // If unsuccessful, try with the fallback url. Maybe a non existing neutral culture was specified
+                if (!response.IsSuccessStatusCode && _iconUrl != _iconUrlFallback && firstRender)
                 {
                     message = CreateMessage(_iconUrlFallback);
 
@@ -143,14 +145,17 @@ public partial class FluentIcon : FluentComponentBase
                     result = await CacheStorageAccessor.GetAsync(message);
                     if (string.IsNullOrEmpty(result))
                     {
-                        // If not in cache, get it from the InconService (download)
+                        // If not in cache, get it from the IconService (download)
                         response = await IconService.HttpClient.SendAsync(message);
 
                         if (response.IsSuccessStatusCode)
                             // Store the response in the cache and get the result
                             result = await CacheStorageAccessor.PutAndGetAsync(message, response);
                         else
+                        {
+
                             result = string.Empty;
+                        }
                     }
                 }
                 else
@@ -162,7 +167,7 @@ public partial class FluentIcon : FluentComponentBase
 
             if (!string.IsNullOrEmpty(result))
             {
-                result = result.Replace("<path ", $"<path fill=\"{color}\"");
+                result = result.Replace("<path ", $"<path fill=\"{_color}\"");
 
                 string pattern = "<svg (?<attributes>.*?)>(?<path>.*?)</svg>";
                 Regex regex = new(pattern);
@@ -172,11 +177,19 @@ public partial class FluentIcon : FluentComponentBase
                 if (match is not null)
                     result = match.Groups["path"].Value;
 
-                _svg = result;
-                _size = Convert.ToInt32(Size);
 
+                if (_prevResult != result)
+                {
+                    _svg = result;
+                    _prevResult = result;
+                    _size = Convert.ToInt32(Size);
+
+                    StateHasChanged();
+                }
             }
         }
+
+
     }
 
     protected override void BuildRenderTree(RenderTreeBuilder builder)
@@ -211,7 +224,7 @@ public partial class FluentIcon : FluentComponentBase
         {
             string result = "";
             if (Name is not null)
-                result = $"{Name}_{(int)Size}_{(Filled ? "filled" : "regular")}";
+                result = $"{Name}_{(int)Size}_{Variant.ToAttributeValue()}";
 
             return result;
         }
@@ -223,5 +236,5 @@ public partial class FluentIcon : FluentComponentBase
     [GeneratedRegex("^#(?:[a-fA-F0-9]{6}|[a-fA-F0-9]{3})$")]
     private static partial Regex CheckRGBString();
 #endif
-    
+
 }

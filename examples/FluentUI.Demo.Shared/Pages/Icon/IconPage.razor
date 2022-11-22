@@ -16,39 +16,39 @@
 <p>
     Icons can be drawn and filled with a color through the <code>Color</code> parameter which takes a <code>Color</code> enumeration value. 
     <br /><br /> 
-    &nbsp;&nbsp;&nbsp;<code>&lt;FluentIcon Name="@@FluentIcons.Alert"" Size="IconSize.Size48"" Filled=true Color="<em>{&middot;&middot;&middot;}</em>" /&gt;</code>
+    &nbsp;&nbsp;&nbsp;<code>&lt;FluentIcon Name="@@FluentIcons.Alert"" Size="IconSize.Size48"" Variant=IconVariant.Filled Color="<em>{&middot;&middot;&middot;}</em>" /&gt;</code>
     <br /><br />
     With the code above you can use the following options at the <em>{&middot;&middot;&middot;}</em>:
     <dl>
         <dt><code>Color.Neutral</code> - Uses CSS variable --neutral-forground-rest, adapts to light/dark mode.</dt>
-        <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Filled=true Color="Color.Neutral" /></dd>
+        <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Filled Color="Color.Neutral" /></dd>
        
         <dt><code>Color.Accent</code> - Uses CSS variable --accent-fill-rest.</dt>
-        <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Filled=true Color="Color.Accent" /></dd>
+        <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Filled Color="Color.Accent" /></dd>
         
         <dt><code>Color.Warning</code> - Uses CSS variable --warning-fill<sup>*</sup>.</dt>
-        <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Filled=true Color="Color.Warning" /></dd>
+        <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Filled Color="Color.Warning" /></dd>
         
         <dt><code>Color.SevereWarning</code> - Uses CSS variable --severe-warning-fill<sup>*</sup>.</dt>
-        <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Filled=true Color="Color.SevereWarning" /></dd>
+        <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Filled Color="Color.SevereWarning" /></dd>
         
         <dt><code>Color.Error</code> - Uses CSS variable --error-fill<sup>*</sup>.</dt>
-        <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Filled=true Color="Color.Error" /></dd>
+        <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Filled Color="Color.Error" /></dd>
         
         <dt><code>Color.Success</code> - Uses CSS variable --success-fill<sup>*</sup>.</dt>
-        <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Filled=true Color="Color.Success" /></dd>
+        <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Filled Color="Color.Success" /></dd>
         
         <dt><code>Color.Fill</code> - Uses CSS variable --neutral-fill-rest, adapts to light/dark mode<sup>**</sup>.</dt>
-        <dd style="background-color: var(--accent-fill-rest); width:48px"><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Filled=true Color="Color.Fill" /></dd>
+        <dd style="background-color: var(--accent-fill-rest); width:48px"><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Filled Color="Color.Fill" /></dd>
         
         <dt><code>Color.FillInverse</code> - Uses CSS variable --neutral-fill-inverse-rest, adapts to light/dark mode<sup>**</sup>.</dt>
-        <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Filled=true Color="Color.FillInverse" /></dd>
+        <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Filled Color="Color.FillInverse" /></dd>
         
         <dt><code>Color.Lightweight</code> - Uses CSS variable --neutral-layer-1, adapts to light/dark mode<sup>**</sup>.</dt>
-        <dd style="background-color: var(--accent-fill-rest); width:48px"><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Filled=true Color="Color.Lightweight" /></dd>
+        <dd style="background-color: var(--accent-fill-rest); width:48px"><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Filled Color="Color.Lightweight" /></dd>
         
         <dt><code>Color.Custom</code> - Supply your own color value through the <code>CustomColor</code> parameter. Needs to be formatted as an HTML hex color string (#rrggbb or #rgb).</dt>
-        <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Filled=true Color="Color.Custom" CustomColor="#570078" /></dd>
+        <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Filled Color="Color.Custom" CustomColor="#570078" /></dd>
     </dl>
     <strong>(*)</strong>: This color is defined in the <code>variables.css</code> file. If your site is using     
     <FluentAnchor Href="/Reboot" Appearance="Appearance.Hypertext">Reboot</FluentAnchor> the <code>variables.css</code> file is automatically imported. If you do not 
@@ -67,25 +67,30 @@
     If a language version of an icon is not found, the original version will be used.
     <dl> 
         <dt>Neutral @@FluentIcons.TextBold icons</dt>
-        <dd>Filled: <FluentIcon Name=@FluentIcons.TextBold Size=IconSize.Size24 Filled=true /> Regular: <FluentIcon Name=@FluentIcons.TextBold Size=IconSize.Size24 Filled=false /></dd>
+        <dd>Filled: <FluentIcon Name=@FluentIcons.TextBold Variant=IconVariant.Filled /> Regular: <FluentIcon Name=@FluentIcons.TextBold Variant=IconVariant.Regular /></dd>
         <dt>French @@FluentIcons.TextBold icons (<code>NeutralCultureName="fr"</code>)</dt>
-        <dd>Filled: <FluentIcon Name=@FluentIcons.TextBold Size=IconSize.Size24 Filled=true NeutralCultureName="fr" /> Regular: <FluentIcon Name=@FluentIcons.TextBold Size=IconSize.Size24 Filled=false NeutralCultureName="fr"/></dd>
+        <dd>Filled: <FluentIcon Name=@FluentIcons.TextBold Variant=IconVariant.Filled NeutralCultureName="fr" /> Regular: <FluentIcon Name=@FluentIcons.TextBold Variant=IconVariant.Regular NeutralCultureName="fr"/></dd>
         <dt>German @@FluentIcons.TextBold icons (<code>NeutralCultureName="de"</code>)</dt>
-        <dd>Filled: <FluentIcon Name=@FluentIcons.TextBold Size=IconSize.Size24 Filled=true NeutralCultureName="de" /> Regular: <FluentIcon Name=@FluentIcons.TextBold Size=IconSize.Size24 Filled=false NeutralCultureName="de"/></dd>
+        <dd>Filled: <FluentIcon Name=@FluentIcons.TextBold Variant=IconVariant.Filled NeutralCultureName="de" /> Regular: <FluentIcon Name=@FluentIcons.TextBold Variant=IconVariant.Regular NeutralCultureName="de"/></dd>
         <dt>Greek @@FluentIcons.TextBold icons (<code>NeutralCultureName="el"</code>) (does not exist, fall back to original)</dt>
-        <dd>Filled: <FluentIcon Name=@FluentIcons.TextBold Size=IconSize.Size24 Filled=true NeutralCultureName="el" /> Regular: <FluentIcon Name=@FluentIcons.TextBold Size=IconSize.Size24 Filled=false NeutralCultureName="el"/></dd>
+        <dd>Filled: <FluentIcon Name=@FluentIcons.TextBold Variant=IconVariant.Filled NeutralCultureName="el" /> Regular: <FluentIcon Name=@FluentIcons.TextBold Variant=IconVariant.Regular NeutralCultureName="el"/></dd>
         <dt>Spanish @@FluentIcons.TextBold icons (<code>NeutralCultureName="es"</code>)</dt>
-        <dd>Filled: <FluentIcon Name=@FluentIcons.TextBold Size=IconSize.Size24 Filled=true NeutralCultureName="es" /> Regular: <FluentIcon Name=@FluentIcons.TextBold Size=IconSize.Size24 Filled=false NeutralCultureName="es"/></dd>
+        <dd>Filled: <FluentIcon Name=@FluentIcons.TextBold Variant=IconVariant.Filled NeutralCultureName="es" /> Regular: <FluentIcon Name=@FluentIcons.TextBold Variant=IconVariant.Regular NeutralCultureName="es"/></dd>
     </dl>
 </p>
 <h2 id="explore-icons">Explore Icons</h2>
 <p>
     <EditForm EditContext="@editContext" >
-        <div style="display: flex; flex-wrap: wrap; width: 90%;height: 100px;align-items: center;justify-content: space-between;">
-            <div style="display: flex;align-content: center;align-items: center;">
-                <FluentSearch Name="Searchterm" @bind-Value="Form.Searchterm" Placeholder="Search.."></FluentSearch>
+        <div class="form-grid">
+            <div id="item-0">
+                <FluentSearch Style="width: 100%" Name="Searchterm" @bind-Value="Form.Searchterm" Placeholder="Part of icon name.."></FluentSearch>
             </div>
-            <div style="display: flex;align-content: center;align-items: center;">
+            <div id="item-1">
+                <FluentCheckbox @bind-Value="Form.Filled" @onclick="HandleStyle">Filled</FluentCheckbox>
+                <FluentCheckbox @bind-Value="Form.Regular" @onclick="HandleStyle">Regular</FluentCheckbox>
+
+            </div>
+            <div id="item-2">
                 <label for="Size">Size</label>
                 <FluentSelect TOption="IconSize" Id="Size" @bind-SelectedOption="Form.Size" @onchange="@(x => HandleSize(x))">
                     @foreach (IconSize size in Enum.GetValues<IconSize>())
@@ -94,13 +99,10 @@
                     }
                 </FluentSelect>
             </div>
-
-            <div style="display: flex;align-content: center;align-items: center;">
-                <FluentCheckbox @bind-Value="Form.Filled" @onclick="HandleStyle">Filled</FluentCheckbox>
-                <FluentCheckbox @bind-Value="Form.Regular" @onclick="HandleStyle">Regular</FluentCheckbox>
+            <div id="item-3">
+                
             </div>
-            <div style="display: flex;align-content: center;align-items: center;">
-                <label for="Color">Color</label>
+            <div id="item-4"><label for="Color">Color</label>
                 <FluentSelect TOption="Color" Id="Color" @bind-SelectedOption="Form.Color" @onchange="@(x => HandleColor(x))">
                     @foreach (Color color in Enum.GetValues<Color>())
                     {
@@ -111,14 +113,18 @@
                     }
                 </FluentSelect>
             </div>
-            <FluentButton @onclick="HandleSearch"><FluentIcon Name="@FluentIcons.Search" Size="@IconSize.Size16" Filled=false Slot="start"></FluentIcon> Search</FluentButton>
+            <div id="item-5">
+                <FluentButton Appearance="Appearance.Accent" @onclick="HandleSearch"><FluentIcon Name="@FluentIcons.Search" Size="@IconSize.Size16" Variant=IconVariant.Regular Color=Color.Fill Slot="start"></FluentIcon> Search</FluentButton>
+            </div>
         </div>
     </EditForm>
 </p>
 
+<FluentDivider Role="DividerRole.Presentation" />
+
 @if (icons.Count > 0)
 {
-    <p>In the results below, click on an icon card to copy a 'ready-to-paste' <code>FluentIcon</code> component to the clipboard. </p>
+    <p style="padding: 1rem 0;">In the results below, click on an icon card to copy a 'ready-to-paste' <code>FluentIcon</code> component to the clipboard. </p>
 }
 <div id="filled" data-is-scrollable="true" style="overflow-y:auto;height:600px;">
     <div style="display:flex;flex-flow: row wrap;">
@@ -126,7 +132,7 @@
         {
             <FluentCard Class="preview" @onclick="()=> HandleClick(icon)">
                 <div class="inner" style="background-color: @(Form.Color == Color.Fill ? "var(--accent-fill-rest)" : "")" >
-                    <FluentIcon Name=@icon.Name Size=@icon.Size Filled=@icon.Filled Color="@Form.Color" />
+                    <FluentIcon Name=@icon.Name Size=@icon.Size Variant=@icon.Variant Color="@Form.Color" />
                 </div>
                 <div class="label">@icon.Folder</div>
             </FluentCard>
@@ -134,7 +140,7 @@
         @if (icons.Count == 0)
         {
         <div style="display: flex;align-content: center;align-items: center;">
-            <p style="padding-right: 10px;">No icons found</p>
+            <p style="padding: 1rem 0;">No icons found</p>
         </div>
         }
     </div>

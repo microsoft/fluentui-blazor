@@ -1268,20 +1268,22 @@
             Gets or sets the id.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.Filled">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.Variant">
             <summary>
-            Gets or sets the variant to use: filled (true) or regular (false)
+            Gets or sets the <see cref="T:Microsoft.Fast.Components.FluentUI.IconVariant"/> to use. 
+            Defaults to Regular
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.Color">
             <summary>
-            Gets or sets the icon drawing and fill color. Value comes from the <see cref="T:Microsoft.Fast.Components.FluentUI.Color"/> enumeration
+            Gets or sets the icon drawing and fill color. 
+            Value comes from the <see cref="T:Microsoft.Fast.Components.FluentUI.Color"/> enumeration. Defaults to Accent.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.CustomColor">
             <summary>
-            Gets or sets the icon drawing and fill color to a custom value.
-            Needs to be formatted as an HTML hex color string (#rrggbb or #rgb)
+            Gets or sets the icon drawing and fill _color to a custom value.
+            Needs to be formatted as an HTML hex _color string (#rrggbb or #rgb)
             ⚠️ Only available when Color is set to Color.Custom.
             </summary>
         </member>
@@ -1292,7 +1294,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.Size">
             <summary>
-            Gets or sets the size of the icon. Defaults to 24. Not all sizes are available for all icons
+            Gets or sets the <see cref="T:Microsoft.Fast.Components.FluentUI.IconSize"/> of the icon. Defaults to 24. Not all sizes are available for all icons
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.Slot">
@@ -1303,11 +1305,6 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.NeutralCultureName">
             <summary>
             Gets or sets the two letter neutral culture variant used. Not all neutral cultures are available for all icons
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.ChildContent">
-            <summary>
-            Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.OnClick">
@@ -5486,6 +5483,21 @@
         <member name="F:Microsoft.Fast.Components.FluentUI.IconSize.Size48">
             <summary>
             FluentUI System Icon font size 48x48
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.IconVariant">
+            <summary>
+            The icon variant.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.IconVariant.Filled">
+            <summary>
+            FluentUI System Icon font size 10x10
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.IconVariant.Regular">
+            <summary>
+            FluentUI System Icon font size 12x12
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.LocalizationDirection">

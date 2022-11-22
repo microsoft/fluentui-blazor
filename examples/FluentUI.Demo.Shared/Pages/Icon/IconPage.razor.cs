@@ -67,7 +67,13 @@ public partial class IconPage : IAsyncDisposable
     {
         if (Form.Searchterm is not null && Form.Searchterm.Trim().Length > 2)
         {
-            icons = FluentIcons.GetFilteredIcons(searchterm: Form.Searchterm.Trim(), size: Form.Size, filled: Form.Style);
+            IconVariant? variant = null;
+            if (Form.Style is not null)
+            {
+                variant = Form.Style.Value ? IconVariant.Filled : IconVariant.Regular;
+            }
+
+            icons = FluentIcons.GetFilteredIcons(searchterm: Form.Searchterm.Trim(), size: Form.Size, variant: variant);
         }
     }
 
@@ -75,7 +81,7 @@ public partial class IconPage : IAsyncDisposable
     {
         Console.WriteLine($"You clicked on {icon.Name}");
 
-        string Text = $@"<FluentIcon Name=""@FluentIcons.{icon.Folder}"" Size=""@IconSize.{icon.Size}"" Filled={icon.Filled.ToString().ToLower()} Color=""@IconColor.{Form.Color}""/>";
+        string Text = $$"""<FluentIcon Name="@FluentIcons.{{icon.Folder}}" Size="@IconSize.{{icon.Size}}" Variant="@IconVariant.{{icon.Variant}}" Color="@Color.{{Form.Color}}"/>""";
 
         if (_jsModule is not null)
         {

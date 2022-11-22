@@ -1,4 +1,6 @@
-﻿body {
+﻿@import '/_content/Microsoft.Fast.Components.FluentUI/css/reboot.css'; 
+
+body {
     height: 100%;
 }
 

@@ -1,17 +1,17 @@
 ﻿<FluentMenu>
     <FluentMenuItem >
         Menu item 1
-        <FluentIcon Name="@FluentIcons.Globe" Slot="start" Size="@IconSize.Size16" Filled=false UseAccentColor=false />
-        <FluentIcon Name="@FluentIcons.Globe" Slot="end" Size="@IconSize.Size16" Filled=false UseAccentColor=false />
+        <FluentIcon Name="@FluentIcons.Globe" Slot="start" Size="@IconSize.Size16" Color="Color.Neutral" />
+        <FluentIcon Name="@FluentIcons.Globe" Slot="end" Size="@IconSize.Size16" Color="Color.Neutral" />
     </FluentMenuItem>
     <FluentMenuItem>
         Menu item 2
-        <FluentIcon Name="@FluentIcons.Globe" Slot="end" Size="@IconSize.Size16" Filled=false UseAccentColor=false />     
-        <FluentIcon Name="@FluentIcons.Globe" Slot="start" Size="@IconSize.Size16" Filled=false UseAccentColor=false />
+        <FluentIcon Name="@FluentIcons.Globe" Slot="end" Size="@IconSize.Size16" Color="Color.Neutral" />
+        <FluentIcon Name="@FluentIcons.Globe" Slot="start" Size="@IconSize.Size16" Color="Color.Neutral" />
     </FluentMenuItem>
     <FluentMenuItem>
         Menu item 3
-        <FluentIcon Name="@FluentIcons.Globe" Slot="start" Size="@IconSize.Size16" Filled=true UseAccentColor=true />     
-        <FluentIcon Name="@FluentIcons.Globe" Slot="end" Size="@IconSize.Size16" Filled=true UseAccentColor=true />
+        <FluentIcon Name="@FluentIcons.Globe" Slot="start" Size="@IconSize.Size16" Variant=IconVariant.Filled Color=Color.Accent />
+        <FluentIcon Name="@FluentIcons.Globe" Slot="end" Size="@IconSize.Size16" Variant=IconVariant.Filled Color=Color.Accent />
     </FluentMenuItem>
 </FluentMenu>

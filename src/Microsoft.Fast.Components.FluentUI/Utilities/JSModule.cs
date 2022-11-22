@@ -49,6 +49,10 @@ public abstract class JSModule : IAsyncDisposable
         {
             await (await moduleTask).DisposeAsync();
         }
+        catch (InvalidOperationException)
+        {
+            // This can be called too early when using prerendering
+        }
         catch (JSDisconnectedException)
         {
             // The JSRuntime side may routinely be gone already if the reason we're disposing is that
