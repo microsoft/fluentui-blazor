@@ -113,7 +113,7 @@
             Default is 99.
             </summary>
         </member>
-        <member name="P:FluentUI.Demo.Shared.CounterBadge.LeftPosition">
+        <member name="P:FluentUI.Demo.Shared.CounterBadge.HorizontalPosition">
             <summary>
             Left position of the badge in percentage.
             By default, this value is 50 to center the badge.

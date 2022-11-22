@@ -5515,6 +5515,17 @@
             Right to left.
             </summary>
         </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.Luminance">
+            <summary>
+            Luminance description.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.Luminance.Light">
+            <summary />
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.Luminance.Dark">
+            <summary />
+        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.MenuItemRole">
             <summary>
             The role of the menu item.

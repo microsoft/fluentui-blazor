@@ -5,8 +5,11 @@ using Microsoft.Fast.Components.FluentUI.Utilities;
 namespace FluentUI.Demo.Shared;
 
 /// <summary />
-public partial class CounterBadge : FluentComponentBase
+public partial class CounterBadge : FluentComponentBase, IDisposable
 {
+    [Inject]
+    private GlobalState GlobalState { get; set; } = default!;
+
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("counterbadge")
@@ -14,7 +17,8 @@ public partial class CounterBadge : FluentComponentBase
 
     /// <summary />
     protected string? StyleValue => new StyleBuilder()
-        .AddStyle("left", $"{LeftPosition}%", () => LeftPosition.HasValue)
+        .AddStyle("left", $"{HorizontalPosition}%", () => HorizontalPosition.HasValue && GlobalState.Dir == LocalizationDirection.ltr)
+        .AddStyle("right", $"{HorizontalPosition}%", () => HorizontalPosition.HasValue && GlobalState.Dir == LocalizationDirection.rtl)
         .AddStyle("bottom", $"{BottomPosition}%", () => BottomPosition.HasValue)
         .AddStyle(Style)
         .AddStyle("background-color", GetBackgroundColor().ToAttributeValue())
@@ -54,7 +58,7 @@ public partial class CounterBadge : FluentComponentBase
     /// By default, this value is 50 to center the badge.
     /// </summary>
     [Parameter]
-    public int? LeftPosition { get; set; } = 50;
+    public int? HorizontalPosition { get; set; } = 50;
 
     /// <summary>
     /// Bottom position of the badge in percentage.
@@ -125,11 +129,21 @@ public partial class CounterBadge : FluentComponentBase
         return base.OnParametersSetAsync();
     }
 
+    protected override void OnInitialized()
+    {
+        GlobalState.OnChange += StateHasChanged;
+    }
+
     /// <summary />
     private Color? GetBackgroundColor()
     {
         if (BackgroundColor != null)
         {
+            if (BackgroundColor == Microsoft.Fast.Components.FluentUI.Color.Lightweight && GlobalState.Luminance == Luminance.Dark)
+                return Microsoft.Fast.Components.FluentUI.Color.FillInverse;
+            if (BackgroundColor == Microsoft.Fast.Components.FluentUI.Color.Lightweight && GlobalState.Luminance == Luminance.Light)
+                return Microsoft.Fast.Components.FluentUI.Color.Lightweight;
+
             return BackgroundColor;
         }
 
@@ -147,7 +161,13 @@ public partial class CounterBadge : FluentComponentBase
     {
         if (BackgroundColor != null)
         {
+            if (BackgroundColor == Microsoft.Fast.Components.FluentUI.Color.Lightweight && GlobalState.Luminance == Luminance.Dark)
+                return Microsoft.Fast.Components.FluentUI.Color.FillInverse;
+            if (BackgroundColor == Microsoft.Fast.Components.FluentUI.Color.Lightweight && GlobalState.Luminance == Luminance.Light)
+                return Microsoft.Fast.Components.FluentUI.Color.Lightweight;
+
             return BackgroundColor;
+
         }
 
         return Appearance switch
@@ -164,6 +184,10 @@ public partial class CounterBadge : FluentComponentBase
     {
         if (Color != null)
         {
+            if (BackgroundColor == Microsoft.Fast.Components.FluentUI.Color.Error && GlobalState.Luminance == Luminance.Dark)
+                return Microsoft.Fast.Components.FluentUI.Color.FillInverse;
+
+
             return Color;
         }
 
@@ -174,5 +198,10 @@ public partial class CounterBadge : FluentComponentBase
             Microsoft.Fast.Components.FluentUI.Appearance.Neutral => Microsoft.Fast.Components.FluentUI.Color.Fill,
             _ => throw new ArgumentException("CounterBadge Appearance needs to be one of Accent, Lightweight or Neutral."),
         }; ;
+    }
+
+    public void Dispose()
+    {
+        GlobalState.OnChange -= StateHasChanged;
     }
 }

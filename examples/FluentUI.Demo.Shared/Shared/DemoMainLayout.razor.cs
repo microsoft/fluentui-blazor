@@ -12,6 +12,9 @@ public partial class DemoMainLayout : IAsyncDisposable
     private string? selectValue;
 
     [Inject]
+    private GlobalState GlobalState { get; set; } = default!;
+
+    [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
 
     [Inject]
@@ -61,14 +64,19 @@ public partial class DemoMainLayout : IAsyncDisposable
 
     public async Task SwitchDirection()
     {
-        dir = dir == LocalizationDirection.rtl ? LocalizationDirection.ltr : LocalizationDirection.rtl;
+        dir = (dir == LocalizationDirection.rtl) ? LocalizationDirection.ltr : LocalizationDirection.rtl;
+
+        GlobalState.SetDirection(dir);
+
         await Direction.SetValueFor(container, dir.ToAttributeValue());
         await JSRuntime.InvokeVoidAsync("switchDirection", dir.ToString());
     }
 
     public async void SwitchTheme()
     {
-        baseLayerLuminance = baseLayerLuminance == 0.15f ? 0.98f : 0.15f;
+        baseLayerLuminance = (baseLayerLuminance == 0.15f) ? 0.98f : 0.15f;
+
+        GlobalState.SetLuminance((baseLayerLuminance <= 0.2f) ? Luminance.Dark : Luminance.Light);
 
         await _jsModule!.InvokeVoidAsync("switchHighlightStyle", baseLayerLuminance == 0.15f ? true : false);
     }
