@@ -328,7 +328,9 @@
             </summary>
         </member>
         <member name="T:FluentUI.Demo.Shared.PresenceBadge">
-            <summary />
+            <summary>
+            A presence badge is a badge that displays a status indicator such as available, away, or busy.
+            </summary>  
         </member>
         <member name="P:FluentUI.Demo.Shared.PresenceBadge.ClassValue">
             <summary />
@@ -363,6 +365,12 @@
             <summary>
             Modifies the display to indicate that the user is out of office. 
             This can be combined with any status to display an out-of-office version of that status.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.PresenceBadge.Size">
+            <summary>
+            Gets or sets the <see cref="T:FluentUI.Demo.Shared.BadgeSize"/> to use.
+            Default is Medium.
             </summary>
         </member>
         <member name="T:FluentUI.Demo.Shared.Spacer">

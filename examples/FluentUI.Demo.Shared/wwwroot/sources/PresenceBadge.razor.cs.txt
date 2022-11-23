@@ -4,10 +4,22 @@ using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace FluentUI.Demo.Shared;
 
-/// <summary />
+public enum BadgeSize
+{
+    Tiny = 10,
+    ExtraSmall = 12,
+    Small = 16,
+    Medium = 20,
+    Large = 24
+}
+
+
+/// <summary>
+/// A presence badge is a badge that displays a status indicator such as available, away, or busy.
+/// </summary>  
 public partial class PresenceBadge : FluentComponentBase, IDisposable
 {
-    private (string name, string color, IconVariant variant) _config;
+    private (string name, string color, IconVariant variant, IconSize size) _config;
 
     [Inject]
     private GlobalState GlobalState { get; set; } = default!;
@@ -59,6 +71,13 @@ public partial class PresenceBadge : FluentComponentBase, IDisposable
     [Parameter]
     public bool OutOfOffice { get; set; } = false;
 
+    /// <summary>
+    /// Gets or sets the <see cref="BadgeSize"/> to use.
+    /// Default is Medium.
+    /// </summary>
+    [Parameter]
+    public BadgeSize Size { get; set; } = BadgeSize.Medium;
+
     protected override Task OnParametersSetAsync()
     {
         _config = GetConfig();
@@ -71,34 +90,74 @@ public partial class PresenceBadge : FluentComponentBase, IDisposable
         GlobalState.OnChange += StateHasChanged;
     }
 
-    private (string name, string color, IconVariant variant) GetConfig()
+    private (string name, string color, IconVariant variant, IconSize size) GetConfig()
     {
-        (string name, string color, IconVariant variant) config = (FluentIcons.PresenceAvailable, "var(--presence-available)", IconVariant.Filled);
+        (string name, string color, IconVariant variant, IconSize size) config = (FluentIcons.PresenceAvailable, "var(--presence-available)", IconVariant.Filled, IconSize.Size20);
 
         switch (Status)
         {
             case PresenceStatus.Available:
-                config = (FluentIcons.PresenceAvailable, "var(--presence-available)", OutOfOffice ? IconVariant.Regular : IconVariant.Filled);
+                config.name = FluentIcons.PresenceAvailable;
+                config.color = "var(--presence-available)";
+                config.variant = OutOfOffice ? IconVariant.Regular : IconVariant.Filled;
                 break;
             case PresenceStatus.Away:
-                config = OutOfOffice ? (FluentIcons.PresenceOffline, "var(--presence-away)", IconVariant.Regular) : (FluentIcons.PresenceAway, "var(--presence-away)", IconVariant.Filled);
+                if (OutOfOffice)
+                {
+                    config.name = FluentIcons.PresenceOffline;
+                    config.variant = IconVariant.Regular;
+                }
+                else
+                {
+                    config.name = FluentIcons.PresenceAway;
+                    config.variant = IconVariant.Filled;
+                }
+                config.color = "var(--presence-away)";
                 break;
             case PresenceStatus.Busy:
-                config = OutOfOffice ? (FluentIcons.PresenceUnknown, "var(--presence-busy)", IconVariant.Regular) : (FluentIcons.PresenceBusy, "var(--presence-busy)", IconVariant.Filled);
+                if (OutOfOffice)
+                {
+                    config.name = FluentIcons.PresenceUnknown;
+                    config.variant = IconVariant.Regular;
+                }
+                else
+                {
+                    config.name = FluentIcons.PresenceBusy;
+                    config.variant = IconVariant.Filled;
+                }
+                config.color = "var(--presence-busy)";
                 break;
             case PresenceStatus.DoNotDisturb:
-                config = (FluentIcons.PresenceDND, "var(--presence-dnd)", OutOfOffice ? IconVariant.Regular : IconVariant.Filled);
+                config.name = FluentIcons.PresenceDND;
+                config.color = "var(--presence-dnd)";
+                config.variant = OutOfOffice ? IconVariant.Regular : IconVariant.Filled;
                 break;
             case PresenceStatus.Offline:
-                config = (FluentIcons.PresenceOffline, "var(--presence-offline)", IconVariant.Regular);
+                config.name = FluentIcons.PresenceOffline;
+                config.color = "var(--presence-offline)";
+                config.variant = IconVariant.Regular;
                 break;
             case PresenceStatus.OutOfOffice:
-                config = (FluentIcons.PresenceOOF, "var(--presence-oof)", IconVariant.Regular);
+                config.name = FluentIcons.PresenceOOF;
+                config.color = "var(--presence-oof)";
+                config.variant = IconVariant.Regular;
                 break;
             case PresenceStatus.Unknown:
-                config = (FluentIcons.PresenceUnknown, "var(--presence-unknown)", IconVariant.Regular);
+                config.name = FluentIcons.PresenceUnknown;
+                config.color = "var(--presence-unknown)";
+                config.variant = IconVariant.Regular;
                 break;
         }
+
+        config.size = Size switch
+        {
+            BadgeSize.Tiny => IconSize.Size10,
+            BadgeSize.ExtraSmall => IconSize.Size12,
+            BadgeSize.Small => IconSize.Size16,
+            BadgeSize.Medium => IconSize.Size20,
+            BadgeSize.Large => IconSize.Size24,
+            _ => IconSize.Size20,
+        };
 
         return config;
 
