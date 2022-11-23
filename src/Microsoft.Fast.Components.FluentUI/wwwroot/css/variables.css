@@ -1,17 +1,18 @@
 ﻿:root {
     --font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    --success-fill: #107c10;
-    --success-background: #dff6dd;
-    --error-fill: #a80000;
-    --error-background: #fde7e9;
-    --warning-fill: #817400;
-    --warning-background: #fff4ce;
-    --severe-warning-fill: #d83b01;
-    --severe-warning-background: #fed9cc;
-    --presence-away: #ffaa44;
-    --presence-do-not-disturb: #c50f1f;
-    --presence-online: #6bb700;
-    --presence-invisible: #8a8886;
-    --presence-out-of-office: #b4009e;
+    
+    --success: #107c10;
+    --warning: #817400;
+    --error: #d13438;
+    --info: #424242;
+    
+    
+    --presence-available: #13a10e;
+    --presence-away: #eaa300;
+    --presence-busy: #d13438;
+    --presence-dnd: #d13438;
+    --presence-offline: #adadad;
+    --presence-oof: #c239b3;
+    --presence-unknown: #d13438;
     --highlight-bg: #fff3cd;
 }

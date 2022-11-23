@@ -1316,12 +1316,18 @@
             <remarks>
             Pattern explanation:<br/>
             <code>
-            ○ Match if at the beginning of the string.<br/>
-            ○ Match '#'.<br/>
-            ○ Match with 2 alternative expressions.<br/>
-                ○ Match a character in the set [0-9A-Fa-f] exactly 6 times.<br/>
-                ○ Match a character in the set [0-9A-Fa-f] exactly 3 times.<br/>
-            ○ Match if at the end of the string or if before an ending newline.<br/>
+            ○ Match with 2 alternative expressions, atomically.<br/>
+                ○ Match a sequence of expressions.<br/>
+                    ○ Match if at the beginning of the string.<br/>
+                    ○ Match '#'.<br/>
+                    ○ Match with 2 alternative expressions, atomically.<br/>
+                        ○ Match a character in the set [0-9A-Fa-f] exactly 6 times.<br/>
+                        ○ Match a character in the set [0-9A-Fa-f] exactly 3 times.<br/>
+                ○ Match a sequence of expressions.<br/>
+                    ○ Match the string "var(--".<br/>
+                    ○ Match a character other than '\n' greedily any number of times.<br/>
+                    ○ Match ')'.<br/>
+                    ○ Match if at the end of the string or if before an ending newline.<br/>
             </code>
             </remarks>
         </member>
@@ -5259,28 +5265,28 @@
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.Color.Warning">
             <summary>
-            Use the '--warning-fill' CSS variable color.
+            Use the '--warning' CSS variable color.
             Note: This color is defined in the variables.css file. If this file is not being used, 
             a CSS variable with this name and appropriate value needs to be created.
             </summary>
         </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.Color.SevereWarning">
+        <member name="F:Microsoft.Fast.Components.FluentUI.Color.Info">
             <summary>
-            Use the '--severe-warning-fill' CSS variable color.
+            Use the '--info' CSS variable color.
             Note: This color is defined in the variables.css file. If this file is not being used, 
             a CSS variable with this name and appropriate value needs to be created.
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.Color.Error">
             <summary>
-            Use the '--error-fill' CSS variable color.
+            Use the '--error' CSS variable color.
             Note: This color is defined in the variables.css file. If this file is not being used, 
             a CSS variable with this name and appropriate value needs to be created.
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.Color.Success">
             <summary>
-            Use the '--success-fill' CSS variable color.
+            Use the '--success' CSS variable color.
             Note: This color is defined in the variables.css file. If this file is not being used, 
             a CSS variable with this name and appropriate value needs to be created.
             </summary>
@@ -5467,42 +5473,42 @@
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.IconSize.Size10">
             <summary>
-            FluentUI System Icon font size 10x10
+            FluentUI System Icon size 10x10
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.IconSize.Size12">
             <summary>
-            FluentUI System Icon font size 12x12
+            FluentUI System Icon size 12x12
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.IconSize.Size16">
             <summary>
-            FluentUI System Icon font size 16x16
+            FluentUI System Icon size 16x16
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.IconSize.Size20">
             <summary>
-            FluentUI System Icon font size 20x20
+            FluentUI System Icon size 20x20
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.IconSize.Size24">
             <summary>
-            FluentUI System Icon font size 24x24
+            FluentUI System Icon size 24x24
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.IconSize.Size28">
             <summary>
-            FluentUI System Icon font size 28x28
+            FluentUI System Icon size 28x28
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.IconSize.Size32">
             <summary>
-            FluentUI System Icon font size 32x32
+            FluentUI System Icon size 32x32
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.IconSize.Size48">
             <summary>
-            FluentUI System Icon font size 48x48
+            FluentUI System Icon size 48x48
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.IconVariant">
@@ -5637,30 +5643,30 @@
             The component is oriented vertically.
             </summary>
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.PresenceState">
+        <member name="T:Microsoft.Fast.Components.FluentUI.PresenceStatus">
             <summary>
             Represents the presence status.
             </summary>
         </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.PresenceState.Busy">
+        <member name="F:Microsoft.Fast.Components.FluentUI.PresenceStatus.Busy">
             <summary />
         </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.PresenceState.OutOfOffice">
+        <member name="F:Microsoft.Fast.Components.FluentUI.PresenceStatus.OutOfOffice">
             <summary />
         </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.PresenceState.Away">
+        <member name="F:Microsoft.Fast.Components.FluentUI.PresenceStatus.Away">
             <summary />
         </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.PresenceState.Available">
+        <member name="F:Microsoft.Fast.Components.FluentUI.PresenceStatus.Available">
             <summary />
         </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.PresenceState.Offline">
+        <member name="F:Microsoft.Fast.Components.FluentUI.PresenceStatus.Offline">
             <summary />
         </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.PresenceState.DoNotDisturb">
+        <member name="F:Microsoft.Fast.Components.FluentUI.PresenceStatus.DoNotDisturb">
             <summary />
         </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.PresenceState.Unknown">
+        <member name="F:Microsoft.Fast.Components.FluentUI.PresenceStatus.Unknown">
             <summary />
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.ScrollEasing">

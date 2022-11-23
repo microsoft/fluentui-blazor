@@ -5,13 +5,13 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// <summary>
 /// Represents the presence status.
 /// </summary>
-public enum PresenceState
+public enum PresenceStatus
 {
     /// <summary />
     Busy,
 
     /// <summary />
-    [Description("out-of-office")]
+    [Description("OOF")]
     OutOfOffice,
 
     /// <summary />
@@ -24,7 +24,7 @@ public enum PresenceState
     Offline,
 
     /// <summary />
-    [Description("do-not-disturb")]
+    [Description("DND")]
     DoNotDisturb,
 
     /// <summary />

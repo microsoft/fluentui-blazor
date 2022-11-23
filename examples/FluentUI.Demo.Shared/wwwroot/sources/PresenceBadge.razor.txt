@@ -1,0 +1,9 @@
+﻿@namespace FluentUI.Demo.Shared
+@inherits FluentComponentBase
+
+<div class="presencebadge-container">
+    @ChildContent
+    <div class="@ClassValue" style="@StyleValue" title="@Status.ToString()">
+        <FluentIcon Name="@_config.name" Style="background-color: var(--neutral-layer-1);" Size="IconSize.Size16" Color=Color.Custom CustomColor="@_config.color" Variant="@_config.variant" />
+    </div>
+</div>

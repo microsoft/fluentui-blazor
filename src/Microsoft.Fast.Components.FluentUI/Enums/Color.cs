@@ -22,35 +22,35 @@ public enum Color
     Accent,
 
     /// <summary>
-    /// Use the '--warning-fill' CSS variable color.
+    /// Use the '--warning' CSS variable color.
     /// Note: This color is defined in the variables.css file. If this file is not being used, 
     /// a CSS variable with this name and appropriate value needs to be created.
     /// </summary>
-    [Description("var(--warning-fill)")]
+    [Description("var(--warning)")]
     Warning,
 
     /// <summary>
-    /// Use the '--severe-warning-fill' CSS variable color.
+    /// Use the '--info' CSS variable color.
     /// Note: This color is defined in the variables.css file. If this file is not being used, 
     /// a CSS variable with this name and appropriate value needs to be created.
     /// </summary>
-    [Description("var(--severe-warning-fill)")]
-    SevereWarning,
+    [Description("var(--info)")]
+    Info,
 
     /// <summary>
-    /// Use the '--error-fill' CSS variable color.
+    /// Use the '--error' CSS variable color.
     /// Note: This color is defined in the variables.css file. If this file is not being used, 
     /// a CSS variable with this name and appropriate value needs to be created.
     /// </summary>
-    [Description("var(--error-fill)")]
+    [Description("var(--error)")]
     Error,
 
     /// <summary>
-    /// Use the '--success-fill' CSS variable color.
+    /// Use the '--success' CSS variable color.
     /// Note: This color is defined in the variables.css file. If this file is not being used, 
     /// a CSS variable with this name and appropriate value needs to be created.
     /// </summary>
-    [Description("var(--success-fill)")]
+    [Description("var(--success)")]
     Success,
 
     /// <summary>

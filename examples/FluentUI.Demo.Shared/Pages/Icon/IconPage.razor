@@ -26,16 +26,16 @@
         <dt><code>Color.Accent</code> - Uses CSS variable --accent-fill-rest.</dt>
         <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Filled Color="Color.Accent" /></dd>
         
-        <dt><code>Color.Warning</code> - Uses CSS variable --warning-fill<sup>*</sup>.</dt>
+        <dt><code>Color.Warning</code> - Uses CSS variable --warning<sup>*</sup>.</dt>
         <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Filled Color="Color.Warning" /></dd>
         
-        <dt><code>Color.SevereWarning</code> - Uses CSS variable --severe-warning-fill<sup>*</sup>.</dt>
-        <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Filled Color="Color.SevereWarning" /></dd>
+        <dt><code>Color.Info</code> - Uses CSS variable --info<sup>*</sup>.</dt>
+        <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Filled Color="Color.Info" /></dd>
         
-        <dt><code>Color.Error</code> - Uses CSS variable --error-fill<sup>*</sup>.</dt>
+        <dt><code>Color.Error</code> - Uses CSS variable --error<sup>*</sup>.</dt>
         <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Filled Color="Color.Error" /></dd>
         
-        <dt><code>Color.Success</code> - Uses CSS variable --success-fill<sup>*</sup>.</dt>
+        <dt><code>Color.Success</code> - Uses CSS variable --success<sup>*</sup>.</dt>
         <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Filled Color="Color.Success" /></dd>
         
         <dt><code>Color.Fill</code> - Uses CSS variable --neutral-fill-rest, adapts to light/dark mode<sup>**</sup>.</dt>
@@ -83,7 +83,7 @@
     <EditForm EditContext="@editContext" >
         <div class="form-grid">
             <div id="item-0">
-                <FluentSearch Style="width: 100%" Name="Searchterm" @bind-Value="Form.Searchterm" Placeholder="Part of icon name.."></FluentSearch>
+                <FluentSearch Style="width: 100%" Name="Searchterm" @bind-Value="Form.Searchterm" Placeholder="Part of icon name..."></FluentSearch>
             </div>
             <div id="item-1">
                 <FluentCheckbox @bind-Value="Form.Filled" @onclick="HandleStyle">Filled</FluentCheckbox>

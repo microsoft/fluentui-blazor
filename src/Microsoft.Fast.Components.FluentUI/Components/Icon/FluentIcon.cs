@@ -107,9 +107,9 @@ public partial class FluentIcon : FluentComponentBase
 #if NET7_0_OR_GREATER
                 if (!CheckRGBString().IsMatch(CustomColor))
 #else
-                if (!Regex.IsMatch(CustomColor, "^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$"))
+                if (!Regex.IsMatch(CustomColor, "^(?:#([a-fA-F0-9]{6}|[a-fA-F0-9]{3}))|var\\(--.*\\)$"))
 #endif
-                    throw new ArgumentException("CustomColor must be a valid HTML hex color string (#rrggbb or #rgb). ");
+                    throw new ArgumentException("CustomColor must be a valid HTML hex color string (#rrggbb or #rgb) or CSS variable. ");
                 else
                     _color = CustomColor;
             }
@@ -131,7 +131,7 @@ public partial class FluentIcon : FluentComponentBase
             // Get the result from the cache
             result = await CacheStorageAccessor.GetAsync(message);
 
-            if (string.IsNullOrEmpty(result) && firstRender)
+            if (string.IsNullOrEmpty(result))
             {
                 //It is not in the cache, get it from the IconService (download)
                 HttpResponseMessage? response = await IconService.HttpClient.SendAsync(message);
@@ -233,7 +233,7 @@ public partial class FluentIcon : FluentComponentBase
     public static HttpRequestMessage CreateMessage(string url) => new(HttpMethod.Get, url);
 
 #if NET7_0_OR_GREATER
-    [GeneratedRegex("^#(?:[a-fA-F0-9]{6}|[a-fA-F0-9]{3})$")]
+    [GeneratedRegex("^(?:#(?:[a-fA-F0-9]{6}|[a-fA-F0-9]{3}))|var\\(--.*\\)$")]
     private static partial Regex CheckRGBString();
 #endif
 

@@ -85,12 +85,12 @@ public partial class CounterBadge : FluentComponentBase, IDisposable
     [Parameter]
     public Color? Color { get; set; }
 
-    /// <summary>
-    ///  If just a dot should be displayed without the count.
-    ///  Defaults to false.
-    /// </summary>
-    [Parameter]
-    public bool Dot { get; set; } = false;
+    ///// <summary>
+    /////  If just a dot should be displayed without the count.
+    /////  Defaults to false.
+    ///// </summary>
+    //[Parameter]
+    //public bool Dot { get; set; } = false;
 
     /// <summary>
     /// If the counter badge should be displayed when the count is zero.

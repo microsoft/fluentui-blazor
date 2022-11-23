@@ -140,12 +140,6 @@
             Font color to replace the color inferred from property.
             </summary>
         </member>
-        <member name="P:FluentUI.Demo.Shared.CounterBadge.Dot">
-            <summary>
-             If just a dot should be displayed without the count.
-             Defaults to false.
-            </summary>
-        </member>
         <member name="P:FluentUI.Demo.Shared.CounterBadge.ShowZero">
              <summary>
              If the counter badge should be displayed when the count is zero.
@@ -331,6 +325,44 @@
         <member name="P:FluentUI.Demo.Shared.NavMenuLink.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="T:FluentUI.Demo.Shared.PresenceBadge">
+            <summary />
+        </member>
+        <member name="P:FluentUI.Demo.Shared.PresenceBadge.ClassValue">
+            <summary />
+        </member>
+        <member name="P:FluentUI.Demo.Shared.PresenceBadge.StyleValue">
+            <summary />
+        </member>
+        <member name="P:FluentUI.Demo.Shared.PresenceBadge.ChildContent">
+            <summary>
+            Child content of component, the content that the badge will apply to.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.PresenceBadge.Status">
+            <summary>
+            The status to show. See <see cref="T:Microsoft.Fast.Components.FluentUI.PresenceStatus"/> for options.
+            Default is Available
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.PresenceBadge.HorizontalPosition">
+            <summary>
+            Left position of the badge in percentage.
+            Default value is 50.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.PresenceBadge.BottomPosition">
+            <summary>
+            Bottom position of the badge in percentage.
+            Default value is -10.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.PresenceBadge.OutOfOffice">
+            <summary>
+            Modifies the display to indicate that the user is out of office. 
+            This can be combined with any status to display an out-of-office version of that status.
             </summary>
         </member>
         <member name="T:FluentUI.Demo.Shared.Spacer">
