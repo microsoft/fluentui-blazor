@@ -137,7 +137,7 @@ nav {
 
         nav fluent-anchor::part(control) {
             justify-content: start;
-            background: var(--accent-fill-active);
+            background: var(--accent-fill-rest);
         }
 
 .content {
