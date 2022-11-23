@@ -27,7 +27,7 @@
         </div>
         <div class="colorgroup">
             <label for="color">Color: </label>
-            <FluentSelect Id="color" @bind-SelectedOption="@selectValue" Position="SelectPosition.Below" @onchange="@(x => HandleColorChange(x))" TItem="string">
+            <FluentSelect Id="color" @bind-SelectedOption="@_selectValue" Position="SelectPosition.Below" @onchange="@(x => HandleColorChange(x))" TItem="string">
                 <FluentOption Value=@("default")>Default</FluentOption>
                 @foreach (var color in Enum.GetValues<OfficeColor>())
                 {
@@ -77,6 +77,8 @@
     <footer>
         <div class="version">
             <small>
+                Version: @_version; 
+           &nbsp;
                 <a href="https://dotnet.microsoft.com/en-us/learn/aspnet/what-is-aspnet-core">Powered by @RuntimeInformation.FrameworkDescription</a>
             </small>
         </div>

@@ -1,3 +1,4 @@
+using System.Reflection;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Components.Web;
@@ -9,7 +10,8 @@ namespace FluentUI.Demo.Shared;
 
 public partial class DemoMainLayout : IAsyncDisposable
 {
-    private string? selectValue;
+    private string? _selectValue;
+    private string? _version;
 
     [Inject]
     private GlobalState GlobalState { get; set; } = default!;
@@ -42,6 +44,7 @@ public partial class DemoMainLayout : IAsyncDisposable
 
     protected override void OnInitialized()
     {
+        _version = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
         NavigationManager.LocationChanged += LocationChanged;
         base.OnInitialized();
     }
@@ -93,12 +96,12 @@ public partial class DemoMainLayout : IAsyncDisposable
         {
             if (value != "default")
             {
-                selectValue = value;
+                _selectValue = value;
                 await AccentBaseColor.SetValueFor(container, value.ToSwatch());
             }
             else
             {
-                selectValue = "default";
+                _selectValue = "default";
                 await AccentBaseColor.DeleteValueFor(container);
             }
         }
