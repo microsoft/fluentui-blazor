@@ -36,8 +36,5 @@ public partial class FluentTab : FluentComponentBase, IDisposable
         Owner?.Register(this);
     }
 
-    public void Dispose()
-    {
-        Owner?.Unregister(this);
-    }
+    public void Dispose() => Owner?.Unregister(this);
 }

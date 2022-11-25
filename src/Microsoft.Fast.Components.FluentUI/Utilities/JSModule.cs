@@ -42,7 +42,6 @@ public abstract class JSModule : IAsyncDisposable
 
 
     // On disposal, we release the JS module
-    [SuppressMessage("Usage", "CA1816:Dispose methods should call SuppressFinalize", Justification = "Not needed")]
     public async ValueTask DisposeAsync()
     {
         try

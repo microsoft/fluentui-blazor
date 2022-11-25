@@ -89,8 +89,5 @@ public partial class FluentOption<TOption> : FluentComponentBase, IDisposable
         }
     }
 
-    public void Dispose()
-    {
-        InternalListContext.Unregister(this);
-    }
+    public void Dispose() => InternalListContext.Unregister(this);
 }

@@ -60,10 +60,7 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IDispos
 
     }
 
-    public void Dispose()
-    {
-        Owner.Unregister(this);
-    }
+    public void Dispose() => Owner.Unregister(this);
 
     internal void Register(FluentDataGridCell<TGridItem> cell)
     {

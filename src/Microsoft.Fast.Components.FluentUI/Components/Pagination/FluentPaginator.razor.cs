@@ -47,6 +47,5 @@ public partial class FluentPaginator : FluentComponentBase, IDisposable
         => _totalItemCountChanged.SubscribeOrMove(Value.TotalItemCountChangedSubscribable);
 
     /// <inheritdoc />
-    public void Dispose()
-        => _totalItemCountChanged.Dispose();
+    public void Dispose() => _totalItemCountChanged.Dispose();
 }

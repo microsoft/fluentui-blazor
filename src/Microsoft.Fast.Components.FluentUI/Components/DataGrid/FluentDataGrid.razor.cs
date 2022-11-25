@@ -1,7 +1,6 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
-using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
@@ -145,7 +144,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IAsyncDisp
     // Caches of method->delegate conversions
     private readonly RenderFragment _renderColumnHeaders;
     private readonly RenderFragment _renderNonVirtualizedRows;
-    
+
     // We try to minimize the number of times we query the items provider, since queries may be expensive
     // We only re-query when the developer calls RefreshDataAsync, or if we know something's changed, such
     // as sort order, the pagination state, or the data source itself. These fields help us detect when
@@ -432,7 +431,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IAsyncDisp
     };
 
     /// <inheritdoc />
-    [SuppressMessage("Usage", "CA1816:Dispose methods should call SuppressFinalize", Justification = "Not needed")]
     public async ValueTask DisposeAsync()
     {
         _currentPageItemsChanged.Dispose();

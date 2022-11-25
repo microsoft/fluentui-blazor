@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
-using Microsoft.Fast.Components.FluentUI;
 
 namespace FluentUI.Demo.Shared.Shared
 {
@@ -28,7 +27,7 @@ namespace FluentUI.Demo.Shared.Shared
 
         //private Appearance SetAppearance(string location) => (location == target) ? Appearance.Accent : Appearance.Neutral;
 
-        void IDisposable.Dispose()
+        void Dispose()
         {
             // Unsubscribe from the event when our component is disposed
             NavigationManager.LocationChanged -= LocationChanged;

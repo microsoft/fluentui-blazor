@@ -39,8 +39,5 @@ internal class EventCallbackSubscriber<T> : IDisposable
         }
     }
 
-    public void Dispose()
-    {
-        _existingSubscription?.Unsubscribe(this);
-    }
+    public void Dispose() => _existingSubscription?.Unsubscribe(this);
 }

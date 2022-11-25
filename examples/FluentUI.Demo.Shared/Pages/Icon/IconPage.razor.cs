@@ -111,7 +111,6 @@ public partial class IconPage : IAsyncDisposable
         editContext = new EditContext(Form);
     }
 
-    [SuppressMessage("Usage", "CA1816:Dispose methods should call SuppressFinalize", Justification = "Not needed")]
     public async ValueTask DisposeAsync()
     {
         try

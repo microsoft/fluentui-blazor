@@ -1,4 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Configuration;
 using Microsoft.JSInterop;
@@ -141,8 +140,6 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
         return await _jsModule.Value.InvokeAsync<object>("parseColorHexRGB", color);
     }
 
-
-    [SuppressMessage("Usage", "CA1816:Dispose methods should call SuppressFinalize", Justification = "Not needed")]
     public async ValueTask DisposeAsync()
     {
         try

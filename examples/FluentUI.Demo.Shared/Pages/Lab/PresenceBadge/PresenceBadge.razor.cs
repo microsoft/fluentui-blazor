@@ -41,7 +41,7 @@ public partial class PresenceBadge : FluentComponentBase, IDisposable
         .Build();
 
     /// <summary>
-    /// Child content of component, the content that the badge will apply to.
+    /// Child content of component, the content that the badge will be applied to.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -54,14 +54,14 @@ public partial class PresenceBadge : FluentComponentBase, IDisposable
     public PresenceStatus Status { get; set; } = PresenceStatus.Available;
 
     /// <summary>
-    /// Left position of the badge in percentage.
+    /// Left position of the badge (percentage as number).
     /// Default value is 50.
     /// </summary>
     [Parameter]
     public int? HorizontalPosition { get; set; } = 50;
 
     /// <summary>
-    /// Bottom position of the badge in percentage.
+    /// Bottom position of the badge (percentage as number).
     /// Default value is -10.
     /// </summary>
     [Parameter]

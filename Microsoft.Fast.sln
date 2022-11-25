@@ -19,16 +19,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentUI.Demo.Client", "exa
 		{9AA1E7D0-AFBB-4EAA-BC77-42CC0F07EA0D} = {9AA1E7D0-AFBB-4EAA-BC77-42CC0F07EA0D}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".additional files", ".additional files", "{B5536EE9-65A8-46B8-94CD-469364C83F8B}"
-	ProjectSection(SolutionItems) = preProject
-		CODE_OF_CONDUCT.md = CODE_OF_CONDUCT.md
-		CONTRIBUTING.md = CONTRIBUTING.md
-		LICENSE = LICENSE
-		README.md = README.md
-		SECURITY.md = SECURITY.md
-		Update Icons.md = Update Icons.md
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".workflows", ".workflows", "{A958098A-B900-4D41-9DEF-32545802D22B}"
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\ci-validate.yml = .github\workflows\ci-validate.yml
@@ -41,6 +31,17 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Fast.Components.FluentUI.Generators", "src\Microsoft.Fast.Components.FluentUI.Generators\Microsoft.Fast.Components.FluentUI.Generators.csproj", "{6C1E062A-44D3-47B0-A42F-CE27FA452DD4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentUI.Demo.Generators", "examples\FluentUI.Demo.Generators\FluentUI.Demo.Generators.csproj", "{6CE4DE24-E064-4634-A05F-6A408E410733}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D92C879A-5F0F-40C9-A17E-C5688ADF8D6D}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		CODE_OF_CONDUCT.md = CODE_OF_CONDUCT.md
+		CONTRIBUTING.md = CONTRIBUTING.md
+		LICENSE = LICENSE
+		README.md = README.md
+		SECURITY.md = SECURITY.md
+		Update Icons.md = Update Icons.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

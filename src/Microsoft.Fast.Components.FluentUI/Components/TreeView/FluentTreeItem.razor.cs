@@ -59,9 +59,5 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
         Expanded = value;
     }
 
-
-    public void Dispose()
-    {
-        Owner?.Unregister(this);
-    }
+    public void Dispose() => Owner?.Unregister(this);
 }
