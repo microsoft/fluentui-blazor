@@ -27,7 +27,7 @@ namespace FluentUI.Demo.Shared.Shared
 
         //private Appearance SetAppearance(string location) => (location == target) ? Appearance.Accent : Appearance.Neutral;
 
-        void Dispose()
+        void IDisposable.Dispose()
         {
             // Unsubscribe from the event when our component is disposed
             NavigationManager.LocationChanged -= LocationChanged;

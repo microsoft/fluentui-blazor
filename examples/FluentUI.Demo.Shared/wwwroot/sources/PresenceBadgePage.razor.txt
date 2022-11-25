@@ -17,16 +17,16 @@
 
 <h2>Examples</h2>
 
-<DemoSection Component="typeof(PresenceBadgeSizes)" Title="Sizes">
+<DemoSection Component="typeof(PresenceBadgeSizes)" Title="Available sizes">
     <Description>
         <p>
             A presence badge supports <code>Tiny</code>, <code>ExtraSmall</code>, <code>Small</code>, <code>Medium</code>,
-            and <code>Large</code> size. The default size is <code>Medium</code>.
+            and <code>Large</code> size. The default size is <code>Small</code>.
         </p>
     </Description>
 </DemoSection>
 
-<DemoSection Component="typeof(PresenceBadgeDefault)" Title="Default">
+<DemoSection Component="typeof(PresenceBadgeDefault)" Title="Default options">
     <Description>
         <p>
             A presence badge supports <code>Available</code>, <code>Away</code>, <code>Busy</code>, <code>DoNotDisturb</code>,
@@ -35,7 +35,7 @@
     </Description>
 </DemoSection>
 
-<DemoSection Component="typeof(PresenceBadgeOOF)" Title="Out Of Office">
+<DemoSection Component="typeof(PresenceBadgeOOF)" Title="Out Of Office options">
     <Description>
         <p>
             A presence badge supports <code>Available</code>, <code>Away</code>, <code>Busy</code>, <code>DoNotDisturb</code>, 

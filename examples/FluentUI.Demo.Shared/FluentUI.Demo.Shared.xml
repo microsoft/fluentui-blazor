@@ -327,6 +327,11 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="T:FluentUI.Demo.Shared.BadgeSize">
+            <summary>
+            Sizes for presence badge
+            </summary>
+        </member>
         <member name="T:FluentUI.Demo.Shared.PresenceBadge">
             <summary>
             A presence badge is a badge that displays a status indicator such as available, away, or busy.
@@ -340,7 +345,7 @@
         </member>
         <member name="P:FluentUI.Demo.Shared.PresenceBadge.ChildContent">
             <summary>
-            Child content of component, the content that the badge will apply to.
+            Child content of component, the content that the badge will be applied to.
             </summary>
         </member>
         <member name="P:FluentUI.Demo.Shared.PresenceBadge.Status">
@@ -351,13 +356,13 @@
         </member>
         <member name="P:FluentUI.Demo.Shared.PresenceBadge.HorizontalPosition">
             <summary>
-            Left position of the badge in percentage.
+            Left position of the badge (percentage as number).
             Default value is 50.
             </summary>
         </member>
         <member name="P:FluentUI.Demo.Shared.PresenceBadge.BottomPosition">
             <summary>
-            Bottom position of the badge in percentage.
+            Bottom position of the badge (percentage as number).
             Default value is -10.
             </summary>
         </member>
@@ -370,7 +375,7 @@
         <member name="P:FluentUI.Demo.Shared.PresenceBadge.Size">
             <summary>
             Gets or sets the <see cref="T:FluentUI.Demo.Shared.BadgeSize"/> to use.
-            Default is Medium.
+            Default is Small.
             </summary>
         </member>
         <member name="T:FluentUI.Demo.Shared.Spacer">
