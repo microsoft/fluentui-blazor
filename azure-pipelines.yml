@@ -27,7 +27,7 @@ steps:
     includePreviewVersions: true
 
 - task: UseDotNet@2
-  displayName: 'Install .NET 7.0 (RC 2)'
+  displayName: 'Install .NET 7.0'
   inputs:
     version: 7.0.x
     includePreviewVersions: true
