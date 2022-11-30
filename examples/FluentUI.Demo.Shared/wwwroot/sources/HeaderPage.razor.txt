@@ -2,6 +2,9 @@
 
 <h1>Header</h1>
 
+<p>
+    The <code>Header</code> component is used display a title (and possibly other components) in a colored bar at the top of a site or application. For the background color it uses the currently selected accent color.
+</p>
 <ApiDocumentation Component="typeof(Header)" />
 
 <h2>Example</h2>

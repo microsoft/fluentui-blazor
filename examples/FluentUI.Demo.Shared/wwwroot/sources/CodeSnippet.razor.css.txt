@@ -1,5 +1,5 @@
 ﻿.snippet {
-    margin-bottom: 0;
+    margin-bottom: 0.5rem;
     border: calc(var(--stroke-width) * 1px) solid var(--neutral-stroke-rest);
     border-radius: calc(var(--control-corner-radius) * 1px);
 }

@@ -12,8 +12,8 @@
     </CodeSnippet>
 </p>
 <p>
-    See <FluentAnchor Href="#file-contents">below</FluentAnchor> for what is in the file. You can copy the contents (by using the copy button that appears when you hover 
-    over the code) or you can <FluentAnchor Href="_content/Microsoft.Fast.Components.FluentUI/css/reboot.css" Download="reboot.css">download the file</FluentAnchor>.
+    See <FluentAnchor Appearance=Appearance.Hypertext Href="#file-contents">below</FluentAnchor> for what is in the file. You can copy the contents (by using the copy button that appears when you hover 
+    over the code) or you can <FluentAnchor Appearance=Appearance.Hypertext Href="_content/Microsoft.Fast.Components.FluentUI/css/reboot.css" Download="reboot.css">download the file</FluentAnchor>.
 </p>
 
 <p>
@@ -22,7 +22,7 @@
     <CodeSnippet Language="language-html">
 &lt;link href="_content/Microsoft.Fast.Components.FluentUI/css/variables.css" rel="stylesheet" /&gt;
     </CodeSnippet>
-    The file contains a number of CSS variables that are required to be defined for the components to work correctly. See the <FluentAnchor Href="#css-variables" >CSS variables section</FluentAnchor> below for more information.
+    The file contains a number of CSS variables that are required to be defined for the components to work correctly. See the <FluentAnchor Appearance=Appearance.Hypertext Href="#css-variables">CSS variables section</FluentAnchor> below for more information.
 </p>
 
 <h2 id="approach">Approach <a class="anchor-link" href="#approach" aria-label="Link to this section: Approach"></a></h2>
@@ -36,27 +36,25 @@
 </ul>
 <h2 id="css-variables">CSS variables <a class="anchor-link" href="#css-variables" aria-label="Link to this section: CSS variables"></a></h2>
 <p>
-    There are a number of extra variables defined (for now only colors). They can be found in the <FluentAnchor Href="_content/Microsoft.Fast.Components.FluentUI/css/variables.css" Download="variables.css" >varables.css</FluentAnchor> 
+    There are a number of extra variables defined (for now only colors). They can be found in the <FluentAnchor Appearance=Appearance.Hypertext Href="_content/Microsoft.Fast.Components.FluentUI/css/variables.css" Download="variables.css" >varables.css</FluentAnchor> 
     file (which Reboot imports). Many more CSS variable are defined are in the Fluent UI Web Components for Blazor library. They are definded 
     through the Fluent UI Web Components scripts and can be used without including or importing any other files besides the 'web-components' script.
 </p>
 <h3><code>variables.css</code> file contents</h3>
 <CodeSnippet Language="css">
 :root {
-    --font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    --success-fill: #107c10;
-    --success-background: #dff6dd;
-    --error-fill: #a80000;
-    --error-background: #fde7e9;
-    --warning-fill: #817400;
-    --warning-background: #fff4ce;
-    --severe-warning-fill: #d83b01;
-    --severe-warning-background: #fed9cc;
-    --presence-away: #ffaa44;
-    --presence-do-not-disturb: #c50f1f;
-    --presence-online: #6bb700;
-    --presence-invisible: #8a8886;
-    --presence-out-of-office: #b4009e;
+    --font-monospace: Consolas, "Courier New", "Liberation Mono", SFMono-Regular, Menlo, Monaco, monospace;
+    --success: #107c10;
+    --warning: #817400;
+    --error: #d13438;
+    --info: #424242;
+    --presence-available: #13a10e;
+    --presence-away: #eaa300;
+    --presence-busy: #d13438;
+    --presence-dnd: #d13438;
+    --presence-offline: #adadad;
+    --presence-oof: #c239b3;
+    --presence-unknown: #d13438;
     --highlight-bg: #fff3cd;
 }
 </CodeSnippet>
