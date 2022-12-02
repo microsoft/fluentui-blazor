@@ -12,6 +12,7 @@ public partial class DemoMainLayout : IAsyncDisposable
 {
     private string? _selectValue;
     private string? _version;
+    private bool _inDarkMode;
 
     [Inject]
     private GlobalState GlobalState { get; set; } = default!;
@@ -60,9 +61,11 @@ public partial class DemoMainLayout : IAsyncDisposable
         {
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
                  "./_content/FluentUI.Demo.Shared/Shared/DemoMainLayout.razor.js");
+
+            _inDarkMode = await _jsModule!.InvokeAsync<bool>("isDarkMode");
+            StateHasChanged();
+
         }
-        await BaseLayerLuminance.SetValueFor(container, baseLayerLuminance);
-        //await DesignTokens.Direction.SetValueFor(container, dir.ToString());
     }
 
     public async Task SwitchDirection()
@@ -72,16 +75,25 @@ public partial class DemoMainLayout : IAsyncDisposable
         GlobalState.SetDirection(dir);
 
         await Direction.SetValueFor(container, dir.ToAttributeValue());
-        await JSRuntime.InvokeVoidAsync("switchDirection", dir.ToString());
+        await _jsModule!.InvokeVoidAsync("switchDirection", dir.ToString());
     }
 
     public async void SwitchTheme()
     {
-        baseLayerLuminance = (baseLayerLuminance == 0.15f) ? 0.98f : 0.15f;
+        await Task.Delay(50);
+
+        if (_inDarkMode)
+            baseLayerLuminance = 0.15f;
+        else
+            baseLayerLuminance = 0.98f;
+
+        await BaseLayerLuminance.SetValueFor(container, baseLayerLuminance);
 
         GlobalState.SetLuminance((baseLayerLuminance <= 0.2f) ? Luminance.Dark : Luminance.Light);
 
-        await _jsModule!.InvokeVoidAsync("switchHighlightStyle", baseLayerLuminance == 0.15f ? true : false);
+        await _jsModule!.InvokeVoidAsync("switchHighlightStyle", baseLayerLuminance == 0.15f);
+
+        _inDarkMode = !_inDarkMode;
     }
 
     private void HandleChecked()
