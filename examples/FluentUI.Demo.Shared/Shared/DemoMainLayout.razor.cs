@@ -64,7 +64,6 @@ public partial class DemoMainLayout : IAsyncDisposable
 
             _inDarkMode = await _jsModule!.InvokeAsync<bool>("isDarkMode");
             StateHasChanged();
-
         }
     }
 
@@ -92,8 +91,6 @@ public partial class DemoMainLayout : IAsyncDisposable
         GlobalState.SetLuminance((baseLayerLuminance <= 0.2f) ? Luminance.Dark : Luminance.Light);
 
         await _jsModule!.InvokeVoidAsync("switchHighlightStyle", baseLayerLuminance == 0.15f);
-
-        _inDarkMode = !_inDarkMode;
     }
 
     private void HandleChecked()
