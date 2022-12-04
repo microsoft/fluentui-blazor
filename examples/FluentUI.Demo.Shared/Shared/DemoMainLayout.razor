@@ -36,7 +36,7 @@
             </FluentSelect>
         </div>
         <div class="switches">
-            <FluentSwitch @onchange=SwitchTheme title="Switch theme">
+            <FluentSwitch @bind-Value="@_inDarkMode" @onchange=SwitchTheme title="Switch theme">
                 <span class="label">Theme</span>
                 <span slot="unchecked-message">light</span>
                 <span slot="checked-message">dark</span>
