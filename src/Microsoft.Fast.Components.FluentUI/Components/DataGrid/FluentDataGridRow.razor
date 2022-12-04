@@ -1,5 +1,6 @@
 ﻿@namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentComponentBase
+@implements IHandleEvent
 @typeparam TGridItem
 @attribute [CascadingTypeParameter(nameof(TGridItem))]
 <CascadingValue Value="this" Name="OwningRow" IsFixed="true">

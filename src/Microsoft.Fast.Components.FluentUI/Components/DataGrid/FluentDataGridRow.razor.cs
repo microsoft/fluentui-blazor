@@ -81,4 +81,6 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IDispos
         }
     }
 
+    Task IHandleEvent.HandleEventAsync(
+       EventCallbackWorkItem callback, object? arg) => callback.InvokeAsync(arg);
 }

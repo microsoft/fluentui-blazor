@@ -34,9 +34,9 @@ public partial class PresenceBadge : FluentComponentBase, IDisposable
 
     /// <summary />
     protected string? StyleValue => new StyleBuilder()
-        .AddStyle("left", $"{HorizontalPosition}%", () => HorizontalPosition.HasValue && GlobalState.Dir == LocalizationDirection.ltr)
-        .AddStyle("right", $"{HorizontalPosition}%", () => HorizontalPosition.HasValue && GlobalState.Dir == LocalizationDirection.rtl)
-        .AddStyle("bottom", $"{BottomPosition}%", () => BottomPosition.HasValue)
+        .AddStyle("left", $"{HorizontalPosition!.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)}%", () => HorizontalPosition.HasValue && GlobalState.Dir == LocalizationDirection.ltr)
+        .AddStyle("right", $"{HorizontalPosition!.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)}%", () => HorizontalPosition.HasValue && GlobalState.Dir == LocalizationDirection.rtl)
+        .AddStyle("bottom", $"{BottomPosition!.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)}%", () => BottomPosition.HasValue)
         .AddStyle(Style)
         .Build();
 

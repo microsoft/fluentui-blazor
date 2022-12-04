@@ -92,20 +92,20 @@
             };
         }
     });
-    //Blazor.registerCustomEventType('cellfocus', {
-    //    browserEventName: 'cell-focused',
-    //    createEventArgs: event => {
-    //        return {
-    //            cellId: event.detail.attributes['cell-id'].value
-    //        };
-    //    }
-    //});
-    //Blazor.registerCustomEventType('rowfocus', {
-    //    browserEventName: 'row-focused',
-    //    createEventArgs: event => {
-    //        return {
-    //            rowId: event.detail.attributes['row-id'].value
-    //        };
-    //    }
-    //});
+    Blazor.registerCustomEventType('cellfocus', {
+        browserEventName: 'cell-focused',
+        createEventArgs: event => {
+            return {
+                cellId: event.detail.attributes['cell-id'].value
+            };
+        }
+    });
+    Blazor.registerCustomEventType('rowfocus', {
+        browserEventName: 'row-focused',
+        createEventArgs: event => {
+            return {
+                rowId: event.detail.attributes['row-id'].value
+            };
+        }
+    });
 }

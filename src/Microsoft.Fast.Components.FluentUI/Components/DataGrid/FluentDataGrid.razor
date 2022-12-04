@@ -2,6 +2,7 @@
 @using Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure
 @namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentComponentBase
+@implements IHandleEvent
 @typeparam TGridItem
 <CascadingValue TValue="InternalGridContext<TGridItem>" IsFixed="true" Value="@_internalGridContext">
     @{ StartCollectingColumns(); }

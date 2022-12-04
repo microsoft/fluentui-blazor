@@ -203,7 +203,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IAsyncDisp
 
         var mustRefreshData = dataSourceHasChanged
             || (Pagination?.GetHashCode() != _lastRefreshedPaginationStateHash);
-
+        
         // We don't want to trigger the first data load until we've collected the initial set of columns,
         // because they might perform some action like setting the default sort order, so it would be wasteful
         // to have to re-query immediately
@@ -329,6 +329,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IAsyncDisp
                 _pendingDataLoadCancellationTokenSource = null;
             }
         }
+        StateHasChanged();
     }
 
     // Gets called both by RefreshDataCoreAsync and directly by the Virtualize child component during scrolling
@@ -469,5 +470,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IAsyncDisp
         }
     }
 
-
+    Task IHandleEvent.HandleEventAsync(
+      EventCallbackWorkItem callback, object? arg) => callback.InvokeAsync(arg);
 }
