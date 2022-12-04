@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using System.Globalization;
+using Microsoft.AspNetCore.Components;
 using Microsoft.Fast.Components.FluentUI;
 using Microsoft.Fast.Components.FluentUI.Utilities;
 
@@ -34,9 +35,9 @@ public partial class PresenceBadge : FluentComponentBase, IDisposable
 
     /// <summary />
     protected string? StyleValue => new StyleBuilder()
-        .AddStyle("left", $"{HorizontalPosition!.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)}%", () => HorizontalPosition.HasValue && GlobalState.Dir == LocalizationDirection.ltr)
-        .AddStyle("right", $"{HorizontalPosition!.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)}%", () => HorizontalPosition.HasValue && GlobalState.Dir == LocalizationDirection.rtl)
-        .AddStyle("bottom", $"{BottomPosition!.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)}%", () => BottomPosition.HasValue)
+        .AddStyle("left", $"{HorizontalPosition!.Value.ToString(CultureInfo.InvariantCulture)}%", () => HorizontalPosition.HasValue && GlobalState.Dir == LocalizationDirection.ltr)
+        .AddStyle("right", $"{HorizontalPosition!.Value.ToString(CultureInfo.InvariantCulture)}%", () => HorizontalPosition.HasValue && GlobalState.Dir == LocalizationDirection.rtl)
+        .AddStyle("bottom", $"{BottomPosition!.Value.ToString(CultureInfo.InvariantCulture)}%", () => BottomPosition.HasValue)
         .AddStyle(Style)
         .Build();
 
