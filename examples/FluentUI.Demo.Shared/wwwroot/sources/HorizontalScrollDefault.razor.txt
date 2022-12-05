@@ -1,4 +1,6 @@
-﻿<FluentHorizontalScroll Speed="600" Easing=ScrollEasing.EaseInOut @onscrollstart=OnHorizontalScrollStart @onscrollend=OnHorizontalScrollEnd>
+﻿@inject ILogger<HorizontalScrollDefault> logger;
+    
+<FluentHorizontalScroll Speed="600" Easing=ScrollEasing.EaseInOut @onscrollstart=OnHorizontalScrollStart @onscrollend=OnHorizontalScrollEnd>
     <FluentCard>
         Card number 1
         <FluentButton Appearance="Appearance.Neutral">A button</FluentButton>
@@ -23,11 +25,11 @@
 @code {
     private void OnHorizontalScrollStart(HorizontalScrollEventArgs args)
     {
-        Console.WriteLine($"{args.Scroll}");
+        logger.LogInformation($"{args.Scroll}");
     }
 
     private void OnHorizontalScrollEnd(HorizontalScrollEventArgs args)
     {
-        Console.WriteLine($"{args.Scroll}");
+        logger.LogInformation($"{args.Scroll}");
     }
 }

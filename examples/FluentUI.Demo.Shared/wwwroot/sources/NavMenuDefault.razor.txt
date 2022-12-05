@@ -1,4 +1,6 @@
-﻿@* Remember to replace the namespace below with your own project's namespace. *@
+﻿@inject ILogger<NavMenuDefault> logger;
+
+@* Remember to replace the namespace below with your own project's namespace. *@
 @namespace FluentUI.Demo.Shared
 
 <h2>Navigation Examples</h2>
@@ -57,7 +59,7 @@
 {
     void OnClick(MouseEventArgs e)
     {
-        Console.WriteLine("Item Clicked");
+        logger.LogInformation("Item Clicked");
     }
 }
 

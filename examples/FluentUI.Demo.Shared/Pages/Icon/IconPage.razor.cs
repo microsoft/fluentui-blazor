@@ -1,12 +1,15 @@
-using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.Extensions.Logging;
 using Microsoft.Fast.Components.FluentUI;
 using Microsoft.JSInterop;
 
 namespace FluentUI.Demo.Shared.Pages.Icon;
 public partial class IconPage : IAsyncDisposable
 {
+    [Inject]
+    private ILogger<IconPage> Logger { get; set; } = default!;
+
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
 
@@ -79,7 +82,7 @@ public partial class IconPage : IAsyncDisposable
 
     public async void HandleClick(IconModel icon)
     {
-        Console.WriteLine($"You clicked on {icon.Name}");
+        Logger.LogInformation($"You clicked on {icon.Name}");
 
         string Text = $$"""<FluentIcon Name="@FluentIcons.{{icon.Folder}}" Size="@IconSize.{{icon.Size}}" Variant="@IconVariant.{{icon.Variant}}" Color="@Color.{{Form.Color}}"/>""";
 

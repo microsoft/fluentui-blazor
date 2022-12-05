@@ -1,4 +1,6 @@
-﻿<div style="height:100px;">
+﻿@inject ILogger<TooltipDefault> logger;
+
+<div style="height:100px;">
     <FluentButton id="anchor1" Appearance=Appearance.Accent>Tooltip at the bottom</FluentButton>
     <FluentTooltip Anchor="anchor1" Position=TooltipPosition.Bottom @ondismiss=OnDismiss>I'm helping!</FluentTooltip>
 </div>
@@ -31,6 +33,6 @@
 @code {
     private void OnDismiss()
     {
-        Console.WriteLine("Tooltip dismissed!");
+        logger.LogInformation("Tooltip dismissed!");
     }
 }
