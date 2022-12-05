@@ -1,0 +1,25 @@
+﻿@page "/Lab/Header"
+
+<h1>Header</h1>
+
+<p>
+    The <code>Header</code> component is used display a title (and possibly other components) in a colored bar at the top of a site or application. For the background color it uses the currently selected accent color.
+</p>
+<ApiDocumentation Component="typeof(Header)" />
+
+<h2>Example</h2>
+<DemoSection Component="typeof(Header)" 
+             Title="Header" 
+             CollocatedFiles="@(new[] {"cs", "css"})" 
+             ComponentParameters="@(new Dictionary<string, object>(){ {"ChildContent",(RenderFragment)(builder => builder.AddMarkupContent(1,"Header text")) } })">
+    <CodeSnippet>
+&lt;Header&gt;
+    Header text
+&lt;/Header&gt;
+    </CodeSnippet>
+    <p>Renders as:</p>
+</DemoSection>
+    
+@code {
+
+}

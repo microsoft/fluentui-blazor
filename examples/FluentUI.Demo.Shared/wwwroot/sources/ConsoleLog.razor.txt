@@ -1,0 +1,22 @@
+﻿<div class="demo-console">    
+    @((MarkupString)ConsoleContent.Replace(Environment.NewLine, "<br/>"))
+</div>
+
+@code 
+{
+    protected override void OnInitialized()
+    {
+        //DemoLogger.OnLog += OnLogReceived;
+
+        base.OnInitialized();
+    }
+
+    private async void OnLogReceived(string text)
+    {
+        ConsoleContent = $"{DateTime.Now:HH:mm:ss} - {text}{Environment.NewLine}{ConsoleContent}";
+        await InvokeAsync(() => StateHasChanged());
+    }
+
+    [Parameter]
+    public string ConsoleContent { get; set; } = "";
+}

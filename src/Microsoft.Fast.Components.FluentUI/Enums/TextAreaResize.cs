@@ -1,18 +1,22 @@
 ﻿namespace Microsoft.Fast.Components.FluentUI;
 
-
+/// <summary>
+/// Describes the direction in which a <see cref="FluentTextArea"/> can resize.
+/// </summary>
 public enum TextAreaResize
 {
+    /// <summary>
+    /// The textarea can only resize horizontally.
+    /// </summary>
     Horizontal,
+
+    /// <summary>
+    /// The textarea can only resize vertically.
+    /// </summary>
     Vertical,
+
+    /// <summary>
+    /// The textarea can resize both horizontally and vertically.
+    /// </summary>
     Both
-}
-
-
-public static class TextAreaResizeExtensions
-{
-    private static readonly Dictionary<TextAreaResize, string> _resizeValues =
-        Enum.GetValues<TextAreaResize>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());
-
-    public static string? ToAttributeValue(this TextAreaResize? value) => value == null ? null : _resizeValues[value.Value];
 }

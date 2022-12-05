@@ -1,0 +1,17 @@
+@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentInputBase<bool>
+<fluent-switch @ref=Element
+               class="@Class"
+               style="@Style"
+               readonly=@Readonly
+               id=@Id
+               value=@Value
+               current-value=@CurrentValue
+               disabled=@Disabled
+               name=@Name
+               required=@Required
+               current-checked="@CurrentValue"
+               @oncheckedchange="(__value) => CurrentValue = __value.Checked"
+               @attributes="AdditionalAttributes">
+    @ChildContent
+</fluent-switch>

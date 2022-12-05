@@ -1,14 +1,6 @@
 @page "/Breadcrumb"
 @using FluentUI.Demo.Shared.Pages.Breadcrumb.Examples
-<style>
-    fluent-breadcrumb-item::part(content) *::after {
-        content: ' '
-    }
 
-    fluent-breadcrumb-item::part(content) *::before {
-        content: ' '
-    }
-</style>
 <h1>Breadcrumb</h1>
 <p>
     As defined by the <a href="https://w3c.github.io/aria-practices/#breadcrumb" target="_blank" rel="noopener noreferrer">W3C</a>:
@@ -25,16 +17,17 @@
 
 <ApiDocumentation Component="typeof(FluentBreadcrumbItem)" />
 
-<h3>Breadcrumb item examples</h3>
-<DemoSection Title="Default" ExampleFile="BreadcrumbItemDefault"></DemoSection>
-<DemoSection Title="With custom separator" ExampleFile="BreadcrumbItemWithSeparator"></DemoSection>
-<DemoSection Title="With start icon" ExampleFile="BreadcrumbItemWithStart"></DemoSection>
-<DemoSection Title="With end icon" ExampleFile="BreadcrumbItemWithEnd"></DemoSection>
-<DemoSection Title="With start, end and custom separator icons" ExampleFile="BreadcrumbItemWithAll"></DemoSection>
 
-<h3>Breadcrumb examples</h3>
-<DemoSection Title="Default" ExampleFile="BreadcrumbDefault"></DemoSection>
-<DemoSection Title="With custom separator" ExampleFile="BreadcrumbWithSeparator"></DemoSection>
-<DemoSection Title="With start icon" ExampleFile="BreadcrumbWithStart"></DemoSection>
-<DemoSection Title="With end icon" ExampleFile="BreadcrumbWithEnd"></DemoSection>
-<DemoSection Title="With start, end and custom separator icons" ExampleFile="BreadcrumbWithAll"></DemoSection>
+<h2>Breadcrumb item examples</h2>
+<DemoSection Title="Default" Component="@typeof(BreadcrumbItemDefault)"></DemoSection>
+<DemoSection Title="With custom separator" Component="@typeof(BreadcrumbItemWithSeparator)"></DemoSection>
+<DemoSection Title="With start icon" Component="@typeof(BreadcrumbItemWithStart)"></DemoSection>
+<DemoSection Title="With end icon" Component="@typeof(BreadcrumbItemWithEnd)"></DemoSection>
+<DemoSection Title="With start, end and custom separator icons" Component="@typeof(BreadcrumbItemWithAll)"></DemoSection>
+
+<h2>Breadcrumb examples</h2>
+<DemoSection Title="Default" Component="@typeof(BreadcrumbDefault)"></DemoSection>
+<DemoSection Title="With custom separator" Component="@typeof(BreadcrumbWithSeparator)"></DemoSection>
+<DemoSection Title="With start icon" Component="@typeof(BreadcrumbWithStart)"></DemoSection>
+<DemoSection Title="With end icon" Component="@typeof(BreadcrumbWithEnd)"></DemoSection>
+<DemoSection Title="With start, end and custom separator icons" Component="@typeof(BreadcrumbWithAll)"></DemoSection>

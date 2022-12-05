@@ -1,16 +1,22 @@
 ﻿namespace Microsoft.Fast.Components.FluentUI;
 
+/// <summary>
+/// Describes the vertical positioning of a <see cref="FluentAnchoredRegion"/>.
+/// </summary>
 public enum VerticalPosition
 {
+    /// <summary>
+    /// No positioning set
+    /// </summary>
     Unset,
+
+    /// <summary>
+    /// Position at the top
+    /// </summary>
     Top,
+
+    /// <summary>
+    /// Position at the bottom
+    /// </summary>
     Bottom
-}
-
-public static class VerticalDefaultPositionExtensions
-{
-    private static readonly Dictionary<VerticalPosition, string> _positionValues =
-        Enum.GetValues<VerticalPosition>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());
-
-    public static string? ToAttributeValue(this VerticalPosition? value) => value == null ? null : _positionValues[value.Value];
 }

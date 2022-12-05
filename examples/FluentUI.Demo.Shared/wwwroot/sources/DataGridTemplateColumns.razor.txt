@@ -1,0 +1,31 @@
+﻿@inject DataSource Data
+
+<FluentDataGrid RowsData="@Data.People" style="width: 600px;">
+    <TemplateColumn Title="Person" SortBy="@sortByName">
+        <div class="flex items-center">
+            <img class="flag" src="_content/FluentUI.Demo.Shared/flags/@(context.CountryCode).svg" />
+            <nobr>
+                <strong>@context.LastName</strong>, @context.FirstName
+            </nobr>
+        </div>
+    </TemplateColumn>
+    <TemplateColumn Title="Actions">
+        <FluentButton Appearance="Appearance.Accent" @onclick="@(() => Hire(context))">Hire</FluentButton>
+        <FluentButton Appearance="Appearance.Accent" @onclick="@(() => Fire(context))">Fire</FluentButton>
+    </TemplateColumn>
+</FluentDataGrid>
+
+
+<p><strong>@message</strong></p>
+
+@code {
+    string message = string.Empty;
+
+    GridSort<Person> sortByName = GridSort<Person>
+        .ByAscending(p => p.LastName)
+        .ThenAscending(p => p.FirstName);
+
+    void Hire(Person p) => message = $"You want to hire {p.FirstName} {p.LastName}";
+
+    void Fire(Person p) => message = $"You want to fire {p.FirstName} {p.LastName}";
+}

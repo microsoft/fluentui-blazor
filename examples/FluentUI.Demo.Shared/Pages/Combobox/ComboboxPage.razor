@@ -18,16 +18,18 @@
     <code>&lt;FluentCombobox&gt;</code> wraps the <code>&lt;fluent-combobox&gt;</code> element, a web component implementation of a combobox.
 </p>
 
-<ApiDocumentation Component="typeof(FluentCombobox<string>)" GenericLabel="TValue" />
+<ApiDocumentation Component="typeof(FluentCombobox<>)" GenericLabel="TOption" />
 
 <h2>Examples</h2>
 
-<DemoSection Title="Default examples" ExampleFile="ComboboxDefault"></DemoSection>
+<DemoSection Title="Default examples" Component="@typeof(ComboboxDefault)"></DemoSection>
 
-<DemoSection Title="Disabled examples" ExampleFile="ComboboxDisabled"></DemoSection>
+<DemoSection Title="From a list ot Option<T> items" Component="@typeof(ComboboxFromListOfOptions)"></DemoSection>
 
-<DemoSection Title="Appearance example" ExampleFile="ComboboxAppearance"></DemoSection>
+<DemoSection Title="Disabled examples" Component="@typeof(ComboboxDisabled)"></DemoSection>
 
-<DemoSection Title="Autocomplete examples" ExampleFile="ComboboxAutocompleteDemo"></DemoSection>
+<DemoSection Title="Appearance example" Component="@typeof(ComboboxAppearance)"></DemoSection>
 
-<DemoSection Title="List examples" ExampleFile="ComboboxList"></DemoSection>
+<DemoSection Title="Autocomplete examples" Component="@typeof(ComboboxAutocompleteDemo)"></DemoSection>
+
+<DemoSection Title="List examples" Component="@typeof(ComboboxList)"></DemoSection>

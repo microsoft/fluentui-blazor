@@ -1,15 +1,17 @@
 ﻿namespace Microsoft.Fast.Components.FluentUI;
 
+/// <summary>
+/// The horizontal scroll view mode.
+/// </summary>
 public enum HorizontalScrollView
 {
+    /// <summary>
+    /// The default horizontal scroll view mode.
+    /// </summary>
     Default,
+
+    /// <summary>
+    /// The mobile horizontal scroll view mode.
+    /// </summary>
     Mobile
-}
-
-public static class HorizontalScrollViewExtensions
-{
-    private static readonly Dictionary<HorizontalScrollView, string> _hsvValues =
-        Enum.GetValues<HorizontalScrollView>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());
-
-    public static string? ToAttributeValue(this HorizontalScrollView? value) => value == null ? null : _hsvValues[value.Value];
 }

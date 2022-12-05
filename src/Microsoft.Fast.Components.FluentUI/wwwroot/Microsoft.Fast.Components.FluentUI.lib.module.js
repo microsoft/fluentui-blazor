@@ -7,20 +7,36 @@
             };
         }
     });
+    Blazor.registerCustomEventType('accordionchange', {
+        browserEventName: 'change',
+        createEventArgs: event => {
+            if (event.target.localName == 'fluent-accordion-item') {
+                return {
+                    activeId: event.target.id,
+                }
+            };
+            return null;
+        }
+    });
     Blazor.registerCustomEventType('tabchange', {
         browserEventName: 'change',
         createEventArgs: event => {
-            return {
-                activeId: event.detail.id,
-                affectedId: event.detail.attributes['tab-id'].value
+            if (event.target.localName == 'fluent-tabs') { 
+                return {
+                    activeId: event.detail.id,
+                    affectedId: event.detail.attributes['tab-id']?.value
+                }
             };
+            return null;
         }
     });
     Blazor.registerCustomEventType('selectedchange', {
         browserEventName: 'selected-change',
         createEventArgs: event => {
             return {
-                affectedId: event.detail.attributes['tree-item-id'].value
+                affectedId: event.detail.attributes['tree-item-id'].value,
+                selected: event.detail._selected,
+                expanded: event.detail._expanded
             };
         }
     });
@@ -40,28 +56,23 @@
             };
         }
     });
-    //Blazor.registerCustomEventType('accordionchange', {
-    //    browserEventName: 'change',
-    //    createEventArgs: event => {
-    //        return {
-    //            activeId: event.detail.id,
-    //            affectedId: event.detail.attributes['accordion-item-id'].value
-    //        };
-    //    }
-    //});
-    Blazor.registerCustomEventType('dismiss', {
-        browserEventName: 'dismiss',
+    Blazor.registerCustomEventType('dialogdismiss', {
+        browserEventName: 'dismiss' ,
         createEventArgs: event => {
-            return {
-                event: event
+            if (event.target.localName == 'fluent-dialog') {
+                return {
+                    reason: event.type
+                };
             };
+            return null;
         }
     });
     Blazor.registerCustomEventType('menuchange', {
         browserEventName: 'change',
         createEventArgs: event => {
             return {
-                event: event
+                id: event.target.id,
+                value: event.target.innerHTML
             };
         }
     });

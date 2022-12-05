@@ -3,5 +3,4 @@
 public class AccordionChangeEventArgs : EventArgs
 {
     public string? ActiveId { get; set; }
-    public string? AffectedId { get; set; }
 }

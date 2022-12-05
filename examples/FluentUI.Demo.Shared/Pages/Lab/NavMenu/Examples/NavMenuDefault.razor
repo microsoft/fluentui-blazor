@@ -1,0 +1,64 @@
+﻿@* Remember to replace the namespace below with your own project's namespace. *@
+@namespace FluentUI.Demo.Shared
+
+<h2>Navigation Examples</h2>
+
+
+<Stack Orientation="Orientation.Horizontal">
+    <!-- Menu with sub-items and icons -->
+    <NavMenu Collapsible="false">
+        <NavMenuLink Text="Item 1" @onclick="OnClick" Icon="@(FluentIcons.Home)" Selected="true" />
+        <NavMenuLink Text="Item 2" @onclick="OnClick" />
+        <NavMenuGroup Text="Item 3" @onclick="OnClick" Expanded="true">
+            <NavMenuLink Text="Item 3.1" @onclick="OnClick" Icon="@(FluentIcons.LeafOne)" />
+            <NavMenuLink Text="Item 3.2" @onclick="OnClick" Icon="@(FluentIcons.LeafTwo)" />
+        </NavMenuGroup>
+        <NavMenuGroup Text="Item 4" @onclick="OnClick" Expanded="true">
+            <NavMenuLink Text="Item 4.1" @onclick="OnClick" />
+            <NavMenuLink Text="Item 4.2" @onclick="OnClick" Icon="@(FluentIcons.LeafOne)" />
+        </NavMenuGroup>
+        <NavMenuGroup Text="Item 5" @onclick="OnClick" Expanded="true">
+            <NavMenuLink Text="Item 5.1" @onclick="OnClick" Icon="@(FluentIcons.LeafTwo)" />
+            <NavMenuGroup @onclick="OnClick" Text="Item 5.2">
+                <NavMenuLink Text="Item 5.2.1" @onclick="OnClick" />
+                <NavMenuLink Text="Item 5.2.2" @onclick="OnClick" />                
+            </NavMenuGroup>
+            <NavMenuGroup @onclick="OnClick" Text="Item 5.3">
+                <NavMenuLink Text="Item 5.3.1" @onclick="OnClick" Icon="@(FluentIcons.LeafOne)" />
+                <NavMenuLink Text="Item 5.3.2" @onclick="OnClick" />                
+            </NavMenuGroup>
+        </NavMenuGroup>
+        <NavMenuGroup @onclick="OnClick" Text="Item with Href" Expanded="true">
+            <NavMenuLink Text="Go to Bing" @onclick="OnClick" Icon="@(FluentIcons.LeafOne)" Href="https://bing.com" />
+            <NavMenuLink Text="Go to home page" @onclick="OnClick" Icon="@(FluentIcons.Home)" Href="/" />
+        </NavMenuGroup>
+        <NavMenuLink Text="Last item" @onclick="OnClick" Icon="@(FluentIcons.LeafThree)" Disabled="true" />
+    </NavMenu>
+
+    <!-- Menu with icons -->
+    <NavMenu>
+        <NavMenuLink Text="Item 1" @onclick="OnClick" Icon="@(FluentIcons.Home)" />
+        <NavMenuLink Text="Item 2" @onclick="OnClick" />
+        <NavMenuLink Text="Item 3" @onclick="OnClick" Icon="@(FluentIcons.LeafOne)" />
+        <NavMenuLink Text="Item 4" @onclick="OnClick" />
+    </NavMenu>
+
+    <!-- Menu simple -->
+    <NavMenu>
+        <NavMenuLink Text="Item 1" @onclick="OnClick" />
+        <NavMenuLink Text="Item 2" @onclick="OnClick" />
+        <NavMenuLink Text="Item 3" @onclick="OnClick" />
+        <NavMenuLink Text="Item 4" @onclick="OnClick" />
+    </NavMenu>
+
+</Stack>
+
+@code
+{
+    void OnClick(MouseEventArgs e)
+    {
+        Console.WriteLine("Item Clicked");
+    }
+}
+
+

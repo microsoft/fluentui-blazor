@@ -1,0 +1,11 @@
+﻿@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentComponentBase
+@typeparam TGridItem
+<fluent-data-grid-cell cell-id="@CellId"
+                       cell-type=@CellType.ToAttributeValue()
+                       grid-column=@GridColumn
+                       class="@Class"
+                       style="@Style"
+                       @attributes="AdditionalAttributes">
+    @ChildContent
+</fluent-data-grid-cell>

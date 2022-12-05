@@ -1,0 +1,24 @@
+﻿@* Remember to replace the namespace below with your own project's namespace. *@
+@namespace FluentUI.Demo.Shared
+
+<NotificationBadge Badge="99+" Fill="Fill.Highlight">
+    <FluentButton Appearance="Appearance.Neutral" >
+        <FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size24" Color="Color.Neutral" />
+    </FluentButton>
+</NotificationBadge>
+
+<Spacer Width="25" />
+
+<NotificationBadge Badge="5" Fill="Fill.Lowlight">
+    <FluentButton Appearance="Appearance.Accent">
+        <FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size24" Color="Color.Fill" />
+    </FluentButton>
+</NotificationBadge>
+
+<Spacer Width="25" />
+
+<NotificationBadge Badge="9" BackgroundColor="@Color.Error.ToAttributeValue()">
+    <FluentButton Appearance="Appearance.Filled">
+        <FluentIcon Name="@FluentIcons.Mail" Size="IconSize.Size24" Color="Color.FillInverse" />
+    </FluentButton>
+</NotificationBadge>

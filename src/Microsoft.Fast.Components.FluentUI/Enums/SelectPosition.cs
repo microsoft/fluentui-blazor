@@ -1,15 +1,17 @@
 ﻿namespace Microsoft.Fast.Components.FluentUI;
 
+/// <summary>
+/// The position of the select component.
+/// </summary>
 public enum SelectPosition
 {
+    /// <summary>
+    /// The select component is positioned above the anchor.
+    /// </summary>
     Above,
+
+    /// <summary>
+    /// The select component is positioned below the anchor.
+    /// </summary>
     Below
-}
-
-public static class SelectPositionExtensions
-{
-    private static readonly Dictionary<SelectPosition, string> _positionValues =
-        Enum.GetValues<SelectPosition>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());
-
-    public static string? ToAttributeValue(this SelectPosition? value) => value == null ? null : _positionValues[value.Value];
 }

@@ -13,16 +13,18 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
     [Generator]
     public class FluentIconGenerator : ISourceGenerator
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("MicrosoftCodeAnalysisCorrectness", "RS1035:Do not use APIs banned for analyzers", Justification = "The whole purpose of this generator is to process directories...")]
         public void Execute(GeneratorExecutionContext context)
         {
             StringBuilder? sb = new();
             Regex? regex = new(@"(\w*)_(\d*)_(\w*)");
 
             List<(string folder, string iconbase)> constants = new();
-            (string name, int size, bool filled) icon;
+            (string name, int size, string variant) icon;
             int iconcount = 0;
 
             context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.MSBuildProjectDirectory", out var projectDirectory);
+
             string iconsFolder = Path.Combine(Directory.GetParent(projectDirectory).FullName, $"Microsoft.Fast.Components.FluentUI{Path.DirectorySeparatorChar}wwwroot{Path.DirectorySeparatorChar}icons{Path.DirectorySeparatorChar}");
 
             sb.AppendLine($"#pragma warning disable CS1591");
@@ -37,6 +39,7 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             foreach (string foldername in Directory.EnumerateDirectories(iconsFolder))
             {
                 string folder = foldername.Substring(foldername.LastIndexOf(Path.DirectorySeparatorChar) + 1);
+
                 string iconbase = string.Empty;
 
                 foreach (string file in Directory.EnumerateFiles(foldername, "*.svg"))
@@ -50,10 +53,10 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
                     icon = (
                         matches[0].Groups[1].Value,
                         int.Parse(matches[0].Groups[2].Value),
-                        matches[0].Groups[3].Value == "filled"
+                        ToSentenceCase(matches[0].Groups[3].Value)
                     );
 
-                    sb.AppendLine($"\t\tnew IconModel(\"{icon.name}\", \"{folder}\", IconSize.Size{icon.size}, {icon.filled.ToString().ToLower()}),");
+                    sb.AppendLine($"\t\tnew IconModel(\"{icon.name}\", \"{folder}\", IconSize.Size{icon.size}, IconVariant.{icon.variant}),");
                     iconcount++;
 
                     if (string.IsNullOrEmpty(iconbase))
@@ -87,6 +90,17 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             //    Debugger.Launch();
             //}
 #endif
+        }
+
+        static string ToSentenceCase(string s)
+        {
+            // Check for empty string.
+            if (string.IsNullOrEmpty(s))
+            {
+                return string.Empty;
+            }
+            // Return char and concat substring.
+            return char.ToUpper(s[0]) + s.Substring(1);
         }
     }
 }

@@ -1,15 +1,16 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Fast.Components.FluentUI;
 using Microsoft.JSInterop;
 
 namespace FluentUI.Demo.Shared.Pages.Icon;
-public partial class IconPage
+public partial class IconPage : IAsyncDisposable
 {
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
 
-    private IJSObjectReference? module;
+    private IJSObjectReference? _jsModule;
 
     private EditContext? editContext;
     List<IconModel> icons = new();
@@ -18,7 +19,7 @@ public partial class IconPage
     {
         if (firstRender)
         {
-            module = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
+            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
                  "./_content/FluentUI.Demo.Shared/Pages/Icon/IconPage.razor.js");
         }
     }
@@ -46,32 +47,45 @@ public partial class IconPage
         if (!string.IsNullOrEmpty(args.Value?.ToString()))
         {
             Form.Size = Enum.Parse<IconSize>((string)args.Value);
-            HandleSearch();
         }
 
         HandleSearch();
     }
 
+    public void HandleColor(ChangeEventArgs args)
+    {
+        if (!string.IsNullOrEmpty(args.Value?.ToString()))
+        {
+            Form.Color = Enum.Parse<Color>((string)args.Value);
+        }
+
+        HandleSearch();
+    }
+
+
     public void HandleSearch()
     {
         if (Form.Searchterm is not null && Form.Searchterm.Trim().Length > 2)
         {
-            icons = FluentIcons.GetFilteredIcons(searchterm: Form.Searchterm.Trim(), size: Form.Size, filled: Form.Style);
-        }
+            IconVariant? variant = null;
+            if (Form.Style is not null)
+            {
+                variant = Form.Style.Value ? IconVariant.Filled : IconVariant.Regular;
+            }
 
-        StateHasChanged();
-        return;
+            icons = FluentIcons.GetFilteredIcons(searchterm: Form.Searchterm.Trim(), size: Form.Size, variant: variant);
+        }
     }
 
     public async void HandleClick(IconModel icon)
     {
         Console.WriteLine($"You clicked on {icon.Name}");
 
-        string Text = $@"<FluentIcon Name=""@FluentIcons.{icon.Folder}"" Size=""IconSize.{icon.Size}"" Filled={icon.Filled.ToString().ToLower()} />";
+        string Text = $$"""<FluentIcon Name="@FluentIcons.{{icon.Folder}}" Size="@IconSize.{{icon.Size}}" Variant="@IconVariant.{{icon.Variant}}" Color="@Color.{{Form.Color}}"/>""";
 
-        if (module is not null)
+        if (_jsModule is not null)
         {
-            await module.InvokeVoidAsync("copyText", Text);
+            await _jsModule.InvokeVoidAsync("copyText", Text);
         }
     }
 
@@ -86,12 +100,30 @@ public partial class IconPage
         public bool Filled { get; set; }
 
         public bool Regular { get; set; }
+
+        public Color Color { get; set; }
     }
 
-    private FormModel Form = new()
-    { Size = IconSize.Size24, Searchterm = "", Style = null, };
+    private FormModel Form = new() { Size = IconSize.Size24, Searchterm = "", Style = null, Color = Color.Accent };
+
     protected override void OnInitialized()
     {
         editContext = new EditContext(Form);
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        try
+        {
+            if (_jsModule is not null)
+            {
+                await _jsModule.DisposeAsync();
+            }
+        }
+        catch (JSDisconnectedException)
+        {
+            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
+            // the client disconnected. This is not an error.
+        }
     }
 }

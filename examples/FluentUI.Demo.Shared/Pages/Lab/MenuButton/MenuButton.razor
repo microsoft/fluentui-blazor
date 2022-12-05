@@ -1,0 +1,44 @@
+﻿@* Remember to replace the namespace below with your own project's namespace. *@
+@namespace FluentUI.Demo.Shared
+
+@inherits FluentComponentBase
+@inject AccentBaseColor AccentBaseColor
+
+<div>
+    <FluentButton @ref="button" id="button" Appearance="Appearance.Accent" aria-haspopup="true" @onclick=ToggleMenu>
+        Select Brand Color
+        <FluentIcon Slot="end" Name="@FluentIcons.ChevronDown" Color="@Color.Fill" />
+    </FluentButton>
+    <FluentMenu Class="@menu" aria-labelledby="button" @onmenuchange=OnMenuChange>
+        <FluentMenuItem id="0078D4">Windows</FluentMenuItem>
+        <FluentMenuItem id="D83B01">Office</FluentMenuItem>
+        <FluentMenuItem id="464EB8">Teams</FluentMenuItem>
+        <FluentMenuItem id="107C10">Xbox</FluentMenuItem>
+        <FluentMenuItem id="8661C5">Visual Studio</FluentMenuItem>
+        <FluentMenuItem id="F2C811">Power BI</FluentMenuItem>
+        <FluentMenuItem id="0066FF">Power Automate</FluentMenuItem>
+        <FluentMenuItem id="742774">Power Apps</FluentMenuItem>
+        <FluentMenuItem id="0B556A">Power Virtual Agents</FluentMenuItem>
+    </FluentMenu>
+</div>
+
+@code {
+    FluentButton? button;
+    bool toggle = false;
+    string menu = "menu";
+
+    private void ToggleMenu()
+    {
+        toggle = !toggle;
+        menu = toggle ? "menu visible" : "menu";
+    }
+
+    private async Task OnMenuChange(MenuChangeEventArgs args)
+    {
+        if (args is not null && args.Id is not null)
+        {
+            await AccentBaseColor.SetValueFor(button!.Element, $"#{args.Id}".ToSwatch());
+            ToggleMenu();
+        }
+    }
+}

@@ -1,0 +1,15 @@
+@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentComponentBase
+<fluent-tooltip @ref=Element
+                class="@Class"
+                style="@Style"
+                visible=@Visible
+                anchor=@Anchor
+                delay=@Delay
+                position=@Position.ToAttributeValue()
+                auto-update-mode=@AutoUpdateMode
+                horizontal-viewport-lock=@HorizontalViewportLock
+                vertical-viewport-lock=@VerticalViewportLock
+                @attributes="AdditionalAttributes">
+    @ChildContent
+</fluent-tooltip>

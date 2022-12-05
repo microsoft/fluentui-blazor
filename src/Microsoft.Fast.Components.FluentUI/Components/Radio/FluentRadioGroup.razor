@@ -1,0 +1,17 @@
+@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentInputBase<string?>
+<fluent-radio-group @ref=Element
+                    class="@Class"
+                    style="@Style"
+                    readonly=@Readonly
+                    disabled=@Disabled
+                    name="@Name"
+                    value="@Value"
+                    orientation="@Orientation.ToAttributeValue()"
+                    required="@Required"
+                    current-value="@CurrentValue"
+                    @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValue = __value, CurrentValue))"
+                    @attributes="AdditionalAttributes">
+    @ChildContent
+</fluent-radio-group>
+

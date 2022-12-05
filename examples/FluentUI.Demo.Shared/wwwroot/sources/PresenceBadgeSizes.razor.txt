@@ -1,0 +1,33 @@
+﻿@* Remember to replace the namespace below with your own project's namespace. *@
+@namespace FluentUI.Demo.Shared
+
+<PresenceBadge Status="PresenceStatus.Available" Size="BadgeSize.Tiny">
+    <FluentIcon Name="@FluentIcons.Person" />
+</PresenceBadge>
+
+<Spacer Width="25" />
+
+<PresenceBadge Status="PresenceStatus.Available" Size="BadgeSize.ExtraSmall">
+    <FluentIcon Name="@FluentIcons.Person" />
+</PresenceBadge>
+
+<Spacer Width="25" />
+
+<PresenceBadge Status="PresenceStatus.Available" Size="BadgeSize.Small">
+    <FluentIcon Name="@FluentIcons.Person" />
+</PresenceBadge>
+
+<Spacer Width="25" />
+
+<PresenceBadge Status="PresenceStatus.Available" Size="BadgeSize.Medium">
+    <FluentIcon Name="@FluentIcons.Person" />
+</PresenceBadge>
+
+<Spacer Width="25" />
+
+<PresenceBadge Status="PresenceStatus.Available" Size="BadgeSize.Large">
+    <FluentIcon Name="@FluentIcons.Person" />
+</PresenceBadge>
+
+<Spacer Width="25" />
+

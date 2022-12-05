@@ -1,0 +1,13 @@
+@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentComponentBase
+<fluent-menu-item @ref=Element
+				  class="@Class"
+				  style="@Style"
+				  id="@Id"
+				  disabled="@Disabled" 
+				  expanded=@Expanded
+				  role=@Role.ToAttributeValue()
+				  checked="@Checked" 
+				  @attributes="AdditionalAttributes">
+	@ChildContent
+</fluent-menu-item>

@@ -1,0 +1,14 @@
+@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentComponentBase
+@typeparam TOption
+<fluent-option @ref=Element
+               class="@Class"
+               style="@Style"
+               id="@OptionId"
+               disabled="@Disabled"
+               value="@Value"
+               selected="@Selected"
+               @onclick="@OnSelectHandler"
+               @attributes="AdditionalAttributes">
+    @ChildContent
+</fluent-option>

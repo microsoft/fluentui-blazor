@@ -1,0 +1,12 @@
+@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentComponentBase
+<fluent-accordion-item @ref=Element
+                       id="@Id"
+                       class="@Class"
+                       style="@Style"
+                       heading-level=@HeadingLevel
+                       expanded="@Expanded"
+                       @attributes="AdditionalAttributes">
+    <span slot="heading">@Heading</span>
+    @ChildContent
+</fluent-accordion-item>

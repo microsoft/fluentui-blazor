@@ -1,0 +1,20 @@
+﻿<FluentListbox TOption="string" ValueChanged="@(e => listboxValue = e)">
+    <FluentOption>This option has no value</FluentOption>
+    <FluentOption Value="Item 1" Disabled="true">This option is disabled</FluentOption>
+    <FluentOption Value="Item 2">This option has a value</FluentOption>
+    <FluentOption Value="Item 3">
+        <FluentIcon Name="@FluentIcons.Folder" Slot="start" Size="IconSize.Size16"></FluentIcon> 
+        This option has <b>an icon</b>
+    </FluentOption>
+    <FluentOption Value="Item 4" Selected=true>
+        <div style="display:flex; flex-direction:row">
+            <img style="width:20px" src="_content/FluentUI.Demo.Shared/flags/nl.svg" />This option is selected by default
+        </div>
+    </FluentOption>
+</FluentListbox>
+
+<p>Selected: @listboxValue</p>
+
+@code {
+    string? listboxValue = "Item 4";
+}

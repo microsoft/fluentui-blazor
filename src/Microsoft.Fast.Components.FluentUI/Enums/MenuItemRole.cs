@@ -1,16 +1,22 @@
 ﻿namespace Microsoft.Fast.Components.FluentUI;
 
+/// <summary>
+/// The role of the menu item.
+/// </summary>
 public enum MenuItemRole
 {
+    /// <summary>
+    /// The menu item has a "menuitem" role
+    /// </summary>
     MenuItem,
+
+    /// <summary>
+    /// The menu item has a "menuitemcheckbox" role
+    /// </summary>
     MenuItemCheckbox,
+
+    /// <summary>
+    /// The menu item has a "menuitemradio" role
+    /// </summary>
     MenuItemRadio
-}
-
-public static class MenuItemRoleExtensions
-{
-    private static readonly Dictionary<MenuItemRole, string> _mirValues =
-        Enum.GetValues<MenuItemRole>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());
-
-    public static string? ToAttributeValue(this MenuItemRole? value) => value == null ? null : _mirValues[value.Value];
 }

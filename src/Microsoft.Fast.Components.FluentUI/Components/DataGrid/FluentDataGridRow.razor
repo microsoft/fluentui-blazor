@@ -1,0 +1,16 @@
+﻿@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentComponentBase
+@typeparam TGridItem
+@attribute [CascadingTypeParameter(nameof(TGridItem))]
+<CascadingValue Value="this" Name="OwningRow" IsFixed="true">
+    <fluent-data-grid-row class="@Class"
+                          style="@_style"
+                          row-id="@RowId"
+                          row-index=@RowIndex
+                          grid-template-columns=@GridTemplateColumns
+                          row-type=@RowType.ToAttributeValue()
+                          @attributes="AdditionalAttributes"
+                          @oncellfocus=HandleOnCellFocus>
+        @ChildContent
+    </fluent-data-grid-row>
+</CascadingValue>

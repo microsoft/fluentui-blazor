@@ -1,0 +1,20 @@
+@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentComponentBase
+<fluent-calendar @ref=Element
+                 class="@Class"
+                 style="@Style"
+                 readonly=@Readonly.ToString().ToLower()
+                 month=@Month
+                 year=@Year
+                 locale=@Locale
+                 day-format=@DayFormat.ToAttributeValue()
+                 weekday-format=@WeekdayFormat.ToAttributeValue()
+                 month-format=@MonthFormat.ToAttributeValue()
+                 year-format=@YearFormat.ToAttributeValue()
+                 min-weeks=@MinWeeks
+                 disabled-dates=@disabledDatesAsString
+                 selected-dates=@selectedDatesAsString
+                 @ondateselected="OnDateSelected"
+                 @attributes="AdditionalAttributes">
+    @ChildContent
+</fluent-calendar>

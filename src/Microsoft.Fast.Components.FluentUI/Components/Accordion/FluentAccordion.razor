@@ -1,0 +1,12 @@
+@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentComponentBase
+<CascadingValue Value="this" IsFixed="true">
+    <fluent-accordion @ref=Element
+                      class="@Class"
+                      style="@Style"
+                      expand-mode="@ExpandMode.ToAttributeValue()"
+                      @onaccordionchange="HandleOnAccordionChanged"
+                      @attributes="AdditionalAttributes">
+        @ChildContent
+    </fluent-accordion>
+</CascadingValue>
