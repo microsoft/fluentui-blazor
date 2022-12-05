@@ -918,6 +918,11 @@
             Gets or sets a callback when a row is focused
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.OnCellFocus">
+            <summary>
+            Gets or sets a callback when a row is focused
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.

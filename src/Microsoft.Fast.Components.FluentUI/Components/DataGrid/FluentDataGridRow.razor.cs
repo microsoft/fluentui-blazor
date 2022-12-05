@@ -4,7 +4,7 @@ using Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
 namespace Microsoft.Fast.Components.FluentUI;
 
 [CascadingTypeParameter(nameof(TGridItem))]
-public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IDisposable
+public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandleEvent, IDisposable
 {
     internal static int index = 0;
     internal string RowId { get; } = Identifier.NewId();
@@ -77,7 +77,7 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IDispos
         string? cellId = args.CellId;
         if (cells.TryGetValue(cellId!, out FluentDataGridCell<TGridItem>? cell))
         {
-            await OnCellFocus.InvokeAsync(cell);
+            await Owner.Grid.OnCellFocus.InvokeAsync(cell);
         }
     }
 
