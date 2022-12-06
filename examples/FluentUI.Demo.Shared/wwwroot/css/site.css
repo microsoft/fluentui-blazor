@@ -240,8 +240,8 @@ code {
     color: white;
 }
 
-    .blazor-error-boundary::after {
-        content: "An error has occurred."
+    .blazor-error-boundary::before {
+        content: "An error has occurred. "
     }
 
 .loading-progress {

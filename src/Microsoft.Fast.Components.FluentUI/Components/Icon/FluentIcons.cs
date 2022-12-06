@@ -7,9 +7,13 @@ public static partial class FluentIcons
         List<IconModel> data = new();
 
         if (!variant.HasValue)
-            data = IconMap.Where(x => x.Size == size).ToList();
+            data = IconMap.Where(x => x.Size == size)
+                .OrderBy(i => i.Name)
+                .ToList();
         else
-            data = IconMap.Where(x => x.Size == size && x.Variant == variant).ToList();
+            data = IconMap.Where(x => x.Size == size && x.Variant == variant)
+                .OrderBy(i => i.Name)
+                .ToList();
 
         return data;
     }
@@ -20,9 +24,13 @@ public static partial class FluentIcons
         if (!string.IsNullOrWhiteSpace(searchterm))
         {
             if (!variant.HasValue)
-                data = IconMap.Where(x => x.Name.Contains(searchterm.ToLower()) && x.Size == size).ToList();
+                data = IconMap.Where(x => (x.Name.Contains(searchterm.ToLower()) || x.Folder.Contains(searchterm.ToLower(), StringComparison.InvariantCultureIgnoreCase)) && x.Size == size)
+                    .OrderBy(i => i.Name)
+                    .ToList();
             else
-                data = IconMap.Where(x => x.Name.Contains(searchterm.ToLower()) && x.Size == size && x.Variant == variant).ToList();
+                data = IconMap.Where(x => (x.Name.Contains(searchterm.ToLower()) || x.Folder.Contains(searchterm.ToLower(), StringComparison.InvariantCultureIgnoreCase)) && x.Size == size && x.Variant == variant)
+                    .OrderBy(i => i.Name)
+                    .ToList();
         }
 
         return data;

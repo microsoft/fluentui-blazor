@@ -61,7 +61,7 @@ public partial class FluentIcon : FluentComponentBase
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the <see cref="IconSize"/> of the icon. Defaults to 24. Not all sizes are available for all icons
+    /// Gets or sets the <see cref="IconSize"/> of the icon. Defaults to 24. Not all sizes are available for all icons.
     /// </summary>
     [Parameter]
     public IconSize Size { get; set; } = IconSize.Size24;
@@ -88,8 +88,12 @@ public partial class FluentIcon : FluentComponentBase
     //protected override async Task OnParametersSetAsync()
     protected override void OnParametersSet()
     {
-        //string result;
         string? nc = NeutralCultureName ?? null;
+
+        if (!FluentIcons.IconMap.Any(x => x.Name == Name && x.Size == Size && x.Variant == Variant))
+        {
+            throw new ArgumentException($"The requested icon ({Name}, {Size}, {Variant}) is not available in the collection");
+        }
 
         if (Color != Color.Custom)
         {

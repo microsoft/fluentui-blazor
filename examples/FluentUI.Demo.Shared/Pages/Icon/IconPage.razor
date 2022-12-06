@@ -78,6 +78,32 @@
         <dd>Filled: <FluentIcon Name=@FluentIcons.TextBold Variant=IconVariant.Filled NeutralCultureName="es" /> Regular: <FluentIcon Name=@FluentIcons.TextBold Variant=IconVariant.Regular NeutralCultureName="es"/></dd>
     </dl>
 </p>
+
+<h2 id="invalid-combination">Invalid Name, Size and Variation combination</h2>
+
+<p>
+    The component checks at runtime if the combination of Name, Size and Variation is available in the collection and throws an error if the combination is not found.
+    <br />
+    For example, a request for the following icon
+    <CodeSnippet Language="cshtml-razor">
+&lt;FluentIcon Name="@@FluentIcons.VideoPersonClock" Size="@@IconSize.Size12" Variant="@@IconVariant.Filled" Color="@@Color.Accent"/&gt;
+    </CodeSnippet>
+    <br />
+    will render:
+    <ErrorBoundary>
+        <ChildContent>
+            <FluentIcon Name="@FluentIcons.VideoPersonClock" Size="@IconSize.Size12" Variant="@IconVariant.Filled" Color="@Color.Accent"/>
+        </ChildContent>
+        <ErrorContent>
+            <div class="blazor-error-boundary">
+                @context.Message
+            </div>
+        </ErrorContent>
+    </ErrorBoundary>
+</p>
+
+<FluentDivider Role="DividerRole.Separator" />
+
 <h2 id="explore-icons">Explore Icons</h2>
 <p>
     <EditForm EditContext="@editContext" >
@@ -114,7 +140,7 @@
                 </FluentSelect>
             </div>
             <div id="item-5">
-                <FluentButton Appearance="Appearance.Accent" @onclick="HandleSearch"><FluentIcon Name="@FluentIcons.Search" Size="@IconSize.Size16" Variant=IconVariant.Regular Color=Color.Fill Slot="start"></FluentIcon> Search</FluentButton>
+                <FluentButton Appearance="Appearance.Accent" @onclick="HandleSearch" Type=ButtonType.Submit><FluentIcon Name="@FluentIcons.Search" Size="@IconSize.Size16" Variant=IconVariant.Regular Color=Color.Fill Slot="start"></FluentIcon> Search</FluentButton>
             </div>
         </div>
     </EditForm>
