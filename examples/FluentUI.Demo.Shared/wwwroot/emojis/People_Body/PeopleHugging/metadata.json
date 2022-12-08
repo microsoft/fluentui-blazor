@@ -1,0 +1,23 @@
+{
+  "basefilename": "people_hugging",
+  "cldr": "people hugging",
+  "fromVersion": "13.0",
+  "glyph": "\uD83E\uDEC2",
+  "glyphAsUtfInEmoticons": [
+    "peoplehugging"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "goodbye",
+    "hello",
+    "hug",
+    "people hugging",
+    "thanks"
+  ],
+  "mappedToEmoticons": [
+    "peoplehugging"
+  ],
+  "tts": "people hugging",
+  "unicode": "1fac2",
+  "unicodeSkintones": null
+}

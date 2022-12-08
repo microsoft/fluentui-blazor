@@ -1,0 +1,19 @@
+{
+  "basefilename": "mouse",
+  "cldr": "mouse",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDC01",
+  "glyphAsUtfInEmoticons": [
+    "1f401_mouse"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "mouse"
+  ],
+  "mappedToEmoticons": [
+    "1f401_mouse"
+  ],
+  "tts": "mouse",
+  "unicode": "1f401",
+  "unicodeSkintones": null
+}

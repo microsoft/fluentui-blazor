@@ -1,0 +1,21 @@
+{
+  "basefilename": "otter",
+  "cldr": "otter",
+  "fromVersion": "12.0",
+  "glyph": "\uD83E\uDDA6",
+  "glyphAsUtfInEmoticons": [
+    "1f9a6_otter"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "fishing",
+    "otter",
+    "playful"
+  ],
+  "mappedToEmoticons": [
+    "1f9a6_otter"
+  ],
+  "tts": "otter",
+  "unicode": "1f9a6",
+  "unicodeSkintones": null
+}

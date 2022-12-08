@@ -1,0 +1,22 @@
+{
+  "basefilename": "articulated_lorry",
+  "cldr": "articulated lorry",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDE9B",
+  "glyphAsUtfInEmoticons": [
+    "1f69b_articulatedlorry"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "articulated lorry",
+    "lorry",
+    "semi",
+    "truck"
+  ],
+  "mappedToEmoticons": [
+    "1f69b_articulatedlorry"
+  ],
+  "tts": "articulated lorry",
+  "unicode": "1f69b",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,21 @@
+{
+  "basefilename": "sagittarius",
+  "cldr": "Sagittarius",
+  "fromVersion": "0.6",
+  "glyph": "\u2650",
+  "glyphAsUtfInEmoticons": [
+    "2650_sagittarius"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "archer",
+    "Sagittarius",
+    "zodiac"
+  ],
+  "mappedToEmoticons": [
+    "2650_sagittarius"
+  ],
+  "tts": "Sagittarius",
+  "unicode": "2650",
+  "unicodeSkintones": null
+}

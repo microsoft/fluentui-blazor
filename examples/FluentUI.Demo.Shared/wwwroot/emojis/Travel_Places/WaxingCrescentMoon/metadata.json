@@ -1,0 +1,21 @@
+{
+  "basefilename": "waxing_crescent_moon",
+  "cldr": "waxing crescent moon",
+  "fromVersion": "1.0",
+  "glyph": "\uD83C\uDF12",
+  "glyphAsUtfInEmoticons": [
+    "1f312_waxingcrescentmoonsymbol"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "crescent",
+    "moon",
+    "waxing"
+  ],
+  "mappedToEmoticons": [
+    "1f312_waxingcrescentmoonsymbol"
+  ],
+  "tts": "waxing crescent moon",
+  "unicode": "1f312",
+  "unicodeSkintones": null
+}

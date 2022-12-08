@@ -1,0 +1,23 @@
+{
+  "basefilename": "high-speed_train",
+  "cldr": "high-speed train",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDE84",
+  "glyphAsUtfInEmoticons": [
+    "1f684_highspeedtrain"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "high-speed train",
+    "railway",
+    "shinkansen",
+    "speed",
+    "train"
+  ],
+  "mappedToEmoticons": [
+    "1f684_highspeedtrain"
+  ],
+  "tts": "high-speed train",
+  "unicode": "1f684",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,20 @@
+{
+  "basefilename": "watermelon",
+  "cldr": "watermelon",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF49",
+  "glyphAsUtfInEmoticons": [
+    "watermelon"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "fruit",
+    "watermelon"
+  ],
+  "mappedToEmoticons": [
+    "watermelon"
+  ],
+  "tts": "watermelon",
+  "unicode": "1f349",
+  "unicodeSkintones": null
+}

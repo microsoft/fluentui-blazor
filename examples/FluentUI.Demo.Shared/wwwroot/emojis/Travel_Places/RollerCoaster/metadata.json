@@ -1,0 +1,21 @@
+{
+  "basefilename": "roller_coaster",
+  "cldr": "roller coaster",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDFA2",
+  "glyphAsUtfInEmoticons": [
+    "1f3a2_rollercoaster"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "amusement park",
+    "coaster",
+    "roller"
+  ],
+  "mappedToEmoticons": [
+    "1f3a2_rollercoaster"
+  ],
+  "tts": "roller coaster",
+  "unicode": "1f3a2",
+  "unicodeSkintones": null
+}

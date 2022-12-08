@@ -1,0 +1,24 @@
+{
+  "basefilename": "smiling_face_with_horns",
+  "cldr": "smiling face with horns",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDE08",
+  "glyphAsUtfInEmoticons": [
+    "devil"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "face",
+    "fairy tale",
+    "fantasy",
+    "horns",
+    "smile",
+    "smiling face with horns"
+  ],
+  "mappedToEmoticons": [
+    "devil"
+  ],
+  "tts": "smiling face with horns",
+  "unicode": "1f608",
+  "unicodeSkintones": null
+}

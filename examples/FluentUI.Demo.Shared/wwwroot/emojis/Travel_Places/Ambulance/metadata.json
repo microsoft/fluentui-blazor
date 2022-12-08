@@ -1,0 +1,20 @@
+{
+  "basefilename": "ambulance",
+  "cldr": "ambulance",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDE91",
+  "glyphAsUtfInEmoticons": [
+    "ambulance"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "ambulance",
+    "vehicle"
+  ],
+  "mappedToEmoticons": [
+    "ambulance"
+  ],
+  "tts": "ambulance",
+  "unicode": "1f691",
+  "unicodeSkintones": null
+}

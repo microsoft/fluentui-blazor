@@ -1,0 +1,21 @@
+{
+  "basefilename": "floppy_disk",
+  "cldr": "floppy disk",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCBE",
+  "glyphAsUtfInEmoticons": [
+    "1f4be_floppydisk"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "computer",
+    "disk",
+    "floppy"
+  ],
+  "mappedToEmoticons": [
+    "1f4be_floppydisk"
+  ],
+  "tts": "floppy disk",
+  "unicode": "1f4be",
+  "unicodeSkintones": null
+}

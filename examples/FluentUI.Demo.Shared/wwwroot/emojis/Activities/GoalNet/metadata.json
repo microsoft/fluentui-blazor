@@ -1,0 +1,20 @@
+{
+  "basefilename": "goal_net",
+  "cldr": "goal net",
+  "fromVersion": "3.0",
+  "glyph": "\uD83E\uDD45",
+  "glyphAsUtfInEmoticons": [
+    "1f945_goalnet"
+  ],
+  "group": "Activities",
+  "keywords": [
+    "goal",
+    "net"
+  ],
+  "mappedToEmoticons": [
+    "1f945_goalnet"
+  ],
+  "tts": "goal net",
+  "unicode": "1f945",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,20 @@
+{
+  "basefilename": "takeout_box",
+  "cldr": "takeout box",
+  "fromVersion": "5.0",
+  "glyph": "\uD83E\uDD61",
+  "glyphAsUtfInEmoticons": [
+    "1f961_takeoutbox"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "oyster pail",
+    "takeout box"
+  ],
+  "mappedToEmoticons": [
+    "1f961_takeoutbox"
+  ],
+  "tts": "takeout box",
+  "unicode": "1f961",
+  "unicodeSkintones": null
+}

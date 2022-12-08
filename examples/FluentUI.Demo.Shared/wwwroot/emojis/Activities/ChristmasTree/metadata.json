@@ -1,0 +1,21 @@
+{
+  "basefilename": "christmas_tree",
+  "cldr": "Christmas tree",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF84",
+  "glyphAsUtfInEmoticons": [
+    "xmastree"
+  ],
+  "group": "Activities",
+  "keywords": [
+    "celebration",
+    "Christmas",
+    "tree"
+  ],
+  "mappedToEmoticons": [
+    "xmastree"
+  ],
+  "tts": "Christmas tree",
+  "unicode": "1f384",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,22 @@
+{
+  "basefilename": "black_heart",
+  "cldr": "black heart",
+  "fromVersion": "3.0",
+  "glyph": "\uD83D\uDDA4",
+  "glyphAsUtfInEmoticons": [
+    "heartblack"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "black",
+    "black heart",
+    "evil",
+    "wicked"
+  ],
+  "mappedToEmoticons": [
+    "heartblack"
+  ],
+  "tts": "black heart",
+  "unicode": "1f5a4",
+  "unicodeSkintones": null
+}

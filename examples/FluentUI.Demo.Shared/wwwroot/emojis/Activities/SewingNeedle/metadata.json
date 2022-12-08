@@ -1,0 +1,24 @@
+{
+  "basefilename": "sewing_needle",
+  "cldr": "sewing needle",
+  "fromVersion": "13.0",
+  "glyph": "\uD83E\uDEA1",
+  "glyphAsUtfInEmoticons": [
+    "sewingneedle"
+  ],
+  "group": "Activities",
+  "keywords": [
+    "embroidery",
+    "needle",
+    "sewing",
+    "stitches",
+    "sutures",
+    "tailoring"
+  ],
+  "mappedToEmoticons": [
+    "sewingneedle"
+  ],
+  "tts": "sewing needle",
+  "unicode": "1faa1",
+  "unicodeSkintones": null
+}

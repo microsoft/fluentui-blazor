@@ -1,0 +1,21 @@
+{
+  "basefilename": "butterfly",
+  "cldr": "butterfly",
+  "fromVersion": "3.0",
+  "glyph": "\uD83E\uDD8B",
+  "glyphAsUtfInEmoticons": [
+    "butterfly"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "butterfly",
+    "insect",
+    "pretty"
+  ],
+  "mappedToEmoticons": [
+    "butterfly"
+  ],
+  "tts": "butterfly",
+  "unicode": "1f98b",
+  "unicodeSkintones": null
+}

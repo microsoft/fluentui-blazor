@@ -1,0 +1,20 @@
+{
+  "basefilename": "peach",
+  "cldr": "peach",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF51",
+  "glyphAsUtfInEmoticons": [
+    "peach"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "fruit",
+    "peach"
+  ],
+  "mappedToEmoticons": [
+    "peach"
+  ],
+  "tts": "peach",
+  "unicode": "1f351",
+  "unicodeSkintones": null
+}

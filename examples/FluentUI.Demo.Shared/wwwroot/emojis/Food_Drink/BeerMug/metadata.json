@@ -1,0 +1,22 @@
+{
+  "basefilename": "beer_mug",
+  "cldr": "beer mug",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF7A",
+  "glyphAsUtfInEmoticons": [
+    "beer"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "bar",
+    "beer",
+    "drink",
+    "mug"
+  ],
+  "mappedToEmoticons": [
+    "beer"
+  ],
+  "tts": "beer mug",
+  "unicode": "1f37a",
+  "unicodeSkintones": null
+}

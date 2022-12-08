@@ -1,0 +1,21 @@
+{
+  "basefilename": "turkey",
+  "cldr": "turkey",
+  "fromVersion": "1.0",
+  "glyph": "\uD83E\uDD83",
+  "glyphAsUtfInEmoticons": [
+    "1f983_turkey",
+    "turkey"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "bird",
+    "turkey"
+  ],
+  "mappedToEmoticons": [
+    "1f983_turkey"
+  ],
+  "tts": "turkey",
+  "unicode": "1f983",
+  "unicodeSkintones": null
+}

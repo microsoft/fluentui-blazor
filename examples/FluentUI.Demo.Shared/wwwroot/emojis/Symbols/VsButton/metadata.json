@@ -1,0 +1,21 @@
+{
+  "basefilename": "vs_button",
+  "cldr": "VS button",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDD9A",
+  "glyphAsUtfInEmoticons": [
+    "1f19a_squaredvs"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "versus",
+    "vs",
+    "VS button"
+  ],
+  "mappedToEmoticons": [
+    "1f19a_squaredvs"
+  ],
+  "tts": "VS button",
+  "unicode": "1f19a",
+  "unicodeSkintones": null
+}

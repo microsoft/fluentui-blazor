@@ -1,0 +1,21 @@
+{
+  "basefilename": "bright_button",
+  "cldr": "bright button",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDD06",
+  "glyphAsUtfInEmoticons": [
+    "1f506_highbrightnesssymbol"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "bright",
+    "bright button",
+    "brightness"
+  ],
+  "mappedToEmoticons": [
+    "1f506_highbrightnesssymbol"
+  ],
+  "tts": "bright button",
+  "unicode": "1f506",
+  "unicodeSkintones": null
+}

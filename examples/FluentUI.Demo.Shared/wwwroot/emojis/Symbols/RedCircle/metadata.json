@@ -1,0 +1,21 @@
+{
+  "basefilename": "red_circle",
+  "cldr": "red circle",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDD34",
+  "glyphAsUtfInEmoticons": [
+    "1f534_largeredcircle"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "circle",
+    "geometric",
+    "red"
+  ],
+  "mappedToEmoticons": [
+    "1f534_largeredcircle"
+  ],
+  "tts": "red circle",
+  "unicode": "1f534",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,23 @@
+{
+  "basefilename": "diamond_with_a_dot",
+  "cldr": "diamond with a dot",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCA0",
+  "glyphAsUtfInEmoticons": [
+    "1f4a0_diamondshapewithadotinside"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "comic",
+    "diamond",
+    "diamond with a dot",
+    "geometric",
+    "inside"
+  ],
+  "mappedToEmoticons": [
+    "1f4a0_diamondshapewithadotinside"
+  ],
+  "tts": "diamond with a dot",
+  "unicode": "1f4a0",
+  "unicodeSkintones": null
+}

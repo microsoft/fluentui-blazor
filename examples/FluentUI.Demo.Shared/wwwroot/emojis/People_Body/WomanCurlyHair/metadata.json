@@ -1,0 +1,28 @@
+{
+  "basefilename": "woman_curly_hair",
+  "cldr": "woman: curly hair",
+  "fromVersion": "11.0",
+  "glyph": "\uD83D\uDC69\u200D\uD83E\uDDB1",
+  "glyphAsUtfInEmoticons": [
+    "womancurlyhair"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "adult",
+    "curly hair",
+    "woman"
+  ],
+  "mappedToEmoticons": [
+    "womancurlyhair"
+  ],
+  "tts": "woman: curly hair",
+  "unicode": "1f469 200d 1f9b1",
+  "unicodeSkintones": [
+    "1f469 200d 1f9b1",
+    "1f469 1f3fb 200d 1f9b1",
+    "1f469 1f3fc 200d 1f9b1",
+    "1f469 1f3fd 200d 1f9b1",
+    "1f469 1f3fe 200d 1f9b1",
+    "1f469 1f3ff 200d 1f9b1"
+  ]
+}

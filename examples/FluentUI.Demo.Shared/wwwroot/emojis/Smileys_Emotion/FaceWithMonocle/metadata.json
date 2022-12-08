@@ -1,0 +1,21 @@
+{
+  "basefilename": "face_with_monocle",
+  "cldr": "face with monocle",
+  "fromVersion": "5.0",
+  "glyph": "\uD83E\uDDD0",
+  "glyphAsUtfInEmoticons": [
+    "1f9d0_facewithmonocle",
+    "movember"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "face with monocle",
+    "stuffy"
+  ],
+  "mappedToEmoticons": [
+    "1f9d0_facewithmonocle"
+  ],
+  "tts": "face with monocle",
+  "unicode": "1f9d0",
+  "unicodeSkintones": null
+}

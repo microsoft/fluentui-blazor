@@ -1,0 +1,26 @@
+{
+  "basefilename": "victory_hand",
+  "cldr": "victory hand",
+  "fromVersion": "0.6",
+  "glyph": "\u270C\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "People \u0026 Body",
+  "keywords": [
+    "hand",
+    "v",
+    "victory"
+  ],
+  "mappedToEmoticons": [
+    "victory"
+  ],
+  "tts": "victory hand",
+  "unicode": "270c fe0f",
+  "unicodeSkintones": [
+    "270c fe0f",
+    "270c 1f3fb",
+    "270c 1f3fc",
+    "270c 1f3fd",
+    "270c 1f3fe",
+    "270c 1f3ff"
+  ]
+}

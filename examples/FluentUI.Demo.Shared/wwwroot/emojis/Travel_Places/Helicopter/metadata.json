@@ -1,0 +1,20 @@
+{
+  "basefilename": "helicopter",
+  "cldr": "helicopter",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDE81",
+  "glyphAsUtfInEmoticons": [
+    "1f681_helicopter"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "helicopter",
+    "vehicle"
+  ],
+  "mappedToEmoticons": [
+    "1f681_helicopter"
+  ],
+  "tts": "helicopter",
+  "unicode": "1f681",
+  "unicodeSkintones": null
+}

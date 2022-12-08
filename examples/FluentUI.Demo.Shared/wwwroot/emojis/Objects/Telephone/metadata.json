@@ -1,0 +1,18 @@
+{
+  "basefilename": "telephone",
+  "cldr": "telephone",
+  "fromVersion": "0.6",
+  "glyph": "\u260E\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Objects",
+  "keywords": [
+    "phone",
+    "telephone"
+  ],
+  "mappedToEmoticons": [
+    "260e_blacktelephone"
+  ],
+  "tts": "telephone",
+  "unicode": "260e fe0f",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,20 @@
+{
+  "basefilename": "hedgehog",
+  "cldr": "hedgehog",
+  "fromVersion": "5.0",
+  "glyph": "\uD83E\uDD94",
+  "glyphAsUtfInEmoticons": [
+    "hedgehog"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "hedgehog",
+    "spiny"
+  ],
+  "mappedToEmoticons": [
+    "hedgehoghug"
+  ],
+  "tts": "hedgehog",
+  "unicode": "1f994",
+  "unicodeSkintones": null
+}

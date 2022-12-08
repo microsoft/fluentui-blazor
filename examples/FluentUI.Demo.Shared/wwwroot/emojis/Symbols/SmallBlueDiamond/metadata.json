@@ -1,0 +1,22 @@
+{
+  "basefilename": "small_blue_diamond",
+  "cldr": "small blue diamond",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDD39",
+  "glyphAsUtfInEmoticons": [
+    "1f539_smallbluediamond"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "blue",
+    "diamond",
+    "geometric",
+    "small blue diamond"
+  ],
+  "mappedToEmoticons": [
+    "1f539_smallbluediamond"
+  ],
+  "tts": "small blue diamond",
+  "unicode": "1f539",
+  "unicodeSkintones": null
+}

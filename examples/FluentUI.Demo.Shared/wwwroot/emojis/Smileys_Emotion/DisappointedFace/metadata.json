@@ -1,0 +1,20 @@
+{
+  "basefilename": "disappointed_face",
+  "cldr": "disappointed face",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDE1E",
+  "glyphAsUtfInEmoticons": [
+    "disappointed"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "disappointed",
+    "face"
+  ],
+  "mappedToEmoticons": [
+    "disappointed"
+  ],
+  "tts": "disappointed face",
+  "unicode": "1f61e",
+  "unicodeSkintones": null
+}

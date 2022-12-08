@@ -1,0 +1,20 @@
+{
+  "basefilename": "full_moon",
+  "cldr": "full moon",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF15",
+  "glyphAsUtfInEmoticons": [
+    "1f315_fullmoonsymbol"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "full",
+    "moon"
+  ],
+  "mappedToEmoticons": [
+    "1f315_fullmoonsymbol"
+  ],
+  "tts": "full moon",
+  "unicode": "1f315",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,20 @@
+{
+  "basefilename": "pineapple",
+  "cldr": "pineapple",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF4D",
+  "glyphAsUtfInEmoticons": [
+    "pineapple"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "fruit",
+    "pineapple"
+  ],
+  "mappedToEmoticons": [
+    "pineapple"
+  ],
+  "tts": "pineapple",
+  "unicode": "1f34d",
+  "unicodeSkintones": null
+}

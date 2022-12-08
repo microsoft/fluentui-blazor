@@ -1,0 +1,23 @@
+{
+  "basefilename": "minus",
+  "cldr": "minus",
+  "fromVersion": "0.6",
+  "glyph": "\u2796",
+  "glyphAsUtfInEmoticons": [
+    "2796_heavyminussign"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "-",
+    "\u2212",
+    "math",
+    "minus",
+    "sign"
+  ],
+  "mappedToEmoticons": [
+    "2796_heavyminussign"
+  ],
+  "tts": "minus",
+  "unicode": "2796",
+  "unicodeSkintones": null
+}

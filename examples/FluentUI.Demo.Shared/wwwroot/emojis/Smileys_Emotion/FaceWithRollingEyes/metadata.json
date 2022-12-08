@@ -1,0 +1,23 @@
+{
+  "basefilename": "face_with_rolling_eyes",
+  "cldr": "face with rolling eyes",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDE44",
+  "glyphAsUtfInEmoticons": [
+    "wasntme"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "eyeroll",
+    "eyes",
+    "face",
+    "face with rolling eyes",
+    "rolling"
+  ],
+  "mappedToEmoticons": [
+    "dull"
+  ],
+  "tts": "face with rolling eyes",
+  "unicode": "1f644",
+  "unicodeSkintones": null
+}

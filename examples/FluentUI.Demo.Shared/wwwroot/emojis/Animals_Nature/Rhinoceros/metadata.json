@@ -1,0 +1,19 @@
+{
+  "basefilename": "rhinoceros",
+  "cldr": "rhinoceros",
+  "fromVersion": "3.0",
+  "glyph": "\uD83E\uDD8F",
+  "glyphAsUtfInEmoticons": [
+    "1f98f_rhinoceros"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "rhinoceros"
+  ],
+  "mappedToEmoticons": [
+    "1f98f_rhinoceros"
+  ],
+  "tts": "rhinoceros",
+  "unicode": "1f98f",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,22 @@
+{
+  "basefilename": "nut_and_bolt",
+  "cldr": "nut and bolt",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDD29",
+  "glyphAsUtfInEmoticons": [
+    "1f529_nutandbolt"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "bolt",
+    "nut",
+    "nut and bolt",
+    "tool"
+  ],
+  "mappedToEmoticons": [
+    "1f529_nutandbolt"
+  ],
+  "tts": "nut and bolt",
+  "unicode": "1f529",
+  "unicodeSkintones": null
+}

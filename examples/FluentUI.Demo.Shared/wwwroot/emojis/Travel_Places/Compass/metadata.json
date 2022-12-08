@@ -1,0 +1,22 @@
+{
+  "basefilename": "compass",
+  "cldr": "compass",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDDED",
+  "glyphAsUtfInEmoticons": [
+    "1f9ed_compass"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "compass",
+    "magnetic",
+    "navigation",
+    "orienteering"
+  ],
+  "mappedToEmoticons": [
+    "1f9ed_compass"
+  ],
+  "tts": "compass",
+  "unicode": "1f9ed",
+  "unicodeSkintones": null
+}

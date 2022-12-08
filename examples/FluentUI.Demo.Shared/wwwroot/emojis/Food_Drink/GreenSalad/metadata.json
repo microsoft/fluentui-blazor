@@ -1,0 +1,21 @@
+{
+  "basefilename": "green_salad",
+  "cldr": "green salad",
+  "fromVersion": "3.0",
+  "glyph": "\uD83E\uDD57",
+  "glyphAsUtfInEmoticons": [
+    "1f957_greensalad"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "food",
+    "green",
+    "salad"
+  ],
+  "mappedToEmoticons": [
+    "1f957_greensalad"
+  ],
+  "tts": "green salad",
+  "unicode": "1f957",
+  "unicodeSkintones": null
+}

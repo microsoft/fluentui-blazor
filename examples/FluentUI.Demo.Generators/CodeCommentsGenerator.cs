@@ -35,7 +35,7 @@ namespace FluentUI.Demo.Generators
             sb.AppendLine("using System.Collections.Generic;");
             sb.AppendLine("using System.Linq;");
             sb.AppendLine("");
-            sb.AppendLine("namespace FluentUI.Demo.Generators;");
+            sb.AppendLine("namespace FluentUI.Demo.Shared;");
             sb.AppendLine("public static class CodeComments");
             sb.AppendLine("{");
             sb.AppendLine("\tpublic static string GetSummary(string name)");

@@ -1,0 +1,19 @@
+{
+  "basefilename": "railway_track",
+  "cldr": "railway track",
+  "fromVersion": "0.7",
+  "glyph": "\uD83D\uDEE4\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "railway",
+    "railway track",
+    "train"
+  ],
+  "mappedToEmoticons": [
+    "1f6e4_railwaytrack"
+  ],
+  "tts": "railway track",
+  "unicode": "1f6e4 fe0f",
+  "unicodeSkintones": null
+}

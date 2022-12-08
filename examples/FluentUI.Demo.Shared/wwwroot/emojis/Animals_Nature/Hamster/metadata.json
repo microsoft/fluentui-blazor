@@ -1,0 +1,21 @@
+{
+  "basefilename": "hamster",
+  "cldr": "hamster",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC39",
+  "glyphAsUtfInEmoticons": [
+    "1f439_hamsterface"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "face",
+    "hamster",
+    "pet"
+  ],
+  "mappedToEmoticons": [
+    "1f439_hamsterface"
+  ],
+  "tts": "hamster",
+  "unicode": "1f439",
+  "unicodeSkintones": null
+}

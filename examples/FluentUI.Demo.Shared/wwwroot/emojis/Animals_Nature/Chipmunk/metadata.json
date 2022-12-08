@@ -1,0 +1,18 @@
+{
+  "basefilename": "chipmunk",
+  "cldr": "chipmunk",
+  "fromVersion": "0.7",
+  "glyph": "\uD83D\uDC3F\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "chipmunk",
+    "squirrel"
+  ],
+  "mappedToEmoticons": [
+    "1f43f_chipmunk"
+  ],
+  "tts": "chipmunk",
+  "unicode": "1f43f fe0f",
+  "unicodeSkintones": null
+}

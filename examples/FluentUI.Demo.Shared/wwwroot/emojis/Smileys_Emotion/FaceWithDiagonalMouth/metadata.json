@@ -1,0 +1,19 @@
+{
+  "basefilename": "face_with_diagonal_mouth",
+  "cldr": "face with diagonal mouth",
+  "fromVersion": "14.0",
+  "glyph": "\uD83E\uDEE4",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "disappointed",
+    "face with diagonal mouth",
+    "meh",
+    "skeptical",
+    "unsure"
+  ],
+  "mappedToEmoticons": null,
+  "tts": "face with diagonal mouth",
+  "unicode": "1fae4",
+  "unicodeSkintones": null
+}

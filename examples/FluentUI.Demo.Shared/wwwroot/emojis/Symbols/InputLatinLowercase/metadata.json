@@ -1,0 +1,23 @@
+{
+  "basefilename": "input_latin_lowercase",
+  "cldr": "input latin lowercase",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDD21",
+  "glyphAsUtfInEmoticons": [
+    "1f521_lowercaseabcd"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "abcd",
+    "input",
+    "latin",
+    "letters",
+    "lowercase"
+  ],
+  "mappedToEmoticons": [
+    "1f521_lowercaseabcd"
+  ],
+  "tts": "input latin lowercase",
+  "unicode": "1f521",
+  "unicodeSkintones": null
+}

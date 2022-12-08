@@ -1,0 +1,22 @@
+{
+  "basefilename": "dim_button",
+  "cldr": "dim button",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDD05",
+  "glyphAsUtfInEmoticons": [
+    "1f505_lowbrightnesssymbol"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "brightness",
+    "dim",
+    "dim button",
+    "low"
+  ],
+  "mappedToEmoticons": [
+    "1f505_lowbrightnesssymbol"
+  ],
+  "tts": "dim button",
+  "unicode": "1f505",
+  "unicodeSkintones": null
+}

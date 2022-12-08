@@ -1,0 +1,21 @@
+{
+  "basefilename": "radio_button",
+  "cldr": "radio button",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDD18",
+  "glyphAsUtfInEmoticons": [
+    "1f518_radiobutton"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "button",
+    "geometric",
+    "radio"
+  ],
+  "mappedToEmoticons": [
+    "1f518_radiobutton"
+  ],
+  "tts": "radio button",
+  "unicode": "1f518",
+  "unicodeSkintones": null
+}

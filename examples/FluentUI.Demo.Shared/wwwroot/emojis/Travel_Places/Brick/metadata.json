@@ -1,0 +1,23 @@
+{
+  "basefilename": "brick",
+  "cldr": "brick",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDDF1",
+  "glyphAsUtfInEmoticons": [
+    "1f9f1_bricks"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "brick",
+    "bricks",
+    "clay",
+    "mortar",
+    "wall"
+  ],
+  "mappedToEmoticons": [
+    "1f9f1_bricks"
+  ],
+  "tts": "brick",
+  "unicode": "1f9f1",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,20 @@
+{
+  "basefilename": "hotel",
+  "cldr": "hotel",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDFE8",
+  "glyphAsUtfInEmoticons": [
+    "1f3e8_hotel"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "building",
+    "hotel"
+  ],
+  "mappedToEmoticons": [
+    "1f3e8_hotel"
+  ],
+  "tts": "hotel",
+  "unicode": "1f3e8",
+  "unicodeSkintones": null
+}

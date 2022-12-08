@@ -1,0 +1,25 @@
+{
+  "basefilename": "firefighter",
+  "cldr": "firefighter",
+  "fromVersion": "12.1",
+  "glyph": "\uD83E\uDDD1\u200D\uD83D\uDE92",
+  "glyphAsUtfInEmoticons": null,
+  "group": "People \u0026 Body",
+  "keywords": [
+    "firefighter",
+    "firetruck"
+  ],
+  "mappedToEmoticons": [
+    "personfirefighter"
+  ],
+  "tts": "firefighter",
+  "unicode": "1f9d1 200d 1f692",
+  "unicodeSkintones": [
+    "1f9d1 200d 1f692",
+    "1f9d1 1f3fb 200d 1f692",
+    "1f9d1 1f3fc 200d 1f692",
+    "1f9d1 1f3fd 200d 1f692",
+    "1f9d1 1f3fe 200d 1f692",
+    "1f9d1 1f3ff 200d 1f692"
+  ]
+}

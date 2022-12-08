@@ -1,0 +1,24 @@
+{
+  "basefilename": "ping_pong",
+  "cldr": "ping pong",
+  "fromVersion": "1.0",
+  "glyph": "\uD83C\uDFD3",
+  "glyphAsUtfInEmoticons": [
+    "1f3d3_tabletennispaddleandball"
+  ],
+  "group": "Activities",
+  "keywords": [
+    "ball",
+    "bat",
+    "game",
+    "paddle",
+    "ping pong",
+    "table tennis"
+  ],
+  "mappedToEmoticons": [
+    "1f3d3_tabletennispaddleandball"
+  ],
+  "tts": "ping pong",
+  "unicode": "1f3d3",
+  "unicodeSkintones": null
+}

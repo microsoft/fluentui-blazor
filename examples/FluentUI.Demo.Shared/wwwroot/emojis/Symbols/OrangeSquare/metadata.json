@@ -1,0 +1,20 @@
+{
+  "basefilename": "orange_square",
+  "cldr": "orange square",
+  "fromVersion": "12.0",
+  "glyph": "\uD83D\uDFE7",
+  "glyphAsUtfInEmoticons": [
+    "1f7e7_orangesquare"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "orange",
+    "square"
+  ],
+  "mappedToEmoticons": [
+    "1f7e7_orangesquare"
+  ],
+  "tts": "orange square",
+  "unicode": "1f7e7",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,23 @@
+{
+  "basefilename": "cooking",
+  "cldr": "cooking",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF73",
+  "glyphAsUtfInEmoticons": [
+    "1f373_cooking"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "breakfast",
+    "cooking",
+    "egg",
+    "frying",
+    "pan"
+  ],
+  "mappedToEmoticons": [
+    "1f373_cooking"
+  ],
+  "tts": "cooking",
+  "unicode": "1f373",
+  "unicodeSkintones": null
+}

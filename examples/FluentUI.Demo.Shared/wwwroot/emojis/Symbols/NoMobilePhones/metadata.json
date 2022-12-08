@@ -1,0 +1,24 @@
+{
+  "basefilename": "no_mobile_phones",
+  "cldr": "no mobile phones",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDCF5",
+  "glyphAsUtfInEmoticons": [
+    "1f4f5_nomobilephones"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "cell",
+    "forbidden",
+    "mobile",
+    "no",
+    "no mobile phones",
+    "phone"
+  ],
+  "mappedToEmoticons": [
+    "1f4f5_nomobilephones"
+  ],
+  "tts": "no mobile phones",
+  "unicode": "1f4f5",
+  "unicodeSkintones": null
+}

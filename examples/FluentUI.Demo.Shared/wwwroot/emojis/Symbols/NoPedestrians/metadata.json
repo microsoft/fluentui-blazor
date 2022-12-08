@@ -1,0 +1,24 @@
+{
+  "basefilename": "no_pedestrians",
+  "cldr": "no pedestrians",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDEB7",
+  "glyphAsUtfInEmoticons": [
+    "1f6b7_nopedestrians"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "forbidden",
+    "no",
+    "no pedestrians",
+    "not",
+    "pedestrian",
+    "prohibited"
+  ],
+  "mappedToEmoticons": [
+    "1f6b7_nopedestrians"
+  ],
+  "tts": "no pedestrians",
+  "unicode": "1f6b7",
+  "unicodeSkintones": null
+}

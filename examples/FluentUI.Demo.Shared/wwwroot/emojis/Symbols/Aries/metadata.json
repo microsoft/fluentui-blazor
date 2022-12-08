@@ -1,0 +1,21 @@
+{
+  "basefilename": "aries",
+  "cldr": "Aries",
+  "fromVersion": "0.6",
+  "glyph": "\u2648",
+  "glyphAsUtfInEmoticons": [
+    "2648_aries"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "Aries",
+    "ram",
+    "zodiac"
+  ],
+  "mappedToEmoticons": [
+    "2648_aries"
+  ],
+  "tts": "Aries",
+  "unicode": "2648",
+  "unicodeSkintones": null
+}

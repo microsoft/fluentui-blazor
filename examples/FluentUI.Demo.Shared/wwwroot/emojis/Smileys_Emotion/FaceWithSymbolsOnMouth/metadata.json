@@ -1,0 +1,18 @@
+{
+  "basefilename": "face_with_symbols_on_mouth",
+  "cldr": "face with symbols on mouth",
+  "fromVersion": "5.0",
+  "glyph": "\uD83E\uDD2C",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "face with symbols on mouth",
+    "swearing"
+  ],
+  "mappedToEmoticons": [
+    "swear"
+  ],
+  "tts": "face with symbols on mouth",
+  "unicode": "1f92c",
+  "unicodeSkintones": null
+}

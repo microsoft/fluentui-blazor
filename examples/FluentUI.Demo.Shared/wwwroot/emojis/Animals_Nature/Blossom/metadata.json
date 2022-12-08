@@ -1,0 +1,20 @@
+{
+  "basefilename": "blossom",
+  "cldr": "blossom",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF3C",
+  "glyphAsUtfInEmoticons": [
+    "flower"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "blossom",
+    "flower"
+  ],
+  "mappedToEmoticons": [
+    "flower"
+  ],
+  "tts": "blossom",
+  "unicode": "1f33c",
+  "unicodeSkintones": null
+}

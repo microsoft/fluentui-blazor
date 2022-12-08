@@ -1,0 +1,20 @@
+{
+  "basefilename": "bomb",
+  "cldr": "bomb",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCA3",
+  "glyphAsUtfInEmoticons": [
+    "bomb"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "bomb",
+    "comic"
+  ],
+  "mappedToEmoticons": [
+    "bomb"
+  ],
+  "tts": "bomb",
+  "unicode": "1f4a3",
+  "unicodeSkintones": null
+}

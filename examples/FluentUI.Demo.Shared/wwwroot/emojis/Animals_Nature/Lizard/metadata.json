@@ -1,0 +1,20 @@
+{
+  "basefilename": "lizard",
+  "cldr": "lizard",
+  "fromVersion": "3.0",
+  "glyph": "\uD83E\uDD8E",
+  "glyphAsUtfInEmoticons": [
+    "lizard"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "lizard",
+    "reptile"
+  ],
+  "mappedToEmoticons": [
+    "lizard"
+  ],
+  "tts": "lizard",
+  "unicode": "1f98e",
+  "unicodeSkintones": null
+}

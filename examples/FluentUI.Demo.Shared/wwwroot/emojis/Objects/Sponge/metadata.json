@@ -1,0 +1,22 @@
+{
+  "basefilename": "sponge",
+  "cldr": "sponge",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDDFD",
+  "glyphAsUtfInEmoticons": [
+    "1f9fd_sponge"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "absorbing",
+    "cleaning",
+    "porous",
+    "sponge"
+  ],
+  "mappedToEmoticons": [
+    "1f9fd_sponge"
+  ],
+  "tts": "sponge",
+  "unicode": "1f9fd",
+  "unicodeSkintones": null
+}

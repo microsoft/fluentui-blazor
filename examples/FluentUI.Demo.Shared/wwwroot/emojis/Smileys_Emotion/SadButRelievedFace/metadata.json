@@ -1,0 +1,23 @@
+{
+  "basefilename": "sad_but_relieved_face",
+  "cldr": "sad but relieved face",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDE25",
+  "glyphAsUtfInEmoticons": [
+    "1f625_sadbutrelievedface"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "disappointed",
+    "face",
+    "relieved",
+    "sad but relieved face",
+    "whew"
+  ],
+  "mappedToEmoticons": [
+    "1f625_sadbutrelievedface"
+  ],
+  "tts": "sad but relieved face",
+  "unicode": "1f625",
+  "unicodeSkintones": null
+}

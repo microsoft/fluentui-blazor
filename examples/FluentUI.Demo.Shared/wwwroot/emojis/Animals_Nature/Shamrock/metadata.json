@@ -1,0 +1,18 @@
+{
+  "basefilename": "shamrock",
+  "cldr": "shamrock",
+  "fromVersion": "1.0",
+  "glyph": "\u2618\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "plant",
+    "shamrock"
+  ],
+  "mappedToEmoticons": [
+    "2618_shamrock"
+  ],
+  "tts": "shamrock",
+  "unicode": "2618 fe0f",
+  "unicodeSkintones": null
+}

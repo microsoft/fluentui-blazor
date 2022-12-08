@@ -1,0 +1,23 @@
+{
+  "basefilename": "synagogue",
+  "cldr": "synagogue",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDD4D",
+  "glyphAsUtfInEmoticons": [
+    "1f54d_synagogue"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "Jew",
+    "Jewish",
+    "religion",
+    "synagogue",
+    "temple"
+  ],
+  "mappedToEmoticons": [
+    "1f54d_synagogue"
+  ],
+  "tts": "synagogue",
+  "unicode": "1f54d",
+  "unicodeSkintones": null
+}

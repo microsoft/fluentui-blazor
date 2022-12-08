@@ -1,0 +1,21 @@
+{
+  "basefilename": "pickup_truck",
+  "cldr": "pickup truck",
+  "fromVersion": "13.0",
+  "glyph": "\uD83D\uDEFB",
+  "glyphAsUtfInEmoticons": [
+    "pickuptruck"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "pick-up",
+    "pickup",
+    "truck"
+  ],
+  "mappedToEmoticons": [
+    "pickuptruck"
+  ],
+  "tts": "pickup truck",
+  "unicode": "1f6fb",
+  "unicodeSkintones": null
+}

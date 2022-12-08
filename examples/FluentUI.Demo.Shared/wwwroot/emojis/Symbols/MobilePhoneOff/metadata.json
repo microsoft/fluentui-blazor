@@ -1,0 +1,23 @@
+{
+  "basefilename": "mobile_phone_off",
+  "cldr": "mobile phone off",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCF4",
+  "glyphAsUtfInEmoticons": [
+    "1f4f4_mobilephoneoff"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "cell",
+    "mobile",
+    "off",
+    "phone",
+    "telephone"
+  ],
+  "mappedToEmoticons": [
+    "1f4f4_mobilephoneoff"
+  ],
+  "tts": "mobile phone off",
+  "unicode": "1f4f4",
+  "unicodeSkintones": null
+}

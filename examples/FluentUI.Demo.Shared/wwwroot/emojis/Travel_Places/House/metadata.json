@@ -1,0 +1,20 @@
+{
+  "basefilename": "house",
+  "cldr": "house",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDFE0",
+  "glyphAsUtfInEmoticons": [
+    "house"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "home",
+    "house"
+  ],
+  "mappedToEmoticons": [
+    "house"
+  ],
+  "tts": "house",
+  "unicode": "1f3e0",
+  "unicodeSkintones": null
+}

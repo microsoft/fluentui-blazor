@@ -1,0 +1,20 @@
+{
+  "basefilename": "keycap_10",
+  "cldr": "keycap: 10",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDD1F",
+  "glyphAsUtfInEmoticons": [
+    "1f51f_keycapten"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "keycap",
+    "ten"
+  ],
+  "mappedToEmoticons": [
+    "1f51f_keycapten"
+  ],
+  "tts": "keycap: 10",
+  "unicode": "1f51f",
+  "unicodeSkintones": null
+}

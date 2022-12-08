@@ -1,0 +1,22 @@
+{
+  "basefilename": "clockwise_vertical_arrows",
+  "cldr": "clockwise vertical arrows",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDD03",
+  "glyphAsUtfInEmoticons": [
+    "1f503_arrowsclockwise"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "arrow",
+    "clockwise",
+    "clockwise vertical arrows",
+    "reload"
+  ],
+  "mappedToEmoticons": [
+    "1f503_arrowsclockwise"
+  ],
+  "tts": "clockwise vertical arrows",
+  "unicode": "1f503",
+  "unicodeSkintones": null
+}

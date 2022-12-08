@@ -1,0 +1,19 @@
+{
+  "basefilename": "man_wrestling",
+  "cldr": "men wrestling",
+  "fromVersion": "4.0",
+  "glyph": "\uD83E\uDD3C\u200D\u2642\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "menwrestling"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "men",
+    "men wrestling",
+    "wrestle"
+  ],
+  "mappedToEmoticons": null,
+  "tts": "men wrestling",
+  "unicode": "1f93c 200d 2642 fe0f",
+  "unicodeSkintones": null
+}

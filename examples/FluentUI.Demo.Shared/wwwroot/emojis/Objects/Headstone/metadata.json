@@ -1,0 +1,23 @@
+{
+  "basefilename": "headstone",
+  "cldr": "headstone",
+  "fromVersion": "13.0",
+  "glyph": "\uD83E\uDEA6",
+  "glyphAsUtfInEmoticons": [
+    "headstone"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "cemetery",
+    "grave",
+    "graveyard",
+    "headstone",
+    "tombstone"
+  ],
+  "mappedToEmoticons": [
+    "headstone"
+  ],
+  "tts": "headstone",
+  "unicode": "1faa6",
+  "unicodeSkintones": null
+}

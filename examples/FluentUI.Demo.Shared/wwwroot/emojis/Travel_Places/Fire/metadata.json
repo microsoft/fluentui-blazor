@@ -1,0 +1,21 @@
+{
+  "basefilename": "fire",
+  "cldr": "fire",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDD25",
+  "glyphAsUtfInEmoticons": [
+    "fire"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "fire",
+    "flame",
+    "tool"
+  ],
+  "mappedToEmoticons": [
+    "fire"
+  ],
+  "tts": "fire",
+  "unicode": "1f525",
+  "unicodeSkintones": null
+}

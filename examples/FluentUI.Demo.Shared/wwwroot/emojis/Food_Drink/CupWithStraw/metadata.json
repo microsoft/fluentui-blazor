@@ -1,0 +1,21 @@
+{
+  "basefilename": "cup_with_straw",
+  "cldr": "cup with straw",
+  "fromVersion": "5.0",
+  "glyph": "\uD83E\uDD64",
+  "glyphAsUtfInEmoticons": [
+    "1f964_cupwithstraw"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "cup with straw",
+    "juice",
+    "soda"
+  ],
+  "mappedToEmoticons": [
+    "1f964_cupwithstraw"
+  ],
+  "tts": "cup with straw",
+  "unicode": "1f964",
+  "unicodeSkintones": null
+}

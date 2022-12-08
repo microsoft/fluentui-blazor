@@ -1,0 +1,22 @@
+{
+  "basefilename": "money_bag",
+  "cldr": "money bag",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCB0",
+  "glyphAsUtfInEmoticons": [
+    "1f4b0_moneybag"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "bag",
+    "dollar",
+    "money",
+    "moneybag"
+  ],
+  "mappedToEmoticons": [
+    "1f4b0_moneybag"
+  ],
+  "tts": "money bag",
+  "unicode": "1f4b0",
+  "unicodeSkintones": null
+}

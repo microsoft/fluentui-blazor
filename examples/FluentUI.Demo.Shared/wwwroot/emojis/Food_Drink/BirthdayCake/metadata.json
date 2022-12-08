@@ -1,0 +1,24 @@
+{
+  "basefilename": "birthday_cake",
+  "cldr": "birthday cake",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF82",
+  "glyphAsUtfInEmoticons": [
+    "cake"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "birthday",
+    "cake",
+    "celebration",
+    "dessert",
+    "pastry",
+    "sweet"
+  ],
+  "mappedToEmoticons": [
+    "cake"
+  ],
+  "tts": "birthday cake",
+  "unicode": "1f382",
+  "unicodeSkintones": null
+}

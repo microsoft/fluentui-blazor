@@ -1,0 +1,19 @@
+{
+  "basefilename": "snowflake",
+  "cldr": "snowflake",
+  "fromVersion": "0.6",
+  "glyph": "\u2744\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "cold",
+    "snow",
+    "snowflake"
+  ],
+  "mappedToEmoticons": [
+    "snowflake"
+  ],
+  "tts": "snowflake",
+  "unicode": "2744 fe0f",
+  "unicodeSkintones": null
+}

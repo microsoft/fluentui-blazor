@@ -1,0 +1,20 @@
+{
+  "basefilename": "brain",
+  "cldr": "brain",
+  "fromVersion": "5.0",
+  "glyph": "\uD83E\uDDE0",
+  "glyphAsUtfInEmoticons": [
+    "1f9e0_brain"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "brain",
+    "intelligent"
+  ],
+  "mappedToEmoticons": [
+    "1f9e0_brain"
+  ],
+  "tts": "brain",
+  "unicode": "1f9e0",
+  "unicodeSkintones": null
+}

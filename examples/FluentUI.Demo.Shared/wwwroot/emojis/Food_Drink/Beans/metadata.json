@@ -1,0 +1,18 @@
+{
+  "basefilename": "beans",
+  "cldr": "beans",
+  "fromVersion": "14.0",
+  "glyph": "\uD83E\uDED8",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "beans",
+    "food",
+    "kidney",
+    "legume"
+  ],
+  "mappedToEmoticons": null,
+  "tts": "beans",
+  "unicode": "1fad8",
+  "unicodeSkintones": null
+}

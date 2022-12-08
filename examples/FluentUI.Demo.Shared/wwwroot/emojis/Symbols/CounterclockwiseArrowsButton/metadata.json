@@ -1,0 +1,23 @@
+{
+  "basefilename": "counterclockwise_arrows_button",
+  "cldr": "counterclockwise arrows button",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDD04",
+  "glyphAsUtfInEmoticons": [
+    "1f504_refresh"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "anticlockwise",
+    "arrow",
+    "counterclockwise",
+    "counterclockwise arrows button",
+    "withershins"
+  ],
+  "mappedToEmoticons": [
+    "1f504_refresh"
+  ],
+  "tts": "counterclockwise arrows button",
+  "unicode": "1f504",
+  "unicodeSkintones": null
+}

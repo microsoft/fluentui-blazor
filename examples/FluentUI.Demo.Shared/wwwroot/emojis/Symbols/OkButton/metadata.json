@@ -1,0 +1,20 @@
+{
+  "basefilename": "ok_button",
+  "cldr": "OK button",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDD97",
+  "glyphAsUtfInEmoticons": [
+    "1f197_squaredok"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "OK",
+    "OK button"
+  ],
+  "mappedToEmoticons": [
+    "1f197_squaredok"
+  ],
+  "tts": "OK button",
+  "unicode": "1f197",
+  "unicodeSkintones": null
+}

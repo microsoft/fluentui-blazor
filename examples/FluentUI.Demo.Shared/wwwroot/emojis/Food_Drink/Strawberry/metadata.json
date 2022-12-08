@@ -1,0 +1,21 @@
+{
+  "basefilename": "strawberry",
+  "cldr": "strawberry",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF53",
+  "glyphAsUtfInEmoticons": [
+    "strawberry"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "berry",
+    "fruit",
+    "strawberry"
+  ],
+  "mappedToEmoticons": [
+    "strawberry"
+  ],
+  "tts": "strawberry",
+  "unicode": "1f353",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,20 @@
+{
+  "basefilename": "orange_book",
+  "cldr": "orange book",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCD9",
+  "glyphAsUtfInEmoticons": [
+    "1f4d9_orangebook"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "book",
+    "orange"
+  ],
+  "mappedToEmoticons": [
+    "1f4d9_orangebook"
+  ],
+  "tts": "orange book",
+  "unicode": "1f4d9",
+  "unicodeSkintones": null
+}

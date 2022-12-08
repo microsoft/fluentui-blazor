@@ -1,0 +1,24 @@
+{
+  "basefilename": "disguised_face",
+  "cldr": "disguised face",
+  "fromVersion": "13.0",
+  "glyph": "\uD83E\uDD78",
+  "glyphAsUtfInEmoticons": [
+    "disguisedface"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "disguise",
+    "disguised face",
+    "face",
+    "glasses",
+    "incognito",
+    "nose"
+  ],
+  "mappedToEmoticons": [
+    "disguisedface"
+  ],
+  "tts": "disguised face",
+  "unicode": "1f978",
+  "unicodeSkintones": null
+}

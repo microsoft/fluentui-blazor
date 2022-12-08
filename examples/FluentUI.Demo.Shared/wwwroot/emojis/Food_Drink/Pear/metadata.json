@@ -1,0 +1,20 @@
+{
+  "basefilename": "pear",
+  "cldr": "pear",
+  "fromVersion": "1.0",
+  "glyph": "\uD83C\uDF50",
+  "glyphAsUtfInEmoticons": [
+    "1f350_pear"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "fruit",
+    "pear"
+  ],
+  "mappedToEmoticons": [
+    "1f350_pear"
+  ],
+  "tts": "pear",
+  "unicode": "1f350",
+  "unicodeSkintones": null
+}

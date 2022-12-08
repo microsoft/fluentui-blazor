@@ -1,0 +1,23 @@
+{
+  "basefilename": "weary_cat",
+  "cldr": "weary cat",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDE40",
+  "glyphAsUtfInEmoticons": [
+    "1f640_wearycat"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "cat",
+    "face",
+    "oh",
+    "surprised",
+    "weary"
+  ],
+  "mappedToEmoticons": [
+    "1f640_wearycat"
+  ],
+  "tts": "weary cat",
+  "unicode": "1f640",
+  "unicodeSkintones": null
+}

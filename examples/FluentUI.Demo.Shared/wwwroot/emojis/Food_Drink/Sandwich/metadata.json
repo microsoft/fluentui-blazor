@@ -1,0 +1,20 @@
+{
+  "basefilename": "sandwich",
+  "cldr": "sandwich",
+  "fromVersion": "5.0",
+  "glyph": "\uD83E\uDD6A",
+  "glyphAsUtfInEmoticons": [
+    "1f96a_sandwich"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "bread",
+    "sandwich"
+  ],
+  "mappedToEmoticons": [
+    "1f96a_sandwich"
+  ],
+  "tts": "sandwich",
+  "unicode": "1f96a",
+  "unicodeSkintones": null
+}

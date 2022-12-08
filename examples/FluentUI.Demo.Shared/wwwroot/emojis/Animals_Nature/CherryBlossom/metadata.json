@@ -1,0 +1,21 @@
+{
+  "basefilename": "cherry_blossom",
+  "cldr": "cherry blossom",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF38",
+  "glyphAsUtfInEmoticons": [
+    "cherryblossom"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "blossom",
+    "cherry",
+    "flower"
+  ],
+  "mappedToEmoticons": [
+    "cherryblossom"
+  ],
+  "tts": "cherry blossom",
+  "unicode": "1f338",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,21 @@
+{
+  "basefilename": "bust_in_silhouette",
+  "cldr": "bust in silhouette",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC64",
+  "glyphAsUtfInEmoticons": [
+    "1f464_bustinsilhouette"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "bust",
+    "bust in silhouette",
+    "silhouette"
+  ],
+  "mappedToEmoticons": [
+    "1f464_bustinsilhouette"
+  ],
+  "tts": "bust in silhouette",
+  "unicode": "1f464",
+  "unicodeSkintones": null
+}

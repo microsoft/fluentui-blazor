@@ -1,0 +1,24 @@
+{
+  "basefilename": "crystal_ball",
+  "cldr": "crystal ball",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDD2E",
+  "glyphAsUtfInEmoticons": [
+    "1f52e_crystalball"
+  ],
+  "group": "Activities",
+  "keywords": [
+    "ball",
+    "crystal",
+    "fairy tale",
+    "fantasy",
+    "fortune",
+    "tool"
+  ],
+  "mappedToEmoticons": [
+    "1f52e_crystalball"
+  ],
+  "tts": "crystal ball",
+  "unicode": "1f52e",
+  "unicodeSkintones": null
+}

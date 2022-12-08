@@ -1,0 +1,23 @@
+{
+  "basefilename": "face_exhaling",
+  "cldr": "face exhaling",
+  "fromVersion": "13.1",
+  "glyph": "\uD83D\uDE2E\u200D\uD83D\uDCA8",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "exhale",
+    "face exhaling",
+    "gasp",
+    "groan",
+    "relief",
+    "whisper",
+    "whistle"
+  ],
+  "mappedToEmoticons": [
+    "faceexhaling"
+  ],
+  "tts": "face exhaling",
+  "unicode": "1f62e 200d 1f4a8",
+  "unicodeSkintones": null
+}

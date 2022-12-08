@@ -1,0 +1,20 @@
+{
+  "basefilename": "ng_button",
+  "cldr": "NG button",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDD96",
+  "glyphAsUtfInEmoticons": [
+    "1f196_squaredng"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "ng",
+    "NG button"
+  ],
+  "mappedToEmoticons": [
+    "1f196_squaredng"
+  ],
+  "tts": "NG button",
+  "unicode": "1f196",
+  "unicodeSkintones": null
+}

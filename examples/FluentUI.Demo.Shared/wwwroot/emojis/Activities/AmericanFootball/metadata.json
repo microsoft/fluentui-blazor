@@ -1,0 +1,21 @@
+{
+  "basefilename": "american_football",
+  "cldr": "american football",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDFC8",
+  "glyphAsUtfInEmoticons": [
+    "americanfootball"
+  ],
+  "group": "Activities",
+  "keywords": [
+    "american",
+    "ball",
+    "football"
+  ],
+  "mappedToEmoticons": [
+    "americanfootball"
+  ],
+  "tts": "american football",
+  "unicode": "1f3c8",
+  "unicodeSkintones": null
+}

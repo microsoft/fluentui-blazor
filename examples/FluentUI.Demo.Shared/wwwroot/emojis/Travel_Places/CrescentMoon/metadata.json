@@ -1,0 +1,20 @@
+{
+  "basefilename": "crescent_moon",
+  "cldr": "crescent moon",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF19",
+  "glyphAsUtfInEmoticons": [
+    "1f319_crescentmoon"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "crescent",
+    "moon"
+  ],
+  "mappedToEmoticons": [
+    "1f319_crescentmoon"
+  ],
+  "tts": "crescent moon",
+  "unicode": "1f319",
+  "unicodeSkintones": null
+}

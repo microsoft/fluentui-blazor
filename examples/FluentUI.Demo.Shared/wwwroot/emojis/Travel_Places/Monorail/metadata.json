@@ -1,0 +1,20 @@
+{
+  "basefilename": "monorail",
+  "cldr": "monorail",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDE9D",
+  "glyphAsUtfInEmoticons": [
+    "1f69d_monorail"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "monorail",
+    "vehicle"
+  ],
+  "mappedToEmoticons": [
+    "1f69d_monorail"
+  ],
+  "tts": "monorail",
+  "unicode": "1f69d",
+  "unicodeSkintones": null
+}

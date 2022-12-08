@@ -1,0 +1,21 @@
+{
+  "basefilename": "next_track_button",
+  "cldr": "next track button",
+  "fromVersion": "0.7",
+  "glyph": "\u23ED\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Symbols",
+  "keywords": [
+    "arrow",
+    "next scene",
+    "next track",
+    "next track button",
+    "triangle"
+  ],
+  "mappedToEmoticons": [
+    "23ed_nexttrack"
+  ],
+  "tts": "next track button",
+  "unicode": "23ed fe0f",
+  "unicodeSkintones": null
+}

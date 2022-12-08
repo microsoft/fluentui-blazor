@@ -1,0 +1,20 @@
+{
+  "basefilename": "cool_button",
+  "cldr": "COOL button",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDD92",
+  "glyphAsUtfInEmoticons": [
+    "1f192_squaredcool"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "cool",
+    "COOL button"
+  ],
+  "mappedToEmoticons": [
+    "1f192_squaredcool"
+  ],
+  "tts": "COOL button",
+  "unicode": "1f192",
+  "unicodeSkintones": null
+}

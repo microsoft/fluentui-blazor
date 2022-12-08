@@ -1,0 +1,28 @@
+{
+  "basefilename": "woman_golfing",
+  "cldr": "woman golfing",
+  "fromVersion": "4.0",
+  "glyph": "\uD83C\uDFCC\uFE0F\u200D\u2640\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "woman_golfer"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "golf",
+    "woman",
+    "woman golfing"
+  ],
+  "mappedToEmoticons": [
+    "woman_golfer"
+  ],
+  "tts": "woman golfing",
+  "unicode": "1f3cc fe0f 200d 2640 fe0f",
+  "unicodeSkintones": [
+    "1f3cc fe0f 200d 2640 fe0f",
+    "1f3cc 1f3fb 200d 2640 fe0f",
+    "1f3cc 1f3fc 200d 2640 fe0f",
+    "1f3cc 1f3fd 200d 2640 fe0f",
+    "1f3cc 1f3fe 200d 2640 fe0f",
+    "1f3cc 1f3ff 200d 2640 fe0f"
+  ]
+}

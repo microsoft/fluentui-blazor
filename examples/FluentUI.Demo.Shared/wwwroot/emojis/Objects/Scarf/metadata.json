@@ -1,0 +1,20 @@
+{
+  "basefilename": "scarf",
+  "cldr": "scarf",
+  "fromVersion": "5.0",
+  "glyph": "\uD83E\uDDE3",
+  "glyphAsUtfInEmoticons": [
+    "1f9e3_scarf"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "neck",
+    "scarf"
+  ],
+  "mappedToEmoticons": [
+    "1f9e3_scarf"
+  ],
+  "tts": "scarf",
+  "unicode": "1f9e3",
+  "unicodeSkintones": null
+}

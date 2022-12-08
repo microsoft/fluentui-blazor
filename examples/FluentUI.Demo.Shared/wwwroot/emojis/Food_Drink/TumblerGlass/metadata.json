@@ -1,0 +1,23 @@
+{
+  "basefilename": "tumbler_glass",
+  "cldr": "tumbler glass",
+  "fromVersion": "3.0",
+  "glyph": "\uD83E\uDD43",
+  "glyphAsUtfInEmoticons": [
+    "1f943_tumblerglass"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "glass",
+    "liquor",
+    "shot",
+    "tumbler",
+    "whisky"
+  ],
+  "mappedToEmoticons": [
+    "1f943_tumblerglass"
+  ],
+  "tts": "tumbler glass",
+  "unicode": "1f943",
+  "unicodeSkintones": null
+}

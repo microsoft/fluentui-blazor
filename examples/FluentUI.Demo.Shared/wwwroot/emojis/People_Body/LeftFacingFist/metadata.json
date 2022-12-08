@@ -1,0 +1,28 @@
+{
+  "basefilename": "left-facing_fist",
+  "cldr": "left-facing fist",
+  "fromVersion": "3.0",
+  "glyph": "\uD83E\uDD1B",
+  "glyphAsUtfInEmoticons": [
+    "1f91b_leftfacingfist"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "fist",
+    "left-facing fist",
+    "leftwards"
+  ],
+  "mappedToEmoticons": [
+    "1f91b_leftfacingfist"
+  ],
+  "tts": "left-facing fist",
+  "unicode": "1f91b",
+  "unicodeSkintones": [
+    "1f91b",
+    "1f91b 1f3fb",
+    "1f91b 1f3fc",
+    "1f91b 1f3fd",
+    "1f91b 1f3fe",
+    "1f91b 1f3ff"
+  ]
+}

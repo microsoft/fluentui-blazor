@@ -1,0 +1,23 @@
+{
+  "basefilename": "beaming_face_with_smiling_eyes",
+  "cldr": "beaming face with smiling eyes",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDE01",
+  "glyphAsUtfInEmoticons": [
+    "1f601_beamingfacewithsmilingeyes"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "beaming face with smiling eyes",
+    "eye",
+    "face",
+    "grin",
+    "smile"
+  ],
+  "mappedToEmoticons": [
+    "1f601_beamingfacewithsmilingeyes"
+  ],
+  "tts": "beaming face with smiling eyes",
+  "unicode": "1f601",
+  "unicodeSkintones": null
+}

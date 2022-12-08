@@ -1,0 +1,21 @@
+{
+  "basefilename": "umbrella",
+  "cldr": "umbrella",
+  "fromVersion": "0.7",
+  "glyph": "\u2602\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "2602_umbrella"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "clothing",
+    "rain",
+    "umbrella"
+  ],
+  "mappedToEmoticons": [
+    "2602_umbrella"
+  ],
+  "tts": "umbrella",
+  "unicode": "2602 fe0f",
+  "unicodeSkintones": null
+}

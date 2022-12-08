@@ -1,0 +1,21 @@
+{
+  "basefilename": "squid",
+  "cldr": "squid",
+  "fromVersion": "3.0",
+  "glyph": "\uD83E\uDD91",
+  "glyphAsUtfInEmoticons": [
+    "1f991_squid"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "food",
+    "molusc",
+    "squid"
+  ],
+  "mappedToEmoticons": [
+    "1f991_squid"
+  ],
+  "tts": "squid",
+  "unicode": "1f991",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,23 @@
+{
+  "basefilename": "placard",
+  "cldr": "placard",
+  "fromVersion": "13.0",
+  "glyph": "\uD83E\uDEA7",
+  "glyphAsUtfInEmoticons": [
+    "placard"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "demonstration",
+    "picket",
+    "placard",
+    "protest",
+    "sign"
+  ],
+  "mappedToEmoticons": [
+    "placard"
+  ],
+  "tts": "placard",
+  "unicode": "1faa7",
+  "unicodeSkintones": null
+}

@@ -21,7 +21,7 @@
 		<RepositoryUrl>https://github.com/microsoft/fast-blazor</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<EmitCompilerGeneratedFiles>false</EmitCompilerGeneratedFiles>
+		<EmitCompilerGeneratedFiles>tr</EmitCompilerGeneratedFiles>
 		<CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)Generated</CompilerGeneratedFilesOutputPath>
 		<LangVersion>latest</LangVersion>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -73,6 +73,10 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Microsoft.Fast.Components.FluentUI.Generators\Microsoft.Fast.Components.FluentUI.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="wwwroot\emojis\" />
 	</ItemGroup>
 
 	<PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true' Or '$(TF_BUILD)' == 'true'">

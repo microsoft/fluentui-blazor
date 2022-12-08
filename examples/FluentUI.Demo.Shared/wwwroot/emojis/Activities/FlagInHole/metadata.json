@@ -1,0 +1,21 @@
+{
+  "basefilename": "flag_in_hole",
+  "cldr": "flag in hole",
+  "fromVersion": "0.6",
+  "glyph": "\u26F3",
+  "glyphAsUtfInEmoticons": [
+    "flaginhole"
+  ],
+  "group": "Activities",
+  "keywords": [
+    "flag in hole",
+    "golf",
+    "hole"
+  ],
+  "mappedToEmoticons": [
+    "flaginhole"
+  ],
+  "tts": "flag in hole",
+  "unicode": "26f3",
+  "unicodeSkintones": null
+}

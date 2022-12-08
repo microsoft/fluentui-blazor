@@ -1,0 +1,18 @@
+{
+  "basefilename": "oil_drum",
+  "cldr": "oil drum",
+  "fromVersion": "0.7",
+  "glyph": "\uD83D\uDEE2\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "drum",
+    "oil"
+  ],
+  "mappedToEmoticons": [
+    "1f6e2_oildrum"
+  ],
+  "tts": "oil drum",
+  "unicode": "1f6e2 fe0f",
+  "unicodeSkintones": null
+}

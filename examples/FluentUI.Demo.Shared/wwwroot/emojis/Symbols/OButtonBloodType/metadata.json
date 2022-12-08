@@ -1,0 +1,19 @@
+{
+  "basefilename": "o_button_blood_type",
+  "cldr": "O button (blood type)",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDD7E\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Symbols",
+  "keywords": [
+    "blood type",
+    "o",
+    "O button (blood type)"
+  ],
+  "mappedToEmoticons": [
+    "1f17e_bloodtype0"
+  ],
+  "tts": "O button (blood type)",
+  "unicode": "1f17e fe0f",
+  "unicodeSkintones": null
+}

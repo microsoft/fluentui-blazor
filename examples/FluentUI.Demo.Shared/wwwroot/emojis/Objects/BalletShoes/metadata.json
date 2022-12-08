@@ -1,0 +1,21 @@
+{
+  "basefilename": "ballet_shoes",
+  "cldr": "ballet shoes",
+  "fromVersion": "12.0",
+  "glyph": "\uD83E\uDE70",
+  "glyphAsUtfInEmoticons": [
+    "1fa70_balletshoes"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "ballet",
+    "ballet shoes",
+    "dance"
+  ],
+  "mappedToEmoticons": [
+    "1fa70_balletshoes"
+  ],
+  "tts": "ballet shoes",
+  "unicode": "1fa70",
+  "unicodeSkintones": null
+}

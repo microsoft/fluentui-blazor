@@ -1,0 +1,21 @@
+{
+  "basefilename": "flying_saucer",
+  "cldr": "flying saucer",
+  "fromVersion": "5.0",
+  "glyph": "\uD83D\uDEF8",
+  "glyphAsUtfInEmoticons": [
+    "1f6f8_flyingsaucer",
+    "millenniumfalcon"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "flying saucer",
+    "UFO"
+  ],
+  "mappedToEmoticons": [
+    "1f6f8_flyingsaucer"
+  ],
+  "tts": "flying saucer",
+  "unicode": "1f6f8",
+  "unicodeSkintones": null
+}

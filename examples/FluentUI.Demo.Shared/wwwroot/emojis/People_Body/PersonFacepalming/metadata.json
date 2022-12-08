@@ -1,0 +1,31 @@
+{
+  "basefilename": "person_facepalming",
+  "cldr": "person facepalming",
+  "fromVersion": "3.0",
+  "glyph": "\uD83E\uDD26",
+  "glyphAsUtfInEmoticons": [
+    "1f926_personfacepalming",
+    "facepalm"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "disbelief",
+    "exasperation",
+    "face",
+    "palm",
+    "person facepalming"
+  ],
+  "mappedToEmoticons": [
+    "1f926_personfacepalming"
+  ],
+  "tts": "person facepalming",
+  "unicode": "1f926",
+  "unicodeSkintones": [
+    "1f926",
+    "1f926 1f3fb",
+    "1f926 1f3fc",
+    "1f926 1f3fd",
+    "1f926 1f3fe",
+    "1f926 1f3ff"
+  ]
+}

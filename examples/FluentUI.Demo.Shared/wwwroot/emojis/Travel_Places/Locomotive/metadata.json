@@ -1,0 +1,23 @@
+{
+  "basefilename": "locomotive",
+  "cldr": "locomotive",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDE82",
+  "glyphAsUtfInEmoticons": [
+    "steamtrain"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "engine",
+    "locomotive",
+    "railway",
+    "steam",
+    "train"
+  ],
+  "mappedToEmoticons": [
+    "steamtrain"
+  ],
+  "tts": "locomotive",
+  "unicode": "1f682",
+  "unicodeSkintones": null
+}

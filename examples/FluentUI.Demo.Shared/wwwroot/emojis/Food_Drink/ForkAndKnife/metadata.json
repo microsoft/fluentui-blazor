@@ -1,0 +1,23 @@
+{
+  "basefilename": "fork_and_knife",
+  "cldr": "fork and knife",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF74",
+  "glyphAsUtfInEmoticons": [
+    "1f374_forkandknife"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "cooking",
+    "cutlery",
+    "fork",
+    "fork and knife",
+    "knife"
+  ],
+  "mappedToEmoticons": [
+    "1f374_forkandknife"
+  ],
+  "tts": "fork and knife",
+  "unicode": "1f374",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,24 @@
+{
+  "basefilename": "vibration_mode",
+  "cldr": "vibration mode",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCF3",
+  "glyphAsUtfInEmoticons": [
+    "1f4f3_vibrationmode"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "cell",
+    "mobile",
+    "mode",
+    "phone",
+    "telephone",
+    "vibration"
+  ],
+  "mappedToEmoticons": [
+    "1f4f3_vibrationmode"
+  ],
+  "tts": "vibration mode",
+  "unicode": "1f4f3",
+  "unicodeSkintones": null
+}

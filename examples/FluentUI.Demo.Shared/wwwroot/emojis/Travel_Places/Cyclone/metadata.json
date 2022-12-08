@@ -1,0 +1,23 @@
+{
+  "basefilename": "cyclone",
+  "cldr": "cyclone",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF00",
+  "glyphAsUtfInEmoticons": [
+    "1f300_cyclone"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "cyclone",
+    "dizzy",
+    "hurricane",
+    "twister",
+    "typhoon"
+  ],
+  "mappedToEmoticons": [
+    "1f300_cyclone"
+  ],
+  "tts": "cyclone",
+  "unicode": "1f300",
+  "unicodeSkintones": null
+}

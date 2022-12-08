@@ -1,0 +1,22 @@
+{
+  "basefilename": "face_savoring_food",
+  "cldr": "face savoring food",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDE0B",
+  "glyphAsUtfInEmoticons": [
+    "tongueout"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "delicious",
+    "face",
+    "face savoring food",
+    "savouring",
+    "smile",
+    "yum"
+  ],
+  "mappedToEmoticons": null,
+  "tts": "face savoring food",
+  "unicode": "1f60b",
+  "unicodeSkintones": null
+}

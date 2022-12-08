@@ -1,0 +1,24 @@
+{
+  "basefilename": "ghost",
+  "cldr": "ghost",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC7B",
+  "glyphAsUtfInEmoticons": [
+    "ghost"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "creature",
+    "face",
+    "fairy tale",
+    "fantasy",
+    "ghost",
+    "monster"
+  ],
+  "mappedToEmoticons": [
+    "ghost"
+  ],
+  "tts": "ghost",
+  "unicode": "1f47b",
+  "unicodeSkintones": null
+}

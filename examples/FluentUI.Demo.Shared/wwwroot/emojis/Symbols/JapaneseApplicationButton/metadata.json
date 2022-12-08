@@ -1,0 +1,23 @@
+{
+  "basefilename": "japanese_application_button",
+  "cldr": "Japanese \u201Capplication\u201D button",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDE38",
+  "glyphAsUtfInEmoticons": [
+    "1f238_application"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "\u201Capplication\u201D",
+    "ideograph",
+    "Japanese",
+    "Japanese \u201Capplication\u201D button",
+    "\u7533"
+  ],
+  "mappedToEmoticons": [
+    "1f238_application"
+  ],
+  "tts": "Japanese \u201Capplication\u201D button",
+  "unicode": "1f238",
+  "unicodeSkintones": null
+}

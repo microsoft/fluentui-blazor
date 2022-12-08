@@ -1,0 +1,22 @@
+{
+  "basefilename": "paw_prints",
+  "cldr": "paw prints",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC3E",
+  "glyphAsUtfInEmoticons": [
+    "1f43e_pawprints"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "feet",
+    "paw",
+    "paw prints",
+    "print"
+  ],
+  "mappedToEmoticons": [
+    "1f43e_pawprints"
+  ],
+  "tts": "paw prints",
+  "unicode": "1f43e",
+  "unicodeSkintones": null
+}

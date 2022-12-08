@@ -1,0 +1,21 @@
+{
+  "basefilename": "post_office",
+  "cldr": "post office",
+  "fromVersion": "1.0",
+  "glyph": "\uD83C\uDFE4",
+  "glyphAsUtfInEmoticons": [
+    "1f3e4_europeanpostoffice"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "European",
+    "post",
+    "post office"
+  ],
+  "mappedToEmoticons": [
+    "1f3e4_europeanpostoffice"
+  ],
+  "tts": "post office",
+  "unicode": "1f3e4",
+  "unicodeSkintones": null
+}

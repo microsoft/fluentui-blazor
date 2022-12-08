@@ -1,0 +1,23 @@
+{
+  "basefilename": "mens_room",
+  "cldr": "men\u2019s room",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDEB9",
+  "glyphAsUtfInEmoticons": [
+    "1f6b9_menssymbol"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "lavatory",
+    "man",
+    "men\u2019s room",
+    "restroom",
+    "wc"
+  ],
+  "mappedToEmoticons": [
+    "1f6b9_menssymbol"
+  ],
+  "tts": "men\u2019s room",
+  "unicode": "1f6b9",
+  "unicodeSkintones": null
+}

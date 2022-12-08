@@ -1,0 +1,21 @@
+{
+  "basefilename": "mount_fuji",
+  "cldr": "mount fuji",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDDFB",
+  "glyphAsUtfInEmoticons": [
+    "1f5fb_mountfuji"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "fuji",
+    "mount fuji",
+    "mountain"
+  ],
+  "mappedToEmoticons": [
+    "1f5fb_mountfuji"
+  ],
+  "tts": "mount fuji",
+  "unicode": "1f5fb",
+  "unicodeSkintones": null
+}

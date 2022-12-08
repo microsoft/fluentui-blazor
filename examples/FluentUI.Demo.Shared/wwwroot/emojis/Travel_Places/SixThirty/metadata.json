@@ -1,0 +1,24 @@
+{
+  "basefilename": "six-thirty",
+  "cldr": "six-thirty",
+  "fromVersion": "0.7",
+  "glyph": "\uD83D\uDD61",
+  "glyphAsUtfInEmoticons": [
+    "1f561_sixthirty"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "6",
+    "6:30",
+    "clock",
+    "six",
+    "six-thirty",
+    "thirty"
+  ],
+  "mappedToEmoticons": [
+    "1f561_sixthirty"
+  ],
+  "tts": "six-thirty",
+  "unicode": "1f561",
+  "unicodeSkintones": null
+}

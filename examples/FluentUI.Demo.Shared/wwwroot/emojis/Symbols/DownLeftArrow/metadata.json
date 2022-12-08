@@ -1,0 +1,23 @@
+{
+  "basefilename": "down-left_arrow",
+  "cldr": "down-left arrow",
+  "fromVersion": "0.6",
+  "glyph": "\u2199\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "2199_southwestarrow"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "arrow",
+    "direction",
+    "down-left arrow",
+    "intercardinal",
+    "southwest"
+  ],
+  "mappedToEmoticons": [
+    "2199_southwestarrow"
+  ],
+  "tts": "down-left arrow",
+  "unicode": "2199 fe0f",
+  "unicodeSkintones": null
+}

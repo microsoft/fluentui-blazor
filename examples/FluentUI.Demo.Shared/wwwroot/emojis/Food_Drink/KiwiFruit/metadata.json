@@ -1,0 +1,21 @@
+{
+  "basefilename": "kiwi_fruit",
+  "cldr": "kiwi fruit",
+  "fromVersion": "3.0",
+  "glyph": "\uD83E\uDD5D",
+  "glyphAsUtfInEmoticons": [
+    "1f95d_kiwifruit"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "food",
+    "fruit",
+    "kiwi"
+  ],
+  "mappedToEmoticons": [
+    "1f95d_kiwifruit"
+  ],
+  "tts": "kiwi fruit",
+  "unicode": "1f95d",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,22 @@
+{
+  "basefilename": "polar_bear",
+  "cldr": "polar bear",
+  "fromVersion": "13.0",
+  "glyph": "\uD83D\uDC3B\u200D\u2744\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "polarbearface"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "arctic",
+    "bear",
+    "polar bear",
+    "white"
+  ],
+  "mappedToEmoticons": [
+    "polarbear"
+  ],
+  "tts": "polar bear",
+  "unicode": "1f43b 200d 2744 fe0f",
+  "unicodeSkintones": null
+}

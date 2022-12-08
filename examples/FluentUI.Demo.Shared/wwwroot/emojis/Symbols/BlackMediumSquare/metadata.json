@@ -1,0 +1,21 @@
+{
+  "basefilename": "black_medium_square",
+  "cldr": "black medium square",
+  "fromVersion": "0.6",
+  "glyph": "\u25FC\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "25fc_blackmediumsquare"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "black medium square",
+    "geometric",
+    "square"
+  ],
+  "mappedToEmoticons": [
+    "25fc_blackmediumsquare"
+  ],
+  "tts": "black medium square",
+  "unicode": "25fc fe0f",
+  "unicodeSkintones": null
+}

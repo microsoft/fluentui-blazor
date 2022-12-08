@@ -1,0 +1,20 @@
+{
+  "basefilename": "panda",
+  "cldr": "panda",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC3C",
+  "glyphAsUtfInEmoticons": [
+    "panda"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "face",
+    "panda"
+  ],
+  "mappedToEmoticons": [
+    "panda"
+  ],
+  "tts": "panda",
+  "unicode": "1f43c",
+  "unicodeSkintones": null
+}

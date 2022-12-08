@@ -1,0 +1,18 @@
+{
+  "basefilename": "airplane",
+  "cldr": "airplane",
+  "fromVersion": "0.6",
+  "glyph": "\u2708\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "aeroplane",
+    "airplane"
+  ],
+  "mappedToEmoticons": [
+    "plane"
+  ],
+  "tts": "airplane",
+  "unicode": "2708 fe0f",
+  "unicodeSkintones": null
+}

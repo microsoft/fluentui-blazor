@@ -1,0 +1,21 @@
+{
+  "basefilename": "honeybee",
+  "cldr": "honeybee",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC1D",
+  "glyphAsUtfInEmoticons": [
+    "bee"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "bee",
+    "honeybee",
+    "insect"
+  ],
+  "mappedToEmoticons": [
+    "bee"
+  ],
+  "tts": "honeybee",
+  "unicode": "1f41d",
+  "unicodeSkintones": null
+}

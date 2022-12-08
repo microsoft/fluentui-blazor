@@ -1,0 +1,24 @@
+{
+  "basefilename": "two-thirty",
+  "cldr": "two-thirty",
+  "fromVersion": "0.7",
+  "glyph": "\uD83D\uDD5D",
+  "glyphAsUtfInEmoticons": [
+    "1f55d_twothirty"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "2",
+    "2:30",
+    "clock",
+    "thirty",
+    "two",
+    "two-thirty"
+  ],
+  "mappedToEmoticons": [
+    "1f55d_twothirty"
+  ],
+  "tts": "two-thirty",
+  "unicode": "1f55d",
+  "unicodeSkintones": null
+}

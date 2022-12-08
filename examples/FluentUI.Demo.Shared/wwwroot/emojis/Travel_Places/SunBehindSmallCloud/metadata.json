@@ -1,0 +1,19 @@
+{
+  "basefilename": "sun_behind_small_cloud",
+  "cldr": "sun behind small cloud",
+  "fromVersion": "0.7",
+  "glyph": "\uD83C\uDF24\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "cloud",
+    "sun",
+    "sun behind small cloud"
+  ],
+  "mappedToEmoticons": [
+    "1f324_sunbehindsmallcloud"
+  ],
+  "tts": "sun behind small cloud",
+  "unicode": "1f324 fe0f",
+  "unicodeSkintones": null
+}

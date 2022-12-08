@@ -1,0 +1,24 @@
+{
+  "basefilename": "star_of_david",
+  "cldr": "star of David",
+  "fromVersion": "0.7",
+  "glyph": "\u2721\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "2721_starofdavid"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "David",
+    "Jew",
+    "Jewish",
+    "religion",
+    "star",
+    "star of David"
+  ],
+  "mappedToEmoticons": [
+    "2721_starofdavid"
+  ],
+  "tts": "star of David",
+  "unicode": "2721 fe0f",
+  "unicodeSkintones": null
+}

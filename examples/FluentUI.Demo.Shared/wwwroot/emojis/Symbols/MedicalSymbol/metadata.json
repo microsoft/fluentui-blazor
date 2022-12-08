@@ -1,0 +1,22 @@
+{
+  "basefilename": "medical_symbol",
+  "cldr": "medical symbol",
+  "fromVersion": "4.0",
+  "glyph": "\u2695\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "2695_staffofaesculapius"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "aesculapius",
+    "medical symbol",
+    "medicine",
+    "staff"
+  ],
+  "mappedToEmoticons": [
+    "2695_staffofaesculapius"
+  ],
+  "tts": "medical symbol",
+  "unicode": "2695 fe0f",
+  "unicodeSkintones": null
+}

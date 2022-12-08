@@ -1,0 +1,21 @@
+{
+  "basefilename": "beetle",
+  "cldr": "beetle",
+  "fromVersion": "13.0",
+  "glyph": "\uD83E\uDEB2",
+  "glyphAsUtfInEmoticons": [
+    "beetle"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "beetle",
+    "bug",
+    "insect"
+  ],
+  "mappedToEmoticons": [
+    "beetle"
+  ],
+  "tts": "beetle",
+  "unicode": "1fab2",
+  "unicodeSkintones": null
+}

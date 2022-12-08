@@ -1,0 +1,20 @@
+{
+  "basefilename": "spiral_notepad",
+  "cldr": "spiral notepad",
+  "fromVersion": "0.7",
+  "glyph": "\uD83D\uDDD2\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Objects",
+  "keywords": [
+    "note",
+    "pad",
+    "spiral",
+    "spiral notepad"
+  ],
+  "mappedToEmoticons": [
+    "1f5d2_spiralnotepad"
+  ],
+  "tts": "spiral notepad",
+  "unicode": "1f5d2 fe0f",
+  "unicodeSkintones": null
+}

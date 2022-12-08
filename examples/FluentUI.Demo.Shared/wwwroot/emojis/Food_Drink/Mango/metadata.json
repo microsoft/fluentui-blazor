@@ -1,0 +1,21 @@
+{
+  "basefilename": "mango",
+  "cldr": "mango",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDD6D",
+  "glyphAsUtfInEmoticons": [
+    "1f96d_mango"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "fruit",
+    "mango",
+    "tropical"
+  ],
+  "mappedToEmoticons": [
+    "1f96d_mango"
+  ],
+  "tts": "mango",
+  "unicode": "1f96d",
+  "unicodeSkintones": null
+}

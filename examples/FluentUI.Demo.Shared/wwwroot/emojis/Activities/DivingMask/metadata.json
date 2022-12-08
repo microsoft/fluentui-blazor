@@ -1,0 +1,22 @@
+{
+  "basefilename": "diving_mask",
+  "cldr": "diving mask",
+  "fromVersion": "12.0",
+  "glyph": "\uD83E\uDD3F",
+  "glyphAsUtfInEmoticons": [
+    "1f93f_divingmask"
+  ],
+  "group": "Activities",
+  "keywords": [
+    "diving",
+    "diving mask",
+    "scuba",
+    "snorkeling"
+  ],
+  "mappedToEmoticons": [
+    "1f93f_divingmask"
+  ],
+  "tts": "diving mask",
+  "unicode": "1f93f",
+  "unicodeSkintones": null
+}

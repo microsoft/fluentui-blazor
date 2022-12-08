@@ -1,0 +1,24 @@
+{
+  "basefilename": "high_voltage",
+  "cldr": "high voltage",
+  "fromVersion": "0.6",
+  "glyph": "\u26A1",
+  "glyphAsUtfInEmoticons": [
+    "26a1_highvoltagesign"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "danger",
+    "electric",
+    "high voltage",
+    "lightning",
+    "voltage",
+    "zap"
+  ],
+  "mappedToEmoticons": [
+    "26a1_highvoltagesign"
+  ],
+  "tts": "high voltage",
+  "unicode": "26a1",
+  "unicodeSkintones": null
+}

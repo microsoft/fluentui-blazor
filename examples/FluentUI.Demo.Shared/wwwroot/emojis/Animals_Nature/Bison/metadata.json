@@ -1,0 +1,22 @@
+{
+  "basefilename": "bison",
+  "cldr": "bison",
+  "fromVersion": "13.0",
+  "glyph": "\uD83E\uDDAC",
+  "glyphAsUtfInEmoticons": [
+    "bison"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "bison",
+    "buffalo",
+    "herd",
+    "wisent"
+  ],
+  "mappedToEmoticons": [
+    "bison"
+  ],
+  "tts": "bison",
+  "unicode": "1f9ac",
+  "unicodeSkintones": null
+}

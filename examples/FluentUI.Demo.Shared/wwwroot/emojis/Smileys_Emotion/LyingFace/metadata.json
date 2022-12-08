@@ -1,0 +1,22 @@
+{
+  "basefilename": "lying_face",
+  "cldr": "lying face",
+  "fromVersion": "3.0",
+  "glyph": "\uD83E\uDD25",
+  "glyphAsUtfInEmoticons": [
+    "1f925_lyingface"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "face",
+    "lie",
+    "lying face",
+    "pinocchio"
+  ],
+  "mappedToEmoticons": [
+    "1f925_lyingface"
+  ],
+  "tts": "lying face",
+  "unicode": "1f925",
+  "unicodeSkintones": null
+}

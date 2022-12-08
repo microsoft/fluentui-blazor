@@ -1,0 +1,21 @@
+{
+  "basefilename": "face_with_open_mouth",
+  "cldr": "face with open mouth",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDE2E",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "face",
+    "face with open mouth",
+    "mouth",
+    "open",
+    "sympathy"
+  ],
+  "mappedToEmoticons": [
+    "surprised"
+  ],
+  "tts": "face with open mouth",
+  "unicode": "1f62e",
+  "unicodeSkintones": null
+}

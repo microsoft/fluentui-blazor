@@ -1,0 +1,24 @@
+{
+  "basefilename": "seven-thirty",
+  "cldr": "seven-thirty",
+  "fromVersion": "0.7",
+  "glyph": "\uD83D\uDD62",
+  "glyphAsUtfInEmoticons": [
+    "1f562_seventhirty"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "7",
+    "7:30",
+    "clock",
+    "seven",
+    "seven-thirty",
+    "thirty"
+  ],
+  "mappedToEmoticons": [
+    "1f562_seventhirty"
+  ],
+  "tts": "seven-thirty",
+  "unicode": "1f562",
+  "unicodeSkintones": null
+}

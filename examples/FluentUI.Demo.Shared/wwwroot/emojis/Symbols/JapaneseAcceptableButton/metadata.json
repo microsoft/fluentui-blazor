@@ -1,0 +1,23 @@
+{
+  "basefilename": "japanese_acceptable_button",
+  "cldr": "Japanese \u201Cacceptable\u201D button",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDE51",
+  "glyphAsUtfInEmoticons": [
+    "1f251_circledideographaccept"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "\u201Cacceptable\u201D",
+    "ideograph",
+    "Japanese",
+    "Japanese \u201Cacceptable\u201D button",
+    "\u53EF"
+  ],
+  "mappedToEmoticons": [
+    "1f251_circledideographaccept"
+  ],
+  "tts": "Japanese \u201Cacceptable\u201D button",
+  "unicode": "1f251",
+  "unicodeSkintones": null
+}

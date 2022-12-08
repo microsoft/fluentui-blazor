@@ -1,0 +1,20 @@
+{
+  "basefilename": "white_flower",
+  "cldr": "white flower",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCAE",
+  "glyphAsUtfInEmoticons": [
+    "1f4ae_whiteflower"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "flower",
+    "white flower"
+  ],
+  "mappedToEmoticons": [
+    "1f4ae_whiteflower"
+  ],
+  "tts": "white flower",
+  "unicode": "1f4ae",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,17 @@
+{
+  "basefilename": "mountain",
+  "cldr": "mountain",
+  "fromVersion": "0.7",
+  "glyph": "\u26F0\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "mountain"
+  ],
+  "mappedToEmoticons": [
+    "26f0_mountain"
+  ],
+  "tts": "mountain",
+  "unicode": "26f0 fe0f",
+  "unicodeSkintones": null
+}

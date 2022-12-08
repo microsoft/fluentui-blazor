@@ -1,0 +1,25 @@
+{
+  "basefilename": "cross_mark",
+  "cldr": "cross mark",
+  "fromVersion": "0.6",
+  "glyph": "\u274C",
+  "glyphAsUtfInEmoticons": [
+    "274c_crossmark"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "\u00D7",
+    "cancel",
+    "cross",
+    "mark",
+    "multiplication",
+    "multiply",
+    "x"
+  ],
+  "mappedToEmoticons": [
+    "274c_crossmark"
+  ],
+  "tts": "cross mark",
+  "unicode": "274c",
+  "unicodeSkintones": null
+}

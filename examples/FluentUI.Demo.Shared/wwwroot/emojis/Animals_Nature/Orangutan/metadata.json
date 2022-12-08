@@ -1,0 +1,18 @@
+{
+  "basefilename": "orangutan",
+  "cldr": "orangutan",
+  "fromVersion": "12.0",
+  "glyph": "\uD83E\uDDA7",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "ape",
+    "orangutan"
+  ],
+  "mappedToEmoticons": [
+    "orangutanscratching"
+  ],
+  "tts": "orangutan",
+  "unicode": "1f9a7",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,30 @@
+{
+  "basefilename": "person_in_tuxedo",
+  "cldr": "person in tuxedo",
+  "fromVersion": "3.0",
+  "glyph": "\uD83E\uDD35",
+  "glyphAsUtfInEmoticons": [
+    "man_tuxedo",
+    "personintuxedo"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "groom",
+    "person",
+    "person in tuxedo",
+    "tuxedo"
+  ],
+  "mappedToEmoticons": [
+    "personintuxedo"
+  ],
+  "tts": "person in tuxedo",
+  "unicode": "1f935",
+  "unicodeSkintones": [
+    "1f935",
+    "1f935 1f3fb",
+    "1f935 1f3fc",
+    "1f935 1f3fd",
+    "1f935 1f3fe",
+    "1f935 1f3ff"
+  ]
+}

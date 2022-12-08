@@ -1,0 +1,24 @@
+{
+  "basefilename": "five_oclock",
+  "cldr": "five o\u2019clock",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDD54",
+  "glyphAsUtfInEmoticons": [
+    "1f554_fiveoclock"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "00",
+    "5",
+    "5:00",
+    "clock",
+    "five",
+    "o\u2019clock"
+  ],
+  "mappedToEmoticons": [
+    "1f554_fiveoclock"
+  ],
+  "tts": "five o\u2019clock",
+  "unicode": "1f554",
+  "unicodeSkintones": null
+}

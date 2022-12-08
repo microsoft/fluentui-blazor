@@ -1,0 +1,20 @@
+{
+  "basefilename": "cigarette",
+  "cldr": "cigarette",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDEAC",
+  "glyphAsUtfInEmoticons": [
+    "smoke"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "cigarette",
+    "smoking"
+  ],
+  "mappedToEmoticons": [
+    "cigarette"
+  ],
+  "tts": "cigarette",
+  "unicode": "1f6ac",
+  "unicodeSkintones": null
+}

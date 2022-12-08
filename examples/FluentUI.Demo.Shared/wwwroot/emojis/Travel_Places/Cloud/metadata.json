@@ -1,0 +1,20 @@
+{
+  "basefilename": "cloud",
+  "cldr": "cloud",
+  "fromVersion": "0.6",
+  "glyph": "\u2601\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "2601_cloud"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "cloud",
+    "weather"
+  ],
+  "mappedToEmoticons": [
+    "2601_cloud"
+  ],
+  "tts": "cloud",
+  "unicode": "2601 fe0f",
+  "unicodeSkintones": null
+}

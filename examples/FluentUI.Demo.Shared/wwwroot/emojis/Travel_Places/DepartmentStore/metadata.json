@@ -1,0 +1,20 @@
+{
+  "basefilename": "department_store",
+  "cldr": "department store",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDFEC",
+  "glyphAsUtfInEmoticons": [
+    "1f3ec_departmentstore"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "department",
+    "store"
+  ],
+  "mappedToEmoticons": [
+    "1f3ec_departmentstore"
+  ],
+  "tts": "department store",
+  "unicode": "1f3ec",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,23 @@
+{
+  "basefilename": "japanese_free_of_charge_button",
+  "cldr": "Japanese \u201Cfree of charge\u201D button",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDE1A",
+  "glyphAsUtfInEmoticons": [
+    "1f21a_freeofcharge"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "\u201Cfree of charge\u201D",
+    "ideograph",
+    "Japanese",
+    "Japanese \u201Cfree of charge\u201D button",
+    "\u7121"
+  ],
+  "mappedToEmoticons": [
+    "1f21a_freeofcharge"
+  ],
+  "tts": "Japanese \u201Cfree of charge\u201D button",
+  "unicode": "1f21a",
+  "unicodeSkintones": null
+}

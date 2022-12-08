@@ -1,0 +1,23 @@
+{
+  "basefilename": "prayer_beads",
+  "cldr": "prayer beads",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDCFF",
+  "glyphAsUtfInEmoticons": [
+    "1f4ff_prayerbeads"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "beads",
+    "clothing",
+    "necklace",
+    "prayer",
+    "religion"
+  ],
+  "mappedToEmoticons": [
+    "1f4ff_prayerbeads"
+  ],
+  "tts": "prayer beads",
+  "unicode": "1f4ff",
+  "unicodeSkintones": null
+}

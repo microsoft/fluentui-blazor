@@ -1,0 +1,24 @@
+{
+  "basefilename": "woozy_face",
+  "cldr": "woozy face",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDD74",
+  "glyphAsUtfInEmoticons": [
+    "1f974_woozyface"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "dizzy",
+    "intoxicated",
+    "tipsy",
+    "uneven eyes",
+    "wavy mouth",
+    "woozy face"
+  ],
+  "mappedToEmoticons": [
+    "1f974_woozyface"
+  ],
+  "tts": "woozy face",
+  "unicode": "1f974",
+  "unicodeSkintones": null
+}

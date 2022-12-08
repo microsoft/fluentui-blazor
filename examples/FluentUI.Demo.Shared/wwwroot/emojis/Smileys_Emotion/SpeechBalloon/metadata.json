@@ -1,0 +1,23 @@
+{
+  "basefilename": "speech_balloon",
+  "cldr": "speech balloon",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCAC",
+  "glyphAsUtfInEmoticons": [
+    "speechbubble"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "balloon",
+    "bubble",
+    "comic",
+    "dialog",
+    "speech"
+  ],
+  "mappedToEmoticons": [
+    "speechbubble"
+  ],
+  "tts": "speech balloon",
+  "unicode": "1f4ac",
+  "unicodeSkintones": null
+}

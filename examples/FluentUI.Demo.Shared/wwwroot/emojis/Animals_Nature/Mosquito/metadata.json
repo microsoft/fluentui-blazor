@@ -1,0 +1,24 @@
+{
+  "basefilename": "mosquito",
+  "cldr": "mosquito",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDD9F",
+  "glyphAsUtfInEmoticons": [
+    "1f99f_mosquito"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "disease",
+    "fever",
+    "malaria",
+    "mosquito",
+    "pest",
+    "virus"
+  ],
+  "mappedToEmoticons": [
+    "1f99f_mosquito"
+  ],
+  "tts": "mosquito",
+  "unicode": "1f99f",
+  "unicodeSkintones": null
+}

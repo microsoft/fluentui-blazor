@@ -1,0 +1,23 @@
+{
+  "basefilename": "fly",
+  "cldr": "fly",
+  "fromVersion": "13.0",
+  "glyph": "\uD83E\uDEB0",
+  "glyphAsUtfInEmoticons": [
+    "fly"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "disease",
+    "fly",
+    "maggot",
+    "pest",
+    "rotting"
+  ],
+  "mappedToEmoticons": [
+    "fly"
+  ],
+  "tts": "fly",
+  "unicode": "1fab0",
+  "unicodeSkintones": null
+}

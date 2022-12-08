@@ -1,0 +1,28 @@
+{
+  "basefilename": "man_getting_haircut",
+  "cldr": "man getting haircut",
+  "fromVersion": "4.0",
+  "glyph": "\uD83D\uDC87\u200D\u2642\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "man_getting_haircut"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "haircut",
+    "man",
+    "man getting haircut"
+  ],
+  "mappedToEmoticons": [
+    "man_getting_haircut"
+  ],
+  "tts": "man getting haircut",
+  "unicode": "1f487 200d 2642 fe0f",
+  "unicodeSkintones": [
+    "1f487 200d 2642 fe0f",
+    "1f487 1f3fb 200d 2642 fe0f",
+    "1f487 1f3fc 200d 2642 fe0f",
+    "1f487 1f3fd 200d 2642 fe0f",
+    "1f487 1f3fe 200d 2642 fe0f",
+    "1f487 1f3ff 200d 2642 fe0f"
+  ]
+}

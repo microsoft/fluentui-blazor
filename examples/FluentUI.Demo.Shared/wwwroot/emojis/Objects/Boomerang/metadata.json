@@ -1,0 +1,22 @@
+{
+  "basefilename": "boomerang",
+  "cldr": "boomerang",
+  "fromVersion": "13.0",
+  "glyph": "\uD83E\uDE83",
+  "glyphAsUtfInEmoticons": [
+    "boomerang"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "australia",
+    "boomerang",
+    "rebound",
+    "repercussion"
+  ],
+  "mappedToEmoticons": [
+    "boomerang"
+  ],
+  "tts": "boomerang",
+  "unicode": "1fa83",
+  "unicodeSkintones": null
+}

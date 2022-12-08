@@ -1,0 +1,20 @@
+{
+  "basefilename": "butter",
+  "cldr": "butter",
+  "fromVersion": "12.0",
+  "glyph": "\uD83E\uDDC8",
+  "glyphAsUtfInEmoticons": [
+    "1f9c8_butter"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "butter",
+    "dairy"
+  ],
+  "mappedToEmoticons": [
+    "1f9c8_butter"
+  ],
+  "tts": "butter",
+  "unicode": "1f9c8",
+  "unicodeSkintones": null
+}

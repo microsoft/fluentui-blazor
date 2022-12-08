@@ -1,0 +1,26 @@
+{
+  "basefilename": "guard",
+  "cldr": "guard",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC82",
+  "glyphAsUtfInEmoticons": [
+    "guard"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "guard"
+  ],
+  "mappedToEmoticons": [
+    "guard"
+  ],
+  "tts": "guard",
+  "unicode": "1f482",
+  "unicodeSkintones": [
+    "1f482",
+    "1f482 1f3fb",
+    "1f482 1f3fc",
+    "1f482 1f3fd",
+    "1f482 1f3fe",
+    "1f482 1f3ff"
+  ]
+}

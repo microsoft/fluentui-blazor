@@ -1,0 +1,24 @@
+{
+  "basefilename": "dollar_banknote",
+  "cldr": "dollar banknote",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCB5",
+  "glyphAsUtfInEmoticons": [
+    "1f4b5_banknotewithdollarsign"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "banknote",
+    "bill",
+    "currency",
+    "dollar",
+    "money",
+    "note"
+  ],
+  "mappedToEmoticons": [
+    "1f4b5_banknotewithdollarsign"
+  ],
+  "tts": "dollar banknote",
+  "unicode": "1f4b5",
+  "unicodeSkintones": null
+}

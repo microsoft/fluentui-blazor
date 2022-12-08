@@ -1,0 +1,19 @@
+{
+  "basefilename": "robot",
+  "cldr": "robot",
+  "fromVersion": "1.0",
+  "glyph": "\uD83E\uDD16",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "face",
+    "monster",
+    "robot"
+  ],
+  "mappedToEmoticons": [
+    "smilerobot"
+  ],
+  "tts": "robot",
+  "unicode": "1f916",
+  "unicodeSkintones": null
+}

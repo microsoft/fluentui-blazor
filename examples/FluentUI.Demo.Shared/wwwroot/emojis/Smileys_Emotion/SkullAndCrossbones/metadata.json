@@ -1,0 +1,24 @@
+{
+  "basefilename": "skull_and_crossbones",
+  "cldr": "skull and crossbones",
+  "fromVersion": "1.0",
+  "glyph": "\u2620\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "2620_skullandcrossbones"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "crossbones",
+    "death",
+    "face",
+    "monster",
+    "skull",
+    "skull and crossbones"
+  ],
+  "mappedToEmoticons": [
+    "2620_skullandcrossbones"
+  ],
+  "tts": "skull and crossbones",
+  "unicode": "2620 fe0f",
+  "unicodeSkintones": null
+}

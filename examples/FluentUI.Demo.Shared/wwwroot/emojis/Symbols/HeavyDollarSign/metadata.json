@@ -1,0 +1,22 @@
+{
+  "basefilename": "heavy_dollar_sign",
+  "cldr": "heavy dollar sign",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCB2",
+  "glyphAsUtfInEmoticons": [
+    "cash"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "currency",
+    "dollar",
+    "heavy dollar sign",
+    "money"
+  ],
+  "mappedToEmoticons": [
+    "cash"
+  ],
+  "tts": "heavy dollar sign",
+  "unicode": "1f4b2",
+  "unicodeSkintones": null
+}

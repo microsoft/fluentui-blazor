@@ -1,0 +1,22 @@
+{
+  "basefilename": "large_blue_diamond",
+  "cldr": "large blue diamond",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDD37",
+  "glyphAsUtfInEmoticons": [
+    "1f537_largebluediamond"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "blue",
+    "diamond",
+    "geometric",
+    "large blue diamond"
+  ],
+  "mappedToEmoticons": [
+    "1f537_largebluediamond"
+  ],
+  "tts": "large blue diamond",
+  "unicode": "1f537",
+  "unicodeSkintones": null
+}

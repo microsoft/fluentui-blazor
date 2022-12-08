@@ -1,0 +1,24 @@
+{
+  "basefilename": "pouting_face",
+  "cldr": "pouting face",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDE21",
+  "glyphAsUtfInEmoticons": [
+    "angryface"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "angry",
+    "face",
+    "mad",
+    "pouting",
+    "rage",
+    "red"
+  ],
+  "mappedToEmoticons": [
+    "angryface"
+  ],
+  "tts": "pouting face",
+  "unicode": "1f621",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,28 @@
+{
+  "basefilename": "person_pouting",
+  "cldr": "person pouting",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDE4E",
+  "glyphAsUtfInEmoticons": [
+    "pouting_face"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "gesture",
+    "person pouting",
+    "pouting"
+  ],
+  "mappedToEmoticons": [
+    "pouting_face"
+  ],
+  "tts": "person pouting",
+  "unicode": "1f64e",
+  "unicodeSkintones": [
+    "1f64e",
+    "1f64e 1f3fb",
+    "1f64e 1f3fc",
+    "1f64e 1f3fd",
+    "1f64e 1f3fe",
+    "1f64e 1f3ff"
+  ]
+}

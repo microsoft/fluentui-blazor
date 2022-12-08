@@ -1,0 +1,21 @@
+{
+  "basefilename": "tangerine",
+  "cldr": "tangerine",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF4A",
+  "glyphAsUtfInEmoticons": [
+    "orange"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "fruit",
+    "orange",
+    "tangerine"
+  ],
+  "mappedToEmoticons": [
+    "orange"
+  ],
+  "tts": "tangerine",
+  "unicode": "1f34a",
+  "unicodeSkintones": null
+}

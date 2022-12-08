@@ -1,0 +1,30 @@
+{
+  "basefilename": "older_person",
+  "cldr": "older person",
+  "fromVersion": "5.0",
+  "glyph": "\uD83E\uDDD3",
+  "glyphAsUtfInEmoticons": [
+    "1f9d3_olderadult"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "adult",
+    "gender-neutral",
+    "old",
+    "older person",
+    "unspecified gender"
+  ],
+  "mappedToEmoticons": [
+    "1f9d3_olderadult"
+  ],
+  "tts": "older person",
+  "unicode": "1f9d3",
+  "unicodeSkintones": [
+    "1f9d3",
+    "1f9d3 1f3fb",
+    "1f9d3 1f3fc",
+    "1f9d3 1f3fd",
+    "1f9d3 1f3fe",
+    "1f9d3 1f3ff"
+  ]
+}

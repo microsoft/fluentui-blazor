@@ -1,0 +1,22 @@
+{
+  "basefilename": "star_and_crescent",
+  "cldr": "star and crescent",
+  "fromVersion": "0.7",
+  "glyph": "\u262A\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "262a_starandcrescent"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "islam",
+    "Muslim",
+    "religion",
+    "star and crescent"
+  ],
+  "mappedToEmoticons": [
+    "262a_starandcrescent"
+  ],
+  "tts": "star and crescent",
+  "unicode": "262a fe0f",
+  "unicodeSkintones": null
+}

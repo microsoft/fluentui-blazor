@@ -1,0 +1,17 @@
+{
+  "basefilename": "heavy_equals_sign",
+  "cldr": "heavy equals sign",
+  "fromVersion": "14.0",
+  "glyph": "\uD83D\uDFF0",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Symbols",
+  "keywords": [
+    "equality",
+    "heavy equals sign",
+    "math"
+  ],
+  "mappedToEmoticons": null,
+  "tts": "heavy equals sign",
+  "unicode": "1f7f0",
+  "unicodeSkintones": null
+}

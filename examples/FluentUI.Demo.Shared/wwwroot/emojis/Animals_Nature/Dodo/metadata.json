@@ -1,0 +1,22 @@
+{
+  "basefilename": "dodo",
+  "cldr": "dodo",
+  "fromVersion": "13.0",
+  "glyph": "\uD83E\uDDA4",
+  "glyphAsUtfInEmoticons": [
+    "dodo"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "dodo",
+    "extinction",
+    "large",
+    "Mauritius"
+  ],
+  "mappedToEmoticons": [
+    "dodo"
+  ],
+  "tts": "dodo",
+  "unicode": "1f9a4",
+  "unicodeSkintones": null
+}

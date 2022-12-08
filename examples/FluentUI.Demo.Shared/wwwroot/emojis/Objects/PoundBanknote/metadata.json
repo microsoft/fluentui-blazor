@@ -1,0 +1,24 @@
+{
+  "basefilename": "pound_banknote",
+  "cldr": "pound banknote",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDCB7",
+  "glyphAsUtfInEmoticons": [
+    "1f4b7_banknotewithpoundsign"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "banknote",
+    "bill",
+    "currency",
+    "money",
+    "note",
+    "pound"
+  ],
+  "mappedToEmoticons": [
+    "1f4b7_banknotewithpoundsign"
+  ],
+  "tts": "pound banknote",
+  "unicode": "1f4b7",
+  "unicodeSkintones": null
+}

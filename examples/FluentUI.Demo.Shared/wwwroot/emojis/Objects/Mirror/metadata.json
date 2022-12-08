@@ -1,0 +1,22 @@
+{
+  "basefilename": "mirror",
+  "cldr": "mirror",
+  "fromVersion": "13.0",
+  "glyph": "\uD83E\uDE9E",
+  "glyphAsUtfInEmoticons": [
+    "mirror"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "mirror",
+    "reflection",
+    "reflector",
+    "speculum"
+  ],
+  "mappedToEmoticons": [
+    "mirror"
+  ],
+  "tts": "mirror",
+  "unicode": "1fa9e",
+  "unicodeSkintones": null
+}

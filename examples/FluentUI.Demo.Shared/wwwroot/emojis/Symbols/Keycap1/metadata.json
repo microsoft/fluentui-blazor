@@ -1,0 +1,20 @@
+{
+  "basefilename": "keycap_1",
+  "cldr": "keycap: 1",
+  "fromVersion": "0.6",
+  "glyph": "1\uFE0F\u20E3",
+  "glyphAsUtfInEmoticons": [
+    "keycapdigitone"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "keycap",
+    "one"
+  ],
+  "mappedToEmoticons": [
+    "keycapdigitone"
+  ],
+  "tts": "keycap: 1",
+  "unicode": "0031 fe0f 20e3",
+  "unicodeSkintones": null
+}

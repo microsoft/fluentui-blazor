@@ -1,0 +1,20 @@
+{
+  "basefilename": "funeral_urn",
+  "cldr": "funeral urn",
+  "fromVersion": "1.0",
+  "glyph": "\u26B1\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Objects",
+  "keywords": [
+    "ashes",
+    "death",
+    "funeral",
+    "urn"
+  ],
+  "mappedToEmoticons": [
+    "26b1_funeralurn"
+  ],
+  "tts": "funeral urn",
+  "unicode": "26b1 fe0f",
+  "unicodeSkintones": null
+}

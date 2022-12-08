@@ -1,0 +1,21 @@
+{
+  "basefilename": "lemon",
+  "cldr": "lemon",
+  "fromVersion": "1.0",
+  "glyph": "\uD83C\uDF4B",
+  "glyphAsUtfInEmoticons": [
+    "lemon"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "citrus",
+    "fruit",
+    "lemon"
+  ],
+  "mappedToEmoticons": [
+    "lemon"
+  ],
+  "tts": "lemon",
+  "unicode": "1f34b",
+  "unicodeSkintones": null
+}

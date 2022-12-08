@@ -1,0 +1,24 @@
+{
+  "basefilename": "speak-no-evil_monkey",
+  "cldr": "speak-no-evil monkey",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDE4A",
+  "glyphAsUtfInEmoticons": [
+    "speaknoevil"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "evil",
+    "face",
+    "forbidden",
+    "monkey",
+    "speak",
+    "speak-no-evil monkey"
+  ],
+  "mappedToEmoticons": [
+    "speaknoevil"
+  ],
+  "tts": "speak-no-evil monkey",
+  "unicode": "1f64a",
+  "unicodeSkintones": null
+}

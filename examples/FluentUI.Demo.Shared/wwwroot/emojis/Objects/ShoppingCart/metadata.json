@@ -1,0 +1,21 @@
+{
+  "basefilename": "shopping_cart",
+  "cldr": "shopping cart",
+  "fromVersion": "3.0",
+  "glyph": "\uD83D\uDED2",
+  "glyphAsUtfInEmoticons": [
+    "1f6d2_shoppingtrolley"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "cart",
+    "shopping",
+    "trolley"
+  ],
+  "mappedToEmoticons": [
+    "1f6d2_shoppingtrolley"
+  ],
+  "tts": "shopping cart",
+  "unicode": "1f6d2",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,20 @@
+{
+  "basefilename": "free_button",
+  "cldr": "FREE button",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDD93",
+  "glyphAsUtfInEmoticons": [
+    "1f193_squaredfree"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "free",
+    "FREE button"
+  ],
+  "mappedToEmoticons": [
+    "1f193_squaredfree"
+  ],
+  "tts": "FREE button",
+  "unicode": "1f193",
+  "unicodeSkintones": null
+}

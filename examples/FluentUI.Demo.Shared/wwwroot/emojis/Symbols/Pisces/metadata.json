@@ -1,0 +1,21 @@
+{
+  "basefilename": "pisces",
+  "cldr": "Pisces",
+  "fromVersion": "0.6",
+  "glyph": "\u2653",
+  "glyphAsUtfInEmoticons": [
+    "2653_pisces"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "fish",
+    "Pisces",
+    "zodiac"
+  ],
+  "mappedToEmoticons": [
+    "2653_pisces"
+  ],
+  "tts": "Pisces",
+  "unicode": "2653",
+  "unicodeSkintones": null
+}

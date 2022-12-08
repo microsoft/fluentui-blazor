@@ -1,0 +1,20 @@
+{
+  "basefilename": "balloon",
+  "cldr": "balloon",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF88",
+  "glyphAsUtfInEmoticons": [
+    "1f388_balloon"
+  ],
+  "group": "Activities",
+  "keywords": [
+    "balloon",
+    "celebration"
+  ],
+  "mappedToEmoticons": [
+    "1f388_balloon"
+  ],
+  "tts": "balloon",
+  "unicode": "1f388",
+  "unicodeSkintones": null
+}

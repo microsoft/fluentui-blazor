@@ -1,0 +1,21 @@
+{
+  "basefilename": "statue_of_liberty",
+  "cldr": "Statue of Liberty",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDDFD",
+  "glyphAsUtfInEmoticons": [
+    "statueofliberty"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "liberty",
+    "statue",
+    "Statue of Liberty"
+  ],
+  "mappedToEmoticons": [
+    "statueofliberty"
+  ],
+  "tts": "Statue of Liberty",
+  "unicode": "1f5fd",
+  "unicodeSkintones": null
+}

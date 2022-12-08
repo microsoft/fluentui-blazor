@@ -1,0 +1,20 @@
+{
+  "basefilename": "information",
+  "cldr": "information",
+  "fromVersion": "\uFE0F0.6",
+  "glyph": "\u2139\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "2139_informationsource"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "i",
+    "information"
+  ],
+  "mappedToEmoticons": [
+    "2139_informationsource"
+  ],
+  "tts": "information",
+  "unicode": "2139 fe0f",
+  "unicodeSkintones": null
+}

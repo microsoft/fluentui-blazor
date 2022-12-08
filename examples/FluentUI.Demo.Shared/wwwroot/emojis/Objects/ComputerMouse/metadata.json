@@ -1,0 +1,18 @@
+{
+  "basefilename": "computer_mouse",
+  "cldr": "computer mouse",
+  "fromVersion": "0.7",
+  "glyph": "\uD83D\uDDB1\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Objects",
+  "keywords": [
+    "computer",
+    "computer mouse"
+  ],
+  "mappedToEmoticons": [
+    "1f5b1_threebuttonmouse"
+  ],
+  "tts": "computer mouse",
+  "unicode": "1f5b1 fe0f",
+  "unicodeSkintones": null
+}

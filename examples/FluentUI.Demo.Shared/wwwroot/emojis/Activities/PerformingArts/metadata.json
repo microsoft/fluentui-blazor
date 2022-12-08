@@ -1,0 +1,24 @@
+{
+  "basefilename": "performing_arts",
+  "cldr": "performing arts",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDFAD",
+  "glyphAsUtfInEmoticons": [
+    "1f3ad_performingarts"
+  ],
+  "group": "Activities",
+  "keywords": [
+    "art",
+    "mask",
+    "performing",
+    "performing arts",
+    "theater",
+    "theatre"
+  ],
+  "mappedToEmoticons": [
+    "1f3ad_performingarts"
+  ],
+  "tts": "performing arts",
+  "unicode": "1f3ad",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,19 @@
+{
+  "basefilename": "monkey",
+  "cldr": "monkey",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC12",
+  "glyphAsUtfInEmoticons": [
+    "monkey"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "monkey"
+  ],
+  "mappedToEmoticons": [
+    "monkey"
+  ],
+  "tts": "monkey",
+  "unicode": "1f412",
+  "unicodeSkintones": null
+}

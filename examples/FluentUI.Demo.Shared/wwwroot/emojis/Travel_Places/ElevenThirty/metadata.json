@@ -1,0 +1,24 @@
+{
+  "basefilename": "eleven-thirty",
+  "cldr": "eleven-thirty",
+  "fromVersion": "0.7",
+  "glyph": "\uD83D\uDD66",
+  "glyphAsUtfInEmoticons": [
+    "1f566_eleventhirty"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "11",
+    "11:30",
+    "clock",
+    "eleven",
+    "eleven-thirty",
+    "thirty"
+  ],
+  "mappedToEmoticons": [
+    "1f566_eleventhirty"
+  ],
+  "tts": "eleven-thirty",
+  "unicode": "1f566",
+  "unicodeSkintones": null
+}

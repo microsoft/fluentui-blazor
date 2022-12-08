@@ -1,0 +1,21 @@
+{
+  "basefilename": "dizzy",
+  "cldr": "dizzy",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCAB",
+  "glyphAsUtfInEmoticons": [
+    "1f4ab_dizzysymbol"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "comic",
+    "dizzy",
+    "star"
+  ],
+  "mappedToEmoticons": [
+    "1f4ab_dizzysymbol"
+  ],
+  "tts": "dizzy",
+  "unicode": "1f4ab",
+  "unicodeSkintones": null
+}

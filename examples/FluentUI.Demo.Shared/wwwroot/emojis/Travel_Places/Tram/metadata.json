@@ -1,0 +1,20 @@
+{
+  "basefilename": "tram",
+  "cldr": "tram",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDE8A",
+  "glyphAsUtfInEmoticons": [
+    "1f68a_tram"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "tram",
+    "trolleybus"
+  ],
+  "mappedToEmoticons": [
+    "1f68a_tram"
+  ],
+  "tts": "tram",
+  "unicode": "1f68a",
+  "unicodeSkintones": null
+}

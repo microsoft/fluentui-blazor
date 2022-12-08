@@ -1,0 +1,23 @@
+{
+  "basefilename": "japanese_symbol_for_beginner",
+  "cldr": "Japanese symbol for beginner",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDD30",
+  "glyphAsUtfInEmoticons": [
+    "1f530_japanesesymbolforbeginner"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "beginner",
+    "chevron",
+    "Japanese",
+    "Japanese symbol for beginner",
+    "leaf"
+  ],
+  "mappedToEmoticons": [
+    "1f530_japanesesymbolforbeginner"
+  ],
+  "tts": "Japanese symbol for beginner",
+  "unicode": "1f530",
+  "unicodeSkintones": null
+}

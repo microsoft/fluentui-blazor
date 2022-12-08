@@ -1,0 +1,20 @@
+{
+  "basefilename": "water_buffalo",
+  "cldr": "water buffalo",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDC03",
+  "glyphAsUtfInEmoticons": [
+    "1f403_waterbuffalo"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "buffalo",
+    "water"
+  ],
+  "mappedToEmoticons": [
+    "1f403_waterbuffalo"
+  ],
+  "tts": "water buffalo",
+  "unicode": "1f403",
+  "unicodeSkintones": null
+}

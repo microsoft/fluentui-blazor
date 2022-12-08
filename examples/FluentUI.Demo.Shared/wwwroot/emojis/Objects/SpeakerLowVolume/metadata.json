@@ -1,0 +1,20 @@
+{
+  "basefilename": "speaker_low_volume",
+  "cldr": "speaker low volume",
+  "fromVersion": "0.7",
+  "glyph": "\uD83D\uDD08",
+  "glyphAsUtfInEmoticons": [
+    "1f508_speaker"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "soft",
+    "speaker low volume"
+  ],
+  "mappedToEmoticons": [
+    "1f508_speaker"
+  ],
+  "tts": "speaker low volume",
+  "unicode": "1f508",
+  "unicodeSkintones": null
+}

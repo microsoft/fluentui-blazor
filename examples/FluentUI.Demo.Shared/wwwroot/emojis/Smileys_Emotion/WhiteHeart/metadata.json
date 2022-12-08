@@ -1,0 +1,21 @@
+{
+  "basefilename": "white_heart",
+  "cldr": "white heart",
+  "fromVersion": "12.0",
+  "glyph": "\uD83E\uDD0D",
+  "glyphAsUtfInEmoticons": [
+    "1f90d_whiteheart",
+    "heartwhite"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "heart",
+    "white"
+  ],
+  "mappedToEmoticons": [
+    "heartwhite"
+  ],
+  "tts": "white heart",
+  "unicode": "1f90d",
+  "unicodeSkintones": null
+}

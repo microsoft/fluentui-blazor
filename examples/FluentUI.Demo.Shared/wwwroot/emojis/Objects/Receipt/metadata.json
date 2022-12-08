@@ -1,0 +1,23 @@
+{
+  "basefilename": "receipt",
+  "cldr": "receipt",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDDFE",
+  "glyphAsUtfInEmoticons": [
+    "1f9fe_receipt"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "accounting",
+    "bookkeeping",
+    "evidence",
+    "proof",
+    "receipt"
+  ],
+  "mappedToEmoticons": [
+    "1f9fe_receipt"
+  ],
+  "tts": "receipt",
+  "unicode": "1f9fe",
+  "unicodeSkintones": null
+}

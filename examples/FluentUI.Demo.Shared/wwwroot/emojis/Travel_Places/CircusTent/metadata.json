@@ -1,0 +1,20 @@
+{
+  "basefilename": "circus_tent",
+  "cldr": "circus tent",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDFAA",
+  "glyphAsUtfInEmoticons": [
+    "1f3aa_circustent"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "circus",
+    "tent"
+  ],
+  "mappedToEmoticons": [
+    "1f3aa_circustent"
+  ],
+  "tts": "circus tent",
+  "unicode": "1f3aa",
+  "unicodeSkintones": null
+}

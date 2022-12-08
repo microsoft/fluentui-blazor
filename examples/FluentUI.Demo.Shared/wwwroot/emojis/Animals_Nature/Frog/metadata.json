@@ -1,0 +1,20 @@
+{
+  "basefilename": "frog",
+  "cldr": "frog",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC38",
+  "glyphAsUtfInEmoticons": [
+    "1f438_frogface"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "face",
+    "frog"
+  ],
+  "mappedToEmoticons": [
+    "1f438_frogface"
+  ],
+  "tts": "frog",
+  "unicode": "1f438",
+  "unicodeSkintones": null
+}

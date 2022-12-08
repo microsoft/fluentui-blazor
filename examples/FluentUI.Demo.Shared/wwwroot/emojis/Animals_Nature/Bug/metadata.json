@@ -1,0 +1,20 @@
+{
+  "basefilename": "bug",
+  "cldr": "bug",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC1B",
+  "glyphAsUtfInEmoticons": [
+    "bug"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "bug",
+    "insect"
+  ],
+  "mappedToEmoticons": [
+    "bug"
+  ],
+  "tts": "bug",
+  "unicode": "1f41b",
+  "unicodeSkintones": null
+}

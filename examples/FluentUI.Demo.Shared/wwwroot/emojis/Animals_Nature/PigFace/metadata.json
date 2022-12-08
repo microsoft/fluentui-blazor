@@ -1,0 +1,20 @@
+{
+  "basefilename": "pig_face",
+  "cldr": "pig face",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC37",
+  "glyphAsUtfInEmoticons": [
+    "1f437_pigface"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "face",
+    "pig"
+  ],
+  "mappedToEmoticons": [
+    "1f437_pigface"
+  ],
+  "tts": "pig face",
+  "unicode": "1f437",
+  "unicodeSkintones": null
+}

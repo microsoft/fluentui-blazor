@@ -1,0 +1,22 @@
+{
+  "basefilename": "videocassette",
+  "cldr": "videocassette",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCFC",
+  "glyphAsUtfInEmoticons": [
+    "1f4fc_videocassette"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "tape",
+    "vhs",
+    "video",
+    "videocassette"
+  ],
+  "mappedToEmoticons": [
+    "1f4fc_videocassette"
+  ],
+  "tts": "videocassette",
+  "unicode": "1f4fc",
+  "unicodeSkintones": null
+}

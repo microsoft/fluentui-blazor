@@ -1,0 +1,19 @@
+{
+  "basefilename": "whale",
+  "cldr": "whale",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDC0B",
+  "glyphAsUtfInEmoticons": [
+    "whale"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "whale"
+  ],
+  "mappedToEmoticons": [
+    "whale"
+  ],
+  "tts": "whale",
+  "unicode": "1f40b",
+  "unicodeSkintones": null
+}

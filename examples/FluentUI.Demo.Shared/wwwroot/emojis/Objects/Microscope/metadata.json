@@ -1,0 +1,21 @@
+{
+  "basefilename": "microscope",
+  "cldr": "microscope",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDD2C",
+  "glyphAsUtfInEmoticons": [
+    "1f52c_microscope"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "microscope",
+    "science",
+    "tool"
+  ],
+  "mappedToEmoticons": [
+    "1f52c_microscope"
+  ],
+  "tts": "microscope",
+  "unicode": "1f52c",
+  "unicodeSkintones": null
+}

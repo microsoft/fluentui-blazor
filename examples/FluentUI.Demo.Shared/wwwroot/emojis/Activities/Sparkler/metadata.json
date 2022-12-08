@@ -1,0 +1,22 @@
+{
+  "basefilename": "sparkler",
+  "cldr": "sparkler",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF87",
+  "glyphAsUtfInEmoticons": [
+    "sparkler"
+  ],
+  "group": "Activities",
+  "keywords": [
+    "celebration",
+    "fireworks",
+    "sparkle",
+    "sparkler"
+  ],
+  "mappedToEmoticons": [
+    "sparkler"
+  ],
+  "tts": "sparkler",
+  "unicode": "1f387",
+  "unicodeSkintones": null
+}

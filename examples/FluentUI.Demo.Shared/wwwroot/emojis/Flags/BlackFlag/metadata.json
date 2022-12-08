@@ -1,0 +1,18 @@
+{
+  "basefilename": "black_flag",
+  "cldr": "black flag",
+  "fromVersion": "1.0",
+  "glyph": "\uD83C\uDFF4",
+  "glyphAsUtfInEmoticons": [
+    "1f3f4_blackflag"
+  ],
+  "group": "Flags",
+  "keywords": [
+    "black flag",
+    "waving"
+  ],
+  "mappedToEmoticons": null,
+  "tts": "black flag",
+  "unicode": "1f3f4",
+  "unicodeSkintones": null
+}

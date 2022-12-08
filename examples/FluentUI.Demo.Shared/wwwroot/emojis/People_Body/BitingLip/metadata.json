@@ -1,0 +1,21 @@
+{
+  "basefilename": "biting_lip",
+  "cldr": "biting lip",
+  "fromVersion": "14.0",
+  "glyph": "\uD83E\uDEE6",
+  "glyphAsUtfInEmoticons": null,
+  "group": "People \u0026 Body",
+  "keywords": [
+    "anxious",
+    "biting lip",
+    "fear",
+    "flirting",
+    "nervous",
+    "uncomfortable",
+    "worried"
+  ],
+  "mappedToEmoticons": null,
+  "tts": "biting lip",
+  "unicode": "1fae6",
+  "unicodeSkintones": null
+}

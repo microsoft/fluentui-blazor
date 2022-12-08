@@ -1,0 +1,20 @@
+{
+  "basefilename": "umbrella_on_ground",
+  "cldr": "umbrella on ground",
+  "fromVersion": "0.7",
+  "glyph": "\u26F1\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "rain",
+    "sun",
+    "umbrella",
+    "umbrella on ground"
+  ],
+  "mappedToEmoticons": [
+    "26f1_umbrellaonground"
+  ],
+  "tts": "umbrella on ground",
+  "unicode": "26f1 fe0f",
+  "unicodeSkintones": null
+}

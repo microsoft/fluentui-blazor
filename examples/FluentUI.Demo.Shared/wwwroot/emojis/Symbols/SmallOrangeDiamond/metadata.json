@@ -1,0 +1,22 @@
+{
+  "basefilename": "small_orange_diamond",
+  "cldr": "small orange diamond",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDD38",
+  "glyphAsUtfInEmoticons": [
+    "1f538_smallorangediamond"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "diamond",
+    "geometric",
+    "orange",
+    "small orange diamond"
+  ],
+  "mappedToEmoticons": [
+    "1f538_smallorangediamond"
+  ],
+  "tts": "small orange diamond",
+  "unicode": "1f538",
+  "unicodeSkintones": null
+}

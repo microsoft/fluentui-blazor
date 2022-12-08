@@ -1,0 +1,20 @@
+{
+  "basefilename": "up-down_arrow",
+  "cldr": "up-down arrow",
+  "fromVersion": "0.6",
+  "glyph": "\u2195\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "2195_updownarrow"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "arrow",
+    "up-down arrow"
+  ],
+  "mappedToEmoticons": [
+    "2195_updownarrow"
+  ],
+  "tts": "up-down arrow",
+  "unicode": "2195 fe0f",
+  "unicodeSkintones": null
+}

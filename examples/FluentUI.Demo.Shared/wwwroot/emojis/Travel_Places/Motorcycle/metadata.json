@@ -1,0 +1,20 @@
+{
+  "basefilename": "motorcycle",
+  "cldr": "motorcycle",
+  "fromVersion": "0.7",
+  "glyph": "\uD83C\uDFCD\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "motorbike"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "motorcycle",
+    "racing"
+  ],
+  "mappedToEmoticons": [
+    "motorbike"
+  ],
+  "tts": "motorcycle",
+  "unicode": "1f3cd fe0f",
+  "unicodeSkintones": null
+}

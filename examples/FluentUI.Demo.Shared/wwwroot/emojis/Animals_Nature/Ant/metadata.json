@@ -1,0 +1,20 @@
+{
+  "basefilename": "ant",
+  "cldr": "ant",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC1C",
+  "glyphAsUtfInEmoticons": [
+    "1f41c_ant"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "ant",
+    "insect"
+  ],
+  "mappedToEmoticons": [
+    "1f41c_ant"
+  ],
+  "tts": "ant",
+  "unicode": "1f41c",
+  "unicodeSkintones": null
+}

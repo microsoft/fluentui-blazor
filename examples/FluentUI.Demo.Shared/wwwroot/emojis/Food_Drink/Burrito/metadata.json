@@ -1,0 +1,21 @@
+{
+  "basefilename": "burrito",
+  "cldr": "burrito",
+  "fromVersion": "1.0",
+  "glyph": "\uD83C\uDF2F",
+  "glyphAsUtfInEmoticons": [
+    "1f32f_burrito"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "burrito",
+    "mexican",
+    "wrap"
+  ],
+  "mappedToEmoticons": [
+    "1f32f_burrito"
+  ],
+  "tts": "burrito",
+  "unicode": "1f32f",
+  "unicodeSkintones": null
+}

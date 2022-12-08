@@ -1,0 +1,19 @@
+{
+  "basefilename": "small_airplane",
+  "cldr": "small airplane",
+  "fromVersion": "0.7",
+  "glyph": "\uD83D\uDEE9\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "aeroplane",
+    "airplane",
+    "small airplane"
+  ],
+  "mappedToEmoticons": [
+    "1f6e9_smallairplane"
+  ],
+  "tts": "small airplane",
+  "unicode": "1f6e9 fe0f",
+  "unicodeSkintones": null
+}

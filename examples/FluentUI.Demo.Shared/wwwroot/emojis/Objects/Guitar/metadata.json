@@ -1,0 +1,19 @@
+{
+  "basefilename": "guitar",
+  "cldr": "guitar",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDFB8",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Objects",
+  "keywords": [
+    "guitar",
+    "instrument",
+    "music"
+  ],
+  "mappedToEmoticons": [
+    "guitar"
+  ],
+  "tts": "guitar",
+  "unicode": "1f3b8",
+  "unicodeSkintones": null
+}

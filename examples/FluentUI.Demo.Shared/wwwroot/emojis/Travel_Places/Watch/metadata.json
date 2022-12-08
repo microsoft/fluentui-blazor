@@ -1,0 +1,20 @@
+{
+  "basefilename": "watch",
+  "cldr": "watch",
+  "fromVersion": "0.6",
+  "glyph": "\u231A",
+  "glyphAsUtfInEmoticons": [
+    "231a_watch"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "clock",
+    "watch"
+  ],
+  "mappedToEmoticons": [
+    "231a_watch"
+  ],
+  "tts": "watch",
+  "unicode": "231a",
+  "unicodeSkintones": null
+}

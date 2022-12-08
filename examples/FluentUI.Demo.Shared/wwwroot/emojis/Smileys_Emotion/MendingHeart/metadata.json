@@ -1,0 +1,23 @@
+{
+  "basefilename": "mending_heart",
+  "cldr": "mending heart",
+  "fromVersion": "13.1",
+  "glyph": "\u2764\uFE0F\u200D\uD83E\uDE79",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "healthier",
+    "improving",
+    "mending",
+    "mending heart",
+    "recovering",
+    "recuperating",
+    "well"
+  ],
+  "mappedToEmoticons": [
+    "mendingheart"
+  ],
+  "tts": "mending heart",
+  "unicode": "2764 fe0f 200d 1fa79",
+  "unicodeSkintones": null
+}

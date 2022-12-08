@@ -1,0 +1,20 @@
+{
+  "basefilename": "closed_book",
+  "cldr": "closed book",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCD5",
+  "glyphAsUtfInEmoticons": [
+    "1f4d5_closedbook"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "book",
+    "closed"
+  ],
+  "mappedToEmoticons": [
+    "1f4d5_closedbook"
+  ],
+  "tts": "closed book",
+  "unicode": "1f4d5",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,19 @@
+{
+  "basefilename": "x-ray",
+  "cldr": "x-ray",
+  "fromVersion": "14.0",
+  "glyph": "\uD83E\uDE7B",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Objects",
+  "keywords": [
+    "bones",
+    "doctor",
+    "medical",
+    "skeleton",
+    "x-ray"
+  ],
+  "mappedToEmoticons": null,
+  "tts": "x-ray",
+  "unicode": "1fa7b",
+  "unicodeSkintones": null
+}

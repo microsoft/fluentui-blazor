@@ -1,0 +1,22 @@
+{
+  "basefilename": "elevator",
+  "cldr": "elevator",
+  "fromVersion": "13.0",
+  "glyph": "\uD83D\uDED7",
+  "glyphAsUtfInEmoticons": [
+    "elevator"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "accessibility",
+    "elevator",
+    "hoist",
+    "lift"
+  ],
+  "mappedToEmoticons": [
+    "elevator"
+  ],
+  "tts": "elevator",
+  "unicode": "1f6d7",
+  "unicodeSkintones": null
+}

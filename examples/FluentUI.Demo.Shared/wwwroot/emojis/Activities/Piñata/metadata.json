@@ -1,0 +1,21 @@
+{
+  "basefilename": "pi\u00F1ata",
+  "cldr": "pi\u00F1ata",
+  "fromVersion": "13.0",
+  "glyph": "\uD83E\uDE85",
+  "glyphAsUtfInEmoticons": [
+    "pinata"
+  ],
+  "group": "Activities",
+  "keywords": [
+    "celebration",
+    "party",
+    "pi\u00F1ata"
+  ],
+  "mappedToEmoticons": [
+    "pinata"
+  ],
+  "tts": "pi\u00F1ata",
+  "unicode": "1fa85",
+  "unicodeSkintones": null
+}

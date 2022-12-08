@@ -1,0 +1,21 @@
+{
+  "basefilename": "accordion",
+  "cldr": "accordion",
+  "fromVersion": "13.0",
+  "glyph": "\uD83E\uDE97",
+  "glyphAsUtfInEmoticons": [
+    "accordion"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "accordion",
+    "concertina",
+    "squeeze box"
+  ],
+  "mappedToEmoticons": [
+    "accordion"
+  ],
+  "tts": "accordion",
+  "unicode": "1fa97",
+  "unicodeSkintones": null
+}

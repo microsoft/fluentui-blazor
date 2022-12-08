@@ -1,0 +1,28 @@
+{
+  "basefilename": "ear_with_hearing_aid",
+  "cldr": "ear with hearing aid",
+  "fromVersion": "12.0",
+  "glyph": "\uD83E\uDDBB",
+  "glyphAsUtfInEmoticons": [
+    "1f9bb_earwithhearingaid"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "accessibility",
+    "ear with hearing aid",
+    "hard of hearing"
+  ],
+  "mappedToEmoticons": [
+    "1f9bb_earwithhearingaid"
+  ],
+  "tts": "ear with hearing aid",
+  "unicode": "1f9bb",
+  "unicodeSkintones": [
+    "1f9bb",
+    "1f9bb 1f3fb",
+    "1f9bb 1f3fc",
+    "1f9bb 1f3fd",
+    "1f9bb 1f3fe",
+    "1f9bb 1f3ff"
+  ]
+}

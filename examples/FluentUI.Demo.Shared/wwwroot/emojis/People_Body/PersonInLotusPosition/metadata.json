@@ -1,0 +1,28 @@
+{
+  "basefilename": "person_in_lotus_position",
+  "cldr": "person in lotus position",
+  "fromVersion": "5.0",
+  "glyph": "\uD83E\uDDD8",
+  "glyphAsUtfInEmoticons": [
+    "lotus_position"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "meditation",
+    "person in lotus position",
+    "yoga"
+  ],
+  "mappedToEmoticons": [
+    "lotus_position"
+  ],
+  "tts": "person in lotus position",
+  "unicode": "1f9d8",
+  "unicodeSkintones": [
+    "1f9d8",
+    "1f9d8 1f3fb",
+    "1f9d8 1f3fc",
+    "1f9d8 1f3fd",
+    "1f9d8 1f3fe",
+    "1f9d8 1f3ff"
+  ]
+}

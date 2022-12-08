@@ -1,0 +1,24 @@
+{
+  "basefilename": "anxious_face_with_sweat",
+  "cldr": "anxious face with sweat",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDE30",
+  "glyphAsUtfInEmoticons": [
+    "1f630_anxiousfacewithsweat"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "anxious face with sweat",
+    "blue",
+    "cold",
+    "face",
+    "rushed",
+    "sweat"
+  ],
+  "mappedToEmoticons": [
+    "1f630_anxiousfacewithsweat"
+  ],
+  "tts": "anxious face with sweat",
+  "unicode": "1f630",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,18 @@
+{
+  "basefilename": "worried_face",
+  "cldr": "worried face",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDE1F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "face",
+    "worried"
+  ],
+  "mappedToEmoticons": [
+    "worry"
+  ],
+  "tts": "worried face",
+  "unicode": "1f61f",
+  "unicodeSkintones": null
+}

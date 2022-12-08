@@ -1,0 +1,26 @@
+{
+  "basefilename": "pregnant_person",
+  "cldr": "pregnant person",
+  "fromVersion": "14.0",
+  "glyph": "\uD83E\uDEC4",
+  "glyphAsUtfInEmoticons": null,
+  "group": "People \u0026 Body",
+  "keywords": [
+    "belly",
+    "bloated",
+    "full",
+    "pregnant",
+    "pregnant person"
+  ],
+  "mappedToEmoticons": null,
+  "tts": "pregnant person",
+  "unicode": "1fac4",
+  "unicodeSkintones": [
+    "1fac4",
+    "1fac4 1f3fb",
+    "1fac4 1f3fc",
+    "1fac4 1f3fd",
+    "1fac4 1f3fe",
+    "1fac4 1f3ff"
+  ]
+}

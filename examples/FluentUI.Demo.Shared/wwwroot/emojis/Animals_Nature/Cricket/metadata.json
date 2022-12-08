@@ -1,0 +1,20 @@
+{
+  "basefilename": "cricket",
+  "cldr": "cricket",
+  "fromVersion": "5.0",
+  "glyph": "\uD83E\uDD97",
+  "glyphAsUtfInEmoticons": [
+    "cricket"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "cricket",
+    "grasshopper"
+  ],
+  "mappedToEmoticons": [
+    "cricket"
+  ],
+  "tts": "cricket",
+  "unicode": "1f997",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,23 @@
+{
+  "basefilename": "red_paper_lantern",
+  "cldr": "red paper lantern",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDFEE",
+  "glyphAsUtfInEmoticons": [
+    "1f3ee_izakayalantern"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "bar",
+    "lantern",
+    "light",
+    "red",
+    "red paper lantern"
+  ],
+  "mappedToEmoticons": [
+    "1f3ee_izakayalantern"
+  ],
+  "tts": "red paper lantern",
+  "unicode": "1f3ee",
+  "unicodeSkintones": null
+}

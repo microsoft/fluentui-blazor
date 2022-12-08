@@ -1,0 +1,20 @@
+{
+  "basefilename": "seat",
+  "cldr": "seat",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCBA",
+  "glyphAsUtfInEmoticons": [
+    "1f4ba_seat"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "chair",
+    "seat"
+  ],
+  "mappedToEmoticons": [
+    "1f4ba_seat"
+  ],
+  "tts": "seat",
+  "unicode": "1f4ba",
+  "unicodeSkintones": null
+}

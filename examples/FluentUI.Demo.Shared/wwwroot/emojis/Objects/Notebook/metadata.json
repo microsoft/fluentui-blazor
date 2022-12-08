@@ -1,0 +1,19 @@
+{
+  "basefilename": "notebook",
+  "cldr": "notebook",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCD3",
+  "glyphAsUtfInEmoticons": [
+    "1f4d3_notebook"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "notebook"
+  ],
+  "mappedToEmoticons": [
+    "1f4d3_notebook"
+  ],
+  "tts": "notebook",
+  "unicode": "1f4d3",
+  "unicodeSkintones": null
+}

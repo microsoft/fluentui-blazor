@@ -1,0 +1,21 @@
+{
+  "basefilename": "dragon_face",
+  "cldr": "dragon face",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC32",
+  "glyphAsUtfInEmoticons": [
+    "1f432_dragonface"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "dragon",
+    "face",
+    "fairy tale"
+  ],
+  "mappedToEmoticons": [
+    "1f432_dragonface"
+  ],
+  "tts": "dragon face",
+  "unicode": "1f432",
+  "unicodeSkintones": null
+}

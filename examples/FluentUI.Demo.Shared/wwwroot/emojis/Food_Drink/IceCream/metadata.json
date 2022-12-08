@@ -1,0 +1,22 @@
+{
+  "basefilename": "ice_cream",
+  "cldr": "ice cream",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF68",
+  "glyphAsUtfInEmoticons": [
+    "1f368_icecream"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "cream",
+    "dessert",
+    "ice",
+    "sweet"
+  ],
+  "mappedToEmoticons": [
+    "1f368_icecream"
+  ],
+  "tts": "ice cream",
+  "unicode": "1f368",
+  "unicodeSkintones": null
+}

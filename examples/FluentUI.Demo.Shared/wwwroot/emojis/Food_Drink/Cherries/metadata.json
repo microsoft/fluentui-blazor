@@ -1,0 +1,23 @@
+{
+  "basefilename": "cherries",
+  "cldr": "cherries",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF52",
+  "glyphAsUtfInEmoticons": [
+    "cherries"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "berries",
+    "cherries",
+    "cherry",
+    "fruit",
+    "red"
+  ],
+  "mappedToEmoticons": [
+    "cherries"
+  ],
+  "tts": "cherries",
+  "unicode": "1f352",
+  "unicodeSkintones": null
+}

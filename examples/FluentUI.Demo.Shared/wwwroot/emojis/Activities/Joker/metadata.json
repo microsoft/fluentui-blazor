@@ -1,0 +1,22 @@
+{
+  "basefilename": "joker",
+  "cldr": "joker",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDCCF",
+  "glyphAsUtfInEmoticons": [
+    "1f0cf_playingcardblackjoker"
+  ],
+  "group": "Activities",
+  "keywords": [
+    "card",
+    "game",
+    "joker",
+    "wildcard"
+  ],
+  "mappedToEmoticons": [
+    "1f0cf_playingcardblackjoker"
+  ],
+  "tts": "joker",
+  "unicode": "1f0cf",
+  "unicodeSkintones": null
+}

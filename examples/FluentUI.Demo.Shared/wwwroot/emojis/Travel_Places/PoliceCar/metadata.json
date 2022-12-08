@@ -1,0 +1,21 @@
+{
+  "basefilename": "police_car",
+  "cldr": "police car",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDE93",
+  "glyphAsUtfInEmoticons": [
+    "policecar"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "car",
+    "patrol",
+    "police"
+  ],
+  "mappedToEmoticons": [
+    "policecar"
+  ],
+  "tts": "police car",
+  "unicode": "1f693",
+  "unicodeSkintones": null
+}

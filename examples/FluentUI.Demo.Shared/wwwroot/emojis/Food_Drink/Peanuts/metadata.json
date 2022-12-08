@@ -1,0 +1,23 @@
+{
+  "basefilename": "peanuts",
+  "cldr": "peanuts",
+  "fromVersion": "3.0",
+  "glyph": "\uD83E\uDD5C",
+  "glyphAsUtfInEmoticons": [
+    "1f95c_peanuts"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "food",
+    "nut",
+    "peanut",
+    "peanuts",
+    "vegetable"
+  ],
+  "mappedToEmoticons": [
+    "1f95c_peanuts"
+  ],
+  "tts": "peanuts",
+  "unicode": "1f95c",
+  "unicodeSkintones": null
+}

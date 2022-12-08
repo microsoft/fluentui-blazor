@@ -1,0 +1,20 @@
+{
+  "basefilename": "bread",
+  "cldr": "bread",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF5E",
+  "glyphAsUtfInEmoticons": [
+    "1f35e_bread"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "bread",
+    "loaf"
+  ],
+  "mappedToEmoticons": [
+    "1f35e_bread"
+  ],
+  "tts": "bread",
+  "unicode": "1f35e",
+  "unicodeSkintones": null
+}

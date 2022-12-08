@@ -1,0 +1,31 @@
+{
+  "basefilename": "woman_gesturing_no",
+  "cldr": "woman gesturing NO",
+  "fromVersion": "4.0",
+  "glyph": "\uD83D\uDE45\u200D\u2640\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "womangesturingno"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "forbidden",
+    "gesture",
+    "hand",
+    "prohibited",
+    "woman",
+    "woman gesturing NO"
+  ],
+  "mappedToEmoticons": [
+    "womangesturingno"
+  ],
+  "tts": "woman gesturing NO",
+  "unicode": "1f645 200d 2640 fe0f",
+  "unicodeSkintones": [
+    "1f645 200d 2640 fe0f",
+    "1f645 1f3fb 200d 2640 fe0f",
+    "1f645 1f3fc 200d 2640 fe0f",
+    "1f645 1f3fd 200d 2640 fe0f",
+    "1f645 1f3fe 200d 2640 fe0f",
+    "1f645 1f3ff 200d 2640 fe0f"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "basefilename": "puzzle_piece",
+  "cldr": "puzzle piece",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDDE9",
+  "glyphAsUtfInEmoticons": [
+    "1f9e9_jigsaw"
+  ],
+  "group": "Activities",
+  "keywords": [
+    "clue",
+    "interlocking",
+    "jigsaw",
+    "piece",
+    "puzzle"
+  ],
+  "mappedToEmoticons": [
+    "1f9e9_jigsaw"
+  ],
+  "tts": "puzzle piece",
+  "unicode": "1f9e9",
+  "unicodeSkintones": null
+}

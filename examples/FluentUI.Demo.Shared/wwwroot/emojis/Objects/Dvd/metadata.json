@@ -1,0 +1,23 @@
+{
+  "basefilename": "dvd",
+  "cldr": "dvd",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCC0",
+  "glyphAsUtfInEmoticons": [
+    "1f4c0_dvd"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "blu-ray",
+    "computer",
+    "disk",
+    "dvd",
+    "optical"
+  ],
+  "mappedToEmoticons": [
+    "1f4c0_dvd"
+  ],
+  "tts": "dvd",
+  "unicode": "1f4c0",
+  "unicodeSkintones": null
+}

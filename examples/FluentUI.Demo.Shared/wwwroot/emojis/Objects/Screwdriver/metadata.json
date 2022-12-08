@@ -1,0 +1,21 @@
+{
+  "basefilename": "screwdriver",
+  "cldr": "screwdriver",
+  "fromVersion": "13.0",
+  "glyph": "\uD83E\uDE9B",
+  "glyphAsUtfInEmoticons": [
+    "screwdriver"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "screw",
+    "screwdriver",
+    "tool"
+  ],
+  "mappedToEmoticons": [
+    "screwdriver"
+  ],
+  "tts": "screwdriver",
+  "unicode": "1fa9b",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,20 @@
+{
+  "basefilename": "boar",
+  "cldr": "boar",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC17",
+  "glyphAsUtfInEmoticons": [
+    "1f417_boar"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "boar",
+    "pig"
+  ],
+  "mappedToEmoticons": [
+    "1f417_boar"
+  ],
+  "tts": "boar",
+  "unicode": "1f417",
+  "unicodeSkintones": null
+}

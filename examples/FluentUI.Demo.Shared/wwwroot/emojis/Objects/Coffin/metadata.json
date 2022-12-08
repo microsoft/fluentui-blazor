@@ -1,0 +1,18 @@
+{
+  "basefilename": "coffin",
+  "cldr": "coffin",
+  "fromVersion": "1.0",
+  "glyph": "\u26B0\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Objects",
+  "keywords": [
+    "coffin",
+    "death"
+  ],
+  "mappedToEmoticons": [
+    "26b0_coffin"
+  ],
+  "tts": "coffin",
+  "unicode": "26b0 fe0f",
+  "unicodeSkintones": null
+}

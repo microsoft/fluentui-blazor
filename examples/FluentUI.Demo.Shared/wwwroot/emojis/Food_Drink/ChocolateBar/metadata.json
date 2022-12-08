@@ -1,0 +1,22 @@
+{
+  "basefilename": "chocolate_bar",
+  "cldr": "chocolate bar",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF6B",
+  "glyphAsUtfInEmoticons": [
+    "1f36b_chocolatebar"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "bar",
+    "chocolate",
+    "dessert",
+    "sweet"
+  ],
+  "mappedToEmoticons": [
+    "1f36b_chocolatebar"
+  ],
+  "tts": "chocolate bar",
+  "unicode": "1f36b",
+  "unicodeSkintones": null
+}

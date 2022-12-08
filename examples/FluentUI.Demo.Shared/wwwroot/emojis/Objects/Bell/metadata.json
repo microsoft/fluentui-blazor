@@ -1,0 +1,19 @@
+{
+  "basefilename": "bell",
+  "cldr": "bell",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDD14",
+  "glyphAsUtfInEmoticons": [
+    "bell"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "bell"
+  ],
+  "mappedToEmoticons": [
+    "bell"
+  ],
+  "tts": "bell",
+  "unicode": "1f514",
+  "unicodeSkintones": null
+}

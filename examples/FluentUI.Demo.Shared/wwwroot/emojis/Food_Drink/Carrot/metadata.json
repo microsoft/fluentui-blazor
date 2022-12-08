@@ -1,0 +1,21 @@
+{
+  "basefilename": "carrot",
+  "cldr": "carrot",
+  "fromVersion": "3.0",
+  "glyph": "\uD83E\uDD55",
+  "glyphAsUtfInEmoticons": [
+    "1f955_carrot"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "carrot",
+    "food",
+    "vegetable"
+  ],
+  "mappedToEmoticons": [
+    "1f955_carrot"
+  ],
+  "tts": "carrot",
+  "unicode": "1f955",
+  "unicodeSkintones": null
+}

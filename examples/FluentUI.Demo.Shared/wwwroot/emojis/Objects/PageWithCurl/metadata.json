@@ -1,0 +1,22 @@
+{
+  "basefilename": "page_with_curl",
+  "cldr": "page with curl",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCC3",
+  "glyphAsUtfInEmoticons": [
+    "1f4c3_pagewithcurl"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "curl",
+    "document",
+    "page",
+    "page with curl"
+  ],
+  "mappedToEmoticons": [
+    "1f4c3_pagewithcurl"
+  ],
+  "tts": "page with curl",
+  "unicode": "1f4c3",
+  "unicodeSkintones": null
+}

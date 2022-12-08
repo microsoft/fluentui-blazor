@@ -1,0 +1,24 @@
+{
+  "basefilename": "envelope_with_arrow",
+  "cldr": "envelope with arrow",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCE9",
+  "glyphAsUtfInEmoticons": [
+    "1f4e9_envelopewitharrow"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "arrow",
+    "e-mail",
+    "email",
+    "envelope",
+    "envelope with arrow",
+    "outgoing"
+  ],
+  "mappedToEmoticons": [
+    "1f4e9_envelopewitharrow"
+  ],
+  "tts": "envelope with arrow",
+  "unicode": "1f4e9",
+  "unicodeSkintones": null
+}

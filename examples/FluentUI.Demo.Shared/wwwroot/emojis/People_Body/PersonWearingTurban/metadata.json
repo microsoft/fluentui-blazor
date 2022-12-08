@@ -1,0 +1,27 @@
+{
+  "basefilename": "person_wearing_turban",
+  "cldr": "person wearing turban",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC73",
+  "glyphAsUtfInEmoticons": [
+    "1f473_personwearingturban"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "person wearing turban",
+    "turban"
+  ],
+  "mappedToEmoticons": [
+    "1f473_personwearingturban"
+  ],
+  "tts": "person wearing turban",
+  "unicode": "1f473",
+  "unicodeSkintones": [
+    "1f473",
+    "1f473 1f3fb",
+    "1f473 1f3fc",
+    "1f473 1f3fd",
+    "1f473 1f3fe",
+    "1f473 1f3ff"
+  ]
+}

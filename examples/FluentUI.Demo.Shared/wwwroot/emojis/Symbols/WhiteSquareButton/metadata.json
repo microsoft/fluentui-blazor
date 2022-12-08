@@ -1,0 +1,23 @@
+{
+  "basefilename": "white_square_button",
+  "cldr": "white square button",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDD33",
+  "glyphAsUtfInEmoticons": [
+    "1f533_whitesquarebutton"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "button",
+    "geometric",
+    "outlined",
+    "square",
+    "white square button"
+  ],
+  "mappedToEmoticons": [
+    "1f533_whitesquarebutton"
+  ],
+  "tts": "white square button",
+  "unicode": "1f533",
+  "unicodeSkintones": null
+}

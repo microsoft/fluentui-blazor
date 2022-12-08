@@ -1,0 +1,18 @@
+{
+  "basefilename": "printer",
+  "cldr": "printer",
+  "fromVersion": "0.7",
+  "glyph": "\uD83D\uDDA8\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Objects",
+  "keywords": [
+    "computer",
+    "printer"
+  ],
+  "mappedToEmoticons": [
+    "1f5a8_printer"
+  ],
+  "tts": "printer",
+  "unicode": "1f5a8 fe0f",
+  "unicodeSkintones": null
+}

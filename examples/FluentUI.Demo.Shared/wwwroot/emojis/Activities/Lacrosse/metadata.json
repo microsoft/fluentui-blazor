@@ -1,0 +1,22 @@
+{
+  "basefilename": "lacrosse",
+  "cldr": "lacrosse",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDD4D",
+  "glyphAsUtfInEmoticons": [
+    "lacrosse"
+  ],
+  "group": "Activities",
+  "keywords": [
+    "ball",
+    "goal",
+    "lacrosse",
+    "stick"
+  ],
+  "mappedToEmoticons": [
+    "lacrosse"
+  ],
+  "tts": "lacrosse",
+  "unicode": "1f94d",
+  "unicodeSkintones": null
+}

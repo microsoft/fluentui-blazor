@@ -1,0 +1,21 @@
+{
+  "basefilename": "new_moon",
+  "cldr": "new moon",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF11",
+  "glyphAsUtfInEmoticons": [
+    "1f311_newmoonsymbol"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "dark",
+    "moon",
+    "new moon"
+  ],
+  "mappedToEmoticons": [
+    "1f311_newmoonsymbol"
+  ],
+  "tts": "new moon",
+  "unicode": "1f311",
+  "unicodeSkintones": null
+}

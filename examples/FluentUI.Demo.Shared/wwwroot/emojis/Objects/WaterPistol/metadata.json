@@ -1,0 +1,25 @@
+{
+  "basefilename": "water_pistol",
+  "cldr": "water pistol",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDD2B",
+  "glyphAsUtfInEmoticons": [
+    "1f52b_pistol"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "gun",
+    "handgun",
+    "pistol",
+    "revolver",
+    "tool",
+    "water",
+    "weapon"
+  ],
+  "mappedToEmoticons": [
+    "1f52b_pistol"
+  ],
+  "tts": "water pistol",
+  "unicode": "1f52b",
+  "unicodeSkintones": null
+}

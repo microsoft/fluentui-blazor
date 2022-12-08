@@ -6,14 +6,14 @@ namespace Microsoft.Fast.Components.FluentUI;
 public static class EnumExtensions
 {
 
-    public static string? ToAttributeValue<TEnum>(this TEnum? value) where TEnum : struct, Enum
-        => value == null ? null : ToAttributeValue(value.Value);
+    public static string? ToAttributeValue<TEnum>(this TEnum? value, bool lowercase = true) where TEnum : struct, Enum
+        => value == null ? null : ToAttributeValue(value.Value, lowercase);
 
-    public static string? ToAttributeValue<TEnum>(this TEnum value) where TEnum : struct, Enum
-        => GetDescription(value);
+    public static string? ToAttributeValue<TEnum>(this TEnum value, bool lowercase = true) where TEnum : struct, Enum
+        => GetDescription(value, lowercase);
 
 
-    public static string? GetDescription<TEnum>(this TEnum value) where TEnum : struct, IConvertible
+    public static string? GetDescription<TEnum>(this TEnum value, bool lowercase = true) where TEnum : struct, IConvertible
     {
         if (!typeof(TEnum).IsEnum)
             return null;
@@ -30,6 +30,9 @@ public static class EnumExtensions
             }
         }
 
-        return description?.ToLowerInvariant();
+        if (lowercase)
+            return description?.ToLowerInvariant();
+
+        return description;
     }
 }

@@ -1,0 +1,21 @@
+{
+  "basefilename": "sunflower",
+  "cldr": "sunflower",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF3B",
+  "glyphAsUtfInEmoticons": [
+    "sunflower"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "flower",
+    "sun",
+    "sunflower"
+  ],
+  "mappedToEmoticons": [
+    "sunflower"
+  ],
+  "tts": "sunflower",
+  "unicode": "1f33b",
+  "unicodeSkintones": null
+}

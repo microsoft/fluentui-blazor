@@ -1,0 +1,20 @@
+{
+  "basefilename": "orange_heart",
+  "cldr": "orange heart",
+  "fromVersion": "5.0",
+  "glyph": "\uD83E\uDDE1",
+  "glyphAsUtfInEmoticons": [
+    "heartorange"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "orange",
+    "orange heart"
+  ],
+  "mappedToEmoticons": [
+    "heartorange"
+  ],
+  "tts": "orange heart",
+  "unicode": "1f9e1",
+  "unicodeSkintones": null
+}

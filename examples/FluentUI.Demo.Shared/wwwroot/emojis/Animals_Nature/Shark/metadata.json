@@ -1,0 +1,20 @@
+{
+  "basefilename": "shark",
+  "cldr": "shark",
+  "fromVersion": "3.0",
+  "glyph": "\uD83E\uDD88",
+  "glyphAsUtfInEmoticons": [
+    "1f988_shark"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "fish",
+    "shark"
+  ],
+  "mappedToEmoticons": [
+    "1f988_shark"
+  ],
+  "tts": "shark",
+  "unicode": "1f988",
+  "unicodeSkintones": null
+}

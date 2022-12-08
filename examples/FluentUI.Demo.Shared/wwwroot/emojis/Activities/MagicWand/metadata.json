@@ -1,0 +1,22 @@
+{
+  "basefilename": "magic_wand",
+  "cldr": "magic wand",
+  "fromVersion": "13.0",
+  "glyph": "\uD83E\uDE84",
+  "glyphAsUtfInEmoticons": [
+    "magicwand"
+  ],
+  "group": "Activities",
+  "keywords": [
+    "magic",
+    "magic wand",
+    "witch",
+    "wizard"
+  ],
+  "mappedToEmoticons": [
+    "magicwand"
+  ],
+  "tts": "magic wand",
+  "unicode": "1fa84",
+  "unicodeSkintones": null
+}

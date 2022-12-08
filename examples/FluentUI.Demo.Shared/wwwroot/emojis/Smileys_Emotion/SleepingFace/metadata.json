@@ -1,0 +1,20 @@
+{
+  "basefilename": "sleeping_face",
+  "cldr": "sleeping face",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDE34",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "face",
+    "sleep",
+    "sleeping face",
+    "zzz"
+  ],
+  "mappedToEmoticons": [
+    "sleepingface"
+  ],
+  "tts": "sleeping face",
+  "unicode": "1f634",
+  "unicodeSkintones": null
+}

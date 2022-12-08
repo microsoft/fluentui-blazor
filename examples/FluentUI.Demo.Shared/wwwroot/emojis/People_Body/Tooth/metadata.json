@@ -1,0 +1,20 @@
+{
+  "basefilename": "tooth",
+  "cldr": "tooth",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDDB7",
+  "glyphAsUtfInEmoticons": [
+    "1f9b7_tooth"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "dentist",
+    "tooth"
+  ],
+  "mappedToEmoticons": [
+    "1f9b7_tooth"
+  ],
+  "tts": "tooth",
+  "unicode": "1f9b7",
+  "unicodeSkintones": null
+}

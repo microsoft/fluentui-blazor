@@ -1,0 +1,20 @@
+{
+  "basefilename": "fireworks",
+  "cldr": "fireworks",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF86",
+  "glyphAsUtfInEmoticons": [
+    "fireworks"
+  ],
+  "group": "Activities",
+  "keywords": [
+    "celebration",
+    "fireworks"
+  ],
+  "mappedToEmoticons": [
+    "fireworks"
+  ],
+  "tts": "fireworks",
+  "unicode": "1f386",
+  "unicodeSkintones": null
+}

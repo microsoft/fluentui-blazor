@@ -1,0 +1,21 @@
+{
+  "basefilename": "pensive_face",
+  "cldr": "pensive face",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDE14",
+  "glyphAsUtfInEmoticons": [
+    "pensive"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "dejected",
+    "face",
+    "pensive"
+  ],
+  "mappedToEmoticons": [
+    "pensive"
+  ],
+  "tts": "pensive face",
+  "unicode": "1f614",
+  "unicodeSkintones": null
+}

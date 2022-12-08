@@ -1,0 +1,20 @@
+{
+  "basefilename": "curry_rice",
+  "cldr": "curry rice",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF5B",
+  "glyphAsUtfInEmoticons": [
+    "1f35b_curryandrice"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "curry",
+    "rice"
+  ],
+  "mappedToEmoticons": [
+    "1f35b_curryandrice"
+  ],
+  "tts": "curry rice",
+  "unicode": "1f35b",
+  "unicodeSkintones": null
+}

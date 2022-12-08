@@ -1,0 +1,20 @@
+{
+  "basefilename": "crutch",
+  "cldr": "crutch",
+  "fromVersion": "14.0",
+  "glyph": "\uD83E\uDE7C",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Objects",
+  "keywords": [
+    "cane",
+    "crutch",
+    "disability",
+    "hurt",
+    "mobility aid",
+    "stick"
+  ],
+  "mappedToEmoticons": null,
+  "tts": "crutch",
+  "unicode": "1fa7c",
+  "unicodeSkintones": null
+}

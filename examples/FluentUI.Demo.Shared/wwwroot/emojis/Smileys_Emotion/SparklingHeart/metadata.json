@@ -1,0 +1,21 @@
+{
+  "basefilename": "sparkling_heart",
+  "cldr": "sparkling heart",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC96",
+  "glyphAsUtfInEmoticons": [
+    "sparklingheart"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "excited",
+    "sparkle",
+    "sparkling heart"
+  ],
+  "mappedToEmoticons": [
+    "sparklingheart"
+  ],
+  "tts": "sparkling heart",
+  "unicode": "1f496",
+  "unicodeSkintones": null
+}

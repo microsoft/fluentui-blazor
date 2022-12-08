@@ -1,0 +1,28 @@
+{
+  "basefilename": "woman_frowning",
+  "cldr": "woman frowning",
+  "fromVersion": "4.0",
+  "glyph": "\uD83D\uDE4D\u200D\u2640\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "womanfrowning"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "frowning",
+    "gesture",
+    "woman"
+  ],
+  "mappedToEmoticons": [
+    "womanfrowning"
+  ],
+  "tts": "woman frowning",
+  "unicode": "1f64d 200d 2640 fe0f",
+  "unicodeSkintones": [
+    "1f64d 200d 2640 fe0f",
+    "1f64d 1f3fb 200d 2640 fe0f",
+    "1f64d 1f3fc 200d 2640 fe0f",
+    "1f64d 1f3fd 200d 2640 fe0f",
+    "1f64d 1f3fe 200d 2640 fe0f",
+    "1f64d 1f3ff 200d 2640 fe0f"
+  ]
+}

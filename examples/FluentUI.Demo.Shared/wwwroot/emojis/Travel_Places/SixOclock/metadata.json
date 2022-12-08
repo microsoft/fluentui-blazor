@@ -1,0 +1,24 @@
+{
+  "basefilename": "six_oclock",
+  "cldr": "six o\u2019clock",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDD55",
+  "glyphAsUtfInEmoticons": [
+    "1f555_sixoclock"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "00",
+    "6",
+    "6:00",
+    "clock",
+    "o\u2019clock",
+    "six"
+  ],
+  "mappedToEmoticons": [
+    "1f555_sixoclock"
+  ],
+  "tts": "six o\u2019clock",
+  "unicode": "1f555",
+  "unicodeSkintones": null
+}

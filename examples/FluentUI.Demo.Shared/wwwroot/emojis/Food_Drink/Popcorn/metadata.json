@@ -1,0 +1,19 @@
+{
+  "basefilename": "popcorn",
+  "cldr": "popcorn",
+  "fromVersion": "1.0",
+  "glyph": "\uD83C\uDF7F",
+  "glyphAsUtfInEmoticons": [
+    "1f37f_popcorn"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "popcorn"
+  ],
+  "mappedToEmoticons": [
+    "1f37f_popcorn"
+  ],
+  "tts": "popcorn",
+  "unicode": "1f37f",
+  "unicodeSkintones": null
+}

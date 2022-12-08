@@ -1,0 +1,28 @@
+{
+  "basefilename": "leg",
+  "cldr": "leg",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDDB5",
+  "glyphAsUtfInEmoticons": [
+    "1f9b5_leg"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "kick",
+    "leg",
+    "limb"
+  ],
+  "mappedToEmoticons": [
+    "1f9b5_leg"
+  ],
+  "tts": "leg",
+  "unicode": "1f9b5",
+  "unicodeSkintones": [
+    "1f9b5",
+    "1f9b5 1f3fb",
+    "1f9b5 1f3fc",
+    "1f9b5 1f3fd",
+    "1f9b5 1f3fe",
+    "1f9b5 1f3ff"
+  ]
+}

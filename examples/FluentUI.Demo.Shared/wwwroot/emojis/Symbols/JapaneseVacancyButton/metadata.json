@@ -1,0 +1,23 @@
+{
+  "basefilename": "japanese_vacancy_button",
+  "cldr": "Japanese \u201Cvacancy\u201D button",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDE33",
+  "glyphAsUtfInEmoticons": [
+    "1f233_vacancy"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "\u201Cvacancy\u201D",
+    "ideograph",
+    "Japanese",
+    "Japanese \u201Cvacancy\u201D button",
+    "\u7A7A"
+  ],
+  "mappedToEmoticons": [
+    "1f233_vacancy"
+  ],
+  "tts": "Japanese \u201Cvacancy\u201D button",
+  "unicode": "1f233",
+  "unicodeSkintones": null
+}

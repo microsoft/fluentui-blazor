@@ -1,0 +1,24 @@
+{
+  "basefilename": "hot_face",
+  "cldr": "hot face",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDD75",
+  "glyphAsUtfInEmoticons": [
+    "1f975_hotface"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "feverish",
+    "heat stroke",
+    "hot",
+    "hot face",
+    "red-faced",
+    "sweating"
+  ],
+  "mappedToEmoticons": [
+    "1f975_hotface"
+  ],
+  "tts": "hot face",
+  "unicode": "1f975",
+  "unicodeSkintones": null
+}

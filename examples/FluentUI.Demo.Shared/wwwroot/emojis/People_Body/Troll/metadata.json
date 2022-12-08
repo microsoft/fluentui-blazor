@@ -1,0 +1,18 @@
+{
+  "basefilename": "troll",
+  "cldr": "troll",
+  "fromVersion": "14.0",
+  "glyph": "\uD83E\uDDCC",
+  "glyphAsUtfInEmoticons": null,
+  "group": "People \u0026 Body",
+  "keywords": [
+    "fairy tale",
+    "fantasy",
+    "monster",
+    "troll"
+  ],
+  "mappedToEmoticons": null,
+  "tts": "troll",
+  "unicode": "1f9cc",
+  "unicodeSkintones": null
+}

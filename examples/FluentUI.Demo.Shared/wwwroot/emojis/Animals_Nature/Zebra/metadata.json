@@ -1,0 +1,20 @@
+{
+  "basefilename": "zebra",
+  "cldr": "zebra",
+  "fromVersion": "5.0",
+  "glyph": "\uD83E\uDD93",
+  "glyphAsUtfInEmoticons": [
+    "1f993_zebraface"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "stripe",
+    "zebra"
+  ],
+  "mappedToEmoticons": [
+    "1f993_zebraface"
+  ],
+  "tts": "zebra",
+  "unicode": "1f993",
+  "unicodeSkintones": null
+}

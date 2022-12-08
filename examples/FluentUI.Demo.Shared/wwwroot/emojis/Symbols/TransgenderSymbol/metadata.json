@@ -1,0 +1,20 @@
+{
+  "basefilename": "transgender_symbol",
+  "cldr": "transgender symbol",
+  "fromVersion": "13.0",
+  "glyph": "\u26A7\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "transgendersymbol"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "transgender",
+    "transgender symbol"
+  ],
+  "mappedToEmoticons": [
+    "transgendersymbol"
+  ],
+  "tts": "transgender symbol",
+  "unicode": "26a7 fe0f",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,20 @@
+{
+  "basefilename": "tulip",
+  "cldr": "tulip",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF37",
+  "glyphAsUtfInEmoticons": [
+    "tulip"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "flower",
+    "tulip"
+  ],
+  "mappedToEmoticons": [
+    "tulip"
+  ],
+  "tts": "tulip",
+  "unicode": "1f337",
+  "unicodeSkintones": null
+}

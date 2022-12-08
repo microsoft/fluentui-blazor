@@ -1,0 +1,22 @@
+{
+  "basefilename": "custard",
+  "cldr": "custard",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF6E",
+  "glyphAsUtfInEmoticons": [
+    "1f36e_custard"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "custard",
+    "dessert",
+    "pudding",
+    "sweet"
+  ],
+  "mappedToEmoticons": [
+    "1f36e_custard"
+  ],
+  "tts": "custard",
+  "unicode": "1f36e",
+  "unicodeSkintones": null
+}

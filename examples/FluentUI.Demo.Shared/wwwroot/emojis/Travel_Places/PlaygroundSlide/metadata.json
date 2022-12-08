@@ -1,0 +1,17 @@
+{
+  "basefilename": "playground_slide",
+  "cldr": "playground slide",
+  "fromVersion": "14.0",
+  "glyph": "\uD83D\uDEDD",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "amusement park",
+    "play",
+    "playground slide"
+  ],
+  "mappedToEmoticons": null,
+  "tts": "playground slide",
+  "unicode": "1f6dd",
+  "unicodeSkintones": null
+}

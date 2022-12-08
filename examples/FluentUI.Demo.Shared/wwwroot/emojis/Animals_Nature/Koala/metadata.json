@@ -1,0 +1,21 @@
+{
+  "basefilename": "koala",
+  "cldr": "koala",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC28",
+  "glyphAsUtfInEmoticons": [
+    "koala"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "koala",
+    "face",
+    "marsupial"
+  ],
+  "mappedToEmoticons": [
+    "koala"
+  ],
+  "tts": "koala",
+  "unicode": "1f428",
+  "unicodeSkintones": null
+}

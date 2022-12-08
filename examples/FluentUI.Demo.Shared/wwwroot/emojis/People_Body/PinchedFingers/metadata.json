@@ -1,0 +1,28 @@
+{
+  "basefilename": "pinched_fingers",
+  "cldr": "pinched fingers",
+  "fromVersion": "13.0",
+  "glyph": "\uD83E\uDD0C",
+  "glyphAsUtfInEmoticons": null,
+  "group": "People \u0026 Body",
+  "keywords": [
+    "fingers",
+    "hand gesture",
+    "interrogation",
+    "pinched",
+    "sarcastic"
+  ],
+  "mappedToEmoticons": [
+    "pinchedfingers"
+  ],
+  "tts": "pinched fingers",
+  "unicode": "1f90c",
+  "unicodeSkintones": [
+    "1f90c",
+    "1f90c 1f3fb",
+    "1f90c 1f3fc",
+    "1f90c 1f3fd",
+    "1f90c 1f3fe",
+    "1f90c 1f3ff"
+  ]
+}

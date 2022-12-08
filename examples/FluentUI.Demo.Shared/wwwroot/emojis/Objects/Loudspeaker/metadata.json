@@ -1,0 +1,21 @@
+{
+  "basefilename": "loudspeaker",
+  "cldr": "loudspeaker",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCE2",
+  "glyphAsUtfInEmoticons": [
+    "1f4e2_publicaddressloudspeaker"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "loud",
+    "loudspeaker",
+    "public address"
+  ],
+  "mappedToEmoticons": [
+    "1f4e2_publicaddressloudspeaker"
+  ],
+  "tts": "loudspeaker",
+  "unicode": "1f4e2",
+  "unicodeSkintones": null
+}

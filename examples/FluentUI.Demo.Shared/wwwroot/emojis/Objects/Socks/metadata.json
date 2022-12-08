@@ -1,0 +1,20 @@
+{
+  "basefilename": "socks",
+  "cldr": "socks",
+  "fromVersion": "5.0",
+  "glyph": "\uD83E\uDDE6",
+  "glyphAsUtfInEmoticons": [
+    "1f9e6_socks"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "socks",
+    "stocking"
+  ],
+  "mappedToEmoticons": [
+    "1f9e6_socks"
+  ],
+  "tts": "socks",
+  "unicode": "1f9e6",
+  "unicodeSkintones": null
+}

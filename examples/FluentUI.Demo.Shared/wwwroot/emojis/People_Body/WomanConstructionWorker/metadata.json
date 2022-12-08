@@ -1,0 +1,28 @@
+{
+  "basefilename": "woman_construction_worker",
+  "cldr": "woman construction worker",
+  "fromVersion": "4.0",
+  "glyph": "\uD83D\uDC77\u200D\u2640\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "woman_construction_worker"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "construction",
+    "woman",
+    "worker"
+  ],
+  "mappedToEmoticons": [
+    "woman_construction_worker"
+  ],
+  "tts": "woman construction worker",
+  "unicode": "1f477 200d 2640 fe0f",
+  "unicodeSkintones": [
+    "1f477 200d 2640 fe0f",
+    "1f477 1f3fb 200d 2640 fe0f",
+    "1f477 1f3fc 200d 2640 fe0f",
+    "1f477 1f3fd 200d 2640 fe0f",
+    "1f477 1f3fe 200d 2640 fe0f",
+    "1f477 1f3ff 200d 2640 fe0f"
+  ]
+}

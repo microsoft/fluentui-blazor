@@ -1,0 +1,30 @@
+{
+  "basefilename": "nail_polish",
+  "cldr": "nail polish",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC85",
+  "glyphAsUtfInEmoticons": [
+    "1f485_nailpolish"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "care",
+    "cosmetics",
+    "manicure",
+    "nail",
+    "polish"
+  ],
+  "mappedToEmoticons": [
+    "1f485_nailpolish"
+  ],
+  "tts": "nail polish",
+  "unicode": "1f485",
+  "unicodeSkintones": [
+    "1f485",
+    "1f485 1f3fb",
+    "1f485 1f3fc",
+    "1f485 1f3fd",
+    "1f485 1f3fe",
+    "1f485 1f3ff"
+  ]
+}

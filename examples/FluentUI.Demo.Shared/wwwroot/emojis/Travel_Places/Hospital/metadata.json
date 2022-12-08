@@ -1,0 +1,21 @@
+{
+  "basefilename": "hospital",
+  "cldr": "hospital",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDFE5",
+  "glyphAsUtfInEmoticons": [
+    "1f3e5_hospital"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "doctor",
+    "hospital",
+    "medicine"
+  ],
+  "mappedToEmoticons": [
+    "1f3e5_hospital"
+  ],
+  "tts": "hospital",
+  "unicode": "1f3e5",
+  "unicodeSkintones": null
+}

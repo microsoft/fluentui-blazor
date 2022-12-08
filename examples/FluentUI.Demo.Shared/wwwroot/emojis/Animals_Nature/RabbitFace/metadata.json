@@ -1,0 +1,22 @@
+{
+  "basefilename": "rabbit_face",
+  "cldr": "rabbit face",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC30",
+  "glyphAsUtfInEmoticons": [
+    "bunnyhug"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "bunny",
+    "face",
+    "pet",
+    "rabbit"
+  ],
+  "mappedToEmoticons": [
+    "bunnyhug"
+  ],
+  "tts": "rabbit face",
+  "unicode": "1f430",
+  "unicodeSkintones": null
+}

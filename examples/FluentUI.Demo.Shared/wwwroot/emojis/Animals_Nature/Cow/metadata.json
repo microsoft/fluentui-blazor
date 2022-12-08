@@ -1,0 +1,19 @@
+{
+  "basefilename": "cow",
+  "cldr": "cow",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDC04",
+  "glyphAsUtfInEmoticons": [
+    "1f404_cow"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "cow"
+  ],
+  "mappedToEmoticons": [
+    "1f404_cow"
+  ],
+  "tts": "cow",
+  "unicode": "1f404",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,22 @@
+{
+  "basefilename": "ox",
+  "cldr": "ox",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDC02",
+  "glyphAsUtfInEmoticons": [
+    "1f402_ox"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "bull",
+    "ox",
+    "Taurus",
+    "zodiac"
+  ],
+  "mappedToEmoticons": [
+    "1f402_ox"
+  ],
+  "tts": "ox",
+  "unicode": "1f402",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,20 @@
+{
+  "basefilename": "pushpin",
+  "cldr": "pushpin",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCCC",
+  "glyphAsUtfInEmoticons": [
+    "1f4cc_pushpin"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "pin",
+    "pushpin"
+  ],
+  "mappedToEmoticons": [
+    "1f4cc_pushpin"
+  ],
+  "tts": "pushpin",
+  "unicode": "1f4cc",
+  "unicodeSkintones": null
+}

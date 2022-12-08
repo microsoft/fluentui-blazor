@@ -1,0 +1,30 @@
+{
+  "basefilename": "person_getting_massage",
+  "cldr": "person getting massage",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC86",
+  "glyphAsUtfInEmoticons": [
+    "1f486_facemassage",
+    "face_massage"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "face",
+    "massage",
+    "person getting massage",
+    "salon"
+  ],
+  "mappedToEmoticons": [
+    "1f486_facemassage"
+  ],
+  "tts": "person getting massage",
+  "unicode": "1f486",
+  "unicodeSkintones": [
+    "1f486",
+    "1f486 1f3fb",
+    "1f486 1f3fc",
+    "1f486 1f3fd",
+    "1f486 1f3fe",
+    "1f486 1f3ff"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "basefilename": "building_construction",
+  "cldr": "building construction",
+  "fromVersion": "0.7",
+  "glyph": "\uD83C\uDFD7\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "building construction",
+    "construction"
+  ],
+  "mappedToEmoticons": [
+    "1f3d7_buildingconstruction"
+  ],
+  "tts": "building construction",
+  "unicode": "1f3d7 fe0f",
+  "unicodeSkintones": null
+}

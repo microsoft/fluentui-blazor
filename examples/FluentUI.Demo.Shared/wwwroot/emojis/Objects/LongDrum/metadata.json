@@ -1,0 +1,23 @@
+{
+  "basefilename": "long_drum",
+  "cldr": "long drum",
+  "fromVersion": "13.0",
+  "glyph": "\uD83E\uDE98",
+  "glyphAsUtfInEmoticons": [
+    "longdrum"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "beat",
+    "conga",
+    "drum",
+    "long drum",
+    "rhythm"
+  ],
+  "mappedToEmoticons": [
+    "longdrum"
+  ],
+  "tts": "long drum",
+  "unicode": "1fa98",
+  "unicodeSkintones": null
+}

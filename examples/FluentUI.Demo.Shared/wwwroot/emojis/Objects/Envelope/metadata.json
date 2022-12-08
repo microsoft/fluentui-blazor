@@ -1,0 +1,17 @@
+{
+  "basefilename": "envelope",
+  "cldr": "envelope",
+  "fromVersion": "0.6",
+  "glyph": "\u2709\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Objects",
+  "keywords": [
+    "email",
+    "envelope",
+    "letter"
+  ],
+  "mappedToEmoticons": null,
+  "tts": "envelope",
+  "unicode": "2709 fe0f",
+  "unicodeSkintones": null
+}

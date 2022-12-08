@@ -1,0 +1,28 @@
+{
+  "basefilename": "call_me_hand",
+  "cldr": "call me hand",
+  "fromVersion": "3.0",
+  "glyph": "\uD83E\uDD19",
+  "glyphAsUtfInEmoticons": [
+    "1f919_callmehand"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "call",
+    "call me hand",
+    "hand"
+  ],
+  "mappedToEmoticons": [
+    "1f919_callmehand"
+  ],
+  "tts": "call me hand",
+  "unicode": "1f919",
+  "unicodeSkintones": [
+    "1f919",
+    "1f919 1f3fb",
+    "1f919 1f3fc",
+    "1f919 1f3fd",
+    "1f919 1f3fe",
+    "1f919 1f3ff"
+  ]
+}

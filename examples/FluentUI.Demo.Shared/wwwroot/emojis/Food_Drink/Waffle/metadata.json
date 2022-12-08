@@ -1,0 +1,22 @@
+{
+  "basefilename": "waffle",
+  "cldr": "waffle",
+  "fromVersion": "12.0",
+  "glyph": "\uD83E\uDDC7",
+  "glyphAsUtfInEmoticons": [
+    "1f9c7_waffle"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "breakfast",
+    "indecisive",
+    "iron",
+    "waffle"
+  ],
+  "mappedToEmoticons": [
+    "1f9c7_waffle"
+  ],
+  "tts": "waffle",
+  "unicode": "1f9c7",
+  "unicodeSkintones": null
+}

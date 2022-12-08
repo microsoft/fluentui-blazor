@@ -1,0 +1,21 @@
+{
+  "basefilename": "bikini",
+  "cldr": "bikini",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC59",
+  "glyphAsUtfInEmoticons": [
+    "1f459_bikini"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "bikini",
+    "clothing",
+    "swim"
+  ],
+  "mappedToEmoticons": [
+    "1f459_bikini"
+  ],
+  "tts": "bikini",
+  "unicode": "1f459",
+  "unicodeSkintones": null
+}

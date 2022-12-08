@@ -1,0 +1,24 @@
+{
+  "basefilename": "exclamation_question_mark",
+  "cldr": "exclamation question mark",
+  "fromVersion": "0.6",
+  "glyph": "\u2049\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Symbols",
+  "keywords": [
+    "!",
+    "!?",
+    "?",
+    "exclamation",
+    "interrobang",
+    "mark",
+    "punctuation",
+    "question"
+  ],
+  "mappedToEmoticons": [
+    "exclamationquestionmark"
+  ],
+  "tts": "exclamation question mark",
+  "unicode": "2049 fe0f",
+  "unicodeSkintones": null
+}

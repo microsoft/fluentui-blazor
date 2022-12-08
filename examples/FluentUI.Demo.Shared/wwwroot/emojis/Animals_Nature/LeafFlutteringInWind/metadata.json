@@ -1,0 +1,21 @@
+{
+  "basefilename": "leaf_fluttering_in_wind",
+  "cldr": "leaf fluttering in wind",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF43",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "blow",
+    "flutter",
+    "leaf",
+    "leaf fluttering in wind",
+    "wind"
+  ],
+  "mappedToEmoticons": [
+    "fallingleaf"
+  ],
+  "tts": "leaf fluttering in wind",
+  "unicode": "1f343",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,22 @@
+{
+  "basefilename": "face_with_spiral_eyes",
+  "cldr": "face with spiral eyes",
+  "fromVersion": "13.1",
+  "glyph": "\uD83D\uDE35\u200D\uD83D\uDCAB",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "dizzy",
+    "face with spiral eyes",
+    "hypnotized",
+    "spiral",
+    "trouble",
+    "whoa"
+  ],
+  "mappedToEmoticons": [
+    "facewithspiraleyes"
+  ],
+  "tts": "face with spiral eyes",
+  "unicode": "1f635 200d 1f4ab",
+  "unicodeSkintones": null
+}

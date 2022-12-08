@@ -1,0 +1,21 @@
+{
+  "basefilename": "rabbit",
+  "cldr": "rabbit",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDC07",
+  "glyphAsUtfInEmoticons": [
+    "bunny"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "bunny",
+    "pet",
+    "rabbit"
+  ],
+  "mappedToEmoticons": [
+    "bunny"
+  ],
+  "tts": "rabbit",
+  "unicode": "1f407",
+  "unicodeSkintones": null
+}

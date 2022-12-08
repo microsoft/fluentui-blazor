@@ -1,0 +1,27 @@
+{
+  "basefilename": "baby",
+  "cldr": "baby",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC76",
+  "glyphAsUtfInEmoticons": [
+    "smilebaby"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "baby",
+    "young"
+  ],
+  "mappedToEmoticons": [
+    "smilebaby"
+  ],
+  "tts": "baby",
+  "unicode": "1f476",
+  "unicodeSkintones": [
+    "1f476",
+    "1f476 1f3fb",
+    "1f476 1f3fc",
+    "1f476 1f3fd",
+    "1f476 1f3fe",
+    "1f476 1f3ff"
+  ]
+}

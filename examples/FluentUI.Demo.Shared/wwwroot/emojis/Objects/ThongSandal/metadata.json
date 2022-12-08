@@ -1,0 +1,24 @@
+{
+  "basefilename": "thong_sandal",
+  "cldr": "thong sandal",
+  "fromVersion": "13.0",
+  "glyph": "\uD83E\uDE74",
+  "glyphAsUtfInEmoticons": [
+    "thongsandal"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "beach sandals",
+    "sandals",
+    "thong sandal",
+    "thong sandals",
+    "thongs",
+    "z\u014Dri"
+  ],
+  "mappedToEmoticons": [
+    "thongsandal"
+  ],
+  "tts": "thong sandal",
+  "unicode": "1fa74",
+  "unicodeSkintones": null
+}

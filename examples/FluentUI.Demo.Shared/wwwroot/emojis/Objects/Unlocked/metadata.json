@@ -1,0 +1,22 @@
+{
+  "basefilename": "unlocked",
+  "cldr": "unlocked",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDD13",
+  "glyphAsUtfInEmoticons": [
+    "1f513_unlocked"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "lock",
+    "open",
+    "unlock",
+    "unlocked"
+  ],
+  "mappedToEmoticons": [
+    "1f513_unlocked"
+  ],
+  "tts": "unlocked",
+  "unicode": "1f513",
+  "unicodeSkintones": null
+}

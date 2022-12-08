@@ -1,0 +1,27 @@
+{
+  "basefilename": "woman_getting_massage",
+  "cldr": "woman getting massage",
+  "fromVersion": "4.0",
+  "glyph": "\uD83D\uDC86\u200D\u2640\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "People \u0026 Body",
+  "keywords": [
+    "face",
+    "massage",
+    "woman",
+    "woman getting massage"
+  ],
+  "mappedToEmoticons": [
+    "face_massage"
+  ],
+  "tts": "woman getting massage",
+  "unicode": "1f486 200d 2640 fe0f",
+  "unicodeSkintones": [
+    "1f486 200d 2640 fe0f",
+    "1f486 1f3fb 200d 2640 fe0f",
+    "1f486 1f3fc 200d 2640 fe0f",
+    "1f486 1f3fd 200d 2640 fe0f",
+    "1f486 1f3fe 200d 2640 fe0f",
+    "1f486 1f3ff 200d 2640 fe0f"
+  ]
+}

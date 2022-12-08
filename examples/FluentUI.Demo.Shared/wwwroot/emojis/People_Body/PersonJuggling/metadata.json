@@ -1,0 +1,30 @@
+{
+  "basefilename": "person_juggling",
+  "cldr": "person juggling",
+  "fromVersion": "3.0",
+  "glyph": "\uD83E\uDD39",
+  "glyphAsUtfInEmoticons": [
+    "juggling"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "balance",
+    "juggle",
+    "multitask",
+    "person juggling",
+    "skill"
+  ],
+  "mappedToEmoticons": [
+    "personjuggling"
+  ],
+  "tts": "person juggling",
+  "unicode": "1f939",
+  "unicodeSkintones": [
+    "1f939",
+    "1f939 1f3fb",
+    "1f939 1f3fc",
+    "1f939 1f3fd",
+    "1f939 1f3fe",
+    "1f939 1f3ff"
+  ]
+}

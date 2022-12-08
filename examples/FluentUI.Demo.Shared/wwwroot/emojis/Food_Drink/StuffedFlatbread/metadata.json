@@ -1,0 +1,24 @@
+{
+  "basefilename": "stuffed_flatbread",
+  "cldr": "stuffed flatbread",
+  "fromVersion": "3.0",
+  "glyph": "\uD83E\uDD59",
+  "glyphAsUtfInEmoticons": [
+    "1f959_stuffedflatbread"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "falafel",
+    "flatbread",
+    "food",
+    "gyro",
+    "kebab",
+    "stuffed"
+  ],
+  "mappedToEmoticons": [
+    "1f959_stuffedflatbread"
+  ],
+  "tts": "stuffed flatbread",
+  "unicode": "1f959",
+  "unicodeSkintones": null
+}

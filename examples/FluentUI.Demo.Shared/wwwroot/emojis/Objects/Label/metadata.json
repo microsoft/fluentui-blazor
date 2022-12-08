@@ -1,0 +1,17 @@
+{
+  "basefilename": "label",
+  "cldr": "label",
+  "fromVersion": "0.7",
+  "glyph": "\uD83C\uDFF7\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Objects",
+  "keywords": [
+    "label"
+  ],
+  "mappedToEmoticons": [
+    "1f3f7_label"
+  ],
+  "tts": "label",
+  "unicode": "1f3f7 fe0f",
+  "unicodeSkintones": null
+}

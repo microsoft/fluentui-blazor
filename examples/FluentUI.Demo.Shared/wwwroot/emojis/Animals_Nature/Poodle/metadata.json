@@ -1,0 +1,20 @@
+{
+  "basefilename": "poodle",
+  "cldr": "poodle",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC29",
+  "glyphAsUtfInEmoticons": [
+    "1f429_poodle"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "dog",
+    "poodle"
+  ],
+  "mappedToEmoticons": [
+    "1f429_poodle"
+  ],
+  "tts": "poodle",
+  "unicode": "1f429",
+  "unicodeSkintones": null
+}

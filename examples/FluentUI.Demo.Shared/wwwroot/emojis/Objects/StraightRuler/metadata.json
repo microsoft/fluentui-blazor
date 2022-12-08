@@ -1,0 +1,21 @@
+{
+  "basefilename": "straight_ruler",
+  "cldr": "straight ruler",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCCF",
+  "glyphAsUtfInEmoticons": [
+    "1f4cf_straightruler"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "ruler",
+    "straight edge",
+    "straight ruler"
+  ],
+  "mappedToEmoticons": [
+    "1f4cf_straightruler"
+  ],
+  "tts": "straight ruler",
+  "unicode": "1f4cf",
+  "unicodeSkintones": null
+}

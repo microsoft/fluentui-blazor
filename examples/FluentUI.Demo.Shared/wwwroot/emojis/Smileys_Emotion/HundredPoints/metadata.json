@@ -1,0 +1,23 @@
+{
+  "basefilename": "hundred_points",
+  "cldr": "hundred points",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCAF",
+  "glyphAsUtfInEmoticons": [
+    "1f4af_hundredpointssymbol"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "100",
+    "full",
+    "hundred",
+    "hundred points",
+    "score"
+  ],
+  "mappedToEmoticons": [
+    "1f4af_hundredpointssymbol"
+  ],
+  "tts": "hundred points",
+  "unicode": "1f4af",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,22 @@
+{
+  "basefilename": "bacon",
+  "cldr": "bacon",
+  "fromVersion": "3.0",
+  "glyph": "\uD83E\uDD53",
+  "glyphAsUtfInEmoticons": [
+    "1f953_bacon"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "bacon",
+    "breakfast",
+    "food",
+    "meat"
+  ],
+  "mappedToEmoticons": [
+    "1f953_bacon"
+  ],
+  "tts": "bacon",
+  "unicode": "1f953",
+  "unicodeSkintones": null
+}

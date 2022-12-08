@@ -1,0 +1,24 @@
+{
+  "basefilename": "bow_and_arrow",
+  "cldr": "bow and arrow",
+  "fromVersion": "1.0",
+  "glyph": "\uD83C\uDFF9",
+  "glyphAsUtfInEmoticons": [
+    "1f3f9_bowandarrow"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "archer",
+    "arrow",
+    "bow",
+    "bow and arrow",
+    "Sagittarius",
+    "zodiac"
+  ],
+  "mappedToEmoticons": [
+    "1f3f9_bowandarrow"
+  ],
+  "tts": "bow and arrow",
+  "unicode": "1f3f9",
+  "unicodeSkintones": null
+}

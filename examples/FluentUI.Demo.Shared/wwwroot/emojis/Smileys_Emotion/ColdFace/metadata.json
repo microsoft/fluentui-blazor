@@ -1,0 +1,24 @@
+{
+  "basefilename": "cold_face",
+  "cldr": "cold face",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDD76",
+  "glyphAsUtfInEmoticons": [
+    "shivering"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "blue-faced",
+    "cold",
+    "cold face",
+    "freezing",
+    "frostbite",
+    "icicles"
+  ],
+  "mappedToEmoticons": [
+    "shivering"
+  ],
+  "tts": "cold face",
+  "unicode": "1f976",
+  "unicodeSkintones": null
+}

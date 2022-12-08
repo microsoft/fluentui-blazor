@@ -1,0 +1,20 @@
+{
+  "basefilename": "keycap_hashtag",
+  "cldr": "keycap: hash",
+  "fromVersion": "0.6",
+  "glyph": "#\uFE0F\u20E3",
+  "glyphAsUtfInEmoticons": [
+    "keycapnumbersign"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "keycap",
+    "hash"
+  ],
+  "mappedToEmoticons": [
+    "keycapnumbersign"
+  ],
+  "tts": "keycap: #",
+  "unicode": "0023 fe0f 20e3",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,20 @@
+{
+  "basefilename": "gloves",
+  "cldr": "gloves",
+  "fromVersion": "5.0",
+  "glyph": "\uD83E\uDDE4",
+  "glyphAsUtfInEmoticons": [
+    "1f9e4_gloves"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "gloves",
+    "hand"
+  ],
+  "mappedToEmoticons": [
+    "1f9e4_gloves"
+  ],
+  "tts": "gloves",
+  "unicode": "1f9e4",
+  "unicodeSkintones": null
+}

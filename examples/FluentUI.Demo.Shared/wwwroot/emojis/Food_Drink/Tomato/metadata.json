@@ -1,0 +1,21 @@
+{
+  "basefilename": "tomato",
+  "cldr": "tomato",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF45",
+  "glyphAsUtfInEmoticons": [
+    "1f345_tomato"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "fruit",
+    "tomato",
+    "vegetable"
+  ],
+  "mappedToEmoticons": [
+    "1f345_tomato"
+  ],
+  "tts": "tomato",
+  "unicode": "1f345",
+  "unicodeSkintones": null
+}

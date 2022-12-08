@@ -1,0 +1,24 @@
+{
+  "basefilename": "croissant",
+  "cldr": "croissant",
+  "fromVersion": "3.0",
+  "glyph": "\uD83E\uDD50",
+  "glyphAsUtfInEmoticons": [
+    "croissant"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "bread",
+    "breakfast",
+    "croissant",
+    "food",
+    "french",
+    "roll"
+  ],
+  "mappedToEmoticons": [
+    "croissant"
+  ],
+  "tts": "croissant",
+  "unicode": "1f950",
+  "unicodeSkintones": null
+}

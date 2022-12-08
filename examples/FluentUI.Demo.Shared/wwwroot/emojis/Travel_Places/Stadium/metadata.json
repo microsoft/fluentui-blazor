@@ -1,0 +1,17 @@
+{
+  "basefilename": "stadium",
+  "cldr": "stadium",
+  "fromVersion": "0.7",
+  "glyph": "\uD83C\uDFDF\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "stadium"
+  ],
+  "mappedToEmoticons": [
+    "1f3df_stadium"
+  ],
+  "tts": "stadium",
+  "unicode": "1f3df fe0f",
+  "unicodeSkintones": null
+}

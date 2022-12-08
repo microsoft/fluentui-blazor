@@ -1,0 +1,20 @@
+{
+  "basefilename": "new_button",
+  "cldr": "NEW button",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDD95",
+  "glyphAsUtfInEmoticons": [
+    "1f195_squarednew"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "new",
+    "NEW button"
+  ],
+  "mappedToEmoticons": [
+    "1f195_squarednew"
+  ],
+  "tts": "NEW button",
+  "unicode": "1f195",
+  "unicodeSkintones": null
+}

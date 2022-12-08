@@ -1,0 +1,20 @@
+{
+  "basefilename": "keycap_2",
+  "cldr": "keycap: 2",
+  "fromVersion": "0.6",
+  "glyph": "2\uFE0F\u20E3",
+  "glyphAsUtfInEmoticons": [
+    "keycapdigittwo"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "keycap",
+    "two"
+  ],
+  "mappedToEmoticons": [
+    "keycapdigittwo"
+  ],
+  "tts": "keycap: 2",
+  "unicode": "0032 fe0f 20e3",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,18 @@
+{
+  "basefilename": "cityscape",
+  "cldr": "cityscape",
+  "fromVersion": "0.7",
+  "glyph": "\uD83C\uDFD9\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "city",
+    "cityscape"
+  ],
+  "mappedToEmoticons": [
+    "1f3d9_cityscape"
+  ],
+  "tts": "cityscape",
+  "unicode": "1f3d9 fe0f",
+  "unicodeSkintones": null
+}

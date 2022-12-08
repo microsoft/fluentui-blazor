@@ -1,0 +1,21 @@
+{
+  "basefilename": "face_with_raised_eyebrow",
+  "cldr": "face with raised eyebrow",
+  "fromVersion": "5.0",
+  "glyph": "\uD83E\uDD28",
+  "glyphAsUtfInEmoticons": [
+    "wonder"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "distrust",
+    "face with raised eyebrow",
+    "skeptic"
+  ],
+  "mappedToEmoticons": [
+    "wonder"
+  ],
+  "tts": "face with raised eyebrow",
+  "unicode": "1f928",
+  "unicodeSkintones": null
+}

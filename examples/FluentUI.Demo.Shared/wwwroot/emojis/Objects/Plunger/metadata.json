@@ -1,0 +1,23 @@
+{
+  "basefilename": "plunger",
+  "cldr": "plunger",
+  "fromVersion": "13.0",
+  "glyph": "\uD83E\uDEA0",
+  "glyphAsUtfInEmoticons": [
+    "plunger"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "force cup",
+    "plumber",
+    "plunger",
+    "suction",
+    "toilet"
+  ],
+  "mappedToEmoticons": [
+    "plunger"
+  ],
+  "tts": "plunger",
+  "unicode": "1faa0",
+  "unicodeSkintones": null
+}

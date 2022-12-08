@@ -1,0 +1,21 @@
+{
+  "basefilename": "open_file_folder",
+  "cldr": "open file folder",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCC2",
+  "glyphAsUtfInEmoticons": [
+    "1f4c2_openfilefolder"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "file",
+    "folder",
+    "open"
+  ],
+  "mappedToEmoticons": [
+    "1f4c2_openfilefolder"
+  ],
+  "tts": "open file folder",
+  "unicode": "1f4c2",
+  "unicodeSkintones": null
+}

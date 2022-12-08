@@ -1,0 +1,24 @@
+{
+  "basefilename": "incoming_envelope",
+  "cldr": "incoming envelope",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCE8",
+  "glyphAsUtfInEmoticons": [
+    "1f4e8_incomingenvelope"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "e-mail",
+    "email",
+    "envelope",
+    "incoming",
+    "letter",
+    "receive"
+  ],
+  "mappedToEmoticons": [
+    "1f4e8_incomingenvelope"
+  ],
+  "tts": "incoming envelope",
+  "unicode": "1f4e8",
+  "unicodeSkintones": null
+}

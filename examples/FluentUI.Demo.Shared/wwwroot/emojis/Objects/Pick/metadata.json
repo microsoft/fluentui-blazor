@@ -1,0 +1,19 @@
+{
+  "basefilename": "pick",
+  "cldr": "pick",
+  "fromVersion": "0.7",
+  "glyph": "\u26CF\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Objects",
+  "keywords": [
+    "mining",
+    "pick",
+    "tool"
+  ],
+  "mappedToEmoticons": [
+    "26cf_pick"
+  ],
+  "tts": "pick",
+  "unicode": "26cf fe0f",
+  "unicodeSkintones": null
+}

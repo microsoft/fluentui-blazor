@@ -1,0 +1,23 @@
+{
+  "basefilename": "lady_beetle",
+  "cldr": "lady beetle",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC1E",
+  "glyphAsUtfInEmoticons": [
+    "1f41e_ladybeetle"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "beetle",
+    "insect",
+    "lady beetle",
+    "ladybird",
+    "ladybug"
+  ],
+  "mappedToEmoticons": [
+    "1f41e_ladybeetle"
+  ],
+  "tts": "lady beetle",
+  "unicode": "1f41e",
+  "unicodeSkintones": null
+}

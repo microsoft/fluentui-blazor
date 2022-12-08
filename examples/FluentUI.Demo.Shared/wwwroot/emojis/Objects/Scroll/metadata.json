@@ -1,0 +1,20 @@
+{
+  "basefilename": "scroll",
+  "cldr": "scroll",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCDC",
+  "glyphAsUtfInEmoticons": [
+    "1f4dc_scroll"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "paper",
+    "scroll"
+  ],
+  "mappedToEmoticons": [
+    "1f4dc_scroll"
+  ],
+  "tts": "scroll",
+  "unicode": "1f4dc",
+  "unicodeSkintones": null
+}

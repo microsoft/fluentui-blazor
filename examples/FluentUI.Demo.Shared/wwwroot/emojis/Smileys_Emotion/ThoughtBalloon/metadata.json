@@ -1,0 +1,22 @@
+{
+  "basefilename": "thought_balloon",
+  "cldr": "thought balloon",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDCAD",
+  "glyphAsUtfInEmoticons": [
+    "1f4ad_thoughtballoon"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "balloon",
+    "bubble",
+    "comic",
+    "thought"
+  ],
+  "mappedToEmoticons": [
+    "1f4ad_thoughtballoon"
+  ],
+  "tts": "thought balloon",
+  "unicode": "1f4ad",
+  "unicodeSkintones": null
+}

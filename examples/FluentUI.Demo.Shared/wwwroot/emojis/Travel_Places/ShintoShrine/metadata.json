@@ -1,0 +1,19 @@
+{
+  "basefilename": "shinto_shrine",
+  "cldr": "shinto shrine",
+  "fromVersion": "0.7",
+  "glyph": "\u26E9\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "religion",
+    "shinto",
+    "shrine"
+  ],
+  "mappedToEmoticons": [
+    "26e9_shintoshrine"
+  ],
+  "tts": "shinto shrine",
+  "unicode": "26e9 fe0f",
+  "unicodeSkintones": null
+}

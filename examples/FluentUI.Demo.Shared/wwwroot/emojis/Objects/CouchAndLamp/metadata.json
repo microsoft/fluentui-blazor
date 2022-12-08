@@ -1,0 +1,20 @@
+{
+  "basefilename": "couch_and_lamp",
+  "cldr": "couch and lamp",
+  "fromVersion": "0.7",
+  "glyph": "\uD83D\uDECB\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Objects",
+  "keywords": [
+    "couch",
+    "couch and lamp",
+    "hotel",
+    "lamp"
+  ],
+  "mappedToEmoticons": [
+    "1f6cb_couchandlamp"
+  ],
+  "tts": "couch and lamp",
+  "unicode": "1f6cb fe0f",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,22 @@
+{
+  "basefilename": "candy",
+  "cldr": "candy",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF6C",
+  "glyphAsUtfInEmoticons": [
+    "1f36c_candy",
+    "laddu"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "candy",
+    "dessert",
+    "sweet"
+  ],
+  "mappedToEmoticons": [
+    "1f36c_candy"
+  ],
+  "tts": "candy",
+  "unicode": "1f36c",
+  "unicodeSkintones": null
+}

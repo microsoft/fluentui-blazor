@@ -1,0 +1,22 @@
+{
+  "basefilename": "face_vomiting",
+  "cldr": "face vomiting",
+  "fromVersion": "5.0",
+  "glyph": "\uD83E\uDD2E",
+  "glyphAsUtfInEmoticons": [
+    "puke"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "face vomiting",
+    "puke",
+    "sick",
+    "vomit"
+  ],
+  "mappedToEmoticons": [
+    "puke"
+  ],
+  "tts": "face vomiting",
+  "unicode": "1f92e",
+  "unicodeSkintones": null
+}

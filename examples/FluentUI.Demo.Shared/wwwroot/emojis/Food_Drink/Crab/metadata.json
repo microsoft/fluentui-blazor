@@ -1,0 +1,22 @@
+{
+  "basefilename": "crab",
+  "cldr": "crab",
+  "fromVersion": "1.0",
+  "glyph": "\uD83E\uDD80",
+  "glyphAsUtfInEmoticons": [
+    "1f980_crab",
+    "movinghome"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "Cancer",
+    "crab",
+    "zodiac"
+  ],
+  "mappedToEmoticons": [
+    "1f980_crab"
+  ],
+  "tts": "crab",
+  "unicode": "1f980",
+  "unicodeSkintones": null
+}

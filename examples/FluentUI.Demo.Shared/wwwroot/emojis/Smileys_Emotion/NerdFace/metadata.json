@@ -1,0 +1,21 @@
+{
+  "basefilename": "nerd_face",
+  "cldr": "nerd face",
+  "fromVersion": "1.0",
+  "glyph": "\uD83E\uDD13",
+  "glyphAsUtfInEmoticons": [
+    "nerdy"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "face",
+    "geek",
+    "nerd"
+  ],
+  "mappedToEmoticons": [
+    "nerdy"
+  ],
+  "tts": "nerd face",
+  "unicode": "1f913",
+  "unicodeSkintones": null
+}

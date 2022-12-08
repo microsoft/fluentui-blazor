@@ -1,0 +1,21 @@
+{
+  "basefilename": "confused_face",
+  "cldr": "confused face",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDE15",
+  "glyphAsUtfInEmoticons": [
+    "confused"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "confused",
+    "face",
+    "meh"
+  ],
+  "mappedToEmoticons": [
+    "confused"
+  ],
+  "tts": "confused face",
+  "unicode": "1f615",
+  "unicodeSkintones": null
+}

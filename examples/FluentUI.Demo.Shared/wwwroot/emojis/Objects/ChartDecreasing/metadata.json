@@ -1,0 +1,23 @@
+{
+  "basefilename": "chart_decreasing",
+  "cldr": "chart decreasing",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCC9",
+  "glyphAsUtfInEmoticons": [
+    "1f4c9_chartwithdownwardstrend"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "chart",
+    "chart decreasing",
+    "down",
+    "graph",
+    "trend"
+  ],
+  "mappedToEmoticons": [
+    "1f4c9_chartwithdownwardstrend"
+  ],
+  "tts": "chart decreasing",
+  "unicode": "1f4c9",
+  "unicodeSkintones": null
+}

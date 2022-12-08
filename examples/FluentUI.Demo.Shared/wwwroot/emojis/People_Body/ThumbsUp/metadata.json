@@ -1,0 +1,30 @@
+{
+  "basefilename": "thumbs_up",
+  "cldr": "thumbs up",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC4D",
+  "glyphAsUtfInEmoticons": [
+    "yes"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "\u002B1",
+    "hand",
+    "thumb",
+    "thumbs up",
+    "up"
+  ],
+  "mappedToEmoticons": [
+    "yes"
+  ],
+  "tts": "thumbs up",
+  "unicode": "1f44d",
+  "unicodeSkintones": [
+    "1f44d",
+    "1f44d 1f3fb",
+    "1f44d 1f3fc",
+    "1f44d 1f3fd",
+    "1f44d 1f3fe",
+    "1f44d 1f3ff"
+  ]
+}

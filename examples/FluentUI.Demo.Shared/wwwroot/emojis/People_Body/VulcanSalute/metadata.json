@@ -1,0 +1,30 @@
+{
+  "basefilename": "vulcan_salute",
+  "cldr": "vulcan salute",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDD96",
+  "glyphAsUtfInEmoticons": [
+    "vulcansalute"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "finger",
+    "hand",
+    "spock",
+    "vulcan",
+    "vulcan salute"
+  ],
+  "mappedToEmoticons": [
+    "vulcansalute"
+  ],
+  "tts": "vulcan salute",
+  "unicode": "1f596",
+  "unicodeSkintones": [
+    "1f596",
+    "1f596 1f3fb",
+    "1f596 1f3fc",
+    "1f596 1f3fd",
+    "1f596 1f3fe",
+    "1f596 1f3ff"
+  ]
+}

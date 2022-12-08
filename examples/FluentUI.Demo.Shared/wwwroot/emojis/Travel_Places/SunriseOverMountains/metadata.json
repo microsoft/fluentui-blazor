@@ -1,0 +1,23 @@
+{
+  "basefilename": "sunrise_over_mountains",
+  "cldr": "sunrise over mountains",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF04",
+  "glyphAsUtfInEmoticons": [
+    "1f304_sunriseovermountains"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "morning",
+    "mountain",
+    "sun",
+    "sunrise",
+    "sunrise over mountains"
+  ],
+  "mappedToEmoticons": [
+    "1f304_sunriseovermountains"
+  ],
+  "tts": "sunrise over mountains",
+  "unicode": "1f304",
+  "unicodeSkintones": null
+}

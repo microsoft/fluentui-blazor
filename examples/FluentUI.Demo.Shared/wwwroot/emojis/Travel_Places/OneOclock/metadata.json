@@ -1,0 +1,24 @@
+{
+  "basefilename": "one_oclock",
+  "cldr": "one o\u2019clock",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDD50",
+  "glyphAsUtfInEmoticons": [
+    "1f550_oneoclock"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "00",
+    "1",
+    "1:00",
+    "clock",
+    "o\u2019clock",
+    "one"
+  ],
+  "mappedToEmoticons": [
+    "1f550_oneoclock"
+  ],
+  "tts": "one o\u2019clock",
+  "unicode": "1f550",
+  "unicodeSkintones": null
+}

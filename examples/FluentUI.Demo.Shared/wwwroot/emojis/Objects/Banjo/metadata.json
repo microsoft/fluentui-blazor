@@ -1,0 +1,21 @@
+{
+  "basefilename": "banjo",
+  "cldr": "banjo",
+  "fromVersion": "12.0",
+  "glyph": "\uD83E\uDE95",
+  "glyphAsUtfInEmoticons": [
+    "1fa95_banjo"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "banjo",
+    "music",
+    "stringed"
+  ],
+  "mappedToEmoticons": [
+    "1fa95_banjo"
+  ],
+  "tts": "banjo",
+  "unicode": "1fa95",
+  "unicodeSkintones": null
+}

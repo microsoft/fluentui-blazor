@@ -1,0 +1,20 @@
+{
+  "basefilename": "delivery_truck",
+  "cldr": "delivery truck",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDE9A",
+  "glyphAsUtfInEmoticons": [
+    "truck"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "delivery",
+    "truck"
+  ],
+  "mappedToEmoticons": [
+    "truck"
+  ],
+  "tts": "delivery truck",
+  "unicode": "1f69a",
+  "unicodeSkintones": null
+}

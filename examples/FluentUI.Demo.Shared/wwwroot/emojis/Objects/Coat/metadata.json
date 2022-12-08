@@ -1,0 +1,20 @@
+{
+  "basefilename": "coat",
+  "cldr": "coat",
+  "fromVersion": "5.0",
+  "glyph": "\uD83E\uDDE5",
+  "glyphAsUtfInEmoticons": [
+    "1f9e5_coat"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "coat",
+    "jacket"
+  ],
+  "mappedToEmoticons": [
+    "1f9e5_coat"
+  ],
+  "tts": "coat",
+  "unicode": "1f9e5",
+  "unicodeSkintones": null
+}

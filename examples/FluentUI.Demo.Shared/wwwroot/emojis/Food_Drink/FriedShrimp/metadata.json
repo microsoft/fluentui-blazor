@@ -1,0 +1,22 @@
+{
+  "basefilename": "fried_shrimp",
+  "cldr": "fried shrimp",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF64",
+  "glyphAsUtfInEmoticons": [
+    "1f364_friedshrimp"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "fried",
+    "prawn",
+    "shrimp",
+    "tempura"
+  ],
+  "mappedToEmoticons": [
+    "1f364_friedshrimp"
+  ],
+  "tts": "fried shrimp",
+  "unicode": "1f364",
+  "unicodeSkintones": null
+}

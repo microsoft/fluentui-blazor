@@ -1,0 +1,22 @@
+{
+  "basefilename": "heart_on_fire",
+  "cldr": "heart on fire",
+  "fromVersion": "13.1",
+  "glyph": "\u2764\uFE0F\u200D\uD83D\uDD25",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "burn",
+    "heart",
+    "heart on fire",
+    "love",
+    "lust",
+    "sacred heart"
+  ],
+  "mappedToEmoticons": [
+    "heartonfire"
+  ],
+  "tts": "heart on fire",
+  "unicode": "2764 fe0f 200d 1f525",
+  "unicodeSkintones": null
+}

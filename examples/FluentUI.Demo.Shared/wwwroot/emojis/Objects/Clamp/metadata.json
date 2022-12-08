@@ -1,0 +1,20 @@
+{
+  "basefilename": "clamp",
+  "cldr": "clamp",
+  "fromVersion": "0.7",
+  "glyph": "\uD83D\uDDDC\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Objects",
+  "keywords": [
+    "clamp",
+    "compress",
+    "tool",
+    "vice"
+  ],
+  "mappedToEmoticons": [
+    "1f5dc_compression"
+  ],
+  "tts": "clamp",
+  "unicode": "1f5dc fe0f",
+  "unicodeSkintones": null
+}

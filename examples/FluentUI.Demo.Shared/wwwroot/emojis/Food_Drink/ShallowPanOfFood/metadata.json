@@ -1,0 +1,24 @@
+{
+  "basefilename": "shallow_pan_of_food",
+  "cldr": "shallow pan of food",
+  "fromVersion": "3.0",
+  "glyph": "\uD83E\uDD58",
+  "glyphAsUtfInEmoticons": [
+    "1f958_shallowpanoffood"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "casserole",
+    "food",
+    "paella",
+    "pan",
+    "shallow",
+    "shallow pan of food"
+  ],
+  "mappedToEmoticons": [
+    "1f958_shallowpanoffood"
+  ],
+  "tts": "shallow pan of food",
+  "unicode": "1f958",
+  "unicodeSkintones": null
+}

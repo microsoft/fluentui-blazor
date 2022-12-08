@@ -1,0 +1,22 @@
+{
+  "basefilename": "firecracker",
+  "cldr": "firecracker",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDDE8",
+  "glyphAsUtfInEmoticons": [
+    "1f9e8_firecracker"
+  ],
+  "group": "Activities",
+  "keywords": [
+    "dynamite",
+    "explosive",
+    "firecracker",
+    "fireworks"
+  ],
+  "mappedToEmoticons": [
+    "1f9e8_firecracker"
+  ],
+  "tts": "firecracker",
+  "unicode": "1f9e8",
+  "unicodeSkintones": null
+}

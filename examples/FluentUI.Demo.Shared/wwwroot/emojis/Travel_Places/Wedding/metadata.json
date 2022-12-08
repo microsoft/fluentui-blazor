@@ -1,0 +1,21 @@
+{
+  "basefilename": "wedding",
+  "cldr": "wedding",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC92",
+  "glyphAsUtfInEmoticons": [
+    "1f492_wedding"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "chapel",
+    "romance",
+    "wedding"
+  ],
+  "mappedToEmoticons": [
+    "1f492_wedding"
+  ],
+  "tts": "wedding",
+  "unicode": "1f492",
+  "unicodeSkintones": null
+}

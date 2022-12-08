@@ -1,0 +1,21 @@
+{
+  "basefilename": "hamsa",
+  "cldr": "hamsa",
+  "fromVersion": "14.0",
+  "glyph": "\uD83E\uDEAC",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Activities",
+  "keywords": [
+    "amulet",
+    "Fatima",
+    "hamsa",
+    "hand",
+    "Mary",
+    "Miriam",
+    "protection"
+  ],
+  "mappedToEmoticons": null,
+  "tts": "hamsa",
+  "unicode": "1faac",
+  "unicodeSkintones": null
+}

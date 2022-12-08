@@ -1,0 +1,23 @@
+{
+  "basefilename": "flashlight",
+  "cldr": "flashlight",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDD26",
+  "glyphAsUtfInEmoticons": [
+    "1f526_electrictorch"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "electric",
+    "flashlight",
+    "light",
+    "tool",
+    "torch"
+  ],
+  "mappedToEmoticons": [
+    "1f526_electrictorch"
+  ],
+  "tts": "flashlight",
+  "unicode": "1f526",
+  "unicodeSkintones": null
+}

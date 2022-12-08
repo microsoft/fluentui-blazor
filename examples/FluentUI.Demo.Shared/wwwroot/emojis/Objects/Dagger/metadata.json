@@ -1,0 +1,19 @@
+{
+  "basefilename": "dagger",
+  "cldr": "dagger",
+  "fromVersion": "0.7",
+  "glyph": "\uD83D\uDDE1\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Objects",
+  "keywords": [
+    "dagger",
+    "knife",
+    "weapon"
+  ],
+  "mappedToEmoticons": [
+    "1f5e1_daggerknife"
+  ],
+  "tts": "dagger",
+  "unicode": "1f5e1 fe0f",
+  "unicodeSkintones": null
+}

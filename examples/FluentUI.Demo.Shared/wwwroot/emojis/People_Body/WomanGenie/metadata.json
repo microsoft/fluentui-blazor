@@ -1,0 +1,20 @@
+{
+  "basefilename": "woman_genie",
+  "cldr": "woman genie",
+  "fromVersion": "5.0",
+  "glyph": "\uD83E\uDDDE\u200D\u2640\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "womangenie"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "djinn",
+    "woman genie"
+  ],
+  "mappedToEmoticons": [
+    "womangenie"
+  ],
+  "tts": "woman genie",
+  "unicode": "1f9de 200d 2640 fe0f",
+  "unicodeSkintones": null
+}

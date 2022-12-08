@@ -1,0 +1,20 @@
+{
+  "basefilename": "ring_buoy",
+  "cldr": "ring buoy",
+  "fromVersion": "14.0",
+  "glyph": "\uD83D\uDEDF",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "float",
+    "life preserver",
+    "life saver",
+    "rescue",
+    "ring buoy",
+    "safety"
+  ],
+  "mappedToEmoticons": null,
+  "tts": "ring buoy",
+  "unicode": "1f6df",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,21 @@
+{
+  "basefilename": "balance_scale",
+  "cldr": "balance scale",
+  "fromVersion": "1.0",
+  "glyph": "\u2696\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Objects",
+  "keywords": [
+    "balance",
+    "justice",
+    "Libra",
+    "scale",
+    "zodiac"
+  ],
+  "mappedToEmoticons": [
+    "2696_scales"
+  ],
+  "tts": "balance scale",
+  "unicode": "2696 fe0f",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,24 @@
+{
+  "basefilename": "dna",
+  "cldr": "dna",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDDEC",
+  "glyphAsUtfInEmoticons": [
+    "1f9ec_dna"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "biologist",
+    "dna",
+    "evolution",
+    "gene",
+    "genetics",
+    "life"
+  ],
+  "mappedToEmoticons": [
+    "1f9ec_dna"
+  ],
+  "tts": "dna",
+  "unicode": "1f9ec",
+  "unicodeSkintones": null
+}

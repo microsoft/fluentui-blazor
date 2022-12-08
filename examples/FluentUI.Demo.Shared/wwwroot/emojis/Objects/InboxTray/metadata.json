@@ -1,0 +1,24 @@
+{
+  "basefilename": "inbox_tray",
+  "cldr": "inbox tray",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCE5",
+  "glyphAsUtfInEmoticons": [
+    "1f4e5_inboxtray"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "box",
+    "inbox",
+    "letter",
+    "mail",
+    "receive",
+    "tray"
+  ],
+  "mappedToEmoticons": [
+    "1f4e5_inboxtray"
+  ],
+  "tts": "inbox tray",
+  "unicode": "1f4e5",
+  "unicodeSkintones": null
+}

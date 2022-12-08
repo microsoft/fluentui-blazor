@@ -1,0 +1,23 @@
+{
+  "basefilename": "input_latin_letters",
+  "cldr": "input latin letters",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDD24",
+  "glyphAsUtfInEmoticons": [
+    "1f524_inputsymbolforlatinletters"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "abc",
+    "alphabet",
+    "input",
+    "latin",
+    "letters"
+  ],
+  "mappedToEmoticons": [
+    "1f524_inputsymbolforlatinletters"
+  ],
+  "tts": "input latin letters",
+  "unicode": "1f524",
+  "unicodeSkintones": null
+}

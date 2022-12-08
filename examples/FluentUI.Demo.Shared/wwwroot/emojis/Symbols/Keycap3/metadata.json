@@ -1,0 +1,20 @@
+{
+  "basefilename": "keycap_3",
+  "cldr": "keycap: 3",
+  "fromVersion": "0.6",
+  "glyph": "3\uFE0F\u20E3",
+  "glyphAsUtfInEmoticons": [
+    "keycapdigitthree"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "keycap",
+    "three"
+  ],
+  "mappedToEmoticons": [
+    "keycapdigitthree"
+  ],
+  "tts": "keycap: 3",
+  "unicode": "0033 fe0f 20e3",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,22 @@
+{
+  "basefilename": "footprints",
+  "cldr": "footprints",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC63",
+  "glyphAsUtfInEmoticons": [
+    "1f463_footprints"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "clothing",
+    "footprint",
+    "footprints",
+    "print"
+  ],
+  "mappedToEmoticons": [
+    "1f463_footprints"
+  ],
+  "tts": "footprints",
+  "unicode": "1f463",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,19 @@
+{
+  "basefilename": "crocodile",
+  "cldr": "crocodile",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDC0A",
+  "glyphAsUtfInEmoticons": [
+    "1f40a_crocodile"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "crocodile"
+  ],
+  "mappedToEmoticons": [
+    "1f40a_crocodile"
+  ],
+  "tts": "crocodile",
+  "unicode": "1f40a",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,22 @@
+{
+  "basefilename": "fast_reverse_button",
+  "cldr": "fast reverse button",
+  "fromVersion": "0.6",
+  "glyph": "\u23EA",
+  "glyphAsUtfInEmoticons": [
+    "23ea_fastreversebutton"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "arrow",
+    "double",
+    "fast reverse button",
+    "rewind"
+  ],
+  "mappedToEmoticons": [
+    "23ea_fastreversebutton"
+  ],
+  "tts": "fast reverse button",
+  "unicode": "23ea",
+  "unicodeSkintones": null
+}

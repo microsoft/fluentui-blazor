@@ -1,0 +1,21 @@
+{
+  "basefilename": "film_projector",
+  "cldr": "film projector",
+  "fromVersion": "0.7",
+  "glyph": "\uD83D\uDCFD\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Objects",
+  "keywords": [
+    "cinema",
+    "film",
+    "movie",
+    "projector",
+    "video"
+  ],
+  "mappedToEmoticons": [
+    "1f4fd_filmprojector"
+  ],
+  "tts": "film projector",
+  "unicode": "1f4fd fe0f",
+  "unicodeSkintones": null
+}

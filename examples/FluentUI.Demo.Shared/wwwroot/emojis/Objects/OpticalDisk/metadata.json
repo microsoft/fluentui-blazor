@@ -1,0 +1,22 @@
+{
+  "basefilename": "optical_disk",
+  "cldr": "optical disk",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCBF",
+  "glyphAsUtfInEmoticons": [
+    "1f4bf_opticaldisc"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "cd",
+    "computer",
+    "disk",
+    "optical"
+  ],
+  "mappedToEmoticons": [
+    "1f4bf_opticaldisc"
+  ],
+  "tts": "optical disk",
+  "unicode": "1f4bf",
+  "unicodeSkintones": null
+}

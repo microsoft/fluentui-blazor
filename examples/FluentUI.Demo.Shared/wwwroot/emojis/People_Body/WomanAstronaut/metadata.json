@@ -1,0 +1,28 @@
+{
+  "basefilename": "woman_astronaut",
+  "cldr": "woman astronaut",
+  "fromVersion": "4.0",
+  "glyph": "\uD83D\uDC69\u200D\uD83D\uDE80",
+  "glyphAsUtfInEmoticons": [
+    "womanastronaut"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "astronaut",
+    "rocket",
+    "woman"
+  ],
+  "mappedToEmoticons": [
+    "womanastronaut"
+  ],
+  "tts": "woman astronaut",
+  "unicode": "1f469 200d 1f680",
+  "unicodeSkintones": [
+    "1f469 200d 1f680",
+    "1f469 1f3fb 200d 1f680",
+    "1f469 1f3fc 200d 1f680",
+    "1f469 1f3fd 200d 1f680",
+    "1f469 1f3fe 200d 1f680",
+    "1f469 1f3ff 200d 1f680"
+  ]
+}

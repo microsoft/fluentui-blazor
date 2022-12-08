@@ -1,0 +1,23 @@
+{
+  "basefilename": "baby_bottle",
+  "cldr": "baby bottle",
+  "fromVersion": "1.0",
+  "glyph": "\uD83C\uDF7C",
+  "glyphAsUtfInEmoticons": [
+    "1f37c_babybottle",
+    "manbottlefeeding"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "baby",
+    "bottle",
+    "drink",
+    "milk"
+  ],
+  "mappedToEmoticons": [
+    "1f37c_babybottle"
+  ],
+  "tts": "baby bottle",
+  "unicode": "1f37c",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,20 @@
+{
+  "basefilename": "hot_springs",
+  "cldr": "hot springs",
+  "fromVersion": "0.6",
+  "glyph": "\u2668\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "hot",
+    "hotsprings",
+    "springs",
+    "steaming"
+  ],
+  "mappedToEmoticons": [
+    "2668_hotsprings"
+  ],
+  "tts": "hot springs",
+  "unicode": "2668 fe0f",
+  "unicodeSkintones": null
+}

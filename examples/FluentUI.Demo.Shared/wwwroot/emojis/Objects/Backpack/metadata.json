@@ -1,0 +1,23 @@
+{
+  "basefilename": "backpack",
+  "cldr": "backpack",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF92",
+  "glyphAsUtfInEmoticons": [
+    "1f392_schoolsatchel"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "backpack",
+    "bag",
+    "rucksack",
+    "satchel",
+    "school"
+  ],
+  "mappedToEmoticons": [
+    "1f392_schoolsatchel"
+  ],
+  "tts": "backpack",
+  "unicode": "1f392",
+  "unicodeSkintones": null
+}

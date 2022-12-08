@@ -1,0 +1,23 @@
+{
+  "basefilename": "expressionless_face",
+  "cldr": "expressionless face",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDE11",
+  "glyphAsUtfInEmoticons": [
+    "expressionless"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "expressionless",
+    "face",
+    "inexpressive",
+    "meh",
+    "unexpressive"
+  ],
+  "mappedToEmoticons": [
+    "expressionless"
+  ],
+  "tts": "expressionless face",
+  "unicode": "1f611",
+  "unicodeSkintones": null
+}

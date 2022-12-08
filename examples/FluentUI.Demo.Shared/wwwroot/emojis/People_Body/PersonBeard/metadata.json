@@ -1,0 +1,28 @@
+{
+  "basefilename": "person_beard",
+  "cldr": "person: beard",
+  "fromVersion": "5.0",
+  "glyph": "\uD83E\uDDD4",
+  "glyphAsUtfInEmoticons": [
+    "1f9d4_beardedperson"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "beard",
+    "person",
+    "person: beard"
+  ],
+  "mappedToEmoticons": [
+    "1f9d4_beardedperson"
+  ],
+  "tts": "person: beard",
+  "unicode": "1f9d4",
+  "unicodeSkintones": [
+    "1f9d4",
+    "1f9d4 1f3fb",
+    "1f9d4 1f3fc",
+    "1f9d4 1f3fd",
+    "1f9d4 1f3fe",
+    "1f9d4 1f3ff"
+  ]
+}

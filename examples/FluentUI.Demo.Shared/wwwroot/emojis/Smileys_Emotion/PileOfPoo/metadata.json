@@ -1,0 +1,24 @@
+{
+  "basefilename": "pile_of_poo",
+  "cldr": "pile of poo",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCA9",
+  "glyphAsUtfInEmoticons": [
+    "poop"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "dung",
+    "face",
+    "monster",
+    "pile of poo",
+    "poo",
+    "poop"
+  ],
+  "mappedToEmoticons": [
+    "poop"
+  ],
+  "tts": "pile of poo",
+  "unicode": "1f4a9",
+  "unicodeSkintones": null
+}

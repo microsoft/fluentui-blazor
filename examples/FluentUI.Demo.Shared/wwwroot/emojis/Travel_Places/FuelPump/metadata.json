@@ -1,0 +1,24 @@
+{
+  "basefilename": "fuel_pump",
+  "cldr": "fuel pump",
+  "fromVersion": "0.6",
+  "glyph": "\u26FD",
+  "glyphAsUtfInEmoticons": [
+    "26fd_fuelpump"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "diesel",
+    "fuel",
+    "fuelpump",
+    "gas",
+    "pump",
+    "station"
+  ],
+  "mappedToEmoticons": [
+    "26fd_fuelpump"
+  ],
+  "tts": "fuel pump",
+  "unicode": "26fd",
+  "unicodeSkintones": null
+}

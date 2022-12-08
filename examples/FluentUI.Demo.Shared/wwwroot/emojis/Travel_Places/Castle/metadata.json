@@ -1,0 +1,20 @@
+{
+  "basefilename": "castle",
+  "cldr": "castle",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDFF0",
+  "glyphAsUtfInEmoticons": [
+    "1f3f0_europeancastle"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "castle",
+    "European"
+  ],
+  "mappedToEmoticons": [
+    "1f3f0_europeancastle"
+  ],
+  "tts": "castle",
+  "unicode": "1f3f0",
+  "unicodeSkintones": null
+}

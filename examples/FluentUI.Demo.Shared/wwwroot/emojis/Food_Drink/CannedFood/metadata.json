@@ -1,0 +1,20 @@
+{
+  "basefilename": "canned_food",
+  "cldr": "canned food",
+  "fromVersion": "5.0",
+  "glyph": "\uD83E\uDD6B",
+  "glyphAsUtfInEmoticons": [
+    "1f96b_cannedfood"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "can",
+    "canned food"
+  ],
+  "mappedToEmoticons": [
+    "1f96b_cannedfood"
+  ],
+  "tts": "canned food",
+  "unicode": "1f96b",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,21 @@
+{
+  "basefilename": "heart_with_ribbon",
+  "cldr": "heart with ribbon",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC9D",
+  "glyphAsUtfInEmoticons": [
+    "1f49d_heartwithribbon"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "heart with ribbon",
+    "ribbon",
+    "valentine"
+  ],
+  "mappedToEmoticons": [
+    "1f49d_heartwithribbon"
+  ],
+  "tts": "heart with ribbon",
+  "unicode": "1f49d",
+  "unicodeSkintones": null
+}

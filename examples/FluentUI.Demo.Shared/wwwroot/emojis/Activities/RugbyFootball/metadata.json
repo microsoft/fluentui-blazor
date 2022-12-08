@@ -1,0 +1,21 @@
+{
+  "basefilename": "rugby_football",
+  "cldr": "rugby football",
+  "fromVersion": "1.0",
+  "glyph": "\uD83C\uDFC9",
+  "glyphAsUtfInEmoticons": [
+    "rugbyball"
+  ],
+  "group": "Activities",
+  "keywords": [
+    "ball",
+    "football",
+    "rugby"
+  ],
+  "mappedToEmoticons": [
+    "rugbyball"
+  ],
+  "tts": "rugby football",
+  "unicode": "1f3c9",
+  "unicodeSkintones": null
+}

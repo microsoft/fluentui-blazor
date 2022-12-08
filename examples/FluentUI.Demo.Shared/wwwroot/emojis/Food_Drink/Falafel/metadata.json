@@ -1,0 +1,21 @@
+{
+  "basefilename": "falafel",
+  "cldr": "falafel",
+  "fromVersion": "12.0",
+  "glyph": "\uD83E\uDDC6",
+  "glyphAsUtfInEmoticons": [
+    "1f9c6_falafel"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "chickpea",
+    "falafel",
+    "meatball"
+  ],
+  "mappedToEmoticons": [
+    "1f9c6_falafel"
+  ],
+  "tts": "falafel",
+  "unicode": "1f9c6",
+  "unicodeSkintones": null
+}

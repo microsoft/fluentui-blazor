@@ -1,0 +1,20 @@
+{
+  "basefilename": "virgo",
+  "cldr": "Virgo",
+  "fromVersion": "0.6",
+  "glyph": "\u264D",
+  "glyphAsUtfInEmoticons": [
+    "264d_virgo"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "Virgo",
+    "zodiac"
+  ],
+  "mappedToEmoticons": [
+    "264d_virgo"
+  ],
+  "tts": "Virgo",
+  "unicode": "264d",
+  "unicodeSkintones": null
+}

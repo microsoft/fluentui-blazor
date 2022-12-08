@@ -1,0 +1,21 @@
+{
+  "basefilename": "fish",
+  "cldr": "fish",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC1F",
+  "glyphAsUtfInEmoticons": [
+    "fish"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "fish",
+    "Pisces",
+    "zodiac"
+  ],
+  "mappedToEmoticons": [
+    "fish"
+  ],
+  "tts": "fish",
+  "unicode": "1f41f",
+  "unicodeSkintones": null
+}

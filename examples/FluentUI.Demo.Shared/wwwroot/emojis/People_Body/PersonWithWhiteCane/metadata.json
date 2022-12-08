@@ -1,0 +1,28 @@
+{
+  "basefilename": "person_with_white_cane",
+  "cldr": "person with white cane",
+  "fromVersion": "12.1",
+  "glyph": "\uD83E\uDDD1\u200D\uD83E\uDDAF",
+  "glyphAsUtfInEmoticons": [
+    "personwithprobingcane"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "accessibility",
+    "blind",
+    "person with white cane"
+  ],
+  "mappedToEmoticons": [
+    "personwithprobingcane"
+  ],
+  "tts": "person with white cane",
+  "unicode": "1f9d1 200d 1f9af",
+  "unicodeSkintones": [
+    "1f9d1 200d 1f9af",
+    "1f9d1 1f3fb 200d 1f9af",
+    "1f9d1 1f3fc 200d 1f9af",
+    "1f9d1 1f3fd 200d 1f9af",
+    "1f9d1 1f3fe 200d 1f9af",
+    "1f9d1 1f3ff 200d 1f9af"
+  ]
+}

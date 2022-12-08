@@ -1,0 +1,24 @@
+{
+  "basefilename": "smiling_face_with_sunglasses",
+  "cldr": "smiling face with sunglasses",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDE0E",
+  "glyphAsUtfInEmoticons": [
+    "cool"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "bright",
+    "cool",
+    "face",
+    "smiling face with sunglasses",
+    "sun",
+    "sunglasses"
+  ],
+  "mappedToEmoticons": [
+    "cool"
+  ],
+  "tts": "smiling face with sunglasses",
+  "unicode": "1f60e",
+  "unicodeSkintones": null
+}

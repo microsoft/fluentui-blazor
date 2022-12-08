@@ -1,0 +1,20 @@
+{
+  "basefilename": "cat",
+  "cldr": "cat",
+  "fromVersion": "0.7",
+  "glyph": "\uD83D\uDC08",
+  "glyphAsUtfInEmoticons": [
+    "cat"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "cat",
+    "pet"
+  ],
+  "mappedToEmoticons": [
+    "cat"
+  ],
+  "tts": "cat",
+  "unicode": "1f408",
+  "unicodeSkintones": null
+}

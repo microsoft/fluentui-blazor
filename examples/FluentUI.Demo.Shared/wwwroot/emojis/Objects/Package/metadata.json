@@ -1,0 +1,21 @@
+{
+  "basefilename": "package",
+  "cldr": "package",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCE6",
+  "glyphAsUtfInEmoticons": [
+    "1f4e6_package"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "box",
+    "package",
+    "parcel"
+  ],
+  "mappedToEmoticons": [
+    "1f4e6_package"
+  ],
+  "tts": "package",
+  "unicode": "1f4e6",
+  "unicodeSkintones": null
+}

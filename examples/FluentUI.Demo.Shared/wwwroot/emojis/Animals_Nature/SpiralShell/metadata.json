@@ -1,0 +1,20 @@
+{
+  "basefilename": "spiral_shell",
+  "cldr": "spiral shell",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC1A",
+  "glyphAsUtfInEmoticons": [
+    "1f41a_spiralshell"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "shell",
+    "spiral"
+  ],
+  "mappedToEmoticons": [
+    "1f41a_spiralshell"
+  ],
+  "tts": "spiral shell",
+  "unicode": "1f41a",
+  "unicodeSkintones": null
+}

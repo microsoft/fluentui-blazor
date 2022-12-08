@@ -1,0 +1,21 @@
+{
+  "basefilename": "sled",
+  "cldr": "sled",
+  "fromVersion": "5.0",
+  "glyph": "\uD83D\uDEF7",
+  "glyphAsUtfInEmoticons": [
+    "1f6f7_sled"
+  ],
+  "group": "Activities",
+  "keywords": [
+    "sled",
+    "sledge",
+    "sleigh"
+  ],
+  "mappedToEmoticons": [
+    "1f6f7_sled"
+  ],
+  "tts": "sled",
+  "unicode": "1f6f7",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,23 @@
+{
+  "basefilename": "cat_with_tears_of_joy",
+  "cldr": "cat with tears of joy",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDE39",
+  "glyphAsUtfInEmoticons": [
+    "1f639_catwithtearsofjoy"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "cat",
+    "cat with tears of joy",
+    "face",
+    "joy",
+    "tear"
+  ],
+  "mappedToEmoticons": [
+    "1f639_catwithtearsofjoy"
+  ],
+  "tts": "cat with tears of joy",
+  "unicode": "1f639",
+  "unicodeSkintones": null
+}

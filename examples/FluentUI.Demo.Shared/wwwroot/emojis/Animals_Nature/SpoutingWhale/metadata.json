@@ -1,0 +1,19 @@
+{
+  "basefilename": "spouting_whale",
+  "cldr": "spouting whale",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC33",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "face",
+    "spouting",
+    "whale"
+  ],
+  "mappedToEmoticons": [
+    "spoutingwhale"
+  ],
+  "tts": "spouting whale",
+  "unicode": "1f433",
+  "unicodeSkintones": null
+}

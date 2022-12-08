@@ -1,0 +1,21 @@
+{
+  "basefilename": "eight-spoked_asterisk",
+  "cldr": "eight-spoked asterisk",
+  "fromVersion": "0.6",
+  "glyph": "\u2733\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "2733_eightspokedasterisk"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "*",
+    "asterisk",
+    "eight-spoked asterisk"
+  ],
+  "mappedToEmoticons": [
+    "2733_eightspokedasterisk"
+  ],
+  "tts": "eight-spoked asterisk",
+  "unicode": "2733 fe0f",
+  "unicodeSkintones": null
+}

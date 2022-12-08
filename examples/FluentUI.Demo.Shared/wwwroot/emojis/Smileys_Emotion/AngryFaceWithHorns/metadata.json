@@ -1,0 +1,24 @@
+{
+  "basefilename": "angry_face_with_horns",
+  "cldr": "angry face with horns",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC7F",
+  "glyphAsUtfInEmoticons": [
+    "1f47f_angryfacewithhorns"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "angry face with horns",
+    "demon",
+    "devil",
+    "face",
+    "fantasy",
+    "imp"
+  ],
+  "mappedToEmoticons": [
+    "1f47f_angryfacewithhorns"
+  ],
+  "tts": "angry face with horns",
+  "unicode": "1f47f",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,18 @@
+{
+  "basefilename": "spider",
+  "cldr": "spider",
+  "fromVersion": "0.7",
+  "glyph": "\uD83D\uDD77\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "insect",
+    "spider"
+  ],
+  "mappedToEmoticons": [
+    "spider"
+  ],
+  "tts": "spider",
+  "unicode": "1f577 fe0f",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,24 @@
+{
+  "basefilename": "no_bicycles",
+  "cldr": "no bicycles",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDEB3",
+  "glyphAsUtfInEmoticons": [
+    "1f6b3_nobicycles"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "bicycle",
+    "bike",
+    "forbidden",
+    "no",
+    "no bicycles",
+    "prohibited"
+  ],
+  "mappedToEmoticons": [
+    "1f6b3_nobicycles"
+  ],
+  "tts": "no bicycles",
+  "unicode": "1f6b3",
+  "unicodeSkintones": null
+}

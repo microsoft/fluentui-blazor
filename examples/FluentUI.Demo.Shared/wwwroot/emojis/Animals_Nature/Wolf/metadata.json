@@ -1,0 +1,21 @@
+{
+  "basefilename": "wolf",
+  "cldr": "wolf",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC3A",
+  "glyphAsUtfInEmoticons": [
+    "1f43a_wolfface",
+    "werewolfhowl"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "face",
+    "wolf"
+  ],
+  "mappedToEmoticons": [
+    "1f43a_wolfface"
+  ],
+  "tts": "wolf",
+  "unicode": "1f43a",
+  "unicodeSkintones": null
+}

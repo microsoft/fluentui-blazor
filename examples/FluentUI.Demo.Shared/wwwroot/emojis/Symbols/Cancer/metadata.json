@@ -1,0 +1,21 @@
+{
+  "basefilename": "cancer",
+  "cldr": "Cancer",
+  "fromVersion": "0.6",
+  "glyph": "\u264B",
+  "glyphAsUtfInEmoticons": [
+    "264b_cancer"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "Cancer",
+    "crab",
+    "zodiac"
+  ],
+  "mappedToEmoticons": [
+    "264b_cancer"
+  ],
+  "tts": "Cancer",
+  "unicode": "264b",
+  "unicodeSkintones": null
+}

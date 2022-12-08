@@ -1,0 +1,21 @@
+{
+  "basefilename": "collision",
+  "cldr": "collision",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCA5",
+  "glyphAsUtfInEmoticons": [
+    "1f4a5_collisionsymbol"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "boom",
+    "collision",
+    "comic"
+  ],
+  "mappedToEmoticons": [
+    "1f4a5_collisionsymbol"
+  ],
+  "tts": "collision",
+  "unicode": "1f4a5",
+  "unicodeSkintones": null
+}

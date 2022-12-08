@@ -1,0 +1,31 @@
+{
+  "basefilename": "santa_claus",
+  "cldr": "Santa Claus",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF85",
+  "glyphAsUtfInEmoticons": [
+    "santa"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "celebration",
+    "Christmas",
+    "claus",
+    "father",
+    "santa",
+    "Santa Claus"
+  ],
+  "mappedToEmoticons": [
+    "santa"
+  ],
+  "tts": "Santa Claus",
+  "unicode": "1f385",
+  "unicodeSkintones": [
+    "1f385",
+    "1f385 1f3fb",
+    "1f385 1f3fc",
+    "1f385 1f3fd",
+    "1f385 1f3fe",
+    "1f385 1f3ff"
+  ]
+}

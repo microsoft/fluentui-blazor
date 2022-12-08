@@ -1,0 +1,23 @@
+{
+  "basefilename": "flatbread",
+  "cldr": "flatbread",
+  "fromVersion": "13.0",
+  "glyph": "\uD83E\uDED3",
+  "glyphAsUtfInEmoticons": [
+    "flatbread"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "arepa",
+    "flatbread",
+    "lavash",
+    "naan",
+    "pita"
+  ],
+  "mappedToEmoticons": [
+    "flatbread"
+  ],
+  "tts": "flatbread",
+  "unicode": "1fad3",
+  "unicodeSkintones": null
+}

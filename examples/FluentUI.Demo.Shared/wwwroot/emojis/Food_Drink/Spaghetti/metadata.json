@@ -1,0 +1,20 @@
+{
+  "basefilename": "spaghetti",
+  "cldr": "spaghetti",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF5D",
+  "glyphAsUtfInEmoticons": [
+    "1f35d_spaghetti"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "pasta",
+    "spaghetti"
+  ],
+  "mappedToEmoticons": [
+    "1f35d_spaghetti"
+  ],
+  "tts": "spaghetti",
+  "unicode": "1f35d",
+  "unicodeSkintones": null
+}

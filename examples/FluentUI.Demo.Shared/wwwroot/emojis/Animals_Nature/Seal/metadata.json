@@ -1,0 +1,18 @@
+{
+  "basefilename": "seal",
+  "cldr": "seal",
+  "fromVersion": "13.0",
+  "glyph": "\uD83E\uDDAD",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "sea lion",
+    "seal"
+  ],
+  "mappedToEmoticons": [
+    "seal"
+  ],
+  "tts": "seal",
+  "unicode": "1f9ad",
+  "unicodeSkintones": null
+}

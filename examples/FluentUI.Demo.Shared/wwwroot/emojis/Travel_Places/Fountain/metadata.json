@@ -1,0 +1,19 @@
+{
+  "basefilename": "fountain",
+  "cldr": "fountain",
+  "fromVersion": "0.6",
+  "glyph": "\u26F2",
+  "glyphAsUtfInEmoticons": [
+    "26f2_fountain"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "fountain"
+  ],
+  "mappedToEmoticons": [
+    "26f2_fountain"
+  ],
+  "tts": "fountain",
+  "unicode": "26f2",
+  "unicodeSkintones": null
+}

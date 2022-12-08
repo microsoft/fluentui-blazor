@@ -1,0 +1,21 @@
+{
+  "basefilename": "leo",
+  "cldr": "Leo",
+  "fromVersion": "0.6",
+  "glyph": "\u264C",
+  "glyphAsUtfInEmoticons": [
+    "264c_leo"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "Leo",
+    "lion",
+    "zodiac"
+  ],
+  "mappedToEmoticons": [
+    "264c_leo"
+  ],
+  "tts": "Leo",
+  "unicode": "264c",
+  "unicodeSkintones": null
+}

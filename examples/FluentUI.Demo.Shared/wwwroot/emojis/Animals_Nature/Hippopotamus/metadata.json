@@ -1,0 +1,20 @@
+{
+  "basefilename": "hippopotamus",
+  "cldr": "hippopotamus",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDD9B",
+  "glyphAsUtfInEmoticons": [
+    "1f99b_hippopotamus"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "hippo",
+    "hippopotamus"
+  ],
+  "mappedToEmoticons": [
+    "1f99b_hippopotamus"
+  ],
+  "tts": "hippopotamus",
+  "unicode": "1f99b",
+  "unicodeSkintones": null
+}

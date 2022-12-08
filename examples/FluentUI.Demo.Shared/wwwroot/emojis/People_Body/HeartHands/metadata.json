@@ -1,0 +1,27 @@
+{
+  "basefilename": "heart_hands",
+  "cldr": "heart hands",
+  "fromVersion": "14.0",
+  "glyph": "\uD83E\uDEF6",
+  "glyphAsUtfInEmoticons": [
+    "hearthands"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "heart hands",
+    "love"
+  ],
+  "mappedToEmoticons": [
+    "hearthands"
+  ],
+  "tts": "heart hands",
+  "unicode": "1faf6",
+  "unicodeSkintones": [
+    "1faf6",
+    "1faf6 1f3fb",
+    "1faf6 1f3fc",
+    "1faf6 1f3fd",
+    "1faf6 1f3fe",
+    "1faf6 1f3ff"
+  ]
+}

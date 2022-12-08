@@ -1,0 +1,19 @@
+{
+  "basefilename": "military_medal",
+  "cldr": "military medal",
+  "fromVersion": "0.7",
+  "glyph": "\uD83C\uDF96\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Activities",
+  "keywords": [
+    "celebration",
+    "medal",
+    "military"
+  ],
+  "mappedToEmoticons": [
+    "1f396_militarymedal"
+  ],
+  "tts": "military medal",
+  "unicode": "1f396 fe0f",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,19 @@
+{
+  "basefilename": "raccoon",
+  "cldr": "raccoon",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDD9D",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "curious",
+    "raccoon",
+    "sly"
+  ],
+  "mappedToEmoticons": [
+    "racoon"
+  ],
+  "tts": "raccoon",
+  "unicode": "1f99d",
+  "unicodeSkintones": null
+}

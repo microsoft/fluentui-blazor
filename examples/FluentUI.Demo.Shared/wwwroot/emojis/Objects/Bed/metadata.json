@@ -1,0 +1,19 @@
+{
+  "basefilename": "bed",
+  "cldr": "bed",
+  "fromVersion": "0.7",
+  "glyph": "\uD83D\uDECF\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Objects",
+  "keywords": [
+    "bed",
+    "hotel",
+    "sleep"
+  ],
+  "mappedToEmoticons": [
+    "1f6cf_bed"
+  ],
+  "tts": "bed",
+  "unicode": "1f6cf fe0f",
+  "unicodeSkintones": null
+}

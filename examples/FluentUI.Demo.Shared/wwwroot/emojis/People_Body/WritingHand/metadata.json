@@ -1,0 +1,26 @@
+{
+  "basefilename": "writing_hand",
+  "cldr": "writing hand",
+  "fromVersion": "0.7",
+  "glyph": "\u270D\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "People \u0026 Body",
+  "keywords": [
+    "hand",
+    "write",
+    "writing hand"
+  ],
+  "mappedToEmoticons": [
+    "270d_writinghand"
+  ],
+  "tts": "writing hand",
+  "unicode": "270d fe0f",
+  "unicodeSkintones": [
+    "270d fe0f",
+    "270d 1f3fb",
+    "270d 1f3fc",
+    "270d 1f3fd",
+    "270d 1f3fe",
+    "270d 1f3ff"
+  ]
+}

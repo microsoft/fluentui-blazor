@@ -1,0 +1,23 @@
+{
+  "basefilename": "magnifying_glass_tilted_right",
+  "cldr": "magnifying glass tilted right",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDD0E",
+  "glyphAsUtfInEmoticons": [
+    "1f50e_magnifiertiltedright"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "glass",
+    "magnifying",
+    "magnifying glass tilted right",
+    "search",
+    "tool"
+  ],
+  "mappedToEmoticons": [
+    "1f50e_magnifiertiltedright"
+  ],
+  "tts": "magnifying glass tilted right",
+  "unicode": "1f50e",
+  "unicodeSkintones": null
+}

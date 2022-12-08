@@ -1,0 +1,22 @@
+{
+  "basefilename": "hut",
+  "cldr": "hut",
+  "fromVersion": "13.0",
+  "glyph": "\uD83D\uDED6",
+  "glyphAsUtfInEmoticons": [
+    "hut"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "house",
+    "hut",
+    "roundhouse",
+    "yurt"
+  ],
+  "mappedToEmoticons": [
+    "hut"
+  ],
+  "tts": "hut",
+  "unicode": "1f6d6",
+  "unicodeSkintones": null
+}

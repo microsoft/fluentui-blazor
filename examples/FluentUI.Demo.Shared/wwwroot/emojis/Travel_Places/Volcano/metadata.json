@@ -1,0 +1,21 @@
+{
+  "basefilename": "volcano",
+  "cldr": "volcano",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF0B",
+  "glyphAsUtfInEmoticons": [
+    "1f30b_volcano"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "eruption",
+    "mountain",
+    "volcano"
+  ],
+  "mappedToEmoticons": [
+    "1f30b_volcano"
+  ],
+  "tts": "volcano",
+  "unicode": "1f30b",
+  "unicodeSkintones": null
+}

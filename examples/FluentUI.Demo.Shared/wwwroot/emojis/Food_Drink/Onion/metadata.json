@@ -1,0 +1,20 @@
+{
+  "basefilename": "onion",
+  "cldr": "onion",
+  "fromVersion": "12.0",
+  "glyph": "\uD83E\uDDC5",
+  "glyphAsUtfInEmoticons": [
+    "1f9c5_onion"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "flavoring",
+    "onion"
+  ],
+  "mappedToEmoticons": [
+    "1f9c5_onion"
+  ],
+  "tts": "onion",
+  "unicode": "1f9c5",
+  "unicodeSkintones": null
+}

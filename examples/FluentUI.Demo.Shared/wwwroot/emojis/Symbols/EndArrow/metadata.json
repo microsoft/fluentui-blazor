@@ -1,0 +1,21 @@
+{
+  "basefilename": "end_arrow",
+  "cldr": "END arrow",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDD1A",
+  "glyphAsUtfInEmoticons": [
+    "1f51a_endwithleftwardsarrowabove"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "arrow",
+    "end",
+    "END arrow"
+  ],
+  "mappedToEmoticons": [
+    "1f51a_endwithleftwardsarrowabove"
+  ],
+  "tts": "END arrow",
+  "unicode": "1f51a",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,21 @@
+{
+  "basefilename": "confetti_ball",
+  "cldr": "confetti ball",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF8A",
+  "glyphAsUtfInEmoticons": [
+    "1f38a_confettiball"
+  ],
+  "group": "Activities",
+  "keywords": [
+    "ball",
+    "celebration",
+    "confetti"
+  ],
+  "mappedToEmoticons": [
+    "1f38a_confettiball"
+  ],
+  "tts": "confetti ball",
+  "unicode": "1f38a",
+  "unicodeSkintones": null
+}

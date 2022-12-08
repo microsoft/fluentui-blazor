@@ -1,0 +1,22 @@
+{
+  "basefilename": "bubble_tea",
+  "cldr": "bubble tea",
+  "fromVersion": "13.0",
+  "glyph": "\uD83E\uDDCB",
+  "glyphAsUtfInEmoticons": [
+    "bubbletea"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "bubble",
+    "milk",
+    "pearl",
+    "tea"
+  ],
+  "mappedToEmoticons": [
+    "bubbletea"
+  ],
+  "tts": "bubble tea",
+  "unicode": "1f9cb",
+  "unicodeSkintones": null
+}

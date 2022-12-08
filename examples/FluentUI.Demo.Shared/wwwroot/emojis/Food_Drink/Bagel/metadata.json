@@ -1,0 +1,22 @@
+{
+  "basefilename": "bagel",
+  "cldr": "bagel",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDD6F",
+  "glyphAsUtfInEmoticons": [
+    "1f96f_bagel"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "bagel",
+    "bakery",
+    "breakfast",
+    "schmear"
+  ],
+  "mappedToEmoticons": [
+    "1f96f_bagel"
+  ],
+  "tts": "bagel",
+  "unicode": "1f96f",
+  "unicodeSkintones": null
+}

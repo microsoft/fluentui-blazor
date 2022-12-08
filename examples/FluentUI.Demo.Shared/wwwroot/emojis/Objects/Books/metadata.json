@@ -1,0 +1,20 @@
+{
+  "basefilename": "books",
+  "cldr": "books",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCDA",
+  "glyphAsUtfInEmoticons": [
+    "1f4da_books"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "book",
+    "books"
+  ],
+  "mappedToEmoticons": [
+    "1f4da_books"
+  ],
+  "tts": "books",
+  "unicode": "1f4da",
+  "unicodeSkintones": null
+}

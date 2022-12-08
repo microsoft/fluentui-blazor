@@ -1,0 +1,27 @@
+{
+  "basefilename": "hand_with_fingers_splayed",
+  "cldr": "hand with fingers splayed",
+  "fromVersion": "0.7",
+  "glyph": "\uD83D\uDD90\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "People \u0026 Body",
+  "keywords": [
+    "finger",
+    "hand",
+    "hand with fingers splayed",
+    "splayed"
+  ],
+  "mappedToEmoticons": [
+    "1f590_handwithfingerssplayed"
+  ],
+  "tts": "hand with fingers splayed",
+  "unicode": "1f590 fe0f",
+  "unicodeSkintones": [
+    "1f590 fe0f",
+    "1f590 1f3fb",
+    "1f590 1f3fc",
+    "1f590 1f3fd",
+    "1f590 1f3fe",
+    "1f590 1f3ff"
+  ]
+}

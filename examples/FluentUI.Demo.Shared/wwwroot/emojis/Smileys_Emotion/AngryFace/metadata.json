@@ -1,0 +1,22 @@
+{
+  "basefilename": "angry_face",
+  "cldr": "angry face",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDE20",
+  "glyphAsUtfInEmoticons": [
+    "angry"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "anger",
+    "angry",
+    "face",
+    "mad"
+  ],
+  "mappedToEmoticons": [
+    "angry"
+  ],
+  "tts": "angry face",
+  "unicode": "1f620",
+  "unicodeSkintones": null
+}

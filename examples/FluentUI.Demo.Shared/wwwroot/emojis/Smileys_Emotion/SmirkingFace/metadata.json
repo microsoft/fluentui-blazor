@@ -1,0 +1,21 @@
+{
+  "basefilename": "smirking_face",
+  "cldr": "smirking face",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDE0F",
+  "glyphAsUtfInEmoticons": [
+    "smirk"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "face",
+    "smirk",
+    "smirking face"
+  ],
+  "mappedToEmoticons": [
+    "smirk"
+  ],
+  "tts": "smirking face",
+  "unicode": "1f60f",
+  "unicodeSkintones": null
+}

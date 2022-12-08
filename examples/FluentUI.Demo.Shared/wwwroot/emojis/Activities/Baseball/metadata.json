@@ -1,0 +1,20 @@
+{
+  "basefilename": "baseball",
+  "cldr": "baseball",
+  "fromVersion": "0.6",
+  "glyph": "\u26BE",
+  "glyphAsUtfInEmoticons": [
+    "baseball"
+  ],
+  "group": "Activities",
+  "keywords": [
+    "ball",
+    "baseball"
+  ],
+  "mappedToEmoticons": [
+    "baseball"
+  ],
+  "tts": "baseball",
+  "unicode": "26be",
+  "unicodeSkintones": null
+}

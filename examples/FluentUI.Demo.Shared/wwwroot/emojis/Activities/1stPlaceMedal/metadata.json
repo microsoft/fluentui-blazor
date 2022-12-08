@@ -1,0 +1,22 @@
+{
+  "basefilename": "1st_place_medal",
+  "cldr": "1st place medal",
+  "fromVersion": "3.0",
+  "glyph": "\uD83E\uDD47",
+  "glyphAsUtfInEmoticons": [
+    "goldmedal"
+  ],
+  "group": "Activities",
+  "keywords": [
+    "1st place medal",
+    "first",
+    "gold",
+    "medal"
+  ],
+  "mappedToEmoticons": [
+    "goldmedal"
+  ],
+  "tts": "1st place medal",
+  "unicode": "1f947",
+  "unicodeSkintones": null
+}

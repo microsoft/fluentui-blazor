@@ -1,0 +1,22 @@
+{
+  "basefilename": "goggles",
+  "cldr": "goggles",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDD7D",
+  "glyphAsUtfInEmoticons": [
+    "1f97d_goggles"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "eye protection",
+    "goggles",
+    "swimming",
+    "welding"
+  ],
+  "mappedToEmoticons": [
+    "1f97d_goggles"
+  ],
+  "tts": "goggles",
+  "unicode": "1f97d",
+  "unicodeSkintones": null
+}

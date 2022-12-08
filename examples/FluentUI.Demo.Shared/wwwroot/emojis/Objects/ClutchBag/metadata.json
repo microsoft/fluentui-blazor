@@ -1,0 +1,22 @@
+{
+  "basefilename": "clutch_bag",
+  "cldr": "clutch bag",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC5D",
+  "glyphAsUtfInEmoticons": [
+    "1f45d_pouch"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "bag",
+    "clothing",
+    "clutch bag",
+    "pouch"
+  ],
+  "mappedToEmoticons": [
+    "1f45d_pouch"
+  ],
+  "tts": "clutch bag",
+  "unicode": "1f45d",
+  "unicodeSkintones": null
+}

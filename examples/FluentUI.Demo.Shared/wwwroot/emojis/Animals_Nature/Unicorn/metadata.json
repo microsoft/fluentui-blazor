@@ -1,0 +1,20 @@
+{
+  "basefilename": "unicorn",
+  "cldr": "unicorn",
+  "fromVersion": "1.0",
+  "glyph": "\uD83E\uDD84",
+  "glyphAsUtfInEmoticons": [
+    "unicornhead"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "face",
+    "unicorn"
+  ],
+  "mappedToEmoticons": [
+    "unicornhead"
+  ],
+  "tts": "unicorn",
+  "unicode": "1f984",
+  "unicodeSkintones": null
+}

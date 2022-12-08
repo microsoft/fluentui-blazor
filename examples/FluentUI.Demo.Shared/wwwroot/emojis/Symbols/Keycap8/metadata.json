@@ -1,0 +1,20 @@
+{
+  "basefilename": "keycap_8",
+  "cldr": "keycap: 8",
+  "fromVersion": "0.6",
+  "glyph": "8\uFE0F\u20E3",
+  "glyphAsUtfInEmoticons": [
+    "keycapdigiteight"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "keycap",
+    "eight"
+  ],
+  "mappedToEmoticons": [
+    "keycapdigiteight"
+  ],
+  "tts": "keycap: 8",
+  "unicode": "0038 fe0f 20e3",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,59 @@
+﻿namespace FluentUI.Demo.Shared;
+
+public static partial class FluentEmojis
+{
+    private static List<EmojiModel> emojiList = new();
+
+    public static List<EmojiModel> InGroup(EmojiGroup group)
+    {
+        if (!emojiList.Any())
+            emojiList = FluentEmojis.EmojiMap.ToList();
+
+
+        emojiList = emojiList.Where(x => x.Group == group)
+            .OrderBy(i => i.Name)
+            .ToList();
+
+        return emojiList;
+    }
+
+    public static List<EmojiModel> WithStyle(EmojiStyle style)
+    {
+        if (!emojiList.Any())
+            emojiList = FluentEmojis.EmojiMap.ToList();
+
+        emojiList = emojiList.Where(x => x.Style == style)
+            .ToList();
+
+        return emojiList;
+    }
+
+    public static List<EmojiModel> WithSkintone(EmojiSkintone skintone)
+    {
+
+
+        if (!emojiList.Any())
+            emojiList = FluentEmojis.EmojiMap.ToList();
+
+        emojiList = emojiList.Where(x => x.Skintone == skintone)
+            .ToList();
+
+        return emojiList;
+    }
+
+    public static List<EmojiModel> WithName(string searchterm)
+    {
+        if (!emojiList.Any())
+            emojiList = FluentEmojis.EmojiMap.ToList();
+
+        if (!string.IsNullOrWhiteSpace(searchterm))
+        {
+            emojiList = emojiList.Where(x => x.Name.Contains(searchterm, StringComparison.OrdinalIgnoreCase) || x.Folder.Contains(searchterm.ToLower()))
+            .OrderBy(i => i.Name)
+            .ToList();
+        }
+
+        return emojiList;
+
+    }
+}

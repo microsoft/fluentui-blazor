@@ -1,0 +1,22 @@
+{
+  "basefilename": "double_curly_loop",
+  "cldr": "double curly loop",
+  "fromVersion": "1.0",
+  "glyph": "\u27BF",
+  "glyphAsUtfInEmoticons": [
+    "27bf_doublecurlyloop"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "curl",
+    "double",
+    "double curly loop",
+    "loop"
+  ],
+  "mappedToEmoticons": [
+    "27bf_doublecurlyloop"
+  ],
+  "tts": "double curly loop",
+  "unicode": "27bf",
+  "unicodeSkintones": null
+}

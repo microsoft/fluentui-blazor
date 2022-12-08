@@ -1,0 +1,20 @@
+{
+  "basefilename": "thinking_face",
+  "cldr": "thinking face",
+  "fromVersion": "1.0",
+  "glyph": "\uD83E\uDD14",
+  "glyphAsUtfInEmoticons": [
+    "think"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "face",
+    "thinking"
+  ],
+  "mappedToEmoticons": [
+    "think"
+  ],
+  "tts": "thinking face",
+  "unicode": "1f914",
+  "unicodeSkintones": null
+}

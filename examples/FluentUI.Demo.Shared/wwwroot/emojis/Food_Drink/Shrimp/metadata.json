@@ -1,0 +1,22 @@
+{
+  "basefilename": "shrimp",
+  "cldr": "shrimp",
+  "fromVersion": "3.0",
+  "glyph": "\uD83E\uDD90",
+  "glyphAsUtfInEmoticons": [
+    "1f990_shrimp"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "food",
+    "shellfish",
+    "shrimp",
+    "small"
+  ],
+  "mappedToEmoticons": [
+    "1f990_shrimp"
+  ],
+  "tts": "shrimp",
+  "unicode": "1f990",
+  "unicodeSkintones": null
+}

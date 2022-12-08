@@ -1,0 +1,23 @@
+{
+  "basefilename": "droplet",
+  "cldr": "droplet",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCA7",
+  "glyphAsUtfInEmoticons": [
+    "1f4a7_droplet"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "cold",
+    "comic",
+    "drop",
+    "droplet",
+    "sweat"
+  ],
+  "mappedToEmoticons": [
+    "1f4a7_droplet"
+  ],
+  "tts": "droplet",
+  "unicode": "1f4a7",
+  "unicodeSkintones": null
+}

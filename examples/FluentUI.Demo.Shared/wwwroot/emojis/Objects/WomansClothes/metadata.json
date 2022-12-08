@@ -1,0 +1,21 @@
+{
+  "basefilename": "womans_clothes",
+  "cldr": "woman\u2019s clothes",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC5A",
+  "glyphAsUtfInEmoticons": [
+    "1f45a_womansclothes"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "clothing",
+    "woman",
+    "woman\u2019s clothes"
+  ],
+  "mappedToEmoticons": [
+    "1f45a_womansclothes"
+  ],
+  "tts": "woman\u2019s clothes",
+  "unicode": "1f45a",
+  "unicodeSkintones": null
+}

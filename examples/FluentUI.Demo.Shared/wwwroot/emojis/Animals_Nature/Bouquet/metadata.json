@@ -1,0 +1,20 @@
+{
+  "basefilename": "bouquet",
+  "cldr": "bouquet",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC90",
+  "glyphAsUtfInEmoticons": [
+    "1f490_bouquet"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "bouquet",
+    "flower"
+  ],
+  "mappedToEmoticons": [
+    "1f490_bouquet"
+  ],
+  "tts": "bouquet",
+  "unicode": "1f490",
+  "unicodeSkintones": null
+}

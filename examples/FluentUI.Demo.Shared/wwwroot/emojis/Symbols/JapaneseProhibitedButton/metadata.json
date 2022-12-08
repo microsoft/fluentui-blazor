@@ -1,0 +1,23 @@
+{
+  "basefilename": "japanese_prohibited_button",
+  "cldr": "Japanese \u201Cprohibited\u201D button",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDE32",
+  "glyphAsUtfInEmoticons": [
+    "1f232_prohibited"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "\u201Cprohibited\u201D",
+    "ideograph",
+    "Japanese",
+    "Japanese \u201Cprohibited\u201D button",
+    "\u7981"
+  ],
+  "mappedToEmoticons": [
+    "1f232_prohibited"
+  ],
+  "tts": "Japanese \u201Cprohibited\u201D button",
+  "unicode": "1f232",
+  "unicodeSkintones": null
+}

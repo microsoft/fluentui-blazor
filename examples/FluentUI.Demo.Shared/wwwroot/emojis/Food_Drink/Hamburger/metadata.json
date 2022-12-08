@@ -1,0 +1,20 @@
+{
+  "basefilename": "hamburger",
+  "cldr": "hamburger",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF54",
+  "glyphAsUtfInEmoticons": [
+    "burger"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "burger",
+    "hamburger"
+  ],
+  "mappedToEmoticons": [
+    "burger"
+  ],
+  "tts": "hamburger",
+  "unicode": "1f354",
+  "unicodeSkintones": null
+}

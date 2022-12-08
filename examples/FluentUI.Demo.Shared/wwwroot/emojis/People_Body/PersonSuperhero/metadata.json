@@ -1,0 +1,28 @@
+{
+  "basefilename": "person_superhero",
+  "cldr": "superhero",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDDB8",
+  "glyphAsUtfInEmoticons": null,
+  "group": "People \u0026 Body",
+  "keywords": [
+    "good",
+    "hero",
+    "heroine",
+    "superhero",
+    "superpower"
+  ],
+  "mappedToEmoticons": [
+    "personsuperhero"
+  ],
+  "tts": "superhero",
+  "unicode": "1f9b8",
+  "unicodeSkintones": [
+    "1f9b8",
+    "1f9b8 1f3fb",
+    "1f9b8 1f3fc",
+    "1f9b8 1f3fd",
+    "1f9b8 1f3fe",
+    "1f9b8 1f3ff"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "basefilename": "skis",
+  "cldr": "skis",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDFBF",
+  "glyphAsUtfInEmoticons": [
+    "1f3bf_skiandskiboot"
+  ],
+  "group": "Activities",
+  "keywords": [
+    "ski",
+    "skis",
+    "snow"
+  ],
+  "mappedToEmoticons": [
+    "1f3bf_skiandskiboot"
+  ],
+  "tts": "skis",
+  "unicode": "1f3bf",
+  "unicodeSkintones": null
+}

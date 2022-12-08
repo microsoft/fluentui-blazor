@@ -1,0 +1,20 @@
+{
+  "basefilename": "red_heart",
+  "cldr": "red heart",
+  "fromVersion": "0.6",
+  "glyph": "\u2764\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "heart"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "heart",
+    "red heart"
+  ],
+  "mappedToEmoticons": [
+    "heart"
+  ],
+  "tts": "red heart",
+  "unicode": "2764 fe0f",
+  "unicodeSkintones": null
+}

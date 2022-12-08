@@ -1,0 +1,20 @@
+{
+  "basefilename": "duck",
+  "cldr": "duck",
+  "fromVersion": "3.0",
+  "glyph": "\uD83E\uDD86",
+  "glyphAsUtfInEmoticons": [
+    "1f986_duck"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "bird",
+    "duck"
+  ],
+  "mappedToEmoticons": [
+    "1f986_duck"
+  ],
+  "tts": "duck",
+  "unicode": "1f986",
+  "unicodeSkintones": null
+}

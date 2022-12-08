@@ -1,0 +1,20 @@
+{
+  "basefilename": "metro",
+  "cldr": "metro",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDE87",
+  "glyphAsUtfInEmoticons": [
+    "1f687_metro"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "metro",
+    "subway"
+  ],
+  "mappedToEmoticons": [
+    "1f687_metro"
+  ],
+  "tts": "metro",
+  "unicode": "1f687",
+  "unicodeSkintones": null
+}

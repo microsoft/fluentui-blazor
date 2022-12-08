@@ -1,0 +1,23 @@
+{
+  "basefilename": "mammoth",
+  "cldr": "mammoth",
+  "fromVersion": "13.0",
+  "glyph": "\uD83E\uDDA3",
+  "glyphAsUtfInEmoticons": [
+    "mammoth"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "extinction",
+    "large",
+    "mammoth",
+    "tusk",
+    "woolly"
+  ],
+  "mappedToEmoticons": [
+    "mammoth"
+  ],
+  "tts": "mammoth",
+  "unicode": "1f9a3",
+  "unicodeSkintones": null
+}

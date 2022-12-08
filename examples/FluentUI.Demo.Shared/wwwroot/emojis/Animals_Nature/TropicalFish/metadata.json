@@ -1,0 +1,20 @@
+{
+  "basefilename": "tropical_fish",
+  "cldr": "tropical fish",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC20",
+  "glyphAsUtfInEmoticons": [
+    "tropicalfish"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "fish",
+    "tropical"
+  ],
+  "mappedToEmoticons": [
+    "tropicalfish"
+  ],
+  "tts": "tropical fish",
+  "unicode": "1f420",
+  "unicodeSkintones": null
+}

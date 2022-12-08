@@ -1,0 +1,20 @@
+{
+  "basefilename": "bus_stop",
+  "cldr": "bus stop",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDE8F",
+  "glyphAsUtfInEmoticons": [
+    "1f68f_busstop"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "bus",
+    "stop"
+  ],
+  "mappedToEmoticons": [
+    "1f68f_busstop"
+  ],
+  "tts": "bus stop",
+  "unicode": "1f68f",
+  "unicodeSkintones": null
+}

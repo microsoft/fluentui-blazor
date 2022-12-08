@@ -1,0 +1,23 @@
+{
+  "basefilename": "skull",
+  "cldr": "skull",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC80",
+  "glyphAsUtfInEmoticons": [
+    "skull"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "death",
+    "face",
+    "fairy tale",
+    "monster",
+    "skull"
+  ],
+  "mappedToEmoticons": [
+    "skull"
+  ],
+  "tts": "skull",
+  "unicode": "1f480",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,23 @@
+{
+  "basefilename": "astonished_face",
+  "cldr": "astonished face",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDE32",
+  "glyphAsUtfInEmoticons": [
+    "1f632_astonishedface",
+    "surprised"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "astonished",
+    "face",
+    "shocked",
+    "totally"
+  ],
+  "mappedToEmoticons": [
+    "1f632_astonishedface"
+  ],
+  "tts": "astonished face",
+  "unicode": "1f632",
+  "unicodeSkintones": null
+}

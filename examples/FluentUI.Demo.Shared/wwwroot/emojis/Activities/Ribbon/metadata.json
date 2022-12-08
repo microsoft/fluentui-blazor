@@ -1,0 +1,20 @@
+{
+  "basefilename": "ribbon",
+  "cldr": "ribbon",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF80",
+  "glyphAsUtfInEmoticons": [
+    "1f380_ribbon"
+  ],
+  "group": "Activities",
+  "keywords": [
+    "celebration",
+    "ribbon"
+  ],
+  "mappedToEmoticons": [
+    "1f380_ribbon"
+  ],
+  "tts": "ribbon",
+  "unicode": "1f380",
+  "unicodeSkintones": null
+}

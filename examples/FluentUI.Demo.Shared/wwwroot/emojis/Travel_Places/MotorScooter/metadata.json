@@ -1,0 +1,20 @@
+{
+  "basefilename": "motor_scooter",
+  "cldr": "motor scooter",
+  "fromVersion": "3.0",
+  "glyph": "\uD83D\uDEF5",
+  "glyphAsUtfInEmoticons": [
+    "scooter"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "motor",
+    "scooter"
+  ],
+  "mappedToEmoticons": [
+    "scooter"
+  ],
+  "tts": "motor scooter",
+  "unicode": "1f6f5",
+  "unicodeSkintones": null
+}

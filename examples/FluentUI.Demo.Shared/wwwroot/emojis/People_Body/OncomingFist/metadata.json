@@ -1,0 +1,30 @@
+{
+  "basefilename": "oncoming_fist",
+  "cldr": "oncoming fist",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC4A",
+  "glyphAsUtfInEmoticons": [
+    "1f44a_oncomingfist"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "clenched",
+    "fist",
+    "hand",
+    "oncoming fist",
+    "punch"
+  ],
+  "mappedToEmoticons": [
+    "1f44a_oncomingfist"
+  ],
+  "tts": "oncoming fist",
+  "unicode": "1f44a",
+  "unicodeSkintones": [
+    "1f44a",
+    "1f44a 1f3fb",
+    "1f44a 1f3fc",
+    "1f44a 1f3fd",
+    "1f44a 1f3fe",
+    "1f44a 1f3ff"
+  ]
+}

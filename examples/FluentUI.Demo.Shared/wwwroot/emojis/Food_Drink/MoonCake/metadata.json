@@ -1,0 +1,22 @@
+{
+  "basefilename": "moon_cake",
+  "cldr": "moon cake",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDD6E",
+  "glyphAsUtfInEmoticons": [
+    "1f96e_mooncake"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "autumn",
+    "festival",
+    "moon cake",
+    "yu\u00E8b\u01D0ng"
+  ],
+  "mappedToEmoticons": [
+    "1f96e_mooncake"
+  ],
+  "tts": "moon cake",
+  "unicode": "1f96e",
+  "unicodeSkintones": null
+}

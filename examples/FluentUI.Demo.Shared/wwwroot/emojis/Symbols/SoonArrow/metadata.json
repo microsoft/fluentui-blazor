@@ -1,0 +1,21 @@
+{
+  "basefilename": "soon_arrow",
+  "cldr": "SOON arrow",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDD1C",
+  "glyphAsUtfInEmoticons": [
+    "1f51c_soon"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "arrow",
+    "soon",
+    "SOON arrow"
+  ],
+  "mappedToEmoticons": [
+    "1f51c_soon"
+  ],
+  "tts": "SOON arrow",
+  "unicode": "1f51c",
+  "unicodeSkintones": null
+}

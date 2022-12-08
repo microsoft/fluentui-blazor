@@ -1,0 +1,24 @@
+{
+  "basefilename": "zany_face",
+  "cldr": "zany face",
+  "fromVersion": "5.0",
+  "glyph": "\uD83E\uDD2A",
+  "glyphAsUtfInEmoticons": [
+    "1f92a_zanyface",
+    "hysterical"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "eye",
+    "goofy",
+    "large",
+    "small",
+    "zany face"
+  ],
+  "mappedToEmoticons": [
+    "1f92a_zanyface"
+  ],
+  "tts": "zany face",
+  "unicode": "1f92a",
+  "unicodeSkintones": null
+}

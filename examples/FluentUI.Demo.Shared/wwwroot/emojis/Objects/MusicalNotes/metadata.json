@@ -1,0 +1,22 @@
+{
+  "basefilename": "musical_notes",
+  "cldr": "musical notes",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDFB6",
+  "glyphAsUtfInEmoticons": [
+    "1f3b6_multiplemusicalnotes"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "music",
+    "musical notes",
+    "note",
+    "notes"
+  ],
+  "mappedToEmoticons": [
+    "1f3b6_multiplemusicalnotes"
+  ],
+  "tts": "musical notes",
+  "unicode": "1f3b6",
+  "unicodeSkintones": null
+}

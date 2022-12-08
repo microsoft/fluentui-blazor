@@ -1,0 +1,22 @@
+{
+  "basefilename": "scorpion",
+  "cldr": "scorpion",
+  "fromVersion": "1.0",
+  "glyph": "\uD83E\uDD82",
+  "glyphAsUtfInEmoticons": [
+    "1f982_scorpion"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "scorpio",
+    "Scorpio",
+    "scorpion",
+    "zodiac"
+  ],
+  "mappedToEmoticons": [
+    "1f982_scorpion"
+  ],
+  "tts": "scorpion",
+  "unicode": "1f982",
+  "unicodeSkintones": null
+}

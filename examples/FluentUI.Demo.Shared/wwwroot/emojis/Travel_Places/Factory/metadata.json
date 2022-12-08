@@ -1,0 +1,20 @@
+{
+  "basefilename": "factory",
+  "cldr": "factory",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDFED",
+  "glyphAsUtfInEmoticons": [
+    "1f3ed_factory"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "building",
+    "factory"
+  ],
+  "mappedToEmoticons": [
+    "1f3ed_factory"
+  ],
+  "tts": "factory",
+  "unicode": "1f3ed",
+  "unicodeSkintones": null
+}

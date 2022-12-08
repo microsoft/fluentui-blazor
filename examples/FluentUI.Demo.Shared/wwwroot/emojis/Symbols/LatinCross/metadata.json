@@ -1,0 +1,22 @@
+{
+  "basefilename": "latin_cross",
+  "cldr": "latin cross",
+  "fromVersion": "0.7",
+  "glyph": "\u271D\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "271d_latincross"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "Christian",
+    "cross",
+    "latin cross",
+    "religion"
+  ],
+  "mappedToEmoticons": [
+    "271d_latincross"
+  ],
+  "tts": "latin cross",
+  "unicode": "271d fe0f",
+  "unicodeSkintones": null
+}

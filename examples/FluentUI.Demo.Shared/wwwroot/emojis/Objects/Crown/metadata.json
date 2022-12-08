@@ -1,0 +1,22 @@
+{
+  "basefilename": "crown",
+  "cldr": "crown",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC51",
+  "glyphAsUtfInEmoticons": [
+    "1f451_crown"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "clothing",
+    "crown",
+    "king",
+    "queen"
+  ],
+  "mappedToEmoticons": [
+    "1f451_crown"
+  ],
+  "tts": "crown",
+  "unicode": "1f451",
+  "unicodeSkintones": null
+}

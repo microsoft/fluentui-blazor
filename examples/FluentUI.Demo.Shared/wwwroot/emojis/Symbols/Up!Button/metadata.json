@@ -1,0 +1,21 @@
+{
+  "basefilename": "up!_button",
+  "cldr": "UP! button",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDD99",
+  "glyphAsUtfInEmoticons": [
+    "1f199_buttonup"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "mark",
+    "up",
+    "UP! button"
+  ],
+  "mappedToEmoticons": [
+    "1f199_buttonup"
+  ],
+  "tts": "UP! button",
+  "unicode": "1f199",
+  "unicodeSkintones": null
+}

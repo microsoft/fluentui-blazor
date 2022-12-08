@@ -1,0 +1,23 @@
+{
+  "basefilename": "face_with_head-bandage",
+  "cldr": "face with head-bandage",
+  "fromVersion": "1.0",
+  "glyph": "\uD83E\uDD15",
+  "glyphAsUtfInEmoticons": [
+    "1f915_facewithheadbandage"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "bandage",
+    "face",
+    "face with head-bandage",
+    "hurt",
+    "injury"
+  ],
+  "mappedToEmoticons": [
+    "1f915_facewithheadbandage"
+  ],
+  "tts": "face with head-bandage",
+  "unicode": "1f915",
+  "unicodeSkintones": null
+}

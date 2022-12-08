@@ -1,0 +1,23 @@
+{
+  "basefilename": "right_anger_bubble",
+  "cldr": "right anger bubble",
+  "fromVersion": "0.7",
+  "glyph": "\uD83D\uDDEF\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "1f5ef_rightangerbubble"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "angry",
+    "balloon",
+    "bubble",
+    "mad",
+    "right anger bubble"
+  ],
+  "mappedToEmoticons": [
+    "1f5ef_rightangerbubble"
+  ],
+  "tts": "right anger bubble",
+  "unicode": "1f5ef fe0f",
+  "unicodeSkintones": null
+}

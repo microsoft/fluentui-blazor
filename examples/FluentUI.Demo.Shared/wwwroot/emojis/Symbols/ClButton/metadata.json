@@ -1,0 +1,20 @@
+{
+  "basefilename": "cl_button",
+  "cldr": "CL button",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDD91",
+  "glyphAsUtfInEmoticons": [
+    "1f191_squaredcl"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "cl",
+    "CL button"
+  ],
+  "mappedToEmoticons": [
+    "1f191_squaredcl"
+  ],
+  "tts": "CL button",
+  "unicode": "1f191",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,21 @@
+{
+  "basefilename": "pouting_cat",
+  "cldr": "pouting cat",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDE3E",
+  "glyphAsUtfInEmoticons": [
+    "1f63e_poutingcat"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "cat",
+    "face",
+    "pouting"
+  ],
+  "mappedToEmoticons": [
+    "1f63e_poutingcat"
+  ],
+  "tts": "pouting cat",
+  "unicode": "1f63e",
+  "unicodeSkintones": null
+}

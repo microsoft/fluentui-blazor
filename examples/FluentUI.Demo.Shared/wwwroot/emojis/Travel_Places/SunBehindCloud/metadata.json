@@ -1,0 +1,21 @@
+{
+  "basefilename": "sun_behind_cloud",
+  "cldr": "sun behind cloud",
+  "fromVersion": "0.6",
+  "glyph": "\u26C5",
+  "glyphAsUtfInEmoticons": [
+    "26c5_sunbehindcloud"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "cloud",
+    "sun",
+    "sun behind cloud"
+  ],
+  "mappedToEmoticons": [
+    "1f325_sunbehindlargecloud"
+  ],
+  "tts": "sun behind cloud",
+  "unicode": "26c5",
+  "unicodeSkintones": null
+}

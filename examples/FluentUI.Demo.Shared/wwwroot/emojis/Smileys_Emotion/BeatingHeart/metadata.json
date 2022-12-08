@@ -1,0 +1,22 @@
+{
+  "basefilename": "beating_heart",
+  "cldr": "beating heart",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC93",
+  "glyphAsUtfInEmoticons": [
+    "1f493_beatingheart"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "beating",
+    "beating heart",
+    "heartbeat",
+    "pulsating"
+  ],
+  "mappedToEmoticons": [
+    "1f493_beatingheart"
+  ],
+  "tts": "beating heart",
+  "unicode": "1f493",
+  "unicodeSkintones": null
+}

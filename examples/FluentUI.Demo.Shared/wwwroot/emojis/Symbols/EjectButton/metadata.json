@@ -1,0 +1,20 @@
+{
+  "basefilename": "eject_button",
+  "cldr": "eject button",
+  "fromVersion": "1.0",
+  "glyph": "\u23CF\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "23cf_ejectsymbol"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "eject",
+    "eject button"
+  ],
+  "mappedToEmoticons": [
+    "23cf_ejectsymbol"
+  ],
+  "tts": "eject button",
+  "unicode": "23cf fe0f",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,23 @@
+{
+  "basefilename": "downwards_button",
+  "cldr": "downwards button",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDD3D",
+  "glyphAsUtfInEmoticons": [
+    "1f53d_buttondownsmall"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "arrow",
+    "button",
+    "down",
+    "downwards button",
+    "red"
+  ],
+  "mappedToEmoticons": [
+    "1f53d_buttondownsmall"
+  ],
+  "tts": "downwards button",
+  "unicode": "1f53d",
+  "unicodeSkintones": null
+}

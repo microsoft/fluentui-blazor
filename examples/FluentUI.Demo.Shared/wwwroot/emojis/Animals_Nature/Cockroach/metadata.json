@@ -1,0 +1,22 @@
+{
+  "basefilename": "cockroach",
+  "cldr": "cockroach",
+  "fromVersion": "13.0",
+  "glyph": "\uD83E\uDEB3",
+  "glyphAsUtfInEmoticons": [
+    "cockroach"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "cockroach",
+    "insect",
+    "pest",
+    "roach"
+  ],
+  "mappedToEmoticons": [
+    "cockroach"
+  ],
+  "tts": "cockroach",
+  "unicode": "1fab3",
+  "unicodeSkintones": null
+}

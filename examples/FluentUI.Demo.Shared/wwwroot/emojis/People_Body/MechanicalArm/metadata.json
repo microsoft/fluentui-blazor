@@ -1,0 +1,21 @@
+{
+  "basefilename": "mechanical_arm",
+  "cldr": "mechanical arm",
+  "fromVersion": "12.0",
+  "glyph": "\uD83E\uDDBE",
+  "glyphAsUtfInEmoticons": [
+    "1f9be_mechanicalarm"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "accessibility",
+    "mechanical arm",
+    "prosthetic"
+  ],
+  "mappedToEmoticons": [
+    "1f9be_mechanicalarm"
+  ],
+  "tts": "mechanical arm",
+  "unicode": "1f9be",
+  "unicodeSkintones": null
+}

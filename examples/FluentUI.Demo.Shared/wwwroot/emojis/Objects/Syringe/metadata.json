@@ -1,0 +1,23 @@
+{
+  "basefilename": "syringe",
+  "cldr": "syringe",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC89",
+  "glyphAsUtfInEmoticons": [
+    "1f489_syringe"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "medicine",
+    "needle",
+    "shot",
+    "sick",
+    "syringe"
+  ],
+  "mappedToEmoticons": [
+    "1f489_syringe"
+  ],
+  "tts": "syringe",
+  "unicode": "1f489",
+  "unicodeSkintones": null
+}

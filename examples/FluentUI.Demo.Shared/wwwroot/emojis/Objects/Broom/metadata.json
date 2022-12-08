@@ -1,0 +1,22 @@
+{
+  "basefilename": "broom",
+  "cldr": "broom",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDDF9",
+  "glyphAsUtfInEmoticons": [
+    "1f9f9_broom"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "broom",
+    "cleaning",
+    "sweeping",
+    "witch"
+  ],
+  "mappedToEmoticons": [
+    "1f9f9_broom"
+  ],
+  "tts": "broom",
+  "unicode": "1f9f9",
+  "unicodeSkintones": null
+}

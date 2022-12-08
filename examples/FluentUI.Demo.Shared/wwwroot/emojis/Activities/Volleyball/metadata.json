@@ -1,0 +1,21 @@
+{
+  "basefilename": "volleyball",
+  "cldr": "volleyball",
+  "fromVersion": "1.0",
+  "glyph": "\uD83C\uDFD0",
+  "glyphAsUtfInEmoticons": [
+    "1f3d0_volleyball"
+  ],
+  "group": "Activities",
+  "keywords": [
+    "ball",
+    "game",
+    "volleyball"
+  ],
+  "mappedToEmoticons": [
+    "1f3d0_volleyball"
+  ],
+  "tts": "volleyball",
+  "unicode": "1f3d0",
+  "unicodeSkintones": null
+}

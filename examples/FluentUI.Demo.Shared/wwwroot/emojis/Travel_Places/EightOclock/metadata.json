@@ -1,0 +1,24 @@
+{
+  "basefilename": "eight_oclock",
+  "cldr": "eight o\u2019clock",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDD57",
+  "glyphAsUtfInEmoticons": [
+    "1f557_eightoclock"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "00",
+    "8",
+    "8:00",
+    "clock",
+    "eight",
+    "o\u2019clock"
+  ],
+  "mappedToEmoticons": [
+    "1f557_eightoclock"
+  ],
+  "tts": "eight o\u2019clock",
+  "unicode": "1f557",
+  "unicodeSkintones": null
+}

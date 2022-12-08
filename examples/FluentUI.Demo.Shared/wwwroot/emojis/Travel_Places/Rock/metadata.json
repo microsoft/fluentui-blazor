@@ -1,0 +1,23 @@
+{
+  "basefilename": "rock",
+  "cldr": "rock",
+  "fromVersion": "13.0",
+  "glyph": "\uD83E\uDEA8",
+  "glyphAsUtfInEmoticons": [
+    "stone"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "boulder",
+    "heavy",
+    "rock",
+    "solid",
+    "stone"
+  ],
+  "mappedToEmoticons": [
+    "stone"
+  ],
+  "tts": "rock",
+  "unicode": "1faa8",
+  "unicodeSkintones": null
+}

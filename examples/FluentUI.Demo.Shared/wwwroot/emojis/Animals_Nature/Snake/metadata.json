@@ -1,0 +1,23 @@
+{
+  "basefilename": "snake",
+  "cldr": "snake",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC0D",
+  "glyphAsUtfInEmoticons": [
+    "snake"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "bearer",
+    "Ophiuchus",
+    "serpent",
+    "snake",
+    "zodiac"
+  ],
+  "mappedToEmoticons": [
+    "snake"
+  ],
+  "tts": "snake",
+  "unicode": "1f40d",
+  "unicodeSkintones": null
+}

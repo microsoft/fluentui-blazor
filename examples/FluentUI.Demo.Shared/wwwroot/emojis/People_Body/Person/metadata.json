@@ -1,0 +1,30 @@
+{
+  "basefilename": "person",
+  "cldr": "person",
+  "fromVersion": "5.0",
+  "glyph": "\uD83E\uDDD1",
+  "glyphAsUtfInEmoticons": [
+    "1f9d1_adult",
+    "student"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "adult",
+    "gender-neutral",
+    "person",
+    "unspecified gender"
+  ],
+  "mappedToEmoticons": [
+    "person"
+  ],
+  "tts": "person",
+  "unicode": "1f9d1",
+  "unicodeSkintones": [
+    "1f9d1",
+    "1f9d1 1f3fb",
+    "1f9d1 1f3fc",
+    "1f9d1 1f3fd",
+    "1f9d1 1f3fe",
+    "1f9d1 1f3ff"
+  ]
+}

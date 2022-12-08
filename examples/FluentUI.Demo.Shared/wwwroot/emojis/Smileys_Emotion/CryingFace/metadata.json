@@ -1,0 +1,23 @@
+{
+  "basefilename": "crying_face",
+  "cldr": "crying face",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDE22",
+  "glyphAsUtfInEmoticons": [
+    "cry"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "cry",
+    "crying face",
+    "face",
+    "sad",
+    "tear"
+  ],
+  "mappedToEmoticons": [
+    "cry"
+  ],
+  "tts": "crying face",
+  "unicode": "1f622",
+  "unicodeSkintones": null
+}

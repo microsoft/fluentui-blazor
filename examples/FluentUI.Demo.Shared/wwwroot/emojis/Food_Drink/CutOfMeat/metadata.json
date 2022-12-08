@@ -1,0 +1,23 @@
+{
+  "basefilename": "cut_of_meat",
+  "cldr": "cut of meat",
+  "fromVersion": "5.0",
+  "glyph": "\uD83E\uDD69",
+  "glyphAsUtfInEmoticons": [
+    "1f969_cutofmeat"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "chop",
+    "cut of meat",
+    "lambchop",
+    "porkchop",
+    "steak"
+  ],
+  "mappedToEmoticons": [
+    "1f969_cutofmeat"
+  ],
+  "tts": "cut of meat",
+  "unicode": "1f969",
+  "unicodeSkintones": null
+}

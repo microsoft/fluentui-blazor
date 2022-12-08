@@ -1,0 +1,19 @@
+{
+  "basefilename": "alembic",
+  "cldr": "alembic",
+  "fromVersion": "1.0",
+  "glyph": "\u2697\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Objects",
+  "keywords": [
+    "alembic",
+    "chemistry",
+    "tool"
+  ],
+  "mappedToEmoticons": [
+    "2697_alembic"
+  ],
+  "tts": "alembic",
+  "unicode": "2697 fe0f",
+  "unicodeSkintones": null
+}

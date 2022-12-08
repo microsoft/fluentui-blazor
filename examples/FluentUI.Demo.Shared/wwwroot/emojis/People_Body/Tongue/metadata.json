@@ -1,0 +1,20 @@
+{
+  "basefilename": "tongue",
+  "cldr": "tongue",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC45",
+  "glyphAsUtfInEmoticons": [
+    "1f445_tongue"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "body",
+    "tongue"
+  ],
+  "mappedToEmoticons": [
+    "1f445_tongue"
+  ],
+  "tts": "tongue",
+  "unicode": "1f445",
+  "unicodeSkintones": null
+}

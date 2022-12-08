@@ -1,0 +1,19 @@
+{
+  "basefilename": "deer",
+  "cldr": "deer",
+  "fromVersion": "3.0",
+  "glyph": "\uD83E\uDD8C",
+  "glyphAsUtfInEmoticons": [
+    "reindeer"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "deer"
+  ],
+  "mappedToEmoticons": [
+    "reindeer"
+  ],
+  "tts": "deer",
+  "unicode": "1f98c",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,19 @@
+{
+  "basefilename": "ferry",
+  "cldr": "ferry",
+  "fromVersion": "0.7",
+  "glyph": "\u26F4\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "boat",
+    "ferry",
+    "passenger"
+  ],
+  "mappedToEmoticons": [
+    "26f4_ferry"
+  ],
+  "tts": "ferry",
+  "unicode": "26f4 fe0f",
+  "unicodeSkintones": null
+}

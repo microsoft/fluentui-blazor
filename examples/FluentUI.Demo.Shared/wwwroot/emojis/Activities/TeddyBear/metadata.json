@@ -1,0 +1,21 @@
+{
+  "basefilename": "teddy_bear",
+  "cldr": "teddy bear",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDDF8",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Activities",
+  "keywords": [
+    "plaything",
+    "plush",
+    "stuffed",
+    "teddy bear",
+    "toy"
+  ],
+  "mappedToEmoticons": [
+    "hug"
+  ],
+  "tts": "teddy bear",
+  "unicode": "1f9f8",
+  "unicodeSkintones": null
+}

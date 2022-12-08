@@ -1,0 +1,22 @@
+{
+  "basefilename": "hushed_face",
+  "cldr": "hushed face",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDE2F",
+  "glyphAsUtfInEmoticons": [
+    "1f62f_hushedface"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "face",
+    "hushed",
+    "stunned",
+    "surprised"
+  ],
+  "mappedToEmoticons": [
+    "1f62f_hushedface"
+  ],
+  "tts": "hushed face",
+  "unicode": "1f62f",
+  "unicodeSkintones": null
+}

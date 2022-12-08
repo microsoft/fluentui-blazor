@@ -1,0 +1,23 @@
+{
+  "basefilename": "kangaroo",
+  "cldr": "kangaroo",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDD98",
+  "glyphAsUtfInEmoticons": [
+    "1f998_kangaroo"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "Australia",
+    "joey",
+    "jump",
+    "kangaroo",
+    "marsupial"
+  ],
+  "mappedToEmoticons": [
+    "1f998_kangaroo"
+  ],
+  "tts": "kangaroo",
+  "unicode": "1f998",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,20 @@
+{
+  "basefilename": "person_with_bunny_ears",
+  "cldr": "people with bunny ears",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC6F",
+  "glyphAsUtfInEmoticons": [
+    "people_with_bunny_ears"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "bunny ear",
+    "dancer",
+    "partying",
+    "people with bunny ears"
+  ],
+  "mappedToEmoticons": null,
+  "tts": "people with bunny ears",
+  "unicode": "1f46f",
+  "unicodeSkintones": null
+}

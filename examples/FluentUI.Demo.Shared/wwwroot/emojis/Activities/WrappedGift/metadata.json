@@ -1,0 +1,23 @@
+{
+  "basefilename": "wrapped_gift",
+  "cldr": "wrapped gift",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF81",
+  "glyphAsUtfInEmoticons": [
+    "gift"
+  ],
+  "group": "Activities",
+  "keywords": [
+    "box",
+    "celebration",
+    "gift",
+    "present",
+    "wrapped"
+  ],
+  "mappedToEmoticons": [
+    "gift"
+  ],
+  "tts": "wrapped gift",
+  "unicode": "1f381",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,24 @@
+{
+  "basefilename": "kitchen_knife",
+  "cldr": "kitchen knife",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDD2A",
+  "glyphAsUtfInEmoticons": [
+    "1f52a_hocho"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "cooking",
+    "hocho",
+    "kitchen knife",
+    "knife",
+    "tool",
+    "weapon"
+  ],
+  "mappedToEmoticons": [
+    "1f52a_hocho"
+  ],
+  "tts": "kitchen knife",
+  "unicode": "1f52a",
+  "unicodeSkintones": null
+}

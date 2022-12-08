@@ -1,0 +1,22 @@
+{
+  "basefilename": "baguette_bread",
+  "cldr": "baguette bread",
+  "fromVersion": "3.0",
+  "glyph": "\uD83E\uDD56",
+  "glyphAsUtfInEmoticons": [
+    "1f956_baguettebread"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "baguette",
+    "bread",
+    "food",
+    "french"
+  ],
+  "mappedToEmoticons": [
+    "1f956_baguettebread"
+  ],
+  "tts": "baguette bread",
+  "unicode": "1f956",
+  "unicodeSkintones": null
+}

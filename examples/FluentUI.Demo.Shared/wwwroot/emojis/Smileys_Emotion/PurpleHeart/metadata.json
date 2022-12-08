@@ -1,0 +1,20 @@
+{
+  "basefilename": "purple_heart",
+  "cldr": "purple heart",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC9C",
+  "glyphAsUtfInEmoticons": [
+    "heartpurple"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "purple",
+    "purple heart"
+  ],
+  "mappedToEmoticons": [
+    "heartpurple"
+  ],
+  "tts": "purple heart",
+  "unicode": "1f49c",
+  "unicodeSkintones": null
+}

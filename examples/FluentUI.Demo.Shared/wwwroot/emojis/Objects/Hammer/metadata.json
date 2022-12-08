@@ -1,0 +1,20 @@
+{
+  "basefilename": "hammer",
+  "cldr": "hammer",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDD28",
+  "glyphAsUtfInEmoticons": [
+    "1f528_hammer"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "hammer",
+    "tool"
+  ],
+  "mappedToEmoticons": [
+    "1f528_hammer"
+  ],
+  "tts": "hammer",
+  "unicode": "1f528",
+  "unicodeSkintones": null
+}

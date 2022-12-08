@@ -1,0 +1,21 @@
+{
+  "basefilename": "meat_on_bone",
+  "cldr": "meat on bone",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF56",
+  "glyphAsUtfInEmoticons": [
+    "1f356_meatonbone"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "bone",
+    "meat",
+    "meat on bone"
+  ],
+  "mappedToEmoticons": [
+    "1f356_meatonbone"
+  ],
+  "tts": "meat on bone",
+  "unicode": "1f356",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,18 @@
+{
+  "basefilename": "rosette",
+  "cldr": "rosette",
+  "fromVersion": "0.7",
+  "glyph": "\uD83C\uDFF5\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "plant",
+    "rosette"
+  ],
+  "mappedToEmoticons": [
+    "1f3f5_rosette"
+  ],
+  "tts": "rosette",
+  "unicode": "1f3f5 fe0f",
+  "unicodeSkintones": null
+}

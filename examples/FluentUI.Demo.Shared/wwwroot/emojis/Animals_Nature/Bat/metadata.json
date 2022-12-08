@@ -1,0 +1,20 @@
+{
+  "basefilename": "bat",
+  "cldr": "bat",
+  "fromVersion": "3.0",
+  "glyph": "\uD83E\uDD87",
+  "glyphAsUtfInEmoticons": [
+    "batsmile"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "bat",
+    "vampire"
+  ],
+  "mappedToEmoticons": [
+    "batsmile"
+  ],
+  "tts": "bat",
+  "unicode": "1f987",
+  "unicodeSkintones": null
+}

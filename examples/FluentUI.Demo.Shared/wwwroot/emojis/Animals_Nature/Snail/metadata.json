@@ -1,0 +1,19 @@
+{
+  "basefilename": "snail",
+  "cldr": "snail",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC0C",
+  "glyphAsUtfInEmoticons": [
+    "snail"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "snail"
+  ],
+  "mappedToEmoticons": [
+    "snail"
+  ],
+  "tts": "snail",
+  "unicode": "1f40c",
+  "unicodeSkintones": null
+}

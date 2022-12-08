@@ -1,0 +1,21 @@
+{
+  "basefilename": "roll_of_paper",
+  "cldr": "roll of paper",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDDFB",
+  "glyphAsUtfInEmoticons": [
+    "1f9fb_toiletpaper"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "paper towels",
+    "roll of paper",
+    "toilet paper"
+  ],
+  "mappedToEmoticons": [
+    "1f9fb_toiletpaper"
+  ],
+  "tts": "roll of paper",
+  "unicode": "1f9fb",
+  "unicodeSkintones": null
+}

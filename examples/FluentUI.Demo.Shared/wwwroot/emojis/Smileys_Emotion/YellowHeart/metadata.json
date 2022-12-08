@@ -1,0 +1,20 @@
+{
+  "basefilename": "yellow_heart",
+  "cldr": "yellow heart",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC9B",
+  "glyphAsUtfInEmoticons": [
+    "heartyellow"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "yellow",
+    "yellow heart"
+  ],
+  "mappedToEmoticons": [
+    "heartyellow"
+  ],
+  "tts": "yellow heart",
+  "unicode": "1f49b",
+  "unicodeSkintones": null
+}

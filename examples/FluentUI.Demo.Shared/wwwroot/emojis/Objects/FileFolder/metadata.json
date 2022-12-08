@@ -1,0 +1,20 @@
+{
+  "basefilename": "file_folder",
+  "cldr": "file folder",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCC1",
+  "glyphAsUtfInEmoticons": [
+    "1f4c1_filefolder"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "file",
+    "folder"
+  ],
+  "mappedToEmoticons": [
+    "1f4c1_filefolder"
+  ],
+  "tts": "file folder",
+  "unicode": "1f4c1",
+  "unicodeSkintones": null
+}

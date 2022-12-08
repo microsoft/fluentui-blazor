@@ -1,0 +1,22 @@
+{
+  "basefilename": "lobster",
+  "cldr": "lobster",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDD9E",
+  "glyphAsUtfInEmoticons": [
+    "1f99e_lobster"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "bisque",
+    "claws",
+    "lobster",
+    "seafood"
+  ],
+  "mappedToEmoticons": [
+    "1f99e_lobster"
+  ],
+  "tts": "lobster",
+  "unicode": "1f99e",
+  "unicodeSkintones": null
+}

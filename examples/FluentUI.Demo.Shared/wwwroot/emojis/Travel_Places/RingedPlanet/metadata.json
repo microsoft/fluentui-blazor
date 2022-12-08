@@ -1,0 +1,21 @@
+{
+  "basefilename": "ringed_planet",
+  "cldr": "ringed planet",
+  "fromVersion": "12.0",
+  "glyph": "\uD83E\uDE90",
+  "glyphAsUtfInEmoticons": [
+    "1fa90_ringedplanet"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "ringed planet",
+    "saturn",
+    "saturnine"
+  ],
+  "mappedToEmoticons": [
+    "1fa90_ringedplanet"
+  ],
+  "tts": "ringed planet",
+  "unicode": "1fa90",
+  "unicodeSkintones": null
+}

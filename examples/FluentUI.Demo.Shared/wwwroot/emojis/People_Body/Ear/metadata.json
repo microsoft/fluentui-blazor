@@ -1,0 +1,27 @@
+{
+  "basefilename": "ear",
+  "cldr": "ear",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC42",
+  "glyphAsUtfInEmoticons": [
+    "1f442_ear"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "body",
+    "ear"
+  ],
+  "mappedToEmoticons": [
+    "1f442_ear"
+  ],
+  "tts": "ear",
+  "unicode": "1f442",
+  "unicodeSkintones": [
+    "1f442",
+    "1f442 1f3fb",
+    "1f442 1f3fc",
+    "1f442 1f3fd",
+    "1f442 1f3fe",
+    "1f442 1f3ff"
+  ]
+}

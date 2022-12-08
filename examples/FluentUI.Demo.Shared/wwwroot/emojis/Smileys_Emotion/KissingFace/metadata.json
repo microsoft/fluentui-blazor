@@ -1,0 +1,21 @@
+{
+  "basefilename": "kissing_face",
+  "cldr": "kissing face",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDE17",
+  "glyphAsUtfInEmoticons": [
+    "kiss"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "face",
+    "kiss",
+    "kissing face"
+  ],
+  "mappedToEmoticons": [
+    "kiss"
+  ],
+  "tts": "kissing face",
+  "unicode": "1f617",
+  "unicodeSkintones": null
+}

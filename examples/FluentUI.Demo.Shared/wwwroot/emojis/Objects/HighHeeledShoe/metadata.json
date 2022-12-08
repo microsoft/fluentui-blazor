@@ -1,0 +1,23 @@
+{
+  "basefilename": "high-heeled_shoe",
+  "cldr": "high-heeled shoe",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC60",
+  "glyphAsUtfInEmoticons": [
+    "1f460_highheeledshoe"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "clothing",
+    "heel",
+    "high-heeled shoe",
+    "shoe",
+    "woman"
+  ],
+  "mappedToEmoticons": [
+    "1f460_highheeledshoe"
+  ],
+  "tts": "high-heeled shoe",
+  "unicode": "1f460",
+  "unicodeSkintones": null
+}

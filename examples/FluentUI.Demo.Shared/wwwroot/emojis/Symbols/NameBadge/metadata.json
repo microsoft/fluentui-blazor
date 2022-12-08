@@ -1,0 +1,20 @@
+{
+  "basefilename": "name_badge",
+  "cldr": "name badge",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCDB",
+  "glyphAsUtfInEmoticons": [
+    "1f4db_namebadge"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "badge",
+    "name"
+  ],
+  "mappedToEmoticons": [
+    "1f4db_namebadge"
+  ],
+  "tts": "name badge",
+  "unicode": "1f4db",
+  "unicodeSkintones": null
+}

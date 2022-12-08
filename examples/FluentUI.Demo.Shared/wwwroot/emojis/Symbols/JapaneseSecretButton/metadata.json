@@ -1,0 +1,23 @@
+{
+  "basefilename": "japanese_secret_button",
+  "cldr": "Japanese \u201Csecret\u201D button",
+  "fromVersion": "0.6",
+  "glyph": "\u3299\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "3299_circledideographsecret"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "\u201Csecret\u201D",
+    "ideograph",
+    "Japanese",
+    "Japanese \u201Csecret\u201D button",
+    "\u79D8"
+  ],
+  "mappedToEmoticons": [
+    "3299_circledideographsecret"
+  ],
+  "tts": "Japanese \u201Csecret\u201D button",
+  "unicode": "3299 fe0f",
+  "unicodeSkintones": null
+}

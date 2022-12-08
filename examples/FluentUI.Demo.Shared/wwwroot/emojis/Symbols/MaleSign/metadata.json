@@ -1,0 +1,20 @@
+{
+  "basefilename": "male_sign",
+  "cldr": "male sign",
+  "fromVersion": "4.0",
+  "glyph": "\u2642\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "2642_man"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "male sign",
+    "man"
+  ],
+  "mappedToEmoticons": [
+    "2642_man"
+  ],
+  "tts": "male sign",
+  "unicode": "2642 fe0f",
+  "unicodeSkintones": null
+}

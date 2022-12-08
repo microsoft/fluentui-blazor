@@ -1,0 +1,21 @@
+{
+  "basefilename": "sari",
+  "cldr": "sari",
+  "fromVersion": "12.0",
+  "glyph": "\uD83E\uDD7B",
+  "glyphAsUtfInEmoticons": [
+    "1f97b_sari"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "clothing",
+    "dress",
+    "sari"
+  ],
+  "mappedToEmoticons": [
+    "1f97b_sari"
+  ],
+  "tts": "sari",
+  "unicode": "1f97b",
+  "unicodeSkintones": null
+}

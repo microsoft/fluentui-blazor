@@ -1,0 +1,22 @@
+{
+  "basefilename": "toolbox",
+  "cldr": "toolbox",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDDF0",
+  "glyphAsUtfInEmoticons": [
+    "1f9f0_toolbox"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "chest",
+    "mechanic",
+    "tool",
+    "toolbox"
+  ],
+  "mappedToEmoticons": [
+    "1f9f0_toolbox"
+  ],
+  "tts": "toolbox",
+  "unicode": "1f9f0",
+  "unicodeSkintones": null
+}

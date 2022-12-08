@@ -1,0 +1,20 @@
+{
+  "basefilename": "hibiscus",
+  "cldr": "hibiscus",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF3A",
+  "glyphAsUtfInEmoticons": [
+    "1f33a_hibiscus"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "flower",
+    "hibiscus"
+  ],
+  "mappedToEmoticons": [
+    "1f33a_hibiscus"
+  ],
+  "tts": "hibiscus",
+  "unicode": "1f33a",
+  "unicodeSkintones": null
+}

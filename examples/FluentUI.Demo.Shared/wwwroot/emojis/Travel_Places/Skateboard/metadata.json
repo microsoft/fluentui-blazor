@@ -1,0 +1,20 @@
+{
+  "basefilename": "skateboard",
+  "cldr": "skateboard",
+  "fromVersion": "11.0",
+  "glyph": "\uD83D\uDEF9",
+  "glyphAsUtfInEmoticons": [
+    "skate"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "board",
+    "skateboard"
+  ],
+  "mappedToEmoticons": [
+    "skate"
+  ],
+  "tts": "skateboard",
+  "unicode": "1f6f9",
+  "unicodeSkintones": null
+}

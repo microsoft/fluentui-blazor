@@ -1,0 +1,21 @@
+{
+  "basefilename": "broken_heart",
+  "cldr": "broken heart",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC94",
+  "glyphAsUtfInEmoticons": [
+    "brokenheart"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "break",
+    "broken",
+    "broken heart"
+  ],
+  "mappedToEmoticons": [
+    "brokenheart"
+  ],
+  "tts": "broken heart",
+  "unicode": "1f494",
+  "unicodeSkintones": null
+}

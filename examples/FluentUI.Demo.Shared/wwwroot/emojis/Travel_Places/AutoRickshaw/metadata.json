@@ -1,0 +1,18 @@
+{
+  "basefilename": "auto_rickshaw",
+  "cldr": "auto rickshaw",
+  "fromVersion": "12.0",
+  "glyph": "\uD83D\uDEFA",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "auto rickshaw",
+    "tuk tuk"
+  ],
+  "mappedToEmoticons": [
+    "rickshaw"
+  ],
+  "tts": "auto rickshaw",
+  "unicode": "1f6fa",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,20 @@
+{
+  "basefilename": "bus",
+  "cldr": "bus",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDE8C",
+  "glyphAsUtfInEmoticons": [
+    "1f68c_bus"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "bus",
+    "vehicle"
+  ],
+  "mappedToEmoticons": [
+    "1f68c_bus"
+  ],
+  "tts": "bus",
+  "unicode": "1f68c",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,20 @@
+{
+  "basefilename": "ledger",
+  "cldr": "ledger",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCD2",
+  "glyphAsUtfInEmoticons": [
+    "1f4d2_ledger"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "ledger",
+    "notebook"
+  ],
+  "mappedToEmoticons": [
+    "1f4d2_ledger"
+  ],
+  "tts": "ledger",
+  "unicode": "1f4d2",
+  "unicodeSkintones": null
+}

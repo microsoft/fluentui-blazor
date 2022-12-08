@@ -1,0 +1,20 @@
+{
+  "basefilename": "peace_symbol",
+  "cldr": "peace symbol",
+  "fromVersion": "1.0",
+  "glyph": "\u262E\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "262e_peacesymbol"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "peace",
+    "peace symbol"
+  ],
+  "mappedToEmoticons": [
+    "262e_peacesymbol"
+  ],
+  "tts": "peace symbol",
+  "unicode": "262e fe0f",
+  "unicodeSkintones": null
+}

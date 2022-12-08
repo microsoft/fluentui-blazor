@@ -1,0 +1,20 @@
+{
+  "basefilename": "wilted_flower",
+  "cldr": "wilted flower",
+  "fromVersion": "3.0",
+  "glyph": "\uD83E\uDD40",
+  "glyphAsUtfInEmoticons": [
+    "wiltedflower"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "flower",
+    "wilted"
+  ],
+  "mappedToEmoticons": [
+    "wiltedflower"
+  ],
+  "tts": "wilted flower",
+  "unicode": "1f940",
+  "unicodeSkintones": null
+}

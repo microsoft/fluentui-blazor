@@ -1,0 +1,22 @@
+{
+  "basefilename": "currency_exchange",
+  "cldr": "currency exchange",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCB1",
+  "glyphAsUtfInEmoticons": [
+    "1f4b1_currencyexchange"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "bank",
+    "currency",
+    "exchange",
+    "money"
+  ],
+  "mappedToEmoticons": [
+    "1f4b1_currencyexchange"
+  ],
+  "tts": "currency exchange",
+  "unicode": "1f4b1",
+  "unicodeSkintones": null
+}

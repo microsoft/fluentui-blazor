@@ -1,0 +1,20 @@
+{
+  "basefilename": "left-right_arrow",
+  "cldr": "left-right arrow",
+  "fromVersion": "0.6",
+  "glyph": "\u2194\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "2194_leftrightarrow"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "arrow",
+    "left-right arrow"
+  ],
+  "mappedToEmoticons": [
+    "2194_leftrightarrow"
+  ],
+  "tts": "left-right arrow",
+  "unicode": "2194 fe0f",
+  "unicodeSkintones": null
+}

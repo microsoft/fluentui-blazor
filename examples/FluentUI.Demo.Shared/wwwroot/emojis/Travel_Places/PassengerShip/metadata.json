@@ -1,0 +1,18 @@
+{
+  "basefilename": "passenger_ship",
+  "cldr": "passenger ship",
+  "fromVersion": "0.7",
+  "glyph": "\uD83D\uDEF3\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "passenger",
+    "ship"
+  ],
+  "mappedToEmoticons": [
+    "1f6f3_passengership"
+  ],
+  "tts": "passenger ship",
+  "unicode": "1f6f3 fe0f",
+  "unicodeSkintones": null
+}

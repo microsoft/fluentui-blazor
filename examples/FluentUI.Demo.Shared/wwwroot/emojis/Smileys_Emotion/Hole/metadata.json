@@ -1,0 +1,17 @@
+{
+  "basefilename": "hole",
+  "cldr": "hole",
+  "fromVersion": "0.7",
+  "glyph": "\uD83D\uDD73\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "hole"
+  ],
+  "mappedToEmoticons": [
+    "1f573_hole"
+  ],
+  "tts": "hole",
+  "unicode": "1f573 fe0f",
+  "unicodeSkintones": null
+}

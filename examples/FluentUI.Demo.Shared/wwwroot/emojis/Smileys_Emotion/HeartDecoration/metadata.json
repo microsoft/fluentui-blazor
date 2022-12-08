@@ -1,0 +1,20 @@
+{
+  "basefilename": "heart_decoration",
+  "cldr": "heart decoration",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC9F",
+  "glyphAsUtfInEmoticons": [
+    "1f49f_heartdecoration"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "heart",
+    "heart decoration"
+  ],
+  "mappedToEmoticons": [
+    "1f49f_heartdecoration"
+  ],
+  "tts": "heart decoration",
+  "unicode": "1f49f",
+  "unicodeSkintones": null
+}

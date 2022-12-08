@@ -1,0 +1,23 @@
+{
+  "basefilename": "blueberries",
+  "cldr": "blueberries",
+  "fromVersion": "13.0",
+  "glyph": "\uD83E\uDED0",
+  "glyphAsUtfInEmoticons": [
+    "blueberries"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "berry",
+    "bilberry",
+    "blue",
+    "blueberries",
+    "blueberry"
+  ],
+  "mappedToEmoticons": [
+    "blueberries"
+  ],
+  "tts": "blueberries",
+  "unicode": "1fad0",
+  "unicodeSkintones": null
+}

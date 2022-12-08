@@ -1,0 +1,20 @@
+{
+  "basefilename": "mouth",
+  "cldr": "mouth",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC44",
+  "glyphAsUtfInEmoticons": [
+    "1f444_mouth"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "lips",
+    "mouth"
+  ],
+  "mappedToEmoticons": [
+    "1f444_mouth"
+  ],
+  "tts": "mouth",
+  "unicode": "1f444",
+  "unicodeSkintones": null
+}

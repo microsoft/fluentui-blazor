@@ -1,0 +1,24 @@
+{
+  "basefilename": "window",
+  "cldr": "window",
+  "fromVersion": "13.0",
+  "glyph": "\uD83E\uDE9F",
+  "glyphAsUtfInEmoticons": [
+    "window"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "frame",
+    "fresh air",
+    "opening",
+    "transparent",
+    "view",
+    "window"
+  ],
+  "mappedToEmoticons": [
+    "window"
+  ],
+  "tts": "window",
+  "unicode": "1fa9f",
+  "unicodeSkintones": null
+}

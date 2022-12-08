@@ -1,0 +1,21 @@
+{
+  "basefilename": "sport_utility_vehicle",
+  "cldr": "sport utility vehicle",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDE99",
+  "glyphAsUtfInEmoticons": [
+    "1f699_recreationalvehicle"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "recreational",
+    "sport utility",
+    "sport utility vehicle"
+  ],
+  "mappedToEmoticons": [
+    "1f699_recreationalvehicle"
+  ],
+  "tts": "sport utility vehicle",
+  "unicode": "1f699",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,29 @@
+{
+  "basefilename": "woman_judge",
+  "cldr": "woman judge",
+  "fromVersion": "4.0",
+  "glyph": "\uD83D\uDC69\u200D\u2696\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "womanjudge"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "judge",
+    "justice",
+    "scales",
+    "woman"
+  ],
+  "mappedToEmoticons": [
+    "womanjudge"
+  ],
+  "tts": "woman judge",
+  "unicode": "1f469 200d 2696 fe0f",
+  "unicodeSkintones": [
+    "1f469 200d 2696 fe0f",
+    "1f469 1f3fb 200d 2696 fe0f",
+    "1f469 1f3fc 200d 2696 fe0f",
+    "1f469 1f3fd 200d 2696 fe0f",
+    "1f469 1f3fe 200d 2696 fe0f",
+    "1f469 1f3ff 200d 2696 fe0f"
+  ]
+}

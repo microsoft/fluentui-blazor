@@ -1,0 +1,22 @@
+{
+  "basefilename": "magnet",
+  "cldr": "magnet",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDDF2",
+  "glyphAsUtfInEmoticons": [
+    "1f9f2_magnet"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "attraction",
+    "horseshoe",
+    "magnet",
+    "magnetic"
+  ],
+  "mappedToEmoticons": [
+    "1f9f2_magnet"
+  ],
+  "tts": "magnet",
+  "unicode": "1f9f2",
+  "unicodeSkintones": null
+}

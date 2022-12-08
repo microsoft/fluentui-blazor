@@ -1,0 +1,23 @@
+{
+  "basefilename": "glasses",
+  "cldr": "glasses",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC53",
+  "glyphAsUtfInEmoticons": [
+    "1f453_glasses"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "clothing",
+    "eye",
+    "eyeglasses",
+    "eyewear",
+    "glasses"
+  ],
+  "mappedToEmoticons": [
+    "1f453_glasses"
+  ],
+  "tts": "glasses",
+  "unicode": "1f453",
+  "unicodeSkintones": null
+}

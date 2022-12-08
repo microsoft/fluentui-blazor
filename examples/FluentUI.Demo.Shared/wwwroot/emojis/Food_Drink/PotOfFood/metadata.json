@@ -1,0 +1,21 @@
+{
+  "basefilename": "pot_of_food",
+  "cldr": "pot of food",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF72",
+  "glyphAsUtfInEmoticons": [
+    "1f372_potoffood"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "pot",
+    "pot of food",
+    "stew"
+  ],
+  "mappedToEmoticons": [
+    "1f372_potoffood"
+  ],
+  "tts": "pot of food",
+  "unicode": "1f372",
+  "unicodeSkintones": null
+}

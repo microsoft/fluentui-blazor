@@ -1,0 +1,22 @@
+{
+  "basefilename": "swan",
+  "cldr": "swan",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDDA2",
+  "glyphAsUtfInEmoticons": [
+    "1f9a2_swan"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "bird",
+    "cygnet",
+    "swan",
+    "ugly duckling"
+  ],
+  "mappedToEmoticons": [
+    "1f9a2_swan"
+  ],
+  "tts": "swan",
+  "unicode": "1f9a2",
+  "unicodeSkintones": null
+}

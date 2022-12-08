@@ -1,0 +1,22 @@
+{
+  "basefilename": "softball",
+  "cldr": "softball",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDD4E",
+  "glyphAsUtfInEmoticons": [
+    "1f94e_softball"
+  ],
+  "group": "Activities",
+  "keywords": [
+    "ball",
+    "glove",
+    "softball",
+    "underarm"
+  ],
+  "mappedToEmoticons": [
+    "1f94e_softball"
+  ],
+  "tts": "softball",
+  "unicode": "1f94e",
+  "unicodeSkintones": null
+}

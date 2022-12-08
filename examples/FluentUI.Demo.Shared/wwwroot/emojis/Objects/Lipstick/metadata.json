@@ -1,0 +1,19 @@
+{
+  "basefilename": "lipstick",
+  "cldr": "lipstick",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC84",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Objects",
+  "keywords": [
+    "cosmetics",
+    "lipstick",
+    "makeup"
+  ],
+  "mappedToEmoticons": [
+    "lipstick"
+  ],
+  "tts": "lipstick",
+  "unicode": "1f484",
+  "unicodeSkintones": null
+}

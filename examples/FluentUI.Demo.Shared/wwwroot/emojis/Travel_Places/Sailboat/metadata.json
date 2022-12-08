@@ -1,0 +1,23 @@
+{
+  "basefilename": "sailboat",
+  "cldr": "sailboat",
+  "fromVersion": "0.6",
+  "glyph": "\u26F5",
+  "glyphAsUtfInEmoticons": [
+    "26f5_sailboat"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "boat",
+    "resort",
+    "sailboat",
+    "sea",
+    "yacht"
+  ],
+  "mappedToEmoticons": [
+    "26f5_sailboat"
+  ],
+  "tts": "sailboat",
+  "unicode": "26f5",
+  "unicodeSkintones": null
+}

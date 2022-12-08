@@ -1,0 +1,22 @@
+{
+  "basefilename": "black_square_button",
+  "cldr": "black square button",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDD32",
+  "glyphAsUtfInEmoticons": [
+    "1f532_blacksquarebutton"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "black square button",
+    "button",
+    "geometric",
+    "square"
+  ],
+  "mappedToEmoticons": [
+    "1f532_blacksquarebutton"
+  ],
+  "tts": "black square button",
+  "unicode": "1f532",
+  "unicodeSkintones": null
+}

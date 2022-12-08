@@ -1,0 +1,20 @@
+{
+  "basefilename": "taxi",
+  "cldr": "taxi",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDE95",
+  "glyphAsUtfInEmoticons": [
+    "taxi"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "taxi",
+    "vehicle"
+  ],
+  "mappedToEmoticons": [
+    "taxi"
+  ],
+  "tts": "taxi",
+  "unicode": "1f695",
+  "unicodeSkintones": null
+}

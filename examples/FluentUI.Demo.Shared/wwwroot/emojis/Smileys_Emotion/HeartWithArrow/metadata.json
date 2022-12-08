@@ -1,0 +1,21 @@
+{
+  "basefilename": "heart_with_arrow",
+  "cldr": "heart with arrow",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC98",
+  "glyphAsUtfInEmoticons": [
+    "1f498_heartwitharrow"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "arrow",
+    "cupid",
+    "heart with arrow"
+  ],
+  "mappedToEmoticons": [
+    "1f498_heartwitharrow"
+  ],
+  "tts": "heart with arrow",
+  "unicode": "1f498",
+  "unicodeSkintones": null
+}

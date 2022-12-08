@@ -1,0 +1,22 @@
+{
+  "basefilename": "teapot",
+  "cldr": "teapot",
+  "fromVersion": "13.0",
+  "glyph": "\uD83E\uDED6",
+  "glyphAsUtfInEmoticons": [
+    "teapot"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "drink",
+    "pot",
+    "tea",
+    "teapot"
+  ],
+  "mappedToEmoticons": [
+    "teapot"
+  ],
+  "tts": "teapot",
+  "unicode": "1fad6",
+  "unicodeSkintones": null
+}

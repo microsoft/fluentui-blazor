@@ -1,0 +1,20 @@
+{
+  "basefilename": "herb",
+  "cldr": "herb",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF3F",
+  "glyphAsUtfInEmoticons": [
+    "1f33f_herb"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "herb",
+    "leaf"
+  ],
+  "mappedToEmoticons": [
+    "1f33f_herb"
+  ],
+  "tts": "herb",
+  "unicode": "1f33f",
+  "unicodeSkintones": null
+}

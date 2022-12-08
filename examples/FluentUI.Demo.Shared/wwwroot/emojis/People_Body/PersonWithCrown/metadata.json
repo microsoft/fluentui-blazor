@@ -1,0 +1,26 @@
+{
+  "basefilename": "person_with_crown",
+  "cldr": "person with crown",
+  "fromVersion": "14.0",
+  "glyph": "\uD83E\uDEC5",
+  "glyphAsUtfInEmoticons": null,
+  "group": "People \u0026 Body",
+  "keywords": [
+    "monarch",
+    "noble",
+    "person with crown",
+    "regal",
+    "royalty"
+  ],
+  "mappedToEmoticons": null,
+  "tts": "person with crown",
+  "unicode": "1fac5",
+  "unicodeSkintones": [
+    "1fac5",
+    "1fac5 1f3fb",
+    "1fac5 1f3fc",
+    "1fac5 1f3fd",
+    "1fac5 1f3fe",
+    "1fac5 1f3ff"
+  ]
+}

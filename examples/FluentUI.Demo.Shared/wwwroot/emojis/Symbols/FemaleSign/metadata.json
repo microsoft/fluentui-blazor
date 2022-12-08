@@ -1,0 +1,20 @@
+{
+  "basefilename": "female_sign",
+  "cldr": "female sign",
+  "fromVersion": "4.0",
+  "glyph": "\u2640\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "2640_woman"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "female sign",
+    "woman"
+  ],
+  "mappedToEmoticons": [
+    "2640_woman"
+  ],
+  "tts": "female sign",
+  "unicode": "2640 fe0f",
+  "unicodeSkintones": null
+}

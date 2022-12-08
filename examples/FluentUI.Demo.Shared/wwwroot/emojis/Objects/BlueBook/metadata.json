@@ -1,0 +1,20 @@
+{
+  "basefilename": "blue_book",
+  "cldr": "blue book",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCD8",
+  "glyphAsUtfInEmoticons": [
+    "1f4d8_bluebook"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "blue",
+    "book"
+  ],
+  "mappedToEmoticons": [
+    "1f4d8_bluebook"
+  ],
+  "tts": "blue book",
+  "unicode": "1f4d8",
+  "unicodeSkintones": null
+}

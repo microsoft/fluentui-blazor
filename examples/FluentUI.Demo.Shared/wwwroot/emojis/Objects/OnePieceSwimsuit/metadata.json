@@ -1,0 +1,20 @@
+{
+  "basefilename": "one-piece_swimsuit",
+  "cldr": "one-piece swimsuit",
+  "fromVersion": "12.0",
+  "glyph": "\uD83E\uDE71",
+  "glyphAsUtfInEmoticons": [
+    "1fa71_onepiece"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "bathing suit",
+    "one-piece swimsuit"
+  ],
+  "mappedToEmoticons": [
+    "1fa71_onepiece"
+  ],
+  "tts": "one-piece swimsuit",
+  "unicode": "1fa71",
+  "unicodeSkintones": null
+}

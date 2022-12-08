@@ -1,0 +1,22 @@
+{
+  "basefilename": "yarn",
+  "cldr": "yarn",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDDF6",
+  "glyphAsUtfInEmoticons": [
+    "1f9f6_yarn"
+  ],
+  "group": "Activities",
+  "keywords": [
+    "ball",
+    "crochet",
+    "knit",
+    "yarn"
+  ],
+  "mappedToEmoticons": [
+    "1f9f6_yarn"
+  ],
+  "tts": "yarn",
+  "unicode": "1f9f6",
+  "unicodeSkintones": null
+}

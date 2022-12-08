@@ -1,0 +1,20 @@
+{
+  "basefilename": "carousel_horse",
+  "cldr": "carousel horse",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDFA0",
+  "glyphAsUtfInEmoticons": [
+    "1f3a0_carouselhorse"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "carousel",
+    "horse"
+  ],
+  "mappedToEmoticons": [
+    "1f3a0_carouselhorse"
+  ],
+  "tts": "carousel horse",
+  "unicode": "1f3a0",
+  "unicodeSkintones": null
+}

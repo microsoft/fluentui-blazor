@@ -1,0 +1,18 @@
+{
+  "basefilename": "face_with_peeking_eye",
+  "cldr": "face with peeking eye",
+  "fromVersion": "14.0",
+  "glyph": "\uD83E\uDEE3",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "captivated",
+    "face with peeking eye",
+    "peep",
+    "stare"
+  ],
+  "mappedToEmoticons": null,
+  "tts": "face with peeking eye",
+  "unicode": "1fae3",
+  "unicodeSkintones": null
+}

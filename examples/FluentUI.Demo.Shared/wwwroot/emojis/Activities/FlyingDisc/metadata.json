@@ -1,0 +1,20 @@
+{
+  "basefilename": "flying_disc",
+  "cldr": "flying disc",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDD4F",
+  "glyphAsUtfInEmoticons": [
+    "1f94f_flyingdisc"
+  ],
+  "group": "Activities",
+  "keywords": [
+    "flying disc",
+    "ultimate"
+  ],
+  "mappedToEmoticons": [
+    "1f94f_flyingdisc"
+  ],
+  "tts": "flying disc",
+  "unicode": "1f94f",
+  "unicodeSkintones": null
+}

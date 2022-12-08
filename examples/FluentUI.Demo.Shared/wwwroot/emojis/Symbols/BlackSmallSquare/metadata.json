@@ -1,0 +1,21 @@
+{
+  "basefilename": "black_small_square",
+  "cldr": "black small square",
+  "fromVersion": "0.6",
+  "glyph": "\u25AA\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "25aa_blacksmallsquare"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "black small square",
+    "geometric",
+    "square"
+  ],
+  "mappedToEmoticons": [
+    "25aa_blacksmallsquare"
+  ],
+  "tts": "black small square",
+  "unicode": "25aa fe0f",
+  "unicodeSkintones": null
+}

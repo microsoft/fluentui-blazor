@@ -1,0 +1,20 @@
+{
+  "basefilename": "mate",
+  "cldr": "mate",
+  "fromVersion": "12.0",
+  "glyph": "\uD83E\uDDC9",
+  "glyphAsUtfInEmoticons": [
+    "1f9c9_mate"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "drink",
+    "mate"
+  ],
+  "mappedToEmoticons": [
+    "1f9c9_mate"
+  ],
+  "tts": "mate",
+  "unicode": "1f9c9",
+  "unicodeSkintones": null
+}

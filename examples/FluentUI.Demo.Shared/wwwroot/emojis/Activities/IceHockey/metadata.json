@@ -1,0 +1,23 @@
+{
+  "basefilename": "ice_hockey",
+  "cldr": "ice hockey",
+  "fromVersion": "1.0",
+  "glyph": "\uD83C\uDFD2",
+  "glyphAsUtfInEmoticons": [
+    "1f3d2_icehockeystickandpuck"
+  ],
+  "group": "Activities",
+  "keywords": [
+    "game",
+    "hockey",
+    "ice",
+    "puck",
+    "stick"
+  ],
+  "mappedToEmoticons": [
+    "1f3d2_icehockeystickandpuck"
+  ],
+  "tts": "ice hockey",
+  "unicode": "1f3d2",
+  "unicodeSkintones": null
+}

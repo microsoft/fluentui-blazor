@@ -1,0 +1,17 @@
+{
+  "basefilename": "coral",
+  "cldr": "coral",
+  "fromVersion": "14.0",
+  "glyph": "\uD83E\uDEB8",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "coral",
+    "ocean",
+    "reef"
+  ],
+  "mappedToEmoticons": null,
+  "tts": "coral",
+  "unicode": "1fab8",
+  "unicodeSkintones": null
+}

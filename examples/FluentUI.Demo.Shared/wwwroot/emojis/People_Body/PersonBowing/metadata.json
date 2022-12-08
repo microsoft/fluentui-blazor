@@ -1,0 +1,30 @@
+{
+  "basefilename": "person_bowing",
+  "cldr": "person bowing",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDE47",
+  "glyphAsUtfInEmoticons": [
+    "bowing"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "apology",
+    "bow",
+    "gesture",
+    "person bowing",
+    "sorry"
+  ],
+  "mappedToEmoticons": [
+    "bowing"
+  ],
+  "tts": "person bowing",
+  "unicode": "1f647",
+  "unicodeSkintones": [
+    "1f647",
+    "1f647 1f3fb",
+    "1f647 1f3fc",
+    "1f647 1f3fd",
+    "1f647 1f3fe",
+    "1f647 1f3ff"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "basefilename": "two_hearts",
+  "cldr": "two hearts",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC95",
+  "glyphAsUtfInEmoticons": [
+    "twohearts"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "love",
+    "two hearts"
+  ],
+  "mappedToEmoticons": [
+    "twohearts"
+  ],
+  "tts": "two hearts",
+  "unicode": "1f495",
+  "unicodeSkintones": null
+}

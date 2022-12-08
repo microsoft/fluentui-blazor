@@ -1,0 +1,27 @@
+{
+  "basefilename": "woman_merpeople",
+  "cldr": "mermaid",
+  "fromVersion": "5.0",
+  "glyph": "\uD83E\uDDDC\u200D\u2640\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "mermaid"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "mermaid",
+    "merwoman"
+  ],
+  "mappedToEmoticons": [
+    "mermaid"
+  ],
+  "tts": "mermaid",
+  "unicode": "1f9dc 200d 2640 fe0f",
+  "unicodeSkintones": [
+    "1f9dc 200d 2640 fe0f",
+    "1f9dc 1f3fb 200d 2640 fe0f",
+    "1f9dc 1f3fc 200d 2640 fe0f",
+    "1f9dc 1f3fd 200d 2640 fe0f",
+    "1f9dc 1f3fe 200d 2640 fe0f",
+    "1f9dc 1f3ff 200d 2640 fe0f"
+  ]
+}

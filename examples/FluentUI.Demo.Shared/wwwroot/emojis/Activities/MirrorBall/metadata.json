@@ -1,0 +1,19 @@
+{
+  "basefilename": "mirror_ball",
+  "cldr": "mirror ball",
+  "fromVersion": "14.0",
+  "glyph": "\uD83E\uDEA9",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Activities",
+  "keywords": [
+    "dance",
+    "disco",
+    "glitter",
+    "mirror ball",
+    "party"
+  ],
+  "mappedToEmoticons": null,
+  "tts": "mirror ball",
+  "unicode": "1faa9",
+  "unicodeSkintones": null
+}

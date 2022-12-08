@@ -1,0 +1,21 @@
+{
+  "basefilename": "red_triangle",
+  "cldr": "red triangle pointed up",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDD3A",
+  "glyphAsUtfInEmoticons": [
+    "1f53a_uppointingredtriangle"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "geometric",
+    "red",
+    "red triangle pointed up"
+  ],
+  "mappedToEmoticons": [
+    "1f53a_uppointingredtriangle"
+  ],
+  "tts": "red triangle pointed up",
+  "unicode": "1f53a",
+  "unicodeSkintones": null
+}

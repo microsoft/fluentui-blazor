@@ -1,0 +1,24 @@
+{
+  "basefilename": "goblin",
+  "cldr": "goblin",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC7A",
+  "glyphAsUtfInEmoticons": [
+    "1f47a_japanesegoblin"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "creature",
+    "face",
+    "fairy tale",
+    "fantasy",
+    "goblin",
+    "monster"
+  ],
+  "mappedToEmoticons": [
+    "1f47a_japanesegoblin"
+  ],
+  "tts": "goblin",
+  "unicode": "1f47a",
+  "unicodeSkintones": null
+}

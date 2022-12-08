@@ -1,0 +1,20 @@
+{
+  "basefilename": "horse_face",
+  "cldr": "horse face",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC34",
+  "glyphAsUtfInEmoticons": [
+    "1f434_horseface"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "face",
+    "horse"
+  ],
+  "mappedToEmoticons": [
+    "1f434_horseface"
+  ],
+  "tts": "horse face",
+  "unicode": "1f434",
+  "unicodeSkintones": null
+}

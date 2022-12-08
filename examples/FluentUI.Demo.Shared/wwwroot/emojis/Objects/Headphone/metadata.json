@@ -1,0 +1,20 @@
+{
+  "basefilename": "headphone",
+  "cldr": "headphone",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDFA7",
+  "glyphAsUtfInEmoticons": [
+    "headphones"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "earbud",
+    "headphone"
+  ],
+  "mappedToEmoticons": [
+    "headphone"
+  ],
+  "tts": "headphone",
+  "unicode": "1f3a7",
+  "unicodeSkintones": null
+}

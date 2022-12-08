@@ -1,0 +1,25 @@
+{
+  "basefilename": "hugging_face",
+  "cldr": "hugging face",
+  "fromVersion": "1.0",
+  "glyph": "\uD83E\uDD17",
+  "glyphAsUtfInEmoticons": [
+    "1f917_huggingface",
+    "hug"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "face",
+    "hug",
+    "hugging",
+    "open hands",
+    "smiling face",
+    "smiling face with open hands"
+  ],
+  "mappedToEmoticons": [
+    "1f917_huggingface"
+  ],
+  "tts": "smiling face with open hands",
+  "unicode": "1f917",
+  "unicodeSkintones": null
+}

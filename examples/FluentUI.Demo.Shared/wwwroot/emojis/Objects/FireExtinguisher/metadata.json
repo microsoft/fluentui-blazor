@@ -1,0 +1,22 @@
+{
+  "basefilename": "fire_extinguisher",
+  "cldr": "fire extinguisher",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDDEF",
+  "glyphAsUtfInEmoticons": [
+    "1f9ef_fireextinguisher"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "extinguish",
+    "fire",
+    "fire extinguisher",
+    "quench"
+  ],
+  "mappedToEmoticons": [
+    "1f9ef_fireextinguisher"
+  ],
+  "tts": "fire extinguisher",
+  "unicode": "1f9ef",
+  "unicodeSkintones": null
+}

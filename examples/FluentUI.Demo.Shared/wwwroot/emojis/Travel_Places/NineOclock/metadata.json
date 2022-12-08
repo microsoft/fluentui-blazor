@@ -1,0 +1,24 @@
+{
+  "basefilename": "nine_oclock",
+  "cldr": "nine o\u2019clock",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDD58",
+  "glyphAsUtfInEmoticons": [
+    "1f558_nineoclock"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "00",
+    "9",
+    "9:00",
+    "clock",
+    "nine",
+    "o\u2019clock"
+  ],
+  "mappedToEmoticons": [
+    "1f558_nineoclock"
+  ],
+  "tts": "nine o\u2019clock",
+  "unicode": "1f558",
+  "unicodeSkintones": null
+}

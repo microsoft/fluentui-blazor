@@ -1,0 +1,25 @@
+{
+  "basefilename": "four_oclock",
+  "cldr": "four o\u2019clock",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDD53",
+  "glyphAsUtfInEmoticons": [
+    "1f553_fouroclock",
+    "fourtwenty"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "00",
+    "4",
+    "4:00",
+    "clock",
+    "four",
+    "o\u2019clock"
+  ],
+  "mappedToEmoticons": [
+    "1f553_fouroclock"
+  ],
+  "tts": "four o\u2019clock",
+  "unicode": "1f553",
+  "unicodeSkintones": null
+}

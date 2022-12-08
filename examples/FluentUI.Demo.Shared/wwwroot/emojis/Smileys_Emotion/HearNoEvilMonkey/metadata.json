@@ -1,0 +1,24 @@
+{
+  "basefilename": "hear-no-evil_monkey",
+  "cldr": "hear-no-evil monkey",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDE49",
+  "glyphAsUtfInEmoticons": [
+    "hearnoevil"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "evil",
+    "face",
+    "forbidden",
+    "hear",
+    "hear-no-evil monkey",
+    "monkey"
+  ],
+  "mappedToEmoticons": [
+    "hearnoevil"
+  ],
+  "tts": "hear-no-evil monkey",
+  "unicode": "1f649",
+  "unicodeSkintones": null
+}

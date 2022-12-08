@@ -1,0 +1,23 @@
+{
+  "basefilename": "grinning_squinting_face",
+  "cldr": "grinning squinting face",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDE06",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "face",
+    "grinning squinting face",
+    "laugh",
+    "mouth",
+    "satisfied",
+    "smile"
+  ],
+  "mappedToEmoticons": [
+    "xd",
+    "laugh"
+  ],
+  "tts": "grinning squinting face",
+  "unicode": "1f606",
+  "unicodeSkintones": null
+}

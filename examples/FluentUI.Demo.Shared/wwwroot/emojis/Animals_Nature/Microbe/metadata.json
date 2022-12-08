@@ -1,0 +1,22 @@
+{
+  "basefilename": "microbe",
+  "cldr": "microbe",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDDA0",
+  "glyphAsUtfInEmoticons": [
+    "1f9a0_microbe"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "amoeba",
+    "bacteria",
+    "microbe",
+    "virus"
+  ],
+  "mappedToEmoticons": [
+    "1f9a0_microbe"
+  ],
+  "tts": "microbe",
+  "unicode": "1f9a0",
+  "unicodeSkintones": null
+}

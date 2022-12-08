@@ -1,0 +1,23 @@
+{
+  "basefilename": "womans_boot",
+  "cldr": "woman\u2019s boot",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC62",
+  "glyphAsUtfInEmoticons": [
+    "1f462_womansboots"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "boot",
+    "clothing",
+    "shoe",
+    "woman",
+    "woman\u2019s boot"
+  ],
+  "mappedToEmoticons": [
+    "1f462_womansboots"
+  ],
+  "tts": "woman\u2019s boot",
+  "unicode": "1f462",
+  "unicodeSkintones": null
+}

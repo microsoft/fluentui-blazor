@@ -1,0 +1,19 @@
+{
+  "basefilename": "black_nib",
+  "cldr": "black nib",
+  "fromVersion": "0.6",
+  "glyph": "\u2712\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Objects",
+  "keywords": [
+    "black nib",
+    "nib",
+    "pen"
+  ],
+  "mappedToEmoticons": [
+    "2712_blacknib"
+  ],
+  "tts": "black nib",
+  "unicode": "2712 fe0f",
+  "unicodeSkintones": null
+}

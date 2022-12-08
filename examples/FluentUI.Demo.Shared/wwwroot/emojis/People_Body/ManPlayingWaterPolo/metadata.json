@@ -1,0 +1,26 @@
+{
+  "basefilename": "man_playing_water_polo",
+  "cldr": "man playing water polo",
+  "fromVersion": "4.0",
+  "glyph": "\uD83E\uDD3D\u200D\u2642\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "People \u0026 Body",
+  "keywords": [
+    "man",
+    "man playing water polo",
+    "water polo"
+  ],
+  "mappedToEmoticons": [
+    "manplayingwaterpolo"
+  ],
+  "tts": "man playing water polo",
+  "unicode": "1f93d 200d 2642 fe0f",
+  "unicodeSkintones": [
+    "1f93d 200d 2642 fe0f",
+    "1f93d 1f3fb 200d 2642 fe0f",
+    "1f93d 1f3fc 200d 2642 fe0f",
+    "1f93d 1f3fd 200d 2642 fe0f",
+    "1f93d 1f3fe 200d 2642 fe0f",
+    "1f93d 1f3ff 200d 2642 fe0f"
+  ]
+}

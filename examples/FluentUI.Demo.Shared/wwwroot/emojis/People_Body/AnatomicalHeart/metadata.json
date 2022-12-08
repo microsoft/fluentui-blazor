@@ -1,0 +1,23 @@
+{
+  "basefilename": "anatomical_heart",
+  "cldr": "anatomical heart",
+  "fromVersion": "13.0",
+  "glyph": "\uD83E\uDEC0",
+  "glyphAsUtfInEmoticons": [
+    "anatomicalheart"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "anatomical",
+    "cardiology",
+    "heart",
+    "organ",
+    "pulse"
+  ],
+  "mappedToEmoticons": [
+    "anatomicalheart"
+  ],
+  "tts": "anatomical heart",
+  "unicode": "1fac0",
+  "unicodeSkintones": null
+}

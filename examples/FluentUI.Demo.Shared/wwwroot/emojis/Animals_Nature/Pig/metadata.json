@@ -1,0 +1,20 @@
+{
+  "basefilename": "pig",
+  "cldr": "pig",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDC16",
+  "glyphAsUtfInEmoticons": [
+    "pig"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "pig",
+    "sow"
+  ],
+  "mappedToEmoticons": [
+    "pig"
+  ],
+  "tts": "pig",
+  "unicode": "1f416",
+  "unicodeSkintones": null
+}

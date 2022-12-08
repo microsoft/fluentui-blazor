@@ -1,0 +1,28 @@
+{
+  "basefilename": "person_in_steamy_room",
+  "cldr": "person in steamy room",
+  "fromVersion": "5.0",
+  "glyph": "\uD83E\uDDD6",
+  "glyphAsUtfInEmoticons": [
+    "steam_room"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "person in steamy room",
+    "sauna",
+    "steam room"
+  ],
+  "mappedToEmoticons": [
+    "steam_room"
+  ],
+  "tts": "person in steamy room",
+  "unicode": "1f9d6",
+  "unicodeSkintones": [
+    "1f9d6",
+    "1f9d6 1f3fb",
+    "1f9d6 1f3fc",
+    "1f9d6 1f3fd",
+    "1f9d6 1f3fe",
+    "1f9d6 1f3ff"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "basefilename": "movie_camera",
+  "cldr": "movie camera",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDFA5",
+  "glyphAsUtfInEmoticons": [
+    "1f3a5_moviecamera"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "camera",
+    "cinema",
+    "movie"
+  ],
+  "mappedToEmoticons": [
+    "1f3a5_moviecamera"
+  ],
+  "tts": "movie camera",
+  "unicode": "1f3a5",
+  "unicodeSkintones": null
+}

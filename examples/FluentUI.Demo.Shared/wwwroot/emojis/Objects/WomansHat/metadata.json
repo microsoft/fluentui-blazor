@@ -1,0 +1,22 @@
+{
+  "basefilename": "womans_hat",
+  "cldr": "woman\u2019s hat",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC52",
+  "glyphAsUtfInEmoticons": [
+    "1f452_womanshat"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "clothing",
+    "hat",
+    "woman",
+    "woman\u2019s hat"
+  ],
+  "mappedToEmoticons": [
+    "1f452_womanshat"
+  ],
+  "tts": "woman\u2019s hat",
+  "unicode": "1f452",
+  "unicodeSkintones": null
+}

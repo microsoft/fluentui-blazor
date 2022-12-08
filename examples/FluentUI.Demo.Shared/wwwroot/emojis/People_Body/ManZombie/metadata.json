@@ -1,0 +1,19 @@
+{
+  "basefilename": "man_zombie",
+  "cldr": "man zombie",
+  "fromVersion": "5.0",
+  "glyph": "\uD83E\uDDDF\u200D\u2642\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "People \u0026 Body",
+  "keywords": [
+    "man zombie",
+    "undead",
+    "walking dead"
+  ],
+  "mappedToEmoticons": [
+    "manzombie"
+  ],
+  "tts": "man zombie",
+  "unicode": "1f9df 200d 2642 fe0f",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,24 @@
+{
+  "basefilename": "multiply",
+  "cldr": "multiply",
+  "fromVersion": "0.6",
+  "glyph": "\u2716\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "2716_heavymultiplicationx"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "\u00D7",
+    "cancel",
+    "multiplication",
+    "multiply",
+    "sign",
+    "x"
+  ],
+  "mappedToEmoticons": [
+    "2716_heavymultiplicationx"
+  ],
+  "tts": "multiply",
+  "unicode": "2716 fe0f",
+  "unicodeSkintones": null
+}

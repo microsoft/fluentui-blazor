@@ -1,0 +1,24 @@
+{
+  "basefilename": "yen_banknote",
+  "cldr": "yen banknote",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCB4",
+  "glyphAsUtfInEmoticons": [
+    "1f4b4_banknotewithyensign"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "banknote",
+    "bill",
+    "currency",
+    "money",
+    "note",
+    "yen"
+  ],
+  "mappedToEmoticons": [
+    "1f4b4_banknotewithyensign"
+  ],
+  "tts": "yen banknote",
+  "unicode": "1f4b4",
+  "unicodeSkintones": null
+}

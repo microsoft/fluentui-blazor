@@ -1,0 +1,19 @@
+{
+  "basefilename": "safety_pin",
+  "cldr": "safety pin",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDDF7",
+  "glyphAsUtfInEmoticons": [
+    "1f9f7_safetypin"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "diaper",
+    "punk rock",
+    "safety pin"
+  ],
+  "mappedToEmoticons": null,
+  "tts": "safety pin",
+  "unicode": "1f9f7",
+  "unicodeSkintones": null
+}

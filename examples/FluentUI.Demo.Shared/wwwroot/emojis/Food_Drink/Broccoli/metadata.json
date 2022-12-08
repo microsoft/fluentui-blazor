@@ -1,0 +1,20 @@
+{
+  "basefilename": "broccoli",
+  "cldr": "broccoli",
+  "fromVersion": "5.0",
+  "glyph": "\uD83E\uDD66",
+  "glyphAsUtfInEmoticons": [
+    "1f966_broccoli"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "broccoli",
+    "wild cabbage"
+  ],
+  "mappedToEmoticons": [
+    "1f966_broccoli"
+  ],
+  "tts": "broccoli",
+  "unicode": "1f966",
+  "unicodeSkintones": null
+}

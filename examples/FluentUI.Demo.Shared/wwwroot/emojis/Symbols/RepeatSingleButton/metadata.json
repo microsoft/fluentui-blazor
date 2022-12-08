@@ -1,0 +1,22 @@
+{
+  "basefilename": "repeat_single_button",
+  "cldr": "repeat single button",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDD02",
+  "glyphAsUtfInEmoticons": [
+    "1f502_repeatsingle"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "arrow",
+    "clockwise",
+    "once",
+    "repeat single button"
+  ],
+  "mappedToEmoticons": [
+    "1f502_repeatsingle"
+  ],
+  "tts": "repeat single button",
+  "unicode": "1f502",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,20 @@
+{
+  "basefilename": "ticket",
+  "cldr": "ticket",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDFAB",
+  "glyphAsUtfInEmoticons": [
+    "1f3ab_ticket"
+  ],
+  "group": "Activities",
+  "keywords": [
+    "admission",
+    "ticket"
+  ],
+  "mappedToEmoticons": [
+    "1f3ab_ticket"
+  ],
+  "tts": "ticket",
+  "unicode": "1f3ab",
+  "unicodeSkintones": null
+}

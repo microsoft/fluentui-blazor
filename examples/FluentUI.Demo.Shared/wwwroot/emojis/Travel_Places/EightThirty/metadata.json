@@ -1,0 +1,24 @@
+{
+  "basefilename": "eight-thirty",
+  "cldr": "eight-thirty",
+  "fromVersion": "0.7",
+  "glyph": "\uD83D\uDD63",
+  "glyphAsUtfInEmoticons": [
+    "1f563_eightthirty"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "8",
+    "8:30",
+    "clock",
+    "eight",
+    "eight-thirty",
+    "thirty"
+  ],
+  "mappedToEmoticons": [
+    "1f563_eightthirty"
+  ],
+  "tts": "eight-thirty",
+  "unicode": "1f563",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,20 @@
+{
+  "basefilename": "abacus",
+  "cldr": "abacus",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDDEE",
+  "glyphAsUtfInEmoticons": [
+    "1f9ee_abacus"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "abacus",
+    "calculation"
+  ],
+  "mappedToEmoticons": [
+    "1f9ee_abacus"
+  ],
+  "tts": "abacus",
+  "unicode": "1f9ee",
+  "unicodeSkintones": null
+}

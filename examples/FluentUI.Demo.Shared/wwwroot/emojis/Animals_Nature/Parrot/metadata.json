@@ -1,0 +1,22 @@
+{
+  "basefilename": "parrot",
+  "cldr": "parrot",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDD9C",
+  "glyphAsUtfInEmoticons": [
+    "1f99c_parrot"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "bird",
+    "parrot",
+    "pirate",
+    "talk"
+  ],
+  "mappedToEmoticons": [
+    "1f99c_parrot"
+  ],
+  "tts": "parrot",
+  "unicode": "1f99c",
+  "unicodeSkintones": null
+}

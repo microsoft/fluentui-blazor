@@ -1,0 +1,20 @@
+{
+  "basefilename": "love_hotel",
+  "cldr": "love hotel",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDFE9",
+  "glyphAsUtfInEmoticons": [
+    "1f3e9_lovehotel"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "hotel",
+    "love"
+  ],
+  "mappedToEmoticons": [
+    "1f3e9_lovehotel"
+  ],
+  "tts": "love hotel",
+  "unicode": "1f3e9",
+  "unicodeSkintones": null
+}

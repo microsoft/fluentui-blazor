@@ -1,0 +1,27 @@
+{
+  "basefilename": "man_kneeling",
+  "cldr": "man kneeling",
+  "fromVersion": "12.0",
+  "glyph": "\uD83E\uDDCE\u200D\u2642\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "man_kneeling"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "kneeling",
+    "man"
+  ],
+  "mappedToEmoticons": [
+    "man_kneeling"
+  ],
+  "tts": "man kneeling",
+  "unicode": "1f9ce 200d 2642 fe0f",
+  "unicodeSkintones": [
+    "1f9ce 200d 2642 fe0f",
+    "1f9ce 1f3fb 200d 2642 fe0f",
+    "1f9ce 1f3fc 200d 2642 fe0f",
+    "1f9ce 1f3fd 200d 2642 fe0f",
+    "1f9ce 1f3fe 200d 2642 fe0f",
+    "1f9ce 1f3ff 200d 2642 fe0f"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "basefilename": "satellite_antenna",
+  "cldr": "satellite antenna",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCE1",
+  "glyphAsUtfInEmoticons": [
+    "1f4e1_satelliteantenna"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "antenna",
+    "dish",
+    "satellite"
+  ],
+  "mappedToEmoticons": [
+    "1f4e1_satelliteantenna"
+  ],
+  "tts": "satellite antenna",
+  "unicode": "1f4e1",
+  "unicodeSkintones": null
+}

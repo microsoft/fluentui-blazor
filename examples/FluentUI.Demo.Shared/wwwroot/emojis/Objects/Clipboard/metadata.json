@@ -1,0 +1,19 @@
+{
+  "basefilename": "clipboard",
+  "cldr": "clipboard",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCCB",
+  "glyphAsUtfInEmoticons": [
+    "1f4cb_clipboard"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "clipboard"
+  ],
+  "mappedToEmoticons": [
+    "1f4cb_clipboard"
+  ],
+  "tts": "clipboard",
+  "unicode": "1f4cb",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,18 @@
+{
+  "basefilename": "desert_island",
+  "cldr": "desert island",
+  "fromVersion": "0.7",
+  "glyph": "\uD83C\uDFDD\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "desert",
+    "island"
+  ],
+  "mappedToEmoticons": [
+    "island"
+  ],
+  "tts": "desert island",
+  "unicode": "1f3dd fe0f",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,20 @@
+{
+  "basefilename": "speaker_high_volume",
+  "cldr": "speaker high volume",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDD0A",
+  "glyphAsUtfInEmoticons": [
+    "1f50a_speakerwiththreesoundwaves"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "loud",
+    "speaker high volume"
+  ],
+  "mappedToEmoticons": [
+    "1f50a_speakerwiththreesoundwaves"
+  ],
+  "tts": "speaker high volume",
+  "unicode": "1f50a",
+  "unicodeSkintones": null
+}

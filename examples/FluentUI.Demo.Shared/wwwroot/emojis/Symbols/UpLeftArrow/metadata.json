@@ -1,0 +1,23 @@
+{
+  "basefilename": "up-left_arrow",
+  "cldr": "up-left arrow",
+  "fromVersion": "0.6",
+  "glyph": "\u2196\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "2196_northwestarrow"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "arrow",
+    "direction",
+    "intercardinal",
+    "northwest",
+    "up-left arrow"
+  ],
+  "mappedToEmoticons": [
+    "2196_northwestarrow"
+  ],
+  "tts": "up-left arrow",
+  "unicode": "2196 fe0f",
+  "unicodeSkintones": null
+}

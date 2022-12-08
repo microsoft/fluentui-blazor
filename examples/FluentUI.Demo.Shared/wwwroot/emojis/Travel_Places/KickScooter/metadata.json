@@ -1,0 +1,20 @@
+{
+  "basefilename": "kick_scooter",
+  "cldr": "kick scooter",
+  "fromVersion": "3.0",
+  "glyph": "\uD83D\uDEF4",
+  "glyphAsUtfInEmoticons": [
+    "pushbike"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "kick",
+    "scooter"
+  ],
+  "mappedToEmoticons": [
+    "kickscooter"
+  ],
+  "tts": "kick scooter",
+  "unicode": "1f6f4",
+  "unicodeSkintones": null
+}

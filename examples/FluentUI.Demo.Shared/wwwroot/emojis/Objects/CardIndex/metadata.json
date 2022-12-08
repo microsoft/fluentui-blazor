@@ -1,0 +1,21 @@
+{
+  "basefilename": "card_index",
+  "cldr": "card index",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCC7",
+  "glyphAsUtfInEmoticons": [
+    "1f4c7_cardindex"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "card",
+    "index",
+    "rolodex"
+  ],
+  "mappedToEmoticons": [
+    "1f4c7_cardindex"
+  ],
+  "tts": "card index",
+  "unicode": "1f4c7",
+  "unicodeSkintones": null
+}

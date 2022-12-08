@@ -1,0 +1,23 @@
+{
+  "basefilename": "japanese_reserved_button",
+  "cldr": "Japanese \u201Creserved\u201D button",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDE2F",
+  "glyphAsUtfInEmoticons": [
+    "1f22f_reserved"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "\u201Creserved\u201D",
+    "ideograph",
+    "Japanese",
+    "Japanese \u201Creserved\u201D button",
+    "\u6307"
+  ],
+  "mappedToEmoticons": [
+    "1f22f_reserved"
+  ],
+  "tts": "Japanese \u201Creserved\u201D button",
+  "unicode": "1f22f",
+  "unicodeSkintones": null
+}

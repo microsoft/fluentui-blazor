@@ -1,0 +1,25 @@
+{
+  "basefilename": "potted_plant",
+  "cldr": "potted plant",
+  "fromVersion": "13.0",
+  "glyph": "\uD83E\uDEB4",
+  "glyphAsUtfInEmoticons": [
+    "pottedplant"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "boring",
+    "grow",
+    "house",
+    "nurturing",
+    "plant",
+    "potted plant",
+    "useless"
+  ],
+  "mappedToEmoticons": [
+    "pottedplant"
+  ],
+  "tts": "potted plant",
+  "unicode": "1fab4",
+  "unicodeSkintones": null
+}

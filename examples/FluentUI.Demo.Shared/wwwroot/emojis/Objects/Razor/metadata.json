@@ -1,0 +1,21 @@
+{
+  "basefilename": "razor",
+  "cldr": "razor",
+  "fromVersion": "12.0",
+  "glyph": "\uD83E\uDE92",
+  "glyphAsUtfInEmoticons": [
+    "1fa92_razor"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "razor",
+    "sharp",
+    "shave"
+  ],
+  "mappedToEmoticons": [
+    "1fa92_razor"
+  ],
+  "tts": "razor",
+  "unicode": "1fa92",
+  "unicodeSkintones": null
+}

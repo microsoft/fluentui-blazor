@@ -1,0 +1,20 @@
+{
+  "basefilename": "convenience_store",
+  "cldr": "convenience store",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDFEA",
+  "glyphAsUtfInEmoticons": [
+    "1f3ea_conveniencestore"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "convenience",
+    "store"
+  ],
+  "mappedToEmoticons": [
+    "1f3ea_conveniencestore"
+  ],
+  "tts": "convenience store",
+  "unicode": "1f3ea",
+  "unicodeSkintones": null
+}

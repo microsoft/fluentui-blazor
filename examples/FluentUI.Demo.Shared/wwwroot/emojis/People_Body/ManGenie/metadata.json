@@ -1,0 +1,20 @@
+{
+  "basefilename": "man_genie",
+  "cldr": "man genie",
+  "fromVersion": "5.0",
+  "glyph": "\uD83E\uDDDE\u200D\u2642\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "mangenie"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "djinn",
+    "man genie"
+  ],
+  "mappedToEmoticons": [
+    "mangenie"
+  ],
+  "tts": "man genie",
+  "unicode": "1f9de 200d 2642 fe0f",
+  "unicodeSkintones": null
+}

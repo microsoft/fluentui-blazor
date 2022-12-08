@@ -1,0 +1,23 @@
+{
+  "basefilename": "clinking_glasses",
+  "cldr": "clinking glasses",
+  "fromVersion": "3.0",
+  "glyph": "\uD83E\uDD42",
+  "glyphAsUtfInEmoticons": [
+    "cheers"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "celebrate",
+    "clink",
+    "clinking glasses",
+    "drink",
+    "glass"
+  ],
+  "mappedToEmoticons": [
+    "cheers"
+  ],
+  "tts": "clinking glasses",
+  "unicode": "1f942",
+  "unicodeSkintones": null
+}

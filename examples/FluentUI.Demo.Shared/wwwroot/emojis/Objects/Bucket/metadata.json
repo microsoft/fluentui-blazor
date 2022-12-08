@@ -1,0 +1,22 @@
+{
+  "basefilename": "bucket",
+  "cldr": "bucket",
+  "fromVersion": "13.0",
+  "glyph": "\uD83E\uDEA3",
+  "glyphAsUtfInEmoticons": [
+    "bucket"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "bucket",
+    "cask",
+    "pail",
+    "vat"
+  ],
+  "mappedToEmoticons": [
+    "bucket"
+  ],
+  "tts": "bucket",
+  "unicode": "1faa3",
+  "unicodeSkintones": null
+}

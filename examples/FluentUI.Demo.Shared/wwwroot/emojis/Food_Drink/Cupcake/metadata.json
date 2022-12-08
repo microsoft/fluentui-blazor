@@ -1,0 +1,21 @@
+{
+  "basefilename": "cupcake",
+  "cldr": "cupcake",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDDC1",
+  "glyphAsUtfInEmoticons": [
+    "cupcake"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "bakery",
+    "cupcake",
+    "sweet"
+  ],
+  "mappedToEmoticons": [
+    "cupcake"
+  ],
+  "tts": "cupcake",
+  "unicode": "1f9c1",
+  "unicodeSkintones": null
+}

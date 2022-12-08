@@ -1,0 +1,23 @@
+{
+  "basefilename": "fast-forward_button",
+  "cldr": "fast-forward button",
+  "fromVersion": "0.6",
+  "glyph": "\u23E9",
+  "glyphAsUtfInEmoticons": [
+    "23e9_fastforwardbutton"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "arrow",
+    "double",
+    "fast",
+    "fast-forward button",
+    "forward"
+  ],
+  "mappedToEmoticons": [
+    "23e9_fastforwardbutton"
+  ],
+  "tts": "fast-forward button",
+  "unicode": "23e9",
+  "unicodeSkintones": null
+}

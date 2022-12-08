@@ -1,0 +1,19 @@
+{
+  "basefilename": "bellhop_bell",
+  "cldr": "bellhop bell",
+  "fromVersion": "0.7",
+  "glyph": "\uD83D\uDECE\uFE0F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "bell",
+    "bellhop",
+    "hotel"
+  ],
+  "mappedToEmoticons": [
+    "1f6ce_bellhopbell"
+  ],
+  "tts": "bellhop bell",
+  "unicode": "1f6ce fe0f",
+  "unicodeSkintones": null
+}

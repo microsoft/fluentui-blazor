@@ -1,0 +1,20 @@
+{
+  "basefilename": "eagle",
+  "cldr": "eagle",
+  "fromVersion": "3.0",
+  "glyph": "\uD83E\uDD85",
+  "glyphAsUtfInEmoticons": [
+    "1f985_eagle"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "bird",
+    "eagle"
+  ],
+  "mappedToEmoticons": [
+    "1f985_eagle"
+  ],
+  "tts": "eagle",
+  "unicode": "1f985",
+  "unicodeSkintones": null
+}

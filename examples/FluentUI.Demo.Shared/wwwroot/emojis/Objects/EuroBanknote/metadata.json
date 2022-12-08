@@ -1,0 +1,24 @@
+{
+  "basefilename": "euro_banknote",
+  "cldr": "euro banknote",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDCB6",
+  "glyphAsUtfInEmoticons": [
+    "1f4b6_banknotewitheurosign"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "banknote",
+    "bill",
+    "currency",
+    "euro",
+    "money",
+    "note"
+  ],
+  "mappedToEmoticons": [
+    "1f4b6_banknotewitheurosign"
+  ],
+  "tts": "euro banknote",
+  "unicode": "1f4b6",
+  "unicodeSkintones": null
+}

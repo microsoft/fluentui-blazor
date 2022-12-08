@@ -1,0 +1,21 @@
+{
+  "basefilename": "nauseated_face",
+  "cldr": "nauseated face",
+  "fromVersion": "3.0",
+  "glyph": "\uD83E\uDD22",
+  "glyphAsUtfInEmoticons": [
+    "1f922_nauseatedface"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "face",
+    "nauseated",
+    "vomit"
+  ],
+  "mappedToEmoticons": [
+    "1f922_nauseatedface"
+  ],
+  "tts": "nauseated face",
+  "unicode": "1f922",
+  "unicodeSkintones": null
+}

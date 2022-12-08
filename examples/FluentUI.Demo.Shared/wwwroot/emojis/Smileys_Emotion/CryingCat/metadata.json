@@ -1,0 +1,22 @@
+{
+  "basefilename": "crying_cat",
+  "cldr": "crying cat",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDE3F",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "cat",
+    "cry",
+    "crying cat",
+    "face",
+    "sad",
+    "tear"
+  ],
+  "mappedToEmoticons": [
+    "sadcat"
+  ],
+  "tts": "crying cat",
+  "unicode": "1f63f",
+  "unicodeSkintones": null
+}

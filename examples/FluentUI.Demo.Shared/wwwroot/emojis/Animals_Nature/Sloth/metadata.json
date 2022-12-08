@@ -1,0 +1,19 @@
+{
+  "basefilename": "sloth",
+  "cldr": "sloth",
+  "fromVersion": "12.0",
+  "glyph": "\uD83E\uDDA5",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "lazy",
+    "sloth",
+    "slow"
+  ],
+  "mappedToEmoticons": [
+    "sloth"
+  ],
+  "tts": "sloth",
+  "unicode": "1f9a5",
+  "unicodeSkintones": null
+}

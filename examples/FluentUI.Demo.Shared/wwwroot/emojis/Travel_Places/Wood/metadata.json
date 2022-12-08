@@ -1,0 +1,22 @@
+{
+  "basefilename": "wood",
+  "cldr": "wood",
+  "fromVersion": "13.0",
+  "glyph": "\uD83E\uDEB5",
+  "glyphAsUtfInEmoticons": [
+    "wood"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "log",
+    "lumber",
+    "timber",
+    "wood"
+  ],
+  "mappedToEmoticons": [
+    "wood"
+  ],
+  "tts": "wood",
+  "unicode": "1fab5",
+  "unicodeSkintones": null
+}

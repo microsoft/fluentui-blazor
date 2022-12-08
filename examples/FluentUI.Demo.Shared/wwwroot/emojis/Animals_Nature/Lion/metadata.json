@@ -1,0 +1,22 @@
+{
+  "basefilename": "lion",
+  "cldr": "lion",
+  "fromVersion": "1.0",
+  "glyph": "\uD83E\uDD81",
+  "glyphAsUtfInEmoticons": [
+    "lion"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "face",
+    "Leo",
+    "lion",
+    "zodiac"
+  ],
+  "mappedToEmoticons": [
+    "lion"
+  ],
+  "tts": "lion",
+  "unicode": "1f981",
+  "unicodeSkintones": null
+}

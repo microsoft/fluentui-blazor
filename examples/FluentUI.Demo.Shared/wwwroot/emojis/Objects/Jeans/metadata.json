@@ -1,0 +1,22 @@
+{
+  "basefilename": "jeans",
+  "cldr": "jeans",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC56",
+  "glyphAsUtfInEmoticons": [
+    "1f456_jeans"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "clothing",
+    "jeans",
+    "pants",
+    "trousers"
+  ],
+  "mappedToEmoticons": [
+    "1f456_jeans"
+  ],
+  "tts": "jeans",
+  "unicode": "1f456",
+  "unicodeSkintones": null
+}

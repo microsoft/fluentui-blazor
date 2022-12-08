@@ -1,0 +1,20 @@
+{
+  "basefilename": "spoon",
+  "cldr": "spoon",
+  "fromVersion": "3.0",
+  "glyph": "\uD83E\uDD44",
+  "glyphAsUtfInEmoticons": [
+    "1f944_spoon"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "spoon",
+    "tableware"
+  ],
+  "mappedToEmoticons": [
+    "1f944_spoon"
+  ],
+  "tts": "spoon",
+  "unicode": "1f944",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,22 @@
+{
+  "basefilename": "cocktail_glass",
+  "cldr": "cocktail glass",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF78",
+  "glyphAsUtfInEmoticons": [
+    "drink"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "bar",
+    "cocktail",
+    "drink",
+    "glass"
+  ],
+  "mappedToEmoticons": [
+    "drink"
+  ],
+  "tts": "cocktail glass",
+  "unicode": "1f378",
+  "unicodeSkintones": null
+}

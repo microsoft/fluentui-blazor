@@ -1,0 +1,21 @@
+{
+  "basefilename": "tired_face",
+  "cldr": "tired face",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDE2B",
+  "glyphAsUtfInEmoticons": [
+    "1f62b_tiredface",
+    "tired"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "face",
+    "tired"
+  ],
+  "mappedToEmoticons": [
+    "1f62b_tiredface"
+  ],
+  "tts": "tired face",
+  "unicode": "1f62b",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,22 @@
+{
+  "basefilename": "vertical_traffic_light",
+  "cldr": "vertical traffic light",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDEA6",
+  "glyphAsUtfInEmoticons": [
+    "1f6a6_verticaltrafficlight"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "light",
+    "signal",
+    "traffic",
+    "vertical traffic light"
+  ],
+  "mappedToEmoticons": [
+    "1f6a6_verticaltrafficlight"
+  ],
+  "tts": "vertical traffic light",
+  "unicode": "1f6a6",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,21 @@
+{
+  "basefilename": "deciduous_tree",
+  "cldr": "deciduous tree",
+  "fromVersion": "1.0",
+  "glyph": "\uD83C\uDF33",
+  "glyphAsUtfInEmoticons": [
+    "deciduoustree"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "deciduous",
+    "shedding",
+    "tree"
+  ],
+  "mappedToEmoticons": [
+    "deciduoustree"
+  ],
+  "tts": "deciduous tree",
+  "unicode": "1f333",
+  "unicodeSkintones": null
+}

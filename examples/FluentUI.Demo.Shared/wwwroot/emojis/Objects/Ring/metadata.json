@@ -1,0 +1,20 @@
+{
+  "basefilename": "ring",
+  "cldr": "ring",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC8D",
+  "glyphAsUtfInEmoticons": [
+    "ring"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "diamond",
+    "ring"
+  ],
+  "mappedToEmoticons": [
+    "ring"
+  ],
+  "tts": "ring",
+  "unicode": "1f48d",
+  "unicodeSkintones": null
+}

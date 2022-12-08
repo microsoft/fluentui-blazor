@@ -1,0 +1,20 @@
+{
+  "basefilename": "seedling",
+  "cldr": "seedling",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF31",
+  "glyphAsUtfInEmoticons": [
+    "seedling"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "seedling",
+    "young"
+  ],
+  "mappedToEmoticons": [
+    "seedling"
+  ],
+  "tts": "seedling",
+  "unicode": "1f331",
+  "unicodeSkintones": null
+}

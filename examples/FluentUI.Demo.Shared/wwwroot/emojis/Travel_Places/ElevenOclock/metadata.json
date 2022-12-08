@@ -1,0 +1,24 @@
+{
+  "basefilename": "eleven_oclock",
+  "cldr": "eleven o\u2019clock",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDD5A",
+  "glyphAsUtfInEmoticons": [
+    "1f55a_elevenoclock"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "00",
+    "11",
+    "11:00",
+    "clock",
+    "eleven",
+    "o\u2019clock"
+  ],
+  "mappedToEmoticons": [
+    "1f55a_elevenoclock"
+  ],
+  "tts": "eleven o\u2019clock",
+  "unicode": "1f55a",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,22 @@
+{
+  "basefilename": "bowl_with_spoon",
+  "cldr": "bowl with spoon",
+  "fromVersion": "5.0",
+  "glyph": "\uD83E\uDD63",
+  "glyphAsUtfInEmoticons": [
+    "1f963_bowlwithspoon"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "bowl with spoon",
+    "breakfast",
+    "cereal",
+    "congee"
+  ],
+  "mappedToEmoticons": [
+    "1f963_bowlwithspoon"
+  ],
+  "tts": "bowl with spoon",
+  "unicode": "1f963",
+  "unicodeSkintones": null
+}

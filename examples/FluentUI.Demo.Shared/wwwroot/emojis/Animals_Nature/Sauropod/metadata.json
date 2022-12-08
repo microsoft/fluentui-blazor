@@ -1,0 +1,22 @@
+{
+  "basefilename": "sauropod",
+  "cldr": "sauropod",
+  "fromVersion": "5.0",
+  "glyph": "\uD83E\uDD95",
+  "glyphAsUtfInEmoticons": [
+    "1f995_sauropod"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "brachiosaurus",
+    "brontosaurus",
+    "diplodocus",
+    "sauropod"
+  ],
+  "mappedToEmoticons": [
+    "1f995_sauropod"
+  ],
+  "tts": "sauropod",
+  "unicode": "1f995",
+  "unicodeSkintones": null
+}

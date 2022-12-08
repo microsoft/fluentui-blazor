@@ -1,0 +1,25 @@
+{
+  "basefilename": "soft_ice_cream",
+  "cldr": "soft ice cream",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF66",
+  "glyphAsUtfInEmoticons": [
+    "1f366_softicecream",
+    "icecream"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "cream",
+    "dessert",
+    "ice",
+    "icecream",
+    "soft",
+    "sweet"
+  ],
+  "mappedToEmoticons": [
+    "1f366_softicecream"
+  ],
+  "tts": "soft ice cream",
+  "unicode": "1f366",
+  "unicodeSkintones": null
+}

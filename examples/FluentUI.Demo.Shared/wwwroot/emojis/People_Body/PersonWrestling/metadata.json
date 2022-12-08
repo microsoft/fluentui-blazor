@@ -1,0 +1,19 @@
+{
+  "basefilename": "person_wrestling",
+  "cldr": "people wrestling",
+  "fromVersion": "3.0",
+  "glyph": "\uD83E\uDD3C",
+  "glyphAsUtfInEmoticons": [
+    "wrestlers"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "people wrestling",
+    "wrestle",
+    "wrestler"
+  ],
+  "mappedToEmoticons": null,
+  "tts": "people wrestling",
+  "unicode": "1f93c",
+  "unicodeSkintones": null
+}

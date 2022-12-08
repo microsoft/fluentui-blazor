@@ -1,0 +1,24 @@
+{
+  "basefilename": "three_oclock",
+  "cldr": "three o\u2019clock",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDD52",
+  "glyphAsUtfInEmoticons": [
+    "1f552_threeoclock"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "00",
+    "3",
+    "3:00",
+    "clock",
+    "o\u2019clock",
+    "three"
+  ],
+  "mappedToEmoticons": [
+    "1f552_threeoclock"
+  ],
+  "tts": "three o\u2019clock",
+  "unicode": "1f552",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,20 @@
+{
+  "basefilename": "dress",
+  "cldr": "dress",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC57",
+  "glyphAsUtfInEmoticons": [
+    "1f457_dress"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "clothing",
+    "dress"
+  ],
+  "mappedToEmoticons": [
+    "1f457_dress"
+  ],
+  "tts": "dress",
+  "unicode": "1f457",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,21 @@
+{
+  "basefilename": "shooting_star",
+  "cldr": "shooting star",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF20",
+  "glyphAsUtfInEmoticons": [
+    "1f320_shootingstar"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "falling",
+    "shooting",
+    "star"
+  ],
+  "mappedToEmoticons": [
+    "1f320_shootingstar"
+  ],
+  "tts": "shooting star",
+  "unicode": "1f320",
+  "unicodeSkintones": null
+}

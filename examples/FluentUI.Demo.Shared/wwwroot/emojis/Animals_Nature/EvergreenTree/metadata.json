@@ -1,0 +1,20 @@
+{
+  "basefilename": "evergreen_tree",
+  "cldr": "evergreen tree",
+  "fromVersion": "1.0",
+  "glyph": "\uD83C\uDF32",
+  "glyphAsUtfInEmoticons": [
+    "evergreentree"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "evergreen tree",
+    "tree"
+  ],
+  "mappedToEmoticons": [
+    "evergreentree"
+  ],
+  "tts": "evergreen tree",
+  "unicode": "1f332",
+  "unicodeSkintones": null
+}

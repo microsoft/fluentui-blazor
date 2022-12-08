@@ -1,0 +1,21 @@
+{
+  "basefilename": "oncoming_police_car",
+  "cldr": "oncoming police car",
+  "fromVersion": "0.7",
+  "glyph": "\uD83D\uDE94",
+  "glyphAsUtfInEmoticons": [
+    "1f694_oncomingpolicecar"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "car",
+    "oncoming",
+    "police"
+  ],
+  "mappedToEmoticons": [
+    "1f694_oncomingpolicecar"
+  ],
+  "tts": "oncoming police car",
+  "unicode": "1f694",
+  "unicodeSkintones": null
+}

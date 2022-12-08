@@ -1,0 +1,23 @@
+{
+  "basefilename": "axe",
+  "cldr": "axe",
+  "fromVersion": "12.0",
+  "glyph": "\uD83E\uDE93",
+  "glyphAsUtfInEmoticons": [
+    "1fa93_axe"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "axe",
+    "chop",
+    "hatchet",
+    "split",
+    "wood"
+  ],
+  "mappedToEmoticons": [
+    "1fa93_axe"
+  ],
+  "tts": "axe",
+  "unicode": "1fa93",
+  "unicodeSkintones": null
+}

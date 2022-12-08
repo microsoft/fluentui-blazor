@@ -1,0 +1,21 @@
+{
+  "basefilename": "white_cane",
+  "cldr": "white cane",
+  "fromVersion": "12.0",
+  "glyph": "\uD83E\uDDAF",
+  "glyphAsUtfInEmoticons": [
+    "1f9af_probingcane"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "accessibility",
+    "blind",
+    "white cane"
+  ],
+  "mappedToEmoticons": [
+    "1f9af_probingcane"
+  ],
+  "tts": "white cane",
+  "unicode": "1f9af",
+  "unicodeSkintones": null
+}

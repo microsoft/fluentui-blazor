@@ -1,0 +1,28 @@
+{
+  "basefilename": "person_frowning",
+  "cldr": "person frowning",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDE4D",
+  "glyphAsUtfInEmoticons": [
+    "frowning"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "frown",
+    "gesture",
+    "person frowning"
+  ],
+  "mappedToEmoticons": [
+    "frowning"
+  ],
+  "tts": "person frowning",
+  "unicode": "1f64d",
+  "unicodeSkintones": [
+    "1f64d",
+    "1f64d 1f3fb",
+    "1f64d 1f3fc",
+    "1f64d 1f3fd",
+    "1f64d 1f3fe",
+    "1f64d 1f3ff"
+  ]
+}

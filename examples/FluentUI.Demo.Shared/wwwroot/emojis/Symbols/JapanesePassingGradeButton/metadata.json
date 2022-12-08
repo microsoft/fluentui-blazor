@@ -1,0 +1,23 @@
+{
+  "basefilename": "japanese_passing_grade_button",
+  "cldr": "Japanese \u201Cpassing grade\u201D button",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDE34",
+  "glyphAsUtfInEmoticons": [
+    "1f234_agreement"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "\u201Cpassing grade\u201D",
+    "ideograph",
+    "Japanese",
+    "Japanese \u201Cpassing grade\u201D button",
+    "\u5408"
+  ],
+  "mappedToEmoticons": [
+    "1f234_agreement"
+  ],
+  "tts": "Japanese \u201Cpassing grade\u201D button",
+  "unicode": "1f234",
+  "unicodeSkintones": null
+}

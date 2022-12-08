@@ -1,0 +1,25 @@
+{
+  "basefilename": "rolling_on_the_floor_laughing",
+  "cldr": "rolling on the floor laughing",
+  "fromVersion": "3.0",
+  "glyph": "\uD83E\uDD23",
+  "glyphAsUtfInEmoticons": [
+    "rofl"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "face",
+    "floor",
+    "laugh",
+    "rofl",
+    "rolling",
+    "rolling on the floor laughing",
+    "rotfl"
+  ],
+  "mappedToEmoticons": [
+    "rofl"
+  ],
+  "tts": "rolling on the floor laughing",
+  "unicode": "1f923",
+  "unicodeSkintones": null
+}

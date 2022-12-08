@@ -1,0 +1,21 @@
+{
+  "basefilename": "postal_horn",
+  "cldr": "postal horn",
+  "fromVersion": "1.0",
+  "glyph": "\uD83D\uDCEF",
+  "glyphAsUtfInEmoticons": [
+    "1f4ef_postalhorn"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "horn",
+    "post",
+    "postal"
+  ],
+  "mappedToEmoticons": [
+    "1f4ef_postalhorn"
+  ],
+  "tts": "postal horn",
+  "unicode": "1f4ef",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,18 @@
+{
+  "basefilename": "monkey_face",
+  "cldr": "monkey face",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC35",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "face",
+    "monkey"
+  ],
+  "mappedToEmoticons": [
+    "smilemonkey"
+  ],
+  "tts": "monkey face",
+  "unicode": "1f435",
+  "unicodeSkintones": null
+}

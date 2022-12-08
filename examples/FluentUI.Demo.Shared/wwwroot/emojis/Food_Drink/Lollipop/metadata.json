@@ -1,0 +1,22 @@
+{
+  "basefilename": "lollipop",
+  "cldr": "lollipop",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDF6D",
+  "glyphAsUtfInEmoticons": [
+    "1f36d_lollipop"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "candy",
+    "dessert",
+    "lollipop",
+    "sweet"
+  ],
+  "mappedToEmoticons": [
+    "1f36d_lollipop"
+  ],
+  "tts": "lollipop",
+  "unicode": "1f36d",
+  "unicodeSkintones": null
+}

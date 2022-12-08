@@ -1,0 +1,20 @@
+{
+  "basefilename": "keycap_asterisk",
+  "cldr": "keycap: asterisk",
+  "fromVersion": "2.0",
+  "glyph": "*\uFE0F\u20E3",
+  "glyphAsUtfInEmoticons": [
+    "keycapnumberasterisk"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "keycap",
+    "asterisk"
+  ],
+  "mappedToEmoticons": [
+    "keycapnumberasterisk"
+  ],
+  "tts": "keycap: *",
+  "unicode": "002a fe0f 20e3",
+  "unicodeSkintones": null
+}

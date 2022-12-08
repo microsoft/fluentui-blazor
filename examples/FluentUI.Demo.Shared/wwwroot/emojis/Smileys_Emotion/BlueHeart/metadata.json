@@ -1,0 +1,20 @@
+{
+  "basefilename": "blue_heart",
+  "cldr": "blue heart",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC99",
+  "glyphAsUtfInEmoticons": [
+    "heartblue"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "blue",
+    "blue heart"
+  ],
+  "mappedToEmoticons": [
+    "heartblue"
+  ],
+  "tts": "blue heart",
+  "unicode": "1f499",
+  "unicodeSkintones": null
+}

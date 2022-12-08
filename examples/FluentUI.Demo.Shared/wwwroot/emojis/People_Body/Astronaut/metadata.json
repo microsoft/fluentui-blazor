@@ -1,0 +1,25 @@
+{
+  "basefilename": "astronaut",
+  "cldr": "astronaut",
+  "fromVersion": "12.1",
+  "glyph": "\uD83E\uDDD1\u200D\uD83D\uDE80",
+  "glyphAsUtfInEmoticons": null,
+  "group": "People \u0026 Body",
+  "keywords": [
+    "astronaut",
+    "rocket"
+  ],
+  "mappedToEmoticons": [
+    "personastronaut"
+  ],
+  "tts": "astronaut",
+  "unicode": "1f9d1 200d 1f680",
+  "unicodeSkintones": [
+    "1f9d1 200d 1f680",
+    "1f9d1 1f3fb 200d 1f680",
+    "1f9d1 1f3fc 200d 1f680",
+    "1f9d1 1f3fd 200d 1f680",
+    "1f9d1 1f3fe 200d 1f680",
+    "1f9d1 1f3ff 200d 1f680"
+  ]
+}

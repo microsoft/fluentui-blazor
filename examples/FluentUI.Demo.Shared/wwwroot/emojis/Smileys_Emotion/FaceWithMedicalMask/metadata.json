@@ -1,0 +1,24 @@
+{
+  "basefilename": "face_with_medical_mask",
+  "cldr": "face with medical mask",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDE37",
+  "glyphAsUtfInEmoticons": [
+    "1f637_facewithmedicalmask"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "cold",
+    "doctor",
+    "face",
+    "face with medical mask",
+    "mask",
+    "sick"
+  ],
+  "mappedToEmoticons": [
+    "1f637_facewithmedicalmask"
+  ],
+  "tts": "face with medical mask",
+  "unicode": "1f637",
+  "unicodeSkintones": null
+}

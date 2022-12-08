@@ -1,0 +1,20 @@
+{
+  "basefilename": "tent",
+  "cldr": "tent",
+  "fromVersion": "0.6",
+  "glyph": "\u26FA",
+  "glyphAsUtfInEmoticons": [
+    "26fa_tent"
+  ],
+  "group": "Travel \u0026 Places",
+  "keywords": [
+    "camping",
+    "tent"
+  ],
+  "mappedToEmoticons": [
+    "26fa_tent"
+  ],
+  "tts": "tent",
+  "unicode": "26fa",
+  "unicodeSkintones": null
+}

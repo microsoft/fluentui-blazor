@@ -1,0 +1,19 @@
+{
+  "basefilename": "gorilla",
+  "cldr": "gorilla",
+  "fromVersion": "3.0",
+  "glyph": "\uD83E\uDD8D",
+  "glyphAsUtfInEmoticons": [
+    "1f98d_gorilla"
+  ],
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "gorilla"
+  ],
+  "mappedToEmoticons": [
+    "1f98d_gorilla"
+  ],
+  "tts": "gorilla",
+  "unicode": "1f98d",
+  "unicodeSkintones": null
+}

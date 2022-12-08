@@ -1,0 +1,23 @@
+{
+  "basefilename": "growing_heart",
+  "cldr": "growing heart",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC97",
+  "glyphAsUtfInEmoticons": [
+    "growingheart"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "excited",
+    "growing",
+    "growing heart",
+    "nervous",
+    "pulse"
+  ],
+  "mappedToEmoticons": [
+    "growingheart"
+  ],
+  "tts": "growing heart",
+  "unicode": "1f497",
+  "unicodeSkintones": null
+}

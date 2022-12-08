@@ -1,0 +1,16 @@
+{
+  "basefilename": "nest_with_eggs",
+  "cldr": "nest with eggs",
+  "fromVersion": "14.0",
+  "glyph": "\uD83E\uDEBA",
+  "glyphAsUtfInEmoticons": null,
+  "group": "Animals \u0026 Nature",
+  "keywords": [
+    "nest with eggs",
+    "nesting"
+  ],
+  "mappedToEmoticons": null,
+  "tts": "nest with eggs",
+  "unicode": "1faba",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,23 @@
+{
+  "basefilename": "japanese_discount_button",
+  "cldr": "Japanese \u201Cdiscount\u201D button",
+  "fromVersion": "0.6",
+  "glyph": "\uD83C\uDE39",
+  "glyphAsUtfInEmoticons": [
+    "1f239_discount"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "\u201Cdiscount\u201D",
+    "ideograph",
+    "Japanese",
+    "Japanese \u201Cdiscount\u201D button",
+    "\u5272"
+  ],
+  "mappedToEmoticons": [
+    "1f239_discount"
+  ],
+  "tts": "Japanese \u201Cdiscount\u201D button",
+  "unicode": "1f239",
+  "unicodeSkintones": null
+}

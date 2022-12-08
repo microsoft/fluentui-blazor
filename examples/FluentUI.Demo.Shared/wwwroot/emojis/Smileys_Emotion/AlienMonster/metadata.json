@@ -1,0 +1,24 @@
+{
+  "basefilename": "alien_monster",
+  "cldr": "alien monster",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC7E",
+  "glyphAsUtfInEmoticons": [
+    "1f47e_alienmonster"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "alien",
+    "creature",
+    "extraterrestrial",
+    "face",
+    "monster",
+    "ufo"
+  ],
+  "mappedToEmoticons": [
+    "1f47e_alienmonster"
+  ],
+  "tts": "alien monster",
+  "unicode": "1f47e",
+  "unicodeSkintones": null
+}

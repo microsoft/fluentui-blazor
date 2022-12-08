@@ -1,0 +1,20 @@
+{
+  "basefilename": "pretzel",
+  "cldr": "pretzel",
+  "fromVersion": "5.0",
+  "glyph": "\uD83E\uDD68",
+  "glyphAsUtfInEmoticons": [
+    "1f968_pretzel"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "pretzel",
+    "twisted"
+  ],
+  "mappedToEmoticons": [
+    "1f968_pretzel"
+  ],
+  "tts": "pretzel",
+  "unicode": "1f968",
+  "unicodeSkintones": null
+}

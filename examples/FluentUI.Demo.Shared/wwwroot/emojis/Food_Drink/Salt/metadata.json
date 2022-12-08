@@ -1,0 +1,21 @@
+{
+  "basefilename": "salt",
+  "cldr": "salt",
+  "fromVersion": "11.0",
+  "glyph": "\uD83E\uDDC2",
+  "glyphAsUtfInEmoticons": [
+    "1f9c2_salt"
+  ],
+  "group": "Food \u0026 Drink",
+  "keywords": [
+    "condiment",
+    "salt",
+    "shaker"
+  ],
+  "mappedToEmoticons": [
+    "1f9c2_salt"
+  ],
+  "tts": "salt",
+  "unicode": "1f9c2",
+  "unicodeSkintones": null
+}

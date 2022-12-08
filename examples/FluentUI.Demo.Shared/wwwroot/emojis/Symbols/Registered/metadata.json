@@ -1,0 +1,20 @@
+{
+  "basefilename": "registered",
+  "cldr": "registered",
+  "fromVersion": "0.6",
+  "glyph": "\u00AE\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "00ae_registeredsign"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "r",
+    "registered"
+  ],
+  "mappedToEmoticons": [
+    "00ae_registeredsign"
+  ],
+  "tts": "registered",
+  "unicode": "00ae fe0f",
+  "unicodeSkintones": null
+}

@@ -1,0 +1,23 @@
+{
+  "basefilename": "melting_face",
+  "cldr": "melting face",
+  "fromVersion": "14.0",
+  "glyph": "\uD83E\uDEE0",
+  "glyphAsUtfInEmoticons": [
+    "meltingface"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "disappear",
+    "dissolve",
+    "liquid",
+    "melt",
+    "melting face"
+  ],
+  "mappedToEmoticons": [
+    "meltingface"
+  ],
+  "tts": "melting face",
+  "unicode": "1fae0",
+  "unicodeSkintones": null
+}

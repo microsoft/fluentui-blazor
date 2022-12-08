@@ -1,0 +1,21 @@
+{
+  "basefilename": "man_with_bunny_ears",
+  "cldr": "men with bunny ears",
+  "fromVersion": "4.0",
+  "glyph": "\uD83D\uDC6F\u200D\u2642\uFE0F",
+  "glyphAsUtfInEmoticons": [
+    "men_with_bunny_ears"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "bunny ear",
+    "dancer",
+    "men",
+    "men with bunny ears",
+    "partying"
+  ],
+  "mappedToEmoticons": null,
+  "tts": "men with bunny ears",
+  "unicode": "1f46f 200d 2642 fe0f",
+  "unicodeSkintones": null
+}

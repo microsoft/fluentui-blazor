@@ -1,0 +1,23 @@
+{
+  "basefilename": "red_exclamation_mark",
+  "cldr": "red exclamation mark",
+  "fromVersion": "0.6",
+  "glyph": "\u2757",
+  "glyphAsUtfInEmoticons": [
+    "2757_heavyexclamationmarksymbol"
+  ],
+  "group": "Symbols",
+  "keywords": [
+    "!",
+    "exclamation",
+    "mark",
+    "punctuation",
+    "red exclamation mark"
+  ],
+  "mappedToEmoticons": [
+    "2757_heavyexclamationmarksymbol"
+  ],
+  "tts": "red exclamation mark",
+  "unicode": "2757",
+  "unicodeSkintones": null
+}

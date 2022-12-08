@@ -1,0 +1,23 @@
+{
+  "basefilename": "laptop",
+  "cldr": "laptop",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCBB",
+  "glyphAsUtfInEmoticons": [
+    "1f4bb_personalcomputer",
+    "computer"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "computer",
+    "laptop",
+    "pc",
+    "personal"
+  ],
+  "mappedToEmoticons": [
+    "computer"
+  ],
+  "tts": "laptop",
+  "unicode": "1f4bb",
+  "unicodeSkintones": null
+}

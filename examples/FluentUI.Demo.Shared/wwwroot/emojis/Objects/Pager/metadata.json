@@ -1,0 +1,19 @@
+{
+  "basefilename": "pager",
+  "cldr": "pager",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDCDF",
+  "glyphAsUtfInEmoticons": [
+    "1f4df_pager"
+  ],
+  "group": "Objects",
+  "keywords": [
+    "pager"
+  ],
+  "mappedToEmoticons": [
+    "1f4df_pager"
+  ],
+  "tts": "pager",
+  "unicode": "1f4df",
+  "unicodeSkintones": null
+}

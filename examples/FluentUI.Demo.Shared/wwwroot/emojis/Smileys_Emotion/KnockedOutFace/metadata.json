@@ -1,0 +1,23 @@
+{
+  "basefilename": "knocked-out_face",
+  "cldr": "knocked-out face",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDE35",
+  "glyphAsUtfInEmoticons": [
+    "1f635_dizzyface"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "crossed-out eyes",
+    "dead",
+    "face",
+    "face with crossed-out eyes",
+    "knocked out"
+  ],
+  "mappedToEmoticons": [
+    "1f635_dizzyface"
+  ],
+  "tts": "face with crossed-out eyes",
+  "unicode": "1f635",
+  "unicodeSkintones": null
+}
