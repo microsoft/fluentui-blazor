@@ -119,5 +119,31 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.FluentAccordion
                               "child content" +
                               "</fluent-accordion-item>");
         }
+
+        [Fact]
+        public void RenderProperly_WhenAdditionalCSSClass_IsProvided()
+        {
+            // Arrange & Act
+            IRenderedComponent<FluentAccordionItem> cut = TestContext.RenderComponent<FluentAccordionItem>(
+                parameters => parameters.Add(p => p.Class, "additional-class"));
+
+            // Assert
+            cut.MarkupMatches("<fluent-accordion-item id:ignore class=\"additional-class\">" +
+                              "<span slot=\"heading\"></span>" +
+                              "</fluent-accordion-item>");
+        }
+
+        [Fact]
+        public void RenderProperly_WhenAdditionalStyle_IsProvided()
+        {
+            // Arrange & Act
+            IRenderedComponent<FluentAccordionItem> cut = TestContext.RenderComponent<FluentAccordionItem>(
+                parameters => parameters.Add(p => p.Style, "background-color: grey"));
+
+            // Assert
+            cut.MarkupMatches("<fluent-accordion-item id:ignore style=\"background-color: grey\">" +
+                              "<span slot=\"heading\"></span>" +
+                              "</fluent-accordion-item>");
+        }
     }
 }
