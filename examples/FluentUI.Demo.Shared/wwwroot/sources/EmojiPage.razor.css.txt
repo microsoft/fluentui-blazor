@@ -94,7 +94,7 @@ dd {
 
 ::deep .preview {
     margin: 10px;
-    --card-width: 120px;
+    --card-width: 115px;
     --card-height: 120px;
     --elevation: 6;
 }
