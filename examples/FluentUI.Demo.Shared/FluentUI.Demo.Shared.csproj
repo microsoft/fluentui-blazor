@@ -8,7 +8,7 @@
 		<LangVersion>latest</LangVersion>
 		<IsTrimmable>false</IsTrimmable>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<DefaultItemExcludes>$(DefaultItemExcludes);wwwroot/emojis/**/metadata.json;wwwroot/emojis/objects/**;wwwroot/emojis/people_body/**;wwwroot/emojis/symbols/**;wwwroot/emojis/travel_places/**;wwwroot/emojis/animals_nature/**</DefaultItemExcludes>
+		<DefaultItemExcludes>$(DefaultItemExcludes);wwwroot/emojis/**/metadata.json;</DefaultItemExcludes>
 	</PropertyGroup>
 
 	<ItemGroup>
