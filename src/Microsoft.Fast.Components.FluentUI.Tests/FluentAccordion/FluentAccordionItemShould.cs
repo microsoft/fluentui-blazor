@@ -3,12 +3,12 @@ using Xunit;
 
 namespace Microsoft.Fast.Components.FluentUI.Tests.FluentAccordion
 {
-    public class FluentAccordionItem_Render_Should : RenderTestBase
+    public class FluentAccordionItemShould : TestBase
     {
         [Fact]
-        public void RenderProperly_WithoutAnyProvided_Content()
+        public void RenderProperly_WithChildContent_IsNull()
         {
-            // Arrange
+            // Arrange & Act
             IRenderedComponent<FluentAccordionItem> cut = TestContext.RenderComponent<FluentAccordionItem>();
 
             // Assert
@@ -20,7 +20,7 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.FluentAccordion
         [Fact]
         public void RenderProperly_WithProvided_Content()
         {
-            // Arrange
+            // Arrange & Act
             IRenderedComponent<FluentAccordionItem> cut = TestContext.RenderComponent<FluentAccordionItem>(
                 parameters => parameters.AddChildContent("child content"));
 
@@ -34,7 +34,7 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.FluentAccordion
         [Fact]
         public void RenderProperly_WithCustomHeaderValue()
         {
-            // Arrange
+            // Arrange & Act
             IRenderedComponent<FluentAccordionItem> cut = TestContext.RenderComponent<FluentAccordionItem>(
                 parameters => parameters.Add(p => p.Heading, "custom heading value"));
 
@@ -49,7 +49,7 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.FluentAccordion
         [InlineData(false)]
         public void RenderProperly_WithProvidedExpanded_Parameter(bool expanded)
         {
-            // Arrange
+            // Arrange & Act
             IRenderedComponent<FluentAccordionItem> cut = TestContext.RenderComponent<FluentAccordionItem>(
                 parameters => parameters.Add(p => p.Expanded, expanded));
 
@@ -69,9 +69,9 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.FluentAccordion
         }
 
         [Fact]
-        public void RenderProperly_WithAdditionalAttribute()
+        public void RenderProperly_WithAnAdditionalAttribute()
         {
-            // Arrange
+            // Arrange & Act
             IRenderedComponent<FluentAccordionItem> cut = TestContext.RenderComponent<FluentAccordionItem>(
                 parameters => parameters.AddUnmatched("unknown", "unknowns-value"));
 
@@ -84,7 +84,7 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.FluentAccordion
         [Fact]
         public void RenderProperly_WithMultipleAdditionalAttributes()
         {
-            // Arrange
+            // Arrange & Act
             IRenderedComponent<FluentAccordionItem> cut = TestContext.RenderComponent<FluentAccordionItem>(
                 parameters => parameters
                     .AddUnmatched("unknown1", "unknown1s-value")
@@ -101,7 +101,7 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.FluentAccordion
         [Fact]
         public void RenderProperly_WhenAllParamsAdded_AndAdditionalAttributes_AndContent()
         {
-            // Arrange
+            // Arrange & Act
             IRenderedComponent<FluentAccordionItem> cut = TestContext.RenderComponent<FluentAccordionItem>(
                 parameters => parameters
                     .Add(p => p.Expanded, true)

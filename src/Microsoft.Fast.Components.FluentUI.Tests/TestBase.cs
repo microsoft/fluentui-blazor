@@ -2,7 +2,7 @@ using Bunit;
 
 namespace Microsoft.Fast.Components.FluentUI.Tests
 {
-    public class RenderTestBase
+    public class TestBase
     {
         protected readonly TestContext TestContext = new TestContext();
     }
