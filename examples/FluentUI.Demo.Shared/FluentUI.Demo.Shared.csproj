@@ -8,7 +8,7 @@
 		<LangVersion>latest</LangVersion>
 		<IsTrimmable>false</IsTrimmable>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<DefaultItemExcludes>$(DefaultItemExcludes);wwwroot\emojis\**\metadata.json;wwwroot\emojis\objects\**;wwwroot\emojis\people_body\**;wwwroot\emojis\symbols\**;wwwroot\emojis\travel_places\**</DefaultItemExcludes>
+		<DefaultItemExcludes>$(DefaultItemExcludes);wwwroot/emojis/**/metadata.json;wwwroot/emojis/objects/**;wwwroot/emojis/people_body/**;wwwroot/emojis/symbols/**;wwwroot/emojis/travel_places/**</DefaultItemExcludes>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -39,7 +39,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<AdditionalFiles Include="$(ProjectDir)\*.xml" />
+		<AdditionalFiles Include="$(ProjectDir)/*.xml" />
 	</ItemGroup>
 
 	<ItemGroup>
