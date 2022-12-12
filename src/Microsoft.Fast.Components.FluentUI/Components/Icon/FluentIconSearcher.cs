@@ -48,6 +48,6 @@ public class FluentIconSearcher
         if (iconList is null)
             return new List<IconModel>();
         else
-            return iconList?.Take(count).ToList();
+            return iconList?.Take(count).OrderBy(x=>x.Folder).ToList();
     }
 }
