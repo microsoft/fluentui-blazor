@@ -300,12 +300,12 @@
         </member>
         <member name="P:FluentUI.Demo.Shared.FluentEmoji.Slot">
             <summary>
-            Gets or sets the slot where the icon is displayed in
+            Gets or sets the slot where the emoji is displayed in
             </summary>
         </member>
         <member name="P:FluentUI.Demo.Shared.FluentEmoji.OnClick">
             <summary>
-            Allows for capturing a mouse click on an icon
+            Allows for capturing a mouse click on an emoji
             </summary>
         </member>
         <member name="P:FluentUI.Demo.Shared.Footer.ChildContent">

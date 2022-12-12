@@ -333,7 +333,7 @@ code {
     }
 
     .menu-icon {
-        padding: 10px 20px;
+        padding: 10px 0.75em;
         z-index: 2;
         transition: all 300ms ease-in-out;
         display: block;
@@ -361,7 +361,7 @@ code {
     }
 
     #menu-toggle:checked + .menu-icon {
-        padding-left: 90%;
+        padding-left: 89%;
     }
 
     [dir="rtl"] #menu-toggle:checked + .menu-icon {
@@ -410,7 +410,7 @@ code {
     }
     aside {
         grid-area: 1 / 1 / 2 / 2;
-        padding: 2.5em 0.75em 1em 0.75em;
+        padding: 1.5em 0.75em 1em 0.75em;
     }
 
     article {
@@ -477,7 +477,7 @@ code {
 
     aside {
         grid-area: 1 / 2 / 2 / 3;
-        padding: 2.5em 0.75em 1em 0.75em;
+        padding: 1.5em 0.75em 1em 0.75em;
         margin-inline-start: calc(env(viewport-segment-left 1 0) - env(viewport-segment-right 0 0)); /* hinge width */
         margin-inline-end: calc(100% - env(viewport-segment-left 1 0));
     }

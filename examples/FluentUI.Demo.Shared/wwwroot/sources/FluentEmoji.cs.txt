@@ -67,14 +67,14 @@ public partial class FluentEmoji : FluentComponentBase
     public int? CustomSize { get; set; }
 
     /// <summary>
-    /// Gets or sets the slot where the icon is displayed in
+    /// Gets or sets the slot where the emoji is displayed in
     /// </summary>
     [Parameter]
     public string? Slot { get; set; } = null;
 
 
     /// <summary>
-    /// Allows for capturing a mouse click on an icon
+    /// Allows for capturing a mouse click on an emoji
     /// </summary>
     [Parameter]
     public EventCallback<MouseEventArgs> OnClick { get; set; }
@@ -90,6 +90,10 @@ public partial class FluentEmoji : FluentComponentBase
         if (Size != EmojiSize.Custom && CustomSize != null)
         {
             throw new ArgumentException("CustomSize can only be set if Size is set to Custom");
+        }
+        if (CustomSize > 1024)
+        {
+            throw new ArgumentException("CustomSize can not be larger than 1024");
         }
 
         EmojiModel model = FluentEmojis.EmojiMap.First(x => x.Name == Name);
@@ -194,5 +198,5 @@ public partial class FluentEmoji : FluentComponentBase
         return result;
     }
 
-    public static HttpRequestMessage CreateMessage(string url) => new(HttpMethod.Get, url);
+    private static HttpRequestMessage CreateMessage(string url) => new(HttpMethod.Get, url);
 }

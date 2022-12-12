@@ -4,17 +4,41 @@
 
 
 <h1>Emoji</h1>
+<p>
+    The <a title="Fluent Emoji" href="https://github.com/microsoft/fluentui-emoji" target="_blank" rel="noopener">Fluent Emoji</a>
+    are a (still growing) collection of familiar, friendly, and modern emoji from Microsoft. At the moment there are over 1500 distinct emoji
+    available in color, flat and high contrast styles and 6 different skintones (where applicable) devided in 9 groups. In total the
+    collections consists of well over 13k emoji in SVG format.
+</p>
+<p>
+    You can use any of these emoji by levaraging the <code>&lt;FluentEmoji&gt;</code> component. See below for the parameters and examples. There is
+    also a search capability available on this page wich allows you to browse through all the available emoji.
+</p>
+
 <ApiDocumentation Component="typeof(FluentEmoji)" />
 
 <h2 id="overview">Overview</h2>
 
-<FluentEmoji Name="@FluentEmojis.Hamburger" EmojiStyle="EmojiStyle.Color" Size=@EmojiSize.Size16 />
-<FluentEmoji Name="@FluentEmojis.Hamburger" EmojiStyle="EmojiStyle.Color" Size=@EmojiSize.Size32 />
-<FluentEmoji Name="@FluentEmojis.Hamburger" EmojiStyle="EmojiStyle.Color" Size=@EmojiSize.Size64 />
-<FluentEmoji Name="@FluentEmojis.Hamburger" EmojiStyle="EmojiStyle.Color" Size=@EmojiSize.Size128 />
+<DemoSection Component="typeof(FluentEmojiDifferentSizes)" Title="Different sizes">
+    <Description>
+        You can choose a preset size from the <code>EmojiSize</code> enum. As an alternative you can specify a custom size by setting the
+        <code>EmojiSize</code> to <code>EmojiSize.Custom</code> and setting the <code>CustomSize</code> property to a value anywhere
+        between 32 - 1024px, though we suggest scaling on sizes of 32 so 32, 64, etc to get the best result.
+    </Description>
+</DemoSection>
 
 
-<h2 id="explore-icons">Explore Emojis</h2>
+<DemoSection Component="typeof(FluentEmojiSlots)" Title="Slots">
+    <Description>
+        A lot of the web components have named slots that declare locations in which content can be rendered.
+        FluentEmoji leverages this capability through its <code>Slot</code> parameter. With this you can, for
+        example, render a emoji icon in front (<code>Slot="start"</code>) or after (<code>Slot="end"</code>) a
+        label in a <code>&lt;FluentButton&gt;</code> component
+    </Description>
+</DemoSection>
+
+
+<h2 id="explore-icons">Explore Emoji</h2>
 <p>
     <EditForm EditContext="@editContext">
         <div class="form-grid">
@@ -31,7 +55,7 @@
                     }
                 </FluentSelect>
             </div>
-           
+
             <div id="item-2">
                 <label for="Size">Size</label>
                 <FluentSelect TOption="EmojiSize" Id="Size" @bind-SelectedOption="Form.Size" @onchange=@(x => HandleSize(x))>
@@ -80,7 +104,7 @@
 
 @if (emojis?.Count > 0)
 {
-    <p style="padding: 1rem 0;">In the results below, click on an emoji card to copy a 'ready-to-paste' <code>FluentEmoji</code> component to the clipboard. </p>
+    <p style="padding: 1rem 0;">In the results below, click on an emoji card to copy a 'ready-to-paste' <code>FluentEmoji</code> component to the clipboard. <em>Only the first 50 results are shown.</em> </p>
 }
 <div id="filled" data-is-scrollable="true" style="overflow-y:auto;height:600px;">
     <div style="display:flex;flex-flow: row wrap;">
