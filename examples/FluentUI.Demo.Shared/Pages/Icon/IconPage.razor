@@ -1,107 +1,60 @@
 ﻿@page "/Icon"
 
-<h1>Icons</h1>
+<h1>Icon</h1>
+
+<p>
+    The <a title="FluentUI System Icons repository" href="https://github.com/microsoft/fluentui-system-icons" target="_blank" rel="noopener">Fluent UI System Icons</a> 
+    are a (still growing) collection of familiar, friendly and modern icons from Microsoft. At the moment there are more than 2200 distinct icons 
+    available in both filled and outlined versions and in various sizes. In total the collections consists of well over 11k icons in SVG format.
+</p>
+<p>
+    You can use any of these icons by levaraging the <code>&lt;FluentIcon&gt;</code>&nbsp;component. See below for the parameters and examples. 
+    There is also a search capability available on this page wich allows you to browse to all the different icons.
+</p>
+
 <ApiDocumentation Component="typeof(FluentIcon)" />
+
 <h2 id="overview">Overview</h2>
 
-<h3>Icon placement inside other components</h3
-<p>
-    A lot of the web components have named slots that declare locations in which content can be rendered. 
-    FluentIcon leverages this capability through it's <code>Slot</code> parameter. With this you can for 
-    example render the icon in front (<code>Slot="start"</code>) or after (<code>Slot="end"</code>) a 
-    label in a <code>FluentButton</code> component.
-</p> 
+<DemoSection Component="typeof(FluentIconSlots)" Title="Icon placement inside other components">
+    <Description>
+        A lot of the web components have named slots that declare locations in which content can be rendered.
+        FluentIcon leverages this capability through its <code>Slot</code> parameter. With this you can for
+        example render the icon in front (<code>Slot="start"</code>) or after (<code>Slot="end"</code>) a
+        label in a <code>FluentButton</code> component.
+    </Description>
+</DemoSection>
 
-<h3 id="color-options">Color options</h3>
-<p>
-    Icons can be drawn and filled with a color through the <code>Color</code> parameter which takes a <code>Color</code> enumeration value. 
-    <br /><br /> 
-    &nbsp;&nbsp;&nbsp;<code>&lt;FluentIcon Name="@@FluentIcons.Alert"" Size="IconSize.Size48"" Variant=IconVariant.Filled Color="<em>{&middot;&middot;&middot;}</em>" /&gt;</code>
-    <br /><br />
-    With the code above you can use the following options at the <em>{&middot;&middot;&middot;}</em>:
-    <dl>
-        <dt><code>Color.Neutral</code> - Uses CSS variable --neutral-forground-rest, adapts to light/dark mode.</dt>
-        <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Filled Color="Color.Neutral" /></dd>
-       
-        <dt><code>Color.Accent</code> - Uses CSS variable --accent-fill-rest.</dt>
-        <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Filled Color="Color.Accent" /></dd>
-        
-        <dt><code>Color.Warning</code> - Uses CSS variable --warning<sup>*</sup>.</dt>
-        <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Filled Color="Color.Warning" /></dd>
-        
-        <dt><code>Color.Info</code> - Uses CSS variable --info<sup>*</sup>.</dt>
-        <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Filled Color="Color.Info" /></dd>
-        
-        <dt><code>Color.Error</code> - Uses CSS variable --error<sup>*</sup>.</dt>
-        <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Filled Color="Color.Error" /></dd>
-        
-        <dt><code>Color.Success</code> - Uses CSS variable --success<sup>*</sup>.</dt>
-        <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Filled Color="Color.Success" /></dd>
-        
-        <dt><code>Color.Fill</code> - Uses CSS variable --neutral-fill-rest, adapts to light/dark mode<sup>**</sup>.</dt>
-        <dd style="background-color: var(--accent-fill-rest); width:48px"><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Filled Color="Color.Fill" /></dd>
-        
-        <dt><code>Color.FillInverse</code> - Uses CSS variable --neutral-fill-inverse-rest, adapts to light/dark mode<sup>**</sup>.</dt>
-        <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Filled Color="Color.FillInverse" /></dd>
-        
-        <dt><code>Color.Lightweight</code> - Uses CSS variable --neutral-layer-1, adapts to light/dark mode<sup>**</sup>.</dt>
-        <dd style="background-color: var(--accent-fill-rest); width:48px"><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Filled Color="Color.Lightweight" /></dd>
-        
-        <dt><code>Color.Custom</code> - Supply your own color value through the <code>CustomColor</code> parameter. Needs to be formatted as an HTML hex color string (#rrggbb or #rgb) or a CSS variable (var(--...)).</dt>
-        <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Filled Color="Color.Custom" CustomColor="#570078" /></dd>
-    </dl>
-    <strong>(*)</strong>: This color is defined in the <code>variables.css</code> file. If your site is using     
-    <FluentAnchor Href="/Reboot" Appearance="Appearance.Hypertext">Reboot</FluentAnchor> the <code>variables.css</code> file is automatically imported. If you do not 
-    use Reboot, please add the <code>variables.css</code> file to your <code>index.html</code> or <code>_Layout.cshtml</code> file like this: 
-    (<em><strong>the color values will not be aplied if the CSS variables are not defined</strong></em>):
-    <CodeSnippet Language="language-html">
- &lt;link href="_content/Microsoft.Fast.Components.FluentUI/css/variables.css" rel="stylesheet" /&gt;
-    </CodeSnippet>
-    
-    <br/>
-    <strong>(**)</strong>: Background color has been set through inline style, otherwise icon would be (nearly) invisible.
-</p>
-<h2 id="culture-aware">Culture Aware</h2>
-<p>
-    Some icons offer alternatives for specific languages (neutral cultures). You can specify a language to use for the icon by using the <code>NeutralCultureName</code> parameter and giving it the two letter ISO code of the culture.
-    If a language version of an icon is not found, the original version will be used.
-    <dl> 
-        <dt>Neutral @@FluentIcons.TextBold icons</dt>
-        <dd>Filled: <FluentIcon Name=@FluentIcons.TextBold Variant=IconVariant.Filled /> Regular: <FluentIcon Name=@FluentIcons.TextBold Variant=IconVariant.Regular /></dd>
-        <dt>French @@FluentIcons.TextBold icons (<code>NeutralCultureName="fr"</code>)</dt>
-        <dd>Filled: <FluentIcon Name=@FluentIcons.TextBold Variant=IconVariant.Filled NeutralCultureName="fr" /> Regular: <FluentIcon Name=@FluentIcons.TextBold Variant=IconVariant.Regular NeutralCultureName="fr"/></dd>
-        <dt>German @@FluentIcons.TextBold icons (<code>NeutralCultureName="de"</code>)</dt>
-        <dd>Filled: <FluentIcon Name=@FluentIcons.TextBold Variant=IconVariant.Filled NeutralCultureName="de" /> Regular: <FluentIcon Name=@FluentIcons.TextBold Variant=IconVariant.Regular NeutralCultureName="de"/></dd>
-        <dt>Greek @@FluentIcons.TextBold icons (<code>NeutralCultureName="el"</code>) (does not exist, fall back to original)</dt>
-        <dd>Filled: <FluentIcon Name=@FluentIcons.TextBold Variant=IconVariant.Filled NeutralCultureName="el" /> Regular: <FluentIcon Name=@FluentIcons.TextBold Variant=IconVariant.Regular NeutralCultureName="el"/></dd>
-        <dt>Spanish @@FluentIcons.TextBold icons (<code>NeutralCultureName="es"</code>)</dt>
-        <dd>Filled: <FluentIcon Name=@FluentIcons.TextBold Variant=IconVariant.Filled NeutralCultureName="es" /> Regular: <FluentIcon Name=@FluentIcons.TextBold Variant=IconVariant.Regular NeutralCultureName="es"/></dd>
-    </dl>
-</p>
+<DemoSection Component="typeof(FluentIconColors)" Title="ColorOptions">
+    <Description>
+        Icons can be drawn and filled with a color through the <code>Color</code> parameter which takes a <code>Color</code> enumeration value. 
+        <br /><br /> 
+        &nbsp;&nbsp;&nbsp;<code>&lt;FluentIcon Name="@@FluentIcons.Alert"" Size="IconSize.Size48"" Variant=IconVariant.Regular Color="<em>{&middot;&middot;&middot;}</em>" /&gt;</code>
+        <br /><br />
+        With the code above you can use the following options at the <em>{&middot;&middot;&middot;}</em>:
+    </Description>
+</DemoSection>
 
-<h2 id="invalid-combination">Invalid Name, Size and Variation combination</h2>
+<DemoSection Component="typeof(FluentIconCultures)" Title="Culture aware">
+    <Description>
+        Some icons offer alternatives for specific languages (neutral cultures). You can specify a language to use for the icon by using the <code>NeutralCultureName</code> parameter and giving it the two letter ISO code of the culture.
+        If a language version of an icon is not found, the original version will be used.
+    </Description>
+</DemoSection>
 
-<p>
-    The component checks at runtime if the combination of Name, Size and Variation is available in the collection and throws an error if the combination is not found.
-    <br />
-    For example, a request for the following icon
-    <CodeSnippet Language="cshtml-razor">
+<DemoSection Component="typeof(FluentIconInvalidCombination)" Title="Invalid Name, Size and Variation combination">
+    <Description>
+        The component checks at runtime if the combination of Name, Size and Variation is available in the collection and throws an error if the combination is not found.
+        <br />
+        For example, a request for the following icon
+        <CodeSnippet Language="cshtml-razor">
 &lt;FluentIcon Name="@@FluentIcons.VideoPersonClock" Size="@@IconSize.Size12" Variant="@@IconVariant.Filled" Color="@@Color.Accent"/&gt;
-    </CodeSnippet>
-    <br />
-    will render:
-    <ErrorBoundary>
-        <ChildContent>
-            <FluentIcon Name="@FluentIcons.VideoPersonClock" Size="@IconSize.Size12" Variant="@IconVariant.Filled" Color="@Color.Accent"/>
-        </ChildContent>
-        <ErrorContent>
-            <div class="blazor-error-boundary">
-                @context.Message
-            </div>
-        </ErrorContent>
-    </ErrorBoundary>
-</p>
-
+        </CodeSnippet>
+        <br />
+        will render:
+    </Description>
+</DemoSection>
+    
 <FluentDivider Role="DividerRole.Separator" />
 
 <h2 id="explore-icons">Explore Icons</h2>

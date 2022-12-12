@@ -1,0 +1,43 @@
+﻿@* Remember to replace the namespace below with your own project's namespace. *@
+@namespace FluentUI.Demo.Shared
+
+<dl>
+    <dt><code>Color.Neutral</code> - Uses CSS variable --neutral-forground-rest, adapts to light/dark mode.</dt>
+    <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Regular Color="Color.Neutral" /></dd>
+
+    <dt><code>Color.Accent</code> - Uses CSS variable --accent-fill-rest.</dt>
+    <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Regular Color="Color.Accent" /></dd>
+
+    <dt><code>Color.Warning</code> - Uses CSS variable --warning<sup>*</sup>.</dt>
+    <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Regular Color="Color.Warning" /></dd>
+
+    <dt><code>Color.Info</code> - Uses CSS variable --info<sup>*</sup>.</dt>
+    <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Regular Color="Color.Info" /></dd>
+
+    <dt><code>Color.Error</code> - Uses CSS variable --error<sup>*</sup>.</dt>
+    <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Regular Color="Color.Error" /></dd>
+
+    <dt><code>Color.Success</code> - Uses CSS variable --success<sup>*</sup>.</dt>
+    <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Regular Color="Color.Success" /></dd>
+
+    <dt><code>Color.Fill</code> - Uses CSS variable --neutral-fill-rest, adapts to light/dark mode<sup>**</sup>.</dt>
+    <dd style="background-color: var(--accent-fill-rest); width:48px"><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Regular Color="Color.Fill" /></dd>
+
+    <dt><code>Color.FillInverse</code> - Uses CSS variable --neutral-fill-inverse-rest, adapts to light/dark mode<sup>**</sup>.</dt>
+    <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Regular Color="Color.FillInverse" /></dd>
+
+    <dt><code>Color.Lightweight</code> - Uses CSS variable --neutral-layer-1, adapts to light/dark mode<sup>**</sup>.</dt>
+    <dd style="background-color: var(--accent-fill-rest); width:48px"><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Regular Color="Color.Lightweight" /></dd>
+
+    <dt><code>Color.Custom</code> - Supply your own color value through the <code>CustomColor</code> parameter. Needs to be formatted as an HTML hex color string (#rrggbb or #rgb) or a CSS variable (var(--...)).</dt>
+    <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Regular Color="Color.Custom" CustomColor="#570078" /></dd>
+</dl>
+<strong>(*)</strong>: This color is defined in the <code>variables.css</code> file. If your site is using
+<FluentAnchor Href="/Reboot" Appearance="Appearance.Hypertext">Reboot</FluentAnchor> the <code>variables.css</code> file is automatically imported. If you do not
+    use Reboot, please add the <code>variables.css</code> file to your <code>index.html</code> or <code>_Layout.cshtml</code> file like this:
+    (<em><strong>the color values will not be aplied if the CSS variables are not defined</strong></em>):
+<CodeSnippet Language="language-html">
+&lt;link href="_content/Microsoft.Fast.Components.FluentUI/css/variables.css" rel="stylesheet" /&gt;
+</CodeSnippet>
+<br />
+<strong>(**)</strong>: Background color has been set through inline style, otherwise icon would be (nearly) invisible.
