@@ -16,7 +16,7 @@ public partial class IconPage : IAsyncDisposable
     private IJSObjectReference? _jsModule;
 
     private EditContext? editContext;
-    List<IconModel> icons = new();
+    List<IconModel>? icons = new();
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -30,17 +30,11 @@ public partial class IconPage : IAsyncDisposable
     public void HandleStyle()
     {
         if (Form.Filled && Form.Regular || !Form.Filled && !Form.Regular)
-        {
             Form.Style = null;
-        }
         else if (Form.Filled && !Form.Regular)
-        {
             Form.Style = true;
-        }
         else if (!Form.Filled && Form.Regular)
-        {
             Form.Style = false;
-        }
 
         HandleSearch();
     }
@@ -48,9 +42,9 @@ public partial class IconPage : IAsyncDisposable
     public void HandleSize(ChangeEventArgs args)
     {
         if (!string.IsNullOrEmpty(args.Value?.ToString()))
-        {
             Form.Size = Enum.Parse<IconSize>((string)args.Value);
-        }
+        else
+            Form.Size = IconSize.Size24;
 
         HandleSearch();
     }
@@ -58,9 +52,7 @@ public partial class IconPage : IAsyncDisposable
     public void HandleColor(ChangeEventArgs args)
     {
         if (!string.IsNullOrEmpty(args.Value?.ToString()))
-        {
             Form.Color = Enum.Parse<Color>((string)args.Value);
-        }
 
         HandleSearch();
     }
@@ -68,16 +60,33 @@ public partial class IconPage : IAsyncDisposable
 
     public void HandleSearch()
     {
-        if (Form.Searchterm is not null && Form.Searchterm.Trim().Length > 2)
+        icons?.Clear();
+        
+        IconVariant? variant = null;
+        if (Form.Style is not null)
         {
-            IconVariant? variant = null;
-            if (Form.Style is not null)
-            {
-                variant = Form.Style.Value ? IconVariant.Filled : IconVariant.Regular;
-            }
-
-            icons = FluentIcons.GetFilteredIcons(searchterm: Form.Searchterm.Trim(), size: Form.Size, variant: variant);
+            variant = Form.Style.Value ? IconVariant.Filled : IconVariant.Regular;
         }
+
+        FluentIconSearcher searcher = new();
+
+        icons = searcher.WithName(Form.Searchterm)
+            .AsVariant(variant)
+            .WithSize(Form.Size)
+            .ToList();
+
+        StateHasChanged();
+    }
+
+    public void HandleReset()
+    {
+        Form.Searchterm = "";
+        Form.Size = IconSize.Size32;
+        Form.Style = null;
+        Form.Color = Color.Accent;
+
+        if (icons is not null)
+            icons.Clear();
     }
 
     public async void HandleClick(IconModel icon)

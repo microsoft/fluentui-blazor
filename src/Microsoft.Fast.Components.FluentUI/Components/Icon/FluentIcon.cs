@@ -20,7 +20,7 @@ public partial class FluentIcon : FluentComponentBase
 
 
     [Inject]
-    private StaticFileService IconService { get; set; } = default!;
+    private StaticAssetService StaticAssetService { get; set; } = default!;
 
     [Inject]
     private CacheStorageAccessor CacheStorageAccessor { get; set; } = default!;
@@ -137,8 +137,8 @@ public partial class FluentIcon : FluentComponentBase
 
             if (string.IsNullOrEmpty(result))
             {
-                //It is not in the cache, get it from the StaticFileService (download)
-                HttpResponseMessage? response = await IconService.HttpClient.SendAsync(message);
+                //It is not in the cache, get it from the StaticAssetService (download)
+                HttpResponseMessage? response = await StaticAssetService.HttpClient.SendAsync(message);
 
                 // If unsuccessful, try with the fallback url. Maybe a non existing neutral culture was specified
                 if (!response.IsSuccessStatusCode && _iconUrl != _iconUrlFallback && firstRender)
@@ -149,8 +149,8 @@ public partial class FluentIcon : FluentComponentBase
                     result = await CacheStorageAccessor.GetAsync(message);
                     if (string.IsNullOrEmpty(result))
                     {
-                        // If not in cache, get it from the StaticFileService (download)
-                        response = await IconService.HttpClient.SendAsync(message);
+                        // If not in cache, get it from the StaticAssetService (download)
+                        response = await StaticAssetService.HttpClient.SendAsync(message);
 
                         if (response.IsSuccessStatusCode)
                             // Store the response in the cache and get the result
