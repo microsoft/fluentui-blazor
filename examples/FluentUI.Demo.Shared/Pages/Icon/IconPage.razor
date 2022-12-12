@@ -102,13 +102,13 @@
 
 <FluentDivider Role="DividerRole.Presentation" />
 
-@if (icons.Count > 0)
+@if (icons?.Count > 0)
 {
-    <p style="padding: 1rem 0;">In the results below, click on an icon card to copy a 'ready-to-paste' <code>FluentIcon</code> component to the clipboard. </p>
+    <p style="padding: 1rem 0;">In the results below, click on an icon card to copy a 'ready-to-paste' <code>FluentIcon</code> component to the clipboard. <em>Only the first 50 results are shown.</em></p> 
 }
 <div id="filled" data-is-scrollable="true" style="overflow-y:auto;height:600px;">
     <div style="display:flex;flex-flow: row wrap;">
-        @foreach (IconModel icon in icons)
+        @foreach (IconModel icon in icons!)
         {
             <FluentCard Class="preview" @onclick="()=> HandleClick(icon)">
                 <div class="inner" style="background-color: @(Form.Color == Color.Fill ? "var(--accent-fill-rest)" : "")" >

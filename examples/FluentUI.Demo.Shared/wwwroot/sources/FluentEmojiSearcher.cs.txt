@@ -59,6 +59,6 @@ public class FluentEmojiSearcher
         if (emojiList is null)
             return new List<EmojiModel>();
         else
-            return emojiList?.Take(count).ToList();
+            return emojiList?.Take(count).OrderBy(x => x.Folder).ToList();
     }
 }

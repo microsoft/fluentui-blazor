@@ -7,7 +7,7 @@
 <p>
     The <a title="Fluent Emoji" href="https://github.com/microsoft/fluentui-emoji" target="_blank" rel="noopener">Fluent Emoji</a>
     are a (still growing) collection of familiar, friendly, and modern emoji from Microsoft. At the moment there are over 1500 distinct emoji
-    available in color, flat and high contrast styles and 6 different skintones (where applicable) devided in 9 categories. In total the
+    available in color, flat and high contrast styles and 6 different skintones (where applicable) devided in 9 groups. In total the
     collections consists of well over 13k emoji in SVG format.
 </p>
 <p>
@@ -104,7 +104,7 @@
 
 @if (emojis?.Count > 0)
 {
-    <p style="padding: 1rem 0;">In the results below, click on an emoji card to copy a 'ready-to-paste' <code>FluentEmoji</code> component to the clipboard. <em>Only the first 50 results are shown.</em> </p>
+    <p style="padding: 1rem 0;">In the results below, click on an emoji card to copy a 'ready-to-paste' <code>FluentEmoji</code> component to the clipboard. <em>Only the first 50 results are shown.</em></p>
 }
 <div id="filled" data-is-scrollable="true" style="overflow-y:auto;height:600px;">
     <div style="display:flex;flex-flow: row wrap;">

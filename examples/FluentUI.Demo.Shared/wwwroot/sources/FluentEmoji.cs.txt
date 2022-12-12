@@ -22,7 +22,7 @@ public partial class FluentEmoji : FluentComponentBase
 
 
     [Inject]
-    private StaticFileService StaticFileService { get; set; } = default!;
+    private StaticAssetService StaticAssetService { get; set; } = default!;
 
     [Inject]
     private CacheStorageAccessor CacheStorageAccessor { get; set; } = default!;
@@ -120,8 +120,8 @@ public partial class FluentEmoji : FluentComponentBase
 
             if (string.IsNullOrEmpty(result))
             {
-                //It is not in the cache, get it from the StaticFileService (download)
-                HttpResponseMessage? response = await StaticFileService.HttpClient.SendAsync(message);
+                //It is not in the cache, get it from the StaticAssetService (download)
+                HttpResponseMessage? response = await StaticAssetService.HttpClient.SendAsync(message);
 
 
                 if (response.IsSuccessStatusCode)
