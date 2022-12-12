@@ -2,7 +2,7 @@
 
 <div style="height:100px;">
     <FluentButton id="anchor1" Appearance=Appearance.Accent>Tooltip at the bottom</FluentButton>
-    <FluentTooltip Anchor="anchor1" Position=TooltipPosition.Bottom @ondismiss=OnDismiss>I'm helping!</FluentTooltip>
+    <FluentTooltip Anchor="anchor1" Position=TooltipPosition.Bottom>I'm helping!</FluentTooltip>
 </div>
 <div style="height:100px;">
     <FluentButton id="anchor2" Appearance=Appearance.Accent>Tooltip at the top</FluentButton>
@@ -30,9 +30,3 @@
     <FluentButton id="anchor7" Appearance=Appearance.Accent>Tooltip at the end</FluentButton>
     <FluentTooltip Anchor="anchor7" Position=TooltipPosition.End Delay=200 Visible=true>I'm helping!</FluentTooltip>
 </div>
-@code {
-    private void OnDismiss()
-    {
-        logger.LogInformation("Tooltip dismissed!");
-    }
-}
