@@ -1,35 +1,20 @@
 ﻿@inject ILogger<TooltipDefault> logger;
 
-<div style="height:100px;">
-    <FluentButton id="anchor1" Appearance=Appearance.Accent>Tooltip at the bottom</FluentButton>
-    <FluentTooltip Anchor="anchor1" Position=TooltipPosition.Bottom @ontooltipdismiss=OnDismiss>I'm helping!</FluentTooltip>
+<div style="height:100px; display: flex; gap: 10px; margin: 2em; flex-direction: row; align-items: center; justify-content: center;" >
+    <FluentButton id="default1" Appearance=Appearance.Accent>Tooltip at the left</FluentButton>
+    <FluentTooltip Anchor="default1" Position=TooltipPosition.Left>I'm helping!</FluentTooltip>
+    
+    <FluentButton id="default2" Appearance=Appearance.Accent>Tooltip at the bottom</FluentButton>
+    <FluentTooltip Anchor="default2" Position=TooltipPosition.Bottom @ontooltipdismiss=OnDismiss>I'm helping!</FluentTooltip>
+
+    <FluentButton id="default3" Appearance=Appearance.Accent>Tooltip at the top</FluentButton>
+    <FluentTooltip Anchor="default3" Position=TooltipPosition.Top>I'm helping!</FluentTooltip>
+
+    <FluentButton id="default4" Appearance=Appearance.Accent>Tooltip at the right</FluentButton>
+    <FluentTooltip Anchor="default4" Position=TooltipPosition.Right>I'm helping!</FluentTooltip>
 </div>
-<div style="height:100px;">
-    <FluentButton id="anchor2" Appearance=Appearance.Accent>Tooltip at the top</FluentButton>
-    <FluentTooltip Anchor="anchor2" Position=TooltipPosition.Top>I'm helping!</FluentTooltip>
-</div>
-<div style="height:100px;">
-    <FluentButton id="anchor3" Appearance=Appearance.Accent>Tooltip at the left</FluentButton>
-    <FluentTooltip Anchor="anchor3" Position=TooltipPosition.Left>I'm helping!</FluentTooltip>
-</div>
-<div style="height:100px;">
-    <FluentButton id="anchor4" Appearance=Appearance.Accent>Tooltip at the right</FluentButton>
-    <FluentTooltip Anchor="anchor4" Position=TooltipPosition.Right>I'm helping!</FluentTooltip>
-</div>
-<p>Different delays</p>
-<div style="height:100px;">
-    <FluentButton id="anchor5" Appearance=Appearance.Accent>Tooltip at the start</FluentButton>
-    <FluentTooltip Anchor="anchor5" Position=TooltipPosition.Start Delay=100>I'm helping!</FluentTooltip>
-</div>
-<div style="height:100px;">
-    <FluentButton id="anchor6" Appearance=Appearance.Accent>Tooltip at the end</FluentButton>
-    <FluentTooltip Anchor="anchor6" Position=TooltipPosition.End Delay=200>I'm helping!</FluentTooltip>
-</div>
-<p>Visible true</p>
-<div style="height:100px;">
-    <FluentButton id="anchor7" Appearance=Appearance.Accent>Tooltip at the end</FluentButton>
-    <FluentTooltip Anchor="anchor7" Position=TooltipPosition.End Delay=200 Visible=true>I'm helping!</FluentTooltip>
-</div>
+
+
 @code {
     private void OnDismiss()
     {
