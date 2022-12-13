@@ -56,6 +56,17 @@
             };
         }
     });
+    Blazor.registerCustomEventType('tooltipdismiss', {
+        browserEventName: 'dismiss',
+        createEventArgs: event => {
+            if (event.target.localName == 'fluent-tooltip') {
+                return {
+                    reason: event.type
+                };
+            };
+            return null;
+        }
+    });
     Blazor.registerCustomEventType('dialogdismiss', {
         browserEventName: 'dismiss' ,
         createEventArgs: event => {

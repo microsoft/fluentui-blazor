@@ -2198,6 +2198,11 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.OnDissmissed">
+            <summary>
+            Callback for when the tooltip is dismissed
+            </summary>  
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Owner">
             <summary>
             Gets or sets the owning FluentTreeView
