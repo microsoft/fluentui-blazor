@@ -93,8 +93,7 @@
 <h3 id="option-3-using-the-fluentdesignsystemprovider">Option 3: Using the <code>&lt;FluentDesignSystemProvider&gt;</code></h3>
 <p>The third way to customize the design in Blazor is to wrap the entire block you want to manipulate in a <code>&lt;FluentDesignSystemProvider&gt;</code>. This special element has a number of properties you can set to configure a subset of the tokens. <strong>Not all tokens are available/supported</strong> and we recommend this to only be used as a fall-back mechanism. The preferred mehod of working with the desgn tokens is to manipulate them from code as described in option 1.</p>
 <p>Here’s an example of changing the “accent base color” and switching the system into dark mode (in the file <code>app.razor</code>):</p>
-<CodeSnippet>
-&lt;FluentDesignSystemProvider AccentBaseColor=&quot;#464EB8&quot; BaseLayerLuminance=&quot;0&quot;&gt;
+<CodeSnippet>&lt;FluentDesignSystemProvider AccentBaseColor=&quot;#464EB8&quot; BaseLayerLuminance=&quot;0&quot;&gt;
 	&lt;Router AppAssembly=&quot;@@typeof(App).Assembly&quot;&gt;
 		&lt;Found Context=&quot;routeData&quot;&gt;
 			&lt;RouteView RouteData=&quot;@@routeData&quot; DefaultLayout=&quot;@@typeof(MainLayout)&quot; /&gt;
@@ -106,8 +105,7 @@
 			&lt;/LayoutView&gt;
 		&lt;/NotFound&gt;
 	&lt;/Router&gt;
-&lt;/FluentDesignSystemProvider&gt;
-</CodeSnippet>
+&lt;/FluentDesignSystemProvider&gt;</CodeSnippet>
 
 <blockquote>
 	<p><strong>Note</strong></p>
