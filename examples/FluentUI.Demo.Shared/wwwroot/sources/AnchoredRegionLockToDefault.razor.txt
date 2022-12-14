@@ -1,0 +1,27 @@
+<div id="viewport-locked" style="position:relative;height:400px;width:400px;background:#d3d3d3;overflow:auto">
+    <FluentAnchoredRegion Anchor="anchor-locked" Viewport="viewport-locked"
+                          VerticalPositioningMode="AxisPositioningMode.Locktodefault"
+                          VerticalDefaultPosition="VerticalPosition.Bottom"
+                          HorizontalPositioningMode="AxisPositioningMode.Locktodefault"
+                          HorizontalDefaultPosition="HorizontalPosition.Right">
+        <div style="height:150px;width:150px;background:green" />
+    </FluentAnchoredRegion>
+    <div style="position:relative;height:0;width:0">
+        <FluentAnchoredRegion Anchor="anchor-locked" Viewport="viewport-locked"
+                              VerticalPositioningMode="AxisPositioningMode.Locktodefault"
+                              VerticalDefaultPosition="VerticalPosition.Top"
+                              HorizontalPositioningMode="AxisPositioningMode.Locktodefault"
+                              HorizontalDefaultPosition="HorizontalPosition.Right">
+            <div style="height:100px;width:100px;background:#ff0" />
+        </FluentAnchoredRegion>
+    </div>
+    <FluentAnchoredRegion Anchor="anchor-locked" Viewport="viewport-locked"
+                          VerticalPositioningMode="AxisPositioningMode.Locktodefault"
+                          VerticalDefaultPosition="VerticalPosition.Top"
+                          HorizontalPositioningMode="AxisPositioningMode.Locktodefault"
+                          HorizontalDefaultPosition="HorizontalPosition.Left">
+        <div style="height:50px;width:50px;background:#00f" />
+    </FluentAnchoredRegion>
+    <div />
+    <FluentButton Appearance=Appearance.Neutral id="anchor-locked" style="margin-left:100px;margin-top:150px">anchor</FluentButton>
+</div>
