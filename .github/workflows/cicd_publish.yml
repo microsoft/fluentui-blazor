@@ -67,7 +67,6 @@ jobs:
   
   deploy_demo:
     runs-on: ubuntu-latest
-    needs: build
     name: Build and deploy Demo site 
     steps:
       - uses: actions/checkout@v3
