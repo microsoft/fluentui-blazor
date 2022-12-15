@@ -109,7 +109,7 @@ public abstract partial class ColumnBase<TGridItem> where TGridItem : class
     /// Indicates whether the data should be sortable by this column.
     ///
     /// The default value may vary according to the column type (for example, a <see cref="ISortableColumn{TGridItem,TValue}" />
-    /// is sortable by default if any <see cref="TemplateColumn{TGridItem}.SortBy" /> parameter is specified).
+    /// is sortable by default if any <see cref="TemplateColumn{TGridItem,TValue}.SortProperty" /> parameter is specified).
     /// </summary>
     [Parameter]
     public bool? Sortable { get; set; }

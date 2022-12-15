@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using System.Reflection;
 using Microsoft.AspNetCore.Components;
@@ -15,7 +16,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// </summary>
 /// <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
 /// <typeparam name="TValue">The type of the value being displayed in the column's cells.</typeparam>
-public class PropertyColumn<TGridItem, TValue> : ColumnBase<TGridItem>, IBindColumn<TGridItem, TValue>, ISortableColumn<TGridItem, TValue>, IFilterableColumn<TGridItem, TValue> where TGridItem : class
+public class PropertyColumn<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] TGridItem, TValue> : ColumnBase<TGridItem>, IBindColumn<TGridItem, TValue>, ISortableColumn<TGridItem, TValue>, IFilterableColumn<TGridItem, TValue> where TGridItem : class
 {
 
     public PropertyColumn()
@@ -38,7 +39,7 @@ public class PropertyColumn<TGridItem, TValue> : ColumnBase<TGridItem>, IBindCol
     /// <summary>
     /// Optionally specifies a format string for the value.
     ///
-    /// Using this requires the <typeparamref name="TProp"/> type to implement <see cref="IFormattable" />.
+    /// Using this requires the <typeparamref name="TValue"/> type to implement <see cref="IFormattable" />.
     /// </summary>
     [Parameter] public string? Format { get; set; }
 
@@ -75,7 +76,9 @@ public class PropertyColumn<TGridItem, TValue> : ColumnBase<TGridItem>, IBindCol
             if (Title is null)
             {
                 PropertyInfo = typeof(TGridItem).GetProperty(memberExpression.Member.Name);
-                var daText = memberExpression.Member.DeclaringType.GetDisplayAttributeString(memberExpression.Member.Name);
+                if (PropertyInfo is null || PropertyInfo.DeclaringType is null)
+                    return;
+                var daText = PropertyInfo.DeclaringType.GetDisplayAttributeString(memberExpression.Member.Name);
                 if (!string.IsNullOrEmpty(daText))
                     Title = daText;
                 else
@@ -110,7 +113,7 @@ public class PropertyColumn<TGridItem, TValue> : ColumnBase<TGridItem>, IBindCol
 
     public short SortOrder { get; set; }
 
-    IQueryable<TGridItem> ISortableColumn<TGridItem>.ApplySort(IQueryable<TGridItem> Source,bool IsFirst)
+    IQueryable<TGridItem> ISortableColumn<TGridItem>.ApplySort(IQueryable<TGridItem> Source, bool IsFirst)
     {
         return _sortProvider!.ApplySort(this, Source, IsFirst);
     }

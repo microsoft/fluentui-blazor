@@ -1,14 +1,13 @@
 ﻿<p>With icon at start</p>
 <FluentAnchor Href="#">
     Anchor
-    <FluentIcon Slot="start" Name="@FluentIcons.Globe" Size="@IconSize.Size16" UseAccentColor=false />
+    <FluentIcon Slot="start" Name="@FluentIcons.Globe" Size="@IconSize.Size16" Color=Color.Neutral />
 </FluentAnchor>
 
 <p>With icon at end</p>
 <FluentAnchor Href="#">
-    <FluentIcon Slot="end" Name="@FluentIcons.Globe" Size="@IconSize.Size16" UseAccentColor=false />
+    <FluentIcon Slot="end" Name="@FluentIcons.Globe" Size="@IconSize.Size16" Color=Color.Neutral />
     Anchor
-
 </FluentAnchor>
 
 <p>With icon in default slot</p>

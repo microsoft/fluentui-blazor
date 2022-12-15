@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 #pragma warning disable Il2026
 
@@ -151,7 +152,8 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
             }
         }
     }
-   
+
+    [RequiresUnreferencedCode("Use 'MethodFriendlyToTrimming' instead", Url = "http://help/unreferencedcode")]
     internal bool BeginEdit()
     {
         if (!_implementedIEditableObject.HasValue)
@@ -185,6 +187,7 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
         Owner.Grid.removeCellEditableConfig(this);
     }
 
+    [RequiresUnreferencedCode("Use 'MethodFriendlyToTrimming' instead", Url = "http://help/unreferencedcode")]
     internal async Task<bool> CanCommit()
     {
         if (Columns is null || Item is null)
@@ -199,6 +202,7 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
         return Validator.TryValidateObject(Item!, _validationContext!, _validationResult!);
     }
 
+    [RequiresUnreferencedCode("Use 'MethodFriendlyToTrimming' instead", Url = "http://help/unreferencedcode")]
     private bool CommitCell()
     {
         if (_currentEditCell is null)
@@ -207,9 +211,9 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
         if (!col.IsEditable)
             return true;
         var cprvcol = ((IBindColumn)col);
-        if (cprvcol is not null && cprvcol.PropertyInfo.Name is not null)
+        if (cprvcol is not null && cprvcol.PropertyInfo is not null && cprvcol.PropertyInfo.Name is not null)
         {
-            _validationContext.MemberName = cprvcol.PropertyInfo.Name;
+            _validationContext!.MemberName = cprvcol.PropertyInfo.Name;
             //if property does not have valide data or event has Cancel == true, prevent cell change and set focuse to previouse cell
             if (!Validator.TryValidateProperty(col.GetCurrentValue(), _validationContext, _validationResult)
                 || !Owner.Grid.EditEndingForCell(Item!, cprvcol.PropertyInfo.Name, col.GetCurrentValue(), EditActionEnum.Commit))
@@ -229,9 +233,12 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
 
     private void ColBeginEdit(ColumnBase<TGridItem> col)
     {
+        var cCol = ((IBindColumn)col);
+        if (cCol is null || cCol.PropertyInfo is null)
+            return;
         col.BeginEdit(Item!);
         if (!col.IsReadonly)
-            col.InternalIsReadonly = !Owner.Grid.BeginPropertyEdit(Item!, ((IBindColumn)col)!.PropertyInfo.Name!);
+            col.InternalIsReadonly = !Owner.Grid.BeginPropertyEdit(Item!, cCol.PropertyInfo.Name);
         else
             col.InternalIsReadonly = true;
     }
@@ -253,7 +260,12 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
         {
             var col = Columns!.ElementAt(_currentEditCell.GridColumn - 1);
             if (typeof(IBindColumn).IsAssignableFrom(col.GetType()))
-                Owner.Grid.EditEndedForCell(Item!, ((IBindColumn)col)!.PropertyInfo.Name!, EditActionEnum.Cancel);
+            {
+                var cCol = ((IBindColumn)col);
+                if (cCol.PropertyInfo is not null)
+                    Owner.Grid.EditEndedForCell(Item!, cCol.PropertyInfo.Name!, EditActionEnum.Cancel);
+            }
+                
             _currentEditCell = null;
         }
         if (Mode == DataGridItemMode.Edit)
@@ -263,6 +275,7 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
         StateHasChanged();
     }
 
+    [RequiresUnreferencedCode("Use 'MethodFriendlyToTrimming' instead", Url = "http://help/unreferencedcode")]
     private void OnRowDblClicked()
     {
         if (Owner.Grid.IsReadonly)

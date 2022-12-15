@@ -1,24 +1,19 @@
-﻿<p>Neutral</p>
-<FluentAnchor Href="#" Appearance="Appearance.Neutral">Button</FluentAnchor>
+﻿<div style="display: flex; align-items: center; gap: 10px;">
+	<FluentAnchor Href="#" Appearance="Appearance.Neutral">Neutral</FluentAnchor>
 
-<p>Accent</p>
-<FluentAnchor Href="#" Appearance="Appearance.Accent">Anchor</FluentAnchor>
+	<FluentAnchor Href="#" Appearance="Appearance.Accent">Accent</FluentAnchor>
 
-<p>Hypertext</p>
-<FluentAnchor Href="#" Appearance="Appearance.Hypertext">Anchor</FluentAnchor>
+	<FluentAnchor Href="#" Appearance="Appearance.Hypertext">Hypertext</FluentAnchor>
+
+	<FluentAnchor Href="#" Appearance="Appearance.Lightweight">Lightweight</FluentAnchor>
+
+	<FluentAnchor Href="#" Appearance="Appearance.Outline">Outline</FluentAnchor>
+
+	<FluentAnchor Href="#" Appearance="Appearance.Stealth">Stealth</FluentAnchor>
+</div>
 
 <p style="font-weight:400;">
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt ut aliquam quas quod ipsam cupiditate, voluptate,
-    corrupti
-    <FluentAnchor Appearance="Appearance.Hypertext" Href="#">doloremque totam</FluentAnchor>
-    dicta perspiciatis commodi consequatur reprehenderit laborum aliquid minima. Neque, recusandae. Adipisci.
+	Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt ut aliquam quas quod ipsam cupiditate, voluptate,
+	corrupti <FluentAnchor Class="specialbg" Appearance="Appearance.Hypertext" Href="#">doloremque totam</FluentAnchor> dicta perspiciatis 
+	commodi consequatur reprehenderit laborum aliquid minima. Neque, recusandae. Adipisci.
 </p>
-
-<p>Lightweight</p>
-<FluentAnchor Href="#" Appearance="Appearance.Lightweight">Anchor</FluentAnchor>
-
-<p>Outline</p>
-<FluentAnchor Href="#" Appearance="Appearance.Outline">Anchor</FluentAnchor>
-
-<p>Stealth</p>
-<FluentAnchor Href="#" Appearance="Appearance.Stealth">Anchor</FluentAnchor>

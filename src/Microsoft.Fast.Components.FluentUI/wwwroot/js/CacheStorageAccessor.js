@@ -1,5 +1,10 @@
 ﻿async function openCacheStorage() {
-    return await window.caches.open("Microsoft.Fast.Components.FluentUI");
+    try {
+        return await window.caches.open("Microsoft.Fast.Components.FluentUI")
+    }
+    catch (err) {
+        return undefined;
+    }
 }
 
 function createRequest(url, method, body = "") {
@@ -22,24 +27,31 @@ export async function put(url, method, body = "", responseString) {
 
     const expires = new Date();
     expires.setSeconds(expires.getSeconds() + CACHING_DURATION);
-    
+
     const cachedResponseFields = {
         headers: { 'fluent-cache-expires': expires.toUTCString() },
     };
 
     let cache = await openCacheStorage();
-    let request = createRequest(url, method, body);
-    let response = new Response(responseString, cachedResponseFields);
+    if (cache != null) {
 
-    await cache.put(request, response);
+        let request = createRequest(url, method, body);
+        let response = new Response(responseString, cachedResponseFields);
+
+        await cache.put(request, response);
+    }
 }
 
 export async function get(url, method, body = "") {
     let cache = await openCacheStorage();
+    if (cache == null) {
+        return "";
+    }
+
     let request = createRequest(url, method, body);
     let response = await cache.match(request);
 
-    if (response == undefined) {
+    if (response == null) {
         return "";
     }
     else {
@@ -52,21 +64,27 @@ export async function get(url, method, body = "") {
             return result;
         }
     }
-    
+
     return "";
 }
 
 export async function remove(url, method, body = "") {
     let cache = await openCacheStorage();
-    let request = createRequest(url, method, body);
-    await cache.delete(request);
+
+    if (cache != null) {
+        let request = createRequest(url, method, body);
+        await cache.delete(request);
+    }
 }
 
 export async function removeAll() {
     let cache = await openCacheStorage();
-    let requests = await cache.keys();
 
-    for (let request in requests) {
-        await cache.delete(request);
+    if (cache != null) {
+        let requests = await cache.keys();
+
+        for (let request in requests) {
+            await cache.delete(request);
+        }
     }
 }

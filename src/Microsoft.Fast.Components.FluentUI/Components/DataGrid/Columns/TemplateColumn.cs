@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using System.Reflection;
 using Microsoft.AspNetCore.Components;
@@ -14,7 +15,8 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// Represents a <see cref="FluentDataGrid{TGridItem}"/> column whose cells render a supplied template.
 /// </summary>
 /// <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
-public class TemplateColumn<TGridItem, TValue> : ColumnBase<TGridItem>, ISortableColumn<TGridItem, TValue>, IFilterableColumn<TGridItem, TValue> where TGridItem : class
+/// /// <typeparam name="TValue">The type of data represented by this column.</typeparam>
+public class TemplateColumn<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)]  TGridItem, TValue> : ColumnBase<TGridItem>, ISortableColumn<TGridItem, TValue>, IFilterableColumn<TGridItem, TValue> where TGridItem : class
 {
 
     private TGridItem? _currentItem;

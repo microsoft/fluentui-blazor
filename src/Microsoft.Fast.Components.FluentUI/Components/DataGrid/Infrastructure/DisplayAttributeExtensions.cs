@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -12,10 +13,11 @@ namespace Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
 internal static class DisplayAttributeExtensions
 {
 
-    public static string GetDisplayAttributeString(this Type itemType, string PropertyName)
+    [RequiresUnreferencedCode("Use 'MethodFriendlyToTrimming' instead", Url = "http://help/unreferencedcode")]
+    public static string? GetDisplayAttributeString(this Type itemType, string PropertyName)
     {
-        PropertyInfo PropertyInfo = itemType.GetProperty(PropertyName);
-        if (PropertyInfo == null)
+        PropertyInfo? PropertyInfo = itemType.GetProperty(PropertyName);
+        if (PropertyInfo is null)
             return string.Empty;
 
         var DisplayAtt = PropertyInfo.GetCustomAttributes(typeof(DisplayAttribute), true).FirstOrDefault();
