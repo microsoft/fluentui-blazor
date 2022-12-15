@@ -1,0 +1,31 @@
+﻿@using Microsoft.Fast.Components.FluentUI
+@namespace Microsoft.Fast.Components.FluentUI
+@using Microsoft.AspNetCore.Components.Rendering
+@typeparam TGridItem
+@inherits PropertyColumn<TGridItem,bool>
+@{
+    InternalGridContext.Grid.AddColumn(this);
+}
+
+@code {
+
+    protected internal override void CellEditContent(RenderTreeBuilder __builder)
+    {
+        if (!InternalIsReadonly)
+        {
+            <FluentCheckbox Value=@(internalValue.HasValue ? internalValue.Value : false) ValueChanged="f=> internalValue = f"/>
+        }
+        else
+        {
+            CellContent(__builder, Item);
+        }
+    }
+
+    protected internal override void CellContent(RenderTreeBuilder __builder, TGridItem item)
+    {
+        var value = _cellTextFunc?.Invoke(item);
+        <FluentCheckbox Value=@(value is null ? false : bool.Parse(value)) Readonly=true />
+    }
+
+
+}

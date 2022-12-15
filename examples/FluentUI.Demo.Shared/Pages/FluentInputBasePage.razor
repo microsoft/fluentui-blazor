@@ -15,12 +15,12 @@
 
 <h3>Parameters</h3>
 <FluentDataGrid RowsData="@Properties.AsQueryable()" GridTemplateColumns="1fr 1fr 0.5fr 1.5fr">
-    <TemplateColumn Title="Name">
+    <TemplateColumn Title="Name" TValue="string" TGridItem="paramDef">
         <code>@context.Name</code>
     </TemplateColumn>
     <PropertyColumn Property="@(c => c.Type)" />
     <PropertyColumn Property="@(c => c.Default)" />
-    <TemplateColumn Title="Description">
+    <TemplateColumn Title="Description" TValue="string" TGridItem="paramDef">
         <div style="white-space: break-spaces">
             @(new MarkupString(context.Description))
         </div>
@@ -29,11 +29,11 @@
 
 <h3>EventCallbacks</h3>
 <FluentDataGrid RowsData="@Callbacks.AsQueryable()" GridTemplateColumns="1fr 1fr 1fr">
-    <TemplateColumn Title="Name">
+    <TemplateColumn Title="Name" TValue="int" TGridItem="eventDef">
         <code>@context.Name</code>
     </TemplateColumn>
     <PropertyColumn Property="@(c => c.Type)" />
-    <TemplateColumn Title="Description">
+    <TemplateColumn Title="Description" TValue="string" TGridItem="eventDef">
         <div style="white-space: break-spaces">
             @(new MarkupString(context.Description))
         </div>
@@ -42,16 +42,16 @@
 
 <h3>Methods</h3>
 <FluentDataGrid RowsData="@Methods.AsQueryable()" GridTemplateColumns="1fr 1fr 1fr">
-    <TemplateColumn Title="Name">
+    <TemplateColumn Title="Name" TValue="string" TGridItem="methodDef">
         <code>@context.Name</code>
     </TemplateColumn>
-    <TemplateColumn Title="Parameters">
+    <TemplateColumn Title="Parameters" TValue="string" TGridItem="methodDef">
         @foreach (var param in @context.Parameters.Split(','))
         {
             @param <br />
         }
     </TemplateColumn>
-    <TemplateColumn Title="Description">
+    <TemplateColumn Title="Description" TValue="string" TGridItem="methodDef">
         <div style="white-space: break-spaces">
             @(new MarkupString(context.Description))
         </div>

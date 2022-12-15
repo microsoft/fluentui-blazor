@@ -1,0 +1,29 @@
+﻿@using Microsoft.Fast.Components.FluentUI
+@using Microsoft.AspNetCore.Components.Rendering
+@namespace Microsoft.Fast.Components.FluentUI
+@typeparam TGridItem
+@inherits PropertyColumn<TGridItem,string>
+@{
+    InternalGridContext.Grid.AddColumn(this);
+}
+
+@code {
+
+    protected internal override void CellEditContent(RenderTreeBuilder __builder)
+    {
+        if (!InternalIsReadonly)
+        {
+            <FluentTextField TextFieldType=TextFieldType @ref=element @bind-Value=internalValue />
+        }
+        else
+        {
+            CellContent(__builder, Item);
+        }
+    }
+
+    protected internal override void CellContent(RenderTreeBuilder builder, TGridItem item)
+    {
+        builder.AddContent(10, _cellTextFunc!(item));
+    }
+
+}

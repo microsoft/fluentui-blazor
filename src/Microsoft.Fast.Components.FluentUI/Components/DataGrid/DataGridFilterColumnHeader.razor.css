@@ -1,0 +1,25 @@
+﻿
+.col-options {
+    position: absolute;
+    top: 2.2rem;
+    background: var(--neutral-layer-2);
+    border: 1px solid var(--neutral-layer-3);
+    border-radius: 0.3rem;
+    box-shadow: 0 3px 8px 1px var(--neutral-layer-4);
+    padding: 1rem;
+    z-index: 1;
+}
+
+[dir=rtl] .col-options {
+    left: unset;
+}
+
+.col-justify-end .col-options {
+    left: unset;
+    right: 15px;
+}
+
+[dir=rtl] .col-justify-end .col-options {
+    right: unset;
+    left: 15px;
+}

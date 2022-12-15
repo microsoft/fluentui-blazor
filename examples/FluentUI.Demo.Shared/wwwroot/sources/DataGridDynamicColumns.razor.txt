@@ -11,7 +11,7 @@
         <PropertyColumn Title="ID" Property="@(c => c.PersonId)" Sortable="true" />
         @if (showName)
         {
-            <TemplateColumn Title="Name">
+            <TemplateColumn Title="Name" TGridItem="Person" TValue="string">
                 <strong>@context.LastName</strong>, @context.FirstName
             </TemplateColumn>
         }

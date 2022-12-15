@@ -1,10 +1,10 @@
 ﻿@inject ILogger<DataGridTemplateColumns2> logger;
 
 <FluentDataGrid id="defaultGrid" RowsData=RowsGrid.AsQueryable() GridTemplateColumns="1fr 1fr" TGridItem=SampleGridData OnRowFocus="HandleRowFocus" OnCellFocus="HandleCellFocus">
-    <TemplateColumn Title="Name">
+    <TemplateColumn Title="Name" TValue="string" TGridItem="SampleGridData">
         <FluentTextField @bind-Value="@context!.Name" />
     </TemplateColumn>
-    <TemplateColumn Title="Age">
+    <TemplateColumn Title="Age" TValue="int" TGridItem="SampleGridData">
         <FluentNumberField @bind-Value="@context!.Age" TValue="int"/>
     </TemplateColumn>
 </FluentDataGrid>

@@ -32,7 +32,7 @@ namespace Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
 /// For internal use only. Do not use.
 /// </summary>
 /// <typeparam name="TGridItem">For internal use only. Do not use.</typeparam>
-public class ColumnsCollectedNotifier<TGridItem> : IComponent
+public class ColumnsCollectedNotifier<TGridItem> : IComponent where TGridItem: class
 {
     private bool _isFirstRender = true;
 

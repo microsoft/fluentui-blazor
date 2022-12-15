@@ -104,8 +104,10 @@
         </p>
         <p>
             Enabling virtualization is just a matter of passing <code>Virtualize="true"</code>. For it to work
-            properly and reliably, every row rendered must have the same known height. <strong>This is handeled by the 
-            <code>FluentDataGrid</code> code</strong>.
+            properly and reliably, every row rendered must have the same known height. <strong>
+                This is handeled by the
+                <code>FluentDataGrid</code> code
+            </strong>.
         </p>
     </Description>
 </DemoSection>
@@ -146,6 +148,68 @@
         <p>
             <code>TemplateColumn</code> uses arbitrary Razor fragments to supply contents for its cells. It can't
             infer the column's title or sort order automatically.
+        </p>
+    </Description>
+</DemoSection>
+
+
+<DemoSection Title="Embeded Filters" Component="@typeof(DataGridAllFilterTypes)">
+    <Description>
+        <p>
+            datagrid has its own filter functionality based on column types. for each column type, there is a different filter
+            . if column bind to a class property, it can display a list of disitnct values, somthing like excel filter.
+            so you can create custom column and implement <code>IFiltrableColumn</code> to add embeded filter functionality
+        </p>
+    </Description>
+</DemoSection>
+
+<DemoSection Title="Inline editor" Component="@typeof(DataGridEditable)">
+    <Description>
+        <p>
+            inline editor is exists with some default editable column.
+            <ul>
+                <li>
+                    <code>DataGridTextboxColumn</code> is and editor for text
+                </li>
+                <li>
+                    <code>DataGridCkeckboxColumn</code> is and editor for bool
+                </li>
+                <li>
+                    <code>DataGridComboboxColumn</code> is and editor for forign keys
+                </li>
+            </ul>
+            so you can add your custom editable column.
+
+            The edit behavior is simiral to Excel, by double click you can start edit and commit edits by "Enter" key down or cancel edit by "Escape" key down.
+            datagrid support <code>IEditableObject</code> .so if your model implement this interface, you can create edit sessions and control edit funcitonality 
+            by  <code>IEditableObject.BeginEdit()</code> <code>IEditableObject.EndEdit()</code> and <code>IEditableObject.CancelEdit()</code> functions.
+
+            datagrid support validation attributes on model, so before each commit, datagrid validate data and commit edit if it is valid.
+
+            on the other hand, datagrid raises events for each action on edit process.
+            <ul>
+                <li>
+                    <code>CellBeginEdit</code> : when a cell begin edit, or get focuse on edit mode.you can cancel begin edit by setting "Cancel" property of "DataGridBeginEditEventArgs"
+                </li>
+                <li>
+                    <code>CellEditEnding</code> : user going to end the edit or cell lost focuse on edit mode. you can cancel edit ending by setting "Cancel" property of "DataGridCellEditEndingEventArgs"
+                </li>
+                <li>
+                    <code>CellEditEnded</code> : cell edit ended
+                </li>
+                <li>
+                    <code>RowEditEnding</code> : user going to end edit of row. you can cancel edit ending by setting "Cancel" property of "DataGridRowEditEndingEventArgs"
+                </li>
+                <li>
+                    <code>RowEditEnded</code> : row edit ended
+                </li>
+                <li>
+                    <code>RowDelete</code> : user pressed "Delete" key, when there is no row on edit mode
+                </li>
+            </ul>
+
+            in edit mode, "Tab" key can set focuse to the next column
+
         </p>
     </Description>
 </DemoSection>

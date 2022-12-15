@@ -14,12 +14,12 @@
 
 <h3>Parameters</h3>
 <FluentDataGrid RowsData="@Properties.AsQueryable()" GridTemplateColumns="1fr 1fr 0.5fr 1.5fr">
-    <TemplateColumn Title="Name">
+    <TemplateColumn Title="Name" TGridItem="paramDef" TValue="string">
         <code>@context.Name</code>
     </TemplateColumn>
     <PropertyColumn Property="@(c => c.Type)" />
     <PropertyColumn Property="@(c => c.Default)" />
-    <TemplateColumn Title="Description">
+    <TemplateColumn Title="Description" TGridItem="paramDef" TValue="string">
         <div style="white-space: break-spaces">
             @(new MarkupString(context.Description))
         </div>

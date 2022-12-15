@@ -51,6 +51,26 @@ export function checkColumnOptionsPosition(gridElement) {
     }
 }
 
+
+export function setCellEditableConfig(gridElement, rowID) {
+    const cells = gridElement.querySelectorAll("[row-id='" + rowID + "'] fluent-data-grid-cell");
+    cells.forEach(f => {
+        f.setAttribute('tabindex', f.getAttribute('grid-column'));
+        f.addEventListener("keydown", onCellKeyDown);
+    });
+}
+export function removeCellEditableConfig(gridElement, rowID) {
+    const cells = gridElement.querySelectorAll("[row-id='" + rowID + "'] fluent-data-grid-cell");
+    cells.forEach(f => {
+        f.setAttribute('tabindex', -1);
+        f.removeEventListener("keydown", onCellKeyDown);
+    });
+}
+
+function onCellKeyDown(arg) {
+    if (arg.key == "ArrowRight" || arg.key == "ArrowLeft" || arg.key == "End" || arg.key == "Home") { arg.cancelBubble = true; }
+}
+
 function enableColumnResizing(gridElement) {
     const min = 150;
     const columns = [];

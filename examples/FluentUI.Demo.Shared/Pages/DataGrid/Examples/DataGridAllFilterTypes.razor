@@ -1,0 +1,28 @@
+﻿<FluentDataGrid RowsData="@people">
+    <PropertyColumn Property="@(p => p.IsSelected)"/>
+    <PropertyColumn Property="@(p => p.PersonId)"/>
+    <PropertyColumn Property="@(p => p.Name)"/>
+    <PropertyColumn Property="@(p => p.BirthDate)" Format="yyyy-MM-dd"/>
+    <ExtendPropertyColumn Property="@(p => p.PersonType)" FilterProperty="@(f=> f.PersonType)" SortProperty="s=> s.PersonType.Id"/>
+</FluentDataGrid>
+
+@code {
+    record PersonType(int Id, string Explain)
+    {
+        public override string ToString() => Explain;
+    }
+    record Person(bool IsSelected, int PersonId, string Name, DateTime BirthDate, PersonType PersonType);
+
+    static PersonType Staff = new PersonType(1, "Staff");
+    static PersonType Customer = new PersonType(2, "Customer");
+
+    IQueryable<Person> people = new[]
+    {
+        new Person(true,10895, "Jean Martin", new DateTime(2012, 3, 16),Staff),
+        new Person(true,10944, "António Langa", new DateTime(2017, 12, 1),Customer),
+        new Person(false,11203, "Julie Smith", new DateTime(1958, 10, 10),Staff),
+        new Person(true,11205, "Nur Sari", new DateTime(2000, 4, 27),Customer),
+        new Person(false,11898, "Jose Hernandez", new DateTime(2011, 5, 3),Staff),
+        new Person(true,12130, "Kenji Sato", new DateTime(2004, 1, 9),Staff),
+    }.AsQueryable();
+}
