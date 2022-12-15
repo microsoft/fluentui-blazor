@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
+public partial class FluentDataGridCell<TGridItem> : FluentComponentBase where TGridItem : class
 {
     internal string CellId { get; } = Identifier.NewId();
 

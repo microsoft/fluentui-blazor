@@ -7,7 +7,7 @@ namespace Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
 
 // The grid cascades this so that descendant columns can talk back to it.
 // It's an internal type so it doesn't show up in unrelated components by mistake.
-internal class InternalGridContext<TGridItem>
+internal class InternalGridContext<TGridItem> where TGridItem :class
 {
     public Dictionary<string, FluentDataGridRow<TGridItem>> Rows { get; set; } = new();
 

@@ -1,4 +1,5 @@
-﻿@namespace Microsoft.Fast.Components.FluentUI
+﻿@using Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
+@namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentComponentBase
 @typeparam TGridItem
 @attribute [CascadingTypeParameter(nameof(TGridItem))]
@@ -10,7 +11,30 @@
                           grid-template-columns=@GridTemplateColumns
                           row-type=@RowType.ToAttributeValue()
                           @attributes="AdditionalAttributes"
-                          @oncellfocus=HandleOnCellFocus>
+                          @oncellfocus=HandleOnCellFocus
+                          @ondblclick=OnRowDblClicked>
         @ChildContent
+        @if (Columns is not null)
+        {
+            int colIndex = 1;
+            if (Mode == DataGridItemMode.Readonly)
+            {
+                @foreach (var col in Columns)
+                {
+                    <FluentDataGridCell GridColumn=@(colIndex++) class="@ColumnClass(col)" @key="@col" TGridItem="TGridItem">
+                        @((RenderFragment)(__builder => col.CellContent(__builder, Item!)))
+                    </FluentDataGridCell>
+                }
+            }
+            else if (Mode == DataGridItemMode.Edit)
+            {
+                @foreach (var col in Columns)
+                {
+                    <FluentDataGridCell GridColumn=@(colIndex++) class="@ColumnClass(col)" @key="@col" TGridItem="TGridItem">
+                        @((RenderFragment)(__builder => col.CellEditContent(__builder)))
+                    </FluentDataGridCell>
+                }
+            }
+        }
     </fluent-data-grid-row>
 </CascadingValue>

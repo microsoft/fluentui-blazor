@@ -1,0 +1,31 @@
+﻿@using Microsoft.Fast.Components.FluentUI
+@using Microsoft.AspNetCore.Components.Rendering
+@namespace Microsoft.Fast.Components.FluentUI
+@typeparam TGridItem
+@typeparam TOption
+@typeparam TValue
+@inherits PropertyColumn<TGridItem,TValue>
+@{
+    InternalGridContext.Grid.AddColumn(this);
+}
+
+@code {
+
+    protected internal override void CellEditContent(RenderTreeBuilder __builder)
+    {
+        if (!InternalIsReadonly)
+        {
+            <FluentCombobox TOption="TOption" Items=Items @ref=element OptionText=DisplayMember @bind-SelectedOption=_selectedItem/>
+        }
+        else
+        {
+            CellContent(__builder, Item!);
+        }
+    }
+
+    protected internal override void CellContent(RenderTreeBuilder builder, TGridItem item)
+    {
+        builder.AddContent(10, _cellTextFunc!(item));
+    }
+
+}

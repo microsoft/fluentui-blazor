@@ -327,57 +327,6 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="T:FluentUI.Demo.Shared.BadgeSize">
-            <summary>
-            Sizes for presence badge
-            </summary>
-        </member>
-        <member name="T:FluentUI.Demo.Shared.PresenceBadge">
-            <summary>
-            A presence badge is a badge that displays a status indicator such as available, away, or busy.
-            </summary>  
-        </member>
-        <member name="P:FluentUI.Demo.Shared.PresenceBadge.ClassValue">
-            <summary />
-        </member>
-        <member name="P:FluentUI.Demo.Shared.PresenceBadge.StyleValue">
-            <summary />
-        </member>
-        <member name="P:FluentUI.Demo.Shared.PresenceBadge.ChildContent">
-            <summary>
-            Child content of component, the content that the badge will be applied to.
-            </summary>
-        </member>
-        <member name="P:FluentUI.Demo.Shared.PresenceBadge.Status">
-            <summary>
-            The status to show. See <see cref="T:Microsoft.Fast.Components.FluentUI.PresenceStatus"/> for options.
-            Default is Available
-            </summary>
-        </member>
-        <member name="P:FluentUI.Demo.Shared.PresenceBadge.HorizontalPosition">
-            <summary>
-            Left position of the badge (percentage as number).
-            Default value is 50.
-            </summary>
-        </member>
-        <member name="P:FluentUI.Demo.Shared.PresenceBadge.BottomPosition">
-            <summary>
-            Bottom position of the badge (percentage as number).
-            Default value is -10.
-            </summary>
-        </member>
-        <member name="P:FluentUI.Demo.Shared.PresenceBadge.OutOfOffice">
-            <summary>
-            Modifies the display to indicate that the user is out of office. 
-            This can be combined with any status to display an out-of-office version of that status.
-            </summary>
-        </member>
-        <member name="P:FluentUI.Demo.Shared.PresenceBadge.Size">
-            <summary>
-            Gets or sets the <see cref="T:FluentUI.Demo.Shared.BadgeSize"/> to use.
-            Default is Small.
-            </summary>
-        </member>
         <member name="T:FluentUI.Demo.Shared.Spacer">
             <summary />
         </member>

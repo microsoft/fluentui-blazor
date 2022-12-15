@@ -16,8 +16,8 @@
 {
     <h3 id="@(_id + "_parameters")">Parameters</h3>
     <FluentDataGrid Class="docgrid" RowsData="@this.Properties.AsQueryable()" GridTemplateColumns="1fr 1fr 0.5fr 1.5fr">
-        <TemplateColumn Title="Name"><code>@context.Name</code></TemplateColumn>
-        <TemplateColumn Title="Type">
+        <TemplateColumn Title="Name" TGridItem="MemberDescription" TValue="string"><code>@context.Name</code></TemplateColumn>
+            <TemplateColumn Title="Type" TGridItem="MemberDescription" TValue="string">
                     @context.Type
 
                     @* Display list of Enumerations (if available) *@
@@ -38,7 +38,7 @@
                     }
         </TemplateColumn>
         <PropertyColumn Property="@(c => c.Default)" />
-        <TemplateColumn Title="Description">
+            <TemplateColumn Title="Description" TGridItem="MemberDescription" TValue="string">
             <div style="white-space: break-spaces">
                 @(new MarkupString(context.Description))
             </div>
@@ -50,9 +50,9 @@
 {
     <h3 id="@(_id)_callbacks">EventCallbacks</h3>
     <FluentDataGrid Class="docgrid" RowsData="@this.Events.AsQueryable()" GridTemplateColumns="1fr 1fr 1fr">
-        <TemplateColumn Title="Name"><code>@context.Name</code></TemplateColumn>
+            <TemplateColumn Title="Name" TGridItem="MemberDescription" TValue="string"><code>@context.Name</code></TemplateColumn>
         <PropertyColumn Property="@(c => c.Type)" />
-        <TemplateColumn Title="Description">
+            <TemplateColumn Title="Description" TGridItem="MemberDescription" TValue="string">
             <div style="white-space: break-spaces">
                 @(new MarkupString(context.Description))
             </div>
@@ -64,15 +64,15 @@
 {
      <h3 id="@(_id)_methods">Methods</h3>
     <FluentDataGrid Class="docgrid" RowsData="@this.Methods.AsQueryable()" GridTemplateColumns="1fr 1fr 1fr 1fr">
-        <TemplateColumn Title="Name"><code>@context.Name</code></TemplateColumn>
-        <TemplateColumn Title="Parameters">
+            <TemplateColumn Title="Name" TGridItem="MemberDescription" TValue="string"><code>@context.Name</code></TemplateColumn>
+            <TemplateColumn Title="Parameters" TGridItem="MemberDescription" TValue="string">
             @foreach (var param in @context.Parameters)
             {
                 @param <br />
             }
         </TemplateColumn>
         <PropertyColumn Property="@(c => c.Type)" />
-        <TemplateColumn Title="Description">
+            <TemplateColumn Title="Description" TGridItem="MemberDescription" TValue="string">
             <div style="white-space: break-spaces">
                 @(new MarkupString(context.Description))
             </div>

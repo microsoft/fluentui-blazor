@@ -1,0 +1,97 @@
+﻿@using System.Text
+@using System.ComponentModel.DataAnnotations
+
+<FluentDataGrid TGridItem=Person RowsData="@people" CellBeginEdit="OnPropertyBeginEdit" CellEditEnding="OnPropertyEditEnting"
+                CellEditEnded="OnCelEditEnded" RowEditEnding="OnRowEditEnding" RowEditEnded="OnRowEditEnded" RowDelete="OnRowDeleteRequest">
+    <DataGridCheckBoxColumn TGridItem=Person Property="@(p => p.IsSelected)" />
+    <PropertyColumn TGridItem=Person TValue=int Property="@(p => p.PersonId)" />
+    <DataGridTextBoxColumn TGridItem=Person Property="@(p => p.Name)" />
+    <DataGridComboboxColumn TGridItem=Person TValue=PersonType TOption=PersonType Property="@(p => p.PersonType)" Items=personTypes DisplayMember=@(p=> p.Explain) ValueMember=@(v=> v) Sortable="false" />
+</FluentDataGrid>
+
+@foreach(var act in actions)
+{
+   @act <br/>
+}
+
+@code {
+    private List<string> actions = new();
+
+
+    public record PersonType(int Id, string Explain)
+    {
+        public override string ToString() => Explain;
+    }
+
+
+    public class Person
+    {
+        public Person(bool isSelected, int personId, string name, PersonType personType)
+        {
+            IsSelected = isSelected;
+            PersonId = personId;
+            Name = name;
+            PersonType = personType;
+        }
+
+        public bool IsSelected { get; set; }
+        [Display(Name = "Identity")]
+        public int PersonId { get; set; }
+        [Display(Name = "FullName")]
+        [Required]
+        public string Name { get; set; }
+        [Display(Name = "Type")]
+        public PersonType PersonType { get; set; }
+
+    }
+
+    //record Person(bool IsSelected, int PersonId, string Name, PersonType PersonType);
+
+    static List<PersonType> personTypes = new()
+    {
+     new PersonType(1, "Staff"),
+     new PersonType(2, "Customer")
+    };
+
+    IQueryable<Person> people = new[]
+    {
+        new Person(true,10895, "Jean Martin (Readonly row)", personTypes.First()),
+        new Person(true,10944, "António Langa", personTypes.Last()),
+        new Person(false,11203, "Julie Smith", personTypes.First()),
+        new Person(true,11205, "Nur Sari", personTypes.Last()),
+        new Person(false,11898, "Jose Hernandez", personTypes.First()),
+        new Person(true,12130, "Kenji Sato", personTypes.First()),
+    }.AsQueryable();
+
+    private void OnPropertyBeginEdit(DataGridBeginEditEventArgs<Person> arg)
+    {
+        actions.Add($"cell begin edit on {arg.Item.Name} : {arg.PropertyName}");
+        if (arg.Item.PersonId == 10895)
+            arg.Cancel = true;
+    }
+
+    private void OnPropertyEditEnting(DataGridCellEditEndingEventArgs<Person> arg)
+    {
+        actions.Add($"cell edit ending on {arg.Item.Name} : {arg.PropertyName} : {arg.NewValue?.ToString()} : {arg.EditAction.ToString()}");
+    }
+
+    private void OnCelEditEnded(DataGridCellEditEndedEventArgs<Person> arg)
+    {
+        actions.Add($"cell edit ended on {arg.Item.Name} : {arg.PropertyName} : {arg.EditAction.ToString()}");
+    }
+
+    private void OnRowEditEnding(DataGridRowEditEndingEventArgs<Person> arg)
+    {
+        actions.Add($"row edit ending on {arg.Item.Name} : {arg.EditAction.ToString()}");
+    }
+
+    private void OnRowEditEnded(DataGridRowEditEndedEventArgs<Person> arg)
+    {
+        actions.Add($"row edit ended on {arg.Item.Name} : {arg.EditAction.ToString()}");
+    }
+
+    private void OnRowDeleteRequest(Person arg)
+    {
+        actions.Add($"row delete request {arg.Name}");
+    }
+}

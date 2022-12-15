@@ -1,9 +1,9 @@
-﻿using System.Globalization;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Fast.Components.FluentUI;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.Fast.Components.FluentUI.Utilities;
+using Microsoft.Fast.Components.FluentUI;
 
-namespace FluentUI.Demo.Shared;
+namespace Microsoft.Fast.Components.FluentUI;
+
 
 /// <summary>
 /// Sizes for presence badge
@@ -17,11 +17,7 @@ public enum BadgeSize
     Large = 24
 }
 
-
-/// <summary>
-/// A presence badge is a badge that displays a status indicator such as available, away, or busy.
-/// </summary>  
-public partial class PresenceBadge : FluentComponentBase, IDisposable
+partial class PresenceBadge: IDisposable
 {
     private (string name, string color, IconVariant variant, IconSize size) _config;
 
@@ -35,9 +31,12 @@ public partial class PresenceBadge : FluentComponentBase, IDisposable
 
     /// <summary />
     protected string? StyleValue => new StyleBuilder()
-        .AddStyle("left", $"{HorizontalPosition!.Value.ToString(CultureInfo.InvariantCulture)}%", () => HorizontalPosition.HasValue && GlobalState.Dir == LocalizationDirection.ltr)
-        .AddStyle("right", $"{HorizontalPosition!.Value.ToString(CultureInfo.InvariantCulture)}%", () => HorizontalPosition.HasValue && GlobalState.Dir == LocalizationDirection.rtl)
-        .AddStyle("bottom", $"{BottomPosition!.Value.ToString(CultureInfo.InvariantCulture)}%", () => BottomPosition.HasValue)
+         .AddStyle("left", $"{HorizontalPosition!.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)}%", () => HorizontalPosition.HasValue && GlobalState.Dir == LocalizationDirection.ltr)
+         .AddStyle("right", $"{HorizontalPosition!.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)}%", () => HorizontalPosition.HasValue && GlobalState.Dir == LocalizationDirection.rtl)
+         .AddStyle("bottom", $"{BottomPosition!.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)}%", () => BottomPosition.HasValue)
+        // .AddStyle("left", $"{HorizontalPosition}%", () => HorizontalPosition.HasValue && GlobalState.Dir == LocalizationDirection.ltr)
+        //.AddStyle("right", $"{HorizontalPosition}%", () => HorizontalPosition.HasValue && GlobalState.Dir == LocalizationDirection.rtl)
+        //.AddStyle("bottom", $"{BottomPosition}%", () => BottomPosition.HasValue)
         .AddStyle(Style)
         .Build();
 
@@ -66,7 +65,7 @@ public partial class PresenceBadge : FluentComponentBase, IDisposable
     /// Default value is -10.
     /// </summary>
     [Parameter]
-    public int? BottomPosition { get; set; } = -10;
+    public int? BottomPosition { get; set; } =-10;
 
     /// <summary>
     /// Modifies the display to indicate that the user is out of office. 

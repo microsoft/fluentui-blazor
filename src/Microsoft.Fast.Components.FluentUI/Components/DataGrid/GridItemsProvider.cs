@@ -10,4 +10,4 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// <param name="request">Parameters describing the data being requested.</param>
 /// <returns>A <see cref="T:ValueTask{GridItemsProviderResult{TResult}}" /> that gives the data to be displayed.</returns>
 public delegate ValueTask<GridItemsProviderResult<TGridItem>> GridItemsProvider<TGridItem>(
-    GridItemsProviderRequest<TGridItem> request);
+    GridItemsProviderRequest<TGridItem> request) where TGridItem : class;

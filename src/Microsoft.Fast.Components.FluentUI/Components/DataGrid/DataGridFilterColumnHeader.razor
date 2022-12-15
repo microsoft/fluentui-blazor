@@ -1,0 +1,81 @@
+﻿@using Microsoft.Fast.Components.FluentUI
+
+@namespace Microsoft.Fast.Components.FluentUI
+@typeparam TGridItem
+@typeparam TValue
+
+@inherits DataGridFilterColumnHeaderBase<TGridItem>
+
+@if (OwnerColumn is not null)
+{
+    getPropertyType();
+
+    <FluentButton Appearance=@(hasFilter ? Appearance.Filled : Appearance.Stealth) aria-haspopup="true" @onclick=openPopupClicked>
+        <FluentIcon Name="@FluentIcons.Filter" Size="IconSize.Size16" />
+    </FluentButton>
+    @if (dropDownIsOpen)
+    {
+        <div class="col-options">
+            @if (IsSortable)
+            {
+                <div>
+                    <FluentButton Appearance="Appearance.Hypertext" @onclick=ApplySort>
+                        <FluentIcon Name="@FluentIcons.ArrowSortUp" />
+                        Ascending
+                    </FluentButton>
+                </div>
+                <div>
+                    <FluentButton Appearance="Appearance.Hypertext" @onclick=ApplySortDescending>
+                        <FluentIcon Name="@FluentIcons.ArrowSortDown" />
+                        Descending
+                    </FluentButton>
+                </div>
+                <div>
+                    <FluentButton Appearance="Appearance.Hypertext" @onclick=RemoveSort>
+                        <PresenceBadge Status="PresenceStatus.Offline" Size="BadgeSize.ExtraSmall">
+                            <FluentIcon Name="@FluentIcons.ArrowSort" />
+                        </PresenceBadge>
+                        Remove Sort
+                    </FluentButton>
+                </div>
+                <div>
+                    <FluentButton Appearance="Appearance.Hypertext" @onclick=RemoveFilter>
+                        <PresenceBadge Status="PresenceStatus.Offline" Size="BadgeSize.ExtraSmall">
+                            <FluentIcon Name="@FluentIcons.Filter" />
+                        </PresenceBadge>
+                        Remove Filter
+                    </FluentButton>
+                </div>
+            }
+            @if (propertyType == typeof(string))
+            {
+                <div class="search-box">
+                    <FluentSearch type="search" Autofocus=true @bind-Value=TextFilter @onchange="OnTextFilterSetted" />
+                </div>
+            }
+            else if (propertyType == typeof(DateTime))
+            {
+                <DateRangePicker FromDate=FromDate ToDate=ToDate RangeSelected=DateRangeSelected></DateRangePicker>
+            }
+            else if (propertyType == typeof(int) || propertyType == typeof(short) || propertyType == typeof(decimal) || propertyType == typeof(double)
+            || propertyType == typeof(Single))
+            {
+                <NumberRangePicker FromNumber=FromNumber ToNumber=ToNumber RangeSelected="NumberRangeSelected" />
+            }
+            else if (propertyType == typeof(bool))
+            {
+                <FluentListbox TOption="bool" ValueChanged=@OnBoolSelectedChanged Value="Bool">
+                    <FluentOption Value="true">True</FluentOption>
+                    <FluentOption Value="false">False</FluentOption>
+                </FluentListbox>
+            }
+            else if (propertyType.IsClass)
+            {
+                prepaireDistictList();
+                <FluentListbox TOption="TValue" SelectedOption=SelectedItem SelectedOptionChanged="OnSelectedItemChanged"
+                   Items="DistinctList" OptionValue="s=> s.ToString()" OptionText="s=> s.ToString()">
+                </FluentListbox>
+            }
+        </div>
+    }
+}
