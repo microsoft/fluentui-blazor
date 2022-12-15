@@ -1,17 +1,14 @@
-<h4>Size to anchor</h4>
-<div id="viewport-anchor-sized" style="position:relative;height:400px;width:400px;background:#d3d3d3;overflow:scroll">
-    <div style="height: 400px; width: 400px">
-        <FluentAnchoredRegion Anchor="anchor-anchor-sized" Viewport="viewport-anchor-sized" 
-            VerticalPositioningMode="AxisPositioningMode.Dynamic" 
-            VerticalScaling="AxisScalingMode.Anchor" 
-            HorizontalPositioningMode="AxisPositioningMode.Dynamic" 
-            HorizontalScaling="AxisScalingMode.Anchor" 
-            HorizontalInset="false" 
-            HorizontalDefaultPosition="HorizontalPosition.Unset" 
-            VerticalDefaultPosition="VerticalPosition.Unset" 
-            AutoUpdateMode="AutoUpdateMode.Anchor">
-            <div style="height:100%;width:100%;background:#ff0" />
-        </FluentAnchoredRegion>
-       <FluentButton Appearance=Appearance.Neutral id="anchor-anchor-sized" style="margin-left:100px;margin-top:100px">anchor</FluentButton>
-    </div>
+<div id="viewport-anchor-sized" style="position:relative;height:400px;width:400px;background: var(--neutral-layer-4);overflow:scroll">
+    <FluentAnchoredRegion Anchor="anchor-anchor-sized" Viewport="viewport-anchor-sized"
+                          VerticalPositioningMode="AxisPositioningMode.Dynamic"
+                          VerticalScaling="AxisScalingMode.Anchor"
+                          HorizontalPositioningMode="AxisPositioningMode.Dynamic"
+                          HorizontalScaling="AxisScalingMode.Anchor"
+                          HorizontalInset="false"
+                          HorizontalDefaultPosition="HorizontalPosition.Unset"
+                          VerticalDefaultPosition="VerticalPosition.Unset"
+                          AutoUpdateMode="AutoUpdateMode.Anchor">
+        <div style="height:100%;width:100%;background:var(--highlight-bg);" />
+    </FluentAnchoredRegion>
+    <FluentButton Appearance=Appearance.Neutral id="anchor-anchor-sized" style="margin-left:100px;margin-top:100px">anchor</FluentButton>
 </div>
