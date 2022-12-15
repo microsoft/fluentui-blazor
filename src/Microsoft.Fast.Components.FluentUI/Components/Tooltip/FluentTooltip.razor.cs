@@ -53,4 +53,16 @@ public partial class FluentTooltip : FluentComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// Callback for when the tooltip is dismissed
+    /// </summary>  
+    [Parameter]
+    public EventCallback<EventArgs> OnDissmissed{ get; set; }
+
+
+    private void HandleDismissed()
+    {
+        OnDissmissed.InvokeAsync(EventArgs.Empty);
+    }
 }
