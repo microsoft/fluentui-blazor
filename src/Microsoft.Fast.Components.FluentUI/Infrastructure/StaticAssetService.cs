@@ -2,12 +2,12 @@
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public class IconService
+public class StaticAssetService
 {
     public HttpClient HttpClient { get; }
     public NavigationManager NavigationManager { get; }
 
-    public IconService(HttpClient httpClient, NavigationManager navigationManager)
+    public StaticAssetService(HttpClient httpClient, NavigationManager navigationManager)
     {
         HttpClient = httpClient;
         NavigationManager = navigationManager;

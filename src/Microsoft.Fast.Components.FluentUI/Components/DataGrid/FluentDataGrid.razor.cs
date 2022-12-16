@@ -541,6 +541,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             var totalItemCount = _asyncQueryExecutor is null ? RowsData.Count() : await _asyncQueryExecutor.CountAsync(RowsData);
             var result = request.ApplyFilterAndSorting(RowsData)?.Skip(request.StartIndex);
+            if (result is null)
+                return GridItemsProviderResult.From(Array.Empty<TGridItem>(), 0);
             if (request.Count.HasValue)
             {
                 result = result.Take(request.Count.Value);

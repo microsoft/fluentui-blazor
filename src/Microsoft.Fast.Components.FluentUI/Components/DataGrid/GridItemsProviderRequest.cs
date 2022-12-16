@@ -25,8 +25,8 @@ public struct GridItemsProviderRequest<TGridItem> where TGridItem : class
     /// <summary>
     /// Specifies which columns represents the sort order.
     ///
-    /// Rather than inferring the sort rules manually, you should normally call either <see cref="ApplySorting(IEnumerable{TGridItem})"/>
-    /// or <see cref="GetSortByProperties"/>, since they also account for <see cref="SortByColumns" /> automatically.
+    /// Rather than inferring the sort rules manually, you should normally call either <see cref="ISortableColumn{TGridItem}.ApplySort(IQueryable{TGridItem}, bool)"/>
+    /// since they also account for <see cref="SortByColumns" /> automatically.
     /// </summary>
     public IEnumerable<ColumnBase<TGridItem>>? SortByColumns { get; }
 
@@ -59,11 +59,9 @@ public struct GridItemsProviderRequest<TGridItem> where TGridItem : class
     /// <summary>
     /// Applies the request's filters and sorting rules to the supplied <see cref="IQueryable{TGridItem}"/>.
     ///
-    /// Note that this only works if the current <see cref="SortByColumn"/> implements <see cref="ISortBuilderColumn{TGridItem}"/>,
-    /// otherwise it will throw.
     /// </summary>
     /// <param name="source">An <see cref="IQueryable{TGridItem}"/>.</param>
-    /// <returns>A new <see cref="IQueryable{TGridItem}"/> representing the <paramref name="source"/> with sorting rules applied.</returns>
+    /// <returns>A new <see cref="IQueryable{TGridItem}"/> representing the <paramref name="source"/> with sorting and filter rules applied.</returns>
     public IQueryable<TGridItem>? ApplyFilterAndSorting(IQueryable<TGridItem>? source)
     {
         if (source is null)
@@ -75,7 +73,7 @@ public struct GridItemsProviderRequest<TGridItem> where TGridItem : class
     /// <summary>
     /// Applies the request's sorting rules to the supplied <see cref="IQueryable{TGridItem}"/>.
     ///
-    /// Note that this only works if the current <see cref="SortByColumn"/> implements <see cref="ISortBuilderColumn{TGridItem}"/>,
+    /// Note that this only works if the current <see cref="SortByColumns"/> implements <see cref="ISortableColumn{TGridItem}"/>,
     /// otherwise it will throw.
     /// </summary>
     /// <param name="source">An <see cref="IQueryable{TGridItem}"/>.</param>
