@@ -1,7 +1,7 @@
 ﻿@inject DataSource Data
 
 
-<FluentDataGrid RowsData="@FilteredItems" ResizableColumns=true Pagination="@pagination" GridTemplateColumns="0.2fr 1fr 0.2fr 0.2fr 0.2fr 0.2fr" style="height: 405px; overflow:auto;">
+<FluentDataGrid RowsData="@FilteredItems" ResizableColumns=true Pagination="@pagination" GridTemplateColumns="0.2fr 1fr 0.2fr 0.2fr 0.2fr 0.2fr" RowClass="@rowClass" style="height: 405px; overflow:auto;">
     <TemplateColumn Title="Rank" SortBy="@rankSort" Align="Align.Center" IsDefaultSort="SortDirection.Ascending">
         <img class="flag" src="_content/FluentUI.Demo.Shared/flags/@(context.Code).svg" />
     </TemplateColumn>
@@ -30,6 +30,7 @@
         .ByDescending(x => x.Medals.Gold)
         .ThenDescending(x => x.Medals.Silver)
         .ThenDescending(x => x.Medals.Bronze);
+    Func<Country, string> rowClass = x => x.Name.StartsWith("A") ? "highlighted-row" : string.Empty;
 
     IQueryable<Country>? FilteredItems => items?.Where(x => x.Name.Contains(nameFilter, StringComparison.CurrentCultureIgnoreCase));
 

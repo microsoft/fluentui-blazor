@@ -119,6 +119,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter]
     public EventCallback<FluentDataGridCell<TGridItem>> OnCellFocus { get; set; }
 
+    /// <summary>
+    /// Optionally defines a class to be applied to a rendered row. 
+    /// </summary>
+    [Parameter] public Func<TGridItem, string>? RowClass { get; set; }
+
     [Inject] private IServiceProvider Services { get; set; } = default!;
     [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
 

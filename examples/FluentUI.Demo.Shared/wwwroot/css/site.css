@@ -212,6 +212,9 @@ code {
     padding: 5px;
 }
 
+.highlighted-row {
+    background-color: var(--neutral-fill-secondary-hover);
+}
 
 
 #blazor-error-ui {

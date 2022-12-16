@@ -739,6 +739,16 @@
             <param name="expression">An expression defining how a set of <typeparamref name="TGridItem"/> instances are to be sorted.</param>
             <returns>A <see cref="T:Microsoft.Fast.Components.FluentUI.GridSort`1"/> instance representing the specified sorting rule.</returns>
         </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.GridSort`1.ByAscending``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Collections.Generic.IComparer{``0})">
+            <summary>
+            Produces a <see cref="T:Microsoft.Fast.Components.FluentUI.GridSort`1"/> instance that sorts according to the specified <paramref name="expression"/> 
+            using the specified <paramref name="comparer"/>, ascending.
+            </summary>
+            <typeparam name="U">The type of the expression's value.</typeparam>
+            <param name="expression">An expression defining how a set of <typeparamref name="TGridItem"/> instances are to be sorted.</param>
+            <param name="comparer">Defines how a items in a set of <typeparamref name="TGridItem"/> instances are to be compared.</param>
+            <returns>A <see cref="T:Microsoft.Fast.Components.FluentUI.GridSort`1"/> instance representing the specified sorting rule.</returns>
+        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.GridSort`1.ByDescending``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
             <summary>
             Produces a <see cref="T:Microsoft.Fast.Components.FluentUI.GridSort`1"/> instance that sorts according to the specified <paramref name="expression"/>, descending.
@@ -797,6 +807,13 @@
             
              Using this requires the <typeparamref name="TProp"/> type to implement <see cref="T:System.IFormattable" />.
              </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.PropertyColumn`2.Comparer">
+            <summary>
+            Optionally specifies how to compare values in this column when sorting.
+            
+            Using this requires the <typeparamref name="TProp"/> type to implement <see cref="T:System.IComparable`1"/>.
+            </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.PropertyColumn`2.OnParametersSet">
             <inheritdoc />
@@ -927,6 +944,11 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.OnCellFocus">
             <summary>
             Gets or sets a callback when a row is focused
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowClass">
+            <summary>
+            Optionally defines a class to be applied to a rendered row. 
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.#ctor">

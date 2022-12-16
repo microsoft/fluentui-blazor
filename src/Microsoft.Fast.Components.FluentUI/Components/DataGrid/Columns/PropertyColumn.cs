@@ -30,6 +30,13 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, ISortBuil
     /// </summary>
     [Parameter] public string? Format { get; set; }
 
+    /// <summary>
+    /// Optionally specifies how to compare values in this column when sorting.
+    /// 
+    /// Using this requires the <typeparamref name="TProp"/> type to implement <see cref="IComparable{T}"/>.
+    /// </summary>
+    [Parameter] public IComparer<TProp>? Comparer { get; set; } = null;
+
     GridSort<TGridItem>? ISortBuilderColumn<TGridItem>.SortBuilder => _sortBuilder;
 
     /// <inheritdoc />
@@ -58,7 +65,8 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, ISortBuil
                 _cellTextFunc = item => compiledPropertyExpression!(item)?.ToString();
             }
 
-            _sortBuilder = GridSort<TGridItem>.ByAscending(Property);
+            //_sortBuilder = GridSort<TGridItem>.ByAscending(Property);
+            _sortBuilder = Comparer is not null ? GridSort<TGridItem>.ByAscending(Property, Comparer) : GridSort<TGridItem>.ByAscending(Property);
         }
 
         if (Title is null && Property.Body is MemberExpression memberExpression)

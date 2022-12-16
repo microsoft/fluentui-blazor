@@ -41,6 +41,18 @@ public class GridSort<TGridItem>
             (expression, true));
 
     /// <summary>
+    /// Produces a <see cref="GridSort{T}"/> instance that sorts according to the specified <paramref name="expression"/> 
+    /// using the specified <paramref name="comparer"/>, ascending.
+    /// </summary>
+    /// <typeparam name="U">The type of the expression's value.</typeparam>
+    /// <param name="expression">An expression defining how a set of <typeparamref name="TGridItem"/> instances are to be sorted.</param>
+    /// <param name="comparer">Defines how a items in a set of <typeparamref name="TGridItem"/> instances are to be compared.</param>
+    /// <returns>A <see cref="GridSort{T}"/> instance representing the specified sorting rule.</returns>
+    public static GridSort<TGridItem> ByAscending<U>(Expression<Func<TGridItem, U>> expression, IComparer<U> comparer)
+        => new GridSort<TGridItem>((queryable, asc) => asc ? queryable.OrderBy(expression, comparer) : queryable.OrderByDescending(expression, comparer),
+            (expression, true));
+
+    /// <summary>
     /// Produces a <see cref="GridSort{T}"/> instance that sorts according to the specified <paramref name="expression"/>, descending.
     /// </summary>
     /// <typeparam name="U">The type of the expression's value.</typeparam>
