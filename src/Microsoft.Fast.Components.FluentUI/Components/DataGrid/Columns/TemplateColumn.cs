@@ -30,8 +30,6 @@ public class TemplateColumn<TGridItem> : ColumnBase<TGridItem>, ISortBuilderColu
     protected internal override void CellContent(RenderTreeBuilder builder, TGridItem item)
         => builder.AddContent(0, ChildContent(item));
 
-
-
     /// <inheritdoc />
     protected override bool IsSortableByDefault()
         => SortBy is not null;

@@ -45,6 +45,11 @@ internal class InternalListContext<TOption>
     /// Gets the event callback to be invoked when the selected value is changed.
     /// </summary>
     public EventCallback<string?> ValueChanged { get; set; }
+
+    /// <summary>
+    /// Gets the event callback to be invoked when the selected value is changed.
+    /// </summary>
+    public EventCallback<TOption?> SelectedOptionChanged { get; set; }
 }
 
 
