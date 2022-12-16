@@ -69,6 +69,6 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, ISortBuil
 
     /// <inheritdoc />
     protected internal override void CellContent(RenderTreeBuilder builder, TGridItem item)
-        => builder.AddContent(10, _cellTextFunc!(item));
+        => builder.AddContent(0, _cellTextFunc!(item));
 
 }

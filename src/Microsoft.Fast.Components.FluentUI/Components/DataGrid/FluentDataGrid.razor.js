@@ -44,10 +44,10 @@ export function checkColumnOptionsPosition(gridElement) {
 
         colOptions.scrollIntoViewIfNeeded();
 
-        //const autoFocusElem = colOptions.querySelector('[autofocus]');
-        //if (autoFocusElem) {
-        //  autoFocusElem.focus();
-        //}
+        const autoFocusElem = colOptions.querySelector('[autofocus]');
+        if (autoFocusElem) {
+          autoFocusElem.focus();
+        }
     }
 }
 

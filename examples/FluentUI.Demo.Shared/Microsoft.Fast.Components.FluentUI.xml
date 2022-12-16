@@ -850,6 +850,12 @@
              You should supply either <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowsData"/> or <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowsDataProvider"/>, but not both.
              </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.ChildContent">
+            <summary>
+            Defines the child components of this instance. For example, you may define columns by adding
+            components derived from the <see cref="T:Microsoft.Fast.Components.FluentUI.ColumnBase`1"/> base class.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.Virtualize">
              <summary>
              If true, the grid will be rendered with virtualization. This is normally used in conjunction with
@@ -921,11 +927,6 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.OnCellFocus">
             <summary>
             Gets or sets a callback when a row is focused
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.ChildContent">
-            <summary>
-            Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.#ctor">
@@ -1432,6 +1433,11 @@
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.InternalListContext`1.ValueChanged">
+            <summary>
+            Gets the event callback to be invoked when the selected value is changed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.InternalListContext`1.SelectedOptionChanged">
             <summary>
             Gets the event callback to be invoked when the selected value is changed.
             </summary>

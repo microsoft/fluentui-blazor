@@ -1,16 +1,21 @@
-﻿<p>With icon at start</p>
-<FluentAnchor Href="#">
-    Anchor
-    <FluentIcon Slot="start" Name="@FluentIcons.Globe" Size="@IconSize.Size16" Color=Color.Neutral />
-</FluentAnchor>
+﻿<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1em;">
+    <FluentAnchor Href="#">
+        With icon at start
+        <FluentIcon Slot="start" Name="@FluentIcons.Globe" Size="@IconSize.Size16" Color=Color.Neutral />
+    </FluentAnchor>
 
-<p>With icon at end</p>
-<FluentAnchor Href="#">
-    <FluentIcon Slot="end" Name="@FluentIcons.Globe" Size="@IconSize.Size16" Color=Color.Neutral />
-    Anchor
-</FluentAnchor>
+    <FluentAnchor Href="#">
+        <FluentIcon Slot="end" Name="@FluentIcons.Globe" Size="@IconSize.Size16" Color=Color.Neutral />
+        With icon at end
+    </FluentAnchor>
+</div>
 
-<p>With icon in default slot</p>
-<FluentAnchor Href="#">
-    <FluentIcon Name="@FluentIcons.Globe" Size="@IconSize.Size16" />
-</FluentAnchor>
+<FluentDivider Role=DividerRole.Separator />
+
+<div style="display: flex; align-items: center; gap: 10px; margin-top: 1em;">
+    With icon in default slot:
+        <FluentAnchor Href="#">
+            <FluentIcon Name="@FluentIcons.Globe" Size="@IconSize.Size16" />
+        </FluentAnchor>
+    
+</div>

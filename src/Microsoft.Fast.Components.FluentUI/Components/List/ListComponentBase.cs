@@ -169,15 +169,15 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
     protected override void OnParametersSet()
     {
 
-        if (!(this is FluentListbox<TOption>) || Items == null)
+        if (!(this is FluentListbox<TOption>) || Items is null)
         {
             if (_internalListContext.ValueChanged.HasDelegate == false)
-            {
                 _internalListContext.ValueChanged = ValueChanged;
-            }
+            if (_internalListContext.SelectedOptionChanged.HasDelegate == false)
+                _internalListContext.SelectedOptionChanged = SelectedOptionChanged;
         }
 
-        if (InternalValue == null && Value != null || InternalValue != Value)
+        if (InternalValue is null && Value is not null) // || InternalValue != Value)
         {
             InternalValue = Value;
         }
@@ -348,10 +348,11 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
         {
             if (SelectedOptionChanged.HasDelegate)
                 await SelectedOptionChanged.InvokeAsync(SelectedOption);
-
         }
         if (ValueChanged.HasDelegate)
             await ValueChanged.InvokeAsync(InternalValue);
+
+        await InvokeAsync(StateHasChanged);
     }
 
 
