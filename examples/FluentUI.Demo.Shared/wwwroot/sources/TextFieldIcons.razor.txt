@@ -1,9 +1,9 @@
 ﻿<h4>With start</h4>
 <FluentTextField>
-    <FluentIcon Name="@FluentIcons.Globe" Slot="start" Size="@IconSize.Size16" UseAccentColor=false />
+    <FluentIcon Name="@FluentIcons.Globe" Slot="start" Size="@IconSize.Size16" Color=Color.Neutral />
 </FluentTextField>
 
 <h4>With end</h4>
 <FluentTextField>
-    <FluentIcon Name="@FluentIcons.Globe" Slot="end" Size="@IconSize.Size16" UseAccentColor=false />
+    <FluentIcon Name="@FluentIcons.Globe" Slot="end" Size="@IconSize.Size16" Color=Color.Neutral />
 </FluentTextField>

@@ -5,6 +5,7 @@ using Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
 using System;
 using System.ComponentModel;
 using System.Data.Common;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -36,7 +37,7 @@ public class ExtendPropertyColumn<TGridItem, TValue, TSort, TFilter>
     /// <summary>
     /// Optionally specifies a format string for the value.
     ///
-    /// Using this requires the <typeparamref name="TProp"/> type to implement <see cref="IFormattable" />.
+    /// Using this requires the <typeparamref name="TValue"/> type to implement <see cref="IFormattable" />.
     /// </summary>
     [Parameter] public string? Format { get; set; }
 
@@ -70,9 +71,11 @@ public class ExtendPropertyColumn<TGridItem, TValue, TSort, TFilter>
         if (Property.Body is MemberExpression memberExpression)
         {
             PropertyInfo = typeof(TGridItem).GetProperty(memberExpression.Member.Name);
+            if (PropertyInfo is null || PropertyInfo.DeclaringType is null)
+                return;
             if (Title is null)
             {
-                var daText = memberExpression.Member.DeclaringType.GetDisplayAttributeString(memberExpression.Member.Name);
+                var daText = PropertyInfo.DeclaringType.GetDisplayAttributeString(memberExpression.Member.Name);
                 if (!string.IsNullOrEmpty(daText))
                     Title = daText;
                 else
