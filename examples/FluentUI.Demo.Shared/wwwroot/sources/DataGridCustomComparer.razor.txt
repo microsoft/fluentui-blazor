@@ -2,16 +2,26 @@
 
 
 <FluentDataGrid RowsData="@FilteredItems" ResizableColumns=true Pagination="@pagination" GridTemplateColumns="0.2fr 1fr 0.2fr 0.2fr 0.2fr 0.2fr" style="height: 405px; overflow:auto;">
-    <TemplateColumn Title="Rank" SortBy="@rankSort" Align="Align.Center" >
+    <TemplateColumn Title="Rank" SortBy="@rankSort" Align="Align.Center">
         <img class="flag" src="_content/FluentUI.Demo.Shared/flags/@(context.Code).svg" />
     </TemplateColumn>
-    <PropertyColumn Property="@(c => c.Name)" IsDefaultSort=SortDirection.Ascending Sortable="true" Comparer="@StringLengthComparer.Instance">
+    @*<PropertyColumn Property="@(c => c.Name)" IsDefaultSort=SortDirection.Descending Sortable="true" Comparer="@StringLengthComparer.Instance">
         <ColumnOptions>
             <div class="search-box">
                 <FluentSearch type="search" Autofocus=true @bind-Value=nameFilter @oninput="HandleCountryFilter" @onchange="HandleClear" Placeholder="Country name..." />
             </div>
         </ColumnOptions>
-    </PropertyColumn>
+    </PropertyColumn>*@
+    <TemplateColumn Title="Name" IsDefaultSort=SortDirection.Descending  SortBy="@nameSort">
+        <ColumnOptions>
+            <div class="search-box">
+                <FluentSearch type="search" Autofocus=true @bind-Value=nameFilter @oninput="HandleCountryFilter" @onchange="HandleClear" Placeholder="Country name..." />
+            </div>
+        </ColumnOptions>
+        <ChildContent>
+            @(context.Name)
+        </ChildContent>
+    </TemplateColumn>
     <PropertyColumn Property="@(c => c.Medals.Gold)" Sortable="true" Align="Align.Left" />
     <PropertyColumn Property="@(c => c.Medals.Silver)" Sortable="true" Align="Align.Center" />
     <PropertyColumn Property="@(c => c.Medals.Bronze)" Sortable="true" Align="Align.Right" />
@@ -30,7 +40,10 @@
         .ByDescending(x => x.Medals.Gold)
         .ThenDescending(x => x.Medals.Silver)
         .ThenDescending(x => x.Medals.Bronze);
-    
+
+    // Uncomment line below when using the TemplateColumn example for the country name
+    GridSort<Country> nameSort = GridSort<Country>.ByAscending(x => x.Name, StringLengthComparer.Instance);
+
 
     IQueryable<Country>? FilteredItems => items?.Where(x => x.Name.Contains(nameFilter, StringComparison.CurrentCultureIgnoreCase));
 
@@ -54,4 +67,25 @@
             nameFilter = string.Empty;
         }
     }
+
+    public class StringLengthComparer : IComparer<string>
+    {
+        public static readonly StringLengthComparer Instance = new StringLengthComparer();
+
+        public int Compare(string? x, string? y)
+        {
+            if (x is null)
+            {
+                return y is null ? 0 : -1;
+            }
+
+            if (y is null)
+            {
+                return 1;
+            }
+
+            return x.Length.CompareTo(y.Length);
+        }
+    }
+
 }
