@@ -10,7 +10,7 @@ namespace FluentUI.Demo.Shared;
 
 public partial class DemoMainLayout : IAsyncDisposable
 {
-    private string? _selectValue;
+    private OfficeColor _selectedColorOption;
     private string? _version;
     private bool _inDarkMode;
 
@@ -46,6 +46,11 @@ public partial class DemoMainLayout : IAsyncDisposable
     protected override void OnInitialized()
     {
         _version = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
+
+        
+        OfficeColor[] colors = Enum.GetValues<OfficeColor>().ToArray();
+        _selectedColorOption = colors[new Random().Next(colors.Length)];
+
         NavigationManager.LocationChanged += LocationChanged;
         base.OnInitialized();
     }
@@ -53,6 +58,8 @@ public partial class DemoMainLayout : IAsyncDisposable
     protected override void OnParametersSet()
     {
         errorBoundary?.Recover();
+        
+        
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -63,6 +70,10 @@ public partial class DemoMainLayout : IAsyncDisposable
                  "./_content/FluentUI.Demo.Shared/Shared/DemoMainLayout.razor.js");
 
             _inDarkMode = await _jsModule!.InvokeAsync<bool>("isDarkMode");
+
+          
+            await AccentBaseColor.SetValueFor(container, _selectedColorOption.ToAttributeValue()!.ToSwatch());
+            
             StateHasChanged();
         }
     }
@@ -105,12 +116,12 @@ public partial class DemoMainLayout : IAsyncDisposable
         {
             if (value != "default")
             {
-                _selectValue = value;
+                //_selectValue = value;
                 await AccentBaseColor.SetValueFor(container, value.ToSwatch());
             }
             else
             {
-                _selectValue = "default";
+                //_selectValue = "default";
                 await AccentBaseColor.DeleteValueFor(container);
             }
         }
