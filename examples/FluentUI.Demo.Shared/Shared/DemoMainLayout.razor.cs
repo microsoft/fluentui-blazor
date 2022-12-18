@@ -41,7 +41,7 @@ public partial class DemoMainLayout : IAsyncDisposable
     ErrorBoundary? errorBoundary;
 
     LocalizationDirection dir;
-    float baseLayerLuminance = 0.98f;
+    StandardLuminance baseLayerLuminance = StandardLuminance.LightMode;
 
     protected override void OnInitialized()
     {
@@ -82,15 +82,15 @@ public partial class DemoMainLayout : IAsyncDisposable
         await Task.Delay(50);
 
         if (_inDarkMode)
-            baseLayerLuminance = 0.15f;
+            baseLayerLuminance = StandardLuminance.DarkMode;
         else
-            baseLayerLuminance = 0.98f;
+            baseLayerLuminance = StandardLuminance.LightMode;
 
-        await BaseLayerLuminance.SetValueFor(container, baseLayerLuminance);
+        await BaseLayerLuminance.SetValueFor(container, baseLayerLuminance.GetLuminanceValue());
 
-        GlobalState.SetLuminance((baseLayerLuminance <= 0.2f) ? Luminance.Dark : Luminance.Light);
+        GlobalState.SetLuminance(baseLayerLuminance);
 
-        await _jsModule!.InvokeVoidAsync("switchHighlightStyle", baseLayerLuminance == 0.15f);
+        await _jsModule!.InvokeVoidAsync("switchHighlightStyle", baseLayerLuminance == StandardLuminance.DarkMode);
     }
 
     private void HandleChecked()

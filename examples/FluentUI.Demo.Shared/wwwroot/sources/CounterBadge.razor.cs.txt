@@ -140,9 +140,9 @@ public partial class CounterBadge : FluentComponentBase, IDisposable
     {
         if (BackgroundColor != null)
         {
-            if (BackgroundColor == Microsoft.Fast.Components.FluentUI.Color.Lightweight && GlobalState.Luminance == Luminance.Dark)
+            if (BackgroundColor == Microsoft.Fast.Components.FluentUI.Color.Lightweight && GlobalState.Luminance == StandardLuminance.DarkMode)
                 return Microsoft.Fast.Components.FluentUI.Color.FillInverse;
-            if (BackgroundColor == Microsoft.Fast.Components.FluentUI.Color.Lightweight && GlobalState.Luminance == Luminance.Light)
+            if (BackgroundColor == Microsoft.Fast.Components.FluentUI.Color.Lightweight && GlobalState.Luminance == StandardLuminance.LightMode)
                 return Microsoft.Fast.Components.FluentUI.Color.Lightweight;
 
             return BackgroundColor;
@@ -162,9 +162,9 @@ public partial class CounterBadge : FluentComponentBase, IDisposable
     {
         if (BackgroundColor != null)
         {
-            if (BackgroundColor == Microsoft.Fast.Components.FluentUI.Color.Lightweight && GlobalState.Luminance == Luminance.Dark)
+            if (BackgroundColor == Microsoft.Fast.Components.FluentUI.Color.Lightweight && GlobalState.Luminance == StandardLuminance.DarkMode)
                 return Microsoft.Fast.Components.FluentUI.Color.FillInverse;
-            if (BackgroundColor == Microsoft.Fast.Components.FluentUI.Color.Lightweight && GlobalState.Luminance == Luminance.Light)
+            if (BackgroundColor == Microsoft.Fast.Components.FluentUI.Color.Lightweight && GlobalState.Luminance == StandardLuminance.LightMode)
                 return Microsoft.Fast.Components.FluentUI.Color.Lightweight;
 
             return BackgroundColor;
@@ -185,7 +185,7 @@ public partial class CounterBadge : FluentComponentBase, IDisposable
     {
         if (Color != null)
         {
-            if (BackgroundColor == Microsoft.Fast.Components.FluentUI.Color.Error && GlobalState.Luminance == Luminance.Dark)
+            if (BackgroundColor == Microsoft.Fast.Components.FluentUI.Color.Error && GlobalState.Luminance == StandardLuminance.DarkMode)
                 return Microsoft.Fast.Components.FluentUI.Color.FillInverse;
 
 
