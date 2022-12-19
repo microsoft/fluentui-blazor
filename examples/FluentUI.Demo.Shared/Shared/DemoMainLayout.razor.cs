@@ -71,8 +71,8 @@ public partial class DemoMainLayout : IAsyncDisposable
 
             _inDarkMode = await _jsModule!.InvokeAsync<bool>("isDarkMode");
 
-          
-            await AccentBaseColor.SetValueFor(container, _selectedColorOption.ToAttributeValue()!.ToSwatch());
+            if (_selectedColorOption != OfficeColor.Default)
+                await AccentBaseColor.SetValueFor(container, _selectedColorOption.ToAttributeValue()!.ToSwatch());
             
             StateHasChanged();
         }
