@@ -7,6 +7,12 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// </summary>
 public enum OfficeColor
 {
+    /// <summary>
+    /// The default Fluent UI accent color
+    /// </summary>
+    [Description("default")]
+    Default,
+    
     /// <summary/>
     [Description("#a4373a")]
     Access,

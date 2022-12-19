@@ -3,7 +3,7 @@
 public class GlobalState
 {
     public LocalizationDirection Dir { get; set; } = LocalizationDirection.ltr;
-    public Luminance Luminance { get; set; } = Luminance.Light;
+    public StandardLuminance Luminance { get; set; } = StandardLuminance.LightMode;
 
     public event Action? OnChange;
 
@@ -14,7 +14,7 @@ public class GlobalState
         NotifyStateHasChanged();
     }
 
-    public void SetLuminance(Luminance luminance)
+    public void SetLuminance(StandardLuminance luminance)
     {
         Luminance = luminance;
         NotifyStateHasChanged();

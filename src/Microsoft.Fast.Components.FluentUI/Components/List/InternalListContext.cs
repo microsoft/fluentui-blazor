@@ -19,7 +19,7 @@ internal class InternalListContext<TOption>
     /// <summary>
     /// Gets the list of all select items inside of this select component.
     /// </summary>
-    protected IEnumerable<FluentOption<TOption>> Options => options;
+    public IEnumerable<FluentOption<TOption>> Options => options;
 
     internal void Register(FluentOption<TOption> option)
     {
