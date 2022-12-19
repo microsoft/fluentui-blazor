@@ -794,7 +794,7 @@
             Represents a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/> column whose cells display a single value.
             </summary>
             <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
-            <typeparam name="TProp">The type of the value being displayed in the column's cells.</typeparam>
+            <typeparam name="TValue">The type of the value being displayed in the column's cells.</typeparam>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.PropertyColumn`2.Property">
             <summary>
@@ -805,14 +805,14 @@
              <summary>
              Optionally specifies a format string for the value.
             
-             Using this requires the <typeparamref name="TProp"/> type to implement <see cref="T:System.IFormattable" />.
+             Using this requires the <typeparamref name="TValue"/> type to implement <see cref="T:System.IFormattable" />.
              </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.PropertyColumn`2.Comparer">
             <summary>
             Optionally specifies how to compare values in this column when sorting.
             
-            Using this requires the <typeparamref name="TProp"/> type to implement <see cref="T:System.IComparable`1"/>.
+            Using this requires the <typeparamref name="TValue"/> type to implement <see cref="T:System.IComparable`1"/>.
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.PropertyColumn`2.OnParametersSet">
@@ -1140,6 +1140,18 @@
             For internal use only. Do not use.
             </summary>
             <typeparam name="TGridItem">For internal use only. Do not use.</typeparam>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.IBindColumn">
+            <summary>
+            a column that can bind to a property of model
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.IBindColumn`2">
+            <summary>
+            a column that can bind to a property of model
+            </summary>
+            <typeparam name="TItem">model item type</typeparam>
+            <typeparam name="TValue">type of property</typeparam>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.Defer">
             <summary>
