@@ -61,7 +61,7 @@ jobs:
 
 
     - name: .NET Pack package
-      run: dotnet pack ${{ env.PROJECT }} --configuration ${{ env.BUILD_CONFIG }} -o packed --no-build --output artifacts/ci --verbosity normal -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
+      run: dotnet pack ${{ env.PROJECT }} --configuration ${{ env.BUILD_CONFIG }} --no-build --output artifacts/ci --verbosity normal -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
       
     - name: Upload package 
       uses: actions/upload-artifact@v3
