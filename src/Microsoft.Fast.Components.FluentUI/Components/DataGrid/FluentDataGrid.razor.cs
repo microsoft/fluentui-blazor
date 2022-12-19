@@ -35,6 +35,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter] public GridItemsProvider<TGridItem>? RowsDataProvider { get; set; }
 
     /// <summary>
+    /// Defines the child components of this instance. For example, you may define columns by adding
+    /// components derived from the <see cref="ColumnBase{TGridItem}"/> base class.
+    /// </summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    
+    /// <summary>
     /// If true, the grid will be rendered with virtualization. This is normally used in conjunction with
     /// scrolling and causes the grid to fetch and render only the data around the current scroll viewport.
     /// This can greatly improve the performance when scrolling through large data sets.
@@ -114,10 +120,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public EventCallback<FluentDataGridCell<TGridItem>> OnCellFocus { get; set; }
 
     /// <summary>
-    /// Gets or sets the content to be rendered inside the component.
+    /// Optionally defines a class to be applied to a rendered row. 
     /// </summary>
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
+    [Parameter] public Func<TGridItem, string>? RowClass { get; set; }
 
     [Inject] private IServiceProvider Services { get; set; } = default!;
     [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
@@ -185,11 +190,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// <inheritdoc />
     protected override Task OnParametersSetAsync()
     {
-        //if (_sortByAscending != SortByAscending)
-        //{
-        //    _sortByAscending = SortByAscending ?? true;
-        //}
-
         // The associated pagination state may have been added/removed/replaced
         _currentPageItemsChanged.SubscribeOrMove(Pagination?.CurrentPageItemsChanged);
 
@@ -220,8 +220,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         if (firstRender)
         {
-            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-                "./_content/Microsoft.Fast.Components.FluentUI/Components/DataGrid/FluentDataGrid.razor.js");
+            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Microsoft.Fast.Components.FluentUI/Components/DataGrid/FluentDataGrid.razor.js");
             _jsEventDisposable = await _jsModule.InvokeAsync<IJSObjectReference>("init", _gridReference);
         }
 
@@ -465,6 +464,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private void CloseColumnOptions()
     {
         _displayOptionsForColumn = null;
+        StateHasChanged();
     }
 
     private async Task HandleOnRowFocus(DataGridRowFocusEventArgs args)

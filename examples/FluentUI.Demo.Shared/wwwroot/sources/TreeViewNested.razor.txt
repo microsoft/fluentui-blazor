@@ -1,12 +1,12 @@
 ﻿<FluentTreeView>
     <FluentTreeItem Expanded="true">
         Root item
-        <FluentIcon Name="@FluentIcons.Globe" Slot="start" Size="@IconSize.Size16" UseAccentColor=false />
+        <FluentIcon Name="@FluentIcons.Globe" Slot="start" Size="@IconSize.Size16" Color=Color.Neutral />
         <FluentTreeItem Expanded="true">
             Nested Root item 1
-            <FluentIcon Name="@FluentIcons.Globe" Slot="start" Size="@IconSize.Size16" UseAccentColor=false />
+            <FluentIcon Name="@FluentIcons.Globe" Slot="start" Size="@IconSize.Size16" Color=Color.Neutral />
             <FluentTreeItem>
-                <FluentIcon Name="@FluentIcons.Globe" Slot="start" Size="@IconSize.Size16" UseAccentColor=false />
+                <FluentIcon Name="@FluentIcons.Globe" Slot="start" Size="@IconSize.Size16" Color=Color.Neutral />
                 Nested item 4
             </FluentTreeItem>
             <FluentTreeItem>
@@ -20,7 +20,7 @@
         </FluentTreeItem>
         <FluentTreeItem>
             Nested item 3
-            <FluentIcon Name="@FluentIcons.Globe" Slot="start" Size="@IconSize.Size16" UseAccentColor=false />
+            <FluentIcon Name="@FluentIcons.Globe" Slot="start" Size="@IconSize.Size16" Color=Color.Neutral />
         </FluentTreeItem>
     </FluentTreeItem>
 </FluentTreeView>

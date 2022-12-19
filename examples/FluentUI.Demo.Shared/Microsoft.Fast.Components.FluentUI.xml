@@ -739,6 +739,16 @@
             <param name="expression">An expression defining how a set of <typeparamref name="TGridItem"/> instances are to be sorted.</param>
             <returns>A <see cref="T:Microsoft.Fast.Components.FluentUI.GridSort`1"/> instance representing the specified sorting rule.</returns>
         </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.GridSort`1.ByAscending``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Collections.Generic.IComparer{``0})">
+            <summary>
+            Produces a <see cref="T:Microsoft.Fast.Components.FluentUI.GridSort`1"/> instance that sorts according to the specified <paramref name="expression"/> 
+            using the specified <paramref name="comparer"/>, ascending.
+            </summary>
+            <typeparam name="U">The type of the expression's value.</typeparam>
+            <param name="expression">An expression defining how a set of <typeparamref name="TGridItem"/> instances are to be sorted.</param>
+            <param name="comparer">Defines how a items in a set of <typeparamref name="TGridItem"/> instances are to be compared.</param>
+            <returns>A <see cref="T:Microsoft.Fast.Components.FluentUI.GridSort`1"/> instance representing the specified sorting rule.</returns>
+        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.GridSort`1.ByDescending``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
             <summary>
             Produces a <see cref="T:Microsoft.Fast.Components.FluentUI.GridSort`1"/> instance that sorts according to the specified <paramref name="expression"/>, descending.
@@ -798,6 +808,13 @@
              Using this requires the <typeparamref name="TProp"/> type to implement <see cref="T:System.IFormattable" />.
              </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.PropertyColumn`2.Comparer">
+            <summary>
+            Optionally specifies how to compare values in this column when sorting.
+            
+            Using this requires the <typeparamref name="TProp"/> type to implement <see cref="T:System.IComparable`1"/>.
+            </summary>
+        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.PropertyColumn`2.OnParametersSet">
             <inheritdoc />
         </member>
@@ -849,6 +866,12 @@
             
              You should supply either <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowsData"/> or <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowsDataProvider"/>, but not both.
              </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.ChildContent">
+            <summary>
+            Defines the child components of this instance. For example, you may define columns by adding
+            components derived from the <see cref="T:Microsoft.Fast.Components.FluentUI.ColumnBase`1"/> base class.
+            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.Virtualize">
              <summary>
@@ -923,9 +946,9 @@
             Gets or sets a callback when a row is focused
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.ChildContent">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowClass">
             <summary>
-            Gets or sets the content to be rendered inside the component.
+            Optionally defines a class to be applied to a rendered row. 
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.#ctor">
@@ -1432,6 +1455,11 @@
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.InternalListContext`1.ValueChanged">
+            <summary>
+            Gets the event callback to be invoked when the selected value is changed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.InternalListContext`1.SelectedOptionChanged">
             <summary>
             Gets the event callback to be invoked when the selected value is changed.
             </summary>
@@ -2197,6 +2225,11 @@
             <summary>
             Gets or sets the content to be rendered inside the component.
             </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.OnDissmissed">
+            <summary>
+            Callback for when the tooltip is dismissed
+            </summary>  
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Owner">
             <summary>
@@ -5546,17 +5579,6 @@
             Right to left.
             </summary>
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.Luminance">
-            <summary>
-            Luminance description.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.Luminance.Light">
-            <summary />
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.Luminance.Dark">
-            <summary />
-        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.MenuItemRole">
             <summary>
             The role of the menu item.
@@ -5580,6 +5602,11 @@
         <member name="T:Microsoft.Fast.Components.FluentUI.OfficeColor">
             <summary>
             The official product colors for Microsoft Office apps.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Default">
+            <summary>
+            The default Fluent UI accent color
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Access">
@@ -5759,6 +5786,21 @@
             Automatic sort order. When used with <see cref="M:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.SortByColumnAsync(Microsoft.Fast.Components.FluentUI.ColumnBase{`0},Microsoft.Fast.Components.FluentUI.SortDirection)"/>,
             the sort order will automatically toggle between <see cref="F:Microsoft.Fast.Components.FluentUI.SortDirection.Ascending"/> and <see cref="F:Microsoft.Fast.Components.FluentUI.SortDirection.Descending"/> on successive calls, and
             resets to <see cref="F:Microsoft.Fast.Components.FluentUI.SortDirection.Ascending"/> whenever the specified column is changed.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.StandardLuminance">
+            <summary>
+            The standard luminance values for light and dark mode.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.StandardLuminance.LightMode">
+            <summary>
+            Light mode luminance
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.StandardLuminance.DarkMode">
+            <summary>
+            Dark mode luminance
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.TextAreaResize">

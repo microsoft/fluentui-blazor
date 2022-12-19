@@ -1,6 +1,11 @@
 ﻿@* Remember to replace the namespace below with your own project's namespace. *@
 @namespace FluentUI.Demo.Shared
 
+A request for the following icon
+<CodeSnippet Language="cshtml-razor">&lt;FluentIcon Name="@@FluentIcons.VideoPersonClock" Size="@@IconSize.Size12" Variant="@@IconVariant.Filled" Color="@@Color.Accent"/&gt;</CodeSnippet>
+<br />
+will render:
+<br />
 <ErrorBoundary>
     <ChildContent>
         <FluentIcon Name="@FluentIcons.VideoPersonClock" Size="@IconSize.Size12" Variant="@IconVariant.Filled" Color="@Color.Accent" />

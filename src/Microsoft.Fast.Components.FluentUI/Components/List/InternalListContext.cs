@@ -19,7 +19,7 @@ internal class InternalListContext<TOption>
     /// <summary>
     /// Gets the list of all select items inside of this select component.
     /// </summary>
-    protected IEnumerable<FluentOption<TOption>> Options => options;
+    public IEnumerable<FluentOption<TOption>> Options => options;
 
     internal void Register(FluentOption<TOption> option)
     {
@@ -45,6 +45,11 @@ internal class InternalListContext<TOption>
     /// Gets the event callback to be invoked when the selected value is changed.
     /// </summary>
     public EventCallback<string?> ValueChanged { get; set; }
+
+    /// <summary>
+    /// Gets the event callback to be invoked when the selected value is changed.
+    /// </summary>
+    public EventCallback<TOption?> SelectedOptionChanged { get; set; }
 }
 
 

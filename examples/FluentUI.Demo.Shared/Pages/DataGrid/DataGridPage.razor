@@ -58,9 +58,10 @@
 
 <DemoSection Title="Typical usage" Component="@typeof(DataGridTypical)" CollocatedFiles="@(new[] {"css"})">
     <Description>
-        Here is an example of a data grid that uses in-memory data and enables features including pagination, sorting, filtering, column options and column resizing.
+        Here is an example of a data grid that uses in-memory data and enables features including pagination, sorting, filtering, column options, row highlighting and column resizing.
     </Description>
 </DemoSection>
+
 
 <DemoSection Title="Remote data" Component="@typeof(DataGridRemoteData)">
     <Description>
@@ -126,6 +127,14 @@
         <p>
             You can make columns appear conditionally using normal Razor logic such as <code>@@if</code>. Example:
         </p>
+    </Description>
+</DemoSection>
+
+<DemoSection Title="Custom comparer" Component="@typeof(DataGridCustomComparer)" CollocatedFiles="@(new[] {"css"})">
+    <Description>
+        Here a custom comparer is being used to sort counties by the length of their name.<br/>
+        The code has examples for both <code>PropertyColumn</code> and <code>TemplateColumn</code>.<br />
+        For this example the code for the comparer is placed in the <code>DataGridCustomComparer.razor.cs</code> file but it could be placed in its own file of course.
     </Description>
 </DemoSection>
 

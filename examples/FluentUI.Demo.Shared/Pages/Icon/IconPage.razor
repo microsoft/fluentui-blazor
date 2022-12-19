@@ -16,7 +16,7 @@
 
 <h2 id="overview">Overview</h2>
 
-<DemoSection Component="typeof(FluentIconSlots)" Title="Icon placement inside other components">
+<DemoSection Component="typeof(FluentIconSlots)" Title="Icon placement">
     <Description>
         A lot of the web components have named slots that declare locations in which content can be rendered.
         FluentIcon leverages this capability through its <code>Slot</code> parameter. With this you can for
@@ -25,7 +25,7 @@
     </Description>
 </DemoSection>
 
-<DemoSection Component="typeof(FluentIconColors)" Title="ColorOptions">
+<DemoSection Component="typeof(FluentIconColors)" Title="Color options">
     <Description>
         Icons can be drawn and filled with a color through the <code>Color</code> parameter which takes a <code>Color</code> enumeration value. 
         <br /><br /> 
@@ -46,12 +46,7 @@
     <Description>
         The component checks at runtime if the combination of Name, Size and Variation is available in the collection and throws an error if the combination is not found.
         <br />
-        For example, a request for the following icon
-        <CodeSnippet Language="cshtml-razor">
-&lt;FluentIcon Name="@@FluentIcons.VideoPersonClock" Size="@@IconSize.Size12" Variant="@@IconVariant.Filled" Color="@@Color.Accent"/&gt;
-        </CodeSnippet>
-        <br />
-        will render:
+        
     </Description>
 </DemoSection>
     
