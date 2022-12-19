@@ -7,7 +7,7 @@ on:
       - '**/*.md'
       - '**/*.gitignore'
       - '**/*.gitattributes'
-      - '**/*.yml'
+  
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches: [ main ]
@@ -15,7 +15,7 @@ on:
       - '**/*.md'
       - '**/*.gitignore'
       - '**/*.gitattributes'
-      - '**/*.yml'
+  
   workflow_dispatch:
     branches:
       - main
@@ -23,7 +23,7 @@ on:
       - '**/*.md'
       - '**/*.gitignore'
       - '**/*.gitattributes'
-      - '**/*.yml'
+
 jobs:
   build_package:
     name: Build and pack library package
@@ -48,22 +48,27 @@ jobs:
             6.0.404
             7.0.101
         include-prerelease: true
-
+    
+    - name: Create build number
+      run: echo "BUILD_NUMBER=$NOW.$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
+      
     - name: .NET Restore
       run: dotnet restore ${{ env.PROJECT }}
 
     - name: .NET Build package
-      run: dotnet build ${{ env.PROJECT }} --configuration ${{ env.BUILD_CONFIG }} --no-restore
+      run: dotnet build ${{ env.PROJECT }} --configuration ${{ env.BUILD_CONFIG }} --no-restore -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
+      
 
 
     - name: .NET Pack package
-      run: dotnet pack ${{ env.PROJECT }} --configuration ${{ env.BUILD_CONFIG }} -o packed --no-build
-
+      run: dotnet pack ${{ env.PROJECT }} --configuration ${{ env.BUILD_CONFIG }} -o packed --no-build --output artifacts/ci --verbosity normal -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
+      
     - name: Upload package 
       uses: actions/upload-artifact@v3
       with:
-        name: Microsoft.Fast.Component.FluentUI.DEV.nupkg
-        path: packed
+        name: nupkg
+        path: artifacts/**/*.nupkg
+        retention-days: 5
   
   deploy_demo:
     runs-on: ubuntu-latest
