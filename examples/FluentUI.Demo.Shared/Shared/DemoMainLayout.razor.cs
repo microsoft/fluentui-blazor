@@ -10,7 +10,7 @@ namespace FluentUI.Demo.Shared;
 
 public partial class DemoMainLayout : IAsyncDisposable
 {
-    private string? _selectValue;
+    private OfficeColor _selectedColorOption;
     private string? _version;
     private bool _inDarkMode;
 
@@ -41,11 +41,16 @@ public partial class DemoMainLayout : IAsyncDisposable
     ErrorBoundary? errorBoundary;
 
     LocalizationDirection dir;
-    float baseLayerLuminance = 0.98f;
+    StandardLuminance baseLayerLuminance = StandardLuminance.LightMode;
 
     protected override void OnInitialized()
     {
         _version = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
+
+        
+        OfficeColor[] colors = Enum.GetValues<OfficeColor>().ToArray();
+        _selectedColorOption = colors[new Random().Next(colors.Length)];
+
         NavigationManager.LocationChanged += LocationChanged;
         base.OnInitialized();
     }
@@ -53,6 +58,8 @@ public partial class DemoMainLayout : IAsyncDisposable
     protected override void OnParametersSet()
     {
         errorBoundary?.Recover();
+        
+        
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -63,6 +70,10 @@ public partial class DemoMainLayout : IAsyncDisposable
                  "./_content/FluentUI.Demo.Shared/Shared/DemoMainLayout.razor.js");
 
             _inDarkMode = await _jsModule!.InvokeAsync<bool>("isDarkMode");
+
+            if (_selectedColorOption != OfficeColor.Default)
+                await AccentBaseColor.SetValueFor(container, _selectedColorOption.ToAttributeValue()!.ToSwatch());
+            
             StateHasChanged();
         }
     }
@@ -82,15 +93,15 @@ public partial class DemoMainLayout : IAsyncDisposable
         await Task.Delay(50);
 
         if (_inDarkMode)
-            baseLayerLuminance = 0.15f;
+            baseLayerLuminance = StandardLuminance.DarkMode;
         else
-            baseLayerLuminance = 0.98f;
+            baseLayerLuminance = StandardLuminance.LightMode;
 
-        await BaseLayerLuminance.SetValueFor(container, baseLayerLuminance);
+        await BaseLayerLuminance.SetValueFor(container, baseLayerLuminance.GetLuminanceValue());
 
-        GlobalState.SetLuminance((baseLayerLuminance <= 0.2f) ? Luminance.Dark : Luminance.Light);
+        GlobalState.SetLuminance(baseLayerLuminance);
 
-        await _jsModule!.InvokeVoidAsync("switchHighlightStyle", baseLayerLuminance == 0.15f);
+        await _jsModule!.InvokeVoidAsync("switchHighlightStyle", baseLayerLuminance == StandardLuminance.DarkMode);
     }
 
     private void HandleChecked()
@@ -105,12 +116,12 @@ public partial class DemoMainLayout : IAsyncDisposable
         {
             if (value != "default")
             {
-                _selectValue = value;
+                //_selectValue = value;
                 await AccentBaseColor.SetValueFor(container, value.ToSwatch());
             }
             else
             {
-                _selectValue = "default";
+                //_selectValue = "default";
                 await AccentBaseColor.DeleteValueFor(container);
             }
         }

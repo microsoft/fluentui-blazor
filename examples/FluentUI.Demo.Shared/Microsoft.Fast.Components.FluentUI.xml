@@ -5591,17 +5591,6 @@
             Right to left.
             </summary>
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.Luminance">
-            <summary>
-            Luminance description.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.Luminance.Light">
-            <summary />
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.Luminance.Dark">
-            <summary />
-        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.MenuItemRole">
             <summary>
             The role of the menu item.
@@ -5625,6 +5614,11 @@
         <member name="T:Microsoft.Fast.Components.FluentUI.OfficeColor">
             <summary>
             The official product colors for Microsoft Office apps.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Default">
+            <summary>
+            The default Fluent UI accent color
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Access">
@@ -5804,6 +5798,21 @@
             Automatic sort order. When used with <see cref="M:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.SortByColumnAsync(Microsoft.Fast.Components.FluentUI.ColumnBase{`0},Microsoft.Fast.Components.FluentUI.SortDirection)"/>,
             the sort order will automatically toggle between <see cref="F:Microsoft.Fast.Components.FluentUI.SortDirection.Ascending"/> and <see cref="F:Microsoft.Fast.Components.FluentUI.SortDirection.Descending"/> on successive calls, and
             resets to <see cref="F:Microsoft.Fast.Components.FluentUI.SortDirection.Ascending"/> whenever the specified column is changed.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.StandardLuminance">
+            <summary>
+            The standard luminance values for light and dark mode.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.StandardLuminance.LightMode">
+            <summary>
+            Light mode luminance
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.StandardLuminance.DarkMode">
+            <summary>
+            Dark mode luminance
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.TextAreaResize">
