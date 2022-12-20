@@ -7,7 +7,7 @@ using System.Reflection;
 using System.ComponentModel.DataAnnotations;
 
 namespace Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
-internal static class DisplayAttributeExtesions
+internal static class DisplayAttributeExtensions
 {
 
     public static string? GetDisplayAttributeString(this Type itemType, string propertyName)
@@ -18,9 +18,9 @@ internal static class DisplayAttributeExtesions
         if (propertyInfo == null)
             return null;
 
-        var DisplayAtt = propertyInfo.GetCustomAttributes(typeof(DisplayAttribute), true).FirstOrDefault();
-        if (DisplayAtt != null)
-            return ((DisplayAttribute)DisplayAtt).GetName();
+        DisplayAttribute? DisplayAtt = propertyInfo.GetCustomAttributes(typeof(DisplayAttribute), true).FirstOrDefault() as DisplayAttribute;
+        if (DisplayAtt is not null)
+            return DisplayAtt.GetName();
         else
         {
             var metadata = itemType.GetCustomAttribute(typeof(MetadataTypeAttribute)) as MetadataTypeAttribute;
