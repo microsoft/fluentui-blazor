@@ -4,17 +4,17 @@ using System.Reflection;
 namespace Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
 
 /// <summary>
-/// a column that can bind to a property of model
+/// A column that can bind to a property of model
 /// </summary>
 public interface IBindableColumn
 {
    PropertyInfo? PropertyInfo { get; }
 }
 /// <summary>
-/// a column that can bind to a property of model
+/// A column that can bind to a property of model
 /// </summary>
-/// <typeparam name="TItem">model item type</typeparam>
-/// <typeparam name="TValue">type of property</typeparam>
+/// <typeparam name="TItem">Model item type</typeparam>
+/// <typeparam name="TValue">Type of property</typeparam>
 internal interface IBindableColumn<TItem, TValue> : IBindableColumn
 {
 
