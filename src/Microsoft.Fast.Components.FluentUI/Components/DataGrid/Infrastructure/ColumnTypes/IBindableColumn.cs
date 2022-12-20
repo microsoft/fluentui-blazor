@@ -6,7 +6,7 @@ namespace Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
 /// <summary>
 /// a column that can bind to a property of model
 /// </summary>
-public interface IBindColumn
+public interface IBindableColumn
 {
    PropertyInfo? PropertyInfo { get; }
 }
@@ -15,7 +15,7 @@ public interface IBindColumn
 /// </summary>
 /// <typeparam name="TItem">model item type</typeparam>
 /// <typeparam name="TValue">type of property</typeparam>
-internal interface IBindColumn<TItem, TValue> : IBindColumn
+internal interface IBindableColumn<TItem, TValue> : IBindableColumn
 {
 
     public Expression<Func<TItem, TValue>> Property { get; set; }

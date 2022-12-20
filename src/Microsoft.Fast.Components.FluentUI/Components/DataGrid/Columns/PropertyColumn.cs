@@ -14,7 +14,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// </summary>
 /// <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
 /// <typeparam name="TValue">The type of the value being displayed in the column's cells.</typeparam>
-public class PropertyColumn<TGridItem, TValue> : ColumnBase<TGridItem>, IBindColumn<TGridItem, TValue>, ISortBuilderColumn<TGridItem>
+public class PropertyColumn<TGridItem, TValue> : ColumnBase<TGridItem>, IBindableColumn<TGridItem, TValue>, ISortBuilderColumn<TGridItem>
 {
     private Expression<Func<TGridItem, TValue>>? _lastAssignedProperty;
     private Func<TGridItem, string?>? _cellTextFunc;

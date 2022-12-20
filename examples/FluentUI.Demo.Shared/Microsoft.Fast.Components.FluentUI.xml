@@ -1141,12 +1141,12 @@
             </summary>
             <typeparam name="TGridItem">For internal use only. Do not use.</typeparam>
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.IBindColumn">
+        <member name="T:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.IBindableColumn">
             <summary>
             a column that can bind to a property of model
             </summary>
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.IBindColumn`2">
+        <member name="T:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.IBindableColumn`2">
             <summary>
             a column that can bind to a property of model
             </summary>
