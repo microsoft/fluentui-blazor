@@ -27,7 +27,7 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.Anchor
                               "click me!" +
                               "</fluent-anchor>");
         }
-        
+
         [Theory]
         [InlineData("https://fast.design")]
         [InlineData("/something/something")]
@@ -235,7 +235,7 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.Anchor
                               "click me!" +
                               "</fluent-anchor>");
         }
-        
+
         [Fact]
         public void RenderProperly_Without_ChildContent()
         {
@@ -286,6 +286,56 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.Anchor
                               "href=\"https://fast.design\" " +
                               "style=\"background-color: black;\" " +
                               "appearance=\"neutral\"> " +
+                              "click me!" +
+                              "</fluent-anchor>");
+        }
+
+        [Fact]
+        public void RenderProperly_WithASingleAdditionalAttribute()
+        {
+            // Arrange & Act
+            string additionalAttributeName = "additional";
+            string additionalAttributeValue = "additional-value";
+            TestContext.JSInterop.SetupModule(
+                "./_content/Microsoft.Fast.Components.FluentUI/Components/Anchor/FluentAnchor.razor.js");
+            IRenderedComponent<FluentUI.FluentAnchor> cut = TestContext.RenderComponent<FluentUI.FluentAnchor>(
+                parameters => parameters
+                    .Add(p => p.Href, "https://fast.design")
+                    .AddUnmatched(additionalAttributeName, additionalAttributeValue)
+                    .AddChildContent("click me!"));
+
+            // Assert
+            cut.MarkupMatches("<fluent-anchor " +
+                              "href=\"https://fast.design\" " +
+                              "appearance=\"neutral\" " +
+                              $"{additionalAttributeName}=\"{additionalAttributeValue}\"> " +
+                              "click me!" +
+                              "</fluent-anchor>");
+        }
+
+        [Fact]
+        public void RenderProperly_WithMultipleAdditionalAttributes()
+        {
+            // Arrange & Act
+            string additionalAttribute1Name = "additional1";
+            string additionalAttribute1Value = "additional1-value";
+            string additionalAttribute2Name = "additional2";
+            string additionalAttribute2Value = "additional2-value";
+            TestContext.JSInterop.SetupModule(
+                "./_content/Microsoft.Fast.Components.FluentUI/Components/Anchor/FluentAnchor.razor.js");
+            IRenderedComponent<FluentUI.FluentAnchor> cut = TestContext.RenderComponent<FluentUI.FluentAnchor>(
+                parameters => parameters
+                    .Add(p => p.Href, "https://fast.design")
+                    .AddUnmatched(additionalAttribute1Name, additionalAttribute1Value)
+                    .AddUnmatched(additionalAttribute2Name, additionalAttribute2Value)
+                    .AddChildContent("click me!"));
+
+            // Assert
+            cut.MarkupMatches("<fluent-anchor " +
+                              "href=\"https://fast.design\" " +
+                              "appearance=\"neutral\" " +
+                              $"{additionalAttribute1Name}=\"{additionalAttribute1Value}\" " +
+                              $"{additionalAttribute2Name}=\"{additionalAttribute2Value}\"> " +
                               "click me!" +
                               "</fluent-anchor>");
         }
