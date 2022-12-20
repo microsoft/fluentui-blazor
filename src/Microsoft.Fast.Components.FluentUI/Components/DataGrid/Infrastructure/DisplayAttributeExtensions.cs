@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
 internal static class DisplayAttributeExtensions
 {
 
-    public static string? GetDisplayAttributeString(this Type itemType, string propertyName)
+    public static string? GetDisplayAttributeString([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] this Type itemType, string propertyName)
     {
         PropertyInfo? propertyInfo = itemType.GetProperty(propertyName);
         //if (PropertyInfo == null && typeof(ICustomTypeProvider).IsAssignableFrom(itemType))
@@ -23,8 +24,8 @@ internal static class DisplayAttributeExtensions
             return DisplayAtt.GetName();
         else
         {
-            var metadata = itemType.GetCustomAttribute(typeof(MetadataTypeAttribute)) as MetadataTypeAttribute;
-            if (metadata != null)
+            MetadataTypeAttribute? metadata = itemType.GetCustomAttribute(typeof(MetadataTypeAttribute)) as MetadataTypeAttribute;
+            if (metadata is not null)
                 return metadata.MetadataClassType.GetDisplayAttributeString(propertyName);
         }
         return null;

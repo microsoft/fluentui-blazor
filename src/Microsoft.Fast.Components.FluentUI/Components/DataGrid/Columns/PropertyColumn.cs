@@ -44,6 +44,7 @@ public class PropertyColumn<TGridItem, TValue> : ColumnBase<TGridItem>, IBindabl
 
     GridSort<TGridItem>? ISortBuilderColumn<TGridItem>.SortBuilder => _sortBuilder;
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Trimming", "IL2072:Target parameter argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The return value of the source method does not have matching annotations.", Justification = "'DynamicallyAccessedMembersAttribute' cannot be added to overriden method")]
     /// <inheritdoc />
     protected override void OnParametersSet()
     {
