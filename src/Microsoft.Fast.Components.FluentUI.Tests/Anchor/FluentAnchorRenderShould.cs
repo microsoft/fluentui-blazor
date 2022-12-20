@@ -235,6 +235,18 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.Anchor
                               "click me!" +
                               "</fluent-anchor>");
         }
+        
+        [Fact]
+        public void RenderProperly_Without_ChildContent()
+        {
+            // Arrange
+            TestContext.JSInterop.SetupModule(
+                "./_content/Microsoft.Fast.Components.FluentUI/Components/Anchor/FluentAnchor.razor.js");
+            IRenderedComponent<FluentUI.FluentAnchor> cut = TestContext.RenderComponent<FluentUI.FluentAnchor>();
+
+            // Assert
+            cut.MarkupMatches("<fluent-anchor appearance=\"neutral\"></fluent-anchor>");
+        }
 
         [Fact]
         public void RenderProperly_WithAdditionalCSSClass()
