@@ -18,7 +18,7 @@
         [Display(Name="Identity")]
         public int PersonId { get; set; }
 
-        [Display(Name = "FullName")]
+        [Display(Name = "Full name")]
         public string Name { get; set; }
 
         [Display(Name = "Birth date")]

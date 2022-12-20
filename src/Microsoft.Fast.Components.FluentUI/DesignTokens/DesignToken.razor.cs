@@ -6,11 +6,14 @@ namespace Microsoft.Fast.Components.FluentUI.DesignTokens;
 
 public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisposable
 {
-    private Lazy<IJSObjectReference> _jsModule = new();
+    private IJSObjectReference _jsModule = default!;
+    private static string scriptSource = string.Empty;
+
     private Reference Target { get; set; } = new Reference();
 
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
+
 
     [Inject]
     private IConfiguration Configuration { get; set; } = default!;
@@ -50,30 +53,38 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
         JSRuntime = jsRuntime;
         Configuration = configuration;
 
-        //Initialize();
+        Initialize();
+    }
+
+    /// <summary>
+    /// Determine the right source for the web components script 
+    /// </summary>
+    private void Initialize()
+    {
+        if (string.IsNullOrEmpty(scriptSource))
+        {
+            scriptSource = Configuration["FluentWebComponentsScriptSource"] ?? "https://cdn.jsdelivr.net/npm/@fluentui/web-components/dist/web-components.min.js";
+        }
     }
 
     /// <inheritdoc/>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender && Value is not null)
+        if (firstRender)
         {
-            await WaitForReference();
+            await InitJSReference();
 
-            await SetValueFor(Target.Current, Value);
-            StateHasChanged();
+            if (Value is not null)
+            {
+                await SetValueFor(Target.Current, Value);
+                StateHasChanged();
+            }
         }
     }
 
-    private async Task WaitForReference()
+    private async Task InitJSReference()
     {
-        if (_jsModule.IsValueCreated is false)
-        {
-            string scriptSource = Configuration["FluentWebComponentsScriptSource"] ?? "https://cdn.jsdelivr.net/npm/@fluentui/web-components/dist/web-components.min.js";
-
-            _jsModule = new(await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-                scriptSource));
-        }
+        _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", scriptSource);
     }
 
     /// <summary>
@@ -85,16 +96,15 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
         return this;
     }
 
-    //ToDo Create method
-    ///// <summary>
-    ///// Create a new token
-    ///// </summary>
-    ///// /// <param name="name">The name of the Design Token</param>
-    //public async ValueTask<DesignToken<T>> Create(string name)
-    //{
-    //    await WaitForReference();
-    //    return await _jsModule.Value.InvokeAsync<DesignToken<T>>("DesignToken.create", name);
-    //}
+    /// <summary>
+    /// Create a new token
+    /// </summary>
+    /// <param name="name">The name of the Design Token</param>
+    public async ValueTask<DesignToken<T>> Create(string name)
+    {
+        await InitJSReference();
+        return await _jsModule.InvokeAsync<DesignToken<T>>("DesignToken.create", name);
+    }
 
     /// <summary>
     /// Sets the value of the for the associated <see cref="ElementReference"/> to the supplied value
@@ -104,8 +114,8 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
     /// <returns></returns>
     public async ValueTask SetValueFor(ElementReference element, T value)
     {
-        await WaitForReference();
-        await _jsModule.Value.InvokeVoidAsync(Name + ".setValueFor", element, value);
+        await InitJSReference();
+        await _jsModule.InvokeVoidAsync(Name + ".setValueFor", element, value);
     }
 
     /// <summary>
@@ -115,8 +125,8 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
     /// <returns></returns>
     public async ValueTask DeleteValueFor(ElementReference element)
     {
-        await WaitForReference();
-        await _jsModule.Value.InvokeVoidAsync(Name + ".deleteValueFor", element);
+        await InitJSReference();
+        await _jsModule.InvokeVoidAsync(Name + ".deleteValueFor", element);
     }
 
     /// <summary>
@@ -126,8 +136,8 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
     /// <returns>the value</returns>
     public async ValueTask<T> GetValueFor(ElementReference element)
     {
-        await WaitForReference();
-        return await _jsModule.Value.InvokeAsync<T>(Name + ".getValueFor", element);
+        await InitJSReference();
+        return await _jsModule.InvokeAsync<T>(Name + ".getValueFor", element);
     }
 
     /// <summary>
@@ -136,18 +146,19 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
     /// <returns>the value</returns>
     public async ValueTask<object> ParseColorHex(string color)
     {
-        await WaitForReference();
-        return await _jsModule.Value.InvokeAsync<object>("parseColorHexRGB", color);
+        await InitJSReference();
+        return await _jsModule.InvokeAsync<object>("parseColorHexRGB", color);
     }
 
     public async ValueTask DisposeAsync()
     {
         try
         {
-            if (_jsModule.IsValueCreated)
+            if (_jsModule is not null)
             {
-                await _jsModule.Value.DisposeAsync();
+                await _jsModule.DisposeAsync();
             }
+
         }
         catch (JSDisconnectedException)
         {
