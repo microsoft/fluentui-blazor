@@ -1,5 +1,5 @@
 ﻿<div>
-    <BaseLayerLuminance Value="(float?)0.23">
+    <BaseLayerLuminance Value="0.23f">
         <FluentCard BackReference="@context">
             <div class="contents" style="display: grid;">
                 <p>Dark</p>
