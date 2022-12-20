@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.FluentAnchor
+namespace Microsoft.Fast.Components.FluentUI.Tests.Anchor
 {
     public class FluentAnchorRenderShould : TestBase
     {
