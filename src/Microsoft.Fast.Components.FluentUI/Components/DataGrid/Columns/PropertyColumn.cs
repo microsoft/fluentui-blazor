@@ -1,6 +1,6 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
-
+using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using System.Reflection;
 using Microsoft.AspNetCore.Components;
@@ -44,8 +44,9 @@ public class PropertyColumn<TGridItem, TValue> : ColumnBase<TGridItem>, IBindabl
 
     GridSort<TGridItem>? ISortBuilderColumn<TGridItem>.SortBuilder => _sortBuilder;
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Trimming", "IL2072:Target parameter argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The return value of the source method does not have matching annotations.", Justification = "'DynamicallyAccessedMembersAttribute' cannot be added to overriden method")]
     /// <inheritdoc />
+    [SuppressMessage("Trimming", "IL2072:Target parameter argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The return value of the source method does not have matching annotations.", Justification = "'DynamicallyAccessedMembersAttribute' cannot be added to overriden method")]
+
     protected override void OnParametersSet()
     {
         // We have to do a bit of pre-processing on the lambda expression. Only do that if it's new or changed.

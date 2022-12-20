@@ -11,7 +11,7 @@ namespace Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
 internal static class DisplayAttributeExtensions
 {
 
-    public static string? GetDisplayAttributeString([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] this Type itemType, string propertyName)
+    public static string? GetDisplayAttributeString([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] this Type itemType, string propertyName)
     {
         PropertyInfo? propertyInfo = itemType.GetProperty(propertyName);
         //if (PropertyInfo == null && typeof(ICustomTypeProvider).IsAssignableFrom(itemType))
@@ -19,13 +19,12 @@ internal static class DisplayAttributeExtensions
         if (propertyInfo == null)
             return null;
 
-        DisplayAttribute? DisplayAtt = propertyInfo.GetCustomAttributes(typeof(DisplayAttribute), true).FirstOrDefault() as DisplayAttribute;
-        if (DisplayAtt is not null)
-            return DisplayAtt.GetName();
+        DisplayAttribute? displayAttribute = propertyInfo.GetCustomAttributes(typeof(DisplayAttribute), true).FirstOrDefault() as DisplayAttribute;
+        if (displayAttribute is not null)
+            return displayAttribute.GetName();
         else
         {
-            MetadataTypeAttribute? metadata = itemType.GetCustomAttribute(typeof(MetadataTypeAttribute)) as MetadataTypeAttribute;
-            if (metadata is not null)
+            if (itemType.GetCustomAttribute(typeof(MetadataTypeAttribute)) is MetadataTypeAttribute metadata)
                 return metadata.MetadataClassType.GetDisplayAttributeString(propertyName);
         }
         return null;
