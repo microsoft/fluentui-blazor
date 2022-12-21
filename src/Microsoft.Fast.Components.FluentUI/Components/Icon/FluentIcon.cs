@@ -127,70 +127,42 @@ public partial class FluentIcon : FluentComponentBase
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        string result;
+        string? result;
 
-        if (!string.IsNullOrEmpty(_iconUrl) && !string.IsNullOrEmpty(_iconUrlFallback))
+        if (!string.IsNullOrEmpty(_iconUrl))
         {
-            HttpRequestMessage? message = CreateMessage(_iconUrl);
-            // Get the result from the cache
-            result = await CacheStorageAccessor.GetAsync(message);
-
+            result = await StaticAssetService.GetAsync(_iconUrl);
             if (string.IsNullOrEmpty(result))
             {
-                //It is not in the cache, get it from the StaticAssetService (download)
-                HttpResponseMessage? response = await StaticAssetService.HttpClient.SendAsync(message);
+                _iconUrlFallback = $"{ICON_ROOT}/{_folder}/{ComposedName}.svg";
+                result = await StaticAssetService.GetAsync(_iconUrlFallback);
 
-                // If unsuccessful, try with the fallback url. Maybe a non existing neutral culture was specified
-                if (!response.IsSuccessStatusCode && _iconUrl != _iconUrlFallback && firstRender)
+                if (string.IsNullOrEmpty(result))
                 {
-                    message = CreateMessage(_iconUrlFallback);
-
-                    // Check if fallback exists in cache
-                    result = await CacheStorageAccessor.GetAsync(message);
-                    if (string.IsNullOrEmpty(result))
-                    {
-                        // If not in cache, get it from the StaticAssetService (download)
-                        response = await StaticAssetService.HttpClient.SendAsync(message);
-
-                        if (response.IsSuccessStatusCode)
-                            // Store the response in the cache and get the result
-                            result = await CacheStorageAccessor.PutAndGetAsync(message, response);
-                        else
-                        {
-
-                            result = string.Empty;
-                        }
-                    }
-                }
-                else
-                {
-                    // Store the response in the cache and get the result
-                    result = await CacheStorageAccessor.PutAndGetAsync(message, response);
+                    return;
                 }
             }
 
-            if (!string.IsNullOrEmpty(result))
+            result = result.Replace("<path ", $"<path fill=\"{_color}\"");
+
+            string pattern = "<svg (?<attributes>.*?)>(?<path>.*?)</svg>";
+            Regex regex = new(pattern);
+            MatchCollection matches = regex.Matches(result);
+            Match? match = matches.FirstOrDefault();
+
+            if (match is not null)
+                result = match.Groups["path"].Value;
+
+
+            if (_prevResult != result)
             {
-                result = result.Replace("<path ", $"<path fill=\"{_color}\"");
+                _svg = result;
+                _prevResult = result;
+                _size = Convert.ToInt32(Size);
 
-                string pattern = "<svg (?<attributes>.*?)>(?<path>.*?)</svg>";
-                Regex regex = new(pattern);
-                MatchCollection matches = regex.Matches(result);
-                Match? match = matches.FirstOrDefault();
-
-                if (match is not null)
-                    result = match.Groups["path"].Value;
-
-
-                if (_prevResult != result)
-                {
-                    _svg = result;
-                    _prevResult = result;
-                    _size = Convert.ToInt32(Size);
-
-                    StateHasChanged();
-                }
+                StateHasChanged();
             }
+
         }
 
 

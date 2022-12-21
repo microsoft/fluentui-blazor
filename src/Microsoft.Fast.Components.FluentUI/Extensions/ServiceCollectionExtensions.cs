@@ -9,8 +9,9 @@ public static class ServiceCollectionExtensions
     public static void AddFluentUIComponents(this IServiceCollection services)
     {
         services.AddScoped<GlobalState>();
-        services.AddScoped<StaticAssetService>();
         services.AddScoped<CacheStorageAccessor>();
+        services.AddScoped<StaticAssetService>();
+        services.AddHttpClient("staticassetservice");
         services.AddDesignTokens();
     }
 }
