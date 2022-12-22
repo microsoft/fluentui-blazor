@@ -23,10 +23,10 @@ public static class EnumExtensions
         FieldInfo? fieldInfo = value.GetType().GetField(value.ToString() ?? "");
         if (fieldInfo != null)
         {
-            object[]? attrs = fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), true);
-            if (attrs?.Length > 0)
+            object[]? attributes = fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), true);
+            if (attributes?.Length > 0)
             {
-                description = ((DescriptionAttribute)attrs[0]).Description;
+                description = ((DescriptionAttribute)attributes[0]).Description;
             }
         }
 
