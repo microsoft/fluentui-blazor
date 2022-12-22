@@ -27,6 +27,8 @@ To get started using the Fluent UI Web Components for Blazor, you will first nee
 dotnet add package Microsoft.Fast.Components.FluentUI
 ```
 
+### Scripts
+
 Next, you need to add the web components script. You can either add the script from CDN directly, or you can install it with NPM, whichever you prefer.
 
 To add the script from CDN use the following markup:
@@ -61,16 +63,25 @@ Copy this to your `wwwroot/script` folder and reference it with a script tag as 
 >
 > If you are setting up Fluent UI Web Components on a Blazor Server project, you will need to escape the `@` character by repeating it in the source link. For more information check out the [Razor Pages syntax documentation](https://docs.microsoft.com/aspnet/core/mvc/views/razor).
 
+### Styles
+In order for this library to work as expected, you will need to add to your `index.html` or `_Layout.cshtml` a line that includes the composed scoped CSS for the components. This can be done by adding the following line to the `<head>` section of your `index.html` or `_Layout.cshtml` file:
+
+```html
+<link href="MyApp.Client.styles.css" rel="stylesheet" /> 
+```
+
+It is possible that the line is already there (but commented out) if you are using the Blazor WebAssembly template. If you are using the Blazor Server template, you will need to add it yourself.
+
+### Code
+
 In your Program.cs file you need to add the following:
 ```csharp
 builder.Services.AddFluentUIComponents();
 ```
 
-if you are using Blazor Server, you need to make sure the `HttpClient` service is added:
+This addition makes sure a `HttpClient` is set up for when you are using the library in Blazor Server.
 
-```csharp
-builder.Services.AddHttpClient();
-```
+
 
 ### Using the FluentUI Web Components
 
