@@ -70,7 +70,28 @@ In order for this library to work as expected, you will need to add to your `ind
 <link href="MyApp.Client.styles.css" rel="stylesheet" /> 
 ```
 
-It is possible that the line is already there (but commented out) if you are using the Blazor WebAssembly template. If you are using the Blazor Server template, you will need to add it yourself.
+It is possible that the line is already there (but commented out) if you used the Blazor WebAssembly template. If you are using the Blazor Server template, you will need to add it yourself.
+
+#### Reboot
+
+ Reboot is a collection of element-specific CSS changes in a single file to help kickstart building a site with the Fluent UI Web 
+ components for Blazor. It provides an elegant, consistent, and simple baseline to build upon.
+
+If you want to use Reboot, you'll need to include it in your `index.html` or `_Layout.cshtml` file like this:
+
+```html    
+<link href="_content/Microsoft.Fast.Components.FluentUI/css/reboot.css" rel="stylesheet" />
+```    
+
+It is entirely possible to build a site without using Reboot. If you choose not to use it, please do add the `variables.css` file (which is otherwise imported through the `reboot.css` file) 
+to your `index.html` or `_Layout.cshtml` file like this:
+
+```html
+<link href="_content/Microsoft.Fast.Components.FluentUI/css/variables.css" rel="stylesheet" />
+```
+
+The file contains a number of CSS variables that are required to be defined for the components to work correctly. 
+
 
 ### Code
 
