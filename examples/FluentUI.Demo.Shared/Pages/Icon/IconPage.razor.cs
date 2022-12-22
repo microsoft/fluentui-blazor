@@ -18,6 +18,7 @@ public partial class IconPage : IAsyncDisposable
     private EditContext? editContext;
     private List<IconModel>? icons = new();
     private int totalCount = 0;
+    private int maxResults = 50;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -74,7 +75,7 @@ public partial class IconPage : IAsyncDisposable
         icons = searcher.WithName(Form.Searchterm)
             .AsVariant(variant)
             .WithSize(Form.Size)
-            .ToList();
+            .ToList(maxResults);
 
         totalCount = searcher.ResultCount();
 
