@@ -33,7 +33,7 @@ public class FluentIconSearcher
     public FluentIconSearcher WithName(string? searchterm)
     {
 
-        if (!string.IsNullOrWhiteSpace(searchterm) && searchterm.Length > 2)
+        if (!string.IsNullOrWhiteSpace(searchterm) && searchterm.Length >= 2)
         {
             iconList ??= FluentIcons.IconMap;
 
@@ -46,8 +46,16 @@ public class FluentIconSearcher
     public List<IconModel>? ToList(int count = 50)
     {
         if (iconList is null)
-            return new List<IconModel>();
+            return new();
         else
             return iconList?.Take(count).OrderBy(x=>x.Folder).ToList();
+    }
+
+    public int ResultCount()
+    {
+        if (iconList is null)
+            return 0;
+        else
+            return iconList.Count();
     }
 }

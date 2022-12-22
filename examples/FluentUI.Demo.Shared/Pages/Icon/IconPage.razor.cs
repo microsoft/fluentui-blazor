@@ -16,7 +16,8 @@ public partial class IconPage : IAsyncDisposable
     private IJSObjectReference? _jsModule;
 
     private EditContext? editContext;
-    List<IconModel>? icons = new();
+    private List<IconModel>? icons = new();
+    private int totalCount = 0;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -74,6 +75,8 @@ public partial class IconPage : IAsyncDisposable
             .AsVariant(variant)
             .WithSize(Form.Size)
             .ToList();
+
+        totalCount = searcher.ResultCount();
 
         StateHasChanged();
     }
