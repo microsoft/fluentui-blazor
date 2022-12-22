@@ -420,7 +420,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     private string AriaSortValue(ColumnBase<TGridItem> column)
     {
-        Nullable<System.ComponentModel.ListSortDirection> sortDirection = null;
+        ListSortDirection? sortDirection = null;
         if (_sortableColumns.Any(a => a == column && ((ISortableColumn<TGridItem>)a).SortDirection.HasValue))
         {
             sortDirection = ((ISortableColumn<TGridItem>)column).SortDirection!.Value;
@@ -430,7 +430,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     private string? ColumnHeaderClass(ColumnBase<TGridItem> column)
     {
-        Nullable<System.ComponentModel.ListSortDirection> sortDirection = null;
+        ListSortDirection? sortDirection = null;
         if (_sortableColumns.Any(a => a == column && ((ISortableColumn<TGridItem>)a).SortDirection.HasValue))
         {
             sortDirection = ((ISortableColumn<TGridItem>)column).SortDirection!.Value;

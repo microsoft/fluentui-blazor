@@ -13,7 +13,7 @@ public interface ISortableColumn<TGridItem>
     ///  datagrid calcuated value of this property every time that sort changed.
     ///  dont use it for
     /// </summary>
-    public Nullable<ListSortDirection> SortDirection { get; set; }
+    public ListSortDirection? SortDirection { get; set; }
 
     /// <summary>
     ///  datagrid calcuated value of this property every time that sort changed.

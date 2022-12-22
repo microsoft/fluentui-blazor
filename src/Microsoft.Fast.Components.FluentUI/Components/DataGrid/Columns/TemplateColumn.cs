@@ -23,7 +23,7 @@ public class TemplateColumn<TGridItem, TValue> : ColumnBase<TGridItem>, ISortabl
     public Expression<Func<TGridItem, TValue>>? SortProperty { get; set; }
 
     /// <inheritdoc />
-    public Nullable<ListSortDirection> SortDirection { get; set; }
+    public ListSortDirection? SortDirection { get; set; }
 
     /// <inheritdoc />
     public short SortOrder { get; set; }
