@@ -99,7 +99,16 @@
 
 @if (icons?.Count > 0)
 {
-    <p style="padding: 1rem 0;">In the results below, click on an icon card to copy a 'ready-to-paste' <code>FluentIcon</code> component to the clipboard. </p>
+    <p style="padding: 1rem 0;">
+        In the results below, click on an icon card to copy a 'ready-to-paste' <code>FluentIcon</code> component to the clipboard.     
+    </p>
+    <p style="padding: 1rem 0;">
+        <strong>@totalCount</strong> icons found.
+        @if (totalCount > maxResults)
+        {
+            <em>Only the first @maxResults results are shown.</em>
+        }
+    </p>
 }
 <div id="filled" data-is-scrollable="true" style="overflow-y:auto;height:600px;">
     <div style="display:flex;flex-flow: row wrap;">

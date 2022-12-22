@@ -12,6 +12,5 @@ public interface IDesignToken<T>
     ValueTask SetValueFor(ElementReference element, T value);
     DesignToken<T> WithDefault(T value);
 
-    //ToDo
-    //ValueTask<DesignToken<T>> Create(string name);
+    ValueTask<DesignToken<T>> Create(string name);
 }

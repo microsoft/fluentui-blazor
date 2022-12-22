@@ -2327,6 +2327,11 @@
             Constructs an instance of a DesignToken.
             </summary>
         </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.DesignToken`1.Initialize">
+            <summary>
+            Determine the right source for the web components script 
+            </summary>
+        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.DesignToken`1.OnAfterRenderAsync(System.Boolean)">
             <inheritdoc/>
         </member>
@@ -2334,6 +2339,12 @@
             <summary>
             Sets the default value of this token
             </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.DesignToken`1.Create(System.String)">
+            <summary>
+            Create a new token
+            </summary>
+            <param name="name">The name of the Design Token</param>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.DesignToken`1.SetValueFor(Microsoft.AspNetCore.Components.ElementReference,`0)">
             <summary>
