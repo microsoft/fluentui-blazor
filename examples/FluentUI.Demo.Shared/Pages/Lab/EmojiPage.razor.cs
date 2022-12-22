@@ -15,9 +15,10 @@ public partial class EmojiPage : IAsyncDisposable
     private IJSRuntime JSRuntime { get; set; } = default!;
 
     private IJSObjectReference? _jsModule;
-
     private EditContext? editContext;
-    List<EmojiModel>? emojis = new();
+    private List<EmojiModel>? emojis = new();
+    private int totalCount = 0;
+    private int maxResults = 50;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -79,8 +80,10 @@ public partial class EmojiPage : IAsyncDisposable
                 .InGroup(Form.Group)
                 .WithStyle(Form.Style)
                 .WithSkintone(Form.Skintone)
-                .ToList();
-        
+                .ToList(maxResults);
+
+        totalCount = searcher.ResultCount();
+
         StateHasChanged();
     }
 

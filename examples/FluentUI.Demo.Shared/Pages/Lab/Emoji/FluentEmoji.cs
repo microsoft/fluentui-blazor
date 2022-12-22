@@ -110,48 +110,31 @@ public partial class FluentEmoji : FluentComponentBase
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        string result;
+        string? result;
 
-        if (!string.IsNullOrEmpty(_emojiUrl) )
+        if (!string.IsNullOrEmpty(_emojiUrl))
         {
-            HttpRequestMessage? message = CreateMessage(_emojiUrl);
-            // Get the result from the cache
-            result = await CacheStorageAccessor.GetAsync(message);
-
+            result = await StaticAssetService.GetAsync(_emojiUrl);
             if (string.IsNullOrEmpty(result))
+                return;
+
+            Regex regex = new("<svg (?<attributes>.*?)>(?<payload>.*?)</svg>", RegexOptions.Singleline);
+
+            MatchCollection matches = regex.Matches(result);
+            Match? match = matches.FirstOrDefault();
+            if (match is not null)
             {
-                //It is not in the cache, get it from the StaticAssetService (download)
-                HttpResponseMessage? response = await StaticAssetService.HttpClient.SendAsync(message);
-
-
-                if (response.IsSuccessStatusCode)
-                {
-                    // Store the response in the cache and get the result
-                    result = await CacheStorageAccessor.PutAndGetAsync(message, response);
-                }
-                else
-                    result = string.Empty;
+                result = match.Groups["payload"].Value;
             }
 
-            if (!string.IsNullOrEmpty(result))
+            if (_prevResult != result)
             {
-                Regex regex = new("<svg (?<attributes>.*?)>(?<payload>.*?)</svg>", RegexOptions.Singleline);
+                _svg = result;
+                _prevResult = result;
 
-                MatchCollection matches = regex.Matches(result);
-                Match? match = matches.FirstOrDefault();
-                if (match is not null)
-                {
-                    result = match.Groups["payload"].Value;
-                }
-
-                if (_prevResult != result)
-                {
-                    _svg = result;
-                    _prevResult = result;
-
-                    StateHasChanged();
-                }
+                StateHasChanged();
             }
+
         }
     }
 

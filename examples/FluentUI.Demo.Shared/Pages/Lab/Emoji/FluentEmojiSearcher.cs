@@ -44,7 +44,7 @@ public class FluentEmojiSearcher
     public FluentEmojiSearcher WithName(string? searchterm)
     {
 
-        if (!string.IsNullOrWhiteSpace(searchterm) && searchterm.Length > 2)
+        if (!string.IsNullOrWhiteSpace(searchterm) && searchterm.Length >= 2)
         {
             emojiList ??= FluentEmojis.EmojiMap;
             
@@ -60,5 +60,13 @@ public class FluentEmojiSearcher
             return new List<EmojiModel>();
         else
             return emojiList?.Take(count).OrderBy(x => x.Folder).ToList();
+    }
+
+    public int ResultCount()
+    {
+        if (emojiList is null)
+            return 0;
+        else
+            return emojiList.Count();
     }
 }
