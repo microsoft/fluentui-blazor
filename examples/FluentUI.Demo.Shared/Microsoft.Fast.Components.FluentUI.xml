@@ -640,6 +640,22 @@
             </summary>
             <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
         </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.ColumnBase`1._isSortableByDefault">
+             <summary>
+             Get a value indicating whether this column should act as sortable if no value was set for the
+             <see cref="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.Sortable" /> parameter. The default behavior is not to be
+             sortable unless <see cref="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.Sortable" /> is true.
+            
+             Derived components may override this to implement alternative default sortability rules.
+             </summary>
+             <returns>True if the column should be sortable by default, otherwise false.</returns>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.headerOptionsComponentHolder">
+            <summary>
+            column options component rendered dynamically. this property contains an instance of dynamic component generator. 
+            then we can access generated component with <see cref="P:Microsoft.AspNetCore.Components.DynamicComponent.Instance"/>
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.Title">
             <summary>
             Title text for the column. This is rendered automatically if <see cref="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.HeaderCellItemTemplate" /> is not used.
@@ -675,11 +691,11 @@
              <summary>
              Indicates whether the data should be sortable by this column.
             
-             The default value may vary according to the column type (for example, a <see cref="T:Microsoft.Fast.Components.FluentUI.TemplateColumn`1" />
-             is sortable by default if any <see cref="P:Microsoft.Fast.Components.FluentUI.TemplateColumn`1.SortBy" /> parameter is specified).
+             The default value may vary according to the column type (for example, a <see cref="T:Microsoft.Fast.Components.FluentUI.TemplateColumn`2" />
+             is sortable by default if any <see cref="P:Microsoft.Fast.Components.FluentUI.TemplateColumn`2.SortProperty" /> parameter is specified).
              </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.IsDefaultSort">
+        <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.DefaultSort">
             <summary>
             If specified and not null, indicates that this column represents the initial sort order
             for the grid. The supplied value controls the default sort direction.
@@ -725,68 +741,14 @@
             Constructs an instance of <see cref="T:Microsoft.Fast.Components.FluentUI.ColumnBase`1" />.
             </summary>
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.GridSort`1">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ColumnBase`1.SortChanged">
             <summary>
-            Represents a sort order specification used within <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/>.
+            when sort direction of any column changed,datagrid will call this function to apply new sort
             </summary>
-            <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.GridSort`1.ByAscending``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ColumnBase`1.CloseFilter">
             <summary>
-            Produces a <see cref="T:Microsoft.Fast.Components.FluentUI.GridSort`1"/> instance that sorts according to the specified <paramref name="expression"/>, ascending.
-            </summary>
-            <typeparam name="U">The type of the expression's value.</typeparam>
-            <param name="expression">An expression defining how a set of <typeparamref name="TGridItem"/> instances are to be sorted.</param>
-            <returns>A <see cref="T:Microsoft.Fast.Components.FluentUI.GridSort`1"/> instance representing the specified sorting rule.</returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.GridSort`1.ByAscending``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Collections.Generic.IComparer{``0})">
-            <summary>
-            Produces a <see cref="T:Microsoft.Fast.Components.FluentUI.GridSort`1"/> instance that sorts according to the specified <paramref name="expression"/> 
-            using the specified <paramref name="comparer"/>, ascending.
-            </summary>
-            <typeparam name="U">The type of the expression's value.</typeparam>
-            <param name="expression">An expression defining how a set of <typeparamref name="TGridItem"/> instances are to be sorted.</param>
-            <param name="comparer">Defines how a items in a set of <typeparamref name="TGridItem"/> instances are to be compared.</param>
-            <returns>A <see cref="T:Microsoft.Fast.Components.FluentUI.GridSort`1"/> instance representing the specified sorting rule.</returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.GridSort`1.ByDescending``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
-            <summary>
-            Produces a <see cref="T:Microsoft.Fast.Components.FluentUI.GridSort`1"/> instance that sorts according to the specified <paramref name="expression"/>, descending.
-            </summary>
-            <typeparam name="U">The type of the expression's value.</typeparam>
-            <param name="expression">An expression defining how a set of <typeparamref name="TGridItem"/> instances are to be sorted.</param>
-            <returns>A <see cref="T:Microsoft.Fast.Components.FluentUI.GridSort`1"/> instance representing the specified sorting rule.</returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.GridSort`1.ThenAscending``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
-            <summary>
-            Updates a <see cref="T:Microsoft.Fast.Components.FluentUI.GridSort`1"/> instance by appending a further sorting rule.
-            </summary>
-            <typeparam name="U">The type of the expression's value.</typeparam>
-            <param name="expression">An expression defining how a set of <typeparamref name="TGridItem"/> instances are to be sorted.</param>
-            <returns>A <see cref="T:Microsoft.Fast.Components.FluentUI.GridSort`1"/> instance representing the specified sorting rule.</returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.GridSort`1.ThenDescending``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
-            <summary>
-            Updates a <see cref="T:Microsoft.Fast.Components.FluentUI.GridSort`1"/> instance by appending a further sorting rule.
-            </summary>
-            <typeparam name="U">The type of the expression's value.</typeparam>
-            <param name="expression">An expression defining how a set of <typeparamref name="TGridItem"/> instances are to be sorted.</param>
-            <returns>A <see cref="T:Microsoft.Fast.Components.FluentUI.GridSort`1"/> instance representing the specified sorting rule.</returns>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.ISortBuilderColumn`1">
-             <summary>
-             An interface that, if implemented by a <see cref="T:Microsoft.Fast.Components.FluentUI.ColumnBase`1"/> subclass, allows a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/>
-             to understand the sorting rules associated with that column.
-            
-             If a <see cref="T:Microsoft.Fast.Components.FluentUI.ColumnBase`1"/> subclass does not implement this, that column can still be marked as sortable and can
-             be the current sort column, but its sorting logic cannot be applied to the data queries automatically. The developer would be
-             responsible for implementing that sorting logic separately inside their <see cref="T:Microsoft.Fast.Components.FluentUI.GridItemsProvider`1"/>.
-             </summary>
-             <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ISortBuilderColumn`1.SortBuilder">
-            <summary>
-            Gets the sorting rules associated with the column.
+            Close column options popup
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.PropertyColumn`2">
@@ -796,10 +758,11 @@
             <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
             <typeparam name="TValue">The type of the value being displayed in the column's cells.</typeparam>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.PropertyColumn`2.PropertyInfo">
+            <inheritdoc />
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.PropertyColumn`2.Property">
-            <summary>
-            Defines the value to be displayed in this column's cells.
-            </summary>
+            <inheritdoc />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.PropertyColumn`2.Format">
              <summary>
@@ -808,12 +771,14 @@
              Using this requires the <typeparamref name="TValue"/> type to implement <see cref="T:System.IFormattable" />.
              </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.PropertyColumn`2.Comparer">
-            <summary>
-            Optionally specifies how to compare values in this column when sorting.
-            
-            Using this requires the <typeparamref name="TValue"/> type to implement <see cref="T:System.IComparable`1"/>.
-            </summary>
+        <member name="P:Microsoft.Fast.Components.FluentUI.PropertyColumn`2.SortProperty">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.PropertyColumn`2.SortDirection">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.PropertyColumn`2.SortOrder">
+            <inheritdoc />
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.PropertyColumn`2.OnParametersSet">
             <inheritdoc />
@@ -821,26 +786,31 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.PropertyColumn`2.CellContent(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder,`0)">
             <inheritdoc />
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.TemplateColumn`1">
+        <member name="T:Microsoft.Fast.Components.FluentUI.TemplateColumn`2">
             <summary>
             Represents a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/> column whose cells render a supplied template.
             </summary>
             <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
+            <typeparam name="TValue">The type of property for sorting.</typeparam>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.TemplateColumn`1.ChildContent">
+        <member name="P:Microsoft.Fast.Components.FluentUI.TemplateColumn`2.SortProperty">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.TemplateColumn`2.SortDirection">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.TemplateColumn`2.SortOrder">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.TemplateColumn`2.ChildContent">
             <summary>
             Specifies the content to be rendered for each row in the table.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.TemplateColumn`1.SortBy">
-            <summary>
-            Optionally specifies sorting rules for this column.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.TemplateColumn`1.CellContent(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder,`0)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.TemplateColumn`2.CellContent(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder,`0)">
             <inheritdoc />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.TemplateColumn`1.IsSortableByDefault">
+        <member name="M:Microsoft.Fast.Components.FluentUI.TemplateColumn`2.IsSortableByDefault">
             <inheritdoc />
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1">
@@ -959,14 +929,6 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.OnParametersSetAsync">
             <inheritdoc />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.SortByColumnAsync(Microsoft.Fast.Components.FluentUI.ColumnBase{`0},Microsoft.Fast.Components.FluentUI.SortDirection)">
-            <summary>
-            Sets the grid's current sort column to the specified <paramref name="column"/>.
-            </summary>
-            <param name="column">The column that defines the new sort order.</param>
-            <param name="direction">The direction of sorting. If the value is <see cref="F:Microsoft.Fast.Components.FluentUI.SortDirection.Auto"/>, then it will toggle the direction on each call.</param>
-            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
-        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.ShowColumnOptions(Microsoft.Fast.Components.FluentUI.ColumnBase{`0})">
             <summary>
             Displays the <see cref="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.ColumnOptions"/> UI for the specified column, closing any other column
@@ -980,6 +942,13 @@
             (either <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowsData"/> or <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowsDataProvider"/>).
             </summary>
             <returns>A <see cref="T:System.Threading.Tasks.Task"/> that represents the completion of the operation.</returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.ApplySort(Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.ISortableColumn{`0})">
+            <summary>
+            apply sort to the specified <paramref name="column"/>.
+            </summary>
+            <param name="column">The column that defines the new sort order.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.DisposeAsync">
             <inheritdoc />
@@ -1055,20 +1024,12 @@
             If set, the maximum number of items to be supplied. If not set, the maximum number is unlimited.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.GridItemsProviderRequest`1.SortByColumn">
+        <member name="P:Microsoft.Fast.Components.FluentUI.GridItemsProviderRequest`1.SortByColumns">
              <summary>
-             Specifies which column represents the sort order.
+             Specifies which columns represents the sort order.
             
-             Rather than inferring the sort rules manually, you should normally call either <see cref="M:Microsoft.Fast.Components.FluentUI.GridItemsProviderRequest`1.ApplySorting(System.Linq.IQueryable{`0})"/>
-             or <see cref="M:Microsoft.Fast.Components.FluentUI.GridItemsProviderRequest`1.GetSortByProperties"/>, since they also account for <see cref="P:Microsoft.Fast.Components.FluentUI.GridItemsProviderRequest`1.SortByColumn" /> and <see cref="P:Microsoft.Fast.Components.FluentUI.GridItemsProviderRequest`1.SortByAscending" /> automatically.
-             </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.GridItemsProviderRequest`1.SortByAscending">
-             <summary>
-             Specifies the current sort direction.
-            
-             Rather than inferring the sort rules manually, you should normally call either <see cref="M:Microsoft.Fast.Components.FluentUI.GridItemsProviderRequest`1.ApplySorting(System.Linq.IQueryable{`0})"/>
-             or <see cref="M:Microsoft.Fast.Components.FluentUI.GridItemsProviderRequest`1.GetSortByProperties"/>, since they also account for <see cref="P:Microsoft.Fast.Components.FluentUI.GridItemsProviderRequest`1.SortByColumn" /> and <see cref="P:Microsoft.Fast.Components.FluentUI.GridItemsProviderRequest`1.SortByAscending" /> automatically.
+             Rather than inferring the sort rules manually, you should normally call either <see cref="M:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.ISortableColumn`1.ApplySort(System.Linq.IQueryable{`0},System.Boolean)"/>
+             since they also account for <see cref="P:Microsoft.Fast.Components.FluentUI.GridItemsProviderRequest`1.SortByColumns" /> automatically.
              </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.GridItemsProviderRequest`1.CancellationToken">
@@ -1080,20 +1041,11 @@
              <summary>
              Applies the request's sorting rules to the supplied <see cref="T:System.Linq.IQueryable`1"/>.
             
-             Note that this only works if the current <see cref="P:Microsoft.Fast.Components.FluentUI.GridItemsProviderRequest`1.SortByColumn"/> implements <see cref="T:Microsoft.Fast.Components.FluentUI.ISortBuilderColumn`1"/>,
+             Note that this only works if the current <see cref="P:Microsoft.Fast.Components.FluentUI.GridItemsProviderRequest`1.SortByColumns"/> implements <see cref="T:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.ISortableColumn`2"/>,
              otherwise it will throw.
              </summary>
              <param name="source">An <see cref="T:System.Linq.IQueryable`1"/>.</param>
              <returns>A new <see cref="T:System.Linq.IQueryable`1"/> representing the <paramref name="source"/> with sorting rules applied.</returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.GridItemsProviderRequest`1.GetSortByProperties">
-             <summary>
-             Produces a collection of (property name, direction) pairs representing the sorting rules.
-            
-             Note that this only works if the current <see cref="P:Microsoft.Fast.Components.FluentUI.GridItemsProviderRequest`1.SortByColumn"/> implements <see cref="T:Microsoft.Fast.Components.FluentUI.ISortBuilderColumn`1"/>,
-             otherwise it will throw.
-             </summary>
-             <returns>A collection of (property name, direction) pairs representing the sorting rules</returns>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.GridItemsProviderResult`1">
             <summary>
@@ -1143,15 +1095,71 @@
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.IBindableColumn">
             <summary>
-            a column that can bind to a property of model
+            A column that can bind to a property of model
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.IBindableColumn.PropertyInfo">
+            <summary>
+            provide information of the property of model that column binded to it
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.IBindableColumn`2">
             <summary>
-            a column that can bind to a property of model
+            A column that can bind to a property of model
             </summary>
-            <typeparam name="TItem">model item type</typeparam>
-            <typeparam name="TValue">type of property</typeparam>
+            <typeparam name="TItem">Model item type</typeparam>
+            <typeparam name="TValue">Type of property</typeparam>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.IBindableColumn`2.Property">
+            <summary>
+            defines the property of model that column binded to it
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.ISortableColumn`1">
+            <summary>
+            This interface used for internal purpose, Implement <see cref="T:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.ISortableColumn`2"/> instead.
+            </summary>
+            <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.ISortableColumn`1.SortDirection">
+            <summary>
+             datagrid calcuated value of this property every time that sort changed.
+             dont use it for
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.ISortableColumn`1.SortOrder">
+            <summary>
+             datagrid calcuated value of this property every time that sort changed.
+             dont use it for
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.ISortableColumn`1.ApplySort(System.Linq.IQueryable{`0},System.Boolean)">
+            <summary>
+            Datagrid call this function after sort of every column changed to
+            this function call for all sortable columns to apply sorting to datasource. <br />
+            custom columns can override this function, or simply call <see cref="M:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.SortProvider.ApplySort``2(Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.ISortableColumn{``0,``1},System.Linq.IQueryable{``0},System.Boolean)"/> 
+            </summary>
+            <param name="Source">source of datagrid</param>
+            <param name="IsFirst">if true, <see cref="T:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.SortProvider"/> use <see cref="M:System.Linq.Queryable.OrderBy``2(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}})"/>, or <see cref="M:System.Linq.Queryable.OrderByDescending``2(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}})"/>, otherwise use <see cref="M:System.Linq.Queryable.ThenBy``2(System.Linq.IOrderedQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}})"/> or <see cref="M:System.Linq.Queryable.ThenByDescending``2(System.Linq.IOrderedQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}})"/> based on sort direction </param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.ISortableColumn`2">
+             <summary>
+             An interface that, if implemented by a <see cref="T:Microsoft.Fast.Components.FluentUI.ColumnBase`1"/> subclass, allows a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/>
+             to understand the sorting rules associated with that column.
+            
+             If a <see cref="T:Microsoft.Fast.Components.FluentUI.ColumnBase`1"/> subclass does not implement this, that column does not marked as sortable and can
+             be the current sort column and its sorting logic cannot be applied to the data queries automatically. The developer would be
+             responsible for implementing that sorting logic separately inside their <see cref="T:Microsoft.Fast.Components.FluentUI.GridItemsProvider`1"/>.
+             </summary>
+             <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
+             <typeparam name="TValue">if  <see cref="P:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.ISortableColumn`2.SortProperty"/> does not provided, <see cref="P:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.IBindableColumn`2.Property"/> will used.</typeparam>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.ISortableColumn`2.SortProperty">
+            <summary>
+            Defines the property to use for sort functionality
+            if it is not provided, <see cref="P:Microsoft.Fast.Components.FluentUI.PropertyColumn`2.Property"/> used for sort.
+            </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.Defer">
             <summary>
@@ -1196,6 +1204,11 @@
             <typeparam name="T">The data type.</typeparam>
             <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> instance.</param>
             <returns>The items in the <paramref name="queryable"/>.</returns>.
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure.SortProvider">
+            <summary>
+            provides a sort order specification used within <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/>.
+            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDesignSystemProvider.ChildContent">
             <summary>
@@ -1351,6 +1364,25 @@
             <summary>
             Allows for capturing a mouse click on an icon
             </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentIcon.CheckRGBString">
+            <remarks>
+            Pattern explanation:<br/>
+            <code>
+            ○ Match with 2 alternative expressions, atomically.<br/>
+                ○ Match a sequence of expressions.<br/>
+                    ○ Match if at the beginning of the string.<br/>
+                    ○ Match '#'.<br/>
+                    ○ Match with 2 alternative expressions, atomically.<br/>
+                        ○ Match a character in the set [0-9A-Fa-f] exactly 6 times.<br/>
+                        ○ Match a character in the set [0-9A-Fa-f] exactly 3 times.<br/>
+                ○ Match a sequence of expressions.<br/>
+                    ○ Match the string "var(--".<br/>
+                    ○ Match a character other than '\n' greedily any number of times.<br/>
+                    ○ Match ')'.<br/>
+                    ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentCombobox`1.Autocomplete">
             <summary>
@@ -5759,28 +5791,6 @@
             The slider is in single selection mode
             </summary>
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.SortDirection">
-            <summary>
-            Describes the direction in which a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/> column is sorted.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.SortDirection.Ascending">
-            <summary>
-            Ascending order.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.SortDirection.Descending">
-            <summary>
-            Descending order.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.SortDirection.Auto">
-            <summary>
-            Automatic sort order. When used with <see cref="M:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.SortByColumnAsync(Microsoft.Fast.Components.FluentUI.ColumnBase{`0},Microsoft.Fast.Components.FluentUI.SortDirection)"/>,
-            the sort order will automatically toggle between <see cref="F:Microsoft.Fast.Components.FluentUI.SortDirection.Ascending"/> and <see cref="F:Microsoft.Fast.Components.FluentUI.SortDirection.Descending"/> on successive calls, and
-            resets to <see cref="F:Microsoft.Fast.Components.FluentUI.SortDirection.Ascending"/> whenever the specified column is changed.
-            </summary>
-        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.StandardLuminance">
             <summary>
             The standard luminance values for light and dark mode.
@@ -6226,6 +6236,47 @@
             <param name="value"></param>
             <param name="when"></param>
             <returns></returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.CheckRGBString_0">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the CheckRGBString method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.CheckRGBString_0.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_0.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.CheckRGBString_0.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_0.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.CheckRGBString_0.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_0.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_0.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.Utilities">
+            <summary>Helper methods used by generated <see cref="T:System.Text.RegularExpressions.Regex"/>-derived implementations.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout">
+            <summary>Default timeout value set in <see cref="T:System.AppContext"/>, or <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout"/> if none was set.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_hasTimeout">
+            <summary>Whether <see cref="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout"/> is non-infinite.</summary>
         </member>
     </members>
 </doc>

@@ -104,17 +104,11 @@
         foreach (var col in _columns)
         {
             string CellId = Identifier.NewId();
-            if (_sortByColumn == col || (_sortByColumn == col && col.IsDefaultSort != null))
-                col.ShowSortIcon = true;
-            else
-                col.ShowSortIcon = false;
+           
            
             <FluentDataGridCell GridColumn=@(colIndex++) CellType=DataGridCellType.ColumnHeader class="@("column-header " + @ColumnHeaderClass(col))" aria-sort="@AriaSortValue(col)" @key="@col" scope="col" TGridItem="TGridItem">
                 @col.HeaderContent
-                @if (col == _displayOptionsForColumn)
-                {
-                    <div class="col-options">@col.ColumnOptions</div>
-                }
+                
                 @if (ResizableColumns)
                 {
                     <FluentDivider class="col-width-draghandle" Orientation="Orientation.Vertical" Role="DividerRole.Separator" />

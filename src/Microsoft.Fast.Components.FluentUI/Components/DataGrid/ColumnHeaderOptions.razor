@@ -1,0 +1,49 @@
+﻿@using Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure
+@namespace Microsoft.Fast.Components.FluentUI
+@typeparam TGridItem
+@typeparam TValue
+
+@inherits ColumnHeaderOptionsBase<TGridItem>
+
+@if (OwnerColumn is not null)
+{
+    getPropertyType();
+
+    <FluentButton Appearance=Appearance.Stealth aria-haspopup="true" @onclick=openPopupClicked>
+        <FluentIcon Name="@FluentIcons.Filter" Size="IconSize.Size16" />
+    </FluentButton>
+
+    @if (dropDownIsOpen)
+    {
+        <div class="col-options">
+            @if (OwnerColumn.SortingIsEnable())
+            {
+                <div>
+                    <FluentButton Appearance="Appearance.Hypertext" @onclick=ApplySort>
+                        <FluentIcon Name="@FluentIcons.ArrowSortUp" />
+                        Ascending
+                    </FluentButton>
+                </div>
+                <div>
+                    <FluentButton Appearance="Appearance.Hypertext" @onclick=ApplySortDescending>
+                        <FluentIcon Name="@FluentIcons.ArrowSortDown" />
+                        Descending
+                    </FluentButton>
+                </div>
+                @if ((OwnerColumn as ISortableColumn<TGridItem>)!.SortDirection.HasValue)
+                {
+                    <div>
+                        <FluentButton Appearance="Appearance.Hypertext" @onclick=RemoveSort>
+                            <FluentIcon Name="@FluentIcons.ArrowSort" />
+                            @*<PresenceBadge Status="PresenceStatus.Offline" Size="BadgeSize.ExtraSmall">
+
+            </PresenceBadge>*@
+                            Remove Sort
+                        </FluentButton>
+                    </div>
+                }
+            }
+            @ChildContent
+        </div>
+    }
+}

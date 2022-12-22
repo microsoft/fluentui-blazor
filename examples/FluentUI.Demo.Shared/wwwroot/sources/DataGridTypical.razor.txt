@@ -1,8 +1,8 @@
 ﻿@inject DataSource Data
-
+@using System.ComponentModel
 
 <FluentDataGrid RowsData="@FilteredItems" ResizableColumns=true Pagination="@pagination" GridTemplateColumns="0.2fr 1fr 0.2fr 0.2fr 0.2fr 0.2fr" RowClass="@rowClass" style="height: 405px; overflow:auto;">
-    <TemplateColumn Title="Rank" SortBy="@rankSort" Align="Align.Center" IsDefaultSort="SortDirection.Ascending">
+    <TemplateColumn Title="Rank" Align="Align.Center" TGridItem="Country" TValue="string">
         <img class="flag" src="_content/FluentUI.Demo.Shared/flags/@(context.Code).svg" />
     </TemplateColumn>
     <PropertyColumn Property="@(c => c.Name)" Sortable="true">
@@ -12,9 +12,9 @@
             </div>
         </ColumnOptions>
     </PropertyColumn>
-    <PropertyColumn Property="@(c => c.Medals.Gold)" Sortable="true" Align="Align.Left" />
-    <PropertyColumn Property="@(c => c.Medals.Silver)" Sortable="true" Align="Align.Center" />
-    <PropertyColumn Property="@(c => c.Medals.Bronze)" Sortable="true" Align="Align.Right" />
+    <PropertyColumn Property="@(c => c.Medals.Gold)" Sortable="true" Align="Align.Left" DefaultSort="ListSortDirection.Descending" />
+    <PropertyColumn Property="@(c => c.Medals.Silver)" Sortable="true" Align="Align.Center" DefaultSort="ListSortDirection.Descending" />
+    <PropertyColumn Property="@(c => c.Medals.Bronze)" Sortable="true" Align="Align.Right" DefaultSort="ListSortDirection.Descending" />
     <PropertyColumn Property="@(c => c.Medals.Total)" Sortable="true" Align="Align.Right" />
 </FluentDataGrid>
 
@@ -26,10 +26,6 @@
     PaginationState pagination = new PaginationState { ItemsPerPage = 10 };
     string nameFilter = string.Empty;
 
-    GridSort<Country> rankSort = GridSort<Country>
-        .ByDescending(x => x.Medals.Gold)
-        .ThenDescending(x => x.Medals.Silver)
-        .ThenDescending(x => x.Medals.Bronze);
     Func<Country, string> rowClass = x => x.Name.StartsWith("A") ? "highlighted-row" : string.Empty;
 
     IQueryable<Country>? FilteredItems => items?.Where(x => x.Name.Contains(nameFilter, StringComparison.CurrentCultureIgnoreCase));

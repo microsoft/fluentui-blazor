@@ -1,5 +1,7 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -14,18 +16,20 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// </summary>
 /// <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
 /// <typeparam name="TValue">The type of the value being displayed in the column's cells.</typeparam>
-public class PropertyColumn<TGridItem, TValue> : ColumnBase<TGridItem>, IBindableColumn<TGridItem, TValue>, ISortBuilderColumn<TGridItem>
+public class PropertyColumn<TGridItem, TValue> : ColumnBase<TGridItem>, IBindableColumn<TGridItem, TValue>, ISortableColumn<TGridItem,TValue>
 {
     private Expression<Func<TGridItem, TValue>>? _lastAssignedProperty;
     private Func<TGridItem, string?>? _cellTextFunc;
-    private GridSort<TGridItem>? _sortBuilder;
 
+    public PropertyColumn()
+    {
+        this.Sortable = true;
+    }
 
+    /// <inheritdoc />
     public PropertyInfo? PropertyInfo { get; private set; }
 
-    /// <summary>
-    /// Defines the value to be displayed in this column's cells.
-    /// </summary>
+    /// <inheritdoc />
     [Parameter, EditorRequired] public Expression<Func<TGridItem, TValue>> Property { get; set; } = default!;
 
     /// <summary>
@@ -35,14 +39,26 @@ public class PropertyColumn<TGridItem, TValue> : ColumnBase<TGridItem>, IBindabl
     /// </summary>
     [Parameter] public string? Format { get; set; }
 
-    /// <summary>
-    /// Optionally specifies how to compare values in this column when sorting.
-    /// 
-    /// Using this requires the <typeparamref name="TValue"/> type to implement <see cref="IComparable{T}"/>.
-    /// </summary>
-    [Parameter] public IComparer<TValue>? Comparer { get; set; } = null;
 
-    GridSort<TGridItem>? ISortBuilderColumn<TGridItem>.SortBuilder => _sortBuilder;
+    private Expression<Func<TGridItem, TValue>>? _sortProperty;
+    /// <inheritdoc />
+    [Parameter]
+    public Expression<Func<TGridItem, TValue>>? SortProperty
+    {
+        get
+        {
+            if (_sortProperty is null && Property is not null)
+                return Property;
+            return _sortProperty;
+        }
+        set => _sortProperty = value;
+    }
+
+    /// <inheritdoc />
+    public ListSortDirection? SortDirection { get; set; }
+
+    /// <inheritdoc />
+    public short SortOrder { get; set; }
 
     /// <inheritdoc />
     [SuppressMessage("Trimming", "IL2072:Target parameter argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The return value of the source method does not have matching annotations.", Justification = "'DynamicallyAccessedMembersAttribute' cannot be added to overriden method")]
@@ -71,9 +87,6 @@ public class PropertyColumn<TGridItem, TValue> : ColumnBase<TGridItem>, IBindabl
             {
                 _cellTextFunc = item => compiledPropertyExpression!(item)?.ToString();
             }
-
-            //_sortBuilder = GridSort<TGridItem>.ByAscending(Property);
-            _sortBuilder = Comparer is not null ? GridSort<TGridItem>.ByAscending(Property, Comparer) : GridSort<TGridItem>.ByAscending(Property);
         }
 
         if (Property.Body is MemberExpression memberExpression)
@@ -88,6 +101,11 @@ public class PropertyColumn<TGridItem, TValue> : ColumnBase<TGridItem>, IBindabl
                     Title = memberExpression.Member.Name;
             }
         }
+    }
+
+    IQueryable<TGridItem> ISortableColumn<TGridItem>.ApplySort(IQueryable<TGridItem> Source, bool IsFirst)
+    {
+        return _sortProvider!.ApplySort(this, Source, IsFirst);
     }
 
     /// <inheritdoc />

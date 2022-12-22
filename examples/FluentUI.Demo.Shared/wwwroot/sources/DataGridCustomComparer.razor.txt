@@ -1,8 +1,8 @@
 ﻿@inject DataSource Data
+@using System.ComponentModel
 
-
-<FluentDataGrid RowsData="@FilteredItems" ResizableColumns=true Pagination="@pagination" GridTemplateColumns="0.2fr 1fr 0.2fr 0.2fr 0.2fr 0.2fr" style="height: 405px; overflow:auto;">
-    <TemplateColumn Title="Rank" SortBy="@rankSort" Align="Align.Center">
+<FluentDataGrid RowsData="@FilteredItems" ResizableColumns=true Pagination="@pagination" GridTemplateColumns="0.2fr 1fr 0.4fr 0.4fr 0.4fr 0.2fr" style="height: 405px; overflow:auto;">
+    <TemplateColumn Title="Rank" Align="Align.Center" TGridItem="Country" TValue="string" Sortable="false">
         <img class="flag" src="_content/FluentUI.Demo.Shared/flags/@(context.Code).svg" />
     </TemplateColumn>
     @*<PropertyColumn Property="@(c => c.Name)" IsDefaultSort=SortDirection.Descending Sortable="true" Comparer="@StringLengthComparer.Instance">
@@ -12,7 +12,7 @@
             </div>
         </ColumnOptions>
     </PropertyColumn>*@
-    <TemplateColumn Title="Name" IsDefaultSort=SortDirection.Descending  SortBy="@nameSort">
+    <TemplateColumn Title="Name" DefaultSort=ListSortDirection.Descending SortProperty="s=> s.Name" TGridItem="Country" TValue="string">
         <ColumnOptions>
             <div class="search-box">
                 <FluentSearch type="search" Autofocus=true @bind-Value=nameFilter @oninput="HandleCountryFilter" @onchange="HandleClear" Placeholder="Country name..." />
@@ -22,9 +22,9 @@
             @(context.Name)
         </ChildContent>
     </TemplateColumn>
-    <PropertyColumn Property="@(c => c.Medals.Gold)" Sortable="true" Align="Align.Left" />
-    <PropertyColumn Property="@(c => c.Medals.Silver)" Sortable="true" Align="Align.Center" />
-    <PropertyColumn Property="@(c => c.Medals.Bronze)" Sortable="true" Align="Align.Right" />
+    <PropertyColumn Property="@(c => c.Medals.Gold)" Sortable="true" Align="Align.Left" DefaultSort="ListSortDirection.Descending" />
+    <PropertyColumn Property="@(c => c.Medals.Silver)" Sortable="true" Align="Align.Center" DefaultSort="ListSortDirection.Descending" />
+    <PropertyColumn Property="@(c => c.Medals.Bronze)" Sortable="true" Align="Align.Right" DefaultSort="ListSortDirection.Descending"/>
     <PropertyColumn Property="@(c => c.Medals.Total)" Sortable="true" Align="Align.Right" />
 </FluentDataGrid>
 
@@ -35,15 +35,6 @@
     IQueryable<Country>? items;
     PaginationState pagination = new PaginationState { ItemsPerPage = 10 };
     string nameFilter = string.Empty;
-
-    GridSort<Country> rankSort = GridSort<Country>
-        .ByDescending(x => x.Medals.Gold)
-        .ThenDescending(x => x.Medals.Silver)
-        .ThenDescending(x => x.Medals.Bronze);
-
-    // Uncomment line below when using the TemplateColumn example for the country name
-    GridSort<Country> nameSort = GridSort<Country>.ByAscending(x => x.Name, StringLengthComparer.Instance);
-
 
     IQueryable<Country>? FilteredItems => items?.Where(x => x.Name.Contains(nameFilter, StringComparison.CurrentCultureIgnoreCase));
 
@@ -87,5 +78,4 @@
             return x.Length.CompareTo(y.Length);
         }
     }
-
 }

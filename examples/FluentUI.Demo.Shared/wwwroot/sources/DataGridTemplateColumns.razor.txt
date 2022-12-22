@@ -1,7 +1,7 @@
 ﻿@inject DataSource Data
 
 <FluentDataGrid RowsData="@Data.People" style="width: 600px;">
-    <TemplateColumn Title="Person" SortBy="@sortByName">
+    <TemplateColumn Title="Person" SortProperty="s=> s.FirstName" TGridItem="Person" TValue="string">
         <div class="flex items-center">
             <img class="flag" src="_content/FluentUI.Demo.Shared/flags/@(context.CountryCode).svg" />
             <nobr>
@@ -9,7 +9,7 @@
             </nobr>
         </div>
     </TemplateColumn>
-    <TemplateColumn Title="Actions">
+    <TemplateColumn Title="Actions" TGridItem="Person" TValue="string">
         <FluentButton Appearance="Appearance.Accent" @onclick="@(() => Hire(context))">Hire</FluentButton>
         <FluentButton Appearance="Appearance.Accent" @onclick="@(() => Fire(context))">Fire</FluentButton>
     </TemplateColumn>
@@ -20,10 +20,6 @@
 
 @code {
     string message = string.Empty;
-
-    GridSort<Person> sortByName = GridSort<Person>
-        .ByAscending(p => p.LastName)
-        .ThenAscending(p => p.FirstName);
 
     void Hire(Person p) => message = $"You want to hire {p.FirstName} {p.LastName}";
 

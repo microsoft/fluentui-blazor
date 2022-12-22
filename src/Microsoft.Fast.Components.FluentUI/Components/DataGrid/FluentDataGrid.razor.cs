@@ -1,6 +1,7 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
+using System.ComponentModel;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
@@ -144,8 +145,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     // Tracking state for options and sorting
     private ColumnBase<TGridItem>? _displayOptionsForColumn;
-    private ColumnBase<TGridItem>? _sortByColumn;
-    private bool _sortByAscending;
+    private List<ColumnBase<TGridItem>> _sortableColumns;
     private bool _checkColumnOptionsPosition;
 
     // The associated ES6 module, which uses document-level event listeners
@@ -166,7 +166,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     // If the PaginationState mutates, it raises this event. We use it to trigger a re-render.
     private readonly EventCallbackSubscriber<PaginationState> _currentPageItemsChanged;
-    public bool? SortByAscending => _sortByAscending;
 
     /// <summary>
     /// Constructs an instance of <see cref="FluentDataGrid{TGridItem}"/>.
@@ -174,6 +173,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public FluentDataGrid()
     {
         _columns = new();
+        _sortableColumns = new();
         _internalGridContext = new(this);
         _currentPageItemsChanged = new(EventCallback.Factory.Create<PaginationState>(this, RefreshDataCoreAsync));
         _renderColumnHeaders = RenderColumnHeaders;
@@ -232,16 +232,25 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     }
 
     // Invoked by descendant columns at a special time during rendering
-    internal void AddColumn(ColumnBase<TGridItem> column, SortDirection? isDefaultSortDirection)
+    internal void AddColumn(ColumnBase<TGridItem> column)
     {
         if (_collectingColumns)
         {
             _columns.Add(column);
 
-            if (_sortByColumn is null && isDefaultSortDirection.HasValue)
+            if (column.SortingIsEnable())
             {
-                _sortByColumn = column;
-                _sortByAscending = isDefaultSortDirection.Value != SortDirection.Descending;
+                _sortableColumns.Add(column);
+                if (column.DefaultSort.HasValue && !column.DefaultSortApplied)
+                {
+                    column.DefaultSortApplied = true;
+                    ISortableColumn<TGridItem> ccol = (column as ISortableColumn<TGridItem>)!;
+                    if (!ccol.SortDirection.HasValue)
+                    {
+                        ccol.SortOrder = _sortableColumns.Any() ? (short)(_sortableColumns.Max(m => ((ISortableColumn<TGridItem>)m).SortOrder) + 1) : (short)1;
+                        ccol.SortDirection = column.DefaultSort.Value;
+                    }
+                }
             }
         }
     }
@@ -249,34 +258,13 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private void StartCollectingColumns()
     {
         _columns.Clear();
+        _sortableColumns.Clear();
         _collectingColumns = true;
     }
 
     private void FinishCollectingColumns()
     {
         _collectingColumns = false;
-    }
-
-    /// <summary>
-    /// Sets the grid's current sort column to the specified <paramref name="column"/>.
-    /// </summary>
-    /// <param name="column">The column that defines the new sort order.</param>
-    /// <param name="direction">The direction of sorting. If the value is <see cref="SortDirection.Auto"/>, then it will toggle the direction on each call.</param>
-    /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
-    public Task SortByColumnAsync(ColumnBase<TGridItem> column, SortDirection direction = SortDirection.Auto)
-    {
-        _sortByAscending = direction switch
-        {
-            SortDirection.Ascending => true,
-            SortDirection.Descending => false,
-            SortDirection.Auto => _sortByColumn == column ? !_sortByAscending : true,
-            _ => throw new NotSupportedException($"Unknown sort direction {direction}"),
-        };
-
-        _sortByColumn = column;
-
-        StateHasChanged(); // We want to see the updated sort order in the header, even before the data query is completed
-        return RefreshDataAsync();
     }
 
     /// <summary>
@@ -324,7 +312,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             _lastRefreshedPaginationStateHash = Pagination?.GetHashCode();
             var startIndex = Pagination is null ? 0 : (Pagination.CurrentPageIndex * Pagination.ItemsPerPage);
             var request = new GridItemsProviderRequest<TGridItem>(
-                startIndex, Pagination?.ItemsPerPage, _sortByColumn, _sortByAscending, thisLoadCts.Token);
+                startIndex, Pagination?.ItemsPerPage, _sortableColumns, thisLoadCts.Token);
             var result = await ResolveItemsRequestAsync(request);
             if (!thisLoadCts.IsCancellationRequested)
             {
@@ -361,7 +349,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
 
         var providerRequest = new GridItemsProviderRequest<TGridItem>(
-            startIndex, count, _sortByColumn, _sortByAscending, request.CancellationToken);
+            startIndex, count, _sortableColumns, request.CancellationToken);
         var providerResult = await ResolveItemsRequestAsync(providerRequest);
 
         if (!request.CancellationToken.IsCancellationRequested)
@@ -396,7 +384,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         else if (RowsData is not null)
         {
             var totalItemCount = _asyncQueryExecutor is null ? RowsData.Count() : await _asyncQueryExecutor.CountAsync(RowsData);
-            var result = request.ApplySorting(RowsData).Skip(request.StartIndex);
+            var result = request.ApplySorting(RowsData)?.Skip(request.StartIndex);
+            if (result is null)
+                return GridItemsProviderResult.From(Array.Empty<TGridItem>(), 0);
             if (request.Count.HasValue)
             {
                 result = result.Take(request.Count.Value);
@@ -410,15 +400,45 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
     }
 
+    /// <summary>
+    /// apply sort to the specified <paramref name="column"/>.
+    /// </summary>
+    /// <param name="column">The column that defines the new sort order.</param>
+    /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
+    internal Task ApplySort(ISortableColumn<TGridItem> column)
+    {
+        if (column.SortDirection.HasValue)
+        {
+            var otherSortedColumns = _sortableColumns.Cast<ISortableColumn<TGridItem>>().Where(w => w.SortDirection.HasValue);
+            if (otherSortedColumns.Any())
+                column.SortOrder = (short)(otherSortedColumns.Max(m => m.SortOrder) + 1);
+            else
+                column.SortOrder = 1;
+        }
+        return RefreshDataAsync();
+    }
+
     private string AriaSortValue(ColumnBase<TGridItem> column)
-         => _sortByColumn == column
-             ? (_sortByAscending ? "ascending" : "descending")
-             : "none";
+    {
+        Nullable<System.ComponentModel.ListSortDirection> sortDirection = null;
+        if (_sortableColumns.Any(a => a == column && ((ISortableColumn<TGridItem>)a).SortDirection.HasValue))
+        {
+            sortDirection = ((ISortableColumn<TGridItem>)column).SortDirection!.Value;
+        }
+        return sortDirection.HasValue ? (sortDirection.Value == ListSortDirection.Ascending ? "ascending" : "descending") : "none";
+    }
 
     private string? ColumnHeaderClass(ColumnBase<TGridItem> column)
-        => _sortByColumn == column
-        ? $"{ColumnClass(column)} {(_sortByAscending ? "col-sort-asc" : "col-sort-desc")}"
-        : ColumnClass(column);
+    {
+        Nullable<System.ComponentModel.ListSortDirection> sortDirection = null;
+        if (_sortableColumns.Any(a => a == column && ((ISortableColumn<TGridItem>)a).SortDirection.HasValue))
+        {
+            sortDirection = ((ISortableColumn<TGridItem>)column).SortDirection!.Value;
+        }
+        return sortDirection.HasValue
+       ? $"{ColumnClass(column)} {(sortDirection.Value == ListSortDirection.Ascending ? "col-sort-asc" : "col-sort-desc")}"
+       : ColumnClass(column);
+    }
 
     private string? GridClass()
     {
@@ -461,10 +481,13 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
     }
 
-    private void CloseColumnOptions()
+    internal void CloseColumnOptions()
     {
-        _displayOptionsForColumn = null;
-        StateHasChanged();
+        if (_displayOptionsForColumn is not null)
+        {
+            _displayOptionsForColumn.CloseFilter();
+            _displayOptionsForColumn = null;
+        }
     }
 
     private async Task HandleOnRowFocus(DataGridRowFocusEventArgs args)

@@ -130,11 +130,13 @@
     </Description>
 </DemoSection>
 
-<DemoSection Title="Custom comparer" Component="@typeof(DataGridCustomComparer)" CollocatedFiles="@(new[] {"css"})">
+<DemoSection Title="Multiple column sorting" Component="@typeof(DataGridCustomComparer)" CollocatedFiles="@(new[] {"css"})">
     <Description>
-        Here a custom comparer is being used to sort counties by the length of their name.<br/>
-        The code has examples for both <code>PropertyColumn</code> and <code>TemplateColumn</code>.<br />
-        For this example the code for the comparer is placed in the <code>DataGridCustomComparer.razor.cs</code> file but it could be placed in its own file of course.
+        you can sort data by a column, then by another, then by another and so on.
+        datagrid applies sorts in order of you applied.
+        this mean if you sort column A, then sort by column B, and then change sort direction of column A,
+        datagrid applied sort B column as first sorting and secondly applies the A column sort direction to data.
+        also you can remove sorting by pressing <code>Remove sort</code> from ColumnOptions  dropdown
     </Description>
 </DemoSection>
 

@@ -1,6 +1,8 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
+using Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
+
 namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary>
@@ -20,20 +22,12 @@ public struct GridItemsProviderRequest<TGridItem>
     public int? Count { get; }
 
     /// <summary>
-    /// Specifies which column represents the sort order.
+    /// Specifies which columns represents the sort order.
     ///
-    /// Rather than inferring the sort rules manually, you should normally call either <see cref="ApplySorting(IQueryable{TGridItem})"/>
-    /// or <see cref="GetSortByProperties"/>, since they also account for <see cref="SortByColumn" /> and <see cref="SortByAscending" /> automatically.
+    /// Rather than inferring the sort rules manually, you should normally call either <see cref="ISortableColumn{TGridItem}.ApplySort(IQueryable{TGridItem}, bool)"/>
+    /// since they also account for <see cref="SortByColumns" /> automatically.
     /// </summary>
-    public ColumnBase<TGridItem>? SortByColumn { get; }
-
-    /// <summary>
-    /// Specifies the current sort direction.
-    ///
-    /// Rather than inferring the sort rules manually, you should normally call either <see cref="ApplySorting(IQueryable{TGridItem})"/>
-    /// or <see cref="GetSortByProperties"/>, since they also account for <see cref="SortByColumn" /> and <see cref="SortByAscending" /> automatically.
-    /// </summary>
-    public bool SortByAscending { get; }
+    public IEnumerable<ColumnBase<TGridItem>>? SortByColumns { get; }
 
     /// <summary>
     /// A token that indicates if the request should be cancelled.
@@ -41,45 +35,40 @@ public struct GridItemsProviderRequest<TGridItem>
     public CancellationToken CancellationToken { get; }
 
     internal GridItemsProviderRequest(
-        int startIndex, int? count, ColumnBase<TGridItem>? sortByColumn, bool sortByAscending,
-        CancellationToken cancellationToken)
+        int startIndex, int? count
+        , IEnumerable<ColumnBase<TGridItem>>? sortByColumn
+        , CancellationToken cancellationToken)
     {
         StartIndex = startIndex;
         Count = count;
-        SortByColumn = sortByColumn;
-        SortByAscending = sortByAscending;
+        SortByColumns = sortByColumn;
         CancellationToken = cancellationToken;
     }
 
     /// <summary>
     /// Applies the request's sorting rules to the supplied <see cref="IQueryable{TGridItem}"/>.
     ///
-    /// Note that this only works if the current <see cref="SortByColumn"/> implements <see cref="ISortBuilderColumn{TGridItem}"/>,
+    /// Note that this only works if the current <see cref="SortByColumns"/> implements <see cref="ISortableColumn{TGridItem,TValue}"/>,
     /// otherwise it will throw.
     /// </summary>
     /// <param name="source">An <see cref="IQueryable{TGridItem}"/>.</param>
     /// <returns>A new <see cref="IQueryable{TGridItem}"/> representing the <paramref name="source"/> with sorting rules applied.</returns>
-    public IQueryable<TGridItem> ApplySorting(IQueryable<TGridItem> source) => SortByColumn switch
+    public IQueryable<TGridItem>? ApplySorting(IQueryable<TGridItem> source) 
     {
-        ISortBuilderColumn<TGridItem> sbc => sbc.SortBuilder?.Apply(source, SortByAscending) ?? source,
-        null => source,
-        _ => throw new NotSupportedException(ColumnNotSortableMessage(SortByColumn)),
-    };
-
-    /// <summary>
-    /// Produces a collection of (property name, direction) pairs representing the sorting rules.
-    ///
-    /// Note that this only works if the current <see cref="SortByColumn"/> implements <see cref="ISortBuilderColumn{TGridItem}"/>,
-    /// otherwise it will throw.
-    /// </summary>
-    /// <returns>A collection of (property name, direction) pairs representing the sorting rules</returns>
-    public IReadOnlyCollection<(string PropertyName, SortDirection Direction)> GetSortByProperties() => SortByColumn switch
-    {
-        ISortBuilderColumn<TGridItem> sbc => sbc.SortBuilder?.ToPropertyList(SortByAscending) ?? Array.Empty<(string, SortDirection)>(),
-        null => Array.Empty<(string, SortDirection)>(),
-        _ => throw new NotSupportedException(ColumnNotSortableMessage(SortByColumn)),
-    };
-
-    private static string ColumnNotSortableMessage<T>(ColumnBase<T> col)
-        => $"The current sort column is of type '{col.GetType().FullName}', which does not implement {nameof(ISortBuilderColumn<TGridItem>)}, so its sorting rules cannot be applied automatically.";
+        if (source is null)
+            return null;
+        if (SortByColumns is not null)
+        {
+            IQueryable<TGridItem>? orderedItems = null;
+            foreach (var col in SortByColumns.Cast<ISortableColumn<TGridItem>>().OrderBy(s => s.SortOrder))
+            {
+                if (col.SortDirection.HasValue)
+                {
+                    orderedItems = col.ApplySort(orderedItems is null ? source : orderedItems, orderedItems is null);
+                }
+            }
+            return orderedItems ?? source;
+        }
+        return null;
+    }
 }
