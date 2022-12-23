@@ -5,6 +5,23 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.Anchor
 {
     public class FluentAnchorRenderShould : TestBase
     {
+        [Fact]
+        public void RenderProperly_AttributesDefaultValues()
+        {
+            // Arrange
+            TestContext.JSInterop.SetupModule(
+                "./_content/Microsoft.Fast.Components.FluentUI/Components/Anchor/FluentAnchor.razor.js");
+            IRenderedComponent<FluentUI.FluentAnchor> cut = TestContext.RenderComponent<FluentUI.FluentAnchor>(
+                parameters => parameters
+                    .AddChildContent("click me!"));
+
+            // Assert
+            cut.MarkupMatches("<fluent-anchor " +
+                              "appearance=\"neutral\"> " +
+                              "click me!" +
+                              "</fluent-anchor>");
+        }
+        
         [Theory]
         [InlineData("")]
         [InlineData("something")]
@@ -213,25 +230,6 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.Anchor
             cut.MarkupMatches("<fluent-anchor " +
                               "href=\"https://fast.design\" " +
                               $"appearance=\"{appearance.ToAttributeValue()}\"> " +
-                              "click me!" +
-                              "</fluent-anchor>");
-        }
-
-        [Fact]
-        public void RenderProperly_AppearanceAttribute_Default()
-        {
-            // Arrange
-            TestContext.JSInterop.SetupModule(
-                "./_content/Microsoft.Fast.Components.FluentUI/Components/Anchor/FluentAnchor.razor.js");
-            IRenderedComponent<FluentUI.FluentAnchor> cut = TestContext.RenderComponent<FluentUI.FluentAnchor>(
-                parameters => parameters
-                    .Add(p => p.Href, "https://fast.design")
-                    .AddChildContent("click me!"));
-
-            // Assert
-            cut.MarkupMatches("<fluent-anchor " +
-                              "href=\"https://fast.design\" " +
-                              "appearance=\"neutral\"> " +
                               "click me!" +
                               "</fluent-anchor>");
         }
