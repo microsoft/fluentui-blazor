@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.FluentAccordion
+namespace Microsoft.Fast.Components.FluentUI.Tests.Accordion
 {
     public class FluentAccordionShould : TestBase
     {

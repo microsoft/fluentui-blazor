@@ -7,7 +7,7 @@
 <h1>Welcome to the Fluent UI Web Components for Blazor library</h1>
 
 <h2 id="introduction">Introduction</h2>
-<p>The <code>Microsoft.Fast.Components.FluentUI</code> package provides a lightweight set of <a href="https://blazor.net">Blazor</a> component wrappers around Microsoft’s official Fluent UI Web Components. The Fluent UI Web Components are built on <a href="https://www.fast.design/">FAST</a> and work in every major browser. To get up and running with <code>Microsoft.Fast.Components.FluentUI</code> see the Getting Started section below.</p>
+<p>The <code>Microsoft.Fast.Components.FluentUI</code> package provides a lightweight set of <a href="https://blazor.net">Blazor</a> component wrappers around Microsoft's official Fluent UI Web Components. The Fluent UI Web Components are built on <a href="https://www.fast.design/">FAST</a> and work in every major browser. To get up and running with <code>Microsoft.Fast.Components.FluentUI</code> see the Getting Started section below.</p>
 <p>The source for <code>@@fluentui/web-components</code> is hosted in the <a href="https://github.com/microsoft/fluentui/tree/master/packages/web-components">Fluent UI</a> mono-repository. Documentation on the components is available on <a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/">docs.microsoft.com</a>.</p>
 
 <h2 id="getting-started">Getting Started</h2>
@@ -72,7 +72,7 @@
 <p>With the package installed and the script configured, you can begin using the Fluent UI Web Components in the same way as any other Blazor component. Just be sure to add the following using statement to your views:</p>
 <CodeSnippet>@@using Microsoft.Fast.Components.FluentUI</CodeSnippet>
 
-<p>Here’s a small example of a <code>FluentCard</code> with a <code>FluentButton</code> that uses the Fluent “Accent” appearance:</p>
+<p>Here's a small example of a <code>FluentCard</code> with a <code>FluentButton</code> that uses the Fluent "Accent" appearance:</p>
 <CodeSnippet>
 @@using Microsoft.Fast.Components.FluentUI
 
@@ -118,7 +118,7 @@
 
 <h3 id="option-3-using-the-fluentdesignsystemprovider">Option 3: Using the <code>&lt;FluentDesignSystemProvider&gt;</code></h3>
 <p>The third way to customize the design in Blazor is to wrap the entire block you want to manipulate in a <code>&lt;FluentDesignSystemProvider&gt;</code>. This special element has a number of properties you can set to configure a subset of the tokens. <strong>Not all tokens are available/supported</strong> and we recommend this to only be used as a fall-back mechanism. The preferred mehod of working with the desgn tokens is to manipulate them from code as described in option 1.</p>
-<p>Here’s an example of changing the “accent base color” and switching the system into dark mode (in the file <code>app.razor</code>):</p>
+<p>Here's an example of changing the "accent base color" and switching the system into dark mode (in the file <code>app.razor</code>):</p>
 <CodeSnippet>&lt;FluentDesignSystemProvider AccentBaseColor=&quot;#464EB8&quot; BaseLayerLuminance=&quot;0&quot;&gt;
 	&lt;Router AppAssembly=&quot;@@typeof(App).Assembly&quot;&gt;
 		&lt;Found Context=&quot;routeData&quot;&gt;
@@ -191,7 +191,7 @@
 
 <h2 id="joining-the-community">Joining the Community</h2>
 <p>Looking to get answers to questions or engage with us in realtime? Our community is most active <a href="https://discord.gg/FcSNfg4">on Discord</a>. Submit requests and issues on <a href="https://github.com/dotnet/blazor-fluentui/issues/new/choose">GitHub</a>, or join us by contributing on <a href="https://github.com/dotnet/blazor-fluentui/labels/community:good-first-issue">some good first issues via GitHub</a>.</p>
-<p>If you don’t find a component you’re looking for, it’s best to create the issue in our FAST repo <a href="https://github.com/microsoft/fast">here</a> and limit issues on this repo to bugs in the Blazor component wrappers or Blazor-specific features.</p>
+<p>If you don't find a component you’re looking for, it's best to create the issue in our FAST repo <a href="https://github.com/microsoft/fast">here</a> and limit issues on this repo to bugs in the Blazor component wrappers or Blazor-specific features.</p>
 <p>We look forward to building an amazing open source community with you!</p>
 <h2 id="contact">Contact</h2>
 <ul>
