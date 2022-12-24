@@ -162,7 +162,7 @@ public abstract partial class ColumnBase<TGridItem>
     public virtual void CloseFilter()
     {
         if (headerOptionsComponentHolder is not null && headerOptionsComponentHolder.Instance is not null)
-            ((ColumnHeaderOptionsBase<TGridItem>)headerOptionsComponentHolder.Instance)?.CloseDropDown();
+            ((ColumnOptionsBase<TGridItem>)headerOptionsComponentHolder.Instance)?.CloseDropDown();
     }
 
 }

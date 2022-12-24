@@ -13,7 +13,7 @@ using System.Reflection.Metadata.Ecma335;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-partial class ColumnHeaderOptions<TGridItem, TValue> : ColumnHeaderOptionsBase<TGridItem> 
+partial class ColumnOptions<TGridItem, TValue> : ColumnOptionsBase<TGridItem> 
 {
 
     [CascadingParameter]
@@ -84,7 +84,7 @@ partial class ColumnHeaderOptions<TGridItem, TValue> : ColumnHeaderOptionsBase<T
 
 }
 
-public abstract class ColumnHeaderOptionsBase<TGridItem> : ComponentBase
+public abstract class ColumnOptionsBase<TGridItem> : ComponentBase
 {
     protected bool dropDownIsOpen { get; set; } = false;
 

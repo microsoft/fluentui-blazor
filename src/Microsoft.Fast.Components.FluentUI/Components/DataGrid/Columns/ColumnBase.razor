@@ -82,11 +82,11 @@
         }
         if (propertyType is not null)
         {
-            var headerComponent = typeof(ColumnHeaderOptions<,>).MakeGenericType(new[] { typeof(TGridItem), propertyType });
+            var headerComponent = typeof(ColumnOptions<,>).MakeGenericType(new[] { typeof(TGridItem), propertyType });
             IDictionary<string, object> parameters = new Dictionary<string, object>();
             if (ColumnOptions is not null)
             {
-                parameters.Add(nameof(ColumnHeaderOptionsBase<TGridItem>.ChildContent), ColumnOptions);
+                parameters.Add(nameof(ColumnOptionsBase<TGridItem>.ChildContent), ColumnOptions);
             }
             <CascadingValue Value="this" IsFixed=true>
                 <DynamicComponent Type=headerComponent @ref=headerOptionsComponentHolder Parameters=parameters></DynamicComponent>
