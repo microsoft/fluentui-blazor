@@ -26,13 +26,16 @@
                 }
                 <FluentButton Appearance="Appearance.Stealth" class="col-sort-button" @onclick=SortChanged>
                     <div class="col-title-text">@Title</div>
-
-
                     @if (sortableColumn!.SortDirection.HasValue)
                     {
                         <FluentIcon Name="@(sortableColumn.SortDirection.Value == ListSortDirection.Ascending ? FluentIcons.ArrowSortUp : FluentIcons.ArrowSortDown)" Size="IconSize.Size16" Slot="@(Align == Align.Right ? "start" : "end")" />
+                        @if (InternalGridContext.Grid.multiColumnSorted)
+                        {
+                            <FluentBadge Circular=true Appearance="Appearance.Neutral" Slot="@(Align == Align.Right ? "start" : "end")">
+                                @sortableColumn.SortOrder
+                            </FluentBadge>
+                        }
                     }
-
                 </FluentButton>
                 @if (Align != Align.Right)
                 {

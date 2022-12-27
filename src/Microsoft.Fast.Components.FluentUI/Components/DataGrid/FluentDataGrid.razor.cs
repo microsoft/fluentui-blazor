@@ -146,6 +146,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     // Tracking state for options and sorting
     private ColumnBase<TGridItem>? _displayOptionsForColumn;
     private List<ColumnBase<TGridItem>> _sortableColumns;
+    //if user applied multiple column sort to datasource, we need to display a column sort order badge to user. by this flag, we enable the badge part. 
+    //for single column sort or no sort, we dont display sort order part.we can achieve this on each column, but this can be caused a performance issue
+    internal bool multiColumnSorted;
     private bool _checkColumnOptionsPosition;
 
     // The associated ES6 module, which uses document-level event listeners
@@ -407,15 +410,31 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
     internal Task ApplySort(ISortableColumn<TGridItem> column)
     {
+        var affectedColumns = _sortableColumns.Cast<ISortableColumn<TGridItem>>().Where(w => w.SortDirection.HasValue);
+        multiColumnSorted = affectedColumns.Count() > 1;
         if (column.SortDirection.HasValue)
         {
-            var otherSortedColumns = _sortableColumns.Cast<ISortableColumn<TGridItem>>().Where(w => w.SortDirection.HasValue);
-            if (otherSortedColumns.Any())
-                column.SortOrder = (short)(otherSortedColumns.Max(m => m.SortOrder) + 1);
+            if (multiColumnSorted)
+            {
+                column.SortOrder = (short)(affectedColumns.Count()+1);
+                rearrangeSortableColumns(affectedColumns);
+            }
             else
                 column.SortOrder = 1;
         }
+        else
+            rearrangeSortableColumns(affectedColumns);
         return RefreshDataAsync();
+    }
+
+    private void rearrangeSortableColumns(IEnumerable<ISortableColumn<TGridItem>> affectedColumns)
+    {
+        short order = 1;
+        foreach (var col in affectedColumns.OrderBy(o => o.SortOrder).ToList())
+        {
+            col.SortOrder = order;
+            order++;
+        }
     }
 
     private string AriaSortValue(ColumnBase<TGridItem> column)

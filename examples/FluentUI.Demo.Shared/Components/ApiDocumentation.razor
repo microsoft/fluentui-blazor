@@ -15,9 +15,9 @@
 @if (this.Properties.Any())
 {
     <h3 id="@(_id + "_parameters")">Parameters</h3>
-    <FluentDataGrid Class="docgrid" RowsData="@this.Properties.AsQueryable()" GridTemplateColumns="1fr 1fr 0.5fr 1.5fr">
-        <TemplateColumn Title="Name" TGridItem="MemberDescription" TValue="string"><code>@context.Name</code></TemplateColumn>
-            <TemplateColumn Title="Type" TGridItem="MemberDescription" TValue="string">
+    <FluentDataGrid TGridItem=MemberDescription Class="docgrid" RowsData="@this.Properties.AsQueryable()" GridTemplateColumns="1fr 1fr 0.5fr 1.5fr">
+        <TemplateColumn Title="Name" TValue="string"><code>@context.Name</code></TemplateColumn>
+            <TemplateColumn Title="Type" TValue="string">
                     @context.Type
 
                     @* Display list of Enumerations (if available) *@
@@ -37,8 +37,8 @@
 
                     }
         </TemplateColumn>
-            <PropertyColumn Property="@(c => c.Default)" TGridItem="MemberDescription" TValue="string" />
-            <TemplateColumn Title="Description" TGridItem="MemberDescription" TValue="string">
+            <PropertyColumn Property="@(c => c.Default)" TValue="string" />
+            <TemplateColumn Title="Description" TValue="string">
             <div style="white-space: break-spaces">
                 @(new MarkupString(context.Description))
             </div>
@@ -49,7 +49,7 @@
 @if (this.Events.Any())
 {
     <h3 id="@(_id)_callbacks">EventCallbacks</h3>
-    <FluentDataGrid Class="docgrid" RowsData="@this.Events.AsQueryable()" GridTemplateColumns="1fr 1fr 1fr">
+        <FluentDataGrid TGridItem=MemberDescription Class="docgrid" RowsData="@this.Events.AsQueryable()" GridTemplateColumns="1fr 1fr 1fr">
             <TemplateColumn Title="Name" TGridItem="MemberDescription" TValue="string"><code>@context.Name</code></TemplateColumn>
             <PropertyColumn Property="@(c => c.Type)" TGridItem="MemberDescription" TValue="string" />
             <TemplateColumn Title="Description" TGridItem="MemberDescription" TValue="string">
