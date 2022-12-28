@@ -3,20 +3,16 @@ using Microsoft.Fast.Components.FluentUI.Infrastructure;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public class StaticAssetService
+public class StaticAssetService : IStaticAssetService
 {
-    private readonly IHttpClientFactory _httpClientFactory;
     private readonly HttpClient _httpClient;
-    private NavigationManager _navigationManager;
-    private CacheStorageAccessor _cacheStorageAccessor;
+    private readonly CacheStorageAccessor _cacheStorageAccessor;
 
-    public StaticAssetService(IHttpClientFactory httpClientFactory, NavigationManager navigationManager, CacheStorageAccessor cacheStorageAccessor)
+    public StaticAssetService(HttpClient httpClient, NavigationManager navigationManager, CacheStorageAccessor cacheStorageAccessor)
     {
-        _navigationManager = navigationManager;
+        _httpClient = httpClient;
+        _httpClient.BaseAddress ??= new Uri(navigationManager.BaseUri);
 
-        _httpClientFactory = httpClientFactory;
-        _httpClient = _httpClientFactory.CreateClient("staticassetservice");
-        _httpClient.BaseAddress ??= new Uri(_navigationManager.BaseUri);
         _cacheStorageAccessor = cacheStorageAccessor;
     }
 

@@ -4,6 +4,5 @@
 
 ::deep > fluent-menu.visible {
     display: block;
-    position: fixed;
-    z-index: 1;
+    width: fit-content;
 }
