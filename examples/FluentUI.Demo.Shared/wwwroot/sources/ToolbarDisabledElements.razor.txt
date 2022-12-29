@@ -24,7 +24,6 @@
     <FluentCheckbox Disabled="true">Three</FluentCheckbox>
 </FluentToolbar>
 <FluentToolbar id="toolbar-first-two-disabled" Orientation="Orientation.Vertical">
-    <span slot="label">Span Label</span>
     <FluentCheckbox Disabled="true">One</FluentCheckbox>
     <FluentCheckbox Disabled="true">Two</FluentCheckbox>
     <FluentCheckbox tabindex="0">Three</FluentCheckbox>
