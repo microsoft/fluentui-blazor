@@ -1,16 +1,15 @@
 ﻿@inject FillColor FillColor
 @inject BaseLayerLuminance BaseLayerLuminance
 
-<h4>Light mode</h4>
 <FluentToolbar id="toolbar-fluent-components">
     <FluentButton Appearance="Appearance.Accent">Accent Button</FluentButton>
     <FluentButton Appearance="Appearance.Stealth">Stealth Button</FluentButton>
-    <FluentRadioGroup value="on">
-        <FluentRadio Checked="true">One</FluentRadio>
-        <FluentRadio>Two</FluentRadio>
-        <FluentRadio>Three</FluentRadio>
+    <FluentRadioGroup Value="one">
+        <FluentRadio Value="one" Checked="true">One</FluentRadio>
+        <FluentRadio Value="two">Two</FluentRadio>
+        <FluentRadio Value="three">Three</FluentRadio>
     </FluentRadioGroup>
-    <FluentCombobox class="below outline" @bind-Value="@comboboxValue" TOption="string">
+    <FluentCombobox Class="below outline" @bind-Value="@comboboxValue" TOption="string">
         <FluentOption id="option-2">Please Please Me</FluentOption>
         <FluentOption id="option-3">With The Beatles</FluentOption>
         <FluentOption id="option-4">A Hard Day's Night</FluentOption>
@@ -26,7 +25,7 @@
         <FluentOption id="option-14">Let It Be</FluentOption>
     </FluentCombobox>
     <FluentButton>Button</FluentButton>
-    <FluentSelect class="below outline" @bind-Value="@comboboxValue" TOption="string">
+    <FluentSelect Class="below outline" @bind-Value="@comboboxValue" TOption="string">
         <FluentOption id="option-15">Option 1</FluentOption>
         <FluentOption id="option-16">Second option</FluentOption>
         <FluentOption id="option-17">Option 3</FluentOption>
@@ -34,15 +33,15 @@
     <FluentCheckbox>Checkbox</FluentCheckbox>
 </FluentToolbar>
 
-<h4>Dark Mode</h4>
+
 <div style="padding:10px">
     <FluentToolbar id="toolbar-fluent-components-two" style="width:100%" @ref=Toolbar>
-        <FluentRadioGroup Value="on">
-            <FluentRadio Checked="true">Add</FluentRadio>
-            <FluentRadio>Open</FluentRadio>
-            <FluentRadio>Copy</FluentRadio>
-            <FluentRadio>Export</FluentRadio>
-            <FluentRadio>Automate</FluentRadio>
+        <FluentRadioGroup Value="one">
+            <FluentRadio Value="one"  Checked="true">Add</FluentRadio>
+            <FluentRadio Value="two">Open</FluentRadio>
+            <FluentRadio Value="three">Copy</FluentRadio>
+            <FluentRadio Value="four">Export</FluentRadio>
+            <FluentRadio Value="five">Automate</FluentRadio>
         </FluentRadioGroup>
         <FluentButton Appearance="Appearance.Stealth">Stealth</FluentButton>
         <FluentButton Appearance="Appearance.Accent">Refresh</FluentButton>

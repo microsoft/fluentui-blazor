@@ -1,0 +1,36 @@
+﻿<FluentToolbar id="toolbar-first-disabled" Orientation="Orientation.Vertical">
+    <FluentCheckbox Disabled="true">One</FluentCheckbox>
+    <FluentCheckbox tabindex="0">Two</FluentCheckbox>
+    <FluentCheckbox tabindex="-1">Three</FluentCheckbox>
+</FluentToolbar>
+<FluentToolbar id="toolbar-second-disabled" Orientation="Orientation.Vertical">
+    <FluentCheckbox tabindex="0">One</FluentCheckbox>
+    <FluentCheckbox Disabled="true">Two</FluentCheckbox>
+    <FluentCheckbox tabindex="-1">Three</FluentCheckbox>
+</FluentToolbar>
+<FluentToolbar id="toolbar-last-disabled" Orientation="Orientation.Vertical">
+    <FluentCheckbox tabindex="0">One</FluentCheckbox>
+    <FluentCheckbox tabindex="-1">Two</FluentCheckbox>
+    <FluentCheckbox Disabled="true">Three</FluentCheckbox>
+</FluentToolbar>
+<FluentToolbar id="toolbar-last-two-disabled" Orientation="Orientation.Vertical">
+    <FluentCheckbox tabindex="0">One</FluentCheckbox>
+    <FluentCheckbox Disabled="true">Two</FluentCheckbox>
+    <FluentCheckbox Disabled="true">Three</FluentCheckbox>
+</FluentToolbar>
+<FluentToolbar id="toolbar-first-last-disabled" Orientation="Orientation.Vertical">
+    <FluentCheckbox Disabled="true">One</FluentCheckbox>
+    <FluentCheckbox tabindex="0">Two</FluentCheckbox>
+    <FluentCheckbox Disabled="true">Three</FluentCheckbox>
+</FluentToolbar>
+<FluentToolbar id="toolbar-first-two-disabled" Orientation="Orientation.Vertical">
+    <span slot="label">Span Label</span>
+    <FluentCheckbox Disabled="true">One</FluentCheckbox>
+    <FluentCheckbox Disabled="true">Two</FluentCheckbox>
+    <FluentCheckbox tabindex="0">Three</FluentCheckbox>
+</FluentToolbar>
+<FluentToolbar id="toolbar-disabled-all" Orientation="Orientation.Vertical">
+    <FluentCheckbox Disabled="true">One</FluentCheckbox>
+    <FluentCheckbox Disabled="true">Two</FluentCheckbox>
+    <FluentCheckbox Disabled="true">Three</FluentCheckbox>
+</FluentToolbar>
