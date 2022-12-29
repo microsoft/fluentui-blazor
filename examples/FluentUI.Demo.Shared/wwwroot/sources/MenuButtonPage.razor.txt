@@ -6,4 +6,4 @@
 
 <h2>Example</h2>
 
-<DemoSection Component="typeof(MenuButton)" Title="MenuButton to select accent color"  />
+<DemoSection Component="typeof(MenuButton)" Title="MenuButton to select accent color" CollocatedFiles="@(new[] {"css", "js"})"  />
