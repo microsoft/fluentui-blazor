@@ -60,12 +60,19 @@ public partial class DemoSection : ComponentBase
 
     private Dictionary<string, string> TabPanelsContent { get; set; } = new();
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task OnParametersSetAsync()
+    {
+        await SetCodeContentsAsync();
+
+        //return base.OnParametersSetAsync();
+    }
+
+    protected override void OnAfterRender(bool firstRender)
     {
         if (firstRender)
         {
             HasCode = true;
-            await SetCodeContentsAsync();
+
 
         }
     }
@@ -80,7 +87,8 @@ public partial class DemoSection : ComponentBase
             }
             foreach (string source in GetSources())
             {
-                TabPanelsContent.Add(source, await Http.GetStringAsync($"./_content/FluentUI.Demo.Shared/sources/{source}.txt"));
+                string temp = await Http.GetStringAsync($"./_content/FluentUI.Demo.Shared/sources/{source}.txt");
+                TabPanelsContent.Add(source, temp);
             }
             StateHasChanged();
         }

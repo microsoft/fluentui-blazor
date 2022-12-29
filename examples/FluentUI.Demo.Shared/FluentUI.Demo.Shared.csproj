@@ -53,13 +53,6 @@
 	<ItemGroup>
 		<Folder Include="wwwroot\sources\" />
 	</ItemGroup>
-
-	<ItemGroup>
-	  <None Include="Pages\Icon\Examples\FluentIconColors.razor" />
-	  <None Include="Pages\Icon\Examples\FluentIconCultures.razor" />
-	  <None Include="Pages\Icon\Examples\FluentIconInvalidCombination.razor" />
-	  <None Include="Pages\Icon\Examples\FluentIconSlots.razor" />
-	</ItemGroup>
 	
 	<Target Name="CopyExamplesToContentRoot" BeforeTargets="CoreBuild">
 		<ItemGroup>
