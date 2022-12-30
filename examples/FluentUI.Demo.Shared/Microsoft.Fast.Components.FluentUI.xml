@@ -5207,6 +5207,31 @@
             The axis will scale to the anchor.
             </summary>
         </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.BlazorHostingModel">
+            <summary>
+            The ASP.NET Core Blazor hosing models
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.BlazorHostingModel.NotSpecified">
+            <summary>
+            No hosting model is specified
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.BlazorHostingModel.Server">
+            <summary>
+            Blazor Server 
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.BlazorHostingModel.WebAssembly">
+            <summary>
+            Blazor WebAssembly
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.BlazorHostingModel.Hybrid">
+            <summary>
+            Blazor Hybrid
+            </summary>
+        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.ButtonType">
             <summary>
             The type of button.

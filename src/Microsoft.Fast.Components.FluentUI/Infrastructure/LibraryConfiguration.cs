@@ -7,8 +7,6 @@
 /// </summary>
 public class LibraryConfiguration
 {
-
+    public BlazorHostingModel HostingModel { get; set; } = BlazorHostingModel.NotSpecified;
     public StaticAssetServiceConfiguration StaticAssetServiceConfiguration { get; set; } = new();
-
-
 }
