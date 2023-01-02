@@ -23,4 +23,8 @@
       <ProjectReference Include="..\Microsoft.Fast.Components.FluentUI\Microsoft.Fast.Components.FluentUI.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Badge" />
+    </ItemGroup>
+
 </Project>
