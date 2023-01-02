@@ -511,7 +511,7 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.AnchoredRegion
         }
 
         [Fact]
-        public void RenderProperly_WithASingleAdditionalAttribute()
+        public void RenderProperly_WithAnAdditionalAttribute()
         {
             // Arrange && Act
             string additionalAttributeName = "additional";
@@ -539,7 +539,7 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.AnchoredRegion
         }
 
         [Fact]
-        public void RenderProperly_WithMultipleAdditionalAttribute()
+        public void RenderProperly_WithMultipleAdditionalAttributes()
         {
             // Arrange && Act
             string additionalAttribute1Name = "additional1";
