@@ -3,7 +3,7 @@ using Xunit;
 
 namespace Microsoft.Fast.Components.FluentUI.Tests.Accordion
 {
-    public class FluentAccordionItemShould : TestBase
+    public class FluentAccordionItemRenderShould : TestBase
     {
         [Fact]
         public void RenderProperly_WithChildContent_IsNull()
