@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
@@ -133,6 +134,13 @@ public partial class FluentCalendar : FluentComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(CalendarSelectEventArgs))]
+
+    public FluentCalendar()
+    {
+        
+    }
 
     protected override void OnParametersSet()
     {
