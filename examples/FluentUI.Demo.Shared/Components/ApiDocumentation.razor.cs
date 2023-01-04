@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 using FluentUI.Demo.Generators;
 using Microsoft.AspNetCore.Components;
 
@@ -26,6 +27,7 @@ public partial class ApiDocumentation
     /// </summary>
 
     [Parameter, EditorRequired]
+    [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
     public Type Component { get; set; } = default!;
 
     /// <summary>
@@ -55,6 +57,7 @@ public partial class ApiDocumentation
 
     private IEnumerable<MemberDescription> Methods => GetMembers(MemberTypes.Method);
 
+    [SuppressMessage("Trimming", "IL2055:Either the type on which the MakeGenericType is called can't be statically determined, or the type parameters to be used for generic arguments can't be statically determined.", Justification = "Just for demo/documentation purposes")]
     private IEnumerable<MemberDescription> GetMembers(MemberTypes type)
     {
         string[] MEMBERS_TO_EXCLUDE = new[] { "AdditionalAttributes", "BackReference", "Class", "Style", "Equals", "GetHashCode", "GetType", "SetParametersAsync", "ToString", "Dispose" };
@@ -79,22 +82,23 @@ public partial class ApiDocumentation
                 obj = Activator.CreateInstance(Component);
 
 
-            IEnumerable<MemberInfo>? allProperties = Component.GetProperties().Select(i => (MemberInfo)i);
+            IEnumerable<MemberInfo>? allProperties = Component.GetProperties(BindingFlags.Public).Select(i => (MemberInfo)i);
             IEnumerable<MemberInfo>? allMethods = Component.GetMethods().Where(i => !i.IsSpecialName).Select(i => (MemberInfo)i);
 
             foreach (var memberInfo in allProperties.Union(allMethods).OrderBy(m => m.Name))
             {
                 if (!MEMBERS_TO_EXCLUDE.Contains(memberInfo.Name) || Component.Name == "FluentComponentBase")
                 {
-                    var propertyInfo = memberInfo as PropertyInfo;
-                    var methodInfo = memberInfo as MethodInfo;
+                    PropertyInfo? propertyInfo = memberInfo as PropertyInfo;
+                    MethodInfo? methodInfo = memberInfo as MethodInfo;
 
                     if (propertyInfo != null)
                     {
                         bool isParameter = memberInfo.GetCustomAttribute<ParameterAttribute>() != null;
+                       
 
-                        bool isEvent = isParameter &&
-                                       propertyInfo.PropertyType.GetInterface("IEventCallback") != null;
+                        Type t = memberInfo.GetType(); 
+                        bool isEvent = t == typeof(EventCallback) || (t.IsGenericType && t.GetGenericTypeDefinition() == typeof(EventCallback<>));
 
                         // Parameters
                         if (isParameter && !isEvent)
@@ -161,11 +165,5 @@ public partial class ApiDocumentation
         }
 
         return Array.Empty<string>();
-    }
-
-
-    private static bool IsMarkedAsNullable(PropertyInfo p)
-    {
-        return new NullabilityInfoContext().Create(p).WriteState is NullabilityState.Nullable;
     }
 }

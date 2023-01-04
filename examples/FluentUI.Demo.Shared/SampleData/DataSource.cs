@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Components;
 
 namespace FluentUI.Demo.Shared.SampleData;
 
@@ -13,6 +14,7 @@ public class DataSource
         _navigationManager = navigationManager;
     }
 
+    [UnconditionalSuppressMessage("Trimming", "IL2026:Members annotated with 'RequiresUnreferencedCodeAttribute' require dynamic access otherwise can break functionality when trimming application code", Justification = "This is just being used for sample data")]
     public IQueryable<Person> People { get; } = _people.AsQueryable();
 
     public List<string> Names = _people.Select(p => $"{p.FirstName} {p.LastName}").ToList();
