@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Configuration;
 using Microsoft.JSInterop;
@@ -40,6 +41,8 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
     /// <summary>
     /// Constructs an instance of a DesignToken.
     /// </summary>
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(Swatch))]
+
     public DesignToken()
     {
 
