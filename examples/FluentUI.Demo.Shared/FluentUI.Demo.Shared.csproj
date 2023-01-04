@@ -6,7 +6,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<UseRazorSourceGenerator>true</UseRazorSourceGenerator>
 		<LangVersion>latest</LangVersion>
-		<IsTrimmable>false</IsTrimmable>
+		<IsTrimmable>true</IsTrimmable>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<DefaultItemExcludes>$(DefaultItemExcludes);wwwroot/emojis/**/metadata.json;</DefaultItemExcludes>
 	</PropertyGroup>
@@ -54,13 +54,6 @@
 	<ItemGroup>
 		<Folder Include="wwwroot\emojis\" />
 		<Folder Include="wwwroot\sources\" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Include="Pages\Icon\Examples\FluentIconColors.razor" />
-	  <None Include="Pages\Icon\Examples\FluentIconCultures.razor" />
-	  <None Include="Pages\Icon\Examples\FluentIconInvalidCombination.razor" />
-	  <None Include="Pages\Icon\Examples\FluentIconSlots.razor" />
 	</ItemGroup>
 	
 	<Target Name="CopyExamplesToContentRoot" BeforeTargets="CoreBuild">

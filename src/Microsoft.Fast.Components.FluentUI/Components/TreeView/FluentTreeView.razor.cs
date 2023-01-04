@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
@@ -33,6 +34,13 @@ public partial class FluentTreeView : FluentComponentBase
 
     [Parameter]
     public EventCallback<FluentTreeItem> OnExpandedChange { get; set; }
+
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(TreeChangeEventArgs))]
+
+    public FluentTreeView()
+    {
+        
+    }
 
     public async Task HandleOnSelectedChanged(TreeChangeEventArgs args)
     {

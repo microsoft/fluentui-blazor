@@ -1,6 +1,7 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
@@ -171,6 +172,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// <summary>
     /// Constructs an instance of <see cref="FluentDataGrid{TGridItem}"/>.
     /// </summary>
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DataGridCellFocusEventArgs))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DataGridRowFocusEventArgs))]
     public FluentDataGrid()
     {
         _columns = new();

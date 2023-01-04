@@ -5207,6 +5207,31 @@
             The axis will scale to the anchor.
             </summary>
         </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.BlazorHostingModel">
+            <summary>
+            The ASP.NET Core Blazor hosing models
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.BlazorHostingModel.NotSpecified">
+            <summary>
+            No hosting model is specified
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.BlazorHostingModel.Server">
+            <summary>
+            Blazor Server 
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.BlazorHostingModel.WebAssembly">
+            <summary>
+            Blazor WebAssembly
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.BlazorHostingModel.Hybrid">
+            <summary>
+            Blazor Hybrid
+            </summary>
+        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.ButtonType">
             <summary>
             The type of button.
@@ -5955,6 +5980,20 @@
             <param name="s"></param>
             <returns>string</returns>
         </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ServiceCollectionExtensions.AddFluentUIComponents(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Fast.Components.FluentUI.Infrastructure.LibraryConfiguration)">
+            <summary>
+            Add common services required by the Fluent UI Web Components for Blazor library
+            </summary>
+            <param name="services">Service collection</param>
+            <param name="configuration">Library configuration</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ServiceCollectionExtensions.AddFluentUIComponents(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.Fast.Components.FluentUI.Infrastructure.LibraryConfiguration})">
+            <summary>
+            Add common services required by the Fluent UI Web Components for Blazor library
+            </summary>
+            <param name="services">Service collection</param>
+            <param name="configuration">Library configuration</param>
+        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.Identifier">
             <summary />
         </member>
@@ -5996,6 +6035,11 @@
              existing one will still be unsubscribed.
              </summary>
              <param name="subscribable"></param>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.Infrastructure.LibraryConfiguration">
+            <summary>
+            Defines the global Fluent UI Web Components for Blazor library services configuration
+            </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.CssBuilder.Default(System.String)">
             <summary>

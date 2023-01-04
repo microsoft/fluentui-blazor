@@ -25,7 +25,6 @@
 		<CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)Generated</CompilerGeneratedFilesOutputPath>
 		<LangVersion>latest</LangVersion>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<PublishTrimmed>true</PublishTrimmed>
 		<IsTrimmable>true</IsTrimmable>
 		<DefaultItemExcludes>$(DefaultItemExcludes);wwwroot/icons/**/*_filled.svg</DefaultItemExcludes>
 	</PropertyGroup>
@@ -43,6 +42,7 @@
 		<NoWarn>1701;1702;8669;1591</NoWarn>
 		<DebuggerSupport>false</DebuggerSupport>
 		<TrimmerRemoveSymbols>true</TrimmerRemoveSymbols>
+		
 	</PropertyGroup>
 
 	<ItemGroup>

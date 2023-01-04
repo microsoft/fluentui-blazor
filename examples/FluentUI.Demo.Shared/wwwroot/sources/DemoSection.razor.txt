@@ -44,9 +44,9 @@
         @foreach (string tab in GetSources())
         {
             <FluentTabPanel>
-                @if (HasCode)
+                @if (_hasCode)
                 {
-                    <CodeSnippet Language="@TabLanguageClass(tab)">@TabPanelsContent[tab]</CodeSnippet>
+                    <CodeSnippet Language="@TabLanguageClass(tab)">@_tabPanelsContent[tab]</CodeSnippet>
                 }
             </FluentTabPanel>
         }

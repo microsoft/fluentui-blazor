@@ -5,8 +5,11 @@ using Microsoft.AspNetCore.Components;
 namespace FluentUI.Demo.Shared.Components;
 public partial class DemoSection : ComponentBase
 {
+    private bool _hasCode = false;
+    private Dictionary<string, string> _tabPanelsContent = new();
+
     [Inject]
-    private HttpClient Http { get; set; } = default!;
+    private HttpClient HttpClient { get; set; } = default!;
 
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
@@ -56,33 +59,28 @@ public partial class DemoSection : ComponentBase
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    private bool HasCode { get; set; } = false;
+    
+    protected override async Task OnParametersSetAsync()
+    {
+        await SetCodeContentsAsync();
+    }
 
-    private Dictionary<string, string> TabPanelsContent { get; set; } = new();
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override void OnAfterRender(bool firstRender)
     {
         if (firstRender)
-        {
-            HasCode = true;
-            await SetCodeContentsAsync();
-
-        }
+            _hasCode = true;
     }
 
     protected async Task SetCodeContentsAsync()
     {
+        HttpClient.BaseAddress ??= new Uri(NavigationManager.BaseUri);
+
         try
         {
-            if (Http.BaseAddress is null)
-            {
-                Http.BaseAddress = new Uri(NavigationManager.BaseUri);
-            }
             foreach (string source in GetSources())
             {
-                TabPanelsContent.Add(source, await Http.GetStringAsync($"./_content/FluentUI.Demo.Shared/sources/{source}.txt"));
+                _tabPanelsContent.Add(source, await HttpClient.GetStringAsync($"./_content/FluentUI.Demo.Shared/sources/{source}.txt"));
             }
-            StateHasChanged();
         }
         catch
         {
@@ -101,26 +99,18 @@ public partial class DemoSection : ComponentBase
 
     static string GetDisplayName(string name)
     {
-
+        
         if (name.EndsWith(".cs"))
-        {
             return "C#";
-        }
 
         if (name.EndsWith(".razor"))
-        {
             return "Razor";
-        }
 
         if (name.EndsWith(".css"))
-        {
             return "CSS";
-        }
 
         if (name.EndsWith(".js"))
-        {
             return "JavaScript";
-        }
 
         return name;
     }
@@ -128,23 +118,15 @@ public partial class DemoSection : ComponentBase
     static string? TabLanguageClass(string tabName)
     {
         if (tabName.EndsWith(".cs"))
-        {
             return "language-csharp";
-        }
 
         if (tabName.EndsWith(".razor"))
-        {
             return "language-cshtml-razor";
-        }
 
         if (tabName.EndsWith(".css"))
-        {
             return "language-css";
-        }
         if (tabName.EndsWith(".js"))
-        {
             return "language-javascript";
-        }
 
         return null;
     }

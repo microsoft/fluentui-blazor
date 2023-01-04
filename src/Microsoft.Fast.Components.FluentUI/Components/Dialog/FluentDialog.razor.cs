@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Fast.Components.FluentUI.Utilities;
 
@@ -53,6 +54,13 @@ public partial class FluentDialog : FluentComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogEventArgs))]
+
+    public FluentDialog()
+    {
+        
+    }
 
     public void Show()
     {

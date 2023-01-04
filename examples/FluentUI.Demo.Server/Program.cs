@@ -1,7 +1,10 @@
 using FluentUI.Demo.Shared.SampleData;
+using Microsoft.AspNetCore.Hosting.StaticWebAssets;
 using Microsoft.Fast.Components.FluentUI;
 
 var builder = WebApplication.CreateBuilder(args);
+
+StaticWebAssetsLoader.UseStaticWebAssets(builder.Environment, builder.Configuration);
 
 // Add services to the container.
 builder.Services.AddRazorPages();

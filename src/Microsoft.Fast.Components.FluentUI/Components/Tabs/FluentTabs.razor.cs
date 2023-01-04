@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
@@ -39,6 +40,14 @@ public partial class FluentTabs : FluentComponentBase
     /// </summary>
     [Parameter]
     public EventCallback<FluentTab> OnTabChange { get; set; }
+
+
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(TabChangeEventArgs))]
+
+    public FluentTabs()
+    {
+
+    }
 
     private async Task HandleOnTabChanged(TabChangeEventArgs args)
     {

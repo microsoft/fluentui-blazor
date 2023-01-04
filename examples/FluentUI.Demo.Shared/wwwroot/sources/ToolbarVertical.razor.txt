@@ -1,5 +1,4 @@
-﻿<h4>Vertical orientation</h4>
-<FluentToolbar id="toolbar-vertical-orientation" Orientation="Orientation.Vertical">
+﻿<FluentToolbar id="toolbar-vertical-orientation" Orientation="Orientation.Vertical">
     <span slot="label">Span Label</span>
     <FluentButton>One</FluentButton>
     <FluentButton>Two</FluentButton>

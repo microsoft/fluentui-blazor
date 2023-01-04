@@ -20,7 +20,7 @@ public partial class FluentIcon : FluentComponentBase
 
 
     [Inject]
-    private StaticAssetService StaticAssetService { get; set; } = default!;
+    private IStaticAssetService StaticAssetService { get; set; } = default!;
 
     [Inject]
     private CacheStorageAccessor CacheStorageAccessor { get; set; } = default!;

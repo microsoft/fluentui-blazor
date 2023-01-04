@@ -2,14 +2,16 @@
 @namespace FluentUI.Demo.Shared
 
 @inherits FluentComponentBase
+@implements IAsyncDisposable
 @inject AccentBaseColor AccentBaseColor
+@inject IJSRuntime JSRuntime;
 
 <div>
-    <FluentButton @ref="button" id="button" Appearance="Appearance.Accent" aria-haspopup="true" @onclick=ToggleMenu>
+    <FluentButton @ref="button" id="@idButton" Appearance="Appearance.Accent" aria-haspopup="true" aria-expanded="@toggle" @onclick=ToggleMenu @onkeydown=OnKeyDown>
         Select Brand Color
         <FluentIcon Slot="end" Name="@FluentIcons.ChevronDown" Color="@Color.Fill" />
     </FluentButton>
-    <FluentMenu Class="@menu" aria-labelledby="button" @onmenuchange=OnMenuChange>
+    <FluentMenu @ref="menu" id="@idMenu" Class="@menuClass" aria-labelledby="button" @onmenuchange=OnMenuChange>
         <FluentMenuItem id="0078D4">Windows</FluentMenuItem>
         <FluentMenuItem id="D83B01">Office</FluentMenuItem>
         <FluentMenuItem id="464EB8">Teams</FluentMenuItem>
@@ -24,13 +26,49 @@
 
 @code {
     FluentButton? button;
-    bool toggle = false;
-    string menu = "menu";
+    FluentMenu? menu;
+    bool? toggle = null;
+    string menuClass = "menu";
+    string idButton = Identifier.NewId();
+    string idMenu = Identifier.NewId();
+    IJSObjectReference? jsModule;
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Remeber to replace the path to the colocated JS file with your own project's path
+            // or Razor Class Library's path.
+            jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/FluentUI.Demo.Shared/Pages/Lab/MenuButton/MenuButton.razor.js");
+            await jsModule.InvokeAsync<object>("clickOutsideHandler", idButton, idMenu, DotNetObjectReference.Create(this));
+        }
+
+    }
+    
     private void ToggleMenu()
     {
-        toggle = !toggle;
-        menu = toggle ? "menu visible" : "menu";
+        if (toggle is null || toggle == false) 
+            ShowMenu();
+        else
+            HideMenu();
+    }
+
+    public void ShowMenu()
+    {
+        toggle = true;
+        menuClass = "menu visible";
+        menu!.Element.FocusAsync();
+        StateHasChanged();
+    }
+
+    [JSInvokable]
+    public void HideMenu()
+    {
+        toggle = null;
+        button!.Element.FocusAsync();
+        menuClass = "menu";
+        StateHasChanged();
+        
     }
 
     private async Task OnMenuChange(MenuChangeEventArgs args)
@@ -39,6 +77,29 @@
         {
             await AccentBaseColor.SetValueFor(button!.Element, $"#{args.Id}".ToSwatch());
             ToggleMenu();
+        }
+    }
+
+    private void OnKeyDown(KeyboardEventArgs args)
+    {
+        if (args is not null && args.Key == "Escape")
+        {
+            ToggleMenu();
+        }
+    }
+    public async ValueTask DisposeAsync()
+    {
+        try
+        {
+            if (jsModule is not null)
+            {
+                await jsModule.DisposeAsync();
+            }
+        }
+        catch (JSDisconnectedException)
+        {
+            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
+            // the client disconnected. This is not an error.
         }
     }
 }

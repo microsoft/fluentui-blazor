@@ -2,6 +2,6 @@
  <PropertyGroup>
 	<SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
 	 <VersionPrefix>2.0.0</VersionPrefix>
-	 <VersionSuffix>rc-2</VersionSuffix> 
+	 <VersionSuffix></VersionSuffix> 
  </PropertyGroup>
 </Project>

@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
@@ -37,6 +38,13 @@ public partial class FluentAccordion : FluentComponentBase
     /// </summary>
     [Parameter]
     public EventCallback<FluentAccordionItem> OnAccordionItemChange { get; set; }
+
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(AccordionChangeEventArgs))]
+
+    public FluentAccordion()
+    {
+        
+    }
 
     private async Task HandleOnAccordionChanged(AccordionChangeEventArgs args)
     {
