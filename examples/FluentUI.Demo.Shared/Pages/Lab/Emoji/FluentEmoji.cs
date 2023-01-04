@@ -22,7 +22,7 @@ public partial class FluentEmoji : FluentComponentBase
 
 
     [Inject]
-    private StaticAssetService StaticAssetService { get; set; } = default!;
+    private IStaticAssetService StaticAssetService { get; set; } = default!;
 
     [Inject]
     private CacheStorageAccessor CacheStorageAccessor { get; set; } = default!;
@@ -117,8 +117,11 @@ public partial class FluentEmoji : FluentComponentBase
             result = await StaticAssetService.GetAsync(_emojiUrl);
             if (string.IsNullOrEmpty(result))
                 return;
-
-            Regex regex = new("<svg (?<attributes>.*?)>(?<payload>.*?)</svg>", RegexOptions.Singleline);
+#if NET7_0_OR_GREATER
+            Regex regex = SvgSplitter();
+#else
+            Regex regex = new("<svg (?<attributes>.*?)>(?<payload>.*?)</svg>", RegexOptions.Singleline | RegexOptions.Compiled);
+#endif
 
             MatchCollection matches = regex.Matches(result);
             Match? match = matches.FirstOrDefault();
@@ -182,4 +185,9 @@ public partial class FluentEmoji : FluentComponentBase
     }
 
     private static HttpRequestMessage CreateMessage(string url) => new(HttpMethod.Get, url);
+
+#if NET7_0_OR_GREATER
+    [GeneratedRegex("<svg (?<attributes>.*?)>(?<payload>.*?)</svg>", RegexOptions.Singleline)]
+    private static partial Regex SvgSplitter();
+#endif
 }
