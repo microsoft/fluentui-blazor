@@ -17,11 +17,13 @@
 
 The `Microsoft.Fast.Components.FluentUI` package provides a set of [Blazor](https://blazor.net) component wrappers around Microsoft's official FluentUI Web Components. The FluentUI Web Components are built on [FAST](https://www.fast.design/) and work in every major browser. To get up and running with `Microsoft.Fast.Components.FluentUI` see the Getting Started section below.
 
+The source for the library is hosted in the [Fast Blazor](https://github.com/microsoft/fast-blazor) repository at GitHub. Documentation on the components is available at the [demo site](https://aka.ms/fluentui-blazor) and at [docs.microsoft.com](https://docs.microsoft.com/en-us/fluent-ui/web-components/). 
+
 The source for `@fluentui/web-components` is hosted in the [Fluent UI](https://github.com/microsoft/fluentui/tree/master/packages/web-components) mono-repository. Documentation on the components is available on [docs.microsoft.com](https://docs.microsoft.com/en-us/fluent-ui/web-components/).
 
 ## Getting Started
 
-To get started using the Fluent UI Web Components for Blazor, you will first need to install [the official Nuget package for Fluent UI](https://www.nuget.org/packages/Microsoft.Fast.Components.FluentUI/). You can use the following command:
+To get started using the Fluent UI Web Components for Blazor, you will first need to install [the official Nuget package for Fluent UI](https://www.nuget.org/packages/Microsoft.Fast.Components.FluentUI/) in the project you would like to use the library and components. You can use the following command:
 
 ```shell
 dotnet add package Microsoft.Fast.Components.FluentUI
@@ -46,7 +48,7 @@ The markup above always references the latest release of the components. When de
 <script type="module" src="https://cdn.jsdelivr.net/npm/@fluentui/web-components@2.0.2/dist/web-components.min.js"></script>
 ```
 
-The best place to put the script tag is typically in your `index.html` (`_Layout.cshtml` for Blazor server project) file in the script section at the bottom of the `<body>`.
+The script tag is normally placed  in your `index.html` (`_Layout.cshtml` for Blazor server project) file in the script section at the bottom of the `<body>`.
 
 If you wish to leverage NPM instead, run the following command:
 
@@ -67,7 +69,9 @@ Copy this to your `wwwroot/script` folder and reference it with a script tag as 
 > If you are setting up Fluent UI Web Components on a Blazor Server project, you will need to escape the `@` character by repeating it in the source link. For more information check out the [Razor Pages syntax documentation](https://docs.microsoft.com/aspnet/core/mvc/views/razor).
 
 ### Styles
-In order for this library to work as expected, you will need to add to your `index.html` or `_Layout.cshtml` a line that includes the composed scoped CSS for the components. This can be done by adding the following line to the `<head>` section:
+In order for this library to work as expected, you will need to add the composed scoped CSS file for the components. This can be done by 
+adding the following line to the <head> section of your `index.html` or `_Layout.cshtml` file in the project you installed the package:
+
 
 ```html
 <link href="{PROJECT_NAME}.styles.css" rel="stylesheet" /> 
@@ -122,7 +126,7 @@ Here's a small example of a `FluentCard` with a `FluentButton` that uses the Flu
 ```
 > :bulb: **Tip**
 > 
-> You can add `@using Microsoft.Fast.Components.FluentUI` to the namespace collection in `_Imports.razor`, so that you can avoid having to repeat it in every single razor page.
+> You can add `@using Microsoft.Fast.Components.FluentUI` to the namespace collection in `_Imports.razor`, so you don't have to add it to every razor page that uses one of the components.
 
 
 ### Configuring the Design System
