@@ -345,6 +345,23 @@ builder.Services.AddFluentUIComponents(options =>
 builder.Services.AddScoped<IStaticAssetService, FileBasedStaticAssetService>();
 ```
 
+## Use the DataGrid component with EF Core
+If you want to use the `FluentDataGrid` with data provided through EF Core, you need to install 
+an additional package so the grid knows how to resolve queries asynchronously for efficiency.  .
+
+### Installation
+Install the package by running the command:
+```
+dotnet add package Microsoft.Fast.Components.FluentUI.DataGrid.EntityFrameworkAdapter
+```
+
+### Usage
+In your Program.cs file you need to add the following after the `builder.Services.AddFluentUIComponents();` line:
+```csharp
+builder.Services.AddDataGridEntityFrameworkAdapter();
+```
+
+
 ## Joining the Community
 
 Looking to get answers to questions or engage with us in real-time? Our community is most active [on Discord](https://discord.gg/FcSNfg4). Submit requests and issues on [GitHub](https://github.com/dotnet/blazor-fluentui/issues/new/choose), or join us by contributing on [some good first issues via GitHub](https://github.com/dotnet/blazor-fluentui/labels/community:good-first-issue).
