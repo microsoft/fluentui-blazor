@@ -24,11 +24,14 @@
         {
             <FluentTab id="tab-example" Text="Example" />
         }
-        @foreach (string tab in GetSources())
+        @if (!HideAllButExample)
         {
-            <FluentTab id="@("tab-"+@GetDisplayName(tab).Replace("#","").ToLower())" Text="@GetDisplayName(tab)" />
-        }
+            @foreach (string tab in GetSources())
+            {
+                <FluentTab id="@("tab-"+@GetDisplayName(tab).Replace("#","").ToLower())" Text="@GetDisplayName(tab)" />
+            }
 
+        }
         @if (!HideExample)
         {
             <FluentTabPanel>
@@ -41,14 +44,17 @@
                 </div>
         </FluentTabPanel>
         }
-        @foreach (string tab in GetSources())
+        @if (!HideAllButExample)
         {
-            <FluentTabPanel>
-                @if (_hasCode)
-                {
-                    <CodeSnippet Language="@TabLanguageClass(tab)">@_tabPanelsContent[tab]</CodeSnippet>
-                }
-            </FluentTabPanel>
+            @foreach (string tab in GetSources())
+            {
+                <FluentTabPanel>
+                    @if (_hasCode)
+                    {
+                        <CodeSnippet Language="@TabLanguageClass(tab)">@_tabPanelsContent[tab]</CodeSnippet>
+                    }
+                </FluentTabPanel>
+            }
         }
     </FluentTabs>
 </div>

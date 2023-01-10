@@ -21,7 +21,7 @@ public partial class DemoSection : ComponentBase
     public RenderFragment? Description { get; set; }
 
     /// <summary>
-    /// The component for wich the example will be shown. Enter the name only. '.razor' will be added internally
+    /// The component for wich the example will be shown. Enter the type (typeof(...)) name 
     /// </summary>
     [Parameter, EditorRequired]
     public Type Component { get; set; } = default!;
@@ -55,6 +55,12 @@ public partial class DemoSection : ComponentBase
     /// </summary>
     [Parameter]
     public bool HideExample { get; set; } = false;
+
+    /// <summary>
+    /// Hides all but the 'Example' tab
+    /// </summary>
+    [Parameter]
+    public bool HideAllButExample { get; set; } = false;
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
