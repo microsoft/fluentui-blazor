@@ -51,7 +51,7 @@ steps:
     packagesToPack: $(project)
     versioningScheme: 'off'
 
-- task: EsrpCodeSigning@1
+- task: EsrpCodeSigning@2
   displayName: Code Signing Assemblies (Authenticode Signing)
   inputs:
     ConnectedServiceName: 'FAST-NuGet-Publishing-SC'
@@ -80,6 +80,7 @@ steps:
     SessionTimeout: '60'
     MaxConcurrency: '200'
     MaxRetryAttempts: '5'
+
 
 - task: NuGetCommand@2
   displayName: Publish to NuGet
