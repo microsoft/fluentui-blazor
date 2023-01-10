@@ -1,10 +1,14 @@
 using FluentUIBlazorServerApp.Data;
+using Microsoft.Fast.Components.FluentUI;
 
 WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+
+builder.Services.AddFluentUIComponents();
+
 builder.Services.AddSingleton<WeatherForecastService>();
 
 WebApplication? app = builder.Build();
