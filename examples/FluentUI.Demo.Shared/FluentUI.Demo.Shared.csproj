@@ -7,9 +7,9 @@
 		<UseRazorSourceGenerator>true</UseRazorSourceGenerator>
 		<LangVersion>latest</LangVersion>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-  	<IsTrimmable>true</IsTrimmable>
+	<IsTrimmable>true</IsTrimmable>
 		<SuppressTrimAnalysisWarnings>false</SuppressTrimAnalysisWarnings>
-    <DefaultItemExcludes>$(DefaultItemExcludes);wwwroot/emojis/**/metadata.json;</DefaultItemExcludes>
+	<DefaultItemExcludes>$(DefaultItemExcludes);wwwroot/emojis/**/metadata.json;</DefaultItemExcludes>
 	</PropertyGroup>
 
 	<ItemGroup>
