@@ -27,7 +27,7 @@
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<IsTrimmable>true</IsTrimmable>
 		<SuppressTrimAnalysisWarnings>false</SuppressTrimAnalysisWarnings>
-		<DefaultItemExcludes>$(DefaultItemExcludes);wwwroot/icons/**/*_filled.svg</DefaultItemExcludes>
+		<EmojiStyles>Color</EmojiStyles>
 	</PropertyGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -43,7 +43,6 @@
 		<NoWarn>1701;1702;8669;1591</NoWarn>
 		<DebuggerSupport>false</DebuggerSupport>
 		<TrimmerRemoveSymbols>true</TrimmerRemoveSymbols>
-		
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -80,7 +79,7 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
 	</ItemGroup>
-	
+
 	<PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true' Or '$(TF_BUILD)' == 'true'">
 		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
 	</PropertyGroup>
@@ -90,5 +89,14 @@
 			<XmlFiles Include="$(ProjectDir)bin\$(Configuration)\$(TargetFramework)\*.xml" />
 		</ItemGroup>
 		<Copy SourceFiles="@(XmlFiles)" DestinationFolder="$(SolutionDir)examples\FluentUI.Demo.Shared" />
+	</Target>
+
+	<Target Name="CopyExamplesToContentRoot" BeforeTargets="CoreBuild">
+		<ItemGroup>
+			<Sources Include="$(ProjectDir)\Assets\emojis\**\*_color_*.svg" />
+			<!--<Sources Include="$(ProjectDir)\Assets\emojis\**\*_flat_*.svg" />-->
+			<!--<Sources Include="$(ProjectDir)\Assets\emojis\**\*_high-contrast_*.svg" />-->
+		</ItemGroup>
+		<Copy SourceFiles="@(Sources)" DestinationFiles="@(Sources->'$(ProjectDir)wwwroot\emojis\%(RecursiveDir)\%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
 	</Target>
 </Project>
