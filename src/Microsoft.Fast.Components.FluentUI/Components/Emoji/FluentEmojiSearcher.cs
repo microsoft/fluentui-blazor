@@ -1,4 +1,4 @@
-﻿namespace FluentUI.Demo.Shared;
+﻿namespace Microsoft.Fast.Components.FluentUI;
 
 public class FluentEmojiSearcher
 {

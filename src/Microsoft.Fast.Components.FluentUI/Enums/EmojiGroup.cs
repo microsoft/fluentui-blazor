@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace FluentUI.Demo.Shared;
+namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary>
 /// The collection of groups emojis are placed in

@@ -47,13 +47,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="wwwroot\emojis\**" />
-	  <Content Remove="wwwroot\emojis\**" />
-	  <EmbeddedResource Remove="wwwroot\emojis\**" />
-	  <None Remove="wwwroot\emojis\**" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<None Include="..\..\README.md">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>

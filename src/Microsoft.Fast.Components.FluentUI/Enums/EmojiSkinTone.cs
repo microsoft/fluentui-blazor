@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace FluentUI.Demo.Shared;
+namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary>
 /// The skin tones for emojis 

@@ -9,7 +9,7 @@ using Microsoft.CodeAnalysis.Text;
 
 #nullable enable
 
-namespace FluentUI.Demo.Generators
+namespace Microsoft.Fast.Components.FluentUI.Generators
 {
     public class Metadata
     {
@@ -43,11 +43,11 @@ namespace FluentUI.Demo.Generators
 
             context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.MSBuildProjectDirectory", out var projectDirectory);
 
-            string basepath = Path.Combine(Directory.GetParent(projectDirectory).FullName, $"FluentUI.Demo.Shared{Path.DirectorySeparatorChar}wwwroot{Path.DirectorySeparatorChar}emojis{Path.DirectorySeparatorChar}");
+            string basepath = Path.Combine(Directory.GetParent(projectDirectory).FullName, $"Microsoft.Fast.Components.FluentUI{Path.DirectorySeparatorChar}wwwroot{Path.DirectorySeparatorChar}emojis{Path.DirectorySeparatorChar}");
 
             sb.AppendLine($"#pragma warning disable CS1591");
             sb.AppendLine("using System.Collections.Generic;\r\n");
-            sb.AppendLine("namespace FluentUI.Demo.Shared;\r\n");
+            sb.AppendLine("namespace Microsoft.Fast.Components.FluentUI;\r\n");
             sb.AppendLine("public static partial class FluentEmojis");
             sb.AppendLine("{");
             sb.AppendLine("\tpublic static IEnumerable<EmojiModel> EmojiMap = new EmojiModel[$emojicount$]");

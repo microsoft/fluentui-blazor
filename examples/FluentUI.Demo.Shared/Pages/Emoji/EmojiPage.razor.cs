@@ -25,7 +25,7 @@ public partial class EmojiPage : IAsyncDisposable
         if (firstRender)
         {
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-                 "./_content/FluentUI.Demo.Shared/Pages/Lab/EmojiPage.razor.js");
+                 "./_content/FluentUI.Demo.Shared/Pages/Emoji/EmojiPage.razor.js");
         }
     }
 

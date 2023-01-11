@@ -530,80 +530,6 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.Readonly">
-            <summary>
-            Gets or sets if the calendar is readonly 
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.Locale">
-            <summary>
-            String repesentation of the full locale including market, calendar type and numbering system
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.Month">
-            <summary>
-            Gets or sets the month of the calendar to display
-            Defaults to current month
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.Year">
-            <summary>
-            Gets or sets the year of the calendar to display
-            Defaults to current year
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.DayFormat">
-            <summary>
-            Format style for the day
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.WeekdayFormat">
-            <summary>
-            Format style for the week day labels
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.MonthFormat">
-            <summary>
-            Format style for the month label
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.YearFormat">
-            <summary>
-            Format style for the year used in the title
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.MinWeeks">
-            <summary>
-            Minimum number of weeks to show for the month
-            This can be used to normalize the calendar view
-            when changing or across multiple calendars
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.DisabledSelectable">
-            <summary>
-            A list of dates that should be shown as disabled
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.OutOfMonthSelectable">
-            <summary>
-            Gets or sets whether dates outside of shown month are selectable
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.DisabledDates">
-            <summary>
-            Gets or sets dates to be shown as disabled.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.SelectedDates">
-            <summary>
-            A list of dates that should be shown as highlighted
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.ChildContent">
-            <summary>
-            Gets or sets the content to be rendered inside the component.
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentCard.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
@@ -1252,6 +1178,136 @@
             <summary>
             Gets or sets the content to be rendered inside the component.
             </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.Readonly">
+            <summary>
+            Gets or sets if the calendar is readonly 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.Locale">
+            <summary>
+            String repesentation of the full locale including market, calendar type and numbering system
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.Month">
+            <summary>
+            Gets or sets the month of the calendar to display
+            Defaults to current month
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.Year">
+            <summary>
+            Gets or sets the year of the calendar to display
+            Defaults to current year
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.DayFormat">
+            <summary>
+            Format style for the day
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.WeekdayFormat">
+            <summary>
+            Format style for the week day labels
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.MonthFormat">
+            <summary>
+            Format style for the month label
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.YearFormat">
+            <summary>
+            Format style for the year used in the title
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.MinWeeks">
+            <summary>
+            Minimum number of weeks to show for the month
+            This can be used to normalize the calendar view
+            when changing or across multiple calendars
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.DisabledSelectable">
+            <summary>
+            A list of dates that should be shown as disabled
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.OutOfMonthSelectable">
+            <summary>
+            Gets or sets whether dates outside of shown month are selectable
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.DisabledDates">
+            <summary>
+            Gets or sets dates to be shown as disabled.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.SelectedDates">
+            <summary>
+            A list of dates that should be shown as highlighted
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentEmoji.Id">
+            <summary>
+            Gets or sets the id.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentEmoji.Name">
+            <summary>
+            Gets or sets the name of the emoji. Can be specified by using const value from <see cref="T:Microsoft.Fast.Components.FluentUI.FluentEmojis" />
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentEmoji.EmojiStyle">
+            <summary>
+            Gets or sets the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentEmoji.EmojiStyle"/> to use. 
+            Defaults to Color
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentEmoji.Skintone">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.Fast.Components.FluentUI.EmojiSkintone"/> to use.
+            Defaults to Default
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentEmoji.Size">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.Fast.Components.FluentUI.EmojiSize"/> of the emoji. Defaults to Size32.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentEmoji.CustomSize">
+            <summary>
+            Gets or sets the custom size of the emoji. Can only be set if Size is set to Custom.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentEmoji.Slot">
+            <summary>
+            Gets or sets the slot where the emoji is displayed in
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentEmoji.OnClick">
+            <summary>
+            Allows for capturing a mouse click on an emoji
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentEmoji.SvgSplitter">
+            <remarks>
+            Pattern explanation:<br/>
+            <code>
+            ○ Match the string "&lt;svg ".<br/>
+            ○ "attributes" capture group.<br/>
+                ○ Match any character lazily any number of times.<br/>
+            ○ Match '&gt;'.<br/>
+            ○ "payload" capture group.<br/>
+                ○ Match any character lazily any number of times.<br/>
+            ○ Match the string "&lt;/svg&gt;".<br/>
+            </code>
+            </remarks>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentFlipper.Disabled">
             <summary>
@@ -5472,6 +5528,167 @@
             The divider is used for presentation purpose.
             </summary>
         </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.EmojiGroup">
+            <summary>
+            The collection of groups emojis are placed in
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.EmojiGroup.Smileys_Emotion">
+            <summary>
+            Smileys and Emotion
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.EmojiGroup.People_Body">
+            <summary>
+            People and Body
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.EmojiGroup.Animals_Nature">
+            <summary>
+            Animals and Nature
+            </summary>  
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.EmojiGroup.Food_Drink">
+            <summary>
+            Food and Drink
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.EmojiGroup.Travel_Places">
+            <summary>
+            Travel and Places
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.EmojiGroup.Symbols">
+            <summary>
+            Symbols
+            </summary>  
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.EmojiGroup.Objects">
+            <summary>
+            Objects
+            </summary>  
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.EmojiGroup.Activities">
+            <summary>
+            Activities
+            </summary>  
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.EmojiGroup.Flags">
+            <summary>
+            Flags
+            </summary>  
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.EmojiSize">
+            <summary>
+            The size of the emoji (in multiples of 32).
+            Defauts to Size32
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.EmojiSize.Size16">
+            <summary>
+            FluentUI Emoji size 16x16
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.EmojiSize.Size32">
+            <summary>
+            FluentUI Emoji size 32x32
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.EmojiSize.Size64">
+            <summary>
+            FluentUI Emoji size 64x64
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.EmojiSize.Size96">
+            <summary>
+            FluentUI Emoji size 96x96
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.EmojiSize.Size128">
+            <summary>
+            FluentUI Emoji size 128x128
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.EmojiSize.Size160">
+            <summary>
+            FluentUI Emoji size 160x160
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.EmojiSize.Size192">
+            <summary>
+            FluentUI Emoji size 192x192
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.EmojiSize.Size224">
+            <summary>
+            FluentUI Emoji size 224x224
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.EmojiSize.Size256">
+            <summary>
+            FluentUI Emoji size 256x256
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.EmojiSize.Custom">
+            <summary>
+            FluentUI Emoji custom size
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.EmojiSkintone">
+            <summary>
+            The skin tones for emojis 
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.EmojiSkintone.Default">
+            <summary>
+            Default
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.EmojiSkintone.Light">
+            <summary>
+            Light
+            </summary>  
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.EmojiSkintone.MediumLight">
+            <summary>
+            Medium Light
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.EmojiSkintone.Medium">
+            <summary>
+            Medium
+            </summary>  
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.EmojiSkintone.MediumDark">
+            <summary>
+            Medium Dark
+            </summary>  
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.EmojiSkintone.Dark">
+            <summary>
+            Dark
+            </summary>  
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.EmojiStyle">
+            <summary>
+            The variant options for emojis
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.EmojiStyle.Color">
+            <summary>
+            Color
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.EmojiStyle.Flat">
+            <summary>
+            Flat
+            </summary>  
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.EmojiStyle.HighContrast">
+            <summary>
+            High Contrast
+            </summary>  
+        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.FlipperDirection">
             <summary>
             The direction of the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentFlipper"/> component.
@@ -6301,34 +6518,66 @@
             <param name="when"></param>
             <returns></returns>
         </member>
-        <member name="T:System.Text.RegularExpressions.Generated.CheckRGBString_0">
-            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the CheckRGBString method.</summary>
+        <member name="T:System.Text.RegularExpressions.Generated.SvgSplitter_0">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the SvgSplitter method.</summary>
         </member>
-        <member name="F:System.Text.RegularExpressions.Generated.CheckRGBString_0.Instance">
+        <member name="F:System.Text.RegularExpressions.Generated.SvgSplitter_0.Instance">
             <summary>Cached, thread-safe singleton instance.</summary>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_0.#ctor">
+        <member name="M:System.Text.RegularExpressions.Generated.SvgSplitter_0.#ctor">
             <summary>Initializes the instance.</summary>
         </member>
-        <member name="T:System.Text.RegularExpressions.Generated.CheckRGBString_0.RunnerFactory">
+        <member name="T:System.Text.RegularExpressions.Generated.SvgSplitter_0.RunnerFactory">
             <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_0.RunnerFactory.CreateInstance">
+        <member name="M:System.Text.RegularExpressions.Generated.SvgSplitter_0.RunnerFactory.CreateInstance">
             <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
         </member>
-        <member name="T:System.Text.RegularExpressions.Generated.CheckRGBString_0.RunnerFactory.Runner">
+        <member name="T:System.Text.RegularExpressions.Generated.SvgSplitter_0.RunnerFactory.Runner">
             <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_0.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+        <member name="M:System.Text.RegularExpressions.Generated.SvgSplitter_0.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
             <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
             <param name="inputSpan">The text being scanned by the regular expression.</param>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+        <member name="M:System.Text.RegularExpressions.Generated.SvgSplitter_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
             <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
             <param name="inputSpan">The text being scanned by the regular expression.</param>
             <returns>true if a possible match was found; false if no more matches are possible.</returns>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_0.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+        <member name="M:System.Text.RegularExpressions.Generated.SvgSplitter_0.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.CheckRGBString_1">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the CheckRGBString method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.CheckRGBString_1.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_1.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.CheckRGBString_1.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_1.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.CheckRGBString_1.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_1.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_1.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_1.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
             <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
             <param name="inputSpan">The text being scanned by the regular expression.</param>
             <returns>true if the regular expression matches at the current position; otherwise, false.</returns>

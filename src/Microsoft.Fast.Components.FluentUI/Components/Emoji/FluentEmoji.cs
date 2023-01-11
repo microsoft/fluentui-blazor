@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Fast.Components.FluentUI;
 using Microsoft.Fast.Components.FluentUI.Infrastructure;
 
-namespace FluentUI.Demo.Shared;
+namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentEmoji : FluentComponentBase
 {
-    //private const string EMOJI_ROOT = "_content/Microsoft.Fast.Components.FluentUI/emojis";
-    private const string EMOJI_ROOT = "_content/FluentUI.Demo.Shared/emojis";
+    private const string EMOJI_ROOT = "_content/Microsoft.Fast.Components.FluentUI/emojis";
+    
     private string? _svg;
     private string? _emojiUrl;
     private string? _folder;
@@ -45,14 +45,14 @@ public partial class FluentEmoji : FluentComponentBase
     /// Defaults to Color
     /// </summary>
     [Parameter]
-    public EmojiStyle? EmojiStyle { get; set; } = Demo.Shared.EmojiStyle.Color;
+    public EmojiStyle? EmojiStyle { get; set; } = FluentUI.EmojiStyle.Color;
 
     /// <summary>
     /// Gets or sets the <see cref="EmojiSkintone"/> to use.
     /// Defaults to Default
     /// </summary>
     [Parameter]
-    public EmojiSkintone? Skintone { get; set; } = Demo.Shared.EmojiSkintone.Default;
+    public EmojiSkintone? Skintone { get; set; } = FluentUI.EmojiSkintone.Default;
 
     /// <summary>
     /// Gets or sets the <see cref="EmojiSize"/> of the emoji. Defaults to Size32.

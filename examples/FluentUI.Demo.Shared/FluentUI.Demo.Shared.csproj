@@ -54,7 +54,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="wwwroot\emojis\" />
 		<Folder Include="wwwroot\sources\" />
 	</ItemGroup>
 	
