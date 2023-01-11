@@ -16,14 +16,15 @@ steps:
   displayName: Install NuGet tools
 
 - task: UseDotNet@2
-  displayName: 'Install .NET 2.1 for ESRP Code Sign tool'  
-  inputs:    
-    version: 2.1.x
+  displayName: 'Install .NET 6.0'
+  inputs:
+    version: 6.0.405
+    includePreviewVersions: true
 
 - task: UseDotNet@2
-  displayName: 'Install .NET Core 6.0'
+  displayName: 'Install .NET 7.0'
   inputs:
-    version: 6.0.x
+    version: 7.0.102
     includePreviewVersions: true
 
 - task: DotNetCoreCLI@2
@@ -38,7 +39,7 @@ steps:
     packagesToPack: $(project)
     versioningScheme: 'off'
 
-- task: EsrpCodeSigning@1
+- task: EsrpCodeSigning@2
   displayName: Code Signing Assemblies (Authenticode Signing)
   inputs:
     ConnectedServiceName: 'FAST-NuGet-Publishing-SC'
