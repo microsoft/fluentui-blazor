@@ -27,7 +27,6 @@
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<IsTrimmable>true</IsTrimmable>
 		<SuppressTrimAnalysisWarnings>false</SuppressTrimAnalysisWarnings>
-		<EmojiStyles>Color</EmojiStyles>
 	</PropertyGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -90,13 +89,31 @@
 		</ItemGroup>
 		<Copy SourceFiles="@(XmlFiles)" DestinationFolder="$(SolutionDir)examples\FluentUI.Demo.Shared" />
 	</Target>
-
-	<Target Name="CopyExamplesToContentRoot" BeforeTargets="CoreBuild">
+	
+	<ItemGroup>
+		<Content Remove="Assests\**" Pack="false" />
+	</ItemGroup>
+	
+	<Target Name="CopyEmojiAssets" BeforeTargets="CoreBuild">
 		<ItemGroup>
-			<Sources Include="$(ProjectDir)\Assets\emojis\**\*_color_*.svg" />
-			<!--<Sources Include="$(ProjectDir)\Assets\emojis\**\*_flat_*.svg" />-->
-			<!--<Sources Include="$(ProjectDir)\Assets\emojis\**\*_high-contrast_*.svg" />-->
+			<Sources Include="$(ProjectDir)\Assets\emojis\**\*_color*.svg" />
+			<!--<Sources Include="$(ProjectDir)\Assets\emojis\**\*_flat*.svg" />-->
+			<!--<Sources Include="$(ProjectDir)\Assets\emojis\**\*_high-contrast*.svg" />-->
 		</ItemGroup>
-		<Copy SourceFiles="@(Sources)" DestinationFiles="@(Sources->'$(ProjectDir)wwwroot\emojis\%(RecursiveDir)\%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="@(Sources)" DestinationFiles="@(Sources->'$(ProjectDir)wwwroot\emojis\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+	</Target>
+
+	<Target Name="CopyIconAssets" AfterTargets="CopyEmojiAssets">
+		<ItemGroup>
+			<Sources Include="$(ProjectDir)\Assets\icons\**\*_10_*.svg" />
+			<Sources Include="$(ProjectDir)\Assets\icons\**\*_12_*.svg" />
+			<Sources Include="$(ProjectDir)\Assets\icons\**\*_16_*.svg" />
+			<!--<Sources Include="$(ProjectDir)\Assets\icons\**\*_20_*.svg" />-->
+			<Sources Include="$(ProjectDir)\Assets\icons\**\*_24_*.svg" />
+			<!--<Sources Include="$(ProjectDir)\Assets\icons\**\*_28_*.svg" />-->
+			<Sources Include="$(ProjectDir)\Assets\icons\**\*_32_*.svg" />
+			<Sources Include="$(ProjectDir)\Assets\icons\**\*_48_*.svg" />
+		</ItemGroup>
+		<Copy SourceFiles="@(Sources)" DestinationFiles="@(Sources->'$(ProjectDir)wwwroot\icons\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
 	</Target>
 </Project>
