@@ -7,11 +7,12 @@
 <h1>Welcome to the Fluent UI Web Components for Blazor library</h1>
 
 <h2 id="introduction">Introduction</h2>
-<p>The <code>Microsoft.Fast.Components.FluentUI</code> package provides a lightweight set of <a href="https://blazor.net">Blazor</a> component wrappers around Microsoft's official Fluent UI Web Components. The Fluent UI Web Components are built on <a href="https://www.fast.design/">FAST</a> and work in every major browser. To get up and running with <code>Microsoft.Fast.Components.FluentUI</code> see the Getting Started section below.</p>
-<p>The source for <code>@@fluentui/web-components</code> is hosted in the <a href="https://github.com/microsoft/fluentui/tree/master/packages/web-components">Fluent UI</a> mono-repository. Documentation on the components is available on <a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/">docs.microsoft.com</a>.</p>
+<p>The <code>Microsoft.Fast.Components.FluentUI</code> package provides a set of <a href="https://blazor.net">Blazor</a> component wrappers around Microsoft's official Fluent UI Web Components. The Fluent UI Web Components are built on <a href="https://www.fast.design/">FAST</a> and work in every major browser. To get up and running with <code>Microsoft.Fast.Components.FluentUI</code> see the Getting Started section below.</p>
+<p>The source for the library is hosted in the <a href="https://github.com/microsoft/fast-blazor">Fast Blazor</a> repository at GitHub. Documentation on the components is available at the <a href="https://aka.ms/fluentui-blazor">demo site</a> and at <a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/">docs.microsoft.com</a>.</p>
+<p>The source for <code>@@fluentui/web-components</code> is hosted in the <a href="https://github.com/microsoft/fluentui/tree/master/packages/web-components">Fluent UI</a> mono-repository. Documentation on the components is available at <a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/">docs.microsoft.com</a>.</p>
 
 <h2 id="getting-started">Getting Started</h2>
-<p>To get started using the Fluent UI Web Components for Blazor, you will first need to install <a href="https://www.nuget.org/packages/Microsoft.Fast.Components.FluentUI/">the official Nuget package for Fluent UI</a>. You can use the following command:</p>
+<p>To get started using the Fluent UI Web Components for Blazor, you will first need to install <a href="https://www.nuget.org/packages/Microsoft.Fast.Components.FluentUI/">the official Nuget package for Fluent UI</a> in the project you want to use the library and components. You can use the following command:</p>
 <CodeSnippet>dotnet add package Microsoft.Fast.Components.FluentUI</CodeSnippet>
 
 <h3>Scripts</h3>
@@ -19,10 +20,15 @@
 <p>To add the script from CDN use the following markup:</p>
 <CodeSnippet>&lt;script type=&quot;module&quot; src=&quot;https://cdn.jsdelivr.net/npm/@@fluentui/web-components/dist/web-components.min.js&quot;&gt;&lt;/script&gt;</CodeSnippet>
 
+<blockquote>
+	<p><strong>Note</strong></p>
+	<p>If you prefer to use another CDN, that is entirely possible. Just make sure it is offering the Fluent UI package and you are getting the right <code>web-components.min.js</code> file)</p>
+</blockquote>
+
 <p>The markup above always references the latest release of the components. When deploying to production, you will want to ship with a specific version. Here’s an example of the markup for that:</p>
 <CodeSnippet>&lt;script type=&quot;module&quot; src=&quot;https://cdn.jsdelivr.net/npm/@@fluentui/web-components@2.0.2/dist/web-components.min.js&quot;&gt;&lt;/script&gt;</CodeSnippet>
 
-<p>The best place to put the script tag is typically in your <code>index.html</code> (<code>_Layout.cshtml</code> for blazor server project) file in the script section at the bottom of the <code>&lt;body&gt;</code>.</p>
+<p>The script tag is normally placed in your <code>index.html</code> (<code>_Layout.cshtml</code> for blazor server project) file in the script section at the bottom of the <code>&lt;body&gt;</code>.</p>
 
 <p>If you wish to leverage NPM instead, run the following command:</p>
 <CodeSnippet>npm install --save @@fluentui/web-components</CodeSnippet>
@@ -39,11 +45,11 @@
 <h3>Styles</h3>
 <p>
 	In order for this library to work as expected, you will need to add the composed scoped CSS file for the components. This can be done by 
-	adding the following line to the <code>&lt;head&gt;</code> section of your <code>index.html</code> or <code>_Layout.cshtml</code> file:
+	adding the following line to the <code>&lt;head&gt;</code> section of your <code>index.html</code> or <code>_Layout.cshtml</code> file in the project you installed the package:
 </p>
 <CodeSnippet>&lt;link href="{PROJECT_NAME}.styles.css" rel="stylesheet" /&gt;</CodeSnippet>
 <p>
-	It is possible that the line is already there (but commented out) if you used the Blazor WebAssembly template. If you are using the Blazor Server template, you will need to add it yourself.
+	It is possible that the line is already there (but commented out).
 </p>
 
 <h4>Reboot</h4>
@@ -52,12 +58,12 @@
 	components for Blazor. It provides an elegant, consistent, and simple baseline to build upon.
 </p>
 <p>
-	If you want to use Reboot, you'll need to include it in your <code>index.html</code> or <code>_Layout.cshtml</code> file like this:
+	If you want to use Reboot, you'll need to add to your <code>index.html</code> or <code>_Layout.cshtml</code> file a line that includes the stylesheet (<code>.css</code> file). This can be done by adding the following line to the <code>&lt;head&gt;</code> section:
 <CodeSnippet Language="language-html">&lt;link href="_content/Microsoft.Fast.Components.FluentUI/css/reboot.css" rel="stylesheet" /&gt;</CodeSnippet>
 </p>
 <p>
 	It is entirely possible to build a site without using Reboot. If you choose not to use it, please do add the <code>variables.css</code> file (which is otherwise imported through the <code>reboot.css</code> file)
-	to your <code>index.html</code> or <code>_Layout.cshtml</code> file like this:
+	to your <code>index.html</code> or <code>_Layout.cshtml</code> file in the <code>&lt;head&gt;</code> section like this:
 <CodeSnippet Language="language-html">&lt;link href="_content/Microsoft.Fast.Components.FluentUI/css/variables.css" rel="stylesheet" /&gt;</CodeSnippet>
 	The file contains a number of CSS variables that are required to be defined for the components to work correctly. 
 </p>
@@ -65,36 +71,43 @@
 <p>In your Program.cs file you need to add the following:</p>
 <CodeSnippet>builder.Services.AddFluentUIComponents();</CodeSnippet>
 
-<p>This addition makes sure a <code>HttpClient</code> is set up for when you are using the library in Blazor Server.</p>
+<p>This addition makes sure all the necessary services the library uses are setup in a correct way.</p>
 
 
 <h2 id="using-the-fluentui-web-components">Using the Fluent UI Web Components</h2>
 <p>With the package installed and the script configured, you can begin using the Fluent UI Web Components in the same way as any other Blazor component. Just be sure to add the following using statement to your views:</p>
 <CodeSnippet>@@using Microsoft.Fast.Components.FluentUI</CodeSnippet>
 
-<p>Here's a small example of a <code>FluentCard</code> with a <code>FluentButton</code> that uses the Fluent "Accent" appearance:</p>
-<CodeSnippet>
+<DemoSection Title="Simple components example" Component="@typeof(IndexSimpleExample)" ShowDownloads=false HideAllButExample="true">
+	<Description>
+		<p>Here's a small example of a <code>FluentCard</code> with a <code>FluentButton</code> that uses Fluent's "Accent" appearance.</p>
+	</Description>
+	<ChildContent>
+		<CodeSnippet>
 @@using Microsoft.Fast.Components.FluentUI
 
-&lt;FluentCard&gt;
+&lt;FluentCard Style="padding: 1.5rem; width: 400px; height: 250px; "&gt;
   &lt;h2&gt;Hello World!&lt;/h2&gt;
   &lt;FluentButton Appearance=&quot;@@Appearance.Accent&quot;&gt;Click Me&lt;/FluentButton&gt;
 &lt;/FluentCard&gt;
-</CodeSnippet>
+		</CodeSnippet>
+		<p>Renders as:</p>
+	</ChildContent>
+</DemoSection>
 
 <blockquote>
 	<p><strong>Tip</strong></p>
-	<p>You can add <code>@@using Microsoft.Fast.Components.FluentUI</code> to the namespace collection in <code>_Imports.razor</code>, so that you can avoid repeating it in every single razor page.</p>
+	<p>You can add <code>@@using Microsoft.Fast.Components.FluentUI</code> to the namespace collection in <code>_Imports.razor</code>, so you don't have to add it to every razor page that uses one of the components.</p>
 </blockquote>
 
 <h2 id="configuring-the-design-system">Configuring the Design System</h2>
 <p>The Fluent UI Web Components are built on FAST’s Adaptive UI technology, which enables design customization and personalization, while automatically maintaining accessibility. This is accomplished through setting various “Design Tokens”.
-	You can use all of the (~160) individual Design Tokens, both from code as in a declarative way in your <code>.razor</code> pages. See https://docs.microsoft.com/en-us/fluent-ui/web-components/design-system/design-tokens for more information on how Design Tokens work
+	The library exposes all of the (over 160) Design Tokens, which you can use both from code as in a declarative way in your <code>.razor</code> pages. See https://docs.microsoft.com/en-us/fluent-ui/web-components/design-system/design-tokens for more information on how Design Tokens work
 </p>
 
 <DemoSection Title="Option 1: Using Design Tokens from C# code" Component="@typeof(IndexDesignTokensCode)" ShowDownloads=false>
 	<Description>
-		<p>As can be seen in the code below (with the <code>ref4.Element</code>), it is posible to apply multiple tokens to the same component.</p>
+		<p>As can be seen in the code below on the Razor tab (with the <code>ref4.Element</code>), it is posible to apply multiple tokens to the same component.</p>
 	</Description>
 </DemoSection>
 
@@ -187,6 +200,106 @@
 <DemoSection Title="Examples" Component="@typeof(IndexOfficeColors)" ShowDownloads=false>
 	<Description><p>The result looks like this when applied to a <code>&lt;FluentButton&gt;</code>:</p></Description>
 </DemoSection>
+
+<h2 id="blazor-hybrid">Blazor Hybrid</h2>
+<p>
+	Starting with the 2.0 release, you can also use this library in your Blazor Hybrid projects. Setup is almost the same as described in the "Getting started" section above, but to get everything to work you'll need to take two extra steps:
+</p>
+<ol>
+	<li>
+		You need to add a MAUI specific IStaticAssetService implementation.<br>
+		Due to some issues, this file can't be part of the library (yet) so this needs to be added manually to your MAUI Blazor project.<br>
+		Create a new class in you project called <code>FileBasedStaticAssetService.cs</code> Replace it's contents with the following:
+	</li>
+</ol>
+<CodeSnippet Language="csharp">using System.Net;
+using Microsoft.Fast.Components.FluentUI.Infrastructure;
+
+namespace Microsoft.Fast.Components.FluentUI;
+
+public class FileBasedStaticAssetService : IStaticAssetService
+{
+	private readonly CacheStorageAccessor _cacheStorageAccessor;
+
+	public FileBasedStaticAssetService(CacheStorageAccessor cacheStorageAccessor)
+	{
+		_cacheStorageAccessor = cacheStorageAccessor;
+	}
+
+	public async Task&lt;string&gt; GetAsync(string assetUrl, bool useCache = true)
+	{
+		string result = null;
+
+		HttpRequestMessage message = CreateMessage(assetUrl);
+
+
+		if (useCache)
+		{
+			// Get the result from the cache
+			result = await _cacheStorageAccessor.GetAsync(message);
+		}
+
+		if (string.IsNullOrEmpty(result))
+		{
+			//It not in the cache (or cache not used), read the asset from disk
+			result = await ReadData(assetUrl);
+
+			if (!string.IsNullOrEmpty(result))
+			{
+				if (useCache)
+				{
+					// If successful, create the response and store in the cache (when used)
+					HttpResponseMessage response = new()
+					{
+						StatusCode = HttpStatusCode.OK,
+						Content = new StringContent(result)
+					};
+
+					await _cacheStorageAccessor.PutAsync(message, response);
+				}
+			}
+		}
+
+		return result;
+	}
+
+	private static HttpRequestMessage CreateMessage(string url) => new(HttpMethod.Get, url);
+
+	private static async Task&lt;string&gt; ReadData(string file)
+	{
+		using var stream = await FileSystem.OpenAppPackageFileAsync($"wwwroot/{file}");
+		using var reader = new StreamReader(stream);
+
+		return await reader.ReadToEndAsync();
+	}
+}
+</CodeSnippet>
+<ol start="2">
+	<li>
+		You need to make some changes in your <code>MauiProgram.cs</code> file<br>
+		Make sure the following is added before the <code>return builder.Build()</code> line:
+	</li>
+</ol>
+<CodeSnippet Language="csharp">builder.Services.AddFluentUIComponents(options =>
+{
+	options.HostingModel = BlazorHostingModel.Hybrid;
+});
+builder.Services.AddSingleton&lt;IStaticAssetService, FileBasedStaticAssetService&gt;();
+</CodeSnippet>
+
+<h2>Use the DataGrid component with EF Core</h2>
+<p>
+	If you want to use the <code>FluentDataGrid</code> with data provided through EF Core, you need to install an additional package so the 
+	grid knows how to resolve queries asynchronously for efficiency.
+</p>
+
+<h3>Installation</h3>
+Install the package by running the command:
+<CodeSnippet>dotnet add package Microsoft.Fast.Components.FluentUI.DataGrid.EntityFrameworkAdapter</CodeSnippet>
+
+<h3>Usage</h3>
+In your <code>Program.cs</code> file you need to add the following after the <code>builder.Services.AddFluentUIComponents();</code> line:
+<CodeSnippet Language="csharp">builder.Services.AddFluentUIDataGridEntityFrameworkAdapter();</CodeSnippet>
 
 
 <h2 id="joining-the-community">Joining the Community</h2>

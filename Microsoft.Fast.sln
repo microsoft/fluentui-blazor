@@ -19,13 +19,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentUI.Demo.Client", "exa
 		{9AA1E7D0-AFBB-4EAA-BC77-42CC0F07EA0D} = {9AA1E7D0-AFBB-4EAA-BC77-42CC0F07EA0D}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".workflows", ".workflows", "{A958098A-B900-4D41-9DEF-32545802D22B}"
-	ProjectSection(SolutionItems) = preProject
-		.github\workflows\ci-validate.yml = .github\workflows\ci-validate.yml
-		.github\workflows\cicd_publish.yml = .github\workflows\cicd_publish.yml
-		.github\workflows\codeql-analysis.yml = .github\workflows\codeql-analysis.yml
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Fast.Templates.FluentUI", "templates\Microsoft.Fast.Templates.FluentUI.csproj", "{86B789BF-DC71-4B5F-A530-B7CDF17BD293}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Fast.Components.FluentUI.Generators", "src\Microsoft.Fast.Components.FluentUI.Generators\Microsoft.Fast.Components.FluentUI.Generators.csproj", "{6C1E062A-44D3-47B0-A42F-CE27FA452DD4}"
@@ -44,7 +37,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Update Icons.md = Update Icons.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Fast.Components.FluentUI.Tests", "src\Microsoft.Fast.Components.FluentUI.Tests\Microsoft.Fast.Components.FluentUI.Tests.csproj", "{25B3EA03-8489-473F-8860-452A92B9A3AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Fast.Components.FluentUI.Tests", "src\Microsoft.Fast.Components.FluentUI.Tests\Microsoft.Fast.Components.FluentUI.Tests.csproj", "{25B3EA03-8489-473F-8860-452A92B9A3AF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Fast.Components.FluentUI.DataGrid.EntityFrameworkAdapter", "src\Microsoft.Fast.Components.FluentUI.DataGrid.EntityFrameworkAdapter\Microsoft.Fast.Components.FluentUI.DataGrid.EntityFrameworkAdapter.csproj", "{0B6A7D1D-9D88-4A50-9921-39DB81B5ADFC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -152,6 +147,18 @@ Global
 		{25B3EA03-8489-473F-8860-452A92B9A3AF}.Release|x64.Build.0 = Release|Any CPU
 		{25B3EA03-8489-473F-8860-452A92B9A3AF}.Release|x86.ActiveCfg = Release|Any CPU
 		{25B3EA03-8489-473F-8860-452A92B9A3AF}.Release|x86.Build.0 = Release|Any CPU
+		{0B6A7D1D-9D88-4A50-9921-39DB81B5ADFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B6A7D1D-9D88-4A50-9921-39DB81B5ADFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B6A7D1D-9D88-4A50-9921-39DB81B5ADFC}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0B6A7D1D-9D88-4A50-9921-39DB81B5ADFC}.Debug|x64.Build.0 = Debug|Any CPU
+		{0B6A7D1D-9D88-4A50-9921-39DB81B5ADFC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0B6A7D1D-9D88-4A50-9921-39DB81B5ADFC}.Debug|x86.Build.0 = Debug|Any CPU
+		{0B6A7D1D-9D88-4A50-9921-39DB81B5ADFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B6A7D1D-9D88-4A50-9921-39DB81B5ADFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B6A7D1D-9D88-4A50-9921-39DB81B5ADFC}.Release|x64.ActiveCfg = Release|Any CPU
+		{0B6A7D1D-9D88-4A50-9921-39DB81B5ADFC}.Release|x64.Build.0 = Release|Any CPU
+		{0B6A7D1D-9D88-4A50-9921-39DB81B5ADFC}.Release|x86.ActiveCfg = Release|Any CPU
+		{0B6A7D1D-9D88-4A50-9921-39DB81B5ADFC}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -165,6 +172,7 @@ Global
 		{6C1E062A-44D3-47B0-A42F-CE27FA452DD4} = {30F6D568-0EFB-479D-8D69-C51CE5CABC22}
 		{6CE4DE24-E064-4634-A05F-6A408E410733} = {71623095-9CCB-40BA-A0A7-4A739DA8E913}
 		{25B3EA03-8489-473F-8860-452A92B9A3AF} = {30F6D568-0EFB-479D-8D69-C51CE5CABC22}
+		{0B6A7D1D-9D88-4A50-9921-39DB81B5ADFC} = {30F6D568-0EFB-479D-8D69-C51CE5CABC22}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0A3E27AA-91CB-4D3F-9C1E-390E3AA8DEC1}

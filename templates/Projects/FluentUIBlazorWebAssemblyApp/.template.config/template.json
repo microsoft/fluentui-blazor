@@ -1,7 +1,6 @@
 {
   "$schema": "http://json.schemastore.org/template",
   "author": "Microsoft",
-  "sourceName": "FluentUIBlazorWebAssemblyApp",
   "classifications": [
     "Linux",
     "macOS",
@@ -10,11 +9,12 @@
     "Cloud",
     "Web"
   ],
+  "defaultName": "BlazorApp",
+  "description": "A project template for creating a Blazor app that uses the Fluent UI component library and runs on WebAssembly. This template can be used for web apps with rich dynamic user interfaces (UIs).",
   "identity": "Microsoft.Fast.Templates.FluentUI.WebAssembly",
   "name": "FluentUI Blazor WebAssembly App",
   "shortName": "fluentuiblazorwasm",
-  "defaultName": "BlazorWebAssemblyApp",
-  "description": "A project template for creating a Blazor app that uses the Fluent UI component library and runs on WebAssembly. This template can be used for web apps with rich dynamic user interfaces (UIs).",
+  "sourceName": "FluentUIBlazorWebAssemblyApp",
   "tags": {
     "language": "C#",
     "type": "project"

@@ -30,7 +30,7 @@
         </member>
         <member name="P:FluentUI.Demo.Shared.Components.DemoSection.Component">
             <summary>
-            The component for wich the example will be shown. Enter the name only. '.razor' will be added internally
+            The component for wich the example will be shown. Enter the type (typeof(...)) name 
             </summary>
         </member>
         <member name="P:FluentUI.Demo.Shared.Components.DemoSection.ComponentParameters">
@@ -53,6 +53,11 @@
         <member name="P:FluentUI.Demo.Shared.Components.DemoSection.HideExample">
             <summary>
             Hide the 'Example' tab
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.Components.DemoSection.HideAllButExample">
+            <summary>
+            Hides all but the 'Example' tab
             </summary>
         </member>
         <member name="P:FluentUI.Demo.Shared.Components.TableOfContents.Heading">
