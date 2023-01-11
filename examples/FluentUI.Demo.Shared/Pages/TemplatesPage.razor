@@ -1,0 +1,67 @@
+﻿@page "/Templates"
+<h1><FluentIcon Name="@FluentIcons.Classification" /> Project templates</h1>
+
+<p>
+    To make it easier to start a project that uses the Fluent UI Web Components for Blazor out of the box, we have created the <a href="https://www.nuget.org/packages/Microsoft.Fast.Templates.FluentUI/">Microsoft.Fast.Templates.FluentUI</a>
+    template package.
+</p>
+<p>
+    The package contains templates for creating Blazor Server and/or Blazor WebAssembly apps that mimic the regular Blazor templates with  
+    the Fluent UI components already set up (and all the Bootstrap styling removed). All components have been replaced with Fluent UI counterparts (and a few 
+    extra have been added). The pages you get after creating a project with one of the templates look like this:
+</p>
+<p style="display: flex; flex-direction:column; align-items:center">
+    <img style="width: 750px;" src="_content/FluentUI.Demo.Shared/images/home.png" alt="Home page for site created Fluent UI templates" />
+    <img style="width: 750px;" src="_content/FluentUI.Demo.Shared/images/counter.png" alt="Counter page for site created Fluent UI templates" />
+    <img style="width: 750px;" src="_content/FluentUI.Demo.Shared/images/fetchdata.png" alt="Fetch data page for site created Fluent UI templates" />
+</p>
+
+
+<h2 id="installation">Installation</h2>
+<p>
+    Install the templates by running the command:
+    </p>
+
+<CodeSnippet>dotnet new install {path to package}\Microsoft.Fast.Templates.FluentUI.{version}.nupkg</CodeSnippet>
+
+<p>
+    The current version can be found on the <a href="https://www.nuget.org/packages/Microsoft.Fast.Templates.FluentUI/" rel="noopener noreferrer nofollow">NuGet page</a>.
+</p>
+
+<h2 id="usage">Usage</h2>
+<p>
+    After installing the templates you can create new a project from either the CLI or by using the 'Creating a new project`-dialog in Visual studio 2022.
+</p>
+
+<p>
+    For creating a new Blazor Server project from the CLI:
+</p>
+
+<CodeSnippet>dotnet new fluentuiblazorserver -o {your project name}</CodeSnippet>
+
+<p>
+    For ceating a Blazor WebAssembly project from the CLI:
+</p>
+
+<CodeSnippet>dotnet new fluentuiBlazorWebAssembly -o {your project name}</CodeSnippet>
+
+<p>
+    In Visual Studio you can create a new project by selecting either the FluentUI Blazor Server App template or the FluentUI Blazor WebAssembly 
+    template in the 'File-&gt;New-&gt;Project'-dialog. It looks like this:
+</p>
+<p style="display: flex; justify-content:center">
+    <img style="border: 1px solid var(--neutral-foreground-focus);" src="_content/FluentUI.Demo.Shared/images/newproject.png" alt="New project dialog with Fluent UI templates" />
+</p>
+
+<h2 id="uninstalling-the-templates">Uninstalling the templates</h2>
+
+<p>
+    If you want to uninstall the templates, both from the CLI and Visual Studio 2022, run the following command:
+</p>
+
+<CodeSnippet>dotnet new uninstall Microsoft.Fast.Templates.FluentUI</CodeSnippet>
+
+
+
+
+

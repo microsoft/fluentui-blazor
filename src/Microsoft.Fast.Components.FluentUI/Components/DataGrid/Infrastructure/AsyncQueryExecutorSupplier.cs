@@ -35,7 +35,7 @@ internal static class AsyncQueryExecutorSupplier
                 var providerType = queryable.Provider?.GetType();
                 if (providerType is not null && IsEntityFrameworkProviderTypeCache.GetOrAdd(providerType, IsEntityFrameworkProviderType))
                 {
-                    throw new InvalidOperationException($"The supplied {nameof(IQueryable)} is provided by Entity Framework. To query it efficiently, you must call AddFluentDataGridEntityFrameworkAdapter on your service collection.");
+                    throw new InvalidOperationException($"The supplied {nameof(IQueryable)} is provided by Entity Framework. To query it efficiently, see https://github.com/microsoft/fast-blazor#use-the-datagrid-component-with-ef-core for the needed steps.");
                 }
             }
             else if (executor.IsSupported(queryable))

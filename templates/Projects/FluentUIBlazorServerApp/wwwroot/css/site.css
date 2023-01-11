@@ -91,6 +91,7 @@ body {
     position: fixed;
     width: 100%;
     z-index: 1000;
+    margin: 20px 0;
 }
 
     #blazor-error-ui .dismiss {
@@ -106,8 +107,8 @@ body {
     color: white;
 }
 
-    .blazor-error-boundary::after {
-        content: "An error has occurred."
+    .blazor-error-boundary::before {
+        content: "An error has occurred. "
     }
 
 .prompt {

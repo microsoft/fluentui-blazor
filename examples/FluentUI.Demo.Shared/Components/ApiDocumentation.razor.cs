@@ -82,7 +82,7 @@ public partial class ApiDocumentation
                 obj = Activator.CreateInstance(Component);
 
 
-            IEnumerable<MemberInfo>? allProperties = Component.GetProperties(BindingFlags.Public).Select(i => (MemberInfo)i);
+            IEnumerable<MemberInfo>? allProperties = Component.GetProperties().Select(i => (MemberInfo)i);
             IEnumerable<MemberInfo>? allMethods = Component.GetMethods().Where(i => !i.IsSpecialName).Select(i => (MemberInfo)i);
 
             foreach (var memberInfo in allProperties.Union(allMethods).OrderBy(m => m.Name))
