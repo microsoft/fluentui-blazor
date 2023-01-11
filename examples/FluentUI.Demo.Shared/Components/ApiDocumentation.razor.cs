@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-using FluentUI.Demo.Generators;
 using Microsoft.AspNetCore.Components;
 
 namespace FluentUI.Demo.Shared.Components;
