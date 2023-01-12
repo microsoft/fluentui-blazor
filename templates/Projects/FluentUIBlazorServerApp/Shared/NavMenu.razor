@@ -29,6 +29,7 @@
         StateHasChanged();
     }
 
-    private Appearance SetAppearance(string location) => (location == target) ? Appearance.Neutral : Appearance.Stealth;
+    private Appearance SetAppearance(string location) => (string.Equals(location, target, StringComparison.OrdinalIgnoreCase)) ? Appearance.Neutral : Appearance.Stealth;
+
 
 }
