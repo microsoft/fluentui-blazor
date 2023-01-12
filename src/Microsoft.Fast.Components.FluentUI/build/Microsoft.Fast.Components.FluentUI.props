@@ -1,0 +1,6 @@
+<Project>
+  <PropertyGroup>
+	<FluentEmojiStyles Condition="'$(FluentEmojiStyles)' == ''">color</FluentEmojiStyles>
+	<FluentIconSizes Condition="'$(FluentIconSizes)' == ''">20;24</FluentIconSizes>
+  </PropertyGroup>
+</Project>

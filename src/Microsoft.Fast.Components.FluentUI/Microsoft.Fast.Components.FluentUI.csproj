@@ -27,6 +27,14 @@
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<IsTrimmable>true</IsTrimmable>
 		<SuppressTrimAnalysisWarnings>false</SuppressTrimAnalysisWarnings>
+
+		<StaticWebAssetBasePath>FluentUI</StaticWebAssetBasePath>
+		<DisableStaticWebAssetsBuildPropsFileGeneration>true</DisableStaticWebAssetsBuildPropsFileGeneration>
+		<StaticWebAssetsDisableProjectBuildPropsFileGeneration>true</StaticWebAssetsDisableProjectBuildPropsFileGeneration>
+		<StaticWebAssetsDisableProjectBuildMultiTargetingPropsFileGeneration>true</StaticWebAssetsDisableProjectBuildMultiTargetingPropsFileGeneration>
+		<StaticWebAssetsDisableProjectBuildTransitivePropsFileGeneration>true</StaticWebAssetsDisableProjectBuildTransitivePropsFileGeneration>
+		<StaticWebAssetsGetBuildAssetsTargets>GetAssets</StaticWebAssetsGetBuildAssetsTargets>
+
 	</PropertyGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -89,31 +97,67 @@
 		</ItemGroup>
 		<Copy SourceFiles="@(XmlFiles)" DestinationFolder="$(SolutionDir)examples\FluentUI.Demo.Shared" />
 	</Target>
-	
+
 	<ItemGroup>
 		<Content Remove="Assests\**" Pack="false" />
+		<None Include="build\*" Pack="true" PackagePath="build\" />
+		<None Include="buildMultiTargeting\*" Pack="true" PackagePath="buildMultiTargeting\" />
+		<None Include="buildTransitive\*" Pack="true" PackagePath="buildTransitive\" />
 	</ItemGroup>
-	
-	<Target Name="CopyEmojiAssets" BeforeTargets="CoreBuild">
+
+	<Target Name="GetAssets" Returns="@(ReferenceAsset)">
+		<!--<PropertyGroup>
+			<_ReferenceAssetContentRoot Condition="'$(IdentityDefaultUIFramework)' == 'Bootstrap5'">assets/V5</_ReferenceAssetContentRoot>
+			<_ReferenceAssetContentRoot Condition="'$(IdentityDefaultUIFramework)' == 'Bootstrap4'">assets/V4</_ReferenceAssetContentRoot>
+		</PropertyGroup>-->
 		<ItemGroup>
-			<Sources Include="$(ProjectDir)\Assets\emojis\**\*_color*.svg" />
-			<!--<Sources Include="$(ProjectDir)\Assets\emojis\**\*_flat*.svg" />-->
-			<!--<Sources Include="$(ProjectDir)\Assets\emojis\**\*_high-contrast*.svg" />-->
+			<ReferenceAssetCandidates Condition="'$(FluentEmojiStyles)' == 'color'" Include="assets\emojis\**\*_color*.svg" />
+			<ReferenceAssetCandidates Condition="'$(FluentEmojiStyles.Contains('flat'))'" Include="assets\emojis\**\*_flat*.svg" />
+			<ReferenceAssetCandidates Condition="'$(FluentEmojiStyles.Contains('highcontrast'))'" Include="assets\emojis\**\*_high-contrast*.svg" />
+			<ReferenceAssetCandidates Condition="'$(FluentIconSizes.Contains('10'))'" Include="assets\icons\**\*_10_*.svg" />
+			<ReferenceAssetCandidates Condition="'$(FluentIconSizes.Contains('20'))'" Include="assets\icons\**\*_20_*.svg" />
+			<ReferenceAssetCandidates Condition="'$(FluentIconSizes.Contains('24'))'" Include="assets\icons\**\*_24_*.svg" />
+			<ReferenceAssetCandidates>
+				<RelativePath>%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
+				<ContentRoot>$([System.IO.Path]::GetFullPath($(Assets)))</ContentRoot>
+			</ReferenceAssetCandidates>
 		</ItemGroup>
-		<Copy SourceFiles="@(Sources)" DestinationFiles="@(Sources->'$(ProjectDir)wwwroot\emojis\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+		<DefineStaticWebAssets Condition="'@(ReferenceAssetCandidates->Count())' != '0'" CandidateAssets="@(ReferenceAssetCandidates)" SourceId="$(PackageId)" SourceType="Project" AssetKind="All" BasePath="$(StaticWebAssetBasePath)">
+			<Output TaskParameter="Assets" ItemName="ReferenceAsset" />
+		</DefineStaticWebAssets>
+		<ItemGroup>
+			<ReferenceAsset>
+				<ResultType>StaticWebAsset</ResultType>
+			</ReferenceAsset>
+		</ItemGroup>
 	</Target>
 
-	<Target Name="CopyIconAssets" AfterTargets="CopyEmojiAssets">
+	<Target Name="_GeneratePackItems" BeforeTargets="GenerateStaticWebAssetsPackFiles">
 		<ItemGroup>
-			<Sources Include="$(ProjectDir)\Assets\icons\**\*_10_*.svg" />
-			<Sources Include="$(ProjectDir)\Assets\icons\**\*_12_*.svg" />
-			<Sources Include="$(ProjectDir)\Assets\icons\**\*_16_*.svg" />
-			<!--<Sources Include="$(ProjectDir)\Assets\icons\**\*_20_*.svg" />-->
-			<Sources Include="$(ProjectDir)\Assets\icons\**\*_24_*.svg" />
-			<!--<Sources Include="$(ProjectDir)\Assets\icons\**\*_28_*.svg" />-->
-			<Sources Include="$(ProjectDir)\Assets\icons\**\*_32_*.svg" />
-			<Sources Include="$(ProjectDir)\Assets\icons\**\*_48_*.svg" />
+			<ColorAssetsCandidates Include="assets\emoji\**\*_color*.svg" />
+			<ColorAssetsCandidates>
+				<RelativePath>%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
+			</ColorAssetsCandidates>
+			
 		</ItemGroup>
-		<Copy SourceFiles="@(Sources)" DestinationFiles="@(Sources->'$(ProjectDir)wwwroot\icons\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+		<DefineStaticWebAssets Condition="'@(ColorAssetsCandidates-&gt;Count())' != '0'" CandidateAssets="@(ColorAssetsCandidates)" SourceId="$(PackageId)" SourceType="Discovered" AssetKind="All" ContentRoot="assets/emojis" BasePath="$(StaticWebAssetBasePath)">
+			<Output TaskParameter="Assets" ItemName="ColorAssets" />
+		</DefineStaticWebAssets>
+		
+
+		<GenerateStaticWebAsssetsPropsFile StaticWebAssets="@(ColorAssets)" PackagePathPrefix="staticwebassets/Color" TargetPropsFilePath="$(IntermediateOutputPath)FluentUI.Color.targets" />
+		
+
+		<ComputeStaticWebAssetsTargetPaths Assets="@(ColorAssets)" PathPrefix="staticwebassets/Color" AdjustPathsForPack="true">
+			<Output TaskParameter="AssetsWithTargetPath" ItemName="_PackStaticWebAssetWithTargetPath" />
+		</ComputeStaticWebAssetsTargetPaths>
+		
+
+		<ItemGroup>
+			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentUI.Color.targets">
+				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Color.targets</PackagePath>
+			</StaticWebAssetPackageFile>
+		
+		</ItemGroup>
 	</Target>
 </Project>

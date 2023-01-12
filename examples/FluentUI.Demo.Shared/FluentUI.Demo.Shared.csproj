@@ -7,9 +7,10 @@
 		<UseRazorSourceGenerator>true</UseRazorSourceGenerator>
 		<LangVersion>latest</LangVersion>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-	<IsTrimmable>true</IsTrimmable>
+		<IsTrimmable>true</IsTrimmable>
 		<SuppressTrimAnalysisWarnings>false</SuppressTrimAnalysisWarnings>
-	<DefaultItemExcludes>$(DefaultItemExcludes);wwwroot/emojis/**/metadata.json;</DefaultItemExcludes>
+		<FluentEmojiStyles>Color</FluentEmojiStyles>
+		<FluentIconSizes>10;12;</FluentIconSizes>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -72,4 +73,13 @@
 		</ItemGroup>
 		<Copy SourceFiles="@(XmlFiles)" DestinationFolder="$(SolutionDir)examples\FluentUI.Demo.Shared" SkipUnchangedFiles="true" Condition=" '$(TargetFramework)' == 'net7.0' " />
 	</Target>
+
+	<Target Name="_SetFluentAssets" AfterTargets="ResolveReferencedProjectsStaticWebAssetsConfiguration" BeforeTargets="ResolveReferencedProjectsStaticWebAssets">
+		<ItemGroup>
+			<StaticWebAssetProjectConfiguration Condition="'%(FileName)' == 'Microsoft.Fast.Components.FluentUI'">
+				<AdditionalBuildProperties>FluentEmojiStyles=$(FluentEmojiStyles);FluentIconSizes=$(FluentIconSizes)</AdditionalBuildProperties>
+			</StaticWebAssetProjectConfiguration>
+		</ItemGroup>
+	</Target>
+
 </Project>
