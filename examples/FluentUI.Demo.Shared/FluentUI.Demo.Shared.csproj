@@ -9,7 +9,7 @@
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<IsTrimmable>true</IsTrimmable>
 		<SuppressTrimAnalysisWarnings>false</SuppressTrimAnalysisWarnings>
-		<FluentEmojiStyles>Color</FluentEmojiStyles>
+		<FluentEmojiStyles>color</FluentEmojiStyles>
 		<FluentIconSizes>10;12;</FluentIconSizes>
 	</PropertyGroup>
 
