@@ -1,7 +1,7 @@
 <Project>
  <PropertyGroup>
 	<SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
-	 <VersionPrefix>2.0.1</VersionPrefix>
+	 <VersionPrefix>2.1.0</VersionPrefix>
 	 <VersionSuffix></VersionSuffix> 
  </PropertyGroup>
 </Project>

@@ -1,0 +1,23 @@
+<Project>
+	<Import Condition="$(FluentEmojiStyles.Contains('color'))" Project="$(MSBuildThisFileDirectory)Microsoft.FluentUI.StaticWebAssets.Color.targets"/>
+	<Import Condition="$(FluentEmojiStyles.Contains('flat'))" Project="$(MSBuildThisFileDirectory)Microsoft.FluentUI.StaticWebAssets.Flat.targets"/>
+	<Import Condition="$(FluentEmojiStyles.Contains('highcontrast'))" Project="$(MSBuildThisFileDirectory)Microsoft.FluentUI.StaticWebAssets.HighContrast.targets"/>
+	
+	<Import Condition="$(FluentIconSizes.Contains('10')) AND $(FluentIconVariants.Contains('filled'))" Project="$(MSBuildThisFileDirectory)Microsoft.FluentUI.StaticWebAssets.Filled10.targets"/>
+	<Import Condition="$(FluentIconSizes.Contains('12')) AND $(FluentIconVariants.Contains('filled'))" Project="$(MSBuildThisFileDirectory)Microsoft.FluentUI.StaticWebAssets.Filled12.targets"/>
+	<Import Condition="$(FluentIconSizes.Contains('16')) AND $(FluentIconVariants.Contains('filled'))" Project="$(MSBuildThisFileDirectory)Microsoft.FluentUI.StaticWebAssets.Filled16.targets"/>
+	<Import Condition="$(FluentIconSizes.Contains('20')) AND $(FluentIconVariants.Contains('filled'))" Project="$(MSBuildThisFileDirectory)Microsoft.FluentUI.StaticWebAssets.Filled20.targets"/>
+	<Import Condition="$(FluentIconSizes.Contains('24')) AND $(FluentIconVariants.Contains('filled'))" Project="$(MSBuildThisFileDirectory)Microsoft.FluentUI.StaticWebAssets.Filled24.targets"/>
+	<Import Condition="$(FluentIconSizes.Contains('28')) AND $(FluentIconVariants.Contains('filled'))" Project="$(MSBuildThisFileDirectory)Microsoft.FluentUI.StaticWebAssets.Filled28.targets"/>
+	<Import Condition="$(FluentIconSizes.Contains('32')) AND $(FluentIconVariants.Contains('filled'))" Project="$(MSBuildThisFileDirectory)Microsoft.FluentUI.StaticWebAssets.Filled32.targets"/>
+	<Import Condition="$(FluentIconSizes.Contains('48')) AND $(FluentIconVariants.Contains('filled'))" Project="$(MSBuildThisFileDirectory)Microsoft.FluentUI.StaticWebAssets.Filled48.targets"/>
+	
+	<Import Condition="$(FluentIconSizes.Contains('10')) AND $(FluentIconVariants.Contains('regular'))" Project="$(MSBuildThisFileDirectory)Microsoft.FluentUI.StaticWebAssets.Regular10.targets"/>
+	<Import Condition="$(FluentIconSizes.Contains('12')) AND $(FluentIconVariants.Contains('regular'))" Project="$(MSBuildThisFileDirectory)Microsoft.FluentUI.StaticWebAssets.Regular12.targets"/>
+	<Import Condition="$(FluentIconSizes.Contains('16')) AND $(FluentIconVariants.Contains('regular'))" Project="$(MSBuildThisFileDirectory)Microsoft.FluentUI.StaticWebAssets.Regular16.targets"/>
+	<Import Condition="$(FluentIconSizes.Contains('20')) AND $(FluentIconVariants.Contains('regular'))" Project="$(MSBuildThisFileDirectory)Microsoft.FluentUI.StaticWebAssets.Regular20.targets"/>
+	<Import Condition="$(FluentIconSizes.Contains('24')) AND $(FluentIconVariants.Contains('regular'))" Project="$(MSBuildThisFileDirectory)Microsoft.FluentUI.StaticWebAssets.Regular24.targets"/>
+	<Import Condition="$(FluentIconSizes.Contains('28')) AND $(FluentIconVariants.Contains('regular'))" Project="$(MSBuildThisFileDirectory)Microsoft.FluentUI.StaticWebAssets.Regular28.targets"/>
+	<Import Condition="$(FluentIconSizes.Contains('32')) AND $(FluentIconVariants.Contains('regular'))" Project="$(MSBuildThisFileDirectory)Microsoft.FluentUI.StaticWebAssets.Regular32.targets"/>
+	<Import Condition="$(FluentIconSizes.Contains('48')) AND $(FluentIconVariants.Contains('regular'))" Project="$(MSBuildThisFileDirectory)Microsoft.FluentUI.StaticWebAssets.Regular48.targets"/>
+	</Project>

@@ -10,7 +10,8 @@
 		<IsTrimmable>true</IsTrimmable>
 		<SuppressTrimAnalysisWarnings>false</SuppressTrimAnalysisWarnings>
 		<FluentEmojiStyles>color</FluentEmojiStyles>
-		<FluentIconSizes>10;12;</FluentIconSizes>
+		<FluentIconSizes>10;12</FluentIconSizes>
+		<FluentIconVariants>filled</FluentIconVariants>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -41,6 +42,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Microsoft.Fast.Components.FluentUI" Version="2.1.0" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<AdditionalFiles Include="$(ProjectDir)/*.xml" />
 	</ItemGroup>
 
@@ -49,7 +54,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\src\Microsoft.Fast.Components.FluentUI\Microsoft.Fast.Components.FluentUI.csproj" />
 		<ProjectReference Include="..\FluentUI.Demo.Generators\FluentUI.Demo.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 		<TrimmerRootAssembly Include="Microsoft.Fast.Components.FluentUI" />
 	</ItemGroup>
@@ -57,7 +61,8 @@
 	<ItemGroup>
 		<Folder Include="wwwroot\sources\" />
 	</ItemGroup>
-	
+
+		
 	<Target Name="CopyExamplesToContentRoot" BeforeTargets="CoreBuild">
 		<ItemGroup>
 			<Sources Include="$(ProjectDir)\Pages\**\Examples\*" />
@@ -74,12 +79,12 @@
 		<Copy SourceFiles="@(XmlFiles)" DestinationFolder="$(SolutionDir)examples\FluentUI.Demo.Shared" SkipUnchangedFiles="true" Condition=" '$(TargetFramework)' == 'net7.0' " />
 	</Target>
 
-	<Target Name="_SetFluentAssets" AfterTargets="ResolveReferencedProjectsStaticWebAssetsConfiguration" BeforeTargets="ResolveReferencedProjectsStaticWebAssets">
+	<!--<Target Name="_SetFluentAssets" AfterTargets="ResolveReferencedProjectsStaticWebAssetsConfiguration" BeforeTargets="ResolveReferencedProjectsStaticWebAssets">
 		<ItemGroup>
 			<StaticWebAssetProjectConfiguration Condition="'%(FileName)' == 'Microsoft.Fast.Components.FluentUI'">
-				<AdditionalBuildProperties>FluentEmojiStyles=$(FluentEmojiStyles);FluentIconSizes=$(FluentIconSizes)</AdditionalBuildProperties>
+				<AdditionalBuildProperties>FluentEmojiStyles=$(FluentEmojiStyles);FluentIconSizes=$(FluentIconSizes);FluentIconVariants=$(FluentIconVariants)</AdditionalBuildProperties>
 			</StaticWebAssetProjectConfiguration>
 		</ItemGroup>
-	</Target>
+	</Target>-->
 
 </Project>

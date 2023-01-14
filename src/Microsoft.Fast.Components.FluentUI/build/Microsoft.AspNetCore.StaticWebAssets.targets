@@ -1,8 +1,0 @@
-<Project>
-	<Import Condition="'$(FluentEmojiStyles)' == 'color'" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Color.targets"/>
-	<Import Condition="'$(FluentEmojiStyles.Contains('flat'))'" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Flat.targets"/>
-	<Import Condition="'$(FluentEmojiStyles.Contains('highcontrast'))'" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.HighContrast.targets"/>
-	<Import Condition="'$(FluentIconSizes.Contains('10'))'" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.10.targets"/>
-	<Import Condition="'$(FluentIconSizes.Contains('20'))'" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.20.targets"/>
-	<Import Condition="'$(FluentIconSizes.Contains('24'))'" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.24.targets"/>
-</Project>

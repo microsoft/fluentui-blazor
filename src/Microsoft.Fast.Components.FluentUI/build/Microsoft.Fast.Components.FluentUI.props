@@ -1,6 +1,16 @@
 <Project>
-  <PropertyGroup>
-	<FluentEmojiStyles Condition="'$(FluentEmojiStyles)' == ''">color</FluentEmojiStyles>
-	<FluentIconSizes Condition="'$(FluentIconSizes)' == ''">20;24</FluentIconSizes>
-  </PropertyGroup>
+	<PropertyGroup>
+		<FluentEmojiStyles Condition="'$(FluentEmojiStyles)' == ''">color;flat;highcontrast</FluentEmojiStyles>
+		<FluentIconSizes Condition="'$(FluentIconSizes)' == ''">10;12;16;20;24;28;32;48</FluentIconSizes>
+		<FluentIconVariants Condition="'$(FluentIconVariants)' == ''">filled;regular</FluentIconVariants>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<AssemblyAttribute Include="Microsoft.Fast.Components.FluentUI.EmojiStylsAttribute">
+			<_Parameter1>$(FluentEmojiStyles)</_Parameter1>
+		</AssemblyAttribute>
+		<AssemblyAttribute Include="Microsoft.Fast.Components.FluentUI.IconSizesAttribute">
+			<_Parameter1>$(FluentIconSizes)</_Parameter1>
+		</AssemblyAttribute>
+	</ItemGroup>
 </Project>
