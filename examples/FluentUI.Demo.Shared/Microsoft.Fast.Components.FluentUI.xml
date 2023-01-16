@@ -1273,43 +1273,6 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentHighlighter.CaseSensitive">
-            <summary>
-            Whether or not the highlighted text is case sensitive
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentHighlighter.HighlightedText">
-            <summary>
-            The fragment of text to be highlighted
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentHighlighter.Text">
-            <summary>
-            The whole text in which a fragment will be highlighted
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentHighlighter.Delimiters">
-            <summary>
-            List of delimiters chars. Example: " ,;".
-            </summary>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.Highlighter.Splitter">
-            <summary>
-            Splits the text into fragments, according to the text to be highlighted
-            </summary>
-            <remarks>Inspired from https://github.com/MudBlazor</remarks>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Highlighter.Splitter.GetFragments(System.String,System.Collections.Generic.IEnumerable{System.String},System.String@,System.Boolean)">
-            <summary>
-            Splits the text into fragments, according to the
-            text to be highlighted
-            </summary>
-            <param name="text">The whole text</param>
-            <param name="highlightedTexts">The texts to be highlighted</param>
-            <param name="regex">Regex expression that was used to split fragments.</param>
-            <param name="caseSensitive">Whether it's case sensitive or not</param>
-            <returns></returns>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentHorizontalScroll.Speed">
             <summary>
             Description: Scroll speed in pixels per second

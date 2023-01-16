@@ -1,6 +1,6 @@
-@namespace Microsoft.Fast.Components.FluentUI
+@namespace FluentUI.Demo.Shared
+@using System.Text.RegularExpressions;
 @inherits FluentComponentBase
-@using System.Text.RegularExpressions
 
 @foreach (var fragment in _fragments.Span)
 {

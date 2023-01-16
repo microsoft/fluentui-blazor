@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using System.Text.RegularExpressions;
 
-namespace Microsoft.Fast.Components.FluentUI.Highlighter;
+namespace FluentUI.Demo.Shared;
 
 /// <summary>
 /// Splits the text into fragments, according to the text to be highlighted

@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Fast.Components.FluentUI;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace FluentUI.Demo.Shared;
 
-public partial class FluentHighlighter : FluentComponentBase
+public partial class Highlighter : FluentComponentBase
 {
     private Memory<string> _fragments;
     private string _regex = string.Empty;
@@ -37,6 +38,6 @@ public partial class FluentHighlighter : FluentComponentBase
                              ? new string[] { HighlightedText }
                              : HighlightedText.Split(Delimiters.ToCharArray());
 
-        _fragments = Highlighter.Splitter.GetFragments(Text, highlightedTexts, out _regex, CaseSensitive);
+        _fragments = Splitter.GetFragments(Text, highlightedTexts, out _regex, CaseSensitive);
     }
 }
