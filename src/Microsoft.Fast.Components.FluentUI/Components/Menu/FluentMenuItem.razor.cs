@@ -2,13 +2,19 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentMenuItem : FluentComponentBase
+public partial class FluentMenuItem : FluentComponentBase, IDisposable
 {
+    /// <summary>
+    /// Gets or sets the owning FluentMenu
+    /// </summary>
+    [CascadingParameter]
+    public FluentMenu Owner { get; set; } = default!;
+
     /// <summary>
     /// Gets or sets if the id
     /// </summary>
     [Parameter]
-    public string? Id { get; set; }
+    public string Id { get; set; } = Identifier.NewId();
 
     /// <summary>
     /// Gets or sets if the element is disabled
@@ -33,16 +39,17 @@ public partial class FluentMenuItem : FluentComponentBase
     /// </summary>
     [Parameter]
     public bool? Checked { get; set; }
-
+  
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    protected override void OnParametersSet()
+    protected override void OnInitialized()
     {
-        Id ??= Identifier.NewId();
-        base.OnParametersSet();
+        Owner?.Register(this);
     }
+
+    public void Dispose() => Owner?.Unregister(this);
 }

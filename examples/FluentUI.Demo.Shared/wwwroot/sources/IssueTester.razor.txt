@@ -1,1 +1,37 @@
-﻿<p>Nothing to test here at the moment</p>
+﻿@inject ILogger<NavMenuDefault> logger;
+
+<NavMenu Collapsible="true">
+    <NavMenuLink Text="Item 1" Icon="@(FluentIcons.Home)" />
+    <NavMenuLink Text="Item 2" Selected=true />
+    <NavMenuGroup Text="Item 3">
+        <NavMenuLink Text="Item 3.1" Icon="@(FluentIcons.LeafOne)" />
+        <NavMenuLink Text="Item 3.2" Icon="@(FluentIcons.LeafTwo)" />
+    </NavMenuGroup>
+    <NavMenuGroup Text="Item 4" @onclick="OnClick">
+        <NavMenuLink Text="Item 4.1" @onclick="OnClick" />
+        <NavMenuLink Text="Item 4.2" @onclick="OnClick" Icon="@(FluentIcons.LeafOne)" />
+    </NavMenuGroup>
+    <NavMenuGroup Text="Item 5" @onclick="OnClick">
+        <NavMenuLink Text="Item 5.1" @onclick="OnClick" Icon="@(FluentIcons.LeafTwo)" />
+        <NavMenuGroup @onclick="OnClick" Text="Item 5.2">
+            <NavMenuLink Text="Item 5.2.1" @onclick="OnClick" />
+            <NavMenuLink Text="Item 5.2.2" @onclick="OnClick" />
+        </NavMenuGroup>
+        <NavMenuGroup @onclick="OnClick" Text="Item 5.3">
+            <NavMenuLink Text="Item 5.3.1" @onclick="OnClick" Icon="@(FluentIcons.LeafOne)" />
+            <NavMenuLink Text="Item 5.3.2" @onclick="OnClick" />
+        </NavMenuGroup>
+    </NavMenuGroup>
+    <NavMenuGroup @onclick="OnClick" Text="Item with Href">
+        <NavMenuLink Text="Go to Bing" @onclick="OnClick" Icon="@(FluentIcons.LeafOne)" Href="https://bing.com" />
+        <NavMenuLink Text="Go to home page" @onclick="OnClick" Icon="@(FluentIcons.Home)" Href="/" />
+    </NavMenuGroup>
+    <NavMenuLink Text="Last item" @onclick="OnClick" Icon="@(FluentIcons.LeafThree)" Disabled="true" />
+</NavMenu>
+
+@code
+{
+    void OnClick(MouseEventArgs e) {
+        logger.LogInformation("Item Clicked");
+    }
+}

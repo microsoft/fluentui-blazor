@@ -1,3 +1,10 @@
 ﻿.navmenu-group-text {
     margin-left: 0px;
 }
+
+/* Global Menu Collapsed */
+.navmenu[aria-expanded="false"] .navmenu-group:not([aria-expanded])::part(start),
+.navmenu[aria-expanded="false"] .navmenu-group[aria-expanded="false"]::part(start) {
+    margin-inline-start: -25px;
+}
+

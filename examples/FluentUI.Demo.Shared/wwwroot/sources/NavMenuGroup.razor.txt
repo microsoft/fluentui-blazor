@@ -2,24 +2,28 @@
 @namespace FluentUI.Demo.Shared
 
 @inherits FluentComponentBase
-<FluentTreeItem Class="@ClassValue"
+<FluentTreeItem Id="@Id"
+                Class="@ClassValue"
                 Style="@StyleValue"
                 Disabled="@Disabled"
-                Selected="@Selected"
-                Expanded="@(NavMenuCollapsed ? Expanded : false)"
+                Expanded="@(NavMenuExpanded ? Expanded : false)"
                 tabindex="-1"
-                @onclick="@OnClickHandler"
-                @onkeydown="@OnKeypressHandler">
-    @if (!string.IsNullOrEmpty(Text) && NavMenuCollapsed)
+                Text="@(NavMenuExpanded ? Text : string.Empty)"
+                @onclick="@OnClickHandlerAsync">
+     @if (!NavMenuExpanded)
     {
-        <span class="navmenu-group-text" style="@(NavMenuCollapsed ? null : "display: none;")">@Text</span>
+        <FluentIcon Name="@IconNavMenuCollapsed" Size="@IconSize.Size20" Slot="start" OnClick="ExpandMenu" />
     }
-    @if (NavMenuCollapsed)
+    @if (NavMenuExpanded && !string.IsNullOrEmpty(IconCollapsed))
     {
+        <FluentIcon Name="@IconCollapsed" Size="@IconSize.Size20" state="collapsed" Slot="expand-collapse-glyph"  />
+    }
+    @if (NavMenuExpanded && !string.IsNullOrEmpty(IconExpanded))
+    {
+        <FluentIcon Name="@IconExpanded" Size="@IconSize.Size20" state="expanded" Slot="expand-collapse-glyph" />
+    }
+    @if (NavMenuExpanded) {
         @ChildContent
     }
-    else
-    {
-        <FluentIcon Name="@FluentIcons.MoreHorizontal" Size="IconSize.Size20" Slot="start" />
-    }
+    
 </FluentTreeItem>
