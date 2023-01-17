@@ -4,8 +4,12 @@ namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentTreeItem : FluentComponentBase, IDisposable
 {
-    internal string TreeItemId { get; } = Identifier.NewId();
-
+    /// <summary>
+    /// Gets or sets a reasonably unique ID.
+    /// </summary>
+    [Parameter]
+    public string Id { get; set; } = Identifier.NewId();
+    
     /// <summary>
     /// Gets or sets the owning FluentTreeView
     /// </summary>

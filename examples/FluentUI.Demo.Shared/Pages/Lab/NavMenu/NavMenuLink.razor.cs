@@ -8,21 +8,29 @@ namespace FluentUI.Demo.Shared;
 
 public partial class NavMenuLink : FluentComponentBase
 {
-    protected string? ClassValue => new CssBuilder(Class)
-        .AddClass("navmenu-link", () => Owner.HasSubMenu && Owner.HasIcons)
-        .AddClass("navmenu-link-nogroup", () => !Owner.HasSubMenu && Owner.HasIcons)
-        .Build();
+    /// <summary>
+    /// Gets or sets the content to be rendered inside the component.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
-    protected string? StyleValue => new StyleBuilder()
-        .AddStyle("width", $"{Width}px", () => Width.HasValue)
-        .AddStyle(Style)
-        .Build();
+    /// <summary>
+    /// Gets or sets the destination of the link.
+    /// </summary>
+    [Parameter]
+    public string? Href { get; set; } = string.Empty;
+    
+    /// <summary>
+    /// Gets or sets the name of the icon to display with the link
+    /// </summary>
+    [Parameter]
+    public string Icon { get; set; } = string.Empty;
 
-    [Inject]
-    private NavigationManager NavigationManager { get; set; } = default!;
-
-    [CascadingParameter]
-    public NavMenu Owner { get; set; } = default!;
+    /// <summary>
+    /// Gets or sets a reasonably unique ID.
+    /// </summary>
+    [Parameter]
+    public string Id { get; set; } = Identifier.NewId();
 
     /// <summary>
     /// Gets or sets whether the link is disabled.
@@ -42,38 +50,8 @@ public partial class NavMenuLink : FluentComponentBase
     [Parameter]
     public EventCallback<bool> SelectedChanged { get; set; }
 
-    /// <summary>
-    /// Gets or sets the name of the icon to display with the link
-    /// </summary>
-    [Parameter]
-    public string Icon { get; set; } = "";
-
-    /// <summary>
-    /// Gets or sets the width of the link (in pixels).
-    /// </summary>
-    [Parameter]
-    public int? Width { get; set; }
-
-    /// <summary>
-    /// Gets or sets the text of the link.
-    /// </summary>
-    [Parameter]
-    public string Text { get; set; } = "";
-
-    /// <summary>
-    /// Gets or sets the destination of the link.
-    /// </summary>
-    [Parameter]
-    public string? Href { get; set; } = "";
-
-    /// <summary>
-    /// Gets orsets the target of the link.
-    /// </summary>
-    [Parameter]
-    public string? Target { get; set; } = "";
-
-    [CascadingParameter(Name = "NavMenuCollapsed")]
-    private bool NavMenuCollapsed { get; set; }
+    [CascadingParameter(Name = "NavMenu")]
+    public NavMenu NavMenu { get; set; } = default!;
 
     /// <summary>
     /// Callback function for when the link is clicked.
@@ -82,19 +60,48 @@ public partial class NavMenuLink : FluentComponentBase
     public EventCallback<MouseEventArgs> OnClick { get; set; }
 
     /// <summary>
-    /// Gets or sets the content to be rendered inside the component.
+    /// Gets orsets the target of the link.
     /// </summary>
     [Parameter]
-    public RenderFragment? ChildContent { get; set; }
+    public string? Target { get; set; } = string.Empty;
+    
+    /// <summary>
+    /// Gets or sets the text of the link.
+    /// </summary>
+    [Parameter]
+    public string Text { get; set; } = string.Empty;
 
-    protected override void OnInitialized()
-    {
-        //Owner.Register(this);
-        Owner.AddNavLink(this);
-    }
+    /// <summary>
+    /// Gets or sets the width of the link (in pixels).
+    /// </summary>
+    [Parameter]
+    public int? Width { get; set; }
+
+    protected string? ClassValue => new CssBuilder(Class)
+       .AddClass("navmenu-link", () => NavMenu.HasSubMenu && NavMenu.HasIcons)
+       .AddClass("navmenu-link-nogroup", () => !NavMenu.HasSubMenu && NavMenu.HasIcons)
+       .Build();
+
+    protected string? StyleValue => new StyleBuilder()
+        .AddStyle("width", $"{Width}px", () => Width.HasValue)
+        .AddStyle(Style)
+        .Build();
+
     private bool HasIcon => !string.IsNullOrWhiteSpace(Icon);
+    
+    [CascadingParameter(Name = "NavMenuExpanded")]
+    private bool NavMenuExpanded { get; set; }
 
-    protected async Task OnClickHandler(MouseEventArgs e)
+    
+    [Inject]
+    private NavigationManager NavigationManager { get; set; } = default!;
+    
+    internal void SetSelected(bool value)
+    {
+        Selected = value;
+    }
+    
+    protected async Task OnClickHandlerAsync(MouseEventArgs e)
     {
         if (Disabled)
             return;
@@ -104,20 +111,10 @@ public partial class NavMenuLink : FluentComponentBase
 
         if (!string.IsNullOrEmpty(Href))
             NavigationManager.NavigateTo(Href);
-
-        Owner.SelectOnlyThisLink(this);
     }
-
-    protected async Task OnKeypressHandler(KeyboardEventArgs e)
+    
+    protected override void OnInitialized()
     {
-        if (e.Code == "Space" || e.Code == "Enter")
-        {
-            await OnClickHandler(new MouseEventArgs());
-        }
-    }
-
-    internal void SetSelected(bool value)
-    {
-        Selected = value;
+        NavMenu.AddNavLink(this);
     }
 }

@@ -10,13 +10,13 @@
     None of these components are particulary useful when used stand-alone.
 </p>
 
-<ApiDocumentation Component="typeof(NavMenuLink)" />
-
-<DemoSection Component="typeof(NavMenuLink)" 
-             Title="NavMenuLink" 
+<ApiDocumentation Component="typeof(NavMenu)" />
+<DemoSection Component="typeof(NavMenu)"
+             Title="NavMenu"
              HideExample=true
-             CollocatedFiles="@(new[] {"cs"})">
+             CollocatedFiles="@(new[] {"cs", "css"})">
 </DemoSection>
+
 
 <ApiDocumentation Component="typeof(NavMenuGroup)" />
 <DemoSection Component="typeof(NavMenuGroup)"
@@ -25,12 +25,14 @@
              CollocatedFiles="@(new[] {"cs", "css"})">
 </DemoSection>
 
-<ApiDocumentation Component="typeof(NavMenu)" />
-<DemoSection Component="typeof(NavMenu)"
-             Title="NavMenu"
+<ApiDocumentation Component="typeof(NavMenuLink)" />
+
+<DemoSection Component="typeof(NavMenuLink)" 
+             Title="NavMenuLink" 
              HideExample=true
-             CollocatedFiles="@(new[] {"cs", "css"})">
+             CollocatedFiles="@(new[] {"cs"})">
 </DemoSection>
+
 
 <h2>Examples</h2>
 

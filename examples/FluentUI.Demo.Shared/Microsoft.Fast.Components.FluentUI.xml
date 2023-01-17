@@ -2248,6 +2248,11 @@
             Callback for when the tooltip is dismissed
             </summary>  
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Id">
+            <summary>
+            Gets or sets a reasonably unique ID.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Owner">
             <summary>
             Gets or sets the owning FluentTreeView

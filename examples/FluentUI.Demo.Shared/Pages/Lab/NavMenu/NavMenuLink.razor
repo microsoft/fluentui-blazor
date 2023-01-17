@@ -2,14 +2,15 @@
 @namespace FluentUI.Demo.Shared
 
 @inherits FluentComponentBase
-<FluentTreeItem Class="@ClassValue"
+<FluentTreeItem Id="@Id"
+                Class="@ClassValue"
                 Style="@StyleValue"
                 Disabled="@Disabled"
                 Selected="@Selected"
-                @onclick="@OnClickHandler"
-                @onkeydown="@OnKeypressHandler"
-                tabindex="0">
-    @if (Owner.HasIcons || Owner.HasSubMenu)
+                tabindex="0"
+                Text="@(NavMenuExpanded ? Text : string.Empty)"
+                @onclick="@OnClickHandlerAsync">
+    @if (NavMenu.HasIcons || NavMenu.HasSubMenu)
     {
         @if (HasIcon)
         {
@@ -20,12 +21,7 @@
             <div style="width:20px;" slot="start" />
         }
     }
-    @if (!string.IsNullOrEmpty(Text))
-    {
-        <span style="@(NavMenuCollapsed ? null : "display: none;")">@Text</span>
-    }
-    
-    @if (NavMenuCollapsed)
+    @if (NavMenuExpanded)
     {
         @ChildContent
     }

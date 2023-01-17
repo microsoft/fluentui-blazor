@@ -9,17 +9,23 @@ namespace FluentUI.Demo.Shared;
 
 public partial class NavMenu : FluentComponentBase
 {
-    internal readonly List<NavMenuLink> _links = new();
-    internal readonly List<NavMenuGroup> _groups = new();
+    // Remeber to replace the path to the colocated JS file with your own project's path
+    // or Razor Class Library's path.
+    private const string JAVASCRIPT_FILE = "./_content/FluentUI.Demo.Shared/Pages/Lab/NavMenu/NavMenu.razor.js";
+    private const string WIDTH_COLLAPSED_MENU = "40px";
+    private readonly List<NavMenuLink> _links = new();
+    private readonly List<NavMenuGroup> _groups = new();
+
+    private FluentTreeView? treeView;
+    private FluentTreeItem? currentSelected;
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("navmenu")
         .Build();
 
     protected string? StyleValue => new StyleBuilder()
-        .AddStyle("width", $"{Width}px", () => Collapsed && Width.HasValue)
-        .AddStyle("width", "35px", () => !Collapsed)
-        //.AddStyle("min-width", "unset", () => !Collapsed)
+        .AddStyle("width", $"{Width}px", () => Expanded && Width.HasValue)
+        .AddStyle("width", WIDTH_COLLAPSED_MENU, () => !Expanded)
         .AddStyle(Style)
         .Build();
 
@@ -30,6 +36,18 @@ public partial class NavMenu : FluentComponentBase
     private IJSRuntime JS { get; set; } = default!;
 
     private IJSObjectReference Module { get; set; } = default!;
+
+    /// <summary>
+    /// Gets or sets a reasonably unique ID 
+    /// </summary>
+    [Parameter]
+    public string Id { get; set; } = Identifier.NewId();
+
+    /// <summary>
+    /// Gets or sets the content to be rendered inside the component.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
     /// Gets or sets the title of the navigation menu
@@ -54,30 +72,48 @@ public partial class NavMenu : FluentComponentBase
     /// Gets or sets whether the menu is collapsed.
     /// </summary>
     [Parameter]
-    [CascadingParameter()]
-    public bool Collapsed { get; set; } = true;
+    [CascadingParameter]
+    public bool Expanded { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets the content to be rendered inside the component.
+    /// Event callback for when the menu is collapsed status changed.
     /// </summary>
     [Parameter]
-    public RenderFragment? ChildContent { get; set; }
+    public EventCallback<bool> ExpandedChanged { get; set; }
+
+    /// <summary>
+    /// Event callback for when group/link is expanded
+    /// </summary>
+    [Parameter]
+    public EventCallback<bool> OnExpanded { get; set; }
 
     internal bool HasSubMenu => _groups.Any();
 
-    internal bool HasIcons => _links.Any(i => !String.IsNullOrWhiteSpace(i.Icon));
+    internal bool HasIcons => _links.Any(i => !string.IsNullOrWhiteSpace(i.Icon));
 
-    protected void Collapsible_Click(MouseEventArgs e)
+    internal async Task CollapsibleClickAsync(MouseEventArgs e)
     {
         if (Collapsible)
         {
-            Collapsed = !Collapsed;
+            Expanded = !Expanded;
+            await InvokeAsync(StateHasChanged);
+
+            if (ExpandedChanged.HasDelegate)
+            {
+                await ExpandedChanged.InvokeAsync(Expanded);
+            }
+
+            if (OnExpanded.HasDelegate)
+            {
+                await OnExpanded.InvokeAsync(Expanded);
+            }           
         }
     }
 
     internal int AddNavLink(NavMenuLink link)
     {
         _links.Add(link);
+        StateHasChanged();
         return _links.Count;
     }
 
@@ -85,48 +121,5 @@ public partial class NavMenu : FluentComponentBase
     {
         _groups.Add(group);
         return _groups.Count;
-    }
-
-    private void HandleCurrentSelectedChanged(FluentTreeItem item)
-    {
-        string? Href = _links.FirstOrDefault(i => i.Selected)?.Href;
-        if (!String.IsNullOrEmpty(Href))
-            NavigationManager.NavigateTo(Href);
-    }
-
-    internal void SelectOnlyThisLink(NavMenuLink? selectedLink)
-    {
-        if (selectedLink != null)
-        {
-            foreach (var link in _links)
-            {
-                if (link == selectedLink)
-                {
-                    link.SetSelected(true);
-                }
-                else
-                {
-                    link.SetSelected(false);
-                }
-            }
-        }
-    }
-
-    internal void SelectOnlyThisGroup(NavMenuGroup? selectedGroup)
-    {
-        if (selectedGroup != null)
-        {
-            foreach (var group in _groups)
-            {
-                if (group == selectedGroup)
-                {
-                    group.SetSelected(true);
-                }
-                else
-                {
-                    group.SetSelected(false);
-                }
-            }
-        }
     }
 }
