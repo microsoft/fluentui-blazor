@@ -18,6 +18,18 @@
     overflow-y: auto;
 }
 
+
+
+::deep .navmenu-group::part(start) {
+    margin-inline-end: 5px;
+}
+
+::deep .navmenu-group:not([aria-expanded])::part(start) {
+    margin-inline-start: -25px;
+    width: 24px;
+}
+
+
 ::deep .navmenu-link::part(start) {
     margin-inline-start: -25px;
 }
@@ -26,10 +38,13 @@
     margin-inline-start: -10px;
 }
 
-::deep .navmenu-group::part(start) {
-    margin-inline-end: 5px;
+/* Item Collasped */
+::deep fluent-tree-item.navmenu-group:not([aria-expanded]) svg[state="expanded"],
+::deep fluent-tree-item.navmenu-group[aria-expanded="false"] svg[state="expanded"] {
+    display: none;
 }
 
-::deep .navmenu-group:not([aria-expanded])::part(start) {
-    margin-inline-start: -25px;
+/* Item Expanded */
+::deep fluent-tree-item.navmenu-group[aria-expanded="true"] svg[state="collapsed"] {
+    display: none;
 }
