@@ -253,6 +253,65 @@
             Gets or sets the content of the body
             </summary>
         </member>
+        <member name="T:FluentUI.Demo.Shared.MonacoEditor">
+            <summary />
+        </member>
+        <member name="P:FluentUI.Demo.Shared.MonacoEditor.JS">
+            <summary />
+        </member>
+        <member name="P:FluentUI.Demo.Shared.MonacoEditor.Module">
+            <summary />
+        </member>
+        <member name="P:FluentUI.Demo.Shared.MonacoEditor.Id">
+            <summary>
+            Unique identifier of this component.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.MonacoEditor.Language">
+            <summary>
+            Language used by the editor: csharp, javascript, ...
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.MonacoEditor.Height">
+            <summary>
+            Height of this component.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.MonacoEditor.Width">
+            <summary>
+            Width of this component.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.MonacoEditor.IsDarkMode">
+            <summary>
+            Theme of the editor (Light or Dark).
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.MonacoEditor.Value">
+            <summary>
+            Gets or sets the value of the input. This should be used with two-way binding.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.MonacoEditor.ValueChanged">
+            <summary>
+            Gets or sets a callback that updates the bound value.
+            </summary>
+        </member>
+        <member name="M:FluentUI.Demo.Shared.MonacoEditor.OnParametersSetAsync">
+            <summary />
+        </member>
+        <member name="M:FluentUI.Demo.Shared.MonacoEditor.OnAfterRenderAsync(System.Boolean)">
+            <summary />
+        </member>
+        <member name="M:FluentUI.Demo.Shared.MonacoEditor.GetTheme(System.Boolean)">
+            <summary />
+        </member>
+        <member name="M:FluentUI.Demo.Shared.MonacoEditor.UpdateValueAsync(System.String)">
+            <summary />
+        </member>
+        <member name="M:FluentUI.Demo.Shared.MonacoEditor.System#IAsyncDisposable#DisposeAsync">
+            <summary />
+        </member>
         <member name="P:FluentUI.Demo.Shared.NavMenu.Id">
             <summary>
             Gets or sets a reasonably unique ID 
