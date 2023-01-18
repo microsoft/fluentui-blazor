@@ -1,16 +1,9 @@
 <Project>
 	<PropertyGroup>
 		<FluentEmojiStyles Condition="'$(FluentEmojiStyles)' == ''">color;flat;highcontrast</FluentEmojiStyles>
+		<FluentEmojiGroups Condition="'$(FluentEmojiGroups)' == ''">activities;animals_nature;flags;food_drink;objects;people_body;smileys_emotion;symbols;travel_places</FluentEmojiGroups>
 		<FluentIconSizes Condition="'$(FluentIconSizes)' == ''">10;12;16;20;24;28;32;48</FluentIconSizes>
 		<FluentIconVariants Condition="'$(FluentIconVariants)' == ''">filled;regular</FluentIconVariants>
 	</PropertyGroup>
-
-	<ItemGroup>
-		<AssemblyAttribute Include="Microsoft.Fast.Components.FluentUI.EmojiStylsAttribute">
-			<_Parameter1>$(FluentEmojiStyles)</_Parameter1>
-		</AssemblyAttribute>
-		<AssemblyAttribute Include="Microsoft.Fast.Components.FluentUI.IconSizesAttribute">
-			<_Parameter1>$(FluentIconSizes)</_Parameter1>
-		</AssemblyAttribute>
-	</ItemGroup>
+	<Import Project="Microsoft.AspNetCore.StaticWebAssets.props" />
 </Project>

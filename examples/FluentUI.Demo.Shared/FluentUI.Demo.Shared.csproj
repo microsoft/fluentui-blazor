@@ -9,9 +9,6 @@
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<IsTrimmable>true</IsTrimmable>
 		<SuppressTrimAnalysisWarnings>false</SuppressTrimAnalysisWarnings>
-		<FluentEmojiStyles>color</FluentEmojiStyles>
-		<FluentIconSizes>10;12</FluentIconSizes>
-		<FluentIconVariants>filled</FluentIconVariants>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -42,10 +39,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Fast.Components.FluentUI" Version="2.1.0" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<AdditionalFiles Include="$(ProjectDir)/*.xml" />
 	</ItemGroup>
 
@@ -60,6 +53,10 @@
 
 	<ItemGroup>
 		<Folder Include="wwwroot\sources\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.Fast.Components.FluentUI" Version="2.1.0" />
 	</ItemGroup>
 
 		
@@ -78,13 +75,4 @@
 		</ItemGroup>
 		<Copy SourceFiles="@(XmlFiles)" DestinationFolder="$(SolutionDir)examples\FluentUI.Demo.Shared" SkipUnchangedFiles="true" Condition=" '$(TargetFramework)' == 'net7.0' " />
 	</Target>
-
-	<!--<Target Name="_SetFluentAssets" AfterTargets="ResolveReferencedProjectsStaticWebAssetsConfiguration" BeforeTargets="ResolveReferencedProjectsStaticWebAssets">
-		<ItemGroup>
-			<StaticWebAssetProjectConfiguration Condition="'%(FileName)' == 'Microsoft.Fast.Components.FluentUI'">
-				<AdditionalBuildProperties>FluentEmojiStyles=$(FluentEmojiStyles);FluentIconSizes=$(FluentIconSizes);FluentIconVariants=$(FluentIconVariants)</AdditionalBuildProperties>
-			</StaticWebAssetProjectConfiguration>
-		</ItemGroup>
-	</Target>-->
-
 </Project>
