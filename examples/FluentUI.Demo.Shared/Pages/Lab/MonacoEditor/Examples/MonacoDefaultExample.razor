@@ -1,0 +1,20 @@
+﻿@* Remember to replace the namespace below with your own project's namespace. *@
+@namespace FluentUI.Demo.Shared
+
+@inherits FluentComponentBase
+<Stack>
+    <FluentSelect TOption="string">
+        <FluentOption OnSelect="@Display_CSharp">C#</FluentOption>
+        <FluentOption OnSelect="@Display_JavaScript">JavaScript</FluentOption>
+        <FluentOption OnSelect="@Display_Json">Json</FluentOption>
+        <FluentOption OnSelect="@Display_Razor">Razor</FluentOption>
+    </FluentSelect>
+    <FluentSwitch @bind-Value="@IsDarkMode">Dark Theme</FluentSwitch>
+</Stack>
+<br />
+<MonacoEditor @bind-Value="@Code" Language="@Language" IsDarkMode="@IsDarkMode" />
+
+<b>Language:</b> @Language; <b>Code:</b> @Code; <b>IsDarkMode:</b> @IsDarkMode
+<br />
+<br />
+<b>Code:</b> <pre style="border: solid 1px lightgray;">@Code</pre>

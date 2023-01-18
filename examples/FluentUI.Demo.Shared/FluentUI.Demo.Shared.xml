@@ -181,6 +181,43 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:FluentUI.Demo.Shared.Highlighter.CaseSensitive">
+            <summary>
+            Whether or not the highlighted text is case sensitive
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.Highlighter.HighlightedText">
+            <summary>
+            The fragment of text to be highlighted
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.Highlighter.Text">
+            <summary>
+            The whole text in which a fragment will be highlighted
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.Highlighter.Delimiters">
+            <summary>
+            List of delimiters chars. Example: " ,;".
+            </summary>
+        </member>
+        <member name="T:FluentUI.Demo.Shared.Splitter">
+            <summary>
+            Splits the text into fragments, according to the text to be highlighted
+            </summary>
+            <remarks>Inspired from https://github.com/MudBlazor</remarks>
+        </member>
+        <member name="M:FluentUI.Demo.Shared.Splitter.GetFragments(System.String,System.Collections.Generic.IEnumerable{System.String},System.String@,System.Boolean)">
+            <summary>
+            Splits the text into fragments, according to the
+            text to be highlighted
+            </summary>
+            <param name="text">The whole text</param>
+            <param name="highlightedTexts">The texts to be highlighted</param>
+            <param name="regex">Regex expression that was used to split fragments.</param>
+            <param name="caseSensitive">Whether it's case sensitive or not</param>
+            <returns></returns>
+        </member>
         <member name="P:FluentUI.Demo.Shared.Layout.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
@@ -216,6 +253,75 @@
             Gets or sets the content of the body
             </summary>
         </member>
+        <member name="T:FluentUI.Demo.Shared.MonacoEditor">
+            <summary />
+        </member>
+        <member name="P:FluentUI.Demo.Shared.MonacoEditor.JS">
+            <summary />
+        </member>
+        <member name="P:FluentUI.Demo.Shared.MonacoEditor.Module">
+            <summary />
+        </member>
+        <member name="P:FluentUI.Demo.Shared.MonacoEditor.Id">
+            <summary>
+            Unique identifier of this component.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.MonacoEditor.Language">
+            <summary>
+            Language used by the editor: csharp, javascript, ...
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.MonacoEditor.Height">
+            <summary>
+            Height of this component.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.MonacoEditor.Width">
+            <summary>
+            Width of this component.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.MonacoEditor.IsDarkMode">
+            <summary>
+            Theme of the editor (Light or Dark).
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.MonacoEditor.Value">
+            <summary>
+            Gets or sets the value of the input. This should be used with two-way binding.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.MonacoEditor.ValueChanged">
+            <summary>
+            Gets or sets a callback that updates the bound value.
+            </summary>
+        </member>
+        <member name="M:FluentUI.Demo.Shared.MonacoEditor.OnParametersSetAsync">
+            <summary />
+        </member>
+        <member name="M:FluentUI.Demo.Shared.MonacoEditor.OnAfterRenderAsync(System.Boolean)">
+            <summary />
+        </member>
+        <member name="M:FluentUI.Demo.Shared.MonacoEditor.GetTheme(System.Boolean)">
+            <summary />
+        </member>
+        <member name="M:FluentUI.Demo.Shared.MonacoEditor.UpdateValueAsync(System.String)">
+            <summary />
+        </member>
+        <member name="M:FluentUI.Demo.Shared.MonacoEditor.System#IAsyncDisposable#DisposeAsync">
+            <summary />
+        </member>
+        <member name="P:FluentUI.Demo.Shared.NavMenu.Id">
+            <summary>
+            Gets or sets a reasonably unique ID 
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.NavMenu.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
         <member name="P:FluentUI.Demo.Shared.NavMenu.Title">
             <summary>
             Gets or sets the title of the navigation menu
@@ -232,14 +338,49 @@
             Gets or sets whether the menu can be collapsed.
             </summary>
         </member>
-        <member name="P:FluentUI.Demo.Shared.NavMenu.Collapsed">
+        <member name="P:FluentUI.Demo.Shared.NavMenu.Expanded">
             <summary>
             Gets or sets whether the menu is collapsed.
             </summary>
         </member>
-        <member name="P:FluentUI.Demo.Shared.NavMenu.ChildContent">
+        <member name="P:FluentUI.Demo.Shared.NavMenu.ExpandedChanged">
+            <summary>
+            Event callback for when the menu is collapsed status changed.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.NavMenu.OnExpanded">
+            <summary>
+            Event callback for when group/link is expanded
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.NavMenuGroup.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.NavMenuGroup.Href">
+            <summary>
+            Gets or sets the destination of the link.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.NavMenuGroup.IconCollapsed">
+            <summary>
+            Icon displayed when this item is collasped.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.NavMenuGroup.IconExpanded">
+            <summary>
+            Icon displayed when this item is expanded.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.NavMenuGroup.IconNavMenuCollapsed">
+            <summary>
+            Icon displayed only when the <see cref="P:FluentUI.Demo.Shared.NavMenu.Expanded"/> is false.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.NavMenuGroup.Id">
+            <summary>
+            Gets or sets a unique identifier.
             </summary>
         </member>
         <member name="P:FluentUI.Demo.Shared.NavMenuGroup.Disabled">
@@ -247,29 +388,14 @@
             Gets or sets whether the menu group is disabled
             </summary>
         </member>
-        <member name="P:FluentUI.Demo.Shared.NavMenuGroup.Selected">
-            <summary>
-            Gets or sets whether the menu group is selected
-            </summary>
-        </member>
         <member name="P:FluentUI.Demo.Shared.NavMenuGroup.Expanded">
             <summary>
             Gets or sets whether the menu group is expanded
             </summary>
         </member>
-        <member name="P:FluentUI.Demo.Shared.NavMenuGroup.OnExpandedChanged">
+        <member name="P:FluentUI.Demo.Shared.NavMenuGroup.Selected">
             <summary>
-            Callback function for when the menu group is expanded
-            </summary>
-        </member>
-        <member name="P:FluentUI.Demo.Shared.NavMenuGroup.Width">
-            <summary>
-            Gets or sets the width of the menu group
-            </summary>
-        </member>
-        <member name="P:FluentUI.Demo.Shared.NavMenuGroup.Text">
-            <summary>
-            Gets or sets the text of the menu group
+            Gets or sets whether the menu group is selected
             </summary>
         </member>
         <member name="P:FluentUI.Demo.Shared.NavMenuGroup.OnClick">
@@ -277,9 +403,42 @@
             Callback function for when the menu group is clicked
             </summary>
         </member>
-        <member name="P:FluentUI.Demo.Shared.NavMenuGroup.ChildContent">
+        <member name="P:FluentUI.Demo.Shared.NavMenuGroup.OnExpandedChanged">
+            <summary>
+            Callback function for when the menu group is expanded
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.NavMenuGroup.Text">
+            <summary>
+            Gets or sets the text of the menu group
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.NavMenuGroup.Width">
+            <summary>
+            Gets or sets the width of the menu group
+            </summary>
+        </member>
+        <member name="M:FluentUI.Demo.Shared.NavMenuGroup.OnExpandHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+            <summary />
+        </member>
+        <member name="P:FluentUI.Demo.Shared.NavMenuLink.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.NavMenuLink.Href">
+            <summary>
+            Gets or sets the destination of the link.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.NavMenuLink.Icon">
+            <summary>
+            Gets or sets the name of the icon to display with the link
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.NavMenuLink.Id">
+            <summary>
+            Gets or sets a reasonably unique ID.
             </summary>
         </member>
         <member name="P:FluentUI.Demo.Shared.NavMenuLink.Disabled">
@@ -297,24 +456,9 @@
             Callback function for when the selected state changes.
             </summary>
         </member>
-        <member name="P:FluentUI.Demo.Shared.NavMenuLink.Icon">
+        <member name="P:FluentUI.Demo.Shared.NavMenuLink.OnClick">
             <summary>
-            Gets or sets the name of the icon to display with the link
-            </summary>
-        </member>
-        <member name="P:FluentUI.Demo.Shared.NavMenuLink.Width">
-            <summary>
-            Gets or sets the width of the link (in pixels).
-            </summary>
-        </member>
-        <member name="P:FluentUI.Demo.Shared.NavMenuLink.Text">
-            <summary>
-            Gets or sets the text of the link.
-            </summary>
-        </member>
-        <member name="P:FluentUI.Demo.Shared.NavMenuLink.Href">
-            <summary>
-            Gets or sets the destination of the link.
+            Callback function for when the link is clicked.
             </summary>
         </member>
         <member name="P:FluentUI.Demo.Shared.NavMenuLink.Target">
@@ -322,14 +466,14 @@
             Gets orsets the target of the link.
             </summary>
         </member>
-        <member name="P:FluentUI.Demo.Shared.NavMenuLink.OnClick">
+        <member name="P:FluentUI.Demo.Shared.NavMenuLink.Text">
             <summary>
-            Callback function for when the link is clicked.
+            Gets or sets the text of the link.
             </summary>
         </member>
-        <member name="P:FluentUI.Demo.Shared.NavMenuLink.ChildContent">
+        <member name="P:FluentUI.Demo.Shared.NavMenuLink.Width">
             <summary>
-            Gets or sets the content to be rendered inside the component.
+            Gets or sets the width of the link (in pixels).
             </summary>
         </member>
         <member name="T:FluentUI.Demo.Shared.BadgeSize">

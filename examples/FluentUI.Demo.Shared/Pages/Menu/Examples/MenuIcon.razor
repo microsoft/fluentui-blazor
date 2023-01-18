@@ -1,17 +1,33 @@
-﻿<FluentMenu>
-    <FluentMenuItem >
+﻿@* 
+    We can't use the FluentIcon's own Slot parameter here because it will not be detected by FluentMenu's internal script to determine 
+    indentation (they are added too late in the render process). Workaround is to define a slot manually and place the FluentIcon in there
+*@
+<FluentMenu>
+    <FluentMenuItem>
         Menu item 1
-        <FluentIcon Name="@FluentIcons.Globe" Slot="start" Size="@IconSize.Size16" Color="Color.Neutral" />
-        <FluentIcon Name="@FluentIcons.Globe" Slot="end" Size="@IconSize.Size16" Color="Color.Neutral" />
+        <span slot="start" >
+            <FluentIcon Name="@FluentIcons.Globe" Size="@IconSize.Size16" Color="Color.Neutral" />
+        </span>
+        <span slot="end">
+            <FluentIcon Name="@FluentIcons.Globe" Size="@IconSize.Size16" Color="Color.Neutral" />
+        </span>
     </FluentMenuItem>
     <FluentMenuItem>
         Menu item 2
-        <FluentIcon Name="@FluentIcons.Globe" Slot="end" Size="@IconSize.Size16" Color="Color.Neutral" />
-        <FluentIcon Name="@FluentIcons.Globe" Slot="start" Size="@IconSize.Size16" Color="Color.Neutral" />
+        <span slot="start">
+            <FluentIcon Name="@FluentIcons.Globe" Size="@IconSize.Size16" Color="Color.Neutral" />
+        </span>
+        <span slot="end">
+            <FluentIcon Name="@FluentIcons.Globe" Size="@IconSize.Size16" Color="Color.Neutral" />
+        </span>
     </FluentMenuItem>
     <FluentMenuItem>
         Menu item 3
-        <FluentIcon Name="@FluentIcons.Globe" Slot="start" Size="@IconSize.Size16" Variant=IconVariant.Filled Color=Color.Accent />
-        <FluentIcon Name="@FluentIcons.Globe" Slot="end" Size="@IconSize.Size16" Variant=IconVariant.Filled Color=Color.Accent />
+        <span slot="start">
+            <FluentIcon Name="@FluentIcons.Globe" Size="@IconSize.Size16" Variant=IconVariant.Filled Color=Color.Accent />
+        </span>
+        <span slot="end">
+            <FluentIcon Name="@FluentIcons.Globe" Size="@IconSize.Size16" Variant=IconVariant.Filled Color=Color.Accent />
+        </span>
     </FluentMenuItem>
 </FluentMenu>
