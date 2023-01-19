@@ -66,7 +66,7 @@ jobs:
     - name: Upload package 
       uses: actions/upload-artifact@v3
       with:
-        name: nupkg
+        name: my-test
         path: artifacts/**/*.nupkg
         retention-days: 5
   
@@ -87,6 +87,8 @@ jobs:
       
       - name: Download package
         uses: actions/download-artifact@v3
+        with:
+           name: my-test
        
       - name: Restore dependencies
         run: dotnet restore -s .
