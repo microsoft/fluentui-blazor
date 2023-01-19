@@ -83,9 +83,8 @@ jobs:
             7.0.102
           include-prerelease: true
       - name: Download package
-        uses: actions/download-artifact@v2
-        with:
-            name: nupkg
+        uses: actions/download-artifact@v3
+       
       - name: Restore dependencies
         run: dotnet restore -s artifacts
       - name: .NET Publish 
