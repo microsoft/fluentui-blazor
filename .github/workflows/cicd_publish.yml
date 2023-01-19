@@ -82,11 +82,12 @@ jobs:
             6.0.405
             7.0.102
           include-prerelease: true
-      - uses: actions/download-artifact@v2
+      - name: Download package
+        uses: actions/download-artifact@v2
         with:
             name: nupkg
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore -s artifacts
       - name: .NET Publish 
         run: dotnet publish -c Release -o publish -f net7.0 -r linux-x64 --sc examples/FluentUI.Demo.Client/
       - name: Deploy demo site
