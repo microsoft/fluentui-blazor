@@ -99,7 +99,6 @@
 	</Target>
 
 	<ItemGroup>
-
 		<None Include="build\*" Pack="true" PackagePath="build\" />
 		<None Include="buildMultiTargeting\*" Pack="true" PackagePath="buildMultiTargeting\" />
 		<None Include="buildTransitive\*" Pack="true" PackagePath="buildTransitive\" />
@@ -115,7 +114,6 @@
 	<Target Name="GetFluentUIAssets" Returns="@(ReferenceAsset)">
 		<ItemGroup>
 			<ReferenceAssetCandidates Include="Assets\**\*.svg" />			
-
 			<ReferenceAssetCandidates>
 				<RelativePath>%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 				<ContentRoot>$([System.IO.Path]::GetFullPath(Assets))</ContentRoot>

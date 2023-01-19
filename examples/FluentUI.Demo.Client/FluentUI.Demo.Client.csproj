@@ -40,12 +40,17 @@
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.2" PrivateAssets="all" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <PackageReference Include="Microsoft.Fast.Components.FluentUI" Version="2.1.0" />
+	<ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+		<ProjectReference Include="..\FluentUI.Demo.Shared\FluentUI.Demo.Shared.csproj" />
 	</ItemGroup>
 
+	<ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+		<PackageReference Include="Microsoft.Fast.Compoments.FluentUI" Version="2.1.0" />
+	</ItemGroup>
+
+
 	<ItemGroup>
-		<ProjectReference Include="..\FluentUI.Demo.Shared\FluentUI.Demo.Shared.csproj" />
+
 		<TrimmerRootAssembly Include="Microsoft.Fast.Components.FluentUI" />
 		<TrimmerRootAssembly Include="FluentUI.Demo.Shared" />
 	</ItemGroup>
