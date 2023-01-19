@@ -90,7 +90,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: nupkg
-          path: artifacts
+          path: ~/artifacts
                
       - name: Restore dependencies
         run: dotnet restore -s ~/artifacts -s https://api.nuget.org/v3/index.json
