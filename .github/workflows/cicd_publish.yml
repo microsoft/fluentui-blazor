@@ -87,9 +87,7 @@ jobs:
       
       - name: Download package
         uses: actions/download-artifact@v3
-        with:
-           name: my-test
-       
+               
       - name: Restore dependencies
         run: dotnet restore -s .
         
