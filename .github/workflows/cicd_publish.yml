@@ -71,6 +71,7 @@ jobs:
         retention-days: 5
   
   deploy_demo:
+    needs: build_package
     runs-on: ubuntu-latest
     name: Build and deploy Demo site 
     steps:
