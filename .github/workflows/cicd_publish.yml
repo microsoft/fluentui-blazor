@@ -40,7 +40,9 @@ jobs:
       BUILD_CONFIG: "Release"
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout source
+      uses: actions/checkout@v3
+    
     - name: .NET Setup SDKs 
       uses: actions/setup-dotnet@v2
       with:
@@ -57,8 +59,6 @@ jobs:
 
     - name: .NET Build package
       run: dotnet build ${{ env.PROJECT }} --configuration ${{ env.BUILD_CONFIG }} --no-restore -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
-      
-
 
     - name: .NET Pack package
       run: dotnet pack ${{ env.PROJECT }} --configuration ${{ env.BUILD_CONFIG }} --no-build --output artifacts/ci --verbosity normal -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
@@ -74,7 +74,9 @@ jobs:
     runs-on: ubuntu-latest
     name: Build and deploy Demo site 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout source
+        uses: actions/checkout@v3
+      
       - name: .NET Setup SDKs
         uses: actions/setup-dotnet@v2
         with:
@@ -82,11 +84,13 @@ jobs:
             6.0.405
             7.0.102
           include-prerelease: true
+      
       - name: Download package
         uses: actions/download-artifact@v3
        
       - name: Restore dependencies
-        run: dotnet restore -s artifacts
+        run: dotnet restore -s .
+        
       - name: .NET Publish 
         run: dotnet publish -c Release -o publish -f net7.0 -r linux-x64 --sc examples/FluentUI.Demo.Client/
       - name: Deploy demo site
