@@ -60,9 +60,6 @@ jobs:
     - name: .NET Build package
       run: dotnet build ${{ env.PROJECT }} --configuration ${{ env.BUILD_CONFIG }} --no-restore -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
 
-    - name: .NET Pack package
-      run: dotnet pack ${{ env.PROJECT }} --configuration ${{ env.BUILD_CONFIG }} --no-build --output artifacts/ci --verbosity normal -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
-      
     - name: Upload package 
       uses: actions/upload-artifact@v3
       with:
@@ -93,10 +90,10 @@ jobs:
           path: ~/artifacts
                
       - name: Restore dependencies
-        run: dotnet restore examples/FluentUI.Demo.Client/FluentUI.Demo.Client.csproj -s ~/artifacts -s https://api.nuget.org/v3/index.json
+        run: dotnet restore ~/examples/FluentUI.Demo.Client/FluentUI.Demo.Client.csproj -s ~/artifacts -s https://api.nuget.org/v3/index.json
         
       - name: .NET Publish 
-        run: dotnet publish -c Release -o publish -f net7.0 -r linux-x64 --sc examples/FluentUI.Demo.Client/FluentUI.Demo.Client.csproj
+        run: dotnet publish -c Release -o publish -f net7.0 -r linux-x64 --sc ~/examples/FluentUI.Demo.Client/FluentUI.Demo.Client.csproj
         
       - name: Deploy demo site
         id: builddeploy
