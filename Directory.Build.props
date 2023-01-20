@@ -1,6 +1,16 @@
 <Project>
  <PropertyGroup>
-	<SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
+	 <Authors>Microsoft</Authors>
+	 <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
+	 <NeutralLanguage>en</NeutralLanguage>
+	 <Owners>Microsoft Corporation</Owners>
+	 <PackageProjectUrl>https://github.com/microsoft/fast-blazor</PackageProjectUrl>
+	 <PackageLicenseExpression>MIT</PackageLicenseExpression>
+	 <RepositoryUrl>https://github.com/microsoft/fast-blazor</RepositoryUrl>
+	 <RepositoryType>git</RepositoryType>
+	 <PublishRepositoryUrl>true</PublishRepositoryUrl>
+	 
+	 <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
 	 <VersionPrefix>2.1.0</VersionPrefix>
 	 <VersionSuffix></VersionSuffix> 
  </PropertyGroup>

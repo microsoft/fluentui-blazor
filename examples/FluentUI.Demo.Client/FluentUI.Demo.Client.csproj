@@ -9,22 +9,22 @@
 	
 	<PropertyGroup>
 		<!--
-			Choose one or more from (no spaces, seperate with ;):
+			Choose one or more from the options below (no spaces,seperate with ;)
 			activities;animals_nature;flags;food_drink;objects;people_body;smileys_emotion;symbols;travel_places
 		-->
-		<FluentEmojiGroups>flags</FluentEmojiGroups>
+		<FluentEmojiGroups>activities;animals_nature;flags;food_drink;objects;smileys_emotion;symbols;travel_places</FluentEmojiGroups>
 		<!--
-			Choose one or more from (no spaces, seperate with ;):
+			Choose one or more from the options below (no spaces,seperate with ;)
 			color;flat;high-contrast
 		-->
-		<FluentEmojiStyles>color;flat</FluentEmojiStyles>
+		<FluentEmojiStyles>color;</FluentEmojiStyles>
 		<!--
-			Choose one or more from (no spaces,seperate with ;):
-			10;12;16;20.24.28.32.48
+			Choose one or more from the options below (no spaces,seperate with ;)
+			10;12;16;20;24;28;32;48
 		-->
-		<FluentIconSizes>10;12;16</FluentIconSizes>
+		<FluentIconSizes>10;12;16;20;24;48</FluentIconSizes>
 		<!--
-			Choose one or more from (no spaces,seperate with ;):
+			Choose one or more from the options below (no spaces,seperate with ;)
 			filled;regular
 		-->
 		<FluentIconVariants>filled;regular</FluentIconVariants>
@@ -40,17 +40,11 @@
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.2" PrivateAssets="all" />
 	</ItemGroup>
 
-	<ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+	<ItemGroup>
 		<ProjectReference Include="..\FluentUI.Demo.Shared\FluentUI.Demo.Shared.csproj" />
 	</ItemGroup>
-
-	<ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-		<PackageReference Include="Microsoft.Fast.Compoments.FluentUI" Version="2.1.0" />
-	</ItemGroup>
-
-
+	
 	<ItemGroup>
-
 		<TrimmerRootAssembly Include="Microsoft.Fast.Components.FluentUI" />
 		<TrimmerRootAssembly Include="FluentUI.Demo.Shared" />
 	</ItemGroup>
