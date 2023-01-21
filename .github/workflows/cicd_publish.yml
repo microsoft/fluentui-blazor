@@ -68,9 +68,20 @@ jobs:
         retention-days: 5
   
   deploy_demo:
+     
     needs: build_package
     runs-on: ubuntu-latest
     name: Build and deploy Demo site 
+    env:
+      DOTNET_CLI_TELEMETRY_OPTOUT: 1
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+      DOTNET_NOLOGO: true
+      DOTNET_GENERATE_ASPNET_CERTIFICATE: false
+      DOTNET_ADD_GLOBAL_TOOLS_TO_PATH: false
+      DOTNET_MULTILEVEL_LOOKUP: 0
+      PROJECT: "examples/FluentUI.Demo.Client/FluentUI.Demo.Client.csproj"
+      BUILD_ARCH: "Any CPU"
+      BUILD_CONFIG: "Release"  
     steps:
       - name: Checkout source
         uses: actions/checkout@v3
@@ -90,10 +101,13 @@ jobs:
           path: ~/artifacts
                
       - name: Restore dependencies
-        run: dotnet restore examples/FluentUI.Demo.Client/FluentUI.Demo.Client.csproj -s ~/artifacts -s https://api.nuget.org/v3/index.json
-        
+        run: dotnet restore ${{ env.PROJECT }} -s ~/artifacts -s https://api.nuget.org/v3/index.json
+      
+      - name: .NET Build package
+        run: dotnet build ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} --no-restore -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
+
       - name: .NET Publish 
-        run: dotnet publish examples/FluentUI.Demo.Client -c Release -o publish -f net7.0 -r linux-x64 --sc -v diag
+        run: dotnet publish ${{ env.PROJECT }} --no-build -c ${{ env.BUILD_CONFIG }} -o publish -f net7.0 -r linux-x64 --sc -v diag
         
       - name: Deploy demo site
         id: builddeploy
