@@ -98,10 +98,10 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: nupkg
-          path: ~/artifacts
+          path: artifacts
                
       - name: Restore dependencies
-        run: dotnet restore ${{ env.PROJECT }} -s ~/artifacts -s https://api.nuget.org/v3/index.json
+        run: dotnet restore ${{ env.PROJECT }} -s artifacts -s https://api.nuget.org/v3/index.json -v diag
       
       - name: .NET Build package
         run: dotnet build ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} --no-restore -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
