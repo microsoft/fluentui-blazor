@@ -100,13 +100,8 @@ jobs:
           name: nupkg
           path: artifacts
                
-      
-      
-      - name: .NET Build package
-        run: dotnet build ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -f net7.0 -r linux-x64 --sc -v n -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
-
       - name: .NET Publish 
-        run: dotnet publish ${{ env.PROJECT }} --no-build -c ${{ env.BUILD_CONFIG }} -o publish -f net7.0 -r linux-x64 --sc -v n
+        run: dotnet publish ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o publish -f net7.0 -r linux-x64 --sc -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
         
       - name: Deploy demo site
         id: builddeploy
