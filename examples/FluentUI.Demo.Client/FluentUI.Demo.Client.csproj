@@ -12,7 +12,9 @@
 			Choose one or more from the options below (no spaces,seperate with ;)
 			activities;animals_nature;flags;food_drink;objects;people_body;smileys_emotion;symbols;travel_places
 		-->
-		<FluentEmojiGroups>activities;animals_nature;flags;food_drink;objects;smileys_emotion;symbols;travel_places</FluentEmojiGroups>
+		<!--<FluentEmojiGroups>activities;animals_nature;flags;food_drink;objects;smileys_emotion;symbols;travel_places</FluentEmojiGroups>-->
+
+		<FluentEmojiGroups>none</FluentEmojiGroups>
 		<!--
 			Choose one or more from the options below (no spaces,seperate with ;)
 			color;flat;high-contrast
