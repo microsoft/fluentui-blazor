@@ -1,1 +1,1 @@
-
+Do not remove this file. It makes the 'artifacts' folder persitent which is needed for GitHub Action
