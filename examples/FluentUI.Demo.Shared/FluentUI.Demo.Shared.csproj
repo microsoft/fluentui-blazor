@@ -50,7 +50,7 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)'=='Release'">
-		<PackageReference Include="Microsoft.Fast.Components.FluentUI" Version="2.*" PrivateAssets="none" />
+		<PackageReference Include="Microsoft.Fast.Components.FluentUI" Version="2.*-*" PrivateAssets="none" />
 	</ItemGroup>
 	
 	<ItemGroup Condition="'$(Configuration)'=='Debug'">
