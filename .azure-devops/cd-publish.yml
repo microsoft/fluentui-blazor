@@ -39,12 +39,6 @@ steps:
     command: 'build'
     projects: $(project)
 
-- task: DotNetCoreCLI@2
-  displayName: Pack
-  inputs:
-    command: 'pack'
-    packagesToPack: $(project)
-    versioningScheme: 'off'
 
 - task: EsrpCodeSigning@2
   displayName: Code Signing Assemblies (Authenticode Signing)
