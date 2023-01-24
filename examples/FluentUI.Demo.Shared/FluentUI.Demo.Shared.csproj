@@ -54,9 +54,7 @@
 	</ItemGroup>
 	
 	<ItemGroup Condition="'$(Configuration)'=='Debug'">
-		<ProjectReference Include="..\..\src\Microsoft.Fast.Components.FluentUI\Microsoft.Fast.Components.FluentUI.csproj">
-			<PrivateAssets>none</PrivateAssets>
-		</ProjectReference>
+		<ProjectReference Include="..\..\src\Microsoft.Fast.Components.FluentUI\Microsoft.Fast.Components.FluentUI.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

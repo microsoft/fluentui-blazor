@@ -26,7 +26,7 @@
 		<StaticWebAssetsDisableProjectBuildPropsFileGeneration>true</StaticWebAssetsDisableProjectBuildPropsFileGeneration>
 		<StaticWebAssetsDisableProjectBuildMultiTargetingPropsFileGeneration>true</StaticWebAssetsDisableProjectBuildMultiTargetingPropsFileGeneration>
 		<StaticWebAssetsDisableProjectBuildTransitivePropsFileGeneration>true</StaticWebAssetsDisableProjectBuildTransitivePropsFileGeneration>
-		<StaticWebAssetsGetBuildAssetsTargets>GetFluentUIAssets</StaticWebAssetsGetBuildAssetsTargets>
+		<StaticWebAssetsGetBuildAssetsTargets>GetFluentUIAssets;GetCurrentProjectBuildStaticWebAssetItems</StaticWebAssetsGetBuildAssetsTargets>
 
 		<IsPackable>true</IsPackable>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -133,7 +133,7 @@
 			<ActivitiesColorAssetsCandidates>
 				<RelativePath>emojis\Activities\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</ActivitiesColorAssetsCandidates>
-			<ActivitiesFlatAssetsCandidates Include="Assets\emojis\Activities\**\*_flat*.svg" Exclude="Assets\icons\**"/>
+			<ActivitiesFlatAssetsCandidates Include="Assets\emojis\Activities\**\*_flat*.svg" Exclude="Assets\icons\**" />
 			<ActivitiesFlatAssetsCandidates>
 				<RelativePath>emojis\Activities\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</ActivitiesFlatAssetsCandidates>
@@ -146,7 +146,7 @@
 			<Animals_NatureColorAssetsCandidates>
 				<RelativePath>emojis\Animals_Nature\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Animals_NatureColorAssetsCandidates>
-			<Animals_NatureFlatAssetsCandidates Include="Assets\emojis\Animals_Nature\**\*_flat*.svg" Exclude="Assets\icons\**"/>
+			<Animals_NatureFlatAssetsCandidates Include="Assets\emojis\Animals_Nature\**\*_flat*.svg" Exclude="Assets\icons\**" />
 			<Animals_NatureFlatAssetsCandidates>
 				<RelativePath>emojis\Animals_Nature\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Animals_NatureFlatAssetsCandidates>
@@ -159,7 +159,7 @@
 			<FlagsColorAssetsCandidates>
 				<RelativePath>emojis\Flags\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</FlagsColorAssetsCandidates>
-			<FlagsFlatAssetsCandidates Include="Assets\emojis\Flags\**\*_flat*.svg" Exclude="Assets\icons\**"/>
+			<FlagsFlatAssetsCandidates Include="Assets\emojis\Flags\**\*_flat*.svg" Exclude="Assets\icons\**" />
 			<FlagsFlatAssetsCandidates>
 				<RelativePath>emojis\Flags\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</FlagsFlatAssetsCandidates>
@@ -172,7 +172,7 @@
 			<Food_DrinkColorAssetsCandidates>
 				<RelativePath>emojis\Food_Drink\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Food_DrinkColorAssetsCandidates>
-			<Food_DrinkFlatAssetsCandidates Include="Assets\emojis\Food_Drink\**\*_flat*.svg" Exclude="Assets\icons\**;Assets\**\*flatbread_color*;Assets\**\*flatbread_high-contrast*"/>
+			<Food_DrinkFlatAssetsCandidates Include="Assets\emojis\Food_Drink\**\*_flat*.svg" Exclude="Assets\icons\**;Assets\**\*flatbread_color*;Assets\**\*flatbread_high-contrast*" />
 			<Food_DrinkFlatAssetsCandidates>
 				<RelativePath>emojis\Food_Drink\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Food_DrinkFlatAssetsCandidates>
@@ -185,7 +185,7 @@
 			<ObjectsColorAssetsCandidates>
 				<RelativePath>emojis\Objects\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</ObjectsColorAssetsCandidates>
-			<ObjectsFlatAssetsCandidates Include="Assets\emojis\Objects\**\*_flat*.svg" Exclude="Assets\icons\**"/>
+			<ObjectsFlatAssetsCandidates Include="Assets\emojis\Objects\**\*_flat*.svg" Exclude="Assets\icons\**" />
 			<ObjectsFlatAssetsCandidates>
 				<RelativePath>emojis\Objects\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</ObjectsFlatAssetsCandidates>
@@ -198,7 +198,7 @@
 			<People_BodyColorAssetsCandidates>
 				<RelativePath>emojis\People_Body\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</People_BodyColorAssetsCandidates>
-			<People_BodyFlatAssetsCandidates Include="Assets\emojis\People_Body\**\*_flat*.svg" Exclude="Assets\icons\**"/>
+			<People_BodyFlatAssetsCandidates Include="Assets\emojis\People_Body\**\*_flat*.svg" Exclude="Assets\icons\**" />
 			<People_BodyFlatAssetsCandidates>
 				<RelativePath>emojis\People_Body\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</People_BodyFlatAssetsCandidates>
@@ -211,7 +211,7 @@
 			<Smileys_EmotionColorAssetsCandidates>
 				<RelativePath>emojis\Smileys_Emotion\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Smileys_EmotionColorAssetsCandidates>
-			<Smileys_EmotionFlatAssetsCandidates Include="Assets\emojis\Smileys_Emotion\**\*_flat*.svg" Exclude="Assets\icons\**"/>
+			<Smileys_EmotionFlatAssetsCandidates Include="Assets\emojis\Smileys_Emotion\**\*_flat*.svg" Exclude="Assets\icons\**" />
 			<Smileys_EmotionFlatAssetsCandidates>
 				<RelativePath>emojis\Smileys_Emotion\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Smileys_EmotionFlatAssetsCandidates>
@@ -224,7 +224,7 @@
 			<SymbolsColorAssetsCandidates>
 				<RelativePath>emojis\Symbols\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</SymbolsColorAssetsCandidates>
-			<SymbolsFlatAssetsCandidates Include="Assets\emojis\Symbols\**\*_flat*.svg" Exclude="Assets\icons\**"/>
+			<SymbolsFlatAssetsCandidates Include="Assets\emojis\Symbols\**\*_flat*.svg" Exclude="Assets\icons\**" />
 			<SymbolsFlatAssetsCandidates>
 				<RelativePath>emojis\Symbols\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</SymbolsFlatAssetsCandidates>
@@ -237,7 +237,7 @@
 			<Travel_PlacesColorAssetsCandidates>
 				<RelativePath>emojis\Travel_Places\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Travel_PlacesColorAssetsCandidates>
-			<Travel_PlacesFlatAssetsCandidates Include="Assets\emojis\Travel_Places\**\*_flat*.svg" Exclude="Assets\icons\**"/>
+			<Travel_PlacesFlatAssetsCandidates Include="Assets\emojis\Travel_Places\**\*_flat*.svg" Exclude="Assets\icons\**" />
 			<Travel_PlacesFlatAssetsCandidates>
 				<RelativePath>emojis\Travel_Places\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Travel_PlacesFlatAssetsCandidates>

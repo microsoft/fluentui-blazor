@@ -48,9 +48,9 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             sb.AppendLine($"#pragma warning disable CS1591");
             sb.AppendLine("using System.Collections.Generic;\r\n");
             sb.AppendLine("namespace Microsoft.Fast.Components.FluentUI;\r\n");
-            sb.AppendLine("public static partial class FluentEmojis");
+            sb.AppendLine("public partial class FluentEmojis");
             sb.AppendLine("{");
-            sb.AppendLine("\tpublic static IEnumerable<EmojiModel> EmojiMap = new EmojiModel[$emojicount$]");
+            sb.AppendLine("\tprivate static IEnumerable<EmojiModel> FullEmojiMap = new EmojiModel[$emojicount$]");
             sb.AppendLine("\t{");
 
             foreach (string grouppath in Directory.EnumerateDirectories(basepath))

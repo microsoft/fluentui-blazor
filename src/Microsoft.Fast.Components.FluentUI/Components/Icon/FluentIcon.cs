@@ -25,6 +25,9 @@ public partial class FluentIcon : FluentComponentBase
     [Inject]
     private CacheStorageAccessor CacheStorageAccessor { get; set; } = default!;
 
+    [Inject]
+    private IconService IconService { get; set; } = default!;
+
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
@@ -90,7 +93,7 @@ public partial class FluentIcon : FluentComponentBase
     {
         string? nc = NeutralCultureName ?? null;
 
-        if (!FluentIcons.IconMap.Any(x => x.Name == Name && x.Size == Size && x.Variant == Variant))
+        if (!FluentIcons.GetIconMap(IconService.Configuration.Sizes, IconService.Configuration.Variants).Any(x => x.Name == Name && x.Size == Size && x.Variant == Variant))
         {
             throw new ArgumentException($"The requested icon ({Name}, {Size}, {Variant}) is not available in the collection");
         }
@@ -119,7 +122,7 @@ public partial class FluentIcon : FluentComponentBase
             }
         }
 
-        _folder = FluentIcons.IconMap.First(x => x.Name == Name).Folder;
+        _folder = FluentIcons.GetIconMap(IconService.Configuration.Sizes, IconService.Configuration.Variants).First(x => x.Name == Name).Folder;
 
         _iconUrl = $"{ICON_ROOT}/{_folder}{(nc is not null ? "/" + nc : "")}/{ComposedName}.svg";
         _iconUrlFallback = $"{ICON_ROOT}/{_folder}/{ComposedName}.svg";

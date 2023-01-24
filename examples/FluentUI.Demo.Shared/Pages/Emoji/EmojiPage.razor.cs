@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Fast.Components.FluentUI;
 using Microsoft.JSInterop;
 
-namespace FluentUI.Demo.Shared;
+namespace FluentUI.Demo.Shared.Pages.Emoji;
 
 public partial class EmojiPage : IAsyncDisposable
 {
@@ -13,6 +13,9 @@ public partial class EmojiPage : IAsyncDisposable
 
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
+
+    [Inject]
+    private EmojiService EmojiService { get; set; } = default!;
 
     private IJSObjectReference? _jsModule;
     private EditContext? editContext;
@@ -68,13 +71,13 @@ public partial class EmojiPage : IAsyncDisposable
         
         HandleSearch();
     }
-
+    
     public void HandleSearch()
     {
         emojis = null;
         
 
-        FluentEmojiSearcher searcher = new();
+        FluentEmojiSearcher searcher = new(EmojiService);
                 
             emojis = searcher.WithName(Form.Searchterm)
                 .InGroup(Form.Group)

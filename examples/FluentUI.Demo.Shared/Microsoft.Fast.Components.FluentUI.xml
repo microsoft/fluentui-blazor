@@ -530,6 +530,80 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.Readonly">
+            <summary>
+            Gets or sets if the calendar is readonly 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.Locale">
+            <summary>
+            String repesentation of the full locale including market, calendar type and numbering system
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.Month">
+            <summary>
+            Gets or sets the month of the calendar to display
+            Defaults to current month
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.Year">
+            <summary>
+            Gets or sets the year of the calendar to display
+            Defaults to current year
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.DayFormat">
+            <summary>
+            Format style for the day
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.WeekdayFormat">
+            <summary>
+            Format style for the week day labels
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.MonthFormat">
+            <summary>
+            Format style for the month label
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.YearFormat">
+            <summary>
+            Format style for the year used in the title
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.MinWeeks">
+            <summary>
+            Minimum number of weeks to show for the month
+            This can be used to normalize the calendar view
+            when changing or across multiple calendars
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.DisabledSelectable">
+            <summary>
+            A list of dates that should be shown as disabled
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.OutOfMonthSelectable">
+            <summary>
+            Gets or sets whether dates outside of shown month are selectable
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.DisabledDates">
+            <summary>
+            Gets or sets dates to be shown as disabled.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.SelectedDates">
+            <summary>
+            A list of dates that should be shown as highlighted
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentCard.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
@@ -1175,80 +1249,6 @@
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDivider.ChildContent">
-            <summary>
-            Gets or sets the content to be rendered inside the component.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.Readonly">
-            <summary>
-            Gets or sets if the calendar is readonly 
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.Locale">
-            <summary>
-            String repesentation of the full locale including market, calendar type and numbering system
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.Month">
-            <summary>
-            Gets or sets the month of the calendar to display
-            Defaults to current month
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.Year">
-            <summary>
-            Gets or sets the year of the calendar to display
-            Defaults to current year
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.DayFormat">
-            <summary>
-            Format style for the day
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.WeekdayFormat">
-            <summary>
-            Format style for the week day labels
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.MonthFormat">
-            <summary>
-            Format style for the month label
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.YearFormat">
-            <summary>
-            Format style for the year used in the title
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.MinWeeks">
-            <summary>
-            Minimum number of weeks to show for the month
-            This can be used to normalize the calendar view
-            when changing or across multiple calendars
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.DisabledSelectable">
-            <summary>
-            A list of dates that should be shown as disabled
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.OutOfMonthSelectable">
-            <summary>
-            Gets or sets whether dates outside of shown month are selectable
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.DisabledDates">
-            <summary>
-            Gets or sets dates to be shown as disabled.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.SelectedDates">
-            <summary>
-            A list of dates that should be shown as highlighted
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
             </summary>
@@ -6207,9 +6207,37 @@
             <param name="s"></param>
             <returns>string</returns>
         </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ServiceCollectionExtensions.AddFluentIcons(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Fast.Components.FluentUI.IconConfiguration)">
+            <summary>
+            Adds an Icon Service as a Scoped instance.
+            </summary>
+            <param name="services">IServiceCollection</param>
+            <param name="configuration">Defines IconConfiguration for this instance.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ServiceCollectionExtensions.AddFluentIcons(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.Fast.Components.FluentUI.IconConfiguration})">
+            <summary>
+            Adds an Icon Service as a Scoped instance.
+            </summary>
+            <param name="services">IServiceCollection</param>
+            <param name="configuration">Defines IconConfiguration for this instance.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ServiceCollectionExtensions.AddFluentEmojis(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Fast.Components.FluentUI.EmojiConfiguration)">
+            <summary>
+            Adds an Emoji Service as a Scoped instance.
+            </summary>
+            <param name="services">IServiceCollection</param>
+            <param name="configuration">Defines EmojiConfiguration for this instance.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ServiceCollectionExtensions.AddFluentEmojis(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.Fast.Components.FluentUI.EmojiConfiguration})">
+            <summary>
+            Adds an Emoji Service as a Scoped instance.
+            </summary>
+            <param name="services">IServiceCollection</param>
+            <param name="configuration">Defines EmojiConfiguration for this instance.</param>
+        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ServiceCollectionExtensions.AddFluentUIComponents(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Fast.Components.FluentUI.Infrastructure.LibraryConfiguration)">
             <summary>
-            Add common services required by the Fluent UI Web Components for Blazor library
+            Add common servIconConfiguration?s required by the Fluent UI Web Components for Blazor library
             </summary>
             <param name="services">Service collection</param>
             <param name="configuration">Library configuration</param>

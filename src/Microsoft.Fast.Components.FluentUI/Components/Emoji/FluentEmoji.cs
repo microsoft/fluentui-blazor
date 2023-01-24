@@ -27,6 +27,9 @@ public partial class FluentEmoji : FluentComponentBase
     [Inject]
     private CacheStorageAccessor CacheStorageAccessor { get; set; } = default!;
 
+    [Inject]
+    private EmojiService EmojiService { get; set; } = default!;
+
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
@@ -96,7 +99,7 @@ public partial class FluentEmoji : FluentComponentBase
             throw new ArgumentException("CustomSize can not be larger than 1024");
         }
 
-        EmojiModel model = FluentEmojis.EmojiMap.First(x => x.Name == Name);
+        EmojiModel model = FluentEmojis.GetEmojiMap(EmojiService.Configuration.Groups, EmojiService.Configuration.Styles).First(x => x.Name == Name);
         _folder = model.Folder;
         _group = model.Group.ToString();
 

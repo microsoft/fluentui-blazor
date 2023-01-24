@@ -12,6 +12,10 @@ public partial class IconPage : IAsyncDisposable
 
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
+
+    [Inject]
+    private IconService IconService { get; set; } = default!;
+    
     private IJSObjectReference? _jsModule;
 
     private EditContext? editContext;
@@ -69,7 +73,7 @@ public partial class IconPage : IAsyncDisposable
             variant = Form.Style.Value ? IconVariant.Filled : IconVariant.Regular;
         }
 
-        FluentIconSearcher searcher = new();
+        FluentIconSearcher searcher = new(IconService);
 
         icons = searcher.WithName(Form.Searchterm)
             .AsVariant(variant)

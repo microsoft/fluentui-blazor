@@ -1,7 +1,6 @@
 ﻿@page "/Emoji"
 @* Remember to replace the namespace below with your own project's namespace. *@
-@namespace FluentUI.Demo.Shared
-
+@using FluentUI.Demo.Shared.Pages.Emoji.Examples;
 
 <h1>Emoji</h1>
 <p>
@@ -49,7 +48,7 @@
                 <label for="Group">Group</label>
                 <FluentSelect TOption="EmojiGroup?" Id="Group" @bind-SelectedOption="Form.Group" @onchange=@(x => HandleGroup(x))>
                     <FluentOption Value="-1">Choose a group...</FluentOption>
-                    @foreach (EmojiGroup group in Enum.GetValues<EmojiGroup>())
+                    @foreach (EmojiGroup group in EmojiService.Configuration.Groups)
                     {
                         <FluentOption Value=@group.ToString() Selected=@(group == Form.Group)>@(group.ToAttributeValue(false))</FluentOption>
                     }
@@ -74,8 +73,7 @@
                 <label for="Style">Style</label>
                 <FluentSelect TOption="EmojiStyle?" Id="Style" @bind-SelectedOption="Form.Style" @onchange=@(x => HandleStyle(x))>
                     <FluentOption Value="-1">Choose a style...</FluentOption>
-                    @foreach (EmojiStyle style in Enum.GetValues<EmojiStyle>())
-                    {
+                    @foreach (EmojiStyle style in EmojiService.Configuration.Styles) {
                         <FluentOption Value=@style.ToString() Selected=@(style == Form.Style)>@(style.ToAttributeValue(false))</FluentOption>
                     }
                 </FluentSelect>

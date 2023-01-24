@@ -28,8 +28,6 @@
 	<Import Condition="$(FluentEmojiGroups.Contains('smileys_emotion')) AND $(FluentEmojiStyles.Contains('high-contrast'))" Project="$(MSBuildThisFileDirectory)Microsoft.Fast.Components.FluentUI.StaticWebAssets.Smileys_Emotion.HighContrast.targets"/>
 	<Import Condition="$(FluentEmojiGroups.Contains('symbols')) AND $(FluentEmojiStyles.Contains('high-contrast'))" Project="$(MSBuildThisFileDirectory)Microsoft.Fast.Components.FluentUI.StaticWebAssets.Symbols.HighContrast.targets"/>
 	<Import Condition="$(FluentEmojiGroups.Contains('travel_places')) AND $(FluentEmojiStyles.Contains('high-contrast'))" Project="$(MSBuildThisFileDirectory)Microsoft.Fast.Components.FluentUI.StaticWebAssets.Travel_Places.HighContrast.targets"/>
-	
-	
 
 	<Import Condition="$(FluentIconSizes.Contains('10')) AND $(FluentIconVariants.Contains('filled'))" Project="$(MSBuildThisFileDirectory)Microsoft.Fast.Components.FluentUI.StaticWebAssets.Filled10.targets"/>
 	<Import Condition="$(FluentIconSizes.Contains('12')) AND $(FluentIconVariants.Contains('filled'))" Project="$(MSBuildThisFileDirectory)Microsoft.Fast.Components.FluentUI.StaticWebAssets.Filled12.targets"/>

@@ -30,9 +30,9 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             sb.AppendLine($"#pragma warning disable CS1591");
             sb.AppendLine("using System.Collections.Generic;\r\n");
             sb.AppendLine("namespace Microsoft.Fast.Components.FluentUI;\r\n");
-            sb.AppendLine("public static partial class FluentIcons");
+            sb.AppendLine("public partial class FluentIcons");
             sb.AppendLine("{");
-            sb.AppendLine("\tpublic static IEnumerable<IconModel> IconMap = new IconModel[$iconcount$]");
+            sb.AppendLine("\tprivate static IEnumerable<IconModel> FullIconMap = new IconModel[$iconcount$]");
             sb.AppendLine("\t{");
 
 

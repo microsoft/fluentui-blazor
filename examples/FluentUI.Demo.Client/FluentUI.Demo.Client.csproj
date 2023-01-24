@@ -8,27 +8,20 @@
 	</PropertyGroup>
 	
 	<PropertyGroup>
-		<!--
-			Choose one or more from the options below (no spaces,seperate with ;)
-			activities;animals_nature;flags;food_drink;objects;people_body;smileys_emotion;symbols;travel_places
-		-->
-		<!--<FluentEmojiGroups>activities;animals_nature;flags;food_drink;objects;smileys_emotion;symbols;travel_places</FluentEmojiGroups>-->
+		<!-- Choose one or more from the options below (no spaces, separate with ;) -->
+		<!--activities;animals_nature;flags;food_drink;objects;people_body;smileys_emotion;symbols;travel_places-->
+		<FluentEmojiGroups>activities;animals_nature;flags;food_drink;objects;smileys_emotion;symbols;travel_places</FluentEmojiGroups>
 
-		<FluentEmojiGroups>none</FluentEmojiGroups>
-		<!--
-			Choose one or more from the options below (no spaces,seperate with ;)
-			color;flat;high-contrast
-		-->
+		<!-- Choose one or more from the options below (no spaces, separate with ;) -->
+		<!-- color;flat;high-contrast -->
 		<FluentEmojiStyles>color;</FluentEmojiStyles>
-		<!--
-			Choose one or more from the options below (no spaces,seperate with ;)
-			10;12;16;20;24;28;32;48
-		-->
+
+		<!-- Choose one or more from the options below (no spaces, separate with ;) -->
+		<!-- 10;12;16;20;24;28;32;48 -->
 		<FluentIconSizes>10;12;16;20;24;48</FluentIconSizes>
-		<!--
-			Choose one or more from the options below (no spaces,seperate with ;)
-			filled;regular
-		-->
+
+		<!-- Choose one or more from the options below (no spaces, separate with ;) -->
+		<!-- filled;regular -->
 		<FluentIconVariants>filled;regular</FluentIconVariants>
 	</PropertyGroup>
 
@@ -44,6 +37,10 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\FluentUI.Demo.Shared\FluentUI.Demo.Shared.csproj" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(Configuration)'=='Debug'">
+		<ProjectReference Include="..\..\src\Microsoft.Fast.Components.FluentUI\Microsoft.Fast.Components.FluentUI.csproj" />
 	</ItemGroup>
 	
 	<ItemGroup>

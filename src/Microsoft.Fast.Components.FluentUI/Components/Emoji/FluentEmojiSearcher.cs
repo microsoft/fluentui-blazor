@@ -1,16 +1,33 @@
-﻿namespace Microsoft.Fast.Components.FluentUI;
+﻿using Microsoft.AspNetCore.Components;
+
+namespace Microsoft.Fast.Components.FluentUI;
 
 public class FluentEmojiSearcher
 {
-    private IEnumerable<EmojiModel>? emojiList;
+    [Inject]
+    private EmojiService EmojiService { get; set; } = default!;
+    
+    private IEnumerable<EmojiModel>? _emojiList;
+    
+    
+
+    public FluentEmojiSearcher(EmojiService emojiService)
+    {
+        EmojiService = emojiService;
+    }
+
+    private IEnumerable<EmojiModel>? GetFilteredEmojiList()
+    {
+        return FluentEmojis.GetEmojiMap(EmojiService.Configuration.Groups, EmojiService.Configuration.Styles); ;
+    }
 
     public FluentEmojiSearcher InGroup(EmojiGroup? group)
     {
         if (group.HasValue)
         { 
-            emojiList ??= FluentEmojis.EmojiMap;
+            _emojiList ??= GetFilteredEmojiList();
 
-            emojiList = emojiList!.Where(x => x.Group == group);
+            _emojiList = _emojiList!.Where(x => x.Group == group);
                 
         }
         return this;
@@ -20,9 +37,9 @@ public class FluentEmojiSearcher
     {
         if (style.HasValue)
         {
-            emojiList ??= FluentEmojis.EmojiMap;
+            _emojiList ??= GetFilteredEmojiList();
 
-            emojiList = emojiList!.Where(x => x.Style == style);
+            _emojiList = _emojiList!.Where(x => x.Style == style);
                 
         }
 
@@ -33,9 +50,9 @@ public class FluentEmojiSearcher
     {
         if (skintone.HasValue)
         {
-            emojiList ??= FluentEmojis.EmojiMap;
+            _emojiList ??= GetFilteredEmojiList();
 
-            emojiList = emojiList!.Where(x => x.Skintone == skintone);
+            _emojiList = _emojiList!.Where(x => x.Skintone == skintone);
         }
 
         return this;
@@ -46,9 +63,9 @@ public class FluentEmojiSearcher
 
         if (!string.IsNullOrWhiteSpace(searchterm) && searchterm.Length >= 2)
         {
-            emojiList ??= FluentEmojis.EmojiMap;
+            _emojiList ??= GetFilteredEmojiList();
             
-            emojiList = emojiList!.Where(x => x.Name.Contains(searchterm, StringComparison.OrdinalIgnoreCase) || x.Folder.Contains(searchterm.ToLower()));
+            _emojiList = _emojiList!.Where(x => x.Name.Contains(searchterm, StringComparison.OrdinalIgnoreCase) || x.Folder.Contains(searchterm.ToLower()));
         }
 
         return this;
@@ -56,17 +73,17 @@ public class FluentEmojiSearcher
 
     public List<EmojiModel>? ToList(int count = 50)
     {
-        if (emojiList is null)
+        if (_emojiList is null)
             return new List<EmojiModel>();
         else
-            return emojiList?.Take(count).OrderBy(x => x.Folder).ToList();
+            return _emojiList?.Take(count).OrderBy(x => x.Folder).ToList();
     }
 
     public int ResultCount()
     {
-        if (emojiList is null)
+        if (_emojiList is null)
             return 0;
         else
-            return emojiList.Count();
+            return _emojiList.Count();
     }
 }

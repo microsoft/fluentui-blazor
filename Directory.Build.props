@@ -12,6 +12,6 @@
 	 
 	 <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
 	 <VersionPrefix>2.1.0</VersionPrefix>
-	 <VersionSuffix></VersionSuffix> 
+	 <VersionSuffix>beta-1</VersionSuffix> 
  </PropertyGroup>
 </Project>
