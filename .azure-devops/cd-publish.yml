@@ -34,10 +34,11 @@ steps:
     projects: $(project)
 
 - task: DotNetCoreCLI@2
-  displayName: Build
+  displayName: 'dotnet build $(buildConfiguration)'
   inputs:
     command: 'build'
     projects: $(project)
+    arguments: '--configuration $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
   displayName: Pack
@@ -46,6 +47,9 @@ steps:
     packagesToPack: $(project)
     versioningScheme: 'off'
     nobuild: true
+    verbosityPack: 'Normal'
+    feedsToUse: 'config'
+    nugetConfigPath: 
 
 - task: EsrpCodeSigning@2
   displayName: Code Signing Assemblies (Authenticode Signing)
