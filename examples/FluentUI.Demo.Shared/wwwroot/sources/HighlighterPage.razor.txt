@@ -9,4 +9,19 @@
 <ApiDocumentation Component="typeof(Highlighter)" />
 
 <h2>Examples</h2>
+
+<DemoSection Component="typeof(Highlighter)"
+             Title="Header"
+             CollocatedFiles="@(new[] {"Splitter.cs"})"
+             ComponentParameters="@(new Dictionary<string, object>(){ {"HighlightedText", "@Highlight"}, {"Delimiters", " ,;"}, {"Text", "Lorem ipsum dolor sit amet"} })">
+    <CodeSnippet>
+&lt;Highlighter HighlightedText="@@Highlight"
+    Delimiters=" ,;"
+    Text="Lorem ipsum dolor sit amet" /&gt;
+    </CodeSnippet>
+    <p>Renders as:</p>
+</DemoSection>
+
+
+
 <DemoSection Title="General usage" Component="@typeof(HighlighterDefault)"></DemoSection>
