@@ -33,8 +33,8 @@ public partial class DemoSection : ComponentBase
     public Dictionary<string, object>? ComponentParameters { get; set; }
 
     /// <summary>
-    /// Any collocated (isolated) .cs, .css or .js files. Enter the extensions only
-    /// Example: @(new[] { "css", "js" })
+    /// Any collocated isolated .cs, .css or .js files (enter the extensions only) or other files that need to be shown in a tab. 
+    /// Example: @(new[] { "css", "js", "abc.cs" })
     /// </summary>
     [Parameter]
     public string[]? CollocatedFiles { get; set; }
@@ -94,19 +94,23 @@ public partial class DemoSection : ComponentBase
         }
     }
 
-    IEnumerable<string> GetSources()
+    private IEnumerable<string> GetSources()
     {
         yield return $"{Component.Name}.razor";
         foreach (string ext in CollocatedFiles ?? Enumerable.Empty<string>())
         {
-            yield return $"{Component.Name}.razor.{ext}";
+            if (ext.Contains("."))
+                yield return $"{ext}";
+            else
+                yield return $"{Component.Name}.razor.{ext}";
         }
     }
 
-    static string GetDisplayName(string name)
+    private string GetDisplayName(string name)
     {
+     
         
-        if (name.EndsWith(".cs"))
+        if (name.EndsWith(".cs") )
             return "C#";
 
         if (name.EndsWith(".razor"))

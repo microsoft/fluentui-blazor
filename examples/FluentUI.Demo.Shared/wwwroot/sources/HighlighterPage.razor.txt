@@ -12,7 +12,7 @@
 
 <DemoSection Component="typeof(Highlighter)"
              Title="Highlighter"
-             CollocatedFiles="@(new[] {"cs"})"
+             CollocatedFiles="@(new[] {"cs", "Splitter.cs"})"
              ComponentParameters="@(new Dictionary<string, object>(){ {"HighlightedText", "@Highlight"}, {"Delimiters", " ,;"}, {"Text", "Lorem ipsum dolor sit amet"} })"
              HideExample=true>
 </DemoSection>

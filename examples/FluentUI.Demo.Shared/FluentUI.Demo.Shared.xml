@@ -40,8 +40,8 @@
         </member>
         <member name="P:FluentUI.Demo.Shared.Components.DemoSection.CollocatedFiles">
             <summary>
-            Any collocated (isolated) .cs, .css or .js files. Enter the extensions only
-            Example: @(new[] { "css", "js" })
+            Any collocated isolated .cs, .css or .js files (enter the extensions only) or other files that need to be shown in a tab. 
+            Example: @(new[] { "css", "js", "abc.cs" })
             </summary>
         </member>
         <member name="P:FluentUI.Demo.Shared.Components.DemoSection.ShowDownloads">

@@ -537,7 +537,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.Locale">
             <summary>
-            String repesentation of the full locale including market, calendar type and numbering system
+            String representation of the full locale including market, calendar type and numbering system
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.Month">
