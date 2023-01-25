@@ -72,7 +72,7 @@ public partial class IconPage : IAsyncDisposable
 
         FluentIconSearcher searcher = new();
 
-        icons = searcher.WithName(Form.Searchterm)
+        icons = searcher.WithName(Form.Searchterm?.Trim())
             .AsVariant(variant)
             .WithSize(Form.Size)
             .ToList(maxResults);
