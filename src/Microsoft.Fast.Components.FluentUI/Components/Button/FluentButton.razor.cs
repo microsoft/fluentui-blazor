@@ -102,4 +102,11 @@ public partial class FluentButton : FluentComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        string[] values = { "_self", "_blank", "_parent", "_top" };
+        if (!string.IsNullOrEmpty(Target) && !values.Contains(Target))
+            throw new ArgumentException("Target must be one of the following values: _self, _blank, _parent, _top");
+    }
 }
