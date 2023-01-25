@@ -1,4 +1,5 @@
 using Bunit;
+using FluentAssertions;
 using Xunit;
 
 namespace Microsoft.Fast.Components.FluentUI.Tests.Calendar
@@ -30,30 +31,46 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.Calendar
         }
 
         [Theory]
-        [InlineData(10)]
+        [InlineData(-1)]
+        [InlineData(0)]
+        [InlineData(1)]
+        [InlineData(7)]
+        [InlineData(12)]
         [InlineData(13)]
         public void RenderProperly_MonthAttribute(int month)
         {
             // Arrange && Act
             string childContent = "fluent-calendar";
-            IRenderedComponent<FluentCalendar> cut = TestContext.RenderComponent<FluentCalendar>(
-                parameters => parameters
-                    .Add(p => p.Month, month)
-                    .AddChildContent(childContent));
+            IRenderedComponent<FluentCalendar> cut = null;
+            Action action = () =>
+            {
+                cut = TestContext.RenderComponent<FluentCalendar>(
+                    parameters => parameters
+                        .Add(p => p.Month, month)
+                        .AddChildContent(childContent));
+            };
 
             // Assert
-            cut.MarkupMatches("<fluent-calendar " +
-                              "readonly=\"false\" " +
-                              $"month=\"{month}\" " +
-                              $"year=\"{DateTime.Now.Year}\" " +
-                              "day-format=\"numeric\" " +
-                              "weekday-format=\"short\" " +
-                              "month-format=\"long\" " +
-                              "year-format=\"numeric\" " +
-                              "min-weeks=\"4\" " +
-                              "selected-dates=\"\">" +
-                              $"{childContent}" +
-                              "</fluent-calendar>");
+            if (month > 12 || month < 1)
+            {
+                action.Should().Throw<ArgumentException>();
+            }
+            else
+            {
+                action.Should().NotThrow();
+                cut.MarkupMatches("<fluent-calendar " +
+                                  "readonly=\"false\" " +
+                                  $"month=\"{month}\" " +
+                                  $"year=\"{DateTime.Now.Year}\" " +
+                                  "day-format=\"numeric\" " +
+                                  "weekday-format=\"short\" " +
+                                  "month-format=\"long\" " +
+                                  "year-format=\"numeric\" " +
+                                  "min-weeks=\"4\" " +
+                                  "selected-dates=\"\">" +
+                                  $"{childContent}" +
+                                  "</fluent-calendar>");
+            }
         }
 
         [Fact]

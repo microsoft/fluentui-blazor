@@ -1,4 +1,5 @@
 using Bunit;
+using FluentAssertions;
 using Xunit;
 
 namespace Microsoft.Fast.Components.FluentUI.Tests.Button
@@ -198,9 +199,10 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.Button
 
         [Theory]
         [InlineData("_self")]
-        [InlineData(null)]
+        [InlineData("_blank")]
+        [InlineData("_parent")]
+        [InlineData("_top")]
         [InlineData("")]
-        [InlineData(" ")]
         public void RenderProperly_FormTargetAttribute(string? formTarget)
         {
             // Arrange && Act
@@ -211,23 +213,39 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.Button
                     .AddChildContent(childContent));
 
             // Assert
-            if (formTarget is not null)
+            cut.MarkupMatches("<fluent-button " +
+                              "type=\"button\" " +
+                              "appearance=\"neutral\" " +
+                              $"formtarget=\"{formTarget}\"> " +
+                              $"{childContent}" +
+                              "</fluent-button>");
+        }
+        
+        [Theory]
+        [InlineData(" ")]
+        [InlineData("_funky")]
+        public void Throw_ArgumentException_When_FormTargetAttribute_IsInvalid(string? formTarget)
+        {
+            // Arrange && Act
+            string childContent = "fluent-button";
+            IRenderedComponent<FluentButton> cut = null;
+            
+            Action action = () =>
             {
-                cut.MarkupMatches("<fluent-button " +
-                                  "type=\"button\" " +
-                                  "appearance=\"neutral\" " +
-                                  $"formtarget=\"{formTarget}\"> " +
-                                  $"{childContent}" +
-                                  "</fluent-button>");
-            }
-            else
-            {
-                cut.MarkupMatches("<fluent-button " +
-                                  "type=\"button\" " +
-                                  "appearance=\"neutral\">" +
-                                  $"{childContent}" +
-                                  "</fluent-button>");
-            }
+                TestContext.RenderComponent<FluentButton>(
+                    parameters => parameters
+                        .Add(p => p.Target, formTarget)
+                        .AddChildContent(childContent));
+            };
+
+            // Assert
+            action.Should().Throw<ArgumentException>();
+            // cut.MarkupMatches("<fluent-button " +
+            //                   "type=\"button\" " +
+            //                   "appearance=\"neutral\" " +
+            //                   $"formtarget=\"{formTarget}\"> " +
+            //                   $"{childContent}" +
+            //                   "</fluent-button>");
         }
 
         [Theory]
