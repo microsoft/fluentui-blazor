@@ -23,6 +23,5 @@
             
         </CascadingValue>
     </CascadingValue>
-    @*Leave out below if you do not want/need the feedback*@
-    <p>You selected: @currentSelected?.Text</p>
+
 </div>
