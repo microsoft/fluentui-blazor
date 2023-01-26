@@ -11,6 +11,8 @@
 ::deep fluent-tab-panel {
     max-height: 535px;
     overflow-y: auto;
+    padding-left: 0;
+    padding-right: 0;
     margin-bottom: 10px;
 }
 
@@ -19,7 +21,7 @@
 }
 
 .demo-section-example {
-    margin: 0.5rem 0;
+    margin-bottom: 0.5rem;
     border: calc(var(--stroke-width) * 1px) solid var(--neutral-stroke-rest);
     border-radius: calc(var(--control-corner-radius) * 1px);
     padding: 1rem 1rem;
@@ -33,5 +35,4 @@
 .demo-section-downloads {
     display: flex;
     align-items: center;
-    padding-inline-end: 5px;
 }
