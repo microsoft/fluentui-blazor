@@ -89,12 +89,8 @@ public partial class NavMenuLink : FluentComponentBase
 
     private bool HasIcon => !string.IsNullOrWhiteSpace(Icon);
     
-    [CascadingParameter(Name = "NavMenuExpanded")]
+    //[CascadingParameter(Name = "NavMenuExpanded")]
     private bool NavMenuExpanded { get; set; }
-
-    
-    [Inject]
-    private NavigationManager NavigationManager { get; set; } = default!;
     
     internal void SetSelected(bool value)
     {
@@ -110,11 +106,12 @@ public partial class NavMenuLink : FluentComponentBase
             await OnClick.InvokeAsync(e);
 
         if (!string.IsNullOrEmpty(Href))
-            NavigationManager.NavigateTo(Href);
+            NavMenu.NavigateTo(Href);
     }
     
     protected override void OnInitialized()
     {
-        NavMenu.AddNavLink(this);
+        NavMenuExpanded = NavMenu.Expanded;
+        NavMenu.AddNavMenuLink(this);
     }
 }

@@ -101,16 +101,14 @@ public partial class NavMenuGroup : FluentComponentBase
         .AddStyle(Style)
         .Build();
 
-    [CascadingParameter(Name = "NavMenuExpanded")]
+    //[CascadingParameter(Name = "NavMenuExpanded")]
     private bool NavMenuExpanded { get; set; }
-
-    [Inject]
-    private NavigationManager NavigationManager { get; set; } = default!;
 
     protected override void OnInitialized()
     {
-        NavMenu.AddNavGroup(this);
-        base.OnInitialized();
+        NavMenuExpanded = NavMenu.Expanded;
+        NavMenu.AddNavMenuGroup(this);
+        //base.OnInitialized();
     }
 
     protected override void OnParametersSet()
@@ -156,7 +154,7 @@ public partial class NavMenuGroup : FluentComponentBase
             await OnClick.InvokeAsync(e);
 
         if (!string.IsNullOrEmpty(Href))
-            NavigationManager.NavigateTo(Href);
+            NavMenu.NavigateTo(Href);
     }
 
 
