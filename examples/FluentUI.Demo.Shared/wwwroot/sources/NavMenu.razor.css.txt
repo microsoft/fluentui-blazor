@@ -44,7 +44,14 @@
     display: none;
 }
 
+
 /* Item Expanded */
 ::deep fluent-tree-item.navmenu-group[aria-expanded="true"] svg[state="collapsed"] {
     display: none;
+}
+
+/* Item Expanded */
+
+::deep fluent-tree-item.navmenu-group[aria-expanded="false"] svg[state="collapsed"] {
+    display: block;
 }
