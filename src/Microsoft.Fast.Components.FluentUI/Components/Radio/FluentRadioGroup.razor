@@ -9,7 +9,7 @@
                         readonly=@Readonly
                         disabled=@Disabled
                         name="@_context!.GroupName"
-                        
+                        value="@BindConverter.FormatValue(_initialValue?.ToString())"
                         orientation="@Orientation.ToAttributeValue()"
                         required="@Required"
                         @onchange="_context.ChangeEventCallback"
