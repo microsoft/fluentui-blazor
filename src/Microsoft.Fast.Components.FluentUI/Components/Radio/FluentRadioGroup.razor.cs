@@ -15,6 +15,8 @@ public partial class FluentRadioGroup<[DynamicallyAccessedMembers(DynamicallyAcc
 {
     private readonly string _defaultGroupName = Identifier.NewId();
     private FluentRadioContext? _context;
+
+    private TValue? _initialValue;
     
     /// <summary>
     /// Gets or sets the orentation of the group. See <see cref="FluentUI.Orientation"/>
@@ -31,9 +33,14 @@ public partial class FluentRadioGroup<[DynamicallyAccessedMembers(DynamicallyAcc
     [CascadingParameter] 
     private FluentRadioContext? CascadedContext { get; set; }
 
+    protected override void OnInitialized()
+    {
+    }
+
     /// <inheritdoc />
     protected override void OnParametersSet()
     {
+        _initialValue = Value;
 
         // On the first render, we can instantiate the FluentRadioContext
         if (_context is null)
