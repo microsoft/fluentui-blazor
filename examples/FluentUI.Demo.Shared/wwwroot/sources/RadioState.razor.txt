@@ -1,10 +1,16 @@
 ﻿<h4>Checked</h4>
-<FluentRadio Value="checked" Checked="true"></FluentRadio>
+<FluentRadioGroup TValue="string" Name="checkedstate">
+    <FluentRadio Name="checkedstate" Value=@("checked") Checked="true"></FluentRadio>
+</FluentRadioGroup>
 
 <h4>Required</h4>
-<FluentRadio Value="required" Required="true"></FluentRadio>
+<FluentRadioGroup TValue="string">
+    <FluentRadio Value=@("required") Required="true"></FluentRadio>
+</FluentRadioGroup>
 
 <h4>Disabled</h4>
-<FluentRadio Disabled="true"></FluentRadio>
-<FluentRadio Disabled="true">label</FluentRadio>
-<FluentRadio Disabled="true" Checked="true">checked</FluentRadio>
+<FluentRadioGroup TValue="string">
+    <FluentRadio TValue="string" Disabled="true"></FluentRadio>
+    <FluentRadio TValue="string" Disabled="true">label</FluentRadio>
+    <FluentRadio TValue="string" Disabled="true" Checked="true">checked</FluentRadio>
+</FluentRadioGroup>

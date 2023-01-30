@@ -1,0 +1,21 @@
+﻿@page "/Issue304"
+
+<FluentRadioGroup @bind-Value=@x >
+    <FluentRadio Value="1">1</FluentRadio>
+    <FluentRadio Value="2" Checked="true" >2</FluentRadio>
+    <FluentRadio Value="3">3</FluentRadio>
+</FluentRadioGroup>
+
+You clicked radio: @x
+
+
+@code {
+        EditContext e = new EditContext(new object());
+        string x = "2";
+
+    protected override bool ShouldRender() {
+        // Simulate a laggy render (or a late response).
+        Thread.Sleep(1000);
+        return true;
+    }
+}

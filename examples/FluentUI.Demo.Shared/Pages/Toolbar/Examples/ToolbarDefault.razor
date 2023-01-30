@@ -4,10 +4,10 @@
 <FluentToolbar id="toolbar-fluent-components">
     <FluentButton Appearance="Appearance.Accent">Accent Button</FluentButton>
     <FluentButton Appearance="Appearance.Stealth">Stealth Button</FluentButton>
-    <FluentRadioGroup Value="one">
-        <FluentRadio Value="one" Checked="true">One</FluentRadio>
-        <FluentRadio Value="two">Two</FluentRadio>
-        <FluentRadio Value="three">Three</FluentRadio>
+    <FluentRadioGroup Value=@("one")>
+        <FluentRadio Value=@("one") Checked="true">One</FluentRadio>
+        <FluentRadio Value=@("two")>Two</FluentRadio>
+        <FluentRadio Value=@("three")>Three</FluentRadio>
     </FluentRadioGroup>
     <FluentCombobox Class="below outline" @bind-Value="@comboboxValue" TOption="string">
         <FluentOption id="option-2">Please Please Me</FluentOption>
@@ -36,19 +36,19 @@
 
 <div style="padding:10px">
     <FluentToolbar id="toolbar-fluent-components-two" style="width:100%" @ref=Toolbar>
-        <FluentRadioGroup Value="one">
-            <FluentRadio Value="one"  Checked="true">Add</FluentRadio>
-            <FluentRadio Value="two">Open</FluentRadio>
-            <FluentRadio Value="three">Copy</FluentRadio>
-            <FluentRadio Value="four">Export</FluentRadio>
-            <FluentRadio Value="five">Automate</FluentRadio>
+        <FluentRadioGroup Value=@("one")>
+            <FluentRadio Value=@("one")  Checked="true">Add</FluentRadio>
+            <FluentRadio Value=@("two")>Open</FluentRadio>
+            <FluentRadio Value=@("three")>Copy</FluentRadio>
+            <FluentRadio Value=@("four")>Export</FluentRadio>
+            <FluentRadio Value=@("five")>Automate</FluentRadio>
         </FluentRadioGroup>
         <FluentButton Appearance="Appearance.Stealth">Stealth</FluentButton>
         <FluentButton Appearance="Appearance.Accent">Refresh</FluentButton>
         <FluentBadge>21 items</FluentBadge>
-        <FluentRadioGroup slot="end">
-            <FluentRadio>Filter</FluentRadio>
-            <FluentRadio>
+        <FluentRadioGroup TValue="string" slot="end">
+            <FluentRadio TValue="string">Filter</FluentRadio>
+            <FluentRadio TValue="string">
                 <FluentTextField placeholder="Search" type="text" Appearance="Appearance.Outline"></FluentTextField>
             </FluentRadio>
         </FluentRadioGroup>

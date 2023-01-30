@@ -13,6 +13,7 @@ public partial class DemoMainLayout : IAsyncDisposable
     private OfficeColor _selectedColorOption;
     private string? _version;
     private bool _inDarkMode;
+    private bool _ltr;
 
     [Inject]
     private GlobalState GlobalState { get; set; } = default!;
@@ -31,7 +32,6 @@ public partial class DemoMainLayout : IAsyncDisposable
 
     [Inject]
     private Direction Direction { get; set; } = default!;
-
 
     ElementReference container;
 
@@ -73,7 +73,7 @@ public partial class DemoMainLayout : IAsyncDisposable
 
             if (_selectedColorOption != OfficeColor.Default)
                 await AccentBaseColor.SetValueFor(container, _selectedColorOption.ToAttributeValue()!.ToSwatch());
-            
+
             StateHasChanged();
         }
     }

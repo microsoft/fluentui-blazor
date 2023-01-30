@@ -49,6 +49,7 @@ h6, h5, h4, h3, h2, h1 {
     margin-top: 0;
     margin-bottom: 0.75rem;
     font-weight: 500;
+    font-family: inherit;
 }
 
 h1 {
@@ -88,6 +89,7 @@ p {
     font-weight: 400;
     margin-top: 0;
     margin-bottom: 1rem;
+    font-family: var(--body-font);
 }
 
 

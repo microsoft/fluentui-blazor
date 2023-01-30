@@ -1,16 +1,16 @@
 ﻿<div style="padding:10px;min-width:800px">
     <FluentToolbar id="toolbar-fluent-components-two" style="width:100%">
         <label slot="label">slotted label</label>
-        <FluentRadioGroup Value="one">
-            <FluentRadio Value="one" Checked="true">Add</FluentRadio>
-            <FluentRadio Value="two">Open</FluentRadio>
-            <FluentRadio Value="three">Copy</FluentRadio>
+        <FluentRadioGroup Value=@("one")>
+            <FluentRadio Value=@("one") Checked="true">Add</FluentRadio>
+            <FluentRadio Value=@("two")>Open</FluentRadio>
+            <FluentRadio Value=@("three")>Copy</FluentRadio>
         </FluentRadioGroup>
         <FluentButton Appearance="Appearance.Accent">Refresh</FluentButton>
         <FluentBadge>21 items</FluentBadge>
-        <FluentRadioGroup slot="end">
-            <FluentRadio>Filter</FluentRadio>
-            <FluentRadio>
+        <FluentRadioGroup TValue="string" slot="end">
+            <FluentRadio TValue="string">Filter</FluentRadio>
+            <FluentRadio TValue="string">
                 <FluentTextField Placeholder="Search" TextFieldType=TextFieldType.Text Appearance="Appearance.Outline"></FluentTextField>
             </FluentRadio>
         </FluentRadioGroup>

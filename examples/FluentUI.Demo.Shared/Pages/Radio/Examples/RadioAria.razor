@@ -1,9 +1,14 @@
 ﻿<h4>Visual vs audio label</h4>
-<FluentRadio>
-    <span aria-label="Audio label">Visible label</span>
-</FluentRadio>
+<FluentRadioGroup TValue="string">
+    <FluentRadio TValue="string">
+        <span aria-label="Audio label">Visible label</span>
+    </FluentRadio>
+</FluentRadioGroup>
 
 <div style="display: flex; flex-direction: column; margin-top: 12px;">
-    <label id="label1">Outside label</label>
-    <FluentRadio aria-labelledby="label1"></FluentRadio>
+    <FluentRadioGroup TValue="string">
+        <label id="label1">Outside label</label>
+
+        <FluentRadio aria-labelledby="label1" TValue="string"></FluentRadio>
+    </FluentRadioGroup>
 </div>

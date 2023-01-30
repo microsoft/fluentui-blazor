@@ -9,6 +9,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 public abstract class FluentInputBase<TValue> : FluentComponentBase, IDisposable
 {
     private readonly EventHandler<ValidationStateChangedEventArgs> _validationStateChangedHandler;
+    private bool _hasInitializedParameters;
     private bool _previousParsingAttemptFailed;
     private ValidationMessageStore? _parsingValidationMessages;
     private Type? _nullableUnderlyingType;
@@ -181,26 +182,32 @@ public abstract class FluentInputBase<TValue> : FluentComponentBase, IDisposable
     /// <returns>True if the value could be parsed; otherwise false.</returns>
     protected abstract bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage);
 
-    ///// <summary>
-    ///// Gets a CSS class string that combines the <c>class</c> attribute and and a string indicating
-    ///// the status of the field being edited (a combination of "modified", "valid", and "invalid").
-    ///// Derived components should typically use this value for the primary HTML element class attribute.
-    ///// </summary>
-    //public override string? Class
-    //{
-    //    get
-    //    {
-    //        var fieldClass = EditContext?.FieldCssClass(FieldIdentifier) ?? string.Empty;
-    //        return CombineClassNames(AdditionalAttributes, fieldClass);
-    //    }
-    //}
+    /// <summary>
+    /// Gets a CSS class string that combines the <c>class</c> attribute and and a string indicating
+    /// the status of the field being edited (a combination of "modified", "valid", and "invalid").
+    /// Derived components should typically use this value for the primary HTML element class attribute.
+    /// </summary>
+    public override string? Class
+    {
+        get
+        {
+            var fieldClass = EditContext?.FieldCssClass(FieldIdentifier);
+            return CombineClassNames(AdditionalAttributes, fieldClass) ?? string.Empty;
+        }
+        set
+        {
+            base.Class = value;
+        }
+            
+    }
 
     /// <inheritdoc />
     public override Task SetParametersAsync(ParameterView parameters)
     {
         parameters.SetParameterProperties(this);
 
-        if (EditContext != null || CascadedEditContext != null)
+        //if (EditContext != null || CascadedEditContext != null)
+        if (!_hasInitializedParameters)
         {
             // This is the first run
             // Could put this logic in OnInit, but its nice to avoid forcing people who override OnInit to call base.OnInit()
@@ -220,6 +227,7 @@ public abstract class FluentInputBase<TValue> : FluentComponentBase, IDisposable
             }
 
             _nullableUnderlyingType = Nullable.GetUnderlyingType(typeof(TValue));
+            _hasInitializedParameters = true;
         }
         else if (CascadedEditContext != EditContext)
         {
@@ -288,7 +296,7 @@ public abstract class FluentInputBase<TValue> : FluentComponentBase, IDisposable
 
             // To make the `Input` components accessible by default
             // we will automatically render the `aria-invalid` attribute when the validation fails
-            additionalAttributes["aria-invalid"] = true;
+            additionalAttributes["aria-invalid"] = "true";
         }
         else if (hasAriaInvalidAttribute)
         {
@@ -314,8 +322,8 @@ public abstract class FluentInputBase<TValue> : FluentComponentBase, IDisposable
     /// <summary>
     /// Returns a dictionary with the same values as the specified <paramref name="source"/>.
     /// </summary>
-    /// <returns>true, if a new dictrionary with copied values was created. false - otherwise.</returns>
-    private bool ConvertToDictionary(IReadOnlyDictionary<string, object>? source, out Dictionary<string, object> result)
+    /// <returns>true, if a new dictionary with copied values was created. false - otherwise.</returns>
+    private static bool ConvertToDictionary(IReadOnlyDictionary<string, object>? source, out Dictionary<string, object> result)
     {
         var newDictionaryCreated = true;
         if (source == null)
@@ -339,6 +347,7 @@ public abstract class FluentInputBase<TValue> : FluentComponentBase, IDisposable
         return newDictionaryCreated;
     }
 
+    /// <inheritdoc />
     protected virtual void Dispose(bool disposing)
     {
     }
@@ -353,7 +362,7 @@ public abstract class FluentInputBase<TValue> : FluentComponentBase, IDisposable
         Dispose(disposing: true);
     }
 
-    public static string CombineClassNames(IReadOnlyDictionary<string, object>? additionalAttributes, string classNames)
+    public static string? CombineClassNames(IReadOnlyDictionary<string, object>? additionalAttributes, string? classNames)
     {
         if (additionalAttributes is null || !additionalAttributes.TryGetValue("class", out var @class))
         {
