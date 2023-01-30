@@ -4,7 +4,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 
 
 /// <summary>
-/// Describes context for an <see cref="FluentRadio{TValue}"/> component.
+/// Describes context for an <see cref="FluentRadio"/> component. //{TValue}
 /// </summary>
 internal sealed class FluentRadioContext
 {

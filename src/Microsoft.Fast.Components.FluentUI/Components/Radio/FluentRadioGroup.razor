@@ -1,7 +1,5 @@
 @namespace Microsoft.Fast.Components.FluentUI
-@inherits FluentInputBase<TValue>
-@typeparam TValue
-
+@inherits FluentInputBase<string?>
 <CascadingValue TValue="FluentRadioContext" Value="_context" IsFixed=true>
     <fluent-radio-group @ref=Element
                         class="@Class"

@@ -3,6 +3,6 @@
 	 <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
 	 <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
 	 <VersionPrefix>2.0.3</VersionPrefix>
-	 <VersionSuffix></VersionSuffix> 
+	 <VersionSuffix>preview</VersionSuffix> 
  </PropertyGroup>
 </Project>

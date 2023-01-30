@@ -1,12 +1,14 @@
-using System.Diagnostics.CodeAnalysis;
+//using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentRadio<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue> : FluentComponentBase
+//public partial class FluentRadio<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue> : FluentComponentBase
+public partial class FluentRadio : FluentComponentBase
+
 {
     /// <summary>
-    /// Gets context for this <see cref="FluentRadio{TValue}"/>.
+    /// Gets context for this <see cref="FluentRadio"/>. //{TValue}
     /// </summary>
     internal FluentRadioContext? Context { get; private set; }
 
@@ -26,7 +28,7 @@ public partial class FluentRadio<[DynamicallyAccessedMembers(DynamicallyAccessed
     /// The value of the element
     /// </summary>
     [Parameter]
-    public TValue? Value { get; set; }
+    public /*TValue?*/ string? Value { get; set; }
 
     /// <summary>
     /// Disables the form control, ensuring it doesn't participate in form submission
@@ -66,8 +68,14 @@ public partial class FluentRadio<[DynamicallyAccessedMembers(DynamicallyAccessed
 
         if (Context == null)
         {
-            throw new InvalidOperationException($"{GetType()} must have an ancestor {typeof(FluentRadioGroup<TValue>)} " +
+            //throw new InvalidOperationException($"{GetType()} must have an ancestor {typeof(FluentRadioGroup<TValue>)} " +
+            throw new InvalidOperationException($"{GetType()} must have an ancestor {typeof(FluentRadioGroup)} " +
                 $"with a matching 'Name' property, if specified.");
+        }
+
+        if (Checked.HasValue && Checked == true)
+        {
+            Context.CurrentValue = Value;
         }
     }
 }

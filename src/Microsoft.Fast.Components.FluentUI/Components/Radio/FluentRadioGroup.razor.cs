@@ -1,5 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
+//using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 
@@ -7,16 +7,17 @@ namespace Microsoft.Fast.Components.FluentUI;
 
 
 /// <summary>
-/// Groups child <see cref="FluentRadio{TValue}"/> components.
+/// Groups child <see cref="FluentRadio"/> components. //{TValue}
 /// </summary>
 
-[CascadingTypeParameter(nameof(TValue))]
-public partial class FluentRadioGroup<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue> : FluentInputBase<TValue>
+//[CascadingTypeParameter(nameof(TValue))]
+//public partial class FluentRadioGroup<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue> : FluentInputBase<TValue>
+public partial class FluentRadioGroup : FluentInputBase<string?>
 {
     private readonly string _defaultGroupName = Identifier.NewId();
     private FluentRadioContext? _context;
 
-    private TValue? _initialValue;
+    private /*TValue?*/ string? _initialValue;
     
     /// <summary>
     /// Gets or sets the orentation of the group. See <see cref="FluentUI.Orientation"/>
@@ -25,7 +26,7 @@ public partial class FluentRadioGroup<[DynamicallyAccessedMembers(DynamicallyAcc
     public Orientation? Orientation { get; set; }
 
     /// <summary>
-    /// Gets or sets the child content to be rendering inside the <see cref="FluentRadioGroup{TValue}"/>.
+    /// Gets or sets the child content to be rendering inside the <see cref="FluentRadioGroup "/>. //{TValue}
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -62,6 +63,7 @@ public partial class FluentRadioGroup<[DynamicallyAccessedMembers(DynamicallyAcc
     }
 
     /// <inheritdoc />
-    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
+    //protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
+    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out string? result, [NotNullWhen(false)] out string? validationErrorMessage)
     => this.TryParseSelectableValueFromString(value, out result, out validationErrorMessage);
 }

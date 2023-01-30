@@ -1850,57 +1850,57 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadio`1.Context">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadio.Context">
             <summary>
-            Gets context for this <see cref="T:Microsoft.Fast.Components.FluentUI.FluentRadio`1"/>.
+            Gets context for this <see cref="T:Microsoft.Fast.Components.FluentUI.FluentRadio"/>. //{TValue}
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadio`1.Readonly">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadio.Readonly">
             <summary>
             Gets or sets if the element is readonly
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadio`1.Id">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadio.Id">
             <summary>
             The id attribute of the element.Used for label association.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadio`1.Value">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadio.Value">
             <summary>
             The value of the element
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadio`1.Disabled">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadio.Disabled">
             <summary>
             Disables the form control, ensuring it doesn't participate in form submission
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadio`1.Name">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadio.Name">
             <summary>
             Gets or sets the name of the parent fluent radio group.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadio`1.Required">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadio.Required">
             <summary>
             The element needs to have a value
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadio`1.Checked">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadio.Checked">
             <summary>
             Gets or sets if the element is checked
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadio`1.ChildContent">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadio.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentRadio`1.OnInitialized">
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentRadio.OnInitialized">
             <inheritdoc />
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.FluentRadioContext">
             <summary>
-            Describes context for an <see cref="T:Microsoft.Fast.Components.FluentUI.FluentRadio`1"/> component.
+            Describes context for an <see cref="T:Microsoft.Fast.Components.FluentUI.FluentRadio"/> component. //{TValue}
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentRadioContext.#ctor(Microsoft.Fast.Components.FluentUI.FluentRadioContext,Microsoft.AspNetCore.Components.EventCallback{Microsoft.AspNetCore.Components.ChangeEventArgs})">
@@ -1917,25 +1917,25 @@
             <param name="groupName">The group name of the ancestor <see cref="T:Microsoft.Fast.Components.FluentUI.FluentRadioContext"/>.</param>
             <returns>The <see cref="T:Microsoft.Fast.Components.FluentUI.FluentRadioContext"/>, or <c>null</c> if none was found.</returns>
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.FluentRadioGroup`1">
+        <member name="T:Microsoft.Fast.Components.FluentUI.FluentRadioGroup">
             <summary>
-            Groups child <see cref="T:Microsoft.Fast.Components.FluentUI.FluentRadio`1"/> components.
+            Groups child <see cref="T:Microsoft.Fast.Components.FluentUI.FluentRadio"/> components. //{TValue}
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadioGroup`1.Orientation">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadioGroup.Orientation">
             <summary>
             Gets or sets the orentation of the group. See <see cref="T:Microsoft.Fast.Components.FluentUI.Orientation"/>
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadioGroup`1.ChildContent">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadioGroup.ChildContent">
             <summary>
-            Gets or sets the child content to be rendering inside the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentRadioGroup`1"/>.
+            Gets or sets the child content to be rendering inside the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentRadioGroup"/>. //{TValue}
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentRadioGroup`1.OnParametersSet">
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentRadioGroup.OnParametersSet">
             <inheritdoc />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentRadioGroup`1.TryParseValueFromString(System.String,`0@,System.String@)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentRadioGroup.TryParseValueFromString(System.String,System.String@,System.String@)">
             <inheritdoc />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentSearch.Autofocus">

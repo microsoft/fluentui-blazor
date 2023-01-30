@@ -1,21 +1,33 @@
 ﻿@page "/Issue304"
 
-<FluentRadioGroup @bind-Value=@x >
+<FluentRadioGroup Name="test1" @bind-Value=@x>
     <FluentRadio Value="1">1</FluentRadio>
     <FluentRadio Value="2">2</FluentRadio>
     <FluentRadio Value="3">3</FluentRadio>
 </FluentRadioGroup>
 
-You clicked radio: @x
+<p>You clicked radio: @x</p>
 
+<FluentRadioGroup Name="test2" Value=@y ValueChanged="@(x => HandleValueChanged(x))">
+    <FluentRadio Value="1">1</FluentRadio>
+    <FluentRadio Value="2" Checked="true">2</FluentRadio>
+    <FluentRadio Value="3">3</FluentRadio>
+</FluentRadioGroup>
+
+<p>You clicked radio: @y</p>
 
 @code {
-        EditContext e = new EditContext(new object());
-        string x = "2";
+    EditContext e = new EditContext(new object());
+    string? x = "3", y ;
 
     protected override bool ShouldRender() {
         // Simulate a laggy render (or a late response).
         Thread.Sleep(1000);
         return true;
+    }
+
+    private void HandleValueChanged(string? value) 
+    {
+        y = value;
     }
 }
