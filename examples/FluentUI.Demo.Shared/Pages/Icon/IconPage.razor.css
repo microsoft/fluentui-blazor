@@ -1,4 +1,81 @@
-﻿::deep .preview {
+﻿dl {
+    padding-top: 1rem;
+}
+
+dd {
+    line-height: 30px;
+    display: flex;
+    align-items: center;
+    margin: 10px 40px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 30px;
+    grid-row-gap: 10px;
+    height: 100%;
+    align-content: center;
+}
+
+.form-grid label {
+    width: 3.2rem;
+}
+
+#item-0 {
+    grid-row-start: 1;
+    grid-column-start: 1;
+    grid-row-end: 2;
+    grid-column-end: 2;
+}
+
+#item-1 {
+    grid-row-start: 1;
+    grid-column-start: 2;
+    grid-row-end: 2;
+    grid-column-end: 3;
+    display: flex;
+    align-items: center;
+}
+
+#item-2 {
+    grid-row-start: 2;
+    grid-column-start: 1;
+    grid-row-end: 3;
+    grid-column-end: 2;
+    display: flex;
+    align-items: center;
+}
+
+#item-3 {
+    grid-row-start: 2;
+    grid-column-start: 2;
+    grid-row-end: 3;
+    grid-column-end: 3;
+    display: flex;
+    align-items: center;
+}
+
+#item-4 {
+    grid-row-start: 3;
+    grid-column-start: 1;
+    grid-row-end: 4;
+    grid-column-end: 2;
+    display: flex;
+    align-items: center;
+}
+
+#item-5 {
+    grid-row-start: 3;
+    grid-column-start: 2;
+    grid-row-end: 4;
+    grid-column-end: 3;
+    justify-self: end
+}
+
+
+::deep .preview {
     margin: 10px;
     --card-width: 120px;
     --card-height: 120px;
@@ -11,7 +88,7 @@
 
     ::deep .preview .inner {
         text-align: center;
-        padding: 10px 10px 0;
+        padding: 10px 10px 5px;
         color: var(--neutral-foreground-rest);
     }
 

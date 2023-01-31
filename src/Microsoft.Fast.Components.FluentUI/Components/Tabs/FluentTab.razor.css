@@ -1,0 +1,4 @@
+﻿fluent-tab[disabled] {
+    cursor: not-allowed;
+    color: var(--neutral-foreground-hint)
+}

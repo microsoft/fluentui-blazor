@@ -1,18 +1,32 @@
 ﻿namespace Microsoft.Fast.Components.FluentUI;
 
+/// <summary>
+/// Describes the type of input of a <see cref="FluentTextField"/>.
+/// </summary>
 public enum TextFieldType
 {
+    /// <summary>
+    /// The default type of text field
+    /// </summary>
     Text,
+
+    /// <summary>
+    /// A text field that is used for email address input.
+    /// </summary>
     Email,
+
+    /// <summary>
+    /// A text field that is used for password input.
+    /// </summary>
     Password,
+
+    /// <summary>
+    /// A text field that is used for telephone number input.
+    /// </summary>
     Tel,
+
+    /// <summary>
+    /// A text field that is used for URL input.
+    /// </summary>
     Url
-}
-
-public static class TextFieldTypeExtensions
-{
-    private static readonly Dictionary<TextFieldType, string> _textFieldTypeValues =
-        Enum.GetValues<TextFieldType>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());
-
-    public static string? ToAttributeValue(this TextFieldType? value) => value == null ? null : _textFieldTypeValues[value.Value];
 }

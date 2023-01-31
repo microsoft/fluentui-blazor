@@ -1,0 +1,3 @@
+﻿.main-layout-stack-panel {
+    height: calc(100vh - var(--header-height));
+}

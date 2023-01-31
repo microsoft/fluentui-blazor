@@ -13,20 +13,20 @@
             <h1>Components without EditForm</h1>
             <div>
                 <p><label for="SelectValue">Select Value</label></p>
-                <FluentSelect Name="SelectValue" @bind-Value="Form.SelectValue">
-                    <FluentOption Value="@("One")">One</FluentOption>
-                    <FluentOption Value="@("Two")">Two</FluentOption>
-                    <FluentOption Value="@("Three")">Three</FluentOption>
+            <FluentSelect Name="SelectValue" @bind-SelectedOption="Form.SelectValue" TOption="string">
+                    <FluentOption Value="One">One</FluentOption>
+                    <FluentOption Value="Two">Two</FluentOption>
+                    <FluentOption Value="Three">Three</FluentOption>
                 </FluentSelect>
             </div>
 
              <div>
                 <p><label for="SelectValue2">Select Value</label></p>
-                <FluentSelect Name="SelectValue2" @bind-Value="Form.NumberFieldValue">
+            <FluentListbox Name="SelectValue2" @bind-SelectedOption="Form.NumberFieldValue" TOption="int">
                     <FluentOption Value=1>1</FluentOption>
                     <FluentOption Value=2>2</FluentOption>
                     <FluentOption Value=3>3</FluentOption>
-                </FluentSelect>
+                </FluentListbox>
             </div>
             <div>
                 <FluentTextField name="TextFieldValue" @bind-Value="Form.TextFieldValue">
@@ -50,7 +50,7 @@
             </div>
             <div>
                 <p><label for="ComboboxValue">Combobox Value</label></p>
-                <FluentCombobox Name="ComboboxValue" @bind-Value="Form.ComboboxValue">
+            <FluentCombobox Name="ComboboxValue" @bind-Value="Form.ComboboxValue" TOption="string">
                     <FluentOption>Please Please Me</FluentOption>
                     <FluentOption>With The Beatles</FluentOption>
                     <FluentOption>A Hard Day's Night</FluentOption>
@@ -70,15 +70,15 @@
                 <p><label for="RadioGroupValue">Radio group Value</label></p>
                 <FluentRadioGroup Name="RadioGroupValue" @bind-Value="Form.RadioGroupValue"
                     Orientation="Orientation.Vertical">
-                    <FluentRadio Value="@("apples")">Apples</FluentRadio>
-                    <FluentRadio Value="@("oranges")">Oranges</FluentRadio>
-                    <FluentRadio Value="@("bananas")">Bananas</FluentRadio>
-                    <FluentRadio Value="@("kiwi")">Kiwi</FluentRadio>
-                    <FluentRadio Value="@("grapefruit")">Grapefruit</FluentRadio>
-                    <FluentRadio Value="@("mango")">Mango</FluentRadio>
-                    <FluentRadio Value="@("blueberries")">Blueberries</FluentRadio>
-                    <FluentRadio Value="@("strawberries")">Strawberries</FluentRadio>
-                    <FluentRadio Value="@("pineapple")">Pineapple</FluentRadio>
+                    <FluentRadio Value="apples">Apples</FluentRadio>
+                    <FluentRadio Value="oranges">Oranges</FluentRadio>
+                    <FluentRadio Value="bananas">Bananas</FluentRadio>
+                    <FluentRadio Value="kiwi">Kiwi</FluentRadio>
+                    <FluentRadio Value="grapefruit">Grapefruit</FluentRadio>
+                    <FluentRadio Value="mango">Mango</FluentRadio>
+                    <FluentRadio Value="blueberries">Blueberries</FluentRadio>
+                    <FluentRadio Value="strawberries">Strawberries</FluentRadio>
+                    <FluentRadio Value="pineapple">Pineapple</FluentRadio>
                 </FluentRadioGroup>
             </div>
             <div>
@@ -116,10 +116,10 @@
                 </div>
                 <div>
                     <p><label for="SelectValue">Select Value</label></p>
-                    <FluentSelect Name="SelectValue" @bind-Value="Form.SelectValue">
-                        <FluentOption Value="@("One")">One</FluentOption>
-                        <FluentOption Value="@("Two")">Two</FluentOption>
-                        <FluentOption Value="@("Three")">Three</FluentOption>
+                <FluentSelect Name="SelectValue" @bind-Value="Form.SelectValue" TOption="string">
+                        <FluentOption Value="One">One</FluentOption>
+                        <FluentOption Value="Two">Two</FluentOption>
+                        <FluentOption Value="Three">Three</FluentOption>
                     </FluentSelect>
                     <span>
                         <ValidationMessage For="() => Form.SelectValue" />
@@ -159,7 +159,7 @@
                 </div>
                 <div>
                     <p><label for="ComboboxValue">Combobox Value</label></p>
-                    <FluentCombobox Name="ComboboxValue" @bind-Value="Form.ComboboxValue">
+                <FluentCombobox Name="ComboboxValue" @bind-Value="Form.ComboboxValue" TOption="string">
                         <FluentOption>Please Please Me</FluentOption>
                         <FluentOption>With The Beatles</FluentOption>
                         <FluentOption>A Hard Day's Night</FluentOption>
@@ -179,15 +179,15 @@
                     <p><label for="RadioGroupValue">Radio group Value</label></p>
                     <FluentRadioGroup Name="RadioGroupValue" @bind-Value="Form.RadioGroupValue"
                         Orientation="Orientation.Vertical">
-                        <FluentRadio Value="@("apples")">Apples</FluentRadio>
-                        <FluentRadio Value="@("oranges")">Oranges</FluentRadio>
-                        <FluentRadio Value="@("bananas")">Bananas</FluentRadio>
-                        <FluentRadio Value="@("kiwi")">Kiwi</FluentRadio>
-                        <FluentRadio Value="@("grapefruit")">Grapefruit</FluentRadio>
-                        <FluentRadio Value="@("mango")">Mango</FluentRadio>
-                        <FluentRadio Value="@("blueberries")">Blueberries</FluentRadio>
-                        <FluentRadio Value="@("strawberries")">Strawberries</FluentRadio>
-                        <FluentRadio Value="@("pineapple")">Pineapple</FluentRadio>
+                        <FluentRadio Value="apples">Apples</FluentRadio>
+                        <FluentRadio Value="oranges">Oranges</FluentRadio>
+                        <FluentRadio Value="bananas">Bananas</FluentRadio>
+                        <FluentRadio Value="kiwi">Kiwi</FluentRadio>
+                        <FluentRadio Value="grapefruit">Grapefruit</FluentRadio>
+                        <FluentRadio Value="mango">Mango</FluentRadio>
+                        <FluentRadio Value="blueberries">Blueberries</FluentRadio>
+                        <FluentRadio Value="strawberries">Strawberries</FluentRadio>
+                        <FluentRadio Value="pineapple">Pineapple</FluentRadio>
                     </FluentRadioGroup>
                 </div>
                 <div>
@@ -289,5 +289,11 @@
 
         [Required]
         public bool SwitchValue { get; set; }
+    }
+
+    protected override bool ShouldRender() {
+        // Simulate a laggy render (or a late response).
+        Thread.Sleep(1000);
+        return true;
     }
 }

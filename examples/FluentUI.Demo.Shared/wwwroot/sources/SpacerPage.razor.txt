@@ -1,0 +1,31 @@
+﻿@page "/Lab/Spacer"
+
+<h1>Spacer</h1>
+
+<p>
+    The purpose of this component is to generate space between other components. You can either create 
+    a space with a set width (in number of pixels) or create a space with a flexible width.
+</p>
+
+<ApiDocumentation Component="typeof(Spacer)" />
+
+<h2>Example</h2>
+
+<DemoSection Component="typeof(Spacer)" Title="Spacer" CollocatedFiles="@(new[] {"cs"})" HideExample=true>
+    <Description>
+        As we are creating a spacer here, rendering it here by itself does not really make sense. <br />
+        See below for appropriate samples.
+    </Description>
+</DemoSection>
+    
+<DemoSection Component="typeof(SpacerFlexExample)" Title="Spacers with flexible width">
+    <Description>
+        The icons are shown with a flexible width (default) <code>Spacer</code> in between. The block just uses the total width and spreads the space evenly.
+    </Description>
+</DemoSection>
+
+<DemoSection Component="typeof(SpacerWidthExample)" Title="Spacers with set width">
+    <Description>
+        The icons are shown with a 50 pixel width <code>Spacer</code> in between. The block just uses the width it needs 
+    </Description>
+</DemoSection>

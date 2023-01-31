@@ -1,0 +1,25 @@
+@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentInputBase<string?>
+<fluent-search @ref=Element
+               class="@Class"
+               style="@Style"
+               readonly="@Readonly"
+               autofocus="@Autofocus"
+               placeholder="@Placeholder"
+               list=@DataList
+               maxlength="@Maxlength"
+               minlength="@Minlength"
+               pattern=@Pattern
+               size="@Size"
+               spellcheck="@Spellcheck"
+               id=@Id
+               value=@Value
+               current-value="@BindConverter.FormatValue(CurrentValue)"
+               disabled="@Disabled"
+               name=@Name
+               required="@Required"
+               appearance="@Appearance.ToAttributeValue()"
+               @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
+               @attributes="AdditionalAttributes">
+    @ChildContent
+</fluent-search>

@@ -1,0 +1,30 @@
+﻿@page "/Lab/MainLayout"
+
+<h1>MainLayout</h1>
+<p>
+    The <code>MainLayout</code> component offers a framework for a layout of a page in a site 
+</p>
+<ApiDocumentation Component="typeof(MainLayout)" />
+
+<h2>Example</h2>
+
+<DemoSection Component="typeof(MainLayout)" Title="MainLayout" CollocatedFiles="@(new[] {"cs"})" ComponentParameters="@MainLayoutParameters">
+
+</DemoSection>
+
+@code {
+    Dictionary<string, object> MainLayoutParameters = new()
+    {
+        {"Header", (RenderFragment)(builder => builder.AddMarkupContent(0,"<h3>Fluent UI Components</h3>"))},
+        {"SubHeader", (RenderFragment)(builder => builder.AddMarkupContent(1,"<p>A subheader here</p>"))},
+        {"Body", (RenderFragment)(builder => builder.AddMarkupContent(2,"Lorum ipsum..."))},
+        {"NavMenuContent", (RenderFragment)(builder => {
+                builder.OpenComponent<NavMenuLink>(3);
+                builder.AddAttribute(4, "Href", "/");
+                builder.AddAttribute(5, "Text", "Home");
+                builder.CloseComponent();
+            }
+        )},
+        {"NavMenuTitle", "Navigation menu"},
+    };
+}

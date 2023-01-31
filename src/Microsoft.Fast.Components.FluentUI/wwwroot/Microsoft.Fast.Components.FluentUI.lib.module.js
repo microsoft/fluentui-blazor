@@ -29,7 +29,7 @@
     Blazor.registerCustomEventType('tabchange', {
         browserEventName: 'change',
         createEventArgs: event => {
-            if (event.target.localName == 'fluent-tabs') {
+            if (event.target.localName == 'fluent-tabs') { 
                 return {
                     activeId: event.detail.id,
                     affectedId: event.detail.attributes['tab-id']?.value
@@ -76,7 +76,7 @@
         }
     });
     Blazor.registerCustomEventType('dialogdismiss', {
-        browserEventName: 'dismiss',
+        browserEventName: 'dismiss' ,
         createEventArgs: event => {
             if (event.target.localName == 'fluent-dialog') {
                 return {
@@ -86,7 +86,6 @@
             return null;
         }
     });
-    
     Blazor.registerCustomEventType('menuchange', {
         browserEventName: 'change',
         createEventArgs: event => {

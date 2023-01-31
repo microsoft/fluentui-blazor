@@ -1,0 +1,9 @@
+﻿<FluentBreadcrumb>
+    <FluentBreadcrumbItem Href="#">
+        Breadcrumb item 1
+    </FluentBreadcrumbItem>
+    <FluentBreadcrumbItem Href="#">
+        Breadcrumb item 2
+    </FluentBreadcrumbItem>
+    <FluentBreadcrumbItem>Breadcrumb item 3</FluentBreadcrumbItem>
+</FluentBreadcrumb>

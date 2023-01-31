@@ -1,0 +1,29 @@
+﻿<FluentCalendar DisabledDates=@disabledDates @bind-SelectedDates=@selectedDates OutOfMonthSelectable=false></FluentCalendar>
+
+<p>Selected dates</p>
+<ul>
+    @foreach (DateOnly date in selectedDates)
+    {
+        <li>@date.ToString("yyyy-MM-dd")</li>
+    }
+</ul>
+
+@code {
+    static int currentYear = DateTime.Now.Year;
+    static int currentMonth = DateTime.Now.Month;
+
+    static int daysInMonth = DateTime.DaysInMonth(currentYear, currentMonth) + 1;
+    static Random random = new();
+
+    List<DateOnly> disabledDates = new();
+    List<DateOnly> selectedDates = new();
+
+    protected override void OnInitialized()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            disabledDates.Add(new DateOnly(currentYear, currentMonth, random.Next(1, daysInMonth)));
+            selectedDates.Add(new DateOnly(currentYear, currentMonth, random.Next(1, daysInMonth)));
+        };
+    }
+}

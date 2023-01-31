@@ -1,6 +1,5 @@
 @page "/Toolbar"
 
-
 @using FluentUI.Demo.Shared.Pages.Toolbar.Examples
 
 <h1>Toolbar</h1>
@@ -24,10 +23,16 @@
 
 <h2>Examples</h2>
 
-<DemoSection Title="Default" ExampleFile="ToolbarDefault"></DemoSection>
+<DemoSection Title="Light and dark mode" Component="@typeof(ToolbarDefault)"></DemoSection>
 
-<DemoSection Title="Slotted" ExampleFile="ToolbarSlotted"></DemoSection>
+<DemoSection Title="Slotted end items with minimal width" Component="@typeof(ToolbarSlotted)"></DemoSection>
 
-<DemoSection Title="Labels" ExampleFile="ToolbarLabels"></DemoSection>
+<DemoSection Title="Different kinds of labels" Component="@typeof(ToolbarLabels)"></DemoSection>
 
-<DemoSection Title="Vertical" ExampleFile="ToolbarVertical"></DemoSection>
+<DemoSection Title="Vertical orientation" Component="@typeof(ToolbarVertical)"></DemoSection>
+
+<DemoSection Title="Disabled elements" Component="@typeof(ToolbarDisabledElements)"></DemoSection>
+
+<DemoSection Title="RTL mode" Component="@typeof(ToolbarRTL)"></DemoSection>
+
+<DemoSection Title="Start/end slots" Component="@typeof(ToolbarStartEndSlots)"></DemoSection>

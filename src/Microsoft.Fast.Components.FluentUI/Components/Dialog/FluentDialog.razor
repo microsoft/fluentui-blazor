@@ -1,0 +1,15 @@
+@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentComponentBase
+<fluent-dialog @ref=Element
+               class="@Class"
+               style="@StyleValue"
+               modal="@Modal"
+               hidden="@Hidden"
+               trap-focus=@TrapFocus
+               aria-describedby=@AriaDescribedby
+               aria-labelledby=@AriaLabelledby
+               aria-label=@AriaLabel
+               @attributes="AdditionalAttributes">
+    @ChildContent
+</fluent-dialog>
+

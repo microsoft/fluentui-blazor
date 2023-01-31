@@ -4,7 +4,7 @@
 /// <summary />
 public static class Identifier
 {
-    private static readonly Random _rnd = new Random();
+    private static readonly Random _rnd = new();
 
     /// <summary>
     /// Returns a new small Id.
@@ -12,9 +12,15 @@ public static class Identifier
     /// Example: f127d9edf14385adb
     /// </summary>
     /// <returns></returns>
-    public static string NewId()
+    public static string NewId(int length = 8)
     {
-        return $"f{_rnd.Next():x}{_rnd.Next():x}";
+        if (length > 16)
+            throw new ArgumentOutOfRangeException(nameof(length), "length must be less than 16");
+
+        if (length <= 8)
+            return $"f{_rnd.Next():x}";
+
+        return $"f{_rnd.Next():x}{_rnd.Next():x}"[..length];
     }
 
     /* There are several solutions to generate a small identifier.

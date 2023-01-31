@@ -1,0 +1,65 @@
+﻿<div>
+    <p>
+        When 'Modal' is checked, the dialog can be <em>dismissed</em> by clicking outside of the dialog (anywhere on the overlay). When unchecked,
+        the dialog can be <em>dismissed</em> only by the 'ESC' key.<br />The dialog can always be <em>closed</em> by using the 'Close dialog' 
+        button.
+    </p>
+    <p>
+        When 'Trap focus' is checked, only the elements within the dialog will receive focus. When unchecked, focus will also move outside of the 
+        dialog.
+    </p>
+    <FluentCheckbox Name="modal" @bind-Value="Modal">
+        Modal
+    </FluentCheckbox>
+    <FluentCheckbox Name="trap" @bind-Value="TrapFocus">
+        Trap focus
+    </FluentCheckbox>
+</div>
+<div>
+    <FluentDialog @ref="MyFluentDialog" aria-label="Simple dialog" Modal=@Modal TrapFocus=@TrapFocus @ondialogdismiss=OnDismiss>
+        <h2>Just a simple dialog</h2>
+        <p>The 'Close dialog' button is automatically focussed.</p>
+        <p>The 'Another button' doesn't do anything other than showing receiving focus.</p>
+        <FluentButton Appearance="Appearance.Accent" Autofocus="true" @onclick="OnClose">Close dialog</FluentButton>
+        <FluentButton>Another button</FluentButton>
+    </FluentDialog>
+</div>
+
+<p>Status: @status</p>
+
+<FluentButton Appearance=Appearance.Accent @onclick="OnOpen">Open dialog</FluentButton>
+
+@code {
+    private FluentDialog? MyFluentDialog;
+    public bool TrapFocus = true;
+    public bool Modal = true;
+    private string? status;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+            MyFluentDialog!.Hide();
+    }
+
+    private void OnOpen()
+    {
+        status = "Dialog opened with button click";
+        MyFluentDialog!.Show();
+    }
+
+    private void OnClose()
+    {
+        status = $"Dialog dismissed with reason: Close button clicked";
+        MyFluentDialog!.Hide();
+        
+    }
+
+    private void OnDismiss(DialogEventArgs args)
+    {
+        if (args is not null && args.Reason is not null && args.Reason == "dismiss")
+        {
+            status = $"Dialog dismissed with reason: Dismissed";
+            MyFluentDialog!.Hide();
+        }
+    }
+}

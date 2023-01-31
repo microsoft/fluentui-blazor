@@ -1,4 +1,4 @@
-﻿///Re-used from https://github.com/loxsmoke/DocXml
+﻿//Re-used from https://github.com/loxsmoke/DocXml
 using System.Reflection;
 using System.Runtime.CompilerServices;
 

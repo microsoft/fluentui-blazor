@@ -1,0 +1,57 @@
+﻿::deep ul {
+    list-style: none;
+    text-overflow: ellipsis;
+}
+
+::deep ul:first-of-type {
+    padding-left: 1rem;
+}
+
+[dir="rtl"] * ::deep ul:first-of-type {
+    padding-right: 1rem;
+}
+
+
+li {
+    text-overflow: ellipsis;
+}
+
+
+::deep fluent-anchor::part(control) {
+    color: var(--neutral-foreground-rest);
+    text-decoration: none;
+    overflow: hidden;
+    white-space: break-spaces;
+    line-height: var(--type-ramp-base-line-height);
+}
+
+    ::deep fluent-anchor::part(control):focus {
+        outline: 1px dashed;
+        outline-offset: 3px;
+        border-radius: 0;
+    }
+
+    ::deep fluent-anchor::part(control):hover {
+        text-decoration: underline;
+    }
+
+
+::deep fluent-button {
+    display: none;
+    position: fixed;
+    bottom: 45px;
+    right: 20px;
+    left: unset;
+    z-index: 99;
+    cursor: pointer;
+}
+
+[dir="rtl"] * ::deep fluent-button {
+    display: none;
+    position: fixed;
+    bottom: 45px;
+    left: 20px;
+    right: unset;
+    z-index: 99;
+    cursor: pointer;
+}

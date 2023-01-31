@@ -1,0 +1,29 @@
+﻿@* Remember to replace the namespace below with your own project's namespace. *@
+@namespace FluentUI.Demo.Shared
+
+@inherits FluentComponentBase
+<FluentTreeItem Id="@Id"
+                Class="@ClassValue"
+                Style="@StyleValue"
+                Disabled="@Disabled"
+                Selected="@Selected"
+                tabindex="0"
+                Text="@(NavMenuExpanded ? Text : string.Empty)"
+                @onclick="@OnClickHandlerAsync">
+    @if (NavMenu.HasIcons || NavMenu.HasSubMenu)
+    {
+        @if (HasIcon)
+        {
+            <FluentIcon Name="@Icon" Size="@IconSize.Size20" Slot="start"/>
+        }
+        else
+        {
+            <div style="width:20px;" slot="start" />
+        }
+    }
+    @if (NavMenuExpanded)
+    {
+        @ChildContent
+    }
+    
+</FluentTreeItem>

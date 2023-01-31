@@ -1,9 +1,0 @@
-@inherits FluentComponentBase
-<CascadingValue Value="this" IsFixed="true">
-    <fluent-accordion @ref=Element
-                      expand-mode="@ExpandMode.ToAttributeValue()"
-                      @onaccordionchange="HandleOnAccordionChanged"
-                      @attributes="AdditionalAttributes">
-        @ChildContent
-    </fluent-accordion>
-</CascadingValue>

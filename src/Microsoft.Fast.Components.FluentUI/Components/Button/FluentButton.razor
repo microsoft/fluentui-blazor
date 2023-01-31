@@ -1,0 +1,23 @@
+@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentComponentBase
+<fluent-button @ref=Element
+               class="@Class"
+               style="@Style"
+               autofocus=@Autofocus
+               form=@FormId
+               formaction=@Action
+               formenctype=@Enctype
+               formmethod=@Method
+               formnovalidate=@NoValidate
+               formtarget=@Target
+               type=@Type.ToAttributeValue()
+               id=@Id
+               value=@Value
+               current-value=@CurrentValue
+               disabled=@Disabled
+               name=@Name
+               required=@Required
+               appearance=@Appearance.ToAttributeValue()
+               @attributes="AdditionalAttributes">
+    @ChildContent
+</fluent-button>

@@ -1,0 +1,58 @@
+﻿@page "/Lab/PresenceBadge"
+@* Remember to replace the namespace below with your own project's namespace. *@
+@namespace FluentUI.Demo.Shared
+
+<h1>PresenceBadge</h1>
+
+<p>
+    The <code>PresenceBadge</code> component is used to display a status indicator such as available, away, or busy.
+</p>
+
+<ApiDocumentation Component="typeof(PresenceBadge)" />
+
+<DemoSection Component="typeof(PresenceBadge)" Title="PresenceBadge" 
+             CollocatedFiles="@(new[] {"cs", "css"})" ComponentParameters="@PresenceBadgeParameters">
+
+</DemoSection>
+
+<h2>Examples</h2>
+
+<DemoSection Component="typeof(PresenceBadgeSizes)" Title="Available sizes">
+    <Description>
+        <p>
+            A presence badge supports <code>Tiny</code>, <code>ExtraSmall</code>, <code>Small</code>, <code>Medium</code>,
+            and <code>Large</code> size. The default size is <code>Small</code>.
+        </p>
+    </Description>
+</DemoSection>
+
+<DemoSection Component="typeof(PresenceBadgeDefault)" Title="Default options">
+    <Description>
+        <p>
+            A presence badge supports <code>Available</code>, <code>Away</code>, <code>Busy</code>, <code>DoNotDisturb</code>,
+            <code>Offline</code>, <code>OutOfOffice</code> and <code>Unknown</code> status. The default status is <code>Available</code>.
+        </p>
+    </Description>
+</DemoSection>
+
+<DemoSection Component="typeof(PresenceBadgeOOF)" Title="Out Of Office options">
+    <Description>
+        <p>
+            A presence badge supports <code>Available</code>, <code>Away</code>, <code>Busy</code>, <code>DoNotDisturb</code>, 
+            <code>Offline</code>, <code>OutOfOffice</code> and <code>Unknown</code> status when <code>OutOfOffice</code> is set to <code>true</code>.
+        </p>
+    </Description>
+</DemoSection>
+
+@code{
+    Dictionary<string, object> PresenceBadgeParameters = new()
+    {
+        {"ChildContent", (RenderFragment)(builder => {
+                builder.OpenComponent<FluentIcon>(0);
+                builder.AddAttribute(1, "Name", FluentIcons.Person);
+                builder.AddAttribute(2, "Size", IconSize.Size32);
+                builder.CloseComponent();
+            }
+        )}
+    };
+}

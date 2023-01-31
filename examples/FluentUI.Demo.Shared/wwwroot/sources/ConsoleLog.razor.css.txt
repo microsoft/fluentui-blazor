@@ -1,0 +1,11 @@
+﻿.demo-console {
+    background-color: #f5f2f0;
+    overflow: auto;
+    height: 100%;
+    min-height: 100%;
+    width: 500px;
+    color: black;
+    font-size: 12px;
+    line-height: initial;
+    padding-left: 5px;
+}

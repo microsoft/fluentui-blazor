@@ -1,0 +1,14 @@
+@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentComponentBase
+<fluent-tree-item @ref=Element
+                  class="@Class"
+                  style="@Style"
+                  id="@Id"
+                  tree-item-id="@Id"
+                  expanded="@Expanded"
+                  selected="@Selected"
+                  disabled="@Disabled"
+                  @attributes="AdditionalAttributes">
+    @Text
+    @ChildContent
+</fluent-tree-item>

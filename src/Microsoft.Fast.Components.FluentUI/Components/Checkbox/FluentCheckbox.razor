@@ -1,0 +1,17 @@
+@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentInputBase<bool>
+<fluent-checkbox @ref=Element
+                 class="@Class"
+                 style="@Style"
+                 readonly="@Readonly"
+                 id=@Id
+                 value=@Value
+                 current-value=@CurrentValue
+                 disabled=@Disabled
+                 name=@Name
+                 required="@Required"
+                 current-checked="@CurrentValue"
+                 @oncheckedchange="@((e) => CurrentValue = e.Checked)"
+                 @attributes="AdditionalAttributes">
+    @ChildContent
+</fluent-checkbox>

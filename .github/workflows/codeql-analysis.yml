@@ -13,19 +13,9 @@ name: "Security Scanning"
 
 on:
   push:
-    branches: [ net7 ]
-    paths-ignore:
-      - '**/*.md'
-      - '**/*.gitignore'
-      - '**/*.gitattributes'
-      - '**/*.yml'
+    branches: [ master ]
   pull_request:
-    branches: [ net7 ]
-    paths-ignore:
-      - '**/*.md'
-      - '**/*.gitignore'
-      - '**/*.gitattributes'
-      - '**/*.yml'
+    branches: [ master ]
   schedule:
     - cron: '0 0 * * 0,3'
 

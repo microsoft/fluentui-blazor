@@ -1,20 +1,40 @@
 namespace Microsoft.Fast.Components.FluentUI;
 
+/// <summary>
+/// The visual appearance of a component.
+/// </summary>
 public enum Appearance
 {
+    /// <summary>
+    /// Neutral appearance.
+    /// </summary>
     Neutral,
+
+    /// <summary>
+    /// Uses the current accent color.
+    /// </summary>
     Accent,
+
+    /// <summary>
+    /// Shown as a link.
+    /// </summary>
     Hypertext,
+
+    /// <summary />
     Lightweight,
+
+    /// <summary>
+    /// Show a border.
+    /// </summary>
     Outline,
+
+    /// <summary>
+    /// Reveal on hover
+    /// </summary>
     Stealth,
+
+    /// <summary>
+    /// Show filled.
+    /// </summary>
     Filled
-}
-
-public static class AppearanceExtensions
-{
-    private static readonly Dictionary<Appearance, string> _appearanceValues =
-        Enum.GetValues<Appearance>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());
-
-    public static string? ToAttributeValue(this Appearance? value) => value == null ? null : _appearanceValues[value.Value];
 }

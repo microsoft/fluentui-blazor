@@ -17,14 +17,18 @@
     Fluent UI design system.
 </p>
 
-<ApiDocumentation Component="typeof(FluentListbox<string>)" GenericLabel="TValue"/>
+<ApiDocumentation Component="typeof(FluentListbox<>)" GenericLabel="TOption"/>
     
 <h2>Examples</h2>
 
-<DemoSection Title="Default" ExampleFile="ListboxDefault"></DemoSection>
+<DemoSection Title="Manual" Component="@typeof(ListboxManual)"></DemoSection>
 
-<DemoSection Title="From a C# List" ExampleFile="ListboxFromList"></DemoSection>
+<DemoSection Title="Default" Component="@typeof(ListboxDefault)"></DemoSection>
 
-<DemoSection Title="Long list" ExampleFile="ListboxLong"></DemoSection>
+<DemoSection Title="From a list of Option<T> items" Component="@typeof(ListboxFromListOfOptions)"></DemoSection>
 
-<DemoSection Title="Long list with Size" ExampleFile="ListboxSize"></DemoSection>
+<DemoSection Title="Long list" Component="@typeof(ListboxLong)"></DemoSection>
+
+<DemoSection Title="Long list with Size" Component="@typeof(ListboxSize)"></DemoSection>
+
+<DemoSection Title="Multiple (not working yet!!)" Component="@typeof(ListboxMultiple)"></DemoSection>

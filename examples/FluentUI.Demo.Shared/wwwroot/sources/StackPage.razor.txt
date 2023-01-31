@@ -1,0 +1,70 @@
+﻿@page "/Lab/Stack"
+
+<h1>Stack</h1>
+<p>
+    A <code>Stack</code> is a container-type component that can be used to arrange its child components in a horizontal or vertical stack.
+</p>
+<h2 id="characteristics">Characteristics</h2>
+<p>
+    Although the <code>Stack</code> component has a number of different parameters, there are some in particular that define
+    the overall layout that the component has:
+</p>
+<ol start="1">
+    <li>
+        Orientation: Refers to whether the stacking of child components is horizontal (default) or vertical. 
+    </li>
+    <li>Alignment: Refers to how the child components are aligned inside the container. This is controlled via the 
+        <code>StackHorizontalAlignment</code> and <code>StackVerticalAlignment</code> parameters. 
+    </li>
+    <li>
+        Spacing: Refers to the space that exists between child components inside the <code>Stack</code>. This is 
+        controlled via the <code>HorizontalGap</code> and <code>VerticalGap</code> parameters.
+    </li>
+</ol>
+<h2 id="wrapping">Wrapping</h2>
+<p>
+    Aside from the previously mentioned parameters, there is another parameter called <code>Wrap</code> that determines 
+    if items overflow the <code>Stack</code> container or wrap around it. The wrap property only works in the direction of the <code>Stack</code>, 
+    which means that the children components can still overflow in the perpendicular direction (i.e. in a vertical <code>Stack</code>, items might 
+    overflow horizontally and vice versa).
+</p>
+<h2 id="nesting">Nesting</h2>
+    <p><code>Stack</code>s can be nested inside one another in order to be able to configure the layout of the application as desired.
+</p>
+
+<ApiDocumentation Component="typeof(Stack)" />
+
+<h2>Component and Usage</h2>
+
+<DemoSection Component="typeof(Stack)" Title="The Stack component" CollocatedFiles="@(new[] {"cs", "css"})"
+             ComponentParameters="@(new Dictionary<string, object>(){ {"Style", "border: 1px dotted var(--accent-fill-rest)"}, {"ChildContent",(RenderFragment)(builder => builder.AddMarkupContent(1,"<div class=\"demopanel\">This is some content displayed in a div</div><div class=\"demopanel\">This is some content displayed in a div</div>")) } })">
+    <ChildContent>
+        <CodeSnippet>
+&lt;Stack&gt;
+    &lt;div&gt;
+        This is some content displayed in a div
+    &lt;/div&gt;
+    &lt;div&gt;
+        This is some content displayed in a div
+    &lt;/div&gt;
+&lt;/Stack&gt;
+        </CodeSnippet>
+        <p>Renders as (some styling applied):</p>
+    </ChildContent>
+    <Description>
+        This <code>Stack</code> is using all the default settings for its parameters. To make it clear what the default size is, it is rendered with a border here.
+    </Description>
+</DemoSection>
+
+<DemoSection Component="typeof(StackExample)" Title="Using the Stack component">
+    <Description>
+        This example shows two <code>Stack</code>s. The first <code>Stack</code> has it's <code>Orientation</code> parameter set 
+        to <code>Orientation.Vertical</code>. It's height has been set to 200 pixels and the <code>VerticalGap</code> has been set to 20 pixels. The second, 
+        nested, <code>Stack</code> has it's <code>Orientation</code> parameter set to <code>Orientation.Horizontal</code>. The <code>HorizontalGap</code> 
+        has been set to 4 pixels. It's first element contains a forced break. No height has been set, so the container height adjusts to the height 
+        of the highest element.
+        <br />
+        The alignment of the contents of <strong>both</strong> <code>Stack</code>s can be changed by selecting one the different options from each
+        of the listboxes (which are placed in a <code>Stack</code> themselves as well).
+    </Description>
+</DemoSection>

@@ -1,0 +1,51 @@
+﻿<h4>From a List of Option&lt;string&gt; items</h4>
+<p>Second item in the list is initially selected through the <code>OptionSelected</code> (Func delegate) parameter.</p>
+
+<FluentListbox Items=@stringOptions 
+               OptionText="@(i => i.Text)" 
+               OptionValue="@(i => i.Value)"
+               OptionSelected="@(i => i.Selected)"
+               @bind-Value="@stringValue" />
+<p>
+    Selected Value: @stringValue<br />
+</p>
+
+<h4>From List of Option&lt;int&gt; items</h4>
+<p>First item in the list is disabled through the <code>OptionDisabled</code> (Func delegate) parameter.</p>
+<p><em>Note that none of the options is initially highlighted or selected.</em></p>
+
+<FluentListbox Items=@intOptions 
+               TOption="Option<int>"
+               OptionText="@(i => i.Text.ToString())" 
+               OptionValue="@(i => i.Value.ToString())"
+               OptionDisabled="@(i => i.Disabled)"
+               @bind-SelectedOption="@selectedIntOption"
+               @bind-Value="@intValue" />
+<p>
+    Selected Value: @intValue<br />
+    Selected Item (strongly typed): <br />
+    Value: @selectedIntOption?.Value (Type: @(selectedIntOption?.Value.GetType())) <br />
+    Text: @selectedIntOption?.Text
+</p>
+
+@code {
+    string? stringValue;
+    string? intValue;
+    Option<int>? selectedIntOption;
+    
+    List<Option<string>> stringOptions = new()
+    {
+        { new Option<string> { Value = "1", Text = "One" } },
+        { new Option<string> { Value = "2", Text = "Two", Selected = true } },
+        { new Option<string> { Value = "3", Text = "Three" } }
+
+    };
+
+List<Option<int>> intOptions = new()
+    {
+        { new Option<int> { Value = 1, Text = 1, Disabled = true } },
+        { new Option<int> { Value = 2, Text = 2 } },
+        { new Option<int> { Value = 3, Text = 3 } }
+
+    };
+}

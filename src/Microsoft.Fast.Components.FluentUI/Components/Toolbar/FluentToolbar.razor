@@ -1,0 +1,9 @@
+@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentComponentBase
+<fluent-toolbar @ref=Element
+                class="@Class"
+                style="@Style"
+                orientation=@Orientation.ToAttributeValue()
+                @attributes="AdditionalAttributes">
+    @ChildContent
+</fluent-toolbar>

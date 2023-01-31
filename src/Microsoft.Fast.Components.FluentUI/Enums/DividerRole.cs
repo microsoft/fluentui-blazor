@@ -1,15 +1,17 @@
 ﻿namespace Microsoft.Fast.Components.FluentUI;
 
+/// <summary>
+/// Defines the role of the divider.
+/// </summary>
 public enum DividerRole
 {
+    /// <summary>
+    /// The divider is used as a separator.
+    /// </summary>
     Separator,
+
+    /// <summary>
+    /// The divider is used for presentation purpose.
+    /// </summary>
     Presentation
-}
-
-public static class DividerRoleExtensions
-{
-    private static readonly Dictionary<DividerRole, string> _dividerRoleValues =
-        Enum.GetValues<DividerRole>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());
-
-    public static string? ToAttributeValue(this DividerRole? value) => value == null ? null : _dividerRoleValues[value.Value];
 }

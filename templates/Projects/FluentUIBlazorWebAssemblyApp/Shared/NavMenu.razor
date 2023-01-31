@@ -1,18 +1,14 @@
 ﻿@inject NavigationManager navigationmanager
 
-
-<FluentDesignSystemProvider role="navigation" class="navigation">
-    <h1 class="head">FluentUI Web Components</h1>
-    <ul>
-        <li>
-            <FluentAnchor Href="counter" Appearance=@SetAppearance("Counter")>Counter</FluentAnchor>
-        </li>
-        <li>
-            <FluentAnchor Href="fetchdata" Appearance=@SetAppearance("FetchData")>Fetch Data</FluentAnchor>
-        </li>
-    </ul>
-</FluentDesignSystemProvider>
-
+<h1 class="head">FluentUI Web Components</h1>
+<ul>
+    <li>
+        <FluentAnchor Href="counter" Appearance=@SetAppearance("Counter")>Counter</FluentAnchor>
+    </li>
+    <li>
+        <FluentAnchor Href="fetchdata" Appearance=@SetAppearance("FetchData")>Fetch Data</FluentAnchor>
+    </li>
+</ul>
 
 @code {
     private string? target;
@@ -33,6 +29,6 @@
         StateHasChanged();
     }
 
-    private Appearance SetAppearance(string location) => (location == target) ? Appearance.Neutral : Appearance.Stealth;
+    private Appearance SetAppearance(string location) => (string.Equals(location, target, StringComparison.OrdinalIgnoreCase)) ? Appearance.Neutral : Appearance.Stealth;
 
 }

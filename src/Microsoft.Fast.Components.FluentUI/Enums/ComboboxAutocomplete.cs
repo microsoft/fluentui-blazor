@@ -1,16 +1,22 @@
 namespace Microsoft.Fast.Components.FluentUI;
 
+/// <summary>
+/// The type of autocoplete for a <see cref="FluentCombobox{TValue}"/> component.
+/// </summary>
 public enum ComboboxAutocomplete
 {
+    /// <summary>
+    /// The combobox will autocomplete inline.
+    /// </summary>
     Inline,
+
+    /// <summary>
+    /// The combobox will autocomplete on the list values.
+    /// </summary>
     List,
+
+    /// <summary>
+    /// The combobox will autocomplete inline and on the list values.
+    /// </summary>
     Both
-}
-
-public static class ComboboxAutocompleteExtensions
-{
-    private static readonly Dictionary<ComboboxAutocomplete, string> _autocompleteValues =
-        Enum.GetValues<ComboboxAutocomplete>().ToDictionary(id => id, id => Enum.GetName(id)!.ToLowerInvariant());
-
-    public static string? ToAttributeValue(this ComboboxAutocomplete? value) => value == null ? null : _autocompleteValues[value.Value];
 }

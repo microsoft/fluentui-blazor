@@ -7,17 +7,18 @@
 
 <p>An implementation of a content scroller as a web-component.</p>
 <p><code>&lt;FluentHorizontalScroll&gt;</code> wraps the <code>&lt;fluent-horizontal-scroll&gt;</code> element, a web component implementation of a horizontal scroller leveraging the Fluent UI design system.</p>
+
 <ApiDocumentation Component="typeof(FluentHorizontalScroll)" />
 
 <h2>Examples</h2>
 <div>
-    <DemoSection Title="Default" ExampleFile="HorizontalScrollDefault"></DemoSection>
+    <DemoSection Title="Default" Component="@typeof(HorizontalScrollDefault)"></DemoSection>
 
-    <DemoSection Title="Full width cards" ExampleFile="HorizontalScrollFullWidth"></DemoSection>
+    <DemoSection Title="Full width cards" Component="@typeof(HorizontalScrollFullWidth)" CollocatedFiles="@(new[] {"css"})"></DemoSection>
 
-    <DemoSection Title="Slow scroll" ExampleFile="HorizontalScrollSlow"></DemoSection>
+    <DemoSection Title="Slow scroll" Component="@typeof(HorizontalScrollSlow)"></DemoSection>
 
-    <DemoSection Title="Gradients" ExampleFile="HorizontalScrollGradients"></DemoSection>
+    <DemoSection Title="Gradients" Component="@typeof(HorizontalScrollGradients)" CollocatedFiles="@(new[] {"css"})"></DemoSection>
 
-    <DemoSection Title="Sizing" ExampleFile="HorizontalScrollSizing"></DemoSection>
+    <DemoSection Title="Sizing" Component="@typeof(HorizontalScrollSizing)" CollocatedFiles="@(new[] {"css"})"></DemoSection>
 </div>

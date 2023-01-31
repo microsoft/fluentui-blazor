@@ -18,12 +18,16 @@ namespace FluentUI.Demo.Generators
             Debug.WriteLine("Execute code generator");
 
             IEnumerable<AdditionalText> files = context.AdditionalFiles.Where(y => y.Path.EndsWith(".xml"));
-            string documentationPath = files.First().Path;
+            List<XElement> members = new();
 
-            XDocument xml = null;
-            xml = XDocument.Load(documentationPath);
+            foreach (AdditionalText file in files)
+            {
+                XDocument xml = null;
+                xml = XDocument.Load(file.Path);
 
-            IEnumerable<XElement> members = xml.Descendants("member");
+                members.AddRange(xml.Descendants("member"));
+            }
+
             StringBuilder sb = new();
 
             sb.AppendLine("#pragma warning disable CS1591");
@@ -31,12 +35,12 @@ namespace FluentUI.Demo.Generators
             sb.AppendLine("using System.Collections.Generic;");
             sb.AppendLine("using System.Linq;");
             sb.AppendLine("");
-            sb.AppendLine("namespace FluentUI.Demo.Generators;");
+            sb.AppendLine("namespace FluentUI.Demo.Shared;");
             sb.AppendLine("public static class CodeComments");
             sb.AppendLine("{");
             sb.AppendLine("\tpublic static string GetSummary(string name)");
             sb.AppendLine("\t{");
-            sb.AppendLine("\t\tDictionary<string,string> summarydata = new Dictionary<string,string>() {");
+            sb.AppendLine("\t\tDictionary<string, string> summarydata = new Dictionary<string, string>() {");
             foreach (var m in members)
             {
                 string paramName = CleanupParamName(m.Attribute("name").Value.ToString());
@@ -62,27 +66,49 @@ namespace FluentUI.Demo.Generators
         {
             Regex regex = new("[P,T,M,F]:Microsoft\\.Fast\\.Components\\.FluentUI\\.");
             value = regex.Replace(value, "");
+            regex = new("[P,T,M,F]:FluentUI\\.Demo\\.Shared\\.Components\\.");
+            value = regex.Replace(value, "");
+            regex = new("[P,T,M,F]:FluentUI\\.Demo\\.Shared\\.");
+            value = regex.Replace(value, "");
 
             return value;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("MicrosoftCodeAnalysisCorrectness", "RS1035:Do not use APIs banned for analyzers", Justification = "Need to use Envrionment to ensure the right newline is generated for platform it is being builtand run on")]
         private static string CleanupSummary(string value)
         {
             Regex regex = new(@"[ ]{2,}");
             value = regex.Replace(value, "");
 
-            regex = new("<see(?:also)? cref=\"[!,P,T,M]+:+Microsoft\\.Fast\\.Components\\.FluentUI\\.(\\w*)(?<generic>`1)?\"\\s+/>");
+            regex = new("<see(?:also)? cref=[\"|'][!,P,T,M,F]+:+Microsoft\\.Fast\\.Components\\.FluentUI\\.([\\w|\\.]*)(?<generic>`\\d)?[\"|']\\s*/>");
             value = regex.Replace(value, m => m.Groups["generic"].Success ? $"<code>{m.Groups[1].Value}&lt;T&gt;</code>" : $"<code>{m.Groups[1].Value}</code>");
 
-            regex = new("<see href=\"(.*)\">(.*)</see>");
+            regex = new("<see(?:also)? cref=[\"|'][!,P,T,M,F]+:+FluentUI\\.Demo\\.Shared\\.([\\w|\\.]*)(?<generic>`\\d)?[\"|']\\s*/>");
+            value = regex.Replace(value, m => m.Groups["generic"].Success ? $"<code>{m.Groups[1].Value}&lt;T&gt;</code>" : $"<code>{m.Groups[1].Value}</code>");
+
+            regex = new("<see(?:also)? cref=[\"|'][!,P,T,M,F]+:+([\\w|\\.|`|\\(|\\)|\\{|\\}|\\,]*)[\"|']\\s*/>");
+            value = regex.Replace(value, m => $"<code>{m.Groups[1].Value}</code>");
+
+            regex = new("<see langword=[\"|']([\\w|\\.|`|(|)|{|}|,]*)[\"|']\\s*/>");
+            value = regex.Replace(value, m => $"<code>{m.Groups[1].Value}</code>");
+
+            regex = new("<see href=\"(.*?)\">(.*?)</see>");
             value = regex.Replace(value, "<a href=\"$1\">$2</a>");
+
 
             return value.Trim()
                         .Replace("<summary>" + Environment.NewLine, "")
                         .Replace(Environment.NewLine + "</summary>", "")
                         .Replace(Environment.NewLine, "<br />")
                         .Replace("\"", "'")
-                        .Replace("Microsoft.Fast.Components.FluentUI.", "");
+                        .Replace("Microsoft.Fast.Components.FluentUI.", "")
+                        .Replace("FluentDataGrid`1.", "")
+                        .Replace("System.Linq.", "")
+                        .Replace("System.Linq.Queryable.", "")
+                        .Replace("System.Collections.", "")
+                        .Replace("`1", "<T>")
+                        .Replace("`0", "<U>");
+
         }
 
         public void Initialize(GeneratorInitializationContext context)
