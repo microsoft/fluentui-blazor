@@ -15,7 +15,7 @@
                disabled="@Disabled"
                name=@Name
                required=@Required
-               @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
+               @oncustomclick="@((e) => CurrentValueAsString = e.Value?.ToString())"
                @attributes="AdditionalAttributes">
     @ChildContent
 </fluent-slider>

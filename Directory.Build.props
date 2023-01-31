@@ -1,7 +1,8 @@
 <Project>
  <PropertyGroup>
-	<SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
-	 <VersionPrefix>2.0.2</VersionPrefix>
+	 <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
+	 <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
+	 <VersionPrefix>2.0.3</VersionPrefix>
 	 <VersionSuffix></VersionSuffix> 
  </PropertyGroup>
 </Project>
