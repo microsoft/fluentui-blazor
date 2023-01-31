@@ -10,7 +10,7 @@
                     orientation="@Orientation.ToAttributeValue()"
                     required="@Required"
                     current-value="@CurrentValue"
-                    @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValue = __value, CurrentValue))"
+                    @oncustomclick="@((e) => CurrentValueAsString = e.Value?.ToString())"
                     @attributes="AdditionalAttributes">
     @ChildContent
 </fluent-radio-group>

@@ -28,7 +28,8 @@
         {
             @foreach (string tab in GetSources())
             {
-                <FluentTab id="@("tab-"+@GetDisplayName(tab).Replace("#","").ToLower())" Text="@GetDisplayName(tab)" />
+                string name = tab.StartsWith(Component.Name) ? GetDisplayName(tab) : tab;
+                <FluentTab id="@("tab-"+@name.Replace("#","").ToLower())" Text="@name" />
             }
 
         }
@@ -65,8 +66,15 @@
         Download:&nbsp;
         @foreach (string source in GetSources())
         {
-            <FluentAnchor Style="width:75px;" Download="@source" Href="@($"_content/FluentUI.Demo.Shared/examples/{source}.txt")" Appearance="Appearance.Neutral">
-                @GetDisplayName(source.Substring(source.LastIndexOf('.')))
+            <FluentAnchor Style="width:75px;" Download="@source" Href="@($"_content/FluentUI.Demo.Shared/sources/{source}.txt")" Appearance="Appearance.Neutral">
+                @if (source.StartsWith(Component.Name))
+                {
+                    @GetDisplayName(source.Substring(source.LastIndexOf('.')))
+                }
+                else 
+                {
+                    @source
+                }
             </FluentAnchor>
             
             @if (source != GetSources().Last())

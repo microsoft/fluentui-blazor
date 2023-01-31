@@ -4,7 +4,7 @@
 		<TargetFrameworks>net6.0;net7.0</TargetFrameworks>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<PublishTrimmed>false</PublishTrimmed>
+		<PublishTrimmed>true</PublishTrimmed>
 	</PropertyGroup>
 	
 	<PropertyGroup>

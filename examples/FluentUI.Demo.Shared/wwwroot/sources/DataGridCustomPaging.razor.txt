@@ -19,7 +19,7 @@
             <FluentButton @onclick="@(() => GoToPageAsync(capturedIndex))"
                     Appearance="@PageButtonAppearance(capturedIndex)"
                     aria-current="@AriaCurrentValue(capturedIndex)"
-                  aria-label="@AriaLabel(pageIndex + 1)">
+                          aria-label="@AriaLabel(capturedIndex + 1)">
                 @(capturedIndex + 1)
             </FluentButton>
         }

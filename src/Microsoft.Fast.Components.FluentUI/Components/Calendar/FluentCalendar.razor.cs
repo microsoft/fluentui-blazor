@@ -48,7 +48,7 @@ public partial class FluentCalendar : FluentComponentBase
     public bool Readonly { get; set; } = false;
 
     /// <summary>
-    /// String repesentation of the full locale including market, calendar type and numbering system
+    /// String representation of the full locale including market, calendar type and numbering system
     /// </summary>
     [Parameter]
     public string? Locale { get; set; }
@@ -145,13 +145,13 @@ public partial class FluentCalendar : FluentComponentBase
     protected override void OnParametersSet()
     {
         if (InternalSelectedDates != SelectedDates)
-        {
             InternalSelectedDates = SelectedDates;
-        }
+
         if (InternalDisabledDates != DisabledDates)
-        {
             InternalDisabledDates = DisabledDates;
-        }
+
+        if (Month < 1 || Month > 12)
+            throw new ArgumentException("'Month' needs to be between 1 and 12");
     }
 
     private async Task OnDateSelected(CalendarSelectEventArgs args)
