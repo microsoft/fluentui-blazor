@@ -2,7 +2,7 @@
 @inherits FluentComponentBase
 @typeparam TGridItem
 @attribute [CascadingTypeParameter(nameof(TGridItem))]
-<CascadingValue Value="this" Name="OwningRow" IsFixed="true">
+<CascadingValue Value="this" Name="OwningRow">
     <fluent-data-grid-row class="@Class"
                           style="@_style"
                           row-id="@RowId"
