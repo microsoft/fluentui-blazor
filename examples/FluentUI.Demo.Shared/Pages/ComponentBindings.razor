@@ -289,13 +289,4 @@
         [Required]
         public bool SwitchValue { get; set; }
     }
-
-    EditContext e = new EditContext(new object());
-    string x = string.Empty;
-
-    protected override bool ShouldRender() {
-        // Simulate a laggy render (or a late response).
-        Thread.Sleep(1000);
-        return true;
-    }
 }

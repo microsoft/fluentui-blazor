@@ -9,7 +9,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 public abstract class FluentInputBase<TValue> : FluentComponentBase, IDisposable
 {
     private readonly EventHandler<ValidationStateChangedEventArgs> _validationStateChangedHandler;
-    //private bool _hasInitializedParameters;
+    private bool _hasInitializedParameters;
     private bool _previousParsingAttemptFailed;
     private ValidationMessageStore? _parsingValidationMessages;
     private Type? _nullableUnderlyingType;
@@ -206,8 +206,8 @@ public abstract class FluentInputBase<TValue> : FluentComponentBase, IDisposable
     {
         parameters.SetParameterProperties(this);
 
-        if (EditContext != null || CascadedEditContext != null)
-        //if (!_hasInitializedParameters)
+        //if (EditContext != null || CascadedEditContext != null)
+        if (!_hasInitializedParameters)
         {
             // This is the first run
             // Could put this logic in OnInit, but its nice to avoid forcing people who override OnInit to call base.OnInit()
@@ -227,7 +227,7 @@ public abstract class FluentInputBase<TValue> : FluentComponentBase, IDisposable
             }
 
             _nullableUnderlyingType = Nullable.GetUnderlyingType(typeof(TValue));
-            //_hasInitializedParameters = true;
+            _hasInitializedParameters = true;
         }
         else if (CascadedEditContext != EditContext)
         {

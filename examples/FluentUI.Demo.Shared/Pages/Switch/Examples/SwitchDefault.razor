@@ -3,7 +3,7 @@
     <FluentSwitch>
         Dark Mode
     </FluentSwitch>
-    <FluentSwitch Checked="true">
+    <FluentSwitch @bind-Value=@b>
         New Feature
         <span slot="checked-message">On</span>
         <span slot="unchecked-message">Off</span>
@@ -14,3 +14,10 @@
         <span slot="unchecked-message">Light</span>
     </FluentSwitch>
 </div>
+
+<p>New feature: @b</p>
+
+@code {
+    bool b = true;
+
+}

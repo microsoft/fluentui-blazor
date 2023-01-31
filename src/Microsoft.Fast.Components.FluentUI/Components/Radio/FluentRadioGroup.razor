@@ -7,10 +7,10 @@
                         readonly=@Readonly
                         disabled=@Disabled
                         name="@_context!.GroupName"
-                        value="@BindConverter.FormatValue(_initialValue?.ToString())"
+                        value="@BindConverter.FormatValue(Value?.ToString())"
                         orientation="@Orientation.ToAttributeValue()"
                         required="@Required"
-                        @onchange="_context.ChangeEventCallback"
+                        @onuserchange="@((e) => CurrentValueAsString = e.Value?.ToString())"
                         @attributes="AdditionalAttributes">
         @ChildContent
     </fluent-radio-group>

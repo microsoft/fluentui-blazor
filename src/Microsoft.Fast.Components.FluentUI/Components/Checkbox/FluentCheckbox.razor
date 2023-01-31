@@ -10,8 +10,8 @@
                  disabled=@Disabled
                  name=@Name
                  required="@Required"
-                 current-checked="@BindConverter.FormatValue(CurrentValue)"
-                 @oncheckedchange="(__value) => CurrentValue = __value.Checked"
+                 current-checked="@CurrentValue"
+                 @oncheckedchange="@((e) => CurrentValue = e.Checked)"
                  @attributes="AdditionalAttributes">
     @ChildContent
 </fluent-checkbox>
