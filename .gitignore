@@ -45,3 +45,4 @@ UpgradeLog.htm
 *.svclog
 /src/CustomElementsParser/GeneratedClasses
 /examples/FluentUI.Demo.Client/Properties
+/publish
