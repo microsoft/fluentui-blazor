@@ -15,6 +15,16 @@
             Gets or sets the id of the active accordion item
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAccordion.ActiveIdChanged">
+            <summary>
+            Gets or sets a callback that updates the bound value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAccordion.OnAccordionItemChange">
+            <summary>
+            Gets or sets a callback when a accordion item is changed .
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAccordionItem.Owner">
             <summary>
             Gets or sets the owning FluentTreeView

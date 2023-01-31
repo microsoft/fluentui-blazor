@@ -8,7 +8,7 @@
                name=@Name
                required=@Required
                current-checked="@CurrentValue"
-               @oncheckedchange="(__value) => CurrentValue = __value.Checked"
+               @oncheckedchange="@((e) => CurrentValue = e.Checked)"
                @attributes="AdditionalAttributes">
     @ChildContent
 </fluent-switch>

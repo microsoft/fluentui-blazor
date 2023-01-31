@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
@@ -19,30 +20,37 @@ public partial class FluentAccordion : FluentComponentBase
     [Parameter]
     public string? ActiveId { get; set; }
 
-    //Commented code below is waiting for changes in the Web Components script
+    /// <summary>
+    /// Gets or sets a callback that updates the bound value.
+    /// </summary>
+    [Parameter]
+    public EventCallback<string?> ActiveIdChanged { get; set; }
 
+    /// <summary>
+    /// Gets or sets a callback when a accordion item is changed .
+    /// </summary>
+    [Parameter]
+    public EventCallback<FluentAccordionItem> OnAccordionItemChange { get; set; }
 
-    ///// <summary>
-    ///// Gets or sets a callback that updates the bound value.
-    ///// </summary>
-    //[Parameter]
-    //public EventCallback<string?> ActiveIdChanged { get; set; }
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(AccordionChangeEventArgs))]
 
-    ///// <summary>
-    ///// Gets or sets a callback when a accordion item is changed .
-    ///// </summary>
-    //[Parameter]
-    //public EventCallback<FluentAccordionItem> OnAccordionItemChange { get; set; }
+    public FluentAccordion()
+    {
 
-    //private async Task HandleOnAccordionChanged(AccordionChangeEventArgs args)
-    //{
-    //    string? Id = args.AffectedId;
-    //    if (items.TryGetValue(Id!, out FluentAccordionItem? item))
-    //    {
-    //        await OnAccordionItemChange.InvokeAsync(item);
-    //        await ActiveIdChanged.InvokeAsync(args.ActiveId);
-    //    }
-    //}
+    }
+
+    private async Task HandleOnAccordionChanged(AccordionChangeEventArgs args)
+    {
+        if (args is not null)
+        {
+            string? Id = args.ActiveId;
+            if (Id is not null && items.TryGetValue(Id!, out FluentAccordionItem? item))
+            {
+                await OnAccordionItemChange.InvokeAsync(item);
+                await ActiveIdChanged.InvokeAsync(Id);
+            }
+        }
+    }
 
     internal void Register(FluentAccordionItem item)
     {

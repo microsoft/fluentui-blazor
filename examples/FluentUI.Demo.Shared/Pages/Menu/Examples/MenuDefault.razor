@@ -9,8 +9,8 @@
 @code{
     private string status = "";
     
-    private void OnMenuChange()
-    {
-        status = "Menu item selected";
+    private void OnMenuChange(MenuChangeEventArgs args) {
+        if (args is not null && args.Value is not null)
+            status = $"{args.Value} selected";
     }
 }

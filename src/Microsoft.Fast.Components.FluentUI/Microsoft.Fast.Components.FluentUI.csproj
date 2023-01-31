@@ -13,7 +13,7 @@
 		<Title>Microsoft Fluent UI Web Components for Blazor</Title>
 		<Description>A set of Blazor components wrapping Microsoft’s official Fluent UI Web Components. They implement the latest state of the Fluent design language, are built on FAST and work in every major browser.</Description>
 		<SignAssembly>true</SignAssembly>
-		<VersionPrefix>1.6.0</VersionPrefix>
+		<VersionPrefix>1.6.1</VersionPrefix>
 		<VersionSuffix></VersionSuffix>
 		<SynchReleaseVersion>false</SynchReleaseVersion>
 		<Nullable>enable</Nullable>
