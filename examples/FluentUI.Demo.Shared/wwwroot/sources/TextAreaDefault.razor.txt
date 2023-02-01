@@ -1,6 +1,9 @@
-﻿<p>Without label: <FluentTextArea></FluentTextArea></p>
+﻿<p>Without label: <FluentTextArea @bind-Value=value1></FluentTextArea></p>
 <p>
-    With label: <FluentTextArea>
+    With label: <FluentTextArea @bind-Value=value2>
         <span>label</span>
     </FluentTextArea>
 </p>
+@code {
+    string? value1, value2;
+}

@@ -1,22 +1,24 @@
 ﻿<h4>Full Width</h4>
-<FluentNumberField TValue="int?" style="width: 100%;"></FluentNumberField>
+<FluentNumberField @bind-Value=value1 style="width: 100%;"></FluentNumberField>
 
 <h4>Placeholder</h4>
-<FluentNumberField TValue="int?" Placeholder="Placeholder"></FluentNumberField>
+<FluentNumberField @bind-Value=value2 Placeholder="Placeholder"></FluentNumberField>
 
 <h4>Hide up/down steps</h4>
-<FluentNumberField TValue="int?" HideStep=true></FluentNumberField>
+<FluentNumberField @bind-Value=value3 HideStep=true></FluentNumberField>
 
 <h4>Required</h4>
-<FluentNumberField TValue="int?" Required="true"></FluentNumberField>
+<FluentNumberField @bind-Value=value4 Required="true"></FluentNumberField>
 
 <h4>Disabled</h4>
-<FluentNumberField TValue="int?" Disabled="true"></FluentNumberField>
-<FluentNumberField TValue="int?" Disabled="true">label</FluentNumberField>
-<FluentNumberField TValue="int?" Disabled="true" Placeholder="placeholder"></FluentNumberField>
+<FluentNumberField @bind-Value=value5 Disabled="true"></FluentNumberField>
+<FluentNumberField @bind-Value=value6 Disabled="true">label</FluentNumberField>
+<FluentNumberField @bind-Value=value7 Disabled="true" Placeholder="placeholder"></FluentNumberField>
 
 <h4>Read only</h4>
-<FluentNumberField TValue="int?" Readonly="true" Value="1"></FluentNumberField>
-<FluentNumberField TValue="int?" Readonly="true" Value="2">label</FluentNumberField>
+<FluentNumberField @bind-Value=value8 Readonly="true"></FluentNumberField>
+<FluentNumberField @bind-Value=value9 Readonly="true">label</FluentNumberField>
 
-
+@code {
+    int? value1, value2, value3, value4, value5, value6, value7, value8=1, value9=2;
+}

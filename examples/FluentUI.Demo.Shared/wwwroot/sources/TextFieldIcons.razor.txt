@@ -1,9 +1,13 @@
 ﻿<h4>With start</h4>
-<FluentTextField>
-    <FluentIcon Name="@FluentIcons.Globe" Slot="start" Size="@IconSize.Size16" Color=Color.Neutral />
+<FluentTextField @bind-Value=value1>
+    <FluentIcon  Name="@FluentIcons.Globe" Slot="start" Size="@IconSize.Size16" Color=Color.Neutral />
 </FluentTextField>
 
 <h4>With end</h4>
-<FluentTextField>
+<FluentTextField @bind-Value=value2                                                                                                                                                                                                                                                                                                                                                                                                       >
     <FluentIcon Name="@FluentIcons.Globe" Slot="end" Size="@IconSize.Size16" Color=Color.Neutral />
 </FluentTextField>
+
+@code {
+    string? value1, value2;
+}

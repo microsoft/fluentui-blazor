@@ -1,17 +1,20 @@
 ﻿<h4>Readonly</h4>
 <div style="display: flex; flex-direction: column; margin-top: 12px;">
     <label id="label3">readonly radio group</label>
-    <FluentRadioGroup readonly aria-labelledby="label3" Name="office">
-        <FluentRadio Value="word">Word</FluentRadio>
-        <FluentRadio Value="excel">Excel</FluentRadio>
+    <FluentRadioGroup Readonly=true aria-labelledby="label3" Name="office" @bind-Value=value1>
+        <FluentRadio Value=@("word")>Word</FluentRadio>
+        <FluentRadio Value=@("excel")>Excel</FluentRadio>
     </FluentRadioGroup>
 </div>
 
 <h4>Disabled</h4>
 <div style="display: flex; flex-direction: column; margin-top: 12px;">
     <label id="label2">Disabled radio group</label>
-    <FluentRadioGroup disabled aria-labelledby="label2" Name="cars">
-        <FluentRadio Value="lambo">Lamborghini</FluentRadio>
-        <FluentRadio Value="ferari">Ferari</FluentRadio>
+    <FluentRadioGroup Disabled=true aria-labelledby="label2" Name="cars" @bind-Value=value2>
+        <FluentRadio Value=@("lambo")>Lamborghini</FluentRadio>
+        <FluentRadio Value=@("ferari")>Ferari</FluentRadio>
     </FluentRadioGroup>
 </div>
+@code {
+    string? value1, value2;
+}

@@ -1,16 +1,16 @@
-﻿@if (!string.IsNullOrEmpty(Title))
+﻿@if (!string.IsNullOrEmpty(Title)) 
 {
-    @if (New)
+    @if (New) 
     {
         <h3 id="@Title.Replace(' ','-').ToLower()">@Title <NewBadge /></h3>
     }
-    else
+    else 
     {
         <h3 id="@Title.Replace(' ','-').ToLower()">@Title</h3>
     }
 }
 
-@if (Description != null)
+@if (Description != null) 
 {
     <div class="demo-section-description">
         @Description
@@ -20,37 +20,41 @@
 <div class="demo-section-content">
 
     <FluentTabs ActiveId="@(!HideExample ? "tab-example" : "tab-razor")">
-        @if (!HideExample)
+        @if (!HideExample) 
         {
             <FluentTab id="tab-example" Text="Example" />
         }
-        @if (!HideAllButExample)
+        @if (!HideAllButExample) 
         {
-            @foreach (string tab in GetSources())
+            @foreach (string tab in GetCollocatedFiles()) 
             {
-                string name = tab.StartsWith(Component.Name) ? GetDisplayName(tab) : tab;
-                <FluentTab id="@("tab-"+@name.Replace("#","").ToLower())" Text="@name" />
+                <FluentTab id="@("tab-"+@GetDisplayName(tab).Replace("#","").ToLower())" Text="@GetDisplayName(tab)" />
+            }
+            @foreach (string tab in GetAdditionalFiles()) 
+            {
+                <FluentTab id="@("tab-"+tab.Replace("#","").ToLower())" Text="@tab" />
             }
 
+
         }
-        @if (!HideExample)
+        @if (!HideExample) 
         {
             <FluentTabPanel>
                 <div class="demo-section-example">
                     @ChildContent
-                    @if (Component is not null)
+                    @if (Component is not null) 
                     {
                         <DynamicComponent Type="Component" Parameters="ComponentParameters" />
                     }
                 </div>
-        </FluentTabPanel>
+            </FluentTabPanel>
         }
-        @if (!HideAllButExample)
+        @if (!HideAllButExample) 
         {
-            @foreach (string tab in GetSources())
+            @foreach (string tab in _allFiles) 
             {
                 <FluentTabPanel>
-                    @if (_hasCode)
+                    @if (_hasCode) 
                     {
                         <CodeSnippet Language="@TabLanguageClass(tab)">@_tabPanelsContent[tab]</CodeSnippet>
                     }
@@ -59,15 +63,15 @@
         }
     </FluentTabs>
 </div>
-@if (ShowDownloads)
+@if (ShowDownloads) 
 {
     <div class="demo-section-downloads">
         <Spacer />
         Download:&nbsp;
-        @foreach (string source in GetSources())
+        @foreach (string source in _allFiles) 
         {
-            <FluentAnchor Style="width:75px;" Download="@source" Href="@($"_content/FluentUI.Demo.Shared/sources/{source}.txt")" Appearance="Appearance.Neutral">
-                @if (source.StartsWith(Component.Name))
+            <FluentAnchor Style="width: 85px;" Download="@source" Href="@($"_content/FluentUI.Demo.Shared/sources/{source}.txt")" Appearance="Appearance.Neutral">
+                @if (source.StartsWith(Component.Name)) 
                 {
                     @GetDisplayName(source.Substring(source.LastIndexOf('.')))
                 }
@@ -76,15 +80,11 @@
                     @source
                 }
             </FluentAnchor>
-            
-            @if (source != GetSources().Last())
+
+            @if (source != _allFiles.Last()) 
             {
                 <span>&nbsp;</span>
             }
         }
-        
-
     </div>
 }
-
-

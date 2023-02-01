@@ -5,8 +5,9 @@
 <h4>Focus Async</h4>
 <div style="display:flex">
     <FluentButton @onclick="() => focusTest!.FocusAsync()">FocusAsync</FluentButton>
-    <FluentTextField @ref=focusTest></FluentTextField>
+    <FluentTextField @ref=focusTest @bind-Value=value></FluentTextField>
 </div>
 @code {
     FluentTextField? focusTest;
+    string? value;
 }

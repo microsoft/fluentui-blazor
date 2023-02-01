@@ -13,6 +13,7 @@ public partial class DemoMainLayout : IAsyncDisposable
     private OfficeColor _selectedColorOption;
     private string? _version;
     private bool _inDarkMode;
+    private bool _ltr;
 
     [Inject]
     private GlobalState GlobalState { get; set; } = default!;

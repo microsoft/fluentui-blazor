@@ -68,17 +68,16 @@
             </div>
             <div>
                 <p><label for="RadioGroupValue">Radio group Value</label></p>
-                <FluentRadioGroup Name="RadioGroupValue" @bind-Value="Form.RadioGroupValue"
-                    Orientation="Orientation.Vertical">
-                    <FluentRadio Value="apples">Apples</FluentRadio>
-                    <FluentRadio Value="oranges">Oranges</FluentRadio>
-                    <FluentRadio Value="bananas">Bananas</FluentRadio>
-                    <FluentRadio Value="kiwi">Kiwi</FluentRadio>
-                    <FluentRadio Value="grapefruit">Grapefruit</FluentRadio>
-                    <FluentRadio Value="mango">Mango</FluentRadio>
-                    <FluentRadio Value="blueberries">Blueberries</FluentRadio>
-                    <FluentRadio Value="strawberries">Strawberries</FluentRadio>
-                    <FluentRadio Value="pineapple">Pineapple</FluentRadio>
+                <FluentRadioGroup Name="RadioGroupValue" @bind-Value="Form.RadioGroupValue" Orientation="Orientation.Vertical">
+                    <FluentRadio Value=@("apples")>Apples</FluentRadio>
+                    <FluentRadio Value=@("oranges")>Oranges</FluentRadio>
+                    <FluentRadio Value=@("bananas")>Bananas</FluentRadio>
+                    <FluentRadio Value=@("kiwi")>Kiwi</FluentRadio>
+                    <FluentRadio Value=@("grapefruit")>Grapefruit</FluentRadio>
+                    <FluentRadio Value=@("mango")>Mango</FluentRadio>
+                    <FluentRadio Value=@("blueberries")>Blueberries</FluentRadio>
+                    <FluentRadio Value=@("strawberries")>Strawberries</FluentRadio>
+                    <FluentRadio Value=@("pineapple")>Pineapple</FluentRadio>
                 </FluentRadioGroup>
             </div>
             <div>
@@ -177,18 +176,17 @@
                 </div>
                 <div>
                     <p><label for="RadioGroupValue">Radio group Value</label></p>
-                    <FluentRadioGroup Name="RadioGroupValue" @bind-Value="Form.RadioGroupValue"
-                        Orientation="Orientation.Vertical">
-                        <FluentRadio Value="apples">Apples</FluentRadio>
-                        <FluentRadio Value="oranges">Oranges</FluentRadio>
-                        <FluentRadio Value="bananas">Bananas</FluentRadio>
-                        <FluentRadio Value="kiwi">Kiwi</FluentRadio>
-                        <FluentRadio Value="grapefruit">Grapefruit</FluentRadio>
-                        <FluentRadio Value="mango">Mango</FluentRadio>
-                        <FluentRadio Value="blueberries">Blueberries</FluentRadio>
-                        <FluentRadio Value="strawberries">Strawberries</FluentRadio>
-                        <FluentRadio Value="pineapple">Pineapple</FluentRadio>
-                    </FluentRadioGroup>
+                <FluentRadioGroup Name="RadioGroupValue" @bind-Value="Form.RadioGroupValue" Orientation="Orientation.Vertical">
+                    <FluentRadio Value=@("apples")>Apples</FluentRadio>
+                    <FluentRadio Value=@("oranges")>Oranges</FluentRadio>
+                    <FluentRadio Value=@("bananas")>Bananas</FluentRadio>
+                    <FluentRadio Value=@("kiwi")>Kiwi</FluentRadio>
+                    <FluentRadio Value=@("grapefruit")>Grapefruit</FluentRadio>
+                    <FluentRadio Value=@("mango")>Mango</FluentRadio>
+                    <FluentRadio Value=@("blueberries")>Blueberries</FluentRadio>
+                    <FluentRadio Value=@("strawberries")>Strawberries</FluentRadio>
+                    <FluentRadio Value=@("pineapple")>Pineapple</FluentRadio>
+                </FluentRadioGroup>
                 </div>
                 <div>
                     <FluentCheckbox name="CheckboxValue" @bind-Value="Form.CheckboxValue">

@@ -1,10 +1,14 @@
 ﻿<h4>Preset value</h4>
 <div style="display: flex; flex-direction: column; margin-top: 12px;">
     <label id="label4">Preset selected-value</label>
-    <FluentRadioGroup Value="maverick" aria-labelledby="label4" Name="best-pilot">
-        <FluentRadio Value="ice-man">Ice Man</FluentRadio>
-        <FluentRadio Value="maverick">Maverick</FluentRadio>
-        <FluentRadio Value="viper">Viper</FluentRadio>
-        <FluentRadio Value="jester">Jester</FluentRadio>
+    <FluentRadioGroup @bind-Value=value aria-labelledby="label4" Name="best-pilot">
+        <FluentRadio Value=@("ice-man")>Ice Man</FluentRadio>
+        <FluentRadio Value=@("maverick")>Maverick</FluentRadio>
+        <FluentRadio Value=@("viper")>Viper</FluentRadio>
+        <FluentRadio Value=@("jester")>Jester</FluentRadio>
+
     </FluentRadioGroup>
 </div>
+@code {
+    string? value = "maverick";
+}

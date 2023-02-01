@@ -1,9 +1,13 @@
-﻿<p>Without label: <FluentTextField></FluentTextField></p>
+﻿<p>Without label: <FluentTextField @bind-Value=value1></FluentTextField></p>
 <p>
-    With label: <FluentTextField>Label</FluentTextField></p>
+    With label: <FluentTextField @bind-Value=value2>Label</FluentTextField></p>
 
 <h4>Minlength</h4>
-<FluentTextField Minlength="4">Minlength</FluentTextField>
+<FluentTextField @bind-Value=value3 Minlength="4">Minlength</FluentTextField>
 
 <h4>Maxlength</h4>
-<FluentTextField Maxlength="4">Maxlength</FluentTextField>
+<FluentTextField @bind-Value=value4 Maxlength="4">Maxlength</FluentTextField>
+
+@code {
+    string? value1, value2, value3, value4;
+}
