@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
-
 	<PropertyGroup>
 		<TargetFrameworks>net6.0;net7.0</TargetFrameworks>
 		<Nullable>enable</Nullable>
@@ -30,11 +29,11 @@
 		<TrimmerRemoveSymbols>true</TrimmerRemoveSymbols>
 	</PropertyGroup>
 
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
+	<ItemGroup Condition="'$(TargetFramework)'=='net6.0'">
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.13" />
 	</ItemGroup>
 
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net7.0' ">
+	<ItemGroup Condition="'$(TargetFramework)'=='net7.0'">
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.2" />
 	</ItemGroup>
 
@@ -46,7 +45,7 @@
 		<Content Remove="Pages\RawBindings.razor" />
 		<Content Remove="libman.json" />
 		<Folder Include="wwwroot\sources\" />
-		<AdditionalFiles Include="$(ProjectDir)/*.xml" />
+		<AdditionalFiles Include="$(ProjectDir)/*.xml"  />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)'=='Release'">
@@ -56,6 +55,7 @@
 	<ItemGroup Condition="'$(Configuration)'=='Debug'">
 		<ProjectReference Include="..\..\src\Microsoft.Fast.Components.FluentUI\Microsoft.Fast.Components.FluentUI.csproj" />
 	</ItemGroup>
+
 
 	<ItemGroup>
 		<ProjectReference Include="..\FluentUI.Demo.Generators\FluentUI.Demo.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
@@ -72,9 +72,9 @@
 	</Target>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<ItemGroup Condition=" '$(TargetFramework)' == 'net7.0' ">
+		<ItemGroup Condition="'$(TargetFramework)'=='net7.0'">
 			<XmlFiles Include="$(ProjectDir)bin\$(Configuration)\$(TargetFramework)\*.xml" />
 		</ItemGroup>
-		<Copy SourceFiles="@(XmlFiles)" DestinationFolder="$(SolutionDir)examples\FluentUI.Demo.Shared" SkipUnchangedFiles="true" Condition=" '$(TargetFramework)' == 'net7.0' " />
+		<Copy SourceFiles="@(XmlFiles)" DestinationFolder="$(SolutionDir)examples\FluentUI.Demo.Shared" SkipUnchangedFiles="true" Condition="'$(TargetFramework)'=='net7.0'" />
 	</Target>
 </Project>

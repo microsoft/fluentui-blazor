@@ -4,25 +4,21 @@
 @inherits FluentComponentBase
 <div>
     <CascadingValue Value="this" IsFixed=true Name="NavMenu">
-        <CascadingValue Value="@Expanded" Name="NavMenuExpanded">
-            <FluentTreeView @ref=@treeView
-                            Class="@ClassValue"
-                            Style="@StyleValue"
-                            @bind-CurrentSelected=currentSelected
-                            id="@Id">
-                @if (Collapsible) {
-                    <FluentButton Appearance="Appearance.Lightweight"
-                              Class="navmenu-main-button"
-                              @onclick="CollapsibleClickAsync"
-                                  title="@Title">
-                        <FluentIcon Name="@(FluentIcons.Navigation)" Size="IconSize.Size20" Slot="start" />
-                    </FluentButton>
-                }
-                @ChildContent
-            </FluentTreeView>
-            
-        </CascadingValue>
+
+        <FluentTreeView Class="@ClassValue"
+                        Style="@StyleValue"
+                        @bind-CurrentSelected=currentSelected
+                        id="@Id">
+            @if (Collapsible) {
+                <FluentButton Appearance="Appearance.Lightweight"
+                          Class="navmenu-main-button"
+                          @onclick="CollapsibleClickAsync"
+                              title="@Title">
+                    <FluentIcon Name="@(FluentIcons.Navigation)" Size="IconSize.Size20" />
+                </FluentButton>
+            }
+            @ChildContent
+        </FluentTreeView>
+
     </CascadingValue>
-    @*Leave out below if you do not want/need the feedback*@
-    <p>You selected: @currentSelected?.Text</p>
 </div>

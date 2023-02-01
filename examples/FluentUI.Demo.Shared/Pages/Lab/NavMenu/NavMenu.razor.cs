@@ -11,12 +11,11 @@ public partial class NavMenu : FluentComponentBase
 {
     // Remeber to replace the path to the colocated JS file with your own project's path
     // or Razor Class Library's path.
-    private const string JAVASCRIPT_FILE = "./_content/FluentUI.Demo.Shared/Pages/Lab/NavMenu/NavMenu.razor.js";
+    //private const string JAVASCRIPT_FILE = "./_content/FluentUI.Demo.Shared/Pages/Lab/NavMenu/NavMenu.razor.js";
     private const string WIDTH_COLLAPSED_MENU = "40px";
     private readonly List<NavMenuLink> _links = new();
     private readonly List<NavMenuGroup> _groups = new();
 
-    private FluentTreeView? treeView;
     private FluentTreeItem? currentSelected;
 
     protected string? ClassValue => new CssBuilder(Class)
@@ -32,10 +31,10 @@ public partial class NavMenu : FluentComponentBase
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
 
-    [Inject]
-    private IJSRuntime JS { get; set; } = default!;
+    //[Inject]
+    //private IJSRuntime JS { get; set; } = default!;
 
-    private IJSObjectReference Module { get; set; } = default!;
+    //private IJSObjectReference Module { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets a reasonably unique ID 
@@ -72,7 +71,6 @@ public partial class NavMenu : FluentComponentBase
     /// Gets or sets whether the menu is collapsed.
     /// </summary>
     [Parameter]
-    [CascadingParameter]
     public bool Expanded { get; set; } = true;
 
     /// <summary>
@@ -106,20 +104,24 @@ public partial class NavMenu : FluentComponentBase
             if (OnExpanded.HasDelegate)
             {
                 await OnExpanded.InvokeAsync(Expanded);
-            }           
+            }
         }
     }
 
-    internal int AddNavLink(NavMenuLink link)
+    internal void AddNavMenuLink(NavMenuLink link)
     {
         _links.Add(link);
-        StateHasChanged();
-        return _links.Count;
+        //return _links.Count;
     }
 
-    internal int AddNavGroup(NavMenuGroup group)
+    internal void AddNavMenuGroup(NavMenuGroup group)
     {
         _groups.Add(group);
-        return _groups.Count;
+        //return _groups.Count;
+    }
+
+    internal void NavigateTo(string href)
+    {
+        NavigationManager.NavigateTo(href);
     }
 }
