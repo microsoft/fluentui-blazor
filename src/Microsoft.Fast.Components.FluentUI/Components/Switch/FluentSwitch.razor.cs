@@ -11,7 +11,18 @@ public partial class FluentSwitch : FluentInputBase<bool>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    public bool? Checked { get; set; }
+    [Parameter]
+    public bool Checked
+    {
+        get
+        {
+            return Value;
+        }
+        set
+        {
+            Value = value;
+        }
+    }
 
     protected override bool TryParseValueFromString(string? value, out bool result, [NotNullWhen(false)] out string? validationErrorMessage) => throw new NotSupportedException($"This component does not parse string inputs. Bind to the '{nameof(CurrentValue)}' property, not '{nameof(CurrentValueAsString)}'.");
 }

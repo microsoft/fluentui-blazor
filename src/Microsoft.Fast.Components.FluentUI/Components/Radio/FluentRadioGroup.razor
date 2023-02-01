@@ -1,17 +1,18 @@
 @namespace Microsoft.Fast.Components.FluentUI
-@inherits FluentInputBase<string?>
-<fluent-radio-group @ref=Element
-                    class="@Class"
-                    style="@Style"
-                    readonly=@Readonly
-                    disabled=@Disabled
-                    name="@Name"
-                    value="@Value"
-                    orientation="@Orientation.ToAttributeValue()"
-                    required="@Required"
-                    current-value="@CurrentValue"
-                    @oncustomclick="@((e) => CurrentValueAsString = e.Value?.ToString())"
-                    @attributes="AdditionalAttributes">
-    @ChildContent
-</fluent-radio-group>
-
+@inherits FluentInputBase<TValue>
+@typeparam TValue
+<CascadingValue TValue="FluentRadioContext" Value="_context">
+    <fluent-radio-group @ref=Element
+                        class="@Class"
+                        style="@Style"
+                        readonly=@Readonly
+                        disabled=@Disabled
+                        name="@_context!.GroupName"
+                        value="@BindConverter.FormatValue(Value?.ToString())"
+                        orientation="@Orientation.ToAttributeValue()"
+                        required="@Required"
+                        @oncustomclick="@((e) => CurrentValueAsString = e.Value?.ToString())"
+                        @attributes="AdditionalAttributes">
+        @ChildContent
+    </fluent-radio-group>
+</CascadingValue>

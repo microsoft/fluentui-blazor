@@ -29,8 +29,6 @@
 		<StaticWebAssetsGetBuildAssetsTargets>GetFluentUIAssets;GetCurrentProjectBuildStaticWebAssetItems</StaticWebAssetsGetBuildAssetsTargets>
 
 		<IsPackable>true</IsPackable>
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<PackageOutputPath>$(SolutionDir)artifacts</PackageOutputPath>
 	</PropertyGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -47,7 +45,8 @@
 		<NoWarn>1701;1702;8669;1591</NoWarn>
 		<DebuggerSupport>false</DebuggerSupport>
 		<TrimmerRemoveSymbols>true</TrimmerRemoveSymbols>
-		
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageOutputPath>$(SolutionDir)artifacts</PackageOutputPath>
 	</PropertyGroup>
 
 	<ItemGroup>

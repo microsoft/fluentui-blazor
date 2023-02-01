@@ -1,16 +1,16 @@
 @namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentComponentBase
+@typeparam TValue
 <fluent-radio @ref=Element
               class="@Class"
               style="@Style"
               readonly="@Readonly"
               id=@Id
-              value="@Value"
-              current-value=@CurrentValue
               disabled="@Disabled"
-              name=@Name
+              name=@Context!.GroupName
               required="@Required"
-              current-checked="@Checked"
+              checked="@Context.CurrentValue?.Equals(Value)"
+              current-value="@BindConverter.FormatValue(Value?.ToString())"
               @attributes="AdditionalAttributes">
     @ChildContent
 </fluent-radio>
