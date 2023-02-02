@@ -1,77 +1,71 @@
 <div>
-    <NavMenu Collapsible="false">
-        <NavMenuLink Text="Home"  />
-        <NavMenuGroup Expanded=true>
-            Base classes & Utilities
-            <NavMenuLink Href="FluentComponentBase" >FluentComponentBase</NavMenuLink>
-            <NavMenuLink Href="FluentInputBase" >FluentInputBase</NavMenuLink>
-            <NavMenuLink Href="Reboot" >Reboot</NavMenuLink>
-            <NavMenuLink Href="Templates" >Project templates</NavMenuLink>
+    <NavMenu Collapsible="true">
+        <NavMenuLink Class="level1" Text="Home" Icon="@(FluentIcons.Home)" Href="/" />
+        <NavMenuGroup Expanded=true Text="Base classes & Utilities">
+            <NavMenuLink Href="FluentComponentBase" Icon="@FluentIcons.Compose">FluentComponentBase</NavMenuLink>
+            <NavMenuLink Href="FluentInputBase" Icon="@FluentIcons.Form">FluentInputBase</NavMenuLink>
+            <NavMenuLink Href="Reboot" Icon="@FluentIcons.ArrowReset">Reboot</NavMenuLink>
+            <NavMenuLink Href="Templates" Icon="@FluentIcons.Classification">Project templates</NavMenuLink>
         </NavMenuGroup>
 
-        <NavMenuGroup Expanded=true>
-            Components
-            <NavMenuLink Href="Accordion" >Accordion</NavMenuLink>
-            <NavMenuLink Href="Anchor" >Anchor</NavMenuLink>
-            <NavMenuLink Href="AnchoredRegion" >Anchored Region</NavMenuLink>
-            <NavMenuLink Href="Badge" >Badge</NavMenuLink>
-            <NavMenuLink Href="Breadcrumb" >Breadcrumb</NavMenuLink>
-            <NavMenuLink Href="Button" >Button</NavMenuLink>
-            <NavMenuLink Href="Calendar" >Calendar</NavMenuLink>
-            <NavMenuLink Href="Card" >Card</NavMenuLink>
-            <NavMenuLink Href="Checkbox" >Checkbox</NavMenuLink>
-            <NavMenuLink Href="Combobox" >Combobox</NavMenuLink>
-            <NavMenuLink Href="DataGrid" >Data grid</NavMenuLink>
-            <NavMenuLink Href="Dialog" >Dialog</NavMenuLink>
-            <NavMenuLink Href="Divider" >Divider</NavMenuLink>
-            <NavMenuLink Href="Flipper" >Flipper</NavMenuLink>
-            <NavMenuLink Href="HorizontalScroll" >Horizontal Scroll</NavMenuLink>
-            <NavMenuLink Href="Icon" >Icon</NavMenuLink>
-            <NavMenuLink Href="Listbox" >Listbox</NavMenuLink>
-            <NavMenuLink Href="Menu" >Menu</NavMenuLink>
-            <NavMenuLink Href="NumberField" >Number Field</NavMenuLink>
-            <NavMenuLink Href="Option" >Option</NavMenuLink>
-            <NavMenuLink Href="Progress" >Progress</NavMenuLink>
-            <NavMenuLink Href="ProgressRing" >Progress Ring</NavMenuLink>
-            <NavMenuLink Href="Radio" >Radio</NavMenuLink>
-            <NavMenuLink Href="RadioGroup" >Radio Group</NavMenuLink>
-            <NavMenuLink Href="Search" >Search</NavMenuLink>
-            <NavMenuLink Href="Select" >Select</NavMenuLink>
-            <NavMenuLink Href="Skeleton" >Skeleton</NavMenuLink>
-            <NavMenuLink Href="Slider" >Slider</NavMenuLink>
-            <NavMenuLink Href="Switch" >Switch</NavMenuLink>
-            <NavMenuLink Href="Tabs" >Tabs</NavMenuLink>
-            <NavMenuLink Href="TextArea" >TextArea</NavMenuLink>
-            <NavMenuLink Href="TextField" >Text Field</NavMenuLink>
-            <NavMenuLink Href="Toolbar" >Toolbar</NavMenuLink>
-            <NavMenuLink Href="Tooltip" >Tooltip</NavMenuLink>
-            <NavMenuLink Href="TreeView" >Tree View</NavMenuLink>
+        <NavMenuGroup Expanded=true Text="Components">
+            <NavMenuLink Href="Accordion" Icon="@FluentIcons.TextCollapse">Accordion</NavMenuLink>
+            <NavMenuLink Href="Anchor" Icon="@FluentIcons.Link">Anchor</NavMenuLink>
+            <NavMenuLink Href="AnchoredRegion" Icon="@FluentIcons.LinkSquare">Anchored Region</NavMenuLink>
+            <NavMenuLink Href="Badge" Icon="@FluentIcons.Badge">Badge</NavMenuLink>
+            <NavMenuLink Href="Breadcrumb" Icon="@FluentIcons.DocumentChevronDouble">Breadcrumb</NavMenuLink>
+            <NavMenuLink Href="Button" Icon="@FluentIcons.ControlButton">Button</NavMenuLink>
+            <NavMenuLink Href="Calendar" Icon="@FluentIcons.CalendarLTR">Calendar</NavMenuLink>
+            <NavMenuLink Href="Card" Icon="@FluentIcons.ContactCardGroup">Card</NavMenuLink>
+            <NavMenuLink Href="Checkbox" Icon="@FluentIcons.CheckboxChecked">Checkbox</NavMenuLink>
+            <NavMenuLink Href="Combobox" Icon="@FluentIcons.BoxEdit">Combobox</NavMenuLink>
+            <NavMenuLink Href="DataGrid" Icon="@FluentIcons.Grid">Data grid</NavMenuLink>
+            <NavMenuLink Href="Dialog" Icon="@FluentIcons.AppGeneric">Dialog</NavMenuLink>
+            <NavMenuLink Href="Divider" Icon="@FluentIcons.DividerShort">Divider</NavMenuLink>
+            <NavMenuLink Href="Flipper" Icon="@FluentIcons.NavigationPlay">Flipper</NavMenuLink>
+            <NavMenuLink Href="HorizontalScroll" Icon="@FluentIcons.ArrowFit">Horizontal Scroll</NavMenuLink>
+            <NavMenuLink Href="Icon" Icon="@FluentIcons.Symbols">Icon</NavMenuLink>
+            <NavMenuLink Href="Listbox" Icon="@FluentIcons.List">Listbox</NavMenuLink>
+            <NavMenuLink Href="Menu" Icon="@FluentIcons.Navigation">Menu</NavMenuLink>
+            <NavMenuLink Href="NumberField" Icon="@FluentIcons.NumberSymbolSquare">Number Field</NavMenuLink>
+            <NavMenuLink Href="Option" Icon="@FluentIcons.MultiselectRTL">Option</NavMenuLink>
+            <NavMenuLink Href="Progress" Icon="@FluentIcons.SquareHint">Progress</NavMenuLink>
+            <NavMenuLink Href="ProgressRing" Icon="@FluentIcons.ArrowClockwiseDashes">Progress Ring</NavMenuLink>
+            <NavMenuLink Href="Radio" Icon="@FluentIcons.RadioButton">Radio</NavMenuLink>
+            <NavMenuLink Href="RadioGroup" Icon="@FluentIcons.RadioButton">Radio Group</NavMenuLink>
+            <NavMenuLink Href="Search" Icon="@FluentIcons.SearchSquare">Search</NavMenuLink>
+            <NavMenuLink Href="Select" Icon="@FluentIcons.GroupList">Select</NavMenuLink>
+            <NavMenuLink Href="Skeleton" Icon="@FluentIcons.Shortpick">Skeleton</NavMenuLink>
+            <NavMenuLink Href="Slider" Icon="@FluentIcons.Options">Slider</NavMenuLink>
+            <NavMenuLink Href="Switch" Icon="@FluentIcons.ToggleLeft">Switch</NavMenuLink>
+            <NavMenuLink Href="Tabs" Icon="@FluentIcons.TabDesktop">Tabs</NavMenuLink>
+            <NavMenuLink Href="TextArea" Icon="@FluentIcons.TextBoxMore">TextArea</NavMenuLink>
+            <NavMenuLink Href="TextField" Icon="@FluentIcons.TextBox">Text Field</NavMenuLink>
+            <NavMenuLink Href="Toolbar" Icon="@FluentIcons.WrenchScrewdriver">Toolbar</NavMenuLink>
+            <NavMenuLink Href="Tooltip" Icon="@FluentIcons.TooltipQuote">Tooltip</NavMenuLink>
+            <NavMenuLink Href="TreeView" Icon="@FluentIcons.TextBulletListTree">Tree View</NavMenuLink>
         </NavMenuGroup>
 
-        <NavMenuGroup Expanded=true Href="/Lab/Overview">
-            Incubation lab
-            <NavMenuLink Href="/Lab/Overview" >Overview</NavMenuLink>
-
+        <NavMenuGroup Expanded=true Text="Incubation lab" Href="/Lab/Overview" Icon="@FluentIcons.Beaker">
             <NavMenuGroup Expanded=true>
                 Layout components
-                <NavMenuLink Href="/Lab/Header" >Header</NavMenuLink>
-                <NavMenuLink Href="/Lab/Footer" >Footer</NavMenuLink>
-                <NavMenuLink Href="/Lab/BodyContent" >BodyContent</NavMenuLink>
-                <NavMenuLink Href="/Lab/Layout" >Layout</NavMenuLink>
-                <NavMenuLink Href="/Lab/MainLayout" >MainLayout</NavMenuLink>
-                <NavMenuLink Href="/Lab/Spacer" >Spacer</NavMenuLink>
-                <NavMenuLink Href="/Lab/Stack" >Stack</NavMenuLink>
+                <NavMenuLink Href="/Lab/Header" Icon="@FluentIcons.DocumentHeader">Header</NavMenuLink>
+                <NavMenuLink Href="/Lab/Footer" Icon="@FluentIcons.DocumentFooter">Footer</NavMenuLink>
+                <NavMenuLink Href="/Lab/BodyContent" Icon="@FluentIcons.ContentViewGallery">BodyContent</NavMenuLink>
+                <NavMenuLink Href="/Lab/Layout" Icon="@FluentIcons.SlideLayout">Layout</NavMenuLink>
+                <NavMenuLink Href="/Lab/MainLayout" Icon="@FluentIcons.MatchAppLayout">MainLayout</NavMenuLink>
+                <NavMenuLink Href="/Lab/Spacer" Icon="@FluentIcons.Spacebar">Spacer</NavMenuLink>
+                <NavMenuLink Href="/Lab/Stack" Icon="@FluentIcons.Stack">Stack</NavMenuLink>
             </NavMenuGroup>
 
-            <NavMenuGroup Expanded=true>
-                Others
-                <NavMenuLink Href="/Lab/NavMenu" >NavMenu</NavMenuLink>
-                <NavMenuLink Href="/Lab/CounterBadge" >CounterBadge</NavMenuLink>
-                <NavMenuLink Href="/Lab/Highlighter" >Highlighter</NavMenuLink>
-                <NavMenuLink Href="/Lab/PresenceBadge" >PresenceBadge</NavMenuLink>
-                <NavMenuLink Href="/Lab/MenuButton" >MenuButton</NavMenuLink>
-                <NavMenuLink Href="/Lab/MonacoEditor" >MonacoEditor</NavMenuLink>
-                <NavMenuLink Href="/Lab/TableOfContents" >Table of Contents</NavMenuLink>
+            <NavMenuGroup Expanded=true Text="Others">
+                <NavMenuLink Href="/Lab/NavMenu" Icon="@FluentIcons.Navigation">NavMenu</NavMenuLink>
+                <NavMenuLink Href="/Lab/CounterBadge" Icon="@FluentIcons.NumberCircle1">CounterBadge</NavMenuLink>
+                <NavMenuLink Href="/Lab/Highlighter" Icon="@FluentIcons.Highlight">Highlighter</NavMenuLink>
+                <NavMenuLink Href="/Lab/PresenceBadge" Icon="@FluentIcons.PresenceAvailable">PresenceBadge</NavMenuLink>
+                <NavMenuLink Href="/Lab/MenuButton" Icon="@FluentIcons.ChevronCircleDown">MenuButton</NavMenuLink>
+                <NavMenuLink Href="/Lab/MonacoEditor" Icon="@FluentIcons.CodeBlock">MonacoEditor</NavMenuLink>
+                <NavMenuLink Href="/Lab/TableOfContents" Icon="@FluentIcons.DocumentTextLink">Table of Contents</NavMenuLink>
             </NavMenuGroup>
         </NavMenuGroup>
     </NavMenu>

@@ -10,8 +10,8 @@
 <Stack Orientation="Orientation.Horizontal" >
     <!-- Menu with sub-items and icons -->
     <NavMenu Collapsible="false">
-        <NavMenuLink Text="Item 1"  Icon="@(FluentIcons.Home)"  />
-        <NavMenuLink Text="Item 2" />
+        <NavMenuLink Class="level1" Text="Item 1" Icon="@(FluentIcons.Home)" />
+        <NavMenuLink Class="level1" Text="Item 2" />
         <NavMenuGroup Text="Item 3"  >
             <NavMenuLink Text="Item 3.1" Icon="@(FluentIcons.LeafOne)" />
             <NavMenuLink Text="Item 3.2" Icon="@(FluentIcons.LeafTwo)" />
@@ -35,7 +35,7 @@
             <NavMenuLink Text="Go to Bing" @onclick="OnClick" Icon="@(FluentIcons.LeafOne)" Href="https://bing.com" />
             <NavMenuLink Text="Go to home page" @onclick="OnClick" Icon="@(FluentIcons.Home)" Href="/" />
         </NavMenuGroup>
-        <NavMenuLink Text="Last item" @onclick="OnClick" Icon="@(FluentIcons.LeafThree)" Disabled="true" />
+        <NavMenuLink Class="level1" Text="Last item" @onclick="OnClick" Icon="@(FluentIcons.LeafThree)" Disabled="true" />
     </NavMenu>
 
     <!-- Menu with icons -->

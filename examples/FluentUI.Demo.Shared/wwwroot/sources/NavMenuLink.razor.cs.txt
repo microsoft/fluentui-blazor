@@ -8,6 +8,9 @@ namespace FluentUI.Demo.Shared;
 
 public partial class NavMenuLink : FluentComponentBase
 {
+    [Inject]
+    private NavigationManager NavigationManager { get; set; } = default!;
+
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>
@@ -60,7 +63,7 @@ public partial class NavMenuLink : FluentComponentBase
     public EventCallback<MouseEventArgs> OnClick { get; set; }
 
     /// <summary>
-    /// Gets orsets the target of the link.
+    /// Gets or sets the target of the link.
     /// </summary>
     [Parameter]
     public string? Target { get; set; } = string.Empty;
@@ -78,7 +81,7 @@ public partial class NavMenuLink : FluentComponentBase
     public int? Width { get; set; }
 
     protected string? ClassValue => new CssBuilder(Class)
-       .AddClass("navmenu-link", () => NavMenu.HasSubMenu && NavMenu.HasIcons)
+       .AddClass("navmenu-link", () => NavMenu.HasSubMenu || NavMenu.HasIcons)
        .AddClass("navmenu-link-nogroup", () => !NavMenu.HasSubMenu && NavMenu.HasIcons)
        .Build();
 
@@ -106,12 +109,18 @@ public partial class NavMenuLink : FluentComponentBase
             await OnClick.InvokeAsync(e);
 
         if (!string.IsNullOrEmpty(Href))
-            NavMenu.NavigateTo(Href);
+            NavigationManager.NavigateTo(Href);
     }
 
     protected override void OnInitialized()
     {
         NavMenuExpanded = NavMenu.Expanded;
         NavMenu.AddNavMenuLink(this);
+    }
+
+    internal void HandleIconClick()
+    {
+        if (!Disabled)
+            Selected=true;
     }
 }

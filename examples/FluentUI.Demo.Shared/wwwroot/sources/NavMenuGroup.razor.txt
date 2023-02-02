@@ -6,17 +6,15 @@
                 Class="@ClassValue"
                 Style="@StyleValue"
                 Disabled="@Disabled"
+                Selected="@Selected"
                 Expanded="@(NavMenuExpanded ? Expanded : false)"
-                tabindex="-1"
-                Text="@(NavMenuExpanded ? Text : string.Empty)"
-                @onclick="@OnClickHandlerAsync">
+                Text="@(NavMenuExpanded ? Text : string.Empty)">
     @if (!NavMenuExpanded) {
         <FluentIcon Name="@IconNavMenuCollapsed" Size="@IconSize.Size20" Slot="start" OnClick="ExpandMenu" />
     }
-
-    <FluentIcon Name="@IconCollapsed" Size="@IconSize.Size20" state="collapsed" Slot="expand-collapse-glyph" />
-    <FluentIcon Name="@IconExpanded" Size="@IconSize.Size20" state="expanded" Slot="expand-collapse-glyph" />
-
+    @if (HasIcon) {
+        <FluentIcon Name="@Icon" Size="@IconSize.Size20" Slot="start" OnClick="HandleIconClick" />
+    }
     @if (NavMenuExpanded) {
         @ChildContent
     }

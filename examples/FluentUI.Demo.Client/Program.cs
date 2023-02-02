@@ -34,6 +34,8 @@ builder.Services.AddFluentUIComponents(configuration =>
         IconSize.Size16,
         IconSize.Size20,
         IconSize.Size24,
+        IconSize.Size28,
+        IconSize.Size32,
         IconSize.Size48
     };
     configuration!.IconConfiguration.Variants = new[]

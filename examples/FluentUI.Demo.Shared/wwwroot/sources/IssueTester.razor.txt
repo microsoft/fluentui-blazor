@@ -48,9 +48,13 @@
             <FluentTreeItem Href="TreeView" Icon="@FluentIcons.TextBulletListTree">Tree View</FluentTreeItem>
         </FluentTreeItem>
 
-        <FluentTreeItem Expanded=true Href="/Lab/Overview">
-            Incubation lab
-            <FluentTreeItem Href="/Lab/Overview" Icon="@FluentIcons.Beaker">Overview</FluentTreeItem>
+        <FluentTreeItem Expanded=true >
+            <FluentAnchor Href="/Lab/Overview" Appearance="Appearance.Filled">Incubation lab</FluentAnchor>
+            <FluentIcon Name="@FluentIcons.Beaker" Size="IconSize.Size16" Slot="start" />
+            <FluentTreeItem Href="/Lab/Overview" Icon="@FluentIcons.Beaker">
+                Overview
+                <FluentIcon Name="@FluentIcons.Beaker" Size="IconSize.Size16" Slot="start" />
+            </FluentTreeItem>
 
             <FluentTreeItem Expanded=true>
                 Layout components

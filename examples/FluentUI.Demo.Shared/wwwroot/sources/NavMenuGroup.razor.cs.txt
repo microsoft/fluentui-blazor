@@ -9,6 +9,9 @@ public partial class NavMenuGroup : FluentComponentBase
 {
     private bool _expanded = false;
 
+    [Inject]
+    private NavigationManager NavigationManager { get; set; } = default!;
+
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>
@@ -20,19 +23,12 @@ public partial class NavMenuGroup : FluentComponentBase
     /// </summary>
     [Parameter]
     public string? Href { get; set; } = string.Empty;
-
-
+    
     /// <summary>
-    /// Icon displayed when this item is collasped.
+    /// Gets or sets the name of the icon to display with the link
     /// </summary>
     [Parameter]
-    public string? IconCollapsed { get; set; } = FluentIcons.ChevronRight;
-
-    /// <summary>
-    /// Icon displayed when this item is expanded.
-    /// </summary>
-    [Parameter]
-    public string? IconExpanded { get; set; } = FluentIcons.ChevronDown;
+    public string Icon { get; set; } = string.Empty;
 
     /// <summary>
     /// Icon displayed only when the <see cref="NavMenu.Expanded"/> is false.
@@ -65,21 +61,6 @@ public partial class NavMenuGroup : FluentComponentBase
     [Parameter]
     public bool Selected { get; set; }
 
-    [CascadingParameter(Name = "NavMenu")]
-    public NavMenu NavMenu { get; set; } = default!;
-
-    /// <summary>
-    /// Callback function for when the menu group is clicked
-    /// </summary>
-    [Parameter]
-    public EventCallback<MouseEventArgs> OnClick { get; set; }
-
-    /// <summary>
-    /// Callback function for when the menu group is expanded
-    /// </summary>
-    [Parameter]
-    public EventCallback<bool> OnExpandedChanged { get; set; }
-
     /// <summary>
     /// Gets or sets the text of the menu group
     /// </summary>
@@ -91,6 +72,19 @@ public partial class NavMenuGroup : FluentComponentBase
     /// </summary>
     [Parameter]
     public int? Width { get; set; }
+    
+    /// <summary>
+    /// Callback function for when the menu group is expanded
+    /// </summary>
+    [Parameter]
+    public EventCallback<bool> OnExpandedChanged { get; set; }
+
+    [CascadingParameter(Name = "NavMenu")]
+    public NavMenu NavMenu { get; set; } = default!;
+
+    [CascadingParameter(Name = "NavMenuExpanded")]
+    private bool NavMenuExpanded { get; set; }
+
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("navmenu-group")
@@ -101,14 +95,11 @@ public partial class NavMenuGroup : FluentComponentBase
         .AddStyle(Style)
         .Build();
 
-    //[CascadingParameter(Name = "NavMenuExpanded")]
-    private bool NavMenuExpanded { get; set; }
+    private bool HasIcon => !string.IsNullOrWhiteSpace(Icon);
 
     protected override void OnInitialized()
     {
-        NavMenuExpanded = NavMenu.Expanded;
         NavMenu.AddNavMenuGroup(this);
-        //base.OnInitialized();
     }
 
     protected override void OnParametersSet()
@@ -117,47 +108,11 @@ public partial class NavMenuGroup : FluentComponentBase
         {
             _expanded = Expanded;
             if (OnExpandedChanged.HasDelegate)
-                OnExpandedChanged.InvokeAsync(_expanded); //.SafeFireAndForget();
-        }
-
-        base.OnParametersSet();
-    }
-
-    internal void UpdateProperties(bool? expanded)
-    {
-        if (expanded != null)
-        {
-            Expanded = expanded.Value;
+                OnExpandedChanged.InvokeAsync(_expanded); 
         }
     }
 
     /// <summary />
-
-
-    protected async Task OnExpandHandlerAsync(MouseEventArgs e)
-    {
-        if (Disabled)
-            return;
-
-        // Expand the Menu Group if the user click on it
-        if (!NavMenuExpanded)
-            await NavMenu.CollapsibleClickAsync(new MouseEventArgs());
-
-    }
-
-    protected async Task OnClickHandlerAsync(MouseEventArgs e)
-    {
-        if (Disabled)
-            return;
-
-        if (OnClick.HasDelegate)
-            await OnClick.InvokeAsync(e);
-
-        if (!string.IsNullOrEmpty(Href))
-            NavMenu.NavigateTo(Href);
-    }
-
-
     internal async Task ExpandMenu()
     {
         if (Disabled)
@@ -165,6 +120,15 @@ public partial class NavMenuGroup : FluentComponentBase
 
         // Expand the Menu Group if the user click on it
         if (!NavMenuExpanded)
-            await NavMenu.CollapsibleClickAsync(new MouseEventArgs());
+        {
+            Selected = true;
+            await NavMenu.CollapsibleClickAsync();
+        }
+    }
+
+    internal void HandleIconClick()
+    {
+        if (!Disabled)
+            Selected = true;
     }
 }

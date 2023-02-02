@@ -369,14 +369,9 @@
             Gets or sets the destination of the link.
             </summary>
         </member>
-        <member name="P:FluentUI.Demo.Shared.NavMenuGroup.IconCollapsed">
+        <member name="P:FluentUI.Demo.Shared.NavMenuGroup.Icon">
             <summary>
-            Icon displayed when this item is collasped.
-            </summary>
-        </member>
-        <member name="P:FluentUI.Demo.Shared.NavMenuGroup.IconExpanded">
-            <summary>
-            Icon displayed when this item is expanded.
+            Gets or sets the name of the icon to display with the link
             </summary>
         </member>
         <member name="P:FluentUI.Demo.Shared.NavMenuGroup.IconNavMenuCollapsed">
@@ -404,16 +399,6 @@
             Gets or sets whether the menu group is selected
             </summary>
         </member>
-        <member name="P:FluentUI.Demo.Shared.NavMenuGroup.OnClick">
-            <summary>
-            Callback function for when the menu group is clicked
-            </summary>
-        </member>
-        <member name="P:FluentUI.Demo.Shared.NavMenuGroup.OnExpandedChanged">
-            <summary>
-            Callback function for when the menu group is expanded
-            </summary>
-        </member>
         <member name="P:FluentUI.Demo.Shared.NavMenuGroup.Text">
             <summary>
             Gets or sets the text of the menu group
@@ -424,7 +409,12 @@
             Gets or sets the width of the menu group
             </summary>
         </member>
-        <member name="M:FluentUI.Demo.Shared.NavMenuGroup.OnExpandHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+        <member name="P:FluentUI.Demo.Shared.NavMenuGroup.OnExpandedChanged">
+            <summary>
+            Callback function for when the menu group is expanded
+            </summary>
+        </member>
+        <member name="M:FluentUI.Demo.Shared.NavMenuGroup.ExpandMenu">
             <summary />
         </member>
         <member name="P:FluentUI.Demo.Shared.NavMenuLink.ChildContent">
@@ -469,7 +459,7 @@
         </member>
         <member name="P:FluentUI.Demo.Shared.NavMenuLink.Target">
             <summary>
-            Gets orsets the target of the link.
+            Gets or sets the target of the link.
             </summary>
         </member>
         <member name="P:FluentUI.Demo.Shared.NavMenuLink.Text">
