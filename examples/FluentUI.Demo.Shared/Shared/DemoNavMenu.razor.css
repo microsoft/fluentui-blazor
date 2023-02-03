@@ -1,11 +1,3 @@
-
-@media (min-width: 641px) {
-    .navbar-toggler {
-        display: none;
-    }
-
-    .collapse {
-        /* Never collapse the sidebar for wide screens */
-        display: block;
-    }
+﻿::deep fluent-tree-item {
+    margin: 5px 0;
 }
