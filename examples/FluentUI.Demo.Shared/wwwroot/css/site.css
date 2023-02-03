@@ -335,6 +335,10 @@ code {
         max-width: 100%;
     }
 
+    .navmenu-main-button {
+        display: none;
+    }
+
     .menu-icon {
         padding: 10px 0.75em;
         z-index: 2;

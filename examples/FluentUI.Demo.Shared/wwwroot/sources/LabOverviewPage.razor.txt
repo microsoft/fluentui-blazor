@@ -1,9 +1,8 @@
 ﻿@page "/Lab/Overview"
 
-<div style="display:flex">
-    <FluentIcon Name="@FluentIcons.Beaker" Size="IconSize.Size32" Style="padding-top: 5px; box-sizing: content-box;" />
-    <h1>Incubation Lab Overview</h1>
-</div>
+   
+<h1><FluentIcon Name="@FluentIcons.Beaker" Size="IconSize.Size24" />Incubation Lab Overview</h1>
+
 
 <p>
     The incubation lab is were we test things out. Some of the expirements might make it into the library, others are offered here to copy 
@@ -27,7 +26,7 @@
 
 <h2>Example</h2>
  
-@*<DemoSection Component="typeof(LayoutExample)" Title="Putting it all together">
+<DemoSection Component="typeof(LayoutExample)" Title="Putting it all together">
     <Description>
         This demo show a number of the lab components working together. More specifically the following components:
         <ul>
@@ -45,6 +44,6 @@
         without you needing to do a lot of CSS adjustments.
         <p>If you want to use this example in your own project, you can download the <code>.razor</code> file below. To end up with working situation, you also need to download the files for all the other components mentioned above.</p>
     </Description>
-</DemoSection>*@
+</DemoSection>
 
 <DemoSection Component="typeof(IssueTester)" Title="Testbed for issues reported on GH" />

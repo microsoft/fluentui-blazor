@@ -14,6 +14,7 @@ public partial class DemoMainLayout : IAsyncDisposable
     private string? _version;
     private bool _inDarkMode;
     private bool _ltr;
+    private string? _prevUri;
 
     [Inject]
     private GlobalState GlobalState { get; set; } = default!;
@@ -52,6 +53,7 @@ public partial class DemoMainLayout : IAsyncDisposable
         OfficeColor[] colors = Enum.GetValues<OfficeColor>().ToArray();
         _selectedColorOption = colors[new Random().Next(colors.Length)];
 
+        _prevUri = NavigationManager.Uri;
         NavigationManager.LocationChanged += LocationChanged;
         base.OnInitialized();
     }
@@ -59,8 +61,6 @@ public partial class DemoMainLayout : IAsyncDisposable
     protected override void OnParametersSet()
     {
         errorBoundary?.Recover();
-        
-        
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -130,8 +130,9 @@ public partial class DemoMainLayout : IAsyncDisposable
 
     private async void LocationChanged(object? sender, LocationChangedEventArgs e)
     {
-        if (e.IsNavigationIntercepted)
+        if (!e.IsNavigationIntercepted && new Uri(_prevUri!).AbsolutePath != new Uri(e.Location).AbsolutePath)
         {
+            _prevUri = e.Location;
             bool mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
 
             if (mobile)
@@ -141,6 +142,8 @@ public partial class DemoMainLayout : IAsyncDisposable
             }
         }
     }
+
+    
 
     async ValueTask IAsyncDisposable.DisposeAsync()
     {
