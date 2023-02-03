@@ -14,6 +14,7 @@ public partial class DemoMainLayout : IAsyncDisposable
     private string? _version;
     private bool _inDarkMode;
     private bool _ltr;
+    private bool _mobile;
     private string? _prevUri;
 
     [Inject]
@@ -71,6 +72,7 @@ public partial class DemoMainLayout : IAsyncDisposable
                  "./_content/FluentUI.Demo.Shared/Shared/DemoMainLayout.razor.js");
 
             _inDarkMode = await _jsModule!.InvokeAsync<bool>("isDarkMode");
+            _mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
 
             if (_selectedColorOption != OfficeColor.Default)
                 await AccentBaseColor.SetValueFor(container, _selectedColorOption.ToAttributeValue()!.ToSwatch());
@@ -128,17 +130,15 @@ public partial class DemoMainLayout : IAsyncDisposable
         }
     }
 
-    private async void LocationChanged(object? sender, LocationChangedEventArgs e)
+    private void LocationChanged(object? sender, LocationChangedEventArgs e)
     {
         if (!e.IsNavigationIntercepted && new Uri(_prevUri!).AbsolutePath != new Uri(e.Location).AbsolutePath)
         {
             _prevUri = e.Location;
-            bool mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
-
-            if (mobile)
+            if (_mobile)
             {
                 menuchecked = false;
-                StateHasChanged();
+                //StateHasChanged();
             }
         }
     }
