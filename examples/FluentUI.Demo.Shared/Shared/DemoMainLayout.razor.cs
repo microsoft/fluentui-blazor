@@ -136,10 +136,7 @@ public partial class DemoMainLayout : IAsyncDisposable
         {
             _prevUri = e.Location;
             if (_mobile)
-            {
                 menuchecked = false;
-                //StateHasChanged();
-            }
         }
     }
 
