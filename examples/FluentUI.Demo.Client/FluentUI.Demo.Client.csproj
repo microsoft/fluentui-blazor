@@ -18,7 +18,7 @@
 
 		<!-- Choose one or more from the options below (no spaces, separate with ;) -->
 		<!-- 10;12;16;20;24;28;32;48 -->
-		<FluentIconSizes>10;12;16;20;24;28;32;48</FluentIconSizes>
+		<FluentIconSizes>10;12;16;20;24;48</FluentIconSizes>
 
 		<!-- Choose one or more from the options below (no spaces, separate with ;) -->
 		<!-- filled;regular -->
