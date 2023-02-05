@@ -26,19 +26,32 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.Badge
         [InlineData(Appearance.Neutral)]
         [InlineData(Appearance.Accent)]
         [InlineData(Appearance.Lightweight)]
+        [InlineData(Appearance.Hypertext)]
         public void RenderProperly_AppearanceAttribute(Appearance appearance)
         {
             // Arrange && Act
-            IRenderedComponent<FluentBadge> cut = TestContext.RenderComponent<FluentBadge>(
-                parameters => parameters
-                    .Add(p => p.Appearance, appearance)
-                    .AddChildContent("childcontent"));
+            IRenderedComponent<FluentBadge>? cut = null;
+            Action action = () =>
+            {
+                cut = TestContext.RenderComponent<FluentBadge>(
+                    parameters => parameters
+                        .Add(p => p.Appearance, appearance)
+                        .AddChildContent("childcontent"));
+            };
             
             // Assert
-            cut.MarkupMatches("<fluent-badge " +
-                              $"appearance=\"{appearance.ToAttributeValue()}\">" +
-                              "childcontent" +
-                              "</fluent-badge>");
+            if (appearance == Appearance.Hypertext)
+            {
+                action.Should().Throw<ArgumentException>();
+            }
+            else
+            {
+                action.Should().NotThrow();
+                cut!.MarkupMatches("<fluent-badge " +
+                                  $"appearance=\"{appearance.ToAttributeValue()}\">" +
+                                  "childcontent" +
+                                  "</fluent-badge>");
+            }
         }
         
         [Theory]
