@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Fast.Components.FluentUI.Infrastructure;
+﻿namespace Microsoft.Fast.Components.FluentUI;
 
 public class StaticAssetServiceConfiguration
 {

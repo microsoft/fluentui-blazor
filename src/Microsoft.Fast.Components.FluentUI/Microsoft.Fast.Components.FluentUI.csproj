@@ -2,18 +2,18 @@
 	<PropertyGroup>
 		<TargetFrameworks>net6.0;net7.0</TargetFrameworks>
 		<PackageId>Microsoft.Fast.Components.FluentUI</PackageId>
-		
+
 		<Summary>A set of Blazor components wrapping Microsoft’s official Fluent UI Web Components. They implement the latest state of the Fluent design language, are built on FAST and work in every major browser.</Summary>
 		<PackageTags>Web Components, Fluent UI, FAST, Blazor, .NET6, .NET7</PackageTags>
 		<Title>Microsoft Fluent UI Web Components for Blazor</Title>
 		<Description>A set of Blazor components wrapping Microsoft’s official Fluent UI Web Components. They implement the latest state of the Fluent design language, are built on FAST and work in every major browser.</Description>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		
+
 		<SignAssembly>true</SignAssembly>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<LangVersion>latest</LangVersion>
-		
+
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 		<DebugType>embedded</DebugType>
 
@@ -37,7 +37,7 @@
 		<NullableReferenceTypes>true</NullableReferenceTypes>
 		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
 		<NoWarn>1701;1702;8669;1591;1816</NoWarn>
-		
+
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)'=='Release'">
@@ -50,17 +50,14 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Include="..\..\README.md">
-			<Pack>True</Pack>
-			<PackagePath>\</PackagePath>
-		</None>
+		<None Include="..\..\README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<SupportedPlatform Include="browser" />
 	</ItemGroup>
 
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
+	<ItemGroup Condition="'$(TargetFramework)'=='net6.0'">
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.13" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
@@ -68,7 +65,7 @@
 		<PackageReference Include="System.Text.Json" Version="6.0.7" />
 	</ItemGroup>
 
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net7.0' ">
+	<ItemGroup Condition="'$(TargetFramework)'=='net7.0'">
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.2" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
@@ -77,12 +74,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<ProjectReference Include="..\Microsoft.Fast.Components.FluentUI.Configuration\Microsoft.Fast.Components.FluentUI.Configuration.csproj" OutputItemType="Content" ReferenceOutputAssembly="false" CopyToOutputDirectory="PreserveNewest" Pack="false" />
 		<ProjectReference Include="..\Microsoft.Fast.Components.FluentUI.Generators\Microsoft.Fast.Components.FluentUI.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
-	</ItemGroup>
 
 	<PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true' Or '$(TF_BUILD)' == 'true'">
 		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
@@ -90,27 +89,27 @@
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 		<ItemGroup>
-			<XmlFiles Include="$(ProjectDir)bin\$(Configuration)\$(TargetFramework)\*.xml" />
+			<XmlFiles Include="$(ProjectDir)bin\$(Configuration)\net7.0\*.xml" />
 		</ItemGroup>
 		<Copy SourceFiles="@(XmlFiles)" DestinationFolder="$(SolutionDir)examples\FluentUI.Demo.Shared" />
 	</Target>
 
 	<ItemGroup>
-		<None Include="build\*" Pack="true" PackagePath="build\" />
-		<None Include="buildMultiTargeting\*" Pack="true" PackagePath="buildMultiTargeting\" />
-		<None Include="buildTransitive\*" Pack="true" PackagePath="buildTransitive\" />
+		<None Include="$(OutputPath)\net7.0\Microsoft.Fast.Components.FluentUI.Configuration.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+		<None Include="build\*" Pack="true" PackagePath="build\" Visible="false" />
+		<None Include="buildMultiTargeting\*" Pack="true" PackagePath="buildMultiTargeting\" Visible="false" />
+		<None Include="buildTransitive\*" Pack="true" PackagePath="buildTransitive\" Visible="false" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Compile Remove="Assets\**" />
 		<Content Remove="Assets\**" />
 		<EmbeddedResource Remove="Assets\**" />
-		
 	</ItemGroup>
 
 	<Target Name="GetFluentUIAssets" Returns="@(ReferenceAsset)">
 		<ItemGroup>
-			<ReferenceAssetCandidates Include="Assets\**\*.svg" />			
+			<ReferenceAssetCandidates Include="Assets\**\*.svg" />
 			<ReferenceAssetCandidates>
 				<RelativePath>%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 				<ContentRoot>$([System.IO.Path]::GetFullPath(Assets))</ContentRoot>
@@ -244,7 +243,7 @@
 			<Travel_PlacesHighContrastAssetsCandidates>
 				<RelativePath>emojis\Travel_Places\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Travel_PlacesHighContrastAssetsCandidates>
-			
+
 			<Filled10AssetsCandidates Include="Assets\icons\**\*_10_filled.svg" />
 			<Filled10AssetsCandidates>
 				<RelativePath>icons\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
@@ -317,7 +316,7 @@
 				<RelativePath>icons\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Regular48AssetsCandidates>
 		</ItemGroup>
-		
+
 		<DefineStaticWebAssets Condition="'@(ActivitiesColorAssetsCandidates-&gt;Count())' != '0'" CandidateAssets="@(ActivitiesColorAssetsCandidates)" SourceId="$(PackageId)" SourceType="Discovered" AssetKind="All" ContentRoot="Assets/emojis" BasePath="$(StaticWebAssetBasePath)">
 			<Output TaskParameter="Assets" ItemName="ActivitiesColorAssets" />
 		</DefineStaticWebAssets>
@@ -449,7 +448,7 @@
 			<Output TaskParameter="Assets" ItemName="Regular48Assets" />
 		</DefineStaticWebAssets>
 
-		
+
 		<GenerateStaticWebAsssetsPropsFile StaticWebAssets="@(ActivitiesColorAssets)" PackagePathPrefix="staticwebassets" TargetPropsFilePath="$(IntermediateOutputPath)FluentEmojis.Activities.Color.targets" />
 		<GenerateStaticWebAsssetsPropsFile StaticWebAssets="@(ActivitiesFlatAssets)" PackagePathPrefix="staticwebassets" TargetPropsFilePath="$(IntermediateOutputPath)FluentEmojis.Activities.Flat.targets" />
 		<GenerateStaticWebAsssetsPropsFile StaticWebAssets="@(ActivitiesHighContrastAssets)" PackagePathPrefix="staticwebassets" TargetPropsFilePath="$(IntermediateOutputPath)FluentEmojis.Activities.HighContrast.targets" />
@@ -477,7 +476,7 @@
 		<GenerateStaticWebAsssetsPropsFile StaticWebAssets="@(Travel_PlacesColorAssets)" PackagePathPrefix="staticwebassets" TargetPropsFilePath="$(IntermediateOutputPath)FluentEmojis.Travel_Places.Color.targets" />
 		<GenerateStaticWebAsssetsPropsFile StaticWebAssets="@(Travel_PlacesFlatAssets)" PackagePathPrefix="staticwebassets" TargetPropsFilePath="$(IntermediateOutputPath)FluentEmojis.Travel_Places.Flat.targets" />
 		<GenerateStaticWebAsssetsPropsFile StaticWebAssets="@(Travel_PlacesHighContrastAssets)" PackagePathPrefix="staticwebassets" TargetPropsFilePath="$(IntermediateOutputPath)FluentEmojis.Travel_Places.HighContrast.targets" />
-		
+
 		<GenerateStaticWebAsssetsPropsFile StaticWebAssets="@(Filled10Assets)" PackagePathPrefix="staticwebassets" TargetPropsFilePath="$(IntermediateOutputPath)FluentIcons.Filled10.targets" />
 		<GenerateStaticWebAsssetsPropsFile StaticWebAssets="@(Regular10Assets)" PackagePathPrefix="staticwebassets" TargetPropsFilePath="$(IntermediateOutputPath)FluentIcons.Regular10.targets" />
 		<GenerateStaticWebAsssetsPropsFile StaticWebAssets="@(Filled12Assets)" PackagePathPrefix="staticwebassets" TargetPropsFilePath="$(IntermediateOutputPath)FluentIcons.Filled12.targets" />
@@ -513,7 +512,7 @@
 		<ComputeStaticWebAssetsTargetPaths Assets="@(Animals_NatureHighContrastAssets)" PathPrefix="staticwebassets" AdjustPathsForPack="true">
 			<Output TaskParameter="AssetsWithTargetPath" ItemName="_PackStaticWebAssetWithTargetPath" />
 		</ComputeStaticWebAssetsTargetPaths>
-			<ComputeStaticWebAssetsTargetPaths Assets="@(FlagsColorAssets)" PathPrefix="staticwebassets" AdjustPathsForPack="true">
+		<ComputeStaticWebAssetsTargetPaths Assets="@(FlagsColorAssets)" PathPrefix="staticwebassets" AdjustPathsForPack="true">
 			<Output TaskParameter="AssetsWithTargetPath" ItemName="_PackStaticWebAssetWithTargetPath" />
 		</ComputeStaticWebAssetsTargetPaths>
 		<ComputeStaticWebAssetsTargetPaths Assets="@(FlagsFlatAssets)" PathPrefix="staticwebassets" AdjustPathsForPack="true">

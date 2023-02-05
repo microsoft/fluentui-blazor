@@ -13,6 +13,7 @@
 		<PackageVersion>2.0.0</PackageVersion>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+		<IsRoslynComponent>true</IsRoslynComponent>
 	</PropertyGroup>
 
 	<ItemGroup>

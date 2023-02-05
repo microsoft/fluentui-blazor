@@ -10,7 +10,10 @@ StaticWebAssetsLoader.UseStaticWebAssets(builder.Environment, builder.Configurat
 builder.Services.AddRazorPages();
 builder.Services.AddHttpClient();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddFluentUIComponents();
+
+LibraryConfiguration config = new(ConfigurationGenerator.GenerateIconConfiguration(), ConfigurationGenerator.GenerateEmojiConfiguration());
+builder.Services.AddFluentUIComponents(config);
+
 builder.Services.AddScoped<DataSource>();
 
 var app = builder.Build();

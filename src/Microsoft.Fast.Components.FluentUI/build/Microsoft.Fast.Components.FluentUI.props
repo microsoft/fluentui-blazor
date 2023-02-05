@@ -6,4 +6,5 @@
 		<FluentIconVariants Condition="'$(FluentIconVariants)' == ''">filled;regular</FluentIconVariants>
 	</PropertyGroup>
 	<Import Project="Microsoft.AspNetCore.StaticWebAssets.props" />
+	<Import Project="Microsoft.Fast.Components.FluentUI.Configuration.props" />
 </Project>

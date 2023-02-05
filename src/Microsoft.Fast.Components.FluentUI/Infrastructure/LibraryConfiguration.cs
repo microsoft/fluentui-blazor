@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Fast.Components.FluentUI.Infrastructure;
+﻿namespace Microsoft.Fast.Components.FluentUI;
 
 // If needed, additional services configuration objects can be added here
 
@@ -12,4 +12,16 @@ public class LibraryConfiguration
 
     public IconConfiguration IconConfiguration { get; set; } = new();
     public EmojiConfiguration EmojiConfiguration { get; set; } = new();
+
+    public LibraryConfiguration()
+    {
+        
+    }
+    
+    public LibraryConfiguration(IconConfiguration iconConfiguration, EmojiConfiguration emojiConfiguration)
+    {
+        IconConfiguration = iconConfiguration;
+        EmojiConfiguration = emojiConfiguration;
+    }
+    
 }

@@ -6278,14 +6278,14 @@
             <param name="services">IServiceCollection</param>
             <param name="configuration">Defines EmojiConfiguration for this instance.</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ServiceCollectionExtensions.AddFluentUIComponents(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Fast.Components.FluentUI.Infrastructure.LibraryConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ServiceCollectionExtensions.AddFluentUIComponents(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Fast.Components.FluentUI.LibraryConfiguration)">
             <summary>
             Add common servIconConfiguration?s required by the Fluent UI Web Components for Blazor library
             </summary>
             <param name="services">Service collection</param>
             <param name="configuration">Library configuration</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ServiceCollectionExtensions.AddFluentUIComponents(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.Fast.Components.FluentUI.Infrastructure.LibraryConfiguration})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ServiceCollectionExtensions.AddFluentUIComponents(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.Fast.Components.FluentUI.LibraryConfiguration})">
             <summary>
             Add common services required by the Fluent UI Web Components for Blazor library
             </summary>
@@ -6334,7 +6334,7 @@
              </summary>
              <param name="subscribable"></param>
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.Infrastructure.LibraryConfiguration">
+        <member name="T:Microsoft.Fast.Components.FluentUI.LibraryConfiguration">
             <summary>
             Defines the global Fluent UI Web Components for Blazor library services configuration
             </summary>

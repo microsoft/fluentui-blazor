@@ -61,8 +61,14 @@
 		<ProjectReference Include="..\FluentUI.Demo.Generators\FluentUI.Demo.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 		<TrimmerRootAssembly Include="Microsoft.Fast.Components.FluentUI" />
 	</ItemGroup>
+
+	<Target Name="DisableAnalyzers" BeforeTargets="CoreCompile">
+		<ItemGroup>
+			<Analyzer Remove="@(Analyzer)" Condition="'%(Filename)' == 'Microsoft.Fast.Components.FluentUI.Configuration'"/>
+		</ItemGroup>
+	</Target>
 	
-	<Target Name="CopyExamplesToContentRoot" BeforeTargets="CoreBuild">
+	<Target Name="CopySources" BeforeTargets="CoreBuild">
 		<ItemGroup>
 			<Sources Include="$(ProjectDir)\Pages\**\Examples\*" />
 			<Sources Include="$(ProjectDir)\Pages\Lab\**" />
@@ -72,9 +78,9 @@
 	</Target>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<ItemGroup Condition="'$(TargetFramework)'=='net7.0'">
-			<XmlFiles Include="$(ProjectDir)bin\$(Configuration)\$(TargetFramework)\*.xml" />
+		<ItemGroup>
+			<XmlFiles Include="$(ProjectDir)bin\$(Configuration)\net7.0\*.xml" />
 		</ItemGroup>
-		<Copy SourceFiles="@(XmlFiles)" DestinationFolder="$(SolutionDir)examples\FluentUI.Demo.Shared" SkipUnchangedFiles="true" Condition="'$(TargetFramework)'=='net7.0'" />
+		<Copy SourceFiles="@(XmlFiles)" DestinationFolder="$(SolutionDir)examples\FluentUI.Demo.Shared" SkipUnchangedFiles="true" />
 	</Target>
 </Project>

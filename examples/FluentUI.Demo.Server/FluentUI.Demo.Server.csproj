@@ -5,9 +5,36 @@
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
+	
+	<PropertyGroup>
+		<!-- Choose one or more from the options below (no spaces, separate with ,) -->
+		<!--activities,animals_nature,flags,food_drink,objects,people_body,smileys_emotion,symbols,travel_places-->
+		<FluentEmojiGroups>activities,animals_nature,flags,food_drink,objects,smileys_emotion,symbols,travel_places</FluentEmojiGroups>
+
+		<!-- Choose one or more from the options below (no spaces, separate with ,) -->
+		<!-- color,flat,high-contrast -->
+		<FluentEmojiStyles>color,</FluentEmojiStyles>
+
+		<!-- Choose one or more from the options below (no spaces, separate with ,) -->
+		<!-- 10,12,16,20,24,28,32,48 -->
+		<FluentIconSizes>10,12,16,20,24,48</FluentIconSizes>
+
+		<!-- Choose one or more from the options below (no spaces, separate with ,) -->
+		<!-- filled,regular -->
+		<FluentIconVariants>filled,regular</FluentIconVariants>
+	</PropertyGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\FluentUI.Demo.Shared\FluentUI.Demo.Shared.csproj" />
+	</ItemGroup>
+	
+	<ItemGroup Condition="'$(Configuration)'=='Debug'">
+		<CompilerVisibleProperty Include="FluentEmojiStyles" />
+		<CompilerVisibleProperty Include="FluentEmojiGroups" />
+		<CompilerVisibleProperty Include="FluentIconSizes" />
+		<CompilerVisibleProperty Include="FluentIconVariants" />
+		<ProjectReference Include="..\..\src\Microsoft.Fast.Components.FluentUI.Configuration\Microsoft.Fast.Components.FluentUI.Configuration.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+		<ProjectReference Include="..\..\src\Microsoft.Fast.Components.FluentUI\Microsoft.Fast.Components.FluentUI.csproj" />
 	</ItemGroup>
 
 </Project>
