@@ -54,7 +54,7 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             sb.AppendLine("{");
 
             //Create IconConfiguration
-            sb.AppendLine("\tpublic static IconConfiguration GenerateIconConfiguration()");
+            sb.AppendLine("\tpublic static IconConfiguration GetIconConfiguration()");
             sb.AppendLine("\t{");
             sb.AppendLine("\t\tIconConfiguration config = new();");
             FormatConfigSection(sb, "Sizes","IconSize.Size", iconSizes);
@@ -64,7 +64,7 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
 
             
             //Create EmojiConfiguration
-            sb.AppendLine("\tpublic static EmojiConfiguration GenerateEmojiConfiguration()");
+            sb.AppendLine("\tpublic static EmojiConfiguration GetEmojiConfiguration()");
             sb.AppendLine("\t{");
             sb.AppendLine("\t\tEmojiConfiguration config = new();");
             FormatConfigSection(sb, "Groups","EmojiGroup.", emojiGroups);
