@@ -41,7 +41,7 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.Calendar
         {
             // Arrange && Act
             string childContent = "fluent-calendar";
-            IRenderedComponent<FluentCalendar> cut = null;
+            IRenderedComponent<FluentCalendar>? cut = null;
             Action action = () =>
             {
                 cut = TestContext.RenderComponent<FluentCalendar>(
@@ -58,18 +58,18 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.Calendar
             else
             {
                 action.Should().NotThrow();
-                cut.MarkupMatches("<fluent-calendar " +
-                                  "readonly=\"false\" " +
-                                  $"month=\"{month}\" " +
-                                  $"year=\"{DateTime.Now.Year}\" " +
-                                  "day-format=\"numeric\" " +
-                                  "weekday-format=\"short\" " +
-                                  "month-format=\"long\" " +
-                                  "year-format=\"numeric\" " +
-                                  "min-weeks=\"4\" " +
-                                  "selected-dates=\"\">" +
-                                  $"{childContent}" +
-                                  "</fluent-calendar>");
+                cut!.MarkupMatches("<fluent-calendar " +
+                                   "readonly=\"false\" " +
+                                   $"month=\"{month}\" " +
+                                   $"year=\"{DateTime.Now.Year}\" " +
+                                   "day-format=\"numeric\" " +
+                                   "weekday-format=\"short\" " +
+                                   "month-format=\"long\" " +
+                                   "year-format=\"numeric\" " +
+                                   "min-weeks=\"4\" " +
+                                   "selected-dates=\"\">" +
+                                   $"{childContent}" +
+                                   "</fluent-calendar>");
             }
         }
 
