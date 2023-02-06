@@ -1,4 +1,5 @@
 using Bunit;
+using FluentAssertions;
 using Xunit;
 
 namespace Microsoft.Fast.Components.FluentUI.Tests.Breadcrumb
@@ -137,20 +138,33 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.Breadcrumb
         [InlineData("_self")]
         [InlineData("_parent")]
         [InlineData("_top")]
+        [InlineData("invalid")]
         public void RenderProperly_TargetAttribute(string targetAttribute)
         {
             // Arrange && Act
             string childContent = "childContent";
-            IRenderedComponent<FluentBreadcrumbItem> cut = TestContext.RenderComponent<FluentBreadcrumbItem>(
-                attributes => attributes
-                    .Add(p => p.Target, targetAttribute)
-                    .AddChildContent(childContent));
+            IRenderedComponent<FluentBreadcrumbItem>? cut = null;
+            Action action = () =>
+            {
+                cut = TestContext.RenderComponent<FluentBreadcrumbItem>(
+                    attributes => attributes
+                        .Add(p => p.Target, targetAttribute)
+                        .AddChildContent(childContent));
+            };
             
             // Assert
-            cut.MarkupMatches("<fluent-breadcrumb-item " +
-                              $"target=\"{targetAttribute}\">" +
-                              $"{childContent}" +
-                              "</fluent-breadcrumb-item>");
+            if (targetAttribute == "invalid")
+            {
+                action.Should().Throw<ArgumentException>();
+            }
+            else
+            {
+                action.Should().NotThrow();
+                cut!.MarkupMatches("<fluent-breadcrumb-item " +
+                                  $"target=\"{targetAttribute}\">" +
+                                  $"{childContent}" +
+                                  "</fluent-breadcrumb-item>");
+            }
         }
         
         [Theory]

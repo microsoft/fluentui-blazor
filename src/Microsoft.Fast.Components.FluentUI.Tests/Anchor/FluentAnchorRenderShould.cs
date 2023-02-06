@@ -1,4 +1,5 @@
 using Bunit;
+using FluentAssertions;
 using Xunit;
 
 namespace Microsoft.Fast.Components.FluentUI.Tests.Anchor
@@ -164,24 +165,37 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.Anchor
         [InlineData("_self")]
         [InlineData("_parent")]
         [InlineData("_top")]
+        [InlineData("invalid")]
         public void RenderProperly_TargetAttribute(string target)
         {
             // Arrange
             TestContext.JSInterop.SetupModule(
                 "./_content/Microsoft.Fast.Components.FluentUI/Components/Anchor/FluentAnchor.razor.js");
-            IRenderedComponent<FluentUI.FluentAnchor> cut = TestContext.RenderComponent<FluentUI.FluentAnchor>(
-                parameters => parameters
-                    .Add(p => p.Target, target)
-                    .Add(p => p.Href, "https://fast.design")
-                    .AddChildContent("click me!"));
+            IRenderedComponent<FluentUI.FluentAnchor>? cut = null;
+            Action action = () =>
+            {
+                cut = TestContext.RenderComponent<FluentUI.FluentAnchor>(
+                    parameters => parameters
+                        .Add(p => p.Target, target)
+                        .Add(p => p.Href, "https://fast.design")
+                        .AddChildContent("click me!"));
+            };
 
             // Assert
-            cut.MarkupMatches("<fluent-anchor " +
-                              "href=\"https://fast.design\" " +
-                              "appearance=\"neutral\" " +
-                              $"target=\"{target}\">" +
-                              "click me!" +
-                              "</fluent-anchor>");
+            if (target == "invalid")
+            {
+                action.Should().Throw<ArgumentException>();
+            }
+            else
+            {
+                action.Should().NotThrow();
+                cut!.MarkupMatches("<fluent-anchor " +
+                                   "href=\"https://fast.design\" " +
+                                   "appearance=\"neutral\" " +
+                                   $"target=\"{target}\">" +
+                                   "click me!" +
+                                   "</fluent-anchor>");
+            }
         }
 
         [Theory]
