@@ -228,7 +228,6 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.Button
         {
             // Arrange && Act
             string childContent = "fluent-button";
-            IRenderedComponent<FluentButton> cut = null;
             
             Action action = () =>
             {
@@ -240,12 +239,6 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.Button
 
             // Assert
             action.Should().Throw<ArgumentException>();
-            // cut.MarkupMatches("<fluent-button " +
-            //                   "type=\"button\" " +
-            //                   "appearance=\"neutral\" " +
-            //                   $"formtarget=\"{formTarget}\"> " +
-            //                   $"{childContent}" +
-            //                   "</fluent-button>");
         }
 
         [Theory]
