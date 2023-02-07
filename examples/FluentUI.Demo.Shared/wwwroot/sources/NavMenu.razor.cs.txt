@@ -14,8 +14,7 @@ public partial class NavMenu : FluentComponentBase
     private const string WIDTH_COLLAPSED_MENU = "40px";
     private readonly List<NavMenuLink> _links = new();
     private readonly List<NavMenuGroup> _groups = new();
-
-    private FluentTreeItem? currentSelected;
+    private string _prevHref = "/";
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("navmenu")
@@ -108,8 +107,11 @@ public partial class NavMenu : FluentComponentBase
         {
             href = _groups.FirstOrDefault(x => x.Id == treeItem.Id)?.Href;
         }
-        if (!string.IsNullOrWhiteSpace(href))
+        if (!string.IsNullOrWhiteSpace(href) && href != _prevHref)
+        {
+            _prevHref = href;
             NavigationManager.NavigateTo(href);
+        }
     }
 
     internal void AddNavMenuLink(NavMenuLink link)

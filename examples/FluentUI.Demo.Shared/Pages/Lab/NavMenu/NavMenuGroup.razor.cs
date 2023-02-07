@@ -47,8 +47,8 @@ public partial class NavMenuGroup : FluentComponentBase
     /// </summary>
     [Parameter]
     public bool Disabled { get; set; }
-
-
+    
+   
     /// <summary>
     /// Gets or sets whether the menu group is expanded
     /// </summary>
@@ -78,6 +78,7 @@ public partial class NavMenuGroup : FluentComponentBase
     /// </summary>
     [Parameter]
     public EventCallback<bool> OnExpandedChanged { get; set; }
+ 
 
     [CascadingParameter(Name = "NavMenu")]
     public NavMenu NavMenu { get; set; } = default!;
@@ -97,20 +98,19 @@ public partial class NavMenuGroup : FluentComponentBase
 
     private bool HasIcon => !string.IsNullOrWhiteSpace(Icon);
 
-    protected override void OnInitialized()
-    {
-        NavMenu.AddNavMenuGroup(this);
-    }
-
     protected override void OnParametersSet()
     {
+        NavMenu.AddNavMenuGroup(this);
+
         if (_expanded != Expanded)
         {
             _expanded = Expanded;
             if (OnExpandedChanged.HasDelegate)
-                OnExpandedChanged.InvokeAsync(_expanded); 
+                OnExpandedChanged.InvokeAsync(_expanded);
         }
     }
+
+
 
     /// <summary />
     internal async Task ExpandMenu()

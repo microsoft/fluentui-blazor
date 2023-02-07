@@ -7,8 +7,7 @@
                 Style="@StyleValue"
                 Disabled="@Disabled"
                 Selected="@Selected"
-                Text="@(NavMenuExpanded ? Text : string.Empty)"
-                @onclick="OnClickHandlerAsync">
+                Text="@(NavMenuExpanded ? Text : string.Empty)">
     @if (HasIcon)
     {
         <FluentIcon Name="@Icon" Size="@IconSize.Size20" Slot="start" OnClick="HandleIconClick"/>

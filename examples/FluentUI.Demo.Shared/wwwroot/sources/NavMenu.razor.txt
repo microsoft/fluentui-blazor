@@ -3,12 +3,10 @@
 
 @inherits FluentComponentBase
 <div>
-    <CascadingValue Value="this" Name="NavMenu">
+    <CascadingValue Value="this" Name="NavMenu" IsFixed="true">
         <CascadingValue Value="Expanded" Name="NavMenuExpanded">
             <FluentTreeView Class="@ClassValue"
                             Style="@StyleValue"
-                            @bind-CurrentSelected=currentSelected
-                            id="@Id"
                             OnSelectedChange="HandleSelectedChange">
                 @if (Collapsible) {
                     <FluentButton Appearance="Appearance.Lightweight"

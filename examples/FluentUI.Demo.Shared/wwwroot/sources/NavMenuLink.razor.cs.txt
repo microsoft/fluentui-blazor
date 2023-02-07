@@ -40,7 +40,7 @@ public partial class NavMenuLink : FluentComponentBase
     /// </summary>
     [Parameter]
     public bool Disabled { get; set; } = false;
-
+   
     /// <summary>
     /// Gets or sets whether the link is selected.
     /// </summary>
@@ -73,7 +73,7 @@ public partial class NavMenuLink : FluentComponentBase
     /// </summary>
     [Parameter]
     public string Text { get; set; } = string.Empty;
-
+    
     /// <summary>
     /// Gets or sets the width of the link (in pixels).
     /// </summary>
@@ -92,7 +92,7 @@ public partial class NavMenuLink : FluentComponentBase
 
     private bool HasIcon => !string.IsNullOrWhiteSpace(Icon);
 
-    //[CascadingParameter(Name = "NavMenuExpanded")]
+    [CascadingParameter(Name = "NavMenuExpanded")]
     private bool NavMenuExpanded { get; set; }
 
     internal void SetSelected(bool value)
@@ -100,21 +100,9 @@ public partial class NavMenuLink : FluentComponentBase
         Selected = value;
     }
 
-    protected async Task OnClickHandlerAsync(MouseEventArgs e)
+
+    protected override void OnParametersSet() 
     {
-        if (Disabled)
-            return;
-
-        if (OnClick.HasDelegate)
-            await OnClick.InvokeAsync(e);
-
-        if (!string.IsNullOrEmpty(Href))
-            NavigationManager.NavigateTo(Href);
-    }
-
-    protected override void OnInitialized()
-    {
-        NavMenuExpanded = NavMenu.Expanded;
         NavMenu.AddNavMenuLink(this);
     }
 
