@@ -80,6 +80,10 @@ public partial class FluentAnchor : FluentComponentBase, IAsyncDisposable
 
     protected override void OnParametersSet()
     {
+        string[] values = { "_self", "_blank", "_parent", "_top" };
+        if (!string.IsNullOrEmpty(Target) && !values.Contains(Target))
+            throw new ArgumentException("Target must be one of the following values: _self, _blank, _parent, _top");
+        
         // If the Href has been specified (as it should) and if starts with '#,'
         // we assume the rest of the value contains the id of the element the link points to.
         if (!string.IsNullOrEmpty(Href) && Href.StartsWith('#'))
