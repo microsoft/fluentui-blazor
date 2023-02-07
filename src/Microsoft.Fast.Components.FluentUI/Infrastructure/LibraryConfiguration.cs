@@ -10,12 +10,13 @@ public class LibraryConfiguration
     public BlazorHostingModel HostingModel { get; set; } = BlazorHostingModel.NotSpecified;
     public StaticAssetServiceConfiguration StaticAssetServiceConfiguration { get; set; } = new();
 
-    public IconConfiguration IconConfiguration { get; set; } = new();
-    public EmojiConfiguration EmojiConfiguration { get; set; } = new();
+    public IconConfiguration IconConfiguration { get; set; }
+    public EmojiConfiguration EmojiConfiguration { get; set; }
 
     public LibraryConfiguration()
     {
-        
+        IconConfiguration = new(true);
+        EmojiConfiguration = new(false);
     }
     
     public LibraryConfiguration(IconConfiguration iconConfiguration, EmojiConfiguration emojiConfiguration)

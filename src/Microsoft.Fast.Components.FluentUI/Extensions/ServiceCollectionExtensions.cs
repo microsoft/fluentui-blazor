@@ -20,7 +20,7 @@ public static class ServiceCollectionExtensions
         configuration ??= new IconConfiguration();
 
         services.AddScoped(builder => new IconService(configuration));
-        
+
         return services;
     }
 

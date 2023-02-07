@@ -103,8 +103,21 @@
 
 	<ItemGroup>
 		<Compile Remove="Assets\**" />
+		<Compile Remove="bin\Debug\net6.0\net7.0\**" />
+		<Compile Remove="bin\Release\net6.0\net7.0\**" />
 		<Content Remove="Assets\**" />
+		<Content Remove="bin\Debug\net6.0\net7.0\**" />
+		<Content Remove="bin\Release\net6.0\net7.0\**" />
 		<EmbeddedResource Remove="Assets\**" />
+		<EmbeddedResource Remove="bin\Debug\net6.0\net7.0\**" />
+		<EmbeddedResource Remove="bin\Release\net6.0\net7.0\**" />
+		<None Remove="bin\Debug\net6.0\net7.0\**" />
+		<None Remove="bin\Release\net6.0\net7.0\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="bin\Debug\net6.0\" />
+	  <Folder Include="bin\Release\net6.0\" />
 	</ItemGroup>
 
 	<Target Name="GetFluentUIAssets" Returns="@(ReferenceAsset)">

@@ -2,7 +2,9 @@
 
 public class EmojiConfiguration
 {
-     private EmojiGroup[] _groups = new[]
+    public bool PublishAssets { get; init; } = false;
+    
+    private EmojiGroup[] _groups = new[]
     {
         EmojiGroup.Activities,
         EmojiGroup.Animals_Nature,
@@ -34,7 +36,6 @@ public class EmojiConfiguration
         }
     }
 
-
     public EmojiStyle[] Styles
     {
         get => _styles; 
@@ -45,4 +46,18 @@ public class EmojiConfiguration
         }
     }
 
+    public EmojiConfiguration()
+    {
+
+    }
+        
+    public EmojiConfiguration(bool publishAssets)
+    {
+        PublishAssets = publishAssets;
+        if (PublishAssets is false)
+        {
+            _groups = Array.Empty<EmojiGroup>();
+            _styles = Array.Empty<EmojiStyle>();
+        }
+    }
 }

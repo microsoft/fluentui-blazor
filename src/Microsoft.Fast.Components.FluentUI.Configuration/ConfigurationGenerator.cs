@@ -18,21 +18,33 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
     {
         public void Initialize(GeneratorInitializationContext context)
         {
+            // Debugger.Launch();
             // No initialization required for this one
-#if DEBUG
-            //if (!Debugger.IsAttached)
-            //{
-            //    Debugger.Launch();
-            //}
-#endif
         }
-
 
         public void Execute(GeneratorExecutionContext context)
         {
             StringBuilder sb = new();
 
             string[]? iconSizes, iconVariants, emojiGroups, emojiStyles;
+            bool publishEmojiAssets = false;
+            bool publishIconAssets = true;
+
+            if (TryReadGlobalOption(context, "PublishFluentEmojiAssets", out string? publishEmojiAssetsProp))
+            {
+                if (!bool.TryParse(publishEmojiAssetsProp, out publishEmojiAssets))
+                {
+                    publishEmojiAssets = false;
+                }
+            }
+
+            if (TryReadGlobalOption(context, "PublishFluentIconAssets", out string? publishIconAssetsProp))
+            {
+                if (!bool.TryParse(publishEmojiAssetsProp, out publishEmojiAssets))
+                {
+                    publishIconAssets = true;
+                }
+            }
 
             TryReadGlobalOption(context, "FluentIconSizes", out string? iconSizesProp);
             iconSizes = iconSizesProp?.Split(',');
@@ -56,9 +68,12 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             //Create IconConfiguration
             sb.AppendLine("\tpublic static IconConfiguration GetIconConfiguration()");
             sb.AppendLine("\t{");
-            sb.AppendLine("\t\tIconConfiguration config = new();");
-            FormatConfigSection(sb, "Sizes","IconSize.Size", iconSizes);
-            FormatConfigSection(sb, "Variants", "IconVariant.", iconVariants);
+            sb.AppendLine($"\t\tIconConfiguration config = new({publishIconAssets.ToString().ToLower()});");
+            if (publishIconAssets)
+            {
+                FormatConfigSection(sb, "Sizes", "IconSize.Size", iconSizes);
+                FormatConfigSection(sb, "Variants", "IconVariant.", iconVariants);
+            }
             sb.AppendLine("\t\treturn config;");
             sb.AppendLine("\t}");
 
@@ -66,9 +81,13 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             //Create EmojiConfiguration
             sb.AppendLine("\tpublic static EmojiConfiguration GetEmojiConfiguration()");
             sb.AppendLine("\t{");
-            sb.AppendLine("\t\tEmojiConfiguration config = new();");
-            FormatConfigSection(sb, "Groups","EmojiGroup.", emojiGroups);
-            FormatConfigSection(sb, "Styles","EmojiStyle.", emojiStyles);
+            sb.AppendLine($"\t\tEmojiConfiguration config = new({publishEmojiAssets.ToString().ToLower()});");
+            if (publishEmojiAssets)
+            {
+                FormatConfigSection(sb, "Groups", "EmojiGroup.", emojiGroups);
+                FormatConfigSection(sb, "Styles", "EmojiStyle.", emojiStyles);
+            }
+            
             sb.AppendLine("\t\treturn config;");
             sb.AppendLine("\t}");
             
@@ -91,8 +110,9 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
                 {
                     if (!string.IsNullOrWhiteSpace(options[i]))
                     {
+                        string option = options[i].Trim();
                         string endmarker = i <= max - 1 ? "," : string.Empty;
-                        sb.AppendLine($"\t\t\t{identifier}{ToTitleCase(options[i])}{endmarker}");
+                        sb.AppendLine($"\t\t\t{identifier}{ToTitleCase(option)}{endmarker}");
                     }
                 }
                 sb.AppendLine("\t\t};");

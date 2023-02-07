@@ -86,6 +86,9 @@ public partial class FluentEmoji : FluentComponentBase
     //protected override async Task OnParametersSetAsync()
     protected override void OnParametersSet()
     {
+        if (!EmojiService.Configuration.PublishAssets)
+            throw new Exception("Emoji assest are not available");
+
         if (Size == EmojiSize.Custom && CustomSize == null)
         {
             throw new ArgumentException("CustomSize must be set if Size is set to Custom");

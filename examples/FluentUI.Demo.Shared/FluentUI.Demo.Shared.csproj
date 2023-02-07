@@ -45,7 +45,7 @@
 		<Content Remove="Pages\RawBindings.razor" />
 		<Content Remove="libman.json" />
 		<Folder Include="wwwroot\sources\" />
-		<AdditionalFiles Include="$(ProjectDir)/*.xml"  />
+		<AdditionalFiles Include="$(ProjectDir)/*.xml" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)'=='Release'">
@@ -64,7 +64,7 @@
 
 	<Target Name="DisableAnalyzers" BeforeTargets="CoreCompile">
 		<ItemGroup>
-			<Analyzer Remove="@(Analyzer)" Condition="'%(Filename)' == 'Microsoft.Fast.Components.FluentUI.Configuration'"/>
+			<Analyzer Remove="@(Analyzer)" Condition="'%(Filename)' == 'Microsoft.Fast.Components.FluentUI.Configuration'" />
 		</ItemGroup>
 	</Target>
 	

@@ -1,5 +1,7 @@
 <Project>
 	<ItemGroup>
+		<CompilerVisibleProperty Include="PublishFluentIconAssets" />
+		<CompilerVisibleProperty Include="PublishFluentEmojiAssets" />
 		<CompilerVisibleProperty Include="FluentEmojiStyles" />
 		<CompilerVisibleProperty Include="FluentEmojiGroups" />
 		<CompilerVisibleProperty Include="FluentIconSizes" />

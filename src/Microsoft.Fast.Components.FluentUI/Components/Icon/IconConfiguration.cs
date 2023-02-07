@@ -2,6 +2,8 @@
 
 public class IconConfiguration
 {
+    public bool PublishAssets { get; init; } = true;
+
     private IconSize[] _sizes = new[]
     {
         IconSize.Size10,
@@ -44,4 +46,18 @@ public class IconConfiguration
         }
     }
 
+    public IconConfiguration()
+    {
+
+    }
+
+    public IconConfiguration(bool publishAssets)
+    {
+        PublishAssets = publishAssets;
+        if (PublishAssets is false)
+        {
+            _sizes = Array.Empty<IconSize>();
+            _variants = Array.Empty<IconVariant>();
+        }
+    }
 }

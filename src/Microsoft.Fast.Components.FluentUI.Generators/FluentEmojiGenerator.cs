@@ -29,6 +29,11 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
     [Generator]
     public class FluentEmojiGenerator : ISourceGenerator
     {
+        public void Initialize(GeneratorInitializationContext context)
+        {
+            // Debugger.Launch();
+            // No initialization required for this one
+        }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("MicrosoftCodeAnalysisCorrectness", "RS1035:Do not use APIs banned for analyzers", Justification = "The whole purpose of this generator is to process directories...")]
         public void Execute(GeneratorExecutionContext context)
@@ -132,17 +137,6 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             sb.AppendLine("}");
 
             context.AddSource($"FluentEmojis.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
-        }
-
-        public void Initialize(GeneratorInitializationContext context)
-        {
-            // No initialization required for this one
-#if DEBUG
-            //if (!Debugger.IsAttached)
-            //{
-            //    Debugger.Launch();
-            //}
-#endif
         }
     }
 }
