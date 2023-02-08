@@ -89,36 +89,26 @@
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 		<ItemGroup>
-			<XmlFiles Include="$(ProjectDir)bin\$(Configuration)\net7.0\*.xml" />
+			<XmlFiles Include="$(ProjectDir)bin\$(Configuration)\$(TargetFramework)\*.xml" />
 		</ItemGroup>
 		<Copy SourceFiles="@(XmlFiles)" DestinationFolder="$(SolutionDir)examples\FluentUI.Demo.Shared" />
 	</Target>
 
 	<ItemGroup>
 		<None Include="$(OutputPath)\net7.0\Microsoft.Fast.Components.FluentUI.Configuration.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
-		<None Include="build\*" Pack="true" PackagePath="build\" Visible="false" />
-		<None Include="buildMultiTargeting\*" Pack="true" PackagePath="buildMultiTargeting\" Visible="false" />
-		<None Include="buildTransitive\*" Pack="true" PackagePath="buildTransitive\" Visible="false" />
+		<None Include="build\*" Pack="true" PackagePath="build\" />
+		<None Include="buildMultiTargeting\*" Pack="true" PackagePath="buildMultiTargeting\" />
+		<None Include="buildTransitive\*" Pack="true" PackagePath="buildTransitive\" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Compile Remove="Assets\**" />
-		<Compile Remove="bin\Debug\net6.0\net7.0\**" />
-		<Compile Remove="bin\Release\net6.0\net7.0\**" />
 		<Content Remove="Assets\**" />
-		<Content Remove="bin\Debug\net6.0\net7.0\**" />
-		<Content Remove="bin\Release\net6.0\net7.0\**" />
 		<EmbeddedResource Remove="Assets\**" />
-		<EmbeddedResource Remove="bin\Debug\net6.0\net7.0\**" />
-		<EmbeddedResource Remove="bin\Release\net6.0\net7.0\**" />
 		<None Remove="bin\Debug\net6.0\net7.0\**" />
 		<None Remove="bin\Release\net6.0\net7.0\**" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="bin\Debug\net6.0\" />
-	  <Folder Include="bin\Release\net6.0\" />
-	</ItemGroup>
 
 	<Target Name="GetFluentUIAssets" Returns="@(ReferenceAsset)">
 		<ItemGroup>
@@ -328,6 +318,18 @@
 			<Regular48AssetsCandidates>
 				<RelativePath>icons\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Regular48AssetsCandidates>
+
+			<!-- Specify icons that are used inside the library below -->
+			<!-- DO NOT include the full puth but use the format shown otherwise the necessary folder structure will not be created in the wwwroot folder -->
+			<RequiredIconAssetsCandidates Include="Assets\icons\**\arrow_sort_up_20_regular.svg;
+										           Assets\icons\**\arrow_sort_down_20_regular.svg;
+												   Assets\icons\**\chevron_double_left_20_regular.svg;
+												   Assets\icons\**\chevron_double_right_20_regular.svg;
+												   Assets\icons\**\chevron_left_20_regular.svg;
+												   Assets\icons\**\chevron_right_20_regular.svg" />
+			<RequiredIconAssetsCandidates>
+				<RelativePath>icons\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
+			</RequiredIconAssetsCandidates>
 		</ItemGroup>
 
 		<DefineStaticWebAssets Condition="'@(ActivitiesColorAssetsCandidates-&gt;Count())' != '0'" CandidateAssets="@(ActivitiesColorAssetsCandidates)" SourceId="$(PackageId)" SourceType="Discovered" AssetKind="All" ContentRoot="Assets/emojis" BasePath="$(StaticWebAssetBasePath)">
@@ -461,6 +463,9 @@
 			<Output TaskParameter="Assets" ItemName="Regular48Assets" />
 		</DefineStaticWebAssets>
 
+		<DefineStaticWebAssets CandidateAssets="@(RequiredIconAssetsCandidates)" SourceId="$(PackageId)" SourceType="Discovered" AssetKind="All" ContentRoot="Assets/icons" BasePath="$(StaticWebAssetBasePath)">
+			<Output TaskParameter="Assets" ItemName="RequiredIconAssets" />
+		</DefineStaticWebAssets>
 
 		<GenerateStaticWebAsssetsPropsFile StaticWebAssets="@(ActivitiesColorAssets)" PackagePathPrefix="staticwebassets" TargetPropsFilePath="$(IntermediateOutputPath)FluentEmojis.Activities.Color.targets" />
 		<GenerateStaticWebAsssetsPropsFile StaticWebAssets="@(ActivitiesFlatAssets)" PackagePathPrefix="staticwebassets" TargetPropsFilePath="$(IntermediateOutputPath)FluentEmojis.Activities.Flat.targets" />
@@ -506,6 +511,7 @@
 		<GenerateStaticWebAsssetsPropsFile StaticWebAssets="@(Regular32Assets)" PackagePathPrefix="staticwebassets" TargetPropsFilePath="$(IntermediateOutputPath)FluentIcons.Regular32.targets" />
 		<GenerateStaticWebAsssetsPropsFile StaticWebAssets="@(Filled48Assets)" PackagePathPrefix="staticwebassets" TargetPropsFilePath="$(IntermediateOutputPath)FluentIcons.Filled48.targets" />
 		<GenerateStaticWebAsssetsPropsFile StaticWebAssets="@(Regular48Assets)" PackagePathPrefix="staticwebassets" TargetPropsFilePath="$(IntermediateOutputPath)FluentIcons.Regular48.targets" />
+		<GenerateStaticWebAsssetsPropsFile StaticWebAssets="@(RequiredIconAssets)" PackagePathPrefix="staticwebassets" TargetPropsFilePath="$(IntermediateOutputPath)FluentIcons.RequiredIcons.targets" />
 
 		<ComputeStaticWebAssetsTargetPaths Assets="@(ActivitiesColorAssets)" PathPrefix="staticwebassets" AdjustPathsForPack="true">
 			<Output TaskParameter="AssetsWithTargetPath" ItemName="_PackStaticWebAssetWithTargetPath" />
@@ -768,6 +774,9 @@
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentIcons.Regular48.targets">
 				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Regular48.targets</PackagePath>
+			</StaticWebAssetPackageFile>
+			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentIcons.RequiredIcons.targets">
+				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.RequiredIcons.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 		</ItemGroup>
 	</Target>

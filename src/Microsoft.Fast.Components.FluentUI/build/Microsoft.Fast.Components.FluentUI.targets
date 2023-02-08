@@ -1,3 +1,9 @@
 <Project>
+	<PropertyGroup>
+		<FluentIconSizes Condition=" '$(PublishFluentIconAssets)' == 'false' "></FluentIconSizes>
+		<FluentIconVariants Condition=" '$(PublishFluentIconAssets)' == 'false' "></FluentIconVariants>
+		<FluentEmojiGroups Condition=" '$(PublishFluentEmojiAssets)' == 'false' OR '$(PublishFluentEmojiAssets)' == '' "></FluentEmojiGroups>
+		<FluentEmojiStyles Condition=" '$(PublishFluentEmojiAssets)' == 'false' OR '$(PublishFluentEmojiAssets)' == '' "></FluentEmojiStyles>
+	</PropertyGroup>
   <Import Project="$(MSBuildThisFileDirectory)Microsoft.Fast.Components.FluentUI.StaticWebAssets.targets"/>
 </Project>

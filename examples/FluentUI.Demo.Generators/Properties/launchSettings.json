@@ -1,12 +1,8 @@
 {
   "profiles": {
     "FluentUI.Demo.Generators": {
-      "commandName": "Project",
-      "launchBrowser": true,
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "applicationUrl": "https://localhost:65436;http://localhost:65437"
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "..\\FluentUI.Demo.Shared\\FluentUI.Demo.Shared.csproj"
     }
   }
 }

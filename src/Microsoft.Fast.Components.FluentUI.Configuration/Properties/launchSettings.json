@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Microsoft.Fast.Components.Configuration": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "..\\..\\examples\\FluentUI.Demo.Client\\FluentUI.Demo.Client.csproj"
+    }
+  }
+}

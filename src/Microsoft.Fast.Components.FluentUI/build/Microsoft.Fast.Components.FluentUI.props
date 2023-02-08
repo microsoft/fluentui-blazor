@@ -1,10 +1,20 @@
 <Project>
+	<ItemGroup>
+		<CompilerVisibleProperty Include="PublishFluentIconAssets" />
+		<CompilerVisibleProperty Include="PublishFluentEmojiAssets" />
+		<CompilerVisibleProperty Include="FluentEmojiStyles" />
+		<CompilerVisibleProperty Include="FluentEmojiGroups" />
+		<CompilerVisibleProperty Include="FluentIconSizes" />
+		<CompilerVisibleProperty Include="FluentIconVariants" />
+	</ItemGroup>
 	<PropertyGroup>
-		<FluentEmojiStyles Condition="'$(FluentEmojiStyles)' == ''">color;flat;highcontrast</FluentEmojiStyles>
-		<FluentEmojiGroups Condition="'$(FluentEmojiGroups)' == ''">activities;animals_nature;flags;food_drink;objects;people_body;smileys_emotion;symbols;travel_places</FluentEmojiGroups>
-		<FluentIconSizes Condition="'$(FluentIconSizes)' == ''">10;12;16;20;24;28;32;48</FluentIconSizes>
-		<FluentIconVariants Condition="'$(FluentIconVariants)' == ''">filled;regular</FluentIconVariants>
+		<PublishFluentIconAssets Condition=" '$(PublishFluentIconAssets)' == '' " >true</PublishFluentIconAssets>
+		<PublishFluentEmojiAssets Condition=" '$(PublishFluentEmojiAssets)' == '' " >false</PublishFluentEmojiAssets>
+		
+		<FluentIconSizes Condition="( '$(FluentIconSizes)' == '' AND '$(PublishFluentIconAssets)' == 'true' )">10;12;16;20;24;28;32;48</FluentIconSizes>
+		<FluentIconVariants Condition="( '$(FluentIconVariants)' == '' AND '$(PublishFluentIconAssets)' == 'true' )">filled;regular</FluentIconVariants>
+		<FluentEmojiGroups Condition="( '$(FluentEmojiGroups)'== '' AND $(PublishFluentEmojiAssets)=='true' )">activities;animals_nature;flags;food_drink;objects;people_body;smileys_emotion;symbols;travel_places</FluentEmojiGroups>
+		<FluentEmojiStyles Condition="( '$(FluentEmojiStyles)' == '' AND $(PublishFluentEmojiAssets)=='true' )">color;flat;highcontrast</FluentEmojiStyles>
 	</PropertyGroup>
 	<Import Project="Microsoft.AspNetCore.StaticWebAssets.props" />
-	<Import Project="Microsoft.Fast.Components.FluentUI.Configuration.props" />
 </Project>

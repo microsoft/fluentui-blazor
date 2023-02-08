@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Reflection;
 using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
@@ -26,9 +21,29 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
         {
             StringBuilder sb = new();
 
-            string[]? iconSizes, iconVariants, emojiGroups, emojiStyles;
+            string[]? iconSizes = Array.Empty<string>();
+            string[]? iconVariants = Array.Empty<string>();
+            string[]? emojiGroups = Array.Empty<string>();
+            string[]? emojiStyles = Array.Empty<string>();
+
             bool publishEmojiAssets = false;
             bool publishIconAssets = true;
+
+            if (TryReadGlobalOption(context, "PublishFluentIconAssets", out string? publishIconAssetsProp))
+            {
+                if (!bool.TryParse(publishIconAssetsProp, out publishIconAssets))
+                {
+                    publishIconAssets = true;
+                }
+                if (publishIconAssets)
+                {
+                    TryReadGlobalOption(context, "FluentIconSizes", out string? iconSizesProp);
+                    iconSizes = iconSizesProp?.Split(',');
+
+                    TryReadGlobalOption(context, "FluentIconVariants", out var iconVariantsProp);
+                    iconVariants = iconVariantsProp?.Split(',');
+                }
+            }
 
             if (TryReadGlobalOption(context, "PublishFluentEmojiAssets", out string? publishEmojiAssetsProp))
             {
@@ -36,28 +51,16 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
                 {
                     publishEmojiAssets = false;
                 }
-            }
-
-            if (TryReadGlobalOption(context, "PublishFluentIconAssets", out string? publishIconAssetsProp))
-            {
-                if (!bool.TryParse(publishEmojiAssetsProp, out publishEmojiAssets))
+                if (publishEmojiAssets)
                 {
-                    publishIconAssets = true;
+                    TryReadGlobalOption(context, "FluentEmojiGroups", out var emojiGroupsProp);
+                    emojiGroups = emojiGroupsProp?.Split(',');
+
+                    TryReadGlobalOption(context, "FluentEmojiStyles", out var emojiStylesProp);
+                    emojiStyles = emojiStylesProp?.Split(',');
                 }
             }
 
-            TryReadGlobalOption(context, "FluentIconSizes", out string? iconSizesProp);
-            iconSizes = iconSizesProp?.Split(',');
-
-            TryReadGlobalOption(context, "FluentIconVariants", out var iconVariantsProp);
-            iconVariants = iconVariantsProp?.Split(',');
-
-            TryReadGlobalOption(context, "FluentEmojiGroups", out var emojiGroupsProp);
-            emojiGroups = emojiGroupsProp?.Split(',');
-
-            TryReadGlobalOption(context, "FluentEmojiStyles", out var emojiStylesProp);
-            emojiStyles = emojiStylesProp?.Split(',');
-            
             //sb.AppendLine($"using Microsoft.Extensions.DependencyInjection;");
             //sb.AppendLine($"");
             sb.AppendLine($"namespace Microsoft.Fast.Components.FluentUI;");
@@ -77,7 +80,7 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             sb.AppendLine("\t\treturn config;");
             sb.AppendLine("\t}");
 
-            
+
             //Create EmojiConfiguration
             sb.AppendLine("\tpublic static EmojiConfiguration GetEmojiConfiguration()");
             sb.AppendLine("\t{");
@@ -87,10 +90,10 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
                 FormatConfigSection(sb, "Groups", "EmojiGroup.", emojiGroups);
                 FormatConfigSection(sb, "Styles", "EmojiStyle.", emojiStyles);
             }
-            
+
             sb.AppendLine("\t\treturn config;");
             sb.AppendLine("\t}");
-            
+
             sb.AppendLine("}");
             context.AddSource($"ConfiguratonGenerator.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
         }
@@ -99,8 +102,8 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
         {
             return context.AnalyzerConfigOptions.GlobalOptions.TryGetValue($"build_property.{property}", out value);
         }
-        
-        private static void FormatConfigSection(StringBuilder sb, string section, string identifier,string[]? options)
+
+        private static void FormatConfigSection(StringBuilder sb, string section, string identifier, string[]? options)
         {
             if (options is not null && options.Length > 0)
             {
@@ -131,8 +134,8 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             }
             sb.Remove(sb.Length - 1, 1);
             return sb.ToString();
-            
-            
+
+
         }
     }
 }

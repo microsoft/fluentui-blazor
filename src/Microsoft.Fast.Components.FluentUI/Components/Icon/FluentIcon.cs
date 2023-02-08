@@ -67,7 +67,7 @@ public partial class FluentIcon : FluentComponentBase
     /// Gets or sets the <see cref="IconSize"/> of the icon. Defaults to 24. Not all sizes are available for all icons.
     /// </summary>
     [Parameter]
-    public IconSize Size { get; set; } = IconSize.Size24;
+    public IconSize Size { get; set; } = IconSize.Size20;
 
     /// <summary>
     /// Gets or sets the slot where the icon is displayed in

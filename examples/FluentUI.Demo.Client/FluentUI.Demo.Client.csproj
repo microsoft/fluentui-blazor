@@ -8,10 +8,32 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
+		<!-- The icon component is part of the library and the icons it displays (static assets) are all published by default -->
+		<!-- Setting the below to 'true' (default) will enable publishing of the icon static assets -->
+		<!-- Setting the below to false will disable publishing of the icon static assets -->
+		<!-- with exception of the icons that are being used by the library itself -->
+		<PublishFluentIconAssets>true</PublishFluentIconAssets>
+
+		<!-- You can limit what icon assets get published by specifying icon sizes and variants -->
+		<!-- To determine what gets published, the specified options for sizes and variants are combined -->
+		<!-- Specifying icon sizes '10' and '16' and icon variants 'filled' and 'regular'  -->
+		<!-- means all '10 filled', all '10 regular', all '16 filled' and all '16 regular' icons assets are published -->
+		<!-- It is not posible to specify individual combinations like '10 filled' and '16 regular' in the same published set -->
+
+		<!-- If no icon sizes are specified, ALL icon sizes are included when publishing the icon assets is enabled -->
+		<!-- Choose one or more from the options below (separated with ,) -->
+		<!-- 10,12,16,20,24,28,32,48 -->
+		<FluentIconSizes>10,12</FluentIconSizes>
+
+		<!-- If no icon variants are specified, ALL icon variants are included when publishing the icon assets is enabled-->
+		<!-- Choose one or more from the options below (separated with ,) -->
+		<!-- filled,regular -->
+		<FluentIconVariants>filled,</FluentIconVariants>
+		
 		<!-- The emoji component is part of the library but the emoji it displays (static assets) are not published by default -->
 		<!-- Setting the below to 'true' will enable publishing of the emoji static assets -->
 		<!-- Setting the below to 'false' (default) will disable ALL emoji static assets from being published -->
-		<!--<PublishFluentEmojiAssets>true</PublishFluentEmojiAssets>-->
+		<PublishFluentEmojiAssets>false</PublishFluentEmojiAssets>
 		
 		<!-- You can limit what emoji assets get published by specifying emoji groups and styles -->
 		<!-- To determine what gets published, the specified options for groups and style are combined -->
@@ -22,35 +44,12 @@
 		<!-- If no emoji groups are specified, ALL emoji groups are included when publishing the emoji assets is enabled -->
 		<!-- To limit what groups will be used, choose one or more from the options below (separated with ,) -->
 		<!-- activities,animals_nature,flags,food_drink,objects,people_body,smileys_emotion,symbols,travel_places -->
-		<FluentEmojiGroups>activities, animals_nature,flags  ,food_drink,objects,smileys_emotion,symbols,travel_places</FluentEmojiGroups>
+		<FluentEmojiGroups>flags</FluentEmojiGroups>
 
 		<!-- If no emoji styles are specified, ALL emoji styles are included when publishing the emoji assets is enabled-->
 		<!-- To limit what styles will be used, choose one or more from the options below (separated with ,) -->
 		<!-- color,flat,high-contrast -->
 		<FluentEmojiStyles>color,</FluentEmojiStyles>
-
-	
-		<!-- The icon component is part of the library and the icons it displays (static assets) are all published by default -->
-		<!-- Setting the below to 'true' (default) will enable publishing of the icon static assets -->
-		<!-- Setting the below to false will disable publishing of the icon static assets -->
-		<!-- with exception of the icons that are being used by the library itself -->
-		<PublishFluentIconAssets>true</PublishFluentIconAssets>
-		
-		<!-- You can limit what icon assets get published by specifying icon sizes and variants -->
-		<!-- To determine what gets published, the specified options for sizes and variants are combined -->
-		<!-- Specifying icon sizes '10' and '16' and icon variants 'filled' and 'regular'  -->
-		<!-- means all '10 filled', all '10 regular', all '16 filled' and all '16 regular' icons assets are published -->
-		<!-- It is not posible to specify individual combinations like '10 filled' and '16 regular' in the same published set -->
-
-		<!-- If no icon sizes are specified, ALL icon sizes are included when publishing the icon assets is enabled -->
-		<!-- Choose one or more from the options below (separated with ,) -->
-		<!-- 10,12,16,20,24,28,32,48 -->
-		<FluentIconSizes>10,12,16,20,24,48</FluentIconSizes>
-
-		<!-- If no icon variants are specified, ALL icon variants are included when publishing the icon assets is enabled-->
-		<!-- Choose one or more from the options below (separated with ,) -->
-		<!-- filled,regular -->
-		<FluentIconVariants>filled,regular</FluentIconVariants>
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)'=='net6.0'">
