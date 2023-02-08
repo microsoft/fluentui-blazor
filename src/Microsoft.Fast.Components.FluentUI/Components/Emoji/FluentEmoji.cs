@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.Fast.Components.FluentUI;
 using Microsoft.Fast.Components.FluentUI.Infrastructure;
 
 namespace Microsoft.Fast.Components.FluentUI;
@@ -10,7 +9,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentEmoji : FluentComponentBase
 {
     private const string EMOJI_ROOT = "_content/Microsoft.Fast.Components.FluentUI/emojis";
-    
+
     private string? _svg;
     private string? _emojiUrl;
     private string? _folder;
@@ -86,7 +85,7 @@ public partial class FluentEmoji : FluentComponentBase
     //protected override async Task OnParametersSetAsync()
     protected override void OnParametersSet()
     {
-        if (!EmojiService.Configuration.PublishAssets)
+        if (!EmojiService.Configuration.PublishedAssets)
             throw new Exception("Emoji assest are not available");
 
         if (Size == EmojiSize.Custom && CustomSize == null)

@@ -2,26 +2,10 @@
 
 public class IconConfiguration
 {
-    public bool PublishAssets { get; init; } = true;
+    public bool PublishedAssets { get; init; } = false;
 
-    private IconSize[] _sizes = new[]
-    {
-        IconSize.Size10,
-        IconSize.Size12,
-        IconSize.Size16,
-        IconSize.Size20,
-        IconSize.Size24,
-        IconSize.Size28,
-        IconSize.Size32,
-        IconSize.Size48
-    };
-
-    private IconVariant[] _variants = new[]
-    {
-        IconVariant.Filled,
-        IconVariant.Regular
-    };
-
+    private IconSize[] _sizes = Array.Empty<IconSize>();
+    private IconVariant[] _variants = Array.Empty<IconVariant>();
 
     internal event Action? OnUpdate;
 
@@ -35,11 +19,10 @@ public class IconConfiguration
         }
     }
 
-
     public IconVariant[] Variants
     {
-        get => _variants; 
-        set 
+        get => _variants;
+        set
         {
             _variants = value;
             OnUpdate?.Invoke();
@@ -51,13 +34,8 @@ public class IconConfiguration
 
     }
 
-    public IconConfiguration(bool publishAssets)
+    public IconConfiguration(bool publishedAssets)
     {
-        PublishAssets = publishAssets;
-        if (PublishAssets is false)
-        {
-            _sizes = Array.Empty<IconSize>();
-            _variants = Array.Empty<IconVariant>();
-        }
+        PublishedAssets = publishedAssets;
     }
 }

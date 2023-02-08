@@ -26,38 +26,78 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             string[]? emojiGroups = Array.Empty<string>();
             string[]? emojiStyles = Array.Empty<string>();
 
-            bool publishEmojiAssets = false;
-            bool publishIconAssets = true;
+            bool publishedEmojiAssets = false;
+            bool publishedIconAssets = false;
 
-            if (TryReadGlobalOption(context, "PublishFluentIconAssets", out string? publishIconAssetsProp))
+            if (TryReadGlobalOption(context, "PublishFluentIconAssets", out string? publishedIconAssetsProp))
             {
-                if (!bool.TryParse(publishIconAssetsProp, out publishIconAssets))
-                {
-                    publishIconAssets = true;
-                }
-                if (publishIconAssets)
+                if (bool.TryParse(publishedIconAssetsProp, out publishedIconAssets))
                 {
                     TryReadGlobalOption(context, "FluentIconSizes", out string? iconSizesProp);
                     iconSizes = iconSizesProp?.Split(',');
+                    if (iconSizes?.Length == 1 && string.IsNullOrEmpty(iconSizes[0]))
+                    {
+                        iconSizes = new[]
+                        {
+                            "10",
+                            "12",
+                            "16",
+                            "20",
+                            "24",
+                            "28",
+                            "32",
+                            "48"
+                        };
+                    }
 
                     TryReadGlobalOption(context, "FluentIconVariants", out var iconVariantsProp);
                     iconVariants = iconVariantsProp?.Split(',');
+                    if (iconVariants?.Length == 1 && string.IsNullOrEmpty(iconVariants[0]))
+                    {
+                        iconVariants = new[]
+                        {
+                            "Filled",
+                            "Regular"
+                        };
+                    }
                 }
             }
 
-            if (TryReadGlobalOption(context, "PublishFluentEmojiAssets", out string? publishEmojiAssetsProp))
+            if (TryReadGlobalOption(context, "PublishFluentEmojiAssets", out string? publishedEmojiAssetsProp))
             {
-                if (!bool.TryParse(publishEmojiAssetsProp, out publishEmojiAssets))
-                {
-                    publishEmojiAssets = false;
-                }
-                if (publishEmojiAssets)
+                if (bool.TryParse(publishedEmojiAssetsProp, out publishedEmojiAssets))
                 {
                     TryReadGlobalOption(context, "FluentEmojiGroups", out var emojiGroupsProp);
                     emojiGroups = emojiGroupsProp?.Split(',');
 
+                    if (emojiGroups?.Length == 1 && string.IsNullOrEmpty(emojiGroups[0]))
+                    {
+                        emojiGroups = new[]
+                        {
+                            "Activities",
+                            "Animals_Nature",
+                            "Flags",
+                            "Food_Drink",
+                            "Objects",
+                            "People_Body",
+                            "Smileys_Emotion",
+                            "Symbols",
+                            "Travel_Places"
+
+                        };
+                    }
+
                     TryReadGlobalOption(context, "FluentEmojiStyles", out var emojiStylesProp);
                     emojiStyles = emojiStylesProp?.Split(',');
+                    if (emojiStyles?.Length == 1 && string.IsNullOrEmpty(emojiStyles[0]))
+                    {
+                        emojiStyles = new[]
+                        {
+                            "Color",
+                            "Flat",
+                            "HighContrast"
+                        };
+                    }
                 }
             }
 
@@ -71,8 +111,8 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             //Create IconConfiguration
             sb.AppendLine("\tpublic static IconConfiguration GetIconConfiguration()");
             sb.AppendLine("\t{");
-            sb.AppendLine($"\t\tIconConfiguration config = new({publishIconAssets.ToString().ToLower()});");
-            if (publishIconAssets)
+            sb.AppendLine($"\t\tIconConfiguration config = new({publishedIconAssets.ToString().ToLower()});");
+            if (publishedIconAssets)
             {
                 FormatConfigSection(sb, "Sizes", "IconSize.Size", iconSizes);
                 FormatConfigSection(sb, "Variants", "IconVariant.", iconVariants);
@@ -84,8 +124,8 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             //Create EmojiConfiguration
             sb.AppendLine("\tpublic static EmojiConfiguration GetEmojiConfiguration()");
             sb.AppendLine("\t{");
-            sb.AppendLine($"\t\tEmojiConfiguration config = new({publishEmojiAssets.ToString().ToLower()});");
-            if (publishEmojiAssets)
+            sb.AppendLine($"\t\tEmojiConfiguration config = new({publishedEmojiAssets.ToString().ToLower()});");
+            if (publishedEmojiAssets)
             {
                 FormatConfigSection(sb, "Groups", "EmojiGroup.", emojiGroups);
                 FormatConfigSection(sb, "Styles", "EmojiStyle.", emojiStyles);
@@ -115,27 +155,11 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
                     {
                         string option = options[i].Trim();
                         string endmarker = i <= max - 1 ? "," : string.Empty;
-                        sb.AppendLine($"\t\t\t{identifier}{ToTitleCase(option)}{endmarker}");
+                        sb.AppendLine($"\t\t\t{identifier}{option}{endmarker}");
                     }
                 }
                 sb.AppendLine("\t\t};");
             }
-        }
-
-        private static string ToTitleCase(string input)
-        {
-            string[] words = input.Split('_');
-            StringBuilder sb = new();
-            foreach (string word in words)
-            {
-                sb.Append(word[0].ToString().ToUpper());
-                sb.Append(word.Substring(1));
-                sb.Append("_");
-            }
-            sb.Remove(sb.Length - 1, 1);
-            return sb.ToString();
-
-
         }
     }
 }
