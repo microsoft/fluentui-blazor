@@ -1,14 +1,16 @@
 <div>
     <NavMenu Collapsible="false">
         <NavMenuLink Class="level1" Text="Home" Icon="@(FluentIcons.Home)" Href="/" Selected=true/>
-        <NavMenuGroup Expanded=true Text="Base classes & Utilities">
+        <NavMenuGroup Expanded=true>
+            <h2>Base classes & Utilities</h2>
             <NavMenuLink Href="/FluentComponentBase" Icon="@FluentIcons.Compose" Text="FluentComponentBase" />
             <NavMenuLink Href="/FluentInputBase" Icon="@FluentIcons.Form" Text="FluentInputBase" />
             <NavMenuLink Href="/Reboot" Icon="@FluentIcons.ArrowReset" Text="Reboot" />
             <NavMenuLink Href="/Templates" Icon="@FluentIcons.Classification" Text="Project templates" />
         </NavMenuGroup>
 
-        <NavMenuGroup Expanded=true Text="Components">
+        <NavMenuGroup Expanded=true>
+            <h2>Components</h2>
             <NavMenuLink Href="/Accordion" Icon="@FluentIcons.TextCollapse" Text="Accordion" />
             <NavMenuLink Href="/Anchor" Icon="@FluentIcons.Link" Text="Anchor" />
             <NavMenuLink Href="/AnchoredRegion" Icon="@FluentIcons.LinkSquare" Text="Anchored Region" />
@@ -47,9 +49,10 @@
             <NavMenuLink Href="/TreeView" Icon="@FluentIcons.TextBulletListTree" Text="Tree View" />
         </NavMenuGroup>
 
-        <NavMenuGroup Expanded=true Text="Incubation lab" Href="/Lab/Overview" Icon="@FluentIcons.Beaker">
+        <NavMenuGroup Expanded=true Href="/Lab/Overview" Icon="@FluentIcons.Beaker">
+            <h2>Incubation lab</h2>
             <NavMenuGroup Expanded=true>
-                Layout components
+                <h3>Layout components</h3>
                 <NavMenuLink Href="/Lab/Header" Icon="@FluentIcons.DocumentHeader" Text="Header" />
                 <NavMenuLink Href="/Lab/Footer" Icon="@FluentIcons.DocumentFooter" Text="Footer" />
                 <NavMenuLink Href="/Lab/BodyContent" Icon="@FluentIcons.ContentViewGallery" Text="BodyContent" />
@@ -59,7 +62,8 @@
                 <NavMenuLink Href="/Lab/Stack" Icon="@FluentIcons.Stack" Text="Stack" />
             </NavMenuGroup>
 
-            <NavMenuGroup Expanded=true Text="Others">
+            <NavMenuGroup Expanded=true>
+                <h3>Others</h3>
                 <NavMenuLink Href="/Lab/NavMenu" Icon="@FluentIcons.Navigation" Text="NavMenu" />
                 <NavMenuLink Href="/Lab/CounterBadge" Icon="@FluentIcons.NumberCircle1" Text="CounterBadge" />
                 <NavMenuLink Href="/Lab/Highlighter" Icon="@FluentIcons.Highlight" Text="Highlighter" />
