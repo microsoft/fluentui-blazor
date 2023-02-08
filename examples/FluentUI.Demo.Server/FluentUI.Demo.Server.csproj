@@ -5,24 +5,49 @@
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
-	
+
 	<PropertyGroup>
-		<!-- Choose one or more from the options below (no spaces, separate with ,) -->
-		<!--activities,animals_nature,flags,food_drink,objects,people_body,smileys_emotion,symbols,travel_places-->
-		<FluentEmojiGroups>activities,animals_nature,flags,food_drink,objects,smileys_emotion,symbols,travel_places</FluentEmojiGroups>
+		<!-- 
+			The icon component is part of the library. By default, NO icons (static assets) will be included when publishing the project. 
+			 
+			Setting the property 'PublishFluentIconAssets' to false (default), or leaving the property out completely, will disable publishing of the 
+			icon static assets (with exception of the icons that are being used by the library itself). 
+			
+			Setting the property 'PublishFluentIconAssets' to 'true' will enable publishing of the icon static assets. You can limit what icon assets 
+			get published by specifying icon sizes and variants in the 'FluentIconSizes' and 'FluentIconVariants' properties respectively.
+			
+			To determine what icons will be published, the specified options for sizes and variants are combined. Specifying sizes '10' and '16' and 
+			variants 'filled' and 'regular' means all '10 filled', all '10 regular', all '16 filled' and all '16 regular' icons assets will be published. 
+			It is not posible to specify multiple individual combinations like '10 filled' and '16 regular' in the same set. 
+			
+			When no icon sizes are specified in the 'FluentIconSizes' property, ALL sizes will be included(*)  
+			When no icon variant are specified in the 'FluentIconVariants' property, ALL variants will be included(*)  
+			(*)when publishing of icon assets is enabled 
+		-->
+		<PublishFluentIconAssets>true</PublishFluentIconAssets>
 
-		<!-- Choose one or more from the options below (no spaces, separate with ,) -->
-		<!-- color,flat,high-contrast -->
-		<FluentEmojiStyles>color,</FluentEmojiStyles>
-
-		<!-- Choose one or more from the options below (no spaces, separate with ,) -->
-		<!-- 10,12,16,20,24,28,32,48 -->
-		<FluentIconSizes>10,12,16,20,24,48</FluentIconSizes>
-
-		<!-- Choose one or more from the options below (no spaces, separate with ,) -->
-		<!-- filled,regular -->
-		<FluentIconVariants>filled,regular</FluentIconVariants>
+		<!-- 
+			The emoji component is part of the library. By default, NO emojis (static assets) will be included when publishing the project. 
+			 
+			Setting the property 'PublishFluentEmoji' to false (default), or leaving the property out completely, will disable publishing of the 
+			emoji static assets. 
+			
+			Setting the property 'PublishFluentEmojiAssets' to 'true' will enable publishing of the emoji static assets. You can limit what emoji assets 
+			get published by specifying emoji groups and styles in the 'FluentEmojiGroups' and 'FluentEmojiStyles' properties respectively.
+			
+			To determine what emojis will be published, the specified options for sizes and variants are combined. Specifying emoji groups 'activities' and 
+			'flags' and emoji styles 'color' and 'flat' means all 'activities color', all 'activities flat', all 'flags color' and all 'flags flat' emoji 
+			assets will be 
+			
+			It is not posible to specify multiple individual combinations like 'activities color' and 'flags flat' in the same published set
+			
+			When no emoji groups are specified in the 'FluentEmojiGroups' property, ALL groups will be included (*)  
+			When no emoji variant are specified in the 'FluentEmojiStyles' property, ALL styles will be included (*)  
+			(*) when publishing of emoji assets is enabled 
+		-->
+		<PublishFluentEmojiAssets>true</PublishFluentEmojiAssets>
 	</PropertyGroup>
+
 
 	<ItemGroup>
 		<ProjectReference Include="..\FluentUI.Demo.Shared\FluentUI.Demo.Shared.csproj" />

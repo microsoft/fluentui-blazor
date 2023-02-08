@@ -47,5 +47,5 @@
 	<Import Condition="$(FluentIconSizes.Contains('32')) AND $(FluentIconVariants.Contains('regular'))" Project="$(MSBuildThisFileDirectory)Microsoft.Fast.Components.FluentUI.StaticWebAssets.Regular32.targets"/>
 	<Import Condition="$(FluentIconSizes.Contains('48')) AND $(FluentIconVariants.Contains('regular'))" Project="$(MSBuildThisFileDirectory)Microsoft.Fast.Components.FluentUI.StaticWebAssets.Regular48.targets"/>
 
-	<Import Condition="!($(FluentIconSizes.Contains('20')) AND $(FluentIconVariants.Contains('regular'))) OR '$(PublishFluentIconAssets)' == 'false'" Project="$(MSBuildThisFileDirectory)Microsoft.Fast.Components.FluentUI.StaticWebAssets.RequiredIcons.targets"/>
+	<Import Condition="!($(FluentIconSizes.Contains('20')) AND $(FluentIconVariants.Contains('regular'))) OR $(PublishFluentIconAssets) == 'false'" Project="$(MSBuildThisFileDirectory)Microsoft.Fast.Components.FluentUI.StaticWebAssets.RequiredIcons.targets"/>
 </Project>
