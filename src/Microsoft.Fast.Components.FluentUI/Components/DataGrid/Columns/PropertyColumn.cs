@@ -57,15 +57,14 @@ public class PropertyColumn<TGridItem, TValue> : ColumnBase<TGridItem>, IBindabl
 
             if (!string.IsNullOrEmpty(Format))
             {
-                if (typeof(IFormattable).IsAssignableFrom(typeof(TValue)))
-                {
-                    _cellTextFunc = item => ((IFormattable?)compiledPropertyExpression!(item))?.ToString(Format, null);
-
-                }
-                else
+                // If the type is nullable, we're interested in formatting the underlying type
+                Type? nullableUnderlyingTypeOrNull = Nullable.GetUnderlyingType(typeof(TValue));
+                if (!typeof(IFormattable).IsAssignableFrom(nullableUnderlyingTypeOrNull ?? typeof(TValue)))
                 {
                     throw new InvalidOperationException($"A '{nameof(Format)}' parameter was supplied, but the type '{typeof(TValue)}' does not implement '{typeof(IFormattable)}'.");
                 }
+
+                _cellTextFunc = item => ((IFormattable?)compiledPropertyExpression!(item))?.ToString(Format, null);
             }
             else
             {
