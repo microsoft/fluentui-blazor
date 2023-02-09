@@ -18,7 +18,7 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             // Debugger.Launch();
             // No initialization required for this one
         }
-        
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("MicrosoftCodeAnalysisCorrectness", "RS1035:Do not use APIs banned for analyzers", Justification = "The whole purpose of this generator is to process directories...")]
         public void Execute(GeneratorExecutionContext context)
         {
@@ -29,9 +29,19 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             (string name, int size, string variant) icon;
             int iconcount = 0;
 
-            context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.MSBuildProjectDirectory", out var projectDirectory);
+            string? baseFolder;
+            context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.FluentUISourceBaseFolder", out string? sourceFolder);
+            if (string.IsNullOrEmpty(sourceFolder))
+            {
+                context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.MSBuildProjectDirectory", out string? projectDirectory);
+                baseFolder = Directory.GetParent(projectDirectory).FullName;
+            }
+            else
+            {
+                baseFolder = $"{sourceFolder}{Path.DirectorySeparatorChar}src{Path.DirectorySeparatorChar}";
+            }
 
-            string iconsFolder = Path.Combine(Directory.GetParent(projectDirectory).FullName, $"Microsoft.Fast.Components.FluentUI{Path.DirectorySeparatorChar}Assets{Path.DirectorySeparatorChar}icons{Path.DirectorySeparatorChar}");
+            string iconsFolder = Path.Combine(baseFolder, $"Microsoft.Fast.Components.FluentUI{Path.DirectorySeparatorChar}Assets{Path.DirectorySeparatorChar}icons{Path.DirectorySeparatorChar}");
 
             sb.AppendLine($"#pragma warning disable CS1591");
             sb.AppendLine("using System.Collections.Generic;\r\n");

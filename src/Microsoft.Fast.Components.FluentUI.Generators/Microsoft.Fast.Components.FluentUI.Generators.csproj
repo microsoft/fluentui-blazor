@@ -27,6 +27,27 @@
 		<PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="6.0.0" GeneratePathProperty="true" PrivateAssets="all" />
 	</ItemGroup>
 
+	<!-- 
+		If you want to debug the FluentUI code locally from your own solution/project, you need to add this generator as a project reference, you also
+		need to tell the source generators where to find the FluentUI source code so it can use that path fo find the emoji and icons. 
+		This is done by adding some code to your application's project file: 
+		1) Make the FluentUISourceBaseFolder property visible to the compiler by using the <CompilerVisibleProperty> in an <ItemGroup>. 
+		2) Set the value of the FluentUISourceBaseFolder property with the absolute path to the root of the FluentUI source code 
+		   with no path separator at the end (make sure you use the appropriate path separator for your environement in the rest of the path).
+		Copy the the lines below to your application's project and adjust them to your situation.
+		
+		You do not need to do this if you are using the FluentUI nuget package or if you are debugging the demo sites that are part ofthe repository. 
+	-->
+	<!--
+	<ItemGroup Condition="$(Configuration)=='Debug'">
+		<ProjectReference Include="{change_this_to_the_path_to_the_root_of_the_cloned_repository_source}\src\Microsoft.Fast.Components.FluentUI.Generators\Microsoft.Fast.Components.FluentUI.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+		<CompilerVisibleProperty Include="FluentUISourceBaseFolder" />
+	</ItemGroup>
+	<PropertyGroup Condition="$(Configuration)=='Debug'">
+		<FluentUISourceBaseFolder>c:\path_to_the_root_of_the_cloned_repository_source</FluentUISourceBaseFolder>
+	</PropertyGroup>
+	-->
+
 	<PropertyGroup>
 		<GetTargetPathDependsOn>$(GetTargetPathDependsOn);GetDependencyTargetPaths</GetTargetPathDependsOn>
 	</PropertyGroup>
