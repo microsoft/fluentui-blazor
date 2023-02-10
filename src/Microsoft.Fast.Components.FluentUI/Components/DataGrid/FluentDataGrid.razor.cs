@@ -40,7 +40,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// components derived from the <see cref="ColumnBase{TGridItem}"/> base class.
     /// </summary>
     [Parameter] public RenderFragment? ChildContent { get; set; }
-    
+
     /// <summary>
     /// If true, the grid will be rendered with virtualization. This is normally used in conjunction with
     /// scrolling and causes the grid to fetch and render only the data around the current scroll viewport.
@@ -302,7 +302,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public async Task RefreshDataAsync()
     {
         await RefreshDataCoreAsync();
-        StateHasChanged();
+        //StateHasChanged();
     }
 
     // Same as RefreshDataAsync, except without forcing a re-render. We use this from OnParametersSetAsync

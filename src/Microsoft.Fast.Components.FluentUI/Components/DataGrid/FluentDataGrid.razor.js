@@ -56,7 +56,9 @@ function enableColumnResizing(gridElement) {
     const columns = [];
     let headerBeingResized;
     
-
+    if (gridElement === null) {
+        return;
+    };
     gridElement.querySelectorAll('.column-header').forEach(header => {
         const max = '1fr';
         
