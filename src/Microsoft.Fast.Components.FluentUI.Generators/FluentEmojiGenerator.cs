@@ -47,8 +47,8 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             int emojicount = 0;
 
             string? baseFolder;
-            context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.FluentUISourceBaseFolder", out string? sourceFolder);
-            if (string.IsNullOrEmpty(sourceFolder))
+            bool getResult = context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.FluentUISourceBaseFolder", out string? sourceFolder);
+            if (!getResult || (string.IsNullOrEmpty(sourceFolder)))
             {
                 context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.MSBuildProjectDirectory", out string? projectDirectory);
                 baseFolder = Directory.GetParent(projectDirectory).FullName;
