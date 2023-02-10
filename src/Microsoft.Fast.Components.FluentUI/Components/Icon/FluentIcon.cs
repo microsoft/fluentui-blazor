@@ -64,7 +64,7 @@ public partial class FluentIcon : FluentComponentBase
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the <see cref="IconSize"/> of the icon. Defaults to 24. Not all sizes are available for all icons.
+    /// Gets or sets the <see cref="IconSize"/> of the icon. Defaults to 20. Not all sizes are available for all icons.
     /// </summary>
     [Parameter]
     public IconSize Size { get; set; } = IconSize.Size20;

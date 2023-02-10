@@ -73,14 +73,23 @@ public partial class DemoSection : ComponentBase
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-
-    protected override async Task OnParametersSetAsync()
+    protected override async Task OnInitializedAsync()
     {
+        _allFiles.Clear();
         _allFiles.AddRange(GetCollocatedFiles());
         _allFiles.AddRange(GetAdditionalFiles());
 
         await SetCodeContentsAsync();
     }
+
+    //protected override async Task OnParametersSetAsync()
+    //{
+    //    _allFiles.Clear();
+    //    _allFiles.AddRange(GetCollocatedFiles());
+    //    _allFiles.AddRange(GetAdditionalFiles());
+
+    //    await SetCodeContentsAsync();
+    //}
 
     protected override void OnAfterRender(bool firstRender)
     {
