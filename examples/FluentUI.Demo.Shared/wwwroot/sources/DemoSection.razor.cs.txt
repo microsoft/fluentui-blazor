@@ -75,7 +75,9 @@ public partial class DemoSection : ComponentBase
 
     protected override async Task OnInitializedAsync()
     {
-        _allFiles.Clear();
+        if (_allFiles.Any())
+            _allFiles.Clear();
+
         _allFiles.AddRange(GetCollocatedFiles());
         _allFiles.AddRange(GetAdditionalFiles());
 

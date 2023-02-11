@@ -2,13 +2,13 @@ export function init(gridElement) {
     enableColumnResizing(gridElement);
     
     const bodyClickHandler = event => {
-        const columnOptionsElement = gridElement.querySelector('.col-options');
+        const columnOptionsElement = gridElement?.querySelector('.col-options');
         if (columnOptionsElement && event.composedPath().indexOf(columnOptionsElement) < 0) {
             gridElement.dispatchEvent(new CustomEvent('closecolumnoptions', { bubbles: true }));
         }
     };
     const keyDownHandler = event => {
-        const columnOptionsElement = gridElement.querySelector('.col-options');
+        const columnOptionsElement = gridElement?.querySelector('.col-options');
         if (columnOptionsElement && event.key === "Escape") {
             gridElement.dispatchEvent(new CustomEvent('closecolumnoptions', { bubbles: true }));
         }
@@ -28,7 +28,7 @@ export function init(gridElement) {
 }
 
 export function checkColumnOptionsPosition(gridElement) {
-    const colOptions = gridElement._rowItems[0] && gridElement.querySelector('.col-options'); // Only match within *our* thead, not nested tables
+    const colOptions = gridElement?._rowItems[0] && gridElement?.querySelector('.col-options'); // Only match within *our* thead, not nested tables
     if (colOptions) {
         // We want the options popup to be positioned over the grid, not overflowing on either side, because it's possible that
         // beyond either side is off-screen or outside the scroll range of an ancestor

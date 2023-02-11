@@ -1,19 +1,19 @@
 ﻿<h4>Checked</h4>
-<FluentRadioGroup @bind-Value=value1 Name="checkedstate">
+<FluentRadioGroup @bind-Value=v1 Name="checkedstate">
     <FluentRadio Name="checkedstate" Value=@("checked") Checked="true"></FluentRadio>
 </FluentRadioGroup>
 
 <h4>Required</h4>
-<FluentRadioGroup @bind-Value=value2>
+<FluentRadioGroup @bind-Value=v2>
     <FluentRadio Value=@("required") Required="true"></FluentRadio>
 </FluentRadioGroup>
 
 <h4>Disabled</h4>
-<FluentRadioGroup @bind-Value=value3>
+<FluentRadioGroup @bind-Value=v3>
     <FluentRadio Disabled="true"></FluentRadio>
     <FluentRadio Disabled="true">label</FluentRadio>
     <FluentRadio Disabled="true" Checked="true">checked</FluentRadio>
 </FluentRadioGroup>
 @code {
-    string? value1, value2, value3;
+    string? v1, v2, v3;
 }

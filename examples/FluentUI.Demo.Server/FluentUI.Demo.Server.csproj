@@ -82,6 +82,8 @@
 	</ItemGroup>
 	
 	<ItemGroup Condition="'$(Configuration)'=='Debug'">
+		<CompilerVisibleProperty Include="PublishFluentIconAssets" />
+		<CompilerVisibleProperty Include="PublishFluentEmojiAssets" />
 		<CompilerVisibleProperty Include="FluentEmojiStyles" />
 		<CompilerVisibleProperty Include="FluentEmojiGroups" />
 		<CompilerVisibleProperty Include="FluentIconSizes" />
