@@ -11,7 +11,7 @@
                     required="@Required"
                     current-value="@CurrentValue"
                     @oncustomclick="@((e) => CurrentValueAsString = e.Value?.ToString())"
-                    @attributes="AdditionalAttributes">
+                    @attributes="@AdditionalAttributes">
     @ChildContent
 </fluent-radio-group>
 
