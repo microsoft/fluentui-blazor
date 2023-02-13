@@ -2,7 +2,7 @@
  <PropertyGroup>
 	 <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
 	 <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
-	 <VersionPrefix>2.0.5</VersionPrefix>
+	 <VersionPrefix>2.0.6</VersionPrefix>
 	 <VersionSuffix></VersionSuffix> 
  </PropertyGroup>
 </Project>
