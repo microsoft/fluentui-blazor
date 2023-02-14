@@ -1,6 +1,6 @@
 export function init(gridElement) {
     enableColumnResizing(gridElement);
-    
+
     const bodyClickHandler = event => {
         const columnOptionsElement = gridElement?.querySelector('.col-options');
         if (columnOptionsElement && event.composedPath().indexOf(columnOptionsElement) < 0) {
@@ -46,7 +46,7 @@ export function checkColumnOptionsPosition(gridElement) {
 
         const autoFocusElem = colOptions.querySelector('[autofocus]');
         if (autoFocusElem) {
-          autoFocusElem.focus();
+            autoFocusElem.focus();
         }
     }
 }
@@ -55,13 +55,13 @@ function enableColumnResizing(gridElement) {
     const min = 150;
     const columns = [];
     let headerBeingResized;
-    
+
     if (gridElement === null) {
         return;
     };
     gridElement.querySelectorAll('.column-header').forEach(header => {
         const max = '1fr';
-        
+
         columns.push({
             header,
             // The initial size value for grid-template-columns:
@@ -75,10 +75,10 @@ function enableColumnResizing(gridElement) {
             const width = (e.clientX) - (headerBeingResized.offsetLeft + horizontalScrollOffset);
 
             const column = columns.find(({ header }) => header === headerBeingResized);
-            column.size = Math.max(min, width) + 'px'; 
+            column.size = Math.max(min, width) + 'px';
 
             columns.forEach((column) => {
-                if (column.size.startsWith('minmax')) { 
+                if (column.size.startsWith('minmax')) {
                     column.size = parseInt(column.header.clientWidth, 10) + 'px';
                 }
             });
@@ -101,10 +101,10 @@ function enableColumnResizing(gridElement) {
 
             headerBeingResized = null;
         };
-        
+
         const initResize = ({ target }) => {
             console.log('initResize');
-            
+
             headerBeingResized = target.parentNode;
             window.addEventListener('mousemove', onMouseMove);
             window.addEventListener('mouseup', onMouseUp);

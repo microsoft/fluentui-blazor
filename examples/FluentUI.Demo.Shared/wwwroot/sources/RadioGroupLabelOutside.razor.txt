@@ -1,7 +1,6 @@
 ﻿<h4>With label outside group</h4>
-<div style="display: flex; flex-direction: column; margin-top: 12px;">
-    <label id="label1">Outside label</label>
-    <FluentRadioGroup Required="true" aria-labelledby="label1" Name="fruits" @bind-Value=value Orientation="Orientation.Vertical">
+
+    <FluentRadioGroup Required="true" aria-labelledby="label1" Name="fruits" @bind-Value=fruit Orientation="Orientation.Vertical">
         <FluentRadio Value=@("apples")>Apples</FluentRadio>
         <FluentRadio Value=@("oranges")>Oranges</FluentRadio>
         <FluentRadio Value=@("bananas")>Bananas</FluentRadio>
@@ -12,9 +11,10 @@
         <FluentRadio Value=@("strawberries")>Strawberries</FluentRadio>
         <FluentRadio Value=@("pineapple")>Pineapple</FluentRadio>
     </FluentRadioGroup>
-</div>
 
-@code
+<p>Your favorite fruit: @fruit!</p>
+
+@code 
 {
-    string? value;
+    string? fruit = "apples";
 }
