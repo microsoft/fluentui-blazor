@@ -140,7 +140,6 @@ public partial class DemoMainLayout : IAsyncDisposable
                 menuchecked = false;
                 StateHasChanged();
             }
-            //HandleChecked();
         }
     }
 
