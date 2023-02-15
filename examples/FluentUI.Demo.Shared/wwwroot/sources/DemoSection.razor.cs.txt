@@ -1,6 +1,6 @@
 ﻿using System.Reflection.Metadata;
 using Microsoft.AspNetCore.Components;
-
+using Microsoft.Fast.Components.FluentUI.Infrastructure;
 
 namespace FluentUI.Demo.Shared.Components;
 public partial class DemoSection : ComponentBase
@@ -11,6 +11,10 @@ public partial class DemoSection : ComponentBase
 
     [Inject]
     private HttpClient HttpClient { get; set; } = default!;
+
+    [Inject]
+    private IStaticAssetService StaticAssetService { get; set; } = default!;
+
 
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
@@ -73,7 +77,7 @@ public partial class DemoSection : ComponentBase
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
         if (_allFiles.Any())
             _allFiles.Clear();
@@ -81,13 +85,15 @@ public partial class DemoSection : ComponentBase
         _allFiles.AddRange(GetCollocatedFiles());
         _allFiles.AddRange(GetAdditionalFiles());
 
-        await SetCodeContentsAsync();
     }
 
-    protected override void OnAfterRender(bool firstRender)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
+        {
+            await SetCodeContentsAsync();
             _hasCode = true;
+        }
     }
 
     protected async Task SetCodeContentsAsync()
@@ -98,7 +104,8 @@ public partial class DemoSection : ComponentBase
         {
             foreach (string source in _allFiles)
             {
-                _tabPanelsContent.Add(source, await HttpClient.GetStringAsync($"./_content/FluentUI.Demo.Shared/sources/{source}.txt"));
+                string? result = await StaticAssetService.GetAsync($"./_content/FluentUI.Demo.Shared/sources/{source}.txt");
+                _tabPanelsContent.Add(source, result ?? string.Empty);
             }
         }
         catch

@@ -24,9 +24,6 @@ public partial class FluentEmoji : FluentComponentBase
     private IStaticAssetService StaticAssetService { get; set; } = default!;
 
     [Inject]
-    private CacheStorageAccessor CacheStorageAccessor { get; set; } = default!;
-
-    [Inject]
     private EmojiService EmojiService { get; set; } = default!;
 
     /// <summary>
