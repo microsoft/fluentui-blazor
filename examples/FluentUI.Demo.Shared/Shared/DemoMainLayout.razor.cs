@@ -50,7 +50,7 @@ public partial class DemoMainLayout : IAsyncDisposable
     {
         _version = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
 
-        
+
         OfficeColor[] colors = Enum.GetValues<OfficeColor>().ToArray();
         _selectedColorOption = colors[new Random().Next(colors.Length)];
 
@@ -76,7 +76,7 @@ public partial class DemoMainLayout : IAsyncDisposable
 
             if (_selectedColorOption != OfficeColor.Default)
                 await AccentBaseColor.SetValueFor(container, _selectedColorOption.ToAttributeValue()!.ToSwatch());
-            
+
             StateHasChanged();
         }
     }
@@ -135,12 +135,16 @@ public partial class DemoMainLayout : IAsyncDisposable
         if (!e.IsNavigationIntercepted && new Uri(_prevUri!).AbsolutePath != new Uri(e.Location).AbsolutePath)
         {
             _prevUri = e.Location;
-            if (_mobile)
+            if (_mobile && menuchecked == true)
+            {
                 menuchecked = false;
+                StateHasChanged();
+            }
+            //HandleChecked();
         }
     }
 
-    
+
 
     async ValueTask IAsyncDisposable.DisposeAsync()
     {

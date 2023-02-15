@@ -56,7 +56,7 @@
                 <FluentTabPanel>
                     @if (_hasCode) 
                     {
-                        _tabPanelsContent.TryGetValue(tab, out string sourcecode);
+                        _tabPanelsContent.TryGetValue(tab, out string? sourcecode);
                         <CodeSnippet Language="@TabLanguageClass(tab)">@sourcecode</CodeSnippet>
                     }
                 </FluentTabPanel>
