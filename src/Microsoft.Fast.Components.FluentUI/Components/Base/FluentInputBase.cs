@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
@@ -156,6 +157,25 @@ public abstract class FluentInputBase<TValue> : FluentComponentBase, IDisposable
         }
     }
 
+    protected virtual string? ClassValue
+    {
+        get
+        {
+            string? fieldClass = EditContext?.FieldCssClass(FieldIdentifier);
+            string? cssClass = CombineClassNames(AdditionalAttributes, fieldClass) ?? string.Empty;
+
+            return new CssBuilder(Class)
+                .AddClass(cssClass)
+                .Build();
+        }
+    }
+
+    /// <summary />
+    protected virtual string? StyleValue => new StyleBuilder()
+        .AddStyle(Style)
+        .Build();
+
+
     /// <summary>
     /// Constructs an instance of <see cref="InputBase{TValue}"/>.
     /// </summary>
@@ -182,24 +202,24 @@ public abstract class FluentInputBase<TValue> : FluentComponentBase, IDisposable
     /// <returns>True if the value could be parsed; otherwise false.</returns>
     protected abstract bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage);
 
-    /// <summary>
-    /// Gets a CSS class string that combines the <c>class</c> attribute and and a string indicating
-    /// the status of the field being edited (a combination of "modified", "valid", and "invalid").
-    /// Derived components should typically use this value for the primary HTML element class attribute.
-    /// </summary>
-    public override string? Class
-    {
-        get
-        {
-            var fieldClass = EditContext?.FieldCssClass(FieldIdentifier);
-            return CombineClassNames(AdditionalAttributes, fieldClass) ?? string.Empty;
-        }
-        set
-        {
-            base.Class = value;
-        }
+    ///// <summary>
+    ///// Gets a CSS class string that combines the <c>class</c> attribute and and a string indicating
+    ///// the status of the field being edited (a combination of "modified", "valid", and "invalid").
+    ///// Derived components should typically use this value for the primary HTML element class attribute.
+    ///// </summary>
+    //public override string? Class
+    //{
+    //    get
+    //    {
+    //        var fieldClass = EditContext?.FieldCssClass(FieldIdentifier);
+    //        return CombineClassNames(AdditionalAttributes, fieldClass) ?? string.Empty;
+    //    }
+    //    set
+    //    {
+    //        base.Class = value;
+    //    }
 
-    }
+    //}
 
     /// <inheritdoc />
     public override Task SetParametersAsync(ParameterView parameters)
