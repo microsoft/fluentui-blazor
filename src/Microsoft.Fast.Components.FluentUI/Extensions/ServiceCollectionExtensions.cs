@@ -1,7 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
 using Microsoft.Fast.Components.FluentUI.DesignTokens;
 using Microsoft.Fast.Components.FluentUI.Infrastructure;
 
@@ -35,7 +32,7 @@ public static class ServiceCollectionExtensions
 
         IconConfiguration? options = new();
         configuration(options);
-        
+
         return AddFluentIcons(services, options);
     }
 
@@ -68,7 +65,7 @@ public static class ServiceCollectionExtensions
         return AddFluentEmojis(services, options);
     }
 
-    
+
     /// <summary>
     /// Add common servIconConfiguration?s required by the Fluent UI Web Components for Blazor library
     /// </summary>
@@ -112,7 +109,7 @@ public static class ServiceCollectionExtensions
 
         LibraryConfiguration? options = new();
         configuration.Invoke(options);
-        
+
 
         services.AddScoped<GlobalState>();
         services.AddScoped<CacheStorageAccessor>();
