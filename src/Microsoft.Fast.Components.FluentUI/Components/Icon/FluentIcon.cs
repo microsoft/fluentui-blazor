@@ -86,7 +86,7 @@ public partial class FluentIcon : FluentComponentBase
 
 
     //protected override async Task OnParametersSetAsync()
-    protected override void OnParametersSet()
+    protected override void OnInitialized()
     {
         string? nc = NeutralCultureName ?? null;
 

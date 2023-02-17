@@ -374,12 +374,36 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
                     builder.AddAttribute(4, "ChildContent", (RenderFragment)(content =>
                     {
                         content.AddContent(5, GetOptionText(item));
+                        if (item!.GetType().IsGenericType && item.GetType().GetGenericTypeDefinition() == typeof(Option<>))
+                        {
+                            Option<string>? t = item as Option<string>;
+                            if (t is not null)
+                            {
+                                (string Name, IconSize? Size, IconVariant? Variant, Color? Color, string? Slot) = t.Icon;
+                                if (!string.IsNullOrEmpty(Name))
+                                {
+                                    content.OpenComponent<FluentIcon>(6);
+                                    content.AddAttribute(7, "Name", Name);
+
+                                    if (Size is not null)
+                                        content.AddAttribute(8, "Size", Size);
+                                    if (Variant is not null)
+                                        content.AddAttribute(9, "Variant", Variant);
+                                    if (Slot is not null)
+                                        content.AddAttribute(10, "Slot", Slot);
+                                    if (Color is not null)
+                                        content.AddAttribute(11, "Color", Color);
+
+                                    content.CloseComponent();
+                                }
+                            }
+                        }
                     }));
 
                     // Needed in fluent-listbox and fluent-select with mutliple select enabled
                     if (this is FluentListbox<TOption> || (this is FluentSelect<TOption> && Multiple))
                     {
-                        builder.AddAttribute(6, "OnSelect", OnSelectCallback(item));
+                        builder.AddAttribute(12, "OnSelect", OnSelectCallback(item));
                     }
 
                     builder.CloseComponent();
