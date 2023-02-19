@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Text.Json;
@@ -29,6 +30,7 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
     [Generator]
     public class FluentEmojiGenerator : ISourceGenerator
     {
+        const int maxnamelength = 20;
         public void Initialize(GeneratorInitializationContext context)
         {
             // Debugger.Launch();
@@ -80,6 +82,7 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
                     Metadata? metadata = JsonSerializer.Deserialize<Metadata>(File.ReadAllText(Path.Combine(emojifolder, "metadata.json")));
 
                     string basefilename = metadata!.basefilename!;
+                    string shortenedBaseFilename = basefilename.Substring(0, Math.Min(basefilename.Length, maxnamelength));
                     string keywords = string.Join(",", metadata.keywords);
 
                     if (metadata.unicodeSkintones != null)
@@ -89,7 +92,7 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
 
                     foreach (string filepath in Directory.EnumerateFiles(emojifolder, "*.svg"))
                     {
-                        string file = Path.GetFileNameWithoutExtension(filepath).Substring(basefilename.Length + 1);
+                        string file = Path.GetFileNameWithoutExtension(filepath).Substring(shortenedBaseFilename.Length + 1);
 
                         Match? match;
 
@@ -98,30 +101,53 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
                         else
                             match = variant.Match(file);
 
-                        string? emojiStyle = string.Empty;
-                        string? emojiSkintone = string.Empty;
+                        string? shortEmojiStyle = string.Empty;
+                        string? shortEmojiSkintone = string.Empty;
 
                         if (match.Success)
                         {
 
-                            emojiStyle = match.Groups[1].Value;
-                            emojiStyle = Regex.Replace(emojiStyle, @"(^|-)(\w)", m => m.Groups[2].Value.ToUpper());
+                            //shortEmojiStyle = match.Groups[1].Value;
+                            //shortEmojiStyle = Regex.Replace(shortEmojiStyle, @"(^|-)(\w)", m => m.Groups[2].Value);
                             if (hasTone)
                             {
-                                emojiSkintone = match.Groups[2].Value;
-                                emojiSkintone = Regex.Replace(emojiSkintone, @"(^|-)(\w)", m => m.Groups[2].Value.ToUpper());
+                                shortEmojiStyle = match.Groups[2].Value;
+                                shortEmojiSkintone = match.Groups[1].Value;
+                                //shortEmojiSkintone = Regex.Replace(shortEmojiSkintone, @"(^|-)(\w)", m => m.Groups[2].Value);
                             }
-
+                            else
+                            {
+                                shortEmojiStyle = match.Groups[0].Value;
+                            }
                         }
+
+                        string emojiStyle = shortEmojiStyle switch
+                        {
+                            "c" => "Color",
+                            "f" => "Flat",
+                            "h" => "HighContrast",
+                            _ => ""
+                        };
+
+                        string emojiSkintone = shortEmojiSkintone switch
+                        {
+                            "de" => "Default",
+                            "li" => "Light",
+                            "ml" => "MediumLight",
+                            "me" => "Medium",
+                            "md" => "MediumDark",
+                            "da" => "Dark",
+                            _ => ""
+                        };
 
                         if (!string.IsNullOrEmpty(emojiSkintone))
                         {
-                            sb.AppendLine($"\t\tnew EmojiModel(\"{basefilename}\", \"{folder}\", EmojiGroup.{group}, \"{keywords}\", EmojiStyle.{emojiStyle}, EmojiSkintone.{emojiSkintone}),");
+                            sb.AppendLine($"\t\tnew EmojiModel(\"{shortenedBaseFilename}\", \"{folder}\", EmojiGroup.{group}, \"{keywords}\", EmojiStyle.{emojiStyle}, EmojiSkintone.{emojiSkintone}),");
 
                         }
                         else
                         {
-                            sb.AppendLine($"\t\tnew EmojiModel(\"{basefilename}\", \"{folder}\", EmojiGroup.{group}, \"{keywords}\", EmojiStyle.{emojiStyle}),");
+                            sb.AppendLine($"\t\tnew EmojiModel(\"{shortenedBaseFilename}\",  \"{folder}\", EmojiGroup.{group}, \"{keywords}\", EmojiStyle.{emojiStyle}),");
                         }
                         emojicount++;
                     }
@@ -133,7 +159,7 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
                     }
 
 
-                    constants.Add((folder.Replace("!", ""), basefilename));
+                    constants.Add((folder.Replace("!", ""), shortenedBaseFilename));
                 }
             }
 

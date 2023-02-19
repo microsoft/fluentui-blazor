@@ -1,0 +1,23 @@
+{
+  "basefilename": "smiling_face_with_heart-eyes",
+  "cldr": "smiling face with heart-eyes",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDE0D",
+  "glyphAsUtfInEmoticons": [
+    "hearteyes"
+  ],
+  "group": "Smileys \u0026 Emotion",
+  "keywords": [
+    "eye",
+    "face",
+    "love",
+    "smile",
+    "smiling face with heart-eyes"
+  ],
+  "mappedToEmoticons": [
+    "hearteyes"
+  ],
+  "tts": "smiling face with heart-eyes",
+  "unicode": "1f60d",
+  "unicodeSkintones": null
+}

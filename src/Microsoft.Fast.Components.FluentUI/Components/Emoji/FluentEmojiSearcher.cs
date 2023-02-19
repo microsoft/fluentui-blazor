@@ -6,10 +6,10 @@ public class FluentEmojiSearcher
 {
     [Inject]
     private EmojiService EmojiService { get; set; } = default!;
-    
+
     private IEnumerable<EmojiModel>? _emojiList;
-    
-    
+
+
 
     public FluentEmojiSearcher(EmojiService emojiService)
     {
@@ -24,11 +24,11 @@ public class FluentEmojiSearcher
     public FluentEmojiSearcher InGroup(EmojiGroup? group)
     {
         if (group.HasValue)
-        { 
+        {
             _emojiList ??= GetFilteredEmojiList();
 
             _emojiList = _emojiList!.Where(x => x.Group == group);
-                
+
         }
         return this;
     }
@@ -40,7 +40,7 @@ public class FluentEmojiSearcher
             _emojiList ??= GetFilteredEmojiList();
 
             _emojiList = _emojiList!.Where(x => x.Style == style);
-                
+
         }
 
         return this;
@@ -64,8 +64,10 @@ public class FluentEmojiSearcher
         if (!string.IsNullOrWhiteSpace(searchterm) && searchterm.Length >= 2)
         {
             _emojiList ??= GetFilteredEmojiList();
-            
-            _emojiList = _emojiList!.Where(x => x.Name.Contains(searchterm, StringComparison.OrdinalIgnoreCase) || x.Folder.Contains(searchterm.ToLower()));
+
+            _emojiList = _emojiList!.Where(x => x.Name.Contains(searchterm, StringComparison.OrdinalIgnoreCase) ||
+                                                         x.Keywords.Contains(searchterm, StringComparison.OrdinalIgnoreCase) ||
+                                                         x.Folder.Contains(searchterm.ToLower()));
         }
 
         return this;

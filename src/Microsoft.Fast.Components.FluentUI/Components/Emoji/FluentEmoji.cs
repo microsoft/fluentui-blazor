@@ -173,14 +173,32 @@ public partial class FluentEmoji : FluentComponentBase
 
     private string GetComposedName()
     {
+        string skinToneShort = Skintone switch
+        {
+            EmojiSkintone.Default => "de",
+            EmojiSkintone.Light => "li",
+            EmojiSkintone.MediumLight => "ml",
+            EmojiSkintone.Medium => "me",
+            EmojiSkintone.MediumDark => "md",
+            EmojiSkintone.Dark => "da",
+            _ => ""
+        };
+
+        string emojiStyleShort = EmojiStyle switch
+        {
+            FluentUI.EmojiStyle.Color => "c",
+            FluentUI.EmojiStyle.Flat => "f",
+            FluentUI.EmojiStyle.HighContrast => "h",
+            _ => ""
+        };
 
         string result = "";
         if (Name is not null)
         {
             if (hasSkintone)
-                result = $"{Name}_{EmojiStyle.ToAttributeValue()}_{Skintone.ToAttributeValue()}";
+                result = $"{Name}_{emojiStyleShort}_{skinToneShort}";
             else
-                result = $"{Name}_{EmojiStyle.ToAttributeValue()}";
+                result = $"{Name}_{emojiStyleShort}";
         }
 
         return result;

@@ -1,0 +1,31 @@
+{
+  "basefilename": "backhand_index_pointing_left",
+  "cldr": "backhand index pointing left",
+  "fromVersion": "0.6",
+  "glyph": "\uD83D\uDC48",
+  "glyphAsUtfInEmoticons": [
+    "pointleftindex"
+  ],
+  "group": "People \u0026 Body",
+  "keywords": [
+    "backhand",
+    "backhand index pointing left",
+    "finger",
+    "hand",
+    "index",
+    "point"
+  ],
+  "mappedToEmoticons": [
+    "pointleftindex"
+  ],
+  "tts": "backhand index pointing left",
+  "unicode": "1f448",
+  "unicodeSkintones": [
+    "1f448",
+    "1f448 1f3fb",
+    "1f448 1f3fc",
+    "1f448 1f3fd",
+    "1f448 1f3fe",
+    "1f448 1f3ff"
+  ]
+}
