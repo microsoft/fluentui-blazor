@@ -286,7 +286,7 @@ public class FileBasedStaticAssetService : IStaticAssetService
 		_cacheStorageAccessor = cacheStorageAccessor;
 	}
 
-	public async Task<string> GetAsync(string assetUrl, bool useCache = true)
+	public async Task<string> GetAsync(string assetUrl, bool useCache = false)
 	{
 		string result = null;
 
