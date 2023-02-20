@@ -8,13 +8,13 @@
 		<CompilerVisibleProperty Include="FluentIconVariants" />
 	</ItemGroup>
 	<PropertyGroup>
-		<PublishFluentIconAssets Condition="$(PublishFluentIconAssets) == ''" >false</PublishFluentIconAssets>
-		<PublishFluentEmojiAssets Condition="$(PublishFluentEmojiAssets) == ''" >false</PublishFluentEmojiAssets>
+		<PublishFluentIconAssets Condition="'$(PublishFluentIconAssets)' == ''" >false</PublishFluentIconAssets>
+		<PublishFluentEmojiAssets Condition="'$(PublishFluentEmojiAssets)' == ''" >false</PublishFluentEmojiAssets>
 		
-		<FluentIconSizes Condition="$(FluentIconSizes) == '' AND $(PublishFluentIconAssets) == 'true'">10,12,16,20,24,28,32,48</FluentIconSizes>
-		<FluentIconVariants Condition="$(FluentIconVariants) == '' AND $(PublishFluentIconAssets) == 'true'">Filled,Regular</FluentIconVariants>
-		<FluentEmojiGroups Condition="$(FluentEmojiGroups) == '' AND $(PublishFluentEmojiAssets) == 'true'">Activities,Animals_Nature,Flags,Food_Drink,Objects,Smileys_Emotion,Symbols,Travel_Places</FluentEmojiGroups>
-		<FluentEmojiStyles Condition="$(FluentEmojiStyles) == '' AND $(PublishFluentEmojiAssets) == 'true'">Color,Flat,HighContrast</FluentEmojiStyles>
+		<FluentIconSizes Condition="'$(FluentIconSizes)' == '' AND $(PublishFluentIconAssets) == 'true'">10,12,16,20,24,28,32,48</FluentIconSizes>
+		<FluentIconVariants Condition="'$(FluentIconVariants)' == '' AND $(PublishFluentIconAssets) == 'true'">Filled,Regular</FluentIconVariants>
+		<FluentEmojiGroups Condition="'$(FluentEmojiGroups)' == '' AND $(PublishFluentEmojiAssets) == 'true'">Activities,Animals_Nature,Flags,Food_Drink,Objects,Smileys_Emotion,Symbols,Travel_Places</FluentEmojiGroups>
+		<FluentEmojiStyles Condition="'$(FluentEmojiStyles)' == '' AND $(PublishFluentEmojiAssets) == 'true'">Color,Flat,HighContrast</FluentEmojiStyles>
 	</PropertyGroup>
 	<Import Project="Microsoft.AspNetCore.StaticWebAssets.props" />
 </Project>

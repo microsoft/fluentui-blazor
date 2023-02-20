@@ -646,137 +646,137 @@
 
 		<ItemGroup>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentEmojis.Activities.Color.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Activities.Color.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Activities.Color.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentEmojis.Activities.Flat.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Activities.Flat.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Activities.Flat.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentEmojis.Activities.HighContrast.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Activities.HighContrast.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Activities.HighContrast.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentEmojis.Animals_Nature.Color.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Animals_Nature.Color.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Animals_Nature.Color.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentEmojis.Animals_Nature.Flat.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Animals_Nature.Flat.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Animals_Nature.Flat.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentEmojis.Animals_Nature.HighContrast.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Animals_Nature.HighContrast.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Animals_Nature.HighContrast.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentEmojis.Flags.Color.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Flags.Color.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Flags.Color.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentEmojis.Flags.Flat.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Flags.Flat.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Flags.Flat.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentEmojis.Flags.HighContrast.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Flags.HighContrast.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Flags.HighContrast.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentEmojis.Food_Drink.Color.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Food_Drink.Color.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Food_Drink.Color.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentEmojis.Food_Drink.Flat.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Food_Drink.Flat.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Food_Drink.Flat.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentEmojis.Food_Drink.HighContrast.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Food_Drink.HighContrast.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Food_Drink.HighContrast.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentEmojis.Objects.Color.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Objects.Color.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Objects.Color.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentEmojis.Objects.Flat.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Objects.Flat.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Objects.Flat.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentEmojis.Objects.HighContrast.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Objects.HighContrast.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Objects.HighContrast.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentEmojis.People_Body.Color.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.People_Body.Color.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.People_Body.Color.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentEmojis.People_Body.Flat.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.People_Body.Flat.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.People_Body.Flat.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentEmojis.People_Body.HighContrast.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.People_Body.HighContrast.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.People_Body.HighContrast.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentEmojis.Smileys_Emotion.Color.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Smileys_Emotion.Color.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Smileys_Emotion.Color.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentEmojis.Smileys_Emotion.Flat.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Smileys_Emotion.Flat.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Smileys_Emotion.Flat.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentEmojis.Smileys_Emotion.HighContrast.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Smileys_Emotion.HighContrast.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Smileys_Emotion.HighContrast.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentEmojis.Symbols.Color.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Symbols.Color.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Symbols.Color.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentEmojis.Symbols.Flat.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Symbols.Flat.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Symbols.Flat.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentEmojis.Symbols.HighContrast.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Symbols.HighContrast.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Symbols.HighContrast.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentEmojis.Travel_Places.Color.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Travel_Places.Color.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Travel_Places.Color.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentEmojis.Travel_Places.Flat.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Travel_Places.Flat.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Travel_Places.Flat.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentEmojis.Travel_Places.HighContrast.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Travel_Places.HighContrast.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Travel_Places.HighContrast.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentIcons.Filled10.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Filled10.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Filled10.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentIcons.Regular10.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Regular10.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Regular10.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentIcons.Filled12.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Filled12.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Filled12.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentIcons.Regular12.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Regular12.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Regular12.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentIcons.Filled16.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Filled16.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Filled16.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentIcons.Regular16.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Regular16.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Regular16.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentIcons.Filled20.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Filled20.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Filled20.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentIcons.Regular20.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Regular20.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Regular20.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentIcons.Filled24.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Filled24.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Filled24.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentIcons.Regular24.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Regular24.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Regular24.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentIcons.Filled28.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Filled28.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Filled28.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentIcons.Regular28.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Regular28.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Regular28.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentIcons.Filled32.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Filled32.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Filled32.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentIcons.Regular32.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Regular32.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Regular32.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentIcons.Filled48.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Filled48.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Filled48.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentIcons.Regular48.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.Regular48.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Regular48.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentIcons.RequiredIcons.targets">
-				<PackagePath>build\Microsoft.Fast.Components.FluentUI.StaticWebAssets.RequiredIcons.targets</PackagePath>
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.RequiredIcons.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 		</ItemGroup>
 	</Target>
