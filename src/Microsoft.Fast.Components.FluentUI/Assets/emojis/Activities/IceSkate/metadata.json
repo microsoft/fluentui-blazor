@@ -1,9 +1,7 @@
 {
-  "basefilename": "ice_skate",
   "cldr": "ice skate",
   "fromVersion": "0.7",
-  "glyph": "\u26F8\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "⛸️",
   "group": "Activities",
   "keywords": [
     "ice",
@@ -13,6 +11,5 @@
     "26f8_iceskate"
   ],
   "tts": "ice skate",
-  "unicode": "26f8 fe0f",
-  "unicodeSkintones": null
+  "unicode": "26f8 fe0f"
 }

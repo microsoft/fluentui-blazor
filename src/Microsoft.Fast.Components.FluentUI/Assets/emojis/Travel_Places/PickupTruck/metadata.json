@@ -1,12 +1,11 @@
 {
-  "basefilename": "pickup_truck",
   "cldr": "pickup truck",
   "fromVersion": "13.0",
-  "glyph": "\uD83D\uDEFB",
+  "glyph": "🛻",
   "glyphAsUtfInEmoticons": [
     "pickuptruck"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "pick-up",
     "pickup",
@@ -16,6 +15,5 @@
     "pickuptruck"
   ],
   "tts": "pickup truck",
-  "unicode": "1f6fb",
-  "unicodeSkintones": null
+  "unicode": "1f6fb"
 }

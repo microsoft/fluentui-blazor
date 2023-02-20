@@ -1,8 +1,7 @@
 {
-  "basefilename": "mahjong_red_dragon",
   "cldr": "mahjong red dragon",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDC04",
+  "glyph": "🀄",
   "glyphAsUtfInEmoticons": [
     "1f004_mahjong"
   ],
@@ -17,6 +16,5 @@
     "1f004_mahjong"
   ],
   "tts": "mahjong red dragon",
-  "unicode": "1f004",
-  "unicodeSkintones": null
+  "unicode": "1f004"
 }

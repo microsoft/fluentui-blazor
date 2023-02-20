@@ -1,12 +1,11 @@
 {
-  "basefilename": "person_in_suit_levitating",
   "cldr": "person in suit levitating",
   "fromVersion": "0.7",
-  "glyph": "\uD83D\uDD74\uFE0F",
+  "glyph": "🕴️",
   "glyphAsUtfInEmoticons": [
     "man_in_suit_levitating"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "business",
     "person",

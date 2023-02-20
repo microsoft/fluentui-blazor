@@ -1,12 +1,11 @@
 {
-  "basefilename": "man_bald",
   "cldr": "man: bald",
   "fromVersion": "11.0",
-  "glyph": "\uD83D\uDC68\u200D\uD83E\uDDB2",
+  "glyph": "👨‍🦲",
   "glyphAsUtfInEmoticons": [
     "1f468_200d_1f9b2_manbald"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "adult",
     "bald",

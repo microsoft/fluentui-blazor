@@ -1,8 +1,7 @@
 {
-  "basefilename": "orange_square",
   "cldr": "orange square",
   "fromVersion": "12.0",
-  "glyph": "\uD83D\uDFE7",
+  "glyph": "🟧",
   "glyphAsUtfInEmoticons": [
     "1f7e7_orangesquare"
   ],
@@ -15,6 +14,5 @@
     "1f7e7_orangesquare"
   ],
   "tts": "orange square",
-  "unicode": "1f7e7",
-  "unicodeSkintones": null
+  "unicode": "1f7e7"
 }

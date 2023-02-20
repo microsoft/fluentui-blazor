@@ -1,8 +1,7 @@
 {
-  "basefilename": "trophy",
   "cldr": "trophy",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDFC6",
+  "glyph": "🏆",
   "glyphAsUtfInEmoticons": [
     "trophy"
   ],
@@ -15,6 +14,5 @@
     "trophy"
   ],
   "tts": "trophy",
-  "unicode": "1f3c6",
-  "unicodeSkintones": null
+  "unicode": "1f3c6"
 }

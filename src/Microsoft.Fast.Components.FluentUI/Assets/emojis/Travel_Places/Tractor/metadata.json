@@ -1,12 +1,11 @@
 {
-  "basefilename": "tractor",
   "cldr": "tractor",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDE9C",
+  "glyph": "🚜",
   "glyphAsUtfInEmoticons": [
     "1f69c_tractor"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "tractor",
     "vehicle"
@@ -15,6 +14,5 @@
     "1f69c_tractor"
   ],
   "tts": "tractor",
-  "unicode": "1f69c",
-  "unicodeSkintones": null
+  "unicode": "1f69c"
 }

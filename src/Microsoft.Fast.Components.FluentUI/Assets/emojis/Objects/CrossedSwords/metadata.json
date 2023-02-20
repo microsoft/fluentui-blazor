@@ -1,9 +1,7 @@
 {
-  "basefilename": "crossed_swords",
   "cldr": "crossed swords",
   "fromVersion": "1.0",
-  "glyph": "\u2694\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "⚔️",
   "group": "Objects",
   "keywords": [
     "crossed",
@@ -14,6 +12,5 @@
     "2694_crossedswords"
   ],
   "tts": "crossed swords",
-  "unicode": "2694 fe0f",
-  "unicodeSkintones": null
+  "unicode": "2694 fe0f"
 }

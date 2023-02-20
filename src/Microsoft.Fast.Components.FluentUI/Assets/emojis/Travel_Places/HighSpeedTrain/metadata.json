@@ -1,12 +1,11 @@
 {
-  "basefilename": "high-speed_train",
   "cldr": "high-speed train",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDE84",
+  "glyph": "🚄",
   "glyphAsUtfInEmoticons": [
     "1f684_highspeedtrain"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "high-speed train",
     "railway",
@@ -18,6 +17,5 @@
     "1f684_highspeedtrain"
   ],
   "tts": "high-speed train",
-  "unicode": "1f684",
-  "unicodeSkintones": null
+  "unicode": "1f684"
 }

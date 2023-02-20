@@ -1,12 +1,11 @@
 {
-  "basefilename": "amphora",
   "cldr": "amphora",
   "fromVersion": "1.0",
-  "glyph": "\uD83C\uDFFA",
+  "glyph": "🏺",
   "glyphAsUtfInEmoticons": [
     "1f3fa_amphora"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "amphora",
     "Aquarius",
@@ -19,6 +18,5 @@
     "1f3fa_amphora"
   ],
   "tts": "amphora",
-  "unicode": "1f3fa",
-  "unicodeSkintones": null
+  "unicode": "1f3fa"
 }

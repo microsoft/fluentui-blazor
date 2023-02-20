@@ -1,23 +1,21 @@
 {
-  "basefilename": "japanese_application_button",
-  "cldr": "Japanese \u201Capplication\u201D button",
+  "cldr": "Japanese “application” button",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDE38",
+  "glyph": "🈸",
   "glyphAsUtfInEmoticons": [
     "1f238_application"
   ],
   "group": "Symbols",
   "keywords": [
-    "\u201Capplication\u201D",
+    "“application”",
     "ideograph",
     "Japanese",
-    "Japanese \u201Capplication\u201D button",
-    "\u7533"
+    "Japanese “application” button",
+    "申"
   ],
   "mappedToEmoticons": [
     "1f238_application"
   ],
-  "tts": "Japanese \u201Capplication\u201D button",
-  "unicode": "1f238",
-  "unicodeSkintones": null
+  "tts": "Japanese “application” button",
+  "unicode": "1f238"
 }

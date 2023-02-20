@@ -1,12 +1,11 @@
 {
-  "basefilename": "pizza",
   "cldr": "pizza",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF55",
+  "glyph": "🍕",
   "glyphAsUtfInEmoticons": [
     "pizza"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "cheese",
     "pizza",
@@ -16,6 +15,5 @@
     "pizzaslice"
   ],
   "tts": "pizza",
-  "unicode": "1f355",
-  "unicodeSkintones": null
+  "unicode": "1f355"
 }

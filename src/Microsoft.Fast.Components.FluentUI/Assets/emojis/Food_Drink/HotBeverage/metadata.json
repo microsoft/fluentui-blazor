@@ -1,12 +1,11 @@
 {
-  "basefilename": "hot_beverage",
   "cldr": "hot beverage",
   "fromVersion": "0.6",
-  "glyph": "\u2615",
+  "glyph": "☕",
   "glyphAsUtfInEmoticons": [
     "coffee"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "beverage",
     "coffee",
@@ -19,6 +18,5 @@
     "coffee"
   ],
   "tts": "hot beverage",
-  "unicode": "2615",
-  "unicodeSkintones": null
+  "unicode": "2615"
 }

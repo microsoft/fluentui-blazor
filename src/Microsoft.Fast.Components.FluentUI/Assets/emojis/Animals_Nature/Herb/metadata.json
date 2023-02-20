@@ -1,12 +1,11 @@
 {
-  "basefilename": "herb",
   "cldr": "herb",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF3F",
+  "glyph": "🌿",
   "glyphAsUtfInEmoticons": [
     "1f33f_herb"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "herb",
     "leaf"
@@ -15,6 +14,5 @@
     "1f33f_herb"
   ],
   "tts": "herb",
-  "unicode": "1f33f",
-  "unicodeSkintones": null
+  "unicode": "1f33f"
 }

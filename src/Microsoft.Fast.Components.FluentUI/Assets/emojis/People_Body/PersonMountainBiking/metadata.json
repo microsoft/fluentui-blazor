@@ -1,12 +1,11 @@
 {
-  "basefilename": "person_mountain_biking",
   "cldr": "person mountain biking",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDEB5",
+  "glyph": "🚵",
   "glyphAsUtfInEmoticons": [
     "mountain_bicyclist"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "bicycle",
     "bicyclist",

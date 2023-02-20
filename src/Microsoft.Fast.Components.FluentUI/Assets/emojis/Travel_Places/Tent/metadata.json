@@ -1,12 +1,11 @@
 {
-  "basefilename": "tent",
   "cldr": "tent",
   "fromVersion": "0.6",
-  "glyph": "\u26FA",
+  "glyph": "⛺",
   "glyphAsUtfInEmoticons": [
     "26fa_tent"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "camping",
     "tent"
@@ -15,6 +14,5 @@
     "26fa_tent"
   ],
   "tts": "tent",
-  "unicode": "26fa",
-  "unicodeSkintones": null
+  "unicode": "26fa"
 }

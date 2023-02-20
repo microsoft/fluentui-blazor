@@ -1,12 +1,11 @@
 {
-  "basefilename": "squid",
   "cldr": "squid",
   "fromVersion": "3.0",
-  "glyph": "\uD83E\uDD91",
+  "glyph": "🦑",
   "glyphAsUtfInEmoticons": [
     "1f991_squid"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "food",
     "molusc",
@@ -16,6 +15,5 @@
     "1f991_squid"
   ],
   "tts": "squid",
-  "unicode": "1f991",
-  "unicodeSkintones": null
+  "unicode": "1f991"
 }

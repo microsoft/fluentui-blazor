@@ -1,13 +1,12 @@
 {
-  "basefilename": "brown_heart",
   "cldr": "brown heart",
   "fromVersion": "12.0",
-  "glyph": "\uD83E\uDD0E",
+  "glyph": "🤎",
   "glyphAsUtfInEmoticons": [
     "1f90e_brownheart",
     "heartbrown"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "brown",
     "heart"
@@ -16,6 +15,5 @@
     "heartbrown"
   ],
   "tts": "brown heart",
-  "unicode": "1f90e",
-  "unicodeSkintones": null
+  "unicode": "1f90e"
 }

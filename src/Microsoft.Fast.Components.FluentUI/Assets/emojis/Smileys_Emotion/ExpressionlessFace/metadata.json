@@ -1,12 +1,11 @@
 {
-  "basefilename": "expressionless_face",
   "cldr": "expressionless face",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDE11",
+  "glyph": "😑",
   "glyphAsUtfInEmoticons": [
     "expressionless"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "expressionless",
     "face",
@@ -18,6 +17,5 @@
     "expressionless"
   ],
   "tts": "expressionless face",
-  "unicode": "1f611",
-  "unicodeSkintones": null
+  "unicode": "1f611"
 }

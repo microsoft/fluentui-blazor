@@ -1,10 +1,8 @@
 {
-  "basefilename": "motorway",
   "cldr": "motorway",
   "fromVersion": "0.7",
-  "glyph": "\uD83D\uDEE3\uFE0F",
-  "glyphAsUtfInEmoticons": null,
-  "group": "Travel \u0026 Places",
+  "glyph": "🛣️",
+  "group": "Travel & Places",
   "keywords": [
     "highway",
     "motorway",
@@ -14,6 +12,5 @@
     "1f6e3_motorway"
   ],
   "tts": "motorway",
-  "unicode": "1f6e3 fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f6e3 fe0f"
 }

@@ -1,8 +1,7 @@
 {
-  "basefilename": "registered",
   "cldr": "registered",
   "fromVersion": "0.6",
-  "glyph": "\u00AE\uFE0F",
+  "glyph": "®️",
   "glyphAsUtfInEmoticons": [
     "00ae_registeredsign"
   ],
@@ -15,6 +14,5 @@
     "00ae_registeredsign"
   ],
   "tts": "registered",
-  "unicode": "00ae fe0f",
-  "unicodeSkintones": null
+  "unicode": "00ae fe0f"
 }

@@ -1,12 +1,11 @@
 {
-  "basefilename": "face_with_steam_from_nose",
   "cldr": "face with steam from nose",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDE24",
+  "glyph": "😤",
   "glyphAsUtfInEmoticons": [
     "1f624_facewithlookoftriumph"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "face",
     "face with steam from nose",
@@ -17,6 +16,5 @@
     "1f624_facewithlookoftriumph"
   ],
   "tts": "face with steam from nose",
-  "unicode": "1f624",
-  "unicodeSkintones": null
+  "unicode": "1f624"
 }

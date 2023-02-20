@@ -1,8 +1,7 @@
 {
-  "basefilename": "no_littering",
   "cldr": "no littering",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDEAF",
+  "glyph": "🚯",
   "glyphAsUtfInEmoticons": [
     "1f6af_donotlittersymbol"
   ],
@@ -19,6 +18,5 @@
     "1f6af_donotlittersymbol"
   ],
   "tts": "no littering",
-  "unicode": "1f6af",
-  "unicodeSkintones": null
+  "unicode": "1f6af"
 }

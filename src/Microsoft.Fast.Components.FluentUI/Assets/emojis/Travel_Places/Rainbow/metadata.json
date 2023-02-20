@@ -1,12 +1,11 @@
 {
-  "basefilename": "rainbow",
   "cldr": "rainbow",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF08",
+  "glyph": "🌈",
   "glyphAsUtfInEmoticons": [
     "rainbow"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "rain",
     "rainbow"
@@ -15,6 +14,5 @@
     "rainbow"
   ],
   "tts": "rainbow",
-  "unicode": "1f308",
-  "unicodeSkintones": null
+  "unicode": "1f308"
 }

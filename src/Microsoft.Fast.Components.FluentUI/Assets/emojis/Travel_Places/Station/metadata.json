@@ -1,12 +1,11 @@
 {
-  "basefilename": "station",
   "cldr": "station",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDE89",
+  "glyph": "🚉",
   "glyphAsUtfInEmoticons": [
     "1f689_station"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "railway",
     "station",
@@ -16,6 +15,5 @@
     "1f689_station"
   ],
   "tts": "station",
-  "unicode": "1f689",
-  "unicodeSkintones": null
+  "unicode": "1f689"
 }

@@ -1,8 +1,7 @@
 {
-  "basefilename": "magnifying_glass_tilted_left",
   "cldr": "magnifying glass tilted left",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDD0D",
+  "glyph": "🔍",
   "glyphAsUtfInEmoticons": [
     "1f50d_magnifiertiltedleft"
   ],
@@ -18,6 +17,5 @@
     "1f50d_magnifiertiltedleft"
   ],
   "tts": "magnifying glass tilted left",
-  "unicode": "1f50d",
-  "unicodeSkintones": null
+  "unicode": "1f50d"
 }

@@ -1,12 +1,11 @@
 {
-  "basefilename": "mechanical_leg",
   "cldr": "mechanical leg",
   "fromVersion": "12.0",
-  "glyph": "\uD83E\uDDBF",
+  "glyph": "🦿",
   "glyphAsUtfInEmoticons": [
     "1f9bf_mechanicalleg"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "accessibility",
     "mechanical leg",
@@ -16,6 +15,5 @@
     "1f9bf_mechanicalleg"
   ],
   "tts": "mechanical leg",
-  "unicode": "1f9bf",
-  "unicodeSkintones": null
+  "unicode": "1f9bf"
 }

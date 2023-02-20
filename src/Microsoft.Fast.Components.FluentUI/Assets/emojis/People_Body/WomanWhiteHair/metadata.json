@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_white_hair",
   "cldr": "woman: white hair",
   "fromVersion": "11.0",
-  "glyph": "\uD83D\uDC69\u200D\uD83E\uDDB3",
+  "glyph": "👩‍🦳",
   "glyphAsUtfInEmoticons": [
     "womanwhitehair"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "adult",
     "white hair",

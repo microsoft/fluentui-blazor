@@ -1,8 +1,7 @@
 {
-  "basefilename": "trumpet",
   "cldr": "trumpet",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDFBA",
+  "glyph": "🎺",
   "glyphAsUtfInEmoticons": [
     "1f3ba_trumpet"
   ],
@@ -16,6 +15,5 @@
     "1f3ba_trumpet"
   ],
   "tts": "trumpet",
-  "unicode": "1f3ba",
-  "unicodeSkintones": null
+  "unicode": "1f3ba"
 }

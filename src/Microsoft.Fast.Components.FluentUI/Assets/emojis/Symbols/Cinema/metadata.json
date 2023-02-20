@@ -1,8 +1,7 @@
 {
-  "basefilename": "cinema",
   "cldr": "cinema",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDFA6",
+  "glyph": "🎦",
   "glyphAsUtfInEmoticons": [
     "1f3a6_cinema"
   ],
@@ -17,6 +16,5 @@
     "1f3a6_cinema"
   ],
   "tts": "cinema",
-  "unicode": "1f3a6",
-  "unicodeSkintones": null
+  "unicode": "1f3a6"
 }

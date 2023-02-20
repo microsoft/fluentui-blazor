@@ -1,12 +1,11 @@
 {
-  "basefilename": "carrot",
   "cldr": "carrot",
   "fromVersion": "3.0",
-  "glyph": "\uD83E\uDD55",
+  "glyph": "🥕",
   "glyphAsUtfInEmoticons": [
     "1f955_carrot"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "carrot",
     "food",
@@ -16,6 +15,5 @@
     "1f955_carrot"
   ],
   "tts": "carrot",
-  "unicode": "1f955",
-  "unicodeSkintones": null
+  "unicode": "1f955"
 }

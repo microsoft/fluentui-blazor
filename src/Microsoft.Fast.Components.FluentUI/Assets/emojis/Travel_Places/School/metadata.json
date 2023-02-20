@@ -1,12 +1,11 @@
 {
-  "basefilename": "school",
   "cldr": "school",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDFEB",
+  "glyph": "🏫",
   "glyphAsUtfInEmoticons": [
     "1f3eb_school"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "building",
     "school"
@@ -15,6 +14,5 @@
     "1f3eb_school"
   ],
   "tts": "school",
-  "unicode": "1f3eb",
-  "unicodeSkintones": null
+  "unicode": "1f3eb"
 }

@@ -1,8 +1,7 @@
 {
-  "basefilename": "transgender_symbol",
   "cldr": "transgender symbol",
   "fromVersion": "13.0",
-  "glyph": "\u26A7\uFE0F",
+  "glyph": "⚧️",
   "glyphAsUtfInEmoticons": [
     "transgendersymbol"
   ],
@@ -15,6 +14,5 @@
     "transgendersymbol"
   ],
   "tts": "transgender symbol",
-  "unicode": "26a7 fe0f",
-  "unicodeSkintones": null
+  "unicode": "26a7 fe0f"
 }

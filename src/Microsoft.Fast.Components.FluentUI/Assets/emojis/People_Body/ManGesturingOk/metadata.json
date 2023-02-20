@@ -1,12 +1,11 @@
 {
-  "basefilename": "man_gesturing_ok",
   "cldr": "man gesturing OK",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDE46\u200D\u2642\uFE0F",
+  "glyph": "🙆‍♂️",
   "glyphAsUtfInEmoticons": [
     "man_gesturing_ok"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "gesture",
     "hand",

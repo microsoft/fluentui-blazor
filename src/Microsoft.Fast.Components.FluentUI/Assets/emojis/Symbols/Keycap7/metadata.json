@@ -1,8 +1,7 @@
 {
-  "basefilename": "keycap_7",
   "cldr": "keycap: 7",
   "fromVersion": "0.6",
-  "glyph": "7\uFE0F\u20E3",
+  "glyph": "7️⃣",
   "glyphAsUtfInEmoticons": [
     "keycapdigitseven"
   ],
@@ -15,6 +14,5 @@
     "keycapdigitseven"
   ],
   "tts": "keycap: 7",
-  "unicode": "0037 fe0f 20e3",
-  "unicodeSkintones": null
+  "unicode": "0037 fe0f 20e3"
 }

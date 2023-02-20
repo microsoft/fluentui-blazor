@@ -1,12 +1,11 @@
 {
-  "basefilename": "kissing_cat",
   "cldr": "kissing cat",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDE3D",
+  "glyph": "😽",
   "glyphAsUtfInEmoticons": [
     "1f63d_kissingcat"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "cat",
     "eye",
@@ -18,6 +17,5 @@
     "1f63d_kissingcat"
   ],
   "tts": "kissing cat",
-  "unicode": "1f63d",
-  "unicodeSkintones": null
+  "unicode": "1f63d"
 }

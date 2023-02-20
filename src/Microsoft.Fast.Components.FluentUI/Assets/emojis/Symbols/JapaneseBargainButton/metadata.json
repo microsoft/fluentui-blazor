@@ -1,23 +1,21 @@
 {
-  "basefilename": "japanese_bargain_button",
-  "cldr": "Japanese \u201Cbargain\u201D button",
+  "cldr": "Japanese “bargain” button",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDE50",
+  "glyph": "🉐",
   "glyphAsUtfInEmoticons": [
     "1f250_circledideographadvantage"
   ],
   "group": "Symbols",
   "keywords": [
-    "\u201Cbargain\u201D",
+    "“bargain”",
     "ideograph",
     "Japanese",
-    "Japanese \u201Cbargain\u201D button",
-    "\u5F97"
+    "Japanese “bargain” button",
+    "得"
   ],
   "mappedToEmoticons": [
     "1f250_circledideographadvantage"
   ],
-  "tts": "Japanese \u201Cbargain\u201D button",
-  "unicode": "1f250",
-  "unicodeSkintones": null
+  "tts": "Japanese “bargain” button",
+  "unicode": "1f250"
 }

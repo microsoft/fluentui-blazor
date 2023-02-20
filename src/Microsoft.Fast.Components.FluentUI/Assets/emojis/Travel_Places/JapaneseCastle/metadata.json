@@ -1,12 +1,11 @@
 {
-  "basefilename": "japanese_castle",
   "cldr": "Japanese castle",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDFEF",
+  "glyph": "🏯",
   "glyphAsUtfInEmoticons": [
     "1f3ef_japanesecastle"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "castle",
     "Japanese"
@@ -15,6 +14,5 @@
     "1f3ef_japanesecastle"
   ],
   "tts": "Japanese castle",
-  "unicode": "1f3ef",
-  "unicodeSkintones": null
+  "unicode": "1f3ef"
 }

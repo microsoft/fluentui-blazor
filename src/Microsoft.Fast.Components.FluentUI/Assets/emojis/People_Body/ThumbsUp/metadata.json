@@ -1,14 +1,13 @@
 {
-  "basefilename": "thumbs_up",
   "cldr": "thumbs up",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC4D",
+  "glyph": "👍",
   "glyphAsUtfInEmoticons": [
     "yes"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
-    "\u002B1",
+    "+1",
     "hand",
     "thumb",
     "thumbs up",

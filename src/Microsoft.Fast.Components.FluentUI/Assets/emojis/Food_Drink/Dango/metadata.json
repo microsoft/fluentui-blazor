@@ -1,12 +1,11 @@
 {
-  "basefilename": "dango",
   "cldr": "dango",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF61",
+  "glyph": "🍡",
   "glyphAsUtfInEmoticons": [
     "1f361_dango"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "dango",
     "dessert",
@@ -19,6 +18,5 @@
     "1f361_dango"
   ],
   "tts": "dango",
-  "unicode": "1f361",
-  "unicodeSkintones": null
+  "unicode": "1f361"
 }

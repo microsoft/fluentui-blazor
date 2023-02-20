@@ -1,12 +1,11 @@
 {
-  "basefilename": "princess",
   "cldr": "princess",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC78",
+  "glyph": "👸",
   "glyphAsUtfInEmoticons": [
     "princess"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "fairy tale",
     "fantasy",

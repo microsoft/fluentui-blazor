@@ -1,12 +1,11 @@
 {
-  "basefilename": "kick_scooter",
   "cldr": "kick scooter",
   "fromVersion": "3.0",
-  "glyph": "\uD83D\uDEF4",
+  "glyph": "🛴",
   "glyphAsUtfInEmoticons": [
     "pushbike"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "kick",
     "scooter"
@@ -15,6 +14,5 @@
     "kickscooter"
   ],
   "tts": "kick scooter",
-  "unicode": "1f6f4",
-  "unicodeSkintones": null
+  "unicode": "1f6f4"
 }

@@ -1,15 +1,14 @@
 {
-  "basefilename": "woman",
   "cldr": "woman",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC69",
+  "glyph": "👩",
   "glyphAsUtfInEmoticons": [
     "smilewoman",
     "woman",
     "woman_student",
     "womanstudent"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "adult",
     "woman"

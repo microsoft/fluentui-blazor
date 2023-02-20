@@ -1,8 +1,7 @@
 {
-  "basefilename": "money_with_wings",
   "cldr": "money with wings",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCB8",
+  "glyph": "💸",
   "glyphAsUtfInEmoticons": [
     "1f4b8_moneywithwings"
   ],
@@ -19,6 +18,5 @@
     "1f4b8_moneywithwings"
   ],
   "tts": "money with wings",
-  "unicode": "1f4b8",
-  "unicodeSkintones": null
+  "unicode": "1f4b8"
 }

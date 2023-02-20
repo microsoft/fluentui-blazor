@@ -1,10 +1,8 @@
 {
-  "basefilename": "fog",
   "cldr": "fog",
   "fromVersion": "0.7",
-  "glyph": "\uD83C\uDF2B\uFE0F",
-  "glyphAsUtfInEmoticons": null,
-  "group": "Travel \u0026 Places",
+  "glyph": "🌫️",
+  "group": "Travel & Places",
   "keywords": [
     "cloud",
     "fog"
@@ -13,6 +11,5 @@
     "1f32b_fog"
   ],
   "tts": "fog",
-  "unicode": "1f32b fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f32b fe0f"
 }

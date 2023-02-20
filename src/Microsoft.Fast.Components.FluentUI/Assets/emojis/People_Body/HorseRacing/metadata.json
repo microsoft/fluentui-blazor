@@ -1,12 +1,11 @@
 {
-  "basefilename": "horse_racing",
   "cldr": "horse racing",
   "fromVersion": "1.0",
-  "glyph": "\uD83C\uDFC7",
+  "glyph": "🏇",
   "glyphAsUtfInEmoticons": [
     "horse_racing"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "horse",
     "jockey",

@@ -1,12 +1,11 @@
 {
-  "basefilename": "hot_dog",
   "cldr": "hot dog",
   "fromVersion": "1.0",
-  "glyph": "\uD83C\uDF2D",
+  "glyph": "🌭",
   "glyphAsUtfInEmoticons": [
     "1f32d_hotdog"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "frankfurter",
     "hot dog",
@@ -17,6 +16,5 @@
     "1f32d_hotdog"
   ],
   "tts": "hot dog",
-  "unicode": "1f32d",
-  "unicodeSkintones": null
+  "unicode": "1f32d"
 }

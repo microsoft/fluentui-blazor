@@ -1,8 +1,7 @@
 {
-  "basefilename": "basketball",
   "cldr": "basketball",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDFC0",
+  "glyph": "🏀",
   "glyphAsUtfInEmoticons": [
     "basketball",
     "slamdunk"
@@ -17,6 +16,5 @@
     "basketball"
   ],
   "tts": "basketball",
-  "unicode": "1f3c0",
-  "unicodeSkintones": null
+  "unicode": "1f3c0"
 }

@@ -1,8 +1,7 @@
 {
-  "basefilename": "triangular_ruler",
   "cldr": "triangular ruler",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCD0",
+  "glyph": "📐",
   "glyphAsUtfInEmoticons": [
     "1f4d0_triangularruler"
   ],
@@ -17,6 +16,5 @@
     "1f4d0_triangularruler"
   ],
   "tts": "triangular ruler",
-  "unicode": "1f4d0",
-  "unicodeSkintones": null
+  "unicode": "1f4d0"
 }

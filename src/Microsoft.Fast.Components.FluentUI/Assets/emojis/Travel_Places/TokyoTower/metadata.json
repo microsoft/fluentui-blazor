@@ -1,13 +1,12 @@
 {
-  "basefilename": "tokyo_tower",
   "cldr": "Tokyo tower",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDDFC",
+  "glyph": "🗼",
   "glyphAsUtfInEmoticons": [
     "1f5fc_tokyotower",
     "parislove"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "Tokyo",
     "tower"
@@ -16,6 +15,5 @@
     "1f5fc_tokyotower"
   ],
   "tts": "Tokyo tower",
-  "unicode": "1f5fc",
-  "unicodeSkintones": null
+  "unicode": "1f5fc"
 }

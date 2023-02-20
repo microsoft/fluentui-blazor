@@ -1,12 +1,11 @@
 {
-  "basefilename": "mrs_claus",
   "cldr": "Mrs. Claus",
   "fromVersion": "3.0",
-  "glyph": "\uD83E\uDD36",
+  "glyph": "🤶",
   "glyphAsUtfInEmoticons": [
     "mother_christmas"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "celebration",
     "Christmas",

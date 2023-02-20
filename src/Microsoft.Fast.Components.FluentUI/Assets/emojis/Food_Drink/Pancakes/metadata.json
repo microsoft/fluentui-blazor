@@ -1,15 +1,14 @@
 {
-  "basefilename": "pancakes",
   "cldr": "pancakes",
   "fromVersion": "3.0",
-  "glyph": "\uD83E\uDD5E",
+  "glyph": "🥞",
   "glyphAsUtfInEmoticons": [
     "1f95e_pancake"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "breakfast",
-    "cr\u00EApe",
+    "crêpe",
     "food",
     "hotcake",
     "pancake",
@@ -19,6 +18,5 @@
     "1f95e_pancake"
   ],
   "tts": "pancakes",
-  "unicode": "1f95e",
-  "unicodeSkintones": null
+  "unicode": "1f95e"
 }

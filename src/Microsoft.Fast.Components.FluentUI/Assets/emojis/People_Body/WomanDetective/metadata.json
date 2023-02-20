@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_detective",
   "cldr": "woman detective",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDD75\uFE0F\u200D\u2640\uFE0F",
+  "glyph": "🕵️‍♀️",
   "glyphAsUtfInEmoticons": [
     "woman_detective"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "detective",
     "sleuth",

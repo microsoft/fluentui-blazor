@@ -1,8 +1,7 @@
 {
-  "basefilename": "keycap_9",
   "cldr": "keycap: 9",
   "fromVersion": "0.6",
-  "glyph": "9\uFE0F\u20E3",
+  "glyph": "9️⃣",
   "glyphAsUtfInEmoticons": [
     "keycapdigitnine"
   ],
@@ -15,6 +14,5 @@
     "keycapdigitnine"
   ],
   "tts": "keycap: 9",
-  "unicode": "0039 fe0f 20e3",
-  "unicodeSkintones": null
+  "unicode": "0039 fe0f 20e3"
 }

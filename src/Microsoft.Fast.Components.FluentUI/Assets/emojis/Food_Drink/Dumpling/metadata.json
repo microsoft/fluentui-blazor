@@ -1,16 +1,15 @@
 {
-  "basefilename": "dumpling",
   "cldr": "dumpling",
   "fromVersion": "5.0",
-  "glyph": "\uD83E\uDD5F",
+  "glyph": "🥟",
   "glyphAsUtfInEmoticons": [
     "1f95f_dumpling"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "dumpling",
     "empanada",
-    "gy\u014Dza",
+    "gyōza",
     "jiaozi",
     "pierogi",
     "potsticker"
@@ -19,6 +18,5 @@
     "1f95f_dumpling"
   ],
   "tts": "dumpling",
-  "unicode": "1f95f",
-  "unicodeSkintones": null
+  "unicode": "1f95f"
 }

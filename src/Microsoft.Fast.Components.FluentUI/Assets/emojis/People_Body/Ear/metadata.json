@@ -1,12 +1,11 @@
 {
-  "basefilename": "ear",
   "cldr": "ear",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC42",
+  "glyph": "👂",
   "glyphAsUtfInEmoticons": [
     "1f442_ear"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "body",
     "ear"

@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_tipping_hand",
   "cldr": "woman tipping hand",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDC81\u200D\u2640\uFE0F",
+  "glyph": "💁‍♀️",
   "glyphAsUtfInEmoticons": [
     "womantippinghand"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "sassy",
     "tipping hand",

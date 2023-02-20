@@ -1,12 +1,11 @@
 {
-  "basefilename": "zzz",
   "cldr": "zzz",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCA4",
+  "glyph": "💤",
   "glyphAsUtfInEmoticons": [
     "1f4a4_zzz"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "comic",
     "sleep",
@@ -16,6 +15,5 @@
     "1f4a4_zzz"
   ],
   "tts": "zzz",
-  "unicode": "1f4a4",
-  "unicodeSkintones": null
+  "unicode": "1f4a4"
 }

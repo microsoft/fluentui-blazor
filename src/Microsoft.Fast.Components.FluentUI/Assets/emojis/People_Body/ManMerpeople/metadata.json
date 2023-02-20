@@ -1,12 +1,11 @@
 {
-  "basefilename": "man_merpeople",
   "cldr": "merman",
   "fromVersion": "5.0",
-  "glyph": "\uD83E\uDDDC\u200D\u2642\uFE0F",
+  "glyph": "🧜‍♂️",
   "glyphAsUtfInEmoticons": [
     "merman"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "merman",
     "Triton"

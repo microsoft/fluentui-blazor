@@ -1,10 +1,8 @@
 {
-  "basefilename": "astronaut",
   "cldr": "astronaut",
   "fromVersion": "12.1",
-  "glyph": "\uD83E\uDDD1\u200D\uD83D\uDE80",
-  "glyphAsUtfInEmoticons": null,
-  "group": "People \u0026 Body",
+  "glyph": "🧑‍🚀",
+  "group": "People & Body",
   "keywords": [
     "astronaut",
     "rocket"

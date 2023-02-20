@@ -1,9 +1,7 @@
 {
-  "basefilename": "toilet",
   "cldr": "toilet",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDEBD",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "🚽",
   "group": "Objects",
   "keywords": [
     "toilet"
@@ -12,6 +10,5 @@
     "toilet"
   ],
   "tts": "toilet",
-  "unicode": "1f6bd",
-  "unicodeSkintones": null
+  "unicode": "1f6bd"
 }

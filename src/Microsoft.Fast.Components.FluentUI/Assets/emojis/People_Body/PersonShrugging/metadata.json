@@ -1,12 +1,11 @@
 {
-  "basefilename": "person_shrugging",
   "cldr": "person shrugging",
   "fromVersion": "3.0",
-  "glyph": "\uD83E\uDD37",
+  "glyph": "🤷",
   "glyphAsUtfInEmoticons": [
     "manshrug"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "doubt",
     "ignorance",

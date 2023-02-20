@@ -1,12 +1,11 @@
 {
-  "basefilename": "man_with_white_cane",
   "cldr": "man with white cane",
   "fromVersion": "12.0",
-  "glyph": "\uD83D\uDC68\u200D\uD83E\uDDAF",
+  "glyph": "👨‍🦯",
   "glyphAsUtfInEmoticons": [
     "man_probing_cane"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "accessibility",
     "blind",

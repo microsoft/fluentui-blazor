@@ -1,8 +1,7 @@
 {
-  "basefilename": "hiking_boot",
   "cldr": "hiking boot",
   "fromVersion": "11.0",
-  "glyph": "\uD83E\uDD7E",
+  "glyph": "🥾",
   "glyphAsUtfInEmoticons": [
     "1f97e_hikingboot"
   ],
@@ -17,6 +16,5 @@
     "1f97e_hikingboot"
   ],
   "tts": "hiking boot",
-  "unicode": "1f97e",
-  "unicodeSkintones": null
+  "unicode": "1f97e"
 }

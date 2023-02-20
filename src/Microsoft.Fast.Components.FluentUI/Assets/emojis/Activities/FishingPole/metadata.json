@@ -1,8 +1,7 @@
 {
-  "basefilename": "fishing_pole",
   "cldr": "fishing pole",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDFA3",
+  "glyph": "🎣",
   "glyphAsUtfInEmoticons": [
     "1f3a3_fishingpoleandfish"
   ],
@@ -16,6 +15,5 @@
     "1f3a3_fishingpoleandfish"
   ],
   "tts": "fishing pole",
-  "unicode": "1f3a3",
-  "unicodeSkintones": null
+  "unicode": "1f3a3"
 }

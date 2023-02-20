@@ -1,10 +1,8 @@
 {
-  "basefilename": "face_in_clouds",
   "cldr": "face in clouds",
   "fromVersion": "13.1",
-  "glyph": "\uD83D\uDE36\u200D\uD83C\uDF2B\uFE0F",
-  "glyphAsUtfInEmoticons": null,
-  "group": "Smileys \u0026 Emotion",
+  "glyph": "😶‍🌫️",
+  "group": "Smileys & Emotion",
   "keywords": [
     "absentminded",
     "face in clouds",
@@ -15,6 +13,5 @@
     "faceinclouds"
   ],
   "tts": "face in clouds",
-  "unicode": "1f636 200d 1f32b fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f636 200d 1f32b fe0f"
 }

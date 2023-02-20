@@ -1,12 +1,11 @@
 {
-  "basefilename": "delivery_truck",
   "cldr": "delivery truck",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDE9A",
+  "glyph": "🚚",
   "glyphAsUtfInEmoticons": [
     "truck"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "delivery",
     "truck"
@@ -15,6 +14,5 @@
     "truck"
   ],
   "tts": "delivery truck",
-  "unicode": "1f69a",
-  "unicodeSkintones": null
+  "unicode": "1f69a"
 }

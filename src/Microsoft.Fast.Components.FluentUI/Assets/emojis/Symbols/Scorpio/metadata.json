@@ -1,8 +1,7 @@
 {
-  "basefilename": "scorpio",
   "cldr": "Scorpio",
   "fromVersion": "0.6",
-  "glyph": "\u264F",
+  "glyph": "♏",
   "glyphAsUtfInEmoticons": [
     "264f_scorpius"
   ],
@@ -17,6 +16,5 @@
     "264f_scorpius"
   ],
   "tts": "Scorpio",
-  "unicode": "264f",
-  "unicodeSkintones": null
+  "unicode": "264f"
 }

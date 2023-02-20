@@ -1,8 +1,7 @@
 {
-  "basefilename": "cigarette",
   "cldr": "cigarette",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDEAC",
+  "glyph": "🚬",
   "glyphAsUtfInEmoticons": [
     "smoke"
   ],
@@ -15,6 +14,5 @@
     "cigarette"
   ],
   "tts": "cigarette",
-  "unicode": "1f6ac",
-  "unicodeSkintones": null
+  "unicode": "1f6ac"
 }

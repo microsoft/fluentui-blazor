@@ -1,8 +1,7 @@
 {
-  "basefilename": "speaker_medium_volume",
   "cldr": "speaker medium volume",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDD09",
+  "glyph": "🔉",
   "glyphAsUtfInEmoticons": [
     "1f509_speakerwithonesoundwave"
   ],
@@ -15,6 +14,5 @@
     "1f509_speakerwithonesoundwave"
   ],
   "tts": "speaker medium volume",
-  "unicode": "1f509",
-  "unicodeSkintones": null
+  "unicode": "1f509"
 }

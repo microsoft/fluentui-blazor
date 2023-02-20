@@ -1,12 +1,11 @@
 {
-  "basefilename": "man_kneeling",
   "cldr": "man kneeling",
   "fromVersion": "12.0",
-  "glyph": "\uD83E\uDDCE\u200D\u2642\uFE0F",
+  "glyph": "🧎‍♂️",
   "glyphAsUtfInEmoticons": [
     "man_kneeling"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "kneeling",
     "man"

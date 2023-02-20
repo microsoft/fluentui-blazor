@@ -1,10 +1,8 @@
 {
-  "basefilename": "hourglass_not_done",
   "cldr": "hourglass not done",
   "fromVersion": "0.6",
-  "glyph": "\u23F3",
-  "glyphAsUtfInEmoticons": null,
-  "group": "Travel \u0026 Places",
+  "glyph": "⏳",
+  "group": "Travel & Places",
   "keywords": [
     "hourglass",
     "hourglass not done",
@@ -15,6 +13,5 @@
     "231b_hourglassdone"
   ],
   "tts": "hourglass not done",
-  "unicode": "23f3",
-  "unicodeSkintones": null
+  "unicode": "23f3"
 }

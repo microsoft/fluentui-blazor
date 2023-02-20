@@ -1,13 +1,12 @@
 {
-  "basefilename": "cactus",
   "cldr": "cactus",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF35",
+  "glyph": "🌵",
   "glyphAsUtfInEmoticons": [
     "cactus",
     "desert"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "cactus",
     "plant"
@@ -16,6 +15,5 @@
     "cactus"
   ],
   "tts": "cactus",
-  "unicode": "1f335",
-  "unicodeSkintones": null
+  "unicode": "1f335"
 }

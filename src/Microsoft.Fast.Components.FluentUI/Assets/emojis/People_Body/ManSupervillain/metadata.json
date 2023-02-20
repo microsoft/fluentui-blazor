@@ -1,12 +1,11 @@
 {
-  "basefilename": "man_supervillain",
   "cldr": "man supervillain",
   "fromVersion": "11.0",
-  "glyph": "\uD83E\uDDB9\u200D\u2642\uFE0F",
+  "glyph": "🦹‍♂️",
   "glyphAsUtfInEmoticons": [
     "man_super_villain"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "criminal",
     "evil",

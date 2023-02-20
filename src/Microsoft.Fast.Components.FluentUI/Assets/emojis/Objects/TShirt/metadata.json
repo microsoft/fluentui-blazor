@@ -1,8 +1,7 @@
 {
-  "basefilename": "t-shirt",
   "cldr": "t-shirt",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC55",
+  "glyph": "👕",
   "glyphAsUtfInEmoticons": [
     "1f455_tshirt"
   ],
@@ -17,6 +16,5 @@
     "1f455_tshirt"
   ],
   "tts": "t-shirt",
-  "unicode": "1f455",
-  "unicodeSkintones": null
+  "unicode": "1f455"
 }

@@ -1,8 +1,7 @@
 {
-  "basefilename": "test_tube",
   "cldr": "test tube",
   "fromVersion": "11.0",
-  "glyph": "\uD83E\uDDEA",
+  "glyph": "🧪",
   "glyphAsUtfInEmoticons": [
     "1f9ea_testtube"
   ],
@@ -19,6 +18,5 @@
     "1f9ea_testtube"
   ],
   "tts": "test tube",
-  "unicode": "1f9ea",
-  "unicodeSkintones": null
+  "unicode": "1f9ea"
 }

@@ -1,10 +1,8 @@
 {
-  "basefilename": "sun_behind_large_cloud",
   "cldr": "sun behind large cloud",
   "fromVersion": "0.7",
-  "glyph": "\uD83C\uDF25\uFE0F",
-  "glyphAsUtfInEmoticons": null,
-  "group": "Travel \u0026 Places",
+  "glyph": "🌥️",
+  "group": "Travel & Places",
   "keywords": [
     "cloud",
     "sun",
@@ -14,6 +12,5 @@
     "26c5_sunbehindcloud"
   ],
   "tts": "sun behind large cloud",
-  "unicode": "1f325 fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f325 fe0f"
 }

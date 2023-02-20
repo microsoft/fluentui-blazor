@@ -1,24 +1,22 @@
 {
-  "basefilename": "ten_oclock",
-  "cldr": "ten o\u2019clock",
+  "cldr": "ten o’clock",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDD59",
+  "glyph": "🕙",
   "glyphAsUtfInEmoticons": [
     "1f559_tenoclock"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "00",
     "10",
     "10:00",
     "clock",
-    "o\u2019clock",
+    "o’clock",
     "ten"
   ],
   "mappedToEmoticons": [
     "1f559_tenoclock"
   ],
-  "tts": "ten o\u2019clock",
-  "unicode": "1f559",
-  "unicodeSkintones": null
+  "tts": "ten o’clock",
+  "unicode": "1f559"
 }

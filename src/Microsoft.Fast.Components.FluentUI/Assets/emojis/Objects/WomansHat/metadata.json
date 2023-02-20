@@ -1,8 +1,7 @@
 {
-  "basefilename": "womans_hat",
-  "cldr": "woman\u2019s hat",
+  "cldr": "woman’s hat",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC52",
+  "glyph": "👒",
   "glyphAsUtfInEmoticons": [
     "1f452_womanshat"
   ],
@@ -11,12 +10,11 @@
     "clothing",
     "hat",
     "woman",
-    "woman\u2019s hat"
+    "woman’s hat"
   ],
   "mappedToEmoticons": [
     "1f452_womanshat"
   ],
-  "tts": "woman\u2019s hat",
-  "unicode": "1f452",
-  "unicodeSkintones": null
+  "tts": "woman’s hat",
+  "unicode": "1f452"
 }

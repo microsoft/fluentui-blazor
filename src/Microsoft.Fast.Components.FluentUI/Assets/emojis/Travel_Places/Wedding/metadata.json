@@ -1,12 +1,11 @@
 {
-  "basefilename": "wedding",
   "cldr": "wedding",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC92",
+  "glyph": "💒",
   "glyphAsUtfInEmoticons": [
     "1f492_wedding"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "chapel",
     "romance",
@@ -16,6 +15,5 @@
     "1f492_wedding"
   ],
   "tts": "wedding",
-  "unicode": "1f492",
-  "unicodeSkintones": null
+  "unicode": "1f492"
 }

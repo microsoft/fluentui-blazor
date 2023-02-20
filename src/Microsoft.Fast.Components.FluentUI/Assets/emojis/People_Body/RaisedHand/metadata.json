@@ -1,13 +1,12 @@
 {
-  "basefilename": "raised_hand",
   "cldr": "raised hand",
   "fromVersion": "0.6",
-  "glyph": "\u270B",
+  "glyph": "✋",
   "glyphAsUtfInEmoticons": [
     "270b_raisedhand",
     "highfive"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "hand",
     "high 5",

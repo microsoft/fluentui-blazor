@@ -1,13 +1,12 @@
 {
-  "basefilename": "person_playing_water_polo",
   "cldr": "person playing water polo",
   "fromVersion": "3.0",
-  "glyph": "\uD83E\uDD3D",
+  "glyph": "🤽",
   "glyphAsUtfInEmoticons": [
     "manplayingwaterpolo",
     "water_polo"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "person playing water polo",
     "polo",

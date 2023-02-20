@@ -1,8 +1,7 @@
 {
-  "basefilename": "baby_symbol",
   "cldr": "baby symbol",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDEBC",
+  "glyph": "🚼",
   "glyphAsUtfInEmoticons": [
     "1f6bc_babysymbol"
   ],
@@ -16,6 +15,5 @@
     "1f6bc_babysymbol"
   ],
   "tts": "baby symbol",
-  "unicode": "1f6bc",
-  "unicodeSkintones": null
+  "unicode": "1f6bc"
 }

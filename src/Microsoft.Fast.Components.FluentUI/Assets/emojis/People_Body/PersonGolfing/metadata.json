@@ -1,12 +1,11 @@
 {
-  "basefilename": "person_golfing",
   "cldr": "person golfing",
   "fromVersion": "0.7",
-  "glyph": "\uD83C\uDFCC\uFE0F",
+  "glyph": "🏌️",
   "glyphAsUtfInEmoticons": [
     "golfer"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "ball",
     "golf",

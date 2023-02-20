@@ -1,8 +1,7 @@
 {
-  "basefilename": "brown_square",
   "cldr": "brown square",
   "fromVersion": "12.0",
-  "glyph": "\uD83D\uDFEB",
+  "glyph": "🟫",
   "glyphAsUtfInEmoticons": [
     "1f7eb_brownsquare"
   ],
@@ -15,6 +14,5 @@
     "1f7eb_brownsquare"
   ],
   "tts": "brown square",
-  "unicode": "1f7eb",
-  "unicodeSkintones": null
+  "unicode": "1f7eb"
 }

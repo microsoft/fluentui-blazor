@@ -1,8 +1,7 @@
 {
-  "basefilename": "taurus",
   "cldr": "Taurus",
   "fromVersion": "0.6",
-  "glyph": "\u2649",
+  "glyph": "♉",
   "glyphAsUtfInEmoticons": [
     "2649_taurus"
   ],
@@ -17,6 +16,5 @@
     "2649_taurus"
   ],
   "tts": "Taurus",
-  "unicode": "2649",
-  "unicodeSkintones": null
+  "unicode": "2649"
 }

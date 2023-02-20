@@ -66,8 +66,7 @@ public class FluentEmojiSearcher
             _emojiList ??= GetFilteredEmojiList();
 
             _emojiList = _emojiList!.Where(x => x.Name.Contains(searchterm, StringComparison.OrdinalIgnoreCase) ||
-                                                         x.Keywords.Contains(searchterm, StringComparison.OrdinalIgnoreCase) ||
-                                                         x.Folder.Contains(searchterm.ToLower()));
+                                                         x.Keywords.Contains(searchterm, StringComparison.OrdinalIgnoreCase));
         }
 
         return this;
@@ -78,7 +77,7 @@ public class FluentEmojiSearcher
         if (_emojiList is null)
             return new List<EmojiModel>();
         else
-            return _emojiList?.Take(count).OrderBy(x => x.Folder).ToList();
+            return _emojiList?.Take(count).OrderBy(x => x.Name).ToList();
     }
 
     public int ResultCount()

@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_juggling",
   "cldr": "woman juggling",
   "fromVersion": "4.0",
-  "glyph": "\uD83E\uDD39\u200D\u2640\uFE0F",
+  "glyph": "🤹‍♀️",
   "glyphAsUtfInEmoticons": [
     "woman_juggling"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "juggling",
     "multitask",

@@ -1,9 +1,7 @@
 {
-  "basefilename": "telephone",
   "cldr": "telephone",
   "fromVersion": "0.6",
-  "glyph": "\u260E\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "☎️",
   "group": "Objects",
   "keywords": [
     "phone",
@@ -13,6 +11,5 @@
     "260e_blacktelephone"
   ],
   "tts": "telephone",
-  "unicode": "260e fe0f",
-  "unicodeSkintones": null
+  "unicode": "260e fe0f"
 }

@@ -1,12 +1,11 @@
 {
-  "basefilename": "bison",
   "cldr": "bison",
   "fromVersion": "13.0",
-  "glyph": "\uD83E\uDDAC",
+  "glyph": "🦬",
   "glyphAsUtfInEmoticons": [
     "bison"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "bison",
     "buffalo",
@@ -17,6 +16,5 @@
     "bison"
   ],
   "tts": "bison",
-  "unicode": "1f9ac",
-  "unicodeSkintones": null
+  "unicode": "1f9ac"
 }

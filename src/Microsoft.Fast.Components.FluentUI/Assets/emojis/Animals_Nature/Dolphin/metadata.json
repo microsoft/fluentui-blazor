@@ -1,12 +1,11 @@
 {
-  "basefilename": "dolphin",
   "cldr": "dolphin",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC2C",
+  "glyph": "🐬",
   "glyphAsUtfInEmoticons": [
     "dolphin"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "dolphin",
     "flipper"
@@ -15,6 +14,5 @@
     "dolphin"
   ],
   "tts": "dolphin",
-  "unicode": "1f42c",
-  "unicodeSkintones": null
+  "unicode": "1f42c"
 }

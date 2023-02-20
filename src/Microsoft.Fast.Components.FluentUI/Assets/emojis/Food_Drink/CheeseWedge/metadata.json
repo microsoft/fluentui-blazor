@@ -1,12 +1,11 @@
 {
-  "basefilename": "cheese_wedge",
   "cldr": "cheese wedge",
   "fromVersion": "1.0",
-  "glyph": "\uD83E\uDDC0",
+  "glyph": "🧀",
   "glyphAsUtfInEmoticons": [
     "cheese"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "cheese",
     "cheese wedge"
@@ -15,6 +14,5 @@
     "cheese"
   ],
   "tts": "cheese wedge",
-  "unicode": "1f9c0",
-  "unicodeSkintones": null
+  "unicode": "1f9c0"
 }

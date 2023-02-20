@@ -1,12 +1,11 @@
 {
-  "basefilename": "taxi",
   "cldr": "taxi",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDE95",
+  "glyph": "🚕",
   "glyphAsUtfInEmoticons": [
     "taxi"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "taxi",
     "vehicle"
@@ -15,6 +14,5 @@
     "taxi"
   ],
   "tts": "taxi",
-  "unicode": "1f695",
-  "unicodeSkintones": null
+  "unicode": "1f695"
 }

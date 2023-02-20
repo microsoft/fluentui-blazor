@@ -1,12 +1,11 @@
 {
-  "basefilename": "ghost",
   "cldr": "ghost",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC7B",
+  "glyph": "👻",
   "glyphAsUtfInEmoticons": [
     "ghost"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "creature",
     "face",
@@ -19,6 +18,5 @@
     "ghost"
   ],
   "tts": "ghost",
-  "unicode": "1f47b",
-  "unicodeSkintones": null
+  "unicode": "1f47b"
 }

@@ -1,12 +1,11 @@
 {
-  "basefilename": "hot_face",
   "cldr": "hot face",
   "fromVersion": "11.0",
-  "glyph": "\uD83E\uDD75",
+  "glyph": "🥵",
   "glyphAsUtfInEmoticons": [
     "1f975_hotface"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "feverish",
     "heat stroke",
@@ -19,6 +18,5 @@
     "1f975_hotface"
   ],
   "tts": "hot face",
-  "unicode": "1f975",
-  "unicodeSkintones": null
+  "unicode": "1f975"
 }

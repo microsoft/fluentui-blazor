@@ -1,12 +1,11 @@
 {
-  "basefilename": "doughnut",
   "cldr": "doughnut",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF69",
+  "glyph": "🍩",
   "glyphAsUtfInEmoticons": [
     "1f369_doughnut"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "breakfast",
     "dessert",
@@ -18,6 +17,5 @@
     "1f369_doughnut"
   ],
   "tts": "doughnut",
-  "unicode": "1f369",
-  "unicodeSkintones": null
+  "unicode": "1f369"
 }

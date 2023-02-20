@@ -1,8 +1,7 @@
 {
-  "basefilename": "biohazard",
   "cldr": "biohazard",
   "fromVersion": "1.0",
-  "glyph": "\u2623\uFE0F",
+  "glyph": "☣️",
   "glyphAsUtfInEmoticons": [
     "2623_biohazardsign"
   ],
@@ -15,6 +14,5 @@
     "2623_biohazardsign"
   ],
   "tts": "biohazard",
-  "unicode": "2623 fe0f",
-  "unicodeSkintones": null
+  "unicode": "2623 fe0f"
 }

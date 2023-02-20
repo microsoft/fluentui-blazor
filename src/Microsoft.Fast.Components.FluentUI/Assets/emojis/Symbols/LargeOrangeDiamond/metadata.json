@@ -1,8 +1,7 @@
 {
-  "basefilename": "large_orange_diamond",
   "cldr": "large orange diamond",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDD36",
+  "glyph": "🔶",
   "glyphAsUtfInEmoticons": [
     "1f536_largeorangediamond"
   ],
@@ -17,6 +16,5 @@
     "1f536_largeorangediamond"
   ],
   "tts": "large orange diamond",
-  "unicode": "1f536",
-  "unicodeSkintones": null
+  "unicode": "1f536"
 }

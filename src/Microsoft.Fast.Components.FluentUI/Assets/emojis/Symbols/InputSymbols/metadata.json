@@ -1,14 +1,13 @@
 {
-  "basefilename": "input_symbols",
   "cldr": "input symbols",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDD23",
+  "glyph": "🔣",
   "glyphAsUtfInEmoticons": [
     "1f523_inputsymbolforsymbols"
   ],
   "group": "Symbols",
   "keywords": [
-    "\u3012\u266A\u0026%",
+    "〒♪&%",
     "input",
     "input symbols"
   ],
@@ -16,6 +15,5 @@
     "1f523_inputsymbolforsymbols"
   ],
   "tts": "input symbols",
-  "unicode": "1f523",
-  "unicodeSkintones": null
+  "unicode": "1f523"
 }

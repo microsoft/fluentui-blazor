@@ -1,8 +1,7 @@
 {
-  "basefilename": "postal_horn",
   "cldr": "postal horn",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDCEF",
+  "glyph": "📯",
   "glyphAsUtfInEmoticons": [
     "1f4ef_postalhorn"
   ],
@@ -16,6 +15,5 @@
     "1f4ef_postalhorn"
   ],
   "tts": "postal horn",
-  "unicode": "1f4ef",
-  "unicodeSkintones": null
+  "unicode": "1f4ef"
 }

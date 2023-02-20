@@ -1,12 +1,11 @@
 {
-  "basefilename": "automobile",
   "cldr": "automobile",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDE97",
+  "glyph": "🚗",
   "glyphAsUtfInEmoticons": [
     "car"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "automobile",
     "car"
@@ -15,6 +14,5 @@
     "car"
   ],
   "tts": "automobile",
-  "unicode": "1f697",
-  "unicodeSkintones": null
+  "unicode": "1f697"
 }

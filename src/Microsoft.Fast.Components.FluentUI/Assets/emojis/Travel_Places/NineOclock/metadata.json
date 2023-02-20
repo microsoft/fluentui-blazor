@@ -1,24 +1,22 @@
 {
-  "basefilename": "nine_oclock",
-  "cldr": "nine o\u2019clock",
+  "cldr": "nine o’clock",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDD58",
+  "glyph": "🕘",
   "glyphAsUtfInEmoticons": [
     "1f558_nineoclock"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "00",
     "9",
     "9:00",
     "clock",
     "nine",
-    "o\u2019clock"
+    "o’clock"
   ],
   "mappedToEmoticons": [
     "1f558_nineoclock"
   ],
-  "tts": "nine o\u2019clock",
-  "unicode": "1f558",
-  "unicodeSkintones": null
+  "tts": "nine o’clock",
+  "unicode": "1f558"
 }

@@ -1,15 +1,14 @@
 {
-  "basefilename": "minus",
   "cldr": "minus",
   "fromVersion": "0.6",
-  "glyph": "\u2796",
+  "glyph": "➖",
   "glyphAsUtfInEmoticons": [
     "2796_heavyminussign"
   ],
   "group": "Symbols",
   "keywords": [
     "-",
-    "\u2212",
+    "−",
     "math",
     "minus",
     "sign"
@@ -18,6 +17,5 @@
     "2796_heavyminussign"
   ],
   "tts": "minus",
-  "unicode": "2796",
-  "unicodeSkintones": null
+  "unicode": "2796"
 }

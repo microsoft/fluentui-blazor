@@ -1,12 +1,11 @@
 {
-  "basefilename": "meat_on_bone",
   "cldr": "meat on bone",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF56",
+  "glyph": "🍖",
   "glyphAsUtfInEmoticons": [
     "1f356_meatonbone"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "bone",
     "meat",
@@ -16,6 +15,5 @@
     "1f356_meatonbone"
   ],
   "tts": "meat on bone",
-  "unicode": "1f356",
-  "unicodeSkintones": null
+  "unicode": "1f356"
 }

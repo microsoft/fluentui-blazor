@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_bald",
   "cldr": "woman: bald",
   "fromVersion": "11.0",
-  "glyph": "\uD83D\uDC69\u200D\uD83E\uDDB2",
+  "glyph": "👩‍🦲",
   "glyphAsUtfInEmoticons": [
     "1f469_200d_1f9b2_femalebald"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "adult",
     "bald",

@@ -1,8 +1,7 @@
 {
-  "basefilename": "copyright",
   "cldr": "copyright",
   "fromVersion": "0.6",
-  "glyph": "\u00A9\uFE0F",
+  "glyph": "©️",
   "glyphAsUtfInEmoticons": [
     "00a9_copyrightsign"
   ],
@@ -15,6 +14,5 @@
     "00a9_copyrightsign"
   ],
   "tts": "copyright",
-  "unicode": "00a9 fe0f",
-  "unicodeSkintones": null
+  "unicode": "00a9 fe0f"
 }

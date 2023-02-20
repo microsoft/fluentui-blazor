@@ -1,8 +1,7 @@
 {
-  "basefilename": "rainbow_flag",
   "cldr": "rainbow flag",
   "fromVersion": "4.0",
-  "glyph": "\uD83C\uDFF3\uFE0F\u200D\uD83C\uDF08",
+  "glyph": "🏳️‍🌈",
   "glyphAsUtfInEmoticons": [
     "flaggaypride"
   ],
@@ -12,8 +11,6 @@
     "rainbow",
     "rainbow flag"
   ],
-  "mappedToEmoticons": null,
   "tts": "rainbow flag",
-  "unicode": "1f3f3 fe0f 200d 1f308",
-  "unicodeSkintones": null
+  "unicode": "1f3f3 fe0f 200d 1f308"
 }

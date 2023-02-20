@@ -1,8 +1,7 @@
 {
-  "basefilename": "medical_symbol",
   "cldr": "medical symbol",
   "fromVersion": "4.0",
-  "glyph": "\u2695\uFE0F",
+  "glyph": "⚕️",
   "glyphAsUtfInEmoticons": [
     "2695_staffofaesculapius"
   ],
@@ -17,6 +16,5 @@
     "2695_staffofaesculapius"
   ],
   "tts": "medical symbol",
-  "unicode": "2695 fe0f",
-  "unicodeSkintones": null
+  "unicode": "2695 fe0f"
 }

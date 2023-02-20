@@ -1,8 +1,7 @@
 {
-  "basefilename": "place_of_worship",
   "cldr": "place of worship",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDED0",
+  "glyph": "🛐",
   "glyphAsUtfInEmoticons": [
     "1f6d0_placeofworship"
   ],
@@ -16,6 +15,5 @@
     "1f6d0_placeofworship"
   ],
   "tts": "place of worship",
-  "unicode": "1f6d0",
-  "unicodeSkintones": null
+  "unicode": "1f6d0"
 }

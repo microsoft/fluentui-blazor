@@ -1,8 +1,7 @@
 {
-  "basefilename": "upwards_button",
   "cldr": "upwards button",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDD3C",
+  "glyph": "🔼",
   "glyphAsUtfInEmoticons": [
     "1f53c_uppointingsmallredtriangle"
   ],
@@ -17,6 +16,5 @@
     "1f53c_uppointingsmallredtriangle"
   ],
   "tts": "upwards button",
-  "unicode": "1f53c",
-  "unicodeSkintones": null
+  "unicode": "1f53c"
 }

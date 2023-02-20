@@ -1,8 +1,7 @@
 {
-  "basefilename": "shuffle_tracks_button",
   "cldr": "shuffle tracks button",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDD00",
+  "glyph": "🔀",
   "glyphAsUtfInEmoticons": [
     "1f500_twistedrightwardsarrows"
   ],
@@ -16,6 +15,5 @@
     "1f500_twistedrightwardsarrows"
   ],
   "tts": "shuffle tracks button",
-  "unicode": "1f500",
-  "unicodeSkintones": null
+  "unicode": "1f500"
 }

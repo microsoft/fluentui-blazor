@@ -1,8 +1,7 @@
 {
-  "basefilename": "left_luggage",
   "cldr": "left luggage",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDEC5",
+  "glyph": "🛅",
   "glyphAsUtfInEmoticons": [
     "1f6c5_leftluggage"
   ],
@@ -17,6 +16,5 @@
     "1f6c5_leftluggage"
   ],
   "tts": "left luggage",
-  "unicode": "1f6c5",
-  "unicodeSkintones": null
+  "unicode": "1f6c5"
 }

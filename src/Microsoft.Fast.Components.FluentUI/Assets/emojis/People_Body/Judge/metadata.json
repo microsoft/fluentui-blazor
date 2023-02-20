@@ -1,10 +1,8 @@
 {
-  "basefilename": "judge",
   "cldr": "judge",
   "fromVersion": "12.1",
-  "glyph": "\uD83E\uDDD1\u200D\u2696\uFE0F",
-  "glyphAsUtfInEmoticons": null,
-  "group": "People \u0026 Body",
+  "glyph": "🧑‍⚖️",
+  "group": "People & Body",
   "keywords": [
     "judge",
     "justice",

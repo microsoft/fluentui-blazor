@@ -1,8 +1,7 @@
 {
-  "basefilename": "yen_banknote",
   "cldr": "yen banknote",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCB4",
+  "glyph": "💴",
   "glyphAsUtfInEmoticons": [
     "1f4b4_banknotewithyensign"
   ],
@@ -19,6 +18,5 @@
     "1f4b4_banknotewithyensign"
   ],
   "tts": "yen banknote",
-  "unicode": "1f4b4",
-  "unicodeSkintones": null
+  "unicode": "1f4b4"
 }

@@ -1,12 +1,11 @@
 {
-  "basefilename": "bullet_train",
   "cldr": "bullet train",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDE85",
+  "glyph": "🚅",
   "glyphAsUtfInEmoticons": [
     "1f685_bullettrain"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "bullet",
     "railway",
@@ -18,6 +17,5 @@
     "1f685_bullettrain"
   ],
   "tts": "bullet train",
-  "unicode": "1f685",
-  "unicodeSkintones": null
+  "unicode": "1f685"
 }

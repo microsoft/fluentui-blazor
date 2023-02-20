@@ -1,12 +1,11 @@
 {
-  "basefilename": "man_blonde_hair",
   "cldr": "man: blond hair",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDC71\u200D\u2642\uFE0F",
+  "glyph": "👱‍♂️",
   "glyphAsUtfInEmoticons": [
     "manblondhair"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "blond",
     "blond-haired man",

@@ -1,8 +1,7 @@
 {
-  "basefilename": "record_button",
   "cldr": "record button",
   "fromVersion": "0.7",
-  "glyph": "\u23FA\uFE0F",
+  "glyph": "⏺️",
   "glyphAsUtfInEmoticons": [
     "23fa_blackcircleforrecord"
   ],
@@ -16,6 +15,5 @@
     "23fa_blackcircleforrecord"
   ],
   "tts": "record button",
-  "unicode": "23fa fe0f",
-  "unicodeSkintones": null
+  "unicode": "23fa fe0f"
 }

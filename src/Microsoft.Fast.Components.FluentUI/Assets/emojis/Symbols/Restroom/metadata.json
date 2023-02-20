@@ -1,8 +1,7 @@
 {
-  "basefilename": "restroom",
   "cldr": "restroom",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDEBB",
+  "glyph": "🚻",
   "glyphAsUtfInEmoticons": [
     "1f6bb_restroom"
   ],
@@ -16,6 +15,5 @@
     "1f6bb_restroom"
   ],
   "tts": "restroom",
-  "unicode": "1f6bb",
-  "unicodeSkintones": null
+  "unicode": "1f6bb"
 }

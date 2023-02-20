@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_climbing",
   "cldr": "woman climbing",
   "fromVersion": "5.0",
-  "glyph": "\uD83E\uDDD7\u200D\u2640\uFE0F",
+  "glyph": "🧗‍♀️",
   "glyphAsUtfInEmoticons": [
     "woman_climbing"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "climber",
     "woman climbing"

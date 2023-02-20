@@ -1,12 +1,11 @@
 {
-  "basefilename": "oncoming_fist",
   "cldr": "oncoming fist",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC4A",
+  "glyph": "👊",
   "glyphAsUtfInEmoticons": [
     "1f44a_oncomingfist"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "clenched",
     "fist",

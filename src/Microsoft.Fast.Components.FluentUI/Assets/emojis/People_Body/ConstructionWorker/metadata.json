@@ -1,12 +1,11 @@
 {
-  "basefilename": "construction_worker",
   "cldr": "construction worker",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC77",
+  "glyph": "👷",
   "glyphAsUtfInEmoticons": [
     "construction_worker"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "construction",
     "hat",

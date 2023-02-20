@@ -1,24 +1,22 @@
 {
-  "basefilename": "eight_oclock",
-  "cldr": "eight o\u2019clock",
+  "cldr": "eight o’clock",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDD57",
+  "glyph": "🕗",
   "glyphAsUtfInEmoticons": [
     "1f557_eightoclock"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "00",
     "8",
     "8:00",
     "clock",
     "eight",
-    "o\u2019clock"
+    "o’clock"
   ],
   "mappedToEmoticons": [
     "1f557_eightoclock"
   ],
-  "tts": "eight o\u2019clock",
-  "unicode": "1f557",
-  "unicodeSkintones": null
+  "tts": "eight o’clock",
+  "unicode": "1f557"
 }

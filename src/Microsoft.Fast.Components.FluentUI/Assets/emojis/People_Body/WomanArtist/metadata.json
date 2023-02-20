@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_artist",
   "cldr": "woman artist",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDC69\u200D\uD83C\uDFA8",
+  "glyph": "👩‍🎨",
   "glyphAsUtfInEmoticons": [
     "womanartist"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "artist",
     "palette",

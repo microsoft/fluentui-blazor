@@ -1,8 +1,7 @@
 {
-  "basefilename": "slot_machine",
   "cldr": "slot machine",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDFB0",
+  "glyph": "🎰",
   "glyphAsUtfInEmoticons": [
     "1f3b0_slotmachine"
   ],
@@ -16,6 +15,5 @@
     "1f3b0_slotmachine"
   ],
   "tts": "slot machine",
-  "unicode": "1f3b0",
-  "unicodeSkintones": null
+  "unicode": "1f3b0"
 }

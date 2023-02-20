@@ -1,12 +1,11 @@
 {
-  "basefilename": "seven-thirty",
   "cldr": "seven-thirty",
   "fromVersion": "0.7",
-  "glyph": "\uD83D\uDD62",
+  "glyph": "🕢",
   "glyphAsUtfInEmoticons": [
     "1f562_seventhirty"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "7",
     "7:30",
@@ -19,6 +18,5 @@
     "1f562_seventhirty"
   ],
   "tts": "seven-thirty",
-  "unicode": "1f562",
-  "unicodeSkintones": null
+  "unicode": "1f562"
 }

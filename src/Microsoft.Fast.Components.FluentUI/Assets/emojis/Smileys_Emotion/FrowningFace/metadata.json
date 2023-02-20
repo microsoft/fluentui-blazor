@@ -1,10 +1,8 @@
 {
-  "basefilename": "frowning_face",
   "cldr": "frowning face",
   "fromVersion": "0.7",
-  "glyph": "\u2639\uFE0F",
-  "glyphAsUtfInEmoticons": null,
-  "group": "Smileys \u0026 Emotion",
+  "glyph": "☹️",
+  "group": "Smileys & Emotion",
   "keywords": [
     "face",
     "frown",
@@ -14,6 +12,5 @@
     "2639_frowningface"
   ],
   "tts": "frowning face",
-  "unicode": "2639 fe0f",
-  "unicodeSkintones": null
+  "unicode": "2639 fe0f"
 }

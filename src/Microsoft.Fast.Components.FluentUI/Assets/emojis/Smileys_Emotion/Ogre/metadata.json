@@ -1,12 +1,11 @@
 {
-  "basefilename": "ogre",
   "cldr": "ogre",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC79",
+  "glyph": "👹",
   "glyphAsUtfInEmoticons": [
     "1f479_japaneseogre"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "creature",
     "face",
@@ -19,6 +18,5 @@
     "1f479_japaneseogre"
   ],
   "tts": "ogre",
-  "unicode": "1f479",
-  "unicodeSkintones": null
+  "unicode": "1f479"
 }

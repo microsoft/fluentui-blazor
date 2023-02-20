@@ -1,12 +1,11 @@
 {
-  "basefilename": "weary_face",
   "cldr": "weary face",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDE29",
+  "glyph": "😩",
   "glyphAsUtfInEmoticons": [
     "weary"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "face",
     "tired",
@@ -16,6 +15,5 @@
     "weary"
   ],
   "tts": "weary face",
-  "unicode": "1f629",
-  "unicodeSkintones": null
+  "unicode": "1f629"
 }

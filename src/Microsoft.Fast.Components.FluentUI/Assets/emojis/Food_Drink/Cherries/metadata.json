@@ -1,12 +1,11 @@
 {
-  "basefilename": "cherries",
   "cldr": "cherries",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF52",
+  "glyph": "🍒",
   "glyphAsUtfInEmoticons": [
     "cherries"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "berries",
     "cherries",
@@ -18,6 +17,5 @@
     "cherries"
   ],
   "tts": "cherries",
-  "unicode": "1f352",
-  "unicodeSkintones": null
+  "unicode": "1f352"
 }

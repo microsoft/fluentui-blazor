@@ -1,12 +1,11 @@
 {
-  "basefilename": "brick",
   "cldr": "brick",
   "fromVersion": "11.0",
-  "glyph": "\uD83E\uDDF1",
+  "glyph": "🧱",
   "glyphAsUtfInEmoticons": [
     "1f9f1_bricks"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "brick",
     "bricks",
@@ -18,6 +17,5 @@
     "1f9f1_bricks"
   ],
   "tts": "brick",
-  "unicode": "1f9f1",
-  "unicodeSkintones": null
+  "unicode": "1f9f1"
 }

@@ -1,9 +1,7 @@
 {
-  "basefilename": "b_button_blood_type",
   "cldr": "B button (blood type)",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDD71\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "🅱️",
   "group": "Symbols",
   "keywords": [
     "b",
@@ -14,6 +12,5 @@
     "1f171_bloodtypeb"
   ],
   "tts": "B button (blood type)",
-  "unicode": "1f171 fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f171 fe0f"
 }

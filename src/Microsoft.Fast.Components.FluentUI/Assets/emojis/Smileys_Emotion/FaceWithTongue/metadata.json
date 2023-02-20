@@ -1,12 +1,11 @@
 {
-  "basefilename": "face_with_tongue",
   "cldr": "face with tongue",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDE1B",
+  "glyph": "😛",
   "glyphAsUtfInEmoticons": [
     "1f61b_facewithtongue"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "face",
     "face with tongue",
@@ -16,6 +15,5 @@
     "1f61b_facewithtongue"
   ],
   "tts": "face with tongue",
-  "unicode": "1f61b",
-  "unicodeSkintones": null
+  "unicode": "1f61b"
 }

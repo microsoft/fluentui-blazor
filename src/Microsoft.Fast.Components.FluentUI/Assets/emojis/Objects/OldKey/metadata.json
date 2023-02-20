@@ -1,8 +1,7 @@
 {
-  "basefilename": "old_key",
   "cldr": "old key",
   "fromVersion": "0.7",
-  "glyph": "\uD83D\uDDDD\uFE0F",
+  "glyph": "🗝️",
   "glyphAsUtfInEmoticons": [
     "oldkey"
   ],
@@ -17,6 +16,5 @@
     "oldkey"
   ],
   "tts": "old key",
-  "unicode": "1f5dd fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f5dd fe0f"
 }

@@ -1,12 +1,11 @@
 {
-  "basefilename": "taco",
   "cldr": "taco",
   "fromVersion": "1.0",
-  "glyph": "\uD83C\uDF2E",
+  "glyph": "🌮",
   "glyphAsUtfInEmoticons": [
     "1f32e_taco"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "mexican",
     "taco"
@@ -15,6 +14,5 @@
     "1f32e_taco"
   ],
   "tts": "taco",
-  "unicode": "1f32e",
-  "unicodeSkintones": null
+  "unicode": "1f32e"
 }

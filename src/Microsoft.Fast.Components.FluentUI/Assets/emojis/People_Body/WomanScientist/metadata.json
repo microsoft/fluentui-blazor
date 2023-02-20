@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_scientist",
   "cldr": "woman scientist",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDC69\u200D\uD83D\uDD2C",
+  "glyph": "👩‍🔬",
   "glyphAsUtfInEmoticons": [
     "womanscientist"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "biologist",
     "chemist",

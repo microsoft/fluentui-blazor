@@ -1,12 +1,11 @@
 {
-  "basefilename": "winking_face_with_tongue",
   "cldr": "winking face with tongue",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDE1C",
+  "glyph": "😜",
   "glyphAsUtfInEmoticons": [
     "winktongueout"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "eye",
     "face",
@@ -19,6 +18,5 @@
     "winktongueout"
   ],
   "tts": "winking face with tongue",
-  "unicode": "1f61c",
-  "unicodeSkintones": null
+  "unicode": "1f61c"
 }

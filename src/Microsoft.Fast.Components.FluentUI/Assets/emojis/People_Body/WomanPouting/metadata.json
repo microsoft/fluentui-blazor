@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_pouting",
   "cldr": "woman pouting",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDE4E\u200D\u2640\uFE0F",
+  "glyph": "🙎‍♀️",
   "glyphAsUtfInEmoticons": [
     "womanpouting"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "gesture",
     "pouting",

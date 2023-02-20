@@ -1,12 +1,11 @@
 {
-  "basefilename": "glass_of_milk",
   "cldr": "glass of milk",
   "fromVersion": "3.0",
-  "glyph": "\uD83E\uDD5B",
+  "glyph": "🥛",
   "glyphAsUtfInEmoticons": [
     "1f95b_milkglass"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "drink",
     "glass",
@@ -17,6 +16,5 @@
     "1f95b_milkglass"
   ],
   "tts": "glass of milk",
-  "unicode": "1f95b",
-  "unicodeSkintones": null
+  "unicode": "1f95b"
 }

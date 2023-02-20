@@ -1,8 +1,7 @@
 {
-  "basefilename": "bucket",
   "cldr": "bucket",
   "fromVersion": "13.0",
-  "glyph": "\uD83E\uDEA3",
+  "glyph": "🪣",
   "glyphAsUtfInEmoticons": [
     "bucket"
   ],
@@ -17,6 +16,5 @@
     "bucket"
   ],
   "tts": "bucket",
-  "unicode": "1faa3",
-  "unicodeSkintones": null
+  "unicode": "1faa3"
 }

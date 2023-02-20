@@ -1,12 +1,11 @@
 {
-  "basefilename": "pot_of_food",
   "cldr": "pot of food",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF72",
+  "glyph": "🍲",
   "glyphAsUtfInEmoticons": [
     "1f372_potoffood"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "pot",
     "pot of food",
@@ -16,6 +15,5 @@
     "1f372_potoffood"
   ],
   "tts": "pot of food",
-  "unicode": "1f372",
-  "unicodeSkintones": null
+  "unicode": "1f372"
 }

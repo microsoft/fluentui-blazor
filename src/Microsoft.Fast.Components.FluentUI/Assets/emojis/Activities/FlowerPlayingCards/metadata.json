@@ -1,8 +1,7 @@
 {
-  "basefilename": "flower_playing_cards",
   "cldr": "flower playing cards",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDFB4",
+  "glyph": "🎴",
   "glyphAsUtfInEmoticons": [
     "1f3b4_flowerplayingcards"
   ],
@@ -19,6 +18,5 @@
     "1f3b4_flowerplayingcards"
   ],
   "tts": "flower playing cards",
-  "unicode": "1f3b4",
-  "unicodeSkintones": null
+  "unicode": "1f3b4"
 }

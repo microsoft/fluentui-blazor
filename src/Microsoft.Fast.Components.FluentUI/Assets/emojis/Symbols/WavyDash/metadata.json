@@ -1,8 +1,7 @@
 {
-  "basefilename": "wavy_dash",
   "cldr": "wavy dash",
   "fromVersion": "0.6",
-  "glyph": "\u3030\uFE0F",
+  "glyph": "〰️",
   "glyphAsUtfInEmoticons": [
     "3030_wavydash"
   ],
@@ -16,6 +15,5 @@
     "3030_wavydash"
   ],
   "tts": "wavy dash",
-  "unicode": "3030 fe0f",
-  "unicodeSkintones": null
+  "unicode": "3030 fe0f"
 }

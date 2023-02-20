@@ -1,12 +1,11 @@
 {
-  "basefilename": "waning_gibbous_moon",
   "cldr": "waning gibbous moon",
   "fromVersion": "1.0",
-  "glyph": "\uD83C\uDF16",
+  "glyph": "🌖",
   "glyphAsUtfInEmoticons": [
     "1f316_waninggibbousmoonsymbol"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "gibbous",
     "moon",
@@ -16,6 +15,5 @@
     "1f316_waninggibbousmoonsymbol"
   ],
   "tts": "waning gibbous moon",
-  "unicode": "1f316",
-  "unicodeSkintones": null
+  "unicode": "1f316"
 }

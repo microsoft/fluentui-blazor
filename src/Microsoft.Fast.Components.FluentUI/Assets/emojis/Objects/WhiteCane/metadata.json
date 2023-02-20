@@ -1,8 +1,7 @@
 {
-  "basefilename": "white_cane",
   "cldr": "white cane",
   "fromVersion": "12.0",
-  "glyph": "\uD83E\uDDAF",
+  "glyph": "🦯",
   "glyphAsUtfInEmoticons": [
     "1f9af_probingcane"
   ],
@@ -16,6 +15,5 @@
     "1f9af_probingcane"
   ],
   "tts": "white cane",
-  "unicode": "1f9af",
-  "unicodeSkintones": null
+  "unicode": "1f9af"
 }

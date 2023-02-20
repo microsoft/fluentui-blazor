@@ -1,8 +1,7 @@
 {
-  "basefilename": "bikini",
   "cldr": "bikini",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC59",
+  "glyph": "👙",
   "glyphAsUtfInEmoticons": [
     "1f459_bikini"
   ],
@@ -16,6 +15,5 @@
     "1f459_bikini"
   ],
   "tts": "bikini",
-  "unicode": "1f459",
-  "unicodeSkintones": null
+  "unicode": "1f459"
 }

@@ -1,8 +1,7 @@
 {
-  "basefilename": "up!_button",
   "cldr": "UP! button",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDD99",
+  "glyph": "🆙",
   "glyphAsUtfInEmoticons": [
     "1f199_buttonup"
   ],
@@ -16,6 +15,5 @@
     "1f199_buttonup"
   ],
   "tts": "UP! button",
-  "unicode": "1f199",
-  "unicodeSkintones": null
+  "unicode": "1f199"
 }

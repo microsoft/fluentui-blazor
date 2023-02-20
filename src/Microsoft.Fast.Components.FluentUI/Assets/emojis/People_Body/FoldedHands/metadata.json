@@ -1,12 +1,11 @@
 {
-  "basefilename": "folded_hands",
   "cldr": "folded hands",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDE4F",
+  "glyph": "🙏",
   "glyphAsUtfInEmoticons": [
     "praying"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "ask",
     "folded hands",

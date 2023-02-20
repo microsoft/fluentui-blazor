@@ -1,12 +1,11 @@
 {
-  "basefilename": "statue_of_liberty",
   "cldr": "Statue of Liberty",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDDFD",
+  "glyph": "🗽",
   "glyphAsUtfInEmoticons": [
     "statueofliberty"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "liberty",
     "statue",
@@ -16,6 +15,5 @@
     "statueofliberty"
   ],
   "tts": "Statue of Liberty",
-  "unicode": "1f5fd",
-  "unicodeSkintones": null
+  "unicode": "1f5fd"
 }

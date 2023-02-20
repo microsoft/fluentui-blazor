@@ -1,12 +1,11 @@
 {
-  "basefilename": "handshake",
   "cldr": "handshake",
   "fromVersion": "3.0",
-  "glyph": "\uD83E\uDD1D",
+  "glyph": "🤝",
   "glyphAsUtfInEmoticons": [
     "handshake"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "agreement",
     "hand",
@@ -18,6 +17,5 @@
     "handshake"
   ],
   "tts": "handshake",
-  "unicode": "1f91d",
-  "unicodeSkintones": null
+  "unicode": "1f91d"
 }

@@ -1,8 +1,7 @@
 {
-  "basefilename": "downwards_button",
   "cldr": "downwards button",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDD3D",
+  "glyph": "🔽",
   "glyphAsUtfInEmoticons": [
     "1f53d_buttondownsmall"
   ],
@@ -18,6 +17,5 @@
     "1f53d_buttondownsmall"
   ],
   "tts": "downwards button",
-  "unicode": "1f53d",
-  "unicodeSkintones": null
+  "unicode": "1f53d"
 }

@@ -1,12 +1,11 @@
 {
-  "basefilename": "ewe",
   "cldr": "ewe",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC11",
+  "glyph": "🐑",
   "glyphAsUtfInEmoticons": [
     "lamb"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "ewe",
     "female",
@@ -16,6 +15,5 @@
     "lamb"
   ],
   "tts": "ewe",
-  "unicode": "1f411",
-  "unicodeSkintones": null
+  "unicode": "1f411"
 }

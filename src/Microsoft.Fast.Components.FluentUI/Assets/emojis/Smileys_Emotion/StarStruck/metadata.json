@@ -1,12 +1,11 @@
 {
-  "basefilename": "star-struck",
   "cldr": "star-struck",
   "fromVersion": "5.0",
-  "glyph": "\uD83E\uDD29",
+  "glyph": "🤩",
   "glyphAsUtfInEmoticons": [
     "stareyes"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "eyes",
     "face",
@@ -18,6 +17,5 @@
     "stareyes"
   ],
   "tts": "star-struck",
-  "unicode": "1f929",
-  "unicodeSkintones": null
+  "unicode": "1f929"
 }

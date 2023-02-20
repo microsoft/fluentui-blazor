@@ -1,13 +1,12 @@
 {
-  "basefilename": "face_with_monocle",
   "cldr": "face with monocle",
   "fromVersion": "5.0",
-  "glyph": "\uD83E\uDDD0",
+  "glyph": "🧐",
   "glyphAsUtfInEmoticons": [
     "1f9d0_facewithmonocle",
     "movember"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "face with monocle",
     "stuffy"
@@ -16,6 +15,5 @@
     "1f9d0_facewithmonocle"
   ],
   "tts": "face with monocle",
-  "unicode": "1f9d0",
-  "unicodeSkintones": null
+  "unicode": "1f9d0"
 }

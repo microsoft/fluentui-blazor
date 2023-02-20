@@ -1,12 +1,11 @@
 {
-  "basefilename": "globe_showing_europe-africa",
   "cldr": "globe showing Europe-Africa",
   "fromVersion": "0.7",
-  "glyph": "\uD83C\uDF0D",
+  "glyph": "🌍",
   "glyphAsUtfInEmoticons": [
     "1f30d_earthglobeeuropeafrica"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "Africa",
     "earth",
@@ -19,6 +18,5 @@
     "1f30d_earthglobeeuropeafrica"
   ],
   "tts": "globe showing Europe-Africa",
-  "unicode": "1f30d",
-  "unicodeSkintones": null
+  "unicode": "1f30d"
 }

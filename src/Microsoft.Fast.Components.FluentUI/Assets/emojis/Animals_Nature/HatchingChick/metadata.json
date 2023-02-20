@@ -1,12 +1,11 @@
 {
-  "basefilename": "hatching_chick",
   "cldr": "hatching chick",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC23",
+  "glyph": "🐣",
   "glyphAsUtfInEmoticons": [
     "1f423_hatchingchick"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "baby",
     "bird",
@@ -17,6 +16,5 @@
     "1f423_hatchingchick"
   ],
   "tts": "hatching chick",
-  "unicode": "1f423",
-  "unicodeSkintones": null
+  "unicode": "1f423"
 }

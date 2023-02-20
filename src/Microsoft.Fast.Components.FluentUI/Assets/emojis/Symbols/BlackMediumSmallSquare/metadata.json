@@ -1,8 +1,7 @@
 {
-  "basefilename": "black_medium-small_square",
   "cldr": "black medium-small square",
   "fromVersion": "0.6",
-  "glyph": "\u25FE",
+  "glyph": "◾",
   "glyphAsUtfInEmoticons": [
     "25fe_blackmediumsmallsquare"
   ],
@@ -16,6 +15,5 @@
     "25fe_blackmediumsmallsquare"
   ],
   "tts": "black medium-small square",
-  "unicode": "25fe",
-  "unicodeSkintones": null
+  "unicode": "25fe"
 }

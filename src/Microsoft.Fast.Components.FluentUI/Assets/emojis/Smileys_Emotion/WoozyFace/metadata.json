@@ -1,12 +1,11 @@
 {
-  "basefilename": "woozy_face",
   "cldr": "woozy face",
   "fromVersion": "11.0",
-  "glyph": "\uD83E\uDD74",
+  "glyph": "🥴",
   "glyphAsUtfInEmoticons": [
     "1f974_woozyface"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "dizzy",
     "intoxicated",
@@ -19,6 +18,5 @@
     "1f974_woozyface"
   ],
   "tts": "woozy face",
-  "unicode": "1f974",
-  "unicodeSkintones": null
+  "unicode": "1f974"
 }

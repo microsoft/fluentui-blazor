@@ -1,8 +1,7 @@
 {
-  "basefilename": "sparkle",
   "cldr": "sparkle",
   "fromVersion": "0.6",
-  "glyph": "\u2747\uFE0F",
+  "glyph": "❇️",
   "glyphAsUtfInEmoticons": [
     "2747_sparkle"
   ],
@@ -15,6 +14,5 @@
     "2747_sparkle"
   ],
   "tts": "sparkle",
-  "unicode": "2747 fe0f",
-  "unicodeSkintones": null
+  "unicode": "2747 fe0f"
 }

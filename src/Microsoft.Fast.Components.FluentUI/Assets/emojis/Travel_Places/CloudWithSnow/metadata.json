@@ -1,10 +1,8 @@
 {
-  "basefilename": "cloud_with_snow",
   "cldr": "cloud with snow",
   "fromVersion": "0.7",
-  "glyph": "\uD83C\uDF28\uFE0F",
-  "glyphAsUtfInEmoticons": null,
-  "group": "Travel \u0026 Places",
+  "glyph": "🌨️",
+  "group": "Travel & Places",
   "keywords": [
     "cloud",
     "cloud with snow",
@@ -15,6 +13,5 @@
     "1f328_cloudwithsnow"
   ],
   "tts": "cloud with snow",
-  "unicode": "1f328 fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f328 fe0f"
 }

@@ -1,8 +1,7 @@
 {
-  "basefilename": "mans_shoe",
-  "cldr": "man\u2019s shoe",
+  "cldr": "man’s shoe",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC5E",
+  "glyph": "👞",
   "glyphAsUtfInEmoticons": [
     "1f45e_mansshoe"
   ],
@@ -10,13 +9,12 @@
   "keywords": [
     "clothing",
     "man",
-    "man\u2019s shoe",
+    "man’s shoe",
     "shoe"
   ],
   "mappedToEmoticons": [
     "1f45e_mansshoe"
   ],
-  "tts": "man\u2019s shoe",
-  "unicode": "1f45e",
-  "unicodeSkintones": null
+  "tts": "man’s shoe",
+  "unicode": "1f45e"
 }

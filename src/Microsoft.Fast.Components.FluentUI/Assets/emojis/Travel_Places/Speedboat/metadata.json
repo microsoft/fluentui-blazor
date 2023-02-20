@@ -1,12 +1,11 @@
 {
-  "basefilename": "speedboat",
   "cldr": "speedboat",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDEA4",
+  "glyph": "🚤",
   "glyphAsUtfInEmoticons": [
     "1f6a4_speedboat"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "boat",
     "speedboat"
@@ -15,6 +14,5 @@
     "1f6a4_speedboat"
   ],
   "tts": "speedboat",
-  "unicode": "1f6a4",
-  "unicodeSkintones": null
+  "unicode": "1f6a4"
 }

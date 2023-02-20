@@ -1,8 +1,7 @@
 {
-  "basefilename": "mobile_phone",
   "cldr": "mobile phone",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCF1",
+  "glyph": "📱",
   "glyphAsUtfInEmoticons": [
     "phone"
   ],
@@ -17,6 +16,5 @@
     "phone"
   ],
   "tts": "mobile phone",
-  "unicode": "1f4f1",
-  "unicodeSkintones": null
+  "unicode": "1f4f1"
 }

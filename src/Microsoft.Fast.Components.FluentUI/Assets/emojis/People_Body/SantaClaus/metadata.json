@@ -1,12 +1,11 @@
 {
-  "basefilename": "santa_claus",
   "cldr": "Santa Claus",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF85",
+  "glyph": "🎅",
   "glyphAsUtfInEmoticons": [
     "santa"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "celebration",
     "Christmas",

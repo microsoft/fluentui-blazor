@@ -1,12 +1,11 @@
 {
-  "basefilename": "airplane_arrival",
   "cldr": "airplane arrival",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDEEC",
+  "glyph": "🛬",
   "glyphAsUtfInEmoticons": [
     "1f6ec_airplanearriving"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "aeroplane",
     "airplane",
@@ -19,6 +18,5 @@
     "1f6ec_airplanearriving"
   ],
   "tts": "airplane arrival",
-  "unicode": "1f6ec",
-  "unicodeSkintones": null
+  "unicode": "1f6ec"
 }

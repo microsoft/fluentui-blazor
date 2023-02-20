@@ -1,9 +1,7 @@
 {
-  "basefilename": "ballot_box_with_ballot",
   "cldr": "ballot box with ballot",
   "fromVersion": "0.7",
-  "glyph": "\uD83D\uDDF3\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "🗳️",
   "group": "Objects",
   "keywords": [
     "ballot",
@@ -14,6 +12,5 @@
     "1f5f3_ballotboxwithballot"
   ],
   "tts": "ballot box with ballot",
-  "unicode": "1f5f3 fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f5f3 fe0f"
 }

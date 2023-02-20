@@ -1,10 +1,8 @@
 {
-  "basefilename": "thermometer",
   "cldr": "thermometer",
   "fromVersion": "0.7",
-  "glyph": "\uD83C\uDF21\uFE0F",
-  "glyphAsUtfInEmoticons": null,
-  "group": "Travel \u0026 Places",
+  "glyph": "🌡️",
+  "group": "Travel & Places",
   "keywords": [
     "thermometer",
     "weather"
@@ -13,6 +11,5 @@
     "1f321_thermometer"
   ],
   "tts": "thermometer",
-  "unicode": "1f321 fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f321 fe0f"
 }

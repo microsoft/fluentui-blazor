@@ -1,12 +1,11 @@
 {
-  "basefilename": "manual_wheelchair",
   "cldr": "manual wheelchair",
   "fromVersion": "12.0",
-  "glyph": "\uD83E\uDDBD",
+  "glyph": "🦽",
   "glyphAsUtfInEmoticons": [
     "1f9bd_manualwheelchair"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "accessibility",
     "manual wheelchair"
@@ -15,6 +14,5 @@
     "1f9bd_manualwheelchair"
   ],
   "tts": "manual wheelchair",
-  "unicode": "1f9bd",
-  "unicodeSkintones": null
+  "unicode": "1f9bd"
 }

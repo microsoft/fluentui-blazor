@@ -1,12 +1,11 @@
 {
-  "basefilename": "person_in_bed",
   "cldr": "person in bed",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDECC",
+  "glyph": "🛌",
   "glyphAsUtfInEmoticons": [
     "person_in_bed"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "hotel",
     "person in bed",

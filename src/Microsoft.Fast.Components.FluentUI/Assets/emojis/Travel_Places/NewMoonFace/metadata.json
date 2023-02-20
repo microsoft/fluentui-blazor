@@ -1,12 +1,11 @@
 {
-  "basefilename": "new_moon_face",
   "cldr": "new moon face",
   "fromVersion": "1.0",
-  "glyph": "\uD83C\uDF1A",
+  "glyph": "🌚",
   "glyphAsUtfInEmoticons": [
     "1f31a_newmoonwithface"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "face",
     "moon",
@@ -16,6 +15,5 @@
     "1f31a_newmoonwithface"
   ],
   "tts": "new moon face",
-  "unicode": "1f31a",
-  "unicodeSkintones": null
+  "unicode": "1f31a"
 }

@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_biking",
   "cldr": "woman biking",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDEB4\u200D\u2640\uFE0F",
+  "glyph": "🚴‍♀️",
   "glyphAsUtfInEmoticons": [
     "womanridingbike"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "bicycle",
     "biking",

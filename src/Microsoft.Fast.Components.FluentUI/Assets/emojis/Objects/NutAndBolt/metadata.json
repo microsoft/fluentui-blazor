@@ -1,8 +1,7 @@
 {
-  "basefilename": "nut_and_bolt",
   "cldr": "nut and bolt",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDD29",
+  "glyph": "🔩",
   "glyphAsUtfInEmoticons": [
     "1f529_nutandbolt"
   ],
@@ -17,6 +16,5 @@
     "1f529_nutandbolt"
   ],
   "tts": "nut and bolt",
-  "unicode": "1f529",
-  "unicodeSkintones": null
+  "unicode": "1f529"
 }

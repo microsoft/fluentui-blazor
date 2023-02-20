@@ -1,8 +1,7 @@
 {
-  "basefilename": "white_circle",
   "cldr": "white circle",
   "fromVersion": "0.6",
-  "glyph": "\u26AA",
+  "glyph": "⚪",
   "glyphAsUtfInEmoticons": [
     "26aa_mediumwhitecircle"
   ],
@@ -16,6 +15,5 @@
     "26aa_mediumwhitecircle"
   ],
   "tts": "white circle",
-  "unicode": "26aa",
-  "unicodeSkintones": null
+  "unicode": "26aa"
 }

@@ -1,12 +1,11 @@
 {
-  "basefilename": "clapping_hands",
   "cldr": "clapping hands",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC4F",
+  "glyph": "👏",
   "glyphAsUtfInEmoticons": [
     "clap"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "clap",
     "clapping hands",

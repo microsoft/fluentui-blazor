@@ -1,10 +1,8 @@
 {
-  "basefilename": "snow-capped_mountain",
   "cldr": "snow-capped mountain",
   "fromVersion": "0.7",
-  "glyph": "\uD83C\uDFD4\uFE0F",
-  "glyphAsUtfInEmoticons": null,
-  "group": "Travel \u0026 Places",
+  "glyph": "🏔️",
+  "group": "Travel & Places",
   "keywords": [
     "cold",
     "mountain",
@@ -15,6 +13,5 @@
     "1f3d4_snowcappedmountain"
   ],
   "tts": "snow-capped mountain",
-  "unicode": "1f3d4 fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f3d4 fe0f"
 }

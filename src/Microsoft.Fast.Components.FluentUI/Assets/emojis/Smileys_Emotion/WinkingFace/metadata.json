@@ -1,12 +1,11 @@
 {
-  "basefilename": "winking_face",
   "cldr": "winking face",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDE09",
+  "glyph": "😉",
   "glyphAsUtfInEmoticons": [
     "wink"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "face",
     "wink",
@@ -16,6 +15,5 @@
     "wink"
   ],
   "tts": "winking face",
-  "unicode": "1f609",
-  "unicodeSkintones": null
+  "unicode": "1f609"
 }

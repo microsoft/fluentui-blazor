@@ -1,9 +1,7 @@
 {
-  "basefilename": "level_slider",
   "cldr": "level slider",
   "fromVersion": "0.7",
-  "glyph": "\uD83C\uDF9A\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "🎚️",
   "group": "Objects",
   "keywords": [
     "level",
@@ -14,6 +12,5 @@
     "1f39a_levelslider"
   ],
   "tts": "level slider",
-  "unicode": "1f39a fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f39a fe0f"
 }

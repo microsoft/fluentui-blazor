@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_gesturing_no",
   "cldr": "woman gesturing NO",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDE45\u200D\u2640\uFE0F",
+  "glyph": "🙅‍♀️",
   "glyphAsUtfInEmoticons": [
     "womangesturingno"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "forbidden",
     "gesture",

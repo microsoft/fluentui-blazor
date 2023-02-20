@@ -1,14 +1,13 @@
 {
-  "basefilename": "cross_mark_button",
   "cldr": "cross mark button",
   "fromVersion": "0.6",
-  "glyph": "\u274E",
+  "glyph": "❎",
   "glyphAsUtfInEmoticons": [
     "274e_negativesquaredcrossmark"
   ],
   "group": "Symbols",
   "keywords": [
-    "\u00D7",
+    "×",
     "cross mark button",
     "mark",
     "square",
@@ -18,6 +17,5 @@
     "274e_negativesquaredcrossmark"
   ],
   "tts": "cross mark button",
-  "unicode": "274e",
-  "unicodeSkintones": null
+  "unicode": "274e"
 }

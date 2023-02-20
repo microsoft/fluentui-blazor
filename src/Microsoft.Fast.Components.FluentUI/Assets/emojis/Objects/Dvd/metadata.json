@@ -1,8 +1,7 @@
 {
-  "basefilename": "dvd",
   "cldr": "dvd",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCC0",
+  "glyph": "📀",
   "glyphAsUtfInEmoticons": [
     "1f4c0_dvd"
   ],
@@ -18,6 +17,5 @@
     "1f4c0_dvd"
   ],
   "tts": "dvd",
-  "unicode": "1f4c0",
-  "unicodeSkintones": null
+  "unicode": "1f4c0"
 }

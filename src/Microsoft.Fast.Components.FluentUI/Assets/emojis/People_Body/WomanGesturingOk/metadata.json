@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_gesturing_ok",
   "cldr": "woman gesturing OK",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDE46\u200D\u2640\uFE0F",
+  "glyph": "🙆‍♀️",
   "glyphAsUtfInEmoticons": [
     "womangesturingok"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "gesture",
     "hand",

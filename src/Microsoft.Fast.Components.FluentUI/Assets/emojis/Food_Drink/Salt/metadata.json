@@ -1,12 +1,11 @@
 {
-  "basefilename": "salt",
   "cldr": "salt",
   "fromVersion": "11.0",
-  "glyph": "\uD83E\uDDC2",
+  "glyph": "🧂",
   "glyphAsUtfInEmoticons": [
     "1f9c2_salt"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "condiment",
     "salt",
@@ -16,6 +15,5 @@
     "1f9c2_salt"
   ],
   "tts": "salt",
-  "unicode": "1f9c2",
-  "unicodeSkintones": null
+  "unicode": "1f9c2"
 }

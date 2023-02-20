@@ -1,9 +1,7 @@
 {
-  "basefilename": "file_cabinet",
   "cldr": "file cabinet",
   "fromVersion": "0.7",
-  "glyph": "\uD83D\uDDC4\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "🗄️",
   "group": "Objects",
   "keywords": [
     "cabinet",
@@ -14,6 +12,5 @@
     "1f5c4_filecabinet"
   ],
   "tts": "file cabinet",
-  "unicode": "1f5c4 fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f5c4 fe0f"
 }

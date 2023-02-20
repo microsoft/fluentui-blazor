@@ -1,8 +1,7 @@
 {
-  "basefilename": "fast_reverse_button",
   "cldr": "fast reverse button",
   "fromVersion": "0.6",
-  "glyph": "\u23EA",
+  "glyph": "⏪",
   "glyphAsUtfInEmoticons": [
     "23ea_fastreversebutton"
   ],
@@ -17,6 +16,5 @@
     "23ea_fastreversebutton"
   ],
   "tts": "fast reverse button",
-  "unicode": "23ea",
-  "unicodeSkintones": null
+  "unicode": "23ea"
 }

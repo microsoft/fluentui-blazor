@@ -1,12 +1,11 @@
 {
-  "basefilename": "thumbs_down",
   "cldr": "thumbs down",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC4E",
+  "glyph": "👎",
   "glyphAsUtfInEmoticons": [
     "no"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "-1",
     "down",

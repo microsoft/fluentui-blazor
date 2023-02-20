@@ -1,12 +1,11 @@
 {
-  "basefilename": "shushing_face",
   "cldr": "shushing face",
   "fromVersion": "5.0",
-  "glyph": "\uD83E\uDD2B",
+  "glyph": "🤫",
   "glyphAsUtfInEmoticons": [
     "lipssealed"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "quiet",
     "shush",
@@ -16,6 +15,5 @@
     "lipssealed"
   ],
   "tts": "shushing face",
-  "unicode": "1f92b",
-  "unicodeSkintones": null
+  "unicode": "1f92b"
 }

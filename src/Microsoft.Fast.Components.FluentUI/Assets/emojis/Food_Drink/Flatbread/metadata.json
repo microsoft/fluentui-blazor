@@ -1,12 +1,11 @@
 {
-  "basefilename": "flatbread",
   "cldr": "flatbread",
   "fromVersion": "13.0",
-  "glyph": "\uD83E\uDED3",
+  "glyph": "🫓",
   "glyphAsUtfInEmoticons": [
     "flatbread"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "arepa",
     "flatbread",
@@ -18,6 +17,5 @@
     "flatbread"
   ],
   "tts": "flatbread",
-  "unicode": "1fad3",
-  "unicodeSkintones": null
+  "unicode": "1fad3"
 }

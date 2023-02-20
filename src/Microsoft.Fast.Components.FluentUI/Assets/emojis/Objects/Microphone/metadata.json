@@ -1,8 +1,7 @@
 {
-  "basefilename": "microphone",
   "cldr": "microphone",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDFA4",
+  "glyph": "🎤",
   "glyphAsUtfInEmoticons": [
     "1f3a4_microphone"
   ],
@@ -16,6 +15,5 @@
     "1f3a4_microphone"
   ],
   "tts": "microphone",
-  "unicode": "1f3a4",
-  "unicodeSkintones": null
+  "unicode": "1f3a4"
 }

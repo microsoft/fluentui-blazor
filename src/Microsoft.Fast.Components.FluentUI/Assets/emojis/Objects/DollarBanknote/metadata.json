@@ -1,8 +1,7 @@
 {
-  "basefilename": "dollar_banknote",
   "cldr": "dollar banknote",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCB5",
+  "glyph": "💵",
   "glyphAsUtfInEmoticons": [
     "1f4b5_banknotewithdollarsign"
   ],
@@ -19,6 +18,5 @@
     "1f4b5_banknotewithdollarsign"
   ],
   "tts": "dollar banknote",
-  "unicode": "1f4b5",
-  "unicodeSkintones": null
+  "unicode": "1f4b5"
 }

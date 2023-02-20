@@ -1,8 +1,7 @@
 {
-  "basefilename": "magnet",
   "cldr": "magnet",
   "fromVersion": "11.0",
-  "glyph": "\uD83E\uDDF2",
+  "glyph": "🧲",
   "glyphAsUtfInEmoticons": [
     "1f9f2_magnet"
   ],
@@ -17,6 +16,5 @@
     "1f9f2_magnet"
   ],
   "tts": "magnet",
-  "unicode": "1f9f2",
-  "unicodeSkintones": null
+  "unicode": "1f9f2"
 }

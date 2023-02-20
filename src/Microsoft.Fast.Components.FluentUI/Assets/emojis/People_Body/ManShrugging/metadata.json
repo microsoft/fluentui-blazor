@@ -1,12 +1,11 @@
 {
-  "basefilename": "man_shrugging",
   "cldr": "man shrugging",
   "fromVersion": "4.0",
-  "glyph": "\uD83E\uDD37\u200D\u2642\uFE0F",
+  "glyph": "🤷‍♂️",
   "glyphAsUtfInEmoticons": [
     "glassceiling"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "doubt",
     "ignorance",

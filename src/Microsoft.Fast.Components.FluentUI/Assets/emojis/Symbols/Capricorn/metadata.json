@@ -1,8 +1,7 @@
 {
-  "basefilename": "capricorn",
   "cldr": "Capricorn",
   "fromVersion": "0.6",
-  "glyph": "\u2651",
+  "glyph": "♑",
   "glyphAsUtfInEmoticons": [
     "2651_capricorn"
   ],
@@ -16,6 +15,5 @@
     "2651_capricorn"
   ],
   "tts": "Capricorn",
-  "unicode": "2651",
-  "unicodeSkintones": null
+  "unicode": "2651"
 }

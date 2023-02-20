@@ -1,8 +1,7 @@
 {
-  "basefilename": "hammer",
   "cldr": "hammer",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDD28",
+  "glyph": "🔨",
   "glyphAsUtfInEmoticons": [
     "1f528_hammer"
   ],
@@ -15,6 +14,5 @@
     "1f528_hammer"
   ],
   "tts": "hammer",
-  "unicode": "1f528",
-  "unicodeSkintones": null
+  "unicode": "1f528"
 }

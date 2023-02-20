@@ -1,8 +1,7 @@
 {
-  "basefilename": "red_exclamation_mark",
   "cldr": "red exclamation mark",
   "fromVersion": "0.6",
-  "glyph": "\u2757",
+  "glyph": "❗",
   "glyphAsUtfInEmoticons": [
     "2757_heavyexclamationmarksymbol"
   ],
@@ -18,6 +17,5 @@
     "2757_heavyexclamationmarksymbol"
   ],
   "tts": "red exclamation mark",
-  "unicode": "2757",
-  "unicodeSkintones": null
+  "unicode": "2757"
 }

@@ -1,8 +1,7 @@
 {
-  "basefilename": "necktie",
   "cldr": "necktie",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC54",
+  "glyph": "👔",
   "glyphAsUtfInEmoticons": [
     "1f454_necktie"
   ],
@@ -16,6 +15,5 @@
     "1f454_necktie"
   ],
   "tts": "necktie",
-  "unicode": "1f454",
-  "unicodeSkintones": null
+  "unicode": "1f454"
 }

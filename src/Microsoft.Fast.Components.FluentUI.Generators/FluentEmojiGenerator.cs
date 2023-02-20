@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Text.Json;
@@ -14,7 +13,6 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
 {
     public class Metadata
     {
-        public string? basefilename { get; set; }
         public string? cldr { get; set; }
         public string? fromVersion { get; set; }
         public string? glyph { get; set; }
@@ -30,10 +28,9 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
     [Generator]
     public class FluentEmojiGenerator : ISourceGenerator
     {
-        const int maxnamelength = 20;
+        //const int maxnamelength = 15;
         public void Initialize(GeneratorInitializationContext context)
         {
-            // Debugger.Launch();
             // No initialization required for this one
         }
 
@@ -41,8 +38,8 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
         public void Execute(GeneratorExecutionContext context)
         {
             StringBuilder? sb = new();
-            Regex? variantandtone = new(@"([\w|-]*)_([\w|-]*)");
-            Regex? variant = new(@"([\w|-]*)");
+            Regex? variantandtone = new(@"([\w]*)_([\w]*)");
+            Regex? variant = new(@"([\w]*)");
 
             List<(string folder, string emojibase)> constants = new();
 
@@ -81,45 +78,32 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
 
                     Metadata? metadata = JsonSerializer.Deserialize<Metadata>(File.ReadAllText(Path.Combine(emojifolder, "metadata.json")));
 
-                    string basefilename = metadata!.basefilename!;
-                    string shortenedBaseFilename = basefilename.Substring(0, Math.Min(basefilename.Length, maxnamelength));
-                    string keywords = string.Join(",", metadata.keywords);
+                    //string basefilename = metadata!.basefilename!;
+                    //string shortenedBaseFilename = basefilename.Substring(0, Math.Min(basefilename.Length, maxnamelength));
+                    string keywords = string.Join(",", metadata?.keywords);
 
-                    if (metadata.unicodeSkintones != null)
-                    {
+                    if (metadata?.unicodeSkintones != null)
                         hasTone = true;
-                    }
 
+                    Match? match;
                     foreach (string filepath in Directory.EnumerateFiles(emojifolder, "*.svg"))
                     {
-                        string file = Path.GetFileNameWithoutExtension(filepath).Substring(shortenedBaseFilename.Length + 1);
-
-                        Match? match;
-
-                        if (hasTone)
-                            match = variantandtone.Match(file);
-                        else
-                            match = variant.Match(file);
-
+                        string file = Path.GetFileNameWithoutExtension(filepath);
                         string? shortEmojiStyle = string.Empty;
                         string? shortEmojiSkintone = string.Empty;
 
-                        if (match.Success)
+                        if (hasTone)
                         {
-
-                            //shortEmojiStyle = match.Groups[1].Value;
-                            //shortEmojiStyle = Regex.Replace(shortEmojiStyle, @"(^|-)(\w)", m => m.Groups[2].Value);
-                            if (hasTone)
+                            match = variantandtone.Match(file);
+                            if (match.Success)
                             {
-                                shortEmojiStyle = match.Groups[2].Value;
                                 shortEmojiSkintone = match.Groups[1].Value;
-                                //shortEmojiSkintone = Regex.Replace(shortEmojiSkintone, @"(^|-)(\w)", m => m.Groups[2].Value);
-                            }
-                            else
-                            {
-                                shortEmojiStyle = match.Groups[0].Value;
+                                shortEmojiStyle = match.Groups[2].Value;
+
                             }
                         }
+                        else
+                            shortEmojiStyle = file;
 
                         string emojiStyle = shortEmojiStyle switch
                         {
@@ -140,14 +124,13 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
                             _ => ""
                         };
 
-                        if (!string.IsNullOrEmpty(emojiSkintone))
+                        if (hasTone)
                         {
-                            sb.AppendLine($"\t\tnew EmojiModel(\"{shortenedBaseFilename}\", \"{folder}\", EmojiGroup.{group}, \"{keywords}\", EmojiStyle.{emojiStyle}, EmojiSkintone.{emojiSkintone}),");
-
+                            sb.AppendLine($"\t\tnew EmojiModel(\"{folder}\", EmojiGroup.{group}, \"{keywords}\", EmojiStyle.{emojiStyle}, EmojiSkintone.{emojiSkintone}),");
                         }
                         else
                         {
-                            sb.AppendLine($"\t\tnew EmojiModel(\"{shortenedBaseFilename}\",  \"{folder}\", EmojiGroup.{group}, \"{keywords}\", EmojiStyle.{emojiStyle}),");
+                            sb.AppendLine($"\t\tnew EmojiModel(\"{folder}\", EmojiGroup.{group}, \"{keywords}\", EmojiStyle.{emojiStyle}),");
                         }
                         emojicount++;
                     }
@@ -159,16 +142,16 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
                     }
 
 
-                    constants.Add((folder.Replace("!", ""), shortenedBaseFilename));
+                    constants.Add((folder.Replace("!", ""), folder));
                 }
             }
 
             sb.AppendLine("\t};");
             sb.Replace("$emojicount$", emojicount.ToString());
 
-            foreach ((string folder, string emojibase) in constants)
+            foreach ((string name, string folder) in constants)
             {
-                sb.AppendLine($"\tpublic const string {folder} = \"{emojibase}\";");
+                sb.AppendLine($"\tpublic const string {name} = \"{folder}\";");
             }
             sb.AppendLine("}");
 

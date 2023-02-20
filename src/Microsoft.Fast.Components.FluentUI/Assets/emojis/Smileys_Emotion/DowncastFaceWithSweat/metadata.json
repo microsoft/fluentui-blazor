@@ -1,12 +1,11 @@
 {
-  "basefilename": "downcast_face_with_sweat",
   "cldr": "downcast face with sweat",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDE13",
+  "glyph": "😓",
   "glyphAsUtfInEmoticons": [
     "sweat"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "cold",
     "downcast face with sweat",
@@ -17,6 +16,5 @@
     "sweat"
   ],
   "tts": "downcast face with sweat",
-  "unicode": "1f613",
-  "unicodeSkintones": null
+  "unicode": "1f613"
 }

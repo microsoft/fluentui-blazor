@@ -1,8 +1,7 @@
 {
-  "basefilename": "passport_control",
   "cldr": "passport control",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDEC2",
+  "glyph": "🛂",
   "glyphAsUtfInEmoticons": [
     "1f6c2_passportcontrol"
   ],
@@ -15,6 +14,5 @@
     "1f6c2_passportcontrol"
   ],
   "tts": "passport control",
-  "unicode": "1f6c2",
-  "unicodeSkintones": null
+  "unicode": "1f6c2"
 }

@@ -1,12 +1,11 @@
 {
-  "basefilename": "selfie",
   "cldr": "selfie",
   "fromVersion": "3.0",
-  "glyph": "\uD83E\uDD33",
+  "glyph": "🤳",
   "glyphAsUtfInEmoticons": [
     "selfie"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "camera",
     "phone",

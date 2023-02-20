@@ -1,12 +1,11 @@
 {
-  "basefilename": "face_blowing_a_kiss",
   "cldr": "face blowing a kiss",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDE18",
+  "glyph": "😘",
   "glyphAsUtfInEmoticons": [
     "1f618_facethrowingakiss"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "face",
     "face blowing a kiss",
@@ -16,6 +15,5 @@
     "1f618_facethrowingakiss"
   ],
   "tts": "face blowing a kiss",
-  "unicode": "1f618",
-  "unicodeSkintones": null
+  "unicode": "1f618"
 }

@@ -1,8 +1,7 @@
 {
-  "basefilename": "trade_mark",
   "cldr": "trade mark",
   "fromVersion": "0.6",
-  "glyph": "\u2122\uFE0F",
+  "glyph": "™️",
   "glyphAsUtfInEmoticons": [
     "2122_trademarksign"
   ],
@@ -17,6 +16,5 @@
     "2122_trademarksign"
   ],
   "tts": "trade mark",
-  "unicode": "2122 fe0f",
-  "unicodeSkintones": null
+  "unicode": "2122 fe0f"
 }

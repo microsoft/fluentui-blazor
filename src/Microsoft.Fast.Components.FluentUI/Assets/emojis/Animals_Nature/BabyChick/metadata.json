@@ -1,12 +1,11 @@
 {
-  "basefilename": "baby_chick",
   "cldr": "baby chick",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC24",
+  "glyph": "🐤",
   "glyphAsUtfInEmoticons": [
     "1f424_babychick"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "baby",
     "bird",
@@ -16,6 +15,5 @@
     "1f424_babychick"
   ],
   "tts": "baby chick",
-  "unicode": "1f424",
-  "unicodeSkintones": null
+  "unicode": "1f424"
 }

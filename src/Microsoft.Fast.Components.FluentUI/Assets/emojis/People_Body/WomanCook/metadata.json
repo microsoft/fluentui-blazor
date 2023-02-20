@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_cook",
   "cldr": "woman cook",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDC69\u200D\uD83C\uDF73",
+  "glyph": "👩‍🍳",
   "glyphAsUtfInEmoticons": [
     "womanchef"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "chef",
     "cook",

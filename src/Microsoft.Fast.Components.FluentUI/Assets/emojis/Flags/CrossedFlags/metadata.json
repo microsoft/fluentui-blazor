@@ -1,8 +1,7 @@
 {
-  "basefilename": "crossed_flags",
   "cldr": "crossed flags",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF8C",
+  "glyph": "🎌",
   "glyphAsUtfInEmoticons": [
     "1f38c_crossedflags"
   ],
@@ -14,8 +13,6 @@
     "crossed flags",
     "Japanese"
   ],
-  "mappedToEmoticons": null,
   "tts": "crossed flags",
-  "unicode": "1f38c",
-  "unicodeSkintones": null
+  "unicode": "1f38c"
 }

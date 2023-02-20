@@ -1,8 +1,7 @@
 {
-  "basefilename": "razor",
   "cldr": "razor",
   "fromVersion": "12.0",
-  "glyph": "\uD83E\uDE92",
+  "glyph": "🪒",
   "glyphAsUtfInEmoticons": [
     "1fa92_razor"
   ],
@@ -16,6 +15,5 @@
     "1fa92_razor"
   ],
   "tts": "razor",
-  "unicode": "1fa92",
-  "unicodeSkintones": null
+  "unicode": "1fa92"
 }

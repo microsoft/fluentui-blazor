@@ -1,8 +1,7 @@
 {
-  "basefilename": "running_shoe",
   "cldr": "running shoe",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC5F",
+  "glyph": "👟",
   "glyphAsUtfInEmoticons": [
     "1f45f_athleticshoe"
   ],
@@ -18,6 +17,5 @@
     "1f45f_athleticshoe"
   ],
   "tts": "running shoe",
-  "unicode": "1f45f",
-  "unicodeSkintones": null
+  "unicode": "1f45f"
 }

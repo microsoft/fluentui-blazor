@@ -1,8 +1,7 @@
 {
-  "basefilename": "bar_chart",
   "cldr": "bar chart",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCCA",
+  "glyph": "📊",
   "glyphAsUtfInEmoticons": [
     "1f4ca_barchart"
   ],
@@ -16,6 +15,5 @@
     "1f4ca_barchart"
   ],
   "tts": "bar chart",
-  "unicode": "1f4ca",
-  "unicodeSkintones": null
+  "unicode": "1f4ca"
 }

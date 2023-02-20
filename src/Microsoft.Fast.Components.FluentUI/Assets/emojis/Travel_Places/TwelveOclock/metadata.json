@@ -1,24 +1,22 @@
 {
-  "basefilename": "twelve_oclock",
-  "cldr": "twelve o\u2019clock",
+  "cldr": "twelve o’clock",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDD5B",
+  "glyph": "🕛",
   "glyphAsUtfInEmoticons": [
     "1f55b_twelveoclock"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "00",
     "12",
     "12:00",
     "clock",
-    "o\u2019clock",
+    "o’clock",
     "twelve"
   ],
   "mappedToEmoticons": [
     "1f55b_twelveoclock"
   ],
-  "tts": "twelve o\u2019clock",
-  "unicode": "1f55b",
-  "unicodeSkintones": null
+  "tts": "twelve o’clock",
+  "unicode": "1f55b"
 }

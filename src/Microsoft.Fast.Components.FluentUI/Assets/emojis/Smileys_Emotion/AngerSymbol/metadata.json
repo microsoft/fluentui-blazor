@@ -1,12 +1,11 @@
 {
-  "basefilename": "anger_symbol",
   "cldr": "anger symbol",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCA2",
+  "glyph": "💢",
   "glyphAsUtfInEmoticons": [
     "1f4a2_angersymbol"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "anger symbol",
     "angry",
@@ -17,6 +16,5 @@
     "1f4a2_angersymbol"
   ],
   "tts": "anger symbol",
-  "unicode": "1f4a2",
-  "unicodeSkintones": null
+  "unicode": "1f4a2"
 }

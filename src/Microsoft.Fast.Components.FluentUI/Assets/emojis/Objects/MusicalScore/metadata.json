@@ -1,8 +1,7 @@
 {
-  "basefilename": "musical_score",
   "cldr": "musical score",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDFBC",
+  "glyph": "🎼",
   "glyphAsUtfInEmoticons": [
     "1f3bc_musicalscore"
   ],
@@ -16,6 +15,5 @@
     "1f3bc_musicalscore"
   ],
   "tts": "musical score",
-  "unicode": "1f3bc",
-  "unicodeSkintones": null
+  "unicode": "1f3bc"
 }

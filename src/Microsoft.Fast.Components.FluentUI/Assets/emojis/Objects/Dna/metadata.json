@@ -1,8 +1,7 @@
 {
-  "basefilename": "dna",
   "cldr": "dna",
   "fromVersion": "11.0",
-  "glyph": "\uD83E\uDDEC",
+  "glyph": "🧬",
   "glyphAsUtfInEmoticons": [
     "1f9ec_dna"
   ],
@@ -19,6 +18,5 @@
     "1f9ec_dna"
   ],
   "tts": "dna",
-  "unicode": "1f9ec",
-  "unicodeSkintones": null
+  "unicode": "1f9ec"
 }

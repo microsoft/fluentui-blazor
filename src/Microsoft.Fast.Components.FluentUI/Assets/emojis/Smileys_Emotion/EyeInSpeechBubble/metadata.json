@@ -1,12 +1,11 @@
 {
-  "basefilename": "eye_in_speech_bubble",
   "cldr": "eye in speech bubble",
   "fromVersion": "2.0",
-  "glyph": "\uD83D\uDC41\uFE0F\u200D\uD83D\uDDE8\uFE0F",
+  "glyph": "👁️‍🗨️",
   "glyphAsUtfInEmoticons": [
     "eyeinspeechbubble"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "eye",
     "eye in speech bubble",
@@ -17,6 +16,5 @@
     "eyeinspeechbubble"
   ],
   "tts": "eye in speech bubble",
-  "unicode": "1f441 fe0f 200d 1f5e8 fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f441 fe0f 200d 1f5e8 fe0f"
 }

@@ -1,9 +1,7 @@
 {
-  "basefilename": "wastebasket",
   "cldr": "wastebasket",
   "fromVersion": "0.7",
-  "glyph": "\uD83D\uDDD1\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "🗑️",
   "group": "Objects",
   "keywords": [
     "wastebasket"
@@ -12,6 +10,5 @@
     "1f5d1_wastebasket"
   ],
   "tts": "wastebasket",
-  "unicode": "1f5d1 fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f5d1 fe0f"
 }

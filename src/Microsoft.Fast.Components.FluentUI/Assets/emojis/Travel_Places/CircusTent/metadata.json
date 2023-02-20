@@ -1,12 +1,11 @@
 {
-  "basefilename": "circus_tent",
   "cldr": "circus tent",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDFAA",
+  "glyph": "🎪",
   "glyphAsUtfInEmoticons": [
     "1f3aa_circustent"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "circus",
     "tent"
@@ -15,6 +14,5 @@
     "1f3aa_circustent"
   ],
   "tts": "circus tent",
-  "unicode": "1f3aa",
-  "unicodeSkintones": null
+  "unicode": "1f3aa"
 }

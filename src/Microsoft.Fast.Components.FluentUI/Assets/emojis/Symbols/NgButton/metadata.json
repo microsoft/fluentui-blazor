@@ -1,8 +1,7 @@
 {
-  "basefilename": "ng_button",
   "cldr": "NG button",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDD96",
+  "glyph": "🆖",
   "glyphAsUtfInEmoticons": [
     "1f196_squaredng"
   ],
@@ -15,6 +14,5 @@
     "1f196_squaredng"
   ],
   "tts": "NG button",
-  "unicode": "1f196",
-  "unicodeSkintones": null
+  "unicode": "1f196"
 }

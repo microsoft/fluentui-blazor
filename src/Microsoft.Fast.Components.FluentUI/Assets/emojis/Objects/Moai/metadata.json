@@ -1,8 +1,7 @@
 {
-  "basefilename": "moai",
   "cldr": "moai",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDDFF",
+  "glyph": "🗿",
   "glyphAsUtfInEmoticons": [
     "1f5ff_moyai"
   ],
@@ -17,6 +16,5 @@
     "1f5ff_moyai"
   ],
   "tts": "moai",
-  "unicode": "1f5ff",
-  "unicodeSkintones": null
+  "unicode": "1f5ff"
 }

@@ -1,8 +1,7 @@
 {
-  "basefilename": "purple_square",
   "cldr": "purple square",
   "fromVersion": "12.0",
-  "glyph": "\uD83D\uDFEA",
+  "glyph": "🟪",
   "glyphAsUtfInEmoticons": [
     "1f7ea_purplesquare"
   ],
@@ -15,6 +14,5 @@
     "1f7ea_purplesquare"
   ],
   "tts": "purple square",
-  "unicode": "1f7ea",
-  "unicodeSkintones": null
+  "unicode": "1f7ea"
 }

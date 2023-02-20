@@ -1,13 +1,12 @@
 {
-  "basefilename": "tiger_face",
   "cldr": "tiger face",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC2F",
+  "glyph": "🐯",
   "glyphAsUtfInEmoticons": [
     "1f42f_tigerface",
     "tiger"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "face",
     "tiger"
@@ -16,6 +15,5 @@
     "1f42f_tigerface"
   ],
   "tts": "tiger face",
-  "unicode": "1f42f",
-  "unicodeSkintones": null
+  "unicode": "1f42f"
 }

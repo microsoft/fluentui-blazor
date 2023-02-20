@@ -1,12 +1,11 @@
 {
-  "basefilename": "man_artist",
   "cldr": "man artist",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDC68\u200D\uD83C\uDFA8",
+  "glyph": "👨‍🎨",
   "glyphAsUtfInEmoticons": [
     "manartist"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "artist",
     "man",

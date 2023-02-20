@@ -1,12 +1,11 @@
 {
-  "basefilename": "snowboarder",
   "cldr": "snowboarder",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDFC2",
+  "glyph": "🏂",
   "glyphAsUtfInEmoticons": [
     "snowboarder"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "ski",
     "snow",

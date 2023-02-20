@@ -1,21 +1,18 @@
 {
-  "basefilename": "japanese_congratulations_button",
-  "cldr": "Japanese \u201Ccongratulations\u201D button",
+  "cldr": "Japanese “congratulations” button",
   "fromVersion": "0.6",
-  "glyph": "\u3297\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "㊗️",
   "group": "Symbols",
   "keywords": [
-    "\u201Ccongratulations\u201D",
+    "“congratulations”",
     "ideograph",
     "Japanese",
-    "Japanese \u201Ccongratulations\u201D button",
-    "\u795D"
+    "Japanese “congratulations” button",
+    "祝"
   ],
   "mappedToEmoticons": [
     "3297_congratulations"
   ],
-  "tts": "Japanese \u201Ccongratulations\u201D button",
-  "unicode": "3297 fe0f",
-  "unicodeSkintones": null
+  "tts": "Japanese “congratulations” button",
+  "unicode": "3297 fe0f"
 }

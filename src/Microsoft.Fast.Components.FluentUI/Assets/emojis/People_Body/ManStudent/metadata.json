@@ -1,12 +1,11 @@
 {
-  "basefilename": "man_student",
   "cldr": "man student",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDC68\u200D\uD83C\uDF93",
+  "glyph": "👨‍🎓",
   "glyphAsUtfInEmoticons": [
     "mangraduate"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "graduate",
     "man",

@@ -1,8 +1,7 @@
 {
-  "basefilename": "videocassette",
   "cldr": "videocassette",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCFC",
+  "glyph": "📼",
   "glyphAsUtfInEmoticons": [
     "1f4fc_videocassette"
   ],
@@ -17,6 +16,5 @@
     "1f4fc_videocassette"
   ],
   "tts": "videocassette",
-  "unicode": "1f4fc",
-  "unicodeSkintones": null
+  "unicode": "1f4fc"
 }

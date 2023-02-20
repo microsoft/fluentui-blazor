@@ -1,8 +1,7 @@
 {
-  "basefilename": "water_closet",
   "cldr": "water closet",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDEBE",
+  "glyph": "🚾",
   "glyphAsUtfInEmoticons": [
     "1f6be_watercloset"
   ],
@@ -18,6 +17,5 @@
     "1f6be_watercloset"
   ],
   "tts": "water closet",
-  "unicode": "1f6be",
-  "unicodeSkintones": null
+  "unicode": "1f6be"
 }

@@ -1,8 +1,7 @@
 {
-  "basefilename": "saxophone",
   "cldr": "saxophone",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDFB7",
+  "glyph": "🎷",
   "glyphAsUtfInEmoticons": [
     "1f3b7_saxophone"
   ],
@@ -17,6 +16,5 @@
     "1f3b7_saxophone"
   ],
   "tts": "saxophone",
-  "unicode": "1f3b7",
-  "unicodeSkintones": null
+  "unicode": "1f3b7"
 }

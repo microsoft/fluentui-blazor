@@ -1,10 +1,8 @@
 {
-  "basefilename": "satellite",
   "cldr": "satellite",
   "fromVersion": "0.7",
-  "glyph": "\uD83D\uDEF0\uFE0F",
-  "glyphAsUtfInEmoticons": null,
-  "group": "Travel \u0026 Places",
+  "glyph": "🛰️",
+  "group": "Travel & Places",
   "keywords": [
     "satellite",
     "space"
@@ -13,6 +11,5 @@
     "1f6f0_satellite"
   ],
   "tts": "satellite",
-  "unicode": "1f6f0 fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f6f0 fe0f"
 }

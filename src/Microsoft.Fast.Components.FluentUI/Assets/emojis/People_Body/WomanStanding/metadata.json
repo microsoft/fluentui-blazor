@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_standing",
   "cldr": "woman standing",
   "fromVersion": "12.0",
-  "glyph": "\uD83E\uDDCD\u200D\u2640\uFE0F",
+  "glyph": "🧍‍♀️",
   "glyphAsUtfInEmoticons": [
     "womanstanding"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "standing",
     "woman"

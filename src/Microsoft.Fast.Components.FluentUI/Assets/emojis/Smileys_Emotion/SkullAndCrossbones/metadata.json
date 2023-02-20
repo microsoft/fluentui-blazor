@@ -1,12 +1,11 @@
 {
-  "basefilename": "skull_and_crossbones",
   "cldr": "skull and crossbones",
   "fromVersion": "1.0",
-  "glyph": "\u2620\uFE0F",
+  "glyph": "☠️",
   "glyphAsUtfInEmoticons": [
     "2620_skullandcrossbones"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "crossbones",
     "death",
@@ -19,6 +18,5 @@
     "2620_skullandcrossbones"
   ],
   "tts": "skull and crossbones",
-  "unicode": "2620 fe0f",
-  "unicodeSkintones": null
+  "unicode": "2620 fe0f"
 }

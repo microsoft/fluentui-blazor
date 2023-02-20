@@ -1,9 +1,7 @@
 {
-  "basefilename": "rescue_workers_helmet",
-  "cldr": "rescue worker\u2019s helmet",
+  "cldr": "rescue worker’s helmet",
   "fromVersion": "0.7",
-  "glyph": "\u26D1\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "⛑️",
   "group": "Objects",
   "keywords": [
     "aid",
@@ -11,12 +9,11 @@
     "face",
     "hat",
     "helmet",
-    "rescue worker\u2019s helmet"
+    "rescue worker’s helmet"
   ],
   "mappedToEmoticons": [
     "26d1_helmetwithwhitecross"
   ],
-  "tts": "rescue worker\u2019s helmet",
-  "unicode": "26d1 fe0f",
-  "unicodeSkintones": null
+  "tts": "rescue worker’s helmet",
+  "unicode": "26d1 fe0f"
 }

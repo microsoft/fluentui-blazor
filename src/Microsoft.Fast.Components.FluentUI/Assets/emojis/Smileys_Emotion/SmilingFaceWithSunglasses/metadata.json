@@ -1,12 +1,11 @@
 {
-  "basefilename": "smiling_face_with_sunglasses",
   "cldr": "smiling face with sunglasses",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDE0E",
+  "glyph": "😎",
   "glyphAsUtfInEmoticons": [
     "cool"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "bright",
     "cool",
@@ -19,6 +18,5 @@
     "cool"
   ],
   "tts": "smiling face with sunglasses",
-  "unicode": "1f60e",
-  "unicodeSkintones": null
+  "unicode": "1f60e"
 }

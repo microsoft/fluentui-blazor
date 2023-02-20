@@ -1,9 +1,7 @@
 {
-  "basefilename": "linked_paperclips",
   "cldr": "linked paperclips",
   "fromVersion": "0.7",
-  "glyph": "\uD83D\uDD87\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "🖇️",
   "group": "Objects",
   "keywords": [
     "link",
@@ -14,6 +12,5 @@
     "1f587_linkedpaperclips"
   ],
   "tts": "linked paperclips",
-  "unicode": "1f587 fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f587 fe0f"
 }

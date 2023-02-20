@@ -1,12 +1,11 @@
 {
-  "basefilename": "person_genie",
   "cldr": "genie",
   "fromVersion": "5.0",
-  "glyph": "\uD83E\uDDDE",
+  "glyph": "🧞",
   "glyphAsUtfInEmoticons": [
     "1f9de_genie"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "djinn",
     "genie"
@@ -15,6 +14,5 @@
     "1f9de_genie"
   ],
   "tts": "genie",
-  "unicode": "1f9de",
-  "unicodeSkintones": null
+  "unicode": "1f9de"
 }

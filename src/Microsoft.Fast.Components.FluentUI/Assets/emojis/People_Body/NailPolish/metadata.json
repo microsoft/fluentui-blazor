@@ -1,12 +1,11 @@
 {
-  "basefilename": "nail_polish",
   "cldr": "nail polish",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC85",
+  "glyph": "💅",
   "glyphAsUtfInEmoticons": [
     "1f485_nailpolish"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "care",
     "cosmetics",

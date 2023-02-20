@@ -1,12 +1,11 @@
 {
-  "basefilename": "ear_of_corn",
   "cldr": "ear of corn",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF3D",
+  "glyph": "🌽",
   "glyphAsUtfInEmoticons": [
     "1f33d_earofmaize"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "corn",
     "ear",
@@ -18,6 +17,5 @@
     "1f33d_earofmaize"
   ],
   "tts": "ear of corn",
-  "unicode": "1f33d",
-  "unicodeSkintones": null
+  "unicode": "1f33d"
 }

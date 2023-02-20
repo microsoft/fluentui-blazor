@@ -1,8 +1,7 @@
 {
-  "basefilename": "hook",
   "cldr": "hook",
   "fromVersion": "13.0",
-  "glyph": "\uD83E\uDE9D",
+  "glyph": "🪝",
   "glyphAsUtfInEmoticons": [
     "hook"
   ],
@@ -19,6 +18,5 @@
     "hook"
   ],
   "tts": "hook",
-  "unicode": "1fa9d",
-  "unicodeSkintones": null
+  "unicode": "1fa9d"
 }

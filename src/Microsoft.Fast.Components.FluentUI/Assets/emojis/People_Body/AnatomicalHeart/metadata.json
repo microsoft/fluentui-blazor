@@ -1,12 +1,11 @@
 {
-  "basefilename": "anatomical_heart",
   "cldr": "anatomical heart",
   "fromVersion": "13.0",
-  "glyph": "\uD83E\uDEC0",
+  "glyph": "🫀",
   "glyphAsUtfInEmoticons": [
     "anatomicalheart"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "anatomical",
     "cardiology",
@@ -18,6 +17,5 @@
     "anatomicalheart"
   ],
   "tts": "anatomical heart",
-  "unicode": "1fac0",
-  "unicodeSkintones": null
+  "unicode": "1fac0"
 }

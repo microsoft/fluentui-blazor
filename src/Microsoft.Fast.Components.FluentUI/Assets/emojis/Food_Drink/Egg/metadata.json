@@ -1,12 +1,11 @@
 {
-  "basefilename": "egg",
   "cldr": "egg",
   "fromVersion": "3.0",
-  "glyph": "\uD83E\uDD5A",
+  "glyph": "🥚",
   "glyphAsUtfInEmoticons": [
     "1f95a_egg"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "breakfast",
     "egg",
@@ -16,6 +15,5 @@
     "1f95a_egg"
   ],
   "tts": "egg",
-  "unicode": "1f95a",
-  "unicodeSkintones": null
+  "unicode": "1f95a"
 }

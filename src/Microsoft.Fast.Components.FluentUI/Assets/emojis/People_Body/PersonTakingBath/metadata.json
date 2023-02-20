@@ -1,12 +1,11 @@
 {
-  "basefilename": "person_taking_bath",
   "cldr": "person taking bath",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDEC0",
+  "glyph": "🛀",
   "glyphAsUtfInEmoticons": [
     "womanbath"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "bath",
     "bathtub",

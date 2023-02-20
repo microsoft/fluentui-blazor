@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_playing_handball",
   "cldr": "woman playing handball",
   "fromVersion": "4.0",
-  "glyph": "\uD83E\uDD3E\u200D\u2640\uFE0F",
+  "glyph": "🤾‍♀️",
   "glyphAsUtfInEmoticons": [
     "woman_playing_handball"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "handball",
     "woman",

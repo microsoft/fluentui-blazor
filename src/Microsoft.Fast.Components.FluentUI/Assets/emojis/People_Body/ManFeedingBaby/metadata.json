@@ -1,10 +1,8 @@
 {
-  "basefilename": "man_feeding_baby",
   "cldr": "man feeding baby",
   "fromVersion": "13.0",
-  "glyph": "\uD83D\uDC68\u200D\uD83C\uDF7C",
-  "glyphAsUtfInEmoticons": null,
-  "group": "People \u0026 Body",
+  "glyph": "👨‍🍼",
+  "group": "People & Body",
   "keywords": [
     "baby",
     "feeding",

@@ -1,12 +1,11 @@
 {
-  "basefilename": "bird",
   "cldr": "bird",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC26",
+  "glyph": "🐦",
   "glyphAsUtfInEmoticons": [
     "1f426_bird"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "bird"
   ],
@@ -14,6 +13,5 @@
     "1f426_bird"
   ],
   "tts": "bird",
-  "unicode": "1f426",
-  "unicodeSkintones": null
+  "unicode": "1f426"
 }

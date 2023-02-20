@@ -1,12 +1,11 @@
 {
-  "basefilename": "baby",
   "cldr": "baby",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC76",
+  "glyph": "👶",
   "glyphAsUtfInEmoticons": [
     "smilebaby"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "baby",
     "young"

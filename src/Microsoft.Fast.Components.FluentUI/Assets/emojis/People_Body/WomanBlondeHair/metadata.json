@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_blonde_hair",
   "cldr": "woman: blond hair",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDC71\u200D\u2640\uFE0F",
+  "glyph": "👱‍♀️",
   "glyphAsUtfInEmoticons": [
     "womanblondhair"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "blond-haired woman",
     "blonde",

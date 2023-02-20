@@ -1,12 +1,11 @@
 {
-  "basefilename": "man_in_steamy_room",
   "cldr": "man in steamy room",
   "fromVersion": "5.0",
-  "glyph": "\uD83E\uDDD6\u200D\u2642\uFE0F",
+  "glyph": "🧖‍♂️",
   "glyphAsUtfInEmoticons": [
     "man_steam_room"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "man in steamy room",
     "sauna",

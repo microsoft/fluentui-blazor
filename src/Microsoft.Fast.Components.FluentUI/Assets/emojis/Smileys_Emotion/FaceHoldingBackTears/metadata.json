@@ -1,12 +1,11 @@
 {
-  "basefilename": "face_holding_back_tears",
   "cldr": "face holding back tears",
   "fromVersion": "14.0",
-  "glyph": "\uD83E\uDD79",
+  "glyph": "🥹",
   "glyphAsUtfInEmoticons": [
     "faceholdingbacktears"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "angry",
     "cry",
@@ -19,6 +18,5 @@
     "faceholdingbacktears"
   ],
   "tts": "face holding back tears",
-  "unicode": "1f979",
-  "unicodeSkintones": null
+  "unicode": "1f979"
 }

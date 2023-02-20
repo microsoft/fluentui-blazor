@@ -1,8 +1,7 @@
 {
-  "basefilename": "tanabata_tree",
   "cldr": "tanabata tree",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF8B",
+  "glyph": "🎋",
   "glyphAsUtfInEmoticons": [
     "1f38b_tanabatatree"
   ],
@@ -18,6 +17,5 @@
     "1f38b_tanabatatree"
   ],
   "tts": "tanabata tree",
-  "unicode": "1f38b",
-  "unicodeSkintones": null
+  "unicode": "1f38b"
 }

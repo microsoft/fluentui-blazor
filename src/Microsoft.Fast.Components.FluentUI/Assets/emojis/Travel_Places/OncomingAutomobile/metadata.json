@@ -1,12 +1,11 @@
 {
-  "basefilename": "oncoming_automobile",
   "cldr": "oncoming automobile",
   "fromVersion": "0.7",
-  "glyph": "\uD83D\uDE98",
+  "glyph": "🚘",
   "glyphAsUtfInEmoticons": [
     "1f698_oncomingautomobile"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "automobile",
     "car",
@@ -16,6 +15,5 @@
     "1f698_oncomingautomobile"
   ],
   "tts": "oncoming automobile",
-  "unicode": "1f698",
-  "unicodeSkintones": null
+  "unicode": "1f698"
 }

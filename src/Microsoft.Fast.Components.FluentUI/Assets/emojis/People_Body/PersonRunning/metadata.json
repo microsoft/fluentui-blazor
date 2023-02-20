@@ -1,13 +1,12 @@
 {
-  "basefilename": "person_running",
   "cldr": "person running",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDFC3",
+  "glyph": "🏃",
   "glyphAsUtfInEmoticons": [
     "gottarun",
     "runner"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "marathon",
     "person running",

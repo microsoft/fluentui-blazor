@@ -1,17 +1,13 @@
 {
-  "basefilename": "cat_face",
   "cldr": "cat face",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC31",
-  "glyphAsUtfInEmoticons": null,
-  "group": "Animals \u0026 Nature",
+  "glyph": "🐱",
+  "group": "Animals & Nature",
   "keywords": [
     "cat",
     "face",
     "pet"
   ],
-  "mappedToEmoticons": null,
   "tts": "cat face",
-  "unicode": "1f431",
-  "unicodeSkintones": null
+  "unicode": "1f431"
 }

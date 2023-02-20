@@ -1,12 +1,11 @@
 {
-  "basefilename": "fish",
   "cldr": "fish",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC1F",
+  "glyph": "🐟",
   "glyphAsUtfInEmoticons": [
     "fish"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "fish",
     "Pisces",
@@ -16,6 +15,5 @@
     "fish"
   ],
   "tts": "fish",
-  "unicode": "1f41f",
-  "unicodeSkintones": null
+  "unicode": "1f41f"
 }

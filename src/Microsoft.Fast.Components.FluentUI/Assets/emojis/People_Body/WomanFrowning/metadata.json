@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_frowning",
   "cldr": "woman frowning",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDE4D\u200D\u2640\uFE0F",
+  "glyph": "🙍‍♀️",
   "glyphAsUtfInEmoticons": [
     "womanfrowning"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "frowning",
     "gesture",

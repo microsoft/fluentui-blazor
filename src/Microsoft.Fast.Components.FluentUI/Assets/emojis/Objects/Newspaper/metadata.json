@@ -1,8 +1,7 @@
 {
-  "basefilename": "newspaper",
   "cldr": "newspaper",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCF0",
+  "glyph": "📰",
   "glyphAsUtfInEmoticons": [
     "1f4f0_newspaper"
   ],
@@ -16,6 +15,5 @@
     "1f4f0_newspaper"
   ],
   "tts": "newspaper",
-  "unicode": "1f4f0",
-  "unicodeSkintones": null
+  "unicode": "1f4f0"
 }

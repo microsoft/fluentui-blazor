@@ -1,12 +1,11 @@
 {
-  "basefilename": "man_mechanic",
   "cldr": "man mechanic",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDC68\u200D\uD83D\uDD27",
+  "glyph": "👨‍🔧",
   "glyphAsUtfInEmoticons": [
     "manmechanic"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "electrician",
     "man",

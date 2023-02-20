@@ -1,8 +1,7 @@
 {
-  "basefilename": "bullseye",
   "cldr": "bullseye",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDFAF",
+  "glyph": "🎯",
   "glyphAsUtfInEmoticons": [
     "target"
   ],
@@ -19,6 +18,5 @@
     "target"
   ],
   "tts": "bullseye",
-  "unicode": "1f3af",
-  "unicodeSkintones": null
+  "unicode": "1f3af"
 }

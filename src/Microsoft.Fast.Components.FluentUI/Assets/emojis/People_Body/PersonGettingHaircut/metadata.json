@@ -1,12 +1,11 @@
 {
-  "basefilename": "person_getting_haircut",
   "cldr": "person getting haircut",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC87",
+  "glyph": "💇",
   "glyphAsUtfInEmoticons": [
     "person_getting_haircut"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "barber",
     "beauty",

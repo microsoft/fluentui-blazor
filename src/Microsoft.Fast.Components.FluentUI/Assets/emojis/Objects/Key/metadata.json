@@ -1,8 +1,7 @@
 {
-  "basefilename": "key",
   "cldr": "key",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDD11",
+  "glyph": "🔑",
   "glyphAsUtfInEmoticons": [
     "1f511_key",
     "key"
@@ -17,6 +16,5 @@
     "1f511_key"
   ],
   "tts": "key",
-  "unicode": "1f511",
-  "unicodeSkintones": null
+  "unicode": "1f511"
 }

@@ -1,9 +1,7 @@
 {
-  "basefilename": "admission_tickets",
   "cldr": "admission tickets",
   "fromVersion": "0.7",
-  "glyph": "\uD83C\uDF9F\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "🎟️",
   "group": "Activities",
   "keywords": [
     "admission",
@@ -14,6 +12,5 @@
     "1f39f_admissiontickets"
   ],
   "tts": "admission tickets",
-  "unicode": "1f39f fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f39f fe0f"
 }

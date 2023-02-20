@@ -1,8 +1,7 @@
 {
-  "basefilename": "dotted_six-pointed_star",
   "cldr": "dotted six-pointed star",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDD2F",
+  "glyph": "🔯",
   "glyphAsUtfInEmoticons": [
     "1f52f_starwithdot"
   ],
@@ -16,6 +15,5 @@
     "1f52f_starwithdot"
   ],
   "tts": "dotted six-pointed star",
-  "unicode": "1f52f",
-  "unicodeSkintones": null
+  "unicode": "1f52f"
 }

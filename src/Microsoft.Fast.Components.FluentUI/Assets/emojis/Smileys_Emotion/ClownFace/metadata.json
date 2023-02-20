@@ -1,12 +1,11 @@
 {
-  "basefilename": "clown_face",
   "cldr": "clown face",
   "fromVersion": "3.0",
-  "glyph": "\uD83E\uDD21",
+  "glyph": "🤡",
   "glyphAsUtfInEmoticons": [
     "1f921_clownface"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "clown",
     "face"
@@ -15,6 +14,5 @@
     "1f921_clownface"
   ],
   "tts": "clown face",
-  "unicode": "1f921",
-  "unicodeSkintones": null
+  "unicode": "1f921"
 }

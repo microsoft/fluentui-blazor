@@ -1,12 +1,11 @@
 {
-  "basefilename": "old_woman",
   "cldr": "old woman",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC75",
+  "glyph": "👵",
   "glyphAsUtfInEmoticons": [
     "gran"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "adult",
     "old",

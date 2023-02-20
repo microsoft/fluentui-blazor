@@ -1,12 +1,11 @@
 {
-  "basefilename": "index_pointing_up",
   "cldr": "index pointing up",
   "fromVersion": "0.6",
-  "glyph": "\u261D\uFE0F",
+  "glyph": "☝️",
   "glyphAsUtfInEmoticons": [
     "pointupindex"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "finger",
     "hand",

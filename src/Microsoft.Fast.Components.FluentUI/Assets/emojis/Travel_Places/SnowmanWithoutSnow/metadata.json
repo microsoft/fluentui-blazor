@@ -1,10 +1,8 @@
 {
-  "basefilename": "snowman_without_snow",
   "cldr": "snowman without snow",
   "fromVersion": "0.6",
-  "glyph": "\u26C4",
-  "glyphAsUtfInEmoticons": null,
-  "group": "Travel \u0026 Places",
+  "glyph": "⛄",
+  "group": "Travel & Places",
   "keywords": [
     "cold",
     "snow",
@@ -15,6 +13,5 @@
     "snowmanwithoutsnow"
   ],
   "tts": "snowman without snow",
-  "unicode": "26c4",
-  "unicodeSkintones": null
+  "unicode": "26c4"
 }

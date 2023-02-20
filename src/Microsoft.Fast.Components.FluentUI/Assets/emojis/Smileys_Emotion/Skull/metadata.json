@@ -1,12 +1,11 @@
 {
-  "basefilename": "skull",
   "cldr": "skull",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC80",
+  "glyph": "💀",
   "glyphAsUtfInEmoticons": [
     "skull"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "death",
     "face",
@@ -18,6 +17,5 @@
     "skull"
   ],
   "tts": "skull",
-  "unicode": "1f480",
-  "unicodeSkintones": null
+  "unicode": "1f480"
 }

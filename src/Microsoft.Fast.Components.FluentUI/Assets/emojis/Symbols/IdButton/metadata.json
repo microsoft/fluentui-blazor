@@ -1,8 +1,7 @@
 {
-  "basefilename": "id_button",
   "cldr": "ID button",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDD94",
+  "glyph": "🆔",
   "glyphAsUtfInEmoticons": [
     "1f194_squaredid"
   ],
@@ -16,6 +15,5 @@
     "1f194_squaredid"
   ],
   "tts": "ID button",
-  "unicode": "1f194",
-  "unicodeSkintones": null
+  "unicode": "1f194"
 }

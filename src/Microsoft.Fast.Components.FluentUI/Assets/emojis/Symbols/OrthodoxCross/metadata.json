@@ -1,8 +1,7 @@
 {
-  "basefilename": "orthodox_cross",
   "cldr": "orthodox cross",
   "fromVersion": "1.0",
-  "glyph": "\u2626\uFE0F",
+  "glyph": "☦️",
   "glyphAsUtfInEmoticons": [
     "2626_orthodoxcross"
   ],
@@ -17,6 +16,5 @@
     "2626_orthodoxcross"
   ],
   "tts": "orthodox cross",
-  "unicode": "2626 fe0f",
-  "unicodeSkintones": null
+  "unicode": "2626 fe0f"
 }

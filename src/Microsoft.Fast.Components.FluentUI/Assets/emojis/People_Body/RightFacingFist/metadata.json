@@ -1,12 +1,11 @@
 {
-  "basefilename": "right-facing_fist",
   "cldr": "right-facing fist",
   "fromVersion": "3.0",
-  "glyph": "\uD83E\uDD1C",
+  "glyph": "🤜",
   "glyphAsUtfInEmoticons": [
     "1f91c_rightfacingfist"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "fist",
     "right-facing fist",

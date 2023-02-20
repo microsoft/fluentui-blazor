@@ -1,8 +1,7 @@
 {
-  "basefilename": "play_button",
   "cldr": "play button",
   "fromVersion": "0.6",
-  "glyph": "\u25B6\uFE0F",
+  "glyph": "▶️",
   "glyphAsUtfInEmoticons": [
     "25b6_blackrightpointingtriangle"
   ],
@@ -18,6 +17,5 @@
     "25b6_blackrightpointingtriangle"
   ],
   "tts": "play button",
-  "unicode": "25b6 fe0f",
-  "unicodeSkintones": null
+  "unicode": "25b6 fe0f"
 }

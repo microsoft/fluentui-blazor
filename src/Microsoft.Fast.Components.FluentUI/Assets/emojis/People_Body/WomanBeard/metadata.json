@@ -1,10 +1,8 @@
 {
-  "basefilename": "woman_beard",
   "cldr": "woman: beard",
   "fromVersion": "13.1",
-  "glyph": "\uD83E\uDDD4\u200D\u2640\uFE0F",
-  "glyphAsUtfInEmoticons": null,
-  "group": "People \u0026 Body",
+  "glyph": "🧔‍♀️",
+  "group": "People & Body",
   "keywords": [
     "beard",
     "woman",

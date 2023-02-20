@@ -1,12 +1,11 @@
 {
-  "basefilename": "face_with_thermometer",
   "cldr": "face with thermometer",
   "fromVersion": "1.0",
-  "glyph": "\uD83E\uDD12",
+  "glyph": "🤒",
   "glyphAsUtfInEmoticons": [
     "ill"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "face",
     "face with thermometer",
@@ -18,6 +17,5 @@
     "ill"
   ],
   "tts": "face with thermometer",
-  "unicode": "1f912",
-  "unicodeSkintones": null
+  "unicode": "1f912"
 }

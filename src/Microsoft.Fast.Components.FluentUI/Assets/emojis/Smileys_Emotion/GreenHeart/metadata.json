@@ -1,12 +1,11 @@
 {
-  "basefilename": "green_heart",
   "cldr": "green heart",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC9A",
+  "glyph": "💚",
   "glyphAsUtfInEmoticons": [
     "heartgreen"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "green",
     "green heart"
@@ -15,6 +14,5 @@
     "heartgreen"
   ],
   "tts": "green heart",
-  "unicode": "1f49a",
-  "unicodeSkintones": null
+  "unicode": "1f49a"
 }

@@ -1,8 +1,7 @@
 {
-  "basefilename": "sos_button",
   "cldr": "SOS button",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDD98",
+  "glyph": "🆘",
   "glyphAsUtfInEmoticons": [
     "1f198_squaredsos"
   ],
@@ -16,6 +15,5 @@
     "1f198_squaredsos"
   ],
   "tts": "SOS button",
-  "unicode": "1f198",
-  "unicodeSkintones": null
+  "unicode": "1f198"
 }

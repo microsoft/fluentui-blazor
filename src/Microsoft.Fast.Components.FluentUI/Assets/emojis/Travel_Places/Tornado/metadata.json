@@ -1,10 +1,8 @@
 {
-  "basefilename": "tornado",
   "cldr": "tornado",
   "fromVersion": "0.7",
-  "glyph": "\uD83C\uDF2A\uFE0F",
-  "glyphAsUtfInEmoticons": null,
-  "group": "Travel \u0026 Places",
+  "glyph": "🌪️",
+  "group": "Travel & Places",
   "keywords": [
     "cloud",
     "tornado",
@@ -14,6 +12,5 @@
     "1f32a_cloudwithtornado"
   ],
   "tts": "tornado",
-  "unicode": "1f32a fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f32a fe0f"
 }

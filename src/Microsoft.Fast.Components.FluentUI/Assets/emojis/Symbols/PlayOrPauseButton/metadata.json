@@ -1,9 +1,7 @@
 {
-  "basefilename": "play_or_pause_button",
   "cldr": "play or pause button",
   "fromVersion": "1.0",
-  "glyph": "\u23EF\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "⏯️",
   "group": "Symbols",
   "keywords": [
     "arrow",
@@ -17,6 +15,5 @@
     "23ef_playpause"
   ],
   "tts": "play or pause button",
-  "unicode": "23ef fe0f",
-  "unicodeSkintones": null
+  "unicode": "23ef fe0f"
 }

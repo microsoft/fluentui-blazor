@@ -1,8 +1,7 @@
 {
-  "basefilename": "red_envelope",
   "cldr": "red envelope",
   "fromVersion": "11.0",
-  "glyph": "\uD83E\uDDE7",
+  "glyph": "🧧",
   "glyphAsUtfInEmoticons": [
     "1f9e7_redenvelope"
   ],
@@ -10,7 +9,7 @@
   "keywords": [
     "gift",
     "good luck",
-    "h\u00F3ngb\u0101o",
+    "hóngbāo",
     "lai see",
     "money",
     "red envelope"
@@ -19,6 +18,5 @@
     "1f9e7_redenvelope"
   ],
   "tts": "red envelope",
-  "unicode": "1f9e7",
-  "unicodeSkintones": null
+  "unicode": "1f9e7"
 }

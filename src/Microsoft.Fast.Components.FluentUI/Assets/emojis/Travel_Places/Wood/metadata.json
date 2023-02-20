@@ -1,12 +1,11 @@
 {
-  "basefilename": "wood",
   "cldr": "wood",
   "fromVersion": "13.0",
-  "glyph": "\uD83E\uDEB5",
+  "glyph": "🪵",
   "glyphAsUtfInEmoticons": [
     "wood"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "log",
     "lumber",
@@ -17,6 +16,5 @@
     "wood"
   ],
   "tts": "wood",
-  "unicode": "1fab5",
-  "unicodeSkintones": null
+  "unicode": "1fab5"
 }

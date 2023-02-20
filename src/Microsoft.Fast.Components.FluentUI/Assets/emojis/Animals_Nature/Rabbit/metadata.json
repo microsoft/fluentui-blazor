@@ -1,12 +1,11 @@
 {
-  "basefilename": "rabbit",
   "cldr": "rabbit",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDC07",
+  "glyph": "🐇",
   "glyphAsUtfInEmoticons": [
     "bunny"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "bunny",
     "pet",
@@ -16,6 +15,5 @@
     "bunny"
   ],
   "tts": "rabbit",
-  "unicode": "1f407",
-  "unicodeSkintones": null
+  "unicode": "1f407"
 }

@@ -1,10 +1,8 @@
 {
-  "basefilename": "motor_boat",
   "cldr": "motor boat",
   "fromVersion": "0.7",
-  "glyph": "\uD83D\uDEE5\uFE0F",
-  "glyphAsUtfInEmoticons": null,
-  "group": "Travel \u0026 Places",
+  "glyph": "🛥️",
+  "group": "Travel & Places",
   "keywords": [
     "boat",
     "motor boat",
@@ -14,6 +12,5 @@
     "1f6e5_motorboat"
   ],
   "tts": "motor boat",
-  "unicode": "1f6e5 fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f6e5 fe0f"
 }

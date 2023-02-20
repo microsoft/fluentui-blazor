@@ -1,12 +1,11 @@
 {
-  "basefilename": "person_zombie",
   "cldr": "zombie",
   "fromVersion": "5.0",
-  "glyph": "\uD83E\uDDDF",
+  "glyph": "🧟",
   "glyphAsUtfInEmoticons": [
     "zombie"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "undead",
     "walking dead",
@@ -16,6 +15,5 @@
     "personzombie"
   ],
   "tts": "zombie",
-  "unicode": "1f9df",
-  "unicodeSkintones": null
+  "unicode": "1f9df"
 }

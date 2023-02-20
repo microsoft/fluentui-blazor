@@ -1,12 +1,11 @@
 {
-  "basefilename": "globe_showing_americas",
   "cldr": "globe showing Americas",
   "fromVersion": "0.7",
-  "glyph": "\uD83C\uDF0E",
+  "glyph": "🌎",
   "glyphAsUtfInEmoticons": [
     "1f30e_earthglobeamericas"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "Americas",
     "earth",
@@ -18,6 +17,5 @@
     "1f30e_earthglobeamericas"
   ],
   "tts": "globe showing Americas",
-  "unicode": "1f30e",
-  "unicodeSkintones": null
+  "unicode": "1f30e"
 }

@@ -1,12 +1,11 @@
 {
-  "basefilename": "man_in_tuxedo",
   "cldr": "man in tuxedo",
   "fromVersion": "13.0",
-  "glyph": "\uD83E\uDD35\u200D\u2642\uFE0F",
+  "glyph": "🤵‍♂️",
   "glyphAsUtfInEmoticons": [
     "manintuxedo"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "man",
     "man in tuxedo",

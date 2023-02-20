@@ -1,12 +1,11 @@
 {
-  "basefilename": "octopus",
   "cldr": "octopus",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC19",
+  "glyph": "🐙",
   "glyphAsUtfInEmoticons": [
     "octopus"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "octopus"
   ],
@@ -14,6 +13,5 @@
     "octopus"
   ],
   "tts": "octopus",
-  "unicode": "1f419",
-  "unicodeSkintones": null
+  "unicode": "1f419"
 }

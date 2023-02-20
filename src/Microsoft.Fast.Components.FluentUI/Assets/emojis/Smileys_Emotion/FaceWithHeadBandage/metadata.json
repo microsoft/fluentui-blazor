@@ -1,12 +1,11 @@
 {
-  "basefilename": "face_with_head-bandage",
   "cldr": "face with head-bandage",
   "fromVersion": "1.0",
-  "glyph": "\uD83E\uDD15",
+  "glyph": "🤕",
   "glyphAsUtfInEmoticons": [
     "1f915_facewithheadbandage"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "bandage",
     "face",
@@ -18,6 +17,5 @@
     "1f915_facewithheadbandage"
   ],
   "tts": "face with head-bandage",
-  "unicode": "1f915",
-  "unicodeSkintones": null
+  "unicode": "1f915"
 }

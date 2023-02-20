@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_with_headscarf",
   "cldr": "woman with headscarf",
   "fromVersion": "5.0",
-  "glyph": "\uD83E\uDDD5",
+  "glyph": "🧕",
   "glyphAsUtfInEmoticons": [
     "woman_with_head_scarf"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "headscarf",
     "hijab",

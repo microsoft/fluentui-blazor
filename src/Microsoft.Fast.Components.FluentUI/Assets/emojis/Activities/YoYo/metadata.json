@@ -1,8 +1,7 @@
 {
-  "basefilename": "yo-yo",
   "cldr": "yo-yo",
   "fromVersion": "12.0",
-  "glyph": "\uD83E\uDE80",
+  "glyph": "🪀",
   "glyphAsUtfInEmoticons": [
     "1fa80_yoyo"
   ],
@@ -16,6 +15,5 @@
     "1fa80_yoyo"
   ],
   "tts": "yo-yo",
-  "unicode": "1fa80",
-  "unicodeSkintones": null
+  "unicode": "1fa80"
 }

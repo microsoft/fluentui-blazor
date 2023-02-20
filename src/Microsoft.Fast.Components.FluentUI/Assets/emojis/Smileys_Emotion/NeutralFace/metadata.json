@@ -1,12 +1,11 @@
 {
-  "basefilename": "neutral_face",
   "cldr": "neutral face",
   "fromVersion": "0.7",
-  "glyph": "\uD83D\uDE10",
+  "glyph": "😐",
   "glyphAsUtfInEmoticons": [
     "speechless"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "deadpan",
     "face",
@@ -17,6 +16,5 @@
     "speechless"
   ],
   "tts": "neutral face",
-  "unicode": "1f610",
-  "unicodeSkintones": null
+  "unicode": "1f610"
 }

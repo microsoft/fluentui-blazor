@@ -1,12 +1,11 @@
 {
-  "basefilename": "seat",
   "cldr": "seat",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCBA",
+  "glyph": "💺",
   "glyphAsUtfInEmoticons": [
     "1f4ba_seat"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "chair",
     "seat"
@@ -15,6 +14,5 @@
     "1f4ba_seat"
   ],
   "tts": "seat",
-  "unicode": "1f4ba",
-  "unicodeSkintones": null
+  "unicode": "1f4ba"
 }

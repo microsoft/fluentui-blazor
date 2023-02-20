@@ -1,8 +1,7 @@
 {
-  "basefilename": "sagittarius",
   "cldr": "Sagittarius",
   "fromVersion": "0.6",
-  "glyph": "\u2650",
+  "glyph": "♐",
   "glyphAsUtfInEmoticons": [
     "2650_sagittarius"
   ],
@@ -16,6 +15,5 @@
     "2650_sagittarius"
   ],
   "tts": "Sagittarius",
-  "unicode": "2650",
-  "unicodeSkintones": null
+  "unicode": "2650"
 }

@@ -1,12 +1,11 @@
 {
-  "basefilename": "watch",
   "cldr": "watch",
   "fromVersion": "0.6",
-  "glyph": "\u231A",
+  "glyph": "⌚",
   "glyphAsUtfInEmoticons": [
     "231a_watch"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "clock",
     "watch"
@@ -15,6 +14,5 @@
     "231a_watch"
   ],
   "tts": "watch",
-  "unicode": "231a",
-  "unicodeSkintones": null
+  "unicode": "231a"
 }

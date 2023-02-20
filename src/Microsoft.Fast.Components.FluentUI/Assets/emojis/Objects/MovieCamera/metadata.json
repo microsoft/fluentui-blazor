@@ -1,8 +1,7 @@
 {
-  "basefilename": "movie_camera",
   "cldr": "movie camera",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDFA5",
+  "glyph": "🎥",
   "glyphAsUtfInEmoticons": [
     "1f3a5_moviecamera"
   ],
@@ -16,6 +15,5 @@
     "1f3a5_moviecamera"
   ],
   "tts": "movie camera",
-  "unicode": "1f3a5",
-  "unicodeSkintones": null
+  "unicode": "1f3a5"
 }

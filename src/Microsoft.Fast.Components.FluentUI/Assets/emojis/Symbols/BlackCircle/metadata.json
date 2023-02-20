@@ -1,8 +1,7 @@
 {
-  "basefilename": "black_circle",
   "cldr": "black circle",
   "fromVersion": "0.6",
-  "glyph": "\u26AB",
+  "glyph": "⚫",
   "glyphAsUtfInEmoticons": [
     "26ab_mediumblackcircle"
   ],
@@ -16,6 +15,5 @@
     "26ab_mediumblackcircle"
   ],
   "tts": "black circle",
-  "unicode": "26ab",
-  "unicodeSkintones": null
+  "unicode": "26ab"
 }

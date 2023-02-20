@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_in_steamy_room",
   "cldr": "woman in steamy room",
   "fromVersion": "5.0",
-  "glyph": "\uD83E\uDDD6\u200D\u2640\uFE0F",
+  "glyph": "🧖‍♀️",
   "glyphAsUtfInEmoticons": [
     "woman_steam_room"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "sauna",
     "steam room",

@@ -1,13 +1,12 @@
 {
-  "basefilename": "oden",
   "cldr": "oden",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF62",
+  "glyph": "🍢",
   "glyphAsUtfInEmoticons": [
     "1f362_oden",
     "tandoorichicken"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "kebab",
     "oden",
@@ -19,6 +18,5 @@
     "1f362_oden"
   ],
   "tts": "oden",
-  "unicode": "1f362",
-  "unicodeSkintones": null
+  "unicode": "1f362"
 }

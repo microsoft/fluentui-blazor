@@ -1,8 +1,7 @@
 {
-  "basefilename": "badminton",
   "cldr": "badminton",
   "fromVersion": "1.0",
-  "glyph": "\uD83C\uDFF8",
+  "glyph": "🏸",
   "glyphAsUtfInEmoticons": [
     "1f3f8_badminton"
   ],
@@ -18,6 +17,5 @@
     "1f3f8_badminton"
   ],
   "tts": "badminton",
-  "unicode": "1f3f8",
-  "unicodeSkintones": null
+  "unicode": "1f3f8"
 }

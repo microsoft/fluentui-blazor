@@ -1,12 +1,11 @@
 {
-  "basefilename": "cloud",
   "cldr": "cloud",
   "fromVersion": "0.6",
-  "glyph": "\u2601\uFE0F",
+  "glyph": "☁️",
   "glyphAsUtfInEmoticons": [
     "2601_cloud"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "cloud",
     "weather"
@@ -15,6 +14,5 @@
     "2601_cloud"
   ],
   "tts": "cloud",
-  "unicode": "2601 fe0f",
-  "unicodeSkintones": null
+  "unicode": "2601 fe0f"
 }

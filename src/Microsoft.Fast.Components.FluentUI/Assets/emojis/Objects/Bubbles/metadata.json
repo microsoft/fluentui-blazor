@@ -1,9 +1,7 @@
 {
-  "basefilename": "bubbles",
   "cldr": "bubbles",
   "fromVersion": "14.0",
-  "glyph": "\uD83E\uDEE7",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "🫧",
   "group": "Objects",
   "keywords": [
     "bubbles",
@@ -12,8 +10,6 @@
     "soap",
     "underwater"
   ],
-  "mappedToEmoticons": null,
   "tts": "bubbles",
-  "unicode": "1fae7",
-  "unicodeSkintones": null
+  "unicode": "1fae7"
 }

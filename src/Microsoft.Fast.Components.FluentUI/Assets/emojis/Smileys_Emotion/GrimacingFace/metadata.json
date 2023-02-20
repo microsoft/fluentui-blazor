@@ -1,13 +1,12 @@
 {
-  "basefilename": "grimacing_face",
   "cldr": "grimacing face",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDE2C",
+  "glyph": "😬",
   "glyphAsUtfInEmoticons": [
     "1f62c_grimacingface",
     "swear"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "face",
     "grimace",
@@ -17,6 +16,5 @@
     "1f62c_grimacingface"
   ],
   "tts": "grimacing face",
-  "unicode": "1f62c",
-  "unicodeSkintones": null
+  "unicode": "1f62c"
 }

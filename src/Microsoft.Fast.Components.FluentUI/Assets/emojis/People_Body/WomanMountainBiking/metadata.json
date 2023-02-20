@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_mountain_biking",
   "cldr": "woman mountain biking",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDEB5\u200D\u2640\uFE0F",
+  "glyph": "🚵‍♀️",
   "glyphAsUtfInEmoticons": [
     "woman_mountain_biking"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "bicycle",
     "bike",

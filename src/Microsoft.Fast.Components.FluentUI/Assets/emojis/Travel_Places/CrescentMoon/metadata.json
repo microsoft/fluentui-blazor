@@ -1,12 +1,11 @@
 {
-  "basefilename": "crescent_moon",
   "cldr": "crescent moon",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF19",
+  "glyph": "🌙",
   "glyphAsUtfInEmoticons": [
     "1f319_crescentmoon"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "crescent",
     "moon"
@@ -15,6 +14,5 @@
     "1f319_crescentmoon"
   ],
   "tts": "crescent moon",
-  "unicode": "1f319",
-  "unicodeSkintones": null
+  "unicode": "1f319"
 }

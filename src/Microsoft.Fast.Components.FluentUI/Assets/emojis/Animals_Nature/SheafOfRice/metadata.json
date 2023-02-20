@@ -1,12 +1,11 @@
 {
-  "basefilename": "sheaf_of_rice",
   "cldr": "sheaf of rice",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF3E",
+  "glyph": "🌾",
   "glyphAsUtfInEmoticons": [
     "1f33e_earofrice"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "ear",
     "grain",
@@ -17,6 +16,5 @@
     "1f33e_earofrice"
   ],
   "tts": "sheaf of rice",
-  "unicode": "1f33e",
-  "unicodeSkintones": null
+  "unicode": "1f33e"
 }

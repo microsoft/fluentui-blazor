@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_construction_worker",
   "cldr": "woman construction worker",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDC77\u200D\u2640\uFE0F",
+  "glyph": "👷‍♀️",
   "glyphAsUtfInEmoticons": [
     "woman_construction_worker"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "construction",
     "woman",

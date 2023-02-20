@@ -1,8 +1,7 @@
 {
-  "basefilename": "womans_boot",
-  "cldr": "woman\u2019s boot",
+  "cldr": "woman’s boot",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC62",
+  "glyph": "👢",
   "glyphAsUtfInEmoticons": [
     "1f462_womansboots"
   ],
@@ -12,12 +11,11 @@
     "clothing",
     "shoe",
     "woman",
-    "woman\u2019s boot"
+    "woman’s boot"
   ],
   "mappedToEmoticons": [
     "1f462_womansboots"
   ],
-  "tts": "woman\u2019s boot",
-  "unicode": "1f462",
-  "unicodeSkintones": null
+  "tts": "woman’s boot",
+  "unicode": "1f462"
 }

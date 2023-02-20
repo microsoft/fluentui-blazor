@@ -1,8 +1,7 @@
 {
-  "basefilename": "aquarius",
   "cldr": "Aquarius",
   "fromVersion": "0.6",
-  "glyph": "\u2652",
+  "glyph": "♒",
   "glyphAsUtfInEmoticons": [
     "2652_aquarius"
   ],
@@ -17,6 +16,5 @@
     "2652_aquarius"
   ],
   "tts": "Aquarius",
-  "unicode": "2652",
-  "unicodeSkintones": null
+  "unicode": "2652"
 }

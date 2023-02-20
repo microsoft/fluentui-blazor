@@ -1,12 +1,11 @@
 {
-  "basefilename": "aerial_tramway",
   "cldr": "aerial tramway",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDEA1",
+  "glyph": "🚡",
   "glyphAsUtfInEmoticons": [
     "1f6a1_aerialtramway"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "aerial",
     "cable",
@@ -18,6 +17,5 @@
     "1f6a1_aerialtramway"
   ],
   "tts": "aerial tramway",
-  "unicode": "1f6a1",
-  "unicodeSkintones": null
+  "unicode": "1f6a1"
 }

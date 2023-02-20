@@ -1,8 +1,7 @@
 {
-  "basefilename": "telescope",
   "cldr": "telescope",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDD2D",
+  "glyph": "🔭",
   "glyphAsUtfInEmoticons": [
     "1f52d_telescope"
   ],
@@ -16,6 +15,5 @@
     "1f52d_telescope"
   ],
   "tts": "telescope",
-  "unicode": "1f52d",
-  "unicodeSkintones": null
+  "unicode": "1f52d"
 }

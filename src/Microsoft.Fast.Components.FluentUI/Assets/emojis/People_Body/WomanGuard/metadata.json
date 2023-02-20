@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_guard",
   "cldr": "woman guard",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDC82\u200D\u2640\uFE0F",
+  "glyph": "💂‍♀️",
   "glyphAsUtfInEmoticons": [
     "woman_guard"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "guard",
     "woman"

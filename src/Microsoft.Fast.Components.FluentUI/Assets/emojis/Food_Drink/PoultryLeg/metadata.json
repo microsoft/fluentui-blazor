@@ -1,12 +1,11 @@
 {
-  "basefilename": "poultry_leg",
   "cldr": "poultry leg",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF57",
+  "glyph": "🍗",
   "glyphAsUtfInEmoticons": [
     "chickenleg"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "bone",
     "chicken",
@@ -18,6 +17,5 @@
     "chickenleg"
   ],
   "tts": "poultry leg",
-  "unicode": "1f357",
-  "unicodeSkintones": null
+  "unicode": "1f357"
 }

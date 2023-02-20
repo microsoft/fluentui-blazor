@@ -1,10 +1,8 @@
 {
-  "basefilename": "t-rex",
   "cldr": "T-Rex",
   "fromVersion": "5.0",
-  "glyph": "\uD83E\uDD96",
-  "glyphAsUtfInEmoticons": null,
-  "group": "Animals \u0026 Nature",
+  "glyph": "🦖",
+  "group": "Animals & Nature",
   "keywords": [
     "T-Rex",
     "Tyrannosaurus Rex"
@@ -13,6 +11,5 @@
     "win10"
   ],
   "tts": "T-Rex",
-  "unicode": "1f996",
-  "unicodeSkintones": null
+  "unicode": "1f996"
 }

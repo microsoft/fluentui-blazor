@@ -1,9 +1,7 @@
 {
-  "basefilename": "exclamation_question_mark",
   "cldr": "exclamation question mark",
   "fromVersion": "0.6",
-  "glyph": "\u2049\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "⁉️",
   "group": "Symbols",
   "keywords": [
     "!",
@@ -19,6 +17,5 @@
     "exclamationquestionmark"
   ],
   "tts": "exclamation question mark",
-  "unicode": "2049 fe0f",
-  "unicodeSkintones": null
+  "unicode": "2049 fe0f"
 }

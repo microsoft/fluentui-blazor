@@ -1,12 +1,11 @@
 {
-  "basefilename": "tropical_drink",
   "cldr": "tropical drink",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF79",
+  "glyph": "🍹",
   "glyphAsUtfInEmoticons": [
     "1f379_tropicaldrink"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "bar",
     "drink",
@@ -16,6 +15,5 @@
     "1f379_tropicaldrink"
   ],
   "tts": "tropical drink",
-  "unicode": "1f379",
-  "unicodeSkintones": null
+  "unicode": "1f379"
 }

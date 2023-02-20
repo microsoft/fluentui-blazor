@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_with_white_cane",
   "cldr": "woman with white cane",
   "fromVersion": "12.0",
-  "glyph": "\uD83D\uDC69\u200D\uD83E\uDDAF",
+  "glyph": "👩‍🦯",
   "glyphAsUtfInEmoticons": [
     "woman_probing_cane"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "accessibility",
     "blind",

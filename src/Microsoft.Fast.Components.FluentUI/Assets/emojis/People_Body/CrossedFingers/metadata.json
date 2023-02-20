@@ -1,12 +1,11 @@
 {
-  "basefilename": "crossed_fingers",
   "cldr": "crossed fingers",
   "fromVersion": "3.0",
-  "glyph": "\uD83E\uDD1E",
+  "glyph": "🤞",
   "glyphAsUtfInEmoticons": [
     "fingerscrossed"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "cross",
     "crossed fingers",

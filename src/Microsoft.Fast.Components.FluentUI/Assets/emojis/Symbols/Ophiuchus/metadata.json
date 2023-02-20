@@ -1,8 +1,7 @@
 {
-  "basefilename": "ophiuchus",
   "cldr": "Ophiuchus",
   "fromVersion": "0.6",
-  "glyph": "\u26CE",
+  "glyph": "⛎",
   "glyphAsUtfInEmoticons": [
     "26ce_ophiuchus"
   ],
@@ -18,6 +17,5 @@
     "26ce_ophiuchus"
   ],
   "tts": "Ophiuchus",
-  "unicode": "26ce",
-  "unicodeSkintones": null
+  "unicode": "26ce"
 }

@@ -1,12 +1,11 @@
 {
-  "basefilename": "man_wearing_turban",
   "cldr": "man wearing turban",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDC73\u200D\u2642\uFE0F",
+  "glyph": "👳‍♂️",
   "glyphAsUtfInEmoticons": [
     "man_wearing_turban"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "man",
     "man wearing turban",

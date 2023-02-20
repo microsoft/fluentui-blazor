@@ -1,8 +1,7 @@
 {
-  "basefilename": "computer_disk",
   "cldr": "computer disk",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCBD",
+  "glyph": "💽",
   "glyphAsUtfInEmoticons": [
     "1f4bd_minidisc"
   ],
@@ -17,6 +16,5 @@
     "1f4bd_minidisc"
   ],
   "tts": "computer disk",
-  "unicode": "1f4bd",
-  "unicodeSkintones": null
+  "unicode": "1f4bd"
 }

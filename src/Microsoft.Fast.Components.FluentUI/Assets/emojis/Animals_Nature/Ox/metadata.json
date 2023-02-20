@@ -1,12 +1,11 @@
 {
-  "basefilename": "ox",
   "cldr": "ox",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDC02",
+  "glyph": "🐂",
   "glyphAsUtfInEmoticons": [
     "1f402_ox"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "bull",
     "ox",
@@ -17,6 +16,5 @@
     "1f402_ox"
   ],
   "tts": "ox",
-  "unicode": "1f402",
-  "unicodeSkintones": null
+  "unicode": "1f402"
 }

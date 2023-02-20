@@ -1,8 +1,7 @@
 {
-  "basefilename": "sunglasses",
   "cldr": "sunglasses",
   "fromVersion": "0.7",
-  "glyph": "\uD83D\uDD76\uFE0F",
+  "glyph": "🕶️",
   "glyphAsUtfInEmoticons": [
     "1f576_sunglasses"
   ],
@@ -18,6 +17,5 @@
     "1f576_sunglasses"
   ],
   "tts": "sunglasses",
-  "unicode": "1f576 fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f576 fe0f"
 }

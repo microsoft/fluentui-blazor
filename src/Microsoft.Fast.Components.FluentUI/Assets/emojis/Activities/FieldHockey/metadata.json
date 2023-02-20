@@ -1,8 +1,7 @@
 {
-  "basefilename": "field_hockey",
   "cldr": "field hockey",
   "fromVersion": "1.0",
-  "glyph": "\uD83C\uDFD1",
+  "glyph": "🏑",
   "glyphAsUtfInEmoticons": [
     "1f3d1_fieldhockeystickandball"
   ],
@@ -18,6 +17,5 @@
     "1f3d1_fieldhockeystickandball"
   ],
   "tts": "field hockey",
-  "unicode": "1f3d1",
-  "unicodeSkintones": null
+  "unicode": "1f3d1"
 }

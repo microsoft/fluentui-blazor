@@ -1,9 +1,7 @@
 {
-  "basefilename": "trackball",
   "cldr": "trackball",
   "fromVersion": "0.7",
-  "glyph": "\uD83D\uDDB2\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "🖲️",
   "group": "Objects",
   "keywords": [
     "computer",
@@ -13,6 +11,5 @@
     "1f5b2_trackball"
   ],
   "tts": "trackball",
-  "unicode": "1f5b2 fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f5b2 fe0f"
 }

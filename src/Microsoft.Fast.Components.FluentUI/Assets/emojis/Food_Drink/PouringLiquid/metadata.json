@@ -1,10 +1,8 @@
 {
-  "basefilename": "pouring_liquid",
   "cldr": "pouring liquid",
   "fromVersion": "14.0",
-  "glyph": "\uD83E\uDED7",
-  "glyphAsUtfInEmoticons": null,
-  "group": "Food \u0026 Drink",
+  "glyph": "🫗",
+  "group": "Food & Drink",
   "keywords": [
     "drink",
     "empty",
@@ -12,8 +10,6 @@
     "pouring liquid",
     "spill"
   ],
-  "mappedToEmoticons": null,
   "tts": "pouring liquid",
-  "unicode": "1fad7",
-  "unicodeSkintones": null
+  "unicode": "1fad7"
 }

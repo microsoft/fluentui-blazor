@@ -1,8 +1,7 @@
 {
-  "basefilename": "ping_pong",
   "cldr": "ping pong",
   "fromVersion": "1.0",
-  "glyph": "\uD83C\uDFD3",
+  "glyph": "🏓",
   "glyphAsUtfInEmoticons": [
     "1f3d3_tabletennispaddleandball"
   ],
@@ -19,6 +18,5 @@
     "1f3d3_tabletennispaddleandball"
   ],
   "tts": "ping pong",
-  "unicode": "1f3d3",
-  "unicodeSkintones": null
+  "unicode": "1f3d3"
 }

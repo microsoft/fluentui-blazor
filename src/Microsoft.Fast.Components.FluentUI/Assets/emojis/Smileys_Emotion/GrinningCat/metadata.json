@@ -1,10 +1,8 @@
 {
-  "basefilename": "grinning_cat",
   "cldr": "grinning cat",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDE3A",
-  "glyphAsUtfInEmoticons": null,
-  "group": "Smileys \u0026 Emotion",
+  "glyph": "😺",
+  "group": "Smileys & Emotion",
   "keywords": [
     "cat",
     "face",
@@ -17,6 +15,5 @@
     "smilecat"
   ],
   "tts": "grinning cat",
-  "unicode": "1f63a",
-  "unicodeSkintones": null
+  "unicode": "1f63a"
 }

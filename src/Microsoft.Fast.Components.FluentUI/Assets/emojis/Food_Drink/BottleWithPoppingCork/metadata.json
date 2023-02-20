@@ -1,12 +1,11 @@
 {
-  "basefilename": "bottle_with_popping_cork",
   "cldr": "bottle with popping cork",
   "fromVersion": "1.0",
-  "glyph": "\uD83C\uDF7E",
+  "glyph": "🍾",
   "glyphAsUtfInEmoticons": [
     "champagne"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "bar",
     "bottle",
@@ -19,6 +18,5 @@
     "champagne"
   ],
   "tts": "bottle with popping cork",
-  "unicode": "1f37e",
-  "unicodeSkintones": null
+  "unicode": "1f37e"
 }

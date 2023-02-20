@@ -1,9 +1,7 @@
 {
-  "basefilename": "desktop_computer",
   "cldr": "desktop computer",
   "fromVersion": "0.7",
-  "glyph": "\uD83D\uDDA5\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "🖥️",
   "group": "Objects",
   "keywords": [
     "computer",
@@ -13,6 +11,5 @@
     "1f5a5_desktopcomputer"
   ],
   "tts": "desktop computer",
-  "unicode": "1f5a5 fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f5a5 fe0f"
 }

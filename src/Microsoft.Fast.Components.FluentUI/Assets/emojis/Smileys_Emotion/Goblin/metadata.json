@@ -1,12 +1,11 @@
 {
-  "basefilename": "goblin",
   "cldr": "goblin",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC7A",
+  "glyph": "👺",
   "glyphAsUtfInEmoticons": [
     "1f47a_japanesegoblin"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "creature",
     "face",
@@ -19,6 +18,5 @@
     "1f47a_japanesegoblin"
   ],
   "tts": "goblin",
-  "unicode": "1f47a",
-  "unicodeSkintones": null
+  "unicode": "1f47a"
 }

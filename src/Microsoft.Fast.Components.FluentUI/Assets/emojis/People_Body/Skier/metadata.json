@@ -1,12 +1,11 @@
 {
-  "basefilename": "skier",
   "cldr": "skier",
   "fromVersion": "0.7",
-  "glyph": "\u26F7\uFE0F",
+  "glyph": "⛷️",
   "glyphAsUtfInEmoticons": [
     "skier"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "ski",
     "skier",
@@ -16,6 +15,5 @@
     "skier"
   ],
   "tts": "skier",
-  "unicode": "26f7 fe0f",
-  "unicodeSkintones": null
+  "unicode": "26f7 fe0f"
 }

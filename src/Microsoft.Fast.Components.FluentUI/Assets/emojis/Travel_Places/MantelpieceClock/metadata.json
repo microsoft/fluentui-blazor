@@ -1,12 +1,11 @@
 {
-  "basefilename": "mantelpiece_clock",
   "cldr": "mantelpiece clock",
   "fromVersion": "0.7",
-  "glyph": "\uD83D\uDD70\uFE0F",
+  "glyph": "🕰️",
   "glyphAsUtfInEmoticons": [
     "time"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "clock",
     "mantelpiece clock"
@@ -15,6 +14,5 @@
     "1f570_mantelpiececlock"
   ],
   "tts": "mantelpiece clock",
-  "unicode": "1f570 fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f570 fe0f"
 }

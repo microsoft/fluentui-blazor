@@ -1,12 +1,11 @@
 {
-  "basefilename": "roasted_sweet_potato",
   "cldr": "roasted sweet potato",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF60",
+  "glyph": "🍠",
   "glyphAsUtfInEmoticons": [
     "1f360_roastedsweetpotato"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "potato",
     "roasted",
@@ -16,6 +15,5 @@
     "1f360_roastedsweetpotato"
   ],
   "tts": "roasted sweet potato",
-  "unicode": "1f360",
-  "unicodeSkintones": null
+  "unicode": "1f360"
 }

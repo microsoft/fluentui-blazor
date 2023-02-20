@@ -1,8 +1,7 @@
 {
-  "basefilename": "broom",
   "cldr": "broom",
   "fromVersion": "11.0",
-  "glyph": "\uD83E\uDDF9",
+  "glyph": "🧹",
   "glyphAsUtfInEmoticons": [
     "1f9f9_broom"
   ],
@@ -17,6 +16,5 @@
     "1f9f9_broom"
   ],
   "tts": "broom",
-  "unicode": "1f9f9",
-  "unicodeSkintones": null
+  "unicode": "1f9f9"
 }

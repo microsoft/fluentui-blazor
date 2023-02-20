@@ -1,8 +1,7 @@
 {
-  "basefilename": "wrapped_gift",
   "cldr": "wrapped gift",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF81",
+  "glyph": "🎁",
   "glyphAsUtfInEmoticons": [
     "gift"
   ],
@@ -18,6 +17,5 @@
     "gift"
   ],
   "tts": "wrapped gift",
-  "unicode": "1f381",
-  "unicodeSkintones": null
+  "unicode": "1f381"
 }

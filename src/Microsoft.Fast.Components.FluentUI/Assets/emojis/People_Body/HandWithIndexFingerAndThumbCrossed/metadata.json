@@ -1,10 +1,8 @@
 {
-  "basefilename": "hand_with_index_finger_and_thumb_crossed",
   "cldr": "hand with index finger and thumb crossed",
   "fromVersion": "14.0",
-  "glyph": "\uD83E\uDEF0",
-  "glyphAsUtfInEmoticons": null,
-  "group": "People \u0026 Body",
+  "glyph": "🫰",
+  "group": "People & Body",
   "keywords": [
     "expensive",
     "hand with index finger and thumb crossed",
@@ -13,7 +11,6 @@
     "money",
     "snap"
   ],
-  "mappedToEmoticons": null,
   "tts": "hand with index finger and thumb crossed",
   "unicode": "1faf0",
   "unicodeSkintones": [

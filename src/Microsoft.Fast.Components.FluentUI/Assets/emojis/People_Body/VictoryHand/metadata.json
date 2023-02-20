@@ -1,10 +1,8 @@
 {
-  "basefilename": "victory_hand",
   "cldr": "victory hand",
   "fromVersion": "0.6",
-  "glyph": "\u270C\uFE0F",
-  "glyphAsUtfInEmoticons": null,
-  "group": "People \u0026 Body",
+  "glyph": "✌️",
+  "group": "People & Body",
   "keywords": [
     "hand",
     "v",

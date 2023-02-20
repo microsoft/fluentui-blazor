@@ -1,23 +1,21 @@
 {
-  "basefilename": "japanese_open_for_business_button",
-  "cldr": "Japanese \u201Copen for business\u201D button",
+  "cldr": "Japanese “open for business” button",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDE3A",
+  "glyph": "🈺",
   "glyphAsUtfInEmoticons": [
     "1f23a_open"
   ],
   "group": "Symbols",
   "keywords": [
-    "\u201Copen for business\u201D",
+    "“open for business”",
     "ideograph",
     "Japanese",
-    "Japanese \u201Copen for business\u201D button",
-    "\u55B6"
+    "Japanese “open for business” button",
+    "営"
   ],
   "mappedToEmoticons": [
     "1f23a_open"
   ],
-  "tts": "Japanese \u201Copen for business\u201D button",
-  "unicode": "1f23a",
-  "unicodeSkintones": null
+  "tts": "Japanese “open for business” button",
+  "unicode": "1f23a"
 }

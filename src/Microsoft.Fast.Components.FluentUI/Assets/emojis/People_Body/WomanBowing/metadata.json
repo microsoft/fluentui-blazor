@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_bowing",
   "cldr": "woman bowing",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDE47\u200D\u2640\uFE0F",
+  "glyph": "🙇‍♀️",
   "glyphAsUtfInEmoticons": [
     "thanks"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "apology",
     "bowing",

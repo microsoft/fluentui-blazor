@@ -1,12 +1,11 @@
 {
-  "basefilename": "motorized_wheelchair",
   "cldr": "motorized wheelchair",
   "fromVersion": "12.0",
-  "glyph": "\uD83E\uDDBC",
+  "glyph": "🦼",
   "glyphAsUtfInEmoticons": [
     "1f9bc_motorizedwheelchair"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "accessibility",
     "motorized wheelchair"
@@ -15,6 +14,5 @@
     "1f9bc_motorizedwheelchair"
   ],
   "tts": "motorized wheelchair",
-  "unicode": "1f9bc",
-  "unicodeSkintones": null
+  "unicode": "1f9bc"
 }

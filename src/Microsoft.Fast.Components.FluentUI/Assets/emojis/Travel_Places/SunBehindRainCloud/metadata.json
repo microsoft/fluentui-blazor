@@ -1,10 +1,8 @@
 {
-  "basefilename": "sun_behind_rain_cloud",
   "cldr": "sun behind rain cloud",
   "fromVersion": "0.7",
-  "glyph": "\uD83C\uDF26\uFE0F",
-  "glyphAsUtfInEmoticons": null,
-  "group": "Travel \u0026 Places",
+  "glyph": "🌦️",
+  "group": "Travel & Places",
   "keywords": [
     "cloud",
     "rain",
@@ -15,6 +13,5 @@
     "1f326_sunbehindraincloud"
   ],
   "tts": "sun behind rain cloud",
-  "unicode": "1f326 fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f326 fe0f"
 }

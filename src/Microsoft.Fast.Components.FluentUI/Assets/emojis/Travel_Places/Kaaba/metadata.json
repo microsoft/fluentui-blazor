@@ -1,12 +1,11 @@
 {
-  "basefilename": "kaaba",
   "cldr": "kaaba",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDD4B",
+  "glyph": "🕋",
   "glyphAsUtfInEmoticons": [
     "1f54b_kaaba"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "islam",
     "kaaba",
@@ -17,6 +16,5 @@
     "1f54b_kaaba"
   ],
   "tts": "kaaba",
-  "unicode": "1f54b",
-  "unicodeSkintones": null
+  "unicode": "1f54b"
 }

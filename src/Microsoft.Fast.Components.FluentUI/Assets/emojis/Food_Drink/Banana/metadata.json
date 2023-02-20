@@ -1,12 +1,11 @@
 {
-  "basefilename": "banana",
   "cldr": "banana",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF4C",
+  "glyph": "🍌",
   "glyphAsUtfInEmoticons": [
     "banana"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "banana",
     "fruit"
@@ -15,6 +14,5 @@
     "banana"
   ],
   "tts": "banana",
-  "unicode": "1f34c",
-  "unicodeSkintones": null
+  "unicode": "1f34c"
 }

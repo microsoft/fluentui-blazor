@@ -1,12 +1,11 @@
 {
-  "basefilename": "new_moon",
   "cldr": "new moon",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF11",
+  "glyph": "🌑",
   "glyphAsUtfInEmoticons": [
     "1f311_newmoonsymbol"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "dark",
     "moon",
@@ -16,6 +15,5 @@
     "1f311_newmoonsymbol"
   ],
   "tts": "new moon",
-  "unicode": "1f311",
-  "unicodeSkintones": null
+  "unicode": "1f311"
 }

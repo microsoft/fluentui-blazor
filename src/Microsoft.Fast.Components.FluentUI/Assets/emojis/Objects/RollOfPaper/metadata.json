@@ -1,8 +1,7 @@
 {
-  "basefilename": "roll_of_paper",
   "cldr": "roll of paper",
   "fromVersion": "11.0",
-  "glyph": "\uD83E\uDDFB",
+  "glyph": "🧻",
   "glyphAsUtfInEmoticons": [
     "1f9fb_toiletpaper"
   ],
@@ -16,6 +15,5 @@
     "1f9fb_toiletpaper"
   ],
   "tts": "roll of paper",
-  "unicode": "1f9fb",
-  "unicodeSkintones": null
+  "unicode": "1f9fb"
 }

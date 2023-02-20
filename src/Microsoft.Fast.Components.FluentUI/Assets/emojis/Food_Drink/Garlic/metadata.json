@@ -1,12 +1,11 @@
 {
-  "basefilename": "garlic",
   "cldr": "garlic",
   "fromVersion": "12.0",
-  "glyph": "\uD83E\uDDC4",
+  "glyph": "🧄",
   "glyphAsUtfInEmoticons": [
     "1f9c4_garlic"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "flavoring",
     "garlic"
@@ -15,6 +14,5 @@
     "1f9c4_garlic"
   ],
   "tts": "garlic",
-  "unicode": "1f9c4",
-  "unicodeSkintones": null
+  "unicode": "1f9c4"
 }

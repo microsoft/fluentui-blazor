@@ -1,12 +1,11 @@
 {
-  "basefilename": "person_merpeople",
   "cldr": "merperson",
   "fromVersion": "5.0",
-  "glyph": "\uD83E\uDDDC",
+  "glyph": "🧜",
   "glyphAsUtfInEmoticons": [
     "merperson"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "mermaid",
     "merman",

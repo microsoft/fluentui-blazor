@@ -1,12 +1,11 @@
 {
-  "basefilename": "love_letter",
   "cldr": "love letter",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC8C",
+  "glyph": "💌",
   "glyphAsUtfInEmoticons": [
     "loveletter"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "heart",
     "letter",
@@ -17,6 +16,5 @@
     "loveletter"
   ],
   "tts": "love letter",
-  "unicode": "1f48c",
-  "unicodeSkintones": null
+  "unicode": "1f48c"
 }

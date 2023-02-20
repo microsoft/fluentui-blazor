@@ -1,8 +1,7 @@
 {
-  "basefilename": "electric_plug",
   "cldr": "electric plug",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDD0C",
+  "glyph": "🔌",
   "glyphAsUtfInEmoticons": [
     "1f50c_electricplug"
   ],
@@ -16,6 +15,5 @@
     "1f50c_electricplug"
   ],
   "tts": "electric plug",
-  "unicode": "1f50c",
-  "unicodeSkintones": null
+  "unicode": "1f50c"
 }

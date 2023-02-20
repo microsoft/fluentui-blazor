@@ -1,12 +1,11 @@
 {
-  "basefilename": "fork_and_knife",
   "cldr": "fork and knife",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF74",
+  "glyph": "🍴",
   "glyphAsUtfInEmoticons": [
     "1f374_forkandknife"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "cooking",
     "cutlery",
@@ -18,6 +17,5 @@
     "1f374_forkandknife"
   ],
   "tts": "fork and knife",
-  "unicode": "1f374",
-  "unicodeSkintones": null
+  "unicode": "1f374"
 }

@@ -1,12 +1,11 @@
 {
-  "basefilename": "factory",
   "cldr": "factory",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDFED",
+  "glyph": "🏭",
   "glyphAsUtfInEmoticons": [
     "1f3ed_factory"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "building",
     "factory"
@@ -15,6 +14,5 @@
     "1f3ed_factory"
   ],
   "tts": "factory",
-  "unicode": "1f3ed",
-  "unicodeSkintones": null
+  "unicode": "1f3ed"
 }

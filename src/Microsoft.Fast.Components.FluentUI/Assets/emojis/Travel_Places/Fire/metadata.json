@@ -1,12 +1,11 @@
 {
-  "basefilename": "fire",
   "cldr": "fire",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDD25",
+  "glyph": "🔥",
   "glyphAsUtfInEmoticons": [
     "fire"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "fire",
     "flame",
@@ -16,6 +15,5 @@
     "fire"
   ],
   "tts": "fire",
-  "unicode": "1f525",
-  "unicodeSkintones": null
+  "unicode": "1f525"
 }

@@ -1,12 +1,11 @@
 {
-  "basefilename": "office_building",
   "cldr": "office building",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDFE2",
+  "glyph": "🏢",
   "glyphAsUtfInEmoticons": [
     "1f3e2_officebuilding"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "building",
     "office building"
@@ -15,6 +14,5 @@
     "1f3e2_officebuilding"
   ],
   "tts": "office building",
-  "unicode": "1f3e2",
-  "unicodeSkintones": null
+  "unicode": "1f3e2"
 }

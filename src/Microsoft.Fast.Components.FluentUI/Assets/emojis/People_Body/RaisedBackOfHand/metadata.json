@@ -1,12 +1,11 @@
 {
-  "basefilename": "raised_back_of_hand",
   "cldr": "raised back of hand",
   "fromVersion": "3.0",
-  "glyph": "\uD83E\uDD1A",
+  "glyph": "🤚",
   "glyphAsUtfInEmoticons": [
     "1f91a_raisedbackofhand"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "backhand",
     "raised",

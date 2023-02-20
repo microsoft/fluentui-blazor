@@ -1,8 +1,7 @@
 {
-  "basefilename": "incoming_envelope",
   "cldr": "incoming envelope",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCE8",
+  "glyph": "📨",
   "glyphAsUtfInEmoticons": [
     "1f4e8_incomingenvelope"
   ],
@@ -19,6 +18,5 @@
     "1f4e8_incomingenvelope"
   ],
   "tts": "incoming envelope",
-  "unicode": "1f4e8",
-  "unicodeSkintones": null
+  "unicode": "1f4e8"
 }

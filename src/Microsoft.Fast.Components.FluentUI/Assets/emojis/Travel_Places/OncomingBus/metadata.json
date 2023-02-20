@@ -1,12 +1,11 @@
 {
-  "basefilename": "oncoming_bus",
   "cldr": "oncoming bus",
   "fromVersion": "0.7",
-  "glyph": "\uD83D\uDE8D",
+  "glyph": "🚍",
   "glyphAsUtfInEmoticons": [
     "1f68d_oncomingbus"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "bus",
     "oncoming"
@@ -15,6 +14,5 @@
     "1f68d_oncomingbus"
   ],
   "tts": "oncoming bus",
-  "unicode": "1f68d",
-  "unicodeSkintones": null
+  "unicode": "1f68d"
 }

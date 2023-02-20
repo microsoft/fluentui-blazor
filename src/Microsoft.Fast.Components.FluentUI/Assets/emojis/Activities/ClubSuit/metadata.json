@@ -1,8 +1,7 @@
 {
-  "basefilename": "club_suit",
   "cldr": "club suit",
   "fromVersion": "0.6",
-  "glyph": "\u2663\uFE0F",
+  "glyph": "♣️",
   "glyphAsUtfInEmoticons": [
     "2663_blackclubsuit"
   ],
@@ -16,6 +15,5 @@
     "2663_blackclubsuit"
   ],
   "tts": "club suit",
-  "unicode": "2663 fe0f",
-  "unicodeSkintones": null
+  "unicode": "2663 fe0f"
 }

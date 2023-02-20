@@ -1,12 +1,11 @@
 {
-  "basefilename": "smiling_face_with_halo",
   "cldr": "smiling face with halo",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDE07",
+  "glyph": "😇",
   "glyphAsUtfInEmoticons": [
     "angel"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "angel",
     "face",
@@ -19,6 +18,5 @@
     "angel"
   ],
   "tts": "smiling face with halo",
-  "unicode": "1f607",
-  "unicodeSkintones": null
+  "unicode": "1f607"
 }

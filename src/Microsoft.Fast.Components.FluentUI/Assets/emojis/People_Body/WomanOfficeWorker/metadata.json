@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_office_worker",
   "cldr": "woman office worker",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDC69\u200D\uD83D\uDCBC",
+  "glyph": "👩‍💼",
   "glyphAsUtfInEmoticons": [
     "officeworkerfemale"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "architect",
     "business",

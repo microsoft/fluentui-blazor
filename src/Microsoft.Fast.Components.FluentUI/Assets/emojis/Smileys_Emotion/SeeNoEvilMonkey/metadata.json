@@ -1,12 +1,11 @@
 {
-  "basefilename": "see-no-evil_monkey",
   "cldr": "see-no-evil monkey",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDE48",
+  "glyph": "🙈",
   "glyphAsUtfInEmoticons": [
     "seenoevil"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "evil",
     "face",
@@ -19,6 +18,5 @@
     "seenoevil"
   ],
   "tts": "see-no-evil monkey",
-  "unicode": "1f648",
-  "unicodeSkintones": null
+  "unicode": "1f648"
 }

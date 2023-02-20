@@ -1,10 +1,8 @@
 {
-  "basefilename": "woman_zombie",
   "cldr": "woman zombie",
   "fromVersion": "5.0",
-  "glyph": "\uD83E\uDDDF\u200D\u2640\uFE0F",
-  "glyphAsUtfInEmoticons": null,
-  "group": "People \u0026 Body",
+  "glyph": "🧟‍♀️",
+  "group": "People & Body",
   "keywords": [
     "undead",
     "walking dead",
@@ -14,6 +12,5 @@
     "zombie"
   ],
   "tts": "woman zombie",
-  "unicode": "1f9df 200d 2640 fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f9df 200d 2640 fe0f"
 }

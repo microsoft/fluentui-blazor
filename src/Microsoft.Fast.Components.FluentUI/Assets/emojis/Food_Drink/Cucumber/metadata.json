@@ -1,12 +1,11 @@
 {
-  "basefilename": "cucumber",
   "cldr": "cucumber",
   "fromVersion": "3.0",
-  "glyph": "\uD83E\uDD52",
+  "glyph": "🥒",
   "glyphAsUtfInEmoticons": [
     "1f952_cucumber"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "cucumber",
     "food",
@@ -17,6 +16,5 @@
     "1f952_cucumber"
   ],
   "tts": "cucumber",
-  "unicode": "1f952",
-  "unicodeSkintones": null
+  "unicode": "1f952"
 }

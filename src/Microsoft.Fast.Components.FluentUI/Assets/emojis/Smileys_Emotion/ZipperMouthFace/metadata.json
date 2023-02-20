@@ -1,12 +1,11 @@
 {
-  "basefilename": "zipper-mouth_face",
   "cldr": "zipper-mouth face",
   "fromVersion": "1.0",
-  "glyph": "\uD83E\uDD10",
+  "glyph": "🤐",
   "glyphAsUtfInEmoticons": [
     "1f910_zippermouthface"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "face",
     "mouth",
@@ -17,6 +16,5 @@
     "1f910_zippermouthface"
   ],
   "tts": "zipper-mouth face",
-  "unicode": "1f910",
-  "unicodeSkintones": null
+  "unicode": "1f910"
 }

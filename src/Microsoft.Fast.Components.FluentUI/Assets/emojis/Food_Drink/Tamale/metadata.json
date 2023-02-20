@@ -1,12 +1,11 @@
 {
-  "basefilename": "tamale",
   "cldr": "tamale",
   "fromVersion": "13.0",
-  "glyph": "\uD83E\uDED4",
+  "glyph": "🫔",
   "glyphAsUtfInEmoticons": [
     "tamale"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "mexican",
     "tamale",
@@ -16,6 +15,5 @@
     "tamale"
   ],
   "tts": "tamale",
-  "unicode": "1fad4",
-  "unicodeSkintones": null
+  "unicode": "1fad4"
 }

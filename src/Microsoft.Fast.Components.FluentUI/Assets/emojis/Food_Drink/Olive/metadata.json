@@ -1,12 +1,11 @@
 {
-  "basefilename": "olive",
   "cldr": "olive",
   "fromVersion": "13.0",
-  "glyph": "\uD83E\uDED2",
+  "glyph": "🫒",
   "glyphAsUtfInEmoticons": [
     "olive"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "food",
     "olive"
@@ -15,6 +14,5 @@
     "olive"
   ],
   "tts": "olive",
-  "unicode": "1fad2",
-  "unicodeSkintones": null
+  "unicode": "1fad2"
 }

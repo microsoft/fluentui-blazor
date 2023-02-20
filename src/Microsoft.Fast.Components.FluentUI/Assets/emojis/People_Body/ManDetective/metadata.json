@@ -1,12 +1,11 @@
 {
-  "basefilename": "man_detective",
   "cldr": "man detective",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDD75\uFE0F\u200D\u2642\uFE0F",
+  "glyph": "🕵️‍♂️",
   "glyphAsUtfInEmoticons": [
     "man_detective"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "detective",
     "man",

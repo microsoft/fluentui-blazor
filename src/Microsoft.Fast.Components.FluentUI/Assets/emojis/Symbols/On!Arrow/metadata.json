@@ -1,8 +1,7 @@
 {
-  "basefilename": "on!_arrow",
   "cldr": "ON! arrow",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDD1B",
+  "glyph": "🔛",
   "glyphAsUtfInEmoticons": [
     "1f51b_on"
   ],
@@ -17,6 +16,5 @@
     "1f51b_on"
   ],
   "tts": "ON! arrow",
-  "unicode": "1f51b",
-  "unicodeSkintones": null
+  "unicode": "1f51b"
 }

@@ -1,8 +1,7 @@
 {
-  "basefilename": "plunger",
   "cldr": "plunger",
   "fromVersion": "13.0",
-  "glyph": "\uD83E\uDEA0",
+  "glyph": "🪠",
   "glyphAsUtfInEmoticons": [
     "plunger"
   ],
@@ -18,6 +17,5 @@
     "plunger"
   ],
   "tts": "plunger",
-  "unicode": "1faa0",
-  "unicodeSkintones": null
+  "unicode": "1faa0"
 }

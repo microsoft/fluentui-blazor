@@ -1,12 +1,11 @@
 {
-  "basefilename": "person_tipping_hand",
   "cldr": "person tipping hand",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC81",
+  "glyph": "💁",
   "glyphAsUtfInEmoticons": [
     "person_tipping_hand"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "hand",
     "help",

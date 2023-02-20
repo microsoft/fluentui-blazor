@@ -1,12 +1,11 @@
 {
-  "basefilename": "lion",
   "cldr": "lion",
   "fromVersion": "1.0",
-  "glyph": "\uD83E\uDD81",
+  "glyph": "🦁",
   "glyphAsUtfInEmoticons": [
     "lion"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "face",
     "Leo",
@@ -17,6 +16,5 @@
     "lion"
   ],
   "tts": "lion",
-  "unicode": "1f981",
-  "unicodeSkintones": null
+  "unicode": "1f981"
 }

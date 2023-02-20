@@ -1,12 +1,11 @@
 {
-  "basefilename": "man_office_worker",
   "cldr": "man office worker",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDC68\u200D\uD83D\uDCBC",
+  "glyph": "👨‍💼",
   "glyphAsUtfInEmoticons": [
     "officeworkermale"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "architect",
     "business",

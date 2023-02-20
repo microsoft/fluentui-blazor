@@ -1,12 +1,11 @@
 {
-  "basefilename": "guide_dog",
   "cldr": "guide dog",
   "fromVersion": "12.0",
-  "glyph": "\uD83E\uDDAE",
+  "glyph": "🦮",
   "glyphAsUtfInEmoticons": [
     "1f9ae_guidedog"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "accessibility",
     "blind",
@@ -17,6 +16,5 @@
     "1f9ae_guidedog"
   ],
   "tts": "guide dog",
-  "unicode": "1f9ae",
-  "unicodeSkintones": null
+  "unicode": "1f9ae"
 }

@@ -1,16 +1,13 @@
 {
-  "basefilename": "index_pointing_at_the_viewer",
   "cldr": "index pointing at the viewer",
   "fromVersion": "14.0",
-  "glyph": "\uD83E\uDEF5",
-  "glyphAsUtfInEmoticons": null,
-  "group": "People \u0026 Body",
+  "glyph": "🫵",
+  "group": "People & Body",
   "keywords": [
     "index pointing at the viewer",
     "point",
     "you"
   ],
-  "mappedToEmoticons": null,
   "tts": "index pointing at the viewer",
   "unicode": "1faf5",
   "unicodeSkintones": [

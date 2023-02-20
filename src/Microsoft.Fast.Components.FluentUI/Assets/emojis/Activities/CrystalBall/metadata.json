@@ -1,8 +1,7 @@
 {
-  "basefilename": "crystal_ball",
   "cldr": "crystal ball",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDD2E",
+  "glyph": "🔮",
   "glyphAsUtfInEmoticons": [
     "1f52e_crystalball"
   ],
@@ -19,6 +18,5 @@
     "1f52e_crystalball"
   ],
   "tts": "crystal ball",
-  "unicode": "1f52e",
-  "unicodeSkintones": null
+  "unicode": "1f52e"
 }

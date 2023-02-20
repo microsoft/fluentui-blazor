@@ -1,12 +1,11 @@
 {
-  "basefilename": "nose",
   "cldr": "nose",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC43",
+  "glyph": "👃",
   "glyphAsUtfInEmoticons": [
     "1f443_nose"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "body",
     "nose"

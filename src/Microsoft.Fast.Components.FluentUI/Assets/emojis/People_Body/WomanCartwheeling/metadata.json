@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_cartwheeling",
   "cldr": "woman cartwheeling",
   "fromVersion": "4.0",
-  "glyph": "\uD83E\uDD38\u200D\u2640\uFE0F",
+  "glyph": "🤸‍♀️",
   "glyphAsUtfInEmoticons": [
     "woman_cartwheeling"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "cartwheel",
     "gymnastics",

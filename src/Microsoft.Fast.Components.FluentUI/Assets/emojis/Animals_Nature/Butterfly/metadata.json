@@ -1,12 +1,11 @@
 {
-  "basefilename": "butterfly",
   "cldr": "butterfly",
   "fromVersion": "3.0",
-  "glyph": "\uD83E\uDD8B",
+  "glyph": "🦋",
   "glyphAsUtfInEmoticons": [
     "butterfly"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "butterfly",
     "insect",
@@ -16,6 +15,5 @@
     "butterfly"
   ],
   "tts": "butterfly",
-  "unicode": "1f98b",
-  "unicodeSkintones": null
+  "unicode": "1f98b"
 }

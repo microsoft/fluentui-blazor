@@ -1,8 +1,7 @@
 {
-  "basefilename": "no_entry",
   "cldr": "no entry",
   "fromVersion": "0.6",
-  "glyph": "\u26D4",
+  "glyph": "⛔",
   "glyphAsUtfInEmoticons": [
     "26d4_noentry"
   ],
@@ -19,6 +18,5 @@
     "26d4_noentry"
   ],
   "tts": "no entry",
-  "unicode": "26d4",
-  "unicodeSkintones": null
+  "unicode": "26d4"
 }

@@ -1,12 +1,11 @@
 {
-  "basefilename": "vulcan_salute",
   "cldr": "vulcan salute",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDD96",
+  "glyph": "🖖",
   "glyphAsUtfInEmoticons": [
     "vulcansalute"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "finger",
     "hand",

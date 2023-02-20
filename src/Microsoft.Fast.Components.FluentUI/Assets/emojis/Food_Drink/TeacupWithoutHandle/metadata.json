@@ -1,12 +1,11 @@
 {
-  "basefilename": "teacup_without_handle",
   "cldr": "teacup without handle",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF75",
+  "glyph": "🍵",
   "glyphAsUtfInEmoticons": [
     "chai"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "beverage",
     "cup",
@@ -19,6 +18,5 @@
     "chai"
   ],
   "tts": "teacup without handle",
-  "unicode": "1f375",
-  "unicodeSkintones": null
+  "unicode": "1f375"
 }

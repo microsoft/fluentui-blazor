@@ -1,12 +1,11 @@
 {
-  "basefilename": "guard",
   "cldr": "guard",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC82",
+  "glyph": "💂",
   "glyphAsUtfInEmoticons": [
     "guard"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "guard"
   ],

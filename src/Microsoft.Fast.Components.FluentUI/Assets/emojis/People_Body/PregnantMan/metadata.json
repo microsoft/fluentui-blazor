@@ -1,10 +1,8 @@
 {
-  "basefilename": "pregnant_man",
   "cldr": "pregnant man",
   "fromVersion": "14.0",
-  "glyph": "\uD83E\uDEC3",
-  "glyphAsUtfInEmoticons": null,
-  "group": "People \u0026 Body",
+  "glyph": "🫃",
+  "group": "People & Body",
   "keywords": [
     "belly",
     "bloated",
@@ -12,7 +10,6 @@
     "pregnant",
     "pregnant man"
   ],
-  "mappedToEmoticons": null,
   "tts": "pregnant man",
   "unicode": "1fac3",
   "unicodeSkintones": [

@@ -1,12 +1,11 @@
 {
-  "basefilename": "face_with_tears_of_joy",
   "cldr": "face with tears of joy",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDE02",
+  "glyph": "😂",
   "glyphAsUtfInEmoticons": [
     "cwl"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "face",
     "face with tears of joy",
@@ -18,6 +17,5 @@
     "cwl"
   ],
   "tts": "face with tears of joy",
-  "unicode": "1f602",
-  "unicodeSkintones": null
+  "unicode": "1f602"
 }

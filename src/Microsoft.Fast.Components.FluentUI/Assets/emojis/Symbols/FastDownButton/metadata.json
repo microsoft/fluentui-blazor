@@ -1,8 +1,7 @@
 {
-  "basefilename": "fast_down_button",
   "cldr": "fast down button",
   "fromVersion": "0.6",
-  "glyph": "\u23EC",
+  "glyph": "⏬",
   "glyphAsUtfInEmoticons": [
     "23ec_fastdownbutton"
   ],
@@ -17,6 +16,5 @@
     "23ec_fastdownbutton"
   ],
   "tts": "fast down button",
-  "unicode": "23ec",
-  "unicodeSkintones": null
+  "unicode": "23ec"
 }

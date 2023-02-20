@@ -1,8 +1,7 @@
 {
-  "basefilename": "antenna_bars",
   "cldr": "antenna bars",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCF6",
+  "glyph": "📶",
   "glyphAsUtfInEmoticons": [
     "1f4f6_antennawithbars"
   ],
@@ -19,6 +18,5 @@
     "1f4f6_antennawithbars"
   ],
   "tts": "antenna bars",
-  "unicode": "1f4f6",
-  "unicodeSkintones": null
+  "unicode": "1f4f6"
 }

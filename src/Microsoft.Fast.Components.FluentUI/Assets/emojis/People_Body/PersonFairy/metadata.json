@@ -1,12 +1,11 @@
 {
-  "basefilename": "person_fairy",
   "cldr": "fairy",
   "fromVersion": "5.0",
-  "glyph": "\uD83E\uDDDA",
+  "glyph": "🧚",
   "glyphAsUtfInEmoticons": [
     "fairy"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "fairy",
     "Oberon",

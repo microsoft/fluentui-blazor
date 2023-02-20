@@ -1,8 +1,7 @@
 {
-  "basefilename": "red_triangle_pointed_down",
   "cldr": "red triangle pointed down",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDD3B",
+  "glyph": "🔻",
   "glyphAsUtfInEmoticons": [
     "1f53b_downpointingredtriangle"
   ],
@@ -17,6 +16,5 @@
     "1f53b_downpointingredtriangle"
   ],
   "tts": "red triangle pointed down",
-  "unicode": "1f53b",
-  "unicodeSkintones": null
+  "unicode": "1f53b"
 }

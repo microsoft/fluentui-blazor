@@ -1,10 +1,8 @@
 {
-  "basefilename": "eye",
   "cldr": "eye",
   "fromVersion": "0.7",
-  "glyph": "\uD83D\uDC41\uFE0F",
-  "glyphAsUtfInEmoticons": null,
-  "group": "People \u0026 Body",
+  "glyph": "👁️",
+  "group": "People & Body",
   "keywords": [
     "body",
     "eye"
@@ -13,6 +11,5 @@
     "1f441_eye"
   ],
   "tts": "eye",
-  "unicode": "1f441 fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f441 fe0f"
 }

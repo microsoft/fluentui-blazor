@@ -1,8 +1,7 @@
 {
-  "basefilename": "new_button",
   "cldr": "NEW button",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDD95",
+  "glyph": "🆕",
   "glyphAsUtfInEmoticons": [
     "1f195_squarednew"
   ],
@@ -15,6 +14,5 @@
     "1f195_squarednew"
   ],
   "tts": "NEW button",
-  "unicode": "1f195",
-  "unicodeSkintones": null
+  "unicode": "1f195"
 }

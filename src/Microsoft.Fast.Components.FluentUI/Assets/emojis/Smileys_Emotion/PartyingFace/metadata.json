@@ -1,12 +1,11 @@
 {
-  "basefilename": "partying_face",
   "cldr": "partying face",
   "fromVersion": "11.0",
-  "glyph": "\uD83E\uDD73",
+  "glyph": "🥳",
   "glyphAsUtfInEmoticons": [
     "party"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "celebration",
     "hat",
@@ -18,6 +17,5 @@
     "party"
   ],
   "tts": "partying face",
-  "unicode": "1f973",
-  "unicodeSkintones": null
+  "unicode": "1f973"
 }

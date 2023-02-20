@@ -1,12 +1,11 @@
 {
-  "basefilename": "mountain_cableway",
   "cldr": "mountain cableway",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDEA0",
+  "glyph": "🚠",
   "glyphAsUtfInEmoticons": [
     "1f6a0_mountaincableway"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "cable",
     "gondola",
@@ -17,6 +16,5 @@
     "1f6a0_mountaincableway"
   ],
   "tts": "mountain cableway",
-  "unicode": "1f6a0",
-  "unicodeSkintones": null
+  "unicode": "1f6a0"
 }

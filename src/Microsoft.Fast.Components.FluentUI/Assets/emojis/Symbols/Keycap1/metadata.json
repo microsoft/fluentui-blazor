@@ -1,8 +1,7 @@
 {
-  "basefilename": "keycap_1",
   "cldr": "keycap: 1",
   "fromVersion": "0.6",
-  "glyph": "1\uFE0F\u20E3",
+  "glyph": "1️⃣",
   "glyphAsUtfInEmoticons": [
     "keycapdigitone"
   ],
@@ -15,6 +14,5 @@
     "keycapdigitone"
   ],
   "tts": "keycap: 1",
-  "unicode": "0031 fe0f 20e3",
-  "unicodeSkintones": null
+  "unicode": "0031 fe0f 20e3"
 }

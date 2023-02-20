@@ -1,8 +1,7 @@
 {
-  "basefilename": "children_crossing",
   "cldr": "children crossing",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDEB8",
+  "glyph": "🚸",
   "glyphAsUtfInEmoticons": [
     "1f6b8_childrencrossing"
   ],
@@ -18,6 +17,5 @@
     "1f6b8_childrencrossing"
   ],
   "tts": "children crossing",
-  "unicode": "1f6b8",
-  "unicodeSkintones": null
+  "unicode": "1f6b8"
 }

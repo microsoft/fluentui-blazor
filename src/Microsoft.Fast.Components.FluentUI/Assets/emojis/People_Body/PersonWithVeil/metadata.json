@@ -1,13 +1,12 @@
 {
-  "basefilename": "person_with_veil",
   "cldr": "person with veil",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC70",
+  "glyph": "👰",
   "glyphAsUtfInEmoticons": [
     "bride_with_veil",
     "personwithveil"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "bride",
     "person",

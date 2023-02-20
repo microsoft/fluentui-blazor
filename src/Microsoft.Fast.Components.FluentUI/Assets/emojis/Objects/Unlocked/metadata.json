@@ -1,8 +1,7 @@
 {
-  "basefilename": "unlocked",
   "cldr": "unlocked",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDD13",
+  "glyph": "🔓",
   "glyphAsUtfInEmoticons": [
     "1f513_unlocked"
   ],
@@ -17,6 +16,5 @@
     "1f513_unlocked"
   ],
   "tts": "unlocked",
-  "unicode": "1f513",
-  "unicodeSkintones": null
+  "unicode": "1f513"
 }

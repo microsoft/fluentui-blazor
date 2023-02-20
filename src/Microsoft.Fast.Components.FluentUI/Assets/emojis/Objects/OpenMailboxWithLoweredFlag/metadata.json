@@ -1,8 +1,7 @@
 {
-  "basefilename": "open_mailbox_with_lowered_flag",
   "cldr": "open mailbox with lowered flag",
   "fromVersion": "0.7",
-  "glyph": "\uD83D\uDCED",
+  "glyph": "📭",
   "glyphAsUtfInEmoticons": [
     "1f4ed_openmailboxwithloweredflag"
   ],
@@ -19,6 +18,5 @@
     "1f4ed_openmailboxwithloweredflag"
   ],
   "tts": "open mailbox with lowered flag",
-  "unicode": "1f4ed",
-  "unicodeSkintones": null
+  "unicode": "1f4ed"
 }

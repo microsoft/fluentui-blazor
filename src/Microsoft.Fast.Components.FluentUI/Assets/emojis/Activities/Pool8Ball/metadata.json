@@ -1,8 +1,7 @@
 {
-  "basefilename": "pool_8_ball",
   "cldr": "pool 8 ball",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDFB1",
+  "glyph": "🎱",
   "glyphAsUtfInEmoticons": [
     "eightball"
   ],
@@ -19,6 +18,5 @@
     "eightball"
   ],
   "tts": "pool 8 ball",
-  "unicode": "1f3b1",
-  "unicodeSkintones": null
+  "unicode": "1f3b1"
 }

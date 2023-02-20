@@ -1,12 +1,11 @@
 {
-  "basefilename": "cow",
   "cldr": "cow",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDC04",
+  "glyph": "🐄",
   "glyphAsUtfInEmoticons": [
     "1f404_cow"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "cow"
   ],
@@ -14,6 +13,5 @@
     "1f404_cow"
   ],
   "tts": "cow",
-  "unicode": "1f404",
-  "unicodeSkintones": null
+  "unicode": "1f404"
 }

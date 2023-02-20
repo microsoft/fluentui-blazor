@@ -1,10 +1,8 @@
 {
-  "basefilename": "derelict_house",
   "cldr": "derelict house",
   "fromVersion": "0.7",
-  "glyph": "\uD83C\uDFDA\uFE0F",
-  "glyphAsUtfInEmoticons": null,
-  "group": "Travel \u0026 Places",
+  "glyph": "🏚️",
+  "group": "Travel & Places",
   "keywords": [
     "derelict",
     "house"
@@ -13,6 +11,5 @@
     "1f3da_derelicthouse"
   ],
   "tts": "derelict house",
-  "unicode": "1f3da fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f3da fe0f"
 }

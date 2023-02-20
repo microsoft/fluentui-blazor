@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_firefighter",
   "cldr": "woman firefighter",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDC69\u200D\uD83D\uDE92",
+  "glyph": "👩‍🚒",
   "glyphAsUtfInEmoticons": [
     "womanfirefighter"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "firefighter",
     "firetruck",

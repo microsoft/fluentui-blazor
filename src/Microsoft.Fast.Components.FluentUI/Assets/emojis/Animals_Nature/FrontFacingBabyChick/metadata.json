@@ -1,12 +1,11 @@
 {
-  "basefilename": "front-facing_baby_chick",
   "cldr": "front-facing baby chick",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC25",
+  "glyph": "🐥",
   "glyphAsUtfInEmoticons": [
     "1f425_frontfacingbabychick"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "baby",
     "bird",
@@ -17,6 +16,5 @@
     "1f425_frontfacingbabychick"
   ],
   "tts": "front-facing baby chick",
-  "unicode": "1f425",
-  "unicodeSkintones": null
+  "unicode": "1f425"
 }

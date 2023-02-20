@@ -1,10 +1,8 @@
 {
-  "basefilename": "man_running",
   "cldr": "man running",
   "fromVersion": "4.0",
-  "glyph": "\uD83C\uDFC3\u200D\u2642\uFE0F",
-  "glyphAsUtfInEmoticons": null,
-  "group": "People \u0026 Body",
+  "glyph": "🏃‍♂️",
+  "group": "People & Body",
   "keywords": [
     "man",
     "marathon",

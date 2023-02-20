@@ -1,8 +1,7 @@
 {
-  "basefilename": "gemini",
   "cldr": "Gemini",
   "fromVersion": "0.6",
-  "glyph": "\u264A",
+  "glyph": "♊",
   "glyphAsUtfInEmoticons": [
     "264a_gemini"
   ],
@@ -16,6 +15,5 @@
     "264a_gemini"
   ],
   "tts": "Gemini",
-  "unicode": "264a",
-  "unicodeSkintones": null
+  "unicode": "264a"
 }

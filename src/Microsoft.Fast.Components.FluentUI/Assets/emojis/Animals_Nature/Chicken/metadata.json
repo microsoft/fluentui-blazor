@@ -1,13 +1,12 @@
 {
-  "basefilename": "chicken",
   "cldr": "chicken",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC14",
+  "glyph": "🐔",
   "glyphAsUtfInEmoticons": [
     "1f414_chicken",
     "yotfr"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "bird",
     "chicken"
@@ -16,6 +15,5 @@
     "1f414_chicken"
   ],
   "tts": "chicken",
-  "unicode": "1f414",
-  "unicodeSkintones": null
+  "unicode": "1f414"
 }

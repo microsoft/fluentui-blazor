@@ -1,24 +1,22 @@
 {
-  "basefilename": "seven_oclock",
-  "cldr": "seven o\u2019clock",
+  "cldr": "seven o’clock",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDD56",
+  "glyph": "🕖",
   "glyphAsUtfInEmoticons": [
     "1f556_sevenoclock"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "00",
     "7",
     "7:00",
     "clock",
-    "o\u2019clock",
+    "o’clock",
     "seven"
   ],
   "mappedToEmoticons": [
     "1f556_sevenoclock"
   ],
-  "tts": "seven o\u2019clock",
-  "unicode": "1f556",
-  "unicodeSkintones": null
+  "tts": "seven o’clock",
+  "unicode": "1f556"
 }

@@ -1,8 +1,7 @@
 {
-  "basefilename": "water_pistol",
   "cldr": "water pistol",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDD2B",
+  "glyph": "🔫",
   "glyphAsUtfInEmoticons": [
     "1f52b_pistol"
   ],
@@ -20,6 +19,5 @@
     "1f52b_pistol"
   ],
   "tts": "water pistol",
-  "unicode": "1f52b",
-  "unicodeSkintones": null
+  "unicode": "1f52b"
 }

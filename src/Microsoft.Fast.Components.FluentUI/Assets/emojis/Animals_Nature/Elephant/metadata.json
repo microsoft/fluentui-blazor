@@ -1,12 +1,11 @@
 {
-  "basefilename": "elephant",
   "cldr": "elephant",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC18",
+  "glyph": "🐘",
   "glyphAsUtfInEmoticons": [
     "elephant"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "elephant"
   ],
@@ -14,6 +13,5 @@
     "elephant"
   ],
   "tts": "elephant",
-  "unicode": "1f418",
-  "unicodeSkintones": null
+  "unicode": "1f418"
 }

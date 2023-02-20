@@ -1,12 +1,11 @@
 {
-  "basefilename": "loudly_crying_face",
   "cldr": "loudly crying face",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDE2D",
+  "glyph": "😭",
   "glyphAsUtfInEmoticons": [
     "loudlycrying"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "cry",
     "face",
@@ -19,6 +18,5 @@
     "loudlycrying"
   ],
   "tts": "loudly crying face",
-  "unicode": "1f62d",
-  "unicodeSkintones": null
+  "unicode": "1f62d"
 }

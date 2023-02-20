@@ -1,12 +1,11 @@
 {
-  "basefilename": "man_firefighter",
   "cldr": "man firefighter",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDC68\u200D\uD83D\uDE92",
+  "glyph": "👨‍🚒",
   "glyphAsUtfInEmoticons": [
     "manfirefighter"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "firefighter",
     "firetruck",

@@ -1,12 +1,11 @@
 {
-  "basefilename": "castle",
   "cldr": "castle",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDFF0",
+  "glyph": "🏰",
   "glyphAsUtfInEmoticons": [
     "1f3f0_europeancastle"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "castle",
     "European"
@@ -15,6 +14,5 @@
     "1f3f0_europeancastle"
   ],
   "tts": "castle",
-  "unicode": "1f3f0",
-  "unicodeSkintones": null
+  "unicode": "1f3f0"
 }

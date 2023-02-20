@@ -1,12 +1,11 @@
 {
-  "basefilename": "cat_with_wry_smile",
   "cldr": "cat with wry smile",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDE3C",
+  "glyph": "😼",
   "glyphAsUtfInEmoticons": [
     "1f63c_catwithwrysmile"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "cat",
     "cat with wry smile",
@@ -19,6 +18,5 @@
     "1f63c_catwithwrysmile"
   ],
   "tts": "cat with wry smile",
-  "unicode": "1f63c",
-  "unicodeSkintones": null
+  "unicode": "1f63c"
 }

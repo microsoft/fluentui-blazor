@@ -1,12 +1,11 @@
 {
-  "basefilename": "man_playing_handball",
   "cldr": "man playing handball",
   "fromVersion": "4.0",
-  "glyph": "\uD83E\uDD3E\u200D\u2642\uFE0F",
+  "glyph": "🤾‍♂️",
   "glyphAsUtfInEmoticons": [
     "manplayinghandball"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "handball",
     "man",

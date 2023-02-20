@@ -1,8 +1,7 @@
 {
-  "basefilename": "package",
   "cldr": "package",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCE6",
+  "glyph": "📦",
   "glyphAsUtfInEmoticons": [
     "1f4e6_package"
   ],
@@ -16,6 +15,5 @@
     "1f4e6_package"
   ],
   "tts": "package",
-  "unicode": "1f4e6",
-  "unicodeSkintones": null
+  "unicode": "1f4e6"
 }

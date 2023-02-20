@@ -1,12 +1,11 @@
 {
-  "basefilename": "heart_exclamation",
   "cldr": "heart exclamation",
   "fromVersion": "1.0",
-  "glyph": "\u2763\uFE0F",
+  "glyph": "❣️",
   "glyphAsUtfInEmoticons": [
     "2763_heartexclamation"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "exclamation",
     "heart exclamation",
@@ -17,6 +16,5 @@
     "2763_heartexclamation"
   ],
   "tts": "heart exclamation",
-  "unicode": "2763 fe0f",
-  "unicodeSkintones": null
+  "unicode": "2763 fe0f"
 }

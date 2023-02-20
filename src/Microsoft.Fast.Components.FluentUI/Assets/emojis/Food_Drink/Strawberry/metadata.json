@@ -1,12 +1,11 @@
 {
-  "basefilename": "strawberry",
   "cldr": "strawberry",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF53",
+  "glyph": "🍓",
   "glyphAsUtfInEmoticons": [
     "strawberry"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "berry",
     "fruit",
@@ -16,6 +15,5 @@
     "strawberry"
   ],
   "tts": "strawberry",
-  "unicode": "1f353",
-  "unicodeSkintones": null
+  "unicode": "1f353"
 }

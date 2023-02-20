@@ -1,10 +1,8 @@
 {
-  "basefilename": "lotus",
   "cldr": "lotus",
   "fromVersion": "14.0",
-  "glyph": "\uD83E\uDEB7",
-  "glyphAsUtfInEmoticons": null,
-  "group": "Animals \u0026 Nature",
+  "glyph": "🪷",
+  "group": "Animals & Nature",
   "keywords": [
     "Buddhism",
     "flower",
@@ -14,8 +12,6 @@
     "purity",
     "Vietnam"
   ],
-  "mappedToEmoticons": null,
   "tts": "lotus",
-  "unicode": "1fab7",
-  "unicodeSkintones": null
+  "unicode": "1fab7"
 }

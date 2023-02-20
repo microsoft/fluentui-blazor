@@ -1,12 +1,11 @@
 {
-  "basefilename": "man_getting_massage",
   "cldr": "man getting massage",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDC86\u200D\u2642\uFE0F",
+  "glyph": "💆‍♂️",
   "glyphAsUtfInEmoticons": [
     "man_getting_face_massage"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "face",
     "man",

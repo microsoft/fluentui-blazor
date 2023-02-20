@@ -1,10 +1,8 @@
 {
-  "basefilename": "racing_car",
   "cldr": "racing car",
   "fromVersion": "0.7",
-  "glyph": "\uD83C\uDFCE\uFE0F",
-  "glyphAsUtfInEmoticons": null,
-  "group": "Travel \u0026 Places",
+  "glyph": "🏎️",
+  "group": "Travel & Places",
   "keywords": [
     "car",
     "racing"
@@ -13,6 +11,5 @@
     "1f3ce_racingcar"
   ],
   "tts": "racing car",
-  "unicode": "1f3ce fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f3ce fe0f"
 }

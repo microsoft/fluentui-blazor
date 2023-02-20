@@ -1,9 +1,7 @@
 {
-  "basefilename": "hammer_and_wrench",
   "cldr": "hammer and wrench",
   "fromVersion": "0.7",
-  "glyph": "\uD83D\uDEE0\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "🛠️",
   "group": "Objects",
   "keywords": [
     "hammer",
@@ -16,6 +14,5 @@
     "1f6e0_hammerandwrench"
   ],
   "tts": "hammer and wrench",
-  "unicode": "1f6e0 fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f6e0 fe0f"
 }

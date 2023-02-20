@@ -1,8 +1,7 @@
 {
-  "basefilename": "socks",
   "cldr": "socks",
   "fromVersion": "5.0",
-  "glyph": "\uD83E\uDDE6",
+  "glyph": "🧦",
   "glyphAsUtfInEmoticons": [
     "1f9e6_socks"
   ],
@@ -15,6 +14,5 @@
     "1f9e6_socks"
   ],
   "tts": "socks",
-  "unicode": "1f9e6",
-  "unicodeSkintones": null
+  "unicode": "1f9e6"
 }

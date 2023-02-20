@@ -1,12 +1,11 @@
 {
-  "basefilename": "man_surfing",
   "cldr": "man surfing",
   "fromVersion": "4.0",
-  "glyph": "\uD83C\uDFC4\u200D\u2642\uFE0F",
+  "glyph": "🏄‍♂️",
   "glyphAsUtfInEmoticons": [
     "mansurfer"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "man",
     "surfing"

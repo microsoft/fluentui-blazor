@@ -130,119 +130,119 @@
 
 	<Target Name="_GeneratePackItems" BeforeTargets="GenerateStaticWebAssetsPackFiles">
 		<ItemGroup>
-			<ActivitiesColorAssetsCandidates Include="Assets\emojis\Activities\**\*_color*.svg" Exclude="Assets\icons\**" />
+			<ActivitiesColorAssetsCandidates Include="Assets\emojis\Activities\**\c.svg" Exclude="Assets\icons\**" />
 			<ActivitiesColorAssetsCandidates>
 				<RelativePath>emojis\Activities\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</ActivitiesColorAssetsCandidates>
-			<ActivitiesFlatAssetsCandidates Include="Assets\emojis\Activities\**\*_flat*.svg" Exclude="Assets\icons\**" />
+			<ActivitiesFlatAssetsCandidates Include="Assets\emojis\Activities\**\f.svg" Exclude="Assets\icons\**" />
 			<ActivitiesFlatAssetsCandidates>
 				<RelativePath>emojis\Activities\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</ActivitiesFlatAssetsCandidates>
-			<ActivitiesHighContrastAssetsCandidates Include="Assets\emojis\Activities\**\*_high-contrast*.svg" Exclude="Assets\icons\**" />
+			<ActivitiesHighContrastAssetsCandidates Include="Assets\emojis\Activities\**\h.svg" Exclude="Assets\icons\**" />
 			<ActivitiesHighContrastAssetsCandidates>
 				<RelativePath>emojis\Activities\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</ActivitiesHighContrastAssetsCandidates>
 
-			<Animals_NatureColorAssetsCandidates Include="Assets\emojis\Animals_Nature\**\*_color*.svg" Exclude="Assets\icons\**" />
+			<Animals_NatureColorAssetsCandidates Include="Assets\emojis\Animals_Nature\**\c.svg" Exclude="Assets\icons\**" />
 			<Animals_NatureColorAssetsCandidates>
 				<RelativePath>emojis\Animals_Nature\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Animals_NatureColorAssetsCandidates>
-			<Animals_NatureFlatAssetsCandidates Include="Assets\emojis\Animals_Nature\**\*_flat*.svg" Exclude="Assets\icons\**" />
+			<Animals_NatureFlatAssetsCandidates Include="Assets\emojis\Animals_Nature\**\f.svg" Exclude="Assets\icons\**" />
 			<Animals_NatureFlatAssetsCandidates>
 				<RelativePath>emojis\Animals_Nature\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Animals_NatureFlatAssetsCandidates>
-			<Animals_NatureHighContrastAssetsCandidates Include="Assets\emojis\Animals_Nature\**\*_high-contrast*.svg" Exclude="Assets\icons\**" />
+			<Animals_NatureHighContrastAssetsCandidates Include="Assets\emojis\Animals_Nature\**\h.svg" Exclude="Assets\icons\**" />
 			<Animals_NatureHighContrastAssetsCandidates>
 				<RelativePath>emojis\Animals_Nature\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Animals_NatureHighContrastAssetsCandidates>
 
-			<FlagsColorAssetsCandidates Include="Assets\emojis\Flags\**\*_color*.svg" Exclude="Assets\icons\**" />
+			<FlagsColorAssetsCandidates Include="Assets\emojis\Flags\**\c.svg" Exclude="Assets\icons\**" />
 			<FlagsColorAssetsCandidates>
 				<RelativePath>emojis\Flags\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</FlagsColorAssetsCandidates>
-			<FlagsFlatAssetsCandidates Include="Assets\emojis\Flags\**\*_flat*.svg" Exclude="Assets\icons\**" />
+			<FlagsFlatAssetsCandidates Include="Assets\emojis\Flags\**\f.svg" Exclude="Assets\icons\**" />
 			<FlagsFlatAssetsCandidates>
 				<RelativePath>emojis\Flags\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</FlagsFlatAssetsCandidates>
-			<FlagsHighContrastAssetsCandidates Include="Assets\emojis\Flags\**\*_high-contrast*.svg" Exclude="Assets\icons\**" />
+			<FlagsHighContrastAssetsCandidates Include="Assets\emojis\Flags\**\h.svg" Exclude="Assets\icons\**" />
 			<FlagsHighContrastAssetsCandidates>
 				<RelativePath>emojis\Flags\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</FlagsHighContrastAssetsCandidates>
 
-			<Food_DrinkColorAssetsCandidates Include="Assets\emojis\Food_Drink\**\*_color*.svg" Exclude="Assets\icons\**" />
+			<Food_DrinkColorAssetsCandidates Include="Assets\emojis\Food_Drink\**\c.svg" Exclude="Assets\icons\**" />
 			<Food_DrinkColorAssetsCandidates>
 				<RelativePath>emojis\Food_Drink\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Food_DrinkColorAssetsCandidates>
-			<Food_DrinkFlatAssetsCandidates Include="Assets\emojis\Food_Drink\**\*_flat*.svg" Exclude="Assets\icons\**;Assets\**\*flatbread_color*;Assets\**\*flatbread_high-contrast*" />
+			<Food_DrinkFlatAssetsCandidates Include="Assets\emojis\Food_Drink\**\f.svg" Exclude="Assets\icons\**;Assets\**\*flatbread_c*;Assets\**\*flatbread_h*" />
 			<Food_DrinkFlatAssetsCandidates>
 				<RelativePath>emojis\Food_Drink\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Food_DrinkFlatAssetsCandidates>
-			<Food_DrinkHighContrastAssetsCandidates Include="Assets\emojis\Food_Drink\**\*_high-contrast*.svg" Exclude="Assets\icons\**" />
+			<Food_DrinkHighContrastAssetsCandidates Include="Assets\emojis\Food_Drink\**\h.svg" Exclude="Assets\icons\**" />
 			<Food_DrinkHighContrastAssetsCandidates>
 				<RelativePath>emojis\Food_Drink\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Food_DrinkHighContrastAssetsCandidates>
 
-			<ObjectsColorAssetsCandidates Include="Assets\emojis\Objects\**\*_color*.svg" Exclude="Assets\icons\**" />
+			<ObjectsColorAssetsCandidates Include="Assets\emojis\Objects\**\c.svg" Exclude="Assets\icons\**" />
 			<ObjectsColorAssetsCandidates>
 				<RelativePath>emojis\Objects\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</ObjectsColorAssetsCandidates>
-			<ObjectsFlatAssetsCandidates Include="Assets\emojis\Objects\**\*_flat*.svg" Exclude="Assets\icons\**" />
+			<ObjectsFlatAssetsCandidates Include="Assets\emojis\Objects\**\f.svg" Exclude="Assets\icons\**" />
 			<ObjectsFlatAssetsCandidates>
 				<RelativePath>emojis\Objects\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</ObjectsFlatAssetsCandidates>
-			<ObjectsHighContrastAssetsCandidates Include="Assets\emojis\Objects\**\*_high-contrast*.svg" Exclude="Assets\icons\**" />
+			<ObjectsHighContrastAssetsCandidates Include="Assets\emojis\Objects\**\h.svg" Exclude="Assets\icons\**" />
 			<ObjectsHighContrastAssetsCandidates>
 				<RelativePath>emojis\Objects\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</ObjectsHighContrastAssetsCandidates>
 
-			<People_BodyColorAssetsCandidates Include="Assets\emojis\People_Body\**\*_color*.svg" Exclude="Assets\icons\**" />
+			<People_BodyColorAssetsCandidates Include="Assets\emojis\People_Body\**\c.svg" Exclude="Assets\icons\**" />
 			<People_BodyColorAssetsCandidates>
 				<RelativePath>emojis\People_Body\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</People_BodyColorAssetsCandidates>
-			<People_BodyFlatAssetsCandidates Include="Assets\emojis\People_Body\**\*_flat*.svg" Exclude="Assets\icons\**" />
+			<People_BodyFlatAssetsCandidates Include="Assets\emojis\People_Body\**\f.svg" Exclude="Assets\icons\**" />
 			<People_BodyFlatAssetsCandidates>
 				<RelativePath>emojis\People_Body\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</People_BodyFlatAssetsCandidates>
-			<People_BodyHighContrastAssetsCandidates Include="Assets\emojis\People_Body\**\*_high-contrast*.svg" Exclude="Assets\icons\**" />
+			<People_BodyHighContrastAssetsCandidates Include="Assets\emojis\People_Body\**\h.svg" Exclude="Assets\icons\**" />
 			<People_BodyHighContrastAssetsCandidates>
 				<RelativePath>emojis\People_Body\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</People_BodyHighContrastAssetsCandidates>
 
-			<Smileys_EmotionColorAssetsCandidates Include="Assets\emojis\Smileys_Emotion\**\*_color*.svg" Exclude="Assets\icons\**" />
+			<Smileys_EmotionColorAssetsCandidates Include="Assets\emojis\Smileys_Emotion\**\c.svg" Exclude="Assets\icons\**" />
 			<Smileys_EmotionColorAssetsCandidates>
 				<RelativePath>emojis\Smileys_Emotion\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Smileys_EmotionColorAssetsCandidates>
-			<Smileys_EmotionFlatAssetsCandidates Include="Assets\emojis\Smileys_Emotion\**\*_flat*.svg" Exclude="Assets\icons\**" />
+			<Smileys_EmotionFlatAssetsCandidates Include="Assets\emojis\Smileys_Emotion\**\f.svg" Exclude="Assets\icons\**" />
 			<Smileys_EmotionFlatAssetsCandidates>
 				<RelativePath>emojis\Smileys_Emotion\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Smileys_EmotionFlatAssetsCandidates>
-			<Smileys_EmotionHighContrastAssetsCandidates Include="Assets\emojis\Smileys_Emotion\**\*_high-contrast*.svg" Exclude="Assets\icons\**" />
+			<Smileys_EmotionHighContrastAssetsCandidates Include="Assets\emojis\Smileys_Emotion\**\h.svg" Exclude="Assets\icons\**" />
 			<Smileys_EmotionHighContrastAssetsCandidates>
 				<RelativePath>emojis\Smileys_Emotion\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Smileys_EmotionHighContrastAssetsCandidates>
 
-			<SymbolsColorAssetsCandidates Include="Assets\emojis\Symbols\**\*_color*.svg" Exclude="Assets\icons\**" />
+			<SymbolsColorAssetsCandidates Include="Assets\emojis\Symbols\**\c.svg" Exclude="Assets\icons\**" />
 			<SymbolsColorAssetsCandidates>
 				<RelativePath>emojis\Symbols\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</SymbolsColorAssetsCandidates>
-			<SymbolsFlatAssetsCandidates Include="Assets\emojis\Symbols\**\*_flat*.svg" Exclude="Assets\icons\**" />
+			<SymbolsFlatAssetsCandidates Include="Assets\emojis\Symbols\**\f.svg" Exclude="Assets\icons\**" />
 			<SymbolsFlatAssetsCandidates>
 				<RelativePath>emojis\Symbols\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</SymbolsFlatAssetsCandidates>
-			<SymbolsHighContrastAssetsCandidates Include="Assets\emojis\Symbols\**\*_high-contrast*.svg" Exclude="Assets\icons\**" />
+			<SymbolsHighContrastAssetsCandidates Include="Assets\emojis\Symbols\**\h.svg" Exclude="Assets\icons\**" />
 			<SymbolsHighContrastAssetsCandidates>
 				<RelativePath>emojis\Symbols\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</SymbolsHighContrastAssetsCandidates>
 
-			<Travel_PlacesColorAssetsCandidates Include="Assets\emojis\Travel_Places\**\*_color*.svg" Exclude="Assets\icons\**" />
+			<Travel_PlacesColorAssetsCandidates Include="Assets\emojis\Travel_Places\**\c.svg" Exclude="Assets\icons\**" />
 			<Travel_PlacesColorAssetsCandidates>
 				<RelativePath>emojis\Travel_Places\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Travel_PlacesColorAssetsCandidates>
-			<Travel_PlacesFlatAssetsCandidates Include="Assets\emojis\Travel_Places\**\*_flat*.svg" Exclude="Assets\icons\**" />
+			<Travel_PlacesFlatAssetsCandidates Include="Assets\emojis\Travel_Places\**\f.svg" Exclude="Assets\icons\**" />
 			<Travel_PlacesFlatAssetsCandidates>
 				<RelativePath>emojis\Travel_Places\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Travel_PlacesFlatAssetsCandidates>
-			<Travel_PlacesHighContrastAssetsCandidates Include="Assets\emojis\Travel_Places\**\*_high-contrast*.svg" Exclude="Assets\icons\**" />
+			<Travel_PlacesHighContrastAssetsCandidates Include="Assets\emojis\Travel_Places\**\h.svg" Exclude="Assets\icons\**" />
 			<Travel_PlacesHighContrastAssetsCandidates>
 				<RelativePath>emojis\Travel_Places\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Travel_PlacesHighContrastAssetsCandidates>

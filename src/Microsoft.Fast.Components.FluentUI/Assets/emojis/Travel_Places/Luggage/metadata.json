@@ -1,12 +1,11 @@
 {
-  "basefilename": "luggage",
   "cldr": "luggage",
   "fromVersion": "11.0",
-  "glyph": "\uD83E\uDDF3",
+  "glyph": "🧳",
   "glyphAsUtfInEmoticons": [
     "1f9f3_luggage"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "luggage",
     "packing",
@@ -16,6 +15,5 @@
     "1f9f3_luggage"
   ],
   "tts": "luggage",
-  "unicode": "1f9f3",
-  "unicodeSkintones": null
+  "unicode": "1f9f3"
 }

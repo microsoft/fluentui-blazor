@@ -1,8 +1,7 @@
 {
-  "basefilename": "chart_increasing_with_yen",
   "cldr": "chart increasing with yen",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCB9",
+  "glyph": "💹",
   "glyphAsUtfInEmoticons": [
     "1f4b9_yengraph"
   ],
@@ -19,6 +18,5 @@
     "1f4b9_yengraph"
   ],
   "tts": "chart increasing with yen",
-  "unicode": "1f4b9",
-  "unicodeSkintones": null
+  "unicode": "1f4b9"
 }

@@ -1,12 +1,11 @@
 {
-  "basefilename": "sleepy_face",
   "cldr": "sleepy face",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDE2A",
+  "glyph": "😪",
   "glyphAsUtfInEmoticons": [
     "sleepy"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "face",
     "sleep",
@@ -16,6 +15,5 @@
     "sleepy"
   ],
   "tts": "sleepy face",
-  "unicode": "1f62a",
-  "unicodeSkintones": null
+  "unicode": "1f62a"
 }

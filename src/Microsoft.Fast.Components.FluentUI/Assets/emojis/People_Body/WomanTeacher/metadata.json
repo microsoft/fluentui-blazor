@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_teacher",
   "cldr": "woman teacher",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDC69\u200D\uD83C\uDFEB",
+  "glyph": "👩‍🏫",
   "glyphAsUtfInEmoticons": [
     "womanteacher"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "instructor",
     "professor",

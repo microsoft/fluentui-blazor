@@ -1,12 +1,11 @@
 {
-  "basefilename": "pile_of_poo",
   "cldr": "pile of poo",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCA9",
+  "glyph": "💩",
   "glyphAsUtfInEmoticons": [
     "poop"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "dung",
     "face",
@@ -19,6 +18,5 @@
     "poop"
   ],
   "tts": "pile of poo",
-  "unicode": "1f4a9",
-  "unicodeSkintones": null
+  "unicode": "1f4a9"
 }

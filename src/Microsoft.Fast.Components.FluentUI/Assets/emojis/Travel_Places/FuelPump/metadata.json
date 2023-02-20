@@ -1,12 +1,11 @@
 {
-  "basefilename": "fuel_pump",
   "cldr": "fuel pump",
   "fromVersion": "0.6",
-  "glyph": "\u26FD",
+  "glyph": "⛽",
   "glyphAsUtfInEmoticons": [
     "26fd_fuelpump"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "diesel",
     "fuel",
@@ -19,6 +18,5 @@
     "26fd_fuelpump"
   ],
   "tts": "fuel pump",
-  "unicode": "26fd",
-  "unicodeSkintones": null
+  "unicode": "26fd"
 }

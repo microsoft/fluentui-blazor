@@ -1,12 +1,11 @@
 {
-  "basefilename": "police_car_light",
   "cldr": "police car light",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDEA8",
+  "glyph": "🚨",
   "glyphAsUtfInEmoticons": [
     "1f6a8_policecarsrevolvinglight"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "beacon",
     "car",
@@ -18,6 +17,5 @@
     "1f6a8_policecarsrevolvinglight"
   ],
   "tts": "police car light",
-  "unicode": "1f6a8",
-  "unicodeSkintones": null
+  "unicode": "1f6a8"
 }

@@ -1,8 +1,7 @@
 {
-  "basefilename": "drum",
   "cldr": "drum",
   "fromVersion": "3.0",
-  "glyph": "\uD83E\uDD41",
+  "glyph": "🥁",
   "glyphAsUtfInEmoticons": [
     "1f941_drumwithdrumsticks"
   ],
@@ -16,6 +15,5 @@
     "1f941_drumwithdrumsticks"
   ],
   "tts": "drum",
-  "unicode": "1f941",
-  "unicodeSkintones": null
+  "unicode": "1f941"
 }

@@ -1,8 +1,7 @@
 {
-  "basefilename": "black_large_square",
   "cldr": "black large square",
   "fromVersion": "0.6",
-  "glyph": "\u2B1B",
+  "glyph": "⬛",
   "glyphAsUtfInEmoticons": [
     "2b1b_blacklargesquare"
   ],
@@ -16,6 +15,5 @@
     "2b1b_blacklargesquare"
   ],
   "tts": "black large square",
-  "unicode": "2b1b",
-  "unicodeSkintones": null
+  "unicode": "2b1b"
 }

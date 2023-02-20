@@ -1,8 +1,7 @@
 {
-  "basefilename": "round_pushpin",
   "cldr": "round pushpin",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCCD",
+  "glyph": "📍",
   "glyphAsUtfInEmoticons": [
     "1f4cd_roundpushpin"
   ],
@@ -16,6 +15,5 @@
     "1f4cd_roundpushpin"
   ],
   "tts": "round pushpin",
-  "unicode": "1f4cd",
-  "unicodeSkintones": null
+  "unicode": "1f4cd"
 }

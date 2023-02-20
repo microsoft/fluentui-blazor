@@ -1,12 +1,11 @@
 {
-  "basefilename": "person_frowning",
   "cldr": "person frowning",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDE4D",
+  "glyph": "🙍",
   "glyphAsUtfInEmoticons": [
     "frowning"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "frown",
     "gesture",

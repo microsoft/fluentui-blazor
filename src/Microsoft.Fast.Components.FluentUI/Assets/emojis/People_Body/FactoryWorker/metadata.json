@@ -1,10 +1,8 @@
 {
-  "basefilename": "factory_worker",
   "cldr": "factory worker",
   "fromVersion": "12.1",
-  "glyph": "\uD83E\uDDD1\u200D\uD83C\uDFED",
-  "glyphAsUtfInEmoticons": null,
-  "group": "People \u0026 Body",
+  "glyph": "🧑‍🏭",
+  "group": "People & Body",
   "keywords": [
     "assembly",
     "factory",

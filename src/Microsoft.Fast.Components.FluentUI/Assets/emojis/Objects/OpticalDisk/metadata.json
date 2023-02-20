@@ -1,8 +1,7 @@
 {
-  "basefilename": "optical_disk",
   "cldr": "optical disk",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCBF",
+  "glyph": "💿",
   "glyphAsUtfInEmoticons": [
     "1f4bf_opticaldisc"
   ],
@@ -17,6 +16,5 @@
     "1f4bf_opticaldisc"
   ],
   "tts": "optical disk",
-  "unicode": "1f4bf",
-  "unicodeSkintones": null
+  "unicode": "1f4bf"
 }

@@ -1,12 +1,11 @@
 {
-  "basefilename": "airplane_departure",
   "cldr": "airplane departure",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDEEB",
+  "glyph": "🛫",
   "glyphAsUtfInEmoticons": [
     "1f6eb_airplanedeparture"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "aeroplane",
     "airplane",
@@ -18,6 +17,5 @@
     "1f6eb_airplanedeparture"
   ],
   "tts": "airplane departure",
-  "unicode": "1f6eb",
-  "unicodeSkintones": null
+  "unicode": "1f6eb"
 }

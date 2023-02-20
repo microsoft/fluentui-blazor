@@ -1,8 +1,7 @@
 {
-  "basefilename": "basket",
   "cldr": "basket",
   "fromVersion": "11.0",
-  "glyph": "\uD83E\uDDFA",
+  "glyph": "🧺",
   "glyphAsUtfInEmoticons": [
     "1f9fa_basket"
   ],
@@ -17,6 +16,5 @@
     "1f9fa_basket"
   ],
   "tts": "basket",
-  "unicode": "1f9fa",
-  "unicodeSkintones": null
+  "unicode": "1f9fa"
 }

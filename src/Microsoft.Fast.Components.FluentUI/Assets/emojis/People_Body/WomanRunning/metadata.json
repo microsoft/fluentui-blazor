@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_running",
   "cldr": "woman running",
   "fromVersion": "4.0",
-  "glyph": "\uD83C\uDFC3\u200D\u2640\uFE0F",
+  "glyph": "🏃‍♀️",
   "glyphAsUtfInEmoticons": [
     "running"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "marathon",
     "racing",

@@ -1,8 +1,7 @@
 {
-  "basefilename": "womens_room",
-  "cldr": "women\u2019s room",
+  "cldr": "women’s room",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDEBA",
+  "glyph": "🚺",
   "glyphAsUtfInEmoticons": [
     "1f6ba_womenssymbol"
   ],
@@ -12,12 +11,11 @@
     "restroom",
     "wc",
     "woman",
-    "women\u2019s room"
+    "women’s room"
   ],
   "mappedToEmoticons": [
     "1f6ba_womenssymbol"
   ],
-  "tts": "women\u2019s room",
-  "unicode": "1f6ba",
-  "unicodeSkintones": null
+  "tts": "women’s room",
+  "unicode": "1f6ba"
 }

@@ -1,12 +1,11 @@
 {
-  "basefilename": "person_white_hair",
   "cldr": "person: white hair",
   "fromVersion": "12.1",
-  "glyph": "\uD83E\uDDD1\u200D\uD83E\uDDB3",
+  "glyph": "🧑‍🦳",
   "glyphAsUtfInEmoticons": [
     "personwhitehair"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "adult",
     "gender-neutral",

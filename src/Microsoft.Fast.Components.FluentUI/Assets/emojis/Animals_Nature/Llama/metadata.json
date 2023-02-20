@@ -1,23 +1,21 @@
 {
-  "basefilename": "llama",
   "cldr": "llama",
   "fromVersion": "11.0",
-  "glyph": "\uD83E\uDD99",
+  "glyph": "🦙",
   "glyphAsUtfInEmoticons": [
     "1f999_llama"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "alpaca",
     "guanaco",
     "llama",
-    "vicu\u00F1a",
+    "vicuña",
     "wool"
   ],
   "mappedToEmoticons": [
     "1f999_llama"
   ],
   "tts": "llama",
-  "unicode": "1f999",
-  "unicodeSkintones": null
+  "unicode": "1f999"
 }

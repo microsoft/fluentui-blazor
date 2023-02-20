@@ -1,12 +1,11 @@
 {
-  "basefilename": "man_facepalming",
   "cldr": "man facepalming",
   "fromVersion": "4.0",
-  "glyph": "\uD83E\uDD26\u200D\u2642\uFE0F",
+  "glyph": "🤦‍♂️",
   "glyphAsUtfInEmoticons": [
     "manfacepalming"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "disbelief",
     "exasperation",

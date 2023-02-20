@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_kneeling",
   "cldr": "woman kneeling",
   "fromVersion": "12.0",
-  "glyph": "\uD83E\uDDCE\u200D\u2640\uFE0F",
+  "glyph": "🧎‍♀️",
   "glyphAsUtfInEmoticons": [
     "woman_kneeling"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "kneeling",
     "woman"

@@ -1,12 +1,11 @@
 {
-  "basefilename": "beer_mug",
   "cldr": "beer mug",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF7A",
+  "glyph": "🍺",
   "glyphAsUtfInEmoticons": [
     "beer"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "bar",
     "beer",
@@ -17,6 +16,5 @@
     "beer"
   ],
   "tts": "beer mug",
-  "unicode": "1f37a",
-  "unicodeSkintones": null
+  "unicode": "1f37a"
 }

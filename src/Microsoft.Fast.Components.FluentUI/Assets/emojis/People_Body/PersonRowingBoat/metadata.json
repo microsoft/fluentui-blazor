@@ -1,12 +1,11 @@
 {
-  "basefilename": "person_rowing_boat",
   "cldr": "person rowing boat",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDEA3",
+  "glyph": "🚣",
   "glyphAsUtfInEmoticons": [
     "row_boat"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "boat",
     "person rowing boat",

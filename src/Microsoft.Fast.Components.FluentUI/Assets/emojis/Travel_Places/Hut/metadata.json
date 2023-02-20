@@ -1,12 +1,11 @@
 {
-  "basefilename": "hut",
   "cldr": "hut",
   "fromVersion": "13.0",
-  "glyph": "\uD83D\uDED6",
+  "glyph": "🛖",
   "glyphAsUtfInEmoticons": [
     "hut"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "house",
     "hut",
@@ -17,6 +16,5 @@
     "hut"
   ],
   "tts": "hut",
-  "unicode": "1f6d6",
-  "unicodeSkintones": null
+  "unicode": "1f6d6"
 }

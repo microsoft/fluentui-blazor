@@ -1,8 +1,7 @@
 {
-  "basefilename": "prohibited",
   "cldr": "prohibited",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDEAB",
+  "glyph": "🚫",
   "glyphAsUtfInEmoticons": [
     "1f6ab_noentrysign"
   ],
@@ -18,6 +17,5 @@
     "1f6ab_noentrysign"
   ],
   "tts": "prohibited",
-  "unicode": "1f6ab",
-  "unicodeSkintones": null
+  "unicode": "1f6ab"
 }

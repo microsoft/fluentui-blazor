@@ -1,8 +1,7 @@
 {
-  "basefilename": "double_exclamation_mark",
   "cldr": "double exclamation mark",
   "fromVersion": "0.6",
-  "glyph": "\u203C\uFE0F",
+  "glyph": "‼️",
   "glyphAsUtfInEmoticons": [
     "203c_doubleexclamationmark"
   ],
@@ -19,6 +18,5 @@
     "203c_doubleexclamationmark"
   ],
   "tts": "double exclamation mark",
-  "unicode": "203c fe0f",
-  "unicodeSkintones": null
+  "unicode": "203c fe0f"
 }

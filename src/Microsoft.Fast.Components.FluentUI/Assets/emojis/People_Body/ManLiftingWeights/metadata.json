@@ -1,12 +1,11 @@
 {
-  "basefilename": "man_lifting_weights",
   "cldr": "man lifting weights",
   "fromVersion": "4.0",
-  "glyph": "\uD83C\uDFCB\uFE0F\u200D\u2642\uFE0F",
+  "glyph": "🏋️‍♂️",
   "glyphAsUtfInEmoticons": [
     "manliftingweights"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "man",
     "man lifting weights",

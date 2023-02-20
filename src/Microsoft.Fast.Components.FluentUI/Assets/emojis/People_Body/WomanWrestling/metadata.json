@@ -1,19 +1,16 @@
 {
-  "basefilename": "woman_wrestling",
   "cldr": "women wrestling",
   "fromVersion": "4.0",
-  "glyph": "\uD83E\uDD3C\u200D\u2640\uFE0F",
+  "glyph": "🤼‍♀️",
   "glyphAsUtfInEmoticons": [
     "woman_wrestling"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "women",
     "women wrestling",
     "wrestle"
   ],
-  "mappedToEmoticons": null,
   "tts": "women wrestling",
-  "unicode": "1f93c 200d 2640 fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f93c 200d 2640 fe0f"
 }

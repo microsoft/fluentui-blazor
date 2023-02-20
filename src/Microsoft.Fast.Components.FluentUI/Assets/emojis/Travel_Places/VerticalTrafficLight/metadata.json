@@ -1,12 +1,11 @@
 {
-  "basefilename": "vertical_traffic_light",
   "cldr": "vertical traffic light",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDEA6",
+  "glyph": "🚦",
   "glyphAsUtfInEmoticons": [
     "1f6a6_verticaltrafficlight"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "light",
     "signal",
@@ -17,6 +16,5 @@
     "1f6a6_verticaltrafficlight"
   ],
   "tts": "vertical traffic light",
-  "unicode": "1f6a6",
-  "unicodeSkintones": null
+  "unicode": "1f6a6"
 }

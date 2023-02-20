@@ -1,12 +1,11 @@
 {
-  "basefilename": "person_fencing",
   "cldr": "person fencing",
   "fromVersion": "3.0",
-  "glyph": "\uD83E\uDD3A",
+  "glyph": "🤺",
   "glyphAsUtfInEmoticons": [
     "womanfencer"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "fencer",
     "fencing",
@@ -17,6 +16,5 @@
     "womanfencer"
   ],
   "tts": "person fencing",
-  "unicode": "1f93a",
-  "unicodeSkintones": null
+  "unicode": "1f93a"
 }

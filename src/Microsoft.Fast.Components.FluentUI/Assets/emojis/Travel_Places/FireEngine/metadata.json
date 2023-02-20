@@ -1,12 +1,11 @@
 {
-  "basefilename": "fire_engine",
   "cldr": "fire engine",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDE92",
+  "glyph": "🚒",
   "glyphAsUtfInEmoticons": [
     "1f692_fireengine"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "engine",
     "fire",
@@ -16,6 +15,5 @@
     "1f692_fireengine"
   ],
   "tts": "fire engine",
-  "unicode": "1f692",
-  "unicodeSkintones": null
+  "unicode": "1f692"
 }

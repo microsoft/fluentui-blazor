@@ -1,12 +1,11 @@
 {
-  "basefilename": "bento_box",
   "cldr": "bento box",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF71",
+  "glyph": "🍱",
   "glyphAsUtfInEmoticons": [
     "1f371_bentobox"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "bento",
     "box"
@@ -15,6 +14,5 @@
     "1f371_bentobox"
   ],
   "tts": "bento box",
-  "unicode": "1f371",
-  "unicodeSkintones": null
+  "unicode": "1f371"
 }

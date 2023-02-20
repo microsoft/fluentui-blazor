@@ -1,12 +1,11 @@
 {
-  "basefilename": "collision",
   "cldr": "collision",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCA5",
+  "glyph": "💥",
   "glyphAsUtfInEmoticons": [
     "1f4a5_collisionsymbol"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "boom",
     "collision",
@@ -16,6 +15,5 @@
     "1f4a5_collisionsymbol"
   ],
   "tts": "collision",
-  "unicode": "1f4a5",
-  "unicodeSkintones": null
+  "unicode": "1f4a5"
 }

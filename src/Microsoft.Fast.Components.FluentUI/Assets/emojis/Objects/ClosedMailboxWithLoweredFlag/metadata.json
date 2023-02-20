@@ -1,8 +1,7 @@
 {
-  "basefilename": "closed_mailbox_with_lowered_flag",
   "cldr": "closed mailbox with lowered flag",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCEA",
+  "glyph": "📪",
   "glyphAsUtfInEmoticons": [
     "1f4ea_mailboxclosedflagdown"
   ],
@@ -19,6 +18,5 @@
     "1f4ea_mailboxclosedflagdown"
   ],
   "tts": "closed mailbox with lowered flag",
-  "unicode": "1f4ea",
-  "unicodeSkintones": null
+  "unicode": "1f4ea"
 }

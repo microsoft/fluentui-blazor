@@ -1,12 +1,11 @@
 {
-  "basefilename": "person_vampire",
   "cldr": "vampire",
   "fromVersion": "5.0",
-  "glyph": "\uD83E\uDDDB",
+  "glyph": "🧛",
   "glyphAsUtfInEmoticons": [
     "ladyvampire"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "Dracula",
     "undead",

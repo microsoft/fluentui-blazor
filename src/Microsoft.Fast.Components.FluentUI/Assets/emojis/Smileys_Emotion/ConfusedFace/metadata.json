@@ -1,12 +1,11 @@
 {
-  "basefilename": "confused_face",
   "cldr": "confused face",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDE15",
+  "glyph": "😕",
   "glyphAsUtfInEmoticons": [
     "confused"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "confused",
     "face",
@@ -16,6 +15,5 @@
     "confused"
   ],
   "tts": "confused face",
-  "unicode": "1f615",
-  "unicodeSkintones": null
+  "unicode": "1f615"
 }

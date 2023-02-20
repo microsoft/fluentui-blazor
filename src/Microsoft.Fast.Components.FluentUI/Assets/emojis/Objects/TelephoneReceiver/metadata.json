@@ -1,9 +1,7 @@
 {
-  "basefilename": "telephone_receiver",
   "cldr": "telephone receiver",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCDE",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "📞",
   "group": "Objects",
   "keywords": [
     "phone",
@@ -14,6 +12,5 @@
     "telephonereceiver"
   ],
   "tts": "telephone receiver",
-  "unicode": "1f4de",
-  "unicodeSkintones": null
+  "unicode": "1f4de"
 }

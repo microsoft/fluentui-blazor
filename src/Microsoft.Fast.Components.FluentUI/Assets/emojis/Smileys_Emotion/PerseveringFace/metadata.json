@@ -1,12 +1,11 @@
 {
-  "basefilename": "persevering_face",
   "cldr": "persevering face",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDE23",
+  "glyph": "😣",
   "glyphAsUtfInEmoticons": [
     "1f623_perseveringface"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "face",
     "persevere",
@@ -16,6 +15,5 @@
     "1f623_perseveringface"
   ],
   "tts": "persevering face",
-  "unicode": "1f623",
-  "unicodeSkintones": null
+  "unicode": "1f623"
 }

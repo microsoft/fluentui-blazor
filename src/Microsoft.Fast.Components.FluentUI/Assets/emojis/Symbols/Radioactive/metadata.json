@@ -1,8 +1,7 @@
 {
-  "basefilename": "radioactive",
   "cldr": "radioactive",
   "fromVersion": "1.0",
-  "glyph": "\u2622\uFE0F",
+  "glyph": "☢️",
   "glyphAsUtfInEmoticons": [
     "2622_radioactivesign"
   ],
@@ -15,6 +14,5 @@
     "2622_radioactivesign"
   ],
   "tts": "radioactive",
-  "unicode": "2622 fe0f",
-  "unicodeSkintones": null
+  "unicode": "2622 fe0f"
 }

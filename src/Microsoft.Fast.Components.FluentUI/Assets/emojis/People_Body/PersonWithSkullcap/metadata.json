@@ -1,12 +1,11 @@
 {
-  "basefilename": "person_with_skullcap",
   "cldr": "person with skullcap",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC72",
+  "glyph": "👲",
   "glyphAsUtfInEmoticons": [
     "man_with_chinese_cap"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "cap",
     "gua pi mao",

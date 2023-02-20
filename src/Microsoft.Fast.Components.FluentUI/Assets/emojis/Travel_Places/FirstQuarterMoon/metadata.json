@@ -1,12 +1,11 @@
 {
-  "basefilename": "first_quarter_moon",
   "cldr": "first quarter moon",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF13",
+  "glyph": "🌓",
   "glyphAsUtfInEmoticons": [
     "1f313_firstquartermoonsymbol"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "first quarter moon",
     "moon",
@@ -16,6 +15,5 @@
     "1f313_firstquartermoonsymbol"
   ],
   "tts": "first quarter moon",
-  "unicode": "1f313",
-  "unicodeSkintones": null
+  "unicode": "1f313"
 }

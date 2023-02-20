@@ -1,12 +1,11 @@
 {
-  "basefilename": "man_police_officer",
   "cldr": "man police officer",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDC6E\u200D\u2642\uFE0F",
+  "glyph": "👮‍♂️",
   "glyphAsUtfInEmoticons": [
     "manpoliceofficer"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "cop",
     "man",

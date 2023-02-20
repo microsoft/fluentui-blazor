@@ -1,8 +1,7 @@
 {
-  "basefilename": "magic_wand",
   "cldr": "magic wand",
   "fromVersion": "13.0",
-  "glyph": "\uD83E\uDE84",
+  "glyph": "🪄",
   "glyphAsUtfInEmoticons": [
     "magicwand"
   ],
@@ -17,6 +16,5 @@
     "magicwand"
   ],
   "tts": "magic wand",
-  "unicode": "1fa84",
-  "unicodeSkintones": null
+  "unicode": "1fa84"
 }

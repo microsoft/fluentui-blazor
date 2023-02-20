@@ -1,8 +1,7 @@
 {
-  "basefilename": "latin_cross",
   "cldr": "latin cross",
   "fromVersion": "0.7",
-  "glyph": "\u271D\uFE0F",
+  "glyph": "✝️",
   "glyphAsUtfInEmoticons": [
     "271d_latincross"
   ],
@@ -17,6 +16,5 @@
     "271d_latincross"
   ],
   "tts": "latin cross",
-  "unicode": "271d fe0f",
-  "unicodeSkintones": null
+  "unicode": "271d fe0f"
 }

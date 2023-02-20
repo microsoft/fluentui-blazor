@@ -1,8 +1,7 @@
 {
-  "basefilename": "briefcase",
   "cldr": "briefcase",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCBC",
+  "glyph": "💼",
   "glyphAsUtfInEmoticons": [
     "1f4bc_briefcase"
   ],
@@ -14,6 +13,5 @@
     "1f4bc_briefcase"
   ],
   "tts": "briefcase",
-  "unicode": "1f4bc",
-  "unicodeSkintones": null
+  "unicode": "1f4bc"
 }

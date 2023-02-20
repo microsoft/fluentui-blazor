@@ -1,12 +1,11 @@
 {
-  "basefilename": "fearful_face",
   "cldr": "fearful face",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDE28",
+  "glyph": "😨",
   "glyphAsUtfInEmoticons": [
     "fearful"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "face",
     "fear",
@@ -17,6 +16,5 @@
     "fearful"
   ],
   "tts": "fearful face",
-  "unicode": "1f628",
-  "unicodeSkintones": null
+  "unicode": "1f628"
 }

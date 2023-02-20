@@ -1,8 +1,7 @@
 {
-  "basefilename": "tennis",
   "cldr": "tennis",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDFBE",
+  "glyph": "🎾",
   "glyphAsUtfInEmoticons": [
     "tennisball",
     "tennisfail"
@@ -17,6 +16,5 @@
     "tennisball"
   ],
   "tts": "tennis",
-  "unicode": "1f3be",
-  "unicodeSkintones": null
+  "unicode": "1f3be"
 }

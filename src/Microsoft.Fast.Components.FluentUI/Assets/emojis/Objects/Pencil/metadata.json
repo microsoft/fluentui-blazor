@@ -1,9 +1,7 @@
 {
-  "basefilename": "pencil",
   "cldr": "pencil",
   "fromVersion": "0.6",
-  "glyph": "\u270F\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "✏️",
   "group": "Objects",
   "keywords": [
     "pencil"
@@ -12,6 +10,5 @@
     "270f_pencil"
   ],
   "tts": "pencil",
-  "unicode": "270f fe0f",
-  "unicodeSkintones": null
+  "unicode": "270f fe0f"
 }

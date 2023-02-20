@@ -1,12 +1,11 @@
 {
-  "basefilename": "cooked_rice",
   "cldr": "cooked rice",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF5A",
+  "glyph": "🍚",
   "glyphAsUtfInEmoticons": [
     "1f35a_cookedrice"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "cooked",
     "rice"
@@ -15,6 +14,5 @@
     "1f35a_cookedrice"
   ],
   "tts": "cooked rice",
-  "unicode": "1f35a",
-  "unicodeSkintones": null
+  "unicode": "1f35a"
 }

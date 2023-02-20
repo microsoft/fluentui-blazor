@@ -1,12 +1,11 @@
 {
-  "basefilename": "raising_hands",
   "cldr": "raising hands",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDE4C",
+  "glyph": "🙌",
   "glyphAsUtfInEmoticons": [
     "handsinair"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "celebration",
     "gesture",

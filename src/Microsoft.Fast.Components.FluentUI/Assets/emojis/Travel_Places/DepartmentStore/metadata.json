@@ -1,12 +1,11 @@
 {
-  "basefilename": "department_store",
   "cldr": "department store",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDFEC",
+  "glyph": "🏬",
   "glyphAsUtfInEmoticons": [
     "1f3ec_departmentstore"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "department",
     "store"
@@ -15,6 +14,5 @@
     "1f3ec_departmentstore"
   ],
   "tts": "department store",
-  "unicode": "1f3ec",
-  "unicodeSkintones": null
+  "unicode": "1f3ec"
 }

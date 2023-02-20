@@ -1,8 +1,7 @@
 {
-  "basefilename": "handbag",
   "cldr": "handbag",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC5C",
+  "glyph": "👜",
   "glyphAsUtfInEmoticons": [
     "1f45c_handbag"
   ],
@@ -17,6 +16,5 @@
     "1f45c_handbag"
   ],
   "tts": "handbag",
-  "unicode": "1f45c",
-  "unicodeSkintones": null
+  "unicode": "1f45c"
 }

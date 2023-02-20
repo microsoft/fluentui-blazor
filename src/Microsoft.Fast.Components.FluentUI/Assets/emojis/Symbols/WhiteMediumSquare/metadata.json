@@ -1,8 +1,7 @@
 {
-  "basefilename": "white_medium_square",
   "cldr": "white medium square",
   "fromVersion": "0.6",
-  "glyph": "\u25FB\uFE0F",
+  "glyph": "◻️",
   "glyphAsUtfInEmoticons": [
     "25fb_whitemediumsquare"
   ],
@@ -16,6 +15,5 @@
     "25fb_whitemediumsquare"
   ],
   "tts": "white medium square",
-  "unicode": "25fb fe0f",
-  "unicodeSkintones": null
+  "unicode": "25fb fe0f"
 }

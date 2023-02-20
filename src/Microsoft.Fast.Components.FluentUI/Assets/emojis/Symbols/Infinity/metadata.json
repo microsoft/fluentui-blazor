@@ -1,8 +1,7 @@
 {
-  "basefilename": "infinity",
   "cldr": "infinity",
   "fromVersion": "11.0",
-  "glyph": "\u267E\uFE0F",
+  "glyph": "♾️",
   "glyphAsUtfInEmoticons": [
     "267e_infinity"
   ],
@@ -17,6 +16,5 @@
     "267e_infinity"
   ],
   "tts": "infinity",
-  "unicode": "267e fe0f",
-  "unicodeSkintones": null
+  "unicode": "267e fe0f"
 }

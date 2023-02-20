@@ -1,12 +1,11 @@
 {
-  "basefilename": "birthday_cake",
   "cldr": "birthday cake",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF82",
+  "glyph": "🎂",
   "glyphAsUtfInEmoticons": [
     "cake"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "birthday",
     "cake",
@@ -19,6 +18,5 @@
     "cake"
   ],
   "tts": "birthday cake",
-  "unicode": "1f382",
-  "unicodeSkintones": null
+  "unicode": "1f382"
 }

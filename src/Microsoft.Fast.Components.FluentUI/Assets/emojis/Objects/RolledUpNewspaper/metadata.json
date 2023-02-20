@@ -1,9 +1,7 @@
 {
-  "basefilename": "rolled-up_newspaper",
   "cldr": "rolled-up newspaper",
   "fromVersion": "0.7",
-  "glyph": "\uD83D\uDDDE\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "🗞️",
   "group": "Objects",
   "keywords": [
     "news",
@@ -16,6 +14,5 @@
     "1f5de_rolledupnewspaper"
   ],
   "tts": "rolled-up newspaper",
-  "unicode": "1f5de fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f5de fe0f"
 }

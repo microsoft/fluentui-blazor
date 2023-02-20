@@ -1,13 +1,12 @@
 {
-  "basefilename": "fallen_leaf",
   "cldr": "fallen leaf",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF42",
+  "glyph": "🍂",
   "glyphAsUtfInEmoticons": [
     "1f342_fallenleaf",
     "fallingleaf"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "fallen leaf",
     "falling",
@@ -17,6 +16,5 @@
     "1f342_fallenleaf"
   ],
   "tts": "fallen leaf",
-  "unicode": "1f342",
-  "unicodeSkintones": null
+  "unicode": "1f342"
 }

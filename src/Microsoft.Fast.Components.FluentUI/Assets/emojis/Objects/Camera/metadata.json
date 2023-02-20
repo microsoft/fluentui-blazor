@@ -1,8 +1,7 @@
 {
-  "basefilename": "camera",
   "cldr": "camera",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCF7",
+  "glyph": "📷",
   "glyphAsUtfInEmoticons": [
     "1f4f7_camera",
     "priidu"
@@ -16,6 +15,5 @@
     "1f4f7_camera"
   ],
   "tts": "camera",
-  "unicode": "1f4f7",
-  "unicodeSkintones": null
+  "unicode": "1f4f7"
 }

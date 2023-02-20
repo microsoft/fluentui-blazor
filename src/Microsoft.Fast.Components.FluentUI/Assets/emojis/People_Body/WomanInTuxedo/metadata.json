@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_in_tuxedo",
   "cldr": "woman in tuxedo",
   "fromVersion": "13.0",
-  "glyph": "\uD83E\uDD35\u200D\u2640\uFE0F",
+  "glyph": "🤵‍♀️",
   "glyphAsUtfInEmoticons": [
     "womanintuxedo"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "tuxedo",
     "woman",

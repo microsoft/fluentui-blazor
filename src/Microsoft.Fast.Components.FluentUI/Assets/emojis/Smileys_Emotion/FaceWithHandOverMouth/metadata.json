@@ -1,12 +1,11 @@
 {
-  "basefilename": "face_with_hand_over_mouth",
   "cldr": "face with hand over mouth",
   "fromVersion": "5.0",
-  "glyph": "\uD83E\uDD2D",
+  "glyph": "🤭",
   "glyphAsUtfInEmoticons": [
     "giggle"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "face with hand over mouth",
     "whoops"
@@ -15,6 +14,5 @@
     "giggle"
   ],
   "tts": "face with hand over mouth",
-  "unicode": "1f92d",
-  "unicodeSkintones": null
+  "unicode": "1f92d"
 }

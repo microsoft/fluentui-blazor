@@ -1,10 +1,8 @@
 {
-  "basefilename": "snowman",
   "cldr": "snowman",
   "fromVersion": "0.7",
-  "glyph": "\u2603\uFE0F",
-  "glyphAsUtfInEmoticons": null,
-  "group": "Travel \u0026 Places",
+  "glyph": "☃️",
+  "group": "Travel & Places",
   "keywords": [
     "cold",
     "snow",
@@ -14,6 +12,5 @@
     "snegovik"
   ],
   "tts": "snowman",
-  "unicode": "2603 fe0f",
-  "unicodeSkintones": null
+  "unicode": "2603 fe0f"
 }

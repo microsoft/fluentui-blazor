@@ -1,12 +1,11 @@
 {
-  "basefilename": "oncoming_taxi",
   "cldr": "oncoming taxi",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDE96",
+  "glyph": "🚖",
   "glyphAsUtfInEmoticons": [
     "1f696_oncomingtaxi"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "oncoming",
     "taxi"
@@ -15,6 +14,5 @@
     "1f696_oncomingtaxi"
   ],
   "tts": "oncoming taxi",
-  "unicode": "1f696",
-  "unicodeSkintones": null
+  "unicode": "1f696"
 }

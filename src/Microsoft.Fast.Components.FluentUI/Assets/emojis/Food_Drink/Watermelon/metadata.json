@@ -1,12 +1,11 @@
 {
-  "basefilename": "watermelon",
   "cldr": "watermelon",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF49",
+  "glyph": "🍉",
   "glyphAsUtfInEmoticons": [
     "watermelon"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "fruit",
     "watermelon"
@@ -15,6 +14,5 @@
     "watermelon"
   ],
   "tts": "watermelon",
-  "unicode": "1f349",
-  "unicodeSkintones": null
+  "unicode": "1f349"
 }

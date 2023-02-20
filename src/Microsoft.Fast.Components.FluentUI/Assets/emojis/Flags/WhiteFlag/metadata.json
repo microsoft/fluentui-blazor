@@ -1,16 +1,12 @@
 {
-  "basefilename": "white_flag",
   "cldr": "white flag",
   "fromVersion": "0.7",
-  "glyph": "\uD83C\uDFF3\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "🏳️",
   "group": "Flags",
   "keywords": [
     "waving",
     "white flag"
   ],
-  "mappedToEmoticons": null,
   "tts": "white flag",
-  "unicode": "1f3f3 fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f3f3 fe0f"
 }

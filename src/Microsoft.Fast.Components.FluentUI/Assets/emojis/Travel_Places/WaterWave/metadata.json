@@ -1,13 +1,12 @@
 {
-  "basefilename": "water_wave",
   "cldr": "water wave",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF0A",
+  "glyph": "🌊",
   "glyphAsUtfInEmoticons": [
     "1f30a_waterwave",
     "wave"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "ocean",
     "water",
@@ -17,6 +16,5 @@
     "1f30a_waterwave"
   ],
   "tts": "water wave",
-  "unicode": "1f30a",
-  "unicodeSkintones": null
+  "unicode": "1f30a"
 }

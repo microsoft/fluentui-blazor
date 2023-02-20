@@ -1,12 +1,11 @@
 {
-  "basefilename": "koala",
   "cldr": "koala",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC28",
+  "glyph": "🐨",
   "glyphAsUtfInEmoticons": [
     "koala"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "koala",
     "face",
@@ -16,6 +15,5 @@
     "koala"
   ],
   "tts": "koala",
-  "unicode": "1f428",
-  "unicodeSkintones": null
+  "unicode": "1f428"
 }

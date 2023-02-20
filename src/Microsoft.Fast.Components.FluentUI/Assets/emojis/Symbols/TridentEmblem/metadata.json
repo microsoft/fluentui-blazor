@@ -1,8 +1,7 @@
 {
-  "basefilename": "trident_emblem",
   "cldr": "trident emblem",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDD31",
+  "glyph": "🔱",
   "glyphAsUtfInEmoticons": [
     "1f531_tridentemblem"
   ],
@@ -18,6 +17,5 @@
     "1f531_tridentemblem"
   ],
   "tts": "trident emblem",
-  "unicode": "1f531",
-  "unicodeSkintones": null
+  "unicode": "1f531"
 }

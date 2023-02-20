@@ -1,12 +1,11 @@
 {
-  "basefilename": "pregnant_woman",
   "cldr": "pregnant woman",
   "fromVersion": "3.0",
-  "glyph": "\uD83E\uDD30",
+  "glyph": "🤰",
   "glyphAsUtfInEmoticons": [
     "womanpregnant"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "pregnant",
     "woman"

@@ -1,17 +1,13 @@
 {
-  "basefilename": "low_battery",
   "cldr": "low battery",
   "fromVersion": "14.0",
-  "glyph": "\uD83E\uDEAB",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "🪫",
   "group": "Objects",
   "keywords": [
     "electronic",
     "low battery",
     "low energy"
   ],
-  "mappedToEmoticons": null,
   "tts": "low battery",
-  "unicode": "1faab",
-  "unicodeSkintones": null
+  "unicode": "1faab"
 }

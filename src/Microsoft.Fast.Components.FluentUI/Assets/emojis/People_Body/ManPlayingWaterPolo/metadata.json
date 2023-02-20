@@ -1,10 +1,8 @@
 {
-  "basefilename": "man_playing_water_polo",
   "cldr": "man playing water polo",
   "fromVersion": "4.0",
-  "glyph": "\uD83E\uDD3D\u200D\u2642\uFE0F",
-  "glyphAsUtfInEmoticons": null,
-  "group": "People \u0026 Body",
+  "glyph": "🤽‍♂️",
+  "group": "People & Body",
   "keywords": [
     "man",
     "man playing water polo",

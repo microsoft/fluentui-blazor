@@ -1,12 +1,11 @@
 {
-  "basefilename": "man_judge",
   "cldr": "man judge",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDC68\u200D\u2696\uFE0F",
+  "glyph": "👨‍⚖️",
   "glyphAsUtfInEmoticons": [
     "manjudge"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "judge",
     "justice",

@@ -1,8 +1,7 @@
 {
-  "basefilename": "musical_note",
   "cldr": "musical note",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDFB5",
+  "glyph": "🎵",
   "glyphAsUtfInEmoticons": [
     "music"
   ],
@@ -16,6 +15,5 @@
     "music"
   ],
   "tts": "musical note",
-  "unicode": "1f3b5",
-  "unicodeSkintones": null
+  "unicode": "1f3b5"
 }

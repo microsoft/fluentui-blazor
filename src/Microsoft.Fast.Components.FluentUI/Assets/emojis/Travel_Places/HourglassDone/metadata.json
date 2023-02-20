@@ -1,13 +1,12 @@
 {
-  "basefilename": "hourglass_done",
   "cldr": "hourglass done",
   "fromVersion": "0.6",
-  "glyph": "\u231B",
+  "glyph": "⌛",
   "glyphAsUtfInEmoticons": [
     "231b_hourglassdone",
     "holdon"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "hourglass done",
     "sand",
@@ -17,6 +16,5 @@
     "holdon"
   ],
   "tts": "hourglass done",
-  "unicode": "231b",
-  "unicodeSkintones": null
+  "unicode": "231b"
 }

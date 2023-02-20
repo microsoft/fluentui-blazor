@@ -1,12 +1,11 @@
 {
-  "basefilename": "bacon",
   "cldr": "bacon",
   "fromVersion": "3.0",
-  "glyph": "\uD83E\uDD53",
+  "glyph": "🥓",
   "glyphAsUtfInEmoticons": [
     "1f953_bacon"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "bacon",
     "breakfast",
@@ -17,6 +16,5 @@
     "1f953_bacon"
   ],
   "tts": "bacon",
-  "unicode": "1f953",
-  "unicodeSkintones": null
+  "unicode": "1f953"
 }

@@ -1,8 +1,7 @@
 {
-  "basefilename": "nazar_amulet",
   "cldr": "nazar amulet",
   "fromVersion": "11.0",
-  "glyph": "\uD83E\uDDFF",
+  "glyph": "🧿",
   "glyphAsUtfInEmoticons": [
     "1f9ff_nazaramulet"
   ],
@@ -19,6 +18,5 @@
     "1f9ff_nazaramulet"
   ],
   "tts": "nazar amulet",
-  "unicode": "1f9ff",
-  "unicodeSkintones": null
+  "unicode": "1f9ff"
 }

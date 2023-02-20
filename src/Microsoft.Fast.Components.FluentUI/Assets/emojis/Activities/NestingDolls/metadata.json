@@ -1,9 +1,7 @@
 {
-  "basefilename": "nesting_dolls",
   "cldr": "nesting dolls",
   "fromVersion": "13.0",
-  "glyph": "\uD83E\uDE86",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "🪆",
   "group": "Activities",
   "keywords": [
     "doll",
@@ -15,6 +13,5 @@
     "matreshka"
   ],
   "tts": "nesting dolls",
-  "unicode": "1fa86",
-  "unicodeSkintones": null
+  "unicode": "1fa86"
 }

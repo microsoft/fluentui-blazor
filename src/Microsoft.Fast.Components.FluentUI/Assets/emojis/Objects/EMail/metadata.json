@@ -1,8 +1,7 @@
 {
-  "basefilename": "e-mail",
   "cldr": "e-mail",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCE7",
+  "glyph": "📧",
   "glyphAsUtfInEmoticons": [
     "1f4e7_email"
   ],
@@ -17,6 +16,5 @@
     "1f4e7_email"
   ],
   "tts": "e-mail",
-  "unicode": "1f4e7",
-  "unicodeSkintones": null
+  "unicode": "1f4e7"
 }

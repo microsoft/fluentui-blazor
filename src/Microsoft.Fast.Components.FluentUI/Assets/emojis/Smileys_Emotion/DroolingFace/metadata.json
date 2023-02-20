@@ -1,12 +1,11 @@
 {
-  "basefilename": "drooling_face",
   "cldr": "drooling face",
   "fromVersion": "3.0",
-  "glyph": "\uD83E\uDD24",
+  "glyph": "🤤",
   "glyphAsUtfInEmoticons": [
     "1f924_droolingface"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "drooling",
     "face"
@@ -15,6 +14,5 @@
     "1f924_droolingface"
   ],
   "tts": "drooling face",
-  "unicode": "1f924",
-  "unicodeSkintones": null
+  "unicode": "1f924"
 }

@@ -1,12 +1,11 @@
 {
-  "basefilename": "locomotive",
   "cldr": "locomotive",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDE82",
+  "glyph": "🚂",
   "glyphAsUtfInEmoticons": [
     "steamtrain"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "engine",
     "locomotive",
@@ -18,6 +17,5 @@
     "steamtrain"
   ],
   "tts": "locomotive",
-  "unicode": "1f682",
-  "unicodeSkintones": null
+  "unicode": "1f682"
 }

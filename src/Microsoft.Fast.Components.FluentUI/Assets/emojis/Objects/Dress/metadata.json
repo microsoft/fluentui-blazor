@@ -1,8 +1,7 @@
 {
-  "basefilename": "dress",
   "cldr": "dress",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC57",
+  "glyph": "👗",
   "glyphAsUtfInEmoticons": [
     "1f457_dress"
   ],
@@ -15,6 +14,5 @@
     "1f457_dress"
   ],
   "tts": "dress",
-  "unicode": "1f457",
-  "unicodeSkintones": null
+  "unicode": "1f457"
 }

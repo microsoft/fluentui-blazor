@@ -1,12 +1,11 @@
 {
-  "basefilename": "goat",
   "cldr": "goat",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDC10",
+  "glyph": "🐐",
   "glyphAsUtfInEmoticons": [
     "1f410_goat"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "Capricorn",
     "goat",
@@ -16,6 +15,5 @@
     "1f410_goat"
   ],
   "tts": "goat",
-  "unicode": "1f410",
-  "unicodeSkintones": null
+  "unicode": "1f410"
 }

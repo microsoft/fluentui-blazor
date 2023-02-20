@@ -1,12 +1,11 @@
 {
-  "basefilename": "person_walking",
   "cldr": "person walking",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDEB6",
+  "glyph": "🚶",
   "glyphAsUtfInEmoticons": [
     "pedestrian"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "hike",
     "person walking",

@@ -1,10 +1,8 @@
 {
-  "basefilename": "dog_face",
   "cldr": "dog face",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC36",
-  "glyphAsUtfInEmoticons": null,
-  "group": "Animals \u0026 Nature",
+  "glyph": "🐶",
+  "group": "Animals & Nature",
   "keywords": [
     "dog",
     "face",
@@ -14,6 +12,5 @@
     "smiledog"
   ],
   "tts": "dog face",
-  "unicode": "1f436",
-  "unicodeSkintones": null
+  "unicode": "1f436"
 }

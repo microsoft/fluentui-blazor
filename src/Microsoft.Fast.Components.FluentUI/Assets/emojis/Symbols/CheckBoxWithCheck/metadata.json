@@ -1,14 +1,13 @@
 {
-  "basefilename": "check_box_with_check",
   "cldr": "check box with check",
   "fromVersion": "0.6",
-  "glyph": "\u2611\uFE0F",
+  "glyph": "☑️",
   "glyphAsUtfInEmoticons": [
     "2611_ballotboxwithcheck"
   ],
   "group": "Symbols",
   "keywords": [
-    "\u2713",
+    "✓",
     "box",
     "check",
     "check box with check"
@@ -17,6 +16,5 @@
     "2611_ballotboxwithcheck"
   ],
   "tts": "check box with check",
-  "unicode": "2611 fe0f",
-  "unicodeSkintones": null
+  "unicode": "2611 fe0f"
 }

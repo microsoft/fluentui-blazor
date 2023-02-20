@@ -1,8 +1,7 @@
 {
-  "basefilename": "safety_vest",
   "cldr": "safety vest",
   "fromVersion": "12.0",
-  "glyph": "\uD83E\uDDBA",
+  "glyph": "🦺",
   "glyphAsUtfInEmoticons": [
     "1f9ba_safetyvest"
   ],
@@ -16,6 +15,5 @@
     "1f9ba_safetyvest"
   ],
   "tts": "safety vest",
-  "unicode": "1f9ba",
-  "unicodeSkintones": null
+  "unicode": "1f9ba"
 }

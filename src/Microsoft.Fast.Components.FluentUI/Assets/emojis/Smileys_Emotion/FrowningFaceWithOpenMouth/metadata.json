@@ -1,12 +1,11 @@
 {
-  "basefilename": "frowning_face_with_open_mouth",
   "cldr": "frowning face with open mouth",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDE26",
+  "glyph": "😦",
   "glyphAsUtfInEmoticons": [
     "1f626_frowningfacewithopenmouth"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "face",
     "frown",
@@ -18,6 +17,5 @@
     "1f626_frowningfacewithopenmouth"
   ],
   "tts": "frowning face with open mouth",
-  "unicode": "1f626",
-  "unicodeSkintones": null
+  "unicode": "1f626"
 }

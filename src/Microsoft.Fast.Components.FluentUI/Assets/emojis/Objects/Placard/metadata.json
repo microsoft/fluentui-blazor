@@ -1,8 +1,7 @@
 {
-  "basefilename": "placard",
   "cldr": "placard",
   "fromVersion": "13.0",
-  "glyph": "\uD83E\uDEA7",
+  "glyph": "🪧",
   "glyphAsUtfInEmoticons": [
     "placard"
   ],
@@ -18,6 +17,5 @@
     "placard"
   ],
   "tts": "placard",
-  "unicode": "1faa7",
-  "unicodeSkintones": null
+  "unicode": "1faa7"
 }

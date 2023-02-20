@@ -1,12 +1,11 @@
 {
-  "basefilename": "parachute",
   "cldr": "parachute",
   "fromVersion": "12.0",
-  "glyph": "\uD83E\uDE82",
+  "glyph": "🪂",
   "glyphAsUtfInEmoticons": [
     "1fa82_parachute"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "hang-glide",
     "parachute",
@@ -17,6 +16,5 @@
     "1fa82_parachute"
   ],
   "tts": "parachute",
-  "unicode": "1fa82",
-  "unicodeSkintones": null
+  "unicode": "1fa82"
 }

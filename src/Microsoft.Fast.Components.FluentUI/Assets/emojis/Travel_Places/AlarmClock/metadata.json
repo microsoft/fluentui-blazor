@@ -1,12 +1,11 @@
 {
-  "basefilename": "alarm_clock",
   "cldr": "alarm clock",
   "fromVersion": "0.6",
-  "glyph": "\u23F0",
+  "glyph": "⏰",
   "glyphAsUtfInEmoticons": [
     "23f0_alarmclock"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "alarm",
     "clock"
@@ -15,6 +14,5 @@
     "23f0_alarmclock"
   ],
   "tts": "alarm clock",
-  "unicode": "23f0",
-  "unicodeSkintones": null
+  "unicode": "23f0"
 }

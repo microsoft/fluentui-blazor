@@ -1,12 +1,11 @@
 {
-  "basefilename": "man_bouncing_ball",
   "cldr": "man bouncing ball",
   "fromVersion": "4.0",
-  "glyph": "\u26F9\uFE0F\u200D\u2642\uFE0F",
+  "glyph": "⛹️‍♂️",
   "glyphAsUtfInEmoticons": [
     "man_bouncing_ball"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "ball",
     "man",

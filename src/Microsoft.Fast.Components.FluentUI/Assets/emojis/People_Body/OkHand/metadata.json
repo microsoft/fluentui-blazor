@@ -1,12 +1,11 @@
 {
-  "basefilename": "ok_hand",
   "cldr": "OK hand",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC4C",
+  "glyph": "👌",
   "glyphAsUtfInEmoticons": [
     "ok"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "hand",
     "OK"

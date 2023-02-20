@@ -1,12 +1,10 @@
 {
-  "basefilename": "check_mark",
   "cldr": "check mark",
   "fromVersion": "0.6",
-  "glyph": "\u2714\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "✔️",
   "group": "Symbols",
   "keywords": [
-    "\u2713",
+    "✓",
     "check",
     "mark"
   ],
@@ -14,6 +12,5 @@
     "2714_heavycheckmark"
   ],
   "tts": "check mark",
-  "unicode": "2714 fe0f",
-  "unicodeSkintones": null
+  "unicode": "2714 fe0f"
 }

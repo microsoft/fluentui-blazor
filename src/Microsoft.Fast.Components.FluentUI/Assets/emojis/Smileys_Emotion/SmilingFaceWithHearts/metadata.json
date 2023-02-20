@@ -1,12 +1,11 @@
 {
-  "basefilename": "smiling_face_with_hearts",
   "cldr": "smiling face with hearts",
   "fromVersion": "11.0",
-  "glyph": "\uD83E\uDD70",
+  "glyph": "🥰",
   "glyphAsUtfInEmoticons": [
     "inlove"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "adore",
     "crush",
@@ -18,6 +17,5 @@
     "inlove"
   ],
   "tts": "smiling face with hearts",
-  "unicode": "1f970",
-  "unicodeSkintones": null
+  "unicode": "1f970"
 }

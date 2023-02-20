@@ -1,9 +1,7 @@
 {
-  "basefilename": "candle",
   "cldr": "candle",
   "fromVersion": "0.7",
-  "glyph": "\uD83D\uDD6F\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "🕯️",
   "group": "Objects",
   "keywords": [
     "candle",
@@ -13,6 +11,5 @@
     "1f56f_candle"
   ],
   "tts": "candle",
-  "unicode": "1f56f fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f56f fe0f"
 }

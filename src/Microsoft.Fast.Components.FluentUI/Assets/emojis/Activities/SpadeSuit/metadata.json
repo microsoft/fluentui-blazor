@@ -1,8 +1,7 @@
 {
-  "basefilename": "spade_suit",
   "cldr": "spade suit",
   "fromVersion": "0.6",
-  "glyph": "\u2660\uFE0F",
+  "glyph": "♠️",
   "glyphAsUtfInEmoticons": [
     "2660_blackspadesuit"
   ],
@@ -16,6 +15,5 @@
     "2660_blackspadesuit"
   ],
   "tts": "spade suit",
-  "unicode": "2660 fe0f",
-  "unicodeSkintones": null
+  "unicode": "2660 fe0f"
 }

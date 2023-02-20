@@ -1,12 +1,11 @@
 {
-  "basefilename": "honey_pot",
   "cldr": "honey pot",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF6F",
+  "glyph": "🍯",
   "glyphAsUtfInEmoticons": [
     "1f36f_honeypot"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "honey",
     "honeypot",
@@ -17,6 +16,5 @@
     "1f36f_honeypot"
   ],
   "tts": "honey pot",
-  "unicode": "1f36f",
-  "unicodeSkintones": null
+  "unicode": "1f36f"
 }

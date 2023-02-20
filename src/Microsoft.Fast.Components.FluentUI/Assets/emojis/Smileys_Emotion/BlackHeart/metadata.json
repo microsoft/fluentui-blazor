@@ -1,12 +1,11 @@
 {
-  "basefilename": "black_heart",
   "cldr": "black heart",
   "fromVersion": "3.0",
-  "glyph": "\uD83D\uDDA4",
+  "glyph": "🖤",
   "glyphAsUtfInEmoticons": [
     "heartblack"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "black",
     "black heart",
@@ -17,6 +16,5 @@
     "heartblack"
   ],
   "tts": "black heart",
-  "unicode": "1f5a4",
-  "unicodeSkintones": null
+  "unicode": "1f5a4"
 }

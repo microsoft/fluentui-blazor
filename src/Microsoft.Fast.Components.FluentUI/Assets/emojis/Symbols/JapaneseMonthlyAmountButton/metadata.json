@@ -1,21 +1,18 @@
 {
-  "basefilename": "japanese_monthly_amount_button",
-  "cldr": "Japanese \u201Cmonthly amount\u201D button",
+  "cldr": "Japanese “monthly amount” button",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDE37\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "🈷️",
   "group": "Symbols",
   "keywords": [
-    "\u201Cmonthly amount\u201D",
+    "“monthly amount”",
     "ideograph",
     "Japanese",
-    "Japanese \u201Cmonthly amount\u201D button",
-    "\u6708"
+    "Japanese “monthly amount” button",
+    "月"
   ],
   "mappedToEmoticons": [
     "1f237_monthlyamount"
   ],
-  "tts": "Japanese \u201Cmonthly amount\u201D button",
-  "unicode": "1f237 fe0f",
-  "unicodeSkintones": null
+  "tts": "Japanese “monthly amount” button",
+  "unicode": "1f237 fe0f"
 }

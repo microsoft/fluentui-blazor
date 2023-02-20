@@ -1,12 +1,11 @@
 {
-  "basefilename": "feather",
   "cldr": "feather",
   "fromVersion": "13.0",
-  "glyph": "\uD83E\uDEB6",
+  "glyph": "🪶",
   "glyphAsUtfInEmoticons": [
     "feather"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "bird",
     "feather",
@@ -18,6 +17,5 @@
     "feather"
   ],
   "tts": "feather",
-  "unicode": "1fab6",
-  "unicodeSkintones": null
+  "unicode": "1fab6"
 }

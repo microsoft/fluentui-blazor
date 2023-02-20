@@ -1,9 +1,7 @@
 {
-  "basefilename": "next_track_button",
   "cldr": "next track button",
   "fromVersion": "0.7",
-  "glyph": "\u23ED\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "⏭️",
   "group": "Symbols",
   "keywords": [
     "arrow",
@@ -16,6 +14,5 @@
     "23ed_nexttrack"
   ],
   "tts": "next track button",
-  "unicode": "23ed fe0f",
-  "unicodeSkintones": null
+  "unicode": "23ed fe0f"
 }

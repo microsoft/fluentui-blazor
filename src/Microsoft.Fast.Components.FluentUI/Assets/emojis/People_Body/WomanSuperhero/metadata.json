@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_superhero",
   "cldr": "woman superhero",
   "fromVersion": "11.0",
-  "glyph": "\uD83E\uDDB8\u200D\u2640\uFE0F",
+  "glyph": "🦸‍♀️",
   "glyphAsUtfInEmoticons": [
     "hero"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "good",
     "hero",

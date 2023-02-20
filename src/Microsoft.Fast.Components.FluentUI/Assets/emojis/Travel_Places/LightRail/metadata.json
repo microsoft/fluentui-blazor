@@ -1,12 +1,11 @@
 {
-  "basefilename": "light_rail",
   "cldr": "light rail",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDE88",
+  "glyph": "🚈",
   "glyphAsUtfInEmoticons": [
     "1f688_lightrail"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "light rail",
     "railway"
@@ -15,6 +14,5 @@
     "1f688_lightrail"
   ],
   "tts": "light rail",
-  "unicode": "1f688",
-  "unicodeSkintones": null
+  "unicode": "1f688"
 }

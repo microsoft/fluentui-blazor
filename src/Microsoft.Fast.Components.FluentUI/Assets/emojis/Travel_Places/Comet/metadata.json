@@ -1,10 +1,8 @@
 {
-  "basefilename": "comet",
   "cldr": "comet",
   "fromVersion": "1.0",
-  "glyph": "\u2604\uFE0F",
-  "glyphAsUtfInEmoticons": null,
-  "group": "Travel \u0026 Places",
+  "glyph": "☄️",
+  "group": "Travel & Places",
   "keywords": [
     "comet",
     "space"
@@ -13,6 +11,5 @@
     "2604_comet"
   ],
   "tts": "comet",
-  "unicode": "2604 fe0f",
-  "unicodeSkintones": null
+  "unicode": "2604 fe0f"
 }

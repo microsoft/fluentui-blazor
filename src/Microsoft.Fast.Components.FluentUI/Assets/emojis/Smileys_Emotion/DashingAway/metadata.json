@@ -1,12 +1,11 @@
 {
-  "basefilename": "dashing_away",
   "cldr": "dashing away",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCA8",
+  "glyph": "💨",
   "glyphAsUtfInEmoticons": [
     "1f4a8_dashsymbol"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "comic",
     "dash",
@@ -17,6 +16,5 @@
     "1f4a8_dashsymbol"
   ],
   "tts": "dashing away",
-  "unicode": "1f4a8",
-  "unicodeSkintones": null
+  "unicode": "1f4a8"
 }

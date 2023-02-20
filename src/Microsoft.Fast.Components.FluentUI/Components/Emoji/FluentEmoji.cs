@@ -99,7 +99,7 @@ public partial class FluentEmoji : FluentComponentBase
         }
 
         EmojiModel model = FluentEmojis.GetEmojiMap(EmojiService.Configuration.Groups, EmojiService.Configuration.Styles).First(x => x.Name == Name);
-        _folder = model.Folder;
+        _folder = model.Name;
         _group = model.Group.ToString();
 
         if (model.Skintone.HasValue)
@@ -196,9 +196,9 @@ public partial class FluentEmoji : FluentComponentBase
         if (Name is not null)
         {
             if (hasSkintone)
-                result = $"{Name}_{emojiStyleShort}_{skinToneShort}";
+                result = $"{skinToneShort}_{emojiStyleShort}";
             else
-                result = $"{Name}_{emojiStyleShort}";
+                result = $"{emojiStyleShort}";
         }
 
         return result;

@@ -1,8 +1,7 @@
 {
-  "basefilename": "carpentry_saw",
   "cldr": "carpentry saw",
   "fromVersion": "13.0",
-  "glyph": "\uD83E\uDE9A",
+  "glyph": "🪚",
   "glyphAsUtfInEmoticons": [
     "carpentrysaw"
   ],
@@ -18,6 +17,5 @@
     "carpentrysaw"
   ],
   "tts": "carpentry saw",
-  "unicode": "1fa9a",
-  "unicodeSkintones": null
+  "unicode": "1fa9a"
 }

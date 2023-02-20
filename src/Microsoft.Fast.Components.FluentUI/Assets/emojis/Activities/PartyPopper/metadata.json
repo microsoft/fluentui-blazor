@@ -1,8 +1,7 @@
 {
-  "basefilename": "party_popper",
   "cldr": "party popper",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF89",
+  "glyph": "🎉",
   "glyphAsUtfInEmoticons": [
     "1f389_partypopper"
   ],
@@ -17,6 +16,5 @@
     "1f389_partypopper"
   ],
   "tts": "party popper",
-  "unicode": "1f389",
-  "unicodeSkintones": null
+  "unicode": "1f389"
 }

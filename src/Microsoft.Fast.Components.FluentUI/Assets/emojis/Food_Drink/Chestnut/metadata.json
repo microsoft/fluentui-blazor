@@ -1,12 +1,11 @@
 {
-  "basefilename": "chestnut",
   "cldr": "chestnut",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF30",
+  "glyph": "🌰",
   "glyphAsUtfInEmoticons": [
     "1f330_chestnut"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "chestnut",
     "plant"
@@ -15,6 +14,5 @@
     "1f330_chestnut"
   ],
   "tts": "chestnut",
-  "unicode": "1f330",
-  "unicodeSkintones": null
+  "unicode": "1f330"
 }

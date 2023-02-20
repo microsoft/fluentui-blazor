@@ -1,10 +1,8 @@
 {
-  "basefilename": "writing_hand",
   "cldr": "writing hand",
   "fromVersion": "0.7",
-  "glyph": "\u270D\uFE0F",
-  "glyphAsUtfInEmoticons": null,
-  "group": "People \u0026 Body",
+  "glyph": "✍️",
+  "group": "People & Body",
   "keywords": [
     "hand",
     "write",

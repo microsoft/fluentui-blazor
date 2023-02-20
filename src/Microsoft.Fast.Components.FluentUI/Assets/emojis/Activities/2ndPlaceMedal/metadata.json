@@ -1,8 +1,7 @@
 {
-  "basefilename": "2nd_place_medal",
   "cldr": "2nd place medal",
   "fromVersion": "3.0",
-  "glyph": "\uD83E\uDD48",
+  "glyph": "🥈",
   "glyphAsUtfInEmoticons": [
     "silvermedal"
   ],
@@ -17,6 +16,5 @@
     "silvermedal"
   ],
   "tts": "2nd place medal",
-  "unicode": "1f948",
-  "unicodeSkintones": null
+  "unicode": "1f948"
 }

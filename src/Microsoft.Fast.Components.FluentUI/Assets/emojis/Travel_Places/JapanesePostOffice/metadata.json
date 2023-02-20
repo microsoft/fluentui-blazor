@@ -1,12 +1,11 @@
 {
-  "basefilename": "japanese_post_office",
   "cldr": "Japanese post office",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDFE3",
+  "glyph": "🏣",
   "glyphAsUtfInEmoticons": [
     "1f3e3_japanesepostoffice"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "Japanese",
     "Japanese post office",
@@ -16,6 +15,5 @@
     "1f3e3_japanesepostoffice"
   ],
   "tts": "Japanese post office",
-  "unicode": "1f3e3",
-  "unicodeSkintones": null
+  "unicode": "1f3e3"
 }

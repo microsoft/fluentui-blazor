@@ -1,12 +1,11 @@
 {
-  "basefilename": "minibus",
   "cldr": "minibus",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDE90",
+  "glyph": "🚐",
   "glyphAsUtfInEmoticons": [
     "1f690_minibus"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "bus",
     "minibus"
@@ -15,6 +14,5 @@
     "1f690_minibus"
   ],
   "tts": "minibus",
-  "unicode": "1f690",
-  "unicodeSkintones": null
+  "unicode": "1f690"
 }

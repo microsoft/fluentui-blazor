@@ -1,9 +1,7 @@
 {
-  "basefilename": "paintbrush",
   "cldr": "paintbrush",
   "fromVersion": "0.7",
-  "glyph": "\uD83D\uDD8C\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "🖌️",
   "group": "Objects",
   "keywords": [
     "paintbrush",
@@ -13,6 +11,5 @@
     "1f58c_lowerleftpaintbrush"
   ],
   "tts": "paintbrush",
-  "unicode": "1f58c fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f58c fe0f"
 }

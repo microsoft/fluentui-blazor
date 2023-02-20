@@ -1,9 +1,7 @@
 {
-  "basefilename": "clamp",
   "cldr": "clamp",
   "fromVersion": "0.7",
-  "glyph": "\uD83D\uDDDC\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "🗜️",
   "group": "Objects",
   "keywords": [
     "clamp",
@@ -15,6 +13,5 @@
     "1f5dc_compression"
   ],
   "tts": "clamp",
-  "unicode": "1f5dc fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f5dc fe0f"
 }

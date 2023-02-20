@@ -1,8 +1,7 @@
 {
-  "basefilename": "wheelchair_symbol",
   "cldr": "wheelchair symbol",
   "fromVersion": "0.6",
-  "glyph": "\u267F",
+  "glyph": "♿",
   "glyphAsUtfInEmoticons": [
     "267f_wheelchairsymbol"
   ],
@@ -15,6 +14,5 @@
     "267f_wheelchairsymbol"
   ],
   "tts": "wheelchair symbol",
-  "unicode": "267f",
-  "unicodeSkintones": null
+  "unicode": "267f"
 }

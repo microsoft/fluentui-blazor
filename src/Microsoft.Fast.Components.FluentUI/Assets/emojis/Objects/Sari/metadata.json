@@ -1,8 +1,7 @@
 {
-  "basefilename": "sari",
   "cldr": "sari",
   "fromVersion": "12.0",
-  "glyph": "\uD83E\uDD7B",
+  "glyph": "🥻",
   "glyphAsUtfInEmoticons": [
     "1f97b_sari"
   ],
@@ -16,6 +15,5 @@
     "1f97b_sari"
   ],
   "tts": "sari",
-  "unicode": "1f97b",
-  "unicodeSkintones": null
+  "unicode": "1f97b"
 }

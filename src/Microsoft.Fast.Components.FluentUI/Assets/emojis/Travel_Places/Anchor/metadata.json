@@ -1,12 +1,11 @@
 {
-  "basefilename": "anchor",
   "cldr": "anchor",
   "fromVersion": "0.6",
-  "glyph": "\u2693",
+  "glyph": "⚓",
   "glyphAsUtfInEmoticons": [
     "2693_anchor"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "anchor",
     "ship",
@@ -16,6 +15,5 @@
     "2693_anchor"
   ],
   "tts": "anchor",
-  "unicode": "2693",
-  "unicodeSkintones": null
+  "unicode": "2693"
 }

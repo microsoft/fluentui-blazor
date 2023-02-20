@@ -1,13 +1,12 @@
 {
-  "basefilename": "giraffe",
   "cldr": "giraffe",
   "fromVersion": "5.0",
-  "glyph": "\uD83E\uDD92",
+  "glyph": "🦒",
   "glyphAsUtfInEmoticons": [
     "1f992_giraffe",
     "1f992_giraffeface"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "giraffe",
     "spots"
@@ -16,6 +15,5 @@
     "1f992_giraffeface"
   ],
   "tts": "giraffe",
-  "unicode": "1f992",
-  "unicodeSkintones": null
+  "unicode": "1f992"
 }

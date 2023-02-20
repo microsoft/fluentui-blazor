@@ -1,12 +1,11 @@
 {
-  "basefilename": "bridge_at_night",
   "cldr": "bridge at night",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF09",
+  "glyph": "🌉",
   "glyphAsUtfInEmoticons": [
     "1f309_bridgeatnight"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "bridge",
     "bridge at night",
@@ -16,6 +15,5 @@
     "1f309_bridgeatnight"
   ],
   "tts": "bridge at night",
-  "unicode": "1f309",
-  "unicodeSkintones": null
+  "unicode": "1f309"
 }

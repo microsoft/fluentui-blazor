@@ -1,8 +1,7 @@
 {
-  "basefilename": "vs_button",
   "cldr": "VS button",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDD9A",
+  "glyph": "🆚",
   "glyphAsUtfInEmoticons": [
     "1f19a_squaredvs"
   ],
@@ -16,6 +15,5 @@
     "1f19a_squaredvs"
   ],
   "tts": "VS button",
-  "unicode": "1f19a",
-  "unicodeSkintones": null
+  "unicode": "1f19a"
 }

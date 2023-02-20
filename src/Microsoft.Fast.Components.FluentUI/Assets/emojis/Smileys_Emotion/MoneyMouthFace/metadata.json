@@ -1,12 +1,11 @@
 {
-  "basefilename": "money-mouth_face",
   "cldr": "money-mouth face",
   "fromVersion": "1.0",
-  "glyph": "\uD83E\uDD11",
+  "glyph": "🤑",
   "glyphAsUtfInEmoticons": [
     "1f911_moneymouthface"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "face",
     "money",
@@ -17,6 +16,5 @@
     "1f911_moneymouthface"
   ],
   "tts": "money-mouth face",
-  "unicode": "1f911",
-  "unicodeSkintones": null
+  "unicode": "1f911"
 }

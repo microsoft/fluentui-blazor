@@ -1,8 +1,7 @@
 {
-  "basefilename": "door",
   "cldr": "door",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDEAA",
+  "glyph": "🚪",
   "glyphAsUtfInEmoticons": [
     "1f6aa_door"
   ],
@@ -14,6 +13,5 @@
     "1f6aa_door"
   ],
   "tts": "door",
-  "unicode": "1f6aa",
-  "unicodeSkintones": null
+  "unicode": "1f6aa"
 }

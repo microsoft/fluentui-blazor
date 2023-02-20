@@ -1,9 +1,7 @@
 {
-  "basefilename": "crayon",
   "cldr": "crayon",
   "fromVersion": "0.7",
-  "glyph": "\uD83D\uDD8D\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "🖍️",
   "group": "Objects",
   "keywords": [
     "crayon"
@@ -12,6 +10,5 @@
     "1f58d_lowerleftcrayon"
   ],
   "tts": "crayon",
-  "unicode": "1f58d fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f58d fe0f"
 }

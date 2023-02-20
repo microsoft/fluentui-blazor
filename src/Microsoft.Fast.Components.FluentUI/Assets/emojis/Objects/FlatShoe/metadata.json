@@ -1,8 +1,7 @@
 {
-  "basefilename": "flat_shoe",
   "cldr": "flat shoe",
   "fromVersion": "11.0",
-  "glyph": "\uD83E\uDD7F",
+  "glyph": "🥿",
   "glyphAsUtfInEmoticons": [
     "1f97f_womansflatshoe"
   ],
@@ -17,6 +16,5 @@
     "1f97f_womansflatshoe"
   ],
   "tts": "flat shoe",
-  "unicode": "1f97f",
-  "unicodeSkintones": null
+  "unicode": "1f97f"
 }

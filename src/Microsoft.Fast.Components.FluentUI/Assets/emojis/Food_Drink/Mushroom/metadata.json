@@ -1,12 +1,11 @@
 {
-  "basefilename": "mushroom",
   "cldr": "mushroom",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF44",
+  "glyph": "🍄",
   "glyphAsUtfInEmoticons": [
     "1f344_mushroom"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "mushroom",
     "toadstool"
@@ -15,6 +14,5 @@
     "1f344_mushroom"
   ],
   "tts": "mushroom",
-  "unicode": "1f344",
-  "unicodeSkintones": null
+  "unicode": "1f344"
 }

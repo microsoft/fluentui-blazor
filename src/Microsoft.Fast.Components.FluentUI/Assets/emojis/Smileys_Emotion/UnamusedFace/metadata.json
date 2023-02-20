@@ -1,12 +1,11 @@
 {
-  "basefilename": "unamused_face",
   "cldr": "unamused face",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDE12",
+  "glyph": "😒",
   "glyphAsUtfInEmoticons": [
     "unamused"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "face",
     "unamused",
@@ -16,6 +15,5 @@
     "unamused"
   ],
   "tts": "unamused face",
-  "unicode": "1f612",
-  "unicodeSkintones": null
+  "unicode": "1f612"
 }

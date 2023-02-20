@@ -1,8 +1,7 @@
 {
-  "basefilename": "curling_stone",
   "cldr": "curling stone",
   "fromVersion": "5.0",
-  "glyph": "\uD83E\uDD4C",
+  "glyph": "🥌",
   "glyphAsUtfInEmoticons": [
     "1f94c_curlingstone"
   ],
@@ -16,6 +15,5 @@
     "1f94c_curlingstone"
   ],
   "tts": "curling stone",
-  "unicode": "1f94c",
-  "unicodeSkintones": null
+  "unicode": "1f94c"
 }

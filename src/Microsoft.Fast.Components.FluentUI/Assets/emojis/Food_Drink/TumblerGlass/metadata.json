@@ -1,12 +1,11 @@
 {
-  "basefilename": "tumbler_glass",
   "cldr": "tumbler glass",
   "fromVersion": "3.0",
-  "glyph": "\uD83E\uDD43",
+  "glyph": "🥃",
   "glyphAsUtfInEmoticons": [
     "1f943_tumblerglass"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "glass",
     "liquor",
@@ -18,6 +17,5 @@
     "1f943_tumblerglass"
   ],
   "tts": "tumbler glass",
-  "unicode": "1f943",
-  "unicodeSkintones": null
+  "unicode": "1f943"
 }

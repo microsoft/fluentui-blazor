@@ -1,8 +1,7 @@
 {
-  "basefilename": "recycling_symbol",
   "cldr": "recycling symbol",
   "fromVersion": "0.6",
-  "glyph": "\u267B\uFE0F",
+  "glyph": "♻️",
   "glyphAsUtfInEmoticons": [
     "recycle"
   ],
@@ -15,6 +14,5 @@
     "recycle"
   ],
   "tts": "recycling symbol",
-  "unicode": "267b fe0f",
-  "unicodeSkintones": null
+  "unicode": "267b fe0f"
 }

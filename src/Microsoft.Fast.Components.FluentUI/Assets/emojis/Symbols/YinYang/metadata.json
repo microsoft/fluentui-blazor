@@ -1,8 +1,7 @@
 {
-  "basefilename": "yin_yang",
   "cldr": "yin yang",
   "fromVersion": "0.7",
-  "glyph": "\u262F\uFE0F",
+  "glyph": "☯️",
   "glyphAsUtfInEmoticons": [
     "262f_yinyang"
   ],
@@ -18,6 +17,5 @@
     "262f_yinyang"
   ],
   "tts": "yin yang",
-  "unicode": "262f fe0f",
-  "unicodeSkintones": null
+  "unicode": "262f fe0f"
 }

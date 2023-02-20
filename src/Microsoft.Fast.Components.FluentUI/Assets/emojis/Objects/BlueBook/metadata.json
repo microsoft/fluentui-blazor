@@ -1,8 +1,7 @@
 {
-  "basefilename": "blue_book",
   "cldr": "blue book",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCD8",
+  "glyph": "📘",
   "glyphAsUtfInEmoticons": [
     "1f4d8_bluebook"
   ],
@@ -15,6 +14,5 @@
     "1f4d8_bluebook"
   ],
   "tts": "blue book",
-  "unicode": "1f4d8",
-  "unicodeSkintones": null
+  "unicode": "1f4d8"
 }

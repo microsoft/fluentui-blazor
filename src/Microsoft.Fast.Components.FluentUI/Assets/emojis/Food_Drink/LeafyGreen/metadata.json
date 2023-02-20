@@ -1,12 +1,11 @@
 {
-  "basefilename": "leafy_green",
   "cldr": "leafy green",
   "fromVersion": "11.0",
-  "glyph": "\uD83E\uDD6C",
+  "glyph": "🥬",
   "glyphAsUtfInEmoticons": [
     "1f96c_leafygreen"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "bok choy",
     "cabbage",
@@ -18,6 +17,5 @@
     "1f96c_leafygreen"
   ],
   "tts": "leafy green",
-  "unicode": "1f96c",
-  "unicodeSkintones": null
+  "unicode": "1f96c"
 }

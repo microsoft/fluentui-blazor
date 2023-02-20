@@ -1,8 +1,7 @@
 {
-  "basefilename": "kimono",
   "cldr": "kimono",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC58",
+  "glyph": "👘",
   "glyphAsUtfInEmoticons": [
     "1f458_kimono"
   ],
@@ -15,6 +14,5 @@
     "1f458_kimono"
   ],
   "tts": "kimono",
-  "unicode": "1f458",
-  "unicodeSkintones": null
+  "unicode": "1f458"
 }

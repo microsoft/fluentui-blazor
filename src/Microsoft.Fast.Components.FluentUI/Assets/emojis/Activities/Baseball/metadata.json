@@ -1,8 +1,7 @@
 {
-  "basefilename": "baseball",
   "cldr": "baseball",
   "fromVersion": "0.6",
-  "glyph": "\u26BE",
+  "glyph": "⚾",
   "glyphAsUtfInEmoticons": [
     "baseball"
   ],
@@ -15,6 +14,5 @@
     "baseball"
   ],
   "tts": "baseball",
-  "unicode": "26be",
-  "unicodeSkintones": null
+  "unicode": "26be"
 }

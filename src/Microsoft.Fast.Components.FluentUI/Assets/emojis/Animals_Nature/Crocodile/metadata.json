@@ -1,12 +1,11 @@
 {
-  "basefilename": "crocodile",
   "cldr": "crocodile",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDC0A",
+  "glyph": "🐊",
   "glyphAsUtfInEmoticons": [
     "1f40a_crocodile"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "crocodile"
   ],
@@ -14,6 +13,5 @@
     "1f40a_crocodile"
   ],
   "tts": "crocodile",
-  "unicode": "1f40a",
-  "unicodeSkintones": null
+  "unicode": "1f40a"
 }

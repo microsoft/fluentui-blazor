@@ -1,12 +1,11 @@
 {
-  "basefilename": "man_superhero",
   "cldr": "man superhero",
   "fromVersion": "11.0",
-  "glyph": "\uD83E\uDDB8\u200D\u2642\uFE0F",
+  "glyph": "🦸‍♂️",
   "glyphAsUtfInEmoticons": [
     "mansuperhero"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "good",
     "hero",

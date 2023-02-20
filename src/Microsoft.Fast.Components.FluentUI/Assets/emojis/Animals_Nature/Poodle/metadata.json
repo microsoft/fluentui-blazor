@@ -1,12 +1,11 @@
 {
-  "basefilename": "poodle",
   "cldr": "poodle",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC29",
+  "glyph": "🐩",
   "glyphAsUtfInEmoticons": [
     "1f429_poodle"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "dog",
     "poodle"
@@ -15,6 +14,5 @@
     "1f429_poodle"
   ],
   "tts": "poodle",
-  "unicode": "1f429",
-  "unicodeSkintones": null
+  "unicode": "1f429"
 }

@@ -1,8 +1,7 @@
 {
-  "basefilename": "christmas_tree",
   "cldr": "Christmas tree",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF84",
+  "glyph": "🎄",
   "glyphAsUtfInEmoticons": [
     "xmastree"
   ],
@@ -16,6 +15,5 @@
     "xmastree"
   ],
   "tts": "Christmas tree",
-  "unicode": "1f384",
-  "unicodeSkintones": null
+  "unicode": "1f384"
 }

@@ -1,12 +1,11 @@
 {
-  "basefilename": "yawning_face",
   "cldr": "yawning face",
   "fromVersion": "12.0",
-  "glyph": "\uD83E\uDD71",
+  "glyph": "🥱",
   "glyphAsUtfInEmoticons": [
     "1f971_yawningface"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "bored",
     "tired",
@@ -17,6 +16,5 @@
     "1f971_yawningface"
   ],
   "tts": "yawning face",
-  "unicode": "1f971",
-  "unicodeSkintones": null
+  "unicode": "1f971"
 }

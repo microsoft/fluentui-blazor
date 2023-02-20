@@ -1,9 +1,7 @@
 {
-  "basefilename": "chains",
   "cldr": "chains",
   "fromVersion": "0.7",
-  "glyph": "\u26D3\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "⛓️",
   "group": "Objects",
   "keywords": [
     "chain",
@@ -13,6 +11,5 @@
     "26d3_chains"
   ],
   "tts": "chains",
-  "unicode": "26d3 fe0f",
-  "unicodeSkintones": null
+  "unicode": "26d3 fe0f"
 }

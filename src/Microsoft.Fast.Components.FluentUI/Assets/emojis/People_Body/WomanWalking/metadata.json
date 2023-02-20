@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_walking",
   "cldr": "woman walking",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDEB6\u200D\u2640\uFE0F",
+  "glyph": "🚶‍♀️",
   "glyphAsUtfInEmoticons": [
     "woman_walking"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "hike",
     "walk",

@@ -1,16 +1,12 @@
 {
-  "basefilename": "empty_nest",
   "cldr": "empty nest",
   "fromVersion": "14.0",
-  "glyph": "\uD83E\uDEB9",
-  "glyphAsUtfInEmoticons": null,
-  "group": "Animals \u0026 Nature",
+  "glyph": "🪹",
+  "group": "Animals & Nature",
   "keywords": [
     "empty nest",
     "nesting"
   ],
-  "mappedToEmoticons": null,
   "tts": "empty nest",
-  "unicode": "1fab9",
-  "unicodeSkintones": null
+  "unicode": "1fab9"
 }

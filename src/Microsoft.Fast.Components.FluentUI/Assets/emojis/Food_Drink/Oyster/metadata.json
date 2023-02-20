@@ -1,12 +1,11 @@
 {
-  "basefilename": "oyster",
   "cldr": "oyster",
   "fromVersion": "12.0",
-  "glyph": "\uD83E\uDDAA",
+  "glyph": "🦪",
   "glyphAsUtfInEmoticons": [
     "1f9aa_oyster"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "diving",
     "oyster",
@@ -16,6 +15,5 @@
     "1f9aa_oyster"
   ],
   "tts": "oyster",
-  "unicode": "1f9aa",
-  "unicodeSkintones": null
+  "unicode": "1f9aa"
 }

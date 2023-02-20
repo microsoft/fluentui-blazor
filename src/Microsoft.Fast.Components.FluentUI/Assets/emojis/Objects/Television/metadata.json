@@ -1,8 +1,7 @@
 {
-  "basefilename": "television",
   "cldr": "television",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCFA",
+  "glyph": "📺",
   "glyphAsUtfInEmoticons": [
     "1f4fa_television"
   ],
@@ -16,6 +15,5 @@
     "1f4fa_television"
   ],
   "tts": "television",
-  "unicode": "1f4fa",
-  "unicodeSkintones": null
+  "unicode": "1f4fa"
 }

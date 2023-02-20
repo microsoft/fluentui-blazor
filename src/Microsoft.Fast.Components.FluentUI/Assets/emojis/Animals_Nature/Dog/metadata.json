@@ -1,13 +1,12 @@
 {
-  "basefilename": "dog",
   "cldr": "dog",
   "fromVersion": "0.7",
-  "glyph": "\uD83D\uDC15",
+  "glyph": "🐕",
   "glyphAsUtfInEmoticons": [
     "1f415_200d_1f9ba_servicedog",
     "dog"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "dog",
     "pet"
@@ -16,6 +15,5 @@
     "dog"
   ],
   "tts": "dog",
-  "unicode": "1f415",
-  "unicodeSkintones": null
+  "unicode": "1f415"
 }

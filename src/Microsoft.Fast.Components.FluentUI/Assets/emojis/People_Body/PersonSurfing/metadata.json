@@ -1,12 +1,11 @@
 {
-  "basefilename": "person_surfing",
   "cldr": "person surfing",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDFC4",
+  "glyph": "🏄",
   "glyphAsUtfInEmoticons": [
     "1f3c4_personsurfing"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "person surfing",
     "surfing"

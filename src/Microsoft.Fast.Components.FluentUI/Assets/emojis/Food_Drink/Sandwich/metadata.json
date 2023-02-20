@@ -1,12 +1,11 @@
 {
-  "basefilename": "sandwich",
   "cldr": "sandwich",
   "fromVersion": "5.0",
-  "glyph": "\uD83E\uDD6A",
+  "glyph": "🥪",
   "glyphAsUtfInEmoticons": [
     "1f96a_sandwich"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "bread",
     "sandwich"
@@ -15,6 +14,5 @@
     "1f96a_sandwich"
   ],
   "tts": "sandwich",
-  "unicode": "1f96a",
-  "unicodeSkintones": null
+  "unicode": "1f96a"
 }

@@ -1,18 +1,14 @@
 {
-  "basefilename": "wheel",
   "cldr": "wheel",
   "fromVersion": "14.0",
-  "glyph": "\uD83D\uDEDE",
-  "glyphAsUtfInEmoticons": null,
-  "group": "Travel \u0026 Places",
+  "glyph": "🛞",
+  "group": "Travel & Places",
   "keywords": [
     "circle",
     "tire",
     "turn",
     "wheel"
   ],
-  "mappedToEmoticons": null,
   "tts": "wheel",
-  "unicode": "1f6de",
-  "unicodeSkintones": null
+  "unicode": "1f6de"
 }

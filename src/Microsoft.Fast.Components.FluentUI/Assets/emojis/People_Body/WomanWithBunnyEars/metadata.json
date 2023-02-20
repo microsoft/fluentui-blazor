@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_with_bunny_ears",
   "cldr": "women with bunny ears",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDC6F\u200D\u2640\uFE0F",
+  "glyph": "👯‍♀️",
   "glyphAsUtfInEmoticons": [
     "women_with_bunny_ears"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "bunny ear",
     "dancer",
@@ -14,8 +13,6 @@
     "women",
     "women with bunny ears"
   ],
-  "mappedToEmoticons": null,
   "tts": "women with bunny ears",
-  "unicode": "1f46f 200d 2640 fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f46f 200d 2640 fe0f"
 }

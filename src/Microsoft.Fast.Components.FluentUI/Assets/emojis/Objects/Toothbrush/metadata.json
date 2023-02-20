@@ -1,8 +1,7 @@
 {
-  "basefilename": "toothbrush",
   "cldr": "toothbrush",
   "fromVersion": "13.0",
-  "glyph": "\uD83E\uDEA5",
+  "glyph": "🪥",
   "glyphAsUtfInEmoticons": [
     "toothbrush"
   ],
@@ -20,6 +19,5 @@
     "toothbrush"
   ],
   "tts": "toothbrush",
-  "unicode": "1faa5",
-  "unicodeSkintones": null
+  "unicode": "1faa5"
 }

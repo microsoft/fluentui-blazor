@@ -1,21 +1,19 @@
 {
-  "basefilename": "coconut",
   "cldr": "coconut",
   "fromVersion": "5.0",
-  "glyph": "\uD83E\uDD65",
+  "glyph": "🥥",
   "glyphAsUtfInEmoticons": [
     "1f965_coconut"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "coconut",
     "palm",
-    "pi\u00F1a colada"
+    "piña colada"
   ],
   "mappedToEmoticons": [
     "1f965_coconut"
   ],
   "tts": "coconut",
-  "unicode": "1f965",
-  "unicodeSkintones": null
+  "unicode": "1f965"
 }

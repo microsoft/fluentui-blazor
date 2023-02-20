@@ -1,12 +1,11 @@
 {
-  "basefilename": "breast_feeding",
   "cldr": "breast-feeding",
   "fromVersion": "5.0",
-  "glyph": "\uD83E\uDD31",
+  "glyph": "🤱",
   "glyphAsUtfInEmoticons": [
     "breastfeeding"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "baby",
     "breast",

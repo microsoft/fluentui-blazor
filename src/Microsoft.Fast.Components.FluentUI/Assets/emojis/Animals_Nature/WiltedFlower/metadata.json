@@ -1,12 +1,11 @@
 {
-  "basefilename": "wilted_flower",
   "cldr": "wilted flower",
   "fromVersion": "3.0",
-  "glyph": "\uD83E\uDD40",
+  "glyph": "🥀",
   "glyphAsUtfInEmoticons": [
     "wiltedflower"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "flower",
     "wilted"
@@ -15,6 +14,5 @@
     "wiltedflower"
   ],
   "tts": "wilted flower",
-  "unicode": "1f940",
-  "unicodeSkintones": null
+  "unicode": "1f940"
 }

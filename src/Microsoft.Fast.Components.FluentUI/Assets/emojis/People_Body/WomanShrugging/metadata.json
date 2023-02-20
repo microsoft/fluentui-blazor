@@ -1,13 +1,12 @@
 {
-  "basefilename": "woman_shrugging",
   "cldr": "woman shrugging",
   "fromVersion": "4.0",
-  "glyph": "\uD83E\uDD37\u200D\u2640\uFE0F",
+  "glyph": "🤷‍♀️",
   "glyphAsUtfInEmoticons": [
     "womanshrug",
     "woty"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "doubt",
     "ignorance",

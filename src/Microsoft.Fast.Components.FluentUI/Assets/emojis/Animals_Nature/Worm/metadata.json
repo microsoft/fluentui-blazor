@@ -1,12 +1,11 @@
 {
-  "basefilename": "worm",
   "cldr": "worm",
   "fromVersion": "13.0",
-  "glyph": "\uD83E\uDEB1",
+  "glyph": "🪱",
   "glyphAsUtfInEmoticons": [
     "worm"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "annelid",
     "earthworm",
@@ -17,6 +16,5 @@
     "worm"
   ],
   "tts": "worm",
-  "unicode": "1fab1",
-  "unicodeSkintones": null
+  "unicode": "1fab1"
 }

@@ -1,12 +1,11 @@
 {
-  "basefilename": "heart_hands",
   "cldr": "heart hands",
   "fromVersion": "14.0",
-  "glyph": "\uD83E\uDEF6",
+  "glyph": "🫶",
   "glyphAsUtfInEmoticons": [
     "hearthands"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "heart hands",
     "love"

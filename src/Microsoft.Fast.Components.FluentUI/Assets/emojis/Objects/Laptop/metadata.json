@@ -1,8 +1,7 @@
 {
-  "basefilename": "laptop",
   "cldr": "laptop",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCBB",
+  "glyph": "💻",
   "glyphAsUtfInEmoticons": [
     "1f4bb_personalcomputer",
     "computer"
@@ -18,6 +17,5 @@
     "computer"
   ],
   "tts": "laptop",
-  "unicode": "1f4bb",
-  "unicodeSkintones": null
+  "unicode": "1f4bb"
 }

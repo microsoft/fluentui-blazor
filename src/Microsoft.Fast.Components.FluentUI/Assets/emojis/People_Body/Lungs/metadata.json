@@ -1,12 +1,11 @@
 {
-  "basefilename": "lungs",
   "cldr": "lungs",
   "fromVersion": "13.0",
-  "glyph": "\uD83E\uDEC1",
+  "glyph": "🫁",
   "glyphAsUtfInEmoticons": [
     "lungs"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "breath",
     "exhalation",
@@ -19,6 +18,5 @@
     "lungs"
   ],
   "tts": "lungs",
-  "unicode": "1fac1",
-  "unicodeSkintones": null
+  "unicode": "1fac1"
 }

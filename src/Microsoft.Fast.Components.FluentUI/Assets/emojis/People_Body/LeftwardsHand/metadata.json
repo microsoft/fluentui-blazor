@@ -1,12 +1,11 @@
 {
-  "basefilename": "leftwards_hand",
   "cldr": "leftwards hand",
   "fromVersion": "14.0",
-  "glyph": "\uD83E\uDEF2",
+  "glyph": "🫲",
   "glyphAsUtfInEmoticons": [
     "leftwardshand"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "hand",
     "left",

@@ -1,12 +1,11 @@
 {
-  "basefilename": "man_cook",
   "cldr": "man cook",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDC68\u200D\uD83C\uDF73",
+  "glyph": "👨‍🍳",
   "glyphAsUtfInEmoticons": [
     "manchef"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "chef",
     "cook",

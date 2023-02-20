@@ -1,12 +1,11 @@
 {
-  "basefilename": "sweat_droplets",
   "cldr": "sweat droplets",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCA6",
+  "glyph": "💦",
   "glyphAsUtfInEmoticons": [
     "1f4a6_splashingsweatsymbol"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "comic",
     "splashing",
@@ -17,6 +16,5 @@
     "1f4a6_splashingsweatsymbol"
   ],
   "tts": "sweat droplets",
-  "unicode": "1f4a6",
-  "unicodeSkintones": null
+  "unicode": "1f4a6"
 }

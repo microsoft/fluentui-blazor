@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_pilot",
   "cldr": "woman pilot",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDC69\u200D\u2708\uFE0F",
+  "glyph": "👩‍✈️",
   "glyphAsUtfInEmoticons": [
     "womanpilot"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "pilot",
     "plane",

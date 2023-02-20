@@ -1,12 +1,11 @@
 {
-  "basefilename": "steaming_bowl",
   "cldr": "steaming bowl",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF5C",
+  "glyph": "🍜",
   "glyphAsUtfInEmoticons": [
     "noodles"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "bowl",
     "noodle",
@@ -17,6 +16,5 @@
     "noodles"
   ],
   "tts": "steaming bowl",
-  "unicode": "1f35c",
-  "unicodeSkintones": null
+  "unicode": "1f35c"
 }

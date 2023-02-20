@@ -1,10 +1,8 @@
 {
-  "basefilename": "fork_and_knife_with_plate",
   "cldr": "fork and knife with plate",
   "fromVersion": "0.7",
-  "glyph": "\uD83C\uDF7D\uFE0F",
-  "glyphAsUtfInEmoticons": null,
-  "group": "Food \u0026 Drink",
+  "glyph": "🍽️",
+  "group": "Food & Drink",
   "keywords": [
     "cooking",
     "fork",
@@ -16,6 +14,5 @@
     "1f37d_forkandknifewithplate"
   ],
   "tts": "fork and knife with plate",
-  "unicode": "1f37d fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f37d fe0f"
 }

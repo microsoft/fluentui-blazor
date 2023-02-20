@@ -1,8 +1,7 @@
 {
-  "basefilename": "chequered_flag",
   "cldr": "chequered flag",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDFC1",
+  "glyph": "🏁",
   "glyphAsUtfInEmoticons": [
     "1f3c1_chequeredflag"
   ],
@@ -13,8 +12,6 @@
     "chequered flag",
     "racing"
   ],
-  "mappedToEmoticons": null,
   "tts": "chequered flag",
-  "unicode": "1f3c1",
-  "unicodeSkintones": null
+  "unicode": "1f3c1"
 }

@@ -1,13 +1,12 @@
 {
-  "basefilename": "person_gesturing_no",
   "cldr": "person gesturing NO",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDE45",
+  "glyph": "🙅",
   "glyphAsUtfInEmoticons": [
     "1f645_facewithnogoodgesture",
     "face_with_no_good_gesture"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "forbidden",
     "gesture",

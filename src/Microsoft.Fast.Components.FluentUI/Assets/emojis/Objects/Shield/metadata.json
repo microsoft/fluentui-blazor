@@ -1,9 +1,7 @@
 {
-  "basefilename": "shield",
   "cldr": "shield",
   "fromVersion": "0.7",
-  "glyph": "\uD83D\uDEE1\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "🛡️",
   "group": "Objects",
   "keywords": [
     "shield",
@@ -13,6 +11,5 @@
     "1f6e1_shield"
   ],
   "tts": "shield",
-  "unicode": "1f6e1 fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f6e1 fe0f"
 }

@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_elf",
   "cldr": "woman elf",
   "fromVersion": "5.0",
-  "glyph": "\uD83E\uDDDD\u200D\u2640\uFE0F",
+  "glyph": "🧝‍♀️",
   "glyphAsUtfInEmoticons": [
     "woman_elf"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "magical",
     "woman elf"

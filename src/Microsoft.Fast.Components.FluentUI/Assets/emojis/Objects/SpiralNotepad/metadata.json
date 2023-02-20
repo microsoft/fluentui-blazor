@@ -1,9 +1,7 @@
 {
-  "basefilename": "spiral_notepad",
   "cldr": "spiral notepad",
   "fromVersion": "0.7",
-  "glyph": "\uD83D\uDDD2\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "🗒️",
   "group": "Objects",
   "keywords": [
     "note",
@@ -15,6 +13,5 @@
     "1f5d2_spiralnotepad"
   ],
   "tts": "spiral notepad",
-  "unicode": "1f5d2 fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f5d2 fe0f"
 }

@@ -1,8 +1,7 @@
 {
-  "basefilename": "coin",
   "cldr": "coin",
   "fromVersion": "13.0",
-  "glyph": "\uD83E\uDE99",
+  "glyph": "🪙",
   "glyphAsUtfInEmoticons": [
     "coin"
   ],
@@ -19,6 +18,5 @@
     "coin"
   ],
   "tts": "coin",
-  "unicode": "1fa99",
-  "unicodeSkintones": null
+  "unicode": "1fa99"
 }

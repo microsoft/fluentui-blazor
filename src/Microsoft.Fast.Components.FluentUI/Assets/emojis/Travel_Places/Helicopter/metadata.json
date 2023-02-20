@@ -1,12 +1,11 @@
 {
-  "basefilename": "helicopter",
   "cldr": "helicopter",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDE81",
+  "glyph": "🚁",
   "glyphAsUtfInEmoticons": [
     "1f681_helicopter"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "helicopter",
     "vehicle"
@@ -15,6 +14,5 @@
     "1f681_helicopter"
   ],
   "tts": "helicopter",
-  "unicode": "1f681",
-  "unicodeSkintones": null
+  "unicode": "1f681"
 }

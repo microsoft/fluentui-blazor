@@ -1,12 +1,11 @@
 {
-  "basefilename": "peanuts",
   "cldr": "peanuts",
   "fromVersion": "3.0",
-  "glyph": "\uD83E\uDD5C",
+  "glyph": "🥜",
   "glyphAsUtfInEmoticons": [
     "1f95c_peanuts"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "food",
     "nut",
@@ -18,6 +17,5 @@
     "1f95c_peanuts"
   ],
   "tts": "peanuts",
-  "unicode": "1f95c",
-  "unicodeSkintones": null
+  "unicode": "1f95c"
 }

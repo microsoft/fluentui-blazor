@@ -1,13 +1,12 @@
 {
-  "basefilename": "bear",
   "cldr": "bear",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC3B",
+  "glyph": "🐻",
   "glyphAsUtfInEmoticons": [
     "1f43b_bearface",
     "polarbear"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "bear",
     "face"
@@ -16,6 +15,5 @@
     "1f43b_bearface"
   ],
   "tts": "bear",
-  "unicode": "1f43b",
-  "unicodeSkintones": null
+  "unicode": "1f43b"
 }

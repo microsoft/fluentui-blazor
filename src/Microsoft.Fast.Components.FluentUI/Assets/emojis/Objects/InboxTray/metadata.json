@@ -1,8 +1,7 @@
 {
-  "basefilename": "inbox_tray",
   "cldr": "inbox tray",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCE5",
+  "glyph": "📥",
   "glyphAsUtfInEmoticons": [
     "1f4e5_inboxtray"
   ],
@@ -19,6 +18,5 @@
     "1f4e5_inboxtray"
   ],
   "tts": "inbox tray",
-  "unicode": "1f4e5",
-  "unicodeSkintones": null
+  "unicode": "1f4e5"
 }

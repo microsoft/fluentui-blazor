@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_in_lotus_position",
   "cldr": "woman in lotus position",
   "fromVersion": "5.0",
-  "glyph": "\uD83E\uDDD8\u200D\u2640\uFE0F",
+  "glyph": "🧘‍♀️",
   "glyphAsUtfInEmoticons": [
     "yoga"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "meditation",
     "woman in lotus position",

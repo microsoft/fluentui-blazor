@@ -1,12 +1,11 @@
 {
-  "basefilename": "skateboard",
   "cldr": "skateboard",
   "fromVersion": "11.0",
-  "glyph": "\uD83D\uDEF9",
+  "glyph": "🛹",
   "glyphAsUtfInEmoticons": [
     "skate"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "board",
     "skateboard"
@@ -15,6 +14,5 @@
     "skate"
   ],
   "tts": "skateboard",
-  "unicode": "1f6f9",
-  "unicodeSkintones": null
+  "unicode": "1f6f9"
 }

@@ -1,8 +1,7 @@
 {
-  "basefilename": "soap",
   "cldr": "soap",
   "fromVersion": "11.0",
-  "glyph": "\uD83E\uDDFC",
+  "glyph": "🧼",
   "glyphAsUtfInEmoticons": [
     "1f9fc_soap"
   ],
@@ -19,6 +18,5 @@
     "1f9fc_soap"
   ],
   "tts": "soap",
-  "unicode": "1f9fc",
-  "unicodeSkintones": null
+  "unicode": "1f9fc"
 }

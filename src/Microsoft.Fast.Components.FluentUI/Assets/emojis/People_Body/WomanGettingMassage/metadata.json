@@ -1,10 +1,8 @@
 {
-  "basefilename": "woman_getting_massage",
   "cldr": "woman getting massage",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDC86\u200D\u2640\uFE0F",
-  "glyphAsUtfInEmoticons": null,
-  "group": "People \u0026 Body",
+  "glyph": "💆‍♀️",
+  "group": "People & Body",
   "keywords": [
     "face",
     "massage",

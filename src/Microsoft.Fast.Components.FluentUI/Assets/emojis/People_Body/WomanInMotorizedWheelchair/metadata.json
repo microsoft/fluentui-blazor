@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_in_motorized_wheelchair",
   "cldr": "woman in motorized wheelchair",
   "fromVersion": "12.0",
-  "glyph": "\uD83D\uDC69\u200D\uD83E\uDDBC",
+  "glyph": "👩‍🦼",
   "glyphAsUtfInEmoticons": [
     "woman_in_motorized_wheelchair"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "accessibility",
     "wheelchair",

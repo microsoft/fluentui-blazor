@@ -1,12 +1,11 @@
 {
-  "basefilename": "rooster",
   "cldr": "rooster",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDC13",
+  "glyph": "🐓",
   "glyphAsUtfInEmoticons": [
     "1f413_rooster"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "bird",
     "rooster"
@@ -15,6 +14,5 @@
     "1f413_rooster"
   ],
   "tts": "rooster",
-  "unicode": "1f413",
-  "unicodeSkintones": null
+  "unicode": "1f413"
 }

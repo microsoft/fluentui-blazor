@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_mechanic",
   "cldr": "woman mechanic",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDC69\u200D\uD83D\uDD27",
+  "glyph": "👩‍🔧",
   "glyphAsUtfInEmoticons": [
     "womanmechanic"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "electrician",
     "mechanic",

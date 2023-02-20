@@ -1,12 +1,11 @@
 {
-  "basefilename": "palms_up_together",
   "cldr": "palms up together",
   "fromVersion": "5.0",
-  "glyph": "\uD83E\uDD32",
+  "glyph": "🤲",
   "glyphAsUtfInEmoticons": [
     "1f932_palmsuptogether"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "palms up together",
     "prayer"

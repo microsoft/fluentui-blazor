@@ -1,8 +1,7 @@
 {
-  "basefilename": "sled",
   "cldr": "sled",
   "fromVersion": "5.0",
-  "glyph": "\uD83D\uDEF7",
+  "glyph": "🛷",
   "glyphAsUtfInEmoticons": [
     "1f6f7_sled"
   ],
@@ -16,6 +15,5 @@
     "1f6f7_sled"
   ],
   "tts": "sled",
-  "unicode": "1f6f7",
-  "unicodeSkintones": null
+  "unicode": "1f6f7"
 }

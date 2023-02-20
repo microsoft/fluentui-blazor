@@ -1,12 +1,11 @@
 {
-  "basefilename": "girl",
   "cldr": "girl",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC67",
+  "glyph": "👧",
   "glyphAsUtfInEmoticons": [
     "smilegirl"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "girl",
     "Virgo",

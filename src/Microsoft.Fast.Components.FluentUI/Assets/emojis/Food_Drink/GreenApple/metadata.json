@@ -1,12 +1,11 @@
 {
-  "basefilename": "green_apple",
   "cldr": "green apple",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF4F",
+  "glyph": "🍏",
   "glyphAsUtfInEmoticons": [
     "1f34f_greenapple"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "apple",
     "fruit",
@@ -16,6 +15,5 @@
     "1f34f_greenapple"
   ],
   "tts": "green apple",
-  "unicode": "1f34f",
-  "unicodeSkintones": null
+  "unicode": "1f34f"
 }

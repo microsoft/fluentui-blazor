@@ -1,12 +1,11 @@
 {
-  "basefilename": "rocket",
   "cldr": "rocket",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDE80",
+  "glyph": "🚀",
   "glyphAsUtfInEmoticons": [
     "launch"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "rocket",
     "space"
@@ -15,6 +14,5 @@
     "launch"
   ],
   "tts": "rocket",
-  "unicode": "1f680",
-  "unicodeSkintones": null
+  "unicode": "1f680"
 }

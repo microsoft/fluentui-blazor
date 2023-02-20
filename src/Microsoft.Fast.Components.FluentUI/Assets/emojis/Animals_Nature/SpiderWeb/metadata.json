@@ -1,10 +1,8 @@
 {
-  "basefilename": "spider_web",
   "cldr": "spider web",
   "fromVersion": "0.7",
-  "glyph": "\uD83D\uDD78\uFE0F",
-  "glyphAsUtfInEmoticons": null,
-  "group": "Animals \u0026 Nature",
+  "glyph": "🕸️",
+  "group": "Animals & Nature",
   "keywords": [
     "spider",
     "web"
@@ -13,6 +11,5 @@
     "1f578_spiderweb"
   ],
   "tts": "spider web",
-  "unicode": "1f578 fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f578 fe0f"
 }

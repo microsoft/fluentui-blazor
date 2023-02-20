@@ -1,8 +1,7 @@
 {
-  "basefilename": "fast_up_button",
   "cldr": "fast up button",
   "fromVersion": "0.6",
-  "glyph": "\u23EB",
+  "glyph": "⏫",
   "glyphAsUtfInEmoticons": [
     "23eb_fastupbutton"
   ],
@@ -16,6 +15,5 @@
     "23eb_fastupbutton"
   ],
   "tts": "fast up button",
-  "unicode": "23eb",
-  "unicodeSkintones": null
+  "unicode": "23eb"
 }

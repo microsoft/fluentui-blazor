@@ -1,12 +1,11 @@
 {
-  "basefilename": "people_hugging",
   "cldr": "people hugging",
   "fromVersion": "13.0",
-  "glyph": "\uD83E\uDEC2",
+  "glyph": "🫂",
   "glyphAsUtfInEmoticons": [
     "peoplehugging"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "goodbye",
     "hello",
@@ -18,6 +17,5 @@
     "peoplehugging"
   ],
   "tts": "people hugging",
-  "unicode": "1fac2",
-  "unicodeSkintones": null
+  "unicode": "1fac2"
 }

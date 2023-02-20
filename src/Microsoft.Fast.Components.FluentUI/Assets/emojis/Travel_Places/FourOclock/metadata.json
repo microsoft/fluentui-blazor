@@ -1,25 +1,23 @@
 {
-  "basefilename": "four_oclock",
-  "cldr": "four o\u2019clock",
+  "cldr": "four o’clock",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDD53",
+  "glyph": "🕓",
   "glyphAsUtfInEmoticons": [
     "1f553_fouroclock",
     "fourtwenty"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "00",
     "4",
     "4:00",
     "clock",
     "four",
-    "o\u2019clock"
+    "o’clock"
   ],
   "mappedToEmoticons": [
     "1f553_fouroclock"
   ],
-  "tts": "four o\u2019clock",
-  "unicode": "1f553",
-  "unicodeSkintones": null
+  "tts": "four o’clock",
+  "unicode": "1f553"
 }

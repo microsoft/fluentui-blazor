@@ -1,8 +1,7 @@
 {
-  "basefilename": "ring",
   "cldr": "ring",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC8D",
+  "glyph": "💍",
   "glyphAsUtfInEmoticons": [
     "ring"
   ],
@@ -15,6 +14,5 @@
     "ring"
   ],
   "tts": "ring",
-  "unicode": "1f48d",
-  "unicodeSkintones": null
+  "unicode": "1f48d"
 }

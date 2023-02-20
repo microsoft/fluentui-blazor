@@ -1,8 +1,7 @@
 {
-  "basefilename": "orange_book",
   "cldr": "orange book",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCD9",
+  "glyph": "📙",
   "glyphAsUtfInEmoticons": [
     "1f4d9_orangebook"
   ],
@@ -15,6 +14,5 @@
     "1f4d9_orangebook"
   ],
   "tts": "orange book",
-  "unicode": "1f4d9",
-  "unicodeSkintones": null
+  "unicode": "1f4d9"
 }

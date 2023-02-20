@@ -1,8 +1,7 @@
 {
-  "basefilename": "top_hat",
   "cldr": "top hat",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDFA9",
+  "glyph": "🎩",
   "glyphAsUtfInEmoticons": [
     "1f3a9_tophat"
   ],
@@ -17,6 +16,5 @@
     "1f3a9_tophat"
   ],
   "tts": "top hat",
-  "unicode": "1f3a9",
-  "unicodeSkintones": null
+  "unicode": "1f3a9"
 }

@@ -1,15 +1,14 @@
 {
-  "basefilename": "man",
   "cldr": "man",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC68",
+  "glyph": "👨",
   "glyphAsUtfInEmoticons": [
     "man",
     "man_student",
     "manstudent",
     "smileman"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "adult",
     "man"

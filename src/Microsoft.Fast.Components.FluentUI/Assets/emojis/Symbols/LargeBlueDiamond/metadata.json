@@ -1,8 +1,7 @@
 {
-  "basefilename": "large_blue_diamond",
   "cldr": "large blue diamond",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDD37",
+  "glyph": "🔷",
   "glyphAsUtfInEmoticons": [
     "1f537_largebluediamond"
   ],
@@ -17,6 +16,5 @@
     "1f537_largebluediamond"
   ],
   "tts": "large blue diamond",
-  "unicode": "1f537",
-  "unicodeSkintones": null
+  "unicode": "1f537"
 }

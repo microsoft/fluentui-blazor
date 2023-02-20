@@ -1,12 +1,11 @@
 {
-  "basefilename": "blue_heart",
   "cldr": "blue heart",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC99",
+  "glyph": "💙",
   "glyphAsUtfInEmoticons": [
     "heartblue"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "blue",
     "blue heart"
@@ -15,6 +14,5 @@
     "heartblue"
   ],
   "tts": "blue heart",
-  "unicode": "1f499",
-  "unicodeSkintones": null
+  "unicode": "1f499"
 }

@@ -1,9 +1,7 @@
 {
-  "basefilename": "scissors",
   "cldr": "scissors",
   "fromVersion": "0.6",
-  "glyph": "\u2702\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "✂️",
   "group": "Objects",
   "keywords": [
     "cutting",
@@ -14,6 +12,5 @@
     "2702_blackscissors"
   ],
   "tts": "scissors",
-  "unicode": "2702 fe0f",
-  "unicodeSkintones": null
+  "unicode": "2702 fe0f"
 }

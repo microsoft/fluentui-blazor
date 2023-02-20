@@ -1,12 +1,11 @@
 {
-  "basefilename": "man_beard",
   "cldr": "man: beard",
   "fromVersion": "13.1",
-  "glyph": "\uD83E\uDDD4\u200D\u2642\uFE0F",
+  "glyph": "🧔‍♂️",
   "glyphAsUtfInEmoticons": [
     "manbeard"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "beard",
     "man",

@@ -1,8 +1,7 @@
 {
-  "basefilename": "up-right_arrow",
   "cldr": "up-right arrow",
   "fromVersion": "0.6",
-  "glyph": "\u2197\uFE0F",
+  "glyph": "↗️",
   "glyphAsUtfInEmoticons": [
     "2197_northeastarrow"
   ],
@@ -18,6 +17,5 @@
     "2197_northeastarrow"
   ],
   "tts": "up-right arrow",
-  "unicode": "2197 fe0f",
-  "unicodeSkintones": null
+  "unicode": "2197 fe0f"
 }

@@ -1,8 +1,7 @@
 {
-  "basefilename": "sewing_needle",
   "cldr": "sewing needle",
   "fromVersion": "13.0",
-  "glyph": "\uD83E\uDEA1",
+  "glyph": "🪡",
   "glyphAsUtfInEmoticons": [
     "sewingneedle"
   ],
@@ -19,6 +18,5 @@
     "sewingneedle"
   ],
   "tts": "sewing needle",
-  "unicode": "1faa1",
-  "unicodeSkintones": null
+  "unicode": "1faa1"
 }

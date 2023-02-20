@@ -1,12 +1,11 @@
 {
-  "basefilename": "man_raising_hand",
   "cldr": "man raising hand",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDE4B\u200D\u2642\uFE0F",
+  "glyph": "🙋‍♂️",
   "glyphAsUtfInEmoticons": [
     "man_raising_hand"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "gesture",
     "man",

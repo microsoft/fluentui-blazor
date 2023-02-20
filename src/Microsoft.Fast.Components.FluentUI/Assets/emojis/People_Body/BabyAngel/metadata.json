@@ -1,12 +1,11 @@
 {
-  "basefilename": "baby_angel",
   "cldr": "baby angel",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC7C",
+  "glyph": "👼",
   "glyphAsUtfInEmoticons": [
     "1f47c_babyangel"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "angel",
     "baby",

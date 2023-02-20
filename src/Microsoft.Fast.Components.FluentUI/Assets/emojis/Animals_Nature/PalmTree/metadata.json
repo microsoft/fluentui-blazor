@@ -1,10 +1,8 @@
 {
-  "basefilename": "palm_tree",
   "cldr": "palm tree",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF34",
-  "glyphAsUtfInEmoticons": null,
-  "group": "Animals \u0026 Nature",
+  "glyph": "🌴",
+  "group": "Animals & Nature",
   "keywords": [
     "palm",
     "tree"
@@ -13,6 +11,5 @@
     "palmtree"
   ],
   "tts": "palm tree",
-  "unicode": "1f334",
-  "unicodeSkintones": null
+  "unicode": "1f334"
 }

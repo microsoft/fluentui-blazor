@@ -1,8 +1,7 @@
 {
-  "basefilename": "chair",
   "cldr": "chair",
   "fromVersion": "12.0",
-  "glyph": "\uD83E\uDE91",
+  "glyph": "🪑",
   "glyphAsUtfInEmoticons": [
     "1fa91_chair"
   ],
@@ -16,6 +15,5 @@
     "1fa91_chair"
   ],
   "tts": "chair",
-  "unicode": "1fa91",
-  "unicodeSkintones": null
+  "unicode": "1fa91"
 }

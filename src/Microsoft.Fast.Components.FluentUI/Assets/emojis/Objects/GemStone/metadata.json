@@ -1,8 +1,7 @@
 {
-  "basefilename": "gem_stone",
   "cldr": "gem stone",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC8E",
+  "glyph": "💎",
   "glyphAsUtfInEmoticons": [
     "diamond"
   ],
@@ -17,6 +16,5 @@
     "diamond"
   ],
   "tts": "gem stone",
-  "unicode": "1f48e",
-  "unicodeSkintones": null
+  "unicode": "1f48e"
 }

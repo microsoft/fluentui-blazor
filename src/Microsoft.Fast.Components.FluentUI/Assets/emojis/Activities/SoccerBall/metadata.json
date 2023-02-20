@@ -1,8 +1,7 @@
 {
-  "basefilename": "soccer_ball",
   "cldr": "soccer ball",
   "fromVersion": "0.6",
-  "glyph": "\u26BD",
+  "glyph": "⚽",
   "glyphAsUtfInEmoticons": [
     "footballfail",
     "soccerball"
@@ -17,6 +16,5 @@
     "soccerball"
   ],
   "tts": "soccer ball",
-  "unicode": "26bd",
-  "unicodeSkintones": null
+  "unicode": "26bd"
 }

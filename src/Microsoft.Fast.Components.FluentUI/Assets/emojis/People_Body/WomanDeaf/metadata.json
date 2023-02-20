@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_deaf",
   "cldr": "deaf woman",
   "fromVersion": "12.0",
-  "glyph": "\uD83E\uDDCF\u200D\u2640\uFE0F",
+  "glyph": "🧏‍♀️",
   "glyphAsUtfInEmoticons": [
     "woman_deaf"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "deaf",
     "woman"

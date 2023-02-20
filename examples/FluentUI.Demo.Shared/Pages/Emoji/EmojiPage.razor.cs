@@ -38,7 +38,7 @@ public partial class EmojiPage : IAsyncDisposable
             Form.Size = Enum.Parse<EmojiSize>((string)args.Value);
         else
             Form.Size = EmojiSize.Size32;
-        
+
         HandleSearch();
     }
 
@@ -68,22 +68,22 @@ public partial class EmojiPage : IAsyncDisposable
             Form.Group = Enum.Parse<EmojiGroup>((string)args.Value!);
         else
             Form.Group = null;
-        
+
         HandleSearch();
     }
-    
+
     public void HandleSearch()
     {
         emojis = null;
-        
+
 
         FluentEmojiSearcher searcher = new(EmojiService);
-                
-            emojis = searcher.WithName(Form.Searchterm)
-                .InGroup(Form.Group)
-                .WithStyle(Form.Style)
-                .WithSkintone(Form.Skintone)
-                .ToList(maxResults);
+
+        emojis = searcher.WithName(Form.Searchterm)
+            .InGroup(Form.Group)
+            .WithStyle(Form.Style)
+            .WithSkintone(Form.Skintone)
+            .ToList(maxResults);
 
         totalCount = searcher.ResultCount();
 
@@ -97,7 +97,7 @@ public partial class EmojiPage : IAsyncDisposable
         Form.Group = null;
         Form.Style = null;
         Form.Skintone = null;
-        
+
         if (emojis is not null)
             emojis.Clear();
     }
@@ -108,7 +108,7 @@ public partial class EmojiPage : IAsyncDisposable
 
         string skintone = emoji.Skintone is not null ? $"Skintone=@EmojiSkintone.{emoji.Skintone}" : string.Empty;
 
-        string Text = $$"""<FluentEmoji Name="@FluentEmojis.{{emoji.Folder}}" Size="@EmojiSize.{{Form.Size}}" Style="@EmojiStyle.{{emoji.Style}}" {{skintone}}/>""";
+        string Text = $$"""<FluentEmoji Name="@FluentEmojis.{{emoji.Name}}" Size="@EmojiSize.{{Form.Size}}" Style="@EmojiStyle.{{emoji.Style}}" {{skintone}}/>""";
 
         if (_jsModule is not null)
         {

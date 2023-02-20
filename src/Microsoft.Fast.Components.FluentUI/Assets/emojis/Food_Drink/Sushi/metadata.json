@@ -1,12 +1,11 @@
 {
-  "basefilename": "sushi",
   "cldr": "sushi",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF63",
+  "glyph": "🍣",
   "glyphAsUtfInEmoticons": [
     "1f363_sushi"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "sushi"
   ],
@@ -14,6 +13,5 @@
     "1f363_sushi"
   ],
   "tts": "sushi",
-  "unicode": "1f363",
-  "unicodeSkintones": null
+  "unicode": "1f363"
 }

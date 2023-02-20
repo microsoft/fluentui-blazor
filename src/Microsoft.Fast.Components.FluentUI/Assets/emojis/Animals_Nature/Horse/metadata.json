@@ -1,12 +1,11 @@
 {
-  "basefilename": "horse",
   "cldr": "horse",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC0E",
+  "glyph": "🐎",
   "glyphAsUtfInEmoticons": [
     "1f40e_horse"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "equestrian",
     "horse",
@@ -17,6 +16,5 @@
     "1f40e_horse"
   ],
   "tts": "horse",
-  "unicode": "1f40e",
-  "unicodeSkintones": null
+  "unicode": "1f40e"
 }

@@ -1,12 +1,11 @@
 {
-  "basefilename": "kiss_mark",
   "cldr": "kiss mark",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC8B",
+  "glyph": "💋",
   "glyphAsUtfInEmoticons": [
     "lips"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "kiss",
     "kiss mark",
@@ -16,6 +15,5 @@
     "lips"
   ],
   "tts": "kiss mark",
-  "unicode": "1f48b",
-  "unicodeSkintones": null
+  "unicode": "1f48b"
 }

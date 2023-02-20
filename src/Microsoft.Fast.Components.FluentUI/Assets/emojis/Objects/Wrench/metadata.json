@@ -1,8 +1,7 @@
 {
-  "basefilename": "wrench",
   "cldr": "wrench",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDD27",
+  "glyph": "🔧",
   "glyphAsUtfInEmoticons": [
     "1f527_wrench"
   ],
@@ -16,6 +15,5 @@
     "1f527_wrench"
   ],
   "tts": "wrench",
-  "unicode": "1f527",
-  "unicodeSkintones": null
+  "unicode": "1f527"
 }

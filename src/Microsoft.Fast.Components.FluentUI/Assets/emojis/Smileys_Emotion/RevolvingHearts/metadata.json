@@ -1,12 +1,11 @@
 {
-  "basefilename": "revolving_hearts",
   "cldr": "revolving hearts",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC9E",
+  "glyph": "💞",
   "glyphAsUtfInEmoticons": [
     "1f49e_revolvinghearts"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "revolving",
     "revolving hearts"
@@ -15,6 +14,5 @@
     "1f49e_revolvinghearts"
   ],
   "tts": "revolving hearts",
-  "unicode": "1f49e",
-  "unicodeSkintones": null
+  "unicode": "1f49e"
 }

@@ -1,8 +1,7 @@
 {
-  "basefilename": "ab_button_blood_type",
   "cldr": "AB button (blood type)",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDD8E",
+  "glyph": "🆎",
   "glyphAsUtfInEmoticons": [
     "1f18e_negativesquaredab"
   ],
@@ -16,6 +15,5 @@
     "1f18e_negativesquaredab"
   ],
   "tts": "AB button (blood type)",
-  "unicode": "1f18e",
-  "unicodeSkintones": null
+  "unicode": "1f18e"
 }

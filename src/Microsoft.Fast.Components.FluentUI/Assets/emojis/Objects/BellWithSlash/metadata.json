@@ -1,8 +1,7 @@
 {
-  "basefilename": "bell_with_slash",
   "cldr": "bell with slash",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDD15",
+  "glyph": "🔕",
   "glyphAsUtfInEmoticons": [
     "1f515_bellwithslash"
   ],
@@ -19,6 +18,5 @@
     "1f515_bellwithslash"
   ],
   "tts": "bell with slash",
-  "unicode": "1f515",
-  "unicodeSkintones": null
+  "unicode": "1f515"
 }

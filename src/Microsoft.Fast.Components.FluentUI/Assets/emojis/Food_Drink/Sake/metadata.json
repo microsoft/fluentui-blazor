@@ -1,12 +1,11 @@
 {
-  "basefilename": "sake",
   "cldr": "sake",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF76",
+  "glyph": "🍶",
   "glyphAsUtfInEmoticons": [
     "1f376_sakebottleandcup"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "bar",
     "beverage",
@@ -19,6 +18,5 @@
     "1f376_sakebottleandcup"
   ],
   "tts": "sake",
-  "unicode": "1f376",
-  "unicodeSkintones": null
+  "unicode": "1f376"
 }

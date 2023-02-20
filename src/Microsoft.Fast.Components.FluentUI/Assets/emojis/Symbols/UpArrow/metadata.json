@@ -1,8 +1,7 @@
 {
-  "basefilename": "up_arrow",
   "cldr": "up arrow",
   "fromVersion": "0.6",
-  "glyph": "\u2B06\uFE0F",
+  "glyph": "⬆️",
   "glyphAsUtfInEmoticons": [
     "2b06_upwardsblackarrow"
   ],
@@ -18,6 +17,5 @@
     "2b06_upwardsblackarrow"
   ],
   "tts": "up arrow",
-  "unicode": "2b06 fe0f",
-  "unicodeSkintones": null
+  "unicode": "2b06 fe0f"
 }

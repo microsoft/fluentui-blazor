@@ -1,12 +1,11 @@
 {
-  "basefilename": "leg",
   "cldr": "leg",
   "fromVersion": "11.0",
-  "glyph": "\uD83E\uDDB5",
+  "glyph": "🦵",
   "glyphAsUtfInEmoticons": [
     "1f9b5_leg"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "kick",
     "leg",

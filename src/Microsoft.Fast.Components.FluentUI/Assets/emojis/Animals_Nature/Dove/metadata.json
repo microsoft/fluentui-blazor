@@ -1,10 +1,8 @@
 {
-  "basefilename": "dove",
   "cldr": "dove",
   "fromVersion": "0.7",
-  "glyph": "\uD83D\uDD4A\uFE0F",
-  "glyphAsUtfInEmoticons": null,
-  "group": "Animals \u0026 Nature",
+  "glyph": "🕊️",
+  "group": "Animals & Nature",
   "keywords": [
     "bird",
     "dove",
@@ -15,6 +13,5 @@
     "1f54a_doveofpeace"
   ],
   "tts": "dove",
-  "unicode": "1f54a fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f54a fe0f"
 }

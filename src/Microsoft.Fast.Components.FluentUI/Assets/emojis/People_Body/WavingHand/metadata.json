@@ -1,13 +1,12 @@
 {
-  "basefilename": "waving_hand",
   "cldr": "waving hand",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC4B",
+  "glyph": "👋",
   "glyphAsUtfInEmoticons": [
     "1f44b_wavinghand",
     "hi"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "hand",
     "wave",

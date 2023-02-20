@@ -1,8 +1,7 @@
 {
-  "basefilename": "keycap_4",
   "cldr": "keycap: 4",
   "fromVersion": "0.6",
-  "glyph": "4\uFE0F\u20E3",
+  "glyph": "4️⃣",
   "glyphAsUtfInEmoticons": [
     "keycapdigitfour"
   ],
@@ -15,6 +14,5 @@
     "keycapdigitfour"
   ],
   "tts": "keycap: 4",
-  "unicode": "0034 fe0f 20e3",
-  "unicodeSkintones": null
+  "unicode": "0034 fe0f 20e3"
 }

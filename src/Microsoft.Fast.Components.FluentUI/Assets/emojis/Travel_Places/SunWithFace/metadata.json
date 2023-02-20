@@ -1,10 +1,8 @@
 {
-  "basefilename": "sun_with_face",
   "cldr": "sun with face",
   "fromVersion": "1.0",
-  "glyph": "\uD83C\uDF1E",
-  "glyphAsUtfInEmoticons": null,
-  "group": "Travel \u0026 Places",
+  "glyph": "🌞",
+  "group": "Travel & Places",
   "keywords": [
     "bright",
     "face",
@@ -15,6 +13,5 @@
     "sun"
   ],
   "tts": "sun with face",
-  "unicode": "1f31e",
-  "unicodeSkintones": null
+  "unicode": "1f31e"
 }

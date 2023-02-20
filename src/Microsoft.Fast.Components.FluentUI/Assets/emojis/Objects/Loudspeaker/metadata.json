@@ -1,8 +1,7 @@
 {
-  "basefilename": "loudspeaker",
   "cldr": "loudspeaker",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCE2",
+  "glyph": "📢",
   "glyphAsUtfInEmoticons": [
     "1f4e2_publicaddressloudspeaker"
   ],
@@ -16,6 +15,5 @@
     "1f4e2_publicaddressloudspeaker"
   ],
   "tts": "loudspeaker",
-  "unicode": "1f4e2",
-  "unicodeSkintones": null
+  "unicode": "1f4e2"
 }

@@ -1,12 +1,11 @@
 {
-  "basefilename": "map_of_japan",
   "cldr": "map of Japan",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDDFE",
+  "glyph": "🗾",
   "glyphAsUtfInEmoticons": [
     "1f5fe_silhouetteofjapan"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "Japan",
     "map",
@@ -16,6 +15,5 @@
     "1f5fe_silhouetteofjapan"
   ],
   "tts": "map of Japan",
-  "unicode": "1f5fe",
-  "unicodeSkintones": null
+  "unicode": "1f5fe"
 }

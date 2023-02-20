@@ -1,12 +1,11 @@
 {
-  "basefilename": "pouting_cat",
   "cldr": "pouting cat",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDE3E",
+  "glyph": "😾",
   "glyphAsUtfInEmoticons": [
     "1f63e_poutingcat"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "cat",
     "face",
@@ -16,6 +15,5 @@
     "1f63e_poutingcat"
   ],
   "tts": "pouting cat",
-  "unicode": "1f63e",
-  "unicodeSkintones": null
+  "unicode": "1f63e"
 }

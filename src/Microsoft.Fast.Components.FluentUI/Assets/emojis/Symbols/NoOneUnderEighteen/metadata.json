@@ -1,8 +1,7 @@
 {
-  "basefilename": "no_one_under_eighteen",
   "cldr": "no one under eighteen",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDD1E",
+  "glyph": "🔞",
   "glyphAsUtfInEmoticons": [
     "1f51e_nooneundereighteensymbol"
   ],
@@ -19,6 +18,5 @@
     "1f51e_nooneundereighteensymbol"
   ],
   "tts": "no one under eighteen",
-  "unicode": "1f51e",
-  "unicodeSkintones": null
+  "unicode": "1f51e"
 }

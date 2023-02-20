@@ -1,12 +1,11 @@
 {
-  "basefilename": "smiling_face_with_tear",
   "cldr": "smiling face with tear",
   "fromVersion": "13.0",
-  "glyph": "\uD83E\uDD72",
+  "glyph": "🥲",
   "glyphAsUtfInEmoticons": [
     "smilingfacewithtear"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "grateful",
     "proud",
@@ -20,6 +19,5 @@
     "smilingfacewithtear"
   ],
   "tts": "smiling face with tear",
-  "unicode": "1f972",
-  "unicodeSkintones": null
+  "unicode": "1f972"
 }

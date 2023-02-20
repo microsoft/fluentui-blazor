@@ -1,12 +1,11 @@
 {
-  "basefilename": "mouse",
   "cldr": "mouse",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDC01",
+  "glyph": "🐁",
   "glyphAsUtfInEmoticons": [
     "1f401_mouse"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "mouse"
   ],
@@ -14,6 +13,5 @@
     "1f401_mouse"
   ],
   "tts": "mouse",
-  "unicode": "1f401",
-  "unicodeSkintones": null
+  "unicode": "1f401"
 }

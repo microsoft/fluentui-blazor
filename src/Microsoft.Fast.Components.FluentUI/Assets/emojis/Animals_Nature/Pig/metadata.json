@@ -1,12 +1,11 @@
 {
-  "basefilename": "pig",
   "cldr": "pig",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDC16",
+  "glyph": "🐖",
   "glyphAsUtfInEmoticons": [
     "pig"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "pig",
     "sow"
@@ -15,6 +14,5 @@
     "pig"
   ],
   "tts": "pig",
-  "unicode": "1f416",
-  "unicodeSkintones": null
+  "unicode": "1f416"
 }

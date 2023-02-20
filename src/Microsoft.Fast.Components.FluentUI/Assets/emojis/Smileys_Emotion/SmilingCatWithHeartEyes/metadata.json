@@ -1,10 +1,8 @@
 {
-  "basefilename": "smiling_cat_with_heart-eyes",
   "cldr": "smiling cat with heart-eyes",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDE3B",
-  "glyphAsUtfInEmoticons": null,
-  "group": "Smileys \u0026 Emotion",
+  "glyph": "😻",
+  "group": "Smileys & Emotion",
   "keywords": [
     "cat",
     "eye",
@@ -18,6 +16,5 @@
     "hearteyescat"
   ],
   "tts": "smiling cat with heart-eyes",
-  "unicode": "1f63b",
-  "unicodeSkintones": null
+  "unicode": "1f63b"
 }

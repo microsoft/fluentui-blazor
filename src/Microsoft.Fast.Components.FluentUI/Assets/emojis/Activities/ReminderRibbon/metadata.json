@@ -1,9 +1,7 @@
 {
-  "basefilename": "reminder_ribbon",
   "cldr": "reminder ribbon",
   "fromVersion": "0.7",
-  "glyph": "\uD83C\uDF97\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "🎗️",
   "group": "Activities",
   "keywords": [
     "celebration",
@@ -14,6 +12,5 @@
     "reminderribbon"
   ],
   "tts": "reminder ribbon",
-  "unicode": "1f397 fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f397 fe0f"
 }

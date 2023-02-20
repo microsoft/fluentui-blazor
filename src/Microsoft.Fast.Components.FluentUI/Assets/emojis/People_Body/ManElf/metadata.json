@@ -1,10 +1,8 @@
 {
-  "basefilename": "man_elf",
   "cldr": "man elf",
   "fromVersion": "5.0",
-  "glyph": "\uD83E\uDDDD\u200D\u2642\uFE0F",
-  "glyphAsUtfInEmoticons": null,
-  "group": "People \u0026 Body",
+  "glyph": "🧝‍♂️",
+  "group": "People & Body",
   "keywords": [
     "magical",
     "man elf"

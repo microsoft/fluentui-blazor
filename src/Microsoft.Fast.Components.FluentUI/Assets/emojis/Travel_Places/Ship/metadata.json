@@ -1,12 +1,11 @@
 {
-  "basefilename": "ship",
   "cldr": "ship",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDEA2",
+  "glyph": "🚢",
   "glyphAsUtfInEmoticons": [
     "1f6a2_ship"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "boat",
     "passenger",
@@ -16,6 +15,5 @@
     "1f6a2_ship"
   ],
   "tts": "ship",
-  "unicode": "1f6a2",
-  "unicodeSkintones": null
+  "unicode": "1f6a2"
 }

@@ -1,12 +1,11 @@
 {
-  "basefilename": "raised_fist",
   "cldr": "raised fist",
   "fromVersion": "0.6",
-  "glyph": "\u270A",
+  "glyph": "✊",
   "glyphAsUtfInEmoticons": [
     "fistbump"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "clenched",
     "fist",

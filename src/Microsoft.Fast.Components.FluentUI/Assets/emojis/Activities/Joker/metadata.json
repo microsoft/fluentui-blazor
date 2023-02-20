@@ -1,8 +1,7 @@
 {
-  "basefilename": "joker",
   "cldr": "joker",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDCCF",
+  "glyph": "🃏",
   "glyphAsUtfInEmoticons": [
     "1f0cf_playingcardblackjoker"
   ],
@@ -17,6 +16,5 @@
     "1f0cf_playingcardblackjoker"
   ],
   "tts": "joker",
-  "unicode": "1f0cf",
-  "unicodeSkintones": null
+  "unicode": "1f0cf"
 }

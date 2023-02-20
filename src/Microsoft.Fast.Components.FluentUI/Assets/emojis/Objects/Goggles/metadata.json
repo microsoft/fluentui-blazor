@@ -1,8 +1,7 @@
 {
-  "basefilename": "goggles",
   "cldr": "goggles",
   "fromVersion": "11.0",
-  "glyph": "\uD83E\uDD7D",
+  "glyph": "🥽",
   "glyphAsUtfInEmoticons": [
     "1f97d_goggles"
   ],
@@ -17,6 +16,5 @@
     "1f97d_goggles"
   ],
   "tts": "goggles",
-  "unicode": "1f97d",
-  "unicodeSkintones": null
+  "unicode": "1f97d"
 }

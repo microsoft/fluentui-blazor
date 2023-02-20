@@ -1,10 +1,8 @@
 {
-  "basefilename": "face_with_open_eyes_and_hand_over_mouth",
   "cldr": "face with open eyes and hand over mouth",
   "fromVersion": "14.0",
-  "glyph": "\uD83E\uDEE2",
-  "glyphAsUtfInEmoticons": null,
-  "group": "Smileys \u0026 Emotion",
+  "glyph": "🫢",
+  "group": "Smileys & Emotion",
   "keywords": [
     "amazement",
     "awe",
@@ -14,8 +12,6 @@
     "scared",
     "surprise"
   ],
-  "mappedToEmoticons": null,
   "tts": "face with open eyes and hand over mouth",
-  "unicode": "1fae2",
-  "unicodeSkintones": null
+  "unicode": "1fae2"
 }

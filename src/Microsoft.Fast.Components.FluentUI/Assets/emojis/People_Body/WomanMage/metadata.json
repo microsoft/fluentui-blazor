@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_mage",
   "cldr": "woman mage",
   "fromVersion": "5.0",
-  "glyph": "\uD83E\uDDD9\u200D\u2640\uFE0F",
+  "glyph": "🧙‍♀️",
   "glyphAsUtfInEmoticons": [
     "womanmage"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "sorceress",
     "witch",

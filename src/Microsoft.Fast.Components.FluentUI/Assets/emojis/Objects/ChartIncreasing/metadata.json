@@ -1,8 +1,7 @@
 {
-  "basefilename": "chart_increasing",
   "cldr": "chart increasing",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCC8",
+  "glyph": "📈",
   "glyphAsUtfInEmoticons": [
     "1f4c8_chartwithupwardstrend"
   ],
@@ -19,6 +18,5 @@
     "1f4c8_chartwithupwardstrend"
   ],
   "tts": "chart increasing",
-  "unicode": "1f4c8",
-  "unicodeSkintones": null
+  "unicode": "1f4c8"
 }

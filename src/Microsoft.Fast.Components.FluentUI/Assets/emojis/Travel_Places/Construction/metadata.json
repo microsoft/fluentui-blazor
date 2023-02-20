@@ -1,12 +1,11 @@
 {
-  "basefilename": "construction",
   "cldr": "construction",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDEA7",
+  "glyph": "🚧",
   "glyphAsUtfInEmoticons": [
     "1f6a7_constructionsign"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "barrier",
     "construction"
@@ -15,6 +14,5 @@
     "1f6a7_constructionsign"
   ],
   "tts": "construction",
-  "unicode": "1f6a7",
-  "unicodeSkintones": null
+  "unicode": "1f6a7"
 }

@@ -1,8 +1,7 @@
 {
-  "basefilename": "aries",
   "cldr": "Aries",
   "fromVersion": "0.6",
-  "glyph": "\u2648",
+  "glyph": "♈",
   "glyphAsUtfInEmoticons": [
     "2648_aries"
   ],
@@ -16,6 +15,5 @@
     "2648_aries"
   ],
   "tts": "Aries",
-  "unicode": "2648",
-  "unicodeSkintones": null
+  "unicode": "2648"
 }

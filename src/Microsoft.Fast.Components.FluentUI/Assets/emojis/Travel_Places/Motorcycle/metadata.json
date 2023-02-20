@@ -1,12 +1,11 @@
 {
-  "basefilename": "motorcycle",
   "cldr": "motorcycle",
   "fromVersion": "0.7",
-  "glyph": "\uD83C\uDFCD\uFE0F",
+  "glyph": "🏍️",
   "glyphAsUtfInEmoticons": [
     "motorbike"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "motorcycle",
     "racing"
@@ -15,6 +14,5 @@
     "motorbike"
   ],
   "tts": "motorcycle",
-  "unicode": "1f3cd fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f3cd fe0f"
 }

@@ -1,12 +1,11 @@
 {
-  "basefilename": "bug",
   "cldr": "bug",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC1B",
+  "glyph": "🐛",
   "glyphAsUtfInEmoticons": [
     "bug"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "bug",
     "insect"
@@ -15,6 +14,5 @@
     "bug"
   ],
   "tts": "bug",
-  "unicode": "1f41b",
-  "unicodeSkintones": null
+  "unicode": "1f41b"
 }

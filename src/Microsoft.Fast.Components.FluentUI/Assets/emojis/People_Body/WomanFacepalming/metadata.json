@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_facepalming",
   "cldr": "woman facepalming",
   "fromVersion": "4.0",
-  "glyph": "\uD83E\uDD26\u200D\u2640\uFE0F",
+  "glyph": "🤦‍♀️",
   "glyphAsUtfInEmoticons": [
     "womanfacepalming"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "disbelief",
     "exasperation",

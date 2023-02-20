@@ -1,8 +1,7 @@
 {
-  "basefilename": "menorah",
   "cldr": "menorah",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDD4E",
+  "glyph": "🕎",
   "glyphAsUtfInEmoticons": [
     "1f54e_menorahwithninebranches",
     "hanukkah"
@@ -18,6 +17,5 @@
     "1f54e_menorahwithninebranches"
   ],
   "tts": "menorah",
-  "unicode": "1f54e",
-  "unicodeSkintones": null
+  "unicode": "1f54e"
 }

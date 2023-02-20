@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_raising_hand",
   "cldr": "woman raising hand",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDE4B\u200D\u2640\uFE0F",
+  "glyph": "🙋‍♀️",
   "glyphAsUtfInEmoticons": [
     "womanraisinghand"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "gesture",
     "raising hand",

@@ -1,8 +1,7 @@
 {
-  "basefilename": "mirror",
   "cldr": "mirror",
   "fromVersion": "13.0",
-  "glyph": "\uD83E\uDE9E",
+  "glyph": "🪞",
   "glyphAsUtfInEmoticons": [
     "mirror"
   ],
@@ -17,6 +16,5 @@
     "mirror"
   ],
   "tts": "mirror",
-  "unicode": "1fa9e",
-  "unicodeSkintones": null
+  "unicode": "1fa9e"
 }

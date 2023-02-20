@@ -1,12 +1,11 @@
 {
-  "basefilename": "lemon",
   "cldr": "lemon",
   "fromVersion": "1.0",
-  "glyph": "\uD83C\uDF4B",
+  "glyph": "🍋",
   "glyphAsUtfInEmoticons": [
     "lemon"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "citrus",
     "fruit",
@@ -16,6 +15,5 @@
     "lemon"
   ],
   "tts": "lemon",
-  "unicode": "1f34b",
-  "unicodeSkintones": null
+  "unicode": "1f34b"
 }

@@ -1,12 +1,11 @@
 {
-  "basefilename": "cowboy_hat_face",
   "cldr": "cowboy hat face",
   "fromVersion": "3.0",
-  "glyph": "\uD83E\uDD20",
+  "glyph": "🤠",
   "glyphAsUtfInEmoticons": [
     "1f920_facewithcowboyhat"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "cowboy",
     "cowgirl",
@@ -17,6 +16,5 @@
     "1f920_facewithcowboyhat"
   ],
   "tts": "cowboy hat face",
-  "unicode": "1f920",
-  "unicodeSkintones": null
+  "unicode": "1f920"
 }

@@ -1,12 +1,11 @@
 {
-  "basefilename": "full_moon_face",
   "cldr": "full moon face",
   "fromVersion": "1.0",
-  "glyph": "\uD83C\uDF1D",
+  "glyph": "🌝",
   "glyphAsUtfInEmoticons": [
     "1f31d_fullmoonwithface"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "bright",
     "face",
@@ -17,6 +16,5 @@
     "1f31d_fullmoonwithface"
   ],
   "tts": "full moon face",
-  "unicode": "1f31d",
-  "unicodeSkintones": null
+  "unicode": "1f31d"
 }

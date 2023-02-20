@@ -1,8 +1,7 @@
 {
-  "basefilename": "cricket_game",
   "cldr": "cricket game",
   "fromVersion": "1.0",
-  "glyph": "\uD83C\uDFCF",
+  "glyph": "🏏",
   "glyphAsUtfInEmoticons": [
     "pullshot"
   ],
@@ -17,6 +16,5 @@
     "cricketbatandball"
   ],
   "tts": "cricket game",
-  "unicode": "1f3cf",
-  "unicodeSkintones": null
+  "unicode": "1f3cf"
 }

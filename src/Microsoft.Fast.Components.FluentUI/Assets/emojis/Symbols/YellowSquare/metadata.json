@@ -1,8 +1,7 @@
 {
-  "basefilename": "yellow_square",
   "cldr": "yellow square",
   "fromVersion": "12.0",
-  "glyph": "\uD83D\uDFE8",
+  "glyph": "🟨",
   "glyphAsUtfInEmoticons": [
     "1f7e8_yellowsquare"
   ],
@@ -15,6 +14,5 @@
     "1f7e8_yellowsquare"
   ],
   "tts": "yellow square",
-  "unicode": "1f7e8",
-  "unicodeSkintones": null
+  "unicode": "1f7e8"
 }

@@ -1,12 +1,11 @@
 {
-  "basefilename": "man_with_veil",
   "cldr": "man with veil",
   "fromVersion": "13.0",
-  "glyph": "\uD83D\uDC70\u200D\u2642\uFE0F",
+  "glyph": "👰‍♂️",
   "glyphAsUtfInEmoticons": [
     "manwithveil"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "man",
     "man with veil",

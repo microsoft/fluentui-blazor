@@ -1,9 +1,7 @@
 {
-  "basefilename": "film_frames",
   "cldr": "film frames",
   "fromVersion": "0.7",
-  "glyph": "\uD83C\uDF9E\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "🎞️",
   "group": "Objects",
   "keywords": [
     "cinema",
@@ -15,6 +13,5 @@
     "1f39e_filmframes"
   ],
   "tts": "film frames",
-  "unicode": "1f39e fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f39e fe0f"
 }

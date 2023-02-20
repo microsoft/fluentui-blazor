@@ -1,12 +1,11 @@
 {
-  "basefilename": "man_dancing",
   "cldr": "man dancing",
   "fromVersion": "3.0",
-  "glyph": "\uD83D\uDD7A",
+  "glyph": "🕺",
   "glyphAsUtfInEmoticons": [
     "dance"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "dance",
     "dancing",

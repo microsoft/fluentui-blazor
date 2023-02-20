@@ -1,12 +1,11 @@
 {
-  "basefilename": "ten-thirty",
   "cldr": "ten-thirty",
   "fromVersion": "0.7",
-  "glyph": "\uD83D\uDD65",
+  "glyph": "🕥",
   "glyphAsUtfInEmoticons": [
     "1f565_tenthirty"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "10",
     "10:30",
@@ -19,6 +18,5 @@
     "1f565_tenthirty"
   ],
   "tts": "ten-thirty",
-  "unicode": "1f565",
-  "unicodeSkintones": null
+  "unicode": "1f565"
 }

@@ -1,12 +1,11 @@
 {
-  "basefilename": "star",
   "cldr": "star",
   "fromVersion": "0.6",
-  "glyph": "\u2B50",
+  "glyph": "⭐",
   "glyphAsUtfInEmoticons": [
     "star"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "star"
   ],
@@ -14,6 +13,5 @@
     "star"
   ],
   "tts": "star",
-  "unicode": "2b50",
-  "unicodeSkintones": null
+  "unicode": "2b50"
 }

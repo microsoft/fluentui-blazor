@@ -1,13 +1,12 @@
 {
-  "basefilename": "turtle",
   "cldr": "turtle",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC22",
+  "glyph": "🐢",
   "glyphAsUtfInEmoticons": [
     "tortoise",
     "turtle"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "terrapin",
     "tortoise",
@@ -17,6 +16,5 @@
     "tortoise"
   ],
   "tts": "turtle",
-  "unicode": "1f422",
-  "unicodeSkintones": null
+  "unicode": "1f422"
 }

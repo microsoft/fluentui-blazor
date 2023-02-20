@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_health_worker",
   "cldr": "woman health worker",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDC69\u200D\u2695\uFE0F",
+  "glyph": "👩‍⚕️",
   "glyphAsUtfInEmoticons": [
     "womanhealthworker"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "doctor",
     "healthcare",

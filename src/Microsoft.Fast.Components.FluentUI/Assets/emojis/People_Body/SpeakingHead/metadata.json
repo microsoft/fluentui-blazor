@@ -1,10 +1,8 @@
 {
-  "basefilename": "speaking_head",
   "cldr": "speaking head",
   "fromVersion": "0.7",
-  "glyph": "\uD83D\uDDE3\uFE0F",
-  "glyphAsUtfInEmoticons": null,
-  "group": "People \u0026 Body",
+  "glyph": "🗣️",
+  "group": "People & Body",
   "keywords": [
     "face",
     "head",
@@ -16,6 +14,5 @@
     "1f5e3_speakingheadinsilhouette"
   ],
   "tts": "speaking head",
-  "unicode": "1f5e3 fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f5e3 fe0f"
 }

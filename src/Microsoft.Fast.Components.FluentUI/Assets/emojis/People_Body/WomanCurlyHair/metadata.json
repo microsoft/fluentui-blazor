@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_curly_hair",
   "cldr": "woman: curly hair",
   "fromVersion": "11.0",
-  "glyph": "\uD83D\uDC69\u200D\uD83E\uDDB1",
+  "glyph": "👩‍🦱",
   "glyphAsUtfInEmoticons": [
     "womancurlyhair"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "adult",
     "curly hair",

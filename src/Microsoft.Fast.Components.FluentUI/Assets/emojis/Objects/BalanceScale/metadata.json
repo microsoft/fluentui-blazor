@@ -1,9 +1,7 @@
 {
-  "basefilename": "balance_scale",
   "cldr": "balance scale",
   "fromVersion": "1.0",
-  "glyph": "\u2696\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "⚖️",
   "group": "Objects",
   "keywords": [
     "balance",
@@ -16,6 +14,5 @@
     "2696_scales"
   ],
   "tts": "balance scale",
-  "unicode": "2696 fe0f",
-  "unicodeSkintones": null
+  "unicode": "2696 fe0f"
 }

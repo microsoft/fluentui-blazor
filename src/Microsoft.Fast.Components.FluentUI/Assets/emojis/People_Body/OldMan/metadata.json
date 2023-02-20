@@ -1,12 +1,11 @@
 {
-  "basefilename": "old_man",
   "cldr": "old man",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC74",
+  "glyph": "👴",
   "glyphAsUtfInEmoticons": [
     "1f474_olderman"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "adult",
     "man",

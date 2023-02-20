@@ -1,8 +1,7 @@
 {
-  "basefilename": "leo",
   "cldr": "Leo",
   "fromVersion": "0.6",
-  "glyph": "\u264C",
+  "glyph": "♌",
   "glyphAsUtfInEmoticons": [
     "264c_leo"
   ],
@@ -16,6 +15,5 @@
     "264c_leo"
   ],
   "tts": "Leo",
-  "unicode": "264c",
-  "unicodeSkintones": null
+  "unicode": "264c"
 }

@@ -1,14 +1,13 @@
 {
-  "basefilename": "check_mark_button",
   "cldr": "check mark button",
   "fromVersion": "0.6",
-  "glyph": "\u2705",
+  "glyph": "✅",
   "glyphAsUtfInEmoticons": [
     "2705_whiteheavycheckmark"
   ],
   "group": "Symbols",
   "keywords": [
-    "\u2713",
+    "✓",
     "button",
     "check",
     "mark"
@@ -17,6 +16,5 @@
     "2705_whiteheavycheckmark"
   ],
   "tts": "check mark button",
-  "unicode": "2705",
-  "unicodeSkintones": null
+  "unicode": "2705"
 }

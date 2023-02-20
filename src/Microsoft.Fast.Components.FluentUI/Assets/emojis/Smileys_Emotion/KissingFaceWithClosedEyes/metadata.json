@@ -1,12 +1,11 @@
 {
-  "basefilename": "kissing_face_with_closed_eyes",
   "cldr": "kissing face with closed eyes",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDE1A",
+  "glyph": "😚",
   "glyphAsUtfInEmoticons": [
     "1f61a_kissingfacewithclosedeyes"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "closed",
     "eye",
@@ -18,6 +17,5 @@
     "1f61a_kissingfacewithclosedeyes"
   ],
   "tts": "kissing face with closed eyes",
-  "unicode": "1f61a",
-  "unicodeSkintones": null
+  "unicode": "1f61a"
 }

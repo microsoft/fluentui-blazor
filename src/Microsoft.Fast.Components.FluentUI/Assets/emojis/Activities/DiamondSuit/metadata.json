@@ -1,8 +1,7 @@
 {
-  "basefilename": "diamond_suit",
   "cldr": "diamond suit",
   "fromVersion": "0.6",
-  "glyph": "\u2666\uFE0F",
+  "glyph": "♦️",
   "glyphAsUtfInEmoticons": [
     "2666_blackdiamondsuit"
   ],
@@ -16,6 +15,5 @@
     "2666_blackdiamondsuit"
   ],
   "tts": "diamond suit",
-  "unicode": "2666 fe0f",
-  "unicodeSkintones": null
+  "unicode": "2666 fe0f"
 }

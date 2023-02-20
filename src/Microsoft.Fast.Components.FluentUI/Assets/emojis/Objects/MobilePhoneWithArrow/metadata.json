@@ -1,8 +1,7 @@
 {
-  "basefilename": "mobile_phone_with_arrow",
   "cldr": "mobile phone with arrow",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCF2",
+  "glyph": "📲",
   "glyphAsUtfInEmoticons": [
     "1f4f2_mobilephonewitharrow"
   ],
@@ -19,6 +18,5 @@
     "1f4f2_mobilephonewitharrow"
   ],
   "tts": "mobile phone with arrow",
-  "unicode": "1f4f2",
-  "unicodeSkintones": null
+  "unicode": "1f4f2"
 }

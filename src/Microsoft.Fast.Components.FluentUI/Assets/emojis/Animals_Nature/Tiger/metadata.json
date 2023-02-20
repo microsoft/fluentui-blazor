@@ -1,12 +1,11 @@
 {
-  "basefilename": "tiger",
   "cldr": "tiger",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDC05",
+  "glyph": "🐅",
   "glyphAsUtfInEmoticons": [
     "1f405_tiger"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "tiger"
   ],
@@ -14,6 +13,5 @@
     "1f405_tiger"
   ],
   "tts": "tiger",
-  "unicode": "1f405",
-  "unicodeSkintones": null
+  "unicode": "1f405"
 }

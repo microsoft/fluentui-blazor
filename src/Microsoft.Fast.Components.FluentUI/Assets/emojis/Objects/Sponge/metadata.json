@@ -1,8 +1,7 @@
 {
-  "basefilename": "sponge",
   "cldr": "sponge",
   "fromVersion": "11.0",
-  "glyph": "\uD83E\uDDFD",
+  "glyph": "🧽",
   "glyphAsUtfInEmoticons": [
     "1f9fd_sponge"
   ],
@@ -17,6 +16,5 @@
     "1f9fd_sponge"
   ],
   "tts": "sponge",
-  "unicode": "1f9fd",
-  "unicodeSkintones": null
+  "unicode": "1f9fd"
 }

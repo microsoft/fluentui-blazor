@@ -1,8 +1,7 @@
 {
-  "basefilename": "locked_with_key",
   "cldr": "locked with key",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDD10",
+  "glyph": "🔐",
   "glyphAsUtfInEmoticons": [
     "1f510_closedlockwithkey",
     "1f510_lockedwithkey"
@@ -19,6 +18,5 @@
     "1f510_lockedwithkey"
   ],
   "tts": "locked with key",
-  "unicode": "1f510",
-  "unicodeSkintones": null
+  "unicode": "1f510"
 }

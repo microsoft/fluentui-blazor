@@ -1,12 +1,11 @@
 {
-  "basefilename": "dragon_face",
   "cldr": "dragon face",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC32",
+  "glyph": "🐲",
   "glyphAsUtfInEmoticons": [
     "1f432_dragonface"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "dragon",
     "face",
@@ -16,6 +15,5 @@
     "1f432_dragonface"
   ],
   "tts": "dragon face",
-  "unicode": "1f432",
-  "unicodeSkintones": null
+  "unicode": "1f432"
 }

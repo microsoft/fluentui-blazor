@@ -1,8 +1,7 @@
 {
-  "basefilename": "link",
   "cldr": "link",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDD17",
+  "glyph": "🔗",
   "glyphAsUtfInEmoticons": [
     "1f517_linksymbol"
   ],
@@ -14,6 +13,5 @@
     "1f517_linksymbol"
   ],
   "tts": "link",
-  "unicode": "1f517",
-  "unicodeSkintones": null
+  "unicode": "1f517"
 }

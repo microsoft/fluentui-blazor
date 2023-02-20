@@ -1,8 +1,7 @@
 {
-  "basefilename": "green_circle",
   "cldr": "green circle",
   "fromVersion": "12.0",
-  "glyph": "\uD83D\uDFE2",
+  "glyph": "🟢",
   "glyphAsUtfInEmoticons": [
     "1f7e2_greencircle"
   ],
@@ -15,6 +14,5 @@
     "1f7e2_greencircle"
   ],
   "tts": "green circle",
-  "unicode": "1f7e2",
-  "unicodeSkintones": null
+  "unicode": "1f7e2"
 }

@@ -1,12 +1,11 @@
 {
-  "basefilename": "grapes",
   "cldr": "grapes",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF47",
+  "glyph": "🍇",
   "glyphAsUtfInEmoticons": [
     "grapes"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "fruit",
     "grape",
@@ -16,6 +15,5 @@
     "grapes"
   ],
   "tts": "grapes",
-  "unicode": "1f347",
-  "unicodeSkintones": null
+  "unicode": "1f347"
 }

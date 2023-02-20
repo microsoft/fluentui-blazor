@@ -1,8 +1,7 @@
 {
-  "basefilename": "womans_sandal",
-  "cldr": "woman\u2019s sandal",
+  "cldr": "woman’s sandal",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC61",
+  "glyph": "👡",
   "glyphAsUtfInEmoticons": [
     "1f461_womanssandal"
   ],
@@ -12,12 +11,11 @@
     "sandal",
     "shoe",
     "woman",
-    "woman\u2019s sandal"
+    "woman’s sandal"
   ],
   "mappedToEmoticons": [
     "1f461_womanssandal"
   ],
-  "tts": "woman\u2019s sandal",
-  "unicode": "1f461",
-  "unicodeSkintones": null
+  "tts": "woman’s sandal",
+  "unicode": "1f461"
 }

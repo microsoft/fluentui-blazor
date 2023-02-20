@@ -119,9 +119,9 @@
         {
             <FluentCard Class="preview" @onclick="()=> HandleClick(emoji)">
                 <div class="inner">
-                    <FluentEmoji Name=@emoji.Name Size=@Form.Size EmojiStyle=@emoji.Style Skintone=@Form.Skintone />
+                    <FluentEmoji Name=@emoji.Name Size=@Form.Size EmojiStyle=@emoji.Style Skintone=@emoji.Skintone />
                 </div>
-                <div class="label">@emoji.Folder</div>
+                <div class="label">@emoji.Name</div>
             </FluentCard>
         }
         @if (emojis.Count == 0)

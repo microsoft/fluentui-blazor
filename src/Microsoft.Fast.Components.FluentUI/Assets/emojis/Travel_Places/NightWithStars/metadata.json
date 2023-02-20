@@ -1,12 +1,11 @@
 {
-  "basefilename": "night_with_stars",
   "cldr": "night with stars",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF03",
+  "glyph": "🌃",
   "glyphAsUtfInEmoticons": [
     "1f303_nightwithstars"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "night",
     "night with stars",
@@ -16,6 +15,5 @@
     "1f303_nightwithstars"
   ],
   "tts": "night with stars",
-  "unicode": "1f303",
-  "unicodeSkintones": null
+  "unicode": "1f303"
 }

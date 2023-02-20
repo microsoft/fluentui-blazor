@@ -1,12 +1,11 @@
 {
-  "basefilename": "person_mage",
   "cldr": "mage",
   "fromVersion": "5.0",
-  "glyph": "\uD83E\uDDD9",
+  "glyph": "🧙",
   "glyphAsUtfInEmoticons": [
     "wizard"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "mage",
     "sorcerer",

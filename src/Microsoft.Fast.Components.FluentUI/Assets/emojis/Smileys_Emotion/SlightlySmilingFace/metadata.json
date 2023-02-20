@@ -1,12 +1,11 @@
 {
-  "basefilename": "slightly_smiling_face",
   "cldr": "slightly smiling face",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDE42",
+  "glyph": "🙂",
   "glyphAsUtfInEmoticons": [
     "smile"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "face",
     "slightly smiling face",
@@ -16,6 +15,5 @@
     "smile"
   ],
   "tts": "slightly smiling face",
-  "unicode": "1f642",
-  "unicodeSkintones": null
+  "unicode": "1f642"
 }

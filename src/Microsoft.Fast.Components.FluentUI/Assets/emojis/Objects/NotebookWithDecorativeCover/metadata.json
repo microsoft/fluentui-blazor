@@ -1,8 +1,7 @@
 {
-  "basefilename": "notebook_with_decorative_cover",
   "cldr": "notebook with decorative cover",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCD4",
+  "glyph": "📔",
   "glyphAsUtfInEmoticons": [
     "1f4d4_decorativenotebook"
   ],
@@ -18,6 +17,5 @@
     "1f4d4_decorativenotebook"
   ],
   "tts": "notebook with decorative cover",
-  "unicode": "1f4d4",
-  "unicodeSkintones": null
+  "unicode": "1f4d4"
 }

@@ -1,12 +1,11 @@
 {
-  "basefilename": "roller_skate",
   "cldr": "roller skate",
   "fromVersion": "13.0",
-  "glyph": "\uD83D\uDEFC",
+  "glyph": "🛼",
   "glyphAsUtfInEmoticons": [
     "rollerskate"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "roller",
     "skate"
@@ -15,6 +14,5 @@
     "rollerskate"
   ],
   "tts": "roller skate",
-  "unicode": "1f6fc",
-  "unicodeSkintones": null
+  "unicode": "1f6fc"
 }

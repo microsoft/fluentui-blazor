@@ -1,8 +1,7 @@
 {
-  "basefilename": "file_folder",
   "cldr": "file folder",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCC1",
+  "glyph": "📁",
   "glyphAsUtfInEmoticons": [
     "1f4c1_filefolder"
   ],
@@ -15,6 +14,5 @@
     "1f4c1_filefolder"
   ],
   "tts": "file folder",
-  "unicode": "1f4c1",
-  "unicodeSkintones": null
+  "unicode": "1f4c1"
 }

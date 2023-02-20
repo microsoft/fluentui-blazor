@@ -1,12 +1,11 @@
 {
-  "basefilename": "maple_leaf",
   "cldr": "maple leaf",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF41",
+  "glyph": "🍁",
   "glyphAsUtfInEmoticons": [
     "1f341_mapleleaf"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "falling",
     "leaf",
@@ -16,6 +15,5 @@
     "1f341_mapleleaf"
   ],
   "tts": "maple leaf",
-  "unicode": "1f341",
-  "unicodeSkintones": null
+  "unicode": "1f341"
 }

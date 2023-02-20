@@ -1,12 +1,11 @@
 {
-  "basefilename": "cherry_blossom",
   "cldr": "cherry blossom",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF38",
+  "glyph": "🌸",
   "glyphAsUtfInEmoticons": [
     "cherryblossom"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "blossom",
     "cherry",
@@ -16,6 +15,5 @@
     "cherryblossom"
   ],
   "tts": "cherry blossom",
-  "unicode": "1f338",
-  "unicodeSkintones": null
+  "unicode": "1f338"
 }

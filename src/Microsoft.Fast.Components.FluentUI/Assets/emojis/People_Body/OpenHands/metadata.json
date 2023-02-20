@@ -1,12 +1,11 @@
 {
-  "basefilename": "open_hands",
   "cldr": "open hands",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC50",
+  "glyph": "👐",
   "glyphAsUtfInEmoticons": [
     "1f450_openhands"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "hand",
     "open",

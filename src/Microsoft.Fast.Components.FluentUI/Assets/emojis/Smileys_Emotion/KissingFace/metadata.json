@@ -1,12 +1,11 @@
 {
-  "basefilename": "kissing_face",
   "cldr": "kissing face",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDE17",
+  "glyph": "😗",
   "glyphAsUtfInEmoticons": [
     "kiss"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "face",
     "kiss",
@@ -16,6 +15,5 @@
     "kiss"
   ],
   "tts": "kissing face",
-  "unicode": "1f617",
-  "unicodeSkintones": null
+  "unicode": "1f617"
 }

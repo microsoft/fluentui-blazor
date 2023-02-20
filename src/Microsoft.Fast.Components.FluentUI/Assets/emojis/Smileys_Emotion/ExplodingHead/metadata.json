@@ -1,12 +1,11 @@
 {
-  "basefilename": "exploding_head",
   "cldr": "exploding head",
   "fromVersion": "5.0",
-  "glyph": "\uD83E\uDD2F",
+  "glyph": "🤯",
   "glyphAsUtfInEmoticons": [
     "1f92f_explodinghead"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "exploding head",
     "mind blown",
@@ -16,6 +15,5 @@
     "1f92f_explodinghead"
   ],
   "tts": "exploding head",
-  "unicode": "1f92f",
-  "unicodeSkintones": null
+  "unicode": "1f92f"
 }

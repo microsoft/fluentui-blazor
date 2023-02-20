@@ -1,10 +1,8 @@
 {
-  "basefilename": "national_park",
   "cldr": "national park",
   "fromVersion": "0.7",
-  "glyph": "\uD83C\uDFDE\uFE0F",
-  "glyphAsUtfInEmoticons": null,
-  "group": "Travel \u0026 Places",
+  "glyph": "🏞️",
+  "group": "Travel & Places",
   "keywords": [
     "national park",
     "park"
@@ -13,6 +11,5 @@
     "1f3de_nationalpark"
   ],
   "tts": "national park",
-  "unicode": "1f3de fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f3de fe0f"
 }

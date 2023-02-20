@@ -1,12 +1,11 @@
 {
-  "basefilename": "man_in_lotus_position",
   "cldr": "man in lotus position",
   "fromVersion": "5.0",
-  "glyph": "\uD83E\uDDD8\u200D\u2642\uFE0F",
+  "glyph": "🧘‍♂️",
   "glyphAsUtfInEmoticons": [
     "maninlotusposition"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "man in lotus position",
     "meditation",

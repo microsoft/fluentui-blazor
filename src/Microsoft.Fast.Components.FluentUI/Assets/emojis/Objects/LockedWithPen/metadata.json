@@ -1,8 +1,7 @@
 {
-  "basefilename": "locked_with_pen",
   "cldr": "locked with pen",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDD0F",
+  "glyph": "🔏",
   "glyphAsUtfInEmoticons": [
     "1f50f_lockedwithpen"
   ],
@@ -19,6 +18,5 @@
     "1f50f_lockedwithpen"
   ],
   "tts": "locked with pen",
-  "unicode": "1f50f",
-  "unicodeSkintones": null
+  "unicode": "1f50f"
 }

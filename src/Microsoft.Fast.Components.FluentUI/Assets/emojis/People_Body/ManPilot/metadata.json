@@ -1,12 +1,11 @@
 {
-  "basefilename": "man_pilot",
   "cldr": "man pilot",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDC68\u200D\u2708\uFE0F",
+  "glyph": "👨‍✈️",
   "glyphAsUtfInEmoticons": [
     "manpilot"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "man",
     "pilot",

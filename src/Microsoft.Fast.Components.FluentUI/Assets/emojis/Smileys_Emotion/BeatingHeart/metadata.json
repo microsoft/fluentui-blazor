@@ -1,12 +1,11 @@
 {
-  "basefilename": "beating_heart",
   "cldr": "beating heart",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC93",
+  "glyph": "💓",
   "glyphAsUtfInEmoticons": [
     "1f493_beatingheart"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "beating",
     "beating heart",
@@ -17,6 +16,5 @@
     "1f493_beatingheart"
   ],
   "tts": "beating heart",
-  "unicode": "1f493",
-  "unicodeSkintones": null
+  "unicode": "1f493"
 }

@@ -1,8 +1,7 @@
 {
-  "basefilename": "down_arrow",
   "cldr": "down arrow",
   "fromVersion": "0.6",
-  "glyph": "\u2B07\uFE0F",
+  "glyph": "⬇️",
   "glyphAsUtfInEmoticons": [
     "2b07_downwardsblackarrow"
   ],
@@ -18,6 +17,5 @@
     "2b07_downwardsblackarrow"
   ],
   "tts": "down arrow",
-  "unicode": "2b07 fe0f",
-  "unicodeSkintones": null
+  "unicode": "2b07 fe0f"
 }

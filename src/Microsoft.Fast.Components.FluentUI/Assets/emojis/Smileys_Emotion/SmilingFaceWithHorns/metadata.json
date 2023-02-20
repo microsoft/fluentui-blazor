@@ -1,12 +1,11 @@
 {
-  "basefilename": "smiling_face_with_horns",
   "cldr": "smiling face with horns",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDE08",
+  "glyph": "😈",
   "glyphAsUtfInEmoticons": [
     "devil"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "face",
     "fairy tale",
@@ -19,6 +18,5 @@
     "devil"
   ],
   "tts": "smiling face with horns",
-  "unicode": "1f608",
-  "unicodeSkintones": null
+  "unicode": "1f608"
 }

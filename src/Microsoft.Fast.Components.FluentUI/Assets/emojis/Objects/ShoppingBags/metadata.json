@@ -1,9 +1,7 @@
 {
-  "basefilename": "shopping_bags",
   "cldr": "shopping bags",
   "fromVersion": "0.7",
-  "glyph": "\uD83D\uDECD\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "🛍️",
   "group": "Objects",
   "keywords": [
     "bag",
@@ -15,6 +13,5 @@
     "shopping"
   ],
   "tts": "shopping bags",
-  "unicode": "1f6cd fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f6cd fe0f"
 }

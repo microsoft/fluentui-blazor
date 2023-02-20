@@ -1,12 +1,11 @@
 {
-  "basefilename": "mango",
   "cldr": "mango",
   "fromVersion": "11.0",
-  "glyph": "\uD83E\uDD6D",
+  "glyph": "🥭",
   "glyphAsUtfInEmoticons": [
     "1f96d_mango"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "fruit",
     "mango",
@@ -16,6 +15,5 @@
     "1f96d_mango"
   ],
   "tts": "mango",
-  "unicode": "1f96d",
-  "unicodeSkintones": null
+  "unicode": "1f96d"
 }

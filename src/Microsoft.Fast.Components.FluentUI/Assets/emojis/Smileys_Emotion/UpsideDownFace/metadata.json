@@ -1,12 +1,11 @@
 {
-  "basefilename": "upside-down_face",
   "cldr": "upside-down face",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDE43",
+  "glyph": "🙃",
   "glyphAsUtfInEmoticons": [
     "upsidedownface"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "face",
     "upside-down"
@@ -15,6 +14,5 @@
     "upsidedownface"
   ],
   "tts": "upside-down face",
-  "unicode": "1f643",
-  "unicodeSkintones": null
+  "unicode": "1f643"
 }

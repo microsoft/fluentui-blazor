@@ -1,12 +1,11 @@
 {
-  "basefilename": "deciduous_tree",
   "cldr": "deciduous tree",
   "fromVersion": "1.0",
-  "glyph": "\uD83C\uDF33",
+  "glyph": "🌳",
   "glyphAsUtfInEmoticons": [
     "deciduoustree"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "deciduous",
     "shedding",
@@ -16,6 +15,5 @@
     "deciduoustree"
   ],
   "tts": "deciduous tree",
-  "unicode": "1f333",
-  "unicodeSkintones": null
+  "unicode": "1f333"
 }

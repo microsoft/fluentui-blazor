@@ -1,8 +1,7 @@
 {
-  "basefilename": "bowling",
   "cldr": "bowling",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDFB3",
+  "glyph": "🎳",
   "glyphAsUtfInEmoticons": [
     "bowlingball"
   ],
@@ -16,6 +15,5 @@
     "bowlingball"
   ],
   "tts": "bowling",
-  "unicode": "1f3b3",
-  "unicodeSkintones": null
+  "unicode": "1f3b3"
 }

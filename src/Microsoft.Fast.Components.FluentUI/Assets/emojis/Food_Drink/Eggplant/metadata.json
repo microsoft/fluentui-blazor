@@ -1,12 +1,11 @@
 {
-  "basefilename": "eggplant",
   "cldr": "eggplant",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF46",
+  "glyph": "🍆",
   "glyphAsUtfInEmoticons": [
     "aubergine"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "aubergine",
     "eggplant",
@@ -16,6 +15,5 @@
     "aubergine"
   ],
   "tts": "eggplant",
-  "unicode": "1f346",
-  "unicodeSkintones": null
+  "unicode": "1f346"
 }

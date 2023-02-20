@@ -1,8 +1,7 @@
 {
-  "basefilename": "firecracker",
   "cldr": "firecracker",
   "fromVersion": "11.0",
-  "glyph": "\uD83E\uDDE8",
+  "glyph": "🧨",
   "glyphAsUtfInEmoticons": [
     "1f9e8_firecracker"
   ],
@@ -17,6 +16,5 @@
     "1f9e8_firecracker"
   ],
   "tts": "firecracker",
-  "unicode": "1f9e8",
-  "unicodeSkintones": null
+  "unicode": "1f9e8"
 }

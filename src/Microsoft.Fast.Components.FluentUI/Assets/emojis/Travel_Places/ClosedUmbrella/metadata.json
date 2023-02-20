@@ -1,12 +1,11 @@
 {
-  "basefilename": "closed_umbrella",
   "cldr": "closed umbrella",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF02",
+  "glyph": "🌂",
   "glyphAsUtfInEmoticons": [
     "1f302_closedumbrella"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "closed umbrella",
     "clothing",
@@ -17,6 +16,5 @@
     "1f302_closedumbrella"
   ],
   "tts": "closed umbrella",
-  "unicode": "1f302",
-  "unicodeSkintones": null
+  "unicode": "1f302"
 }

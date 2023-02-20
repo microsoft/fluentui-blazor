@@ -1,12 +1,11 @@
 {
-  "basefilename": "peach",
   "cldr": "peach",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF51",
+  "glyph": "🍑",
   "glyphAsUtfInEmoticons": [
     "peach"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "fruit",
     "peach"
@@ -15,6 +14,5 @@
     "peach"
   ],
   "tts": "peach",
-  "unicode": "1f351",
-  "unicodeSkintones": null
+  "unicode": "1f351"
 }

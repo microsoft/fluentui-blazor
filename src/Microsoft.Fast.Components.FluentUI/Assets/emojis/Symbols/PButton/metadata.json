@@ -1,9 +1,7 @@
 {
-  "basefilename": "p_button",
   "cldr": "P button",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDD7F\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "🅿️",
   "group": "Symbols",
   "keywords": [
     "P button",
@@ -13,6 +11,5 @@
     "1f17f_parking"
   ],
   "tts": "P button",
-  "unicode": "1f17f fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f17f fe0f"
 }

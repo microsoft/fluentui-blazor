@@ -1,12 +1,11 @@
 {
-  "basefilename": "fox",
   "cldr": "fox",
   "fromVersion": "3.0",
-  "glyph": "\uD83E\uDD8A",
+  "glyph": "🦊",
   "glyphAsUtfInEmoticons": [
     "foxhug"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "face",
     "fox"
@@ -15,6 +14,5 @@
     "foxhug"
   ],
   "tts": "fox",
-  "unicode": "1f98a",
-  "unicodeSkintones": null
+  "unicode": "1f98a"
 }

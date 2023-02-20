@@ -1,12 +1,11 @@
 {
-  "basefilename": "rhinoceros",
   "cldr": "rhinoceros",
   "fromVersion": "3.0",
-  "glyph": "\uD83E\uDD8F",
+  "glyph": "🦏",
   "glyphAsUtfInEmoticons": [
     "1f98f_rhinoceros"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "rhinoceros"
   ],
@@ -14,6 +13,5 @@
     "1f98f_rhinoceros"
   ],
   "tts": "rhinoceros",
-  "unicode": "1f98f",
-  "unicodeSkintones": null
+  "unicode": "1f98f"
 }

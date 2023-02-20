@@ -1,12 +1,11 @@
 {
-  "basefilename": "person_elf",
   "cldr": "elf",
   "fromVersion": "5.0",
-  "glyph": "\uD83E\uDDDD",
+  "glyph": "🧝",
   "glyphAsUtfInEmoticons": [
     "elf"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "elf",
     "magical"

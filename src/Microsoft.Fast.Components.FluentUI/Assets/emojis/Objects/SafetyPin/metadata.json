@@ -1,8 +1,7 @@
 {
-  "basefilename": "safety_pin",
   "cldr": "safety pin",
   "fromVersion": "11.0",
-  "glyph": "\uD83E\uDDF7",
+  "glyph": "🧷",
   "glyphAsUtfInEmoticons": [
     "1f9f7_safetypin"
   ],
@@ -12,8 +11,6 @@
     "punk rock",
     "safety pin"
   ],
-  "mappedToEmoticons": null,
   "tts": "safety pin",
-  "unicode": "1f9f7",
-  "unicodeSkintones": null
+  "unicode": "1f9f7"
 }

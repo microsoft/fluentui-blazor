@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_lifting_weights",
   "cldr": "woman lifting weights",
   "fromVersion": "4.0",
-  "glyph": "\uD83C\uDFCB\uFE0F\u200D\u2640\uFE0F",
+  "glyph": "🏋️‍♀️",
   "glyphAsUtfInEmoticons": [
     "woman_weight_lifter"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "weight lifter",
     "woman",

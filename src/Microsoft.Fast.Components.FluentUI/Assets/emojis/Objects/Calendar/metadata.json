@@ -1,9 +1,7 @@
 {
-  "basefilename": "calendar",
   "cldr": "calendar",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCC5",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "📅",
   "group": "Objects",
   "keywords": [
     "calendar",
@@ -13,6 +11,5 @@
     "1f4c5_calendar"
   ],
   "tts": "calendar",
-  "unicode": "1f4c5",
-  "unicodeSkintones": null
+  "unicode": "1f4c5"
 }

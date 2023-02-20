@@ -1,12 +1,11 @@
 {
-  "basefilename": "flushed_face",
   "cldr": "flushed face",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDE33",
+  "glyph": "😳",
   "glyphAsUtfInEmoticons": [
     "flushed"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "dazed",
     "face",
@@ -16,6 +15,5 @@
     "flushed"
   ],
   "tts": "flushed face",
-  "unicode": "1f633",
-  "unicodeSkintones": null
+  "unicode": "1f633"
 }

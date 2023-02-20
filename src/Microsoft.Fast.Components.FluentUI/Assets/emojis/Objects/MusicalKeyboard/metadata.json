@@ -1,8 +1,7 @@
 {
-  "basefilename": "musical_keyboard",
   "cldr": "musical keyboard",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDFB9",
+  "glyph": "🎹",
   "glyphAsUtfInEmoticons": [
     "1f3b9_musicalkeyboard"
   ],
@@ -18,6 +17,5 @@
     "1f3b9_musicalkeyboard"
   ],
   "tts": "musical keyboard",
-  "unicode": "1f3b9",
-  "unicodeSkintones": null
+  "unicode": "1f3b9"
 }

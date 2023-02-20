@@ -1,12 +1,11 @@
 {
-  "basefilename": "church",
   "cldr": "church",
   "fromVersion": "0.6",
-  "glyph": "\u26EA",
+  "glyph": "⛪",
   "glyphAsUtfInEmoticons": [
     "26ea_church"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "Christian",
     "church",
@@ -17,6 +16,5 @@
     "26ea_church"
   ],
   "tts": "church",
-  "unicode": "26ea",
-  "unicodeSkintones": null
+  "unicode": "26ea"
 }

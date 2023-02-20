@@ -1,12 +1,11 @@
 {
-  "basefilename": "trolleybus",
   "cldr": "trolleybus",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDE8E",
+  "glyph": "🚎",
   "glyphAsUtfInEmoticons": [
     "1f68e_trolleybus"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "bus",
     "tram",
@@ -17,6 +16,5 @@
     "1f68e_trolleybus"
   ],
   "tts": "trolleybus",
-  "unicode": "1f68e",
-  "unicodeSkintones": null
+  "unicode": "1f68e"
 }

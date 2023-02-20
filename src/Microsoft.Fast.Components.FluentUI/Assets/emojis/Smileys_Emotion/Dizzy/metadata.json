@@ -1,12 +1,11 @@
 {
-  "basefilename": "dizzy",
   "cldr": "dizzy",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCAB",
+  "glyph": "💫",
   "glyphAsUtfInEmoticons": [
     "1f4ab_dizzysymbol"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "comic",
     "dizzy",
@@ -16,6 +15,5 @@
     "1f4ab_dizzysymbol"
   ],
   "tts": "dizzy",
-  "unicode": "1f4ab",
-  "unicodeSkintones": null
+  "unicode": "1f4ab"
 }

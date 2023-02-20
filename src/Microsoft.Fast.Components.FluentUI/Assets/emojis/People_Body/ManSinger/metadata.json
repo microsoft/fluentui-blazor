@@ -1,12 +1,11 @@
 {
-  "basefilename": "man_singer",
   "cldr": "man singer",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDC68\u200D\uD83C\uDFA4",
+  "glyph": "👨‍🎤",
   "glyphAsUtfInEmoticons": [
     "man_singer"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "actor",
     "entertainer",

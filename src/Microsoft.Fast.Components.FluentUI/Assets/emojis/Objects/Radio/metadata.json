@@ -1,8 +1,7 @@
 {
-  "basefilename": "radio",
   "cldr": "radio",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCFB",
+  "glyph": "📻",
   "glyphAsUtfInEmoticons": [
     "1f4fb_radio"
   ],
@@ -15,6 +14,5 @@
     "1f4fb_radio"
   ],
   "tts": "radio",
-  "unicode": "1f4fb",
-  "unicodeSkintones": null
+  "unicode": "1f4fb"
 }

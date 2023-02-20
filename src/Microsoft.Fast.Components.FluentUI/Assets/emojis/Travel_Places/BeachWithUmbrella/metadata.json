@@ -1,10 +1,8 @@
 {
-  "basefilename": "beach_with_umbrella",
   "cldr": "beach with umbrella",
   "fromVersion": "0.7",
-  "glyph": "\uD83C\uDFD6\uFE0F",
-  "glyphAsUtfInEmoticons": null,
-  "group": "Travel \u0026 Places",
+  "glyph": "🏖️",
+  "group": "Travel & Places",
   "keywords": [
     "beach",
     "beach with umbrella",
@@ -14,6 +12,5 @@
     "1f3d6_beachwithumbrella"
   ],
   "tts": "beach with umbrella",
-  "unicode": "1f3d6 fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f3d6 fe0f"
 }

@@ -1,8 +1,7 @@
 {
-  "basefilename": "ribbon",
   "cldr": "ribbon",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF80",
+  "glyph": "🎀",
   "glyphAsUtfInEmoticons": [
     "1f380_ribbon"
   ],
@@ -15,6 +14,5 @@
     "1f380_ribbon"
   ],
   "tts": "ribbon",
-  "unicode": "1f380",
-  "unicodeSkintones": null
+  "unicode": "1f380"
 }

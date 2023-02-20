@@ -1,8 +1,7 @@
 {
-  "basefilename": "triangular_flag",
   "cldr": "triangular flag",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDEA9",
+  "glyph": "🚩",
   "glyphAsUtfInEmoticons": [
     "1f6a9_triangularflagonpost"
   ],
@@ -11,8 +10,6 @@
     "post",
     "triangular flag"
   ],
-  "mappedToEmoticons": null,
   "tts": "triangular flag",
-  "unicode": "1f6a9",
-  "unicodeSkintones": null
+  "unicode": "1f6a9"
 }

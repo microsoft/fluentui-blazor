@@ -1,8 +1,7 @@
 {
-  "basefilename": "circled_m",
   "cldr": "circled M",
   "fromVersion": "0.6",
-  "glyph": "\u24C2\uFE0F",
+  "glyph": "Ⓜ️",
   "glyphAsUtfInEmoticons": [
     "24c2_circledlatincapitalletterm"
   ],
@@ -16,6 +15,5 @@
     "24c2_circledlatincapitalletterm"
   ],
   "tts": "circled M",
-  "unicode": "24c2 fe0f",
-  "unicodeSkintones": null
+  "unicode": "24c2 fe0f"
 }

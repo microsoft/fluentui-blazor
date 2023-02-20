@@ -1,9 +1,7 @@
 {
-  "basefilename": "last_track_button",
   "cldr": "last track button",
   "fromVersion": "0.7",
-  "glyph": "\u23EE\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "⏮️",
   "group": "Symbols",
   "keywords": [
     "arrow",
@@ -16,6 +14,5 @@
     "23ee_lasttrack"
   ],
   "tts": "last track button",
-  "unicode": "23ee fe0f",
-  "unicodeSkintones": null
+  "unicode": "23ee fe0f"
 }

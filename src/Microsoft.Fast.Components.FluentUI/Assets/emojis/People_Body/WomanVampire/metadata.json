@@ -1,10 +1,8 @@
 {
-  "basefilename": "woman_vampire",
   "cldr": "woman vampire",
   "fromVersion": "5.0",
-  "glyph": "\uD83E\uDDDB\u200D\u2640\uFE0F",
-  "glyphAsUtfInEmoticons": null,
-  "group": "People \u0026 Body",
+  "glyph": "🧛‍♀️",
+  "group": "People & Body",
   "keywords": [
     "undead",
     "woman vampire"

@@ -1,12 +1,11 @@
 {
-  "basefilename": "umbrella_with_rain_drops",
   "cldr": "umbrella with rain drops",
   "fromVersion": "0.6",
-  "glyph": "\u2614",
+  "glyph": "☔",
   "glyphAsUtfInEmoticons": [
     "umbrella"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "clothing",
     "drop",
@@ -18,6 +17,5 @@
     "umbrella"
   ],
   "tts": "umbrella with rain drops",
-  "unicode": "2614",
-  "unicodeSkintones": null
+  "unicode": "2614"
 }

@@ -1,12 +1,11 @@
 {
-  "basefilename": "penguin",
   "cldr": "penguin",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC27",
+  "glyph": "🐧",
   "glyphAsUtfInEmoticons": [
     "penguin"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "bird",
     "penguin"
@@ -15,6 +14,5 @@
     "penguin"
   ],
   "tts": "penguin",
-  "unicode": "1f427",
-  "unicodeSkintones": null
+  "unicode": "1f427"
 }

@@ -1,9 +1,7 @@
 {
-  "basefilename": "framed_picture",
   "cldr": "framed picture",
   "fromVersion": "0.7",
-  "glyph": "\uD83D\uDDBC\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "🖼️",
   "group": "Activities",
   "keywords": [
     "art",
@@ -17,6 +15,5 @@
     "1f5bc_framewithpicture"
   ],
   "tts": "framed picture",
-  "unicode": "1f5bc fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f5bc fe0f"
 }

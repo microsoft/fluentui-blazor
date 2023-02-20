@@ -1,8 +1,7 @@
 {
-  "basefilename": "bookmark_tabs",
   "cldr": "bookmark tabs",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCD1",
+  "glyph": "📑",
   "glyphAsUtfInEmoticons": [
     "1f4d1_bookmarktabs"
   ],
@@ -17,6 +16,5 @@
     "1f4d1_bookmarktabs"
   ],
   "tts": "bookmark tabs",
-  "unicode": "1f4d1",
-  "unicodeSkintones": null
+  "unicode": "1f4d1"
 }

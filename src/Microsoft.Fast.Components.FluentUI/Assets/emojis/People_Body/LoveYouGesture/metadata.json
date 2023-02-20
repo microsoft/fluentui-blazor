@@ -1,13 +1,12 @@
 {
-  "basefilename": "love-you_gesture",
   "cldr": "love-you gesture",
   "fromVersion": "5.0",
-  "glyph": "\uD83E\uDD1F",
+  "glyph": "🤟",
   "glyphAsUtfInEmoticons": [
     "1f91f_loveyougesture",
     "hearthands"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "hand",
     "ILY",

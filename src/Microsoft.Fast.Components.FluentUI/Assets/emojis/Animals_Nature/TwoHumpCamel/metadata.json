@@ -1,12 +1,11 @@
 {
-  "basefilename": "two-hump_camel",
   "cldr": "two-hump camel",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC2B",
+  "glyph": "🐫",
   "glyphAsUtfInEmoticons": [
     "1f42b_bactriancamel"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "bactrian",
     "camel",
@@ -17,6 +16,5 @@
     "1f42b_bactriancamel"
   ],
   "tts": "two-hump camel",
-  "unicode": "1f42b",
-  "unicodeSkintones": null
+  "unicode": "1f42b"
 }

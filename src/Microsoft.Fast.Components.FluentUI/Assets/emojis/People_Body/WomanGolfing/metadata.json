@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_golfing",
   "cldr": "woman golfing",
   "fromVersion": "4.0",
-  "glyph": "\uD83C\uDFCC\uFE0F\u200D\u2640\uFE0F",
+  "glyph": "🏌️‍♀️",
   "glyphAsUtfInEmoticons": [
     "woman_golfer"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "golf",
     "woman",

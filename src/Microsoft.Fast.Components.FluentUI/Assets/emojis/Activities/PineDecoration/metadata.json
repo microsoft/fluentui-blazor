@@ -1,8 +1,7 @@
 {
-  "basefilename": "pine_decoration",
   "cldr": "pine decoration",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF8D",
+  "glyph": "🎍",
   "glyphAsUtfInEmoticons": [
     "1f38d_pinedecoration"
   ],
@@ -18,6 +17,5 @@
     "1f38d_pinedecoration"
   ],
   "tts": "pine decoration",
-  "unicode": "1f38d",
-  "unicodeSkintones": null
+  "unicode": "1f38d"
 }

@@ -1,9 +1,7 @@
 {
-  "basefilename": "couch_and_lamp",
   "cldr": "couch and lamp",
   "fromVersion": "0.7",
-  "glyph": "\uD83D\uDECB\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "🛋️",
   "group": "Objects",
   "keywords": [
     "couch",
@@ -15,6 +13,5 @@
     "1f6cb_couchandlamp"
   ],
   "tts": "couch and lamp",
-  "unicode": "1f6cb fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f6cb fe0f"
 }

@@ -1,12 +1,11 @@
 {
-  "basefilename": "sunrise",
   "cldr": "sunrise",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF05",
+  "glyph": "🌅",
   "glyphAsUtfInEmoticons": [
     "1f305_sunrise"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "morning",
     "sun",
@@ -16,6 +15,5 @@
     "1f305_sunrise"
   ],
   "tts": "sunrise",
-  "unicode": "1f305",
-  "unicodeSkintones": null
+  "unicode": "1f305"
 }

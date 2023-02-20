@@ -1,12 +1,11 @@
 {
-  "basefilename": "spaghetti",
   "cldr": "spaghetti",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF5D",
+  "glyph": "🍝",
   "glyphAsUtfInEmoticons": [
     "1f35d_spaghetti"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "pasta",
     "spaghetti"
@@ -15,6 +14,5 @@
     "1f35d_spaghetti"
   ],
   "tts": "spaghetti",
-  "unicode": "1f35d",
-  "unicodeSkintones": null
+  "unicode": "1f35d"
 }

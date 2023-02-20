@@ -1,8 +1,7 @@
 {
-  "basefilename": "stop_button",
   "cldr": "stop button",
   "fromVersion": "0.7",
-  "glyph": "\u23F9\uFE0F",
+  "glyph": "⏹️",
   "glyphAsUtfInEmoticons": [
     "23f9_blacksquareforstop"
   ],
@@ -16,6 +15,5 @@
     "23f9_blacksquareforstop"
   ],
   "tts": "stop button",
-  "unicode": "23f9 fe0f",
-  "unicodeSkintones": null
+  "unicode": "23f9 fe0f"
 }

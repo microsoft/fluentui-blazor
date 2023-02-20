@@ -1,12 +1,11 @@
 {
-  "basefilename": "man_factory_worker",
   "cldr": "man factory worker",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDC68\u200D\uD83C\uDFED",
+  "glyph": "👨‍🏭",
   "glyphAsUtfInEmoticons": [
     "manwelder"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "assembly",
     "factory",

@@ -1,8 +1,7 @@
 {
-  "basefilename": "top_arrow",
   "cldr": "TOP arrow",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDD1D",
+  "glyph": "🔝",
   "glyphAsUtfInEmoticons": [
     "1f51d_topwithupwardsarrowabove"
   ],
@@ -17,6 +16,5 @@
     "1f51d_topwithupwardsarrowabove"
   ],
   "tts": "TOP arrow",
-  "unicode": "1f51d",
-  "unicodeSkintones": null
+  "unicode": "1f51d"
 }

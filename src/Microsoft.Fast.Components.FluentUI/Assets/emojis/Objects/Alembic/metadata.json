@@ -1,9 +1,7 @@
 {
-  "basefilename": "alembic",
   "cldr": "alembic",
   "fromVersion": "1.0",
-  "glyph": "\u2697\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "⚗️",
   "group": "Objects",
   "keywords": [
     "alembic",
@@ -14,6 +12,5 @@
     "2697_alembic"
   ],
   "tts": "alembic",
-  "unicode": "2697 fe0f",
-  "unicodeSkintones": null
+  "unicode": "2697 fe0f"
 }

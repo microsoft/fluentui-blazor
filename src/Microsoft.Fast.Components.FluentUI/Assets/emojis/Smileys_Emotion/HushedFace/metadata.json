@@ -1,12 +1,11 @@
 {
-  "basefilename": "hushed_face",
   "cldr": "hushed face",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDE2F",
+  "glyph": "😯",
   "glyphAsUtfInEmoticons": [
     "1f62f_hushedface"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "face",
     "hushed",
@@ -17,6 +16,5 @@
     "1f62f_hushedface"
   ],
   "tts": "hushed face",
-  "unicode": "1f62f",
-  "unicodeSkintones": null
+  "unicode": "1f62f"
 }

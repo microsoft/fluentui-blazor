@@ -1,12 +1,11 @@
 {
-  "basefilename": "pie",
   "cldr": "pie",
   "fromVersion": "5.0",
-  "glyph": "\uD83E\uDD67",
+  "glyph": "🥧",
   "glyphAsUtfInEmoticons": [
     "pie"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "filling",
     "pastry",
@@ -16,6 +15,5 @@
     "pie"
   ],
   "tts": "pie",
-  "unicode": "1f967",
-  "unicodeSkintones": null
+  "unicode": "1f967"
 }

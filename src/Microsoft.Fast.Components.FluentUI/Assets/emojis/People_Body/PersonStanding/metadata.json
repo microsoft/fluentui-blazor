@@ -1,12 +1,11 @@
 {
-  "basefilename": "person_standing",
   "cldr": "person standing",
   "fromVersion": "12.0",
-  "glyph": "\uD83E\uDDCD",
+  "glyph": "🧍",
   "glyphAsUtfInEmoticons": [
     "nonbinarystanding"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "person standing",
     "stand",

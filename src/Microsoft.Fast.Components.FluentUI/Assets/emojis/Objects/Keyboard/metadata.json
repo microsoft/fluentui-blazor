@@ -1,9 +1,7 @@
 {
-  "basefilename": "keyboard",
   "cldr": "keyboard",
   "fromVersion": "1.0",
-  "glyph": "\u2328\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "⌨️",
   "group": "Objects",
   "keywords": [
     "computer",
@@ -13,6 +11,5 @@
     "2328_keyboard"
   ],
   "tts": "keyboard",
-  "unicode": "2328 fe0f",
-  "unicodeSkintones": null
+  "unicode": "2328 fe0f"
 }

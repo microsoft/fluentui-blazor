@@ -1,19 +1,16 @@
 {
-  "basefilename": "avocado",
   "cldr": "avocado",
   "fromVersion": "3.0",
-  "glyph": "\uD83E\uDD51",
+  "glyph": "🥑",
   "glyphAsUtfInEmoticons": [
     "avocadolove"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "avocado",
     "food",
     "fruit"
   ],
-  "mappedToEmoticons": null,
   "tts": "avocado",
-  "unicode": "1f951",
-  "unicodeSkintones": null
+  "unicode": "1f951"
 }

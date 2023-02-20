@@ -1,10 +1,8 @@
 {
-  "basefilename": "cloud_with_lightning_and_rain",
   "cldr": "cloud with lightning and rain",
   "fromVersion": "0.7",
-  "glyph": "\u26C8\uFE0F",
-  "glyphAsUtfInEmoticons": null,
-  "group": "Travel \u0026 Places",
+  "glyph": "⛈️",
+  "group": "Travel & Places",
   "keywords": [
     "cloud",
     "cloud with lightning and rain",
@@ -15,6 +13,5 @@
     "26c8_cloudwithlightningandrain"
   ],
   "tts": "cloud with lightning and rain",
-  "unicode": "26c8 fe0f",
-  "unicodeSkintones": null
+  "unicode": "26c8 fe0f"
 }

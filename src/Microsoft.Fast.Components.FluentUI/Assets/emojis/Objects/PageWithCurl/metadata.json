@@ -1,8 +1,7 @@
 {
-  "basefilename": "page_with_curl",
   "cldr": "page with curl",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCC3",
+  "glyph": "📃",
   "glyphAsUtfInEmoticons": [
     "1f4c3_pagewithcurl"
   ],
@@ -17,6 +16,5 @@
     "1f4c3_pagewithcurl"
   ],
   "tts": "page with curl",
-  "unicode": "1f4c3",
-  "unicodeSkintones": null
+  "unicode": "1f4c3"
 }

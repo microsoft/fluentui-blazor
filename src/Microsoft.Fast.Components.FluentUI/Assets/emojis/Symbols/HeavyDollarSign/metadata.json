@@ -1,8 +1,7 @@
 {
-  "basefilename": "heavy_dollar_sign",
   "cldr": "heavy dollar sign",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCB2",
+  "glyph": "💲",
   "glyphAsUtfInEmoticons": [
     "cash"
   ],
@@ -17,6 +16,5 @@
     "cash"
   ],
   "tts": "heavy dollar sign",
-  "unicode": "1f4b2",
-  "unicodeSkintones": null
+  "unicode": "1f4b2"
 }

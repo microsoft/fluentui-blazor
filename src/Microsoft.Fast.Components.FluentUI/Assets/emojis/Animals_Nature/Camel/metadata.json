@@ -1,12 +1,11 @@
 {
-  "basefilename": "camel",
   "cldr": "camel",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDC2A",
+  "glyph": "🐪",
   "glyphAsUtfInEmoticons": [
     "1f42a_dromedarycamel"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "camel",
     "dromedary",
@@ -16,6 +15,5 @@
     "1f42a_dromedarycamel"
   ],
   "tts": "camel",
-  "unicode": "1f42a",
-  "unicodeSkintones": null
+  "unicode": "1f42a"
 }

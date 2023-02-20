@@ -1,9 +1,7 @@
 {
-  "basefilename": "hammer_and_pick",
   "cldr": "hammer and pick",
   "fromVersion": "1.0",
-  "glyph": "\u2692\uFE0F",
-  "glyphAsUtfInEmoticons": null,
+  "glyph": "⚒️",
   "group": "Objects",
   "keywords": [
     "hammer",
@@ -15,6 +13,5 @@
     "2692_hammerandpick"
   ],
   "tts": "hammer and pick",
-  "unicode": "2692 fe0f",
-  "unicodeSkintones": null
+  "unicode": "2692 fe0f"
 }

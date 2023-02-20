@@ -1,8 +1,7 @@
 {
-  "basefilename": "repeat_button",
   "cldr": "repeat button",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDD01",
+  "glyph": "🔁",
   "glyphAsUtfInEmoticons": [
     "1f501_repeat"
   ],
@@ -17,6 +16,5 @@
     "1f501_repeat"
   ],
   "tts": "repeat button",
-  "unicode": "1f501",
-  "unicodeSkintones": null
+  "unicode": "1f501"
 }

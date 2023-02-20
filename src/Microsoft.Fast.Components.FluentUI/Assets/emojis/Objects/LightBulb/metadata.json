@@ -1,8 +1,7 @@
 {
-  "basefilename": "light_bulb",
   "cldr": "light bulb",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCA1",
+  "glyph": "💡",
   "glyphAsUtfInEmoticons": [
     "1f4a1_electriclightbulb",
     "tubelight"
@@ -19,6 +18,5 @@
     "1f4a1_electriclightbulb"
   ],
   "tts": "light bulb",
-  "unicode": "1f4a1",
-  "unicodeSkintones": null
+  "unicode": "1f4a1"
 }

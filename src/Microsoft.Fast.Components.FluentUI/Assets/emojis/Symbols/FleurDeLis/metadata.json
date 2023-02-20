@@ -1,8 +1,7 @@
 {
-  "basefilename": "fleur-de-lis",
   "cldr": "fleur-de-lis",
   "fromVersion": "1.0",
-  "glyph": "\u269C\uFE0F",
+  "glyph": "⚜️",
   "glyphAsUtfInEmoticons": [
     "269c_fleurdelis"
   ],
@@ -14,6 +13,5 @@
     "269c_fleurdelis"
   ],
   "tts": "fleur-de-lis",
-  "unicode": "269c fe0f",
-  "unicodeSkintones": null
+  "unicode": "269c fe0f"
 }

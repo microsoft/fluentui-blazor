@@ -1,12 +1,11 @@
 {
-  "basefilename": "man_guard",
   "cldr": "man guard",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDC82\u200D\u2642\uFE0F",
+  "glyph": "💂‍♂️",
   "glyphAsUtfInEmoticons": [
     "man_guard"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "guard",
     "man"

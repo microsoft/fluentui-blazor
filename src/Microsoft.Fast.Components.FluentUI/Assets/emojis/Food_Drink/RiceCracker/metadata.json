@@ -1,12 +1,11 @@
 {
-  "basefilename": "rice_cracker",
   "cldr": "rice cracker",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF58",
+  "glyph": "🍘",
   "glyphAsUtfInEmoticons": [
     "1f358_ricecracker"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "cracker",
     "rice"
@@ -15,6 +14,5 @@
     "1f358_ricecracker"
   ],
   "tts": "rice cracker",
-  "unicode": "1f358",
-  "unicodeSkintones": null
+  "unicode": "1f358"
 }

@@ -1,8 +1,7 @@
 {
-  "basefilename": "window",
   "cldr": "window",
   "fromVersion": "13.0",
-  "glyph": "\uD83E\uDE9F",
+  "glyph": "🪟",
   "glyphAsUtfInEmoticons": [
     "window"
   ],
@@ -19,6 +18,5 @@
     "window"
   ],
   "tts": "window",
-  "unicode": "1fa9f",
-  "unicodeSkintones": null
+  "unicode": "1fa9f"
 }

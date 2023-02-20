@@ -1,10 +1,8 @@
 {
-  "basefilename": "camping",
   "cldr": "camping",
   "fromVersion": "0.7",
-  "glyph": "\uD83C\uDFD5\uFE0F",
-  "glyphAsUtfInEmoticons": null,
-  "group": "Travel \u0026 Places",
+  "glyph": "🏕️",
+  "group": "Travel & Places",
   "keywords": [
     "camping"
   ],
@@ -12,6 +10,5 @@
     "1f3d5_camping"
   ],
   "tts": "camping",
-  "unicode": "1f3d5 fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f3d5 fe0f"
 }

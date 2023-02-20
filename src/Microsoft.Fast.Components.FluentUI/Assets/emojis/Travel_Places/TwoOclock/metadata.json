@@ -1,24 +1,22 @@
 {
-  "basefilename": "two_oclock",
-  "cldr": "two o\u2019clock",
+  "cldr": "two o’clock",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDD51",
+  "glyph": "🕑",
   "glyphAsUtfInEmoticons": [
     "1f551_twooclock"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "00",
     "2",
     "2:00",
     "clock",
-    "o\u2019clock",
+    "o’clock",
     "two"
   ],
   "mappedToEmoticons": [
     "1f551_twooclock"
   ],
-  "tts": "two o\u2019clock",
-  "unicode": "1f551",
-  "unicodeSkintones": null
+  "tts": "two o’clock",
+  "unicode": "1f551"
 }

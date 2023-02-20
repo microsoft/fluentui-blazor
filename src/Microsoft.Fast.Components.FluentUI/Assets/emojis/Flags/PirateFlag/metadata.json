@@ -1,8 +1,7 @@
 {
-  "basefilename": "pirate_flag",
   "cldr": "pirate flag",
   "fromVersion": "11.0",
-  "glyph": "\uD83C\uDFF4\u200D\u2620\uFE0F",
+  "glyph": "🏴‍☠️",
   "glyphAsUtfInEmoticons": [
     "1f3f4_200d_2620_fe0f_pirateflag"
   ],
@@ -14,8 +13,6 @@
     "plunder",
     "treasure"
   ],
-  "mappedToEmoticons": null,
   "tts": "pirate flag",
-  "unicode": "1f3f4 200d 2620 fe0f",
-  "unicodeSkintones": null
+  "unicode": "1f3f4 200d 2620 fe0f"
 }

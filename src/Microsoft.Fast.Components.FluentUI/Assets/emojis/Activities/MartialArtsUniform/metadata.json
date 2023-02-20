@@ -1,8 +1,7 @@
 {
-  "basefilename": "martial_arts_uniform",
   "cldr": "martial arts uniform",
   "fromVersion": "3.0",
-  "glyph": "\uD83E\uDD4B",
+  "glyph": "🥋",
   "glyphAsUtfInEmoticons": [
     "1f94b_martialartsuniform"
   ],
@@ -19,6 +18,5 @@
     "1f94b_martialartsuniform"
   ],
   "tts": "martial arts uniform",
-  "unicode": "1f94b",
-  "unicodeSkintones": null
+  "unicode": "1f94b"
 }

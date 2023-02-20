@@ -1,12 +1,11 @@
 {
-  "basefilename": "sneezing_face",
   "cldr": "sneezing face",
   "fromVersion": "3.0",
-  "glyph": "\uD83E\uDD27",
+  "glyph": "🤧",
   "glyphAsUtfInEmoticons": [
     "1f927_sneezingface"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "face",
     "gesundheit",
@@ -17,6 +16,5 @@
     "1f927_sneezingface"
   ],
   "tts": "sneezing face",
-  "unicode": "1f927",
-  "unicodeSkintones": null
+  "unicode": "1f927"
 }

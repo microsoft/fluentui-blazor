@@ -1,13 +1,12 @@
 {
-  "basefilename": "face_screaming_in_fear",
   "cldr": "face screaming in fear",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDE31",
+  "glyph": "😱",
   "glyphAsUtfInEmoticons": [
     "screamingfear",
     "shock"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "face",
     "face screaming in fear",
@@ -20,6 +19,5 @@
     "screamingfear"
   ],
   "tts": "face screaming in fear",
-  "unicode": "1f631",
-  "unicodeSkintones": null
+  "unicode": "1f631"
 }

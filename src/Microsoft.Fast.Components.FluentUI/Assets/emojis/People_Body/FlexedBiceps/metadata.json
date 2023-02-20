@@ -1,12 +1,11 @@
 {
-  "basefilename": "flexed_biceps",
   "cldr": "flexed biceps",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCAA",
+  "glyph": "💪",
   "glyphAsUtfInEmoticons": [
     "muscle"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "biceps",
     "comic",

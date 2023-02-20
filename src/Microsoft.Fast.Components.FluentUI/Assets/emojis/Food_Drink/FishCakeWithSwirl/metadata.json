@@ -1,12 +1,11 @@
 {
-  "basefilename": "fish_cake_with_swirl",
   "cldr": "fish cake with swirl",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF65",
+  "glyph": "🍥",
   "glyphAsUtfInEmoticons": [
     "1f365_fishcakewithswirldesign"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "cake",
     "fish",
@@ -18,6 +17,5 @@
     "1f365_fishcakewithswirldesign"
   ],
   "tts": "fish cake with swirl",
-  "unicode": "1f365",
-  "unicodeSkintones": null
+  "unicode": "1f365"
 }

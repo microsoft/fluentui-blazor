@@ -1,10 +1,8 @@
 {
-  "basefilename": "squinting_face_with_tongue",
   "cldr": "squinting face with tongue",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDE1D",
-  "glyphAsUtfInEmoticons": null,
-  "group": "Smileys \u0026 Emotion",
+  "glyph": "😝",
+  "group": "Smileys & Emotion",
   "keywords": [
     "eye",
     "face",
@@ -17,6 +15,5 @@
     "squintingfacewithtongue"
   ],
   "tts": "squinting face with tongue",
-  "unicode": "1f61d",
-  "unicodeSkintones": null
+  "unicode": "1f61d"
 }

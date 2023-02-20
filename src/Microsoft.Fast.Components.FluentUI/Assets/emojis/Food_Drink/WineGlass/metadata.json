@@ -1,12 +1,11 @@
 {
-  "basefilename": "wine_glass",
   "cldr": "wine glass",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF77",
+  "glyph": "🍷",
   "glyphAsUtfInEmoticons": [
     "redwine"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "bar",
     "beverage",
@@ -18,6 +17,5 @@
     "redwine"
   ],
   "tts": "wine glass",
-  "unicode": "1f377",
-  "unicodeSkintones": null
+  "unicode": "1f377"
 }

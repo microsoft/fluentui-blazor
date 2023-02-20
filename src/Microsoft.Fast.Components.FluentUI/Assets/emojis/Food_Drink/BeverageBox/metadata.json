@@ -1,12 +1,11 @@
 {
-  "basefilename": "beverage_box",
   "cldr": "beverage box",
   "fromVersion": "12.0",
-  "glyph": "\uD83E\uDDC3",
+  "glyph": "🧃",
   "glyphAsUtfInEmoticons": [
     "1f9c3_beveragebox"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "beverage",
     "box",
@@ -18,6 +17,5 @@
     "1f9c3_beveragebox"
   ],
   "tts": "beverage box",
-  "unicode": "1f9c3",
-  "unicodeSkintones": null
+  "unicode": "1f9c3"
 }

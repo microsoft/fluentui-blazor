@@ -1,12 +1,11 @@
 {
-  "basefilename": "palm_up_hand",
   "cldr": "palm up hand",
   "fromVersion": "14.0",
-  "glyph": "\uD83E\uDEF4",
+  "glyph": "🫴",
   "glyphAsUtfInEmoticons": [
     "palmuphand"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "beckon",
     "catch",

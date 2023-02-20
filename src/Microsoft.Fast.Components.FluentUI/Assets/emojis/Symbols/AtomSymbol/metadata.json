@@ -1,8 +1,7 @@
 {
-  "basefilename": "atom_symbol",
   "cldr": "atom symbol",
   "fromVersion": "1.0",
-  "glyph": "\u269B\uFE0F",
+  "glyph": "⚛️",
   "glyphAsUtfInEmoticons": [
     "269b_atomsymbol"
   ],
@@ -16,6 +15,5 @@
     "269b_atomsymbol"
   ],
   "tts": "atom symbol",
-  "unicode": "269b fe0f",
-  "unicodeSkintones": null
+  "unicode": "269b fe0f"
 }

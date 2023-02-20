@@ -1,12 +1,11 @@
 {
-  "basefilename": "blowfish",
   "cldr": "blowfish",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC21",
+  "glyph": "🐡",
   "glyphAsUtfInEmoticons": [
     "1f421_blowfish"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "blowfish",
     "fish"
@@ -15,6 +14,5 @@
     "1f421_blowfish"
   ],
   "tts": "blowfish",
-  "unicode": "1f421",
-  "unicodeSkintones": null
+  "unicode": "1f421"
 }

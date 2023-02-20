@@ -1,8 +1,7 @@
 {
-  "basefilename": "books",
   "cldr": "books",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCDA",
+  "glyph": "📚",
   "glyphAsUtfInEmoticons": [
     "1f4da_books"
   ],
@@ -15,6 +14,5 @@
     "1f4da_books"
   ],
   "tts": "books",
-  "unicode": "1f4da",
-  "unicodeSkintones": null
+  "unicode": "1f4da"
 }

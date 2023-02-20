@@ -1,12 +1,11 @@
 {
-  "basefilename": "rock",
   "cldr": "rock",
   "fromVersion": "13.0",
-  "glyph": "\uD83E\uDEA8",
+  "glyph": "🪨",
   "glyphAsUtfInEmoticons": [
     "stone"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "boulder",
     "heavy",
@@ -18,6 +17,5 @@
     "stone"
   ],
   "tts": "rock",
-  "unicode": "1faa8",
-  "unicodeSkintones": null
+  "unicode": "1faa8"
 }

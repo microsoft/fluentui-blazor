@@ -1,8 +1,7 @@
 {
-  "basefilename": "back_arrow",
   "cldr": "BACK arrow",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDD19",
+  "glyph": "🔙",
   "glyphAsUtfInEmoticons": [
     "1f519_backarrow"
   ],
@@ -16,6 +15,5 @@
     "1f519_backarrow"
   ],
   "tts": "BACK arrow",
-  "unicode": "1f519",
-  "unicodeSkintones": null
+  "unicode": "1f519"
 }

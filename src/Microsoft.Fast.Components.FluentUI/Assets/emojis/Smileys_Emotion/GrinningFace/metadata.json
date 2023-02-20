@@ -1,12 +1,11 @@
 {
-  "basefilename": "grinning_face",
   "cldr": "grinning face",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDE00",
+  "glyph": "😀",
   "glyphAsUtfInEmoticons": [
     "laugh"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "face",
     "grin",
@@ -16,6 +15,5 @@
     "1f603_grinningfacewithbigeyes"
   ],
   "tts": "grinning face",
-  "unicode": "1f600",
-  "unicodeSkintones": null
+  "unicode": "1f600"
 }

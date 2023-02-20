@@ -1,12 +1,11 @@
 {
-  "basefilename": "woman_surfing",
   "cldr": "woman surfing",
   "fromVersion": "4.0",
-  "glyph": "\uD83C\uDFC4\u200D\u2640\uFE0F",
+  "glyph": "🏄‍♀️",
   "glyphAsUtfInEmoticons": [
     "womansurfer"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "surfing",
     "woman"

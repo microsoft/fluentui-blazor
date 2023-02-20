@@ -1,12 +1,11 @@
 {
-  "basefilename": "shortcake",
   "cldr": "shortcake",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF70",
+  "glyph": "🍰",
   "glyphAsUtfInEmoticons": [
     "cakeslice"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "cake",
     "dessert",
@@ -19,6 +18,5 @@
     "cakeslice"
   ],
   "tts": "shortcake",
-  "unicode": "1f370",
-  "unicodeSkintones": null
+  "unicode": "1f370"
 }

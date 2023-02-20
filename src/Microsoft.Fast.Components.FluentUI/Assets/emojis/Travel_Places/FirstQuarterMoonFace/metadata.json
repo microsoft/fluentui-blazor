@@ -1,12 +1,11 @@
 {
-  "basefilename": "first_quarter_moon_face",
   "cldr": "first quarter moon face",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF1B",
+  "glyph": "🌛",
   "glyphAsUtfInEmoticons": [
     "1f31b_firstquartermoonwithface"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "face",
     "first quarter moon face",
@@ -17,6 +16,5 @@
     "1f31b_firstquartermoonwithface"
   ],
   "tts": "first quarter moon face",
-  "unicode": "1f31b",
-  "unicodeSkintones": null
+  "unicode": "1f31b"
 }

@@ -1,12 +1,11 @@
 {
-  "basefilename": "person_bowing",
   "cldr": "person bowing",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDE47",
+  "glyph": "🙇",
   "glyphAsUtfInEmoticons": [
     "bowing"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "apology",
     "bow",

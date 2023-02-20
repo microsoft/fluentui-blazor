@@ -1,12 +1,11 @@
 {
-  "basefilename": "backhand_index_pointing_right",
   "cldr": "backhand index pointing right",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC49",
+  "glyph": "👉",
   "glyphAsUtfInEmoticons": [
     "pointrightindex"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "backhand",
     "backhand index pointing right",

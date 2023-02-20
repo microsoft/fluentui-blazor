@@ -1,8 +1,7 @@
 {
-  "basefilename": "sparkles",
   "cldr": "sparkles",
   "fromVersion": "0.6",
-  "glyph": "\u2728",
+  "glyph": "✨",
   "glyphAsUtfInEmoticons": [
     "2728_sparkles"
   ],
@@ -17,6 +16,5 @@
     "2728_sparkles"
   ],
   "tts": "sparkles",
-  "unicode": "2728",
-  "unicodeSkintones": null
+  "unicode": "2728"
 }

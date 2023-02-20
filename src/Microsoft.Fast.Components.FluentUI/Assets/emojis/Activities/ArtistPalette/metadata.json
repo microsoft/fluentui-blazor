@@ -1,8 +1,7 @@
 {
-  "basefilename": "artist_palette",
   "cldr": "artist palette",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDFA8",
+  "glyph": "🎨",
   "glyphAsUtfInEmoticons": [
     "1f3a8_artistpalette"
   ],
@@ -18,6 +17,5 @@
     "1f3a8_artistpalette"
   ],
   "tts": "artist palette",
-  "unicode": "1f3a8",
-  "unicodeSkintones": null
+  "unicode": "1f3a8"
 }

@@ -1,12 +1,11 @@
 {
-  "basefilename": "clinking_glasses",
   "cldr": "clinking glasses",
   "fromVersion": "3.0",
-  "glyph": "\uD83E\uDD42",
+  "glyph": "🥂",
   "glyphAsUtfInEmoticons": [
     "cheers"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "celebrate",
     "clink",
@@ -18,6 +17,5 @@
     "cheers"
   ],
   "tts": "clinking glasses",
-  "unicode": "1f942",
-  "unicodeSkintones": null
+  "unicode": "1f942"
 }

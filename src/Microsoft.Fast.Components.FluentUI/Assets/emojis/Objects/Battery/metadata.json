@@ -1,8 +1,7 @@
 {
-  "basefilename": "battery",
   "cldr": "battery",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDD0B",
+  "glyph": "🔋",
   "glyphAsUtfInEmoticons": [
     "1f50b_battery"
   ],
@@ -14,6 +13,5 @@
     "1f50b_battery"
   ],
   "tts": "battery",
-  "unicode": "1f50b",
-  "unicodeSkintones": null
+  "unicode": "1f50b"
 }

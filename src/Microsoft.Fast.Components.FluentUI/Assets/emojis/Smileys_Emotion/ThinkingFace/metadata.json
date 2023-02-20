@@ -1,12 +1,11 @@
 {
-  "basefilename": "thinking_face",
   "cldr": "thinking face",
   "fromVersion": "1.0",
-  "glyph": "\uD83E\uDD14",
+  "glyph": "🤔",
   "glyphAsUtfInEmoticons": [
     "think"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "face",
     "thinking"
@@ -15,6 +14,5 @@
     "think"
   ],
   "tts": "thinking face",
-  "unicode": "1f914",
-  "unicodeSkintones": null
+  "unicode": "1f914"
 }

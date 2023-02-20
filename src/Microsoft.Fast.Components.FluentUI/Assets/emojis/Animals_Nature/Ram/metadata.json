@@ -1,12 +1,11 @@
 {
-  "basefilename": "ram",
   "cldr": "ram",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDC0F",
+  "glyph": "🐏",
   "glyphAsUtfInEmoticons": [
     "1f40f_ram"
   ],
-  "group": "Animals \u0026 Nature",
+  "group": "Animals & Nature",
   "keywords": [
     "Aries",
     "male",
@@ -18,6 +17,5 @@
     "1f40f_ram"
   ],
   "tts": "ram",
-  "unicode": "1f40f",
-  "unicodeSkintones": null
+  "unicode": "1f40f"
 }

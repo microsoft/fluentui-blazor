@@ -1,12 +1,11 @@
 {
-  "basefilename": "railway_car",
   "cldr": "railway car",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDE83",
+  "glyph": "🚃",
   "glyphAsUtfInEmoticons": [
     "1f683_railwaycar"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "car",
     "electric",
@@ -19,6 +18,5 @@
     "1f683_railwaycar"
   ],
   "tts": "railway car",
-  "unicode": "1f683",
-  "unicodeSkintones": null
+  "unicode": "1f683"
 }

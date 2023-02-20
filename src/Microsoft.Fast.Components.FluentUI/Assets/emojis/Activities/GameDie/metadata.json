@@ -1,8 +1,7 @@
 {
-  "basefilename": "game_die",
   "cldr": "game die",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDFB2",
+  "glyph": "🎲",
   "glyphAsUtfInEmoticons": [
     "1f3b2_gamedie"
   ],
@@ -16,6 +15,5 @@
     "1f3b2_gamedie"
   ],
   "tts": "game die",
-  "unicode": "1f3b2",
-  "unicodeSkintones": null
+  "unicode": "1f3b2"
 }

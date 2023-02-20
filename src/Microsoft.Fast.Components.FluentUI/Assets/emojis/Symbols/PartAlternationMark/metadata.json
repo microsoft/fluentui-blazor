@@ -1,8 +1,7 @@
 {
-  "basefilename": "part_alternation_mark",
   "cldr": "part alternation mark",
   "fromVersion": "0.6",
-  "glyph": "\u303D\uFE0F",
+  "glyph": "〽️",
   "glyphAsUtfInEmoticons": [
     "303d_partalternationmark"
   ],
@@ -16,6 +15,5 @@
     "303d_partalternationmark"
   ],
   "tts": "part alternation mark",
-  "unicode": "303d fe0f",
-  "unicodeSkintones": null
+  "unicode": "303d fe0f"
 }

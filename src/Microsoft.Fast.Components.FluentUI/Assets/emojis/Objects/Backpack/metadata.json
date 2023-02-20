@@ -1,8 +1,7 @@
 {
-  "basefilename": "backpack",
   "cldr": "backpack",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF92",
+  "glyph": "🎒",
   "glyphAsUtfInEmoticons": [
     "1f392_schoolsatchel"
   ],
@@ -18,6 +17,5 @@
     "1f392_schoolsatchel"
   ],
   "tts": "backpack",
-  "unicode": "1f392",
-  "unicodeSkintones": null
+  "unicode": "1f392"
 }

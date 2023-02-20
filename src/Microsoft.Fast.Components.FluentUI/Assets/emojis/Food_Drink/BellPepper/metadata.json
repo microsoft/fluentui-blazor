@@ -1,12 +1,11 @@
 {
-  "basefilename": "bell_pepper",
   "cldr": "bell pepper",
   "fromVersion": "13.0",
-  "glyph": "\uD83E\uDED1",
+  "glyph": "🫑",
   "glyphAsUtfInEmoticons": [
     "bellpepper"
   ],
-  "group": "Food \u0026 Drink",
+  "group": "Food & Drink",
   "keywords": [
     "bell pepper",
     "capsicum",
@@ -17,6 +16,5 @@
     "bellpepper"
   ],
   "tts": "bell pepper",
-  "unicode": "1fad1",
-  "unicodeSkintones": null
+  "unicode": "1fad1"
 }

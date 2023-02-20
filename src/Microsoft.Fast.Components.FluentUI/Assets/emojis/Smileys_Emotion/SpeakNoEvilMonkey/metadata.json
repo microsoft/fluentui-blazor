@@ -1,12 +1,11 @@
 {
-  "basefilename": "speak-no-evil_monkey",
   "cldr": "speak-no-evil monkey",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDE4A",
+  "glyph": "🙊",
   "glyphAsUtfInEmoticons": [
     "speaknoevil"
   ],
-  "group": "Smileys \u0026 Emotion",
+  "group": "Smileys & Emotion",
   "keywords": [
     "evil",
     "face",
@@ -19,6 +18,5 @@
     "speaknoevil"
   ],
   "tts": "speak-no-evil monkey",
-  "unicode": "1f64a",
-  "unicodeSkintones": null
+  "unicode": "1f64a"
 }

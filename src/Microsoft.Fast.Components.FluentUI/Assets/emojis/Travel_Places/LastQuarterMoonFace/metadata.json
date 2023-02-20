@@ -1,12 +1,11 @@
 {
-  "basefilename": "last_quarter_moon_face",
   "cldr": "last quarter moon face",
   "fromVersion": "0.7",
-  "glyph": "\uD83C\uDF1C",
+  "glyph": "🌜",
   "glyphAsUtfInEmoticons": [
     "1f31c_lastquartermoonwithface"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "face",
     "last quarter moon face",
@@ -17,6 +16,5 @@
     "1f31c_lastquartermoonwithface"
   ],
   "tts": "last quarter moon face",
-  "unicode": "1f31c",
-  "unicodeSkintones": null
+  "unicode": "1f31c"
 }

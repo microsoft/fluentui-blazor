@@ -1,12 +1,11 @@
 {
-  "basefilename": "stop_sign",
   "cldr": "stop sign",
   "fromVersion": "3.0",
-  "glyph": "\uD83D\uDED1",
+  "glyph": "🛑",
   "glyphAsUtfInEmoticons": [
     "stop"
   ],
-  "group": "Travel \u0026 Places",
+  "group": "Travel & Places",
   "keywords": [
     "octagonal",
     "sign",
@@ -16,6 +15,5 @@
     "stopsign"
   ],
   "tts": "stop sign",
-  "unicode": "1f6d1",
-  "unicodeSkintones": null
+  "unicode": "1f6d1"
 }

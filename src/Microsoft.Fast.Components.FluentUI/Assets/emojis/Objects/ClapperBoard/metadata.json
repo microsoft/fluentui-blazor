@@ -1,8 +1,7 @@
 {
-  "basefilename": "clapper_board",
   "cldr": "clapper board",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDFAC",
+  "glyph": "🎬",
   "glyphAsUtfInEmoticons": [
     "movie"
   ],
@@ -16,6 +15,5 @@
     "movie"
   ],
   "tts": "clapper board",
-  "unicode": "1f3ac",
-  "unicodeSkintones": null
+  "unicode": "1f3ac"
 }

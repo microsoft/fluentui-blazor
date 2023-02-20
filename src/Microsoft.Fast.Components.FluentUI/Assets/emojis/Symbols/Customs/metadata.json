@@ -1,8 +1,7 @@
 {
-  "basefilename": "customs",
   "cldr": "customs",
   "fromVersion": "1.0",
-  "glyph": "\uD83D\uDEC3",
+  "glyph": "🛃",
   "glyphAsUtfInEmoticons": [
     "1f6c3_customs"
   ],
@@ -14,6 +13,5 @@
     "1f6c3_customs"
   ],
   "tts": "customs",
-  "unicode": "1f6c3",
-  "unicodeSkintones": null
+  "unicode": "1f6c3"
 }

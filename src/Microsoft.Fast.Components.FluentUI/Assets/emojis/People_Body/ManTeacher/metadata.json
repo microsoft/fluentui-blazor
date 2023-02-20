@@ -1,12 +1,11 @@
 {
-  "basefilename": "man_teacher",
   "cldr": "man teacher",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDC68\u200D\uD83C\uDFEB",
+  "glyph": "👨‍🏫",
   "glyphAsUtfInEmoticons": [
     "manteacher"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "instructor",
     "man",

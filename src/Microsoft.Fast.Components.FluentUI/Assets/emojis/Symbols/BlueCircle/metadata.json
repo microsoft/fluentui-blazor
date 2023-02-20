@@ -1,8 +1,7 @@
 {
-  "basefilename": "blue_circle",
   "cldr": "blue circle",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDD35",
+  "glyph": "🔵",
   "glyphAsUtfInEmoticons": [
     "1f535_largebluecircle"
   ],
@@ -16,6 +15,5 @@
     "1f535_largebluecircle"
   ],
   "tts": "blue circle",
-  "unicode": "1f535",
-  "unicodeSkintones": null
+  "unicode": "1f535"
 }

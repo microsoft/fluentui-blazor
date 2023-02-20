@@ -1,13 +1,12 @@
 {
-  "basefilename": "woman_dancing",
   "cldr": "woman dancing",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDC83",
+  "glyph": "💃",
   "glyphAsUtfInEmoticons": [
     "1f483_womandancing",
     "woman_dancing"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "dance",
     "dancing",

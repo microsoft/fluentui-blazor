@@ -1,8 +1,7 @@
 {
-  "basefilename": "credit_card",
   "cldr": "credit card",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCB3",
+  "glyph": "💳",
   "glyphAsUtfInEmoticons": [
     "1f4b3_creditcard"
   ],
@@ -16,6 +15,5 @@
     "1f4b3_creditcard"
   ],
   "tts": "credit card",
-  "unicode": "1f4b3",
-  "unicodeSkintones": null
+  "unicode": "1f4b3"
 }

@@ -1,23 +1,21 @@
 {
-  "basefilename": "japanese_here_button",
-  "cldr": "Japanese \u201Chere\u201D button",
+  "cldr": "Japanese “here” button",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDE01",
+  "glyph": "🈁",
   "glyphAsUtfInEmoticons": [
     "1f201_squaredkatakanakoko"
   ],
   "group": "Symbols",
   "keywords": [
-    "\u201Chere\u201D",
+    "“here”",
     "Japanese",
-    "Japanese \u201Chere\u201D button",
+    "Japanese “here” button",
     "katakana",
-    "\u30B3\u30B3"
+    "ココ"
   ],
   "mappedToEmoticons": [
     "1f201_squaredkatakanakoko"
   ],
-  "tts": "Japanese \u201Chere\u201D button",
-  "unicode": "1f201",
-  "unicodeSkintones": null
+  "tts": "Japanese “here” button",
+  "unicode": "1f201"
 }

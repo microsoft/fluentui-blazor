@@ -1,10 +1,8 @@
 {
-  "basefilename": "pinched_fingers",
   "cldr": "pinched fingers",
   "fromVersion": "13.0",
-  "glyph": "\uD83E\uDD0C",
-  "glyphAsUtfInEmoticons": null,
-  "group": "People \u0026 Body",
+  "glyph": "🤌",
+  "group": "People & Body",
   "keywords": [
     "fingers",
     "hand gesture",

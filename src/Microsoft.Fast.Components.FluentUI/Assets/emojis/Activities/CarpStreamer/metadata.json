@@ -1,8 +1,7 @@
 {
-  "basefilename": "carp_streamer",
   "cldr": "carp streamer",
   "fromVersion": "0.6",
-  "glyph": "\uD83C\uDF8F",
+  "glyph": "🎏",
   "glyphAsUtfInEmoticons": [
     "1f38f_carpstreamer"
   ],
@@ -16,6 +15,5 @@
     "1f38f_carpstreamer"
   ],
   "tts": "carp streamer",
-  "unicode": "1f38f",
-  "unicodeSkintones": null
+  "unicode": "1f38f"
 }

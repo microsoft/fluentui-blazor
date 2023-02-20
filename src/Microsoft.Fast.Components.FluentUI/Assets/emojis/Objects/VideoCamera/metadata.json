@@ -1,8 +1,7 @@
 {
-  "basefilename": "video_camera",
   "cldr": "video camera",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDCF9",
+  "glyph": "📹",
   "glyphAsUtfInEmoticons": [
     "1f4f9_videocamera"
   ],
@@ -15,6 +14,5 @@
     "1f4f9_videocamera"
   ],
   "tts": "video camera",
-  "unicode": "1f4f9",
-  "unicodeSkintones": null
+  "unicode": "1f4f9"
 }

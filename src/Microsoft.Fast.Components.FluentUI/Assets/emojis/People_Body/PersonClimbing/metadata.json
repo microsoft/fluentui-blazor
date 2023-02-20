@@ -1,12 +1,11 @@
 {
-  "basefilename": "person_climbing",
   "cldr": "person climbing",
   "fromVersion": "5.0",
-  "glyph": "\uD83E\uDDD7",
+  "glyph": "🧗",
   "glyphAsUtfInEmoticons": [
     "climber"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "climber",
     "person climbing"

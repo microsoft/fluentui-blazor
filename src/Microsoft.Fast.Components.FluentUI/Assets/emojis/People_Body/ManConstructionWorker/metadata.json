@@ -1,12 +1,11 @@
 {
-  "basefilename": "man_construction_worker",
   "cldr": "man construction worker",
   "fromVersion": "4.0",
-  "glyph": "\uD83D\uDC77\u200D\u2642\uFE0F",
+  "glyph": "👷‍♂️",
   "glyphAsUtfInEmoticons": [
     "man_construction_worker"
   ],
-  "group": "People \u0026 Body",
+  "group": "People & Body",
   "keywords": [
     "construction",
     "man",

@@ -1,8 +1,7 @@
 {
-  "basefilename": "small_orange_diamond",
   "cldr": "small orange diamond",
   "fromVersion": "0.6",
-  "glyph": "\uD83D\uDD38",
+  "glyph": "🔸",
   "glyphAsUtfInEmoticons": [
     "1f538_smallorangediamond"
   ],
@@ -17,6 +16,5 @@
     "1f538_smallorangediamond"
   ],
   "tts": "small orange diamond",
-  "unicode": "1f538",
-  "unicodeSkintones": null
+  "unicode": "1f538"
 }
