@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
 
@@ -23,13 +22,11 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
         public void Execute(GeneratorExecutionContext context)
         {
             StringBuilder? sb = new();
-            Regex? regex = new(@"(\w*)_(\d*)_(\w*)");
             int iconcount = 0;
             string? baseFolder;
 
 
             List<(string folder, string iconbase)> constants = new();
-            (string name, int size, string variant) icon;
 
             bool getResult = context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.FluentUISourceBaseFolder", out string? sourceFolder);
             if (!getResult || string.IsNullOrEmpty(sourceFolder))
@@ -61,29 +58,25 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
 
                 foreach (string file in Directory.EnumerateFiles(foldername, "*.svg"))
                 {
-                    string name = Path.GetFileNameWithoutExtension(file);
+                    string[] nameparts = Path.GetFileNameWithoutExtension(file).Split('_');
 
-                    MatchCollection? matches = regex.Matches(name);
-                    if (matches.Count == 0)
-                        continue;
+                    string iconVariant = nameparts[1] switch
+                    {
+                        "f" => "Filled",
+                        "r" => "Regular",
+                        _ => ""
+                    };
 
-                    icon = (
-                        matches[0].Groups[1].Value,
-                        int.Parse(matches[0].Groups[2].Value),
-                        ToSentenceCase(matches[0].Groups[3].Value)
-                    );
-
-                    sb.AppendLine($"\t\tnew IconModel(\"{icon.name}\", \"{folder}\", IconSize.Size{icon.size}, IconVariant.{icon.variant}),");
+                    sb.AppendLine($"\t\tnew IconModel(\"{folder}\", IconSize.Size{int.Parse(nameparts[0])}, IconVariant.{iconVariant}),");
                     iconcount++;
 
                     if (string.IsNullOrEmpty(iconbase))
                     {
-                        iconbase = icon.name;
+                        iconbase = folder;
                     }
                 }
 
                 constants.Add((folder, iconbase));
-
             }
             sb.AppendLine("\t};");
 

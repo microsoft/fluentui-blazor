@@ -6,7 +6,7 @@ public class FluentIconSearcher
 {
     [Inject]
     private IconService IconService { get; set; } = default!;
-    
+
     private IEnumerable<IconModel>? iconList;
 
 
@@ -19,8 +19,7 @@ public class FluentIconSearcher
     {
         return FluentIcons.GetIconMap(IconService.Configuration.Sizes, IconService.Configuration.Variants); ;
     }
-    private FluentIcons icons = new();
-    
+
 
     public FluentIconSearcher AsVariant(IconVariant? variant)
     {
@@ -33,7 +32,7 @@ public class FluentIconSearcher
         }
         return this;
     }
-    
+
 
     public FluentIconSearcher WithSize(IconSize? size)
     {
@@ -47,7 +46,7 @@ public class FluentIconSearcher
         return this;
     }
 
-    
+
     public FluentIconSearcher WithName(string? searchterm)
     {
 
@@ -55,7 +54,7 @@ public class FluentIconSearcher
         {
             iconList ??= GetFilteredIconList();
 
-            iconList = iconList!.Where(x => x.Name.Contains(searchterm, StringComparison.OrdinalIgnoreCase) || x.Folder.Contains(searchterm.ToLower(), StringComparison.OrdinalIgnoreCase));
+            iconList = iconList!.Where(x => x.Name.Contains(searchterm, StringComparison.OrdinalIgnoreCase));
         }
 
         return this;
@@ -66,7 +65,7 @@ public class FluentIconSearcher
         if (iconList is null)
             return new();
         else
-            return iconList?.Take(count).OrderBy(x=>x.Folder).ToList();
+            return iconList?.Take(count).OrderBy(x => x.Name).ToList();
     }
 
     public int ResultCount()

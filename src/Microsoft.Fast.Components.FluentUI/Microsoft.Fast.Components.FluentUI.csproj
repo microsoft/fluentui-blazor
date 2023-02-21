@@ -76,7 +76,7 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
 	</ItemGroup>
-	
+
 	<ItemGroup>
 		<ProjectReference Include="..\Microsoft.Fast.Components.FluentUI.Configuration\Microsoft.Fast.Components.FluentUI.Configuration.csproj" OutputItemType="Content" ReferenceOutputAssembly="false" CopyToOutputDirectory="PreserveNewest" Pack="false" />
 		<ProjectReference Include="..\Microsoft.Fast.Components.FluentUI.Generators\Microsoft.Fast.Components.FluentUI.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
@@ -173,7 +173,7 @@
 			<Food_DrinkColorAssetsCandidates>
 				<RelativePath>emojis\Food_Drink\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Food_DrinkColorAssetsCandidates>
-			<Food_DrinkFlatAssetsCandidates Include="Assets\emojis\Food_Drink\**\f.svg" Exclude="Assets\icons\**;Assets\**\*flatbread_c*;Assets\**\*flatbread_h*" />
+			<Food_DrinkFlatAssetsCandidates Include="Assets\emojis\Food_Drink\**\f.svg" Exclude="Assets\icons\**;" />
 			<Food_DrinkFlatAssetsCandidates>
 				<RelativePath>emojis\Food_Drink\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Food_DrinkFlatAssetsCandidates>
@@ -247,89 +247,86 @@
 				<RelativePath>emojis\Travel_Places\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Travel_PlacesHighContrastAssetsCandidates>
 
-			<Filled10AssetsCandidates Include="Assets\icons\**\*_10_filled.svg" />
+			<Filled10AssetsCandidates Include="Assets\icons\**\10_f.svg" />
 			<Filled10AssetsCandidates>
 				<RelativePath>icons\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Filled10AssetsCandidates>
-			<Regular10AssetsCandidates Include="Assets\icons\**\*_10_regular.svg" />
+			<Regular10AssetsCandidates Include="Assets\icons\**\10_r.svg" />
 			<Regular10AssetsCandidates>
 				<RelativePath>icons\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Regular10AssetsCandidates>
 
-			<Filled12AssetsCandidates Include="Assets\icons\**\*_12_filled.svg" />
+			<Filled12AssetsCandidates Include="Assets\icons\**\12_f.svg" />
 			<Filled12AssetsCandidates>
 				<RelativePath>icons\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Filled12AssetsCandidates>
-			<Regular12AssetsCandidates Include="Assets\icons\**\*_12_regular.svg" />
+			<Regular12AssetsCandidates Include="Assets\icons\**\12_r.svg" />
 			<Regular12AssetsCandidates>
 				<RelativePath>icons\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Regular12AssetsCandidates>
 
-			<Filled16AssetsCandidates Include="Assets\icons\**\*_16_filled.svg" />
+			<Filled16AssetsCandidates Include="Assets\icons\**\16_f.svg" />
 			<Filled16AssetsCandidates>
 				<RelativePath>icons\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Filled16AssetsCandidates>
-			<Regular16AssetsCandidates Include="Assets\icons\**\*_16_regular.svg" />
+			<Regular16AssetsCandidates Include="Assets\icons\**\16_r.svg" />
 			<Regular16AssetsCandidates>
 				<RelativePath>icons\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Regular16AssetsCandidates>
 
-			<Filled20AssetsCandidates Include="Assets\icons\**\*_20_filled.svg" />
+			<Filled20AssetsCandidates Include="Assets\icons\**\20_f.svg" />
 			<Filled20AssetsCandidates>
 				<RelativePath>icons\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Filled20AssetsCandidates>
-			<Regular20AssetsCandidates Include="Assets\icons\**\*_20_regular.svg" />
+			<Regular20AssetsCandidates Include="Assets\icons\**\20_r.svg" />
 			<Regular20AssetsCandidates>
 				<RelativePath>icons\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Regular20AssetsCandidates>
 
-			<Filled24AssetsCandidates Include="Assets\icons\**\*_24_filled.svg" />
+			<Filled24AssetsCandidates Include="Assets\icons\**\24_f.svg" />
 			<Filled24AssetsCandidates>
 				<RelativePath>icons\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Filled24AssetsCandidates>
-			<Regular24AssetsCandidates Include="Assets\icons\**\*_24_regular.svg" />
+			<Regular24AssetsCandidates Include="Assets\icons\**\24_r.svg" />
 			<Regular24AssetsCandidates>
 				<RelativePath>icons\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Regular24AssetsCandidates>
 
-			<Filled28AssetsCandidates Include="Assets\icons\**\*_28_filled.svg" />
+			<Filled28AssetsCandidates Include="Assets\icons\**\28_f.svg" />
 			<Filled28AssetsCandidates>
 				<RelativePath>icons\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Filled28AssetsCandidates>
-			<Regular28AssetsCandidates Include="Assets\icons\**\*_28_regular.svg" />
+			<Regular28AssetsCandidates Include="Assets\icons\**\28_r.svg" />
 			<Regular28AssetsCandidates>
 				<RelativePath>icons\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Regular28AssetsCandidates>
 
-			<Filled32AssetsCandidates Include="Assets\icons\**\*_32_filled.svg" />
+			<Filled32AssetsCandidates Include="Assets\icons\**\32_f.svg" />
 			<Filled32AssetsCandidates>
 				<RelativePath>icons\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Filled32AssetsCandidates>
-			<Regular32AssetsCandidates Include="Assets\icons\**\*_32_regular.svg" />
+			<Regular32AssetsCandidates Include="Assets\icons\**\32_r.svg" />
 			<Regular32AssetsCandidates>
 				<RelativePath>icons\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Regular32AssetsCandidates>
 
-			<Filled48AssetsCandidates Include="Assets\icons\**\*_48_filled.svg" />
+			<Filled48AssetsCandidates Include="Assets\icons\**\48_f.svg" />
 			<Filled48AssetsCandidates>
 				<RelativePath>icons\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Filled48AssetsCandidates>
-			<Regular48AssetsCandidates Include="Assets\icons\**\*_48_regular.svg" />
+			<Regular48AssetsCandidates Include="Assets\icons\**\48_r.svg" />
 			<Regular48AssetsCandidates>
 				<RelativePath>icons\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
 			</Regular48AssetsCandidates>
 
 			<!-- Specify icons that are used inside the library below -->
-			<!-- DO NOT include the full puth but use the format shown otherwise the necessary folder structure will not be created in the wwwroot folder -->
-			<RequiredIconAssetsCandidates Include="Assets\icons\**\arrow_sort_up_20_regular.svg;
-										           Assets\icons\**\arrow_sort_down_20_regular.svg;
-												   Assets\icons\**\chevron_double_left_20_regular.svg;
-												   Assets\icons\**\chevron_double_right_20_regular.svg;
-												   Assets\icons\**\chevron_left_20_regular.svg;
-												   Assets\icons\**\chevron_right_20_regular.svg" />
-			<RequiredIconAssetsCandidates>
-				<RelativePath>icons\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
-			</RequiredIconAssetsCandidates>
+			<RequiredIconAssetsCandidates Include="Assets\icons\ArrowSortUp\20_r.svg" RelativePath="icons\ArrowSortUp\20_r.svg" />
+			<RequiredIconAssetsCandidates Include="Assets\icons\ArrowSortDown\20_r.svg" RelativePath="icons\ArrowSortDown\20_r.svg" />
+			<RequiredIconAssetsCandidates Include="Assets\icons\ChevronDoubleLeft\20_r.svg" RelativePath="icons\ChevronDoubleLeft\20_r.svg" />
+			<RequiredIconAssetsCandidates Include="Assets\icons\ChevronDoubleRight\20_r.svg" RelativePath="icons\ChevronDoubleRight\20_r.svg" />
+			<RequiredIconAssetsCandidates Include="Assets\icons\ChevronLeft\20_r.svg" RelativePath="icons\ChevronLeft\20_r.svg" />
+			<RequiredIconAssetsCandidates Include="Assets\icons\ChevronRight\20_r.svg" RelativePath="icons\ChevronRight\20_r.svg" />
+			
 		</ItemGroup>
 
 		<DefineStaticWebAssets Condition="'@(ActivitiesColorAssetsCandidates-&gt;Count())' != '0'" CandidateAssets="@(ActivitiesColorAssetsCandidates)" SourceId="$(PackageId)" SourceType="Discovered" AssetKind="All" ContentRoot="Assets/emojis" BasePath="$(StaticWebAssetBasePath)">

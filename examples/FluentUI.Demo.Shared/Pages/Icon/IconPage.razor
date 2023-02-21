@@ -125,7 +125,7 @@
                 <div class="inner" style="background-color: @(Form.Color == Color.Fill ? "var(--accent-fill-rest)" : "")" >
                     <FluentIcon Name=@icon.Name Size=@icon.Size Variant=@icon.Variant Color="@Form.Color" />
                 </div>
-                <div class="label">@icon.Folder</div>
+                <div class="label">@icon.Name</div>
             </FluentCard>
         }
         @if (icons.Count == 0)

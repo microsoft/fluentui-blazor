@@ -119,7 +119,7 @@ public partial class FluentIcon : FluentComponentBase
             }
         }
 
-        _folder = FluentIcons.GetIconMap(IconService.Configuration.Sizes, IconService.Configuration.Variants).First(x => x.Name == Name).Folder;
+        _folder = FluentIcons.GetIconMap(IconService.Configuration.Sizes, IconService.Configuration.Variants).First(x => x.Name == Name).Name;
 
         _iconUrl = $"{ICON_ROOT}/{_folder}{(nc is not null ? "/" + nc : "")}/{ComposedName}.svg";
         _iconUrlFallback = $"{ICON_ROOT}/{_folder}/{ComposedName}.svg";
@@ -194,15 +194,23 @@ public partial class FluentIcon : FluentComponentBase
             await OnClick.InvokeAsync(e);
     }
 
-    public string ComposedName
+    private string ComposedName
     {
         get
         {
+            string variant = Variant switch
+            {
+                IconVariant.Filled => "f",
+                IconVariant.Regular => "r",
+                _ => ""
+            };
+
             string result = "";
             if (Name is not null)
-                result = $"{Name}_{(int)Size}_{Variant.ToAttributeValue()}";
+                result = $"{(int)Size}_{variant}";
 
             return result;
+
         }
     }
 

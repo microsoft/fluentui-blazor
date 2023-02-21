@@ -11,6 +11,13 @@ public partial class FluentSwitch : FluentInputBase<bool>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(CheckboxChangeEventArgs))]
+
+    public FluentSwitch()
+    {
+
+    }
+
     [Parameter]
     public bool Checked
     {

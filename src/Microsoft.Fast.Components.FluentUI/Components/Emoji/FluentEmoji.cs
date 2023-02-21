@@ -105,7 +105,7 @@ public partial class FluentEmoji : FluentComponentBase
         if (model.Skintone.HasValue)
             hasSkintone = true;
 
-        _emojiUrl = $"{EMOJI_ROOT}/{_group}/{_folder}/{GetComposedName()}.svg";
+        _emojiUrl = $"{EMOJI_ROOT}/{_group}/{_folder}/{ComposedName}.svg";
 
     }
 
@@ -171,37 +171,40 @@ public partial class FluentEmoji : FluentComponentBase
             await OnClick.InvokeAsync(e);
     }
 
-    private string GetComposedName()
+    private string ComposedName
     {
-        string skinToneShort = Skintone switch
+        get
         {
-            EmojiSkintone.Default => "de",
-            EmojiSkintone.Light => "li",
-            EmojiSkintone.MediumLight => "ml",
-            EmojiSkintone.Medium => "me",
-            EmojiSkintone.MediumDark => "md",
-            EmojiSkintone.Dark => "da",
-            _ => ""
-        };
+            string skinToneShort = Skintone switch
+            {
+                EmojiSkintone.Default => "de",
+                EmojiSkintone.Light => "li",
+                EmojiSkintone.MediumLight => "ml",
+                EmojiSkintone.Medium => "me",
+                EmojiSkintone.MediumDark => "md",
+                EmojiSkintone.Dark => "da",
+                _ => ""
+            };
 
-        string emojiStyleShort = EmojiStyle switch
-        {
-            FluentUI.EmojiStyle.Color => "c",
-            FluentUI.EmojiStyle.Flat => "f",
-            FluentUI.EmojiStyle.HighContrast => "h",
-            _ => ""
-        };
+            string emojiStyleShort = EmojiStyle switch
+            {
+                FluentUI.EmojiStyle.Color => "c",
+                FluentUI.EmojiStyle.Flat => "f",
+                FluentUI.EmojiStyle.HighContrast => "h",
+                _ => ""
+            };
 
-        string result = "";
-        if (Name is not null)
-        {
-            if (hasSkintone)
-                result = $"{skinToneShort}_{emojiStyleShort}";
-            else
-                result = $"{emojiStyleShort}";
+            string result = "";
+            if (Name is not null)
+            {
+                if (hasSkintone)
+                    result = $"{skinToneShort}_{emojiStyleShort}";
+                else
+                    result = $"{emojiStyleShort}";
+            }
+
+            return result;
         }
-
-        return result;
     }
 
     private static HttpRequestMessage CreateMessage(string url) => new(HttpMethod.Get, url);
