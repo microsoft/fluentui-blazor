@@ -12,6 +12,14 @@
                required=@Required
                current-checked="@CurrentValue"
                @oncheckedchange="@((e) => CurrentValue = e.Checked)"
-               @attributes="AdditionalAttributes">
+               @attributes="@AdditionalAttributes">
     @ChildContent
+    @if (!string.IsNullOrEmpty(CheckedMessage))
+    {
+        <span slot="checked-message">@CheckedMessage</span>
+    }
+    @if (!string.IsNullOrEmpty(UncheckedMessage))
+    {
+        <span slot="unchecked-message">@UncheckedMessage</span>
+    }
 </fluent-switch>

@@ -7,10 +7,17 @@ using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
+/// <summary>
+/// A base class for fluent ui form input components. This base class automatically
+/// integrates with an <see cref="AspNetCore.Components.Forms.EditContext"/>, which must be supplied
+/// as a cascading parameter.
+/// </summary>
 public abstract class FluentInputBase<TValue> : FluentComponentBase, IDisposable
 {
     private readonly EventHandler<ValidationStateChangedEventArgs> _validationStateChangedHandler;
     private bool _hasInitializedParameters;
+    private bool _parsingFailed;
+    private string? _incomingValueBeforeParsing;
     private bool _previousParsingAttemptFailed;
     private ValidationMessageStore? _parsingValidationMessages;
     private Type? _nullableUnderlyingType;
@@ -101,6 +108,16 @@ public abstract class FluentInputBase<TValue> : FluentComponentBase, IDisposable
             var hasChanged = !EqualityComparer<TValue>.Default.Equals(value, Value);
             if (hasChanged)
             {
+                _parsingFailed = false;
+
+                // If we don't do this, then when the user edits from A to B, we'd:
+                // - Do a render that changes back to A
+                // - Then send the updated value to the parent, which sends the B back to this component
+                // - Do another render that changes it to B again
+                // The unnecessary reversion from B to A can cause selection to be lost while typing
+                // A better solution would be somehow forcing the parent component's render to occur first,
+                // but that would involve a complex change in the renderer to keep the render queue sorted
+                // by component depth or similar.
                 Value = value;
                 _ = ValueChanged.InvokeAsync(Value);
                 EditContext?.NotifyFieldChanged(FieldIdentifier);
@@ -113,29 +130,32 @@ public abstract class FluentInputBase<TValue> : FluentComponentBase, IDisposable
     /// </summary>
     protected string? CurrentValueAsString
     {
-        get => FormatValueAsString(CurrentValue);
+        // InputBase-derived components can hold invalid states (e.g., an InputNumber being blank even when bound
+        // to an int value). So, if parsing fails, we keep the rejected string in the UI even though it doesn't
+        // match what's on the .NET model. This avoids interfering with typing, but still notifies the EditContext
+        // about the validation error message.
+        get => _parsingFailed ? _incomingValueBeforeParsing : FormatValueAsString(CurrentValue);
         set
         {
+            _incomingValueBeforeParsing = value;
             _parsingValidationMessages?.Clear();
-
-            bool parsingFailed;
 
             if (_nullableUnderlyingType != null && string.IsNullOrEmpty(value))
             {
                 // Assume if it's a nullable type, null/empty inputs should correspond to default(T)
                 // Then all subclasses get nullable support almost automatically (they just have to
                 // not reject Nullable<T> based on the type itself).
-                parsingFailed = false;
+                _parsingFailed = false;
                 CurrentValue = default!;
             }
             else if (TryParseValueFromString(value, out var parsedValue, out var validationErrorMessage))
             {
-                parsingFailed = false;
+                _parsingFailed = false;
                 CurrentValue = parsedValue!;
             }
             else
             {
-                parsingFailed = true;
+                _parsingFailed = true;
 
                 // EditContext may be null if the input is not a child component of EditForm.
                 if (EditContext is not null)
@@ -149,32 +169,13 @@ public abstract class FluentInputBase<TValue> : FluentComponentBase, IDisposable
             }
 
             // We can skip the validation notification if we were previously valid and still are
-            if (parsingFailed || _previousParsingAttemptFailed)
+            if (_parsingFailed || _previousParsingAttemptFailed)
             {
                 EditContext?.NotifyValidationStateChanged();
-                _previousParsingAttemptFailed = parsingFailed;
+                _previousParsingAttemptFailed = _parsingFailed;
             }
         }
     }
-
-    protected virtual string? ClassValue
-    {
-        get
-        {
-            string? fieldClass = EditContext?.FieldCssClass(FieldIdentifier);
-            string? cssClass = CombineClassNames(AdditionalAttributes, fieldClass) ?? string.Empty;
-
-            return new CssBuilder(Class)
-                .AddClass(cssClass)
-                .Build();
-        }
-    }
-
-    /// <summary />
-    protected virtual string? StyleValue => new StyleBuilder()
-        .AddStyle(Style)
-        .Build();
-
 
     /// <summary>
     /// Constructs an instance of <see cref="InputBase{TValue}"/>.
@@ -202,31 +203,34 @@ public abstract class FluentInputBase<TValue> : FluentComponentBase, IDisposable
     /// <returns>True if the value could be parsed; otherwise false.</returns>
     protected abstract bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage);
 
-    ///// <summary>
-    ///// Gets a CSS class string that combines the <c>class</c> attribute and and a string indicating
-    ///// the status of the field being edited (a combination of "modified", "valid", and "invalid").
-    ///// Derived components should typically use this value for the primary HTML element class attribute.
-    ///// </summary>
-    //public override string? Class
-    //{
-    //    get
-    //    {
-    //        var fieldClass = EditContext?.FieldCssClass(FieldIdentifier);
-    //        return CombineClassNames(AdditionalAttributes, fieldClass) ?? string.Empty;
-    //    }
-    //    set
-    //    {
-    //        base.Class = value;
-    //    }
+    /// <summary>
+    /// Gets a CSS class string that combines the <c>class</c> attribute and and a string indicating
+    /// the status of the field being edited (a combination of "modified", "valid", and "invalid").
+    /// Derived components should typically use this value for the primary HTML element class attribute.
+    /// </summary>
+    protected virtual string? ClassValue
+    {
+        get
+        {
+            string? fieldClass = EditContext?.FieldCssClass(FieldIdentifier);
+            string? cssClass = CombineClassNames(AdditionalAttributes, fieldClass) ?? string.Empty;
 
-    //}
+            return new CssBuilder(Class)
+                .AddClass(cssClass)
+                .Build();
+        }
+    }
+
+    /// <summary />
+    protected virtual string? StyleValue => new StyleBuilder()
+        .AddStyle(Style)
+        .Build();
 
     /// <inheritdoc />
     public override Task SetParametersAsync(ParameterView parameters)
     {
         parameters.SetParameterProperties(this);
 
-        //if (EditContext != null || CascadedEditContext != null)
         if (!_hasInitializedParameters)
         {
             // This is the first run
@@ -316,6 +320,7 @@ public abstract class FluentInputBase<TValue> : FluentComponentBase, IDisposable
 
             // To make the `Input` components accessible by default
             // we will automatically render the `aria-invalid` attribute when the validation fails
+            // value must be "true" see https://www.w3.org/TR/wai-aria-1.1/#aria-invalid
             additionalAttributes["aria-invalid"] = "true";
         }
         else if (hasAriaInvalidAttribute)

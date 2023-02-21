@@ -1,12 +1,18 @@
-﻿<p>Without label: <FluentTextField @bind-Value=value1></FluentTextField></p>
-<p>
-    With label: <FluentTextField @bind-Value=value2>Label</FluentTextField></p>
+﻿<p>Without label:</p>
+<FluentTextField @bind-Value=value1></FluentTextField>
+<p>You entered: @value1</p>
+
+<p>With label:</p>
+<FluentTextField @bind-Value=value2>Label</FluentTextField>
+<p>You entered: @value2</p>
 
 <h4>Minlength</h4>
 <FluentTextField @bind-Value=value3 Minlength="4">Minlength</FluentTextField>
+<p>You entered: @value3</p>
 
 <h4>Maxlength</h4>
 <FluentTextField @bind-Value=value4 Maxlength="4">Maxlength</FluentTextField>
+<p>You entered: @value4</p>
 
 @code {
     string? value1, value2, value3, value4;
