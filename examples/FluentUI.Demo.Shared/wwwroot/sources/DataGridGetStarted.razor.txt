@@ -1,49 +1,19 @@
-﻿@inject ILogger<DataGridGetStarted> logger;
-
-<FluentDataGrid RowsData="@people">
+﻿<FluentDataGrid RowsData="@people">
     <PropertyColumn Property="@(p => p.PersonId)" Sortable="true" />
     <PropertyColumn Property="@(p => p.Name)" Sortable="true" />
     <PropertyColumn Property="@(p => p.BirthDate)" Format="yyyy-MM-dd" Sortable="true" />
-    <TemplateColumn Title="Quantity" Context="context">
-        <FluentNumberField @bind-Value="@context.Quantity"></FluentNumberField>
-    </TemplateColumn>
-    <TemplateColumn Title="Action" Context="context" Align="Align.Center">
-        <FluentButton @onclick="@(() => Update(context))">Update</FluentButton>
-
-    </TemplateColumn>
 </FluentDataGrid>
 
 @code {
-    public class Person
-    {
-        public int PersonId { get; set; }
-        public string Name { get; set; }
-        public DateOnly BirthDate { get; set; }
-        public int Quantity { get; set; }
-
-        public Person(int id, string name, DateOnly birthDate, int quantity)
-        {
-            PersonId = id;
-            Name = name;
-            BirthDate = birthDate;
-            Quantity = quantity;
-        }
-    }
-
+    record Person(int PersonId, string Name, DateOnly BirthDate);
 
     IQueryable<Person> people = new[]
     {
-        new Person(10895, "Jean Martin", new DateOnly(1985, 3, 16), 1),
-        new Person(10944, "António Langa", new DateOnly(1991, 12, 1),2),
-        new Person(11203, "Julie Smith", new DateOnly(1958, 10, 10),3),
-        new Person(11205, "Nur Sari", new DateOnly(1922, 4, 27),4),
-        new Person(11898, "Jose Hernandez", new DateOnly(2011, 5, 3),5),
-        new Person(12130, "Kenji Sato", new DateOnly(2004, 1, 9),6),
+        new Person(10895, "Jean Martin", new DateOnly(1985, 3, 16)),
+        new Person(10944, "António Langa", new DateOnly(1991, 12, 1)),
+        new Person(11203, "Julie Smith", new DateOnly(1958, 10, 10)),
+        new Person(11205, "Nur Sari", new DateOnly(1922, 4, 27)),
+        new Person(11898, "Jose Hernandez", new DateOnly(2011, 5, 3)),
+        new Person(12130, "Kenji Sato", new DateOnly(2004, 1, 9)),
     }.AsQueryable();
-
-    private async Task Update(Person customobject)
-    {
-        logger.LogInformation($"Quantity: {customobject.Quantity}");
-
-    }
 }
