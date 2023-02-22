@@ -376,3 +376,9 @@ We look forward to building an amazing open source community with you!
 * Join the community and chat with us in real-time on [Discord](https://discord.gg/FcSNfg4).
 * Submit requests and issues on [GitHub](https://github.com/microsoft/fast-blazor/issues/new/choose).
 * Contribute by helping out on some of our recommended first issues on [GitHub](https://github.com/microsoft/fast-blazor/labels/community:good-first-issue).
+
+## Additional resources
+* The Microsoft [Fluent UI library for Blazor demo](https://aka.ms/fluentui-blazor) site
+* The Microsoft [Fluent UI Web Components documentation](https://learn.microsoft.com/en-us/fluent-ui/web-components/)
+* The [FAST(https://www.fast.design/) site
+* The [Fluent UI Web Components demo](https://fluent-components.azurewebsites.net/?path=/docs/getting-started-overview--page) site
