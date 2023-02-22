@@ -166,22 +166,8 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
 
     }
 
-    protected override void OnParametersSet()
+    protected override void OnInitialized()
     {
-
-        if (!(this is FluentListbox<TOption>) || Items is null)
-        {
-            if (_internalListContext.ValueChanged.HasDelegate == false)
-                _internalListContext.ValueChanged = ValueChanged;
-            if (_internalListContext.SelectedOptionChanged.HasDelegate == false)
-                _internalListContext.SelectedOptionChanged = SelectedOptionChanged;
-        }
-
-        if (InternalValue is null && Value is not null) // || InternalValue != Value)
-        {
-            InternalValue = Value;
-        }
-
         if (_multiple != Multiple)
         {
             if (this is not FluentListbox<TOption> && this is not FluentSelect<TOption>)
@@ -213,6 +199,25 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
                 InternalValue = GetOptionValue(item);
             }
         }
+    }
+
+    protected override void OnParametersSet()
+    {
+
+        if (this is not FluentListbox<TOption> || Items is null)
+        {
+            if (_internalListContext.ValueChanged.HasDelegate == false)
+                _internalListContext.ValueChanged = ValueChanged;
+            if (_internalListContext.SelectedOptionChanged.HasDelegate == false)
+                _internalListContext.SelectedOptionChanged = SelectedOptionChanged;
+        }
+
+        if (InternalValue is null && Value is not null) // || InternalValue != Value)
+        {
+            InternalValue = Value;
+        }
+
+
 
         base.OnParametersSet();
     }

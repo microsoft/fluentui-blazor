@@ -251,7 +251,8 @@ Here's an example of changing the "accent base color" and switching the system i
 > FluentDesignSystemProvider token attributes can be changed on-the-fly like any other Blazor component attribute.
 
 #### Colors for integration with specific Microsoft products
-If you are attempting to configure the components for integration into a specific Microsoft product, the following table provides `AccentBaseColor` values you can use:
+If you are configuring the components for integration into a specific Microsoft product, the following table provides `AccentBaseColor` values you can use. 
+*The library offers an `OfficeColor` enumeration which contains the specific accent colors for 17 different Office applications.*
 
 Product | AccentBaseColor
 ------- | ---------------

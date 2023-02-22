@@ -28,7 +28,7 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption>
     /// See <seealso cref="FluentUI.SelectPosition"/>
     /// </summary>
     [Parameter]
-    public SelectPosition? Position { get; set; }
+    public SelectPosition? Position { get; set; } = SelectPosition.Below;
 
     /// <summary>
     /// Gets or sets the visual appearance. See <seealso cref="FluentUI.Appearance"/>
