@@ -21,6 +21,10 @@ The source for the library is hosted in the [Fast Blazor](https://github.com/mic
 
 The source for `@fluentui/web-components` is hosted in the [Fluent UI](https://github.com/microsoft/fluentui/tree/master/packages/web-components) mono-repository. Documentation on the components is available on [docs.microsoft.com](https://docs.microsoft.com/en-us/fluent-ui/web-components/).
 
+## When upgrading from an earlier version 
+
+If you are upgrading from an earlier version of the library, please see the [what's new](WHATSNEW.md) for information on (breaking) changes.
+
 ## Getting Started
 
 To get started using the Fluent UI Web Components for Blazor, you will first need to install [the official Nuget package for Fluent UI](https://www.nuget.org/packages/Microsoft.Fast.Components.FluentUI/) in the project you would like to use the library and components. You can use the following command:
