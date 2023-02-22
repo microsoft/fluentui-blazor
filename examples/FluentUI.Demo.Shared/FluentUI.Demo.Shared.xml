@@ -259,6 +259,16 @@
             Gets or sets the content of the body
             </summary>
         </member>
+        <member name="P:FluentUI.Demo.Shared.MarkdownSection.Content">
+            <summary>
+            Gets or sets the Markdown content 
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.MarkdownSection.FromAsset">
+            <summary>
+            Gets or sets asset to read the Markdown from
+            </summary>
+        </member>
         <member name="T:FluentUI.Demo.Shared.MonacoEditor">
             <summary />
         </member>

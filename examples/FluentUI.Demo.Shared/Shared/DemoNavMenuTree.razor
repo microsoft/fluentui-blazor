@@ -1,12 +1,18 @@
 <div>
     <NavMenu Collapsible="false">
         <NavMenuLink Class="level1" Text="Home" Icon="@(FluentIcons.Home)" Href="/" Selected=true/>
+        
         <NavMenuGroup Expanded=true>
+            <h2>More information</h2>
+            <NavMenuLink Href="/WhatsNew" Icon="@FluentIcons.Info" Text="What's new?" />
+            <NavMenuLink Href="/Reboot" Icon="@FluentIcons.ArrowReset" Text="Reboot" />
+            <NavMenuLink Href="/Templates" Icon="@FluentIcons.Classification" Text="Project templates" />
+         </NavMenuGroup>
+        
+         <NavMenuGroup Expanded=true>
             <h2>Base classes & Utilities</h2>
             <NavMenuLink Href="/FluentComponentBase" Icon="@FluentIcons.Compose" Text="FluentComponentBase" />
             <NavMenuLink Href="/FluentInputBase" Icon="@FluentIcons.Form" Text="FluentInputBase" />
-            <NavMenuLink Href="/Reboot" Icon="@FluentIcons.ArrowReset" Text="Reboot" />
-            <NavMenuLink Href="/Templates" Icon="@FluentIcons.Classification" Text="Project templates" />
             <NavMenuLink Href="/clearcache" Icon="@FluentIcons.Broom" Text="Clear cache" />
         </NavMenuGroup>
 
@@ -65,12 +71,13 @@
 
             <NavMenuGroup Expanded=true>
                 <h3>Others</h3>
-                <NavMenuLink Href="/Lab/NavMenu" Icon="@FluentIcons.Navigation" Text="NavMenu" />
                 <NavMenuLink Href="/Lab/CounterBadge" Icon="@FluentIcons.NumberCircle1" Text="CounterBadge" />
                 <NavMenuLink Href="/Lab/Highlighter" Icon="@FluentIcons.Highlight" Text="Highlighter" />
                 <NavMenuLink Href="/Lab/PresenceBadge" Icon="@FluentIcons.PresenceAvailable" Text="PresenceBadge" />
+                <NavMenuLink Href="/Lab/MarkdownSection" Icon="@FluentIcons.ArrowSortDown" Text="MarkdownSection" />
                 <NavMenuLink Href="/Lab/MenuButton" Icon="@FluentIcons.ChevronCircleDown" Text="MenuButton" />
                 <NavMenuLink Href="/Lab/MonacoEditor" Icon="@FluentIcons.CodeBlock" Text="MonacoEditor" />
+                <NavMenuLink Href="/Lab/NavMenu" Icon="@FluentIcons.Navigation" Text="NavMenu" />
                 <NavMenuLink Href="/Lab/TableOfContents" Icon="@FluentIcons.DocumentTextLink" Text="Table of Contents" />
             </NavMenuGroup>
         </NavMenuGroup>

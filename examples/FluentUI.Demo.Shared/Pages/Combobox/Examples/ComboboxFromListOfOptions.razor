@@ -10,8 +10,8 @@
 <p>
     Selected Value: @stringValue<br />
     Selected Item (strongly typed): <br />
-    Value: @selectedStringOption?.Value (Type: @(selectedStringOption?.Value.GetType())) <br />
-    Text: @selectedStringOption?.Text
+    Value: @selectedStringOption.Value (Type: @(selectedStringOption.GetType())) <br />
+    Text: @selectedStringOption.Text
 </p>
 
 <h4>From list of Option&lt;int&gt; items</h4>
@@ -34,7 +34,7 @@
 
 @code {
     string? stringValue;
-    Option<string>? selectedStringOption;
+    Option<string> selectedStringOption = default!;
     string? intValue;
     Option<int>? selectedIntOption;
 

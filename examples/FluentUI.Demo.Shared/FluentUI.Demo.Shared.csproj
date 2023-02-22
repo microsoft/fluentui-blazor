@@ -38,13 +38,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Markdig" Version="0.30.4" />
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Content Remove="Pages\RawBindings.razor" />
 		<Content Remove="libman.json" />
-		<Folder Include="wwwroot\sources\" />
 		<AdditionalFiles Include="$(ProjectDir)/*.xml" />
 	</ItemGroup>
 
