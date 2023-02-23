@@ -4,9 +4,15 @@ A more detailed description of all the changes and everything new can be found i
 
 **Important change:**
 
-When not specifying any settings in the project file with regards to usage of icons and/or emoji (see below), **NO** assets will be published to the output folder. This means that icons and/or emoji will not be available for rendering. 
-This is a change from how it worked in earlier versions where all (then only icon) assets would always get published. The properties which can be used in the project file are below. You can use this block  as a starting point in 
-your own project. Please see the blog post for more information on how to configure these settings.
+**If you are currently *not using* icons and are not planning on using icons and/or moji in your application moving forward, 
+you do not have to make any changes to your project. If you *are* currently using icons, please read on.**
+
+With earlier versions of the library, all (then only icon) assets would always get published. Starting with this version, when not specifying settings
+in the project file with regards to usage of icons and/or emoji (see below) **NO** assets will be published to the output folder. 
+This means that no icons and/or emoji will be available for rendering (with exception of the icons that are used by the library itself). 
+
+The (annotated) `PropertyGroup` below can be used as a starting point in your own project. Copying this as-is will result in all icon and emoji assets being published.
+See the blog post for more information.
 
 ```xml
 <PropertyGroup>
@@ -34,7 +40,7 @@ your own project. Please see the blog post for more information on how to config
         10,12,16,20,24,28,32,48 
         Leave out the property to have all sizes included.
     -->
-    <FluentIconSizes>10,12,16,20,24,48</FluentIconSizes>
+    <FluentIconSizes>10,12,16,20,24,28,32,48</FluentIconSizes>
 
     <!-- 
         Specify (at least) one or more variants from the following options (separated by ','):
@@ -67,14 +73,14 @@ your own project. Please see the blog post for more information on how to config
         Activities,Animals_Nature,Flags,Food_Drink,Objects,People_Body,Smileys_Emotion,Symbols,Travel_Places 
         Leave out the property to have all groups included.
     -->
-    <FluentEmojiGroups>Activities,Animals_Nature,Flags,Food_Drink,Objects,Smileys_Emotion,Symbols,Travel_Places</FluentEmojiGroups>
+    <FluentEmojiGroups>Activities,Animals_Nature,Flags,Food_Drink,Objects,People_Body,Smileys_Emotion,Symbols,Travel_Places</FluentEmojiGroups>
 
     <!-- 
         Specify (at least) one or more styles from the following options (separated by ','): 
         Color,Flat,HighContrast
         Leave out the property to have all styles included.
     -->
-    <FluentEmojiStyles>Color</FluentEmojiStyles>
+    <FluentEmojiStyles>Color,Flat,HighContrast</FluentEmojiStyles>
 </PropertyGroup>
 ```
 
@@ -82,7 +88,8 @@ your own project. Please see the blog post for more information on how to config
 - `<FluentEmoji>` 
 
 **Other changes:** 
-- All `<FluentInputBase>` derived components now need to use `@bind-Value` or `ValueExpression`. This means an input derived component needs to be bound now. This follows the way of working that is in place with the built-in Blazor `<Input...>`components). All examples have been changed to reflect this. The affected components are:
+- All `<FluentInputBase>` derived components now need to use `@bind-Value` or `ValueExpression`. This means an input derived component needs to be bound now.
+  This is in-line with how it works with the built-in Blazor `<Input...>` components. All examples in the demo site have been updated to reflect this. The affected components are:
     - `<FluentCheckbox>`
     - `<FluentNumberField>`
     - `<FluentRadioGroup>`
@@ -91,7 +98,7 @@ your own project. Please see the blog post for more information on how to config
     - `<FluentSwitch>`
     - `<FluentTextArea>`
     - `<FluentTextField>`
-- Because of the above change, the `<FluentCheckbox>` and `<FluentSwitch>` no longer have the 'Checked' parameter. Initial state canbe set with the `@bind-Value` construct
+- Because of the above change, the `<FluentCheckbox>` and `<FluentSwitch>` no longer have the 'Checked' parameter. Initial state can be set by using `@bind-Value`
 - `<FluentSwitch>` has two new parameters to get/set the checked and unchecked message text, called `CheckedMessage` and `UncheckedMessage` respectively.
 - `<FluentRadioGroup>` component is now generic, so can be bound to other values than just `string`
 - Various bug fixes

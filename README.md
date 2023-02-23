@@ -15,7 +15,7 @@
 
 ## Introduction
 
-The `Microsoft.Fast.Components.FluentUI` package provides a set of [Blazor](https://blazor.net) component wrappers around Microsoft's official FluentUI Web Components. The FluentUI Web Components are built on [FAST](https://www.fast.design/) and work in every major browser. To get up and running with `Microsoft.Fast.Components.FluentUI` see the Getting Started section below.
+The `Microsoft.Fast.Components.FluentUI` package provides a set of [Blazor](https://blazor.net) component wrappers around Microsoft's official FluentUI Web Components. The FluentUI Web Components are built on [FAST](https://www.fast.design/) and work in every major browser. To get up and running with the library, see the 'Getting Started' section below.
 
 The source for the library is hosted in the [Fast Blazor](https://github.com/microsoft/fast-blazor) repository at GitHub. Documentation on the components is available at the [demo site](https://aka.ms/fluentui-blazor) and at [docs.microsoft.com](https://docs.microsoft.com/en-us/fluent-ui/web-components/). 
 
