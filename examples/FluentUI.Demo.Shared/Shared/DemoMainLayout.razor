@@ -42,7 +42,7 @@
                 <span slot="unchecked-message">light</span>
                 <span slot="checked-message">dark</span>
             </FluentSwitch>
-            <FluentSwitch @onchange="SwitchDirection" title="Switch direction">
+            <FluentSwitch @bind-Value="@_ltr" @onchange="SwitchDirection" title="Switch direction">
                 <span>Direction</span>
                 <span slot="unchecked-message">LTR</span>
                 <span slot="checked-message">RTL</span>
@@ -53,10 +53,10 @@
     <main>
         <input type="checkbox" id="menu-toggle" checked=@menuchecked @onclick=HandleChecked />
         <label for="menu-toggle" class="menu-icon">
-            <FluentIcon Name="@FluentIcons.Navigation" Variant=IconVariant.Filled />
+            <FluentIcon Name="@FluentIcons.Navigation" />
         </label>
         <nav>
-            <DemoNavMenu />
+            <DemoNavMenuTree />
         </nav>
         <div class="content">
             <article id="article">

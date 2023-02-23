@@ -13,6 +13,9 @@ public partial class DemoMainLayout : IAsyncDisposable
     private OfficeColor _selectedColorOption;
     private string? _version;
     private bool _inDarkMode;
+    private bool _ltr;
+    private bool _mobile;
+    private string? _prevUri;
 
     [Inject]
     private GlobalState GlobalState { get; set; } = default!;
@@ -47,10 +50,11 @@ public partial class DemoMainLayout : IAsyncDisposable
     {
         _version = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
 
-        
+
         OfficeColor[] colors = Enum.GetValues<OfficeColor>().ToArray();
         _selectedColorOption = colors[new Random().Next(colors.Length)];
 
+        _prevUri = NavigationManager.Uri;
         NavigationManager.LocationChanged += LocationChanged;
         base.OnInitialized();
     }
@@ -58,8 +62,6 @@ public partial class DemoMainLayout : IAsyncDisposable
     protected override void OnParametersSet()
     {
         errorBoundary?.Recover();
-        
-        
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -70,10 +72,11 @@ public partial class DemoMainLayout : IAsyncDisposable
                  "./_content/FluentUI.Demo.Shared/Shared/DemoMainLayout.razor.js");
 
             _inDarkMode = await _jsModule!.InvokeAsync<bool>("isDarkMode");
+            _mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
 
             if (_selectedColorOption != OfficeColor.Default)
                 await AccentBaseColor.SetValueFor(container, _selectedColorOption.ToAttributeValue()!.ToSwatch());
-            
+
             StateHasChanged();
         }
     }
@@ -127,19 +130,20 @@ public partial class DemoMainLayout : IAsyncDisposable
         }
     }
 
-    private async void LocationChanged(object? sender, LocationChangedEventArgs e)
+    private void LocationChanged(object? sender, LocationChangedEventArgs e)
     {
-        if (e.IsNavigationIntercepted)
+        if (!e.IsNavigationIntercepted && new Uri(_prevUri!).AbsolutePath != new Uri(e.Location).AbsolutePath)
         {
-            bool mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
-
-            if (mobile)
+            _prevUri = e.Location;
+            if (_mobile && menuchecked == true)
             {
                 menuchecked = false;
                 StateHasChanged();
             }
         }
     }
+
+
 
     async ValueTask IAsyncDisposable.DisposeAsync()
     {

@@ -1,3 +1,6 @@
-﻿<FluentCheckbox>
+﻿<FluentCheckbox @bind-Value=value>
     <span aria-label="Audio label">Visible label</span>
 </FluentCheckbox>
+@code {
+    bool value;
+}

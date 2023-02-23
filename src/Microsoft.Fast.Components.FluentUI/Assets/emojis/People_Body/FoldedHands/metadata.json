@@ -1,0 +1,32 @@
+{
+  "cldr": "folded hands",
+  "fromVersion": "0.6",
+  "glyph": "🙏",
+  "glyphAsUtfInEmoticons": [
+    "praying"
+  ],
+  "group": "People & Body",
+  "keywords": [
+    "ask",
+    "folded hands",
+    "hand",
+    "high 5",
+    "high five",
+    "please",
+    "pray",
+    "thanks"
+  ],
+  "mappedToEmoticons": [
+    "praying"
+  ],
+  "tts": "folded hands",
+  "unicode": "1f64f",
+  "unicodeSkintones": [
+    "1f64f",
+    "1f64f 1f3fb",
+    "1f64f 1f3fc",
+    "1f64f 1f3fd",
+    "1f64f 1f3fe",
+    "1f64f 1f3ff"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "cldr": "genie",
+  "fromVersion": "5.0",
+  "glyph": "🧞",
+  "glyphAsUtfInEmoticons": [
+    "1f9de_genie"
+  ],
+  "group": "People & Body",
+  "keywords": [
+    "djinn",
+    "genie"
+  ],
+  "mappedToEmoticons": [
+    "1f9de_genie"
+  ],
+  "tts": "genie",
+  "unicode": "1f9de"
+}

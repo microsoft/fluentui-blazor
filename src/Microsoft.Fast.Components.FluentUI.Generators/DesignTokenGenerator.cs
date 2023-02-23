@@ -14,11 +14,10 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
     [Generator]
     public class DesignTokenGenerator : ISourceGenerator
     {
-        private List<FieldInfo> GetConstants(Type type)
+        public void Initialize(GeneratorInitializationContext context)
         {
-            FieldInfo[] fieldInfos = type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy);
-
-            return fieldInfos.Where(fi => fi.IsLiteral && !fi.IsInitOnly).ToList();
+            // Debugger.Launch();
+            // No initialization required for this one
         }
 
         public void Execute(GeneratorExecutionContext context)
@@ -94,15 +93,11 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             context.AddSource($"ServiceCollectionExtensions.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
         }
 
-        public void Initialize(GeneratorInitializationContext context)
+        private List<FieldInfo> GetConstants(Type type)
         {
-            // No initialization required for this one
-#if DEBUG
-            //if (!Debugger.IsAttached)
-            //{
-            //    Debugger.Launch();
-            //}
-#endif
+            FieldInfo[] fieldInfos = type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy);
+
+            return fieldInfos.Where(fi => fi.IsLiteral && !fi.IsInitOnly).ToList();
         }
     }
 }

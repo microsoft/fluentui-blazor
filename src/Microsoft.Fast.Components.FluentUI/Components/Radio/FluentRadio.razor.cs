@@ -1,9 +1,15 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentRadio : FluentComponentBase
+public partial class FluentRadio<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue> : FluentComponentBase
 {
+    /// <summary>
+    /// Gets context for this <see cref="FluentRadio{TValue}"/>. 
+    /// </summary>
+    internal FluentRadioContext? Context { get; private set; }
+
     /// <summary>
     /// Gets or sets if the element is readonly
     /// </summary>
@@ -20,13 +26,7 @@ public partial class FluentRadio : FluentComponentBase
     /// The value of the element
     /// </summary>
     [Parameter]
-    public string? Value { get; set; }
-
-    /// <summary>
-    /// The element's current value 
-    /// </summary>
-    [Parameter]
-    public string? CurrentValue { get; set; }
+    public TValue? Value { get; set; }
 
     /// <summary>
     /// Disables the form control, ensuring it doesn't participate in form submission
@@ -35,7 +35,7 @@ public partial class FluentRadio : FluentComponentBase
     public bool Disabled { get; set; }
 
     /// <summary>
-    /// The name of the element.Allows access by name from the associated form.
+    /// Gets or sets the name of the parent fluent radio group.
     /// </summary>
     [Parameter]
     public string? Name { get; set; }
@@ -56,4 +56,23 @@ public partial class FluentRadio : FluentComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    [CascadingParameter] private FluentRadioContext? CascadedContext { get; set; }
+
+    /// <inheritdoc />
+    protected override void OnInitialized()
+    {
+        Context = string.IsNullOrEmpty(Name) ? CascadedContext : CascadedContext?.FindContextInAncestors(Name);
+
+        if (Context == null)
+        {
+            throw new InvalidOperationException($"{GetType()} must have an ancestor {typeof(FluentRadioGroup<TValue>)} " +
+                $"with a matching 'Name' property, if specified.");
+        }
+
+        if (Checked.HasValue && Checked == true)
+        {
+            Context.CurrentValue = Value;
+        }
+    }
 }

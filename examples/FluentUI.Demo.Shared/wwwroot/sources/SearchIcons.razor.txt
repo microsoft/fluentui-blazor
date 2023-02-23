@@ -1,9 +1,12 @@
 ﻿<h4>With start</h4>
-<FluentSearch>
+<FluentSearch @bind-Value=value>
     <FluentIcon Name="@FluentIcons.Globe" Slot="start" Size="@IconSize.Size16" Color=Color.Neutral />
 </FluentSearch>
 
 <h4>With end</h4>
-<FluentSearch>
+<FluentSearch @bind-Value=value>
     <FluentIcon Name="@FluentIcons.Globe" Slot="end" Size="@IconSize.Size16" Color=Color.Neutral />
 </FluentSearch>
+@code {
+    string? value;
+}

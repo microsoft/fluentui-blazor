@@ -1,21 +1,25 @@
 ﻿<h4>Default</h4>
-<FluentNumberField TValue="int?" Appearance="Appearance.Filled"></FluentNumberField>
-<FluentNumberField TValue="int?" Appearance="Appearance.Filled">label</FluentNumberField>
+<FluentNumberField @bind-Value=value1 Appearance="Appearance.Filled"></FluentNumberField>
+<FluentNumberField @bind-Value=value2 Appearance="Appearance.Filled">label</FluentNumberField>
 
 <h4>Placeholder</h4>
-<FluentNumberField TValue="int?" Appearance="Appearance.Filled" Placeholder="Placeholder"></FluentNumberField>
+<FluentNumberField @bind-Value=value3 Appearance="Appearance.Filled" Placeholder="Placeholder"></FluentNumberField>
 
 <!-- Required -->
 <h4>Required</h4>
-<FluentNumberField TValue="int?" Appearance="Appearance.Filled" Required="true"></FluentNumberField>
+<FluentNumberField @bind-Value=value4 Appearance="Appearance.Filled" Required="true"></FluentNumberField>
 
 <!-- Disabled -->
 <h4>Disabled</h4>
-<FluentNumberField TValue="int?" Appearance="Appearance.Filled" Disabled="true"></FluentNumberField>
-<FluentNumberField TValue="int?" Appearance="Appearance.Filled" Disabled="true">label</FluentNumberField>
-<FluentNumberField TValue="int?" Appearance="Appearance.Filled" Disabled="true" Placeholder="placeholder"></FluentNumberField>
+<FluentNumberField @bind-Value=value5 Appearance="Appearance.Filled" Disabled="true"></FluentNumberField>
+<FluentNumberField @bind-Value=value6 Appearance="Appearance.Filled" Disabled="true">label</FluentNumberField>
+<FluentNumberField @bind-Value=value7 Appearance="Appearance.Filled" Disabled="true" Placeholder="placeholder"></FluentNumberField>
 
 <!-- Read only -->
 <h4>Read only</h4>
-<FluentNumberField TValue="int?" Appearance="Appearance.Filled" Readonly="true" Value="3"></FluentNumberField>
-<FluentNumberField TValue="int?" Appearance="Appearance.Filled" Readonly="true" Value="4">label</FluentNumberField>
+<FluentNumberField @bind-Value=value8 Appearance="Appearance.Filled" Readonly="true"></FluentNumberField>
+<FluentNumberField @bind-Value=value9 Appearance="Appearance.Filled" Readonly="true">label</FluentNumberField>
+
+@code {
+    int? value1, value2, value3, value4, value5, value6, value7, value8=3, value9=4;
+}

@@ -15,11 +15,15 @@
 
 ## Introduction
 
-The `Microsoft.Fast.Components.FluentUI` package provides a set of [Blazor](https://blazor.net) component wrappers around Microsoft's official FluentUI Web Components. The FluentUI Web Components are built on [FAST](https://www.fast.design/) and work in every major browser. To get up and running with `Microsoft.Fast.Components.FluentUI` see the Getting Started section below.
+The `Microsoft.Fast.Components.FluentUI` package provides a set of [Blazor](https://blazor.net) component wrappers around Microsoft's official FluentUI Web Components. The FluentUI Web Components are built on [FAST](https://www.fast.design/) and work in every major browser. To get up and running with the library, see the 'Getting Started' section below.
 
 The source for the library is hosted in the [Fast Blazor](https://github.com/microsoft/fast-blazor) repository at GitHub. Documentation on the components is available at the [demo site](https://aka.ms/fluentui-blazor) and at [docs.microsoft.com](https://docs.microsoft.com/en-us/fluent-ui/web-components/). 
 
 The source for `@fluentui/web-components` is hosted in the [Fluent UI](https://github.com/microsoft/fluentui/tree/master/packages/web-components) mono-repository. Documentation on the components is available on [docs.microsoft.com](https://docs.microsoft.com/en-us/fluent-ui/web-components/).
+
+## When upgrading from an earlier version 
+
+If you are upgrading from an earlier version of the library, please see the [what's new](WHATSNEW.md) for information on (breaking) changes.
 
 ## Getting Started
 
@@ -251,7 +255,8 @@ Here's an example of changing the "accent base color" and switching the system i
 > FluentDesignSystemProvider token attributes can be changed on-the-fly like any other Blazor component attribute.
 
 #### Colors for integration with specific Microsoft products
-If you are attempting to configure the components for integration into a specific Microsoft product, the following table provides `AccentBaseColor` values you can use:
+If you are configuring the components for integration into a specific Microsoft product, the following table provides `AccentBaseColor` values you can use. 
+*The library offers an `OfficeColor` enumeration which contains the specific accent colors for 17 different Office applications.*
 
 Product | AccentBaseColor
 ------- | ---------------
@@ -286,7 +291,7 @@ public class FileBasedStaticAssetService : IStaticAssetService
 		_cacheStorageAccessor = cacheStorageAccessor;
 	}
 
-	public async Task<string> GetAsync(string assetUrl, bool useCache = true)
+	public async Task<string> GetAsync(string assetUrl, bool useCache = false)
 	{
 		string result = null;
 
@@ -375,3 +380,9 @@ We look forward to building an amazing open source community with you!
 * Join the community and chat with us in real-time on [Discord](https://discord.gg/FcSNfg4).
 * Submit requests and issues on [GitHub](https://github.com/microsoft/fast-blazor/issues/new/choose).
 * Contribute by helping out on some of our recommended first issues on [GitHub](https://github.com/microsoft/fast-blazor/labels/community:good-first-issue).
+
+## Additional resources
+* The Microsoft [Fluent UI library for Blazor demo](https://aka.ms/fluentui-blazor) site
+* The Microsoft [Fluent UI Web Components documentation](https://learn.microsoft.com/en-us/fluent-ui/web-components/)
+* The [FAST(https://www.fast.design/) site
+* The [Fluent UI Web Components demo](https://fluent-components.azurewebsites.net/?path=/docs/getting-started-overview--page) site

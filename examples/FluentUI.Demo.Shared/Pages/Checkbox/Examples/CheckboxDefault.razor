@@ -1,22 +1,28 @@
 ﻿<h4>Standard</h4>
-<p>Without a label: <FluentCheckbox></FluentCheckbox></p>
-<p>With a label: <FluentCheckbox>label</FluentCheckbox></p>
+<p>Without a label:</p>
+<FluentCheckbox @bind-Value=value1></FluentCheckbox>
+
+<p>With a label: </p>
+<FluentCheckbox @bind-Value=value2>label</FluentCheckbox>
 
 <h4>Checked</h4>
-<FluentCheckbox Checked="true"></FluentCheckbox>
+<FluentCheckbox @bind-Value=value3></FluentCheckbox>
 
 <!-- Required -->
 <h4>Required</h4>
-<FluentCheckbox Required="true"></FluentCheckbox>
+<FluentCheckbox Required="true" @bind-Value=value4></FluentCheckbox>
 
 <!-- Disabled -->
 <h4>Disabled</h4>
-<FluentCheckbox Disabled="true"></FluentCheckbox>
-<FluentCheckbox Disabled="true">label</FluentCheckbox>
-<FluentCheckbox Disabled="true" Checked="true">Checked="true"</FluentCheckbox>
+<FluentCheckbox Disabled="true" @bind-Value=value5></FluentCheckbox>
+<FluentCheckbox Disabled="true" @bind-Value=value6>label</FluentCheckbox>
+<FluentCheckbox Disabled="true" @bind-Value=value7>Checked</FluentCheckbox>
 
 <h4>Inline</h4>
-<FluentCheckbox Checked="true">Apples</FluentCheckbox>
-<FluentCheckbox Checked="true">Bananas</FluentCheckbox>
-<FluentCheckbox>Honeydew</FluentCheckbox>
-<FluentCheckbox Checked="true">Oranges</FluentCheckbox>
+<FluentCheckbox @bind-Value=value8>Apples</FluentCheckbox>
+<FluentCheckbox @bind-Value=value9>Bananas</FluentCheckbox>
+<FluentCheckbox @bind-Value=value10>Honeydew</FluentCheckbox>
+<FluentCheckbox @bind-Value=value11>Oranges</FluentCheckbox>
+@code {
+    bool value1, value2, value3 = true, value4, value5, value6, value7 = true, value8 = true, value9 = true, value10, value11 = true;
+}

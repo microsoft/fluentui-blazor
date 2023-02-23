@@ -40,8 +40,14 @@
         </member>
         <member name="P:FluentUI.Demo.Shared.Components.DemoSection.CollocatedFiles">
             <summary>
-            Any collocated isolated .cs, .css or .js files (enter the extensions only) or other files that need to be shown in a tab. 
+            Any collocated isolated .cs, .css or .js files (enter the extensions only) that need to be shown in a tab and as a download. 
             Example: @(new[] { "css", "js", "abc.cs" })
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.Components.DemoSection.AdditionalFiles">
+            <summary>
+            Any additional files that need to be shown in a tab and as a download. 
+            Example: @(new[] { "abc.cs", "def.js" })
             </summary>
         </member>
         <member name="P:FluentUI.Demo.Shared.Components.DemoSection.ShowDownloads">
@@ -253,6 +259,16 @@
             Gets or sets the content of the body
             </summary>
         </member>
+        <member name="P:FluentUI.Demo.Shared.MarkdownSection.Content">
+            <summary>
+            Gets or sets the Markdown content 
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.MarkdownSection.FromAsset">
+            <summary>
+            Gets or sets asset to read the Markdown from
+            </summary>
+        </member>
         <member name="T:FluentUI.Demo.Shared.MonacoEditor">
             <summary />
         </member>
@@ -363,14 +379,9 @@
             Gets or sets the destination of the link.
             </summary>
         </member>
-        <member name="P:FluentUI.Demo.Shared.NavMenuGroup.IconCollapsed">
+        <member name="P:FluentUI.Demo.Shared.NavMenuGroup.Icon">
             <summary>
-            Icon displayed when this item is collasped.
-            </summary>
-        </member>
-        <member name="P:FluentUI.Demo.Shared.NavMenuGroup.IconExpanded">
-            <summary>
-            Icon displayed when this item is expanded.
+            Gets or sets the name of the icon to display with the link
             </summary>
         </member>
         <member name="P:FluentUI.Demo.Shared.NavMenuGroup.IconNavMenuCollapsed">
@@ -398,16 +409,6 @@
             Gets or sets whether the menu group is selected
             </summary>
         </member>
-        <member name="P:FluentUI.Demo.Shared.NavMenuGroup.OnClick">
-            <summary>
-            Callback function for when the menu group is clicked
-            </summary>
-        </member>
-        <member name="P:FluentUI.Demo.Shared.NavMenuGroup.OnExpandedChanged">
-            <summary>
-            Callback function for when the menu group is expanded
-            </summary>
-        </member>
         <member name="P:FluentUI.Demo.Shared.NavMenuGroup.Text">
             <summary>
             Gets or sets the text of the menu group
@@ -418,7 +419,12 @@
             Gets or sets the width of the menu group
             </summary>
         </member>
-        <member name="M:FluentUI.Demo.Shared.NavMenuGroup.OnExpandHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+        <member name="P:FluentUI.Demo.Shared.NavMenuGroup.OnExpandedChanged">
+            <summary>
+            Callback function for when the menu group is expanded
+            </summary>
+        </member>
+        <member name="M:FluentUI.Demo.Shared.NavMenuGroup.ExpandMenu">
             <summary />
         </member>
         <member name="P:FluentUI.Demo.Shared.NavMenuLink.ChildContent">
@@ -463,7 +469,7 @@
         </member>
         <member name="P:FluentUI.Demo.Shared.NavMenuLink.Target">
             <summary>
-            Gets orsets the target of the link.
+            Gets or sets the target of the link.
             </summary>
         </member>
         <member name="P:FluentUI.Demo.Shared.NavMenuLink.Text">

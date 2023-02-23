@@ -28,35 +28,59 @@ internal static class LinkerFlags
 /// </summary>
 public abstract class JSModule : IAsyncDisposable
 {
-    private readonly Task<IJSObjectReference> moduleTask;
-
+    private bool _isDisposed = false;
+    private readonly Lazy<Task<IJSObjectReference>> _moduleTask;
+    
     // On construction, we start loading the JS module
     protected JSModule(IJSRuntime js, string moduleUrl)
-        => moduleTask = js.InvokeAsync<IJSObjectReference>("import", moduleUrl).AsTask();
+    {
+        //if (!((AspNetCore.Components.Server.Circuits.RemoteJSRuntime)js).IsInitialized)
+        //{
+        //}
 
+        ArgumentNullException.ThrowIfNull(js);
+
+        if (moduleUrl != null && string.IsNullOrWhiteSpace(moduleUrl)) throw new ArgumentException("Argument was empty or whitespace.", nameof(moduleUrl));
+        
+        _moduleTask = new (js.InvokeAsync<IJSObjectReference>("import", moduleUrl).AsTask());
+    }
+    
     // Methods for invoking exports from the module
     protected async ValueTask InvokeVoidAsync(string identifier, params object[]? args)
-        => await (await moduleTask).InvokeVoidAsync(identifier, args);
+        => await (await _moduleTask.Value).InvokeVoidAsync(identifier, args);
+    
     protected async ValueTask<T> InvokeAsync<[DynamicallyAccessedMembers(JsonSerialized)] T>(string identifier, params object[]? args)
-        => await (await moduleTask).InvokeAsync<T>(identifier, args);
+        => await (await _moduleTask.Value).InvokeAsync<T>(identifier, args);
 
 
     // On disposal, we release the JS module
     public async ValueTask DisposeAsync()
     {
-        try
+        await DisposeAsyncCore().ConfigureAwait(false);
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual async ValueTask DisposeAsyncCore()
+    {
+        if (_isDisposed) return;
+        if (_moduleTask.IsValueCreated && !_moduleTask.Value.IsFaulted)
         {
-            await (await moduleTask).DisposeAsync();
+            try
+            {
+                IJSObjectReference? module = await _moduleTask.Value;
+                await module.DisposeAsync().ConfigureAwait(false);
+            }
+            catch (InvalidOperationException)
+            {
+                // This can be called too early when using prerendering
+            }
+            catch (JSDisconnectedException)
+            {
+                // The JSRuntime side may routinely be gone already if the reason we're disposing is that
+                // the client disconnected. This is not an error.
+            }
         }
-        catch (InvalidOperationException)
-        {
-            // This can be called too early when using prerendering
-        }
-        catch (JSDisconnectedException)
-        {
-            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
-            // the client disconnected. This is not an error.
-        }
+        _isDisposed = true;
     }
 }
 

@@ -1,15 +1,20 @@
 ﻿using System.Reflection.Metadata;
 using Microsoft.AspNetCore.Components;
-
+using Microsoft.Fast.Components.FluentUI.Infrastructure;
 
 namespace FluentUI.Demo.Shared.Components;
 public partial class DemoSection : ComponentBase
 {
     private bool _hasCode = false;
     private Dictionary<string, string> _tabPanelsContent = new();
+    private List<string> _allFiles = new();
 
     [Inject]
     private HttpClient HttpClient { get; set; } = default!;
+
+    [Inject]
+    private IStaticAssetService StaticAssetService { get; set; } = default!;
+
 
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
@@ -33,11 +38,18 @@ public partial class DemoSection : ComponentBase
     public Dictionary<string, object>? ComponentParameters { get; set; }
 
     /// <summary>
-    /// Any collocated isolated .cs, .css or .js files (enter the extensions only) or other files that need to be shown in a tab. 
+    /// Any collocated isolated .cs, .css or .js files (enter the extensions only) that need to be shown in a tab and as a download. 
     /// Example: @(new[] { "css", "js", "abc.cs" })
     /// </summary>
     [Parameter]
     public string[]? CollocatedFiles { get; set; }
+
+    /// <summary>
+    /// Any additional files that need to be shown in a tab and as a download. 
+    /// Example: @(new[] { "abc.cs", "def.js" })
+    /// </summary>
+    [Parameter]
+    public string[]? AdditionalFiles { get; set; }
 
     [Parameter]
     public bool New { get; set; }
@@ -65,16 +77,23 @@ public partial class DemoSection : ComponentBase
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    
-    protected override async Task OnParametersSetAsync()
+    protected override void OnInitialized()
     {
-        await SetCodeContentsAsync();
+        if (_allFiles.Any())
+            _allFiles.Clear();
+
+        _allFiles.AddRange(GetCollocatedFiles());
+        _allFiles.AddRange(GetAdditionalFiles());
+
     }
 
-    protected override void OnAfterRender(bool firstRender)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
+        {
+            await SetCodeContentsAsync();
             _hasCode = true;
+        }
     }
 
     protected async Task SetCodeContentsAsync()
@@ -83,9 +102,10 @@ public partial class DemoSection : ComponentBase
 
         try
         {
-            foreach (string source in GetSources())
+            foreach (string source in _allFiles)
             {
-                _tabPanelsContent.Add(source, await HttpClient.GetStringAsync($"./_content/FluentUI.Demo.Shared/sources/{source}.txt"));
+                string? result = await StaticAssetService.GetAsync($"./_content/FluentUI.Demo.Shared/sources/{source}.txt");
+                _tabPanelsContent.Add(source, result ?? string.Empty);
             }
         }
         catch
@@ -94,23 +114,26 @@ public partial class DemoSection : ComponentBase
         }
     }
 
-    private IEnumerable<string> GetSources()
+    private IEnumerable<string> GetCollocatedFiles()
     {
         yield return $"{Component.Name}.razor";
         foreach (string ext in CollocatedFiles ?? Enumerable.Empty<string>())
         {
-            if (ext.Contains("."))
-                yield return $"{ext}";
-            else
-                yield return $"{Component.Name}.razor.{ext}";
+            yield return $"{Component.Name}.razor.{ext}";
         }
     }
 
-    private string GetDisplayName(string name)
+    private IEnumerable<string> GetAdditionalFiles()
     {
-     
-        
-        if (name.EndsWith(".cs") )
+        foreach (string name in AdditionalFiles ?? Enumerable.Empty<string>())
+        {
+            yield return name;
+        }
+    }
+
+    static string GetDisplayName(string name)
+    {
+        if (name.EndsWith(".cs"))
             return "C#";
 
         if (name.EndsWith(".razor"))
@@ -135,6 +158,7 @@ public partial class DemoSection : ComponentBase
 
         if (tabName.EndsWith(".css"))
             return "language-css";
+
         if (tabName.EndsWith(".js"))
             return "language-javascript";
 

@@ -13,6 +13,9 @@ public partial class IconPage : IAsyncDisposable
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
 
+    [Inject]
+    private IconService IconService { get; set; } = default!;
+
     private IJSObjectReference? _jsModule;
 
     private EditContext? editContext;
@@ -63,14 +66,14 @@ public partial class IconPage : IAsyncDisposable
     public void HandleSearch()
     {
         icons?.Clear();
-        
+
         IconVariant? variant = null;
         if (Form.Style is not null)
         {
             variant = Form.Style.Value ? IconVariant.Filled : IconVariant.Regular;
         }
 
-        FluentIconSearcher searcher = new();
+        FluentIconSearcher searcher = new(IconService);
 
         icons = searcher.WithName(Form.Searchterm?.Trim())
             .AsVariant(variant)
@@ -97,7 +100,7 @@ public partial class IconPage : IAsyncDisposable
     {
         Logger.LogInformation($"You clicked on {icon.Name}");
 
-        string Text = $$"""<FluentIcon Name="@FluentIcons.{{icon.Folder}}" Size="@IconSize.{{icon.Size}}" Variant="@IconVariant.{{icon.Variant}}" Color="@Color.{{Form.Color}}"/>""";
+        string Text = $$"""<FluentIcon Name="@FluentIcons.{{icon.Name}}" Size="@IconSize.{{icon.Size}}" Variant="@IconVariant.{{icon.Variant}}" Color="@Color.{{Form.Color}}"/>""";
 
         if (_jsModule is not null)
         {

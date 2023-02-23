@@ -47,6 +47,10 @@ namespace Microsoft.Fast.Components.FluentUI.Infrastructure
             await InvokeVoidAsync("remove", requestMessage.RequestUri!, requestMethod, requestBody);
         }
 
+        public async ValueTask RemoveAllAsync()
+        {
+            await InvokeVoidAsync("removeAll");
+        }
         private static async ValueTask<string> GetRequestBodyAsync(HttpRequestMessage requestMessage)
         {
             string requestBody = string.Empty;

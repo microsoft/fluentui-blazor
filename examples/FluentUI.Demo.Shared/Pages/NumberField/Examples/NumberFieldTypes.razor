@@ -5,7 +5,7 @@
     Minimum value: -999999999999; Maximum value: 999999999999
 </p>
 <p>
-    <FluentNumberField Value="short.MinValue">Short</FluentNumberField>
+    <FluentNumberField @bind-Value="shortMin">Short</FluentNumberField>
     <br />
     Minimum value: @(short.MinValue); Maximum value: @(short.MaxValue)
 </p>
@@ -38,6 +38,7 @@
 @code {
     int exampleInt { get; set; } = 123;
     int exampleInt2 { get; set; } = 345;
+    short shortMin = short.MinValue;
     long exampleLong { get; set; } = 999999999999;
     float exampleFloat { get; set; } = 123.45f;
     double exampleDouble { get; set; } = 456.32d;

@@ -6,13 +6,13 @@
 <Stack Orientation="Orientation.Horizontal" Width="100%">
     <div>
         <NavMenu @bind-Expanded="@Expanded" Width="150">
-            <NavMenuLink Icon="@(FluentIcons.Home)" Text="Item 1" />
-            <NavMenuLink Icon="@(FluentIcons.Cloud)" Text="Item 2" />
+            <NavMenuLink Class="level1" Icon="@(FluentIcons.Home)" Text="Item 1" />
+            <NavMenuLink Class="level1" Icon="@(FluentIcons.Cloud)" Text="Item 2" />
             <NavMenuGroup Text="Item 3">
                 <NavMenuLink Icon="@(FluentIcons.LeafOne)" Text="Item 3.1" />
                 <NavMenuLink Icon="@(FluentIcons.LeafTwo)" Text="Item 3.2" />
             </NavMenuGroup>
-            <NavMenuLink Icon="@(FluentIcons.CalendarAgenda)" Text="Item 4" Disabled="true" />
+            <NavMenuLink Class="level1" Icon="@(FluentIcons.CalendarAgenda)" Text="Item 4" Disabled="true" />
         </NavMenu>
     </div>
     <div style="width: 100%;">

@@ -1,0 +1,51 @@
+<Project>
+	<Import Condition="$(FluentEmojiGroups.Contains('Activities')) AND $(FluentEmojiStyles.Contains('Color'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Activities.Color.targets"/>
+	<Import Condition="$(FluentEmojiGroups.Contains('Animals_Nature')) AND $(FluentEmojiStyles.Contains('Color'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Animals_Nature.Color.targets"/>
+	<Import Condition="$(FluentEmojiGroups.Contains('Flags')) AND $(FluentEmojiStyles.Contains('Color'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Flags.Color.targets"/>
+	<Import Condition="$(FluentEmojiGroups.Contains('Food_Drink')) AND $(FluentEmojiStyles.Contains('Color'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Food_Drink.Color.targets"/>
+	<Import Condition="$(FluentEmojiGroups.Contains('Objects')) AND $(FluentEmojiStyles.Contains('Color'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Objects.Color.targets"/>
+	<Import Condition="$(FluentEmojiGroups.Contains('People_Body')) AND $(FluentEmojiStyles.Contains('Color'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.People_Body.Color.targets"/>
+	<Import Condition="$(FluentEmojiGroups.Contains('Smileys_Emotion')) AND $(FluentEmojiStyles.Contains('Color'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Smileys_Emotion.Color.targets"/>
+	<Import Condition="$(FluentEmojiGroups.Contains('Symbols')) AND $(FluentEmojiStyles.Contains('Color'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Symbols.Color.targets"/>
+	<Import Condition="$(FluentEmojiGroups.Contains('Travel_Places')) AND $(FluentEmojiStyles.Contains('Color'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Travel_Places.Color.targets"/>
+
+	<Import Condition="$(FluentEmojiGroups.Contains('Activities')) AND $(FluentEmojiStyles.Contains('Flat'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Activities.Flat.targets"/>
+	<Import Condition="$(FluentEmojiGroups.Contains('Animals_Nature')) AND $(FluentEmojiStyles.Contains('Flat'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Animals_Nature.Flat.targets"/>
+	<Import Condition="$(FluentEmojiGroups.Contains('Flags')) AND $(FluentEmojiStyles.Contains('Flat'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Flags.Flat.targets"/>
+	<Import Condition="$(FluentEmojiGroups.Contains('Food_Drink')) AND $(FluentEmojiStyles.Contains('Flat'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Food_Drink.Flat.targets"/>
+	<Import Condition="$(FluentEmojiGroups.Contains('Objects')) AND $(FluentEmojiStyles.Contains('Flat'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Objects.Flat.targets"/>
+	<Import Condition="$(FluentEmojiGroups.Contains('People_Body')) AND $(FluentEmojiStyles.Contains('Flat'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.People_Body.Flat.targets"/>
+	<Import Condition="$(FluentEmojiGroups.Contains('Smileys_Emotion')) AND $(FluentEmojiStyles.Contains('Flat'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Smileys_Emotion.Flat.targets"/>
+	<Import Condition="$(FluentEmojiGroups.Contains('Symbols')) AND $(FluentEmojiStyles.Contains('Flat'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Symbols.Flat.targets"/>
+	<Import Condition="$(FluentEmojiGroups.Contains('Travel_Places')) AND $(FluentEmojiStyles.Contains('Flat'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Travel_Places.Flat.targets"/>
+
+	<Import Condition="$(FluentEmojiGroups.Contains('Activities')) AND $(FluentEmojiStyles.Contains('HighContrast'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Activities.HighContrast.targets"/>
+	<Import Condition="$(FluentEmojiGroups.Contains('Animals_Nature')) AND $(FluentEmojiStyles.Contains('HighContrast'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Animals_Nature.HighContrast.targets"/>
+	<Import Condition="$(FluentEmojiGroups.Contains('Flags')) AND $(FluentEmojiStyles.Contains('HighContrast'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Flags.HighContrast.targets"/>
+	<Import Condition="$(FluentEmojiGroups.Contains('Food_Drink')) AND $(FluentEmojiStyles.Contains('HighContrast'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Food_Drink.HighContrast.targets"/>
+	<Import Condition="$(FluentEmojiGroups.Contains('Objects')) AND $(FluentEmojiStyles.Contains('HighContrast'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Objects.HighContrast.targets"/>
+	<Import Condition="$(FluentEmojiGroups.Contains('People_Body')) AND $(FluentEmojiStyles.Contains('HighContrast'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.People_Body.HighContrast.targets"/>
+	<Import Condition="$(FluentEmojiGroups.Contains('Smileys_Emotion')) AND $(FluentEmojiStyles.Contains('HighContrast'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Smileys_Emotion.HighContrast.targets"/>
+	<Import Condition="$(FluentEmojiGroups.Contains('Symbols')) AND $(FluentEmojiStyles.Contains('HighContrast'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Symbols.HighContrast.targets"/>
+	<Import Condition="$(FluentEmojiGroups.Contains('Travel_Places')) AND $(FluentEmojiStyles.Contains('HighContrast'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Travel_Places.HighContrast.targets"/>
+
+	<Import Condition="$(FluentIconSizes.Contains('10')) AND $(FluentIconVariants.Contains('Filled'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Filled10.targets"/>
+	<Import Condition="$(FluentIconSizes.Contains('12')) AND $(FluentIconVariants.Contains('Filled'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Filled12.targets"/>
+	<Import Condition="$(FluentIconSizes.Contains('16')) AND $(FluentIconVariants.Contains('Filled'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Filled16.targets"/>
+	<Import Condition="$(FluentIconSizes.Contains('20')) AND $(FluentIconVariants.Contains('Filled'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Filled20.targets"/>
+	<Import Condition="$(FluentIconSizes.Contains('24')) AND $(FluentIconVariants.Contains('Filled'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Filled24.targets"/>
+	<Import Condition="$(FluentIconSizes.Contains('28')) AND $(FluentIconVariants.Contains('Filled'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Filled28.targets"/>
+	<Import Condition="$(FluentIconSizes.Contains('32')) AND $(FluentIconVariants.Contains('Filled'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Filled32.targets"/>
+	<Import Condition="$(FluentIconSizes.Contains('48')) AND $(FluentIconVariants.Contains('Filled'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Filled48.targets"/>
+	
+	<Import Condition="$(FluentIconSizes.Contains('10')) AND $(FluentIconVariants.Contains('Regular'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Regular10.targets"/>
+	<Import Condition="$(FluentIconSizes.Contains('12')) AND $(FluentIconVariants.Contains('Regular'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Regular12.targets"/>
+	<Import Condition="$(FluentIconSizes.Contains('16')) AND $(FluentIconVariants.Contains('Regular'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Regular16.targets"/>
+	<Import Condition="$(FluentIconSizes.Contains('20')) AND $(FluentIconVariants.Contains('Regular'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Regular20.targets"/>
+	<Import Condition="$(FluentIconSizes.Contains('24')) AND $(FluentIconVariants.Contains('Regular'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Regular24.targets"/>
+	<Import Condition="$(FluentIconSizes.Contains('28')) AND $(FluentIconVariants.Contains('Regular'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Regular28.targets"/>
+	<Import Condition="$(FluentIconSizes.Contains('32')) AND $(FluentIconVariants.Contains('Regular'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Regular32.targets"/>
+	<Import Condition="$(FluentIconSizes.Contains('48')) AND $(FluentIconVariants.Contains('Regular'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Regular48.targets"/>
+
+	<Import Condition="!($(FluentIconSizes.Contains('20')) AND $(FluentIconVariants.Contains('Regular'))) OR '$(PublishFluentIconAssets)' == 'false'" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.RequiredIcons.targets"/>
+</Project>

@@ -81,10 +81,14 @@ export async function removeAll() {
     let cache = await openCacheStorage();
 
     if (cache != null) {
-        let requests = await cache.keys();
+        cache.keys().then(function (names) {
+            for (let name of names)
+                cache.delete(name);
+        });
+        //let requests = await cache.keys();
 
-        for (let request in requests) {
-            await cache.delete(request);
-        }
+        //for (let request in requests) {
+        //    await cache.delete(request);
+        //}
     }
 }

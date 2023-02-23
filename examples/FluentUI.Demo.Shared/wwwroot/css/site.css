@@ -119,14 +119,15 @@ nav {
         line-height: var(--type-ramp-plus-1-line-height);
         padding: 15px 0;
         margin: 0;
+        pointer-events: none;
     }
 
     nav h3 {
         font-size: var(--type-ramp-base-font-size);
         line-height: var(--type-ramp-minus-1-line-height);
-        
         padding: 10px 0;
         margin: 0;
+        pointer-events: none;
     }
 
 
@@ -335,6 +336,10 @@ code {
     nav ul {
         text-align: center;
         max-width: 100%;
+    }
+
+    .navmenu-main-button {
+        display: none;
     }
 
     .menu-icon {

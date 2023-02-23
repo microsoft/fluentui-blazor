@@ -4,8 +4,8 @@
 @using System.Globalization;
 @using System.Reflection;
 <fluent-number-field @ref=Element
-                     class="@Class"
-                     style="@Style"
+                     class="@ClassValue"
+                     style="@StyleValue"
                      readonly="@Readonly"
                      autofocus="@Autofocus"
                      hide-step=@HideStep
@@ -24,7 +24,7 @@
                      name=@Name
                      required="@Required"
                      appearance="@Appearance.ToAttributeValue()"
-                     @oncustomclick="@((e) => CurrentValueAsString = e.Value?.ToString())"
+                     @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
                      @attributes="AdditionalAttributes">
     @ChildContent
 </fluent-number-field>

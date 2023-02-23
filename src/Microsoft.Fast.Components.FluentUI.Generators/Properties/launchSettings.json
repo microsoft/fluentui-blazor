@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Microsoft.Fast.Components.FluentUI.Generators": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "..\\Microsoft.Fast.Components.FluentUI\\Microsoft.Fast.Components.FluentUI.csproj"
+    }
+  }
+}

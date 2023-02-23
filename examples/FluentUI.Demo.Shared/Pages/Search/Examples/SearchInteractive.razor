@@ -1,7 +1,7 @@
 ﻿<FluentSearch @ref=searchTest 
               @oninput=handleSearchInput 
               
-              Value="@searchValue"
+              @bind-Value="@searchValue"
               Placeholder="Search for State" />
 <br />
 <FluentListbox Items=@searchResults TOption="string" SelectedOptionChanged="@(e => searchValue = (e != defaultResultsText ? e : string.Empty) )"  />

@@ -7,19 +7,14 @@
                 Style="@StyleValue"
                 Disabled="@Disabled"
                 Selected="@Selected"
-                tabindex="0"
-                Text="@(NavMenuExpanded ? Text : string.Empty)"
-                @onclick="@OnClickHandlerAsync">
-    @if (NavMenu.HasIcons || NavMenu.HasSubMenu)
+                Text="@(NavMenuExpanded ? Text : string.Empty)">
+    @if (HasIcon)
     {
-        @if (HasIcon)
-        {
-            <FluentIcon Name="@Icon" Size="@IconSize.Size20" Slot="start"/>
-        }
-        else
-        {
-            <div style="width:20px;" slot="start" />
-        }
+        <FluentIcon Name="@Icon" Size="@IconSize.Size20" Slot="start" OnClick="HandleIconClick"/>
+    } 
+    @if (!HasIcon && NavMenu.HasIcons)
+    {
+        <span style="width:20px;" slot="start"></span>
     }
     @if (NavMenuExpanded)
     {

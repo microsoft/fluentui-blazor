@@ -1,5 +1,0 @@
-﻿::deep fluent-tree-item::part(content-region) {
-    font-size: var(--type-ramp-plus-6-font-size);
-    line-height: var(--type-ramp-plus-6-line-height);
-    background-color: var(--highlight-bg);
-}
