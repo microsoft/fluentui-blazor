@@ -3,16 +3,16 @@ Install the templates by running the command:
 ```
 dotnet new install {path to package}\Microsoft.Fast.Templates.FluentUI.{version}.nupkg
 ```
-The current version can be found on the [NuGet page](https://www.nuget.org/packages/Microsoft.Fast.Templates.FluentUI/). After instalation the templates will be available to create a new project from both the CLI as from Visual Studio 2022
+The current version can be found on the [NuGet page](https://www.nuget.org/packages/Microsoft.Fast.Templates.FluentUI/). 
 
 #### Usage
 After installing the templates you can create new a project from either the CLI or by creating a new project in Visual studio 2022. 
 
-For a Blazor Server project:
+For creating a Blazor Server project from the CLI 
 ```
 dotnet new fluentuiblazorserver -o {your project name}
 ``` 
-For a Blazor WebAssembly project:
+For creating a Blazor WebAssembly project from the CLI:
 ```
 dotnet new fluentuiBlazorWebAssembly -o {your project name}
 ``` 

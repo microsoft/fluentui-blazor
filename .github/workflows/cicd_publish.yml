@@ -40,13 +40,15 @@ jobs:
       BUILD_CONFIG: "Release"
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout source
+      uses: actions/checkout@v3
+    
     - name: .NET Setup SDKs 
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: |
-            6.0.405
-            7.0.102
+            6.0.406
+            7.0.200
         include-prerelease: true
     
     - name: Create build number
@@ -57,12 +59,7 @@ jobs:
 
     - name: .NET Build package
       run: dotnet build ${{ env.PROJECT }} --configuration ${{ env.BUILD_CONFIG }} --no-restore -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
-      
 
-
-    - name: .NET Pack package
-      run: dotnet pack ${{ env.PROJECT }} --configuration ${{ env.BUILD_CONFIG }} --no-build --output artifacts/ci --verbosity normal -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
-      
     - name: Upload package 
       uses: actions/upload-artifact@v3
       with:
@@ -71,21 +68,41 @@ jobs:
         retention-days: 5
   
   deploy_demo:
+     
+    needs: build_package
     runs-on: ubuntu-latest
     name: Build and deploy Demo site 
+    env:
+      DOTNET_CLI_TELEMETRY_OPTOUT: 1
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+      DOTNET_NOLOGO: true
+      DOTNET_GENERATE_ASPNET_CERTIFICATE: false
+      DOTNET_ADD_GLOBAL_TOOLS_TO_PATH: false
+      DOTNET_MULTILEVEL_LOOKUP: 0
+      PROJECT: "examples/FluentUI.Demo.Client/FluentUI.Demo.Client.csproj"
+      BUILD_ARCH: "Any CPU"
+      BUILD_CONFIG: "Release"  
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout source
+        uses: actions/checkout@v3
+      
       - name: .NET Setup SDKs
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: |
-            6.0.405
-            7.0.102
+            6.0.406
+            7.0.200
           include-prerelease: true
-      - name: Restore dependencies
-        run: dotnet restore
+      
+      - name: Download package
+        uses: actions/download-artifact@v3
+        with:
+          name: nupkg
+          path: artifacts
+               
       - name: .NET Publish 
-        run: dotnet publish -c Release -o publish -f net7.0 -r linux-x64 --sc examples/FluentUI.Demo.Client/
+        run: dotnet publish ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -v d -o publish -f net7.0 -r linux-x64 --sc -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
+        
       - name: Deploy demo site
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1

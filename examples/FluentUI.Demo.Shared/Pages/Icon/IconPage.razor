@@ -1,4 +1,5 @@
 ﻿@page "/Icon"
+@using FluentUI.Demo.Shared.Pages.Icon.Examples;
 
 <h1>Icon</h1>
 
@@ -60,14 +61,20 @@
                 <FluentSearch Style="width: 100%" Name="Searchterm" @bind-Value="Form.Searchterm" Placeholder="Part of icon name..."></FluentSearch>
             </div>
             <div id="item-1">
-                <FluentCheckbox @bind-Value="Form.Filled" @onclick="HandleStyle">Filled</FluentCheckbox>
-                <FluentCheckbox @bind-Value="Form.Regular" @onclick="HandleStyle">Regular</FluentCheckbox>
+                @if (IconService.Configuration.Variants.Contains(IconVariant.Filled))
+                {
+                    <FluentCheckbox @bind-Value="Form.Filled" @onclick="HandleStyle">Filled</FluentCheckbox>
+                }
+                @if (IconService.Configuration.Variants.Contains(IconVariant.Regular))
+                {
+                    <FluentCheckbox @bind-Value="Form.Regular" @onclick="HandleStyle">Regular</FluentCheckbox>
+                }
 
             </div>
             <div id="item-2">
                 <label for="Size">Size</label>
                 <FluentSelect TOption="IconSize" Id="Size" @bind-SelectedOption="Form.Size" @onchange="@(x => HandleSize(x))">
-                    @foreach (IconSize size in Enum.GetValues<IconSize>())
+                    @foreach (IconSize size in IconService.Configuration.Sizes)
                     {
                         <FluentOption Value=@size.ToString() Selected=@(size == Form.Size)>@((int)size)</FluentOption>
                     }
@@ -88,8 +95,8 @@
                 </FluentSelect>
             </div>
             <div id="item-5">
-                <FluentButton Appearance="Appearance.Accent" @onclick="HandleSearch" Type=ButtonType.Submit><FluentIcon Name="@FluentIcons.Search" Size="@IconSize.Size20" Variant=IconVariant.Regular Color=Color.Fill Slot="start"></FluentIcon> Search</FluentButton>
-                <FluentButton Appearance="Appearance.Neutral" @onclick="HandleReset" Type=ButtonType.Reset><FluentIcon Name="@FluentIcons.ArrowReset" Size="@IconSize.Size20" Variant=IconVariant.Regular Color=Color.Neutral Slot="start"></FluentIcon> Reset</FluentButton>
+                <FluentButton Appearance="Appearance.Accent" @onclick="HandleSearch" Type=ButtonType.Submit><FluentIcon Name="@FluentIcons.Search" Color=Color.Fill Slot="start"></FluentIcon> Search</FluentButton>
+                <FluentButton Appearance="Appearance.Neutral" @onclick="HandleReset" Type=ButtonType.Reset><FluentIcon Name="@FluentIcons.ArrowReset" Color=Color.Neutral Slot="start"></FluentIcon> Reset</FluentButton>
             </div>
         </div>
     </EditForm>
@@ -118,7 +125,7 @@
                 <div class="inner" style="background-color: @(Form.Color == Color.Fill ? "var(--accent-fill-rest)" : "")" >
                     <FluentIcon Name=@icon.Name Size=@icon.Size Variant=@icon.Variant Color="@Form.Color" />
                 </div>
-                <div class="label">@icon.Folder</div>
+                <div class="label">@icon.Name</div>
             </FluentCard>
         }
         @if (icons.Count == 0)

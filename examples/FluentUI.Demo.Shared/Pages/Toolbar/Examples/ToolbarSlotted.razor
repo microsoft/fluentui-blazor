@@ -1,19 +1,22 @@
 ﻿<div style="padding:10px;min-width:800px">
     <FluentToolbar id="toolbar-fluent-components-two" style="width:100%">
         <label slot="label">slotted label</label>
-        <FluentRadioGroup Value="one">
-            <FluentRadio Value="one" Checked="true">Add</FluentRadio>
-            <FluentRadio Value="two">Open</FluentRadio>
-            <FluentRadio Value="three">Copy</FluentRadio>
+        <FluentRadioGroup @bind-Value=value1>
+            <FluentRadio Value=@("one") Checked="true">Add</FluentRadio>
+            <FluentRadio Value=@("two")>Open</FluentRadio>
+            <FluentRadio Value=@("three")>Copy</FluentRadio>
         </FluentRadioGroup>
         <FluentButton Appearance="Appearance.Accent">Refresh</FluentButton>
         <FluentBadge>21 items</FluentBadge>
-        <FluentRadioGroup slot="end">
+        <FluentRadioGroup @bind-Value=value2 slot="end">
             <FluentRadio>Filter</FluentRadio>
             <FluentRadio>
-                <FluentTextField Placeholder="Search" TextFieldType=TextFieldType.Text Appearance="Appearance.Outline"></FluentTextField>
+                <FluentTextField @bind-Value=text1 Placeholder="Search" Appearance="Appearance.Outline"></FluentTextField>
             </FluentRadio>
         </FluentRadioGroup>
         <FluentIcon Name="@FluentIcons.Globe" Slot="end" Size="@IconSize.Size16" Variant=IconVariant.Filled Color="Color.Accent" />
     </FluentToolbar>
 </div>
+@code {
+    string? value1, value2, text1;
+}

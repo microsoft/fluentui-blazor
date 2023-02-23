@@ -112,7 +112,7 @@
                 @if (ColumnOptions is not null && Align != Align.Right)
                 {
                     <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptions(this))">
-                        <FluentIcon Name="@FluentIcons.Filter" Size="IconSize.Size16" />
+                        <FluentIcon Name="@FluentIcons.Filter" Size="IconSize.Size20" />
                     </FluentButton>
                 }
                 <FluentButton Appearance="Appearance.Stealth" class="col-sort-button" @onclick="@(() => Grid.SortByColumnAsync(this))">
@@ -121,14 +121,14 @@
                     
                     @if (Grid.SortByAscending.HasValue && ShowSortIcon )
                     {
-                            <FluentIcon Name="@(Grid.SortByAscending.Value ? FluentIcons.ArrowSortUp : FluentIcons.ArrowSortDown)" Size="IconSize.Size16" Slot="@(Align == Align.Right ? "start" : "end")" />
+                            <FluentIcon Name="@(Grid.SortByAscending.Value ? FluentIcons.ArrowSortUp : FluentIcons.ArrowSortDown)" Size="IconSize.Size20" Slot="@(Align == Align.Right ? "start" : "end")" />
                     }
                     
                 </FluentButton>
                 @if (ColumnOptions is not null && Align == Align.Right)
                 {
                     <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptions(this))">
-                        <FluentIcon Name="@FluentIcons.Filter" Size="IconSize.Size16" />
+                        <FluentIcon Name="@FluentIcons.Filter" Size="IconSize.Size20" />
                     </FluentButton>
                 }
             }
@@ -138,14 +138,14 @@
                     @if (ColumnOptions is not null && Align != Align.Right)
                     {
                         <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptions(this))">
-                            <FluentIcon Name="@FluentIcons.Filter" Size="IconSize.Size16" />
+                            <FluentIcon Name="@FluentIcons.Filter" Size="IconSize.Size20" />
                         </FluentButton>
                     }
                     <div class="col-title-text">@Title</div>
                     @if (ColumnOptions is not null && Align == Align.Right)
                     {
                     <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptions(this))">
-                            <FluentIcon Name="@FluentIcons.Filter" Size="IconSize.Size16" />
+                            <FluentIcon Name="@FluentIcons.Filter" Size="IconSize.Size20" />
                     </FluentButton>
                     }
                 </div>

@@ -8,6 +8,9 @@ namespace FluentUI.Demo.Shared;
 
 public partial class NavMenuLink : FluentComponentBase
 {
+    [Inject]
+    private NavigationManager NavigationManager { get; set; } = default!;
+
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>
@@ -19,7 +22,7 @@ public partial class NavMenuLink : FluentComponentBase
     /// </summary>
     [Parameter]
     public string? Href { get; set; } = string.Empty;
-    
+
     /// <summary>
     /// Gets or sets the name of the icon to display with the link
     /// </summary>
@@ -37,7 +40,7 @@ public partial class NavMenuLink : FluentComponentBase
     /// </summary>
     [Parameter]
     public bool Disabled { get; set; } = false;
-
+   
     /// <summary>
     /// Gets or sets whether the link is selected.
     /// </summary>
@@ -60,17 +63,17 @@ public partial class NavMenuLink : FluentComponentBase
     public EventCallback<MouseEventArgs> OnClick { get; set; }
 
     /// <summary>
-    /// Gets orsets the target of the link.
+    /// Gets or sets the target of the link.
     /// </summary>
     [Parameter]
     public string? Target { get; set; } = string.Empty;
-    
+
     /// <summary>
     /// Gets or sets the text of the link.
     /// </summary>
     [Parameter]
     public string Text { get; set; } = string.Empty;
-
+    
     /// <summary>
     /// Gets or sets the width of the link (in pixels).
     /// </summary>
@@ -78,7 +81,7 @@ public partial class NavMenuLink : FluentComponentBase
     public int? Width { get; set; }
 
     protected string? ClassValue => new CssBuilder(Class)
-       .AddClass("navmenu-link", () => NavMenu.HasSubMenu && NavMenu.HasIcons)
+       .AddClass("navmenu-link", () => NavMenu.HasSubMenu || NavMenu.HasIcons)
        .AddClass("navmenu-link-nogroup", () => !NavMenu.HasSubMenu && NavMenu.HasIcons)
        .Build();
 
@@ -88,33 +91,24 @@ public partial class NavMenuLink : FluentComponentBase
         .Build();
 
     private bool HasIcon => !string.IsNullOrWhiteSpace(Icon);
-    
+
     [CascadingParameter(Name = "NavMenuExpanded")]
     private bool NavMenuExpanded { get; set; }
 
-    
-    [Inject]
-    private NavigationManager NavigationManager { get; set; } = default!;
-    
     internal void SetSelected(bool value)
     {
         Selected = value;
     }
-    
-    protected async Task OnClickHandlerAsync(MouseEventArgs e)
+
+
+    protected override void OnParametersSet() 
     {
-        if (Disabled)
-            return;
-
-        if (OnClick.HasDelegate)
-            await OnClick.InvokeAsync(e);
-
-        if (!string.IsNullOrEmpty(Href))
-            NavigationManager.NavigateTo(Href);
+        NavMenu.AddNavMenuLink(this);
     }
-    
-    protected override void OnInitialized()
+
+    internal void HandleIconClick()
     {
-        NavMenu.AddNavLink(this);
+        if (!Disabled)
+            Selected=true;
     }
 }

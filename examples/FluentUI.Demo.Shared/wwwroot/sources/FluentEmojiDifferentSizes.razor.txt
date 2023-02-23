@@ -1,0 +1,29 @@
+﻿@* Remember to replace the namespace below with your own project's namespace. *@
+@namespace FluentUI.Demo.Shared
+
+<div style="display: flex; align-items: flex-end; margin-bottom: 0.75em; gap: 10px">
+    <span>16x16: </span><FluentEmoji Name="@FluentEmojis.Hamburger" EmojiStyle="EmojiStyle.Color" Size=@EmojiSize.Size16 />
+    <span>32x32: </span><FluentEmoji Name="@FluentEmojis.Hamburger" EmojiStyle="EmojiStyle.Color" Size=@EmojiSize.Size32 />
+    <span>64x64: </span><FluentEmoji Name="@FluentEmojis.Hamburger" EmojiStyle="EmojiStyle.Color" Size=@EmojiSize.Size64 />
+    <span>128x128: </span><FluentEmoji Name="@FluentEmojis.Hamburger" EmojiStyle="EmojiStyle.Color" Size=@EmojiSize.Size128 />
+</div>
+
+<FluentDivider Role=DividerRole.Presentation />
+
+<div style="display: flex; align-items: center;  margin-top: 0.75em;">
+    <label for="CustomSize">Custom size</label>
+    <FluentTextField Id="CustomSize" @bind-Value="@custom" Placeholder="Just 1 number, like 128 or 256"/>
+</div>
+
+@if (int.TryParse(custom, out int size) && size > 0)
+{
+    <div style="display: flex; align-items: flex-end; margin-bottom: 0.75em; gap: 10px">
+        <span>@(size)x@(size): </span>
+        <FluentEmoji Name="@FluentEmojis.Hamburger" EmojiStyle="EmojiStyle.Color" Size=@EmojiSize.Custom CustomSize="size" />
+    </div>
+}
+
+@code {
+    string custom = "";
+
+}

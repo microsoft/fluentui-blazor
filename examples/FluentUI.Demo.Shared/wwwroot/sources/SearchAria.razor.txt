@@ -1,12 +1,15 @@
 ﻿<h4>With aria-label</h4>
-<FluentSearch aria-label="Search with aria-label"></FluentSearch>
+<FluentSearch @bind-Value=value aria-label="Search with aria-label"></FluentSearch>
 
 <h4>Visual vs audio label</h4>
-<FluentSearch>
-    <span aria-label="Audio label">Visible label</span>
+<FluentSearch @bind-Value=value>
+    <span  aria-label="Audio label">Visible label</span>
 </FluentSearch>
 
 <h4>Audio label only</h4>
-<FluentSearch>
+<FluentSearch @bind-Value=value>
     <span aria-label="Audio label only"></span>
 </FluentSearch>
+@code {
+    string? value;
+}

@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
-
 	<PropertyGroup>
 		<TargetFrameworks>net6.0;net7.0</TargetFrameworks>
 		<Nullable>enable</Nullable>
@@ -10,12 +9,12 @@
 		<IsTrimmable>true</IsTrimmable>
 		<SuppressTrimAnalysisWarnings>false</SuppressTrimAnalysisWarnings>
 	</PropertyGroup>
-
+	
 	<ItemGroup>
 		<SupportedPlatform Include="browser" />
 	</ItemGroup>
 
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+	<PropertyGroup Condition="'$(Configuration)'=='Debug'">
 		<Optimize>False</Optimize>
 		<WarningLevel>6</WarningLevel>
 		<NullableReferenceTypes>true</NullableReferenceTypes>
@@ -23,40 +22,53 @@
 		<NoWarn>1701;1702;8669;1591;1816</NoWarn>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
 		<Optimize>True</Optimize>
 		<NoWarn>1701;1702;8669;1591</NoWarn>
 		<DebuggerSupport>false</DebuggerSupport>
 		<TrimmerRemoveSymbols>true</TrimmerRemoveSymbols>
 	</PropertyGroup>
 
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
+	<ItemGroup Condition="'$(TargetFramework)'=='net6.0'">
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.13" />
 	</ItemGroup>
 
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net7.0' ">
+	<ItemGroup Condition="'$(TargetFramework)'=='net7.0'">
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.2" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<AdditionalFiles Include="$(ProjectDir)\*.xml" />
+		<PackageReference Include="Markdig" Version="0.30.4" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Content Remove="Pages\RawBindings.razor" />
+		<Content Remove="libman.json" />
+		<AdditionalFiles Include="$(ProjectDir)/*.xml" />
 	</ItemGroup>
 
-	<ItemGroup>
+	<ItemGroup Condition="'$(Configuration)'=='Release'">
+		<PackageReference Include="Microsoft.Fast.Components.FluentUI" Version="2.*-*" PrivateAssets="none" />
+	</ItemGroup>
+	
+	<ItemGroup Condition="'$(Configuration)'=='Debug'">
 		<ProjectReference Include="..\..\src\Microsoft.Fast.Components.FluentUI\Microsoft.Fast.Components.FluentUI.csproj" />
+	</ItemGroup>
+
+
+	<ItemGroup>
 		<ProjectReference Include="..\FluentUI.Demo.Generators\FluentUI.Demo.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 		<TrimmerRootAssembly Include="Microsoft.Fast.Components.FluentUI" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<Folder Include="wwwroot\sources\" />
-	</ItemGroup>
+	<Target Name="DisableAnalyzers" BeforeTargets="CoreCompile">
+		<ItemGroup>
+			<Analyzer Remove="@(Analyzer)" Condition="'%(Filename)' == 'Microsoft.Fast.Components.FluentUI.Configuration'" />
+		</ItemGroup>
+	</Target>
 	
-	<Target Name="CopyExamplesToContentRoot" BeforeTargets="CoreBuild">
+	<Target Name="CopySources" BeforeTargets="CoreBuild">
 		<ItemGroup>
 			<Sources Include="$(ProjectDir)\Pages\**\Examples\*" />
 			<Sources Include="$(ProjectDir)\Pages\Lab\**" />
@@ -66,9 +78,9 @@
 	</Target>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<ItemGroup Condition=" '$(TargetFramework)' == 'net7.0' ">
-			<XmlFiles Include="$(ProjectDir)bin\$(Configuration)\$(TargetFramework)\*.xml" />
+		<ItemGroup>
+			<XmlFiles Include="$(ProjectDir)bin\$(Configuration)\net7.0\*.xml" />
 		</ItemGroup>
-		<Copy SourceFiles="@(XmlFiles)" DestinationFolder="$(SolutionDir)examples\FluentUI.Demo.Shared" SkipUnchangedFiles="true" Condition=" '$(TargetFramework)' == 'net7.0' " />
+		<Copy SourceFiles="@(XmlFiles)" DestinationFolder="$(SolutionDir)examples\FluentUI.Demo.Shared" SkipUnchangedFiles="true" />
 	</Target>
 </Project>

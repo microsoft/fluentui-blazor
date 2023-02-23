@@ -1,0 +1,39 @@
+﻿@page "/clearcache"
+@using Microsoft.Fast.Components.FluentUI.Infrastructure
+@using Microsoft.Extensions.Logging
+@inject ILogger<ClearCache> Logger
+@inject CacheStorageAccessor CacheStorageAccessor
+
+<h1>Clear cache</h1>
+
+<p>
+    You can check the contents of the cache in the browser's developer tools. If you are using Edge or Chrome, you can do this by going to the Application tab and then clicking on the Cache Storage section. 
+    In Firefox, you can do this by going to the Storage tab and then clicking on the Cache Storage section.
+</p>
+
+<p>
+    If you feel like you're not seeing the latest and greatest of samples. emoji or icons, click the button below to clear the cache.
+</p>
+<p>
+    <strong>Don't worry, this will only clear the cache for this site. It will not clear your browser's cache!</strong>
+</p>
+
+<FluentButton @onclick="@RemoveAllCache">Clear Cache</FluentButton>
+
+<p style="margin-top: 1rem;">
+    <em>@status</em>
+</p>
+
+@code{
+    string? status;
+
+    private async Task RemoveAllCache()
+    {
+        await CacheStorageAccessor.RemoveAllAsync();
+        Logger.LogInformation("Cache cleared!");
+
+        status = "Cache cleared!";
+    }
+    
+
+}

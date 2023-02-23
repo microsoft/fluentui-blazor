@@ -2,40 +2,31 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Fast.Components.FluentUI;
 using Microsoft.Fast.Components.FluentUI.Utilities;
-using Microsoft.JSInterop;
 
 // Remember to replace the namespace below with your own project's namespace..
 namespace FluentUI.Demo.Shared;
 
 public partial class NavMenu : FluentComponentBase
 {
-    // Remeber to replace the path to the colocated JS file with your own project's path
-    // or Razor Class Library's path.
-    private const string JAVASCRIPT_FILE = "./_content/FluentUI.Demo.Shared/Pages/Lab/NavMenu/NavMenu.razor.js";
+    [Inject]
+    private NavigationManager NavigationManager { get; set; } = default!;
+
     private const string WIDTH_COLLAPSED_MENU = "40px";
     private readonly List<NavMenuLink> _links = new();
     private readonly List<NavMenuGroup> _groups = new();
-
-    private FluentTreeView? treeView;
-    private FluentTreeItem? currentSelected;
+    private string _prevHref = "/";
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("navmenu")
+        .AddClass("collapsed", !Expanded)
         .Build();
 
     protected string? StyleValue => new StyleBuilder()
         .AddStyle("width", $"{Width}px", () => Expanded && Width.HasValue)
         .AddStyle("width", WIDTH_COLLAPSED_MENU, () => !Expanded)
+        .AddStyle("min-width", WIDTH_COLLAPSED_MENU, () => !Expanded)
         .AddStyle(Style)
         .Build();
-
-    [Inject]
-    private NavigationManager NavigationManager { get; set; } = default!;
-
-    [Inject]
-    private IJSRuntime JS { get; set; } = default!;
-
-    private IJSObjectReference Module { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets a reasonably unique ID 
@@ -72,7 +63,6 @@ public partial class NavMenu : FluentComponentBase
     /// Gets or sets whether the menu is collapsed.
     /// </summary>
     [Parameter]
-    [CascadingParameter]
     public bool Expanded { get; set; } = true;
 
     /// <summary>
@@ -91,7 +81,7 @@ public partial class NavMenu : FluentComponentBase
 
     internal bool HasIcons => _links.Any(i => !string.IsNullOrWhiteSpace(i.Icon));
 
-    internal async Task CollapsibleClickAsync(MouseEventArgs e)
+    internal async Task CollapsibleClickAsync()
     {
         if (Collapsible)
         {
@@ -106,20 +96,33 @@ public partial class NavMenu : FluentComponentBase
             if (OnExpanded.HasDelegate)
             {
                 await OnExpanded.InvokeAsync(Expanded);
-            }           
+            }
         }
     }
 
-    internal int AddNavLink(NavMenuLink link)
+    internal void HandleSelectedChange(FluentTreeItem treeItem)
     {
-        _links.Add(link);
-        StateHasChanged();
-        return _links.Count;
+        string? href = _links.FirstOrDefault(x => x.Id == treeItem.Id)?.Href;
+        if (string.IsNullOrWhiteSpace(href))
+        {
+            href = _groups.FirstOrDefault(x => x.Id == treeItem.Id)?.Href;
+        }
+        if (!string.IsNullOrWhiteSpace(href) && href != _prevHref)
+        {
+            _prevHref = href;
+            NavigationManager.NavigateTo(href);
+        }
     }
 
-    internal int AddNavGroup(NavMenuGroup group)
+    internal void AddNavMenuLink(NavMenuLink link)
+    {
+        _links.Add(link);
+    }
+
+    internal void AddNavMenuGroup(NavMenuGroup group)
     {
         _groups.Add(group);
-        return _groups.Count;
     }
+
+    
 }

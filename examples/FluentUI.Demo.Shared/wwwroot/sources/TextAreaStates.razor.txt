@@ -1,13 +1,17 @@
 ﻿<h4>Required</h4>
-<FluentTextArea Required="true"></FluentTextArea>
+<FluentTextArea @bind-Value=value1 Required="true"></FluentTextArea>
 
 <h4>Disabled</h4>
-<FluentTextArea Disabled="true"></FluentTextArea>
-<FluentTextArea Disabled="true">
+<FluentTextArea @bind-Value=value2 Disabled="true"></FluentTextArea>
+<FluentTextArea @bind-Value=value3 Disabled="true">
     <span>label</span>
 </FluentTextArea>
-<FluentTextArea Disabled="true" Placeholder="placeholder"></FluentTextArea>
+<FluentTextArea @bind-Value=value4 Disabled="true" Placeholder="placeholder"></FluentTextArea>
 
 <h4>Read only</h4>
-<FluentTextArea Readonly="true" Value="Readonly text area"></FluentTextArea>
-<FluentTextArea Readonly="true" Value="Readonly text area">label</FluentTextArea>
+<FluentTextArea @bind-Value=value5 Readonly="true"></FluentTextArea>
+<FluentTextArea @bind-Value=value6 Readonly="true">label</FluentTextArea>
+
+@code {
+    string? value1, value2, value3, value4, value5 = "Readonly text area", value6 = "Readonly text area";
+}

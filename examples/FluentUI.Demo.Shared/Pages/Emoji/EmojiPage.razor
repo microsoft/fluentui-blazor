@@ -1,0 +1,134 @@
+﻿@page "/Emoji"
+@* Remember to replace the namespace below with your own project's namespace. *@
+@using FluentUI.Demo.Shared.Pages.Emoji.Examples;
+
+<h1>Emoji</h1>
+<p>
+    The <a title="Fluent Emoji" href="https://github.com/microsoft/fluentui-emoji" target="_blank" rel="noopener">Fluent Emoji</a>
+    are a (still growing) collection of familiar, friendly, and modern emoji from Microsoft. At the moment there are over 1500 distinct emoji
+    available in color, flat and high contrast styles and 6 different skintones (where applicable) devided in 9 groups. In total the
+    collections consists of well over 13k emoji in SVG format.
+</p>
+<p>
+    You can use any of these emoji by levaraging the <code>&lt;FluentEmoji&gt;</code> component. See below for the parameters and examples. There is
+    also a search capability available on this page wich allows you to browse through all the available emoji.
+</p>
+
+<ApiDocumentation Component="typeof(FluentEmoji)" />
+
+<h2 id="overview">Overview</h2>
+
+<DemoSection Component="typeof(FluentEmojiDifferentSizes)" Title="Different sizes">
+    <Description>
+        You can choose a preset size from the <code>EmojiSize</code> enum. As an alternative you can specify a custom size by setting the
+        <code>EmojiSize</code> to <code>EmojiSize.Custom</code> and setting the <code>CustomSize</code> property to a value anywhere
+        between 32 - 1024px, though we suggest scaling on sizes of 32 so 32, 64, etc to get the best result.
+    </Description>
+</DemoSection>
+
+
+<DemoSection Component="typeof(FluentEmojiSlots)" Title="Slots">
+    <Description>
+        A lot of the web components have named slots that declare locations in which content can be rendered.
+        FluentEmoji leverages this capability through its <code>Slot</code> parameter. With this you can, for
+        example, render a emoji icon in front (<code>Slot="start"</code>) or after (<code>Slot="end"</code>) a
+        label in a <code>&lt;FluentButton&gt;</code> component
+    </Description>
+</DemoSection>
+
+
+<h2 id="explore-icons">Explore Emoji</h2>
+<p>
+    <EditForm EditContext="@editContext">
+        <div class="form-grid">
+            <div id="item-0">
+                <FluentSearch Style="width: 100%" Name="Searchterm" @bind-Value="Form.Searchterm" Placeholder="Part of emoji name..."></FluentSearch>
+            </div>
+            <div id="item-1">
+                <label for="Group">Group</label>
+                <FluentSelect TOption="EmojiGroup?" Id="Group" @bind-SelectedOption="Form.Group" @onchange=@(x => HandleGroup(x))>
+                    <FluentOption Value="-1">Choose a group...</FluentOption>
+                    @foreach (EmojiGroup group in EmojiService.Configuration.Groups)
+                    {
+                        <FluentOption Value=@group.ToString() Selected=@(group == Form.Group)>@(group.ToAttributeValue(false))</FluentOption>
+                    }
+                </FluentSelect>
+            </div>
+
+            <div id="item-2">
+                <label for="Size">Size</label>
+                <FluentSelect TOption="EmojiSize" Id="Size" @bind-SelectedOption="Form.Size" @onchange=@(x => HandleSize(x))>
+                    @foreach (EmojiSize size in Enum.GetValues<EmojiSize>())
+                    {
+                        if (size != EmojiSize.Custom)
+                        {
+                            <FluentOption Value=@size.ToString() Selected=@(size == Form.Size)>@((int)size)</FluentOption>
+                        }
+                    }
+                </FluentSelect>
+            </div>
+            <div id="item-3">
+            </div>
+            <div id="item-4">
+                <label for="Style">Style</label>
+                <FluentSelect TOption="EmojiStyle?" Id="Style" @bind-SelectedOption="Form.Style" @onchange=@(x => HandleStyle(x))>
+                    <FluentOption Value="-1">Choose a style...</FluentOption>
+                    @foreach (EmojiStyle style in EmojiService.Configuration.Styles) {
+                        <FluentOption Value=@style.ToString() Selected=@(style == Form.Style)>@(style.ToAttributeValue(false))</FluentOption>
+                    }
+                </FluentSelect>
+            </div>
+            <div id="item-5">
+            </div>
+            <div id="item-6">
+                <label for="Skintone">Skintone</label>
+                <FluentSelect TOption="EmojiSkintone?" Id="Skintone" @bind-SelectedOption="Form.Skintone" @onchange=@(x => HandleSkintone(x))>
+                    <FluentOption Value="-1">Choose a skintone...</FluentOption>
+                    @foreach (EmojiSkintone skintone in Enum.GetValues<EmojiSkintone>())
+                    {
+                        <FluentOption Value=@skintone.ToString() Selected=@(skintone == Form.Skintone)>@(skintone.ToAttributeValue(false))</FluentOption>
+                    }
+                </FluentSelect>
+            </div>
+            <div id="item-7">
+                <FluentButton Appearance="Appearance.Accent" @onclick="HandleSearch" Type=ButtonType.Submit><FluentIcon Name="@FluentIcons.Search" Size="@IconSize.Size20" Variant=IconVariant.Regular Color=Color.Fill Slot="start"></FluentIcon> Search</FluentButton>
+                <FluentButton Appearance="Appearance.Neutral" @onclick="HandleReset" Type=ButtonType.Reset><FluentIcon Name="@FluentIcons.ArrowReset" Size="@IconSize.Size20" Variant=IconVariant.Regular Color=Color.Neutral Slot="start"></FluentIcon> Reset</FluentButton>
+            </div>
+        </div>
+    </EditForm>
+</p>
+
+<FluentDivider Role="DividerRole.Presentation" />
+
+@if (emojis?.Count > 0)
+{
+    <p style="padding: 1rem 0;">
+        In the results below, click on an emoji card to copy a 'ready-to-paste' <code>FluentEmoji</code> component to the clipboard.
+    </p>
+    <p style="padding: 1rem 0;">
+        <strong>@totalCount</strong> emoji found. 
+        @if (totalCount > maxResults)
+        {
+            <em>Only the first @maxResults results are shown.</em>
+        }
+    </p>
+}
+<div id="filled" data-is-scrollable="true" style="overflow-y:auto;height:600px;">
+    <div style="display:flex;flex-flow: row wrap;">
+        @foreach (EmojiModel emoji in emojis!)
+        {
+            <FluentCard Class="preview" @onclick="()=> HandleClick(emoji)">
+                <div class="inner">
+                    <FluentEmoji Name=@emoji.Name Size=@Form.Size EmojiStyle=@emoji.Style Skintone=@emoji.Skintone />
+                </div>
+                <div class="label">@emoji.Name</div>
+            </FluentCard>
+        }
+        @if (emojis.Count == 0)
+        {
+            <div style="display: flex;align-content: center;align-items: center;">
+                <p style="padding: 1rem 0;">No emojis found</p>
+            </div>
+        }
+    </div>
+</div>

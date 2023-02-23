@@ -1,3 +1,0 @@
-<FluentAnchoredRegion Anchor="anchor-fixed" VerticalPositioningMode="AxisPositioningMode.Dynamic" VerticalScaling="AxisScalingMode.Anchor" VerticalInset="false" HorizontalPositioningMode="AxisPositioningMode.Locktodefault" HorizontalDefaultPosition="HorizontalPosition.Left" fixed-placement="" style="z-index: 11; position: fixed; transform: translate(330.047px, 20px); width: unset; height: 20px;" Viewport="" HorizontalScaling="AxisScalingMode.Content" VerticalDefaultPosition="VerticalPosition.Unset" AutoUpdateMode="AutoUpdateMode.Anchor" class="loaded inset-bottom left">
-        <div style="height:100%;width:100%;background:#00f;z-index:11">outside &amp; fixed</div>
-</FluentAnchoredRegion>

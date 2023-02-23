@@ -1,7 +1,4 @@
-﻿@* Remember to replace the namespace below with your own project's namespace. *@
-@namespace FluentUI.Demo.Shared
-
-<dl>
+﻿<dl>
     <dt><code>Color.Neutral</code> - Uses CSS variable --neutral-forground-rest, adapts to light/dark mode.</dt>
     <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Filled Color="Color.Neutral" /></dd>
 
@@ -36,8 +33,6 @@
 <FluentAnchor Href="/Reboot" Appearance="Appearance.Hypertext">Reboot</FluentAnchor> the <code>variables.css</code> file is automatically imported. If you do not
     use Reboot, please add the <code>variables.css</code> file to your <code>index.html</code> or <code>_Layout.cshtml</code> file like this:
     (<em><strong>the color values will not be aplied if the CSS variables are not defined</strong></em>):
-<CodeSnippet Language="language-html">
-&lt;link href="_content/Microsoft.Fast.Components.FluentUI/css/variables.css" rel="stylesheet" /&gt;
-</CodeSnippet>
+<CodeSnippet Language="language-html">&lt;link href="_content/Microsoft.Fast.Components.FluentUI/css/variables.css" rel="stylesheet" /&gt;</CodeSnippet>
 <br />
 <strong>(**)</strong>: Background color has been set through inline style, otherwise icon would be (nearly) invisible.

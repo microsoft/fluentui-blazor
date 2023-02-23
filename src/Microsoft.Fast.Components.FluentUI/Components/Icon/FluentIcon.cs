@@ -23,7 +23,7 @@ public partial class FluentIcon : FluentComponentBase
     private IStaticAssetService StaticAssetService { get; set; } = default!;
 
     [Inject]
-    private CacheStorageAccessor CacheStorageAccessor { get; set; } = default!;
+    private IconService IconService { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets the id.
@@ -61,10 +61,10 @@ public partial class FluentIcon : FluentComponentBase
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the <see cref="IconSize"/> of the icon. Defaults to 24. Not all sizes are available for all icons.
+    /// Gets or sets the <see cref="IconSize"/> of the icon. Defaults to 20. Not all sizes are available for all icons.
     /// </summary>
     [Parameter]
-    public IconSize Size { get; set; } = IconSize.Size24;
+    public IconSize Size { get; set; } = IconSize.Size20;
 
     /// <summary>
     /// Gets or sets the slot where the icon is displayed in
@@ -86,11 +86,11 @@ public partial class FluentIcon : FluentComponentBase
 
 
     //protected override async Task OnParametersSetAsync()
-    protected override void OnParametersSet()
+    protected override void OnInitialized()
     {
         string? nc = NeutralCultureName ?? null;
 
-        if (!FluentIcons.IconMap.Any(x => x.Name == Name && x.Size == Size && x.Variant == Variant))
+        if (!FluentIcons.GetIconMap(IconService.Configuration.Sizes, IconService.Configuration.Variants).Any(x => x.Name == Name && x.Size == Size && x.Variant == Variant))
         {
             throw new ArgumentException($"The requested icon ({Name}, {Size}, {Variant}) is not available in the collection");
         }
@@ -119,7 +119,7 @@ public partial class FluentIcon : FluentComponentBase
             }
         }
 
-        _folder = FluentIcons.IconMap.First(x => x.Name == Name).Folder;
+        _folder = FluentIcons.GetIconMap(IconService.Configuration.Sizes, IconService.Configuration.Variants).First(x => x.Name == Name).Name;
 
         _iconUrl = $"{ICON_ROOT}/{_folder}{(nc is not null ? "/" + nc : "")}/{ComposedName}.svg";
         _iconUrlFallback = $"{ICON_ROOT}/{_folder}/{ComposedName}.svg";
@@ -194,15 +194,23 @@ public partial class FluentIcon : FluentComponentBase
             await OnClick.InvokeAsync(e);
     }
 
-    public string ComposedName
+    private string ComposedName
     {
         get
         {
+            string variant = Variant switch
+            {
+                IconVariant.Filled => "f",
+                IconVariant.Regular => "r",
+                _ => ""
+            };
+
             string result = "";
             if (Name is not null)
-                result = $"{Name}_{(int)Size}_{Variant.ToAttributeValue()}";
+                result = $"{(int)Size}_{variant}";
 
             return result;
+
         }
     }
 

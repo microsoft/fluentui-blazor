@@ -1,5 +1,5 @@
 ﻿<h4>Custom thumb</h4>
-<FluentSlider Min="0" Max="100" Step="10">
+<FluentSlider Min="0" Max="100" Step="10" @bind-Value=value1>
     <FluentSliderLabel Position="0">0</FluentSliderLabel>
     <FluentSliderLabel Position="10">10</FluentSliderLabel>
     <FluentSliderLabel Position="20">20</FluentSliderLabel>
@@ -17,7 +17,7 @@
 <h5 style="margin-top: 60px;">
     Custom labels and thumb and hidden marks on labels
 </h5>
-<FluentSlider Min="0" Max="100" Step="10">
+<FluentSlider Min="0" Max="100" Step="10" @bind-Value=value2>
     <FluentSliderLabel Position="0" HideMark="true">
         <FluentIcon Name="@FluentIcons.Star" Size="@IconSize.Size16" Color=Color.Neutral />
     </FluentSliderLabel>
@@ -27,3 +27,6 @@
     </FluentSliderLabel>
     <FluentIcon Name="@FluentIcons.Globe" Slot="thumb" Size="@IconSize.Size16" Color=Color.Neutral />
 </FluentSlider>
+@code {
+    int value1=0, value2=0;
+}

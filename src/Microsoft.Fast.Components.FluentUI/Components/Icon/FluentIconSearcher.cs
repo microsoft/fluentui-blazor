@@ -1,14 +1,31 @@
-﻿namespace Microsoft.Fast.Components.FluentUI;
+﻿using Microsoft.AspNetCore.Components;
+
+namespace Microsoft.Fast.Components.FluentUI;
 
 public class FluentIconSearcher
 {
+    [Inject]
+    private IconService IconService { get; set; } = default!;
+
     private IEnumerable<IconModel>? iconList;
+
+
+    public FluentIconSearcher(IconService iconService)
+    {
+        IconService = iconService;
+    }
+
+    private IEnumerable<IconModel>? GetFilteredIconList()
+    {
+        return FluentIcons.GetIconMap(IconService.Configuration.Sizes, IconService.Configuration.Variants); ;
+    }
+
 
     public FluentIconSearcher AsVariant(IconVariant? variant)
     {
         if (variant.HasValue)
         {
-            iconList ??= FluentIcons.IconMap;
+            iconList ??= GetFilteredIconList();
 
             iconList = iconList!.Where(x => x.Variant == variant);
 
@@ -21,7 +38,7 @@ public class FluentIconSearcher
     {
         if (size.HasValue)
         {
-            iconList ??= FluentIcons.IconMap;
+            iconList ??= GetFilteredIconList();
 
             iconList = iconList!.Where(x => x.Size == size);
 
@@ -29,15 +46,15 @@ public class FluentIconSearcher
         return this;
     }
 
-    
+
     public FluentIconSearcher WithName(string? searchterm)
     {
 
         if (!string.IsNullOrWhiteSpace(searchterm) && searchterm.Length >= 2)
         {
-            iconList ??= FluentIcons.IconMap;
+            iconList ??= GetFilteredIconList();
 
-            iconList = iconList!.Where(x => x.Name.Contains(searchterm, StringComparison.OrdinalIgnoreCase) || x.Folder.Contains(searchterm.ToLower(), StringComparison.OrdinalIgnoreCase));
+            iconList = iconList!.Where(x => x.Name.Contains(searchterm, StringComparison.OrdinalIgnoreCase));
         }
 
         return this;
@@ -48,7 +65,7 @@ public class FluentIconSearcher
         if (iconList is null)
             return new();
         else
-            return iconList?.Take(count).OrderBy(x=>x.Folder).ToList();
+            return iconList?.Take(count).OrderBy(x => x.Name).ToList();
     }
 
     public int ResultCount()
