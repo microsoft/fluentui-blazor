@@ -3,8 +3,3 @@
     --dialog-height: 350px;
     padding: 2rem;
 }
-
-
-::deep > fluent-dialog {
-    transition: all 0.5s ease-in-out;
-}
