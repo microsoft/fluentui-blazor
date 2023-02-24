@@ -26,6 +26,7 @@ on:
 
 jobs:
   build_package:
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     name: Build and pack library package
     runs-on: ubuntu-latest
     env:
@@ -68,7 +69,7 @@ jobs:
         retention-days: 5
   
   deploy_demo:
-     
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed') 
     needs: build_package
     runs-on: ubuntu-latest
     name: Build and deploy Demo site 
@@ -119,8 +120,7 @@ jobs:
   destroy:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
-    name: Close PR Job
-    
+    name: Close Pull Request Job
     steps:
       - name: Close Pull Request
         id: closepullrequest
