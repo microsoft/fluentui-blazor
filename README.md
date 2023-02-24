@@ -103,12 +103,20 @@ The file contains a number of CSS variables that are required to be defined for 
 
 
 ### Code
-In your Program.cs file you need to add the following:
+In your `Program.cs` file you need to add the following:
 ```csharp
 builder.Services.AddFluentUIComponents();
 ```
 
 This addition makes sure all the necessary services the library uses are setup in a correct way.
+
+When using the 2.1 or higher version of the library, you might need to make some changes here. Please refer to the [what's new](WHATSNEW.md) document for more information.
+
+*If you're running your application on Blazor Server, make sure a default HttpClient is available by adding the following:*
+
+```csharp
+builder.Services.AddHttpClient();
+```
 
 
 ### Using the FluentUI Web Components
