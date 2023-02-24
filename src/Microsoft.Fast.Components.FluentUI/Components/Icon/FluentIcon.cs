@@ -13,11 +13,9 @@ public partial class FluentIcon : FluentComponentBase
     private string? _iconUrl;
     private string? _iconUrlFallback;
     private string? _color;
-    private string? _folder;
     private string? _prevResult;
 
     private int _size;
-
 
     [Inject]
     private IStaticAssetService StaticAssetService { get; set; } = default!;
@@ -85,12 +83,11 @@ public partial class FluentIcon : FluentComponentBase
     public EventCallback<MouseEventArgs> OnClick { get; set; }
 
 
-    //protected override async Task OnParametersSetAsync()
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
         string? nc = NeutralCultureName ?? null;
 
-        if (!FluentIcons.GetIconMap(IconService.Configuration.Sizes, IconService.Configuration.Variants).Any(x => x.Name == Name && x.Size == Size && x.Variant == Variant))
+        if (!FluentIcons.IconAvailable(IconService.Configuration, this))
         {
             throw new ArgumentException($"The requested icon ({Name}, {Size}, {Variant}) is not available in the collection");
         }
@@ -119,10 +116,8 @@ public partial class FluentIcon : FluentComponentBase
             }
         }
 
-        _folder = FluentIcons.GetIconMap(IconService.Configuration.Sizes, IconService.Configuration.Variants).First(x => x.Name == Name).Name;
-
-        _iconUrl = $"{ICON_ROOT}/{_folder}{(nc is not null ? "/" + nc : "")}/{ComposedName}.svg";
-        _iconUrlFallback = $"{ICON_ROOT}/{_folder}/{ComposedName}.svg";
+        _iconUrl = $"{ICON_ROOT}/{Name}{(nc is not null ? "/" + nc : "")}/{ComposedName}.svg";
+        _iconUrlFallback = $"{ICON_ROOT}/{Name}/{ComposedName}.svg";
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -134,7 +129,7 @@ public partial class FluentIcon : FluentComponentBase
             result = await StaticAssetService.GetAsync(_iconUrl);
             if (string.IsNullOrEmpty(result))
             {
-                _iconUrlFallback = $"{ICON_ROOT}/{_folder}/{ComposedName}.svg";
+                _iconUrlFallback = $"{ICON_ROOT}/{Name}/{ComposedName}.svg";
                 result = await StaticAssetService.GetAsync(_iconUrlFallback);
 
                 if (string.IsNullOrEmpty(result))
@@ -162,10 +157,7 @@ public partial class FluentIcon : FluentComponentBase
 
                 StateHasChanged();
             }
-
         }
-
-
     }
 
     protected override void BuildRenderTree(RenderTreeBuilder builder)
@@ -205,12 +197,7 @@ public partial class FluentIcon : FluentComponentBase
                 _ => ""
             };
 
-            string result = "";
-            if (Name is not null)
-                result = $"{(int)Size}_{variant}";
-
-            return result;
-
+            return $"{(int)Size}_{variant}";
         }
     }
 

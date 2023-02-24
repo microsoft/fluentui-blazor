@@ -326,6 +326,7 @@
 			<RequiredIconAssetsCandidates Include="Assets\icons\ChevronDoubleRight\20_r.svg" RelativePath="icons\ChevronDoubleRight\20_r.svg" />
 			<RequiredIconAssetsCandidates Include="Assets\icons\ChevronLeft\20_r.svg" RelativePath="icons\ChevronLeft\20_r.svg" />
 			<RequiredIconAssetsCandidates Include="Assets\icons\ChevronRight\20_r.svg" RelativePath="icons\ChevronRight\20_r.svg" />
+			<RequiredIconAssetsCandidates Include="Assets\icons\Filter\20_r.svg" RelativePath="icons\Filter\20_r.svg" />
 			
 		</ItemGroup>
 
