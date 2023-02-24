@@ -4,8 +4,8 @@ A more detailed description of all the changes and everything new can be found i
 
 **Important change:**
 
-**If you are currently *not using* icons and are not planning on using icons and/or moji in your application moving forward, 
-you do not have to make any changes to your project. If you *are* currently using icons, please read on.**
+**If you are currently *not using* icons and are *not planning* on using icons and/or moji in your application moving forward, 
+you do *not* have to make any changes to your project. If you *are* currently using icons, please read on.**
 
 With earlier versions of the library, all (then only icon) assets would always get published. Starting with this version, when not specifying settings
 in the project file with regards to usage of icons and/or emoji (see below) **NO** assets will be published to the output folder. 

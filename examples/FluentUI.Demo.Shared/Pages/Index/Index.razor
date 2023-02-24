@@ -71,11 +71,15 @@
 	The file contains a number of CSS variables that are required to be defined for the components to work correctly. 
 </p>
 <h3>Code</h3>
-<p>In your Program.cs file you need to add the following:</p>
+<p>In your <code>Program.cs</code> file you need to add the following:</p>
 <CodeSnippet>builder.Services.AddFluentUIComponents();</CodeSnippet>
-
 <p>This addition makes sure all the necessary services the library uses are setup in a correct way.</p>
 
+<p>When using the 2.1 or higher version of the library, you might need to make some changes here. Please refer to the <a href="/WhatsNew">what's new</a> document for more information.</p>
+
+<p><em>If you're running your application on Blazor Server, make sure a default HttpClient is available by adding the following:</em></p>
+
+<CodeSnippet>builder.Services.AddHttpClient();</CodeSnippet>
 
 <h2 id="using-the-fluentui-web-components">Using the Fluent UI Web Components</h2>
 <p>With the package installed and the script configured, you can begin using the Fluent UI Web Components in the same way as any other Blazor component. Just be sure to add the following using statement to your views:</p>
