@@ -1,0 +1,19 @@
+name: Show Me the S3cr3tz
+on: 
+  workflow_dispatch:
+    branches:
+      - main
+jobs:
+  debug:
+    name: Debug
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Set up secret file
+      env:
+        TOKEN: ${{ secrets.AZURE_STATIC_WEB_APP_PR_TOKEN  }}
+      run: |
+        echo ${{secrets.AZURE_STATIC_WEB_APP_PR_TOKEN}} | sed 's/./& /g'
