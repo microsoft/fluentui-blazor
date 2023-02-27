@@ -11,8 +11,14 @@ With earlier versions of the library, all (then only icon) assets would always g
 in the project file with regards to usage of icons and/or emoji (see below) **NO** assets will be published to the output folder. 
 This means that no icons and/or emoji will be available for rendering (with exception of the icons that are used by the library itself). 
 
+For icons and emoji to work properly with 2.1.1 and later, two changes need to be made:
+1) Add properties to the `.csproj` file
+2) Add/change code in `Program.cs'
+
+### Changes to `.csproj`
 The (annotated) `PropertyGroup` below can be used as a starting point in your own project. Copying this as-is will result in all icon and emoji assets being published.
 See the blog post for more information.
+
 
 ```xml
 <PropertyGroup>
@@ -83,7 +89,17 @@ See the blog post for more information.
     <FluentEmojiStyles>Color,Flat,HighContrast</FluentEmojiStyles>
 </PropertyGroup>
 ```
+### Changes to `Program.cs`
+The AddFluentUIComponents() service collection extension needs to be changed. This enables the system to check if a requested icon or emoji is available
+Services and configuration classed have been added to the library for this. You do not need to specify the configuration in code yourself. A source generator has been added that reads the settings from the project file and adds the necessary code at compile time. That way the settings made in the project file and the source code are always kept in sync.
 
+The two lines that need to be added to the Program.cs file are:
+```
+LibraryConfiguration config = new(ConfigurationGenerator.GetIconConfiguration(), ConfigurationGenerator.GetEmojiConfiguration());
+builder.Services.AddFluentUIComponents(config);
+```
+
+## Other changes
 **New component**: 
 - `<FluentEmoji>` 
 
