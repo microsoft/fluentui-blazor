@@ -9,7 +9,8 @@
 
 	<PropertyGroup>
 		<!-- 
-			The icon component is part of the library. By default, NO icons (static assets) will be included when publishing the project. 
+			The icon component is part of the library. By default, NO icons (static assets), except the icons used by the library itself,
+			will be included when publishing the project. 
 			 
 			Setting the property 'PublishFluentIconAssets' to false (default), or leaving the property out completely, will disable publishing of the 
 			icon static assets (with exception of the icons that are being used by the library itself). 
