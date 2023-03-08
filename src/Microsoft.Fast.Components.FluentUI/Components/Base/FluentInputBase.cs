@@ -83,9 +83,7 @@ public abstract class FluentInputBase<TValue> : FluentComponentBase, IDisposable
     /// </summary>
     [Parameter]
     public string? DisplayName { get; set; }
-
-
-
+    
     /// <summary>
     /// Gets the associated <see cref="AspNetCore.Components.Forms.EditContext"/>.
     /// This property is uninitialized if the input does not have a parent <see cref="EditForm"/>.
@@ -213,11 +211,16 @@ public abstract class FluentInputBase<TValue> : FluentComponentBase, IDisposable
         get
         {
             string? fieldClass = EditContext?.FieldCssClass(FieldIdentifier);
-            string? cssClass = CombineClassNames(AdditionalAttributes, fieldClass) ?? string.Empty;
+            string? cssClass = CombineClassNames(AdditionalAttributes, fieldClass);
 
-            return new CssBuilder(Class)
-                .AddClass(cssClass)
-                .Build();
+            if (!string.IsNullOrEmpty(cssClass) || !string.IsNullOrEmpty(Class))
+            {
+                return new CssBuilder(Class)
+                    .AddClass(cssClass)
+                    .Build();
+            }
+
+            return null;
         }
     }
 
