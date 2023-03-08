@@ -53,7 +53,7 @@ jobs:
     - if: matrix.language == 'csharp' 
       name: Manually build CSharp on .NET
       run: |
-        dotnet build
+        dotnet build Microsoft.Fast.sln
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
