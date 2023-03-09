@@ -14,10 +14,10 @@ public interface IBindableColumn
 /// A column that can bind to a property of model
 /// </summary>
 /// <typeparam name="TItem">Model item type</typeparam>
-/// <typeparam name="TValue">Type of property</typeparam>
-internal interface IBindableColumn<TItem, TValue> : IBindableColumn
+/// <typeparam name="TProp">Type of property</typeparam>
+internal interface IBindableColumn<TItem, TProp> : IBindableColumn
 {
 
-    public Expression<Func<TItem, TValue>> Property { get; set; }
+    public Expression<Func<TItem, TProp>> Property { get; set; }
 
 }

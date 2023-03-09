@@ -11,7 +11,7 @@ namespace Microsoft.Fast.Components.FluentUI.Infrastructure;
 /// while retaining error flow.
 /// </summary>
 /// <typeparam name="T">A type for the eventargs.</typeparam>
-internal class EventCallbackSubscribable<T>
+internal sealed class EventCallbackSubscribable<T>
 {
     private readonly Dictionary<EventCallbackSubscriber<T>, EventCallback<T>> _callbacks = new();
 

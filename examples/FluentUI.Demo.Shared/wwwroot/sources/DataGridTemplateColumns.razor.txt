@@ -9,9 +9,9 @@
             </nobr>
         </div>
     </TemplateColumn>
-    <TemplateColumn Title="Actions">
-        <FluentButton Appearance="Appearance.Accent" @onclick="@(() => Hire(context))">Hire</FluentButton>
-        <FluentButton Appearance="Appearance.Accent" @onclick="@(() => Fire(context))">Fire</FluentButton>
+    <TemplateColumn Title="Bonus">
+        <FluentButton Appearance="Appearance.Accent" @onclick="@(() => Bonus(context))">Regular</FluentButton>
+        <FluentButton Appearance="Appearance.Accent" @onclick="@(() => DoubleBonus(context))">Double</FluentButton>
     </TemplateColumn>
 </FluentDataGrid>
 
@@ -25,7 +25,7 @@
         .ByAscending(p => p.LastName)
         .ThenAscending(p => p.FirstName);
 
-    void Hire(Person p) => message = $"You want to hire {p.FirstName} {p.LastName}";
+    void Bonus(Person p) => message = $"You want to give {p.FirstName} {p.LastName} a regular bonus";
 
-    void Fire(Person p) => message = $"You want to fire {p.FirstName} {p.LastName}";
+    void DoubleBonus(Person p) => message = $"You want to give {p.FirstName} {p.LastName} a double bonus";
 }

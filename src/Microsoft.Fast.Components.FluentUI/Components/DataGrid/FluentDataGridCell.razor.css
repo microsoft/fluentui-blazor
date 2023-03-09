@@ -8,10 +8,10 @@
     padding-inline: 0;
 }
 
-    .column-header.col-justify-end {
+    .column-header.col-justify-end, .column-header.col-justify-right {
         width: 100%;
         padding: 0;
-        justify-content:end;
+        justify-content: end;
     }
 
     .column-header.col-justify-center {
@@ -25,11 +25,11 @@
         padding-inline-end: 5px;
     }
 
-    .column-header.col-justify-end ::deep .col-title-text {
+    .column-header.col-justify-end ::deep .col-title-text, .column-header.col-justify-right ::deep .col-title-text {
         text-align: end;
     }
 
-    .column-header.col-justify-end ::deep .col-sort-button {
+    .column-header.col-justify-end ::deep .col-sort-button, .column-header.col-justify-right ::deep .col-sort-button {
         justify-content: end;
     }
 
@@ -37,7 +37,7 @@
         text-align: center;
     }
 
-    .column-header.col-justify-end ::deep .col-sort-button {
+    .column-header.col-justify-end ::deep .col-sort-button, .column-header.col-justify-right ::deep .col-sort-button {
         justify-content: end;
         text-align: end;
     }
@@ -51,7 +51,7 @@
     justify-content: center;
 }
 
-.col-justify-end ::deep .col-sort-button::part(control) {
+.col-justify-end ::deep .col-sort-button::part(control), .col-justify-right ::deep .col-sort-button::part(control) {
     justify-content: end;
 }
 
@@ -59,12 +59,12 @@
     justify-self: center;
 }
 
-.col-justify-end {
+.col-justify-end, .col-justify-right {
     justify-self: end;
     padding-inline-end: 20px;
 }
 
-    .col-justify-end .col-title {
+    .col-justify-end .col-title, .col-justify-right .col-title {
         justify-content: end;
     }
 

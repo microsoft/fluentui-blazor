@@ -74,9 +74,9 @@
             @for (var colIndex = 0; colIndex < _columns.Count; colIndex++)
             {
                 var col = _columns[colIndex];
-
+            
                 <FluentDataGridCell GridColumn=@(colIndex+1) Class="@ColumnClass(col)" @key="@col" TGridItem="TGridItem">
-                        @((RenderFragment)(__builder => col.CellContent(__builder, item)))
+                    @((RenderFragment)(__builder => col.CellContent(__builder, item)))
                 </FluentDataGridCell>
             }
         </FluentDataGridRow>
@@ -104,7 +104,7 @@
         {
             var col = _columns[colIndex];
             string CellId = Identifier.NewId();
-            if (_sortByColumn == col || (_sortByColumn == col && col.IsDefaultSort != null))
+            if (_sortByColumn == col) 
                 col.ShowSortIcon = true;
             else
                 col.ShowSortIcon = false;

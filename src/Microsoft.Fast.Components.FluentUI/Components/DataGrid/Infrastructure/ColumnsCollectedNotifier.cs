@@ -1,6 +1,7 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
+using System.ComponentModel;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
@@ -32,17 +33,20 @@ namespace Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
 /// For internal use only. Do not use.
 /// </summary>
 /// <typeparam name="TGridItem">For internal use only. Do not use.</typeparam>
-public class ColumnsCollectedNotifier<TGridItem> : IComponent
+[EditorBrowsable(EditorBrowsableState.Never)]
+public sealed class ColumnsCollectedNotifier<TGridItem> : AspNetCore.Components.IComponent
 {
     private bool _isFirstRender = true;
 
     [CascadingParameter] internal InternalGridContext<TGridItem> InternalGridContext { get; set; } = default!;
 
+    /// <inheritdoc/>
     public void Attach(RenderHandle renderHandle)
     {
         // This component never renders, so we can ignore the renderHandle
     }
 
+    /// <inheritdoc/>
     public Task SetParametersAsync(ParameterView parameters)
     {
         if (_isFirstRender)

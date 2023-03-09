@@ -11,7 +11,7 @@ namespace Microsoft.Fast.Components.FluentUI.Infrastructure;
 /// and automatically unsubscribes from earlier <see cref="EventCallbackSubscribable{T}"/> instances
 /// whenever it moves to a new one.
 /// </summary>
-internal class EventCallbackSubscriber<T> : IDisposable
+internal sealed class EventCallbackSubscriber<T> : IDisposable
 {
     private readonly EventCallback<T> _handler;
     private EventCallbackSubscribable<T>? _existingSubscription;
@@ -39,5 +39,8 @@ internal class EventCallbackSubscriber<T> : IDisposable
         }
     }
 
-    public void Dispose() => _existingSubscription?.Unsubscribe(this);
+    public void Dispose()
+    {
+        _existingSubscription?.Unsubscribe(this);
+    }
 }

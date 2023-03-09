@@ -126,7 +126,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter] public Func<TGridItem, string>? RowClass { get; set; }
 
     [Inject] private IServiceProvider Services { get; set; } = default!;
-    [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
+    [Inject] private IJSRuntime JS { get; set; } = default!;
 
     private ElementReference _gridReference;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;
@@ -139,8 +139,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     // We cascade the InternalGridContext to descendants, which in turn call it to add themselves to _columns
     // This happens on every render so that the column list can be updated dynamically
-    private InternalGridContext<TGridItem> _internalGridContext;
-    private List<ColumnBase<TGridItem>> _columns;
+    private readonly InternalGridContext<TGridItem> _internalGridContext;
+    private readonly List<ColumnBase<TGridItem>> _columns;
     private bool _collectingColumns; // Columns might re-render themselves arbitrarily. We only want to capture them at a defined time.
 
     // Tracking state for options and sorting
@@ -223,28 +223,28 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         if (firstRender)
         {
-            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Microsoft.Fast.Components.FluentUI/Components/DataGrid/FluentDataGrid.razor.js");
+            _jsModule = await JS.InvokeAsync<IJSObjectReference>("import", "./_content/Microsoft.Fast.Components.FluentUI/Components/DataGrid/FluentDataGrid.razor.js");
             _jsEventDisposable = await _jsModule.InvokeAsync<IJSObjectReference>("init", _gridReference);
         }
 
         if (_checkColumnOptionsPosition && _displayOptionsForColumn is not null)
         {
             _checkColumnOptionsPosition = false;
-            _ = _jsModule?.InvokeVoidAsync("checkColumnOptionsPosition", _gridReference);
+            _ = _jsModule?.InvokeVoidAsync("checkColumnOptionsPosition", _gridReference).AsTask();
         }
     }
 
     // Invoked by descendant columns at a special time during rendering
-    internal void AddColumn(ColumnBase<TGridItem> column, SortDirection? isDefaultSortDirection)
+    internal void AddColumn(ColumnBase<TGridItem> column, SortDirection? initialSortDirection, bool isDefaultSortColumn)
     {
         if (_collectingColumns)
         {
             _columns.Add(column);
 
-            if (_sortByColumn is null && isDefaultSortDirection.HasValue)
+            if (isDefaultSortColumn && _sortByColumn is null && initialSortDirection.HasValue)
             {
                 _sortByColumn = column;
-                _sortByAscending = isDefaultSortDirection.Value != SortDirection.Descending;
+                _sortByAscending = initialSortDirection.Value != SortDirection.Descending;
             }
         }
     }
@@ -272,7 +272,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             SortDirection.Ascending => true,
             SortDirection.Descending => false,
-            SortDirection.Auto => _sortByColumn == column ? !_sortByAscending : true,
+            SortDirection.Auto => _sortByColumn != column || !_sortByAscending,
             _ => throw new NotSupportedException($"Unknown sort direction {direction}"),
         };
 
@@ -287,11 +287,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// options UI that was previously displayed.
     /// </summary>
     /// <param name="column">The column whose options are to be displayed, if any are available.</param>
-    public void ShowColumnOptions(ColumnBase<TGridItem> column)
+    public Task ShowColumnOptionsAsync(ColumnBase<TGridItem> column)
     {
         _displayOptionsForColumn = column;
-        _checkColumnOptionsPosition = true; // Triggers a call to JSRuntime to position the options element, apply autofocus, and any other setup
+        _checkColumnOptionsPosition = true; // Triggers a call to JS to position the options element, apply autofocus, and any other setup
         StateHasChanged();
+        return Task.CompletedTask;
     }
 
     /// <summary>
@@ -434,8 +435,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     private static string? ColumnClass(ColumnBase<TGridItem> column) => column.Align switch
     {
+        Align.Start => $"col-justify-start {column.Class}",
         Align.Center => $"col-justify-center {column.Class}",
-        Align.Right => $"col-justify-end {column.Class}",
+        Align.End => $"col-justify-end {column.Class}",
+        Align.Left => $"col-justify-left {column.Class}",
+        Align.Right => $"col-justify-right {column.Class}",
         _ => column.Class,
     };
 
@@ -459,7 +463,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
         catch (JSDisconnectedException)
         {
-            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
+            // The JS side may routinely be gone already if the reason we're disposing is that
             // the client disconnected. This is not an error.
         }
     }
@@ -478,7 +482,4 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             await OnRowFocus.InvokeAsync(row);
         }
     }
-
-    Task IHandleEvent.HandleEventAsync(
-      EventCallbackWorkItem callback, object? arg) => callback.InvokeAsync(arg);
 }

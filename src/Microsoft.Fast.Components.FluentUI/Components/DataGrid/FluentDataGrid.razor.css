@@ -18,14 +18,14 @@ fluent-data-grid {
     
 }
 
-.col-justify-end .col-options {
+.col-justify-end .col-options, .col-justify-right .col-options {
     left: unset;
-    right: 15px;
+    right: 0.2rem;
 }
 
-[dir=rtl] .col-justify-end .col-options {
+[dir=rtl] .col-justify-end .col-options, [dir=rtl] .col-justify-right .col-options {
     right: unset;
-    left: 15px;
+    left: 0.2rem;
 }
 
 ::deep > fluent-data-grid-row > fluent-data-grid-cell.grid-cell-placeholder:after {
