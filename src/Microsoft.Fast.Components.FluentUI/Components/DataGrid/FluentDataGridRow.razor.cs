@@ -6,7 +6,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 [CascadingTypeParameter(nameof(TGridItem))]
 public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandleEvent, IDisposable
 {
-    internal static int index = 0;
+    //internal static int index = 0;
     internal string RowId { get; } = Identifier.NewId();
     private readonly Dictionary<string, FluentDataGridCell<TGridItem>> cells = new();
 
@@ -48,7 +48,7 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     protected override void OnInitialized()
     {
         Owner.Register(this);
-        RowIndex = index++;
+        //RowIndex = index++;
     }
 
     protected override void OnParametersSet()
