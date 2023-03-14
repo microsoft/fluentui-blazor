@@ -2,6 +2,14 @@
 
 A more detailed description of all the changes and everything new can be found in [this blog post](https://baaijte.net/blog/whats-new-in-the-microsoft-fluent-ui-library-for-blazor-version-21/) 
 
+### Notice
+
+**----------------------------------------**
+
+An issue has surfaced in **hosted** Blazor projects with version 2.1 and higher. The Client project does not work correctly unless the package is also added to the Server project (without any further changes to the Server's `.csproj` file). We are working together with the AS.NET Core team to solve this. See https://github.com/dotnet/aspnetcore/issues/47135
+
+**----------------------------------------**
+
 **Important change:**
 
 **If you are currently *not using* icons and are *not planning* on using icons and/or moji in your application moving forward, 
