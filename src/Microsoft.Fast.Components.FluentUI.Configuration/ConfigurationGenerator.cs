@@ -103,12 +103,21 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
 
             //sb.AppendLine($"using Microsoft.Extensions.DependencyInjection;");
             //sb.AppendLine($"");
+            
             sb.AppendLine($"namespace Microsoft.Fast.Components.FluentUI;");
             sb.AppendLine($"");
+            sb.AppendLine("///<summary>");
+            sb.AppendLine("/// This class contains the configuration for icons and emoji,");
+            sb.AppendLine("/// generated from the settings in the project file.");
+            sb.AppendLine("///</summary>");
             sb.AppendLine("public static class ConfigurationGenerator");
             sb.AppendLine("{");
 
             //Create IconConfiguration
+            sb.AppendLine("\t///<summary>");
+            sb.AppendLine("\t/// Returns the icon configuration,");
+            sb.AppendLine("\t/// generated from the settings in the project file.");
+            sb.AppendLine("\t///</summary>");
             sb.AppendLine("\tpublic static IconConfiguration GetIconConfiguration()");
             sb.AppendLine("\t{");
             sb.AppendLine($"\t\tIconConfiguration config = new({publishedIconAssets.ToString().ToLower()});");
@@ -122,6 +131,10 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
 
 
             //Create EmojiConfiguration
+            sb.AppendLine("\t///<summary>");
+            sb.AppendLine("\t/// Returns the emoji configuration,");
+            sb.AppendLine("\t/// generated from the settings in the project file.");
+            sb.AppendLine("\t///</summary>");
             sb.AppendLine("\tpublic static EmojiConfiguration GetEmojiConfiguration()");
             sb.AppendLine("\t{");
             sb.AppendLine($"\t\tEmojiConfiguration config = new({publishedEmojiAssets.ToString().ToLower()});");
