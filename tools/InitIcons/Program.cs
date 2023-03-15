@@ -19,7 +19,7 @@ static void RenameFile(string folder, string file)
 
 }
 
-const string relRootFolder = @"..\Microsoft.Fast.Components.FluentUI\Assets\icons";
+const string relRootFolder = @"..\..\src\Microsoft.Fast.Components.FluentUI\Assets\icons";
 
 string sCurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
 string sRoot = Path.Combine(sCurrentDirectory, @"..\..\..");

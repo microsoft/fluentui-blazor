@@ -9,6 +9,7 @@ namespace Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
 // so that it doesn't show up by mistake in unrelated components.
 internal sealed class InternalGridContext<TGridItem>
 {
+    private int index=0;
     public Dictionary<string, FluentDataGridRow<TGridItem>> Rows { get; set; } = new();
 
     public FluentDataGrid<TGridItem> Grid { get; }
@@ -22,6 +23,7 @@ internal sealed class InternalGridContext<TGridItem>
     internal void Register(FluentDataGridRow<TGridItem> row)
     {
         Rows.Add(row.RowId, row);
+        row.RowIndex = index++;
     }
 
     internal void Unregister(FluentDataGridRow<TGridItem> row)
