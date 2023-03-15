@@ -10,7 +10,9 @@ public partial class FluentIcons
         new IconModel("ChevronDoubleRight", IconSize.Size20, IconVariant.Regular),
         new IconModel("ChevronLeft", IconSize.Size20, IconVariant.Regular),
         new IconModel("ChevronRight", IconSize.Size20, IconVariant.Regular),
-        new IconModel("Filter", IconSize.Size20, IconVariant.Regular)
+        new IconModel("Filter", IconSize.Size20, IconVariant.Regular),
+        new IconModel("Info", IconSize.Size20, IconVariant.Regular),
+        new IconModel("Info", IconSize.Size32, IconVariant.Regular)
     };
 
     public static IEnumerable<IconModel> GetIconMap(IconSize[] sizes, IconVariant[] variants)

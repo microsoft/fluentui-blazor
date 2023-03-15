@@ -1,4 +1,5 @@
 <Project>
+	<Import Project="Microsoft.AspNetCore.StaticWebAssets.props" />
 	<ItemGroup>
 		<CompilerVisibleProperty Include="PublishFluentIconAssets" />
 		<CompilerVisibleProperty Include="PublishFluentEmojiAssets" />
@@ -16,5 +17,4 @@
 		<FluentEmojiGroups Condition="'$(FluentEmojiGroups)' == ''">Activities,Animals_Nature,Flags,Food_Drink,Objects,People_Body,Smileys_Emotion,Symbols,Travel_Places</FluentEmojiGroups>
 		<FluentEmojiStyles Condition="'$(FluentEmojiStyles)' == ''">Color,Flat,HighContrast</FluentEmojiStyles>
 	</PropertyGroup>
-	<Import Project="Microsoft.AspNetCore.StaticWebAssets.props" />
 </Project>
