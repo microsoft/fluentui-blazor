@@ -50,6 +50,7 @@ jobs:
         dotnet-version: |
             6.0.407
             7.0.202
+            8.0.x
         include-prerelease: true
     
     - name: Create build number
@@ -93,6 +94,7 @@ jobs:
           dotnet-version: |
             6.0.407
             7.0.202
+            8.0.x
           include-prerelease: true
       
       - name: Download package
