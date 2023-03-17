@@ -1,9 +1,10 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentHorizontalScroll : FluentComponentBase
+public partial class FluentHorizontalScroll : FluentComponentBase, IAsyncDisposable
 {
     /// <summary>
     /// Description: Scroll speed in pixels per second
@@ -41,10 +42,54 @@ public partial class FluentHorizontalScroll : FluentComponentBase
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
+
+    private ElementReference _horizontalScrollReference;
+    private IJSObjectReference? _jsModule;
+
+
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(HorizontalScrollEventArgs))]
 
     public FluentHorizontalScroll()
     {
-        
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Microsoft.Fast.Components.FluentUI/Components/HorizontalScroll/HorizontalScroll.razor.js");
+        }
+    }
+
+    public void ScrollToPrevious()
+    {
+        _jsModule?.InvokeVoidAsync("scrollToPrevious", _horizontalScrollReference);
+    }
+
+    public void ScrollToNext()
+    {
+        _jsModule?.InvokeVoidAsync("scrollToNext", _horizontalScrollReference);
+    }
+
+    public void ScrollInView(int viewIndex)
+    {
+        _jsModule?.InvokeVoidAsync("scrollInView", _horizontalScrollReference, viewIndex);
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        try
+        {
+            if (_jsModule is not null)
+            {
+                await _jsModule.DisposeAsync();
+            }
+        }
+        catch (JSDisconnectedException)
+        {
+            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
+            // the client disconnected. This is not an error.
+        }
     }
 }
