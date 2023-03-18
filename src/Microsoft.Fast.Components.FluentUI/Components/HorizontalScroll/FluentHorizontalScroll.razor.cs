@@ -44,7 +44,6 @@ public partial class FluentHorizontalScroll : FluentComponentBase, IAsyncDisposa
 
     [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
 
-    private ElementReference _horizontalScrollReference;
     private IJSObjectReference? _jsModule;
 
 
@@ -64,17 +63,17 @@ public partial class FluentHorizontalScroll : FluentComponentBase, IAsyncDisposa
 
     public void ScrollToPrevious()
     {
-        _jsModule?.InvokeVoidAsync("scrollToPrevious", _horizontalScrollReference);
+        _jsModule?.InvokeVoidAsync("scrollToPrevious", Element);
     }
 
     public void ScrollToNext()
     {
-        _jsModule?.InvokeVoidAsync("scrollToNext", _horizontalScrollReference);
+        _jsModule?.InvokeVoidAsync("scrollToNext", Element);
     }
 
     public void ScrollInView(int viewIndex)
     {
-        _jsModule?.InvokeVoidAsync("scrollInView", _horizontalScrollReference, viewIndex);
+        _jsModule?.InvokeVoidAsync("scrollInView", Element, viewIndex);
     }
 
     public async ValueTask DisposeAsync()
