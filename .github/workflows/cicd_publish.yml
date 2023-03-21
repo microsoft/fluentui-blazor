@@ -48,8 +48,8 @@ jobs:
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: |
-            6.0.406
-            7.0.200
+            6.0.407
+            7.0.202
         include-prerelease: true
     
     - name: Create build number
@@ -91,8 +91,8 @@ jobs:
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: |
-            6.0.406
-            7.0.200
+            6.0.407
+            7.0.202
           include-prerelease: true
       
       - name: Download package
