@@ -18,13 +18,13 @@ steps:
 - task: UseDotNet@2
   displayName: 'Install .NET 6.0'
   inputs:
-    version: 6.0.405
+    version: 6.0.407
     includePreviewVersions: true
 
 - task: UseDotNet@2
   displayName: 'Install .NET 7.0'
   inputs:
-    version: 7.0.102
+    version: 7.0.202
     includePreviewVersions: true
 
 - task: DotNetCoreCLI@2
