@@ -1990,7 +1990,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadioGroup`1.Orientation">
             <summary>
-            Gets or sets the orentation of the group. See <see cref="T:Microsoft.Fast.Components.FluentUI.Orientation"/>
+            Gets or sets the orientation of the group. See <see cref="T:Microsoft.Fast.Components.FluentUI.Orientation"/>
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadioGroup`1.ChildContent">
