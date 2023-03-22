@@ -11,7 +11,7 @@
 	 <PublishRepositoryUrl>true</PublishRepositoryUrl>
 	 <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
 	 <VersionPrefix>2.2.0</VersionPrefix>
-	 <VersionSuffix></VersionSuffix> 
+	 <VersionSuffix>preview.2</VersionSuffix> 
 	 <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
  </PropertyGroup>
 </Project>
