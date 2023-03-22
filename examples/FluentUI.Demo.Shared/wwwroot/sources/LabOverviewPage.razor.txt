@@ -10,10 +10,10 @@
 </p>
 <p>
     As these components are not part of the official library, they are not included in the NuGet package. Also, please note that we only 
-    offer support for these specific components through the <a href="https://github.com/microsoft/fast-blazor/">GitHub repository</a> on a best effort base.
+    offer support for these specific components through the <a href="https://github.com/microsoft/fluentui-blazor/">GitHub repository</a> on a best effort base.
     <br />
     We hope you will help us test-drive the components, both here in the demo environment but also in your own projects, and give us 
-    feedback (at our <a href="https://github.com/microsoft/fast-blazor/discussions">repo's discussion board'</a>).
+    feedback (at our <a href="https://github.com/microsoft/fluentui-blazor/discussions">repo's discussion board'</a>).
 </p>
 <p>
     Most components will show download links for the Razor (<code>.razor</code>), C# (<code>.cs</code>), CSS (<code>.css</code>) and JavaScript 
