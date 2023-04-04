@@ -394,4 +394,4 @@ We look forward to building an amazing open source community with you!
 * The Microsoft [Fluent UI Blazor components demo](https://aka.ms/fluentui-blazor) site
 * The Microsoft [Fluent UI Blazor components documentation](https://learn.microsoft.com/en-us/fluent-ui/web-components/)
 * The [Fluent UI Web components demo](https://fluent-components.azurewebsites.net/?path=/docs/getting-started-overview--page) site
-* The [FAST(https://www.fast.design/) site
+* The [FAST](https://www.fast.design/) site
