@@ -62,7 +62,6 @@
 		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
-		<PackageReference Include="System.Text.Json" Version="6.0.7" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)'=='net7.0'">
@@ -70,7 +69,6 @@
 		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
-		<PackageReference Include="System.Text.Json" Version="7.0.2" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)'=='net8.0'">
@@ -82,6 +80,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="System.Text.Json" Version="7.0.2" />
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
 	</ItemGroup>
 
