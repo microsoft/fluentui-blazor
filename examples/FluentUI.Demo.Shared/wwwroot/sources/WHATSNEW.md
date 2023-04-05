@@ -1,8 +1,6 @@
 ## V2.2
-For version 2.2 we are adding .NET 8 support. We are jumping on-board the preview and release train starting with preview 2. 
-
-One important new feature in Blazor with .NET 8 s the addition of the QuickGrid component. QuickGrid is a high performance grid 
-component for displaying data in tabular form. It is built to be a simple and convenient way to display your data, while 
+For version 2.2 we started working on adding .NET 8 support. One important new feature in Blazor with .NET 8 is the addition of the QuickGrid component. 
+QuickGrid is a high performance grid component for displaying data in tabular form. It is built to be a simple and convenient way to display your data, while 
 still providing powerful features like sorting, filtering, paging, and virtualization. 
 
 QuickGrid was originally introduced as an experimental package based on .NET 7 and we copied it's code over to the Fluent UI library to re-use it's 
@@ -10,14 +8,25 @@ features (and some more) but render it with the Fluent UI Web Components instead
 of bringing QuickGrid into .NET 8 the ASP.NET Core team made some changes and improvements to the API. We brougth these changes over to the `<FluentDataGrid>` as well. To update an app that uses `<FluentDataGrid>`, 
 you may need to make the following adjustments:
 
+**------BREAKING CHANGES------**
 - Rename the `Value` attribute on the `Paginator` component to `State`
 - Rename the `IsDefaultSort` attribute on columns to `InitialSortDirection` and add `IsDefaultSortColumn=true` to indicate the column should still be sorted by default.
 
+**------BREAKING CHANGES------**
+
 *To use the `<FluentDataGrid>` component, you do not need to add a reference to the `Microsoft.AspNetCore.Components.QuickGrid` package to your project. In fact, if you do so it will lead to compilation errors.*
 
-
-
 All the examples in the [demo site](https://aka.ms/fluentui-blazor) have been updated to reflect these changes.
+
+
+Because of .NET 8 not yet being available on GitHub Actions yet, we cannot supply a NuGet package targetting that version yet. If you want to create your own package, you need to augment the `<TargetFramworks>` property in the solutions `.csproj` files so it reads the following:
+
+```xml
+<TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
+```
+
+After that you need to build the solution yourself and run `dotnet pack` on the `Microsoft.Fast.Components.FluentUI` project
+
 
 ## V2.1
 
