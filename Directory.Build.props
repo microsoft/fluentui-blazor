@@ -4,9 +4,9 @@
 	 <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
 	 <NeutralLanguage>en</NeutralLanguage>
 	 <Owners>Microsoft Corporation</Owners>
-	 <PackageProjectUrl>https://github.com/microsoft/fast-blazor</PackageProjectUrl>
+	 <PackageProjectUrl>https://github.com/microsoft/fluentui-blazor</PackageProjectUrl>
 	 <PackageLicenseExpression>MIT</PackageLicenseExpression>
-	 <RepositoryUrl>https://github.com/microsoft/fast-blazor</RepositoryUrl>
+	 <RepositoryUrl>https://github.com/microsoft/fluentui-blazor</RepositoryUrl>
 	 <RepositoryType>git</RepositoryType>
 	 <PublishRepositoryUrl>true</PublishRepositoryUrl>
 	 <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>

@@ -1,6 +1,5 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
-using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using System.Reflection;
 using Microsoft.AspNetCore.Components;
@@ -16,6 +15,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// <typeparam name="TProp">The type of the value being displayed in the column's cells.</typeparam>
 public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindableColumn<TGridItem, TProp>
 {
+
 	private Expression<Func<TGridItem, TProp>>? _lastAssignedProperty;
 	private Func<TGridItem, string?>? _cellTextFunc;
 	private GridSort<TGridItem>? _sortBuilder;
@@ -97,5 +97,6 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
 	/// <inheritdoc />
 	protected internal override void CellContent(RenderTreeBuilder builder, TGridItem item)
 		=> builder.AddContent(0, _cellTextFunc!(item));
+
 
 }

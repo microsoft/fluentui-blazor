@@ -11,7 +11,7 @@
 		<License>MIT</License>
 		<PackageId>Microsoft.Fast.Templates.FluentUI</PackageId>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PackageProjectUrl>https://github.com/microsoft/fast-blazor</PackageProjectUrl>
+		<PackageProjectUrl>https://github.com/microsoft/fluentui-blazor</PackageProjectUrl>
 		<PackageTags>templates;fast;fast-blazor;blazor;fluentui;web-assembly</PackageTags>
 		<PackageType>Template</PackageType>
 		<PackageVersion>2.0.4</PackageVersion>

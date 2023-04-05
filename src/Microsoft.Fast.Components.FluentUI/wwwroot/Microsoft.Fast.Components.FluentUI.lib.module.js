@@ -15,6 +15,14 @@
             };
         }
     });
+    Blazor.registerCustomEventType('switchcheckedchange', {
+        browserEventName: 'change',
+        createEventArgs: event => {
+            return {
+                checked: event.target.checked
+            };
+        }
+    });
     Blazor.registerCustomEventType('accordionchange', {
         browserEventName: 'change',
         createEventArgs: event => {

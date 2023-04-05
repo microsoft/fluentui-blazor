@@ -17,7 +17,7 @@ public partial class FluentRadioGroup<[DynamicallyAccessedMembers(DynamicallyAcc
     private FluentRadioContext? _context;
 
     /// <summary>
-    /// Gets or sets the orentation of the group. See <see cref="FluentUI.Orientation"/>
+    /// Gets or sets the orientation of the group. See <see cref="FluentUI.Orientation"/>
     /// </summary>
     [Parameter]
     public Orientation? Orientation { get; set; }
