@@ -18,6 +18,10 @@ you may need to make the following adjustments:
 
 All the examples in the [demo site](https://aka.ms/fluentui-blazor) have been updated to reflect these changes.
 
+### New features
+- Updated Fluent UI System Icons to version 1.1.198
+
+### .NET 8 package
 
 Because of .NET 8 not yet being available on GitHub Actions yet, we cannot supply a NuGet package targetting that version yet. If you want to create your own package, you need to augment the `<TargetFramworks>` property in the solutions `.csproj` files so it reads the following:
 
