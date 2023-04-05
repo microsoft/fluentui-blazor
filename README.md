@@ -25,7 +25,7 @@ The FluentUI Web Components are built on [FAST](https://www.fast.design/) and wo
 
 ## When upgrading from an earlier version 
 
-If you are upgrading from an earlier version of the library, please see the [what's new](WHATSNEW.md) for information on (breaking) changes.
+If you are upgrading from an earlier version of the library, please see the [what's new](https://aka.ms/fluentui-blazor/whatsnew) for information on (breaking) changes.
 
 ## Getting Started
 
@@ -112,7 +112,7 @@ builder.Services.AddFluentUIComponents();
 
 This addition makes sure all the necessary services the library uses are setup in a correct way.
 
-**When using the 2.1 or higher version of the library, you might need to make some changes here. Please refer to the [what's new](WHATSNEW.md) document for more information.**
+**When using the 2.1 or higher version of the library, you might need to make some changes here. Please refer to the [what's new](https://aka.ms/fluentui-blazor/whatsnew) document for more information.**
 
 *If you're running your application on Blazor Server, make sure a default HttpClient is available by adding the following:*
 
