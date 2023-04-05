@@ -1,13 +1,6 @@
 ﻿@if (!string.IsNullOrEmpty(Title)) 
 {
-    @if (New) 
-    {
-        <h3 id="@Title.Replace(' ','-').ToLower()">@Title <NewBadge /></h3>
-    }
-    else 
-    {
-        <h3 id="@Title.Replace(' ','-').ToLower()">@Title</h3>
-    }
+    <h3 id="@Title.Replace(' ','-').ToLower()">@Title</h3>
 }
 
 @if (Description != null) 
@@ -67,7 +60,7 @@
 @if (ShowDownloads) 
 {
     <div class="demo-section-downloads">
-        <Spacer />
+        <FluentSpacer />
         Download:&nbsp;
         @foreach (string source in _allFiles) 
         {

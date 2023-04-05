@@ -1,4 +1,4 @@
-﻿@page "/Lab/NavMenu"
+﻿@page "/NavMenu"
 
 <h1>NavMenu, NavMenuGroup and NavMenuLink</h1>
 <p>

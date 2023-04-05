@@ -1,4 +1,4 @@
-﻿@page "/Lab/TableOfContents"
+﻿@page "/TableOfContents"
 
 <h1>Table of Contents</h1>
 

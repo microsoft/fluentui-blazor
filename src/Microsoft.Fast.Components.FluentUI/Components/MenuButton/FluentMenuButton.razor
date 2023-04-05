@@ -1,0 +1,20 @@
+﻿@namespace Microsoft.Fast.Components.FluentUI
+@using Microsoft.Fast.Components.FluentUI.DesignTokens
+@inherits FluentComponentBase
+@implements IAsyncDisposable
+
+@inject IJSRuntime JSRuntime;
+
+<div>
+    <FluentButton @ref="Button" id="@idButton" Appearance="Appearance.Accent" aria-haspopup="true" aria-expanded="@toggle" @onclick=ToggleMenu @onkeydown=OnKeyDown>
+        @Text
+        <FluentIcon Slot="end" Name="@FluentIcons.ChevronDown" Color="@Color.Fill" />
+    </FluentButton>
+    <FluentMenu @ref="Menu" id="@idMenu" Class="@menuClass" aria-labelledby="button" @onmenuchange=OnMenuChange>
+        @foreach (KeyValuePair<string, string> item in Items)
+        {
+            <FluentMenuItem id="@item.Key">@item.Value</FluentMenuItem>
+        }
+    </FluentMenu>
+</div>
+

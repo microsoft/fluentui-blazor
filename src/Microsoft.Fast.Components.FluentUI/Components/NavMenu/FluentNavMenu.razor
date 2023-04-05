@@ -1,0 +1,22 @@
+﻿@namespace Microsoft.Fast.Components.FluentUI
+
+@inherits FluentComponentBase
+<div>
+    <CascadingValue Value="this" Name="NavMenu" IsFixed="true">
+        <CascadingValue Value="Expanded" Name="NavMenuExpanded">
+            <FluentTreeView Class="@ClassValue"
+                            Style="@StyleValue"
+                            OnSelectedChange="HandleSelectedChange">
+                @if (Collapsible) {
+                    <FluentButton Appearance="Appearance.Lightweight"
+                              Class="navmenu-main-button"
+                              @onclick="CollapsibleClickAsync"
+                              title="@Title">
+                        <FluentIcon Name="@(FluentIcons.Navigation)" Size="IconSize.Size20" />
+                    </FluentButton>
+                }
+                @ChildContent
+            </FluentTreeView>
+        </CascadingValue>
+    </CascadingValue>
+</div>

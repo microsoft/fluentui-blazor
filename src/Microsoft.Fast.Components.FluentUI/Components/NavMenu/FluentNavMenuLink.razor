@@ -1,0 +1,23 @@
+﻿@namespace Microsoft.Fast.Components.FluentUI
+
+@inherits FluentComponentBase
+<FluentTreeItem Id="@Id"
+                Class="@ClassValue"
+                Style="@StyleValue"
+                Disabled="@Disabled"
+                Selected="@Selected"
+                Text="@(NavMenuExpanded ? Text : string.Empty)">
+    @if (HasIcon)
+    {
+        <FluentIcon Name="@Icon" Size="@IconSize.Size20" Slot="start" OnClick="HandleIconClick"/>
+    } 
+    @if (!HasIcon && NavMenu.HasIcons)
+    {
+        <span style="width:20px;" slot="start"></span>
+    }
+    @if (NavMenuExpanded)
+    {
+        @ChildContent
+    }
+    
+</FluentTreeItem>

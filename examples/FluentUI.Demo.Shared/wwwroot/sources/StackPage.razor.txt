@@ -1,4 +1,4 @@
-﻿@page "/Lab/Stack"
+﻿@page "/Stack"
 
 <h1>Stack</h1>
 <p>

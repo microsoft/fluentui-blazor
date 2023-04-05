@@ -1,4 +1,4 @@
-﻿@page "/Lab/Header"
+﻿@page "/Header"
 
 <h1>Header</h1>
 

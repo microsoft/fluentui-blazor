@@ -1,4 +1,4 @@
-﻿@page "/Lab/MarkdownSection"
+﻿@page "/MarkdownSection"
 
 
 <h1>MarkdownSection</h1>

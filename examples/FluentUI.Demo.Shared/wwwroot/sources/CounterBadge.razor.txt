@@ -3,7 +3,7 @@
 
 @if (Count.HasValue && Count != 0 || ShowZero && Count == 0 )
 {
-    <div class="counterbadge-container">
+    <div class="FluentCounterBadge-container">
         @ChildContent
         @if (Count.HasValue || BadgeContent != null)
         {

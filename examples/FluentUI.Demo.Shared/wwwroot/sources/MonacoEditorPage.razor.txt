@@ -1,4 +1,4 @@
-﻿@page "/Lab/MonacoEditor"
+﻿@page "/MonacoEditor"
 
 <h1>MonacoEditor</h1>
 

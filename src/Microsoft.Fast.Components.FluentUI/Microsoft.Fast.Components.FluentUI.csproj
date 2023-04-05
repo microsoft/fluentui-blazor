@@ -51,6 +51,23 @@
 
 	<ItemGroup>
 		<None Include="..\..\README.md" Pack="true" PackagePath="\" />
+		<None Include="Components\BodyContent\FluentBodyContent.razor" />
+		<None Include="Components\CounterBadge\FluentCounterBadge.razor" />
+		<None Include="Components\Footer\FluentFooter.razor" />
+		<None Include="Components\Header\FluentHeader.razor" />
+		<None Include="Components\Highlighter\FluentHighlighter.razor" />
+		<None Include="Components\Layout\FluentLayout.razor" />
+		<None Include="Components\MainLayout\FluentMainLayout.razor" />
+		<None Include="Components\Main\FluentMain.razor" />
+		<None Include="Components\MarkdownSection\FluentMarkdownSection.razor" />
+		<None Include="Components\CodeEditor\FluentCodeEditor.razor" />
+		<None Include="Components\NavMenu\FluentNavMenu.razor" />
+		<None Include="Components\NavMenu\FluentNavMenuGroup.razor" />
+		<None Include="Components\NavMenu\FluentNavMenuLink.razor" />
+		<None Include="Components\PresenceBadge\FluentPresenceBadge.razor" />
+		<None Include="Components\Spacer\FluentSpacer.razor" />
+		<None Include="Components\Stack\FluentStack.razor" />
+		<None Include="Components\TableOfContents\FluentTableOfContents.razor" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -82,6 +99,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Markdig" Version="0.31.0" />
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
 	</ItemGroup>
 

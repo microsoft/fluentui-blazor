@@ -1,5 +1,5 @@
-﻿@page "/Lab/PresenceBadge"
-@* Remember to replace the namespace below with your own project's namespace. *@
+﻿@page "/PresenceBadge"
+
 @namespace FluentUI.Demo.Shared
 
 <h1>PresenceBadge</h1>

@@ -1,4 +1,4 @@
-@page "/Lab/Highlighter"
+@page "/Highlighter"
 
 <h1>Highlighter</h1>
 

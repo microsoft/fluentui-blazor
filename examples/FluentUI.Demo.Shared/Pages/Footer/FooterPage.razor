@@ -1,0 +1,25 @@
+﻿@page "/Footer"
+
+<h1>Footer</h1>
+
+<p>
+    The <code>FluentFooter</code> component is used display a colored bar (with text and possibly other components) at the bottom of a site or application. It can be styled with regular CSS.
+</p>
+
+<ApiDocumentation Component="typeof(FluentFooter)" />
+
+<h2>Example</h2>
+<DemoSection Component="typeof(FluentFooter)"
+             Title="Footer" 
+             HideAllButExample=true
+             ComponentParameters="@(new Dictionary<string, object>(){ {"ChildContent",(RenderFragment)(builder => builder.AddMarkupContent(1,"Footer text")) } })">
+        <CodeSnippet>
+&lt;FluentFooter&gt;
+    Footer text
+&lt;/FluentFooter&gt;
+        </CodeSnippet>
+        <p>Renders as:</p>
+</DemoSection>
+@code {
+
+}

@@ -1,0 +1,25 @@
+﻿@page "/Header"
+
+<h1>Header</h1>
+
+<p>
+    The <code>FluentHeader</code> component is used display a title (and possibly other components) in a colored bar at the top of a site or application. For the background color it uses the currently selected accent color.
+</p>
+<ApiDocumentation Component="typeof(FluentHeader)" />
+
+<h2>Example</h2>
+<DemoSection Component="typeof(FluentHeader)" 
+             Title="Header" 
+             HideAllButExample=true
+             ComponentParameters="@(new Dictionary<string, object>(){ {"ChildContent",(RenderFragment)(builder => builder.AddMarkupContent(1,"Header text")) } })">
+    <CodeSnippet>
+&lt;FluentHeader&gt;
+    Header text
+&lt;/FluentHeader&gt;
+    </CodeSnippet>
+    <p>Renders as:</p>
+</DemoSection>
+    
+@code {
+
+}
