@@ -71,7 +71,8 @@ function enableColumnResizing(gridElement) {
         const onMouseMove = (e) => requestAnimationFrame(() => {
             console.log('onMouseMove');
 
-            let horizontalScrollOffset = gridElement.offsetParent.offsetLeft;
+            let horizontalScrollOffset = gridElement.offsetLeft;
+            
             const width = (e.clientX) - (headerBeingResized.offsetLeft + horizontalScrollOffset);
 
             const column = columns.find(({ header }) => header === headerBeingResized);

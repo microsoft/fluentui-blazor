@@ -1,6 +1,7 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
+using System.ComponentModel;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
@@ -12,7 +13,8 @@ namespace Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
 /// <summary>
 /// For internal use only. Do not use.
 /// </summary>
-public class Defer : ComponentBase
+[EditorBrowsable(EditorBrowsableState.Never)]
+public sealed class Defer : ComponentBase
 {
     /// <summary>
     /// For internal use only. Do not use.

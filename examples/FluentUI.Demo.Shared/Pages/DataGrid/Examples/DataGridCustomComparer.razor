@@ -5,14 +5,14 @@
     <TemplateColumn Title="Rank" SortBy="@rankSort" Align="Align.Center">
         <img class="flag" src="_content/FluentUI.Demo.Shared/flags/@(context.Code).svg" />
     </TemplateColumn>
-    @*<PropertyColumn Property="@(c => c.Name)" IsDefaultSort=SortDirection.Descending Sortable="true" Comparer="@StringLengthComparer.Instance">
+    @*<PropertyColumn Property="@(c => c.Name)" InitialSortDirection=SortDirection.Descending Sortable="true" Comparer="@StringLengthComparer.Instance">
         <ColumnOptions>
             <div class="search-box">
                 <FluentSearch type="search" Autofocus=true @bind-Value=nameFilter @oninput="HandleCountryFilter" @onchange="HandleClear" Placeholder="Country name..." />
             </div>
         </ColumnOptions>
     </PropertyColumn>*@
-    <TemplateColumn Title="Name" IsDefaultSort=SortDirection.Descending  SortBy="@nameSort">
+    <TemplateColumn Title="Name" InitialSortDirection=SortDirection.Descending SortBy="@nameSort" IsDefaultSortColumn=true>
         <ColumnOptions>
             <div class="search-box">
                 <FluentSearch type="search" Autofocus=true @bind-Value=nameFilter @oninput="HandleCountryFilter" @onchange="HandleClear" Placeholder="Country name..." />
@@ -29,7 +29,7 @@
 </FluentDataGrid>
 
 
-<FluentPaginator Value="@pagination" />
+<FluentPaginator State="@pagination" />
 
 @code {
     IQueryable<Country>? items;

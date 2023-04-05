@@ -22,6 +22,8 @@ internal static class AsyncQueryExecutorSupplier
 
     private static readonly ConcurrentDictionary<Type, bool> IsEntityFrameworkProviderTypeCache = new();
 
+    [UnconditionalSuppressMessage("ReflectionAnalysis", "IL2111",
+               Justification = "The reflection is a best effort to warn developers about sync-over-async behavior which can cause thread pool starvation.")]
     public static IAsyncQueryExecutor? GetAsyncQueryExecutor<T>(IServiceProvider services, IQueryable<T>? queryable)
     {
         if (queryable is not null)
@@ -51,5 +53,5 @@ internal static class AsyncQueryExecutorSupplier
     // reference the adapter. Trimming won't cause us any problems because this is only a way of detecting misconfiguration
     // so it's sufficient if it can detect the misconfiguration in development.
     private static bool IsEntityFrameworkProviderType([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.Interfaces)] Type queryableProviderType)
-        => queryableProviderType.GetInterfaces().Any(x => string.Equals(x.FullName, "Microsoft.EntityFrameworkCore.Query.IAsyncQueryProvider")) == true;
+        => queryableProviderType.GetInterfaces().Any(x => string.Equals(x.FullName, "Microsoft.EntityFrameworkCore.Query.IAsyncQueryProvider", StringComparison.Ordinal)) == true;
 }

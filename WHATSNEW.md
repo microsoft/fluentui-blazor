@@ -1,3 +1,24 @@
+## V2.2
+For version 2.2 we are adding .NET 8 support! We are jumping on-board the preview and release train starting with preview 2.
+
+One important new feature in Blazor with .NET 8 is the addition of the QuickGrid component. QuickGrid is a high performance grid 
+component for displaying data in tabular form. It is built to be a simple and convenient way to display your data, while 
+still providing powerful features like sorting, filtering, paging, and virtualization. 
+
+QuickGrid was originally introduced as an experimental package based on .NET 7 and we integrated it's code in the Fluent UI library to re-use all it's 
+features (and some more) but render it with the Fluent UI Web Components instead of it's orignal rendering based on HTML table, tr and td elements. As part 
+of bringing QuickGrid into .NET 8 the ASP.NET Core team made some changes and improvements to the API. We are bringing these changes over to the `<FluentDataGrid>` as well. 
+To update an app that already uses the `<FluentDataGrid>`, you may need to make the following adjustments:
+
+- Rename the `Value` attribute on the `<FluentPaginator>` component to `State`
+- Rename the `IsDefaultSort` attribute on columns to `InitialSortDirection` and add `IsDefaultSortColumn=true` to indicate the column should still be sorted by default.
+
+*To use the `<FluentDataGrid>` component, you should not add a reference to the `Microsoft.AspNetCore.Components.QuickGrid` package to your project. In fact, doing so will lead to compilation errors.*
+
+```razor
+
+All the examples in the [demo site](https://aka.ms/fluentui-blazor) have been updated to reflect these changes.
+
 ## V2.1
 
 A more detailed description of all the changes and everything new can be found in [this blog post](https://baaijte.net/blog/whats-new-in-the-microsoft-fluent-ui-library-for-blazor-version-21/) 

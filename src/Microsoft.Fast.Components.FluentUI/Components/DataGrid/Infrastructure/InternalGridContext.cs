@@ -5,9 +5,9 @@ using Microsoft.Fast.Components.FluentUI.Infrastructure;
 
 namespace Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
 
-// The grid cascades this so that descendant columns can talk back to it.
-// It's an internal type so it doesn't show up in unrelated components by mistake.
-internal class InternalGridContext<TGridItem>
+// The grid cascades this so that descendant columns can talk back to it. It's an internal type
+// so that it doesn't show up by mistake in unrelated components.
+internal sealed class InternalGridContext<TGridItem>
 {
     private int index=0;
     public Dictionary<string, FluentDataGridRow<TGridItem>> Rows { get; set; } = new();

@@ -1,18 +1,58 @@
+## V2.2
+For version 2.2 we started working on adding .NET 8 support. One important new feature in Blazor with .NET 8 is the addition of the QuickGrid component. 
+QuickGrid is a high performance grid component for displaying data in tabular form. It is built to be a simple and convenient way to display your data, while 
+still providing powerful features like sorting, filtering, paging, and virtualization. 
+
+QuickGrid was originally introduced as an experimental package based on .NET 7 and we copied it's code over to the Fluent UI library to re-use it's 
+features (and some more) but render it with the Fluent UI Web Components instead of it's orignal rendering based on HTML table, tr and td elements. As part 
+of bringing QuickGrid into .NET 8 the ASP.NET Core team made some changes and improvements to the API. We brougth these changes over to the `<FluentDataGrid>` as well. To update an app that uses `<FluentDataGrid>`, 
+you may need to make the following adjustments:
+
+**------BREAKING CHANGES------**
+- Rename the `Value` attribute on the `Paginator` component to `State`
+- Rename the `IsDefaultSort` attribute on columns to `InitialSortDirection` and add `IsDefaultSortColumn=true` to indicate the column should still be sorted by default.
+
+**------BREAKING CHANGES------**
+
+*To use the `<FluentDataGrid>` component, you do not need to add a reference to the `Microsoft.AspNetCore.Components.QuickGrid` package to your project. In fact, if you do so it will lead to compilation errors.*
+
+All the examples in the [demo site](https://aka.ms/fluentui-blazor) have been updated to reflect these changes.
+
+### New features
+- Updated Fluent UI System Icons to version 1.1.198
+
+### .NET 8 package
+
+Because of .NET 8 not yet being available on GitHub Actions yet, we cannot supply a NuGet package targetting that version yet. If you want to create your own package, you need to augment the `<TargetFramworks>` property in the solutions `.csproj` files so it reads the following:
+
+```xml
+<TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
+```
+
+After that you need to build the solution yourself and run `dotnet pack` on the `Microsoft.Fast.Components.FluentUI` project
+
+
 ## V2.1
 
 A more detailed description of all the changes and everything new can be found in [this blog post](https://baaijte.net/blog/whats-new-in-the-microsoft-fluent-ui-library-for-blazor-version-21/) 
 
 **Important change:**
 
-**If you are currently *not using* icons and are not planning on using icons and/or moji in your application moving forward, 
-you do not have to make any changes to your project. If you *are* currently using icons, please read on.**
+**If you are currently *not using* icons and are *not planning* on using icons and/or moji in your application moving forward, 
+you do *not* have to make any changes to your project. If you *are* currently using icons, please read on.**
 
 With earlier versions of the library, all (then only icon) assets would always get published. Starting with this version, when not specifying settings
 in the project file with regards to usage of icons and/or emoji (see below) **NO** assets will be published to the output folder. 
 This means that no icons and/or emoji will be available for rendering (with exception of the icons that are used by the library itself). 
 
+For icons and emoji to work properly with 2.1.1 and later, two changes need to be made:
+1) Add properties to the `.csproj` file
+2) Add/change code in `Program.cs'
+
+### Changes to `.csproj`
 The (annotated) `PropertyGroup` below can be used as a starting point in your own project. Copying this as-is will result in all icon and emoji assets being published.
 See the blog post for more information.
+
 
 ```xml
 <PropertyGroup>
@@ -83,7 +123,17 @@ See the blog post for more information.
     <FluentEmojiStyles>Color,Flat,HighContrast</FluentEmojiStyles>
 </PropertyGroup>
 ```
+### Changes to `Program.cs`
+The AddFluentUIComponents() service collection extension needs to be changed. This enables the system to check if a requested icon or emoji is available
+Services and configuration classed have been added to the library for this. You do not need to specify the configuration in code yourself. A source generator has been added that reads the settings from the project file and adds the necessary code at compile time. That way the settings made in the project file and the source code are always kept in sync.
 
+The two lines that need to be added to the Program.cs file are:
+```
+LibraryConfiguration config = new(ConfigurationGenerator.GetIconConfiguration(), ConfigurationGenerator.GetEmojiConfiguration());
+builder.Services.AddFluentUIComponents(config);
+```
+
+## Other changes
 **New component**: 
 - `<FluentEmoji>` 
 

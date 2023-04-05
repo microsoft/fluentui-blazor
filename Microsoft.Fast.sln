@@ -36,6 +36,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 		SECURITY.md = SECURITY.md
 		Update Icons.md = Update Icons.md
+		WHATSNEW.md = WHATSNEW.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Fast.Components.FluentUI.Tests", "src\Microsoft.Fast.Components.FluentUI.Tests\Microsoft.Fast.Components.FluentUI.Tests.csproj", "{25B3EA03-8489-473F-8860-452A92B9A3AF}"

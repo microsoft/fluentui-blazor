@@ -5,7 +5,7 @@
         <PropertyColumn Property="@(c => c.Item1)" Sortable="true">
             <ColumnOptions>
                 <div class="search-box">
-                    <FluentSearch Autofocus="true" Placeholder="Testing..." />
+                    <FluentSearch @bind-Value=dummy Autofocus ="true" Placeholder="Testing..." />
                 </div>
             </ColumnOptions>
         </PropertyColumn>
@@ -14,7 +14,7 @@
         <PropertyColumn Property="@(c => c.Item4)" Align="Align.Right">
             <ColumnOptions>
                 <div class="search-box">
-                    <FluentSearch Autofocus="true" Placeholder="Testing..." />
+                    <FluentSearch @bind-Value=dummy Autofocus="true" Placeholder="Testing..." />
                 </div>
             </ColumnOptions>
         </PropertyColumn>
@@ -25,6 +25,7 @@
 
 
 @code {
+    string? dummy;
     public record SampleGridData(string Item1, string Item2, string Item3, string Item4);   
 
     IQueryable<SampleGridData>? items = Enumerable.Empty<SampleGridData>().AsQueryable();
