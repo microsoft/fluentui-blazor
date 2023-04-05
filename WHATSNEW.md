@@ -15,8 +15,6 @@ To update an app that already uses the `<FluentDataGrid>`, you may need to make 
 
 *To use the `<FluentDataGrid>` component, you should not add a reference to the `Microsoft.AspNetCore.Components.QuickGrid` package to your project. In fact, doing so will lead to compilation errors.*
 
-```razor
-
 All the examples in the [demo site](https://aka.ms/fluentui-blazor) have been updated to reflect these changes.
 
 ## V2.1
@@ -47,7 +45,6 @@ For icons and emoji to work properly with 2.1.1 and later, two changes need to b
 ### Changes to `.csproj`
 The (annotated) `PropertyGroup` below can be used as a starting point in your own project. Copying this as-is will result in all icon and emoji assets being published.
 See the blog post for more information.
-
 
 ```xml
 <PropertyGroup>
@@ -118,6 +115,7 @@ See the blog post for more information.
     <FluentEmojiStyles>Color,Flat,HighContrast</FluentEmojiStyles>
 </PropertyGroup>
 ```
+
 ### Changes to `Program.cs`
 The AddFluentUIComponents() service collection extension needs to be changed. This enables the system to check if a requested icon or emoji is available
 Services and configuration classed have been added to the library for this. You do not need to specify the configuration in code yourself. A source generator has been added that reads the settings from the project file and adds the necessary code at compile time. That way the settings made in the project file and the source code are always kept in sync.
@@ -148,4 +146,3 @@ builder.Services.AddFluentUIComponents(config);
 - `<FluentRadioGroup>` component is now generic, so can be bound to other values than just `string`
 - Various bug fixes
 - Updated Fluent UI System Icons to release 1.1.194
-
