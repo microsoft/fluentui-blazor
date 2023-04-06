@@ -1,4 +1,5 @@
 ﻿@page "/BodyContent"
+@using FluentUI.Demo.Shared.Pages.BodyContent.Examples
 
 <h1>BodyContent</h1>
 <p>
@@ -8,17 +9,4 @@
 <ApiDocumentation Component="typeof(FluentBodyContent)" />
 
 <h2>Example</h2>
-<DemoSection Component="typeof(FluentBodyContent)" Title="BodyContent" HideAllButExample=true ComponentParameters="@(new Dictionary<string, object>(){ {"ChildContent",(RenderFragment)(builder => builder.AddMarkupContent(1,"This is some content displayed in a FluentBodyContent component.")) } })">
-    <ChildContent>
-      <CodeSnippet>
-&lt;FluentBodyContent&gt;
-    This is some content displayed in a FluentBodyContent component.
-&lt;/FluentBodyContent&gt;
-      </CodeSnippet>
-    <p>Renders as:</p>
-    </ChildContent>
-</DemoSection>
-
-@code {
-
-}
+<DemoSection Component="typeof(BodyContentDefault)" Title="BodyContent" />

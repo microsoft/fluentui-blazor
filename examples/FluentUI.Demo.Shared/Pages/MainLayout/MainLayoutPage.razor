@@ -1,4 +1,5 @@
 ﻿@page "/MainLayout"
+@using FluentUI.Demo.Shared.Pages.MainLayout.Examples
 
 <h1>MainLayout</h1>
 <p>
@@ -8,23 +9,4 @@
 
 <h2>Example</h2>
 
-<DemoSection Component="typeof(FluentMainLayout)" Title="MainLayout" HideAllButExample=true ComponentParameters="@MainLayoutParameters">
-
-</DemoSection>
-
-@code {
-    Dictionary<string, object> MainLayoutParameters = new()
-    {
-        {"Header", (RenderFragment)(builder => builder.AddMarkupContent(0,"<h3>Fluent UI Components</h3>"))},
-        {"SubHeader", (RenderFragment)(builder => builder.AddMarkupContent(1,"<p>A subheader here</p>"))},
-        {"Body", (RenderFragment)(builder => builder.AddMarkupContent(2,"Lorum ipsum..."))},
-        {"NavMenuContent", (RenderFragment)(builder => {
-                builder.OpenComponent<FluentNavMenuLink>(3);
-                builder.AddAttribute(4, "Href", "/");
-                builder.AddAttribute(5, "Text", "Home");
-                builder.CloseComponent();
-            }
-        )},
-        {"NavMenuTitle", "Navigation menu"},
-    };
-}
+<DemoSection Component="typeof(MainLayoutDefault)" Title="MainLayout" />

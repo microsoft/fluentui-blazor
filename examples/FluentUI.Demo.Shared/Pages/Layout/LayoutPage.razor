@@ -1,5 +1,5 @@
 ﻿@page "/Layout"
-
+@using FluentUI.Demo.Shared.Pages.Layout.Examples
 <h1>Layout</h1>
 
 <p>
@@ -12,17 +12,4 @@
 <ApiDocumentation Component="typeof(FluentLayout)" />
 
 <h2>Example</h2>
-<DemoSection Component="typeof(FluentLayout)" Title="Layout" HideAllButExample=true ComponentParameters="@(new Dictionary<string, object>(){ {"ChildContent",(RenderFragment)(builder => builder.AddMarkupContent(1,"<div style=\"display: flex;\">This is some content displayed in a Layout</div>")) } })">
-    <ChildContent>
-        <CodeSnippet>
-&lt;FluentLayout&gt;
-    This is some content displayed in a Layout
-&lt;/FluentLayout&gt;
-        </CodeSnippet>
-        <p>Renders as:</p>
-    </ChildContent>
-</DemoSection>
-
-@code {
-
-}
+<DemoSection Component="typeof(LayoutDefault)" Title="Layout" />

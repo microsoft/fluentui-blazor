@@ -1,4 +1,5 @@
 ﻿@page "/Footer"
+@using FluentUI.Demo.Shared.Pages.Footer.Examples
 
 <h1>Footer</h1>
 
@@ -9,17 +10,5 @@
 <ApiDocumentation Component="typeof(FluentFooter)" />
 
 <h2>Example</h2>
-<DemoSection Component="typeof(FluentFooter)"
-             Title="Footer" 
-             HideAllButExample=true
-             ComponentParameters="@(new Dictionary<string, object>(){ {"ChildContent",(RenderFragment)(builder => builder.AddMarkupContent(1,"Footer text")) } })">
-        <CodeSnippet>
-&lt;FluentFooter&gt;
-    Footer text
-&lt;/FluentFooter&gt;
-        </CodeSnippet>
-        <p>Renders as:</p>
-</DemoSection>
-@code {
-
-}
+<DemoSection Component="typeof(FooterDefault)" Title="Footer" /> 
+             
