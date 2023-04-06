@@ -1,9 +1,0 @@
-﻿
-@namespace FluentUI.Demo.Shared
-
-@inherits FluentComponentBase
-
-<div style="display: flex; align-items: center; justify-content: center;">
-    <FluentProgressRing id="@($"{Id}-loading")" Style="position: fixed;" />
-    <div id="@Id" style="@StyleValue" class="@ClassValue"></div>
-</div>
