@@ -103,6 +103,9 @@ to your `index.html` or `_Layout.cshtml` file in the `<head>` section like this:
 
 The file contains a number of CSS variables that are required to be defined for the components to work correctly. 
 
+### Project file
+if you want to use icons and/or emoji, starting with the 2.1 version of the library you need add a `<PropertyGroup>` to your project file. With this you can specify which icons and emoji are made available for usage and publication. Please refer to the v2.1 section in the [what's new](https://aka.ms/fluentui-blazor/whatsnew) document for more information.
+
 
 ### Code
 In your `Program.cs` file you need to add the following:
@@ -112,7 +115,7 @@ builder.Services.AddFluentUIComponents();
 
 This addition makes sure all the necessary services the library uses are setup in a correct way.
 
-**When using the 2.1 or higher version of the library, you might need to make some changes here. Please refer to the [what's new](https://aka.ms/fluentui-blazor/whatsnew) document for more information.**
+**If you want to use icons and/or emoji, starting with the 2.1 version of the library you need to make some changes here. Please refer to the v2.1 section in the [what's new](https://aka.ms/fluentui-blazor/whatsnew) document for more information.**
 
 *If you're running your application on Blazor Server, make sure a default HttpClient is available by adding the following:*
 
@@ -120,9 +123,22 @@ This addition makes sure all the necessary services the library uses are setup i
 builder.Services.AddHttpClient();
 ```
 
+## Getting started by using project templates
+To make it easier to start a project that uses the Fluent UI Web Components for Blazor out of the box, we have created the
+[Microsoft.Fast.Templates.FluentUI](https://www.nuget.org/packages/Microsoft.Fast.Templates.FluentUI/) template package.
+
+The package contains templates for creating Blazor Server and/or Blazor WebAssembly apps that mimic the regular Blazor 
+templates with the Fluent UI components already set up (and all the Bootstrap styling removed). All components have been 
+replaced with Fluent UI counterparts (and a few extra have been added). Please see the [documentation page](https://brave-cliff-0c0c93310-365.centralus.azurestaticapps.net/Templates)
+for more information.
+
+If you want to use icons and/or emoji with applications based on the templates, you still need to make the changes to the project file 
+and `Program.cs` as described in the previous sections.
+
 
 ### Using the FluentUI Web Components
-With the package installed and the script configured, you can begin using the Fluent UI Blazor components in the same way as any other Blazor component. Just be sure to add the following using statement to your views:
+With the package installed and the script configured, you can begin using the Fluent UI Blazor components in the same way 
+as any other Blazor component. Just be sure to add the following using statement to your views:
 
 ```razor
 @using Microsoft.Fast.Components.FluentUI
