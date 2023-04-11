@@ -18,10 +18,9 @@ public partial class IconPage : IAsyncDisposable
 
     private IJSObjectReference? _jsModule;
 
-    private EditContext? editContext;
     private List<IconModel>? icons = new();
     private int totalCount = 0;
-    private int maxResults = 50;
+    private readonly int maxResults = 50;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -62,6 +61,12 @@ public partial class IconPage : IAsyncDisposable
         HandleSearch();
     }
 
+    public void HandleSearchField(ChangeEventArgs args)
+    {
+        Form.Searchterm = (string?)args.Value;
+
+        HandleSearch();
+    }
 
     public void HandleSearch()
     {
@@ -108,7 +113,7 @@ public partial class IconPage : IAsyncDisposable
         }
     }
 
-    public class FormModel
+    private class FormModel
     {
         public IconSize Size { get; set; }
 
@@ -123,12 +128,7 @@ public partial class IconPage : IAsyncDisposable
         public Color Color { get; set; }
     }
 
-    private FormModel Form = new() { Size = IconSize.Size24, Searchterm = "", Style = null, Color = Color.Accent };
-
-    protected override void OnInitialized()
-    {
-        editContext = new EditContext(Form);
-    }
+    private readonly FormModel Form = new() { Size = IconSize.Size24, Searchterm = "", Style = null, Color = Color.Accent };
 
     public async ValueTask DisposeAsync()
     {
