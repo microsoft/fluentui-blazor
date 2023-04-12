@@ -1,0 +1,5 @@
+﻿<FluentOverflow Orientation="Orientation.Vertical" Style="border: 1px solid lightgray; height: calc(100vh - 500px);">
+    <div style="min-height:60px; background-color: lightgreen;">A</div>
+    <div style="min-height:60px; background-color: lightblue;">C</div>
+    <div style="min-height:60px; background-color: lightgoldenrodyellow;">D</div>
+</FluentOverflow>

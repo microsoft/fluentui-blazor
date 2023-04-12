@@ -64,6 +64,8 @@
 		<None Include="Components\NavMenu\FluentNavMenu.razor" />
 		<None Include="Components\NavMenu\FluentNavMenuGroup.razor" />
 		<None Include="Components\NavMenu\FluentNavMenuLink.razor" />
+		<None Include="Components\Overflow\FluentOverflow.razor" />
+		<None Include="Components\Overflow\FluentOverflowItem.razor" />
 		<None Include="Components\PresenceBadge\FluentPresenceBadge.razor" />
 		<None Include="Components\Spacer\FluentSpacer.razor" />
 		<None Include="Components\Stack\FluentStack.razor" />

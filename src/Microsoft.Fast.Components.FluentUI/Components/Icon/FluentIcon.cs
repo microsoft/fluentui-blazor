@@ -95,14 +95,14 @@ public partial class FluentIcon : FluentComponentBase
         if (Color != Color.Custom)
         {
             if (CustomColor != null)
-                throw new ArgumentException("CustomColor can only be used when Color is set to IconColor.Custom. ");
+                throw new ArgumentException("CustomColor can only be used when Color is set to Color.Custom. ");
             else
                 _color = Color.ToAttributeValue();
         }
         else
         {
             if (CustomColor is null)
-                throw new ArgumentException("CustomColor must be set when Color is set to IconColor.Custom. ");
+                throw new ArgumentException("CustomColor must be set when Color is set to Color.Custom. ");
             else
             {
 #if NET7_0_OR_GREATER

@@ -1,4 +1,4 @@
-<FluentBadge Appearance="Appearance.Lightweight">
+<FluentBadge Appearance="Appearance.Lightweight" OnClick="@((e) => Console.WriteLine("Badge Clicked"))">
     Lightweight
 </FluentBadge>
 
@@ -9,3 +9,10 @@
 <FluentBadge Appearance="Appearance.Neutral">
     Neutral
 </FluentBadge>
+
+<FluentBadge Fill="somevalue" BackgroundColor="red" Color="white">Red and White</FluentBadge>
+
+
+<FluentBadge Appearance="Appearance.Neutral" Fill="highlight" BackgroundColor="#ffd800;" Color="#000">Highlight</FluentBadge>
+
+<FluentBadge Appearance="Appearance.Neutral" Fill="lowlight" BackgroundColor="#000" Color="#fff">Lowlight</FluentBadge>

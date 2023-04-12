@@ -227,9 +227,14 @@
             Gets or sets the color
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentBadge.Fill">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentBadge.BackgroundColor">
             <summary>
             Gets or sets the background color
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentBadge.Fill">
+            <summary>
+            Gets or sets the background color based on fill value
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentBadge.Circular">
@@ -240,7 +245,7 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentBadge.Appearance">
             <summary>
             Gets or sets the visual appearance. See <seealso cref="T:Microsoft.Fast.Components.FluentUI.Appearance"/>
-            Possible values are Accent (default), Neutral or Lightweight
+            Possible values are Accent, Neutral (default) or Lightweight
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentBadge.ChildContent">
@@ -2194,6 +2199,123 @@
             </summary>
             <param name = "value">The value to format.</param>
             <returns>A string representation of the value.</returns>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.FluentOverflow">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOverflow.ClassValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOverflow.StyleValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOverflow.JS">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOverflow.Module">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOverflow.Id">
+            <summary>
+            Unique identifier.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOverflow.ChildContent">
+            <summary>
+            Content to display. All first HTML elements are included in the items flow.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOverflow.OverflowTemplate">
+            <summary>
+            Template to display <see cref="P:Microsoft.Fast.Components.FluentUI.FluentOverflow.ItemsOverflow"/> elements.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOverflow.MoreButtonTemplate">
+            <summary>
+            Template to display the More button.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOverflow.Orientation">
+            <summary>
+            Gets or sets the orientation of the items flow.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOverflow.OnOverflowRaised">
+            <summary>
+            Event raised when a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentOverflowItem"/> enter or leave the current panel.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOverflow.ItemsOverflow">
+            <summary>
+            Gets all items with <see cref="P:Microsoft.Fast.Components.FluentUI.FluentOverflowItem.Overflow"/> assigned to True.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOverflow.IdMoreButton">
+            <summary>
+            Gets the unique identifier associated to the more button ([Id]-more).
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentOverflow.OnAfterRenderAsync(System.Boolean)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentOverflow.OverflowRaisedAsync(System.String)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentOverflow.System#IAsyncDisposable#DisposeAsync">
+            <summary />
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.FluentOverflowItem">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOverflowItem.ClassValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOverflowItem.StyleValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOverflowItem.Container">
+            <summary>
+            Reference to the associated container.
+            </summary>
+            <value>The splitter.</value>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOverflowItem.Id">
+            <summary>
+            Unique identifier.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOverflowItem.ChildContent">
+            <summary>
+            Content to display. All first HTML elements are included in the items flow.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOverflowItem.Overflow">
+            <summary>
+            Gets True if this component is out of panel.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOverflowItem.Text">
+            <summary>
+            Gets the InnerText of <see cref="P:Microsoft.Fast.Components.FluentUI.FluentOverflowItem.ChildContent"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentOverflowItem.OnInitialized">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentOverflowItem.SetProperties(System.Nullable{System.Boolean},System.String)">
+            <summary />
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.OverflowItem">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.OverflowItem.Id">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.OverflowItem.Overflow">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.OverflowItem.Text">
+            <summary />
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.FluentPaginator">
             <summary>

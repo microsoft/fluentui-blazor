@@ -1,0 +1,21 @@
+﻿.power-overflow[orientation="horizontal"] {
+    display: flex;
+    flex-direction: row;
+    overflow-x: hidden;
+    gap: 5px;
+}
+
+.power-overflow[orientation="vertical"] {
+    display: flex;
+    flex-direction: column;
+    overflow-y: hidden;
+}
+
+.power-overflow-more {
+    min-width: 32px;
+    max-width: 32px;
+}
+
+.power-overflow ::deep > *[overflow] {
+    display: none;
+}
