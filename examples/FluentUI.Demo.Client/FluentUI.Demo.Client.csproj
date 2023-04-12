@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+		<TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<PublishTrimmed>true</PublishTrimmed>
@@ -89,8 +89,8 @@
 	</ItemGroup>
 	
 	<ItemGroup Condition="'$(TargetFramework)'=='net8.0'">
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.0-preview.2.*" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.0-preview.2.*" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.0-preview.3" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.0-preview.3" PrivateAssets="all" />
 	</ItemGroup>
 
 	<ItemGroup>
