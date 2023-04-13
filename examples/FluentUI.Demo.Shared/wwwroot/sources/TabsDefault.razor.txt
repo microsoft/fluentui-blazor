@@ -1,8 +1,11 @@
-﻿<FluentTabs ActiveId="@activeid" OnTabChange="HandleOnTabChange">
-    <FluentTab Text="Tab one"></FluentTab>
-    <FluentTab Text="Tab two" />
-    <FluentTab Text="Tab three" />
+﻿<FluentTabs ActiveTabId="@activeid" OnTabChange="HandleOnTabChange">
+    <FluentTab Label="Tab one" Icon="@FluentIcons.LeafOne">
+            
+    </FluentTab>
+    <FluentTab Label="Tab two" />
+    <FluentTab Label="Tab three" />
     <FluentTabPanel>
+        
         Tab one content. This is for testing.
     </FluentTabPanel>
     <FluentTabPanel>
@@ -14,13 +17,13 @@
     <div>Testing</div>
 </FluentTabs>
 
-<p>Active tab changed to: @changedto?.Text</p>
+<p>Active tab changed to: @changedto?.Label</p>
 
 <h4>Vertical</h4>
 <FluentTabs Orientation="Orientation.Vertical">
-    <FluentTab>Tab one</FluentTab>
-    <FluentTab>Tab two</FluentTab>
-    <FluentTab>Tab three</FluentTab>
+    <FluentTab Label="Tab one"></FluentTab>
+    <FluentTab Label="Tab two"></FluentTab>
+    <FluentTab Label="Tab three"></FluentTab>
     <FluentTabPanel>
         Tab one content. This is for testing.
     </FluentTabPanel>

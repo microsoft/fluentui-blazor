@@ -269,6 +269,11 @@
             Optional in-line styles. If given, these will be included in the style attribute of the component.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentComponentBase.Tag">
+            <summary>
+            Use Tag to attach any user data object to the component for your convenience.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentComponentBase.BackReference">
             <summary>
             A reference to the enclosing component.
@@ -1611,6 +1616,11 @@
             Gets or sets the slot where the icon is displayed in
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.Title">
+            <summary>
+            Gets or sets the title for the icon
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.NeutralCultureName">
             <summary>
             Gets or sets the two letter neutral culture variant used. Not all neutral cultures are available for all icons
@@ -2868,14 +2878,63 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.ClassValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.StyleValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.JSRuntime">
+            <summary />
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.Disabled">
             <summary>
             When true, the control will be immutable by user interaction. See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled">disabled</see> HTML attribute for more information.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.Text">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.Label">
             <summary>
-            Gets or sets the text of the tab
+            Gets or sets the label of the tab
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.LabelChanged">
+            <summary>
+            Callback to invoke when the label changes.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.LabelClass">
+            <summary>
+            User styles, applied to the Label Tab Item.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.LabelStyle">
+            <summary>
+            User styles, applied to the Label Tab Item.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.Header">
+            <summary>
+            Customized content of the header.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.Icon">
+            <summary>
+            Gets or sets the name of the icon to display in front of the tab
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.Id">
+            <summary>
+            Unique identifier of this Tab component (by default <see cref="M:Microsoft.Fast.Components.FluentUI.Identifier.NewId(System.Int32)"/> is used).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.Index">
+            <summary>
+            Gets the index number of this tab.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.LabelEditable">
+            <summary>
+            True to let the user edit the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentTab.Label"/> property.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.ChildContent">
@@ -2888,14 +2947,82 @@
             Gets or sets the owning FluentTabs component
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.Overflow">
+            <summary>
+            Gets if this component is out of panel.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentTab.OnAfterRenderAsync(System.Boolean)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentTab.CloseClickedAsync">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentTab.UpdateTabLabelAsync(System.String,System.String)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentTab.SetProperties(System.Nullable{System.Boolean})">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabPanel.StyleValue">
+            <summary />
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabPanel.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.ClassValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.StyleValues">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.StyleMoreValues">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.Id">
+            <summary>
+            Unique identifier of this component
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.Orientation">
             <summary>
             Gets or sets the tab's orentation. See <see cref="T:Microsoft.Fast.Components.FluentUI.Orientation"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.OnSelectedTab">
+            <summary>
+            Raised when a tab is selected.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.OnClosedTab">
+            <summary>
+            Raised when a tab is closed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.ShowClose">
+            <summary>
+            Determines if a dismiss icon is shown.
+            When clicked the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentTabs.OnClosedTab"/> event is raised to remove this tab from the list.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.Size">
+            <summary>
+            Width of the tab items.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.ActiveTab">
+            <summary>
+            Gets the active selected tab.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.ActiveTabIdChanged">
+            <summary>
+            Gets or sets a callback when the bound value is changed.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.ActiveIndicator">
@@ -2908,15 +3035,35 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.ActiveIdChanged">
-            <summary>
-            Gets or sets a callback when the bound value is changed .
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.OnTabChange">
             <summary>
             Gets or sets a callback when a tab is changed .
             </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.IdMoreButton">
+            <summary>
+            Gets the unique identifier associated to the more button ([Id]-more).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.TabsOverflow">
+            <summary>
+            Gets all tabs with <see cref="P:Microsoft.Fast.Components.FluentUI.FluentTab.Overflow"/> assigned to True.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentTabs.OnTabChangeHandlerAsync(Microsoft.Fast.Components.FluentUI.TabChangeEventArgs)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentTabs.OverflowRaisedAsync(System.String)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentTabs.OnAfterRenderAsync(System.Boolean)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentTabs.ResizeTabsForOverflowButtonAsync">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentTabs.DisplayMoreTabAsync(Microsoft.Fast.Components.FluentUI.FluentTab)">
+            <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextArea.Resize">
             <summary>
@@ -6969,6 +7116,26 @@
         <member name="F:Microsoft.Fast.Components.FluentUI.StandardLuminance.DarkMode">
             <summary>
             Dark mode luminance
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.TabSize">
+            <summary>
+            The size of the tab item.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.TabSize.Small">
+            <summary>
+            The tab item size is small
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.TabSize.Medium">
+            <summary>
+            The tab item size is medium
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.TabSize.Large">
+            <summary>
+            The tab item size is large
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.TextAreaResize">

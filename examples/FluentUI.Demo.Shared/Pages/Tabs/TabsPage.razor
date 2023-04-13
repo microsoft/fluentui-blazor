@@ -10,13 +10,25 @@
     Fluent UI design system. It uses the <code>&lt;FluentTab&gt;</code> and <code>&lt;FluentTabPanel&gt;</code> (no parameters) components to define the structure.
 </p>
 
-<ApiDocumentation Component="typeof(FluentTab)" />
 <ApiDocumentation Component="typeof(FluentTabs)" />
+<ApiDocumentation Component="typeof(FluentTab)" />
+<ApiDocumentation Component="typeof(FluentTabPanel)" />
 
 <h2>Examples</h2>
 
-<DemoSection Title="Default" Component="@typeof(TabsDefault)"></DemoSection>
+@* <DemoSection Title="Default" Component="@typeof(TabsDefault)"></DemoSection>
 
-<DemoSection Title="Extra content" Component="@typeof(TabsExtraContent)"></DemoSection>
+<DemoSection Title="Custom Header and Panel usage" Component="@typeof(TabsHeaderPanel)">
+    <Description>
+        <p>
+            A <code>&lt;FluentTab&gt;</code> exposes a <code>Header</code> parameter that can be used to provide custom content for the tab header. This can be used to add icons, badges, etc.
+            The <code>Panel</code> parameter allows for custom content to be used for the tab panel. This can be used to add additional content to the panel, or to use a different component
+        </p>
+    </Description>
+</DemoSection>
+ *@
+<DemoSection Title="Dynamic" Component="@typeof(TabsDynamic)"></DemoSection>
 
-<DemoSection Title="No active tab indicator" Component="@typeof(TabsNoIndicator)"></DemoSection>
+@* <DemoSection Title="Extra content" Component="@typeof(TabsExtraContent)"></DemoSection>
+
+<DemoSection Title="No active tab indicator" Component="@typeof(TabsNoIndicator)"></DemoSection> *@

@@ -1,10 +1,29 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.Fast.Components.FluentUI.Utilities;
+using Microsoft.JSInterop;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentTab : FluentComponentBase, IDisposable
+public partial class FluentTab : FluentComponentBase
 {
+    private DotNetObjectReference<FluentTab>? _dotNetHelper = null;
+    private IJSObjectReference _jsModule = default!;
+
+    /// <summary />
+    protected string? ClassValue => new CssBuilder(Class)
+        .Build();
+
+    /// <summary />
+    protected string? StyleValue => new StyleBuilder()
+        //.AddStyle("height", $"calc({Owner?.Height} - 40px); overflow-y: auto", () => !string.IsNullOrEmpty(Owner?.Height))
+        .AddStyle(Style)
+        .Build();
+
     internal string TabId { get; } = Identifier.NewId();
+
+    /// <summary />
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; } = default!;
 
     /// <summary>
     /// When true, the control will be immutable by user interaction. See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled">disabled</see> HTML attribute for more information.
@@ -13,10 +32,57 @@ public partial class FluentTab : FluentComponentBase, IDisposable
     public bool Disabled { get; set; } = false;
 
     /// <summary>
-    /// Gets or sets the text of the tab
+    /// Gets or sets the label of the tab
     /// </summary>
     [Parameter]
-    public string? Text { get; set; }
+    public string Label { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Callback to invoke when the label changes.
+    /// </summary>
+    [Parameter]
+    public EventCallback<string> LabelChanged { get; set; }
+
+    /// <summary>
+    /// User styles, applied to the Label Tab Item.
+    /// </summary>
+    [Parameter]
+    public virtual string? LabelClass { get; set; }
+
+    /// <summary>
+    /// User styles, applied to the Label Tab Item.
+    /// </summary>
+    [Parameter]
+    public virtual string? LabelStyle { get; set; }
+
+    /// <summary>
+    /// Customized content of the header.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? Header { get; set; }
+
+    /// <summary>
+    /// Gets or sets the name of the icon to display in front of the tab
+    /// </summary>
+    [Parameter]
+    public string Icon { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Unique identifier of this Tab component (by default <see cref="Identifier.NewId"/> is used).
+    /// </summary>
+    [Parameter]
+    public string Id { get; set; } = Identifier.NewId();
+
+    /// <summary>
+    /// Gets the index number of this tab.
+    /// </summary>
+    public int Index { get; private set; } = 0;
+
+    /// <summary>
+    /// True to let the user edit the <see cref="Label"/> property.
+    /// </summary>
+    [Parameter]
+    public bool LabelEditable { get; set; } = false;
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
@@ -30,11 +96,51 @@ public partial class FluentTab : FluentComponentBase, IDisposable
     [CascadingParameter]
     public FluentTabs Owner { get; set; } = default!;
 
+    /// <summary>
+    /// Gets if this component is out of panel.
+    /// </summary>
+    public bool? Overflow { get; private set; }
 
     protected override void OnInitialized()
     {
-        Owner?.Register(this);
+        Index = Owner!.RegisterTab(this);
     }
 
-    public void Dispose() => Owner?.Unregister(this);
+    /// <summary />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
+                "./_content/Microsoft.Fast.Components.FluentUI/Components/Tabs/FluentTab.razor.js");
+            _dotNetHelper = DotNetObjectReference.Create(this);
+
+            await _jsModule.InvokeVoidAsync("TabEditable_Changed", _dotNetHelper, $"#{Id} span[contenteditable='true']", Id);
+        }
+    }
+
+    /// <summary />
+    protected virtual Task CloseClickedAsync()
+    {
+        return Owner!.UnregisterTabAsync(this);
+    }
+
+    /// <summary />
+    [JSInvokable]
+    public async Task UpdateTabLabelAsync(string tabId, string label)
+    {
+        if (Id == tabId && Label != label)
+        {
+            Label = label;
+
+            if (LabelChanged.HasDelegate)
+                await LabelChanged.InvokeAsync(label);
+        }
+    }
+
+    /// <summary />
+    internal void SetProperties(bool? overflow)
+    {
+        Overflow = overflow == true ? overflow : null;
+    }
 }

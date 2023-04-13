@@ -1,11 +1,4 @@
-﻿::deep fluent-tab {
-    font-weight: 600;
-    font-size: medium;
-}
-
-    ::deep fluent-tab[aria-selected="true"] {
-        z-index: 0;
-    }
+﻿
 
 ::deep fluent-tab-panel {
     max-height: 535px;

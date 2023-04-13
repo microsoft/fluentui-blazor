@@ -32,6 +32,11 @@ public abstract class FluentComponentBase : ComponentBase
     [Parameter]
     public virtual string? Style { get; set; }
 
+    /// <summary>
+    /// Use Tag to attach any user data object to the component for your convenience.
+    /// </summary>
+    [Parameter]
+    public virtual object? Tag { get; set; } = null;
 
     /// <summary>
     /// A reference to the enclosing component.

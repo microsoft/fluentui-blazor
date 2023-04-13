@@ -68,7 +68,29 @@ public class DataSource
         new Person ( PersonId : 9, FirstName : "Jakob", LastName : "Berger", CountryCode : "de", BirthDate : new DateOnly(1971, 4, 21) )
     };
 
+    public class MonthItem
+    {
+        public string Index { get; set; } = "00";
+        public string Name { get; set; } = "";
+        public override string ToString() => $"{Index:00} {Name}";
+    }
 
+    public static MonthItem[] AllMonths = Enumerable.Range(0, 12)
+                                            .Select(i => new MonthItem
+                                            {
+                                                Index = $"{i + 1:00}",
+                                                Name = GetMonthName(i)
+                                            })
+                                            .ToArray();
+
+    private static string GetMonthName(int index)
+    {
+        return System.Globalization
+                     .DateTimeFormatInfo
+                     .CurrentInfo
+                     .MonthNames
+                     .ElementAt(index % 12);
+    }
 
     // Data derived from https://www.kaggle.com/datasets/arjunprasadsarkhel/2021-olympics-in-tokyo,
     // which is licensed as https://creativecommons.org/licenses/by-sa/4.0/

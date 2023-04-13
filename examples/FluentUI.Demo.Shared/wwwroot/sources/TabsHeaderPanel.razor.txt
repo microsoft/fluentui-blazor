@@ -1,0 +1,34 @@
+﻿<FluentTabs>
+    <FluentTab>
+        <Header>
+            <FluentIcon Name="@FluentIcons.LeafOne" Color="Color.Error" Size="IconSize.Size16" Slot="start" />
+            All
+        </Header>
+
+    </FluentTab>
+    <FluentTab>
+        <Header>
+            <span slot="start">
+            <FluentIcon Name="@FluentIcons.LeafTwo" Color="Color.Error" Size="IconSize.Size16"  />
+            </span>
+            January
+        </Header>
+
+    </FluentTab>
+    <FluentTab>
+        <Header>
+            <FluentIcon Name="@FluentIcons.LeafThree" Color="Color.Error" Size="IconSize.Size16" />
+            <span style="color:forestgreen;">February</span>
+        </Header>
+    </FluentTab>
+
+    <FluentTabPanel>
+        Content 0
+    </FluentTabPanel>
+    <FluentTabPanel>
+        Content 1
+    </FluentTabPanel>
+    <FluentTabPanel>
+        Content 2
+    </FluentTabPanel>
+</FluentTabs>

@@ -10,9 +10,9 @@
         <FluentButton>2</FluentButton>
         <FluentButton>3</FluentButton>
     </div>
-    <FluentTab>Tab one</FluentTab>
-    <FluentTab>Tab two</FluentTab>
-    <FluentTab>Tab three</FluentTab>
+    <FluentTab Label="Tab one"></FluentTab>
+    <FluentTab Label="Tab two"></FluentTab>
+    <FluentTab Label="Tab three"></FluentTab>
     <FluentTabPanel>
         Tab one content. This is for testing.
     </FluentTabPanel>
@@ -36,9 +36,9 @@
         <FluentButton>2</FluentButton>
         <FluentButton>3</FluentButton>
     </div>
-    <FluentTab>Tab one</FluentTab>
-    <FluentTab>Tab two</FluentTab>
-    <FluentTab>Tab three</FluentTab>
+    <FluentTab Label="Tab one"></FluentTab>
+    <FluentTab Label="Tab two"></FluentTab>
+    <FluentTab Label="Tab three"></FluentTab>
     <FluentTabPanel>
         Tab one content. This is for testing.
     </FluentTabPanel>

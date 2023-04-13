@@ -71,6 +71,12 @@ public partial class FluentIcon : FluentComponentBase
     public string? Slot { get; set; } = null;
 
     /// <summary>
+    /// Gets or sets the title for the icon
+    /// </summary>
+    [Parameter]
+    public string? Title { get; set; } = null;
+
+    /// <summary>
     /// Gets or sets the two letter neutral culture variant used. Not all neutral cultures are available for all icons
     /// </summary>
     [Parameter]
@@ -175,7 +181,13 @@ public partial class FluentIcon : FluentComponentBase
             builder.AddAttribute(8, "xmlns", "http://www.w3.org/2000/svg");
             builder.AddAttribute(9, "onclick", OnClickHandler);
             builder.AddMultipleAttributes(10, AdditionalAttributes);
-            builder.AddMarkupContent(11, _svg);
+            if (!string.IsNullOrWhiteSpace(Title))
+            {
+                builder.OpenElement(11, "title");
+                builder.AddContent(12, Title);
+                builder.CloseElement();
+            }
+            builder.AddMarkupContent(13, _svg);
             builder.CloseElement();
         }
     }

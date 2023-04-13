@@ -1,12 +1,37 @@
 @namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentComponentBase
 <fluent-tab @ref=Element
-            class="@Class"
-            style="@Style"
+            class="@ClassValue"
+            style="@StyleValue"
+            id="@Id"
             tab-id="@TabId"
             disabled="@Disabled"
+            aria-label="@Label"
+            overflow=@Overflow
             @attributes="AdditionalAttributes">
-    @Text
-    @ChildContent
+    @if (!string.IsNullOrEmpty(Icon))
+    {
+        <FluentIcon Name="@Icon" Size="@IconSize.Size20" Class="fluent-tab-icon" />
+    }
+    @if (LabelEditable)
+    {
+        <span contenteditable="true" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" Title="Click to edit this tab name">
+            @Label
+        </span>
+    }
+    else
+    {
+        @Label
+    }
+    
+    @Header
+
+    @if (Owner.ShowClose)
+    {
+        <FluentIcon Name="@FluentIcons.Dismiss" Size="@IconSize.Size12" Class="fluent-tab-close" Title="Close" OnClick="CloseClickedAsync" />
+    }
 </fluent-tab>
+@ChildContent
+
+
 
