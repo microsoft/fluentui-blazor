@@ -2,7 +2,7 @@
     We can't use the FluentIcon's own Slot parameter here because it will not be detected by FluentMenu's internal script to determine 
     indentation (they are added too late in the render process). Workaround is to define a slot manually and place the FluentIcon in there
 *@
-<FluentMenu>
+<FluentMenu Open="true">
     <FluentMenuItem>
         Menu item 1
         <span slot="start" >

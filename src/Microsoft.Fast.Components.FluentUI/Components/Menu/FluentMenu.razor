@@ -1,10 +1,32 @@
 @namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentComponentBase
 <CascadingValue Value="this" IsFixed="true">
-    <fluent-menu @ref=Element
-                 class="@Class"
-                 style="@Style"
-                 @attributes="AdditionalAttributes">
-        @ChildContent
-    </fluent-menu>
+    @if (Open)
+    {
+        
+        @if (Anchored)
+        {
+            <FluentAnchoredRegion Anchor="@Anchor"
+                HorizontalDefaultPosition="@HorizontalPosition"
+                HorizontalInset="true"
+                VerticalDefaultPosition="@VerticalPosition.Bottom"
+                Shadow="@ElevationShadow.None"
+                Class="@ClassValue"
+                Style="@StyleValue"
+                @attributes="AdditionalAttributes">
+                <fluent-menu @ref=Element>
+                    @ChildContent
+                </fluent-menu>
+            </FluentAnchoredRegion>
+        }
+        else
+        {
+            <fluent-menu @ref=Element
+                         class="@ClassValue"
+                         style="@StyleValue"
+            @attributes="AdditionalAttributes">
+                @ChildContent
+            </fluent-menu>
+        }
+    }
 </CascadingValue>

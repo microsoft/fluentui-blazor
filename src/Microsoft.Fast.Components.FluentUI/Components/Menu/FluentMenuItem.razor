@@ -6,8 +6,16 @@
 				  id="@Id"
 				  disabled="@Disabled" 
 				  expanded=@Expanded
-				  role=@Role.ToAttributeValue()
+				  role="@GetRole()"
 				  checked="@Checked"
+				  @onclick="@OnClickHandlerAsync"
 				  @attributes="AdditionalAttributes">
+	@Label
 	@ChildContent
+	@if (MenuItems != null)
+	{
+		<fluent-menu slot="submenu">
+			@MenuItems
+		</fluent-menu>
+	}
 </fluent-menu-item>

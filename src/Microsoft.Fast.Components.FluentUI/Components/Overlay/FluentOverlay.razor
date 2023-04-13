@@ -1,0 +1,4 @@
+﻿@namespace Microsoft.Fast.Components.FluentUI
+<div class="fluent-overlay" 
+     style="@(Transparent ? "cursor: auto;" : $"background-color: rgba(255, 255, 255, {Opacity}); cursor: default;")" 
+     @onclick="@OnCloseHandlerAsync" @oncontextmenu="@OnCloseHandlerAsync" @oncontextmenu:preventDefault />

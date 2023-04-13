@@ -1,4 +1,4 @@
-﻿<FluentMenu>
+﻿<FluentMenu Open="true">
     <FluentMenuItem>
         Menu item 1
         <FluentMenu slot="submenu">

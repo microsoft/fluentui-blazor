@@ -99,7 +99,7 @@
         createEventArgs: event => {
             return {
                 id: event.target.id,
-                value: event.target.innerHTML
+                value: event.target.innerText
             };
         }
     });

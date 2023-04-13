@@ -6,7 +6,7 @@
 public enum AutoUpdateMode
 {
     /// <summary>
-    /// The position only updates when the anchor resizes (default)
+    /// The position only updates when the anchor resizes 
     /// </summary>
     Anchor,
 
@@ -17,6 +17,7 @@ public enum AutoUpdateMode
     /// - the window resizes
     /// - the viewport resizes
     /// - any scroll event in the document
+    /// This is the default setting
     /// </summary>
     Auto
 }

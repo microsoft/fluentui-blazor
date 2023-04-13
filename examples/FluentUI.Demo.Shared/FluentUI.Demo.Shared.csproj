@@ -62,12 +62,6 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-	  <None Include="Pages\Overflow\Examples\OverflowDefaultExample.razor" />
-	  <None Include="Pages\Overflow\Examples\OverflowHorizontalExample.razor" />
-	  <None Include="Pages\Overflow\OverflowPage.razor" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<ProjectReference Include="..\FluentUI.Demo.Generators\FluentUI.Demo.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 		<TrimmerRootAssembly Include="Microsoft.Fast.Components.FluentUI" />
 	</ItemGroup>

@@ -1,4 +1,4 @@
-﻿<FluentMenu>
+﻿<FluentMenu Open="true">
     <FluentMenuItem>Menu item 1</FluentMenuItem>
     <FluentMenuItem>Menu item 2</FluentMenuItem>
     <FluentMenuItem>Menu item 3</FluentMenuItem>

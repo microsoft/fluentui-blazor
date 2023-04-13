@@ -1934,24 +1934,102 @@
             Gets or sets asset to read the Markdown from
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenu.ClassValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenu.StyleValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenu.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenu.Id">
+            <summary>
+            Unique identifier of this menu.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenu.Anchor">
+            <summary>
+            Identifier of the source component clickable by the end user.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenu.Trigger">
+            <summary>
+            Gets or sets the automatic trigger. See <seealso cref="T:Microsoft.Fast.Components.FluentUI.MouseButton"/>
+            Possible values are None (default), Left, Middle, Right, Back, Forward 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenu.Open">
+            <summary>
+            Gets or sets the Menu status.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenu.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenu.HorizontalPosition">
+            <summary>
+            Menu position (left or right).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenu.Width">
+            <summary>
+            Width of this menu.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenu.OpenChanged">
+            <summary>
+            Raised when the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentMenu.Open"/> property changed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenu.Anchored">
+            <summary>
+            Draw the menu below the component clicked (true) or
+            using the mouse coordinates (false).
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentMenu.OnAfterRenderAsync(System.Boolean)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentMenu.CloseAsync">
+            <summary>
+            Close the menu.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentMenu.OpenAsync(System.Int32,System.Int32)">
+            <summary>
+            Method called from JavaScript to get the current mouse ccordinates.
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentMenu.Dispose">
+            <summary>
+            Dispose this menu.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenuItem.Owner">
             <summary>
-            Gets or sets the owning FluentMenu
+            Gets or sets the owning FluentMenu.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenuItem.Id">
             <summary>
-            Gets or sets if the id
+            Gets or sets if the id.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenuItem.Label">
+            <summary>
+            Gets or sets the menu item label.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenuItem.Disabled">
             <summary>
-            Gets or sets if the element is disabled
+            Gets or sets if the element is disabled.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenuItem.Expanded">
@@ -1966,13 +2044,26 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenuItem.Checked">
             <summary>
-            Gets or sets if the element is checked
+            Gets or sets if the element is checked.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenuItem.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
             </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenuItem.MenuItems">
+            <summary>
+            List of sub-menu items.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenuItem.OnClick">
+            <summary>
+            Event raised when the user click on this item.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentMenuItem.OnClickHandlerAsync">
+            <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.Id">
             <summary>
@@ -2315,6 +2406,9 @@
             <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.OverflowItem.Text">
+            <summary />
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.FluentOverlay">
             <summary />
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.FluentPaginator">
@@ -5917,7 +6011,7 @@
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.AutoUpdateMode.Anchor">
             <summary>
-            The position only updates when the anchor resizes (default)
+            The position only updates when the anchor resizes 
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.AutoUpdateMode.Auto">
@@ -5928,6 +6022,7 @@
             - the window resizes
             - the viewport resizes
             - any scroll event in the document
+            This is the default setting
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.AxisPositioningMode">
@@ -6229,6 +6324,31 @@
         <member name="F:Microsoft.Fast.Components.FluentUI.DividerRole.Presentation">
             <summary>
             The divider is used for presentation purpose.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.ElevationShadow">
+            <summary>
+             Defines the possible options for elevation shadow. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.ElevationShadow.None">
+            <summary>
+            No shadow effect applied (default);
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.ElevationShadow.Tooltip">
+            <summary>
+            Tooltip elevation shadow settings
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.ElevationShadow.Flyout">
+            <summary>
+            Flyout elevation shadow settings
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.ElevationShadow.Dialog">
+            <summary>
+            Dialog elevation shadow settings
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.EmojiGroup">
@@ -6565,6 +6685,41 @@
         <member name="F:Microsoft.Fast.Components.FluentUI.MenuItemRole.MenuItemRadio">
             <summary>
             The menu item has a "menuitemradio" role
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.MouseButton">
+            <summary>
+             Defines the possible options for mouse buttons. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.MouseButton.None">
+            <summary>
+            No button.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.MouseButton.Left">
+            <summary>
+            Left button.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.MouseButton.Middle">
+            <summary>
+            Middle button.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.MouseButton.Right">
+            <summary>
+            Right button.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.MouseButton.Back">
+            <summary>
+            X1 button (back).
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.MouseButton.Forward">
+            <summary>
+            X2 button (forward).
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.OfficeColor">

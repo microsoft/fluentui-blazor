@@ -1,8 +1,21 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentAnchoredRegion : FluentComponentBase
 {
+    protected string? ClassValue => new CssBuilder(Class)
+        .Build();
+
+    protected string? StyleValue => new StyleBuilder()
+        .AddStyle(Style)
+        .AddStyle("z-index: 999")
+        .AddStyle("background-color: var(--neutral-layer-floating)")
+        .AddStyle("box-shadow", "var(--elevation-shadow-tooltip)", () => Shadow == ElevationShadow.Tooltip)
+        .AddStyle("box-shadow", "var(--elevation-shadow-flyout)", () => Shadow == ElevationShadow.Flyout)
+        .AddStyle("box-shadow", "var(--elevation-shadow-dialog)", () => Shadow == ElevationShadow.Dialog)
+        .Build();
+
     /// <summary>
     /// The HTML ID of the anchor element this region is positioned relative to
     /// This must be set for the component positioning logic to be active.
@@ -116,7 +129,10 @@ public partial class FluentAnchoredRegion : FluentComponentBase
     /// Default is "Anchor". In 'anchor' mode only anchor resizes and attribute changes will provoke an update. In 'auto' mode the component also updates because of - any scroll event on the document, window resizes and viewport resizes. See <seealso cref="AutoUpdateMode"/>
     /// </summary>
     [Parameter]
-    public AutoUpdateMode? AutoUpdateMode { get; set; } = FluentUI.AutoUpdateMode.Anchor;
+    public AutoUpdateMode? AutoUpdateMode { get; set; } = FluentUI.AutoUpdateMode.Auto;
+
+    [Parameter]
+    public ElevationShadow Shadow { get; set; } = ElevationShadow.None;
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
