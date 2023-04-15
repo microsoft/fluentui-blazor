@@ -81,7 +81,7 @@ public partial class FluentTableOfContents : IAsyncDisposable
         {
             await QueryDom();
         }
-        catch (Exception )
+        catch (Exception)
         {
             // Already disposed
         }
