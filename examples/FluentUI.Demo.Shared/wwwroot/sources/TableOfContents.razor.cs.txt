@@ -78,7 +78,14 @@ public partial class TableOfContents : IAsyncDisposable
 
     private async void LocationChanged(object? sender, LocationChangedEventArgs e)
     {
-        await QueryDom();
+        try
+        {
+            await QueryDom();
+        }
+        catch (Exception)
+        {
+            // Already disposed
+        }
     }
     
     private RenderFragment? GetTocItems(IEnumerable<Anchor>? items)
