@@ -3,12 +3,14 @@
 <CascadingValue Value="this" IsFixed="true">
     @if (Open)
     {
-        
+        <FluentOverlay OnClose="@CloseAsync" Transparent="true" />
         @if (Anchored)
         {
             <FluentAnchoredRegion Anchor="@Anchor"
                 HorizontalDefaultPosition="@HorizontalPosition"
                 HorizontalInset="true"
+                HorizontalViewportLock="true"
+                HorizontalThreshold="200"
                 VerticalDefaultPosition="@VerticalPosition.Bottom"
                 Shadow="@ElevationShadow.None"
                 Class="@ClassValue"
@@ -24,7 +26,7 @@
             <fluent-menu @ref=Element
                          class="@ClassValue"
                          style="@StyleValue"
-            @attributes="AdditionalAttributes">
+                         @attributes="AdditionalAttributes">
                 @ChildContent
             </fluent-menu>
         }

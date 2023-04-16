@@ -271,7 +271,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentComponentBase.Tag">
             <summary>
-            Use Tag to attach any user data object to the component for your convenience.
+            Used to attach any user data object to the component.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentComponentBase.BackReference">

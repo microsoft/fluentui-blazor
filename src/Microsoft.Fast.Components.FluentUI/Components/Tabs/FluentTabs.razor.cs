@@ -10,7 +10,7 @@ public partial class FluentTabs : FluentComponentBase
 {
     private const string FLUENT_TAB_TAG = "fluent-tab";
     private readonly Dictionary<string, FluentTab> _tabs = new();
-    private string _activeId = string.Empty;
+    //private string _activeId = string.Empty;
     private DotNetObjectReference<FluentTabs>? _dotNetHelper = null;
     private IJSObjectReference _jsModuleOverflow = default!;
 
@@ -78,7 +78,7 @@ public partial class FluentTabs : FluentComponentBase
     /// <summary>
     /// Gets the active selected tab.
     /// </summary>
-    public FluentTab ActiveTab => _tabs.FirstOrDefault(i => i.Key == _activeId).Value ?? _tabs.First().Value;
+    public FluentTab ActiveTab => _tabs.FirstOrDefault(i => i.Key == ActiveTabId).Value ?? _tabs.First().Value;
 
 
     [Parameter]
@@ -177,16 +177,16 @@ public partial class FluentTabs : FluentComponentBase
     /// <summary />
     internal async Task OnTabChangeHandlerAsync(TabChangeEventArgs e)
     {
-        _activeId = e.ActiveId;
+        ActiveTabId = e.ActiveId;
 
         if (ActiveTabIdChanged.HasDelegate)
         {
-            await ActiveTabIdChanged.InvokeAsync(_activeId);
+            await ActiveTabIdChanged.InvokeAsync(ActiveTabId);
         }
 
         if (OnSelectedTab.HasDelegate)
         {
-            await OnSelectedTab.InvokeAsync(this.ActiveTab);
+            await OnSelectedTab.InvokeAsync(ActiveTab);
         }
     }
 

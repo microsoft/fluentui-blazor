@@ -1,16 +1,14 @@
 ﻿<FluentTabs>
     <FluentTab>
         <Header>
-            <FluentIcon Name="@FluentIcons.LeafOne" Color="Color.Error" Size="IconSize.Size16" Slot="start" />
+            <FluentIcon Name="@FluentIcons.LeafOne" Size="IconSize.Size16" />
             All
         </Header>
 
     </FluentTab>
     <FluentTab>
         <Header>
-            <span slot="start">
-            <FluentIcon Name="@FluentIcons.LeafTwo" Color="Color.Error" Size="IconSize.Size16"  />
-            </span>
+            <FluentIcon Name="@FluentIcons.LeafTwo" Color="Color.Success" Size="IconSize.Size16"  />
             January
         </Header>
 

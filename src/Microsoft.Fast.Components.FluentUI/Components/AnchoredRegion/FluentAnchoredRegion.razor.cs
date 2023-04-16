@@ -9,7 +9,7 @@ public partial class FluentAnchoredRegion : FluentComponentBase
 
     protected string? StyleValue => new StyleBuilder()
         .AddStyle(Style)
-        .AddStyle("z-index: 999")
+        .AddStyle("z-index: 9999")
         .AddStyle("background-color: var(--neutral-layer-floating)")
         .AddStyle("box-shadow", "var(--elevation-shadow-tooltip)", () => Shadow == ElevationShadow.Tooltip)
         .AddStyle("box-shadow", "var(--elevation-shadow-flyout)", () => Shadow == ElevationShadow.Flyout)
@@ -38,7 +38,7 @@ public partial class FluentAnchoredRegion : FluentComponentBase
     /// See <seealso cref="AxisPositioningMode"/>
     /// </summary>
     [Parameter]
-    public AxisPositioningMode? HorizontalPositioningMode { get; set; } = AxisPositioningMode.Uncontrolled;
+    public AxisPositioningMode? HorizontalPositioningMode { get; set; } = AxisPositioningMode.Dynamic;
 
     /// <summary>
     /// The default horizontal position of the region relative to the anchor element
@@ -81,7 +81,7 @@ public partial class FluentAnchoredRegion : FluentComponentBase
     /// See <seealso cref="AxisPositioningMode"/>
     /// </summary>
     [Parameter]
-    public AxisPositioningMode? VerticalPositioningMode { get; set; } = AxisPositioningMode.Uncontrolled;
+    public AxisPositioningMode? VerticalPositioningMode { get; set; } = AxisPositioningMode.Dynamic;
 
     /// <summary>
     /// The default vertical position of the region relative to the anchor element

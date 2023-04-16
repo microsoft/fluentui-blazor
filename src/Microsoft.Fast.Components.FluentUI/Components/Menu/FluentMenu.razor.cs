@@ -72,7 +72,7 @@ public partial class FluentMenu : IDisposable
     /// Menu position (left or right).
     /// </summary>
     [Parameter]
-    public HorizontalPosition HorizontalPosition { get; set; } = HorizontalPosition.Right;
+    public HorizontalPosition HorizontalPosition { get; set; } = HorizontalPosition.Unset;
 
     /// <summary>
     /// Width of this menu.
