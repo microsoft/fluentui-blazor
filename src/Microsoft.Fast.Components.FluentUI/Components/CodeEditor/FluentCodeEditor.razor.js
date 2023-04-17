@@ -35,6 +35,7 @@ export function monacoInitialize(id, dotNetHelper, options) {
             container.dotNetHelper.invokeMethodAsync("UpdateValueAsync", code);
         });
 
+        container.editor.layout();
         window.editor = container.editor;   // To debug
     });
 }

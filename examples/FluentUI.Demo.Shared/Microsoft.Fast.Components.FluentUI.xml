@@ -652,10 +652,10 @@
         <member name="T:Microsoft.Fast.Components.FluentUI.FluentCodeEditor">
             <summary />
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCodeEditor.JS">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCodeEditor.JSRuntime">
             <summary />
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCodeEditor.Module">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCodeEditor._jsModule">
             <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentCodeEditor.Id">
@@ -705,7 +705,7 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentCodeEditor.UpdateValueAsync(System.String)">
             <summary />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentCodeEditor.System#IAsyncDisposable#DisposeAsync">
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentCodeEditor.DisposeAsync">
             <summary />
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.FluentCounterBadge">

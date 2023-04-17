@@ -33,10 +33,10 @@ public partial class FluentCodeEditor : FluentComponentBase, IAsyncDisposable
 
     /// <summary />
     [Inject]
-    private IJSRuntime JS { get; set; } = default!;
+    private IJSRuntime JSRuntime { get; set; } = default!;
 
     /// <summary />
-    private IJSObjectReference Module { get; set; } = default!;
+    private IJSObjectReference _jsModule { get; set; } = default!;
 
     /// <summary>
     /// Unique identifier of this component.
@@ -94,12 +94,12 @@ public partial class FluentCodeEditor : FluentComponentBase, IAsyncDisposable
     /// <summary />
     protected override async Task OnParametersSetAsync()
     {
-        if (Module != null)
+        if (_jsModule != null)
         {
-            await Module.InvokeVoidAsync(
+            await _jsModule.InvokeVoidAsync(
                 "monacoSetOptions",
                 Id,
-                new { Value = this.Value, Theme = GetTheme(IsDarkMode), Language = this.Language, });
+                new { Value, Theme = GetTheme(IsDarkMode), Language, });
         }
     }
 
@@ -108,7 +108,7 @@ public partial class FluentCodeEditor : FluentComponentBase, IAsyncDisposable
     {
         if (firstRender)
         {
-            Module = await JS.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
             _objRef = DotNetObjectReference.Create(this);
 
             var options = new
@@ -120,17 +120,21 @@ public partial class FluentCodeEditor : FluentComponentBase, IAsyncDisposable
                 LineNumbers = true,
                 ReadOnly = false,
             };
-            await Module.InvokeVoidAsync("monacoInitialize", Id, _objRef, options);
+            await _jsModule.InvokeVoidAsync("monacoInitialize", Id, _objRef, options);
         }
 
         await base.OnAfterRenderAsync(firstRender);
     }
 
     /// <summary />
-    private string GetTheme(bool isDarkMode)
+    private static string GetTheme(bool isDarkMode)
     {
         return isDarkMode ? "vs-dark" : "light";
     }
+
+    public async Task Focus() => await _jsModule!.InvokeVoidAsync("focus");
+
+    public async Task Resize() => await _jsModule!.InvokeVoidAsync("resize");
 
     /// <summary />
     [JSInvokable]
@@ -144,11 +148,11 @@ public partial class FluentCodeEditor : FluentComponentBase, IAsyncDisposable
     }
 
     /// <summary />
-    async ValueTask IAsyncDisposable.DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
-        if (Module is not null)
+        if (_jsModule is not null)
         {
-            await Module.DisposeAsync();
+            await _jsModule.DisposeAsync();
         }
 
         if (_objRef is not null)

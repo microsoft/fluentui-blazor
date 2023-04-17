@@ -82,7 +82,7 @@ public partial class FluentTabs : FluentComponentBase
 
 
     [Parameter]
-    public string ActiveTabId { get; set; }
+    public string ActiveTabId { get; set; } = default;
 
     /// <summary>
     /// Gets or sets a callback when the bound value is changed.
