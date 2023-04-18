@@ -131,7 +131,7 @@ public partial class FluentTabs : FluentComponentBase
     {
         if (args is not null)
         {
-            string? tabId = args.AffectedId;
+            string? tabId = args.ActiveId;
             if (tabId is not null && _tabs.TryGetValue(tabId, out FluentTab? tab))
             {
                 await OnTabChange.InvokeAsync(tab);
@@ -143,7 +143,7 @@ public partial class FluentTabs : FluentComponentBase
     internal int RegisterTab(FluentTab tab)
     {
         _tabs.Add(tab.Id, tab);
-        return _tabs.Count;
+        return _tabs.Count-1;
     }
 
     internal async Task UnregisterTabAsync(FluentTab tab)
