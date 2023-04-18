@@ -143,6 +143,12 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
         };
     }
 
+    protected override void OnParametersSet()
+    {
+        ValidateInputParameters(Max, Min);
+        base.OnParametersSet();
+    }
+
     public static string GetMaxValue()
     {
         Type? targetType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
