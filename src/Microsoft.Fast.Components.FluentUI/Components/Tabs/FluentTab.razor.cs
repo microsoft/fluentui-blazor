@@ -19,8 +19,6 @@ public partial class FluentTab : FluentComponentBase
         .AddStyle(Style)
         .Build();
 
-    internal string TabId { get; } = Identifier.NewId();
-
     /// <summary />
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;

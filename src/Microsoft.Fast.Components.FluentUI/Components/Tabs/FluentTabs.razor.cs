@@ -82,7 +82,7 @@ public partial class FluentTabs : FluentComponentBase
 
 
     [Parameter]
-    public string ActiveTabId { get; set; } = default;
+    public string ActiveTabId { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets a callback when the bound value is changed.
@@ -142,7 +142,7 @@ public partial class FluentTabs : FluentComponentBase
 
     internal int RegisterTab(FluentTab tab)
     {
-        _tabs.Add(tab.TabId, tab);
+        _tabs.Add(tab.Id, tab);
         return _tabs.Count;
     }
 
@@ -153,12 +153,9 @@ public partial class FluentTabs : FluentComponentBase
             await OnClosedTab.InvokeAsync(tab);
         }
 
-        // Delete the last item from the internal list
-        // The content will be filled by Blazor refill
         if (_tabs.Count > 0)
         {
-            //_tabs.Remove(_tabs.Last().Key);
-            _tabs.Remove(tab.TabId);
+            _tabs.Remove(tab.Id);
         }
 
         // Set the first tab active
@@ -177,7 +174,7 @@ public partial class FluentTabs : FluentComponentBase
     /// <summary />
     internal async Task OnTabChangeHandlerAsync(TabChangeEventArgs e)
     {
-        ActiveTabId = e.ActiveId;
+        ActiveTabId = e.ActiveId!;
 
         if (ActiveTabIdChanged.HasDelegate)
         {
