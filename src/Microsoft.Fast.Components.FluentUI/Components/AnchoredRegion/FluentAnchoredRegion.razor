@@ -1,8 +1,6 @@
 @namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentComponentBase
 <fluent-anchored-region @ref=Element
-						class="@ClassValue"
-						style="@StyleValue"
 						anchor="@Anchor"
 						viewport="@Viewport"
 						horizontal-positioning-mode="@HorizontalPositioningMode.ToAttributeValue()"
@@ -19,7 +17,10 @@
 						vertical-scaling="@VerticalScaling.ToAttributeValue()"
 						fixed-placement=@FixedPlacement
 						auto-update-mode="@AutoUpdateMode.ToAttributeValue()"
+						style="z-index: 9999;"
 						@attributes="AdditionalAttributes">
-	@ChildContent
+	<div class="@ClassValue" style="@StyleValue">
+		@ChildContent
+	</div>
 </fluent-anchored-region>
 

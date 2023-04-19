@@ -2489,6 +2489,36 @@
             <param name="pageIndex">The new, zero-based page index.</param>
             <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPopover.AnchorId">
+            <summary>
+            Gets or sets the id of the component the popover is positioned relative to
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPopover.Open">
+            <summary>
+            Gets or sets popover opened state
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPopover.OpenChanged">
+            <summary>
+            Callback for whenopen state changes
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPopover.Header">
+            <summary>
+            Contents of the header part of the popover
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPopover.Body">
+            <summary>
+            Contents of the body part of the popover
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPopover.Footer">
+            <summary>
+            Contents of the footer part of the popover
+            </summary>
+        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.FluentPresenceBadge">
             <summary>
             A presence badge is a badge that displays a status indicator such as available, away, or busy.

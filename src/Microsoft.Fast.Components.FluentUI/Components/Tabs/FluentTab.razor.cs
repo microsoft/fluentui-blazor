@@ -74,7 +74,7 @@ public partial class FluentTab : FluentComponentBase
     /// <summary>
     /// Gets the index number of this tab.
     /// </summary>
-    public int Index { get; private set; } = 0;
+    public int Index { get; set; } = 0;
 
     /// <summary>
     /// True to let the user edit the <see cref="Label"/> property.

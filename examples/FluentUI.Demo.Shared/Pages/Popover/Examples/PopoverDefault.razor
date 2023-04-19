@@ -1,0 +1,15 @@
+﻿<FluentButton id="myPopoverButton" Appearance="Appearance.Accent" @onclick="() => _visible = !_visible">
+    Open Callout
+</FluentButton>
+
+<FluentPopover Style="width: 300px;" AnchorId="myPopoverButton" @bind-Open="_visible">
+    <Header>Callout Header</Header>
+    <Body>
+        Callout Body
+    </Body>
+    <Footer>Callout Footer</Footer>
+</FluentPopover>
+
+@code {
+    bool _visible;
+}
