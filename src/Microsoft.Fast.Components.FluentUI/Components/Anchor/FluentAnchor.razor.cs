@@ -14,7 +14,6 @@ public partial class FluentAnchor : FluentComponentBase, IAsyncDisposable
     [Inject]
     protected IJSRuntime JSRuntime { get; set; } = default!;
 
-
     /// <summary>
     /// Prompts the user to save the linked URL. See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
     /// </summary>
