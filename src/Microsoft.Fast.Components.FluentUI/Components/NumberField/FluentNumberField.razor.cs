@@ -194,4 +194,103 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
 
         return value;
     }
+
+    protected void ValidateInputParameters(string? max, string? min)
+    {
+        if (typeof(TValue) == typeof(int))
+        {
+            ValidateIntegerInputs(max, min);
+        }
+
+        if (typeof(TValue) == typeof(long))
+        {
+            ValidateLongInput(max, min);
+        }
+
+        if (typeof(TValue) == typeof(short))
+        {
+            ValidateShortInput(max, min);
+        }
+
+        if (typeof(TValue) == typeof(float))
+        {
+            ValidateFloatInput(max, min);
+        }
+
+        if (typeof(TValue) == typeof(double))
+        {
+            ValidateDoubleInput(max, min);
+        }
+
+        if (typeof(TValue) == typeof(decimal))
+        {
+            ValidateDecimalInput(max, min);
+        }
+    }
+
+    private static void ValidateDecimalInput(string? max, string? min)
+    {
+        decimal maxValue = decimal.Parse(max!);
+        decimal minValue = decimal.Parse(min!);
+
+        if (maxValue < minValue)
+        {
+            throw new ArgumentException("Decimal Max value is smaller than Min value.");
+        }
+    }
+
+    private static void ValidateDoubleInput(string? max, string? min)
+    {
+        double maxValue = double.Parse(max!);
+        double minValue = double.Parse(min!);
+
+        if (maxValue < minValue)
+        {
+            throw new ArgumentException("Double Max value is smaller than Min value.");
+        }
+    }
+
+    private static void ValidateFloatInput(string? max, string? min)
+    {
+        float maxValue = float.Parse(max!);
+        float minValue = float.Parse(min!);
+
+        if (maxValue < minValue)
+        {
+            throw new ArgumentException("Float Max value is smaller than Min value.");
+        }
+    }
+
+    private static void ValidateShortInput(string? max, string? min)
+    {
+        short maxValue = short.Parse(max!);
+        short minValue = short.Parse(min!);
+
+        if (maxValue < minValue)
+        {
+            throw new ArgumentException("Short Max value is smaller than Min value.");
+        }
+    }
+
+    private static void ValidateLongInput(string? max, string? min)
+    {
+        long maxValue = long.Parse(max!);
+        long minValue = long.Parse(min!);
+
+        if (maxValue < minValue)
+        {
+            throw new ArgumentException("Long Max value is smaller than Min value.");
+        }
+    }
+
+    private static void ValidateIntegerInputs(string? max, string? min)
+    {
+        int maxValue = int.Parse(max!);
+        int minValue = int.Parse(min!);
+
+        if (maxValue < minValue)
+        {
+            throw new ArgumentException("Integer Max value is smaller then Min value.");
+        }
+    }
 }
