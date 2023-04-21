@@ -13,7 +13,7 @@
 <h2>FluentComponentBase Class</h2>
 
 <h3>Parameters</h3>
-<FluentDataGrid RowsData="@Properties.AsQueryable()" GridTemplateColumns="1fr 1fr 0.5fr 1.5fr">
+<FluentDataGrid Items="@Properties.AsQueryable()" GridTemplateColumns="1fr 1fr 0.5fr 1.5fr">
     <TemplateColumn Title="Name">
         <code>@context.Name</code>
     </TemplateColumn>

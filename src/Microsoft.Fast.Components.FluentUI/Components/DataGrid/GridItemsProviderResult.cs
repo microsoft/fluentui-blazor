@@ -4,7 +4,7 @@
 namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary>
-/// Holds data being supplied to a <see cref="FluentDataGrid{TGridItem}"/>'s <see cref="FluentDataGrid{TGridItem}.RowsDataProvider"/>.
+/// Holds data being supplied to a <see cref="FluentDataGrid{TGridItem}"/>'s <see cref="FluentDataGrid{TGridItem}.ItemsProvider"/>.
 /// </summary>
 /// <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
 public readonly struct GridItemsProviderResult<TGridItem>

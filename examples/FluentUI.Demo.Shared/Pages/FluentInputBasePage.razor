@@ -30,7 +30,7 @@
 <h2>FluentInputBase&lt;TValue&gt; Class</h2>
 
 <h3>Parameters</h3>
-<FluentDataGrid RowsData="@Properties.AsQueryable()" GridTemplateColumns="1fr 1fr 0.5fr 1.5fr">
+<FluentDataGrid Items="@Properties.AsQueryable()" GridTemplateColumns="1fr 1fr 0.5fr 1.5fr">
     <TemplateColumn Title="Name">
         <code>@context.Name</code>
     </TemplateColumn>
@@ -44,7 +44,7 @@
 </FluentDataGrid>
 
 <h3>EventCallbacks</h3>
-<FluentDataGrid RowsData="@Callbacks.AsQueryable()" GridTemplateColumns="1fr 1fr 1fr">
+<FluentDataGrid Items="@Callbacks.AsQueryable()" GridTemplateColumns="1fr 1fr 1fr">
     <TemplateColumn Title="Name">
         <code>@context.Name</code>
     </TemplateColumn>
@@ -57,7 +57,7 @@
 </FluentDataGrid>
 
 <h3>Methods</h3>
-<FluentDataGrid RowsData="@Methods.AsQueryable()" GridTemplateColumns="1fr 1fr 1fr">
+<FluentDataGrid Items="@Methods.AsQueryable()" GridTemplateColumns="1fr 1fr 1fr">
     <TemplateColumn Title="Name">
         <code>@context.Name</code>
     </TemplateColumn>

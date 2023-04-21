@@ -4,7 +4,7 @@
 @inject NavigationManager NavManager
 
 <div style="height: 434px; overflow:auto;" tabindex="-1">
-    <FluentDataGrid RowsDataProvider="foodRecallProvider" Virtualize="true" GenerateHeader="GenerateHeaderOption.Sticky" TGridItem="FoodRecall" >
+    <FluentDataGrid ItemsProvider="foodRecallProvider" Virtualize="true" GenerateHeader="GenerateHeaderOption.Sticky" TGridItem="FoodRecall" >
         <PropertyColumn Title="ID" Property="@(c => c!.Event_Id)" />
         <PropertyColumn Property="@(c => c!.State)" />
         <PropertyColumn Property="@(c => c!.City)" />

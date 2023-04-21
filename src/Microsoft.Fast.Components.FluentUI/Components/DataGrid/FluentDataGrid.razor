@@ -34,7 +34,7 @@
             {
                 <Virtualize @ref="@_virtualizeComponent"
                             TItem="(int RowIndex, TGridItem Data)"
-                            ItemSize="@RowsDataSize"
+                            ItemSize="@ItemSize"
                             ItemsProvider="@ProvideVirtualizedItems"
                             ItemContent="@(item => builder => RenderRow(builder, item.RowIndex, item.Data))"
                             Placeholder="@(placeholderContext => builder => RenderPlaceholderRow(builder, placeholderContext))" />
@@ -67,10 +67,10 @@
         
         if (Virtualize)
         {
-            _rowsDataSize = $"height: {RowsDataSize}px";
+            _rowsDataSize = $"height: {ItemSize}px";
         }
         
-        <FluentDataGridRow @key="@(RowsDataKey(item))" GridTemplateColumns=@GridTemplateColumns aria-rowindex="@rowIndex" Class="@rowClass" Style="@_rowsDataSize" TGridItem="TGridItem">
+        <FluentDataGridRow @key="@(ItemKey(item))" GridTemplateColumns=@GridTemplateColumns aria-rowindex="@rowIndex" Class="@rowClass" Style="@_rowsDataSize" TGridItem="TGridItem">
             @for (var colIndex = 0; colIndex < _columns.Count; colIndex++)
             {
                 var col = _columns[colIndex];
@@ -84,7 +84,7 @@
 
     private void RenderPlaceholderRow(RenderTreeBuilder __builder, PlaceholderContext placeholderContext)
     {
-        string? _rowsDataSize = $"height: {RowsDataSize}px";
+        string? _rowsDataSize = $"height: {ItemSize}px";
         
         <FluentDataGridRow GridTemplateColumns=@GridTemplateColumns aria-rowindex="@(placeholderContext.Index + 1)" Style="@_rowsDataSize" TGridItem="TGridItem">
             @for (var colIndex = 0; colIndex < _columns.Count; colIndex++)

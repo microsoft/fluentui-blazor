@@ -1,6 +1,6 @@
 ﻿@inject DataSource Data
 
-<FluentDataGrid RowsData="@Data.People" style="width: 600px;">
+<FluentDataGrid Items="@Data.People" style="width: 600px;">
     <TemplateColumn Title="Person" SortBy="@sortByName">
         <div class="flex items-center">
             <img class="flag" src="_content/FluentUI.Demo.Shared/flags/@(context.CountryCode).svg" />

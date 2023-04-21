@@ -7,7 +7,7 @@
 </p>
 
 
-    <FluentDataGrid RowsData="@Data.People" GridTemplateColumns="0.5fr 1fr 1fr" style="width: 500px;">
+    <FluentDataGrid Items="@Data.People" GridTemplateColumns="0.5fr 1fr 1fr" style="width: 500px;">
         <PropertyColumn Title="ID" Property="@(c => c.PersonId)" Sortable="true" />
         @if (showName)
         {

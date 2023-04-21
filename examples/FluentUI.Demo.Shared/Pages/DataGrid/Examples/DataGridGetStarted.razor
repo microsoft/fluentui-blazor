@@ -1,4 +1,4 @@
-﻿<FluentDataGrid RowsData="@people">
+﻿<FluentDataGrid Items="@people">
     <PropertyColumn Property="@(p => p.PersonId)" Sortable="true" />
     <PropertyColumn Property="@(p => p.Name)" Sortable="true" />
     <PropertyColumn Property="@(p => p.BirthDate)" Format="yyyy-MM-dd" Sortable="true" />

@@ -24,16 +24,16 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// <see cref="System.Linq.Queryable.AsQueryable(System.Collections.IEnumerable)"/> extension method,
     /// or an EntityFramework DataSet or an <see cref="IQueryable"/> derived from it.
     ///
-    /// You should supply either <see cref="RowsData"/> or <see cref="RowsDataProvider"/>, but not both.
+    /// You should supply either <see cref="Items"/> or <see cref="ItemsProvider"/>, but not both.
     /// </summary>
-    [Parameter] public IQueryable<TGridItem>? RowsData { get; set; }
+    [Parameter] public IQueryable<TGridItem>? Items { get; set; }
 
     /// <summary>
     /// A callback that supplies data for the rid.
     ///
-    /// You should supply either <see cref="RowsData"/> or <see cref="RowsDataProvider"/>, but not both.
+    /// You should supply either <see cref="Items"/> or <see cref="ItemsProvider"/>, but not both.
     /// </summary>
-    [Parameter] public GridItemsProvider<TGridItem>? RowsDataProvider { get; set; }
+    [Parameter] public GridItemsProvider<TGridItem>? ItemsProvider { get; set; }
 
     /// <summary>
     /// Defines the child components of this instance. For example, you may define columns by adding
@@ -46,7 +46,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// scrolling and causes the grid to fetch and render only the data around the current scroll viewport.
     /// This can greatly improve the performance when scrolling through large data sets.
     ///
-    /// If you use <see cref="Virtualize"/>, you should supply a value for <see cref="RowsDataSize"/> and must
+    /// If you use <see cref="Virtualize"/>, you should supply a value for <see cref="ItemSize"/> and must
     /// ensure that every row renders with the same constant height.
     ///
     /// Generally it's preferable not to use <see cref="Virtualize"/> if the amount of data being rendered
@@ -59,7 +59,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// each row, allowing the virtualization mechanism to fetch the correct number of items to match the display
     /// size and to ensure accurate scrolling.
     /// </summary>
-    [Parameter] public float RowsDataSize { get; set; } = 32;
+    [Parameter] public float ItemSize { get; set; } = 32;
 
     /// <summary>
     /// If true, renders draggable handles around the column headers, allowing the user to resize the columns
@@ -77,7 +77,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     ///
     /// If not set, the @key will be the <typeparamref name="TGridItem"/> instance itself.
     /// </summary>
-    [Parameter] public Func<TGridItem, object> RowsDataKey { get; set; } = x => x!;
+    [Parameter] public Func<TGridItem, object> ItemKey { get; set; } = x => x!;
 
     /// <summary>
     /// Optionally links this <see cref="FluentDataGrid{TGridItem}"/> instance with a <see cref="PaginationState"/> model,
@@ -196,18 +196,18 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         // The associated pagination state may have been added/removed/replaced
         _currentPageItemsChanged.SubscribeOrMove(Pagination?.CurrentPageItemsChanged);
 
-        if (RowsData is not null && RowsDataProvider is not null)
+        if (Items is not null && ItemsProvider is not null)
         {
-            throw new InvalidOperationException($"FluentDataGrid requires one of {nameof(RowsData)} or {nameof(RowsDataProvider)}, but both were specified.");
+            throw new InvalidOperationException($"FluentDataGrid requires one of {nameof(Items)} or {nameof(ItemsProvider)}, but both were specified.");
         }
 
         // Perform a re-query only if the data source or something else has changed
-        var _newRowsDataOrRowsDataProvider = RowsData ?? (object?)RowsDataProvider;
-        var dataSourceHasChanged = _newRowsDataOrRowsDataProvider != _lastAssignedItemsOrProvider;
+        var _newItemsOrItemsProvider = Items ?? (object?)ItemsProvider;
+        var dataSourceHasChanged = _newItemsOrItemsProvider != _lastAssignedItemsOrProvider;
         if (dataSourceHasChanged)
         {
-            _lastAssignedItemsOrProvider = _newRowsDataOrRowsDataProvider;
-            _asyncQueryExecutor = AsyncQueryExecutorSupplier.GetAsyncQueryExecutor(Services, RowsData);
+            _lastAssignedItemsOrProvider = _newItemsOrItemsProvider;
+            _asyncQueryExecutor = AsyncQueryExecutorSupplier.GetAsyncQueryExecutor(Services, Items);
         }
 
         var mustRefreshData = dataSourceHasChanged
@@ -297,7 +297,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     /// <summary>
     /// Instructs the grid to re-fetch and render the current data from the supplied data source
-    /// (either <see cref="RowsData"/> or <see cref="RowsDataProvider"/>).
+    /// (either <see cref="Items"/> or <see cref="ItemsProvider"/>).
     /// </summary>
     /// <returns>A <see cref="Task"/> that represents the completion of the operation.</returns>
     public async Task RefreshDataAsync()
@@ -393,14 +393,14 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     // Normalizes all the different ways of configuring a data source so they have common GridItemsProvider-shaped API
     private async ValueTask<GridItemsProviderResult<TGridItem>> ResolveItemsRequestAsync(GridItemsProviderRequest<TGridItem> request)
     {
-        if (RowsDataProvider is not null)
+        if (ItemsProvider is not null)
         {
-            return await RowsDataProvider(request);
+            return await ItemsProvider(request);
         }
-        else if (RowsData is not null)
+        else if (Items is not null)
         {
-            var totalItemCount = _asyncQueryExecutor is null ? RowsData.Count() : await _asyncQueryExecutor.CountAsync(RowsData);
-            var result = request.ApplySorting(RowsData).Skip(request.StartIndex);
+            var totalItemCount = _asyncQueryExecutor is null ? Items.Count() : await _asyncQueryExecutor.CountAsync(Items);
+            var result = request.ApplySorting(Items).Skip(request.StartIndex);
             if (request.Count.HasValue)
             {
                 result = result.Take(request.Count.Value);

@@ -53,7 +53,7 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     {
         if (Owner.Grid.Virtualize && RowType == DataGridRowType.Default)
         {
-            _style = $"height: {Owner.Grid.RowsDataSize}px";
+            _style = $"height: {Owner.Grid.ItemSize}px";
         }
 
     }
