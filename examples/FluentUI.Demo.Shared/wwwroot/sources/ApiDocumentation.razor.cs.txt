@@ -84,7 +84,7 @@ public partial class ApiDocumentation
             IEnumerable<MemberInfo>? allProperties = Component.GetProperties().Select(i => (MemberInfo)i);
             IEnumerable<MemberInfo>? allMethods = Component.GetMethods().Where(i => !i.IsSpecialName).Select(i => (MemberInfo)i);
 
-            foreach (var memberInfo in allProperties.Union(allMethods).OrderBy(m => m.Name))
+            foreach (MemberInfo memberInfo in allProperties.Union(allMethods).OrderBy(m => m.Name))
             {
                 if (!MEMBERS_TO_EXCLUDE.Contains(memberInfo.Name) || Component.Name == "FluentComponentBase")
                 {
@@ -96,7 +96,7 @@ public partial class ApiDocumentation
                         bool isParameter = memberInfo.GetCustomAttribute<ParameterAttribute>() != null;
                        
 
-                        Type t = memberInfo.GetType(); 
+                        Type t = propertyInfo.PropertyType; 
                         bool isEvent = t == typeof(EventCallback) || (t.IsGenericType && t.GetGenericTypeDefinition() == typeof(EventCallback<>));
 
                         // Parameters

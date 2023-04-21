@@ -1,6 +1,6 @@
 ﻿@inject ILogger<DataGridTemplateColumns2> logger;
 
-<FluentDataGrid id="defaultGrid" RowsData=RowsGrid.AsQueryable() GridTemplateColumns="1fr 1fr" TGridItem=SampleGridData OnRowFocus="HandleRowFocus" OnCellFocus="HandleCellFocus">
+<FluentDataGrid id="defaultGrid" Items=RowsGrid.AsQueryable() GridTemplateColumns="1fr 1fr" TGridItem=SampleGridData OnRowFocus="HandleRowFocus" OnCellFocus="HandleCellFocus">
     <TemplateColumn Title="Name">
         <FluentTextField @bind-Value="@context!.Name" />
     </TemplateColumn>

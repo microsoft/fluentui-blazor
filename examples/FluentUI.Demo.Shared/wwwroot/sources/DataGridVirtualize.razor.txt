@@ -1,7 +1,7 @@
 ﻿@inject ILogger<DataGridVirtualize> logger;
 
 <div style="height: 400px; overflow-y: scroll;">
-    <FluentDataGrid RowsData=@items Virtualize="true" RowsDataSize="32" GridTemplateColumns="1fr 1fr 1fr 1fr">
+    <FluentDataGrid Items=@items Virtualize="true" ItemSize="32" GridTemplateColumns="1fr 1fr 1fr 1fr">
         <PropertyColumn Property="@(c => c.Item1)" Sortable="true">
             <ColumnOptions>
                 <div class="search-box">

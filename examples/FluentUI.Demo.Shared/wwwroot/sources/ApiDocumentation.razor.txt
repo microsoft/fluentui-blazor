@@ -15,7 +15,7 @@
 @if (this.Properties.Any())
 {
     <h3 id="@(_id + "_parameters")">Parameters</h3>
-    <FluentDataGrid Class="docgrid" RowsData="@this.Properties.AsQueryable()" GridTemplateColumns="1fr 1fr 0.5fr 1.5fr">
+    <FluentDataGrid Class="docgrid" Items="@this.Properties.AsQueryable()" GridTemplateColumns="1fr 1fr 0.5fr 1.5fr">
         <TemplateColumn Title="Name"><code>@context.Name</code></TemplateColumn>
         <TemplateColumn Title="Type">
                     @context.Type
@@ -49,7 +49,7 @@
 @if (this.Events.Any())
 {
     <h3 id="@(_id)_callbacks">EventCallbacks</h3>
-    <FluentDataGrid Class="docgrid" RowsData="@this.Events.AsQueryable()" GridTemplateColumns="1fr 1fr 1fr">
+    <FluentDataGrid Class="docgrid" Items="@this.Events.AsQueryable()" GridTemplateColumns="1fr 1fr 1fr">
         <TemplateColumn Title="Name"><code>@context.Name</code></TemplateColumn>
         <PropertyColumn Property="@(c => c.Type)" />
         <TemplateColumn Title="Description">
@@ -63,7 +63,7 @@
 @if (this.Methods.Any())
 {
      <h3 id="@(_id)_methods">Methods</h3>
-    <FluentDataGrid Class="docgrid" RowsData="@this.Methods.AsQueryable()" GridTemplateColumns="1fr 1fr 1fr 1fr">
+    <FluentDataGrid Class="docgrid" Items="@this.Methods.AsQueryable()" GridTemplateColumns="1fr 1fr 1fr 1fr">
         <TemplateColumn Title="Name"><code>@context.Name</code></TemplateColumn>
         <TemplateColumn Title="Parameters">
             @foreach (var param in @context.Parameters)

@@ -1039,7 +1039,7 @@
             </summary>
             <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowsData">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.Items">
              <summary>
              A queryable source of data for the grid.
             
@@ -1047,14 +1047,14 @@
              <see cref="M:System.Linq.Queryable.AsQueryable(System.Collections.IEnumerable)"/> extension method,
              or an EntityFramework DataSet or an <see cref="T:System.Linq.IQueryable"/> derived from it.
             
-             You should supply either <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowsData"/> or <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowsDataProvider"/>, but not both.
+             You should supply either <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.Items"/> or <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.ItemsProvider"/>, but not both.
              </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowsDataProvider">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.ItemsProvider">
              <summary>
              A callback that supplies data for the rid.
             
-             You should supply either <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowsData"/> or <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowsDataProvider"/>, but not both.
+             You should supply either <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.Items"/> or <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.ItemsProvider"/>, but not both.
              </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.ChildContent">
@@ -1069,14 +1069,14 @@
              scrolling and causes the grid to fetch and render only the data around the current scroll viewport.
              This can greatly improve the performance when scrolling through large data sets.
             
-             If you use <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.Virtualize"/>, you should supply a value for <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowsDataSize"/> and must
+             If you use <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.Virtualize"/>, you should supply a value for <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.ItemSize"/> and must
              ensure that every row renders with the same constant height.
             
              Generally it's preferable not to use <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.Virtualize"/> if the amount of data being rendered
              is small or if you are using pagination.
              </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowsDataSize">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.ItemSize">
             <summary>
             This is applicable only when using <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.Virtualize"/>. It defines an expected height in pixels for
             each row, allowing the virtualization mechanism to fetch the correct number of items to match the display
@@ -1089,7 +1089,7 @@
             manually. Size changes are not persisted.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowsDataKey">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.ItemKey">
              <summary>
              Optionally defines a value for @key on each rendered row. Typically this should be used to specify a
              unique identifier, such as a primary key value, for each data item.
@@ -1167,7 +1167,7 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RefreshDataAsync">
             <summary>
             Instructs the grid to re-fetch and render the current data from the supplied data source
-            (either <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowsData"/> or <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowsDataProvider"/>).
+            (either <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.Items"/> or <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.ItemsProvider"/>).
             </summary>
             <returns>A <see cref="T:System.Threading.Tasks.Task"/> that represents the completion of the operation.</returns>
         </member>
@@ -1231,7 +1231,7 @@
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.GridItemsProviderRequest`1">
             <summary>
-            Parameters for data to be supplied by a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/>'s <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowsDataProvider"/>.
+            Parameters for data to be supplied by a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/>'s <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.ItemsProvider"/>.
             </summary>
             <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
         </member>
@@ -1281,7 +1281,7 @@
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.GridItemsProviderResult`1">
             <summary>
-            Holds data being supplied to a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/>'s <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowsDataProvider"/>.
+            Holds data being supplied to a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/>'s <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.ItemsProvider"/>.
             </summary>
             <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
         </member>
