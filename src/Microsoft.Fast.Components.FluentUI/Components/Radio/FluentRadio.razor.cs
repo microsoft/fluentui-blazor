@@ -17,12 +17,6 @@ public partial class FluentRadio<[DynamicallyAccessedMembers(DynamicallyAccessed
     public bool Readonly { get; set; }
 
     /// <summary>
-    /// The id attribute of the element.Used for label association.
-    /// </summary>
-    [Parameter]
-    public string? Id { get; set; }
-
-    /// <summary>
     /// The value of the element
     /// </summary>
     [Parameter]
@@ -58,6 +52,11 @@ public partial class FluentRadio<[DynamicallyAccessedMembers(DynamicallyAccessed
     public RenderFragment? ChildContent { get; set; }
 
     [CascadingParameter] private FluentRadioContext? CascadedContext { get; set; }
+
+    public FluentRadio()
+    {
+        Id = Identifier.NewId();
+    }
 
     /// <inheritdoc />
     protected override void OnInitialized()

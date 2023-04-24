@@ -33,12 +33,6 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
     private IJSObjectReference Module { get; set; } = default!;
 
     /// <summary>
-    /// Unique identifier.
-    /// </summary>
-    [Parameter]
-    public string Id { get; set; } = Identifier.NewId();
-
-    /// <summary>
     /// Content to display. All first HTML elements are included in the items flow.
     /// </summary>
     [Parameter]
@@ -94,6 +88,11 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
     /// Gets the unique identifier associated to the more button ([Id]-more).
     /// </summary>
     public string IdMoreButton => $"{Id}-more";
+
+    public FluentOverflow()
+    {
+        Id = Identifier.NewId();
+    }   
 
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)

@@ -26,11 +26,6 @@ public partial class FluentEmoji : FluentComponentBase
     [Inject]
     private EmojiService EmojiService { get; set; } = default!;
 
-    /// <summary>
-    /// Gets or sets the id.
-    /// </summary>
-    [Parameter]
-    public string? Id { get; set; }
 
     /// <summary>
     /// Gets or sets the name of the emoji. Can be specified by using const value from <see cref="FluentEmojis" />
@@ -150,7 +145,7 @@ public partial class FluentEmoji : FluentComponentBase
             int size = Size == EmojiSize.Custom ? CustomSize!.Value : (int)Size;
 
             builder.OpenElement(0, "svg");
-            builder.AddAttribute(1, "id", Id);
+            builder.AddAttribute(1, "id", GetId());
             builder.AddAttribute(2, "slot", Slot);
             builder.AddAttribute(3, "class", Class);
             builder.AddAttribute(4, "width", size);

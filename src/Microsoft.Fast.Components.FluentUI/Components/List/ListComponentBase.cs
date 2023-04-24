@@ -50,13 +50,6 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
     }
 
     /// <summary>
-    /// Unique identifier. If not provided, a random value will be generated.
-    /// The value will be used as the HTML <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id">global id attribute</see>.
-    /// </summary>
-    [Parameter]
-    public virtual string? Id { get; set; } = Identifier.NewId();
-
-    /// <summary>
     /// Text used on aria-label attribute.
     /// </summary>
     [Parameter]
@@ -160,10 +153,11 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
     public ListComponentBase()
     {
         _internalListContext = new(this);
+        
+        Id = Identifier.NewId();
 
         OptionText = (item) => item?.ToString() ?? null;
         OptionValue = (item) => OptionText.Invoke(item) ?? item?.ToString() ?? null;
-
     }
 
     protected override void OnInitialized()

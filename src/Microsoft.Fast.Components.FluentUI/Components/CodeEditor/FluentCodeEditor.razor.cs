@@ -39,12 +39,6 @@ public partial class FluentCodeEditor : FluentComponentBase, IAsyncDisposable
     private IJSObjectReference _jsModule { get; set; } = default!;
 
     /// <summary>
-    /// Unique identifier of this component.
-    /// </summary>
-    [Parameter]
-    public string Id { get; set; } = Identifier.NewId();
-
-    /// <summary>
     /// Language used by the editor: csharp, javascript, ...
     /// </summary>
     [Parameter]
@@ -90,6 +84,11 @@ public partial class FluentCodeEditor : FluentComponentBase, IAsyncDisposable
     /// </summary>
     [Parameter]
     public EventCallback<string> ValueChanged { get; set; }
+
+    public FluentCodeEditor()
+    {
+        Id = Identifier.NewId();
+    }
 
     /// <summary />
     protected override async Task OnParametersSetAsync()

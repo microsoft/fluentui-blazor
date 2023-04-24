@@ -37,11 +37,10 @@ public partial class FluentAccordionItem : FluentComponentBase, IDisposable
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    /// <summary>
-    /// The item ID
-    /// </summary>
-    internal string Id { get; } = Identifier.NewId();
-
+    public FluentAccordionItem()
+    {
+        Id = Identifier.NewId();
+    }
 
     protected override void OnInitialized()
     {

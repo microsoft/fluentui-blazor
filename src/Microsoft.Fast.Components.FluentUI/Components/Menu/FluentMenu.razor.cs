@@ -38,12 +38,6 @@ public partial class FluentMenu : IDisposable
     private IJSRuntime JSRuntime { get; set; } = default!;
 
     /// <summary>
-    /// Unique identifier of this menu.
-    /// </summary>
-    [Parameter]
-    public string Id { get; set; } = Identifier.NewId();
-
-    /// <summary>
     /// Identifier of the source component clickable by the end user.
     /// </summary>
     [Parameter]
@@ -133,7 +127,7 @@ public partial class FluentMenu : IDisposable
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MenuChangeEventArgs))]
     public FluentMenu()
     {
-        
+        Id = Identifier.NewId();
     }
 
     /// <summary>
@@ -172,12 +166,12 @@ public partial class FluentMenu : IDisposable
 
     internal void Register(FluentMenuItem item)
     {
-        items.Add(item.Id, item);
+        items.Add(item.Id!, item);
     }
 
     internal void Unregister(FluentMenuItem item)
     {
-        items.Remove(item.Id);
+        items.Remove(item.Id!);
     }
 
     /// <summary>

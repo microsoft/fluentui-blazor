@@ -37,12 +37,6 @@ public partial class FluentNavMenuGroup : FluentComponentBase
     public string IconNavMenuCollapsed { get; set; } = FluentIcons.MoreHorizontal;
 
     /// <summary>
-    /// Gets or sets a unique identifier.
-    /// </summary>
-    [Parameter]
-    public string Id { get; set; } = Identifier.NewId();
-
-    /// <summary>
     /// Gets or sets whether the menu group is disabled
     /// </summary>
     [Parameter]
@@ -86,6 +80,10 @@ public partial class FluentNavMenuGroup : FluentComponentBase
     [CascadingParameter(Name = "NavMenuExpanded")]
     private bool NavMenuExpanded { get; set; }
 
+    public FluentNavMenuGroup()
+    {
+        Id = Identifier.NewId();
+    }
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("navmenu-group")

@@ -55,12 +55,6 @@ public partial class FluentButton : FluentComponentBase
     public ButtonType? Type { get; set; } = ButtonType.Button;
 
     /// <summary>
-    /// The id attribute of the element.Used for label association.
-    /// </summary>
-    [Parameter]
-    public string? Id { get; set; }
-
-    /// <summary>
     /// The value of the element
     /// </summary>
     [Parameter]
@@ -102,6 +96,11 @@ public partial class FluentButton : FluentComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    public FluentButton()
+    {
+        Id = Identifier.NewId();
+    }
 
     protected override void OnParametersSet()
     {

@@ -11,12 +11,6 @@ public partial class FluentMenuItem : FluentComponentBase, IDisposable
     public FluentMenu Owner { get; set; } = default!;
 
     /// <summary>
-    /// Gets or sets if the id.
-    /// </summary>
-    [Parameter]
-    public string Id { get; set; } = Identifier.NewId();
-
-    /// <summary>
     /// Gets or sets the menu item label.
     /// </summary>
     [Parameter]
@@ -63,6 +57,11 @@ public partial class FluentMenuItem : FluentComponentBase, IDisposable
     /// </summary>
     [Parameter]
     public EventCallback OnClick { get; set; }
+
+    public FluentMenuItem()
+    {
+        Id = Identifier.NewId();
+    }
 
     protected override void OnInitialized()
     {

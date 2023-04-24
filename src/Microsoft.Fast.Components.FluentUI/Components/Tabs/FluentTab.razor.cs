@@ -66,12 +66,6 @@ public partial class FluentTab : FluentComponentBase
     public string Icon { get; set; } = string.Empty;
 
     /// <summary>
-    /// Unique identifier of this Tab component (by default <see cref="Identifier.NewId"/> is used).
-    /// </summary>
-    [Parameter]
-    public string Id { get; set; } = Identifier.NewId();
-
-    /// <summary>
     /// Gets the index number of this tab.
     /// </summary>
     public int Index { get; set; } = 0;
@@ -98,6 +92,11 @@ public partial class FluentTab : FluentComponentBase
     /// Gets if this component is out of panel.
     /// </summary>
     public bool? Overflow { get; private set; }
+
+    public FluentTab()
+    {
+        Id = Identifier.NewId();
+    }
 
     protected override void OnInitialized()
     {

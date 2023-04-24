@@ -5,12 +5,6 @@ namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentTreeItem : FluentComponentBase, IDisposable
 {
     /// <summary>
-    /// Gets or sets a reasonably unique ID.
-    /// </summary>
-    [Parameter]
-    public string Id { get; set; } = Identifier.NewId();
-    
-    /// <summary>
     /// Gets or sets the owning FluentTreeView
     /// </summary>
     [CascadingParameter]
@@ -47,6 +41,11 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    public FluentTreeItem()
+    {
+        Id = Identifier.NewId();
+    }
 
     protected override void OnInitialized()
     {

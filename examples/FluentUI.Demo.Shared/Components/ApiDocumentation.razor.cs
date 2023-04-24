@@ -59,7 +59,7 @@ public partial class ApiDocumentation
     [SuppressMessage("Trimming", "IL2055:Either the type on which the MakeGenericType is called can't be statically determined, or the type parameters to be used for generic arguments can't be statically determined.", Justification = "Just for demo/documentation purposes")]
     private IEnumerable<MemberDescription> GetMembers(MemberTypes type)
     {
-        string[] MEMBERS_TO_EXCLUDE = new[] { "AdditionalAttributes", "BackReference", "Class", "Style", "Tag", "Equals", "GetHashCode", "GetType", "SetParametersAsync", "ToString", "Dispose" };
+        string[] MEMBERS_TO_EXCLUDE = new[] { "Id", "AdditionalAttributes", "BackReference", "Class", "Style", "Tag", "Equals", "GetHashCode", "GetType", "SetParametersAsync", "ToString", "Dispose" };
 
         if (_allMembers == null)
         {

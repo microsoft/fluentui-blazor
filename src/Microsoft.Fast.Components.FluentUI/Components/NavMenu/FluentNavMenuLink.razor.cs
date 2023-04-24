@@ -30,12 +30,6 @@ public partial class FluentNavMenuLink : FluentComponentBase
     public string Icon { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets a reasonably unique ID.
-    /// </summary>
-    [Parameter]
-    public string Id { get; set; } = Identifier.NewId();
-
-    /// <summary>
     /// Gets or sets whether the link is disabled.
     /// </summary>
     [Parameter]
@@ -95,11 +89,10 @@ public partial class FluentNavMenuLink : FluentComponentBase
     [CascadingParameter(Name = "NavMenuExpanded")]
     private bool NavMenuExpanded { get; set; }
 
-    internal void SetSelected(bool value)
+    public FluentNavMenuLink()
     {
-        Selected = value;
+        Id = Identifier.NewId();
     }
-
 
     protected override void OnParametersSet() 
     {
@@ -110,5 +103,9 @@ public partial class FluentNavMenuLink : FluentComponentBase
     {
         if (!Disabled)
             Selected=true;
+    }
+    internal void SetSelected(bool value)
+    {
+        Selected = value;
     }
 }

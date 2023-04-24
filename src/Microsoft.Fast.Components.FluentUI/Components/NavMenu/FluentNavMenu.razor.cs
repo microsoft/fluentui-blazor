@@ -29,12 +29,6 @@ public partial class FluentNavMenu : FluentComponentBase
         .Build();
 
     /// <summary>
-    /// Gets or sets a reasonably unique ID 
-    /// </summary>
-    [Parameter]
-    public string Id { get; set; } = Identifier.NewId();
-
-    /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>
     [Parameter]
@@ -76,6 +70,11 @@ public partial class FluentNavMenu : FluentComponentBase
     /// </summary>
     [Parameter]
     public EventCallback<bool> OnExpanded { get; set; }
+
+    public FluentNavMenu()
+    {
+        Id = Identifier.NewId();     
+    }
 
     internal bool HasSubMenu => _groups.Any();
 

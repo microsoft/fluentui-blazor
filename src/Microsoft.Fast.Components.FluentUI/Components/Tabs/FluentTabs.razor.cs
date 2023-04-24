@@ -39,12 +39,6 @@ public partial class FluentTabs : FluentComponentBase
     private IJSRuntime JSRuntime { get; set; } = default!;
 
     /// <summary>
-    /// Unique identifier of this component
-    /// </summary>
-    [Parameter]
-    public string Id { get; set; } = Identifier.NewId();
-
-    /// <summary>
     /// Gets or sets the tab's orentation. See <see cref="FluentUI.Orientation"/>
     /// </summary>
     [Parameter]
@@ -124,7 +118,22 @@ public partial class FluentTabs : FluentComponentBase
 
     public FluentTabs()
     {
+        Id = Identifier.NewId();
+    }
 
+    /// <summary />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _dotNetHelper = DotNetObjectReference.Create(this);
+            // Overflow
+            _jsModuleOverflow = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
+                "./_content/Microsoft.Fast.Components.FluentUI/Components/Overflow/FluentOverflow.razor.js");
+
+            bool horizontal = Orientation == FluentUI.Orientation.Horizontal;
+            await _jsModuleOverflow.InvokeVoidAsync("FluentOverflowInitialize", _dotNetHelper, Id, horizontal, FLUENT_TAB_TAG);
+        }
     }
 
     private async Task HandleOnTabChanged(TabChangeEventArgs args)
@@ -142,7 +151,7 @@ public partial class FluentTabs : FluentComponentBase
 
     internal int RegisterTab(FluentTab tab)
     {
-        _tabs.Add(tab.Id, tab);
+        _tabs.Add(tab.Id!, tab);
         return _tabs.Count-1;
     }
 
@@ -155,7 +164,7 @@ public partial class FluentTabs : FluentComponentBase
 
         if (_tabs.Count > 0)
         {
-            _tabs.Remove(tab.Id);
+            _tabs.Remove(tab.Id!);
         }
 
         // Set the first tab active
@@ -209,20 +218,7 @@ public partial class FluentTabs : FluentComponentBase
         await InvokeAsync(() => StateHasChanged());
     }
 
-    /// <summary />
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            _dotNetHelper = DotNetObjectReference.Create(this);
-            // Overflow
-            _jsModuleOverflow = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-                "./_content/Microsoft.Fast.Components.FluentUI/Components/Overflow/FluentOverflow.razor.js");
-
-            bool horizontal = Orientation == FluentUI.Orientation.Horizontal;
-            await _jsModuleOverflow.InvokeVoidAsync("FluentOverflowInitialize", _dotNetHelper, Id, horizontal, FLUENT_TAB_TAG);
-        }
-    }
+   
 
     /// <summary />
     private async Task ResizeTabsForOverflowButtonAsync()

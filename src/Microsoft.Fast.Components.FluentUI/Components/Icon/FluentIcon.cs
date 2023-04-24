@@ -24,12 +24,6 @@ public partial class FluentIcon : FluentComponentBase
     private IconService IconService { get; set; } = default!;
 
     /// <summary>
-    /// Gets or sets the id.
-    /// </summary>
-    [Parameter]
-    public string? Id { get; set; }
-
-    /// <summary>
     /// Gets or sets the <see cref="IconVariant"/> to use. 
     /// Defaults to Regular
     /// </summary>
@@ -171,7 +165,7 @@ public partial class FluentIcon : FluentComponentBase
         if (!string.IsNullOrEmpty(_svg))
         {
             builder.OpenElement(0, "svg");
-            builder.AddAttribute(1, "id", Id);
+            builder.AddAttribute(1, "id", GetId());
             builder.AddAttribute(2, "slot", Slot);
             builder.AddAttribute(3, "class", Class);
             builder.AddAttribute(4, "style", Style);

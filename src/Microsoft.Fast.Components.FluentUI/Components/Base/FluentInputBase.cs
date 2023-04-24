@@ -33,12 +33,6 @@ public abstract class FluentInputBase<TValue> : FluentComponentBase, IDisposable
     public bool Readonly { get; set; }
 
     /// <summary>
-    /// The id attribute of the element. Used for label association.
-    /// </summary>
-    [Parameter]
-    public string? Id { get; set; }
-
-    /// <summary>
     /// Disables the form control, ensuring it doesn't participate in form submission.
     /// </summary>
     [Parameter]

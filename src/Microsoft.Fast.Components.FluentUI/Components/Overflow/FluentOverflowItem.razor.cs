@@ -25,12 +25,6 @@ public partial class FluentOverflowItem
     public FluentOverflow Container { get; set; } = default!;
 
     /// <summary>
-    /// Unique identifier.
-    /// </summary>
-    [Parameter]
-    public string Id { get; set; } = Identifier.NewId();
-
-    /// <summary>
     /// Content to display. All first HTML elements are included in the items flow.
     /// </summary>
     [Parameter]
@@ -45,6 +39,11 @@ public partial class FluentOverflowItem
     /// Gets the InnerText of <see cref="ChildContent"/>.
     /// </summary>
     public string Text { get; private set; } = string.Empty;
+
+    public FluentOverflowItem()
+    {
+        Id = Identifier.NewId();
+    }
 
     /// <summary />
     protected override void OnInitialized()

@@ -21,6 +21,13 @@ public abstract class FluentComponentBase : ComponentBase
     }
 
     /// <summary>
+    /// Unique identifier. If not provided, a random value will be generated.
+    /// The value will be used as the HTML <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id">global id attribute</see>.
+    /// </summary>
+    [Parameter]
+    public string? Id { get; set; }
+
+    /// <summary>
     /// Optional CSS class names. If given, these will be included in the class attribute of the component.
     /// </summary>
     [Parameter]
@@ -49,5 +56,10 @@ public abstract class FluentComponentBase : ComponentBase
     /// </summary>
     [Parameter(CaptureUnmatchedValues = true)]
     public virtual IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
+
+    protected string? GetId()
+    {
+        return string.IsNullOrEmpty(Id) ? null : Id;
+    }
 }
 
