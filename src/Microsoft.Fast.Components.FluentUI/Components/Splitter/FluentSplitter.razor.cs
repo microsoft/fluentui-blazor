@@ -39,12 +39,13 @@ public partial class FluentSplitter : FluentComponentBase
 
     /// <summary>
     /// Size for the left/top panel. 
+    /// Needs to be a valid css size like '50%' or '250px'
     /// </summary>
     [Parameter]
     public string? Panel1Size { get; set; }
 
     /// <summary>
-    /// Size for the right/bottom panel. 
+    /// Size for the right/bottom panel. Needs to be a valid css size like '50%' or '250px'
     /// Uses grid-template-rows/columns with max-content to determine end width. 
     /// See <see href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns">mdn web docs</see> for more information 
     /// </summary>
