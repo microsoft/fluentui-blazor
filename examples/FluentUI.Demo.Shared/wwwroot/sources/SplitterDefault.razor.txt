@@ -40,6 +40,6 @@
 
     private void OnSizeChanged()
     {
-        Console.WriteLine("Size changed");
+       DemoLogger.WriteLine("Size changed");
     }
 }

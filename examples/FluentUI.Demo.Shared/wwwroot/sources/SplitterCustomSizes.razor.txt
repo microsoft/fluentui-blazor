@@ -3,7 +3,7 @@
 <FluentSplitter Orientation="Orientation.Horizontal" Panel1Size="25%">
     <Panel1Content>
         <div class="demopanel">
-            <h4>Panel 1</h4>
+            <h5>Panel 1</h5>
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
                 Eget dolor morbi non arcu risus quis varius. Turpis tincidunt id aliquet risus feugiat in ante. Eros donec ac odio tempor orci 
@@ -17,7 +17,7 @@
     </Panel1Content>
     <Panel2Content>
         <div class="demopanel">
-            <h4>Panel 2</h4>
+            <h5>Panel 2</h5>
             <p>
                 Neque laoreet suspendisse interdum consectetur libero id faucibus nisl tincidunt. Suspendisse faucibus interdum posuere lorem ipsum 
                 dolor sit amet. Imperdiet sed euismod nisi porta lorem mollis aliquam. Malesuada proin libero nunc consequat interdum. Amet nisl purus
@@ -35,7 +35,7 @@
 <FluentSplitter Orientation="Orientation.Horizontal" Panel2Size="25%">
     <Panel1Content>
         <div class="demopanel">
-            <h4>Panel 1</h4>
+            <h5>Panel 1</h5>
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 Eget dolor morbi non arcu risus quis varius. Turpis tincidunt id aliquet risus feugiat in ante. Eros donec ac odio tempor orci
@@ -49,7 +49,7 @@
     </Panel1Content>
     <Panel2Content>
         <div class="demopanel">
-            <h4>Panel 2</h4>
+            <h5>Panel 2</h5>
             <p>
                 Neque laoreet suspendisse interdum consectetur libero id faucibus nisl tincidunt. Suspendisse faucibus interdum posuere lorem ipsum
                 dolor sit amet. Imperdiet sed euismod nisi porta lorem mollis aliquam. Malesuada proin libero nunc consequat interdum. Amet nisl purus
@@ -66,7 +66,7 @@
 <FluentSplitter Orientation="Orientation.Horizontal" Panel1Size="25%" Panel2Size="25%">
     <Panel1Content>
         <div class="demopanel">
-            <h4>Panel 1</h4>
+            <h5>Panel 1</h5>
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 Eget dolor morbi non arcu risus quis varius. Turpis tincidunt id aliquet risus feugiat in ante. Eros donec ac odio tempor orci
@@ -80,7 +80,7 @@
     </Panel1Content>
     <Panel2Content>
         <div class="demopanel">
-            <h4>Panel 2</h4>
+            <h5>Panel 2</h5>
             <p>
                 Neque laoreet suspendisse interdum consectetur libero id faucibus nisl tincidunt. Suspendisse faucibus interdum posuere lorem ipsum
                 dolor sit amet. Imperdiet sed euismod nisi porta lorem mollis aliquam. Malesuada proin libero nunc consequat interdum. Amet nisl purus

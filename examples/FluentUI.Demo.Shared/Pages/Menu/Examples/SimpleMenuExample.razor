@@ -4,18 +4,18 @@
 </FluentButton>
 
 <FluentMenu Anchor="btnOpen1" @bind-Open="open" @onmenuchange=OnMenuChange>
-    <FluentMenuItem OnClick="@((e) => Console.WriteLine("Item 1 Clicked"))">
+    <FluentMenuItem OnClick="@((e) => DemoLogger.WriteLine("Item 1 Clicked"))">
         Menu item 1
     </FluentMenuItem>
-    <FluentMenuItem OnClick="@((e) => Console.WriteLine("Item 2 Clicked"))"
+    <FluentMenuItem OnClick="@((e) => DemoLogger.WriteLine("Item 2 Clicked"))"
                    Checked="true">
         Menu item 2 Checked
     </FluentMenuItem>
-    <FluentMenuItem OnClick="@((e) => Console.WriteLine("Item 3 Clicked"))"
+    <FluentMenuItem OnClick="@((e) => DemoLogger.WriteLine("Item 3 Clicked"))"
                    Disabled="true">
         Menu item 3 Disabled
     </FluentMenuItem>
-    <FluentMenuItem OnClick="@((e) => Console.WriteLine("Item 4 Clicked"))">
+    <FluentMenuItem OnClick="@((e) => DemoLogger.WriteLine("Item 4 Clicked"))">
         <span slot="start"><FluentIcon Name="@FluentIcons.ClipboardPaste" Color="Color.Neutral" Slot="start" /></span>
         Menu item 4 with Icon
     </FluentMenuItem>

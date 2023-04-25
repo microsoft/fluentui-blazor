@@ -34,8 +34,7 @@
     {
         if (Items.Count <= 1) return;   // Avoid to remove the single tab
 
-        //DemoLogger.AddTrace($"Closed {tab.Label}");
-        Console.WriteLine($"Closed {tab.Label}");
+        DemoLogger.WriteLine($"Closed {tab.Label}");
 
         // FluentTab.Id is required to manage correctly the Items.Remove tracking.
         var month = (DataSource.MonthItem)tab.Tag!;

@@ -28,14 +28,14 @@ public partial class FluentSplitter : FluentComponentBase
     /// Content for the top/left panel
     /// </summary>
     [Parameter]
-    public RenderFragment? Panel1Content { get; set; }
+    public RenderFragment? Panel1 { get; set; }
 
 
     /// <summary>
     /// Content for the bottom/right panel
     /// </summary>
     [Parameter]
-    public RenderFragment? Panel2Content { get; set; }
+    public RenderFragment? Panel2 { get; set; }
 
     /// <summary>
     /// Size for the left/top panel. 
