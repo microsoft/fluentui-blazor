@@ -11,13 +11,13 @@ namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.Fast.Components.FluentUI/Components/Overflow/FluentOverflow.razor.js";
-    private readonly List<FluentOverflowItem> _items = new List<FluentOverflowItem>();
+    private readonly List<FluentOverflowItem> _items = new();
     private RenderFragment? _childContent = null;
-    private DotNetObjectReference<FluentOverflow>? _objRef = null;
+    private DotNetObjectReference<FluentOverflow>? _dotNetHelper = null;
 
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
-        .AddClass("power-overflow")
+        .AddClass("fluent-overflow")
         .Build();
 
     /// <summary />
@@ -47,10 +47,10 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
         {
             _childContent = value;
 
-            if (Module != null && _objRef != null)
+            if (Module != null && _dotNetHelper != null)
             {
                 bool isHorizontal = Orientation == Orientation.Horizontal;
-                InvokeAsync(async () => await Module.InvokeVoidAsync("FluentOverflowInitialize", _objRef, Id, isHorizontal, null));
+                InvokeAsync(async () => await Module.InvokeVoidAsync("FluentOverflowInitialize", _dotNetHelper, Id, isHorizontal, null));
             }
         }
     }
@@ -103,10 +103,10 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
         }
 
         Module = await JS.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
-        _objRef = DotNetObjectReference.Create(this);
+        _dotNetHelper = DotNetObjectReference.Create(this);
 
         bool isHorizontal = Orientation == Orientation.Horizontal;
-        await Module.InvokeVoidAsync("FluentOverflowInitialize", _objRef, Id, isHorizontal, null);
+        await Module.InvokeVoidAsync("FluentOverflowInitialize", _dotNetHelper, Id, isHorizontal, null);
     }
 
     /// <summary />
@@ -144,9 +144,9 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
             await Module.DisposeAsync();
         }
 
-        if (_objRef is not null)
+        if (_dotNetHelper is not null)
         {
-            _objRef.Dispose();
+            _dotNetHelper.Dispose();
         }
     }
 

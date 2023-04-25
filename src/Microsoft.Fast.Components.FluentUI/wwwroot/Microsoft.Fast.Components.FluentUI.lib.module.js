@@ -1,4 +1,6 @@
-﻿export function afterStarted(Blazor) {
+﻿import { SplitPanels } from "./js/SplitPanels.js";
+
+export function afterStarted(Blazor) {
     Blazor.registerCustomEventType('customclick', {
         browserEventName: 'click',
         createEventArgs: event => {
@@ -134,4 +136,16 @@
             };
         }
     });
+    Blazor.registerCustomEventType('sizechanged', {
+        browserEventName: 'sizechanged',
+        createEventArgs: event => {
+            return event;
+        }
+    });
 }
+
+export function beforeStart(options, extensions) {
+
+    customElements.define("split-panels", SplitPanels);
+}
+

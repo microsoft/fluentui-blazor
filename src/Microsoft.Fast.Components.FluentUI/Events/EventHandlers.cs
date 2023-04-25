@@ -19,6 +19,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 [EventHandler("onrowfocus", typeof(DataGridRowFocusEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("onclosecolumnoptions", typeof(EventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("ontooltipdismiss", typeof(EventArgs), enableStopPropagation: true, enablePreventDefault: true)]
+[EventHandler("onsizechanged", typeof(EventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 public static class EventHandlers
 {
 }

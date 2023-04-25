@@ -2801,6 +2801,40 @@
             Gets or sets the width of the spacer (in pixels)
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSplitter.ClassValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSplitter.StyleValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSplitter.Orientation">
+            <summary>
+            Gets or sets the orientation.
+            Default is horizontal (i.e a vertical splitter bar)
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSplitter.Panel1Content">
+            <summary>
+            Content for the top/left panel
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSplitter.Panel2Content">
+            <summary>
+            Content for the bottom/right panel
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSplitter.Panel1Size">
+            <summary>
+            Size for the left/top panel. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSplitter.Panel2Size">
+            <summary>
+            Size for the right/bottom panel. 
+            Uses grid-template-rows/columns with max-content to determine end width. 
+            See <see href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns">mdn web docs</see> for more information 
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentStack.HorizontalAlignment">
             <summary>
             The horizontal alignment of the components in the stack. 

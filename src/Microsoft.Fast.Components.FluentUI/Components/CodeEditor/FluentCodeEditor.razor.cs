@@ -11,7 +11,7 @@ public partial class FluentCodeEditor : FluentComponentBase, IAsyncDisposable
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.Fast.Components.FluentUI/Components/CodeEditor/FluentCodeEditor.razor.js";
     private const string MONACO_VS_PATH = "./_content/Microsoft.Fast.Components.FluentUI/lib/monaco-editor/min/vs";
 
-    private DotNetObjectReference<FluentCodeEditor>? _objRef = null;
+    private DotNetObjectReference<FluentCodeEditor>? _dotNetHelper = null;
     private string _value = """
                             using System;
                             void Main()
@@ -108,7 +108,7 @@ public partial class FluentCodeEditor : FluentComponentBase, IAsyncDisposable
         if (firstRender)
         {
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
-            _objRef = DotNetObjectReference.Create(this);
+            _dotNetHelper = DotNetObjectReference.Create(this);
 
             var options = new
             {
@@ -119,7 +119,7 @@ public partial class FluentCodeEditor : FluentComponentBase, IAsyncDisposable
                 LineNumbers = true,
                 ReadOnly = false,
             };
-            await _jsModule.InvokeVoidAsync("monacoInitialize", Id, _objRef, options);
+            await _jsModule.InvokeVoidAsync("monacoInitialize", Id, _dotNetHelper, options);
         }
 
         await base.OnAfterRenderAsync(firstRender);
@@ -154,9 +154,9 @@ public partial class FluentCodeEditor : FluentComponentBase, IAsyncDisposable
             await _jsModule.DisposeAsync();
         }
 
-        if (_objRef is not null)
+        if (_dotNetHelper is not null)
         {
-            _objRef.Dispose();
+            _dotNetHelper.Dispose();
         }
     }
 }
