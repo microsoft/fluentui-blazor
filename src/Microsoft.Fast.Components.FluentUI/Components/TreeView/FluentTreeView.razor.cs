@@ -66,12 +66,12 @@ public partial class FluentTreeView : FluentComponentBase
 
     internal void Register(FluentTreeItem item)
     {
-        if (!items.ContainsKey(item.Id))
-            items.Add(item.Id, item);
+        if (!items.ContainsKey(item.Id!))
+            items.Add(item.Id!, item);
     }
 
     internal void Unregister(FluentTreeItem item)
     {
-        items.Remove(item.Id);
+        items.Remove(item.Id!);
     }
 }

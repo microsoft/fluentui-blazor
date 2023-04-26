@@ -61,11 +61,11 @@ public partial class FluentAccordion : FluentComponentBase
 
     internal void Register(FluentAccordionItem item)
     {
-        items.Add(item.Id, item);
+        items.Add(item.Id!, item);
     }
 
     internal void Unregister(FluentAccordionItem item)
     {
-        items.Remove(item.Id);
+        items.Remove(item.Id!);
     }
 }

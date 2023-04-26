@@ -1,5 +1,4 @@
-﻿@inject ILogger<DataGridTemplateColumns2> logger;
-
+﻿
 <FluentDataGrid id="defaultGrid" Items=RowsGrid.AsQueryable() GridTemplateColumns="1fr 1fr" TGridItem=SampleGridData OnRowFocus="HandleRowFocus" OnCellFocus="HandleCellFocus">
     <TemplateColumn Title="Name">
         <FluentTextField @bind-Value="@context!.Name" />
@@ -33,11 +32,11 @@
 
     private void HandleRowFocus(FluentDataGridRow<SampleGridData> row)
     {
-        logger.LogInformation($"Row focused: {row.RowIndex}");
+        DemoLogger.WriteLine($"Row focused: {row.RowIndex}");
     }
 
     private void HandleCellFocus(FluentDataGridCell<SampleGridData> cell)
     {
-        logger.LogInformation($"Cell focused: {cell.GridColumn}");
+        DemoLogger.WriteLine($"Cell focused: {cell.GridColumn}");
     }
 }

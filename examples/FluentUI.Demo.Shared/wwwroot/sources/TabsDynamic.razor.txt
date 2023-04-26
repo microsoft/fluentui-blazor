@@ -3,14 +3,14 @@
 
 <FluentTabs ShowClose="true"
             @bind-SelectedTabId="@SelectedTabId"
-            OnClosedTab="@ClosedTab"
+            OnTabClose="@ClosedTab"
             Size="TabSize.Medium">
     @foreach (var item in Items)
     {
         <FluentTab Id="@($"tab-{item.Index}")"
                    LabelEditable="@Editable(item)"
                    @bind-Label="@item.Name"
-                   Tag="@item">
+                   Data="@item">
             <FluentTabPanel>
                 Content #@item.Index - @item.Name
             </FluentTabPanel>
@@ -37,7 +37,7 @@
         DemoLogger.WriteLine($"Closed {tab.Label}");
 
         // FluentTab.Id is required to manage correctly the Items.Remove tracking.
-        var month = (DataSource.MonthItem)tab.Tag!;
+        var month = (DataSource.MonthItem)tab.Data!;
         Items.Remove(month);
     }
 

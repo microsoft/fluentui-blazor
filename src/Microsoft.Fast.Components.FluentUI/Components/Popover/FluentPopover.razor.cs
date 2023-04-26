@@ -26,7 +26,7 @@ public partial class FluentPopover : FluentComponentBase
     public bool Open { get; set; }
 
     /// <summary>
-    /// Callback for whenopen state changes
+    /// Callback for when open state changes
     /// </summary>
     [Parameter]
     public EventCallback<bool> OpenChanged { get; set; }

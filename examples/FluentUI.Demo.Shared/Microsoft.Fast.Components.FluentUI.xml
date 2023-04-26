@@ -270,7 +270,7 @@
             Optional in-line styles. If given, these will be included in the style attribute of the component.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentComponentBase.Tag">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentComponentBase.Data">
             <summary>
             Used to attach any user data object to the component.
             </summary>
@@ -2471,7 +2471,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentPopover.OpenChanged">
             <summary>
-            Callback for whenopen state changes
+            Callback for when open state changes
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentPopover.Header">
@@ -2813,12 +2813,12 @@
             Default is horizontal (i.e a vertical splitter bar)
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSplitter.Panel1Content">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSplitter.Panel1">
             <summary>
             Content for the top/left panel
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSplitter.Panel2Content">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSplitter.Panel2">
             <summary>
             Content for the bottom/right panel
             </summary>
@@ -2826,11 +2826,12 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentSplitter.Panel1Size">
             <summary>
             Size for the left/top panel. 
+            Needs to be a valid css size like '50%' or '250px'
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentSplitter.Panel2Size">
             <summary>
-            Size for the right/bottom panel. 
+            Size for the right/bottom panel. Needs to be a valid css size like '50%' or '250px'
             Uses grid-template-rows/columns with max-content to determine end width. 
             See <see href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns">mdn web docs</see> for more information 
             </summary>
@@ -3013,12 +3014,12 @@
             Gets or sets the tab's orentation. See <see cref="T:Microsoft.Fast.Components.FluentUI.Orientation"/>
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.OnSelectedTab">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.OnTabSelect">
             <summary>
             Raised when a tab is selected.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.OnClosedTab">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.OnTabClose">
             <summary>
             Raised when a tab is closed.
             </summary>
@@ -3026,7 +3027,7 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.ShowClose">
             <summary>
             Determines if a dismiss icon is shown.
-            When clicked the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentTabs.OnClosedTab"/> event is raised to remove this tab from the list.
+            When clicked the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentTabs.OnTabClose"/> event is raised to remove this tab from the list.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.Size">

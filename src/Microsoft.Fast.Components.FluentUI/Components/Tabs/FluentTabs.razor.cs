@@ -48,17 +48,17 @@ public partial class FluentTabs : FluentComponentBase
     /// Raised when a tab is selected.
     /// </summary>
     [Parameter]
-    public EventCallback<FluentTab> OnSelectedTab { get; set; }
+    public EventCallback<FluentTab> OnTabSelect { get; set; }
 
     /// <summary>
     /// Raised when a tab is closed.
     /// </summary>
     [Parameter]
-    public EventCallback<FluentTab> OnClosedTab { get; set; }
+    public EventCallback<FluentTab> OnTabClose { get; set; }
 
     /// <summary>
     /// Determines if a dismiss icon is shown.
-    /// When clicked the <see cref="OnClosedTab"/> event is raised to remove this tab from the list.
+    /// When clicked the <see cref="OnTabClose"/> event is raised to remove this tab from the list.
     /// </summary>
     [Parameter]
     public bool ShowClose { get; set; } = false;
@@ -157,9 +157,9 @@ public partial class FluentTabs : FluentComponentBase
 
     internal async Task UnregisterTabAsync(FluentTab tab)
     {
-        if (OnClosedTab.HasDelegate)
+        if (OnTabClose.HasDelegate)
         {
-            await OnClosedTab.InvokeAsync(tab);
+            await OnTabClose.InvokeAsync(tab);
         }
 
         if (_tabs.Count > 0)
@@ -190,9 +190,9 @@ public partial class FluentTabs : FluentComponentBase
             await ActiveTabIdChanged.InvokeAsync(ActiveTabId);
         }
 
-        if (OnSelectedTab.HasDelegate)
+        if (OnTabSelect.HasDelegate)
         {
-            await OnSelectedTab.InvokeAsync(ActiveTab);
+            await OnTabSelect.InvokeAsync(ActiveTab);
         }
     }
 

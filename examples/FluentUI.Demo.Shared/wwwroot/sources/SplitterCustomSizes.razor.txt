@@ -1,7 +1,7 @@
 ﻿
 <p>Panel 1 size is set to 25%, no size is set for panel 2. Panel 2 size is therefore automatically set to 75%</p>
 <FluentSplitter Orientation="Orientation.Horizontal" Panel1Size="25%">
-    <Panel1Content>
+    <Panel1>
         <div class="demopanel">
             <h5>Panel 1</h5>
             <p>
@@ -14,8 +14,8 @@
                 quam viverra orci sagittis.
             </p>
         </div>
-    </Panel1Content>
-    <Panel2Content>
+    </Panel1>
+    <Panel2>
         <div class="demopanel">
             <h5>Panel 2</h5>
             <p>
@@ -26,14 +26,14 @@
                 semper eget duis at.
             </p>
         </div>
-    </Panel2Content>
+    </Panel2>
 </FluentSplitter>
 
 <br />
 <br />
 <p>Panel 2 size is set to 25%, no size is set for panel 1. Panel 1 size is therefore automatically set to 75%</p>
 <FluentSplitter Orientation="Orientation.Horizontal" Panel2Size="25%">
-    <Panel1Content>
+    <Panel1>
         <div class="demopanel">
             <h5>Panel 1</h5>
             <p>
@@ -46,8 +46,8 @@
                 quam viverra orci sagittis.
             </p>
         </div>
-    </Panel1Content>
-    <Panel2Content>
+    </Panel1>
+    <Panel2>
         <div class="demopanel">
             <h5>Panel 2</h5>
             <p>
@@ -58,13 +58,13 @@
                 semper eget duis at.
             </p>
         </div>
-    </Panel2Content>
+    </Panel2>
 </FluentSplitter>
 <br />
 <br />
 <p>Both panel 1 and panel 2 size are set to 25%. Because of the grid-template-row with a max-content value, the total width is set to 50% of the container width.</p>
 <FluentSplitter Orientation="Orientation.Horizontal" Panel1Size="25%" Panel2Size="25%">
-    <Panel1Content>
+    <Panel1>
         <div class="demopanel">
             <h5>Panel 1</h5>
             <p>
@@ -77,8 +77,8 @@
                 quam viverra orci sagittis.
             </p>
         </div>
-    </Panel1Content>
-    <Panel2Content>
+    </Panel1>
+    <Panel2>
         <div class="demopanel">
             <h5>Panel 2</h5>
             <p>
@@ -89,5 +89,5 @@
                 semper eget duis at.
             </p>
         </div>
-    </Panel2Content>
+    </Panel2>
 </FluentSplitter>

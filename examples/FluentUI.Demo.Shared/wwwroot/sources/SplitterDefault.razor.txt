@@ -7,7 +7,7 @@
 <br />
 
 <FluentSplitter Orientation="@orientation" @onsizechanged=OnSizeChanged>
-    <Panel1Content>
+    <Panel1>
         <div class="demopanel">
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
@@ -19,8 +19,8 @@
                 quam viverra orci sagittis.
             </p>
         </div>
-    </Panel1Content>
-    <Panel2Content>
+    </Panel1>
+    <Panel2>
         <div class="demopanel">
             <p>
                 Neque laoreet suspendisse interdum consectetur libero id faucibus nisl tincidunt. Suspendisse faucibus interdum posuere lorem ipsum 
@@ -30,7 +30,7 @@
                 semper eget duis at.
             </p>
         </div>
-    </Panel2Content>
+    </Panel2>
 </FluentSplitter>
 
 

@@ -43,7 +43,7 @@ public abstract class FluentComponentBase : ComponentBase
     /// Used to attach any user data object to the component.
     /// </summary>
     [Parameter]
-    public virtual object? Tag { get; set; } = null;
+    public virtual object? Data { get; set; } = null;
 
     /// <summary>
     /// A reference to the enclosing component.
