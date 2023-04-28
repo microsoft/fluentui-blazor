@@ -10,30 +10,6 @@
         box-sizing: border-box;
     }
 
-    .fluent-grid[justify="start"] {
-        justify-content: flex-start;
-    }
-
-    .fluent-grid[justify="center"] {
-        justify-content: center;
-    }
-
-    .fluent-grid[justify="end"] {
-        justify-content: flex-end;
-    }
-
-    .fluent-grid[justify="space-between"] {
-        justify-content: space-between;
-    }
-
-    .fluent-grid[justify="space-around"] {
-        justify-content: space-around;
-    }
-
-    .fluent-grid[justify="space-evenly"] {
-        justify-content: space-evenly;
-    }
-
     /* Spacing */
 
     .fluent-grid[spacing="1"] {

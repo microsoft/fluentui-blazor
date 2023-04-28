@@ -1,6 +1,3 @@
-// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
-
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
@@ -438,8 +435,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         Align.Start => $"col-justify-start {column.Class}",
         Align.Center => $"col-justify-center {column.Class}",
         Align.End => $"col-justify-end {column.Class}",
-        Align.Left => $"col-justify-left {column.Class}",
-        Align.Right => $"col-justify-right {column.Class}",
+        //Align.Left => $"col-justify-left {column.Class}",
+        //Align.Right => $"col-justify-right {column.Class}",
         _ => column.Class,
     };
 

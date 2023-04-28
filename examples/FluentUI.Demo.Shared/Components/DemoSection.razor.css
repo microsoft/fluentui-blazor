@@ -5,7 +5,6 @@
     overflow-y: auto;
     padding-left: 0;
     padding-right: 0;
-    margin-bottom: 10px;
 }
 
 ::deep .heavy {
@@ -13,7 +12,6 @@
 }
 
 .demo-section-example {
-    margin-bottom: 0.5rem;
     border: calc(var(--stroke-width) * 1px) solid var(--neutral-stroke-rest);
     border-radius: calc(var(--control-corner-radius) * 1px);
     padding: 1rem 1rem;
@@ -26,6 +24,7 @@
 
 
 .demo-section-downloads {
+    margin-top: 0.5rem;
     display: flex;
     align-items: center;
 }

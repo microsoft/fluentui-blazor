@@ -15,7 +15,7 @@
         }
         else
         {
-            @if (ColumnOptions is not null && (Align == Align.Left || Align == Align.Start))
+            @if (ColumnOptions is not null && Align == Align.Start)
             {
                 <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))">
                     <FluentIcon Name="@FluentIcons.Filter" />
@@ -29,7 +29,7 @@
 
                     @if (Grid.SortByAscending.HasValue && ShowSortIcon)
                     {
-                        <FluentIcon Name="@(Grid.SortByAscending.Value ? FluentIcons.ArrowSortUp : FluentIcons.ArrowSortDown)" Slot="@((Align == Align.Right || Align == Align.End) ? "start" : "end")" />
+                        <FluentIcon Name="@(Grid.SortByAscending.Value ? FluentIcons.ArrowSortUp : FluentIcons.ArrowSortDown)" Slot="@(Align == Align.End ? "start" : "end")" />
                     }
 
                 </FluentButton>
@@ -41,7 +41,7 @@
                 </div>
             }
             
-            @if (ColumnOptions is not null && (Align == Align.Right || Align == Align.End))
+            @if (ColumnOptions is not null && Align == Align.End)
             {
                 <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))">
                     <FluentIcon Name="@FluentIcons.Filter" />

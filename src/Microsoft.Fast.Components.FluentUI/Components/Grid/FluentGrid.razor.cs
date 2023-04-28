@@ -41,5 +41,6 @@ public partial class FluentGrid : FluentComponentBase
     /// <summary />
     protected string? StyleValue => new StyleBuilder()
         .AddStyle(Style)
+        .AddStyle("justify-content", Justify.ToAttributeValue())
         .Build();
 }

@@ -11,7 +11,7 @@ public enum JustifyContent
     /// <summary>
     /// Justify content flex-start.
     /// </summary>
-    [Description("start")]
+    [Description("flex-start")]
     FlexStart,
 
     /// <summary>
@@ -24,7 +24,7 @@ public enum JustifyContent
     /// <summary>
     /// Justify content flex-end.
     /// </summary>
-    [Description("end")]
+    [Description("flex-end")]
     FlexEnd,
 
     /// <summary>

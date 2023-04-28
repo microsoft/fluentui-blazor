@@ -1,4 +1,14 @@
 ﻿@namespace Microsoft.Fast.Components.FluentUI
-<div class="fluent-overlay" 
-     style="@(Transparent ? "cursor: auto;" : $"background-color: rgba(255, 255, 255, {Opacity}); cursor: default;")" 
-     @onclick="@OnCloseHandlerAsync" @oncontextmenu="@OnCloseHandlerAsync" @oncontextmenu:preventDefault />
+
+@if (Visible)
+{
+    <div class="fluent-overlay"
+         style="@(Transparent ? "cursor: auto;" : $"background-color: {_color}; opacity: {Opacity.ToString()!.Replace(',','.')}; cursor: default;") @(FullScreen ? "position: fixed;" : "position: absolute;")"
+         @onclick="@OnCloseHandlerAsync" 
+         @oncontextmenu="@OnCloseHandlerAsync" 
+         @oncontextmenu:preventDefault>
+        <div style="@( $"display: flex; align-items:{Alignment.ToAttributeValue()}; justify-content: {Justification.ToAttributeValue()}; width: 100%; heigth: 100%")">
+            @ChildContent
+        </div>
+    </div>
+}

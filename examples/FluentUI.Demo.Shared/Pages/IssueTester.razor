@@ -1,1 +1,9 @@
-﻿
+﻿@page "/IssueTester"
+
+<div style="height:100px; display: flex; gap: 10px; margin: 2em; flex-direction: row; align-items: center; justify-content: center;">
+    <FluentButton id="DisabledButton" Disabled=true Appearance=Appearance.Accent>Disabled Button</FluentButton>
+    <FluentTooltip Anchor="DisabledButton" Position=TooltipPosition.Top>Tooltip for disabled button!</FluentTooltip>
+
+    <FluentButton id="EnabledButton" Appearance=Appearance.Accent>Enabled Button</FluentButton>
+    <FluentTooltip Anchor="EnabledButton" Position=TooltipPosition.Top>Tooltip for enabled button!</FluentTooltip>
+</div>

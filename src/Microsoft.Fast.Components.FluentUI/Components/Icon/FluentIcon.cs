@@ -38,8 +38,8 @@ public partial class FluentIcon : FluentComponentBase
     public Color Color { get; set; } = Color.Accent;
 
     /// <summary>
-    /// Gets or sets the icon drawing and fill _color to a custom value.
-    /// Needs to be formatted as an HTML hex _color string (#rrggbb or #rgb)
+    /// Gets or sets the icon drawing and fill color to a custom value.
+    /// Needs to be formatted as an HTML hex color string (#rrggbb or #rgb) or CSS variable.
     /// ⚠️ Only available when Color is set to Color.Custom.
     /// </summary>
     [Parameter]
@@ -89,20 +89,20 @@ public partial class FluentIcon : FluentComponentBase
 
         if (!FluentIcons.IconAvailable(IconService.Configuration, this))
         {
-            throw new ArgumentException($"The requested icon ({Name}, {Size}, {Variant}) is not available in the collection");
+            throw new ArgumentException($"The requested icon ({Name}, {Size}, {Variant}) is not available in the collection.");
         }
 
         if (Color != Color.Custom)
         {
             if (CustomColor != null)
-                throw new ArgumentException("CustomColor can only be used when Color is set to Color.Custom. ");
+                throw new ArgumentException("CustomColor can only be used when Color is set to Color.Custom.");
             else
                 _color = Color.ToAttributeValue();
         }
         else
         {
             if (CustomColor is null)
-                throw new ArgumentException("CustomColor must be set when Color is set to Color.Custom. ");
+                throw new ArgumentException("CustomColor must be set when Color is set to Color.Custom.");
             else
             {
 #if NET7_0_OR_GREATER
@@ -110,7 +110,7 @@ public partial class FluentIcon : FluentComponentBase
 #else
                 if (!Regex.IsMatch(CustomColor, "^(?:#([a-fA-F0-9]{6}|[a-fA-F0-9]{3}))|var\\(--.*\\)$"))
 #endif
-                    throw new ArgumentException("CustomColor must be a valid HTML hex color string (#rrggbb or #rgb) or CSS variable. ");
+                    throw new ArgumentException("CustomColor must be a valid HTML hex color string (#rrggbb or #rgb) or CSS variable.");
                 else
                     _color = CustomColor;
             }
