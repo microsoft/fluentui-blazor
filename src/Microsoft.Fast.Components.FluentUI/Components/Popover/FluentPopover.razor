@@ -3,7 +3,7 @@
 
 @if (Open)
 {
-    <FluentOverlay OnClose="@CloseAsync" />
+    <FluentOverlay OnClose="@CloseAsync" Transparent=true Dismissable=true FullScreen=true/>
     <FluentAnchoredRegion Anchor="@AnchorId"
                           HorizontalDefaultPosition="@HorizontalPosition.End"
                           HorizontalInset="true"

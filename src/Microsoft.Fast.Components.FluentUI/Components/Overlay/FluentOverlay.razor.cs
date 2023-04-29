@@ -60,6 +60,9 @@ public partial class FluentOverlay
     [Parameter]
     public bool FullScreen { get; set; } = false;
 
+    [Parameter]
+    public bool Dismissable { get; set; } = true;
+
     /// <summary>
     /// Gets or sets background color. 
     /// Value comes from the <see cref="FluentUI.Color"/> enumeration. Defaults to Fill.
@@ -80,6 +83,11 @@ public partial class FluentOverlay
 
     protected async Task OnCloseHandlerAsync(MouseEventArgs e)
     {
+        if (!Dismissable)
+        {
+            return;
+        }
+
         Visible = false;
 
         if (VisibleChanged.HasDelegate)
