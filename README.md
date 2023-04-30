@@ -18,14 +18,14 @@ The `Microsoft.Fast.Components.FluentUI` package provides a set of [Blazor](http
 the look and feel or modern Microsoft applications. Some of the componets are wrappers around Microsoft's official FluentUI Web Components. Others are components 
 that leverage the Fluent UI design system or make it easier to work with Fluent UI. To get up and running with the library, see the 'Getting Started' section below.
 
-The source for the library is hosted in the [Fast Blazor](https://github.com/microsoft/fluentui-blazor) repository at GitHub. Documentation on the components is available at the [demo site](https://aka.ms/fluentui-blazor) and at [docs.microsoft.com](https://docs.microsoft.com/en-us/fluent-ui/web-components/). 
+The source for the library is hosted in the [Fast Blazor](https://github.com/microsoft/fluentui-blazor) repository at GitHub. Documentation on the components is available at the [demo site](https://www.fluentui-blazor.net) and at [docs.microsoft.com](https://docs.microsoft.com/en-us/fluent-ui/web-components/). 
 
 The source for `@fluentui/web-components` is hosted in the [Fluent UI](https://github.com/microsoft/fluentui/tree/master/packages/web-components) mono-repository. Documentation on the components is available on [docs.microsoft.com](https://docs.microsoft.com/en-us/fluent-ui/web-components/).
 The FluentUI Web Components are built on [FAST](https://www.fast.design/) and work in every major browser. 
 
 ## When upgrading from an earlier version 
 
-If you are upgrading from an earlier version of the library, please see the [what's new](https://aka.ms/fluentui-blazor/whatsnew) for information on (breaking) changes.
+If you are upgrading from an earlier version of the library, please see the [what's new](https://www.fluentui-blazor.net/whatsnew) for information on (breaking) changes.
 
 ## Getting Started
 
