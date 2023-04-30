@@ -3,7 +3,7 @@
 @if (Visible)
 {
     <div class="fluent-overlay"
-         style="@(Transparent ? "cursor: auto;" : $"background-color: {_color}; opacity: {Opacity.ToString()!.Replace(',','.')}; cursor: default;") @(FullScreen ? "position: fixed;" : "position: absolute;")"
+         style="@(Transparent ? "cursor: auto;" : $"background-color: rgba({_r}, {_g}, {_b}, {Opacity.ToString()!.Replace(',','.')}); cursor: default;") @(FullScreen ? "position: fixed;" : "position: absolute;")"
          @onclick="@OnCloseHandlerAsync" 
          @oncontextmenu="@OnCloseHandlerAsync" 
          @oncontextmenu:preventDefault>

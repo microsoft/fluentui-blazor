@@ -2,8 +2,8 @@
 <FluentButton Appearance="Appearance.Accent" @onclick="() => visible = !visible">Show Overlay</FluentButton>
 
 <FluentOverlay @bind-Visible=@visible
-               Opacity="0.4" BackgroundColor=Color.Custom
-               CustomBackgroundColor="#e8f48c"
+               Opacity="0.4" 
+               BackgroundColor="#e8f48c"
                FullScreen="true"
                OnClose="HandleOnClose">
     <FluentProgressRing />

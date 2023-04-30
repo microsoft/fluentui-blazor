@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -9,6 +10,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentOverlay
 {
     private string? _color = null;
+    private int _r, _g, _b;
 
     /// <summary>
     /// Gets or sets if the overlay is visible.
@@ -65,18 +67,12 @@ public partial class FluentOverlay
 
     /// <summary>
     /// Gets or sets background color. 
-    /// Value comes from the <see cref="FluentUI.Color"/> enumeration. Defaults to Fill.
+    /// Needs to be formatted as an HTML hex color string (#rrggbb or #rgb)
+    /// Default is '#ffffff'
     /// </summary>
     [Parameter]
-    public Color BackgroundColor { get; set; } = Color.Fill;
+    public string BackgroundColor { get; set; } = "#ffffff";
 
-    /// <summary>
-    /// Gets or sets the background color to a custom value.
-    /// Needs to be formatted as an HTML hex color string (#rrggbb or #rgb) or CSS variable.
-    /// ⚠️ Only available when Color is set to Color.Custom.
-    /// </summary>
-    [Parameter]
-    public string? CustomBackgroundColor { get; set; }
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -115,33 +111,35 @@ public partial class FluentOverlay
             Transparent = false;
         }
 
-        if (BackgroundColor != Color.Custom)
+        if (!string.IsNullOrWhiteSpace(BackgroundColor))
         {
-            if (CustomBackgroundColor != null)
-                throw new ArgumentException("CustomBackgroundColor can only be used when BackgroundColor is set to Color.Custom. ");
+
+#if NET7_0_OR_GREATER
+                if (!CheckRGBString().IsMatch(BackgroundColor))
+#else
+            if (!Regex.IsMatch(BackgroundColor, "^(?:#([a-fA-F0-9]{6}|[a-fA-F0-9]{3}))"))
+#endif
+                throw new ArgumentException("BackgroundColor must be a valid HTML hex color string (#rrggbb or #rgb).");
             else
-                _color = BackgroundColor.ToAttributeValue();
-        }
-        else
-        {
-            if (CustomBackgroundColor is null)
-                throw new ArgumentException("CustomBackgroundColor must be set when BackgroundColor is set to Color.Custom. ");
+                _color = BackgroundColor[1..];
+
+            if (_color.Length == 6)
+            {
+                _r = int.Parse(_color[..2], NumberStyles.HexNumber);
+                _g = int.Parse(_color[2..4], NumberStyles.HexNumber);
+                _b = int.Parse(_color[4..], NumberStyles.HexNumber);
+            }
             else
             {
-#if NET7_0_OR_GREATER
-                if (!CheckRGBString().IsMatch(CustomBackgroundColor))
-#else
-                if (!Regex.IsMatch(CustomBackgroundColor, "^(?:#([a-fA-F0-9]{6}|[a-fA-F0-9]{3}))|var\\(--.*\\)$"))
-#endif
-                    throw new ArgumentException("CustomBackgroundColor must be a valid HTML hex color string (#rrggbb or #rgb) or CSS variable. ");
-                else
-                    _color = CustomBackgroundColor;
+                _r = int.Parse(_color[0..1], NumberStyles.HexNumber);
+                _g = int.Parse(_color[1..2], NumberStyles.HexNumber);
+                _b = int.Parse(_color[2..],NumberStyles.HexNumber);
             }
         }
     }
 
 #if NET7_0_OR_GREATER
-    [GeneratedRegex("^(?:#(?:[a-fA-F0-9]{6}|[a-fA-F0-9]{3}))|var\\(--.*\\)$")]
+    [GeneratedRegex("^(?:#(?:[a-fA-F0-9]{6}|[a-fA-F0-9]{3}))")]
     private static partial Regex CheckRGBString();
 #endif
 
