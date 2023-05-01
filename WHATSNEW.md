@@ -1,3 +1,77 @@
+##V2.2.1
+
+Updated readme to use new domain name (www.fluentui-blazor.net)
+
+Updated Fluent UI Sysem Icons to version 1.1.201
+    
+**What's new (Name / Size(s) / Variant(s))**
+- App Generic / 48 / Filled & Regular
+- Arrow Enter / 16 / Filled & Regular
+- Arrow Sprint / 16, 20 / Filled & Regular
+- Beaker Settings / 16, 20 / Filled & Regular
+- Binder Triangle / 16 / Filled & Regular
+- Book Dismiss / 16, 20 / Filled & Regular
+- Button / 16, 20 / Filled & Regular
+- Card UI / 20, 24 / Filled & Regular
+- Chevron Down Up / 16, 20, 24 / Filled & Regular
+- Column Single Compare / 16, 20 / Filled & Regular
+- Crop Sparkle / 24 / Filled & Regular
+- Cursor Prohibited / 16, 20 / Filled & Regular
+- Cursor / 16 / Filled & Regular
+- Data Histogram / 16 / Filled & Regular
+- Document Image / 16, 20 / Filled & Regular
+- Document JAVA / 16, 20 / Filled & Regular
+- Document One Page Beaker / 16 / Filled & Regular
+- Document One Page Multiple / 16, 20, 24 / Filled & Regular
+- Document SASS / 16, 20 / Filled & Regular
+- Document YML / 16, 20 / Filled & Regular
+- Filmstrip Split / 16, 20, 24, 32 / Filled & Regular
+- Gavel Prohibited / 16, 20 / Filled & Regular
+- Gavel / 16 / Filled & Regular
+- Gift Open / 16, 20, 24 / Filled & Regular
+- Globe / 12 / Filled & Regular
+- Grid Kanban / 16 / Filled & Regular
+- Image Stack / 16, 20 / Filled & Regular
+- Laptop Shield / 16, 20 / Filled & Regular
+- List Bar Tree Offset / 16, 20 / Filled & Regular
+- List Bar Tree / 16, 20 / Filled & Regular
+- List Bar / 16, 20 / Filled & Regular
+- List RTL / 16, 20 / Filled & Regular
+- Panel Left Text Add / 16, 20, 24, 28, 32, 48 / Filled & Regular
+- Panel Left Text Dismiss / 16, 20, 24, 28, 32, 48 / Filled & Regular
+- Panel Left Text / 16, 20, 24, 28, 32, 48 / Filled & Regular
+- Person Lightning / 16, 20 / Filled & Regular
+- Text Bullet List Square Sparkle / 16, 20, 24 / Filled & Regular
+- Text Bullet List Square / 16, 32 / Filled & Regular
+- Translate Auto / 16, 20, 24 / Filled & Regular
+  
+**What's updated (Name / Size(s) / Variant(s))**
+- Book Add / 20 / Filled
+- Book Default / 20 / Filled
+- Briefcase Medical / 16, 20, 24, 32 / Filled & Regular
+- Briefcase Off / 16, 20, 24, 28, 32, 48 / Filled & Regular
+- Briefcase / 12, 16, 20, 24, 28, 32, 48 / Filled & Regular
+- Calendar Add / 16 / Filled & Regular
+- Calendar Arrow Right / 16 / Filled & Regular
+- Calendar Assistant / 16 / Filled & Regular
+- Calendar Cancel / 16 / Filled & Regular
+- Calendar Checkmark / 16 / Filled & Regular
+- Calendar Clock / 16 / Filled & Regular
+- Chevron Up Down / 20 / Filled
+- Document One Page Add / 16 / Filled & Regular
+- List / 20, 24, 28 / Filled & Regular
+- Text Bullet List Square Clock / 20 / Filled & Regular
+- Text Bullet List Square Edit / 20, 24 / Filled & Regular
+- Text Bullet List Square Person / 20, 32 / Filled & Regular
+- Text Bullet List Square Search / 20 / Filled & Regular
+- Text Bullet List Square Settings / 20 / Filled & Regular
+- Text Bullet List Square Shield / 20 / Filled & Regular
+- Text Bullet List Square Toolbox / 20 / Filled & Regular
+- Text Bullet List Square Warning / 16, 20, 24 / Filled & Regular
+- Text Bullet List Square / 20, 24 / Filled & Regular
+- Translate Off / 16, 20, 24 / Filled & Regular
+- Translate / 16, 20, 24 / Filled & Regular
+
 ## V2.2
 For version 2.2 we started working on adding .NET 8 support. One important new feature in Blazor with .NET 8 is the addition of the QuickGrid component. 
 QuickGrid is a high performance grid component for displaying data in tabular form. It is built to be a simple and convenient way to display your data, while 
