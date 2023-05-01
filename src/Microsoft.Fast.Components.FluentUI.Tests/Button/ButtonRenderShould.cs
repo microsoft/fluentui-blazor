@@ -10,17 +10,13 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.Button
         public void RenderProperly_Default()
         {
             // Arrange && Act
-            string childContent = "fluent-button";
-            IRenderedComponent<FluentButton> cut = TestContext.RenderComponent<FluentButton>(
-                parameters => parameters
-                    .AddChildContent(childContent));
+            var cut = TestContext.RenderComponent<FluentButton>(parameters =>
+            {
+                parameters.AddChildContent("fluent-button");
+            });
 
             // Assert
-            cut.MarkupMatches("<fluent-button " +
-                              "type=\"button\" " +
-                              "appearance=\"neutral\"> " +
-                              $"{childContent}" +
-                              "</fluent-button>");
+            cut.Verify();
         }
 
         [Fact]
@@ -57,23 +53,7 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.Button
                     .AddChildContent(childContent));
 
             // Assert
-            if (formId is not null)
-            {
-                cut.MarkupMatches("<fluent-button " +
-                                  "type=\"button\" " +
-                                  "appearance=\"neutral\" " +
-                                  $"form=\"{formId}\"> " +
-                                  $"{childContent}" +
-                                  "</fluent-button>");
-            }
-            else
-            {
-                cut.MarkupMatches("<fluent-button " +
-                                  "type=\"button\" " +
-                                  "appearance=\"neutral\">" +
-                                  $"{childContent}" +
-                                  "</fluent-button>");
-            }
+            cut.Verify(suffix: formId);
         }
 
         [Theory]
@@ -220,7 +200,7 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.Button
                               $"{childContent}" +
                               "</fluent-button>");
         }
-        
+
         [Theory]
         [InlineData(" ")]
         [InlineData("_funky")]
@@ -228,7 +208,7 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.Button
         {
             // Arrange && Act
             string childContent = "fluent-button";
-            
+
             Action action = () =>
             {
                 TestContext.RenderComponent<FluentButton>(
