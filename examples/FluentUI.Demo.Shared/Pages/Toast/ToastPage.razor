@@ -1,0 +1,36 @@
+﻿@page "/Toast"
+@using FluentUI.Demo.Shared.Pages.Toast.Examples
+
+<DemoSection Title="Toast Services" Component="typeof(ToastDefaultExample)">
+    
+</DemoSection>
+
+<DemoSection Title="Toast Services with options" Component="typeof(ToastDetailledExample)">
+    
+</DemoSection>
+
+<h3>Service injection</h3>
+
+<h4>Injection with global options.</h4>
+<CodeSnippet>    
+    builder.Services
+           .AddScoped&lt;IToastService, ToastService>()
+</CodeSnippet>
+
+<h4>Injection with global options.</h4>
+<CodeSnippet>    
+    builder.Services
+           .AddScoped&lt;IToastService>(builder => new ToastService(builder.GetRequiredService&lt;NavigationManager>(), new ToastGlobalOptions()
+           {
+               ShowTransitionDuration = 300,
+               VisibleStateDuration = 5000,
+               HideTransitionDuration = 300,
+               ShowCloseIcon = true,
+               AutoHide = true,
+               ClearAfterNavigation = false,
+               MaxDisplayedToasts = 5,
+               PositionClass = Microsoft.Reality.Components.Blazor.ToastPosition.TopCenter,
+               MaximumOpacity = 100,
+               NewestOnTop = true
+           }));
+</CodeSnippet>
