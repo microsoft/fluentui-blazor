@@ -7570,11 +7570,27 @@
         <member name="T:Microsoft.Fast.Components.FluentUI.Identifier">
             <summary />
         </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Identifier.SequentialContext">
+            <summary>
+            Returns a new <see cref="T:Microsoft.Fast.Components.FluentUI.IdentifierContext"/> where ID are sequential: "f0000", "f0001", "f0002", ...
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Identifier.NewId(System.Int32)">
             <summary>
             Returns a new small Id.
             HTML id must start with a letter.
             Example: f127d9edf14385adb
+            </summary>
+            <remarks>
+            You can use a <see cref="T:Microsoft.Fast.Components.FluentUI.IdentifierContext"/> instance to customize the Generation process,
+            for example in Unit Tests.
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IdentifierContext.GenerateId">
+            <summary>
+            Returns the next number between 0 and 99999999.
             </summary>
             <returns></returns>
         </member>

@@ -10,22 +10,16 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.Button
         public void RenderProperly_Default()
         {
             // Arrange
-            string childContent = "fluent-button";
             using var id = Identifier.SequentialContext();
 
             // Act
             var cut = TestContext.RenderComponent<FluentButton>(parameters =>
             {
-                parameters.AddChildContent(childContent);
+                parameters.AddChildContent("fluent-button");
             });
 
             // Assert
-            cut.MarkupMatches("<fluent-button " +
-                              "type=\"button\" " +
-                              "id=\"f0000\" " +
-                              "appearance=\"neutral\"> " +
-                              $"{childContent}" +
-                              "</fluent-button>");
+            cut.Verify();
         }
 
         [Fact]
@@ -62,23 +56,7 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.Button
                     .AddChildContent(childContent));
 
             // Assert
-            if (formId is not null)
-            {
-                cut.MarkupMatches("<fluent-button " +
-                                  "type=\"button\" " +
-                                  "appearance=\"neutral\" " +
-                                  $"form=\"{formId}\"> " +
-                                  $"{childContent}" +
-                                  "</fluent-button>");
-            }
-            else
-            {
-                cut.MarkupMatches("<fluent-button " +
-                                  "type=\"button\" " +
-                                  "appearance=\"neutral\">" +
-                                  $"{childContent}" +
-                                  "</fluent-button>");
-            }
+            cut.Verify(suffix: formId);
         }
 
         [Theory]

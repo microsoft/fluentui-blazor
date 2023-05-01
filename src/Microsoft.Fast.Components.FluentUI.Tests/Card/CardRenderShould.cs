@@ -9,88 +9,60 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.Card
         public void RenderProperly_Default()
         {
             // Arrange && Act
-            string childContent = "childcontent";
-            IRenderedComponent<FluentCard> cut = TestContext.RenderComponent<FluentCard>(parameters => parameters
-                .AddChildContent(childContent));
-            
+            var cut = TestContext.RenderComponent<FluentCard>(parameters => parameters
+                .AddChildContent("childcontent"));
+
             // Assert
-            cut.MarkupMatches("<fluent-card>" +
-                              $"{childContent}" +
-                              "</fluent-card>");
+            cut.Verify();
         }
-        
+
         [Fact]
         public void RenderProperly_AdditionalCssClass()
         {
             // Arrange && Act
-            string childContent = "childcontent";
-            string cssClass = "css-class";
-            IRenderedComponent<FluentCard> cut = TestContext.RenderComponent<FluentCard>(parameters => parameters
-                .AddChildContent(childContent)
-                .Add(p =>p.Class, cssClass));
-            
+            var cut = TestContext.RenderComponent<FluentCard>(parameters => parameters
+                .AddChildContent("childcontent")
+                .Add(p => p.Class, "css-class"));
+
             // Assert
-            cut.MarkupMatches("<fluent-card " +
-                              $"class=\"{cssClass}\">" +
-                              $"{childContent}" +
-                              "</fluent-card>");
+            cut.Verify();
         }
-        
+
         [Fact]
         public void RenderProperly_AdditionalStyle()
         {
             // Arrange && Act
-            string childContent = "childcontent";
-            string style = "background-color: red;";
-            IRenderedComponent<FluentCard> cut = TestContext.RenderComponent<FluentCard>(parameters => parameters
-                .AddChildContent(childContent)
-                .Add(p =>p.Style, style));
-            
+            var cut = TestContext.RenderComponent<FluentCard>(parameters => parameters
+                .AddChildContent("childcontent")
+                .Add(p => p.Style, "background-color: red;"));
+
             // Assert
-            cut.MarkupMatches("<fluent-card " +
-                              $"style=\"{style}\">" +
-                              $"{childContent}" +
-                              "</fluent-card>");
+            cut.Verify();
         }
-        
+
         [Fact]
         public void RenderProperly_AdditionalParameter()
         {
             // Arrange && Act
-            string childContent = "childcontent";
-            string additionalParameterName = "additional-parameter-name";
-            string additionalParameterValue = "additional-parameter-value";
-            IRenderedComponent<FluentCard> cut = TestContext.RenderComponent<FluentCard>(parameters => parameters
-                .AddChildContent(childContent)
-                .AddUnmatched(additionalParameterName, additionalParameterValue));
-            
+            var cut = TestContext.RenderComponent<FluentCard>(parameters => parameters
+                .AddChildContent("childcontent")
+                .AddUnmatched("additional-parameter-name", "additional-parameter-value"));
+
             // Assert
-            cut.MarkupMatches("<fluent-card " +
-                              $"{additionalParameterName}=\"{additionalParameterValue}\">" +
-                              $"{childContent}" +
-                              "</fluent-card>");
+            cut.Verify();
         }
-        
+
         [Fact]
         public void RenderProperly_AdditionalParameters()
         {
             // Arrange && Act
-            string childContent = "childcontent";
-            string additionalParameter1Name = "additional-parameter1-name";
-            string additionalParameter1Value = "additional-parameter1-value";            
-            string additionalParameter2Name = "additional-parameter2-name";
-            string additionalParameter2Value = "additional-parameter2-value";
-            IRenderedComponent<FluentCard> cut = TestContext.RenderComponent<FluentCard>(parameters => parameters
-                .AddChildContent(childContent)
-                .AddUnmatched(additionalParameter1Name, additionalParameter1Value)
-                .AddUnmatched(additionalParameter2Name, additionalParameter2Value));
-            
+            var cut = TestContext.RenderComponent<FluentCard>(parameters => parameters
+                .AddChildContent("childcontent")
+                .AddUnmatched("additional-parameter1-name", "additional-parameter1-value")
+                .AddUnmatched("additional-parameter2-name", "additional-parameter2-value"));
+
             // Assert
-            cut.MarkupMatches("<fluent-card " +
-                              $"{additionalParameter1Name}=\"{additionalParameter1Value}\" " +
-                              $"{additionalParameter2Name}=\"{additionalParameter2Value}\">" +
-                              $"{childContent}" +
-                              "</fluent-card>");
+            cut.Verify();
         }
     }
 }
