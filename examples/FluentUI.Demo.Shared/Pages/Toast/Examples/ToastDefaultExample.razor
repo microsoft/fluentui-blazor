@@ -1,0 +1,16 @@
+﻿@inject IToastService Toast
+
+Click on this button to open a Toast.
+<br />
+<FluentButton @onclick="@OpenToast" Appearance="Appearance.Accent">Open</FluentButton>
+
+@code
+{
+    int counter = 0;
+    void OpenToast()
+    {
+        var intent = Enum.GetValues<ToastIntent>()[counter % 4];
+        var message = $"Simple Toast #{counter++}";
+        Toast.Add(message, intent);
+    }
+}

@@ -1,5 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using AngleSharp.Dom;
+using AngleSharp.Html.Parser.Tokens;
 using Bunit;
 using Bunit.Rendering;
 using FluentAssertions;
@@ -61,18 +63,21 @@ public static class FluentAssert
         var memberFullName = GetMemberFullName(memberName, suffix);
         var expectedFile = file.GetTargetFile(memberFullName, Options.VerifiedExtension);
         var receivedFile = file.GetTargetFile(memberFullName, Options.ReceivedExtension);
+        var htmlParser = actual.Services.GetRequiredService<BunitHtmlParser>();
 
         // Load "verified.html" file
         var expectedHtml = expectedFile.Exists
                          ? File.ReadAllText(expectedFile.FullName)
                          : string.Empty;
-        var expectedNodes = expectedHtml.ToNodeList(actual.Services.GetRequiredService<BunitHtmlParser>());
+        expectedHtml = Options.ScrubLinesWithReplace(expectedHtml);
+        var expectedNodes = expectedHtml.ToNodeList(htmlParser);
 
         // Get actual Markup
         var receivedHtml = received == null
                          ? actual.Markup
                          : received.Invoke(actual.Markup);
-        var receivedNodes = receivedHtml.ToNodeList(actual.Services.GetRequiredService<BunitHtmlParser>());
+        receivedHtml = Options.ScrubLinesWithReplace(receivedHtml);
+        var receivedNodes = receivedHtml.ToNodeList(htmlParser);
 
         // Difference?
         var diffs = actual.Nodes
@@ -143,5 +148,23 @@ public static class FluentAssert
         }
 
         return file.Name;
+    }
+
+    public static string RemoveEmptyComments(this string value)
+    {
+        return value.Replace("<!--!-->", string.Empty);
+    }
+
+    public static string RemoveAttribute(this string value, string attribute)
+    {
+        return ReplaceAttribute(value, attribute, string.Empty);
+    }
+
+    public static string ReplaceAttribute(this string value, string attribute, string? newValue = "")
+    {
+        string newAttributeValue = string.IsNullOrEmpty(newValue) ? string.Empty : $" {attribute}=\"{newValue}\"";
+        value = Regex.Replace(value, $" {attribute}='\\w+'", newAttributeValue);
+        value = Regex.Replace(value, $" {attribute}=\"\\w+\"", newAttributeValue);
+        return value;
     }
 }

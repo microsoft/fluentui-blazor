@@ -9,7 +9,10 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.Button
         [Fact]
         public void RenderProperly_Default()
         {
-            // Arrange && Act
+            // Arrange
+            using var id = Identifier.SequentialContext();
+
+            // Act
             var cut = TestContext.RenderComponent<FluentButton>(parameters =>
             {
                 parameters.AddChildContent("fluent-button");

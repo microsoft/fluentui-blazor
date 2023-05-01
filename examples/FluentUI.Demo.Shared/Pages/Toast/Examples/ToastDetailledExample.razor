@@ -1,0 +1,40 @@
+﻿@inject IToastService Toast
+
+Click on this button to open a Toast.
+<br />
+<FluentButton @onclick="@OpenToast" Appearance="Appearance.Accent">Open</FluentButton>
+
+@code
+{
+    int counter = 0;
+    void OpenToast()
+    {
+        Toast.Add(options =>
+        {
+            options.Message = $"Simple Toast #{counter++}";
+            options.Intent = Enum.GetValues<ToastIntent>()[counter % 4];
+            options.Icon = FluentIcons.PersonCircle;
+            options.OnClick = (item) =>
+            {
+                DemoLogger.WriteLine($"{options.Message} clicked");                
+                return Task.CompletedTask;
+            };
+            options.OnClose = (item) =>
+            {
+                DemoLogger.WriteLine($"{options.Message} closed");
+                return Task.CompletedTask;
+            };
+
+            if (options.Intent == ToastIntent.Neutral)
+            {
+                options.Action.Text = "Visit site";
+                options.Action.OnClick = (item) =>
+                {
+                    DemoLogger.WriteLine($"Action clicked");
+                    item.Close();
+                    return Task.CompletedTask;
+                };
+            }
+        });
+    }
+}
