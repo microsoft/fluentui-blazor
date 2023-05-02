@@ -150,7 +150,7 @@ export function afterStarted(Blazor) {
 export function beforeStart(options, extensions) {
     var wcScript = document.createElement('script');
     wcScript.type = 'module';
-    wcScript.src = '_content/Microsoft.Fast.Components.FluentUI/js/web-components.min.js';
+    wcScript.src = './_content/Microsoft.Fast.Components.FluentUI/js/web-components.min.js';
     wcScript.async = true;
     document.body.appendChild(wcScript);   
 }

@@ -10,8 +10,6 @@ namespace Microsoft.Fast.Components.FluentUI
 
 
         private bool _toggle;
-        private readonly string _idButton = Identifier.NewId();
-        private readonly string _idMenu = Identifier.NewId();
 
         [Parameter]
         public FluentButton? Button { get; set; }
@@ -40,9 +38,8 @@ namespace Microsoft.Fast.Components.FluentUI
             if (args is not null && args.Id is not null)
             {
                 await OnMenuChanged.InvokeAsync(args);
-
-                _toggle = !_toggle;
             }
+            _toggle = false;
         }
 
         private void OnKeyDown(KeyboardEventArgs args)

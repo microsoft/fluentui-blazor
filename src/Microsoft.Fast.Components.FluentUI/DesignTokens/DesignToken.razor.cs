@@ -66,8 +66,7 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
     {
         if (string.IsNullOrEmpty(scriptSource))
         {
-
-            scriptSource = "./_content/Microsoft.Fast.Components.FluentUI/js/web-components.min.js";
+            scriptSource = Configuration["FluentWebComponentsScriptSource"] ?? "./_content/Microsoft.Fast.Components.FluentUI/js/web-components.min.js";
         }
     }
 

@@ -3,11 +3,11 @@
 @inherits FluentComponentBase
 
 <div>
-    <FluentButton @ref="Button" Id="@_idButton" Appearance="Appearance.Accent" aria-haspopup="true" aria-expanded="@_toggle" @onclick=ToggleMenu @onkeydown=OnKeyDown>
+    <FluentButton @ref="Button" Appearance="Appearance.Accent" aria-haspopup="true" aria-expanded="@_toggle" @onclick=ToggleMenu @onkeydown=OnKeyDown>
         @Text
         <FluentIcon Slot="end" Name="@FluentIcons.ChevronDown" Color="@Color.Fill" />
     </FluentButton>
-    <FluentMenu @ref="Menu" Id="@_idMenu" aria-labelledby="button" @bind-Open=@_toggle @onmenuchange=OnMenuChange>
+    <FluentMenu @ref="Menu" aria-labelledby="button" @bind-Open=@_toggle @onmenuchange=OnMenuChange>
         @foreach (KeyValuePair<string, string> item in Items)
         {
             <FluentMenuItem Id="@item.Key">@item.Value</FluentMenuItem>

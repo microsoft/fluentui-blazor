@@ -155,7 +155,7 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
         TypeCode typeCode = Type.GetTypeCode(targetType);
         string value = typeCode switch
         {
-            TypeCode.Decimal => decimal.MaxValue.ToString("G12", CultureInfo.InvariantCulture),
+            TypeCode.Decimal => decimal.MaxValue.ToString(CultureInfo.InvariantCulture),
             TypeCode.Double => double.MaxValue.ToString(CultureInfo.InvariantCulture),
             TypeCode.Int16 => short.MaxValue.ToString(),
             TypeCode.Int32 => int.MaxValue.ToString(),
@@ -179,7 +179,7 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
         string value = typeCode switch
         {
 
-            TypeCode.Decimal => decimal.MinValue.ToString("G12", CultureInfo.InvariantCulture),
+            TypeCode.Decimal => decimal.MinValue.ToString(CultureInfo.InvariantCulture),
             TypeCode.Double => double.MinValue.ToString(CultureInfo.InvariantCulture),
             TypeCode.Int16 => short.MinValue.ToString(),
             TypeCode.Int32 => int.MinValue.ToString(),
@@ -190,7 +190,7 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
             TypeCode.UInt32 => uint.MinValue.ToString(),
             TypeCode.UInt64 => "-999999999999",
             _ => ""
-        };
+        }; ; ;
 
         return value;
     }
@@ -230,8 +230,11 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
 
     private static void ValidateDecimalInput(string? max, string? min)
     {
-        decimal maxValue = decimal.Parse(max!);
-        decimal minValue = decimal.Parse(min!);
+        if (!decimal.TryParse(max!, out decimal maxValue))
+            maxValue = decimal.MaxValue;
+        if (!decimal.TryParse(min!, out decimal minValue))
+            minValue = decimal.MinValue;
+        
 
         if (maxValue < minValue)
         {
