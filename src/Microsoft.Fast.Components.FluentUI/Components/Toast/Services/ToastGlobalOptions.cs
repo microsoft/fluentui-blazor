@@ -13,7 +13,7 @@ public class ToastGlobalOptions
 
     public int ShowTransitionDuration { get; set; } = 200;
 
-    public int VisibleStateDuration { get; set; } = 70000;
+    public int VisibleStateDuration { get; set; } = 7000;
 
     public int HideTransitionDuration { get; set; } = 200;
 

@@ -10,8 +10,6 @@ StaticWebAssetsLoader.UseStaticWebAssets(builder.Environment, builder.Configurat
 builder.Services.AddRazorPages();
 builder.Services.AddHttpClient();
 builder.Services.AddServerSideBlazor();
-
-builder.Services.AddScoped<IToastService, ToastService>();
 LibraryConfiguration config = new(ConfigurationGenerator.GetIconConfiguration(), ConfigurationGenerator.GetEmojiConfiguration());
 builder.Services.AddFluentUIComponents(config);
 

@@ -1,6 +1,9 @@
 ﻿import { SplitPanels } from "./js/SplitPanels.js";
 
 export function afterStarted(Blazor) {
+
+    customElements.define("split-panels", SplitPanels);
+
     Blazor.registerCustomEventType('customclick', {
         browserEventName: 'click',
         createEventArgs: event => {
@@ -145,7 +148,10 @@ export function afterStarted(Blazor) {
 }
 
 export function beforeStart(options, extensions) {
-
-    customElements.define("split-panels", SplitPanels);
+    var wcScript = document.createElement('script');
+    wcScript.type = 'module';
+    wcScript.src = '_content/Microsoft.Fast.Components.FluentUI/js/web-components.min.js';
+    wcScript.async = true;
+    document.body.appendChild(wcScript);   
 }
 

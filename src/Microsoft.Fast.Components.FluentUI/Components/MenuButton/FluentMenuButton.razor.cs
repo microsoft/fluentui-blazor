@@ -5,15 +5,13 @@ using Microsoft.JSInterop;
 
 namespace Microsoft.Fast.Components.FluentUI
 {
-    public partial class FluentMenuButton : FluentComponentBase, IAsyncDisposable
+    public partial class FluentMenuButton : FluentComponentBase
     {
-        
-        
-        bool? toggle = null;
-        string menuClass = "menu";
-        string idButton = Identifier.NewId();
-        string idMenu = Identifier.NewId();
-        IJSObjectReference? jsModule;
+
+
+        private bool _toggle;
+        private readonly string _idButton = Identifier.NewId();
+        private readonly string _idMenu = Identifier.NewId();
 
         [Parameter]
         public FluentButton? Button { get; set; }
@@ -32,40 +30,9 @@ namespace Microsoft.Fast.Components.FluentUI
 
         public EventCallback<MenuChangeEventArgs> OnMenuChanged { get; set; }
 
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            if (firstRender)
-            {
-                // Remeber to replace the path to the colocated JS file with your own project's path
-                // or Razor Class Library's path.
-                jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Microsoft.Fast.Components.FluentUI/Components/MenuButton/FluentMenuButton.razor.js");
-                await jsModule.InvokeAsync<object>("clickOutsideHandler", idButton, idMenu, DotNetObjectReference.Create(this));
-            }
-        }
-
         private void ToggleMenu()
         {
-            if (toggle is null || toggle == false)
-                ShowMenu();
-            else
-                HideMenu();
-        }
-
-        public void ShowMenu()
-        {
-            toggle = true;
-            menuClass = "menu visible";
-            Menu!.Element.FocusAsync();
-            StateHasChanged();
-        }
-
-        [JSInvokable]
-        public void HideMenu()
-        {
-            toggle = null;
-            Button!.Element.FocusAsync();
-            menuClass = "menu";
-            StateHasChanged();
+            _toggle = !_toggle;
         }
 
         private async Task OnMenuChange(MenuChangeEventArgs args)
@@ -73,8 +40,8 @@ namespace Microsoft.Fast.Components.FluentUI
             if (args is not null && args.Id is not null)
             {
                 await OnMenuChanged.InvokeAsync(args);
-                
-                ToggleMenu();
+
+                _toggle = !_toggle;
             }
         }
 
@@ -82,24 +49,9 @@ namespace Microsoft.Fast.Components.FluentUI
         {
             if (args is not null && args.Key == "Escape")
             {
-                ToggleMenu();
+                _toggle = false;
             }
         }
 
-        public async ValueTask DisposeAsync()
-        {
-            try
-            {
-                if (jsModule is not null)
-                {
-                    await jsModule.DisposeAsync();
-                }
-            }
-            catch (JSDisconnectedException)
-            {
-            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
-            // the client disconnected. This is not an error.
-            }
-        }
     }
 }

@@ -6,7 +6,7 @@ using Microsoft.JSInterop;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentMenu : IDisposable
+public partial class FluentMenu : FluentComponentBase, IDisposable
 {
     private DotNetObjectReference<FluentMenu>? _dotNetHelper = null;
     private Point _clickedPoint = default;

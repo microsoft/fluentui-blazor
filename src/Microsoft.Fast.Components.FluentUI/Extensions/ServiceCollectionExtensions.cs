@@ -79,6 +79,9 @@ public static class ServiceCollectionExtensions
 
         services.AddScoped<IStaticAssetService, HttpBasedStaticAssetService>();
 
+        services.AddScoped<IToastService, ToastService>();
+
+
         services.AddFluentIcons(configuration?.IconConfiguration);
         services.AddFluentEmojis(configuration?.EmojiConfiguration);
 
