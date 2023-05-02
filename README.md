@@ -35,45 +35,6 @@ To get started using the Fluent UI Blazor components for Blazor, you will first 
 dotnet add package Microsoft.Fast.Components.FluentUI
 ```
 
-### Scripts
-
-Next, you need to add the web components script. You can either add the script from CDN directly, or you can install it with NPM, whichever you prefer.
-
-To add the script from CDN use the following markup:
-
-```html
-<script type="module" src="https://cdn.jsdelivr.net/npm/@fluentui/web-components/dist/web-components.min.js"></script>
-```
-> :notebook: **Note**
->
-> If you prefer to use another CDN, that is entirely possible. Just make sure it is offering the Fluent UI package and you are getting the right `web-components.min.js` file)
-
-The markup above always references the latest release of the components. When deploying to production, you will want to ship with a specific version. Here's an example of the markup for that:
-
-```html
-<script type="module" src="https://cdn.jsdelivr.net/npm/@fluentui/web-components@2.5.14/dist/web-components.min.js"></script>
-```
-
-The script tag is normally placed  in your `index.html` (`_Layout.cshtml` for Blazor server project) file in the script section at the bottom of the `<body>`.
-
-If you wish to leverage NPM instead, run the following command:
-
-```shell
-npm install --save @fluentui/web-components
-```
-
-You can locate the single file script build in the following location:
-
-```shell
-node_modules/@fluentui/web-components/dist/web-components.min.js
-```
-
-Copy this to your `wwwroot/script` folder and reference it with a script tag as described above.
-
-> :notebook: **Note**
->
-> If you are setting up Fluent UI Blazor components on a Blazor Server project, you will need to escape the `@` character by repeating it in the source link. For more information check out the [Razor Pages syntax documentation](https://docs.microsoft.com/aspnet/core/mvc/views/razor).
-
 ### Styles
 In order for this library to work as expected, you will need to add the composed scoped CSS file for the components. This can be done by 
 adding the following line to the <head> section of your `index.html` or `_Layout.cshtml` file in the project you installed the package:
@@ -104,7 +65,7 @@ to your `index.html` or `_Layout.cshtml` file in the `<head>` section like this:
 The file contains a number of CSS variables that are required to be defined for the components to work correctly. 
 
 ### Project file
-if you want to use icons and/or emoji, starting with the 2.1 version of the library you need add a `<PropertyGroup>` to your project file. With this you can specify which icons and emoji are made available for usage and publication. Please refer to the v2.1 section in the [what's new](https://aka.ms/fluentui-blazor/whatsnew) document for more information.
+if you want to use icons and/or emoji, starting with version 2.1 you need add a `<PropertyGroup>` to your project file. With this you can specify which icons and emoji are made available for usage and publication. Please refer to the [project setup](https://www.fluentui-blazor.net/ProjectSetup) document for more information.
 
 
 ### Code
@@ -115,7 +76,7 @@ builder.Services.AddFluentUIComponents();
 
 This addition makes sure all the necessary services the library uses are setup in a correct way.
 
-**If you want to use icons and/or emoji, starting with the 2.1 version of the library you need to make some changes here. Please refer to the v2.1 section in the [what's new](https://aka.ms/fluentui-blazor/whatsnew) document for more information.**
+**If you want to use icons and/or emoji, starting with version 2.1 version you need to make some changes here. Please refer to the [code setup](https://www.fluentui-blazor.net/CodeSetup) document for more information.**
 
 *If you're running your application on Blazor Server, make sure a default HttpClient is available by adding the following:*
 
