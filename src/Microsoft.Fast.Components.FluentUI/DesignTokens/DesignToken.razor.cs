@@ -8,16 +8,11 @@ namespace Microsoft.Fast.Components.FluentUI.DesignTokens;
 public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisposable
 {
     private IJSObjectReference _jsModule = default!;
-    private static string scriptSource = string.Empty;
 
     private Reference Target { get; set; } = new Reference();
 
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
-
-
-    [Inject]
-    private IConfiguration Configuration { get; set; } = default!;
 
     private T? _defaultValue;
 
@@ -51,23 +46,9 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
     /// <summary>
     /// Constructs an instance of a DesignToken.
     /// </summary>
-    public DesignToken(IJSRuntime jsRuntime, IConfiguration configuration)
+    public DesignToken(IJSRuntime jsRuntime)
     {
         JSRuntime = jsRuntime;
-        Configuration = configuration;
-
-        Initialize();
-    }
-
-    /// <summary>
-    /// Determine the right source for the web components script 
-    /// </summary>
-    private void Initialize()
-    {
-        if (string.IsNullOrEmpty(scriptSource))
-        {
-            scriptSource = Configuration["FluentWebComponentsScriptSource"] ?? "./_content/Microsoft.Fast.Components.FluentUI/js/web-components.min.js";
-        }
     }
 
     /// <inheritdoc/>
@@ -87,7 +68,7 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
 
     private async Task InitJSReference()
     {
-        _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", scriptSource);
+        _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Microsoft.Fast.Components.FluentUI/js/web-components.min.js");
     }
 
     /// <summary>

@@ -39,7 +39,6 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
 
             sb.Clear();
             sb.AppendLine("using System.Drawing;");
-            sb.AppendLine("using Microsoft.Extensions.Configuration;");
             sb.AppendLine("using Microsoft.JSInterop;");
             sb.AppendLine("");
             sb.AppendLine("namespace Microsoft.Fast.Components.FluentUI.DesignTokens;");
@@ -66,8 +65,7 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
                 sb.AppendLine($"\t/// Constructs an instance of the {name} design token");
                 sb.AppendLine("\t/// </summary>");
                 sb.AppendLine("\t/// <param name=\"jsRuntime\">IJSRuntime reference</param>");
-                sb.AppendLine("\t/// <param name=\"configuration\">IConfiguration reference</param>");
-                sb.AppendLine($"\tpublic {name}(IJSRuntime jsRuntime, IConfiguration configuration) : base(jsRuntime, configuration)");
+                sb.AppendLine($"\tpublic {name}(IJSRuntime jsRuntime) : base(jsRuntime)");
                 sb.AppendLine("\t{");
                 sb.AppendLine($"\t\tName = Constants.{name};");
                 sb.AppendLine("\t}");

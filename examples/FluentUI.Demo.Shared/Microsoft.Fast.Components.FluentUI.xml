@@ -3379,14 +3379,9 @@
             Constructs an instance of a DesignToken.
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.DesignToken`1.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.DesignToken`1.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of a DesignToken.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.DesignToken`1.Initialize">
-            <summary>
-            Determine the right source for the web components script 
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.DesignToken`1.OnAfterRenderAsync(System.Boolean)">
@@ -3441,12 +3436,11 @@
             Constructs an instance of the Direction design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.Direction.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.Direction.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the Direction design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.DisabledOpacity">
             <summary>
@@ -3458,12 +3452,11 @@
             Constructs an instance of the DisabledOpacity design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.DisabledOpacity.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.DisabledOpacity.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the DisabledOpacity design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.BaseHeightMultiplier">
             <summary>
@@ -3475,12 +3468,11 @@
             Constructs an instance of the BaseHeightMultiplier design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.BaseHeightMultiplier.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.BaseHeightMultiplier.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the BaseHeightMultiplier design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.BaseHorizontalSpacingMultiplier">
             <summary>
@@ -3492,12 +3484,11 @@
             Constructs an instance of the BaseHorizontalSpacingMultiplier design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.BaseHorizontalSpacingMultiplier.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.BaseHorizontalSpacingMultiplier.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the BaseHorizontalSpacingMultiplier design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.Density">
             <summary>
@@ -3509,12 +3500,11 @@
             Constructs an instance of the Density design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.Density.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.Density.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the Density design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.DesignUnit">
             <summary>
@@ -3526,12 +3516,11 @@
             Constructs an instance of the DesignUnit design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.DesignUnit.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.DesignUnit.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the DesignUnit design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.ControlCornerRadius">
             <summary>
@@ -3543,12 +3532,11 @@
             Constructs an instance of the ControlCornerRadius design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.ControlCornerRadius.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.ControlCornerRadius.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the ControlCornerRadius design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.LayerCornerRadius">
             <summary>
@@ -3560,12 +3548,11 @@
             Constructs an instance of the LayerCornerRadius design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.LayerCornerRadius.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.LayerCornerRadius.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the LayerCornerRadius design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.StrokeWidth">
             <summary>
@@ -3577,12 +3564,11 @@
             Constructs an instance of the StrokeWidth design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.StrokeWidth.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.StrokeWidth.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the StrokeWidth design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.FocusStrokeWidth">
             <summary>
@@ -3594,12 +3580,11 @@
             Constructs an instance of the FocusStrokeWidth design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.FocusStrokeWidth.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.FocusStrokeWidth.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the FocusStrokeWidth design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.BodyFont">
             <summary>
@@ -3611,12 +3596,11 @@
             Constructs an instance of the BodyFont design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.BodyFont.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.BodyFont.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the BodyFont design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampBaseFontSize">
             <summary>
@@ -3628,12 +3612,11 @@
             Constructs an instance of the TypeRampBaseFontSize design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampBaseFontSize.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampBaseFontSize.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the TypeRampBaseFontSize design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampBaseLineHeight">
             <summary>
@@ -3645,12 +3628,11 @@
             Constructs an instance of the TypeRampBaseLineHeight design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampBaseLineHeight.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampBaseLineHeight.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the TypeRampBaseLineHeight design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampMinus1FontSize">
             <summary>
@@ -3662,12 +3644,11 @@
             Constructs an instance of the TypeRampMinus1FontSize design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampMinus1FontSize.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampMinus1FontSize.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the TypeRampMinus1FontSize design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampMinus1LineHeight">
             <summary>
@@ -3679,12 +3660,11 @@
             Constructs an instance of the TypeRampMinus1LineHeight design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampMinus1LineHeight.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampMinus1LineHeight.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the TypeRampMinus1LineHeight design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampMinus2FontSize">
             <summary>
@@ -3696,12 +3676,11 @@
             Constructs an instance of the TypeRampMinus2FontSize design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampMinus2FontSize.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampMinus2FontSize.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the TypeRampMinus2FontSize design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampMinus2LineHeight">
             <summary>
@@ -3713,12 +3692,11 @@
             Constructs an instance of the TypeRampMinus2LineHeight design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampMinus2LineHeight.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampMinus2LineHeight.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the TypeRampMinus2LineHeight design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampPlus1FontSize">
             <summary>
@@ -3730,12 +3708,11 @@
             Constructs an instance of the TypeRampPlus1FontSize design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampPlus1FontSize.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampPlus1FontSize.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the TypeRampPlus1FontSize design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampPlus1LineHeight">
             <summary>
@@ -3747,12 +3724,11 @@
             Constructs an instance of the TypeRampPlus1LineHeight design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampPlus1LineHeight.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampPlus1LineHeight.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the TypeRampPlus1LineHeight design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampPlus2FontSize">
             <summary>
@@ -3764,12 +3740,11 @@
             Constructs an instance of the TypeRampPlus2FontSize design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampPlus2FontSize.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampPlus2FontSize.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the TypeRampPlus2FontSize design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampPlus2LineHeight">
             <summary>
@@ -3781,12 +3756,11 @@
             Constructs an instance of the TypeRampPlus2LineHeight design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampPlus2LineHeight.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampPlus2LineHeight.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the TypeRampPlus2LineHeight design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampPlus3FontSize">
             <summary>
@@ -3798,12 +3772,11 @@
             Constructs an instance of the TypeRampPlus3FontSize design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampPlus3FontSize.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampPlus3FontSize.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the TypeRampPlus3FontSize design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampPlus3LineHeight">
             <summary>
@@ -3815,12 +3788,11 @@
             Constructs an instance of the TypeRampPlus3LineHeight design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampPlus3LineHeight.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampPlus3LineHeight.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the TypeRampPlus3LineHeight design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampPlus4FontSize">
             <summary>
@@ -3832,12 +3804,11 @@
             Constructs an instance of the TypeRampPlus4FontSize design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampPlus4FontSize.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampPlus4FontSize.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the TypeRampPlus4FontSize design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampPlus4LineHeight">
             <summary>
@@ -3849,12 +3820,11 @@
             Constructs an instance of the TypeRampPlus4LineHeight design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampPlus4LineHeight.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampPlus4LineHeight.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the TypeRampPlus4LineHeight design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampPlus5FontSize">
             <summary>
@@ -3866,12 +3836,11 @@
             Constructs an instance of the TypeRampPlus5FontSize design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampPlus5FontSize.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampPlus5FontSize.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the TypeRampPlus5FontSize design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampPlus5LineHeight">
             <summary>
@@ -3883,12 +3852,11 @@
             Constructs an instance of the TypeRampPlus5LineHeight design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampPlus5LineHeight.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampPlus5LineHeight.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the TypeRampPlus5LineHeight design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampPlus6FontSize">
             <summary>
@@ -3900,12 +3868,11 @@
             Constructs an instance of the TypeRampPlus6FontSize design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampPlus6FontSize.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampPlus6FontSize.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the TypeRampPlus6FontSize design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampPlus6LineHeight">
             <summary>
@@ -3917,12 +3884,11 @@
             Constructs an instance of the TypeRampPlus6LineHeight design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampPlus6LineHeight.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.TypeRampPlus6LineHeight.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the TypeRampPlus6LineHeight design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.BaseLayerLuminance">
             <summary>
@@ -3934,12 +3900,11 @@
             Constructs an instance of the BaseLayerLuminance design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.BaseLayerLuminance.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.BaseLayerLuminance.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the BaseLayerLuminance design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentFillRestDelta">
             <summary>
@@ -3951,12 +3916,11 @@
             Constructs an instance of the AccentFillRestDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentFillRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentFillRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the AccentFillRestDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentFillHoverDelta">
             <summary>
@@ -3968,12 +3932,11 @@
             Constructs an instance of the AccentFillHoverDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentFillHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentFillHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the AccentFillHoverDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentFillActiveDelta">
             <summary>
@@ -3985,12 +3948,11 @@
             Constructs an instance of the AccentFillActiveDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentFillActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentFillActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the AccentFillActiveDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentFillFocusDelta">
             <summary>
@@ -4002,12 +3964,11 @@
             Constructs an instance of the AccentFillFocusDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentFillFocusDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentFillFocusDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the AccentFillFocusDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentForegroundRestDelta">
             <summary>
@@ -4019,12 +3980,11 @@
             Constructs an instance of the AccentForegroundRestDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentForegroundRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentForegroundRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the AccentForegroundRestDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentForegroundHoverDelta">
             <summary>
@@ -4036,12 +3996,11 @@
             Constructs an instance of the AccentForegroundHoverDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentForegroundHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentForegroundHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the AccentForegroundHoverDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentForegroundActiveDelta">
             <summary>
@@ -4053,12 +4012,11 @@
             Constructs an instance of the AccentForegroundActiveDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentForegroundActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentForegroundActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the AccentForegroundActiveDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentForegroundFocusDelta">
             <summary>
@@ -4070,12 +4028,11 @@
             Constructs an instance of the AccentForegroundFocusDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentForegroundFocusDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentForegroundFocusDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the AccentForegroundFocusDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillRestDelta">
             <summary>
@@ -4087,12 +4044,11 @@
             Constructs an instance of the NeutralFillRestDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillRestDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillHoverDelta">
             <summary>
@@ -4104,12 +4060,11 @@
             Constructs an instance of the NeutralFillHoverDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillHoverDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillActiveDelta">
             <summary>
@@ -4121,12 +4076,11 @@
             Constructs an instance of the NeutralFillActiveDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillActiveDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillFocusDelta">
             <summary>
@@ -4138,12 +4092,11 @@
             Constructs an instance of the NeutralFillFocusDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillFocusDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillFocusDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillFocusDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputRestDelta">
             <summary>
@@ -4155,12 +4108,11 @@
             Constructs an instance of the NeutralFillInputRestDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillInputRestDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputHoverDelta">
             <summary>
@@ -4172,12 +4124,11 @@
             Constructs an instance of the NeutralFillInputHoverDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillInputHoverDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputActiveDelta">
             <summary>
@@ -4189,12 +4140,11 @@
             Constructs an instance of the NeutralFillInputActiveDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillInputActiveDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputFocusDelta">
             <summary>
@@ -4206,12 +4156,11 @@
             Constructs an instance of the NeutralFillInputFocusDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputFocusDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputFocusDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillInputFocusDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputAltRestDelta">
             <summary>
@@ -4223,12 +4172,11 @@
             Constructs an instance of the NeutralFillInputAltRestDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputAltRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputAltRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillInputAltRestDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputAltHoverDelta">
             <summary>
@@ -4240,12 +4188,11 @@
             Constructs an instance of the NeutralFillInputAltHoverDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputAltHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputAltHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillInputAltHoverDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputAltActiveDelta">
             <summary>
@@ -4257,12 +4204,11 @@
             Constructs an instance of the NeutralFillInputAltActiveDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputAltActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputAltActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillInputAltActiveDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputAltFocusDelta">
             <summary>
@@ -4274,12 +4220,11 @@
             Constructs an instance of the NeutralFillInputAltFocusDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputAltFocusDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputAltFocusDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillInputAltFocusDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillLayerRestDelta">
             <summary>
@@ -4291,12 +4236,11 @@
             Constructs an instance of the NeutralFillLayerRestDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillLayerRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillLayerRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillLayerRestDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillLayerHoverDelta">
             <summary>
@@ -4308,12 +4252,11 @@
             Constructs an instance of the NeutralFillLayerHoverDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillLayerHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillLayerHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillLayerHoverDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillLayerActiveDelta">
             <summary>
@@ -4325,12 +4268,11 @@
             Constructs an instance of the NeutralFillLayerActiveDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillLayerActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillLayerActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillLayerActiveDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillLayerAltRestDelta">
             <summary>
@@ -4342,12 +4284,11 @@
             Constructs an instance of the NeutralFillLayerAltRestDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillLayerAltRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillLayerAltRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillLayerAltRestDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillSecondaryRestDelta">
             <summary>
@@ -4359,12 +4300,11 @@
             Constructs an instance of the NeutralFillSecondaryRestDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillSecondaryRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillSecondaryRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillSecondaryRestDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillSecondaryHoverDelta">
             <summary>
@@ -4376,12 +4316,11 @@
             Constructs an instance of the NeutralFillSecondaryHoverDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillSecondaryHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillSecondaryHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillSecondaryHoverDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillSecondaryActiveDelta">
             <summary>
@@ -4393,12 +4332,11 @@
             Constructs an instance of the NeutralFillSecondaryActiveDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillSecondaryActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillSecondaryActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillSecondaryActiveDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillSecondaryFocusDelta">
             <summary>
@@ -4410,12 +4348,11 @@
             Constructs an instance of the NeutralFillSecondaryFocusDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillSecondaryFocusDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillSecondaryFocusDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillSecondaryFocusDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStealthRestDelta">
             <summary>
@@ -4427,12 +4364,11 @@
             Constructs an instance of the NeutralFillStealthRestDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStealthRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStealthRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillStealthRestDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStealthHoverDelta">
             <summary>
@@ -4444,12 +4380,11 @@
             Constructs an instance of the NeutralFillStealthHoverDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStealthHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStealthHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillStealthHoverDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStealthActiveDelta">
             <summary>
@@ -4461,12 +4396,11 @@
             Constructs an instance of the NeutralFillStealthActiveDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStealthActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStealthActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillStealthActiveDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStealthFocusDelta">
             <summary>
@@ -4478,12 +4412,11 @@
             Constructs an instance of the NeutralFillStealthFocusDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStealthFocusDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStealthFocusDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillStealthFocusDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStrongRestDelta">
             <summary>
@@ -4495,12 +4428,11 @@
             Constructs an instance of the NeutralFillStrongRestDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStrongRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStrongRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillStrongRestDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStrongHoverDelta">
             <summary>
@@ -4512,12 +4444,11 @@
             Constructs an instance of the NeutralFillStrongHoverDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStrongHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStrongHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillStrongHoverDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStrongActiveDelta">
             <summary>
@@ -4529,12 +4460,11 @@
             Constructs an instance of the NeutralFillStrongActiveDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStrongActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStrongActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillStrongActiveDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStrongFocusDelta">
             <summary>
@@ -4546,12 +4476,11 @@
             Constructs an instance of the NeutralFillStrongFocusDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStrongFocusDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStrongFocusDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillStrongFocusDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeRestDelta">
             <summary>
@@ -4563,12 +4492,11 @@
             Constructs an instance of the NeutralStrokeRestDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralStrokeRestDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeHoverDelta">
             <summary>
@@ -4580,12 +4508,11 @@
             Constructs an instance of the NeutralStrokeHoverDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralStrokeHoverDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeActiveDelta">
             <summary>
@@ -4597,12 +4524,11 @@
             Constructs an instance of the NeutralStrokeActiveDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralStrokeActiveDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeFocusDelta">
             <summary>
@@ -4614,12 +4540,11 @@
             Constructs an instance of the NeutralStrokeFocusDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeFocusDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeFocusDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralStrokeFocusDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeControlRestDelta">
             <summary>
@@ -4631,12 +4556,11 @@
             Constructs an instance of the NeutralStrokeControlRestDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeControlRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeControlRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralStrokeControlRestDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeControlHoverDelta">
             <summary>
@@ -4648,12 +4572,11 @@
             Constructs an instance of the NeutralStrokeControlHoverDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeControlHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeControlHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralStrokeControlHoverDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeControlActiveDelta">
             <summary>
@@ -4665,12 +4588,11 @@
             Constructs an instance of the NeutralStrokeControlActiveDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeControlActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeControlActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralStrokeControlActiveDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeControlFocusDelta">
             <summary>
@@ -4682,12 +4604,11 @@
             Constructs an instance of the NeutralStrokeControlFocusDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeControlFocusDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeControlFocusDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralStrokeControlFocusDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeDividerRestDelta">
             <summary>
@@ -4699,12 +4620,11 @@
             Constructs an instance of the NeutralStrokeDividerRestDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeDividerRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeDividerRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralStrokeDividerRestDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeLayerRestDelta">
             <summary>
@@ -4716,12 +4636,11 @@
             Constructs an instance of the NeutralStrokeLayerRestDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeLayerRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeLayerRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralStrokeLayerRestDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeLayerHoverDelta">
             <summary>
@@ -4733,12 +4652,11 @@
             Constructs an instance of the NeutralStrokeLayerHoverDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeLayerHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeLayerHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralStrokeLayerHoverDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeLayerActiveDelta">
             <summary>
@@ -4750,12 +4668,11 @@
             Constructs an instance of the NeutralStrokeLayerActiveDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeLayerActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeLayerActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralStrokeLayerActiveDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeStrongHoverDelta">
             <summary>
@@ -4767,12 +4684,11 @@
             Constructs an instance of the NeutralStrokeStrongHoverDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeStrongHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeStrongHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralStrokeStrongHoverDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeStrongActiveDelta">
             <summary>
@@ -4784,12 +4700,11 @@
             Constructs an instance of the NeutralStrokeStrongActiveDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeStrongActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeStrongActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralStrokeStrongActiveDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeStrongFocusDelta">
             <summary>
@@ -4801,12 +4716,11 @@
             Constructs an instance of the NeutralStrokeStrongFocusDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeStrongFocusDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeStrongFocusDelta.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralStrokeStrongFocusDelta design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralBaseColor">
             <summary>
@@ -4818,12 +4732,11 @@
             Constructs an instance of the NeutralBaseColor design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralBaseColor.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralBaseColor.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralBaseColor design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentBaseColor">
             <summary>
@@ -4835,12 +4748,11 @@
             Constructs an instance of the AccentBaseColor design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentBaseColor.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentBaseColor.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the AccentBaseColor design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralLayerCardContainer">
             <summary>
@@ -4852,12 +4764,11 @@
             Constructs an instance of the NeutralLayerCardContainer design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralLayerCardContainer.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralLayerCardContainer.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralLayerCardContainer design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralLayerFloating">
             <summary>
@@ -4869,12 +4780,11 @@
             Constructs an instance of the NeutralLayerFloating design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralLayerFloating.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralLayerFloating.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralLayerFloating design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralLayer1">
             <summary>
@@ -4886,12 +4796,11 @@
             Constructs an instance of the NeutralLayer1 design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralLayer1.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralLayer1.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralLayer1 design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralLayer2">
             <summary>
@@ -4903,12 +4812,11 @@
             Constructs an instance of the NeutralLayer2 design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralLayer2.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralLayer2.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralLayer2 design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralLayer3">
             <summary>
@@ -4920,12 +4828,11 @@
             Constructs an instance of the NeutralLayer3 design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralLayer3.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralLayer3.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralLayer3 design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralLayer4">
             <summary>
@@ -4937,12 +4844,11 @@
             Constructs an instance of the NeutralLayer4 design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralLayer4.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralLayer4.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralLayer4 design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.FillColor">
             <summary>
@@ -4954,12 +4860,11 @@
             Constructs an instance of the FillColor design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.FillColor.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.FillColor.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the FillColor design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentFillRest">
             <summary>
@@ -4971,12 +4876,11 @@
             Constructs an instance of the AccentFillRest design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentFillRest.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentFillRest.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the AccentFillRest design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentFillHover">
             <summary>
@@ -4988,12 +4892,11 @@
             Constructs an instance of the AccentFillHover design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentFillHover.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentFillHover.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the AccentFillHover design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentFillActive">
             <summary>
@@ -5005,12 +4908,11 @@
             Constructs an instance of the AccentFillActive design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentFillActive.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentFillActive.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the AccentFillActive design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentFillFocus">
             <summary>
@@ -5022,12 +4924,11 @@
             Constructs an instance of the AccentFillFocus design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentFillFocus.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentFillFocus.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the AccentFillFocus design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.ForegroundOnAccentRest">
             <summary>
@@ -5039,12 +4940,11 @@
             Constructs an instance of the ForegroundOnAccentRest design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.ForegroundOnAccentRest.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.ForegroundOnAccentRest.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the ForegroundOnAccentRest design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.ForegroundOnAccentHover">
             <summary>
@@ -5056,12 +4956,11 @@
             Constructs an instance of the ForegroundOnAccentHover design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.ForegroundOnAccentHover.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.ForegroundOnAccentHover.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the ForegroundOnAccentHover design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.ForegroundOnAccentActive">
             <summary>
@@ -5073,12 +4972,11 @@
             Constructs an instance of the ForegroundOnAccentActive design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.ForegroundOnAccentActive.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.ForegroundOnAccentActive.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the ForegroundOnAccentActive design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.ForegroundOnAccentFocus">
             <summary>
@@ -5090,12 +4988,11 @@
             Constructs an instance of the ForegroundOnAccentFocus design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.ForegroundOnAccentFocus.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.ForegroundOnAccentFocus.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the ForegroundOnAccentFocus design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentForegroundRest">
             <summary>
@@ -5107,12 +5004,11 @@
             Constructs an instance of the AccentForegroundRest design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentForegroundRest.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentForegroundRest.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the AccentForegroundRest design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentForegroundHover">
             <summary>
@@ -5124,12 +5020,11 @@
             Constructs an instance of the AccentForegroundHover design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentForegroundHover.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentForegroundHover.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the AccentForegroundHover design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentForegroundActive">
             <summary>
@@ -5141,12 +5036,11 @@
             Constructs an instance of the AccentForegroundActive design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentForegroundActive.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentForegroundActive.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the AccentForegroundActive design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentForegroundFocus">
             <summary>
@@ -5158,12 +5052,11 @@
             Constructs an instance of the AccentForegroundFocus design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentForegroundFocus.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentForegroundFocus.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the AccentForegroundFocus design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentStrokeControlRest">
             <summary>
@@ -5175,12 +5068,11 @@
             Constructs an instance of the AccentStrokeControlRest design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentStrokeControlRest.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentStrokeControlRest.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the AccentStrokeControlRest design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentStrokeControlHover">
             <summary>
@@ -5192,12 +5084,11 @@
             Constructs an instance of the AccentStrokeControlHover design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentStrokeControlHover.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentStrokeControlHover.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the AccentStrokeControlHover design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentStrokeControlActive">
             <summary>
@@ -5209,12 +5100,11 @@
             Constructs an instance of the AccentStrokeControlActive design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentStrokeControlActive.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentStrokeControlActive.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the AccentStrokeControlActive design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentStrokeControlFocus">
             <summary>
@@ -5226,12 +5116,11 @@
             Constructs an instance of the AccentStrokeControlFocus design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentStrokeControlFocus.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.AccentStrokeControlFocus.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the AccentStrokeControlFocus design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillRest">
             <summary>
@@ -5243,12 +5132,11 @@
             Constructs an instance of the NeutralFillRest design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillRest.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillRest.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillRest design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillHover">
             <summary>
@@ -5260,12 +5148,11 @@
             Constructs an instance of the NeutralFillHover design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillHover.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillHover.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillHover design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillActive">
             <summary>
@@ -5277,12 +5164,11 @@
             Constructs an instance of the NeutralFillActive design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillActive.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillActive.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillActive design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillFocus">
             <summary>
@@ -5294,12 +5180,11 @@
             Constructs an instance of the NeutralFillFocus design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillFocus.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillFocus.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillFocus design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputRest">
             <summary>
@@ -5311,12 +5196,11 @@
             Constructs an instance of the NeutralFillInputRest design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputRest.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputRest.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillInputRest design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputHover">
             <summary>
@@ -5328,12 +5212,11 @@
             Constructs an instance of the NeutralFillInputHover design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputHover.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputHover.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillInputHover design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputActive">
             <summary>
@@ -5345,12 +5228,11 @@
             Constructs an instance of the NeutralFillInputActive design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputActive.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputActive.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillInputActive design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputFocus">
             <summary>
@@ -5362,12 +5244,11 @@
             Constructs an instance of the NeutralFillInputFocus design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputFocus.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputFocus.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillInputFocus design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputAltRest">
             <summary>
@@ -5379,12 +5260,11 @@
             Constructs an instance of the NeutralFillInputAltRest design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputAltRest.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputAltRest.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillInputAltRest design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputAltHover">
             <summary>
@@ -5396,12 +5276,11 @@
             Constructs an instance of the NeutralFillInputAltHover design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputAltHover.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputAltHover.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillInputAltHover design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputAltActive">
             <summary>
@@ -5413,12 +5292,11 @@
             Constructs an instance of the NeutralFillInputAltActive design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputAltActive.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputAltActive.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillInputAltActive design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputAltFocus">
             <summary>
@@ -5430,12 +5308,11 @@
             Constructs an instance of the NeutralFillInputAltFocus design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputAltFocus.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillInputAltFocus.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillInputAltFocus design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillLayerRest">
             <summary>
@@ -5447,12 +5324,11 @@
             Constructs an instance of the NeutralFillLayerRest design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillLayerRest.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillLayerRest.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillLayerRest design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillLayerHover">
             <summary>
@@ -5464,12 +5340,11 @@
             Constructs an instance of the NeutralFillLayerHover design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillLayerHover.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillLayerHover.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillLayerHover design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillLayerActive">
             <summary>
@@ -5481,12 +5356,11 @@
             Constructs an instance of the NeutralFillLayerActive design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillLayerActive.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillLayerActive.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillLayerActive design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillLayerAltRest">
             <summary>
@@ -5498,12 +5372,11 @@
             Constructs an instance of the NeutralFillLayerAltRest design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillLayerAltRest.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillLayerAltRest.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillLayerAltRest design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillSecondaryRest">
             <summary>
@@ -5515,12 +5388,11 @@
             Constructs an instance of the NeutralFillSecondaryRest design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillSecondaryRest.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillSecondaryRest.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillSecondaryRest design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillSecondaryHover">
             <summary>
@@ -5532,12 +5404,11 @@
             Constructs an instance of the NeutralFillSecondaryHover design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillSecondaryHover.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillSecondaryHover.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillSecondaryHover design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillSecondaryActive">
             <summary>
@@ -5549,12 +5420,11 @@
             Constructs an instance of the NeutralFillSecondaryActive design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillSecondaryActive.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillSecondaryActive.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillSecondaryActive design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillSecondaryFocus">
             <summary>
@@ -5566,12 +5436,11 @@
             Constructs an instance of the NeutralFillSecondaryFocus design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillSecondaryFocus.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillSecondaryFocus.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillSecondaryFocus design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStealthRest">
             <summary>
@@ -5583,12 +5452,11 @@
             Constructs an instance of the NeutralFillStealthRest design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStealthRest.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStealthRest.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillStealthRest design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStealthHover">
             <summary>
@@ -5600,12 +5468,11 @@
             Constructs an instance of the NeutralFillStealthHover design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStealthHover.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStealthHover.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillStealthHover design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStealthActive">
             <summary>
@@ -5617,12 +5484,11 @@
             Constructs an instance of the NeutralFillStealthActive design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStealthActive.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStealthActive.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillStealthActive design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStealthFocus">
             <summary>
@@ -5634,12 +5500,11 @@
             Constructs an instance of the NeutralFillStealthFocus design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStealthFocus.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStealthFocus.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillStealthFocus design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStrongRest">
             <summary>
@@ -5651,12 +5516,11 @@
             Constructs an instance of the NeutralFillStrongRest design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStrongRest.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStrongRest.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillStrongRest design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStrongHover">
             <summary>
@@ -5668,12 +5532,11 @@
             Constructs an instance of the NeutralFillStrongHover design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStrongHover.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStrongHover.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillStrongHover design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStrongActive">
             <summary>
@@ -5685,12 +5548,11 @@
             Constructs an instance of the NeutralFillStrongActive design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStrongActive.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStrongActive.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillStrongActive design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStrongFocus">
             <summary>
@@ -5702,12 +5564,11 @@
             Constructs an instance of the NeutralFillStrongFocus design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStrongFocus.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralFillStrongFocus.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralFillStrongFocus design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralForegroundRest">
             <summary>
@@ -5719,12 +5580,11 @@
             Constructs an instance of the NeutralForegroundRest design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralForegroundRest.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralForegroundRest.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralForegroundRest design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralForegroundHover">
             <summary>
@@ -5736,12 +5596,11 @@
             Constructs an instance of the NeutralForegroundHover design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralForegroundHover.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralForegroundHover.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralForegroundHover design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralForegroundActive">
             <summary>
@@ -5753,12 +5612,11 @@
             Constructs an instance of the NeutralForegroundActive design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralForegroundActive.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralForegroundActive.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralForegroundActive design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralForegroundFocus">
             <summary>
@@ -5770,12 +5628,11 @@
             Constructs an instance of the NeutralForegroundFocus design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralForegroundFocus.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralForegroundFocus.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralForegroundFocus design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralForegroundHint">
             <summary>
@@ -5787,12 +5644,11 @@
             Constructs an instance of the NeutralForegroundHint design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralForegroundHint.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralForegroundHint.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralForegroundHint design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeRest">
             <summary>
@@ -5804,12 +5660,11 @@
             Constructs an instance of the NeutralStrokeRest design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeRest.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeRest.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralStrokeRest design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeHover">
             <summary>
@@ -5821,12 +5676,11 @@
             Constructs an instance of the NeutralStrokeHover design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeHover.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeHover.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralStrokeHover design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeActive">
             <summary>
@@ -5838,12 +5692,11 @@
             Constructs an instance of the NeutralStrokeActive design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeActive.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeActive.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralStrokeActive design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeFocus">
             <summary>
@@ -5855,12 +5708,11 @@
             Constructs an instance of the NeutralStrokeFocus design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeFocus.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeFocus.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralStrokeFocus design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeControlRest">
             <summary>
@@ -5872,12 +5724,11 @@
             Constructs an instance of the NeutralStrokeControlRest design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeControlRest.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeControlRest.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralStrokeControlRest design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeControlHover">
             <summary>
@@ -5889,12 +5740,11 @@
             Constructs an instance of the NeutralStrokeControlHover design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeControlHover.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeControlHover.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralStrokeControlHover design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeControlActive">
             <summary>
@@ -5906,12 +5756,11 @@
             Constructs an instance of the NeutralStrokeControlActive design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeControlActive.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeControlActive.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralStrokeControlActive design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeControlFocus">
             <summary>
@@ -5923,12 +5772,11 @@
             Constructs an instance of the NeutralStrokeControlFocus design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeControlFocus.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeControlFocus.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralStrokeControlFocus design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeDividerRest">
             <summary>
@@ -5940,12 +5788,11 @@
             Constructs an instance of the NeutralStrokeDividerRest design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeDividerRest.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeDividerRest.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralStrokeDividerRest design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeInputRest">
             <summary>
@@ -5957,12 +5804,11 @@
             Constructs an instance of the NeutralStrokeInputRest design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeInputRest.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeInputRest.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralStrokeInputRest design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeInputHover">
             <summary>
@@ -5974,12 +5820,11 @@
             Constructs an instance of the NeutralStrokeInputHover design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeInputHover.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeInputHover.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralStrokeInputHover design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeInputActive">
             <summary>
@@ -5991,12 +5836,11 @@
             Constructs an instance of the NeutralStrokeInputActive design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeInputActive.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeInputActive.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralStrokeInputActive design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeInputFocus">
             <summary>
@@ -6008,12 +5852,11 @@
             Constructs an instance of the NeutralStrokeInputFocus design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeInputFocus.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeInputFocus.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralStrokeInputFocus design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeLayerRest">
             <summary>
@@ -6025,12 +5868,11 @@
             Constructs an instance of the NeutralStrokeLayerRest design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeLayerRest.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeLayerRest.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralStrokeLayerRest design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeLayerHover">
             <summary>
@@ -6042,12 +5884,11 @@
             Constructs an instance of the NeutralStrokeLayerHover design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeLayerHover.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeLayerHover.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralStrokeLayerHover design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeLayerActive">
             <summary>
@@ -6059,12 +5900,11 @@
             Constructs an instance of the NeutralStrokeLayerActive design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeLayerActive.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeLayerActive.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralStrokeLayerActive design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeStrongRest">
             <summary>
@@ -6076,12 +5916,11 @@
             Constructs an instance of the NeutralStrokeStrongRest design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeStrongRest.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeStrongRest.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralStrokeStrongRest design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeStrongHover">
             <summary>
@@ -6093,12 +5932,11 @@
             Constructs an instance of the NeutralStrokeStrongHover design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeStrongHover.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeStrongHover.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralStrokeStrongHover design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeStrongActive">
             <summary>
@@ -6110,12 +5948,11 @@
             Constructs an instance of the NeutralStrokeStrongActive design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeStrongActive.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeStrongActive.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralStrokeStrongActive design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeStrongFocus">
             <summary>
@@ -6127,12 +5964,11 @@
             Constructs an instance of the NeutralStrokeStrongFocus design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeStrongFocus.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.NeutralStrokeStrongFocus.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the NeutralStrokeStrongFocus design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.FocusStrokeOuter">
             <summary>
@@ -6144,12 +5980,11 @@
             Constructs an instance of the FocusStrokeOuter design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.FocusStrokeOuter.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.FocusStrokeOuter.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the FocusStrokeOuter design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DesignTokens.FocusStrokeInner">
             <summary>
@@ -6161,12 +5996,11 @@
             Constructs an instance of the FocusStrokeInner design token
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.FocusStrokeInner.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.FocusStrokeInner.#ctor(Microsoft.JSInterop.IJSRuntime)">
             <summary>
             Constructs an instance of the FocusStrokeInner design token
             </summary>
             <param name="jsRuntime">IJSRuntime reference</param>
-            <param name="configuration">IConfiguration reference</param>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.AccordionExpandMode">
             <summary>
