@@ -78,7 +78,7 @@
 
     void handleSearchInput(ChangeEventArgs args)
     {
-        if (args is not null && ! string.IsNullOrWhiteSpace(args.Value.ToString()))
+        if (args is not null && ! string.IsNullOrWhiteSpace(args.Value?.ToString()))
         {
             string searchTerm = args.Value.ToString()!.ToLower();
 

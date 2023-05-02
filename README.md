@@ -35,6 +35,11 @@ To get started using the Fluent UI Blazor components for Blazor, you will first 
 dotnet add package Microsoft.Fast.Components.FluentUI
 ```
 
+### Script
+As of version 2.3 it is no longer needed to include the `web-components` script in your `index.html` or `_Layout.cshtml` file. The script is now included in 
+the library. This way we can safeguard that the you are always using the best matching script version.
+
+
 ### Styles
 In order for this library to work as expected, you will need to add the composed scoped CSS file for the components. This can be done by 
 adding the following line to the <head> section of your `index.html` or `_Layout.cshtml` file in the project you installed the package:
@@ -69,20 +74,9 @@ if you want to use icons and/or emoji, starting with version 2.1 you need add a 
 
 
 ### Code
-In your `Program.cs` file you need to add the following:
-```csharp
-builder.Services.AddFluentUIComponents();
-```
+Please refer to the [code setup](https://www.fluentui-blazor.net/CodeSetup) document to learn what needs to be included in your `Program.cs` file 
+so that all necessary services are available and setup in the correct way.
 
-This addition makes sure all the necessary services the library uses are setup in a correct way.
-
-**If you want to use icons and/or emoji, starting with version 2.1 version you need to make some changes here. Please refer to the [code setup](https://www.fluentui-blazor.net/CodeSetup) document for more information.**
-
-*If you're running your application on Blazor Server, make sure a default HttpClient is available by adding the following:*
-
-```csharp
-builder.Services.AddHttpClient();
-```
 
 ## Getting started by using project templates
 To make it easier to start a project that uses the Fluent UI Web Components for Blazor out of the box, we have created the
@@ -121,147 +115,17 @@ Here's a small example of a `FluentCard` with a `FluentButton` that uses the Flu
 
 
 ### Configuring the Design System
-The Fluent UI Blazor components are built on FAST's Adaptive UI technology, which enables design customization and personalization, while automatically maintaining accessibility. This is accomplished through setting various "Design Tokens". The library exposes all of the (over 160) Design Tokens, which you can use both from code as in a declarative way in your `.razor` pages. See <a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/design-system/design-tokens" target="_blank">https://docs.microsoft.com/en-us/fluent-ui/web-components/design-system/design-tokens</a> for more information on how Design Tokens work
-
-#### Option 1: Using Design Tokens from C# code
-
-Given the following `.razor` page fragment:
-```html
-<FluentButton @ref="ref1" Appearance="Appearance.Filled">A button</FluentButton>
-<FluentButton @ref="ref2" Appearance="Appearance.Filled">Another button</FluentButton>
-<FluentButton @ref="ref3" Appearance="Appearance.Filled">And one more</FluentButton>
-<FluentButton @ref="ref4" Appearance="Appearance.Filled" @onclick=OnClick>Last button</FluentButton>
-
-```
-You can use Design Tokens to manipulate the styles from C# code as follows:
-
-```csharp
-[Inject]
-private BaseLayerLuminance BaseLayerLuminance { get; set; } = default!;
-
-[Inject]
-private AccentBaseColor AccentBaseColor { get; set; } = default!;
-
-[Inject]
-private BodyFont BodyFont { get; set; } = default!;
-
-[Inject]
-private StrokeWidth StrokeWidth { get; set; } = default!;
-
-[Inject]
-private ControlCornerRadius ControlCornerRadius { get; set; } = default!;
-
-private FluentButton? ref1;
-private FluentButton? ref2;
-private FluentButton? ref3;
-private FluentButton? ref4;
-
-protected override async Task OnAfterRenderAsync(bool firstRender)
-{
-	if (firstRender)
-	{
-		//Set to dark mode
-		await BaseLayerLuminance.SetValueFor(ref1!.Element, (float)0.15);
-
-		//Set to Excel color
-		await AccentBaseColor.SetValueFor(ref2!.Element, "#185ABD".ToSwatch());
-
-		//Set the font
-		await BodyFont.SetValueFor(ref3!.Element, "Comic Sans MS");
-
-		//Set 'border' width for ref4
-		await StrokeWidth.SetValueFor(ref4!.Element, 7);
-		//And change conrner radius as well
-		await ControlCornerRadius.SetValueFor(ref4!.Element, 15);
-
-		StateHasChanged();
-	}
-}
-
-public async Task OnClick()
-{
-	//Remove the wide border
-	await StrokeWidth.DeleteValueFor(ref4!.Element);
-}
-```
-As can be seen in the code above (with the `ref4.Element`), it is possible to apply multiple tokens to the same component. 
-
-For Design Tokens that work with a color value, you must call the `ToSwatch()` extension method on a string value or use one of the `Swatch` constructors. This makes sure the color is using a format that Design Tokens can handle. A `Swatch` has a lot of commonality with the `System.Drawing.Color` struct. Instead of the values of the components being between 0 and 255, in a `Swatch` they are expressed as a value between 0 and 1.
-
-> :notebook: **Note**
-> 
-> The Design Tokens are manipulated through JavaScript interop working with an `ElementReference`. There is no JavaScript element until after the component is rendered. This means you can only work with the Design Tokens from code after the component has been rendered in `OnAfterRenderAsync` and not in any earlier lifecycle methods. 
-
-#### Option 2: Using Design Tokens as components
-The Design Tokens can also be used as components in a `.razor` page directely. It looks like this:
-
-```html
-<BaseLayerLuminance Value="(float?)0.15">
-	<FluentCard BackReference="@context">
-		<div class="contents">
-			Dark
-			<FluentButton Appearance="Appearance.Accent">Accent</FluentButton>
-			<FluentButton Appearance="Appearance.Stealth">Stealth</FluentButton>
-			<FluentButton Appearance="Appearance.Outline">Outline</FluentButton>
-			<FluentButton Appearance="Appearance.Lightweight">Lightweight</FluentButton>
-		</div>
-	</FluentCard>
-</BaseLayerLuminance>
-```
-
-To make this work, a link needs to be created between the Design Token component and its child components. This is done with the `BackReference="@context"` construct. 
-
-> :notebook: **Note**
-> 
-> Only one Design Token component at a time can be used this way. If you need to set more tokens, use the code approach as described in Option 1 above.
-
-
-#### Option 3: Using the `<FluentDesignSystemProvider>`
-The third way to customize the design in Blazor is to wrap the entire block you want to manipulate in a `<FluentDesignSystemProvider>`. This special element has a number of properties you can set to configure a subset of the tokens. **Not all tokens are available/supported** and we recommend this to only be used as a fall-back mechanism. The preferred method of working with the design tokens is to manipulate them from code as described in option 1. 
-
-Here's an example of changing the "accent base color" and switching the system into dark mode (in the file `app.razor`):
-
-```html
-<FluentDesignSystemProvider AccentBaseColor="#464EB8" BaseLayerLuminance="0">
-	<Router AppAssembly="@typeof(App).Assembly">
-		<Found Context="routeData">
-			<RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
-		</Found>
-		<NotFound>
-			<PageTitle>Not found</PageTitle>
-			<LayoutView Layout="@typeof(MainLayout)">
-				<p role="alert">Sorry, there's nothing at this address.</p>
-			</LayoutView>
-		</NotFound>
-	</Router>
-</FluentDesignSystemProvider>
-```
-
-> :notebook: **Note**
-> 
-> FluentDesignSystemProvider token attributes can be changed on-the-fly like any other Blazor component attribute.
-
-#### Colors for integration with specific Microsoft products
-If you are configuring the components for integration into a specific Microsoft product, the following table provides `AccentBaseColor` values you can use. 
-*The library offers an `OfficeColor` enumeration which contains the specific accent colors for 17 different Office applications.*
-
-Product | AccentBaseColor
-------- | ---------------
-| Office | #D83B01 |
-| Word | #185ABD |
-| Excel | #107C41 |
-| PowerPoint | #C43E1C |
-| Teams | #6264A7 |
-| OneNote | #7719AA |
-| SharePoint | #03787C |
-| Stream | #BC1948 |
-
+The Fluent UI Blazor components are built on FAST's Adaptive UI technology, which enables design customization and personalization, while automatically 
+maintaining accessibility. This is accomplished through setting various "Design Tokens". The library exposes all of the (over 160) Design Tokens, which you 
+can use both from code as in a declarative way in your `.razor` pages. The three different ways of working with desing tokens are described in the
+[design tokens](https://www.luentui-blazor.net/DesignTokens) page.
 
 ## Blazor Hybrid
 Starting with the 2.0 release, you can also use this library in your Blazor Hybrid projects. Setup is almost the same as described in the "Getting started" section above, but to get everything to work you'll need to take two extra steps:
 1. You need to add a MAUI specific IStaticAssetService implementation.  
  Due to some issues, this file can't be part of the library (yet) so this needs to be added manually to your MAUI Blazor project.  
 Create a new class in you project called `FileBasedStaticAssetService.cs` Replace it's contents with the following:  
+
 ```csharp
 using System.Net;
 using Microsoft.Fast.Components.FluentUI.Infrastructure;
@@ -270,59 +134,24 @@ namespace Microsoft.Fast.Components.FluentUI;
 
 public class FileBasedStaticAssetService : IStaticAssetService
 {
-	private readonly CacheStorageAccessor _cacheStorageAccessor;
-
-	public FileBasedStaticAssetService(CacheStorageAccessor cacheStorageAccessor)
-	{
-		_cacheStorageAccessor = cacheStorageAccessor;
-	}
-
-	public async Task<string> GetAsync(string assetUrl, bool useCache = false)
-	{
-		string result = null;
-
-		HttpRequestMessage message = CreateMessage(assetUrl);
-
-
-		if (useCache)
-		{
-			// Get the result from the cache
-			result = await _cacheStorageAccessor.GetAsync(message);
-		}
-
-		if (string.IsNullOrEmpty(result))
-		{
-			//It not in the cache (or cache not used), read the asset from disk
-			result = await ReadData(assetUrl);
-
-			if (!string.IsNullOrEmpty(result))
-			{
-				if (useCache)
-				{
-					// If successful, create the response and store in the cache (when used)
-					HttpResponseMessage response = new()
-					{
-						StatusCode = HttpStatusCode.OK,
-						Content = new StringContent(result)
-					};
-
-					await _cacheStorageAccessor.PutAsync(message, response);
-				}
-			}
-		}
-
-		return result;
-	}
-
-	private static HttpRequestMessage CreateMessage(string url) => new(HttpMethod.Get, url);
-
-	private static async Task<string> ReadData(string file)
-	{
-		using var stream = await FileSystem.OpenAppPackageFileAsync($"wwwroot/{file}");
-		using var reader = new StreamReader(stream);
-
-		return await reader.ReadToEndAsync();
-	}
+    public async Task<string> GetAsync(string assetUrl, bool useCache = false)
+    {
+        string result = null;
+        HttpRequestMessage message = CreateMessage(assetUrl);
+        if (string.IsNullOrEmpty(result))
+        {
+            result = await ReadData(assetUrl);
+        }
+        return result;
+    }
+    private static HttpRequestMessage CreateMessage(string url) => new(HttpMethod.Get, url);
+ 
+    private static async Task<string> ReadData(string file)
+    {
+        using var stream = await FileSystem.OpenAppPackageFileAsync($"wwwroot/{file}");
+        using var reader = new StreamReader(stream);
+        return await reader.ReadToEndAsync();
+    }
 }
 ```
 
@@ -337,7 +166,7 @@ builder.Services.AddScoped<IStaticAssetService, FileBasedStaticAssetService>();
 ```
 
 ## Use the DataGrid component with EF Core
-If you want to use the `FluentDataGrid` with data provided through EF Core, you need to install 
+If you want to use the `<FluentDataGrid>` with data provided through EF Core, you need to install 
 an additional package so the grid knows how to resolve queries asynchronously for efficiency.  .
 
 ### Installation
@@ -347,17 +176,20 @@ dotnet add package Microsoft.Fast.Components.FluentUI.DataGrid.EntityFrameworkAd
 ```
 
 ### Usage
-In your Program.cs file you need to add the following after the `builder.Services.AddFluentUIComponents();` line:
+In your Program.cs file you need to add the following after the `builder.Services.AddFluentUIComponents(...);` lines:
 ```csharp
 builder.Services.AddDataGridEntityFrameworkAdapter();
 ```
 
 
+## Additional resources
+* The Microsoft [Fluent UI Blazor components documentation and demo site](https://www.fluentui-blazor.net)
+
+
 ## Joining the Community
 
-Looking to get answers to questions or engage with us in real-time? Our community is most active [on Discord](https://discord.gg/FcSNfg4). Submit requests and issues on [GitHub](https://github.com/dotnet/blazor-fluentui/issues/new/choose), or join us by contributing on [some good first issues via GitHub](https://github.com/dotnet/blazor-fluentui/labels/community:good-first-issue).
-
-If you don't find a component you're looking for, it's best to create the issue in our FAST repo [here](https://github.com/microsoft/fast) and limit issues on this repo to bugs in the Blazor component wrappers or Blazor-specific features.
+Looking to get answers to questions or engage with us in real-time? Our community is  active [on Discord](https://discord.gg/FcSNfg4). Submit requests 
+and issues on [GitHub](https://github.com/microsoft/blazor-fluentui/issues/new/choose), or join us by contributing on [some good first issues via GitHub](https://github.com/microsoft/fluentui-blazor/labels/community:good-first-issue).
 
 We look forward to building an amazing open source community with you!
 
@@ -366,9 +198,3 @@ We look forward to building an amazing open source community with you!
 * Join the community and chat with us in real-time on [Discord](https://discord.gg/FcSNfg4).
 * Submit requests and issues on [GitHub](https://github.com/microsoft/fluentui-blazor/issues/new/choose).
 * Contribute by helping out on some of our recommended first issues on [GitHub](https://github.com/microsoft/fluentui-blazor/labels/community:good-first-issue).
-
-## Additional resources
-* The Microsoft [Fluent UI Blazor components demo](https://aka.ms/fluentui-blazor) site
-* The Microsoft [Fluent UI Blazor components documentation](https://learn.microsoft.com/en-us/fluent-ui/web-components/)
-* The [Fluent UI Web components demo](https://fluent-components.azurewebsites.net/?path=/docs/getting-started-overview--page) site
-* The [FAST](https://www.fast.design/) site

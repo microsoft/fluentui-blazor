@@ -1,3 +1,16 @@
+## V2.3.0
+
+The `Readme` file was getting bigger and bigger. Now that we have our own domain name, it was time to split the `Readme` file into multiple smaller parts. . 
+See the 'More information' section at [https://www.fluentui-blazor.net](https://www.fluentui-blazor.net) for teh documentation on project setup,
+code setup and Design Tokens.
+
+
+
+An issue has been addressed where the FluentIcon component would not render when the site was running under IIS (Express) and Windows Authentication was enabled.
+
+
+
+
 ## V2.2.1
 
 Updated readme to use new domain name (www.fluentui-blazor.net)
