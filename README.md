@@ -51,7 +51,7 @@ To add the script from CDN use the following markup:
 The markup above always references the latest release of the components. When deploying to production, you will want to ship with a specific version. Here's an example of the markup for that:
 
 ```html
-<script type="module" src="https://cdn.jsdelivr.net/npm/@fluentui/web-components@2.0.2/dist/web-components.min.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/@fluentui/web-components@2.5.14/dist/web-components.min.js"></script>
 ```
 
 The script tag is normally placed  in your `index.html` (`_Layout.cshtml` for Blazor server project) file in the script section at the bottom of the `<body>`.
