@@ -234,7 +234,6 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
             maxValue = decimal.MaxValue;
         if (!decimal.TryParse(min!, out decimal minValue))
             minValue = decimal.MinValue;
-        
 
         if (maxValue < minValue)
         {
