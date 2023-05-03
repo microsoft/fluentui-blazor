@@ -16,7 +16,7 @@ public abstract class FluentComponentBase : ComponentBase
         protected set
         {
             _ref = value;
-            BackReference?.Set(value);
+            ParentReference?.Set(value);
         }
     }
 
@@ -49,7 +49,7 @@ public abstract class FluentComponentBase : ComponentBase
     /// A reference to the enclosing component.
     /// </summary>
     [Parameter]
-    public virtual Reference? BackReference { get; set; }
+    public virtual DesignTokens.Reference? ParentReference { get; set; }
 
     /// <summary>
     /// Gets or sets a collection of additional attributes that will be applied to the created element.

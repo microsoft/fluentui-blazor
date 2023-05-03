@@ -9,7 +9,7 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
 {
     private IJSObjectReference _jsModule = default!;
 
-    private Reference Target { get; set; } = new Reference();
+    private Reference Target { get; set; } = new();
 
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;

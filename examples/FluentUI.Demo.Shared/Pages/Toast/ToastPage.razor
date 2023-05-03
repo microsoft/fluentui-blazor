@@ -13,24 +13,24 @@
 
 <h4>Injection with global options.</h4>
 <CodeSnippet>    
-    builder.Services
-           .AddScoped&lt;IToastService, ToastService>()
+    builder.Services.AddFluentUIComponents();
 </CodeSnippet>
 
-<h4>Injection with global options.</h4>
+<h4>Injection with custom configuration.</h4>
 <CodeSnippet>    
-    builder.Services
-           .AddScoped&lt;IToastService>(builder => new ToastService(builder.GetRequiredService&lt;NavigationManager>(), new ToastGlobalOptions()
-           {
-               ShowTransitionDuration = 300,
-               VisibleStateDuration = 5000,
-               HideTransitionDuration = 300,
-               ShowCloseIcon = true,
-               AutoHide = true,
-               ClearAfterNavigation = false,
-               MaxDisplayedToasts = 5,
-               PositionClass = Microsoft.Reality.Components.Blazor.ToastPosition.TopCenter,
-               MaximumOpacity = 100,
-               NewestOnTop = true
-           }));
+    builder.Services.AddFluentUIComponents(config =>
+    {
+        if (config is not null)
+        {
+            config.IconConfiguration = ConfigurationGenerator.GetIconConfiguration();
+            config.EmojiConfiguration = ConfigurationGenerator.GetEmojiConfiguration();
+
+            config.ToastConfiguration.ToasterPosition = ToasterPosition.BottomLeft;
+            config.ToastConfiguration.NewestOnTop = false;
+            config.ToastConfiguration.ShowCloseIcon = false;
+            config.ToastConfiguration.VisibleStateDuration = 1000;
+            config.ToastConfiguration.HideTransitionDuration = 100;
+            config.ToastConfiguration.ShowTransitionDuration = 100;
+        }
+    });
 </CodeSnippet>

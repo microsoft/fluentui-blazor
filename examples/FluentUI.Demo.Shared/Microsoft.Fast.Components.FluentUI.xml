@@ -275,7 +275,7 @@
             Used to attach any user data object to the component.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentComponentBase.BackReference">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentComponentBase.ParentReference">
             <summary>
             A reference to the enclosing component.
             </summary>
@@ -3386,11 +3386,6 @@
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.DesignToken`1.OnAfterRenderAsync(System.Boolean)">
             <inheritdoc/>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.DesignToken`1.WithDefault(`0)">
-            <summary>
-            Sets the default value of this token
-            </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DesignTokens.DesignToken`1.Create(System.String)">
             <summary>

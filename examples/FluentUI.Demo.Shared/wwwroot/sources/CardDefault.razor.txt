@@ -2,7 +2,7 @@
     <FluentCard class="state-override">Custom size using CSS</FluentCard>
 
     <BaseLayerLuminance Value="(float?)0.15">
-        <FluentCard BackReference="@context">
+        <FluentCard ParentReference="@context">
             <div class="contents">
                 <p>Dark</p>
                 <FluentButton Appearance="Appearance.Accent">Accent</FluentButton>
@@ -26,7 +26,7 @@
     </FluentDesignSystemProvider>
 
     <BaseLayerLuminance Value="(float?)0.15">
-        <FluentCard neutral-palette-source="#CABA8C" BackReference="@context">
+        <FluentCard neutral-palette-source="#CABA8C" ParentReference="@context">
             <div class="contents">
                 <p>Tinted neutral-palette-source, dark</p>
                 <FluentButton Appearance="Appearance.Accent">Accent</FluentButton>

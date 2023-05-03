@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace Microsoft.Fast.Components.FluentUI
+namespace Microsoft.Fast.Components.FluentUI.DesignTokens
 {
     public class Reference : Reference<ElementReference>
     {
     }
-
 
     public class Reference<T>
     {
