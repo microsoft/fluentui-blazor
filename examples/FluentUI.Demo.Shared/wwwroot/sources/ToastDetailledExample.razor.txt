@@ -1,7 +1,7 @@
 ﻿@inject IToastService Toast
 
-Click on this button to open a Toast.
-<br />
+<p>Click on this button to open a Toast.</p>
+
 <FluentButton @onclick="@OpenToast" Appearance="Appearance.Accent">Open</FluentButton>
 
 @code
