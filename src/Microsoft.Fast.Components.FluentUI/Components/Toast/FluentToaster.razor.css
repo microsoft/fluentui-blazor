@@ -40,34 +40,34 @@
 
 .fluent-toasts-bottom-left,
 .fluent-toasts-bottom-start {
-    top: 24px;
+    bottom: 24px;
     left: 24px;
     right:unset;
 }
 
 [dir='rtl'] .fluent-toasts-bottom-left,
 [dir='rtl'] .fluent-toasts-bottom-start {
-    top: 24px;
+    bottom: 24px;
     right: 24px;
     left: unset;
 }
 
 .fluent-toasts-bottom-center {
-    top: 24px;
+    bottom: 24px;
     left: 50%;
     transform: translateX(-50%);
 }
 
 .fluent-toasts-bottom-right,
 .fluent-toasts-bottom-end {
-    top: 24px;
+    bottom: 24px;
     right: 24px;
     left: unset;
 }
 
 [dir='rtl'] .fluent-toasts-bottom-right,
 [dir='rtl'] .fluent-toasts-bottom-end {
-    top: 24px;
+    bottom: 24px;
     left: 24px;
     right: unset;
 }

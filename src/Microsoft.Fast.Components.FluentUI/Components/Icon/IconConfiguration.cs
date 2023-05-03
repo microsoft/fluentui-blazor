@@ -29,10 +29,7 @@ public class IconConfiguration
         }
     }
 
-    public IconConfiguration()
-    {
-
-    }
+    public IconConfiguration() { }
 
     public IconConfiguration(bool publishedAssets)
     {

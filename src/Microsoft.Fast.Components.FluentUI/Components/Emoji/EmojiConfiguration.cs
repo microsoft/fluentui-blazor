@@ -30,10 +30,7 @@ public class EmojiConfiguration
         }
     }
 
-    public EmojiConfiguration()
-    {
-
-    }
+    public EmojiConfiguration() { }
 
     public EmojiConfiguration(bool publishedAssets)
     {

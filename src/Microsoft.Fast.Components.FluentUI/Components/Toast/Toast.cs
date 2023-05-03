@@ -103,28 +103,28 @@ public class Toast : IDisposable
         {
             // Showing to Visible
             case ToastState.Showing:
-                if (State.Options.Global.ShowTransitionDuration <= 0)
+                if (State.Options.ShowTransitionDuration <= 0)
                 {
                     TransitionTo(ToastState.Visible);
                 }
                 else
                 {
-                    StartTimer(State.Options.Global.ShowTransitionDuration);
+                    StartTimer(State.Options.ShowTransitionDuration);
                 }
 
                 break;
 
             // Visible to Hiding
             case ToastState.Visible:
-                if (State.Options.Global.AutoHide)
+                if (State.Options.AutoHide)
                 {
-                    if (State.Options.Global.VisibleStateDuration <= 0)
+                    if (State.Options.VisibleStateDuration <= 0)
                     {
                         TransitionTo(ToastState.Hiding);
                     }
                     else
                     {
-                        StartTimer(State.Options.Global.VisibleStateDuration);
+                        StartTimer(State.Options.VisibleStateDuration);
                     }
                 }
 
@@ -132,13 +132,13 @@ public class Toast : IDisposable
 
             // Hiding to Closed
             case ToastState.Hiding:
-                if (State.Options.Global.HideTransitionDuration <= 0)
+                if (State.Options.HideTransitionDuration <= 0)
                 {
                     OnClose?.Invoke(this);
                 }
                 else
                 {
-                    StartTimer(State.Options.Global.HideTransitionDuration);
+                    StartTimer(State.Options.HideTransitionDuration);
                 }
 
                 break;

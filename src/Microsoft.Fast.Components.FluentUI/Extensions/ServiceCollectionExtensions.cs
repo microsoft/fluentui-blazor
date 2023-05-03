@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Fast.Components.FluentUI.DesignTokens;
 using Microsoft.Fast.Components.FluentUI.Infrastructure;
 
@@ -67,6 +68,36 @@ public static class ServiceCollectionExtensions
 
 
     /// <summary>
+    /// Adds a ToastService as a Scoped instance.
+    /// </summary>
+    /// <param name="services">IServiceCollection</param>
+    /// <param name="configuration">Defines ToastConfiguration for this instance.</param>
+    public static IServiceCollection AddFluentToasts(this IServiceCollection services, ToastConfiguration? configuration = null)
+    {
+        configuration ??= new ToastConfiguration();
+
+        services.AddScoped<IToastService>(builder => new ToastService(builder.GetRequiredService<NavigationManager>(), configuration));
+
+        return services;
+    }
+
+    /// <summary>
+    /// Adds a ToastService as a Scoped instance.
+    /// </summary>
+    /// <param name="services">IServiceCollection</param>
+    /// <param name="configuration">Defines ToastConfiguration for this instance.</param>
+    public static IServiceCollection AddFluentToasts(this IServiceCollection services, Action<ToastConfiguration> configuration)
+    {
+        if (configuration == null) throw new ArgumentNullException(nameof(configuration));
+
+        ToastConfiguration? options = new();
+        configuration(options);
+
+        return AddFluentToasts(services, options);
+    }
+
+
+    /// <summary>
     /// Add common servIconConfiguration?s required by the Fluent UI Web Components for Blazor library
     /// </summary>
     /// <param name="services">Service collection</param>
@@ -79,11 +110,9 @@ public static class ServiceCollectionExtensions
 
         services.AddScoped<IStaticAssetService, HttpBasedStaticAssetService>();
 
-        services.AddScoped<IToastService, ToastService>();
-
-
         services.AddFluentIcons(configuration?.IconConfiguration);
         services.AddFluentEmojis(configuration?.EmojiConfiguration);
+        services.AddFluentToasts(configuration?.ToastConfiguration);
 
         if (configuration is not null)
         {
@@ -121,6 +150,7 @@ public static class ServiceCollectionExtensions
 
         services.AddFluentIcons(options?.IconConfiguration);
         services.AddFluentEmojis(options?.EmojiConfiguration);
+        services.AddFluentToasts(options?.ToastConfiguration);
 
         if (options is not null)
         {

@@ -1,14 +1,14 @@
 ﻿namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary />
-public class ToastOptions
+public class ToastOptions : CommonToastOptions
 {
-    internal ToastOptions(ToastGlobalOptions commonOptions)
+    public ToastOptions(CommonToastOptions options) : base(options)
     {
-        Global = commonOptions;
+       
     }
 
-    internal ToastGlobalOptions Global { get; }
+    
 
     public string Message { get; set; } = string.Empty;
 

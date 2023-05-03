@@ -6,13 +6,13 @@ public interface IToastService : IDisposable
 
     IEnumerable<Toast> ShownToasts { get; }
 
-    ToastGlobalOptions Configuration { get; }
+    ToastConfiguration Configuration { get; }
 
     Toast Add(Action<ToastOptions> options);
 
     Toast Add(string message);
 
-    Toast Add(string message, ToastIntent severity);
+    Toast Add(string message, ToastIntent intent);
 
     void Clear();
 

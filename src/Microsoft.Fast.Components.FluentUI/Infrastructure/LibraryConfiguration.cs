@@ -3,7 +3,7 @@
 // If needed, additional services configuration objects can be added here
 
 /// <summary>
-/// Defines the global Fluent UI Web Components for Blazor library services configuration
+/// Defines the global Fluent UI Blazor component library services configuration
 /// </summary>
 public class LibraryConfiguration
 {
@@ -13,16 +13,21 @@ public class LibraryConfiguration
     public IconConfiguration IconConfiguration { get; set; }
     public EmojiConfiguration EmojiConfiguration { get; set; }
 
+    public ToastConfiguration ToastConfiguration { get; set; }
+
     public LibraryConfiguration()
     {
-        IconConfiguration = new(true);
-        EmojiConfiguration = new(false);
+        IconConfiguration = new();
+        EmojiConfiguration = new();
+        ToastConfiguration = new();
     }
     
-    public LibraryConfiguration(IconConfiguration iconConfiguration, EmojiConfiguration emojiConfiguration)
+    public LibraryConfiguration(IconConfiguration iconConfiguration, EmojiConfiguration emojiConfiguration, ToastConfiguration? toastConfiguration = null)
     {
         IconConfiguration = iconConfiguration;
         EmojiConfiguration = emojiConfiguration;
+        
+        ToastConfiguration = toastConfiguration ?? new();
     }
     
 }

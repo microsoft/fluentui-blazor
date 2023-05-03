@@ -8,7 +8,7 @@ public partial class FluentToaster : FluentComponentBase, IDisposable
 {
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("fluent-toaster")
-        .AddClass(ToastService.Configuration.PositionClass.ToAttributeValue())
+        .AddClass(ToastService.Configuration.ToasterPosition.ToAttributeValue())
         .Build();
 
     protected string? StyleValue => new StyleBuilder()

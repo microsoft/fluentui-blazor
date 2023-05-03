@@ -18,7 +18,7 @@ internal class ToastMessageState
 
     public Stopwatch Stopwatch { get; } = new Stopwatch();
 
-    public bool ShowCloseIcon => Options.Global.ShowCloseIcon;
+    public bool ShowCloseIcon => Options.ShowCloseIcon;
 
     public string? Icon
     {
@@ -43,11 +43,11 @@ internal class ToastMessageState
             switch (ToastState)
             {
                 case ToastState.Showing:
-                    var showingDuration = RemainingTransitionMilliseconds(Options.Global.ShowTransitionDuration);
+                    var showingDuration = RemainingTransitionMilliseconds(Options.ShowTransitionDuration);
                     return string.Format(Template, showingDuration, AnimationId);
 
                 case ToastState.Hiding:
-                    var hidingDuration = RemainingTransitionMilliseconds(Options.Global.HideTransitionDuration);
+                    var hidingDuration = RemainingTransitionMilliseconds(Options.HideTransitionDuration);
                     return string.Format(Template, hidingDuration, AnimationId);
 
                 case ToastState.Visible:

@@ -8,16 +8,18 @@ namespace Microsoft.Fast.Components.FluentUI;
 public class ToastService : IToastService, IDisposable
 {
     private readonly NavigationManager _navigationManager;
+    public ToastConfiguration Configuration { get; private set; }
 
-    public ToastService(NavigationManager navigationManager)
-        : this(navigationManager, new ToastGlobalOptions())
-    {
-    }
+    
 
-    public ToastService(NavigationManager navigationManager, ToastGlobalOptions commonOptions)
+    public ToastService(NavigationManager navigationManager, ToastConfiguration? configuration = null)
     {
         _navigationManager = navigationManager;
-        Configuration = commonOptions;
+        configuration ??= new ToastConfiguration();
+
+        Configuration = configuration;
+        Configuration.OnUpdate += ConfigurationUpdated;
+
 
         _navigationManager.LocationChanged += NavigationManager_LocationChanged;
     }
@@ -28,7 +30,6 @@ public class ToastService : IToastService, IDisposable
 
     private IList<Toast> ToastList { get; } = new List<Toast>();
 
-    public ToastGlobalOptions Configuration { get; }
 
     public virtual IEnumerable<Toast> ShownToasts
     {
@@ -63,12 +64,12 @@ public class ToastService : IToastService, IDisposable
         });
     }
 
-    public virtual Toast Add(Action<ToastOptions> options)
+    public virtual Toast Add(Action<ToastOptions>? configure = null)
     {
-        var configuration = new ToastOptions(Configuration);
-        options.Invoke(configuration);
+        ToastOptions? options = new(Configuration);
+        configure?.Invoke(options);
 
-        var toast = new Toast(configuration);
+        Toast? toast = new(options);
 
         ToastLock.EnterWriteLock();
         try
@@ -126,10 +127,10 @@ public class ToastService : IToastService, IDisposable
         OnToastUpdated?.Invoke();
     }
 
-    //private void ConfigurationUpdated()
-    //{
-    //    OnToastUpdated?.Invoke();
-    //}
+    private void ConfigurationUpdated()
+    {
+        OnToastUpdated?.Invoke();
+    }
 
     private void NavigationManager_LocationChanged(object? sender, LocationChangedEventArgs e)
     {
@@ -145,6 +146,7 @@ public class ToastService : IToastService, IDisposable
 
     public virtual void Dispose()
     {
+        Configuration.OnUpdate -= ConfigurationUpdated;
         _navigationManager.LocationChanged -= NavigationManager_LocationChanged;
         RemoveAllToasts(ToastList);
     }

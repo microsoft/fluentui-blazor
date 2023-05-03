@@ -3238,10 +3238,10 @@
         <member name="T:Microsoft.Fast.Components.FluentUI.FluentToaster">
             <summary />
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.ToastAction">
+        <member name="T:Microsoft.Fast.Components.FluentUI.CommonToastOptions">
             <summary />
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.ToastGlobalOptions">
+        <member name="T:Microsoft.Fast.Components.FluentUI.ToastAction">
             <summary />
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.ToastMessageState">
@@ -7384,6 +7384,20 @@
             <param name="services">IServiceCollection</param>
             <param name="configuration">Defines EmojiConfiguration for this instance.</param>
         </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ServiceCollectionExtensions.AddFluentToasts(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Fast.Components.FluentUI.ToastConfiguration)">
+            <summary>
+            Adds a ToastService as a Scoped instance.
+            </summary>
+            <param name="services">IServiceCollection</param>
+            <param name="configuration">Defines ToastConfiguration for this instance.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ServiceCollectionExtensions.AddFluentToasts(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.Fast.Components.FluentUI.ToastConfiguration})">
+            <summary>
+            Adds a ToastService as a Scoped instance.
+            </summary>
+            <param name="services">IServiceCollection</param>
+            <param name="configuration">Defines ToastConfiguration for this instance.</param>
+        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ServiceCollectionExtensions.AddFluentUIComponents(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Fast.Components.FluentUI.LibraryConfiguration)">
             <summary>
             Add common servIconConfiguration?s required by the Fluent UI Web Components for Blazor library
@@ -7461,7 +7475,7 @@
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.LibraryConfiguration">
             <summary>
-            Defines the global Fluent UI Web Components for Blazor library services configuration
+            Defines the global Fluent UI Blazor component library services configuration
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.CssBuilder.Default(System.String)">
