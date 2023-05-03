@@ -4,14 +4,14 @@ The Fluent UI Blazor Components are built on FAST's Adaptive UI technology, whic
 maintaining accessibility. This is accomplished through setting various "Design Tokens". In earlier versions of this library, the only way to manipulate the 
 design tokens was through using the `<FluentDesignSystemProvider>` component. This Blazor component (and it's underlying Web Component) exposed a little 
 over 60 variables that could be used to change things like typography, color, sizes, UI spacing, etc. FAST has been extended a while ago and now has a much 
-more granular way of working with individual design tokens instead of just through a design system provider model. See https://docs.microsoft.com/en-us/fluent-ui/web-components/design-system/design-tokens 
+more granular way of working with individual design tokens instead of just through a design system provider model. See [this page on learn.microsoft.com](https://learn.microsoft.com/en-us/fluent-ui/web-components/design-system/design-tokens) 
 for more information on how Design Tokens work. 
 
-In total there are now over 160 distinct design tokens defined in the FAST model and you can use all of these from Blazor, both from C# code as in a declarative way in your .razor pages.
+In total there are now over 160 distinct design tokens defined in the FAST model and you can use all of these from Blazor, both from C# code as in a declarative way in your .razor pages.
 
 ### Using Design Tokens from code
  
-Given the following .razor page fragment:
+Given the following .razor page fragment:
 
 ```cshtml
 <FluentButton @ref="ref1" Appearance="Appearance.Filled">A button</FluentButton>
@@ -73,18 +73,18 @@ public async Task OnClick()
 }
 ```
 
-As can be seen in the code above (with the `ref4.Element`), it is posible to apply multiple tokens to the same component.
+As can be seen in the code above (with the `ref4.Element`), it is posible to apply multiple tokens to the same component.
  
-For Design Tokens that work with a color value, you must call the ToSwatch() extension method on a string value or use one of the Swatch constructors. This 
-makes sure the color is using a format that Design Tokens can handle. A Swatch has a lot of commonality with the System.Drawing.Color struct. Instead of 
-the values of the components being between 0 and 255, in a Swatch the components are expressed as a value between 0 and 1.
+For Design Tokens that work with a color value, you must call the `ToSwatch()` extension method on a string value or use one of the Swatch constructors. This 
+makes sure the color is using a format that Design Tokens can handle. A Swatch has a lot of commonality with the `System.Drawing.Color` struct. Instead of 
+the values of the components being between 0 and 255, in a Swatch the components are expressed as a value between 0 and 1.
 
 > **Important**
 > 
 > 
-> **The Design Tokens are manipulated through JavaScript interop working with an ElementReference. There is no JavaScript element until after the component 
-is rendered. This means you can only work with the Design Tokens from code after the component has been rendered in OnAfterRenderAsync and not in any earlier 
-lifecycle methods.
+> **The Design Tokens are manipulated through JavaScript interop working with an `ElementReference`. There is no JavaScript element until after the component 
+is rendered. This means you can only work with the Design Tokens from code after the component has been rendered in `OnAfterRenderAsync` and not in any earlier 
+lifecycle methods**.
 
 ### Using Design Tokens as components
 The Design Tokens can also be used as components in a `.razor` page directely. It looks like this:
@@ -105,7 +105,7 @@ The Design Tokens can also be used as components in a `.razor` page directely. I
 
 To make this work, a link needs to be created between the Design Token component and its child components. This is done with the `ParentReference="@context"` construct. 
 
-> :notebook: **Note**
+> **Note**
 > 
 > Only one Design Token component at a time can be used this way. If you need to set more tokens, use the code approach as described in Option 1 above.
 
@@ -133,6 +133,22 @@ Here's an example of changing the "accent base color" and switching the system i
 </FluentDesignSystemProvider>
 ```
 
-> :notebook: **Note**
+> **Note**
 > 
 > FluentDesignSystemProvider token attributes can be changed on-the-fly like any other Blazor component attribute.
+
+## Colors for integration with specific Microsoft products
+If you are configuring the components for integration into a specific Microsoft product, the following table provides `AccentBaseColor` values you can use. 
+*The library offers an `OfficeColor` enumeration which contains the specific accent colors for 17 different Office applications.*
+
+Product | AccentBaseColor
+------- | ---------------
+| Office | #D83B01 |
+| Word | #185ABD |
+| Excel | #107C41 |
+| PowerPoint | #C43E1C |
+| Teams | #6264A7 |
+| OneNote | #7719AA |
+| SharePoint | #03787C |
+| Stream | #BC1948 |
+

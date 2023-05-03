@@ -13,3 +13,12 @@ The two lines that need to be added to the `Program.cs` file are:
 LibraryConfiguration config = new(ConfigurationGenerator.GetIconConfiguration(), ConfigurationGenerator.GetEmojiConfiguration());
 builder.Services.AddFluentUIComponents(config);
 ```
+
+
+*If you're running your application on Blazor Server, make sure a default HttpClient is available by adding the following:*
+
+```csharp
+builder.Services.AddHttpClient();
+```
+
+*before adding the `AddFluentUIComponents()` code*
