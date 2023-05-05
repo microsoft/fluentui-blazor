@@ -10,9 +10,10 @@ public partial class FluentToast : FluentComponentBase
     protected Color _iconColor = Color.Info;
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("fluent-toast")
-        .AddClass("toast-info", () => ToastItem?.Intent == ToastIntent.Neutral)
-        .AddClass("toast-error", () => ToastItem?.Intent == ToastIntent.Danger)
+        .AddClass("toast-info", () => ToastItem?.Intent == ToastIntent.Info)
         .AddClass("toast-success", () => ToastItem?.Intent == ToastIntent.Success)
+        .AddClass("toast-warning", () => ToastItem?.Intent == ToastIntent.Warning)
+        .AddClass("toast-error", () => ToastItem?.Intent == ToastIntent.Error)
         .Build();
 
     protected RenderFragment Css { get; private set; } = default!;
@@ -84,8 +85,8 @@ public partial class FluentToast : FluentComponentBase
                 _iconColor =  ToastItem.Intent switch
                 {
                     
-                    ToastIntent.Neutral => Color.Neutral,
-                    ToastIntent.Danger => Color.Error,
+                    ToastIntent.Info => Color.Neutral,
+                    ToastIntent.Error => Color.Error,
                     ToastIntent.Success => Color.Success,
                     ToastIntent.Warning => Color.Warning,
                     _ => Color.Neutral

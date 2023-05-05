@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using System.Net;
+using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Fast.Components.FluentUI.DesignTokens;
 using Microsoft.Fast.Components.FluentUI.Infrastructure;
@@ -96,6 +97,10 @@ public static class ServiceCollectionExtensions
         return AddFluentToasts(services, options);
     }
 
+    public static IServiceCollection AddFluentToasts2(this IServiceCollection services)
+    {
+        return services.AddScoped<IToastService2, ToastService2>();
+    }
 
     /// <summary>
     /// Add common servIconConfiguration?s required by the Fluent UI Web Components for Blazor library
@@ -113,6 +118,7 @@ public static class ServiceCollectionExtensions
         services.AddFluentIcons(configuration?.IconConfiguration);
         services.AddFluentEmojis(configuration?.EmojiConfiguration);
         services.AddFluentToasts(configuration?.ToastConfiguration);
+        services.AddFluentToasts2();
 
         if (configuration is not null)
         {
@@ -121,9 +127,30 @@ public static class ServiceCollectionExtensions
                 {
                     c.BaseAddress = new Uri(configuration.StaticAssetServiceConfiguration.BaseAddress);
                 });
+
+            if (configuration.HostingModel == BlazorHostingModel.Server)
+                services.AddHttpClient<IStaticAssetService, HttpBasedStaticAssetService>();
+                    //.ConfigurePrimaryHttpMessageHandler(() =>
+                    //{
+                    //    return new HttpClientHandler()
+                    //    {
+                    //        UseDefaultCredentials = true,
+                    //        DefaultProxyCredentials = CredentialCache.DefaultCredentials
+                    //    };
+                    //});
         }
         else
+        {
             services.AddHttpClient<IStaticAssetService, HttpBasedStaticAssetService>();
+                 //.ConfigurePrimaryHttpMessageHandler(() =>
+                 //{
+                 //    return new HttpClientHandler()
+                 //    {
+                 //        UseDefaultCredentials = true,
+                 //        DefaultProxyCredentials = CredentialCache.DefaultCredentials
+                 //    };
+                 //});
+        }
 
         services.AddDesignTokens();
 
@@ -151,6 +178,7 @@ public static class ServiceCollectionExtensions
         services.AddFluentIcons(options?.IconConfiguration);
         services.AddFluentEmojis(options?.EmojiConfiguration);
         services.AddFluentToasts(options?.ToastConfiguration);
+        services.AddFluentToasts2();
 
         if (options is not null)
         {

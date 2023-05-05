@@ -25,7 +25,7 @@
                 return Task.CompletedTask;
             };
 
-            if (options.Intent == ToastIntent.Neutral)
+            if (options.Intent == ToastIntent.Info)
             {
                 options.Action.Text = "Visit site";
                 options.Action.OnClick = (item) =>

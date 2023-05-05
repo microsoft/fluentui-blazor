@@ -22,15 +22,19 @@
 }
 
     .fluent-toast.toast-info {
-        fill: #797673;
-    }
-
-    .fluent-toast.toast-error {
-        fill: #a80000;
+        fill: var(--info);
     }
 
     .fluent-toast.toast-success {
-        fill: #107c10;
+        fill: var(--success);
+    }
+    
+    .fluent-toast.toast-warning {
+        fill: var(--warning);
+    }
+
+    .fluent-toast.toast-error {
+        fill: var(--error);
     }
 
 .fluent-toast-icon {

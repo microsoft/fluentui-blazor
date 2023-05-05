@@ -1,0 +1,37 @@
+﻿@namespace Microsoft.Fast.Components.FluentUI
+@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Web
+
+@if (ChildContent is not null)
+{
+    <div class="blazored-toast blazored-toast-component">
+        <CascadingValue Value="this" IsFixed="true">
+            @ChildContent
+        </CascadingValue>
+    </div>
+}
+else
+{
+    <div class="blazored-toast" @onclick="ToastClick">
+
+        <div class="blazored-toast-icon">
+            @if (!string.IsNullOrWhiteSpace(Settings.Icon))
+            {
+                <FluentIcon Name="@Settings.Icon" Size="IconSize.Size20" Color=@Settings.IconColor Variant="Settings.IconVariant" />
+            }
+        </div>
+
+
+        <p class="blazored-toast-message">@Message</p>
+
+        @if (Settings.ShowCloseButton)
+        {
+            <FluentIcon Name="@FluentIcons.Dismiss"
+                        Size="@IconSize.Size20"
+                        Class=""
+                        Title="Close"
+                        Color="Color.FillInverse"
+                        OnClick="Close" />
+        }
+    </div>
+}

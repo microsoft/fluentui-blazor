@@ -4,7 +4,7 @@ public class ToastConfiguration : CommonToastOptions
 {
     private bool _newestOnTop;
     private int _maxToasts;
-    private ToasterPosition _toasterPosition;
+    private ToastPosition _toasterPosition;
     private bool _clearAfterNavigation;
 
     internal event Action? OnUpdate;
@@ -29,7 +29,7 @@ public class ToastConfiguration : CommonToastOptions
         }
     }
 
-    public ToasterPosition ToasterPosition
+    public ToastPosition ToasterPosition
     {
         get => _toasterPosition;
         set
@@ -54,7 +54,7 @@ public class ToastConfiguration : CommonToastOptions
     {
         NewestOnTop = false;
         MaxToasts = 4;
-        ToasterPosition = ToasterPosition.TopEnd;
+        ToasterPosition = ToastPosition.TopEnd;
         ClearAfterNavigation = true;
     }
 

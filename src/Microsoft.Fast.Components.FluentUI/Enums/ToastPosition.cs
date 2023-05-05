@@ -3,64 +3,64 @@
 namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary />
-public enum ToasterPosition
+public enum ToastPosition
 {
     /// <summary>
     /// Toasts are displayed in the bottom-left corner of the screen
     /// </summary>
-    [Description("fluent-toasts-bottom-left")]
+    [Description("fluent-toast-bottom-left")]
     BottomLeft,
 
     /// <summary>
     /// Toasts are displayed in the bottom-start corner of the screen
     /// </summary>
-    [Description("fluent-toasts-bottom-start")]
+    [Description("fluent-toast-bottom-start")]
     BottomStart,
     /// <summary>
     /// Toasts are displayed in the bottom-center of the screen
     /// </summary>
-    [Description("fluent-toasts-bottom-center")]
+    [Description("fluent-toast-bottom-center")]
     BottomCenter,
 
     /// <summary>
     /// Toasts are displayed in the bottom-right corner of the screen
     /// </summary>
-    [Description("fluent-toasts-bottom-right")]
+    [Description("fluent-toast-bottom-right")]
     BottomRight,
 
     /// <summary>
     /// Toasts are displayed in the bottom-end corner of the screen
     /// </summary>
-    [Description("fluent-toasts-bottom-end")]
+    [Description("fluent-toast-bottom-end")]
     BottomEnd,
 
     /// <summary>
     /// Toasts are displayed in the top-left corner of the screen
     /// </summary>
-    [Description("fluent-toasts-top-left")]
+    [Description("fluent-toast-top-left")]
     TopLeft,
 
     /// <summary>
     /// Toasts are displayed in the top-left corner of the screen
     /// </summary>
-    [Description("fluent-toasts-top-start")]
+    [Description("fluent-toast-top-start")]
     TopStart,
 
     /// <summary>
     /// Toasts are displayed in the top-center of the screen
     /// </summary>
-    [Description("fluent-toasts-top-center")]
+    [Description("fluent-toast-top-center")]
     TopCenter,
 
     /// <summary>
     /// Toasts are displayed in the top-right corner of the screen
     /// </summary>
-    [Description("fluent-toasts-top-right")]
+    [Description("fluent-toast-top-right")]
     TopRight,
 
     /// <summary>
     /// Toasts are displayed in the top-end corner of the screen
     /// </summary>
-    [Description("fluent-toasts-top-end")]
+    [Description("fluent-toast-top-end")]
     TopEnd,
 }

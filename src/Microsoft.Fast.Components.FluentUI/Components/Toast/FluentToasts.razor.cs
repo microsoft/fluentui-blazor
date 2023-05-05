@@ -4,10 +4,10 @@ using Microsoft.Fast.Components.FluentUI.Utilities;
 namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary />
-public partial class FluentToaster : FluentComponentBase, IDisposable
+public partial class FluentToasts : FluentComponentBase, IDisposable
 {
     protected string? ClassValue => new CssBuilder(Class)
-        .AddClass("fluent-toaster")
+        .AddClass("fluent-toasts")
         .AddClass(ToastService.Configuration.ToasterPosition.ToAttributeValue())
         .Build();
 

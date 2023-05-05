@@ -26,9 +26,10 @@ internal class ToastMessageState
         {
             return Options.Intent switch
             {
-                ToastIntent.Neutral => FluentIcons.Info,
-                ToastIntent.Danger => FluentIcons.DismissCircle,
+                ToastIntent.Info => FluentIcons.Info,
                 ToastIntent.Success => FluentIcons.CheckmarkCircle,
+                ToastIntent.Warning => FluentIcons.Warning,
+                ToastIntent.Error => FluentIcons.DismissCircle,
                 _ => null,
             };
         }

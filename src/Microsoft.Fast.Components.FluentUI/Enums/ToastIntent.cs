@@ -6,9 +6,14 @@ namespace Microsoft.Fast.Components.FluentUI;
 public enum ToastIntent
 {
     /// <summary>
-    /// Neutral (informational )intent
+    /// Neutral intent
     /// </summary>
     Neutral,
+
+    /// <summary>
+    /// Informational intent
+    /// </summary>
+    Info,
 
     /// <summary>
     /// Indicates a success 
@@ -23,7 +28,7 @@ public enum ToastIntent
     /// <summary>
     /// Indicates an error
     /// </summary>
-    Danger,
+    Error,
 
     /// <summary>
     /// Indicates progress

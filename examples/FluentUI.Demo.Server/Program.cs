@@ -1,6 +1,9 @@
+using System.Net.Http.Headers;
+using System.Net;
 using FluentUI.Demo.Shared.SampleData;
 using Microsoft.AspNetCore.Hosting.StaticWebAssets;
 using Microsoft.Fast.Components.FluentUI;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,10 +11,15 @@ StaticWebAssetsLoader.UseStaticWebAssets(builder.Environment, builder.Configurat
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
 builder.Services.AddHttpClient();
 builder.Services.AddServerSideBlazor();
 
-LibraryConfiguration config = new(ConfigurationGenerator.GetIconConfiguration(), ConfigurationGenerator.GetEmojiConfiguration());
+LibraryConfiguration config = new(ConfigurationGenerator.GetIconConfiguration(), ConfigurationGenerator.GetEmojiConfiguration())
+{
+    HostingModel = BlazorHostingModel.Server
+};
+
 builder.Services.AddFluentUIComponents(config);
 
 builder.Services.AddScoped<DataSource>();

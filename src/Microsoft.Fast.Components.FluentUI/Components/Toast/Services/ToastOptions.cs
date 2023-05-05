@@ -20,7 +20,7 @@ public class ToastOptions : CommonToastOptions
 
     public ToastAction Action { get; set; } = new ToastAction();
 
-    public ToastIntent Intent { get; set; } = ToastIntent.Neutral;
+    public ToastIntent Intent { get; set; } = ToastIntent.Info;
 
     public bool ClearAfterNavigation { get; set; }
 }

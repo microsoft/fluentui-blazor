@@ -1,36 +1,135 @@
 ﻿@page "/Toast"
+@inject IToastService2 ToastService
+@inject NavigationManager NavigationManager
 @using FluentUI.Demo.Shared.Pages.Toast.Examples
 
-<DemoSection Title="Toast Services" Component="typeof(ToastDefaultExample)">
-    
+<h1>Toast</h1>
+
+<p>
+    Toasts, referred to as “notifications” in the UI, are pop-up notifications that keeps users informed by briefly:
+    <ul>
+        <li>Confirming an action they took.</li>
+        <li>Informing them about a timely event.</li>
+        <li>Communicating the status of a process initiated.</li>
+    </ul>
+</p>
+<p>
+    The information in a toast is useful and relevant but never critical.
+</p>
+<ApiDocumentation Component="typeof(FluentToasts)" />
+<ApiDocumentation Component="typeof(FluentToast)" />
+
+<h2>Examples</h2>
+
+<DemoSection Title="Default Toast" Component="typeof(ToastDefaultExample)">
+
 </DemoSection>
 
-<DemoSection Title="Toast Services with options" Component="typeof(ToastDetailledExample)">
-    
+<DemoSection Title="Toast with options" Component="typeof(ToastDetailledExample)">
+
 </DemoSection>
 
 <h3>Service injection</h3>
 
 <h4>Injection with global options.</h4>
-<CodeSnippet>    
+<CodeSnippet>
     builder.Services.AddFluentUIComponents();
 </CodeSnippet>
 
 <h4>Injection with custom configuration.</h4>
-<CodeSnippet>    
+<CodeSnippet>
     builder.Services.AddFluentUIComponents(config =>
     {
-        if (config is not null)
-        {
-            config.IconConfiguration = ConfigurationGenerator.GetIconConfiguration();
-            config.EmojiConfiguration = ConfigurationGenerator.GetEmojiConfiguration();
+    if (config is not null)
+    {
+    // There might be other configuration code in here.
+    // This is just an example of how to configure the toast service.
 
-            config.ToastConfiguration.ToasterPosition = ToasterPosition.BottomLeft;
-            config.ToastConfiguration.NewestOnTop = false;
-            config.ToastConfiguration.ShowCloseIcon = false;
-            config.ToastConfiguration.VisibleStateDuration = 1000;
-            config.ToastConfiguration.HideTransitionDuration = 100;
-            config.ToastConfiguration.ShowTransitionDuration = 100;
-        }
+    config.ToastConfiguration.ToasterPosition = ToasterPosition.BottomLeft;
+    config.ToastConfiguration.NewestOnTop = false;
+    config.ToastConfiguration.ShowCloseIcon = false;
+    config.ToastConfiguration.VisibleStateDuration = 1000;
+    config.ToastConfiguration.HideTransitionDuration = 100;
+    config.ToastConfiguration.ShowTransitionDuration = 100;
+    }
     });
 </CodeSnippet>
+
+
+
+<h1>Toasts</h1>
+
+<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowInfo("I'm an INFO message"))">Info Toast</FluentButton>
+<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowSuccess("I'm a SUCCESS message with a lot of text to see what a toast looks like when it's really big."))">Success Toast</FluentButton>
+<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowWarning("I'm a WARNING message"))">Warning Toast</FluentButton>
+<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowError("I'm an ERROR message"))">Error Toast</FluentButton>
+<FluentButton Appearance=Appearance.Neutral @onclick="@OnShowHtml">Info Toast with HTML</FluentButton>
+<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowInfo("Click to refresh the page",  settings => settings.OnClick = () => NavigationManager.NavigateTo("/", true)))">
+    Info Toast with custom action on click
+</FluentButton>
+
+<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowToast(ToastIntent.Neutral, "I'm a message with a custom icon", settings => { settings.Icon = FluentIcons.Delete; settings.IconVariant=IconVariant.Regular;}))">Toast with custom icon</FluentButton>
+<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowToast(ToastIntent.Neutral, "I'm a message without an icon"))">Toast without icon</FluentButton>
+
+
+<hr />
+
+
+<h1>Toasts - Custom Component</h1>
+
+<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowToast<MyToastComponent>(settings => { settings.Timeout = 5;}))">Custom Toast</FluentButton>
+<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowToast<MyToastComponent>(_toastParameters, settings => { settings.Timeout = 5; }))">Custom Toast with parameters</FluentButton>
+<hr />
+
+<h1>Toasts - Remove Toasts</h1>
+
+<FluentButton Appearance=Appearance.Neutral @onclick="ClearAll">Clear All Toasts</FluentButton>
+<FluentButton Appearance=Appearance.Neutral @onclick="ClearWarnings">Clear Warning Toasts</FluentButton>
+<FluentButton Appearance=Appearance.Neutral @onclick="ClearInfos">Clear Info Toasts</FluentButton>
+<FluentButton Appearance=Appearance.Neutral @onclick="ClearCustom">Clear Custom Toasts</FluentButton>
+<hr />
+
+<h1>Toasts - Remove queued Toasts</h1>
+
+<FluentButton Appearance=Appearance.Neutral @onclick="ClearQueue">Clear all queued Toasts</FluentButton>
+<FluentButton Appearance=Appearance.Neutral @onclick="ClearQueueWarnings">Clear queued Warning Toasts</FluentButton>
+<FluentButton Appearance=Appearance.Neutral @onclick="ClearQueueInfos">Clear queued Info Toasts</FluentButton>
+
+@code
+{
+    private ToastParameters _toastParameters = default!;
+
+    protected override void OnInitialized()
+    {
+        _toastParameters = new ToastParameters()
+            .Add(nameof(MyToastComponent.Title), "I'm a custom toast component with parameters")
+            .Add(nameof(MyToastComponent.ToastParam), "I'm a parameter");
+    }
+
+    private void OnShowHtml()
+    {
+        RenderFragment message = @<text>I'm an <em>INFO</em> message with some <strong>bold</strong> text</text>;
+        ToastService.ShowToast(ToastIntent.Info, message);
+    }
+
+    private void ClearAll()
+        => ToastService.ClearAll();
+
+    private void ClearWarnings()
+        => ToastService.ClearToasts(ToastIntent.Warning);
+
+    private void ClearInfos()
+        => ToastService.ClearInfoToasts();
+
+    private void ClearCustom()
+        => ToastService.ClearCustomToasts();
+
+    private void ClearQueue()
+        => ToastService.ClearQueue();
+
+    private void ClearQueueWarnings()
+        => ToastService.ClearQueueToasts(ToastIntent.Warning);
+
+    private void ClearQueueInfos()
+        => ToastService.ClearQueueInfoToasts();
+}

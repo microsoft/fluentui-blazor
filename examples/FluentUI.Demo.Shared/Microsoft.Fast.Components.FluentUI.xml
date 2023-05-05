@@ -2142,6 +2142,7 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.Icon">
             <summary>
             Gets or sets the name of the icon to display with the link
+            Use a constant value from the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentIcons" /> class 
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.Disabled">
@@ -3232,10 +3233,458 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentToast2.Close">
+            <summary>
+            Closes the toast
+            </summary>
+        </member>
+        <member name="E:Microsoft.Fast.Components.FluentUI.IToastService2.OnShow">
+            <summary>
+            A event that will be invoked when showing a toast
+            </summary>
+        </member>
+        <member name="E:Microsoft.Fast.Components.FluentUI.IToastService2.OnClearAll">
+            <summary>
+            A event that will be invoked to clear all toasts
+            </summary>
+        </member>
+        <member name="E:Microsoft.Fast.Components.FluentUI.IToastService2.OnClearToasts">
+            <summary>
+            A event that will be invoked to clear toast of specified level
+            </summary>
+        </member>
+        <member name="E:Microsoft.Fast.Components.FluentUI.IToastService2.OnClearCustomToasts">
+            <summary>
+            A event that will be invoked to clear custom toast components
+            </summary>
+        </member>
+        <member name="E:Microsoft.Fast.Components.FluentUI.IToastService2.OnShowComponent">
+            <summary>
+            A event that will be invoked when showing a toast with a custom component
+            </summary>
+        </member>
+        <member name="E:Microsoft.Fast.Components.FluentUI.IToastService2.OnClearQueue">
+            <summary>
+            A event that will be invoked to clear all queued toasts
+            </summary>
+        </member>
+        <member name="E:Microsoft.Fast.Components.FluentUI.IToastService2.OnClearQueueToasts">
+            <summary>
+            A event that will be invoked to clear queue toast of specified level
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService2.ShowInfo(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+            <summary>
+            Shows a information toast 
+            </summary>
+            <param name="message">Text to display on the toast</param>
+            <param name="settings">Settings to configure the toast instance</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService2.ShowInfo(Microsoft.AspNetCore.Components.RenderFragment,System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+            <summary>
+            Shows a information toast 
+            </summary>
+            <param name="message">RenderFragment to display on the toast</param>
+            <param name="settings">Settings to configure the toast instance</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService2.ShowSuccess(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+            <summary>
+            Shows a success toast 
+            </summary>
+            <param name="message">Text to display on the toast</param>
+            <param name="settings">Settings to configure the toast instance</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService2.ShowSuccess(Microsoft.AspNetCore.Components.RenderFragment,System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+            <summary>
+            Shows a success toast 
+            </summary>
+            <param name="message">RenderFragment to display on the toast</param>
+            <param name="settings">Settings to configure the toast instance</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService2.ShowWarning(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+            <summary>
+            Shows a warning toast 
+            </summary>
+            <param name="message">Text to display on the toast</param>
+            <param name="settings">Settings to configure the toast instance</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService2.ShowWarning(Microsoft.AspNetCore.Components.RenderFragment,System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+            <summary>
+            Shows a warning toast 
+            </summary>
+            <param name="message">RenderFragment to display on the toast</param>
+            <param name="settings">Settings to configure the toast instance</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService2.ShowError(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+            <summary>
+            Shows a error toast 
+            </summary>
+            <param name="message">Text to display on the toast</param>
+            <param name="settings">Settings to configure the toast instance</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService2.ShowError(Microsoft.AspNetCore.Components.RenderFragment,System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+            <summary>
+            Shows a error toast 
+            </summary>
+            <param name="message">RenderFragment to display on the toast</param>
+            <param name="settings">Settings to configure the toast instance</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService2.ShowToast(Microsoft.Fast.Components.FluentUI.ToastIntent,System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+            <summary>
+            Shows a toast using the supplied settings
+            </summary>
+            <param name="intent">Toast intent to display</param>
+            <param name="message">Text to display on the toast</param>
+            <param name="settings">Settings to configure the toast instance</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService2.ShowToast(Microsoft.Fast.Components.FluentUI.ToastIntent,Microsoft.AspNetCore.Components.RenderFragment,System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+            <summary>
+            Shows a toast using the supplied settings
+            </summary>
+            <param name="intent">Toast intent to display</param>
+            <param name="message">RenderFragment to display on the toast</param>
+            <param name="settings">Settings to configure the toast instance</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService2.ShowToast``1">
+            <summary>
+            Shows a toast containing the specified <typeparamref name="TComponent"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService2.ShowToast``1(Microsoft.Fast.Components.FluentUI.ToastParameters)">
+            <summary>
+            Shows a toast containing a <typeparamref name="TComponent"/> with the specified <paramref name="parameters"/>.
+            </summary>
+            <param name="parameters">Key/Value collection of parameters to pass to component being displayed</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService2.ShowToast``1(System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+            <summary>
+            Shows a toast containing a <typeparamref name="TComponent"/> with the specified <paramref name="settings"/>.
+            </summary>
+            <param name="settings">Settings to configure the toast instance</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService2.ShowToast``1(Microsoft.Fast.Components.FluentUI.ToastParameters,System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+            <summary>
+            Shows a toast containing a <typeparamref name="TComponent"/> with the specified <paramref name="settings" /> and <paramref name="parameters"/>.
+            </summary>
+            <param name="parameters">Key/Value collection of parameters to pass to component being displayed</param>
+            /// <param name="settings">Settings to configure the toast instance</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService2.ClearAll">
+            <summary>
+            Removes all toasts
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService2.ClearToasts(Microsoft.Fast.Components.FluentUI.ToastIntent)">
+            <summary>
+            Removes all toasts with a specified <paramref name="toastLevel"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService2.ClearWarningToasts">
+            <summary>
+            Removes all toasts with toast level warning
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService2.ClearInfoToasts">
+            <summary>
+            Removes all toasts with toast level Info
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService2.ClearSuccessToasts">
+            <summary>
+            Removes all toasts with toast level Success
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService2.ClearErrorToasts">
+            <summary>
+            Removes all toasts with toast level Error
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService2.ClearCustomToasts">
+            <summary>
+            Removes all custom toast components
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService2.ClearQueue">
+            <summary>
+            Removes all queued toasts
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService2.ClearQueueToasts(Microsoft.Fast.Components.FluentUI.ToastIntent)">
+            <summary>
+            Removes all queued toasts with a specified <paramref name="toastLevel"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService2.ClearQueueWarningToasts">
+            <summary>
+            Removes all queued toasts with toast level warning
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService2.ClearQueueInfoToasts">
+            <summary>
+            Removes all queued toasts with toast level Info
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService2.ClearQueueSuccessToasts">
+            <summary>
+            Removes all queued toasts with toast level Success
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService2.ClearQueueErrorToasts">
+            <summary>
+            Removes all queued toasts with toast level Error
+            </summary>
+        </member>
+        <member name="E:Microsoft.Fast.Components.FluentUI.ToastService2.OnShow">
+            <summary>
+            A event that will be invoked when showing a toast
+            </summary>
+        </member>
+        <member name="E:Microsoft.Fast.Components.FluentUI.ToastService2.OnClearAll">
+            <summary>
+            A event that will be invoked when clearing all toasts
+            </summary>
+        </member>
+        <member name="E:Microsoft.Fast.Components.FluentUI.ToastService2.OnShowComponent">
+            <summary>
+            A event that will be invoked when showing a toast with a custom component
+            </summary>
+        </member>
+        <member name="E:Microsoft.Fast.Components.FluentUI.ToastService2.OnClearToasts">
+            <summary>
+            A event that will be invoked when clearing toasts
+            </summary>
+        </member>
+        <member name="E:Microsoft.Fast.Components.FluentUI.ToastService2.OnClearCustomToasts">
+            <summary>
+            A event that will be invoked when clearing custom toast components
+            </summary>
+        </member>
+        <member name="E:Microsoft.Fast.Components.FluentUI.ToastService2.OnClearQueue">
+            <summary>
+            A event that will be invoked to clear all queued toasts
+            </summary>
+        </member>
+        <member name="E:Microsoft.Fast.Components.FluentUI.ToastService2.OnClearQueueToasts">
+            <summary>
+            A event that will be invoked to clear queued toast of specified level
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ShowInfo(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+            <summary>
+            Shows a information toast 
+            </summary>
+            <param name="message">Text to display on the toast</param>
+            <param name="settings">Settings to configure the toast instance</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ShowInfo(Microsoft.AspNetCore.Components.RenderFragment,System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+            <summary>
+            Shows a information toast 
+            </summary>
+            <param name="message">RenderFragment to display on the toast</param>
+            <param name="settings">Settings to configure the toast instance</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ShowSuccess(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+            <summary>
+            Shows a success toast 
+            </summary>
+            <param name="message">Text to display on the toast</param>
+            <param name="settings">Settings to configure the toast instance</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ShowSuccess(Microsoft.AspNetCore.Components.RenderFragment,System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+            <summary>
+            Shows a success toast 
+            </summary>
+            <param name="message">RenderFragment to display on the toast</param>
+            <param name="settings">Settings to configure the toast instance</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ShowWarning(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+            <summary>
+            Shows a warning toast 
+            </summary>
+            <param name="message">Text to display on the toast</param>
+            <param name="settings">Settings to configure the toast instance</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ShowWarning(Microsoft.AspNetCore.Components.RenderFragment,System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+            <summary>
+            Shows a warning toast 
+            </summary>
+            <param name="message">RenderFragment to display on the toast</param>
+            <param name="settings">Settings to configure the toast instance</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ShowError(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+            <summary>
+            Shows a error toast 
+            </summary>
+            <param name="message">Text to display on the toast</param>
+            <param name="settings">Settings to configure the toast instance</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ShowError(Microsoft.AspNetCore.Components.RenderFragment,System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+            <summary>
+            Shows a error toast 
+            </summary>
+            <param name="message">RenderFragment to display on the toast</param>
+            <param name="settings">Settings to configure the toast instance</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ShowToast(Microsoft.Fast.Components.FluentUI.ToastIntent,System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+            <summary>
+            Shows a toast using the supplied settings
+            </summary>
+            <param name="level">Toast level to display</param>
+            <param name="message">Text to display on the toast</param>
+            <param name="settings">Settings to configure the toast instance</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ShowToast(Microsoft.Fast.Components.FluentUI.ToastIntent,Microsoft.AspNetCore.Components.RenderFragment,System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+            <summary>
+            Shows a toast using the supplied settings
+            </summary>
+            <param name="level">Toast level to display</param>
+            <param name="message">RenderFragment to display on the toast</param>
+            <param name="settings">Settings to configure the toast instance</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ShowToast``1">
+            <summary>
+            Shows the toast with the component type
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ShowToast(System.Type,Microsoft.Fast.Components.FluentUI.ToastParameters,System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+            <summary>
+            Shows the toast with the component type />,
+            passing the specified <paramref name="parameters"/> 
+            </summary>
+            <param name="contentComponent">Type of component to display.</param>
+            <param name="parameters">Key/Value collection of parameters to pass to component being displayed.</param>
+            <param name="settings">Settings to configure the toast component.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ShowToast``1(Microsoft.Fast.Components.FluentUI.ToastParameters)">
+            <summary>
+            Shows the toast with the component type />,
+            passing the specified <paramref name="parameters"/> 
+            </summary>
+            <param name="parameters">Key/Value collection of parameters to pass to component being displayed.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ShowToast``1(System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+            <summary>
+            Shows a toast using the supplied settings
+            </summary>
+            <param name="settings">Toast settings to be used</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ShowToast``1(Microsoft.Fast.Components.FluentUI.ToastParameters,System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+            <summary>
+            Shows a toast using the supplied parameter and settings
+            </summary>
+            <param name="parameters">Key/Value collection of parameters to pass to component being displayed.</param>
+            <param name="settings">Toast settings to be used</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ClearAll">
+            <summary>
+            Removes all toasts
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ClearToasts(Microsoft.Fast.Components.FluentUI.ToastIntent)">
+            <summary>
+            Removes all toasts with a specified <paramref name="toastLevel"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ClearWarningToasts">
+            <summary>
+            Removes all toasts with toast level warning
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ClearInfoToasts">
+            <summary>
+            Removes all toasts with toast level info
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ClearSuccessToasts">
+            <summary>
+            Removes all toasts with toast level success
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ClearErrorToasts">
+            <summary>
+            Removes all toasts with toast level error
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ClearCustomToasts">
+            <summary>
+            Removes all custom component toasts
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ClearQueue">
+            <summary>
+            Removes all queued toasts
+            </summary>
+            
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ClearQueueToasts(Microsoft.Fast.Components.FluentUI.ToastIntent)">
+            <summary>
+            Removes all queued toasts with a specified <paramref name="toastLevel"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ClearQueueWarningToasts">
+            <summary>
+            Removes all queued toasts with toast level warning
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ClearQueueInfoToasts">
+            <summary>
+            Removes all queued toasts with toast level info
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ClearQueueSuccessToasts">
+            <summary>
+            Removes all queued toasts with toast level success
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ClearQueueErrorToasts">
+            <summary>
+            Removes all queued toasts with toast level error
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ToastSettings.Icon">
+            <summary>
+            Gets or sets the name of the icon to display with the link
+            Use a constant value from the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentIcons" /> class 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ToastSettings.IconColor">
+            <summary>
+            The <c>IconColor</c> property determines the color of the icon.
+            It is based on either the <see cref="T:Microsoft.Fast.Components.FluentUI.ToastIntent"/> or the active Accent color
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ToastSettings.IconVariant">
+            <summary>
+            The <c>IconVariant</c> property determines the variant of the icon.
+            For the Intent related icons it is IconVariant.Filled by default.
+            For the custom icons it is IconVariant.Regular by default.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ToastSettings.ShowCloseButton">
+            <summary>
+            The ShowCloseButton property determines whether or not the close button is displayed on the toast notification.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ToastSettings.OnClick">
+            <summary>
+            The <c>OnClick</c> property is an optional action that is triggered when the user clicks on the toast notification.
+            </summary>
+            <remarks>
+            This property allows you to define a custom action that will be executed when the user interacts with the notification, such as opening a new window or performing some other action.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ToastSettings.Timeout">
+            <summary>
+            The <c>Timeout</c> property determines the amount of time, in seconds, that the toast notification will be displayed before it is automatically closed.
+            </summary>
+            <remarks>
+            By setting this property, you can control the duration of the notification and ensure that it is visible to the user for an appropriate amount of time.
+            </remarks>
+        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.FluentToast">
             <summary />
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.FluentToaster">
+        <member name="T:Microsoft.Fast.Components.FluentUI.FluentToasts">
             <summary />
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.CommonToastOptions">
@@ -7158,65 +7607,17 @@
             A text field that is used for URL input.
             </summary>
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.ToasterPosition">
-            <summary />
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToasterPosition.BottomLeft">
-            <summary>
-            Toasts are displayed in the bottom-left corner of the screen
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToasterPosition.BottomStart">
-            <summary>
-            Toasts are displayed in the bottom-start corner of the screen
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToasterPosition.BottomCenter">
-            <summary>
-            Toasts are displayed in the bottom-center of the screen
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToasterPosition.BottomRight">
-            <summary>
-            Toasts are displayed in the bottom-right corner of the screen
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToasterPosition.BottomEnd">
-            <summary>
-            Toasts are displayed in the bottom-end corner of the screen
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToasterPosition.TopLeft">
-            <summary>
-            Toasts are displayed in the top-left corner of the screen
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToasterPosition.TopStart">
-            <summary>
-            Toasts are displayed in the top-left corner of the screen
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToasterPosition.TopCenter">
-            <summary>
-            Toasts are displayed in the top-center of the screen
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToasterPosition.TopRight">
-            <summary>
-            Toasts are displayed in the top-right corner of the screen
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToasterPosition.TopEnd">
-            <summary>
-            Toasts are displayed in the top-end corner of the screen
-            </summary>
-        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.ToastIntent">
             <summary />
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.ToastIntent.Neutral">
             <summary>
-            Neutral (informational )intent
+            Neutral intent
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.ToastIntent.Info">
+            <summary>
+            Informational intent
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.ToastIntent.Success">
@@ -7229,7 +7630,7 @@
             Indicates a warning
             </summary>
         </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToastIntent.Danger">
+        <member name="F:Microsoft.Fast.Components.FluentUI.ToastIntent.Error">
             <summary>
             Indicates an error
             </summary>
@@ -7252,6 +7653,59 @@
         <member name="F:Microsoft.Fast.Components.FluentUI.ToastIntent.Mention">
             <summary>
             Indicates a mention
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.ToastPosition">
+            <summary />
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.ToastPosition.BottomLeft">
+            <summary>
+            Toasts are displayed in the bottom-left corner of the screen
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.ToastPosition.BottomStart">
+            <summary>
+            Toasts are displayed in the bottom-start corner of the screen
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.ToastPosition.BottomCenter">
+            <summary>
+            Toasts are displayed in the bottom-center of the screen
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.ToastPosition.BottomRight">
+            <summary>
+            Toasts are displayed in the bottom-right corner of the screen
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.ToastPosition.BottomEnd">
+            <summary>
+            Toasts are displayed in the bottom-end corner of the screen
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.ToastPosition.TopLeft">
+            <summary>
+            Toasts are displayed in the top-left corner of the screen
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.ToastPosition.TopStart">
+            <summary>
+            Toasts are displayed in the top-left corner of the screen
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.ToastPosition.TopCenter">
+            <summary>
+            Toasts are displayed in the top-center of the screen
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.ToastPosition.TopRight">
+            <summary>
+            Toasts are displayed in the top-right corner of the screen
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.ToastPosition.TopEnd">
+            <summary>
+            Toasts are displayed in the top-end corner of the screen
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.ToastState">

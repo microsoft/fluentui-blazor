@@ -25,6 +25,7 @@ public partial class FluentNavMenuLink : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the name of the icon to display with the link
+    /// Use a constant value from the <see cref="FluentIcons" /> class 
     /// </summary>
     [Parameter]
     public string Icon { get; set; } = string.Empty;
