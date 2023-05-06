@@ -68,8 +68,8 @@
     Info Toast with custom action on click
 </FluentButton>
 
-<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowToast(ToastIntent.Neutral, "I'm a message with a custom icon", settings => { settings.Icon = FluentIcons.Delete; settings.IconVariant=IconVariant.Regular;}))">Toast with custom icon</FluentButton>
-<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowToast(ToastIntent.Neutral, "I'm a message without an icon"))">Toast without icon</FluentButton>
+<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowToast(ToastIntent.Custom, "I'm a message with a custom icon", settings => { settings.Icon = FluentIcons.Delete; settings.IconVariant=IconVariant.Regular;}))">Toast with custom icon</FluentButton>
+<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowToast(ToastIntent.Custom, "I'm a message without an icon"))">Toast without icon</FluentButton>
 
 
 <hr />

@@ -3238,6 +3238,32 @@
             Closes the toast
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToasts2.Position">
+            <summary>
+            Gets or sets the position on screen where the toasts are shown. See <see cref="T:Microsoft.Fast.Components.FluentUI.ToastPosition"/>
+            Default is ToastPosition.TopRight
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToasts2.Timeout">
+            <summary>
+            Gets or sets the number of seconds a toast remains visible. Default is 7 seconds.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToasts2.MaxToastCount">
+            <summary>
+            Gets or sets the maximum number of toasts that can be shown at once. Default is 4.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToasts2.RemoveToastsOnNavigation">
+            <summary>
+            Gets or sets whether to remove toasts when the user navigates to a new page. Default is true.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToasts2.ShowCloseButton">
+            <summary>
+            Gets or sets whether to show a close button on a toast. Default is true.
+            </summary>
+        </member>
         <member name="E:Microsoft.Fast.Components.FluentUI.IToastService2.OnShow">
             <summary>
             A event that will be invoked when showing a toast
@@ -3411,7 +3437,7 @@
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.IToastService2.ClearQueueToasts(Microsoft.Fast.Components.FluentUI.ToastIntent)">
             <summary>
-            Removes all queued toasts with a specified <paramref name="toastLevel"/>.
+            Removes all queued toasts with a specified <paramref name="intent"/>.
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.IToastService2.ClearQueueWarningToasts">
@@ -3466,7 +3492,7 @@
         </member>
         <member name="E:Microsoft.Fast.Components.FluentUI.ToastService2.OnClearQueueToasts">
             <summary>
-            A event that will be invoked to clear queued toast of specified level
+            A event that will be invoked to clear queued toast of specified intent
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ShowInfo(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
@@ -3529,7 +3555,7 @@
             <summary>
             Shows a toast using the supplied settings
             </summary>
-            <param name="level">Toast level to display</param>
+            <param name="intent">Toast intent to display</param>
             <param name="message">Text to display on the toast</param>
             <param name="settings">Settings to configure the toast instance</param>
         </member>
@@ -3537,7 +3563,7 @@
             <summary>
             Shows a toast using the supplied settings
             </summary>
-            <param name="level">Toast level to display</param>
+            <param name="intent">Toast intent to display</param>
             <param name="message">RenderFragment to display on the toast</param>
             <param name="settings">Settings to configure the toast instance</param>
         </member>
@@ -3582,27 +3608,27 @@
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ClearToasts(Microsoft.Fast.Components.FluentUI.ToastIntent)">
             <summary>
-            Removes all toasts with a specified <paramref name="toastLevel"/>.
+            Removes all toasts with a specified <paramref name="intent"/>.
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ClearWarningToasts">
             <summary>
-            Removes all toasts with toast level warning
+            Removes all toasts with toast intent warning
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ClearInfoToasts">
             <summary>
-            Removes all toasts with toast level info
+            Removes all toasts with toast intent info
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ClearSuccessToasts">
             <summary>
-            Removes all toasts with toast level success
+            Removes all toasts with toast intent success
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ClearErrorToasts">
             <summary>
-            Removes all toasts with toast level error
+            Removes all toasts with toast intent error
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ClearCustomToasts">
@@ -3623,22 +3649,22 @@
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ClearQueueWarningToasts">
             <summary>
-            Removes all queued toasts with toast level warning
+            Removes all queued toasts with toast intent warning
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ClearQueueInfoToasts">
             <summary>
-            Removes all queued toasts with toast level info
+            Removes all queued toasts with toast intent info
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ClearQueueSuccessToasts">
             <summary>
-            Removes all queued toasts with toast level success
+            Removes all queued toasts with toast intent success
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ToastService2.ClearQueueErrorToasts">
             <summary>
-            Removes all queued toasts with toast level error
+            Removes all queued toasts with toast intent error
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ToastSettings.Icon">
@@ -7610,49 +7636,61 @@
         <member name="T:Microsoft.Fast.Components.FluentUI.ToastIntent">
             <summary />
         </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToastIntent.Neutral">
-            <summary>
-            Neutral intent
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToastIntent.Info">
-            <summary>
-            Informational intent
-            </summary>
-        </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.ToastIntent.Success">
             <summary>
-            Indicates a success 
+            Positive confirmation of status, process, or operation.The person or task can proceed.
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.ToastIntent.Warning">
             <summary>
-            Indicates a warning
+            Indicates possible or upcoming issues that need to be addressed. It’s a signal that 
+            something isn’t quite right.The person can continue without addressing it, but warnings 
+            can become errors.
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.ToastIntent.Error">
             <summary>
-            Indicates an error
+            Negative status due to an incomplete process or a failed task.The person can continue 
+            using the app, but the item with the error will need to be addressed.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.ToastIntent.Info">
+            <summary>
+            Neutral status and information related to the person’s action.
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.ToastIntent.Progress">
             <summary>
-            Indicates progress
+            Informs that an operation someone kicked off is in progress.The person can continue using
+            the app while the process continues.They can also cancel the process.
             </summary>
         </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToastIntent.ProgressUpload">
+        <member name="F:Microsoft.Fast.Components.FluentUI.ToastIntent.Upload">
             <summary>
-            Indicate upload progress
+            Informs that an upload operation someone kicked off is in progress.The person can continue using
+            the app while the process continues.They can also cancel the process.
             </summary>
         </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToastIntent.ProgressDownload">
+        <member name="F:Microsoft.Fast.Components.FluentUI.ToastIntent.Download">
             <summary>
-            Indicates download progress
+            Informs that a dowload operation someone kicked off is in progress.The person can continue using
+            the app while the process continues.They can also cancel the process.
             </summary>
         </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToastIntent.Mention">
+        <member name="F:Microsoft.Fast.Components.FluentUI.ToastIntent.Event">
             <summary>
-            Indicates a mention
+            Informs about an operation concerning an event. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.ToastIntent.Avatar">
+            <summary>
+            Avatar is used when another person performs an action related to the user or their account.
+            For example, the user receives a meeting invitation or is mentioned in a chat. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.ToastIntent.Custom">
+            <summary>
+            Informs about a custom event or operation. 
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.ToastPosition">
