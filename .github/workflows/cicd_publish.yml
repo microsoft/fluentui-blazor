@@ -119,19 +119,6 @@ jobs:
           skip_api_build: true
           skip_app_build: true
 
-      - name: Deploy demo site to old Azure Static Web App
-        id: builddeployold
-        uses: Azure/static-web-apps-deploy@v1
-        with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APP_PR_TOKEN }}
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          action: "upload"
-          app_location: "publish/wwwroot"
-          api_location: "Api"
-          output_location: "publish/wwwroot"
-          skip_api_build: true
-          skip_app_build: true  
-
   destroy:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
@@ -143,9 +130,3 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_CALM_SEA_053FA6A03 }}
           action: "close"
-      - name: Close Pull Request on old Azure Static Web App
-        id: closepullrequestold
-        uses: Azure/static-web-apps-deploy@v1
-        with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APP_PR_TOKEN }}
-          action: "close"  
