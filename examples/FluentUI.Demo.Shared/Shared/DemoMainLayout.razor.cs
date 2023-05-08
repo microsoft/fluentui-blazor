@@ -86,9 +86,9 @@ public partial class DemoMainLayout : IAsyncDisposable
         dir = (dir == LocalizationDirection.rtl) ? LocalizationDirection.ltr : LocalizationDirection.rtl;
 
         GlobalState.SetDirection(dir);
-
-        await Direction.SetValueFor(container, dir.ToAttributeValue());
+        
         await _jsModule!.InvokeVoidAsync("switchDirection", dir.ToString());
+        await Direction.SetValueFor(container, dir.ToAttributeValue());
     }
 
     public async void SwitchTheme()
