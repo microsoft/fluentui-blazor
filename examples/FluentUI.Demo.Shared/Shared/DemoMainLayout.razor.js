@@ -31,11 +31,6 @@ export function isDarkMode() {
 }
 
 export function switchDirection(dir) {
-    const container = document.getElementById('.container');
-    if (dir === 'ltr') {
-        container.style.direction = 'ltr';
-    }
-    else {
-        container.style.direction = 'rtl';
-    }
+    const container = document.getElementById('container');
+    container.style.direction = dir;
 }
