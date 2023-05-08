@@ -31,5 +31,11 @@ export function isDarkMode() {
 }
 
 export function switchDirection(dir) {
-    document.dir = dir;
+    const container = document.querySelector<HTMLElement>('.container');
+    if (dir === 'ltr') {
+        container.style.direction = 'ltr';
+    }
+    else {
+        container.style.direction = 'rtl';
+    }
 }
