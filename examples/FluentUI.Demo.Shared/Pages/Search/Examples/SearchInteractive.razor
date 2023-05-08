@@ -1,6 +1,6 @@
 ﻿<FluentSearch @ref=searchTest 
               @oninput=handleSearchInput 
-              
+              @onchange=handleSearchInput
               @bind-Value="@searchValue"
               Placeholder="Search for State" />
 <br />
@@ -78,7 +78,7 @@
 
     void handleSearchInput(ChangeEventArgs args)
     {
-        if (args is not null && args.Value is not null)
+        if (args is not null && ! string.IsNullOrWhiteSpace(args.Value.ToString()))
         {
             string searchTerm = args.Value.ToString()!.ToLower();
 
@@ -89,19 +89,12 @@
                 {
                     searchResults = temp;
                 }
-                else
-                {
-                    searchResults = defaultResults();
-                }
             }
         }
-    }
-
-    void handleClear(ChangeEventArgs args)
-    {
-        if (args is not null)
+        else
         {
             searchResults = defaultResults();
+            searchValue = string.Empty;
         }
     }
 }

@@ -1,16 +1,27 @@
 ﻿.blazored-toast {
-    display: flex;
-    position: relative;
-    flex-direction: row;
+   
     animation: fadein 1.5s;
-    margin-bottom: 1rem;
-    padding: 1rem 1.25rem;
-    color: #1D1D1B;
-    width: 20rem;
-    border-radius: .25rem;
-    box-shadow: rgba(0,0,0,0.30) 0px 10px 30px 2px;
-    background-color: #fff;
-    border-top: 6px solid #fff;
+   
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 6px 2px 6px 12px;
+    flex-grow: initial;
+    margin-bottom: 10px;
+    padding: 12px;
+    position: relative;
+    min-width: 292px;
+    max-width: 500px;
+    min-height: 44px;
+    background-color: var(--neutral-layer-floating);
+    box-shadow: var(--elevation-shadow-tooltip);
+    border-radius: calc( var(--control-corner-radius) * 1px);
+    color: var(--neutral-foreground-rest);
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+    overflow: hidden;
+    pointer-events: auto;
 }
 
 .blazored-toast-component {
