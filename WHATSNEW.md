@@ -15,13 +15,13 @@ We made this change to make certain you'll always get the version of the script 
 multiple versions of the script being used on a page. On top of all this, it also makes installation of the package in your new projects easier.
 
 ## Readme and docs updates
-The `Readme` file was getting bigger and bigger. Now that we have our own domain name, it was time to split the `Readme` file into multiple smaller parts. . 
+The `Readme` file was getting bigger and bigger. Now that we have our own domain name, it was time to split the `Readme` file into multiple smaller parts.
 See the 'More information' section at [https://www.fluentui-blazor.net](https://www.fluentui-blazor.net) for the documentation on project setup,
 code setup and Design Tokens.
 
-## No more brave-cliff
+## No cliffhangers...
 Also, because of the new domain, we sun-setted the older brave-cliff demo environment. The site is still up, but updates won't be deployed to that 
-environment anymore. A remark about that has been added to the home page.
+environment anymore. A remark about that has been added to the home page at that URL.
 
 ## Icon/Emoji fix
 An issue has been addressed where the FluentIcon/FluentEmoji components would not render when the site was running under IIS (Express) and Windows Authentication was enabled.
