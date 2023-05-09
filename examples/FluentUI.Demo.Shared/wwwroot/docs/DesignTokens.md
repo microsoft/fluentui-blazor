@@ -3,11 +3,15 @@
 The Fluent UI Blazor Components are built on FAST's Adaptive UI technology, which enables design customization and personalization, while automatically 
 maintaining accessibility. This is accomplished through setting various "Design Tokens". In earlier versions of this library, the only way to manipulate the 
 design tokens was through using the `<FluentDesignSystemProvider>` component. This Blazor component (and it's underlying Web Component) exposed a little 
-over 60 variables that could be used to change things like typography, color, sizes, UI spacing, etc. FAST has been extended a while ago and now has a much 
+over 60 variables that could be used to change things like typography, color, sizes, UI spacing, etc. FAST has been extended a while ago and now has a much 
 more granular way of working with individual design tokens instead of just through a design system provider model. See [this page on learn.microsoft.com](https://learn.microsoft.com/en-us/fluent-ui/web-components/design-system/design-tokens) 
 for more information on how Design Tokens work. 
 
-In total there are now over 160 distinct design tokens defined in the FAST model and you can use all of these from Blazor, both from C# code as in a declarative way in your .razor pages.
+In total there are now over 160 distinct design tokens defined in the FAST model and you can use all of these from Blazor, both from C# code as in a declarative way in your `.razor` pages.
+
+See <a href="https://learn.microsoft.com/en-us/fluent-ui/web-components/design-system/design-tokens" target="_blank">https://learn.microsoft.com/en-us/fluent-ui/web-components/design-system/design-tokens</a> for more 
+information on how Design Tokens work
+
 
 ### Using Design Tokens from code
  
@@ -82,7 +86,7 @@ the values of the components being between 0 and 255, in a Swatch the components
 > **Important**
 > 
 > 
-> **The Design Tokens are manipulated through JavaScript interop working with an `ElementReference`. There is no JavaScript element until after the component 
+> **The Design Tokens are manipulated through JavaScript interop working with an `ElementReference`. There is no JavaScript element until after the component 
 is rendered. This means you can only work with the Design Tokens from code after the component has been rendered in `OnAfterRenderAsync` and not in any earlier 
 lifecycle methods**.
 

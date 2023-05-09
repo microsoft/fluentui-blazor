@@ -31,6 +31,7 @@ export function isDarkMode() {
 }
 
 export function switchDirection(dir) {
+    document.dir = dir;
     const container = document.getElementById('container');
     container.style.direction = dir;
 }

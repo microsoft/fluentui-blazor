@@ -23,7 +23,7 @@ The source for the library is hosted in the [Fast Blazor](https://github.com/mic
 The source for `@fluentui/web-components` is hosted in the [Fluent UI](https://github.com/microsoft/fluentui/tree/master/packages/web-components) mono-repository. Documentation on the components is available on [docs.microsoft.com](https://docs.microsoft.com/en-us/fluent-ui/web-components/).
 The FluentUI Web Components are built on [FAST](https://www.fast.design/) and work in every major browser. 
 
-## When upgrading from an earlier version 
+## Upgrading from an earlier version 
 
 If you are upgrading from an earlier version of the library, please see the [what's new](https://www.fluentui-blazor.net/whatsnew) for information on (breaking) changes.
 
@@ -36,8 +36,11 @@ dotnet add package Microsoft.Fast.Components.FluentUI
 ```
 
 ### Script
-AS of version 3 it is no longer needed to include the `web-components` script in your `index.html` or `_Layout.cshtml` file. The script is now included in 
-the library. This way we can safeguard that the you are always using the right script version.
+As of version 2.3 it is no longer needed to include the `web-components` script in your `index.html` or `_Layout.cshtml` file. The script is now included in 
+the library. This way we can safeguard that the you are always using the best matching version of the script.
+
+> **If you are upgrading from an earlier version please remove the script from your `index.html` or `_Layout.cshtml` file.**
+
 
 ### Styles
 In order for this library to work as expected, you will need to add the composed scoped CSS file for the components. This can be done by 
@@ -69,9 +72,7 @@ to your `index.html` or `_Layout.cshtml` file in the `<head>` section like this:
 The file contains a number of CSS variables that are required to be defined for the components to work correctly. 
 
 ### Project file
-If you want to use icons and/or emoji, starting with version 2.1 you need add a `<PropertyGroup>` to your project file. With this you can specify which 
-icons and emoji are made available for usage and publication. Please refer to the [project setup](https://www.fluentui-blazor.net/ProjectSetup) document 
-for more information.
+if you want to use icons and/or emoji, starting with version 2.1 you need add a `<PropertyGroup>` to your project file. With this you can specify which icons and emoji are made available for usage and publication. Please refer to the [project setup](https://www.fluentui-blazor.net/ProjectSetup) document for more information.
 
 
 ### Code
@@ -92,7 +93,7 @@ If you want to use icons and/or emoji with applications based on the templates, 
 and `Program.cs` as described in the [project setup](https://www.fluentui-blazor.net/ProjectSetup) and [code setup](https://www.fluentui-blazor.net/CodeSetup) documents.
 
 
-### Using the FluentUI Web Components
+## Using the FluentUI Web Components
 With the package installed and the script configured, you can begin using the Fluent UI Blazor components in the same way 
 as any other Blazor component. Just be sure to add the following using statement to your views:
 
@@ -116,21 +117,16 @@ Here's a small example of a `FluentCard` with a `FluentButton` that uses the Flu
 that uses one of the components.
 
 
-### Configuring the Design System
-The Fluent UI Blazor components are built on FAST's Adaptive UI technology, which enables design customization and personalization, while automatically 
-maintaining accessibility. This is accomplished through setting various "Design Tokens". The library exposes all of the (over 160) Design Tokens, which you 
-can use both from code as in a declarative way in your `.razor` pages. The three different ways of working with desing tokens are described in the [design tokens](https://www.luentui-blazor.net/DesignTokens) page.
-
-See <a href="https://learn.microsoft.com/en-us/fluent-ui/web-components/design-system/design-tokens" target="_blank">https://learn.microsoft.com/en-us/fluent-ui/web-components/design-system/design-tokens</a> for more 
-information on how Design Tokens work
-
-
+## Configuring the Design System
+The Fluent UI Blazor components are built on FAST's Adaptive UI technology, which enables design customization and personalization, while automatically
+maintaining accessibility. This is accomplished through setting various "Design Tokens". The library exposes all of the (over 160) Design Tokens, which you can use both from code as in a declarative way in your `.razor` pages. The three different ways of working with design tokens are described in the [design tokens](https://www.fluentui-blazor.net/DesignTokens) page.
 
 ## Blazor Hybrid
 Starting with the 2.0 release, you can also use this library in your Blazor Hybrid projects. Setup is almost the same as described in the "Getting started" section above, but to get everything to work you'll need to take two extra steps:
 1. You need to add a MAUI specific IStaticAssetService implementation.  
  Due to some issues, this file can't be part of the library (yet) so this needs to be added manually to your MAUI Blazor project.  
 Create a new class in you project called `FileBasedStaticAssetService.cs` Replace it's contents with the following:  
+
 ```csharp
 using System.Net;
 using Microsoft.Fast.Components.FluentUI.Infrastructure;
@@ -139,57 +135,22 @@ namespace Microsoft.Fast.Components.FluentUI;
 
 public class FileBasedStaticAssetService : IStaticAssetService
 {
-	private readonly CacheStorageAccessor _cacheStorageAccessor;
-
-	public FileBasedStaticAssetService(CacheStorageAccessor cacheStorageAccessor)
-	{
-		_cacheStorageAccessor = cacheStorageAccessor;
-	}
-
 	public async Task<string> GetAsync(string assetUrl, bool useCache = false)
 	{
 		string result = null;
-
 		HttpRequestMessage message = CreateMessage(assetUrl);
-
-
-		if (useCache)
-		{
-			// Get the result from the cache
-			result = await _cacheStorageAccessor.GetAsync(message);
-		}
-
 		if (string.IsNullOrEmpty(result))
 		{
-			//It not in the cache (or cache not used), read the asset from disk
 			result = await ReadData(assetUrl);
-
-			if (!string.IsNullOrEmpty(result))
-			{
-				if (useCache)
-				{
-					// If successful, create the response and store in the cache (when used)
-					HttpResponseMessage response = new()
-					{
-						StatusCode = HttpStatusCode.OK,
-						Content = new StringContent(result)
-					};
-
-					await _cacheStorageAccessor.PutAsync(message, response);
-				}
-			}
 		}
-
 		return result;
 	}
-
 	private static HttpRequestMessage CreateMessage(string url) => new(HttpMethod.Get, url);
-
+ 
 	private static async Task<string> ReadData(string file)
 	{
 		using var stream = await FileSystem.OpenAppPackageFileAsync($"wwwroot/{file}");
 		using var reader = new StreamReader(stream);
-
 		return await reader.ReadToEndAsync();
 	}
 }
@@ -206,8 +167,8 @@ builder.Services.AddScoped<IStaticAssetService, FileBasedStaticAssetService>();
 ```
 
 ## Use the DataGrid component with EF Core
-If you want to use the `FluentDataGrid` with data provided through EF Core, you need to install 
-an additional package so the grid knows how to resolve queries asynchronously for efficiency.
+If you want to use the `<FluentDataGrid>` with data provided through EF Core, you need to install 
+an additional package so the grid knows how to resolve queries asynchronously for efficiency.  .
 
 ### Installation
 Install the package by running the command:
@@ -216,26 +177,25 @@ dotnet add package Microsoft.Fast.Components.FluentUI.DataGrid.EntityFrameworkAd
 ```
 
 ### Usage
-In your Program.cs file you need to add the following after the `builder.Services.AddFluentUIComponents();` line:
+In your Program.cs file you need to add the following after the `builder.Services.AddFluentUIComponents(...);` lines:
 ```csharp
 builder.Services.AddDataGridEntityFrameworkAdapter();
 ```
+
 
 ## Additional resources
 * The Microsoft [Fluent UI Blazor components documentation and demo site](https://www.fluentui-blazor.net)
 
 
-## Joining the Community
+### Joining the Community
 
-Looking to get answers to questions or engage with us in real-time? Our community is most active [on Discord](https://discord.gg/FcSNfg4). Submit requests 
+Looking to get answers to questions or engage with us in real-time? Our community is  active [on Discord](https://discord.gg/FcSNfg4). Submit requests 
 and issues on [GitHub](https://github.com/microsoft/blazor-fluentui/issues/new/choose), or join us by contributing on [some good first issues via GitHub](https://github.com/microsoft/fluentui-blazor/labels/community:good-first-issue).
 
 We look forward to building an amazing open source community with you!
 
-## Contact
+### Contact
 
 * Join the community and chat with us in real-time on [Discord](https://discord.gg/FcSNfg4).
 * Submit requests and issues on [GitHub](https://github.com/microsoft/fluentui-blazor/issues/new/choose).
 * Contribute by helping out on some of our recommended first issues on [GitHub](https://github.com/microsoft/fluentui-blazor/labels/community:good-first-issue).
-
-

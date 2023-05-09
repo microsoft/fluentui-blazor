@@ -207,8 +207,6 @@ public partial class FluentIcon : FluentComponentBase
         }
     }
 
-    private static HttpRequestMessage CreateMessage(string url) => new(HttpMethod.Get, url);
-
 #if NET7_0_OR_GREATER
     [GeneratedRegex("^(?:#(?:[a-fA-F0-9]{6}|[a-fA-F0-9]{3}))|var\\(--.*\\)$")]
     private static partial Regex CheckRGBString();

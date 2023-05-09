@@ -11,9 +11,12 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
-LibraryConfiguration config = new(ConfigurationGenerator.GetIconConfiguration(), ConfigurationGenerator.GetEmojiConfiguration());
-
-builder.Services.AddFluentUIComponents(config);
+builder.Services.AddFluentUIComponents(options =>
+{
+    options.HostingModel = BlazorHostingModel.WebAssembly;
+    options.IconConfiguration = ConfigurationGenerator.GetIconConfiguration();
+    options.EmojiConfiguration = ConfigurationGenerator.GetEmojiConfiguration();
+});
 
 //builder.Services.AddFluentUIComponents(config =>
 //{
