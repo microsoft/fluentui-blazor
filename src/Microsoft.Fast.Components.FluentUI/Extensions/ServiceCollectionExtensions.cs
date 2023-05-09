@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Fast.Components.FluentUI.DesignTokens;
 using Microsoft.Fast.Components.FluentUI.Infrastructure;
 
@@ -75,23 +78,64 @@ public static class ServiceCollectionExtensions
     {
         services.AddScoped<GlobalState>();
         services.AddScoped<CacheStorageAccessor>();
-
-
-        services.AddScoped<IStaticAssetService, HttpBasedStaticAssetService>();
-
         services.AddFluentIcons(configuration?.IconConfiguration);
         services.AddFluentEmojis(configuration?.EmojiConfiguration);
 
         if (configuration is not null)
         {
-            if (configuration.HostingModel != BlazorHostingModel.Hybrid && !string.IsNullOrEmpty(configuration.StaticAssetServiceConfiguration.BaseAddress))
-                services.AddHttpClient<IStaticAssetService, HttpBasedStaticAssetService>(c =>
-                {
-                    c.BaseAddress = new Uri(configuration.StaticAssetServiceConfiguration.BaseAddress);
-                });
+            switch (configuration.HostingModel)
+            {
+                case BlazorHostingModel.Server:
+#pragma warning disable CA1416 // Validate platform compatibility
+                    HttpClientHandler? handler = GetHandler();
+#pragma warning restore CA1416 // Validate platform compatibility
+                    if (string.IsNullOrEmpty(configuration.StaticAssetServiceConfiguration.BaseAddress))
+                    {
+                        services.AddHttpClient<IStaticAssetService, HttpBasedStaticAssetService>()
+                            .ConfigurePrimaryHttpMessageHandler(() =>
+                            {
+                                return handler;
+                            });
+                    }
+                    else
+                    {
+                        services.AddHttpClient<IStaticAssetService, HttpBasedStaticAssetService>(c =>
+                        {
+                            c.BaseAddress = new Uri(configuration.StaticAssetServiceConfiguration.BaseAddress);
+
+                        }).ConfigurePrimaryHttpMessageHandler(() =>
+                        {
+                            return handler;
+                        });
+
+                    }
+                    break;
+                case BlazorHostingModel.WebAssembly:
+                    if (string.IsNullOrEmpty(configuration.StaticAssetServiceConfiguration.BaseAddress))
+                    {
+                        services.AddHttpClient<IStaticAssetService, HttpBasedStaticAssetService>();
+                    }
+                    else
+                    {
+                        services.AddHttpClient<IStaticAssetService, HttpBasedStaticAssetService>(c =>
+                        {
+                            c.BaseAddress = new Uri(configuration.StaticAssetServiceConfiguration.BaseAddress);
+
+                        });
+                    }
+                    break;
+                case BlazorHostingModel.NotSpecified:
+                    services.AddHttpClient<IStaticAssetService, HttpBasedStaticAssetService>();
+                    break;
+                case BlazorHostingModel.Hybrid:
+                    break;
+            }
         }
         else
+        {
             services.AddHttpClient<IStaticAssetService, HttpBasedStaticAssetService>();
+        }
+                
 
         services.AddDesignTokens();
 
@@ -103,29 +147,65 @@ public static class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services">Service collection</param>
     /// <param name="configuration">Library configuration</param>
-    public static IServiceCollection AddFluentUIComponents(this IServiceCollection services, Action<LibraryConfiguration?> configuration)
+    public static IServiceCollection AddFluentUIComponents(this IServiceCollection services, Action<LibraryConfiguration> configuration)
     {
-        if (configuration == null) throw new ArgumentNullException(nameof(configuration));
-
-        LibraryConfiguration? options = new();
+        LibraryConfiguration options = new();
         configuration.Invoke(options);
-
 
         services.AddScoped<GlobalState>();
         services.AddScoped<CacheStorageAccessor>();
-
-        services.AddScoped<IStaticAssetService, HttpBasedStaticAssetService>();
-
-        services.AddFluentIcons(options?.IconConfiguration);
-        services.AddFluentEmojis(options?.EmojiConfiguration);
+        services.AddFluentIcons(options.IconConfiguration);
+        services.AddFluentEmojis(options.EmojiConfiguration);
 
         if (options is not null)
         {
-            if (options.HostingModel != BlazorHostingModel.Hybrid && !string.IsNullOrEmpty(options.StaticAssetServiceConfiguration.BaseAddress))
-                services.AddHttpClient<IStaticAssetService, HttpBasedStaticAssetService>(c =>
-                {
-                    c.BaseAddress = new Uri(options.StaticAssetServiceConfiguration.BaseAddress);
-                });
+            switch (options.HostingModel)
+            {
+                case BlazorHostingModel.Server:
+#pragma warning disable CA1416 // Validate platform compatibility
+                    HttpClientHandler? handler = GetHandler();
+#pragma warning restore CA1416 // Validate platform compatibility
+                    if (string.IsNullOrEmpty(options.StaticAssetServiceConfiguration.BaseAddress))
+                    {
+                        services.AddHttpClient<IStaticAssetService, HttpBasedStaticAssetService>()
+                            .ConfigurePrimaryHttpMessageHandler(() =>
+                            {
+                                return handler;
+                            });
+                    }
+                    else
+                    {
+                        services.AddHttpClient<IStaticAssetService, HttpBasedStaticAssetService>(c =>
+                        {
+                            c.BaseAddress = new Uri(options.StaticAssetServiceConfiguration.BaseAddress);
+
+                        }).ConfigurePrimaryHttpMessageHandler(() =>
+                        {
+                            return handler;
+                        });
+
+                    }
+                    break;
+                case BlazorHostingModel.WebAssembly:
+                    if (string.IsNullOrEmpty(options.StaticAssetServiceConfiguration.BaseAddress))
+                    {
+                        services.AddHttpClient<IStaticAssetService, HttpBasedStaticAssetService>();
+                    }
+                    else
+                    {
+                        services.AddHttpClient<IStaticAssetService, HttpBasedStaticAssetService>(c =>
+                        {
+                            c.BaseAddress = new Uri(options.StaticAssetServiceConfiguration.BaseAddress);
+
+                        });
+                    }
+                    break;
+                case BlazorHostingModel.NotSpecified:
+                    services.AddHttpClient<IStaticAssetService, HttpBasedStaticAssetService>();
+                    break;
+                case BlazorHostingModel.Hybrid:
+                    break;
+            }
         }
         else
             services.AddHttpClient<IStaticAssetService, HttpBasedStaticAssetService>();
@@ -133,5 +213,14 @@ public static class ServiceCollectionExtensions
         services.AddDesignTokens();
 
         return services;
+    }
+
+    [UnsupportedOSPlatform("browser")]
+    private static HttpClientHandler GetHandler()
+    {
+        return new()
+        {
+            UseDefaultCredentials = true
+        };
     }
 }

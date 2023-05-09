@@ -11,8 +11,12 @@ builder.Services.AddRazorPages();
 builder.Services.AddHttpClient();
 builder.Services.AddServerSideBlazor();
 
-LibraryConfiguration config = new(ConfigurationGenerator.GetIconConfiguration(), ConfigurationGenerator.GetEmojiConfiguration());
-builder.Services.AddFluentUIComponents(config);
+builder.Services.AddFluentUIComponents(options => 
+{
+    options.HostingModel = BlazorHostingModel.Server;
+    options.IconConfiguration = ConfigurationGenerator.GetIconConfiguration();
+    options.EmojiConfiguration = ConfigurationGenerator.GetEmojiConfiguration();
+});
 
 builder.Services.AddScoped<DataSource>();
 
