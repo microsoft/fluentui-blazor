@@ -15,7 +15,7 @@ information on how Design Tokens work
 
 ### Using Design Tokens from code
  
-Given the following .razor page fragment:
+Given the following `.razor` page fragment:
 
 ```cshtml
 <FluentButton @ref="ref1" Appearance="Appearance.Filled">A button</FluentButton>
