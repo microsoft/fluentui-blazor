@@ -36,34 +36,9 @@
 
 <h3>Scripts</h3>
 <p>
-	Next, you need to add the web components script. You can either add the script from CDN directly, or you can install it with NPM, whichever you prefer.
+	As of version 2.3 it is no longer needed to include the <code>web-components</code> script in your <code>index.html</code> or <code>_Layout.cshtml</code> 
+	file. The script is now included in the library and added to the application automatically. This way we can safeguard that the you are always using the best matching script version.
 </p>
-<p>
-	To add the script from CDN use the following markup:
-</p>
-<CodeSnippet>&lt;script type=&quot;module&quot; src=&quot;https://cdn.jsdelivr.net/npm/@@fluentui/web-components/dist/web-components.min.js&quot;&gt;&lt;/script&gt;</CodeSnippet>
-
-<blockquote>
-	<p><strong>Note</strong></p>
-	<p>If you prefer to use another CDN, that is entirely possible. Just make sure it is offering the Fluent UI package and you are getting the right <code>web-components.min.js</code> file)</p>
-</blockquote>
-
-<p>The markup above always references the latest release of the components. When deploying to production, you will want to ship with a specific version. Here’s an example of the markup for that:</p>
-<CodeSnippet>&lt;script type=&quot;module&quot; src=&quot;https://cdn.jsdelivr.net/npm/@@fluentui/web-components@2.5.14/dist/web-components.min.js&quot;&gt;&lt;/script&gt;</CodeSnippet>
-
-<p>The script tag is normally placed in your <code>index.html</code> (<code>_Layout.cshtml</code> for blazor server project) file in the script section at the bottom of the <code>&lt;body&gt;</code>.</p>
-
-<p>If you wish to leverage NPM instead, run the following command:</p>
-<CodeSnippet>npm install --save @@fluentui/web-components</CodeSnippet>
-
-<p>You can locate the single file script build in the following location:</p>
-<CodeSnippet>node_modules/@@fluentui/web-components/dist/web-components.min.js</CodeSnippet>
-
-<p>Copy this to your <code>wwwroot/script</code> folder and reference it with a script tag as described above.</p>
-<blockquote>
-	<p><strong>Note</strong></p>
-	<p>If you are setting up Fluent UI Blazor components on a Blazor Server project, you will need to escape the <code>@@</code> character by repeating it in the source link. For more information check out the <a href="https://docs.microsoft.com/aspnet/core/mvc/views/razor">Razor Pages syntax documentation</a>.</p>
-</blockquote>
 
 <h3>Styles</h3>
 <p>
@@ -90,16 +65,34 @@
 <CodeSnippet Language="language-html">&lt;link href="_content/Microsoft.Fast.Components.FluentUI/css/variables.css" rel="stylesheet" /&gt;</CodeSnippet>
 	The file contains a number of CSS variables that are required to be defined for the components to work correctly. 
 </p>
-<h3>Code</h3>
-<p>In your <code>Program.cs</code> file you need to add the following:</p>
-<CodeSnippet>builder.Services.AddFluentUIComponents();</CodeSnippet>
-<p>This addition makes sure all the necessary services the library uses are setup in a correct way.</p>
 
-<p>When using the 2.1 or higher version of the library, you might need to make some changes here. Please refer to the <a href="/WhatsNew">what's new</a> document for more information.</p>
+<h3>Project file setup</h3>
+<p>
+	If you want to use icons and/or emoji, starting with version 2.1 you need add a <code>PropertyGroup</code> to your project file. With this you can
+	specify which icons and emoji are made available for usage and publication. Please refer to the <a href="https://www.fluentui-blazor.net/ProjectSetup">project setup</a> document for more information.
+</p>
+<h3>Code setup</h3>
+<p>
+	Please refer to the <a href="https://www.fluentui-blazor.net/CodeSetup">code setup</a> document to learn what needs to be included in your
+	<code>Program.cs</code> file so that all necessary services are available and setup in the correct way.
+</p>
 
-<p><em>If you're running your application on Blazor Server, make sure a default HttpClient is available by adding the following:</em></p>
+<h2 id="getting-started-by-using-project-templates">Getting started by using project templates</h2>
+<p>
+	To make it easier to start a project that uses the Fluent UI Web Components for Blazor out of the box, we have created the
+	<a target="top" href="https://www.nuget.org/packages/Microsoft.Fast.Templates.FluentUI/">Microsoft.Fast.Templates.FluentUI</a> template package.
+</p>
+<p>
+	The package contains templates for creating Blazor Server and/or Blazor WebAssembly apps that mimic the regular Blazor
+	templates with the Fluent UI components already set up (and all the Bootstrap styling removed). All components have been
+	replaced with Fluent UI counterparts (and a few extra have been added). Please see the <a target="top" href="https://www.fluentui-blazor.net/Templates">documentation page</a>
+	for more information.
+</p>
+<p>
+	If you want to use icons and/or emoji with applications based on the templates, you still need to make the changes to the project file
+	and <code>Program.cs</code> as described in the previous sections.
+</p>
 
-<CodeSnippet>builder.Services.AddHttpClient();</CodeSnippet>
 
 <h2 id="using-the-fluentui-web-components">Using the Fluent UI Blazor components</h2>
 <p>With the package installed and the script configured, you can begin using the Fluent UI Blazor components in the same way as any other Blazor component. Just be sure to add the following using statement to your views:</p>
@@ -128,105 +121,11 @@
 </blockquote>
 
 <h2 id="configuring-the-design-system">Configuring the Design System</h2>
-<p>The Fluent UI Blazor components are built on FAST’s Adaptive UI technology, which enables design customization and personalization, while automatically maintaining accessibility. This is accomplished through setting various “Design Tokens”.
-	The library exposes all of the defined Design Tokens, which you can use both from code as in a declarative way in your <code>.razor</code> pages. See https://docs.microsoft.com/en-us/fluent-ui/web-components/design-system/design-tokens for more information on how Design Tokens work
+<p>
+	The Fluent UI Blazor components are built on FAST's Adaptive UI technology, which enables design customization and personalization, while automatically
+	maintaining accessibility. This is accomplished through setting various &quot;Design Tokens&quot;. The library exposes all of the (over 160) Design Tokens, which you can use both from code as in a declarative way in your <code>.razor</code> pages. The three different ways of working with design tokens are described in the <a target="top" href="https://www.fluentui-blazor.net/DesignTokens">design tokens</a> page.
 </p>
 
-<DemoSection Title="Option 1: Using Design Tokens from C# code" Component="@typeof(IndexDesignTokensCode)" ShowDownloads=false>
-	<Description>
-		<p>As can be seen in the code below on the Razor tab (with the <code>ref4.Element</code>), it is posible to apply multiple tokens to the same component.</p>
-	</Description>
-</DemoSection>
-
-<p>For Design Tokens that work with a color value, you must call the <code>ToSwatch()</code> extension method on a string value or use one of the <code>Swatch</code> constructors. This makes sure the color is using a format that Design Tokens can handle. A <code>Swatch</code> has a lot of commonality with the <code>System.Drawing.Color</code> struct. Instead of the values of the components being between 0 and 255, in a <code>Swatch</code> they are expressed as a value between 0 and 1.</p>
-<blockquote>
-	<p><strong>Note</strong></p>
-	<p>The Design Tokens are manipulated through JavaScript interop working with an <code>ElementReference</code>. There is no JavaScript element until after the component is rendered. This means you can only work with the Design Tokens from code after the component has been rendered in <code>OnAfterRenderAsync</code> and not in any earlier lifecycle methods.</p>
-</blockquote>
-
-<DemoSection Title="Option 2: Using Design Tokens as components" Component="@typeof(IndexDesignTokensComponent)" CollocatedFiles="@(new[] {"css"})" ShowDownloads=false>
-	<Description>
-		<p>The Design Tokens can also be used as components in a <code>.razor</code> page directely. It looks like this:</p>
-	</Description>
-</DemoSection>
-<p>To make this work, a link needs to be created between the Design Token component and its child components. This is done with the <code>BackReference="@@context"</code> construct.</p>
-
-<blockquote>
-	<p><strong>Note</strong></p>
-	<p>Only one Design Token component at a time can be used this way. If you need to set more tokens, use the code approach as described in Option 1 above.</p>
-</blockquote>
-
-<h3 id="option-3-using-the-fluentdesignsystemprovider">Option 3: Using the <code>&lt;FluentDesignSystemProvider&gt;</code></h3>
-<p>The third way to customize the design in Blazor is to wrap the entire block you want to manipulate in a <code>&lt;FluentDesignSystemProvider&gt;</code>. This special element has a number of properties you can set to configure a subset of the tokens. <strong>Not all tokens are available/supported</strong> and we recommend this to only be used as a fall-back mechanism. The preferred mehod of working with the desgn tokens is to manipulate them from code as described in option 1.</p>
-<p>Here's an example of changing the "accent base color" and switching the system into dark mode (in the file <code>app.razor</code>):</p>
-<CodeSnippet>&lt;FluentDesignSystemProvider AccentBaseColor=&quot;#464EB8&quot; BaseLayerLuminance=&quot;0&quot;&gt;
-	&lt;Router AppAssembly=&quot;@@typeof(App).Assembly&quot;&gt;
-		&lt;Found Context=&quot;routeData&quot;&gt;
-			&lt;RouteView RouteData=&quot;@@routeData&quot; DefaultLayout=&quot;@@typeof(MainLayout)&quot; /&gt;
-		&lt;/Found&gt;
-		&lt;NotFound&gt;
-			&lt;PageTitle&gt;Not found&lt;/PageTitle&gt;
-			&lt;LayoutView Layout=&quot;@@typeof(MainLayout)&quot;&gt;
-				&lt;p role=&quot;alert&quot;&gt;Sorry, there&#39;s nothing at this address.&lt;/p&gt;
-			&lt;/LayoutView&gt;
-		&lt;/NotFound&gt;
-	&lt;/Router&gt;
-&lt;/FluentDesignSystemProvider&gt;</CodeSnippet>
-
-<blockquote>
-	<p><strong>Note</strong></p>
-	<p>FluentDesignSystemProvider token attributes can be changed on-the-fly like any other Blazor component attribute.</p>
-</blockquote>
-
-<h2 id="colors-for-integration-with-specific-microsoft-products">Colors for integration with specific Microsoft products</h2>
-<p>If you are attempting to configure the components for integration into a specific Microsoft product, the following table provides <code>AccentBaseColor</code> values you can use:</p>
-<table>
-	<thead>
-		<tr class="header">
-			<th style="text-align:left;">Product</th>
-			<th style="text-align:left;">AccentBaseColor</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr class="odd">
-			<td>Office</td>
-			<td>#D83B01</td>
-		</tr>
-		<tr class="even">
-			<td>Word</td>
-			<td>#185ABD</td>
-		</tr>
-		<tr class="odd">
-			<td>Excel</td>
-			<td>#107C41</td>
-		</tr>
-		<tr class="even">
-			<td>PowerPoint</td>
-			<td>#C43E1C</td>
-		</tr>
-		<tr class="odd">
-			<td>Teams</td>
-			<td>#6264A7</td>
-		</tr>
-		<tr class="even">
-			<td>OneNote</td>
-			<td>#7719AA</td>
-		</tr>
-		<tr class="odd">
-			<td>SharePoint</td>
-			<td>#03787C</td>
-		</tr>
-		<tr class="even">
-			<td>Stream</td>
-			<td>#BC1948</td>
-		</tr>
-	</tbody>
-</table>
-<em>The library offers an <code>OfficeColor</code> enumeration which contains the specific accent colors for 17 different Office applications. You can see that being used here in the color selection in the top menu bar. </em>
-
-<DemoSection Title="Examples" Component="@typeof(IndexOfficeColors)" ShowDownloads=false>
-	<Description><p>The result looks like this when applied to a <code>&lt;FluentButton&gt;</code>:</p></Description>
-</DemoSection>
 
 <h2 id="blazor-hybrid">Blazor Hybrid</h2>
 <p>
@@ -239,6 +138,7 @@
 		Create a new class in you project called <code>FileBasedStaticAssetService.cs</code> Replace it's contents with the following:
 	</li>
 </ol>
+
 <CodeSnippet Language="csharp">using System.Net;
 using Microsoft.Fast.Components.FluentUI.Infrastructure;
 
@@ -246,57 +146,22 @@ namespace Microsoft.Fast.Components.FluentUI;
 
 public class FileBasedStaticAssetService : IStaticAssetService
 {
-	private readonly CacheStorageAccessor _cacheStorageAccessor;
-
-	public FileBasedStaticAssetService(CacheStorageAccessor cacheStorageAccessor)
-	{
-		_cacheStorageAccessor = cacheStorageAccessor;
-	}
-
-	public async Task&lt;string&gt; GetAsync(string assetUrl, bool useCache = true)
+	public async Task&lt;string&gt; GetAsync(string assetUrl, bool useCache = false)
 	{
 		string result = null;
-
 		HttpRequestMessage message = CreateMessage(assetUrl);
-
-
-		if (useCache)
-		{
-			// Get the result from the cache
-			result = await _cacheStorageAccessor.GetAsync(message);
-		}
-
 		if (string.IsNullOrEmpty(result))
 		{
-			//It not in the cache (or cache not used), read the asset from disk
 			result = await ReadData(assetUrl);
-
-			if (!string.IsNullOrEmpty(result))
-			{
-				if (useCache)
-				{
-					// If successful, create the response and store in the cache (when used)
-					HttpResponseMessage response = new()
-					{
-						StatusCode = HttpStatusCode.OK,
-						Content = new StringContent(result)
-					};
-
-					await _cacheStorageAccessor.PutAsync(message, response);
-				}
-			}
 		}
-
 		return result;
 	}
-
 	private static HttpRequestMessage CreateMessage(string url) => new(HttpMethod.Get, url);
-
+ 
 	private static async Task&lt;string&gt; ReadData(string file)
 	{
 		using var stream = await FileSystem.OpenAppPackageFileAsync($"wwwroot/{file}");
 		using var reader = new StreamReader(stream);
-
 		return await reader.ReadToEndAsync();
 	}
 }
@@ -329,19 +194,19 @@ In your <code>Program.cs</code> file you need to add the following after the <co
 <CodeSnippet Language="csharp">builder.Services.AddFluentUIDataGridEntityFrameworkAdapter();</CodeSnippet>
 
 
-<h2 id="joining-the-community">Joining the Community</h2>
-<p>Looking to get answers to questions or engage with us in realtime? Our community is most active <a href="https://discord.gg/FcSNfg4">on Discord</a>. Submit requests and issues on <a href="https://github.com/dotnet/blazor-fluentui/issues/new/choose">GitHub</a>, or join us by contributing on <a href="https://github.com/dotnet/fluentui-blazor/labels/community:good-first-issue">some good first issues via GitHub</a>.</p>
-<p>If you don't find a component you’re looking for, it's best to create the issue in our repo <a href="https://github.com/microsoft/fast">here</a> and limit issues on this repo to bugs in the Blazor component wrappers or Blazor-specific features.</p>
-<p>We look forward to building an amazing open source community with you!</p>
-<h2 id="contact">Contact</h2>
-<ul>
-	<li>Join the community and chat with us in real-time on <a href="https://discord.gg/FcSNfg4">Discord</a>.</li>
-	<li>Submit requests and issues on <a href="https://github.com/microsoft/fluentui-blazor/issues/new/choose">GitHub</a>.</li>
-	<li>Contribute by helping out on some of our recommended first issues on <a href="https://github.com/microsoft/fluentui-blazor/labels/community:good-first-issue">GitHub</a>.</li>
-</ul>
 <h2 id="additional-resources">Additional resources</h2>
 <ul>
-	<li>The Microsoft <a href="https://learn.microsoft.com/en-us/fluent-ui/web-components/">Fluent UI Blazor components documentation</a></li>
-	<li>The <a href="https://fluent-components.azurewebsites.net/?path=/docs/getting-started-overview--page">Fluent UI Blazor components demo</a> site</li>
-	<li>The <a href="https://www.fast.design/">FAST</a> site</li>
+	<li>The Microsoft <a target="top" href="https://www.fluentui-blazor.net">Fluent UI Blazor components documentation and demo site</a></li>
+</ul>
+<h3 id="joining-the-community">Joining the Community</h3>
+<p>
+	Looking to get answers to questions or engage with us in real-time? Our community is  active <a target="top" href="https://discord.gg/FcSNfg4">on Discord</a>. Submit requests
+	and issues on <a target="top" href="https://github.com/microsoft/blazor-fluentui/issues/new/choose">GitHub</a>, or join us by contributing on <a target="top" href="https://github.com/microsoft/fluentui-blazor/labels/community:good-first-issue">some good first issues via GitHub</a>.
+</p>
+<p>We look forward to building an amazing open source community with you!</p>
+<h3 id="contact">Contact</h3>
+<ul>
+	<li>Join the community and chat with us in real-time on <a target="top" href="https://discord.gg/FcSNfg4">Discord</a>.</li>
+	<li>Submit requests and issues on <a target="top" href="https://github.com/microsoft/fluentui-blazor/issues/new/choose">GitHub</a>.</li>
+	<li>Contribute by helping out on some of our recommended first issues on <a target="top" href="https://github.com/microsoft/fluentui-blazor/labels/community:good-first-issue">GitHub</a>.</li>
 </ul>

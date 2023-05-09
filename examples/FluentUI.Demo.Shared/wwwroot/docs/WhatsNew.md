@@ -1,14 +1,30 @@
 ## V2.3.0
+- **IMPORTANT Web components script is now included in the library**
+- New documentation pages added to demo site
+- Old demo environment no longer updated
+- Icon/Emoji fix for when using Windows authentication 
 
+## Script change
+The hart of this library is formed by the Fluent UI Web Components and the accompanying `web-components.min.js` file. From now 
+on, the script is included in the library itself and no longer needs to be added to your `index.html` or `_Layout.cshtml`. In fact, doing this might lead to 
+unpredictable results. 
+
+> **If you are upgrading from an earlier version please remove the script from your `index.html` or `_Layout.cshtml` file.**
+
+We made this change to make certain you'll always get the version of the script that works best with the Blazor components. It also eliminates the risk of having
+multiple versions of the script being used on a page. On top of all this, it also makes installation of the package in your new projects easier.
+
+## Readme and docs updates
 The `Readme` file was getting bigger and bigger. Now that we have our own domain name, it was time to split the `Readme` file into multiple smaller parts. . 
-See the 'More information' section at [https://www.fluentui-blazor.net](https://www.fluentui-blazor.net) for teh documentation on project setup,
+See the 'More information' section at [https://www.fluentui-blazor.net](https://www.fluentui-blazor.net) for the documentation on project setup,
 code setup and Design Tokens.
 
+## No more brave-cliff
+Also, because of the new domain, we sun-setted the older brave-cliff demo environment. The site is still up, but updates won't be deployed to that 
+environment anymore. A remark about that has been added to the home page.
 
-
-An issue has been addressed where the FluentIcon component would not render when the site was running under IIS (Express) and Windows Authentication was enabled.
-
-
+## Icon/Emoji fix
+An issue has been addressed where the FluentIcon/FluentEmoji components would not render when the site was running under IIS (Express) and Windows Authentication was enabled.
 
 
 ## V2.2.1

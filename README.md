@@ -23,7 +23,7 @@ The source for the library is hosted in the [Fast Blazor](https://github.com/mic
 The source for `@fluentui/web-components` is hosted in the [Fluent UI](https://github.com/microsoft/fluentui/tree/master/packages/web-components) mono-repository. Documentation on the components is available on [docs.microsoft.com](https://docs.microsoft.com/en-us/fluent-ui/web-components/).
 The FluentUI Web Components are built on [FAST](https://www.fast.design/) and work in every major browser. 
 
-## When upgrading from an earlier version 
+## Upgrading from an earlier version 
 
 If you are upgrading from an earlier version of the library, please see the [what's new](https://www.fluentui-blazor.net/whatsnew) for information on (breaking) changes.
 
@@ -37,7 +37,9 @@ dotnet add package Microsoft.Fast.Components.FluentUI
 
 ### Script
 As of version 2.3 it is no longer needed to include the `web-components` script in your `index.html` or `_Layout.cshtml` file. The script is now included in 
-the library. This way we can safeguard that the you are always using the best matching script version.
+the library. This way we can safeguard that the you are always using the best matching version of the script.
+
+> **If you are upgrading from an earlier version please remove the script from your `index.html` or `_Layout.cshtml` file.**
 
 
 ### Styles
@@ -84,14 +86,14 @@ To make it easier to start a project that uses the Fluent UI Web Components for 
 
 The package contains templates for creating Blazor Server and/or Blazor WebAssembly apps that mimic the regular Blazor 
 templates with the Fluent UI components already set up (and all the Bootstrap styling removed). All components have been 
-replaced with Fluent UI counterparts (and a few extra have been added). Please see the [documentation page](https://brave-cliff-0c0c93310-365.centralus.azurestaticapps.net/Templates)
+replaced with Fluent UI counterparts (and a few extra have been added). Please see the [documentation page](https://www.fluentui-blazor.net/Templates)
 for more information.
 
 If you want to use icons and/or emoji with applications based on the templates, you still need to make the changes to the project file 
 and `Program.cs` as described in the previous sections.
 
 
-### Using the FluentUI Web Components
+## Using the FluentUI Web Components
 With the package installed and the script configured, you can begin using the Fluent UI Blazor components in the same way 
 as any other Blazor component. Just be sure to add the following using statement to your views:
 
@@ -114,11 +116,9 @@ Here's a small example of a `FluentCard` with a `FluentButton` that uses the Flu
 > You can add `@using Microsoft.Fast.Components.FluentUI` to the namespace collection in `_Imports.razor`, so you don't have to add it to every razor page that uses one of the components.
 
 
-### Configuring the Design System
-The Fluent UI Blazor components are built on FAST's Adaptive UI technology, which enables design customization and personalization, while automatically 
-maintaining accessibility. This is accomplished through setting various "Design Tokens". The library exposes all of the (over 160) Design Tokens, which you 
-can use both from code as in a declarative way in your `.razor` pages. The three different ways of working with desing tokens are described in the
-[design tokens](https://www.luentui-blazor.net/DesignTokens) page.
+## Configuring the Design System
+The Fluent UI Blazor components are built on FAST's Adaptive UI technology, which enables design customization and personalization, while automatically
+maintaining accessibility. This is accomplished through setting various "Design Tokens". The library exposes all of the (over 160) Design Tokens, which you can use both from code as in a declarative way in your `.razor` pages. The three different ways of working with design tokens are described in the [design tokens](https://www.fluentui-blazor.net/DesignTokens) page.
 
 ## Blazor Hybrid
 Starting with the 2.0 release, you can also use this library in your Blazor Hybrid projects. Setup is almost the same as described in the "Getting started" section above, but to get everything to work you'll need to take two extra steps:
@@ -134,24 +134,24 @@ namespace Microsoft.Fast.Components.FluentUI;
 
 public class FileBasedStaticAssetService : IStaticAssetService
 {
-    public async Task<string> GetAsync(string assetUrl, bool useCache = false)
-    {
-        string result = null;
-        HttpRequestMessage message = CreateMessage(assetUrl);
-        if (string.IsNullOrEmpty(result))
-        {
-            result = await ReadData(assetUrl);
-        }
-        return result;
-    }
-    private static HttpRequestMessage CreateMessage(string url) => new(HttpMethod.Get, url);
+	public async Task<string> GetAsync(string assetUrl, bool useCache = false)
+	{
+		string result = null;
+		HttpRequestMessage message = CreateMessage(assetUrl);
+		if (string.IsNullOrEmpty(result))
+		{
+			result = await ReadData(assetUrl);
+		}
+		return result;
+	}
+	private static HttpRequestMessage CreateMessage(string url) => new(HttpMethod.Get, url);
  
-    private static async Task<string> ReadData(string file)
-    {
-        using var stream = await FileSystem.OpenAppPackageFileAsync($"wwwroot/{file}");
-        using var reader = new StreamReader(stream);
-        return await reader.ReadToEndAsync();
-    }
+	private static async Task<string> ReadData(string file)
+	{
+		using var stream = await FileSystem.OpenAppPackageFileAsync($"wwwroot/{file}");
+		using var reader = new StreamReader(stream);
+		return await reader.ReadToEndAsync();
+	}
 }
 ```
 
@@ -186,14 +186,14 @@ builder.Services.AddDataGridEntityFrameworkAdapter();
 * The Microsoft [Fluent UI Blazor components documentation and demo site](https://www.fluentui-blazor.net)
 
 
-## Joining the Community
+### Joining the Community
 
 Looking to get answers to questions or engage with us in real-time? Our community is  active [on Discord](https://discord.gg/FcSNfg4). Submit requests 
 and issues on [GitHub](https://github.com/microsoft/blazor-fluentui/issues/new/choose), or join us by contributing on [some good first issues via GitHub](https://github.com/microsoft/fluentui-blazor/labels/community:good-first-issue).
 
 We look forward to building an amazing open source community with you!
 
-## Contact
+### Contact
 
 * Join the community and chat with us in real-time on [Discord](https://discord.gg/FcSNfg4).
 * Submit requests and issues on [GitHub](https://github.com/microsoft/fluentui-blazor/issues/new/choose).
