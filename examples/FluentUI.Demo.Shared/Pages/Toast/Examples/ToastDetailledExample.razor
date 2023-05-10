@@ -9,32 +9,18 @@
     int counter = 0;
     void OpenToast()
     {
-        Toast.Add(options =>
+        var intent = Enum.GetValues<ToastIntent>()[counter % 10];
+        var message = $"Simple Toast #{counter++}";
+        Toast.ShowToast(intent, message, settings =>
         {
-            options.Message = $"Simple Toast #{counter++}";
-            options.Intent = Enum.GetValues<ToastIntent>()[counter % 4];
-            options.Icon = FluentIcons.PersonCircle;
-            options.OnClick = (item) =>
+            
+            settings.PrimaryCallToAction = new() { Text = "Visit site" }; 
+            settings.PrimaryCallToAction.OnClick = () =>
             {
-                DemoLogger.WriteLine($"{options.Message} clicked");                
-                return Task.CompletedTask;
+                DemoLogger.WriteLine($"Action clicked");
+                //item.Close();
+                //return Task.CompletedTask;
             };
-            options.OnClose = (item) =>
-            {
-                DemoLogger.WriteLine($"{options.Message} closed");
-                return Task.CompletedTask;
-            };
-
-            if (options.Intent == ToastIntent.Info)
-            {
-                options.Action.Text = "Visit site";
-                options.Action.OnClick = (item) =>
-                {
-                    DemoLogger.WriteLine($"Action clicked");
-                    item.Close();
-                    return Task.CompletedTask;
-                };
-            }
         });
     }
 }

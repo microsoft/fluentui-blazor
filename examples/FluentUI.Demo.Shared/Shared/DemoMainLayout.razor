@@ -7,10 +7,8 @@
 <PageTitle>Fluent UI Blazor components demo page</PageTitle>
 
 <div id="container" @ref="container">
-    <FluentToasts />
-    <FluentToasts2 Position="ToastPosition.BottomRight"
-                   MaxToastCount="10" 
-                   Timeout="500" />
+    
+    <FluentToasts MaxToastCount="10" Timeout="500" />
     <header>
         <div class="logo" role="presentation" aria-hidden="true" itemprop="logo" itemscope="itemscope">
             <svg xmlns="http://www.w3.org/2000/svg" width="108" height="23" viewBox="72 72 337 74" preserveAspectRatio="xMidYMin slice">
@@ -29,6 +27,15 @@
             </svg>
 
         </div>
+        @*
+        <div class="menugroup">
+            <label for="menutype">Menu</label>
+            <FluentRadioGroup Id="menutype" @bind-Value=@_menuType >
+                <FluentRadio Value="@("list")">List</FluentRadio>
+                <FluentRadio Value="@("tree")">Tree</FluentRadio>
+            </FluentRadioGroup>
+        </div> 
+        *@
         <div class="colorgroup">
             <label for="color">Color</label>
             <FluentSelect Id="color" 
@@ -60,7 +67,14 @@
             <FluentIcon Name="@FluentIcons.Navigation" />
         </label>
         <nav>
-            <DemoNavMenuTree />
+            @if(_menuType == "list")
+            {
+                <DemoNavMenuList />
+            }
+            else
+            {
+                <DemoNavMenuTree />
+            }
         </nav>
         <div class="content">
             <article id="article">

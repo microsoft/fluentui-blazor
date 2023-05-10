@@ -1,5 +1,5 @@
 ﻿@page "/Toast"
-@inject IToastService2 ToastService
+@inject IToastService ToastService
 @inject NavigationManager NavigationManager
 @using FluentUI.Demo.Shared.Pages.Toast.Examples
 
@@ -29,33 +29,6 @@
 
 </DemoSection>
 
-<h3>Service injection</h3>
-
-<h4>Injection with global options.</h4>
-<CodeSnippet>
-    builder.Services.AddFluentUIComponents();
-</CodeSnippet>
-
-<h4>Injection with custom configuration.</h4>
-<CodeSnippet>
-    builder.Services.AddFluentUIComponents(config =>
-    {
-    if (config is not null)
-    {
-    // There might be other configuration code in here.
-    // This is just an example of how to configure the toast service.
-
-    config.ToastConfiguration.ToasterPosition = ToasterPosition.BottomLeft;
-    config.ToastConfiguration.NewestOnTop = false;
-    config.ToastConfiguration.ShowCloseIcon = false;
-    config.ToastConfiguration.VisibleStateDuration = 1000;
-    config.ToastConfiguration.HideTransitionDuration = 100;
-    config.ToastConfiguration.ShowTransitionDuration = 100;
-    }
-    });
-</CodeSnippet>
-
-
 
 <h1>Toasts</h1>
 
@@ -68,10 +41,16 @@
     Info Toast with custom action on click
 </FluentButton>
 
-<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowToast(ToastIntent.Custom, "I'm a message with a custom icon", settings => { settings.Icon = FluentIcons.Delete; settings.IconVariant=IconVariant.Regular;}))">Toast with custom icon</FluentButton>
+<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowToast(ToastIntent.Custom, "I'm a message with a custom icon", settings => { settings.Icon = (FluentIcons.Delete,Color.Accent, IconVariant.Regular); }))">Toast with custom icon</FluentButton>
 <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowToast(ToastIntent.Custom, "I'm a message without an icon"))">Toast without icon</FluentButton>
 
-
+<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowInfo("INFO message with CtA", settings => {
+    settings.PrimaryCallToAction = new() { Text = "Primary" };
+    }))">Info Toast</FluentButton>
+<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowInfo("INFO message with CtA", settings => {
+    settings.PrimaryCallToAction = new() { Text = "Primary" };
+    settings.PercentageComplete = 50;
+    }))">Info Toast</FluentButton>
 <hr />
 
 

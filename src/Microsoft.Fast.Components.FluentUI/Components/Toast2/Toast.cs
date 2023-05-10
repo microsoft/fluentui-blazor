@@ -2,15 +2,15 @@
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-internal class Toast2
+internal class Toast
 {
-    public Toast2(RenderFragment message, ToastIntent intent, ToastSettings toastSettings)
+    public Toast(RenderFragment message, ToastIntent intent, ToastSettings toastSettings)
     {
         Message = message;
         Intent = intent;
         ToastSettings = toastSettings;
     }
-    public Toast2(RenderFragment customComponent, ToastSettings settings)
+    public Toast(RenderFragment customComponent, ToastSettings settings)
     {
         CustomComponent = customComponent;
         ToastSettings = settings;

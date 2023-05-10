@@ -1,5 +1,5 @@
 ﻿@inject IToastService Toast
-@inject IToastService2 Toast2
+
 
 <p>Click on this button to open a Toast.</p>
 
@@ -12,7 +12,6 @@
     {
         var intent = Enum.GetValues<ToastIntent>()[counter % 10];
         var message = $"Simple Toast #{counter++}";
-        Toast.Add(message, intent);
-        Toast2.ShowToast(intent, message);
+        Toast.ShowToast(intent, message);
     }
 }

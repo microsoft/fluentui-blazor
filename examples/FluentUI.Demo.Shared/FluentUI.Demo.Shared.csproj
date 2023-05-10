@@ -3,7 +3,6 @@
 		<TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<UseRazorSourceGenerator>true</UseRazorSourceGenerator>
 		<LangVersion>latest</LangVersion>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<IsTrimmable>true</IsTrimmable>

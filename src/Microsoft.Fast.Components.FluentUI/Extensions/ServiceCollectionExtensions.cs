@@ -70,39 +70,9 @@ public static class ServiceCollectionExtensions
         return AddFluentEmojis(services, options);
     }
 
-
-    /// <summary>
-    /// Adds a ToastService as a Scoped instance.
-    /// </summary>
-    /// <param name="services">IServiceCollection</param>
-    /// <param name="configuration">Defines ToastConfiguration for this instance.</param>
-    public static IServiceCollection AddFluentToasts(this IServiceCollection services, ToastConfiguration? configuration = null)
+    public static IServiceCollection AddFluentToasts(this IServiceCollection services)
     {
-        configuration ??= new ToastConfiguration();
-
-        services.AddScoped<IToastService>(builder => new ToastService(builder.GetRequiredService<NavigationManager>(), configuration));
-
-        return services;
-    }
-
-    /// <summary>
-    /// Adds a ToastService as a Scoped instance.
-    /// </summary>
-    /// <param name="services">IServiceCollection</param>
-    /// <param name="configuration">Defines ToastConfiguration for this instance.</param>
-    public static IServiceCollection AddFluentToasts(this IServiceCollection services, Action<ToastConfiguration> configuration)
-    {
-        if (configuration == null) throw new ArgumentNullException(nameof(configuration));
-
-        ToastConfiguration? options = new();
-        configuration(options);
-
-        return AddFluentToasts(services, options);
-    }
-
-    public static IServiceCollection AddFluentToasts2(this IServiceCollection services)
-    {
-        return services.AddScoped<IToastService2, ToastService2>();
+        return services.AddScoped<IToastService, ToastService>();
     }
 
     /// <summary>
@@ -116,8 +86,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<CacheStorageAccessor>();
         services.AddFluentIcons(configuration?.IconConfiguration);
         services.AddFluentEmojis(configuration?.EmojiConfiguration);
-        services.AddFluentToasts(configuration?.ToastConfiguration);
-        services.AddFluentToasts2();
+        services.AddFluentToasts();
 
         if (configuration is not null)
         {
@@ -194,8 +163,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<CacheStorageAccessor>();
         services.AddFluentIcons(options.IconConfiguration);
         services.AddFluentEmojis(options.EmojiConfiguration);
-        services.AddFluentToasts(options.ToastConfiguration);
-        services.AddFluentToasts2();
+        services.AddFluentToasts();
 
         if (options is not null)
         {

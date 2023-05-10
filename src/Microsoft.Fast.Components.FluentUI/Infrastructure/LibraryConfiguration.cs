@@ -13,21 +13,17 @@ public class LibraryConfiguration
     public IconConfiguration IconConfiguration { get; set; }
     public EmojiConfiguration EmojiConfiguration { get; set; }
 
-    public ToastConfiguration ToastConfiguration { get; set; }
-
+    
     public LibraryConfiguration()
     {
         IconConfiguration = new();
         EmojiConfiguration = new();
-        ToastConfiguration = new();
     }
     
-    public LibraryConfiguration(IconConfiguration iconConfiguration, EmojiConfiguration emojiConfiguration, ToastConfiguration? toastConfiguration = null)
+    public LibraryConfiguration(IconConfiguration iconConfiguration, EmojiConfiguration emojiConfiguration)
     {
         IconConfiguration = iconConfiguration;
         EmojiConfiguration = emojiConfiguration;
-        
-        ToastConfiguration = toastConfiguration ?? new();
     }
     
 }

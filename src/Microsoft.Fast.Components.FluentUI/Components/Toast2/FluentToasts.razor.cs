@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Components.Routing;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentToasts2
+public partial class FluentToasts
 {
-    [Inject] private IToastService2 ToastService { get; set; } = default!;
+    [Inject] private IToastService ToastService { get; set; } = default!;
     [Inject] private NavigationManager NavigationManager { get; set; } = default!;
 
     /// <summary>
@@ -41,8 +41,8 @@ public partial class FluentToasts2
 
     private string _positionClass = string.Empty;
 
-    private List<Toast2> ToastList { get; set; } = new();
-    private Queue<Toast2> ToastWaitingQueue { get; set; } = new();
+    private List<Toast> ToastList { get; set; } = new();
+    private Queue<Toast> ToastWaitingQueue { get; set; } = new();
 
     protected override void OnInitialized()
     {
@@ -70,85 +70,27 @@ public partial class FluentToasts2
         return instanceToastSettings;
     }
 
-    private ToastSettings BuildToastSettings(ToastIntent intent, Action<ToastSettings>? settings)
+    private static ToastSettings BuildToastSettings(ToastIntent intent, Action<ToastSettings>? settings)
     {
         ToastSettings? toastInstanceSettings = new();
         settings?.Invoke(toastInstanceSettings);
 
-        return intent switch
+        toastInstanceSettings.Icon = intent switch
         {
-            ToastIntent.Success => new ToastSettings(
-                FluentIcons.CheckmarkCircle,
-                Color.Success,
-                IconVariant.Filled,
-                ShowCloseButton,
-                toastInstanceSettings.OnClick,
-                toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout),
-            ToastIntent.Warning => new ToastSettings(
-                FluentIcons.Warning,
-                Color.Warning,
-                IconVariant.Filled,
-                ShowCloseButton,
-                toastInstanceSettings.OnClick,
-                toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout),
-            ToastIntent.Error => new ToastSettings(
-                FluentIcons.DismissCircle,
-                Color.Error,
-                IconVariant.Filled,
-                ShowCloseButton,
-                toastInstanceSettings.OnClick,
-                toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout),
-            ToastIntent.Info => new ToastSettings(
-                FluentIcons.Info,
-                Color.Info,
-                IconVariant.Filled,
-                ShowCloseButton,
-                toastInstanceSettings.OnClick,
-                toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout),
-            ToastIntent.Progress => new ToastSettings(
-                FluentIcons.SpinneriOS,
-                Color.Neutral,
-                IconVariant.Regular,
-                ShowCloseButton,
-                toastInstanceSettings.OnClick,
-                toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout),
-            ToastIntent.Upload => new ToastSettings(
-                FluentIcons.ArrowUpload,
-                Color.Neutral,
-                IconVariant.Regular,
-                ShowCloseButton,
-                toastInstanceSettings.OnClick,
-                toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout),
-            ToastIntent.Download => new ToastSettings(
-                FluentIcons.ArrowDownload,
-                Color.Neutral,
-                IconVariant.Regular,
-                ShowCloseButton,
-                toastInstanceSettings.OnClick,
-                toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout),
-            ToastIntent.Event => new ToastSettings(
-                FluentIcons.CalendarMonth,
-                Color.Neutral,
-                IconVariant.Regular,
-                ShowCloseButton,
-                toastInstanceSettings.OnClick,
-                toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout),
-            ToastIntent.Avatar => new ToastSettings(
-                FluentIcons.Person,
-                Color.Neutral,
-                IconVariant.Regular,
-                ShowCloseButton,
-                toastInstanceSettings.OnClick,
-                toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout),
-            ToastIntent.Custom => new ToastSettings(
-                toastInstanceSettings.Icon,
-                toastInstanceSettings.IconColor,
-                toastInstanceSettings.IconVariant,
-                ShowCloseButton,
-                toastInstanceSettings.OnClick,
-                toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout),
+            ToastIntent.Success => (FluentIcons.CheckmarkCircle, Color.Success, IconVariant.Filled),
+            ToastIntent.Warning => (FluentIcons.Warning, Color.Warning, IconVariant.Filled),
+            ToastIntent.Error => (FluentIcons.DismissCircle, Color.Error, IconVariant.Filled),
+            ToastIntent.Info => (FluentIcons.Info, Color.Info, IconVariant.Filled),
+            ToastIntent.Progress => (FluentIcons.Flash, Color.Neutral, IconVariant.Regular),
+            ToastIntent.Upload => (FluentIcons.ArrowUpload, Color.Neutral, IconVariant.Regular),
+            ToastIntent.Download => (FluentIcons.ArrowDownload, Color.Neutral, IconVariant.Regular),
+            ToastIntent.Event => (FluentIcons.CalendarLTR, Color.Neutral, IconVariant.Regular),
+            ToastIntent.Avatar => (FluentIcons.Person, Color.Neutral, IconVariant.Regular),
+            ToastIntent.Custom => toastInstanceSettings.Icon,
             _ => throw new InvalidOperationException()
         };
+
+        return toastInstanceSettings;
     }
 
     private void ShowToast(ToastIntent level, RenderFragment message, Action<ToastSettings>? toastSettings)
@@ -156,7 +98,7 @@ public partial class FluentToasts2
         InvokeAsync(() =>
         {
             ToastSettings? settings = BuildToastSettings(level, toastSettings);
-            Toast2? toast = new(message, level, settings);
+            Toast? toast = new(message, level, settings);
 
             if (ToastList.Count < MaxToastCount)
             {
@@ -191,7 +133,7 @@ public partial class FluentToasts2
             });
 
             ToastSettings? toastSettings = BuildCustomToastSettings(settings);
-            Toast2? toastInstance = new(childContent, toastSettings);
+            Toast? toastInstance = new(childContent, toastSettings);
 
             ToastList.Add(toastInstance);
 
@@ -203,7 +145,7 @@ public partial class FluentToasts2
     {
         InvokeAsync(() =>
         {
-            Toast2? toast = ToastWaitingQueue.Dequeue();
+            Toast? toast = ToastWaitingQueue.Dequeue();
 
             ToastList.Add(toast);
 
@@ -215,7 +157,7 @@ public partial class FluentToasts2
     {
         InvokeAsync(() =>
         {
-            Toast2? toastInstance = ToastList.SingleOrDefault(x => x.Id == toastId);
+            Toast? toastInstance = ToastList.SingleOrDefault(x => x.Id == toastId);
 
             if (toastInstance is not null)
             {

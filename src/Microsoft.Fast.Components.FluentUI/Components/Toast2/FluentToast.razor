@@ -1,0 +1,97 @@
+﻿@namespace Microsoft.Fast.Components.FluentUI
+@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Web
+
+@if (ChildContent is not null)
+{
+    <div class="fluent-toast fluent-toast-component">
+        <CascadingValue Value="this" IsFixed="true">
+            @ChildContent
+        </CascadingValue>
+    </div>
+}
+else
+{
+    <div class="fluent-toast" @onclick="ToastClick">
+        <FluentStack Orientation="Orientation.Horizontal" Width="100%" VerticalAlignment="StackVerticalAlignment.Center" HorizontalGap="8">
+            @if (Settings.Icon is not null)
+            {
+                (string Name, Color Color, IconVariant Variant) Icon = Settings.Icon.Value;
+
+                <FluentIcon Name="@Icon.Name" Style="min-width: 16px;" Size="IconSize.Size16" Color=@Icon.Color Variant="Icon.Variant" />
+            }
+
+            <div class="fluent-toast-title">@Title</div>
+            <div class="fluent-toast-actions">
+                @if (Settings.PrimaryCallToAction is not null && (Settings.PercentageComplete is null || Settings.SecondaryCallToAction is null))
+                {
+                    _showCloseButton = false;
+                    <FluentAnchor Href="@(String.IsNullOrEmpty(Settings.PrimaryCallToAction?.Href) ? "#" : Settings.PrimaryCallToAction?.Href)"
+                                  title="Toast action"
+                                  Style="font-size: 14px; font-weight:400;"
+                                  Appearance="Appearance.Hypertext"
+                                  @onclick="@HandleCta1Click">
+                        @Settings.PrimaryCallToAction?.Text
+                    </FluentAnchor>
+                }
+
+                @if (_showCloseButton)
+                {
+                    <FluentIcon Name="@FluentIcons.Dismiss"
+                                Size="@IconSize.Size12"
+                                Title="Close"
+                                Color="Color.FillInverse"
+                                OnClick="Close" />
+                }
+            </div>
+        </FluentStack>
+        @if (_showBody)
+        {
+            <FluentStack Orientation="Orientation.Vertical" Width="100%" Style="padding: 0px 26px 0px 24px;" VerticalGap="0">
+                @if (!string.IsNullOrWhiteSpace(Settings.Subtitle))
+                {
+                    <div class="fluent-toast-subtitle">@Settings.Subtitle</div>
+                }
+                @if (!string.IsNullOrWhiteSpace(Settings.Details))
+                {
+                    <div class="fluent-toast-details">@Settings.Details</div>
+                }
+
+                @if (Settings.PercentageComplete is not null)
+                {
+                    <div class="fluent-toast-progressbar">
+                        <FluentProgress Min="0" Max="100" Value="@Settings.PercentageComplete.ToString()" />
+                    </div>
+                    <div class="fluent-toast-progressbar-percentage">@(Settings.PercentageComplete)% complete</div>
+                }
+                @if (Settings.PrimaryCallToAction is not null || Settings.SecondaryCallToAction is not null)
+                {
+                    <div class="fluent-toast-cta">
+                        @if (Settings.PrimaryCallToAction is not null)
+                        {
+                            <FluentAnchor Href="@(String.IsNullOrEmpty(Settings.PrimaryCallToAction.Href) ? "#" : Settings.PrimaryCallToAction.Href)"
+                                          title="Toast action"
+                                          Style="font-size: 14px; font-weight:400;"
+                                          Appearance="Appearance.Hypertext"
+                                          @onclick="@HandleCta1Click">
+                                @Settings.PrimaryCallToAction.Text
+
+                            </FluentAnchor>
+                        }
+                        @if (Settings.SecondaryCallToAction is not null)
+                        {
+                            <FluentAnchor Href="@(String.IsNullOrEmpty(Settings.SecondaryCallToAction.Href) ? "#" : Settings.SecondaryCallToAction.Href)"
+                                          title="Toast action"
+                                          Style="font-size: 14px; font-weight:400;"
+                                          Appearance="Appearance.Hypertext"
+                                          @onclick="@HandleCta2Click">
+                                @Settings.SecondaryCallToAction.Text
+                            </FluentAnchor>
+                        }
+                    </div>
+                }
+            </FluentStack>
+        }
+
+    </div>
+}

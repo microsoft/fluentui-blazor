@@ -12,6 +12,7 @@ public partial class DemoMainLayout : IAsyncDisposable
 {
     private OfficeColor _selectedColorOption;
     private string? _version;
+    private string _menuType = "tree";
     private bool _inDarkMode;
     private bool _ltr;
     private bool _mobile;

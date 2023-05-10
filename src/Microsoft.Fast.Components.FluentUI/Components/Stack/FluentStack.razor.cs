@@ -58,12 +58,14 @@ public partial class FluentStack : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the gap between horizontally stacked components (in pixels).
+    /// Default is 10 pixels.
     /// </summary>
     [Parameter]
     public int? HorizontalGap { get; set; } = 10;
 
     /// <summary>
     /// Gets or sets the gap between vertically stacked components (in pixels).
+    /// Default is 10 pixels
     /// </summary>
     [Parameter]
     public int? VerticalGap { get; set; } = 10;

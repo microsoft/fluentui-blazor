@@ -20,7 +20,7 @@ header {
     background-color: var(--neutral-layer-4);
     grid-area: header;
     display: grid;
-    grid-template-columns: 280px 1fr auto auto;
+    grid-template-columns: 280px 1fr auto auto auto;
     grid-template-rows: 1fr;
     align-items: center;
     justify-content: flex-start;
@@ -38,14 +38,20 @@ header {
         width: 9rem;
     }
 
-    header .colorgroup {
+    header .menugroup {
         grid-column: 3;
+        display: flex;
+        align-items: center;
+    }
+
+    header .colorgroup {
+        grid-column: 4;
         display: flex;
         align-items: center;
     }
     
     header .switches {
-        grid-column: 4;
+        grid-column: 5;
         justify-self: end;
         padding: 0 20px 0 0;
         display: flex;
@@ -197,7 +203,6 @@ label {
     font-weight: initial;
     font-variation-settings: var(--type-ramp-base-font-variations);
     margin-inline-end: calc(var(--design-unit) * 2px + 2px);
-    margin-bottom: 4px;
     cursor: pointer;
 }
 
@@ -477,7 +482,7 @@ code {
 
     nav {
         grid-column: 1;
-        width: env(viewport-segment-width 0 0)px;
+        width: env(viewport-segment-width 0 0);
     }
 
     .content {

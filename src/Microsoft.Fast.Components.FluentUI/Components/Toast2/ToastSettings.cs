@@ -1,31 +1,41 @@
 ﻿namespace Microsoft.Fast.Components.FluentUI;
 public class ToastSettings
 {
-
     /// <summary>
-    /// Gets or sets the name of the icon to display with the link
-    /// Use a constant value from the <see cref="FluentIcons" /> class 
+    /// Gets or sets the the icon to display in the notification
+    /// Use a constant from the <see cref="FluentIcons" /> class for the <c>Name</c> value
+    /// The <c>Color</c> value determines the display color of the icon.
+    /// It is based on either the <see cref="ToastIntent"/> or the active Accent color 
+    /// The <c>Variant</c> value determines the variant of the icon.
+    /// For the intents Success, Warning, Error and Information the defualt is IconVariant.Filled.
+    /// For all other intents the default is IconVariant.Regular.
     /// </summary>
-    public string? Icon { get; set; } = string.Empty;
-
-    /// <summary>
-    /// The <c>IconColor</c> property determines the color of the icon.
-    /// It is based on either the <see cref="ToastIntent"/> or the active Accent color
-    /// </summary>
-    public Color IconColor { get; set; } = Color.Accent;
-
-
-    /// <summary>
-    /// The <c>IconVariant</c> property determines the variant of the icon.
-    /// For the Intent related icons it is IconVariant.Filled by default.
-    /// For the custom icons it is IconVariant.Regular by default.
-    /// </summary>
-    public IconVariant IconVariant { get; set; } = IconVariant.Regular;
+    public (string Name, Color Color, IconVariant Variant)? Icon { get; set; }
     
     /// <summary>
-    /// The ShowCloseButton property determines whether or not the close button is displayed on the toast notification.
+    /// Gets or sets the primary call to action for the notification
     /// </summary>
-    public bool ShowCloseButton { get; set; }
+    public ToastAction? PrimaryCallToAction { get; set; }
+
+    /// <summary>
+    /// Gets or sets the secondary call to action for the notification
+    /// </summary>
+    public ToastAction? SecondaryCallToAction { get; set; }
+
+    /// <summary>
+    /// Gets or sets the subtitle of the notification.
+    /// </summary>
+    public string? Subtitle { get; set; }
+
+    /// <summary>
+    /// Gets or sets the details of the notification.
+    /// </summary>
+    public string? Details { get; set; }
+
+    /// <summary>
+    /// Gets or sets the percentage completed for a progress notification
+    /// </summary>
+    public int? PercentageComplete { get; set; }
 
     /// <summary>
     /// The <c>OnClick</c> property is an optional action that is triggered when the user clicks on the toast notification.
@@ -41,22 +51,26 @@ public class ToastSettings
     /// <remarks>
     /// By setting this property, you can control the duration of the notification and ensure that it is visible to the user for an appropriate amount of time.
     /// </remarks>
-    public int Timeout { get; set; }
+    public int Timeout { get; set; } = 7;
 
       
 
     public ToastSettings(
-        string? icon,
-        Color iconColor,
-        IconVariant iconVariant,
-        bool showCloseButton,
-        Action? onClick,
-        int timeout)
+        (string Name, Color Color, IconVariant Variant)? icon = null,
+        ToastAction? primaryCallToAction = null,
+        ToastAction? secondaryCallToAction = null, 
+        string? subtitle = null,
+        string? details = null,
+        int? percentageComplete = null,
+        Action? onClick = null,
+        int timeout = 7)
     {
         Icon = icon;
-        IconColor = iconColor;
-        IconVariant = iconVariant;
-        ShowCloseButton = showCloseButton;
+        PrimaryCallToAction = primaryCallToAction;
+        SecondaryCallToAction = secondaryCallToAction;
+        Subtitle = subtitle;
+        Details = details;
+        PercentageComplete = percentageComplete;
         OnClick = onClick;
         Timeout = timeout;
     }

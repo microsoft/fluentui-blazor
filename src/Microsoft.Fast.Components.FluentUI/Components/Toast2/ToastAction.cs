@@ -7,5 +7,5 @@ public class ToastAction
 
     public string? Href { get; set; }
 
-    public Func<Toast, Task>? OnClick { get; set; }
+    public Action? OnClick { get; set; }
 }
