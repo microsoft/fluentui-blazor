@@ -1,23 +1,20 @@
 ﻿@namespace Microsoft.Fast.Components.FluentUI
-@if (ToastList.Any())
+@if (_toastList.Any())
 {
     <div class="fluent-toast-container @_positionClass">
         <CascadingValue Value=this IsFixed="true">
-            @foreach (Toast toast in ToastList.OrderBy(x => x.TimeStamp))
+            @foreach (FluentToast toast in _toastList.OrderBy(x => x.TimeStamp))
             {
-                if (toast.CustomComponent is not null)
+                if (toast.ChildContent is not null)
                 {
-                    <FluentToast @key="@toast" ToastId="@toast.Id" Settings="@toast.ToastSettings">
-                        @toast.CustomComponent
+                    <FluentToast @key="@toast" Id="@toast.Id" Intent="@toast.Intent" Title="@(toast.Title!)" Settings="@toast.Settings">
+                        @toast.ChildContent
                     </FluentToast>
+
                 }
                 else
                 {
-                    <FluentToast @key="@toast"
-                                 ToastId="@toast.Id"
-                                 Title="@(toast.Message!)"
-                                 Intent="@toast.Intent"
-                                 Settings="@toast.ToastSettings" />
+                    <FluentToast @key="@toast" Id="@toast.Id" Intent="@toast.Intent" Title="@(toast.Title!)" Settings="@toast.Settings" />
                 }
             }
         </CascadingValue>

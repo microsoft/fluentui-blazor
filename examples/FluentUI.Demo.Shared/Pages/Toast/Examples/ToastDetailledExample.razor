@@ -14,8 +14,8 @@
         Toast.ShowToast(intent, message, settings =>
         {
             
-            settings.PrimaryCallToAction = new() { Text = "Visit site" }; 
-            settings.PrimaryCallToAction.OnClick = () =>
+            settings.PrimaryAction = new() { Text = "Visit site" }; 
+            settings.PrimaryAction.OnClick = () =>
             {
                 DemoLogger.WriteLine($"Action clicked");
                 //item.Close();

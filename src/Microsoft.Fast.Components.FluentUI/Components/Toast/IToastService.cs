@@ -7,7 +7,7 @@ public interface IToastService
     /// <summary>
     /// A event that will be invoked when showing a toast
     /// </summary>
-    event Action<ToastIntent, RenderFragment, Action<ToastSettings>?> OnShow;
+    event Action<ToastIntent, string, Action<ToastSettings>?> OnShow;
 
     /// <summary>
     /// A event that will be invoked to clear all toasts
@@ -27,7 +27,17 @@ public interface IToastService
     /// <summary>
     /// A event that will be invoked when showing a toast with a custom component
     /// </summary>
-    event Action<Type, ToastParameters?, Action<ToastSettings>?>? OnShowComponent;
+    event Action<Type, ToastParameters?, Action<ToastSettings>?>? OnShowCustomComponent;
+
+    /// <summary>
+    /// A event that will be invoked when showing a toast with a custom toast component
+    /// </summary>
+    event Action<Type, ToastIntent, string, Action<ToastSettings>?>? OnShowToastComponent;
+
+    /// <summary>
+    /// A event that will be invoked when showing a toast with a custom component
+    /// </summary>
+    public event Action<Type, ToastIntent, string, Action<ToastAction>?, Action<ToastSettings>?>? OnShowToastComponentWithAction;
 
     /// <summary>
     /// A event that will be invoked to clear all queued toasts
@@ -42,98 +52,70 @@ public interface IToastService
     /// <summary>
     /// Shows a information toast 
     /// </summary>
-    /// <param name="message">Text to display on the toast</param>
+    /// <param name="title">Text to display on the toast</param>
     /// <param name="settings">Settings to configure the toast instance</param>
-    void ShowInfo(string message, Action<ToastSettings>? settings = null);
+    void ShowInfo(string title, Action<ToastSettings>? settings = null);
 
     /// <summary>
     /// Shows a information toast 
     /// </summary>
-    /// <param name="message">RenderFragment to display on the toast</param>
+    /// <param name="title">Text to display on the toast</param>
+    /// <param name="action">Action link for the toast</param>
     /// <param name="settings">Settings to configure the toast instance</param>
-    void ShowInfo(RenderFragment message, Action<ToastSettings>? settings = null);
+    void ShowInfo(string title, Action<ToastAction>? action, Action<ToastSettings>? settings = null);
 
     /// <summary>
     /// Shows a success toast 
     /// </summary>
-    /// <param name="message">Text to display on the toast</param>
+    /// <param name="title">Text to display on the toast</param>
     /// <param name="settings">Settings to configure the toast instance</param>
-    void ShowSuccess(string message, Action<ToastSettings>? settings = null);
-
-    /// <summary>
-    /// Shows a success toast 
-    /// </summary>
-    /// <param name="message">RenderFragment to display on the toast</param>
-    /// <param name="settings">Settings to configure the toast instance</param>
-    void ShowSuccess(RenderFragment message, Action<ToastSettings>? settings = null);
+    void ShowSuccess(string title, Action<ToastSettings>? settings = null);
 
     /// <summary>
     /// Shows a warning toast 
     /// </summary>
-    /// <param name="message">Text to display on the toast</param>
+    /// <param name="title">Text to display on the toast</param>
     /// <param name="settings">Settings to configure the toast instance</param>
-    void ShowWarning(string message, Action<ToastSettings>? settings = null);
-
-    /// <summary>
-    /// Shows a warning toast 
-    /// </summary>
-    /// <param name="message">RenderFragment to display on the toast</param>
-    /// <param name="settings">Settings to configure the toast instance</param>
-    void ShowWarning(RenderFragment message, Action<ToastSettings>? settings = null);
+    void ShowWarning(string title, Action<ToastSettings>? settings = null);
 
     /// <summary>
     /// Shows a error toast 
     /// </summary>
-    /// <param name="message">Text to display on the toast</param>
+    /// <param name="title">Text to display on the toast</param>
     /// <param name="settings">Settings to configure the toast instance</param>
-    void ShowError(string message, Action<ToastSettings>? settings = null);
-
-    /// <summary>
-    /// Shows a error toast 
-    /// </summary>
-    /// <param name="message">RenderFragment to display on the toast</param>
-    /// <param name="settings">Settings to configure the toast instance</param>
-    void ShowError(RenderFragment message, Action<ToastSettings>? settings = null);
+    void ShowError(string title, Action<ToastSettings>? settings = null);
 
     /// <summary>
     /// Shows a toast using the supplied settings
     /// </summary>
     /// <param name="intent">Toast intent to display</param>
-    /// <param name="message">Text to display on the toast</param>
+    /// <param name="title">Text to display on the toast</param>
     /// <param name="settings">Settings to configure the toast instance</param>
-    void ShowToast(ToastIntent intent, string message, Action<ToastSettings>? settings = null);
-
-    /// <summary>
-    /// Shows a toast using the supplied settings
-    /// </summary>
-    /// <param name="intent">Toast intent to display</param>
-    /// <param name="message">RenderFragment to display on the toast</param>
-    /// <param name="settings">Settings to configure the toast instance</param>
-    void ShowToast(ToastIntent intent, RenderFragment message, Action<ToastSettings>? settings = null);
+    void ShowToast(ToastIntent intent, string title, Action<ToastSettings>? settings = null);
 
     /// <summary>
     /// Shows a toast containing the specified <typeparamref name="TComponent"/>.
     /// </summary>
-    void ShowToast<TComponent>() where TComponent : IComponent;
+    void ShowToast<TComponent>() where TComponent : IToastComponent;
 
     /// <summary>
     /// Shows a toast containing a <typeparamref name="TComponent"/> with the specified <paramref name="parameters"/>.
     /// </summary>
     /// <param name="parameters">Key/Value collection of parameters to pass to component being displayed</param>
-    void ShowToast<TComponent>(ToastParameters parameters) where TComponent : IComponent;
+    void ShowToast<TComponent>(ToastParameters parameters) where TComponent : IToastComponent;
 
     /// <summary>
     /// Shows a toast containing a <typeparamref name="TComponent"/> with the specified <paramref name="settings"/>.
     /// </summary>
     /// <param name="settings">Settings to configure the toast instance</param>
-    void ShowToast<TComponent>(Action<ToastSettings> settings) where TComponent : IComponent;
+    void ShowToast<TComponent>(Action<ToastSettings> settings) where TComponent : IToastComponent;
 
     /// <summary>
     /// Shows a toast containing a <typeparamref name="TComponent"/> with the specified <paramref name="settings" /> and <paramref name="parameters"/>.
     /// </summary>
     /// <param name="parameters">Key/Value collection of parameters to pass to component being displayed</param>
     /// /// <param name="settings">Settings to configure the toast instance</param>
-    void ShowToast<TComponent>(ToastParameters parameters, Action<ToastSettings> settings) where TComponent : IComponent;
+    void ShowToast<TComponent>(ToastParameters parameters, Action<ToastSettings> settings) where TComponent : IToastComponent;
 
     /// <summary>
     /// Removes all toasts

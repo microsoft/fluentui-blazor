@@ -8,6 +8,7 @@ public partial class FluentToast : IDisposable
 {
     private bool _showCloseButton = true;
     private bool _showBody;
+    
     private CountdownTimer? _countdownTimer;
 
     [CascadingParameter]
@@ -17,7 +18,7 @@ public partial class FluentToast : IDisposable
     /// Gets or sets the id that identiefies a specific notification
     /// </summary>
     [Parameter, EditorRequired]
-    public string? ToastId { get; set; }
+    public string? Id { get; set; }
 
     /// <summary>
     /// Notification specific settings
@@ -28,16 +29,26 @@ public partial class FluentToast : IDisposable
     /// <summary>
     /// Gets or sets the intent of the notification. See <see cref="ToastIntent"/>
     /// </summary>
-    [Parameter]
-    public ToastIntent? Intent { get; set; }
+    [Parameter, EditorRequired]
+    public ToastIntent Intent { get; set; }
 
     /// <summary>
     /// Gets or sets the main message of the notification.
     /// </summary>
     [Parameter]
-    public RenderFragment? Title { get; set; }
+    public string? Title { get; set; }
 
-   
+    [Parameter]
+    public ToastAction? PrimaryAction { get; set; }
+
+    [Parameter]
+    public ToastAction? SecondaryAction { get; set; }
+
+    [Parameter]
+    public ToastEndContent EndContent { get; set; } = ToastEndContent.Dismiss;
+
+    [Parameter]
+    public DateTime TimeStamp { get; set; } = DateTime.Now;
 
     /// <summary>
     /// Use a custom component in the notfication
@@ -63,7 +74,7 @@ public partial class FluentToast : IDisposable
         {
             _showBody = true;
         }
-        if (Settings.PrimaryCallToAction is not null || Settings.SecondaryCallToAction is not null)
+        if (Settings.PrimaryAction is not null || Settings.SecondaryAction is not null)
         {
             _showBody = true;
         }
@@ -77,20 +88,44 @@ public partial class FluentToast : IDisposable
         }
     }
 
+    public FluentToast()
+    {
+        Id = Identifier.NewId();
+    }
+
+    public FluentToast(ToastIntent intent, string title, ToastSettings settings) : this()
+    {
+        Title = title;
+        Intent = intent;
+        Settings = settings;
+    }
+
+    public FluentToast(RenderFragment renderFragment, ToastSettings settings) : this()
+    {
+        ChildContent = renderFragment;
+        Settings = settings;
+    }
+
     /// <summary>
     /// Closes the toast
     /// </summary>
     public void Close()
-        => ToastsContainer.RemoveToast(ToastId!);
+        => ToastsContainer.RemoveToast(Id!);
 
-    private void ToastClick()
+    public void ToastClick()
         => Settings.OnClick?.Invoke();
 
-    private void HandleCta1Click()
-        => Settings.PrimaryCallToAction?.OnClick?.Invoke();
-
-    private void HandleCta2Click()
-        => Settings.SecondaryCallToAction?.OnClick?.Invoke();
+    public void HandlePrimaryActionClick()
+    {
+        Settings.PrimaryAction?.OnClick?.Invoke();
+        Close();
+    }
+        
+    public void HandleSecondaryActionClick()
+    {
+        Settings.SecondaryAction?.OnClick?.Invoke();
+        Close();
+    }
 
     public void Dispose()
     {

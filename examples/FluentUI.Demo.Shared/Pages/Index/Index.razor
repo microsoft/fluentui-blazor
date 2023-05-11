@@ -36,8 +36,15 @@
 
 <h3>Scripts</h3>
 <p>
-	As of version 2.3 it is no longer needed to include the <code>web-components</code> script in your <code>index.html</code> or <code>_Layout.cshtml</code> 
-	file. The script is now included in the library and added to the application automatically. This way we can safeguard that the you are always using the best matching script version.
+	The hart of this library is formed by the Fluent UI Web Components and the accompanying <code>web-components.min.js</code> file. From now
+	on, the script is included in the library itself and no longer needs to be added to your <code>index.html</code> or <code>_Layout.cshtml</code>. 
+	In fact, doing this might lead to unpredictable results.
+
+	<blockquote>
+		<strong>If you are upgrading from an earlier version please remove the script from your <code>index.html</code> or <code>_Layout.cshtml</code> file.</strong>
+	</blockquote>
+
+	 The script is added to the application automatically. This way we can safeguard that the you are always using the best matching script version.
 </p>
 
 <h3>Styles</h3>

@@ -1,10 +1,11 @@
-﻿@namespace Microsoft.Fast.Components.FluentUI
-@using Microsoft.AspNetCore.Components
+﻿@using Microsoft.AspNetCore.Components
 @using Microsoft.AspNetCore.Components.Web
+
+@namespace Microsoft.Fast.Components.FluentUI
 
 @if (ChildContent is not null)
 {
-    <div class="fluent-toast fluent-toast-component">
+    <div class="fluent-toast" @onclick="ToastClick">
         <CascadingValue Value="this" IsFixed="true">
             @ChildContent
         </CascadingValue>
@@ -23,15 +24,15 @@ else
 
             <div class="fluent-toast-title">@Title</div>
             <div class="fluent-toast-actions">
-                @if (Settings.PrimaryCallToAction is not null && (Settings.PercentageComplete is null || Settings.SecondaryCallToAction is null))
+                @if (Settings.PrimaryAction is not null && (Settings.PercentageComplete is null || Settings.SecondaryAction is null))
                 {
                     _showCloseButton = false;
-                    <FluentAnchor Href="@(String.IsNullOrEmpty(Settings.PrimaryCallToAction?.Href) ? "#" : Settings.PrimaryCallToAction?.Href)"
+                    <FluentAnchor Href="@(String.IsNullOrEmpty(Settings.PrimaryAction?.Href) ? "#" : Settings.PrimaryAction?.Href)"
                                   title="Toast action"
                                   Style="font-size: 14px; font-weight:400;"
                                   Appearance="Appearance.Hypertext"
-                                  @onclick="@HandleCta1Click">
-                        @Settings.PrimaryCallToAction?.Text
+                                  @onclick="@HandlePrimaryActionClick">
+                        @Settings.PrimaryAction?.Text
                     </FluentAnchor>
                 }
 
@@ -64,28 +65,28 @@ else
                     </div>
                     <div class="fluent-toast-progressbar-percentage">@(Settings.PercentageComplete)% complete</div>
                 }
-                @if (Settings.PrimaryCallToAction is not null || Settings.SecondaryCallToAction is not null)
+                @if (Settings.PrimaryAction is not null || Settings.SecondaryAction is not null)
                 {
                     <div class="fluent-toast-cta">
-                        @if (Settings.PrimaryCallToAction is not null)
+                        @if (Settings.PrimaryAction is not null)
                         {
-                            <FluentAnchor Href="@(String.IsNullOrEmpty(Settings.PrimaryCallToAction.Href) ? "#" : Settings.PrimaryCallToAction.Href)"
+                            <FluentAnchor Href="@(String.IsNullOrEmpty(Settings.PrimaryAction.Href) ? "#" : Settings.PrimaryAction.Href)"
                                           title="Toast action"
                                           Style="font-size: 14px; font-weight:400;"
                                           Appearance="Appearance.Hypertext"
-                                          @onclick="@HandleCta1Click">
-                                @Settings.PrimaryCallToAction.Text
+                                          @onclick="@HandlePrimaryActionClick">
+                                @Settings.PrimaryAction.Text
 
                             </FluentAnchor>
                         }
-                        @if (Settings.SecondaryCallToAction is not null)
+                        @if (Settings.SecondaryAction is not null)
                         {
-                            <FluentAnchor Href="@(String.IsNullOrEmpty(Settings.SecondaryCallToAction.Href) ? "#" : Settings.SecondaryCallToAction.Href)"
+                            <FluentAnchor Href="@(String.IsNullOrEmpty(Settings.SecondaryAction.Href) ? "#" : Settings.SecondaryAction.Href)"
                                           title="Toast action"
                                           Style="font-size: 14px; font-weight:400;"
                                           Appearance="Appearance.Hypertext"
-                                          @onclick="@HandleCta2Click">
-                                @Settings.SecondaryCallToAction.Text
+                                          @onclick="@HandleSecondaryActionClick">
+                                @Settings.SecondaryAction.Text
                             </FluentAnchor>
                         }
                     </div>

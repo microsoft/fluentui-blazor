@@ -31,7 +31,7 @@ public partial class FluentTabs : FluentComponentBase
         .AddStyle("min-width: 32px")
         .AddStyle("max-width: 32px")
         .AddStyle("cursor: pointer")
-        .AddStyle("display", "none", () => TabsOverflow.Count() <= 0)
+        .AddStyle("display", "none", () => !TabsOverflow.Any())
         .Build();
 
     /// <summary />

@@ -1,10 +1,10 @@
-# Setup your project to use Fluent UI Icons and/or Emoji assets
+## Setup your project to use Fluent UI Icons and/or Emoji assets
 >**If you are currently *not using* icons and are *not planning* on using icons and/or emoji in your application going forward, 
 you do *not* have to make any changes to your project.** 
 
 >**If you want to use icons and/or emoji in your new project or you are upgrading to this version and *are* currently using icons, please read on.**
 
-## How to configure which icons get published
+### How to configure which icons get published
  
 The [Fluent UI System Icons collection](https://github.com/microsoft/fluentui-system-icons) is set up in such a way that each icon is made available in a number of different sizes where each size usually comes in 2 variants ('Filled', 'Regular'). The sizes available are '10', '12', '16', '20', '24', '28', '32', and '48'. Not every icon is available in all sizes and/or all variants.
  
@@ -14,7 +14,7 @@ It is not possible to specify multiple individual combinations like '10/Filled' 
  
 When you have configured to publish icons but you have not specified a set of icon sizes, **ALL** sizes will be included. Equally so, when no set of icon variants is specified, **ALL** variants will be included.
  
-## How to configure which emoji get published
+### How to configure which emoji get published
  
 The [Fluent Emoji collection](https://github.com/microsoft/fluentui-emoji) is divided into the following 9 groups: 'Activities', 'Animals & Nature', 'Flags', "Food & Drink', 'Objects', 'People & Body', 'Smileys & Emotion', 'Symbols' and 'Travel & Places'. Each emoji is made available in 3 styles ('Color', 'Flat', 'High Contrast'). For a lot of emoji depicting a person (mostly in the 'People & Body' category) there are also 6 different skin tone variants available per style. Not every emoji is made available in every style/skintone.
  
@@ -24,7 +24,7 @@ It is not possible to filter on specific skin tones. It is also not possible to 
  
 When you have configured to publish emoji but you have not specified a set of emoji groups, **ALL** groups will be included. Equally so, When no set of emoji variants is specified, **ALL** styles will be included.
  
-## Configuring the project
+### Configuring the project
  
 You will need to add settings to the `.csproj` file of the project you are using the library in. The easiest way to do this is by creating a new `<PropertyGroup>` and gather all the relevant and needed properties in there.
  
@@ -65,9 +65,9 @@ The possible values per property are:
  
 
 
-## Changes to `.csproj` file
+### Changes to `.csproj` file
 
-### Annotated example
+#### Annotated example
 The (annotated) `PropertyGroup` below can be used as a starting point in your own project. Copying this as-is will result in all icon and emoji assets being published.
 A `PropertyGroup` without additional comments is supplied below. 
 
@@ -143,7 +143,7 @@ A `PropertyGroup` without additional comments is supplied below.
 
 `PropertyGroup` without comments
 
-### `PropertyGroup` without comments
+#### `PropertyGroup` without comments
 ```xml
 <PropertyGroup>
     <PublishFluentIconAssets>true</PublishFluentIconAssets>
@@ -156,4 +156,4 @@ A `PropertyGroup` without additional comments is supplied below.
 ```
 
 ## Changes needed in code 
-Please see the [Code Setup](https://www.fluentui-blazor/CodeSetup) page to lean more about the neccesary changes to your `Program.cs` file.
+Please see the [Code Setup](https://www.fluentui-blazor.net/CodeSetup) page to lean more about the neccesary changes to your `Program.cs` file.

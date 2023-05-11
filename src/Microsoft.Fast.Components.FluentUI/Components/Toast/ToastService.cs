@@ -7,7 +7,7 @@ public class ToastService : IToastService
     /// <summary>
     /// A event that will be invoked when showing a toast
     /// </summary>
-    public event Action<ToastIntent, RenderFragment, Action<ToastSettings>?>? OnShow;
+    public event Action<ToastIntent, string, Action<ToastSettings>?>? OnShow;
 
     /// <summary>
     /// A event that will be invoked when clearing all toasts
@@ -17,7 +17,17 @@ public class ToastService : IToastService
     /// <summary>
     /// A event that will be invoked when showing a toast with a custom component
     /// </summary>
-    public event Action<Type, ToastParameters?, Action<ToastSettings>?>? OnShowComponent;
+    public event Action<Type, ToastParameters?, Action<ToastSettings>?>? OnShowCustomComponent;
+
+    /// <summary>
+    /// A event that will be invoked when showing a toast with a custom component
+    /// </summary>
+    public event Action<Type, ToastIntent, string, Action<ToastSettings>?>? OnShowToastComponent;
+
+    /// <summary>
+    /// A event that will be invoked when showing a toast with a custom component
+    /// </summary>
+    public event Action<Type, ToastIntent, string, Action<ToastAction>?, Action<ToastSettings>?>? OnShowToastComponentWithAction;
 
     /// <summary>
     /// A event that will be invoked when clearing toasts
@@ -40,93 +50,81 @@ public class ToastService : IToastService
     public event Action<ToastIntent>? OnClearQueueToasts;
 
     /// <summary>
-    /// Shows a information toast 
+    /// Shows a simple information confirmation toast.
+    /// Only shows icon, title and close button or action.
     /// </summary>
-    /// <param name="message">Text to display on the toast</param>
+    /// <param name="title">Text to display on the toast</param>
     /// <param name="settings">Settings to configure the toast instance</param>
-    public void ShowInfo(string message, Action<ToastSettings>? settings = null)
-        => ShowToast(ToastIntent.Info, message, settings);
+    public void ShowInfo(string title, Action<ToastSettings>? settings = null)
+        => ShowToast<ConfirmationToast>(ToastIntent.Info, title, settings);
 
     /// <summary>
-    /// Shows a information toast 
+    /// Shows a simple information confirmation toast.
+    /// Only shows icon, title and close button or action.
     /// </summary>
-    /// <param name="message">RenderFragment to display on the toast</param>
+    /// <param name="title">Text to display on the toast</param>
+    /// <param name="action">Action to use for this toast</param>
     /// <param name="settings">Settings to configure the toast instance</param>
-    public void ShowInfo(RenderFragment message, Action<ToastSettings>? settings = null)
-        => ShowToast(ToastIntent.Info, message, settings);
-
-    /// <summary>
-    /// Shows a success toast 
-    /// </summary>
-    /// <param name="message">Text to display on the toast</param>
-    /// <param name="settings">Settings to configure the toast instance</param>
-    public void ShowSuccess(string message, Action<ToastSettings>? settings = null)
-        => ShowToast(ToastIntent.Success, message, settings);
+    public void ShowInfo(string title, Action<ToastAction>? action, Action<ToastSettings>? settings = null)
+        => ShowToast<ConfirmationToast>(ToastIntent.Info, title, action, settings);
 
     /// <summary>
     /// Shows a success toast 
     /// </summary>
-    /// <param name="message">RenderFragment to display on the toast</param>
+    /// <param name="title">Text to display on the toast</param>
     /// <param name="settings">Settings to configure the toast instance</param>
-    public void ShowSuccess(RenderFragment message, Action<ToastSettings>? settings = null)
-        => ShowToast(ToastIntent.Success, message, settings);
+    public void ShowSuccess(string title, Action<ToastSettings>? settings = null)
+        => ShowToast(ToastIntent.Success, title, settings);
 
     /// <summary>
     /// Shows a warning toast 
     /// </summary>
-    /// <param name="message">Text to display on the toast</param>
+    /// <param name="title">Text to display on the toast</param>
     /// <param name="settings">Settings to configure the toast instance</param>
-    public void ShowWarning(string message, Action<ToastSettings>? settings = null)
-        => ShowToast(ToastIntent.Warning, message, settings);
-
-    /// <summary>
-    /// Shows a warning toast 
-    /// </summary>
-    /// <param name="message">RenderFragment to display on the toast</param>
-    /// <param name="settings">Settings to configure the toast instance</param>
-    public void ShowWarning(RenderFragment message, Action<ToastSettings>? settings = null)
-        => ShowToast(ToastIntent.Warning, message, settings);
+    public void ShowWarning(string title, Action<ToastSettings>? settings = null)
+        => ShowToast(ToastIntent.Warning, title, settings);
 
     /// <summary>
     /// Shows a error toast 
     /// </summary>
-    /// <param name="message">Text to display on the toast</param>
+    /// <param name="title">Text to display on the toast</param>
     /// <param name="settings">Settings to configure the toast instance</param>
-    public void ShowError(string message, Action<ToastSettings>? settings = null)
-        => ShowToast(ToastIntent.Error, message, settings);
-
-    /// <summary>
-    /// Shows a error toast 
-    /// </summary>
-    /// <param name="message">RenderFragment to display on the toast</param>
-    /// <param name="settings">Settings to configure the toast instance</param>
-    public void ShowError(RenderFragment message, Action<ToastSettings>? settings = null)
-        => ShowToast(ToastIntent.Error, message, settings);
+    public void ShowError(string title, Action<ToastSettings>? settings = null)
+        => ShowToast(ToastIntent.Error, title, settings);
 
     /// <summary>
     /// Shows a toast using the supplied settings
     /// </summary>
     /// <param name="intent">Toast intent to display</param>
-    /// <param name="message">Text to display on the toast</param>
+    /// <param name="title">Text to display on the toast</param>
     /// <param name="settings">Settings to configure the toast instance</param>
-    public void ShowToast(ToastIntent intent, string message, Action<ToastSettings>? settings = null)
-        => ShowToast(intent, builder => builder.AddContent(0, message), settings);
-
-
-    /// <summary>
-    /// Shows a toast using the supplied settings
-    /// </summary>
-    /// <param name="intent">Toast intent to display</param>
-    /// <param name="message">RenderFragment to display on the toast</param>
-    /// <param name="settings">Settings to configure the toast instance</param>
-    public void ShowToast(ToastIntent intent, RenderFragment message, Action<ToastSettings>? settings = null)
-        => OnShow?.Invoke(intent, message, settings);
+    public void ShowToast(ToastIntent intent, string title, Action<ToastSettings>? settings = null)
+        => OnShow?.Invoke(intent, title, settings);
 
     /// <summary>
     /// Shows the toast with the component type
     /// </summary>
-    public void ShowToast<TComponent>() where TComponent : IComponent
+    public void ShowToast<TComponent>() where TComponent : IToastComponent
         => ShowToast(typeof(TComponent), new ToastParameters(), null);
+
+    /// <summary>
+    /// Shows a toast using the supplied settings
+    /// </summary>
+    /// <param name="intent">Toast intent to display</param>
+    /// <param name="title">Text to display on the toast</param>
+    /// <param name="settings">Settings to configure the toast instance</param>
+    public void ShowToast<TComponent>(ToastIntent intent, string title, Action<ToastSettings>? settings = null) where TComponent : IToastComponent
+        => ShowToast(typeof(TComponent), intent, title, settings);
+
+    /// <summary>
+    /// Shows a toast using the supplied settings
+    /// </summary>
+    /// <param name="intent">Toast intent to display</param>
+    /// <param name="title">Text to display on the toast</param>
+    /// <param name="action">Action to show (instead of close button)</param>
+    /// <param name="settings">Settings to configure the toast instance</param>
+    public void ShowToast<TComponent>(ToastIntent intent, string title, Action<ToastAction>? action, Action<ToastSettings>? settings = null) where TComponent : IToastComponent
+        => ShowToast(typeof(TComponent), intent, title, action, settings);
 
     /// <summary>
     /// Shows the toast with the component type />,
@@ -142,7 +140,42 @@ public class ToastService : IToastService
             throw new ArgumentException($"{contentComponent.FullName} must be a Blazor Component");
         }
 
-        OnShowComponent?.Invoke(contentComponent, parameters, settings);
+        OnShowCustomComponent?.Invoke(contentComponent, parameters, settings);
+    }
+
+    /// <summary>
+    /// Shows the specified toast component type />,
+    /// </summary>
+    /// <param name="toastComponent">Type of toast component to display.</param>
+    /// <param name="intent">The intent of the notification.</param>
+    /// <param name="title">The title of the notification</param>
+    /// <param name="settings">Settings to configure the toast component.</param>
+    public void ShowToast(Type toastComponent, ToastIntent intent, string title, Action<ToastSettings>? settings)
+    {
+        if (!typeof(IToastComponent).IsAssignableFrom(toastComponent))
+        {
+            throw new ArgumentException($"{toastComponent.FullName} must be a Toast Component");
+        }
+
+        OnShowToastComponent?.Invoke(toastComponent, intent, title, settings);
+    }
+
+    /// <summary>
+    /// Shows the specified toast component type />,
+    /// </summary>
+    /// <param name="toastComponent">Type of toast component to display.</param>
+    /// <param name="intent">The intent of the notification.</param>
+    /// <param name="title">The title of the notification</param>
+    /// <param name="action">The action to use for this toast.</param>
+    /// <param name="settings">Settings to configure the toast component.</param>
+    public void ShowToast(Type toastComponent, ToastIntent intent, string title, Action<ToastAction>? action, Action<ToastSettings>? settings)
+    {
+        if (!typeof(IToastComponent).IsAssignableFrom(toastComponent))
+        {
+            throw new ArgumentException($"{toastComponent.FullName} must be a Toast Component");
+        }
+
+        OnShowToastComponentWithAction?.Invoke(toastComponent, intent, title, action, settings);
     }
 
     /// <summary>
@@ -150,14 +183,14 @@ public class ToastService : IToastService
     /// passing the specified <paramref name="parameters"/> 
     /// </summary>
     /// <param name="parameters">Key/Value collection of parameters to pass to component being displayed.</param>
-    public void ShowToast<TComponent>(ToastParameters parameters) where TComponent : IComponent
-        => ShowToast(typeof(TComponent), parameters, null);
+    public void ShowToast<TComponent>(ToastParameters parameters) where TComponent : IToastComponent
+    => ShowToast(typeof(TComponent), parameters, null);
 
     /// <summary>
     /// Shows a toast using the supplied settings
     /// </summary>
     /// <param name="settings">Toast settings to be used</param>
-    public void ShowToast<TComponent>(Action<ToastSettings>? settings) where TComponent : IComponent
+    public void ShowToast<TComponent>(Action<ToastSettings>? settings) where TComponent : IToastComponent
         => ShowToast(typeof(TComponent), null, settings);
 
     /// <summary>
@@ -165,7 +198,7 @@ public class ToastService : IToastService
     /// </summary>
     /// <param name="parameters">Key/Value collection of parameters to pass to component being displayed.</param>
     /// <param name="settings">Toast settings to be used</param>
-    public void ShowToast<TComponent>(ToastParameters parameters, Action<ToastSettings>? settings) where TComponent : IComponent
+    public void ShowToast<TComponent>(ToastParameters parameters, Action<ToastSettings>? settings) where TComponent : IToastComponent
         => ShowToast(typeof(TComponent), parameters, settings);
 
     /// <summary>

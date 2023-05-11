@@ -4,22 +4,22 @@ namespace Microsoft.Fast.Components.FluentUI;
 
 internal class Toast
 {
-    public Toast(RenderFragment message, ToastIntent intent, ToastSettings toastSettings)
+    public Toast(ToastIntent intent, string title, ToastSettings settings)
     {
-        Message = message;
+        Title = title;
         Intent = intent;
-        ToastSettings = toastSettings;
+        Settings = settings;
     }
-    public Toast(RenderFragment customComponent, ToastSettings settings)
+    public Toast(RenderFragment customContent, ToastSettings settings)
     {
-        CustomComponent = customComponent;
-        ToastSettings = settings;
+        CustomContent = customContent;
+        Settings = settings;
     }
 
     public string Id { get; } = Identifier.NewId();
     public DateTime TimeStamp { get; } = DateTime.Now;
-    public RenderFragment? Message { get; set; }
+    public string? Title { get; set; }
     public ToastIntent Intent { get; }
-    public ToastSettings ToastSettings { get; }
-    public RenderFragment? CustomComponent { get; }
+    public ToastSettings Settings { get; }
+    public RenderFragment? CustomContent { get; }
 }

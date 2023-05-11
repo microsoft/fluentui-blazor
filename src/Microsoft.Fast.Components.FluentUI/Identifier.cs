@@ -9,7 +9,7 @@ public static class Identifier
     /// Returns a new <see cref="IdentifierContext"/> where ID are sequential: "f0000", "f0001", "f0002", ...
     /// </summary>
     /// <returns></returns>
-    public static IdentifierContext SequentialContext() => new IdentifierContext((n) => $"f{n:0000}");
+    public static IdentifierContext SequentialContext() => new((n) => $"f{n:0000}");
 
     /// <summary>
     /// Returns a new small Id.

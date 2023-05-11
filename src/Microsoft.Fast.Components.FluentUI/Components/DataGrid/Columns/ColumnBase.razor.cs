@@ -19,13 +19,13 @@ public abstract partial class ColumnBase<TGridItem>
     [Parameter] public string? Title { get; set; }
 
     /// <summary>
-    /// An optional CSS class name. If specified, this is included in the class attribute of table header and body cells
+    /// An optional CSS class name. If specified, this is included in the class attribute of header and grid cells
     /// for this column.
     /// </summary>
     [Parameter] public string? Class { get; set; }
 
     /// <summary>
-    /// If specified, controls the justification of table header and body cells for this column.
+    /// If specified, controls the justification of header and grid cells for this column.
     /// </summary>
     [Parameter] public Align Align { get; set; }
 

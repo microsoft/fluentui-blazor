@@ -36,10 +36,13 @@ dotnet add package Microsoft.Fast.Components.FluentUI
 ```
 
 ### Script
-As of version 2.3 it is no longer needed to include the `web-components` script in your `index.html` or `_Layout.cshtml` file. The script is now included in 
-the library. This way we can safeguard that the you are always using the best matching version of the script.
+The hart of this library is formed by the Fluent UI Web Components and the accompanying `web-components.min.js` file. From version 2.3 onwards, the 
+script is included in the library itself and no longer needs to be added to your `index.html` or `_Layout.cshtml`. In fact, doing this might lead to 
+unpredictable results. 
 
 > **If you are upgrading from an earlier version please remove the script from your `index.html` or `_Layout.cshtml` file.**
+
+The script is added to the application automatically. This way we can safeguard that the you are always using the best matching script version.
 
 
 ### Styles

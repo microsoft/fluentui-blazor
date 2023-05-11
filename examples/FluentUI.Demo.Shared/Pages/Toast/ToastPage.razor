@@ -32,11 +32,11 @@
 
 <h1>Toasts</h1>
 
-<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowInfo("I'm an INFO message"))">Info Toast</FluentButton>
+<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowInfo("I'm an INFO message", action => action.Text = "Action", settings => settings.EndContent = ToastEndContent.Action  ))">Info Toast</FluentButton>
 <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowSuccess("I'm a SUCCESS message with a lot of text to see what a toast looks like when it's really big."))">Success Toast</FluentButton>
 <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowWarning("I'm a WARNING message"))">Warning Toast</FluentButton>
 <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowError("I'm an ERROR message"))">Error Toast</FluentButton>
-<FluentButton Appearance=Appearance.Neutral @onclick="@OnShowHtml">Info Toast with HTML</FluentButton>
+
 <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowInfo("Click to refresh the page",  settings => settings.OnClick = () => NavigationManager.NavigateTo("/", true)))">
     Info Toast with custom action on click
 </FluentButton>
@@ -45,10 +45,10 @@
 <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowToast(ToastIntent.Custom, "I'm a message without an icon"))">Toast without icon</FluentButton>
 
 <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowInfo("INFO message with CtA", settings => {
-    settings.PrimaryCallToAction = new() { Text = "Primary" };
+    settings.PrimaryAction = new() { Text = "Primary" };
     }))">Info Toast</FluentButton>
 <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowInfo("INFO message with CtA", settings => {
-    settings.PrimaryCallToAction = new() { Text = "Primary" };
+    settings.PrimaryAction = new() { Text = "Primary" };
     settings.PercentageComplete = 50;
     }))">Info Toast</FluentButton>
 <hr />
@@ -58,6 +58,12 @@
 
 <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowToast<MyToastComponent>(settings => { settings.Timeout = 5;}))">Custom Toast</FluentButton>
 <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowToast<MyToastComponent>(_toastParameters, settings => { settings.Timeout = 5; }))">Custom Toast with parameters</FluentButton>
+<hr />
+
+<h1>Toasts - Toast Component</h1>
+
+
+
 <hr />
 
 <h1>Toasts - Remove Toasts</h1>
@@ -77,19 +83,25 @@
 @code
 {
     private ToastParameters _toastParameters = default!;
+    private ToastParameters _confirmParameters = default!;
 
     protected override void OnInitialized()
     {
         _toastParameters = new ToastParameters()
-            .Add(nameof(MyToastComponent.Title), "I'm a custom toast component with parameters")
-            .Add(nameof(MyToastComponent.ToastParam), "I'm a parameter");
+        .Add(nameof(MyToastComponent.Title), "I'm a custom toast component with parameters")
+        .Add(nameof(MyToastComponent.ToastParam), "I'm a parameter");
+
+        _confirmParameters = new ToastParameters()
+        .Add(nameof(ConfirmationToast.PrimaryAction), new ToastAction()
+        {
+            Text = "Confirm",
+            Href = string.Empty,
+        });
+
+        
     }
 
-    private void OnShowHtml()
-    {
-        RenderFragment message = @<text>I'm an <em>INFO</em> message with some <strong>bold</strong> text</text>;
-        ToastService.ShowToast(ToastIntent.Info, message);
-    }
+    
 
     private void ClearAll()
         => ToastService.ClearAll();

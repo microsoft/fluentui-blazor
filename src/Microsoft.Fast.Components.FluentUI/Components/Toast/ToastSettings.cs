@@ -11,16 +11,18 @@ public class ToastSettings
     /// For all other intents the default is IconVariant.Regular.
     /// </summary>
     public (string Name, Color Color, IconVariant Variant)? Icon { get; set; }
+
+    public ToastEndContent? EndContent { get; set; }
     
     /// <summary>
     /// Gets or sets the primary call to action for the notification
     /// </summary>
-    public ToastAction? PrimaryCallToAction { get; set; }
+    public ToastAction? PrimaryAction { get; set; }
 
     /// <summary>
     /// Gets or sets the secondary call to action for the notification
     /// </summary>
-    public ToastAction? SecondaryCallToAction { get; set; }
+    public ToastAction? SecondaryAction { get; set; }
 
     /// <summary>
     /// Gets or sets the subtitle of the notification.
@@ -51,28 +53,31 @@ public class ToastSettings
     /// <remarks>
     /// By setting this property, you can control the duration of the notification and ensure that it is visible to the user for an appropriate amount of time.
     /// </remarks>
-    public int Timeout { get; set; } = 7;
+    public int Timeout { get; set; }
 
       
 
     public ToastSettings(
+        int timeout,
         (string Name, Color Color, IconVariant Variant)? icon = null,
+        ToastEndContent? endContent = null,
         ToastAction? primaryCallToAction = null,
         ToastAction? secondaryCallToAction = null, 
         string? subtitle = null,
         string? details = null,
         int? percentageComplete = null,
-        Action? onClick = null,
-        int timeout = 7)
+        Action? onClick = null)
+        
     {
+        Timeout = timeout;
         Icon = icon;
-        PrimaryCallToAction = primaryCallToAction;
-        SecondaryCallToAction = secondaryCallToAction;
+        EndContent = endContent;
+        PrimaryAction = primaryCallToAction;
+        SecondaryAction = secondaryCallToAction;
         Subtitle = subtitle;
         Details = details;
         PercentageComplete = percentageComplete;
         OnClick = onClick;
-        Timeout = timeout;
     }
 
     internal ToastSettings() { }

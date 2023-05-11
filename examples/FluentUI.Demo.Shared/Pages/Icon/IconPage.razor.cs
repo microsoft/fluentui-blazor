@@ -97,8 +97,7 @@ public partial class IconPage : IAsyncDisposable
         Form.Style = null;
         Form.Color = Color.Accent;
 
-        if (icons is not null)
-            icons.Clear();
+        icons?.Clear();
     }
 
     public async void HandleClick(IconModel icon)

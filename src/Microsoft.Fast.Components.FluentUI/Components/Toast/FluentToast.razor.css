@@ -23,62 +23,62 @@
 }
 
 
-.fluent-toast-title {
-    flex-grow: 1;
-    font-weight: 600;
-    font-size: 14px;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    word-break: break-word;
-    hyphens: auto;
-    -webkit-hyphens: auto;
-}
+    .fluent-toast ::deep .fluent-toast-title {
+        flex-grow: 1;
+        font-weight: 600;
+        font-size: 14px;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        word-break: break-word;
+        hyphens: auto;
+        -webkit-hyphens: auto;
+    }
 
-.fluent-toast-actions {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    width: 48px;
-    min-width: 48px;
-    height: 20px;
-    font-weight: 400;
-}
+    .fluent-toast ::deep .fluent-toast-actions {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        width: 48px;
+        min-width: 48px;
+        height: 20px;
+        font-weight: 400;
+    }
 
-.fluent-toast-subtitle {
-    font-size: 12px;
-    line-height: 16px;
-}
+    .fluent-toast ::deep .fluent-toast-subtitle {
+        font-size: 12px;
+        line-height: 16px;
+    }
 
-.fluent-toast-details {
-    font-size: 14px;
-    line-height: 20px;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    word-break: break-word;
-    hyphens: auto;
-    -webkit-hyphens: auto;
-}
+    .fluent-toast ::deep .fluent-toast-details {
+        font-size: 14px;
+        line-height: 20px;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        word-break: break-word;
+        hyphens: auto;
+        -webkit-hyphens: auto;
+    }
 
-.fluent-toast-progressbar {
-    display: grid;
-    padding: 8px 0px 0px;
-    width: 100%;
-}
+    .fluent-toast ::deep .fluent-toast-progressbar {
+        display: grid;
+        padding: 8px 0px 0px;
+        width: 100%;
+    }
 
-.fluent-toast-progressbar-percentage {
-    font-size: 12px;
-    line-height: 16px;
-    padding-top: 7px;
-}
+    .fluent-toast ::deep .fluent-toast-progressbar-percentage {
+        font-size: 12px;
+        line-height: 16px;
+        padding-top: 7px;
+    }
 
-.fluent-toast-cta {
-    display: flex;
-    align-items: flex-end;
-    gap: 16px;
-    height: 28px;
-}
+    .fluent-toast ::deep .fluent-toast-cta {
+        display: flex;
+        align-items: flex-end;
+        gap: 16px;
+        height: 28px;
+    }
 
 @keyframes fadein {
     from {
