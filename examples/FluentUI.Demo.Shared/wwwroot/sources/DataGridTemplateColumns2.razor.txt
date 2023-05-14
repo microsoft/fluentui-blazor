@@ -2,7 +2,7 @@
 
 <FluentDataGrid id="defaultGrid" RowsData=RowsGrid.AsQueryable() GridTemplateColumns="1fr 1fr" TGridItem=SampleGridData OnRowFocus="HandleRowFocus" OnCellFocus="HandleCellFocus">
     <TemplateColumn Title="Name">
-        <FluentTextField @bind-Value="@context!.Name" />
+        <FluentTextField @bind-Value="@context!.Name" lab />
     </TemplateColumn>
     <TemplateColumn Title="Age">
         <FluentNumberField @bind-Value="@context!.Age" TValue="int"/>

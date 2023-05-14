@@ -17,14 +17,14 @@
         {
             @if (ColumnOptions is not null && (Align == Align.Left || Align == Align.Start))
             {
-                <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))">
+                <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="Filter this column">
                     <FluentIcon Name="@FluentIcons.Filter" />
                 </FluentButton>
             }
             
             if (Sortable.HasValue ? Sortable.Value : IsSortableByDefault())
             {
-                <FluentButton Appearance="Appearance.Stealth" class="col-sort-button" @onclick="@(() => Grid.SortByColumnAsync(this))">
+                <FluentButton Appearance="Appearance.Stealth" class="col-sort-button" @onclick="@(() => Grid.SortByColumnAsync(this))" aria-label="Sort on this column">
                     <div class="col-title-text">@Title</div>
 
                     @if (Grid.SortByAscending.HasValue && ShowSortIcon)
@@ -43,7 +43,7 @@
             
             @if (ColumnOptions is not null && (Align == Align.Right || Align == Align.End))
             {
-                <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))">
+                <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="Filter this column">
                     <FluentIcon Name="@FluentIcons.Filter" />
                 </FluentButton>
             }

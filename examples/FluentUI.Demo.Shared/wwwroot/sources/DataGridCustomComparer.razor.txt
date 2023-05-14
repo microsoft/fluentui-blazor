@@ -3,7 +3,7 @@
 
 <FluentDataGrid RowsData="@FilteredItems" ResizableColumns=true Pagination="@pagination" GridTemplateColumns="0.2fr 1fr 0.2fr 0.2fr 0.2fr 0.2fr" style="height: 405px; overflow:auto;">
     <TemplateColumn Title="Rank" SortBy="@rankSort" Align="Align.Center">
-        <img class="flag" src="_content/FluentUI.Demo.Shared/flags/@(context.Code).svg" />
+        <img class="flag" src="_content/FluentUI.Demo.Shared/flags/@(context.Code).svg" alt="Flag of @(context.Code)"/>
     </TemplateColumn>
     @*<PropertyColumn Property="@(c => c.Name)" InitialSortDirection=SortDirection.Descending Sortable="true" Comparer="@StringLengthComparer.Instance">
         <ColumnOptions>
