@@ -2,14 +2,10 @@
 
 namespace Microsoft.Fast.Components.FluentUI;
 
+/// <summary>
+/// By implementing this interface, a component can be used as by the generic ShowToast{TToastComponent} /> methods.
+/// </summary>
 public interface IToastComponent
 {
-    [Parameter, EditorRequired]
-    public ToastIntent Intent { get; set; }
-
-    [Parameter, EditorRequired]
-    public string? Title { get; set; }
-
-    [Parameter]
-    public ToastEndContent EndContent { get; set; }
+    
 }

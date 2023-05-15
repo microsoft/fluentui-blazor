@@ -3,14 +3,28 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class ConfirmationToast : FluentToast, IToastComponent
+public partial class ConfirmationToast : FluentToastBase, IToastComponent
 {
-    [CascadingParameter]
-    private FluentToast Toast { get; set; } = default!;
-
     protected override void OnInitialized()
     {
-        Id = Toast.Id;
-        Settings = Toast.Settings;
+        
+        //Settings = Toast.Settings;
     }
+
+    public ConfirmationToast() : base()
+    {
+        //Id = Identifier.NewId();
+        EndContentType = ToastEndContentType.Dismiss;
+    }
+
+    public ConfirmationToast(ToastIntent intent, string title, ToastSettings settings) : this()
+    {
+        Intent = intent;
+        Title = title;
+        Settings = settings;
+
+    }
+    
+    protected internal override void ToastContent(RenderTreeBuilder builder)
+        => builder.AddContent(0, Content());
 }

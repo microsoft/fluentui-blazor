@@ -1,23 +1,25 @@
-﻿@namespace Microsoft.Fast.Components.FluentUI
+﻿@using Microsoft.AspNetCore.Components.Rendering
+@namespace Microsoft.Fast.Components.FluentUI
+
 @if (_toastList.Any())
 {
     <div class="fluent-toast-container @_positionClass">
-        <CascadingValue Value=this IsFixed="true">
-            @foreach (FluentToast toast in _toastList.OrderBy(x => x.TimeStamp))
-            {
-                if (toast.ChildContent is not null)
-                {
-                    <FluentToast @key="@toast" Id="@toast.Id" Intent="@toast.Intent" Title="@(toast.Title!)" Settings="@toast.Settings">
-                        @toast.ChildContent
-                    </FluentToast>
-
-                }
-                else
-                {
-                    <FluentToast @key="@toast" Id="@toast.Id" Intent="@toast.Intent" Title="@(toast.Title!)" Settings="@toast.Settings" />
-                }
-            }
+        <CascadingValue TValue="InternalToastContext" IsFixed="true" Value="@_internalToastContext">
+            @_renderToasts
         </CascadingValue>
     </div>
+
+}
+
+@code {
+    protected void RenderToasts(RenderTreeBuilder __builder)
+    {
+        @foreach (FluentToastBase toast in _toastList.OrderBy(x => x.TimeStamp))
+        {
+            <FluentToast @key="@toast" Id="@toast.Id">
+                @((RenderFragment)(__builder => toast.ToastContent(__builder)))
+            </FluentToast>
+        }
+    }
 
 }

@@ -18,17 +18,17 @@
     <FluentTabs ActiveId="@(!HideExample ? $"tab-example-{ariaid}" : $"tab-razor-{ariaid}")">
         @if (!HideExample) 
         {
-            <FluentTab id="@("tab-example-"+@ariaid)" Text="Example" />
+            <FluentTab id="@("tab-example-"+@ariaid)" Label="Example" />
         }
         @if (!HideAllButExample) 
         {
             @foreach (string tab in GetCollocatedFiles()) 
             {
-                <FluentTab id="@("tab-"+@GetDisplayName(tab).Replace("#","").ToLower()+"-"+@ariaid)" Text="@GetDisplayName(tab)" />
+                <FluentTab id="@("tab-"+@GetDisplayName(tab).Replace("#","").ToLower()+"-"+@ariaid)" Label="@GetDisplayName(tab)" />
             }
             @foreach (string tab in GetAdditionalFiles()) 
             {
-                <FluentTab id="@("tab-"+tab.Replace("#","").ToLower()+"-"+@ariaid)" Text="@tab" />
+                <FluentTab id="@("tab-"+tab.Replace("#","").ToLower()+"-"+@ariaid)" Label="@tab" />
             }
 
 

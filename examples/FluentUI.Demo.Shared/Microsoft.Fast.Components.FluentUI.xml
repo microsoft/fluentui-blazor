@@ -3235,32 +3235,53 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToast.Id">
-            <summary>
-            Gets or sets the id that identiefies a specific notification
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToast.Settings">
-            <summary>
-            Notification specific settings
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToast.Intent">
-            <summary>
-            Gets or sets the intent of the notification. See <see cref="T:Microsoft.Fast.Components.FluentUI.ToastIntent"/>
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToast.Title">
-            <summary>
-            Gets or sets the main message of the notification.
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentToast.ChildContent">
             <summary>
             Use a custom component in the notfication
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentToast.Close">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToast.OnClick">
+            <summary>
+            Gets or sets a callback when a toast is clicked.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToastBase.Intent">
+            <summary>
+            Gets or sets the intent of the notification. See <see cref="T:Microsoft.Fast.Components.FluentUI.ToastIntent"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToastBase.Title">
+            <summary>
+            The main message of the notification.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToastBase.Settings">
+            <summary>
+            Notification specific settings
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToastBase.OnClick">
+            <summary>
+            Gets or sets a callback when a toast is clicked.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToastBase.ChildContent">
+            <summary>
+            Use a custom component in the notfication
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentToastBase.ToastContent(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
+            <summary>
+            Overridden by derived components to provide rendering logic for the toast
+            </summary>
+            <param name="builder">The current <see cref="T:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder" />.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentToastBase.#ctor">
+            <summary>
+            Constructs an instance of <see cref="T:Microsoft.Fast.Components.FluentUI.FluentToastBase" />.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentToastBase.Close">
             <summary>
             Closes the toast
             </summary>
@@ -3294,6 +3315,11 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentToasts.#ctor">
             <summary>
             Constructs an instance of <see cref="T:Microsoft.Fast.Components.FluentUI.FluentToasts"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.IToastComponent">
+            <summary>
+            By implementing this interface, a component can be used as by the generic ShowToast{TToastComponent} /> methods.
             </summary>
         </member>
         <member name="E:Microsoft.Fast.Components.FluentUI.IToastService.OnShow">
@@ -7658,20 +7684,20 @@
             A text field that is used for URL input.
             </summary>
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.ToastEndContent">
+        <member name="T:Microsoft.Fast.Components.FluentUI.ToastEndContentType">
             <summary />
         </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToastEndContent.Action">
+        <member name="F:Microsoft.Fast.Components.FluentUI.ToastEndContentType.Action">
             <summary>
             Toast shows a call to action after the title
             </summary>
         </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToastEndContent.Dismiss">
+        <member name="F:Microsoft.Fast.Components.FluentUI.ToastEndContentType.Dismiss">
             <summary>
             Toast shows a dismiss button after the title.
             </summary>
         </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToastEndContent.Timestamp">
+        <member name="F:Microsoft.Fast.Components.FluentUI.ToastEndContentType.Timestamp">
             <summary>
             Toast shows a timestamp after the title.
             </summary>

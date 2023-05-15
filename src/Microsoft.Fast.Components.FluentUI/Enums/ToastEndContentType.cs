@@ -3,7 +3,7 @@
 namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary />
-public enum ToastEndContent
+public enum ToastEndContentType
 {
     /// <summary>
     /// Toast shows a call to action after the title

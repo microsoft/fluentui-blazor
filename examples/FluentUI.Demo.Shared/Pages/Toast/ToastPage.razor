@@ -2,6 +2,7 @@
 @inject IToastService ToastService
 @inject NavigationManager NavigationManager
 @using FluentUI.Demo.Shared.Pages.Toast.Examples
+@using Microsoft.Fast.Components.FluentUI
 
 <h1>Toast</h1>
 
@@ -32,7 +33,9 @@
 
 <h1>Toasts</h1>
 
-<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowInfo("I'm an INFO message", action => action.Text = "Action", settings => settings.EndContent = ToastEndContent.Action  ))">Info Toast</FluentButton>
+<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowInfo("INFO message"))">Info Toast</FluentButton>
+
+
 <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowSuccess("I'm a SUCCESS message with a lot of text to see what a toast looks like when it's really big."))">Success Toast</FluentButton>
 <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowWarning("I'm a WARNING message"))">Warning Toast</FluentButton>
 <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowError("I'm an ERROR message"))">Error Toast</FluentButton>
@@ -54,17 +57,6 @@
 <hr />
 
 
-<h1>Toasts - Custom Component</h1>
-
-<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowToast<MyToastComponent>(settings => { settings.Timeout = 5;}))">Custom Toast</FluentButton>
-<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowToast<MyToastComponent>(_toastParameters, settings => { settings.Timeout = 5; }))">Custom Toast with parameters</FluentButton>
-<hr />
-
-<h1>Toasts - Toast Component</h1>
-
-
-
-<hr />
 
 <h1>Toasts - Remove Toasts</h1>
 
@@ -82,15 +74,12 @@
 
 @code
 {
-    private ToastParameters _toastParameters = default!;
+    
     private ToastParameters _confirmParameters = default!;
 
     protected override void OnInitialized()
     {
-        _toastParameters = new ToastParameters()
-        .Add(nameof(MyToastComponent.Title), "I'm a custom toast component with parameters")
-        .Add(nameof(MyToastComponent.ToastParam), "I'm a parameter");
-
+    
         _confirmParameters = new ToastParameters()
         .Add(nameof(ConfirmationToast.PrimaryAction), new ToastAction()
         {

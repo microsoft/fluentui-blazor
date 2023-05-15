@@ -44,24 +44,29 @@ public partial class FluentToasts
     public bool ShowCloseButton { get; set; } = true;
 
     private string _positionClass = string.Empty;
+    
+    private readonly InternalToastContext _internalToastContext;
 
-    private readonly List<FluentToast> _toastList;
-    private Queue<FluentToast> _toastWaitingQueue;
+    private readonly List<FluentToastBase> _toastList;
+    private Queue<FluentToastBase> _toastWaitingQueue;
+    private readonly RenderFragment _renderToasts;
 
     /// <summary>
     /// Constructs an instance of <see cref="FluentToasts"/>.
     /// </summary>
     public FluentToasts()
     {
+        _internalToastContext = new(this);
+
         _toastList = new();
         _toastWaitingQueue = new();
+        _renderToasts = RenderToasts;
     }
 
 
     protected override void OnInitialized()
     {
         ToastService.OnShow += ShowToast;
-        ToastService.OnShowCustomComponent += ShowCustomToast;
         ToastService.OnShowToastComponent += ShowToastComponentToast;
         ToastService.OnShowToastComponentWithAction += ShowToastComponentToastWithAction;
         ToastService.OnClearAll += ClearAll;
@@ -109,6 +114,8 @@ public partial class FluentToasts
 
         toastInstanceSettings.Timeout = toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout;
 
+        toastInstanceSettings.EndContentType ??= ToastEndContentType.Dismiss;
+
         return toastInstanceSettings;
     }
 
@@ -125,11 +132,11 @@ public partial class FluentToasts
 
     private void ShowToast(ToastIntent intent, string title, Action<ToastSettings>? toastSettings)
     {
-        
+
         _ = InvokeAsync(() =>
         {
             ToastSettings? settings = BuildToastSettings(intent, toastSettings);
-            FluentToast? toast = new(intent, title, settings);
+            FluentToastBase? toast = new ConfirmationToast(intent, title, settings);
 
             if (_toastList.Count < MaxToastCount)
             {
@@ -144,48 +151,24 @@ public partial class FluentToasts
         });
     }
 
-    private void ShowCustomToast(Type contentComponent, ToastParameters? parameters, Action<ToastSettings>? settings)
-    {
-        _ = InvokeAsync(() =>
-        {
-            RenderFragment? childContent = new(builder =>
-            {
-                builder.OpenComponent(0, contentComponent);
-                if (parameters is not null )
-                {
-                    builder.AddMultipleAttributes(1, parameters.Parameters);
-                }
-
-                builder.CloseComponent();
-            });
-
-            ToastSettings? toastSettings = BuildCustomToastSettings(settings);
-            FluentToast? toastInstance = new(childContent, toastSettings);
-
-            _toastList.Add(toastInstance);
-
-            StateHasChanged();
-        });
-    }
-
     private void ShowToastComponentToast(Type toastComponent, ToastIntent intent, string title, Action<ToastSettings>? settings)
     {
         _ = InvokeAsync(() =>
         {
-            RenderFragment? customContent = new(builder =>
-            {
+            //RenderFragment? customContent = new(builder =>
+            //{
 
-                builder.OpenComponent(0, toastComponent);
-                builder.AddAttribute(1, "Intent", intent);
-                builder.AddAttribute(2, "Title", title);
+            //    builder.OpenComponent(0, toastComponent);
+            //    builder.AddAttribute(1, "Intent", intent);
+            //    builder.AddAttribute(2, "Title", title);
 
-                builder.CloseComponent();
-            });
+            //    builder.CloseComponent();
+            //});
 
             ToastSettings? toastSettings = BuildToastSettings(intent, settings);
-            FluentToast? toastInstance = new(customContent, toastSettings);
+            FluentToastBase? toastInstance = (FluentToastBase?)Activator.CreateInstance(toastComponent, new object[] { intent, title, toastSettings }); //new(customContent, toastSettings);
 
-            _toastList.Add(toastInstance);
+            _toastList.Add(toastInstance!);
 
             StateHasChanged();
         });
@@ -207,9 +190,9 @@ public partial class FluentToasts
                 builder.CloseComponent();
             });
 
-            FluentToast? toastInstance = new(customContent, toastSettings);
+            FluentToastBase? toastInstance = (FluentToastBase?)Activator.CreateInstance(toastComponent, new object[] { toastSettings });
 
-            _toastList.Add(toastInstance);
+            _toastList.Add(toastInstance!);
 
             StateHasChanged();
         });
@@ -220,7 +203,7 @@ public partial class FluentToasts
     {
         _ = InvokeAsync(() =>
         {
-            FluentToast? toast = _toastWaitingQueue.Dequeue();
+            FluentToastBase? toast = _toastWaitingQueue.Dequeue();
 
             _toastList.Add(toast);
 
@@ -232,7 +215,7 @@ public partial class FluentToasts
     {
         _ = InvokeAsync(() =>
         {
-            FluentToast? toastInstance = _toastList.SingleOrDefault(x => x.Id == toastId);
+            FluentToastBase? toastInstance = _toastList.SingleOrDefault(x => x.Id == toastId);
 
             if (toastInstance is not null)
             {

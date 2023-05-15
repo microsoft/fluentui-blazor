@@ -1,37 +1,41 @@
 ﻿@using Microsoft.AspNetCore.Components.Rendering
 @implements IToastComponent
-@inherits FluentToast
+@inherits FluentToastBase
 
 @namespace Microsoft.Fast.Components.FluentUI
 
+@code {
+    private RenderFragment Content() =>
+    @<text>
+        <FluentStack Orientation="Orientation.Horizontal" Width="100%" VerticalAlignment="StackVerticalAlignment.Center" HorizontalGap="8">
+            @if (Settings.Icon is not null)
+            {
+                (string Name, Color Color, IconVariant Variant) Icon = Settings.Icon.Value;
 
-<FluentStack Orientation="Orientation.Horizontal" Width="100%" VerticalAlignment="StackVerticalAlignment.Center" HorizontalGap="8">
-    @if (Settings.Icon is not null)
-    {
-        (string Name, Color Color, IconVariant Variant) Icon = Settings.Icon.Value;
+                <FluentIcon Name="@Icon.Name" Style="min-width: 16px;" Size="IconSize.Size16" Color=@Icon.Color Variant="Icon.Variant" />
+            }
 
-        <FluentIcon Name="@Icon.Name" Style="min-width: 16px;" Size="IconSize.Size16" Color=@Icon.Color Variant="Icon.Variant" />
-    }
-
-    <div class="fluent-toast-title">@Title</div>
-    <div class="fluent-toast-actions">
-        @if (EndContent == ToastEndContent.Dismiss)
-        {
-            <FluentIcon Name="@FluentIcons.Dismiss"
-                        Size="@IconSize.Size12"
-                        Title="Close"
-                        Color="Color.FillInverse"
-                        OnClick="Close" />
-        }
-        @if (EndContent == ToastEndContent.Action)
-        {
-            <FluentAnchor Href="@(String.IsNullOrEmpty(PrimaryAction?.Href) ? "#" : PrimaryAction?.Href)"
-                          title="Toast action"
-                          Style="font-size: 14px; font-weight:400;"
-                          Appearance="Appearance.Hypertext"
-            @onclick="@HandlePrimaryActionClick">
-                @PrimaryAction?.Text
-            </FluentAnchor>
-        }
-    </div>
-</FluentStack>
+            <div class="fluent-toast-title">@Title</div>
+            <div class="fluent-toast-action">
+                @if (EndContentType == ToastEndContentType.Dismiss)
+                {
+                    <FluentIcon Name="@FluentIcons.Dismiss"
+                                Size="@IconSize.Size12"
+                                Title="Close"
+                                Color="Color.FillInverse"
+                                OnClick=@Close />
+                }
+                @if (EndContentType == ToastEndContentType.Action)
+                {
+                    <FluentAnchor Href="@(String.IsNullOrEmpty(PrimaryAction?.Href) ? "#" : PrimaryAction?.Href)"
+                                  title="Toast action"
+                                  Style="font-size: 14px; font-weight:400;"
+                                  Appearance="Appearance.Hypertext"
+                    @onclick="HandlePrimaryActionClick">
+                        @PrimaryAction?.Text
+                    </FluentAnchor>
+                }
+            </div>
+        </FluentStack>
+    </text>;
+}

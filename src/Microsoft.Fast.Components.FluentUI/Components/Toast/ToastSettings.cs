@@ -12,7 +12,7 @@ public class ToastSettings
     /// </summary>
     public (string Name, Color Color, IconVariant Variant)? Icon { get; set; }
 
-    public ToastEndContent? EndContent { get; set; }
+    public ToastEndContentType? EndContentType { get; set; }
     
     /// <summary>
     /// Gets or sets the primary call to action for the notification
@@ -60,7 +60,7 @@ public class ToastSettings
     public ToastSettings(
         int timeout,
         (string Name, Color Color, IconVariant Variant)? icon = null,
-        ToastEndContent? endContent = null,
+        ToastEndContentType? endContentType = null,
         ToastAction? primaryCallToAction = null,
         ToastAction? secondaryCallToAction = null, 
         string? subtitle = null,
@@ -71,7 +71,7 @@ public class ToastSettings
     {
         Timeout = timeout;
         Icon = icon;
-        EndContent = endContent;
+        EndContentType = endContentType;
         PrimaryAction = primaryCallToAction;
         SecondaryAction = secondaryCallToAction;
         Subtitle = subtitle;
