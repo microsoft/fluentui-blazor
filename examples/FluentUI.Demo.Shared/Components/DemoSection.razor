@@ -1,6 +1,9 @@
-﻿@if (!string.IsNullOrEmpty(Title)) 
+﻿@{
+    string ariaid = Title.Replace(' ','-').ToLower();
+}
+@if (!string.IsNullOrEmpty(Title)) 
 {
-    <h3 id="@Title.Replace(' ','-').ToLower()">@Title</h3>
+    <h3 id="@ariaid">@Title</h3>
 }
 
 @if (Description != null) 
@@ -12,20 +15,20 @@
 
 <div class="demo-section-content">
 
-    <FluentTabs ActiveId="@(!HideExample ? "tab-example" : "tab-razor")">
+    <FluentTabs ActiveId="@(!HideExample ? $"tab-example-{ariaid}" : $"tab-razor-{ariaid}")">
         @if (!HideExample) 
         {
-            <FluentTab id="tab-example" Label="Example" />
+            <FluentTab id="@("tab-example-"+@ariaid)" Text="Example" />
         }
         @if (!HideAllButExample) 
         {
             @foreach (string tab in GetCollocatedFiles()) 
             {
-                <FluentTab id="@("tab-"+@GetDisplayName(tab).Replace("#","").ToLower())" Label="@GetDisplayName(tab)" />
+                <FluentTab id="@("tab-"+@GetDisplayName(tab).Replace("#","").ToLower()+"-"+@ariaid)" Text="@GetDisplayName(tab)" />
             }
             @foreach (string tab in GetAdditionalFiles()) 
             {
-                <FluentTab id="@("tab-"+tab.Replace("#","").ToLower())" Label="@tab" />
+                <FluentTab id="@("tab-"+tab.Replace("#","").ToLower()+"-"+@ariaid)" Text="@tab" />
             }
 
 

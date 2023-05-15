@@ -3,7 +3,7 @@
 <FluentDataGrid Items="@Data.People" style="width: 600px;">
     <TemplateColumn Title="Person" SortBy="@sortByName">
         <div class="flex items-center">
-            <img class="flag" src="_content/FluentUI.Demo.Shared/flags/@(context.CountryCode).svg" />
+            <img class="flag" src="_content/FluentUI.Demo.Shared/flags/@(context.CountryCode).svg" alt="Flag of @(context.CountryCode)" />
             <nobr>
                 <strong>@context.LastName</strong>, @context.FirstName
             </nobr>

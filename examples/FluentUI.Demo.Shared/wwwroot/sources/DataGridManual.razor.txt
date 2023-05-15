@@ -1,5 +1,5 @@
-﻿<FluentDataGrid id="manualGrid" GenerateHeader=GenerateHeaderOption.None GridTemplateColumns="1fr 1fr" TGridItem=string>
-    <FluentDataGridRow RowType="DataGridRowType.Header">
+﻿<FluentDataGrid id="manualGrid" GenerateHeader=GenerateHeaderOption.None GridTemplateColumns="1fr 1fr" TGridItem="string" role="grid">
+    <FluentDataGridRow RowType="DataGridRowType.Header" >
         <FluentDataGridCell GridColumn=1 CellType="DataGridCellType.ColumnHeader">Column 1</FluentDataGridCell>
         <FluentDataGridCell GridColumn=2 CellType="DataGridCellType.ColumnHeader">Column 2</FluentDataGridCell>
     </FluentDataGridRow>
