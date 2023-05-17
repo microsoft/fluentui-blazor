@@ -6,15 +6,20 @@
     Minimum value: @(int.MinValue); Maximum value: @(int.MaxValue)
 </p>
 <p>
-    Same as above but bound to oninput event by using component that inherits from the <code>FluentNumberField</code> component<br />
-    See the \Shared folder for the implementation<br />
-    <FluentNumberFieldOnInput @bind-Value="exampleInt2" Appearance="Appearance.Filled">Integer</FluentNumberFieldOnInput>
+    Same as above but bound to oninput event 
+    <FluentNumberField @bind-Value="exampleInt2" Appearance="Appearance.Filled" @oninput="@(e => Int32.TryParse(e.Value.ToString(), out exampleInt2))">Integer</FluentNumberField>
+    <br />
+    Example int: @exampleInt2
+</p>
+<p>
+    Nullable int bound to oninput event 
+    <FluentNumberField @bind-Value="exampleNullableInt" Appearance="Appearance.Filled" @oninput="@(e => exampleNullableInt = int.TryParse(e.Value.ToString(), out int tmp) ? (int?)tmp : null)">Nullable integer</FluentNumberField>
     <br />
     Example int: @exampleInt2
 </p>
 
-
 @code {
     int exampleInt { get; set; } = 123;
-    int exampleInt2 { get; set; } = 345;
+    private int exampleInt2 = 345;
+    private int? exampleNullableInt = null;
 }
