@@ -14,12 +14,22 @@
 @code {
     protected void RenderToasts(RenderTreeBuilder __builder)
     {
-        @foreach (FluentToastBase toast in _toastList.OrderBy(x => x.TimeStamp))
+
+        @foreach (var toast in _toastList.OrderBy(x => x.TimeStamp))
         {
-            <FluentToast @key="@toast" Id="@toast.Id">
-                @((RenderFragment)(__builder => toast.ToastContent(__builder)))
-            </FluentToast>
+            if (toast.CustomContent is not null)
+            {
+                <FluentToast @key="@toast" Id="@toast.Id" Intent="@toast.Intent" Settings="@toast.Settings">
+                    @toast.CustomContent
+                    @*@((RenderFragment)(__builder => toast.ToastContent(__builder)))*@
+                </FluentToast>
+            }
+            else
+            {
+                <FluentToast @key="@toast" Id="@toast.Id" Intent="@toast.Intent" Title="@(toast.Title!)" Settings="@toast.Settings" />
+            }
         }
+
     }
 
 }

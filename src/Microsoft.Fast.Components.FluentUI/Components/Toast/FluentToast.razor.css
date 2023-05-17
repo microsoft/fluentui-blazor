@@ -30,8 +30,10 @@
         overflow-wrap: break-word;
         word-wrap: break-word;
         word-break: break-word;
-        hyphens: auto;
         -webkit-hyphens: auto;
+        hyphens: auto;
+        -webkit-user-select: none;
+        user-select: none;
     }
 
     .fluent-toast ::deep .fluent-toast-action {

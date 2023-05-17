@@ -47,16 +47,22 @@
 <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowToast(ToastIntent.Custom, "I'm a message with a custom icon", settings => { settings.Icon = (FluentIcons.Delete,Color.Accent, IconVariant.Regular); }))">Toast with custom icon</FluentButton>
 <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowToast(ToastIntent.Custom, "I'm a message without an icon"))">Toast without icon</FluentButton>
 
-<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowInfo("INFO message with CtA", settings => {
-    settings.PrimaryAction = new() { Text = "Primary" };
-    }))">Info Toast</FluentButton>
-<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowInfo("INFO message with CtA", settings => {
-    settings.PrimaryAction = new() { Text = "Primary" };
-    settings.PercentageComplete = 50;
-    }))">Info Toast</FluentButton>
+<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowInfo("INFO message with CtA", 
+    action => { action.Text = "Primary"; }
+ ))">Info Toast</FluentButton>
+    
+<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowInfo("INFO message with CtA", null,
+    settings => {
+        settings.Timeout = 10; 
+    }
+))">Info Toast</FluentButton>
 <hr />
 
+<h1>Toasts - Custom Component</h1>
 
+<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowToast<MyToastComponent>(settings => { settings.Timeout = 5;}))">Custom Toast</FluentButton>
+<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowToast<MyToastComponent>(_toastParameters, settings => { settings.Timeout = 5; }))">Custom Toast with parameters</FluentButton>
+<hr />
 
 <h1>Toasts - Remove Toasts</h1>
 
@@ -75,22 +81,24 @@
 @code
 {
     
+    private ToastParameters _toastParameters = default!;
     private ToastParameters _confirmParameters = default!;
 
     protected override void OnInitialized()
     {
-    
+        _toastParameters = new ToastParameters()
+        .Add(nameof(MyToastComponent.Title), "I'm a custom toast component with parameters")
+        .Add(nameof(MyToastComponent.ToastParam), "I'm a parameter");
+
         _confirmParameters = new ToastParameters()
         .Add(nameof(ConfirmationToast.PrimaryAction), new ToastAction()
-        {
-            Text = "Confirm",
-            Href = string.Empty,
-        });
+            {
+                Text = "Confirm",
+                Href = string.Empty,
+            });
 
-        
+
     }
-
-    
 
     private void ClearAll()
         => ToastService.ClearAll();

@@ -30,14 +30,9 @@ public interface IToastService
     event Action<Type, ToastParameters?, Action<ToastSettings>?>? OnShowCustomComponent;
 
     /// <summary>
-    /// A event that will be invoked when showing a toast with a custom toast component
-    /// </summary>
-    event Action<Type, ToastIntent, string, Action<ToastSettings>?>? OnShowToastComponent;
-
-    /// <summary>
     /// A event that will be invoked when showing a toast with a custom component
     /// </summary>
-    public event Action<Type, ToastIntent, string, Action<ToastAction>?, Action<ToastSettings>?>? OnShowToastComponentWithAction;
+    public event Action<Type, ToastIntent, string, Action<ToastAction>?, Action<ToastSettings>?>? OnShowToastComponent;
 
     /// <summary>
     /// A event that will be invoked to clear all queued toasts
@@ -53,16 +48,9 @@ public interface IToastService
     /// Shows a information toast 
     /// </summary>
     /// <param name="title">Text to display on the toast</param>
-    /// <param name="settings">Settings to configure the toast instance</param>
-    void ShowInfo(string title, Action<ToastSettings>? settings = null);
-
-    /// <summary>
-    /// Shows a information toast 
-    /// </summary>
-    /// <param name="title">Text to display on the toast</param>
     /// <param name="action">Action link for the toast</param>
     /// <param name="settings">Settings to configure the toast instance</param>
-    void ShowInfo(string title, Action<ToastAction>? action, Action<ToastSettings>? settings = null);
+    void ShowInfo(string title, Action<ToastAction>? action = null, Action<ToastSettings>? settings = null);
 
     /// <summary>
     /// Shows a success toast 

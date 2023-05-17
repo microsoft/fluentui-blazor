@@ -11,33 +11,7 @@ public class ToastSettings
     /// For all other intents the default is IconVariant.Regular.
     /// </summary>
     public (string Name, Color Color, IconVariant Variant)? Icon { get; set; }
-
-    public ToastEndContentType? EndContentType { get; set; }
-    
-    /// <summary>
-    /// Gets or sets the primary call to action for the notification
-    /// </summary>
-    public ToastAction? PrimaryAction { get; set; }
-
-    /// <summary>
-    /// Gets or sets the secondary call to action for the notification
-    /// </summary>
-    public ToastAction? SecondaryAction { get; set; }
-
-    /// <summary>
-    /// Gets or sets the subtitle of the notification.
-    /// </summary>
-    public string? Subtitle { get; set; }
-
-    /// <summary>
-    /// Gets or sets the details of the notification.
-    /// </summary>
-    public string? Details { get; set; }
-
-    /// <summary>
-    /// Gets or sets the percentage completed for a progress notification
-    /// </summary>
-    public int? PercentageComplete { get; set; }
+   
 
     /// <summary>
     /// The <c>OnClick</c> property is an optional action that is triggered when the user clicks on the toast notification.
@@ -58,25 +32,12 @@ public class ToastSettings
       
 
     public ToastSettings(
-        int timeout,
+        int timeout = 7,
         (string Name, Color Color, IconVariant Variant)? icon = null,
-        ToastEndContentType? endContentType = null,
-        ToastAction? primaryCallToAction = null,
-        ToastAction? secondaryCallToAction = null, 
-        string? subtitle = null,
-        string? details = null,
-        int? percentageComplete = null,
         Action? onClick = null)
-        
     {
         Timeout = timeout;
         Icon = icon;
-        EndContentType = endContentType;
-        PrimaryAction = primaryCallToAction;
-        SecondaryAction = secondaryCallToAction;
-        Subtitle = subtitle;
-        Details = details;
-        PercentageComplete = percentageComplete;
         OnClick = onClick;
     }
 

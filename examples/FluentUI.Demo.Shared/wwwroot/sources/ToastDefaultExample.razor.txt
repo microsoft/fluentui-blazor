@@ -7,10 +7,12 @@
 
 @code
 {
-    int counter = 0;
+    int counter = 1;
     void OpenToast()
     {
-        var intent = Enum.GetValues<ToastIntent>()[counter % 10];
+        Random rnd = new();
+
+        var intent = Enum.GetValues<ToastIntent>()[rnd.Next(10)];
         var message = $"Simple Toast #{counter++}";
         Toast.ShowToast(intent, message);
     }

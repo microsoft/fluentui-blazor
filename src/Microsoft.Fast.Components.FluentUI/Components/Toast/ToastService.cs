@@ -22,12 +22,7 @@ public class ToastService : IToastService
     /// <summary>
     /// A event that will be invoked when showing a toast with a custom component
     /// </summary>
-    public event Action<Type, ToastIntent, string, Action<ToastSettings>?>? OnShowToastComponent;
-
-    /// <summary>
-    /// A event that will be invoked when showing a toast with a custom component
-    /// </summary>
-    public event Action<Type, ToastIntent, string, Action<ToastAction>?, Action<ToastSettings>?>? OnShowToastComponentWithAction;
+    public event Action<Type, ToastIntent, string, Action<ToastAction>?, Action<ToastSettings>?>? OnShowToastComponent;
 
     /// <summary>
     /// A event that will be invoked when clearing toasts
@@ -54,18 +49,9 @@ public class ToastService : IToastService
     /// Only shows icon, title and close button or action.
     /// </summary>
     /// <param name="title">Text to display on the toast</param>
-    /// <param name="settings">Settings to configure the toast instance</param>
-    public void ShowInfo(string title, Action<ToastSettings>? settings = null)
-        => ShowToast<ConfirmationToast>(ToastIntent.Info, title, settings);
-
-    /// <summary>
-    /// Shows a simple information confirmation toast.
-    /// Only shows icon, title and close button or action.
-    /// </summary>
-    /// <param name="title">Text to display on the toast</param>
     /// <param name="action">Action to use for this toast</param>
     /// <param name="settings">Settings to configure the toast instance</param>
-    public void ShowInfo(string title, Action<ToastAction>? action, Action<ToastSettings>? settings = null)
+    public void ShowInfo(string title, Action<ToastAction>? action = null, Action<ToastSettings>? settings = null)
         => ShowToast<ConfirmationToast>(ToastIntent.Info, title, action, settings);
 
     /// <summary>
@@ -112,18 +98,9 @@ public class ToastService : IToastService
     /// </summary>
     /// <param name="intent">Toast intent to display</param>
     /// <param name="title">Text to display on the toast</param>
-    /// <param name="settings">Settings to configure the toast instance</param>
-    public void ShowToast<TComponent>(ToastIntent intent, string title, Action<ToastSettings>? settings = null) where TComponent : IToastComponent
-        => ShowToast(typeof(TComponent), intent, title, settings);
-
-    /// <summary>
-    /// Shows a toast using the supplied settings
-    /// </summary>
-    /// <param name="intent">Toast intent to display</param>
-    /// <param name="title">Text to display on the toast</param>
     /// <param name="action">Action to show (instead of close button)</param>
     /// <param name="settings">Settings to configure the toast instance</param>
-    public void ShowToast<TComponent>(ToastIntent intent, string title, Action<ToastAction>? action, Action<ToastSettings>? settings = null) where TComponent : IToastComponent
+    public void ShowToast<TComponent>(ToastIntent intent, string title, Action<ToastAction>? action = null, Action<ToastSettings>? settings = null) where TComponent : IToastComponent
         => ShowToast(typeof(TComponent), intent, title, action, settings);
 
     /// <summary>
@@ -149,33 +126,16 @@ public class ToastService : IToastService
     /// <param name="toastComponent">Type of toast component to display.</param>
     /// <param name="intent">The intent of the notification.</param>
     /// <param name="title">The title of the notification</param>
-    /// <param name="settings">Settings to configure the toast component.</param>
-    public void ShowToast(Type toastComponent, ToastIntent intent, string title, Action<ToastSettings>? settings)
-    {
-        if (!typeof(IToastComponent).IsAssignableFrom(toastComponent))
-        {
-            throw new ArgumentException($"{toastComponent.FullName} must be a Toast Component");
-        }
-
-        OnShowToastComponent?.Invoke(toastComponent, intent, title, settings);
-    }
-
-    /// <summary>
-    /// Shows the specified toast component type />,
-    /// </summary>
-    /// <param name="toastComponent">Type of toast component to display.</param>
-    /// <param name="intent">The intent of the notification.</param>
-    /// <param name="title">The title of the notification</param>
     /// <param name="action">The action to use for this toast.</param>
     /// <param name="settings">Settings to configure the toast component.</param>
-    public void ShowToast(Type toastComponent, ToastIntent intent, string title, Action<ToastAction>? action, Action<ToastSettings>? settings)
+    public void ShowToast(Type toastComponent, ToastIntent intent, string title, Action<ToastAction>? action = null, Action<ToastSettings>? settings = null)
     {
         if (!typeof(IToastComponent).IsAssignableFrom(toastComponent))
         {
             throw new ArgumentException($"{toastComponent.FullName} must be a Toast Component");
         }
 
-        OnShowToastComponentWithAction?.Invoke(toastComponent, intent, title, action, settings);
+        OnShowToastComponent?.Invoke(toastComponent, intent, title, action, settings);
     }
 
     /// <summary>

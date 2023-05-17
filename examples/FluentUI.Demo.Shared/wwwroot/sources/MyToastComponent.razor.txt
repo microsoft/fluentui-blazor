@@ -1,0 +1,24 @@
+﻿@implements IToastComponent
+@inherits FluentToast
+<div class="text-white p-4 bg-secondary rounded">
+    <h3>@Title</h3>
+    <h5 class="mb-0">@ToastParam</h5>
+    <div class="text-right">
+        <button class="btn btn-warning" @onclick="Toast.Close">Close</button>
+    </div>
+</div>
+
+
+@code {
+    [CascadingParameter]
+    private FluentToast Toast { get; set; } = default!;
+
+
+    [Parameter]
+    public string? ToastParam { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Settings = Toast.Settings;
+    }
+}

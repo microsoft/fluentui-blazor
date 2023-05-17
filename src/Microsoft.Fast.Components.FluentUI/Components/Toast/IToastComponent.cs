@@ -3,7 +3,7 @@
 namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary>
-/// By implementing this interface, a component can be used as by the generic ShowToast{TToastComponent} /> methods.
+/// A component implementing this interface can be used as toast content.
 /// </summary>
 public interface IToastComponent
 {
