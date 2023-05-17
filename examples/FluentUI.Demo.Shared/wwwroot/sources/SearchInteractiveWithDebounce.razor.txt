@@ -2,7 +2,7 @@
 
 <FluentSearch @ref=searchTest
               @bind-Value="SearchValue"
-              @oninput="@(e => SearchValue = e.Value.ToString())"
+              @oninput="@(e => SearchValue = e.Value?.ToString())"
               @onchange="HandleClear"
               Placeholder="Search for name" />
 <br />
@@ -12,13 +12,13 @@
 </p>
 
 @code {
-    private Timer timer = null;
+    private Timer? timer = null;
 
     private FluentSearch? searchTest;
 
-    private string searchValue = string.Empty;
+    private string? searchValue = string.Empty;
 
-    private string SearchValue
+    private string? SearchValue
     {
         get => searchValue;
         set
@@ -45,7 +45,7 @@
         return new() { defaultResultsText };
     }
 
-    private async void TimerElapsed_TickAsync(object sender, EventArgs e)
+    private async void TimerElapsed_TickAsync(object? sender, EventArgs e)
     {
         DisposeTimer();
         await OnSearchAsync();
