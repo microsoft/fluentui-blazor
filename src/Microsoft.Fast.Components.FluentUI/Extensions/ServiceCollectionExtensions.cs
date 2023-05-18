@@ -86,28 +86,21 @@ public static class ServiceCollectionExtensions
             switch (configuration.HostingModel)
             {
                 case BlazorHostingModel.Server:
-#pragma warning disable CA1416 // Validate platform compatibility
-                    HttpClientHandler? handler = GetHandler();
-#pragma warning restore CA1416 // Validate platform compatibility
                     if (string.IsNullOrEmpty(configuration.StaticAssetServiceConfiguration.BaseAddress))
                     {
+#pragma warning disable CA1416 // Validate platform compatibility
                         services.AddHttpClient<IStaticAssetService, HttpBasedStaticAssetService>()
-                            .ConfigurePrimaryHttpMessageHandler(() =>
-                            {
-                                return handler;
-                            });
+                            .ConfigurePrimaryHttpMessageHandler(GetHandler);
+#pragma warning restore CA1416 // Validate platform compatibility
                     }
                     else
                     {
+#pragma warning disable CA1416 // Validate platform compatibility
                         services.AddHttpClient<IStaticAssetService, HttpBasedStaticAssetService>(c =>
                         {
                             c.BaseAddress = new Uri(configuration.StaticAssetServiceConfiguration.BaseAddress);
-
-                        }).ConfigurePrimaryHttpMessageHandler(() =>
-                        {
-                            return handler;
-                        });
-
+                        }).ConfigurePrimaryHttpMessageHandler(GetHandler);
+#pragma warning restore CA1416 // Validate platform compatibility
                     }
                     break;
                 case BlazorHostingModel.WebAssembly:
@@ -135,7 +128,7 @@ public static class ServiceCollectionExtensions
         {
             services.AddHttpClient<IStaticAssetService, HttpBasedStaticAssetService>();
         }
-                
+
 
         services.AddDesignTokens();
 
@@ -162,28 +155,21 @@ public static class ServiceCollectionExtensions
             switch (options.HostingModel)
             {
                 case BlazorHostingModel.Server:
-#pragma warning disable CA1416 // Validate platform compatibility
-                    HttpClientHandler? handler = GetHandler();
-#pragma warning restore CA1416 // Validate platform compatibility
                     if (string.IsNullOrEmpty(options.StaticAssetServiceConfiguration.BaseAddress))
                     {
+#pragma warning disable CA1416 // Validate platform compatibility
                         services.AddHttpClient<IStaticAssetService, HttpBasedStaticAssetService>()
-                            .ConfigurePrimaryHttpMessageHandler(() =>
-                            {
-                                return handler;
-                            });
+                            .ConfigurePrimaryHttpMessageHandler(GetHandler);
+#pragma warning restore CA1416 // Validate platform compatibility
                     }
                     else
                     {
+#pragma warning disable CA1416 // Validate platform compatibility
                         services.AddHttpClient<IStaticAssetService, HttpBasedStaticAssetService>(c =>
                         {
                             c.BaseAddress = new Uri(options.StaticAssetServiceConfiguration.BaseAddress);
-
-                        }).ConfigurePrimaryHttpMessageHandler(() =>
-                        {
-                            return handler;
-                        });
-
+                        }).ConfigurePrimaryHttpMessageHandler(GetHandler);
+#pragma warning restore CA1416 // Validate platform compatibility
                     }
                     break;
                 case BlazorHostingModel.WebAssembly:
