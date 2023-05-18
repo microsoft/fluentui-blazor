@@ -1,0 +1,49 @@
+﻿@inject IToastService ToastService
+
+<FluentStack Wrap=true>
+    <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowSuccess("I'm a SUCCESS confirmation with a lot of text to see what a toast looks like when it's really big."))">
+        <FluentIcon Name="@FluentIcons.CheckmarkCircle" Size="@IconSize.Size20" Variant="@IconVariant.Filled" Color="@Color.Success" Slot="start" />
+        Show Success
+    </FluentButton>
+    <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowWarning("I'm a WARNING confirmation"))">
+        <FluentIcon Name="@FluentIcons.Warning" Size="@IconSize.Size20" Variant="@IconVariant.Filled" Color="@Color.Warning" Slot="start" />
+        Show Warning
+    </FluentButton>
+    <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowError("I'm an ERROR confirmation"))">
+        <FluentIcon Name="@FluentIcons.DismissCircle" Size="@IconSize.Size20" Variant="@IconVariant.Filled" Color="@Color.Error" Slot="start" />
+        Show Error
+    </FluentButton>
+    <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowInfo("I'm an Info confirmation"))">
+        <FluentIcon Name="@FluentIcons.Info" Size="@IconSize.Size20" Variant="@IconVariant.Filled" Color="@Color.Info" Slot="start" />
+        Show Info
+    </FluentButton>
+    <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowProgress("I'm a Progress confirmation"))">
+        <FluentIcon Name="@FluentIcons.Flash" Size="@IconSize.Size20" Color="@Color.Neutral" Slot="start" />
+        Show progress
+    </FluentButton>
+
+    <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowUpload("I'm an Upload confirmation"))">
+        <FluentIcon Name="@FluentIcons.ArrowUpload" Size="@IconSize.Size20" Color="@Color.Neutral" Slot="start" />
+        Show upload
+    </FluentButton>
+
+    <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowDownload("I'm a Download confirmation"))">
+        <FluentIcon Name="@FluentIcons.ArrowDownload" Size="@IconSize.Size20" Color="@Color.Neutral" Slot="start" />
+        Show download
+    </FluentButton>
+
+    <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowEvent("I'm an Event confirmation"))">
+        <FluentIcon Name="@FluentIcons.CalendarLTR" Size="@IconSize.Size20" Color="@Color.Neutral" Slot="start" />
+        Show event
+    </FluentButton>
+
+    <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowAvatar("I'm an Avatar confirmation"))">
+        <FluentIcon Name="@FluentIcons.Person" Size="@IconSize.Size20" Color="@Color.Neutral" Slot="start" />
+        Show avatar
+    </FluentButton>
+
+    <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowCustom("I'm a Custom confirmation"))">
+        <FluentIcon Name="@FluentIcons.Delete" Size="@IconSize.Size20" Color="@Color.Neutral" Slot="start" />
+        Show custom
+    </FluentButton>
+</FluentStack>

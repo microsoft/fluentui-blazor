@@ -1,0 +1,95 @@
+﻿@inject IToastService ToastService
+
+<FluentStack Wrap=true>
+    <FluentButton Appearance=Appearance.Neutral @onclick="ClearQueue">Clear all</FluentButton>
+
+    <FluentButton Appearance=Appearance.Neutral @onclick="ClearQueueIntent">Clear specific intent</FluentButton>
+
+    <FluentButton Appearance=Appearance.Neutral @onclick="ClearQueueSuccess">
+        <FluentIcon Name="@FluentIcons.CheckmarkCircle" Size="@IconSize.Size20" Variant="@IconVariant.Filled" Color="@Color.Success" Slot="start" />
+        Clear success
+    </FluentButton>
+
+    <FluentButton Appearance=Appearance.Neutral @onclick="ClearQueueWarning">
+        <FluentIcon Name="@FluentIcons.Warning" Size="@IconSize.Size20" Variant="@IconVariant.Filled" Color="@Color.Warning" Slot="start" />
+        Clear warning
+    </FluentButton>
+
+    <FluentButton Appearance=Appearance.Neutral @onclick="ClearQueueError">
+        <FluentIcon Name="@FluentIcons.DismissCircle" Size="@IconSize.Size20" Variant="@IconVariant.Filled" Color="@Color.Error" Slot="start" />
+        Clear error
+    </FluentButton>
+
+    <FluentButton Appearance=Appearance.Neutral @onclick="ClearQueueInfo">
+        <FluentIcon Name="@FluentIcons.Info" Size="@IconSize.Size20" Variant="@IconVariant.Filled" Color="@Color.Info" Slot="start" />
+        Clear info
+    </FluentButton>
+
+    <FluentButton Appearance=Appearance.Neutral @onclick="ClearQueueProgress">
+        <FluentIcon Name="@FluentIcons.Flash" Size="@IconSize.Size20" Color="@Color.Neutral" Slot="start" />
+        Clear progress
+    </FluentButton>
+
+    <FluentButton Appearance=Appearance.Neutral @onclick="ClearQueueUpload">
+        <FluentIcon Name="@FluentIcons.ArrowUpload" Size="@IconSize.Size20" Color="@Color.Neutral" Slot="start" />
+        Clear upload
+    </FluentButton>
+
+    <FluentButton Appearance=Appearance.Neutral @onclick="ClearQueueDownload">
+        <FluentIcon Name="@FluentIcons.ArrowDownload" Size="@IconSize.Size20" Color="@Color.Neutral" Slot="start" />
+        Clear download
+    </FluentButton>
+
+    <FluentButton Appearance=Appearance.Neutral @onclick="ClearQueueEvent">
+        <FluentIcon Name="@FluentIcons.CalendarLTR" Size="@IconSize.Size20" Color="@Color.Neutral" Slot="start" />
+        Clear event
+    </FluentButton>
+
+    <FluentButton Appearance=Appearance.Neutral @onclick="ClearQueueAvatar">
+        <FluentIcon Name="@FluentIcons.Person" Size="@IconSize.Size20" Color="@Color.Neutral" Slot="start" />
+        Clear avatar
+    </FluentButton>
+
+    <FluentButton Appearance=Appearance.Neutral @onclick="ClearQueueCustom">
+        <FluentIcon Name="@FluentIcons.Delete" Size="@IconSize.Size20" Color="@Color.Neutral" Slot="start" />
+        Clear custom
+    </FluentButton>
+</FluentStack>
+
+@code {
+    private void ClearQueue()
+        => ToastService.ClearQueue();
+
+    private void ClearQueueIntent()
+        => ToastService.ClearQueueToasts(ToastIntent.Warning);
+
+    private void ClearQueueSuccess()
+        => ToastService.ClearQueueSuccessToasts();
+
+    private void ClearQueueWarning()
+    => ToastService.ClearQueueWarningToasts();
+
+    private void ClearQueueError()
+    => ToastService.ClearQueueErrorToasts();
+
+    private void ClearQueueInfo()
+        => ToastService.ClearQueueInfoToasts();
+
+    private void ClearQueueProgress()
+       => ToastService.ClearQueueProgressToasts();
+
+    private void ClearQueueUpload()
+    => ToastService.ClearQueueUploadToasts();
+
+    private void ClearQueueDownload()
+       => ToastService.ClearQueueDownloadToasts();
+
+    private void ClearQueueEvent()
+    => ToastService.ClearQueueEventToasts();
+
+    private void ClearQueueAvatar()
+       => ToastService.ClearQueueAvatarToasts();
+
+    private void ClearQueueCustom()
+    => ToastService.ClearQueueCustomIntentToasts();
+}

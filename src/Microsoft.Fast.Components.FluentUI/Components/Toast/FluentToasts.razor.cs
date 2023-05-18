@@ -256,19 +256,15 @@ public partial class FluentToasts
     {
         _ = InvokeAsync(() =>
         {
-            bool shouldRerender = false;
+           
             while (_toastList.Count < MaxToastCount && _toastWaitingQueue.Count > 0)
             {
                 ToastInstance? toast = _toastWaitingQueue.Dequeue();
 
                 _toastList.Add(toast);
-                shouldRerender = true;
             }
-
-            if (shouldRerender)
-            {
-                StateHasChanged();
-            }
+            
+            StateHasChanged();
         });
     }
 
@@ -286,44 +282,58 @@ public partial class FluentToasts
             }
         });
     }
+    private void ClearAll(bool includeQueue)
+    {
+        _ = InvokeAsync(() =>
+        {
+            _toastList.Clear();
+            if (includeQueue)
+            {
+                _toastWaitingQueue.Clear();
+                StateHasChanged();
+            }
+            else
+            {
+                ShowEnqueuedToasts();
+            }
+        });
+    }
 
     private void ClearToasts(object? sender, LocationChangedEventArgs args)
     {
         _ = InvokeAsync(() =>
         {
             _toastList.Clear();
-            
-            ShowEnqueuedToasts();
-            
+            _toastWaitingQueue.Clear();
+
+            StateHasChanged();
         });
     }
 
-    private void ClearAll()
-    {
-        _ = InvokeAsync(() =>
-        {
-            _toastList.Clear();
-            
-            ShowEnqueuedToasts();
-        });
-    }
-
-    private void ClearToasts(ToastIntent intent)
+    private void ClearToasts(ToastIntent intent, bool includeQueue)
     {
         _ = InvokeAsync(() =>
         {
             _toastList.RemoveAll(x => x.Intent == intent);
-            
+            if (includeQueue)
+            {
+                _toastWaitingQueue = new(_toastWaitingQueue.Where(x => x.Intent != intent));
+            }
+
             ShowEnqueuedToasts();
         });
     }
 
-    private void ClearCustomToasts()
+    private void ClearCustomToasts(bool includeQueue)
     {
         _ = InvokeAsync(() =>
         {
             _toastList.RemoveAll(x => x.CustomContent is not null);
-            
+            if (includeQueue)
+            {
+                _toastWaitingQueue = new(_toastWaitingQueue.Where(x => x.CustomContent is not null));
+            }
+
             ShowEnqueuedToasts();
         });
     }
@@ -337,11 +347,11 @@ public partial class FluentToasts
         });
     }
 
-    private void ClearQueueToasts(ToastIntent toastLevel)
+    private void ClearQueueToasts(ToastIntent intent)
     {
         _ = InvokeAsync(() =>
         {
-            _toastWaitingQueue = new(_toastWaitingQueue.Where(x => x.Intent != toastLevel));
+            _toastWaitingQueue = new(_toastWaitingQueue.Where(x => x.Intent != intent));
             StateHasChanged();
         });
     }

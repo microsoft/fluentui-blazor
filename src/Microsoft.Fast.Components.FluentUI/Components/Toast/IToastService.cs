@@ -12,17 +12,17 @@ public interface IToastService
     /// <summary>
     /// A event that will be invoked to clear all toasts
     /// </summary>
-    event Action? OnClearAll;
+    event Action<bool>? OnClearAll;
 
     /// <summary>
-    /// A event that will be invoked to clear toast of specified level
+    /// A event that will be invoked to clear toast of specified intent
     /// </summary>
-    event Action<ToastIntent>? OnClearToasts;
+    event Action<ToastIntent, bool>? OnClearToasts;
 
     /// <summary>
     /// A event that will be invoked to clear custom toast components
     /// </summary>
-    event Action? OnClearCustomToasts;
+    event Action<bool>? OnClearCustomToasts;
 
     /// <summary>
     /// A event that will be invoked when showing a toast with a custom component
@@ -40,38 +40,89 @@ public interface IToastService
     event Action? OnClearQueue;
 
     /// <summary>
-    /// A event that will be invoked to clear queue toast of specified level
+    /// A event that will be invoked to clear queue toast of specified intent
     /// </summary>
     event Action<ToastIntent>? OnClearQueueToasts;
 
     /// <summary>
-    /// Shows a information toast 
+    /// Shows a success confirmation toast 
     /// </summary>
     /// <param name="title">Text to display on the toast</param>
-    /// <param name="action">Action link for the toast</param>
-    /// <param name="settings">Settings to configure the toast instance</param>
+    /// <param name="action">Optional action link for the toast</param>
+    /// <param name="settings">Optional settings to configure the toast instance</param>    
+    void ShowSuccess(string title, Action<ToastAction>? action = null, Action<ToastSettings>? settings = null);
+
+    /// <summary>
+    /// Shows a warning confirmation toast 
+    /// </summary>
+    /// <param name="title">Text to display on the toast</param>
+    /// <param name="action">Optional action link for the toast</param>
+    /// <param name="settings">Optional settings to configure the toast instance</param>
+    void ShowWarning(string title, Action<ToastAction>? action = null, Action<ToastSettings>? settings = null);
+
+    /// <summary>
+    /// Shows an error confirmation toast 
+    /// </summary>
+    /// <param name="title">Text to display on the toast</param>
+    /// <param name="action">Optional action link for the toast</param>
+    /// <param name="settings">Optional settings to configure the toast instance</param>
+    void ShowError(string title, Action<ToastAction>? action = null, Action<ToastSettings>? settings = null);
+    
+    /// <summary>
+    /// Shows an info confirmation toast 
+    /// </summary>
+    /// <param name="title">Text to display on the toast</param>
+    /// <param name="action">Optional action link for the toast</param>
+    /// <param name="settings">Optional settings to configure the toast instance</param>
     void ShowInfo(string title, Action<ToastAction>? action = null, Action<ToastSettings>? settings = null);
 
     /// <summary>
-    /// Shows a success toast 
+    /// Shows a progress confirmation toast 
     /// </summary>
     /// <param name="title">Text to display on the toast</param>
-    /// <param name="settings">Settings to configure the toast instance</param>
-    void ShowSuccess(string title, Action<ToastSettings>? settings = null);
+    /// <param name="action">Optional action link for the toast</param>
+    /// <param name="settings">Optional settings to configure the toast instance</param>
+    void ShowProgress(string title, Action<ToastAction>? action = null, Action<ToastSettings>? settings = null);
 
     /// <summary>
-    /// Shows a warning toast 
+    /// Shows an upload confirmation toast 
     /// </summary>
     /// <param name="title">Text to display on the toast</param>
-    /// <param name="settings">Settings to configure the toast instance</param>
-    void ShowWarning(string title, Action<ToastSettings>? settings = null);
+    /// <param name="action">Optional action link for the toast</param>
+    /// <param name="settings">Optional settings to configure the toast instance</param>
+    void ShowUpload(string title, Action<ToastAction>? action = null, Action<ToastSettings>? settings = null);
 
     /// <summary>
-    /// Shows a error toast 
+    /// Shows a download confirmation toast 
     /// </summary>
     /// <param name="title">Text to display on the toast</param>
-    /// <param name="settings">Settings to configure the toast instance</param>
-    void ShowError(string title, Action<ToastSettings>? settings = null);
+    /// <param name="action">Optional action link for the toast</param>
+    /// <param name="settings">Optional settings to configure the toast instance</param>
+    void ShowDownload(string title, Action<ToastAction>? action = null, Action<ToastSettings>? settings = null);
+
+    /// <summary>
+    /// Shows an event confirmation toast 
+    /// </summary>
+    /// <param name="title">Text to display on the toast</param>
+    /// <param name="action">Optional action link for the toast</param>
+    /// <param name="settings">Optional settings to configure the toast instance</param>
+    void ShowEvent(string title, Action<ToastAction>? action = null, Action<ToastSettings>? settings = null);
+
+    /// <summary>
+    /// Shows an avatar confirmation toast 
+    /// </summary>
+    /// <param name="title">Text to display on the toast</param>
+    /// <param name="action">Optional action link for the toast</param>
+    /// <param name="settings">Optional settings to configure the toast instance</param>
+    void ShowAvatar(string title, Action<ToastAction>? action = null, Action<ToastSettings>? settings = null);
+
+    /// <summary>
+    /// Shows a custom confirmation toast 
+    /// </summary>
+    /// <param name="title">Text to display on the toast</param>
+    /// <param name="action">Optional action link for the toast</param>
+    /// <param name="settings">Optional settings to configure the toast instance</param>
+    void ShowCustom(string title, Action<ToastAction>? action = null, Action<ToastSettings>? settings = null);
 
     /// <summary>
     /// Shows a toast using the supplied settings
@@ -108,37 +159,67 @@ public interface IToastService
     /// <summary>
     /// Removes all toasts
     /// </summary>
-    void ClearAll();
+    void ClearAll(bool includeQueue = true);
 
     /// <summary>
-    /// Removes all toasts with a specified <paramref name="toastLevel"/>.
+    /// Removes all toasts with a specified <paramref name="toastintent"/>.
     /// </summary>
-    void ClearToasts(ToastIntent toastLevel);
+    void ClearToasts(ToastIntent toastintent, bool includeQueue = true);
 
     /// <summary>
-    /// Removes all toasts with toast level warning
+    /// Removes all toasts with toast intent Success
     /// </summary>
-    void ClearWarningToasts();
+    void ClearSuccessToasts(bool includeQueue = true);
 
     /// <summary>
-    /// Removes all toasts with toast level Info
+    /// Removes all toasts with toast intent warning
     /// </summary>
-    void ClearInfoToasts();
+    void ClearWarningToasts(bool includeQueue = true);
 
     /// <summary>
-    /// Removes all toasts with toast level Success
+    /// Removes all toasts with toast intent Error
     /// </summary>
-    void ClearSuccessToasts();
+    void ClearErrorToasts(bool includeQueue = true);
 
     /// <summary>
-    /// Removes all toasts with toast level Error
+    /// Removes all toasts with toast intent Info
     /// </summary>
-    void ClearErrorToasts();
+    void ClearInfoToasts(bool includeQueue = true);
+
+    /// <summary>
+    /// Removes all toasts with toast intent Progress
+    /// </summary>
+    void ClearProgressToasts(bool includeQueue = true);
+
+    /// <summary>
+    /// Removes all toasts with toast intent Upload
+    /// </summary>
+    void ClearUploadToasts(bool includeQueue = true);
+
+    /// <summary>
+    /// Removes all toasts with toast intent Download
+    /// </summary>
+    void ClearDownloadToasts(bool includeQueue = true);
+
+    /// <summary>
+    /// Removes all toasts with toast intent Event
+    /// </summary>
+    void ClearEventToasts(bool includeQueue = true);
+
+    /// <summary>
+    /// Removes all toasts with toast intent Avatar
+    /// </summary>
+    void ClearAvatarToasts(bool includeQueue = true);
+
+    /// <summary>
+    /// Removes all toasts with toast intent Custom
+    /// </summary>
+    void ClearCustomIntentToasts(bool includeQueue = true);
 
     /// <summary>
     /// Removes all custom toast components
     /// </summary>
-    void ClearCustomToasts();
+    void ClearCustomToasts(bool includeQueue = true);
 
     /// <summary>
     /// Removes all queued toasts
@@ -151,22 +232,52 @@ public interface IToastService
     void ClearQueueToasts(ToastIntent intent);
 
     /// <summary>
-    /// Removes all queued toasts with toast level warning
-    /// </summary>
-    void ClearQueueWarningToasts();
-
-    /// <summary>
-    /// Removes all queued toasts with toast level Info
-    /// </summary>
-    void ClearQueueInfoToasts();
-
-    /// <summary>
-    /// Removes all queued toasts with toast level Success
+    /// Removes all queued toasts with toast intent Success
     /// </summary>
     void ClearQueueSuccessToasts();
 
     /// <summary>
-    /// Removes all queued toasts with toast level Error
+    /// Removes all queued toasts with toast intent warning
+    /// </summary>
+    void ClearQueueWarningToasts();
+
+    /// <summary>
+    /// Removes all queued toasts with toast intent Error
     /// </summary>
     void ClearQueueErrorToasts();
+
+    /// <summary>
+    /// Removes all queued toasts with toast intent Info
+    /// </summary>
+    void ClearQueueInfoToasts();
+
+    /// <summary>
+    /// Removes all queued toasts with toast intent Progress
+    /// </summary>
+    void ClearQueueProgressToasts();
+
+    /// <summary>
+    /// Removes all queued toasts with toast intent Upload
+    /// </summary>
+    void ClearQueueUploadToasts();
+
+    /// <summary>
+    /// Removes all queued toasts with toast intent Download
+    /// </summary>
+    void ClearQueueDownloadToasts();
+
+    /// <summary>
+    /// Removes all queued toasts with toast intent Event
+    /// </summary>
+    void ClearQueueEventToasts();
+
+    /// <summary>
+    /// Removes all queued toasts with toast intent Avatar
+    /// </summary>
+    void ClearQueueAvatarToasts();
+
+    /// <summary>
+    /// Removes all queued toasts with toast intent Custom
+    /// </summary>
+    void ClearQueueCustomIntentToasts();
 }

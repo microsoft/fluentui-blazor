@@ -22,24 +22,23 @@
 
 <h2>Examples</h2>
 
-<DemoSection Title="Default Toast" Component="typeof(ToastDefaultExample)">
+<DemoSection Title="Default Toast" Component="typeof(ToastDefault)">
 
 </DemoSection>
 
-<DemoSection Title="Toast with options" Component="typeof(ToastDetailledExample)">
+<DemoSection Title="Toast with options" Component="typeof(ToastDetailled)">
 
 </DemoSection>
 
 
-<h1>Toasts</h1>
+<DemoSection Title="Confirmation Toasts" Component="typeof(ToastConfirmationToastCreate)">
 
-<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowInfo("INFO message"))">Info Toast</FluentButton>
+</DemoSection>
 
-
-<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowSuccess("I'm a SUCCESS message with a lot of text to see what a toast looks like when it's really big."))">Success Toast</FluentButton>
-<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowWarning("I'm a WARNING message"))">Warning Toast</FluentButton>
-<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowError("I'm an ERROR message"))">Error Toast</FluentButton>
-
+<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowSuccess("I'm a Success confirmation with a lot of text to see what a toast looks like when it's really big."))">
+    <FluentIcon Name="@FluentIcons.CheckmarkCircle" Size="@IconSize.Size20" Variant="@IconVariant.Filled" Color="@Color.Success" Slot="start" />
+    Show Success
+</FluentButton>
 <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowInfo("Click to refresh the page",  settings => settings.OnClick = () => NavigationManager.NavigateTo("/", true)))">
     Info Toast with custom action on click
 </FluentButton>
@@ -47,40 +46,38 @@
 <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowToast(ToastIntent.Custom, "I'm a message with a custom icon", settings => { settings.Icon = (FluentIcons.Delete,Color.Accent, IconVariant.Regular); }))">Toast with custom icon</FluentButton>
 <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowToast(ToastIntent.Custom, "I'm a message without an icon"))">Toast without icon</FluentButton>
 
-<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowInfo("INFO message with CtA", 
+<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowInfo("INFO message with CtA",
     action => { action.Text = "Primary"; }
  ))">Info Toast</FluentButton>
-    
+
 <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowInfo("INFO message with CtA", null,
     settings => {
-        settings.Timeout = 10; 
+        settings.Timeout = 10;
     }
 ))">Info Toast</FluentButton>
 <hr />
 
-<h1>Toasts - Custom Component</h1>
 
-<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowToast<MyToastComponent>(settings => { settings.Timeout = 5;}))">Custom Toast</FluentButton>
-<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowToast<MyToastComponent>(_toastParameters, settings => { settings.Timeout = 5; }))">Custom Toast with parameters</FluentButton>
-<hr />
+<DemoSection Title="Custom component" Component="typeof(ToastCustomComponent)">
 
-<h1>Toasts - Remove Toasts</h1>
+</DemoSection>
 
-<FluentButton Appearance=Appearance.Neutral @onclick="ClearAll">Clear All Toasts</FluentButton>
-<FluentButton Appearance=Appearance.Neutral @onclick="ClearWarnings">Clear Warning Toasts</FluentButton>
-<FluentButton Appearance=Appearance.Neutral @onclick="ClearInfos">Clear Info Toasts</FluentButton>
-<FluentButton Appearance=Appearance.Neutral @onclick="ClearCustom">Clear Custom Toasts</FluentButton>
-<hr />
 
-<h1>Toasts - Remove queued Toasts</h1>
 
-<FluentButton Appearance=Appearance.Neutral @onclick="ClearQueue">Clear all queued Toasts</FluentButton>
-<FluentButton Appearance=Appearance.Neutral @onclick="ClearQueueWarnings">Clear queued Warning Toasts</FluentButton>
-<FluentButton Appearance=Appearance.Neutral @onclick="ClearQueueInfos">Clear queued Info Toasts</FluentButton>
+<DemoSection Title="Remove toasts" Component="typeof(ToastClearList)" ShowDownloads=false>
+    <Description>
+        Toasts can be removed by calling <code>ToastService.Clear...()</code> methods. By default, 
+        toasts are removed from the queue as well. To keep toasts in the queue, pass <code>false</code> for the <code>includeQueue</code> parameter.
+    </Description>
+</DemoSection>
+
+<DemoSection Title="Remove queued toasts" Component="typeof(ToastClearQueue)" ShowDownloads=false>
+
+</DemoSection>
+
 
 @code
 {
-    
     private ToastParameters _toastParameters = default!;
     private ToastParameters _confirmParameters = default!;
 
@@ -98,26 +95,5 @@
             });
 
 
-    }
-
-    private void ClearAll()
-        => ToastService.ClearAll();
-
-    private void ClearWarnings()
-        => ToastService.ClearToasts(ToastIntent.Warning);
-
-    private void ClearInfos()
-        => ToastService.ClearInfoToasts();
-
-    private void ClearCustom()
-        => ToastService.ClearCustomToasts();
-
-    private void ClearQueue()
-        => ToastService.ClearQueue();
-
-    private void ClearQueueWarnings()
-        => ToastService.ClearQueueToasts(ToastIntent.Warning);
-
-    private void ClearQueueInfos()
-        => ToastService.ClearQueueInfoToasts();
+    }    
 }
