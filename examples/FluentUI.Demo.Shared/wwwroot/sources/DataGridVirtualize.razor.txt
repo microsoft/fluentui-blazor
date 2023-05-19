@@ -4,13 +4,12 @@
         </PropertyColumn>
         <PropertyColumn Property="@(c => c.Item2)" />
         <PropertyColumn Property="@(c => c.Item3)" Align="Align.Center" />
-        <PropertyColumn Property="@(c => c.Item4)" Align="Align.Right">
+        <PropertyColumn Property="@(c => c.Item4)" Align="Align.End">
         </PropertyColumn>
     </FluentDataGrid>
 </div>
 
 @code {
-    string? dummy;
     public record SampleGridData(string Item1, string Item2, string Item3, string Item4);   
 
     IQueryable<SampleGridData>? items = Enumerable.Empty<SampleGridData>().AsQueryable();

@@ -7,13 +7,13 @@
 </p>
 <p>
     Same as above but bound to oninput event 
-    <FluentNumberField @bind-Value="exampleInt2" Appearance="Appearance.Filled" @oninput="@(e => Int32.TryParse(e.Value.ToString(), out exampleInt2))">Integer</FluentNumberField>
+    <FluentNumberField @bind-Value="exampleInt2" Appearance="Appearance.Filled" @oninput="@(e => Int32.TryParse(e.Value?.ToString(), out exampleInt2))">Integer</FluentNumberField>
     <br />
     Example int: @exampleInt2
 </p>
 <p>
     Nullable int bound to oninput event 
-    <FluentNumberField @bind-Value="exampleNullableInt" Appearance="Appearance.Filled" @oninput="@(e => exampleNullableInt = int.TryParse(e.Value.ToString(), out int tmp) ? (int?)tmp : null)">Nullable integer</FluentNumberField>
+    <FluentNumberField @bind-Value="exampleNullableInt" Appearance="Appearance.Filled" @oninput="@(e => exampleNullableInt = int.TryParse(e.Value?.ToString(), out int tmp) ? (int?)tmp : null)">Nullable integer</FluentNumberField>
     <br />
     Example nullable int: @exampleNullableInt
 </p>
