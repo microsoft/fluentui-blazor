@@ -72,7 +72,7 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddFluentToasts(this IServiceCollection services)
     {
-        return services.AddScoped<IToastService, ToastService>();
+        return services.AddScoped<ToastManager>();
     }
 
     /// <summary>

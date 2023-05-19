@@ -2,7 +2,7 @@
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public class ToastService : IToastService
+public class ToastManager
 {
     /// <summary>
     /// A event that will be invoked when showing a toast

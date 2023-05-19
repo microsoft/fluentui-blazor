@@ -1,4 +1,4 @@
-﻿@inject IToastService Toast
+﻿@inject ToastManager ToastManager
 
 <p>Click on this button to open a Toast.</p>
 
@@ -13,7 +13,7 @@
 
         var intent = Enum.GetValues<ToastIntent>()[rnd.Next(10)];
         var message = $"Simple Toast #{counter++}";
-        Toast.ShowToast(intent, message, settings =>
+        ToastManager.ShowToast(intent, message, settings =>
         {
             
             // settings.PrimaryAction = new() { Text = "Visit site" }; 

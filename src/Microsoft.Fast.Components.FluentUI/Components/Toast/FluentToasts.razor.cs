@@ -8,7 +8,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentToasts 
 {
     [Inject] 
-    private IToastService ToastService { get; set; } = default!;
+    private ToastManager ToastManager { get; set; } = default!;
     
     [Inject] 
     private NavigationManager NavigationManager { get; set; } = default!;
@@ -66,14 +66,14 @@ public partial class FluentToasts
 
     protected override void OnInitialized()
     {
-        ToastService.OnShow += ShowToast;
-        ToastService.OnShowCustomComponent += ShowCustomToast;
-        ToastService.OnShowToastComponent += ShowToastComponentToast;
-        ToastService.OnClearAll += ClearAll;
-        ToastService.OnClearToasts += ClearToasts;
-        ToastService.OnClearCustomToasts += ClearCustomToasts;
-        ToastService.OnClearQueue += ClearQueue;
-        ToastService.OnClearQueueToasts += ClearQueueToasts;
+        ToastManager.OnShow += ShowToast;
+        ToastManager.OnShowCustomComponent += ShowCustomToast;
+        ToastManager.OnShowToastComponent += ShowToastComponentToast;
+        ToastManager.OnClearAll += ClearAll;
+        ToastManager.OnClearToasts += ClearToasts;
+        ToastManager.OnClearCustomToasts += ClearCustomToasts;
+        ToastManager.OnClearQueue += ClearQueue;
+        ToastManager.OnClearQueueToasts += ClearQueueToasts;
 
         if (RemoveToastsOnNavigation)
         {

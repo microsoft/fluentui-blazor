@@ -3307,327 +3307,50 @@
             A component implementing this interface can be used as toast content.
             </summary>
         </member>
-        <member name="E:Microsoft.Fast.Components.FluentUI.IToastService.OnShow">
-            <summary>
-            A event that will be invoked when showing a toast
-            </summary>
-        </member>
-        <member name="E:Microsoft.Fast.Components.FluentUI.IToastService.OnClearAll">
-            <summary>
-            A event that will be invoked to clear all toasts
-            </summary>
-        </member>
-        <member name="E:Microsoft.Fast.Components.FluentUI.IToastService.OnClearToasts">
-            <summary>
-            A event that will be invoked to clear toast of specified intent
-            </summary>
-        </member>
-        <member name="E:Microsoft.Fast.Components.FluentUI.IToastService.OnClearCustomToasts">
-            <summary>
-            A event that will be invoked to clear custom toast components
-            </summary>
-        </member>
-        <member name="E:Microsoft.Fast.Components.FluentUI.IToastService.OnShowCustomComponent">
-            <summary>
-            A event that will be invoked when showing a toast with a custom component
-            </summary>
-        </member>
-        <member name="E:Microsoft.Fast.Components.FluentUI.IToastService.OnShowToastComponent">
-            <summary>
-            A event that will be invoked when showing a toast with a custom component
-            </summary>
-        </member>
-        <member name="E:Microsoft.Fast.Components.FluentUI.IToastService.OnClearQueue">
-            <summary>
-            A event that will be invoked to clear all queued toasts
-            </summary>
-        </member>
-        <member name="E:Microsoft.Fast.Components.FluentUI.IToastService.OnClearQueueToasts">
-            <summary>
-            A event that will be invoked to clear queue toast of specified intent
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ShowSuccess(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
-            <summary>
-            Shows a success confirmation toast 
-            </summary>
-            <param name="title">Text to display on the toast</param>
-            <param name="action">Optional action link for the toast</param>
-            <param name="settings">Optional settings to configure the toast instance</param>    
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ShowWarning(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
-            <summary>
-            Shows a warning confirmation toast 
-            </summary>
-            <param name="title">Text to display on the toast</param>
-            <param name="action">Optional action link for the toast</param>
-            <param name="settings">Optional settings to configure the toast instance</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ShowError(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
-            <summary>
-            Shows an error confirmation toast 
-            </summary>
-            <param name="title">Text to display on the toast</param>
-            <param name="action">Optional action link for the toast</param>
-            <param name="settings">Optional settings to configure the toast instance</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ShowInfo(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
-            <summary>
-            Shows an info confirmation toast 
-            </summary>
-            <param name="title">Text to display on the toast</param>
-            <param name="action">Optional action link for the toast</param>
-            <param name="settings">Optional settings to configure the toast instance</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ShowProgress(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
-            <summary>
-            Shows a progress confirmation toast 
-            </summary>
-            <param name="title">Text to display on the toast</param>
-            <param name="action">Optional action link for the toast</param>
-            <param name="settings">Optional settings to configure the toast instance</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ShowUpload(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
-            <summary>
-            Shows an upload confirmation toast 
-            </summary>
-            <param name="title">Text to display on the toast</param>
-            <param name="action">Optional action link for the toast</param>
-            <param name="settings">Optional settings to configure the toast instance</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ShowDownload(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
-            <summary>
-            Shows a download confirmation toast 
-            </summary>
-            <param name="title">Text to display on the toast</param>
-            <param name="action">Optional action link for the toast</param>
-            <param name="settings">Optional settings to configure the toast instance</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ShowEvent(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
-            <summary>
-            Shows an event confirmation toast 
-            </summary>
-            <param name="title">Text to display on the toast</param>
-            <param name="action">Optional action link for the toast</param>
-            <param name="settings">Optional settings to configure the toast instance</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ShowAvatar(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
-            <summary>
-            Shows an avatar confirmation toast 
-            </summary>
-            <param name="title">Text to display on the toast</param>
-            <param name="action">Optional action link for the toast</param>
-            <param name="settings">Optional settings to configure the toast instance</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ShowCustom(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
-            <summary>
-            Shows a custom confirmation toast 
-            </summary>
-            <param name="title">Text to display on the toast</param>
-            <param name="action">Optional action link for the toast</param>
-            <param name="settings">Optional settings to configure the toast instance</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ShowToast(Microsoft.Fast.Components.FluentUI.ToastIntent,System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
-            <summary>
-            Shows a toast using the supplied settings
-            </summary>
-            <param name="intent">Toast intent to display</param>
-            <param name="title">Text to display on the toast</param>
-            <param name="settings">Settings to configure the toast instance</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ShowToast``1">
-            <summary>
-            Shows a toast containing the specified <typeparamref name="TComponent"/>.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ShowToast``1(Microsoft.Fast.Components.FluentUI.ToastParameters)">
-            <summary>
-            Shows a toast containing a <typeparamref name="TComponent"/> with the specified <paramref name="parameters"/>.
-            </summary>
-            <param name="parameters">Key/Value collection of parameters to pass to component being displayed</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ShowToast``1(System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
-            <summary>
-            Shows a toast containing a <typeparamref name="TComponent"/> with the specified <paramref name="settings"/>.
-            </summary>
-            <param name="settings">Settings to configure the toast instance</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ShowToast``1(Microsoft.Fast.Components.FluentUI.ToastParameters,System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
-            <summary>
-            Shows a toast containing a <typeparamref name="TComponent"/> with the specified <paramref name="settings" /> and <paramref name="parameters"/>.
-            </summary>
-            <param name="parameters">Key/Value collection of parameters to pass to component being displayed</param>
-            /// <param name="settings">Settings to configure the toast instance</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ClearAll(System.Boolean)">
-            <summary>
-            Removes all toasts
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ClearToasts(Microsoft.Fast.Components.FluentUI.ToastIntent,System.Boolean)">
-            <summary>
-            Removes all toasts with a specified <paramref name="toastintent"/>.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ClearSuccessToasts(System.Boolean)">
-            <summary>
-            Removes all toasts with toast intent Success
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ClearWarningToasts(System.Boolean)">
-            <summary>
-            Removes all toasts with toast intent warning
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ClearErrorToasts(System.Boolean)">
-            <summary>
-            Removes all toasts with toast intent Error
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ClearInfoToasts(System.Boolean)">
-            <summary>
-            Removes all toasts with toast intent Info
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ClearProgressToasts(System.Boolean)">
-            <summary>
-            Removes all toasts with toast intent Progress
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ClearUploadToasts(System.Boolean)">
-            <summary>
-            Removes all toasts with toast intent Upload
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ClearDownloadToasts(System.Boolean)">
-            <summary>
-            Removes all toasts with toast intent Download
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ClearEventToasts(System.Boolean)">
-            <summary>
-            Removes all toasts with toast intent Event
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ClearAvatarToasts(System.Boolean)">
-            <summary>
-            Removes all toasts with toast intent Avatar
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ClearCustomIntentToasts(System.Boolean)">
-            <summary>
-            Removes all toasts with toast intent Custom
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ClearCustomToasts(System.Boolean)">
-            <summary>
-            Removes all custom toast components
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ClearQueue">
-            <summary>
-            Removes all queued toasts
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ClearQueueToasts(Microsoft.Fast.Components.FluentUI.ToastIntent)">
-            <summary>
-            Removes all queued toasts with a specified <paramref name="intent"/>.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ClearQueueSuccessToasts">
-            <summary>
-            Removes all queued toasts with toast intent Success
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ClearQueueWarningToasts">
-            <summary>
-            Removes all queued toasts with toast intent warning
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ClearQueueErrorToasts">
-            <summary>
-            Removes all queued toasts with toast intent Error
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ClearQueueInfoToasts">
-            <summary>
-            Removes all queued toasts with toast intent Info
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ClearQueueProgressToasts">
-            <summary>
-            Removes all queued toasts with toast intent Progress
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ClearQueueUploadToasts">
-            <summary>
-            Removes all queued toasts with toast intent Upload
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ClearQueueDownloadToasts">
-            <summary>
-            Removes all queued toasts with toast intent Download
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ClearQueueEventToasts">
-            <summary>
-            Removes all queued toasts with toast intent Event
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ClearQueueAvatarToasts">
-            <summary>
-            Removes all queued toasts with toast intent Avatar
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IToastService.ClearQueueCustomIntentToasts">
-            <summary>
-            Removes all queued toasts with toast intent Custom
-            </summary>
-        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.ToastAction">
             <summary />
         </member>
-        <member name="E:Microsoft.Fast.Components.FluentUI.ToastService.OnShow">
+        <member name="E:Microsoft.Fast.Components.FluentUI.ToastManager.OnShow">
             <summary>
             A event that will be invoked when showing a toast
             </summary>
         </member>
-        <member name="E:Microsoft.Fast.Components.FluentUI.ToastService.OnClearAll">
+        <member name="E:Microsoft.Fast.Components.FluentUI.ToastManager.OnClearAll">
             <summary>
             A event that will be invoked when clearing all toasts
             </summary>
         </member>
-        <member name="E:Microsoft.Fast.Components.FluentUI.ToastService.OnShowCustomComponent">
+        <member name="E:Microsoft.Fast.Components.FluentUI.ToastManager.OnShowCustomComponent">
             <summary>
             A event that will be invoked when showing a toast with a custom component
             </summary>
         </member>
-        <member name="E:Microsoft.Fast.Components.FluentUI.ToastService.OnShowToastComponent">
+        <member name="E:Microsoft.Fast.Components.FluentUI.ToastManager.OnShowToastComponent">
             <summary>
             A event that will be invoked when showing a toast with a custom component
             </summary>
         </member>
-        <member name="E:Microsoft.Fast.Components.FluentUI.ToastService.OnClearToasts">
+        <member name="E:Microsoft.Fast.Components.FluentUI.ToastManager.OnClearToasts">
             <summary>
             A event that will be invoked when clearing toasts
             </summary>
         </member>
-        <member name="E:Microsoft.Fast.Components.FluentUI.ToastService.OnClearCustomToasts">
+        <member name="E:Microsoft.Fast.Components.FluentUI.ToastManager.OnClearCustomToasts">
             <summary>
             A event that will be invoked when clearing custom toast components
             </summary>
         </member>
-        <member name="E:Microsoft.Fast.Components.FluentUI.ToastService.OnClearQueue">
+        <member name="E:Microsoft.Fast.Components.FluentUI.ToastManager.OnClearQueue">
             <summary>
             A event that will be invoked to clear all queued toasts
             </summary>
         </member>
-        <member name="E:Microsoft.Fast.Components.FluentUI.ToastService.OnClearQueueToasts">
+        <member name="E:Microsoft.Fast.Components.FluentUI.ToastManager.OnClearQueueToasts">
             <summary>
             A event that will be invoked to clear queued toast of specified intent
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowSuccess(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ShowSuccess(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
             <summary>
             Shows a simple succes confirmation toast.
             Only shows icon, title and close button or action.
@@ -3636,7 +3359,7 @@
             <param name="action">Action to use for this toast</param>
             <param name="settings">Settings to configure the toast instance</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowWarning(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ShowWarning(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
             <summary>
             Shows a simple warning confirmation toast.
             Only shows icon, title and close button or action.
@@ -3645,7 +3368,7 @@
             <param name="action">Action to use for this toast</param>
             <param name="settings">Settings to configure the toast instance</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowError(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ShowError(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
             <summary>
             Shows a simple error confirmation toast.
             Only shows icon, title and close button or action.
@@ -3654,7 +3377,7 @@
             <param name="action">Action to use for this toast</param>
             <param name="settings">Settings to configure the toast instance</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowInfo(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ShowInfo(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
             <summary>
             Shows a simple information confirmation toast.
             Only shows icon, title and close button or action.
@@ -3663,7 +3386,7 @@
             <param name="action">Action to use for this toast</param>
             <param name="settings">Settings to configure the toast instance</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowProgress(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ShowProgress(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
             <summary>
             Shows a simple progress confirmation toast.
             Only shows icon, title and close button or action.
@@ -3672,7 +3395,7 @@
             <param name="action">Action to use for this toast</param>
             <param name="settings">Settings to configure the toast instance</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowUpload(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ShowUpload(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
             <summary>
             Shows a simple upload confirmation toast.
             Only shows icon, title and close button or action.
@@ -3681,7 +3404,7 @@
             <param name="action">Action to use for this toast</param>
             <param name="settings">Settings to configure the toast instance</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowDownload(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ShowDownload(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
             <summary>
             Shows a simple download confirmation toast.
             Only shows icon, title and close button or action.
@@ -3690,7 +3413,7 @@
             <param name="action">Action to use for this toast</param>
             <param name="settings">Settings to configure the toast instance</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowEvent(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ShowEvent(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
             <summary>
             Shows a simple event confirmation toast.
             Only shows icon, title and close button or action.
@@ -3699,7 +3422,7 @@
             <param name="action">Action to use for this toast</param>
             <param name="settings">Settings to configure the toast instance</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowAvatar(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ShowAvatar(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
             <summary>
             Shows a simple avatar confirmation toast.
             Only shows icon, title and close button or action.
@@ -3708,7 +3431,7 @@
             <param name="action">Action to use for this toast</param>
             <param name="settings">Settings to configure the toast instance</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowCustom(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ShowCustom(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
             <summary>
             Shows a simple custom confirmation toast.
             Only shows icon, title and close button or action.
@@ -3717,7 +3440,7 @@
             <param name="action">Action to use for this toast</param>
             <param name="settings">Settings to configure the toast instance</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowToast(Microsoft.Fast.Components.FluentUI.ToastIntent,System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ShowToast(Microsoft.Fast.Components.FluentUI.ToastIntent,System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
             <summary>
             Shows a toast using the supplied settings
             </summary>
@@ -3725,12 +3448,12 @@
             <param name="title">Text to display on the toast</param>
             <param name="settings">Settings to configure the toast instance</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowToast``1">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ShowToast``1">
             <summary>
             Shows the toast with the component type
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowToast``1(Microsoft.Fast.Components.FluentUI.ToastIntent,System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ShowToast``1(Microsoft.Fast.Components.FluentUI.ToastIntent,System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
             <summary>
             Shows a toast using the supplied settings
             </summary>
@@ -3739,7 +3462,7 @@
             <param name="action">Action to show (instead of close button)</param>
             <param name="settings">Settings to configure the toast instance</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowToast(System.Type,Microsoft.Fast.Components.FluentUI.ToastParameters,System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ShowToast(System.Type,Microsoft.Fast.Components.FluentUI.ToastParameters,System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
             <summary>
             Shows the toast with the component type />,
             passing the specified <paramref name="parameters"/> 
@@ -3748,7 +3471,7 @@
             <param name="parameters">Key/Value collection of parameters to pass to component being displayed.</param>
             <param name="settings">Settings to configure the toast component.</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowToast(System.Type,Microsoft.Fast.Components.FluentUI.ToastIntent,System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ShowToast(System.Type,Microsoft.Fast.Components.FluentUI.ToastIntent,System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
             <summary>
             Shows the specified toast component type />,
             </summary>
@@ -3758,148 +3481,148 @@
             <param name="action">The action to use for this toast.</param>
             <param name="settings">Settings to configure the toast component.</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowToast``1(Microsoft.Fast.Components.FluentUI.ToastParameters)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ShowToast``1(Microsoft.Fast.Components.FluentUI.ToastParameters)">
             <summary>
             Shows the toast with the component type />,
             passing the specified <paramref name="parameters"/> 
             </summary>
             <param name="parameters">Key/Value collection of parameters to pass to component being displayed.</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowToast``1(System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ShowToast``1(System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
             <summary>
             Shows a toast using the supplied settings
             </summary>
             <param name="settings">Toast settings to be used</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowToast``1(Microsoft.Fast.Components.FluentUI.ToastParameters,System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ShowToast``1(Microsoft.Fast.Components.FluentUI.ToastParameters,System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
             <summary>
             Shows a toast using the supplied parameter and settings
             </summary>
             <param name="parameters">Key/Value collection of parameters to pass to component being displayed.</param>
             <param name="settings">Toast settings to be used</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearAll(System.Boolean)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ClearAll(System.Boolean)">
             <summary>
             Removes all toasts
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearToasts(Microsoft.Fast.Components.FluentUI.ToastIntent,System.Boolean)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ClearToasts(Microsoft.Fast.Components.FluentUI.ToastIntent,System.Boolean)">
             <summary>
             Removes all toasts with a specified <paramref name="intent"/>.
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearSuccessToasts(System.Boolean)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ClearSuccessToasts(System.Boolean)">
             <summary>
             Removes all toasts with toast intent Success
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearWarningToasts(System.Boolean)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ClearWarningToasts(System.Boolean)">
             <summary>
             Removes all toasts with toast intent Warning
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearErrorToasts(System.Boolean)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ClearErrorToasts(System.Boolean)">
             <summary>
             Removes all toasts with toast intent Error
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearInfoToasts(System.Boolean)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ClearInfoToasts(System.Boolean)">
             <summary>
             Removes all toasts with toast intent Info
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearProgressToasts(System.Boolean)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ClearProgressToasts(System.Boolean)">
             <summary>
             Removes all toasts with toast intent Progress
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearUploadToasts(System.Boolean)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ClearUploadToasts(System.Boolean)">
             <summary>
             Removes all toasts with toast intent Upload
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearDownloadToasts(System.Boolean)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ClearDownloadToasts(System.Boolean)">
             <summary>
             Removes all toasts with toast intent Download
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearEventToasts(System.Boolean)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ClearEventToasts(System.Boolean)">
             <summary>
             Removes all toasts with toast intent Event
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearAvatarToasts(System.Boolean)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ClearAvatarToasts(System.Boolean)">
             <summary>
             Removes all toasts with toast intent Avatar
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearCustomIntentToasts(System.Boolean)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ClearCustomIntentToasts(System.Boolean)">
             <summary>
             Removes all toasts with toast intent Custom
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearCustomToasts(System.Boolean)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ClearCustomToasts(System.Boolean)">
             <summary>
             Removes all custom component toasts
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearQueue">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ClearQueue">
             <summary>
             Removes all queued toasts
             </summary>
             
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearQueueToasts(Microsoft.Fast.Components.FluentUI.ToastIntent)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ClearQueueToasts(Microsoft.Fast.Components.FluentUI.ToastIntent)">
             <summary>
             Removes all queued toasts with a specified <paramref name="intent"/>.
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearQueueSuccessToasts">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ClearQueueSuccessToasts">
             <summary>
             Removes all queued toasts with toast intent Success
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearQueueWarningToasts">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ClearQueueWarningToasts">
             <summary>
             Removes all queued toasts with toast intent Warning
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearQueueErrorToasts">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ClearQueueErrorToasts">
             <summary>
             Removes all queued toasts with toast intent Error
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearQueueInfoToasts">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ClearQueueInfoToasts">
             <summary>
             Removes all queued toasts with toast intent o
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearQueueProgressToasts">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ClearQueueProgressToasts">
             <summary>
             Removes all queued toasts with toast intent Progress
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearQueueUploadToasts">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ClearQueueUploadToasts">
             <summary>
             Removes all queued toasts with toast intent Upload
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearQueueDownloadToasts">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ClearQueueDownloadToasts">
             <summary>
             Removes all queued toasts with toast intent Download
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearQueueEventToasts">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ClearQueueEventToasts">
             <summary>
             Removes all queued toasts with toast intent Event
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearQueueAvatarToasts">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ClearQueueAvatarToasts">
             <summary>
             Removes all queued toasts with toast intent Avatar
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearQueueCustomIntentToasts">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ClearQueueCustomIntentToasts">
             <summary>
             Removes all queued toasts with toast intent Custom
             </summary>

@@ -1,7 +1,7 @@
-﻿@inject IToastService ToastService
+﻿@inject ToastManager ToastManager
 
-<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowToast<MyToastComponent>(settings => { settings.Timeout = 5;}))">Custom Toast</FluentButton>
-<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowToast<MyToastComponent>(_toastParameters, settings => { settings.Timeout = 5; }))">Custom Toast with parameters</FluentButton>
+<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastManager.ShowToast<MyToastComponent>(settings => { settings.Timeout = 5;}))">Custom Toast</FluentButton>
+<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastManager.ShowToast<MyToastComponent>(_toastParameters, settings => { settings.Timeout = 5; }))">Custom Toast with parameters</FluentButton>
 
 
 @code {
