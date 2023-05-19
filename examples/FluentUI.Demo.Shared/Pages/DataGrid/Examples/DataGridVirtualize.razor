@@ -1,28 +1,13 @@
-﻿@inject ILogger<DataGridVirtualize> logger;
-
 <div style="height: 400px; overflow-y: scroll;">
     <FluentDataGrid Items=@items Virtualize="true" ItemSize="32" GridTemplateColumns="1fr 1fr 1fr 1fr">
         <PropertyColumn Property="@(c => c.Item1)" Sortable="true">
-            <ColumnOptions>
-                <div class="search-box">
-                    <FluentSearch @bind-Value=dummy Autofocus ="true" Placeholder="Testing..." />
-                </div>
-            </ColumnOptions>
         </PropertyColumn>
         <PropertyColumn Property="@(c => c.Item2)" />
         <PropertyColumn Property="@(c => c.Item3)" Align="Align.Center" />
-        <PropertyColumn Property="@(c => c.Item4)" Align="Align.End">
-            <ColumnOptions>
-                <div class="search-box">
-                    <FluentSearch @bind-Value=dummy Autofocus="true" Placeholder="Testing..." />
-                </div>
-            </ColumnOptions>
+        <PropertyColumn Property="@(c => c.Item4)" Align="Align.Right">
         </PropertyColumn>
     </FluentDataGrid>
 </div>
-
-
-
 
 @code {
     string? dummy;
@@ -34,16 +19,12 @@
     {
         SampleGridData[] data = new SampleGridData[size];
 
-
         for (int i = 0; i < size; i++)
         {
             data[i] = new SampleGridData($"value {i}-1", $"value {i}-2", $"value {i}-3", $"value {i}-4");
         }
         return data.AsQueryable();
     }
-
-
-
     protected override void OnInitialized()
     {
         items = GenerateSampleGridData(5000);

@@ -26,7 +26,7 @@ When you have configured to publish emoji but you have not specified a set of em
  
 ### Configuring the project
  
-You will need to add settings to the `.csproj` file of the project you are using the library in. The easiest way to do this is by creating a new `<PropertyGroup>` and gather all the relevant and needed properties in there.
+You will need to add settings to the `.csproj`Â file of the project you are using the library in. The easiest way to do this is by creating a new `<PropertyGroup>` and gather all the relevant and needed properties in there.
  
 The first two properties (with a value of 'true' or 'false') that need to be added are:
 
@@ -156,4 +156,5 @@ A `PropertyGroup` without additional comments is supplied below.
 ```
 
 ## Changes needed in code 
+
 Please see the [Code Setup](https://www.fluentui-blazor.net/CodeSetup) page to lean more about the neccesary changes to your `Program.cs` file.
