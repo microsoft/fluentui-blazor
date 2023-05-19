@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Text;
 
 
@@ -9,15 +10,17 @@ using Microsoft.CodeAnalysis.Text;
 namespace Microsoft.Fast.Components.FluentUI.Generators
 {
     [Generator]
-    public class ConfigurationGenerator : ISourceGenerator
+    public class ConfigurationGenerator : IIncrementalGenerator
     {
-        public void Initialize(GeneratorInitializationContext context)
+        public void Initialize(IncrementalGeneratorInitializationContext context)
         {
-            // Debugger.Launch();
-            // No initialization required for this one
+            IncrementalValueProvider<AnalyzerConfigOptions> optionProvider = context.AnalyzerConfigOptionsProvider
+                .Select((provider, _) => provider.GlobalOptions);
+
+            context.RegisterSourceOutput(optionProvider, GenerateSource);
         }
 
-        public void Execute(GeneratorExecutionContext context)
+        public void GenerateSource(SourceProductionContext context, AnalyzerConfigOptions options)
         {
             StringBuilder sb = new();
 
@@ -29,11 +32,11 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             bool publishedEmojiAssets = false;
             bool publishedIconAssets = false;
 
-            if (TryReadGlobalOption(context, "PublishFluentIconAssets", out string? publishedIconAssetsProp))
+            if (TryReadGlobalOption(options, "PublishFluentIconAssets", out string? publishedIconAssetsProp))
             {
                 if (bool.TryParse(publishedIconAssetsProp, out publishedIconAssets))
                 {
-                    TryReadGlobalOption(context, "FluentIconSizes", out string? iconSizesProp);
+                    TryReadGlobalOption(options, "FluentIconSizes", out string? iconSizesProp);
                     iconSizes = iconSizesProp?.Split(',');
                     if (iconSizes?.Length == 1 && string.IsNullOrEmpty(iconSizes[0]))
                     {
@@ -50,7 +53,7 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
                         };
                     }
 
-                    TryReadGlobalOption(context, "FluentIconVariants", out var iconVariantsProp);
+                    TryReadGlobalOption(options, "FluentIconVariants", out var iconVariantsProp);
                     iconVariants = iconVariantsProp?.Split(',');
                     if (iconVariants?.Length == 1 && string.IsNullOrEmpty(iconVariants[0]))
                     {
@@ -63,11 +66,11 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
                 }
             }
 
-            if (TryReadGlobalOption(context, "PublishFluentEmojiAssets", out string? publishedEmojiAssetsProp))
+            if (TryReadGlobalOption(options, "PublishFluentEmojiAssets", out string? publishedEmojiAssetsProp))
             {
                 if (bool.TryParse(publishedEmojiAssetsProp, out publishedEmojiAssets))
                 {
-                    TryReadGlobalOption(context, "FluentEmojiGroups", out var emojiGroupsProp);
+                    TryReadGlobalOption(options, "FluentEmojiGroups", out var emojiGroupsProp);
                     emojiGroups = emojiGroupsProp?.Split(',');
 
                     if (emojiGroups?.Length == 1 && string.IsNullOrEmpty(emojiGroups[0]))
@@ -87,7 +90,7 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
                         };
                     }
 
-                    TryReadGlobalOption(context, "FluentEmojiStyles", out var emojiStylesProp);
+                    TryReadGlobalOption(options, "FluentEmojiStyles", out var emojiStylesProp);
                     emojiStyles = emojiStylesProp?.Split(',');
                     if (emojiStyles?.Length == 1 && string.IsNullOrEmpty(emojiStyles[0]))
                     {
@@ -151,9 +154,9 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             context.AddSource($"ConfiguratonGenerator.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
         }
 
-        public bool TryReadGlobalOption(GeneratorExecutionContext context, string property, out string? value)
+        public bool TryReadGlobalOption(AnalyzerConfigOptions options, string property, out string? value)
         {
-            return context.AnalyzerConfigOptions.GlobalOptions.TryGetValue($"build_property.{property}", out value);
+            return options.TryGetValue($"build_property.{property}", out value);
         }
 
         private static void FormatConfigSection(StringBuilder sb, string section, string identifier, string[]? options)
