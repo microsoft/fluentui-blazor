@@ -1,3 +1,13 @@
+## V2.3.1
+- Update to .NET 8.0.0-preview.4
+- Accessibility compliance issue in DataGrid filter and pagination buttons fixed [#390](https://github.com/microsoft/fluentui-blazor/issues/390)
+- Unable to GET FluentIcon in Blazor Server fixed [#399](https://github.com/microsoft/fluentui-blazor/issues/399) 
+- Dead link in demo site fixed [#393](https://github.com/microsoft/fluentui-blazor/issues/393)
+- Update NumberFieldDefault.razor 
+- Create SearchInteractiveWithDebounce.razor 
+
+Thanks @Ogglas and @pk9r327 for your contributions!
+
 ## V2.3.0
 - **IMPORTANT Web components script is now included in the library**
 - New documentation pages added to demo site
