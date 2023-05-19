@@ -84,7 +84,7 @@ jobs:
       PROJECT: "examples/FluentUI.Demo.Client/FluentUI.Demo.Client.csproj"
       BUILD_ARCH: "Any CPU"
       BUILD_CONFIG: "Release"
-      skip_deploy_on_missing_secrets: true
+      SKIP_DEPLOY_ON_MISSING_SECRETS: true
     steps:
       - name: Checkout source
         uses: actions/checkout@v3
