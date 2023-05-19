@@ -1,16 +1,18 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Text;
-
 
 #nullable enable
 
 namespace Microsoft.Fast.Components.FluentUI.Generators
 {
+#pragma warning disable IDE1006 // Naming Styles
     public class Metadata
     {
         public string? cldr { get; set; }
@@ -24,40 +26,48 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
         public string? unicode { get; set; }
         public string[]? unicodeSkintones { get; set; }
     }
+#pragma warning restore IDE1006 // Naming Styles
 
     [Generator]
-    public class FluentEmojiGenerator : ISourceGenerator
+    [SuppressMessage("MicrosoftCodeAnalysisCorrectness", "RS1035:Do not use APIs banned for analyzers", Justification = "The whole purpose of this generator is to process directories...")]
+    public class FluentEmojiGenerator : IIncrementalGenerator
     {
-        //const int maxnamelength = 15;
-        public void Initialize(GeneratorInitializationContext context)
+        public void Initialize(IncrementalGeneratorInitializationContext context)
         {
-            // No initialization required for this one
+            var emojiPathValueProvider = context.AnalyzerConfigOptionsProvider
+               .Select((provider, _) => GetFilePathFromOptions(provider.GlobalOptions));
+
+            context.RegisterSourceOutput(emojiPathValueProvider, GenerateSource);
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("MicrosoftCodeAnalysisCorrectness", "RS1035:Do not use APIs banned for analyzers", Justification = "The whole purpose of this generator is to process directories...")]
-        public void Execute(GeneratorExecutionContext context)
+        public string GetFilePathFromOptions(AnalyzerConfigOptions options)
         {
-            StringBuilder? sb = new();
-            Regex? variantandtone = new(@"([\w]*)_([\w]*)");
-            Regex? variant = new(@"([\w]*)");
-
-            List<(string folder, string emojibase)> constants = new();
-
-            int emojicount = 0;
-
             string? baseFolder;
-            bool getResult = context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.FluentUISourceBaseFolder", out string? sourceFolder);
+            bool getResult = options.TryGetValue("build_property.FluentUISourceBaseFolder", out string? sourceFolder);
             if (!getResult || (string.IsNullOrEmpty(sourceFolder)))
             {
-                context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.MSBuildProjectDirectory", out string? projectDirectory);
+                options.TryGetValue("build_property.MSBuildProjectDirectory", out string? projectDirectory);
                 baseFolder = Directory.GetParent(projectDirectory).FullName;
             }
             else
             {
                 baseFolder = $"{sourceFolder}{Path.DirectorySeparatorChar}src{Path.DirectorySeparatorChar}";
             }
+            
+            return Path.Combine(baseFolder, $"Microsoft.Fast.Components.FluentUI{Path.DirectorySeparatorChar}Assets{Path.DirectorySeparatorChar}emojis{Path.DirectorySeparatorChar}");
+        }
+         
+        public void GenerateSource(SourceProductionContext context, string basePath)
+        {
+            StringBuilder? sb = new();
+            Regex? variantandtone = new(@"([\w]*)_([\w]*)");
+            //Regex? variant = new(@"([\w]*)");
 
-            string basepath = Path.Combine(baseFolder, $"Microsoft.Fast.Components.FluentUI{Path.DirectorySeparatorChar}Assets{Path.DirectorySeparatorChar}emojis{Path.DirectorySeparatorChar}");
+            List<(string folder, string emojibase)> constants = new();
+
+            int emojicount = 0;
+
+           
 
             sb.AppendLine($"#pragma warning disable CS1591");
             sb.AppendLine("using System.Collections.Generic;\r\n");
@@ -67,7 +77,7 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             sb.AppendLine("\tprivate static IEnumerable<EmojiModel> FullEmojiMap = new EmojiModel[$emojicount$]");
             sb.AppendLine("\t{");
 
-            foreach (string grouppath in Directory.EnumerateDirectories(basepath))
+            foreach (string grouppath in Directory.EnumerateDirectories(basePath))
             {
                 string group = Path.GetFileName(grouppath);
 

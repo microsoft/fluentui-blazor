@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -11,19 +13,27 @@ using Microsoft.CodeAnalysis.Text;
 namespace FluentUI.Demo.Generators
 {
     [Generator]
-    public class CodeCommentsGenerator : ISourceGenerator
+    public class CodeCommentsGenerator : IIncrementalGenerator
     {
-        public void Execute(GeneratorExecutionContext context)
+        public void Initialize(IncrementalGeneratorInitializationContext context)
         {
-            Debug.WriteLine("Execute code generator");
+            IncrementalValuesProvider<AdditionalText> additionalTexts = context.AdditionalTextsProvider.Where(static file => file.Path.EndsWith(".xml"));
 
-            IEnumerable<AdditionalText> files = context.AdditionalFiles.Where(y => y.Path.EndsWith(".xml"));
+            IncrementalValuesProvider<string> files = additionalTexts.Select((file, _) => file.Path);
+            IncrementalValueProvider<ImmutableArray<string>> collected = files.Collect();
+
+            context.RegisterSourceOutput(collected, GenerateSource);
+        }
+        public void GenerateSource(SourceProductionContext context, ImmutableArray<string> files)
+        {
+            
+
+            //IEnumerable<AdditionalText> files = context.AdditionalFiles.Where(y => y.Path.EndsWith(".xml"));
             List<XElement> members = new();
 
-            foreach (AdditionalText file in files)
+            foreach (string file in files)
             {
-                XDocument xml = null;
-                xml = XDocument.Load(file.Path);
+                XDocument xml = XDocument.Load(file);
 
                 members.AddRange(xml.Descendants("member"));
             }
@@ -36,7 +46,7 @@ namespace FluentUI.Demo.Generators
             sb.AppendLine("using System.Linq;");
             sb.AppendLine("");
             sb.AppendLine("namespace FluentUI.Demo.Shared;");
-            sb.AppendLine("public static class CodeComments");
+            sb.AppendLine("public static partial class CodeComments");
             sb.AppendLine("{");
             sb.AppendLine("\tpublic static string GetSummary(string name)");
             sb.AppendLine("\t{");
@@ -59,7 +69,7 @@ namespace FluentUI.Demo.Generators
             sb.AppendLine("\t\t}");
             sb.AppendLine("}");
 
-            context.AddSource("CodeComments.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
+            context.AddSource($"CodeComments.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
         }
 
         private static string CleanupParamName(string value)
@@ -111,14 +121,6 @@ namespace FluentUI.Demo.Generators
 
         }
 
-        public void Initialize(GeneratorInitializationContext context)
-        {
-#if DEBUG
-            //if (!Debugger.IsAttached)
-            //{
-            //    Debugger.Launch();
-            //}
-#endif
-        }
+        
     }
 }
