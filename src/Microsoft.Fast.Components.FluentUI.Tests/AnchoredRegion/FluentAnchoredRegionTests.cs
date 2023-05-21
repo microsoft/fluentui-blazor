@@ -3,7 +3,7 @@ using Xunit;
 
 namespace Microsoft.Fast.Components.FluentUI.Tests.AnchoredRegion
 {
-    public class FluentAnchoredRegionRenderShould : TestBase
+    public class FluentAnchoredRegionTests : TestBase
     {
         [Fact]
         public void FluentAnchoredRegion_AttributeDefaultValues()
