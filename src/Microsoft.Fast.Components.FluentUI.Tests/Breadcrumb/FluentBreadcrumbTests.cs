@@ -3,10 +3,10 @@ using Xunit;
 
 namespace Microsoft.Fast.Components.FluentUI.Tests.Breadcrumb
 {
-    public class BreadcrumbTests : TestBase
+    public class FluentBreadcrumbTests : TestBase
     {
         [Fact]
-        public void Breadcrumb_DefaultAttributeValues()
+        public void FluentBreadcrumb_DefaultAttributeValues()
         {
             // Arrange && Act
             var cut = TestContext.RenderComponent<FluentBreadcrumb>(parameters =>
@@ -19,7 +19,7 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.Breadcrumb
         }
 
         [Fact]
-        public void Breadcrumb_AdditionalCssClass()
+        public void FluentBreadcrumb_AdditionalCssClass()
         {
             // Arrange && Act
             var cut = TestContext.RenderComponent<FluentBreadcrumb>(parameters =>
@@ -33,7 +33,7 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.Breadcrumb
         }
 
         [Fact]
-        public void Breadcrumb_AdditionalStyle()
+        public void FluentBreadcrumb_AdditionalStyle()
         {
             // Arrange && Act
             var cut = TestContext.RenderComponent<FluentBreadcrumb>(parameters =>
@@ -47,7 +47,7 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.Breadcrumb
         }
 
         [Fact]
-        public void Breadcrumb_AdditionalAttribute()
+        public void FluentBreadcrumb_AdditionalAttribute()
         {
             // Arrange && Act
             var cut = TestContext.RenderComponent<FluentBreadcrumb>(parameters =>
@@ -61,7 +61,7 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.Breadcrumb
         }
 
         [Fact]
-        public void Breadcrumb_AdditionalAttributes()
+        public void FluentBreadcrumb_AdditionalAttributes()
         {
             // Arrange && Act
             var cut = TestContext.RenderComponent<FluentBreadcrumb>(parameters =>
