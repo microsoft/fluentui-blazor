@@ -18,6 +18,6 @@ REM     $:\> explorer C:\Temp\Coverage\index.html
 echo on
 cls
 
-dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
-reportgenerator "-reports:coverage.cobertura.xml" "-targetdir:C:\Temp\FluentUI\Coverage" -reporttypes:HtmlInline_AzurePipelines
+dotnet test --framework net8.0 /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
+reportgenerator "-reports:coverage.net8.0.cobertura.xml" "-targetdir:C:\Temp\FluentUI\Coverage" -reporttypes:HtmlInline_AzurePipelines -classfilters:"-Microsoft.Fast.Components.FluentUI.DesignTokens.*"
 start "" "C:\Temp\FluentUI\Coverage\index.htm"
