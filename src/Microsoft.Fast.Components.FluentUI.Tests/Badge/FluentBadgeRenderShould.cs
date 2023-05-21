@@ -6,39 +6,38 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.Badge
 {
     public class FluentBadgeRenderShould : TestBase
     {
-        
+
         [Fact]
-        public void RenderProperly_DefaultAttributes()
+        public void FluentBadge_DefaultAttributes()
         {
             // Arrange && Act
-            IRenderedComponent<FluentBadge> cut = TestContext.RenderComponent<FluentBadge>(
-                parameters => parameters
-                    .AddChildContent("childcontent"));
-            
+            var cut = TestContext.RenderComponent<FluentBadge>(parameters =>
+            {
+                parameters.AddChildContent("childcontent");
+            });
+
             // Assert
-            cut.MarkupMatches("<fluent-badge " +
-                              "appearance=\"accent\">" +
-                              "childcontent" +
-                              "</fluent-badge>");
+            cut.Verify();
         }
-        
+
         [Theory]
         [InlineData(Appearance.Neutral)]
         [InlineData(Appearance.Accent)]
         [InlineData(Appearance.Lightweight)]
         [InlineData(Appearance.Hypertext)]
-        public void RenderProperly_AppearanceAttribute(Appearance appearance)
+        public void FluentBadge_AppearanceAttribute(Appearance appearance)
         {
             // Arrange && Act
             IRenderedComponent<FluentBadge>? cut = null;
             Action action = () =>
             {
-                cut = TestContext.RenderComponent<FluentBadge>(
-                    parameters => parameters
-                        .Add(p => p.Appearance, appearance)
-                        .AddChildContent("childcontent"));
+                cut = TestContext.RenderComponent<FluentBadge>(parameters =>
+                {
+                    parameters.Add(p => p.Appearance, appearance);
+                    parameters.AddChildContent("childcontent");
+                });
             };
-            
+
             // Assert
             if (appearance == Appearance.Hypertext)
             {
@@ -47,13 +46,10 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.Badge
             else
             {
                 action.Should().NotThrow();
-                cut!.MarkupMatches("<fluent-badge " +
-                                  $"appearance=\"{appearance.ToAttributeValue()}\">" +
-                                  "childcontent" +
-                                  "</fluent-badge>");
+                cut!.Verify(suffix: appearance.ToString());
             }
         }
-        
+
         [Theory]
         [InlineData(Appearance.Filled)]
         [InlineData(Appearance.Hypertext)]
@@ -64,145 +60,114 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.Badge
             // Arrange && Act
             Action action = () =>
             {
-                TestContext.RenderComponent<FluentBadge>(
-                    parameters => parameters
-                        .Add(p => p.Appearance, appearance)
-                        .AddChildContent("childcontent"));
+                TestContext.RenderComponent<FluentBadge>(parameters =>
+                {
+                    parameters.Add(p => p.Appearance, appearance);
+                    parameters.AddChildContent("childcontent");
+                });
             };
 
             // Assert
             action.Should().ThrowExactly<ArgumentException>();
         }
-        
+
         [Fact]
-        public void RenderProperly_FillAttribute()
+        public void FluentBadge_FillAttribute()
         {
             // Arrange && Act
-            string backgroundColor = "red";
-            IRenderedComponent<FluentBadge> cut = TestContext.RenderComponent<FluentBadge>(
-                parameters => parameters
-                    .Add(p => p.Fill, backgroundColor)
-                    .AddChildContent("childcontent"));
-            
+            var cut = TestContext.RenderComponent<FluentBadge>(parameters =>
+            {
+                parameters.Add(p => p.Fill, "red");
+                parameters.AddChildContent("childcontent");
+            });
+
             // Assert
-            cut.MarkupMatches("<fluent-badge " +
-                              "appearance=\"accent\" " +
-                              $"fill=\"{backgroundColor}\">" +
-                              "childcontent" +
-                              "</fluent-badge>");
-        }
-        
-        [Fact]
-        public void RenderProperly_ColorAttribute()
-        {
-            // Arrange && Act
-            string color = "red";
-            IRenderedComponent<FluentBadge> cut = TestContext.RenderComponent<FluentBadge>(
-                parameters => parameters
-                    .Add(p => p.Color, color)
-                    .AddChildContent("childcontent"));
-            
-            // Assert
-            cut.MarkupMatches("<fluent-badge " +
-                              "appearance=\"accent\" " +
-                              $"color=\"{color}\">" +
-                              "childcontent" +
-                              "</fluent-badge>");
-        }
-        
-        [Fact]
-        public void RenderProperly_CircularAttribute()
-        {
-            // Arrange && Act
-            IRenderedComponent<FluentBadge> cut = TestContext.RenderComponent<FluentBadge>(
-                parameters => parameters
-                    .Add(p => p.Circular, true)
-                    .AddChildContent("childcontent"));
-            
-            // Assert
-            cut.MarkupMatches("<fluent-badge " +
-                              "appearance=\"accent\" " +
-                              "circular=\"\">" +
-                              "childcontent" +
-                              "</fluent-badge>");
-        }
-        
-        [Fact]
-        public void RenderProperly_WithAdditionalCssClass()
-        {
-            // Arrange && Act
-            string cssClass = "additional_class";
-            IRenderedComponent<FluentBadge> cut = TestContext.RenderComponent<FluentBadge>(
-                parameters => parameters
-                    .Add(p => p.Class, cssClass)
-                    .AddChildContent("childcontent"));
-            
-            // Assert
-            cut.MarkupMatches("<fluent-badge " +
-                              $"class=\"{cssClass}\" " +
-                              "appearance=\"accent\">" +
-                              "childcontent" +
-                              "</fluent-badge>");
+            cut.Verify();
         }
 
         [Fact]
-        public void RenderProperly_WithAdditionalStyle()
+        public void FluentBadge_ColorAttribute()
         {
             // Arrange && Act
-            string style = "background-color:red; width:100px;";
-            IRenderedComponent<FluentBadge> cut = TestContext.RenderComponent<FluentBadge>(
-                parameters => parameters
-                    .Add(p => p.Style, style)
-                    .AddChildContent("childcontent"));
-            
+            var cut = TestContext.RenderComponent<FluentBadge>(parameters =>
+            {
+                parameters.Add(p => p.Color, "red");
+                parameters.AddChildContent("childcontent");
+            });
+
             // Assert
-            cut.MarkupMatches("<fluent-badge " +
-                              $"style=\"{style}\" " +
-                              "appearance=\"accent\">" +
-                              "childcontent" +
-                              "</fluent-badge>");
+            cut.Verify();
         }
 
         [Fact]
-        public void RenderProperly_WithAnAdditionalAttribute()
+        public void FluentBadge_CircularAttribute()
         {
             // Arrange && Act
-            string additionalAttributeName = "additional-attribute-name";
-            string additionalAttributeValue = "additional-attribute-value";
-            IRenderedComponent<FluentBadge> cut = TestContext.RenderComponent<FluentBadge>(
-                parameters => parameters
-                    .AddUnmatched(additionalAttributeName, additionalAttributeValue)
-                    .AddChildContent("childcontent"));
-            
+            var cut = TestContext.RenderComponent<FluentBadge>(parameters =>
+            {
+                parameters.Add(p => p.Circular, true);
+                parameters.AddChildContent("childcontent");
+            });
+
             // Assert
-            cut.MarkupMatches("<fluent-badge " +
-                              "appearance=\"accent\" " +
-                              $"{additionalAttributeName}=\"{additionalAttributeValue}\">" +
-                              "childcontent" +
-                              "</fluent-badge>");
+            cut.Verify();
         }
 
         [Fact]
-        public void RenderProperly_WithMultipleAdditionalAttributes()
+        public void FluentBadge_WithAdditionalCssClass()
         {
             // Arrange && Act
-            string additionalAttribute1Name = "additional-attribute1-name";
-            string additionalAttribute1Value = "additional-attribute1-value";
-            string additionalAttribute2Name = "additional-attribute2-name";
-            string additionalAttribute2Value = "additional-attribute2-value";
-            IRenderedComponent<FluentBadge> cut = TestContext.RenderComponent<FluentBadge>(
-                parameters => parameters
-                    .AddUnmatched(additionalAttribute1Name, additionalAttribute1Value)
-                    .AddUnmatched(additionalAttribute2Name, additionalAttribute2Value)
-                    .AddChildContent("childcontent"));
-            
+            var cut = TestContext.RenderComponent<FluentBadge>(parameters =>
+            {
+                parameters.Add(p => p.Class, "additional_class");
+                parameters.AddChildContent("childcontent");
+            });
+
             // Assert
-            cut.MarkupMatches("<fluent-badge " +
-                              "appearance=\"accent\" " +
-                              $"{additionalAttribute1Name}=\"{additionalAttribute1Value}\" " +
-                              $"{additionalAttribute2Name}=\"{additionalAttribute2Value}\">" +
-                              "childcontent" +
-                              "</fluent-badge>");
+            cut.Verify();
+        }
+
+        [Fact]
+        public void FluentBadge_WithAdditionalStyle()
+        {
+            // Arrange && Act
+            var cut = TestContext.RenderComponent<FluentBadge>(parameters =>
+            {
+                parameters.Add(p => p.Style, "background-color:red; width:100px");
+                parameters.AddChildContent("childcontent");
+            });
+
+            // Assert
+            cut.Verify();
+        }
+
+        [Fact]
+        public void FluentBadge_WithAnAdditionalAttribute()
+        {
+            // Arrange && Act
+            var cut = TestContext.RenderComponent<FluentBadge>(parameters =>
+            {
+                parameters.AddUnmatched("additional-attribute-name", "additional-attribute-value");
+                parameters.AddChildContent("childcontent");
+            });
+
+            // Assert
+            cut.Verify();
+        }
+
+        [Fact]
+        public void FluentBadge_WithMultipleAdditionalAttributes()
+        {
+            // Arrange && Act
+            var cut = TestContext.RenderComponent<FluentBadge>(parameters =>
+            {
+                parameters.AddUnmatched("additional-attribute1-name", "additional-attribute1-value");
+                parameters.AddUnmatched("additional-attribute2-name", "additional-attribute2-value");
+                parameters.AddChildContent("childcontent");
+            });
+
+            // Assert
+            cut.Verify();
         }
     }
 }

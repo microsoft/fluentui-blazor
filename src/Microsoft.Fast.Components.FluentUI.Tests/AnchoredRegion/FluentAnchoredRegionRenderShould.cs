@@ -6,107 +6,61 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.AnchoredRegion
     public class FluentAnchoredRegionRenderShould : TestBase
     {
         [Fact]
-        public void RenderProperly_AttributeDefaultValues()
+        public void FluentAnchoredRegion_AttributeDefaultValues()
         {
             // Arrange && Act
-            string content = "content";
-            IRenderedComponent<FluentAnchoredRegion> cut = TestContext.RenderComponent<FluentAnchoredRegion>(
-                parameters => parameters.AddChildContent(content));
+            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
+            {
+                parameters.AddChildContent("content");
+            });
 
             // Assert
-            cut.MarkupMatches("<fluent-anchored-region " +
-                              "horizontal-positioning-mode=\"uncontrolled\" " +
-                              "horizontal-default-position=\"unset\" " +
-                              "horizontal-threshold=\"0\" " +
-                              "horizontal-scaling=\"content\" " +
-                              "vertical-positioning-mode=\"uncontrolled\" " +
-                              "vertical-default-position=\"unset\" " +
-                              "vertical-threshold=\"0\" " +
-                              "vertical-scaling=\"content\" " +
-                              "auto-update-mode=\"anchor\">" +
-                              $"{content}" +
-                              "</fluent-anchored-region>");
-        }
-        
-        [Fact]
-        public void RenderProperly_AnchorAttribute()
-        {
-            // Arrange && Act
-            string content = "content";
-            IRenderedComponent<FluentAnchoredRegion> cut = TestContext.RenderComponent<FluentAnchoredRegion>(
-                parameters => parameters
-                    .Add(p => p.Anchor, "anchor-id")
-                    .AddChildContent(content));
-
-            // Assert
-            cut.MarkupMatches("<fluent-anchored-region " +
-                              "anchor=\"anchor-id\" " +
-                              "horizontal-positioning-mode=\"uncontrolled\" " +
-                              "horizontal-default-position=\"unset\" " +
-                              "horizontal-threshold=\"0\" " +
-                              "horizontal-scaling=\"content\" " +
-                              "vertical-positioning-mode=\"uncontrolled\" " +
-                              "vertical-default-position=\"unset\" " +
-                              "vertical-threshold=\"0\" " +
-                              "vertical-scaling=\"content\" " +
-                              "auto-update-mode=\"anchor\">" +
-                              $"{content}" +
-                              "</fluent-anchored-region>");
+            cut.Verify();
         }
 
         [Fact]
-        public void RenderProperly_ViewportAttribute()
+        public void FluentAnchoredRegion_AnchorAttribute()
         {
             // Arrange && Act
-            string content = "content";
-            string viewPortValue = "viewport-value";
-            IRenderedComponent<FluentAnchoredRegion> cut = TestContext.RenderComponent<FluentAnchoredRegion>(
-                parameters => parameters
-                    .Add(p => p.Viewport, viewPortValue)
-                    .AddChildContent(content));
+            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
+            {
+                parameters.Add(p => p.Anchor, "anchor-id");
+                parameters.AddChildContent("content");
+            });
 
             // Assert
-            cut.MarkupMatches("<fluent-anchored-region " +
-                              $"viewport=\"{viewPortValue}\" " +
-                              "horizontal-positioning-mode=\"uncontrolled\" " +
-                              "horizontal-default-position=\"unset\" " +
-                              "horizontal-threshold=\"0\" " +
-                              "horizontal-scaling=\"content\" " +
-                              "vertical-positioning-mode=\"uncontrolled\" " +
-                              "vertical-default-position=\"unset\" " +
-                              "vertical-threshold=\"0\" " +
-                              "vertical-scaling=\"content\" " +
-                              "auto-update-mode=\"anchor\">" +
-                              $"{content}" +
-                              "</fluent-anchored-region>");
+            cut.Verify();
+        }
+
+        [Fact]
+        public void FluentAnchoredRegion_ViewportAttribute()
+        {
+            // Arrange && Act
+            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
+            {
+                parameters.Add(p => p.Viewport, "viewport-value");
+                parameters.AddChildContent("content");
+            });
+
+            // Assert
+            cut.Verify();
         }
 
         [Theory]
         [InlineData(AxisPositioningMode.Dynamic)]
         [InlineData(AxisPositioningMode.Locktodefault)]
         [InlineData(AxisPositioningMode.Uncontrolled)]
-        public void RenderProperly_HorizontalPositioningAttribute(AxisPositioningMode axisPositioningMode)
+        public void FluentAnchoredRegion_HorizontalPositioningAttribute(AxisPositioningMode axisPositioningMode)
         {
             // Arrange && Act
-            string content = "content";
-            IRenderedComponent<FluentAnchoredRegion> cut = TestContext.RenderComponent<FluentAnchoredRegion>(
-                parameters => parameters
-                    .Add(p => p.HorizontalPositioningMode, axisPositioningMode)
-                    .AddChildContent(content));
+            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
+            {
+                parameters.Add(p => p.HorizontalPositioningMode, axisPositioningMode);
+                parameters.AddChildContent("content");
+            });
 
             // Assert
-            cut.MarkupMatches("<fluent-anchored-region " +
-                              $"horizontal-positioning-mode=\"{axisPositioningMode.ToAttributeValue()}\" " +
-                              "horizontal-default-position=\"unset\" " +
-                              "horizontal-threshold=\"0\" " +
-                              "horizontal-scaling=\"content\" " +
-                              "vertical-positioning-mode=\"uncontrolled\" " +
-                              "vertical-default-position=\"unset\" " +
-                              "vertical-threshold=\"0\" " +
-                              "vertical-scaling=\"content\" " +
-                              "auto-update-mode=\"anchor\">" +
-                              $"{content}" +
-                              "</fluent-anchored-region>");
+            cut.Verify(suffix: axisPositioningMode.ToString());
         }
 
         [Theory]
@@ -115,459 +69,257 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.AnchoredRegion
         [InlineData(HorizontalPosition.Right)]
         [InlineData(HorizontalPosition.Start)]
         [InlineData(HorizontalPosition.Unset)]
-        public void RenderProperly_HorizontalDefaultPositionAttribute(HorizontalPosition horizontalPosition)
+        public void FluentAnchoredRegion_HorizontalDefaultPositionAttribute(HorizontalPosition horizontalPosition)
         {
             // Arrange && Act
-            string content = "content";
-            IRenderedComponent<FluentAnchoredRegion> cut = TestContext.RenderComponent<FluentAnchoredRegion>(
-                parameters => parameters
-                    .Add(p => p.HorizontalDefaultPosition, horizontalPosition)
-                    .AddChildContent(content));
+            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
+            {
+                parameters.Add(p => p.HorizontalDefaultPosition, horizontalPosition);
+                parameters.AddChildContent("content");
+            });
 
             // Assert
-            cut.MarkupMatches("<fluent-anchored-region " +
-                              "horizontal-positioning-mode=\"uncontrolled\" " +
-                              $"horizontal-default-position=\"{horizontalPosition.ToAttributeValue()}\" " +
-                              "horizontal-threshold=\"0\" " +
-                              "horizontal-scaling=\"content\" " +
-                              "vertical-positioning-mode=\"uncontrolled\" " +
-                              "vertical-default-position=\"unset\" " +
-                              "vertical-threshold=\"0\" " +
-                              "vertical-scaling=\"content\" " +
-                              "auto-update-mode=\"anchor\">" +
-                              $"{content}" +
-                              "</fluent-anchored-region>");
+            cut.Verify(suffix: horizontalPosition.ToString());
         }
 
         [Fact]
-        public void RenderProperly_HorizontalViewportLockAttribute()
+        public void FluentAnchoredRegion_HorizontalViewportLockAttribute()
         {
             // Arrange && Act
-            string content = "content";
-            IRenderedComponent<FluentAnchoredRegion> cut = TestContext.RenderComponent<FluentAnchoredRegion>(
-                parameters => parameters
-                    .Add(p => p.HorizontalViewportLock, true)
-                    .AddChildContent(content));
+            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
+            {
+                parameters.Add(p => p.HorizontalViewportLock, true);
+                parameters.AddChildContent("content");
+            });
 
             // Assert
-            cut.MarkupMatches("<fluent-anchored-region " +
-                              "horizontal-positioning-mode=\"uncontrolled\" " +
-                              "horizontal-default-position=\"unset\" " +
-                              "horizontal-viewport-lock=\"\" " +
-                              "horizontal-threshold=\"0\" " +
-                              "horizontal-scaling=\"content\" " +
-                              "vertical-positioning-mode=\"uncontrolled\" " +
-                              "vertical-default-position=\"unset\" " +
-                              "vertical-threshold=\"0\" " +
-                              "vertical-scaling=\"content\" " +
-                              "auto-update-mode=\"anchor\">" +
-                              $"{content}" +
-                              "</fluent-anchored-region>");
+            cut.Verify();
         }
 
         [Fact]
-        public void RenderProperly_HorizontalInsetAttribute()
+        public void FluentAnchoredRegion_HorizontalInsetAttribute()
         {
             // Arrange && Act
-            string content = "content";
-            IRenderedComponent<FluentAnchoredRegion> cut = TestContext.RenderComponent<FluentAnchoredRegion>(
-                parameters => parameters
-                    .Add(p => p.HorizontalInset, true)
-                    .AddChildContent(content));
+            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
+            {
+                parameters.Add(p => p.HorizontalInset, true);
+                parameters.AddChildContent("content");
+            });
 
             // Assert
-            cut.MarkupMatches("<fluent-anchored-region " +
-                              "horizontal-positioning-mode=\"uncontrolled\" " +
-                              "horizontal-default-position=\"unset\" " +
-                              "horizontal-inset=\"\" " +
-                              "horizontal-threshold=\"0\" " +
-                              "horizontal-scaling=\"content\" " +
-                              "vertical-positioning-mode=\"uncontrolled\" " +
-                              "vertical-default-position=\"unset\" " +
-                              "vertical-threshold=\"0\" " +
-                              "vertical-scaling=\"content\" " +
-                              "auto-update-mode=\"anchor\">" +
-                              $"{content}" +
-                              "</fluent-anchored-region>");
+            cut.Verify();
         }
 
         [Fact]
-        public void RenderProperly_HorizontalThresholdAttribute()
+        public void FluentAnchoredRegion_HorizontalThresholdAttribute()
         {
             // Arrange && Act
-            string content = "content";
-            IRenderedComponent<FluentAnchoredRegion> cut = TestContext.RenderComponent<FluentAnchoredRegion>(
-                parameters => parameters
-                    .Add(p => p.HorizontalThreshold, 10)
-                    .AddChildContent(content));
+            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
+            {
+                parameters.Add(p => p.HorizontalThreshold, 10);
+                parameters.AddChildContent("content");
+            });
 
             // Assert
-            cut.MarkupMatches("<fluent-anchored-region " +
-                              "horizontal-positioning-mode=\"uncontrolled\" " +
-                              "horizontal-default-position=\"unset\" " +
-                              "horizontal-threshold=\"10\" " +
-                              "horizontal-scaling=\"content\" " +
-                              "vertical-positioning-mode=\"uncontrolled\" " +
-                              "vertical-default-position=\"unset\" " +
-                              "vertical-threshold=\"0\" " +
-                              "vertical-scaling=\"content\" " +
-                              "auto-update-mode=\"anchor\">" +
-                              $"{content}" +
-                              "</fluent-anchored-region>");
+            cut.Verify();
         }
 
         [Theory]
         [InlineData(AxisScalingMode.Anchor)]
         [InlineData(AxisScalingMode.Content)]
         [InlineData(AxisScalingMode.Fill)]
-        public void RenderProperly_HorizontalScalingAttribute(AxisScalingMode axisScalingMode)
+        public void FluentAnchoredRegion_HorizontalScalingAttribute(AxisScalingMode axisScalingMode)
         {
             // Arrange && Act
-            string content = "content";
-            IRenderedComponent<FluentAnchoredRegion> cut = TestContext.RenderComponent<FluentAnchoredRegion>(
-                parameters => parameters
-                    .Add(p => p.HorizontalScaling, axisScalingMode)
-                    .AddChildContent(content));
+
+            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
+            {
+                parameters.Add(p => p.HorizontalScaling, axisScalingMode);
+                parameters.AddChildContent("content");
+            });
 
             // Assert
-            cut.MarkupMatches("<fluent-anchored-region " +
-                              "horizontal-positioning-mode=\"uncontrolled\" " +
-                              "horizontal-default-position=\"unset\" " +
-                              "horizontal-threshold=\"0\" " +
-                              $"horizontal-scaling=\"{axisScalingMode.ToAttributeValue()}\" " +
-                              "vertical-positioning-mode=\"uncontrolled\" " +
-                              "vertical-default-position=\"unset\" " +
-                              "vertical-threshold=\"0\" " +
-                              "vertical-scaling=\"content\" " +
-                              "auto-update-mode=\"anchor\">" +
-                              $"{content}" +
-                              "</fluent-anchored-region>");
+            cut.Verify(suffix: axisScalingMode.ToString());
         }
 
         [Theory]
         [InlineData(AxisPositioningMode.Dynamic)]
         [InlineData(AxisPositioningMode.Locktodefault)]
         [InlineData(AxisPositioningMode.Uncontrolled)]
-        public void RenderProperly_VerticalPositioningModeAttribute(AxisPositioningMode axisPositioningMode)
+        public void FluentAnchoredRegion_VerticalPositioningModeAttribute(AxisPositioningMode axisPositioningMode)
         {
             // Arrange && Act
-            string content = "content";
-            IRenderedComponent<FluentAnchoredRegion> cut = TestContext.RenderComponent<FluentAnchoredRegion>(
-                parameters => parameters
-                    .Add(p => p.VerticalPositioningMode, axisPositioningMode)
-                    .AddChildContent(content));
+            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
+            {
+                parameters.Add(p => p.VerticalPositioningMode, axisPositioningMode);
+                parameters.AddChildContent("content");
+            });
 
             // Assert
-            cut.MarkupMatches("<fluent-anchored-region " +
-                              "horizontal-positioning-mode=\"uncontrolled\" " +
-                              "horizontal-default-position=\"unset\" " +
-                              "horizontal-threshold=\"0\" " +
-                              "horizontal-scaling=\"content\" " +
-                              $"vertical-positioning-mode=\"{axisPositioningMode.ToAttributeValue()}\" " +
-                              "vertical-default-position=\"unset\" " +
-                              "vertical-threshold=\"0\" " +
-                              "vertical-scaling=\"content\" " +
-                              "auto-update-mode=\"anchor\">" +
-                              $"{content}" +
-                              "</fluent-anchored-region>");
+            cut.Verify(suffix: axisPositioningMode.ToString());
         }
 
         [Theory]
         [InlineData(VerticalPosition.Unset)]
         [InlineData(VerticalPosition.Bottom)]
         [InlineData(VerticalPosition.Top)]
-        public void RenderProperly_VerticalDefaultPositionAttribute(VerticalPosition verticalPosition)
+        public void FluentAnchoredRegion_VerticalDefaultPositionAttribute(VerticalPosition verticalPosition)
         {
             // Arrange && Act
-            string content = "content";
-            IRenderedComponent<FluentAnchoredRegion> cut = TestContext.RenderComponent<FluentAnchoredRegion>(
-                parameters => parameters
-                    .Add(p => p.VerticalDefaultPosition, verticalPosition)
-                    .AddChildContent(content));
+            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
+            {
+                parameters.Add(p => p.VerticalDefaultPosition, verticalPosition);
+                parameters.AddChildContent("content");
+            });
 
             // Assert
-            cut.MarkupMatches("<fluent-anchored-region " +
-                              "horizontal-positioning-mode=\"uncontrolled\" " +
-                              "horizontal-default-position=\"unset\" " +
-                              "horizontal-threshold=\"0\" " +
-                              "horizontal-scaling=\"content\" " +
-                              "vertical-positioning-mode=\"uncontrolled\" " +
-                              $"vertical-default-position=\"{verticalPosition.ToAttributeValue()}\" " +
-                              "vertical-threshold=\"0\" " +
-                              "vertical-scaling=\"content\" " +
-                              "auto-update-mode=\"anchor\">" +
-                              $"{content}" +
-                              "</fluent-anchored-region>");
+            cut.Verify(suffix: verticalPosition.ToString());
         }
 
         [Fact]
-        public void RenderProperly_VerticalViewportLockAttribute()
+        public void FluentAnchoredRegion_VerticalViewportLockAttribute()
         {
             // Arrange && Act
-            string content = "content";
-            IRenderedComponent<FluentAnchoredRegion> cut = TestContext.RenderComponent<FluentAnchoredRegion>(
-                parameters => parameters
-                    .Add(p => p.VerticalViewportLock, true)
-                    .AddChildContent(content));
+            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
+            {
+                parameters.Add(p => p.VerticalViewportLock, true);
+                parameters.AddChildContent("content");
+            });
 
             // Assert
-            cut.MarkupMatches("<fluent-anchored-region " +
-                              "horizontal-positioning-mode=\"uncontrolled\" " +
-                              "horizontal-default-position=\"unset\" " +
-                              "horizontal-threshold=\"0\" " +
-                              "horizontal-scaling=\"content\" " +
-                              "vertical-positioning-mode=\"uncontrolled\" " +
-                              "vertical-default-position=\"unset\" " +
-                              "vertical-viewport-lock=\"\" " +
-                              "vertical-threshold=\"0\" " +
-                              "vertical-scaling=\"content\" " +
-                              "auto-update-mode=\"anchor\">" +
-                              $"{content}" +
-                              "</fluent-anchored-region>");
+            cut.Verify();
         }
 
         [Fact]
-        public void RenderProperly_VerticalInsetAttribute()
+        public void FluentAnchoredRegion_VerticalInsetAttribute()
         {
             // Arrange && Act
-            string content = "content";
-            IRenderedComponent<FluentAnchoredRegion> cut = TestContext.RenderComponent<FluentAnchoredRegion>(
-                parameters => parameters
-                    .Add(p => p.VerticalInset, true)
-                    .AddChildContent(content));
+            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
+            {
+                parameters.Add(p => p.VerticalInset, true);
+                parameters.AddChildContent("content");
+            });
 
             // Assert
-            cut.MarkupMatches("<fluent-anchored-region " +
-                              "horizontal-positioning-mode=\"uncontrolled\" " +
-                              "horizontal-default-position=\"unset\" " +
-                              "horizontal-threshold=\"0\" " +
-                              "horizontal-scaling=\"content\" " +
-                              "vertical-positioning-mode=\"uncontrolled\" " +
-                              "vertical-default-position=\"unset\" " +
-                              "vertical-inset=\"\" " +
-                              "vertical-threshold=\"0\" " +
-                              "vertical-scaling=\"content\" " +
-                              "auto-update-mode=\"anchor\">" +
-                              $"{content}" +
-                              "</fluent-anchored-region>");
+            cut.Verify();
         }
 
         [Fact]
-        public void RenderProperly_VerticalThresholdAttribute()
+        public void FluentAnchoredRegion_VerticalThresholdAttribute()
         {
             // Arrange && Act
-            string content = "content";
-            IRenderedComponent<FluentAnchoredRegion> cut = TestContext.RenderComponent<FluentAnchoredRegion>(
-                parameters => parameters
-                    .Add(p => p.VerticalThreshold, 100)
-                    .AddChildContent(content));
+            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
+            {
+                parameters.Add(p => p.VerticalThreshold, 100);
+                parameters.AddChildContent("content");
+            });
 
             // Assert
-            cut.MarkupMatches("<fluent-anchored-region " +
-                              "horizontal-positioning-mode=\"uncontrolled\" " +
-                              "horizontal-default-position=\"unset\" " +
-                              "horizontal-threshold=\"0\" " +
-                              "horizontal-scaling=\"content\" " +
-                              "vertical-positioning-mode=\"uncontrolled\" " +
-                              "vertical-default-position=\"unset\" " +
-                              "vertical-threshold=\"100\" " +
-                              "vertical-scaling=\"content\" " +
-                              "auto-update-mode=\"anchor\">" +
-                              $"{content}" +
-                              "</fluent-anchored-region>");
+            cut.Verify();
         }
 
         [Theory]
         [InlineData(AxisScalingMode.Content)]
         [InlineData(AxisScalingMode.Anchor)]
         [InlineData(AxisScalingMode.Fill)]
-        public void RenderProperly_VerticalScalingAttribute(AxisScalingMode axisScalingMode)
+        public void FluentAnchoredRegion_VerticalScalingAttribute(AxisScalingMode axisScalingMode)
         {
             // Arrange && Act
-            string content = "content";
-            IRenderedComponent<FluentAnchoredRegion> cut = TestContext.RenderComponent<FluentAnchoredRegion>(
-                parameters => parameters
-                    .Add(p => p.VerticalScaling, axisScalingMode)
-                    .AddChildContent(content));
+            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
+            {
+                parameters.Add(p => p.VerticalScaling, axisScalingMode);
+                parameters.AddChildContent("content");
+            });
 
             // Assert
-            cut.MarkupMatches("<fluent-anchored-region " +
-                              "horizontal-positioning-mode=\"uncontrolled\" " +
-                              "horizontal-default-position=\"unset\" " +
-                              "horizontal-threshold=\"0\" " +
-                              "horizontal-scaling=\"content\" " +
-                              "vertical-positioning-mode=\"uncontrolled\" " +
-                              "vertical-default-position=\"unset\" " +
-                              "vertical-threshold=\"0\" " +
-                              $"vertical-scaling=\"{axisScalingMode.ToAttributeValue()}\" " +
-                              "auto-update-mode=\"anchor\">" +
-                              $"{content}" +
-                              "</fluent-anchored-region>");
+            cut.Verify(suffix: axisScalingMode.ToString());
         }
 
         [Fact]
-        public void RenderProperly_FixedPlacementAttribute()
+        public void FluentAnchoredRegion_FixedPlacementAttribute()
         {
             // Arrange && Act
-            string content = "content";
-            IRenderedComponent<FluentAnchoredRegion> cut = TestContext.RenderComponent<FluentAnchoredRegion>(
-                parameters => parameters
-                    .Add(p => p.FixedPlacement, true)
-                    .AddChildContent(content));
+            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
+            {
+                parameters.Add(p => p.FixedPlacement, true);
+                parameters.AddChildContent("content");
+            });
 
             // Assert
-            cut.MarkupMatches("<fluent-anchored-region " +
-                              "horizontal-positioning-mode=\"uncontrolled\" " +
-                              "horizontal-default-position=\"unset\" " +
-                              "horizontal-threshold=\"0\" " +
-                              "horizontal-scaling=\"content\" " +
-                              "vertical-positioning-mode=\"uncontrolled\" " +
-                              "vertical-default-position=\"unset\" " +
-                              "vertical-threshold=\"0\" " +
-                              "vertical-scaling=\"content\" " +
-                              "auto-update-mode=\"anchor\" " +
-                              "fixed-placement=\"\">" +
-                              $"{content}" +
-                              "</fluent-anchored-region>");
+            cut.Verify();
         }
 
         [Theory]
         [InlineData(AutoUpdateMode.Auto)]
         [InlineData(AutoUpdateMode.Anchor)]
-        public void RenderProperly_AutoUpdateModeAttribute(AutoUpdateMode autoUpdateMode)
+        public void FluentAnchoredRegion_AutoUpdateModeAttribute(AutoUpdateMode autoUpdateMode)
         {
             // Arrange && Act
-            string content = "content";
-            IRenderedComponent<FluentAnchoredRegion> cut = TestContext.RenderComponent<FluentAnchoredRegion>(
-                parameters => parameters
-                    .Add(p => p.AutoUpdateMode, autoUpdateMode)
-                    .AddChildContent(content));
+            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
+            {
+                parameters.Add(p => p.AutoUpdateMode, autoUpdateMode);
+                parameters.AddChildContent("content");
+            });
 
             // Assert
-            cut.MarkupMatches("<fluent-anchored-region " +
-                              "horizontal-positioning-mode=\"uncontrolled\" " +
-                              "horizontal-default-position=\"unset\" " +
-                              "horizontal-threshold=\"0\" " +
-                              "horizontal-scaling=\"content\" " +
-                              "vertical-positioning-mode=\"uncontrolled\" " +
-                              "vertical-default-position=\"unset\" " +
-                              "vertical-threshold=\"0\" " +
-                              "vertical-scaling=\"content\" " +
-                              $"auto-update-mode=\"{autoUpdateMode.ToAttributeValue()}\" >" +
-                              $"{content}" +
-                              "</fluent-anchored-region>");
+            cut.Verify(suffix: autoUpdateMode.ToString());
         }
 
         [Fact]
-        public void RenderProperly_WithAdditionalCSSClass()
+        public void FluentAnchoredRegion_WithAdditionalCSSClass()
         {
             // Arrange && Act
-            string content = "content";
-            IRenderedComponent<FluentAnchoredRegion> cut = TestContext.RenderComponent<FluentAnchoredRegion>(
-                parameters => parameters
-                    .Add(p => p.Class, "additional-css-class")
-                    .AddChildContent(content));
+            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
+            {
+                parameters.Add(p => p.Class, "additional-css-class");
+                parameters.AddChildContent("content");
+            });
 
             // Assert
-            cut.MarkupMatches("<fluent-anchored-region " +
-                              "class=\"additional-css-class\" " +
-                              "horizontal-positioning-mode=\"uncontrolled\" " +
-                              "horizontal-default-position=\"unset\" " +
-                              "horizontal-threshold=\"0\" " +
-                              "horizontal-scaling=\"content\" " +
-                              "vertical-positioning-mode=\"uncontrolled\" " +
-                              "vertical-default-position=\"unset\" " +
-                              "vertical-threshold=\"0\" " +
-                              "vertical-scaling=\"content\" " +
-                              "auto-update-mode=\"anchor\">" +
-                              $"{content}" +
-                              "</fluent-anchored-region>");
+            cut.Verify();
         }
 
         [Fact]
-        public void RenderProperly_WithAdditionalStyle()
+        public void FluentAnchoredRegion_WithAdditionalStyle()
         {
             // Arrange && Act
-            string content = "content";
-            IRenderedComponent<FluentAnchoredRegion> cut = TestContext.RenderComponent<FluentAnchoredRegion>(
-                parameters => parameters
-                    .Add(p => p.Style, "background-color: black;")
-                    .AddChildContent(content));
+            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
+            {
+                parameters.Add(p => p.Style, "background-color: black");
+                parameters.AddChildContent("content");
+            });
 
             // Assert
-            cut.MarkupMatches("<fluent-anchored-region " +
-                              "style=\"background-color: black;\" " +
-                              "horizontal-positioning-mode=\"uncontrolled\" " +
-                              "horizontal-default-position=\"unset\" " +
-                              "horizontal-threshold=\"0\" " +
-                              "horizontal-scaling=\"content\" " +
-                              "vertical-positioning-mode=\"uncontrolled\" " +
-                              "vertical-default-position=\"unset\" " +
-                              "vertical-threshold=\"0\" " +
-                              "vertical-scaling=\"content\" " +
-                              "auto-update-mode=\"anchor\">" +
-                              $"{content}" +
-                              "</fluent-anchored-region>");
+            cut.Verify();
         }
 
         [Fact]
-        public void RenderProperly_WithAnAdditionalAttribute()
+        public void FluentAnchoredRegion_WithAnAdditionalAttribute()
         {
             // Arrange && Act
-            string additionalAttributeName = "additional";
-            string additionalAttributeValue = "additional-value";
-            string content = "content";
-            IRenderedComponent<FluentAnchoredRegion> cut = TestContext.RenderComponent<FluentAnchoredRegion>(
-                parameters => parameters
-                    .AddUnmatched(additionalAttributeName, additionalAttributeValue)
-                    .AddChildContent(content));
+            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
+            {
+                parameters.AddUnmatched("additional", "additional-value");
+                parameters.AddChildContent("content");
+            });
 
             // Assert
-            cut.MarkupMatches("<fluent-anchored-region " +
-                              $"{additionalAttributeName}=\"{additionalAttributeValue}\" " +
-                              "horizontal-positioning-mode=\"uncontrolled\" " +
-                              "horizontal-default-position=\"unset\" " +
-                              "horizontal-threshold=\"0\" " +
-                              "horizontal-scaling=\"content\" " +
-                              "vertical-positioning-mode=\"uncontrolled\" " +
-                              "vertical-default-position=\"unset\" " +
-                              "vertical-threshold=\"0\" " +
-                              "vertical-scaling=\"content\" " +
-                              "auto-update-mode=\"anchor\">" +
-                              $"{content}" +
-                              "</fluent-anchored-region>");
+            cut.Verify();
         }
 
         [Fact]
-        public void RenderProperly_WithMultipleAdditionalAttributes()
+        public void FluentAnchoredRegion_WithMultipleAdditionalAttributes()
         {
             // Arrange && Act
-            string additionalAttribute1Name = "additional1";
-            string additionalAttribute1Value = "additional1-value";
-            string additionalAttribute2Name = "additional2";
-            string additionalAttribute2Value = "additional2-value";
-            string content = "content";
-            IRenderedComponent<FluentAnchoredRegion> cut = TestContext.RenderComponent<FluentAnchoredRegion>(
-                parameters => parameters
-                    .AddUnmatched(additionalAttribute1Name, additionalAttribute1Value)
-                    .AddUnmatched(additionalAttribute2Name, additionalAttribute2Value)
-                    .AddChildContent(content));
+            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
+            {
+                parameters.AddUnmatched("additional1", "additional1-value");
+                parameters.AddUnmatched("additional2", "additional2-value");
+                parameters.AddChildContent("content");
+            });
 
             // Assert
-            cut.MarkupMatches("<fluent-anchored-region " +
-                              $"{additionalAttribute1Name}=\"{additionalAttribute1Value}\" " +
-                              $"{additionalAttribute2Name}=\"{additionalAttribute2Value}\" " +
-                              "horizontal-positioning-mode=\"uncontrolled\" " +
-                              "horizontal-default-position=\"unset\" " +
-                              "horizontal-threshold=\"0\" " +
-                              "horizontal-scaling=\"content\" " +
-                              "vertical-positioning-mode=\"uncontrolled\" " +
-                              "vertical-default-position=\"unset\" " +
-                              "vertical-threshold=\"0\" " +
-                              "vertical-scaling=\"content\" " +
-                              "auto-update-mode=\"anchor\">" +
-                              $"{content}" +
-                              "</fluent-anchored-region>");
+            cut.Verify();
         }
     }
 }
