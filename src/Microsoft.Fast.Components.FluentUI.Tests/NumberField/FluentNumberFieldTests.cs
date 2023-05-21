@@ -573,7 +573,7 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.NumberField
         }
 
         [Fact]
-        public void FluentNumberField_FluentNumberField_ClassParameter()
+        public void FluentNumberField_ClassParameter()
         {
             int currentValue = 100;
 
@@ -590,7 +590,7 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.NumberField
         }
 
         [Fact]
-        public void FluentNumberField_FluentNumberField_StyleParameter()
+        public void FluentNumberField_StyleParameter()
         {
             int currentValue = 100;
 
@@ -607,7 +607,7 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.NumberField
         }
 
         [Fact]
-        public void FluentNumberField_FluentNumberField_AdditionalParameter()
+        public void FluentNumberField_AdditionalParameter()
         {
             int currentValue = 100;
 
