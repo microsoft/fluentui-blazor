@@ -4,7 +4,7 @@ using Xunit;
 
 namespace Microsoft.Fast.Components.FluentUI.Tests.Badge
 {
-    public class FluentBadgeRenderShould : TestBase
+    public class FluentBadgeTests : TestBase
     {
 
         [Fact]
