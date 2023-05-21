@@ -117,7 +117,9 @@ public static class FluentAssert
         }
         else
         {
-            var suffixFormatted = suffix.Replace(" ", "[space]");
+            var suffixFormatted = suffix.Replace(" ", "[space]")
+                                        .Replace("/", "-")
+                                        .Replace("\\", "-");
             return $"{memberName}-{suffixFormatted}";
         }
     }
