@@ -6,6 +6,8 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.Calendar
 {
     public class CalendarRenderShould : TestBase
     {
+        // TODO: To update using a DateTimeProvider
+
         [Fact]
         public void RenderProperly_Default()
         {
