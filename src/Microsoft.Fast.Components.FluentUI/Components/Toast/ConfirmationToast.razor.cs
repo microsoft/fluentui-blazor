@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
@@ -7,12 +6,6 @@ public partial class ConfirmationToast : FluentToast, IToastComponent
 {
     [CascadingParameter]
     private FluentToast Toast { get; set; } = default!;
-
-    //Parameters from FluentToast
-    //Intent
-    //Title
-    //EndContentType
-    //PrimaryAction
 
     protected override void OnInitialized()
     {
@@ -32,10 +25,10 @@ public partial class ConfirmationToast : FluentToast, IToastComponent
         Settings = settings;
 
     }
-    
+
     // <inheritdoc />
     //protected internal override void ToastContent(RenderTreeBuilder builder)
     //    => builder.AddContent(0, Content());
-    
-        
+
+
 }

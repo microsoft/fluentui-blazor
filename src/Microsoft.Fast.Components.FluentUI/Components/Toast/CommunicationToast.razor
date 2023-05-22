@@ -1,5 +1,82 @@
-﻿<h3>CommunicationToast</h3>
+﻿@using Microsoft.AspNetCore.Components.Rendering
+@implements IToastComponent
+@inherits FluentToast
 
-@code {
+@namespace Microsoft.Fast.Components.FluentUI
 
-}
+<FluentStack Orientation="Orientation.Horizontal" Width="100%" VerticalAlignment="StackVerticalAlignment.Center" HorizontalGap="8">
+    @if (Settings.Icon is not null)
+    {
+        (string Name, Color Color, IconVariant Variant) Icon = Settings.Icon.Value;
+
+        <FluentIcon Name="@Icon.Name" Style="min-width: 16px;" Size="IconSize.Size16" Color=@Icon.Color Variant="Icon.Variant" />
+    }
+
+    <div class="fluent-toast-title">@Title</div>
+    <div class="fluent-toast-action">
+        @if (EndContentType == ToastEndContentType.Dismiss)
+        {
+            <FluentIcon Name="@FluentIcons.Dismiss"
+                        Size="@IconSize.Size12"
+                        Title="Close"
+                        Color="Color.FillInverse"
+                        OnClick=@Close />
+        }
+        @switch (EndContentType)
+        {
+            case ToastEndContentType.Action:
+                <FluentAnchor Href="@(String.IsNullOrEmpty(PrimaryAction?.Href) ? "#" : PrimaryAction?.Href)"
+                              title="Toast action"
+                              Style="font-size: 14px; font-weight:400;"
+                              Appearance="Appearance.Hypertext"
+                @onclick="HandlePrimaryActionClick">
+                    @PrimaryAction?.Text
+                </FluentAnchor>
+                break;
+            case ToastEndContentType.Dismiss:
+                <FluentIcon Name="@FluentIcons.Dismiss"
+                            Size="@IconSize.Size12"
+                            Title="Close"
+                            Color="Color.FillInverse"
+                            OnClick=@Close />
+                break;
+            case ToastEndContentType.Timestamp:
+                <span class="fluent-toast-subtitle">@TimeStamp.ToString()</span>
+                break;
+        })
+        @if (!string.IsNullOrWhiteSpace(Subtitle))
+        {
+            <div class="fluent-toast-subtitle">@Subtitle</div>
+        }
+
+        @if (!string.IsNullOrWhiteSpace(Details))
+        {
+            <div class="fluent-toast-details">@Details</div>
+        }
+
+        @if (EndContentType != ToastEndContentType.Action && (PrimaryAction is not null || SecondaryAction is not null))
+        {
+            <div class="fluent-toast-actions">
+                @if (PrimaryAction is not null)
+                {
+                    <FluentAnchor Href="@(String.IsNullOrEmpty(PrimaryAction?.Href) ? "#" : PrimaryAction?.Href)"
+                                  title="Toast action"
+                                  Style="font-size: 14px; font-weight:400;"
+                                  Appearance="Appearance.Hypertext"
+                                  @onclick="HandlePrimaryActionClick">
+                        @PrimaryAction?.Text
+                    </FluentAnchor>
+                }
+                @if (SecondaryAction is not null)
+                    <FluentAnchor Href="@(String.IsNullOrEmpty(SecondaryAction?.Href) ? "#" : SecondaryAction?.Href)"
+                                  title="Toast action"
+                                  Style="font-size: 14px; font-weight:400;"
+                                  Appearance="Appearance.Hypertext"
+                                  @onclick="HandleSecondaryActionClick">
+                        @SecondaryAction?.Text
+                    </FluentAnchor>
+                }
+            </div>
+        }
+    </div>
+</FluentStack>

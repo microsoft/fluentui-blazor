@@ -75,7 +75,7 @@
         padding-top: 7px;
     }
 
-    .fluent-toast ::deep .fluent-toast-cta {
+    .fluent-toast ::deep .fluent-toast-actions {
         display: flex;
         align-items: flex-end;
         gap: 16px;
