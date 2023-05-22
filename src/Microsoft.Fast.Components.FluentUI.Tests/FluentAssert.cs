@@ -1,7 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using AngleSharp.Dom;
-using AngleSharp.Html.Parser.Tokens;
 using Bunit;
 using Bunit.Rendering;
 using FluentAssertions;
@@ -96,7 +95,8 @@ public static class FluentAssert
         // Create a "received.json" file
         else
         {
-            File.WriteAllText(receivedFile.FullName, receivedHtml);
+            var formattedReceivedHtml = NodePrintExtensions.ToMarkup((IEnumerable<INode>)receivedNodes);
+            File.WriteAllText(receivedFile.FullName, formattedReceivedHtml);
             throw new HtmlEqualException(diffs, expectedNodes, receivedNodes, null);
         }
     }
@@ -117,7 +117,9 @@ public static class FluentAssert
         }
         else
         {
-            var suffixFormatted = suffix.Replace(" ", "[space]");
+            var suffixFormatted = suffix.Replace(" ", "[space]")
+                                        .Replace("/", "-")
+                                        .Replace("\\", "-");
             return $"{memberName}-{suffixFormatted}";
         }
     }
