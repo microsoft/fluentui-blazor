@@ -3,6 +3,7 @@
 - [Unit Tests] Refactoring and fixing of unit tests
 - Rework of generators after code review
 - Update Fluent UI Sysem Icons to version 1.1.202
+- fix #402: FluentUI Combobox in Blazor still showing value, not text 
 
 **What's new (Name / Size(s) / Variant(s))**
 - Airplane Landing / 16, 20, 24 / Filled & Regular

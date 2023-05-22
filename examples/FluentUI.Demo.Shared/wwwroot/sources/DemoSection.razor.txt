@@ -1,7 +1,7 @@
-﻿@using System.Text.RegularExpressions;
+﻿@using System.Text.RegularExpressions
 @{
     Regex pattern = new Regex("[;,<>&(){}!$^#@]");
-    string ariaid = pattern.Replace(Title.Replace(' ','-').ToLower(),"");
+    string ariaid = pattern.Replace(Title.Replace(' ', '-').ToLower(), "");
 }
 @if (!string.IsNullOrEmpty(Title)) 
 {
