@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -19,21 +17,22 @@ namespace FluentUI.Demo.Generators
         {
             IncrementalValuesProvider<AdditionalText> additionalTexts = context.AdditionalTextsProvider.Where(static file => file.Path.EndsWith(".xml"));
 
-            IncrementalValuesProvider<string> files = additionalTexts.Select((file, _) => file.Path);
-            IncrementalValueProvider<ImmutableArray<string>> collected = files.Collect();
-
-            context.RegisterSourceOutput(collected, GenerateSource);
+            IncrementalValueProvider<ImmutableArray<AdditionalText>> files = context.AdditionalTextsProvider.Where(at => at.Path.EndsWith(".xml")).Collect();
+            context.RegisterSourceOutput(files, GenerateSource);
         }
-        public void GenerateSource(SourceProductionContext context, ImmutableArray<string> files)
+        public void GenerateSource(SourceProductionContext context, ImmutableArray<AdditionalText> files)
         {
-            
-
-            //IEnumerable<AdditionalText> files = context.AdditionalFiles.Where(y => y.Path.EndsWith(".xml"));
             List<XElement> members = new();
 
-            foreach (string file in files)
+
+            foreach (AdditionalText file in files)
             {
-                XDocument xml = XDocument.Load(file);
+                if (context.CancellationToken.IsCancellationRequested)
+                {
+                    return;
+                }
+                SourceText f = file.GetText(context.CancellationToken);
+                XDocument xml = XDocument.Parse(f.ToString(), LoadOptions.None);
 
                 members.AddRange(xml.Descendants("member"));
             }
@@ -121,6 +120,6 @@ namespace FluentUI.Demo.Generators
 
         }
 
-        
+
     }
 }

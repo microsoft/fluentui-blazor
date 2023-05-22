@@ -53,10 +53,10 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             {
                 baseFolder = $"{sourceFolder}{Path.DirectorySeparatorChar}src{Path.DirectorySeparatorChar}";
             }
-            
+
             return Path.Combine(baseFolder, $"Microsoft.Fast.Components.FluentUI{Path.DirectorySeparatorChar}Assets{Path.DirectorySeparatorChar}emojis{Path.DirectorySeparatorChar}");
         }
-         
+
         public void GenerateSource(SourceProductionContext context, string basePath)
         {
             StringBuilder? sb = new();
@@ -67,7 +67,7 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
 
             int emojicount = 0;
 
-           
+
 
             sb.AppendLine($"#pragma warning disable CS1591");
             sb.AppendLine("using System.Collections.Generic;\r\n");
@@ -79,6 +79,10 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
 
             foreach (string grouppath in Directory.EnumerateDirectories(basePath))
             {
+                if (context.CancellationToken.IsCancellationRequested)
+                {
+                    return;
+                }
                 string group = Path.GetFileName(grouppath);
 
                 foreach (string emojifolder in Directory.EnumerateDirectories(grouppath))
