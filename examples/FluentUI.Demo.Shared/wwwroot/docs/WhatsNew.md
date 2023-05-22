@@ -1,3 +1,55 @@
+﻿## V2.3.2
+
+- [Unit Tests] Refactoring and fixing of unit tests
+- Rework of generators after code review
+- Update Fluent UI Sysem Icons to version 1.1.202
+
+**What's new (Name / Size(s) / Variant(s))**
+- Airplane Landing / 16, 20, 24 / Filled & Regular
+- Align Space Evenly Horizontal / 24 / Filled & Regular
+- Align Space Evenly Vertical / 24 / Filled & Regular
+- Arrow Flow Diagonal Up Right / 16, 20, 24, 32 / Filled & Regular
+- Arrow Flow Up Right / 16, 32 / Filled & Regular
+- Arrow Square Up Right / 20, 24 / Filled & Regular
+- Bin Recycle Full / 20, 24 / Filled & Regular
+- Bin Recycle / 20, 24 / Filled & Regular
+- Briefcase Search / 20, 24 / Filled & Regular
+- Circle Line / 16 / Filled & Regular
+- Desk / 20, 24 / Filled & Regular
+- Filmstrip Off / 48 / Filled & Regular
+- Filmstrip / 48 / Filled & Regular
+- Flash / 32 / Filled & Regular
+- Flow / 24, 32 / Filled & Regular
+- Heart Pulse Checkmark / 20 / Filled & Regular
+- Heart Pulse Error / 20 / Filled & Regular
+- Heart Pulse Warning / 20 / Filled & Regular
+- Home Heart / 16, 20, 24, 32 / Filled & Regular
+- Image Off / 28, 32, 48 / Filled & Regular
+- Money Hand / 16 / Filled & Regular
+- Money Settings / 16, 24 / Filled & Regular
+- People Edit / 16, 24 / Filled & Regular
+- Square Line Hint / 20, 24 / Filled & Regular
+
+**What's updated (Name / Size(s) / Variant(s))**
+- Airplane Take Off / 16, 20, 24 / Filled
+- Arrow Flow Up Right Rectangle Multiple / 20, 24 / Filled & Regular
+- Arrow Flow Up Right / 20, 24 / Filled & Regular
+- Column Triple Edit / 20, 24 / Filled & Regular
+- Column Triple / 20, 24 / Filled & Regular
+- Flow / 16, 20 / Filled & Regular
+- Fluent / 20, 24, 32, 48 / Filled & Regular
+- Heart Pulse / 24 / Filled
+- Image Off / 20, 24 / Filled & Regular
+- Real Estate / 20, 24 / Filled & Regular
+- Triangle Down / 20 / Filled & Regular
+- Triangle Left / 20 / Filled & Regular
+- Triangle Right / 20 / Filled & Regular
+- Triangle Up / 20 / Filled & Regular
+
+**⚠️ Renamed icons**
+- Arrow Routing → Arrow Flow Up Left
+- Arrow Routing Rectangle Multiple → Arrow Flow Up Left Rectangle Multiple
+
 ## V2.3.1
 - Update to .NET 8.0.0-preview.4
 - Accessibility compliance issue in DataGrid filter and pagination buttons fixed [#390](https://github.com/microsoft/fluentui-blazor/issues/390)
