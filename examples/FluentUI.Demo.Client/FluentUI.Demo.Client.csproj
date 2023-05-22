@@ -33,7 +33,7 @@
 				10,12,16,20,24,28,32,48 
 			Or leave out the property to have all sizes included.
 		-->
-		<FluentIconSizes>10,12,16,20,24,48</FluentIconSizes>
+		<FluentIconSizes>10,16,20,24,48</FluentIconSizes>
 
 		<!-- 
 			Specify at least one (or more) variant(s) from the following options (separated by ','):
