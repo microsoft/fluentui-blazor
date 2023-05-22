@@ -60,6 +60,10 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
 
             foreach (string foldername in Directory.EnumerateDirectories(iconsFolder))
             {
+                if (context.CancellationToken.IsCancellationRequested)
+                {
+                    return;
+                }
                 string folder = foldername.Substring(foldername.LastIndexOf(Path.DirectorySeparatorChar) + 1);
 
                 string iconbase = string.Empty;
