@@ -1,8 +1,11 @@
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
-public partial class CommunicationToast
+public partial class CommunicationToast : FluentToast, IToastComponent
 {
+    [CascadingParameter]
+    private FluentToast Toast { get; set; } = default!;
+
     [Parameter]
     public string? Subtitle { get; set; }
 
@@ -12,10 +15,22 @@ public partial class CommunicationToast
     [Parameter]
     public ToastAction? SecondaryAction { get; set; }
 
+    protected override void OnInitialized()
+    {
+        Id = Toast.Id;
+        Settings = Toast.Settings;
+    }
 
     protected override void OnParametersSet()
     {
-        if (SecondaryAction is not null && EndContentType == ToastEndContentType.Action)
-            throw new InvalidOperationException("SecondaryAction is not supported when EndContentType is set to Action");
+        if (EndContentType == ToastEndContentType.Action)
+            throw new InvalidOperationException("EndContentType.Action is not supported for a CommunicationToast  ");
     }
+
+    public void HandleSecondaryActionClick()
+    {
+        SecondaryAction?.OnClick?.Invoke();
+        Close();
+    }
+
 }

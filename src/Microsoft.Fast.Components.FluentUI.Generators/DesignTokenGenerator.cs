@@ -31,10 +31,8 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             sb.AppendLine("{");
             foreach (FieldInfo info in GetConstants(typeof(DesignTokenConstants)))
             {
-                if (context.CancellationToken.IsCancellationRequested)
-                {
-                    return;
-                }
+                context.CancellationToken.ThrowIfCancellationRequested();
+
                 string PascalCase = info.Name[0].ToString().ToUpperInvariant() + info.Name.Substring(1);
                 sb.AppendLine($"\tpublic const string {PascalCase} = \"{info.Name}\";");
             }
@@ -47,10 +45,8 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             sb.AppendLine("namespace Microsoft.Fast.Components.FluentUI.DesignTokens;\n");
             foreach (FieldInfo info in GetConstants(typeof(DesignTokenConstants)))
             {
-                if (context.CancellationToken.IsCancellationRequested)
-                {
-                    return;
-                }
+                context.CancellationToken.ThrowIfCancellationRequested();
+
                 string name = info.Name[0].ToString().ToUpperInvariant() + info.Name.Substring(1);
                 string type = info.GetValue(null).ToString();
 

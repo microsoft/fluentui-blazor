@@ -1,6 +1,6 @@
 ﻿@page "/Toast"
 @inject ToastManager ToastManager
-@inject NavigationManager NavigationManager
+
 @using FluentUI.Demo.Shared.Pages.Toast.Examples
 @using Microsoft.Fast.Components.FluentUI
 
@@ -35,28 +35,16 @@
 
 </DemoSection>
 
-<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastManager.ShowSuccess("I'm a Success confirmation with a lot of text to see what a toast looks like when it's really big."))">
-    <FluentIcon Name="@FluentIcons.CheckmarkCircle" Size="@IconSize.Size20" Variant="@IconVariant.Filled" Color="@Color.Success" Slot="start" />
-    Show Success
-</FluentButton>
-<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastManager.ShowInfo("Click to refresh the page",  settings => settings.OnClick = () => NavigationManager.NavigateTo("/", true)))">
-    Info Toast with custom action on click
-</FluentButton>
 
-<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastManager.ShowToast(ToastIntent.Custom, "I'm a message with a custom icon", settings => { settings.Icon = (FluentIcons.Delete,Color.Accent, IconVariant.Regular); }))">Toast with custom icon</FluentButton>
-<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastManager.ShowToast(ToastIntent.Custom, "I'm a message without an icon"))">Toast without icon</FluentButton>
 
-<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastManager.ShowInfo("INFO message with CtA",
-    action => { action.Text = "Primary"; }
- ))">Info Toast</FluentButton>
 
-<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastManager.ShowInfo("INFO message with CtA", null,
-    settings => {
-        settings.Timeout = 10;
-    }
-))">Info Toast</FluentButton>
-<hr />
 
+
+
+
+<DemoSection Title="Communication Toasts" Component="typeof(ToastCommunicationToasts)">
+
+</DemoSection>
 
 <DemoSection Title="Custom component" Component="typeof(ToastCustomComponent)">
 

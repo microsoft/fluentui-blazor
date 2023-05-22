@@ -1,0 +1,49 @@
+﻿@inject ToastManager ToastManager
+
+<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastManager.ShowToast<CommunicationToast>(ToastIntent.Success, "Title", null, settings => { settings.Timeout = 15;}))">Communication toast</FluentButton>
+<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastManager.ShowToast<CommunicationToast>(_communicationToastParameters1.Parameters, settings => { settings.Timeout = 500; }))">Communication toast example 1</FluentButton>
+
+<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastManager.ShowToast<CommunicationToast>(_communicationToastParameters2.Parameters, settings => { settings.Timeout = 500; }))">Communication toast example 2</FluentButton>
+
+
+@code {
+    //private ToastParameters _toastParameters = default!;
+    private CommunicationToastParameters _communicationToastParameters1 = default!;
+    private CommunicationToastParameters _communicationToastParameters2 = default!;
+
+    protected override void OnInitialized()
+    {
+        // _toastParameters = new ToastParameters()
+        // .Add(nameof(CommunicationToast.Intent), ToastIntent.Success)
+        // .Add(nameof(CommunicationToast.Title), "Your dataset is ready")
+        // .Add(nameof(CommunicationToast.Subtitle), "A communication toast subtitle")
+        // .Add(nameof(CommunicationToast.Details), "Let Power BI help you explore your data.")
+        // .Add(nameof(CommunicationToast.PrimaryAction), new ToastAction() { Text = "See dataset", Href = "#", OnClick = Clicked })
+        // .Add(nameof(CommunicationToast.SecondaryAction), new ToastAction() { Text = "Get insights", Href = "#", OnClick = Clicked });
+
+        _communicationToastParameters1 = new CommunicationToastParameters()
+        {
+            Title = "Your dataset is ready",
+            Subtitle = "A communication toast subtitle",
+            Details = "Let Power BI help you explore your data.",
+            PrimaryAction = new ToastAction() { Text = "See dataset", Href = "#", OnClick = Clicked },
+            SecondaryAction = new ToastAction() { Text = "Get insights", Href = "#", OnClick = Clicked }
+        };
+
+        _communicationToastParameters2 = new CommunicationToastParameters()
+        {
+            Intent = ToastIntent.Error,
+            EndContentType  = ToastEndContentType.Timestamp,
+            Title = "File didn't upload to ABC folder",
+            Details = "A file with the same name already exists.",
+            PrimaryAction = new ToastAction() { Text = "Replace", Href = "#", OnClick = Clicked },
+            SecondaryAction = new ToastAction() { Text = "Keep both", Href = "#", OnClick = Clicked },
+        };
+   
+    }
+
+    private void Clicked()
+    {
+        DemoLogger.WriteLine("Clicked toast action");
+    }
+}

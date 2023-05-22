@@ -3237,18 +3237,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentToast.Settings">
             <summary>
-            Notification specific settings
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToast.Icon">
-            <summary>
-            Gets or sets the the icon to display in the notification
-            Use a constant from the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentIcons" /> class for the <c>Name</c> value
-            The <c>Color</c> value determines the display color of the icon.
-            It is based on either the <see cref="T:Microsoft.Fast.Components.FluentUI.ToastIntent"/> or the active Accent color 
-            The <c>Variant</c> value determines the variant of the icon.
-            For the intents Success, Warning, Error and Information the defualt is IconVariant.Filled.
-            For all other intents the default is IconVariant.Regular.
+            Notification instance specific settings
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentToast.Intent">
@@ -3320,7 +3309,7 @@
             A event that will be invoked when clearing all toasts
             </summary>
         </member>
-        <member name="E:Microsoft.Fast.Components.FluentUI.ToastManager.OnShowCustomComponent">
+        <member name="E:Microsoft.Fast.Components.FluentUI.ToastManager.OnShowToastComponentWithParametersAndSettings">
             <summary>
             A event that will be invoked when showing a toast with a custom component
             </summary>
@@ -3448,6 +3437,25 @@
             <param name="title">Text to display on the toast</param>
             <param name="settings">Settings to configure the toast instance</param>
         </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ShowToast(System.Type,Microsoft.Fast.Components.FluentUI.ToastParameters,System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+            <summary>
+            Shows the toast with the component type />,
+            passing the specified <paramref name="parameters"/> 
+            </summary>
+            <param name="toastComponent">Type of component to display.</param>
+            <param name="parameters">Key/Value collection of parameters to pass to component being displayed.</param>
+            <param name="settings">Settings to configure the toast component.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ShowToast(System.Type,Microsoft.Fast.Components.FluentUI.ToastIntent,System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+            <summary>
+            Shows the specified toast component type />,
+            </summary>
+            <param name="toastComponent">Type of toast component to display.</param>
+            <param name="intent">The intent of the notification.</param>
+            <param name="title">The title of the notification</param>
+            <param name="action">The action to use for this toast.</param>
+            <param name="settings">Settings to configure the toast component.</param>
+        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ShowToast``1">
             <summary>
             Shows the toast with the component type
@@ -3461,25 +3469,6 @@
             <param name="title">Text to display on the toast</param>
             <param name="action">Action to show (instead of close button)</param>
             <param name="settings">Settings to configure the toast instance</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ShowToast(System.Type,Microsoft.Fast.Components.FluentUI.ToastParameters,System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
-            <summary>
-            Shows the toast with the component type />,
-            passing the specified <paramref name="parameters"/> 
-            </summary>
-            <param name="contentComponent">Type of component to display.</param>
-            <param name="parameters">Key/Value collection of parameters to pass to component being displayed.</param>
-            <param name="settings">Settings to configure the toast component.</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ShowToast(System.Type,Microsoft.Fast.Components.FluentUI.ToastIntent,System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
-            <summary>
-            Shows the specified toast component type />,
-            </summary>
-            <param name="toastComponent">Type of toast component to display.</param>
-            <param name="intent">The intent of the notification.</param>
-            <param name="title">The title of the notification</param>
-            <param name="action">The action to use for this toast.</param>
-            <param name="settings">Settings to configure the toast component.</param>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ShowToast``1(Microsoft.Fast.Components.FluentUI.ToastParameters)">
             <summary>
@@ -3625,6 +3614,11 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.ToastManager.ClearQueueCustomIntentToasts">
             <summary>
             Removes all queued toasts with toast intent Custom
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.ToastSettings">
+            <summary>
+            Instance specific settings for a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentToast"/> component
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ToastSettings.Icon">

@@ -19,14 +19,13 @@
         {
             if (toast.CustomContent is not null)
             {
-                <FluentToast @key="@toast" Id="@toast.Id" Intent="@toast.Intent" Settings="@toast.Settings">
+                <FluentToast @key="@toast" Id="@toast.Id" Settings="@toast.Settings">
                     @toast.CustomContent
-                    @*@((RenderFragment)(__builder => toast.ToastContent(__builder)))*@
                 </FluentToast>
             }
             else
             {
-                <FluentToast @key="@toast" Id="@toast.Id" Intent="@toast.Intent" Title="@(toast.Title!)" Settings="@toast.Settings" />
+                <FluentToast @key="@toast" Id="@toast.Id" Title="@toast.Title" Settings="@toast.Settings" />
             }
         }
 

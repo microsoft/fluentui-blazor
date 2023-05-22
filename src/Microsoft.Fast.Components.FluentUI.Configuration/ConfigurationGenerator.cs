@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
@@ -9,15 +11,53 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace Microsoft.Fast.Components.FluentUI.Generators
 {
-    public record StaticAssetsOptions()
+    public class StaticAssetsOptions : IEquatable<StaticAssetsOptions?>
     {
-        public string[]? IconSizes { get; set; } = Array.Empty<string>();
-        public string[]? IconVariants { get; set; } = Array.Empty<string>();
-        public string[]? EmojiGroups { get; set; } = Array.Empty<string>();
-        public string[]? EmojiStyles { get; set; } = Array.Empty<string>();
+        public List<string> IconSizes { get; set; } = new();
+        public List<string> IconVariants { get; set; } = new();
+        public List<string> EmojiGroups { get; set; } = new();
+        public List<string> EmojiStyles { get; set; } = new();
 
         public bool PublishEmojiAssets { get; set; } = false;
         public bool PublishIconAssets { get; set; } = false;
+
+        public override bool Equals(object? obj)
+        {
+            return Equals(obj as StaticAssetsOptions);
+        }
+
+        public bool Equals(StaticAssetsOptions? other)
+        {
+            return other is not null &&
+                   IconSizes.SequenceEqual(other.IconSizes) &&
+                   IconVariants.SequenceEqual(other.IconVariants) &&
+                   EmojiGroups.SequenceEqual(other.EmojiGroups) &&
+                   EmojiStyles.SequenceEqual(other.EmojiStyles) &&
+                   PublishEmojiAssets == other.PublishEmojiAssets &&
+                   PublishIconAssets == other.PublishIconAssets;
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = 2097633831;
+            hashCode = hashCode * -1521134295 + IconSizes.GetHashCode();
+            hashCode = hashCode * -1521134295 + IconVariants.GetHashCode();
+            hashCode = hashCode * -1521134295 + EmojiGroups.GetHashCode();
+            hashCode = hashCode * -1521134295 + EmojiStyles.GetHashCode();
+            hashCode = hashCode * -1521134295 + PublishEmojiAssets.GetHashCode();
+            hashCode = hashCode * -1521134295 + PublishIconAssets.GetHashCode();
+            return hashCode;
+        }
+
+        public static bool operator ==(StaticAssetsOptions left, StaticAssetsOptions right)
+        {
+            return EqualityComparer<StaticAssetsOptions>.Default.Equals(left, right);
+        }
+
+        public static bool operator !=(StaticAssetsOptions left, StaticAssetsOptions right)
+        {
+            return !(left == right);
+        }
     }
 
     [Generator]
@@ -25,61 +65,42 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
     {
         public void Initialize(IncrementalGeneratorInitializationContext context)
         {
-            IncrementalValueProvider<AnalyzerConfigOptions> optionProvider = context.AnalyzerConfigOptionsProvider
-                .Select((provider, _) => provider.GlobalOptions);
+            IncrementalValueProvider<StaticAssetsOptions> optionsProvider = context.AnalyzerConfigOptionsProvider
+                .Select((provider, _) => ReadGlobalOptions(provider.GlobalOptions));
 
-            context.RegisterSourceOutput(optionProvider, Execute);
+            context.RegisterSourceOutput(optionsProvider, GenerateSource);
 
         }
 
-        public void Execute(SourceProductionContext context, AnalyzerConfigOptions options)
-        {
-            ReadGlobalOptions(options, out StaticAssetsOptions staticAssetsOptions);
-
-            GenerateSource(context, staticAssetsOptions);
-        }
-
-        private void ReadGlobalOptions(AnalyzerConfigOptions options, out StaticAssetsOptions staticAssetsOptions)
+        private StaticAssetsOptions ReadGlobalOptions(AnalyzerConfigOptions options)
         {
             bool publishIconAssets = false;
             bool publishEmojiAssets = false;
 
-            string[]? iconSizes = Array.Empty<string>();
-            string[]? iconVariants = Array.Empty<string>();
-            string[]? emojiGroups = Array.Empty<string>();
-            string[]? emojiStyles = Array.Empty<string>();
+            List<string> iconSizes = new();
+            List<string> iconVariants = new();
+            List<string> emojiGroups = new();
+            List<string> emojiStyles = new();
 
             if (TryReadGlobalOption(options, "PublishFluentIconAssets", out string? publishIconAssetsProp))
             {
                 if (bool.TryParse(publishIconAssetsProp, out publishIconAssets))
                 {
                     TryReadGlobalOption(options, "FluentIconSizes", out string? iconSizesProp);
-                    iconSizes = iconSizesProp?.Split(',');
-                    if (iconSizes?.Length == 1 && string.IsNullOrEmpty(iconSizes[0]))
+
+                    if (string.IsNullOrEmpty(iconSizesProp))
                     {
-                        iconSizes = new[]
-                        {
-                            "10",
-                            "12",
-                            "16",
-                            "20",
-                            "24",
-                            "28",
-                            "32",
-                            "48"
-                        };
+                        iconSizesProp = "10,12,16,20,24,28,32,48";
                     }
+                    iconSizes = iconSizesProp!.Split(',').ToList();
 
                     TryReadGlobalOption(options, "FluentIconVariants", out var iconVariantsProp);
-                    iconVariants = iconVariantsProp?.Split(',');
-                    if (iconVariants?.Length == 1 && string.IsNullOrEmpty(iconVariants[0]))
+
+                    if (string.IsNullOrEmpty(iconVariantsProp))
                     {
-                        iconVariants = new[]
-                        {
-                            "Filled",
-                            "Regular"
-                        };
+                        iconVariantsProp = "Filled,Regular";
                     }
+                    iconVariants = iconVariantsProp!.Split(',').ToList();
                 }
             }
 
@@ -88,40 +109,22 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
                 if (bool.TryParse(publishedEmojiAssetsProp, out publishEmojiAssets))
                 {
                     TryReadGlobalOption(options, "FluentEmojiGroups", out var emojiGroupsProp);
-                    emojiGroups = emojiGroupsProp?.Split(',');
-
-                    if (emojiGroups?.Length == 1 && string.IsNullOrEmpty(emojiGroups[0]))
+                    if (string.IsNullOrEmpty(emojiGroupsProp))
                     {
-                        emojiGroups = new[]
-                        {
-                            "Activities",
-                            "Animals_Nature",
-                            "Flags",
-                            "Food_Drink",
-                            "Objects",
-                            "People_Body",
-                            "Smileys_Emotion",
-                            "Symbols",
-                            "Travel_Places"
-
-                        };
+                        emojiGroupsProp = "Activities,Animals_Nature,Flags,Food_Drink,Objects,People_Body,Smileys_Emotion,Symbols,Travel_Places";
                     }
+                    emojiGroups = emojiGroupsProp!.Split(',').ToList();
 
                     TryReadGlobalOption(options, "FluentEmojiStyles", out var emojiStylesProp);
-                    emojiStyles = emojiStylesProp?.Split(',');
-                    if (emojiStyles?.Length == 1 && string.IsNullOrEmpty(emojiStyles[0]))
+                    if (string.IsNullOrEmpty(emojiStylesProp))
                     {
-                        emojiStyles = new[]
-                        {
-                            "Color",
-                            "Flat",
-                            "HighContrast"
-                        };
+                        emojiStylesProp = "Color,Flat,HighContrast";
                     }
+                    emojiStyles = emojiStylesProp!.Split(',').ToList();
                 }
 
             }
-            staticAssetsOptions = new()
+            return new()
             {
                 PublishIconAssets = publishIconAssets,
                 IconSizes = iconSizes,
@@ -188,19 +191,17 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             context.AddSource($"ConfiguratonGenerator.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
         }
 
-        private static void FormatConfigSection(StringBuilder sb, string section, string identifier, string[]? options)
+        private static void FormatConfigSection(StringBuilder sb, string section, string identifier, List<string> options)
         {
-            if (options is not null && options.Length > 0)
+            if (options is not null && options.Any())
             {
-                int max = options.Length - 1;
+
                 sb.AppendLine($"\t\tconfig.{section} = new[] {{");
-                for (int i = 0; i <= max; i++)
+                foreach (string option in options)
                 {
-                    if (!string.IsNullOrWhiteSpace(options[i]))
+                    if (!string.IsNullOrWhiteSpace(option))
                     {
-                        string option = options[i].Trim();
-                        string endmarker = i <= max - 1 ? "," : string.Empty;
-                        sb.AppendLine($"\t\t\t{identifier}{option}{endmarker}");
+                        sb.AppendLine($"\t\t\t{identifier}{option.Trim()},");
                     }
                 }
                 sb.AppendLine("\t\t};");

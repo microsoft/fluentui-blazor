@@ -79,10 +79,8 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
 
             foreach (string grouppath in Directory.EnumerateDirectories(basePath))
             {
-                if (context.CancellationToken.IsCancellationRequested)
-                {
-                    return;
-                }
+                context.CancellationToken.ThrowIfCancellationRequested();
+
                 string group = Path.GetFileName(grouppath);
 
                 foreach (string emojifolder in Directory.EnumerateDirectories(grouppath))

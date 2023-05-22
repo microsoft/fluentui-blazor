@@ -48,6 +48,15 @@
         font-weight: 400;
     }
 
+    .fluent-toast ::deep .fluent-toast-body {
+        display: flex;
+        flex-direction: column;
+        width: calc( 100% - 12px);
+        justify-content: flex-start;
+        padding-inline-start: 24px;
+
+    }
+
     .fluent-toast ::deep .fluent-toast-subtitle {
         font-size: 12px;
         line-height: 16px;

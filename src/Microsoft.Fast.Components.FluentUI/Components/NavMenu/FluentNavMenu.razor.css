@@ -1,5 +1,6 @@
 ﻿.navmenu {
     background-color: var(--neutral-layer-1);
+
 }
 
 ::deep .navmenu-main-button {
@@ -11,6 +12,13 @@
 
 ::deep .navmenu-link.nested::part(start) {
     margin-inline-start: -18px;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+::deep .navmenu-link.nested::part(content-region) {
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 ::deep .navmenu-link-nogroup::part(start) {
@@ -24,6 +32,12 @@
 ::deep .navmenu-group.nested::part(start) {
     margin-inline-start: 4px;
 }
+
+::deep .navmenu-group.nested::part(content-region) {
+    -webkit-user-select: none;
+    user-select: none;
+}
+
 ::deep .collapsed .navmenu-group::part(content-region) {
     margin-inline-start: 5px;
 }

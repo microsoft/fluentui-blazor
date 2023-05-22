@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using System.Diagnostics;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
@@ -12,27 +10,15 @@ public partial class FluentToast : FluentComponentBase, IDisposable
     private InternalToastContext ToastContext { get; set; } = default!;
 
     /// <summary>
-    /// Notification specific settings
+    /// Notification instance specific settings
     /// </summary>
     [Parameter]
     public ToastSettings Settings { get; set; } = default!;
 
     /// <summary>
-    /// Gets or sets the the icon to display in the notification
-    /// Use a constant from the <see cref="FluentIcons" /> class for the <c>Name</c> value
-    /// The <c>Color</c> value determines the display color of the icon.
-    /// It is based on either the <see cref="ToastIntent"/> or the active Accent color 
-    /// The <c>Variant</c> value determines the variant of the icon.
-    /// For the intents Success, Warning, Error and Information the defualt is IconVariant.Filled.
-    /// For all other intents the default is IconVariant.Regular.
-    /// </summary>
-    [Parameter]
-    public (string Name, Color Color, IconVariant Variant)? Icon { get; set; }
-
-    /// <summary>
     /// Gets or sets the intent of the notification. See <see cref="ToastIntent"/>
     /// </summary>
-    [Parameter, EditorRequired]
+    [Parameter]
     public ToastIntent Intent { get; set; }
 
     /// <summary>
@@ -116,15 +102,10 @@ public partial class FluentToast : FluentComponentBase, IDisposable
 
     public void HandlePrimaryActionClick()
     {
-        //Settings.PrimaryAction?.OnClick?.Invoke();
+        PrimaryAction?.OnClick?.Invoke();
         Close();
     }
 
-    public void HandleSecondaryActionClick()
-    {
-        //Settings.SecondaryAction?.OnClick?.Invoke();
-        Close();
-    }
 
     public void Dispose()
     {

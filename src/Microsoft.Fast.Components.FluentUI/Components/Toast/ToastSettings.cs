@@ -1,4 +1,8 @@
 ﻿namespace Microsoft.Fast.Components.FluentUI;
+
+/// <summary>
+/// Instance specific settings for a <see cref="FluentToast"/> component
+/// </summary>
 public class ToastSettings
 {
     /// <summary>
@@ -11,7 +15,7 @@ public class ToastSettings
     /// For all other intents the default is IconVariant.Regular.
     /// </summary>
     public (string Name, Color Color, IconVariant Variant)? Icon { get; set; }
-   
+
 
     /// <summary>
     /// The <c>OnClick</c> property is an optional action that is triggered when the user clicks on the toast notification.
@@ -29,12 +33,7 @@ public class ToastSettings
     /// </remarks>
     public int Timeout { get; set; }
 
-      
-
-    public ToastSettings(
-        int timeout = 7,
-        (string Name, Color Color, IconVariant Variant)? icon = null,
-        Action? onClick = null)
+    public ToastSettings(int timeout = 7, (string Name, Color Color, IconVariant Variant)? icon = null, Action? onClick = null)
     {
         Timeout = timeout;
         Icon = icon;
