@@ -476,7 +476,7 @@
 		</DefineStaticWebAssets>
 
 		<DefineStaticWebAssets CandidateAssets="@(RequiredIcon32AssetsCandidates)" SourceId="$(PackageId)" SourceType="Discovered" AssetKind="All" ContentRoot="Assets/icons" BasePath="$(StaticWebAssetBasePath)">
-			<Output TaskParameter="Assets" ItemName="RequiredIcon32 Assets" />
+			<Output TaskParameter="Assets" ItemName="RequiredIcon32Assets" />
 		</DefineStaticWebAssets>
 
 		<GenerateStaticWebAsssetsPropsFile StaticWebAssets="@(ActivitiesColorAssets)" PackagePathPrefix="staticwebassets" TargetPropsFilePath="$(IntermediateOutputPath)FluentEmojis.Activities.Color.targets" />
