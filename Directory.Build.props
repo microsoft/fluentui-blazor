@@ -10,7 +10,7 @@
 	 <RepositoryType>git</RepositoryType>
 	 <PublishRepositoryUrl>true</PublishRepositoryUrl>
 	 <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
-	 <VersionPrefix>2.3.2</VersionPrefix>
+	 <VersionPrefix>2.3.3</VersionPrefix>
 	 <VersionSuffix></VersionSuffix> 
 	 <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
  </PropertyGroup>
