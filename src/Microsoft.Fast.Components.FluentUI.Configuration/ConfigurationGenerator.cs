@@ -161,7 +161,7 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             sb.AppendLine("\tpublic static IconConfiguration GetIconConfiguration()");
             sb.AppendLine("\t{");
             sb.AppendLine($"\t\tIconConfiguration config = new({options.PublishIconAssets.ToString().ToLower()});");
-            if (options.PublishEmojiAssets)
+            if (options.PublishIconAssets)
             {
                 FormatConfigSection(sb, "Sizes", "IconSize.Size", options.IconSizes);
                 FormatConfigSection(sb, "Variants", "IconVariant.", options.IconVariants);
