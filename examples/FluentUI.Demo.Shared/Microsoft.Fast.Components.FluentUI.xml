@@ -3235,24 +3235,19 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToast.Settings">
+        <member name="M:Microsoft.Fast.Components.FluentUI.CommunicationToast.Close">
             <summary>
-            Notification instance specific settings
+            Closes the toast
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToast.Intent">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ConfirmationToast.Close">
             <summary>
-            Gets or sets the intent of the notification. See <see cref="T:Microsoft.Fast.Components.FluentUI.ToastIntent"/>
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToast.Title">
-            <summary>
-            Gets or sets the main message of the notification.
+            Closes the toast
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentToast.ChildContent">
             <summary>
-            Use a custom component in the notfication
+            Use a custom component in the notification
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentToast.Close">
@@ -3294,6 +3289,21 @@
         <member name="T:Microsoft.Fast.Components.FluentUI.IToastComponent">
             <summary>
             A component implementing this interface can be used as toast content.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.IToastComponent.Intent">
+            <summary>
+            Gets or sets the intent of the notification. See <see cref="T:Microsoft.Fast.Components.FluentUI.ToastIntent"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.IToastComponent.Title">
+            <summary>
+            Gets or sets the main message of the notification.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.IToastComponent.Settings">
+            <summary>
+            Notification instance specific settings
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.ToastAction">
@@ -3631,14 +3641,6 @@
             For the intents Success, Warning, Error and Information the defualt is IconVariant.Filled.
             For all other intents the default is IconVariant.Regular.
             </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ToastSettings.OnClick">
-            <summary>
-            The <c>OnClick</c> property is an optional action that is triggered when the user clicks on the toast notification.
-            </summary>
-            <remarks>
-            This property allows you to define a custom action that will be executed when the user interacts with the notification, such as opening a new window or performing some other action.
-            </remarks>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ToastSettings.Timeout">
             <summary>

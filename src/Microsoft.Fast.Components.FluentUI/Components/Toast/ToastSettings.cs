@@ -16,15 +16,6 @@ public class ToastSettings
     /// </summary>
     public (string Name, Color Color, IconVariant Variant)? Icon { get; set; }
 
-
-    /// <summary>
-    /// The <c>OnClick</c> property is an optional action that is triggered when the user clicks on the toast notification.
-    /// </summary>
-    /// <remarks>
-    /// This property allows you to define a custom action that will be executed when the user interacts with the notification, such as opening a new window or performing some other action.
-    /// </remarks>
-    public Action? OnClick { get; set; }
-
     /// <summary>
     /// The <c>Timeout</c> property determines the amount of time, in seconds, that the toast notification will be displayed before it is automatically closed.
     /// </summary>
@@ -33,11 +24,10 @@ public class ToastSettings
     /// </remarks>
     public int Timeout { get; set; }
 
-    public ToastSettings(int timeout = 7, (string Name, Color Color, IconVariant Variant)? icon = null, Action? onClick = null)
+    public ToastSettings(int timeout = 7, (string Name, Color Color, IconVariant Variant)? icon = null)
     {
         Timeout = timeout;
         Icon = icon;
-        OnClick = onClick;
     }
 
     internal ToastSettings() { }

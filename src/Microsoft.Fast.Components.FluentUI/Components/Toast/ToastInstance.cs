@@ -25,13 +25,11 @@ internal class ToastInstance
 
     public string Id { get; } = Identifier.NewId();
     public DateTime TimeStamp { get; } = DateTime.Now;
-    
+
     public ToastIntent Intent { get; }
     public string? Title { get; set; }
-    
 
     public ToastSettings Settings { get; }
-
 
     public RenderFragment? CustomContent { get; }
 }

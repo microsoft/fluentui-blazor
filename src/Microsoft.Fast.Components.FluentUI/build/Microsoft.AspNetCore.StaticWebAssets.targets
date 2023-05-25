@@ -47,6 +47,7 @@
 	<Import Condition="$(FluentIconSizes.Contains('32')) AND $(FluentIconVariants.Contains('Regular'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Regular32.targets"/>
 	<Import Condition="$(FluentIconSizes.Contains('48')) AND $(FluentIconVariants.Contains('Regular'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Regular48.targets"/>
 
+	<Import Condition="!($(FluentIconSizes.Contains('12')) AND $(FluentIconVariants.Contains('Regular'))) OR '$(PublishFluentIconAssets)' == 'false'" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.RequiredIcons12.targets"/>
 	<Import Condition="!($(FluentIconSizes.Contains('20')) AND $(FluentIconVariants.Contains('Regular'))) OR '$(PublishFluentIconAssets)' == 'false'" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.RequiredIcons20.targets"/>
 	<Import Condition="!($(FluentIconSizes.Contains('32')) AND $(FluentIconVariants.Contains('Regular'))) OR '$(PublishFluentIconAssets)' == 'false'" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.RequiredIcons32.targets"/>
 </Project>

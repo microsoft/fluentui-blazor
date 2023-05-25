@@ -1,31 +1,97 @@
 ﻿namespace Microsoft.Fast.Components.FluentUI;
 
-public record CommunicationToastParameters
+public class CommunicationToastParameters : ToastParameters
 {
-    public ToastIntent Intent { get; init; }
-    public string? Title { get; init; }
-    public ToastEndContentType EndContentType { get; init; } = ToastEndContentType.Dismiss;
-    public string? Subtitle { get; init; }
-    public string? Details { get; init; }
-    public ToastAction? PrimaryAction { get; init; }
-    public ToastAction? SecondaryAction { get; init; }
+    private ToastIntent _intent = ToastIntent.Success;
+    private string? _title;
+    private ToastEndContentType _endContentType = ToastEndContentType.Dismiss;
+    private string? _subtitle;
+    private string? _details;
+    private ToastAction? _primaryAction;
+    private ToastAction? _secondaryAction;
 
-    public ToastParameters Parameters
+    public ToastIntent Intent
     {
-        get
+        get => _intent;
+        set
         {
-            ToastParameters _parameters = new();
-
-            _parameters.Add(nameof(Intent), Intent);
-            _parameters.Add(nameof(Title), Title);
-            _parameters.Add(nameof(EndContentType), EndContentType);
-            _parameters.Add(nameof(Subtitle), Subtitle);
-            _parameters.Add(nameof(Details), Details);
-            _parameters.Add(nameof(PrimaryAction), PrimaryAction);
-            _parameters.Add(nameof(SecondaryAction), SecondaryAction);
-
-            return _parameters;
+            _intent = value;
+            Parameters.Add(nameof(Intent), _intent);
         }
     }
 
+    public string? Title
+    {
+        get => _title;
+        set
+        {
+            _title = value;
+            if (!string.IsNullOrEmpty(_title))
+            {
+                Parameters.Add(nameof(Title), _title);
+            }
+        }
+    }
+
+    public ToastEndContentType EndContentType
+    {
+        get => _endContentType;
+        set
+        {
+            _endContentType = value;
+            Parameters.Add(nameof(EndContentType), _endContentType);
+        }
+    }
+
+    public string? Subtitle
+    {
+        get => _subtitle;
+        set
+        {
+            _subtitle = value;
+            if (!string.IsNullOrEmpty(_subtitle))
+            {
+                Parameters.Add(nameof(Subtitle), _subtitle);
+            }
+        }
+    }
+
+    public string? Details
+    {
+        get => _details;
+        set
+        {
+            _details = value;
+            if (!string.IsNullOrEmpty(_details))
+            {
+                Parameters.Add(nameof(Details), _details);
+            }
+        }
+    }
+
+    public ToastAction? PrimaryAction
+    {
+        get => _primaryAction;
+        set
+        {
+            _primaryAction = value;
+            if (_primaryAction is not null)
+            {
+                Parameters.Add(nameof(PrimaryAction), _primaryAction);
+            }
+        }
+    }
+
+    public ToastAction? SecondaryAction
+    {
+        get => _secondaryAction;
+        set
+        {
+            _secondaryAction = value;
+            if (_secondaryAction is not null)
+            {
+                Parameters.Add(nameof(SecondaryAction), _secondaryAction);
+            }
+        }
+    }
 }

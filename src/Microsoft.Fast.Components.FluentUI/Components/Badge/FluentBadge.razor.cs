@@ -59,6 +59,11 @@ public partial class FluentBadge : FluentComponentBase
     [Parameter]
     public EventCallback<MouseEventArgs> OnDismissClick { get; set; }
 
+    public FluentBadge()
+    {
+        Id = Identifier.NewId();
+    }
+
     protected override void OnParametersSet()
     {
         if (Appearance != FluentUI.Appearance.Accent &&

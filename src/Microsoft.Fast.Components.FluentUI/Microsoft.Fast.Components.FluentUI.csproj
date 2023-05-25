@@ -329,6 +329,7 @@
 			</Regular48AssetsCandidates>
 
 			<!-- Specify icons that are used inside the library below -->
+			<RequiredIcon12AssetsCandidates Include="Assets\icons\Dismiss\12_r.svg" RelativePath="icons\Dismiss\12_r.svg" />
 			<RequiredIcon20AssetsCandidates Include="Assets\icons\ArrowSortUp\20_r.svg" RelativePath="icons\ArrowSortUp\20_r.svg" />
 			<RequiredIcon20AssetsCandidates Include="Assets\icons\ArrowSortDown\20_r.svg" RelativePath="icons\ArrowSortDown\20_r.svg" />
 			<RequiredIcon20AssetsCandidates Include="Assets\icons\ChevronDoubleLeft\20_r.svg" RelativePath="icons\ChevronDoubleLeft\20_r.svg" />
@@ -472,10 +473,12 @@
 			<Output TaskParameter="Assets" ItemName="Regular48Assets" />
 		</DefineStaticWebAssets>
 
+		<DefineStaticWebAssets CandidateAssets="@(RequiredIcon12AssetsCandidates)" SourceId="$(PackageId)" SourceType="Discovered" AssetKind="All" ContentRoot="Assets/icons" BasePath="$(StaticWebAssetBasePath)">
+			<Output TaskParameter="Assets" ItemName="RequiredIcon12Assets" />
+		</DefineStaticWebAssets>
 		<DefineStaticWebAssets CandidateAssets="@(RequiredIcon20AssetsCandidates)" SourceId="$(PackageId)" SourceType="Discovered" AssetKind="All" ContentRoot="Assets/icons" BasePath="$(StaticWebAssetBasePath)">
 			<Output TaskParameter="Assets" ItemName="RequiredIcon20Assets" />
 		</DefineStaticWebAssets>
-
 		<DefineStaticWebAssets CandidateAssets="@(RequiredIcon32AssetsCandidates)" SourceId="$(PackageId)" SourceType="Discovered" AssetKind="All" ContentRoot="Assets/icons" BasePath="$(StaticWebAssetBasePath)">
 			<Output TaskParameter="Assets" ItemName="RequiredIcon32Assets" />
 		</DefineStaticWebAssets>
@@ -524,6 +527,7 @@
 		<GenerateStaticWebAsssetsPropsFile StaticWebAssets="@(Regular32Assets)" PackagePathPrefix="staticwebassets" TargetPropsFilePath="$(IntermediateOutputPath)FluentIcons.Regular32.targets" />
 		<GenerateStaticWebAsssetsPropsFile StaticWebAssets="@(Filled48Assets)" PackagePathPrefix="staticwebassets" TargetPropsFilePath="$(IntermediateOutputPath)FluentIcons.Filled48.targets" />
 		<GenerateStaticWebAsssetsPropsFile StaticWebAssets="@(Regular48Assets)" PackagePathPrefix="staticwebassets" TargetPropsFilePath="$(IntermediateOutputPath)FluentIcons.Regular48.targets" />
+		<GenerateStaticWebAsssetsPropsFile StaticWebAssets="@(RequiredIcon12Assets)" PackagePathPrefix="staticwebassets" TargetPropsFilePath="$(IntermediateOutputPath)FluentIcons.RequiredIcons12.targets" />
 		<GenerateStaticWebAsssetsPropsFile StaticWebAssets="@(RequiredIcon20Assets)" PackagePathPrefix="staticwebassets" TargetPropsFilePath="$(IntermediateOutputPath)FluentIcons.RequiredIcons20.targets" />
 		<GenerateStaticWebAsssetsPropsFile StaticWebAssets="@(RequiredIcon32Assets)" PackagePathPrefix="staticwebassets" TargetPropsFilePath="$(IntermediateOutputPath)FluentIcons.RequiredIcons32.targets" />
 
@@ -788,6 +792,9 @@
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentIcons.Regular48.targets">
 				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.Regular48.targets</PackagePath>
+			</StaticWebAssetPackageFile>
+			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentIcons.RequiredIcons12.targets">
+				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.RequiredIcons12.targets</PackagePath>
 			</StaticWebAssetPackageFile>
 			<StaticWebAssetPackageFile Include="$(IntermediateOutputPath)FluentIcons.RequiredIcons20.targets">
 				<PackagePath>build\Microsoft.AspNetCore.StaticWebAssets.RequiredIcons20.targets</PackagePath>

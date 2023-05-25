@@ -6,20 +6,16 @@ internal class CountdownTimer : IDisposable
     private readonly int _ticksToTimeout;
     private readonly CancellationToken _cancellationToken;
     private int _percentComplete;
-    
-    private Func<int, Task>? _tickDelegate;
+    private bool _paused;
     private Action? _elapsedDelegate;
+
     internal CountdownTimer(int timeout, CancellationToken cancellationToken = default)
     {
         _ticksToTimeout = 100;
         _timer = new PeriodicTimer(TimeSpan.FromMilliseconds(timeout * 10));
         _cancellationToken = cancellationToken;
     }
-    internal CountdownTimer OnTick(Func<int, Task> updateProgressDelegate)
-    {
-        _tickDelegate = updateProgressDelegate;
-        return this;
-    }
+
     internal CountdownTimer OnElapsed(Action elapsedDelegate)
     {
         _elapsedDelegate = elapsedDelegate;
@@ -30,24 +26,25 @@ internal class CountdownTimer : IDisposable
         _percentComplete = 0;
         await DoWorkAsync();
     }
-    
+
     private async Task DoWorkAsync()
     {
         while (await _timer.WaitForNextTickAsync(_cancellationToken) && !_cancellationToken.IsCancellationRequested)
         {
-
-            _percentComplete++;
-            
-            if (_tickDelegate != null)
+            if (!_paused)
             {
-                await _tickDelegate(_percentComplete);
-            }
+                _percentComplete++;
 
-            if (_percentComplete == _ticksToTimeout)
-            {
-                _elapsedDelegate?.Invoke();
+                if (_percentComplete == _ticksToTimeout)
+                {
+                    _elapsedDelegate?.Invoke();
+                }
             }
         }
     }
+
+    internal void Pause() => _paused = true;
+    internal void Resume() => _paused = false;
+
     public void Dispose() => _timer.Dispose();
 }

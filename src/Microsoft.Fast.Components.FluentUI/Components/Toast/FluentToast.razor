@@ -5,7 +5,7 @@
 @namespace Microsoft.Fast.Components.FluentUI
 
 <CascadingValue Value="this" IsFixed="true">
-    <div class="fluent-toast" id="@Id" @onclick="ToastClick">
+    <div class="fluent-toast" id="@Id" tabindex="0" @onfocus="PauseTimeout" @onblur="ResumeTimeout">
         @if (ChildContent is not null)
         {
             @ChildContent

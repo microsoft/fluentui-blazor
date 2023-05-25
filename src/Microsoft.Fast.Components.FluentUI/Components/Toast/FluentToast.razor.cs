@@ -2,33 +2,24 @@
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentToast : FluentComponentBase, IDisposable
+public partial class FluentToast : FluentComponentBase, IToastComponent, IDisposable
 {
     private CountdownTimer? _countdownTimer;
 
     [CascadingParameter]
     private InternalToastContext ToastContext { get; set; } = default!;
 
-    /// <summary>
-    /// Notification instance specific settings
-    /// </summary>
-    [Parameter]
-    public ToastSettings Settings { get; set; } = default!;
-
-    /// <summary>
-    /// Gets or sets the intent of the notification. See <see cref="ToastIntent"/>
-    /// </summary>
     [Parameter]
     public ToastIntent Intent { get; set; }
 
-    /// <summary>
-    /// Gets or sets the main message of the notification.
-    /// </summary>
     [Parameter]
     public string? Title { get; set; }
 
     [Parameter]
     public ToastEndContentType EndContentType { get; set; } = ToastEndContentType.Dismiss;
+
+    [Parameter]
+    public ToastSettings Settings { get; set; } = default!;
 
     [Parameter]
     public ToastAction? PrimaryAction { get; set; } = default;
@@ -37,10 +28,11 @@ public partial class FluentToast : FluentComponentBase, IDisposable
     public DateTime TimeStamp { get; set; } = DateTime.Now;
 
     /// <summary>
-    /// Use a custom component in the notfication
+    /// Use a custom component in the notification
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -49,30 +41,6 @@ public partial class FluentToast : FluentComponentBase, IDisposable
 
         await _countdownTimer.StartAsync();
     }
-
-    //protected override void OnParametersSet()
-    //{
-    //    if (Settings.PercentageComplete is not null && (Settings.PercentageComplete < 0 || Settings.PercentageComplete > 100))
-    //    {
-    //        throw new ArgumentOutOfRangeException(nameof(Settings.PercentageComplete), "PercentageComplete must be between 0 and 100");
-    //    }
-    //    else
-    //    {
-    //        _showBody = true;
-    //    }
-    //    if (Settings.PrimaryAction is not null || Settings.SecondaryAction is not null)
-    //    {
-    //        _showBody = true;
-    //    }
-    //    if (!string.IsNullOrWhiteSpace(Settings.Subtitle))
-    //    {
-    //        _showBody = true;
-    //    }
-    //    if (!string.IsNullOrWhiteSpace(Settings.Details))
-    //    {
-    //        _showBody = true;
-    //    }
-    //}
 
     public FluentToast()
     {
@@ -97,8 +65,6 @@ public partial class FluentToast : FluentComponentBase, IDisposable
     public void Close()
         => ToastContext.ToastsContainer.RemoveToast(Id!);
 
-    public void ToastClick()
-        => Settings.OnClick?.Invoke();
 
     public void HandlePrimaryActionClick()
     {
@@ -106,6 +72,15 @@ public partial class FluentToast : FluentComponentBase, IDisposable
         Close();
     }
 
+    public void PauseTimeout()
+    {
+        _countdownTimer?.Pause();
+    }
+
+    public void ResumeTimeout()
+    {
+        _countdownTimer?.Resume();
+    }
 
     public void Dispose()
     {
