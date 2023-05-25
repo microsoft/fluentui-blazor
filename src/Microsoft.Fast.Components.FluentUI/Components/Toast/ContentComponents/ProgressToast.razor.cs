@@ -50,18 +50,24 @@ public partial class ProgressToast
     public ToastAction? SecondaryAction { get; set; }
 
     [Parameter]
-    public FluentProgress? Progress { get; set; } = default!;
+    public string? Progress { get; set; }
+
+    [Parameter]
+    public EventCallback<string?> ProgressChanged { get; set; }
 
     protected override void OnInitialized()
     {
         _toastId = Toast.Id;
         Settings = Toast.Settings;
+
     }
 
     protected override void OnParametersSet()
     {
         if (EndContentType == ToastEndContentType.Action)
             throw new InvalidOperationException("EndContentType.Action is not supported for a CommunicationToast  ");
+
+
     }
 
     /// <summary>

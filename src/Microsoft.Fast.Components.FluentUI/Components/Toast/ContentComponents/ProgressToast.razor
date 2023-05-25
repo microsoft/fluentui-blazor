@@ -35,7 +35,8 @@
         <div class="fluent-toast-details">@Details</div>
     }
 
-    @Progress
+    <FluentProgress Class="fluent-toast-progressbar" Min="0" Max="100" @bind-Value="@Progress"></FluentProgress>
+    <div class="fluent-toast-progressbar-percentage">@Progress%</div>
 
 
     @if (PrimaryAction is not null || SecondaryAction is not null)

@@ -9,6 +9,7 @@ public class ProgressToastParameters : ToastParameters
     private string? _details;
     private ToastAction? _primaryAction;
     private ToastAction? _secondaryAction;
+    private string? _progress;
 
     public ToastIntent Intent
     {
@@ -82,5 +83,23 @@ public class ProgressToastParameters : ToastParameters
         }
     }
 
-    public int Progress { get; set; }
+    public string? Progress
+    {
+        get => _progress;
+        set
+        {
+            _progress = value;
+            if (!string.IsNullOrEmpty(_progress))
+            {
+                if (!Parameters.ContainsKey(nameof(Progress)))
+                {
+                    Parameters.Add(nameof(Progress), _progress);
+                }
+                else
+                {
+                    Parameters[nameof(Progress)] = _progress;
+                }
+            }
+        }
+    }
 }

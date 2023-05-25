@@ -2,7 +2,7 @@
 
 <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastManager.ShowToast<ProgressToast>(_progressToastParameters1, settings => { settings.Timeout = 150; }))">Progress toast example 1</FluentButton>
 
-
+<FluentButton Appearance="Appearance.Accent" @onclick=UpdateProgress>Update</FluentButton>
 
 @code {
     private ProgressToastParameters _progressToastParameters1 = default!;
@@ -14,15 +14,25 @@
             {
                 Intent = ToastIntent.Upload,
                 Title = "Uploading file",
-                Details = "This may tkae a while.",
+                Details = "This may take a while.",
                 PrimaryAction = new ToastAction() { Text = "Cancel", Href = "#", OnClick = Clicked },
                 SecondaryAction = new ToastAction() { Text = "Pause", Href = "#", OnClick = Clicked },
-                Progress = 60
+                Progress = "0"
         };
     }
 
     private void Clicked()
     {
         DemoLogger.WriteLine("Clicked toast action");
+    }
+
+    private void UpdateProgress()
+    {
+        for (int i = 0; i < 100; i++)
+        {
+            _progressToastParameters1.Progress = i.ToString();
+            StateHasChanged();
+            Thread.Sleep(100);
+        };
     }
 }
