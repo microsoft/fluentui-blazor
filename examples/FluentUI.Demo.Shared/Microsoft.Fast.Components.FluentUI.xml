@@ -1429,6 +1429,20 @@
             Allows for capturing a mouse click on an emoji
             </summary>
         </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentEmoji.SvgSplitter">
+            <remarks>
+            Pattern explanation:<br/>
+            <code>
+            ○ Match the string "&lt;svg ".<br/>
+            ○ "attributes" capture group.<br/>
+                ○ Match any character lazily any number of times.<br/>
+            ○ Match '&gt;'.<br/>
+            ○ "payload" capture group.<br/>
+                ○ Match any character lazily any number of times.<br/>
+            ○ Match the string "&lt;/svg&gt;".<br/>
+            </code>
+            </remarks>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentFlipper.Disabled">
             <summary>
             Gets or set if the element is disabled
@@ -1597,6 +1611,25 @@
             <summary>
             Allows for capturing a mouse click on an icon
             </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentIcon.CheckRGBString">
+            <remarks>
+            Pattern explanation:<br/>
+            <code>
+            ○ Match with 2 alternative expressions, atomically.<br/>
+                ○ Match a sequence of expressions.<br/>
+                    ○ Match if at the beginning of the string.<br/>
+                    ○ Match '#'.<br/>
+                    ○ Match with 2 alternative expressions, atomically.<br/>
+                        ○ Match a character in the set [0-9A-Fa-f] exactly 6 times.<br/>
+                        ○ Match a character in the set [0-9A-Fa-f] exactly 3 times.<br/>
+                ○ Match a sequence of expressions.<br/>
+                    ○ Match the string "var(--".<br/>
+                    ○ Match a character other than '\n' greedily any number of times.<br/>
+                    ○ Match ')'.<br/>
+                    ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentLayout.ChildContent">
             <summary>
@@ -2377,6 +2410,18 @@
             Needs to be formatted as an HTML hex color string (#rrggbb or #rgb)
             Default is '#ffffff'
             </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentOverlay.CheckRGBString">
+            <remarks>
+            Pattern explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ Match '#'.<br/>
+            ○ Match with 2 alternative expressions, atomically.<br/>
+                ○ Match a character in the set [0-9A-Fa-f] exactly 6 times.<br/>
+                ○ Match a character in the set [0-9A-Fa-f] exactly 3 times.<br/>
+            </code>
+            </remarks>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.FluentPaginator">
             <summary>
@@ -3190,14 +3235,147 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.CommunicationToast.Intent">
+            <inheritdoc/>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.CommunicationToast.Title">
+            <inheritdoc/>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.CommunicationToast.EndContentType">
+            <inheritdoc/>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.CommunicationToast.Settings">
+            <inheritdoc/>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.CommunicationToast.TimeStamp">
+            <summary>
+            The primary action of the notification. Will be shown after title or at bottom of the toast.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.CommunicationToast.Subtitle">
+            <summary>
+            The Subtitle will be shown below the title in a slightly smaller and lighter font. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.CommunicationToast.Details">
+            <summary>
+            Used to show additional details about the notification.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.CommunicationToast.PrimaryAction">
+            <summary>
+            The primary action of the notification. Will be shown after title or at bottom of the toast.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.CommunicationToast.SecondaryAction">
+            <summary>
+            The secondary action of the notification. Will be shown after primary action at bottom of the toast.
+            </summary>
+        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.CommunicationToast.Close">
             <summary>
             Closes the toast
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ConfirmationToast.Intent">
+            <inheritdoc/>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ConfirmationToast.Title">
+            <inheritdoc/>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ConfirmationToast.EndContentType">
+            <inheritdoc/>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ConfirmationToast.Settings">
+            <inheritdoc/>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ConfirmationToast.PrimaryAction">
+            <summary>
+            The primary action of the notification. Will be shown after title or at bottom of the toast.
+            </summary>
+        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ConfirmationToast.Close">
             <summary>
             Closes the toast
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.IToastComponent">
+            <summary>
+            A component implementing this interface can be used as toast content.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.IToastComponent.Intent">
+            <summary>
+            Gets or sets the intent of the notification. See <see cref="T:Microsoft.Fast.Components.FluentUI.ToastIntent"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.IToastComponent.Title">
+            <summary>
+            Gets or sets the main message of the notification.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.IToastComponent.Settings">
+            <summary>
+            Notification instance specific settings
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ProgressToast.Intent">
+            <inheritdoc/>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ProgressToast.Title">
+            <inheritdoc/>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ProgressToast.EndContentType">
+            <inheritdoc/>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ProgressToast.Settings">
+            <inheritdoc/>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ProgressToast.TimeStamp">
+            <summary>
+            The primary action of the notification. Will be shown after title or at bottom of the toast.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ProgressToast.Details">
+            <summary>
+            Used to show additional details about the notification.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ProgressToast.PrimaryAction">
+            <summary>
+            The primary action of the notification. Will be shown after title or at bottom of the toast.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ProgressToast.SecondaryAction">
+            <summary>
+            The secondary action of the notification. Will be shown after primary action at bottom of the toast.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ProgressToast.Close">
+            <summary>
+            Closes the toast
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToast.Intent">
+            <inheritdoc/>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToast.Title">
+            <inheritdoc/>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToast.EndContentType">
+            <inheritdoc/>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToast.Settings">
+            <inheritdoc/>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToast.PrimaryAction">
+            <summary>
+            The primary action of the notification. Will be shown after title or at bottom of the toast.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToast.TimeStamp">
+            <summary>
+            Record a timestamp of when the toast was created.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentToast.ChildContent">
@@ -3239,26 +3417,6 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentToasts.#ctor">
             <summary>
             Constructs an instance of <see cref="T:Microsoft.Fast.Components.FluentUI.FluentToasts"/>.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.IToastComponent">
-            <summary>
-            A component implementing this interface can be used as toast content.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.IToastComponent.Intent">
-            <summary>
-            Gets or sets the intent of the notification. See <see cref="T:Microsoft.Fast.Components.FluentUI.ToastIntent"/>
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.IToastComponent.Title">
-            <summary>
-            Gets or sets the main message of the notification.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.IToastComponent.Settings">
-            <summary>
-            Notification instance specific settings
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.ToastAction">
@@ -8101,6 +8259,111 @@
             <param name="value"></param>
             <param name="when"></param>
             <returns></returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.SvgSplitter_0">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the SvgSplitter method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.SvgSplitter_0.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.SvgSplitter_0.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.SvgSplitter_0.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.SvgSplitter_0.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.SvgSplitter_0.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.SvgSplitter_0.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.SvgSplitter_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.SvgSplitter_0.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.CheckRGBString_1">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the CheckRGBString method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.CheckRGBString_1.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_1.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.CheckRGBString_1.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_1.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.CheckRGBString_1.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_1.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_1.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_1.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.CheckRGBString_2">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the CheckRGBString method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.CheckRGBString_2.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_2.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.CheckRGBString_2.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_2.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.CheckRGBString_2.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_2.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_2.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_2.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.Utilities">
+            <summary>Helper methods used by generated <see cref="T:System.Text.RegularExpressions.Regex"/>-derived implementations.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout">
+            <summary>Default timeout value set in <see cref="T:System.AppContext"/>, or <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout"/> if none was set.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_hasTimeout">
+            <summary>Whether <see cref="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout"/> is non-infinite.</summary>
         </member>
     </members>
 </doc>

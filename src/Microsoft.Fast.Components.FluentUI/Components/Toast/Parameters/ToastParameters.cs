@@ -3,7 +3,7 @@
 public class ToastParameters
 {
     internal readonly Dictionary<string, object> Parameters;
-    
+
     public ToastParameters()
     {
         Parameters = new Dictionary<string, object>();

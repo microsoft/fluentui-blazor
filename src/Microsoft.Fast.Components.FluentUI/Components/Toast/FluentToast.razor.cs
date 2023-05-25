@@ -9,21 +9,31 @@ public partial class FluentToast : FluentComponentBase, IToastComponent, IDispos
     [CascadingParameter]
     private InternalToastContext ToastContext { get; set; } = default!;
 
+    /// <inheritdoc/>
     [Parameter]
     public ToastIntent Intent { get; set; }
 
+    /// <inheritdoc/>
     [Parameter]
     public string? Title { get; set; }
 
+    /// <inheritdoc/>
     [Parameter]
     public ToastEndContentType EndContentType { get; set; } = ToastEndContentType.Dismiss;
 
+    /// <inheritdoc/>
     [Parameter]
     public ToastSettings Settings { get; set; } = default!;
 
+    /// <summary>
+    /// The primary action of the notification. Will be shown after title or at bottom of the toast.
+    /// </summary>
     [Parameter]
     public ToastAction? PrimaryAction { get; set; } = default;
 
+    /// <summary>
+    /// Record a timestamp of when the toast was created.
+    /// </summary>
     [Parameter]
     public DateTime TimeStamp { get; set; } = DateTime.Now;
 

@@ -1,5 +1,4 @@
-﻿@using Microsoft.AspNetCore.Components.Rendering
-@implements IToastComponent
+﻿@implements IToastComponent
 
 @namespace Microsoft.Fast.Components.FluentUI
 
@@ -29,15 +28,15 @@
     </div>
 </FluentStack>
 <div class="fluent-toast-body">
-    @if (!string.IsNullOrWhiteSpace(Subtitle))
-    {
-        <div class="fluent-toast-subtitle">@Subtitle</div>
-    }
+    
 
     @if (!string.IsNullOrWhiteSpace(Details))
     {
         <div class="fluent-toast-details">@Details</div>
     }
+
+    @Progress
+
 
     @if (PrimaryAction is not null || SecondaryAction is not null)
     {
@@ -48,7 +47,7 @@
                               title="Toast action"
                               Style="font-size: 14px; font-weight:400;"
                               Appearance="Appearance.Hypertext"
-                              @onclick="HandlePrimaryActionClick">
+                @onclick="HandlePrimaryActionClick">
                     @PrimaryAction?.Text
                 </FluentAnchor>
             }
@@ -58,7 +57,7 @@
                               title="Toast action"
                               Style="font-size: 14px; font-weight:400;"
                               Appearance="Appearance.Hypertext"
-                              @onclick="HandleSecondaryActionClick">
+                @onclick="HandleSecondaryActionClick">
                     @SecondaryAction?.Text
                 </FluentAnchor>
             }
