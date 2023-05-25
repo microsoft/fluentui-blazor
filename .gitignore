@@ -49,3 +49,4 @@ UpgradeLog.htm
 /publish
 /artifacts
 /src/Microsoft.Fast.Components.FluentUI.Tests/coverage.net8.0.cobertura.xml
+/Directory.Build.targets
