@@ -1,0 +1,23 @@
+@page "/Drag"
+@using FluentUI.Demo.Shared.Pages.Drag.Examples;
+
+<h1>Drag and Drop</h1>
+
+
+<p>A web component implementation of a <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API" target="_blank" rel="noopener noreferrer">HTML Drag and Drop API</a>.</p>
+
+<p>
+    The user may select draggable elements with a mouse, drag those elements to a droppable element,
+    and drop them by releasing the mouse button. A translucent representation of the draggable elements
+    follows the pointer during the drag operation.
+</p>
+
+<h2>Examples</h2>
+
+<DemoSection Title="Usage examples" Component="@typeof(DragDropBasic)"></DemoSection>
+
+<h2>Documentation</h2>
+
+<ApiDocumentation Component="typeof(FluentDragContainer<>)" InstanceType="typeof(object)" GenericLabel="TItem" />
+<ApiDocumentation Component="typeof(FluentDropZone<>)" InstanceType="typeof(object)" GenericLabel="TItem" />
+<ApiDocumentation Component="typeof(FluentDragEventArgs<>)" InstanceType="typeof(object)" GenericLabel="TItem" />
