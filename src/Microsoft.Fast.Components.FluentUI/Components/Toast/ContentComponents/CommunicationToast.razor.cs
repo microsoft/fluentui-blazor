@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
-public partial class CommunicationToast : IToastComponent
+public partial class CommunicationToast : IToastContentComponent
 {
     private string? _toastId;
 

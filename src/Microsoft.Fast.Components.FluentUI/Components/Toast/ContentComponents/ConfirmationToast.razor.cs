@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class ConfirmationToast : IToastComponent
+public partial class ConfirmationToast : IToastContentComponent
 {
     private string? _toastId;
 

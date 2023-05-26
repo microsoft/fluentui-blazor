@@ -6,30 +6,8 @@
 
 <CascadingValue Value="this" IsFixed="true">
     <div class="fluent-toast" id="@Id" tabindex="0" @onfocus="PauseTimeout" @onblur="ResumeTimeout">
-        @if (ChildContent is not null)
-        {
-            @ChildContent
-        }
-        else
-        {
-            <FluentStack Orientation="Orientation.Horizontal" Width="100%" VerticalAlignment="StackVerticalAlignment.Center" HorizontalGap="8">
-                @if (Settings.Icon is not null)
-                {
-                    (string Name, Color Color, IconVariant Variant) Icon = Settings.Icon.Value;
-
-                    <FluentIcon Name="@Icon.Name" Style="min-width: 16px;" Size="IconSize.Size16" Color=@Icon.Color Variant="Icon.Variant" />
-                }
-
-                <div class="fluent-toast-title">@Title</div>
-                <div class="fluent-toast-action">
-                    <FluentIcon Name="@FluentIcons.Dismiss"
-                                Size="@IconSize.Size12"
-                                Title="Close"
-                                Color="Color.FillInverse"
-                                OnClick="Close" />
-
-                </div>
-            </FluentStack>
-        }
+        <DynamicComponent Type="@Instance.ContentType" Parameters="@Instance.Parameters.Parameters" />
+        
+        
     </div>
 </CascadingValue>

@@ -5,7 +5,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// <summary>
 /// A component implementing this interface can be used as toast content.
 /// </summary>
-public interface IToastComponent
+public interface IToastContentComponent
 {
     /// <summary>
     /// Gets or sets the intent of the notification. See <see cref="ToastIntent"/>

@@ -5,9 +5,9 @@ namespace Microsoft.Fast.Components.FluentUI;
 public class ToastManager
 {
     /// <summary>
-    /// A event that will be invoked when showing a toast
+    /// A event that will be invoked when showing a toast with a custom component
     /// </summary>
-    public event Action<ToastIntent, string, Action<ToastSettings>?>? OnShow;
+    public event Action<Type, ToastParameters, Action<ToastSettings>?>? OnShow;
 
     /// <summary>
     /// A event that will be invoked when clearing all toasts
@@ -15,24 +15,9 @@ public class ToastManager
     public event Action<bool>? OnClearAll;
 
     /// <summary>
-    /// A event that will be invoked when showing a toast with a custom component
+    /// A event that will be invoked when clearing toasts of a certain intent
     /// </summary>
-    public event Action<Type, ToastParameters?, Action<ToastSettings>?>? OnShowToastComponentWithParametersAndSettings;
-
-    /// <summary>
-    /// A event that will be invoked when showing a toast with a custom component
-    /// </summary>
-    public event Action<Type, ToastIntent, string, Action<ToastAction>?, Action<ToastSettings>?>? OnShowToastComponent;
-
-    /// <summary>
-    /// A event that will be invoked when clearing toasts
-    /// </summary>
-    public event Action<ToastIntent, bool>? OnClearToasts;
-
-    /// <summary>
-    /// A event that will be invoked when clearing custom toast components
-    /// </summary>
-    public event Action<bool>? OnClearCustomToasts;
+    public event Action<ToastIntent, bool>? OnClearIntent;
 
     /// <summary>
     /// A event that will be invoked to clear all queued toasts
@@ -42,7 +27,7 @@ public class ToastManager
     /// <summary>
     /// A event that will be invoked to clear queued toast of specified intent
     /// </summary>
-    public event Action<ToastIntent>? OnClearQueueToasts;
+    public event Action<ToastIntent>? OnClearQueueIntent;
 
     /// <summary>
     /// Shows a simple succes confirmation toast.
@@ -149,26 +134,26 @@ public class ToastManager
     /// </summary>
     /// <param name="intent">Toast intent to display</param>
     /// <param name="title">Text to display on the toast</param>
+    /// <param name="action">Action to use for this toast</param>
     /// <param name="settings">Settings to configure the toast instance</param>
-    public void ShowToast(ToastIntent intent, string title, Action<ToastSettings>? settings = null)
-        => OnShow?.Invoke(intent, title, settings);
+    public void ShowToast(ToastIntent intent, string title, Action<ToastAction>? action = null, Action<ToastSettings>? settings = null)
+        => ShowToast<ConfirmationToast>(intent, title, action, settings);
 
     /// <summary>
-    /// Shows the toast with the component type />,
-    /// passing the specified <paramref name="parameters"/> 
+    /// Shows a toast using the supplied settings
     /// </summary>
-    /// <param name="toastComponent">Type of component to display.</param>
-    /// <param name="parameters">Key/Value collection of parameters to pass to component being displayed.</param>
-    /// <param name="settings">Settings to configure the toast component.</param>
-    public void ShowToast(Type toastComponent, ToastParameters? parameters, Action<ToastSettings>? settings)
-    {
-        if (!typeof(IComponent).IsAssignableFrom(toastComponent))
-        {
-            throw new ArgumentException($"{toastComponent.FullName} must be a Blazor Component");
-        }
+    /// <param name="intent">Toast intent to display</param>
+    /// <param name="title">Text to display on the toast</param>
+    /// <param name="action">Action to show (instead of close button)</param>
+    /// <param name="settings">Settings to configure the toast instance</param>
+    public void ShowToast<TComponent>(ToastIntent intent, string title, Action<ToastAction>? action = null, Action<ToastSettings>? settings = null) where TComponent : IToastContentComponent
+        => ShowToast(typeof(TComponent), intent, title, action, settings);
 
-        OnShowToastComponentWithParametersAndSettings?.Invoke(toastComponent, parameters, settings);
-    }
+    /// <summary>
+    /// Shows the toast with the component type
+    /// </summary>
+    public void ShowToast<TComponent>(ToastParameters parameters, Action<ToastSettings>? settings = null) where TComponent : IToastContentComponent
+        => ShowToast(typeof(TComponent), parameters, settings);
 
     /// <summary>
     /// Shows the specified toast component type />,
@@ -180,52 +165,46 @@ public class ToastManager
     /// <param name="settings">Settings to configure the toast component.</param>
     public void ShowToast(Type toastComponent, ToastIntent intent, string title, Action<ToastAction>? action = null, Action<ToastSettings>? settings = null)
     {
-        if (!typeof(IToastComponent).IsAssignableFrom(toastComponent))
+        if (!typeof(IToastContentComponent).IsAssignableFrom(toastComponent))
         {
             throw new ArgumentException($"{toastComponent.FullName} must be a Toast Component");
         }
 
-        OnShowToastComponent?.Invoke(toastComponent, intent, title, action, settings);
+        ToastParameters parameters = new()
+        {
+            Intent = intent,
+            Title = title,
+            EndContentType = ToastEndContentType.Dismiss
+        };
+
+        if (action is not null)
+        {
+            ToastAction act = new();
+            action.Invoke(act);
+
+            parameters.Add("PrimaryAction", act);
+            parameters.EndContentType = ToastEndContentType.Action;
+        }
+        ShowToast(toastComponent, parameters, settings);
     }
 
-    /// <summary>
-    /// Shows the toast with the component type
-    /// </summary>
-    public void ShowToast<TComponent>() where TComponent : IToastComponent
-        => ShowToast(typeof(TComponent), new ToastParameters(), null);
-
-    /// <summary>
-    /// Shows a toast using the supplied settings
-    /// </summary>
-    /// <param name="intent">Toast intent to display</param>
-    /// <param name="title">Text to display on the toast</param>
-    /// <param name="action">Action to show (instead of close button)</param>
-    /// <param name="settings">Settings to configure the toast instance</param>
-    public void ShowToast<TComponent>(ToastIntent intent, string title, Action<ToastAction>? action = null, Action<ToastSettings>? settings = null) where TComponent : IToastComponent
-        => ShowToast(typeof(TComponent), intent, title, action, settings);
 
     /// <summary>
     /// Shows the toast with the component type />,
     /// passing the specified <paramref name="parameters"/> 
     /// </summary>
+    /// <param name="toastComponent">Type of component to display.</param>
     /// <param name="parameters">Key/Value collection of parameters to pass to component being displayed.</param>
-    public void ShowToast<TComponent>(ToastParameters parameters) where TComponent : IToastComponent
-    => ShowToast(typeof(TComponent), parameters, null);
+    /// <param name="settings">Settings to configure the toast component.</param>
+    public void ShowToast(Type toastComponent, ToastParameters parameters, Action<ToastSettings>? settings = null)
+    {
+        if (!typeof(IComponent).IsAssignableFrom(toastComponent))
+        {
+            throw new ArgumentException($"{toastComponent.FullName} must be a Blazor Component");
+        }
 
-    /// <summary>
-    /// Shows a toast using the supplied settings
-    /// </summary>
-    /// <param name="settings">Toast settings to be used</param>
-    public void ShowToast<TComponent>(Action<ToastSettings>? settings) where TComponent : IToastComponent
-        => ShowToast(typeof(TComponent), null, settings);
-
-    /// <summary>
-    /// Shows a toast using the supplied parameter and settings
-    /// </summary>
-    /// <param name="parameters">Key/Value collection of parameters to pass to component being displayed.</param>
-    /// <param name="settings">Toast settings to be used</param>
-    public void ShowToast<TComponent>(ToastParameters parameters, Action<ToastSettings>? settings) where TComponent : IToastComponent
-        => ShowToast(typeof(TComponent), parameters, settings);
+        OnShow?.Invoke(toastComponent, parameters, settings);
+    }
 
     /// <summary>
     /// Removes all toasts
@@ -236,74 +215,68 @@ public class ToastManager
     /// <summary>
     /// Removes all toasts with a specified <paramref name="intent"/>.
     /// </summary>
-    public void ClearToasts(ToastIntent intent, bool includeQueue = true)
-        => OnClearToasts?.Invoke(intent, includeQueue);
+    public void ClearIntent(ToastIntent intent, bool includeQueue = true)
+        => OnClearIntent?.Invoke(intent, includeQueue);
 
     /// <summary>
     /// Removes all toasts with toast intent Success
     /// </summary>
     public void ClearSuccessToasts(bool includeQueue = true)
-        => OnClearToasts?.Invoke(ToastIntent.Success, includeQueue);
+        => OnClearIntent?.Invoke(ToastIntent.Success, includeQueue);
 
     /// <summary>
     /// Removes all toasts with toast intent Warning
     /// </summary>
     public void ClearWarningToasts(bool includeQueue = true)
-        => OnClearToasts?.Invoke(ToastIntent.Warning, includeQueue);
+        => OnClearIntent?.Invoke(ToastIntent.Warning, includeQueue);
 
     /// <summary>
     /// Removes all toasts with toast intent Error
     /// </summary>
     public void ClearErrorToasts(bool includeQueue = true)
-        => OnClearToasts?.Invoke(ToastIntent.Error, includeQueue);
+        => OnClearIntent?.Invoke(ToastIntent.Error, includeQueue);
 
     /// <summary>
     /// Removes all toasts with toast intent Info
     /// </summary>
     public void ClearInfoToasts(bool includeQueue = true)
-        => OnClearToasts?.Invoke(ToastIntent.Info, includeQueue);
+        => OnClearIntent?.Invoke(ToastIntent.Info, includeQueue);
 
     /// <summary>
     /// Removes all toasts with toast intent Progress
     /// </summary>
     public void ClearProgressToasts(bool includeQueue = true)
-        => OnClearToasts?.Invoke(ToastIntent.Progress, includeQueue);
+        => OnClearIntent?.Invoke(ToastIntent.Progress, includeQueue);
 
     /// <summary>
     /// Removes all toasts with toast intent Upload
     /// </summary>
     public void ClearUploadToasts(bool includeQueue = true)
-        => OnClearToasts?.Invoke(ToastIntent.Upload, includeQueue);
+        => OnClearIntent?.Invoke(ToastIntent.Upload, includeQueue);
 
     /// <summary>
     /// Removes all toasts with toast intent Download
     /// </summary>
     public void ClearDownloadToasts(bool includeQueue = true)
-        => OnClearToasts?.Invoke(ToastIntent.Download, includeQueue);
+        => OnClearIntent?.Invoke(ToastIntent.Download, includeQueue);
 
     /// <summary>
     /// Removes all toasts with toast intent Event
     /// </summary>
     public void ClearEventToasts(bool includeQueue = true)
-        => OnClearToasts?.Invoke(ToastIntent.Event, includeQueue);
+        => OnClearIntent?.Invoke(ToastIntent.Event, includeQueue);
 
     /// <summary>
     /// Removes all toasts with toast intent Avatar
     /// </summary>
     public void ClearAvatarToasts(bool includeQueue = true)
-        => OnClearToasts?.Invoke(ToastIntent.Avatar, includeQueue);
+        => OnClearIntent?.Invoke(ToastIntent.Avatar, includeQueue);
 
     /// <summary>
     /// Removes all toasts with toast intent Custom
     /// </summary>
     public void ClearCustomIntentToasts(bool includeQueue = true)
-        => OnClearToasts?.Invoke(ToastIntent.Custom, includeQueue);
-
-    /// <summary>
-    /// Removes all custom component toasts
-    /// </summary>
-    public void ClearCustomToasts(bool includeQueue = true)
-        => OnClearCustomToasts?.Invoke(includeQueue);
+        => OnClearIntent?.Invoke(ToastIntent.Custom, includeQueue);
 
     /// <summary>
     /// Removes all queued toasts
@@ -316,64 +289,64 @@ public class ToastManager
     /// Removes all queued toasts with a specified <paramref name="intent"/>.
     /// </summary>
     public void ClearQueueToasts(ToastIntent intent)
-        => OnClearQueueToasts?.Invoke(intent);
+        => OnClearQueueIntent?.Invoke(intent);
     /// <summary>
     /// Removes all queued toasts with toast intent Success
     /// </summary>
     public void ClearQueueSuccessToasts()
-        => OnClearQueueToasts?.Invoke(ToastIntent.Success);
+        => OnClearQueueIntent?.Invoke(ToastIntent.Success);
 
     /// <summary>
     /// Removes all queued toasts with toast intent Warning
     /// </summary>
     public void ClearQueueWarningToasts()
-        => OnClearQueueToasts?.Invoke(ToastIntent.Warning);
+        => OnClearQueueIntent?.Invoke(ToastIntent.Warning);
 
     /// <summary>
     /// Removes all queued toasts with toast intent Error
     /// </summary>
     public void ClearQueueErrorToasts()
-        => OnClearQueueToasts?.Invoke(ToastIntent.Error);
+        => OnClearQueueIntent?.Invoke(ToastIntent.Error);
 
     /// <summary>
     /// Removes all queued toasts with toast intent o
     /// </summary>
     public void ClearQueueInfoToasts()
-        => OnClearQueueToasts?.Invoke(ToastIntent.Info);
+        => OnClearQueueIntent?.Invoke(ToastIntent.Info);
 
     /// <summary>
     /// Removes all queued toasts with toast intent Progress
     /// </summary>
     public void ClearQueueProgressToasts()
-        => OnClearQueueToasts?.Invoke(ToastIntent.Progress);
+        => OnClearQueueIntent?.Invoke(ToastIntent.Progress);
 
     /// <summary>
     /// Removes all queued toasts with toast intent Upload
     /// </summary>
     public void ClearQueueUploadToasts()
-        => OnClearQueueToasts?.Invoke(ToastIntent.Upload);
+        => OnClearQueueIntent?.Invoke(ToastIntent.Upload);
 
     /// <summary>
     /// Removes all queued toasts with toast intent Download
     /// </summary>
     public void ClearQueueDownloadToasts()
-        => OnClearQueueToasts?.Invoke(ToastIntent.Download);
+        => OnClearQueueIntent?.Invoke(ToastIntent.Download);
 
     /// <summary>
     /// Removes all queued toasts with toast intent Event
     /// </summary>
     public void ClearQueueEventToasts()
-        => OnClearQueueToasts?.Invoke(ToastIntent.Event);
+        => OnClearQueueIntent?.Invoke(ToastIntent.Event);
 
     /// <summary>
     /// Removes all queued toasts with toast intent Avatar
     /// </summary>
     public void ClearQueueAvatarToasts()
-        => OnClearQueueToasts?.Invoke(ToastIntent.Avatar);
+        => OnClearQueueIntent?.Invoke(ToastIntent.Avatar);
 
     /// <summary>
     /// Removes all queued toasts with toast intent Custom
     /// </summary>
     public void ClearQueueCustomIntentToasts()
-        => OnClearQueueToasts?.Invoke(ToastIntent.Custom);
+        => OnClearQueueIntent?.Invoke(ToastIntent.Custom);
 }

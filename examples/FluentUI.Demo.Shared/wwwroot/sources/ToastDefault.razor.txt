@@ -1,7 +1,7 @@
 ﻿@inject ToastManager ToastManager
 
 
-<p>Click on this button to open a Toast.</p>
+<p>Click on this button to open a Toast. The toast is created by just specifying an intent and a message.</p>
 
 <FluentButton @onclick="@OpenToast" Appearance="Appearance.Accent">Open</FluentButton>
 

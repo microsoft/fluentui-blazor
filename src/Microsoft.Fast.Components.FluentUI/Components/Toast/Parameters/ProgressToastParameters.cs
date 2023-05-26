@@ -2,47 +2,10 @@
 
 public class ProgressToastParameters : ToastParameters
 {
-    private ToastIntent _intent = ToastIntent.Success;
-    private string? _title;
-    private ToastEndContentType _endContentType = ToastEndContentType.Dismiss;
-
     private string? _details;
     private ToastAction? _primaryAction;
     private ToastAction? _secondaryAction;
     private string? _progress;
-
-    public ToastIntent Intent
-    {
-        get => _intent;
-        set
-        {
-            _intent = value;
-            Parameters.Add(nameof(Intent), _intent);
-        }
-    }
-
-    public string? Title
-    {
-        get => _title;
-        set
-        {
-            _title = value;
-            if (!string.IsNullOrEmpty(_title))
-            {
-                Parameters.Add(nameof(Title), _title);
-            }
-        }
-    }
-
-    public ToastEndContentType EndContentType
-    {
-        get => _endContentType;
-        set
-        {
-            _endContentType = value;
-            Parameters.Add(nameof(EndContentType), _endContentType);
-        }
-    }
 
     public string? Details
     {
@@ -52,7 +15,7 @@ public class ProgressToastParameters : ToastParameters
             _details = value;
             if (!string.IsNullOrEmpty(_details))
             {
-                Parameters.Add(nameof(Details), _details);
+                Parameters[nameof(Details)] = _details;
             }
         }
     }
@@ -65,7 +28,7 @@ public class ProgressToastParameters : ToastParameters
             _primaryAction = value;
             if (_primaryAction is not null)
             {
-                Parameters.Add(nameof(PrimaryAction), _primaryAction);
+                Parameters[nameof(PrimaryAction)] = _primaryAction;
             }
         }
     }
@@ -78,7 +41,7 @@ public class ProgressToastParameters : ToastParameters
             _secondaryAction = value;
             if (_secondaryAction is not null)
             {
-                Parameters.Add(nameof(SecondaryAction), _secondaryAction);
+                Parameters[nameof(SecondaryAction)] = _secondaryAction;
             }
         }
     }
@@ -91,14 +54,7 @@ public class ProgressToastParameters : ToastParameters
             _progress = value;
             if (!string.IsNullOrEmpty(_progress))
             {
-                if (!Parameters.ContainsKey(nameof(Progress)))
-                {
-                    Parameters.Add(nameof(Progress), _progress);
-                }
-                else
-                {
-                    Parameters[nameof(Progress)] = _progress;
-                }
+                Parameters[nameof(Progress)] = _progress;
             }
         }
     }

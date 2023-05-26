@@ -2,7 +2,45 @@
 
 public class ToastParameters
 {
+    private ToastIntent _intent;
+    private string? _title;
+    private ToastEndContentType _endContentType;
+
     internal readonly Dictionary<string, object> Parameters;
+
+    public ToastIntent Intent
+    {
+        get => _intent;
+        set
+        {
+            _intent = value;
+            Parameters[nameof(Intent)] = _intent;
+        }
+    }
+
+    public string? Title
+    {
+        get => _title;
+        set
+        {
+            _title = value;
+            if (!string.IsNullOrEmpty(_title))
+            {
+                Parameters[nameof(Title)] = _title;
+            }
+        }
+    }
+
+    public ToastEndContentType EndContentType
+    {
+        get => _endContentType;
+        set
+        {
+            _endContentType = value;
+
+            Parameters[nameof(EndContentType)] = _endContentType;
+        }
+    }
 
     public ToastParameters()
     {

@@ -1,5 +1,5 @@
-﻿@implements IToastComponent
-@inherits FluentToast
+﻿@implements IToastContentComponent
+
 <div class="text-white p-4 bg-secondary rounded">
     <h3>@Title</h3>
     <h5 class="mb-0">@ToastParam</h5>
@@ -13,12 +13,18 @@
     [CascadingParameter]
     private FluentToast Toast { get; set; } = default!;
 
+    [Parameter]
+    public ToastIntent Intent { get; set; }
+
+    [Parameter]
+    public string? Title { get; set; }
+
+    [Parameter]
+    public ToastEndContentType EndContentType { get; set; }
+
+    [Parameter]
+    public ToastSettings Settings { get; set; } = default!;
 
     [Parameter]
     public string? ToastParam { get; set; }
-
-    protected override void OnInitialized()
-    {
-        Settings = Toast.Settings;
-    }
 }

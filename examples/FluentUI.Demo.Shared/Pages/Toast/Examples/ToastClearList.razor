@@ -5,8 +5,6 @@
 
     <FluentButton Appearance=Appearance.Neutral @onclick="ClearAllPreserveQueue">Clear all, preserve queue</FluentButton>
 
-    <FluentButton Appearance=Appearance.Neutral @onclick="ClearCustom">Clear custom </FluentButton>
-
     <FluentButton Appearance=Appearance.Neutral @onclick="ClearIntent">Clear specific intent</FluentButton>
 
     <FluentButton Appearance=Appearance.Neutral @onclick="ClearSuccess">
@@ -67,11 +65,8 @@
     private void ClearAllPreserveQueue()
         => ToastManager.ClearAll(false);
 
-    private void ClearCustom()
-        => ToastManager.ClearCustomToasts();
-
     private void ClearIntent()
-        => ToastManager.ClearToasts(ToastIntent.Warning);
+        => ToastManager.ClearIntent(ToastIntent.Warning);
 
     private void ClearSuccess()
         => ToastManager.ClearSuccessToasts();

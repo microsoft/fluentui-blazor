@@ -4,7 +4,7 @@
 @if (_toastList.Any())
 {
     <div class="fluent-toast-container @_positionClass">
-        <CascadingValue TValue="InternalToastContext" IsFixed="true" Value="@_internalToastContext">
+        <CascadingValue Value="this" IsFixed="true">
             @_renderToasts
         </CascadingValue>
     </div>
@@ -14,19 +14,9 @@
 @code {
     protected void RenderToasts(RenderTreeBuilder __builder)
     {
-        @foreach (var toast in _toastList.OrderBy(x => x.TimeStamp))
+        @foreach (var toast in _toastList.OrderBy(x => x.Timestamp))
         {
-            if (toast.CustomContent is not null)
-            {
-                <FluentToast @key="@toast" Id="@toast.Id" Settings="@toast.Settings">
-                    @toast.CustomContent
-                </FluentToast>
-            }
-            else
-            {
-                <FluentToast @key="@toast" Id="@toast.Id" Title="@toast.Title" Settings="@toast.Settings" />
-            }
+            <FluentToast @key="@toast" Id="@toast.Id" Settings="@toast.Settings" Instance="@toast" />
         }
-
     }
 }

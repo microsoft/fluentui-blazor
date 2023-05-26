@@ -1,35 +1,29 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿namespace Microsoft.Fast.Components.FluentUI;
 
-namespace Microsoft.Fast.Components.FluentUI;
-
-internal class ToastInstance
+public sealed class ToastInstance
 {
-    public ToastInstance(ToastIntent intent, string title, ToastSettings settings)
+    public ToastInstance(Type type, ToastParameters parameters, ToastSettings settings)
     {
-        Title = title;
-        Intent = intent;
+        ContentType = type;
+        Parameters = parameters;
         Settings = settings;
-    }
-    public ToastInstance(RenderFragment customContent, ToastSettings settings)
-    {
-        CustomContent = customContent;
-        Settings = settings;
-    }
 
-    public ToastInstance(ToastIntent intent, RenderFragment customContent, ToastSettings settings)
-    {
-        Intent = intent;
-        CustomContent = customContent;
-        Settings = settings;
+        Intent = parameters.Intent;
+        Title = parameters.Title;
+
     }
 
     public string Id { get; } = Identifier.NewId();
-    public DateTime TimeStamp { get; } = DateTime.Now;
+
+    public DateTime Timestamp { get; } = DateTime.Now;
 
     public ToastIntent Intent { get; }
+
     public string? Title { get; set; }
 
-    public ToastSettings Settings { get; }
+    public Type? ContentType { get; set; }
 
-    public RenderFragment? CustomContent { get; }
+    public ToastParameters Parameters { get; set; } = new();
+
+    public ToastSettings Settings { get; }
 }

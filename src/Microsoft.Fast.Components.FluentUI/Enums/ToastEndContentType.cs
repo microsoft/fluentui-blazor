@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace Microsoft.Fast.Components.FluentUI;
+﻿namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary />
 public enum ToastEndContentType
