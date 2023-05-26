@@ -1392,6 +1392,147 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.FluentDragContainer`1">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDragContainer`1.ClassValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDragContainer`1.StyleValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDragContainer`1.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDragContainer`1.OnDragStart">
+            <summary>
+            This event is fired when the user starts dragging an element.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDragContainer`1.OnDragEnter">
+            <summary>
+            This event is fired when a dragged element enters a valid drop target.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDragContainer`1.OnDragOver">
+            <summary>
+            This event is fired when an element is being dragged over a valid drop target.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDragContainer`1.OnDragLeave">
+            <summary>
+            This event is fired when a dragged element leaves a valid drop target.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDragContainer`1.OnDropEnd">
+            <summary>
+            This event is fired when an element is dropped on a valid drop target.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDragContainer`1.StartedZone">
+            <summary>
+            property to keep the zone currently dragged.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDragContainer`1.SetStartedZone(Microsoft.Fast.Components.FluentUI.FluentDropZone{`0})">
+            <summary />
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.FluentDragEventArgs`1">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDragEventArgs`1.#ctor">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDragEventArgs`1.#ctor(Microsoft.Fast.Components.FluentUI.FluentDropZone{`0},Microsoft.Fast.Components.FluentUI.FluentDropZone{`0})">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDragEventArgs`1.Source">
+            <summary>
+            Gets the zone where the drag started.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDragEventArgs`1.Target">
+            <summary>
+            Gets the zone where the drag ended.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.FluentDropZone`1">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDropZone`1.ClassValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDropZone`1.StyleValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDropZone`1.Container">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDropZone`1.Item">
+            <summary>
+            Item to identify a draggable zone.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDropZone`1.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDropZone`1.IsDroppable">
+            <summary>
+            Indicates whether the element can receive a dragged item.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDropZone`1.IsDraggable">
+            <summary>
+            Indicates whether the element can be dragged.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDropZone`1.OnDragStart">
+            <summary>
+            This event is fired when the user starts dragging an element.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDropZone`1.OnDragEnter">
+            <summary>
+            This event is fired when a dragged element enters a valid drop target.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDropZone`1.OnDragOver">
+            <summary>
+            This event is fired when an element is being dragged over a valid drop target.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDropZone`1.OnDragLeave">
+            <summary>
+            This event is fired when a dragged element leaves a valid drop target.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDropZone`1.OnDropEnd">
+            <summary>
+            This event is fired when an element is dropped on a valid drop target.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDropZone`1.IsOver">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDropZone`1.OnDragStartHandler(Microsoft.AspNetCore.Components.Web.DragEventArgs)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDropZone`1.OnDragEnterHandler(Microsoft.AspNetCore.Components.Web.DragEventArgs)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDropZone`1.OnDragOverHandler(Microsoft.AspNetCore.Components.Web.DragEventArgs)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDropZone`1.OnDragLeaveHandler(Microsoft.AspNetCore.Components.Web.DragEventArgs)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDropZone`1.OnDropHandler(Microsoft.AspNetCore.Components.Web.DragEventArgs)">
+            <summary />
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentEmoji.Name">
             <summary>
             Gets or sets the name of the emoji. Can be specified by using const value from <see cref="T:Microsoft.Fast.Components.FluentUI.FluentEmojis" />

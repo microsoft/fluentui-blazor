@@ -1,0 +1,19 @@
+@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentComponentBase
+
+@typeparam TItem
+<div draggable=@(IsDraggable ? "true" : null)
+     id=@Id
+     class=@ClassValue
+     style=@StyleValue
+     dragged-over=@IsOver
+     @ondragstart=@OnDragStartHandler
+     @ondragover=@OnDragOverHandler
+     @ondragover:preventDefault="@IsDroppable"
+     @ondragenter=@OnDragEnterHandler
+     @ondragenter:preventDefault="@IsDroppable"
+     @ondragleave=@OnDragLeaveHandler
+     @ondragleave:preventDefault="@IsDroppable"
+     @ondrop=@OnDropHandler @ondrop:preventDefault>
+    @ChildContent
+</div>
