@@ -22,7 +22,7 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.Drag
 
                 parameters.AddChildContent<FluentDropZone<int>>(zone =>
                 {
-                    zone.Add(p => p.IsDraggable, true);
+                    zone.Add(p => p.Draggable, true);
                     zone.Add(p => p.Item, 1);
                     zone.AddChildContent("Item 1");
 
@@ -35,7 +35,7 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.Drag
 
                 parameters.AddChildContent<FluentDropZone<int>>(zone =>
                 {
-                    zone.Add(p => p.IsDroppable, true);
+                    zone.Add(p => p.Droppable, true);
                     zone.Add(p => p.Item, 2);
                     zone.AddChildContent("Item 2");
 

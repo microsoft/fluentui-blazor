@@ -1480,12 +1480,12 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDropZone`1.IsDroppable">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDropZone`1.Droppable">
             <summary>
             Indicates whether the element can receive a dragged item.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDropZone`1.IsDraggable">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDropZone`1.Draggable">
             <summary>
             Indicates whether the element can be dragged.
             </summary>

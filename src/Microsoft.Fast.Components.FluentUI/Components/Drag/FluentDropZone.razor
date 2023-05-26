@@ -2,18 +2,18 @@
 @inherits FluentComponentBase
 
 @typeparam TItem
-<div draggable=@(IsDraggable ? "true" : null)
+<div draggable=@(Draggable ? "true" : null)
      id=@Id
      class=@ClassValue
      style=@StyleValue
      dragged-over=@IsOver
      @ondragstart=@OnDragStartHandler
      @ondragover=@OnDragOverHandler
-     @ondragover:preventDefault="@IsDroppable"
+     @ondragover:preventDefault="@Droppable"
      @ondragenter=@OnDragEnterHandler
-     @ondragenter:preventDefault="@IsDroppable"
+     @ondragenter:preventDefault="@Droppable"
      @ondragleave=@OnDragLeaveHandler
-     @ondragleave:preventDefault="@IsDroppable"
+     @ondragleave:preventDefault="@Droppable"
      @ondrop=@OnDropHandler @ondrop:preventDefault>
     @ChildContent
 </div>

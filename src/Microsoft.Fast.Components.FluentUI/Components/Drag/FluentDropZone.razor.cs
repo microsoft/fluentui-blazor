@@ -38,13 +38,13 @@ public partial class FluentDropZone<TItem> : FluentComponentBase
     /// Indicates whether the element can receive a dragged item.
     /// </summary>
     [Parameter]
-    public bool IsDroppable { get; set; }
+    public bool Droppable { get; set; }
 
     /// <summary>
     /// Indicates whether the element can be dragged.
     /// </summary>
     [Parameter]
-    public bool IsDraggable { get; set; }
+    public bool Draggable { get; set; }
 
     /// <summary>
     /// This event is fired when the user starts dragging an element.
@@ -82,7 +82,7 @@ public partial class FluentDropZone<TItem> : FluentComponentBase
     /// <summary />
     private void OnDragStartHandler(DragEventArgs e)
     {
-        if (!IsDraggable)
+        if (!Draggable)
         {
             return;
         }
@@ -103,7 +103,7 @@ public partial class FluentDropZone<TItem> : FluentComponentBase
     /// <summary />
     private void OnDragEnterHandler(DragEventArgs e)
     {
-        if (!IsDroppable)
+        if (!Droppable)
         {
             return;
         }
@@ -129,7 +129,7 @@ public partial class FluentDropZone<TItem> : FluentComponentBase
     /// <summary />
     private void OnDragOverHandler(DragEventArgs e)
     {
-        if (!IsDroppable)
+        if (!Droppable)
         {
             return;
         }
@@ -155,7 +155,7 @@ public partial class FluentDropZone<TItem> : FluentComponentBase
     /// <summary />
     private void OnDragLeaveHandler(DragEventArgs e)
     {
-        if (!IsDroppable)
+        if (!Droppable)
         {
             return;
         }
@@ -181,7 +181,7 @@ public partial class FluentDropZone<TItem> : FluentComponentBase
     /// <summary />
     private void OnDropHandler(DragEventArgs e)
     {
-        if (!IsDroppable)
+        if (!Droppable)
         {
             return;
         }
