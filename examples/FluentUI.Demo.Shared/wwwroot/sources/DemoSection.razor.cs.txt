@@ -6,8 +6,8 @@ namespace FluentUI.Demo.Shared.Components;
 public partial class DemoSection : ComponentBase
 {
     private bool _hasCode = false;
-    private Dictionary<string, string> _tabPanelsContent = new();
-    private List<string> _allFiles = new();
+    private readonly Dictionary<string, string> _tabPanelsContent = new();
+    private readonly List<string> _allFiles = new();
 
     [Inject]
     private HttpClient HttpClient { get; set; } = default!;

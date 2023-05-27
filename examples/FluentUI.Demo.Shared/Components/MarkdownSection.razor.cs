@@ -1,12 +1,10 @@
 using Markdig;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Fast.Components.FluentUI;
 using Microsoft.Fast.Components.FluentUI.Infrastructure;
 
+namespace FluentUI.Demo.Shared.Components;
 
-namespace Microsoft.Fast.Components.FluentUI;
-
-public partial class FluentMarkdownSection : FluentComponentBase
+public partial class MarkdownSection
 {
     private string? _content;
 
@@ -32,7 +30,7 @@ public partial class FluentMarkdownSection : FluentComponentBase
         set
         {
             _content = value;
-            HtmlContent = ConvertToMarkupString(_content);
+            HtmlContent = MarkdownSection.ConvertToMarkupString(_content);
             StateHasChanged();
         }
     }
@@ -56,7 +54,7 @@ public partial class FluentMarkdownSection : FluentComponentBase
 
     }
 
-    private MarkupString ConvertToMarkupString(string? value)
+    private static MarkupString ConvertToMarkupString(string? value)
     {
         if (!string.IsNullOrWhiteSpace(value))
         {

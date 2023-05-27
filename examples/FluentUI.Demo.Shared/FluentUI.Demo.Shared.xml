@@ -66,6 +66,16 @@
             Hides all but the 'Example' tab
             </summary>
         </member>
+        <member name="P:FluentUI.Demo.Shared.Components.MarkdownSection.Content">
+            <summary>
+            Gets or sets the Markdown content 
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.Components.MarkdownSection.FromAsset">
+            <summary>
+            Gets or sets asset to read the Markdown from
+            </summary>
+        </member>
         <member name="M:FluentUI.Demo.Shared.Pages.ComponentBindings.#ctor">
             <summary>
             Within this constructor you can set default values for the form fields through the FormModel

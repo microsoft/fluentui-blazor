@@ -2050,16 +2050,6 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMarkdownSection.Content">
-            <summary>
-            Gets or sets the Markdown content 
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMarkdownSection.FromAsset">
-            <summary>
-            Gets or sets asset to read the Markdown from
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenu.ClassValue">
             <summary />
         </member>

@@ -1,4 +1,0 @@
-﻿@namespace FluentUI.Demo.Shared
-
-<FluentMarkdownSection Content="Markdown: text in *italics* and **bold**">
-</FluentMarkdownSection>
