@@ -1,1 +1,13 @@
-﻿
+﻿<FluentRadioGroup Readonly=true Name="Teste" Orientation="Orientation.Horizontal" @bind-Value="v1">
+    <FluentRadio Readonly=true Value=@("true")>True</FluentRadio>
+    <FluentRadio Readonly=true Value=@("false")>False</FluentRadio>
+</FluentRadioGroup>
+
+<FluentRadioGroup Disabled=true Name="Teste" Orientation="Orientation.Horizontal" @bind-Value="v1">
+    <FluentRadio Disabled=true Value=@("true") Checked="true">True</FluentRadio>
+    <FluentRadio Disabled=true Value=@("false")>False</FluentRadio>
+</FluentRadioGroup>
+
+@code { 
+    private string? v1;
+}
