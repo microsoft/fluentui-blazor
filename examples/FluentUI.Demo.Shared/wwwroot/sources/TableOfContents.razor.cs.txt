@@ -44,18 +44,16 @@ public partial class TableOfContents : IAsyncDisposable
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
-        {
-            // Remember to replace the location of the script with your own project specific location.
-            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-                "./_content/FluentUI.Demo.Shared/Components/TableOfContents.razor.js");
-            await QueryDom();
-            
-            bool mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
+        // Remember to replace the location of the script with your own project specific location.
+        _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
+        "./_content/FluentUI.Demo.Shared/Components/TableOfContents.razor.js");
+        bool mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
 
-            if (mobile)
-                _expanded = false;
-        }
+        if (mobile)
+            _expanded = false;
+        
+        
+        await QueryDom();
     }
 
     private async Task BackToTop()
@@ -73,7 +71,6 @@ public partial class TableOfContents : IAsyncDisposable
     {
         // Subscribe to the event
         NavigationManager.LocationChanged += LocationChanged;
-        base.OnInitialized();
     }
 
     private async void LocationChanged(object? sender, LocationChangedEventArgs e)
@@ -87,7 +84,12 @@ public partial class TableOfContents : IAsyncDisposable
             // Already disposed
         }
     }
-    
+
+    public async Task Reload()
+    {
+        await QueryDom();
+    }
+
     private RenderFragment? GetTocItems(IEnumerable<Anchor>? items)
     {
         if (items is not null)
@@ -106,12 +108,12 @@ public partial class TableOfContents : IAsyncDisposable
                     builder.AddAttribute(i++, "ChildContent", (RenderFragment)(content =>
                     {
                         content.AddContent(i++, item.Text);
-                        
+
                     }));
                     builder.CloseComponent();
                     if (item.Anchors is not null)
                     {
-                       builder.AddContent(i++, GetTocItems(item.Anchors));
+                        builder.AddContent(i++, GetTocItems(item.Anchors));
                     }
                     builder.CloseElement();
                 }
@@ -127,14 +129,14 @@ public partial class TableOfContents : IAsyncDisposable
         }
 
     }
-    
+
     async ValueTask IAsyncDisposable.DisposeAsync()
     {
         try
         {
             // Unsubscribe from the event when our component is disposed
             NavigationManager.LocationChanged -= LocationChanged;
-            
+
             if (_jsModule is not null)
             {
                 await _jsModule.DisposeAsync();

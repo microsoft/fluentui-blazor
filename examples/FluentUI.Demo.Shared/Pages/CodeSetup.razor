@@ -1,3 +1,14 @@
 ﻿@page "/CodeSetup"
 
-<MarkdownSection FromAsset="./_content/FluentUI.Demo.Shared/docs/CodeSetup.md" />
+<MarkdownSection FromAsset="./_content/FluentUI.Demo.Shared/docs/CodeSetup.md" OnContentConverted="ReloadToC" />
+
+@code {
+
+    [CascadingParameter]
+    public EventCallback OnMarkdownConverted { get; set; }
+
+    private async Task ReloadToC()
+    {
+        await OnMarkdownConverted.InvokeAsync();
+    }
+}

@@ -1,4 +1,15 @@
 ﻿@* Remember to replace the namespace below with your own project's namespace. *@
 @namespace FluentUI.Demo.Shared
 
-<MarkdownSection FromAsset="./_content/FluentUI.Demo.Shared/docs/WhatsNew.md" />
+<MarkdownSection FromAsset="./_content/FluentUI.Demo.Shared/docs/WhatsNew.md" OnContentConverted="ReloadToC" />
+
+@code {
+
+    [CascadingParameter]
+    public EventCallback OnMarkdownConverted { get; set; }
+
+    private async Task ReloadToC()
+    {
+        await OnMarkdownConverted.InvokeAsync();
+    }
+}
