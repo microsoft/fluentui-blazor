@@ -1,6 +1,12 @@
-﻿namespace Microsoft.Fast.Components.FluentUI;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
+using Microsoft.Fast.Components.FluentUI;
+using Microsoft.Fast.Components.FluentUI.Utilities;
 
-public partial class FluentNavMenuLink : FluentComponentBase
+// Remember to replace the namespace below with your own project's namespace..
+namespace FluentUI.Demo.Shared;
+
+public partial class NavMenuLink : FluentComponentBase
 {
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
@@ -19,10 +25,15 @@ public partial class FluentNavMenuLink : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the name of the icon to display with the link
-    /// Use a constant value from the <see cref="FluentIcons" /> class 
     /// </summary>
     [Parameter]
     public string Icon { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets a reasonably unique ID.
+    /// </summary>
+    [Parameter]
+    public string Id { get; set; } = Identifier.NewId();
 
     /// <summary>
     /// Gets or sets whether the link is disabled.
@@ -43,7 +54,7 @@ public partial class FluentNavMenuLink : FluentComponentBase
     public EventCallback<bool> SelectedChanged { get; set; }
 
     [CascadingParameter(Name = "NavMenu")]
-    public FluentNavMenu NavMenu { get; set; } = default!;
+    public NavMenu NavMenu { get; set; } = default!;
 
     /// <summary>
     /// Callback function for when the link is clicked.
@@ -84,10 +95,11 @@ public partial class FluentNavMenuLink : FluentComponentBase
     [CascadingParameter(Name = "NavMenuExpanded")]
     private bool NavMenuExpanded { get; set; }
 
-    public FluentNavMenuLink()
+    internal void SetSelected(bool value)
     {
-        Id = Identifier.NewId();
+        Selected = value;
     }
+
 
     protected override void OnParametersSet()
     {
@@ -104,9 +116,5 @@ public partial class FluentNavMenuLink : FluentComponentBase
     {
         if (!Disabled)
             Selected = true;
-    }
-    internal void SetSelected(bool value)
-    {
-        Selected = value;
     }
 }

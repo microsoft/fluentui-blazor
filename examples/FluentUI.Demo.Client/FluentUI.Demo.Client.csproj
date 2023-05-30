@@ -96,11 +96,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\FluentUI.Demo.Shared\FluentUI.Demo.Shared.csproj" />
 	</ItemGroup>
-
-	<ItemGroup Condition="'$(Configuration)'=='Release'">
-		<PackageReference Include="Microsoft.Fast.Components.FluentUI" Version="3.*-*" PrivateAssets="none" />
-	</ItemGroup>
-
+	
 	<ItemGroup Condition="'$(Configuration)'=='Debug'">
 		<CompilerVisibleProperty Include="PublishFluentIconAssets" />
 		<CompilerVisibleProperty Include="PublishFluentEmojiAssets" />
@@ -109,12 +105,10 @@
 		<CompilerVisibleProperty Include="FluentIconSizes" />
 		<CompilerVisibleProperty Include="FluentIconVariants" />
 		<ProjectReference Include="..\..\src\Microsoft.Fast.Components.FluentUI.Configuration\Microsoft.Fast.Components.FluentUI.Configuration.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-		<ProjectReference Include="..\..\src\Microsoft.Fast.Components.FluentUI\Microsoft.Fast.Components.FluentUI.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<TrimmerRootAssembly Include="Microsoft.Fast.Components.FluentUI" />
 		<TrimmerRootAssembly Include="FluentUI.Demo.Shared" />
 	</ItemGroup>
-
 </Project>

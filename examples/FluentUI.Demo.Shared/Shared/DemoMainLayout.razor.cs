@@ -1,4 +1,5 @@
 using System.Reflection;
+using FluentUI.Demo.Shared.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Components.Web;
@@ -17,6 +18,7 @@ public partial class DemoMainLayout : IAsyncDisposable
     private bool _ltr;
     private bool _mobile;
     private string? _prevUri;
+    private TableOfContents? _toc;
 
     [Inject]
     private GlobalState GlobalState { get; set; } = default!;
@@ -82,12 +84,19 @@ public partial class DemoMainLayout : IAsyncDisposable
         }
     }
 
+    public EventCallback OnRefreshTableOfContents => EventCallback.Factory.Create(this, RefreshTableOfContents);
+
+    private async Task RefreshTableOfContents()
+    {
+        await _toc!.Refresh();
+    }
+
     public async Task SwitchDirection()
     {
         dir = (dir == LocalizationDirection.rtl) ? LocalizationDirection.ltr : LocalizationDirection.rtl;
 
         GlobalState.SetDirection(dir);
-        
+
         await _jsModule!.InvokeVoidAsync("switchDirection", dir.ToString());
         await Direction.SetValueFor(container, dir.ToAttributeValue());
     }

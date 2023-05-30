@@ -1,11 +1,9 @@
-﻿@page "/TableOfContents"
-
-@using FluentUI.Demo.Shared.Pages.TableOfContents.Examples
+﻿@page "/Lab/TableOfContents"
 
 <h1>Table of Contents</h1>
 
 <p>
-    The <code>FluentTableOfContents</code> components scans the <code>article</code>-section of a page for all h2, h3 and h4 headings and presents a table of contents as an accordion
+    The <code>TableOfContents</code> components scans the <code>article</code>-section of a page for all h2, h3 and h4 headings and presents a table of contents as an accordion
     component that contains clickable links to those headings. In this demo site it is being used in the <code>aside</code>-section of the page 
     (depending on device and posture, either shown above or on the right side (or left, depending on LTR choice) of the <code>article</code>-section).
 </p>
@@ -89,6 +87,6 @@ adds content to the page that contains headings:
 
 <DemoSection Component="typeof(TableOfContents)" Title="Default" CollocatedFiles="@(new[] {"cs", "css", "js"})">
     <Description>
-        This is the generated table of contents for this page. The component is using all the default settings for its parameters.
+        
     </Description>
 </DemoSection>

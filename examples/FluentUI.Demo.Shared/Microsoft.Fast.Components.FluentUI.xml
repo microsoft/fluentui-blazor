@@ -1570,20 +1570,6 @@
             Allows for capturing a mouse click on an emoji
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentEmoji.SvgSplitter">
-            <remarks>
-            Pattern explanation:<br/>
-            <code>
-            ○ Match the string "&lt;svg ".<br/>
-            ○ "attributes" capture group.<br/>
-                ○ Match any character lazily any number of times.<br/>
-            ○ Match '&gt;'.<br/>
-            ○ "payload" capture group.<br/>
-                ○ Match any character lazily any number of times.<br/>
-            ○ Match the string "&lt;/svg&gt;".<br/>
-            </code>
-            </remarks>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentFlipper.Disabled">
             <summary>
             Gets or set if the element is disabled

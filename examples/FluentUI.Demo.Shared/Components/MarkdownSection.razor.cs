@@ -1,7 +1,4 @@
-using Markdig;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Fast.Components.FluentUI.Infrastructure;
-
+// Remember to replace the namespace below with your own project's namespace..
 namespace FluentUI.Demo.Shared.Components;
 
 public partial class MarkdownSection
@@ -24,13 +21,21 @@ public partial class MarkdownSection
     [Parameter]
     public string? FromAsset { get; set; }
 
+    [Parameter]
+    public EventCallback OnContentConverted { get; set; }
+
     public string? InternalContent
     {
         get => _content;
         set
         {
             _content = value;
-            HtmlContent = MarkdownSection.ConvertToMarkupString(_content);
+            HtmlContent = ConvertToMarkupString(_content);
+            if (OnContentConverted.HasDelegate)
+            {
+                OnContentConverted.InvokeAsync();
+            }
+
             StateHasChanged();
         }
     }
