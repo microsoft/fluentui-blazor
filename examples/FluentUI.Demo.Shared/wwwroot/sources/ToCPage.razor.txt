@@ -75,7 +75,7 @@ adds content to the page that contains headings:
 
     private async Task RefreshTableOfContents()
     {
-    await OnRefreshToC.InvokeAsync();
+    await OnRefreshTableOfContents.InvokeAsync();
     }
 }
 </CodeSnippet>

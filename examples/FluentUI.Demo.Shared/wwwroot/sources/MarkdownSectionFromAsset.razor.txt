@@ -10,6 +10,6 @@
 
     private async Task RefreshTableOfContents()
     {
-        await OnRefreshToC.InvokeAsync();
+        await OnRefreshTableOfContents.InvokeAsync();
     }
 }

@@ -108,7 +108,6 @@ public partial class TableOfContents : IAsyncDisposable
                     builder.AddAttribute(i++, "ChildContent", (RenderFragment)(content =>
                     {
                         content.AddContent(i++, item.Text);
-
                     }));
                     builder.CloseComponent();
                     if (item.Anchors is not null)
