@@ -44,9 +44,9 @@ In <code>DemoMainLayout.razor</code>:
 <h3>Create <code>EventCallback</code> and handler</h3>
 In <code>DemoMainLayout.razor.cs</code>:
 <CodeSnippet>
-public EventCallback OnRefreshToC => EventCallback.Factory.Create(this, RefreshToC);
+public EventCallback OnRefreshTableOfContents => EventCallback.Factory.Create(this, RefreshToC);
 
-private async Task RefreshToC()
+private async Task RefreshTableOfContents()
 {
     await _toc!.Refresh();
 }
@@ -66,14 +66,14 @@ adds content to the page that contains headings:
 <CodeSnippet>
 @@page "/CodeSetup"
 
-&lt;MarkdownSection FromAsset="./_content/FluentUI.Demo.Shared/docs/CodeSetup.md" OnContentConverted="RefreshToC" /&gt;
+&lt;MarkdownSection FromAsset="./_content/FluentUI.Demo.Shared/docs/CodeSetup.md" OnContentConverted="RefreshTableOfContents" /&gt;
 
 @@code {
 
     [CascadingParameter]
-    public EventCallback OnRefreshToC { get; set; }
+    public EventCallback OnRefreshTableOfContents { get; set; }
 
-    private async Task RefreshToC()
+    private async Task RefreshTableOfContents()
     {
     await OnRefreshToC.InvokeAsync();
     }

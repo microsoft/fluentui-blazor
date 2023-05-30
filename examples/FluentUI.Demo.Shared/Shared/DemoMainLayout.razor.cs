@@ -83,9 +83,9 @@ public partial class DemoMainLayout : IAsyncDisposable
         }
     }
 
-    public EventCallback OnRefreshToC => EventCallback.Factory.Create(this, RefreshToC);
+    public EventCallback OnRefreshTableOfContents => EventCallback.Factory.Create(this, RefreshTableOfContents);
 
-    private async Task RefreshToC()
+    private async Task RefreshTableOfContents()
     {
         await _toc!.Refresh();
     }
