@@ -5,15 +5,15 @@
 
 <h1>What's new?</h1>
 
-<MarkdownSection FromAsset="./_content/FluentUI.Demo.Shared/docs/WhatsNew.md" OnContentConverted="ReloadToC" />
+<MarkdownSection FromAsset="./_content/FluentUI.Demo.Shared/docs/WhatsNew.md" OnContentConverted="RefreshToC" />
 
 @code {
 
     [CascadingParameter]
-    public EventCallback OnMarkdownConverted { get; set; }
+    public EventCallback OnRefreshToC { get; set; }
 
-    private async Task ReloadToC()
+    private async Task RefreshToC()
     {
-        await OnMarkdownConverted.InvokeAsync();
+        await OnRefreshToC.InvokeAsync();
     }
 }

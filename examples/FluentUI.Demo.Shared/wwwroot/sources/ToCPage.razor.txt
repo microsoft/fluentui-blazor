@@ -5,7 +5,7 @@
 <p>
     The <code>TableOfContents</code> components scans the <code>article</code>-section of a page for all h2, h3 and h4 headings and presents a table of contents as an accordion
     component that contains clickable links to those headings. In this demo site it is being used in the <code>aside</code>-section of the page 
-    (depending on device and posture, either shown above or on the right side of the <code>article</code>-section).
+    (depending on device and posture, either shown above or on the right side (or left, depending on LTR choice) of the <code>article</code>-section).
 </p>
 <p>
     The component uses the id attributes of the headings it finds to create the bookmarks. If a heading doesn't have an id attribute set, the JavaScript will create one
@@ -14,6 +14,72 @@
 <p>
     The component also renders a (initially hidden) 'Back to top' button at the bottom of the page. The button appears once scrolling has started.
 </p>
+
+<h2>Making <code>TableOfContents</code> component aware of new headings</h2>
+<p>
+    When using this component in combination with other components that update the DOM with new headings (like the <code>MarkdownSection</code> component),
+    the <code>TableOfContents</code> component needs to be made aware of these new headings. To do this you need to take the following steps:
+    <ul>
+        <li>Create a reference to the <code>TableOfContents</code> component</li>
+        <li>Create an <code>EventCallback</code> and handler in the code of the main layout of the site</li>
+        <li>Cascade the <code>EventCallback</code> down in the @@Body parameter</li>
+        <li>Add code to pages that alter the DOM so the cascaded event gets raised</li>
+    </ul>
+    The MarkdownSection component has been extended with code that raises an event when the Markdown has been converted to HTML.
+</p>
+
+<p>
+    The following code snippets show how this is done in this demo site.
+</p>
+<h3>Create a reference to the <code>TableOfContents</code> component</h3>
+In <code>DemoMainLayout.razor</code>:
+<CodeSnippet>
+&lt;TableOfContents @@ref=_toc /&gt;
+
+@@code {
+    private TableOfContents? _toc;
+}
+</CodeSnippet>
+
+<h3>Create <code>EventCallback</code> and handler</h3>
+In <code>DemoMainLayout.razor.cs</code>:
+<CodeSnippet>
+public EventCallback OnRefreshToC => EventCallback.Factory.Create(this, RefreshToC);
+
+private async Task RefreshToC()
+{
+    await _toc!.Refresh();
+}
+</CodeSnippet>
+
+<h3>Cascade event in <code>DemoMainLayout.razor</code></h3>
+In <code>DemoMainLayout.razor</code>:
+<CodeSnippet>
+&lt;CascadingValue Value=@@OnRefreshToC&gt;
+    @@Body
+&lt;/CascadingValue&gt;
+</CodeSnippet>
+
+<h3>Add event handling to pages that alter the DOM</h3>
+For example in <code>CodeSetup.razor</code> we call the <code>MarkdownSection</code> component which
+adds content to the page that contains headings:
+<CodeSnippet>
+@@page "/CodeSetup"
+
+&lt;MarkdownSection FromAsset="./_content/FluentUI.Demo.Shared/docs/CodeSetup.md" OnContentConverted="RefreshToC" /&gt;
+
+@@code {
+
+    [CascadingParameter]
+    public EventCallback OnRefreshToC { get; set; }
+
+    private async Task RefreshToC()
+    {
+    await OnRefreshToC.InvokeAsync();
+    }
+}
+</CodeSnippet>
+
 
 <ApiDocumentation Component="typeof(TableOfContents)" />
 

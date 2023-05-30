@@ -1,4 +1,14 @@
-﻿# V2.3.2
+﻿## V2.3.4
+- Fix #414: Table of Contents doesn't work correctly with Markdown Section in demo site/new components 
+- Fix #413: The default selected of the Navigation Menu is incorrect in Demo Site
+- Fix #411: Component FluentRadio / FluentRadioGroup not working Readonly or Disabled 
+
+## V2.3.3
+- Fix #405: **Important if you are using icons** Incomplete GetIconConfiguration() is generated if PublishFluentEmojiAssets is set to false 
+- Fix #406: Build error if FluentIconSizes doesn't have 20, but has 32
+V2.3.2 will be hidden from NuGet packages because of icon issue
+
+## V2.3.2
 
 - [Unit Tests] Refactoring and fixing of unit tests
 - Rework of generators after code review

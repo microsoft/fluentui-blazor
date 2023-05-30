@@ -51,8 +51,8 @@ public partial class TableOfContents : IAsyncDisposable
 
         if (mobile)
             _expanded = false;
-        
-        
+
+
         await QueryDom();
     }
 
@@ -85,7 +85,7 @@ public partial class TableOfContents : IAsyncDisposable
         }
     }
 
-    public async Task Reload()
+    public async Task Refresh()
     {
         await QueryDom();
     }

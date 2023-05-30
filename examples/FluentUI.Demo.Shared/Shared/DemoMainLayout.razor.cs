@@ -83,11 +83,11 @@ public partial class DemoMainLayout : IAsyncDisposable
         }
     }
 
-    public EventCallback OnMarkdownLoaded => EventCallback.Factory.Create(this, ReloadToC);
+    public EventCallback OnRefreshToC => EventCallback.Factory.Create(this, RefreshToC);
 
-    private async Task ReloadToC()
+    private async Task RefreshToC()
     {
-        await _toc!.Reload();
+        await _toc!.Refresh();
     }
 
     public async Task SwitchDirection()
