@@ -57,7 +57,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Icons", "Icons", "{08A13164-CC42-4633-9C46-F1134DC00916}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Fast.Components.FluentUI.IconsGenerator", "src\Microsoft.Fast.Components.FluentUI.Icons.Generator\Microsoft.Fast.Components.FluentUI.IconsGenerator.csproj", "{D0907E17-40D2-4C9D-902B-DEBBF19575D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Fast.Components.FluentUI.IconsGenerator", "src\Icons\Generator\Microsoft.Fast.Components.FluentUI.IconsGenerator.csproj", "{D0907E17-40D2-4C9D-902B-DEBBF19575D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
