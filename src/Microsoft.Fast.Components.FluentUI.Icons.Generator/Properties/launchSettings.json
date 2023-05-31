@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Microsoft.Fast.Components.FluentUI.Icons.Generator": {
+      "commandName": "Project",
+      "commandLineArgs": "--Assets=C:\\_Temp\\fluentui-system-icons\\main\\assets --Target=C:\\VSO\\Msft\\github\\fluentui-blazor\\src\\Microsoft.Fast.Components.FluentUI.Icons.Generator\\Samples"
+    }
+  }
+}
