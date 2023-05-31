@@ -1,11 +1,14 @@
 using Markdig;
 using Microsoft.AspNetCore.Components;
+
+using Microsoft.Fast.Components.FluentUI;
 using Microsoft.Fast.Components.FluentUI.Infrastructure;
 
-// Remember to replace the namespace below with your own project's namespace..
-namespace FluentUI.Demo.Shared;
 
-public partial class MarkdownSection
+// Remember to replace the namespace below with your own project's namespace..
+namespace FluentUI.Demo.Shared.Components;
+
+public partial class MarkdownSection : FluentComponentBase
 {
     private string? _content;
 

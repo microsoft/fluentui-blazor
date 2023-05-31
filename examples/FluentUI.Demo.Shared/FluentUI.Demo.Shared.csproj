@@ -4,6 +4,7 @@
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<LangVersion>latest</LangVersion>
+		<UseRazorSourceGenerator>true</UseRazorSourceGenerator>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<IsTrimmable>true</IsTrimmable>
 		<SuppressTrimAnalysisWarnings>false</SuppressTrimAnalysisWarnings>

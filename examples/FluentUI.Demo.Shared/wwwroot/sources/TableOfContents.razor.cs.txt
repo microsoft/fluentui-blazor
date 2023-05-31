@@ -44,19 +44,19 @@ public partial class TableOfContents : IAsyncDisposable
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        //if (firstRender)
-        //{
-        // Remember to replace the location of the script with your own project specific location.
-        _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-            "./_content/FluentUI.Demo.Shared/Components/TableOfContents.razor.js");
+        if (firstRender)
+        {
+            // Remember to replace the location of the script with your own project specific location.
+            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
+                "./_content/FluentUI.Demo.Shared/Components/TableOfContents.razor.js");
 
-        bool mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
+            bool mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
 
-        if (mobile)
-            _expanded = false;
+            if (mobile)
+                _expanded = false;
 
-        await QueryDom();
-        //}
+            await QueryDom();
+        }
     }
 
     private async Task BackToTop()
@@ -93,7 +93,6 @@ public partial class TableOfContents : IAsyncDisposable
     public async Task Refresh()
     {
         await QueryDom();
-        StateHasChanged();
     }
 
     private RenderFragment? GetTocItems(IEnumerable<Anchor>? items)
