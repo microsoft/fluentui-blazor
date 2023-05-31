@@ -6,9 +6,6 @@ public partial class FluentToast : FluentComponentBase, IDisposable
 {
     private CountdownTimer? _countdownTimer;
 
-    //[CascadingParameter]
-    //private InternalToastContext ToastContext { get; set; } = default!;
-
     [CascadingParameter]
     private FluentToasts ToastContainer { get; set; } = default!;
 

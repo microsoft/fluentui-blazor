@@ -1,10 +1,11 @@
-// Remember to replace the namespace below with your own project's namespace..
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.Fast.Components.FluentUI;
 using Microsoft.JSInterop;
 
+// Remember to replace the namespace below with your own project's namespace.
 namespace FluentUI.Demo.Shared.Components;
+
 public partial class TableOfContents : IAsyncDisposable
 {
     private record Anchor(string Level, string Text, string Href, Anchor[] Anchors);
@@ -48,7 +49,6 @@ public partial class TableOfContents : IAsyncDisposable
             // Remember to replace the location of the script with your own project specific location.
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
                 "./_content/FluentUI.Demo.Shared/Components/TableOfContents.razor.js");
-            await QueryDom();
 
             bool mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
 

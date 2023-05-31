@@ -35,12 +35,15 @@ public partial class MarkdownSection
         {
             _content = value;
             HtmlContent = ConvertToMarkupString(_content);
-            if (OnContentConverted.HasDelegate)
+            if (_content is not null)
             {
-                OnContentConverted.InvokeAsync();
+                if (OnContentConverted.HasDelegate)
+                {
+                    OnContentConverted.InvokeAsync();
+                }
+                StateHasChanged();
             }
 
-            StateHasChanged();
         }
     }
 
