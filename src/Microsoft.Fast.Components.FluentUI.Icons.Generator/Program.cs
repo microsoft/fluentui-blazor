@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Fast.Components.FluentUI.Icons.Generator;
+﻿namespace Microsoft.Fast.Components.FluentUI.IconsGenerator;
 
 internal class Program
 {
@@ -32,7 +32,13 @@ internal class Program
         };
 
         // Start the generation
-        var allAssets = factory.ReadAllAssets();
-        var generatedFiles = factory.GenerateClasses(allAssets);
+        var assets = factory.ReadAllAssets()
+                            .Where(i => configuration.Sizes.Contains(i.Size)); // Only specified sizes
+        
+        factory.GenerateMainIconsClass(assets);
+        factory.GenerateClasses(assets);
+
+        // Sample
+        // var x = Icons.Regular.Size24.Accessibility;
     }
 }

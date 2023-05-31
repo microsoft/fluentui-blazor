@@ -1,13 +1,13 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace Microsoft.Fast.Components.FluentUI.Icons.Generator;
+namespace Microsoft.Fast.Components.FluentUI.IconsGenerator;
 
 /// <summary>
 /// Configuration for the generator.
 /// </summary>
 internal class Configuration
 {
-    private const string DefaultNamespace = "Microsoft.Fast.Components.FluentUI.Icons";
+    private const string DefaultNamespace = "Microsoft.Fast.Components.FluentUI";
     private const string DefaultSizes = "16,24,32";
 
     /// <summary>
@@ -78,11 +78,14 @@ internal class Configuration
         Console.WriteLine("                     downloaded from https://github.com/microsoft/fluentui-system-icons.");
         Console.WriteLine("                     If not specified, the current working directory will be used.");
         Console.WriteLine();
+        Console.WriteLine("  --Namespace | -ns  The namespace used for generated classes.");
+        Console.WriteLine("                     If not specified, \"Microsoft.Fast.Components.FluentUI\" will be used.");
+        Console.WriteLine();
+        Console.WriteLine("  --Sizes     | -s   The list of icon sizes to generate, separated by coma.");
+        Console.WriteLine("                     By default: 16,24,32");
+        Console.WriteLine();
         Console.WriteLine("  --Target    | -t   The target directory where C# classes will be created.");
         Console.WriteLine("                     If not specified, the current working directory will be used.");
-        Console.WriteLine();
-        Console.WriteLine("  --Namespace | -ns  The namespace used for generated classes.");
-        Console.WriteLine("                     If not specified, \"Microsoft.Fast.Components.FluentUI.Icons\" will be used.");
         Console.WriteLine();
         Console.WriteLine("  --Help      | -h   Display this documentation.");
     }

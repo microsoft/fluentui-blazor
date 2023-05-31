@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace Microsoft.Fast.Components.FluentUI.Icons.Generator.Model;
+namespace Microsoft.Fast.Components.FluentUI.IconsGenerator.Model;
 
 /// <summary>
 /// Icon model.
@@ -61,6 +61,11 @@ internal class Icon
     /// Gets the variant of the icon: Filled, Regular, etc.
     /// </summary>
     public string Variant { get; } = string.Empty;
+
+    /// <summary>
+    /// Gets the key of the icon: Regular_20_AddCircle
+    /// </summary>
+    public string Key => $"{Variant}_{Size}_{Name}";
 
     /// <summary>
     /// Returns the SVG content of the icon, with or without the root SVG element.
