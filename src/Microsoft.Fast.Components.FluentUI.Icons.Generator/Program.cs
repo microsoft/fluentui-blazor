@@ -26,13 +26,13 @@ internal class Program
         }
 
         // Initialize the factory
-        var factory = new Factory(configuration)
+        var factory = new CodeGenerator(configuration)
         {
             Logger = (message) => Console.WriteLine($"{DateTime.Now.ToString("HH:mm:ss")} - {message}")
         };
 
         // Start the generation
         var allAssets = factory.ReadAllAssets();
-        var generatedFiles = factory.GenerateClasses(allAssets);        
+        var generatedFiles = factory.GenerateClasses(allAssets);
     }
 }

@@ -3,13 +3,13 @@ using System.Text;
 
 namespace Microsoft.Fast.Components.FluentUI.Icons.Generator;
 
-internal class Factory
+internal class CodeGenerator
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="Factory"/> class.
+    /// Initializes a new instance of the <see cref="CodeGenerator"/> class.
     /// </summary>
     /// <param name="configuration"></param>
-    public Factory(Configuration configuration)
+    public CodeGenerator(Configuration configuration)
     {
         Configuration = configuration;
         Logger = (message) => { };
@@ -108,7 +108,7 @@ internal class Factory
                                  .Replace("\"", "\\\"");
 
             builder.AppendLine($"        /// <summary />");
-            builder.AppendLine($"        public const string {icon.Name} = \"{svgContent}\";");
+            builder.AppendLine($"        public static string {icon.Name} {{ get; }} = \"{svgContent}\";");
             builder.AppendLine();
         }
 
