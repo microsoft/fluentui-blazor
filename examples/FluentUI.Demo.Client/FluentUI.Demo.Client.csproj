@@ -97,7 +97,7 @@
 		<ProjectReference Include="..\FluentUI.Demo.Shared\FluentUI.Demo.Shared.csproj" />
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(Configuration)'=='Debug'">
+	<ItemGroup >
 		<CompilerVisibleProperty Include="PublishFluentIconAssets" />
 		<CompilerVisibleProperty Include="PublishFluentEmojiAssets" />
 		<CompilerVisibleProperty Include="FluentEmojiStyles" />
