@@ -29,11 +29,6 @@ internal class Icon
             Name = GetIconName(file);
         }
 
-        if (Name == "Ltr")
-        {
-            Debugger.Break();
-        }
-
         // Gets the icon name from the parent folder
         // Because the icon name is not always the same as the file name
         // It's possible to have subfolders to identify the country (en, it, etc.) or LTR/RTL.

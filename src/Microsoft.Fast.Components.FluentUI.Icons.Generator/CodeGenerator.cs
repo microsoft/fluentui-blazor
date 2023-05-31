@@ -53,7 +53,7 @@ internal class CodeGenerator
     public IEnumerable<FileInfo> GenerateClasses(IEnumerable<Model.Icon> icons)
     {
         var generatedFiles = new List<FileInfo>();
-        var allSizes = icons.Select(i => i.Size).Distinct().OrderBy(i => i);
+        var allSizes = icons.Where(i => Configuration.Sizes.Contains(i.Size)).Select(i => i.Size).Distinct().OrderBy(i => i);
         var allVariants = icons.Select(i => i.Variant).Distinct().OrderBy(i => i);
 
         foreach (var variant in allVariants)
@@ -97,20 +97,26 @@ internal class CodeGenerator
         builder.AppendLine("    public static partial class Size" + size);
         builder.AppendLine("    {");
 
+        // Properties
         foreach (var icon in icons)
         {
-            if (icon.Name.Contains(" Text Underline"))
-            {
-                Debugger.Break();
-            }
+            builder.AppendLine($"        /// <summary />");
+            builder.AppendLine($"        public static string {icon.Name} {{ get; }} = AllIcons[\"{icon.Name}\"];");
+            builder.AppendLine();
+        }
 
+        // Dictionary
+        builder.AppendLine("        /// <summary />");
+        builder.AppendLine("        public static IReadOnlyDictionary<string, string> AllIcons { get; } = new Dictionary<string, string>()");
+        builder.AppendLine("        {");
+        foreach (var icon in icons)
+        {
             var svgContent = icon.GetContent(removeSvgRoot: true)
                                  .Replace("\"", "\\\"");
 
-            builder.AppendLine($"        /// <summary />");
-            builder.AppendLine($"        public static string {icon.Name} {{ get; }} = \"{svgContent}\";");
-            builder.AppendLine();
+            builder.AppendLine($"            {{ \"{icon.Name}\", \"{svgContent}\" }},");
         }
+        builder.AppendLine("        };");
 
         builder.AppendLine("    }");
         builder.AppendLine("}");

@@ -8,6 +8,7 @@ namespace Microsoft.Fast.Components.FluentUI.Icons.Generator;
 internal class Configuration
 {
     private const string DefaultNamespace = "Microsoft.Fast.Components.FluentUI.Icons";
+    private const string DefaultSizes = "16,24,32";
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Configuration"/> class.
@@ -29,6 +30,8 @@ internal class Configuration
             { "--target", "target" },
             { "-ns", "namespace" },
             { "--namespace", "namespace" },
+            { "-s", "sizes" },
+            { "--sizes", "sizes" },
         };
 
         var config = new ConfigurationBuilder().AddCommandLine(args, switchMappings)
@@ -37,6 +40,7 @@ internal class Configuration
         AssetsFolder = new DirectoryInfo(config.GetSection("assets").Value ?? Directory.GetCurrentDirectory());
         TargetFolder = new DirectoryInfo(config.GetSection("target").Value ?? Directory.GetCurrentDirectory());
         Namespace = config.GetSection("namespace").Value ?? DefaultNamespace;
+        Sizes = (config.GetSection("sizes").Value ?? DefaultSizes).Split(",").Select(i => Convert.ToInt32(i));
     }
 
     /// <summary>
@@ -53,6 +57,8 @@ internal class Configuration
     /// Gets the namespace used for generated classes.
     /// </summary>
     public string Namespace { get; set; } = DefaultNamespace;
+
+    public IEnumerable<int> Sizes { get; set; } = DefaultSizes.Split(",").Select(i => Convert.ToInt32(i));
 
     /// <summary>
     /// Gets a value indicating whether the help documentation should be displayed.
