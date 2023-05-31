@@ -61,11 +61,7 @@
 		<TrimmerRootAssembly Include="Microsoft.Fast.Components.FluentUI" />
 	</ItemGroup>
 	
-	<Target Name="DisableAnalyzers" BeforeTargets="CoreCompile">
-		<ItemGroup>
-			<Analyzer Remove="@(Analyzer)" Condition="'%(Filename)' == 'Microsoft.Fast.Components.FluentUI.Configuration'" />
-		</ItemGroup>
-	</Target>
+	
 	
 	<Target Name="CopySources" BeforeTargets="CoreBuild">
 		<ItemGroup>

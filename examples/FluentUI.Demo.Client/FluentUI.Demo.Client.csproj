@@ -94,17 +94,17 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\src\Microsoft.Fast.Components.FluentUI.Configuration\Microsoft.Fast.Components.FluentUI.Configuration.csproj"  OutputItemType="Analyzer" ReferenceOutputAssembly="false"  />
 		<ProjectReference Include="..\FluentUI.Demo.Shared\FluentUI.Demo.Shared.csproj" />
 	</ItemGroup>
 
-	<ItemGroup >
+	<ItemGroup>
 		<CompilerVisibleProperty Include="PublishFluentIconAssets" />
 		<CompilerVisibleProperty Include="PublishFluentEmojiAssets" />
 		<CompilerVisibleProperty Include="FluentEmojiStyles" />
 		<CompilerVisibleProperty Include="FluentEmojiGroups" />
 		<CompilerVisibleProperty Include="FluentIconSizes" />
 		<CompilerVisibleProperty Include="FluentIconVariants" />
-		<ProjectReference Include="..\..\src\Microsoft.Fast.Components.FluentUI.Configuration\Microsoft.Fast.Components.FluentUI.Configuration.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 	</ItemGroup>
 
 	<ItemGroup>
