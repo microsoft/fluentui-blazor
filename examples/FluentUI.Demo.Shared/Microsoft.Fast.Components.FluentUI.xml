@@ -1570,6 +1570,20 @@
             Allows for capturing a mouse click on an emoji
             </summary>
         </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentEmoji.SvgSplitter">
+            <remarks>
+            Pattern explanation:<br/>
+            <code>
+            ○ Match the string "&lt;svg ".<br/>
+            ○ "attributes" capture group.<br/>
+                ○ Match any character lazily any number of times.<br/>
+            ○ Match '&gt;'.<br/>
+            ○ "payload" capture group.<br/>
+                ○ Match any character lazily any number of times.<br/>
+            ○ Match the string "&lt;/svg&gt;".<br/>
+            </code>
+            </remarks>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentFlipper.Disabled">
             <summary>
             Gets or set if the element is disabled
@@ -3040,23 +3054,6 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentSwitch.UncheckedMessage">
             <summary>
             Gets or sets the unchecked message
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTableOfContents.Heading">
-            <summary>
-            Gets or sets the heading for the ToC 
-            Defaults to 'In this article'
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTableOfContents.ShowBackButton">
-            <summary>
-            Gets or sets if a 'Back to top' button should be rendered.
-            Defaults to true
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTableOfContents.ChildContent">
-            <summary>
-            Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.ClassValue">

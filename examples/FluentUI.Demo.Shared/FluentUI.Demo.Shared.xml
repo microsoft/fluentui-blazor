@@ -76,6 +76,23 @@
             Gets or sets asset to read the Markdown from
             </summary>
         </member>
+        <member name="P:FluentUI.Demo.Shared.Components.TableOfContents.Heading">
+            <summary>
+            Gets or sets the heading for the ToC 
+            Defaults to 'In this article'
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.Components.TableOfContents.ShowBackButton">
+            <summary>
+            Gets or sets if a 'Back to top' button should be rendered.
+            Defaults to true
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.Components.TableOfContents.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
         <member name="M:FluentUI.Demo.Shared.Pages.ComponentBindings.#ctor">
             <summary>
             Within this constructor you can set default values for the form fields through the FormModel

@@ -1,5 +1,11 @@
-namespace Microsoft.Fast.Components.FluentUI;
-public partial class FluentTableOfContents : IAsyncDisposable
+// Remember to replace the namespace below with your own project's namespace..
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Routing;
+using Microsoft.Fast.Components.FluentUI;
+using Microsoft.JSInterop;
+
+namespace FluentUI.Demo.Shared.Components;
+public partial class TableOfContents : IAsyncDisposable
 {
     private record Anchor(string Level, string Text, string Href, Anchor[] Anchors);
     private Anchor[]? _anchors;
@@ -41,7 +47,7 @@ public partial class FluentTableOfContents : IAsyncDisposable
         {
             // Remember to replace the location of the script with your own project specific location.
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-                "./_content/Microsoft.Fast.Components.FluentUI/Components/TableOfContents/FluentTableOfContents.razor.js");
+                "./_content/FluentUI.Demo.Shared/Components/TableOfContents.razor.js");
             await QueryDom();
 
             bool mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
@@ -49,20 +55,20 @@ public partial class FluentTableOfContents : IAsyncDisposable
             if (mobile)
                 _expanded = false;
 
-
             await QueryDom();
         }
+    }
 
-        private async Task BackToTop()
-        {
-            await _jsModule.InvokeAsync<Anchor[]?>("backToTop");
-        }
+    private async Task BackToTop()
+    {
+        await _jsModule.InvokeAsync<Anchor[]?>("backToTop");
+    }
 
-        private async Task QueryDom()
-        {
-            _anchors = await _jsModule.InvokeAsync<Anchor[]?>("queryDomForTocEntries");
-            StateHasChanged();
-        }
+    private async Task QueryDom()
+    {
+        _anchors = await _jsModule.InvokeAsync<Anchor[]?>("queryDomForTocEntries");
+        StateHasChanged();
+    }
 
     protected override void OnInitialized()
     {

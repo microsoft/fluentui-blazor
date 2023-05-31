@@ -1,12 +1,11 @@
+// Remember to replace the namespace below with your own project's namespace..
 using Markdig;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Fast.Components.FluentUI;
 using Microsoft.Fast.Components.FluentUI.Infrastructure;
 
-// Remember to replace the namespace below with your own project's namespace..
 namespace FluentUI.Demo.Shared.Components;
 
-public partial class MarkdownSection : FluentComponentBase
+public partial class MarkdownSection
 {
     private string? _content;
 
@@ -64,7 +63,7 @@ public partial class MarkdownSection : FluentComponentBase
 
     }
 
-    private MarkupString ConvertToMarkupString(string? value)
+    private static MarkupString ConvertToMarkupString(string? value)
     {
         if (!string.IsNullOrWhiteSpace(value))
         {

@@ -1,0 +1,40 @@
+﻿@page "/Lab/Overview"
+
+<h1><FluentIcon Name="@FluentIcons.Beaker" Size="IconSize.Size24" />Incubation Lab Overview</h1>
+
+<p>
+    The incubation lab is were we test things out. Some of the expirements might make it into the library, others are offered here to copy 
+    them to your project in an easy way. Some might even end up in the trashcan.
+</p>
+<p>
+    As these components are not part of the official library, they are not included in the NuGet package. Also, please note that we only 
+    offer support for these specific components through the <a href="https://github.com/microsoft/fluentui-blazor/">GitHub repository</a> on a best effort base.
+    <br />
+    We hope you will help us test-drive the components, both here in the demo environment but also in your own projects, and give us 
+    feedback (at our <a href="https://github.com/microsoft/fluentui-blazor/discussions">repo's discussion board'</a>).
+</p>
+<p>
+    Most components will show download links for the Razor (<code>.razor</code>), C# (<code>.cs</code>), CSS (<code>.css</code>) and JavaScript 
+    (<code>.js</code>) files (if applicable for that specific component). This makes it easy to test the components inside your own projects.
+</p>
+<p>
+    <strong>Please be aware that if you download the files to use in your own projects, you need to replace the <code>FluentUI.Demo.Shared</code> namespace with your own project's namespace</strong>
+</p>
+
+<p>Currently the following components are available int the lab:
+    <ul>
+        <li><a href="/Lab/MarkdownSection">MarkdownSection</a></li>
+        <li><a href="/Lab/TableOfContents">TableOfContents</a></li>
+    </ul>
+</p>
+<p>The status of these components is that they will not be included in the library. Reasons for this are:
+    <ul>
+        <li>MarkdownSection depends on external package Markdig. We do not intend to add component to the library that have external dependencies</li>
+        <li>TableOfContents needs to be refreshed if other components (like for example a MarkdownSection) add headings into the DOM. This is possible 
+            but requiresa fair ammount of steps we can not automate. We thefore choose to make a sample implementation available in the lab. 
+            The TableOfContents page explains and shows the steps needed to make this work.
+        </li>
+    </ul>
+</p>
+
+<DemoSection Component="typeof(IssueTester)" Title="Testbed for issues reported on GH" />

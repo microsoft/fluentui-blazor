@@ -44,7 +44,7 @@ In <code>DemoMainLayout.razor</code>:
 <h3>Create <code>EventCallback</code> and handler</h3>
 In <code>DemoMainLayout.razor.cs</code>:
 <CodeSnippet>
-public EventCallback OnRefreshTableOfContents => EventCallback.Factory.Create(this, RefreshToC);
+public EventCallback OnRefreshTableOfContents => EventCallback.Factory.Create(this, RefreshTableOfContents);
 
 private async Task RefreshTableOfContents()
 {
@@ -55,7 +55,7 @@ private async Task RefreshTableOfContents()
 <h3>Cascade event in <code>DemoMainLayout.razor</code></h3>
 In <code>DemoMainLayout.razor</code>:
 <CodeSnippet>
-&lt;CascadingValue Value=@@OnRefreshToC&gt;
+&lt;CascadingValue Value=@@OnRefreshTableOfContents&gt;
     @@Body
 &lt;/CascadingValue&gt;
 </CodeSnippet>
