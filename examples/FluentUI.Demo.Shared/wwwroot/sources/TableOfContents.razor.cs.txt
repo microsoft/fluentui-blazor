@@ -1,10 +1,11 @@
-// Remember to replace the namespace below with your own project's namespace..
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.Fast.Components.FluentUI;
 using Microsoft.JSInterop;
 
+// Remember to replace the namespace below with your own project's namespace.
 namespace FluentUI.Demo.Shared.Components;
+
 public partial class TableOfContents : IAsyncDisposable
 {
     private record Anchor(string Level, string Text, string Href, Anchor[] Anchors);
@@ -43,19 +44,19 @@ public partial class TableOfContents : IAsyncDisposable
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
-        {
-            // Remember to replace the location of the script with your own project specific location.
-            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-                "./_content/FluentUI.Demo.Shared/Components/TableOfContents.razor.js");
+        //if (firstRender)
+        //{
+        // Remember to replace the location of the script with your own project specific location.
+        _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
+            "./_content/FluentUI.Demo.Shared/Components/TableOfContents.razor.js");
 
-            bool mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
+        bool mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
 
-            if (mobile)
-                _expanded = false;
+        if (mobile)
+            _expanded = false;
 
-            await QueryDom();
-        }
+        await QueryDom();
+        //}
     }
 
     private async Task BackToTop()
@@ -67,6 +68,8 @@ public partial class TableOfContents : IAsyncDisposable
     {
         _anchors = await _jsModule.InvokeAsync<Anchor[]?>("queryDomForTocEntries");
         StateHasChanged();
+
+
     }
 
     protected override void OnInitialized()
@@ -90,6 +93,7 @@ public partial class TableOfContents : IAsyncDisposable
     public async Task Refresh()
     {
         await QueryDom();
+        StateHasChanged();
     }
 
     private RenderFragment? GetTocItems(IEnumerable<Anchor>? items)

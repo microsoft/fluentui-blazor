@@ -66,16 +66,6 @@
             Hides all but the 'Example' tab
             </summary>
         </member>
-        <member name="P:FluentUI.Demo.Shared.Components.MarkdownSection.Content">
-            <summary>
-            Gets or sets the Markdown content 
-            </summary>
-        </member>
-        <member name="P:FluentUI.Demo.Shared.Components.MarkdownSection.FromAsset">
-            <summary>
-            Gets or sets asset to read the Markdown from
-            </summary>
-        </member>
         <member name="P:FluentUI.Demo.Shared.Components.TableOfContents.Heading">
             <summary>
             Gets or sets the heading for the ToC 
@@ -91,6 +81,16 @@
         <member name="P:FluentUI.Demo.Shared.Components.TableOfContents.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.MarkdownSection.Content">
+            <summary>
+            Gets or sets the Markdown content 
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.MarkdownSection.FromAsset">
+            <summary>
+            Gets or sets asset to read the Markdown from
             </summary>
         </member>
         <member name="M:FluentUI.Demo.Shared.Pages.ComponentBindings.#ctor">

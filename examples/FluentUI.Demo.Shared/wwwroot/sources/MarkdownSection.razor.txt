@@ -1,5 +1,5 @@
 ﻿@using Markdig
-@inherits FluentComponentBase
+@namespace FluentUI.Demo.Shared
 
 @HtmlContent
 
