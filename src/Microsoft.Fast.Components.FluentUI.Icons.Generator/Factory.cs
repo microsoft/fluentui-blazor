@@ -31,7 +31,7 @@ internal class Factory
     /// <returns></returns>
     public IEnumerable<Model.Icon> ReadAllAssets()
     {
-        const string searchPattern = "*.svg";
+        const string searchPattern = "ic_fluent_*.svg";
         var icons = new List<Model.Icon>();
 
         Logger.Invoke($"Reading all SVG files in {Configuration.AssetsFolder}.");
@@ -108,7 +108,7 @@ internal class Factory
                                  .Replace("\"", "\\\"");
 
             builder.AppendLine($"        /// <summary />");
-            builder.AppendLine($"        public static string {icon.Name} {{ get; }} = \"{svgContent}\";");
+            builder.AppendLine($"        public const string {icon.Name} = \"{svgContent}\";");
             builder.AppendLine();
         }
 

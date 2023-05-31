@@ -33,6 +33,6 @@ internal class Program
 
         // Start the generation
         var allAssets = factory.ReadAllAssets();
-        var generatedFiles = factory.GenerateClasses(allAssets);
+        var generatedFiles = factory.GenerateClasses(allAssets);        
     }
 }

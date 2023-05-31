@@ -8,6 +8,8 @@ namespace Microsoft.Fast.Components.FluentUI.Icons.Generator.Model;
 [DebuggerDisplay("{Name} {Variant} {Size}")]
 internal class Icon
 {
+    private char[] InvalidCharacters = new[] { '_', ' ', '-', '.', ',' };
+
     /// <summary>
     /// Convert the file to an icon
     /// Example: "ic_fluent_add_circle_20_regular.svg" => "AddCircle", 20, "Regular"
@@ -18,23 +20,30 @@ internal class Icon
         File = file;
 
         string filename = Path.GetFileNameWithoutExtension(file.Name);
-        string[] nameParts = filename.Split('_');
+        string[] nameParts = filename.Split(InvalidCharacters);
 
         if (nameParts.Length >= 5)
         {
             Variant = ToPascalCase(nameParts[^1]);
             Size = int.Parse(nameParts[^2]);
-            Name = ToPascalCase(nameParts[2..^2]);
+            Name = GetIconName(file);
+        }
 
-            // Exceptions
-            if (file.FullName.Contains(" RTL"))
-            {
-                Name += "Rtl";
-            }
-            if (file.FullName.Contains(" LTR"))
-            {
-                Name += "Ltr";
-            }           
+        if (Name == "Ltr")
+        {
+            Debugger.Break();
+        }
+
+        // Gets the icon name from the parent folder
+        // Because the icon name is not always the same as the file name
+        // It's possible to have subfolders to identify the country (en, it, etc.) or LTR/RTL.
+        string GetIconName(FileInfo file)
+        {
+            string parentName = file.Directory!.Parent!.Name;
+            string parentParentName = file.Directory!.Parent!.Parent!.Name;
+            
+            string name = parentName.Length <= 3 ? $"{parentParentName} {parentName}" : parentName;
+            return ToPascalCase(name.Split(InvalidCharacters));
         }
     }
 

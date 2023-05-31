@@ -7,7 +7,7 @@ namespace Microsoft.Fast.Components.FluentUI.Icons.Generator;
 /// </summary>
 internal class Configuration
 {
-    private const string DefaultNamespace = "Microsoft.Fast.Components.FluentUI";
+    private const string DefaultNamespace = "Microsoft.Fast.Components.FluentUI.Icons";
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Configuration"/> class.
@@ -76,7 +76,7 @@ internal class Configuration
         Console.WriteLine("                     If not specified, the current working directory will be used.");
         Console.WriteLine();
         Console.WriteLine("  --Namespace | -ns  The namespace used for generated classes.");
-        Console.WriteLine("                     If not specified, \"Microsoft.Fast.Components.FluentUI\" will be used.");
+        Console.WriteLine("                     If not specified, \"Microsoft.Fast.Components.FluentUI.Icons\" will be used.");
         Console.WriteLine();
         Console.WriteLine("  --Help      | -h   Display this documentation.");
     }
