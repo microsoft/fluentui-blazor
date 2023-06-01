@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Drawing;
 using System.Text;
+using Microsoft.Extensions.Primitives;
 
 namespace Microsoft.Fast.Components.FluentUI.IconsGenerator;
 
@@ -33,17 +34,24 @@ internal class CodeGenerator
     public IEnumerable<Model.Icon> ReadAllAssets()
     {
         const string searchPattern = "ic_fluent_*.svg";
-        var icons = new List<Model.Icon>();
+        var icons = new Dictionary<string, Model.Icon>();
 
         Logger.Invoke($"Reading all SVG files in {Configuration.AssetsFolder}.");
         var allFiles = Configuration.AssetsFolder.GetFiles(searchPattern, SearchOption.AllDirectories);
 
         foreach (var file in allFiles)
         {
-            icons.Add(new Model.Icon(file));
+            var newIcon = new Model.Icon(file);
+            var key = newIcon.Key.ToLower();
+
+            if (!icons.ContainsKey(key))
+            {
+                icons.Add(newIcon.Key.ToLower(), newIcon);
+            }
         }
 
-        return icons.OrderBy(i => i.Variant)
+        return icons.Values
+                    .OrderBy(i => i.Variant)
                     .ThenBy(i => i.Size)
                     .ThenBy(i => i.Name)
                     .ToArray();
@@ -72,21 +80,33 @@ internal class CodeGenerator
         var generatedFiles = new List<FileInfo>();
         var allSizes = icons.Where(i => Configuration.Sizes.Contains(i.Size)).Select(i => i.Size).Distinct().OrderBy(i => i);
         var allVariants = icons.Select(i => i.Variant).Distinct().OrderBy(i => i);
-
+        
         foreach (var variant in allVariants)
         {
             foreach (var size in allSizes)
             {
-                var filename = $"{variant}{size}.cs";
-                var file = new FileInfo(Path.Combine(Configuration.TargetFolder.FullName, filename));
+                // CSharp
+                var file = new FileInfo(Path.Combine(Configuration.TargetFolder.FullName, $"{variant}{size}.cs"));
                 var iconsForSizeAndVariant = icons.Where(i => i.Size == size && i.Variant == variant).OrderBy(i => i.Name);
 
                 Logger.Invoke($"Generating {file.Name}, containing {iconsForSizeAndVariant.Count()} icons.");
-                var classContent = GenerateClass(size, variant, iconsForSizeAndVariant);
+                var classContent = GenerateClass(size, variant, iconsForSizeAndVariant, Configuration.GenerateResx);
 
                 File.WriteAllText(file.FullName, classContent);
-
                 generatedFiles.Add(file);
+
+                // Resx
+                if (Configuration.GenerateResx)
+                {
+                    var resxFile = new FileInfo(Path.Combine(Configuration.TargetFolder.FullName, $"{variant}{size}Data.resx"));
+                    Logger.Invoke($"Generating associated {resxFile.Name}.");
+
+                    var resxContent = new ResourceGenerator(size, variant, iconsForSizeAndVariant).GenerateResx();
+
+                    File.WriteAllText(resxFile.FullName, resxContent);
+                    generatedFiles.Add(resxFile);
+                }
+
             }
         }
 
@@ -126,7 +146,7 @@ internal class CodeGenerator
     }
 
     /// <summary />
-    private string GenerateClass(int size, string variant, IEnumerable<Model.Icon> icons)
+    private string GenerateClass(int size, string variant, IEnumerable<Model.Icon> icons, bool isResx)
     {
         var builder = new StringBuilder();
 
@@ -149,16 +169,53 @@ internal class CodeGenerator
         builder.AppendLine("        public static partial class Size" + size);
         builder.AppendLine("        {");
 
+        // Resource Manager
+        if (isResx)
+        {
+            var className = $"{variant}{size}Data";
+
+            builder.AppendLine($"            private static System.Resources.ResourceManager _resourceMananager;");
+            builder.AppendLine();
+            builder.AppendLine($"            /// <summary>");
+            builder.AppendLine($"            /// Returns the cached ResourceManager instance used by this class.");
+            builder.AppendLine($"            /// </summary>");
+            builder.AppendLine($"            [System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]");
+            builder.AppendLine($"            internal static System.Resources.ResourceManager ResourceManager");
+            builder.AppendLine($"            {{");
+            builder.AppendLine($"                get");
+            builder.AppendLine($"                {{");
+            builder.AppendLine($"                    if (_resourceMananager == null)");
+            builder.AppendLine($"                    {{");
+            builder.AppendLine($"                        _resourceMananager = new System.Resources.ResourceManager(\"{Configuration.Namespace}.Icons.Assets.{className}\", typeof(Icons).Assembly);");
+            builder.AppendLine($"                    }}");
+            builder.AppendLine();
+            builder.AppendLine($"                    return _resourceMananager;");
+            builder.AppendLine($"                }}");
+            builder.AppendLine($"            }}");
+            builder.AppendLine();
+        }
+
         // Properties
         foreach (var icon in icons)
         {
-            var svgContent = icon.GetContent(removeSvgRoot: true)
-                                 .Replace("\"", "\\\"");
+            if (isResx)
+            {
+                builder.AppendLine($"            /// <summary />");
+                builder.AppendLine($"            public static string {icon.Name} {{ get; }} = ResourceManager.GetString(\"{icon.Name}\");");
+                builder.AppendLine();
+            }
+            else
+            {
+                var svgContent = icon.GetContent(removeSvgRoot: true)
+                                     .Replace("\"", "\\\"");
 
-            builder.AppendLine($"            /// <summary />");
-            builder.AppendLine($"            public static string {icon.Name} {{ get; }} = \"<icon size=\\\"{size}\\\" variant=\\\"{variant[0]}\\\" />{svgContent}\";");
-            builder.AppendLine();
+                builder.AppendLine($"            /// <summary />");
+                builder.AppendLine($"            public static string {icon.Name} {{ get; }} = \"<icon size=\\\"{size}\\\" variant=\\\"{variant[0]}\\\" />{svgContent}\";");
+                builder.AppendLine();
+            }
         }
+
+    
 
         builder.AppendLine("        }");
         builder.AppendLine("    }");

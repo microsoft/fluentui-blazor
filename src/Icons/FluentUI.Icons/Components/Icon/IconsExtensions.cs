@@ -19,7 +19,7 @@ internal static class IconsExtensions
     /// <returns></returns>
     internal static (int Size, string Variant) ExtractSystemIconDetails(this string? icon)
     {
-        if (!IsSystemIcon(icon))
+        if (!IsSystemIcon(icon) || string.IsNullOrEmpty(icon))
         {
             return (0, string.Empty);
         }

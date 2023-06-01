@@ -11,6 +11,7 @@ internal class Configuration
 {
     private const string DefaultNamespace = "Microsoft.Fast.Components.FluentUI";
     private const string DefaultSizes = "16,24,32";
+    private const string DefaultMode = "resx";
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Configuration"/> class.
@@ -34,6 +35,8 @@ internal class Configuration
             { "--namespace", "namespace" },
             { "-s", "sizes" },
             { "--sizes", "sizes" },
+            { "-m", "mode" },
+            { "--mode", "mode" },
         };
 
         var config = new ConfigurationBuilder().AddCommandLine(args, switchMappings)
@@ -43,6 +46,7 @@ internal class Configuration
         TargetFolder = GetAbsoluteFolder(config.GetSection("target").Value);
         Namespace = config.GetSection("namespace").Value ?? DefaultNamespace;
         Sizes = (config.GetSection("sizes").Value ?? DefaultSizes).Split(",").Select(i => Convert.ToInt32(i));
+        Mode = config.GetSection("mode").Value ?? DefaultMode;
     }
 
     /// <summary>
@@ -60,7 +64,18 @@ internal class Configuration
     /// </summary>
     public string Namespace { get; set; } = DefaultNamespace;
 
+    /// <summary>
+    /// Gets the list of icon sizes to generate.
+    /// </summary>
     public IEnumerable<int> Sizes { get; set; } = Array.Empty<int>();
+
+    /// <summary>
+    /// Gets a value indicating whether the resx files should be generated.
+    /// </summary>
+    public string Mode { get; set; } = DefaultMode;
+
+    /// <summary />
+    internal bool GenerateResx => Mode == "resx";
 
     /// <summary>
     /// Gets a value indicating whether the help documentation should be displayed.
@@ -88,6 +103,8 @@ internal class Configuration
         Console.WriteLine();
         Console.WriteLine("  --Target    | -t   The target directory where C# classes will be created.");
         Console.WriteLine("                     If not specified, the current working directory will be used.");
+        Console.WriteLine();
+        Console.WriteLine("  --Mode      | -m   The generator mode: 'class' or 'resx'.");
         Console.WriteLine();
         Console.WriteLine("  --Help      | -h   Display this documentation.");
     }

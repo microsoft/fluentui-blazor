@@ -59,3 +59,13 @@ Microsoft FluentUI Icons Generator
 
   --Help      | -h   Display this documentation.
 ```
+
+## Technical information
+
+This application stores the SVG data of the icons in RESX files,
+because, due to the large number of icons, it's not possible to place such a large 
+quantity of character strings without receiving a compilation error.
+
+```
+Error CS8103: Combined length of user strings used by the program exceeds allowed limit
+```
