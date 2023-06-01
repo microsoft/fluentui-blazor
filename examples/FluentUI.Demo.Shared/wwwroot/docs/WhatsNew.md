@@ -1,4 +1,7 @@
-﻿## V2.3.4
+﻿## V2.3.5
+- Fix [#386](https://github.com/microsoft/fluentui-blazor/issues/386) by updating web-components.min.js to 2.5.15
+- 
+## V2.3.4
 - Fix not being able to use library in a Razor Class Library (discussion [#391](https://github.com/microsoft/fluentui-blazor/discussions/391))
 - Fix [#414](https://github.com/microsoft/fluentui-blazor/issues/414): Table of Contents doesn't work correctly with Markdown Section in demo site/new components 
 - Fix [#413](https://github.com/microsoft/fluentui-blazor/issues/413): The default selected of the Navigation Menu is incorrect in Demo Site
