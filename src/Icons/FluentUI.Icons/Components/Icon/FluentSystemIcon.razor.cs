@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components.Web;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentIcon2 : FluentComponentBase
+public partial class FluentSystemIcon : FluentComponentBase
 {
     private string _icon = string.Empty;
 
