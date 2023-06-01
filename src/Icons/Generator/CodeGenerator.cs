@@ -117,9 +117,6 @@ internal class CodeGenerator
         builder.AppendLine("    {");
         foreach (var icon in icons)
         {
-            var svgContent = icon.GetContent(removeSvgRoot: true)
-                                 .Replace("\"", "\\\"");
-
             builder.AppendLine($"        {{ \"{icon.Key}\", {Configuration.Namespace}.Icons.{icon.Variant}.Size{icon.Size}.{icon.Name} }},");
         }
         builder.AppendLine("    };");
@@ -159,7 +156,7 @@ internal class CodeGenerator
                                  .Replace("\"", "\\\"");
 
             builder.AppendLine($"            /// <summary />");
-            builder.AppendLine($"            public static string {icon.Name} {{ get; }} = \"{svgContent}\";");
+            builder.AppendLine($"            public static string {icon.Name} {{ get; }} = \"<icon size=\\\"{size}\\\" variant=\\\"{variant[0]}\\\" />{svgContent}\";");
             builder.AppendLine();
         }
 

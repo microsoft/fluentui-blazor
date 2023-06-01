@@ -1,0 +1,17 @@
+@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentComponentBase
+
+@if (Icon.IsSystemIcon())
+{
+    <svg id="@Id" class="@Class" style="@Style" focusable="false" viewBox="@($"0 0 {Size} {Size}")" aria-hidden="true" @attributes="@AdditionalAttributes" @onclick="@OnClickHandlerAsync">
+        @if (!string.IsNullOrEmpty(Title))
+        {
+            <title>@Title</title>
+        }
+        @((MarkupString)@Icon)
+    </svg>
+}
+else
+{
+    <span id="@Id" class="@Class" style="@Style" title="@Title" @attributes="@AdditionalAttributes" @onclick="@OnClickHandlerAsync">@((MarkupString)@Icon)</span>
+}

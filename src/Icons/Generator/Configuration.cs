@@ -60,7 +60,7 @@ internal class Configuration
     /// </summary>
     public string Namespace { get; set; } = DefaultNamespace;
 
-    public IEnumerable<int> Sizes { get; set; } = DefaultSizes.Split(",").Select(i => Convert.ToInt32(i));
+    public IEnumerable<int> Sizes { get; set; } = Array.Empty<int>();
 
     /// <summary>
     /// Gets a value indicating whether the help documentation should be displayed.
