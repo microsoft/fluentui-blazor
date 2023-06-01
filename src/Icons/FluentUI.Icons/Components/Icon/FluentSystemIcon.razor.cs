@@ -1,11 +1,24 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentSystemIcon : FluentComponentBase
 {
     private string _icon = string.Empty;
+
+    /// <summary />
+    protected string? ClassValue => new CssBuilder(Class)
+        .Build();
+
+    /// <summary />
+    protected string? StyleValue => new StyleBuilder()
+        .AddStyle(Style)
+        .AddStyle("width", $"{Size}px", Size.HasValue && Size.Value > 0)
+        .AddStyle("fill", Color, !string.IsNullOrEmpty(Color))
+        .AddStyle("cursor", "pointer", OnClick.HasDelegate)
+        .Build();
 
     /// <summary>
     /// Icon to be used can either be svg paths.

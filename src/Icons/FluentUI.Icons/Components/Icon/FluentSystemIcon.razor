@@ -3,7 +3,7 @@
 
 @if (Icon.IsSystemIcon())
 {
-    <svg id="@Id" class="@Class" style="@Style" focusable="false" viewBox="@($"0 0 {Size} {Size}")" aria-hidden="true" @attributes="@AdditionalAttributes" @onclick="@OnClickHandlerAsync">
+    <svg id="@Id" class="@ClassValue" style="@StyleValue" focusable="false" viewBox="@($"0 0 {Size} {Size}")" aria-hidden="true" @attributes="@AdditionalAttributes">
         @if (!string.IsNullOrEmpty(Title))
         {
             <title>@Title</title>
@@ -13,5 +13,5 @@
 }
 else
 {
-    <span id="@Id" class="@Class" style="@Style" title="@Title" @attributes="@AdditionalAttributes" @onclick="@OnClickHandlerAsync">@((MarkupString)@Icon)</span>
+    <span id="@Id" class="@ClassValue" style="@StyleValue" title="@Title" @attributes="@AdditionalAttributes">@((MarkupString)@Icon)</span>
 }
