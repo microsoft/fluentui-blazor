@@ -12,10 +12,6 @@ export function init(gridElement) {
         if (columnOptionsElement && event.key === "Escape") {
             gridElement.dispatchEvent(new CustomEvent('closecolumnoptions', { bubbles: true }));
         }
-        if (event.target.localName === "fluent-search" && (event.key === "ArrowRight" || event.key === "ArrowLeft")) {
-            event.cancelBubble = true;
-            event.stopPropagation();
-        }
     };
 
 
