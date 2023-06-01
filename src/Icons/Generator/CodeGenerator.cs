@@ -53,7 +53,8 @@ internal class CodeGenerator
     {
         var file = new FileInfo(Path.Combine(Configuration.TargetFolder.FullName, "Icons.cs"));
 
-        Logger.Invoke($"Generating {file.Name}, containing {icons.Count()} icons.");
+        Logger.Invoke($"Generating {file.Name}, containing {icons.Count()} icons,");
+        Logger.Invoke($"in the target folder {Configuration.TargetFolder.FullName}.");
         var classContent = GenerateMainClass(icons);
 
         File.WriteAllText(file.FullName, classContent);

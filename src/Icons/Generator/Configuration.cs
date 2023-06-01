@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using Microsoft.Extensions.Configuration;
 
 namespace Microsoft.Fast.Components.FluentUI.IconsGenerator;
 
@@ -37,8 +39,8 @@ internal class Configuration
         var config = new ConfigurationBuilder().AddCommandLine(args, switchMappings)
                                                .Build();
 
-        AssetsFolder = new DirectoryInfo(config.GetSection("assets").Value ?? Directory.GetCurrentDirectory());
-        TargetFolder = new DirectoryInfo(config.GetSection("target").Value ?? Directory.GetCurrentDirectory());
+        AssetsFolder = GetAbsoluteFolder(config.GetSection("assets").Value);
+        TargetFolder = GetAbsoluteFolder(config.GetSection("target").Value);
         Namespace = config.GetSection("namespace").Value ?? DefaultNamespace;
         Sizes = (config.GetSection("sizes").Value ?? DefaultSizes).Split(",").Select(i => Convert.ToInt32(i));
     }
@@ -101,5 +103,33 @@ internal class Configuration
                           || string.Compare(i, "--help", StringComparison.OrdinalIgnoreCase) == 0
                           || string.Compare(i, "/h", StringComparison.OrdinalIgnoreCase) == 0
                           || string.Compare(i, "/?", StringComparison.OrdinalIgnoreCase) == 0);
+    }
+
+    private DirectoryInfo GetAbsoluteFolder(string? folder)
+    {
+        string currentPath = GetThisFilePath();
+        string path = folder ?? currentPath;
+
+        if (Path.IsPathRooted(path))
+        {
+            return new DirectoryInfo(path);
+        }
+
+        return new DirectoryInfo(Path.Combine(currentPath, path));
+    }
+
+    /// <summary>
+    /// Gets the path of the current file.
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns></returns>
+    static string GetThisFilePath([CallerFilePath] string? path = null)
+    {
+        if (Debugger.IsAttached)
+        {
+            return Path.GetDirectoryName(path) ?? Directory.GetCurrentDirectory();
+        }
+
+        return Directory.GetCurrentDirectory();
     }
 }
