@@ -23,19 +23,18 @@ internal class Icon
 
         string filename = Path.GetFileNameWithoutExtension(file.Name);
         string[] nameParts = filename.Split(InvalidCharacters);
-        string parentName = file.Directory!.Parent!.Name; // Check if the SVG is included in a "language" folder.
+        string folderName = file.Directory!.Name; // Check if the SVG is included in a "language" folder.
 
-        if (string.Compare(parentName, "icons", StringComparison.CurrentCultureIgnoreCase) == 0)
+        if (string.Compare(folderName, "icons", StringComparison.CurrentCultureIgnoreCase) == 0)
         {
-            parentName = string.Empty;
+            folderName = string.Empty;
         }
 
         if (nameParts.Length >= 3)
         {
             Variant = ToPascalCase(nameParts[^1]);
             Size = int.Parse(nameParts[^2]);
-            Name = ToPascalCase(nameParts[..^2].Union(parentName.Split(InvalidCharacters)).ToArray());
-
+            Name = ToPascalCase(nameParts[..^2].Union(folderName.Split(InvalidCharacters)).ToArray());
         }
     }
 

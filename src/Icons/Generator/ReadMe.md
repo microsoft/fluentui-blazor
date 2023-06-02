@@ -13,7 +13,8 @@ To generate the icons, you need:
    npm install @fluentui/svg-icons
    ```
 
-2. Run the `FluentUIIconsGenerator.exe` application, passing the **Assets** path to this previous folder containing the SVG images as a parameter.
+2. Compile the project and run the `FluentUIIconsGenerator.exe` application,
+   passing the **Assets** path to this previous folder containing the SVG images as a parameter.
    
    ```cmd
    FluentUIIconsGenerator.exe --Assets=C:\Temp\Icons --Target=./Samples
