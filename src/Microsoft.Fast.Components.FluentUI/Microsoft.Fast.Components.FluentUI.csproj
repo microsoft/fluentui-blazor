@@ -24,10 +24,7 @@
 		<StaticWebAssetBasePath>_content/$(MSBuildProjectName)</StaticWebAssetBasePath>
 		<DisableStaticWebAssetsBuildPropsFileGeneration></DisableStaticWebAssetsBuildPropsFileGeneration>
 		<StaticWebAssetsDisableProjectBuildPropsFileGeneration>true</StaticWebAssetsDisableProjectBuildPropsFileGeneration>
-		<StaticWebAssetsDisableProjectBuildMultiTargetingPropsFileGeneration>true</StaticWebAssetsDisableProjectBuildMultiTargetingPropsFileGeneration>
-		<StaticWebAssetsDisableProjectBuildTransitivePropsFileGeneration>true</StaticWebAssetsDisableProjectBuildTransitivePropsFileGeneration>
 		<StaticWebAssetsGetBuildAssetsTargets>GetFluentUIAssets;GetCurrentProjectBuildStaticWebAssetItems</StaticWebAssetsGetBuildAssetsTargets>
-
 		<IsPackable>true</IsPackable>
 	</PropertyGroup>
 

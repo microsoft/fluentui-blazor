@@ -1,3 +1,16 @@
 ﻿@page "/DesignTokens"
+
 <h1>Design Tokens</h1>
-<MarkdownSection FromAsset="./_content/FluentUI.Demo.Shared/docs/DesignTokens.md" />
+
+<MarkdownSection FromAsset="./_content/FluentUI.Demo.Shared/docs/DesignTokens.md" OnContentConverted="RefreshTableOfContents" />
+
+@code {
+
+    [CascadingParameter]
+    public EventCallback OnRefreshTableOfContents { get; set; }
+
+    private async Task RefreshTableOfContents()
+    {
+        await OnRefreshTableOfContents.InvokeAsync();
+    }
+}

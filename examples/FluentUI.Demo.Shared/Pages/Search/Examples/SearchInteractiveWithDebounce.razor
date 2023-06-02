@@ -83,7 +83,7 @@
         else
         {
             searchResults = defaultResults();
-            StateHasChanged();
+            await InvokeAsync(StateHasChanged); 
         }
     }
 

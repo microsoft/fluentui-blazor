@@ -1,0 +1,12 @@
+.small {
+    font-size: var(--type-ramp-minus-1-font-size);
+    font-variation-settings: var(--type-ramp-minus-1-font-variations);
+    line-height: var(--type-ramp-minus-1-line-height)
+}
+
+
+.extrasmall {
+    font-size: var(--type-ramp-minus-2-font-size);
+    font-variation-settings: var(--type-ramp-minus-2-font-variations);
+    line-height: var(--type-ramp-minus-1-line-height);
+}

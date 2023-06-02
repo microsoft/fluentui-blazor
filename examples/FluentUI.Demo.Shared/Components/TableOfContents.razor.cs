@@ -3,9 +3,10 @@ using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.Fast.Components.FluentUI;
 using Microsoft.JSInterop;
 
+// Remember to replace the namespace below with your own project's namespace.
+namespace FluentUI.Demo.Shared.Components;
 
-namespace Microsoft.Fast.Components.FluentUI;
-public partial class FluentTableOfContents : IAsyncDisposable
+public partial class TableOfContents : IAsyncDisposable
 {
     private record Anchor(string Level, string Text, string Href, Anchor[] Anchors);
     private Anchor[]? _anchors;
@@ -43,18 +44,19 @@ public partial class FluentTableOfContents : IAsyncDisposable
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
-        {
-            // Remember to replace the location of the script with your own project specific location.
-            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-                "./_content/Microsoft.Fast.Components.FluentUI/Components/TableOfContents/FluentTableOfContents.razor.js");
-            await QueryDom();
-            
-            bool mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
+        //if (firstRender)
+        //{
+        // Remember to replace the location of the script with your own project specific location.
+        _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
+            "./_content/FluentUI.Demo.Shared/Components/TableOfContents.razor.js");
 
-            if (mobile)
-                _expanded = false;
-        }
+        bool mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
+
+        if (mobile)
+            _expanded = false;
+
+        await QueryDom();
+        //}
     }
 
     private async Task BackToTop()
@@ -72,7 +74,6 @@ public partial class FluentTableOfContents : IAsyncDisposable
     {
         // Subscribe to the event
         NavigationManager.LocationChanged += LocationChanged;
-        base.OnInitialized();
     }
 
     private async void LocationChanged(object? sender, LocationChangedEventArgs e)
@@ -86,7 +87,12 @@ public partial class FluentTableOfContents : IAsyncDisposable
             // Already disposed
         }
     }
-    
+
+    public async Task Refresh()
+    {
+        await QueryDom();
+    }
+
     private RenderFragment? GetTocItems(IEnumerable<Anchor>? items)
     {
         if (items is not null)
@@ -105,12 +111,11 @@ public partial class FluentTableOfContents : IAsyncDisposable
                     builder.AddAttribute(i++, "ChildContent", (RenderFragment)(content =>
                     {
                         content.AddContent(i++, item.Text);
-                        
                     }));
                     builder.CloseComponent();
                     if (item.Anchors is not null)
                     {
-                       builder.AddContent(i++, GetTocItems(item.Anchors));
+                        builder.AddContent(i++, GetTocItems(item.Anchors));
                     }
                     builder.CloseElement();
                 }
@@ -126,14 +131,14 @@ public partial class FluentTableOfContents : IAsyncDisposable
         }
 
     }
-    
+
     async ValueTask IAsyncDisposable.DisposeAsync()
     {
         try
         {
             // Unsubscribe from the event when our component is disposed
             NavigationManager.LocationChanged -= LocationChanged;
-            
+
             if (_jsModule is not null)
             {
                 await _jsModule.DisposeAsync();

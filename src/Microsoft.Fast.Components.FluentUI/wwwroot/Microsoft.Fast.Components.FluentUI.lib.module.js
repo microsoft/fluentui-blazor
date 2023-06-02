@@ -7,6 +7,9 @@ export function afterStarted(Blazor) {
     Blazor.registerCustomEventType('customclick', {
         browserEventName: 'click',
         createEventArgs: event => {
+            if (event.target._readOnly || event.target._disabled) {
+                return null;
+            }
             return {
                 value: event.target.value
             };
@@ -42,7 +45,7 @@ export function afterStarted(Blazor) {
     Blazor.registerCustomEventType('tabchange', {
         browserEventName: 'change',
         createEventArgs: event => {
-            if (event.target.localName == 'fluent-tabs') { 
+            if (event.target.localName == 'fluent-tabs') {
                 return {
                     activeId: event.detail.id,
                 }
@@ -88,7 +91,7 @@ export function afterStarted(Blazor) {
         }
     });
     Blazor.registerCustomEventType('dialogdismiss', {
-        browserEventName: 'dismiss' ,
+        browserEventName: 'dismiss',
         createEventArgs: event => {
             if (event.target.localName == 'fluent-dialog') {
                 return {
@@ -152,6 +155,6 @@ export function beforeStart(options, extensions) {
     wcScript.type = 'module';
     wcScript.src = './_content/Microsoft.Fast.Components.FluentUI/js/web-components.min.js';
     wcScript.async = true;
-    document.body.appendChild(wcScript);   
+    document.body.appendChild(wcScript);
 }
 

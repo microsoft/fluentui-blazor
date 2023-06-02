@@ -81,7 +81,9 @@
             <article id="article">
                 <ErrorBoundary @ref="errorBoundary">
                     <ChildContent>
-                        @Body
+                        <CascadingValue Value=@OnRefreshTableOfContents>
+                            @Body
+                        </CascadingValue>
                     </ChildContent>
                     <ErrorContent Context="ex">
                         <div class="blazor-error-boundary">@ex.Message</div>
@@ -89,7 +91,7 @@
                 </ErrorBoundary>
             </article>
             <aside>
-                <FluentTableOfContents />
+                <TableOfContents @ref=_toc/>
                 <ConsoleLog />
             </aside>
         </div>
