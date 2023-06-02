@@ -10,8 +10,8 @@ namespace Microsoft.Fast.Components.FluentUI.IconsGenerator;
 internal class Configuration
 {
     private const string DefaultNamespace = "Microsoft.Fast.Components.FluentUI";
-    private const string DefaultSizes = "16,24,32";
-    private const string DefaultMode = "resx";
+    private const string DefaultSizes = "16,20,24,32,48";
+    private const string DefaultMode = "class";
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Configuration"/> class.
@@ -105,6 +105,7 @@ internal class Configuration
         Console.WriteLine("                     If not specified, the current working directory will be used.");
         Console.WriteLine();
         Console.WriteLine("  --Mode      | -m   The generator mode: 'class' or 'resx'.");
+        Console.WriteLine("                     By default: 'class'");
         Console.WriteLine();
         Console.WriteLine("  --Help      | -h   Display this documentation.");
     }

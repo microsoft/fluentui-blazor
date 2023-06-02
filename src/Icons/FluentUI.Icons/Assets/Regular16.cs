@@ -16,3822 +16,3311 @@ public static partial class Icons
         [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
         public static partial class Size16
         {
-            private static System.Resources.ResourceManager _resourceMananager;
-
-            /// <summary>
-            /// Returns the cached ResourceManager instance used by this class.
-            /// </summary>
-            [System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-            internal static System.Resources.ResourceManager ResourceManager
-            {
-                get
-                {
-                    if (_resourceMananager == null)
-                    {
-                        _resourceMananager = new System.Resources.ResourceManager("Microsoft.Fast.Components.FluentUI.Icons.Assets.Regular16Data", typeof(Icons).Assembly);
-                    }
-
-                    return _resourceMananager;
-                }
-            }
-
-            /// <summary />
-            public static string Accessibility { get; } = ResourceManager.GetString("Accessibility");
-
-            /// <summary />
-            public static string AddCircle { get; } = ResourceManager.GetString("AddCircle");
-
-            /// <summary />
-            public static string AddSquareMultiple { get; } = ResourceManager.GetString("AddSquareMultiple");
-
-            /// <summary />
-            public static string AddSubtractCircle { get; } = ResourceManager.GetString("AddSubtractCircle");
-
-            /// <summary />
-            public static string AirplaneLanding { get; } = ResourceManager.GetString("AirplaneLanding");
-
-            /// <summary />
-            public static string AirplaneTakeOff { get; } = ResourceManager.GetString("AirplaneTakeOff");
-
-            /// <summary />
-            public static string Alert { get; } = ResourceManager.GetString("Alert");
-
-            /// <summary />
-            public static string AlertBadge { get; } = ResourceManager.GetString("AlertBadge");
-
-            /// <summary />
-            public static string AlertOff { get; } = ResourceManager.GetString("AlertOff");
-
-            /// <summary />
-            public static string AlertSnooze { get; } = ResourceManager.GetString("AlertSnooze");
-
-            /// <summary />
-            public static string AlertUrgent { get; } = ResourceManager.GetString("AlertUrgent");
-
-            /// <summary />
-            public static string AlignBottom { get; } = ResourceManager.GetString("AlignBottom");
-
-            /// <summary />
-            public static string AlignCenterHorizontal { get; } = ResourceManager.GetString("AlignCenterHorizontal");
-
-            /// <summary />
-            public static string AlignCenterVertical { get; } = ResourceManager.GetString("AlignCenterVertical");
-
-            /// <summary />
-            public static string AlignDistributeBottom { get; } = ResourceManager.GetString("AlignDistributeBottom");
-
-            /// <summary />
-            public static string AlignDistributeLeft { get; } = ResourceManager.GetString("AlignDistributeLeft");
-
-            /// <summary />
-            public static string AlignDistributeRight { get; } = ResourceManager.GetString("AlignDistributeRight");
-
-            /// <summary />
-            public static string AlignDistributeTop { get; } = ResourceManager.GetString("AlignDistributeTop");
-
-            /// <summary />
-            public static string AlignLeft { get; } = ResourceManager.GetString("AlignLeft");
-
-            /// <summary />
-            public static string AlignRight { get; } = ResourceManager.GetString("AlignRight");
-
-            /// <summary />
-            public static string AlignStretchHorizontal { get; } = ResourceManager.GetString("AlignStretchHorizontal");
-
-            /// <summary />
-            public static string AlignStretchVertical { get; } = ResourceManager.GetString("AlignStretchVertical");
-
-            /// <summary />
-            public static string AlignTop { get; } = ResourceManager.GetString("AlignTop");
-
-            /// <summary />
-            public static string AnimalCat { get; } = ResourceManager.GetString("AnimalCat");
-
-            /// <summary />
-            public static string AnimalDog { get; } = ResourceManager.GetString("AnimalDog");
-
-            /// <summary />
-            public static string AnimalRabbit { get; } = ResourceManager.GetString("AnimalRabbit");
-
-            /// <summary />
-            public static string AnimalTurtle { get; } = ResourceManager.GetString("AnimalTurtle");
-
-            /// <summary />
-            public static string AppFolder { get; } = ResourceManager.GetString("AppFolder");
-
-            /// <summary />
-            public static string ApprovalsApp { get; } = ResourceManager.GetString("ApprovalsApp");
-
-            /// <summary />
-            public static string Apps { get; } = ResourceManager.GetString("Apps");
-
-            /// <summary />
-            public static string AppsAddIn { get; } = ResourceManager.GetString("AppsAddIn");
-
-            /// <summary />
-            public static string Archive { get; } = ResourceManager.GetString("Archive");
-
-            /// <summary />
-            public static string ArchiveArrowBack { get; } = ResourceManager.GetString("ArchiveArrowBack");
-
-            /// <summary />
-            public static string ArchiveMultiple { get; } = ResourceManager.GetString("ArchiveMultiple");
-
-            /// <summary />
-            public static string ArchiveSettings { get; } = ResourceManager.GetString("ArchiveSettings");
-
-            /// <summary />
-            public static string ArrowBidirectionalUpDown { get; } = ResourceManager.GetString("ArrowBidirectionalUpDown");
-
-            /// <summary />
-            public static string ArrowBounce { get; } = ResourceManager.GetString("ArrowBounce");
-
-            /// <summary />
-            public static string ArrowCircleDown { get; } = ResourceManager.GetString("ArrowCircleDown");
-
-            /// <summary />
-            public static string ArrowCircleDownRight { get; } = ResourceManager.GetString("ArrowCircleDownRight");
-
-            /// <summary />
-            public static string ArrowCircleLeft { get; } = ResourceManager.GetString("ArrowCircleLeft");
-
-            /// <summary />
-            public static string ArrowCircleRight { get; } = ResourceManager.GetString("ArrowCircleRight");
-
-            /// <summary />
-            public static string ArrowCircleUp { get; } = ResourceManager.GetString("ArrowCircleUp");
-
-            /// <summary />
-            public static string ArrowClockwise { get; } = ResourceManager.GetString("ArrowClockwise");
-
-            /// <summary />
-            public static string ArrowCounterclockwise { get; } = ResourceManager.GetString("ArrowCounterclockwise");
-
-            /// <summary />
-            public static string ArrowCurveDownLeft { get; } = ResourceManager.GetString("ArrowCurveDownLeft");
-
-            /// <summary />
-            public static string ArrowDown { get; } = ResourceManager.GetString("ArrowDown");
-
-            /// <summary />
-            public static string ArrowDownLeft { get; } = ResourceManager.GetString("ArrowDownLeft");
-
-            /// <summary />
-            public static string ArrowDownload { get; } = ResourceManager.GetString("ArrowDownload");
-
-            /// <summary />
-            public static string ArrowEnter { get; } = ResourceManager.GetString("ArrowEnter");
-
-            /// <summary />
-            public static string ArrowExportLtr { get; } = ResourceManager.GetString("ArrowExportLtr");
-
-            /// <summary />
-            public static string ArrowExportRtl { get; } = ResourceManager.GetString("ArrowExportRtl");
-
-            /// <summary />
-            public static string ArrowFit { get; } = ResourceManager.GetString("ArrowFit");
-
-            /// <summary />
-            public static string ArrowFitIn { get; } = ResourceManager.GetString("ArrowFitIn");
-
-            /// <summary />
-            public static string ArrowFlowDiagonalUpRight { get; } = ResourceManager.GetString("ArrowFlowDiagonalUpRight");
-
-            /// <summary />
-            public static string ArrowFlowUpRight { get; } = ResourceManager.GetString("ArrowFlowUpRight");
-
-            /// <summary />
-            public static string ArrowForward { get; } = ResourceManager.GetString("ArrowForward");
-
-            /// <summary />
-            public static string ArrowHookDownLeft { get; } = ResourceManager.GetString("ArrowHookDownLeft");
-
-            /// <summary />
-            public static string ArrowHookDownRight { get; } = ResourceManager.GetString("ArrowHookDownRight");
-
-            /// <summary />
-            public static string ArrowHookUpLeft { get; } = ResourceManager.GetString("ArrowHookUpLeft");
-
-            /// <summary />
-            public static string ArrowHookUpRight { get; } = ResourceManager.GetString("ArrowHookUpRight");
-
-            /// <summary />
-            public static string ArrowLeft { get; } = ResourceManager.GetString("ArrowLeft");
-
-            /// <summary />
-            public static string ArrowMaximize { get; } = ResourceManager.GetString("ArrowMaximize");
-
-            /// <summary />
-            public static string ArrowMinimize { get; } = ResourceManager.GetString("ArrowMinimize");
-
-            /// <summary />
-            public static string ArrowNext { get; } = ResourceManager.GetString("ArrowNext");
-
-            /// <summary />
-            public static string ArrowParagraph { get; } = ResourceManager.GetString("ArrowParagraph");
-
-            /// <summary />
-            public static string ArrowPrevious { get; } = ResourceManager.GetString("ArrowPrevious");
-
-            /// <summary />
-            public static string ArrowRedo { get; } = ResourceManager.GetString("ArrowRedo");
-
-            /// <summary />
-            public static string ArrowRedoTempLtr { get; } = ResourceManager.GetString("ArrowRedoTempLtr");
-
-            /// <summary />
-            public static string ArrowRedoTempRtl { get; } = ResourceManager.GetString("ArrowRedoTempRtl");
-
-            /// <summary />
-            public static string ArrowRepeat1 { get; } = ResourceManager.GetString("ArrowRepeat1");
-
-            /// <summary />
-            public static string ArrowRepeatAll { get; } = ResourceManager.GetString("ArrowRepeatAll");
-
-            /// <summary />
-            public static string ArrowRepeatAllOff { get; } = ResourceManager.GetString("ArrowRepeatAllOff");
-
-            /// <summary />
-            public static string ArrowReply { get; } = ResourceManager.GetString("ArrowReply");
-
-            /// <summary />
-            public static string ArrowReplyAll { get; } = ResourceManager.GetString("ArrowReplyAll");
-
-            /// <summary />
-            public static string ArrowReplyDown { get; } = ResourceManager.GetString("ArrowReplyDown");
-
-            /// <summary />
-            public static string ArrowRight { get; } = ResourceManager.GetString("ArrowRight");
-
-            /// <summary />
-            public static string ArrowRotateClockwise { get; } = ResourceManager.GetString("ArrowRotateClockwise");
-
-            /// <summary />
-            public static string ArrowShuffle { get; } = ResourceManager.GetString("ArrowShuffle");
-
-            /// <summary />
-            public static string ArrowShuffleOff { get; } = ResourceManager.GetString("ArrowShuffleOff");
-
-            /// <summary />
-            public static string ArrowSort { get; } = ResourceManager.GetString("ArrowSort");
-
-            /// <summary />
-            public static string ArrowSortDown { get; } = ResourceManager.GetString("ArrowSortDown");
-
-            /// <summary />
-            public static string ArrowSortDownLines { get; } = ResourceManager.GetString("ArrowSortDownLines");
-
-            /// <summary />
-            public static string ArrowSortUp { get; } = ResourceManager.GetString("ArrowSortUp");
-
-            /// <summary />
-            public static string ArrowSplit { get; } = ResourceManager.GetString("ArrowSplit");
-
-            /// <summary />
-            public static string ArrowSprint { get; } = ResourceManager.GetString("ArrowSprint");
-
-            /// <summary />
-            public static string ArrowStepBack { get; } = ResourceManager.GetString("ArrowStepBack");
-
-            /// <summary />
-            public static string ArrowStepIn { get; } = ResourceManager.GetString("ArrowStepIn");
-
-            /// <summary />
-            public static string ArrowStepInLeft { get; } = ResourceManager.GetString("ArrowStepInLeft");
-
-            /// <summary />
-            public static string ArrowStepInRight { get; } = ResourceManager.GetString("ArrowStepInRight");
-
-            /// <summary />
-            public static string ArrowStepOut { get; } = ResourceManager.GetString("ArrowStepOut");
-
-            /// <summary />
-            public static string ArrowStepOver { get; } = ResourceManager.GetString("ArrowStepOver");
-
-            /// <summary />
-            public static string ArrowSync { get; } = ResourceManager.GetString("ArrowSync");
-
-            /// <summary />
-            public static string ArrowSyncCircle { get; } = ResourceManager.GetString("ArrowSyncCircle");
-
-            /// <summary />
-            public static string ArrowSyncOff { get; } = ResourceManager.GetString("ArrowSyncOff");
-
-            /// <summary />
-            public static string ArrowTrending { get; } = ResourceManager.GetString("ArrowTrending");
-
-            /// <summary />
-            public static string ArrowTrendingDown { get; } = ResourceManager.GetString("ArrowTrendingDown");
-
-            /// <summary />
-            public static string ArrowUndo { get; } = ResourceManager.GetString("ArrowUndo");
-
-            /// <summary />
-            public static string ArrowUndoTempLtr { get; } = ResourceManager.GetString("ArrowUndoTempLtr");
-
-            /// <summary />
-            public static string ArrowUndoTempRtl { get; } = ResourceManager.GetString("ArrowUndoTempRtl");
-
-            /// <summary />
-            public static string ArrowUp { get; } = ResourceManager.GetString("ArrowUp");
-
-            /// <summary />
-            public static string ArrowUpLeft { get; } = ResourceManager.GetString("ArrowUpLeft");
-
-            /// <summary />
-            public static string ArrowUpload { get; } = ResourceManager.GetString("ArrowUpload");
-
-            /// <summary />
-            public static string ArrowUpRight { get; } = ResourceManager.GetString("ArrowUpRight");
-
-            /// <summary />
-            public static string AssetsAdd { get; } = ResourceManager.GetString("AssetsAdd");
-
-            /// <summary />
-            public static string AssetsBed { get; } = ResourceManager.GetString("AssetsBed");
-
-            /// <summary />
-            public static string AssetsBox { get; } = ResourceManager.GetString("AssetsBox");
-
-            /// <summary />
-            public static string AssetsBug { get; } = ResourceManager.GetString("AssetsBug");
-
-            /// <summary />
-            public static string AssetsCd { get; } = ResourceManager.GetString("AssetsCd");
-
-            /// <summary />
-            public static string AssetsEye { get; } = ResourceManager.GetString("AssetsEye");
-
-            /// <summary />
-            public static string AssetsFax { get; } = ResourceManager.GetString("AssetsFax");
-
-            /// <summary />
-            public static string AssetsGif { get; } = ResourceManager.GetString("AssetsGif");
-
-            /// <summary />
-            public static string AssetsHd { get; } = ResourceManager.GetString("AssetsHd");
-
-            /// <summary />
-            public static string AssetsIot { get; } = ResourceManager.GetString("AssetsIot");
-
-            /// <summary />
-            public static string AssetsKey { get; } = ResourceManager.GetString("AssetsKey");
-
-            /// <summary />
-            public static string AssetsMap { get; } = ResourceManager.GetString("AssetsMap");
-
-            /// <summary />
-            public static string AssetsMic { get; } = ResourceManager.GetString("AssetsMic");
-
-            /// <summary />
-            public static string AssetsNew { get; } = ResourceManager.GetString("AssetsNew");
-
-            /// <summary />
-            public static string AssetsPen { get; } = ResourceManager.GetString("AssetsPen");
-
-            /// <summary />
-            public static string AssetsPin { get; } = ResourceManager.GetString("AssetsPin");
-
-            /// <summary />
-            public static string AssetsRam { get; } = ResourceManager.GetString("AssetsRam");
-
-            /// <summary />
-            public static string AssetsRun { get; } = ResourceManager.GetString("AssetsRun");
-
-            /// <summary />
-            public static string AssetsSim { get; } = ResourceManager.GetString("AssetsSim");
-
-            /// <summary />
-            public static string AssetsTab { get; } = ResourceManager.GetString("AssetsTab");
-
-            /// <summary />
-            public static string AssetsTag { get; } = ResourceManager.GetString("AssetsTag");
-
-            /// <summary />
-            public static string AssetsTv { get; } = ResourceManager.GetString("AssetsTv");
-
-            /// <summary />
-            public static string Attach { get; } = ResourceManager.GetString("Attach");
-
-            /// <summary />
-            public static string Autosum { get; } = ResourceManager.GetString("Autosum");
-
-            /// <summary />
-            public static string Backpack { get; } = ResourceManager.GetString("Backpack");
-
-            /// <summary />
-            public static string Backspace { get; } = ResourceManager.GetString("Backspace");
-
-            /// <summary />
-            public static string Balloon { get; } = ResourceManager.GetString("Balloon");
-
-            /// <summary />
-            public static string Beach { get; } = ResourceManager.GetString("Beach");
-
-            /// <summary />
-            public static string Beaker { get; } = ResourceManager.GetString("Beaker");
-
-            /// <summary />
-            public static string BeakerSettings { get; } = ResourceManager.GetString("BeakerSettings");
-
-            /// <summary />
-            public static string BinderTriangle { get; } = ResourceManager.GetString("BinderTriangle");
-
-            /// <summary />
-            public static string Bluetooth { get; } = ResourceManager.GetString("Bluetooth");
-
-            /// <summary />
-            public static string Blur { get; } = ResourceManager.GetString("Blur");
-
-            /// <summary />
-            public static string Board { get; } = ResourceManager.GetString("Board");
-
-            /// <summary />
-            public static string BoardHeart { get; } = ResourceManager.GetString("BoardHeart");
-
-            /// <summary />
-            public static string BoardSplit { get; } = ResourceManager.GetString("BoardSplit");
-
-            /// <summary />
-            public static string BookDismiss { get; } = ResourceManager.GetString("BookDismiss");
-
-            /// <summary />
-            public static string Bookmark { get; } = ResourceManager.GetString("Bookmark");
-
-            /// <summary />
-            public static string BookmarkMultiple { get; } = ResourceManager.GetString("BookmarkMultiple");
-
-            /// <summary />
-            public static string BookNumber { get; } = ResourceManager.GetString("BookNumber");
-
-            /// <summary />
-            public static string BookOpen { get; } = ResourceManager.GetString("BookOpen");
-
-            /// <summary />
-            public static string BorderAll { get; } = ResourceManager.GetString("BorderAll");
-
-            /// <summary />
-            public static string BowlChopsticks { get; } = ResourceManager.GetString("BowlChopsticks");
-
-            /// <summary />
-            public static string BoxSearch { get; } = ResourceManager.GetString("BoxSearch");
-
-            /// <summary />
-            public static string Braces { get; } = ResourceManager.GetString("Braces");
-
-            /// <summary />
-            public static string BracesCheckmark { get; } = ResourceManager.GetString("BracesCheckmark");
-
-            /// <summary />
-            public static string BracesDismiss { get; } = ResourceManager.GetString("BracesDismiss");
-
-            /// <summary />
-            public static string Branch { get; } = ResourceManager.GetString("Branch");
-
-            /// <summary />
-            public static string BranchCompare { get; } = ResourceManager.GetString("BranchCompare");
-
-            /// <summary />
-            public static string BranchFork { get; } = ResourceManager.GetString("BranchFork");
-
-            /// <summary />
-            public static string Briefcase { get; } = ResourceManager.GetString("Briefcase");
-
-            /// <summary />
-            public static string BriefcaseMedical { get; } = ResourceManager.GetString("BriefcaseMedical");
-
-            /// <summary />
-            public static string BriefcaseOff { get; } = ResourceManager.GetString("BriefcaseOff");
-
-            /// <summary />
-            public static string BrightnessHigh { get; } = ResourceManager.GetString("BrightnessHigh");
-
-            /// <summary />
-            public static string BrightnessLow { get; } = ResourceManager.GetString("BrightnessLow");
-
-            /// <summary />
-            public static string BroadActivityFeed { get; } = ResourceManager.GetString("BroadActivityFeed");
-
-            /// <summary />
-            public static string Broom { get; } = ResourceManager.GetString("Broom");
-
-            /// <summary />
-            public static string Building { get; } = ResourceManager.GetString("Building");
-
-            /// <summary />
-            public static string BuildingBank { get; } = ResourceManager.GetString("BuildingBank");
-
-            /// <summary />
-            public static string BuildingBankLink { get; } = ResourceManager.GetString("BuildingBankLink");
-
-            /// <summary />
-            public static string BuildingDesktop { get; } = ResourceManager.GetString("BuildingDesktop");
-
             /// <summary />
-            public static string BuildingFactory { get; } = ResourceManager.GetString("BuildingFactory");
+            public static string AccessibilitySvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6.75 3.25a1.25 1.25 0 1 1 2.5 0 1.25 1.25 0 0 1-2.5 0ZM8 1a2.25 2.25 0 0 0-2.19 2.77L4.2 3.12a1.6 1.6 0 0 0-2.08.87c-.33.81.06 1.74.87 2.07l2.01.8v2.4l-1.81 3.4a1.6 1.6 0 1 0 2.8 1.5L8 10.39l2 3.77a1.6 1.6 0 0 0 2.81-1.5L11 9.26v-2.4l2-.8c.82-.33 1.21-1.26.88-2.07a1.6 1.6 0 0 0-2.08-.87l-1.61.65A2.26 2.26 0 0 0 8 1ZM3.05 4.37a.6.6 0 0 1 .77-.33l3.43 1.39a2 2 0 0 0 1.5 0l3.43-1.39a.6.6 0 0 1 .77.33c.13.3-.02.64-.32.76l-2 .81a1 1 0 0 0-.63.93v2.38a1 1 0 0 0 .12.47l1.81 3.41a.6.6 0 0 1-1.04.56l-2-3.77a1 1 0 0 0-1.77 0l-2 3.77a.6.6 0 1 1-1.05-.56l1.81-3.4A1 1 0 0 0 6 9.24V6.87a1 1 0 0 0-.63-.93l-2-.8a.58.58 0 0 1-.32-.77Z\"/>";
 
             /// <summary />
-            public static string BuildingHome { get; } = ResourceManager.GetString("BuildingHome");
+            public static string AddCircleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 5c.28 0 .5.22.5.5v2h2a.5.5 0 0 1 0 1h-2v2a.5.5 0 0 1-1 0v-2h-2a.5.5 0 0 1 0-1h2v-2c0-.28.22-.5.5-.5ZM2 8a6 6 0 1 1 12 0A6 6 0 0 1 2 8Zm6-5a5 5 0 1 0 0 10A5 5 0 0 0 8 3Z\"/>";
 
             /// <summary />
-            public static string BuildingPeople { get; } = ResourceManager.GetString("BuildingPeople");
+            public static string AddSquareMultipleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 7c0-.28.22-.5.5-.5h2v-2a.5.5 0 0 1 1 0v2h2a.5.5 0 0 1 0 1h-2v2a.5.5 0 0 1-1 0v-2h-2A.5.5 0 0 1 4 7Zm0-5a2 2 0 0 0-2 2v6c0 1.1.9 2 2 2h6a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H4ZM3 4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4Zm7.5 9a2.5 2.5 0 0 0 2.5-2.5V3.27c.6.34 1 .99 1 1.73v5.5a3.5 3.5 0 0 1-3.5 3.5H5a2 2 0 0 1-1.73-1h7.23Z\"/>";
 
             /// <summary />
-            public static string BuildingShop { get; } = ResourceManager.GetString("BuildingShop");
+            public static string AddSubtractCircleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9 10.5c0-.28.22-.5.5-.5H12a.5.5 0 0 1 0 1H9.5a.5.5 0 0 1-.5-.5Zm-3-6a.5.5 0 0 0-1 0v1H4a.5.5 0 0 0 0 1h1v.8a.5.5 0 0 0 1 0v-.8h1a.5.5 0 0 0 0-1H6v-1ZM8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14Zm0-1a5.98 5.98 0 0 1-3.87-1.42l8.45-8.45A6 6 0 0 1 8 14Zm-4.58-2.13a6 6 0 0 1 8.46-8.46l-8.46 8.46Z\"/>";
 
             /// <summary />
-            public static string BuildingSkyscraper { get; } = ResourceManager.GetString("BuildingSkyscraper");
+            public static string AddSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 2.5a.5.5 0 0 0-1 0V7H2.5a.5.5 0 0 0 0 1H7v4.5a.5.5 0 0 0 1 0V8h4.5a.5.5 0 0 0 0-1H8V2.5Z\"/>";
 
             /// <summary />
-            public static string Button { get; } = ResourceManager.GetString("Button");
+            public static string AirplaneTakeOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m5.1 5.56-.76-.99a1.6 1.6 0 0 1 2.17-2.29l2.1 1.44c.25-.32.55-.66.9-.95.53-.43 1.2-.77 2-.77 1.54.01 2.65 1.21 3.24 2.02.57.8.11 1.78-.7 2.08l-2.23.82-3.1 4.48c-.94 1.35-3.06.42-2.7-1.18l.31-1.41-3.1.87A1.75 1.75 0 0 1 1 8V5.16c0-1.21 1.64-1.59 2.17-.5l.6 1.25 1.34-.35Zm.03-1.6 1.03 1.32 1.04-.27c.3-.08.57-.25.8-.5l-2.06-1.4a.6.6 0 0 0-.8.85Zm4 .74a2.96 2.96 0 0 1-1.67 1.28l-3.83 1a.5.5 0 0 1-.58-.26L2.27 5.1c-.03-.05-.05-.06-.07-.07a.15.15 0 0 0-.1 0 .15.15 0 0 0-.07.04c-.01.01-.03.04-.03.09V8c0 .5.47.86.95.72l3.1-.87a1 1 0 0 1 1.26 1.18l-.32 1.4c-.12.54.59.85.9.4l3.2-4.61a.5.5 0 0 1 .24-.19l2.38-.87a.44.44 0 0 0 .27-.26.3.3 0 0 0-.05-.3C13.37 3.84 12.52 3 11.5 3c-.49 0-.94.2-1.35.54A5.2 5.2 0 0 0 9.14 4.7ZM1.5 14a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1h-13Z\"/>";
 
             /// <summary />
-            public static string Calculator { get; } = ResourceManager.GetString("Calculator");
+            public static string AlertBadgeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 2a4.5 4.5 0 0 0-4.5 4.5v2.4l-.96 2.41A.5.5 0 0 0 3 12h3a2 2 0 1 0 4 0h3a.5.5 0 0 0 .46-.69l-.96-2.4V7c-.36 0-.7-.07-1-.2V9c0 .06.01.12.04.18l.72 1.82H3.74l.72-1.82A.5.5 0 0 0 4.5 9V6.5a3.5 3.5 0 0 1 5.62-2.78c.11-.33.28-.62.5-.87A4.48 4.48 0 0 0 8 2Zm1 10a1 1 0 0 1-1 1 1 1 0 0 1-1-1h2Zm2.37-8.48a1.5 1.5 0 0 0-.03 1.93 1.5 1.5 0 1 0 .03-1.93Z\"/>";
 
             /// <summary />
-            public static string CalculatorMultiple { get; } = ResourceManager.GetString("CalculatorMultiple");
+            public static string AlertOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m11.3 12 2.85 2.85a.5.5 0 0 0 .7-.7l-13-13a.5.5 0 1 0-.7.7L3.9 4.62A4.48 4.48 0 0 0 3.5 6.5v2.4l-.96 2.41A.5.5 0 0 0 3 12h3a2 2 0 1 0 4 0h1.3Zm-1-1H3.73l.72-1.82A.5.5 0 0 0 4.5 9V6.5c0-.39.06-.76.18-1.11L10.3 11ZM8 13a1 1 0 0 1-1-1h2a1 1 0 0 1-1 1Zm3.69-3.43-.15-.39A.5.5 0 0 1 11.5 9V6.5a3.5 3.5 0 0 0-5.64-2.77l-.72-.7A4.5 4.5 0 0 1 12.5 6.5v2.4l.96 2.4.02.05-1.79-1.8Z\"/>";
 
             /// <summary />
-            public static string Calendar3Day { get; } = ResourceManager.GetString("Calendar3Day");
+            public static string AlertSnoozeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11 1a.5.5 0 0 0 0 1h2.54l-2.95 4.21A.5.5 0 0 0 11 7h3.5a.5.5 0 1 0 0-1h-2.54l2.95-4.21A.5.5 0 0 0 14.5 1H11ZM6.5 5a.5.5 0 0 0 0 1h1.43L6.12 8.18A.5.5 0 0 0 6.5 9H9a.5.5 0 0 0 0-1H7.57l1.81-2.18A.5.5 0 0 0 9 5H6.5ZM8 3a3.5 3.5 0 0 0-3.5 3.5V9a.5.5 0 0 1-.04.19L3.74 11h8.52l-.72-1.81A.5.5 0 0 1 11.5 9v-.5a.5.5 0 0 1 1 0v.4l.96 2.41A.5.5 0 0 1 13 12h-3a2 2 0 1 1-4 0H3a.5.5 0 0 1-.46-.69l.96-2.4V6.5a4.5 4.5 0 0 1 6.19-4.17.5.5 0 1 1-.38.92C8.91 3.1 8.47 3 8 3Zm-1 9a1 1 0 1 0 2 0H7Z\"/>";
 
             /// <summary />
-            public static string CalendarAdd { get; } = ResourceManager.GetString("CalendarAdd");
+            public static string AlertSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 2a4.5 4.5 0 0 0-4.5 4.5v2.4l-.96 2.41A.5.5 0 0 0 3 12h3a2 2 0 1 0 4 0h3a.5.5 0 0 0 .46-.69l-.96-2.4V6.5A4.5 4.5 0 0 0 8 2Zm1 10a1 1 0 0 1-1 1 1 1 0 0 1-1-1h2ZM4.5 6.5a3.5 3.5 0 1 1 7 0V9c0 .06.01.12.04.18l.72 1.82H3.74l.72-1.82A.5.5 0 0 0 4.5 9V6.5Z\"/>";
 
             /// <summary />
-            public static string CalendarArrowCounterclockwise { get; } = ResourceManager.GetString("CalendarArrowCounterclockwise");
+            public static string AlertUrgentSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10.7 1.04a.5.5 0 0 0-.4.92l.28.15a7.21 7.21 0 0 1 2.49 2.48c1.02 1.7.95 3.52.93 3.86v.05a.5.5 0 0 0 1 0v-.02a7.87 7.87 0 0 0-.06-1.43 7.8 7.8 0 0 0-4.24-6Zm.1 2.56a.5.5 0 1 0-.57.82 3.53 3.53 0 0 1 1.54 2.83.5.5 0 0 0 1 0v-.06a3.35 3.35 0 0 0-.06-.61A4.6 4.6 0 0 0 11.31 4c-.28-.26-.52-.41-.52-.41Zm-8.26 7.1a4 4 0 0 1 6.93-4l.82 1.43 1.9 1.38a.5.5 0 0 1-.04.84l-2.53 1.46-2.74 1.58-2.53 1.46a.5.5 0 0 1-.74-.38l-.25-2.34-.82-1.42Zm.86-.5.88 1.52a.5.5 0 0 1 .06.2l.18 1.68 6.46-3.73-1.37-1a.5.5 0 0 1-.14-.15L8.6 7.2a3 3 0 0 0-5.2 3Zm3.85 4.14a1.75 1.75 0 0 0 3-1.74l-3 1.74Z\"/>";
 
             /// <summary />
-            public static string CalendarArrowRight { get; } = ResourceManager.GetString("CalendarArrowRight");
+            public static string AlignBottomSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1.5 14a.5.5 0 0 1 0-1h13a.5.5 0 0 1 0 1h-13Zm.5-3.75c0 .97.78 1.75 1.75 1.75h1.5C6.22 12 7 11.22 7 10.25v-6.5C7 2.78 6.22 2 5.25 2h-1.5C2.78 2 2 2.78 2 3.75v6.5Zm1.75.75a.75.75 0 0 1-.75-.75v-6.5c0-.41.34-.75.75-.75h1.5c.41 0 .75.34.75.75v6.5c0 .41-.34.75-.75.75h-1.5ZM9 10.25c0 .97.78 1.75 1.75 1.75h1.5c.97 0 1.75-.78 1.75-1.75v-4.5C14 4.78 13.22 4 12.25 4h-1.5C9.78 4 9 4.78 9 5.75v4.5Zm1.75.75a.75.75 0 0 1-.75-.75v-4.5c0-.41.34-.75.75-.75h1.5c.41 0 .75.34.75.75v4.5c0 .41-.34.75-.75.75h-1.5Z\"/>";
 
             /// <summary />
-            public static string CalendarAssistant { get; } = ResourceManager.GetString("CalendarAssistant");
+            public static string AlignCenterHorizontalSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M15 7.5a.5.5 0 0 1-.5.5H14v1.25c0 .97-.78 1.75-1.75 1.75h-1.5C9.78 11 9 10.22 9 9.25V8H7v2.25C7 11.22 6.22 12 5.25 12h-1.5C2.78 12 2 11.22 2 10.25V8h-.5a.5.5 0 0 1 0-1H2V4.75C2 3.78 2.78 3 3.75 3h1.5C6.22 3 7 3.78 7 4.75V7h2V5.75C9 4.78 9.78 4 10.75 4h1.5c.97 0 1.75.78 1.75 1.75V7h.5c.28 0 .5.22.5.5ZM3 10.25c0 .41.34.75.75.75h1.5c.41 0 .75-.34.75-.75v-5.5A.75.75 0 0 0 5.25 4h-1.5a.75.75 0 0 0-.75.75v5.5Zm7-1c0 .41.34.75.75.75h1.5c.41 0 .75-.34.75-.75v-3.5a.75.75 0 0 0-.75-.75h-1.5a.75.75 0 0 0-.75.75v3.5Z\"/>";
 
             /// <summary />
-            public static string CalendarCancel { get; } = ResourceManager.GetString("CalendarCancel");
+            public static string AlignCenterVerticalSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.5 15a.5.5 0 0 1-.5-.5V14H6.75C5.78 14 5 13.22 5 12.25v-1.5C5 9.78 5.78 9 6.75 9H8V7H5.75C4.78 7 4 6.22 4 5.25v-1.5C4 2.78 4.78 2 5.75 2H8v-.5a.5.5 0 0 1 1 0V2h2.25c.97 0 1.75.78 1.75 1.75v1.5C13 6.22 12.22 7 11.25 7H9v2h1.25c.97 0 1.75.78 1.75 1.75v1.5c0 .97-.78 1.75-1.75 1.75H9v.5a.5.5 0 0 1-.5.5ZM5.75 3a.75.75 0 0 0-.75.75v1.5c0 .41.34.75.75.75h5.5c.41 0 .75-.34.75-.75v-1.5a.75.75 0 0 0-.75-.75h-5.5Zm1 7a.75.75 0 0 0-.75.75v1.5c0 .41.34.75.75.75h3.5c.41 0 .75-.34.75-.75v-1.5a.75.75 0 0 0-.75-.75h-3.5Z\"/>";
 
             /// <summary />
-            public static string CalendarCheckmark { get; } = ResourceManager.GetString("CalendarCheckmark");
+            public static string AlignDistributeBottomSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M14.5 15a.5.5 0 0 0 0-1h-13a.5.5 0 0 0 0 1h13Zm0-7a.5.5 0 0 0 0-1h-13a.5.5 0 0 0 0 1h13ZM3 3.5C3 2.67 3.67 2 4.5 2h7c.83 0 1.5.67 1.5 1.5v1c0 .83-.67 1.5-1.5 1.5h-7A1.5 1.5 0 0 1 3 4.5v-1ZM4.5 3a.5.5 0 0 0-.5.5v1c0 .28.22.5.5.5h7a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-7Zm2 6C5.67 9 5 9.67 5 10.5v1c0 .83.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5v-1c0-.83-.67-1.5-1.5-1.5h-3ZM6 10.5c0-.28.22-.5.5-.5h3c.28 0 .5.22.5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1Z\"/>";
 
             /// <summary />
-            public static string CalendarClock { get; } = ResourceManager.GetString("CalendarClock");
+            public static string AlignDistributeLeftSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1 14.5a.5.5 0 0 0 1 0v-13a.5.5 0 0 0-1 0v13Zm7 0a.5.5 0 0 0 1 0v-13a.5.5 0 0 0-1 0v13ZM4.5 13A1.5 1.5 0 0 1 3 11.5v-7C3 3.67 3.67 3 4.5 3h1C6.33 3 7 3.67 7 4.5v7c0 .83-.67 1.5-1.5 1.5h-1ZM4 11.5c0 .28.22.5.5.5h1a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v7Zm6-2c0 .83.67 1.5 1.5 1.5h1c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5h-1c-.83 0-1.5.67-1.5 1.5v3Zm1.5.5a.5.5 0 0 1-.5-.5v-3c0-.28.22-.5.5-.5h1c.28 0 .5.22.5.5v3a.5.5 0 0 1-.5.5h-1Z\"/>";
 
             /// <summary />
-            public static string CalendarDataBar { get; } = ResourceManager.GetString("CalendarDataBar");
+            public static string AlignDistributeRightSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M15 1.5a.5.5 0 0 0-1 0v13a.5.5 0 0 0 1 0v-13Zm-7 0a.5.5 0 0 0-1 0v13a.5.5 0 0 0 1 0v-13ZM3.5 13A1.5 1.5 0 0 1 2 11.5v-7C2 3.67 2.67 3 3.5 3h1C5.33 3 6 3.67 6 4.5v7c0 .83-.67 1.5-1.5 1.5h-1ZM3 11.5c0 .28.22.5.5.5h1a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v7Zm6-2c0 .83.67 1.5 1.5 1.5h1c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5h-1C9.67 5 9 5.67 9 6.5v3Zm1.5.5a.5.5 0 0 1-.5-.5v-3c0-.28.22-.5.5-.5h1c.28 0 .5.22.5.5v3a.5.5 0 0 1-.5.5h-1Z\"/>";
 
             /// <summary />
-            public static string CalendarDay { get; } = ResourceManager.GetString("CalendarDay");
+            public static string AlignDistributeTopSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1.5 1a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1h-13Zm0 7a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1h-13Zm8 6c.83 0 1.5-.67 1.5-1.5v-1c0-.83-.67-1.5-1.5-1.5h-3c-.83 0-1.5.67-1.5 1.5v1c0 .83.67 1.5 1.5 1.5h3Zm.5-1.5a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1c0-.28.22-.5.5-.5h3c.28 0 .5.22.5.5v1ZM11.5 7c.83 0 1.5-.67 1.5-1.5v-1c0-.83-.67-1.5-1.5-1.5h-7C3.67 3 3 3.67 3 4.5v1C3 6.33 3.67 7 4.5 7h7Zm.5-1.5a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-1c0-.28.22-.5.5-.5h7c.28 0 .5.22.5.5v1Z\"/>";
 
             /// <summary />
-            public static string CalendarEdit { get; } = ResourceManager.GetString("CalendarEdit");
+            public static string AlignLeftSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 1.5a.5.5 0 0 1 1 0v13a.5.5 0 0 1-1 0v-13Zm3.75.5C4.78 2 4 2.78 4 3.75v1.5C4 6.22 4.78 7 5.75 7h6.5C13.22 7 14 6.22 14 5.25v-1.5C14 2.78 13.22 2 12.25 2h-6.5ZM5 3.75c0-.41.34-.75.75-.75h6.5c.41 0 .75.34.75.75v1.5c0 .41-.34.75-.75.75h-6.5A.75.75 0 0 1 5 5.25v-1.5ZM5.75 9C4.78 9 4 9.78 4 10.75v1.5c0 .97.78 1.75 1.75 1.75h4.5c.97 0 1.75-.78 1.75-1.75v-1.5C12 9.78 11.22 9 10.25 9h-4.5ZM5 10.75c0-.41.34-.75.75-.75h4.5c.41 0 .75.34.75.75v1.5c0 .41-.34.75-.75.75h-4.5a.75.75 0 0 1-.75-.75v-1.5Z\"/>";
 
             /// <summary />
-            public static string CalendarEmpty { get; } = ResourceManager.GetString("CalendarEmpty");
+            public static string AlignRightSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M14 1.5a.5.5 0 0 0-1 0v13a.5.5 0 0 0 1 0v-13Zm-3.75.5c.97 0 1.75.78 1.75 1.75v1.5C12 6.22 11.22 7 10.25 7h-6.5C2.78 7 2 6.22 2 5.25v-1.5C2 2.78 2.78 2 3.75 2h6.5ZM11 3.75a.75.75 0 0 0-.75-.75h-6.5a.75.75 0 0 0-.75.75v1.5c0 .41.34.75.75.75h6.5c.41 0 .75-.34.75-.75v-1.5ZM10.25 9c.97 0 1.75.78 1.75 1.75v1.5c0 .97-.78 1.75-1.75 1.75h-4.5C4.78 14 4 13.22 4 12.25v-1.5C4 9.78 4.78 9 5.75 9h4.5Zm.75 1.75a.75.75 0 0 0-.75-.75h-4.5a.75.75 0 0 0-.75.75v1.5c0 .41.34.75.75.75h4.5c.41 0 .75-.34.75-.75v-1.5Z\"/>";
 
             /// <summary />
-            public static string CalendarError { get; } = ResourceManager.GetString("CalendarError");
+            public static string AlignStretchHorizontalSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3 1.5a.5.5 0 0 0-1 0v13a.5.5 0 0 0 1 0v-13Zm11 0a.5.5 0 0 0-1 0v13a.5.5 0 0 0 1 0v-13Zm-10 3C4 3.67 4.67 3 5.5 3h5c.83 0 1.5.67 1.5 1.5v1c0 .83-.67 1.5-1.5 1.5h-5A1.5 1.5 0 0 1 4 5.5v-1ZM5.5 4a.5.5 0 0 0-.5.5v1c0 .28.22.5.5.5h5a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-5Zm0 5C4.67 9 4 9.67 4 10.5v1c0 .83.67 1.5 1.5 1.5h5c.83 0 1.5-.67 1.5-1.5v-1c0-.83-.67-1.5-1.5-1.5h-5ZM5 10.5c0-.28.22-.5.5-.5h5c.28 0 .5.22.5.5v1a.5.5 0 0 1-.5.5h-5a.5.5 0 0 1-.5-.5v-1Z\"/>";
 
             /// <summary />
-            public static string CalendarInfo { get; } = ResourceManager.GetString("CalendarInfo");
+            public static string AlignStretchVerticalSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1.5 13a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1h-13Zm0-11a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1h-13Zm3 10A1.5 1.5 0 0 1 3 10.5v-5C3 4.67 3.67 4 4.5 4h1C6.33 4 7 4.67 7 5.5v5c0 .83-.67 1.5-1.5 1.5h-1ZM4 10.5c0 .28.22.5.5.5h1a.5.5 0 0 0 .5-.5v-5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v5Zm5 0c0 .83.67 1.5 1.5 1.5h1c.83 0 1.5-.67 1.5-1.5v-5c0-.83-.67-1.5-1.5-1.5h-1C9.67 4 9 4.67 9 5.5v5Zm1.5.5a.5.5 0 0 1-.5-.5v-5c0-.28.22-.5.5-.5h1c.28 0 .5.22.5.5v5a.5.5 0 0 1-.5.5h-1Z\"/>";
 
             /// <summary />
-            public static string CalendarLock { get; } = ResourceManager.GetString("CalendarLock");
+            public static string AlignTopSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1.5 2a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1h-13ZM2 5.75C2 4.78 2.78 4 3.75 4h1.5C6.22 4 7 4.78 7 5.75v6.5C7 13.22 6.22 14 5.25 14h-1.5C2.78 14 2 13.22 2 12.25v-6.5ZM3.75 5a.75.75 0 0 0-.75.75v6.5c0 .41.34.75.75.75h1.5c.41 0 .75-.34.75-.75v-6.5A.75.75 0 0 0 5.25 5h-1.5ZM9 5.75C9 4.78 9.78 4 10.75 4h1.5c.97 0 1.75.78 1.75 1.75v4.5c0 .97-.78 1.75-1.75 1.75h-1.5C9.78 12 9 11.22 9 10.25v-4.5ZM10.75 5a.75.75 0 0 0-.75.75v4.5c0 .41.34.75.75.75h1.5c.41 0 .75-.34.75-.75v-4.5a.75.75 0 0 0-.75-.75h-1.5Z\"/>";
 
             /// <summary />
-            public static string CalendarLtr { get; } = ResourceManager.GetString("CalendarLtr");
+            public static string AnimalCatSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.64 15h8.04c.86 0 1.56-.7 1.56-1.55V6.9a1.9 1.9 0 0 0 1.47-2.9l-.43-.7a1.9 1.9 0 0 0-1.62-.9h-1.18v-.49c0-.5-.41-.92-.92-.92-1.2 0-2.19.98-2.19 2.19v2.93c-1.1.13-1.93.65-2.54 1.39a7.1 7.1 0 0 0-1.33 2.92A14.84 14.84 0 0 0 4.14 14h-.5a1.64 1.64 0 0 1-1.2-2.76l.8-.86a3.18 3.18 0 0 0-.08-4.41l-.78-.78a.5.5 0 1 0-.7.7l.78.79A2.18 2.18 0 0 1 2.5 9.7l-.8.86A2.64 2.64 0 0 0 3.64 15Zm6.84-13v.9c0 .28.22.5.5.5h1.68c.31 0 .6.17.77.43l.43.7a.9.9 0 0 1-.77 1.39h-.35a.5.5 0 0 0-.5.5v7.03c0 .3-.25.55-.56.55h-.55v-.55a2.6 2.6 0 0 0-2.6-2.61h-.89a.5.5 0 0 0 0 1h.88c.89 0 1.61.72 1.61 1.6V14H5.14a15.66 15.66 0 0 1 .34-3.34c.22-.95.57-1.85 1.12-2.51a2.8 2.8 0 0 1 2.27-1.06.5.5 0 0 0 .5-.5V3.2c0-.63.5-1.15 1.11-1.19Z\"/>";
 
             /// <summary />
-            public static string CalendarMail { get; } = ResourceManager.GetString("CalendarMail");
+            public static string AnimalDogSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9.5 2a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 1 0 .5.5 0 0 1 1 0 1.5 1.5 0 0 1-2.08 1.38c-.11.91-.33 1.66-.6 2.3-.42.94-.96 1.6-1.45 2.15a3.4 3.4 0 0 0-.7 1.61C6.03 11.6 6 12.33 6 13c0 .3-.11.67-.31 1H9.9a1.5 1.5 0 0 0-1.41-1H8a.5.5 0 0 1 0-1h.5c.17 0 .34.02.5.05V10.5a.5.5 0 0 1 1 0v2c.48.36.83.89.95 1.5h1.96c-.2-.58-.76-1-1.41-1a.5.5 0 0 1-.5-.5v-7c0-.28.22-.5.5-.5h1a.5.5 0 0 0 .5-.5v-.93a.5.5 0 0 0-.24-.43l-1.78-1.07a.5.5 0 0 0-.26-.07H9.5ZM4 14c.31 0 .56-.15.73-.37.2-.24.27-.51.27-.63 0-.7.03-1.5.19-2.25.15-.75.42-1.5.94-2.08.45-.51.91-1.1 1.27-1.9.35-.79.6-1.83.6-3.27v-1C8 1.67 8.67 1 9.5 1h1.22c.27 0 .54.07.77.21l1.78 1.07c.45.27.73.76.73 1.29v.93c0 .83-.67 1.5-1.5 1.5H12v6.05a2.5 2.5 0 0 1 2 2.45.5.5 0 0 1-.5.5H3.75a2.75 2.75 0 0 1-1.53-5.04.5.5 0 1 1 .56.83A1.75 1.75 0 0 0 3.75 14H4Z\"/>";
 
             /// <summary />
-            public static string CalendarMultiple { get; } = ResourceManager.GetString("CalendarMultiple");
+            public static string AnimalRabbitSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m9.33 6.4-.9-.88a1.25 1.25 0 0 1 0-1.77 1.24 1.24 0 0 1 1.76 0l3.1 3.1A2.45 2.45 0 0 1 11.47 11c-.26.58-.85 1-1.54 1H4.7A1.7 1.7 0 0 1 3 10.3V9.24c0-.3.05-.58.14-.85A1.75 1.75 0 1 1 5.48 6.5l.25-.01h3.16c.12 0 .24 0 .35.02l.09-.12Zm.16-1.94a.24.24 0 0 0-.35 0c-.1.1-.1.25 0 .35l1.6 1.58-.47.45c-.17.18-.26.32-.32.44l-.17.4-.42-.11a1.73 1.73 0 0 0-.47-.07H5.73C4.78 7.5 4 8.28 4 9.24v1.07c0 .39.31.7.69.7H7v-.45c0-.25-.25-.56-.68-.56H5.5a.5.5 0 0 1 0-1h.82C7.2 9 8 9.66 8 10.56V11h1.93c.35 0 .65-.26.69-.6l.06-.57.55.14c.47.11.98-.02 1.35-.38.56-.57.56-1.48 0-2.04l-3.1-3.1ZM3.63 7.49c.24-.29.53-.52.87-.7v-.04a.75.75 0 1 0-.87.74Z\"/>";
 
             /// <summary />
-            public static string CalendarPattern { get; } = ResourceManager.GetString("CalendarPattern");
+            public static string AnimalTurtleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.34 3.99c-1.85 0-3.03 1.31-3.48 2.8L3.8 7H2.5a.5.5 0 0 0-.5.5c0 .7.19 1.33.52 1.82.12.17.26.33.41.46l-.3.72A1.1 1.1 0 0 0 3.66 12h1.07c.42 0 .81-.24 1-.63l.3-.64c.9.12 1.83.12 2.74 0l.3.64c.18.39.57.63 1 .63h1.06a1.1 1.1 0 0 0 1-1.5l-.2-.5h.97c.62 0 1.11-.52 1.11-1.13v-.62c0-.94-.73-1.75-1.69-1.75h-1.46a3.76 3.76 0 0 0-3.5-2.51ZM11.6 9l-.44-1.5h1.16c.36 0 .7.31.7.75v.62c0 .03-.02.07-.05.1L12.9 9h-1.3Zm-.66 1.22.27.65a.1.1 0 0 1-.08.13h-1.07a.1.1 0 0 1-.08-.05l-.2-.4c.4-.1.78-.2 1.16-.33ZM5 10.55l-.18.4a.1.1 0 0 1-.09.05H3.65a.1.1 0 0 1-.09-.13l.27-.66c.38.14.77.25 1.16.34ZM3.5 8l-.2.67c-.1-.19-.2-.42-.25-.67h.46Zm1.33-.91c.36-1.22 1.24-2.1 2.52-2.1 1.3 0 2.3.9 2.65 2.1l.63 2.17c-2.1.74-4.36.74-6.46 0l.66-2.17Z\"/>";
 
             /// <summary />
-            public static string CalendarPerson { get; } = ResourceManager.GetString("CalendarPerson");
+            public static string AppFolderSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 5a1 1 0 0 1 1-1h1.5a1 1 0 0 1 1 1v1.5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5Zm2.5 0H5v1.5h1.5V5ZM5 8.5a1 1 0 0 0-1 1V11a1 1 0 0 0 1 1h1.5a1 1 0 0 0 1-1V9.5a1 1 0 0 0-1-1H5Zm0 1h1.5V11H5V9.5ZM8.5 5a1 1 0 0 1 1-1H11a1 1 0 0 1 1 1v1.5a1 1 0 0 1-1 1H9.5a1 1 0 0 1-1-1V5ZM11 5H9.5v1.5H11V5ZM9.5 8.5a1 1 0 0 0-1 1V11a1 1 0 0 0 1 1H11a1 1 0 0 0 1-1V9.5a1 1 0 0 0-1-1H9.5Zm0 1H11V11H9.5V9.5ZM2 4.5A2.5 2.5 0 0 1 4.5 2h7A2.5 2.5 0 0 1 14 4.5v7a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 11.5v-7ZM4.5 3C3.67 3 3 3.67 3 4.5v7c0 .83.67 1.5 1.5 1.5h7c.83 0 1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5h-7Z\"/>";
 
             /// <summary />
-            public static string CalendarPhone { get; } = ResourceManager.GetString("CalendarPhone");
+            public static string ApprovalsAppSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.85.15a.5.5 0 1 0-.7.7L8.3 2A6.5 6.5 0 1 0 15 8.5v-.04a.47.47 0 0 0-.48-.46h-.04a.5.5 0 0 0-.48.5A5.5 5.5 0 1 1 8.29 3L7.15 4.15a.5.5 0 1 0 .7.7l2-2a.5.5 0 0 0 0-.7l-2-2Zm4 6c.2.2.2.5 0 .7l-3 3a.5.5 0 0 1-.7 0l-1.5-1.5a.5.5 0 1 1 .7-.7L8.5 8.79l2.65-2.64c.2-.2.5-.2.7 0Z\"/>";
 
             /// <summary />
-            public static string CalendarPlay { get; } = ResourceManager.GetString("CalendarPlay");
+            public static string AppsAddInSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13 1.5a.5.5 0 0 0-1 0V3h-1.5a.5.5 0 0 0 0 1H12v1.5a.5.5 0 0 0 1 0V4h1.5a.5.5 0 0 0 0-1H13V1.5ZM3.75 2C2.78 2 2 2.78 2 3.75v8.5c0 .97.78 1.75 1.75 1.75h8.5c.97 0 1.75-.78 1.75-1.75v-3c0-.97-.78-1.75-1.75-1.75H8.5V3.75C8.5 2.78 7.72 2 6.75 2h-3ZM7.5 8.5V13H3.75a.75.75 0 0 1-.75-.75V8.5h4.5Zm0-4.75V7.5H3V3.75c0-.41.34-.75.75-.75h3c.41 0 .75.34.75.75ZM12.25 13H8.5V8.5h3.75c.41 0 .75.34.75.75v3c0 .41-.34.75-.75.75Z\"/>";
 
             /// <summary />
-            public static string CalendarQuestionMark { get; } = ResourceManager.GetString("CalendarQuestionMark");
+            public static string AppsSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.81 2.45a1.5 1.5 0 0 0-2.12 0L7.96 4.18A1.5 1.5 0 0 0 6.5 3h-3C2.67 3 2 3.67 2 4.5v8A1.5 1.5 0 0 0 3.5 14h8c.83 0 1.5-.67 1.5-1.5v-3c0-.7-.48-1.29-1.13-1.45l1.71-1.7a1.5 1.5 0 0 0 0-2.13l-1.77-1.77ZM9.58 8H8V6.42L9.58 8Zm.82-4.84c.2-.2.5-.2.7 0l1.77 1.77c.2.2.2.5 0 .7L11.1 7.4a.5.5 0 0 1-.7 0L8.63 5.63a.5.5 0 0 1 0-.7l1.77-1.77ZM7 4.5V8H3V4.5c0-.28.22-.5.5-.5h3c.27 0 .5.22.5.5Zm-4 8V9h4v4H3.5a.5.5 0 0 1-.5-.5ZM8 9h3.5c.28 0 .5.22.5.5v3a.5.5 0 0 1-.5.5H8V9Z\"/>";
 
             /// <summary />
-            public static string CalendarReply { get; } = ResourceManager.GetString("CalendarReply");
+            public static string ArchiveArrowBackSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1 3.5C1 2.67 1.67 2 2.5 2h11c.83 0 1.5.67 1.5 1.5v1c0 .65-.42 1.2-1 1.41v.69c-.32-.16-.65-.3-1-.4V6H3v5.5c0 .83.67 1.5 1.5 1.5h1.7c.1.35.24.68.4 1H4.5A2.5 2.5 0 0 1 2 11.5V5.91c-.58-.2-1-.76-1-1.41v-1ZM2.5 3a.5.5 0 0 0-.5.5v1c0 .28.22.5.5.5h11a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-11Zm9 13a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm-.9-6.4-.9.9h1.55A2.75 2.75 0 0 1 14 13.25v.25a.5.5 0 0 1-1 0v-.25c0-.97-.78-1.75-1.75-1.75H9.71l.9.9a.5.5 0 0 1-.71.7l-1.76-1.75a.5.5 0 0 1 0-.7L9.9 8.9a.5.5 0 0 1 .7.7Z\"/>";
 
             /// <summary />
-            public static string CalendarRtl { get; } = ResourceManager.GetString("CalendarRtl");
+            public static string ArchiveMultipleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 6a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1H6ZM2 1a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1v6c0 1.1.9 2 2 2h6a2 2 0 0 0 2-2V5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H2Zm1 10V5h8v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1ZM2 2h10v2H2V2Zm12 4.5c0-.65-.42-1.2-1-1.41V12a2 2 0 0 1-2 2H4.27c.34.6.99 1 1.73 1h5a3 3 0 0 0 3-3V6.5Z\"/>";
 
             /// <summary />
-            public static string CalendarSearch { get; } = ResourceManager.GetString("CalendarSearch");
+            public static string ArchiveSettingsSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2.5 2C1.67 2 1 2.67 1 3.5v1c0 .65.42 1.2 1 1.41v5.59A2.5 2.5 0 0 0 4.5 14h2.1c-.16-.32-.3-.65-.4-1H4.5A1.5 1.5 0 0 1 3 11.5V6h10.5c.83 0 1.5-.67 1.5-1.5v-1c0-.83-.67-1.5-1.5-1.5h-11ZM2 3.5c0-.28.22-.5.5-.5h11c.28 0 .5.22.5.5v1a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-1Zm7.07 4.94a2 2 0 0 1-1.43 2.48l-.46.12a4.7 4.7 0 0 0 0 1.02l.35.08A2 2 0 0 1 9 14.66l-.13.42c.26.2.54.38.84.52l.32-.35a2 2 0 0 1 2.91 0l.34.36c.3-.13.57-.3.82-.5l-.15-.55a2 2 0 0 1 1.43-2.48l.46-.12a4.7 4.7 0 0 0-.01-1.01l-.35-.09A2 2 0 0 1 14 8.34l.13-.42c-.26-.2-.54-.38-.84-.52l-.32.35a2 2 0 0 1-2.91 0l-.34-.36c-.29.13-.57.3-.82.5l.16.55Zm2.43 4.06a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z\"/>";
 
             /// <summary />
-            public static string CalendarSettings { get; } = ResourceManager.GetString("CalendarSettings");
+            public static string ArchiveSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6.5 8a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3ZM1 3.5C1 2.67 1.67 2 2.5 2h11c.83 0 1.5.67 1.5 1.5v1c0 .65-.42 1.2-1 1.41v5.59a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 11.5V5.91c-.58-.2-1-.76-1-1.41v-1ZM2.5 3a.5.5 0 0 0-.5.5v1c0 .28.22.5.5.5h11a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-11ZM3 6v5.5c0 .83.67 1.5 1.5 1.5h7c.83 0 1.5-.67 1.5-1.5V6H3Z\"/>";
 
             /// <summary />
-            public static string CalendarShield { get; } = ResourceManager.GetString("CalendarShield");
+            public static string ArrowBidirectionalUpDownSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.85 5.85a.5.5 0 1 1-.7-.7l3-3c.2-.2.5-.2.7 0l3 3a.5.5 0 0 1-.7.7L8 3.71v8.58l2.15-2.14a.5.5 0 0 1 .7.7l-3 3a.5.5 0 0 1-.7 0l-3-3a.5.5 0 0 1 .7-.7L7 12.29V3.71L4.85 5.85Z\"/>";
 
             /// <summary />
-            public static string CalendarStar { get; } = ResourceManager.GetString("CalendarStar");
+            public static string ArrowBounceSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 4.5a.5.5 0 0 0-.5-.5h-6a.5.5 0 0 0-.5.5v6a.5.5 0 0 0 1 0V5.7l6.4 6.4c.2.2.5.2.7 0l5.75-5.75a.5.5 0 0 0-.7-.7l-5.4 5.4L2.71 5H7.5a.5.5 0 0 0 .5-.5Z\"/>";
 
             /// <summary />
-            public static string CalendarSync { get; } = ResourceManager.GetString("CalendarSync");
+            public static string ArrowCircleDownRightSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 2a6 6 0 1 1 0 12A6 6 0 0 1 8 2Zm0 1a5 5 0 1 0 0 10A5 5 0 0 0 8 3Zm1.41 3h.1a.5.5 0 0 1 .48.4l.01.1v3.02l-.01.09-.02.06-.03.08-.06.07-.04.05-.07.05-.06.03-.04.02-.06.02-.09.01H6.5a.5.5 0 0 1-.09-1H8.3L6.15 6.85a.5.5 0 0 1-.06-.64l.06-.06a.5.5 0 0 1 .64-.06l.06.06L9 8.29V6.5a.5.5 0 0 1 .41-.48l.1-.01h-.1Z\"/>";
 
             /// <summary />
-            public static string CalendarToday { get; } = ResourceManager.GetString("CalendarToday");
+            public static string ArrowCircleDownSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m5.15 8.85 2.5 2.5c.2.2.5.2.7 0l2.5-2.5a.5.5 0 0 0-.7-.7L8.5 9.79V5a.5.5 0 0 0-1 0v4.8L5.85 8.14a.5.5 0 1 0-.7.7ZM8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14ZM2 8a6 6 0 1 0 12 0A6 6 0 0 0 2 8Z\"/>";
 
             /// <summary />
-            public static string CalendarWorkWeek { get; } = ResourceManager.GetString("CalendarWorkWeek");
+            public static string ArrowCircleLeftSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m7.15 10.85-2.5-2.5a.5.5 0 0 1 0-.7l2.5-2.5a.5.5 0 1 1 .7.7L6.21 7.5H11a.5.5 0 0 1 0 1H6.2l1.65 1.65a.5.5 0 0 1-.7.7ZM1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8Zm7 6A6 6 0 1 1 8 2a6 6 0 0 1 0 12Z\"/>";
 
             /// <summary />
-            public static string Call { get; } = ResourceManager.GetString("Call");
+            public static string ArrowCircleRightSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m8.85 10.85 2.5-2.5a.5.5 0 0 0 0-.7l-2.5-2.5a.5.5 0 1 0-.7.7L9.79 7.5H5a.5.5 0 0 0 0 1h4.8l-1.65 1.65a.5.5 0 0 0 .7.7ZM15 8A7 7 0 1 1 1 8a7 7 0 0 1 14 0Zm-7 6A6 6 0 1 0 8 2a6 6 0 0 0 0 12Z\"/>";
 
             /// <summary />
-            public static string CallAdd { get; } = ResourceManager.GetString("CallAdd");
+            public static string ArrowCircleUpSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m5.15 7.15 2.5-2.5c.2-.2.5-.2.7 0l2.5 2.5a.5.5 0 0 1-.7.7L8.5 6.21V11a.5.5 0 0 1-1 0V6.2L5.85 7.86a.5.5 0 1 1-.7-.7ZM8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1ZM2 8a6 6 0 1 1 12 0A6 6 0 0 1 2 8Z\"/>";
 
             /// <summary />
-            public static string CallDismiss { get; } = ResourceManager.GetString("CallDismiss");
+            public static string ArrowClockwiseSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3 8a5 5 0 0 1 9-3H9.5a.5.5 0 0 0 0 1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-1 0v1.03A6 6 0 1 0 14 8a.5.5 0 0 0-1 0A5 5 0 0 1 3 8Z\"/>";
 
             /// <summary />
-            public static string CallEnd { get; } = ResourceManager.GetString("CallEnd");
+            public static string ArrowCounterclockwiseSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13 8a5 5 0 0 0-9-3h2.5a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5v-3a.5.5 0 0 1 1 0v1.03A6 6 0 1 1 2 8a.5.5 0 0 1 1 0 5 5 0 0 0 10 0Z\"/>";
 
             /// <summary />
-            public static string CallForward { get; } = ResourceManager.GetString("CallForward");
+            public static string ArrowCurveDownLeftSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10.93 1.25a.5.5 0 0 1-.18.68C8.2 3.38 8 6 8 8v5.3l2.65-2.65a.5.5 0 0 1 .7.7l-3.5 3.5a.5.5 0 0 1-.7 0l-3.5-3.5a.5.5 0 1 1 .7-.7L7 13.29V8c0-2 .19-5.18 3.25-6.93a.5.5 0 0 1 .68.18Z\"/>";
 
             /// <summary />
-            public static string CallInbound { get; } = ResourceManager.GetString("CallInbound");
+            public static string ArrowDownLeftSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.5 13a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5v-6a.5.5 0 0 1 1 0v4.8L13.15 2.14a.5.5 0 1 1 .7.7L3.71 13H8.5Z\"/>";
 
             /// <summary />
-            public static string CallMissed { get; } = ResourceManager.GetString("CallMissed");
+            public static string ArrowDownloadSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.5 13h9a.5.5 0 0 1 .09 1H3.5a.5.5 0 0 1-.09-1h9.09-9ZM7.91 1H8a.5.5 0 0 1 .5.41v8.89l2.68-2.69a.5.5 0 0 1 .64-.06l.07.06c.17.17.2.44.06.64l-.06.07-3.54 3.53a.5.5 0 0 1-.63.06l-.07-.06L4.1 8.32a.5.5 0 0 1 .64-.77l.07.06L7.5 10.3V1.5a.5.5 0 0 1 .41-.5H8h-.09Z\"/>";
 
             /// <summary />
-            public static string CallOutbound { get; } = ResourceManager.GetString("CallOutbound");
+            public static string ArrowDownSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.5 2.5a.5.5 0 1 0-1 0v9.7L3.87 8.17a.5.5 0 1 0-.74.66l4.5 5a.5.5 0 0 0 .74 0l4.5-5a.5.5 0 0 0-.74-.66L8.5 12.2V2.5Z\"/>";
 
             /// <summary />
-            public static string CallPark { get; } = ResourceManager.GetString("CallPark");
+            public static string ArrowExportLtrSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1.5 3c.28 0 .5.22.5.5V12a.5.5 0 0 1-1 0V3.5c0-.28.22-.5.5-.5Zm9.15.65c.2-.2.5-.2.7 0l3.5 3.5c.2.2.2.5 0 .7l-3.5 3.5a.5.5 0 0 1-.7-.7L13.29 8H4.5a.5.5 0 0 1 0-1h8.8l-2.65-2.65a.5.5 0 0 1 0-.7Z\"/>";
 
             /// <summary />
-            public static string CallProhibited { get; } = ResourceManager.GetString("CallProhibited");
+            public static string ArrowExportRtlSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M14.5 3a.5.5 0 0 0-.5.5V12a.5.5 0 0 0 1 0V3.5a.5.5 0 0 0-.5-.5Zm-9.15.65a.5.5 0 0 0-.7 0l-3.5 3.5a.5.5 0 0 0 0 .7l3.5 3.5a.5.5 0 0 0 .7-.7L2.71 8h8.79a.5.5 0 0 0 0-1H2.7l2.65-2.65a.5.5 0 0 0 0-.7Z\"/>";
 
             /// <summary />
-            public static string CallTransfer { get; } = ResourceManager.GetString("CallTransfer");
+            public static string ArrowFitInSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.85 5.15a.5.5 0 1 0-.7.7L5.29 7H1.5a.5.5 0 0 0 0 1h3.8L4.14 9.15a.5.5 0 1 0 .7.7l2-2a.5.5 0 0 0 0-.7l-2-2Zm7 .7a.5.5 0 0 0-.7-.7l-2 2a.5.5 0 0 0 0 .7l2 2a.5.5 0 0 0 .7-.7L10.71 8h3.79a.5.5 0 0 0 0-1h-3.8l1.15-1.15Z\"/>";
 
             /// <summary />
-            public static string CallWarning { get; } = ResourceManager.GetString("CallWarning");
+            public static string ArrowFitSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.85 5.15c.2.2.2.5 0 .7L2.71 7H6.5a.5.5 0 0 1 0 1H2.7l1.15 1.15a.5.5 0 1 1-.7.7l-2-2a.5.5 0 0 1 0-.7l2-2c.2-.2.5-.2.7 0Zm8.3 0c.2-.2.5-.2.7 0l2 2c.2.2.2.5 0 .7l-2 2a.5.5 0 0 1-.7-.7L13.29 8H9.5a.5.5 0 0 1 0-1h3.8l-1.15-1.15a.5.5 0 0 1 0-.7Z\"/>";
 
             /// <summary />
-            public static string Camera { get; } = ResourceManager.GetString("Camera");
+            public static string ArrowForwardSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M12.3 8 9.6 10.68a.5.5 0 0 0 .64.77l.07-.06 3.56-3.57.05-.07.03-.06.02-.06V7.6A.5.5 0 0 0 14 7.5v.07-.11l-.02-.09-.02-.06-.04-.08-.05-.07-3.55-3.55a.5.5 0 0 0-.77.64l.06.07L12.3 7H8c-3.52 0-5.89 1.98-6 4.8v.2a.5.5 0 0 0 1 0c0-2.27 1.8-3.9 4.74-4h4.56Z\"/>";
 
             /// <summary />
-            public static string CameraDome { get; } = ResourceManager.GetString("CameraDome");
+            public static string ArrowHookDownLeftSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 4.5c0-.28.22-.5.5-.5h3a3.4 3.4 0 0 1 2.62 1.1c.6.67.88 1.54.88 2.4a3.6 3.6 0 0 1-.88 2.4A3.4 3.4 0 0 1 8.5 11H4.7l1.15 1.15a.5.5 0 0 1-.7.7l-2-2a.5.5 0 0 1 0-.7l2-2a.5.5 0 1 1 .7.7L4.71 10H8.5a2.4 2.4 0 0 0 1.88-.77c.4-.46.62-1.09.62-1.73a2.6 2.6 0 0 0-.62-1.73A2.4 2.4 0 0 0 8.5 5h-3a.5.5 0 0 1-.5-.5Z\"/>";
 
             /// <summary />
-            public static string CameraOff { get; } = ResourceManager.GetString("CameraOff");
+            public static string ArrowHookDownRightSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.88 5.1A3.4 3.4 0 0 1 7.5 4h3a.5.5 0 0 1 0 1h-3a2.4 2.4 0 0 0-1.88.77A2.6 2.6 0 0 0 5 7.5c0 .64.22 1.27.62 1.73.4.45 1.02.77 1.88.77h3.8l-1.15-1.15a.5.5 0 1 1 .7-.7l2 2c.2.2.2.5 0 .7l-2 2a.5.5 0 0 1-.7-.7L11.29 11H7.5a3.4 3.4 0 0 1-2.62-1.1A3.6 3.6 0 0 1 4 7.5c0-.86.28-1.73.88-2.4Z\"/>";
 
             /// <summary />
-            public static string CameraSparkles { get; } = ResourceManager.GetString("CameraSparkles");
+            public static string ArrowHookUpLeftSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 11.5c0 .28.22.5.5.5h3a3.4 3.4 0 0 0 2.62-1.1c.6-.67.88-1.54.88-2.4a3.6 3.6 0 0 0-.88-2.4A3.4 3.4 0 0 0 8.5 5H4.7l1.15-1.15a.5.5 0 1 0-.7-.7l-2 2a.5.5 0 0 0 0 .7l2 2a.5.5 0 1 0 .7-.7L4.71 6H8.5c.86 0 1.48.32 1.88.77.4.46.62 1.09.62 1.73a2.6 2.6 0 0 1-.62 1.73A2.4 2.4 0 0 1 8.5 11h-3a.5.5 0 0 0-.5.5Z\"/>";
 
             /// <summary />
-            public static string CaretDown { get; } = ResourceManager.GetString("CaretDown");
+            public static string ArrowHookUpRightSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.88 10.9A3.4 3.4 0 0 0 7.5 12h3a.5.5 0 0 0 0-1h-3a2.4 2.4 0 0 1-1.88-.77A2.6 2.6 0 0 1 5 8.5c0-.64.22-1.27.62-1.73A2.4 2.4 0 0 1 7.5 6h3.8l-1.15 1.15a.5.5 0 1 0 .7.7l2-2a.5.5 0 0 0 0-.7l-2-2a.5.5 0 1 0-.7.7L11.29 5H7.5a3.4 3.4 0 0 0-2.62 1.1A3.6 3.6 0 0 0 4 8.5c0 .86.28 1.73.88 2.4Z\"/>";
 
             /// <summary />
-            public static string CaretDownRight { get; } = ResourceManager.GetString("CaretDownRight");
+            public static string ArrowLeftSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13.5 8.5a.5.5 0 0 0 0-1H3.8l4.03-3.63a.5.5 0 1 0-.66-.74l-5 4.5a.5.5 0 0 0 0 .74l5 4.5a.5.5 0 1 0 .66-.74L3.8 8.5h9.7Z\"/>";
 
             /// <summary />
-            public static string CaretLeft { get; } = ResourceManager.GetString("CaretLeft");
+            public static string ArrowMaximizeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.5 2a.5.5 0 0 0 0 1h3.8L3 12.3V8.5a.5.5 0 0 0-1 0v4.9c0 .33.27.6.6.6h4.9a.5.5 0 0 0 0-1H3.7L13 3.7v3.8a.5.5 0 0 0 1 0V2.6a.6.6 0 0 0-.6-.6H8.5Z\"/>";
 
             /// <summary />
-            public static string CaretRight { get; } = ResourceManager.GetString("CaretRight");
+            public static string ArrowMinimizeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13.85 2.85a.5.5 0 0 0-.7-.7L10 5.29V3.5a.5.5 0 0 0-1 0v2.9c0 .33.27.6.6.6h2.9a.5.5 0 0 0 0-1h-1.8l3.15-3.15ZM6.5 13a.5.5 0 0 1-.5-.5v-1.8l-3.15 3.15a.5.5 0 0 1-.7-.7L5.29 10H3.5a.5.5 0 0 1 0-1h2.9c.33 0 .6.27.6.6v2.9a.5.5 0 0 1-.5.5Z\"/>";
 
             /// <summary />
-            public static string CaretUp { get; } = ResourceManager.GetString("CaretUp");
+            public static string ArrowNextSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.65 3.85a.5.5 0 1 1 .7-.7l4.5 4.5c.2.2.2.5 0 .7l-4.5 4.5a.5.5 0 0 1-.7-.7L7.79 8 3.65 3.85ZM12 3.5a.5.5 0 0 0-1 0v9a.5.5 0 0 0 1 0v-9Z\"/>";
 
             /// <summary />
-            public static string Cart { get; } = ResourceManager.GetString("Cart");
+            public static string ArrowParagraphSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13.5 2a.5.5 0 0 0-.5.5V5a1 1 0 0 1-1 1H8.7l1.15-1.15a.5.5 0 0 0-.7-.7l-2 2a.5.5 0 0 0 0 .7l2 2a.5.5 0 1 0 .7-.7L8.71 7H12a2 2 0 0 0 2-2V2.5a.5.5 0 0 0-.5-.5ZM5.65 8.15c.2-.2.5-.2.7 0l2 2c.2.2.2.5 0 .7l-2 2a.5.5 0 0 1-.7-.7L6.79 11H1.5a.5.5 0 0 1 0-1h5.3L5.64 8.85a.5.5 0 0 1 0-.7Z\"/>";
 
             /// <summary />
-            public static string CatchUp { get; } = ResourceManager.GetString("CatchUp");
+            public static string ArrowPreviousSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M12.35 3.85a.5.5 0 0 0-.7-.7l-4.5 4.5a.5.5 0 0 0 0 .7l4.5 4.5a.5.5 0 0 0 .7-.7L8.21 8l4.14-4.15ZM4 3.5a.5.5 0 0 1 1 0v9a.5.5 0 0 1-1 0v-9Z\"/>";
 
             /// <summary />
-            public static string Certificate { get; } = ResourceManager.GetString("Certificate");
+            public static string ArrowRedoSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13 2.5a.5.5 0 0 0-1 0v3.84L8.83 3.17a4 4 0 0 0-5.66 5.66l5.03 5.02a.5.5 0 0 0 .7-.7L3.88 8.12a3 3 0 0 1 4.24-4.24L11.24 7H7.5a.5.5 0 0 0 0 1h4.9a.6.6 0 0 0 .6-.6V2.5Z\"/>";
 
             /// <summary />
-            public static string Channel { get; } = ResourceManager.GetString("Channel");
+            public static string ArrowRepeat1SvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M12.9 5.24A3.99 3.99 0 0 1 14 8.25a4.47 4.47 0 0 0-1-.22V8a3 3 0 0 0-.87-2.1.5.5 0 0 1 .69-.72l.07.06ZM8.25 11c-.12.32-.2.65-.23 1H6.7l1.15 1.15c.17.17.19.44.05.64l-.05.07a.5.5 0 0 1-.64.05l-.07-.05-2-2a.5.5 0 0 1-.06-.64l.06-.07 2-2a.5.5 0 0 1 .76.63l-.05.07L6.7 11h1.55Zm.52-8.91.07.05 2 2 .06.08a.5.5 0 0 1 0 .56l-.05.07-2 2-.08.06a.5.5 0 0 1-.56 0l-.07-.05-.06-.07a.5.5 0 0 1 0-.57l.06-.07L9.29 5H6a3 3 0 0 0-3 2.82V8c0 .82.33 1.56.86 2.1a.5.5 0 0 1-.71.7A4 4 0 0 1 5.8 4h3.5L8.14 2.85l-.06-.07a.5.5 0 0 1 .7-.7ZM16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-2.95-2.66a.62.62 0 0 0-.68.23c-.21.3-.58.73-1.1.98a.5.5 0 1 0 .45.9c.3-.15.56-.34.78-.53v3.08a.5.5 0 0 0 1 0v-4.08a.61.61 0 0 0-.45-.58Z\"/>";
 
             /// <summary />
-            public static string ChannelAdd { get; } = ResourceManager.GetString("ChannelAdd");
+            public static string ArrowRepeatAllOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m2.78 2.09.07.06 11 11a.5.5 0 0 1-.63.76l-.07-.06-2.02-2.01c-.29.08-.59.14-.9.15L10 12H6.7l1.16 1.15c.17.17.19.44.05.64l-.05.07a.5.5 0 0 1-.64.05l-.07-.05-2-2a.5.5 0 0 1-.06-.64l.06-.07 2-2a.5.5 0 0 1 .76.63l-.05.07L6.7 11H10l.28-.01-5.65-5.66a3 3 0 0 0-.77 4.77.5.5 0 0 1-.71.7 3.98 3.98 0 0 1 .74-6.2L2.15 2.85a.5.5 0 0 1 .63-.76Zm9.72 2.96a.5.5 0 0 1 .32.12l.07.07a3.99 3.99 0 0 1 0 5.53l-.72-.7a2.99 2.99 0 0 0-.04-4.18.5.5 0 0 1 .37-.84Zm-4.35-2.9a.5.5 0 0 1 .63-.06l.07.05 2 2 .06.08a.5.5 0 0 1 0 .56l-.05.07L8.9 6.8l-.71-.7L9.3 5H7.1l-1-1h3.2L8.14 2.85l-.06-.07a.5.5 0 0 1 .06-.64Z\"/>";
 
             /// <summary />
-            public static string ChannelAlert { get; } = ResourceManager.GetString("ChannelAlert");
+            public static string ArrowRepeatAllSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M12.9 5.24a3.99 3.99 0 0 1-2.7 6.75L10 12H6.7l1.16 1.15c.17.17.19.44.05.64l-.05.07a.5.5 0 0 1-.64.05l-.07-.05-2-2a.5.5 0 0 1-.06-.64l.06-.07 2-2a.5.5 0 0 1 .76.63l-.05.07L6.7 11H10a3 3 0 0 0 3-2.82V8a3 3 0 0 0-.87-2.1.5.5 0 0 1 .69-.72l.07.06ZM8.77 2.09l.07.05 2 2 .06.08a.5.5 0 0 1 0 .56l-.05.07-2 2-.08.06a.5.5 0 0 1-.56 0l-.07-.05-.06-.07a.5.5 0 0 1 0-.57l.06-.07L9.29 5H6a3 3 0 0 0-3 2.82V8c0 .82.33 1.56.86 2.1a.5.5 0 0 1-.71.7A4 4 0 0 1 5.8 4h3.5L8.14 2.85l-.06-.07a.5.5 0 0 1 .7-.7Z\"/>";
 
             /// <summary />
-            public static string ChannelArrowLeft { get; } = ResourceManager.GetString("ChannelArrowLeft");
+            public static string ArrowReplyAllSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9.39 3.61c.17.17.2.44.06.64l-.06.07L6.7 7H8c3.52 0 5.89 1.98 6 4.8v.2a.5.5 0 0 1-1 0c0-2.27-1.8-3.9-4.74-4H6.7l2.69 2.68a.5.5 0 0 1-.64.77l-.07-.06-3.56-3.57-.05-.07-.03-.06-.02-.06L5 7.57v-.2l.03-.06.04-.08.05-.07 3.55-3.55c.2-.2.51-.2.7 0ZM2.15 7.15l3.5-3.5a.5.5 0 0 1 .76.63l-.06.07L3.21 7.5l3.14 3.15a.5.5 0 0 1-.63.76l-.07-.06-3.5-3.5a.5.5 0 0 1-.06-.63l.06-.07 3.5-3.5-3.5 3.5Z\"/>";
 
             /// <summary />
-            public static string ChannelDismiss { get; } = ResourceManager.GetString("ChannelDismiss");
+            public static string ArrowReplyDownSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.7 8 6.4 5.32a.5.5 0 0 0-.64-.76l-.07.05-3.56 3.57-.05.07-.03.06-.02.07v.02a.5.5 0 0 0-.02.1v-.07.12l.02.08.02.06.04.08.05.07 3.55 3.55a.5.5 0 0 0 .77-.64l-.06-.06L3.7 9H8c3.52 0 5.89-1.97 6-4.79v-.2a.5.5 0 0 0-1 0C13 6.27 11.2 7.9 8.26 8H3.7L6.4 5.32 3.7 8Z\"/>";
 
             /// <summary />
-            public static string ChannelShare { get; } = ResourceManager.GetString("ChannelShare");
+            public static string ArrowReplySvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m3.7 8 2.69 2.68a.5.5 0 0 1-.64.77l-.07-.06-3.56-3.57-.05-.07-.03-.06-.02-.06V7.6A.5.5 0 0 1 2 7.5v.07-.11l.02-.09.02-.06.04-.08.05-.07 3.55-3.55a.5.5 0 0 1 .77.64l-.06.07L3.7 7H8c3.52 0 5.89 1.98 6 4.8v.2a.5.5 0 0 1-1 0c0-2.27-1.8-3.9-4.74-4H3.7l2.69 2.68L3.7 8Z\"/>";
 
             /// <summary />
-            public static string ChannelSubtract { get; } = ResourceManager.GetString("ChannelSubtract");
+            public static string ArrowRightSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2.5 7.5a.5.5 0 1 0 0 1h9.7l-4.03 3.63a.5.5 0 1 0 .66.74l5-4.5a.5.5 0 0 0 0-.74l-5-4.5a.5.5 0 0 0-.66.74L12.2 7.5H2.5Z\"/>";
 
             /// <summary />
-            public static string Chat { get; } = ResourceManager.GetString("Chat");
+            public static string ArrowRotateClockwiseSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 3a5 5 0 0 0-5 5 .5.5 0 0 1-1 0 6 6 0 1 1 9.97 4.5H13a.5.5 0 0 1 0 1h-2.5a.5.5 0 0 1-.5-.5v-2.5a.5.5 0 0 1 1 0V12a5 5 0 0 0-3-9ZM6 8a2 2 0 1 1 4 0 2 2 0 0 1-4 0Zm2-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z\"/>";
 
             /// <summary />
-            public static string ChatAdd { get; } = ResourceManager.GetString("ChatAdd");
+            public static string ArrowShuffleOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m11.65 12.35 2.5 2.5a.5.5 0 0 0 .7-.7l-13-13a.5.5 0 1 0-.7.7L4.7 5.42A5.85 5.85 0 0 0 2.5 5a.5.5 0 0 0 0 1c1.45 0 2.5.56 3.48 1.35l.35-.31.7.7C5.7 8.96 4.48 10 2.5 10a.5.5 0 0 0 0 1c2.41 0 3.9-1.33 5.25-2.55l.7.71-.19.17c.38.31.78.6 1.22.85l2.17 2.17ZM12.1 10l1.3 1.3.44-.44a.5.5 0 0 0 0-.7l-1.5-1.5a.5.5 0 0 0-.7 0 .5.5 0 0 0 0 .7l.64.65-.18-.01ZM8.56 6.43l.71.72c.86-.64 1.8-1.1 3.02-1.15l-.64.65a.5.5 0 0 0 .7.7l1.5-1.5a.5.5 0 0 0 0-.7l-1.5-1.5a.5.5 0 0 0-.7.7l.65.65a6.3 6.3 0 0 0-3.74 1.43Z\"/>";
 
             /// <summary />
-            public static string ChatArrowBack { get; } = ResourceManager.GetString("ChatArrowBack");
+            public static string ArrowShuffleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M12.35 3.65a.5.5 0 0 0-.7.7l.65.65c-2.33.08-3.78 1.4-5.1 2.6l-.04.03C5.78 8.89 4.53 10 2.5 10a.5.5 0 0 0 0 1c2.44 0 3.95-1.37 5.3-2.6l.04-.03c1.33-1.22 2.54-2.3 4.45-2.37l-.64.65a.5.5 0 0 0 .7.7l1.5-1.5a.5.5 0 0 0 0-.7l-1.5-1.5ZM2.5 5c1.83 0 3.13.77 4.24 1.67l-.25.22-.5.46A5.35 5.35 0 0 0 2.5 6a.5.5 0 0 1 0-1Zm9.8 6a6.5 6.5 0 0 1-4.04-1.67l.25-.22.5-.46A5.4 5.4 0 0 0 12.3 10l-.64-.65a.5.5 0 0 1 .7-.7l1.5 1.5c.2.2.2.5 0 .7l-1.5 1.5a.5.5 0 0 1-.7-.7l.65-.65Z\"/>";
 
             /// <summary />
-            public static string ChatArrowDoubleBack { get; } = ResourceManager.GetString("ChatArrowDoubleBack");
+            public static string ArrowSortDownLinesSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m8.85 10.85-3 3a.5.5 0 0 1-.7 0l-3-3a.5.5 0 0 1 .7-.7L5 12.29V2.5a.5.5 0 0 1 1 0v9.8l2.15-2.15a.5.5 0 0 1 .7.7ZM8.5 3a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5Zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3Zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1Z\"/>";
 
             /// <summary />
-            public static string ChatBubblesQuestion { get; } = ResourceManager.GetString("ChatBubblesQuestion");
+            public static string ArrowSortDownSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.15 13.85c.2.2.5.2.7 0l3-3a.5.5 0 0 0-.7-.7L8 12.29V2.5a.5.5 0 0 0-1 0v9.8l-2.15-2.15a.5.5 0 0 0-.7.7l3 3Z\"/>";
 
             /// <summary />
-            public static string ChatCursor { get; } = ResourceManager.GetString("ChatCursor");
+            public static string ArrowSortSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.85 2.15a.5.5 0 0 0-.7 0l-3 3a.5.5 0 1 0 .7.7L4 3.71v9.79a.5.5 0 0 0 1 0V3.7l2.15 2.15a.5.5 0 1 0 .7-.7l-3-3Zm6.3 11.71c.2.19.5.19.7 0l3-2.9a.5.5 0 1 0-.7-.72L12 12.32V2.5a.5.5 0 0 0-1 0v9.82l-2.15-2.08a.5.5 0 1 0-.7.72l3 2.9Z\"/>";
 
             /// <summary />
-            public static string ChatDismiss { get; } = ResourceManager.GetString("ChatDismiss");
+            public static string ArrowSortUpSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.15 2.15c.2-.2.5-.2.7 0l3 3a.5.5 0 0 1-.7.7L8 3.71v9.79a.5.5 0 0 1-1 0V3.7L4.85 5.86a.5.5 0 1 1-.7-.7l3-3Z\"/>";
 
             /// <summary />
-            public static string ChatEmpty { get; } = ResourceManager.GetString("ChatEmpty");
+            public static string ArrowSplitSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 2c.28 0 .5.22.5.5V6h2c.83 0 1.5.67 1.5 1.5v4.8l1.15-1.15a.5.5 0 0 1 .7.7l-2 2a.5.5 0 0 1-.7 0l-2-2a.5.5 0 0 1 .7-.7L11 12.29V7.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0-.5.5v4.8l1.15-1.15a.5.5 0 0 1 .7.7l-2 2a.5.5 0 0 1-.7 0l-2-2a.5.5 0 0 1 .7-.7L4 12.29V7.5C4 6.67 4.67 6 5.5 6h2V2.5c0-.28.22-.5.5-.5Z\"/>";
 
             /// <summary />
-            public static string ChatMultiple { get; } = ResourceManager.GetString("ChatMultiple");
+            public static string ArrowStepBackSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.85 2.15c.2.2.2.5 0 .7L3.71 5h2.33c1.47 0 2.9 0 4.23.4a6.5 6.5 0 0 1 3.65 2.82.5.5 0 0 1-.84.56 5.5 5.5 0 0 0-3.1-2.43A14.05 14.05 0 0 0 6 6H3.7l2.15 2.15a.5.5 0 1 1-.7.7l-3-3a.5.5 0 0 1 0-.7l3-3c.2-.2.5-.2.7 0ZM8 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0-1a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z\"/>";
 
             /// <summary />
-            public static string ChatMultipleHeart { get; } = ResourceManager.GetString("ChatMultipleHeart");
+            public static string ArrowStepInLeftSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.7 8.5h6.8a.5.5 0 0 0 0-1H7.7l2.15-2.15a.5.5 0 0 0-.7-.7l-3 3a.5.5 0 0 0 0 .7l3 3a.5.5 0 0 0 .7-.7L7.71 8.5ZM1 8a2 2 0 1 1 4 0 2 2 0 0 1-4 0Zm1 0a1 1 0 1 0 2 0 1 1 0 0 0-2 0Z\"/>";
 
             /// <summary />
-            public static string ChatSparkle { get; } = ResourceManager.GetString("ChatSparkle");
+            public static string ArrowStepInRightSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.3 8.5H1.5a.5.5 0 0 1 0-1h6.8L6.14 5.35a.5.5 0 1 1 .7-.7l3 3a.5.5 0 0 1 0 .7l-3 3a.5.5 0 0 1-.7-.7L8.29 8.5ZM15 8a2 2 0 1 0-4 0 2 2 0 0 0 4 0Zm-1 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z\"/>";
 
             /// <summary />
-            public static string ChatWarning { get; } = ResourceManager.GetString("ChatWarning");
+            public static string ArrowStepInSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.5 8.3V1.5a.5.5 0 0 1 1 0v6.8l2.15-2.15a.5.5 0 0 1 .7.7l-3 3a.5.5 0 0 1-.7 0l-3-3a.5.5 0 1 1 .7-.7L7.5 8.29ZM8 15a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0-1a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z\"/>";
 
             /// <summary />
-            public static string CheckboxChecked { get; } = ResourceManager.GetString("CheckboxChecked");
+            public static string ArrowStepOutSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.65 4.85c.2.2.5.2.7 0L7.5 2.71V9.5a.5.5 0 0 0 1 0V2.7l2.15 2.15a.5.5 0 0 0 .7-.7l-3-3a.5.5 0 0 0-.7 0l-3 3a.5.5 0 0 0 0 .7ZM8 15a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0-1a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z\"/>";
 
             /// <summary />
-            public static string CheckboxCheckedSync { get; } = ResourceManager.GetString("CheckboxCheckedSync");
+            public static string ArrowStepOverSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10.15 2.15a.5.5 0 0 0 0 .7L12.29 5H9.96c-1.47 0-2.9 0-4.23.4a6.5 6.5 0 0 0-3.65 2.82.5.5 0 0 0 .84.56 5.5 5.5 0 0 1 3.1-2.43C7.19 6 8.48 6 10 6h2.3l-2.15 2.15a.5.5 0 1 0 .7.7l3-3a.5.5 0 0 0 0-.7l-3-3a.5.5 0 0 0-.7 0ZM8 15a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0-1a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z\"/>";
 
             /// <summary />
-            public static string CheckboxIndeterminate { get; } = ResourceManager.GetString("CheckboxIndeterminate");
+            public static string ArrowSyncCircleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 2a6 6 0 1 0 0 12A6 6 0 0 0 8 2Zm0 1a5 5 0 1 1 0 10A5 5 0 0 1 8 3ZM7 8H5.5a.5.5 0 0 0-.5.41V10a.5.5 0 0 0 1 .1V9.75a2.67 2.67 0 0 0 3.92.09.5.5 0 0 0-.72-.7A1.66 1.66 0 0 1 6.67 9H7a.5.5 0 0 0 .09-1h-.1Zm1-2.67c-.74 0-1.43.3-1.93.83a.5.5 0 1 0 .73.69A1.66 1.66 0 0 1 9.33 7H9a.5.5 0 0 0-.09 1h1.59a.5.5 0 0 0 .5-.41V6a.5.5 0 0 0-1-.09v.33c-.5-.56-1.21-.9-2-.9Z\"/>";
 
             /// <summary />
-            public static string CheckboxPerson { get; } = ResourceManager.GetString("CheckboxPerson");
+            public static string ArrowSyncOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.42 4.13a5.98 5.98 0 0 0 .8 8.53.5.5 0 0 0 .63-.78 4.99 4.99 0 0 1-.72-7.04l7.03 7.03A4.98 4.98 0 0 1 8.21 13l.64-.65a.5.5 0 0 0-.7-.7l-1.5 1.5a.5.5 0 0 0 0 .7l1.5 1.5a.5.5 0 0 0 .7-.7L8.2 14a5.97 5.97 0 0 0 3.67-1.42l2.28 2.27a.5.5 0 0 0 .7-.7l-13-13a.5.5 0 1 0-.7.7l2.27 2.28Zm9.01 6.18.74.74a5.97 5.97 0 0 0-1.4-7.71.5.5 0 1 0-.62.78 4.99 4.99 0 0 1 1.28 6.2ZM4.95 2.83l.74.74A4.97 4.97 0 0 1 7.79 3l-.64.65a.5.5 0 1 0 .7.7l1.5-1.5a.5.5 0 0 0 0-.7L7.85.65a.5.5 0 1 0-.7.7L7.8 2c-1.04.04-2 .34-2.85.83Z\"/>";
 
             /// <summary />
-            public static string CheckboxUnchecked { get; } = ResourceManager.GetString("CheckboxUnchecked");
+            public static string ArrowSyncSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.15.65c.2-.2.5-.2.7 0l1.5 1.5c.2.2.2.5 0 .7l-1.5 1.5a.5.5 0 1 1-.7-.7L7.79 3a5 5 0 0 0-2.94 8.88.5.5 0 1 1-.63.78A5.99 5.99 0 0 1 7.8 2l-.65-.65a.5.5 0 0 1 0-.7Zm3.92 2.76a.5.5 0 0 1 .7-.07A5.99 5.99 0 0 1 8.2 14l.65.65a.5.5 0 0 1-.7.7l-1.5-1.5a.5.5 0 0 1 0-.7l1.5-1.5a.5.5 0 0 1 .7.7l-.64.65a5 5 0 0 0 2.94-8.88.5.5 0 0 1-.08-.7Z\"/>";
 
             /// <summary />
-            public static string Checkmark { get; } = ResourceManager.GetString("Checkmark");
+            public static string ArrowTrendingDownSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.5 12h5.04l.09-.02.06-.02.06-.03.06-.04.06-.05.04-.05.04-.06.03-.08.01-.04.01-.09V6.5a.5.5 0 0 0-.99-.09V10.3L7.85 5.14a.5.5 0 0 0-.64-.06l-.07.06L5.5 6.79 2.85 4.15a.5.5 0 0 0-.76.63l.06.07 3 3c.17.18.44.2.63.06l.07-.06L7.5 6.21 12.3 11H8.5a.5.5 0 0 0-.5.41v.09c0 .28.22.5.5.5Z\"/>";
 
             /// <summary />
-            public static string CheckmarkCircle { get; } = ResourceManager.GetString("CheckmarkCircle");
+            public static string ArrowTrendingSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.5 4h5.04l.09.02.06.02.06.03.06.04.06.05.04.05.04.06.03.08.01.04.01.09V9.5a.5.5 0 0 1-.99.09V5.7l-5.15 5.15a.5.5 0 0 1-.64.06l-.07-.06L5.5 9.21l-2.65 2.64a.5.5 0 0 1-.76-.63l.06-.07 3-3a.5.5 0 0 1 .63-.06l.07.06L7.5 9.79 12.3 5H8.5a.5.5 0 0 1-.5-.41V4.5c0-.28.22-.5.5-.5Z\"/>";
 
             /// <summary />
-            public static string CheckmarkLock { get; } = ResourceManager.GetString("CheckmarkLock");
+            public static string ArrowUndoSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3 2.5a.5.5 0 0 1 1 0v3.84l3.17-3.17a4 4 0 0 1 5.66 5.66L7.8 13.85a.5.5 0 0 1-.7-.7l5.02-5.03a3 3 0 1 0-4.24-4.24L4.76 7H8.5a.5.5 0 0 1 0 1H3.6a.6.6 0 0 1-.6-.6V2.5Z\"/>";
 
             /// <summary />
-            public static string CheckmarkStarburst { get; } = ResourceManager.GetString("CheckmarkStarburst");
+            public static string ArrowUpLeftSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.5 3a.5.5 0 0 0 0-1h-6a.5.5 0 0 0-.5.5v6a.5.5 0 0 0 1 0V3.7l10.15 10.15a.5.5 0 0 0 .7-.7L3.71 3H8.5Z\"/>";
 
             /// <summary />
-            public static string CheckmarkUnderlineCircle { get; } = ResourceManager.GetString("CheckmarkUnderlineCircle");
+            public static string ArrowUploadSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.5 2a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9Zm4.85 2.15a.5.5 0 0 0-.7 0l-3.5 3.5a.5.5 0 1 0 .7.7L7.5 5.71v7.79a.5.5 0 0 0 1 0V5.7l2.65 2.65a.5.5 0 0 0 .7-.7l-3.5-3.5Z\"/>";
 
             /// <summary />
-            public static string ChevronCircleDown { get; } = ResourceManager.GetString("ChevronCircleDown");
+            public static string ArrowUpRightSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.5 3a.5.5 0 0 1 0-1h6c.28 0 .5.22.5.5v6a.5.5 0 0 1-1 0V3.7L2.85 13.86a.5.5 0 0 1-.7-.7L12.29 3H7.5Z\"/>";
 
             /// <summary />
-            public static string ChevronCircleLeft { get; } = ResourceManager.GetString("ChevronCircleLeft");
+            public static string ArrowUpSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.5 13.5a.5.5 0 0 0 1 0V3.8l3.63 4.03a.5.5 0 0 0 .74-.66l-4.5-5a.5.5 0 0 0-.74 0l-4.5 5a.5.5 0 0 0 .74.66L7.5 3.8v9.7Z\"/>";
 
             /// <summary />
-            public static string ChevronCircleRight { get; } = ResourceManager.GetString("ChevronCircleRight");
+            public static string AttachSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2.28 7.97a.5.5 0 0 0 .86.36l4.6-4.6A2.5 2.5 0 0 1 12 5.5a2.5 2.5 0 0 1-.73 1.77l-5.3 5.3a1 1 0 0 1-1.71-.7 1 1 0 0 1 .3-.71l5.3-5.3a.5.5 0 0 0-.7-.7l-5.32 5.29a2 2 0 1 0 2.83 2.83l5.3-5.3A3.49 3.49 0 0 0 9.5 2c-.9 0-1.8.34-2.48 1.02l-4.6 4.6a.5.5 0 0 0-.14.35Z\"/>";
 
             /// <summary />
-            public static string ChevronCircleUp { get; } = ResourceManager.GetString("ChevronCircleUp");
+            public static string AutosumSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2.54 2.3A.5.5 0 0 1 3 2h9.5a.5.5 0 1 1 0 1H4.17l4.08 4.25a.5.5 0 0 1 .02.67L4.07 13h8.43a.5.5 0 1 1 0 1H3a.5.5 0 0 1-.39-.82l4.6-5.56-4.57-4.77a.5.5 0 0 1-.1-.55Z\"/>";
 
             /// <summary />
-            public static string ChevronDoubleDown { get; } = ResourceManager.GetString("ChevronDoubleDown");
+            public static string BackpackSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7 6a2 2 0 0 0-2 2 1 1 0 0 0 1 1h4a1 1 0 0 0 1-1 2 2 0 0 0-2-2H7ZM6 8a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1H6Zm2-7a2 2 0 0 0-2 2v.42A5 5 0 0 0 3 8v4.5A2.5 2.5 0 0 0 5.5 15h5a2.5 2.5 0 0 0 2.5-2.5V8a5 5 0 0 0-3-4.58V3a2 2 0 0 0-2-2Zm4 9H4V8a4 4 0 1 1 8 0v2Zm-6 2.5a.5.5 0 0 0 1 0V11h5v1.5c0 .83-.67 1.5-1.5 1.5h-5A1.5 1.5 0 0 1 4 12.5V11h2v1.5ZM8 3c-.34 0-.68.03-1 .1V3a1 1 0 0 1 2 0v.1c-.32-.07-.66-.1-1-.1Z\"/>";
 
             /// <summary />
-            public static string ChevronDoubleLeft { get; } = ResourceManager.GetString("ChevronDoubleLeft");
+            public static string BackspaceSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 3a2 2 0 0 0-1.41.59l-3 3a2 2 0 0 0 0 2.82l3 3A2 2 0 0 0 6 13h6a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H6Zm-.7 1.3A1 1 0 0 1 6 4h6a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H6a1 1 0 0 1-.7-.3l-3-3a1 1 0 0 1 0-1.4l3-3Zm2.05 1.35a.5.5 0 1 0-.7.7L8.29 8 6.65 9.65a.5.5 0 0 0 .7.7L9 8.71l1.65 1.64a.5.5 0 0 0 .7-.7L9.71 8l1.64-1.65a.5.5 0 0 0-.7-.7L9 7.29 7.35 5.65Z\"/>";
 
             /// <summary />
-            public static string ChevronDoubleRight { get; } = ResourceManager.GetString("ChevronDoubleRight");
+            public static string BalloonSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.5 3.5c0-.28.22-.5.5-.5.66 0 1.28.33 1.73.77.44.45.77 1.07.77 1.73a.5.5 0 0 1-1 0c0-.34-.17-.72-.48-1.02C8.72 4.18 8.34 4 8 4a.5.5 0 0 1-.5-.5Zm1 7.46a4.49 4.49 0 0 0 2.64-1.72A6.15 6.15 0 0 0 12.5 5.5C12.5 3.27 10.82 1 8 1a4.44 4.44 0 0 0-4.5 4.5c0 1.37.55 2.73 1.36 3.74.7.87 1.62 1.55 2.64 1.72V11c0 1.1.9 2 2 2H11a1 1 0 0 1 1 1v.5a.5.5 0 0 0 1 0V14a2 2 0 0 0-2-2H9.5a1 1 0 0 1-1-1v-.04ZM8 2c2.18 0 3.5 1.73 3.5 3.5 0 1.12-.45 2.26-1.14 3.12C9.66 9.49 8.79 10 8 10c-.8 0-1.66-.5-2.36-1.38-.69-.86-1.14-2-1.14-3.12C4.5 3.73 5.82 2 8 2Z\"/>";
 
             /// <summary />
-            public static string ChevronDoubleUp { get; } = ResourceManager.GetString("ChevronDoubleUp");
+            public static string BeachSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.91 1.56a4.18 4.18 0 0 0-5.69 1.52l-.15.26a.5.5 0 0 0 .18.68L8.9 5.54 7.27 8.4a4.9 4.9 0 0 0-3.46 2.4 1.5 1.5 0 0 1 1.09.17 3.7 3.7 0 0 1 2.9-1.6 3.7 3.7 0 0 1 2.92 1.6 1.5 1.5 0 0 1 1.09-.17A4.91 4.91 0 0 0 8.4 8.4l1.36-2.36 2.84 1.63a.5.5 0 0 0 .68-.18l.15-.26a4.14 4.14 0 0 0-1.53-5.67ZM7.2 3.4a3.18 3.18 0 0 1 3.42-1.31 6.26 6.26 0 0 0-2.28 1.97L7.19 3.4Zm3.03.1c.28-.22.6-.41 1.03-.61.05.4.06.74.02 1.07-.06.44-.2.9-.53 1.48L9.2 4.56a5.1 5.1 0 0 1 1.02-1.06Zm2.45 3.05-1.06-.61a4.67 4.67 0 0 0 .67-2.8c.77.94.96 2.27.39 3.4ZM4.6 12.09a.5.5 0 0 0-.96.04c-.12.51-.35.78-.6.94A2 2 0 0 1 2 13.3a.5.5 0 1 0 0 1c.5 0 1.07-.08 1.56-.38.24-.15.46-.34.63-.58a2.41 2.41 0 0 0 3.62-.02 2.41 2.41 0 0 0 3.67-.04 2.8 2.8 0 0 0 2.14 1.02.5.5 0 0 0 0-1c-.72 0-1.43-.47-1.67-1.2a.5.5 0 0 0-.95 0 1.42 1.42 0 0 1-2.72.05.5.5 0 0 0-.94 0 1.42 1.42 0 0 1-2.73-.06Z\"/>";
 
             /// <summary />
-            public static string ChevronDown { get; } = ResourceManager.GetString("ChevronDown");
+            public static string BeakerSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.5 3H6v3.69c0 .44-.12.88-.34 1.26l-2.21 3.8A1.5 1.5 0 0 0 4.75 14h6.5a1.5 1.5 0 0 0 1.3-2.26l-2.21-3.8A2.5 2.5 0 0 1 10 6.7V3h.5a.5.5 0 0 0 0-1h-5a.5.5 0 0 0 0 1ZM7 6.69V3h2v3.69c0 .62.16 1.23.48 1.76L9.8 9H6.2l.32-.55A3.5 3.5 0 0 0 7 6.7ZM5.62 10h4.76l1.31 2.25a.5.5 0 0 1-.43.75H4.74a.5.5 0 0 1-.43-.75L5.62 10Z\"/>";
 
             /// <summary />
-            public static string ChevronDownUp { get; } = ResourceManager.GetString("ChevronDownUp");
+            public static string BedSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3 4.5A2.5 2.5 0 0 1 5.5 2h5A2.5 2.5 0 0 1 13 4.5v1.55a2.5 2.5 0 0 1 2 2.45v5a.5.5 0 0 1-1 0V11H2v2.5a.5.5 0 0 1-1 0v-5c0-1.2.86-2.22 2-2.45V4.5ZM2 10h12V8.5c0-.83-.67-1.5-1.5-1.5h-9C2.67 7 2 7.67 2 8.5V10Zm10-5.5c0-.83-.67-1.5-1.5-1.5h-5C4.67 3 4 3.67 4 4.5V6h1v-.5c0-.28.22-.5.5-.5H7c.28 0 .5.22.5.5V6h1v-.5c0-.28.22-.5.5-.5h1.5c.28 0 .5.22.5.5V6h1V4.5Z\"/>";
 
             /// <summary />
-            public static string ChevronLeft { get; } = ResourceManager.GetString("ChevronLeft");
+            public static string BluetoothSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.29 1.05a.5.5 0 0 1 .53.06l4 3.25a.5.5 0 0 1 0 .78L8.29 8l3.53 2.86a.5.5 0 0 1 0 .78l-4 3.25A.5.5 0 0 1 7 14.5V9.05l-3.18 2.59a.5.5 0 0 1-.64-.78L6.71 8 3.18 5.14a.5.5 0 1 1 .64-.78L7 6.95V1.5c0-.2.11-.37.29-.45Zm.71 8v4.4l2.7-2.2L8 9.05Zm0-2.1 2.7-2.2L8 2.55v4.4Z\"/>";
 
             /// <summary />
-            public static string ChevronRight { get; } = ResourceManager.GetString("ChevronRight");
+            public static string BlurSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 2a6 6 0 1 0 4.47 10H8v1A5 5 0 0 1 8 3h3.32c-.95-.63-2.1-1-3.32-1Zm0 2h4.47c.28.3.52.64.73 1H8V4Zm5.66 2H8v1h5.92a5.95 5.95 0 0 0-.26-1ZM8 8h6c0 .34-.03.67-.08 1H8V8Zm5.66 2H8v1h5.2c.18-.32.34-.65.46-1Z\"/>";
 
             /// <summary />
-            public static string ChevronUp { get; } = ResourceManager.GetString("ChevronUp");
+            public static string BoardHeartSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 4.5A2.5 2.5 0 0 1 4.5 2h7A2.5 2.5 0 0 1 14 4.5v1.86a3.54 3.54 0 0 0-1-.32V4.5c0-.83-.67-1.5-1.5-1.5h-3v3c-.34 0-.67.06-1 .16V6H3v5.5c0 .83.67 1.5 1.5 1.5h2.42l1 1H4.5A2.5 2.5 0 0 1 2 11.5v-7ZM4.5 3C3.67 3 3 3.67 3 4.5V5h4.5V3h-3ZM13 7.06a2.54 2.54 0 0 1 1.25.7c1 1 1 2.64 0 3.65l-3.43 3.46a.45.45 0 0 1-.64 0L6.75 11.4a2.6 2.6 0 0 1 1.75-4.4c.68-.03 1.36.23 1.88.75l.12.12.12-.12a2.55 2.55 0 0 1 2.38-.7Z\"/>";
 
             /// <summary />
-            public static string ChevronUpDown { get; } = ResourceManager.GetString("ChevronUpDown");
+            public static string BoardSplitSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 4.5A2.5 2.5 0 0 1 4.5 2h7A2.5 2.5 0 0 1 14 4.5v7a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 11.5v-7ZM4.5 3C3.67 3 3 3.67 3 4.5V7h6V3H4.5ZM3 8v3.5c0 .83.67 1.5 1.5 1.5H9V8H3Zm7 1h3V7h-3v2Zm3 1h-3v3h1.5c.83 0 1.5-.67 1.5-1.5V10Zm0-5.5c0-.83-.67-1.5-1.5-1.5H10v3h3V4.5Z\"/>";
 
             /// <summary />
-            public static string Circle { get; } = ResourceManager.GetString("Circle");
+            public static string BoardSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 4.5A2.5 2.5 0 0 1 4.5 2h7A2.5 2.5 0 0 1 14 4.5v7a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 11.5v-7ZM4.5 3C3.67 3 3 3.67 3 4.5V5h4.5V3h-3Zm4 0v7H13V4.5c0-.83-.67-1.5-1.5-1.5h-3Zm4.5 8H8.5v2h3c.83 0 1.5-.67 1.5-1.5V11Zm-5.5 2V6H3v5.5c0 .83.67 1.5 1.5 1.5h3Z\"/>";
 
             /// <summary />
-            public static string CircleHalfFill { get; } = ResourceManager.GetString("CircleHalfFill");
+            public static string BookmarkMultipleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.65 2c.3-.6.91-1 1.62-1h4.63A3.1 3.1 0 0 1 14 4.1v7.37c0 .7-.4 1.31-1 1.61V4.1A2.1 2.1 0 0 0 10.9 2H4.65Zm.15 1C3.8 3 3 3.8 3 4.8v9.7a.5.5 0 0 0 .72.45l3.78-1.9 3.78 1.9a.5.5 0 0 0 .72-.45V4.8c0-1-.8-1.8-1.8-1.8H4.8ZM4 4.8c0-.44.36-.8.8-.8h5.4c.44 0 .8.36.8.8v8.89l-3.28-1.64a.5.5 0 0 0-.44 0L4 13.7V4.8Z\"/>";
 
             /// <summary />
-            public static string CircleHint { get; } = ResourceManager.GetString("CircleHint");
+            public static string BookmarkSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.78 13.92A.5.5 0 0 1 3 13.5V4.01c0-1.1.9-2 2-2L11 2a2 2 0 0 1 2 2v9.5a.5.5 0 0 1-.78.42L8 11.1l-4.22 2.82ZM12 4v-.12A1 1 0 0 0 11 3l-6 .01a1 1 0 0 0-1 1v8.56l3.72-2.49a.5.5 0 0 1 .56 0L12 12.57V4Z\"/>";
 
             /// <summary />
-            public static string CircleImage { get; } = ResourceManager.GetString("CircleImage");
+            public static string BookNumberSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.5 5.5c0 .27.22.5.5.5h.6l-.22 1H5.5a.5.5 0 0 0 0 1h.66l-.14.64a.5.5 0 0 0 .97.21L7.2 8h.96l-.14.64a.5.5 0 1 0 .97.22l.2-.86H10a.5.5 0 0 0 0-1h-.6l.22-1h.88a.5.5 0 0 0 0-1h-.65l.14-.64A.5.5 0 0 0 9 4.14L8.82 5h-.97l.14-.64A.5.5 0 0 0 7 4.14L6.82 5H6a.5.5 0 0 0-.5.5ZM8.37 7H7.4l.23-1h.97l-.23 1ZM5 1h6a2 2 0 0 1 2 2v9.5a.5.5 0 0 1-.5.5H4a1 1 0 0 0 1 1h7.5a.5.5 0 0 1 0 1H5a2 2 0 0 1-2-2V3c0-1.1.9-2 2-2ZM4 3v9h8V3a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1Z\"/>";
 
             /// <summary />
-            public static string CircleLine { get; } = ResourceManager.GetString("CircleLine");
+            public static string BookOpenSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2.5 2C1.67 2 1 2.67 1 3.5v9c0 .83.67 1.5 1.5 1.5H6c.82 0 1.54-.4 2-1 .46.6 1.18 1 2 1h3.5c.83 0 1.5-.67 1.5-1.5v-9c0-.83-.67-1.5-1.5-1.5H10c-.82 0-1.54.4-2 1a2.5 2.5 0 0 0-2-1H2.5Zm5 2.5v7c0 .83-.67 1.5-1.5 1.5H2.5a.5.5 0 0 1-.5-.5v-9c0-.28.22-.5.5-.5H6c.83 0 1.5.67 1.5 1.5Zm1 7v-7c0-.83.67-1.5 1.5-1.5h3.5c.28 0 .5.22.5.5v9a.5.5 0 0 1-.5.5H10a1.5 1.5 0 0 1-1.5-1.5Z\"/>";
 
             /// <summary />
-            public static string CircleOff { get; } = ResourceManager.GetString("CircleOff");
+            public static string BorderAllSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 4.5A2.5 2.5 0 0 1 4.5 2h7A2.5 2.5 0 0 1 14 4.5v7a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 11.5v-7ZM4.5 3C3.67 3 3 3.67 3 4.5v3h4.5V3h-3Zm4 0v4.5H13v-3c0-.83-.67-1.5-1.5-1.5h-3ZM13 8.5H8.5V13h3c.83 0 1.5-.67 1.5-1.5v-3ZM7.5 13V8.5H3v3c0 .83.67 1.5 1.5 1.5h3Z\"/>";
 
             /// <summary />
-            public static string City { get; } = ResourceManager.GetString("City");
+            public static string BowlChopsticksSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2.73 1.08a.5.5 0 0 1 .7.15L7.08 7h1.82L5.58 1.77a.5.5 0 0 1 .84-.54L10.1 7h4.41c.28 0 .5.22.5.5V8A7 7 0 1 1 1 8v-.5c0-.28.22-.5.5-.5h4.4L2.59 1.77a.5.5 0 0 1 .15-.7ZM2.34 10h11.32A6 6 0 0 0 14 8H2a6 6 0 0 0 .34 2Zm.46 1a6 6 0 0 0 10.4 0H2.8Z\"/>";
 
             /// <summary />
-            public static string Classification { get; } = ResourceManager.GetString("Classification");
+            public static string BoxSearchSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10.08.38a3 3 0 0 0-2.16 0l-4.96 1.9A1.5 1.5 0 0 0 2 3.69v2.58c.32-.12.65-.2 1-.23V3.97l5.5 2.36v7.05l.44.44a3 3 0 0 0 1.14-.2l4.96-1.9c.58-.23.96-.79.96-1.4V3.68a1.5 1.5 0 0 0-.96-1.4L10.08.38Zm-1.8.93a2 2 0 0 1 1.44 0l4.72 1.82-1.95.83-5.6-2.12 1.4-.53ZM9.5 6.33 15 3.97v6.34c0 .21-.13.4-.32.47l-4.96 1.9c-.07.04-.15.06-.22.08V6.33ZM9 5.46 3.56 3.13l1.94-.75 5.66 2.15L9 5.46ZM3.5 14c.79 0 1.51-.26 2.1-.7l2.55 2.55a.5.5 0 1 0 .7-.7L6.3 12.6A3.5 3.5 0 1 0 3.5 14Zm0-1a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z\"/>";
 
             /// <summary />
-            public static string ClearFormatting { get; } = ResourceManager.GetString("ClearFormatting");
+            public static string BoxSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6.92 1.38a3 3 0 0 1 2.16 0l4.96 1.9c.58.23.96.79.96 1.4v6.63a1.5 1.5 0 0 1-.96 1.4l-4.96 1.91a3 3 0 0 1-2.16 0l-4.96-1.9a1.5 1.5 0 0 1-.96-1.4V4.68c0-.62.38-1.18.96-1.4l4.96-1.91Zm1.8.93a2 2 0 0 0-1.44 0l-1.38.53 5.59 2.12 1.95-.83L8.72 2.3ZM14 4.97 8.5 7.33v6.43a2 2 0 0 0 .22-.07l4.96-1.91a.5.5 0 0 0 .32-.47V4.97Zm-6.5 8.79V7.33L2 4.97v6.34c0 .2.13.4.32.47l4.96 1.9a2 2 0 0 0 .22.08ZM2.56 4.13 8 6.46l2.16-.93L4.5 3.38l-1.94.75Z\"/>";
 
             /// <summary />
-            public static string Clipboard { get; } = ResourceManager.GetString("Clipboard");
+            public static string BracesCheckmarkSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 13.5a.5.5 0 0 1-.5.5 2 2 0 0 1-2-2V9a.5.5 0 0 0-.5-.5.5.5 0 0 1 0-1A.5.5 0 0 0 2 7V4c0-1.1.9-2 2-2a.5.5 0 0 1 0 1 1 1 0 0 0-1 1v3c0 .38-.14.74-.38 1 .24.27.38.62.38 1v3a1 1 0 0 0 1 1c.28 0 .5.22.5.5Zm10-6A.5.5 0 0 1 14 7V4a2 2 0 0 0-2-2 .5.5 0 0 0 0 1 1 1 0 0 1 1 1v3c0 .38.14.74.38 1A1.5 1.5 0 0 0 13 9v3a1 1 0 0 1-1 1 .5.5 0 0 0 0 1 2 2 0 0 0 2-2V9c0-.28.22-.5.5-.5a.5.5 0 0 0 0-1ZM12 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0Zm-1 0a3 3 0 1 0-6 0 3 3 0 0 0 6 0ZM9.15 6.65 7.5 8.29l-.65-.64a.5.5 0 0 0-.7.7l1 1a.5.5 0 0 0 .7 0l2-2a.5.5 0 0 0-.7-.7Z\"/>";
 
             /// <summary />
-            public static string Clipboard3Day { get; } = ResourceManager.GetString("Clipboard3Day");
+            public static string BracesDismissSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 13.5a.5.5 0 0 1-.5.5 2 2 0 0 1-2-2V9a.5.5 0 0 0-.5-.5.5.5 0 0 1 0-1A.5.5 0 0 0 2 7V4c0-1.1.9-2 2-2a.5.5 0 0 1 0 1 1 1 0 0 0-1 1v3c0 .38-.14.74-.38 1 .24.27.38.62.38 1v3a1 1 0 0 0 1 1c.28 0 .5.22.5.5Zm10-6A.5.5 0 0 1 14 7V4a2 2 0 0 0-2-2 .5.5 0 0 0 0 1 1 1 0 0 1 1 1v3c0 .38.14.74.38 1A1.5 1.5 0 0 0 13 9v3a1 1 0 0 1-1 1 .5.5 0 0 0 0 1 2 2 0 0 0 2-2V9c0-.28.22-.5.5-.5a.5.5 0 0 0 0-1ZM12 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0Zm-1 0a3 3 0 1 0-6 0 3 3 0 0 0 6 0ZM9.5 6.5a.5.5 0 0 0-.7 0l-.8.8-.8-.8a.5.5 0 0 0-.7.7l.8.8-.8.8a.5.5 0 0 0 .7.7l.8-.8.8.8a.5.5 0 0 0 .7-.7L8.7 8l.8-.8a.5.5 0 0 0 0-.7Z\"/>";
 
             /// <summary />
-            public static string ClipboardArrowRight { get; } = ResourceManager.GetString("ClipboardArrowRight");
+            public static string BracesSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 2a2 2 0 0 0-2 2v2c0 .53 0 .8-.09 1-.06.16-.2.33-.63.55a.5.5 0 0 0 0 .9c.44.22.57.4.63.55.08.2.09.47.09 1v2c0 1.1.9 2 2 2a.5.5 0 0 0 0-1 1 1 0 0 1-1-1V9.94c0-.45 0-.91-.16-1.31-.1-.25-.24-.45-.44-.63.2-.18.34-.38.44-.63.16-.4.16-.86.16-1.3V4a1 1 0 0 1 1-1 .5.5 0 0 0 0-1Zm6 0a2 2 0 0 1 2 2v2c0 .53 0 .8.09 1 .06.16.2.33.63.55a.5.5 0 0 1 0 .9c-.44.22-.57.4-.63.55-.08.2-.09.47-.09 1v2a2 2 0 0 1-2 2 .5.5 0 0 1 0-1 1 1 0 0 0 1-1V9.94c0-.45 0-.91.16-1.31.1-.25.24-.45.44-.63-.2-.18-.34-.38-.44-.63-.16-.4-.16-.86-.16-1.3V4a1 1 0 0 0-1-1 .5.5 0 0 1 0-1Z\"/>";
 
             /// <summary />
-            public static string ClipboardBulletListLtr { get; } = ResourceManager.GetString("ClipboardBulletListLtr");
+            public static string BranchCompareSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9.15 5.85a.5.5 0 1 0 .7-.7L8.71 4h1.79c.83 0 1.5.67 1.5 1.5v4.55a2.5 2.5 0 1 0 1 0V5.5A2.5 2.5 0 0 0 10.5 3H8.7l1.15-1.15a.5.5 0 0 0-.7-.7l-2 2a.5.5 0 0 0 0 .7l2 2ZM14 12.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm-8-9a2.5 2.5 0 0 1-2 2.45v4.55c0 .83.67 1.5 1.5 1.5h1.8l-1.15-1.15a.5.5 0 0 1 .7-.7l2 2c.2.2.2.5 0 .7l-2 2a.5.5 0 0 1-.7-.7L7.29 13H5.5A2.5 2.5 0 0 1 3 10.5V5.95A2.5 2.5 0 1 1 6 3.5Zm-1 0a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0Z\"/>";
 
             /// <summary />
-            public static string ClipboardBulletListRtl { get; } = ResourceManager.GetString("ClipboardBulletListRtl");
+            public static string BranchForkSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 5.95a2.5 2.5 0 1 0-1 0v4.1a2.5 2.5 0 1 0 1 0V9h4.5A2.5 2.5 0 0 0 12 6.5v-.55a2.5 2.5 0 1 0-1 0v.55c0 .83-.67 1.5-1.5 1.5H5V5.95ZM4.5 5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm7 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3ZM6 12.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z\"/>";
 
             /// <summary />
-            public static string ClipboardCheckmark { get; } = ResourceManager.GetString("ClipboardCheckmark");
+            public static string BranchSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.5 6a2.5 2.5 0 0 0-2.45 1.98c-1.88-.12-3.58-1.02-3.97-2.05A2.5 2.5 0 1 0 4 5.95v4.1a2.5 2.5 0 1 0 1 0V7.47a6.99 6.99 0 0 0 4.05 1.52A2.5 2.5 0 1 0 11.5 6ZM3 3.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Zm3 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm5.5-2.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z\"/>";
 
             /// <summary />
-            public static string ClipboardCode { get; } = ResourceManager.GetString("ClipboardCode");
+            public static string BriefcaseMedicalSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.5 8a.5.5 0 0 0-1 0v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1V8ZM5 2.5V5H4a2 2 0 0 0-2 2v5c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V2.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0-.5.5Zm5 .5v2H6V3h4ZM4 6h8a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1Z\"/>";
 
             /// <summary />
-            public static string ClipboardDay { get; } = ResourceManager.GetString("ClipboardDay");
+            public static string BriefcaseOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m13.2 13.9.95.95a.5.5 0 0 0 .7-.7l-13-13a.5.5 0 1 0-.7.7L4.29 5H3.5A2.5 2.5 0 0 0 1 7.5v4A2.5 2.5 0 0 0 3.5 14h9c.24 0 .47-.03.7-.1Zm-.9-.9H3.5A1.5 1.5 0 0 1 2 11.5v-4C2 6.67 2.67 6 3.5 6h1.8l7 7Zm1.7-1.5c0 .12-.01.23-.04.34l.78.78c.17-.34.26-.72.26-1.12v-4A2.5 2.5 0 0 0 12.5 5H11V2.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0-.5.5v.38l1 1V3h4v2H7.12l1 1h4.38c.83 0 1.5.67 1.5 1.5v4Z\"/>";
 
             /// <summary />
-            public static string ClipboardError { get; } = ResourceManager.GetString("ClipboardError");
+            public static string BriefcaseSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.5 2h5c.28 0 .5.22.5.5V5h1a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7c0-1.1.9-2 2-2h1V2.5c0-.28.22-.5.5-.5ZM10 5V3H6v2h4ZM4 6a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H4Z\"/>";
 
             /// <summary />
-            public static string ClipboardLetter { get; } = ResourceManager.GetString("ClipboardLetter");
+            public static string BrightnessHighSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 1c.28 0 .5.22.5.5v1a.5.5 0 0 1-1 0v-1c0-.28.22-.5.5-.5Zm0 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm0-1a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm6.5-1.5a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1h1ZM8 13c.28 0 .5.22.5.5v1a.5.5 0 0 1-1 0v-1c0-.28.22-.5.5-.5ZM2.5 8.5a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1h1Zm.65-5.35c.2-.2.5-.2.7 0l1 1a.5.5 0 1 1-.7.7l-1-1a.5.5 0 0 1 0-.7Zm.7 9.7a.5.5 0 1 1-.7-.7l1-1a.5.5 0 1 1 .7.7l-1 1Zm9-9.7a.5.5 0 0 0-.7 0l-1 1a.5.5 0 0 0 .7.7l1-1a.5.5 0 0 0 0-.7Zm-.7 9.7a.5.5 0 0 0 .7-.7l-1-1a.5.5 0 0 0-.7.7l1 1Z\"/>";
 
             /// <summary />
-            public static string ClipboardLink { get; } = ResourceManager.GetString("ClipboardLink");
+            public static string BrightnessLowSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 2c.28 0 .5.22.5.5v1a.5.5 0 0 1-1 0v-1c0-.28.22-.5.5-.5Zm0 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm0-1a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm5.5-1.5a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1h1ZM8 12c.28 0 .5.22.5.5v1a.5.5 0 0 1-1 0v-1c0-.28.22-.5.5-.5ZM3.5 8.5a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1h1Zm.15-4.85c.2-.2.5-.2.7 0l.5.5a.5.5 0 1 1-.7.7l-.5-.5a.5.5 0 0 1 0-.7Zm.7 8.7a.5.5 0 1 1-.7-.7l.5-.5a.5.5 0 1 1 .7.7l-.5.5Zm8-8.7a.5.5 0 0 0-.7 0l-.5.5a.5.5 0 0 0 .7.7l.5-.5a.5.5 0 0 0 0-.7Zm-1.2 8.2.5.5a.5.5 0 0 0 .7-.7l-.5-.5a.5.5 0 0 0-.7.7Z\"/>";
 
             /// <summary />
-            public static string ClipboardMonth { get; } = ResourceManager.GetString("ClipboardMonth");
+            public static string BroadActivityFeedSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1 3.5C1 2.67 1.67 2 2.5 2h11c.83 0 1.5.67 1.5 1.5v3c0 .83-.67 1.5-1.5 1.5h-11A1.5 1.5 0 0 1 1 6.5v-3ZM2.5 3a.5.5 0 0 0-.5.5v3c0 .28.22.5.5.5h11a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-11ZM1 11.5c0-.83.67-1.5 1.5-1.5h3c.83 0 1.5.67 1.5 1.5v1c0 .83-.67 1.5-1.5 1.5h-3A1.5 1.5 0 0 1 1 12.5v-1Zm1.5-.5a.5.5 0 0 0-.5.5v1c0 .28.22.5.5.5h3a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-3Zm8-1c-.83 0-1.5.67-1.5 1.5v1c0 .83.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5v-1c0-.83-.67-1.5-1.5-1.5h-3Zm-.5 1.5c0-.28.22-.5.5-.5h3c.28 0 .5.22.5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1Z\"/>";
 
             /// <summary />
-            public static string ClipboardMultiple { get; } = ResourceManager.GetString("ClipboardMultiple");
+            public static string BroomSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M14.85 1.15a.5.5 0 0 0-.7 0L9.48 5.82a3.68 3.68 0 0 0-4.83.37l-.68.64-2.68 1.21a.5.5 0 0 0-.14.81l6 6a.5.5 0 0 0 .8-.14l1.22-2.67.68-.69a3.67 3.67 0 0 0 .33-4.83l4.67-4.67a.5.5 0 0 0 0-.7Zm-10.7 6.7 4 4-.8 1.79-4.99-4.98 1.78-.81Zm4.6 3.2L4.97 7.25l.37-.34.01-.02a2.67 2.67 0 1 1 3.8 3.75l-.4.4Z\"/>";
 
             /// <summary />
-            public static string ClipboardNote { get; } = ResourceManager.GetString("ClipboardNote");
+            public static string BugSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.3 1.5a.5.5 0 0 0-1 0v.8c0 .29.07.56.2.8a2.5 2.5 0 0 0-1.74 1.85A1.1 1.1 0 0 1 4 3.9V2.5a.5.5 0 0 0-1 0v1.4a2.1 2.1 0 0 0 1.7 2.06V7H2.5a.5.5 0 0 0 0 1h2.2v1.7c0 .1 0 .21.02.32A2 2 0 0 0 3 12v1.5a.5.5 0 0 0 1 0V12a1 1 0 0 1 .97-1 3.3 3.3 0 0 0 6.06 0 1 1 0 0 1 .97 1v1.5a.5.5 0 0 0 1 0V12a2 2 0 0 0-1.72-1.98l.02-.32V8h2.2a.5.5 0 0 0 0-1h-2.2V5.96A2.1 2.1 0 0 0 13 3.9V2.5a.5.5 0 0 0-1 0v1.4c0 .49-.32.9-.76 1.05A2.5 2.5 0 0 0 9.5 3.1c.13-.24.2-.51.2-.8v-.8a.5.5 0 0 0-1 0v.8a.7.7 0 1 1-1.4 0v-.8Zm-1.6 6v-2c0-.83.67-1.5 1.5-1.5h1.6c.83 0 1.5.67 1.5 1.5v4.2a2.3 2.3 0 0 1-4.6 0V7.5Z\"/>";
 
             /// <summary />
-            public static string ClipboardPaste { get; } = ResourceManager.GetString("ClipboardPaste");
+            public static string BuildingBankLinkSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 5a.75.75 0 1 0 0-1.5A.75.75 0 0 0 8 5Zm.74-3.55a1.17 1.17 0 0 0-1.48 0l-5 4.07A.83.83 0 0 0 2.8 7H3v4.2c-.6.3-1 .92-1 1.63v.67c0 .28.22.5.5.5h2.84a3.48 3.48 0 0 1-.3-1H3v-.17c0-.46.37-.83.83-.83h1.2c.11-.75.46-1.43.97-1.95V7h1.5v2.15c.32-.1.65-.15 1-.15V7H10v2h1V7h1v2h.5c.17 0 .34.01.5.04V7h.21a.83.83 0 0 0 .53-1.48l-5-4.07Zm-.84.78a.17.17 0 0 1 .2 0L12.75 6H3.26L7.9 2.23ZM5 11H4V7h1v4Zm3.5-1a2.5 2.5 0 1 0 0 5H9a.5.5 0 0 0 0-1h-.5a1.5 1.5 0 0 1 0-3H9a.5.5 0 0 0 0-1h-.5Zm3.5 0a.5.5 0 1 0 0 1h.5a1.5 1.5 0 1 1 0 3H12a.5.5 0 1 0 0 1h.5a2.5 2.5 0 0 0 0-5H12Zm-4 2.5c0-.28.22-.5.5-.5h4a.5.5 0 1 1 0 1h-4a.5.5 0 0 1-.5-.5Z\"/>";
 
             /// <summary />
-            public static string ClipboardTask { get; } = ResourceManager.GetString("ClipboardTask");
+            public static string BuildingBankSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 5a.75.75 0 1 0 0-1.5A.75.75 0 0 0 8 5Zm.74-3.55a1.17 1.17 0 0 0-1.48 0l-5 4.07A.83.83 0 0 0 2.8 7H3v4.2c-.6.3-1 .92-1 1.63v.67c0 .28.22.5.5.5h11a.5.5 0 0 0 .5-.5v-.67c0-.7-.4-1.33-1-1.63V7h.21a.83.83 0 0 0 .53-1.48l-5-4.07Zm-.84.78a.17.17 0 0 1 .2 0L12.75 6H3.26L7.9 2.23ZM12 11h-1V7h1v4Zm-2 0H8.5V7H10v4Zm-2.5 0H6V7h1.5v4Zm4.67 1c.46 0 .83.37.83.83V13H3v-.17c0-.46.37-.83.83-.83h8.34ZM5 11H4V7h1v4Z\"/>";
 
             /// <summary />
-            public static string ClipboardTextLtr { get; } = ResourceManager.GetString("ClipboardTextLtr");
+            public static string BuildingDesktopSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3 2.25c0-.14.11-.25.25-.25h4.5c.14 0 .26.11.25.25v2c0 .69.56 1.25 1.25 1.25h.5c.14 0 .25.11.25.25V6h1v-.3a1.25 1.25 0 0 0-1.25-1.2h-.5A.25.25 0 0 1 9 4.25v-2C9 1.56 8.45 1 7.75 1h-4.5C2.56 1 2 1.56 2 2.25v8.5c0 .69.56 1.25 1.25 1.25H5.1c-.06-.24-.1-.49-.1-.75V11H3.25a.25.25 0 0 1-.25-.25v-8.5ZM4.5 4a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1ZM5 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM4.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1ZM7 3.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM6.5 6a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1ZM6 8.75C6 7.78 6.78 7 7.75 7h5.5c.97 0 1.75.78 1.75 1.75v2.5c0 .97-.78 1.75-1.75 1.75H12v1h.5a.5.5 0 0 1 0 1h-4a.5.5 0 0 1 0-1H9v-1H7.75C6.78 13 6 12.22 6 11.25v-2.5ZM7.75 12h5.5c.41 0 .75-.34.75-.75v-2.5a.75.75 0 0 0-.75-.75h-5.5a.75.75 0 0 0-.75.75v2.5c0 .41.34.75.75.75ZM11 14v-1h-1v1h1Z\"/>";
 
             /// <summary />
-            public static string ClipboardTextRtl { get; } = ResourceManager.GetString("ClipboardTextRtl");
+            public static string BuildingFactorySvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1.46 2.44c.03-.8.7-1.44 1.5-1.44h1.08c.8 0 1.47.64 1.5 1.44l.42 11A1.5 1.5 0 0 1 4.46 15H2.54a1.5 1.5 0 0 1-1.5-1.56l.42-11ZM2.96 2a.5.5 0 0 0-.5.48l-.42 11a.5.5 0 0 0 .5.52h1.92a.5.5 0 0 0 .5-.52l-.42-11a.5.5 0 0 0-.5-.48H2.96ZM13.5 15c.83 0 1.5-.67 1.5-1.5v-9a.5.5 0 0 0-.85-.35L11 7.29V4.5a.5.5 0 0 0-.83-.37L6.72 7.19l.05 1.3L10 5.6V8.5a.5.5 0 0 0 .85.35L14 5.71v7.79a.5.5 0 0 1-.5.5H13v-3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3H6.91c-.07.37-.23.7-.45 1h7.04ZM9 14v-3h3v3H9Z\"/>";
 
             /// <summary />
-            public static string Clock { get; } = ResourceManager.GetString("Clock");
+            public static string BuildingHomeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.25 2a.25.25 0 0 0-.25.25v8.5c0 .14.11.25.25.25H5v1H3.25C2.56 12 2 11.44 2 10.75v-8.5C2 1.56 2.56 1 3.25 1h4.5c.7 0 1.26.56 1.25 1.25v2c0 .14.11.25.25.25h.5c.67 0 1.22.53 1.25 1.2a2 2 0 0 0-1.52-.2h-.23C8.56 5.5 8 4.94 8 4.25v-2A.25.25 0 0 0 7.75 2h-4.5Zm7.43 4.7a1 1 0 0 0-1.36 0L6.48 9.34c-.3.28-.48.68-.48 1.1V14a1 1 0 0 0 1 1h1.5a1 1 0 0 0 1-1v-1h1v1a1 1 0 0 0 1 1H13a1 1 0 0 0 1-1v-3.56c0-.42-.17-.82-.48-1.1L10.68 6.7Zm-3.52 3.37L10 7.43l2.84 2.64c.1.1.16.23.16.37V14h-1.5v-1a1 1 0 0 0-1-1h-1a1 1 0 0 0-1 1v1H7v-3.56a.5.5 0 0 1 .16-.37ZM5 3.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM4.5 6a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1ZM5 7.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM6.5 4a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1ZM7 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM6.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Z\"/>";
 
             /// <summary />
-            public static string ClockAlarm { get; } = ResourceManager.GetString("ClockAlarm");
+            public static string BuildingPeopleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 4.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Zm-.5 3a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Zm.5 2a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM7.5 5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1ZM8 7a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Zm1 0V3.5a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 0-.5.5V13h2.15A2.33 2.33 0 0 0 6 14H3.5a.5.5 0 0 1-.5-.5v-10C3 2.67 3.67 2 4.5 2h4c.83 0 1.5.67 1.5 1.5V7H9Zm2.5 2.75a1.75 1.75 0 1 1-3.5 0 1.75 1.75 0 0 1 3.5 0Zm1.5 4.06c0 1.1-.86 2.19-3 2.19s-3-1.1-3-2.19c0-.72.58-1.31 1.29-1.31h3.42c.71 0 1.29.59 1.29 1.31Zm.48 1.69h.02c1.79 0 2.5-.94 2.5-1.88a1.1 1.1 0 0 0-1.07-1.12H13.6c.25.38.4.83.4 1.31 0 .58-.17 1.18-.52 1.69ZM15 10.25a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0Z\"/>";
 
             /// <summary />
-            public static string ClockLock { get; } = ResourceManager.GetString("ClockLock");
+            public static string BuildingShopSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9 9.5c0-.28.22-.5.5-.5h2c.28 0 .5.22.5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2Zm1 1.5h1v-1h-1v1ZM4.19 1.11l-2.5 2c-.17.13-.19.36-.19.56V5.5c0 .56.19 1.08.5 1.5v7.5c0 .28.22.5.5.5h11a.5.5 0 0 0 .5-.5V7c.31-.42.5-.94.5-1.5V3.67c0-.2-.02-.43-.19-.56l-2.5-2A.5.5 0 0 0 11.5 1h-7a.5.5 0 0 0-.31.11ZM5.5 4v1.5a1.5 1.5 0 1 1-3 0V4h3Zm4 0v1.5a1.5 1.5 0 1 1-3 0V4h3Zm4 0v1.5a1.5 1.5 0 0 1-3 0V4h3ZM6.03 2l-.38 1H3.43l1.25-1h1.35Zm.7 1 .37-1h1.79l.33 1h-2.5Zm3.21-1h1.38l1.25 1h-2.3l-.33-1ZM13 7.8V14H8V9.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5V14H3V7.8A2.5 2.5 0 0 0 6 7a2.5 2.5 0 0 0 4 0 2.5 2.5 0 0 0 3 .8ZM7 14H5v-4h2v4Z\"/>";
 
             /// <summary />
-            public static string ClosedCaption { get; } = ResourceManager.GetString("ClosedCaption");
+            public static string BuildingSkyscraperSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 7.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Zm1.5.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1ZM6 9.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Zm1.5.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Zm4.5 1.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Zm-.5-1.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Zm-6-9a.5.5 0 0 0-.5.5V3h-.5a.5.5 0 0 0-.5.5v1.65c-.59.27-1 .86-1 1.55v6.8c0 .28.22.5.5.5h10a.5.5 0 0 0 .5-.5v-3.3a3.7 3.7 0 0 0-3.7-3.7h-.31A1.7 1.7 0 0 0 9 5.15V3.5a.5.5 0 0 0-.5-.5H8V1.5a.5.5 0 0 0-.5-.5h-2ZM8 5H5V4h3v1Zm1 1.7V13H8v-1.1c0-.5-.4-.9-.9-.9H5.9c-.5 0-.9.4-.9.9V13H4V6.7c0-.39.31-.7.7-.7h3.6c.39 0 .7.31.7.7ZM6 13v-1h1v1H6Zm4 0V7.5h.3c1.5 0 2.7 1.2 2.7 2.7V13h-3ZM7 3H6V2h1v1Z\"/>";
 
             /// <summary />
-            public static string ClosedCaptionOff { get; } = ResourceManager.GetString("ClosedCaptionOff");
+            public static string BuildingSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6.5 5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1ZM7 7a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Zm-.5 3a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1ZM9 4.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Zm-.5 3a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Zm.5 2a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Zm1.5.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Zm-5-8C4.67 2 4 2.67 4 3.5v10c0 .28.22.5.5.5h8a.5.5 0 0 0 .5-.5v-5c0-.83-.67-1.5-1.5-1.5H11V3.5c0-.83-.67-1.5-1.5-1.5h-4ZM5 3.5c0-.28.22-.5.5-.5h4c.28 0 .5.22.5.5v4c0 .28.22.5.5.5h1c.28 0 .5.22.5.5V13h-1v-1.5a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 0-.5.5V13H5V3.5Zm5 8.5v1H9v-1h1Zm-2 0v1H7v-1h1Z\"/>";
 
             /// <summary />
-            public static string Cloud { get; } = ResourceManager.GetString("Cloud");
+            public static string CalculatorMultipleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 3a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H5Zm0 1h5v1H5V4Zm1 3a1 1 0 1 0 0 2 1 1 0 0 0 0-2Zm3 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2Zm-3 3.03a1 1 0 1 0 0 2 1 1 0 0 0 0-2Zm3 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2ZM4.5 1A2.5 2.5 0 0 0 2 3.5v8A2.5 2.5 0 0 0 4.5 14h6a2.5 2.5 0 0 0 2.5-2.5v-8A2.5 2.5 0 0 0 10.5 1h-6ZM3 3.5C3 2.67 3.67 2 4.5 2h6c.83 0 1.5.67 1.5 1.5v8c0 .83-.67 1.5-1.5 1.5h-6A1.5 1.5 0 0 1 3 11.5v-8ZM6.5 16a2.5 2.5 0 0 1-2-1h6a3.5 3.5 0 0 0 3.5-3.5v-8c.6.46 1 1.18 1 2v6a4.5 4.5 0 0 1-4.5 4.5h-4Z\"/>";
 
             /// <summary />
-            public static string CloudAdd { get; } = ResourceManager.GetString("CloudAdd");
+            public static string CalculatorSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm0 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm5-2a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm1 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm-4-2a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm1 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM5.5 3C4.67 3 4 3.67 4 4.5v1C4 6.33 4.67 7 5.5 7h5c.83 0 1.5-.67 1.5-1.5v-1c0-.83-.67-1.5-1.5-1.5h-5ZM5 4.5c0-.28.22-.5.5-.5h5c.28 0 .5.22.5.5v1a.5.5 0 0 1-.5.5h-5a.5.5 0 0 1-.5-.5v-1Zm9 8a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 12.5v-9A2.5 2.5 0 0 1 4.5 1h7A2.5 2.5 0 0 1 14 3.5v9Zm-1-9c0-.83-.67-1.5-1.5-1.5h-7C3.67 2 3 2.67 3 3.5v9c0 .83.67 1.5 1.5 1.5h7c.83 0 1.5-.67 1.5-1.5v-9Z\"/>";
 
             /// <summary />
-            public static string CloudArchive { get; } = ResourceManager.GetString("CloudArchive");
+            public static string Calendar3DaySvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 5.5a.5.5 0 0 0-1 0v5a.5.5 0 0 0 1 0v-5Zm2.5 0a.5.5 0 0 0-1 0v5a.5.5 0 0 0 1 0v-5Zm2.5 0a.5.5 0 0 0-1 0v5a.5.5 0 0 0 1 0v-5Zm3-1A2.5 2.5 0 0 0 11.5 2h-7A2.5 2.5 0 0 0 2 4.5v7A2.5 2.5 0 0 0 4.5 14h7a2.5 2.5 0 0 0 2.5-2.5v-7Zm-11 7v-7C3 3.67 3.67 3 4.5 3h7c.83 0 1.5.67 1.5 1.5v7c0 .83-.67 1.5-1.5 1.5h-7A1.5 1.5 0 0 1 3 11.5Z\"/>";
 
             /// <summary />
-            public static string CloudArrowDown { get; } = ResourceManager.GetString("CloudArrowDown");
+            public static string CalendarAddSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.5 2A2.5 2.5 0 0 1 14 4.5v1.76a5.5 5.5 0 0 0-1-.66V4.5c0-.83-.67-1.5-1.5-1.5h-7C3.67 3 3 3.67 3 4.5V5h7v.02c-.99.1-1.9.44-2.66.98H3v5.5c0 .83.67 1.5 1.5 1.5h1.1c.18.36.4.7.66 1H4.5A2.5 2.5 0 0 1 2 11.5v-7A2.5 2.5 0 0 1 4.5 2h7Zm-1 13a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm0-7c.28 0 .5.22.5.5V10h1.5a.5.5 0 0 1 0 1H11v1.5a.5.5 0 0 1-1 0V11H8.5a.5.5 0 0 1 0-1H10V8.5c0-.28.22-.5.5-.5Z\"/>";
 
             /// <summary />
-            public static string CloudArrowUp { get; } = ResourceManager.GetString("CloudArrowUp");
+            public static string CalendarArrowCounterclockwiseSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 2A2.5 2.5 0 0 0 2 4.5v1.8l-.65-.65a.5.5 0 1 0-.7.7l1.5 1.5c.2.2.5.2.7 0l1.5-1.5a.5.5 0 1 0-.7-.7L3 6.29V4.5C3 3.67 3.67 3 4.5 3h7c.83 0 1.5.67 1.5 1.5V5H5.12c.25.28.38.64.38 1H13v5.5c0 .83-.67 1.5-1.5 1.5h-7A1.5 1.5 0 0 1 3 11.5v-2a.5.5 0 0 0-1 0v2A2.5 2.5 0 0 0 4.5 14h7a2.5 2.5 0 0 0 2.5-2.5v-7A2.5 2.5 0 0 0 11.5 2h-7Zm.75 7a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM6 10.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM8 9a.75.75 0 1 0 0-1.5A.75.75 0 0 0 8 9Zm.75 1.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm2-1.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z\"/>";
 
             /// <summary />
-            public static string CloudCheckmark { get; } = ResourceManager.GetString("CloudCheckmark");
+            public static string CalendarArrowRightSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.5 2A2.5 2.5 0 0 1 14 4.5v1.76A5.48 5.48 0 0 0 10.5 5H13v-.5c0-.83-.67-1.5-1.5-1.5h-7C3.67 3 3 3.67 3 4.5V5h7.5c-1.18 0-2.27.37-3.16 1H3v5.5c0 .83.67 1.5 1.5 1.5h1.1c.18.36.4.7.66 1H4.5A2.5 2.5 0 0 1 2 11.5v-7A2.5 2.5 0 0 1 4.5 2h7Zm-1 13a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm.35-2.15a.5.5 0 0 1-.7-.7L11.29 11H8.5a.5.5 0 0 1 0-1h2.8l-1.15-1.15a.5.5 0 0 1 .7-.7l2 2a.5.5 0 0 1 .15.35.5.5 0 0 1-.14.35l-2 2Z\"/>";
 
             /// <summary />
-            public static string CloudDismiss { get; } = ResourceManager.GetString("CloudDismiss");
+            public static string CalendarAssistantSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.5 2A2.5 2.5 0 0 1 14 4.5v1.76A5.48 5.48 0 0 0 10.5 5H13v-.5c0-.83-.67-1.5-1.5-1.5h-7C3.67 3 3 3.67 3 4.5V5h7.5c-1.18 0-2.27.37-3.16 1H3v5.5c0 .83.67 1.5 1.5 1.5h1.1c.18.36.4.7.66 1H4.5A2.5 2.5 0 0 1 2 11.5v-7A2.5 2.5 0 0 1 4.5 2h7Zm-1 13a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM9.4 7.83a.5.5 0 0 1 .48-.33h1.18a.5.5 0 0 1 .47.66l-.28.84H12a.5.5 0 0 1 .42.77l-2.25 3.5a.5.5 0 0 1-.9-.4l.5-1.87H9a.5.5 0 0 1-.47-.67l.88-2.5Z\"/>";
 
             /// <summary />
-            public static string CloudEdit { get; } = ResourceManager.GetString("CloudEdit");
+            public static string CalendarCancelSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.5 2A2.5 2.5 0 0 1 14 4.5v1.76A5.48 5.48 0 0 0 10.5 5H13v-.5c0-.83-.67-1.5-1.5-1.5h-7C3.67 3 3 3.67 3 4.5V5h7.5c-1.18 0-2.27.37-3.16 1H3v5.5c0 .83.67 1.5 1.5 1.5h1.1c.18.36.4.7.66 1H4.5A2.5 2.5 0 0 1 2 11.5v-7A2.5 2.5 0 0 1 4.5 2h7Zm3.5 8.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-2.65-1.15a.5.5 0 0 0-.7-.7L10.5 9.79 9.35 8.65a.5.5 0 1 0-.7.7l1.14 1.15-1.14 1.15a.5.5 0 0 0 .7.7l1.15-1.14 1.15 1.14a.5.5 0 0 0 .7-.7l-1.14-1.15 1.14-1.15Z\"/>";
 
             /// <summary />
-            public static string CloudError { get; } = ResourceManager.GetString("CloudError");
+            public static string CalendarCheckmarkSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.5 2A2.5 2.5 0 0 1 14 4.5v1.76A5.48 5.48 0 0 0 10.5 5H13v-.5c0-.83-.67-1.5-1.5-1.5h-7C3.67 3 3 3.67 3 4.5V5h7.5c-1.18 0-2.27.37-3.16 1H3v5.5c0 .83.67 1.5 1.5 1.5h1.1c.18.36.4.7.66 1H4.5A2.5 2.5 0 0 1 2 11.5v-7A2.5 2.5 0 0 1 4.5 2h7Zm3.5 8.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-2.15-1.85a.5.5 0 0 0-.7 0L9.5 11.29l-.65-.64a.5.5 0 0 0-.7.7l1 1c.2.2.5.2.7 0l3-3a.5.5 0 0 0 0-.7Z\"/>";
 
             /// <summary />
-            public static string CloudLink { get; } = ResourceManager.GetString("CloudLink");
+            public static string CalendarClockSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.5 2A2.5 2.5 0 0 1 14 4.5v1.76A5.48 5.48 0 0 0 10.5 5H13v-.5c0-.83-.67-1.5-1.5-1.5h-7C3.67 3 3 3.67 3 4.5V5h7.5c-1.18 0-2.27.37-3.16 1H3v5.5c0 .83.67 1.5 1.5 1.5h1.1c.18.36.4.7.66 1H4.5A2.5 2.5 0 0 1 2 11.5v-7A2.5 2.5 0 0 1 4.5 2h7Zm-1 13a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM10 8.5a.5.5 0 0 1 1 0V10h1a.5.5 0 0 1 0 1h-1.5a.5.5 0 0 1-.5-.5v-2Z\"/>";
 
             /// <summary />
-            public static string CloudOff { get; } = ResourceManager.GetString("CloudOff");
+            public static string CalendarDataBarSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M14 4.5A2.5 2.5 0 0 0 11.5 2h-7A2.5 2.5 0 0 0 2 4.5v7A2.5 2.5 0 0 0 4.5 14H7v-1H4.5A1.5 1.5 0 0 1 3 11.5V6h10v.27c.6.34 1 .99 1 1.73V4.5ZM4.5 3h7c.83 0 1.5.67 1.5 1.5V5H3v-.5C3 3.67 3.67 3 4.5 3ZM12 7a1 1 0 0 0-1 1v7a1 1 0 1 0 2 0V8a1 1 0 0 0-1-1Zm-3 4a1 1 0 0 0-1 1v3a1 1 0 1 0 2 0v-3a1 1 0 0 0-1-1Zm5-1a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0v-5Z\"/>";
 
             /// <summary />
-            public static string CloudSync { get; } = ResourceManager.GetString("CloudSync");
+            public static string CalendarDaySvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.5 5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5Zm0 3a.5.5 0 0 0-.5.5v2c0 .28.22.5.5.5h5a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-.5-.5h-5Zm.5 2V9h4v1H6Zm8-5.5A2.5 2.5 0 0 0 11.5 2h-7A2.5 2.5 0 0 0 2 4.5v7A2.5 2.5 0 0 0 4.5 14h7a2.5 2.5 0 0 0 2.5-2.5v-7Zm-11 7v-7C3 3.67 3.67 3 4.5 3h7c.83 0 1.5.67 1.5 1.5v7c0 .83-.67 1.5-1.5 1.5h-7A1.5 1.5 0 0 1 3 11.5Z\"/>";
 
             /// <summary />
-            public static string CloudWords { get; } = ResourceManager.GetString("CloudWords");
+            public static string CalendarEditSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.5 2A2.5 2.5 0 0 1 14 4.5V6H3v5.5c0 .83.67 1.5 1.5 1.5h1.8l-.25 1H4.5A2.5 2.5 0 0 1 2 11.5v-7A2.5 2.5 0 0 1 4.5 2h7Zm0 1h-7C3.67 3 3 3.67 3 4.5V5h10v-.5c0-.83-.67-1.5-1.5-1.5Zm1.86 4a1.57 1.57 0 0 1 1.18.45c.61.61.61 1.6 0 2.21l-4.28 4.29c-.36.35-.8.6-1.3.73l-1.2.3a.6.6 0 0 1-.74-.74l.3-1.2V13c.13-.48.38-.91.73-1.26l4.29-4.29A1.55 1.55 0 0 1 13.36 7Z\"/>";
 
             /// <summary />
-            public static string Clover { get; } = ResourceManager.GetString("Clover");
+            public static string CalendarEmptySvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.5 2A2.5 2.5 0 0 1 14 4.5v7a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 11.5v-7A2.5 2.5 0 0 1 4.5 2h7ZM13 6H3v5.5c0 .83.67 1.5 1.5 1.5h7c.83 0 1.5-.67 1.5-1.5V6Zm-1.5-3h-7C3.67 3 3 3.67 3 4.5V5h10v-.5c0-.83-.67-1.5-1.5-1.5Z\"/>";
 
             /// <summary />
-            public static string Code { get; } = ResourceManager.GetString("Code");
+            public static string CalendarErrorSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.5 2A2.5 2.5 0 0 1 14 4.5v2.1c-.32-.16-.65-.3-1-.4V6H3v5.5c0 .83.67 1.5 1.5 1.5h1.7c.1.35.24.68.4 1H4.5A2.5 2.5 0 0 1 2 11.5v-7A2.5 2.5 0 0 1 4.5 2h7Zm0 1h-7C3.67 3 3 3.67 3 4.5V5h10v-.5c0-.83-.67-1.5-1.5-1.5Zm4.5 8.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM11.5 9a.5.5 0 0 0-.5.5v2a.5.5 0 0 0 1 0v-2a.5.5 0 0 0-.5-.5Zm0 5.13a.62.62 0 1 0 0-1.25.62.62 0 0 0 0 1.24Z\"/>";
 
             /// <summary />
-            public static string CodeBlock { get; } = ResourceManager.GetString("CodeBlock");
+            public static string CalendarInfoSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M14 4.5A2.5 2.5 0 0 0 11.5 2h-7A2.5 2.5 0 0 0 2 4.5v7A2.5 2.5 0 0 0 4.5 14h1.76a5.5 5.5 0 0 1-.66-1H4.5A1.5 1.5 0 0 1 3 11.5V6h4.34a5.47 5.47 0 0 1 6.66.26V4.5Zm-3.5.5H3v-.5C3 3.67 3.67 3 4.5 3h7c.83 0 1.5.67 1.5 1.5V5h-2.5Zm-.63 3.5a.62.62 0 1 1 1.25 0 .62.62 0 0 1-1.24 0Zm1.13 4a.5.5 0 0 1-1 0v-2a.5.5 0 0 1 1 0v2Zm-5-2a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0Zm1 0a3.5 3.5 0 1 0 7 0 3.5 3.5 0 0 0-7 0Z\"/>";
 
             /// <summary />
-            public static string CodeCs { get; } = ResourceManager.GetString("CodeCs");
+            public static string CalendarLockSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.5 2A2.5 2.5 0 0 1 14 4.5v.9c-.44-.25-.95-.4-1.5-.4h.5v-.5c0-.83-.67-1.5-1.5-1.5h-7C3.67 3 3 3.67 3 4.5V5h9.5a3 3 0 0 0-2.24 1H3v5.5c0 .83.67 1.5 1.5 1.5H8v1H4.5A2.5 2.5 0 0 1 2 11.5v-7A2.5 2.5 0 0 1 4.5 2h7Zm-1 6v1H10a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-.5V8a2 2 0 1 0-4 0Zm1 1V8a1 1 0 1 1 2 0v1h-2Zm1 2.25a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5Z\"/>";
 
             /// <summary />
-            public static string CodeCsRectangle { get; } = ResourceManager.GetString("CodeCsRectangle");
+            public static string CalendarLtrSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.25 9a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM6 10.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM8 9a.75.75 0 1 0 0-1.5A.75.75 0 0 0 8 9Zm.75 1.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm2-1.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM14 4.5A2.5 2.5 0 0 0 11.5 2h-7A2.5 2.5 0 0 0 2 4.5v7A2.5 2.5 0 0 0 4.5 14h7a2.5 2.5 0 0 0 2.5-2.5v-7ZM3 6h10v5.5c0 .83-.67 1.5-1.5 1.5h-7A1.5 1.5 0 0 1 3 11.5V6Zm1.5-3h7c.83 0 1.5.67 1.5 1.5V5H3v-.5C3 3.67 3.67 3 4.5 3Z\"/>";
 
             /// <summary />
-            public static string CodeFs { get; } = ResourceManager.GetString("CodeFs");
+            public static string CalendarMailSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1 3.5A2.5 2.5 0 0 1 3.5 1h5A2.5 2.5 0 0 1 11 3.5V6h-1V4H2v4.5c0 .83.67 1.5 1.5 1.5H4v1h-.5A2.5 2.5 0 0 1 1 8.5v-5ZM3.5 2c-.65 0-1.2.42-1.41 1H9.9c-.2-.58-.76-1-1.41-1h-5ZM5 8.5C5 7.67 5.67 7 6.5 7h7c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5h-7A1.5 1.5 0 0 1 5 13.5v-5ZM6.5 8a.5.5 0 0 0-.5.5v.44l4 2 4-2V8.5a.5.5 0 0 0-.5-.5h-7ZM6 13.5c0 .28.22.5.5.5h7a.5.5 0 0 0 .5-.5v-3.44l-3.78 1.89a.5.5 0 0 1-.44 0L6 10.05v3.45Z\"/>";
 
             /// <summary />
-            public static string CodeFsRectangle { get; } = ResourceManager.GetString("CodeFsRectangle");
+            public static string CalendarMultipleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 2A2.5 2.5 0 0 0 2 4.5v5A2.5 2.5 0 0 0 4.5 12h5A2.5 2.5 0 0 0 12 9.5v-5A2.5 2.5 0 0 0 9.5 2h-5ZM3.09 4c.2-.58.76-1 1.41-1h5c.65 0 1.2.42 1.41 1H3.1ZM3 5h8v4.5c0 .83-.67 1.5-1.5 1.5h-5A1.5 1.5 0 0 1 3 9.5V5Zm3.5 9a2.5 2.5 0 0 1-2-1h5.25c1.8 0 3.25-1.46 3.25-3.25V4.5c.6.46 1 1.18 1 2v3.25C14 12.1 12.1 14 9.75 14H6.5Z\"/>";
 
             /// <summary />
-            public static string CodeJs { get; } = ResourceManager.GetString("CodeJs");
+            public static string CalendarPatternSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 2A2.5 2.5 0 0 0 2 4.5v7A2.5 2.5 0 0 0 4.5 14h7a2.5 2.5 0 0 0 2.5-2.5v-7A2.5 2.5 0 0 0 11.5 2h-7ZM3 4.5C3 3.67 3.67 3 4.5 3h7c.83 0 1.5.67 1.5 1.5V6H3V4.5ZM11.7 7H13v.3L10.3 10H8.7l3-3Zm-1.4 0-3 3H5.7l3-3h1.6Zm-6 3H3v-.3L5.7 7h1.6l-3 3ZM3 8.3V7h1.3L3 8.3Zm8.7 1.7L13 8.7V10h-1.3Z\"/>";
 
             /// <summary />
-            public static string CodeJsRectangle { get; } = ResourceManager.GetString("CodeJsRectangle");
+            public static string CalendarPersonSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.5 2A2.5 2.5 0 0 1 14 4.5v1.84c-.26-.38-.6-.7-1-.94v-.9c0-.83-.67-1.5-1.5-1.5h-7C3.67 3 3 3.67 3 4.5V5h8v.04A3 3 0 0 0 9.26 6H3v5.5c0 .83.67 1.5 1.5 1.5h2.54c.05.34.16.68.33 1H4.5A2.5 2.5 0 0 1 2 11.5v-7A2.5 2.5 0 0 1 4.5 2h7Zm2 6a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm1.5 4.5c0 1.25-1 2.5-3.5 2.5S8 13.75 8 12.5c0-.83.67-1.5 1.5-1.5h4c.83 0 1.5.67 1.5 1.5Z\"/>";
 
             /// <summary />
-            public static string CodePy { get; } = ResourceManager.GetString("CodePy");
+            public static string CalendarPhoneSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.5 2A2.5 2.5 0 0 1 14 4.5v.55a2.51 2.51 0 0 0-.5-.05H13v-.5c0-.83-.67-1.5-1.5-1.5h-7C3.67 3 3 3.67 3 4.5V5h7.5c-.82 0-1.54.4-2 1H3v5.5c0 .83.67 1.5 1.5 1.5H8v.5c0 .17.02.34.05.5H4.5A2.5 2.5 0 0 1 2 11.5v-7A2.5 2.5 0 0 1 4.5 2h7Zm-.75 4C9.78 6 9 6.78 9 7.75v5.5c0 .97.78 1.75 1.75 1.75h2.5c.97 0 1.75-.78 1.75-1.75v-5.5C15 6.78 14.22 6 13.25 6h-2.5Zm.25 6.5c0-.28.22-.5.5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5Z\"/>";
 
             /// <summary />
-            public static string CodePyRectangle { get; } = ResourceManager.GetString("CodePyRectangle");
+            public static string CalendarPlaySvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.5 2A2.5 2.5 0 0 1 14 4.5v2.1c-.32-.16-.65-.3-1-.4V6H3v5.5c0 .83.67 1.5 1.5 1.5h1.7c.1.35.24.68.4 1H4.5A2.5 2.5 0 0 1 2 11.5v-7A2.5 2.5 0 0 1 4.5 2h7Zm0 1h-7C3.67 3 3 3.67 3 4.5V5h10v-.5c0-.83-.67-1.5-1.5-1.5Zm0 13a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm-.74-6.55c.1 0 .18.03.26.08l2.3 1.51c.07.05.12.1.16.18a.54.54 0 0 1-.03.54.46.46 0 0 1-.13.13l-2.3 1.57a.54.54 0 0 1-.12.06.45.45 0 0 1-.32-.02.57.57 0 0 1-.16-.1.5.5 0 0 1-.14-.36V9.96a.5.5 0 0 1 .3-.46.44.44 0 0 1 .18-.05Z\"/>";
 
             /// <summary />
-            public static string CodeRb { get; } = ResourceManager.GetString("CodeRb");
+            public static string CalendarQuestionMarkSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.5 2A2.5 2.5 0 0 1 14 4.5v1.76A5.48 5.48 0 0 0 10.5 5H13v-.5c0-.83-.67-1.5-1.5-1.5h-7C3.67 3 3 3.67 3 4.5V5h7.5c-1.18 0-2.27.37-3.16 1H3v5.5c0 .83.67 1.5 1.5 1.5h1.1c.18.36.4.7.66 1H4.5A2.5 2.5 0 0 1 2 11.5v-7A2.5 2.5 0 0 1 4.5 2h7Zm3.5 8.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-4.5 1.88a.62.62 0 1 0 0 1.25.62.62 0 0 0 0-1.25Zm0-4.88c-1.05 0-1.86.82-1.85 1.96a.5.5 0 0 0 1-.01c0-.58.36-.95.85-.95.47 0 .85.4.85.95 0 .2-.07.32-.36.55l-.27.21c-.51.4-.72.72-.72 1.29a.5.5 0 0 0 1 .09v-.16c.02-.14.1-.25.35-.44l.28-.22c.5-.4.72-.73.72-1.32 0-1.1-.82-1.95-1.85-1.95Z\"/>";
 
             /// <summary />
-            public static string CodeRbRectangle { get; } = ResourceManager.GetString("CodeRbRectangle");
+            public static string CalendarReplySvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.5 2A2.5 2.5 0 0 1 14 4.5v1.76A5.48 5.48 0 0 0 10.5 5H13v-.5c0-.83-.67-1.5-1.5-1.5h-7C3.67 3 3 3.67 3 4.5V5h7.5c-1.18 0-2.27.37-3.16 1H3v5.5c0 .83.67 1.5 1.5 1.5h1.1c.18.36.4.7.66 1H4.5A2.5 2.5 0 0 1 2 11.5v-7A2.5 2.5 0 0 1 4.5 2h7Zm-1 13a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm-.9-6.4-.9.9h1.55A2.75 2.75 0 0 1 13 12.25v.25a.5.5 0 0 1-1 0v-.25c0-.97-.78-1.75-1.75-1.75H8.71l.9.9a.5.5 0 0 1-.71.7l-1.76-1.75a.5.5 0 0 1 0-.7L8.9 7.9a.5.5 0 1 1 .7.7Z\"/>";
 
             /// <summary />
-            public static string CodeText { get; } = ResourceManager.GetString("CodeText");
+            public static string CalendarRtlSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10.75 9a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM10 10.75a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0ZM8 9a.75.75 0 1 1 0-1.5A.75.75 0 0 1 8 9Zm-.75 1.75a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0ZM5.25 9a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM2 4.5A2.5 2.5 0 0 1 4.5 2h7A2.5 2.5 0 0 1 14 4.5v7a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 11.5v-7ZM13 6H3v5.5c0 .83.67 1.5 1.5 1.5h7c.83 0 1.5-.67 1.5-1.5V6Zm-1.5-3h-7C3.67 3 3 3.67 3 4.5V5h10v-.5c0-.83-.67-1.5-1.5-1.5Z\"/>";
 
             /// <summary />
-            public static string CodeTextOff { get; } = ResourceManager.GetString("CodeTextOff");
+            public static string CalendarSearchSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M14 4.5A2.5 2.5 0 0 0 11.5 2h-7A2.5 2.5 0 0 0 2 4.5v1.26A4.48 4.48 0 0 1 7.33 6H13v5.5c0 .83-.67 1.5-1.5 1.5h-1.38l.44.44c.16.16.28.36.35.56h.59a2.5 2.5 0 0 0 2.5-2.5v-7ZM4.5 5H3v-.5C3 3.67 3.67 3 4.5 3h7c.83 0 1.5.67 1.5 1.5V5H4.5Zm2.1 7.3a3.5 3.5 0 1 1 .7-.7l2.55 2.55a.5.5 0 0 1-.7.7L6.6 12.3ZM7 9.5a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Z\"/>";
 
             /// <summary />
-            public static string CodeTs { get; } = ResourceManager.GetString("CodeTs");
+            public static string CalendarSettingsSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M14 4.5A2.5 2.5 0 0 0 11.5 2h-7A2.5 2.5 0 0 0 2 4.5v7A2.5 2.5 0 0 0 4.5 14h1.76a5.5 5.5 0 0 1-.66-1H4.5A1.5 1.5 0 0 1 3 11.5V6h4.34a5.47 5.47 0 0 1 6.66.26V4.5Zm-3.5.5H3v-.5C3 3.67 3.67 3 4.5 3h7c.83 0 1.5.67 1.5 1.5V5h-2.5ZM6.64 9.92a2 2 0 0 0 1.43-2.48L7.9 6.9c.25-.2.53-.37.82-.5l.34.36a2 2 0 0 0 2.9 0l.33-.35c.3.14.58.32.84.52l-.13.42a2 2 0 0 0 1.46 2.52l.35.09a4.7 4.7 0 0 1 0 1.01l-.45.12a2 2 0 0 0-1.43 2.48l.15.55c-.25.2-.53.37-.82.5l-.34-.36a2 2 0 0 0-2.9 0l-.33.35c-.3-.14-.58-.32-.84-.52l.13-.42a2 2 0 0 0-1.46-2.52l-.35-.09a4.7 4.7 0 0 1 0-1.01l.46-.12Zm4.86.58a1 1 0 1 0-2 0 1 1 0 0 0 2 0Z\"/>";
 
             /// <summary />
-            public static string CodeTsRectangle { get; } = ResourceManager.GetString("CodeTsRectangle");
+            public static string CalendarShieldSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.5 2A2.5 2.5 0 0 1 14 4.5v1.92a2.56 2.56 0 0 1-.53-.21 3.72 3.72 0 0 1-.99-.78A1.33 1.33 0 0 0 11.5 5H13v-.5c0-.83-.67-1.5-1.5-1.5h-7C3.67 3 3 3.67 3 4.5V5h8.5c-.35 0-.71.14-.98.43-.21.23-.43.42-.64.57H3v5.5c0 .83.67 1.5 1.5 1.5h3.1a5.36 5.36 0 0 0 .64 1H4.5A2.5 2.5 0 0 1 2 11.5v-7A2.5 2.5 0 0 1 4.5 2h7ZM13 7.1a3.57 3.57 0 0 0 1.65.4c.17 0 .31.13.34.3l.01.08v2.25a4.75 4.75 0 0 1-3.39 4.85.33.33 0 0 1-.22 0A5.67 5.67 0 0 1 9.63 14c-.35-.3-.64-.63-.88-1A5.15 5.15 0 0 1 8 10.36V7.87c0-.2.16-.37.35-.37 1.07 0 2.03-.46 2.9-1.39a.33.33 0 0 1 .5 0 4.72 4.72 0 0 0 1.25.98Z\"/>";
 
             /// <summary />
-            public static string CodeVb { get; } = ResourceManager.GetString("CodeVb");
+            public static string CalendarStarSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.5 2A2.5 2.5 0 0 1 14 4.5v1.76A5.48 5.48 0 0 0 10.5 5H13v-.5c0-.83-.67-1.5-1.5-1.5h-7C3.67 3 3 3.67 3 4.5V5h7.5c-1.18 0-2.27.37-3.16 1H3v5.5c0 .83.67 1.5 1.5 1.5h1.1c.18.36.4.7.66 1H4.5A2.5 2.5 0 0 1 2 11.5v-7A2.5 2.5 0 0 1 4.5 2h7Zm-1 13a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm.95-5.6H13c.48 0 .69.64.3.94l-1.26.94.48 1.53c.15.49-.38.89-.77.59l-1.25-.95-1.25.95c-.4.3-.92-.1-.77-.59l.48-1.53-1.25-.94c-.4-.3-.2-.95.3-.95h1.54l.47-1.53a.5.5 0 0 1 .96 0l.47 1.53Z\"/>";
 
             /// <summary />
-            public static string CodeVbRectangle { get; } = ResourceManager.GetString("CodeVbRectangle");
+            public static string CalendarSyncSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.5 2A2.5 2.5 0 0 1 14 4.5v1.76A5.48 5.48 0 0 0 10.5 5H13v-.5c0-.83-.67-1.5-1.5-1.5h-7C3.67 3 3 3.67 3 4.5V5h7.5c-1.18 0-2.27.37-3.16 1H3v5.5c0 .83.67 1.5 1.5 1.5h1.1c.18.36.4.7.66 1H4.5A2.5 2.5 0 0 1 2 11.5v-7A2.5 2.5 0 0 1 4.5 2h7ZM6 10.5a4.5 4.5 0 1 0 9 0 4.5 4.5 0 0 0-9 0Zm6.5-3c.28 0 .5.22.5.5v1.5a.5.5 0 0 1-.5.5H11a.5.5 0 0 1 0-1h.47a1.98 1.98 0 0 0-1.72-.1 2 2 0 0 0-.66.44.5.5 0 0 1-.71-.71A3 3 0 0 1 12 8.15V8c0-.28.22-.5.5-.5Zm-.88 5.53A3 3 0 0 1 9 12.85V13a.5.5 0 0 1-1 0v-1.5c0-.28.22-.5.5-.5H10a.5.5 0 0 1 0 1h-.47a1.99 1.99 0 0 0 2.38-.34.5.5 0 0 1 .71.71 3 3 0 0 1-1 .66Z\"/>";
 
             /// <summary />
-            public static string Color { get; } = ResourceManager.GetString("Color");
+            public static string CalendarTodaySvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M14 4.5A2.5 2.5 0 0 0 11.5 2h-7A2.5 2.5 0 0 0 2 4.5v7A2.5 2.5 0 0 0 4.5 14h2v-1h-2A1.5 1.5 0 0 1 3 11.5V6h10v5.5c0 .83-.67 1.5-1.5 1.5h-2v1h2a2.5 2.5 0 0 0 2.5-2.5v-7ZM4.5 3h7c.83 0 1.5.67 1.5 1.5V5H3v-.5C3 3.67 3.67 3 4.5 3Zm3.78 11.91a.5.5 0 0 0 .22-.41v-3.43l.68.56a.5.5 0 0 0 .64-.76l-1.5-1.25a.5.5 0 0 0-.64 0l-1.5 1.25a.5.5 0 1 0 .64.76l.68-.56v3.43a.5.5 0 0 0 .5.5c.1 0 .2-.03.28-.09Zm.47-7.16a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z\"/>";
 
             /// <summary />
-            public static string ColorFill { get; } = ResourceManager.GetString("ColorFill");
+            public static string CalendarWorkWeekSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.5 5a.5.5 0 0 0-.5.5v2c0 .28.22.5.5.5h5a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-.5-.5h-5ZM6 7V6h4v1H6ZM4.5 2A2.5 2.5 0 0 0 2 4.5v7A2.5 2.5 0 0 0 4.5 14h7a2.5 2.5 0 0 0 2.5-2.5v-7A2.5 2.5 0 0 0 11.5 2h-7ZM3 4.5C3 3.67 3.67 3 4.5 3h7c.83 0 1.5.67 1.5 1.5v7c0 .83-.67 1.5-1.5 1.5h-7A1.5 1.5 0 0 1 3 11.5v-7Z\"/>";
 
             /// <summary />
-            public static string ColorFillAccent { get; } = ResourceManager.GetString("ColorFillAccent");
+            public static string CallAddSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M12 1.5a.5.5 0 0 1 1 0V4h2.5a.5.5 0 0 1 0 1H13v2.5a.5.5 0 0 1-1 0V5H9.5a.5.5 0 0 1 0-1H12V1.5Zm-7.23.96C3.4 2.87 2.52 4 2.7 5.26a12.73 12.73 0 0 0 4.58 7.91c1 .8 2.42.6 3.46-.37a.98.98 0 0 0 .09-1.34l-.8-.96a1 1 0 0 0-1.07-.32l-1.67.53a.5.5 0 0 1-.48-.1l-.04-.04a4.8 4.8 0 0 1-.42-.43 7.26 7.26 0 0 1-1.6-3l-.04-.13-.01-.05a.5.5 0 0 1 .15-.47l1.3-1.19a1 1 0 0 0 .25-1.09l-.43-1.16a.99.99 0 0 0-1.21-.6Zm2.06 3.58-1.07.98a6.62 6.62 0 0 0 .59 1.42 6.27 6.27 0 0 0 .93 1.23l1.4-.44a2 2 0 0 1 2.14.64l.79.96c.66.8.58 2-.18 2.7-1.3 1.2-3.28 1.62-4.76.42a13.73 13.73 0 0 1-4.95-8.54C1.44 3.52 2.8 2 4.47 1.5c1-.3 2.08.22 2.45 1.2l.43 1.16a2 2 0 0 1-.52 2.18Z\"/>";
 
             /// <summary />
-            public static string ColorLine { get; } = ResourceManager.GetString("ColorLine");
+            public static string CallDismissSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m5.76 7.02 1.07-.98a2 2 0 0 0 .52-2.18L6.92 2.7a1.99 1.99 0 0 0-2.45-1.2C2.8 2 1.44 3.52 1.72 5.4a13.73 13.73 0 0 0 4.94 8.54c1.5 1.2 3.48.8 4.77-.4.76-.72.84-1.9.18-2.71l-.8-.96a2 2 0 0 0-2.14-.64l-1.39.44a6.6 6.6 0 0 1-.93-1.23 6.27 6.27 0 0 1-.6-1.42ZM2.7 5.26c-.19-1.26.7-2.39 2.06-2.8a.99.99 0 0 1 1.2.6l.44 1.15a1 1 0 0 1-.26 1.1L4.86 6.48a.5.5 0 0 0-.15.47l.01.05a5.12 5.12 0 0 0 .16.58 7.27 7.27 0 0 0 1.8 2.89l.1.1.04.03a.5.5 0 0 0 .48.1l1.67-.53a1 1 0 0 1 1.07.32l.8.96c.33.4.29 1-.1 1.34-1.03.97-2.46 1.17-3.45.37a12.73 12.73 0 0 1-4.58-7.91Zm11.64-3.61c.2.2.2.5 0 .7L12.71 4l1.64 1.65a.5.5 0 0 1-.7.7L12 4.71l-1.65 1.64a.5.5 0 0 1-.7-.7L11.29 4 9.65 2.35a.5.5 0 1 1 .7-.7L12 3.29l1.65-1.64c.2-.2.5-.2.7 0Z\"/>";
 
             /// <summary />
-            public static string ColorLineAccent { get; } = ResourceManager.GetString("ColorLineAccent");
+            public static string CallEndSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m14.93 9.38.03-.16c.15-.89-.15-1.8-.82-2.4C12.81 5.58 10.76 5 8 5s-4.8.6-6.14 1.8a2.66 2.66 0 0 0-.79 2.59l.14.57c.22.95 1.1 1.58 2.07 1.48l1.22-.12c.82-.09 1.5-.69 1.68-1.5l.28-1.25.01-.03.07-.03.2-.08c.29-.09.7-.13 1.26-.13.74 0 1.24.08 1.47.22.04.03.07.07.08.11l.27 1.2c.18.8.86 1.4 1.68 1.49l1.23.12c.96.1 1.84-.54 2.07-1.49l.13-.57ZM8 6.06c2.52 0 4.33.52 5.43 1.54.4.36.58.9.5 1.42l-.02.12-.14.57c-.1.43-.5.72-.94.68l-1.22-.13a.88.88 0 0 1-.77-.68l-.27-1.19c-.07-.32-.27-.6-.56-.77A3.95 3.95 0 0 0 8 7.24c-1.4 0-2.26.26-2.52.96l-.03.1-.3 1.28a.88.88 0 0 1-.76.68l-1.22.13a.88.88 0 0 1-.94-.67l-.14-.58a1.6 1.6 0 0 1 .48-1.55C3.67 6.58 5.48 6.06 8 6.06Z\"/>";
 
             /// <summary />
-            public static string ColumnSingle { get; } = ResourceManager.GetString("ColumnSingle");
+            public static string CallForwardSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m6.38 1.07-.16-.03c-.89-.15-1.8.15-2.4.82C2.58 3.19 2 5.24 2 8s.6 4.8 1.8 6.14a2.66 2.66 0 0 0 2.59.79l.57-.14a1.93 1.93 0 0 0 1.48-2.07l-.12-1.22a1.93 1.93 0 0 0-1.5-1.68l-1.25-.28-.03-.01-.03-.07A4.52 4.52 0 0 1 5.3 8c0-.74.08-1.24.22-1.47a.18.18 0 0 1 .11-.08l1.2-.27A1.93 1.93 0 0 0 8.31 4.5l.12-1.23c.1-.96-.54-1.84-1.49-2.07l-.57-.13ZM3.06 8c0-2.52.52-4.33 1.54-5.43.36-.4.9-.58 1.42-.5l.12.02.57.14c.43.1.72.5.68.94l-.13 1.22a.88.88 0 0 1-.68.77l-1.19.27c-.32.07-.6.27-.77.56-.27.43-.38 1.09-.38 2.01 0 1.4.26 2.26.96 2.52l.1.03 1.28.3c.37.08.64.39.68.76l.13 1.22a.88.88 0 0 1-.67.94l-.58.14a1.6 1.6 0 0 1-1.55-.48C3.58 12.33 3.06 10.52 3.06 8Zm8.8-3.85a.5.5 0 0 0-.71.7L13.29 7H8.5a.5.5 0 0 0 0 1h4.8l-2.15 2.15a.5.5 0 0 0 .7.7l3-3a.5.5 0 0 0 0-.7l-3-3Z\"/>";
 
             /// <summary />
-            public static string ColumnSingleCompare { get; } = ResourceManager.GetString("ColumnSingleCompare");
+            public static string CallInboundSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13.85 2.15c.2.2.2.5 0 .7L10.71 6h1.8a.5.5 0 1 1 0 1H9.5a.5.5 0 0 1-.5-.5v-3a.5.5 0 1 1 1 0v1.8l3.15-3.15c.2-.2.5-.2.7 0Zm-9.48-.03c.86-.32 1.81.06 2.2.89l.58 1.22a1.5 1.5 0 0 1-.19 1.6l-.94 1.16A4.18 4.18 0 0 0 7.37 9.3l1.5-.27c.5-.1 1.01.07 1.36.44l.8.84c.68.7.65 1.82-.05 2.48l-.3.28c-1.13 1.06-2.88 1.3-4.13.25a14.36 14.36 0 0 1-2.92-3.21 12.17 12.17 0 0 1-1.59-4.55 3.1 3.1 0 0 1 2.07-3.34l.26-.1Zm2.87 7.72-.3.4a1.76 1.76 0 0 1-.13-.1A4.97 4.97 0 0 1 4.99 6.9V6.9l.5-.06-.5.05a.5.5 0 0 1 .11-.36L6.2 5.19a.5.5 0 0 0 .06-.53l-.58-1.22a.75.75 0 0 0-.94-.38l-.27.1c-.98.36-1.58 1.28-1.43 2.24.2 1.26.6 2.86 1.44 4.17a13.37 13.37 0 0 0 2.72 2.98c.8.67 1.98.57 2.8-.2l.3-.28c.3-.3.32-.77.03-1.07l-.81-.84a.5.5 0 0 0-.45-.15l-1.73.32a.5.5 0 0 1-.38-.08l.29-.41Z\"/>";
 
             /// <summary />
-            public static string Comment { get; } = ResourceManager.GetString("Comment");
+            public static string CallMissedSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m9.2 4.15.22.97a2 2 0 0 0 1.63 1.54l.7.12a1.9 1.9 0 0 0 2.16-1.46c.32-1.36-.18-2.9-1.6-3.5a11.51 11.51 0 0 0-8.59 0c-1.43.6-1.94 2.14-1.62 3.51a1.9 1.9 0 0 0 2.16 1.45l.7-.12A2 2 0 0 0 6.6 5.12l.21-.97A5.47 5.47 0 0 1 8 4a5.14 5.14 0 0 1 1.2.15Zm2.73-1.4c.85.35 1.25 1.32 1.01 2.35a.9.9 0 0 1-1.03.69l-.7-.12a1 1 0 0 1-.81-.77l-.28-1.26a.5.5 0 0 0-.33-.36l-.16.47.16-.47h-.02l-.03-.02a4.41 4.41 0 0 0-.5-.12 6.14 6.14 0 0 0-2.97.12l-.03.01h-.01a.5.5 0 0 0-.34.37L5.61 4.9a1 1 0 0 1-.81.77l-.7.12a.9.9 0 0 1-1.03-.69c-.24-1.02.17-2 1.02-2.34a10.51 10.51 0 0 1 7.84 0ZM8 9.5a.5.5 0 0 0-1 0v2c0 .28.23.5.5.5H9a.5.5 0 0 0 0-1H8V9.5ZM4 11a4 4 0 1 1 8 0 4 4 0 0 1-8 0Zm4-3a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z\"/>";
 
             /// <summary />
-            public static string CommentAdd { get; } = ResourceManager.GetString("CommentAdd");
+            public static string CallOutboundSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10 2.5c0-.28.22-.5.5-.5h3c.28 0 .5.22.5.5v3a.5.5 0 1 1-1 0V3.7L9.85 6.86a.5.5 0 0 1-.7-.7L12.29 3H10.5a.5.5 0 0 1-.5-.5Zm-5.63-.38c.86-.32 1.81.06 2.2.89l.58 1.22a1.5 1.5 0 0 1-.19 1.6l-.94 1.16A4.17 4.17 0 0 0 7.37 9.3l1.5-.27c.5-.1 1.01.07 1.36.44l.8.84c.68.7.65 1.82-.05 2.48l-.3.28c-1.13 1.06-2.88 1.3-4.13.25a14.36 14.36 0 0 1-2.92-3.21 12.17 12.17 0 0 1-1.59-4.55 3.1 3.1 0 0 1 2.07-3.34l.26-.1Zm2.87 7.72-.3.4a1.76 1.76 0 0 1-.13-.1A4.97 4.97 0 0 1 4.99 6.9V6.9l.5-.06-.5.05a.5.5 0 0 1 .11-.36L6.2 5.19a.5.5 0 0 0 .06-.53l-.58-1.22a.75.75 0 0 0-.94-.38l-.27.1c-.98.36-1.58 1.28-1.43 2.24.2 1.26.6 2.86 1.44 4.17a13.37 13.37 0 0 0 2.72 2.98c.8.67 1.98.57 2.8-.2l.3-.28c.3-.3.32-.77.03-1.07l-.81-.84a.5.5 0 0 0-.45-.15l-1.73.32a.5.5 0 0 1-.38-.08l.29-.41Z\"/>";
 
             /// <summary />
-            public static string CommentArrowLeft { get; } = ResourceManager.GetString("CommentArrowLeft");
+            public static string CallParkSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10.5 2a.5.5 0 0 0-.5.5v5a.5.5 0 0 0 1 0V6h1a2 2 0 1 0 0-4h-1.5ZM12 5h-1V3h1a1 1 0 1 1 0 2ZM6.57 3a1.75 1.75 0 0 0-2.2-.88l-.26.1a3.1 3.1 0 0 0-2.07 3.34c.2 1.32.65 3.07 1.59 4.55a14.36 14.36 0 0 0 2.92 3.2c1.25 1.05 3 .82 4.13-.24l.3-.28c.7-.66.73-1.78.06-2.48l-.81-.84a1.5 1.5 0 0 0-1.35-.44l-1.51.27A4.16 4.16 0 0 1 6.02 7l.94-1.16a1.5 1.5 0 0 0 .2-1.6l-.59-1.22Zm.38 7.24c.1.08.24.11.38.09L9.06 10a.5.5 0 0 1 .45.15l.8.84c.3.3.28.78-.02 1.07l-.3.27c-.82.78-2 .88-2.8.21-.9-.75-1.95-1.77-2.72-2.98A11.19 11.19 0 0 1 3.03 5.4c-.15-.96.45-1.88 1.43-2.25l.27-.1c.36-.13.77.03.94.39l.58 1.22a.5.5 0 0 1-.06.53L5.1 6.53c-.08.1-.1.36-.1.36v.02a2.22 2.22 0 0 0 .02.16 5 5 0 0 0 1.91 3.17h.01Z\"/>";
 
             /// <summary />
-            public static string CommentArrowLeftTempLtr { get; } = ResourceManager.GetString("CommentArrowLeftTempLtr");
+            public static string CallProhibitedSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m9.2 4.15.22.97a2 2 0 0 0 1.63 1.54l.7.12a1.9 1.9 0 0 0 2.16-1.46c.32-1.36-.18-2.9-1.6-3.5a11.51 11.51 0 0 0-8.59 0c-1.43.6-1.94 2.14-1.62 3.51a1.9 1.9 0 0 0 2.16 1.45l.7-.12A2 2 0 0 0 6.6 5.12l.21-.97A5.47 5.47 0 0 1 8 4a5.14 5.14 0 0 1 1.2.15Zm2.73-1.4c.85.35 1.25 1.32 1.01 2.35a.9.9 0 0 1-1.03.69l-.7-.12a1 1 0 0 1-.81-.77l-.28-1.26a.5.5 0 0 0-.33-.36h-.02l-.03-.02a4.41 4.41 0 0 0-.5-.12 6.14 6.14 0 0 0-2.97.12l-.03.01h-.01a.5.5 0 0 0-.34.37L5.61 4.9a1 1 0 0 1-.81.77l-.7.12a.9.9 0 0 1-1.03-.69c-.24-1.02.17-2 1.02-2.34a10.51 10.51 0 0 1 7.84 0ZM8 15a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm0-1a3 3 0 0 0 2.45-4.74l-4.19 4.19c.5.34 1.1.55 1.74.55Zm-2.45-1.26 4.19-4.19a3 3 0 0 0-4.18 4.18Z\"/>";
 
             /// <summary />
-            public static string CommentArrowLeftTempRtl { get; } = ResourceManager.GetString("CommentArrowLeftTempRtl");
+            public static string CallSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.71 5.26c-.19-1.26.7-2.39 2.06-2.8a.99.99 0 0 1 1.2.6l.44 1.15a1 1 0 0 1-.26 1.1L5.86 6.48a.5.5 0 0 0-.15.47l.01.05a5.12 5.12 0 0 0 .16.58 7.27 7.27 0 0 0 1.8 2.89l.1.1.04.03a.5.5 0 0 0 .48.1l1.67-.53a1 1 0 0 1 1.07.32l.8.96c.33.4.29 1-.1 1.34-1.03.97-2.46 1.17-3.45.37a12.73 12.73 0 0 1-4.58-7.91Zm3.05 1.76 1.07-.98a2 2 0 0 0 .52-2.18L7.92 2.7a1.99 1.99 0 0 0-2.45-1.2C3.8 2 2.44 3.52 2.72 5.4a13.73 13.73 0 0 0 4.94 8.54c1.5 1.2 3.48.8 4.77-.4.76-.72.84-1.9.18-2.71l-.8-.96a2 2 0 0 0-2.14-.64l-1.39.44a6.6 6.6 0 0 1-.93-1.23 6.27 6.27 0 0 1-.6-1.42Z\"/>";
 
             /// <summary />
-            public static string CommentArrowRight { get; } = ResourceManager.GetString("CommentArrowRight");
+            public static string CallTransferSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.77 2.46C3.4 2.87 2.52 4 2.7 5.26a12.73 12.73 0 0 0 4.58 7.91c1 .8 2.42.6 3.46-.37a.98.98 0 0 0 .09-1.34l-.8-.96a1 1 0 0 0-1.07-.32l-1.67.53a.5.5 0 0 1-.48-.1l-.04-.04a5.1 5.1 0 0 1-.42-.44 7.26 7.26 0 0 1-1.6-3l-.04-.12-.01-.06a.5.5 0 0 1 .15-.47l1.3-1.18a1 1 0 0 0 .25-1.09l-.43-1.16a.99.99 0 0 0-1.21-.6Zm2.06 3.58-1.07.98a6.61 6.61 0 0 0 .59 1.42 6.26 6.26 0 0 0 .93 1.22l1.4-.43a2 2 0 0 1 2.14.63l.79.96c.66.81.58 2-.18 2.71-1.3 1.2-3.28 1.61-4.76.42A13.73 13.73 0 0 1 1.72 5.4C1.44 3.52 2.8 2 4.47 1.5c1-.3 2.08.22 2.45 1.2l.43 1.16a2 2 0 0 1-.52 2.18ZM12.29 3H9.5a.5.5 0 0 1 0-1h4c.28 0 .5.22.5.5v4a.5.5 0 0 1-1 0V3.7l-2.15 2.15a.5.5 0 0 1-.7-.7L12.29 3ZM10 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM8.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Z\"/>";
 
             /// <summary />
-            public static string CommentArrowRightTempLtr { get; } = ResourceManager.GetString("CommentArrowRightTempLtr");
+            public static string CallWarningSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m12.37.57 3.51 6.32A.75.75 0 0 1 15.23 8H7.77A.75.75 0 0 1 7.1 6.9L10.63.57a1 1 0 0 1 1.74 0ZM11.5 7a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1ZM11 2v2.5a.5.5 0 1 0 1 0V2a.5.5 0 0 0-1 0Zm-6.22.46C3.4 2.87 2.52 4 2.7 5.26a12.73 12.73 0 0 0 4.58 7.91c1 .8 2.42.6 3.46-.37a.98.98 0 0 0 .09-1.34l-.8-.96a1 1 0 0 0-1.07-.32l-1.67.53a.5.5 0 0 1-.48-.1l-.04-.04a4.8 4.8 0 0 1-.42-.43 7.26 7.26 0 0 1-1.6-3l-.04-.13-.01-.05a.5.5 0 0 1 .15-.47l1.3-1.19a1 1 0 0 0 .25-1.09l-.43-1.16a.99.99 0 0 0-1.21-.6Zm2.06 3.58-1.07.98a6.61 6.61 0 0 0 .59 1.43 6.27 6.27 0 0 0 .93 1.22l1.4-.44a2 2 0 0 1 2.14.64l.79.96c.66.8.58 2-.18 2.7-1.3 1.2-3.28 1.62-4.76.42a13.73 13.73 0 0 1-4.95-8.54C1.44 3.52 2.8 2 4.47 1.5c1-.3 2.08.22 2.45 1.2l.43 1.16a2 2 0 0 1-.52 2.18Z\"/>";
 
             /// <summary />
-            public static string CommentArrowRightTempRtl { get; } = ResourceManager.GetString("CommentArrowRightTempRtl");
+            public static string CameraDomeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 9a1 1 0 1 0 0 2 1 1 0 0 0 0-2Zm-3 1a3 3 0 1 1 6 0 3 3 0 0 1-6 0Zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM1 3.5C1 2.67 1.67 2 2.5 2h11c.83 0 1.5.67 1.5 1.5v1c0 .65-.42 1.2-1 1.41V9A6 6 0 0 1 2 9V5.91c-.58-.2-1-.76-1-1.41v-1ZM2.5 5h11a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0-.5.5v1c0 .28.22.5.5.5ZM3 6v3a5 5 0 0 0 10 0V6H3Z\"/>";
 
             /// <summary />
-            public static string CommentCheckmark { get; } = ResourceManager.GetString("CommentCheckmark");
+            public static string CameraOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M14.15 14.85c.1.1.22.15.35.15a.5.5 0 0 0 .35-.85l-13-13a.5.5 0 0 0-.7.7L3.39 4.1A2 2 0 0 0 2 6v5c0 1.11.9 2 2 2h8l.27-.01 1.88 1.87ZM11.29 12H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h.3l1.25 1.26a3 3 0 0 0 4.18 4.18L11.3 12ZM6.28 6.98l2.74 2.74a2 2 0 0 1-2.74-2.74ZM12 4h-.7l-.58-1.17A1.5 1.5 0 0 0 9.38 2H6.62a1.5 1.5 0 0 0-1.34.83l-.11.22.74.74.26-.51A.5.5 0 0 1 6.62 3h2.76c.2 0 .37.1.45.28l.72 1.44A.5.5 0 0 0 11 5h1a1 1 0 0 1 1 1v4.88l.86.85A2 2 0 0 0 14 11V6a2 2 0 0 0-2-2ZM10.9 8.77A3 3 0 0 0 7.23 5.1l.9.9c1 .07 1.79.86 1.86 1.85l.9.9Z\"/>";
 
             /// <summary />
-            public static string CommentError { get; } = ResourceManager.GetString("CommentError");
+            public static string CameraSparklesSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m10.88.28.35 1.07a2.2 2.2 0 0 0 1.4 1.4l1.07.35h.02a.42.42 0 0 1 0 .8l-1.07.35a2.2 2.2 0 0 0-1.4 1.4l-.35 1.07a.42.42 0 0 1-.8 0l-.35-1.07a2.2 2.2 0 0 0-1.4-1.4L7.28 3.9a.42.42 0 0 1 0-.8l1.07-.35a2.2 2.2 0 0 0 1.38-1.4l.35-1.07a.42.42 0 0 1 .8 0Zm4.9 7.93-.76-.25a1.58 1.58 0 0 1-1-1l-.25-.76a.3.3 0 0 0-.57 0l-.25.77a1.58 1.58 0 0 1-.98 1l-.77.24a.3.3 0 0 0 0 .57l.77.25a1.58 1.58 0 0 1 1 1l.24.77a.3.3 0 0 0 .58 0l.24-.77a1.58 1.58 0 0 1 1-1l.77-.24a.3.3 0 0 0 0-.57h-.02ZM13.5 12c-.17 0-.34-.03-.5-.1v.1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1a.5.5 0 0 0 .45-.28l.72-1.44a.5.5 0 0 1 .03-.05 1.4 1.4 0 0 1-.15-1.12 1.5 1.5 0 0 0-.77.72L4.69 5H4a2 2 0 0 0-2 2v5c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2v-.08c-.16.06-.33.08-.5.08ZM8.74 6.1l.31.95c.06.15.13.3.25.43A2 2 0 1 0 10 9l.14.26c.16.22.38.38.65.48l.11.03A3 3 0 1 1 8.74 6.1Z\"/>";
 
             /// <summary />
-            public static string CommentLink { get; } = ResourceManager.GetString("CommentLink");
+            public static string CameraSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-1 0a2 2 0 1 0-4 0 2 2 0 0 0 4 0ZM6.62 2a1.5 1.5 0 0 0-1.34.83L4.69 4H4a2 2 0 0 0-2 2v5c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-.7l-.58-1.17A1.5 1.5 0 0 0 9.38 2H6.62Zm-.45 1.28A.5.5 0 0 1 6.62 3h2.76c.2 0 .36.1.45.28l.72 1.44A.5.5 0 0 0 11 5h1a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1a.5.5 0 0 0 .45-.28l.72-1.44Z\"/>";
 
             /// <summary />
-            public static string CommentMention { get; } = ResourceManager.GetString("CommentMention");
+            public static string CaretDownRightSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10.3 4.25a1 1 0 0 1 1.7.7v5.55c0 .83-.67 1.5-1.5 1.5H4.96a1 1 0 0 1-.71-1.7l6.04-6.05Zm.7.7L4.96 11h5.54a.5.5 0 0 0 .5-.5V4.96Z\"/>";
 
             /// <summary />
-            public static string CommentMultiple { get; } = ResourceManager.GetString("CommentMultiple");
+            public static string CaretDownSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.14 6.57A1 1 0 0 1 4.96 5h6.08a1 1 0 0 1 .82 1.57l-2.63 3.79a1.5 1.5 0 0 1-2.46 0L4.14 6.57ZM4.96 6l2.63 3.78c.2.29.62.29.82 0L11.04 6H4.96Z\"/>";
 
             /// <summary />
-            public static string CommentMultipleCheckmark { get; } = ResourceManager.GetString("CommentMultipleCheckmark");
+            public static string CaretLeftSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9.43 11.86a1 1 0 0 0 1.57-.82V4.96a1 1 0 0 0-1.57-.82L5.64 6.77a1.5 1.5 0 0 0 0 2.46l3.79 2.63Zm.57-.82L6.22 8.41a.5.5 0 0 1 0-.82L10 4.96v6.08Z\"/>";
 
             /// <summary />
-            public static string CommentMultipleLink { get; } = ResourceManager.GetString("CommentMultipleLink");
+            public static string CaretRightSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.57 11.84A1 1 0 0 1 6 11.02V4.98a1 1 0 0 1 1.57-.82l3.79 2.62c.85.59.85 1.85 0 2.44l-3.79 2.62ZM7 11.02l3.78-2.61a.5.5 0 0 0 0-.82L7 4.98v6.04Z\"/>";
 
             /// <summary />
-            public static string CommentOff { get; } = ResourceManager.GetString("CommentOff");
+            public static string CaretUpSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.14 9.43A1 1 0 0 0 4.96 11h6.08a1 1 0 0 0 .82-1.57L9.23 5.64a1.5 1.5 0 0 0-2.46 0L4.14 9.43Zm.82.57L7.59 6.2a.5.5 0 0 1 .82 0L11.04 10H4.96Z\"/>";
 
             /// <summary />
-            public static string Communication { get; } = ResourceManager.GetString("Communication");
+            public static string CartSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2.5 2a.5.5 0 0 0 0 1h.25a.5.5 0 0 1 .48.36L4.8 8.91A1.5 1.5 0 0 0 6.25 10h4.57a1.5 1.5 0 0 0 1.4-.94l1.47-3.69A1 1 0 0 0 12.76 4H4.45l-.26-.91A1.5 1.5 0 0 0 2.75 2H2.5Zm3.27 6.64L4.73 5h8.03L11.3 8.69a.5.5 0 0 1-.47.31H6.25a.5.5 0 0 1-.48-.36ZM6.5 14a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm0-1a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1Zm4 1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm0-1a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1Z\"/>";
 
             /// <summary />
-            public static string CompassNorthwest { get; } = ResourceManager.GetString("CompassNorthwest");
+            public static string CatchUpSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6.84 6.32a.5.5 0 0 0-.92-.05l-.7 1.4c-.25.5-.77.83-1.34.83H2.87a1 1 0 1 1 0-1h1.01a.5.5 0 0 0 .45-.28l.7-1.4a1.5 1.5 0 0 1 2.74.15l1.4 3.7c.15.42.71.45.9.06l.7-1.4c.26-.5.78-.83 1.35-.83h1.01a1 1 0 1 1 0 1h-1.01a.5.5 0 0 0-.45.28l-.7 1.4a1.5 1.5 0 0 1-2.74-.15l-1.4-3.7Z\"/>";
 
             /// <summary />
-            public static string Compose { get; } = ResourceManager.GetString("Compose");
+            public static string CdSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM7 8a1 1 0 1 1 2 0 1 1 0 0 1-2 0Zm1-6a6 6 0 1 0 0 12A6 6 0 0 0 8 2ZM3 8a5 5 0 1 1 10 0A5 5 0 0 1 3 8Z\"/>";
 
             /// <summary />
-            public static string Cone { get; } = ResourceManager.GetString("Cone");
+            public static string CertificateSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1 4c0-1.1.9-2 2-2h10a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H7v-.35a4 4 0 0 0 .46-.65H13a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1.54c-.38.21-.71.49-1 .81V4Zm5.65 2c-.62-.55-1.41-.9-2.28-.98A.5.5 0 0 1 4.5 5h7a.5.5 0 0 1 0 1H6.65ZM8.5 8a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3ZM7 9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-5 3.44v2.06a.5.5 0 0 0 .26.44.5.5 0 0 0 .52-.03L4 14.1l1.22.82a.5.5 0 0 0 .7-.16.5.5 0 0 0 .08-.26v-2.06c-.6.35-1.27.56-2 .56s-1.4-.21-2-.56Z\"/>";
 
             /// <summary />
-            public static string ConferenceRoom { get; } = ResourceManager.GetString("ConferenceRoom");
+            public static string ChannelAddSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 2.25c-.13 0-.25.01-.37.04A2 2 0 0 1 3.5 1h5a2 2 0 0 1 2 2v2c-.34 0-.68.03-1 .1V3a1 1 0 0 0-1-1h-5a1 1 0 0 0-.8.4c-.21-.1-.45-.15-.7-.15ZM5.2 9H3.5a1 1 0 0 1-1-1V5.68a1.75 1.75 0 0 1-1 0V8c0 1.1.9 2 2 2h1.52c.03-.34.1-.68.19-1ZM4 4.5c0-.28.22-.5.5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5ZM4.5 6a.5.5 0 0 0 0 1H6a.5.5 0 0 0 0-1H4.5ZM2.75 4a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM15 10.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-4-2a.5.5 0 0 0-1 0V10H8.5a.5.5 0 0 0 0 1H10v1.5a.5.5 0 0 0 1 0V11h1.5a.5.5 0 0 0 0-1H11V8.5Z\"/>";
 
             /// <summary />
-            public static string Connected { get; } = ResourceManager.GetString("Connected");
+            public static string ChannelAlertSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 2.25c-.13 0-.25.01-.37.04A2 2 0 0 1 3.5 1h5a2 2 0 0 1 2 2v2c-.34 0-.68.03-1 .1V3a1 1 0 0 0-1-1h-5a1 1 0 0 0-.8.4c-.21-.1-.45-.15-.7-.15ZM5.2 9H3.5a1 1 0 0 1-1-1V5.68a1.75 1.75 0 0 1-1 0V8c0 1.1.9 2 2 2h1.52c.03-.34.1-.68.19-1ZM4 4.5c0-.28.22-.5.5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5ZM4.5 6a.5.5 0 0 0 0 1H6a.5.5 0 0 0 0-1H4.5ZM2.75 4a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM15 10.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM12.5 9a2 2 0 1 0-4 0v1.8l-.35.35a.5.5 0 0 0 .35.85h4a.5.5 0 0 0 .35-.85l-.35-.36V9Zm-3.41 4a1.5 1.5 0 0 0 2.82 0H9.1Z\"/>";
 
             /// <summary />
-            public static string Connector { get; } = ResourceManager.GetString("Connector");
+            public static string ChannelArrowLeftSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 2.25c-.13 0-.25.01-.37.04A2 2 0 0 1 3.5 1h5a2 2 0 0 1 2 2v2c-.34 0-.68.03-1 .1V3a1 1 0 0 0-1-1h-5a1 1 0 0 0-.8.4c-.21-.1-.45-.15-.7-.15ZM5.2 9H3.5a1 1 0 0 1-1-1V5.68a1.75 1.75 0 0 1-1 0V8c0 1.1.9 2 2 2h1.52c.03-.34.1-.68.19-1Zm-.7-5a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3Zm0 2a.5.5 0 0 0 0 1H6a.5.5 0 0 0 0-1H4.5ZM2 4.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm13 5.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-6.85-.35a.5.5 0 0 0-.15.35.5.5 0 0 0 .15.35l2 2a.5.5 0 0 0 .7-.7L9.71 11h2.79a.5.5 0 0 0 0-1H9.7l1.15-1.15a.5.5 0 0 0-.7-.7l-2 2Z\"/>";
 
             /// <summary />
-            public static string ContactCard { get; } = ResourceManager.GetString("ContactCard");
+            public static string ChannelDismissSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 2.25c-.13 0-.25.01-.37.04A2 2 0 0 1 3.5 1h5a2 2 0 0 1 2 2v2c-.34 0-.68.03-1 .1V3a1 1 0 0 0-1-1h-5a1 1 0 0 0-.8.4c-.21-.1-.45-.15-.7-.15ZM5.2 9H3.5a1 1 0 0 1-1-1V5.68a1.75 1.75 0 0 1-1 0V8c0 1.1.9 2 2 2h1.52c.03-.34.1-.68.19-1ZM4 4.5c0-.28.22-.5.5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5ZM4.5 6a.5.5 0 0 0 0 1H6a.5.5 0 0 0 0-1H4.5ZM2.75 4a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM15 10.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-3.8 0 1.15-1.15a.5.5 0 0 0-.7-.7L10.5 9.79 9.35 8.65a.5.5 0 1 0-.7.7l1.14 1.15-1.14 1.15a.5.5 0 0 0 .7.7l1.15-1.14 1.15 1.14a.5.5 0 0 0 .7-.7l-1.14-1.15Z\"/>";
 
             /// <summary />
-            public static string ContactCardGroup { get; } = ResourceManager.GetString("ContactCardGroup");
+            public static string ChannelShareSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1 3.5A2.5 2.5 0 0 1 3.5 1h4A2.5 2.5 0 0 1 10 3.5V4H9v-.5C9 2.67 8.33 2 7.5 2h-4C2.67 2 2 2.67 2 3.5v4C2 8.33 2.67 9 3.5 9h5.59a1.5 1.5 0 1 1 0 1H3.5A2.5 2.5 0 0 1 1 7.5v-4Zm9 6a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0ZM6 11v.5A2.5 2.5 0 0 0 8.5 14h4a2.5 2.5 0 0 0 2.5-2.5v-4A2.5 2.5 0 0 0 12.5 5H6.91a1.5 1.5 0 1 0 0 1h5.59c.83 0 1.5.67 1.5 1.5v4c0 .83-.67 1.5-1.5 1.5h-4A1.5 1.5 0 0 1 7 11.5V11H6Zm-.5-6a.5.5 0 1 1 0 1 .5.5 0 0 1 0-1Z\"/>";
 
             /// <summary />
-            public static string ContactCardLink { get; } = ResourceManager.GetString("ContactCardLink");
+            public static string ChannelSubtractSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1.63 2.29a1.76 1.76 0 0 1 1.07.1A1 1 0 0 1 3.5 2h5a1 1 0 0 1 1 1v2.1c.32-.07.66-.1 1-.1V3a2 2 0 0 0-2-2h-5a2 2 0 0 0-1.87 1.29ZM5.03 10c.02-.34.09-.68.18-1H3.5a1 1 0 0 1-1-1V5.68a1.75 1.75 0 0 1-1 0V8c0 1.1.9 2 2 2h1.52ZM4.5 4a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3ZM4 6.5c0-.28.22-.5.5-.5H6a.5.5 0 0 1 0 1H4.5a.5.5 0 0 1-.5-.5ZM2 4.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM10.5 15a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm2-4h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1Z\"/>";
 
             /// <summary />
-            public static string ContactCardRibbon { get; } = ResourceManager.GetString("ContactCardRibbon");
+            public static string ChannelSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2.5 6.55a1 1 0 0 1-1-1 1 1 0 1 1 1 1Zm-.32-2.97a2.01 2.01 0 0 1 1.06.11C3.5 3.28 3.97 3 4.5 3h7c.83 0 1.5.67 1.5 1.5v7c0 .83-.67 1.5-1.5 1.5h-7A1.5 1.5 0 0 1 3 11.5V7.49a2 2 0 0 1-1 0v4.01A2.5 2.5 0 0 0 4.5 14h7a2.5 2.5 0 0 0 2.5-2.5v-7A2.5 2.5 0 0 0 11.5 2h-7a2.5 2.5 0 0 0-2.32 1.58ZM6 6a.5.5 0 0 0 0 1h4a.5.5 0 1 0 0-1H6Zm0 3a.5.5 0 0 0 0 1h2.61a.5.5 0 0 0 0-1H6Z\"/>";
 
             /// <summary />
-            public static string ContentSettings { get; } = ResourceManager.GetString("ContentSettings");
+            public static string ChatAddSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1 7a6 6 0 0 1 11.95-.8c-.34-.1-.69-.16-1.05-.19a5 5 0 1 0-9.2 3.54.5.5 0 0 1 .05.4l-.5 1.78 1.65-.56a.5.5 0 0 1 .43.06c.5.32 1.07.55 1.68.67.03.36.1.71.18 1.05-.79-.11-1.53-.37-2.2-.75l-2.33.77a.5.5 0 0 1-.64-.6l.71-2.5A5.98 5.98 0 0 1 1 7Zm15 4.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-4-2a.5.5 0 0 0-1 0V11H9.5a.5.5 0 0 0 0 1H11v1.5a.5.5 0 0 0 1 0V12h1.5a.5.5 0 0 0 0-1H12V9.5Z\"/>";
 
             /// <summary />
-            public static string ContractDownLeft { get; } = ResourceManager.GetString("ContractDownLeft");
+            public static string ChatArrowBackSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7 1a6 6 0 0 0-5.27 8.87l-.71 2.5a.5.5 0 0 0 .64.6L4 12.2c.46.28.97.49 1.5.62-.16-.37-.3-.76-.38-1.18a4.97 4.97 0 0 1-.8-.4.5.5 0 0 0-.42-.06l-1.66.56.51-1.79a.5.5 0 0 0-.05-.39 5 5 0 1 1 8.93-4.43c.42.08.81.22 1.18.39A6 6 0 0 0 7 1Zm8 9.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM9.6 7.9a.5.5 0 0 0-.7 0L7.15 9.65a.5.5 0 0 0 0 .7L8.9 12.1a.5.5 0 0 0 .7-.7l-.9-.9h1.55c.97 0 1.75.78 1.75 1.75v.25a.5.5 0 0 0 1 0v-.25a2.75 2.75 0 0 0-2.75-2.75H8.71l.9-.9a.5.5 0 0 0 0-.7Z\"/>";
 
             /// <summary />
-            public static string Copy { get; } = ResourceManager.GetString("Copy");
+            public static string ChatArrowDoubleBackSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1 7a6 6 0 0 1 11.81-1.5c-.37-.16-.76-.3-1.18-.38A5 5 0 1 0 2.7 9.55a.5.5 0 0 1 .05.4l-.5 1.78 1.65-.56a.5.5 0 0 1 .43.06c.25.15.51.3.79.4.08.42.22.81.39 1.18A5.97 5.97 0 0 1 4 12.2l-2.34.78a.5.5 0 0 1-.64-.6l.71-2.5A5.98 5.98 0 0 1 1 7Zm14 3.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM9.35 9.35a.5.5 0 0 0-.7-.7l-1.5 1.5a.5.5 0 0 0 0 .7l1.5 1.5a.5.5 0 1 0 .7-.7L8.21 10.5l1.14-1.15Zm1.86.65.64-.65a.5.5 0 0 0-.7-.7l-1.5 1.5a.5.5 0 0 0 0 .7l1.5 1.5a.5.5 0 0 0 .7-.7l-.64-.65H13v.5a.5.5 0 0 0 1 0V11a1 1 0 0 0-1-1h-1.8Z\" opacity=\".99\"/>";
 
             /// <summary />
-            public static string CopyArrowRight { get; } = ResourceManager.GetString("CopyArrowRight");
+            public static string ChatBubblesQuestionSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7 8.88a.62.62 0 1 1 0 1.25.62.62 0 0 1 0-1.25ZM7 4c1.03 0 1.85.85 1.85 1.95 0 .59-.21.91-.72 1.32l-.28.22c-.25.19-.33.3-.35.44v.16a.5.5 0 0 1-1-.09c0-.57.21-.88.72-1.29l.27-.21c.3-.23.36-.35.36-.55C7.85 5.4 7.47 5 7 5c-.5 0-.86.37-.85.95a.5.5 0 0 1-1 0C5.14 4.83 5.95 4 7 4ZM2 7a5 5 0 1 1 2.89 4.53l-2.3.46a.5.5 0 0 1-.58-.59l.46-2.29A4.98 4.98 0 0 1 2 7Zm5-4a4 4 0 0 0-3.56 5.82c.05.1.06.21.04.32l-.34 1.72 1.72-.34a.5.5 0 0 1 .32.04A4 4 0 1 0 7 3Zm-1.14 9.9a4.98 4.98 0 0 0 5.25.63l2.3.46a.5.5 0 0 0 .58-.59l-.46-2.29a4.98 4.98 0 0 0-.64-5.25 6.03 6.03 0 0 1 0 2.24 4.01 4.01 0 0 1-.33 2.72.5.5 0 0 0-.04.32l.34 1.72-1.72-.34a.5.5 0 0 0-.32.04 3.98 3.98 0 0 1-2.72.34 6.03 6.03 0 0 1-2.24 0Z\"/>";
 
             /// <summary />
-            public static string Crop { get; } = ResourceManager.GetString("Crop");
+            public static string ChatCursorSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 6a5 5 0 1 1 9.89 1.06l-.9-.74L11 6a4 4 0 1 0-7.42 2.08c.08.12.1.27.05.4l-.38 1.26 1.26-.38a.5.5 0 0 1 .4.05C5.52 9.8 6.23 10 7 10v1c-.87 0-1.7-.22-2.4-.62l-1.95.6a.5.5 0 0 1-.63-.63l.6-1.95A4.98 4.98 0 0 1 2 6Zm12.72 4.67a.75.75 0 0 1-.47 1.33h-3a.5.5 0 0 0-.39.2l-1.51 2A.75.75 0 0 1 8 13.75v-7c0-.63.73-.98 1.22-.58l5.5 4.5Z\"/>";
 
             /// <summary />
-            public static string Crown { get; } = ResourceManager.GetString("Crown");
+            public static string ChatDismissSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m5.9 5.9-.06.07a.5.5 0 0 0 .06.63L7.3 8 5.9 9.4l-.06.07a.5.5 0 0 0 .06.63l.07.06c.2.14.46.12.63-.06L8 8.7l1.4 1.4.07.06c.2.14.46.12.63-.06l.06-.07a.5.5 0 0 0-.06-.63L8.7 8l1.4-1.4.06-.07a.5.5 0 0 0-.06-.63l-.07-.06a.5.5 0 0 0-.63.06L8 7.3 6.6 5.9l-.07-.06a.5.5 0 0 0-.63.06ZM8 2a6 6 0 0 0-5.27 8.87l-.71 2.5a.5.5 0 0 0 .64.6L5 13.2A6 6 0 1 0 8 2ZM3 8a5 5 0 1 1 2.33 4.23.5.5 0 0 0-.43-.06l-1.66.56.51-1.79a.5.5 0 0 0-.05-.39A4.97 4.97 0 0 1 3 8Z\"/>";
 
             /// <summary />
-            public static string Cube { get; } = ResourceManager.GetString("Cube");
+            public static string ChatEmptySvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 8a6 6 0 1 1 3 5.2l-2.34.77a.5.5 0 0 1-.64-.6l.71-2.5A5.98 5.98 0 0 1 2 8Zm6-5a5 5 0 0 0-4.3 7.55.5.5 0 0 1 .05.4l-.5 1.78 1.65-.56a.5.5 0 0 1 .43.06A5 5 0 1 0 8 3Z\"/>";
 
             /// <summary />
-            public static string CubeQuick { get; } = ResourceManager.GetString("CubeQuick");
+            public static string ChatMultipleHeartSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.9 5.4a1.35 1.35 0 0 1 1.9 0l.2.19.18-.19a1.36 1.36 0 0 1 1.93 1.92L7.15 9.27a.2.2 0 0 1-.29 0L4.9 7.31a1.35 1.35 0 0 1 0-1.92ZM2 7a5 5 0 1 1 2.89 4.53l-2.3.46a.5.5 0 0 1-.58-.59l.46-2.29A4.98 4.98 0 0 1 2 7Zm5-4a4 4 0 0 0-3.56 5.82c.05.1.06.21.04.32l-.34 1.72 1.72-.34a.5.5 0 0 1 .32.04A4 4 0 1 0 7 3Zm-1.14 9.9a4.98 4.98 0 0 0 5.25.63l2.3.46a.5.5 0 0 0 .58-.59l-.46-2.29a4.98 4.98 0 0 0-.64-5.25 6.03 6.03 0 0 1 0 2.24 4.01 4.01 0 0 1-.33 2.72.5.5 0 0 0-.04.32l.34 1.72-1.72-.34a.5.5 0 0 0-.32.04 3.98 3.98 0 0 1-2.72.34 6.03 6.03 0 0 1-2.24 0Z\"/>";
 
             /// <summary />
-            public static string CurrencyDollarEuro { get; } = ResourceManager.GetString("CurrencyDollarEuro");
+            public static string ChatMultipleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7 2a5 5 0 0 0-4.53 7.11L2 11.41a.5.5 0 0 0 .59.58l2.29-.46A4.98 4.98 0 0 0 12 7a5 5 0 0 0-5-5ZM3 7a4 4 0 1 1 2.18 3.56.5.5 0 0 0-.32-.04l-1.72.34.34-1.72a.5.5 0 0 0-.04-.32A3.98 3.98 0 0 1 3 7Zm6 7a4.98 4.98 0 0 1-3.14-1.1 6.02 6.02 0 0 0 2.24 0 4 4 0 0 0 2.72-.34.5.5 0 0 1 .32-.04l1.72.34-.34-1.72a.5.5 0 0 1 .04-.32 3.98 3.98 0 0 0 .34-2.72 6.03 6.03 0 0 0 0-2.24 4.98 4.98 0 0 1 .63 5.25l.46 2.3a.5.5 0 0 1-.59.58l-2.29-.46c-.64.3-1.36.47-2.11.47Z\"/>";
 
             /// <summary />
-            public static string CurrencyDollarRupee { get; } = ResourceManager.GetString("CurrencyDollarRupee");
+            public static string ChatSparkleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m10.88.28.35 1.07a2.2 2.2 0 0 0 1.4 1.4l1.07.35h.02a.42.42 0 0 1 0 .8l-1.07.35a2.2 2.2 0 0 0-1.4 1.4l-.35 1.07a.42.42 0 0 1-.8 0l-.35-1.07a2.2 2.2 0 0 0-1.4-1.4L7.28 3.9a.42.42 0 0 1 0-.8l1.07-.35a2.2 2.2 0 0 0 1.38-1.4l.35-1.07a.42.42 0 0 1 .8 0Zm4.9 7.93-.76-.25a1.58 1.58 0 0 1-1-1l-.25-.76a.3.3 0 0 0-.57 0l-.25.77a1.58 1.58 0 0 1-.98 1l-.77.24a.3.3 0 0 0 0 .57l.77.25a1.58 1.58 0 0 1 1 1l.24.77a.3.3 0 0 0 .58 0l.24-.77a1.58 1.58 0 0 1 1-1l.77-.24a.3.3 0 0 0 0-.57h-.02Zm-3.5 2.94c.09.23.23.42.42.58A5.99 5.99 0 0 1 5 13.19l-2.34.78a.5.5 0 0 1-.64-.6l.71-2.5a6 6 0 0 1 4.58-8.83l-.36.11A1.43 1.43 0 0 0 6 3.41a5 5 0 0 0-2.3 7.14.5.5 0 0 1 .05.4l-.5 1.78 1.65-.56a.5.5 0 0 1 .43.06 4.97 4.97 0 0 0 6.83-1.45l.12.37Z\"/>";
 
             /// <summary />
-            public static string Cursor { get; } = ResourceManager.GetString("Cursor");
+            public static string ChatSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 7c0-.28.22-.5.5-.5h3a.5.5 0 0 1 0 1h-3A.5.5 0 0 1 6 7Zm.5 1.5a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2ZM2 8a6 6 0 1 1 3 5.2l-2.34.77a.5.5 0 0 1-.64-.6l.71-2.5A5.98 5.98 0 0 1 2 8Zm6-5a5 5 0 0 0-4.3 7.55.5.5 0 0 1 .05.4l-.5 1.78 1.65-.56a.5.5 0 0 1 .43.06A5 5 0 1 0 8 3Z\"/>";
 
             /// <summary />
-            public static string CursorHover { get; } = ResourceManager.GetString("CursorHover");
+            public static string ChatWarningSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.75 10.75a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Zm-.26-5.84A.5.5 0 0 0 7.5 5v3.59a.5.5 0 0 0 1-.09V4.91ZM8 2a6 6 0 0 0-5.27 8.87l-.71 2.5a.5.5 0 0 0 .64.6L5 13.2A6 6 0 1 0 8 2ZM3 8a5 5 0 1 1 2.33 4.23.5.5 0 0 0-.43-.06l-1.66.56.51-1.79a.5.5 0 0 0-.05-.39A4.97 4.97 0 0 1 3 8Z\"/>";
 
             /// <summary />
-            public static string CursorHoverOff { get; } = ResourceManager.GetString("CursorHoverOff");
+            public static string CheckboxCheckedSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 2A2.5 2.5 0 0 0 2 4.5v7A2.5 2.5 0 0 0 4.5 14h7a2.5 2.5 0 0 0 2.5-2.5v-7A2.5 2.5 0 0 0 11.5 2h-7ZM3 4.5C3 3.67 3.67 3 4.5 3h7c.83 0 1.5.67 1.5 1.5v7c0 .83-.67 1.5-1.5 1.5h-7A1.5 1.5 0 0 1 3 11.5v-7Zm7.85 2.35a.5.5 0 0 0-.7-.7L7 9.29 5.85 8.15a.5.5 0 1 0-.7.7l1.5 1.5c.2.2.5.2.7 0l3.5-3.5Z\"/>";
 
             /// <summary />
-            public static string CursorProhibited { get; } = ResourceManager.GetString("CursorProhibited");
+            public static string CheckboxCheckedSyncSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2.5 0A2.5 2.5 0 0 0 0 2.5v7A2.5 2.5 0 0 0 2.5 12h3.52a5.57 5.57 0 0 1 0-1H2.5A1.5 1.5 0 0 1 1 9.5v-7C1 1.67 1.67 1 2.5 1h7c.83 0 1.5.67 1.5 1.5v3.52a5.57 5.57 0 0 1 1 0V2.5A2.5 2.5 0 0 0 9.5 0h-7Zm6.35 4.85a.5.5 0 1 0-.7-.7L5 7.29 3.85 6.15a.5.5 0 1 0-.7.7l1.5 1.5c.2.2.5.2.7 0l3.5-3.5ZM7 11.5a4.5 4.5 0 1 0 9 0 4.5 4.5 0 0 0-9 0Zm6.5-3c.28 0 .5.22.5.5v1.5a.5.5 0 0 1-.5.5H12a.5.5 0 0 1 0-1h.47a1.98 1.98 0 0 0-1.72-.1 2 2 0 0 0-.66.44.5.5 0 0 1-.71-.71A3 3 0 0 1 13 9.15V9c0-.28.22-.5.5-.5Zm-.88 5.53a3 3 0 0 1-2.62-.18V14a.5.5 0 0 1-1 0v-1.5c0-.28.22-.5.5-.5H11a.5.5 0 0 1 0 1h-.47a1.97 1.97 0 0 0 .94.25 2 2 0 0 0 1.44-.59.5.5 0 0 1 .71.71 3 3 0 0 1-1 .66Z\"/>";
 
             /// <summary />
-            public static string DataBarHorizontalDescending { get; } = ResourceManager.GetString("DataBarHorizontalDescending");
+            public static string CheckboxIndeterminateSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 2A2.5 2.5 0 0 0 2 4.5v7A2.5 2.5 0 0 0 4.5 14h7a2.5 2.5 0 0 0 2.5-2.5v-7A2.5 2.5 0 0 0 11.5 2h-7ZM3 4.5C3 3.67 3.67 3 4.5 3h7c.83 0 1.5.67 1.5 1.5v7c0 .83-.67 1.5-1.5 1.5h-7A1.5 1.5 0 0 1 3 11.5v-7ZM5 4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H5Z\"/>";
 
             /// <summary />
-            public static string DataBarVertical { get; } = ResourceManager.GetString("DataBarVertical");
+            public static string CheckboxPersonSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.5 1A2.5 2.5 0 0 0 1 3.5v7A2.5 2.5 0 0 0 3.5 13h4.55c.07-.37.23-.7.45-1h-5A1.5 1.5 0 0 1 2 10.5v-7C2 2.67 2.67 2 3.5 2h7c.83 0 1.5.67 1.5 1.5v2.54a3.02 3.02 0 0 1 1 0V3.5A2.5 2.5 0 0 0 10.5 1h-7Zm6.35 4.85a.5.5 0 0 0-.7-.7L6 8.29 4.85 7.15a.5.5 0 1 0-.7.7l1.5 1.5c.2.2.5.2.7 0l3.5-3.5ZM14.5 9a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm1.5 4.5c0 1.25-1 2.5-3.5 2.5S9 14.75 9 13.5c0-.83.67-1.5 1.5-1.5h4c.83 0 1.5.67 1.5 1.5Z\"/>";
 
             /// <summary />
-            public static string DataBarVerticalAscending { get; } = ResourceManager.GetString("DataBarVerticalAscending");
+            public static string CheckboxUncheckedSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 4.5A2.5 2.5 0 0 1 4.5 2h7A2.5 2.5 0 0 1 14 4.5v7a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 11.5v-7ZM4.5 3C3.67 3 3 3.67 3 4.5v7c0 .83.67 1.5 1.5 1.5h7c.83 0 1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5h-7Z\"/>";
 
             /// <summary />
-            public static string DataBarVerticalStar { get; } = ResourceManager.GetString("DataBarVerticalStar");
+            public static string CheckmarkCircleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 2a6 6 0 1 1 0 12A6 6 0 0 1 8 2Zm0 1a5 5 0 1 0 0 10A5 5 0 0 0 8 3Zm-.75 6.04 2.87-2.88a.5.5 0 0 1 .77.64l-.06.07L7.6 10.1a.5.5 0 0 1-.63.06l-.07-.06-1.75-1.75a.5.5 0 0 1 .63-.76l.07.06 1.4 1.4 2.87-2.89-2.87 2.88Z\"/>";
 
             /// <summary />
-            public static string Database { get; } = ResourceManager.GetString("Database");
+            public static string CheckmarkLockSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7 1a6 6 0 0 1 6 6.21 2.5 2.5 0 0 0-1-.2V7a5 5 0 1 0-4 4.9v1.02A6 6 0 1 1 7 1Zm-.75 7.04 2.87-2.88a.5.5 0 0 1 .77.64l-.06.07L6.6 9.1a.5.5 0 0 1-.63.06L5.9 9.1 4.15 7.35a.5.5 0 0 1 .63-.76l.07.06 1.4 1.4ZM10.5 10H10a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1h-.5v-.5a1.5 1.5 0 0 0-3 0v.5Zm1-.5a.5.5 0 0 1 1 0v.5h-1v-.5ZM12 13a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1Z\"/>";
 
             /// <summary />
-            public static string DatabaseStack { get; } = ResourceManager.GetString("DatabaseStack");
+            public static string CheckmarkStarburstSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m11.33 2.06.08.16.58 1.53c.04.12.14.22.26.26l1.48.56c.65.24 1 .93.82 1.6l-.04.12-.69 1.52a.45.45 0 0 0 0 .37l.66 1.44c.28.63.04 1.37-.55 1.71l-.15.08-1.53.58a.45.45 0 0 0-.26.26l-.56 1.48c-.24.65-.94 1-1.6.82l-.12-.04-1.53-.69a.45.45 0 0 0-.37 0l-1.43.66c-.64.28-1.37.04-1.72-.55l-.07-.15L4 12.25a.45.45 0 0 0-.26-.26l-1.48-.56c-.65-.24-1-.94-.83-1.6l.05-.12.68-1.53a.45.45 0 0 0 0-.37l-.65-1.43a1.34 1.34 0 0 1 .54-1.72l.16-.07L3.75 4a.45.45 0 0 0 .26-.26l.56-1.48c.24-.65.93-1 1.6-.83l.12.05 1.52.68c.12.06.26.06.37 0l1.44-.65a1.34 1.34 0 0 1 1.71.54Zm-5.93.52-.55 1.48c-.14.37-.42.65-.79.79l-1.48.55-.1.05a.45.45 0 0 0-.15.56L3 7.44c.16.36.16.76 0 1.11l-.66 1.46-.03.09c-.04.2.08.42.28.5l1.48.55c.37.14.65.42.79.78l.55 1.48.05.1c.12.18.36.25.56.15l1.43-.65c.36-.16.76-.16 1.11 0l1.46.66.09.03c.2.04.42-.08.5-.29l.55-1.48c.14-.36.42-.64.78-.78l1.48-.55.1-.06a.45.45 0 0 0 .15-.55l-.65-1.44a1.34 1.34 0 0 1 0-1.1l.66-1.46.03-.09a.45.45 0 0 0-.29-.5l-1.48-.55a1.34 1.34 0 0 1-.78-.79l-.55-1.48-.06-.1a.45.45 0 0 0-.55-.15L8.55 3c-.35.16-.75.16-1.1 0L6 2.33h-.03a.45.45 0 0 0-.58.25Zm1.58 6.77 3.18-3.64a.45.45 0 0 1 .73.51l-.05.07-3.5 4c-.15.17-.4.2-.58.08l-.08-.05-1.5-1.5a.45.45 0 0 1 .56-.7l.07.06 1.17 1.17 3.18-3.64-3.18 3.64Z\"/>";
 
             /// <summary />
-            public static string DataHistogram { get; } = ResourceManager.GetString("DataHistogram");
+            public static string CheckmarkSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13.86 3.66a.5.5 0 0 1-.02.7l-7.93 7.48a.6.6 0 0 1-.84-.02L2.4 9.1a.5.5 0 0 1 .72-.7l2.4 2.44 7.65-7.2a.5.5 0 0 1 .7.02Z\"/>";
 
             /// <summary />
-            public static string DataTrending { get; } = ResourceManager.GetString("DataTrending");
+            public static string CheckmarkUnderlineCircleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 13A5 5 0 1 1 8 3a5 5 0 0 1 0 10Zm0 1A6 6 0 1 0 8 2a6 6 0 0 0 0 12Zm2.86-8.85c.19.2.19.52 0 .72L7.97 8.85a.48.48 0 0 1-.7 0L6.15 7.68a.52.52 0 0 1 0-.72c.2-.2.5-.2.7 0l.78.81 2.54-2.62c.2-.2.5-.2.7 0ZM6 10.5c0-.28.22-.5.5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Z\"/>";
 
             /// <summary />
-            public static string Delete { get; } = ResourceManager.GetString("Delete");
+            public static string ChevronCircleDownSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3 8a5 5 0 1 0 10 0A5 5 0 0 0 3 8Zm5 6A6 6 0 1 1 8 2a6 6 0 0 1 0 12Zm2.85-6.65-2.5 2.5a.5.5 0 0 1-.7 0l-2.5-2.5a.5.5 0 1 1 .7-.7L8 8.79l2.15-2.14a.5.5 0 0 1 .7.7Z\"/>";
 
             /// <summary />
-            public static string DeleteArrowBack { get; } = ResourceManager.GetString("DeleteArrowBack");
+            public static string ChevronCircleLeftSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 13A5 5 0 1 1 8 3a5 5 0 0 1 0 10ZM2 8a6 6 0 1 0 12 0A6 6 0 0 0 2 8Zm6.65-2.85-2.5 2.5a.5.5 0 0 0 0 .7l2.5 2.5a.5.5 0 0 0 .7-.7L7.21 8l2.14-2.15a.5.5 0 1 0-.7-.7Z\"/>";
 
             /// <summary />
-            public static string Dentist { get; } = ResourceManager.GetString("Dentist");
+            public static string ChevronCircleRightSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 13A5 5 0 1 0 8 3a5 5 0 0 0 0 10Zm6-5A6 6 0 1 1 2 8a6 6 0 0 1 12 0ZM7.35 5.15l2.5 2.5c.2.2.2.5 0 .7l-2.5 2.5a.5.5 0 0 1-.7-.7L8.79 8 6.65 5.85a.5.5 0 1 1 .7-.7Z\"/>";
 
             /// <summary />
-            public static string DesignIdeas { get; } = ResourceManager.GetString("DesignIdeas");
+            public static string ChevronCircleUpSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3 8a5 5 0 1 1 10 0A5 5 0 0 1 3 8Zm5-6a6 6 0 1 0 0 12A6 6 0 0 0 8 2Zm2.85 6.65-2.5-2.5a.5.5 0 0 0-.7 0l-2.5 2.5a.5.5 0 1 0 .7.7L8 7.21l2.15 2.14a.5.5 0 0 0 .7-.7Z\"/>";
 
             /// <summary />
-            public static string Desktop { get; } = ResourceManager.GetString("Desktop");
+            public static string ChevronDoubleDownSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M12.15 7.15a.5.5 0 0 1 .7.7l-4.5 4.5a.5.5 0 0 1-.7 0l-4.5-4.5a.5.5 0 1 1 .7-.7L8 11.29l4.15-4.14Zm0-4a.5.5 0 0 1 .7.7l-4.5 4.5a.5.5 0 0 1-.7 0l-4.5-4.5a.5.5 0 1 1 .7-.7L8 7.29l4.15-4.14Z\"/>";
 
             /// <summary />
-            public static string DesktopArrowDown { get; } = ResourceManager.GetString("DesktopArrowDown");
+            public static string ChevronDoubleLeftSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.35 12.15a.5.5 0 0 1-.7.7l-4.5-4.5a.5.5 0 0 1 0-.7l4.5-4.5a.5.5 0 1 1 .7.7L4.21 8l4.14 4.15Zm4 0a.5.5 0 0 1-.7.7l-4.5-4.5a.5.5 0 0 1 0-.7l4.5-4.5a.5.5 0 0 1 .7.7L8.21 8l4.14 4.15Z\"/>";
 
             /// <summary />
-            public static string DesktopArrowRight { get; } = ResourceManager.GetString("DesktopArrowRight");
+            public static string ChevronDoubleRightSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.65 3.85a.5.5 0 1 1 .7-.7l4.5 4.5c.2.2.2.5 0 .7l-4.5 4.5a.5.5 0 0 1-.7-.7L11.79 8 7.65 3.85Zm-4 0a.5.5 0 1 1 .7-.7l4.5 4.5c.2.2.2.5 0 .7l-4.5 4.5a.5.5 0 0 1-.7-.7L7.79 8 3.65 3.85Z\"/>";
 
             /// <summary />
-            public static string DesktopCheckmark { get; } = ResourceManager.GetString("DesktopCheckmark");
+            public static string ChevronDoubleUpSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.85 8.35a.5.5 0 1 1-.7-.7l4.5-4.5c.2-.2.5-.2.7 0l4.5 4.5a.5.5 0 0 1-.7.7L8 4.21 3.85 8.35Zm0 4a.5.5 0 0 1-.7-.7l4.5-4.5c.2-.2.5-.2.7 0l4.5 4.5a.5.5 0 0 1-.7.7L8 8.21l-4.15 4.14Z\"/>";
 
             /// <summary />
-            public static string DesktopCursor { get; } = ResourceManager.GetString("DesktopCursor");
+            public static string ChevronDownSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.15 5.65c.2-.2.5-.2.7 0L8 9.79l4.15-4.14a.5.5 0 0 1 .7.7l-4.5 4.5a.5.5 0 0 1-.7 0l-4.5-4.5a.5.5 0 0 1 0-.7Z\"/>";
 
             /// <summary />
-            public static string DesktopEdit { get; } = ResourceManager.GetString("DesktopEdit");
+            public static string ChevronLeftSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10.35 3.15c.2.2.2.5 0 .7L6.21 8l4.14 4.15a.5.5 0 0 1-.7.7l-4.5-4.5a.5.5 0 0 1 0-.7l4.5-4.5c.2-.2.5-.2.7 0Z\"/>";
 
             /// <summary />
-            public static string DesktopKeyboard { get; } = ResourceManager.GetString("DesktopKeyboard");
+            public static string ChevronRightSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.65 3.15a.5.5 0 0 0 0 .7L9.79 8l-4.14 4.15a.5.5 0 0 0 .7.7l4.5-4.5a.5.5 0 0 0 0-.7l-4.5-4.5a.5.5 0 0 0-.7 0Z\"/>";
 
             /// <summary />
-            public static string DesktopMac { get; } = ResourceManager.GetString("DesktopMac");
+            public static string ChevronUpDownSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.15 6.35c.2.2.5.2.7 0L8 3.21l3.15 3.14a.5.5 0 0 0 .7-.7l-3.5-3.5a.5.5 0 0 0-.7 0l-3.5 3.5a.5.5 0 0 0 0 .7Zm0 3.3c.2-.2.5-.2.7 0L8 12.79l3.15-3.14a.5.5 0 0 1 .7.7l-3.5 3.5a.5.5 0 0 1-.7 0l-3.5-3.5a.5.5 0 0 1 0-.7Z\"/>";
 
             /// <summary />
-            public static string DesktopPulse { get; } = ResourceManager.GetString("DesktopPulse");
+            public static string ChevronUpSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.15 10.35c.2.2.5.2.7 0L8 6.21l4.15 4.14a.5.5 0 0 0 .7-.7l-4.5-4.5a.5.5 0 0 0-.7 0l-4.5 4.5a.5.5 0 0 0 0 .7Z\"/>";
 
             /// <summary />
-            public static string DesktopSync { get; } = ResourceManager.GetString("DesktopSync");
+            public static string CircleHalfFillSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M14 8A6 6 0 1 1 2 8a6 6 0 0 1 12 0ZM3 8h10A5 5 0 0 0 3 8Z\"/>";
 
             /// <summary />
-            public static string DeveloperBoard { get; } = ResourceManager.GetString("DeveloperBoard");
+            public static string CircleImageSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6.5 3A3.5 3.5 0 0 0 5 9.66v1.08A4.5 4.5 0 1 1 10.74 5H9.66A3.5 3.5 0 0 0 6.5 3ZM8 6a2 2 0 0 0-2 2v4c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2H8ZM7 8a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-.03.26l-1.73-1.73a1.75 1.75 0 0 0-2.48 0l-1.73 1.73A1 1 0 0 1 7 12V8Zm.74 4.97 1.73-1.73c.3-.3.77-.3 1.06 0l1.73 1.73A1 1 0 0 1 12 13H8a1 1 0 0 1-.26-.03Zm4.51-4.47a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z\"/>";
 
             /// <summary />
-            public static string DeviceEq { get; } = ResourceManager.GetString("DeviceEq");
+            public static string CircleOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m11.87 12.58 2.28 2.27a.5.5 0 0 0 .7-.7l-13-13a.5.5 0 1 0-.7.7l2.27 2.28a6 6 0 0 0 8.46 8.46Zm-.7-.7a5 5 0 0 1-7.04-7.04l7.03 7.03ZM13 8c0 .83-.2 1.62-.57 2.31l.74.74a6 6 0 0 0-8.22-8.22l.74.74A5 5 0 0 1 13 8Z\"/>";
 
             /// <summary />
-            public static string DeviceMeetingRoom { get; } = ResourceManager.GetString("DeviceMeetingRoom");
+            public static string CircleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12Zm0-1A5 5 0 1 1 8 3a5 5 0 0 1 0 10Z\"/>";
 
             /// <summary />
-            public static string DeviceMeetingRoomRemote { get; } = ResourceManager.GetString("DeviceMeetingRoomRemote");
+            public static string CitySvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 1c.28 0 .5.22.5.5V2h1c.83 0 1.5.67 1.5 1.5V6h1.5c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5h-9A1.5 1.5 0 0 1 2 12.5V7.8c0-.51.26-.99.68-1.27l2-1.3c.1-.06.21-.11.32-.15V3.5C5 2.67 5.67 2 6.5 2h1v-.5c0-.28.22-.5.5-.5ZM6 5.08c.56.2 1 .73 1 1.42V13h2V7.5c0-.65.42-1.2 1-1.41V3.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v1.58ZM10.5 7a.5.5 0 0 0-.5.5V13h2.5a.5.5 0 0 0 .5-.5v-5a.5.5 0 0 0-.5-.5h-2Zm-5.27-.92-2 1.3a.5.5 0 0 0-.23.41v4.71c0 .28.22.5.5.5H6V6.5a.5.5 0 0 0-.77-.42Z\"/>";
 
             /// <summary />
-            public static string Diamond { get; } = ResourceManager.GetString("Diamond");
+            public static string ClassificationSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10.85 4.1c.21.02.45.13.69.37.23.23.34.47.36.68.02.19-.04.4-.27.63-.53.53-1.43 1.12-2.51 1.82l-.06.04-.7-.7.04-.06c.7-1.08 1.29-1.98 1.82-2.51.22-.23.44-.29.63-.27ZM9.78 8.37a17.1 17.1 0 0 0 2.56-1.88c.42-.42.6-.92.56-1.43-.05-.5-.3-.95-.66-1.3-.35-.36-.8-.61-1.3-.66a1.77 1.77 0 0 0-1.43.56c-.59.6-1.22 1.55-1.88 2.56L6.6 5.17a2 2 0 0 0-2.83 0l-.71.71a1 1 0 0 0 0 1.41l-.53.53a1.25 1.25 0 0 0 0 1.77l3.89 3.9c.49.48 1.28.48 1.77 0l.53-.54a1 1 0 0 0 1.41 0l.7-.7a2 2 0 0 0 0-2.83L9.79 8.37Zm-.86.55 1.2 1.2a1 1 0 0 1 0 1.42l-.7.7L3.75 6.6l.7-.71a1 1 0 0 1 1.42 0l1.2 1.2 1.56 1.56.28.28ZM3.76 8 8 12.24l-.53.53c-.1.1-.26.1-.35 0l-3.9-3.89a.25.25 0 0 1 0-.35L3.77 8Z\"/>";
 
             /// <summary />
-            public static string Directions { get; } = ResourceManager.GetString("Directions");
+            public static string ClearFormattingSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2.75 2a.5.5 0 0 0-.49.38l-.25 1a.5.5 0 1 0 .98.24L3.14 3h2.72l-1.4 8h-.73a.5.5 0 0 0 0 1h2.3a5.57 5.57 0 0 1 0-1h-.55l1.4-8h2.98l-.1.38a.5.5 0 1 0 .98.24l.25-1A.5.5 0 0 0 10.5 2H2.75ZM1.5 13h4.7c.1.35.24.68.4 1H1.5a.5.5 0 0 1 0-1ZM16 11.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-2.65-1.15a.5.5 0 0 0-.7-.7l-1.15 1.14-1.15-1.14a.5.5 0 0 0-.7.7l1.14 1.15-1.14 1.15a.5.5 0 0 0 .7.7l1.15-1.14 1.15 1.14a.5.5 0 0 0 .7-.7l-1.14-1.15 1.14-1.15Z\"/>";
 
             /// <summary />
-            public static string Dismiss { get; } = ResourceManager.GetString("Dismiss");
+            public static string Clipboard3DaySvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 10.5a.5.5 0 0 0 1 0v-4a.5.5 0 0 0-1 0v4Zm3 .5a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 1 0v4a.5.5 0 0 1-.5.5Zm2-.5a.5.5 0 0 0 1 0v-4a.5.5 0 0 0-1 0v4ZM6.5 1c-.65 0-1.2.42-1.41 1H4.5C3.67 2 3 2.67 3 3.5v10c0 .83.67 1.5 1.5 1.5h7c.83 0 1.5-.67 1.5-1.5v-10c0-.83-.67-1.5-1.5-1.5h-.59c-.2-.58-.76-1-1.41-1h-3ZM6 2.5c0-.28.22-.5.5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5ZM4.5 3h.59c.2.58.76 1 1.41 1h3c.65 0 1.2-.42 1.41-1h.59c.28 0 .5.22.5.5v10a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-10c0-.28.22-.5.5-.5Z\"/>";
 
             /// <summary />
-            public static string DismissCircle { get; } = ResourceManager.GetString("DismissCircle");
+            public static string ClipboardArrowRightSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.09 2c.2-.58.76-1 1.41-1h3c.65 0 1.2.42 1.41 1h.59c.83 0 1.5.67 1.5 1.5v2.1c-.32-.16-.65-.3-1-.4V3.5a.5.5 0 0 0-.5-.5h-.59c-.2.58-.76 1-1.41 1h-3a1.5 1.5 0 0 1-1.41-1H4.5a.5.5 0 0 0-.5.5v10c0 .28.22.5.5.5h1.76c.31.38.67.72 1.08 1H4.5A1.5 1.5 0 0 1 3 13.5v-10C3 2.67 3.67 2 4.5 2h.59ZM6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3Zm8.5 8.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-2.15.35a.5.5 0 0 0 .15-.35.5.5 0 0 0-.15-.35l-2-2a.5.5 0 0 0-.7.7L11.29 10H8.5a.5.5 0 0 0 0 1h2.8l-1.15 1.15a.5.5 0 0 0 .7.7l2-2Z\"/>";
 
             /// <summary />
-            public static string DismissSquareMultiple { get; } = ResourceManager.GetString("DismissSquareMultiple");
+            public static string ClipboardBulletListLtrSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7 7.5c0-.28.22-.5.5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Zm0 3c0-.28.22-.5.5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5ZM5.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Zm0 3a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Zm-.41-9c.2-.58.76-1 1.41-1h3c.65 0 1.2.42 1.41 1h.59c.83 0 1.5.67 1.5 1.5v10c0 .83-.67 1.5-1.5 1.5h-7A1.5 1.5 0 0 1 3 13.5v-10C3 2.67 3.67 2 4.5 2h.59ZM6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3ZM5.09 3H4.5a.5.5 0 0 0-.5.5v10c0 .28.22.5.5.5h7a.5.5 0 0 0 .5-.5v-10a.5.5 0 0 0-.5-.5h-.59c-.2.58-.76 1-1.41 1h-3a1.5 1.5 0 0 1-1.41-1Z\"/>";
 
             /// <summary />
-            public static string DividerShort { get; } = ResourceManager.GetString("DividerShort");
+            public static string ClipboardBulletListRtlSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 7.5c0-.28.22-.5.5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Zm0 3c0-.28.22-.5.5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5ZM10.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Zm0 3a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1ZM5.09 2c.2-.58.76-1 1.41-1h3c.65 0 1.2.42 1.41 1h.59c.83 0 1.5.67 1.5 1.5v10c0 .83-.67 1.5-1.5 1.5h-7A1.5 1.5 0 0 1 3 13.5v-10C3 2.67 3.67 2 4.5 2h.59ZM6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3ZM5.09 3H4.5a.5.5 0 0 0-.5.5v10c0 .28.22.5.5.5h7a.5.5 0 0 0 .5-.5v-10a.5.5 0 0 0-.5-.5h-.59c-.2.58-.76 1-1.41 1h-3a1.5 1.5 0 0 1-1.41-1Z\"/>";
 
             /// <summary />
-            public static string DividerTall { get; } = ResourceManager.GetString("DividerTall");
+            public static string ClipboardCheckmarkSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.09 2c.2-.58.76-1 1.41-1h3c.65 0 1.2.42 1.41 1h.59c.83 0 1.5.67 1.5 1.5v2.7c-.32-.08-.66-.15-1-.18V3.5a.5.5 0 0 0-.5-.5h-.59c-.2.58-.76 1-1.41 1h-3a1.5 1.5 0 0 1-1.41-1H4.5a.5.5 0 0 0-.5.5v10c0 .28.22.5.5.5h2.1c.18.36.4.7.66 1H4.5A1.5 1.5 0 0 1 3 13.5v-10C3 2.67 3.67 2 4.5 2h.59ZM6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3Zm9.5 9.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-2.15-1.85a.5.5 0 0 0-.7 0l-2.65 2.64-.65-.64a.5.5 0 0 0-.7.7l1 1c.2.2.5.2.7 0l3-3a.5.5 0 0 0 0-.7Z\"/>";
 
             /// <summary />
-            public static string Doctor { get; } = ResourceManager.GetString("Doctor");
+            public static string ClipboardCodeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.09 2c.2-.58.76-1 1.41-1h3c.65 0 1.2.42 1.41 1h.59c.83 0 1.5.67 1.5 1.5v4c-.17 0-.34.02-.5.08a1.5 1.5 0 0 0-.5-1.2V3.5a.5.5 0 0 0-.5-.5h-.59c-.2.58-.76 1-1.41 1h-3a1.5 1.5 0 0 1-1.41-1H4.5a.5.5 0 0 0-.5.5v10c0 .28.22.5.5.5h3.09l-.03.09c-.09.31-.07.63.03.91H4.5A1.5 1.5 0 0 1 3 13.5v-10C3 2.67 3.67 2 4.5 2h.59ZM6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3Zm2.87 12.84a.5.5 0 0 1-.82-.13.5.5 0 0 1-.03-.35l2-7a.5.5 0 1 1 .97.28l-2 7a.5.5 0 0 1-.12.2ZM7.38 9.32a.5.5 0 1 0-.76-.65l-1.5 1.75a.5.5 0 0 0 0 .65l1.5 1.75a.5.5 0 1 0 .76-.65l-1.22-1.42 1.22-1.43Zm5.3 3.56a.5.5 0 0 1-.06-.71l1.22-1.42-1.22-1.43a.5.5 0 1 1 .76-.65l1.5 1.75a.5.5 0 0 1 0 .65l-1.5 1.75a.5.5 0 0 1-.7.06Z\"/>";
 
             /// <summary />
-            public static string Document { get; } = ResourceManager.GetString("Document");
+            public static string ClipboardDaySvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 6.5c0-.28.22-.5.5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5ZM5 9a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V9Zm1 0v2h4V9H6Zm-.91-7c.2-.58.76-1 1.41-1h3c.65 0 1.2.42 1.41 1h.59c.83 0 1.5.67 1.5 1.5v10c0 .83-.67 1.5-1.5 1.5h-7A1.5 1.5 0 0 1 3 13.5v-10C3 2.67 3.67 2 4.5 2h.59ZM6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3ZM5.09 3H4.5a.5.5 0 0 0-.5.5v10c0 .28.22.5.5.5h7a.5.5 0 0 0 .5-.5v-10a.5.5 0 0 0-.5-.5h-.59c-.2.58-.76 1-1.41 1h-3a1.5 1.5 0 0 1-1.41-1Z\"/>";
 
             /// <summary />
-            public static string Document100 { get; } = ResourceManager.GetString("Document100");
+            public static string ClipboardErrorSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.09 2c.2-.58.76-1 1.41-1h3c.65 0 1.2.42 1.41 1h.59c.83 0 1.5.67 1.5 1.5v2.1c-.32-.16-.65-.3-1-.4V3.5a.5.5 0 0 0-.5-.5h-.59c-.2.58-.76 1-1.41 1h-3a1.5 1.5 0 0 1-1.41-1H4.5a.5.5 0 0 0-.5.5v10c0 .28.22.5.5.5h1.76c.31.38.67.72 1.08 1H4.5A1.5 1.5 0 0 1 3 13.5v-10C3 2.67 3.67 2 4.5 2h.59ZM6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3Zm8.5 8.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM10.5 8a.5.5 0 0 0-.5.5v2a.5.5 0 0 0 1 0v-2a.5.5 0 0 0-.5-.5Zm0 5.13a.62.62 0 1 0 0-1.25.62.62 0 0 0 0 1.24Z\"/>";
 
             /// <summary />
-            public static string DocumentAdd { get; } = ResourceManager.GetString("DocumentAdd");
+            public static string ClipboardLetterSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.09 2c.2-.58.76-1 1.41-1h3c.65 0 1.2.42 1.41 1h.59c.83 0 1.5.67 1.5 1.5v3.72l-.13-.3a1.5 1.5 0 0 0-.87-.83V3.5a.5.5 0 0 0-.5-.5h-.59c-.2.58-.76 1-1.41 1h-3a1.5 1.5 0 0 1-1.41-1H4.5a.5.5 0 0 0-.5.5v10c0 .28.22.5.5.5h2.58a1.5 1.5 0 0 0 0 1H4.5A1.5 1.5 0 0 1 3 13.5v-10C3 2.67 3.67 2 4.5 2h.59ZM6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3Zm5.45 5.3a.5.5 0 0 0-.92 0l-2.11 4.95a.5.5 0 0 0-.05.1l-.83 1.96a.5.5 0 1 0 .92.4L9.68 13h3.63l.73 1.7a.5.5 0 0 0 .91-.4l-.83-1.94a.5.5 0 0 0-.05-.1L11.95 7.3Zm.93 4.7H10.1l1.38-3.23L12.88 12Z\"/>";
 
             /// <summary />
-            public static string DocumentArrowDown { get; } = ResourceManager.GetString("DocumentArrowDown");
+            public static string ClipboardLinkSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.09 2c.2-.58.76-1 1.41-1h3c.65 0 1.2.42 1.41 1h.59c.83 0 1.5.67 1.5 1.5V7h-1V3.5a.5.5 0 0 0-.5-.5h-.59c-.2.58-.76 1-1.41 1h-3a1.5 1.5 0 0 1-1.41-1H3.5a.5.5 0 0 0-.5.5v10c0 .28.22.5.5.5h1.26c.25.38.56.71.91 1H3.5A1.5 1.5 0 0 1 2 13.5v-10C2 2.67 2.67 2 3.5 2h.59ZM5.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3Zm9.5 9.5A3.5 3.5 0 0 0 11.5 8h-.09a.5.5 0 0 0 .09 1h.16a2.5 2.5 0 0 1-.16 5l-.1.01a.5.5 0 0 0 .1 1V15h.2a3.5 3.5 0 0 0 3.3-3.5Zm-6-3a.5.5 0 0 0-.5-.5h-.2a3.5 3.5 0 0 0 .2 7h.09a.5.5 0 0 0-.09-1h-.16a2.5 2.5 0 0 1 .16-5h.09A.5.5 0 0 0 9 8.5Zm2.5 2.5H8.41a.5.5 0 0 0 .09 1h3.09a.5.5 0 0 0-.09-1Z\"/>";
 
             /// <summary />
-            public static string DocumentArrowLeft { get; } = ResourceManager.GetString("DocumentArrowLeft");
+            public static string ClipboardMonthSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.75 8a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm.75 1.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM10.25 8a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm-1.5-.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM8 10.5A.75.75 0 1 0 8 9a.75.75 0 0 0 0 1.5ZM6.5 1c-.65 0-1.2.42-1.41 1H4.5C3.67 2 3 2.67 3 3.5v10c0 .83.67 1.5 1.5 1.5h7c.83 0 1.5-.67 1.5-1.5v-10c0-.83-.67-1.5-1.5-1.5h-.59c-.2-.58-.76-1-1.41-1h-3ZM6 2.5c0-.28.22-.5.5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5ZM4.5 3h.59c.2.58.76 1 1.41 1h3c.65 0 1.2-.42 1.41-1h.59c.28 0 .5.22.5.5v10a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-10c0-.28.22-.5.5-.5Z\"/>";
 
             /// <summary />
-            public static string DocumentArrowUp { get; } = ResourceManager.GetString("DocumentArrowUp");
+            public static string ClipboardMultipleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6.5 1c-.65 0-1.2.42-1.42 1H4.5C3.67 2 3 2.67 3 3.5v8c0 .83.67 1.5 1.5 1.5h6c.83 0 1.5-.67 1.5-1.5v-8c0-.83-.67-1.5-1.5-1.5h-.59c-.2-.58-.76-1-1.41-1h-2ZM6 2.5c0-.28.22-.5.5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5ZM4.5 3h.58c.21.58.77 1 1.42 1h2c.65 0 1.2-.42 1.41-1h.59c.28 0 .5.22.5.5v8a.5.5 0 0 1-.5.5h-6a.5.5 0 0 1-.5-.5v-8c0-.28.22-.5.5-.5Zm8.5 8.5V3.27A2 2 0 0 1 14 5v6.5a3.5 3.5 0 0 1-3.5 3.5H6a2 2 0 0 1-1.73-1h6.23a2.5 2.5 0 0 0 2.5-2.5Z\"/>";
 
             /// <summary />
-            public static string DocumentBulletList { get; } = ResourceManager.GetString("DocumentBulletList");
+            public static string ClipboardNoteSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.09 2c.2-.58.76-1 1.41-1h3c.65 0 1.2.42 1.41 1h.59c.83 0 1.5.67 1.5 1.5V6h-1V3.5a.5.5 0 0 0-.5-.5h-.59c-.2.58-.76 1-1.41 1h-3a1.5 1.5 0 0 1-1.41-1H4.5a.5.5 0 0 0-.5.5v10c0 .28.22.5.5.5h.67a3 3 0 0 0 .6 1H4.5A1.5 1.5 0 0 1 3 13.5v-10C3 2.67 3.67 2 4.5 2h.59ZM6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3ZM8 7a2 2 0 0 0-2 2v4c0 1.1.9 2 2 2h5a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H8Zm.5 2h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1 0-1ZM8 12.5c0-.28.22-.5.5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5Z\"/>";
 
             /// <summary />
-            public static string DocumentBulletListArrowLeft { get; } = ResourceManager.GetString("DocumentBulletListArrowLeft");
+            public static string ClipboardPasteSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.09 2H3.5A1.5 1.5 0 0 0 2 3.5v10A1.5 1.5 0 0 0 3.5 15h2.61v-1H3.5a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h.59c.2.58.76 1 1.41 1h3c.65 0 1.2-.42 1.41-1h.59a.5.5 0 0 1 .5.5V5h1V3.5A1.5 1.5 0 0 0 10.5 2h-.59c-.2-.58-.76-1-1.41-1h-3c-.65 0-1.2.42-1.41 1Zm.91.5c0-.28.22-.5.5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5ZM8.5 6C7.67 6 7 6.67 7 7.5v6c0 .83.67 1.5 1.5 1.5h4c.83 0 1.5-.67 1.5-1.5v-6c0-.83-.67-1.5-1.5-1.5h-4ZM8 7.5c0-.28.22-.5.5-.5h4c.28 0 .5.22.5.5v6a.5.5 0 0 1-.5.5h-4a.5.5 0 0 1-.5-.5v-6Z\"/>";
 
             /// <summary />
-            public static string DocumentBulletListCube { get; } = ResourceManager.GetString("DocumentBulletListCube");
+            public static string ClipboardSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.09 2c.2-.58.76-1 1.41-1h3c.65 0 1.2.42 1.41 1h.59c.83 0 1.5.67 1.5 1.5v10c0 .83-.67 1.5-1.5 1.5h-7A1.5 1.5 0 0 1 3 13.5v-10C3 2.67 3.67 2 4.5 2h.59ZM6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3ZM5.09 3H4.5a.5.5 0 0 0-.5.5v10c0 .28.22.5.5.5h7a.5.5 0 0 0 .5-.5v-10a.5.5 0 0 0-.5-.5h-.59c-.2.58-.76 1-1.41 1h-3a1.5 1.5 0 0 1-1.41-1Z\"/>";
 
             /// <summary />
-            public static string DocumentCatchUp { get; } = ResourceManager.GetString("DocumentCatchUp");
+            public static string ClipboardTaskSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6.5 1c-.65 0-1.2.42-1.41 1H4.5C3.67 2 3 2.67 3 3.5v10c0 .83.67 1.5 1.5 1.5h7c.83 0 1.5-.67 1.5-1.5v-10c0-.83-.67-1.5-1.5-1.5h-.59c-.2-.58-.76-1-1.41-1h-3ZM6 2.5c0-.28.22-.5.5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5ZM4.5 3h.59c.2.58.76 1 1.41 1h3c.65 0 1.2-.42 1.41-1h.59c.28 0 .5.22.5.5v10a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-10c0-.28.22-.5.5-.5Zm6.35 4.85a.5.5 0 0 0-.7-.7L7.5 9.79 6.35 8.65a.5.5 0 1 0-.7.7l1.5 1.5c.2.2.5.2.7 0l3-3Z\"/>";
 
             /// <summary />
-            public static string DocumentCheckmark { get; } = ResourceManager.GetString("DocumentCheckmark");
+            public static string ClipboardTextLtrSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6.5 1c-.65 0-1.2.42-1.41 1H4.5C3.67 2 3 2.67 3 3.5v10c0 .83.67 1.5 1.5 1.5h7c.83 0 1.5-.67 1.5-1.5v-10c0-.83-.67-1.5-1.5-1.5h-.59c-.2-.58-.76-1-1.41-1h-3ZM6 2.5c0-.28.22-.5.5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5ZM4.5 3h.59c.2.58.76 1 1.41 1h3c.65 0 1.2-.42 1.41-1h.59c.28 0 .5.22.5.5v10a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-10c0-.28.22-.5.5-.5Zm1 3a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5ZM5 9c0-.28.22-.5.5-.5h2a.5.5 0 0 1 0 1h-2A.5.5 0 0 1 5 9Zm.5 2a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4Z\"/>";
 
             /// <summary />
-            public static string DocumentContract { get; } = ResourceManager.GetString("DocumentContract");
+            public static string ClipboardTextRtlSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6.5 1c-.65 0-1.2.42-1.41 1H4.5C3.67 2 3 2.67 3 3.5v10c0 .83.67 1.5 1.5 1.5h7c.83 0 1.5-.67 1.5-1.5v-10c0-.83-.67-1.5-1.5-1.5h-.59c-.2-.58-.76-1-1.41-1h-3ZM6 2.5c0-.28.22-.5.5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5ZM4.5 3h.59c.2.58.76 1 1.41 1h3c.65 0 1.2-.42 1.41-1h.59c.28 0 .5.22.5.5v10a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-10c0-.28.22-.5.5-.5Zm1 3a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5ZM8 9c0-.28.22-.5.5-.5h2a.5.5 0 0 1 0 1h-2A.5.5 0 0 1 8 9Zm-1.5 2a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4Z\"/>";
 
             /// <summary />
-            public static string DocumentCopy { get; } = ResourceManager.GetString("DocumentCopy");
+            public static string ClockAlarmSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 6a.5.5 0 1 0-1 0v3c0 .28.22.5.5.5h2a.5.5 0 1 0 0-1H8V6ZM2 4.5a2.5 2.5 0 0 1 4.62-1.33 5.51 5.51 0 0 1 2.76 0 2.5 2.5 0 1 1 3.72 3.25 5.48 5.48 0 0 1-.87 5.6l1.12 1.13a.5.5 0 0 1-.7.7l-1.13-1.12a5.48 5.48 0 0 1-7.04 0l-1.13 1.12a.5.5 0 1 1-.7-.7l1.12-1.13a5.48 5.48 0 0 1-.87-5.6A2.5 2.5 0 0 1 2 4.5ZM4.5 3a1.5 1.5 0 0 0-1.11 2.5 5.52 5.52 0 0 1 2.25-1.97A1.5 1.5 0 0 0 4.5 3Zm5.86.53c.92.44 1.7 1.12 2.25 1.97a1.5 1.5 0 1 0-2.26-1.98ZM8 4a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9Z\"/>";
 
             /// <summary />
-            public static string DocumentCs { get; } = ResourceManager.GetString("DocumentCs");
+            public static string ClockLockSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 2a6 6 0 1 1 0 12v-1a5 5 0 1 0-4.58-7c-.42.01-.81.1-1.17.27A6 6 0 0 1 8 2Zm-.5 3a.5.5 0 0 1 .5.41V8h1.5a.5.5 0 0 1 .09 1H7.5a.5.5 0 0 1-.49-.41V5.5c0-.28.22-.5.5-.5Zm-6 4v1H1a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-.5V9a2 2 0 1 0-4 0Zm1 1V9a1 1 0 0 1 2 0v1h-2Zm1 2.25a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5Z\"/>";
 
             /// <summary />
-            public static string DocumentCss { get; } = ResourceManager.GetString("DocumentCss");
+            public static string ClockSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 2a6 6 0 1 1 0 12A6 6 0 0 1 8 2Zm0 1a5 5 0 1 0 0 10A5 5 0 0 0 8 3Zm-.5 2a.5.5 0 0 1 .5.41V8h1.5a.5.5 0 0 1 .09 1H7.5a.5.5 0 0 1-.49-.41V5.5c0-.28.22-.5.5-.5Z\"/>";
 
             /// <summary />
-            public static string DocumentData { get; } = ResourceManager.GetString("DocumentData");
+            public static string ClosedCaptionOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m12.3 13 1.85 1.85a.5.5 0 0 0 .7-.7l-13-13a.5.5 0 1 0-.7.7L2.5 3.21A2.5 2.5 0 0 0 1 5.5v5A2.5 2.5 0 0 0 3.5 13h8.8Zm-1-1H3.5A1.5 1.5 0 0 1 2 10.5v-5c0-.76.57-1.4 1.3-1.49l1.76 1.76C4.4 6.15 4 6.93 4 8c0 1.14.46 1.94 1.18 2.3.7.34 1.52.2 2.07-.35a.5.5 0 1 0-.7-.7.8.8 0 0 1-.93.15C5.34 9.26 5 8.86 5 8c0-.86.34-1.26.62-1.4a.79.79 0 0 1 .2-.07L11.3 12ZM8.45 6.34l.73.72a1 1 0 0 1 .43-.46.8.8 0 0 1 .93.15.5.5 0 0 0 .7-.7 1.8 1.8 0 0 0-2.07-.35c-.29.14-.53.36-.72.64ZM14 10.5c0 .38-.14.73-.38 1l.7.7a2.5 2.5 0 0 0 .68-1.7v-5A2.5 2.5 0 0 0 12.5 3H5.12l1 1h6.38c.83 0 1.5.67 1.5 1.5v5Z\"/>";
 
             /// <summary />
-            public static string DocumentDataLink { get; } = ResourceManager.GetString("DocumentDataLink");
+            public static string ClosedCaptionSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9.18 5.7a1.8 1.8 0 0 1 2.07.35.5.5 0 0 1-.7.7.8.8 0 0 0-.93-.15C9.34 6.74 9 7.14 9 8c0 .86.34 1.26.62 1.4.3.15.68.1.93-.15a.5.5 0 0 1 .7.7 1.8 1.8 0 0 1-2.07.35C8.46 9.94 8 9.14 8 8s.46-1.94 1.18-2.3Zm-1.93.35a1.8 1.8 0 0 0-2.07-.35C4.46 6.06 4 6.86 4 8s.46 1.94 1.18 2.3c.7.35 1.52.2 2.07-.35a.5.5 0 1 0-.7-.7.8.8 0 0 1-.93.15C5.34 9.26 5 8.86 5 8c0-.86.34-1.26.62-1.4a.8.8 0 0 1 .93.15.5.5 0 0 0 .7-.7ZM1 5.5A2.5 2.5 0 0 1 3.5 3h9A2.5 2.5 0 0 1 15 5.5v5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 10.5v-5ZM3.5 4C2.67 4 2 4.67 2 5.5v5c0 .83.67 1.5 1.5 1.5h9c.83 0 1.5-.67 1.5-1.5v-5c0-.83-.67-1.5-1.5-1.5h-9Z\"/>";
 
             /// <summary />
-            public static string DocumentDismiss { get; } = ResourceManager.GetString("DocumentDismiss");
+            public static string CloudAddSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 3a3 3 0 0 0-3 3 .5.5 0 0 1-.5.5h-.25a2.25 2.25 0 0 0 0 4.5h.77c.03.34.1.68.19 1h-.96a3.25 3.25 0 0 1-.22-6.5 4 4 0 0 1 7.89-.32c-.35-.09-.71-.15-1.09-.17A3 3 0 0 0 8 3Zm7 7.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-4-2a.5.5 0 0 0-1 0V10H8.5a.5.5 0 0 0 0 1H10v1.5a.5.5 0 0 0 1 0V11h1.5a.5.5 0 0 0 0-1H11V8.5Z\"/>";
 
             /// <summary />
-            public static string DocumentEdit { get; } = ResourceManager.GetString("DocumentEdit");
+            public static string CloudArchiveSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 3a3 3 0 0 0-3 3 .5.5 0 0 1-.5.5h-.25a2.25 2.25 0 0 0 0 4.5H7v1H4.25a3.25 3.25 0 0 1-.22-6.5 4 4 0 0 1 7.94 0c1.06.08 1.98.66 2.52 1.5h-1.33c-.38-.31-.87-.5-1.41-.5h-.25A.5.5 0 0 1 11 6a3 3 0 0 0-3-3Zm0 5a1 1 0 0 0 0 2h7a1 1 0 1 0 0-2H8Zm5 8a2 2 0 0 0 2-2v-3H8v3c0 1.1.9 2 2 2h3Zm-3-3.5c0-.28.22-.5.5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Z\"/>";
 
             /// <summary />
-            public static string DocumentError { get; } = ResourceManager.GetString("DocumentError");
+            public static string CloudArrowDownSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 3a3 3 0 0 0-3 3 .5.5 0 0 1-.5.5h-.25a2.25 2.25 0 0 0 0 4.5h.77c.03.34.1.68.19 1h-.96a3.25 3.25 0 0 1-.22-6.5 4 4 0 0 1 7.89-.32c-.35-.09-.71-.15-1.09-.17A3 3 0 0 0 8 3Zm7 7.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-4.85 2.35a.5.5 0 0 0 .35.15.5.5 0 0 0 .35-.15l2-2a.5.5 0 0 0-.7-.7L11 11.29V8.5a.5.5 0 0 0-1 0v2.8l-1.15-1.15a.5.5 0 0 0-.7.7l2 2Z\"/>";
 
             /// <summary />
-            public static string DocumentFit { get; } = ResourceManager.GetString("DocumentFit");
+            public static string CloudArrowUpSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 3a3 3 0 0 0-3 3 .5.5 0 0 1-.5.5h-.25a2.25 2.25 0 0 0 0 4.5h.77c.03.34.1.68.19 1h-.96a3.25 3.25 0 0 1-.22-6.5 4 4 0 0 1 7.89-.32c-.35-.09-.71-.15-1.09-.17A3 3 0 0 0 8 3Zm7 7.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-4.85-2.35-2 2a.5.5 0 0 0 .7.7L10 9.71v2.79a.5.5 0 0 0 1 0V9.7l1.15 1.15a.5.5 0 0 0 .7-.7l-2-2A.5.5 0 0 0 10.5 8a.5.5 0 0 0-.35.14Z\"/>";
 
             /// <summary />
-            public static string DocumentFolder { get; } = ResourceManager.GetString("DocumentFolder");
+            public static string CloudCheckmarkSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 3a3 3 0 0 0-3 3 .5.5 0 0 1-.5.5h-.25a2.25 2.25 0 0 0 0 4.5h.77c.03.34.1.68.19 1h-.96a3.25 3.25 0 0 1-.22-6.5 4 4 0 0 1 7.89-.32c-.35-.09-.71-.15-1.09-.17A3 3 0 0 0 8 3Zm7 7.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-2.15-1.85a.5.5 0 0 0-.7 0L9.5 11.29l-.65-.64a.5.5 0 0 0-.7.7l1 1c.2.2.5.2.7 0l3-3a.5.5 0 0 0 0-.7Z\"/>";
 
             /// <summary />
-            public static string DocumentFooter { get; } = ResourceManager.GetString("DocumentFooter");
+            public static string CloudDismissSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 3a3 3 0 0 0-3 3 .5.5 0 0 1-.5.5h-.25a2.25 2.25 0 0 0 0 4.5h.77c.03.34.1.68.19 1h-.96a3.25 3.25 0 0 1-.22-6.5 4 4 0 0 1 7.89-.32c-.35-.09-.71-.15-1.09-.17A3 3 0 0 0 8 3Zm7 7.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-2.65-1.15a.5.5 0 0 0-.7-.7L10.5 9.79 9.35 8.65a.5.5 0 1 0-.7.7l1.14 1.15-1.14 1.15a.5.5 0 0 0 .7.7l1.15-1.14 1.15 1.14a.5.5 0 0 0 .7-.7l-1.14-1.15 1.14-1.15Z\"/>";
 
             /// <summary />
-            public static string DocumentFs { get; } = ResourceManager.GetString("DocumentFs");
+            public static string CloudEditSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 6a3 3 0 0 1 6-.06l.1-.1c.25-.25.53-.44.83-.58a4 4 0 0 0-7.9.25A3.25 3.25 0 0 0 4.25 12h1.22c.11-.36.29-.7.52-1H4.25a2.25 2.25 0 0 1 0-4.5h.25A.5.5 0 0 0 5 6Zm1.98 5.38 4.83-4.83a1.87 1.87 0 1 1 2.64 2.64l-4.83 4.83a2.2 2.2 0 0 1-1.02.58l-1.5.37a.89.89 0 0 1-1.07-1.07l.37-1.5c.1-.39.3-.74.58-1.02Z\"/>";
 
             /// <summary />
-            public static string DocumentHeader { get; } = ResourceManager.GetString("DocumentHeader");
+            public static string CloudErrorSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 3a3 3 0 0 0-3 3 .5.5 0 0 1-.5.5h-.25a2.25 2.25 0 0 0 0 4.5h.77c.03.34.1.68.19 1h-.96a3.25 3.25 0 0 1-.22-6.5 4 4 0 0 1 7.89-.32c-.35-.09-.71-.15-1.09-.17A3 3 0 0 0 8 3Zm7 7.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM10.5 8a.5.5 0 0 0-.5.5v2a.5.5 0 0 0 1 0v-2a.5.5 0 0 0-.5-.5Zm0 5.13a.62.62 0 1 0 0-1.25.62.62 0 0 0 0 1.24Z\"/>";
 
             /// <summary />
-            public static string DocumentHeaderArrowDown { get; } = ResourceManager.GetString("DocumentHeaderArrowDown");
+            public static string CloudLinkSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 3a3 3 0 0 0-3 3 .5.5 0 0 1-.5.5h-.25a2.25 2.25 0 0 0 0 4.5h.79c.05.35.15.69.3 1H4.25a3.25 3.25 0 0 1-.22-6.5 4 4 0 0 1 7.94 0c1.42.1 2.6 1.11 2.93 2.45a3.5 3.5 0 0 0-1.64-.87c-.4-.36-.93-.58-1.51-.58h-.25A.5.5 0 0 1 11 6a3 3 0 0 0-3-3Zm.5 5a2.5 2.5 0 0 0 0 5H9a.5.5 0 0 0 0-1h-.5a1.5 1.5 0 0 1 0-3H9a.5.5 0 0 0 0-1h-.5ZM12 8a.5.5 0 0 0 0 1h.5a1.5 1.5 0 0 1 0 3H12a.5.5 0 0 0 0 1h.5a2.5 2.5 0 0 0 0-5H12Zm-4 2.5c0-.28.22-.5.5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5Z\"/>";
 
             /// <summary />
-            public static string DocumentHeaderFooter { get; } = ResourceManager.GetString("DocumentHeaderFooter");
+            public static string CloudOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m12.25 12.96 1.9 1.9a.5.5 0 0 0 .7-.71l-13-13a.5.5 0 1 0-.7.7l3.3 3.3c-.22.42-.36.88-.42 1.36A3.25 3.25 0 0 0 4.25 13h7.5c.17 0 .34-.01.5-.04ZM11.3 12H4.25a2.25 2.25 0 0 1 0-4.5h.25A.5.5 0 0 0 5 7a3 3 0 0 1 .2-1.09L11.3 12ZM14 9.75c0 .6-.23 1.13-.6 1.53l.7.7a3.24 3.24 0 0 0-2.13-5.47 4 4 0 0 0-6.18-2.84l.72.72A3 3 0 0 1 11 7c0 .29.22.51.5.51h.25c1.24 0 2.25 1 2.25 2.25Z\"/>";
 
             /// <summary />
-            public static string DocumentImage { get; } = ResourceManager.GetString("DocumentImage");
+            public static string CloudSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.7 5c-.48.6-.7 1.35-.7 2a.5.5 0 0 1-.5.5C2.69 7.5 2 8.76 2 9.5c0 .43.1.92.44 1.3.32.36.91.7 2.06.7h7c.93 0 1.54-.23 1.92-.56.37-.32.58-.8.58-1.44 0-.58-.28-1.07-.74-1.43a2.92 2.92 0 0 0-1.76-.57.5.5 0 0 1-.5-.5c0-1.1-.43-1.83-1-2.3A3.23 3.23 0 0 0 8 4c-1.1 0-1.83.43-2.3 1Zm-.77-.63A3.82 3.82 0 0 1 8 3c.85 0 1.84.28 2.63.93a3.73 3.73 0 0 1 1.35 2.6c.69.08 1.35.34 1.89.75A2.77 2.77 0 0 1 15 9.5c0 .88-.3 1.65-.92 2.2-.62.54-1.5.8-2.58.8h-7c-1.35 0-2.26-.41-2.81-1.05A2.95 2.95 0 0 1 1 9.5c0-1.18.97-2.77 3.03-2.98.08-.72.37-1.5.9-2.15Z\"/>";
 
             /// <summary />
-            public static string DocumentJava { get; } = ResourceManager.GetString("DocumentJava");
+            public static string CloudSyncSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 3a3 3 0 0 0-3 3 .5.5 0 0 1-.5.5h-.25a2.25 2.25 0 0 0 0 4.5h.77c.03.34.1.68.19 1h-.96a3.25 3.25 0 0 1-.22-6.5 4 4 0 0 1 7.89-.32c-.35-.09-.71-.15-1.09-.17A3 3 0 0 0 8 3Zm2.5 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM13 8v1.5a.5.5 0 0 1-.5.5H11a.5.5 0 0 1 0-1h.47a2 2 0 0 0-2.57.55.5.5 0 0 1-.8-.6 3 3 0 0 1 3.9-.8V8a.5.5 0 0 1 1 0Zm-4.5 5.5A.5.5 0 0 1 8 13v-1.24a.47.47 0 0 1 0-.02v-.24c0-.28.22-.5.5-.5H10a.5.5 0 0 1 0 1h-.47a2 2 0 0 0 2.57-.55.5.5 0 1 1 .8.6 3 3 0 0 1-3.9.8V13a.5.5 0 0 1-.5.5Z\"/>";
 
             /// <summary />
-            public static string DocumentJs { get; } = ResourceManager.GetString("DocumentJs");
+            public static string CloudWordsSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 7a3 3 0 0 1 6 0c0 .28.22.5.5.5h.25a2.25 2.25 0 0 1 0 4.5h-7.5a2.25 2.25 0 0 1 0-4.5h.25A.5.5 0 0 0 5 7Zm3-4a4 4 0 0 0-3.97 3.5 3.25 3.25 0 0 0 .22 6.5h7.5a3.25 3.25 0 0 0 .22-6.5A4 4 0 0 0 8 3ZM7 6a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1H7ZM4 9.5c0-.28.22-.5.5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5ZM9.5 9a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2Z\"/>";
 
             /// <summary />
-            public static string DocumentLink { get; } = ResourceManager.GetString("DocumentLink");
+            public static string CloverSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M14 4a3 3 0 1 0-6 0v2.5c0 .28.22.5.5.5H11a3 3 0 0 0 3-3Zm-3-2a2 2 0 1 1 0 4H9V4c0-1.1.9-2 2-2Zm-7-.98a3 3 0 1 0 0 6h2.5a.5.5 0 0 0 .5-.5v-2.5a3 3 0 0 0-3-3Zm-2 3a2 2 0 1 1 4 0v2H4a2 2 0 0 1-2-2ZM4 14a3 3 0 1 1 0-6h2.5c.28 0 .5.22.5.5V11a3 3 0 0 1-3 3Zm-2-3a2 2 0 1 0 4 0V9H4a2 2 0 0 0-2 2Zm9 3a3 3 0 1 0 0-6H8.5a.5.5 0 0 0-.5.5V11a3 3 0 0 0 3 3Zm2-3a2 2 0 1 1-4 0V9h2a2 2 0 0 1 2 2Z\"/>";
 
             /// <summary />
-            public static string DocumentLock { get; } = ResourceManager.GetString("DocumentLock");
+            public static string CodeBlockSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 2A2.5 2.5 0 0 0 2 4.5v7A2.5 2.5 0 0 0 4.5 14h7a2.5 2.5 0 0 0 2.5-2.5v-7A2.5 2.5 0 0 0 11.5 2h-7ZM3 4.5C3 3.67 3.67 3 4.5 3h7c.83 0 1.5.67 1.5 1.5v7c0 .83-.67 1.5-1.5 1.5h-7A1.5 1.5 0 0 1 3 11.5v-7Zm6.85 1.15a.5.5 0 1 0-.7.7L10.79 8 9.15 9.65a.5.5 0 0 0 .7.7l2-2a.5.5 0 0 0 0-.7l-2-2Zm-3 .7a.5.5 0 0 0-.7-.7l-2 2a.5.5 0 0 0 0 .7l2 2a.5.5 0 0 0 .7-.7L5.21 8l1.64-1.65Z\"/>";
 
             /// <summary />
-            public static string DocumentMention { get; } = ResourceManager.GetString("DocumentMention");
+            public static string CodeCsRectangleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 9.5v-2a.5.5 0 1 1 1 0 .5.5 0 1 0 1 0 1.5 1.5 0 0 0-3 0v2a1.5 1.5 0 0 0 3 0 .5.5 0 1 0-1 0 .5.5 0 1 1-1 0Zm7.85.35A.5.5 0 0 0 11.5 9H11V8h.5a.5.5 0 0 0 0-1H11v-.5a.5.5 0 0 0-1 0V7H9v-.5a.5.5 0 1 0-1 0V7h-.5a.5.5 0 1 0 0 1H8v1h-.5a.5.5 0 1 0 0 1H8v.5a.5.5 0 0 0 1 0V10h1v.5a.5.5 0 0 0 1 0V10h.5a.5.5 0 0 0 .35-.15ZM9 8h1v1H9V8ZM2.75 3C1.78 3 1 3.78 1 4.75v7.5c0 .97.78 1.75 1.75 1.75h9.5c.97 0 1.75-.78 1.75-1.75v-7.5C14 3.78 13.22 3 12.25 3h-9.5ZM2 4.75c0-.41.34-.75.75-.75h9.5c.41 0 .75.34.75.75v7.5c0 .41-.34.75-.75.75h-9.5a.75.75 0 0 1-.75-.75v-7.5Z\"/>";
 
             /// <summary />
-            public static string DocumentMultiple { get; } = ResourceManager.GetString("DocumentMultiple");
+            public static string CodeCsSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.5 5A1.5 1.5 0 0 0 2 6.5v3a1.5 1.5 0 0 0 3 0 .5.5 0 0 1 1 0 2.5 2.5 0 0 1-5 0v-3a2.5 2.5 0 1 1 5 0 .5.5 0 0 1-1 0A1.5 1.5 0 0 0 3.5 5Zm6-.5c.28 0 .5.22.5.5v1h2V5a.5.5 0 0 1 1 0v1h1.25a.5.5 0 0 1 0 1H13v2h1.25a.5.5 0 0 1 0 1H13v1a.5.5 0 0 1-1 0v-1h-2v1a.5.5 0 0 1-1 0v-1H8a.5.5 0 0 1 0-1h1V7H8a.5.5 0 0 1 0-1h1V5c0-.28.22-.5.5-.5ZM10 7v2h2V7h-2Z\"/>";
 
             /// <summary />
-            public static string DocumentNumber1 { get; } = ResourceManager.GetString("DocumentNumber1");
+            public static string CodeFsRectangleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 6.4a.5.5 0 0 0-.5-.4h-2a.5.5 0 0 0-.5.5v4a.5.5 0 0 0 1 0V9h1a.5.5 0 1 0 0-1H4V7h1.5a.5.5 0 0 0 .5-.6Zm5.85 3.45A.5.5 0 0 0 11.5 9H11V8h.5a.5.5 0 0 0 0-1H11v-.5a.5.5 0 0 0-1 0V7H9v-.5a.5.5 0 0 0-1 0V7h-.5a.5.5 0 1 0 0 1H8v1h-.5a.5.5 0 1 0 0 1H8v.5a.5.5 0 0 0 1 0V10h1v.5a.5.5 0 0 0 1 0V10h.5a.5.5 0 0 0 .35-.15ZM9 8h1v1H9V8ZM2.75 3C1.78 3 1 3.78 1 4.75v7.5c0 .97.78 1.75 1.75 1.75h9.5c.97 0 1.75-.78 1.75-1.75v-7.5C14 3.78 13.22 3 12.25 3h-9.5ZM2 4.75c0-.41.34-.75.75-.75h9.5c.41 0 .75.34.75.75v7.5c0 .41-.34.75-.75.75h-9.5a.75.75 0 0 1-.75-.75v-7.5Z\"/>";
 
             /// <summary />
-            public static string DocumentOnePage { get; } = ResourceManager.GetString("DocumentOnePage");
+            public static string CodeFsSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M14.25 9H13V7h1.25a.5.5 0 1 0 0-1H13V5a.5.5 0 0 0-1 0v1h-2V5a.5.5 0 0 0-1 0v1H8a.5.5 0 0 0 0 1h1v2H8a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h2v1a.5.5 0 0 0 1 0v-1h1.25a.5.5 0 1 0 0-1ZM10 9V7h2v2h-2ZM6.5 4.5A.5.5 0 0 1 6 5H3v2.5h2.5a.5.5 0 0 1 0 1H3v3a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 .5.5Z\"/>";
 
             /// <summary />
-            public static string DocumentOnePageAdd { get; } = ResourceManager.GetString("DocumentOnePageAdd");
+            public static string CodeJsRectangleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M12.25 3h-9.5C1.78 3 1 3.79 1 4.75v7.5c0 .96.78 1.75 1.75 1.75h9.5c.96 0 1.75-.79 1.75-1.75v-7.5C14 3.79 13.21 3 12.25 3Zm.75 9.25c0 .41-.34.75-.75.75h-9.5a.75.75 0 0 1-.75-.75v-7.5c0-.41.34-.75.75-.75h9.5c.41 0 .75.34.75.75v7.5ZM6.96 6.31A.5.5 0 0 1 7 6.5v3A1.5 1.5 0 0 1 5.5 11 1.5 1.5 0 0 1 4 9.5V9a.5.5 0 0 1 .15-.35.52.52 0 0 1 .35-.15.5.5 0 0 1 .35.15A.52.52 0 0 1 5 9v.5a.5.5 0 0 0 .15.35.52.52 0 0 0 .35.15.5.5 0 0 0 .35-.15A.52.52 0 0 0 6 9.5v-3a.5.5 0 0 1 .15-.35A.52.52 0 0 1 6.5 6a.5.5 0 0 1 .35.15c.05.04.09.1.11.16ZM10 7.5v-.07A.43.43 0 0 0 9.57 7h-.14a.42.42 0 0 0-.3.13.42.42 0 0 0 .11.68l.97.49a1.43 1.43 0 0 1 .75 1.6A1.43 1.43 0 0 1 9.59 11h-.15a1.43 1.43 0 0 1-1.32-.88A1.43 1.43 0 0 1 8 9.57c0-.13.05-.27.14-.37.1-.1.22-.16.36-.16a.46.46 0 0 1 .35.12.47.47 0 0 1 .15.34.47.47 0 0 0 .1.34.45.45 0 0 0 .33.16h.14a.43.43 0 0 0 .2-.8l-.98-.5a1.42 1.42 0 0 1-.25-2.39 1.6 1.6 0 0 1 2.04.1c.27.28.42.64.42 1.02 0 .13-.05.27-.14.37-.1.1-.22.16-.36.16a.46.46 0 0 1-.35-.12.46.46 0 0 1-.15-.34Z\"/>";
 
             /// <summary />
-            public static string DocumentOnePageBeaker { get; } = ResourceManager.GetString("DocumentOnePageBeaker");
+            public static string CodeJsSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7 4.5v5a2.5 2.5 0 0 1-5 0V9a.5.5 0 0 1 1 0v.5a1.5 1.5 0 1 0 3 0v-5a.5.5 0 0 1 1 0Zm3.68 3.03C9.63 7.14 9 6.86 9 6.25 9 5.33 9.8 5 10.5 5s1.5.33 1.5 1.25a.5.5 0 0 0 1 0 2.28 2.28 0 0 0-1.57-2.15 3.22 3.22 0 0 0-1.86 0A2.28 2.28 0 0 0 8 6.25c0 1.35 1.29 1.83 2.32 2.22 1.04.39 1.68.67 1.68 1.28 0 .92-.8 1.25-1.5 1.25S9 10.67 9 9.75a.5.5 0 0 0-1 0A2.28 2.28 0 0 0 10.5 12 2.28 2.28 0 0 0 13 9.75c0-1.35-1.29-1.83-2.32-2.22Z\"/>";
 
             /// <summary />
-            public static string DocumentOnePageLink { get; } = ResourceManager.GetString("DocumentOnePageLink");
+            public static string CodePyRectangleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 6h1a1.5 1.5 0 0 1 0 3H5v1.5a.5.5 0 0 1-1 0v-4a.5.5 0 0 1 .5-.5ZM5 8h.5a.5.5 0 0 0 0-1H5v1Zm5 .67 1.4-1.87a.5.5 0 1 0-.8-.6L9.5 7.67 8.4 6.2a.5.5 0 1 0-.8.6L9 8.67v1.83a.5.5 0 0 0 1 0V8.67ZM2.75 3C1.78 3 1 3.78 1 4.75v7.5c0 .97.78 1.75 1.75 1.75h9.5c.97 0 1.75-.78 1.75-1.75v-7.5C14 3.78 13.22 3 12.25 3h-9.5ZM2 4.75c0-.41.34-.75.75-.75h9.5c.41 0 .75.34.75.75v7.5c0 .41-.34.75-.75.75h-9.5a.75.75 0 0 1-.75-.75v-7.5Z\"/>";
 
             /// <summary />
-            public static string DocumentOnePageMultiple { get; } = ResourceManager.GetString("DocumentOnePageMultiple");
+            public static string CodePySvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.75 4H3.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 1 0v-3h1.75a2.25 2.25 0 0 0 0-4.5Zm0 3.5H4V5h1.75a1.25 1.25 0 0 1 0 2.5Zm8.66-2.71L12 8.16v3.34a.5.5 0 0 1-1 0V8.16L8.6 4.79a.5.5 0 0 1 .29-.78.5.5 0 0 1 .52.2l2.09 2.93 2.1-2.93a.5.5 0 1 1 .8.58Z\"/>";
 
             /// <summary />
-            public static string DocumentOnePageSparkle { get; } = ResourceManager.GetString("DocumentOnePageSparkle");
+            public static string CodeRbRectangleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11 7.6a1.5 1.5 0 0 1-.27.76A1.5 1.5 0 0 1 9.75 11H8.5a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 .5-.5h1A1.5 1.5 0 0 1 11 7.6ZM9.5 7H9v1h.5a.5.5 0 1 0 0-1ZM9 10h.75a.5.5 0 0 0 0-1H9v1ZM6.52 8.59c.24.4.4.82.5 1.27l.02.08.05.2a.5.5 0 0 1-.34.86c-.47 0-.59-.46-.7-.9v-.01C5.95 9.73 5.77 9 5.5 9H5v1.5a.5.5 0 0 1-1 0v-4a.5.5 0 0 1 .5-.5h1a1.5 1.5 0 0 1 1.02 2.59ZM5.5 7H5v1h.5a.5.5 0 1 0 0-1ZM2.75 3C1.78 3 1 3.78 1 4.75v7.5c0 .97.78 1.75 1.75 1.75h9.5c.97 0 1.75-.78 1.75-1.75v-7.5C14 3.78 13.22 3 12.25 3h-9.5ZM2 4.75c0-.41.34-.75.75-.75h9.5c.41 0 .75.34.75.75v7.5c0 .41-.34.75-.75.75h-9.5a.75.75 0 0 1-.75-.75v-7.5Z\"/>";
 
             /// <summary />
-            public static string DocumentPdf { get; } = ResourceManager.GetString("DocumentPdf");
+            public static string CodeRbSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13.28 7.9A2.24 2.24 0 0 0 11.75 4H9.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5H12a2.25 2.25 0 0 0 1.28-4.1ZM13 6.25a1.25 1.25 0 0 1-1.25 1.25H10V5h1.75A1.25 1.25 0 0 1 13 6.25ZM12 11h-2V8.5h2a1.25 1.25 0 0 1 0 2.5Zm-4 .06a6.5 6.5 0 0 1-.18-.55 5.83 5.83 0 0 0-1.1-2.24A2.25 2.25 0 0 0 5.75 4H3.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 1 0v-3h1c1.07 0 1.49 1.09 1.85 2.3.2.67.37 1.2.9 1.2a.5.5 0 0 0 .25-.94ZM4 5h1.75a1.25 1.25 0 0 1 0 2.5H4V5Z\"/>";
 
             /// <summary />
-            public static string DocumentPerson { get; } = ResourceManager.GetString("DocumentPerson");
+            public static string CodeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9.8 3.04c.26.12.37.41.26.66l-4 9a.5.5 0 0 1-.92-.4l4-9a.5.5 0 0 1 .66-.26ZM4.33 5.38c.2.18.23.5.04.7L2.67 8l1.7 1.92a.5.5 0 1 1-.74.66l-2-2.25a.5.5 0 0 1 0-.66l2-2.25a.5.5 0 0 1 .7-.04Zm7.34 0a.5.5 0 0 1 .7.04l2 2.25a.5.5 0 0 1 0 .66l-2 2.25a.5.5 0 1 1-.74-.66L13.33 8l-1.7-1.92a.5.5 0 0 1 .04-.7Z\"/>";
 
             /// <summary />
-            public static string DocumentPy { get; } = ResourceManager.GetString("DocumentPy");
+            public static string CodeTextOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m6.12 4-1-1H7a.5.5 0 0 1 0 1h-.88ZM9.5 4h5a.5.5 0 0 0 0-1h-5a.5.5 0 0 0 0 1Zm.5 2a.5.5 0 0 0 0 1h3.5a.5.5 0 0 0 0-1H10Zm-1 6H1.5a.5.5 0 0 0 0 1H9a.5.5 0 0 0 0-1Zm5.85 2.15-13-13a.5.5 0 0 0-.7.7L2.29 3H1.5a.5.5 0 0 0 0 1h1.8l2 2h-.8a.5.5 0 0 0 0 1h1.8l2 2H3.5a.5.5 0 0 0 0 1h5.8l4.85 4.85a.5.5 0 0 0 .7 0 .5.5 0 0 0 0-.7Z\"/>";
 
             /// <summary />
-            public static string DocumentQuestionMark { get; } = ResourceManager.GetString("DocumentQuestionMark");
+            public static string CodeTextSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1.5 3a.5.5 0 0 0 0 1H7a.5.5 0 0 0 0-1H1.5Zm3 3a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4ZM3 9.5c0-.28.22-.5.5-.5h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5ZM1.5 12a.5.5 0 0 0 0 1H9a.5.5 0 0 0 0-1H1.5Zm9-5.5c0-.28.22-.5.5-.5h2.5a.5.5 0 0 1 0 1H11a.5.5 0 0 1-.5-.5ZM9.5 3a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5Z\"/>";
 
             /// <summary />
-            public static string DocumentRb { get; } = ResourceManager.GetString("DocumentRb");
+            public static string CodeTsRectangleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10.87 8.97A1.43 1.43 0 0 1 9.57 11h-.15A1.43 1.43 0 0 1 8 9.57a.53.53 0 0 1 .5-.53.46.46 0 0 1 .35.12.47.47 0 0 1 .15.34.45.45 0 0 0 .43.5h.14a.43.43 0 0 0 .37-.65.41.41 0 0 0-.18-.16L8.8 8.7a1.42 1.42 0 0 1-.25-2.39c.25-.2.57-.3.89-.31h.14A1.43 1.43 0 0 1 11 7.43a.54.54 0 0 1-.5.53.46.46 0 0 1-.46-.28.47.47 0 0 1-.04-.18v-.07A.43.43 0 0 0 9.57 7h-.14a.43.43 0 0 0-.36.65c.04.07.1.12.17.16l.97.49c.3.14.52.38.65.67ZM4 6a.5.5 0 1 0 0 1h1v3.5a.5.5 0 0 0 1 0V7h1a.5.5 0 1 0 0-1H4ZM2.75 3C1.78 3 1 3.78 1 4.75v7.5c0 .97.78 1.75 1.75 1.75h9.5c.97 0 1.75-.78 1.75-1.75v-7.5C14 3.78 13.22 3 12.25 3h-9.5ZM2 4.75c0-.41.34-.75.75-.75h9.5c.41 0 .75.34.75.75v7.5c0 .41-.34.75-.75.75h-9.5a.75.75 0 0 1-.75-.75v-7.5Z\"/>";
 
             /// <summary />
-            public static string DocumentRibbon { get; } = ResourceManager.GetString("DocumentRibbon");
+            public static string CodeTsSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13 9.75A2.28 2.28 0 0 1 10.5 12 2.28 2.28 0 0 1 8 9.75a.5.5 0 0 1 1 0c0 .92.8 1.25 1.5 1.25s1.5-.33 1.5-1.25c0-.6-.63-.89-1.68-1.28C9.28 8.07 8 7.6 8 6.25A2.28 2.28 0 0 1 10.5 4 2.28 2.28 0 0 1 13 6.25a.5.5 0 0 1-1 0C12 5.33 11.2 5 10.5 5S9 5.33 9 6.25c0 .61.63.9 1.68 1.28 1.04.4 2.32.87 2.32 2.22ZM6.75 4h-4.5a.5.5 0 1 0 0 1H4v6.5a.5.5 0 1 0 1 0V5h1.75a.5.5 0 1 0 0-1Z\"/>";
 
             /// <summary />
-            public static string DocumentSass { get; } = ResourceManager.GetString("DocumentSass");
+            public static string CodeVbRectangleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10.73 8.36A1.5 1.5 0 0 0 9.5 6h-1a.5.5 0 0 0-.5.5v4a.5.5 0 0 0 .5.5h1.25a1.5 1.5 0 0 0 .98-2.64ZM9 7h.5a.5.5 0 1 1 0 1H9V7Zm.75 3H9V9h.75a.5.5 0 0 1 0 1ZM7.47 6.68l-1.5 4a.5.5 0 0 1-.94 0l-1.5-4a.5.5 0 0 1 .94-.36L5.5 9.08l1.03-2.76a.5.5 0 0 1 .94.36ZM2.75 3C1.78 3 1 3.78 1 4.75v7.5c0 .97.78 1.75 1.75 1.75h9.5c.97 0 1.75-.78 1.75-1.75v-7.5C14 3.78 13.22 3 12.25 3h-9.5ZM2 4.75c0-.41.34-.75.75-.75h9.5c.41 0 .75.34.75.75v7.5c0 .41-.34.75-.75.75h-9.5a.75.75 0 0 1-.75-.75v-7.5Z\"/>";
 
             /// <summary />
-            public static string DocumentSearch { get; } = ResourceManager.GetString("DocumentSearch");
+            public static string CodeVbSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13.28 7.9A2.25 2.25 0 0 0 11.75 4H9.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5H12a2.25 2.25 0 0 0 1.28-4.1ZM13 6.25a1.25 1.25 0 0 1-1.25 1.25H10V5h1.75A1.25 1.25 0 0 1 13 6.25ZM12 11h-2V8.5h2a1.25 1.25 0 1 1 0 2.5ZM7.97 4.67l-2.5 7a.5.5 0 0 1-.94 0l-2.5-7a.5.5 0 1 1 .94-.34L5 10.01l2.03-5.68a.5.5 0 0 1 .94.34Z\"/>";
 
             /// <summary />
-            public static string DocumentSettings { get; } = ResourceManager.GetString("DocumentSettings");
+            public static string ColorFillAccentSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.77 11.35a2.5 2.5 0 0 1-3.54 0L3.47 9.6A1.5 1.5 0 0 0 2.5 11v1c0 .83.67 1.5 1.5 1.5h8c.6 0 1.12-.35 1.36-.87a2.5 2.5 0 0 1-3.35-2.52l-1.24 1.24Z\"/>";
 
             /// <summary />
-            public static string DocumentSplitHint { get; } = ResourceManager.GetString("DocumentSplitHint");
+            public static string ColorFillSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 2.5a.5.5 0 0 0-1 0v1c-.2.07-.4.19-.56.35L3.85 6.44a1.5 1.5 0 0 0 0 2.12l2.09 2.09a1.5 1.5 0 0 0 2.12 0l2.59-2.59a1.5 1.5 0 0 0 0-2.12L8.56 3.85A1.5 1.5 0 0 0 8 3.5v-1ZM7 4.7v.8a.5.5 0 1 0 1 0v-.8l1.94 1.95c.1.1.15.23.15.36A.5.5 0 0 0 10 7H4.7L7 4.7ZM4.7 8h4.6L7.34 9.94a.5.5 0 0 1-.7 0L4.7 8Zm7.92 4.78A1 1 0 0 1 12 13H4a1 1 0 0 1-1-1v-1a1 1 0 0 1 .89-1l-.74-.73a2.56 2.56 0 0 1-.05-.05A2 2 0 0 0 2 11v1c0 1.1.9 2 2 2h8a2 2 0 0 0 1.98-1.7c-.39.28-.85.46-1.36.48ZM12.5 8a.5.5 0 0 0-.39.19l-.01.01-.04.05a10.07 10.07 0 0 0-.85 1.3c-.1.2-.21.48-.21.74a1.5 1.5 0 0 0 3 0c0-.26-.1-.53-.2-.73a5.75 5.75 0 0 0-.74-1.16l-.12-.15-.04-.05V8.2h-.01A.5.5 0 0 0 12.5 8Zm0 1.34a8.17 8.17 0 0 1 .4.65l.08.21.02.09a.5.5 0 1 1-1 0l.02-.09.09-.2a4.82 4.82 0 0 1 .39-.66Z\"/>";
 
             /// <summary />
-            public static string DocumentSplitHintOff { get; } = ResourceManager.GetString("DocumentSplitHintOff");
+            public static string ColorLineAccentSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 11.41a1.75 1.75 0 0 0 1.97.78l2.4-.66c.38-.1.75-.29 1.07-.53h6.06c.28 0 .5.22.5.5v2a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 1 0-.09Z\"/>";
 
             /// <summary />
-            public static string DocumentSync { get; } = ResourceManager.GetString("DocumentSync");
+            public static string ColorLineSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 11.41a1.75 1.75 0 0 1-.22-1.23A1.5 1.5 0 0 0 1 11.5v2c0 .83.67 1.5 1.5 1.5h11c.83 0 1.5-.67 1.5-1.5v-2c0-.83-.67-1.5-1.5-1.5H8.48l-.72.72c-.1.1-.2.2-.32.28h6.06c.28 0 .5.22.5.5v2a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 1 0-.09ZM11.09 2a.92.92 0 0 1 .65 1.57L6.17 9.12a.93.93 0 0 1-.4.24L4.2 9.8l.43-1.56c.04-.15.12-.29.24-.4l5.55-5.56a.91.91 0 0 1 .65-.27Zm0-1a1.91 1.91 0 0 0-1.35.56L4.17 7.12c-.24.24-.4.53-.5.85l-.65 2.4a.5.5 0 0 0 .61.61l2.4-.65c.32-.1.62-.26.85-.5l5.56-5.56A1.92 1.92 0 0 0 11.08 1Z\"/>";
 
             /// <summary />
-            public static string DocumentTable { get; } = ResourceManager.GetString("DocumentTable");
+            public static string ColorSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.5 5.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Zm2.5 0a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM11.5 7a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM11 9.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Zm-.5 1.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM8 2a6 6 0 0 0-6 6c0 1.1.9 2 2 2 .7 0 1.09-.38 1.34-.63l.01-.02C5.6 9.11 5.72 9 6 9a1 1 0 0 1 1 1v1a3 3 0 0 0 3 3c1.33 0 2.35-.75 3.02-1.85.65-1.1.98-2.57.98-4.15a6 6 0 0 0-6-6ZM3 8a5 5 0 0 1 10 0c0 1.46-.3 2.74-.84 3.63C11.63 12.52 10.9 13 10 13a2 2 0 0 1-2-2v-1a2 2 0 0 0-2-2c-.7 0-1.09.38-1.34.63l-.01.02C4.4 8.89 4.28 9 4 9a1 1 0 0 1-1-1Z\"/>";
 
             /// <summary />
-            public static string DocumentTarget { get; } = ResourceManager.GetString("DocumentTarget");
+            public static string CommentAddSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M15 5.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-4-2a.5.5 0 0 0-1 0V5H8.5a.5.5 0 0 0 0 1H10v1.5a.5.5 0 0 0 1 0V6h1.5a.5.5 0 0 0 0-1H11V3.5ZM3.5 3h2.1c.18-.36.4-.7.66-1H3.5A2.5 2.5 0 0 0 1 4.5v5A2.5 2.5 0 0 0 3.5 12H4v1.94c0 .84 1 1.3 1.63.74L8.69 12h3.81A2.5 2.5 0 0 0 15 9.5v-.84c-.29.41-.63.78-1.02 1.1A1.5 1.5 0 0 1 12.5 11H8.31L5 13.9V11H3.5A1.5 1.5 0 0 1 2 9.5v-5C2 3.67 2.67 3 3.5 3Z\"/>";
 
             /// <summary />
-            public static string DocumentText { get; } = ResourceManager.GetString("DocumentText");
+            public static string CommentArrowLeftSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M15 5.5a4.5 4.5 0 1 0-9 0 4.5 4.5 0 0 0 9 0Zm-2.15.35-2 2a.5.5 0 0 1-.7-.7L11.29 6H8.5a.5.5 0 0 1 0-1h2.8l-1.15-1.15a.5.5 0 0 1 .7-.7l2 2a.5.5 0 0 1 .15.35.5.5 0 0 1-.14.35ZM3.5 3h2.1c.18-.36.4-.7.66-1H3.5A2.5 2.5 0 0 0 1 4.5v5A2.5 2.5 0 0 0 3.5 12H4v1.94c0 .84 1 1.3 1.63.74L8.69 12h3.81A2.5 2.5 0 0 0 15 9.5v-.84c-.29.41-.63.78-1.02 1.1A1.5 1.5 0 0 1 12.5 11H8.31L5 13.9V11H3.5A1.5 1.5 0 0 1 2 9.5v-5C2 3.67 2.67 3 3.5 3Z\"/>";
 
             /// <summary />
-            public static string DocumentTs { get; } = ResourceManager.GetString("DocumentTs");
+            public static string CommentArrowRightSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M15 5.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-6.85-.35A.5.5 0 0 0 8 5.5a.5.5 0 0 0 .15.35l2 2a.5.5 0 0 0 .7-.7L9.71 6h2.79a.5.5 0 0 0 0-1H9.7l1.15-1.15a.5.5 0 0 0-.7-.7l-2 2ZM3.5 3h2.1c.18-.36.4-.7.66-1H3.5A2.5 2.5 0 0 0 1 4.5v5A2.5 2.5 0 0 0 3.5 12H4v1.94c0 .84 1 1.3 1.63.74L8.69 12h3.81A2.5 2.5 0 0 0 15 9.5v-.84c-.29.41-.63.78-1.02 1.1A1.5 1.5 0 0 1 12.5 11H8.31L5 13.9V11H3.5A1.5 1.5 0 0 1 2 9.5v-5C2 3.67 2.67 3 3.5 3Z\"/>";
 
             /// <summary />
-            public static string DocumentVb { get; } = ResourceManager.GetString("DocumentVb");
+            public static string CommentCheckmarkSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M15 5.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-2.15-1.85a.5.5 0 0 0-.7 0L9.5 6.29l-.65-.64a.5.5 0 1 0-.7.7l1 1c.2.2.5.2.7 0l3-3a.5.5 0 0 0 0-.7ZM3.5 3h2.1c.18-.36.4-.7.66-1H3.5A2.5 2.5 0 0 0 1 4.5v5A2.5 2.5 0 0 0 3.5 12H4v1.94c0 .84 1 1.3 1.63.74L8.69 12h3.81A2.5 2.5 0 0 0 15 9.5v-.84c-.29.41-.63.78-1.02 1.1A1.5 1.5 0 0 1 12.5 11H8.31L5 13.9V11H3.5A1.5 1.5 0 0 1 2 9.5v-5C2 3.67 2.67 3 3.5 3Z\"/>";
 
             /// <summary />
-            public static string DocumentYml { get; } = ResourceManager.GetString("DocumentYml");
+            public static string CommentErrorSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.6 3H3.5C2.67 3 2 3.67 2 4.5v5c0 .83.67 1.5 1.5 1.5H5v2.9L8.31 11h4.19a1.5 1.5 0 0 0 1.48-1.24c.39-.32.73-.69 1.02-1.1v.84a2.5 2.5 0 0 1-2.5 2.5H8.69l-3.06 2.68A.98.98 0 0 1 4 13.94V12h-.5A2.5 2.5 0 0 1 1 9.5v-5A2.5 2.5 0 0 1 3.5 2h2.76c-.26.3-.48.64-.66 1Zm4.9 7a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM10 3.5a.5.5 0 0 1 1 0v2a.5.5 0 0 1-1 0v-2Zm1.13 4a.62.62 0 1 1-1.25 0 .62.62 0 0 1 1.24 0Z\"/>";
 
             /// <summary />
-            public static string Door { get; } = ResourceManager.GetString("Door");
+            public static string CommentLinkSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.5 1a2.5 2.5 0 0 0 0 5H9a.5.5 0 0 0 0-1h-.5a1.5 1.5 0 1 1 0-3H9a.5.5 0 0 0 0-1h-.5ZM12 1a.5.5 0 0 0 0 1h.5a1.5 1.5 0 0 1 0 3H12a.5.5 0 0 0 0 1h.5a2.5 2.5 0 0 0 0-5H12ZM8 3.5c0-.28.22-.5.5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5Zm6 6V6.66c.37-.17.71-.42 1-.71V9.5a2.5 2.5 0 0 1-2.5 2.5H8.69l-3.06 2.68A.98.98 0 0 1 4 13.94V12h-.5A2.5 2.5 0 0 1 1 9.5v-5A2.5 2.5 0 0 1 3.5 2h1.84c-.15.31-.25.65-.3 1H3.5C2.67 3 2 3.67 2 4.5v5c0 .83.67 1.5 1.5 1.5H5v2.9L8.31 11h4.19c.83 0 1.5-.67 1.5-1.5Z\"/>";
 
             /// <summary />
-            public static string DoorArrowLeft { get; } = ResourceManager.GetString("DoorArrowLeft");
+            public static string CommentMentionSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.5 2a2.5 2.5 0 1 0 .83 4.85.5.5 0 1 1 .34.94A3.5 3.5 0 1 1 15 4.5a1.5 1.5 0 0 1-2.5 1.13 1.5 1.5 0 1 1-.35-2.47.5.5 0 0 1 .85.35v1a.5.5 0 0 0 1 0A2.5 2.5 0 0 0 11.5 2ZM11 4.5a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0Zm4 5V7.33c-.29.35-.62.66-1 .91V9.5c0 .83-.67 1.5-1.5 1.5H8.31L5 13.9V11H3.5A1.5 1.5 0 0 1 2 9.5v-5C2 3.67 2.67 3 3.5 3h3.76c.12-.36.3-.7.5-1H3.5A2.5 2.5 0 0 0 1 4.5v5A2.5 2.5 0 0 0 3.5 12H4v1.94c0 .84 1 1.3 1.63.74L8.69 12h3.81A2.5 2.5 0 0 0 15 9.5Z\"/>";
 
             /// <summary />
-            public static string DoorArrowRight { get; } = ResourceManager.GetString("DoorArrowRight");
+            public static string CommentMultipleCheckmarkSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.05 3A2.5 2.5 0 0 1 5.5 1H12a3 3 0 0 1 3 3v3.34c-.28-.4-.62-.77-1-1.08V4a2 2 0 0 0-2-2H5.5c-.65 0-1.2.42-1.41 1H11a2 2 0 0 1 2 2v.6c-.32-.16-.65-.3-1-.4V5a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h1v2.03l1.56-1.11c.15.3.32.58.52.85l-1.5 1.07A1 1 0 0 1 3 14.03V13a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2h.05ZM15 10.5a4.5 4.5 0 1 0-9 0 4.5 4.5 0 0 0 9 0Zm-2.15-1.85c.2.2.2.5 0 .7l-3 3a.5.5 0 0 1-.7 0l-1-1a.5.5 0 0 1 .7-.7l.65.64 2.65-2.64c.2-.2.5-.2.7 0Z\"/>";
 
             /// <summary />
-            public static string Drafts { get; } = ResourceManager.GetString("Drafts");
+            public static string CommentMultipleLinkSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.05 3A2.5 2.5 0 0 1 5.5 1H12a3 3 0 0 1 3 3v4.5c0 .46-.12.88-.33 1.25a3.5 3.5 0 0 0-.87-.5c.13-.22.2-.48.2-.75V4a2 2 0 0 0-2-2H5.5c-.65 0-1.2.42-1.41 1H11a2 2 0 0 1 2 2v4.04a3.53 3.53 0 0 0-.5-.04H12V5a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h1v2.03l1.08-.77c.08.34.2.66.37.96l-.87.62A1 1 0 0 1 3 14.03V13a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2h.05Zm5.45 7a2.5 2.5 0 0 0 0 5H9a.5.5 0 0 0 0-1h-.5a1.5 1.5 0 0 1 0-3H9a.5.5 0 0 0 0-1h-.5Zm3.5 0a.5.5 0 0 0 0 1h.5a1.5 1.5 0 0 1 0 3H12a.5.5 0 0 0 0 1h.5a2.5 2.5 0 0 0 0-5H12Zm-4 2.5c0-.28.22-.5.5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5Z\"/>";
 
             /// <summary />
-            public static string DrinkBeer { get; } = ResourceManager.GetString("DrinkBeer");
+            public static string CommentMultipleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.5 2c.46-.6 1.18-1 2-1H12a3 3 0 0 1 3 3v4.5c0 .82-.4 1.54-1 2V4a2 2 0 0 0-2-2H3.5ZM13 5a2 2 0 0 0-2-2H3a2 2 0 0 0-2 2v6c0 1.1.9 2 2 2v1.03a1 1 0 0 0 1.58.81L7.16 13H11a2 2 0 0 0 2-2V5Zm-1 6a1 1 0 0 1-1 1H6.84L4 14.03V12H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v6Z\"/>";
 
             /// <summary />
-            public static string DrinkCoffee { get; } = ResourceManager.GetString("DrinkCoffee");
+            public static string CommentOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m11.3 12 2.85 2.85a.5.5 0 0 0 .7-.7l-13-13a.5.5 0 1 0-.7.7l.73.74A2.5 2.5 0 0 0 1 4.5v5A2.5 2.5 0 0 0 3.5 12H4v1.94c0 .84 1 1.3 1.63.74L8.69 12h2.6Zm-1-1H8.3L5 13.9V11H3.5A1.5 1.5 0 0 1 2 9.5v-5c0-.49.23-.92.6-1.2l7.7 7.7ZM14 9.5c0 .64-.4 1.2-.97 1.4l.74.75A2.5 2.5 0 0 0 15 9.5v-5A2.5 2.5 0 0 0 12.5 2H4.12l1 1h7.38c.83 0 1.5.67 1.5 1.5v5Z\"/>";
 
             /// <summary />
-            public static string DrinkMargarita { get; } = ResourceManager.GetString("DrinkMargarita");
+            public static string CommentSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1 4.5A2.5 2.5 0 0 1 3.5 2h9A2.5 2.5 0 0 1 15 4.5v5a2.5 2.5 0 0 1-2.5 2.5H8.69l-3.06 2.68A.98.98 0 0 1 4 13.94V12h-.5A2.5 2.5 0 0 1 1 9.5v-5ZM3.5 3C2.67 3 2 3.67 2 4.5v5c0 .83.67 1.5 1.5 1.5H5v2.9L8.31 11h4.19c.83 0 1.5-.67 1.5-1.5v-5c0-.83-.67-1.5-1.5-1.5h-9Z\"/>";
 
             /// <summary />
-            public static string DrinkWine { get; } = ResourceManager.GetString("DrinkWine");
+            public static string CommunicationSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 3a6 6 0 0 0-4.25 10.24.5.5 0 1 1-.7.7 7 7 0 1 1 9.9 0 .5.5 0 1 1-.7-.7A6 6 0 0 0 8 3Zm0 2.5a3.5 3.5 0 0 0-2.47 5.97.5.5 0 1 1-.71.71A4.49 4.49 0 0 1 8 4.5a4.5 4.5 0 0 1 3.18 7.68.5.5 0 0 1-.7-.7A3.5 3.5 0 0 0 8 5.5ZM8 7a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM7 9a1 1 0 1 1 2 0 1 1 0 0 1-2 0Z\"/>";
 
             /// <summary />
-            public static string Drop { get; } = ResourceManager.GetString("Drop");
+            public static string CompassNorthwestSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 8a6 6 0 1 1 12 0A6 6 0 0 1 2 8Zm6-7a7 7 0 1 0 0 14A7 7 0 0 0 8 1ZM5.13 6.48a1 1 0 0 1 1.35-1.35l1.9.99a3.5 3.5 0 0 1 1.5 1.5l1 1.91a1 1 0 0 1-1.35 1.35l-1.92-1a3.5 3.5 0 0 1-1.5-1.5l-.98-1.9Zm2.8.53L6.02 6 7 7.94c.23.45.6.83 1.06 1.06L10 10 9 8.07a2.5 2.5 0 0 0-1.06-1.06Z\"/>";
 
             /// <summary />
-            public static string Dumbbell { get; } = ResourceManager.GetString("Dumbbell");
+            public static string ComposeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M14.85 1.85a.5.5 0 1 0-.7-.7l-8 8L6 10l.85-.15 8-8ZM4.5 2A2.5 2.5 0 0 0 2 4.5v7A2.5 2.5 0 0 0 4.5 14h7a2.5 2.5 0 0 0 2.5-2.5v-5a.5.5 0 0 0-1 0v5c0 .83-.67 1.5-1.5 1.5h-7A1.5 1.5 0 0 1 3 11.5v-7C3 3.67 3.67 3 4.5 3h5a.5.5 0 0 0 0-1h-5Z\"/>";
 
             /// <summary />
-            public static string Earth { get; } = ResourceManager.GetString("Earth");
+            public static string ConeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 15c-2.23 0-6-.42-6-2l.01-.12.05-.2a.5.5 0 0 1 .04-.1l5.45-11.3a.52.52 0 0 1 .9 0l5.45 11.3a.5.5 0 0 1 .04.1l.05.2.01.12c0 1.58-3.77 2-6 2Zm-4.99-1.98c.2.34 2.03.98 4.99.98 2.94 0 4.76-.63 4.99-1l-.01-.03L8 2.65 3.01 13.02Z\"/>";
 
             /// <summary />
-            public static string EarthLeaf { get; } = ResourceManager.GetString("EarthLeaf");
+            public static string ConferenceRoomSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM7.6 2a.5.5 0 0 0-.6.49v11a.5.5 0 0 0 .6.49l5-1a.5.5 0 0 0 .4-.5V3.5a.5.5 0 0 0-.4-.49l-5-1ZM8 12.89V3.1l4 .8v8.18l-4 .8Zm-2 .1v-1H4V4h2V3H3.5a.5.5 0 0 0-.5.5v9c0 .27.22.5.5.5H6Z\"/>";
 
             /// <summary />
-            public static string Edit { get; } = ResourceManager.GetString("Edit");
+            public static string ConnectedSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.02 4.72a2 2 0 1 1 .7-.7l2.26 2.26a2 2 0 0 1 2.04 0l2.26-2.26a2 2 0 1 1 .7.7L9.72 6.98a2 2 0 0 1 0 2.04l2.26 2.26a2 2 0 1 1-.7.7L9.02 9.72a2 2 0 0 1-2.04 0l-2.26 2.26a2 2 0 1 1-.7-.7l2.26-2.26a2 2 0 0 1 0-2.04L4.02 4.72ZM4 3a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm0 10a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm9-9a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm1 9a1 1 0 1 0-2 0 1 1 0 0 0 2 0ZM9 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0Z\"/>";
 
             /// <summary />
-            public static string EditArrowBack { get; } = ResourceManager.GetString("EditArrowBack");
+            public static string ConnectorSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 3.5a.5.5 0 0 0-1 0v1.88l-.95 1.9A.5.5 0 0 0 2 7.5v3c0 .28.22.5.5.5H3v1.5a.5.5 0 0 0 1 0V11h1v1.5a.5.5 0 0 0 1 0V11h.5a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.05-.22L6 5.38V3.5a.5.5 0 0 0-1 0v2c0 .08.02.15.05.22L6 7.62V10H3V7.62l.95-1.9A.5.5 0 0 0 4 5.5v-2Zm8 9v-2a.5.5 0 0 1 .05-.22l.95-1.9V6h-3v2.38l.95 1.9a.5.5 0 0 1 .05.22v2a.5.5 0 0 1-1 0v-1.88l-.95-1.9A.5.5 0 0 1 9 8.5v-3c0-.28.22-.5.5-.5h.5V3.5c0-.28.22-.5.5-.5h2c.28 0 .5.22.5.5V5h.5a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.05.22l-.95 1.9v1.88a.5.5 0 0 1-1 0ZM11 5h1V4h-1v1Z\"/>";
 
             /// <summary />
-            public static string EditOff { get; } = ResourceManager.GetString("EditOff");
+            public static string ContactCardGroupSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10 6.5c0-.28.22-.5.5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm.5 2.5a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2ZM6 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM3.75 8a.75.75 0 0 0-.75.75v.75S3 11 5 11s2-1.5 2-1.5v-.75A.75.75 0 0 0 6.25 8h-2.5ZM8.5 6.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm-.56 3.7V10H8a1 1 0 0 0 1-1v-.5a.5.5 0 0 0-.5-.5h-.67c.11.23.17.48.17.75v.81a1.96 1.96 0 0 1-.06.4ZM1 5.5A2.5 2.5 0 0 1 3.5 3h9A2.5 2.5 0 0 1 15 5.5v5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 10.5v-5ZM3.5 4C2.67 4 2 4.67 2 5.5v5c0 .83.67 1.5 1.5 1.5h9c.83 0 1.5-.67 1.5-1.5v-5c0-.83-.67-1.5-1.5-1.5h-9Z\"/>";
 
             /// <summary />
-            public static string EditProhibited { get; } = ResourceManager.GetString("EditProhibited");
+            public static string ContactCardLinkSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2.75 3C1.78 3 1 3.78 1 4.75v6.5c0 .97.78 1.75 1.75 1.75h2.29a3.53 3.53 0 0 1 0-1H2.75a.75.75 0 0 1-.75-.75v-6.5c0-.41.34-.75.75-.75h10.5c.41 0 .75.34.75.75v4.59c.37.17.71.42 1 .71v-5.3C15 3.78 14.22 3 13.25 3H2.75Zm4.77 6.14a.86.86 0 0 0-.86-.75h-2.8a.86.86 0 0 0-.86.86c0 .77.52 1.43 1.27 1.62l.05.01c.33.09.68.13 1.02.12a3.5 3.5 0 0 1 2.18-1.86ZM9 6.5c0-.28.22-.5.5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5ZM5.26 7.71a1.36 1.36 0 1 0 0-2.71 1.36 1.36 0 0 0 0 2.71ZM8.5 10a2.5 2.5 0 0 0 0 5H9a.5.5 0 0 0 0-1h-.5a1.5 1.5 0 0 1 0-3H9a.5.5 0 0 0 0-1h-.5Zm3.5 0a.5.5 0 0 0 0 1h.5a1.5 1.5 0 0 1 0 3H12a.5.5 0 0 0 0 1h.5a2.5 2.5 0 0 0 0-5H12Zm-3.5 2a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4Z\"/>";
 
             /// <summary />
-            public static string Emoji { get; } = ResourceManager.GetString("Emoji");
+            public static string ContactCardRibbonSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1 4.75C1 3.78 1.78 3 2.75 3h10.5c.97 0 1.75.78 1.75 1.75v1.79c-.3-.18-.65-.32-1-.41V4.75a.75.75 0 0 0-.75-.75H2.75a.75.75 0 0 0-.75.75v6.5c0 .41.34.75.75.75h6.79a4 4 0 0 0 .46.65V13H2.75C1.78 13 1 12.22 1 11.25v-6.5ZM12.5 6a.5.5 0 0 1 .13.02c-.87.08-1.66.43-2.28.98H9.5a.5.5 0 0 1 0-1h3ZM5.26 7.71a1.36 1.36 0 1 0 0-2.71 1.36 1.36 0 0 0 0 2.71Zm-1.4.68a.86.86 0 0 0-.86.86c0 .77.52 1.43 1.27 1.62l.05.01c.62.16 1.27.16 1.88 0h.06a1.67 1.67 0 0 0 1.26-1.63.86.86 0 0 0-.86-.86h-2.8ZM16 10a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-1 3.46a3.98 3.98 0 0 1-4 0v2.29c0 .2.21.31.38.22L13 15l1.62.97c.17.1.38-.03.38-.22v-2.29Z\"/>";
 
             /// <summary />
-            public static string EmojiAdd { get; } = ResourceManager.GetString("EmojiAdd");
+            public static string ContactCardSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1 4.75C1 3.78 1.78 3 2.75 3h10.5c.97 0 1.75.78 1.75 1.75v6.5c0 .97-.78 1.75-1.75 1.75H2.75C1.78 13 1 12.22 1 11.25v-6.5ZM2.75 4a.75.75 0 0 0-.75.75v6.5c0 .41.34.75.75.75h10.5c.41 0 .75-.34.75-.75v-6.5a.75.75 0 0 0-.75-.75H2.75ZM9.5 6a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3Zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3ZM5.26 7.71a1.36 1.36 0 1 0 0-2.71 1.36 1.36 0 0 0 0 2.71Zm-1.4.68a.86.86 0 0 0-.86.86c0 .77.52 1.43 1.27 1.62l.05.01c.62.16 1.27.16 1.88 0h.06a1.67 1.67 0 0 0 1.26-1.63.86.86 0 0 0-.86-.86h-2.8Z\"/>";
 
             /// <summary />
-            public static string EmojiAngry { get; } = ResourceManager.GetString("EmojiAngry");
+            public static string ContentSettingsSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 4.5A2.5 2.5 0 0 1 4.5 2h7A2.5 2.5 0 0 1 14 4.5v1.76a5.5 5.5 0 0 0-1-.66V5H3v6.5c0 .83.67 1.5 1.5 1.5h1.1c.19.36.4.7.66 1H4.5A2.5 2.5 0 0 1 2 11.5v-7ZM3.09 4h9.83c-.2-.58-.76-1-1.42-1h-7c-.65 0-1.2.42-1.41 1ZM4.5 6h2.83c-.4.28-.77.62-1.08 1H5v3.28a5.6 5.6 0 0 0 0 .44V11h.01c.03.34.1.68.19 1h-.7a.5.5 0 0 1-.5-.5v-5c0-.28.22-.5.5-.5Zm2 2.72.35.35a2 2 0 0 1 0 2.86l-.35.35c.13.31.29.6.48.87l.4-.11a2 2 0 0 1 2.52 1.45l.11.48a4.26 4.26 0 0 0 .96 0l.12-.48a2 2 0 0 1 2.52-1.45l.4.11c.19-.27.35-.56.48-.87l-.36-.35a2 2 0 0 1 0-2.86l.36-.35c-.13-.31-.3-.6-.48-.87l-.4.11a2 2 0 0 1-2.52-1.45l-.12-.48a4.25 4.25 0 0 0-.96 0l-.11.48a2 2 0 0 1-2.52 1.45l-.4-.11c-.2.27-.35.56-.48.87Zm4 2.78a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z\"/>";
 
             /// <summary />
-            public static string EmojiEdit { get; } = ResourceManager.GetString("EmojiEdit");
+            public static string ContractDownLeftSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3 4.5C3 3.67 3.67 3 4.5 3h2.23a.5.5 0 0 0 0-1H4.5A2.5 2.5 0 0 0 2 4.5v7A2.5 2.5 0 0 0 4.5 14h7a2.5 2.5 0 0 0 2.5-2.5V9.27a.5.5 0 0 0-1 0v2.23c0 .83-.67 1.5-1.5 1.5H8V9.77C8 8.79 7.2 8 6.23 8H3V4.5ZM3 9h3.23c.43 0 .77.34.77.77V13H4.5A1.5 1.5 0 0 1 3 11.5V9Zm7.7-3h2.8a.5.5 0 0 1 0 1H9.52A.5.5 0 0 1 9 6.5v-4a.5.5 0 0 1 1 0v2.8l3.15-3.15a.5.5 0 0 1 .7.7L10.71 6Z\"/>";
 
             /// <summary />
-            public static string EmojiHand { get; } = ResourceManager.GetString("EmojiHand");
+            public static string CopyArrowRightSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11 7a4 4 0 1 1 0 8 4 4 0 0 1 0-8ZM3 4.09v6.41A2.5 2.5 0 0 0 5.34 13H6.4A5 5 0 0 0 7 14H5a3 3 0 0 1-3-3V5.5c0-.65.42-1.2 1-1.41Zm7.8 3.96-.08.04-.07.06-.06.07a.5.5 0 0 0 0 .56l.06.07 1.65 1.65H8.4a.5.5 0 0 0-.4.41L8 11v.09c.05.2.2.36.41.4l.09.01h3.8l-1.65 1.65-.06.07a.5.5 0 0 0 .7.7l.07-.07 2.53-2.53.04-.05.04-.08.02-.08.01-.07V10.9l-.03-.08-.04-.08-.04-.05-2.53-2.53-.07-.06a.5.5 0 0 0-.5-.04ZM10.5 2c.83 0 1.5.67 1.5 1.5v2.6c-.32-.07-.66-.1-1-.1V3.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0-.5.5v7c0 .28.22.5.5.5H6c0 .34.03.68.1 1h-.6A1.5 1.5 0 0 1 4 10.5v-7C4 2.67 4.67 2 5.5 2h5Z\"/>";
 
             /// <summary />
-            public static string EmojiHint { get; } = ResourceManager.GetString("EmojiHint");
+            public static string CopySvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 4.09v6.41A2.5 2.5 0 0 0 6.34 13h4.57c-.2.58-.76 1-1.41 1H6a3 3 0 0 1-3-3V5.5c0-.65.42-1.2 1-1.41ZM11.5 2c.83 0 1.5.67 1.5 1.5v7c0 .83-.67 1.5-1.5 1.5h-5A1.5 1.5 0 0 1 5 10.5v-7C5 2.67 5.67 2 6.5 2h5Zm0 1h-5a.5.5 0 0 0-.5.5v7c0 .28.22.5.5.5h5a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.5-.5Z\"/>";
 
             /// <summary />
-            public static string EmojiLaugh { get; } = ResourceManager.GetString("EmojiLaugh");
+            public static string CropSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 1.5a.5.5 0 0 0-1 0V4H1.5a.5.5 0 0 0 0 1H4v4.5A2.5 2.5 0 0 0 6.5 12H11v2.5a.5.5 0 0 0 1 0V12h2.5a.5.5 0 0 0 0-1h-8A1.5 1.5 0 0 1 5 9.5v-8Zm6 5V10h1V6.5A2.5 2.5 0 0 0 9.5 4H6v1h3.5c.83 0 1.5.67 1.5 1.5Z\"/>";
 
             /// <summary />
-            public static string EmojiMeh { get; } = ResourceManager.GetString("EmojiMeh");
+            public static string CrownSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm2.4-4.28L8.76 3.65a1 1 0 1 0-1.52 0L5.6 5.72a.5.5 0 0 1-.6.14L2.48 4.68a1 1 0 1 0-.9.82l1.3 6.5c.13.58.64 1 1.23 1h7.78c.6 0 1.1-.42 1.22-1l1.3-6.5h.09a1 1 0 1 0-.98-.82L11 5.86a.5.5 0 0 1-.6-.14ZM8 4.3l1.62 2.04a1.5 1.5 0 0 0 1.81.42l1.88-.88-1.18 5.92a.25.25 0 0 1-.24.2H4.1a.25.25 0 0 1-.24-.2L2.69 5.88l1.88.88c.63.3 1.38.13 1.81-.42L8 4.3Z\"/>";
 
             /// <summary />
-            public static string EmojiSad { get; } = ResourceManager.GetString("EmojiSad");
+            public static string CubeQuickSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.07 4.14a1.25 1.25 0 0 0-1.14 0L7.68 5.29C7.26 5.51 7 5.94 7 6.4v3.2c0 .46.26.9.68 1.1l2.25 1.16c.36.18.78.18 1.14 0l2.25-1.15c.42-.22.68-.65.68-1.12V6.4c0-.46-.26-.9-.68-1.1l-2.25-1.16Zm-.68.89a.25.25 0 0 1 .22 0l2.25 1.15c.09.04.14.13.14.22v3.2c0 .09-.05.17-.14.22l-2.25 1.15a.25.25 0 0 1-.22 0L8.14 9.82A.25.25 0 0 1 8 9.59V6.4c0-.09.05-.18.14-.22l2.25-1.15ZM9.22 6.55a.5.5 0 0 0-.44.9l1.22.6V9.5a.5.5 0 0 0 1 0V8.06l1.22-.61a.5.5 0 1 0-.44-.9l-1.28.64-1.28-.64ZM1.5 7.5a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3Zm.5-2c0-.28.22-.5.5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Zm.5 4.5a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3Z\"/>";
 
             /// <summary />
-            public static string EmojiSparkle { get; } = ResourceManager.GetString("EmojiSparkle");
+            public static string CubeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.7 5.04a.5.5 0 0 0-.4.92l3.2 1.37v3.17a.5.5 0 0 0 1 0V7.33l3.2-1.37a.5.5 0 1 0-.4-.92L8 6.46 4.7 5.04Zm4.38-3.66a3 3 0 0 0-2.16 0l-4.96 1.9A1.5 1.5 0 0 0 1 4.69v6.63c0 .62.38 1.18.96 1.4l4.96 1.91a3 3 0 0 0 2.16 0l4.96-1.9c.58-.23.96-.79.96-1.4V4.68a1.5 1.5 0 0 0-.96-1.4L9.08 1.38Zm-1.8.93a2 2 0 0 1 1.44 0l4.96 1.9c.2.08.32.27.32.48v6.62c0 .2-.13.4-.32.47l-4.96 1.9a2 2 0 0 1-1.44 0l-4.96-1.9A.5.5 0 0 1 2 11.3V4.7c0-.21.13-.4.32-.47l4.96-1.9Z\"/>";
 
             /// <summary />
-            public static string EqualOff { get; } = ResourceManager.GetString("EqualOff");
+            public static string CurrencyDollarEuroSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 2a.5.5 0 0 0-.5.5v.33a2.7 2.7 0 0 0-2 2.6v.1c0 1.1.65 2.1 1.65 2.55l.35.16v3.87a1.7 1.7 0 0 1-1-1.55v-.72a.5.5 0 0 0-1 0v.72c0 1.25.85 2.3 2 2.61v.34a.5.5 0 0 0 1 0v-.26a2.7 2.7 0 0 0 2.4-2.69v-.09c0-1.1-.64-2.1-1.65-2.54L5 7.59V3.76c.8.14 1.4.84 1.4 1.67v.74a.5.5 0 0 0 1 0v-.74A2.7 2.7 0 0 0 5 2.75V2.5a.5.5 0 0 0-.5-.5ZM3 5.43c0-.68.41-1.28 1-1.55v3.26c-.61-.3-1-.93-1-1.61v-.1Zm2 6.8V8.69l.34.16c.65.29 1.06.93 1.06 1.63v.09c0 .84-.6 1.53-1.4 1.68ZM9.07 9A7.07 7.07 0 0 1 9 8h-.5a.5.5 0 0 1 0-1h.57c.13-.94.45-1.8.91-2.47C10.6 3.63 11.5 3 12.56 3c.4 0 .85.12 1.22.36a.5.5 0 0 1-.56.83 1.22 1.22 0 0 0-.66-.19c-.63 0-1.26.38-1.75 1.1-.35.51-.6 1.17-.73 1.91h.42a.5.5 0 0 1 0 1H10c0 .35.03.68.08 1h.42a.5.5 0 1 1 0 1h-.15c.12.33.28.64.46.9.5.72 1.12 1.1 1.75 1.1.25 0 .49-.06.65-.18a.5.5 0 0 1 .58.82c-.38.26-.84.36-1.23.36-1.06 0-1.96-.63-2.58-1.54A5.45 5.45 0 0 1 9.3 10h-.8a.5.5 0 0 1 0-1h.58Z\"/>";
 
             /// <summary />
-            public static string ErrorCircle { get; } = ResourceManager.GetString("ErrorCircle");
+            public static string CurrencyDollarRupeeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 2.5a.5.5 0 1 0-1 0v.33a2.7 2.7 0 0 0-2 2.6v.1c0 1.1.65 2.1 1.65 2.55l.35.16v3.87a1.7 1.7 0 0 1-1-1.55v-.72a.5.5 0 0 0-1 0v.72c0 1.25.85 2.3 2 2.61v.34a.5.5 0 0 0 1 0v-.26a2.7 2.7 0 0 0 2.4-2.69v-.09c0-1.1-.64-2.1-1.65-2.54L5 7.59V3.76c.8.14 1.4.84 1.4 1.67v.74a.5.5 0 0 0 1 0v-.74A2.7 2.7 0 0 0 5 2.75V2.5ZM4 3.88v3.26c-.61-.3-1-.93-1-1.61v-.1c0-.68.41-1.28 1-1.55Zm1 4.8.34.16c.65.29 1.06.93 1.06 1.63v.09c0 .84-.6 1.53-1.4 1.68V8.68ZM8 3.5c0-.28.22-.5.5-.5h5a.5.5 0 0 1 0 1h-1c.22.29.37.63.45 1h.55a.5.5 0 0 1 0 1h-.55a2.5 2.5 0 0 1-2.45 2h-.93l4.31 5.18a.5.5 0 0 1-.76.64l-5-6A.5.5 0 0 1 8.5 7h2c.65 0 1.2-.42 1.41-1H8.5a.5.5 0 1 1 0-1h3.41c-.2-.58-.76-1-1.41-1h-2a.5.5 0 0 1-.5-.5Z\"/>";
 
             /// <summary />
-            public static string ErrorCircleSettings { get; } = ResourceManager.GetString("ErrorCircleSettings");
+            public static string CursorHoverOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m12.3 13 1.85 1.85a.5.5 0 0 0 .7-.7l-2-2-11-11a.5.5 0 1 0-.7.7L2.39 3.1A2 2 0 0 0 1 5v5c0 1.1.9 2 2 2h4v-1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h.3L8 8.7v5.8a.5.5 0 0 0 .9.3l1.35-1.8h2.04Zm-1-1H10a.5.5 0 0 0-.4.2L9 13V9.7l2.3 2.3Zm1.81-1a1 1 0 0 0 .89-1V5a1 1 0 0 0-1-1H6.12l-1-1H13a2 2 0 0 1 2 2v5a2 2 0 0 1-1.1 1.78l-.79-.79Z\"/>";
 
             /// <summary />
-            public static string ExpandUpLeft { get; } = ResourceManager.GetString("ExpandUpLeft");
+            public static string CursorHoverSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1 5c0-1.1.9-2 2-2h10a2 2 0 0 1 2 2v5a2 2 0 0 1-1.16 1.82 1.5 1.5 0 0 0-.28-.38l-.45-.45A1 1 0 0 0 14 10V5a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h4v1H3a2 2 0 0 1-2-2V5Zm7.85 3.15A.5.5 0 0 0 8 8.5v6a.5.5 0 0 0 .9.3l1.35-1.8h2.25a.5.5 0 0 0 .35-.85l-4-4ZM9 13V9.7l2.3 2.3H10a.5.5 0 0 0-.4.2L9 13Z\"/>";
 
             /// <summary />
-            public static string ExpandUpRight { get; } = ResourceManager.GetString("ExpandUpRight");
+            public static string DataBarHorizontalDescendingSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13 5a2 2 0 1 0 0-4H3a2 2 0 1 0 0 4h10ZM2 3a1 1 0 0 1 1-1h10a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1Zm5 12a2 2 0 1 0 0-4H3a2 2 0 1 0 0 4h4Zm-5-2a1 1 0 0 1 1-1h4a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1Zm9-5a2 2 0 0 1-2 2H3a2 2 0 1 1 0-4h6a2 2 0 0 1 2 2Zm-1 0a1 1 0 0 0-1-1H3a1 1 0 1 0 0 2h6a1 1 0 0 0 1-1Z\"/>";
 
             /// <summary />
-            public static string Eyedropper { get; } = ResourceManager.GetString("Eyedropper");
+            public static string DataBarVerticalAscendingSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11 3a2 2 0 1 1 4 0v10a2 2 0 1 1-4 0V3Zm2 11a1 1 0 0 0 1-1V3a1 1 0 1 0-2 0v10a1 1 0 0 0 1 1ZM1 9a2 2 0 1 1 4 0v4a2 2 0 1 1-4 0V9Zm2 5a1 1 0 0 0 1-1V9a1 1 0 0 0-2 0v4a1 1 0 0 0 1 1Zm5-9a2 2 0 0 0-2 2v6a2 2 0 1 0 4 0V7a2 2 0 0 0-2-2Zm0 1a1 1 0 0 1 1 1v6a1 1 0 1 1-2 0V7a1 1 0 0 1 1-1Z\"/>";
 
             /// <summary />
-            public static string EyeOff { get; } = ResourceManager.GetString("EyeOff");
+            public static string DataBarVerticalStarSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M12 2.5a1.5 1.5 0 0 0-3 0v4.1c.32-.16.65-.3 1-.4V2.5a.5.5 0 0 1 1 0v3.52a5.57 5.57 0 0 1 1 0V2.5ZM8 7.26V5.5a1.5 1.5 0 1 0-3 0v6c0 .65.42 1.2 1 1.41V5.5a.5.5 0 0 1 1 0v2.84c.28-.4.62-.77 1-1.08ZM4 8.5a1.5 1.5 0 1 0-3 0v3a1.5 1.5 0 0 0 3 0v-3ZM2.5 8c.28 0 .5.22.5.5v3a.5.5 0 0 1-1 0v-3c0-.28.22-.5.5-.5ZM16 11.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-4.02-2.64a.5.5 0 0 0-.96 0l-.47 1.53H9c-.48 0-.68.65-.3.95l1.26.94-.48 1.53c-.15.49.38.89.77.59l1.25-.95 1.25.95c.4.3.92-.1.77-.59l-.48-1.53 1.25-.94c.4-.3.2-.95-.3-.95h-1.54l-.47-1.53Z\"/>";
 
             /// <summary />
-            public static string EyeTracking { get; } = ResourceManager.GetString("EyeTracking");
+            public static string DataBarVerticalSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 3.5a1.5 1.5 0 1 1 3 0v9a1.5 1.5 0 0 1-3 0v-9ZM3.5 3a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 1 0v-9a.5.5 0 0 0-.5-.5ZM6 6.5a1.5 1.5 0 1 1 3 0v6a1.5 1.5 0 0 1-3 0v-6ZM7.5 6a.5.5 0 0 0-.5.5v6a.5.5 0 0 0 1 0v-6a.5.5 0 0 0-.5-.5Zm4 2c-.83 0-1.5.67-1.5 1.5v3a1.5 1.5 0 0 0 3 0v-3c0-.83-.67-1.5-1.5-1.5ZM11 9.5a.5.5 0 0 1 1 0v3a.5.5 0 0 1-1 0v-3Z\"/>";
 
             /// <summary />
-            public static string EyeTrackingOff { get; } = ResourceManager.GetString("EyeTrackingOff");
+            public static string DatabaseStackSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 1C5.15 1 3 2.08 3 3.5v9C3 13.93 5.15 15 8 15s5-1.07 5-2.5v-9C13 2.08 10.85 1 8 1Zm0 1c2.44 0 4 .89 4 1.5S10.44 5 8 5s-4-.89-4-1.5S5.56 2 8 2Zm0 12c-2.44 0-4-.89-4-1.5V9.54c.9.59 2.33.96 4 .96a7.5 7.5 0 0 0 4-.96v2.96c0 .61-1.56 1.5-4 1.5Zm0-4.5c-2.44 0-4-.89-4-1.5V5.02A7.4 7.4 0 0 0 8 6a7.4 7.4 0 0 0 4-.98V8c0 .61-1.56 1.5-4 1.5Z\"/>";
 
             /// <summary />
-            public static string FastForward { get; } = ResourceManager.GetString("FastForward");
+            public static string DatabaseSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 1C5.15 1 3 2.08 3 3.5v9C3 13.93 5.15 15 8 15s5-1.07 5-2.5v-9C13 2.08 10.85 1 8 1Zm0 1c2.44 0 4 .89 4 1.5S10.44 5 8 5s-4-.89-4-1.5S5.56 2 8 2Zm0 12c-2.44 0-4-.89-4-1.5V5.02c1.21.7 2.6 1.04 4 .98 1.4.06 2.79-.28 4-.98v7.48c0 .61-1.56 1.5-4 1.5Z\"/>";
 
             /// <summary />
-            public static string Feed { get; } = ResourceManager.GetString("Feed");
+            public static string DataTrendingSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3 2.5a.5.5 0 0 0-1 0v9A2.5 2.5 0 0 0 4.5 14h9a.5.5 0 0 0 0-1h-9A1.5 1.5 0 0 1 3 11.5v-9Zm7 2c0 .28.22.5.5.5h1.8L9 8.3 7.35 6.64a.5.5 0 0 0-.7 0l-2.5 2.5a.5.5 0 1 0 .7.7L7 7.71l1.65 1.64c.2.2.5.2.7 0L13 5.71v1.87a.5.5 0 0 0 1 0V4.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5Z\"/>";
 
             /// <summary />
-            public static string Filmstrip { get; } = ResourceManager.GetString("Filmstrip");
+            public static string DeleteArrowBackSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9 3a1 1 0 0 0-2 0h2ZM6 3a2 2 0 1 1 4 0h4a.5.5 0 0 1 0 1h-.56l-.24 1.7c-.3-.16-.62-.3-.95-.42L12.43 4H3.57l1.19 8.7c.1.75.74 1.3 1.49 1.3.32.38.68.72 1.09 1h-1.1a2.5 2.5 0 0 1-2.47-2.16L2.57 4H2a.5.5 0 0 1 0-1h4Zm4.5 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm-.9-6.4-.9.9h1.55A2.75 2.75 0 0 1 13 12.25v.25a.5.5 0 0 1-1 0v-.25c0-.97-.78-1.75-1.75-1.75H8.71l.9.9a.5.5 0 0 1-.71.7l-1.76-1.75a.5.5 0 0 1 0-.7L8.9 7.9a.5.5 0 1 1 .7.7Z\"/>";
 
             /// <summary />
-            public static string FilmstripPlay { get; } = ResourceManager.GetString("FilmstripPlay");
+            public static string DeleteSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7 3h2a1 1 0 0 0-2 0ZM6 3a2 2 0 1 1 4 0h4a.5.5 0 0 1 0 1h-.56l-1.2 8.84A2.5 2.5 0 0 1 9.74 15h-3.5a2.5 2.5 0 0 1-2.48-2.16L2.57 4H2a.5.5 0 0 1 0-1h4Zm1 3.5a.5.5 0 0 0-1 0v5a.5.5 0 0 0 1 0v-5ZM9.5 6c.28 0 .5.22.5.5v5a.5.5 0 0 1-1 0v-5c0-.28.22-.5.5-.5Zm-4.74 6.7c.1.75.74 1.3 1.49 1.3h3.5a1.5 1.5 0 0 0 1.5-1.3L12.42 4H3.57l1.19 8.7Z\"/>";
 
             /// <summary />
-            public static string FilmstripSplit { get; } = ResourceManager.GetString("FilmstripSplit");
+            public static string DentistSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10.58 4.24a.5.5 0 1 0 0 1c.24 0 .44.07.59.2.14.13.28.35.31.73a.5.5 0 0 0 1-.1 2.06 2.06 0 0 0-.65-1.38c-.35-.32-.8-.45-1.25-.45ZM7.11 2.8a3.1 3.1 0 0 0-2.6-.66c-.83.16-1.55.61-2.03 1.13a3.71 3.71 0 0 0-1.1 2.41c-.02.54.05 1.32.48 1.91.45.61.7.97.82 1.31.14.4.14.79.14 1.38v.04c0 .57.13 1.36.42 2.08.29.7.78 1.44 1.6 1.73l.02.01h.02c.48.13.93.1 1.27-.23.3-.28.42-.7.49-1.05.06-.33.1-.72.12-1.1l.02-.13c.03-.43.07-.86.16-1.27.22-1.1.55-1.27.67-1.31.37-.1.6-.05.74.03.16.1.3.26.42.55.26.58.34 1.41.4 2.18.07.76.23 1.46.54 1.92.17.24.4.45.73.52.32.07.64-.03.91-.2 1-.64 1.57-1.95 1.72-3.66.07-.8.15-1.17.27-1.46.06-.15.14-.3.25-.48l.1-.18.32-.54c.21-.39.57-1.1.61-1.93a3.1 3.1 0 0 0-1.27-2.65 3.94 3.94 0 0 0-2.7-1.03c-.8.05-1.44.41-1.9.8l-.02.01-.01.02c-.44.44-.63.5-.73.49-.12 0-.34-.1-.84-.6l-.02-.03-.02-.01ZM2.38 5.72c.03-.74.38-1.27.84-1.77.35-.38.89-.71 1.47-.83a2.1 2.1 0 0 1 1.77.44c.47.47.94.85 1.49.88.57.02 1.03-.35 1.46-.77.34-.29.78-.52 1.3-.55.52-.02 1.19.15 2 .81.76.62.94 1.26.91 1.82-.03.6-.29 1.14-.49 1.5a23.41 23.41 0 0 1-.4.7c-.12.2-.23.38-.31.6-.18.43-.28.92-.35 1.76-.14 1.58-.65 2.5-1.26 2.9a.46.46 0 0 1-.13.06h-.03l-.03-.01a.42.42 0 0 1-.09-.1c-.15-.23-.3-.71-.35-1.43l-.01-.08a8.14 8.14 0 0 0-.48-2.43c-.17-.39-.44-.77-.85-1a1.94 1.94 0 0 0-1.49-.14h-.01c-.67.2-1.13.85-1.38 2.08-.1.47-.15.95-.18 1.38l-.01.14c-.03.39-.06.72-.11 1-.06.32-.14.45-.2.5 0 .01-.06.07-.3 0-.42-.15-.75-.57-1-1.16a4.94 4.94 0 0 1-.34-1.7v-.1c0-.54 0-1.1-.2-1.66-.18-.5-.53-.98-.95-1.55a2.2 2.2 0 0 1-.3-1.29Z\"/>";
 
             /// <summary />
-            public static string Filter { get; } = ResourceManager.GetString("Filter");
+            public static string DesignIdeasSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7 10.97c-.35-.04-.7-.12-1.02-.23L6 10v-.34c.31.15.65.25 1 .3V7.5C7 6.67 7.67 6 8.5 6h2.46a3.5 3.5 0 0 0-5.08-2.6 3.2 3.2 0 0 0-.39-.93A4.5 4.5 0 0 1 11.97 6h1.53c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5h-5A1.5 1.5 0 0 1 7 12.5v-1.53ZM11.97 7A4.5 4.5 0 0 1 8 10.97v1.53c0 .28.22.5.5.5h5a.5.5 0 0 0 .5-.5v-5a.5.5 0 0 0-.5-.5h-1.53Zm-1 0H8.5a.5.5 0 0 0-.5.5v2.46A3.5 3.5 0 0 0 10.96 7Zm-6.18.56a2.4 2.4 0 0 0-.56-1.07C4.7 6.04 5 5.33 5 4.5c0-.7-.14-1.18-.4-1.56a2.75 2.75 0 0 0-.56-.61l-.19-.18C3.7 2 3.7 1.88 3.7 1.8a.33.33 0 0 1 .01-.1.5.5 0 0 0-.73-.63l-.01.01-.03.02a4.29 4.29 0 0 0-.43.35c-.25.22-.58.54-.81.93A4.73 4.73 0 0 0 1 4.5c0 .83.3 1.54.77 2-.29.29-.46.68-.56 1.06C1 8.32 1 9.24 1 9.96V10c0 2.06.39 3.28.82 4 .22.37.45.6.64.75a1.64 1.64 0 0 0 .33.2s.13.05.21.05c.08 0 .21-.05.21-.05l.09-.04a2.67 2.67 0 0 0 .88-.9C4.6 13.28 5 12.06 5 10v-.04c0-.72 0-1.64-.2-2.4ZM2.5 7.2A.67.67 0 0 1 3 7c.25 0 .4.08.51.19.13.13.24.33.32.63C4 8.44 4 9.24 4 10c0 1.94-.36 2.97-.68 3.5-.12.2-.23.32-.32.4-.09-.08-.2-.2-.32-.4C2.36 12.96 2 11.93 2 10c0-.76 0-1.56.17-2.18.08-.3.2-.5.32-.63ZM3 6c-.38 0-1-.43-1-1.5a3.73 3.73 0 0 1 .87-2.01c.07.12.16.24.28.36.07.08.16.17.25.24l.12.12c.1.1.19.19.25.29.12.18.23.45.23 1C4 5.57 3.38 6 3 6Z\"/>";
 
             /// <summary />
-            public static string FilterDismiss { get; } = ResourceManager.GetString("FilterDismiss");
+            public static string DesktopArrowRightSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M15 5.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-2.15.35A.5.5 0 0 0 13 5.5a.5.5 0 0 0-.15-.35l-2-2a.5.5 0 0 0-.7.7L11.29 5H8.5a.5.5 0 0 0 0 1h2.8l-1.15 1.15a.5.5 0 0 0 .7.7l2-2ZM10.5 11h1.49a1 1 0 0 0 .89-.54c.4-.2.77-.43 1.11-.71v.24a2 2 0 0 1-2 2h-2V13h1.5a.5.5 0 1 1 0 1H4.5a.5.5 0 1 1 0-1H6v-1H4a2 2 0 0 1-2-2V4c0-1.11.89-2 2-2h2.26c-.25.3-.47.64-.66 1H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6.5ZM9 12H7v1h2v-1Z\"/>";
 
             /// <summary />
-            public static string Fire { get; } = ResourceManager.GetString("Fire");
+            public static string DesktopCheckmarkSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M15 5.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-2.15-1.85a.5.5 0 0 0-.7 0L9.5 6.29l-.65-.64a.5.5 0 1 0-.7.7l1 1c.2.2.5.2.7 0l3-3a.5.5 0 0 0 0-.7ZM10.5 11H12a1 1 0 0 0 .89-.54c.4-.2.77-.44 1.11-.72V10a2 2 0 0 1-2 2h-2v1h1.5a.5.5 0 1 1 0 1h-7a.5.5 0 0 1 0-1H6v-1H4a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2h2.26c-.26.3-.48.64-.66 1H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6.5ZM9 12H7v1h2v-1Z\"/>";
 
             /// <summary />
-            public static string Flag { get; } = ResourceManager.GetString("Flag");
+            public static string DesktopCursorSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 2a2 2 0 0 0-2 2v6c0 1.1.9 2 2 2h2v1H4.5a.5.5 0 0 0 0 1H8v-1H7v-1h1v-1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v5.97l.82.86A2 2 0 0 0 14 10V4a2 2 0 0 0-2-2H4Zm5.86 6.15A.5.5 0 0 0 9 8.5v6a.5.5 0 0 0 .9.3l1.38-1.91 2.4.55a.5.5 0 0 0 .47-.83L9.86 8.15Z\"/>";
 
             /// <summary />
-            public static string FlagClock { get; } = ResourceManager.GetString("FlagClock");
+            public static string DesktopEditSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m6.98 6.38 4.83-4.83a1.87 1.87 0 1 1 2.64 2.64L9.62 9.02a2.2 2.2 0 0 1-1.02.58l-1.5.37A.89.89 0 0 1 6.04 8.9l.37-1.5c.1-.39.3-.74.58-1.02ZM4 11h8a1 1 0 0 0 1-1V7.06l1-1V10a2 2 0 0 1-2 2h-2v1h1.5a.5.5 0 1 1 0 1h-7a.5.5 0 0 1 0-1H6v-1H4a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2h5.94l-1 1H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1Zm5 1H7v1h2v-1Z\"/>";
 
             /// <summary />
-            public static string FlagOff { get; } = ResourceManager.GetString("FlagOff");
+            public static string DesktopKeyboardSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3 1a2 2 0 0 0-2 2v6c0 1.1.9 2 2 2h1v1h-.5a.5.5 0 0 0 0 1H5v-3H3a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v4h1V3a2 2 0 0 0-2-2H3Zm3 8.5C6 8.67 6.67 8 7.5 8h6c.83 0 1.5.67 1.5 1.5v4c0 .83-.67 1.5-1.5 1.5h-6A1.5 1.5 0 0 1 6 13.5v-4Zm2 4c0 .28.22.5.5.5h4a.5.5 0 0 0 0-1h-4a.5.5 0 0 0-.5.5Zm.5-3.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Zm1.5 1.5a.5.5 0 1 0-1 0 .5.5 0 0 0 1 0Zm.5-1.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Zm1.5 1.5a.5.5 0 1 0-1 0 .5.5 0 0 0 1 0Zm.5-1.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Z\"/>";
 
             /// <summary />
-            public static string Flash { get; } = ResourceManager.GetString("Flash");
+            public static string DesktopMacSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 4c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2v.5c0 .28.22.5.5.5h.5a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1h.5a.5.5 0 0 0 .5-.5V12H4a2 2 0 0 1-2-2V4Zm1 6a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1H3Zm10-1V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v5h10Zm-4 3.5V12H7v.5c0 .18-.03.34-.09.5H9.1a1.5 1.5 0 0 1-.09-.5Z\"/>";
 
             /// <summary />
-            public static string FlashCheckmark { get; } = ResourceManager.GetString("FlashCheckmark");
+            public static string DesktopPulseSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.01 2a2 2 0 0 0-2 2v1.5h1V4a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v1.5H14V4a2 2 0 0 0-2-2H4.01Zm-2 8v-.75h1v.74a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-.74H14v.74a2 2 0 0 1-2 2h-2V13h1.5a.5.5 0 0 1 0 1H4.53a.5.5 0 0 1 0-1h1.5v-1h-2a2 2 0 0 1-2-2Zm7 2H7v1h2v-1ZM6.47 4.3a.5.5 0 0 0-.9-.04L4.2 7H2.5a.5.5 0 0 0 0 1H4.5a.5.5 0 0 0 .45-.28l1-2 1.58 3.96a.5.5 0 0 0 .91.04L10 6.62l.56 1.1A.5.5 0 0 0 11 8h2.5a.5.5 0 0 0 0-1h-2.19l-.86-1.73a.5.5 0 0 0-.9 0l-1.5 3-1.58-3.96Z\"/>";
 
             /// <summary />
-            public static string FlashFlow { get; } = ResourceManager.GetString("FlashFlow");
+            public static string DesktopSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 2a2 2 0 0 0-2 2v6c0 1.1.9 2 2 2h2v1H4.5a.5.5 0 0 0 0 1h7a.5.5 0 1 0 0-1H10v-1h2a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H4Zm5 10v1H7v-1h2ZM3 4a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4Z\"/>";
 
             /// <summary />
-            public static string Flashlight { get; } = ResourceManager.GetString("Flashlight");
+            public static string DesktopSyncSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 5.5a4.5 4.5 0 1 0 9 0 4.5 4.5 0 0 0-9 0Zm6.5-3c.28 0 .5.22.5.5v1.5a.5.5 0 0 1-.5.5H11a.5.5 0 0 1 0-1h.47a1.98 1.98 0 0 0-1.72-.1 2 2 0 0 0-.66.44.5.5 0 0 1-.71-.71A3 3 0 0 1 12 3.15V3c0-.28.22-.5.5-.5Zm-.88 5.53A3 3 0 0 1 9 7.85V8a.5.5 0 0 1-1 0V6.5c0-.28.22-.5.5-.5H10a.5.5 0 0 1 0 1h-.47a2 2 0 0 0 2.38-.34.5.5 0 1 1 .71.71 3 3 0 0 1-1 .66ZM10.5 11H12a1 1 0 0 0 .89-.54c.4-.2.77-.44 1.11-.72V10a2 2 0 0 1-2 2h-2v1h1.5a.5.5 0 1 1 0 1h-7a.5.5 0 0 1 0-1H6v-1H4a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2h2.26c-.26.3-.48.64-.66 1H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6.5ZM9 12H7v1h2v-1Z\"/>";
 
             /// <summary />
-            public static string FlipHorizontal { get; } = ResourceManager.GetString("FlipHorizontal");
+            public static string DeveloperBoardSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M14.5 8.5a.5.5 0 1 0 0-1H13V6h1.5a.5.5 0 1 0 0-1H13a2 2 0 0 0-2-2V1.5a.5.5 0 1 0-1 0V3H8.5V1.5a.5.5 0 1 0-1 0V3H6V1.5a.5.5 0 1 0-1 0V3a2 2 0 0 0-2 2H1.5a.5.5 0 1 0 0 1H3v1.5H1.5a.5.5 0 1 0 0 1H3V10H1.5a.5.5 0 1 0 0 1H3a2 2 0 0 0 2 2v1.5c0 .13.05.26.15.35A.5.5 0 0 0 6 14.5V13h1.5v1.5c0 .13.05.26.15.35a.5.5 0 0 0 .85-.35V13H10v1.5c0 .13.05.26.15.35a.5.5 0 0 0 .85-.35V13a2 2 0 0 0 2-2h1.5a.5.5 0 1 0 0-1H13V8.5h1.5ZM12 11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v6Zm-4-.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Zm0-4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z\"/>";
 
             /// <summary />
-            public static string FlipVertical { get; } = ResourceManager.GetString("FlipVertical");
+            public static string DeviceEqSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 2c.28 0 .5.22.5.5v11a.5.5 0 0 1-1 0v-11c0-.28.22-.5.5-.5Zm2.5 2c.28 0 .5.22.5.5v7a.5.5 0 0 1-1 0v-7c0-.28.22-.5.5-.5ZM6 4.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7ZM13.5 6c.28 0 .5.22.5.5v3a.5.5 0 0 1-1 0v-3c0-.28.22-.5.5-.5ZM3 6.5a.5.5 0 0 0-1 0v3a.5.5 0 0 0 1 0v-3Z\"/>";
 
             /// <summary />
-            public static string Flow { get; } = ResourceManager.GetString("Flow");
+            public static string DeviceMeetingRoomRemoteSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2.74 3.46A2 2 0 0 1 4.67 2h6.67a2 2 0 0 1 1.92 1.46l1.66 5.9a2.08 2.08 0 0 1-2 2.64H7v-1h5.92c.71 0 1.23-.68 1.04-1.37l-1.66-5.9a1 1 0 0 0-.96-.73H4.67a1 1 0 0 0-.96.73L3.35 5H2.3l.44-1.54ZM6.95 14h4.55a.5.5 0 1 0 0-1H7v.5c0 .17-.02.34-.05.5ZM3.5 9.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM1 7.5C1 6.67 1.67 6 2.5 6h2C5.33 6 6 6.67 6 7.5v6c0 .83-.67 1.5-1.5 1.5h-2A1.5 1.5 0 0 1 1 13.5v-6ZM2.5 7a.5.5 0 0 0-.5.5v6c0 .28.22.5.5.5h2a.5.5 0 0 0 .5-.5v-6a.5.5 0 0 0-.5-.5h-2Z\"/>";
 
             /// <summary />
-            public static string Fluid { get; } = ResourceManager.GetString("Fluid");
+            public static string DeviceMeetingRoomSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.67 2a2 2 0 0 0-1.93 1.46l-1.66 5.9a2.08 2.08 0 0 0 2 2.64h9.84a2.08 2.08 0 0 0 2-2.64l-1.66-5.9A2 2 0 0 0 11.33 2H4.67ZM3.7 3.73A1 1 0 0 1 4.67 3h6.66a1 1 0 0 1 .97.73l1.66 5.9c.2.69-.33 1.37-1.04 1.37H3.08c-.71 0-1.23-.68-1.04-1.37l1.66-5.9ZM4.5 13a.5.5 0 1 0 0 1h7a.5.5 0 1 0 0-1h-7Z\"/>";
 
             /// <summary />
-            public static string Folder { get; } = ResourceManager.GetString("Folder");
+            public static string DiamondSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1.59 9.4a2 2 0 0 1 0-2.83l4.98-4.98a2 2 0 0 1 2.83 0l4.98 4.98a2 2 0 0 1 0 2.83L9.4 14.38a2 2 0 0 1-2.83 0L1.59 9.4Zm.7-2.12a1 1 0 0 0 0 1.41l4.99 4.98a1 1 0 0 0 1.41 0l4.99-4.98a1 1 0 0 0 0-1.41L8.69 2.29a1 1 0 0 0-1.41 0L2.29 7.28Z\"/>";
 
             /// <summary />
-            public static string FolderAdd { get; } = ResourceManager.GetString("FolderAdd");
+            public static string DirectionsSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6.23 2.7a2.5 2.5 0 0 1 3.54 0l3.53 3.53a2.5 2.5 0 0 1 0 3.54L9.77 13.3a2.5 2.5 0 0 1-3.54 0L2.7 9.77a2.5 2.5 0 0 1 0-3.54L6.23 2.7Zm2.83.7a1.5 1.5 0 0 0-2.12 0L3.4 6.94a1.5 1.5 0 0 0 0 2.12l3.54 3.54a1.5 1.5 0 0 0 2.12 0l3.54-3.54a1.5 1.5 0 0 0 0-2.12L9.06 3.4Zm-.91 1.25c.2-.2.5-.2.7 0l1.5 1.5c.2.2.2.5 0 .7l-1.5 1.5a.5.5 0 0 1-.7-.7L8.79 7H7.5a.5.5 0 0 0-.5.5V10a.5.5 0 0 1-1 0V7.5C6 6.67 6.67 6 7.5 6h1.3l-.65-.65a.5.5 0 0 1 0-.7Z\"/>";
 
             /// <summary />
-            public static string FolderArrowLeft { get; } = ResourceManager.GetString("FolderArrowLeft");
+            public static string DismissCircleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 2a6 6 0 1 1 0 12A6 6 0 0 1 8 2Zm0 1a5 5 0 1 0 0 10A5 5 0 0 0 8 3ZM5.84 5.97l.06-.07a.5.5 0 0 1 .63-.06l.07.06L8 7.3l1.4-1.4a.5.5 0 0 1 .63-.06l.07.06c.18.17.2.44.06.63l-.06.07L8.7 8l1.4 1.4c.18.17.2.44.06.63l-.06.07a.5.5 0 0 1-.63.06l-.07-.06L8 8.7l-1.4 1.4a.5.5 0 0 1-.63.06l-.07-.06a.5.5 0 0 1-.06-.63l.06-.07L7.3 8 5.9 6.6a.5.5 0 0 1-.06-.63l.06-.07-.06.07Z\"/>";
 
             /// <summary />
-            public static string FolderArrowRight { get; } = ResourceManager.GetString("FolderArrowRight");
+            public static string DismissSquareMultipleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.65 4.65c.2-.2.5-.2.7 0L7 6.29l1.65-1.64a.5.5 0 1 1 .7.7L7.71 7l1.64 1.65a.5.5 0 1 1-.7.7L7 7.71 5.35 9.35a.5.5 0 1 1-.7-.7L6.29 7 4.65 5.35a.5.5 0 0 1 0-.7ZM4 2a2 2 0 0 0-2 2v6c0 1.1.9 2 2 2h6a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H4ZM3 4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4Zm10-.73c.6.34 1 .99 1 1.73v5.5a3.5 3.5 0 0 1-3.5 3.5H5a2 2 0 0 1-1.73-1h7.23a2.5 2.5 0 0 0 2.5-2.5V3.27Z\"/>";
 
             /// <summary />
-            public static string FolderArrowUp { get; } = ResourceManager.GetString("FolderArrowUp");
+            public static string DismissSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m2.59 2.72.06-.07a.5.5 0 0 1 .63-.06l.07.06L8 7.29l4.65-4.64a.5.5 0 0 1 .7.7L8.71 8l4.64 4.65c.18.17.2.44.06.63l-.06.07a.5.5 0 0 1-.63.06l-.07-.06L8 8.71l-4.65 4.64a.5.5 0 0 1-.7-.7L7.29 8 2.65 3.35a.5.5 0 0 1-.06-.63l.06-.07-.06.07Z\"/>";
 
             /// <summary />
-            public static string FolderGlobe { get; } = ResourceManager.GetString("FolderGlobe");
+            public static string DividerShortSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.5 3c.28 0 .5.22.5.5v9a.5.5 0 0 1-1 0v-9c0-.28.22-.5.5-.5Z\"/>";
 
             /// <summary />
-            public static string FolderList { get; } = ResourceManager.GetString("FolderList");
+            public static string DividerTallSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.5 1c.28 0 .5.22.5.5v13a.5.5 0 0 1-1 0v-13c0-.28.22-.5.5-.5Z\"/>";
 
             /// <summary />
-            public static string FolderMail { get; } = ResourceManager.GetString("FolderMail");
+            public static string DoctorSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6.5 2.77a.5.5 0 0 0-.5.5v2.25a.5.5 0 0 1-.5.5h-2a.5.5 0 0 0-.5.5V9.5c0 .28.22.5.5.5h2c.28 0 .5.22.5.5v2c0 .28.22.5.5.5h3a.5.5 0 0 0 .5-.5v-2c0-.28.22-.5.5-.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 1-.5-.5V3.27a.5.5 0 0 0-.5-.5h-3Zm-1.5.5c0-.83.67-1.5 1.5-1.5h3c.83 0 1.5.67 1.5 1.5V5h1.5c.83 0 1.5.67 1.5 1.5v3c0 .83-.67 1.5-1.5 1.5H11v1.5c0 .83-.67 1.5-1.5 1.5h-3A1.5 1.5 0 0 1 5 12.5V11H3.5A1.5 1.5 0 0 1 2 9.5V6.52c0-.83.67-1.5 1.5-1.5H5V3.27Z\"/>";
 
             /// <summary />
-            public static string FolderMultiple { get; } = ResourceManager.GetString("FolderMultiple");
+            public static string Document100SvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 1a2 2 0 0 0-2 2v6.16a1.7 1.7 0 0 1 .72.59c.09-.1.18-.18.28-.25V3a1 1 0 0 1 1-1h3v2.5C8 5.33 8.67 6 9.5 6H12v7.5c0 .53-.16 1.02-.44 1.42A2 2 0 0 0 13 13V5.41c0-.4-.16-.78-.44-1.06L9.65 1.44A1.5 1.5 0 0 0 8.59 1H5Zm6.8 4H9.5a.5.5 0 0 1-.5-.5V2.2L11.8 5ZM3 10.65c0-.2-.1-.35-.2-.45a.73.73 0 0 0-.3-.16c-.16-.05-.5-.07-.73.22-.2.26-.51.57-.98.78a.5.5 0 0 0 .42.92c.3-.15.57-.32.79-.5v3.04a.5.5 0 0 0 1 0v-3.85Zm1 .85a1.5 1.5 0 0 1 3 0v2a1.5 1.5 0 0 1-3 0v-2Zm1.5-.5a.5.5 0 0 0-.5.5v2a.5.5 0 0 0 1 0v-2a.5.5 0 0 0-.5-.5Zm4-1c-.83 0-1.5.67-1.5 1.5v2a1.5 1.5 0 0 0 3 0v-2c0-.83-.67-1.5-1.5-1.5ZM9 11.5a.5.5 0 0 1 1 0v2a.5.5 0 0 1-1 0v-2Z\"/>";
 
             /// <summary />
-            public static string FolderOpen { get; } = ResourceManager.GetString("FolderOpen");
+            public static string DocumentAddSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 1a2 2 0 0 0-2 2v2.2c.32-.08.66-.15 1-.18V3a1 1 0 0 1 1-1h3v2.5c0 .83.67 1.5 1.5 1.5H13v7a1 1 0 0 1-1 1H9.74c-.31.38-.67.72-1.08 1H12a2 2 0 0 0 2-2V5.41c0-.4-.16-.78-.44-1.06l-2.91-2.91A1.5 1.5 0 0 0 9.59 1H6Zm6.8 4h-2.3a.5.5 0 0 1-.5-.5V2.2L12.8 5ZM10 10.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-4-2a.5.5 0 0 0-1 0V10H3.5a.5.5 0 0 0 0 1H5v1.5a.5.5 0 0 0 1 0V11h1.5a.5.5 0 0 0 0-1H6V8.5Z\"/>";
 
             /// <summary />
-            public static string FolderOpenVertical { get; } = ResourceManager.GetString("FolderOpenVertical");
+            public static string DocumentArrowDownSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 3c0-1.1.9-2 2-2h3.58c.4 0 .78.16 1.06.44l2.92 2.92c.28.28.44.66.44 1.06V13a2 2 0 0 1-2 2H8.67c.4-.29.76-.62 1.07-1H12a1 1 0 0 0 1-1V6h-2.5A1.5 1.5 0 0 1 9 4.5V2H6a1 1 0 0 0-1 1v2.02c-.34.03-.68.1-1 .19V3Zm6-.79v2.3c0 .27.22.5.5.5h2.3L10 2.2Zm0 8.29a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-4.85 2.35a.5.5 0 0 0 .35.15.5.5 0 0 0 .35-.15l2-2a.5.5 0 0 0-.7-.7L6 11.29V8.5a.5.5 0 0 0-1 0v2.8l-1.15-1.15a.5.5 0 0 0-.7.7l2 2Z\"/>";
 
             /// <summary />
-            public static string FolderPerson { get; } = ResourceManager.GetString("FolderPerson");
+            public static string DocumentArrowLeftSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 1a2 2 0 0 0-2 2v2.2c.32-.08.66-.15 1-.18V3a1 1 0 0 1 1-1h3v2.5c0 .83.67 1.5 1.5 1.5H13v7a1 1 0 0 1-1 1H9.74c-.31.38-.67.72-1.08 1H12a2 2 0 0 0 2-2V5.41c0-.4-.16-.78-.44-1.06l-2.91-2.91A1.5 1.5 0 0 0 9.59 1H6Zm6.8 4h-2.3a.5.5 0 0 1-.5-.5V2.2L12.8 5ZM10 10.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-6.85-.35a.5.5 0 0 0-.15.35.5.5 0 0 0 .15.35l2 2a.5.5 0 0 0 .7-.7L4.71 11H7.5a.5.5 0 0 0 0-1H4.7l1.15-1.15a.5.5 0 1 0-.7-.7l-2 2Z\"/>";
 
             /// <summary />
-            public static string FolderProhibited { get; } = ResourceManager.GetString("FolderProhibited");
+            public static string DocumentArrowUpSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 3c0-1.1.9-2 2-2h3.59c.4 0 .78.16 1.06.44l2.91 2.91c.28.28.44.67.44 1.06V13a2 2 0 0 1-2 2H8.66c.4-.28.77-.62 1.08-1H12a1 1 0 0 0 1-1V6h-2.5A1.5 1.5 0 0 1 9 4.5V2H6a1 1 0 0 0-1 1v2.02c-.34.03-.68.1-1 .19V3Zm6.5 2h2.3L10 2.2v2.3c0 .28.22.5.5.5Zm-5 10a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm2.35-4.85a.5.5 0 0 1-.7.7L6 9.71v2.79a.5.5 0 0 1-1 0V9.7l-1.15 1.15a.5.5 0 0 1-.7-.7l2-2A.5.5 0 0 1 5.5 8a.5.5 0 0 1 .35.14l2 2Z\"/>";
 
             /// <summary />
-            public static string FolderSwap { get; } = ResourceManager.GetString("FolderSwap");
+            public static string DocumentBulletListArrowLeftSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 1a2 2 0 0 0-2 2v2.2c.32-.08.66-.15 1-.18V3a1 1 0 0 1 1-1h3v2.5c0 .83.67 1.5 1.5 1.5H13v7a1 1 0 0 1-1 1H9.74c-.31.38-.67.72-1.08 1H12a2 2 0 0 0 2-2V5.41c0-.4-.16-.78-.44-1.06l-2.91-2.91A1.5 1.5 0 0 0 9.59 1H6Zm3.74 6c.26.3.48.64.66 1h1.1a.5.5 0 0 0 0-1H9.74Zm1.05 2c.1.32.16.66.19 1h.52a.5.5 0 0 0 0-1h-.7Zm.19 2c-.03.34-.1.68-.19 1h.71a.5.5 0 0 0 0-1h-.52Zm1.81-6H10.5a.5.5 0 0 1-.5-.5V2.2L12.8 5ZM5.5 15a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9Zm-2.35-4.85a.5.5 0 0 0-.15.35.5.5 0 0 0 .15.35l2 2a.5.5 0 0 0 .7-.7L4.71 11H7.5a.5.5 0 0 0 0-1H4.7l1.15-1.15a.5.5 0 1 0-.7-.7l-2 2Z\"/>";
 
             /// <summary />
-            public static string FolderSync { get; } = ResourceManager.GetString("FolderSync");
+            public static string DocumentBulletListCubeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><svg width=\"16\" height=\"17\" viewBox=\"0 0 16 17\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M6 1a2 2 0 0 0-2 2v3.26l.1-.05A2 2 0 0 1 5 6V3a1 1 0 0 1 1-1h3v2.5c0 .83.67 1.5 1.5 1.5H13v7a1 1 0 0 1-1 1H9.94a2 2 0 0 1-.61 1H12a2 2 0 0 0 2-2V5.41c0-.4-.16-.78-.44-1.06l-2.91-2.91A1.5 1.5 0 0 0 9.59 1H6Zm2.9 6.71a2 2 0 0 1 .42.29h2.18a.5.5 0 0 0 0-1h-3a.5.5 0 0 0-.45.29l.84.42ZM10 9.5v.5h1.5a.5.5 0 0 0 0-1H9.94a2 2 0 0 1 .06.5Zm0 1.5v1h1.5a.5.5 0 0 0 0-1H10Zm2.8-6h-2.3a.5.5 0 0 1-.5-.5V2.2L12.8 5ZM8.44 8.6l-3-1.5a1 1 0 0 0-.9 0l-3 1.5a1 1 0 0 0-.55.9v4a1 1 0 0 0 .55.9l3 1.5a1 1 0 0 0 .9 0l3-1.5a1 1 0 0 0 .55-.9v-4a1 1 0 0 0-.55-.9ZM2.04 9.74a.5.5 0 0 1 .66-.26l2.3.99 2.3-1a.5.5 0 0 1 .4.93l-2.2.94V14a.5.5 0 1 1-1 0v-2.67l-2.2-.94a.5.5 0 0 1-.26-.66Z\"/>";
 
             /// <summary />
-            public static string FolderZip { get; } = ResourceManager.GetString("FolderZip");
+            public static string DocumentBulletListSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 1a2 2 0 0 0-2 2v10c0 1.1.9 2 2 2h6a2 2 0 0 0 2-2V5.41c0-.4-.16-.78-.44-1.06L9.65 1.44A1.5 1.5 0 0 0 8.59 1H5ZM4 3a1 1 0 0 1 1-1h3v2.5C8 5.33 8.67 6 9.5 6H12v7a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V3Zm7.8 2H9.5a.5.5 0 0 1-.5-.5V2.2L11.8 5ZM7 7.5c0-.28.22-.5.5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5ZM7.5 9a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3ZM7 11.5c0-.28.22-.5.5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5ZM5.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1ZM6 9.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM5.5 12a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Z\"/>";
 
             /// <summary />
-            public static string FontSpaceTrackingIn { get; } = ResourceManager.GetString("FontSpaceTrackingIn");
+            public static string DocumentCatchUpSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 1a2 2 0 0 0-2 2v3.5a.5.5 0 0 0 1 0V3a1 1 0 0 1 1-1h3v2.5C8 5.33 8.67 6 9.5 6H12v7a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-2H3v2c0 1.1.9 2 2 2h6a2 2 0 0 0 2-2V5.41c0-.4-.16-.78-.44-1.06L9.65 1.44A1.5 1.5 0 0 0 8.59 1H5Zm6.8 4H9.5a.5.5 0 0 1-.5-.5V2.2L11.8 5ZM6.47 6.36a.5.5 0 0 0-.93-.08L4.2 9H2.5a.5.5 0 0 0 0 1h2a.5.5 0 0 0 .45-.28l.93-1.87 1.14 3.8a.5.5 0 0 0 .88.15L9.25 10h1.25a.5.5 0 0 0 0-1H9a.5.5 0 0 0-.4.2l-.9 1.2-1.22-4.04Z\"/>";
 
             /// <summary />
-            public static string FontSpaceTrackingOut { get; } = ResourceManager.GetString("FontSpaceTrackingOut");
+            public static string DocumentContractSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m7.2 10.5.65-.65a.5.5 0 1 0-.7-.7l-.65.64-.65-.64a.5.5 0 1 0-.7.7l.64.65-.64.65a.5.5 0 0 0 .7.7l.65-.64.65.64a.5.5 0 1 0 .7-.7l-.64-.65ZM3.6 1.59A2 2 0 0 1 5 1h3.59c.4 0 .77.16 1.06.44l2.91 2.91c.28.29.44.67.44 1.06V13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3a2 2 0 0 1 .59-1.41ZM12 11V6H9.5A1.5 1.5 0 0 1 8 4.5V2H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-1H9.5a.5.5 0 0 1 0-1H12ZM9.5 5h2.3L9 2.2v2.3a.5.5 0 0 0 .5.5Z\"/>";
 
             /// <summary />
-            public static string Food { get; } = ResourceManager.GetString("Food");
+            public static string DocumentCopySvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7 1a2 2 0 0 0-2 2v8c0 1.1.9 2 2 2h5a2 2 0 0 0 2-2V4.41c0-.4-.16-.78-.44-1.06l-1.92-1.91A1.5 1.5 0 0 0 10.58 1H7Zm5 11H7a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h3v1.5c0 .83.67 1.5 1.5 1.5H13v6a1 1 0 0 1-1 1Zm.8-8h-1.3a.5.5 0 0 1-.5-.5V2.2L12.8 4ZM3 4a1 1 0 0 1 1-1v8a3 3 0 0 0 3 3h5a1 1 0 0 1-1 1H6.79C4.69 15 3 13.3 3 11.21V4Z\"/>";
 
             /// <summary />
-            public static string FoodCake { get; } = ResourceManager.GetString("FoodCake");
+            public static string DocumentCssSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m10.65 1.44 2.91 2.91c.28.28.44.66.44 1.06V13a2 2 0 0 1-1.39 1.9 2.41 2.41 0 0 0 .36-1.68A.78.78 0 0 0 13 13V6h-2.5A1.5 1.5 0 0 1 9 4.5V2H6a1 1 0 0 0-1 1v6.46c-.2.15-.37.32-.52.52-.14-.18-.3-.34-.48-.48V3a2 2 0 0 1 2-2h3.59c.4 0 .78.16 1.06.44Zm-.5 3.41c.09.1.22.15.35.15h2.29L10 2.21V4.5c0 .13.05.26.15.35Zm-8.71 9.71A1.5 1.5 0 0 0 4 13.5a.5.5 0 0 0-1 0 .5.5 0 0 1-1 0v-2a.5.5 0 0 1 1 0 .5.5 0 0 0 1 0 1.5 1.5 0 0 0-3 0v2c0 .4.16.78.44 1.06Zm5.13.44h-.14A1.43 1.43 0 0 1 5 13.57a.53.53 0 0 1 .5-.53.47.47 0 0 1 .5.46.45.45 0 0 0 .43.5h.14a.43.43 0 0 0 .2-.8l-.98-.5a1.43 1.43 0 0 1 .64-2.7h.14A1.43 1.43 0 0 1 8 11.43a.53.53 0 0 1-.5.53.47.47 0 0 1-.5-.46v-.07a.43.43 0 0 0-.43-.43h-.14a.43.43 0 0 0-.2.8l.98.5a1.43 1.43 0 0 1-.64 2.7Zm3.86 0h.14a1.43 1.43 0 0 0 .64-2.7l-.98-.5a.42.42 0 0 1-.23-.37.43.43 0 0 1 .43-.43h.14a.43.43 0 0 1 .43.43v.07a.47.47 0 0 0 .5.46.53.53 0 0 0 .5-.53A1.43 1.43 0 0 0 10.57 10h-.14a1.43 1.43 0 0 0-.64 2.7l.98.5a.42.42 0 0 1 .23.37.43.43 0 0 1-.43.43h-.14a.45.45 0 0 1-.43-.5.47.47 0 0 0-.5-.46.53.53 0 0 0-.5.53A1.43 1.43 0 0 0 10.43 15Z\"/>";
 
             /// <summary />
-            public static string FoodChickenLeg { get; } = ResourceManager.GetString("FoodChickenLeg");
+            public static string DocumentCsSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m10.65 1.44 2.91 2.91c.28.28.44.66.44 1.06V13a2 2 0 0 1-2 2h-1.6c.37-.23.65-.58.78-1H12a1 1 0 0 0 1-1V6h-2.5A1.5 1.5 0 0 1 9 4.5V2H6a1 1 0 0 0-1 1v6.61c-.05.08-.1.17-.13.26a.67.67 0 0 0-.12.06A2.48 2.48 0 0 0 4 9.2V3a2 2 0 0 1 2-2h3.59c.4 0 .78.16 1.06.44Zm-.5 3.41c.09.1.22.15.35.15h2.29L10 2.21V4.5c0 .13.05.26.15.35ZM2.5 15A1.5 1.5 0 0 1 1 13.5v-2a1.5 1.5 0 0 1 3 0 .5.5 0 0 1-1 0 .5.5 0 0 0-1 0v2a.5.5 0 0 0 1 0 .5.5 0 0 1 1 0A1.5 1.5 0 0 1 2.5 15Zm7-2H9v-1h.5a.5.5 0 0 0 0-1H9v-.5a.5.5 0 0 0-1 0v.5H7v-.5a.5.5 0 0 0-1 0v.5h-.5a.5.5 0 0 0 0 1H6l.01 1H5.5a.5.5 0 0 0 0 1h.52v.5a.5.5 0 0 0 1 0V14H8v.5a.5.5 0 0 0 1 0V14h.5a.5.5 0 0 0 0-1ZM8 13h-.99v-1H8v1Z\"/>";
 
             /// <summary />
-            public static string FoodEgg { get; } = ResourceManager.GetString("FoodEgg");
+            public static string DocumentDataLinkSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 1a2 2 0 0 0-2 2v6h1V3a1 1 0 0 1 1-1h3v2.5c0 .83.67 1.5 1.5 1.5H13v7a1 1 0 0 1-1 1h-1.34c-.17.37-.42.71-.71 1H12a2 2 0 0 0 2-2V5.41c0-.4-.16-.78-.44-1.06l-2.91-2.91A1.5 1.5 0 0 0 9.59 1H6Zm2.5 8.14c.36.11.7.28 1 .49V7.5a.5.5 0 0 0-1 0v1.64Zm3 3.86a.5.5 0 0 1-.5-.5v-3a.5.5 0 0 1 1 0v3a.5.5 0 0 1-.5.5Zm1.3-8h-2.3a.5.5 0 0 1-.5-.5V2.2L12.8 5Zm-9.3 5a2.5 2.5 0 0 0 0 5H4a.5.5 0 0 0 0-1h-.5a1.5 1.5 0 0 1 0-3H4a.5.5 0 0 0 0-1h-.5ZM7 10a.5.5 0 0 0 0 1h.5a1.5 1.5 0 0 1 0 3H7a.5.5 0 0 0 0 1h.5a2.5 2.5 0 0 0 0-5H7Zm-4 2.5c0-.28.22-.5.5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5Z\"/>";
 
             /// <summary />
-            public static string FoodToast { get; } = ResourceManager.GetString("FoodToast");
+            public static string DocumentDataSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 1a2 2 0 0 0-2 2v10c0 1.1.9 2 2 2h6a2 2 0 0 0 2-2V5.41c0-.4-.16-.78-.44-1.06L9.65 1.44A1.5 1.5 0 0 0 8.59 1H5ZM4 3a1 1 0 0 1 1-1h3v2.5C8 5.33 8.67 6 9.5 6H12v7a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V3Zm7.8 2H9.5a.5.5 0 0 1-.5-.5V2.2L11.8 5ZM8 13a.5.5 0 0 1-.5-.5v-5a.5.5 0 0 1 1 0v5a.5.5 0 0 1-.5.5Zm2.5 0a.5.5 0 0 1-.5-.5v-3a.5.5 0 0 1 1 0v3a.5.5 0 0 1-.5.5Zm-5 0a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 1 1 0v2a.5.5 0 0 1-.5.5Z\"/>";
 
             /// <summary />
-            public static string Fps30 { get; } = ResourceManager.GetString("Fps30");
+            public static string DocumentDismissSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 3c0-1.1.9-2 2-2h3.59c.4 0 .78.16 1.06.44l2.91 2.91c.28.28.44.67.44 1.06V13a2 2 0 0 1-2 2H8.66c.4-.28.77-.62 1.08-1H12a1 1 0 0 0 1-1V6h-2.5A1.5 1.5 0 0 1 9 4.5V2H6a1 1 0 0 0-1 1v2.02c-.34.03-.68.1-1 .19V3Zm6.5 2h2.3L10 2.2v2.3c0 .28.22.5.5.5ZM2.32 7.32a4.5 4.5 0 1 0 6.36 6.36 4.5 4.5 0 0 0-6.36-6.36Zm4.95 4.95a.5.5 0 0 1-.7 0L5.5 11.2l-1.06 1.06a.5.5 0 0 1-.7-.7l1.05-1.07-1.06-1.06a.5.5 0 0 1 .7-.7L5.5 9.78l1.06-1.06a.5.5 0 0 1 .7.7L6.22 10.5l1.06 1.06c.2.2.2.51 0 .7Z\"/>";
 
             /// <summary />
-            public static string Fps60 { get; } = ResourceManager.GetString("Fps60");
+            public static string DocumentEditSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 1a2 2 0 0 0-2 2v10c0 1.1.9 2 2 2h1.05l.25-1H5a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h3v2.5C8 5.33 8.67 6 9.5 6H12v1.44c.3-.2.65-.34 1-.4V5.4c0-.4-.16-.78-.44-1.06L9.65 1.44A1.5 1.5 0 0 0 8.58 1H5Zm6.8 4H9.5a.5.5 0 0 1-.5-.5V2.2L11.8 5ZM13 8.06c-.24.07-.47.2-.66.4l-4.3 4.28c-.34.35-.59.78-.71 1.26l-.01.03-.3 1.21a.6.6 0 0 0 .73.74l1.22-.3c.48-.12.93-.38 1.29-.73l4.28-4.29A1.56 1.56 0 0 0 13 8.06Z\"/>";
 
             /// <summary />
-            public static string Frame { get; } = ResourceManager.GetString("Frame");
+            public static string DocumentErrorSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 1a2 2 0 0 0-2 2v2.2c.32-.08.66-.15 1-.18V3a1 1 0 0 1 1-1h3v2.5c0 .83.67 1.5 1.5 1.5H13v7a1 1 0 0 1-1 1H9.74c-.3.38-.67.71-1.07 1H12a2 2 0 0 0 2-2V5.42c0-.4-.16-.78-.44-1.06l-2.92-2.92A1.5 1.5 0 0 0 9.58 1H6Zm4 3.5V2.21l2.8 2.8h-2.3a.5.5 0 0 1-.5-.5Zm0 6a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM5.5 8a.5.5 0 0 0-.5.5v2a.5.5 0 0 0 1 0v-2a.5.5 0 0 0-.5-.5Zm0 5.13a.62.62 0 1 0 0-1.25.62.62 0 0 0 0 1.24Z\"/>";
 
             /// <summary />
-            public static string FStop { get; } = ResourceManager.GetString("FStop");
+            public static string DocumentFitSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 1a2 2 0 0 0-2 2v10c0 1.1.9 2 2 2h6a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H5ZM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V3Zm1 1a1 1 0 0 1 1-1h1a.5.5 0 0 1 0 1H6v1a.5.5 0 0 1-1 0V4Zm0 8a1 1 0 0 0 1 1h1a.5.5 0 0 0 0-1H6v-1a.5.5 0 0 0-1 0v1Zm5-9a1 1 0 0 1 1 1v1a.5.5 0 0 1-1 0V4H9a.5.5 0 0 1 0-1h1Zm1 9a1 1 0 0 1-1 1H9a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0v1Z\"/>";
 
             /// <summary />
-            public static string FullScreenMaximize { get; } = ResourceManager.GetString("FullScreenMaximize");
+            public static string DocumentFolderSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13 10.09c.58.2 1 .76 1 1.41v.5a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6.5c0-.65.42-1.2 1-1.41V3.5C3 2.67 3.67 2 4.5 2h5c.83 0 1.5.67 1.5 1.5V10h1V4.09c.58.2 1 .76 1 1.41v4.59Zm-3-.8V3.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0-.5.5V5h1.09c.4 0 .78.16 1.06.44L10 9.29ZM3 6.5V12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-.5a.5.5 0 0 0-.5-.5h-1.59c-.4 0-.78-.16-1.06-.44L5.44 6.15A.5.5 0 0 0 5.09 6H3.5a.5.5 0 0 0-.5.5Z\"/>";
 
             /// <summary />
-            public static string FullScreenMinimize { get; } = ResourceManager.GetString("FullScreenMinimize");
+            public static string DocumentFooterSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 11a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2H6ZM4.75 1C3.78 1 3 1.78 3 2.75v10.5c0 .97.78 1.75 1.75 1.75h6.5c.97 0 1.75-.78 1.75-1.75V2.75C13 1.78 12.22 1 11.25 1h-6.5ZM4 2.75c0-.41.34-.75.75-.75h6.5c.41 0 .75.34.75.75v10.5c0 .41-.34.75-.75.75h-6.5a.75.75 0 0 1-.75-.75V2.75Z\"/>";
 
             /// <summary />
-            public static string Games { get; } = ResourceManager.GetString("Games");
+            public static string DocumentFsSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m13.56 4.35-2.91-2.91A1.5 1.5 0 0 0 9.59 1H6a2 2 0 0 0-2 2v5.83c.42.13.78.4 1 .79V3a1 1 0 0 1 1-1h3v2.5A1.5 1.5 0 0 0 10.5 6H13v7a1 1 0 0 1-1 1h-.83c-.13.42-.42.78-.8 1H12a2 2 0 0 0 2-2V5.41c0-.4-.16-.77-.44-1.06ZM10.5 5a.5.5 0 0 1-.5-.5V2.2L12.8 5h-2.3Zm-1 8H9v-1h.5a.5.5 0 0 0 0-1H9v-.5a.5.5 0 0 0-1 0v.5H7v-.5a.5.5 0 0 0-1 0v.5h-.5a.5.5 0 0 0 0 1H6l.01 1H5.5a.5.5 0 0 0 0 1h.52v.5a.5.5 0 0 0 1 0V14H8v.5a.5.5 0 0 0 1 0V14h.5a.5.5 0 0 0 0-1ZM8 13h-.99v-1H8v1Zm-4.15-2.15A.5.5 0 0 0 3.5 10h-2a.5.5 0 0 0-.5.5v4a.5.5 0 0 0 1 0V13h1a.5.5 0 0 0 0-1H2v-1h1.5a.5.5 0 0 0 .35-.15Z\"/>";
 
             /// <summary />
-            public static string GanttChart { get; } = ResourceManager.GetString("GanttChart");
+            public static string DocumentHeaderArrowDownSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.75 1C3.78 1 3 1.78 3 2.75v10.5c0 .97.78 1.75 1.75 1.75h2.59c-.4-.28-.77-.62-1.08-1H4.75a.75.75 0 0 1-.75-.75V2.75c0-.41.34-.75.75-.75h6.5c.41 0 .75.34.75.75v2.46c.35.1.68.23 1 .39V2.75C13 1.78 12.22 1 11.25 1h-6.5ZM6 3a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2H6Zm9 7.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-4.85 2.35a.5.5 0 0 0 .35.15.5.5 0 0 0 .35-.15l2-2a.5.5 0 0 0-.7-.7L11 11.29V8.5a.5.5 0 0 0-1 0v2.8l-1.15-1.15a.5.5 0 0 0-.7.7l2 2Z\"/>";
 
             /// <summary />
-            public static string Gavel { get; } = ResourceManager.GetString("Gavel");
+            public static string DocumentHeaderFooterSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 3a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2H6Zm0 8a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2H6ZM4.75 1C3.78 1 3 1.78 3 2.75v10.5c0 .97.78 1.75 1.75 1.75h6.5c.97 0 1.75-.78 1.75-1.75V2.75C13 1.78 12.22 1 11.25 1h-6.5ZM4 2.75c0-.41.34-.75.75-.75h6.5c.41 0 .75.34.75.75v10.5c0 .41-.34.75-.75.75h-6.5a.75.75 0 0 1-.75-.75V2.75Z\"/>";
 
             /// <summary />
-            public static string GavelProhibited { get; } = ResourceManager.GetString("GavelProhibited");
+            public static string DocumentHeaderSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 3a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2H6ZM4.75 1C3.78 1 3 1.78 3 2.75v10.5c0 .97.78 1.75 1.75 1.75h6.5c.97 0 1.75-.78 1.75-1.75V2.75C13 1.78 12.22 1 11.25 1h-6.5ZM4 2.75c0-.41.34-.75.75-.75h6.5c.41 0 .75.34.75.75v10.5c0 .41-.34.75-.75.75h-6.5a.75.75 0 0 1-.75-.75V2.75Z\"/>";
 
             /// <summary />
-            public static string Gift { get; } = ResourceManager.GetString("Gift");
+            public static string DocumentJsSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m9.65 1.44 2.91 2.91c.28.28.44.66.44 1.06V13a2 2 0 0 1-2 2H8.54c.22-.3.36-.64.42-1H11a1 1 0 0 0 1-1V6H9.5A1.5 1.5 0 0 1 8 4.5V2H5a1 1 0 0 0-1 1v6.09a1.43 1.43 0 0 0-1 0V3a2 2 0 0 1 2-2h3.59c.4 0 .78.16 1.06.44Zm-.5 3.41c.09.1.22.15.35.15h2.29L9 2.21V4.5c0 .13.05.26.15.35ZM2.5 15A1.5 1.5 0 0 1 1 13.5V13a.5.5 0 0 1 1 0v.5a.5.5 0 0 0 1 0v-3a.5.5 0 0 1 1 0v3A1.5 1.5 0 0 1 2.5 15Zm4.07 0h-.14A1.43 1.43 0 0 1 5 13.57a.53.53 0 0 1 .5-.53.47.47 0 0 1 .5.46.45.45 0 0 0 .43.5h.14a.43.43 0 0 0 .2-.8l-.98-.5a1.43 1.43 0 0 1 .64-2.7h.14A1.43 1.43 0 0 1 8 11.43a.53.53 0 0 1-.5.53.47.47 0 0 1-.5-.46v-.07a.43.43 0 0 0-.43-.43h-.14a.43.43 0 0 0-.2.8l.98.5a1.43 1.43 0 0 1-.64 2.7Z\"/>";
 
             /// <summary />
-            public static string GiftCard { get; } = ResourceManager.GetString("GiftCard");
+            public static string DocumentLinkSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 3c0-1.1.9-2 2-2h3.59c.4 0 .78.16 1.06.44l2.91 2.91c.28.28.44.67.44 1.06V13a2 2 0 0 1-2 2H9.95c.3-.29.54-.63.71-1H12a1 1 0 0 0 1-1V6h-2.5A1.5 1.5 0 0 1 9 4.5V2H6a1 1 0 0 0-1 1v6H4V3Zm6.5 2h2.3L10 2.2v2.3c0 .28.22.5.5.5Zm-7 5a2.5 2.5 0 0 0 0 5H4a.5.5 0 0 0 0-1h-.5a1.5 1.5 0 0 1 0-3H4a.5.5 0 0 0 0-1h-.5ZM7 10a.5.5 0 0 0 0 1h.5a1.5 1.5 0 0 1 0 3H7a.5.5 0 0 0 0 1h.5a2.5 2.5 0 0 0 0-5H7Zm-3.5 2a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4Z\"/>";
 
             /// <summary />
-            public static string GiftOpen { get; } = ResourceManager.GetString("GiftOpen");
+            public static string DocumentLockSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 1a2 2 0 0 0-2 2v2.4c.3-.17.64-.3 1-.36V3a1 1 0 0 1 1-1h3v2.5c0 .83.67 1.5 1.5 1.5H13v7a1 1 0 0 1-1 1h-2a2 2 0 0 1-.27 1H12a2 2 0 0 0 2-2V5.41c0-.4-.16-.78-.44-1.06l-2.91-2.91A1.5 1.5 0 0 0 9.59 1H6Zm6.8 4h-2.3a.5.5 0 0 1-.5-.5V2.2L12.8 5ZM3.5 8v1H3a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-.5V8a2 2 0 1 0-4 0Zm1 1V8a1 1 0 0 1 2 0v1h-2Zm1 2.25a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5Z\"/>";
 
             /// <summary />
-            public static string GlanceHorizontal { get; } = ResourceManager.GetString("GlanceHorizontal");
+            public static string DocumentMentionSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 1a2 2 0 0 0-2 2v2.2c.32-.08.66-.15 1-.18V3a1 1 0 0 1 1-1h3v2.5c0 .83.67 1.5 1.5 1.5H13v7a1 1 0 0 1-1 1H8.39c.05.35-.03.7-.2 1H12a2 2 0 0 0 2-2V5.41c0-.4-.16-.78-.44-1.06l-2.91-2.91A1.5 1.5 0 0 0 9.59 1H6Zm6.8 4h-2.3a.5.5 0 0 1-.5-.5V2.2L12.8 5Zm-5.94 9.79A4.48 4.48 0 0 1 5.5 15a4.5 4.5 0 1 1 4.5-4.5c0 1.3-.89 2.34-1.98 2.34-.52 0-.92-.2-1.18-.58a1.88 1.88 0 0 1-1.84.51 1.84 1.84 0 0 1-1-.7c-.3-.42-.48-.98-.48-1.57 0-.6.17-1.15.48-1.57a1.84 1.84 0 0 1 2.47-.5.54.54 0 0 1 1 .2l.01.07v1.8c0 .9.2 1.26.54 1.26.45 0 .9-.52.9-1.26a3.42 3.42 0 1 0-3.42 3.42h.03a3.91 3.91 0 0 0 .8-.1l.2-.06.15-.05a.54.54 0 0 1 .43.99l-.06.03-.19.06ZM5 9.44c-.25.22-.4.6-.4 1.06 0 .46.15.84.4 1.06.14.13.31.2.5.2.52 0 .9-.54.9-1.26s-.38-1.26-.9-1.26a.74.74 0 0 0-.5.2Z\"/>";
 
             /// <summary />
-            public static string GlanceHorizontalSparkles { get; } = ResourceManager.GetString("GlanceHorizontalSparkles");
+            public static string DocumentMultipleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M14 6a1 1 0 0 0-1-1v6a3 3 0 0 1-3 3H5a1 1 0 0 0 1 1h4.21c2.1 0 3.79-1.7 3.79-3.79V6ZM5 1a2 2 0 0 0-2 2v8c0 1.1.9 2 2 2h5a2 2 0 0 0 2-2V4.41c0-.4-.16-.78-.44-1.06L9.64 1.44A1.5 1.5 0 0 0 8.58 1H5Zm5 11H5a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h3v1.5C8 4.33 8.67 5 9.5 5H11v6a1 1 0 0 1-1 1Zm.8-8H9.5a.5.5 0 0 1-.5-.5V2.2L10.8 4Z\"/>";
 
             /// <summary />
-            public static string Glasses { get; } = ResourceManager.GetString("Glasses");
+            public static string DocumentNumber1SvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3 3c0-1.1.9-2 2-2h3.59c.4 0 .78.16 1.06.44l2.91 2.91c.28.28.44.67.44 1.06V13a2 2 0 0 1-2 2H7.91c.06-.16.09-.32.09-.5V14h3a1 1 0 0 0 1-1V6H9.5A1.5 1.5 0 0 1 8 4.5V2H5a1 1 0 0 0-1 1v6.5c-.3-.22-.63-.38-1-.45V3Zm6.5 2h2.3L9 2.2v2.3c0 .28.22.5.5.5Zm-2.7 5.2c.1.1.2.25.2.45v3.85a.5.5 0 0 1-1 0v-3.04c-.22.18-.48.35-.8.5a.5.5 0 1 1-.4-.92c.46-.2.77-.52.97-.78.22-.3.57-.27.72-.22.1.02.21.07.31.16ZM2.5 10c-.83 0-1.5.67-1.5 1.5v2a1.5 1.5 0 0 0 3 0v-2c0-.83-.67-1.5-1.5-1.5ZM2 11.5a.5.5 0 0 1 1 0v2a.5.5 0 0 1-1 0v-2Z\"/>";
 
             /// <summary />
-            public static string GlassesOff { get; } = ResourceManager.GetString("GlassesOff");
+            public static string DocumentOnePageAddSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 1a2 2 0 0 0-2 2v10c0 1.1.9 2 2 2h2.26a5.5 5.5 0 0 1-.66-1H5a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v3.02c.34.03.68.1 1 .19V3a2 2 0 0 0-2-2H5Zm2.73 6.5H6.4a.5.5 0 0 0 .09 1h.39c.24-.37.52-.7.84-1ZM9.59 5a.5.5 0 0 0-.09-1H6.41a.5.5 0 0 0 .09 1h3.09ZM16 11.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-4-2a.5.5 0 0 0-1 0V11H9.5a.5.5 0 0 0 0 1H11v1.5a.5.5 0 0 0 1 0V12h1.5a.5.5 0 0 0 0-1H12V9.5Z\"/>";
 
             /// <summary />
-            public static string Globe { get; } = ResourceManager.GetString("Globe");
+            public static string DocumentOnePageLinkSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11 2H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h1.34c.17.37.42.71.71 1H5a2 2 0 0 1-2-2V3c0-1.1.9-2 2-2h6a2 2 0 0 1 2 2v6h-1V3a1 1 0 0 0-1-1Zm-1.5 8a2.5 2.5 0 0 0 0 5h.5a.5.5 0 0 0 0-1h-.5a1.5 1.5 0 0 1 0-3h.5a.5.5 0 0 0 0-1h-.5Zm3 .5c0-.28.22-.5.5-.5h.5a2.5 2.5 0 0 1 0 5H13a.5.5 0 0 1 0-1h.5a1.5 1.5 0 0 0 0-3H13a.5.5 0 0 1-.5-.5Zm-3 1.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4Zm.5-7.5a.5.5 0 0 1-.41.5H6.5a.5.5 0 0 1-.09-1H9.5c.28 0 .5.22.5.5Zm-.41 4a.5.5 0 0 0-.09-1H6.41a.5.5 0 0 0 .09 1h3.09Z\"/>";
 
             /// <summary />
-            public static string GlobeClock { get; } = ResourceManager.GetString("GlobeClock");
+            public static string DocumentOnePageSparkleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m10.88.28.35 1.07a2.2 2.2 0 0 0 1.4 1.4l1.07.35h.02a.42.42 0 0 1 0 .8l-1.07.35a2.2 2.2 0 0 0-1.4 1.4l-.35 1.07a.42.42 0 0 1-.8 0l-.35-1.07a2.2 2.2 0 0 0-1.4-1.4L7.28 3.9a.42.42 0 0 1 0-.8l1.07-.35a2.2 2.2 0 0 0 1.38-1.4l.35-1.07a.42.42 0 0 1 .8 0Zm4.9 7.93-.76-.25a1.58 1.58 0 0 1-1-1l-.25-.76a.3.3 0 0 0-.57 0l-.25.77a1.58 1.58 0 0 1-.98 1l-.77.24a.3.3 0 0 0 0 .57l.77.25a1.58 1.58 0 0 1 1 1l.24.77a.3.3 0 0 0 .58 0l.24-.77a1.58 1.58 0 0 1 1-1l.77-.24a.3.3 0 0 0 0-.57h-.02ZM13 11.91a1.32 1.32 0 0 1-.24-.14 1.4 1.4 0 0 1-.48-.62l-.26-.8a.98.98 0 0 0-.02-.04V13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h2.43l.61-.2c.16-.05.32-.16.45-.29.13-.13.23-.29.3-.47V1H5a2 2 0 0 0-2 2v10c0 1.1.9 2 2 2h6a2 2 0 0 0 2-2v-1.1ZM9.59 8.48a.5.5 0 0 0-.09-.99H6.41a.5.5 0 0 0 .09 1h3.09Zm.41 3a.5.5 0 0 1-.41.5H6.5a.5.5 0 0 1-.09-.99H9.5c.28 0 .5.22.5.5Z\"/>";
 
             /// <summary />
-            public static string GlobeStar { get; } = ResourceManager.GetString("GlobeStar");
+            public static string DocumentOnePageSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9.59 5a.5.5 0 0 0-.09-1H6.41a.5.5 0 0 0 .09 1h3.09ZM10 8a.5.5 0 0 1-.41.5H6.5a.5.5 0 0 1-.09-1H9.5c.28 0 .5.22.5.5Zm-.41 3.98A.5.5 0 0 0 9.5 11h-3l-.09.01a.5.5 0 0 0 .09 1h3l.09-.02ZM3 3c0-1.1.9-2 2-2h6a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3Zm8-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1ZM9.59 5a.5.5 0 0 0-.09-1H6.41a.5.5 0 0 0 .09 1h3.09ZM10 8a.5.5 0 0 1-.41.5H6.5a.5.5 0 0 1-.09-1H9.5c.28 0 .5.22.5.5Zm-.41 3.98A.5.5 0 0 0 9.5 11h-3l-.09.01a.5.5 0 0 0 .09 1h3l.09-.02Z\"/>";
 
             /// <summary />
-            public static string Grid { get; } = ResourceManager.GetString("Grid");
+            public static string DocumentPdfSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 9a.5.5 0 0 0-.5.5v2a.5.5 0 0 0 1 0v-.16h.33a1.17 1.17 0 0 0 0-2.34H4.5Zm.83 1.34H5V10h.33a.17.17 0 0 1 0 .34ZM10 9.5c0-.27.22-.5.5-.5h1a.5.5 0 0 1 0 1H11v.34h.5a.5.5 0 1 1 0 1H11v.16a.5.5 0 0 1-1 0v-2ZM7.5 9a.5.5 0 0 0-.5.5v2c0 .28.22.5.5.5H8a1.5 1.5 0 0 0 0-3h-.5Zm.5 2v-1a.5.5 0 0 1 0 1ZM3 3.5v3.58c-.58.21-1 .77-1 1.42v4c0 .83.67 1.5 1.5 1.5h9c.83 0 1.5-.67 1.5-1.5v-4c0-.65-.42-1.21-1-1.42V5.41c0-.4-.16-.78-.44-1.06l-1.92-1.91A1.5 1.5 0 0 0 9.58 2H4.5C3.67 2 3 2.67 3 3.5ZM4.5 3H9v1.5c0 .83.67 1.5 1.5 1.5H12v1H4V3.5c0-.27.22-.5.5-.5Zm5.5.21L11.8 5h-1.3a.5.5 0 0 1-.5-.5V3.21ZM3.5 8h9c.28 0 .5.22.5.5v4a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-4c0-.28.22-.5.5-.5Z\"/>";
 
             /// <summary />
-            public static string GridKanban { get; } = ResourceManager.GetString("GridKanban");
+            public static string DocumentPersonSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 1a2 2 0 0 0-2 2v2.4c.3-.17.64-.3 1-.36V3a1 1 0 0 1 1-1h3v2.5C8 5.33 8.67 6 9.5 6H12v7a1 1 0 0 1-1 1H8.63c-.19.36-.45.7-.8.98L7.8 15H11a2 2 0 0 0 2-2V5.41c0-.4-.16-.78-.44-1.06L9.65 1.44A1.5 1.5 0 0 0 8.59 1H5Zm6.8 4H9.5a.5.5 0 0 1-.5-.5V2.2L11.8 5ZM6.5 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM8 12.5C8 13.75 7 15 4.5 15S1 13.75 1 12.5c0-.83.67-1.5 1.5-1.5h4c.83 0 1.5.67 1.5 1.5Z\"/>";
 
             /// <summary />
-            public static string Guest { get; } = ResourceManager.GetString("Guest");
+            public static string DocumentPySvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m9.65 1.44 2.91 2.91c.28.28.44.67.44 1.06V13a2 2 0 0 1-2 2H7.91c.06-.16.09-.33.09-.5V14h3a1 1 0 0 0 1-1V6H9.5A1.5 1.5 0 0 1 8 4.5V2H5a1 1 0 0 0-1 1v6.39l-.07.06c-.28-.19-.6-.33-.93-.39V3c0-1.1.9-2 2-2h3.59c.39 0 .78.16 1.06.44ZM9 4.5c0 .28.22.5.5.5h2.29L9 2.21V4.5ZM1.5 10h1a1.5 1.5 0 1 1 0 3H2v1.5a.5.5 0 1 1-1 0v-4a.5.5 0 0 1 .5-.5Zm.5 2h.5a.5.5 0 1 0 0-1H2v1Zm5 .67 1.4-1.87a.5.5 0 0 0-.1-.7.5.5 0 0 0-.7.1l-1.1 1.47-1.1-1.47a.5.5 0 1 0-.8.6L6 12.67v1.83a.5.5 0 1 0 1 0v-1.83Z\"/>";
 
             /// <summary />
-            public static string Guitar { get; } = ResourceManager.GetString("Guitar");
+            public static string DocumentQuestionMarkSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 1a2 2 0 0 0-2 2v2.2c.32-.08.66-.15 1-.18V3a1 1 0 0 1 1-1h3v2.5c0 .83.67 1.5 1.5 1.5H13v7a1 1 0 0 1-1 1H9.74c-.3.38-.67.71-1.07 1H12a2 2 0 0 0 2-2V5.42c0-.4-.16-.78-.44-1.06l-2.92-2.92A1.5 1.5 0 0 0 9.58 1H6Zm4 3.5V2.21l2.8 2.8h-2.3a.5.5 0 0 1-.5-.5Zm0 6a4.5 4.5 0 1 0-9 0 4.5 4.5 0 0 0 9 0Zm-4.5 1.88a.62.62 0 1 1 0 1.25.62.62 0 0 1 0-1.25Zm0-4.88c1.03 0 1.85.85 1.85 1.95 0 .59-.21.91-.72 1.32l-.28.22c-.25.19-.33.3-.35.44v.16a.5.5 0 0 1-1-.09c0-.57.21-.88.72-1.29l.27-.21c.3-.23.36-.35.36-.55 0-.55-.38-.95-.85-.95-.5 0-.86.37-.85.95a.5.5 0 0 1-1 0c-.01-1.13.8-1.95 1.85-1.95Z\"/>";
 
             /// <summary />
-            public static string HandDraw { get; } = ResourceManager.GetString("HandDraw");
+            public static string DocumentRbSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m9.65 1.44 2.91 2.91c.28.29.44.67.44 1.06V13a2 2 0 0 1-2 2H8.74a2.45 2.45 0 0 0 .46-1H11a1 1 0 0 0 1-1V6H9.5A1.5 1.5 0 0 1 8 4.5V2H5a1 1 0 0 0-1 1v6.52l-.04-.04-.06-.04c-.27-.19-.58-.3-.9-.36V3c0-1.1.9-2 2-2h3.59c.4 0 .78.16 1.06.44ZM9 4.5c0 .28.22.5.5.5h2.3L9 2.2v2.3Zm-1 7.1a1.5 1.5 0 0 1-.27.76 1.5 1.5 0 0 1-.12 2.37 1.5 1.5 0 0 1-.86.27H5.5a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 .5-.5h1A1.5 1.5 0 0 1 8 11.6ZM6.5 11H6v1h.5a.5.5 0 1 0 0-1ZM6 14h.75a.5.5 0 1 0 0-1H6v1Zm-2.48-1.41c.24.39.4.82.5 1.27l.02.08.06.2a.5.5 0 0 1-.35.86c-.47 0-.59-.46-.7-.9v-.01c-.1-.36-.28-1.1-.55-1.1H2v1.5a.5.5 0 1 1-1 0v-4a.5.5 0 0 1 .5-.5h1a1.5 1.5 0 0 1 1.02 2.6Zm-1.02-1.6H2v1h.5a.5.5 0 1 0 0-1Z\"/>";
 
             /// <summary />
-            public static string HandLeft { get; } = ResourceManager.GetString("HandLeft");
+            public static string DocumentRibbonSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 1a2 2 0 0 0-2 2v2.13A4 4 0 0 1 4 5V3a1 1 0 0 1 1-1h3v2.5C8 5.33 8.67 6 9.5 6H12v7a1 1 0 0 1-1 1H7v.75c0 .09 0 .17-.02.25H11a2 2 0 0 0 2-2V5.4c0-.4-.16-.78-.44-1.06L9.65 1.44A1.5 1.5 0 0 0 8.59 1H5Zm6.8 4H9.5a.5.5 0 0 1-.5-.5V2.2L11.8 5ZM7 9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-1 3.46a3.98 3.98 0 0 1-4 0v2.29c0 .2.21.31.38.21L4 14l1.62.96c.17.1.38-.02.38-.21v-2.29Z\"/>";
 
             /// <summary />
-            public static string HandLeftChat { get; } = ResourceManager.GetString("HandLeftChat");
+            public static string DocumentSearchSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 1a2 2 0 0 0-2 2v2.26c.32-.12.65-.2 1-.23V3a1 1 0 0 1 1-1h3v2.5C8 5.33 8.67 6 9.5 6H12v7a1 1 0 0 1-1 1h-.09c.12.32.12.68 0 1H11a2 2 0 0 0 2-2V5.41c0-.4-.16-.78-.44-1.06L9.65 1.44A1.5 1.5 0 0 0 8.59 1H5Zm6.8 4H9.5a.5.5 0 0 1-.5-.5V2.2L11.8 5Zm-5.2 7.3a3.5 3.5 0 1 1 .7-.7l2.55 2.55a.5.5 0 0 1-.7.7L6.6 12.3ZM7 9.5a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Z\"/>";
 
             /// <summary />
-            public static string HandRight { get; } = ResourceManager.GetString("HandRight");
+            public static string DocumentSettingsSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 1a2 2 0 0 0-2 2v2.2c.32-.08.66-.15 1-.18V3a1 1 0 0 1 1-1h3v2.5c0 .83.67 1.5 1.5 1.5H13v7a1 1 0 0 1-1 1H9.74c-.31.38-.67.72-1.08 1H12a2 2 0 0 0 2-2V5.41c0-.4-.16-.78-.44-1.06l-2.91-2.91A1.5 1.5 0 0 0 9.59 1H6Zm6.8 4h-2.3a.5.5 0 0 1-.5-.5V2.2L12.8 5ZM1.62 9.92a2 2 0 0 0 1.43-2.48l-.15-.55c.25-.2.53-.37.82-.5l.34.36a2 2 0 0 0 2.9 0l.33-.35c.3.14.58.32.84.52L8 7.34a2 2 0 0 0 1.46 2.52l.35.09a4.7 4.7 0 0 1 0 1.01l-.45.12a2 2 0 0 0-1.44 2.48l.16.55c-.25.2-.53.37-.82.5l-.34-.36a2 2 0 0 0-2.9 0l-.33.35c-.3-.14-.58-.32-.84-.52l.13-.42a2 2 0 0 0-1.46-2.52l-.35-.09a4.7 4.7 0 0 1 0-1.01l.45-.12Zm4.87.58a1 1 0 1 0-2 0 1 1 0 0 0 2 0Z\"/>";
 
             /// <summary />
-            public static string Handshake { get; } = ResourceManager.GetString("Handshake");
+            public static string DocumentSplitHintOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3 3.7v3.8a.5.5 0 0 0 1 0V4.7l8 8v.3a1 1 0 0 1-1 1h-.5a.5.5 0 0 0 0 1h.5a2 2 0 0 0 1.9-1.39l1.25 1.24a.5.5 0 0 0 .7-.7l-13-13a.5.5 0 1 0-.7.7L3 3.71Zm9 6.18.9.9a.5.5 0 0 0 .1-.28v-1a.5.5 0 0 0-1 0v.38ZM3.65 1.53l.7.7A1 1 0 0 1 5 2h3v2.5C8 5.33 8.67 6 9.5 6H12v1.5a.5.5 0 0 0 1 0V5.41c0-.4-.16-.78-.44-1.06L9.65 1.44A1.5 1.5 0 0 0 8.59 1H5a2 2 0 0 0-1.35.53ZM9 2.2 11.8 5H9.5a.5.5 0 0 1-.5-.5V2.2ZM3.5 9c.28 0 .5.22.5.5v1a.5.5 0 0 1-1 0v-1c0-.28.22-.5.5-.5Zm0 3c.28 0 .5.22.5.5v.5a1 1 0 0 0 1 1h.5a.5.5 0 0 1 0 1H5a2 2 0 0 1-2-2v-.5c0-.28.22-.5.5-.5ZM7 14.5c0-.28.22-.5.5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5Z\"/>";
 
             /// <summary />
-            public static string HandWave { get; } = ResourceManager.GetString("HandWave");
+            public static string DocumentSplitHintSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 2a1 1 0 0 0-1 1v4.5a.5.5 0 0 1-1 0V3c0-1.1.9-2 2-2h3.59c.4 0 .78.16 1.06.44l2.91 2.91c.28.28.44.67.44 1.06V7.5a.5.5 0 0 1-1 0V6H9.5A1.5 1.5 0 0 1 8 4.5V2H5Zm4 .2v2.3c0 .28.22.5.5.5h2.3L9 2.2ZM3.5 9c.28 0 .5.22.5.5v1a.5.5 0 0 1-1 0v-1c0-.28.22-.5.5-.5Zm9 0c.28 0 .5.22.5.5v1a.5.5 0 0 1-1 0v-1c0-.28.22-.5.5-.5Zm-9 3c.28 0 .5.22.5.5v.5a1 1 0 0 0 1 1h.5a.5.5 0 0 1 0 1H5a2 2 0 0 1-2-2v-.5c0-.28.22-.5.5-.5Zm9 0c.28 0 .5.22.5.5v.5a2 2 0 0 1-2 2h-.5a.5.5 0 0 1 0-1h.5a1 1 0 0 0 1-1v-.5c0-.28.22-.5.5-.5ZM7 14.5c0-.28.22-.5.5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5Z\"/>";
 
             /// <summary />
-            public static string HardDrive { get; } = ResourceManager.GetString("HardDrive");
+            public static string DocumentSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 1a2 2 0 0 0-2 2v10c0 1.1.9 2 2 2h6a2 2 0 0 0 2-2V5.41c0-.4-.16-.78-.44-1.06L9.65 1.44A1.5 1.5 0 0 0 8.59 1H5ZM4 3a1 1 0 0 1 1-1h3v2.5C8 5.33 8.67 6 9.5 6H12v7a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V3Zm7.8 2H9.5a.5.5 0 0 1-.5-.5V2.2L11.8 5Z\"/>";
 
             /// <summary />
-            public static string HatGraduation { get; } = ResourceManager.GetString("HatGraduation");
+            public static string DocumentSyncSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 1a2 2 0 0 0-2 2v2.2c.32-.08.66-.15 1-.18V3a1 1 0 0 1 1-1h3v2.5c0 .83.67 1.5 1.5 1.5H13v7a1 1 0 0 1-1 1H9.74c-.31.38-.67.72-1.08 1H12a2 2 0 0 0 2-2V5.41c0-.4-.16-.78-.44-1.06l-2.91-2.91A1.5 1.5 0 0 0 9.59 1H6Zm6.8 4h-2.3a.5.5 0 0 1-.5-.5V2.2L12.8 5ZM5.5 15a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9ZM7 8v.15a3 3 0 0 0-3.62.48.5.5 0 0 0 .7.7A2 2 0 0 1 6.48 9H6a.5.5 0 0 0 0 1h1.5a.5.5 0 0 0 .5-.5V8a.5.5 0 0 0-1 0Zm-1.55 5.25a3 3 0 0 0 2.17-.88.5.5 0 1 0-.7-.7 2 2 0 0 1-2.39.33H5a.5.5 0 0 0 0-1H3.5a.5.5 0 0 0-.5.5V13a.5.5 0 0 0 1 0v-.15a3.02 3.02 0 0 0 1.45.4Z\"/>";
 
             /// <summary />
-            public static string Headset { get; } = ResourceManager.GetString("Headset");
+            public static string DocumentTableSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 9.25v2.5c0 .69.56 1.25 1.25 1.25h3.5c.69 0 1.25-.56 1.25-1.25v-2.5C11 8.56 10.44 8 9.75 8h-3.5C5.56 8 5 8.56 5 9.25Zm1 0c0-.14.11-.25.25-.25H7v1H6v-.75Zm4 .75H8V9h1.75c.14 0 .25.11.25.25V10Zm-2 1h2v.75c0 .14-.11.25-.25.25H8v-1Zm-1 0v1h-.75a.25.25 0 0 1-.25-.25V11h1ZM3 3c0-1.1.9-2 2-2h3.59c.4 0 .78.16 1.06.44l2.91 2.91c.28.28.44.67.44 1.06V13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3Zm2-1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V6H9.5A1.5 1.5 0 0 1 8 4.5V2H5Zm4.5 3h2.3L9 2.2v2.3c0 .28.22.5.5.5Z\"/>";
 
             /// <summary />
-            public static string Heart { get; } = ResourceManager.GetString("Heart");
+            public static string DocumentTargetSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m9.65 1.44 2.91 2.91c.28.28.44.67.44 1.06V13a2 2 0 0 1-2 2H7.26l.13-.1c.1-.07.2-.14.28-.23.2-.2.38-.43.54-.67H11a1 1 0 0 0 1-1V6H9.5A1.5 1.5 0 0 1 8 4.5V2H5a1 1 0 0 0-1 1v3.1a1.48 1.48 0 0 0-1 1.17H3V3c0-1.1.9-2 2-2h3.59c.4 0 .78.16 1.06.44ZM9 4.5c0 .28.22.5.5.5h2.3L9 2.2v2.3Zm-4.5 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm4-1.5h-.55A3.49 3.49 0 0 0 5 8.05V7.5a.5.5 0 1 0-1 0v.55A3.49 3.49 0 0 0 1.05 11H.5a.5.5 0 1 0 0 1h.55A3.49 3.49 0 0 0 4 14.95v.55a.5.5 0 1 0 1 0v-.55A3.49 3.49 0 0 0 7.95 12h.55a.5.5 0 1 0 0-1Zm-2.23 2.27a2.5 2.5 0 1 1-3.54-3.54 2.5 2.5 0 0 1 3.54 3.54Z\"/>";
 
             /// <summary />
-            public static string HeartBroken { get; } = ResourceManager.GetString("HeartBroken");
+            public static string DocumentTextSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3 3c0-1.1.9-2 2-2h3.59c.4 0 .78.16 1.06.44l2.91 2.91c.28.28.44.67.44 1.06V13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3Zm2-1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V6H9.5A1.5 1.5 0 0 1 8 4.5V2H5Zm4.5 3h2.3L9 2.2v2.3c0 .28.22.5.5.5Zm-4 3a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5ZM5 10.5c0-.28.22-.5.5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm.5 1.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5Z\"/>";
 
             /// <summary />
-            public static string HeartCircle { get; } = ResourceManager.GetString("HeartCircle");
+            public static string DocumentTsSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M12.56 4.35 9.65 1.44A1.52 1.52 0 0 0 8.59 1H5a2 2 0 0 0-2 2v6h1V3a1 1 0 0 1 1-1h3v2.5A1.5 1.5 0 0 0 9.5 6H12v7a1 1 0 0 1-1 1H8.96c-.06.36-.2.7-.42 1H11a2 2 0 0 0 2-2V5.41c0-.4-.16-.78-.44-1.06ZM9.5 5a.5.5 0 0 1-.5-.5V2.21L11.79 5H9.5ZM6.57 15h-.14A1.43 1.43 0 0 1 5 13.57a.53.53 0 0 1 .5-.53.47.47 0 0 1 .5.46.45.45 0 0 0 .43.5h.14a.43.43 0 0 0 .2-.8l-.98-.5a1.43 1.43 0 0 1 .64-2.7h.14A1.43 1.43 0 0 1 8 11.43a.53.53 0 0 1-.5.53.47.47 0 0 1-.5-.46v-.07a.43.43 0 0 0-.43-.43h-.14a.43.43 0 0 0-.2.8l.98.5a1.43 1.43 0 0 1-.64 2.7Zm-2.22-4.15A.5.5 0 0 0 4 10H1a.5.5 0 0 0 0 1h1v3.5a.5.5 0 0 0 1 0V11h1a.5.5 0 0 0 .35-.15Z\"/>";
 
             /// <summary />
-            public static string HeartCircleHint { get; } = ResourceManager.GetString("HeartCircleHint");
+            public static string DocumentVbSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m9.65 1.44 2.91 2.91c.28.28.44.67.44 1.06V13a2 2 0 0 1-2 2H8.75c.14-.19.26-.4.34-.63.05-.1.07-.22.1-.33L9.2 14H11a1 1 0 0 0 1-1V6H9.5A1.5 1.5 0 0 1 8 4.5V2H5a1 1 0 0 0-1 1v6c-.22 0-.42.05-.62.13-.14.07-.27.15-.38.27V3c0-1.1.9-2 2-2h3.59c.39 0 .78.16 1.06.44ZM9 4.5c0 .28.22.5.5.5h2.29L9 2.21V4.5Zm-1 7.1a1.5 1.5 0 0 1-.27.76 1.5 1.5 0 0 1-.12 2.37 1.5 1.5 0 0 1-.86.27H5.5a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 .5-.5h1A1.5 1.5 0 0 1 8 11.6ZM6.5 11H6v1h.5a.5.5 0 1 0 0-1ZM6 14h.75a.5.5 0 1 0 0-1H6v1Zm-3.03.68 1.5-4a.5.5 0 0 0-.94-.36L2.5 13.08l-1.03-2.76a.5.5 0 0 0-.93-.03.5.5 0 0 0 0 .39l1.5 4a.5.5 0 0 0 .46.32.5.5 0 0 0 .47-.32Z\"/>";
 
             /// <summary />
-            public static string Highlight { get; } = ResourceManager.GetString("Highlight");
+            public static string DoorArrowLeftSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.75 1C3.78 1 3 1.78 3 2.75v10.5c0 .97.78 1.75 1.75 1.75h2.5a5.5 5.5 0 0 1-.65-1H4.75a.75.75 0 0 1-.75-.75V2.75c0-.41.34-.75.75-.75h6.5c.41 0 .75.34.75.75v3.27c.34.03.68.1 1 .19V2.75C13 1.78 12.22 1 11.25 1h-6.5ZM7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm9 3.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-6.85-.35a.5.5 0 0 0-.15.35.5.5 0 0 0 .15.35l2 2a.5.5 0 0 0 .7-.7L10.71 12h2.79a.5.5 0 0 0 0-1h-2.8l1.15-1.15a.5.5 0 0 0-.7-.7l-2 2Z\"/>";
 
             /// <summary />
-            public static string History { get; } = ResourceManager.GetString("History");
+            public static string DoorArrowRightSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.75 1C3.78 1 3 1.78 3 2.75v10.5c0 .97.78 1.75 1.75 1.75h2.5a5.5 5.5 0 0 1-.65-1H4.75a.75.75 0 0 1-.75-.75V2.75c0-.41.34-.75.75-.75h6.5c.41 0 .75.34.75.75v3.27c.34.03.68.1 1 .19V2.75C13 1.78 12.22 1 11.25 1h-6.5ZM7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm4.5 8a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm.35-2.15a.5.5 0 0 1-.7-.7L12.29 12H9.5a.5.5 0 0 1 0-1h2.8l-1.15-1.15a.5.5 0 0 1 .7-.7l2 2a.5.5 0 0 1 .15.35.5.5 0 0 1-.14.35l-2 2Z\"/>";
 
             /// <summary />
-            public static string Home { get; } = ResourceManager.GetString("Home");
+            public static string DoorSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2ZM5 1a2 2 0 0 0-2 2v10c0 1.1.9 2 2 2h6a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H5ZM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V3Z\"/>";
 
             /// <summary />
-            public static string HomeCheckmark { get; } = ResourceManager.GetString("HomeCheckmark");
+            public static string DraftsSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10.27 2a2.62 2.62 0 0 1 3.71 3.7l-7.47 7.5a1.5 1.5 0 0 1-.56.35L2 14.96a.75.75 0 0 1-.96-.96l1.42-3.96c.08-.2.2-.4.35-.55L10.27 2Zm3 .7a1.62 1.62 0 0 0-2.3 0l-.77.8 2.29 2.28.78-.78c.64-.64.63-1.66 0-2.3Zm-1.49 3.8L9.5 4.2l-5.98 6a.5.5 0 0 0-.12.18l-1.24 3.46 3.47-1.23a.5.5 0 0 0 .18-.12l5.98-6ZM8.86 2H1.5a.5.5 0 1 0 0 1h6.36l1-1Zm-2 2H1.5a.5.5 0 1 0 0 1h4.37l1-1Zm-2 2H1.5a.5.5 0 1 0 0 1h2.37l1-1Z\"/>";
 
             /// <summary />
-            public static string HomeHeart { get; } = ResourceManager.GetString("HomeHeart");
+            public static string DrinkBeerSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10 6.5a.5.5 0 0 0-1 0v5a.5.5 0 0 0 1 0v-5ZM7.5 6c.28 0 .5.22.5.5v5a.5.5 0 0 1-1 0v-5c0-.28.22-.5.5-.5ZM6 6.5a.5.5 0 0 0-1 0v5a.5.5 0 0 0 1 0v-5ZM5.25 1C4.01 1 3 2 3 3.25V13.5c0 .83.67 1.5 1.5 1.5h6c.83 0 1.5-.67 1.5-1.5V12h.75C13.99 12 15 11 15 9.75v-3.5C15 5.01 14 4 12.75 4H12v-.75C12 2.01 11 1 9.75 1h-4.5ZM12 5h.75c.69 0 1.25.56 1.25 1.25v3.5c0 .69-.56 1.25-1.25 1.25H12V5ZM4 3.25C4 2.56 4.56 2 5.25 2h4.5c.69 0 1.25.56 1.25 1.25V4H4v-.75ZM4 5h7v8.5a.5.5 0 0 1-.5.5h-6a.5.5 0 0 1-.5-.5V5Z\"/>";
 
             /// <summary />
-            public static string Hourglass { get; } = ResourceManager.GetString("Hourglass");
+            public static string DrinkCoffeeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2.5 0c.28 0 .5.22.5.5 0 .47.27.7.8 1.1l.04.03C4.31 1.98 5 2.5 5 3.5a.5.5 0 0 1-1 0c0-.47-.27-.7-.8-1.1l-.04-.03C2.69 2.02 2 1.5 2 .5c0-.28.22-.5.5-.5Zm3 0c.28 0 .5.22.5.5 0 .47.27.7.8 1.1l.04.03C7.31 1.98 8 2.5 8 3.5a.5.5 0 0 1-1 0c0-.47-.27-.7-.8-1.1l-.04-.03C5.69 2.02 5 1.5 5 .5c0-.28.22-.5.5-.5ZM9 .5a.5.5 0 0 0-1 0c0 1 .69 1.52 1.16 1.87l.04.03c.53.4.8.63.8 1.1a.5.5 0 0 0 1 0c0-1-.69-1.52-1.16-1.87L9.8 1.6C9.27 1.2 9 .97 9 .5ZM13 6h.5a2.5 2.5 0 0 1 0 5h-.7A5.5 5.5 0 0 1 2 9.5V5.9c0-.5.4-.9.9-.9h9.2c.5 0 .9.4.9.9V6ZM3 6v3.5a4.5 4.5 0 1 0 9 0V6H3Zm10 1v2.5c0 .17 0 .34-.02.5h.52a1.5 1.5 0 0 0 0-3H13Z\"/>";
 
             /// <summary />
-            public static string HourglassHalf { get; } = ResourceManager.GetString("HourglassHalf");
+            public static string DrinkMargaritaSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13.59 2a.5.5 0 0 0-.18-1l-4.25.76a.5.5 0 0 0-.4.38L8.57 3H3.5a.5.5 0 0 0-.5.5v3c0 1.1.9 2 2 2a3 3 0 0 0 2.5 2.96V14h-2a.5.5 0 0 0 0 1h5a.5.5 0 1 0 0-1h-2v-2.54A3 3 0 0 0 11 8.5a2 2 0 0 0 2-2v-3a.5.5 0 0 0-.5-.5H9.6l.07-.32L13.59 2ZM8.35 4l-.22 1H4V4h4.35ZM4 6h3.9l-.64 2.9a.5.5 0 0 0 .98.2L8.93 6H12v.5a1 1 0 0 1-1 1h-.5a.5.5 0 0 0-.5.5v.5a2 2 0 0 1-4 0V8a.5.5 0 0 0-.5-.5H5a1 1 0 0 1-1-1V6Zm8-1H9.15l.22-1H12v1Z\"/>";
 
             /// <summary />
-            public static string HourglassOneQuarter { get; } = ResourceManager.GetString("HourglassOneQuarter");
+            public static string DrinkWineSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10.73 6.3a.5.5 0 0 0-1-.1A1.75 1.75 0 0 1 8.36 7.7a.5.5 0 0 0 .2.98 2.75 2.75 0 0 0 2.18-2.39ZM4.5 1a.5.5 0 0 0-.5.5v5a4 4 0 0 0 3.5 3.97.5.5 0 0 0 0 .03V14H6a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1H8.5v-3.5a.5.5 0 0 0 0-.03A4 4 0 0 0 12 6.5v-5a.5.5 0 0 0-.5-.5h-7ZM5 4V2h6v2H5Zm0 1h6v1.5a3 3 0 0 1-6 0V5Z\"/>";
 
             /// <summary />
-            public static string HourglassThreeQuarter { get; } = ResourceManager.GetString("HourglassThreeQuarter");
+            public static string DropSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.65 1.15c.2-.2.5-.2.7 0 .27.26 1.41 1.45 2.5 3C11.92 5.68 13 7.67 13 9.5c0 1.78-.58 3.16-1.52 4.1C10.55 14.54 9.3 15 8 15c-1.3 0-2.55-.46-3.48-1.4A5.63 5.63 0 0 1 3 9.5c0-1.83 1.08-3.82 2.15-5.35a24.33 24.33 0 0 1 2.5-3ZM5.97 4.72C4.92 6.23 4 8 4 9.5c0 1.56.5 2.67 1.22 3.4.73.73 1.72 1.1 2.78 1.1 1.06 0 2.05-.37 2.78-1.1A4.64 4.64 0 0 0 12 9.5c0-1.5-.92-3.27-1.97-4.78-.77-1.1-1.57-2-2.03-2.5-.46.5-1.26 1.4-2.03 2.5Z\"/>";
 
             /// <summary />
-            public static string Image { get; } = ResourceManager.GetString("Image");
+            public static string DumbbellSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M12.03 5.78a.5.5 0 0 0 0-.71l-1.1-1.1a.5.5 0 1 0-.7.7l1.1 1.1c.2.2.5.2.7 0Zm-5.88 5.17a.5.5 0 1 1-.7.71l-1.1-1.1a.5.5 0 1 1 .7-.7l1.1 1.1Zm8.11-9.2a1.34 1.34 0 0 0-1.89 0l-.49.5-.16-.17a1.67 1.67 0 0 0-2.55.22 2.03 2.03 0 0 0-1.82 3.43l.52.53-1.61 1.6-.53-.51A2.04 2.04 0 0 0 2.3 9.18a1.68 1.68 0 0 0-.22 2.54l.16.16-.5.5a1.34 1.34 0 0 0 1.89 1.9l.5-.5.17.16a1.67 1.67 0 0 0 2.54-.22 2.03 2.03 0 0 0 1.83-3.44l-.52-.52 1.61-1.61.52.52a2.04 2.04 0 0 0 3.44-1.83 1.67 1.67 0 0 0 .22-2.54l-.17-.16.5-.5c.51-.52.51-1.36 0-1.89Zm-1.2 1.68-.47-.48.49-.49a.34.34 0 0 1 .48.48l-.5.49Zm-4 4.01L7.43 9.05l-.48-.47 1.62-1.62.47.48Zm-5.63 5.63-.5.5a.34.34 0 0 1-.48-.48l.5-.5.48.48Zm6.63-10.28a.67.67 0 0 1 .95 0L13.23 5a.67.67 0 0 1-.26 1.1.5.5 0 0 0-.3.69 1.04 1.04 0 0 1-1.68 1.16L8.05 5.03a1.04 1.04 0 0 1 1.17-1.68.5.5 0 0 0 .68-.3c.03-.1.09-.18.16-.26Zm-6.5 5.26c.4-.4 1.06-.4 1.47 0L7.96 11a1.04 1.04 0 0 1-1.16 1.68.5.5 0 0 0-.68.3.67.67 0 0 1-1.1.26l-2.23-2.22a.67.67 0 0 1 .26-1.1.5.5 0 0 0 .3-.7c-.17-.38-.1-.84.21-1.16Z\"/>";
 
             /// <summary />
-            public static string ImageAltText { get; } = ResourceManager.GetString("ImageAltText");
+            public static string EarthLeafSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1 8a7 7 0 0 1 13.97-.67 13.56 13.56 0 0 0-1.04-.24 5.99 5.99 0 0 0-1.9-3.53l-.38.65a6.37 6.37 0 0 1-1.35 1.64c0 .03 0 .1.08.27l.13.27c.1.18.2.4.3.66-.34.05-.67.12-.98.22a10.38 10.38 0 0 0-.36-.75c-.1-.2-.19-.46-.17-.73.02-.32.18-.58.44-.78.32-.24.72-.78 1.06-1.33.17-.27.31-.51.41-.7l.02-.03A5.97 5.97 0 0 0 8 2h-.05c.09.18.19.4.28.63.24.65.46 1.6.07 2.43-.36.77-.98.97-1.45 1.1h-.07c-.45.13-.64.17-.77.38-.13.2-.1.43.04.9l.03.1c.06.19.13.4.16.6.05.26.06.58-.1.89-.16.3-.37.51-.62.65-.24.13-.48.17-.67.2l-.07.02c-.36.06-.54.1-.71.28-.14.15-.22.4-.27.77l-.05.46v.08l-.07.53-.03.11a6 6 0 0 0 2.22 1.48c-.2.28-.37.57-.53.87A7 7 0 0 1 1 8Zm1 0c0 1.08.29 2.1.79 2.97 0-.05 0-.1.02-.15.05-.4.16-.93.53-1.32a2.02 2.02 0 0 1 1.34-.6c.17-.03.28-.06.36-.1.06-.04.14-.1.21-.24.01-.02.03-.09 0-.24a28.64 28.64 0 0 1-.16-.58c-.13-.43-.33-1.12.08-1.75.36-.55.94-.69 1.32-.78.04 0 .08-.02.11-.03.4-.1.63-.2.8-.54.2-.46.12-1.07-.1-1.65a5.38 5.38 0 0 0-.44-.88A6 6 0 0 0 2 8Zm13.93.74a.5.5 0 0 0-.43-.24h-.03l-.1-.02a6.14 6.14 0 0 1-.3-.08l-.09-.03c-.23-.06-.51-.14-.84-.21A8.52 8.52 0 0 0 11.19 8c-1.2.15-2.12.56-2.75 1.15a2.85 2.85 0 0 0-.9 2.62 13.17 13.17 0 0 1 3.77-2.23.5.5 0 1 1 .38.92c-.8.32-1.54.7-2.2 1.1a8.47 8.47 0 0 0-3.44 3.72.5.5 0 1 0 .9.44c.38-.76.84-1.45 1.44-2.06a3.92 3.92 0 0 0 .59.8 3.07 3.07 0 0 0 3.9.58c.45-.28.77-.67 1-1.08.37-.63.58-1.38.74-1.94l.1-.37a7.5 7.5 0 0 1 1-2.03V9.6c.1-.14.18-.27.23-.38a.5.5 0 0 0-.02-.48Z\"/>";
 
             /// <summary />
-            public static string ImageBorder { get; } = ResourceManager.GetString("ImageBorder");
+            public static string EarthSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1 8a7 7 0 1 1 14 0A7 7 0 0 1 1 8Zm7-6h-.05c.09.18.19.4.28.63.24.65.46 1.6.07 2.43-.36.77-.98.97-1.45 1.1h-.07c-.45.13-.64.17-.77.38-.13.2-.1.43.04.9l.03.1c.06.19.13.4.16.6.04.26.06.58-.1.89-.16.3-.38.51-.63.65-.23.13-.47.17-.66.2l-.07.02c-.36.06-.54.1-.71.28-.14.15-.22.4-.27.77l-.05.46v.08l-.07.53-.03.11a5.98 5.98 0 0 0 7.4 1.03 3.16 3.16 0 0 1-.26-.28c-.23-.3-.54-.81-.43-1.41.05-.29.2-.53.35-.72a4.98 4.98 0 0 1 .62-.61l.32-.31.12-.15.04-.05c.05-.17-.01-.3-.09-.35-.05-.04-.2-.1-.44.05l-.26.16a.99.99 0 0 1-.27.12.53.53 0 0 1-.63-.36.64.64 0 0 1-.03-.2 1.15 1.15 0 0 1 .01-.19c.03-.21.07-.52-.06-.98-.1-.37-.23-.66-.38-.94a9.15 9.15 0 0 1-.2-.42c-.08-.2-.18-.46-.16-.73.02-.32.18-.58.44-.78.32-.24.72-.78 1.06-1.33.17-.27.31-.51.41-.7l.02-.03A5.97 5.97 0 0 0 8 2Zm4.03 1.56-.38.65a6.37 6.37 0 0 1-1.35 1.64c0 .03 0 .1.08.27l.13.27c.16.32.38.76.5 1.24.07.25.1.48.11.68.44-.15.88-.08 1.21.18.42.32.6.88.43 1.43-.07.25-.25.45-.39.6l-.38.37a22.63 22.63 0 0 0-.5.5.66.66 0 0 0-.15.25c-.03.17.05.38.24.61a2.22 2.22 0 0 0 .3.32 5.99 5.99 0 0 0 .15-9ZM2 8c0 1.08.29 2.1.79 2.97l.01-.15c.06-.4.17-.93.54-1.32.41-.45.92-.53 1.24-.58l.1-.02c.17-.03.27-.06.36-.1.06-.04.14-.1.21-.24.01-.02.03-.09 0-.24a28.64 28.64 0 0 1-.16-.58c-.13-.43-.33-1.12.08-1.75.36-.55.94-.69 1.32-.78.04 0 .08-.02.11-.03.4-.1.63-.2.8-.54.2-.46.12-1.07-.1-1.65a5.38 5.38 0 0 0-.44-.88A6 6 0 0 0 2 8Z\"/>";
 
             /// <summary />
-            public static string ImageCircle { get; } = ResourceManager.GetString("ImageCircle");
+            public static string EditArrowBackSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M12.44 1.56a1.91 1.91 0 0 0-2.7 0l-7.4 7.4c-.18.18-.32.4-.4.64l-.91 2.74a.5.5 0 0 0 .63.63l2.74-.91c.24-.08.46-.22.65-.4l.06-.06a5.53 5.53 0 0 1-.1-1.31l-.67.66a.65.65 0 0 1-.26.16l-1.79.6.6-1.8c.03-.09.08-.18.16-.25L9 3.71 10.3 5h-.01a5.58 5.58 0 0 1 1.3.11l.85-.84c.75-.75.75-1.96 0-2.7Zm-2 .7a.91.91 0 1 1 1.3 1.3L11 4.3 9.7 3l.74-.73ZM10.5 15a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm-.9-6.4-.9.9h1.55A2.75 2.75 0 0 1 13 12.25v.25a.5.5 0 0 1-1 0v-.25c0-.97-.78-1.75-1.75-1.75H8.71l.9.9a.5.5 0 0 1-.71.7l-1.76-1.75a.5.5 0 0 1 0-.7L8.9 7.9a.5.5 0 1 1 .7.7Z\"/>";
 
             /// <summary />
-            public static string ImageEdit { get; } = ResourceManager.GetString("ImageEdit");
+            public static string EditOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m9 9.7 5.15 5.15a.5.5 0 0 0 .7-.7l-13-13a.5.5 0 1 0-.7.7L6.29 7 3.34 9.95c-.18.19-.32.4-.4.65l-.91 2.74a.5.5 0 0 0 .63.63l2.74-.91c.24-.08.46-.22.65-.4L9 9.71ZM8.3 9l-2.96 2.95a.65.65 0 0 1-.26.16l-1.79.6.6-1.8c.03-.09.08-.18.16-.25L7 7.71 8.3 9Zm3-3L9.7 7.6l.71.7 3.03-3.02a1.91 1.91 0 0 0-2.7-2.71L7.7 5.59l.7.7L10 4.71 11.3 6Zm.14-2.73a.91.91 0 1 1 1.3 1.29l-.74.73L10.7 4l.74-.73Z\"/>";
 
             /// <summary />
-            public static string ImageMultiple { get; } = ResourceManager.GetString("ImageMultiple");
+            public static string EditProhibitedSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M12.44 1.56a1.91 1.91 0 0 0-2.7 0l-7.4 7.4c-.18.18-.32.4-.4.64l-.91 2.74a.5.5 0 0 0 .63.63l2.74-.91c.24-.08.46-.22.65-.4l.06-.06a5.53 5.53 0 0 1-.1-1.31l-.67.66a.65.65 0 0 1-.26.16l-1.79.6.6-1.8c.03-.09.08-.18.16-.25L9 3.71 10.3 5h-.01a5.58 5.58 0 0 1 1.3.11l.85-.84c.75-.75.75-1.96 0-2.7Zm-2 .7a.91.91 0 1 1 1.3 1.3L11 4.3 9.7 3l.74-.73ZM6 10.5a4.5 4.5 0 1 0 9 0 4.5 4.5 0 0 0-9 0Zm1 0a3.5 3.5 0 0 1 5.6-2.8l-4.9 4.9a3.48 3.48 0 0 1-.7-2.1Zm3.5 3.5c-.79 0-1.51-.26-2.1-.7l4.9-4.9a3.5 3.5 0 0 1-2.8 5.6Z\"/>";
 
             /// <summary />
-            public static string ImageMultipleOff { get; } = ResourceManager.GetString("ImageMultipleOff");
+            public static string EditSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13.44 2.56a1.91 1.91 0 0 0-2.7 0l-7.4 7.4c-.18.18-.32.4-.4.64l-.91 2.74a.5.5 0 0 0 .63.63l2.74-.91c.24-.08.46-.22.65-.4l7.39-7.4c.75-.74.75-1.95 0-2.7Zm-2 .7a.91.91 0 1 1 1.3 1.3L12 5.3 10.7 4l.74-.73ZM10 4.72 11.3 6l-5.96 5.94a.65.65 0 0 1-.26.16l-1.79.6.6-1.8c.03-.09.08-.18.16-.25L10 4.71Z\"/>";
 
             /// <summary />
-            public static string ImageStack { get; } = ResourceManager.GetString("ImageStack");
+            public static string EmojiAddSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13 7a6 6 0 1 0-5.75 6 4.47 4.47 0 0 1-.22-1H7a5 5 0 1 1 5-5v.03c.34.04.68.11 1 .22V7Zm-5.89 3.5c.09-.37.21-.72.38-1.05a2.51 2.51 0 0 1-2.35-.78.5.5 0 0 0-.75.66 3.5 3.5 0 0 0 2.72 1.17ZM6 6a.75.75 0 1 1-1.5 0A.75.75 0 0 1 6 6Zm2.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 11.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3-2a.5.5 0 0 0-1 0V11H9.5a.5.5 0 0 0 0 1H11v1.5a.5.5 0 0 0 1 0V12h1.5a.5.5 0 0 0 0-1H12V9.5Z\"/>";
 
             /// <summary />
-            public static string ImageTable { get; } = ResourceManager.GetString("ImageTable");
+            public static string EmojiAngrySvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7 7a.75.75 0 1 1-1.26-.55l-.6-.6a.5.5 0 1 1 .71-.7l1 1a.5.5 0 0 1 .1.57c.03.09.05.18.05.28Zm2.75.75a.75.75 0 0 0 .5-1.3l.6-.6a.5.5 0 0 0-.7-.7l-1 1a.5.5 0 0 0-.1.57.75.75 0 0 0 .7 1.03Zm-4.32 3.62c.2.19.52.17.7-.04a2.5 2.5 0 0 1 3.73 0 .5.5 0 0 0 .75-.66 3.5 3.5 0 0 0-5.22 0 .5.5 0 0 0 .04.7ZM8 2a6 6 0 1 1 0 12A6 6 0 0 1 8 2Zm0 1a5 5 0 1 0 0 10A5 5 0 0 0 8 3Z\"/>";
 
             /// <summary />
-            public static string ImmersiveReader { get; } = ResourceManager.GetString("ImmersiveReader");
+            public static string EmojiEditSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6.25 7.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm-.11 1.92a.5.5 0 1 0-.75.66c.2.22.42.42.67.58l.21-.24.5-.5c-.24-.13-.45-.3-.63-.5ZM3 8a5 5 0 0 0 2.4 4.27l-.25 1.01A6 6 0 1 1 13.2 5c-.36 0-.73.05-1.07.18A5 5 0 0 0 3 8Zm6.75-1.75c.26 0 .48.13.62.32L9.32 7.62a.75.75 0 0 1 .43-1.37Zm-2.77 5.13 4.83-4.83a1.87 1.87 0 1 1 2.64 2.64l-4.83 4.83a2.2 2.2 0 0 1-1.02.58l-1.5.37a.89.89 0 0 1-1.07-1.07l.37-1.5c.1-.39.3-.74.58-1.02Z\"/>";
 
             /// <summary />
-            public static string Important { get; } = ResourceManager.GetString("Important");
+            public static string EmojiHandSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.09 2c.2-.58.76-1 1.41-1h2c.65 0 1.2.42 1.41 1H8a2 2 0 0 1 2 2v2.31c.17-.03.36-.06.56-.06.36 0 .77.08 1.13.35.37.27.65.69.8 1.28a.5.5 0 0 1-.3.58 8.04 8.04 0 0 0-3.61 3.03A3.1 3.1 0 0 1 6.06 13H4.24A2.5 2.5 0 0 1 2 11.62l-.63-1.26A3.5 3.5 0 0 1 1 8.79V4c0-1.1.9-2 2-2h.09ZM5 2h-.5a.5.5 0 0 0-.5.5v4a.5.5 0 1 1-1 0V3a1 1 0 0 0-1 1v4.8c0 .38.09.76.26 1.11l.63 1.26c.26.5.78.83 1.35.83h1.82c.64 0 1.27-.42 1.68-1.05a9.01 9.01 0 0 1 3.64-3.21.91.91 0 0 0-.28-.34.9.9 0 0 0-.54-.15 2 2 0 0 0-.83.2A.5.5 0 0 1 9 7V4a1 1 0 0 0-1-1v3.5a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5H6v4.5a.5.5 0 0 1-1 0V2Zm6 14a5 5 0 0 1-4.08-2.1c.35-.1.67-.23.96-.4a4 4 0 1 0 5.61-5.63c0-.08-.02-.15-.04-.23a3.5 3.5 0 0 0-.59-1.28A5 5 0 0 1 11 16Zm2.5-5.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm-.55 1.97a.5.5 0 1 0-.9-.44c-.12.24-.37.43-.7.55-.32.13-.65.17-.85.17a.5.5 0 0 0 0 1c.3 0 .77-.06 1.22-.23.45-.18.95-.5 1.23-1.05Z\"/>";
 
             /// <summary />
-            public static string Info { get; } = ResourceManager.GetString("Info");
+            public static string EmojiLaughSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 6a.5.5 0 0 0-.5.5.5.5 0 0 1-1 0 1.5 1.5 0 1 1 3 0 .5.5 0 0 1-1 0A.5.5 0 0 0 6 6Zm4 0a.5.5 0 0 0-.5.5.5.5 0 0 1-1 0 1.5 1.5 0 1 1 3 0 .5.5 0 0 1-1 0A.5.5 0 0 0 10 6ZM4.54 8a.5.5 0 0 0-.5.57 4 4 0 0 0 7.92 0 .5.5 0 0 0-.5-.57H4.54ZM8 11a3 3 0 0 1-2.83-2h5.66A3 3 0 0 1 8 11Zm6-3A6 6 0 1 0 2 8a6 6 0 0 0 12 0ZM3 8a5 5 0 1 1 10 0A5 5 0 0 1 3 8Z\"/>";
 
             /// <summary />
-            public static string InkingTool { get; } = ResourceManager.GetString("InkingTool");
+            public static string EmojiMehSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7 7a.75.75 0 1 1-1.5 0A.75.75 0 0 1 7 7Zm2.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM6 9a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1H6Zm2-7a6 6 0 1 1 0 12A6 6 0 0 1 8 2Zm0 1a5 5 0 1 0 0 10A5 5 0 0 0 8 3Z\"/>";
 
             /// <summary />
-            public static string InprivateAccount { get; } = ResourceManager.GetString("InprivateAccount");
+            public static string EmojiSadSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M14 8A6 6 0 1 0 2 8a6 6 0 0 0 12 0ZM3 8a5 5 0 1 1 10 0A5 5 0 0 1 3 8Zm4-1.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm3.5 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm-4.37 4.07a2.53 2.53 0 0 1 3.74 0 .5.5 0 1 0 .76-.64 3.53 3.53 0 0 0-5.26 0 .5.5 0 1 0 .76.64Z\"/>";
 
             /// <summary />
-            public static string IotAlert { get; } = ResourceManager.GetString("IotAlert");
+            public static string EmojiSparkleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13.8 2.22h-.02l-.76-.26a1.58 1.58 0 0 1-1-1L11.77.2a.3.3 0 0 0-.57 0l-.25.77a1.58 1.58 0 0 1-.98 1l-.6.19-.17.05a.3.3 0 0 0-.15.11.3.3 0 0 0 .15.46l.77.25.08.03a1.58 1.58 0 0 1 .89.9l.03.07.24.77a.3.3 0 0 0 .29.2.3.3 0 0 0 .29-.2l.24-.77a1.58 1.58 0 0 1 1-1l.77-.24a.3.3 0 0 0 0-.57Zm1.41 3.35.62.2a.24.24 0 0 1 0 .46l-.6.2a1.26 1.26 0 0 0-.8.8l-.2.6a.24.24 0 0 1-.24.17.24.24 0 0 1-.22-.16l-.2-.61a1.26 1.26 0 0 0-.8-.8l-.03-.01-.58-.2a.24.24 0 0 1 0-.45l.61-.2a1.26 1.26 0 0 0 .8-.8l.19-.6a.24.24 0 0 1 .46 0l.2.6a1.26 1.26 0 0 0 .8.8ZM8.06 2.9 8.1 3H8a5 5 0 1 0 4.98 5.46 1.25 1.25 0 0 0 .94.54A6 6 0 1 1 8.1 2a1.3 1.3 0 0 0-.04.9ZM6.25 7.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm-.11 1.92a.5.5 0 1 0-.75.66 3.5 3.5 0 0 0 5.22 0 .5.5 0 0 0-.75-.66 2.5 2.5 0 0 1-3.72 0ZM10.5 7A.75.75 0 1 1 9 7a.75.75 0 0 1 1.5 0Z\"/>";
 
             /// <summary />
-            public static string Javascript { get; } = ResourceManager.GetString("Javascript");
+            public static string EmojiSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6.25 7.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm-.11 1.92a.5.5 0 1 0-.75.66 3.5 3.5 0 0 0 5.22 0 .5.5 0 0 0-.75-.66 2.5 2.5 0 0 1-3.72 0ZM10.5 7A.75.75 0 1 1 9 7a.75.75 0 0 1 1.5 0ZM14 8A6 6 0 1 0 2 8a6 6 0 0 0 12 0ZM3 8a5 5 0 1 1 10 0A5 5 0 0 1 3 8Z\"/>";
 
             /// <summary />
-            public static string Keyboard { get; } = ResourceManager.GetString("Keyboard");
+            public static string EqualOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m10.3 11 3.85 3.85a.5.5 0 0 0 .7-.7l-13-13a.5.5 0 1 0-.7.7L4.29 5H2.5a.5.5 0 0 0 0 1h2.8l4 4H2.5a.5.5 0 0 0 0 1h7.8Zm1.82-1 1 1h.38a.5.5 0 0 0 0-1h-1.38Zm-5-5 1 1h5.38a.5.5 0 0 0 0-1H7.12Z\"/>";
 
             /// <summary />
-            public static string KeyboardMouse { get; } = ResourceManager.GetString("KeyboardMouse");
+            public static string ErrorCircleSettingsSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M14 8a6 6 0 1 0-5.75 6 4.47 4.47 0 0 1-.22-1H8a5 5 0 1 1 5-5v.03c.34.04.68.11 1 .22V8Zm-5.42 2.28a.75.75 0 1 0-.47 1.21c.1-.43.26-.84.47-1.21ZM8.5 4.91A.5.5 0 0 0 7.5 5v3.59a.5.5 0 0 0 1-.09V4.91Zm.56 7.22a2 2 0 0 0 1.4-2.43v-.04c.25-.17.52-.32.8-.43a2 2 0 0 0 2.56.02c.3.13.59.3.84.5a2 2 0 0 0 1.3 2.2 3.52 3.52 0 0 1 .03.9l-.03.02a2 2 0 0 0-1.4 2.43v.04a3.5 3.5 0 0 1-.8.43 2 2 0 0 0-2.56-.02 3.5 3.5 0 0 1-.84-.5 2 2 0 0 0-1.3-2.2 3.52 3.52 0 0 1-.03-.9l.03-.02Zm4.2.37a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Z\"/>";
 
             /// <summary />
-            public static string KeyboardShift { get; } = ResourceManager.GetString("KeyboardShift");
+            public static string ErrorCircleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 2a6 6 0 1 1 0 12A6 6 0 0 1 8 2Zm0 1a5 5 0 1 0 0 10A5 5 0 0 0 8 3Zm0 7a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5Zm0-5.5a.5.5 0 0 1 .5.41V8.5a.5.5 0 0 1-1 .09V5c0-.28.22-.5.5-.5Z\"/>";
 
             /// <summary />
-            public static string KeyboardShiftUppercase { get; } = ResourceManager.GetString("KeyboardShiftUppercase");
+            public static string ExpandUpLeftSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.23 2.5a.5.5 0 0 0-.5-.5H2.5a.5.5 0 0 0-.5.5v4.23a.5.5 0 0 0 1 0V3.71l3.38 3.37a.5.5 0 1 0 .7-.7L3.71 3h3.02a.5.5 0 0 0 .5-.5Zm5.77 2c0-.83-.67-1.5-1.5-1.5H9.27a.5.5 0 0 1 0-1h2.23A2.5 2.5 0 0 1 14 4.5v7a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 11.5V9.27a.5.5 0 0 1 1 0v2.23c0 .83.67 1.5 1.5 1.5H8V9.77C8 8.79 8.8 8 9.77 8H13V4.5ZM13 9H9.77a.77.77 0 0 0-.77.77V13h2.5c.83 0 1.5-.67 1.5-1.5V9Z\"/>";
 
             /// <summary />
-            public static string KeyCommand { get; } = ResourceManager.GetString("KeyCommand");
+            public static string ExpandUpRightSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3 4.5C3 3.67 3.67 3 4.5 3h2.23a.5.5 0 0 0 0-1H4.5A2.5 2.5 0 0 0 2 4.5v7A2.5 2.5 0 0 0 4.5 14h7a2.5 2.5 0 0 0 2.5-2.5V9.27a.5.5 0 0 0-1 0v2.23c0 .83-.67 1.5-1.5 1.5H8V9.77C8 8.79 7.2 8 6.23 8H3V4.5ZM3 9h3.23c.43 0 .77.34.77.77V13H4.5A1.5 1.5 0 0 1 3 11.5V9Zm5.77-6.5c0-.28.22-.5.5-.5h4.23c.28 0 .5.22.5.5v4.23a.5.5 0 0 1-1 0V3.71L9.62 7.08a.5.5 0 1 1-.7-.7L12.29 3H9.27a.5.5 0 0 1-.5-.5Z\"/>";
 
             /// <summary />
-            public static string Laptop { get; } = ResourceManager.GetString("Laptop");
+            public static string EyedropperSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13.43 2.57A1.94 1.94 0 0 1 14 3.94a1.98 1.98 0 0 1-.57 1.46l-.7.7.25.26a1.14 1.14 0 0 1 0 1.6l-.59.58a1.14 1.14 0 0 1-1.6 0l-.25-.25-4.94 4.93a.5.5 0 0 1-.35.15h-.53l-1.29.55a1.03 1.03 0 0 1-1.35-1.35l.55-1.29v-.53a.5.5 0 0 1 .15-.35l4.94-4.95-.26-.25a1.14 1.14 0 0 1 0-1.6l.6-.59a1.14 1.14 0 0 1 1.6 0l.25.26.7-.7A1.95 1.95 0 0 1 11.98 2a1.98 1.98 0 0 1 1.45.57Zm-5 3.6-4.8 4.78v.43a.5.5 0 0 1-.03.2L3 12.96l1.41-.56a.5.5 0 0 1 .2-.04h.43l4.79-4.79-1.4-1.4Zm4.3-1.49a.96.96 0 0 0 .28-.67 1.02 1.02 0 0 0-.29-.73.95.95 0 0 0-.67-.28 1 1 0 0 0-.73.28l-1.05 1.05a.5.5 0 0 1-.71 0l-.61-.6a.14.14 0 0 0-.05-.03.13.13 0 0 0-.05-.01h-.06a.14.14 0 0 0-.04.04l-.58.58a.13.13 0 0 0-.04.1.13.13 0 0 0 .04.09l3.33 3.33.04.03.05.01a.13.13 0 0 0 .1-.04l.58-.58a.13.13 0 0 0 .04-.1.13.13 0 0 0-.04-.1l-.6-.6a.5.5 0 0 1 0-.7l1.05-1.07Z\"/>";
 
             /// <summary />
-            public static string LaptopDismiss { get; } = ResourceManager.GetString("LaptopDismiss");
+            public static string EyeOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m10.12 10.83 4.03 4.02a.5.5 0 0 0 .7-.7l-13-13a.5.5 0 1 0-.7.7l3.23 3.23a6.7 6.7 0 0 0-2.3 3.08l-.05.15-.01.06s-.08.5.35.61a.5.5 0 0 0 .61-.35L3 8.6a3.02 3.02 0 0 1 .2-.52c.16-.34.4-.8.78-1.26.3-.36.66-.72 1.13-1.02l1.57 1.58a2.5 2.5 0 1 0 3.45 3.45Zm-.74-.74a1.5 1.5 0 1 1-1.97-1.97l1.97 1.97Zm-3.06-5.9.85.86C7.43 5.02 7.71 5 8 5c2.04 0 3.29.91 4.03 1.82A5.7 5.7 0 0 1 13 8.6v.02a.5.5 0 0 0 .97-.25v-.02a2.3 2.3 0 0 0-.06-.18 6.7 6.7 0 0 0-1.12-1.98A5.95 5.95 0 0 0 8 4a6.9 6.9 0 0 0-1.68.2Z\"/>";
 
             /// <summary />
-            public static string LaptopShield { get; } = ResourceManager.GetString("LaptopShield");
+            public static string EyeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2.98 8.62a.5.5 0 0 1-.6.36c-.44-.11-.36-.6-.36-.6l.01-.07.05-.14A6.7 6.7 0 0 1 3.2 6.19C4.1 5.08 5.6 4 8 4s3.9 1.09 4.8 2.18a6.7 6.7 0 0 1 1.18 2.17v.02a.5.5 0 0 1-.96.26L13 8.6a3.05 3.05 0 0 0-.2-.52 5.7 5.7 0 0 0-.78-1.26A4.96 4.96 0 0 0 8 5c-2.04 0-3.29.91-4.03 1.82A5.7 5.7 0 0 0 3 8.6v.02ZM8 7a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5ZM6.5 9.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Z\"/>";
 
             /// <summary />
-            public static string LeafOne { get; } = ResourceManager.GetString("LeafOne");
+            public static string EyeTrackingOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m13.02 13.72 1.13 1.13a.5.5 0 0 0 .7-.7l-13-13a.5.5 0 1 0-.7.7l1.13 1.13A2 2 0 0 0 2 4v1.5a.5.5 0 0 0 1 0V4a1 1 0 0 1 .03-.26L4.7 5.41A4.95 4.95 0 0 0 3.04 7.3v.01a.5.5 0 0 0 .92.38v-.01L4 7.62c.02-.06.07-.14.13-.24a3.73 3.73 0 0 1 1.3-1.24l.95.95a2.5 2.5 0 1 0 3.53 3.53l2.35 2.35A1 1 0 0 1 12 13h-1.5a.5.5 0 1 0 0 1H12a2 2 0 0 0 1.02-.28ZM9.2 9.9a1.5 1.5 0 1 1-2.1-2.1l2.1 2.1ZM6.73 4.61l.9.9L8 5.5a4.6 4.6 0 0 1 3.23 1.12 3.73 3.73 0 0 1 .8 1.06s.25.45.66.28a.5.5 0 0 0 .27-.65c-.1-.22 0 0 0 0V7.3a1.85 1.85 0 0 0-.06-.13c-.04-.08-.1-.2-.19-.33a4.73 4.73 0 0 0-.81-.96A5.6 5.6 0 0 0 8 4.5c-.46 0-.88.04-1.27.11ZM13 10.88l1 1V10.5a.5.5 0 1 0-1 0v.38ZM4.12 2l1 1h.38a.5.5 0 0 0 0-1H4.12ZM4 14a2 2 0 0 1-2-2v-1.5a.5.5 0 1 1 1 0V12a1 1 0 0 0 1 1h1.5a.5.5 0 1 1 0 1H4ZM14 4a2 2 0 0 0-2-2h-1.5a.5.5 0 0 0 0 1H12a1 1 0 0 1 1 1v1.5a.5.5 0 0 0 1 0V4Z\"/>";
 
             /// <summary />
-            public static string LeafThree { get; } = ResourceManager.GetString("LeafThree");
+            public static string EyeTrackingSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 2a2 2 0 0 0-2 2v1.5a.5.5 0 0 0 1 0V4a1 1 0 0 1 1-1h1.5a.5.5 0 0 0 0-1H4Zm0 12a2 2 0 0 1-2-2v-1.5a.5.5 0 0 1 1 0V12a1 1 0 0 0 1 1h1.5a.5.5 0 0 1 0 1H4ZM14 4a2 2 0 0 0-2-2h-1.5a.5.5 0 0 0 0 1H12a1 1 0 0 1 1 1v1.5a.5.5 0 0 0 1 0V4Zm-2 10a2 2 0 0 0 2-2v-1.5a.5.5 0 0 0-1 0V12a1 1 0 0 1-1 1h-1.5a.5.5 0 0 0 0 1H12ZM5.5 9a2.5 2.5 0 1 1 5 0 2.5 2.5 0 0 1-5 0ZM8 7.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm-4.69.46a.5.5 0 0 0 .65-.27v-.01L4 7.62c.02-.06.07-.14.13-.24.13-.2.34-.48.64-.76A4.6 4.6 0 0 1 8 5.5a4.6 4.6 0 0 1 3.23 1.12 3.73 3.73 0 0 1 .8 1.06s.25.45.66.28a.5.5 0 0 0 .27-.65c-.1-.22 0 0 0 0V7.3a1.8 1.8 0 0 0-.06-.13c-.04-.08-.1-.2-.19-.33a4.73 4.73 0 0 0-.81-.96A5.6 5.6 0 0 0 8 4.5a5.6 5.6 0 0 0-3.9 1.38A4.73 4.73 0 0 0 3.04 7.3v.01a.5.5 0 0 0 .27.65Z\"/>";
 
             /// <summary />
-            public static string LeafTwo { get; } = ResourceManager.GetString("LeafTwo");
+            public static string FastForwardSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 4.46a1 1 0 0 1 1.58-.81L8 6.77v-2.3a1 1 0 0 1 1.58-.82l5 3.53a1 1 0 0 1 0 1.64l-5 3.53A1 1 0 0 1 8 11.54v-2.3l-4.42 3.11A1 1 0 0 1 2 11.54V4.46ZM8 8 3 4.46v7.08L8 8v-.02Zm1 3.55L14.01 8 9 4.46v7.08Z\"/>";
 
             /// <summary />
-            public static string Library { get; } = ResourceManager.GetString("Library");
+            public static string FaxSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.5 2C4.67 2 4 2.67 4 3.5V6a2 2 0 0 0-2 2v4.5c0 .83.67 1.5 1.5 1.5h6c-.22-.3-.38-.63-.45-1H3.5a.5.5 0 0 1-.5-.5V8a1 1 0 0 1 1-1h5.05c.07-.37.23-.7.45-1H5V3.5c0-.28.22-.5.5-.5h5c.28 0 .5.22.5.5v1.55c.16-.03.33-.05.5-.05h.5V3.5c0-.83-.67-1.5-1.5-1.5h-5Zm6 4c-.83 0-1.5.67-1.5 1.5v5c0 .83.67 1.5 1.5 1.5h1c.83 0 1.5-.67 1.5-1.5v-5c0-.83-.67-1.5-1.5-1.5h-1ZM11 7.5c0-.28.22-.5.5-.5h1c.28 0 .5.22.5.5v5a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-5Zm-6 1a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM4.5 11a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1ZM7 8.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM6.5 11a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Z\"/>";
 
             /// <summary />
-            public static string Lightbulb { get; } = ResourceManager.GetString("Lightbulb");
+            public static string FeedSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 7.49a.5.5 0 0 0 0 1h1.98a.5.5 0 0 0 .5-.5.5.5 0 0 0-.5-.5H4.5Zm0 2.51a.5.5 0 0 0 0 1h1.98a.5.5 0 0 0 0-1H4.5Zm.48-4.51a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM3.5 3C2.67 3 2 3.67 2 4.5v7c0 .83.67 1.5 1.5 1.5h6c.65 0 1.3-.39 1.47-1.21l.14-.75h1.39c.83 0 1.5-.67 1.5-1.5V6.51c0-.96-.72-1.48-1.45-1.51H8.99v-.5C9 3.67 8.32 3 7.5 3H3.5ZM9 6h2.09a1.57 1.57 0 0 0-.06.23l-.15.78-.9 4.58c-.11.6-.99.51-.99-.1V6Zm-1 5.5c0 .18.02.35.07.5H3.5a.5.5 0 0 1-.5-.5v-7c0-.28.22-.5.5-.5h4c.27 0 .5.22.5.5v7Zm4.5-1.46h-1.2l.56-2.84.15-.78c.11-.6.99-.52.99.09v3.03a.5.5 0 0 1-.5.5Z\"/>";
 
             /// <summary />
-            public static string LightbulbFilament { get; } = ResourceManager.GetString("LightbulbFilament");
+            public static string FilmstripPlaySvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.5 3A2.5 2.5 0 0 0 1 5.5v5A2.5 2.5 0 0 0 3.5 13h9a2.5 2.5 0 0 0 2.5-2.5v-5A2.5 2.5 0 0 0 12.5 3h-9ZM2 5.5C2 4.67 2.67 4 3.5 4h9c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5h-9A1.5 1.5 0 0 1 2 10.5v-5ZM12.5 5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 1 0v-1a.5.5 0 0 0-.5-.5ZM12 9.5a.5.5 0 0 1 1 0v1a.5.5 0 0 1-1 0v-1ZM3.5 5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 1 0v-1a.5.5 0 0 0-.5-.5ZM3 9.5a.5.5 0 0 1 1 0v1a.5.5 0 0 1-1 0v-1Zm4-3c0-.39.35-.63.62-.43l2.2 1.56c.24.17.24.57 0 .74l-2.2 1.56c-.27.2-.62-.04-.62-.43v-3Z\"/>";
 
             /// <summary />
-            public static string LightbulbPerson { get; } = ResourceManager.GetString("LightbulbPerson");
+            public static string FilmstripSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1 5.5A2.5 2.5 0 0 1 3.5 3h9A2.5 2.5 0 0 1 15 5.5v5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 10.5v-5ZM3.5 4C2.67 4 2 4.67 2 5.5v5c0 .83.67 1.5 1.5 1.5h9c.83 0 1.5-.67 1.5-1.5v-5c0-.83-.67-1.5-1.5-1.5h-9ZM12 5.5a.5.5 0 0 1 1 0v1a.5.5 0 0 1-1 0v-1Zm.5 3.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 1 0v-1a.5.5 0 0 0-.5-.5ZM3 5.5a.5.5 0 0 1 1 0v1a.5.5 0 0 1-1 0v-1ZM3.5 9a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 1 0v-1a.5.5 0 0 0-.5-.5Z\"/>";
 
             /// <summary />
-            public static string Likert { get; } = ResourceManager.GetString("Likert");
+            public static string FilterDismissSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6.26 9c.31.38.67.72 1.08 1H3.5a.5.5 0 0 1 0-1h2.76ZM5.02 5a5.57 5.57 0 0 0 0 1H1.5a.5.5 0 0 1 0-1h3.52Zm.48 8a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3Zm5-3a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm1.85-6.35c.2.2.2.5 0 .7L11.21 5.5l1.14 1.15a.5.5 0 0 1-.7.7L10.5 6.21 9.35 7.35a.5.5 0 1 1-.7-.7L9.79 5.5 8.65 4.35a.5.5 0 1 1 .7-.7l1.15 1.14 1.15-1.14c.2-.2.5-.2.7 0Z\"/>";
 
             /// <summary />
-            public static string LineHorizontal4 { get; } = ResourceManager.GetString("LineHorizontal4");
+            public static string FilterSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 3.5c0-.28.22-.5.5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5Zm2 4c0-.28.22-.5.5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5Zm2 4c0-.28.22-.5.5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Z\"/>";
 
             /// <summary />
-            public static string LineHorizontal4Search { get; } = ResourceManager.GetString("LineHorizontal4Search");
+            public static string FireSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.17 2.38c.28-.14.55-.24.8-.3.02.54.18 1.08.41 1.59a16.63 16.63 0 0 0 1.32 2.25c.46.7.9 1.38 1.24 2.06.35.7.56 1.38.56 2.02 0 1.15-.34 2.15-.99 2.85a3.92 3.92 0 0 1-3 1.15c-1.4 0-2.37-.4-3.05-1.03a4.84 4.84 0 0 1-1-5.43l.13.25c.38.76 1.3 1.07 2.07.7.84-.43 1.08-1.47.72-2.24-.37-.81-.66-1.81-.4-2.6.2-.58.65-1 1.19-1.27ZM4.1 6.18v.01l-.02.03a3.08 3.08 0 0 0-.22.33 5.33 5.33 0 0 0-.74 4.06c.26 1.19.77 2.3 1.65 3.1A5.3 5.3 0 0 0 8.5 15c1.62 0 2.89-.54 3.75-1.47A5.12 5.12 0 0 0 13.5 10c0-.86-.28-1.69-.67-2.46a21.42 21.42 0 0 0-1.35-2.25c-.47-.73-.9-1.4-1.19-2.03A2.77 2.77 0 0 1 10 1.6.5.5 0 0 0 9.5 1c-.42 0-1.12.15-1.79.5a3.3 3.3 0 0 0-1.68 1.84c-.4 1.17.06 2.5.44 3.32.17.38.02.79-.26.93a.54.54 0 0 1-.73-.24l-.53-1.07a.5.5 0 0 0-.84-.1Z\"/>";
 
             /// <summary />
-            public static string Link { get; } = ResourceManager.GetString("Link");
+            public static string FlagClockSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 9V3h8.03l-1.94 2.7a.5.5 0 0 0-.05.5c.35-.1.71-.16 1.08-.19V6l2.29-3.2A.5.5 0 0 0 13 2H3.5a.5.5 0 0 0-.5.5v11a.5.5 0 0 0 1 0V10h2.2c.1-.35.24-.68.4-1H4Zm12 2.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM11.5 9a.5.5 0 0 0-.5.5v2c0 .28.22.5.5.5H13a.5.5 0 0 0 0-1h-1V9.5a.5.5 0 0 0-.5-.5Z\"/>";
 
             /// <summary />
-            public static string LinkDismiss { get; } = ResourceManager.GetString("LinkDismiss");
+            public static string FlagOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m9.3 10 4.85 4.85a.5.5 0 0 0 .7-.7l-13-13a.5.5 0 1 0-.7.7L3 3.71v9.79a.5.5 0 0 0 1 0V10h5.3Zm-1-1H4V4.7L8.3 9Zm3.73 0h-.9l1 1H13a.5.5 0 0 0 .4-.8L11.12 6l2.3-3.2A.5.5 0 0 0 13 2H4.12l1 1h6.9L10.1 5.7a.5.5 0 0 0 0 .6L12.03 9Z\"/>";
 
             /// <summary />
-            public static string LinkEdit { get; } = ResourceManager.GetString("LinkEdit");
+            public static string FlagSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 9V3h8.03l-1.94 2.7a.5.5 0 0 0 0 .6L12.03 9H4Zm0 1h9a.5.5 0 0 0 .4-.8L11.12 6l2.3-3.2A.5.5 0 0 0 13 2H3.5a.5.5 0 0 0-.5.5v11a.5.5 0 0 0 1 0V10Z\"/>";
 
             /// <summary />
-            public static string LinkSquare { get; } = ResourceManager.GetString("LinkSquare");
+            public static string FlashCheckmarkSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2.91 1.71A1 1 0 0 1 3.87 1h4.4a1 1 0 0 1 .94 1.35L8.21 5h2.04a5.47 5.47 0 0 0-2.88.98.5.5 0 0 1-.34-.66L8.27 2h-4.4L2.08 8H4a.5.5 0 0 1 .48.64L3 13.67a.23.23 0 0 0 0 .17c.03.05.07.1.12.12.06.03.12.04.17.03.04 0 .1-.03.14-.1l1.7-2.13c.1.39.23.76.4 1.11l-1.31 1.65c-.86 1.07-2.56.18-2.18-1.13L3.33 9H1.75a.75.75 0 0 1-.72-.96L2.9 1.7ZM15 10.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-2.85-1.85L9.5 11.29l-.65-.64a.5.5 0 0 0-.7.7l1 1c.2.2.5.2.7 0l3-3a.5.5 0 0 0-.7-.7Z\"/>";
 
             /// <summary />
-            public static string List { get; } = ResourceManager.GetString("List");
+            public static string FlashFlowSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.91 1.71A1 1 0 0 1 5.87 1h4.4a1 1 0 0 1 .94 1.35L10.22 5h2.03c.63 0 .98.73.59 1.22L11.58 7.8l-.24-.47a2.94 2.94 0 0 0-.31-.45l.7-.88H9.5a2.51 2.51 0 0 0-.5-.5.5.5 0 0 1 .03-.18L10.28 2h-4.4l-1.8 6h.97a2.5 2.5 0 0 0 1.14 1.63l-1.18 4.04a.23.23 0 0 0 0 .17c.03.05.07.1.13.12.05.03.11.04.16.03.04 0 .1-.03.15-.1l3.43-4.3.17-.13.1.21.02.02.35.7-3.29 4.13c-.85 1.07-2.56.18-2.18-1.13L5.33 9H3.75a.75.75 0 0 1-.72-.96L4.91 1.7ZM7.5 6c.65 0 1.2.41 1.41 1 .15 0 .3 0 .46.03a1.58 1.58 0 0 1 1.08.75l.98 1.96c.13.17.25.23.38.25.1.02.18.02.27.02a1.5 1.5 0 1 1 0 1c-.14 0-.3 0-.45-.04a1.58 1.58 0 0 1-1.08-.75l-.98-1.96A.57.57 0 0 0 9.19 8c-.1-.02-.18-.02-.27-.02A1.5 1.5 0 1 1 7.5 6ZM8 7.5a.5.5 0 1 0-1 0 .5.5 0 0 0 1 0Zm6 3a.5.5 0 1 0-1 0 .5.5 0 0 0 1 0Z\"/>";
 
             /// <summary />
-            public static string ListBar { get; } = ResourceManager.GetString("ListBar");
+            public static string FlashlightSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M12 1.5a.5.5 0 1 0-1 0v1a.5.5 0 0 0 1 0v-1Zm2.85-.35a.5.5 0 0 0-.7 0l-1 1a.5.5 0 1 0 .7.7l1-1a.5.5 0 0 0 0-.7Zm-8 8.7a.5.5 0 1 0-.7-.7l-1 1a.5.5 0 1 0 .7.7l1-1Zm1.71-8a1.5 1.5 0 0 0-2.12 0l-1.3 1.3A.5.5 0 0 0 5 3.5v3.8l-3.65 3.64a1.5 1.5 0 0 0 0 2.12l1.59 1.59a1.5 1.5 0 0 0 2.12 0L8.71 11h3.79a.5.5 0 0 0 .35-.15l1.3-1.29a1.5 1.5 0 0 0 0-2.12L8.56 1.85Zm-1.41.71c.2-.2.5-.2.7 0l5.59 5.59c.2.2.2.5 0 .7l-.94.94L6.2 3.5l.95-.94ZM6 4.71 11.3 10H8.5a.5.5 0 0 0-.35.15l-3.8 3.79a.5.5 0 0 1-.7 0l-1.59-1.59a.5.5 0 0 1 0-.7l3.8-3.8A.5.5 0 0 0 6 7.5V4.7Zm7.5.29h1a.5.5 0 1 0 0-1h-1a.5.5 0 0 0 0 1Z\"/>";
 
             /// <summary />
-            public static string ListBarTree { get; } = ResourceManager.GetString("ListBarTree");
+            public static string FlashSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.91 1.71A1 1 0 0 1 5.87 1h4.4a1 1 0 0 1 .94 1.35L10.22 5h2.03c.63 0 .98.73.59 1.22l-6.6 8.3c-.86 1.07-2.57.18-2.19-1.13L5.33 9H3.75a.75.75 0 0 1-.72-.96L4.91 1.7Zm5.37.29h-4.4l-1.8 6H6a.5.5 0 0 1 .48.64l-1.47 5.03a.23.23 0 0 0 .01.17c.02.05.06.1.12.12.05.03.11.04.16.03.04 0 .1-.03.15-.1L11.73 6H9.5a.5.5 0 0 1-.47-.68L10.28 2Z\"/>";
 
             /// <summary />
-            public static string ListBarTreeOffset { get; } = ResourceManager.GetString("ListBarTreeOffset");
+            public static string FlipHorizontalSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M14.93 12.76a.5.5 0 0 1-.43.24h-5a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .95-.22l5 10a.5.5 0 0 1-.02.48ZM10 4.62V12h3.7L10 4.62ZM1.5 13a.5.5 0 0 1-.45-.72l5-10A.5.5 0 0 1 7 2.5v10a.5.5 0 0 1-.5.5h-5Z\"/>";
 
             /// <summary />
-            public static string ListRtl { get; } = ResourceManager.GetString("ListRtl");
+            public static string FlipVerticalSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M12.76 1.07c.15.1.24.26.24.43v5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.22-.95l10-5a.5.5 0 0 1 .48.02ZM4.62 6H12V2.3L4.62 6ZM13 14.5a.5.5 0 0 1-.72.45l-10-5A.5.5 0 0 1 2.5 9h10c.28 0 .5.22.5.5v5Z\"/>";
 
             /// <summary />
-            public static string LocalLanguage { get; } = ResourceManager.GetString("LocalLanguage");
+            public static string FlowSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M15 5.5a2.5 2.5 0 0 1-4.95.5h-.32a1 1 0 0 0-.98.8l-.52 2.6A2 2 0 0 1 6.27 11h-.32a2.5 2.5 0 1 1 0-1h.32a1 1 0 0 0 .98-.8l.52-2.6A2 2 0 0 1 9.73 5h.32a2.5 2.5 0 0 1 4.95.5Zm-1 0a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0ZM3.5 12a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z\"/>";
 
             /// <summary />
-            public static string LocalLanguageEn { get; } = ResourceManager.GetString("LocalLanguageEn");
+            public static string FluidSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1 2.5C1 1.67 1.67 1 2.5 1h2C5.33 1 6 1.67 6 2.5v2C6 5.33 5.33 6 4.5 6h-2A1.5 1.5 0 0 1 1 4.5v-2ZM2.5 2a.5.5 0 0 0-.5.5v2c0 .28.22.5.5.5h2a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-.5-.5h-2ZM8 9.5C8 8.67 8.67 8 9.5 8h4c.83 0 1.5.67 1.5 1.5v4c0 .83-.67 1.5-1.5 1.5h-4A1.5 1.5 0 0 1 8 13.5v-4ZM9.5 9a.5.5 0 0 0-.5.5v4c0 .28.22.5.5.5h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 0-.5-.5h-4ZM3 10.5V7h1v3.5c0 .28.22.5.5.5H7v1H4.5A1.5 1.5 0 0 1 3 10.5ZM7 3v1h3.5c.28 0 .5.22.5.5V7h1V4.5c0-.83-.67-1.5-1.5-1.5H7Z\"/>";
 
             /// <summary />
-            public static string LocalLanguageKo { get; } = ResourceManager.GetString("LocalLanguageKo");
+            public static string FolderAddSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 4v6c0 1.1.9 2 2 2h1.2c-.08-.32-.15-.66-.18-1H4a1 1 0 0 1-1-1V5.5h2.75a.5.5 0 0 0 .34-.13L7.59 4H12a1 1 0 0 1 1 1v.6c.36.18.7.4 1 .66V5a2 2 0 0 0-2-2H7.18l-1.12-.89A.5.5 0 0 0 5.75 2H4a2 2 0 0 0-2 2Zm1 0a1 1 0 0 1 1-1h1.57l.87.7-.88.8H3V4Zm7.5 11a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm0-7c.28 0 .5.22.5.5V10h1.5a.5.5 0 0 1 0 1H11v1.5a.5.5 0 0 1-1 0V11H8.5a.5.5 0 0 1 0-1H10V8.5c0-.28.22-.5.5-.5Z\"/>";
 
             /// <summary />
-            public static string Location { get; } = ResourceManager.GetString("Location");
+            public static string FolderArrowLeftSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3 10V5.5h2.75a.5.5 0 0 0 .39-.18L7.24 4H12a1 1 0 0 1 1 1v.6c.36.18.7.4 1 .66V5a2 2 0 0 0-2-2H7.18l-1.11-.89A.5.5 0 0 0 5.75 2H4a2 2 0 0 0-2 2v6c0 1.1.9 2 2 2h1.2c-.08-.32-.15-.66-.18-1H4a1 1 0 0 1-1-1Zm1-7h1.58l.71.57-.77.93H3V4a1 1 0 0 1 1-1Zm6.5 12a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9Zm-2.35-4.85a.5.5 0 0 0-.15.35.5.5 0 0 0 .15.35l2 2a.5.5 0 0 0 .7-.7L9.71 11h2.79a.5.5 0 0 0 0-1H9.7l1.15-1.15a.5.5 0 0 0-.7-.7l-2 2Z\"/>";
 
             /// <summary />
-            public static string LocationAdd { get; } = ResourceManager.GetString("LocationAdd");
+            public static string FolderArrowRightSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3 5.5V10a1 1 0 0 0 1 1h1.02c.03.34.1.68.19 1H4a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2h1.75a.5.5 0 0 1 .32.11l1.1.89H12a2 2 0 0 1 2 2v1.26a5.5 5.5 0 0 0-1-.66V5a1 1 0 0 0-1-1H7.23L6.14 5.32a.5.5 0 0 1-.39.18H3ZM5.58 3H4a1 1 0 0 0-1 1v.5h2.52l.77-.93L5.58 3Zm.45 8a4.47 4.47 0 0 0 4.47 4 4.5 4.5 0 1 0-4.47-4Zm4.82 1.85a.5.5 0 0 1-.7-.7L11.29 11H8.5a.5.5 0 0 1 0-1h2.8l-1.15-1.15a.5.5 0 0 1 .7-.7l2 2a.5.5 0 0 1 .15.35.5.5 0 0 1-.14.35l-2 2Z\"/>";
 
             /// <summary />
-            public static string LocationArrow { get; } = ResourceManager.GetString("LocationArrow");
+            public static string FolderArrowUpSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3 5.5V10a1 1 0 0 0 1 1h1.02c.03.34.1.68.19 1H4a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2h1.75a.5.5 0 0 1 .32.11l1.1.89H12a2 2 0 0 1 2 2v1.26a5.5 5.5 0 0 0-1-.66V5a1 1 0 0 0-1-1H7.23L6.14 5.32a.5.5 0 0 1-.39.18H3ZM5.58 3H4a1 1 0 0 0-1 1v.5h2.52l.77-.93L5.58 3ZM15 10.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-4.15-2.35A.5.5 0 0 0 10.5 8a.5.5 0 0 0-.35.15l-2 2a.5.5 0 0 0 .7.7L10 9.71v2.79a.5.5 0 0 0 1 0V9.7l1.15 1.15a.5.5 0 0 0 .7-.7l-2-2Z\"/>";
 
             /// <summary />
-            public static string LocationArrowLeft { get; } = ResourceManager.GetString("LocationArrowLeft");
+            public static string FolderGlobeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 10V4c0-1.1.9-2 2-2h1.75a.5.5 0 0 1 .31.11L7.18 3H12a2 2 0 0 1 2 2v1.26a5.5 5.5 0 0 0-1-.66V5a1 1 0 0 0-1-1H7.6L6.08 5.37a.5.5 0 0 1-.34.13H3V10a1 1 0 0 0 1 1h1.02c.03.34.1.68.19 1H4a2 2 0 0 1-2-2Zm2-7a1 1 0 0 0-1 1v.5h2.56l.88-.8-.87-.7H4Zm7.36 10.98a8.3 8.3 0 0 0 .63-2.98H9c.05 1.2.3 2.24.63 2.98.42.92.8 1.02.86 1.02.06 0 .44-.1.86-1.02Zm-2.47.72A4.5 4.5 0 0 1 6.03 11H8c.06 1.48.39 2.8.88 3.7ZM6.03 10H8c.06-1.48.39-2.8.88-3.7A4.5 4.5 0 0 0 6.03 10Zm4.47-4c-.06 0-.44.1-.86 1.02A8.3 8.3 0 0 0 9.01 10H12a8.3 8.3 0 0 0-.63-2.98C10.94 6.1 10.56 6 10.5 6Zm1.61.3c1.54.59 2.67 2 2.86 3.7H13a8.83 8.83 0 0 0-.88-3.7Zm2.86 4.7a4.5 4.5 0 0 1-2.86 3.7c.5-.9.82-2.22.88-3.7h1.98Z\"/>";
 
             /// <summary />
-            public static string LocationArrowRight { get; } = ResourceManager.GetString("LocationArrowRight");
+            public static string FolderMailSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 4v6c0 1.1.9 2 2 2h1v-1H4a1 1 0 0 1-1-1V5.5h2.75a.5.5 0 0 0 .34-.13L7.59 4H12a1 1 0 0 1 1 1v2h.5c.17 0 .34.02.5.05V5a2 2 0 0 0-2-2H7.18l-1.12-.89A.5.5 0 0 0 5.75 2H4a2 2 0 0 0-2 2Zm1 0a1 1 0 0 1 1-1h1.57l.87.7-.88.8H3V4Zm3.01 5.3 4.5 2.63L15 9.5V9.5c0-.83-.67-1.5-1.5-1.5h-6c-.76 0-1.4.57-1.49 1.3ZM15 10.64l-4.26 2.3a.5.5 0 0 1-.5 0L6 10.44v3.05c0 .83.67 1.5 1.5 1.5h6c.83 0 1.5-.67 1.5-1.5v-2.86Z\"/>";
 
             /// <summary />
-            public static string LocationArrowUp { get; } = ResourceManager.GetString("LocationArrowUp");
+            public static string FolderMultipleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1 10V4c0-1.1.9-2 2-2h1.75a.5.5 0 0 1 .31.11L6.18 3H11a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2Zm2-7a1 1 0 0 0-1 1v.5h2.56l.88-.8-.87-.7H3Zm8 1H6.6L5.08 5.37a.5.5 0 0 1-.34.13H2V10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1Zm3 6V5.27A2 2 0 0 1 15 7v3a4 4 0 0 1-4 4H5a2 2 0 0 1-1.73-1H11a3 3 0 0 0 3-3Z\"/>";
 
             /// <summary />
-            public static string LocationOff { get; } = ResourceManager.GetString("LocationOff");
+            public static string FolderOpenSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13 6a2 2 0 0 0-2-2H6.17l-1.1-.9a.5.5 0 0 0-.32-.1H3a2 2 0 0 0-2 2v6c0 1.1.9 2 2 2h9.25a1.5 1.5 0 0 0 1.44-1.08l1.17-4A1.5 1.5 0 0 0 13.42 6H13ZM3 4h1.58l1.1.89c.1.07.2.1.32.1h5a1 1 0 0 1 1 1V6H4.25a1.5 1.5 0 0 0-1.44 1.08L2 9.86V5a1 1 0 0 1 1-1Zm.77 3.36A.5.5 0 0 1 4.25 7h9.17a.5.5 0 0 1 .48.64l-1.17 4a.5.5 0 0 1-.48.36H3.08a.5.5 0 0 1-.48-.64l1.17-4Z\"/>";
 
             /// <summary />
-            public static string LockClosed { get; } = ResourceManager.GetString("LockClosed");
+            public static string FolderOpenVerticalSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.52 2a.5.5 0 0 1 .17.04l3.85 1.6c.28.12.46.39.46.7v9.16a.5.5 0 0 1-.7.46l-3.84-1.6a.75.75 0 0 1-.46-.7V2.5a.5.5 0 0 1 .5-.5h.02ZM7.2 2h4.05c.41 0 .75.34.75.75V5.8c0 .08-.01.16-.04.23l-.87 2.62c-.06.18-.09.36-.09.55v2.05c0 .41-.34.75-.75.75H10V4.33c0-.7-.42-1.34-1.08-1.61L7.2 2ZM10 13h.25c.97 0 1.75-.78 1.75-1.75V9.2c0-.08.01-.16.04-.23l.87-2.62c.06-.18.09-.37.09-.55V2.75C13 1.78 12.22 1 11.25 1H4.57A1.5 1.5 0 0 0 3 2.5v9.17c0 .7.42 1.34 1.08 1.61l3.84 1.6A1.5 1.5 0 0 0 10 13.5V13Z\"/>";
 
             /// <summary />
-            public static string LockClosedKey { get; } = ResourceManager.GetString("LockClosedKey");
+            public static string FolderPersonSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 5v6c0 1.1.9 2 2 2h3.04a3.29 3.29 0 0 1 .01-1H4a1 1 0 0 1-1-1V6.5h2.75a.5.5 0 0 0 .34-.13L7.59 5h3.91A3 3 0 0 1 14 6.34V6a2 2 0 0 0-2-2H7.18l-1.12-.89A.5.5 0 0 0 5.75 3H4a2 2 0 0 0-2 2Zm1 0a1 1 0 0 1 1-1h1.57l.87.7-.88.8H3V5Zm10.5 3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm1.5 4.5c0 1.25-1 2.5-3.5 2.5S8 13.75 8 12.5c0-.83.67-1.5 1.5-1.5h4c.83 0 1.5.67 1.5 1.5Z\"/>";
 
             /// <summary />
-            public static string LockOpen { get; } = ResourceManager.GetString("LockOpen");
+            public static string FolderProhibitedSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 10V4c0-1.1.9-2 2-2h1.75a.5.5 0 0 1 .31.11L7.18 3H12a2 2 0 0 1 2 2v1.26a5.5 5.5 0 0 0-1-.66V5a1 1 0 0 0-1-1H7.6L6.08 5.37a.5.5 0 0 1-.34.13H3V10a1 1 0 0 0 1 1h1.02c.03.34.1.68.19 1H4a2 2 0 0 1-2-2Zm2-7a1 1 0 0 0-1 1v.5h2.56l.88-.8-.87-.7H4Zm6.5 12a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9Zm-2.8-2.4 4.9-4.9a3.5 3.5 0 0 0-4.9 4.9Zm.7.7a3.5 3.5 0 0 0 4.9-4.9l-4.9 4.9Z\"/>";
 
             /// <summary />
-            public static string Luggage { get; } = ResourceManager.GetString("Luggage");
+            public static string FolderSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 5v6c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H7.18l-1.12-.89A.5.5 0 0 0 5.75 3H4a2 2 0 0 0-2 2Zm1 0a1 1 0 0 1 1-1h1.57l.87.7-.88.8H3V5Zm4.6 0H12a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6.5h2.75a.5.5 0 0 0 .34-.13L7.59 5Z\"/>";
 
             /// <summary />
-            public static string Mail { get; } = ResourceManager.GetString("Mail");
+            public static string FolderSwapSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3 11V6.5h2.75a.5.5 0 0 0 .39-.18L7.24 5H12a1 1 0 0 1 1 1v2.09c.2.07.4.19.56.35l.44.44V6a2 2 0 0 0-2-2H7.18l-1.11-.89A.5.5 0 0 0 5.75 3H4a2 2 0 0 0-2 2v6c0 1.1.9 2 2 2h2.88l-.44-.43a1.5 1.5 0 0 1-.36-.57H4a1 1 0 0 1-1-1Zm1-7h1.58l.71.57-.77.93H3V5a1 1 0 0 1 1-1Zm5.86 5.86a.5.5 0 0 0-.71-.7l-2 1.99a.5.5 0 0 0 0 .7l2 2a.5.5 0 1 0 .7-.7L8.72 12h4.58l-1.14 1.15a.5.5 0 1 0 .7.7l2-2a.5.5 0 0 0 0-.7l-2-2a.5.5 0 0 0-.7.7L13.29 11H8.71l1.15-1.14Z\"/>";
 
             /// <summary />
-            public static string MailAdd { get; } = ResourceManager.GetString("MailAdd");
+            public static string FolderSyncSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 4v6c0 1.1.9 2 2 2h1.2c-.08-.32-.15-.66-.18-1H4a1 1 0 0 1-1-1V5.5h2.75a.5.5 0 0 0 .34-.13L7.59 4H12a1 1 0 0 1 1 1v.6c.36.18.7.4 1 .66V5a2 2 0 0 0-2-2H7.18l-1.12-.89A.5.5 0 0 0 5.75 2H4a2 2 0 0 0-2 2Zm1 0a1 1 0 0 1 1-1h1.57l.87.7-.88.8H3V4Zm3 6.5a4.5 4.5 0 1 0 9 0 4.5 4.5 0 0 0-9 0Zm6.5-3c.28 0 .5.22.5.5v1.5a.5.5 0 0 1-.5.5H11a.5.5 0 0 1 0-1h.47a1.98 1.98 0 0 0-1.72-.1 2 2 0 0 0-.66.44.5.5 0 0 1-.71-.71A3 3 0 0 1 12 8.15V8c0-.28.22-.5.5-.5Zm-.88 5.53A3 3 0 0 1 9 12.85V13a.5.5 0 0 1-1 0v-1.5c0-.28.22-.5.5-.5H10a.5.5 0 0 1 0 1h-.47a1.99 1.99 0 0 0 2.38-.34.5.5 0 0 1 .71.71 3 3 0 0 1-1 .66Z\"/>";
 
             /// <summary />
-            public static string MailAlert { get; } = ResourceManager.GetString("MailAlert");
+            public static string FolderZipSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m7.18 4-1.11-.89A.5.5 0 0 0 5.75 3H4a2 2 0 0 0-2 2v6c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H7.18ZM4 4h1.58l.71.57-.77.93H3V5a1 1 0 0 1 1-1Zm-1 7V6.5h2.75a.5.5 0 0 0 .39-.18L7.24 5H9v1.5c0 .28.22.5.5.5h.5v1h-.5a.5.5 0 1 0 0 1h.5v1h-.5a.5.5 0 0 0 0 1h.5v1H4a1 1 0 0 1-1-1Zm8 1v-2h.5a.5.5 0 1 0 0-1H11V7h.5a.5.5 0 0 0 .5-.5V5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-1Zm-1-7h1v1h-1V5Z\"/>";
 
             /// <summary />
-            public static string MailAllRead { get; } = ResourceManager.GetString("MailAllRead");
+            public static string FontSpaceTrackingInSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.96 2.3a.5.5 0 0 0-.92 0l-1.66 4-.01.02-.83 1.99a.5.5 0 1 0 .92.38L4.16 7h2.67l.7 1.7a.5.5 0 0 0 .93-.4l-.81-1.94a.5.5 0 0 0-.04-.1L5.96 2.31ZM5.5 3.8 6.42 6H4.58l.92-2.2Zm-.15 6.35a.5.5 0 1 0-.7.7l.64.65H2.5a.5.5 0 0 0 0 1h2.8l-.65.65a.5.5 0 1 0 .7.7l1.5-1.5a.5.5 0 0 0 0-.7l-1.5-1.5ZM10.5 9a.5.5 0 0 0 .46-.3l2.5-6a.5.5 0 1 0-.92-.4L10.5 7.2 8.46 2.3a.5.5 0 1 0-.92.4l2.5 6c.08.18.26.3.46.3Zm.85 4.85a.5.5 0 0 1-.7 0l-1.5-1.5a.5.5 0 0 1 0-.7l1.5-1.5a.5.5 0 1 1 .7.7l-.64.65h2.79a.5.5 0 0 1 0 1h-2.8l.65.65c.2.2.2.5 0 .7Z\"/>";
 
             /// <summary />
-            public static string MailArrowDoubleBack { get; } = ResourceManager.GetString("MailArrowDoubleBack");
+            public static string FontSpaceTrackingOutSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.46 8.7a.5.5 0 0 1-.92 0l-2.5-6a.5.5 0 1 1 .92-.4L11 7.2l2.04-4.9a.5.5 0 0 1 .92.4l-2.5 6ZM5 2c.2 0 .38.12.46.3l1.65 3.96a.5.5 0 0 1 .04.1l.81 1.95a.5.5 0 1 1-.92.38L6.34 7H3.66l-.7 1.7a.5.5 0 0 1-.93-.4l.83-1.98V6.3l1.67-4A.5.5 0 0 1 5 2Zm.92 4L5 3.8 4.08 6h1.84Zm5.73 4.15c.2-.2.5-.2.7 0l1.5 1.5a.5.5 0 0 1 0 .7l-1.5 1.5a.5.5 0 1 1-.7-.7l.64-.65H3.71l.64.65a.5.5 0 1 1-.7.7l-1.5-1.5a.5.5 0 0 1 0-.7l1.5-1.5a.5.5 0 0 1 .7.7l-.64.65h8.58l-.64-.65a.5.5 0 0 1 0-.7Z\"/>";
 
             /// <summary />
-            public static string MailArrowDown { get; } = ResourceManager.GetString("MailArrowDown");
+            public static string FoodCakeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6.81 1.67C7.08 1.32 7.48 1 8 1c.52 0 .92.32 1.19.67.26.35.45.81.5 1.26a2 2 0 0 1-.26 1.38C9.13 4.75 8.64 5 8 5c-.64 0-1.13-.25-1.43-.7a2 2 0 0 1-.27-1.37c.06-.45.25-.9.51-1.26Zm.6 2.08c.07.12.23.25.59.25s.52-.13.6-.25c.1-.14.14-.38.1-.68-.04-.3-.15-.6-.31-.8C8.23 2.05 8.09 2 8 2c-.08 0-.23.05-.39.27-.16.2-.27.5-.31.8-.04.3 0 .54.1.68ZM2 8c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v5h.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H2V8Zm1 5h10v-2.98l-.28.25a8.2 8.2 0 0 1-1.05.81c-.34.22-.76.42-1.17.42-.73 0-1.2-.51-1.5-.84l-.06-.07C8.6 10.2 8.36 10 8 10s-.59.2-.94.59l-.06.07c-.3.33-.77.84-1.5.84-.4 0-.8-.21-1.14-.42A8.9 8.9 0 0 1 3 10v3Zm0-4.4a16.64 16.64 0 0 0 .97.92c.3.27.63.53.92.71.32.2.52.27.61.27.26 0 .43-.17.82-.59C6.66 9.54 7.16 9 8 9s1.34.54 1.68.9v.01c.39.42.56.59.82.59.11 0 .33-.07.64-.27.3-.18.62-.44.92-.7A14.38 14.38 0 0 0 13 8.6V8a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v.6Z\"/>";
 
             /// <summary />
-            public static string MailArrowForward { get; } = ResourceManager.GetString("MailArrowForward");
+            public static string FoodChickenLegSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M15 5a4 4 0 0 0-7.94-.68c-.2.62-.38 1.1-.54 1.45L4.15 8.15A.5.5 0 0 0 4.5 9h.08l-1.49 1.48h-.01a.25.25 0 0 1-.08.02 2 2 0 0 0-1.22 3.59c.05.03.1.08.13.13A2 2 0 0 0 5.5 13l.01-.08v-.01L7 11.43v.07a.5.5 0 0 0 .85.35l2.36-2.35c.37-.17.88-.37 1.56-.57A4 4 0 0 0 15 5Zm-8 5.01-2.2 2.2c-.23.23-.3.54-.3.79a1 1 0 0 1-1.8.6c-.08-.1-.2-.22-.3-.3a1 1 0 0 1 .6-1.8c.25 0 .56-.07.8-.3L5.99 9H7v1.01ZM11 2a3 3 0 0 1 .5 5.96c-.78.24-1.36.47-1.79.67a.5.5 0 0 0-.14.1L8 10.29V8.5a.5.5 0 0 0-.5-.5H5.7l1.6-1.59a.5.5 0 0 0 .1-.14 14.19 14.19 0 0 0 .64-1.75A3 3 0 0 1 11 2Z\"/>";
 
             /// <summary />
-            public static string MailArrowUp { get; } = ResourceManager.GetString("MailArrowUp");
+            public static string FoodEggSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.7 8.22a.73.73 0 0 1 .2-.36.38.38 0 0 1 .11-.08.5.5 0 0 0 .19-.99c-.4-.08-.76.13-.98.34-.24.22-.43.53-.5.88a.5.5 0 1 0 .97.21Zm.6 3.38a3.3 3.3 0 1 0 0-6.6 3.3 3.3 0 0 0 0 6.6Zm0-1a2.3 2.3 0 1 1 0-4.6 2.3 2.3 0 0 1 0 4.6ZM9.2 2c.79.06 1.53.29 2.07.63a5.38 5.38 0 0 1 2.02 2.12c.39.67.79 1.53.79 2.85 0 .62-.07.93-.13 1.2v.04c-.05.21-.1.4-.05.91a4.2 4.2 0 0 1-.35 1.98c-.27.62-.7 1.2-1.28 1.57-1.19.74-2.62.9-3.96.37-.59-.24-.77-.29-.97-.3H6.87L6 13.4a3.84 3.84 0 0 1-3.46-2.16C1.68 9.6 1.7 7.1 3.59 5.61a3 3 0 0 0 .88-.87c.31-.52.61-.93.98-1.29s.78-.65 1.3-.94a4.47 4.47 0 0 1 2.45-.5Zm-.06 1a3.47 3.47 0 0 0-1.9.39c-.47.26-.8.5-1.09.77-.28.28-.53.62-.82 1.1-.28.46-.57.7-1.12 1.13-1.41 1.12-1.48 3.04-.79 4.38.46.88 1.31 1.62 2.58 1.62.36 0 .62 0 .83-.02H7.4c.38.02.7.13 1.29.37 1.03.4 2.12.29 3.05-.29.36-.23.68-.63.9-1.12.2-.49.3-1.03.26-1.5-.05-.61 0-.9.07-1.2v-.06a4.37 4.37 0 0 0-.55-3.32 4.4 4.4 0 0 0-1.69-1.78A3.53 3.53 0 0 0 9.13 3Z\"/>";
 
             /// <summary />
-            public static string MailAttach { get; } = ResourceManager.GetString("MailAttach");
+            public static string FoodSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.5 1c.28 0 .5.22.5.5v3c0 .65.42 1.2 1 1.41V1.5a.5.5 0 0 1 1 0v4.41c.58-.2 1-.76 1-1.41v-3a.5.5 0 0 1 1 0v3a2.5 2.5 0 0 1-2 2.45v7.55a.5.5 0 0 1-1 0V6.95A2.5 2.5 0 0 1 3 4.5v-3c0-.28.22-.5.5-.5Zm6.98 1.48c.16-.16.34-.28.52-.37V7h-1V3.5c0-.34.17-.72.48-1.02ZM11 8v6.5a.5.5 0 0 0 1 0v-13a.5.5 0 0 0-.5-.5 2.5 2.5 0 0 0-1.73.77A2.5 2.5 0 0 0 9 3.5v4c0 .28.22.5.5.5H11Z\"/>";
 
             /// <summary />
-            public static string MailCheckmark { get; } = ResourceManager.GetString("MailCheckmark");
+            public static string FoodToastSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.85 6.5c0-.28.22-.5.5-.5h3.2c.28 0 .5.22.5.5v3a.5.5 0 0 1-.5.5h-3.2a.5.5 0 0 1-.5-.5v-3Zm1 2.5h2.2V7h-2.2v2ZM1.27 4.01A3.29 3.29 0 0 1 4.2 2H12c1.44 0 3 1.19 3 3 0 1.06-.6 1.95-1 2.4-.01.55.01 1.28.04 2.06v.23c.03.8.06 1.62.06 2.31 0 .64-.06 1.24-.5 1.61-.2.2-.46.28-.72.33-.26.05-.56.06-.88.06H4c-.94 0-1.55-.28-1.87-.8A2.1 2.1 0 0 1 1.9 12V7.42a2.97 2.97 0 0 1-.63-3.4ZM4.2 3c-.87 0-1.66.6-2.02 1.41-.35.8-.26 1.72.54 2.4.12.1.18.24.18.39v4.87c0 .27 0 .46.1.61.05.1.24.32 1 .32h6c.31 0 .53-.01.68-.04.14-.03.18-.07.2-.08 0-.01.04-.05.07-.2.04-.15.05-.36.05-.68v-1.57c-.01-1.11-.02-2.26 0-3.04a.5.5 0 0 1 .15-.34l.23-.23c.2-.18.36-.34.52-.57.19-.28.34-.65.34-1.25 0-.66-.3-1.14-.73-1.48A2.55 2.55 0 0 0 10 3H4.2Zm7.73 9.88-.02.12H12c.31 0 .53-.01.7-.04.16-.03.22-.07.25-.1.05-.05.15-.2.15-.86 0-.67-.03-1.48-.05-2.28l-.01-.23c-.03-.86-.06-1.7-.04-2.3a.5.5 0 0 1 .16-.35c.3-.29.84-1.03.84-1.84 0-.98-.71-1.71-1.5-1.93.44.48.74 1.13.74 1.93s-.21 1.37-.52 1.82c-.22.32-.5.59-.71.78l-.02.02v2.77L12 12c0 .33-.01.63-.07.88Z\"/>";
 
             /// <summary />
-            public static string MailClock { get; } = ResourceManager.GetString("MailClock");
+            public static string Fps30SvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10 1a2 2 0 0 0-2 2v3a2 2 0 1 0 4 0V3a2 2 0 0 0-2-2Zm0 6a1 1 0 0 1-1-1V3a1 1 0 1 1 2 0v3a1 1 0 0 1-1 1Zm-8.5 3a.5.5 0 0 0-.5.5v4a.5.5 0 0 0 1 0V13h1.5a.5.5 0 0 0 0-1H2v-1h2.5a.5.5 0 0 0 0-1h-3Zm5 0a.5.5 0 0 0-.5.5v4a.5.5 0 0 0 1 0v-1h1.25a1.75 1.75 0 1 0 0-3.5H6.5Zm1.75 2.5H7V11h1.25a.75.75 0 0 1 0 1.5Zm2.75-1c0-.83.67-1.5 1.5-1.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 0 0 1h1a1.5 1.5 0 0 1 0 3h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 0 0-1h-1a1.5 1.5 0 0 1-1.5-1.5ZM5 4a1 1 0 1 0-.92-1.39c-.09.2-.26.39-.48.39-.33 0-.6-.27-.51-.6a2 2 0 1 1 3.23 2.1A2 2 0 0 1 5 8a2 2 0 0 1-1.91-1.4c-.1-.33.18-.6.51-.6.22 0 .4.19.48.39A1 1 0 1 0 5 5a.5.5 0 1 1 0-1Z\"/>";
 
             /// <summary />
-            public static string MailDismiss { get; } = ResourceManager.GetString("MailDismiss");
+            public static string Fps60SvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 2a1 1 0 0 0-1 1v1.27A2 2 0 1 1 3 6V3a2 2 0 1 1 4 0 .5.5 0 0 1-1 0 1 1 0 0 0-1-1Zm0 5a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm-3.5 3a.5.5 0 0 0-.5.5v4a.5.5 0 0 0 1 0V13h1.5a.5.5 0 0 0 0-1H2v-1h2.5a.5.5 0 0 0 0-1h-3Zm5 0a.5.5 0 0 0-.5.5v4a.5.5 0 0 0 1 0v-1h1.25a1.75 1.75 0 1 0 0-3.5H6.5Zm1.75 2.5H7V11h1.25a.75.75 0 0 1 0 1.5Zm2.75-1c0-.83.67-1.5 1.5-1.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 0 0 1h1a1.5 1.5 0 0 1 0 3h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 0 0-1h-1a1.5 1.5 0 0 1-1.5-1.5ZM8 3a2 2 0 1 1 4 0v3a2 2 0 1 1-4 0V3Zm3 0a1 1 0 1 0-2 0v3a1 1 0 0 0 2 0V3Z\"/>";
 
             /// <summary />
-            public static string MailError { get; } = ResourceManager.GetString("MailError");
+            public static string FrameSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 1.5a.5.5 0 0 0-1 0V3H1.5a.5.5 0 0 0 0 1H3v8H1.5a.5.5 0 0 0 0 1H3v1.5a.5.5 0 0 0 1 0V13h8v1.5a.5.5 0 0 0 1 0V13h1.5a.5.5 0 0 0 0-1H13V4h1.5a.5.5 0 0 0 0-1H13V1.5a.5.5 0 0 0-1 0V3H4V1.5ZM12 12H4V4h8v8Z\"/>";
 
             /// <summary />
-            public static string MailInbox { get; } = ResourceManager.GetString("MailInbox");
+            public static string FStopSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.84 3.84a2.17 2.17 0 0 1 2.72-1.73l.8.22a.5.5 0 1 0 .27-.96l-.8-.22a3.17 3.17 0 0 0-3.97 2.53L7.3 7H4.5a.5.5 0 1 0 0 1h2.65l-.53 3.18a2.17 2.17 0 0 1-3.19 1.55l-.69-.39a.5.5 0 0 0-.48.88l.69.38a3.17 3.17 0 0 0 4.66-2.25L8.16 8h2.34a.5.5 0 0 0 0-1H8.32l.52-3.16Z\"/>";
 
             /// <summary />
-            public static string MailInboxAdd { get; } = ResourceManager.GetString("MailInboxAdd");
+            public static string FullScreenMaximizeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.75 3a.75.75 0 0 0-.75.75V5.5a.5.5 0 0 1-1 0V3.75C2 2.78 2.78 2 3.75 2H5.5a.5.5 0 0 1 0 1H3.75ZM10 2.5c0-.28.22-.5.5-.5h1.75c.97 0 1.75.78 1.75 1.75V5.5a.5.5 0 0 1-1 0V3.75a.75.75 0 0 0-.75-.75H10.5a.5.5 0 0 1-.5-.5ZM2.5 10c.28 0 .5.22.5.5v1.75c0 .41.34.75.75.75H5.5a.5.5 0 0 1 0 1H3.75C2.78 14 2 13.22 2 12.25V10.5c0-.28.22-.5.5-.5Zm11 0c.28 0 .5.22.5.5v1.75c0 .97-.78 1.75-1.75 1.75H10.5a.5.5 0 0 1 0-1h1.75c.41 0 .75-.34.75-.75V10.5c0-.28.22-.5.5-.5Z\"/>";
 
             /// <summary />
-            public static string MailInboxArrowDown { get; } = ResourceManager.GetString("MailInboxArrowDown");
+            public static string FullScreenMinimizeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11 4a1 1 0 0 0 1 1h1.5a.5.5 0 0 1 0 1H12a2 2 0 0 1-2-2V2.5a.5.5 0 0 1 1 0V4Zm0 8a1 1 0 0 1 1-1h1.5a.5.5 0 0 0 0-1H12a2 2 0 0 0-2 2v1.5a.5.5 0 0 0 1 0V12Zm-7-1a1 1 0 0 1 1 1v1.5a.5.5 0 0 0 1 0V12a2 2 0 0 0-2-2H2.5a.5.5 0 0 0 0 1H4Zm1-7a1 1 0 0 1-1 1H2.5a.5.5 0 0 0 0 1H4a2 2 0 0 0 2-2V2.5a.5.5 0 0 0-1 0V4Z\"/>";
 
             /// <summary />
-            public static string MailInboxCheckmark { get; } = ResourceManager.GetString("MailInboxCheckmark");
+            public static string GamesSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.5 7.5c0-.28.23-.5.5-.5h1V6a.5.5 0 0 1 1 0v1h1a.5.5 0 0 1 0 1H6v1a.5.5 0 1 1-1 0V8H4a.5.5 0 0 1-.5-.5ZM11 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm0-2a1 1 0 1 0 0-2 1 1 0 0 0 0 2ZM1 7.5A4.5 4.5 0 0 1 5.5 3h5a4.5 4.5 0 1 1 0 9h-5A4.5 4.5 0 0 1 1 7.5ZM5.5 4a3.5 3.5 0 1 0 0 7h5a3.5 3.5 0 1 0 0-7h-5Z\"/>";
 
             /// <summary />
-            public static string MailInboxDismiss { get; } = ResourceManager.GetString("MailInboxDismiss");
+            public static string GanttChartSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1 5.5A2.5 2.5 0 0 1 3.5 3h9A2.5 2.5 0 0 1 15 5.5v5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 10.5v-5ZM3.5 4C2.67 4 2 4.67 2 5.5v5c0 .83.67 1.5 1.5 1.5H5V7h1v5h4v-1.09c.16.06.32.09.5.09h.5v1h1.5c.83 0 1.5-.67 1.5-1.5v-5c0-.83-.67-1.5-1.5-1.5H11v2h-1V4H3.5Zm0 1a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3ZM7 7.5c0-.28.22-.5.5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5ZM10.5 9a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2Z\"/>";
 
             /// <summary />
-            public static string MailList { get; } = ResourceManager.GetString("MailList");
+            public static string GifSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.05 6.7c.48-.04.85.04.99.1a.5.5 0 1 0 .45-.89 2.98 2.98 0 0 0-1.54-.2c-.96.1-1.95.94-1.95 2.3 0 1.38 1.05 2.3 2.3 2.3.58 0 1.1-.27 1.4-.55.26-.25.3-.58.3-.79v-.96a.5.5 0 0 0-.5-.5h-.8a.5.5 0 1 0 0 1H6v.46a.43.43 0 0 1 0 .07c-.15.13-.42.27-.7.27C4.57 9.3 4 8.8 4 8c0-.82.57-1.25 1.05-1.3ZM9 6.2a.5.5 0 0 0-1 0v3.6a.5.5 0 1 0 1 0V6.2Zm1.5-.5a.5.5 0 0 0-.5.5v3.6a.5.5 0 0 0 1 0V8.5h1a.5.5 0 0 0 0-1h-1v-.8h1.5a.5.5 0 0 0 0-1h-2ZM3.5 2A2.5 2.5 0 0 0 1 4.5v7A2.5 2.5 0 0 0 3.5 14h9a2.5 2.5 0 0 0 2.5-2.5v-7A2.5 2.5 0 0 0 12.5 2h-9ZM2 4.5C2 3.67 2.67 3 3.5 3h9c.83 0 1.5.67 1.5 1.5v7c0 .83-.67 1.5-1.5 1.5h-9A1.5 1.5 0 0 1 2 11.5v-7Z\"/>";
 
             /// <summary />
-            public static string MailMultiple { get; } = ResourceManager.GetString("MailMultiple");
+            public static string GiftCardSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1 5c0-1.1.9-2 2-2h10a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V5Zm12 7a1 1 0 0 0 1-1V8H6.7l1.15 1.15a.5.5 0 1 1-.7.7L6 8.71V12h7ZM7.91 7H14V5a1 1 0 0 0-1-1H6v1.09A1.5 1.5 0 0 1 7.91 7ZM6.5 7a.5.5 0 1 0-.5-.5V7h.5ZM5 5.09V4H3a1 1 0 0 0-1 1v2h1.09A1.5 1.5 0 0 1 5 5.09ZM4.5 7H5v-.5a.5.5 0 1 0-.5.5Zm-.2 1H2v3a1 1 0 0 0 1 1h2V8.7L3.85 9.86a.5.5 0 0 1-.7-.7L4.29 8Z\"/>";
 
             /// <summary />
-            public static string MailOpenPerson { get; } = ResourceManager.GetString("MailOpenPerson");
+            public static string GiftSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 2a2 2 0 0 1 1.5.68A2 2 0 0 1 10.73 5H12a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.27A2 2 0 0 1 6 2ZM5 4a1 1 0 0 0 1 1h1V4a1 1 0 0 0-2 0Zm3 2v2h4V6H8ZM7 6H3v2h4V6ZM4 9v3a1 1 0 0 0 1 1h2V9H4Zm4 4h2a1 1 0 0 0 1-1V9H8v4Zm2-9a1 1 0 0 0-2 0v1h1a1 1 0 0 0 1-1Z\"/>";
 
             /// <summary />
-            public static string MailPause { get; } = ResourceManager.GetString("MailPause");
+            public static string GlanceHorizontalSparklesSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13.78 2.21h.02a.3.3 0 0 1 0 .58l-.77.25a1.58 1.58 0 0 0-1 1l-.24.76a.3.3 0 0 1-.12.14.3.3 0 0 1-.17.06.3.3 0 0 1-.29-.2l-.24-.77a1.58 1.58 0 0 0-1-1l-.77-.25a.3.3 0 0 1 0-.57l.77-.25a1.58 1.58 0 0 0 .98-1L11.2.2a.3.3 0 0 1 .57 0l.25.77a1.57 1.57 0 0 0 1 1l.76.24Zm2.05 3.56-.62-.2a1.26 1.26 0 0 1-.8-.8l-.2-.6a.24.24 0 0 0-.45 0l-.2.6a1.26 1.26 0 0 1-.79.8l-.6.2a.24.24 0 0 0 0 .46l.6.2a1.26 1.26 0 0 1 .8.8l.2.6a.24.24 0 0 0 .46 0l.2-.6a1.26 1.26 0 0 1 .8-.8l.6-.2a.24.24 0 0 0 0-.46ZM3.75 2C2.78 2 2 2.78 2 3.75v2.5C2 7.22 2.78 8 3.75 8h2.5C7.22 8 8 7.22 8 6.25v-2.5C8 2.78 7.22 2 6.25 2h-2.5ZM3 3.75c0-.41.34-.75.75-.75h2.5c.41 0 .75.34.75.75v2.5c0 .41-.34.75-.75.75h-2.5A.75.75 0 0 1 3 6.25v-2.5ZM8.75 9C7.78 9 7 9.78 7 10.75v1.5c0 .97.78 1.75 1.75 1.75h3.5c.97 0 1.75-.78 1.75-1.75v-1.5C14 9.78 13.22 9 12.25 9h-3.5ZM8 10.75c0-.41.34-.75.75-.75h3.5c.41 0 .75.34.75.75v1.5c0 .41-.34.75-.75.75h-3.5a.75.75 0 0 1-.75-.75v-1.5Zm-6 0C2 9.78 2.78 9 3.75 9h.5C5.22 9 6 9.78 6 10.75v1.5C6 13.22 5.22 14 4.25 14h-.5C2.78 14 2 13.22 2 12.25v-1.5ZM3.75 10a.75.75 0 0 0-.75.75v1.5c0 .41.34.75.75.75h.5c.41 0 .75-.34.75-.75v-1.5a.75.75 0 0 0-.75-.75h-.5Z\"/>";
 
             /// <summary />
-            public static string MailProhibited { get; } = ResourceManager.GetString("MailProhibited");
+            public static string GlanceHorizontalSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.75 2C2.78 2 2 2.78 2 3.75v2.5C2 7.22 2.78 8 3.75 8h3.5C8.22 8 9 7.22 9 6.25v-2.5C9 2.78 8.22 2 7.25 2h-3.5ZM3 3.75c0-.41.34-.75.75-.75h3.5c.41 0 .75.34.75.75v2.5c0 .41-.34.75-.75.75h-3.5A.75.75 0 0 1 3 6.25v-2.5ZM8.75 9C7.78 9 7 9.78 7 10.75v1.5c0 .97.78 1.75 1.75 1.75h3.5c.97 0 1.75-.78 1.75-1.75v-1.5C14 9.78 13.22 9 12.25 9h-3.5ZM8 10.75c0-.41.34-.75.75-.75h3.5c.41 0 .75.34.75.75v1.5c0 .41-.34.75-.75.75h-3.5a.75.75 0 0 1-.75-.75v-1.5Zm-6 0C2 9.78 2.78 9 3.75 9h.5C5.22 9 6 9.78 6 10.75v1.5C6 13.22 5.22 14 4.25 14h-.5C2.78 14 2 13.22 2 12.25v-1.5ZM3.75 10a.75.75 0 0 0-.75.75v1.5c0 .41.34.75.75.75h.5c.41 0 .75-.34.75-.75v-1.5a.75.75 0 0 0-.75-.75h-.5Zm8-8C10.78 2 10 2.78 10 3.75v2.5c0 .97.78 1.75 1.75 1.75h.5C13.22 8 14 7.22 14 6.25v-2.5C14 2.78 13.22 2 12.25 2h-.5ZM11 3.75c0-.41.34-.75.75-.75h.5c.41 0 .75.34.75.75v2.5c0 .41-.34.75-.75.75h-.5a.75.75 0 0 1-.75-.75v-2.5Z\"/>";
 
             /// <summary />
-            public static string MailRead { get; } = ResourceManager.GetString("MailRead");
+            public static string GlassesOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m11.28 12 2.87 2.85a.5.5 0 0 0 .7-.7l-13-13a.5.5 0 1 0-.7.7L3.7 4.42 1.55 6.34C1.2 6.62 1 7.04 1 7.5v2A2.5 2.5 0 0 0 3.5 12h1A2.5 2.5 0 0 0 7 9.5V9h1.3l.7.72a2.5 2.5 0 0 0 2.28 2.27ZM5.3 6H3.44l.98-.87.87.87ZM2.17 7.12l.02-.01A.5.5 0 0 1 2.5 7h3c.28 0 .5.22.5.5v2c0 .83-.67 1.5-1.5 1.5h-1A1.5 1.5 0 0 1 2 9.5v-2a.5.5 0 0 1 .17-.38Zm7.83.76-.9-.9A1.5 1.5 0 0 1 10.5 6h2.06l-2.25-2H9.5a.5.5 0 0 1 0-1h1a.5.5 0 0 1 .33.13l3.62 3.21c.34.28.55.7.55 1.16v2c0 .92-.5 1.72-1.23 2.15l-.74-.75c.57-.2.97-.76.97-1.4v-2a.5.5 0 0 0-.17-.38l-.02-.01A.5.5 0 0 0 13.5 7h-3a.5.5 0 0 0-.5.5v.38ZM5.21 3.09l.91.91h.38a.5.5 0 0 0 0-1h-1a.5.5 0 0 0-.29.1Z\"/>";
 
             /// <summary />
-            public static string MailReadMultiple { get; } = ResourceManager.GetString("MailReadMultiple");
+            public static string GlassesSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.17 3.13A.5.5 0 0 1 5.5 3h1a.5.5 0 0 1 0 1h-.81L3.44 6H5.5C6.33 6 7 6.67 7 7.5V8h2v-.5c0-.83.67-1.5 1.5-1.5h2.06l-2.25-2H9.5a.5.5 0 0 1 0-1h1a.5.5 0 0 1 .33.13l3.62 3.21c.34.28.55.7.55 1.16v2a2.5 2.5 0 0 1-2.5 2.5h-1A2.5 2.5 0 0 1 9 9.5V9H7v.5A2.5 2.5 0 0 1 4.5 12h-1A2.5 2.5 0 0 1 1 9.5v-2c0-.47.21-.88.55-1.16l3.62-3.21ZM13.8 7.1A.5.5 0 0 0 13.5 7h-3a.5.5 0 0 0-.5.5v2c0 .83.67 1.5 1.5 1.5h1c.83 0 1.5-.67 1.5-1.5v-2a.5.5 0 0 0-.17-.38l-.02-.01Zm-11.64.01A.5.5 0 0 0 2 7.5v2c0 .83.67 1.5 1.5 1.5h1c.83 0 1.5-.67 1.5-1.5v-2a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.3.1l-.03.02Z\"/>";
 
             /// <summary />
-            public static string MailSettings { get; } = ResourceManager.GetString("MailSettings");
+            public static string GlobeClockSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 8a6 6 0 0 0 4 5.66 5.48 5.48 0 0 1-.74-1.47A5.03 5.03 0 0 1 4 11h1.02a5.57 5.57 0 0 1 0-1h-1.6a4.98 4.98 0 0 1 0-4h1.74a12.06 12.06 0 0 0-.07 3.5c.15-.8.47-1.55.93-2.2.03-.45.08-.89.16-1.3h1.16a5.47 5.47 0 0 1 6.32 0A6 6 0 0 0 2 8Zm6-5c.37 0 .88.36 1.31 1.32.1.2.18.43.26.68H6.43c.08-.25.16-.47.26-.68C7.12 3.36 7.63 3 8 3Zm-2.22.9c-.15.34-.29.7-.4 1.1H4a5.02 5.02 0 0 1 2.04-1.6c-.1.16-.18.33-.26.5Zm4.18-.5c.81.35 1.52.9 2.04 1.6h-1.38a7.53 7.53 0 0 0-.66-1.6ZM15 10.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM10.5 8a.5.5 0 0 0-.5.5v2c0 .28.22.5.5.5H12a.5.5 0 0 0 0-1h-1V8.5a.5.5 0 0 0-.5-.5Z\"/>";
 
             /// <summary />
-            public static string MailShield { get; } = ResourceManager.GetString("MailShield");
+            public static string GlobeStarSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 13.66A6 6 0 1 1 13.66 6a5.47 5.47 0 0 0-6.32 0H6.18c-.08.41-.13.85-.16 1.3a5.47 5.47 0 0 0-.93 2.2A12.33 12.33 0 0 1 5.16 6H3.42a4.98 4.98 0 0 0 0 4h1.6a5.57 5.57 0 0 0 0 1H4c.35.46.78.87 1.26 1.19.17.53.42 1.02.74 1.47ZM9.3 4.32C8.88 3.36 8.37 3 8 3c-.37 0-.88.36-1.31 1.32-.1.2-.18.43-.26.68h3.14a6.19 6.19 0 0 0-.26-.68ZM5.38 5a7.53 7.53 0 0 1 .66-1.6C5.23 3.75 4.52 4.3 4 5h1.38ZM12 5a5.02 5.02 0 0 0-2.04-1.6c.1.16.18.33.26.5.15.34.29.7.4 1.1H12Zm-1.5 10a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm.95-5.6H13c.48 0 .69.64.3.94l-1.26.94.48 1.53c.15.49-.38.89-.77.59l-1.25-.95-1.25.95c-.4.3-.92-.1-.77-.59l.48-1.53-1.25-.94c-.4-.3-.2-.95.3-.95h1.54l.47-1.53a.5.5 0 0 1 .96 0l.47 1.53Z\"/>";
 
             /// <summary />
-            public static string MailTemplate { get; } = ResourceManager.GetString("MailTemplate");
+            public static string GlobeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12ZM8 3c.37 0 .88.36 1.31 1.32.1.2.18.43.26.68H6.43c.08-.25.16-.47.26-.68C7.12 3.36 7.63 3 8 3Zm-2.22.9c-.15.34-.29.7-.4 1.1H4a5.02 5.02 0 0 1 2.04-1.6c-.1.16-.18.33-.26.5ZM5.16 6a12.06 12.06 0 0 0 0 4H3.42a4.98 4.98 0 0 1 0-4h1.74Zm.22 5a7.53 7.53 0 0 0 .66 1.6A5.02 5.02 0 0 1 4 11h1.38Zm1.05 0h3.14a6.2 6.2 0 0 1-.26.68C8.88 12.64 8.37 13 8 13c-.37 0-.88-.36-1.31-1.32a6.2 6.2 0 0 1-.26-.68Zm3.4-1H6.17a10.94 10.94 0 0 1 0-4h3.64a10.94 10.94 0 0 1 0 4Zm.79 1H12a5.02 5.02 0 0 1-2.04 1.6c.1-.16.18-.33.26-.5.15-.34.29-.7.4-1.1Zm1.96-1h-1.74a12.05 12.05 0 0 0 0-4h1.74a4.98 4.98 0 0 1 0 4ZM9.96 3.4c.81.35 1.52.9 2.04 1.6h-1.38a7.53 7.53 0 0 0-.66-1.6Z\"/>";
 
             /// <summary />
-            public static string MailUnread { get; } = ResourceManager.GetString("MailUnread");
+            public static string GridSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.5 2C2.67 2 2 2.67 2 3.5v2C2 6.33 2.67 7 3.5 7h2C6.33 7 7 6.33 7 5.5v-2C7 2.67 6.33 2 5.5 2h-2ZM3 3.5c0-.28.22-.5.5-.5h2c.28 0 .5.22.5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2ZM10.5 2C9.67 2 9 2.67 9 3.5v2c0 .83.67 1.5 1.5 1.5h2c.83 0 1.5-.67 1.5-1.5v-2c0-.83-.67-1.5-1.5-1.5h-2ZM10 3.5c0-.28.22-.5.5-.5h2c.28 0 .5.22.5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2Zm-8 7C2 9.67 2.67 9 3.5 9h2c.83 0 1.5.67 1.5 1.5v2c0 .83-.67 1.5-1.5 1.5h-2A1.5 1.5 0 0 1 2 12.5v-2Zm1.5-.5a.5.5 0 0 0-.5.5v2c0 .28.22.5.5.5h2a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-.5-.5h-2Zm7-1C9.67 9 9 9.67 9 10.5v2c0 .83.67 1.5 1.5 1.5h2c.83 0 1.5-.67 1.5-1.5v-2c0-.83-.67-1.5-1.5-1.5h-2Zm-.5 1.5c0-.28.22-.5.5-.5h2c.28 0 .5.22.5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2Z\"/>";
 
             /// <summary />
-            public static string MailWarning { get; } = ResourceManager.GetString("MailWarning");
+            public static string GuestSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 7a2 2 0 1 1 4 0 2 2 0 0 1-4 0Zm2-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2Zm-2.3 4c-.34 0-.7.24-.73.66a2 2 0 0 0 .46 1.45C5.9 12.65 6.7 13 8 13c1.3 0 2.1-.35 2.57-.89a2 2 0 0 0 .46-1.45.71.71 0 0 0-.73-.66H5.7Zm.5 1.46a.93.93 0 0 1-.22-.46h4.04a.93.93 0 0 1-.21.46c-.2.24-.68.54-1.81.54s-1.6-.3-1.8-.54ZM10.9 2h.59c.83 0 1.5.67 1.5 1.5v10c0 .83-.67 1.5-1.5 1.5h-7A1.5 1.5 0 0 1 3 13.5v-10C3 2.67 3.67 2 4.5 2h.59c.2-.58.76-1 1.41-1h3c.65 0 1.2.42 1.41 1ZM5.1 3H4.5a.5.5 0 0 0-.5.5v10c0 .28.22.5.5.5h7a.5.5 0 0 0 .5-.5v-10a.5.5 0 0 0-.5-.5h-.59c-.2.58-.76 1-1.41 1h-3a1.5 1.5 0 0 1-1.41-1ZM6 2.5c0 .28.22.5.5.5h3a.5.5 0 0 0 0-1h-3a.5.5 0 0 0-.5.5Z\"/>";
 
             /// <summary />
-            public static string MapDrive { get; } = ResourceManager.GetString("MapDrive");
+            public static string GuitarSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.78 9.28a.75.75 0 1 1-1.06-1.06.75.75 0 0 1 1.06 1.06Zm2.7-1.81 3.03-3.03c.39-.39.39-1 0-1.39l-.56-.56a.98.98 0 0 0-1.39 0L8.53 5.52a1.67 1.67 0 0 0-2.4.67l-.24.48a.3.3 0 0 1-.32.16h-.04A2.82 2.82 0 0 0 2.72 7.9a3.6 3.6 0 0 0 .33 4.7l.35.35a3.6 3.6 0 0 0 4.7.33 2.82 2.82 0 0 0 1.08-2.8l-.01-.05a.3.3 0 0 1 .16-.32l.48-.25c.91-.45 1.19-1.58.67-2.39Zm.4-2.88.53.53L9.45 7.1a.5.5 0 0 0 0 .7l.1.1c.32.32.23.87-.18 1.08l-.5.24c-.51.26-.8.84-.68 1.41v.05c.14.68-.13 1.4-.69 1.81a2.6 2.6 0 0 1-3.39-.24l-.35-.35a2.6 2.6 0 0 1-.24-3.4 1.82 1.82 0 0 1 1.81-.69l.05.01a1.3 1.3 0 0 0 1.4-.69l.25-.49c.2-.4.76-.5 1.08-.17l.1.1c.19.19.5.19.7 0l1.97-1.97Zm.7-.71.67-.67.54.53-.67.68-.54-.54Z\"/>";
 
             /// <summary />
-            public static string MathFormatProfessional { get; } = ResourceManager.GetString("MathFormatProfessional");
+            public static string HandDrawSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13.2 1.46c.38.17.8.49.8 1.04 0 .54-.39.86-.76 1.03-.38.18-.87.28-1.4.34A35 35 0 0 1 8.03 4H8c-1.39 0-2.73 0-3.72.12-.5.06-.87.15-1.1.25a.53.53 0 0 0-.17.12c0 .03.07.14.37.26.36.15.91.25 1.62.25v1c-.8 0-1.49-.11-2-.33-.47-.2-1-.56-1-1.17 0-.54.39-.86.76-1.03.38-.18.87-.28 1.4-.34A35 35 0 0 1 7.97 3H8c1.39 0 2.73 0 3.72-.12.5-.06.87-.15 1.1-.25.1-.06.16-.1.17-.12a.59.59 0 0 0-.2-.13c-.24-.11-.63-.2-1.17-.26A40.16 40.16 0 0 0 7.58 2a.5.5 0 0 1 0-1h.02c1.5 0 3 0 4.13.13.57.06 1.08.16 1.47.33ZM7.5 6a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-.74.44l-1.08-.58a.82.82 0 0 0-1.15.42l2.34 1.58c.73.4 1.28.96 1.62 1.37.17.2.4.3.6.26l1.9-.28a.5.5 0 0 0 .41-.38l.55-2.22a1.5 1.5 0 0 0-1.23-1.84l-1.8-.28A.5.5 0 0 1 8 8.5v-2a.5.5 0 0 0-.5-.5ZM6 6.5a1.5 1.5 0 1 1 3 0v1.57l1.37.2a2.5 2.5 0 0 1 2.05 3.09l-.55 2.21a1.5 1.5 0 0 1-1.23 1.12l-1.9.3c-.6.09-1.17-.2-1.52-.62a4.7 4.7 0 0 0-1.4-1.17l-2.45-1.66a.83.83 0 0 1-.35-.87 1.82 1.82 0 0 1 2.64-1.2l.34.2V6.5Z\"/>";
 
             /// <summary />
-            public static string MathFormula { get; } = ResourceManager.GetString("MathFormula");
+            public static string HandLeftChatSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.5 2c.28 0 .5.22.5.5v4c0 .23.15.42.36.48.2-.14.41-.26.63-.37A.5.5 0 0 0 9 6.5v-3a.5.5 0 0 1 1 0v2.7c.32-.08.66-.15 1-.18V5.5a.5.5 0 0 1 1 0v.52c.34.03.68.1 1 .19V5.5a1.5 1.5 0 0 0-2-1.41V3.5a1.5 1.5 0 0 0-2.05-1.4 1.5 1.5 0 0 0-2.9 0A1.5 1.5 0 0 0 4 3.5v3.95c-.28-.17-.58-.3-.9-.35a1.7 1.7 0 0 0-1.08.2c-.35.2-.66.5-.94.92a.5.5 0 0 0 .13.69l.02.01a5.33 5.33 0 0 1 .35.28c.23.2.56.48.91.84a9.95 9.95 0 0 1 2.08 2.99c.3.72.87 1.4 1.62 1.74l.3-.97a2.36 2.36 0 0 1-1-1.16 10.95 10.95 0 0 0-2.28-3.3c-.39-.4-.74-.7-1-.91v-.01c.1-.12.2-.2.3-.24a.7.7 0 0 1 .45-.09c.34.05.74.32 1.19.76A.5.5 0 0 0 5 8.5v-5a.5.5 0 0 1 1 0v3a.5.5 0 0 0 1 0v-4c0-.28.22-.5.5-.5Zm8.5 9.5a4.5 4.5 0 0 1-6.68 3.94l-1.8.54a.4.4 0 0 1-.5-.5l.54-1.8A4.5 4.5 0 1 1 16 11.5ZM9.5 10a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4ZM9 12.5c0 .28.22.5.5.5h2a.5.5 0 0 0 0-1h-2a.5.5 0 0 0-.5.5Z\"/>";
 
             /// <summary />
-            public static string MathSymbols { get; } = ResourceManager.GetString("MathSymbols");
+            public static string HandLeftSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.5 2c.28 0 .5.22.5.5v4a.5.5 0 1 0 1 0v-3a.5.5 0 1 1 1 0v4a.5.5 0 1 0 1 0v-2a.5.5 0 0 1 1 0v4c0 .57-.25 1.3-.63 2.04-.38.73-.84 1.43-1.2 1.92-.25.34-.66.54-1.1.54H8.22c-.72 0-1.4-.56-1.74-1.36a10.95 10.95 0 0 0-2.28-3.3c-.39-.4-.74-.7-1-.91v-.01c.1-.12.2-.2.3-.24a.7.7 0 0 1 .45-.09c.34.05.74.32 1.19.76A.5.5 0 0 0 6 8.5v-5a.5.5 0 0 1 1 0v3a.5.5 0 0 0 1 0v-4c0-.28.22-.5.5-.5ZM12 4.09V3.5a1.5 1.5 0 0 0-2.05-1.4 1.5 1.5 0 0 0-2.9 0A1.5 1.5 0 0 0 5 3.5v3.95c-.28-.17-.58-.3-.9-.35a1.7 1.7 0 0 0-1.08.2c-.35.2-.66.5-.94.92a.5.5 0 0 0 .13.69l.02.01a5.33 5.33 0 0 1 .35.28c.23.2.56.48.91.84a9.95 9.95 0 0 1 2.08 2.99C6 14.06 6.97 15 8.23 15h1.83c.74 0 1.46-.33 1.91-.95.38-.52.88-1.26 1.29-2.06.4-.78.74-1.68.74-2.49v-4a1.5 1.5 0 0 0-2-1.41Zm0 3.41Z\"/>";
 
             /// <summary />
-            public static string Maximize { get; } = ResourceManager.GetString("Maximize");
+            public static string HandRightSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.5 2a.5.5 0 0 0-.5.5v4a.5.5 0 1 1-1 0v-3a.5.5 0 0 0-1 0v4a.5.5 0 0 1-1 0v-2a.5.5 0 0 0-1 0v4c0 .57.25 1.3.63 2.04.38.73.84 1.43 1.2 1.92.25.34.66.54 1.1.54h1.84c.72 0 1.4-.56 1.74-1.36a10.95 10.95 0 0 1 2.28-3.3c.39-.4.74-.7 1-.91v-.01a1.3 1.3 0 0 0-.3-.24.7.7 0 0 0-.45-.09c-.34.05-.74.32-1.19.76A.5.5 0 0 1 10 8.5v-5a.5.5 0 0 0-1 0v3a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5ZM4 4.09V3.5a1.5 1.5 0 0 1 2.05-1.4 1.5 1.5 0 0 1 2.9 0A1.5 1.5 0 0 1 11 3.5v3.95c.28-.17.58-.3.9-.35.35-.05.72 0 1.08.2.35.2.66.5.94.92a.5.5 0 0 1-.13.69l-.02.01a5.02 5.02 0 0 0-.35.28c-.23.2-.56.48-.91.84a9.96 9.96 0 0 0-2.08 2.99C10 14.06 9.03 15 7.77 15H5.94c-.74 0-1.46-.33-1.91-.95-.38-.52-.88-1.26-1.29-2.06A5.83 5.83 0 0 1 2 9.5v-4a1.5 1.5 0 0 1 2-1.41ZM4 7.5Z\"/>";
 
             /// <summary />
-            public static string MeetNow { get; } = ResourceManager.GetString("MeetNow");
+            public static string HandshakeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.2 2a.5.5 0 0 0-.38.18l-.05.04a4.56 4.56 0 0 0-4.4 1.02 4 4 0 0 0-1.21 3.68l-.02.01-.67.64a1.35 1.35 0 0 0 0 1.98c.35.32.81.45 1.26.4.06.23.2.45.39.63.26.25.6.38.93.4.03.33.17.65.43.9.26.24.6.38.94.4.03.32.17.64.43.89.53.5 1.37.54 1.95.12l.33.31c.58.55 1.52.55 2.1 0 .26-.25.4-.56.43-.88.34-.03.67-.16.93-.4.26-.25.4-.57.43-.9.34-.02.67-.15.92-.4.2-.19.34-.42.4-.66.44.05.9-.08 1.23-.4.58-.55.58-1.44 0-1.98l-.6-.57.12-.41c.26-.98.13-2-.37-2.9A4.23 4.23 0 0 0 10.03 2H8.2Zm4.38 5.46.48.48a.5.5 0 0 0 .1.08l.69.64c.17.17.17.44 0 .6a.47.47 0 0 1-.65 0L12.07 8.2a.53.53 0 0 0-.73 0l-.01.01c-.2.2-.2.5 0 .69l.89.84c.17.17.17.44 0 .6a.47.47 0 0 1-.6.05.54.54 0 0 0-.67.04.47.47 0 0 0-.04.64c.13.17.12.41-.04.56a.47.47 0 0 1-.6.04.54.54 0 0 0-.68.04.47.47 0 0 0-.05.64c.14.17.13.42-.04.57a.48.48 0 0 1-.65 0l-.32-.3.09-.08c.57-.55.57-1.43 0-1.98-.27-.25-.6-.38-.94-.4a1.36 1.36 0 0 0-.43-.9c-.26-.24-.6-.37-.94-.4a1.36 1.36 0 0 0-.43-.89 1.53 1.53 0 0 0-1.26-.4c-.06-.22-.19-.45-.38-.63-.3-.28-.7-.42-1.1-.4-.11-.93.2-1.9.96-2.6.7-.67 1.65-.98 2.58-.92l-1.1.79a1.5 1.5 0 0 0-.3 2.18c.55.66 1.53.8 2.23.3l1.35-.97h1.44l2.28 2.15ZM6.17 4.61 8.39 3h.49A1.84 1.84 0 0 1 9 3h1.03c1.2 0 2.27.62 2.82 1.6.35.61.46 1.33.3 2.02l-2.21-2.18a.5.5 0 0 0-.35-.14h-1.9a.5.5 0 0 0-.29.09L6.92 5.47a.64.64 0 0 1-.85-.12.5.5 0 0 1 .1-.74Zm1.08 6.63a.47.47 0 0 1 .64 0c.18.17.18.44 0 .6l-.67.64a.47.47 0 0 1-.64 0 .41.41 0 0 1 0-.6l.67-.64Zm-.73-.7-.67.65a.47.47 0 0 1-.64 0 .41.41 0 0 1-.01-.6l.01-.01.67-.64h.01a.47.47 0 0 1 .63 0c.18.17.18.44 0 .6ZM5.15 9.27l-.67.63v.01a.47.47 0 0 1-.64 0 .41.41 0 0 1 0-.61l.67-.64a.47.47 0 0 1 .64 0c.18.17.18.43.02.6h-.02ZM3.51 8.23l-.67.63a.47.47 0 0 1-.64 0 .41.41 0 0 1 0-.6l.67-.64a.47.47 0 0 1 .64 0c.18.17.18.44 0 .6Z\"/>";
 
             /// <summary />
-            public static string Megaphone { get; } = ResourceManager.GetString("Megaphone");
+            public static string HandWaveSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9.68 2.75c-.2.05-.4.13-.56.25a1.53 1.53 0 0 0-1.43-1c-.33 0-.66.11-.92.32l-.08-.24A1.49 1.49 0 0 0 5.25 1 1.51 1.51 0 0 0 4 1.63c-.1.14-.16.29-.21.45a1.6 1.6 0 0 0-2 2l1.45 4.66a2.29 2.29 0 0 0-1.92.65 1 1 0 0 0-.31.89 1.33 1.33 0 0 0 .78 1 10.8 10.8 0 0 1 3 2.44A4 4 0 0 0 7.69 15c.34 0 .67-.05 1-.14l1.78-.53a2.45 2.45 0 0 0 1.73-2c.2-1.28.3-2.57.31-3.87-.13-1.6-.47-3.19-1-4.71a1.54 1.54 0 0 0-1.83-1Zm1.52 9.46a1.43 1.43 0 0 1-1 1.16l-1.79.53a2.89 2.89 0 0 1-2.9-.9 11.38 11.38 0 0 0-3.3-2.66c-.14-.07-.21-.19-.2-.24a1.43 1.43 0 0 1 1.77-.1.51.51 0 0 0 .7-.6L2.76 3.81a.62.62 0 0 1 .31-.74.61.61 0 0 1 .51 0 .63.63 0 0 1 .36.37L5 6.66c.03.09.09.17.16.22.1.07.21.11.33.12h.16a.47.47 0 0 0 .12-.07.4.4 0 0 0 .23-.21v-.17a.63.63 0 0 0 0-.19L4.76 2.67a.54.54 0 0 1 .07-.46.54.54 0 0 1 .91.15L7 6.64c.03.1.09.18.17.24.08.08.2.12.31.12h.14A.5.5 0 0 0 8 6.36l-.8-2.67a.52.52 0 0 1 .08-.47.55.55 0 0 1 1 .19l.32 1.25.48 2c.03.11.1.21.2.28.04.03.1.05.14.06h.2a.51.51 0 0 0 .38-.62l-.49-2a.58.58 0 0 1 .82-.65c.13.06.22.18.26.31.48 1.43.8 2.92.92 4.43 0 1.25-.11 2.5-.31 3.74ZM13.8 1.1a.5.5 0 1 0-.6.8 4.19 4.19 0 0 1 1.32 4.46.5.5 0 0 0 .34.62L15 7a.49.49 0 0 0 .48-.36A5.19 5.19 0 0 0 13.8 1.1Zm-1.19 1.41a.5.5 0 0 1 .18.08 3.37 3.37 0 0 1 1.17 2.95.5.5 0 0 1-.5.46.5.5 0 0 1-.46-.54 2.37 2.37 0 0 0-.8-2.06.49.49 0 0 1-.1-.69.49.49 0 0 1 .51-.2Z\"/>";
 
             /// <summary />
-            public static string MegaphoneLoud { get; } = ResourceManager.GetString("MegaphoneLoud");
+            public static string HardDriveSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13.85 7.85 11.9 3.73v-.01A1.23 1.23 0 0 0 10.74 3h-5.5a1.23 1.23 0 0 0-1.13.72L2.15 7.86c-.1.2-.15.43-.15.65v2A1.5 1.5 0 0 0 3.5 12h9a1.5 1.5 0 0 0 1.5-1.5v-2c0-.22-.05-.44-.15-.65ZM5.25 4h5.5a.24.24 0 0 1 .23.14L12.34 7H3.66l1.36-2.86A.24.24 0 0 1 5.25 4ZM13 10.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5v2Zm-1-1a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z\"/>";
 
             /// <summary />
-            public static string MegaphoneOff { get; } = ResourceManager.GetString("MegaphoneOff");
+            public static string HatGraduationSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9.37 2.45a2.5 2.5 0 0 0-2.74 0l-5.4 3.53a.5.5 0 0 0-.23.47.5.5 0 0 0 0 .05v4a.5.5 0 0 0 1 0V7.34l1 .68v3.68c0 .12.04.23.12.32v.01l.03.03a3.55 3.55 0 0 0 .32.32A6.58 6.58 0 0 0 8 14.2a6.58 6.58 0 0 0 4.53-1.82 5.46 5.46 0 0 0 .32-.32l.02-.03h.01a.5.5 0 0 0 .12-.33V8.02l1.78-1.2c.14-.1.22-.22.22-.42a.5.5 0 0 0-.23-.42l-5.4-3.53ZM12 8.7v2.8a4.78 4.78 0 0 1-.97.78c-.72.46-1.75.92-3.03.92a5.58 5.58 0 0 1-4-1.7V8.7l2.6 1.75a2.5 2.5 0 0 0 2.8 0L12 8.7Zm-8.5 3-.38.32.38-.32Zm3.68-8.42a1.5 1.5 0 0 1 1.64 0L13.6 6.4 8.84 9.63a1.5 1.5 0 0 1-1.68 0L2.4 6.4l4.78-3.13Z\"/>";
 
             /// <summary />
-            public static string Memory { get; } = ResourceManager.GetString("Memory");
+            public static string HdSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 5c.28 0 .5.22.5.5V8h1.5V5.5a.5.5 0 0 1 1 0v5a.5.5 0 0 1-1 0V9H5v1.5a.5.5 0 0 1-1 0v-5c0-.28.22-.5.5-.5ZM9 5a.5.5 0 0 0-.5.5v5c0 .28.22.5.5.5h.42A2.58 2.58 0 0 0 12 8.42v-.84A2.58 2.58 0 0 0 9.42 5H9Zm2 3.42c0 .84-.66 1.53-1.5 1.58V6c.84.05 1.5.74 1.5 1.58v.84ZM2 4.5A2.5 2.5 0 0 1 4.5 2h7A2.5 2.5 0 0 1 14 4.5v7a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 11.5v-7ZM4.5 3C3.67 3 3 3.67 3 4.5v7c0 .83.67 1.5 1.5 1.5h7c.83 0 1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5h-7Z\"/>";
 
             /// <summary />
-            public static string Mention { get; } = ResourceManager.GetString("Mention");
+            public static string HeadsetSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 6a4 4 0 1 1 8 0h-2a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 0 2-2V6A5 5 0 0 0 3 6v5a3 3 0 0 0 3 3h.59a1.5 1.5 0 1 0 0-1H6a2 2 0 0 1-2-2h2a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H4Zm8 1v2a1 1 0 0 1-1 1h-1V7h2Zm-6 3H4V7h2v3Zm1.5 3.5a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0Z\"/>";
 
             /// <summary />
-            public static string Merge { get; } = ResourceManager.GetString("Merge");
+            public static string HeartBrokenSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2.95 3.94a3.25 3.25 0 0 1 4.6 0l.44.46.45-.45a3.25 3.25 0 0 1 4.62 4.6l-4.69 4.69a.5.5 0 0 1-.7 0l-4.71-4.7a3.25 3.25 0 0 1-.01-4.6Zm5.07 8.24 4.33-4.33c.87-.88.87-2.3-.01-3.18a2.25 2.25 0 0 0-3.2-.01l-.24.25a.5.5 0 0 1-.05.05L7.71 6.11l1.64 1.65c.2.2.2.5 0 .7l-1.5 1.5a.5.5 0 0 1-.7-.7L8.29 8.1 6.65 6.46a.5.5 0 0 1 0-.7l.64-.65-.46-.46a2.25 2.25 0 0 0-3.18 0c-.87.87-.87 2.3.01 3.17l4.36 4.36Z\"/>";
 
             /// <summary />
-            public static string MicOff { get; } = ResourceManager.GetString("MicOff");
+            public static string HeartCircleHintSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6.96 2.09a6.03 6.03 0 0 1 2.08 0 .5.5 0 0 1-.17.99 5.03 5.03 0 0 0-1.74 0 .5.5 0 0 1-.17-.99Zm6.37 4.46a.5.5 0 0 1 .58.4 6.04 6.04 0 0 1 0 2.1.5.5 0 0 1-.99-.18 5.03 5.03 0 0 0 0-1.74.5.5 0 0 1 .41-.58Zm-10.66 0c.27.05.45.3.4.58a5.03 5.03 0 0 0 0 1.74.5.5 0 0 1-.98.17 6.03 6.03 0 0 1 0-2.08.5.5 0 0 1 .58-.4Zm3.88 6.78a.5.5 0 0 1 .58-.4 5.03 5.03 0 0 0 1.74 0 .5.5 0 1 1 .17.98 6.04 6.04 0 0 1-2.08 0 .5.5 0 0 1-.4-.58Zm4.9-10.25a6.04 6.04 0 0 1 1.47 1.48.5.5 0 1 1-.82.57 5.02 5.02 0 0 0-1.23-1.23.5.5 0 1 1 .57-.82Zm1.34 7.67a.5.5 0 0 1 .13.7 6.03 6.03 0 0 1-1.48 1.47.5.5 0 0 1-.57-.82 5.04 5.04 0 0 0 1.23-1.23.5.5 0 0 1 .7-.12ZM5.25 3.2a.5.5 0 0 1-.12.7A5.03 5.03 0 0 0 3.9 5.12a.5.5 0 1 1-.82-.57 6.03 6.03 0 0 1 1.48-1.48.5.5 0 0 1 .7.13Zm-2.04 7.54a.5.5 0 0 1 .7.12 5.04 5.04 0 0 0 1.22 1.23.5.5 0 1 1-.57.82 6.04 6.04 0 0 1-1.48-1.48.5.5 0 0 1 .13-.7Zm2.95-3.59a.55.55 0 0 1 .77 0l.72.7c.2.2.5.2.7 0l.72-.7a.55.55 0 0 1 .77.77L8 9.8 6.16 7.93a.55.55 0 0 1 0-.77Zm1.47-.72a1.55 1.55 0 0 0-2.18 2.2l2.2 2.21a.5.5 0 0 0 .7 0l2.2-2.22a1.55 1.55 0 0 0-2.18-2.19L8 6.8l-.37-.36Z\"/>";
 
             /// <summary />
-            public static string MicProhibited { get; } = ResourceManager.GetString("MicProhibited");
+            public static string HeartCircleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m8 7-.42-.5A1.46 1.46 0 1 0 5.42 8.5l2.4 2.44c.1.1.26.1.36 0l2.4-2.44A1.46 1.46 0 1 0 8.42 6.5L8 7ZM2 8a6 6 0 1 1 12 0A6 6 0 0 1 2 8Zm6-5a5 5 0 1 0 0 10A5 5 0 0 0 8 3Z\"/>";
 
             /// <summary />
-            public static string MicPulse { get; } = ResourceManager.GetString("MicPulse");
+            public static string HeartSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.54 3.95a3.25 3.25 0 0 0-4.6-.01 3.25 3.25 0 0 0 .02 4.6l4.7 4.7c.2.2.52.2.71 0l4.69-4.68a3.25 3.25 0 0 0-4.61-4.6l-.46.44-.45-.45Zm4.8 3.9-4.32 4.33-4.36-4.36a2.25 2.25 0 0 1 0-3.18c.87-.87 2.3-.87 3.17.01l.81.81c.2.2.53.2.72 0l.79-.8c.88-.88 2.3-.87 3.19.01.88.88.88 2.3 0 3.18Z\"/>";
 
             /// <summary />
-            public static string MicPulseOff { get; } = ResourceManager.GetString("MicPulseOff");
+            public static string HighlightSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2.5 1c.28 0 .5.22.5.5v3c0 .28.22.5.5.5h9a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 1 0v3c0 .65-.42 1.2-1 1.42V7a2 2 0 0 1-2 2v1.74c0 .51-.26.99-.69 1.26l-4.54 2.92A.5.5 0 0 1 5 14.5V9a2 2 0 0 1-2-2V5.91c-.58-.2-1-.76-1-1.41v-3c0-.28.22-.5.5-.5ZM6 9v4.58l3.77-2.42a.5.5 0 0 0 .23-.42V9H6ZM4 7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V6H4v1Z\"/>";
 
             /// <summary />
-            public static string MicSparkle { get; } = ResourceManager.GetString("MicSparkle");
+            public static string HistorySvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 3a5 5 0 1 1-5 5 .5.5 0 0 0-1 0 6 6 0 1 0 2-4.47V2.5a.5.5 0 0 0-1 0v3c0 .28.22.5.5.5h2a.5.5 0 0 0 0-1H4a5 5 0 0 1 4-2Zm0 2.5a.5.5 0 0 0-1 0v3c0 .28.22.5.5.5h2a.5.5 0 0 0 0-1H8V5.5Z\"/>";
 
             /// <summary />
-            public static string Molecule { get; } = ResourceManager.GetString("Molecule");
+            public static string HomeCheckmarkSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.31 1.27a1 1 0 0 1 1.38 0l4.84 4.58c.3.28.47.68.47 1.09v5.56c0 .83-.67 1.5-1.5 1.5h-9A1.5 1.5 0 0 1 2 12.5V6.94c0-.41.17-.8.47-1.1L7.3 1.28Zm5.53 5.3L8 2 3.16 6.57a.5.5 0 0 0-.16.37v5.56c0 .28.22.5.5.5h9a.5.5 0 0 0 .5-.5V6.94a.5.5 0 0 0-.16-.37Zm-1.99.08c.2.2.2.52 0 .71l-3.5 3.5a.5.5 0 0 1-.7 0l-1.5-1.5a.5.5 0 1 1 .7-.7L7 9.8l3.15-3.15c.2-.2.5-.2.7 0Z\"/>";
 
             /// <summary />
-            public static string Money { get; } = ResourceManager.GetString("Money");
+            public static string HomeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.31 1.26a1 1 0 0 1 1.38 0l4.84 4.58c.3.28.47.68.47 1.1v5.56c0 .83-.67 1.5-1.5 1.5h-2A1.5 1.5 0 0 1 9 12.5V10a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v2.5c0 .83-.67 1.5-1.5 1.5h-2A1.5 1.5 0 0 1 2 12.5V6.93c0-.41.17-.8.47-1.09L7.3 1.26ZM8 2 3.16 6.57a.5.5 0 0 0-.16.36v5.57c0 .28.22.5.5.5h2a.5.5 0 0 0 .5-.5V10c0-.83.67-1.5 1.5-1.5h1c.83 0 1.5.67 1.5 1.5v2.5c0 .28.22.5.5.5h2a.5.5 0 0 0 .5-.5V6.93a.5.5 0 0 0-.16-.36L8 1.99Z\"/>";
 
             /// <summary />
-            public static string MoneyHand { get; } = ResourceManager.GetString("MoneyHand");
+            public static string HourglassHalfSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.03 13h5.94a2.98 2.98 0 0 0-.3-1.11 2.77 2.77 0 0 0-.7-.81l-.31-.27-.19-.15c-.18-.15-.4-.34-.61-.56A3 3 0 0 1 8 8a3 3 0 0 1-.86 2.1c-.2.22-.43.41-.61.56l-.19.15-.32.27c-.3.26-.52.5-.68.8-.14.25-.26.6-.31 1.12ZM3 2.65C2.98 1.68 3.8 1 4.68 1h6.64c.88 0 1.7.68 1.68 1.65a5.31 5.31 0 0 1-.57 2.4 4.74 4.74 0 0 1-1.14 1.38l-.4.34-.15.11c-.17.14-.3.26-.42.38a1 1 0 0 0 0 1.48 4.36 4.36 0 0 0 .57.5l.4.33c.4.34.81.76 1.14 1.38.32.61.54 1.39.57 2.4.02.97-.8 1.65-1.68 1.65H4.68c-.88 0-1.7-.68-1.68-1.65.03-1.01.24-1.79.57-2.4.33-.62.75-1.04 1.14-1.38l.4-.33.15-.12c.17-.14.3-.26.42-.38a1 1 0 0 0 0-1.48 4.37 4.37 0 0 0-.57-.5l-.4-.33c-.4-.34-.82-.76-1.14-1.38A5.31 5.31 0 0 1 3 2.65ZM4.68 2c-.4 0-.69.3-.68.62.02.88.2 1.5.45 1.96.25.46.57.8.91 1.1l.37.3.16.13c.18.14.36.3.52.47a2 2 0 0 1 0 2.84c-.16.17-.34.33-.52.47l-.16.13-.37.3c-.34.3-.66.63-.9 1.1A4.33 4.33 0 0 0 4 13.38c0 .32.27.62.68.62h6.64c.4 0 .68-.3.68-.62-.03-.88-.21-1.5-.46-1.96-.24-.47-.56-.8-.9-1.1l-.37-.3-.17-.13c-.17-.14-.35-.3-.51-.47a2 2 0 0 1 0-2.84 5.33 5.33 0 0 1 .68-.6l.37-.3c.34-.3.66-.64.9-1.1.25-.46.44-1.08.46-1.96 0-.32-.28-.62-.68-.62H4.68Z\"/>";
 
             /// <summary />
-            public static string MoneySettings { get; } = ResourceManager.GetString("MoneySettings");
+            public static string HourglassOneQuarterSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.68 1C3.8 1 2.98 1.68 3 2.65c.03 1.01.24 1.79.57 2.4.32.62.75 1.04 1.14 1.38a15.82 15.82 0 0 0 .55.45c.17.14.3.26.42.38a1 1 0 0 1 0 1.48 4.36 4.36 0 0 1-.57.5l-.4.33c-.4.34-.81.76-1.14 1.38a5.32 5.32 0 0 0-.57 2.4c-.02.97.8 1.65 1.68 1.65h6.64c.88 0 1.7-.68 1.68-1.65a5.32 5.32 0 0 0-.57-2.4 4.74 4.74 0 0 0-1.14-1.38l-.4-.33-.15-.12c-.17-.14-.3-.26-.42-.38a1 1 0 0 1 0-1.48c.11-.12.25-.24.42-.38l.15-.11.4-.34c.4-.34.81-.76 1.14-1.38.33-.61.54-1.39.57-2.4.02-.97-.8-1.65-1.68-1.65H4.68ZM4 2.62c0-.32.28-.62.68-.62h6.64c.4 0 .69.3.68.62-.02.88-.2 1.5-.45 1.96-.25.46-.57.8-.91 1.1a13.92 13.92 0 0 1-.53.43c-.18.14-.36.3-.52.47a2 2 0 0 0 0 2.84c.16.17.34.33.51.47l.17.13.36.3c.35.3.67.63.91 1.1.25.46.43 1.08.46 1.96 0 .32-.28.62-.68.62H4.68c-.4 0-.69-.3-.68-.62.02-.88.2-1.5.45-1.96.25-.47.57-.8.91-1.1l.37-.3.16-.13c.18-.14.36-.3.52-.47a2 2 0 0 0 0-2.84 5.33 5.33 0 0 0-.68-.6l-.37-.3c-.34-.3-.66-.63-.9-1.1A4.32 4.32 0 0 1 4 2.62Zm2.02 8.46.1-.08h3.77l.09.08c.3.26.52.5.68.8.13.25.26.6.31 1.12H5.03c.05-.52.17-.87.3-1.11.17-.31.4-.55.69-.8Z\"/>";
 
             /// <summary />
-            public static string MoreCircle { get; } = ResourceManager.GetString("MoreCircle");
+            public static string HourglassSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3 2.65C2.98 1.68 3.8 1 4.68 1h6.64c.88 0 1.7.68 1.68 1.65a5.31 5.31 0 0 1-.57 2.4 4.74 4.74 0 0 1-1.14 1.38l-.4.34-.15.11c-.17.14-.3.26-.42.38a1 1 0 0 0 0 1.48 4.36 4.36 0 0 0 .57.5l.4.33c.4.34.81.76 1.14 1.38.32.61.54 1.39.57 2.4.02.97-.8 1.65-1.68 1.65H4.68c-.88 0-1.7-.68-1.68-1.65.03-1.01.24-1.79.57-2.4.33-.62.75-1.04 1.14-1.38l.4-.33.15-.12c.17-.14.3-.26.42-.38a1 1 0 0 0 0-1.48 4.37 4.37 0 0 0-.57-.5l-.4-.33c-.4-.34-.82-.76-1.14-1.38A5.31 5.31 0 0 1 3 2.65ZM4.68 2c-.4 0-.69.3-.68.62.02.88.2 1.5.45 1.96.25.46.57.8.91 1.1l.37.3.16.13c.18.14.36.3.52.47a2 2 0 0 1 0 2.84c-.16.17-.34.33-.52.47l-.16.13-.37.3c-.34.3-.66.63-.9 1.1A4.33 4.33 0 0 0 4 13.38c0 .32.27.62.68.62h6.64c.4 0 .68-.3.68-.62-.03-.88-.21-1.5-.46-1.96-.24-.47-.56-.8-.9-1.1l-.37-.3-.17-.13c-.17-.14-.35-.3-.51-.47a2 2 0 0 1 0-2.84 5.33 5.33 0 0 1 .68-.6l.37-.3c.34-.3.66-.64.9-1.1.25-.46.44-1.08.46-1.96 0-.32-.28-.62-.68-.62H4.68Z\"/>";
 
             /// <summary />
-            public static string MoreHorizontal { get; } = ResourceManager.GetString("MoreHorizontal");
+            public static string HourglassThreeQuarterSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.68 1C3.8 1 2.98 1.68 3 2.65c.03 1.01.24 1.79.57 2.4.32.62.75 1.04 1.14 1.38a15.82 15.82 0 0 0 .55.45c.17.14.3.26.42.38a1 1 0 0 1 0 1.48 4.36 4.36 0 0 1-.57.5l-.4.33c-.4.34-.81.76-1.14 1.38a5.32 5.32 0 0 0-.57 2.4c-.02.97.8 1.65 1.68 1.65h6.64c.88 0 1.7-.68 1.68-1.65a5.32 5.32 0 0 0-.57-2.4 4.74 4.74 0 0 0-1.14-1.38l-.4-.33-.15-.12c-.17-.14-.3-.26-.42-.38a1 1 0 0 1 0-1.48c.11-.12.25-.24.42-.38l.15-.11.4-.34c.4-.34.81-.76 1.14-1.38.33-.61.54-1.39.57-2.4.02-.97-.8-1.65-1.68-1.65H4.68ZM4 2.62c0-.32.28-.62.68-.62h6.64c.4 0 .69.3.68.62-.02.88-.2 1.5-.45 1.96-.25.46-.57.8-.91 1.1a13.92 13.92 0 0 1-.53.43c-.18.14-.36.3-.52.47a2 2 0 0 0 0 2.84c.16.17.34.33.51.47l.17.13.36.3c.35.3.67.63.91 1.1.25.46.43 1.08.46 1.96 0 .32-.28.62-.68.62H4.68c-.4 0-.69-.3-.68-.62.02-.88.2-1.5.45-1.96.25-.47.57-.8.91-1.1l.37-.3.16-.13c.18-.14.36-.3.52-.47a2 2 0 0 0 0-2.84 5.33 5.33 0 0 0-.68-.6l-.37-.3c-.34-.3-.66-.63-.9-1.1A4.32 4.32 0 0 1 4 2.62Zm1.34 1.5A2.24 2.24 0 0 1 5.28 4h5.44l-.06.11c-.16.31-.38.55-.68.8l-.32.28-.19.15c-.18.15-.4.33-.61.56A3 3 0 0 0 8 8a3 3 0 0 0-.86-2.1 6.3 6.3 0 0 0-.8-.71l-.32-.27c-.3-.26-.52-.5-.68-.8ZM10.97 13H5.03c.05-.52.17-.87.3-1.11.17-.31.4-.55.69-.8l.32-.28.19-.15c.18-.15.4-.34.61-.56A3 3 0 0 0 8 8a3 3 0 0 0 .86 2.1 6.28 6.28 0 0 0 .8.71l.32.27c.3.26.52.5.68.8.13.25.26.6.31 1.12Z\"/>";
 
             /// <summary />
-            public static string MoreVertical { get; } = ResourceManager.GetString("MoreVertical");
+            public static string ImageAltTextSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1 3c0-1.1.9-2 2-2h4a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V3Zm5.5 2h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1Zm-3-2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3ZM3 12.5V9h1v3.5c0 .23.05.45.15.65L7.8 9.49a1.7 1.7 0 0 1 2.4 0l3.65 3.66c.1-.2.15-.42.15-.65v-7c0-.83-.67-1.5-1.5-1.5H10V3h2.5A2.5 2.5 0 0 1 15 5.5v7a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 3 12.5Zm10.15 1.35L9.5 10.2a.7.7 0 0 0-1 0l-3.65 3.65c.2.1.42.15.65.15h7c.23 0 .45-.05.65-.15ZM12.5 6.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z\"/>";
 
             /// <summary />
-            public static string MoviesAndTv { get; } = ResourceManager.GetString("MoviesAndTv");
+            public static string ImageBorderSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2ZM4.5 4a.5.5 0 0 0-.5.5v7c0 .28.22.5.5.5h7a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.5-.5h-7Zm.5 7V5h6v6h-.3L9.2 9.5a1.7 1.7 0 0 0-2.4 0L5.3 11H5Zm3.5-.8.79.8H6.71l.8-.8a.7.7 0 0 1 .99 0ZM4.5 2A2.5 2.5 0 0 0 2 4.5v7A2.5 2.5 0 0 0 4.5 14h7a2.5 2.5 0 0 0 2.5-2.5v-7A2.5 2.5 0 0 0 11.5 2h-7ZM3 4.5C3 3.67 3.67 3 4.5 3h7c.83 0 1.5.67 1.5 1.5v7c0 .83-.67 1.5-1.5 1.5h-7A1.5 1.5 0 0 1 3 11.5v-7Z\"/>";
 
             /// <summary />
-            public static string MultiselectLtr { get; } = ResourceManager.GetString("MultiselectLtr");
+            public static string ImageCircleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 3a5 5 0 0 0-3.86 8.18l2.8-2.76a1.5 1.5 0 0 1 2.11 0l2.8 2.76A5 5 0 0 0 8 3Zm0 10c1.2 0 2.29-.42 3.15-1.12l-2.8-2.75a.5.5 0 0 0-.7 0l-2.8 2.75C5.71 12.58 6.81 13 8 13ZM2 8a6 6 0 1 1 12 0A6 6 0 0 1 2 8Zm8-1a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z\"/>";
 
             /// <summary />
-            public static string MultiselectRtl { get; } = ResourceManager.GetString("MultiselectRtl");
+            public static string ImageEditSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.5 5.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM2 4.5A2.5 2.5 0 0 1 4.5 2h7A2.5 2.5 0 0 1 14 4.5v1.56a2.57 2.57 0 0 0-1-.02V4.5c0-.83-.67-1.5-1.5-1.5h-7C3.67 3 3 3.67 3 4.5v7c0 .23.05.45.15.64L6.8 8.5a1.7 1.7 0 0 1 2.4 0l.34.34-.7.71-.35-.34a.7.7 0 0 0-.99 0l-3.65 3.65c.2.1.42.15.65.15h1.8l-.25 1H4.5A2.5 2.5 0 0 1 2 11.5v-7ZM13.26 7a1.56 1.56 0 0 0-.92.45l-4.3 4.3c-.34.34-.59.77-.71 1.25l-.01.03-.3 1.21a.6.6 0 0 0 .73.74l1.22-.3c.48-.12.93-.38 1.29-.73l4.28-4.29a1.56 1.56 0 0 0-1.28-2.65Z\"/>";
 
             /// <summary />
-            public static string MusicNote2 { get; } = ResourceManager.GetString("MusicNote2");
+            public static string ImageMultipleOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m12.3 13.02 1.85 1.83a.5.5 0 0 0 .7-.7l-13-13a.5.5 0 1 0-.7.7L2.4 3.12C2.15 3.52 2 4 2 4.5v5A2.5 2.5 0 0 0 4.5 12h5c.5 0 .98-.15 1.38-.41l.72.71c-.59.44-1.31.7-2.1.7H5c.46.6 1.18 1 2 1h2.5c1.06 0 2.04-.37 2.8-.98Zm-2.15-2.17c-.2.1-.42.15-.65.15h-5a1.5 1.5 0 0 1-.65-.15L6.5 8.21a.71.71 0 0 1 1 0l2.65 2.64ZM6.4 7.11a1.7 1.7 0 0 0-.6.4l-2.65 2.64A1.5 1.5 0 0 1 3 9.5v-5c0-.23.05-.45.15-.65L6.4 7.11ZM11 4.5v4.38l.98.97.02-.35v-5A2.5 2.5 0 0 0 9.5 2h-5c-.12 0-.24 0-.35.02l.97.98H9.5c.83 0 1.5.67 1.5 1.5Zm1.8 6.18.76.76c.28-.59.44-1.25.44-1.94V6c0-.82-.4-1.54-1-2v5.5c0 .41-.07.8-.2 1.18ZM10 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z\"/>";
 
             /// <summary />
-            public static string MusicNoteOff2 { get; } = ResourceManager.GetString("MusicNoteOff2");
+            public static string ImageMultipleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM4.5 2A2.5 2.5 0 0 0 2 4.5v5A2.5 2.5 0 0 0 4.5 12h5A2.5 2.5 0 0 0 12 9.5v-5A2.5 2.5 0 0 0 9.5 2h-5ZM3 4.5C3 3.67 3.67 3 4.5 3h5c.83 0 1.5.67 1.5 1.5v5c0 .23-.05.45-.15.65L8.21 7.5a1.71 1.71 0 0 0-2.42 0l-2.64 2.65A1.5 1.5 0 0 1 3 9.5v-5Zm.85 6.35L6.5 8.21a.71.71 0 0 1 1 0l2.65 2.64c-.2.1-.42.15-.65.15h-5a1.5 1.5 0 0 1-.65-.15ZM7 14a2.5 2.5 0 0 1-2-1h4.5A3.5 3.5 0 0 0 13 9.5V4c.6.46 1 1.18 1 2v3.5A4.5 4.5 0 0 1 9.5 14H7Z\"/>";
 
             /// <summary />
-            public static string MyLocation { get; } = ResourceManager.GetString("MyLocation");
+            public static string ImageSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.5 5.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM2 4.5A2.5 2.5 0 0 1 4.5 2h7A2.5 2.5 0 0 1 14 4.5v7a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 11.5v-7ZM4.5 3C3.67 3 3 3.67 3 4.5v7c0 .23.05.45.15.65L6.8 8.49a1.7 1.7 0 0 1 2.4 0l3.65 3.66c.1-.2.15-.42.15-.65v-7c0-.83-.67-1.5-1.5-1.5h-7Zm7.65 9.85L8.5 9.2a.7.7 0 0 0-1 0l-3.65 3.65c.2.1.42.15.65.15h7c.23 0 .45-.05.65-.15Z\"/>";
 
             /// <summary />
-            public static string Navigation { get; } = ResourceManager.GetString("Navigation");
+            public static string ImageTableSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 7a1 1 0 1 1 2 0 1 1 0 0 1-2 0ZM2 4.5A2.5 2.5 0 0 1 4.5 2h7A2.5 2.5 0 0 1 14 4.5v7a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 11.5v-7ZM3 5v6h1V5H3Zm2-1h6V3H5v1Zm-1-.91a1.5 1.5 0 0 0-.91.91H4v-.91Zm8 0V4h.91a1.5 1.5 0 0 0-.91-.91ZM13 5h-1v6h1V5Zm-.09 7H12v.91c.43-.15.76-.48.91-.91ZM11 13v-1H5v1h6Zm-7-.09V12h-.91c.15.43.48.76.91.91ZM5 5v6h.3l1.5-1.5a1.7 1.7 0 0 1 2.4 0l1.5 1.5h.3V5H5Zm4.29 6-.8-.8a.7.7 0 0 0-.98 0l-.8.8h2.58Z\"/>";
 
             /// <summary />
-            public static string NetworkAdapter { get; } = ResourceManager.GetString("NetworkAdapter");
+            public static string ImmersiveReaderSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1 3.5C1 2.67 1.67 2 2.5 2H6c.82 0 1.54.4 2 1 .46-.6 1.18-1 2-1h3.5c.83 0 1.5.67 1.5 1.5v3.7a1.5 1.5 0 0 0-1-.18V3.5a.5.5 0 0 0-.5-.5H10c-.83 0-1.5.67-1.5 1.5v3.88L7.88 9H7.5V4.5C7.5 3.67 6.83 3 6 3H2.5a.5.5 0 0 0-.5.5v9c0 .28.22.5.5.5h3.58c.14.37.41.68.77.85-.27.1-.55.15-.85.15H2.5A1.5 1.5 0 0 1 1 12.5v-9Zm9.7 4.54c.18.08.3.26.3.46v6a.5.5 0 0 1-.85.35L8.29 13H7.5a.5.5 0 0 1-.5-.5v-2c0-.28.22-.5.5-.5h.8l1.85-1.85a.5.5 0 0 1 .54-.11Zm3.95.16c.12.16.29.45.44.87.26.68.41 1.5.41 2.43 0 .94-.15 1.75-.4 2.43-.16.42-.33.7-.45.87a.5.5 0 0 1-.85-.52l.12-.19a5.9 5.9 0 0 0 .58-2.6 5.9 5.9 0 0 0-.58-2.58l-.07-.11a.5.5 0 1 1 .8-.6Zm-1.7 1.08a5.5 5.5 0 0 1 .55 2.22 4.9 4.9 0 0 1-.55 2.22.5.5 0 1 1-.9-.44l.08-.17.15-.4c.14-.42.22-.83.22-1.21s-.08-.8-.22-1.22a4.6 4.6 0 0 0-.23-.56.5.5 0 1 1 .9-.44Z\"/>";
 
             /// <summary />
-            public static string News { get; } = ResourceManager.GetString("News");
+            public static string ImportantSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.2 8.83a.2.2 0 0 1-.4 0l-.86-4.56a1.07 1.07 0 1 1 2.12 0L8.2 8.83ZM8 2a2.07 2.07 0 0 0-2.04 2.46l.86 4.56a1.2 1.2 0 0 0 2.36 0l.86-4.56A2.07 2.07 0 0 0 8 2Zm0 11a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1Zm0 1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z\"/>";
 
             /// <summary />
-            public static string Next { get; } = ResourceManager.GetString("Next");
+            public static string InfoSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 7c.28 0 .5.22.5.5v3a.5.5 0 0 1-1 0v-3c0-.28.22-.5.5-.5Zm0-.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM2 8a6 6 0 1 1 12 0A6 6 0 0 1 2 8Zm6-5a5 5 0 1 0 0 10A5 5 0 0 0 8 3Z\"/>";
 
             /// <summary />
-            public static string Note { get; } = ResourceManager.GetString("Note");
+            public static string InkingToolSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 1.5a.5.5 0 0 0-1 0v2C1 4.33 1.67 5 2.5 5h.25l3.26 6.45a1 1 0 0 0 .58.5c-.12.62-.11 1.23.02 1.74.17.64.6 1.31 1.4 1.31.78 0 1.22-.67 1.39-1.31.13-.5.14-1.12.02-1.74a1 1 0 0 0 .56-.5L13.25 5h.25c.83 0 1.5-.67 1.5-1.5v-2a.5.5 0 0 0-1 0v2a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-2ZM3.87 5h8.26l-3.04 6H6.91L3.87 5Zm3.73 7h.8c.14.55.13 1.06.03 1.44-.13.48-.33.56-.43.56-.09 0-.3-.08-.42-.56-.1-.38-.1-.9.02-1.44Z\"/>";
 
             /// <summary />
-            public static string NoteAdd { get; } = ResourceManager.GetString("NoteAdd");
+            public static string InprivateAccountSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13 9.5c0-.83-.67-1.5-1.5-1.5h-7C3.67 8 3 8.67 3 9.5v.5c0 1.97 1.86 4 5 4 1.73 0 3.07-.62 3.93-1.5H8v.5c-2.57 0-4-1.56-4-3v-.5c0-.28.22-.5.5-.5H8v.5h5Zm-.36 2H8v-1h4.96c-.05.34-.16.68-.32 1Zm-1.89-7.25c0-.17-.02-.34-.05-.5H8v1h2.7c.03-.16.05-.33.05-.5ZM8 1.5c.97 0 1.81.5 2.3 1.25H8V2.5A1.75 1.75 0 1 0 8 6v-.25h2.3A2.75 2.75 0 1 1 8 1.5Z\"/>";
 
             /// <summary />
-            public static string Notebook { get; } = ResourceManager.GetString("Notebook");
+            public static string IotAlertSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10 3.5a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0Zm.5-1.5a1.5 1.5 0 0 0-1.12 2.5l-.63 1.12a2.5 2.5 0 0 0-2.13.3l-.77-.77a1.5 1.5 0 1 0-.7.7l.76.77a2.49 2.49 0 0 0-.3 2.13l-1.12.63a1.5 1.5 0 1 0 .49.87l1.12-.62c.36.41.84.7 1.4.82V10c0-.2.01-.39.04-.57A1.5 1.5 0 1 1 9 6.88a4 4 0 0 1 .87-.54 2.52 2.52 0 0 0-.24-.24l.62-1.12.25.02a1.5 1.5 0 0 0 0-3Zm-6 2a.5.5 0 1 1 0 1 .5.5 0 0 1 0-1Zm-1 6a.5.5 0 1 1 0 1 .5.5 0 0 1 0-1Zm5 0a3 3 0 0 1 6 0v2l1.32 1.12a.5.5 0 0 1-.32.88h-8a.5.5 0 0 1-.32-.88L8.5 12v-2Zm3 6a1.5 1.5 0 0 1-1.42-1h2.83c-.2.58-.76 1-1.41 1Z\"/>";
 
             /// <summary />
-            public static string Notepad { get; } = ResourceManager.GetString("Notepad");
+            public static string IotSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10 3.5a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0Zm.5-1.5a1.5 1.5 0 0 0-1.12 2.5l-.63 1.12a2.5 2.5 0 0 0-2.13.3l-.77-.77a1.5 1.5 0 1 0-.7.7l.76.77a2.49 2.49 0 0 0-.3 2.13l-1.12.63a1.5 1.5 0 1 0 .49.87l1.12-.62a2.5 2.5 0 0 0 2.2.85l.28.84a1.5 1.5 0 1 0 .95-.32l-.28-.83c.53-.31.94-.8 1.13-1.4l.66.07a1.5 1.5 0 1 0 .1-1l-.65-.07a2.5 2.5 0 0 0-.86-1.67l.62-1.12.25.02a1.5 1.5 0 0 0 0-3Zm-6 2a.5.5 0 1 1 0 1 .5.5 0 0 1 0-1Zm-1 6a.5.5 0 1 1 0 1 .5.5 0 0 1 0-1ZM9 12.5a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0ZM12.5 8a.5.5 0 1 1 0 1 .5.5 0 0 1 0-1ZM8 6.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z\"/>";
 
             /// <summary />
-            public static string NotepadEdit { get; } = ResourceManager.GetString("NotepadEdit");
+            public static string JavascriptSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.5 7.5c0-.83.67-1.5 1.5-1.5h1.5a.5.5 0 0 1 0 1H10a.5.5 0 0 0-.5.5V8c0 .28.22.5.5.5h.5c.83 0 1.5.67 1.5 1.5v.5c0 .83-.67 1.5-1.5 1.5H9a.5.5 0 0 1 0-1h1.5a.5.5 0 0 0 .5-.5V10a.5.5 0 0 0-.5-.5H10A1.5 1.5 0 0 1 8.5 8v-.5Zm-.5-1a.5.5 0 0 0-1 0v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 0 0 1h1c.83 0 1.5-.67 1.5-1.5v-4Zm-6-2A2.5 2.5 0 0 1 4.5 2h7A2.5 2.5 0 0 1 14 4.5v7a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 11.5v-7ZM4.5 3C3.67 3 3 3.67 3 4.5v7c0 .83.67 1.5 1.5 1.5h7c.83 0 1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5h-7Z\"/>";
 
             /// <summary />
-            public static string NotepadPerson { get; } = ResourceManager.GetString("NotepadPerson");
+            public static string KeyboardMouseSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M12.5 10h-9a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1ZM8.25 9a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm-2-2a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm-1 2a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM4 6.25a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Zm10 2.4v2.6a.75.75 0 0 1-.75.75H2.75a.75.75 0 0 1-.75-.75v-6.5A.75.75 0 0 1 2.75 4H9V3H2.75A1.75 1.75 0 0 0 1 4.75v6.5A1.75 1.75 0 0 0 2.75 13h10.5A1.75 1.75 0 0 0 15 11.25V7.94c-.28.3-.62.54-1 .71ZM3 10.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 0-1h-9a.5.5 0 0 0-.5.5Zm6-2.25a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Zm-2-2a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Zm-2.5 2a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Zm-.5-2a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0ZM8.25 7.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm-3 0a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm1-2a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm-3 0a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5ZM12.5 10h-9a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1Zm1-9h-2A1.5 1.5 0 0 0 10 2.5v3a2.5 2.5 0 0 0 5 0v-3A1.5 1.5 0 0 0 13.5 1Zm.5 4.5a1.5 1.5 0 1 1-3 0v-3a.5.5 0 0 1 .5-.5h.5v1.5a.5.5 0 0 0 1 0V2h.5a.5.5 0 0 1 .5.5v3Z\"/>";
 
             /// <summary />
-            public static string NotePin { get; } = ResourceManager.GetString("NotePin");
+            public static string KeyboardShiftSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.4 2.2a.5.5 0 0 0-.8 0L3 8H5.5a.5.5 0 0 1 .5.5V13h4.02V8.5c0-.28.23-.5.5-.5H13L8.4 2.2Zm-1.58-.63c.6-.76 1.76-.76 2.36 0l4.6 5.8A1 1 0 0 1 13 9h-1.97v4A1 1 0 0 1 10 14H5.99a1 1 0 0 1-1-1V9H3a1 1 0 0 1-.8-1.63l4.6-5.8Z\"/>";
 
             /// <summary />
-            public static string NumberCircle1 { get; } = ResourceManager.GetString("NumberCircle1");
+            public static string KeyboardShiftUppercaseSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.6 2.2a.5.5 0 0 1 .8 0L13 8H10.5a.5.5 0 0 0-.5.5V11H5.99V8.5a.5.5 0 0 0-.5-.5H3l4.6-5.8Zm1.58-.63a1.51 1.51 0 0 0-2.36 0l-4.6 5.8A1 1 0 0 0 3 9h1.98v2a1 1 0 0 0 1 1.01h4.02a1 1 0 0 0 1-1V9H13a1 1 0 0 0 .8-1.63l-4.6-5.8ZM5.5 13a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5Z\"/>";
 
             /// <summary />
-            public static string NumberRow { get; } = ResourceManager.GetString("NumberRow");
+            public static string KeyboardSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3 10.5c0-.28.22-.5.5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5ZM3.25 7a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM10 6.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM6.25 7a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM13 6.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM5.25 9a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM9 8.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm2.25.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM1 4.75C1 3.78 1.78 3 2.75 3h10.5c.97 0 1.75.78 1.75 1.75v6.5c0 .97-.78 1.75-1.75 1.75H2.75C1.78 13 1 12.22 1 11.25v-6.5ZM2.75 4a.75.75 0 0 0-.75.75v6.5c0 .41.34.75.75.75h10.5c.41 0 .75-.34.75-.75v-6.5a.75.75 0 0 0-.75-.75H2.75Z\"/>";
 
             /// <summary />
-            public static string NumberSymbol { get; } = ResourceManager.GetString("NumberSymbol");
+            public static string KeyCommandSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 4v1h4V4a2 2 0 1 1 2 2h-1v4h1a2 2 0 1 1-2 2v-1H6v1a2 2 0 1 1-2-2h1V6H4a2 2 0 1 1 2-2ZM5 5V4a1 1 0 1 0-1 1h1Zm5 5V6H6v4h4Zm1 1v1a1 1 0 1 0 1-1h-1Zm1-6a1 1 0 1 0-1-1v1h1Zm-7 6H4a1 1 0 1 0 1 1v-1Z\"/>";
 
             /// <summary />
-            public static string Open { get; } = ResourceManager.GetString("Open");
+            public static string KeySvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z\"/><path d=\"M7.5 12v-.5h1A.5.5 0 0 0 9 11v-1h1a4 4 0 1 0-3.84-2.87L2.3 11a1 1 0 0 0-.29.7V13a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-.5h1a.5.5 0 0 0 .5-.5ZM7 6a3 3 0 1 1 3 3H8.5a.5.5 0 0 0-.5.5v1H7a.5.5 0 0 0-.5.5v.5h-1a.5.5 0 0 0-.5.5v1H3v-1.3l4.09-4.08a.5.5 0 0 0 .11-.54A3 3 0 0 1 7 6Z\"/>";
 
             /// <summary />
-            public static string OpenFolder { get; } = ResourceManager.GetString("OpenFolder");
+            public static string LaptopDismissSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10.98 6h1.52c.28 0 .5.22.5.5v4a.5.5 0 0 1-.5.5h-7c-.5 0-1-.07-1.47-.2.14.69.74 1.2 1.47 1.2h7c.83 0 1.5-.67 1.5-1.5v-4c0-.83-.67-1.5-1.5-1.5h-1.52a5.59 5.59 0 0 1 0 1ZM3 13.5c0-.28.22-.5.5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5ZM5.5 10a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm1.85-6.35c.2.2.2.5 0 .7L6.21 5.5l1.14 1.15a.5.5 0 1 1-.7.7L5.5 6.21 4.35 7.35a.5.5 0 1 1-.7-.7L4.79 5.5 3.65 4.35a.5.5 0 1 1 .7-.7L5.5 4.79l1.15-1.14c.2-.2.5-.2.7 0Z\"/>";
 
             /// <summary />
-            public static string OpenOff { get; } = ResourceManager.GetString("OpenOff");
+            public static string LaptopSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 4C3.67 4 3 4.67 3 5.5v4c0 .83.67 1.5 1.5 1.5h7c.83 0 1.5-.67 1.5-1.5v-4c0-.83-.67-1.5-1.5-1.5h-7ZM4 5.5c0-.28.22-.5.5-.5h7c.28 0 .5.22.5.5v4a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-4ZM2.5 12a.5.5 0 0 0 0 1h11a.5.5 0 0 0 0-1h-11Z\"/>";
 
             /// <summary />
-            public static string Options { get; } = ResourceManager.GetString("Options");
+            public static string LeafOneSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.5 13.02v1.48a.5.5 0 0 0 1 0v-1.48a4.89 4.89 0 0 0 2.77-8.49l-2.43-2.2a1.25 1.25 0 0 0-1.68 0l-2.43 2.2a4.89 4.89 0 0 0 2.77 8.5Zm3.1-7.74a3.89 3.89 0 0 1-2.1 6.74V7.5a.5.5 0 0 0-1 0v4.52a3.89 3.89 0 0 1-2.1-6.74l2.43-2.2c.1-.09.24-.09.34 0l2.43 2.2Z\"/>";
 
             /// <summary />
-            public static string Organization { get; } = ResourceManager.GetString("Organization");
+            public static string LeafThreeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9 1h2.85C12.5 1 13 1.51 13 2.15V5c0 .35-.04.68-.13 1h.89c.68 0 1.24.56 1.24 1.24v3.26a4.5 4.5 0 0 1-7.3 3.52l-.85.83a.5.5 0 0 1-.7-.7l.83-.84a4.49 4.49 0 0 1-.78-1.5A4 4 0 0 1 1 8V5.15C1 4.5 1.51 4 2.15 4h2.98A4 4 0 0 1 9 1Zm1.85 9.85L8.4 13.3a3.5 3.5 0 0 0 5.6-2.8V7.24c0-.13-.1-.24-.24-.24H10.5a3.5 3.5 0 0 0-2.8 5.6l2.45-2.45a.5.5 0 0 1 .7.7ZM11.83 6A3 3 0 0 0 12 5V2.15a.15.15 0 0 0-.15-.15H9a3 3 0 0 0-2.88 2.16 4.01 4.01 0 0 1 2.54 2.23C9.22 6.14 9.85 6 10.5 6h1.33Zm-4.04.9A3 3 0 0 0 5 5H2.15a.15.15 0 0 0-.15.15V8a3 3 0 0 0 4.01 2.83 4.57 4.57 0 0 1 .05-1.06L4.15 7.85a.5.5 0 1 1 .7-.7l1.53 1.53c.32-.7.8-1.32 1.41-1.78Z\"/>";
 
             /// <summary />
-            public static string Oval { get; } = ResourceManager.GetString("Oval");
+            public static string LeafTwoSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1 3.17v3a4.17 4.17 0 0 0 5.33 4c.16.42.39.8.66 1.14L5.2 13.09a.5.5 0 0 0 .7.71l1.8-1.79A4.5 4.5 0 0 0 15 8.5V5.23C15 4.55 14.45 4 13.77 4H10.5c-.56 0-1.1.1-1.6.3A4.17 4.17 0 0 0 5.17 2h-3C1.52 2 1 2.52 1 3.17Zm7.4 8.13 2.46-2.45a.5.5 0 0 0-.71-.7L7.7 10.58A3.5 3.5 0 0 1 10.5 5h3.27c.13 0 .23.1.23.23V8.5a3.5 3.5 0 0 1-5.6 2.8ZM5.18 3c1.24 0 2.32.72 2.84 1.76a4.52 4.52 0 0 0-1.62 1.92L4.85 5.15a.5.5 0 1 0-.7.7l1.91 1.92a4.53 4.53 0 0 0 0 1.44A3.17 3.17 0 0 1 2 6.17v-3c0-.1.07-.17.17-.17h3Z\"/>";
 
             /// <summary />
-            public static string PageFit { get; } = ResourceManager.GetString("PageFit");
+            public static string LibrarySvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1 3.25C1 2.55 1.56 2 2.25 2h.5C3.44 2 4 2.56 4 3.25v9.5c0 .69-.56 1.24-1.25 1.24h-.5C1.55 14 1 13.44 1 12.74v-9.5ZM2.25 3a.25.25 0 0 0-.25.25v9.5c0 .13.11.24.25.24h.5c.14 0 .25-.1.25-.25v-9.5A.25.25 0 0 0 2.75 3h-.5ZM5 3.25C5 2.55 5.56 2 6.25 2h.5c.68 0 1.24.56 1.24 1.25v9.5c0 .69-.56 1.24-1.24 1.24h-.5C5.55 14 5 13.44 5 12.74v-9.5ZM6.25 3a.25.25 0 0 0-.25.25v9.5c0 .13.1.24.25.24h.5c.13 0 .24-.1.24-.25v-9.5A.25.25 0 0 0 6.75 3h-.5Zm5.72 1.78a1.25 1.25 0 0 0-1.57-.72l-.58.2c-.67.24-1.01 1-.75 1.65l2.94 7.3c.25.63.94.94 1.57.72l.58-.2c.68-.24 1.02-.99.75-1.65l-2.94-7.3ZM10.73 5c.13-.05.27.02.32.14l2.93 7.3a.25.25 0 0 1-.15.33l-.58.2a.25.25 0 0 1-.31-.14L10 5.54a.25.25 0 0 1 .15-.33l.58-.2Z\"/>";
 
             /// <summary />
-            public static string PaintBrush { get; } = ResourceManager.GetString("PaintBrush");
+            public static string LightbulbFilamentSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.5 4.5a.5.5 0 0 1 1 0v1a.5.5 0 0 1-1 0v-1Zm3.08.8a.5.5 0 0 0-.7 0l-.72.7a.5.5 0 1 0 .71.7l.7-.7a.5.5 0 0 0 0-.7Zm-4.48 0a.5.5 0 0 0-.7.7l.7.7a.5.5 0 0 0 .7-.7l-.7-.7ZM8 2c-1.23 0-2.35.48-3.17 1.31-.8.81-1.29 1.94-1.33 3.23v.04c.06 1.24.65 2.33 1.74 3.46l.7 2.94V13a1.52 1.52 0 0 0 1.42 1h1.41c.31-.03.6-.16.84-.35.23-.2.4-.46.48-.78l.8-3.05A4.72 4.72 0 0 0 12.5 6.4c0-1.22-.5-2.31-1.32-3.1A4.55 4.55 0 0 0 8 2ZM5.54 4.01A3.55 3.55 0 0 1 10.48 4 3.32 3.32 0 0 1 11.5 6.4c0 .99-.45 1.92-1.4 2.8l-.11.1L9.54 11H8.5V7.5a.5.5 0 0 0-1 0V11h-1l-.35-1.46-.1-.1C5 8.37 4.55 7.48 4.5 6.56A3.76 3.76 0 0 1 5.54 4ZM6.74 12h2.54l-.16.63v.01a.45.45 0 0 1-.16.24.5.5 0 0 1-.26.12H7.36a.52.52 0 0 1-.3-.1.46.46 0 0 1-.16-.2l-.17-.7Z\"/>";
 
             /// <summary />
-            public static string PaintBucket { get; } = ResourceManager.GetString("PaintBucket");
+            public static string LightbulbPersonSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 3a3.5 3.5 0 0 0-2.45 6c.14.14.27.31.36.51a4.48 4.48 0 0 1 4.18 0c.09-.2.22-.37.36-.51A3.49 3.49 0 0 0 8 3Zm-1.66 8h3.32l.14-.5a3.48 3.48 0 0 0-3.6 0l.14.5Zm.27 1 .17.63a.5.5 0 0 0 .48.37h1.48a.5.5 0 0 0 .48-.37l.17-.63H6.61ZM3.5 6.5a4.5 4.5 0 1 1 7.66 3.2c-.1.1-.16.2-.19.3l-.79 2.9A1.5 1.5 0 0 1 8.74 14H7.26a1.5 1.5 0 0 1-1.44-1.1l-.8-2.9a.65.65 0 0 0-.18-.3A4.49 4.49 0 0 1 3.5 6.5Zm3.5 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0Zm1-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z\"/>";
 
             /// <summary />
-            public static string PanelLeft { get; } = ResourceManager.GetString("PanelLeft");
+            public static string LightbulbSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 6.5A3.5 3.5 0 1 1 10.45 9c-.19.19-.36.43-.44.73L9.66 11H6.34l-.35-1.27c-.08-.3-.25-.54-.44-.73A3.49 3.49 0 0 1 4.5 6.5ZM6.6 12h2.8l-.18.63a.5.5 0 0 1-.48.37H7.26a.5.5 0 0 1-.48-.37L6.61 12ZM8 2a4.5 4.5 0 0 0-3.16 7.7c.1.1.16.2.19.3l.79 2.9c.17.65.77 1.1 1.44 1.1h1.48a1.5 1.5 0 0 0 1.44-1.1l.8-2.9c.02-.1.08-.2.18-.3A4.49 4.49 0 0 0 8 2Z\"/>";
 
             /// <summary />
-            public static string PanelLeftAdd { get; } = ResourceManager.GetString("PanelLeftAdd");
+            public static string LikertSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.25 5.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm2 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm2 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm2 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM6.5 11a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm2 0a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm2 0a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm2 0a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM1 5.5A2.5 2.5 0 0 1 3.5 3h9A2.5 2.5 0 0 1 15 5.5v5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 10.5v-5ZM3.5 4C2.67 4 2 4.67 2 5.5v2h2V4h-.5ZM5 4v3.5h9v-2c0-.83-.67-1.5-1.5-1.5H5ZM4 8.5H2v2c0 .83.67 1.5 1.5 1.5H4V8.5ZM5 12h7.5c.83 0 1.5-.67 1.5-1.5v-2H5V12Z\"/>";
 
             /// <summary />
-            public static string PanelLeftContract { get; } = ResourceManager.GetString("PanelLeftContract");
+            public static string LinkDismissSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10.5 3H9.41a.5.5 0 0 0 .09 1h1.16a2.5 2.5 0 0 1 2.32 2.2c.36.1.7.23 1.02.4v-.1A3.5 3.5 0 0 0 10.5 3ZM6.6 9c-.16.32-.3.65-.4 1h-.7a3.5 3.5 0 0 1-.2-7h1.2a.5.5 0 0 1 .09 1H5.5a2.5 2.5 0 0 0-.16 5H6.5a.5.5 0 0 1 .1 0Zm4.12-2.95c-.88.13-1.69.46-2.38.95H5.5a.5.5 0 0 1-.09-1h5.09a.5.5 0 0 1 .22.05ZM11.5 16a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm1.85-6.35c.2.2.2.5 0 .7l-1.14 1.15 1.14 1.15a.5.5 0 0 1-.7.7l-1.15-1.14-1.15 1.14a.5.5 0 0 1-.7-.7l1.14-1.15-1.14-1.15a.5.5 0 0 1 .7-.7l1.15 1.14 1.15-1.14c.2-.2.5-.2.7 0Z\"/>";
 
             /// <summary />
-            public static string PanelLeftExpand { get; } = ResourceManager.GetString("PanelLeftExpand");
+            public static string LinkEditSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10.5 3H9.4a.5.5 0 0 0 .1 1h1.16c.81.06 1.52.5 1.94 1.14.34-.12.7-.16 1.06-.13A3.5 3.5 0 0 0 10.5 3Zm.49 3.39-.61.61H5.5a.5.5 0 0 1-.09-1h5.09a.5.5 0 0 1 .49.39Zm2.15-.36c-.06 0-.12.02-.18.04-.23.08-.44.2-.62.38L9.06 9.73l-1.01 1.01c-.36.36-.61.8-.73 1.3l-.3 1.2a.6.6 0 0 0 .73.74l1.22-.3c.48-.12.93-.38 1.29-.73l4.28-4.29a1.56 1.56 0 0 0-1.4-2.63ZM6.5 3H5.3a3.5 3.5 0 0 0 .2 7h1l.09-.01a.5.5 0 0 0-.1-1H5.35A2.5 2.5 0 0 1 5.5 4h1.09a.5.5 0 0 0-.1-1Z\"/>";
 
             /// <summary />
-            public static string PanelLeftHeader { get; } = ResourceManager.GetString("PanelLeftHeader");
+            public static string LinkSquareSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 2a2 2 0 0 0-2 2v4c0 1.1.9 2 2 2h1V9H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1v1a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H4Zm7 4v1h1a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1V6a2 2 0 0 0-2 2v4c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-1Z\"/>";
 
             /// <summary />
-            public static string PanelLeftHeaderAdd { get; } = ResourceManager.GetString("PanelLeftHeaderAdd");
+            public static string LinkSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9.5 4h1a3.5 3.5 0 0 1 .2 7H9.5a.5.5 0 0 1-.1-.99h.1l1-.01a2.5 2.5 0 0 0 .16-5H9.5a.5.5 0 0 1-.09-1h1.09-1Zm-4 0h1a.5.5 0 0 1 .09 1H5.5a2.5 2.5 0 0 0-.16 5H6.5a.5.5 0 0 1 .09 1H5.5a3.5 3.5 0 0 1-.2-7h1.2-1Zm0 3h5a.5.5 0 0 1 .09 1H5.5a.5.5 0 0 1-.09-1h.09Z\"/>";
 
             /// <summary />
-            public static string PanelLeftHeaderKey { get; } = ResourceManager.GetString("PanelLeftHeaderKey");
+            public static string ListSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 3.5c0-.28.22-.5.5-.5h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5Zm0 8c0-.28.22-.5.5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5ZM2.5 7a.5.5 0 0 0 0 1h11a.5.5 0 0 0 0-1h-11Z\"/>";
 
             /// <summary />
-            public static string PanelLeftKey { get; } = ResourceManager.GetString("PanelLeftKey");
+            public static string LocalLanguage { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M12.5 2c.28 0 .5.22.5.5V5h.5a.5.5 0 0 1 0 1H13v4.5a.5.5 0 1 1-1 0v-8c0-.28.22-.5.5-.5Zm-5 1H10v1.25c0 .41-.16.7-.4.9-.25.22-.63.35-1.1.35a.5.5 0 0 0 0 1 2.7 2.7 0 0 0 1.74-.57c.48-.4.76-.98.76-1.68V2.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 1 0 0 1ZM6.45 5.3a.5.5 0 0 0-.91 0l-3.5 8a.5.5 0 1 0 .92.4L4.14 11h3.72l1.18 2.7a.5.5 0 0 0 .92-.4l-3.5-8Zm.97 4.7H4.58L6 6.75 7.42 10Z\"/>";
 
             /// <summary />
-            public static string PanelLeftText { get; } = ResourceManager.GetString("PanelLeftText");
+            public static string LocalLanguageSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M12.5 2c.28 0 .5.22.5.5V5h.5a.5.5 0 0 1 0 1H13v4.5a.5.5 0 1 1-1 0v-8c0-.28.22-.5.5-.5Zm-5 1H10v1.25c0 .41-.16.7-.4.9-.25.22-.63.35-1.1.35a.5.5 0 0 0 0 1 2.7 2.7 0 0 0 1.74-.57c.48-.4.76-.98.76-1.68V2.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 1 0 0 1ZM6.45 5.3a.5.5 0 0 0-.91 0l-3.5 8a.5.5 0 1 0 .92.4L4.14 11h3.72l1.18 2.7a.5.5 0 0 0 .92-.4l-3.5-8Zm.97 4.7H4.58L6 6.75 7.42 10Z\"/>";
 
             /// <summary />
-            public static string PanelLeftTextAdd { get; } = ResourceManager.GetString("PanelLeftTextAdd");
+            public static string LocationAddSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 4c.28 0 .5.22.5.5V6H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V7H6a.5.5 0 0 1 0-1h1.5V4.5c0-.28.22-.5.5-.5Zm6 3c0 2.87-3.1 6.02-4.84 7.56-.67.59-1.65.59-2.32 0C5.1 13.02 2 9.87 2 7a6 6 0 1 1 12 0Zm-1 0A5 5 0 0 0 3 7c0 1.1.61 2.4 1.57 3.68a21.38 21.38 0 0 0 2.93 3.13c.3.25.7.25 1 0 .84-.75 2-1.87 2.93-3.13C12.39 9.4 13 8.11 13 7Z\"/>";
 
             /// <summary />
-            public static string PanelLeftTextDismiss { get; } = ResourceManager.GetString("PanelLeftTextDismiss");
+            public static string LocationArrowLeftSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9.16 14.56C10.9 13.02 14 9.87 14 7A6 6 0 0 0 2 7c0 2.87 3.1 6.02 4.84 7.56.67.59 1.65.59 2.32 0ZM8 2a5 5 0 0 1 5 5c0 1.1-.61 2.4-1.57 3.68a21.38 21.38 0 0 1-2.93 3.13.74.74 0 0 1-1 0c-.84-.75-2-1.87-2.93-3.13C3.61 9.4 3 8.11 3 7a5 5 0 0 1 5-5Zm-.15 2.85a.5.5 0 1 0-.7-.7l-2 2a.5.5 0 0 0 0 .7l2 2a.5.5 0 1 0 .7-.7L6.71 7h3.79a.5.5 0 0 0 0-1H6.7l1.15-1.15Z\"/>";
 
             /// <summary />
-            public static string PanelRight { get; } = ResourceManager.GetString("PanelRight");
+            public static string LocationArrowRightSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9.16 14.56C10.9 13.02 14 9.87 14 7A6 6 0 0 0 2 7c0 2.87 3.1 6.02 4.84 7.56.67.59 1.65.59 2.32 0ZM8 2a5 5 0 0 1 5 5c0 1.1-.61 2.4-1.57 3.68a21.38 21.38 0 0 1-2.93 3.13.74.74 0 0 1-1 0c-.84-.75-2-1.87-2.93-3.13C3.61 9.4 3 8.11 3 7a5 5 0 0 1 5-5Zm.15 2.85a.5.5 0 1 1 .7-.7l2 2c.2.2.2.5 0 .7l-2 2a.5.5 0 1 1-.7-.7L9.29 7H5.5a.5.5 0 0 1 0-1h3.8L8.14 4.85Z\"/>";
 
             /// <summary />
-            public static string PanelRightContract { get; } = ResourceManager.GetString("PanelRightContract");
+            public static string LocationArrowSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13.93 3.36a1 1 0 0 0-1.3-1.3l-10 3.85a1 1 0 0 0 .11 1.9l4.03 1.06a.5.5 0 0 1 .35.36l1.06 4.03a1 1 0 0 0 1.9.1l3.85-10ZM13 3 9.15 13 8.1 8.98A1.5 1.5 0 0 0 7.02 7.9L3 6.85 13 3Z\"/>";
 
             /// <summary />
-            public static string Password { get; } = ResourceManager.GetString("Password");
+            public static string LocationArrowUpSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9.16 14.56C10.9 13.02 14 9.87 14 7A6 6 0 0 0 2 7c0 2.87 3.1 6.02 4.84 7.56.67.59 1.65.59 2.32 0ZM8 2a5 5 0 0 1 5 5c0 1.1-.61 2.4-1.57 3.68a21.38 21.38 0 0 1-2.93 3.13.74.74 0 0 1-1 0c-.84-.75-2-1.87-2.93-3.13C3.61 9.4 3 8.11 3 7a5 5 0 0 1 5-5ZM6.35 6.85a.5.5 0 1 1-.7-.7l2-2c.2-.2.5-.2.7 0l2 2a.5.5 0 0 1-.7.7L8.5 5.71V9.5a.5.5 0 0 1-1 0V5.7L6.35 6.86Z\"/>";
 
             /// <summary />
-            public static string Pause { get; } = ResourceManager.GetString("Pause");
+            public static string LocationOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m11.58 12.29 2.57 2.56a.5.5 0 0 0 .7-.7l-13-13a.5.5 0 1 0-.7.7L2.99 3.7A5.97 5.97 0 0 0 2 7c0 2.87 1.93 5.5 5.73 7.92.17.1.37.1.54 0a17.98 17.98 0 0 0 3.31-2.63Zm-.7-.7c-.69.7-1.54 1.4-2.56 2.1L8 13.9l-.32-.2C4.54 11.55 3 9.32 3 7c0-.94.26-1.83.71-2.58l7.16 7.16ZM9.45 7.33l-1.8-1.8a1.5 1.5 0 0 1 1.8 1.8Zm2.65 2.65c.6-.98.89-1.97.89-2.99a5 5 0 0 0-7.93-4.05l-.71-.72A6 6 0 0 1 14 7c0 1.29-.39 2.52-1.16 3.72l-.73-.73Z\"/>";
 
             /// <summary />
-            public static string PauseOff { get; } = ResourceManager.GetString("PauseOff");
+            public static string LocationSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9.5 7a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0ZM14 7c0 2.87-3.1 6.02-4.84 7.56-.67.59-1.65.59-2.32 0C5.1 13.02 2 9.87 2 7a6 6 0 1 1 12 0Zm-1 0A5 5 0 0 0 3 7c0 1.1.61 2.4 1.57 3.68a21.38 21.38 0 0 0 2.93 3.13c.3.25.7.25 1 0 .84-.75 2-1.87 2.93-3.13C12.39 9.4 13 8.11 13 7Z\"/>";
 
             /// <summary />
-            public static string PauseSettings { get; } = ResourceManager.GetString("PauseSettings");
+            public static string LockClosedKeySvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.84 1.5H8a2.5 2.5 0 0 1 2.5 2.34V5h1c.65 0 1.21.42 1.42 1-.36.02-.7.07-1.05.17A.5.5 0 0 0 11.5 6h-7a.5.5 0 0 0-.5.5v6c0 .28.22.5.5.5h1.89c-.25.27-.39.62-.39 1H4.5A1.5 1.5 0 0 1 3 12.5v-6C3 5.67 3.67 5 4.5 5h1V4a2.5 2.5 0 0 1 2.34-2.5Zm.16 7a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm.14-6H8c-.78 0-1.42.6-1.5 1.36V5h3V4c0-.78-.6-1.42-1.36-1.5Zm-1 13.35c.1.1.22.15.36.15h2c.11 0 .2-.03.27-.07.07-.04.12-.1.15-.17a.86.86 0 0 0 .06-.24l.02-.25V15l.56-.02a.47.47 0 0 0 .3-.12c.07-.07.11-.17.12-.3L11 14h.5c.1 0 .2-.02.27-.07a.5.5 0 0 0 .15-.17.65.65 0 0 0 .07-.24 2.34 2.34 0 0 0 .01-.5v-.2c.17.07.35.11.52.14a2.87 2.87 0 0 0 2.62-.86A3.11 3.11 0 0 0 16 10a2.94 2.94 0 0 0-.88-2.13 3 3 0 0 0-5.03 2.84l-2.94 2.94c-.1.1-.15.21-.15.35v1.5c0 .14.05.25.15.35Zm7.14-7.13c.15.14.22.32.22.53 0 .2-.07.39-.22.53a.72.72 0 0 1-.53.22.72.72 0 0 1-.53-.22.72.72 0 0 1-.22-.53c0-.2.07-.39.22-.53a.72.72 0 0 1 .53-.22c.2 0 .39.07.53.22Z\"/>";
 
             /// <summary />
-            public static string Payment { get; } = ResourceManager.GetString("Payment");
+            public static string LockClosedSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.84 1.5H8a2.5 2.5 0 0 1 2.5 2.34V5h1c.83 0 1.5.67 1.5 1.5v6c0 .83-.67 1.5-1.5 1.5h-7A1.5 1.5 0 0 1 3 12.5v-6C3 5.67 3.67 5 4.5 5h1V4a2.5 2.5 0 0 1 2.34-2.5ZM11.5 6h-7a.5.5 0 0 0-.5.5v6c0 .28.22.5.5.5h7a.5.5 0 0 0 .5-.5v-6a.5.5 0 0 0-.5-.5ZM8 8.5a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm.14-6H8c-.78 0-1.42.6-1.5 1.36V5h3V4c0-.78-.6-1.42-1.36-1.5Z\"/>";
 
             /// <summary />
-            public static string PenDismiss { get; } = ResourceManager.GetString("PenDismiss");
+            public static string LockOpenSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 11.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm0-9c-.83 0-1.5.67-1.5 1.5v2h5c.83 0 1.5.67 1.5 1.5v6c0 .83-.67 1.5-1.5 1.5h-7A1.5 1.5 0 0 1 3 13.5v-6C3 6.67 3.67 6 4.5 6h1V4a2.5 2.5 0 0 1 5 0 .5.5 0 0 1-1 0c0-.83-.67-1.5-1.5-1.5ZM4.5 7a.5.5 0 0 0-.5.5v6c0 .28.22.5.5.5h7a.5.5 0 0 0 .5-.5v-6a.5.5 0 0 0-.5-.5h-7Z\"/>";
 
             /// <summary />
-            public static string PenOff { get; } = ResourceManager.GetString("PenOff");
+            public static string LuggageSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.33 1.5c0-.28.23-.5.5-.5h4.34a.5.5 0 0 1 0 1H10v1h1a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2v.5a.5.5 0 0 1-1 0V14H6v.5a.5.5 0 0 1-1 0V14a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2h1V2h-.17a.5.5 0 0 1-.5-.5ZM7 2v1h2V2H7ZM5 4a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H5Zm0 2.5c0-.28.22-.5.5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Z\"/>";
 
             /// <summary />
-            public static string PenProhibited { get; } = ResourceManager.GetString("PenProhibited");
+            public static string MailAddSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M15 5.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-4-2a.5.5 0 0 0-1 0V5H8.5a.5.5 0 0 0 0 1H10v1.5a.5.5 0 0 0 1 0V6h1.5a.5.5 0 0 0 0-1H11V3.5Zm1 9.5v-2.2c.35-.1.68-.24 1-.4V13a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7c0-1.1.9-2 2-2h2.02a5.57 5.57 0 0 0 0 1H3a1 1 0 0 0-1 1v.74l5 2.7.54-.3c.35.22.72.4 1.1.54l-1.4.76a.5.5 0 0 1-.48 0L2 8.88V13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1Z\"/>";
 
             /// <summary />
-            public static string People { get; } = ResourceManager.GetString("People");
+            public static string MailAlertSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.5 4a3 3 0 0 1 6 0v2l1.32 1.12a.5.5 0 0 1-.33.88H6.5a.5.5 0 0 1-.32-.88L7.5 6V4Zm3 6a1.5 1.5 0 0 1-1.42-1h2.83c-.2.58-.76 1-1.41 1ZM3 5h3.5v.54L5.95 6H3a1 1 0 0 0-1 1v.74l5 2.7 1.32-.72c.17.3.4.57.67.77l-1.75.95a.5.5 0 0 1-.48 0L2 8.88V13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-2.5c.39-.3.7-.7.86-1.17l.12-.33H13v4a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7c0-1.1.9-2 2-2Z\"/>";
 
             /// <summary />
-            public static string PeopleAdd { get; } = ResourceManager.GetString("PeopleAdd");
+            public static string MailAllReadSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.24 1.06a.5.5 0 0 0-.48 0L1.7 3.82C1.27 4.06 1 4.51 1 5v5c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V5c0-.5-.27-.94-.7-1.18L7.24 1.06ZM2.18 4.7 7 2.07l4.82 2.63.08.06L7 7.43 2.1 4.76a.34.34 0 0 1 .08-.06Zm5.06 3.74L12 5.84V10a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5.84l4.76 2.6a.5.5 0 0 0 .48 0ZM3.27 13c.34.6.99 1 1.73 1h6a4 4 0 0 0 4-4V6a2 2 0 0 0-1-1.73V10a3 3 0 0 1-3 3H3.27Z\"/>";
 
             /// <summary />
-            public static string PeopleCall { get; } = ResourceManager.GetString("PeopleCall");
+            public static string MailArrowDoubleBackSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M12 10.8V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V8.88l4.76 2.56a.5.5 0 0 0 .48 0l1.4-.76a5.48 5.48 0 0 1-1.1-.54l-.54.3-5-2.7V7a1 1 0 0 1 1-1h2.02a5.57 5.57 0 0 1 0-1H3a2 2 0 0 0-2 2v6c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2v-2.6c-.32.16-.65.3-1 .4Zm-1.5-.8a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM9.35 3.65c.2.2.2.5 0 .7L8.21 5.5l1.14 1.15a.5.5 0 0 1-.7.7l-1.5-1.5a.5.5 0 0 1 0-.7l1.5-1.5c.2-.2.5-.2.7 0Zm2.5.7-.64.65H13a1 1 0 0 1 1 1v.5a.5.5 0 0 1-1 0V6h-1.8l.65.65a.5.5 0 0 1-.7.7l-1.5-1.5a.5.5 0 0 1 0-.7l1.5-1.5a.5.5 0 0 1 .7.7Z\"/>";
 
             /// <summary />
-            public static string PeopleCheckmark { get; } = ResourceManager.GetString("PeopleCheckmark");
+            public static string MailArrowDownSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M15 5.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-4.85 2.35a.5.5 0 0 0 .35.15.5.5 0 0 0 .35-.15l2-2a.5.5 0 0 0-.7-.7L11 6.29V3.5a.5.5 0 0 0-1 0v2.8L8.85 5.14a.5.5 0 1 0-.7.7l2 2ZM12 13v-2.2c.35-.1.68-.24 1-.4V13a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7c0-1.1.9-2 2-2h2.02a5.57 5.57 0 0 0 0 1H3a1 1 0 0 0-1 1v.74l5 2.7.54-.3c.35.22.72.4 1.1.54l-1.4.76a.5.5 0 0 1-.48 0L2 8.88V13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1Z\"/>";
 
             /// <summary />
-            public static string PeopleCommunity { get; } = ResourceManager.GetString("PeopleCommunity");
+            public static string MailArrowForwardSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M12 10.8V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V8.88l4.76 2.56a.5.5 0 0 0 .48 0l1.4-.76a5.48 5.48 0 0 1-1.1-.54l-.54.3-5-2.7V7a1 1 0 0 1 1-1h2.02a5.57 5.57 0 0 1 0-1H3a2 2 0 0 0-2 2v6c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2v-2.6c-.32.16-.65.3-1 .4ZM6 5.5a4.5 4.5 0 1 0 9 0 4.5 4.5 0 0 0-9 0Zm5.4-2.6c.2-.2.5-.2.7 0l1.75 1.75a.5.5 0 0 1 0 .7L12.1 7.1a.5.5 0 0 1-.7-.7l.9-.9h-1.55C9.78 5.5 9 6.28 9 7.25v.25a.5.5 0 0 1-1 0v-.25a2.75 2.75 0 0 1 2.75-2.75h1.54l-.9-.9a.5.5 0 0 1 0-.7Z\"/>";
 
             /// <summary />
-            public static string PeopleEdit { get; } = ResourceManager.GetString("PeopleEdit");
+            public static string MailArrowUpSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M15 5.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-4.15-2.35A.5.5 0 0 0 10.5 3a.5.5 0 0 0-.35.15l-2 2a.5.5 0 1 0 .7.7L10 4.71V7.5a.5.5 0 0 0 1 0V4.7l1.15 1.15a.5.5 0 0 0 .7-.7l-2-2ZM12 13v-2.2c.35-.1.68-.24 1-.4V13a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7c0-1.1.9-2 2-2h2.02a5.57 5.57 0 0 0 0 1H3a1 1 0 0 0-1 1v.74l5 2.7.54-.3c.35.22.72.4 1.1.54l-1.4.76a.5.5 0 0 1-.48 0L2 8.88V13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1Z\"/>";
 
             /// <summary />
-            public static string PeopleError { get; } = ResourceManager.GetString("PeopleError");
+            public static string MailAttachSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m7.4 8.21-.4.22-5-2.69V5a1 1 0 0 1 1-1h4.88l1-1H3a2 2 0 0 0-2 2v6c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V9.12l-1 1V11a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6.88l4.76 2.56a.5.5 0 0 0 .48 0l.26-.14c-.11-.35-.14-.72-.1-1.09Zm3.83-4.73L8.35 6.35a.5.5 0 1 1-.7-.7l2.87-2.88a2.63 2.63 0 0 1 3.71 3.71l-3.18 3.17a1.56 1.56 0 0 1-2.2-2.2l2.8-2.8a.5.5 0 1 1 .7.7l-2.8 2.8a.56.56 0 0 0 .8.8l3.17-3.18a1.63 1.63 0 0 0-2.3-2.3Z\"/>";
 
             /// <summary />
-            public static string PeopleList { get; } = ResourceManager.GetString("PeopleList");
+            public static string MailCheckmarkSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M15 5.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-2.15-1.85a.5.5 0 0 0-.7 0L9.5 6.29l-.65-.64a.5.5 0 1 0-.7.7l1 1c.2.2.5.2.7 0l3-3a.5.5 0 0 0 0-.7ZM12 13v-2.2c.35-.1.68-.24 1-.4V13a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7c0-1.1.9-2 2-2h2.02a5.57 5.57 0 0 0 0 1H3a1 1 0 0 0-1 1v.74l5 2.7.54-.3c.35.22.72.4 1.1.54l-1.4.76a.5.5 0 0 1-.48 0L2 8.88V13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1Z\"/>";
 
             /// <summary />
-            public static string PeopleProhibited { get; } = ResourceManager.GetString("PeopleProhibited");
+            public static string MailClockSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M15 5.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM10.5 3a.5.5 0 0 0-.5.5v2c0 .28.22.5.5.5H12a.5.5 0 0 0 0-1h-1V3.5a.5.5 0 0 0-.5-.5ZM12 13v-2.2c.35-.1.68-.24 1-.4V13a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7c0-1.1.9-2 2-2h2.02a5.57 5.57 0 0 0 0 1H3a1 1 0 0 0-1 1v.74l5 2.7.54-.3c.35.22.72.4 1.1.54l-1.4.76a.5.5 0 0 1-.48 0L2 8.88V13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1Z\"/>";
 
             /// <summary />
-            public static string PeopleStar { get; } = ResourceManager.GetString("PeopleStar");
+            public static string MailDismissSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M15 5.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-2.65-1.15a.5.5 0 0 0-.7-.7L10.5 4.79 9.35 3.65a.5.5 0 1 0-.7.7L9.79 5.5 8.65 6.65a.5.5 0 1 0 .7.7l1.15-1.14 1.15 1.14a.5.5 0 0 0 .7-.7L11.21 5.5l1.14-1.15ZM12 13v-2.2c.35-.1.68-.24 1-.4V13a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7c0-1.1.9-2 2-2h2.02a5.57 5.57 0 0 0 0 1H3a1 1 0 0 0-1 1v.74l5 2.7.54-.3c.35.22.72.4 1.1.54l-1.4.76a.5.5 0 0 1-.48 0L2 8.88V13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1Z\"/>";
 
             /// <summary />
-            public static string PeopleSwap { get; } = ResourceManager.GetString("PeopleSwap");
+            public static string MailErrorSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M12 13v-2.2c.35-.1.68-.24 1-.4V13a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7c0-1.1.9-2 2-2h2.02a5.57 5.57 0 0 0 0 1H3a1 1 0 0 0-1 1v.74l5 2.7.54-.3c.35.22.72.4 1.1.54l-1.4.76a.5.5 0 0 1-.48 0L2 8.88V13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1Zm-1.5-3a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM10 3.5a.5.5 0 0 1 1 0v2a.5.5 0 0 1-1 0v-2Zm1.13 4a.62.62 0 1 1-1.25 0 .62.62 0 0 1 1.24 0Z\"/>";
 
             /// <summary />
-            public static string PeopleSync { get; } = ResourceManager.GetString("PeopleSync");
+            public static string MailInboxAddSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M15 5.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-4-2a.5.5 0 0 0-1 0V5H8.5a.5.5 0 0 0 0 1H10v1.5a.5.5 0 0 0 1 0V6h1.5a.5.5 0 0 0 0-1H11V3.5Zm-.5 7.5h.12c-.47.93-1.34 1.5-2.62 1.5-1.29 0-2.16-.58-2.63-1.53a3.54 3.54 0 0 1-.3-.8L5.05 10H3v2.5c0 .83.67 1.5 1.5 1.5h7c.83 0 1.5-.67 1.5-1.5v-2.1c.36-.18.7-.4 1-.66v2.76a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 12.5v-7A2.5 2.5 0 0 1 4.5 3h1.1c-.16.32-.3.65-.4 1h-.7C3.67 4 3 4.67 3 5.5V9h2.5c.28 0 .5.22.5.5a2.55 2.55 0 0 0 .26 1.03c.3.61.84.97 1.74.97.7 0 1.17-.21 1.5-.6.32.07.66.1 1 .1Z\"/>";
 
             /// <summary />
-            public static string PeopleTeam { get; } = ResourceManager.GetString("PeopleTeam");
+            public static string MailInboxArrowDownSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10.62 11a5.5 5.5 0 0 1-1.13-.1c-.32.39-.8.6-1.49.6-.9 0-1.43-.36-1.74-.97A2.55 2.55 0 0 1 6 9.5a.5.5 0 0 0-.5-.5H3V5.5C3 4.67 3.67 4 4.5 4h.7c.1-.35.24-.68.4-1H4.5A2.5 2.5 0 0 0 2 5.5v7A2.5 2.5 0 0 0 4.5 15h7a2.5 2.5 0 0 0 2.5-2.5V9.74c-.3.26-.64.48-1 .66v2.1c0 .83-.67 1.5-1.5 1.5h-7A1.5 1.5 0 0 1 3 12.5V10h2.04l.04.17c.06.26.15.53.29.8.47.95 1.34 1.53 2.63 1.53 1.28 0 2.15-.57 2.62-1.5Zm-.12-1a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8.15 5.85a.5.5 0 1 1 .7-.7L10 6.29V3.5a.5.5 0 0 1 1 0v2.8l1.15-1.15a.5.5 0 0 1 .7.7l-2 2a.5.5 0 0 1-.35.15.5.5 0 0 1-.35-.14l-2-2Z\"/>";
 
             /// <summary />
-            public static string PeopleTeamDelete { get; } = ResourceManager.GetString("PeopleTeamDelete");
+            public static string MailInboxCheckmarkSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M15 5.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-2.85-1.85L9.5 6.29l-.65-.64a.5.5 0 1 0-.7.7l1 1c.2.2.5.2.7 0l3-3a.5.5 0 0 0-.7-.7ZM10.62 11a5.5 5.5 0 0 1-1.13-.1c-.32.39-.8.6-1.49.6-.9 0-1.43-.36-1.74-.97A2.55 2.55 0 0 1 6 9.5a.5.5 0 0 0-.5-.5H3V5.5C3 4.67 3.67 4 4.5 4h.7c.1-.35.24-.68.4-1H4.5A2.5 2.5 0 0 0 2 5.5v7A2.5 2.5 0 0 0 4.5 15h7a2.5 2.5 0 0 0 2.5-2.5V9.74c-.3.26-.64.48-1 .66v2.1c0 .83-.67 1.5-1.5 1.5h-7A1.5 1.5 0 0 1 3 12.5V10h2.04l.04.17c.06.26.15.53.29.8.47.95 1.34 1.53 2.63 1.53 1.28 0 2.15-.57 2.62-1.5Z\"/>";
 
             /// <summary />
-            public static string PeopleToolbox { get; } = ResourceManager.GetString("PeopleToolbox");
+            public static string MailInboxDismissSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M15 5.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-2.65-1.15a.5.5 0 0 0-.7-.7L10.5 4.79 9.35 3.65a.5.5 0 1 0-.7.7L9.79 5.5 8.65 6.65a.5.5 0 1 0 .7.7l1.15-1.14 1.15 1.14a.5.5 0 0 0 .7-.7L11.21 5.5l1.14-1.15ZM10.5 11h.12c-.47.93-1.34 1.5-2.62 1.5-1.29 0-2.16-.58-2.63-1.53a3.54 3.54 0 0 1-.3-.8L5.05 10H3v2.5c0 .83.67 1.5 1.5 1.5h7c.83 0 1.5-.67 1.5-1.5v-2.1c.36-.18.7-.4 1-.66v2.76a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 12.5v-7A2.5 2.5 0 0 1 4.5 3h1.1c-.16.32-.3.65-.4 1h-.7C3.67 4 3 4.67 3 5.5V9h2.5c.28 0 .5.22.5.5a2.55 2.55 0 0 0 .26 1.03c.3.61.84.97 1.74.97.7 0 1.17-.21 1.5-.6.32.07.66.1 1 .1Z\"/>";
 
             /// <summary />
-            public static string Person { get; } = ResourceManager.GetString("Person");
+            public static string MailInboxSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 2A2.5 2.5 0 0 0 2 4.5v7A2.5 2.5 0 0 0 4.5 14h7a2.5 2.5 0 0 0 2.5-2.5v-7A2.5 2.5 0 0 0 11.5 2h-7ZM13 8h-2.59a.5.5 0 0 0-.41.5c0 .05 0 .16-.03.3-.04.26-.12.5-.23.73-.3.61-.84.97-1.74.97s-1.43-.36-1.74-.97A2.55 2.55 0 0 1 6 8.5a.5.5 0 0 0-.5-.5H3V4.5C3 3.67 3.67 3 4.5 3h7c.83 0 1.5.67 1.5 1.5V8ZM3 9h2.04l.04.17c.06.26.15.53.29.8.47.95 1.34 1.53 2.63 1.53 1.29 0 2.16-.58 2.63-1.53l.1-.2c.09-.2.15-.4.2-.6l.03-.17H13v2.5c0 .83-.67 1.5-1.5 1.5h-7A1.5 1.5 0 0 1 3 11.5V9Z\"/>";
 
             /// <summary />
-            public static string PersonAdd { get; } = ResourceManager.GetString("PersonAdd");
+            public static string MailListSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9 2.5c0-.28.22-.5.5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm0 2c0-.28.22-.5.5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm0 2c0-.28.22-.5.5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5ZM4 3h4.09c.06.19.16.36.3.5a1.5 1.5 0 0 0-.3.5H4a1 1 0 0 0-1 1v.74l5 2.7.98-.53c.16.06.34.09.52.09h1.41L8.24 9.44a.5.5 0 0 1-.48 0L3 6.88V11a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V8h1v3a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2Z\"/>";
 
             /// <summary />
-            public static string PersonAlert { get; } = ResourceManager.GetString("PersonAlert");
+            public static string MailMultipleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1 10V4c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2Zm10-7H3a1 1 0 0 0-1 1v.74l5 2.7 5-2.7V4a1 1 0 0 0-1-1ZM6.76 8.44 2 5.88V10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V5.88L7.24 8.44a.5.5 0 0 1-.48 0ZM5 14a2 2 0 0 1-1.73-1H11a3 3 0 0 0 3-3V4.27c.6.34 1 .99 1 1.73v4a4 4 0 0 1-4 4H5Z\"/>";
 
             /// <summary />
-            public static string PersonArrowBack { get; } = ResourceManager.GetString("PersonArrowBack");
+            public static string MailOpenPersonSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2.49 6h.01l-.4-.21a.5.5 0 0 1 .16-.13L8 2.57l5.95 3.2-.29.15a3 3 0 0 1 .57.83l.27-.14a.95.95 0 0 0 0-1.68L8.23 1.56a.5.5 0 0 0-.47 0L1.8 4.78A1.5 1.5 0 0 0 1 6.1V12c0 1.1.9 2 2 2h4.37a3.18 3.18 0 0 1-.33-1H3a1 1 0 0 1-1-1V6.87l5.53 2.95a1 1 0 0 0 .94 0l.47-.25c-.17-.29-.3-.6-.37-.94l-.57.3L2.5 6ZM13.5 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm1.5 4.5c0 1.25-1 2.5-3.5 2.5S8 13.75 8 12.5c0-.83.67-1.5 1.5-1.5h4c.83 0 1.5.67 1.5 1.5Z\"/>";
 
             /// <summary />
-            public static string PersonArrowLeft { get; } = ResourceManager.GetString("PersonArrowLeft");
+            public static string MailPauseSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M12 10.8V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V8.88l4.76 2.56a.5.5 0 0 0 .48 0l1.4-.76a5.48 5.48 0 0 1-1.1-.54l-.54.3-5-2.7V7a1 1 0 0 1 1-1h2.02a5.57 5.57 0 0 1 0-1H3a2 2 0 0 0-2 2v6c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2v-2.6c-.32.16-.65.3-1 .4Zm-1.5-.8a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm-1-6.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 1 1 0Zm3 0v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 1 1 0Z\"/>";
 
             /// <summary />
-            public static string PersonArrowRight { get; } = ResourceManager.GetString("PersonArrowRight");
+            public static string MailProhibitedSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 5.5a4.5 4.5 0 1 0 9 0 4.5 4.5 0 0 0-9 0Zm1 0a3.5 3.5 0 0 1 5.6-2.8L7.7 7.6A3.48 3.48 0 0 1 7 5.5ZM10.5 9c-.79 0-1.51-.26-2.1-.7l4.9-4.9A3.5 3.5 0 0 1 10.5 9Zm1.5 4v-2.2c.35-.1.68-.24 1-.4V13a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7c0-1.1.9-2 2-2h2.02a5.57 5.57 0 0 0 0 1H3a1 1 0 0 0-1 1v.74l5 2.7.54-.3c.35.22.72.4 1.1.54l-1.4.76a.5.5 0 0 1-.48 0L2 8.88V13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1Z\"/>";
 
             /// <summary />
-            public static string PersonAvailable { get; } = ResourceManager.GetString("PersonAvailable");
+            public static string MailReadMultipleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.24 1.06a.5.5 0 0 0-.48 0L1.7 3.82C1.27 4.06 1 4.51 1 5v5c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V5c0-.5-.27-.94-.7-1.18L7.24 1.06ZM2.18 4.7 7 2.07l4.82 2.63.08.06L7 7.43 2.1 4.76a.34.34 0 0 1 .08-.06Zm5.06 3.74L12 5.84V10a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5.84l4.76 2.6a.5.5 0 0 0 .48 0ZM3.27 13c.34.6.99 1 1.73 1h6a4 4 0 0 0 4-4V6a2 2 0 0 0-1-1.73V10a3 3 0 0 1-3 3H3.27Z\"/>";
 
             /// <summary />
-            public static string PersonBoard { get; } = ResourceManager.GetString("PersonBoard");
+            public static string MailReadSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.24 1.56a.5.5 0 0 0-.48 0L1.8 4.78A1.5 1.5 0 0 0 1 6.1V12c0 1.1.9 2 2 2h10a2 2 0 0 0 2-2V6.1c0-.55-.3-1.06-.79-1.32L8.24 1.56Zm-5.98 4.1L8 2.56l5.74 3.1a.5.5 0 0 1 .15.13L8 8.93 2.1 5.8a.5.5 0 0 1 .16-.13ZM2 6.86l5.76 3.08a.5.5 0 0 0 .48 0L14 6.87V12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6.87Z\"/>";
 
             /// <summary />
-            public static string PersonCall { get; } = ResourceManager.GetString("PersonCall");
+            public static string MailSettingsSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M12 10.8V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V8.88l4.76 2.56a.5.5 0 0 0 .48 0l1.4-.76a5.48 5.48 0 0 1-1.1-.54l-.54.3-5-2.7V7a1 1 0 0 1 1-1h2.02a5.57 5.57 0 0 1 0-1H3a2 2 0 0 0-2 2v6c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2v-2.6c-.32.16-.65.3-1 .4ZM6.63 4.91a2 2 0 0 0 1.44-2.48L7.9 1.9c.25-.2.53-.37.82-.5l.34.36a2 2 0 0 0 2.9 0l.33-.35c.3.14.58.32.84.52l-.13.42a2 2 0 0 0 1.46 2.52l.35.09a4.7 4.7 0 0 1 0 1.01l-.45.12a2 2 0 0 0-1.43 2.48l.15.55c-.25.2-.53.37-.82.5l-.34-.36a2 2 0 0 0-2.9 0l-.33.35c-.3-.14-.58-.32-.84-.52L8 8.66a2 2 0 0 0-1.46-2.52l-.35-.09a4.7 4.7 0 0 1 0-1.01l.45-.12Zm4.87.58a1 1 0 1 0-2 0 1 1 0 0 0 2 0Z\"/>";
 
             /// <summary />
-            public static string PersonChat { get; } = ResourceManager.GetString("PersonChat");
+            public static string MailShieldSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7 5H3a2 2 0 0 0-2 2v6c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2v-2.54a7.4 7.4 0 0 1-1 .44V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V8.88l4.76 2.56a.5.5 0 0 0 .48 0l2.32-1.25a5.88 5.88 0 0 1-.86-.68l-1.7.92-5-2.69V7a1 1 0 0 1 1-1h4.05L7 5.4V5Zm7-2.56a3.52 3.52 0 0 1-1-.35 4.72 4.72 0 0 1-1.25-.98.33.33 0 0 0-.5 0 3.89 3.89 0 0 1-2.9 1.39c-.2 0-.35.17-.35.38v2.48c.04 1.03.29 1.91.75 2.64.24.37.53.7.88 1 .48.4 1.07.73 1.76.98.07.03.15.03.22 0A4.75 4.75 0 0 0 15 5.13V2.8a.36.36 0 0 0-.35-.3c-.22 0-.44-.02-.65-.06Z\"/>";
 
             /// <summary />
-            public static string PersonClock { get; } = ResourceManager.GetString("PersonClock");
+            public static string MailSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 6.04V11c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v1.04ZM4 4h8a1 1 0 0 1 1 1v.74l-5 2.7-5-2.7V5a1 1 0 0 1 1-1ZM3 6.88l4.76 2.56a.5.5 0 0 0 .48 0L13 6.88V11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6.88Z\"/>";
 
             /// <summary />
-            public static string PersonDelete { get; } = ResourceManager.GetString("PersonDelete");
+            public static string MailTemplateSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 2A2.5 2.5 0 0 0 2 4.5v6A2.5 2.5 0 0 0 4.5 13H5v-1h-.5A1.5 1.5 0 0 1 3 10.5v-6C3 3.67 3.67 3 4.5 3h6c.83 0 1.5.67 1.5 1.5V7h1V4.5A2.5 2.5 0 0 0 10.5 2h-6Zm3 6C6.67 8 6 8.67 6 9.5v4c0 .83.67 1.5 1.5 1.5h6c.83 0 1.5-.67 1.5-1.5v-4c0-.83-.67-1.5-1.5-1.5h-6ZM7 9.5c0-.28.22-.5.5-.5h6c.28 0 .5.22.5.5v.48l-3.5 1.95L7 9.98V9.5Zm0 1.63 3.26 1.8a.5.5 0 0 0 .48 0l3.26-1.8v2.37a.5.5 0 0 1-.5.5h-6a.5.5 0 0 1-.5-.5v-2.37ZM5 5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1H5Z\"/>";
 
             /// <summary />
-            public static string PersonFeedback { get; } = ResourceManager.GetString("PersonFeedback");
+            public static string MailUnreadSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M14 5.23A2 2 0 1 0 11.06 3 2 2 0 0 0 14 5.23ZM4 3h6.04a3.02 3.02 0 0 0 0 1H4a1 1 0 0 0-1 1v.74l5 2.7 3.94-2.13a3 3 0 0 0 2.06.02V11a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2ZM3 6.88V11a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6.88L8.24 9.44a.5.5 0 0 1-.48 0L3 6.88Z\"/>";
 
             /// <summary />
-            public static string PersonInfo { get; } = ResourceManager.GetString("PersonInfo");
+            public static string MailWarningSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.27 5H3a2 2 0 0 0-2 2v6c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2v-1h-1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V8.88l3.08 1.65c-.1-.35-.1-.74.02-1.12L2 7.74V7a1 1 0 0 1 1-1h3.77l.5-1ZM6.1 9.55l3.5-7a1 1 0 0 1 1.78 0l3.5 7A1 1 0 0 1 14 11H7a1 1 0 0 1-.9-1.45ZM10.5 4a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 1 0v-3a.5.5 0 0 0-.5-.5Zm.5 5.5a.5.5 0 1 0-1 0 .5.5 0 0 0 1 0Z\"/>";
 
             /// <summary />
-            public static string PersonLightning { get; } = ResourceManager.GetString("PersonLightning");
+            public static string MapDriveSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M12.5 5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Zm-10-3C1.67 2 1 2.67 1 3.5v3c0 .27.22.5.5.5h6.01v1H6.5a.5.5 0 0 0-.5.5V10H5a.5.5 0 0 0-.5.5v1h-3a.5.5 0 0 0 0 1h3v1c0 .28.22.5.5.5h6a.5.5 0 0 0 .5-.5v-1h3a.5.5 0 0 0 0-1h-3v-1a.5.5 0 0 0-.5-.5h-1V8.5a.5.5 0 0 0-.5-.5h-.99V7h5.99a.5.5 0 0 0 .5-.5v-3c0-.83-.67-1.5-1.5-1.5h-11ZM2 3.5c0-.28.22-.5.5-.5h11c.28 0 .5.22.5.5V6H2V3.5ZM7 9h2v1.5c0 .28.22.5.5.5h1v2h-5v-2h1a.5.5 0 0 0 .5-.5V9Z\"/>";
 
             /// <summary />
-            public static string PersonLink { get; } = ResourceManager.GetString("PersonLink");
+            public static string MapSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.24 2.08a.5.5 0 0 1 .48-.03l4.75 2.38 3.76-2.35a.5.5 0 0 1 .77.42V11a.5.5 0 0 1-.23.42l-4 2.5a.5.5 0 0 1-.5.03l-4.74-2.38-3.77 2.35A.5.5 0 0 1 1 13.5V5a.5.5 0 0 1 .24-.42l4-2.5ZM6 10.69l4 2V5.31l-4-2v7.38ZM5 3.4 2 5.28v7.32l3-1.88V3.4Zm6 1.88v7.32l3-1.88V3.4l-3 1.88Z\"/>";
 
             /// <summary />
-            public static string PersonLock { get; } = ResourceManager.GetString("PersonLock");
+            public static string MathFormulaSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.33 1.23a2.5 2.5 0 0 0-3.52 2.1L4.7 5H3.5a.5.5 0 0 0 0 1h1.13l-.44 6.6a1.5 1.5 0 0 1-2.11 1.26l-.38-.17a.5.5 0 0 0-.4.92l.37.17a2.5 2.5 0 0 0 3.52-2.12L5.63 6H7.5a.5.5 0 1 0 0-1H5.7l.1-1.6a1.5 1.5 0 0 1 2.12-1.26l.37.17a.5.5 0 1 0 .42-.92l-.38-.16Z\"/><path d=\"M8.16 8.05a.25.25 0 0 1 .4.05l1.32 2.32-2.73 2.73a.5.5 0 1 0 .7.7l2.54-2.53 1.19 2.08c.4.71 1.39.84 1.97.26l.3-.3a.5.5 0 0 0-.7-.71l-.3.3a.25.25 0 0 1-.4-.05l-1.33-2.32 2.73-2.73a.5.5 0 1 0-.7-.7L10.6 9.68 9.42 7.6a1.25 1.25 0 0 0-1.97-.26l-.3.3a.5.5 0 1 0 .7.71l.3-.3Z\"/>";
 
             /// <summary />
-            public static string PersonMail { get; } = ResourceManager.GetString("PersonMail");
+            public static string MathSymbolsSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 2c.28 0 .5.22.5.5V4h1.5a.5.5 0 0 1 0 1H5v1.5a.5.5 0 0 1-1 0V5H2.5a.5.5 0 0 1 0-1H4V2.5c0-.28.22-.5.5-.5Zm5 2a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4Zm-4.3 7.5 1.65-1.65a.5.5 0 1 0-.7-.7L4.5 10.79 2.85 9.15a.5.5 0 1 0-.7.7l1.64 1.65-1.64 1.65a.5.5 0 0 0 .7.7l1.65-1.64 1.65 1.64a.5.5 0 0 0 .7-.7L5.21 11.5Zm6.3-1.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm-2 .5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4Zm3 2.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z\"/>";
 
             /// <summary />
-            public static string PersonNote { get; } = ResourceManager.GetString("PersonNote");
+            public static string MaximizeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 3C3.67 3 3 3.67 3 4.5v7c0 .83.67 1.5 1.5 1.5h7c.83 0 1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5h-7Zm0 1h7c.28 0 .5.22.5.5v7a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-7c0-.28.22-.5.5-.5Z\"/>";
 
             /// <summary />
-            public static string PersonProhibited { get; } = ResourceManager.GetString("PersonProhibited");
+            public static string MeetNowSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.77 2.92a2.7 2.7 0 0 1 .24-.13A7.1 7.1 0 0 1 8 2a6.35 6.35 0 0 1 3.22.92h.01a.5.5 0 0 0 .54-.84h-.01l-.02-.02a3.5 3.5 0 0 0-.28-.16A8.1 8.1 0 0 0 8 1a7.35 7.35 0 0 0-3.74 1.06l-.02.01a.5.5 0 0 0 .53.85ZM4 4a2 2 0 0 0-2 2v4c0 1.1.9 2 2 2h4.5a2 2 0 0 0 2-2v-.14l2.75 1.57A.5.5 0 0 0 14 11V5a.5.5 0 0 0-.75-.43L10.5 6.14V6a2 2 0 0 0-2-2H4Zm6.5 3.29L13 5.86v4.28L10.5 8.7V7.29ZM3 6a1 1 0 0 1 1-1h4.5a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6Zm1.77 7.08a.5.5 0 0 0-.54.84h.01l.02.02a3.02 3.02 0 0 0 .28.16A8.08 8.08 0 0 0 8 15a7.35 7.35 0 0 0 3.74-1.06l.02-.01a.5.5 0 0 0-.53-.85 2.4 2.4 0 0 1-.24.13A7.09 7.09 0 0 1 8 14a6.35 6.35 0 0 1-3.22-.92h-.01Z\"/>";
 
             /// <summary />
-            public static string PersonQuestionMark { get; } = ResourceManager.GetString("PersonQuestionMark");
+            public static string MegaphoneLoudSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10.87 1.02a.5.5 0 0 1 .37.6l-.25 1a.5.5 0 1 1-.97-.24l.24-1a.5.5 0 0 1 .61-.36Zm2.98 1.13c.2.2.2.5 0 .7l-1 1a.5.5 0 1 1-.7-.7l1-1c.2-.2.5-.2.7 0ZM6.28 13.03a2 2 0 0 0 3.63-1.6l-3.63 1.6Zm-.92.4-1 .45a1.4 1.4 0 0 1-1.55-.29l-.4-.4a1.4 1.4 0 0 1-.3-1.55L6 2.84a1.4 1.4 0 0 1 2.27-.43l5.33 5.31c.7.7.48 1.87-.42 2.27l-2.34 1.03a3 3 0 0 1-5.47 2.42ZM14.5 5h-1a.5.5 0 0 0 0 1h1a.5.5 0 1 0 0-1ZM6.9 3.24l-3.87 8.8a.4.4 0 0 0 .09.44l.4.4c.11.12.29.15.44.09l8.8-3.9a.4.4 0 0 0 .12-.64L7.55 3.12a.4.4 0 0 0-.65.12Z\"/>";
 
             /// <summary />
-            public static string PersonRibbon { get; } = ResourceManager.GetString("PersonRibbon");
+            public static string MegaphoneOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m13.3 14 .85.85a.5.5 0 0 0 .7-.7l-13-13a.5.5 0 1 0-.7.7L4.3 5.02l-2.29.78A1.5 1.5 0 0 0 1 7.22v1.56c0 .65.4 1.22 1.02 1.42l1.98.68V12a3 3 0 0 0 5.87.87l3.15 1.07.27.06Zm-1.56-1.55-9.4-3.2A.5.5 0 0 1 2 8.79V7.22c0-.22.14-.4.34-.48l2.76-.93 6.64 6.64Zm-2.82.1A2 2 0 0 1 5 12v-.78l3.92 1.33ZM14 3.5v8.38l.96.96c.03-.1.04-.21.04-.33v-9c0-1.03-1-1.76-1.98-1.43l-6.6 2.23.8.79 6.12-2.07a.5.5 0 0 1 .66.47Z\"/>";
 
             /// <summary />
-            public static string PersonSearch { get; } = ResourceManager.GetString("PersonSearch");
+            public static string MegaphoneSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M15 3.5c0-1.02-1-1.75-1.98-1.42l-11 3.72A1.5 1.5 0 0 0 1 7.22v1.56c0 .65.4 1.22 1.02 1.42l1.98.68V12a3 3 0 0 0 5.87.87l3.15 1.07A1.5 1.5 0 0 0 15 12.5v-9Zm-1.66-.47a.5.5 0 0 1 .66.47v9.01a.5.5 0 0 1-.66.48l-11-3.73A.5.5 0 0 1 2 8.78V7.22c0-.22.14-.4.34-.48l11-3.71Zm-4.42 9.52A2 2 0 0 1 5 12v-.78l3.92 1.33Z\"/>";
 
             /// <summary />
-            public static string PersonSettings { get; } = ResourceManager.GetString("PersonSettings");
+            public static string MemorySvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M14.41 4.59A2 2 0 0 0 13 4V2.5a.5.5 0 0 0-1 0V4h-2V2.5a.5.5 0 1 0-1 0V4H7V2.5a.5.5 0 1 0-1 0V4H4V2.5a.5.5 0 1 0-1 0V4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2v1.5a.5.5 0 0 0 1 0V12h2v1.5a.5.5 0 0 0 1 0V12h2v1.5a.5.5 0 0 0 1 0V12h2v1.5a.5.5 0 0 0 1 0V12a2 2 0 0 0 2-2V6a2 2 0 0 0-.59-1.41ZM14 10a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v4Zm-1.5-4h-9a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5ZM12 9H4V7h8v2Z\"/>";
 
             /// <summary />
-            public static string PersonStanding { get; } = ResourceManager.GetString("PersonStanding");
+            public static string MentionSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 2a6 6 0 0 1 6 6c0 1.68-1.13 3-2.5 3a1.7 1.7 0 0 1-1.61-.99c-.43.6-1.08.99-1.89.99-1.53 0-2.5-1.39-2.5-3S6.47 5 8 5c.6 0 1.1.2 1.5.56V5.5a.5.5 0 0 1 1-.09V8c0 1.36.35 2 1 2 .78 0 1.5-.84 1.5-2a5 5 0 1 0-3.78 4.85l.3-.08.2-.07a.5.5 0 0 1 .34.94A5.88 5.88 0 0 1 8 14 6 6 0 0 1 8 2Zm0 4c-.88 0-1.5.88-1.5 2s.62 2 1.5 2 1.5-.88 1.5-2S8.88 6 8 6Z\"/>";
 
             /// <summary />
-            public static string PersonStar { get; } = ResourceManager.GetString("PersonStar");
+            public static string MergeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.5 7.5H9.88a2.5 2.5 0 0 1-1.9-.87l-1.5-1.76A2.5 2.5 0 0 0 4.58 4H2.5a.5.5 0 0 0 0 1h2.08c.44 0 .85.2 1.14.52l1.5 1.76c.25.29.54.53.86.72-.32.2-.61.43-.86.72l-1.5 1.76c-.29.33-.7.52-1.14.52H2.5a.5.5 0 0 0 0 1h2.08a2.5 2.5 0 0 0 1.9-.87l1.5-1.76a2.5 2.5 0 0 1 1.9-.87h2.53l-2.29 2.67a.5.5 0 1 0 .76.66l3-3.5a.5.5 0 0 0 0-.66l-3-3.5a.5.5 0 1 0-.76.66l2.3 2.67h-.92Z\"/>";
 
             /// <summary />
-            public static string PersonSubtract { get; } = ResourceManager.GetString("PersonSubtract");
+            public static string MicOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m10.8 11.52 3.35 3.33a.5.5 0 0 0 .7-.7l-13-13a.5.5 0 1 0-.7.7L5.5 6.21V8a2.5 2.5 0 0 0 3.88 2.09l.72.71A3.5 3.5 0 0 1 4.5 8a.5.5 0 1 0-1 0 4.5 4.5 0 0 0 4 4.47v1.03a.5.5 0 1 0 1 0v-1.03c.87-.1 1.66-.44 2.3-.95ZM8.66 9.35A1.5 1.5 0 0 1 6.5 8v-.8l2.15 2.15Zm.85-1.97V4.5a1.5 1.5 0 0 0-3-.12l-.82-.82a2.5 2.5 0 0 1 4.82.94V8c0 .12 0 .24-.02.35l-.98-.97Zm2.56 2.56-.76-.76c.13-.37.2-.77.2-1.18a.5.5 0 0 1 1 0c0 .7-.16 1.35-.44 1.94Z\"/>";
 
             /// <summary />
-            public static string PersonSupport { get; } = ResourceManager.GetString("PersonSupport");
+            public static string MicProhibitedSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6.5 2A2.5 2.5 0 0 0 4 4.5V8c0 .83.4 1.56 1.02 2.02.04-.41.12-.8.24-1.18A1.5 1.5 0 0 1 5 8V4.5a1.5 1.5 0 1 1 3 0v1.1c.32-.16.65-.3 1-.4v-.7A2.5 2.5 0 0 0 6.5 2Zm-1.46 9.18c.05.4.14.8.28 1.16A4.5 4.5 0 0 1 2 8a.5.5 0 0 1 1 0 3.5 3.5 0 0 0 2.04 3.18ZM6 10.5a4.5 4.5 0 1 0 9 0 4.5 4.5 0 0 0-9 0Zm2.4 2.8 4.9-4.9a3.5 3.5 0 0 1-4.9 4.9Zm-.7-.7a3.5 3.5 0 0 1 4.9-4.9l-4.9 4.9Z\"/>";
 
             /// <summary />
-            public static string PersonSwap { get; } = ResourceManager.GetString("PersonSwap");
+            public static string MicPulseOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m13.3 14.02.85.83a.5.5 0 0 0 .7-.7l-13-13a.5.5 0 1 0-.7.7L4 4.71V8c0 .83.4 1.56 1.02 2.02.04-.41.12-.8.24-1.18A1.5 1.5 0 0 1 5 8V5.7l1.98 2a4.5 4.5 0 0 0 6.32 6.32Zm-2.19-2.2-.15.37a.5.5 0 0 1-.93-.02l-.64-1.8-.22.5a.5.5 0 0 1-.46.3H8a.5.5 0 0 1 0-1h.38l.33-.76 2.4 2.4ZM8.56 6.44l6 6a4.5 4.5 0 0 0-6-6ZM4.79 2.67l.71.71A1.5 1.5 0 0 1 8 4.5v1.1c.32-.16.65-.3 1-.4v-.7a2.5 2.5 0 0 0-4.2-1.83Zm.53 9.67a5.47 5.47 0 0 1-.28-1.16A3.5 3.5 0 0 1 3 8a.5.5 0 0 0-1 0 4.5 4.5 0 0 0 3.32 4.34Z\"/>";
 
             /// <summary />
-            public static string PersonSync { get; } = ResourceManager.GetString("PersonSync");
+            public static string MicPulseSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 4.5a2.5 2.5 0 0 1 5 0v.7c-.35.1-.68.24-1 .4V4.5a1.5 1.5 0 1 0-3 0V8c0 .31.1.6.26.84-.12.37-.2.77-.24 1.18A2.5 2.5 0 0 1 4 8V4.5Zm1.32 7.84a5.47 5.47 0 0 1-.28-1.16A3.5 3.5 0 0 1 3 8a.5.5 0 0 0-1 0 4.5 4.5 0 0 0 3.32 4.34ZM15 10.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-5.56-2a.5.5 0 0 0-.47.3l-.59 1.37H8a.5.5 0 1 0 0 1h.71a.5.5 0 0 0 .46-.3l.22-.5.64 1.8a.5.5 0 0 0 .93.02l.68-1.68.2.4a.5.5 0 0 0 .45.26H13a.5.5 0 0 0 0-1h-.41L12 9.1a.5.5 0 0 0-.9.05l-.58 1.44-.63-1.76a.5.5 0 0 0-.46-.33Z\"/>";
 
             /// <summary />
-            public static string PersonWalking { get; } = ResourceManager.GetString("PersonWalking");
+            public static string MicSparkleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.5 4.5a2.5 2.5 0 0 1 5 0V5h-.02a1.3 1.3 0 0 0-.98.45V4.5a1.5 1.5 0 1 0-3 0V8c0 .57.32 1.07.8 1.33.15.18.34.32.57.4h.01l.77.25a.58.58 0 0 1 .35.31A2.5 2.5 0 0 1 5.5 8V4.5Zm7.28 3.71h.02a.3.3 0 0 1 0 .58l-.77.25a1.58 1.58 0 0 0-1 1l-.24.76a.3.3 0 0 1-.12.14.3.3 0 0 1-.17.06.3.3 0 0 1-.29-.2l-.24-.77a1.58 1.58 0 0 0-1-1l-.77-.25a.3.3 0 0 1 0-.57l.77-.25a1.58 1.58 0 0 0 .98-1l.25-.76a.3.3 0 0 1 .57 0l.25.77a1.57 1.57 0 0 0 1 1l.76.24Zm-3.03 3.55a1.3 1.3 0 0 1-.43-.52A3.49 3.49 0 0 1 4.5 8a.5.5 0 0 0-1 0 4.5 4.5 0 0 0 4 4.47v1.03a.5.5 0 0 0 1 0v-1.03a4.47 4.47 0 0 0 1.5-.44 1.25 1.25 0 0 1 0-.13 1.3 1.3 0 0 1-.25-.14Zm5.08.01-.62-.2a1.26 1.26 0 0 1-.8-.8l-.2-.6a.24.24 0 0 0-.45 0l-.2.6a1.26 1.26 0 0 1-.79.8l-.6.2a.24.24 0 0 0 0 .46l.6.2a1.26 1.26 0 0 1 .8.8l.2.6a.24.24 0 0 0 .37.13.24.24 0 0 0 .09-.12l.2-.61a1.26 1.26 0 0 1 .8-.8l.6-.2a.24.24 0 0 0 0-.46Z\"/>";
 
             /// <summary />
-            public static string Phone { get; } = ResourceManager.GetString("Phone");
+            public static string MicSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.5 4.5a2.5 2.5 0 0 1 5 0V8a2.5 2.5 0 0 1-5 0V4.5ZM8 3c-.83 0-1.5.67-1.5 1.5V8a1.5 1.5 0 1 0 3 0V4.5C9.5 3.67 8.83 3 8 3ZM4 7.5c.28 0 .5.22.5.5a3.5 3.5 0 1 0 7 0 .5.5 0 0 1 1 0 4.5 4.5 0 0 1-4 4.47v1.03a.5.5 0 0 1-1 0v-1.03A4.5 4.5 0 0 1 3.5 8c0-.28.22-.5.5-.5Z\"/>";
 
             /// <summary />
-            public static string PhoneChat { get; } = ResourceManager.GetString("PhoneChat");
+            public static string MoleculeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11 8a3 3 0 1 0-2.7-1.7L5.94 7.45a2.5 2.5 0 1 0 .76 3.2l2.3 1.15L9 12a2 2 0 1 0 .35-1.13L7 9.69a2.54 2.54 0 0 0-.34-1.46l2.23-1.11A3 3 0 0 0 11 8Zm0-1a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm-6.5 4a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm7.5 1a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z\"/>";
 
             /// <summary />
-            public static string PhoneCheckmark { get; } = ResourceManager.GetString("PhoneCheckmark");
+            public static string MoneySvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9 7a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM8 7a1 1 0 1 0-2 0 1 1 0 0 0 2 0ZM1 4.25C1 3.56 1.56 3 2.25 3h9.5c.69 0 1.25.56 1.25 1.25v5.5c0 .69-.56 1.25-1.25 1.25h-9.5C1.56 11 1 10.44 1 9.75v-5.5ZM2.25 4a.25.25 0 0 0-.25.25V5h.5a.5.5 0 0 0 .5-.5V4h-.75ZM2 9.75c0 .14.11.25.25.25H3v-.5a.5.5 0 0 0-.5-.5H2v.75Zm2-.25v.5h6v-.5c0-.83.67-1.5 1.5-1.5h.5V6h-.5A1.5 1.5 0 0 1 10 4.5V4H4v.5C4 5.33 3.33 6 2.5 6H2v2h.5C3.33 8 4 8.67 4 9.5Zm7 .5h.75c.14 0 .25-.11.25-.25V9h-.5a.5.5 0 0 0-.5.5v.5Zm1-5v-.75a.25.25 0 0 0-.25-.25H11v.5c0 .28.22.5.5.5h.5Zm-7.5 8a1.5 1.5 0 0 1-1.43-1.04c.14.03.28.04.43.04h8.25C12.99 12 14 11 14 9.75V5.09c.58.2 1 .76 1 1.41v3.25c0 1.8-1.46 3.25-3.25 3.25H4.5Z\"/>";
 
             /// <summary />
-            public static string PhoneDesktop { get; } = ResourceManager.GetString("PhoneDesktop");
+            public static string MoreCircleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3 8a5 5 0 1 1 10 0A5 5 0 0 1 3 8Zm5-6a6 6 0 1 0 0 12A6 6 0 0 0 8 2Zm0 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm4-1a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z\"/>";
 
             /// <summary />
-            public static string PhoneEraser { get; } = ResourceManager.GetString("PhoneEraser");
+            public static string MoreHorizontalSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z\"/>";
 
             /// <summary />
-            public static string PhoneLaptop { get; } = ResourceManager.GetString("PhoneLaptop");
+            public static string MoreVerticalSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm0 4a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm-1 3a1 1 0 1 0 2 0 1 1 0 0 0-2 0Z\"/>";
 
             /// <summary />
-            public static string PhoneSpanIn { get; } = ResourceManager.GetString("PhoneSpanIn");
+            public static string MoviesAndTvSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13.22 4.25 7.09 6.24a.5.5 0 0 1-.24.08L4.75 7h8.75c.28 0 .5.22.5.5v5a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 12.5v-5c0-.1.03-.2.09-.29l-.2-.6A2.5 2.5 0 0 1 3.5 3.46l6.66-2.16a2.5 2.5 0 0 1 3.15 1.6l.23.72a.5.5 0 0 1-.32.63Zm-3.75.16 1.29-2.23-.3.07-1.24.4-1.3 2.27 1.55-.5Zm2.3-1.98-.02.04-.85 1.48 1.53-.5-.07-.24a1.5 1.5 0 0 0-.6-.78Zm-3.97.69-1.56.5-1.3 2.27 1.55-.51 1.3-2.26ZM2.92 6.54l.59-.2 1.3-2.26-1 .33a1.5 1.5 0 0 0-.96 1.9l.07.23ZM3 8v4.5c0 .83.67 1.5 1.5 1.5h7c.83 0 1.5-.67 1.5-1.5V8H3Z\"/>";
 
             /// <summary />
-            public static string PhoneSpanOut { get; } = ResourceManager.GetString("PhoneSpanOut");
+            public static string MultiselectLtrSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.85 2.15c.2.2.2.5 0 .7l-2 2a.5.5 0 0 1-.7 0l-1-1a.5.5 0 1 1 .7-.7l.65.64 1.65-1.64c.2-.2.5-.2.7 0ZM14.5 4h-8a.5.5 0 0 1 0-1h8a.5.5 0 0 1 0 1ZM6 8c0-.28.22-.5.5-.5h8a.5.5 0 0 1 0 1h-8A.5.5 0 0 1 6 8Zm-1.15 3.15c.2.2.2.5 0 .7l-2 2a.5.5 0 0 1-.7 0l-1-1a.5.5 0 0 1 .7-.7l.65.64 1.65-1.64c.2-.2.5-.2.7 0ZM14.5 13h-8a.5.5 0 0 1 0-1h8a.5.5 0 0 1 0 1Z\"/>";
 
             /// <summary />
-            public static string PictureInPicture { get; } = ResourceManager.GetString("PictureInPicture");
+            public static string MultiselectRtlSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M14.85 2.85a.5.5 0 0 0-.7-.7L12.5 3.79l-.65-.64a.5.5 0 0 0-.7.7l1 1c.2.2.5.2.7 0l2-2Zm0 9a.5.5 0 0 0-.7-.7l-1.65 1.64-.65-.64a.5.5 0 0 0-.7.7l1 1c.2.2.5.2.7 0l2-2ZM1.5 3a.5.5 0 0 0 0 1h8a.5.5 0 0 0 0-1h-8Zm0 4.5a.5.5 0 0 0 0 1h8a.5.5 0 0 0 0-1h-8Zm0 4.5a.5.5 0 0 0 0 1h8a.5.5 0 0 0 0-1h-8Z\"/>";
 
             /// <summary />
-            public static string PictureInPictureEnter { get; } = ResourceManager.GetString("PictureInPictureEnter");
+            public static string MusicNote2SvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M12 5.21v5.06A2 2 0 1 0 13 12V1.93a.8.8 0 0 0-1.07-.76l-6.4 2.29A.8.8 0 0 0 5 4.2v7.06A2 2 0 1 0 6 13V7.35l6-2.14Zm0-1.06L6 6.29V4.35l6-2.14v1.94ZM11 11a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z\"/>";
 
             /// <summary />
-            public static string PictureInPictureExit { get; } = ResourceManager.GetString("PictureInPictureExit");
+            public static string MusicNoteOff2SvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m12.55 13.26 1.6 1.6a.5.5 0 0 0 .7-.71l-13-13a.5.5 0 1 0-.7.7L5 5.71v5.56A2 2 0 1 0 6 13V7.35l.48-.17 3.26 3.27a2 2 0 1 0 2.81 2.81Zm-.71-.71a1 1 0 1 1-1.39-1.39l1.39 1.39ZM4 12a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm8-7.85-4.22 1.5.78.79L12 5.2v4.67l1 1V1.93a.8.8 0 0 0-1.07-.76L5.57 3.45l.78.78L12 2.2v1.94Z\"/>";
 
             /// <summary />
-            public static string Pill { get; } = ResourceManager.GetString("Pill");
+            public static string MyLocationSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 10.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Zm.5-9a.5.5 0 0 0-1 0v1.52A5 5 0 0 0 3.02 7.5H1.5a.5.5 0 0 0 0 1h1.52a5 5 0 0 0 4.48 4.48v1.52a.5.5 0 0 0 1 0v-1.52a5 5 0 0 0 4.48-4.48h1.52a.5.5 0 1 0 0-1h-1.52A5 5 0 0 0 8.5 3.02V1.5ZM8 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8Z\"/>";
 
             /// <summary />
-            public static string PinOff { get; } = ResourceManager.GetString("PinOff");
+            public static string NavigationSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 3.5c0-.28.22-.5.5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5Zm0 4c0-.28.22-.5.5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5Zm0 4c0-.28.22-.5.5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5Z\"/>";
 
             /// <summary />
-            public static string Play { get; } = ResourceManager.GetString("Play");
+            public static string NetworkAdapterSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 6.5v3a.5.5 0 1 1-1 0v-3a.5.5 0 1 1 1 0ZM6.5 6a.5.5 0 0 0-.5.5v3a.5.5 0 1 0 1 0v-3a.5.5 0 0 0-.5-.5Zm3 0a.5.5 0 0 0-.5.5v3a.5.5 0 1 0 1 0v-3a.5.5 0 0 0-.5-.5Zm3 0a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 1 0v-3a.5.5 0 0 0-.5-.5Zm2.5-.5v5a1.5 1.5 0 0 1-1.5 1.5H13v1.5a.5.5 0 0 1-.5.5h-6a.5.5 0 0 1-.5-.5V12H2v1.5a.5.5 0 0 1-1 0V3H.5a.5.5 0 0 1 0-1H1a1 1 0 0 1 1 1v1h11.5A1.5 1.5 0 0 1 15 5.5ZM7 13h2v-1H7v1Zm5-1h-2v1h2v-1Zm2-6.5a.5.5 0 0 0-.5-.5H2v6h11.5a.5.5 0 0 0 .5-.5v-5Z\"/>";
 
             /// <summary />
-            public static string PlayCircle { get; } = ResourceManager.GetString("PlayCircle");
+            public static string NewsSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.5 5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7Zm0 2a.5.5 0 0 0-.5.5v2c0 .28.22.5.5.5h2a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-.5-.5h-2ZM4 9V8h1v1H4Zm3.5-2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3Zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3ZM1 4c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2 2 2 0 0 1 2 2v4.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 10.5V4Zm11.5 6.5a.5.5 0 0 1-.5-.5V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v6.5c0 .83.67 1.5 1.5 1.5h9c.83 0 1.5-.67 1.5-1.5V6a1 1 0 0 0-1-1v5a.5.5 0 0 1-.5.5Z\"/>";
 
             /// <summary />
-            public static string PlayCircleHint { get; } = ResourceManager.GetString("PlayCircleHint");
+            public static string NewSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.5 11h5a.5.5 0 0 1 .1 1H3.5a.5.5 0 0 1-.09-1h5.1-5Zm1.65-5.85a.5.5 0 0 1 .64-.06l.07.06 4 4a.5.5 0 0 1-.64.76l-.07-.06-4-4a.5.5 0 0 1 0-.7ZM11.5 3a.5.5 0 0 1 .5.41V8.5a.5.5 0 0 1-.99.09V3.5c0-.28.22-.5.5-.5Z\"/>";
 
             /// <summary />
-            public static string PlayMultiple { get; } = ResourceManager.GetString("PlayMultiple");
+            public static string NextSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M14 2.5a.5.5 0 1 0-1 0v11a.5.5 0 0 0 1 0v-11ZM2 3a1 1 0 0 1 1.58-.81l7 4.96a1 1 0 0 1 0 1.63l-7 5.03a1 1 0 0 1-1.58-.8V3Zm8 4.96L3 3v10l7-5.04Z\"/>";
 
             /// <summary />
-            public static string Poll { get; } = ResourceManager.GetString("Poll");
+            public static string NoteAddSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10 5.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-4-2a.5.5 0 0 0-1 0V5H3.5a.5.5 0 0 0 0 1H5v1.5a.5.5 0 0 0 1 0V6h1.5a.5.5 0 0 0 0-1H6V3.5Zm6.5.5h-1.7c-.1-.35-.24-.68-.4-1h2.1A2.5 2.5 0 0 1 15 5.5v4.29c0 .4-.16.78-.44 1.06l-3.71 3.71a1.5 1.5 0 0 1-1.06.44H5.5A2.5 2.5 0 0 1 3 12.5v-2.1c.32.16.65.3 1 .4v1.7c0 .83.67 1.5 1.5 1.5H9v-2a3 3 0 0 1 3-3h2V5.5c0-.83-.67-1.5-1.5-1.5ZM10 13.95a.5.5 0 0 0 .14-.1l3.71-3.71a.5.5 0 0 0 .1-.14H12a2 2 0 0 0-2 2v1.95Z\"/>";
 
             /// <summary />
-            public static string PollHorizontal { get; } = ResourceManager.GetString("PollHorizontal");
+            public static string NotebookSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.75 3a.75.75 0 0 0-.75.75v1.5c0 .41.34.75.75.75h5.5c.41 0 .75-.34.75-.75v-1.5a.75.75 0 0 0-.75-.75h-5.5ZM5 5V4h5v1H5ZM2 2.75C2 1.78 2.78 1 3.75 1h7.5c.97 0 1.75.78 1.75 1.75v10.5c0 .97-.78 1.75-1.75 1.75h-7.5C2.78 15 2 14.22 2 13.25V2.75ZM3.75 2a.75.75 0 0 0-.75.75v10.5c0 .41.34.75.75.75h7.5c.41 0 .75-.34.75-.75V2.75a.75.75 0 0 0-.75-.75h-7.5Zm10.88 2H14v2h.63c.2 0 .37-.17.37-.38V4.38c0-.2-.17-.37-.38-.37ZM14 7h.63c.2 0 .37.17.37.38v1.25c0 .2-.17.37-.38.37H14V7Zm.63 3H14v2h.63c.2 0 .37-.17.37-.38v-1.24c0-.21-.17-.38-.38-.38Z\"/>";
 
             /// <summary />
-            public static string Premium { get; } = ResourceManager.GetString("Premium");
+            public static string NotepadEditSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 1c.28 0 .5.22.5.5V2h2v-.5a.5.5 0 0 1 1 0V2h2v-.5a.5.5 0 0 1 1 0V2c.83 0 1.5.67 1.5 1.5v2.54c-.35.06-.7.2-1 .4V3.5a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0-.5.5v10c0 .28.22.5.5.5h1.55c-.1.36-.06.7.07 1H4.5A1.5 1.5 0 0 1 3 13.5v-10C3 2.67 3.67 2 4.5 2v-.5c0-.28.22-.5.5-.5Zm5 7c.1 0 .2.03.29.1l-.91.9H6a.5.5 0 0 1 0-1h4Zm-3 3.44a.5.5 0 0 0-.5-.44H6a.5.5 0 0 0 0 1h.5c.05 0 .1 0 .16-.03.1-.18.2-.36.34-.53ZM6 5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1H6Zm6.34 2.46a1.56 1.56 0 0 1 2.2 2.2l-4.28 4.29c-.36.36-.8.6-1.3.73l-1.2.3a.6.6 0 0 1-.74-.74l.3-1.2c.12-.5.37-.94.73-1.3l4.29-4.28Z\"/>";
 
             /// <summary />
-            public static string PremiumPerson { get; } = ResourceManager.GetString("PremiumPerson");
+            public static string NotepadPersonSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.5 5.5c0-.28.22-.5.5-.5h4a.5.5 0 0 1 .4.2 3 3 0 0 0-1.14.8H6a.5.5 0 0 1-.5-.5Zm3 2.5H6a.5.5 0 0 0 0 1h2.67a3 3 0 0 1-.17-1Zm-1.1 6H4.5a.5.5 0 0 1-.5-.5v-10c0-.28.22-.5.5-.5h7c.28 0 .5.22.5.5v1.54c.36.06.7.19 1 .36V3.5c0-.83-.67-1.5-1.5-1.5v-.5a.5.5 0 0 0-1 0V2h-2v-.5a.5.5 0 0 0-1 0V2h-2v-.5a.5.5 0 0 0-1 0V2C3.67 2 3 2.67 3 3.5v10c0 .83.67 1.5 1.5 1.5H8.2c-.32-.29-.59-.62-.8-1Zm1.81.5A2.49 2.49 0 0 1 8 12.38a1.3 1.3 0 0 1 1.33-1.3h4.34c.74 0 1.33.58 1.33 1.3 0 1.14-.8 2.15-1.96 2.43l-.08.02a6.2 6.2 0 0 1-2.92 0l-.08-.02a2.63 2.63 0 0 1-.75-.31ZM13 9.32A2 2 0 0 1 9.5 8 2 2 0 1 1 13 9.32ZM5.5 11.5c0-.28.22-.5.5-.5h.5a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5Z\"/>";
 
             /// <summary />
-            public static string PresenceAvailable { get; } = ResourceManager.GetString("PresenceAvailable");
+            public static string NotepadSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1H6Zm0 3a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1H6Zm0 3a.5.5 0 0 0 0 1h.5a.5.5 0 0 0 0-1H6ZM5 1c.28 0 .5.22.5.5V2h2v-.5a.5.5 0 0 1 1 0V2h2v-.5a.5.5 0 0 1 1 0V2c.83 0 1.5.67 1.5 1.5v6.59c0 .4-.16.78-.44 1.06l-3.41 3.41a1.5 1.5 0 0 1-1.06.44H4.5A1.5 1.5 0 0 1 3 13.5v-10C3 2.67 3.67 2 4.5 2v-.5c0-.28.22-.5.5-.5Zm6.5 2h-7a.5.5 0 0 0-.5.5v10c0 .28.22.5.5.5H8v-2.5c0-.83.67-1.5 1.5-1.5H12V3.5a.5.5 0 0 0-.5-.5ZM9 13.3l2.3-2.3H9.5a.5.5 0 0 0-.5.5v1.8Z\"/>";
 
             /// <summary />
-            public static string PresenceAway { get; } = ResourceManager.GetString("PresenceAway");
+            public static string NotePinSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m6.61 1.46 1.93 1.93a1.5 1.5 0 0 1-.4 2.4l-1.65.8a1 1 0 0 0-.51.58l-.38 1.1a1 1 0 0 1-1.65.38L3 7.71 1.7 9H1v-.7L2.3 7l-.96-.95a1 1 0 0 1 .39-1.65l1.1-.38a1 1 0 0 0 .57-.5l.8-1.66a1.5 1.5 0 0 1 2.41-.4ZM2 11.5V9.93l.95-.96.05.05v2.48c0 .83.67 1.5 1.5 1.5H8v-2.5A2.5 2.5 0 0 1 10.5 8H13V4.5c0-.83-.67-1.5-1.5-1.5H9.46l-.13-.14L8.47 2h3.03A2.5 2.5 0 0 1 14 4.5v3.67c0 .66-.26 1.3-.73 1.77l-3.33 3.33a2.5 2.5 0 0 1-1.77.73H4.5A2.5 2.5 0 0 1 2 11.5Zm7 1.25c.08-.05.16-.12.23-.19l3.33-3.33.2-.23H10.5C9.67 9 9 9.67 9 10.5v2.25Z\"/>";
 
             /// <summary />
-            public static string PresenceBlocked { get; } = ResourceManager.GetString("PresenceBlocked");
+            public static string NoteSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 2A2.5 2.5 0 0 0 2 4.5v7A2.5 2.5 0 0 0 4.5 14h3.67c.66 0 1.3-.26 1.77-.73l3.33-3.33c.47-.47.73-1.1.73-1.77V4.5A2.5 2.5 0 0 0 11.5 2h-7ZM3 4.5C3 3.67 3.67 3 4.5 3h7c.83 0 1.5.67 1.5 1.5V8h-2.5A2.5 2.5 0 0 0 8 10.5V13H4.5A1.5 1.5 0 0 1 3 11.5v-7Zm6 8.25V10.5c0-.83.67-1.5 1.5-1.5h2.25a1.5 1.5 0 0 1-.19.23l-3.33 3.33a1.5 1.5 0 0 1-.23.2Z\"/>";
 
             /// <summary />
-            public static string PresenceDnd { get; } = ResourceManager.GetString("PresenceDnd");
+            public static string NumberCircle1SvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9 5.5a.5.5 0 0 0-.99-.1 2.1 2.1 0 0 1-.45 1.05c-.17.19-.37.32-.68.53l-.16.1a.5.5 0 0 0 .56.84l.14-.1c.2-.12.4-.26.58-.41v3.09a.5.5 0 1 0 1 0v-5ZM8 2a6 6 0 1 0 0 12A6 6 0 0 0 8 2ZM3 8a5 5 0 1 1 10 0A5 5 0 0 1 3 8Z\"/>";
 
             /// <summary />
-            public static string PresenceOffline { get; } = ResourceManager.GetString("PresenceOffline");
+            public static string NumberRowSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 5c.28 0 .5.22.5.5v5a.5.5 0 0 1-1 0v-5c0-.28.22-.5.5-.5ZM3 2a2 2 0 0 0-2 2v8c0 1.1.9 2 2 2h2a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H3ZM2 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4Zm9.5 1a.5.5 0 0 0 0 1h.5v1.5h-.5a.5.5 0 0 0-.5.5v2.5c0 .28.22.5.5.5h1a.5.5 0 0 0 0-1H12V8.5h.5A.5.5 0 0 0 13 8V5.5a.5.5 0 0 0-.5-.5h-1ZM11 2a2 2 0 0 0-2 2v8c0 1.1.9 2 2 2h2a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-2Zm-1 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V4Z\"/>";
 
             /// <summary />
-            public static string PresenceOof { get; } = ResourceManager.GetString("PresenceOof");
+            public static string NumberSymbolSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7 2.6a.5.5 0 1 0-1-.19L5.55 5H3.5a.5.5 0 0 0 0 1h1.86l-.73 4H2.5a.5.5 0 0 0 0 1h1.95L4 13.41a.5.5 0 0 0 .98.18L5.46 11h3.98l-.43 2.4a.5.5 0 0 0 .98.19l.47-2.59h2.04a.5.5 0 0 0 0-1h-1.86l.73-4h2.13a.5.5 0 1 0 0-1h-1.95L12 2.6a.5.5 0 1 0-.98-.19l-.47 2.6H6.55L7 2.58ZM6.36 6h3.99l-.73 4H5.64l.73-4Z\"/>";
 
             /// <summary />
-            public static string PresenceUnknown { get; } = ResourceManager.GetString("PresenceUnknown");
+            public static string OpenFolderSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 5a3 3 0 0 1 3-3h6a3 3 0 0 1 3 3v2.5a.5.5 0 0 1-1 0V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6c0 1.1.9 2 2 2h3.5a.5.5 0 0 1 0 1H5a3 3 0 0 1-3-3V5Zm4.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 0 1 0V7.7l5.15 5.15a.5.5 0 0 0 .7-.7L7.71 7h2.79a.5.5 0 0 0 0-1h-4Z\"/>";
 
             /// <summary />
-            public static string PreviewLink { get; } = ResourceManager.GetString("PreviewLink");
+            public static string OpenOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m12.88 13.59 1.27 1.26a.5.5 0 0 0 .7-.7l-13-13a.5.5 0 1 0-.7.7L2.4 3.12C2.15 3.52 2 4 2 4.5v7A2.5 2.5 0 0 0 4.5 14h7c.5 0 .98-.15 1.38-.41Zm-.73-.74c-.2.1-.42.15-.65.15h-7A1.5 1.5 0 0 1 3 11.5v-7c0-.23.05-.45.15-.65l9 9Zm-3.37-6.2.57.57a.5.5 0 0 0 .27-.14L13 3.71v3.02a.5.5 0 0 0 1 0V2.5a.5.5 0 0 0-.5-.5H9.27a.5.5 0 0 0 0 1h3.02L8.92 6.38a.5.5 0 0 0-.14.27Zm5.2 5.2-.98-.97V9.27a.5.5 0 0 1 1 0v2.23c0 .12 0 .24-.02.35ZM4.15 2.02l.97.98h1.61a.5.5 0 0 0 0-1H4.5c-.12 0-.24 0-.35.02Z\"/>";
 
             /// <summary />
-            public static string Previous { get; } = ResourceManager.GetString("Previous");
+            public static string OpenSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 3C3.67 3 3 3.67 3 4.5v7c0 .83.67 1.5 1.5 1.5h7c.83 0 1.5-.67 1.5-1.5V9.27a.5.5 0 0 1 1 0v2.23a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 11.5v-7A2.5 2.5 0 0 1 4.5 2h2.23a.5.5 0 0 1 0 1H4.5Zm4.27-.5c0-.28.22-.5.5-.5h4.23c.28 0 .5.22.5.5v4.23a.5.5 0 0 1-1 0V3.71L9.62 7.08a.5.5 0 1 1-.7-.7L12.29 3H9.27a.5.5 0 0 1-.5-.5Z\"/>";
 
             /// <summary />
-            public static string Print { get; } = ResourceManager.GetString("Print");
+            public static string OptionsSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 9a2 2 0 0 1 1.94 1.5h5.56a.5.5 0 0 1 .09 1H7.94a2 2 0 0 1-3.88 0H2.5a.5.5 0 0 1-.09-1H4.06A2 2 0 0 1 6 9Zm0 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2Zm4-7a2 2 0 0 1 1.94 1.5h1.56a.5.5 0 0 1 .09 1H11.94a2 2 0 0 1-3.88 0H2.5a.5.5 0 0 1-.09-1H8.06A2 2 0 0 1 10 3Zm0 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z\"/>";
 
             /// <summary />
-            public static string Prohibited { get; } = ResourceManager.GetString("Prohibited");
+            public static string OrganizationSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 1a2.5 2.5 0 0 0-.5 4.95V7H5.37C4.6 7 4 7.61 4 8.37v1.68a2.5 2.5 0 1 0 1 0V8.37c0-.2.16-.37.37-.37h5.26c.2 0 .37.16.37.37v1.68a2.5 2.5 0 1 0 1 0V8.37C12 7.6 11.39 7 10.63 7H8.5V5.95A2.5 2.5 0 0 0 8 1ZM6.5 3.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Zm-3.5 9a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Zm8.5-1.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z\"/>";
 
             /// <summary />
-            public static string ProhibitedMultiple { get; } = ResourceManager.GetString("ProhibitedMultiple");
+            public static string OvalSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1 8a5 5 0 0 1 5-5h4a5 5 0 0 1 0 10H6a5 5 0 0 1-5-5Zm5-4a4 4 0 1 0 0 8h4a4 4 0 0 0 0-8H6Z\"/>";
 
             /// <summary />
-            public static string ProjectionScreen { get; } = ResourceManager.GetString("ProjectionScreen");
+            public static string PageFitSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3 6a1 1 0 0 1 1-1h1a.5.5 0 0 1 0 1H4v1a.5.5 0 0 1-1 0V6Zm10 0a1 1 0 0 0-1-1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0V6Zm0 4a1 1 0 0 1-1 1h-1a.5.5 0 0 1 0-1h1V9a.5.5 0 0 1 1 0v1ZM3 10a1 1 0 0 0 1 1h1a.5.5 0 0 0 0-1H4V9a.5.5 0 0 0-1 0v1Zm0-7a2 2 0 0 0-2 2v6c0 1.1.9 2 2 2h10a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H3Zm10 1a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h10Z\"/>";
 
             /// <summary />
-            public static string ProjectionScreenDismiss { get; } = ResourceManager.GetString("ProjectionScreenDismiss");
+            public static string PaintBrushSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 1a.5.5 0 0 0-.5.5v7c0 1.1.9 2 2 2H6V13a2 2 0 1 0 4 0v-2.5h.5a2 2 0 0 0 2-2v-7A.5.5 0 0 0 12 1H4Zm7.5 6h-7V2h3v1.5a.5.5 0 1 0 1 0V2h1v2.5a.5.5 0 0 0 1 0V2h1v5Zm-7 1.5V8h7v.5a1 1 0 0 1-1 1h-1a.5.5 0 0 0-.5.5v3a1 1 0 0 1-2 0v-3a.5.5 0 0 0-.5-.5h-1a1 1 0 0 1-1-1Z\"/>";
 
             /// <summary />
-            public static string ProtocolHandler { get; } = ResourceManager.GetString("ProtocolHandler");
+            public static string PaintBucketSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.5 1c.28 0 .5.22.5.5v.93c.16.07.3.17.43.3l3.72 3.7a1.5 1.5 0 0 1 0 2.13l-5.07 5.07c-.6.6-1.57.58-2.15-.03L1.31 9.8a1.5 1.5 0 0 1 .03-2.1L6.3 2.74c.2-.2.44-.33.69-.4V1.5c0-.28.22-.5.5-.5ZM7 4.5V3.46L2.46 8h8.83l.15-.15a.5.5 0 0 0 0-.7L8 3.7v.79a.5.5 0 0 1-1 0ZM1.95 9a.5.5 0 0 0 .09.11l3.62 3.8c.19.2.51.21.71.01L10.3 9H1.95Zm10.97 1.22a.56.56 0 0 0-.84 0l-1.15 1.32a2.09 2.09 0 1 0 3.14 0l-1.15-1.32Zm-1.24 1.98.82-.94.82.94a1.09 1.09 0 1 1-1.64 0Z\"/>";
 
             /// <summary />
-            public static string PuzzleCube { get; } = ResourceManager.GetString("PuzzleCube");
+            public static string PanelLeftAddSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1 4.5A2.5 2.5 0 0 1 3.5 2h7A2.5 2.5 0 0 1 13 4.5v1.7c-.32-.08-.66-.15-1-.18V4.5c0-.83-.67-1.5-1.5-1.5H6v8h.02a5.57 5.57 0 0 0 0 1H3.5A2.5 2.5 0 0 1 1 9.5v-5ZM5 3H3.5C2.67 3 2 3.67 2 4.5v5c0 .83.67 1.5 1.5 1.5H5V3Zm11 8.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-4-2a.5.5 0 0 0-1 0V11H9.5a.5.5 0 0 0 0 1H11v1.5a.5.5 0 0 0 1 0V12h1.5a.5.5 0 0 0 0-1H12V9.5Z\"/>";
 
             /// <summary />
-            public static string PuzzlePiece { get; } = ResourceManager.GetString("PuzzlePiece");
+            public static string PanelLeftContractSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m9.7 8.5.65.65a.5.5 0 0 1-.7.7l-1.5-1.5a.5.5 0 0 1 0-.7l1.5-1.5a.5.5 0 0 1 .7.7l-.64.65h1.79a.5.5 0 0 1 0 1H9.7ZM4 3a2 2 0 0 0-2 2v6c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H4ZM3 5a1 1 0 0 1 1-1h2v8H4a1 1 0 0 1-1-1V5Zm4 7V4h5a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H7Z\"/>";
 
             /// <summary />
-            public static string Question { get; } = ResourceManager.GetString("Question");
+            public static string PanelLeftExpandSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m9.65 9.15.64-.65H8.5a.5.5 0 0 1 0-1h1.8l-.65-.65a.5.5 0 1 1 .7-.7l1.5 1.5c.2.2.2.5 0 .7l-1.5 1.5a.5.5 0 1 1-.7-.7Z\"/><path d=\"M2 5c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5Zm2-1a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2V4H4Zm3 0v8h5a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H7Z\"/>";
 
             /// <summary />
-            public static string QuestionCircle { get; } = ResourceManager.GetString("QuestionCircle");
+            public static string PanelLeftHeaderAddSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1 4.5v5A2.5 2.5 0 0 0 3.5 12H6V6.5h7v-2A2.5 2.5 0 0 0 10.5 2h-7A2.5 2.5 0 0 0 1 4.5Zm11 0v1H6V3h4.5c.83 0 1.5.67 1.5 1.5ZM3.5 3H5v8H3.5A1.5 1.5 0 0 1 2 9.5v-5C2 3.67 2.67 3 3.5 3ZM7 11.5a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0Zm5-2a.5.5 0 0 0-1 0V11H9.5a.5.5 0 0 0 0 1H11v1.5a.5.5 0 0 0 1 0V12h1.5a.5.5 0 0 0 0-1H12V9.5Z\"/>";
 
             /// <summary />
-            public static string RadioButton { get; } = ResourceManager.GetString("RadioButton");
+            public static string PanelLeftHeaderKeySvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13 6.5H6V11h2.38l-1 1H3.5A2.5 2.5 0 0 1 1 9.5v-5A2.5 2.5 0 0 1 3.5 2h7A2.5 2.5 0 0 1 13 4.5v2ZM10.5 3H6v2.5h6v-1c0-.83-.67-1.5-1.5-1.5ZM5 3H3.5C2.67 3 2 3.67 2 4.5v5c0 .83.67 1.5 1.5 1.5H5V3Zm2.5 13a.48.48 0 0 1-.35-.15.48.48 0 0 1-.15-.35V14c0-.14.05-.25.15-.35l2.94-2.94a3.74 3.74 0 0 1-.09-.77c0-.4.08-.79.24-1.14a3.1 3.1 0 0 1 1.61-1.57 2.94 2.94 0 0 1 3.27.64A3.01 3.01 0 0 1 12 12.84V13.52a.65.65 0 0 1-.08.24.5.5 0 0 1-.15.17.46.46 0 0 1-.27.07H11c0 .24 0 .43-.02.56a.46.46 0 0 1-.11.3.47.47 0 0 1-.3.12L10 15v.27c0 .08 0 .17-.02.25a.86.86 0 0 1-.06.24.37.37 0 0 1-.15.17.57.57 0 0 1-.27.07h-2Zm7-6.75c0-.2-.07-.39-.22-.53a.72.72 0 0 0-.53-.22c-.2 0-.39.07-.53.22a.72.72 0 0 0-.22.53c0 .2.07.39.22.53.14.15.32.22.53.22.2 0 .39-.07.53-.22a.72.72 0 0 0 .22-.53Z\"/>";
 
             /// <summary />
-            public static string RadioButtonOff { get; } = ResourceManager.GetString("RadioButtonOff");
+            public static string PanelLeftHeaderSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 3A2.5 2.5 0 0 0 2 5.5v5A2.5 2.5 0 0 0 4.5 13h7a2.5 2.5 0 0 0 2.5-2.5v-5A2.5 2.5 0 0 0 11.5 3h-7ZM13 6.5H7V4h4.5c.83 0 1.5.67 1.5 1.5v1ZM6 4v8H4.5A1.5 1.5 0 0 1 3 10.5v-5C3 4.67 3.67 4 4.5 4H6Zm1 3.5h6v3c0 .83-.67 1.5-1.5 1.5H7V7.5Z\"/>";
 
             /// <summary />
-            public static string RatingMature { get; } = ResourceManager.GetString("RatingMature");
+            public static string PanelLeftKeySvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 3h4.5c.83 0 1.5.67 1.5 1.5v1.63c.32-.08.64-.12.97-.13H13V4.5A2.5 2.5 0 0 0 10.5 2h-7A2.5 2.5 0 0 0 1 4.5v5A2.5 2.5 0 0 0 3.5 12h3.88l1-1H6V3ZM5 3v8H3.5A1.5 1.5 0 0 1 2 9.5v-5C2 3.67 2.67 3 3.5 3H5Zm2.15 12.85c.1.1.21.15.35.15h2c.11 0 .2-.03.27-.07.07-.04.12-.1.15-.17a.86.86 0 0 0 .06-.24l.02-.25V15l.56-.02a.47.47 0 0 0 .3-.12c.07-.07.11-.17.12-.3L11 14h.5c.1 0 .2-.02.27-.07a.5.5 0 0 0 .15-.17.65.65 0 0 0 .07-.24 2.34 2.34 0 0 0 .01-.5v-.2c.17.07.35.11.52.14a2.87 2.87 0 0 0 2.62-.86A3.11 3.11 0 0 0 16 10a2.94 2.94 0 0 0-.88-2.13 3 3 0 0 0-5.03 2.84l-2.94 2.94c-.1.1-.15.21-.15.35v1.5c0 .14.05.25.15.35Zm7.13-7.13c.15.14.22.32.22.53 0 .2-.07.39-.22.53a.72.72 0 0 1-.53.22.72.72 0 0 1-.53-.22.72.72 0 0 1-.22-.53c0-.2.07-.39.22-.53a.72.72 0 0 1 .53-.22c.2 0 .39.07.53.22Z\"/>";
 
             /// <summary />
-            public static string ReadAloud { get; } = ResourceManager.GetString("ReadAloud");
+            public static string PanelLeftSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 5.5A2.5 2.5 0 0 1 4.5 3h7A2.5 2.5 0 0 1 14 5.5v5a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 10.5v-5ZM7 4v8h4.5c.83 0 1.5-.67 1.5-1.5v-5c0-.83-.67-1.5-1.5-1.5H7ZM6 4H4.5C3.67 4 3 4.67 3 5.5v5c0 .83.67 1.5 1.5 1.5H6V4Z\"/>";
 
             /// <summary />
-            public static string ReadingList { get; } = ResourceManager.GetString("ReadingList");
+            public static string PanelRightContractSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m6.3 8.5-.65.65a.5.5 0 1 0 .7.7l1.5-1.5a.5.5 0 0 0 0-.7l-1.5-1.5a.5.5 0 1 0-.7.7l.64.65H4.5a.5.5 0 1 0 0 1h1.8ZM12 13a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v6c0 1.1.9 2 2 2h8Zm1-2a1 1 0 0 1-1 1h-2V4h2a1 1 0 0 1 1 1v6ZM9 4v8H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h5Z\"/>";
 
             /// <summary />
-            public static string ReadingListAdd { get; } = ResourceManager.GetString("ReadingListAdd");
+            public static string PanelRightSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M14 5.5A2.5 2.5 0 0 0 11.5 3h-7A2.5 2.5 0 0 0 2 5.5v5A2.5 2.5 0 0 0 4.5 13h7a2.5 2.5 0 0 0 2.5-2.5v-5ZM9 4v8H4.5A1.5 1.5 0 0 1 3 10.5v-5C3 4.67 3.67 4 4.5 4H9Zm1 0h1.5c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5H10V4Z\"/>";
 
             /// <summary />
-            public static string Receipt { get; } = ResourceManager.GetString("Receipt");
+            public static string PasswordSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.85 6.15a.5.5 0 0 0-.7 0l-.65.64-.65-.64a.5.5 0 1 0-.7.7l.64.65-.64.65a.5.5 0 1 0 .7.7l.65-.64.65.64a.5.5 0 1 0 .7-.7l-.64-.65.64-.65a.5.5 0 0 0 0-.7Zm3.3 0a.5.5 0 1 1 .7.7l-.64.65.64.65a.5.5 0 0 1-.7.7l-.65-.64-.65.64a.5.5 0 1 1-.7-.7l.64-.65-.64-.65a.5.5 0 1 1 .7-.7l.65.64.65-.64ZM11.5 8a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1Zm-8-5A2.5 2.5 0 0 0 1 5.5v4A2.5 2.5 0 0 0 3.5 12h9A2.5 2.5 0 0 0 15 9.5v-4A2.5 2.5 0 0 0 12.5 3h-9ZM2 5.5C2 4.67 2.67 4 3.5 4h9c.83 0 1.5.67 1.5 1.5v4c0 .83-.67 1.5-1.5 1.5h-9A1.5 1.5 0 0 1 2 9.5v-4Z\"/>";
 
             /// <summary />
-            public static string ReceiptMoney { get; } = ResourceManager.GetString("ReceiptMoney");
+            public static string PauseOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m13.15 13.85 1 1a.5.5 0 0 0 .7-.7l-13-13a.5.5 0 1 0-.7.7l1 1c-.1.2-.15.42-.15.65v9c0 .83.67 1.5 1.5 1.5h2c.83 0 1.5-.67 1.5-1.5V7.7l2 2v2.8c0 .83.67 1.5 1.5 1.5h2c.23 0 .45-.05.65-.15Zm-.86-.85H10.5a.5.5 0 0 1-.5-.5v-1.8l2.3 2.3ZM6 6.7v5.8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5V3.7l3 3Zm0-3.2v.38l1 1V3.5C7 2.67 6.33 2 5.5 2H4.12l1 1h.38c.28 0 .5.22.5.5Zm3 3.38 1 1V3.5c0-.28.22-.5.5-.5h2c.28 0 .5.22.5.5v7.38l1 1V3.5c0-.83-.67-1.5-1.5-1.5h-2C9.67 2 9 2.67 9 3.5v3.38Z\"/>";
 
             /// <summary />
-            public static string ReceiptSparkles { get; } = ResourceManager.GetString("ReceiptSparkles");
+            public static string PauseSettingsSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.5 2C2.67 2 2 2.67 2 3.5v9c0 .83.67 1.5 1.5 1.5h2c.23 0 .45-.05.64-.14a5.5 5.5 0 0 1-.54-.87.5.5 0 0 1-.1.01h-2a.5.5 0 0 1-.5-.5v-9c0-.28.22-.5.5-.5h2c.28 0 .5.22.5.5v3.84c.28-.4.62-.77 1-1.08V3.5C7 2.67 6.33 2 5.5 2h-2ZM14 3.5v2.76a5.5 5.5 0 0 0-1-.66V3.5a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5v1.52c-.34.03-.68.1-1 .19V3.5c0-.83.67-1.5 1.5-1.5h2c.83 0 1.5.67 1.5 1.5ZM8.07 7.44a2 2 0 0 1-1.44 2.48l-.46.12a4.71 4.71 0 0 0 .01 1.01l.35.09A2 2 0 0 1 8 13.66l-.13.42c.26.2.54.38.84.52l.32-.35a2 2 0 0 1 2.91 0l.34.36c.3-.13.57-.3.82-.5l-.15-.55a2 2 0 0 1 1.43-2.48l.46-.12a4.73 4.73 0 0 0-.01-1.01l-.35-.09A2 2 0 0 1 13 7.34l.13-.42c-.26-.2-.54-.38-.84-.52l-.32.35a2 2 0 0 1-2.91 0l-.34-.36c-.3.13-.57.3-.82.5l.16.55Zm2.43 4.06a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z\"/>";
 
             /// <summary />
-            public static string Record { get; } = ResourceManager.GetString("Record");
+            public static string PauseSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.75 2C2.78 2 2 2.78 2 3.75v8.5c0 .97.78 1.75 1.75 1.75h1.5C6.22 14 7 13.22 7 12.25v-8.5C7 2.78 6.22 2 5.25 2h-1.5ZM3 3.75c0-.41.34-.75.75-.75h1.5c.41 0 .75.34.75.75v8.5c0 .41-.34.75-.75.75h-1.5a.75.75 0 0 1-.75-.75v-8.5ZM10.75 2C9.78 2 9 2.78 9 3.75v8.5c0 .97.78 1.75 1.75 1.75h1.5c.97 0 1.75-.78 1.75-1.75v-8.5C14 2.78 13.22 2 12.25 2h-1.5ZM10 3.75c0-.41.34-.75.75-.75h1.5c.41 0 .75.34.75.75v8.5c0 .41-.34.75-.75.75h-1.5a.75.75 0 0 1-.75-.75v-8.5Z\"/>";
 
             /// <summary />
-            public static string RecordStop { get; } = ResourceManager.GetString("RecordStop");
+            public static string PaymentSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10.5 10a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2ZM1 5.5A2.5 2.5 0 0 1 3.5 3h9A2.5 2.5 0 0 1 15 5.5v5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 10.5v-5ZM14 6v-.5c0-.83-.67-1.5-1.5-1.5h-9C2.67 4 2 4.67 2 5.5V6h12ZM2 7v3.5c0 .83.67 1.5 1.5 1.5h9c.83 0 1.5-.67 1.5-1.5V7H2Z\"/>";
 
             /// <summary />
-            public static string RectangleLandscape { get; } = ResourceManager.GetString("RectangleLandscape");
+            public static string PenDismissSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M12.44 1.56a1.91 1.91 0 0 0-2.7 0l-7.4 7.4c-.18.18-.32.4-.4.64l-.91 2.74a.5.5 0 0 0 .63.63l2.74-.91c.24-.08.46-.22.65-.4l.06-.06a5.53 5.53 0 0 1-.1-1.31l-.67.66a.65.65 0 0 1-.26.16l-1.79.6.6-1.8c.03-.09.08-.18.16-.25l7.39-7.4a.91.91 0 1 1 1.3 1.3L10.28 5a5.6 5.6 0 0 1 1.3.11l.85-.84c.75-.75.75-1.96 0-2.71ZM15 10.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-2.65-1.15a.5.5 0 0 0-.7-.7L10.5 9.79 9.35 8.65a.5.5 0 1 0-.7.7l1.14 1.15-1.14 1.15a.5.5 0 0 0 .7.7l1.15-1.14 1.15 1.14a.5.5 0 0 0 .7-.7l-1.14-1.15 1.14-1.15Z\"/>";
 
             /// <summary />
-            public static string Remote { get; } = ResourceManager.GetString("Remote");
+            public static string PenOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m9 9.7 5.15 5.15a.5.5 0 0 0 .7-.7l-13-13a.5.5 0 1 0-.7.7L6.29 7 3.34 9.95c-.18.19-.32.4-.4.65l-.91 2.74a.5.5 0 0 0 .63.63l2.74-.91c.24-.08.46-.22.65-.4L9 9.71ZM8.3 9l-2.96 2.95a.65.65 0 0 1-.26.16l-1.79.6.6-1.8c.03-.09.08-.18.16-.25L7 7.71 8.3 9Zm3.33-3.34L9.71 7.6l.7.7L12 6.71l.26.26c.3.3.3.77 0 1.06l-1.05 1.06.7.7 1.06-1.05c.68-.69.68-1.8 0-2.48L12.71 6l.73-.73a1.91 1.91 0 0 0-2.7-2.71L7.7 5.59l.7.7 3.03-3.02a.91.91 0 1 1 1.3 1.3l-1.08 1.06a.46.46 0 0 0-.03.03Z\"/>";
 
             /// <summary />
-            public static string Rename { get; } = ResourceManager.GetString("Rename");
+            public static string PenProhibitedSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9.73 1.56a1.91 1.91 0 0 1 2.71 2.7l-.84.85a5.53 5.53 0 0 0-1.31-.1l1.44-1.45a.91.91 0 1 0-1.29-1.3l-7.4 7.4a.65.65 0 0 0-.15.26l-.6 1.79 1.8-.6c.09-.03.18-.08.25-.16L5 10.3a5.6 5.6 0 0 0 .11 1.3l-.06.07c-.19.18-.4.32-.65.4l-2.74.91a.5.5 0 0 1-.63-.63l.91-2.74c.08-.24.22-.46.4-.65l7.4-7.39ZM6 10.5a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0Zm1 0c0 .79.26 1.51.7 2.1l4.9-4.9A3.5 3.5 0 0 0 7 10.5Zm3.5 3.5a3.5 3.5 0 0 0 2.8-5.6l-4.9 4.9c.59.44 1.31.7 2.1.7Z\"/>";
 
             /// <summary />
-            public static string ReOrder { get; } = ResourceManager.GetString("ReOrder");
+            public static string PenSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13.44 2.56a1.91 1.91 0 0 0-2.7 0l-7.4 7.4c-.18.18-.32.4-.4.64l-.91 2.74a.5.5 0 0 0 .63.63l2.74-.91c.24-.08.46-.22.65-.4L12 6.71l.26.26c.3.3.3.77 0 1.06l-1.11 1.12a.5.5 0 1 0 .7.7l1.12-1.11c.68-.69.68-1.8 0-2.48L12.71 6l.73-.73c.75-.75.75-1.96 0-2.7Zm-1.78 3.07a.46.46 0 0 0-.03.03l-6.3 6.3a.65.65 0 0 1-.25.15l-1.79.6.6-1.8c.03-.09.08-.18.16-.25l7.39-7.4a.91.91 0 1 1 1.3 1.3l-1.08 1.07Z\"/>";
 
             /// <summary />
-            public static string ReOrderDotsHorizontal { get; } = ResourceManager.GetString("ReOrderDotsHorizontal");
+            public static string PeopleAddSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 4.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM5.5 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Zm5 3a1 1 0 1 1 2 0 1 1 0 0 1-2 0Zm-.58 1.23a5.5 5.5 0 0 1 3.16 0 2 2 0 1 0-3.16 0ZM3 8h4.26c-.26.3-.48.64-.66 1H3a.5.5 0 0 0-.5.5v.15l.04.2c.04.18.13.42.3.65.33.45 1.04 1 2.66 1 .18 0 .34 0 .5-.02v.02c0 .33.03.66.09.98a7.3 7.3 0 0 1-.59.02c-1.88 0-2.92-.65-3.47-1.4A2.85 2.85 0 0 1 1.5 9.6V9.5C1.5 8.67 2.17 8 3 8Zm13 3.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-4-2a.5.5 0 0 0-1 0V11H9.5a.5.5 0 0 0 0 1H11v1.5a.5.5 0 0 0 1 0V12h1.5a.5.5 0 0 0 0-1H12V9.5Z\"/>";
 
             /// <summary />
-            public static string ReOrderDotsVertical { get; } = ResourceManager.GetString("ReOrderDotsVertical");
+            public static string PeopleCallSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.5 3a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3ZM3 4.5a2.5 2.5 0 1 1 5 0 2.5 2.5 0 0 1-5 0Zm8.5-.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2Zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0ZM3 8c-.83 0-1.5.67-1.5 1.5v.11a1.39 1.39 0 0 0 .01.14c0 .08.03.2.06.34.07.27.2.64.46 1 .55.76 1.6 1.41 3.47 1.41 1.88 0 2.92-.65 3.47-1.4A2.85 2.85 0 0 0 9.5 9.6V9.5C9.5 8.67 8.83 8 8 8H3Zm-.5 1.6V9.5c0-.28.22-.5.5-.5h5c.28 0 .5.22.5.5v.15l-.04.2c-.04.18-.13.42-.3.65-.33.45-1.04 1-2.66 1s-2.33-.55-2.66-1a1.85 1.85 0 0 1-.34-.9Zm10.08-1.02.29-.75a1.32 1.32 0 0 1 1.74-.73l.39.17c.47.2.86.57.94 1.06.46 2.73-1.9 6.6-4.63 7.59a1.6 1.6 0 0 1-1.44-.25l-.35-.23c-.6-.41-.7-1.24-.2-1.79l.54-.6c.26-.3.66-.42 1.04-.33l1.22.29c.97-.6 1.5-1.46 1.56-2.56l-.88-.86a.94.94 0 0 1-.22-1Z\"/>";
 
             /// <summary />
-            public static string ResizeLarge { get; } = ResourceManager.GetString("ResizeLarge");
+            public static string PeopleCheckmarkSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 4.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM5.5 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Zm5 3a1 1 0 1 1 2 0 1 1 0 0 1-2 0Zm-.58 1.23a5.5 5.5 0 0 1 3.16 0 2 2 0 1 0-3.16 0ZM3 8h4.26c-.26.3-.48.64-.66 1H3a.5.5 0 0 0-.5.5v.15l.04.2c.04.18.13.42.3.65.33.45 1.04 1 2.66 1 .18 0 .34 0 .5-.02v.02c0 .33.03.66.09.98a7.3 7.3 0 0 1-.59.02c-1.88 0-2.92-.65-3.47-1.4A2.85 2.85 0 0 1 1.5 9.6V9.5C1.5 8.67 2.17 8 3 8Zm13 3.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-2.15-1.85a.5.5 0 0 0-.7 0l-2.65 2.64-.65-.64a.5.5 0 0 0-.7.7l1 1c.2.2.5.2.7 0l3-3a.5.5 0 0 0 0-.7Z\"/>";
 
             /// <summary />
-            public static string ResizeSmall { get; } = ResourceManager.GetString("ResizeSmall");
+            public static string PeopleCommunitySvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3 3a2 2 0 1 1 4 0 2 2 0 0 1-4 0Zm2-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2Zm4.78 2.58a2 2 0 1 1 2.43-3.16 2 2 0 0 1-2.43 3.16ZM11 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2ZM2.5 6h2.67A3 3 0 0 0 5 7H2.5a.5.5 0 0 0-.5.5c0 .82.32 1.42.84 1.83.23.2.52.35.84.46a2.5 2.5 0 0 0-.53.87 3.73 3.73 0 0 1-.94-.55A3.25 3.25 0 0 1 1 7.5C1 6.67 1.67 6 2.5 6Zm3.77 0a2 2 0 0 0 1 2.86A2 2 0 0 0 10 7a2 2 0 0 0-2-2 2 2 0 0 0-1.73 1Zm1.5.03a1 1 0 0 1 1.2 1.2 1 1 0 1 1-1.2-1.2Zm5.4 3.3c-.24.2-.53.35-.85.46.24.25.42.54.53.87.34-.14.66-.32.94-.55.75-.6 1.21-1.5 1.21-2.61 0-.83-.67-1.5-1.5-1.5h-2.67A3 3 0 0 1 11 7h2.5c.28 0 .5.22.5.5 0 .82-.32 1.42-.84 1.83ZM10.5 10a1.5 1.5 0 0 1 1.5 1.5c0 1.12-.46 2.01-1.21 2.61-.74.6-1.74.89-2.79.89a4.43 4.43 0 0 1-2.79-.89A3.25 3.25 0 0 1 4 11.5 1.5 1.5 0 0 1 5.5 10h5Zm0 1h-5a.5.5 0 0 0-.5.5c0 .82.32 1.42.84 1.83.52.43 1.28.67 2.16.67.88 0 1.64-.24 2.16-.67.52-.4.84-1.01.84-1.83a.5.5 0 0 0-.5-.5Z\"/>";
 
             /// <summary />
-            public static string Reward { get; } = ResourceManager.GetString("Reward");
+            public static string PeopleErrorSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 4.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM5.5 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Zm5 3a1 1 0 1 1 2 0 1 1 0 0 1-2 0Zm-.58 1.23a5.5 5.5 0 0 1 3.16 0 2 2 0 1 0-3.16 0ZM3 8h4.26c-.26.3-.48.64-.66 1H3a.5.5 0 0 0-.5.5v.15l.04.2c.04.18.13.42.3.65.33.45 1.04 1 2.66 1 .18 0 .34 0 .5-.02v.02c0 .33.03.66.09.98a7.3 7.3 0 0 1-.59.02c-1.88 0-2.92-.65-3.47-1.4A2.85 2.85 0 0 1 1.5 9.6V9.5C1.5 8.67 2.17 8 3 8Zm13 3.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM11.5 9a.5.5 0 0 0-.5.5v2a.5.5 0 0 0 1 0v-2a.5.5 0 0 0-.5-.5Zm0 5.13a.62.62 0 1 0 0-1.25.62.62 0 0 0 0 1.24Z\"/>";
 
             /// <summary />
-            public static string Rewind { get; } = ResourceManager.GetString("Rewind");
+            public static string PeopleListSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 5.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM5.5 3a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Zm5 3a1 1 0 1 1 2 0 1 1 0 0 1-2 0Zm1-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM8 9h.08a1.5 1.5 0 0 0 0 1H3a.5.5 0 0 0-.5.5v.15l.04.2c.04.18.13.42.3.65.33.45 1.04 1 2.66 1 1.41 0 2.13-.42 2.51-.82.04.31.17.6.37.82-.1.1-.17.23-.23.36-.61.38-1.46.64-2.65.64-1.88 0-2.92-.65-3.47-1.4a2.85 2.85 0 0 1-.53-1.49v-.11C1.5 9.67 2.17 9 3 9h5Zm1.5 0a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5Zm0 2a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5Zm0 2a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5Z\"/>";
 
             /// <summary />
-            public static string Rhombus { get; } = ResourceManager.GetString("Rhombus");
+            public static string PeopleProhibitedSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 4.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM5.5 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Zm5 3a1 1 0 1 1 2 0 1 1 0 0 1-2 0Zm-.58 1.23a5.5 5.5 0 0 1 3.16 0 2 2 0 1 0-3.16 0ZM3 8h4.26c-.26.3-.48.64-.66 1H3a.5.5 0 0 0-.5.5v.15l.04.2c.04.18.13.42.3.65.33.45 1.04 1 2.66 1 .18 0 .34 0 .5-.02v.02c0 .33.03.66.09.98a7.3 7.3 0 0 1-.59.02c-1.88 0-2.92-.65-3.47-1.4A2.85 2.85 0 0 1 1.5 9.6V9.5C1.5 8.67 2.17 8 3 8Zm4 3.5a4.5 4.5 0 1 0 9 0 4.5 4.5 0 0 0-9 0Zm1 0a3.5 3.5 0 0 1 5.6-2.8l-4.9 4.9a3.48 3.48 0 0 1-.7-2.1Zm3.5 3.5c-.79 0-1.51-.26-2.1-.7l4.9-4.9a3.5 3.5 0 0 1-2.8 5.6Z\"/>";
 
             /// <summary />
-            public static string Ribbon { get; } = ResourceManager.GetString("Ribbon");
+            public static string PeopleStarSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 4.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM5.5 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Zm5 3a1 1 0 1 1 2 0 1 1 0 0 1-2 0Zm-.58 1.23a5.5 5.5 0 0 1 3.16 0 2 2 0 1 0-3.16 0ZM3 8h4.26c-.26.3-.48.64-.66 1H3a.5.5 0 0 0-.5.5v.15l.04.2c.04.18.13.42.3.65.33.45 1.04 1 2.66 1 .18 0 .34 0 .5-.02v.02c0 .33.03.66.09.98a7.3 7.3 0 0 1-.59.02c-1.88 0-2.92-.65-3.47-1.4A2.85 2.85 0 0 1 1.5 9.6V9.5C1.5 8.67 2.17 8 3 8Zm13 3.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-4.02-2.64a.5.5 0 0 0-.96 0l-.47 1.53H9c-.48 0-.68.65-.3.95l1.26.94-.48 1.53c-.15.49.38.89.77.59l1.25-.95 1.25.95c.4.3.92-.1.77-.59l-.48-1.53 1.25-.94c.4-.3.2-.95-.3-.95h-1.54l-.47-1.53Z\"/>";
 
             /// <summary />
-            public static string RibbonOff { get; } = ResourceManager.GetString("RibbonOff");
+            public static string PeopleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 5.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM5.5 3a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Zm5 3a1 1 0 1 1 2 0 1 1 0 0 1-2 0Zm1-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-10 6.5C1.5 9.67 2.17 9 3 9h5c.83 0 1.5.67 1.5 1.5v.11a1.38 1.38 0 0 1-.01.14c0 .08-.03.2-.06.34-.07.27-.2.64-.46 1-.55.76-1.6 1.41-3.47 1.41-1.88 0-2.92-.65-3.47-1.4a2.85 2.85 0 0 1-.53-1.49v-.11Zm1 .09v.06l.04.2c.04.18.13.42.3.65.33.45 1.04 1 2.66 1s2.33-.55 2.66-1a1.85 1.85 0 0 0 .34-.9V10.5A.5.5 0 0 0 8 10H3a.5.5 0 0 0-.5.5v.09Zm9 1.91a4.1 4.1 0 0 1-1.46-.24c.19-.34.3-.67.36-.93.27.1.63.17 1.1.17 1.12 0 1.58-.38 1.78-.67a1.22 1.22 0 0 0 .22-.56v-.02a.25.25 0 0 0-.25-.25h-2.8c-.07-.37-.23-.7-.45-1h3.25c.69 0 1.25.56 1.25 1.25v.02a1.35 1.35 0 0 1 0 .1l-.05.27c-.05.21-.15.5-.36.78-.42.59-1.2 1.08-2.59 1.08Z\"/>";
 
             /// <summary />
-            public static string RoadCone { get; } = ResourceManager.GetString("RoadCone");
+            public static string PeopleSwapSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3ZM3 5.5a2.5 2.5 0 1 1 5 0 2.5 2.5 0 0 1-5 0Zm8.5-.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2Zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0ZM3 9c-.83 0-1.5.67-1.5 1.5v.11a1.38 1.38 0 0 0 .01.14c0 .08.03.2.06.34.07.27.2.64.46 1 .55.76 1.6 1.41 3.47 1.41.65 0 1.2-.08 1.67-.21l-.73-.73a1.53 1.53 0 0 1-.1-.12c-.25.04-.53.06-.84.06-1.62 0-2.33-.55-2.66-1a1.85 1.85 0 0 1-.34-.9V10.5c0-.28.22-.5.5-.5h3.88l1-1H3Zm6.85.85a.5.5 0 0 0-.7-.7l-2 2a.5.5 0 0 0 0 .7l2 2a.5.5 0 0 0 .7-.7L8.71 12h4.58l-1.14 1.15a.5.5 0 0 0 .7.7l2-2a.5.5 0 0 0 0-.7l-2-2a.5.5 0 0 0-.7.7L13.29 11H8.71l1.14-1.15Z\"/>";
 
             /// <summary />
-            public static string Rocket { get; } = ResourceManager.GetString("Rocket");
+            public static string PeopleSyncSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 4.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM5.5 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Zm5 3a1 1 0 1 1 2 0 1 1 0 0 1-2 0Zm-.58 1.23a5.5 5.5 0 0 1 3.16 0 2 2 0 1 0-3.16 0ZM3 8h4.26c-.26.3-.48.64-.66 1H3a.5.5 0 0 0-.5.5v.15l.04.2c.04.18.13.42.3.65.33.45 1.04 1 2.66 1 .18 0 .34 0 .5-.02v.02c0 .33.03.66.09.98a7.3 7.3 0 0 1-.59.02c-1.88 0-2.92-.65-3.47-1.4A2.85 2.85 0 0 1 1.5 9.6V9.5C1.5 8.67 2.17 8 3 8Zm4 3.5a4.5 4.5 0 1 0 9 0 4.5 4.5 0 0 0-9 0Zm6.5-3c.28 0 .5.22.5.5v1.5a.5.5 0 0 1-.5.5H12a.5.5 0 0 1 0-1h.47a1.98 1.98 0 0 0-1.72-.1 2 2 0 0 0-.66.44.5.5 0 0 1-.71-.71A3 3 0 0 1 13 9.15V9c0-.28.22-.5.5-.5Zm-.88 5.53a3 3 0 0 1-2.62-.18V14a.5.5 0 0 1-1 0v-1.5c0-.28.22-.5.5-.5H11a.5.5 0 0 1 0 1h-.47a1.97 1.97 0 0 0 .94.25 2 2 0 0 0 1.44-.59.5.5 0 0 1 .71.71 3 3 0 0 1-1 .66Z\"/>";
 
             /// <summary />
-            public static string Ruler { get; } = ResourceManager.GetString("Ruler");
+            public static string PeopleTeamDeleteSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 4a2 2 0 1 1 4 0 2 2 0 0 1-4 0Zm2-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2Zm3 1.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Zm1.5-.5a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1Zm-9-1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3ZM3 4.5a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0ZM4.27 7A2 2 0 0 0 4 8H2v2.5a1.5 1.5 0 0 0 2.1 1.38c.07.33.19.64.34.94A2.5 2.5 0 0 1 1 10.5V8a1 1 0 0 1 1-1h2.27ZM6 7a1 1 0 0 0-1 1v3a3 3 0 0 0 1.39 2.53A5.49 5.49 0 0 1 6 11V8h1.26c.31-.38.67-.72 1.08-1H6Zm10 4.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-2.65-1.15a.5.5 0 0 0-.7-.7l-1.15 1.14-1.15-1.14a.5.5 0 0 0-.7.7l1.14 1.15-1.14 1.15a.5.5 0 0 0 .7.7l1.15-1.14 1.15 1.14a.5.5 0 0 0 .7-.7l-1.14-1.15 1.14-1.15Z\"/>";
 
             /// <summary />
-            public static string Save { get; } = ResourceManager.GetString("Save");
+            public static string PeopleTeamSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 4a2 2 0 1 1 4 0 2 2 0 0 1-4 0Zm2-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2Zm3 1.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Zm1.5-.5a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1Zm-9-1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3ZM3 4.5a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0ZM4.27 7A2 2 0 0 0 4 8H2v2.5a1.5 1.5 0 0 0 2.1 1.38c.07.33.19.64.34.94A2.5 2.5 0 0 1 1 10.5V8a1 1 0 0 1 1-1h2.27Zm7.3 5.82A2.5 2.5 0 0 0 15 10.5V8a1 1 0 0 0-1-1h-2.27A2 2 0 0 1 12 8h2v2.5a1.5 1.5 0 0 1-2.1 1.38c-.07.33-.19.64-.34.94ZM6 7a1 1 0 0 0-1 1v3a3 3 0 0 0 6 0V8a1 1 0 0 0-1-1H6Zm0 1h4v3a2 2 0 0 1-4 0V8Z\"/>";
 
             /// <summary />
-            public static string SaveMultiple { get; } = ResourceManager.GetString("SaveMultiple");
+            public static string PeopleToolboxSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 4.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM5.5 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Zm5 3a1 1 0 1 1 2 0 1 1 0 0 1-2 0Zm0 1h2c.23 0 .46.03.68.1a2 2 0 1 0-3.35 0c.2-.07.44-.1.67-.1ZM8 8h.05v.04A2.5 2.5 0 0 0 6.5 9H3a.5.5 0 0 0-.5.5v.15l.04.2c.04.18.13.42.3.65.33.45 1.04 1 2.66 1 .18 0 .34 0 .5-.02v1l-.5.02c-1.88 0-2.92-.65-3.47-1.4A2.85 2.85 0 0 1 1.5 9.6V9.5C1.5 8.67 2.17 8 3 8h5Zm1 1v-.5c0-.83.67-1.5 1.5-1.5h2c.83 0 1.5.67 1.5 1.5V9h.5c.83 0 1.5.67 1.5 1.5V12h-2v-.5a.5.5 0 0 0-1 0v.5h-3v-.5a.5.5 0 0 0-1 0v.5H7v-1.5C7 9.67 7.67 9 8.5 9H9Zm1-.5V9h3v-.5a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5Zm4 4.5h2v1.5c0 .83-.67 1.5-1.5 1.5h-6A1.5 1.5 0 0 1 7 14.5V13h2v.5a.5.5 0 0 0 1 0V13h3v.5a.5.5 0 0 0 1 0V13Z\"/>";
 
             /// <summary />
-            public static string Savings { get; } = ResourceManager.GetString("Savings");
+            public static string PersonAddSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6.22 13.96C3.55 13.66 2 11.8 2 10v-.5C2 8.67 2.67 8 3.5 8h2.1c-.16.32-.3.65-.4 1H3.5a.5.5 0 0 0-.5.5v.5c0 1.13.88 2.33 2.5 2.8.2.42.44.8.72 1.16Zm3.4-8.9a2.75 2.75 0 1 0-3.3 1.86c.32-.37.68-.7 1.08-.97a1.76 1.76 0 0 1-2.15-1.7 1.75 1.75 0 1 1 3 1.23c.43-.2.89-.33 1.38-.41ZM10.5 15a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm0-7c.28 0 .5.22.5.5V10h1.5a.5.5 0 0 1 0 1H11v1.5a.5.5 0 0 1-1 0V11H8.5a.5.5 0 0 1 0-1H10V8.5c0-.28.22-.5.5-.5Z\"/>";
 
             /// <summary />
-            public static string ScaleFit { get; } = ResourceManager.GetString("ScaleFit");
+            public static string PersonAlertSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.5 8c.83 0 1.5.67 1.5 1.5v.5c0 1.51-1.1 3.05-3.02 3.7.05-.34-.01-.69-.2-.99C11.22 12.19 12 11.06 12 10v-.5a.5.5 0 0 0-.5-.5H8.37c-.09-.35-.23-.69-.4-1h3.53ZM6.36 6.46a4 4 0 0 1 .43.26 2.75 2.75 0 1 0-.42-.26ZM8 2.5A1.75 1.75 0 1 1 8 6a1.75 1.75 0 0 1 0-3.5ZM1.5 10a3 3 0 0 1 6 0v2l1.32 1.12a.5.5 0 0 1-.33.88H.5a.5.5 0 0 1-.32-.88L1.5 12v-2Zm3 6a1.5 1.5 0 0 1-1.42-1h2.83c-.2.58-.76 1-1.41 1Z\"/>";
 
             /// <summary />
-            public static string Scan { get; } = ResourceManager.GetString("Scan");
+            public static string PersonArrowBackSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 10c0 1.8 1.55 3.65 4.22 3.96a5.5 5.5 0 0 1-.72-1.16C3.88 12.33 3 11.13 3 10v-.5c0-.28.22-.5.5-.5h1.7c.1-.35.24-.68.4-1H3.5C2.67 8 2 8.67 2 9.5v.5Zm7.75-5.75c0 .29-.04.56-.12.82-.49.08-.95.22-1.39.41A1.74 1.74 0 0 0 7 2.5a1.75 1.75 0 1 0 .4 3.45c-.4.28-.76.6-1.07.97a2.75 2.75 0 1 1 3.42-2.67ZM10.5 15a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm-.9-6.4-.9.9h1.55A2.75 2.75 0 0 1 13 12.25v.25a.5.5 0 0 1-1 0v-.25c0-.97-.78-1.75-1.75-1.75H8.71l.9.9a.5.5 0 0 1-.71.7l-1.76-1.75a.5.5 0 0 1 0-.7L8.9 7.9a.5.5 0 1 1 .7.7Z\"/>";
 
             /// <summary />
-            public static string ScanCamera { get; } = ResourceManager.GetString("ScanCamera");
+            public static string PersonArrowLeftSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6.22 13.96C3.55 13.66 2 11.8 2 10v-.5C2 8.67 2.67 8 3.5 8h2.1c-.16.32-.3.65-.4 1H3.5a.5.5 0 0 0-.5.5v.5c0 1.13.88 2.33 2.5 2.8.2.42.44.8.72 1.16Zm3.4-8.9a2.75 2.75 0 1 0-3.3 1.86c.32-.37.68-.7 1.08-.97a1.76 1.76 0 0 1-2.15-1.7 1.75 1.75 0 1 1 3 1.23c.43-.2.89-.33 1.38-.41ZM15 10.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-6.85-.35a.5.5 0 0 0-.15.35.5.5 0 0 0 .15.35l2 2a.5.5 0 0 0 .7-.7L9.71 11h2.79a.5.5 0 0 0 0-1H9.7l1.15-1.15a.5.5 0 0 0-.7-.7l-2 2Z\"/>";
 
             /// <summary />
-            public static string ScanDash { get; } = ResourceManager.GetString("ScanDash");
+            public static string PersonArrowRightSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 10c0 1.8 1.55 3.65 4.22 3.96a5.5 5.5 0 0 1-.72-1.16C3.88 12.33 3 11.13 3 10v-.5c0-.28.22-.5.5-.5h1.7c.1-.35.24-.68.4-1H3.5C2.67 8 2 8.67 2 9.5v.5Zm7.75-5.75c0 .29-.04.56-.12.82-.49.08-.95.22-1.39.41A1.74 1.74 0 0 0 7 2.5a1.75 1.75 0 1 0 .4 3.45c-.4.28-.76.6-1.07.97a2.75 2.75 0 1 1 3.42-2.67ZM15 10.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-2.15.35a.5.5 0 0 0 .15-.35.5.5 0 0 0-.15-.35l-2-2a.5.5 0 0 0-.7.7L11.29 10H8.5a.5.5 0 0 0 0 1h2.8l-1.15 1.15a.5.5 0 0 0 .7.7l2-2Z\"/>";
 
             /// <summary />
-            public static string ScanText { get; } = ResourceManager.GetString("ScanText");
+            public static string PersonAvailableSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 4.5a2.5 2.5 0 1 1 4.89.74 5.5 5.5 0 0 0-2.62 1.75A2.5 2.5 0 0 1 4 4.5ZM6.5 3a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm4 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm2.35-6.35c.2.2.2.5 0 .7l-3 3a.5.5 0 0 1-.7 0l-1-1a.5.5 0 0 1 .7-.7l.65.64 2.65-2.64c.2-.2.5-.2.7 0ZM5.6 8H3.5C2.67 8 2 8.95 2 9.75V10c0 1.73 1.55 3.64 4.22 3.95a5.5 5.5 0 0 1-.72-1.16C3.82 12.3 3 10.98 3 10v-.25c0-.14.07-.36.22-.55.15-.18.26-.2.28-.2h1.7c.1-.35.24-.68.4-1Z\"/>";
 
             /// <summary />
-            public static string ScanThumbUp { get; } = ResourceManager.GetString("ScanThumbUp");
+            public static string PersonBoardSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7 6.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm0-1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1ZM4 8.25C4 7.56 4.56 7 5.25 7h3.5C9.44 7 10 7.56 10 8.25v.25c0 .44-.19.96-.69 1.36-.49.4-1.24.64-2.31.64-1.08 0-1.83-.25-2.32-.65-.5-.4-.68-.92-.68-1.35v-.25ZM5.25 8a.25.25 0 0 0-.25.25v.25c0 .14.06.37.31.58.26.2.76.42 1.69.42.93 0 1.43-.21 1.69-.42.25-.2.31-.43.31-.58v-.25A.25.25 0 0 0 8.75 8h-3.5ZM4.5 2A2.5 2.5 0 0 0 2 4.5v5A2.5 2.5 0 0 0 4.5 12h5A2.5 2.5 0 0 0 12 9.5v-5A2.5 2.5 0 0 0 9.5 2h-5Zm5 1c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5h-5A1.5 1.5 0 0 1 3 9.5v-5C3 3.67 3.67 3 4.5 3h5Zm-5 10c.46.6 1.18 1 2 1h3A4.5 4.5 0 0 0 14 9.5v-3c0-.82-.4-1.54-1-2v5A3.5 3.5 0 0 1 9.5 13h-5Z\"/>";
 
             /// <summary />
-            public static string ScanThumbUpOff { get; } = ResourceManager.GetString("ScanThumbUpOff");
+            public static string PersonCallSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.07 12.93a2.2 2.2 0 0 0-.02 1C4.5 13.58 3 11.77 3 10v-.5C3 8.67 3.67 8 4.5 8h6.02c.02.35.13.7.33 1H4.5a.5.5 0 0 0-.5.5v.5c0 1.25 1.09 2.6 3.07 2.93ZM8 1.5A2.75 2.75 0 1 1 8 7a2.75 2.75 0 0 1 0-5.5Zm0 1A1.75 1.75 0 1 0 8 6a1.75 1.75 0 0 0 0-3.5Zm3.58 5.08.29-.75a1.32 1.32 0 0 1 1.74-.73l.39.17c.47.2.86.57.94 1.06.46 2.73-1.9 6.6-4.63 7.59a1.6 1.6 0 0 1-1.44-.25l-.35-.23c-.6-.41-.7-1.24-.2-1.79l.54-.6c.26-.3.66-.42 1.04-.33l1.22.29c.97-.6 1.5-1.46 1.56-2.56l-.88-.86a.94.94 0 0 1-.22-1Z\"/>";
 
             /// <summary />
-            public static string Script { get; } = ResourceManager.GetString("Script");
+            public static string PersonChatSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m7.6 13.27-.21.7C4.62 13.73 3 11.84 3 10v-.5C3 8.67 3.67 8 4.5 8h4.54a4.3 4.3 0 0 0-1.01 1H4.5a.5.5 0 0 0-.5.5v.5c0 1.34 1.24 2.78 3.48 2.98l.12.29ZM8 1.5A2.75 2.75 0 1 1 8 7a2.75 2.75 0 0 1 0-5.5Zm0 1A1.75 1.75 0 1 0 8 6a1.75 1.75 0 0 0 0-3.5Zm7 9a3.5 3.5 0 0 1-5.2 3.06L8.41 15a.32.32 0 0 1-.4-.4l.43-1.4A3.5 3.5 0 1 1 15 11.5ZM10.5 10a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2Zm-.5 2.5c0 .28.22.5.5.5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0-.5.5Z\"/>";
 
             /// <summary />
-            public static string Search { get; } = ResourceManager.GetString("Search");
+            public static string PersonClockSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 10c0 1.8 1.55 3.65 4.22 3.96a5.5 5.5 0 0 1-.72-1.16C3.88 12.33 3 11.13 3 10v-.5c0-.28.22-.5.5-.5h1.7c.1-.35.24-.68.4-1H3.5C2.67 8 2 8.67 2 9.5v.5Zm7.75-5.75c0 .29-.04.56-.12.82-.49.08-.95.22-1.39.41A1.74 1.74 0 0 0 7 2.5a1.75 1.75 0 1 0 .4 3.45c-.4.28-.76.6-1.07.97a2.75 2.75 0 1 1 3.42-2.67ZM15 10.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM10.5 8a.5.5 0 0 0-.5.5v2c0 .28.22.5.5.5H12a.5.5 0 0 0 0-1h-1V8.5a.5.5 0 0 0-.5-.5Z\"/>";
 
             /// <summary />
-            public static string SearchVisual { get; } = ResourceManager.GetString("SearchVisual");
+            public static string PersonDeleteSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9.5 9c.83 0 1.5.67 1.5 1.5v.5c0 1.97-1.86 4-5 4-3.14 0-5-2.03-5-4v-.5C1 9.67 1.67 9 2.5 9h7Zm0 1h-7a.5.5 0 0 0-.5.5v.5c0 1.44 1.43 3 4 3 2.57 0 4-1.56 4-3v-.5a.5.5 0 0 0-.5-.5ZM6 2.5A2.75 2.75 0 1 1 6 8a2.75 2.75 0 0 1 0-5.5Zm0 1A1.75 1.75 0 1 0 6 7a1.75 1.75 0 0 0 0-3.5Zm4.78-2.41.07.06 1.65 1.64 1.65-1.64a.5.5 0 0 1 .7.7L13.21 3.5l1.64 1.65c.18.17.2.44.06.63l-.06.07a.5.5 0 0 1-.63.06l-.07-.06-1.65-1.64-1.65 1.64a.5.5 0 0 1-.7-.7l1.64-1.65-1.64-1.65a.5.5 0 0 1-.06-.63l.06-.07a.5.5 0 0 1 .56-.1l.07.04Z\"/>";
 
             /// <summary />
-            public static string Send { get; } = ResourceManager.GetString("Send");
+            public static string PersonFeedbackSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9.5 1C8.67 1 8 1.67 8 2.5v2c0 .65.42 1.2 1 1.41V7a.5.5 0 0 0 .82.38L11.48 6h2.02c.83 0 1.5-.67 1.5-1.5v-2c0-.83-.67-1.5-1.5-1.5h-4ZM9 2.5c0-.28.22-.5.5-.5h4c.28 0 .5.22.5.5v2a.5.5 0 0 1-.5.5h-2.2a.5.5 0 0 0-.32.12l-.98.81V5.5a.5.5 0 0 0-.5-.5.5.5 0 0 1-.5-.5v-2ZM3 6a2 2 0 1 1 4 0 2 2 0 0 1-4 0Zm2-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2ZM2.5 9h5c.83 0 1.5.67 1.5 1.5 0 1.12-.46 2.01-1.21 2.61-.74.6-1.74.89-2.79.89a4.43 4.43 0 0 1-2.79-.89A3.25 3.25 0 0 1 1 10.5C1 9.67 1.67 9 2.5 9Zm5 1h-5a.5.5 0 0 0-.5.5c0 .82.32 1.42.84 1.83.52.43 1.28.67 2.16.67.88 0 1.64-.24 2.16-.67.52-.4.84-1.01.84-1.83a.5.5 0 0 0-.5-.5Z\"/>";
 
             /// <summary />
-            public static string SendBeaker { get; } = ResourceManager.GetString("SendBeaker");
+            public static string PersonInfoSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 10c0 1.8 1.55 3.65 4.22 3.96a5.5 5.5 0 0 1-.72-1.16C3.88 12.33 3 11.13 3 10v-.5c0-.28.22-.5.5-.5h1.7c.1-.35.24-.68.4-1H3.5C2.67 8 2 8.67 2 9.5v.5Zm7.75-5.75c0 .29-.04.56-.12.82-.49.08-.95.22-1.39.41A1.74 1.74 0 0 0 7 2.5a1.75 1.75 0 1 0 .4 3.45c-.4.28-.76.6-1.07.97a2.75 2.75 0 1 1 3.42-2.67Zm.75 3.63a.62.62 0 1 0 0 1.24.62.62 0 0 0 0-1.24Zm0 5.12a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-1 0v2c0 .28.22.5.5.5Zm0-7a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9Zm0 1a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7Z\"/>";
 
             /// <summary />
-            public static string SerialPort { get; } = ResourceManager.GetString("SerialPort");
+            public static string PersonLinkSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.98 13.92C3.46 13.54 2 11.75 2 10v-.5C2 8.67 2.67 8 3.5 8h5c-.95 0-1.82.38-2.45 1H3.5a.5.5 0 0 0-.5.5v.5c0 1.06.78 2.19 2.21 2.7.17.46.43.88.77 1.22ZM7 1.5A2.75 2.75 0 1 1 7 7a2.75 2.75 0 0 1 0-5.5Zm0 1A1.75 1.75 0 1 0 7 6a1.75 1.75 0 0 0 0-3.5ZM8.5 9a2.5 2.5 0 0 0 0 5H9a.5.5 0 0 0 0-1h-.5a1.5 1.5 0 0 1 0-3H9a.5.5 0 0 0 0-1h-.5ZM12 9a.5.5 0 0 0 0 1h.5a1.5 1.5 0 0 1 0 3H12a.5.5 0 0 0 0 1h.5a2.5 2.5 0 0 0 0-5H12Zm-4 2.5c0-.28.22-.5.5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5Z\"/>";
 
             /// <summary />
-            public static string Server { get; } = ResourceManager.GetString("Server");
+            public static string PersonLockSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7 14v-1c-2.57 0-4-1.56-4-3v-.5c0-.28.22-.5.5-.5h3.72c.26-.48.72-.85 1.28-.96V8h-5C2.67 8 2 8.67 2 9.5v.5c0 1.97 1.86 4 5 4Zm2.75-9.75a2.75 2.75 0 1 0-5.5 0 2.75 2.75 0 0 0 5.5 0Zm-4.5 0a1.75 1.75 0 1 1 3.5 0 1.75 1.75 0 0 1-3.5 0ZM9.5 8v1h-.63C8.4 9 8 9.4 8 9.9v4.2c0 .5.4.9.88.9h5.24c.49 0 .88-.4.88-.9V9.9c0-.5-.4-.9-.88-.9h-.62V8a2 2 0 1 0-4 0Zm2-1a1 1 0 0 1 1 1v1h-2V8a1 1 0 0 1 1-1Zm0 5.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z\"/>";
 
             /// <summary />
-            public static string ServerSurface { get; } = ResourceManager.GetString("ServerSurface");
+            public static string PersonMailSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 10c0 1.5 1.09 3.05 3 3.69v-1.07c-1.3-.55-2-1.61-2-2.62v-.5c0-.28.22-.5.5-.5H5c0-.36.1-.7.27-1H3.5C2.67 8 2 8.67 2 9.5v.5Zm5-8.5A2.75 2.75 0 1 1 7 7a2.75 2.75 0 0 1 0-5.5Zm0 1A1.75 1.75 0 1 0 7 6a1.75 1.75 0 0 0 0-3.5Zm3.51 9.43L6.01 9.3c.1-.73.73-1.3 1.49-1.3h6c.83 0 1.5.67 1.5 1.5l-4.49 2.43Zm.23 1.01 4.26-2.3v2.86c0 .83-.67 1.5-1.5 1.5h-6A1.5 1.5 0 0 1 6 13.5v-3.05l4.25 2.48c.15.09.33.1.49.01Z\"/>";
 
             /// <summary />
-            public static string ServerSurfaceMultiple { get; } = ResourceManager.GetString("ServerSurfaceMultiple");
+            public static string PersonNoteSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 12.91v1.02c-2.53-.38-4-2.18-4-3.93v-.5C2 8.67 2.67 8 3.5 8h3.26a3 3 0 0 0-.59 1H3.5a.5.5 0 0 0-.5.5v.5c0 1.24 1.06 2.57 3 2.91ZM7 1.5A2.75 2.75 0 1 1 7 7a2.75 2.75 0 0 1 0-5.5Zm0 1A1.75 1.75 0 1 0 7 6a1.75 1.75 0 0 0 0-3.5ZM9 8a2 2 0 0 0-2 2v4c0 1.1.9 2 2 2h5a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2H9Zm.5 5h4a.5.5 0 1 1 0 1h-4a.5.5 0 0 1 0-1ZM9 10.5c0-.28.22-.5.5-.5h4a.5.5 0 1 1 0 1h-4a.5.5 0 0 1-.5-.5Z\"/>";
 
             /// <summary />
-            public static string ServiceBell { get; } = ResourceManager.GetString("ServiceBell");
+            public static string PersonProhibitedSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10.5 15a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9Zm-2.8-2.4 4.9-4.9a3.5 3.5 0 0 0-4.9 4.9Zm.7.7a3.5 3.5 0 0 0 4.9-4.9l-4.9 4.9Zm-2.18.66C3.55 13.66 2 11.8 2 10v-.5C2 8.67 2.67 8 3.5 8h2.1c-.16.32-.3.65-.4 1H3.5a.5.5 0 0 0-.5.5v.5c0 1.13.88 2.33 2.5 2.8.2.42.44.8.72 1.16Zm3.4-8.9a2.75 2.75 0 1 0-3.3 1.86c.32-.37.68-.7 1.08-.97a1.76 1.76 0 0 1-2.15-1.7 1.75 1.75 0 1 1 3 1.23c.43-.2.89-.33 1.38-.41Z\"/>";
 
             /// <summary />
-            public static string Settings { get; } = ResourceManager.GetString("Settings");
+            public static string PersonQuestionMarkSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9.5 9c.83 0 1.5.67 1.5 1.5v.5c0 1.97-1.86 4-5 4-3.14 0-5-2.03-5-4v-.5C1 9.67 1.67 9 2.5 9h7Zm0 1h-7a.5.5 0 0 0-.5.5v.5c0 1.44 1.43 3 4 3 2.57 0 4-1.56 4-3v-.5a.5.5 0 0 0-.5-.5ZM13 7a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5ZM6 2.5A2.75 2.75 0 1 1 6 8a2.75 2.75 0 0 1 0-5.5Zm0 1A1.75 1.75 0 1 0 6 7a1.75 1.75 0 0 0 0-3.5ZM13 1a2 2 0 0 1 2 2c0 .73-.21 1.14-.75 1.7l-.27.28c-.38.4-.48.6-.48 1.02a.5.5 0 0 1-1 0c0-.73.21-1.14.75-1.7l.27-.28c.38-.4.48-.6.48-1.02a1 1 0 1 0-2 0 .5.5 0 0 1-1 0c0-1.1.9-2 2-2Z\"/>";
 
             /// <summary />
-            public static string ShapeExclude { get; } = ResourceManager.GetString("ShapeExclude");
+            public static string PersonSearchSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M12.5 8c.83 0 1.5.67 1.5 1.5v.5c0 1.74-1.45 3.53-3.96 3.92L9.12 13c2.5-.05 3.88-1.58 3.88-3v-.5a.5.5 0 0 0-.5-.5H8.74c-.12-.36-.3-.7-.5-1h4.26ZM9 1.5A2.75 2.75 0 1 1 9 7a2.75 2.75 0 0 1 0-5.5Zm0 1A1.75 1.75 0 1 0 9 6a1.75 1.75 0 0 0 0-3.5ZM4.5 14c.79 0 1.51-.26 2.1-.7l2.55 2.55a.5.5 0 1 0 .7-.7L7.3 12.6A3.5 3.5 0 1 0 4.5 14Zm0-1a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z\"/>";
 
             /// <summary />
-            public static string ShapeIntersect { get; } = ResourceManager.GetString("ShapeIntersect");
+            public static string PersonSettingsSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6.22 13.96C3.55 13.66 2 11.8 2 10v-.5C2 8.67 2.67 8 3.5 8h2.1c-.16.32-.3.65-.4 1H3.5a.5.5 0 0 0-.5.5v.5c0 1.13.88 2.33 2.5 2.8.2.42.44.8.72 1.16Zm3.4-8.9a2.75 2.75 0 1 0-3.3 1.86c.32-.37.68-.7 1.08-.97a1.76 1.76 0 0 1-2.15-1.7 1.75 1.75 0 1 1 3 1.23c.43-.2.89-.33 1.38-.41ZM6.64 9.93a2 2 0 0 0 1.44-2.48L7.9 6.9c.25-.2.53-.37.82-.5l.34.36a2 2 0 0 0 2.9 0l.33-.35c.3.14.58.32.84.52l-.13.42a2 2 0 0 0 1.46 2.52l.35.09a4.7 4.7 0 0 1 0 1.01l-.45.12a2 2 0 0 0-1.43 2.48l.15.55c-.25.2-.53.37-.82.5l-.34-.36a2 2 0 0 0-2.9 0l-.33.35c-.3-.14-.58-.32-.84-.52l.13-.42a2 2 0 0 0-1.46-2.52l-.35-.09a4.7 4.7 0 0 1 0-1.01l.45-.12Zm4.87.58a1 1 0 1 0-2 0 1 1 0 0 0 2 0Z\"/>";
 
             /// <summary />
-            public static string Shapes { get; } = ResourceManager.GetString("Shapes");
+            public static string PersonStandingSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9.34 4.54A2.24 2.24 0 0 0 7.5 1a2.25 2.25 0 0 0-1.84 3.54A2 2 0 0 0 4 6.5v3a1 1 0 0 0 1 1v3c0 .83.67 1.5 1.5 1.5h2c.83 0 1.5-.67 1.5-1.5v-3a1 1 0 0 0 1-1v-3a2 2 0 0 0-1.66-1.96ZM7.5 2a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5ZM10 9.5H9v4a.5.5 0 0 1-.5.5H8v-3a.5.5 0 0 0-1 0v3h-.5a.5.5 0 0 1-.5-.5v-4H5v-3a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v3Z\"/>";
 
             /// <summary />
-            public static string ShapeSubtract { get; } = ResourceManager.GetString("ShapeSubtract");
+            public static string PersonStarSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 10c0 1.8 1.55 3.65 4.22 3.96a5.5 5.5 0 0 1-.72-1.16C3.88 12.33 3 11.13 3 10v-.5c0-.28.22-.5.5-.5h1.7c.1-.35.24-.68.4-1H3.5C2.67 8 2 8.67 2 9.5v.5Zm7.75-5.75c0 .29-.04.56-.12.82-.49.08-.95.22-1.39.41A1.74 1.74 0 0 0 7 2.5a1.75 1.75 0 1 0 .4 3.45c-.4.28-.76.6-1.07.97a2.75 2.75 0 1 1 3.42-2.67ZM15 10.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-4.02-2.64a.5.5 0 0 0-.96 0L9.55 9.4H8c-.48 0-.68.65-.3.95l1.26.94-.48 1.53c-.15.49.38.89.77.59l1.25-.95 1.25.95c.4.3.92-.1.77-.59l-.48-1.53 1.25-.94c.4-.3.2-.95-.3-.95h-1.54l-.47-1.53Z\"/>";
 
             /// <summary />
-            public static string ShapeUnion { get; } = ResourceManager.GetString("ShapeUnion");
+            public static string PersonSubtractSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6.22 13.96C3.55 13.66 2 11.8 2 10v-.5C2 8.67 2.67 8 3.5 8h2.1c-.16.32-.3.65-.4 1H3.5a.5.5 0 0 0-.5.5v.5c0 1.13.88 2.33 2.5 2.8.2.42.44.8.72 1.16Zm3.4-8.9a2.75 2.75 0 1 0-3.3 1.86c.32-.37.68-.7 1.08-.97a1.76 1.76 0 0 1-2.15-1.7 1.75 1.75 0 1 1 3 1.23c.43-.2.89-.33 1.38-.41ZM10.5 15a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm-2.12-5h4.24a.5.5 0 1 1 0 1H8.38a.5.5 0 0 1 0-1Z\"/>";
 
             /// <summary />
-            public static string Share { get; } = ResourceManager.GetString("Share");
+            public static string PersonSupportSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13 9.75c0-.83-.67-1.5-1.5-1.5h-7c-.83 0-1.5.67-1.5 1.5v.5c0 1.97 1.86 4 5 4 3.14 0 5-2.03 5-4v-.5Zm-9 0c0-.28.22-.5.5-.5h7c.28 0 .5.22.5.5v.5c0 1.44-1.43 3-4 3-2.57 0-4-1.56-4-3v-.5Zm6.75-5.25A2.75 2.75 0 0 0 5.69 3H4a.5.5 0 0 0-.5.5v2a.5.5 0 0 0 0 .05v.95C3.5 7.33 4.17 8 5 8h.38a.61.61 0 1 0-.46-1 .5.5 0 0 1-.42-.5V6h.25c.3 0 .57-.09.8-.24a2.75 2.75 0 0 0 5.2-1.26Zm-4.5 0a1.75 1.75 0 1 1 3.5 0 1.75 1.75 0 0 1-3.5 0Zm-1 0a.5.5 0 0 1-.5.5H4.5V4h.75v.5Z\"/>";
 
             /// <summary />
-            public static string ShareScreenPerson { get; } = ResourceManager.GetString("ShareScreenPerson");
+            public static string PersonSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.5 8c.83 0 1.5.67 1.5 1.5v.5c0 1.97-1.86 4-5 4-3.14 0-5-2.03-5-4v-.5C3 8.67 3.67 8 4.5 8h7Zm0 1h-7a.5.5 0 0 0-.5.5v.5c0 1.44 1.43 3 4 3 2.57 0 4-1.56 4-3v-.5a.5.5 0 0 0-.5-.5ZM8 1.5A2.75 2.75 0 1 1 8 7a2.75 2.75 0 0 1 0-5.5Zm0 1A1.75 1.75 0 1 0 8 6a1.75 1.75 0 0 0 0-3.5Z\"/>";
 
             /// <summary />
-            public static string ShareScreenPersonOverlay { get; } = ResourceManager.GetString("ShareScreenPersonOverlay");
+            public static string PersonSwapSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10.75 4.5a2.75 2.75 0 1 0-5.5 0 2.75 2.75 0 0 0 5.5 0Zm-4.5 0a1.75 1.75 0 1 1 3.5 0 1.75 1.75 0 0 1-3.5 0Zm.8 8.67 1.08 1.08H8c-3.14 0-5-2.03-5-4v-.5c0-.83.67-1.5 1.5-1.5h4.18a1.5 1.5 0 0 0-.24.2l-.8.8H4.5a.5.5 0 0 0-.5.5v.5c0 1.25 1.08 2.6 3.05 2.92Zm.1-1.31a.5.5 0 0 1 0-.71l2-2a.5.5 0 1 1 .7.7L8.72 11h4.58l-1.14-1.14a.5.5 0 1 1 .7-.7l2 1.99a.5.5 0 0 1 0 .7l-2 2a.5.5 0 1 1-.7-.7L13.29 12H8.71l1.15 1.15a.5.5 0 0 1-.71.7l-2-2Z\"/>";
 
             /// <summary />
-            public static string ShareScreenPersonOverlayInside { get; } = ResourceManager.GetString("ShareScreenPersonOverlayInside");
+            public static string PersonSyncSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 10c0 1.8 1.55 3.65 4.22 3.96a5.5 5.5 0 0 1-.72-1.16C3.88 12.33 3 11.13 3 10v-.5c0-.28.22-.5.5-.5h1.7c.1-.35.24-.68.4-1H3.5C2.67 8 2 8.67 2 9.5v.5Zm7.75-5.75c0 .29-.04.56-.12.82-.49.08-.95.22-1.39.41A1.74 1.74 0 0 0 7 2.5a1.75 1.75 0 1 0 .4 3.45c-.4.28-.76.6-1.07.97a2.75 2.75 0 1 1 3.42-2.67ZM6 10.5a4.5 4.5 0 1 0 9 0 4.5 4.5 0 0 0-9 0Zm6.5-3c.28 0 .5.22.5.5v1.5a.5.5 0 0 1-.5.5H11a.5.5 0 0 1 0-1h.47a1.98 1.98 0 0 0-1.72-.1 2 2 0 0 0-.66.44.5.5 0 0 1-.71-.71A3 3 0 0 1 12 8.15V8c0-.28.22-.5.5-.5Zm-.88 5.53A3 3 0 0 1 9 12.85V13a.5.5 0 0 1-1 0v-1.5c0-.28.22-.5.5-.5H10a.5.5 0 0 1 0 1h-.47a1.99 1.99 0 0 0 2.38-.34.5.5 0 0 1 .71.71 3 3 0 0 1-1 .66Z\"/>";
 
             /// <summary />
-            public static string ShareScreenPersonP { get; } = ResourceManager.GetString("ShareScreenPersonP");
+            public static string PersonWalkingSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.75 2a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5ZM6.5 3.25a2.25 2.25 0 1 1 3.83 1.6c.24.13.44.32.59.55l.64 1.04 1.29.8a1.6 1.6 0 1 1-1.7 2.72l-1.45-.9.58.8c.25.36.41.78.46 1.2l.25 2.16a1.6 1.6 0 0 1-3.18.36l-.23-1.99-.35-.5-1.14 2.9a1.6 1.6 0 1 1-2.98-1.17L4.21 10a1.6 1.6 0 0 1-1.47-2.2l.96-2.37c.2-.48.61-.83 1.11-.95l1.82-.44h.01c-.09-.25-.14-.51-.14-.79Zm.65 1.77a.6.6 0 0 0-.29 0l-1.81.43a.6.6 0 0 0-.42.36l-.96 2.36a.6.6 0 1 0 1.1.46l.76-1.86a.48.48 0 0 1 .89.35l-2.38 6.06a.6.6 0 0 0 1.12.44l1.13-2.88a1 1 0 0 1 1.73-.22l.46.62a.4.4 0 0 1 .08.2l.24 2.13a.6.6 0 1 0 1.2-.14l-.25-2.14a1.6 1.6 0 0 0-.3-.76l-.73-.99a1 1 0 0 1-.13-.94l.34-.9a.4.4 0 0 1 .72-.08l.24.4a.6.6 0 0 0 .2.19l1.6 1a.6.6 0 1 0 .63-1.02l-1.29-.8a1 1 0 0 1-.32-.32l-.64-1.04a.6.6 0 0 0-.36-.26l-2.56-.65Z\"/>";
 
             /// <summary />
-            public static string ShareScreenStop { get; } = ResourceManager.GetString("ShareScreenStop");
+            public static string PhoneChatSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.75 1C4.78 1 4 1.78 4 2.75v10.5c0 .97.78 1.75 1.75 1.75h.37l.3-1h-.67a.75.75 0 0 1-.75-.75V2.75c0-.41.34-.75.75-.75h4.5c.41 0 .75.34.75.75v3.27a5.57 5.57 0 0 1 1 0V2.75C12 1.78 11.22 1 10.25 1h-4.5Zm5.75 15a4.5 4.5 0 1 0-3.94-2.32l-.54 1.8c-.1.3.2.6.5.5l1.8-.54c.64.36 1.39.56 2.18.56ZM9 10.5c0-.28.22-.5.5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5Zm.5 2.5a.5.5 0 0 1 0-1h2a.5.5 0 0 1 0 1h-2Z\"/>";
 
             /// <summary />
-            public static string Shield { get; } = ResourceManager.GetString("Shield");
+            public static string PhoneCheckmarkSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11 10.98v2.27c0 .41-.34.75-.75.75h-4.5a.75.75 0 0 1-.75-.75V2.75c0-.41.34-.75.75-.75h.5c.32-.38.68-.72 1.09-1H5.75C4.78 1 4 1.78 4 2.75v10.5c0 .97.78 1.75 1.75 1.75h4.5c.97 0 1.75-.78 1.75-1.75v-2.46c-.32.1-.66.16-1 .19ZM6.5 12.5c0-.28.22-.5.5-.5h2a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5Zm4-2.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm2.35-5.65-3 3a.5.5 0 0 1-.7 0l-1-1a.5.5 0 1 1 .7-.7l.65.64 2.65-2.64a.5.5 0 0 1 .7.7Z\"/>";
 
             /// <summary />
-            public static string ShieldAdd { get; } = ResourceManager.GetString("ShieldAdd");
+            public static string PhoneDesktopSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 2h7a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H8v1h2v1H8v1h3.5a.5.5 0 0 0 0-1H11v-1h2a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v2h1V3a1 1 0 0 1 1-1ZM3.5 12a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1Zm-1-6C1.67 6 1 6.67 1 7.5v6c0 .83.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5v-6C7 6.67 6.33 6 5.5 6h-3Zm0 1h3c.28 0 .5.22.5.5v6a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-6c0-.28.22-.5.5-.5Z\"/>";
 
             /// <summary />
-            public static string ShieldCheckmark { get; } = ResourceManager.GetString("ShieldCheckmark");
+            public static string PhoneEraserSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10 10.88v2.37c0 .41-.34.75-.75.75h-4.5a.75.75 0 0 1-.75-.75V2.75c0-.41.34-.75.75-.75h4.13l.91-.91A1.75 1.75 0 0 0 9.25 1h-4.5C3.78 1 3 1.78 3 2.75v10.5c0 .97.78 1.75 1.75 1.75h4.5c.97 0 1.75-.78 1.75-1.75v-3.13l-.23.23c-.23.23-.5.4-.77.53ZM5.5 12.5c0-.28.22-.5.5-.5h2a.5.5 0 1 1 0 1H6a.5.5 0 0 1-.5-.5Zm7.56-11.15a1.5 1.5 0 0 0-2.12 0L6.35 5.94a1.5 1.5 0 0 0 0 2.12l1.59 1.59a1.5 1.5 0 0 0 2.12 0l4.59-4.59a1.5 1.5 0 0 0 0-2.12l-1.59-1.59ZM8 5.71 10.3 8l-.95.94a.5.5 0 0 1-.7 0L7.06 7.35a.5.5 0 0 1 0-.7L8 5.7Z\"/>";
 
             /// <summary />
-            public static string ShieldDismiss { get; } = ResourceManager.GetString("ShieldDismiss");
+            public static string PhoneLaptopSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3 4c0-.83.67-1.5 1.5-1.5h8c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5h-4v-1h4A.5.5 0 0 0 13 9V4a.5.5 0 0 0-.5-.5h-8A.5.5 0 0 0 4 4h-.5a2 2 0 0 0-.5.06V4Zm11.5 8.5h-6v-1h6a.5.5 0 0 1 0 1Zm-10 0a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Zm-3-6C1.5 5.67 2.17 5 3 5h3c.83 0 1.5.67 1.5 1.5v6c0 .83-.67 1.5-1.5 1.5H3a1.5 1.5 0 0 1-1.5-1.5v-6ZM3 6a.5.5 0 0 0-.5.5v6c0 .28.22.5.5.5h3a.5.5 0 0 0 .5-.5v-6A.5.5 0 0 0 6 6H3Z\"/>";
 
             /// <summary />
-            public static string ShieldError { get; } = ResourceManager.GetString("ShieldError");
+            public static string PhoneSpanInSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 3c0-1.1.9-2 2-2h4a2 2 0 0 1 2 2v2.09c-.2.07-.4.19-.56.35l-.44.44V3a1 1 0 0 0-1-1H6a1 1 0 0 0-1 1v2.88l-.44-.44A1.5 1.5 0 0 0 4 5.09V3Zm7 8.12V13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-1.88l-.44.44a1.5 1.5 0 0 1-.56.35V13c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2v-1.09a1.5 1.5 0 0 1-.56-.35l-.44-.44ZM3.15 6.85a.5.5 0 1 1 .7-.7l2 2a.5.5 0 0 1 0 .7l-2 2a.5.5 0 0 1-.7-.7L4.29 9H1.5a.5.5 0 0 1 0-1h2.8L3.14 6.85Zm9.7-.7c.2.2.2.5 0 .7L11.71 8h2.79a.5.5 0 0 1 0 1h-2.8l1.15 1.15a.5.5 0 1 1-.7.7l-2-2a.5.5 0 0 1 0-.7l2-2c.2-.2.5-.2.7 0Z\"/>";
 
             /// <summary />
-            public static string ShieldGlobe { get; } = ResourceManager.GetString("ShieldGlobe");
+            public static string PhoneSpanOutSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 3c0-1.1.9-2 2-2h4a2 2 0 0 1 2 2v2.09a1.5 1.5 0 0 0-1 1.41V3a1 1 0 0 0-1-1H6a1 1 0 0 0-1 1v3.5a1.5 1.5 0 0 0-1-1.41V3Zm7 7.5V13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-2.5a1.5 1.5 0 0 1-1 1.41V13c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2v-1.09a1.5 1.5 0 0 1-1-1.41ZM1.15 8.15l2-2a.5.5 0 1 1 .7.7L2.71 8H5.5a.5.5 0 0 1 0 1H2.7l1.15 1.15a.5.5 0 0 1-.7.7l-2-2A.5.5 0 0 1 1 8.5a.5.5 0 0 1 .14-.35Zm11.7 2.7 2-2A.5.5 0 0 0 15 8.5a.5.5 0 0 0-.15-.35l-2-2a.5.5 0 0 0-.7.7L13.29 8H10.5a.5.5 0 0 0 0 1h2.8l-1.15 1.15a.5.5 0 0 0 .7.7Z\"/>";
 
             /// <summary />
-            public static string ShieldKeyhole { get; } = ResourceManager.GetString("ShieldKeyhole");
+            public static string PhoneSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7 12a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1H7ZM5.75 1C4.78 1 4 1.78 4 2.75v10.5c0 .97.78 1.75 1.75 1.75h4.5c.97 0 1.75-.78 1.75-1.75V2.75C12 1.78 11.22 1 10.25 1h-4.5ZM5 2.75c0-.41.34-.75.75-.75h4.5c.41 0 .75.34.75.75v10.5c0 .41-.34.75-.75.75h-4.5a.75.75 0 0 1-.75-.75V2.75Z\"/>";
 
             /// <summary />
-            public static string ShieldLock { get; } = ResourceManager.GetString("ShieldLock");
+            public static string PictureInEnterSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.5 2A2.5 2.5 0 0 0 1 4.5v5A2.5 2.5 0 0 0 3.5 12H7v-1H3.5A1.5 1.5 0 0 1 2 9.5v-5C2 3.67 2.67 3 3.5 3h8c.83 0 1.5.67 1.5 1.5V8h1V4.5A2.5 2.5 0 0 0 11.5 2h-8Zm.85 2.65a.5.5 0 1 0-.7.7L5.29 7H4.5a.5.5 0 0 0 0 1h2a.5.5 0 0 0 .35-.14A.5.5 0 0 0 7 7.5v-2a.5.5 0 0 0-1 0v.8L4.35 4.64ZM9 9a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1H9Z\"/>";
 
             /// <summary />
-            public static string ShieldQuestion { get; } = ResourceManager.GetString("ShieldQuestion");
+            public static string PictureInExitSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7 7a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5Zm2-2h3.5c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5h-8A1.5 1.5 0 0 1 3 11.5V8H2v3.5A2.5 2.5 0 0 0 4.5 14h8a2.5 2.5 0 0 0 2.5-2.5v-5A2.5 2.5 0 0 0 12.5 4H9v1Zm2 4.3v-.8a.5.5 0 0 1 1 0v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h.8L8.64 8.35a.5.5 0 1 1 .7-.7L11 9.29Z\"/>";
 
             /// <summary />
-            public static string ShieldTask { get; } = ResourceManager.GetString("ShieldTask");
+            public static string PictureInSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1 4.5A2.5 2.5 0 0 1 3.5 2h8A2.5 2.5 0 0 1 14 4.5V8h-1V4.5c0-.83-.67-1.5-1.5-1.5h-8C2.67 3 2 3.67 2 4.5v5c0 .83.67 1.5 1.5 1.5H7v1H3.5A2.5 2.5 0 0 1 1 9.5v-5ZM9 9a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1H9Z\"/>";
 
             /// <summary />
-            public static string Shifts { get; } = ResourceManager.GetString("Shifts");
+            public static string PillSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.35 10.35a.5.5 0 1 0-.7-.7l-1.5 1.5a.5.5 0 1 0 .7.7l1.5-1.5Zm5.6-7.3a3.5 3.5 0 0 0-4.95 0L3.05 8A3.5 3.5 0 1 0 8 12.95L12.95 8a3.5 3.5 0 0 0 0-4.95ZM5.88 6.6l3.53 3.53-2.12 2.12a2.5 2.5 0 0 1-3.53-3.53l2.12-2.12Zm6.36.7-2.12 2.12L6.6 5.88 8.7 3.76a2.5 2.5 0 1 1 3.53 3.53Z\"/>";
 
             /// <summary />
-            public static string ShiftsActivity { get; } = ResourceManager.GetString("ShiftsActivity");
+            public static string PinOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m9.56 10.27 4.59 4.58a.5.5 0 0 0 .7-.7l-13-13a.5.5 0 1 0-.7.7l4.58 4.59-.08.15-2.8.94a.5.5 0 0 0-.2.82l2.14 2.15-2.64 2.65L2 14l.85-.15 2.65-2.64 2.15 2.14a.5.5 0 0 0 .82-.2l.94-2.8.15-.08Zm-.74-.74-.06.03a.5.5 0 0 0-.23.28l-.75 2.23-3.85-3.85 2.23-.75a.5.5 0 0 0 .28-.23l.03-.06 2.35 2.35Zm3.9-2.09-2.06 1.1.74.74 1.79-.96a1.5 1.5 0 0 0 .35-2.38l-3.48-3.5a1.5 1.5 0 0 0-2.39.36l-.95 1.8.73.73 1.1-2.06a.5.5 0 0 1 .8-.12l3.49 3.5a.5.5 0 0 1-.12.8Z\"/>";
 
             /// <summary />
-            public static string ShoppingBag { get; } = ResourceManager.GetString("ShoppingBag");
+            public static string PinSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10.06 2.45a1.5 1.5 0 0 0-2.39.35L5.65 6.59l-2.8.94a.5.5 0 0 0-.2.82l2.14 2.15-2.64 2.65L2 14l.85-.15 2.65-2.64 2.15 2.14a.5.5 0 0 0 .82-.2l.94-2.8 3.78-2.03a1.5 1.5 0 0 0 .35-2.38l-3.48-3.5Zm-1.5.82a.5.5 0 0 1 .8-.12l3.48 3.5a.5.5 0 0 1-.12.8l-3.96 2.1a.5.5 0 0 0-.23.3l-.75 2.22-3.85-3.85 2.23-.75a.5.5 0 0 0 .28-.23l2.12-3.97Z\"/>";
 
             /// <summary />
-            public static string Signature { get; } = ResourceManager.GetString("Signature");
+            public static string PlayCircleHintSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 2c-.4 0-.8.04-1.17.11a.5.5 0 0 0 .2.99 5.03 5.03 0 0 1 1.95 0 .5.5 0 0 0 .19-.99A6.03 6.03 0 0 0 8 2Zm3.33 1.01a.5.5 0 1 0-.55.83c.54.37 1.01.84 1.38 1.38a.5.5 0 0 0 .83-.55c-.44-.66-1-1.22-1.66-1.66Zm-6.1.83a.5.5 0 1 0-.56-.83C4 3.45 3.45 4.01 3 4.67a.5.5 0 1 0 .83.55c.37-.54.84-1.01 1.38-1.38Zm8.66 2.99a.5.5 0 1 0-.99.2 5.03 5.03 0 0 1 0 1.95.5.5 0 0 0 .99.19 6.02 6.02 0 0 0 0-2.34Zm-10.8.2a.5.5 0 0 0-.98-.2 6.03 6.03 0 0 0 0 2.34.5.5 0 0 0 .99-.2 5.03 5.03 0 0 1 0-1.95Zm9.9 4.3a.5.5 0 0 0-.83-.55 5.03 5.03 0 0 1-1.38 1.38.5.5 0 0 0 .55.83c.66-.44 1.22-1 1.66-1.66Zm-9.15-.55a.5.5 0 0 0-.83.55c.44.66 1 1.22 1.66 1.66a.5.5 0 0 0 .55-.83 5.03 5.03 0 0 1-1.38-1.38Zm3.18 2.12a.5.5 0 0 0-.19.99 6.02 6.02 0 0 0 2.34 0 .5.5 0 1 0-.2-.99 5.03 5.03 0 0 1-1.95 0Zm3.23-4.46a.5.5 0 0 0 0-.88L7.62 6.08a.75.75 0 0 0-1.12.65v2.54c0 .58.62.94 1.12.65l2.63-1.48Z\"/>";
 
             /// <summary />
-            public static string SlashForward { get; } = ResourceManager.GetString("SlashForward");
+            public static string PlayCircleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10.5 8a.5.5 0 0 1-.25.44L7.62 9.92a.75.75 0 0 1-1.12-.65V6.73c0-.58.62-.94 1.12-.65l2.63 1.48a.5.5 0 0 1 .25.44ZM8 2a6 6 0 1 0 0 12A6 6 0 0 0 8 2ZM3 8a5 5 0 1 1 10 0A5 5 0 0 1 3 8Z\"/>";
 
             /// <summary />
-            public static string SlideAdd { get; } = ResourceManager.GetString("SlideAdd");
+            public static string PlayMultipleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.44 12.56a1.5 1.5 0 0 0 1.8.24l8-4.5a1.5 1.5 0 0 0 0-2.6L6.21 1.18A1.52 1.52 0 0 0 4 2.5v9c0 .4.16.78.44 1.06Zm.7-10.41a.5.5 0 0 1 .6-.09l8 4.5a.5.5 0 0 1 0 .87l-7.99 4.5A.5.5 0 0 1 5 11.5v-9a.5.5 0 0 1 .15-.35Zm6.62 8.69 1.22-.68.02.25a1.51 1.51 0 0 1-.76 1.31l-5.08 2.86c-.51.27-1.08.41-1.66.42-.3 0-.61-.04-.91-.13A3.46 3.46 0 0 1 2 11.5V5.91a1.48 1.48 0 0 1 1-1.39v6.98a2.51 2.51 0 0 0 3.7 2.19l5.05-2.84.01-.01Z\"/>";
 
             /// <summary />
-            public static string SlideEraser { get; } = ResourceManager.GetString("SlideEraser");
+            public static string PlaySvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.75 3.06A.5.5 0 0 0 5 3.5v9c0 .38.41.62.75.44l8-4.5a.5.5 0 0 0 0-.88l-8-4.5ZM4 3.5a1.5 1.5 0 0 1 2.24-1.3l8 4.5a1.5 1.5 0 0 1 0 2.6l-8 4.5A1.5 1.5 0 0 1 4 12.5v-9Z\"/>";
 
             /// <summary />
-            public static string SlideRecord { get; } = ResourceManager.GetString("SlideRecord");
+            public static string PollHorizontalSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M15 8a2 2 0 0 0-2-2H3a2 2 0 1 0 0 4h10a2 2 0 0 0 2-2Zm-2 1H3a1 1 0 1 1 0-2h10a1 1 0 1 1 0 2ZM9 3a2 2 0 0 0-2-2H3a2 2 0 1 0 0 4h4a2 2 0 0 0 2-2ZM3 4a1 1 0 0 1 0-2h4a1 1 0 0 1 0 2H3Zm6 7a2 2 0 1 1 0 4H3a2 2 0 1 1 0-4h6Zm0 3a1 1 0 1 0 0-2H3a1 1 0 1 0 0 2h6Z\"/>";
 
             /// <summary />
-            public static string SlideText { get; } = ResourceManager.GetString("SlideText");
+            public static string PollSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 1a2 2 0 0 0-2 2v10a2 2 0 1 0 4 0V3a2 2 0 0 0-2-2Zm1 2v10a1 1 0 1 1-2 0V3a1 1 0 0 1 2 0ZM3 7a2 2 0 0 0-2 2v4a2 2 0 1 0 4 0V9a2 2 0 0 0-2-2Zm1 6a1 1 0 1 1-2 0V9a1 1 0 0 1 2 0v4Zm7-6a2 2 0 1 1 4 0v6a2 2 0 1 1-4 0V7Zm3 0a1 1 0 1 0-2 0v6a1 1 0 1 0 2 0V7Z\"/>";
 
             /// <summary />
-            public static string SlideTextMultiple { get; } = ResourceManager.GetString("SlideTextMultiple");
+            public static string PremiumPersonSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.5 2a.5.5 0 0 0-.45.28l-2 4a.5.5 0 0 0 .06.54l4.9 6.03a2.5 2.5 0 0 1 .19-1.35L2.56 7h2.58l1.29 4.11c.2-.3.48-.57.8-.76L6.19 7h1.5a3 3 0 0 1 .58-1H6.14l.75-3h2.22l.53 2.12a3 3 0 0 1 1-.12l-.5-2h2.05l1.5 3h-.95a3 3 0 0 1 .59 1h.12l-.09.1a3 3 0 0 1 .08 1.5l1.45-1.78a.5.5 0 0 0 .06-.54l-2-4A.5.5 0 0 0 12.5 2h-9ZM2.3 6l1.5-3h2.06l-.75 3h-2.8Zm10.2 2a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm1.5 4.5c0 1.25-1 2.5-3.5 2.5S7 13.75 7 12.5c0-.83.67-1.5 1.5-1.5h4c.83 0 1.5.67 1.5 1.5Z\"/>";
 
             /// <summary />
-            public static string SlideTextPerson { get; } = ResourceManager.GetString("SlideTextPerson");
+            public static string PremiumSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.5 2a.5.5 0 0 0-.45.28l-2 4a.5.5 0 0 0 .06.54l6.5 8a.5.5 0 0 0 .78 0l6.5-8a.5.5 0 0 0 .06-.54l-2-4A.5.5 0 0 0 12.5 2h-9ZM2.3 6l1.5-3h2.06l-.75 3h-2.8Zm.25 1h2.58l1.62 5.16L2.55 7Zm3.63 0h3.64L8 12.82 6.18 7Zm4.69 0h2.58l-4.2 5.16L10.87 7Zm2.82-1h-2.8l-.75-3h2.05l1.5 3ZM9.86 6H6.14l.75-3h2.22l.75 3Z\"/>";
 
             /// <summary />
-            public static string SlideTextSparkle { get; } = ResourceManager.GetString("SlideTextSparkle");
+            public static string PresenceAvailableSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.7 6.7a1 1 0 0 0-1.4-1.4L7 8.58l-1.3-1.3a1 1 0 0 0-1.4 1.42l2 2a1 1 0 0 0 1.4 0l4-4ZM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6a6 6 0 1 0 0 12A6 6 0 0 0 8 2Z\"/>";
 
             /// <summary />
-            public static string Snooze { get; } = ResourceManager.GetString("Snooze");
+            public static string PresenceAwaySvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.5 7.52V4.5a1 1 0 1 0-2 0V8c0 .3.14.6.38.78l2.5 2a1 1 0 1 0 1.24-1.56L8.5 7.52ZM8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0ZM2 8a6 6 0 1 1 12 0A6 6 0 0 1 2 8Z\"/>";
 
             /// <summary />
-            public static string Space3d { get; } = ResourceManager.GetString("Space3d");
+            public static string PresenceBlockedSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0Zm-2 0c0-1.3-.41-2.5-1.1-3.48L4.51 12.9A6 6 0 0 0 14 8Zm-2.52-4.9a6 6 0 0 0-8.37 8.37l8.37-8.36Z\"/>";
 
             /// <summary />
-            public static string Sparkle { get; } = ResourceManager.GetString("Sparkle");
+            public static string PresenceDndSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.25 7a1 1 0 0 0 0 2h5.5a1 1 0 1 0 0-2h-5.5ZM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6a6 6 0 1 0 0 12A6 6 0 0 0 8 2Z\"/>";
 
             /// <summary />
-            public static string SparkleCircle { get; } = ResourceManager.GetString("SparkleCircle");
+            public static string PresenceOfflineSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10.7 5.3a1 1 0 0 1 0 1.4L9.42 8l1.3 1.3a1 1 0 0 1-1.42 1.4L8 9.42l-1.3 1.3a1 1 0 0 1-1.4-1.42L6.58 8l-1.3-1.3a1 1 0 0 1 1.42-1.4L8 6.58l1.3-1.3a1 1 0 0 1 1.4 0ZM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6a6 6 0 1 0 0 12A6 6 0 0 0 8 2Z\"/>";
 
             /// <summary />
-            public static string Speaker0 { get; } = ResourceManager.GetString("Speaker0");
+            public static string PresenceOofSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.2 6.2a1 1 0 1 0-1.4-1.4L4.3 7.3a1 1 0 0 0 0 1.4l2.5 2.5a1 1 0 0 0 1.4-1.4L7.42 9H11a1 1 0 1 0 0-2H7.41l.8-.8ZM8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0ZM2 8a6 6 0 1 1 12 0A6 6 0 0 1 2 8Z\"/>";
 
             /// <summary />
-            public static string Speaker1 { get; } = ResourceManager.GetString("Speaker1");
+            public static string PresenceUnknownSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 2a6 6 0 1 0 0 12A6 6 0 0 0 8 2ZM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Z\"/>";
 
             /// <summary />
-            public static string Speaker2 { get; } = ResourceManager.GetString("Speaker2");
+            public static string PreviewLinkSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3 4.5c0-.28.22-.5.5-.5h9c.28 0 .5.22.5.5v2a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-2ZM4 5v1h8V5H4Zm5.5 3a.5.5 0 0 0-.5.5v3c0 .28.22.5.5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3Zm.5 3V9h2v2h-2ZM3 9c0-.28.22-.5.5-.5h4a.5.5 0 0 1 0 1h-4A.5.5 0 0 1 3 9Zm.5 1.5a.5.5 0 0 0 0 1h4a.5.5 0 1 0 0-1h-4ZM1 4.5A2.5 2.5 0 0 1 3.5 2h9A2.5 2.5 0 0 1 15 4.5v7a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 11.5v-7ZM3.5 3C2.67 3 2 3.67 2 4.5v7c0 .83.67 1.5 1.5 1.5h9c.83 0 1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5h-9Z\"/>";
 
             /// <summary />
-            public static string SpeakerEdit { get; } = ResourceManager.GetString("SpeakerEdit");
+            public static string PreviousSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 2.5a.5.5 0 0 1 1 0v11a.5.5 0 0 1-1 0v-11ZM14 3a1 1 0 0 0-1.58-.81l-7 4.96a1 1 0 0 0 0 1.63l7 5.03a1 1 0 0 0 1.58-.8V3ZM6 7.96 13 3v10L6 7.96Z\"/>";
 
             /// <summary />
-            public static string SpeakerMute { get; } = ResourceManager.GetString("SpeakerMute");
+            public static string PrintSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 3.5C4 2.67 4.67 2 5.5 2h5c.83 0 1.5.67 1.5 1.5V4h1a2 2 0 0 1 2 2v4.5c0 .83-.67 1.5-1.5 1.5H12v.5c0 .83-.67 1.5-1.5 1.5h-5A1.5 1.5 0 0 1 4 12.5V12H2.5A1.5 1.5 0 0 1 1 10.5V6c0-1.1.9-2 2-2h1v-.5ZM4 11v-.5C4 9.67 4.67 9 5.5 9h5c.83 0 1.5.67 1.5 1.5v.5h1.5a.5.5 0 0 0 .5-.5V6a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v4.5c0 .28.22.5.5.5H4Zm1-7h6v-.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0-.5.5V4Zm0 6.5v2c0 .28.22.5.5.5h5a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0-.5.5Z\"/>";
 
             /// <summary />
-            public static string SpeakerOff { get; } = ResourceManager.GetString("SpeakerOff");
+            public static string ProhibitedMultipleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7 12A5 5 0 1 0 7 2a5 5 0 0 0 0 10Zm0-1c-.92 0-1.78-.31-2.45-.84l5.61-5.61A4 4 0 0 1 7 11Zm2.45-7.16L3.84 9.45a4 4 0 0 1 5.61-5.61ZM13 7c0 .38-.03.75-.1 1.1a4.01 4.01 0 0 1-4.8 4.8 6.03 6.03 0 0 1-2.24 0 5 5 0 0 0 7.03-7.03c.07.36.11.74.11 1.13Z\"/>";
 
             /// <summary />
-            public static string SplitHorizontal { get; } = ResourceManager.GetString("SplitHorizontal");
+            public static string ProhibitedSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 3a5 5 0 0 0-3.87 8.16l7.03-7.03A4.98 4.98 0 0 0 8 3Zm3.87 1.84-7.03 7.03a5 5 0 0 0 7.04-7.04ZM2 8a6 6 0 1 1 12 0A6 6 0 0 1 2 8Z\"/>";
 
             /// <summary />
-            public static string SplitVertical { get; } = ResourceManager.GetString("SplitVertical");
+            public static string ProjectionScreenDismissSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M15 5.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-2.65-1.15a.5.5 0 0 0-.7-.7L10.5 4.79 9.35 3.65a.5.5 0 1 0-.7.7L9.79 5.5 8.65 6.65a.5.5 0 1 0 .7.7l1.15-1.14 1.15 1.14a.5.5 0 0 0 .7-.7L11.21 5.5l1.14-1.15ZM10.5 11c.37 0 .73-.04 1.07-.1A2.5 2.5 0 0 1 9.5 12h-2v2h2a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1h2v-2h-2A2.5 2.5 0 0 1 2 9.5V5a1 1 0 0 1 0-2h3.6a5.46 5.46 0 0 0-.58 2H3v4.5c0 .83.67 1.5 1.5 1.5h5c.12 0 .23-.01.34-.04.22.03.44.04.66.04Z\"/>";
 
             /// <summary />
-            public static string Sport { get; } = ResourceManager.GetString("Sport");
+            public static string ProjectionScreenSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3 2a1 1 0 0 0 0 2v4.5A2.5 2.5 0 0 0 5.5 11h2v2h-2a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-2v-2h2A2.5 2.5 0 0 0 13 8.5V4a1 1 0 1 0 0-2H3Zm1 2h8v4.5c0 .83-.67 1.5-1.5 1.5h-5A1.5 1.5 0 0 1 4 8.5V4Z\"/>";
 
             /// <summary />
-            public static string SportSoccer { get; } = ResourceManager.GetString("SportSoccer");
+            public static string ProtocolHandlerSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.59 4.41 1.4 6.6a2 2 0 0 0 0 2.82L3.6 11.6a2 2 0 0 0 2.82 0L8.6 9.4a2 2 0 0 0 0-2.82L6.4 4.4a2 2 0 0 0-2.82 0ZM2.12 7.3 4.3 5.12a1 1 0 0 1 1.42 0L7.88 7.3a1 1 0 0 1 0 1.42L5.7 10.88a1 1 0 0 1-1.42 0L2.12 8.7a1 1 0 0 1 0-1.42Zm7.47 4.3-.88-.88.58-.59.12-.12.88.88a1 1 0 0 0 1.42 0l2.17-2.17a1 1 0 0 0 0-1.42L11.7 5.12a1 1 0 0 0-1.42 0L9.41 6a3.05 3.05 0 0 0-.12-.12l-.58-.59.88-.88a2 2 0 0 1 2.82 0L14.6 6.6a2 2 0 0 1 0 2.82L12.4 11.6a2 2 0 0 1-2.82 0Z\"/>";
 
             /// <summary />
-            public static string SprayCan { get; } = ResourceManager.GetString("SprayCan");
+            public static string PuzzleCubeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 5v6.5A2.5 2.5 0 0 0 4.5 14h7a2.5 2.5 0 0 0 2.5-2.5v-7A2.5 2.5 0 0 0 11.5 2H5v3H2Zm8 8H6v-2h4v2Zm-7-2h2v2h-.5A1.5 1.5 0 0 1 3 11.5V11Zm7-1H6V6h4v4ZM3 6h2v4H3V6Zm7-1H6V3h4v2Zm1 1h2v4h-2V6Zm0 5h2v.5c0 .83-.67 1.5-1.5 1.5H11v-2Zm2-6.5V5h-2V3h.5c.83 0 1.5.67 1.5 1.5Z\"/>";
 
             /// <summary />
-            public static string Square { get; } = ResourceManager.GetString("Square");
+            public static string PuzzlePieceSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7 3a2 2 0 0 1 4 0h1.5c.83 0 1.5.67 1.5 1.5V7h-1a1 1 0 0 0 0 2h1v2.5c0 .83-.67 1.5-1.5 1.5H11a2 2 0 0 1-4 0H5.5A1.5 1.5 0 0 1 4 11.5V10a2 2 0 0 1 0-4V4.5C4 3.67 4.67 3 5.5 3H7Zm2-1a1 1 0 0 0-1 1v1H5.5a.5.5 0 0 0-.5.5V7H4a1 1 0 0 0 0 2h1v2.5c0 .28.22.5.5.5H8v1a1 1 0 0 0 2 0v-1h2.5a.5.5 0 0 0 .5-.5V10a2 2 0 0 1 0-4V4.5a.5.5 0 0 0-.5-.5H10V3a1 1 0 0 0-1-1Z\"/>";
 
             /// <summary />
-            public static string SquareAdd { get; } = ResourceManager.GetString("SquareAdd");
+            public static string QuestionCircleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 2a6 6 0 1 1 0 12A6 6 0 0 1 8 2Zm0 1a5 5 0 1 0 0 10A5 5 0 0 0 8 3Zm0 7.5A.75.75 0 1 1 8 12a.75.75 0 0 1 0-1.5Zm0-6a2 2 0 0 1 2 2c0 .73-.21 1.14-.75 1.7l-.27.28c-.38.4-.48.6-.48 1.02a.5.5 0 0 1-1 0c0-.73.21-1.14.75-1.7l.27-.28c.38-.4.48-.6.48-1.02a1 1 0 0 0-2 0 .5.5 0 0 1-1 0c0-1.1.9-2 2-2Z\"/>";
 
             /// <summary />
-            public static string SquareArrowForward { get; } = ResourceManager.GetString("SquareArrowForward");
+            public static string QuestionSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 2a3 3 0 0 0-3 3 .5.5 0 0 0 1 0 2 2 0 0 1 4 0c0 .68-.14 1.08-.31 1.36-.19.3-.43.5-.75.75l-.02.02c-.3.24-.67.53-.95.98-.3.47-.47 1.07-.47 1.89v.5a.5.5 0 0 0 1 0V10c0-.68.14-1.08.31-1.36.19-.3.43-.5.75-.75l.02-.02c.3-.24.67-.53.95-.98.3-.47.47-1.07.47-1.89a3 3 0 0 0-3-3Zm0 12a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z\"/>";
 
             /// <summary />
-            public static string SquareDismiss { get; } = ResourceManager.GetString("SquareDismiss");
+            public static string RadioButtonOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m1.85 1.15 13 13a.5.5 0 0 1-.7.7l-2.28-2.27a6 6 0 0 1-8.46-8.46L1.16 1.86a.5.5 0 0 1 .7-.7ZM3 8a5 5 0 0 0 5 5c1.2 0 2.3-.42 3.16-1.13L4.13 4.84A4.98 4.98 0 0 0 3 8Zm10 0a5 5 0 0 0-5-5c-.83 0-1.6.22-2.3.58l-.74-.75a6 6 0 0 1 8.2 8.2l-.74-.73c.36-.7.58-1.47.58-2.3Z\"/>";
 
             /// <summary />
-            public static string SquareHint { get; } = ResourceManager.GetString("SquareHint");
+            public static string RadioButtonSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 3a5 5 0 1 0 0 10A5 5 0 0 0 8 3ZM2 8a6 6 0 1 1 12 0A6 6 0 0 1 2 8Z\"/>";
 
             /// <summary />
-            public static string SquareHintArrowBack { get; } = ResourceManager.GetString("SquareHintArrowBack");
+            public static string RamSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.5 5h9c.28 0 .5.22.5.5v3a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-3c0-.28.22-.5.5-.5ZM9 8V6H7v2h2ZM6 6H4v2h2V6Zm4 2h2V6h-2v2ZM3 3h10a2 2 0 0 1 2 2v4a2 2 0 0 1-1 1.73v1.02c0 .69-.56 1.25-1.25 1.25H9.5a.5.5 0 0 1-.35-.15L8 11.71l-1.15 1.14a.5.5 0 0 1-.35.15H3.25C2.56 13 2 12.44 2 11.75v-1.02A2 2 0 0 1 1 9V5c0-1.1.9-2 2-2Zm.25 9h3.04l1-1H3v.75c0 .14.11.25.25.25Zm9.5 0c.14 0 .25-.11.25-.25V11H8.7l1 1h3.05Zm.25-2a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h10Z\"/>";
 
             /// <summary />
-            public static string SquareHintSparkles { get; } = ResourceManager.GetString("SquareHintSparkles");
+            public static string RatingMatureSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.92 5.24A.5.5 0 0 0 5 5.5v5a.5.5 0 1 0 1 0V7.24l1.58 2.53a.5.5 0 0 0 .84 0L10 7.24v3.26a.5.5 0 1 0 1 0v-5a.5.5 0 0 0-.92-.26L8 8.56 5.92 5.24ZM4.5 2A2.5 2.5 0 0 0 2 4.5v7A2.5 2.5 0 0 0 4.5 14h7a2.5 2.5 0 0 0 2.5-2.5v-7A2.5 2.5 0 0 0 11.5 2h-7ZM3 4.5C3 3.67 3.67 3 4.5 3h7c.83 0 1.5.67 1.5 1.5v7c0 .83-.67 1.5-1.5 1.5h-7A1.5 1.5 0 0 1 3 11.5v-7Z\"/>";
 
             /// <summary />
-            public static string SquareMultiple { get; } = ResourceManager.GetString("SquareMultiple");
+            public static string ReadAloudSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10.03 1.32a.5.5 0 0 1 .65-.29l.02.01a2.25 2.25 0 0 1 .19.08l.5.27c.4.25.94.63 1.47 1.2A8.3 8.3 0 0 1 15 8.5a.5.5 0 0 1-1 0c0-2.61-.95-4.24-1.86-5.22a6.07 6.07 0 0 0-1.81-1.31.5.5 0 0 1-.3-.65Zm-3.07 2a.5.5 0 0 0-.92 0l-4 10a.5.5 0 1 0 .92.37L4.04 11h4.92l1.08 2.69a.5.5 0 1 0 .92-.38l-4-10ZM8.56 10H4.44L6.5 4.85 8.56 10Zm1.66-6.45a.5.5 0 0 0-.45.9h.01a1.54 1.54 0 0 1 .24.15 3.45 3.45 0 0 1 1.48 2.9.5.5 0 0 0 1 0 4.45 4.45 0 0 0-2.24-3.93l-.02-.01h-.01s.15.08 0 0Zm-.45.9Z\"/>";
 
             /// <summary />
-            public static string SrCyrl { get; } = ResourceManager.GetString("SrCyrl");
+            public static string ReadingListAddSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3 4a1 1 0 0 1 1.84-.56.5.5 0 1 0 .83-.55A2 2 0 1 0 4.07 6h3.27c.89-.63 1.98-1 3.15-1H4.08a.5.5 0 0 0-.04 0A1 1 0 0 1 3 4Zm.5 3h2.76c-.26.3-.48.64-.66 1H3.5a.5.5 0 1 1 0-1Zm-1 2h2.7c-.08.32-.15.66-.18 1H2.5a.5.5 0 0 1 0-1Zm1 2h1.52c.03.34.1.68.19 1H3.5a.5.5 0 0 1 0-1Zm4-8a.5.5 0 0 0 0 1h6a.5.5 0 1 0 0-1h-6Zm7.5 7.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-4-2a.5.5 0 1 0-1 0V10H8.5a.5.5 0 0 0 0 1H10v1.5a.5.5 0 0 0 1 0V11h1.5a.5.5 0 1 0 0-1H11V8.5Z\"/>";
 
             /// <summary />
-            public static string SrLatn { get; } = ResourceManager.GetString("SrLatn");
+            public static string ReadingListSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3 5a1 1 0 0 1 1.84-.56.5.5 0 1 0 .83-.55A2 2 0 1 0 4.07 7h7.43a.5.5 0 0 0 0-1H4.08a.5.5 0 0 0-.04 0A1 1 0 0 1 3 5Zm4.5-1a.5.5 0 0 0 0 1h6a.5.5 0 1 0 0-1h-6Zm-3 4a.5.5 0 0 0 0 1h9a.5.5 0 1 0 0-1h-9ZM2 10.5c0-.28.22-.5.5-.5h9a.5.5 0 1 1 0 1h-9a.5.5 0 0 1-.5-.5ZM4.5 12a.5.5 0 0 0 0 1h9a.5.5 0 1 0 0-1h-9Z\"/>";
 
             /// <summary />
-            public static string Stack { get; } = ResourceManager.GetString("Stack");
+            public static string ReceiptMoneySvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.75 2C3.78 2 3 2.78 3 3.75V8h1V3.75c0-.41.34-.75.75-.75h5.5c.41 0 .75.34.75.75v9.75c0 .17-.02.34-.05.5h2.3c.97 0 1.75-.78 1.75-1.75V10h-3V3.75C12 2.78 11.22 2 10.25 2h-5.5ZM8.5 8c.34 0 .67.07.96.2A.5.5 0 0 0 9 7.5H6a.5.5 0 0 0-.5.5h3Zm4.75 5H12v-2h2v1.25c0 .41-.34.75-.75.75ZM6 5a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1H6Zm4 5.5C10 9.67 9.33 9 8.5 9h-6C1.67 9 1 9.67 1 10.5v3c0 .83.67 1.5 1.5 1.5h6c.83 0 1.5-.67 1.5-1.5v-3Zm-1 2v1a.5.5 0 0 0-.5.5h-1c0-.83.67-1.5 1.5-1.5ZM8.5 10c0 .28.22.5.5.5v1A1.5 1.5 0 0 1 7.5 10h1Zm-6.5.5a.5.5 0 0 0 .5-.5h1c0 .83-.67 1.5-1.5 1.5v-1Zm.5 3.5a.5.5 0 0 0-.5-.5v-1c.83 0 1.5.67 1.5 1.5h-1ZM4 12a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Z\"/>";
 
             /// <summary />
-            public static string StackStar { get; } = ResourceManager.GetString("StackStar");
+            public static string ReceiptSparklesSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m10.88.28.35 1.07a2.2 2.2 0 0 0 1.4 1.4l1.07.35h.02a.42.42 0 0 1 0 .8l-1.07.35a2.2 2.2 0 0 0-1.4 1.4l-.35 1.07a.42.42 0 0 1-.8 0l-.35-1.07a2.2 2.2 0 0 0-1.4-1.4L7.28 3.9a.42.42 0 0 1 0-.8l1.07-.35a2.2 2.2 0 0 0 1.38-1.4l.35-1.07a.42.42 0 0 1 .8 0Zm4.9 7.93-.76-.25a1.58 1.58 0 0 1-1-1l-.25-.76a.3.3 0 0 0-.57 0l-.25.77a1.58 1.58 0 0 1-.98 1l-.77.24a.3.3 0 0 0 0 .57l.77.25a1.58 1.58 0 0 1 1 1l.24.77a.3.3 0 0 0 .58 0l.24-.77a1.58 1.58 0 0 1 1-1l.77-.24a.3.3 0 0 0 0-.57h-.02ZM13.5 12c-.17 0-.34-.03-.5-.1v.35c0 .41-.34.75-.75.75H11v-2h1.23l-.21-.65a.52.52 0 0 0-.14-.22.63.63 0 0 0-.2-.13H11v-.23l-.1-.03c-.28-.1-.5-.26-.66-.48A1.27 1.27 0 0 1 10 8.5V13H3.75a.75.75 0 0 1-.75-.75v-8.5c0-.41.34-.75.75-.75h2.34a1.42 1.42 0 0 1 .86-.85L7.43 2H3.75C2.78 2 2 2.78 2 3.75v8.5c0 .97.78 1.75 1.75 1.75h8.5c.97 0 1.75-.78 1.75-1.75v-.33c-.16.06-.33.08-.5.08ZM8.03 5.2l-.6-.2H5a.5.5 0 0 0 0 1h3a.5.5 0 0 0 .5-.5v-.01a1.3 1.3 0 0 0-.47-.3ZM5 7.5a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1H5Zm-.5 3c0-.28.22-.5.5-.5h1.5a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5Z\"/>";
 
             /// <summary />
-            public static string Star { get; } = ResourceManager.GetString("Star");
+            public static string ReceiptSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.75 2C2.78 2 2 2.78 2 3.75v8.5c0 .97.78 1.75 1.75 1.75h8.5c.97 0 1.75-.78 1.75-1.75V10h-3V3.75C11 2.78 10.22 2 9.25 2h-5.5ZM11 13v-2h2v1.25c0 .41-.34.75-.75.75H11Zm-1 0H3.75a.75.75 0 0 1-.75-.75v-8.5c0-.41.34-.75.75-.75h5.5c.41 0 .75.34.75.75V13ZM5 5a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1H5Zm-.5 3c0-.28.22-.5.5-.5h3a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5Zm.5 2a.5.5 0 0 0 0 1h1.5a.5.5 0 0 0 0-1H5Z\"/>";
 
             /// <summary />
-            public static string StarAdd { get; } = ResourceManager.GetString("StarAdd");
+            public static string RecordStopSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H6ZM1 8a7 7 0 1 1 14 0A7 7 0 0 1 1 8Zm7-6a6 6 0 1 0 0 12A6 6 0 0 0 8 2Z\"/>";
 
             /// <summary />
-            public static string StarArrowBack { get; } = ResourceManager.GetString("StarArrowBack");
+            public static string RecordSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1ZM2 8a6 6 0 1 1 12 0A6 6 0 0 1 2 8Z\"/>";
 
             /// <summary />
-            public static string StarCheckmark { get; } = ResourceManager.GetString("StarCheckmark");
+            public static string RectangleLandscapeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1 5.5A2.5 2.5 0 0 1 3.5 3h9A2.5 2.5 0 0 1 15 5.5v5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 10.5v-5ZM3.5 4C2.67 4 2 4.67 2 5.5v5c0 .83.67 1.5 1.5 1.5h9c.83 0 1.5-.67 1.5-1.5v-5c0-.83-.67-1.5-1.5-1.5h-9Z\"/>";
 
             /// <summary />
-            public static string StarDismiss { get; } = ResourceManager.GetString("StarDismiss");
+            public static string RemoteSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13.85 2.85a.5.5 0 0 0-.7-.7l-4.5 4.5a.5.5 0 0 0 0 .7l4.5 4.5a.5.5 0 0 0 .7-.7L9.71 7l4.14-4.15Zm-11 1.3a.5.5 0 1 0-.7.7L6.29 9l-4.14 4.15a.5.5 0 0 0 .7.7l4.5-4.5a.5.5 0 0 0 0-.7l-4.5-4.5Z\"/>";
 
             /// <summary />
-            public static string StarHalf { get; } = ResourceManager.GetString("StarHalf");
+            public static string RenameSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6.5 2a.5.5 0 0 0 0 1h1v10h-1a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-1V3h1a.5.5 0 0 0 0-1h-3ZM4 4h2.5v1H4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h2.5v1H4a2 2 0 0 1-2-2V6c0-1.1.9-2 2-2Zm8 7H9.5v1H12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H9.5v1H12a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1Z\"/>";
 
             /// <summary />
-            public static string StarLineHorizontal3 { get; } = ResourceManager.GetString("StarLineHorizontal3");
+            public static string ReOrderDotsHorizontalSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11 6a1 1 0 1 0 2 0 1 1 0 0 0-2 0Zm0 4a1 1 0 1 0 2 0 1 1 0 0 0-2 0Zm-3 1a1 1 0 1 1 0-2 1 1 0 0 1 0 2ZM7 6a1 1 0 1 0 2 0 1 1 0 0 0-2 0Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2ZM3 6a1 1 0 1 0 2 0 1 1 0 0 0-2 0Z\"/>";
 
             /// <summary />
-            public static string StarOff { get; } = ResourceManager.GetString("StarOff");
+            public static string ReOrderDotsVerticalSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 5a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm1 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm3-7a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm1 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm-1 5a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z\"/>";
 
             /// <summary />
-            public static string StarOneQuarter { get; } = ResourceManager.GetString("StarOneQuarter");
+            public static string ReOrderSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2.5 9h11a.5.5 0 0 1 .09 1H2.5a.5.5 0 0 1-.09-1H13.5h-11Zm0-3h11a.5.5 0 0 1 .09 1H2.5a.5.5 0 0 1-.09-1H13.5h-11Z\"/>";
 
             /// <summary />
-            public static string StarProhibited { get; } = ResourceManager.GetString("StarProhibited");
+            public static string ResizeLargeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 3C3.67 3 3 3.67 3 4.5v1a.5.5 0 0 1-1 0v-1A2.5 2.5 0 0 1 4.5 2h1a.5.5 0 0 1 0 1h-1ZM13 4.5c0-.83-.67-1.5-1.5-1.5h-1a.5.5 0 0 1 0-1h1A2.5 2.5 0 0 1 14 4.5v1a.5.5 0 0 1-1 0v-1Zm0 7c0 .83-.67 1.5-1.5 1.5h-1a.5.5 0 0 0 0 1h1a2.5 2.5 0 0 0 2.5-2.5v-1a.5.5 0 0 0-1 0v1Zm-10 0c0 .83.67 1.5 1.5 1.5h1.25a.5.5 0 0 1 0 1H4.5A2.5 2.5 0 0 1 2 11.5v-1.25a.5.5 0 0 1 1 0v1.25ZM5.5 4C4.67 4 4 4.67 4 5.5v5c0 .83.67 1.5 1.5 1.5h5c.83 0 1.5-.67 1.5-1.5v-5c0-.83-.67-1.5-1.5-1.5h-5ZM5 5.5c0-.28.22-.5.5-.5h5c.28 0 .5.22.5.5v5a.5.5 0 0 1-.5.5h-5a.5.5 0 0 1-.5-.5v-5Z\"/>";
 
             /// <summary />
-            public static string StarThreeQuarter { get; } = ResourceManager.GetString("StarThreeQuarter");
+            public static string ResizeSmallSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 3C3.67 3 3 3.67 3 4.5v1a.5.5 0 0 1-1 0v-1A2.5 2.5 0 0 1 4.5 2h1a.5.5 0 0 1 0 1h-1ZM6 7.5C6 6.67 6.67 6 7.5 6h1c.83 0 1.5.67 1.5 1.5v1c0 .83-.67 1.5-1.5 1.5h-1A1.5 1.5 0 0 1 6 8.5v-1ZM7.5 7a.5.5 0 0 0-.5.5v1c0 .28.22.5.5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm4-4c.83 0 1.5.67 1.5 1.5v1a.5.5 0 0 0 1 0v-1A2.5 2.5 0 0 0 11.5 2h-1a.5.5 0 0 0 0 1h1Zm0 10c.83 0 1.5-.67 1.5-1.5v-1a.5.5 0 0 1 1 0v1a2.5 2.5 0 0 1-2.5 2.5h-1a.5.5 0 0 1 0-1h1Zm-7 0A1.5 1.5 0 0 1 3 11.5v-1.25a.5.5 0 0 0-1 0v1.25A2.5 2.5 0 0 0 4.5 14h1.25a.5.5 0 0 0 0-1H4.5Z\"/>";
 
             /// <summary />
-            public static string Status { get; } = ResourceManager.GetString("Status");
+            public static string RewardSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.5 2C2.67 2 2 2.67 2 3.5v1.2c0 .51.27 1 .71 1.27l3.87 2.39a3 3 0 1 0 2.84 0l3.87-2.4c.44-.26.71-.75.71-1.27V3.5c0-.83-.67-1.5-1.5-1.5h-9ZM3 3.5c0-.28.22-.5.5-.5H5v3.2L3.24 5.13A.5.5 0 0 1 3 4.69V3.5Zm3 3.33V3h4v3.83L8.26 7.9a.5.5 0 0 1-.52 0L6 6.83Zm5-.62V3h1.5c.28 0 .5.22.5.5v1.2a.5.5 0 0 1-.24.42L11 6.2ZM6 11a2 2 0 1 1 4 0 2 2 0 0 1-4 0Z\"/>";
 
             /// <summary />
-            public static string Step { get; } = ResourceManager.GetString("Step");
+            public static string RewindSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 4.46a1 1 0 0 0-1.58-.81l-5 3.53a1 1 0 0 0 0 1.64l5 3.53A1 1 0 0 0 8 11.54v-2.3l4.42 3.11a1 1 0 0 0 1.58-.81V4.46a1 1 0 0 0-1.58-.81L8 6.77v-2.3Zm0 3.55v-.02l5-3.53v7.08L8 8Zm-1 3.53L1.99 8 7 4.46v7.08Z\"/>";
 
             /// <summary />
-            public static string Steps { get; } = ResourceManager.GetString("Steps");
+            public static string RhombusSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.9 4.07C4.16 3.42 4.8 3 5.5 3h7.75c1.25 0 2.1 1.28 1.61 2.43l-2.74 6.5c-.28.65-.91 1.07-1.62 1.07H2.76a1.75 1.75 0 0 1-1.62-2.43l2.75-6.5ZM5.5 4c-.3 0-.57.18-.69.46l-2.75 6.5c-.2.5.16 1.04.7 1.04h7.74c.3 0 .58-.18.7-.46l2.74-6.5A.75.75 0 0 0 13.25 4H5.5Z\"/>";
 
             /// <summary />
-            public static string Stop { get; } = ResourceManager.GetString("Stop");
+            public static string RibbonOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.38 4.09 1.15 1.85a.5.5 0 1 1 .7-.7l13 13a.5.5 0 0 1-.7.7L11 11.71v2.79a.5.5 0 0 1-.76.43L8 13.58l-2.24 1.35A.5.5 0 0 1 5 14.5V10a5 5 0 0 1-1.62-5.91Zm6.53 6.53A4.98 4.98 0 0 1 6 10.58v3.04l1.74-1.05a.5.5 0 0 1 .52 0L10 13.62V10.7l-.09-.09Zm-.78-.78L4.16 4.87a4 4 0 0 0 4.97 4.97ZM12 6c0 1.07-.42 2.05-1.11 2.77l.7.7A4.98 4.98 0 0 0 8 1c-1.35 0-2.57.53-3.47 1.4l.7.71A3.99 3.99 0 0 1 12 6Z\"/>";
 
             /// <summary />
-            public static string StoreMicrosoft { get; } = ResourceManager.GetString("StoreMicrosoft");
+            public static string RibbonSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 1a5 5 0 0 0-3 9v4.5a.5.5 0 0 0 .76.43L8 13.58l2.24 1.35a.5.5 0 0 0 .76-.43V10a5 5 0 0 0-3-9ZM4 6a4 4 0 1 1 8 0 4 4 0 0 1-8 0Zm6 4.58v3.04l-1.74-1.05a.5.5 0 0 0-.52 0L6 13.62v-3.04a4.98 4.98 0 0 0 4 0Z\"/>";
 
             /// <summary />
-            public static string Subtitles { get; } = ResourceManager.GetString("Subtitles");
+            public static string RoadConeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.46 1a1 1 0 0 0-.97.76L3.43 14H1.5a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1h-1.93L9.5 1.76A1 1 0 0 0 8.54 1H7.46Zm4.08 13H4.46l.63-2.5h4.16a.5.5 0 0 0 0-1H5.34l.5-2H8.5a.5.5 0 0 0 0-1H6.09L7.46 2h1.08l3 12Z\"/>";
 
             /// <summary />
-            public static string Subtract { get; } = ResourceManager.GetString("Subtract");
+            public static string RocketSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.36 5.35a1.62 1.62 0 1 1 2.3 2.3 1.62 1.62 0 0 1-2.3-2.3Zm1.59.7a.62.62 0 0 0-.88 0 .62.62 0 0 0 0 .88c.25.25.64.25.88 0a.62.62 0 0 0 0-.87Zm3.83-2.55c-.2-.6-.67-1.08-1.27-1.27a4.84 4.84 0 0 0-4.88 1.2L7 4.04a2.38 2.38 0 0 0-2.62.5l-.78.79a.5.5 0 0 0 0 .7l.85.86c-.13.5 0 1.05.39 1.44L5 8.5l-.77.46a.5.5 0 0 0-.1.78l2.13 2.12a.5.5 0 0 0 .78-.1L7.5 11l.17.17c.39.4.94.52 1.44.4l.85.84c.2.2.51.2.7 0l.8-.78c.7-.71.87-1.76.5-2.63l.62-.62a4.84 4.84 0 0 0 1.2-4.88Zm-1.57-.32c.29.1.52.33.61.62a3.84 3.84 0 0 1-.94 3.87l-2.8 2.8a.5.5 0 0 1-.7 0L5.53 7.62a.5.5 0 0 1 0-.7l2.8-2.8a3.84 3.84 0 0 1 3.87-.95Zm-1.07 6.64c.04.39-.1.8-.4 1.1l-.43.43-.35-.35 1.18-1.18ZM5.1 5.26c.3-.3.7-.43 1.1-.4L5 6.04l-.35-.35.43-.43Zm1.68 5.01-.26.44L5.29 9.5l.44-.27 1.04 1.04Zm-1.92 1.6a.5.5 0 1 0-.7-.71l-1.33 1.32a.5.5 0 1 0 .7.7l1.33-1.32ZM3.79 10.1c.2.2.2.5 0 .7l-.53.53a.5.5 0 1 1-.7-.7l.52-.53c.2-.2.51-.2.7 0Zm2.12 2.83a.5.5 0 1 0-.7-.71l-.54.53a.5.5 0 1 0 .71.7l.53-.52Z\"/>";
 
             /// <summary />
-            public static string SubtractCircle { get; } = ResourceManager.GetString("SubtractCircle");
+            public static string RulerSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11 3.5c0-.83-.67-1.5-1.5-1.5h-3C5.67 2 5 2.67 5 3.5v9c0 .83.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5v-9ZM9.5 3c.28 0 .5.22.5.5v9a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V11h1.5a.5.5 0 0 0 0-1H6V8.5h2a.5.5 0 1 0 0-1H6V6h1.5a.5.5 0 1 0 0-1H6V3.5c0-.28.22-.5.5-.5h3Z\"/>";
 
             /// <summary />
-            public static string SubtractCircleArrowBack { get; } = ResourceManager.GetString("SubtractCircleArrowBack");
+            public static string RunSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.31 1.04a.5.5 0 0 1 .39 0l4.9 2.1a.5.5 0 0 1 .08.88h-.02a2.69 2.69 0 0 0-.22.17c-.15.11-.35.28-.55.48-.4.38-.75.85-.87 1.3a26.17 26.17 0 0 0 1.36 3.18l1.6.96A2.1 2.1 0 0 1 15 11.9v1.59a.5.5 0 0 1-.48.5l-.02-.5.02.5h-.04a7.94 7.94 0 0 1-.42 0 21.2 21.2 0 0 1-5-.72c-2.9-.79-6.32-2.47-8.01-6.07a.5.5 0 0 1 0-.43 12.84 12.84 0 0 1 2.72-3.32 13 13 0 0 1 3.54-2.42ZM14 13v-.54C7.67 11.9 4.16 9.28 2.44 6.42c-.15.2-.27.4-.38.59 1.55 3.06 4.55 4.57 7.27 5.3A20.2 20.2 0 0 0 14 13Zm-.53-2.04-1.4-.83-.88.89c.83.19 1.73.33 2.71.43a1.1 1.1 0 0 0-.43-.49Zm-3.32-.31 1.24-1.25v-.02a43.7 43.7 0 0 1-1.27-2.94l-1.56-.26 1.36 2.04a.5.5 0 0 1-.02.58l-1.12 1.49c.41.16.84.3 1.3.44a.5.5 0 0 1 .07-.08Zm0-5.22a4.45 4.45 0 0 1 1.28-1.7L7.5 2.04c-.82.37-1.84 1.09-2.81 1.94l1.16 1.17c.1.09.15.22.15.35v3.3c.54.39 1.15.75 1.84 1.08l1.05-1.4-1.8-2.7a.5.5 0 0 1 .5-.77l2.55.42Zm-6.2-.77c-.3.3-.59.61-.85.92A9.45 9.45 0 0 0 5 7.98V5.71L3.96 4.66Z\"/>";
 
             /// <summary />
-            public static string SubtractCircleArrowForward { get; } = ResourceManager.GetString("SubtractCircleArrowForward");
+            public static string SaveMultipleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10.3 2.59 11.4 3.7c.38.37.59.88.59 1.41V10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h4.88c.53 0 1.04.21 1.41.59ZM8 3H6v1h2V3Zm-3 8h4V8H5v3Zm5.7-.3a1 1 0 0 0 .3-.7V5.12a1 1 0 0 0-.3-.7L9.6 3.28A1 1 0 0 0 9 3.02V4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1V8a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3a1 1 0 0 0 .7-.3ZM14 10V7.12a1.98 1.98 0 0 0-.59-1.41L13 5.3V10a3 3 0 0 1-3 3H4.27A2.04 2.04 0 0 0 6 14h4a4 4 0 0 0 4-4Z\"/>";
 
             /// <summary />
-            public static string SubtractSquare { get; } = ResourceManager.GetString("SubtractSquare");
+            public static string SaveSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1V9.5C4 8.67 4.67 8 5.5 8h5c.83 0 1.5.67 1.5 1.5V13a1 1 0 0 0 1-1V5.62a1 1 0 0 0-.3-.7L11.1 3.28a1 1 0 0 0-.71-.29H10v1.5C10 5.33 9.33 6 8.5 6h-2A1.5 1.5 0 0 1 5 4.5V3H4Zm2 0v1.5c0 .28.22.5.5.5h2a.5.5 0 0 0 .5-.5V3H6Zm5 10V9.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0-.5.5V13h6ZM2 4c0-1.1.9-2 2-2h6.38a2 2 0 0 1 1.41.59l1.62 1.62A2 2 0 0 1 14 5.62V12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4Z\"/>";
 
             /// <summary />
-            public static string SubtractSquareMultiple { get; } = ResourceManager.GetString("SubtractSquareMultiple");
+            public static string SavingsSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13.97 7.72c.02.17.03.36.03.55 0 1.3-.45 2.17-.89 2.71a3.6 3.6 0 0 1-.84.76.5.5 0 0 0-.27.44v1.32a.5.5 0 0 1-.5.5H11a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1h-.5a.5.5 0 0 1-.5-.5v-.6a.5.5 0 0 0-.45-.5l-.1-.02a3.16 3.16 0 0 1-1.43-.83 4.02 4.02 0 0 1-.86-1.45c-.14-.41-.47-.78-.94-.92A.3.3 0 0 1 2 8.9v-.8c0-.12.09-.24.21-.27.48-.14.8-.53.95-.95.1-.34.3-.77.63-1.1a4.82 4.82 0 0 1 1.35-.95l.02-.01a.5.5 0 0 0 .3-.46V2.68c.22.17.45.36.7.52.32.21.7.4 1.08.51.11-.33.27-.64.46-.93a2.39 2.39 0 0 1-.99-.41 7.02 7.02 0 0 1-.94-.76.77.77 0 0 0-.82-.15.76.76 0 0 0-.48.7v1.88a6.09 6.09 0 0 0-1.4 1.03 3.88 3.88 0 0 0-.86 1.49c-.06.16-.17.27-.27.3C1.38 7 1 7.52 1 8.1v.79c0 .58.39 1.1.95 1.26.1.03.22.12.27.28.17.47.5 1.22 1.1 1.82A4.16 4.16 0 0 0 5 13.3v.21c0 .83.67 1.5 1.5 1.5H7a1 1 0 0 0 1-1h2a1 1 0 0 0 1 1h.5c.83 0 1.5-.67 1.5-1.5v-1.04l.12-.1c.21-.16.5-.4.77-.75A5.21 5.21 0 0 0 15 8.27c0-.65-.1-1.24-.27-1.75-.18.44-.43.85-.76 1.2Zm-.18-3.85a3 3 0 0 1-.9 3.5c-.43.34-1 .31-1.49.1L9.01 6.5c-.49-.2-.9-.6-.97-1.12a3 3 0 0 1 5.75-1.5ZM12.26 6.6a2 2 0 1 0-3.23-1.33c0 .01.01.05.07.11.06.07.16.14.3.2l2.39.98c.13.06.26.08.34.08.08 0 .12-.03.13-.04Zm-6.51.91a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z\"/>";
 
             /// <summary />
-            public static string Symbols { get; } = ResourceManager.GetString("Symbols");
+            public static string ScaleFitSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6.35 6.15c.2.2.2.51 0 .7l-.64.65h1.54a.5.5 0 1 1 0 1H5.7l.65.65a.5.5 0 1 1-.7.7l-1.5-1.5a.5.5 0 0 1 0-.7l1.5-1.5c.19-.2.5-.2.7 0ZM10.3 8.5l-.65.65a.5.5 0 1 0 .7.7l1.5-1.5a.5.5 0 0 0 0-.7l-1.5-1.5a.5.5 0 0 0-.7.7l.64.65H8.75a.5.5 0 1 0 0 1h1.55ZM2 5c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5Zm2-1a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H4Z\"/>";
 
             /// <summary />
-            public static string SyncOff { get; } = ResourceManager.GetString("SyncOff");
+            public static string ScanCameraSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 2A2.5 2.5 0 0 0 2 4.5v1a.5.5 0 0 0 1 0v-1C3 3.67 3.67 3 4.5 3h1a.5.5 0 0 0 0-1h-1Zm6 0a.5.5 0 0 0 0 1h1c.83 0 1.5.67 1.5 1.5v1a.5.5 0 0 0 1 0v-1A2.5 2.5 0 0 0 11.5 2h-1ZM3 10.5a.5.5 0 0 0-1 0v1A2.5 2.5 0 0 0 4.5 14h1a.5.5 0 0 0 0-1h-1A1.5 1.5 0 0 1 3 11.5v-1Zm11 0a.5.5 0 0 0-1 0v1c0 .83-.67 1.5-1.5 1.5h-1a.5.5 0 0 0 0 1h1a2.5 2.5 0 0 0 2.5-2.5v-1ZM4.5 10V7.38a1 1 0 0 1 1-1h.75l.58-.91A1 1 0 0 1 7.68 5h.64a1 1 0 0 1 .85.47l.58.91h.75a1 1 0 0 1 1 1V10a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1ZM8 9.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z\"/>";
 
             /// <summary />
-            public static string TabDesktop { get; } = ResourceManager.GetString("TabDesktop");
+            public static string ScanDashSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 2A2.5 2.5 0 0 0 2 4.5v1a.5.5 0 0 0 1 0v-1C3 3.67 3.67 3 4.5 3h1a.5.5 0 0 0 0-1h-1Zm6 0a.5.5 0 0 0 0 1h1c.83 0 1.5.67 1.5 1.5v1a.5.5 0 0 0 1 0v-1A2.5 2.5 0 0 0 11.5 2h-1ZM3 10.5a.5.5 0 0 0-1 0v1A2.5 2.5 0 0 0 4.5 14h1a.5.5 0 0 0 0-1h-1A1.5 1.5 0 0 1 3 11.5v-1Zm11 0a.5.5 0 0 0-1 0v1c0 .83-.67 1.5-1.5 1.5h-1a.5.5 0 0 0 0 1h1a2.5 2.5 0 0 0 2.5-2.5v-1Zm-9-3a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1H5Z\"/>";
 
             /// <summary />
-            public static string TabDesktopArrowClockwise { get; } = ResourceManager.GetString("TabDesktopArrowClockwise");
+            public static string ScanSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.68 4.26a4.98 4.98 0 0 1 3.88-1.23L6.29 6.96 6.27 7 4.68 4.26Zm-.7.77L6.27 9H3.1a5.02 5.02 0 0 1 .88-3.97ZM6.27 9ZM8 6l1.58-2.74a5.02 5.02 0 0 1 3 2.74H8Zm-.87 1.5.02-.02A1 1 0 0 1 8.87 8.5l-.02.02A1 1 0 0 1 7.13 7.5Zm2.6-.5h3.17a5.02 5.02 0 0 1-.88 3.97L9.73 7Zm0 2 1.59 2.74a4.98 4.98 0 0 1-3.88 1.23l2.27-3.93.02-.04ZM8 10l-1.58 2.74a5.01 5.01 0 0 1-3-2.74H8Zm0-8a6 6 0 1 0 0 12A6 6 0 0 0 8 2Zm1.73 5Z\"/>";
 
             /// <summary />
-            public static string TabDesktopImage { get; } = ResourceManager.GetString("TabDesktopImage");
+            public static string ScanTextSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 2A2.5 2.5 0 0 0 2 4.5v1a.5.5 0 0 0 1 0v-1C3 3.67 3.67 3 4.5 3h1a.5.5 0 0 0 0-1h-1Zm6 0a.5.5 0 0 0 0 1h1c.83 0 1.5.67 1.5 1.5v1a.5.5 0 0 0 1 0v-1A2.5 2.5 0 0 0 11.5 2h-1ZM3 10.5a.5.5 0 0 0-1 0v1A2.5 2.5 0 0 0 4.5 14h1a.5.5 0 0 0 0-1h-1A1.5 1.5 0 0 1 3 11.5v-1Zm11 0a.5.5 0 0 0-1 0v1c0 .83-.67 1.5-1.5 1.5h-1a.5.5 0 0 0 0 1h1a2.5 2.5 0 0 0 2.5-2.5v-1Zm-9-3a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1H5Zm-.5 3c0-.28.22-.5.5-.5h3.5a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5ZM5 5a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1H5Z\"/>";
 
             /// <summary />
-            public static string TabInPrivate { get; } = ResourceManager.GetString("TabInPrivate");
+            public static string ScanThumbUpOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m12.88 13.59 1.27 1.26a.5.5 0 0 0 .7-.7l-13-13a.5.5 0 1 0-.7.7L2.4 3.12C2.15 3.52 2 4 2 4.5v1a.5.5 0 0 0 1 0v-1c0-.23.05-.45.15-.65L6.29 7a1.4 1.4 0 0 1-.1.1l-.02.02-.92.54a1.5 1.5 0 0 0-.65 1.82l.26.7c.16.43.52.76.96.9l2.71.84c.76.24 1.57-.07 1.99-.7l1.63 1.63c-.2.1-.42.15-.65.15h-1a.5.5 0 0 0 0 1h1c.5 0 .98-.15 1.38-.41Zm-3.1-3.1a.77.77 0 0 1-.95.47l-2.71-.84a.5.5 0 0 1-.32-.3l-.27-.7a.5.5 0 0 1 .22-.6l.93-.54a.5.5 0 0 0 .04-.03h.01l.01-.01A1.47 1.47 0 0 0 7 7.7l2.78 2.78ZM7.33 5.2l.74.74c.14-.26.25-.48.38-.8a.3.3 0 0 1 .1-.13A.12.12 0 0 1 8.6 5h.05a.4.4 0 0 1 .28.23c.06.13.08.3.08.53a3.25 3.25 0 0 1-.15.96l.76.77H10a.5.5 0 0 1 .49.64l-.05.18.8.8.2-.7A1.5 1.5 0 0 0 10 6.5h-.06c.04-.24.08-.5.07-.75 0-.26-.03-.6-.18-.93a1.4 1.4 0 0 0-.92-.77c-.72-.2-1.22.35-1.38.73-.06.17-.13.3-.2.44ZM13 10.88l.98.97.02-.35v-1a.5.5 0 0 0-1 0v.38ZM4.15 2.02l.97.98h.38a.5.5 0 0 0 0-1h-1c-.12 0-.24 0-.35.02ZM14 4.5A2.5 2.5 0 0 0 11.5 2h-1a.5.5 0 0 0 0 1h1c.83 0 1.5.67 1.5 1.5v1a.5.5 0 0 0 1 0v-1ZM4.5 14A2.5 2.5 0 0 1 2 11.5v-1a.5.5 0 0 1 1 0v1c0 .83.67 1.5 1.5 1.5h1a.5.5 0 0 1 0 1h-1Z\"/>";
 
             /// <summary />
-            public static string Table { get; } = ResourceManager.GetString("Table");
+            public static string ScanThumbUpSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M14 4.5A2.5 2.5 0 0 0 11.5 2h-1a.5.5 0 0 0 0 1h1c.83 0 1.5.67 1.5 1.5v1a.5.5 0 0 0 1 0v-1Zm-12 0A2.5 2.5 0 0 1 4.5 2h1a.5.5 0 0 1 0 1h-1C3.67 3 3 3.67 3 4.5v1a.5.5 0 0 1-1 0v-1Zm12 7a2.5 2.5 0 0 1-2.5 2.5h-1a.5.5 0 0 1 0-1h1c.83 0 1.5-.67 1.5-1.5v-1a.5.5 0 0 1 1 0v1ZM4.5 14A2.5 2.5 0 0 1 2 11.5v-1a.5.5 0 0 1 1 0v1c0 .83.67 1.5 1.5 1.5h1a.5.5 0 0 1 0 1h-1Zm4.4-9.96c-.72-.2-1.22.35-1.38.73-.1.28-.2.47-.34.72l-.27.56a3.78 3.78 0 0 1-.73 1.06l-.01.01-.92.54a1.5 1.5 0 0 0-.65 1.82l.26.7c.16.43.52.76.96.9l2.71.84c.94.3 1.94-.23 2.22-1.18l.69-2.32a1.5 1.5 0 0 0-1.45-1.93h-.06c.04-.24.08-.5.07-.75 0-.26-.03-.6-.18-.93a1.4 1.4 0 0 0-.92-.77ZM5.75 8.52l.93-.54a.5.5 0 0 0 .04-.03h.01l.01-.01.08-.07a4.76 4.76 0 0 0 .99-1.4l.27-.52c.13-.26.24-.48.37-.8a.3.3 0 0 1 .1-.13A.12.12 0 0 1 8.6 5h.05a.4.4 0 0 1 .28.23c.06.13.08.3.08.53 0 .2-.04.48-.1.75-.03.12-.06.24-.1.34a.5.5 0 0 0 .49.64h.7a.5.5 0 0 1 .49.64l-.69 2.33a.77.77 0 0 1-.96.5l-2.71-.84a.5.5 0 0 1-.32-.3l-.27-.7a.5.5 0 0 1 .22-.6Z\"/>";
 
             /// <summary />
-            public static string TableAdd { get; } = ResourceManager.GetString("TableAdd");
+            public static string ScriptSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13 1H5.5A2.5 2.5 0 0 0 3 3.5V11H2a1 1 0 0 0-1 1v1c0 1.1.9 2 2 2h7a2 2 0 0 0 2-2V5h2a1 1 0 0 0 1-1V3a2 2 0 0 0-2-2ZM3 14a1 1 0 0 1-1-1v-1h6v1c0 .36.1.7.27 1H3Zm8-1a1 1 0 0 1-2 0v-1a1 1 0 0 0-1-1H4V3.5C4 2.67 4.67 2 5.5 2h5.77c-.17.3-.27.64-.27 1v10Zm3-9h-2V3a1 1 0 0 1 2 0v1Z\"/>";
 
             /// <summary />
-            public static string TableBottomRow { get; } = ResourceManager.GetString("TableBottomRow");
+            public static string SearchSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9.3 10.02a4.5 4.5 0 1 1 .7-.7l3.85 3.83a.5.5 0 0 1-.7.7L9.3 10.02ZM10 6.5a3.5 3.5 0 1 0-7 0 3.5 3.5 0 0 0 7 0Z\"/>";
 
             /// <summary />
-            public static string TableCalculator { get; } = ResourceManager.GetString("TableCalculator");
+            public static string SearchVisualSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.5 2A2.5 2.5 0 0 1 14 4.5v1a.5.5 0 0 1-1 0v-1c0-.83-.67-1.5-1.5-1.5h-1a.5.5 0 0 1 0-1h1Zm-7 0A2.5 2.5 0 0 0 2 4.5v1a.5.5 0 0 0 1 0v-1C3 3.67 3.67 3 4.5 3h1a.5.5 0 0 0 0-1h-1Zm7 12a2.5 2.5 0 0 0 2.5-2.5v-1a.5.5 0 0 0-1 0v1c0 .83-.67 1.5-1.5 1.5h-1a.5.5 0 0 0 0 1h1ZM2 11.5A2.5 2.5 0 0 0 4.5 14h1a.5.5 0 0 0 0-1h-1A1.5 1.5 0 0 1 3 11.5v-1a.5.5 0 0 0-1 0v1ZM8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0-1a1 1 0 1 1 0-2 1 1 0 0 1 0 2ZM5 5.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z\"/>";
 
             /// <summary />
-            public static string TableCellEdit { get; } = ResourceManager.GetString("TableCellEdit");
+            public static string SendBeakerSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1.18.62a.5.5 0 0 1 .54-.07L12.62 6h-2.23L2.32 1.97 3.87 7h5.21a1.5 1.5 0 0 0 0 1H3.87l-1.55 5.03L10 9.19v1.12l-8.28 4.14a.5.5 0 0 1-.7-.6L2.98 7.5 1.02 1.15a.5.5 0 0 1 .16-.53ZM14 10.4a2 2 0 0 0 .22.92l.35.68h-4.14l.35-.67a2 2 0 0 0 .22-.92V8h-.5a.5.5 0 1 1 0-1h4a.5.5 0 0 1 0 1H14v2.4ZM9.9 13l-.8 1.54a1 1 0 0 0 .9 1.46H15a1 1 0 0 0 .89-1.46l-.8-1.54H9.9Z\"/>";
 
             /// <summary />
-            public static string TableCellsMerge { get; } = ResourceManager.GetString("TableCellsMerge");
+            public static string SendSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1.18 1.12a.5.5 0 0 1 .54-.07l13 6.5a.5.5 0 0 1 0 .9l-13 6.5a.5.5 0 0 1-.7-.6L2.98 8 1.02 1.65a.5.5 0 0 1 .16-.53ZM3.87 8.5l-1.55 5.03L13.38 8 2.32 2.47 3.87 7.5H9.5a.5.5 0 0 1 0 1H3.87Z\"/>";
 
             /// <summary />
-            public static string TableCellsSplit { get; } = ResourceManager.GetString("TableCellsSplit");
+            public static string SerialPortSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Zm1.5 1.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM8 10a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Zm2.5-.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM7 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Zm2.5-.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM11 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1ZM3.02 5a2 2 0 0 0-1.94 2.47l.72 3A2 2 0 0 0 3.75 12h8.52a2 2 0 0 0 1.94-1.53l.73-3A2 2 0 0 0 12.99 5H3.02Zm-.97 2.23A1 1 0 0 1 3.02 6H13a1 1 0 0 1 .97 1.24l-.72 3a1 1 0 0 1-.97.76H3.75a1 1 0 0 1-.98-.77l-.72-3Z\"/>";
 
             /// <summary />
-            public static string TableDeleteColumn { get; } = ResourceManager.GetString("TableDeleteColumn");
+            public static string ServerSurfaceMultipleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10 7h.5a.5.5 0 1 1 0 1H10V7Zm.85-3.85a.5.5 0 0 1-.35.85H9.5c-.14-.18-.3-.35-.49-.48V3.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .35.15Zm3.13 5.2 1 3a.5.5 0 0 1-.48.65h-3.26l-.32-.98-.01-.02h2.9l-.67-2h-.23a1.5 1.5 0 0 1-1.4 1H10V9h1.5a.5.5 0 0 0 .5-.5v-6a.5.5 0 0 0-.5-.5H8.5a.5.5 0 0 0-.5.5v.55A2.5 2.5 0 0 0 7.5 3H7v-.5A1.5 1.5 0 0 1 8.5 1h3A1.5 1.5 0 0 1 13 2.5V8h.5a.5.5 0 0 1 .48.34Zm-8.83-2.2A.5.5 0 0 0 5.5 7h1a.5.5 0 1 0 0-1h-1a.5.5 0 0 0-.35.15ZM6.5 11h-1a.5.5 0 0 1 0-1h1a.5.5 0 0 1 0 1Zm4.23 3.94a.5.5 0 0 0 .25-.6l-1-3A.5.5 0 0 0 9.5 11H9V5.5A1.5 1.5 0 0 0 7.5 4h-3A1.5 1.5 0 0 0 3 5.5V11h-.5a.5.5 0 0 0-.47.34l-1 3a.5.5 0 0 0 .47.66h9a.5.5 0 0 0 .23-.06Zm-6.58-3.09A.5.5 0 0 1 4 11.5v-6a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.35-.15ZM8.9 12h.23l.67 2H2.19l.67-2h.23a1.5 1.5 0 0 0 1.41 1h3a1.5 1.5 0 0 0 1.4-1Z\"/>";
 
             /// <summary />
-            public static string TableDeleteRow { get; } = ResourceManager.GetString("TableDeleteRow");
+            public static string ServerSurfaceSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m13.97 14.32-1.5-4A.5.5 0 0 0 12 10h-1V2.5A1.5 1.5 0 0 0 9.5 1h-4A1.5 1.5 0 0 0 4 2.5V10H3a.5.5 0 0 0-.47.32l-1.5 4a.5.5 0 0 0 .47.68h12a.5.5 0 0 0 .47-.68ZM5 2.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-4a.5.5 0 0 1-.5-.5v-9ZM2.22 14l1.13-3H4v.5A1.5 1.5 0 0 0 5.5 13h4a1.5 1.5 0 0 0 1.5-1.5V11h.65l1.13 3H2.22ZM6 4.5a.5.5 0 0 1 .5-.5h2a.5.5 0 1 1 0 1h-2a.5.5 0 0 1-.5-.5Zm0 4a.5.5 0 0 1 .5-.5h2a.5.5 0 1 1 0 1h-2a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Z\"/>";
 
             /// <summary />
-            public static string TableDismiss { get; } = ResourceManager.GetString("TableDismiss");
+            public static string ServerSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6.5 5h3a.5.5 0 1 0 0-1h-3a.5.5 0 1 0 0 1Zm3 6h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 1 0 1Zm-3 2h3a.5.5 0 0 0 0-1h-3a.5.5 0 0 0 0 1ZM6 15h4a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2ZM5.3 2.3A1 1 0 0 1 6 2h4a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 .3-.7Z\"/>";
 
             /// <summary />
-            public static string TableEdit { get; } = ResourceManager.GetString("TableEdit");
+            public static string ServiceBellSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 2.5a1 1 0 0 1 1 1v.08a6.04 6.04 0 0 0-2 0V3.5a1 1 0 0 1 1-1Zm-2 1v.34A6 6 0 0 0 2 9.5c0 .28.22.5.5.5h11a.5.5 0 0 0 .5-.5 6 6 0 0 0-4-5.66V3.5a2 2 0 1 0-4 0Zm2 1A5 5 0 0 1 12.98 9H3.02A5 5 0 0 1 8 4.5Zm0 1a.5.5 0 0 0 0 1 3 3 0 0 1 2.46 1.29.5.5 0 1 0 .82-.58A4 4 0 0 0 8 5.5ZM2.5 11a1.5 1.5 0 0 0 0 3h11a1.5 1.5 0 0 0 0-3h-11ZM2 12.5c0-.28.22-.5.5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5Z\"/>";
 
             /// <summary />
-            public static string TableFreezeColumn { get; } = ResourceManager.GetString("TableFreezeColumn");
+            public static string SettingsSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM7 8a1 1 0 1 1 2 0 1 1 0 0 1-2 0Zm3.62-3.6a.7.7 0 0 1-.83-.57l-.26-1.42a.35.35 0 0 0-.27-.28 6.07 6.07 0 0 0-2.52 0 .35.35 0 0 0-.27.29L6.2 3.83a.71.71 0 0 1-.94.54l-1.36-.49a.36.36 0 0 0-.38.1c-.57.63-1 1.37-1.26 2.17-.05.14 0 .29.1.38l1.1.93a.7.7 0 0 1 0 1.08l-1.1.93c-.1.1-.15.24-.1.38.26.8.69 1.54 1.26 2.17.1.1.25.14.38.1l1.36-.49a.7.7 0 0 1 .94.54l.26 1.41c.02.15.13.26.27.29a6.07 6.07 0 0 0 2.52 0 .35.35 0 0 0 .27-.29l.26-1.41a.71.71 0 0 1 .94-.54l1.36.49c.13.04.28 0 .38-.1.57-.63 1-1.37 1.26-2.17a.35.35 0 0 0-.1-.38l-1.1-.93a.7.7 0 0 1 0-1.08l1.1-.93c.1-.1.15-.24.1-.38-.26-.8-.69-1.54-1.26-2.17a.36.36 0 0 0-.38-.1l-1.36.49a.71.71 0 0 1-.11.03ZM4 4.98l.94.33a1.71 1.71 0 0 0 2.25-1.3l.18-.97a5.1 5.1 0 0 1 1.26 0l.18.97a1.7 1.7 0 0 0 2.25 1.3l.94-.33c.26.33.47.7.63 1.08l-.75.64a1.7 1.7 0 0 0 0 2.6l.75.64c-.16.39-.37.75-.63 1.08l-.94-.33a1.7 1.7 0 0 0-2.25 1.3l-.18.97a5.1 5.1 0 0 1-1.26 0l-.18-.97a1.7 1.7 0 0 0-2.25-1.3l-.94.33c-.26-.33-.47-.7-.63-1.08l.75-.64a1.7 1.7 0 0 0 0-2.6l-.75-.64c.16-.39.37-.75.63-1.08Z\"/>";
 
             /// <summary />
-            public static string TableFreezeColumnAndRow { get; } = ResourceManager.GetString("TableFreezeColumnAndRow");
+            public static string ShapeExcludeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 4c0-1.1.9-2 2-2h5a2 2 0 0 1 2 2v1h1a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-1H4a2 2 0 0 1-2-2V4Zm1 2.56v1.58L8.14 3H6.56L3 6.56ZM5.14 3H4a1 1 0 0 0-1 1v1.14L5.14 3Zm4.31.1L7.55 5H9.3l.71-.7V4a1 1 0 0 0-.55-.9ZM5 7.57 3.1 9.45A1 1 0 0 0 4 10h.3l.7-.7V7.55ZM11.7 13h.3a1 1 0 0 0 1-1v-.3L11.7 13Zm1.3-2.7V8.7L8.7 13h1.6l2.7-2.7Zm0-3V7a1 1 0 0 0-.45-.84L11 7.71V9c0 .1 0 .21-.03.32L13 7.29Zm-3.68 3.67C9.22 11 9.1 11 9 11H7.7l-1.54 1.55A1 1 0 0 0 7 13h.3l2.02-2.03ZM6 7v3h3a1 1 0 0 0 1-1V6H7a1 1 0 0 0-1 1Z\"/>";
 
             /// <summary />
-            public static string TableFreezeColumnAndRowTempLtr { get; } = ResourceManager.GetString("TableFreezeColumnAndRowTempLtr");
+            public static string ShapeIntersectSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 4c0-1.1.9-2 2-2h5a2 2 0 0 1 2 2v1h1a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-1H4a2 2 0 0 1-2-2V4Zm8 0a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h1V7c0-1.1.9-2 2-2h3V4ZM6 9.7v.3h1.3L10 7.3V6h-.3L6 9.7ZM8.3 6H7a1 1 0 0 0-1 1v1.3L8.3 6ZM11 9a2.01 2.01 0 0 1-1.68 1.97C9.22 11 9.1 11 9 11H6v1a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-1v3Zm-2.3 1H9a1 1 0 0 0 1-1v-.3L8.7 10Z\"/>";
 
             /// <summary />
-            public static string TableFreezeColumnAndRowTempRtl { get; } = ResourceManager.GetString("TableFreezeColumnAndRowTempRtl");
+            public static string ShapesSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.5 2A3.5 3.5 0 0 0 5 8.96v1.01A4.5 4.5 0 1 1 9.97 5h-1A3.5 3.5 0 0 0 5.5 2Zm3 4A2.5 2.5 0 0 0 6 8.5v4A2.5 2.5 0 0 0 8.5 15h4a2.5 2.5 0 0 0 2.5-2.5v-4A2.5 2.5 0 0 0 12.5 6h-4ZM7 8.5C7 7.67 7.67 7 8.5 7h4c.83 0 1.5.67 1.5 1.5v4c0 .83-.67 1.5-1.5 1.5h-4A1.5 1.5 0 0 1 7 12.5v-4Z\"/>";
 
             /// <summary />
-            public static string TableFreezeColumnTempLtr { get; } = ResourceManager.GetString("TableFreezeColumnTempLtr");
+            public static string ShapeSubtractSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 2a2 2 0 0 0-2 2v5a2.03 2.03 0 0 0 .38 1.18A2 2 0 0 0 4 11h1v1c0 1.1.9 2 2 2h5a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V4a2 2 0 0 0-2-2H4Zm1.14 1L3 5.14V4a1 1 0 0 1 1-1h1.14ZM3 6.56 6.56 3h1.58L3 8.14V6.56ZM9.45 3.1A1 1 0 0 1 10 4v.3l-.7.7H7.55l1.89-1.9ZM5 7.56v1.73l-.7.71H4a1 1 0 0 1-.9-.55L5 7.55ZM6 7a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z\"/>";
 
             /// <summary />
-            public static string TableFreezeColumnTempRtl { get; } = ResourceManager.GetString("TableFreezeColumnTempRtl");
+            public static string ShapeUnionSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 2a2 2 0 0 0-2 2v5c0 1.1.9 2 2 2h1v1c0 1.1.9 2 2 2h5a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V4a2 2 0 0 0-2-2H4Zm1.14 1L3 5.14V4a1 1 0 0 1 1-1h1.14ZM3 6.56 6.56 3h1.58L3 8.14V6.56ZM9.45 3.1A1 1 0 0 1 10 4v.3L4.3 10H4a1 1 0 0 1-.9-.55l6.35-6.34ZM10 5.7V6h1.3L6 11.3V10h-.3L10 5.7Zm-3.84 6.84 6.39-6.39A1 1 0 0 1 13 7v.3L7.3 13H7a1 1 0 0 1-.84-.45ZM13 8.7v1.58L10.3 13H8.7L13 8.7Zm0 3V12a1 1 0 0 1-1 1h-.3l1.3-1.3Z\"/>";
 
             /// <summary />
-            public static string TableFreezeRow { get; } = ResourceManager.GetString("TableFreezeRow");
+            public static string ShareScreenPersonOverlayInsideSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 5a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4Zm9 3.75a.75.75 0 0 0-.75-.75h-2.5a.75.75 0 0 0-.75.75v.5c0 .97.78 1.75 1.75 1.75h.5c.97 0 1.75-.78 1.75-1.75v-.5ZM11 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2ZM3.5 3A2.5 2.5 0 0 0 1 5.5v5A2.5 2.5 0 0 0 3.5 13h9a2.5 2.5 0 0 0 2.5-2.5v-5A2.5 2.5 0 0 0 12.5 3h-9ZM2 5.5C2 4.67 2.67 4 3.5 4h9c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5h-9A1.5 1.5 0 0 1 2 10.5v-5Z\"/>";
 
             /// <summary />
-            public static string TableInsertColumn { get; } = ResourceManager.GetString("TableInsertColumn");
+            public static string ShareScreenPersonOverlaySvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1 5.5A2.5 2.5 0 0 1 3.5 3h9A2.5 2.5 0 0 1 15 5.5v2.25c0 .14-.11.25-.25.25a.27.27 0 0 1-.26-.25c-.04-.52-.22-1-.49-1.4V5.5c0-.83-.67-1.5-1.5-1.5h-9C2.67 4 2 4.67 2 5.5v5c0 .83.67 1.5 1.5 1.5h3.55a2.51 2.51 0 0 0-.01 1H3.5A2.5 2.5 0 0 1 1 10.5v-5ZM11.5 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 5c2.5 0 3.5-1.25 3.5-2.5 0-.83-.67-1.5-1.5-1.5h-4c-.83 0-1.5.67-1.5 1.5 0 1.25 1 2.5 3.5 2.5ZM4 5a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4Z\"/>";
 
             /// <summary />
-            public static string TableInsertRow { get; } = ResourceManager.GetString("TableInsertRow");
+            public static string ShareScreenPersonPSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1 5.5A2.5 2.5 0 0 1 3.5 3h9A2.5 2.5 0 0 1 15 5.5v2.25c0 .14-.11.25-.25.25a.27.27 0 0 1-.26-.25c-.04-.52-.22-1-.49-1.4V5.5c0-.83-.67-1.5-1.5-1.5h-9C2.67 4 2 4.67 2 5.5v5c0 .83.67 1.5 1.5 1.5h3.55a2.51 2.51 0 0 0-.01 1H3.5A2.5 2.5 0 0 1 1 10.5v-5ZM11.5 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 5c2.5 0 3.5-1.25 3.5-2.5 0-.83-.67-1.5-1.5-1.5h-4c-.83 0-1.5.67-1.5 1.5 0 1.25 1 2.5 3.5 2.5Zm-8-10a.5.5 0 0 0-.5.5v5a.5.5 0 0 0 1 0V9h1a2 2 0 1 0 0-4H3.5ZM5 8H4V6h1a1 1 0 0 1 0 2Z\"/>";
 
             /// <summary />
-            public static string TableLightning { get; } = ResourceManager.GetString("TableLightning");
+            public static string ShareScreenPersonSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.5 3A2.5 2.5 0 0 0 1 5.5v5A2.5 2.5 0 0 0 3.5 13h3.54a3.29 3.29 0 0 1 .01-1H3.5A1.5 1.5 0 0 1 2 10.5v-5C2 4.67 2.67 4 3.5 4h9c.83 0 1.5.67 1.5 1.5v.84c.27.41.45.9.49 1.41.01.14.12.25.26.25s.25-.11.25-.25V5.5A2.5 2.5 0 0 0 12.5 3h-9Zm10 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm1.5 4.5c0 1.25-1 2.5-3.5 2.5S8 13.75 8 12.5c0-.83.67-1.5 1.5-1.5h4c.83 0 1.5.67 1.5 1.5Z\"/>";
 
             /// <summary />
-            public static string TableLink { get; } = ResourceManager.GetString("TableLink");
+            public static string ShareScreenStopSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.15 5.15c.2-.2.5-.2.7 0L8 7.29l2.15-2.14a.5.5 0 0 1 .7.7L8.71 8l2.14 2.15a.5.5 0 0 1-.7.7L8 8.71l-2.15 2.14a.5.5 0 0 1-.7-.7L7.29 8 5.15 5.85a.5.5 0 0 1 0-.7ZM1 5c0-1.1.9-2 2-2h10a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V5Zm2-1a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H3Z\"/>";
 
             /// <summary />
-            public static string TableLock { get; } = ResourceManager.GetString("TableLock");
+            public static string ShareSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10.3 2.1a.5.5 0 0 0-.8.4v2a5.27 5.27 0 0 0-1.68.34 4.7 4.7 0 0 0-2.1 1.57A6.77 6.77 0 0 0 4.5 9.95a.5.5 0 0 0 .85.4A8.33 8.33 0 0 1 8.6 8.3c.36-.12.66-.2.9-.23V10a.5.5 0 0 0 .83.37l4.5-4a.5.5 0 0 0-.02-.76l-4.5-3.5Zm-.36 3.4a.5.5 0 0 0 .56-.5V3.52l3.22 2.5L10.5 8.9V7.5A.5.5 0 0 0 10 7h-.04a2.97 2.97 0 0 0-.46.04A8.9 8.9 0 0 0 5.73 8.7c.2-.7.48-1.26.8-1.68a3.7 3.7 0 0 1 1.65-1.24 4.37 4.37 0 0 1 1.74-.28h.02ZM4.5 3A2.5 2.5 0 0 0 2 5.5v6A2.5 2.5 0 0 0 4.5 14h6a2.5 2.5 0 0 0 2.5-2.5v-1a.5.5 0 0 0-1 0v1c0 .83-.67 1.5-1.5 1.5h-6A1.5 1.5 0 0 1 3 11.5v-6C3 4.67 3.67 4 4.5 4h2a.5.5 0 0 0 0-1h-2Z\"/>";
 
             /// <summary />
-            public static string TableMoveAbove { get; } = ResourceManager.GetString("TableMoveAbove");
+            public static string ShieldAddSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.65 2.15c.2-.2.5-.2.7 0A5.71 5.71 0 0 0 12.5 4c.28 0 .5.22.5.5v1.1c-.32-.16-.65-.3-1-.4v-.22a6.64 6.64 0 0 1-4-1.8 6.65 6.65 0 0 1-4 1.8V7.5c0 1.43.36 2.56 1.02 3.44.05.66.22 1.29.48 1.86C3.84 11.6 3 9.81 3 7.5v-3c0-.28.22-.5.5-.5 1.53 0 2.9-.61 4.15-1.85ZM15 10.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-4-2a.5.5 0 0 0-1 0V10H8.5a.5.5 0 0 0 0 1H10v1.5a.5.5 0 0 0 1 0V11h1.5a.5.5 0 0 0 0-1H11V8.5Z\"/>";
 
             /// <summary />
-            public static string TableMoveBelow { get; } = ResourceManager.GetString("TableMoveBelow");
+            public static string ShieldCheckmarkSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.65 2.15c.2-.2.5-.2.7 0A5.71 5.71 0 0 0 12.5 4c.28 0 .5.22.5.5v1.1c-.32-.16-.65-.3-1-.4v-.22a6.64 6.64 0 0 1-4-1.8 6.65 6.65 0 0 1-4 1.8V7.5c0 1.43.36 2.56 1.02 3.44.05.66.22 1.29.48 1.86C3.84 11.6 3 9.81 3 7.5v-3c0-.28.22-.5.5-.5 1.53 0 2.9-.61 4.15-1.85ZM15 10.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-2.15-1.85a.5.5 0 0 0-.7 0L9.5 11.29l-.65-.64a.5.5 0 0 0-.7.7l1 1c.2.2.5.2.7 0l3-3a.5.5 0 0 0 0-.7Z\"/>";
 
             /// <summary />
-            public static string TableMoveLeft { get; } = ResourceManager.GetString("TableMoveLeft");
+            public static string ShieldDismissSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.65 2.15c.2-.2.5-.2.7 0A5.71 5.71 0 0 0 12.5 4a.5.5 0 0 1 .5.41V7.5c0 3.22-1.64 5.4-4.84 6.47a.5.5 0 0 1-.32 0C4.74 12.94 3.1 10.85 3 7.8V4.5c0-.28.22-.5.5-.5 1.53 0 2.9-.61 4.15-1.85ZM8 3.19a6.7 6.7 0 0 1-3.71 1.76L4 4.98V7.5c0 2.64 1.22 4.4 3.74 5.37l.26.1.26-.1c2.43-.93 3.65-2.61 3.74-5.1V4.98a6.64 6.64 0 0 1-4-1.8ZM6.09 6.22l.06-.07a.5.5 0 0 1 .64-.06l.07.06L8 7.29l1.15-1.14a.5.5 0 0 1 .64-.06l.07.06c.17.17.19.44.05.63l-.06.07L8.71 8l1.14 1.15c.18.17.2.44.06.63l-.06.07a.5.5 0 0 1-.63.06l-.07-.06L8 8.71 6.85 9.85a.5.5 0 0 1-.63.06l-.07-.06a.5.5 0 0 1-.06-.63l.06-.07L7.29 8 6.15 6.85a.5.5 0 0 1-.06-.63l.06-.07-.06.07Z\"/>";
 
             /// <summary />
-            public static string TableMoveRight { get; } = ResourceManager.GetString("TableMoveRight");
+            public static string ShieldErrorSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.35 2.15a.5.5 0 0 0-.7 0A5.72 5.72 0 0 1 3.5 4a.5.5 0 0 0-.5.5v3c0 3.22 1.64 5.4 4.84 6.47.1.04.22.04.32 0C11.36 12.91 13 10.72 13 7.5v-3a.5.5 0 0 0-.5-.5c-1.53 0-2.9-.61-4.15-1.85ZM4 4.98a6.65 6.65 0 0 0 4-1.8 6.64 6.64 0 0 0 4 1.8V7.5c0 1.43-.36 2.57-1.02 3.45A6.13 6.13 0 0 1 8 12.97a6.13 6.13 0 0 1-2.98-2.02A5.57 5.57 0 0 1 4 7.5V4.98Zm4.5.52a.5.5 0 0 0-1 0v3a.5.5 0 0 0 1 0v-3Zm.25 5.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z\"/>";
 
             /// <summary />
-            public static string TableResizeColumn { get; } = ResourceManager.GetString("TableResizeColumn");
+            public static string ShieldGlobeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.35 2.15a.5.5 0 0 0-.7 0A5.72 5.72 0 0 1 3.5 4a.5.5 0 0 0-.5.5v3c0 3.22 1.64 5.4 4.84 6.47.1.04.22.04.32 0C11.36 12.91 13 10.72 13 7.5v-3a.5.5 0 0 0-.5-.5c-1.53 0-2.9-.61-4.15-1.85ZM4 4.98a6.65 6.65 0 0 0 4-1.8 6.64 6.64 0 0 0 4 1.8V7.5c0 1.43-.36 2.57-1.02 3.45A6.13 6.13 0 0 1 8 12.97a6.13 6.13 0 0 1-2.98-2.02A5.57 5.57 0 0 1 4 7.5V4.98ZM9.94 8.5h-.45c-.02.34-.06.67-.12.96a2 2 0 0 0 .57-.96Zm0-1a2 2 0 0 0-.57-.96c.06.29.1.62.12.96h.45Zm-1.46 0a6.12 6.12 0 0 0-.06-.6C8.32 6.34 8.17 6 8 6c-.17 0-.33.35-.42.9-.03.18-.05.38-.06.6h.96Zm-.96 1c.01.22.03.42.06.6.1.55.25.9.42.9.17 0 .33-.35.42-.9.03-.18.05-.38.06-.6h-.96Zm-1 0h-.46c.1.37.3.7.57.96-.06-.29-.1-.62-.12-.96Zm0-1c.01-.34.05-.67.11-.96a2 2 0 0 0-.57.96h.45ZM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z\"/>";
 
             /// <summary />
-            public static string TableResizeRow { get; } = ResourceManager.GetString("TableResizeRow");
+            public static string ShieldKeyholeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9.25 7.25c0 .51-.3.95-.75 1.15v1.1a.5.5 0 1 1-1 0V8.4a1.25 1.25 0 1 1 1.75-1.15Zm-2.1-5.2A9.27 9.27 0 0 1 2.55 3.5l-.06-.01A.5.5 0 0 0 2 4v2.76a7.5 7.5 0 0 0 3.69 6.45l2.06 1.22c.15.1.35.1.5 0l2.07-1.22A7.5 7.5 0 0 0 14 6.76V4a.5.5 0 0 0-.5-.5h-.06a4.96 4.96 0 0 1-.8-.06 8.98 8.98 0 0 1-4.29-1.8.5.5 0 0 0-.7 0l-.11.1c-.09.08-.22.18-.4.3ZM3 6.74V4.49a9.6 9.6 0 0 0 2.78-.63A9.3 9.3 0 0 0 8 2.65l.3.22a9.69 9.69 0 0 0 4.7 1.6v2.29a6.5 6.5 0 0 1-3.2 5.6L8 13.41l-1.8-1.07A6.5 6.5 0 0 1 3 6.75Z\"/>";
 
             /// <summary />
-            public static string TableSettings { get; } = ResourceManager.GetString("TableSettings");
+            public static string ShieldLockSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.65 2.15c.2-.2.5-.2.7 0A5.71 5.71 0 0 0 12.5 4c.28 0 .5.22.5.5v.9c-.3-.17-.64-.3-1-.36v-.06a6.64 6.64 0 0 1-4-1.8 6.65 6.65 0 0 1-4 1.8V7.5c0 1.43.36 2.57 1.02 3.45A5.54 5.54 0 0 0 7 12.55v1.1A6.24 6.24 0 0 1 3 7.5v-3c0-.28.22-.5.5-.5 1.53 0 2.9-.61 4.15-1.85ZM9.5 8v1H9a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-.5V8a2 2 0 1 0-4 0Zm1 1V8a1 1 0 1 1 2 0v1h-2Zm1 2.25a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5Z\"/>";
 
             /// <summary />
-            public static string TableSimple { get; } = ResourceManager.GetString("TableSimple");
+            public static string ShieldQuestionSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.65 2.15c.2-.2.5-.2.7 0A5.71 5.71 0 0 0 12.5 4c.28 0 .5.22.5.5v3c0 3.22-1.64 5.4-4.84 6.47a.5.5 0 0 1-.32 0C4.64 12.91 3 10.72 3 7.5v-3c0-.28.22-.5.5-.5 1.53 0 2.9-.61 4.15-1.85ZM8 3.19a6.65 6.65 0 0 1-4 1.8V7.5c0 1.43.36 2.57 1.02 3.45.64.85 1.61 1.54 2.98 2.02a6.13 6.13 0 0 0 2.98-2.02A5.57 5.57 0 0 0 12 7.5V4.98a6.64 6.64 0 0 1-4-1.8Zm.75 7.56a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm-1.5-4a.75.75 0 0 1 1.5 0c0 .26-.14.44-.48.77l-.03.03c-.3.3-.74.74-.74 1.45a.5.5 0 0 0 1 0c0-.27.15-.44.48-.77L9 8.2c.3-.3.74-.74.74-1.45a1.75 1.75 0 1 0-3.5 0 .5.5 0 0 0 1 0Z\"/>";
 
             /// <summary />
-            public static string TableSimpleCheckmark { get; } = ResourceManager.GetString("TableSimpleCheckmark");
+            public static string ShieldSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.65 2.15c.2-.2.5-.2.7 0A5.71 5.71 0 0 0 12.5 4c.28 0 .5.22.5.5v3c0 3.22-1.64 5.4-4.84 6.47a.5.5 0 0 1-.32 0C4.64 12.91 3 10.72 3 7.5v-3c0-.28.22-.5.5-.5 1.53 0 2.9-.61 4.15-1.85ZM8 3.19a6.65 6.65 0 0 1-4 1.8V7.5c0 1.43.36 2.57 1.02 3.45.64.85 1.61 1.54 2.98 2.02a6.13 6.13 0 0 0 2.98-2.02A5.57 5.57 0 0 0 12 7.5V4.98a6.64 6.64 0 0 1-4-1.8Z\"/>";
 
             /// <summary />
-            public static string TableSimpleExclude { get; } = ResourceManager.GetString("TableSimpleExclude");
+            public static string ShieldTaskSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10.85 6.85a.5.5 0 0 0-.7-.7L7.5 8.79 6.35 7.65a.5.5 0 1 0-.7.7l1.5 1.5c.2.2.5.2.7 0l3-3Zm-2.5-4.7a.5.5 0 0 0-.7 0A5.72 5.72 0 0 1 3.5 4a.5.5 0 0 0-.5.5v3c0 3.22 1.64 5.4 4.84 6.47.1.04.22.04.32 0C11.36 12.91 13 10.72 13 7.5v-3a.5.5 0 0 0-.5-.5c-1.53 0-2.9-.61-4.15-1.85ZM4 4.98a6.65 6.65 0 0 0 4-1.8 6.64 6.64 0 0 0 4 1.8V7.5c0 1.43-.36 2.57-1.02 3.45A6.13 6.13 0 0 1 8 12.97a6.13 6.13 0 0 1-2.98-2.02A5.57 5.57 0 0 1 4 7.5V4.98Z\"/>";
 
             /// <summary />
-            public static string TableSimpleInclude { get; } = ResourceManager.GetString("TableSimpleInclude");
+            public static string ShiftsActivitySvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 2.48a.5.5 0 0 1-.46.54 5 5 0 1 0 5.44 5.44.5.5 0 0 1 1 .08 6 6 0 1 1-6.52-6.52.5.5 0 0 1 .54.46ZM7.5 5c.28 0 .5.22.5.5V8h1.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5v-3c0-.28.22-.5.5-.5Zm2.14-2.77a.5.5 0 1 0-.28.96c.55.15 1.06.4 1.52.72a.5.5 0 0 0 .57-.82 5.98 5.98 0 0 0-1.81-.86Zm3.27 2.32a.5.5 0 1 0-.82.57c.32.46.57.97.72 1.52a.5.5 0 0 0 .96-.28 5.98 5.98 0 0 0-.86-1.81Z\"/>";
 
             /// <summary />
-            public static string TableStackAbove { get; } = ResourceManager.GetString("TableStackAbove");
+            public static string ShiftsSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.5 4c.28 0 .5.22.5.5V8h2.5a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5v-4c0-.28.22-.5.5-.5Z\"/><path d=\"M4.5 2A2.5 2.5 0 0 0 2 4.5v7A2.5 2.5 0 0 0 4.5 14h7a2.5 2.5 0 0 0 2.5-2.5v-7A2.5 2.5 0 0 0 11.5 2h-7ZM3 4.5C3 3.67 3.67 3 4.5 3h7c.83 0 1.5.67 1.5 1.5v7c0 .83-.67 1.5-1.5 1.5h-7A1.5 1.5 0 0 1 3 11.5v-7Z\"/>";
 
             /// <summary />
-            public static string TableStackBelow { get; } = ResourceManager.GetString("TableStackBelow");
+            public static string ShoppingBagSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 5V3a2 2 0 0 1 3-1.73A2 2 0 0 1 11 3v2h.5c.83 0 1.5.67 1.5 1.5V13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6.5C3 5.67 3.67 5 4.5 5H5Zm1-2v2h2V3a1 1 0 0 0-2 0Zm5 11a1 1 0 0 0 1-1V6.5a.5.5 0 0 0-.5-.5H10v7a1 1 0 0 0 1 1ZM9 6H4.5a.5.5 0 0 0-.5.5V13a1 1 0 0 0 1 1h4.27A2 2 0 0 1 9 13V6Zm0-3v2h1V3a1 1 0 0 0-1.25-.97A2 2 0 0 1 9 3Z\"/>";
 
             /// <summary />
-            public static string TableStackLeft { get; } = ResourceManager.GetString("TableStackLeft");
+            public static string SignatureSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9.02 1.77a2.44 2.44 0 0 1 3.46 3.46l-.27.27.08.09a2 2 0 0 1 0 2.82l-1.44 1.44a.5.5 0 0 1-.7-.7l1.44-1.44a1 1 0 0 0 0-1.42l-.09-.08-5.65 5.64a.5.5 0 0 1-.23.14l-4 1a.5.5 0 0 1-.6-.65L2.29 8.6a.5.5 0 0 1 .12-.2l6.62-6.62Zm2.75.7a1.44 1.44 0 0 0-2.04 0L3.19 9.03l-.93 2.77 2.98-.74 6.53-6.53c.57-.56.57-1.48 0-2.04ZM4.97 15c-1.24 0-2.21-.57-2.86-1.1l1.29-.33c.44.25.97.43 1.57.43.4 0 .82-.16 1.27-.46.44-.29.87-.68 1.31-1.1l.11-.1c.39-.36.79-.74 1.17-1 .4-.27.95-.53 1.52-.3.37.14.62.4.79.73.16.3.27.69.38 1.1.05.2.13.38.23.5.04.06.08.1.11.12l.04.01c.12 0 .33-.08.63-.29.19-.12.34-.25.5-.37l.3-.24a4.76 4.76 0 0 1 .98-.56l.02-.01h.01l.16.47-.16-.47a.5.5 0 0 1 .32.94l-.03.02-.15.06c-.13.07-.32.18-.55.35l-.22.17c-.18.15-.4.33-.62.47-.3.21-.74.46-1.19.46a1.2 1.2 0 0 1-.95-.52c-.2-.25-.33-.57-.4-.85a4.4 4.4 0 0 0-.3-.9c-.09-.16-.17-.23-.26-.26-.08-.03-.25-.04-.6.2-.31.21-.65.53-1.06.91l-.1.1c-.43.4-.92.85-1.45 1.2-.52.35-1.14.62-1.81.62Z\"/>";
 
             /// <summary />
-            public static string TableStackRight { get; } = ResourceManager.GetString("TableStackRight");
+            public static string SimSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 9.5C5 8.67 5.67 8 6.5 8h3c.83 0 1.5.67 1.5 1.5v2c0 .83-.67 1.5-1.5 1.5h-3A1.5 1.5 0 0 1 5 11.5v-2ZM6.5 9a.5.5 0 0 0-.5.5v2c0 .28.22.5.5.5H8V9H6.5ZM9 9v3h.5a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-.5-.5H9ZM3 3.5A2.5 2.5 0 0 1 5.5 1h3.17c.66 0 1.3.26 1.77.73l1.83 1.83c.47.47.73 1.1.73 1.77v7.17a2.5 2.5 0 0 1-2.5 2.5h-5A2.5 2.5 0 0 1 3 12.5v-9ZM5.5 2C4.67 2 4 2.67 4 3.5v9c0 .83.67 1.5 1.5 1.5h5c.83 0 1.5-.67 1.5-1.5V5.33c0-.4-.16-.78-.44-1.06L9.73 2.44A1.5 1.5 0 0 0 8.67 2H5.5Z\"/>";
 
             /// <summary />
-            public static string TableSwitch { get; } = ResourceManager.GetString("TableSwitch");
+            public static string SlashForwardSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10.44 2.04c.26.1.38.4.27.65l-4.5 11a.5.5 0 0 1-.92-.38l4.5-11a.5.5 0 0 1 .65-.27Z\"/>";
 
             /// <summary />
-            public static string Tablet { get; } = ResourceManager.GetString("Tablet");
+            public static string SlideAddSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1 4.5A2.5 2.5 0 0 1 3.5 2h9A2.5 2.5 0 0 1 15 4.5v2.76a5.5 5.5 0 0 0-1-.66V4.5c0-.83-.67-1.5-1.5-1.5h-9C2.67 3 2 3.67 2 4.5v5c0 .83.67 1.5 1.5 1.5h2.52a5.57 5.57 0 0 0 0 1H3.5A2.5 2.5 0 0 1 1 9.5v-5Zm15 7a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-4-2a.5.5 0 0 0-1 0V11H9.5a.5.5 0 0 0 0 1H11v1.5a.5.5 0 0 0 1 0V12h1.5a.5.5 0 0 0 0-1H12V9.5Z\"/>";
 
             /// <summary />
-            public static string Tabs { get; } = ResourceManager.GetString("Tabs");
+            public static string SlideEraserSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1 3.75C1 2.78 1.78 2 2.75 2h10.5c.97 0 1.75.78 1.75 1.75V8h-.07L14 7.07V3.75a.75.75 0 0 0-.75-.75H2.75a.75.75 0 0 0-.75.75v6.5c0 .41.34.75.75.75h3.48c-.15.31-.23.66-.23 1H2.75C1.78 12 1 11.22 1 10.25v-6.5Zm10.12 3.62a1.25 1.25 0 0 1 1.76 0l1.75 1.75c.5.48.5 1.28 0 1.76l-2.57 2.58-3.52-3.52 2.58-2.57Zm-3.18 3.17-.57.58a1.25 1.25 0 0 0 0 1.76l1.75 1.75c.48.5 1.28.5 1.76 0l.58-.57-3.52-3.52Z\"/>";
 
             /// <summary />
-            public static string TagDismiss { get; } = ResourceManager.GetString("TagDismiss");
+            public static string SlideTextMultipleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 4a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3ZM4 6.5c0-.28.22-.5.5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5ZM4.5 8a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3Zm-3-3.5A2.5 2.5 0 0 1 4 2h6.5A2.5 2.5 0 0 1 13 4.5v5a2.5 2.5 0 0 1-2.5 2.5H4a2.5 2.5 0 0 1-2.5-2.5v-5ZM4 3c-.83 0-1.5.67-1.5 1.5v5c0 .83.67 1.5 1.5 1.5h6.5c.83 0 1.5-.67 1.5-1.5v-5c0-.83-.67-1.5-1.5-1.5H4Zm10 6.5a3.5 3.5 0 0 1-3.5 3.5H3.67c.77.63 1.76 1 2.83 1h4A4.5 4.5 0 0 0 15 9.5v-3c0-1.07-.37-2.06-1-2.83V9.5Z\"/>";
 
             /// <summary />
-            public static string TagError { get; } = ResourceManager.GetString("TagError");
+            public static string SlideTextPersonSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1 5.5A2.5 2.5 0 0 1 3.5 3h9A2.5 2.5 0 0 1 15 5.5v.84c-.26-.39-.6-.7-1-.94A1.5 1.5 0 0 0 12.5 4h-9C2.67 4 2 4.67 2 5.5v5c0 .83.67 1.5 1.5 1.5h4.55a2.51 2.51 0 0 0-.01 1H3.5A2.5 2.5 0 0 1 1 10.5v-5ZM9.67 7a3 3 0 0 0-.17 1h-5a.5.5 0 0 1 0-1h5.17ZM4.5 5a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3Zm0 4a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4Zm10-1a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm1.5 4.5c0 1.25-1 2.5-3.5 2.5S9 13.75 9 12.5c0-.83.67-1.5 1.5-1.5h4c.83 0 1.5.67 1.5 1.5Z\"/>";
 
             /// <summary />
-            public static string TagLock { get; } = ResourceManager.GetString("TagLock");
+            public static string SlideTextSparkleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m10.88.28.35 1.07a2.2 2.2 0 0 0 1.4 1.4l1.07.35h.02a.42.42 0 0 1 0 .8l-1.07.35a2.2 2.2 0 0 0-1.4 1.4l-.35 1.07a.42.42 0 0 1-.8 0l-.35-1.07a2.2 2.2 0 0 0-1.4-1.4L7.28 3.9a.42.42 0 0 1 0-.8l1.07-.35a2.2 2.2 0 0 0 1.38-1.4l.35-1.07a.42.42 0 0 1 .8 0Zm4.9 7.93-.76-.25a1.58 1.58 0 0 1-1-1l-.25-.76a.3.3 0 0 0-.57 0l-.25.77a1.58 1.58 0 0 1-.98 1l-.77.24a.3.3 0 0 0 0 .57l.77.25a1.58 1.58 0 0 1 1 1l.24.77a.3.3 0 0 0 .58 0l.24-.77a1.58 1.58 0 0 1 1-1l.77-.24a.3.3 0 0 0 0-.57h-.02Zm-2.55 3.76.27.03c.27 0 .53-.05.75-.21.22-.16.38-.37.48-.65l.25-.76.02-.06V11a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2h3.09a1.42 1.42 0 0 0 0 1H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h10a1 1 0 0 0 .23-.03ZM9.13 7l.02.05c.1.25.25.48.52.7.14.1.3.16.45.2L10.1 8H4.5a.5.5 0 0 1 0-1h4.64Zm-1.7-2 .41.14A.5.5 0 0 1 7.5 6h-3a.5.5 0 0 1 0-1h2.93ZM4 9.5c0-.28.22-.5.5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5Z\"/>";
 
             /// <summary />
-            public static string TagMultiple { get; } = ResourceManager.GetString("TagMultiple");
+            public static string SlideTextSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 5a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3ZM4 7.5c0-.28.22-.5.5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5ZM4.5 9a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4ZM3 3a2 2 0 0 0-2 2v6c0 1.1.9 2 2 2h10a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H3ZM2 5a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5Z\"/>";
 
             /// <summary />
-            public static string TagQuestionMark { get; } = ResourceManager.GetString("TagQuestionMark");
+            public static string SnoozeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 8h2.5c.4 0 .62.43.43.75l-.04.07L5.07 11H6.5a.5.5 0 0 1 .1 1H4a.5.5 0 0 1-.43-.75l.05-.07L5.43 9H4a.5.5 0 0 1-.09-1h2.6H4Zm5-5h3.5c.38 0 .6.4.45.71l-.04.08L9.96 8h2.54a.5.5 0 0 1 .1 1H9a.5.5 0 0 1-.45-.71l.04-.08L11.54 4H9a.5.5 0 0 1-.09-1h3.6H9Z\"/>";
 
             /// <summary />
-            public static string Target { get; } = ResourceManager.GetString("Target");
+            public static string Space3dSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 4.5A2.5 2.5 0 0 1 4.5 2h7A2.5 2.5 0 0 1 14 4.5v7a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 11.5v-7ZM3 11v.5c0 .83.67 1.5 1.5 1.5h.14l.67-2H3Zm2.64-1 .67-2H5.27l-1.34 2h1.71Zm.72 1-.67 2h4.62l-.67-2H6.36Zm2.95-1-.67-2H7.36l-.67 2h2.62Zm1.38 1 .67 2h.14c.83 0 1.5-.67 1.5-1.5V11h-2.3Zm1.38-1-1.34-2H9.7l.67 2h1.7ZM13 4.5c0-.83-.67-1.5-1.5-1.5h-7C3.67 3 3 3.67 3 4.5V7h10V4.5ZM3 9.6 4.07 8H3v1.6Zm10 0V8h-1.07L13 9.6Z\"/>";
 
             /// <summary />
-            public static string TargetArrow { get; } = ResourceManager.GetString("TargetArrow");
+            public static string SparkleCircleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9.9 8.3a.42.42 0 0 0-.8 0l-.11.36a.5.5 0 0 1-.33.33l-.36.1c-.4.13-.4.7 0 .81l.35.1a.5.5 0 0 1 .34.34l.1.36c.13.4.7.4.81 0l.1-.36a.5.5 0 0 1 .34-.33l.36-.1c.4-.13.4-.7 0-.81l-.36-.1a.5.5 0 0 1-.33-.34l-.1-.36ZM7.55 5.39a.58.58 0 0 0-1.1 0l-.17.48a.67.67 0 0 1-.4.4l-.5.18a.58.58 0 0 0 0 1.1l.5.17c.18.07.33.22.4.4l.17.5c.18.5.92.51 1.1 0l.17-.5a.67.67 0 0 1 .4-.4l.5-.17a.58.58 0 0 0 0-1.1l-.5-.17a.67.67 0 0 1-.4-.4l-.17-.5ZM2 8a6 6 0 1 1 12 0A6 6 0 0 1 2 8Zm6-5a5 5 0 1 0 0 10A5 5 0 0 0 8 3Z\"/>";
 
             /// <summary />
-            public static string TargetEdit { get; } = ResourceManager.GetString("TargetEdit");
+            public static string SparkleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.47 9.83a.92.92 0 0 0 1.4-.46l.35-1.07A1.72 1.72 0 0 1 8.3 7.22l1.09-.35a.92.92 0 0 0-.04-1.75l-1.07-.35A1.7 1.7 0 0 1 7.2 3.7L6.85 2.6a.92.92 0 0 0-.87-.6c-.2 0-.38.05-.53.16a.92.92 0 0 0-.35.46l-.35 1.09A1.71 1.71 0 0 1 3.7 4.77l-1.08.36a.92.92 0 0 0 0 1.74l1.08.35A1.71 1.71 0 0 1 4.78 8.3l.35 1.08c.06.18.18.34.34.45ZM4 6.26 3.15 6l.87-.28A2.72 2.72 0 0 0 5.7 4l.26-.86.28.87a2.7 2.7 0 0 0 1.72 1.71l.88.27-.86.28a2.7 2.7 0 0 0-1.72 1.72l-.26.85-.28-.86A2.7 2.7 0 0 0 4 6.26Zm6.52 7.6c.14.09.3.14.47.14a.81.81 0 0 0 .76-.55l.25-.76a1.09 1.09 0 0 1 .68-.68l.77-.25a.8.8 0 0 0-.02-1.53l-.77-.25a1.08 1.08 0 0 1-.68-.67l-.25-.78A.8.8 0 0 0 11.1 8a.8.8 0 0 0-.88.54l-.25.77a1.1 1.1 0 0 1-.66.67l-.78.26a.8.8 0 0 0-.38 1.22c.1.14.23.24.4.3l.76.25a1.09 1.09 0 0 1 .68.68l.25.77c.06.16.16.3.3.4Zm-.91-2.8L9.44 11l.19-.06a2.09 2.09 0 0 0 1.3-1.32l.05-.18.06.18a2.08 2.08 0 0 0 1.32 1.32l.2.06-.18.06a2.08 2.08 0 0 0-1.32 1.32l-.06.18-.06-.18a2.07 2.07 0 0 0-1.32-1.32Z\"/>";
 
             /// <summary />
-            public static string TaskListSquareLtr { get; } = ResourceManager.GetString("TaskListSquareLtr");
+            public static string Speaker0SvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.7 2.04c.18.08.3.26.3.46v11a.5.5 0 0 1-.85.36l-2.93-2.88H3.5A1.5 1.5 0 0 1 2 9.48V6.5C2 5.66 2.67 5 3.5 5h1.72l2.93-2.85a.5.5 0 0 1 .54-.1ZM8 3.69 5.78 5.85a.5.5 0 0 1-.35.14H3.5a.5.5 0 0 0-.5.5v3c0 .27.22.5.5.5h1.93a.5.5 0 0 1 .35.13L8 12.31V3.69Z\"/>";
 
             /// <summary />
-            public static string TaskListSquareRtl { get; } = ResourceManager.GetString("TaskListSquareRtl");
+            public static string Speaker1SvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.7 2.04c.18.08.3.26.3.46v11a.5.5 0 0 1-.85.36l-2.93-2.88H3.5A1.5 1.5 0 0 1 2 9.48V6.5C2 5.66 2.67 5 3.5 5h1.72l2.93-2.85a.5.5 0 0 1 .54-.1ZM8 3.69 5.78 5.85a.5.5 0 0 1-.35.14H3.5a.5.5 0 0 0-.5.5v3c0 .27.22.5.5.5h1.93a.5.5 0 0 1 .35.13L8 12.31V3.69Zm2.11 1.5a.5.5 0 0 1 .7-.08h.01l.02.02a1.6 1.6 0 0 1 .19.18c.1.12.26.3.4.54.3.48.57 1.2.57 2.15a4.1 4.1 0 0 1-.97 2.69 2.5 2.5 0 0 1-.2.2h-.01s-.45.24-.7-.08a.5.5 0 0 1 .07-.7l.02-.01.08-.09c.08-.08.18-.2.29-.38.2-.35.42-.88.42-1.63a3.09 3.09 0 0 0-.7-2 1.52 1.52 0 0 0-.11-.11.5.5 0 0 1-.08-.7Zm.08.7Z\"/>";
 
             /// <summary />
-            public static string Temperature { get; } = ResourceManager.GetString("Temperature");
+            public static string Speaker2SvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.7 2.04c.18.08.3.26.3.46v11a.5.5 0 0 1-.85.36l-2.93-2.88H3.5A1.5 1.5 0 0 1 2 9.48V6.5C2 5.66 2.67 5 3.5 5h1.72l2.93-2.85a.5.5 0 0 1 .54-.1ZM8 3.69 5.78 5.85a.5.5 0 0 1-.35.14H3.5a.5.5 0 0 0-.5.5v3c0 .27.22.5.5.5h1.93a.5.5 0 0 1 .35.13L8 12.31V3.69Zm2.11 1.5a.5.5 0 0 1 .7-.08h.01l.02.02a1.6 1.6 0 0 1 .19.18c.1.12.26.3.4.54.3.48.57 1.2.57 2.15a4.1 4.1 0 0 1-.97 2.69 2.5 2.5 0 0 1-.2.2h-.01s-.45.24-.7-.08a.5.5 0 0 1 .07-.7l.02-.01.08-.09c.08-.08.18-.2.29-.38.2-.35.42-.88.42-1.63a3.09 3.09 0 0 0-.7-2 1.52 1.52 0 0 0-.11-.11.5.5 0 0 1-.08-.7Zm1.7-2.08a.5.5 0 1 0-.62.78l.01.01a2.05 2.05 0 0 1 .25.24A5.52 5.52 0 0 1 13 8a5.52 5.52 0 0 1-1.8 4.1h-.01a.5.5 0 0 0 .62.8l.04-.04a3.09 3.09 0 0 0 .32-.3A6.48 6.48 0 0 0 14 8a6.54 6.54 0 0 0-2.15-4.86l-.03-.02V3.1ZM10.2 5.89Z\"/>";
 
             /// <summary />
-            public static string Tent { get; } = ResourceManager.GetString("Tent");
+            public static string SpeakerEditSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9 2.5a.5.5 0 0 0-.85-.36L5.22 5H3.5C2.67 5 2 5.66 2 6.5v2.99c0 .83.67 1.5 1.5 1.5h1.72l1.3 1.28c.14-.32.31-.62.52-.9l-1.26-1.24a.5.5 0 0 0-.35-.14H3.5a.5.5 0 0 1-.5-.5V6.49c0-.27.22-.5.5-.5h1.93a.5.5 0 0 0 .35-.14L8 3.68v6.7l1-1V2.5Zm-.95 9.24a2.78 2.78 0 0 0-.73 1.3l-.3 1.2a.6.6 0 0 0 .73.74l1.22-.3c.48-.12.93-.38 1.29-.73l4.28-4.29a1.56 1.56 0 0 0-1.61-2.58c-.22.08-.42.2-.6.37L12 7.8l-1.12 1.12-2.83 2.83Zm5.64-5.73a6.63 6.63 0 0 0-1.85-2.87l-.02-.02V3.1a.5.5 0 1 0-.63.78l.01.01a2.3 2.3 0 0 1 .25.24 5.52 5.52 0 0 1 1.22 1.97c.33-.1.68-.13 1.02-.1Zm-1.9.6a3.82 3.82 0 0 0-.95-1.48l-.02-.01V5.1a.5.5 0 0 0-.63.78l.02.02.08.08a2.93 2.93 0 0 1 .67 1.43l.67-.67.15-.14Z\"/>";
 
             /// <summary />
-            public static string TetrisApp { get; } = ResourceManager.GetString("TetrisApp");
+            public static string SpeakerMuteSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.7 2.04c.18.08.3.26.3.46v11a.5.5 0 0 1-.85.36l-2.93-2.88H3.5A1.5 1.5 0 0 1 2 9.48V6.5C2 5.66 2.67 5 3.5 5h1.72l2.93-2.85a.5.5 0 0 1 .54-.1ZM8 3.69 5.78 5.85a.5.5 0 0 1-.35.14H3.5a.5.5 0 0 0-.5.5v3c0 .27.22.5.5.5h1.93a.5.5 0 0 1 .35.13L8 12.31V3.69Zm2.15 2.46c.2-.2.5-.2.7 0L12 7.29l1.15-1.14a.5.5 0 1 1 .7.7L12.71 8l1.14 1.15a.5.5 0 1 1-.7.7L12 8.71l-1.15 1.14a.5.5 0 0 1-.7-.7L11.29 8l-1.14-1.15a.5.5 0 0 1 0-.7Z\"/>";
 
             /// <summary />
-            public static string Text { get; } = ResourceManager.GetString("Text");
+            public static string SpeakerOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m9 9.7 5.15 5.15a.5.5 0 0 0 .7-.7l-13-13a.5.5 0 1 0-.7.7L4.29 5H3.5C2.67 5 2 5.66 2 6.5v3c0 .82.67 1.5 1.5 1.5h1.72l2.93 2.87A.5.5 0 0 0 9 13.5V9.7Zm-1-1v3.6l-2.22-2.18a.5.5 0 0 0-.35-.14H3.5a.5.5 0 0 1-.5-.5V6.5c0-.27.22-.5.5-.5h1.79l2.7 2.72Zm0-2.82v-2.2L6.89 4.78l-.7-.71 1.96-1.92A.5.5 0 0 1 9 2.5v4.38l-1-1Zm3.7 3.7-.79-.79a3.43 3.43 0 0 0-.33-2.42 2.38 2.38 0 0 0-.4-.48h.01a.5.5 0 0 1 .62-.78h.01l.02.02a1.6 1.6 0 0 1 .19.18c.1.12.26.3.4.54.3.48.57 1.2.57 2.15 0 .63-.12 1.16-.3 1.59Zm1.53 1.52-.75-.74a5.5 5.5 0 0 0-.4-5.42 5.51 5.51 0 0 0-.88-1.04h-.01a.5.5 0 0 1 .62-.8v.01h.01l.03.03a3.14 3.14 0 0 1 .32.3A6.52 6.52 0 0 1 14 8a6.5 6.5 0 0 1-.77 3.1Z\"/>";
 
             /// <summary />
-            public static string TextAlignCenter { get; } = ResourceManager.GetString("TextAlignCenter");
+            public static string SplitHorizontalSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M14.5 8a.5.5 0 0 0 0-1h-13a.5.5 0 0 0 0 1h13ZM3 6h1V3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v3h1V3a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v3Zm0 6V9h1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V9h1v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z\"/>";
 
             /// <summary />
-            public static string TextAlignCenterRotate270 { get; } = ResourceManager.GetString("TextAlignCenterRotate270");
+            public static string SplitVerticalSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 1.5a.5.5 0 0 0-1 0v13a.5.5 0 0 0 1 0v-13ZM6 13v-1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3V3H3a2 2 0 0 0-2 2v6c0 1.1.9 2 2 2h3Zm6 0H9v-1h3a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H9V3h3a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2Z\"/>";
 
             /// <summary />
-            public static string TextAlignCenterRotate90 { get; } = ResourceManager.GetString("TextAlignCenterRotate90");
+            public static string SportSoccerSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 1.5a6.5 6.5 0 1 1 0 13 6.5 6.5 0 0 1 0-13ZM6.84 2.62 8 3.4l1.16-.78a5.52 5.52 0 0 0-2.32 0Zm-1.2.4c-.73.36-1.37.86-1.89 1.48l.65 2.1 1 .34 2.1-1.59V4.27L5.64 3.03ZM3.04 5.6a5.46 5.46 0 0 0-.51 1.82l.89-.62-.37-1.2Zm-.5 3.03c.1.87.4 1.67.85 2.37h1.9l.64-.63L5.1 7.9l-1.02-.35-1.54 1.08ZM4.23 12c.4.38.86.7 1.37.95L5.18 12h-.95Zm2.66 1.39a5.53 5.53 0 0 0 2.22 0l.8-1.78-.62-.61H6.71l-.61.61.79 1.78Zm3.51-.44c.5-.25.97-.57 1.37-.95h-.95l-.42.95ZM12.61 11c.44-.67.74-1.45.84-2.28l-1.54-1.16-1.01.34-.83 2.46.64.64h1.9Zm.87-3.52a5.46 5.46 0 0 0-.53-1.89l-.37 1.22.9.67Zm-1.25-3a5.52 5.52 0 0 0-1.87-1.45L8.5 4.27v1.08l2.1 1.6 1-.34.63-2.12ZM6.1 7.69 6.86 10h2.28l.77-2.32L8 6.23 6.09 7.68Z\"/>";
 
             /// <summary />
-            public static string TextAlignLeft { get; } = ResourceManager.GetString("TextAlignLeft");
+            public static string SportSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13.02 9.3a4.48 4.48 0 0 0 .95-3.3 2.99 2.99 0 0 1-2.96-.3l-.8.8L13 9.3Zm-.71.72L9.16 6.87a.52.52 0 0 1-.03-.03L5.98 3.69c-.35.44-.62.95-.79 1.5a7.48 7.48 0 0 0-1-.16 5.5 5.5 0 0 1 6.45-3.91 5.52 5.52 0 0 1 3.86 3.1 5.52 5.52 0 0 1-3.54 7.59 7.47 7.47 0 0 0-.15-1 4.49 4.49 0 0 0 1.5-.8Zm1.43-5.03a4.5 4.5 0 0 0-.72-1.3l-1.29 1.28a2 2 0 0 0 2 .02Zm-2.71-.72 1.28-1.29a4.5 4.5 0 0 0-1.3-.72 2 2 0 0 0 .02 2ZM10 2.03a4.55 4.55 0 0 0-3.32.95L9.5 5.8l.8-.8a2.99 2.99 0 0 1-.3-2.96ZM2.5 7a.5.5 0 0 0-.5.5v1A5.5 5.5 0 0 0 7.5 14h1a.5.5 0 0 0 .5-.5v-1A5.5 5.5 0 0 0 3.5 7h-1ZM1 7.5C1 6.67 1.67 6 2.5 6h1a6.5 6.5 0 0 1 6.5 6.5v1c0 .83-.67 1.5-1.5 1.5h-1A6.5 6.5 0 0 1 1 8.5v-1Zm3.4 1.9c.2-.2.5-.2.7 0l1.5 1.5a.5.5 0 0 1-.7.7l-1.5-1.5a.5.5 0 0 1 0-.7Z\"/>";
 
             /// <summary />
-            public static string TextAlignLeftRotate270 { get; } = ResourceManager.GetString("TextAlignLeftRotate270");
+            public static string SprayCanSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9.5 4a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1ZM11 2.5a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0Zm0 2a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0Zm2-3a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0Zm0 2a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0Zm0 2a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0Zm-3.03.87.02.07v.02l.01.04v6.75c0 .97-.78 1.75-1.75 1.75h-3.5C3.78 15 3 14.22 3 13.25V6.46l.01-.02.02-.07a.5.5 0 0 1 .12-.22L5 4.29V2.5c0-.28.22-.5.5-.5h2c.28 0 .5.22.5.5v1.8l1.85 1.85c.06.06.1.14.13.22ZM7 3H6v1h1V3Zm.3 2H5.7l-1 1h3.6l-1-1Zm.95 9c.41 0 .75-.34.75-.75V7H4v6.25c0 .41.34.75.75.75h3.5Z\"/>";
 
             /// <summary />
-            public static string TextAlignLeftRotate90 { get; } = ResourceManager.GetString("TextAlignLeftRotate90");
+            public static string SquareAddSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 4.5A2.5 2.5 0 0 1 4.5 2h7A2.5 2.5 0 0 1 14 4.5v1.76a5.5 5.5 0 0 0-1-.66V4.5c0-.83-.67-1.5-1.5-1.5h-7C3.67 3 3 3.67 3 4.5v7c0 .83.67 1.5 1.5 1.5h1.1c.18.36.4.7.66 1H4.5A2.5 2.5 0 0 1 2 11.5v-7Zm13 6a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-4-2a.5.5 0 0 0-1 0V10H8.5a.5.5 0 0 0 0 1H10v1.5a.5.5 0 0 0 1 0V11h1.5a.5.5 0 0 0 0-1H11V8.5Z\"/>";
 
             /// <summary />
-            public static string TextAlignLeftTempLtr { get; } = ResourceManager.GetString("TextAlignLeftTempLtr");
+            public static string SquareArrowForwardSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 4.5A2.5 2.5 0 0 1 4.5 2h7A2.5 2.5 0 0 1 14 4.5v1.76a5.5 5.5 0 0 0-1-.66V4.5c0-.83-.67-1.5-1.5-1.5h-7C3.67 3 3 3.67 3 4.5v7c0 .83.67 1.5 1.5 1.5h1.1c.18.36.4.7.66 1H4.5A2.5 2.5 0 0 1 2 11.5v-7ZM10.5 15a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9Zm.9-6.4.9.9h-1.55A2.75 2.75 0 0 0 8 12.25v.25a.5.5 0 0 0 1 0v-.25c0-.97.78-1.75 1.75-1.75h1.54l-.9.9a.5.5 0 0 0 .71.7l1.76-1.75a.5.5 0 0 0 0-.7L12.1 7.9a.5.5 0 0 0-.7.7Z\"/>";
 
             /// <summary />
-            public static string TextAlignLeftTempRtl { get; } = ResourceManager.GetString("TextAlignLeftTempRtl");
+            public static string SquareDismissSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 2A2.5 2.5 0 0 0 2 4.5v7A2.5 2.5 0 0 0 4.5 14h1.76a5.5 5.5 0 0 1-.66-1H4.5A1.5 1.5 0 0 1 3 11.5v-7C3 3.67 3.67 3 4.5 3h7c.83 0 1.5.67 1.5 1.5v1.1c.36.18.7.4 1 .66V4.5A2.5 2.5 0 0 0 11.5 2h-7Zm6 13a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm1.85-6.35c.2.2.2.5 0 .7l-1.14 1.15 1.14 1.15a.5.5 0 0 1-.7.7l-1.15-1.14-1.15 1.14a.5.5 0 0 1-.7-.7l1.14-1.15-1.14-1.15a.5.5 0 1 1 .7-.7l1.15 1.14 1.15-1.14c.2-.2.5-.2.7 0Z\"/>";
 
             /// <summary />
-            public static string TextAlignRight { get; } = ResourceManager.GetString("TextAlignRight");
+            public static string SquareHintArrowBackSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 2a.5.5 0 0 1 0 1C3.67 3 3 3.67 3 4.5a.5.5 0 0 1-1 0A2.5 2.5 0 0 1 4.5 2Zm5 .5A.5.5 0 0 0 9 2H7a.5.5 0 0 0 0 1h2a.5.5 0 0 0 .5-.5Zm1.5 0c0 .28.22.5.5.5.83 0 1.5.67 1.5 1.5a.5.5 0 0 0 1 0A2.5 2.5 0 0 0 11.5 2a.5.5 0 0 0-.5.5ZM4.5 13a.5.5 0 0 1 0 1A2.5 2.5 0 0 1 2 11.5a.5.5 0 0 1 1 0c0 .83.67 1.5 1.5 1.5Zm-2-3.5A.5.5 0 0 0 3 9V7a.5.5 0 0 0-1 0v2c0 .28.22.5.5.5Zm8 5.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8.9 7.9a.5.5 0 1 1 .7.7l-.9.9h1.55A2.75 2.75 0 0 1 13 12.25v.25a.5.5 0 0 1-1 0v-.25c0-.97-.78-1.75-1.75-1.75H8.71l.9.9a.5.5 0 0 1-.71.7l-1.76-1.75a.5.5 0 0 1 0-.7L8.9 7.9Z\"/>";
 
             /// <summary />
-            public static string TextAlignRightRotate270 { get; } = ResourceManager.GetString("TextAlignRightRotate270");
+            public static string SquareHintSparklesSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13.8 2.22h-.02l-.76-.26a1.58 1.58 0 0 1-1-1L11.77.2a.3.3 0 0 0-.57 0l-.25.77a1.58 1.58 0 0 1-.98 1l-.77.24a.3.3 0 0 0 0 .57l.77.25a1.58 1.58 0 0 1 1 1l.24.77a.3.3 0 0 0 .29.2.3.3 0 0 0 .29-.2l.24-.77a1.58 1.58 0 0 1 1-1l.77-.24a.3.3 0 0 0 0-.57Zm1.41 3.35.62.2a.24.24 0 0 1 0 .46l-.6.2a1.26 1.26 0 0 0-.8.8l-.2.6a.24.24 0 0 1-.46 0l-.2-.6a1.26 1.26 0 0 0-.8-.8l-.6-.2a.24.24 0 0 1 0-.46l.6-.2a1.26 1.26 0 0 0 .8-.8l.19-.6a.24.24 0 0 1 .46 0l.2.6a1.26 1.26 0 0 0 .8.8ZM8 2.5c0-.17.03-.34.1-.5H7a.5.5 0 0 0 0 1h1.1c-.07-.16-.1-.33-.1-.5ZM4.5 2a.5.5 0 0 1 0 1C3.67 3 3 3.67 3 4.5a.5.5 0 0 1-1 0A2.5 2.5 0 0 1 4.5 2Zm9 9c.28 0 .5.22.5.5a2.5 2.5 0 0 1-2.5 2.5.5.5 0 0 1 0-1c.83 0 1.5-.67 1.5-1.5 0-.28.22-.5.5-.5Zm-7 2.5c0-.28.22-.5.5-.5h2a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5Zm-2-.5a.5.5 0 0 1 0 1A2.5 2.5 0 0 1 2 11.5a.5.5 0 0 1 1 0c0 .83.67 1.5 1.5 1.5Zm-2-3.5A.5.5 0 0 0 3 9V7a.5.5 0 0 0-1 0v2c0 .28.22.5.5.5Z\"/>";
 
             /// <summary />
-            public static string TextAlignRightRotate90 { get; } = ResourceManager.GetString("TextAlignRightRotate90");
+            public static string SquareHintSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9.5 2.5A.5.5 0 0 0 9 2H7a.5.5 0 0 0 0 1h2a.5.5 0 0 0 .5-.5Zm1.5 0c0 .28.22.5.5.5.83 0 1.5.67 1.5 1.5a.5.5 0 0 0 1 0A2.5 2.5 0 0 0 11.5 2a.5.5 0 0 0-.5.5ZM14 7a.5.5 0 0 0-1 0v2a.5.5 0 0 0 1 0V7Zm0 4.5a.5.5 0 0 0-1 0c0 .83-.67 1.5-1.5 1.5a.5.5 0 0 0 0 1 2.5 2.5 0 0 0 2.5-2.5Zm-7.5 2c0-.28.22-.5.5-.5h2a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5ZM5 2.5a.5.5 0 0 0-.5-.5A2.5 2.5 0 0 0 2 4.5a.5.5 0 0 0 1 0C3 3.67 3.67 3 4.5 3a.5.5 0 0 0 .5-.5ZM4.5 13a.5.5 0 0 1 0 1A2.5 2.5 0 0 1 2 11.5a.5.5 0 0 1 1 0c0 .83.67 1.5 1.5 1.5ZM3 9a.5.5 0 0 1-1 0V7a.5.5 0 0 1 1 0v2Z\"/>";
 
             /// <summary />
-            public static string TextBold { get; } = ResourceManager.GetString("TextBold");
+            public static string SquareMultipleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.08 4c.21-.58.77-1 1.42-1H10a3 3 0 0 1 3 3v3.5c0 .65-.42 1.2-1 1.41V6a2 2 0 0 0-2-2H5.08ZM4.5 5h5c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5h-5A1.5 1.5 0 0 1 3 11.5v-5C3 5.67 3.67 5 4.5 5Zm0 1a.5.5 0 0 0-.5.5v5c0 .28.22.5.5.5h5a.5.5 0 0 0 .5-.5v-5a.5.5 0 0 0-.5-.5h-5Z\"/>";
 
             /// <summary />
-            public static string TextBoldBg { get; } = ResourceManager.GetString("TextBoldBg");
+            public static string SquareSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 4.5A2.5 2.5 0 0 1 4.5 2h7A2.5 2.5 0 0 1 14 4.5v7a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 11.5v-7ZM4.5 3C3.67 3 3 3.67 3 4.5v7c0 .83.67 1.5 1.5 1.5h7c.83 0 1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5h-7Z\"/>";
 
             /// <summary />
-            public static string TextBoldCa { get; } = ResourceManager.GetString("TextBoldCa");
+            public static string StackStarSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6.42 3.73a.5.5 0 0 0-.84 0l-.63.98-1.04.2a.5.5 0 0 0-.25.86l.77.73-.4 1.36a.5.5 0 0 0 .74.56L6 7.65l1.23.77a.5.5 0 0 0 .75-.56L7.57 6.5l.77-.73a.5.5 0 0 0-.25-.86l-1.04-.2-.63-.98ZM2.5 2C1.67 2 1 2.67 1 3.5v5c0 .83.67 1.5 1.5 1.5h7c.83 0 1.5-.67 1.5-1.5v-5c0-.83-.67-1.5-1.5-1.5h-7Zm7 1c.28 0 .5.22.5.5v5a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-5c0-.28.22-.5.5-.5h7Zm-5 9a1.5 1.5 0 0 1-1.41-1H10a2 2 0 0 0 2-2V4.09c.58.2 1 .76 1 1.41V9a3 3 0 0 1-3 3H4.5Zm2 2a1.5 1.5 0 0 1-1.41-1h5.41A3.5 3.5 0 0 0 14 9.5V6.09c.58.2 1 .76 1 1.41v2a4.5 4.5 0 0 1-4.5 4.5h-4Z\"/>";
 
             /// <summary />
-            public static string TextBoldDa { get; } = ResourceManager.GetString("TextBoldDa");
+            public static string StackSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1 3.5C1 2.67 1.67 2 2.5 2h7c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5h-7A1.5 1.5 0 0 1 1 8.5v-5ZM2.5 3a.5.5 0 0 0-.5.5v5c0 .28.22.5.5.5h7a.5.5 0 0 0 .5-.5v-5a.5.5 0 0 0-.5-.5h-7Zm2.58 10c.21.58.77 1 1.42 1h3A5.5 5.5 0 0 0 15 8.5v-1c0-.65-.42-1.2-1-1.41V8.5A4.5 4.5 0 0 1 9.5 13H5.08Zm-.58-1a1.5 1.5 0 0 1-1.42-1H9.5A2.5 2.5 0 0 0 12 8.5V4.09c.58.2 1 .76 1 1.41v3A3.5 3.5 0 0 1 9.5 12h-5Z\"/>";
 
             /// <summary />
-            public static string TextBoldDe { get; } = ResourceManager.GetString("TextBoldDe");
+            public static string StarAddSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.8 2.1a.9.9 0 0 0-1.6 0L5.66 5.18l-3.4.5a.9.9 0 0 0-.5 1.53l2.46 2.4L3.65 13a.9.9 0 0 0 1.3.95l.92-.48a5.48 5.48 0 0 1-.46-.89l-.74.39.56-3.24a.9.9 0 0 0-.26-.8l-2.35-2.3 3.25-.46a.9.9 0 0 0 .68-.5L8 2.73l1.2 2.42a5.5 5.5 0 0 1 1.04-.14L8.81 2.1ZM5 10.5v-.1.2-.1Zm10 0a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-4-2a.5.5 0 0 0-1 0V10H8.5a.5.5 0 0 0 0 1H10v1.5a.5.5 0 1 0 1 0V11h1.5a.5.5 0 1 0 0-1H11V8.5Z\"/>";
 
             /// <summary />
-            public static string TextBoldEn { get; } = ResourceManager.GetString("TextBoldEn");
+            public static string StarArrowBackSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.8 2.1a.9.9 0 0 0-1.6 0L5.66 5.18l-3.4.5a.9.9 0 0 0-.5 1.53l2.46 2.4L3.65 13a.9.9 0 0 0 1.3.95l.92-.48a5.49 5.49 0 0 1-.46-.89l-.74.39.35-2.02a5.58 5.58 0 0 1 .14-1.76.9.9 0 0 0-.19-.26l-2.35-2.3 3.25-.46a.9.9 0 0 0 .68-.5L8 2.73l1.2 2.42a5.5 5.5 0 0 1 1.04-.14L8.81 2.1ZM10.5 15a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm-.9-6.4-.9.9h1.55A2.75 2.75 0 0 1 13 12.25v.25a.5.5 0 0 1-1 0v-.25c0-.97-.78-1.75-1.75-1.75H8.71l.9.9a.5.5 0 0 1-.71.7l-1.76-1.75a.5.5 0 0 1 0-.7L8.9 7.9a.5.5 0 1 1 .7.7Z\"/>";
 
             /// <summary />
-            public static string TextBoldEs { get; } = ResourceManager.GetString("TextBoldEs");
+            public static string StarDismissSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.2 2.1a.9.9 0 0 1 1.6 0L10.25 5c-.36.02-.7.07-1.04.16L8 2.73 6.55 5.67a.9.9 0 0 1-.68.5l-3.25.47 2.35 2.3a.9.9 0 0 1 .19.25 5.51 5.51 0 0 0-.14 1.76l-.35 2.02.74-.39c.13.31.28.61.46.89l-.91.48a.9.9 0 0 1-1.3-.95l.57-3.39-2.46-2.4a.9.9 0 0 1 .5-1.53l3.4-.5L7.2 2.1Zm7.8 8.4a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-2.65-1.15a.5.5 0 0 0-.7-.7L10.5 9.79 9.35 8.65a.5.5 0 1 0-.7.7l1.14 1.15-1.14 1.15a.5.5 0 0 0 .7.7l1.15-1.14 1.15 1.14a.5.5 0 0 0 .7-.7l-1.14-1.15 1.14-1.15Z\"/>";
 
             /// <summary />
-            public static string TextBoldEt { get; } = ResourceManager.GetString("TextBoldEt");
+            public static string StarHalfSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.67 5.18 7.2 2.1c.17-.33.49-.5.81-.5.32 0 .64.17.8.5l1.53 3.08 3.4.5a.9.9 0 0 1 .5 1.53l-2.46 2.4.58 3.39a.9.9 0 0 1-1.3.95L8 12.35l-3.04 1.6a.9.9 0 0 1-1.3-.95l.57-3.39-2.46-2.4a.9.9 0 0 1 .5-1.53l3.4-.5ZM8 11.34a.9.9 0 0 1 .42.1l2.9 1.53-.55-3.24a.9.9 0 0 1 .26-.8l2.36-2.3-3.26-.46a.9.9 0 0 1-.67-.5L8 2.73v8.6Z\"/>";
 
             /// <summary />
-            public static string TextBoldFr { get; } = ResourceManager.GetString("TextBoldFr");
+            public static string StarLineHorizontal3SvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.8 2.1a.9.9 0 0 0-1.6 0L5.66 5.18l-3.4.5a.9.9 0 0 0-.5 1.53l2.46 2.4L3.65 13a.9.9 0 0 0 1.3.95L8 12.35l.48.25a1.5 1.5 0 0 1-.47-1.26.9.9 0 0 0-.43.1l-2.9 1.53.55-3.24a.9.9 0 0 0-.26-.8l-2.35-2.3 3.25-.46a.9.9 0 0 0 .68-.5L8 2.73l.73 1.48c.23-.13.49-.21.77-.21h.24l-.93-1.9ZM9.5 5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5Zm0 3a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5Zm0 3a.5.5 0 0 0 0 1h5a.5.5 0 1 0 0-1h-5Z\"/>";
 
             /// <summary />
-            public static string TextBoldGl { get; } = ResourceManager.GetString("TextBoldGl");
+            public static string StarOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M12.36 13.06a.9.9 0 0 1-1.32.89L8 12.35l-3.04 1.6a.9.9 0 0 1-1.3-.95l.57-3.39-2.46-2.4a.9.9 0 0 1 .5-1.53l2.36-.34-3.48-3.49a.5.5 0 1 1 .7-.7l13 13a.5.5 0 0 1-.7.7l-1.8-1.79Zm-1.22-1.22L5.5 6.22l-2.9.42 2.36 2.3c.21.2.3.5.26.79l-.56 3.24 2.91-1.53a.9.9 0 0 1 .84 0l2.9 1.53-.18-1.13Zm2.25-5.2-2.35 2.28.74.73-.01-.04 2.46-2.4a.9.9 0 0 0-.5-1.53l-3.4-.5L8.8 2.1a.9.9 0 0 0-1.62 0l-.98 2 .75.74L8 2.73l1.46 2.94a.9.9 0 0 0 .67.5l3.26.47Z\"/>";
 
             /// <summary />
-            public static string TextBoldHu { get; } = ResourceManager.GetString("TextBoldHu");
+            public static string StarOneQuarterSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.8 2.1a.9.9 0 0 0-1.6 0L5.66 5.18l-3.4.5a.9.9 0 0 0-.5 1.53l2.46 2.4L3.65 13a.9.9 0 0 0 1.3.95L8 12.35l3.04 1.6a.9.9 0 0 0 1.3-.95l-.57-3.39 2.46-2.4a.9.9 0 0 0-.5-1.53l-3.4-.5L8.8 2.1ZM6 12.27V6.14a.9.9 0 0 0 .55-.47L8 2.73l1.46 2.94a.9.9 0 0 0 .67.5l3.26.47-2.36 2.3a.9.9 0 0 0-.26.79l.56 3.24-2.91-1.53a.9.9 0 0 0-.84 0L6 12.27Z\"/>";
 
             /// <summary />
-            public static string TextBoldIt { get; } = ResourceManager.GetString("TextBoldIt");
+            public static string StarProhibitedSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.8 2.1a.9.9 0 0 0-1.6 0L5.66 5.18l-3.4.5a.9.9 0 0 0-.5 1.53l2.46 2.4L3.65 13a.9.9 0 0 0 1.3.95l.92-.48a5.49 5.49 0 0 1-.46-.89l-.74.39.35-2.02a5.58 5.58 0 0 1 .14-1.76.9.9 0 0 0-.19-.26l-2.35-2.3 3.25-.46a.9.9 0 0 0 .68-.5L8 2.73l1.2 2.42a5.5 5.5 0 0 1 1.04-.14L8.81 2.1ZM6 10.5a4.5 4.5 0 1 0 9 0 4.5 4.5 0 0 0-9 0Zm1 0a3.5 3.5 0 0 1 5.6-2.8l-4.9 4.9a3.48 3.48 0 0 1-.7-2.1Zm3.5 3.5c-.79 0-1.51-.26-2.1-.7l4.9-4.9a3.5 3.5 0 0 1-2.8 5.6Z\"/>";
 
             /// <summary />
-            public static string TextBoldKk { get; } = ResourceManager.GetString("TextBoldKk");
+            public static string StarSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.2 2.1a.9.9 0 0 1 1.6 0l1.53 3.08 3.4.5a.9.9 0 0 1 .5 1.53l-2.46 2.4.58 3.39a.9.9 0 0 1-1.3.95L8 12.35l-3.04 1.6a.9.9 0 0 1-1.3-.95l.57-3.39-2.46-2.4a.9.9 0 0 1 .5-1.53l3.4-.5L7.2 2.1Zm.8.63L6.55 5.67a.9.9 0 0 1-.68.5l-3.25.47 2.35 2.3c.21.2.3.5.26.79l-.56 3.24 2.91-1.53a.9.9 0 0 1 .84 0l2.9 1.53-.55-3.24a.9.9 0 0 1 .26-.8l2.36-2.3-3.26-.46a.9.9 0 0 1-.67-.5L8 2.73Z\"/>";
 
             /// <summary />
-            public static string TextBoldKo { get; } = ResourceManager.GetString("TextBoldKo");
+            public static string StarThreeQuarterSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.8 2.1a.9.9 0 0 0-1.6 0L5.66 5.18l-3.4.5a.9.9 0 0 0-.5 1.53l2.46 2.4L3.65 13a.9.9 0 0 0 1.3.95L8 12.35l3.04 1.6a.9.9 0 0 0 1.3-.95l-.57-3.39 2.46-2.4a.9.9 0 0 0-.5-1.53l-3.4-.5L8.8 2.1ZM10 12.27V6.14a.9.9 0 0 0 .13.03l3.26.47-2.36 2.3a.9.9 0 0 0-.26.79l.56 3.24-1.33-.7Z\"/>";
 
             /// <summary />
-            public static string TextBoldLt { get; } = ResourceManager.GetString("TextBoldLt");
+            public static string StatusSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M14.35 1.65a2.27 2.27 0 0 0-3.2 0L6.9 5.9a.5.5 0 0 0-.12.2L5.53 9.83a.5.5 0 0 0 .63.63L9.9 9.22a.5.5 0 0 0 .2-.12l4.24-4.25c.89-.88.89-2.32 0-3.2Zm-2.5.7a1.27 1.27 0 0 1 1.8 1.8L9.48 8.3l-2.69.9.9-2.69 4.16-4.17ZM8 3l.37.01.88-.88A6.02 6.02 0 0 0 2 8a6 6 0 1 0 11.87-1.25l-.88.88L13 8a5 5 0 1 1-5-5Z\"/>";
 
             /// <summary />
-            public static string TextBoldLv { get; } = ResourceManager.GetString("TextBoldLv");
+            public static string StepsSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 13H2a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h3V6a1 1 0 0 1 1-1h3V2a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v4h-1V2h-3v3a1 1 0 0 1-1 1H6v2a1 1 0 0 1-1 1H2v3h3v1Zm10-.5V8a1 1 0 0 0-1-1h-3a1 1 0 0 0-1 1v2H7a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5.5a2.5 2.5 0 0 0 2.5-2.5ZM10 11a1 1 0 0 0 1-1V8h3v4.5c0 .83-.67 1.5-1.5 1.5H7v-3h3Z\"/>";
 
             /// <summary />
-            public static string TextBoldMs { get; } = ResourceManager.GetString("TextBoldMs");
+            public static string StepSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9 3a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v8.5a2.5 2.5 0 0 1-2.5 2.5H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h3V7a1 1 0 0 1 1-1h3V3Zm4 0h-3v3a1 1 0 0 1-1 1H6v2a1 1 0 0 1-1 1H2v3h9.5c.83 0 1.5-.67 1.5-1.5V3Z\"/>";
 
             /// <summary />
-            public static string TextBoldNo { get; } = ResourceManager.GetString("TextBoldNo");
+            public static string StopSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M12.5 3c.28 0 .5.22.5.5v9a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-9c0-.28.22-.5.5-.5h9Zm-9-1C2.67 2 2 2.67 2 3.5v9c0 .83.67 1.5 1.5 1.5h9c.83 0 1.5-.67 1.5-1.5v-9c0-.83-.67-1.5-1.5-1.5h-9Z\"/>";
 
             /// <summary />
-            public static string TextBoldPt { get; } = ResourceManager.GetString("TextBoldPt");
+            public static string StoreMicrosoftSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.5 7v2h-2V7h2Zm0 5v-2h-2v2h2Zm3-5v2h-2V7h2Zm0 5v-2h-2v2h2ZM5 5V3.5C5 2.67 5.67 2 6.5 2h3c.83 0 1.5.67 1.5 1.5V5h2.5c.28 0 .5.22.5.5V12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5.5a.5.5 0 0 1 .5-.5H5Zm1-1.5V5h4V3.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM3 12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6H3v6Z\"/>";
 
             /// <summary />
-            public static string TextBoldRu { get; } = ResourceManager.GetString("TextBoldRu");
+            public static string SubtitlesSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1 5.5A2.5 2.5 0 0 1 3.5 3h9A2.5 2.5 0 0 1 15 5.5v5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 10.5v-5ZM3.5 4C2.67 4 2 4.67 2 5.5v5c0 .83.67 1.5 1.5 1.5h9c.83 0 1.5-.67 1.5-1.5v-5c0-.83-.67-1.5-1.5-1.5h-9ZM3 8.5c0-.28.22-.5.5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm.5 1.5a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3ZM10 8.5c0-.28.22-.5.5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5ZM8.5 10a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4Z\"/>";
 
             /// <summary />
-            public static string TextBoldSl { get; } = ResourceManager.GetString("TextBoldSl");
+            public static string SubtractCircleArrowBackSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3 8a5 5 0 0 1 10 0v.03c.34.04.68.11 1 .22V8a6 6 0 1 0-5.75 6 4.47 4.47 0 0 1-.22-1H8a5 5 0 0 1-5-5Zm8.5 0a.5.5 0 0 1-.01.11c-.37.09-.72.22-1.05.39H5a.5.5 0 0 1 0-1h6c.28 0 .5.22.5.5Zm4.5 4.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-4.15-.65a.5.5 0 0 0-.7-.7l-1 1a.5.5 0 0 0 0 .7l1 1a.5.5 0 0 0 .7-.7l-.14-.15h2.04c.14 0 .25.11.25.25v.25a.5.5 0 0 0 1 0v-.25c0-.69-.56-1.25-1.25-1.25h-2.04l.14-.15Z\"/>";
 
             /// <summary />
-            public static string TextBoldSv { get; } = ResourceManager.GetString("TextBoldSv");
+            public static string SubtractCircleArrowForwardSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 3a5 5 0 0 0 0 10h.03c.04.34.11.68.22 1H8a6 6 0 1 1 6-5.75 4.47 4.47 0 0 0-1-.22V8a5 5 0 0 0-5-5Zm2.44 5.5c.33-.17.68-.3 1.05-.39A.5.5 0 0 0 11 7.5H5a.5.5 0 0 0 0 1h5.44ZM12.5 16a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm.65-4.85a.5.5 0 0 0 0 .7l.14.15h-2.04c-.69 0-1.25.56-1.25 1.25v.25a.5.5 0 0 0 1 0v-.25c0-.14.11-.25.25-.25h2.04l-.14.15a.5.5 0 0 0 .7.7l1-1a.5.5 0 0 0 0-.7l-1-1a.5.5 0 0 0-.7 0Z\"/>";
 
             /// <summary />
-            public static string TextBoldTr { get; } = ResourceManager.GetString("TextBoldTr");
+            public static string SubtractCircleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.5 7.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5ZM8 2a6 6 0 1 0 0 12A6 6 0 0 0 8 2ZM3 8a5 5 0 1 1 10 0A5 5 0 0 1 3 8Z\"/>";
 
             /// <summary />
-            public static string TextBoldUk { get; } = ResourceManager.GetString("TextBoldUk");
+            public static string SubtractSquareMultipleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 6.5a.5.5 0 0 0 0 1h5a.5.5 0 1 0 0-1h-5ZM2 4c0-1.1.9-2 2-2h6a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4Zm9 7.5a2.5 2.5 0 0 1-2.5 2.5H3.27c.34.6.99 1 1.73 1h5.5a3.5 3.5 0 0 0 3.5-3.5V5a2 2 0 0 0-1-1.73v7.23Z\"/>";
 
             /// <summary />
-            public static string Textbox { get; } = ResourceManager.GetString("Textbox");
+            public static string SubtractSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><rect x=\"3\" y=\"7.5\" width=\"10\" height=\"1\" rx=\".5\"/>";
 
             /// <summary />
-            public static string TextboxAlignMiddle { get; } = ResourceManager.GetString("TextboxAlignMiddle");
+            public static string SymbolsSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.9 2.4a1.56 1.56 0 1 1 2.2 2.2l-2.25 2.25a.5.5 0 0 1-.7 0L8.9 4.6a1.56 1.56 0 1 1 2.2-2.2l.4.4.4-.4Zm1.5.7a.56.56 0 0 0-.8 0l-.75.75a.5.5 0 0 1-.7 0l-.75-.75a.56.56 0 0 0-.8.8l1.9 1.9 1.9-1.9a.56.56 0 0 0 0-.8ZM4.5 7a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Zm1.35-1.85-2-2a1.5 1.5 0 0 1 2 2Zm-.7.7a1.5 1.5 0 0 1-2-2l2 2ZM5 9.5a.5.5 0 0 0-1 0V11H2.5a.5.5 0 0 0 0 1H4v1.5a.5.5 0 1 0 1 0V12h1.5a.5.5 0 1 0 0-1H5V9.5ZM9.5 15a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 1 .51-.5H11a.5.5 0 0 1 0 1h-.64l.14.17c.38.43.94.83 1.75.83a2.5 2.5 0 0 0 1.85-.8.5.5 0 0 1 .8.6l-.4-.3.4.3-.02.02a1.45 1.45 0 0 1-.17.19 3.5 3.5 0 0 1-2.46.99c-1 0-1.74-.43-2.25-.9v.4a.5.5 0 0 1-.5.5Zm5-6c.28 0 .5.22.5.5v2a.5.5 0 0 1-.51.5H13a.5.5 0 1 1 0-1h.64a2.27 2.27 0 0 0-1.89-1 2.5 2.5 0 0 0-1.84.78v.01l-.01.01a.5.5 0 0 1-.8-.6l.4.3-.4-.3.02-.02a1.78 1.78 0 0 1 .17-.19A3.5 3.5 0 0 1 11.75 9c1 0 1.74.43 2.25.9v-.4c0-.28.22-.5.5-.5Z\"/>";
 
             /// <summary />
-            public static string TextBulletListLtr { get; } = ResourceManager.GetString("TextBulletListLtr");
+            public static string SyncOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M14 8A6 6 0 1 1 2 8a6 6 0 0 1 12 0Zm-1 0H9.94l-.97 2.67a.5.5 0 1 1-.94-.34l2-5.5a.5.5 0 0 1 .94.34L10.3 7h2.6a5 5 0 0 0-9.8 0h3.14l.79-2.17a.5.5 0 0 1 .94.34l-2 5.5a.5.5 0 1 1-.94-.34L5.88 8H3a5 5 0 0 0 10 0Z\"/>";
 
             /// <summary />
-            public static string TextBulletListRtl { get; } = ResourceManager.GetString("TextBulletListRtl");
+            public static string TabDesktopArrowClockwiseSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 2a2 2 0 0 0-2 2v3a5 5 0 0 1 1-.58V4a1 1 0 0 1 1-1h3v.75C7 4.44 7.56 5 8.25 5H13v7a1 1 0 0 1-1 1H9.58A5 5 0 0 1 9 14h3a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H4Zm9 2H8.25A.25.25 0 0 1 8 3.75V3h4a1 1 0 0 1 1 1ZM7.75 6.75c.28 0 .5.22.5.5V9a.5.5 0 0 1-.5.5H6a.5.5 0 0 1 0-1h.66A3 3 0 1 0 8 11a.5.5 0 0 1 1 0 4 4 0 1 1-1.75-3.3v-.45c0-.28.22-.5.5-.5Z\"/>";
 
             /// <summary />
-            public static string TextBulletListSquare { get; } = ResourceManager.GetString("TextBulletListSquare");
+            public static string TabDesktopImageSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 2a2 2 0 0 0-2 2v1.34c.31-.15.65-.25 1-.3V4a1 1 0 0 1 1-1h3v.5C7 4.33 7.67 5 8.5 5H13v7a1 1 0 0 1-1 1h-1.04c-.05.35-.15.69-.3 1H12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H4Zm9 2H8.5a.5.5 0 0 1-.5-.5V3h4a1 1 0 0 1 1 1ZM1 8.5A2.5 2.5 0 0 1 3.5 6h4A2.5 2.5 0 0 1 10 8.5v4c0 .5-.15.98-.41 1.38l-3.03-3.03a1.5 1.5 0 0 0-2.12 0L1.4 13.88C1.15 13.48 1 13 1 12.5v-4Zm7 .25a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Zm-5.88 5.84c.4.26.87.41 1.38.41h4c.51 0 .98-.15 1.38-.41l-3.03-3.03a.5.5 0 0 0-.7 0L2.12 14.6Z\"/>";
 
             /// <summary />
-            public static string TextBulletListSquareSparkle { get; } = ResourceManager.GetString("TextBulletListSquareSparkle");
+            public static string TabDesktopSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 2a2 2 0 0 0-2 2v8c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H4Zm3 1v.5C7 4.33 7.67 5 8.5 5H13v7a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h3Zm6 1H8.5a.5.5 0 0 1-.5-.5V3h4a1 1 0 0 1 1 1Z\"/>";
 
             /// <summary />
-            public static string TextBulletListSquareWarning { get; } = ResourceManager.GetString("TextBulletListSquareWarning");
+            public static string TabInPrivateSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 2a2 2 0 0 0-2 2v8c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H4ZM3 4a1 1 0 0 1 1-1h2.3L3 6.3V4Zm0 3.7L7.7 3h2.6L3 10.3V7.7ZM11.7 3h.3a1 1 0 0 1 1 1v.3L4.3 13H4a1 1 0 0 1-1-1v-.3L11.7 3ZM13 5.7v2.6L8.3 13H5.7L13 5.7Zm0 4V12a1 1 0 0 1-1 1H9.7L13 9.7Z\"/>";
 
             /// <summary />
-            public static string TextBulletListTree { get; } = ResourceManager.GetString("TextBulletListTree");
+            public static string TableAddSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 2A2.5 2.5 0 0 0 2 4.5v7A2.5 2.5 0 0 0 4.5 14h1.76A5.48 5.48 0 0 1 6 7.34V6h1.34a5.47 5.47 0 0 1 6.66.26V4.5A2.5 2.5 0 0 0 11.5 2h-7ZM3 11h2v2h-.5A1.5 1.5 0 0 1 3 11.5V11Zm0-5h2v4H3V6Zm7-1H6V3h4v2ZM4.5 3H5v2H3v-.5C3 3.67 3.67 3 4.5 3ZM13 4.5V5h-2V3h.5c.83 0 1.5.67 1.5 1.5ZM10.5 15a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm0-7c.28 0 .5.22.5.5V10h1.5a.5.5 0 0 1 0 1H11v1.5a.5.5 0 0 1-1 0V11H8.5a.5.5 0 0 1 0-1H10V8.5c0-.28.22-.5.5-.5Z\"/>";
 
             /// <summary />
-            public static string TextCaseLowercase { get; } = ResourceManager.GetString("TextCaseLowercase");
+            public static string TableBottomRowSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 2A2.5 2.5 0 0 0 2 4.5v7A2.5 2.5 0 0 0 4.5 14h7a2.5 2.5 0 0 0 2.5-2.5v-7A2.5 2.5 0 0 0 11.5 2h-7Zm5.5 9v2H6v-2h4Zm-7 0h2v2h-.5A1.5 1.5 0 0 1 3 11.5V11Zm0-1V4.5C3 3.67 3.67 3 4.5 3h7c.83 0 1.5.67 1.5 1.5V10H3Zm8 3v-2h2v.5c0 .83-.67 1.5-1.5 1.5H11Z\"/>";
 
             /// <summary />
-            public static string TextCaseTitle { get; } = ResourceManager.GetString("TextCaseTitle");
+            public static string TableCalculatorSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 4.5A2.5 2.5 0 0 1 4.5 2h7A2.5 2.5 0 0 1 14 4.5V5h-3.5c-.82 0-1.54.4-2 1H6v4h2v1H6v2h2v1H4.5A2.5 2.5 0 0 1 2 11.5v-7ZM5 11H3v.5c0 .83.67 1.5 1.5 1.5H5v-2Zm0-5H3v4h2V6Zm1-1h4V3H6v2ZM5 3h-.5C3.67 3 3 3.67 3 4.5V5h2V3Zm8 2v-.5c0-.83-.67-1.5-1.5-1.5H11v2h2Zm-2.5 1C9.67 6 9 6.67 9 7.5v7c0 .83.67 1.5 1.5 1.5h4c.83 0 1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5h-4Zm-.5 4.5c0-.28.22-.5.5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5Zm4.5-.5a.5.5 0 0 1 0 1h-1a.5.5 0 0 1 0-1h1ZM10 12.5c0-.28.22-.5.5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5Zm4.5-.5a.5.5 0 0 1 0 1h-1a.5.5 0 0 1 0-1h1ZM10 14.5c0-.28.22-.5.5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5Zm4.5-.5a.5.5 0 0 1 0 1h-1a.5.5 0 0 1 0-1h1ZM10 7.5c0-.28.22-.5.5-.5h4c.28 0 .5.22.5.5v1a.5.5 0 0 1-.5.5h-4a.5.5 0 0 1-.5-.5v-1Z\"/>";
 
             /// <summary />
-            public static string TextCaseUppercase { get; } = ResourceManager.GetString("TextCaseUppercase");
+            public static string TableCellEditSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m10.94 5-1 1H6v3.98c-.23.3-.41.65-.52 1.02H3.5A1.5 1.5 0 0 1 2 9.5v-3C2 5.67 2.67 5 3.5 5h7.44ZM3 9.5c0 .28.22.5.5.5H5V6H3.5a.5.5 0 0 0-.5.5v3Zm3.98.88 4.83-4.83a1.87 1.87 0 1 1 2.64 2.64l-4.83 4.83a2.2 2.2 0 0 1-1.02.58l-1.5.37a.89.89 0 0 1-1.07-1.07l.37-1.5c.1-.39.3-.74.58-1.02Z\"/>";
 
             /// <summary />
-            public static string TextChangeCase { get; } = ResourceManager.GetString("TextChangeCase");
+            public static string TableCellsMergeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6.35 6.15c.2.2.2.5 0 .7l-.64.65h4.58l-.64-.65a.5.5 0 1 1 .7-.7l1.5 1.5c.2.2.2.5 0 .7l-1.5 1.5a.5.5 0 0 1-.7-.7l.64-.65H5.71l.64.65a.5.5 0 1 1-.7.7l-1.5-1.5a.5.5 0 0 1 0-.7l1.5-1.5c.2-.2.5-.2.7 0ZM4.5 2A2.5 2.5 0 0 0 2 4.5v7A2.5 2.5 0 0 0 4.5 14h7a2.5 2.5 0 0 0 2.5-2.5v-7A2.5 2.5 0 0 0 11.5 2h-7Zm8.41 2H3.1c.2-.58.76-1 1.41-1h7c.65 0 1.2.42 1.41 1ZM3 5h10v6H3V5Zm.09 7h9.82c-.2.58-.76 1-1.41 1h-7a1.5 1.5 0 0 1-1.41-1Z\"/>";
 
             /// <summary />
-            public static string TextClearFormatting { get; } = ResourceManager.GetString("TextClearFormatting");
+            public static string TableCellsSplitSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 4.5A2.5 2.5 0 0 1 4.5 2h7A2.5 2.5 0 0 1 14 4.5v7a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 11.5v-7ZM3.09 4H7V3H4.5c-.65 0-1.2.42-1.41 1ZM8 3v1h4.91c-.2-.58-.76-1-1.41-1H8Zm5 2H3v6h10V5Zm-.09 7H8v1h3.5c.65 0 1.2-.42 1.41-1ZM7 13v-1H3.09c.2.58.76 1 1.41 1H7Zm0-3V6h1v4H7Z\"/>";
 
             /// <summary />
-            public static string TextClearFormattingEn { get; } = ResourceManager.GetString("TextClearFormattingEn");
+            public static string TableDeleteColumnSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 1.5c.28 0 .5.22.5.5v3.38a1.5 1.5 0 0 0-.07.07L8 5.88l-.44-.44a1.5 1.5 0 0 0-.06-.06V2c0-.28.22-.5.5-.5Zm.43 9.05.07.07V14a.5.5 0 0 1-1 0v-3.38l.06-.06.44-.44.43.43ZM2.5 3C3.33 3 4 3.67 4 4.5V5H2.5a.5.5 0 0 0 0 1H4v4H2.5a.5.5 0 0 0 0 1H4v.5c0 .83-.67 1.5-1.5 1.5a.5.5 0 0 0 0 1A2.5 2.5 0 0 0 5 11.5v-7A2.5 2.5 0 0 0 2.5 2a.5.5 0 0 0 0 1Zm11-1A2.5 2.5 0 0 0 11 4.5v7a2.5 2.5 0 0 0 2.5 2.5.5.5 0 0 0 0-1 1.5 1.5 0 0 1-1.5-1.5V11h1.5a.5.5 0 0 0 0-1H12V6h1.5a.5.5 0 0 0 0-1H12v-.5c0-.83.67-1.5 1.5-1.5a.5.5 0 0 0 0-1ZM6.15 6.15c.2-.2.5-.2.7 0L8 7.29l1.15-1.14a.5.5 0 1 1 .7.7L8.71 8l1.14 1.15a.5.5 0 0 1-.7.7L8 8.71 6.85 9.85a.5.5 0 0 1-.7-.7L7.29 8 6.15 6.85a.5.5 0 0 1 0-.7Z\"/>";
 
             /// <summary />
-            public static string TextColor { get; } = ResourceManager.GetString("TextColor");
+            public static string TableDeleteRowSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13 2.5c0 .83-.67 1.5-1.5 1.5H11V2.5a.5.5 0 0 0-1 0V4H6V2.5a.5.5 0 0 0-1 0V4h-.5A1.5 1.5 0 0 1 3 2.5a.5.5 0 0 0-1 0A2.5 2.5 0 0 0 4.5 5h7A2.5 2.5 0 0 0 14 2.5a.5.5 0 0 0-1 0Zm1 11a2.5 2.5 0 0 0-2.5-2.5h-7A2.5 2.5 0 0 0 2 13.5a.5.5 0 0 0 1 0c0-.83.67-1.5 1.5-1.5H5v1.5a.5.5 0 0 0 1 0V12h4v1.5a.5.5 0 0 0 1 0V12h.5c.83 0 1.5.67 1.5 1.5a.5.5 0 0 0 1 0ZM9.85 6.15c.2.2.2.5 0 .7L8.71 8l1.14 1.15a.5.5 0 0 1-.7.7L8 8.71 6.85 9.85a.5.5 0 0 1-.7-.7L7.29 8 6.15 6.85a.5.5 0 1 1 .7-.7L8 7.29l1.15-1.14c.2-.2.5-.2.7 0ZM14.5 8a.5.5 0 0 1-.5.5h-3.38a1.48 1.48 0 0 0-.07-.07L10.12 8l.44-.44.06-.06H14c.28 0 .5.22.5.5Zm-9.05.43-.07.07H2a.5.5 0 0 1 0-1h3.38l.06.06.44.44-.43.43Z\"/>";
 
             /// <summary />
-            public static string TextColorEn { get; } = ResourceManager.GetString("TextColorEn");
+            public static string TableDismissSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 4.5A2.5 2.5 0 0 1 4.5 2h7A2.5 2.5 0 0 1 14 4.5v1.76A5.48 5.48 0 0 0 7.34 6H6v1.34A5.47 5.47 0 0 0 6.26 14H4.5A2.5 2.5 0 0 1 2 11.5v-7ZM5 11H3v.5c0 .83.67 1.5 1.5 1.5H5v-2Zm0-5H3v4h2V6Zm1-1h4V3H6v2ZM5 3h-.5C3.67 3 3 3.67 3 4.5V5h2V3Zm8 2v-.5c0-.83-.67-1.5-1.5-1.5H11v2h2Zm2 5.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-2.65-1.15a.5.5 0 0 0-.7-.7L10.5 9.79 9.35 8.65a.5.5 0 1 0-.7.7l1.14 1.15-1.14 1.15a.5.5 0 0 0 .7.7l1.15-1.14 1.15 1.14a.5.5 0 0 0 .7-.7l-1.14-1.15 1.14-1.15Z\"/>";
 
             /// <summary />
-            public static string TextDensity { get; } = ResourceManager.GetString("TextDensity");
+            public static string TableEditSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 4.5A2.5 2.5 0 0 1 4.5 2h7A2.5 2.5 0 0 1 14 4.5v.63a2.87 2.87 0 0 0-2.9.71L10 6.94V6H6v4h.94l-.67.67c-.4.41-.7.92-.84 1.49l-.37 1.5c-.03.11-.05.23-.06.34h-.5A2.5 2.5 0 0 1 2 11.5v-7ZM5 11H3v.5c0 .83.67 1.5 1.5 1.5H5v-2Zm0-5H3v4h2V6Zm1-1h4V3H6v2ZM5 3h-.5C3.67 3 3 3.67 3 4.5V5h2V3Zm8 2v-.5c0-.83-.67-1.5-1.5-1.5H11v2h2Zm-6.02 6.38 4.83-4.83a1.87 1.87 0 1 1 2.64 2.64l-4.83 4.83a2.2 2.2 0 0 1-1.02.58l-1.5.37a.89.89 0 0 1-1.07-1.07l.37-1.5c.1-.39.3-.74.58-1.02Z\"/>";
 
             /// <summary />
-            public static string TextExpand { get; } = ResourceManager.GetString("TextExpand");
+            public static string TableFreezeColumnAndRowSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.5 2A2.5 2.5 0 0 1 14 4.5v7a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 11.5v-7A2.5 2.5 0 0 1 4.5 2h7ZM3 6v4h2V6H3Zm3 0v4h4V6H6Zm4 7v-2H6v2h4Zm-5 0v-2H3v.5c0 .83.67 1.5 1.5 1.5H5ZM3 4.5V5h8v8h.5c.83 0 1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5h-7C3.67 3 3 3.67 3 4.5Z\"/>";
 
             /// <summary />
-            public static string TextField { get; } = ResourceManager.GetString("TextField");
+            public static string TableFreezeColumnSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.5 14a2.5 2.5 0 0 0 2.5-2.5v-7A2.5 2.5 0 0 0 11.5 2h-7A2.5 2.5 0 0 0 2 4.5v7A2.5 2.5 0 0 0 4.5 14h7ZM6 3h4v2H6V3Zm0 3h4v4H6V6Zm0 5h4v2H6v-2Zm-1-1H3V6h2v4Zm0-5H3v-.5C3 3.67 3.67 3 4.5 3H5v2Zm-2 6.5V11h2v2h-.5A1.5 1.5 0 0 1 3 11.5ZM11.5 3c.83 0 1.5.67 1.5 1.5v7c0 .83-.67 1.5-1.5 1.5H11V3h.5Z\"/>";
 
             /// <summary />
-            public static string TextFont { get; } = ResourceManager.GetString("TextFont");
+            public static string TableFreezeRowSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.5 2A2.5 2.5 0 0 1 14 4.5v7a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 11.5v-7A2.5 2.5 0 0 1 4.5 2h7ZM3 6v4h2V6H3Zm10-1v-.5c0-.83-.67-1.5-1.5-1.5h-7C3.67 3 3 3.67 3 4.5V5h10ZM6 6v4h4V6H6Zm5 0v4h2V6h-2Zm-1 7v-2H6v2h4Zm-5 0v-2H3v.5c0 .83.67 1.5 1.5 1.5H5Zm6 0h.5c.83 0 1.5-.67 1.5-1.5V11h-2v2Z\"/>";
 
             /// <summary />
-            public static string TextFontInfo { get; } = ResourceManager.GetString("TextFontInfo");
+            public static string TableInsertColumnSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3 2.5a.5.5 0 0 0-1 0v11a.5.5 0 0 0 1 0v-11Zm11 0a.5.5 0 0 0-1 0v11a.5.5 0 0 0 1 0v-11ZM6.5 2C5.67 2 5 2.67 5 3.5v9c0 .83.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5v-9c0-.83-.67-1.5-1.5-1.5h-3ZM6 3.5c0-.28.22-.5.5-.5h3c.28 0 .5.22.5.5V5H6V3.5ZM6 6h4v4H6V6Zm0 5h4v1.5a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V11Z\"/>";
 
             /// <summary />
-            public static string TextFontSize { get; } = ResourceManager.GetString("TextFontSize");
+            public static string TableInsertRowSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2.5 13a.5.5 0 0 0 0 1h11a.5.5 0 0 0 0-1h-11Zm0-11a.5.5 0 0 0 0 1h11a.5.5 0 0 0 0-1h-11ZM2 9.5c0 .83.67 1.5 1.5 1.5h9c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5h-9C2.67 5 2 5.67 2 6.5v3Zm1.5.5a.5.5 0 0 1-.5-.5v-3c0-.28.22-.5.5-.5H5v4H3.5ZM6 10V6h4v4H6Zm5 0V6h1.5c.28 0 .5.22.5.5v3a.5.5 0 0 1-.5.5H11Z\"/>";
 
             /// <summary />
-            public static string TextGrammarWand { get; } = ResourceManager.GetString("TextGrammarWand");
+            public static string TableLightningSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 2A2.5 2.5 0 0 0 2 4.5v7A2.5 2.5 0 0 0 4.5 14h3.22l.25-1H6v-2h.09c0-.03.02-.05.03-.08L6.5 10H6V6h2.17l.03-.08A1.5 1.5 0 0 1 9.58 5h3.48c.36 0 .69.13.94.33V4.5A2.5 2.5 0 0 0 11.5 2h-7Zm5.08 3H6V3h4v2h-.42ZM3 11h2v2h-.5A1.5 1.5 0 0 1 3 11.5V11Zm0-5h2v4H3V6Zm1.5-3H5v2H3v-.5C3 3.67 3.67 3 4.5 3ZM13 4.5V5h-2V3h.5c.83 0 1.5.67 1.5 1.5ZM8.61 12c.33 0 .56.3.49.62l-.44 1.74c-.12.48.46.83.83.49l4.87-4.55a.75.75 0 0 0-.51-1.3h-.4a.5.5 0 0 1-.48-.66l.56-1.68a.5.5 0 0 0-.47-.66H9.58a.5.5 0 0 0-.46.3l-2.08 5c-.14.34.1.7.46.7h1.11Z\"/>";
 
             /// <summary />
-            public static string TextIndentDecreaseLtr { get; } = ResourceManager.GetString("TextIndentDecreaseLtr");
+            public static string TableLinkSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 4.5A2.5 2.5 0 0 1 4.5 2h7A2.5 2.5 0 0 1 14 4.5v4.84a3.48 3.48 0 0 0-1-.3V6h-2v3h-1V6H6v4h.05A3.49 3.49 0 0 0 5 12.5V11H3v.5c0 .83.67 1.5 1.5 1.5H5v-.5c0 .54.12 1.05.34 1.5H4.5A2.5 2.5 0 0 1 2 11.5v-7ZM5 6H3v4h2V6Zm1-1h4V3H6v2ZM5 3h-.5C3.67 3 3 3.67 3 4.5V5h2V3Zm8 2v-.5c0-.83-.67-1.5-1.5-1.5H11v2h2Zm-4.5 5a2.5 2.5 0 0 0 0 5H9a.5.5 0 0 0 0-1h-.5a1.5 1.5 0 0 1 0-3H9a.5.5 0 0 0 0-1h-.5Zm3.5 0a.5.5 0 0 0 0 1h.5a1.5 1.5 0 0 1 0 3H12a.5.5 0 0 0 0 1h.5a2.5 2.5 0 0 0 0-5H12Zm-4 2.5c0-.28.22-.5.5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5Z\"/>";
 
             /// <summary />
-            public static string TextIndentDecreaseRtl { get; } = ResourceManager.GetString("TextIndentDecreaseRtl");
+            public static string TableLockSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 4.5A2.5 2.5 0 0 1 4.5 2h7A2.5 2.5 0 0 1 14 4.5v1.84A3 3 0 0 0 9.26 6H6v4h1v1H6v2h1v1H4.5A2.5 2.5 0 0 1 2 11.5v-7ZM5 11H3v.5c0 .83.67 1.5 1.5 1.5H5v-2Zm0-5H3v4h2V6Zm1-1h4V3H6v2ZM5 3h-.5C3.67 3 3 3.67 3 4.5V5h2V3Zm8 2v-.5c0-.83-.67-1.5-1.5-1.5H11v2h2ZM9.5 8v1H9a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-.5V8a2 2 0 1 0-4 0Zm1 1V8a1 1 0 1 1 2 0v1h-2Zm1 2.25a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5Z\"/>";
 
             /// <summary />
-            public static string TextIndentIncreaseLtr { get; } = ResourceManager.GetString("TextIndentIncreaseLtr");
+            public static string TableMoveAboveSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2.5 2a.5.5 0 0 0 0 1h11a.5.5 0 0 0 0-1h-11Zm9 12a2.5 2.5 0 0 0 2.5-2.5v-5a.5.5 0 0 0-.5-.5H11a1.5 1.5 0 0 1-1 1.41V10H6V7.41A1.5 1.5 0 0 1 5 6H2.5a.5.5 0 0 0-.5.5v5A2.5 2.5 0 0 0 4.5 14h7ZM3 10V7h2v3H3Zm8-3h2v3h-2V7Zm-1 6H6v-2h4v2Zm-5 0h-.5A1.5 1.5 0 0 1 3 11.5V11h2v2Zm6 0v-2h2v.5c0 .83-.67 1.5-1.5 1.5H11ZM9.85 6.35a.5.5 0 0 1-.7 0l-.65-.64V7.5a.5.5 0 0 1-1 0V5.7l-.65.65a.5.5 0 1 1-.7-.7l1.5-1.5c.2-.2.5-.2.7 0l1.5 1.5c.2.2.2.5 0 .7Z\"/>";
 
             /// <summary />
-            public static string TextIndentIncreaseRtl { get; } = ResourceManager.GetString("TextIndentIncreaseRtl");
+            public static string TableMoveBelowSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13.5 14a.5.5 0 0 0 0-1h-11a.5.5 0 0 0 0 1h11Zm-9-12A2.5 2.5 0 0 0 2 4.5v5c0 .28.22.5.5.5H5a1.5 1.5 0 0 1 1-1.41V6h4v2.59A1.5 1.5 0 0 1 11 10h2.5a.5.5 0 0 0 .5-.5v-5A2.5 2.5 0 0 0 11.5 2h-7ZM13 6v3h-2V6h2ZM5 9H3V6h2v3Zm1-6h4v2H6V3Zm5 0h.5c.83 0 1.5.67 1.5 1.5V5h-2V3ZM5 3v2H3v-.5C3 3.67 3.67 3 4.5 3H5Zm1.15 6.65c.2-.2.5-.2.7 0l.65.64V8.5a.5.5 0 0 1 1 0v1.8l.65-.65a.5.5 0 1 1 .7.7l-1.5 1.5a.5.5 0 0 1-.7 0l-1.5-1.5a.5.5 0 0 1 0-.7Z\"/>";
 
             /// <summary />
-            public static string TextItalic { get; } = ResourceManager.GetString("TextItalic");
+            public static string TableMoveLeftSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 13.5a.5.5 0 0 0 1 0v-11a.5.5 0 0 0-1 0v11Zm12-9A2.5 2.5 0 0 0 11.5 2h-5a.5.5 0 0 0-.5.5V5a1.5 1.5 0 0 1 1.41 1H10v4H7.41A1.5 1.5 0 0 1 6 11v2.5c0 .28.22.5.5.5h5a2.5 2.5 0 0 0 2.5-2.5v-7ZM10 13H7v-2h3v2ZM7 5V3h3v2H7Zm6 1v4h-2V6h2Zm0 5v.5c0 .83-.67 1.5-1.5 1.5H11v-2h2Zm0-6h-2V3h.5c.83 0 1.5.67 1.5 1.5V5ZM6.35 6.15c.2.2.2.5 0 .7l-.64.65H7.5a.5.5 0 0 1 0 1H5.7l.65.65a.5.5 0 1 1-.7.7l-1.5-1.5a.5.5 0 0 1 0-.7l1.5-1.5c.2-.2.5-.2.7 0Z\"/>";
 
             /// <summary />
-            public static string TextItalicBg { get; } = ResourceManager.GetString("TextItalicBg");
+            public static string TableMoveRightSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M14 2.5a.5.5 0 0 0-1 0v11a.5.5 0 0 0 1 0v-11Zm-12 9A2.5 2.5 0 0 0 4.5 14h5a.5.5 0 0 0 .5-.5V11a1.5 1.5 0 0 1-1.41-1H6V6h2.59A1.5 1.5 0 0 1 10 5V2.5a.5.5 0 0 0-.5-.5h-5A2.5 2.5 0 0 0 2 4.5v7ZM6 3h3v2H6V3Zm3 8v2H6v-2h3Zm-6-1V6h2v4H3Zm0-5v-.5C3 3.67 3.67 3 4.5 3H5v2H3Zm0 6h2v2h-.5A1.5 1.5 0 0 1 3 11.5V11Zm6.65-1.15a.5.5 0 0 1 0-.7l.64-.65H8.5a.5.5 0 0 1 0-1h1.8l-.65-.65a.5.5 0 1 1 .7-.7l1.5 1.5c.2.2.2.5 0 .7l-1.5 1.5a.5.5 0 0 1-.7 0Z\"/>";
 
             /// <summary />
-            public static string TextItalicCa { get; } = ResourceManager.GetString("TextItalicCa");
+            public static string TableResizeColumnSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6.35 6.15c.2.2.2.5 0 .7l-.64.65h4.58l-.64-.65a.5.5 0 1 1 .7-.7l1.5 1.5c.2.2.2.5 0 .7l-1.5 1.5a.5.5 0 0 1-.7-.7l.64-.65H5.71l.64.65a.5.5 0 1 1-.7.7l-1.5-1.5a.5.5 0 0 1 0-.7l1.5-1.5c.2-.2.5-.2.7 0ZM11.5 2A2.5 2.5 0 0 1 14 4.5v7a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 11.5v-7A2.5 2.5 0 0 1 4.5 2h7Zm.5 1.09v3.29l-.94-.94a1.6 1.6 0 0 0-.06-.06V3H5v2.38l-.06.06-.94.94v-3.3c-.58.21-1 .77-1 1.42v7c0 .65.42 1.2 1 1.41V9.62l.94.94.06.06V13h6v-2.38l.06-.06.94-.94v3.3c.58-.21 1-.77 1-1.42v-7c0-.65-.42-1.2-1-1.41Zm-.94 7.47L11 10.5Z\"/>";
 
             /// <summary />
-            public static string TextItalicDa { get; } = ResourceManager.GetString("TextItalicDa");
+            public static string TableResizeRowSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9.85 6.35a.5.5 0 0 1-.7 0l-.65-.64v4.58l.65-.64a.5.5 0 1 1 .7.7l-1.5 1.5a.5.5 0 0 1-.7 0l-1.5-1.5a.5.5 0 0 1 .7-.7l.65.64V5.71l-.65.64a.5.5 0 1 1-.7-.7l1.5-1.5c.2-.2.5-.2.7 0l1.5 1.5c.2.2.2.5 0 .7ZM14 11.5a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 11.5v-7A2.5 2.5 0 0 1 4.5 2h7A2.5 2.5 0 0 1 14 4.5v7Zm-1.09.5H9.62l.94-.94.06-.06H13V5h-2.38a1.55 1.55 0 0 0-.06-.06L9.62 4h3.3c-.21-.58-.77-1-1.42-1h-7c-.65 0-1.2.42-1.41 1h3.29l-.94.94-.06.06H3v6h2.38l.06.06.94.94h-3.3c.21.58.77 1 1.42 1h7c.65 0 1.2-.42 1.41-1Zm-7.47-.94L5.5 11Z\"/>";
 
             /// <summary />
-            public static string TextItalicDe { get; } = ResourceManager.GetString("TextItalicDe");
+            public static string TableSettingsSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 4.5A2.5 2.5 0 0 1 4.5 2h7A2.5 2.5 0 0 1 14 4.5v1.76A5.48 5.48 0 0 0 7.34 6H6v1.34A5.47 5.47 0 0 0 6.26 14H4.5A2.5 2.5 0 0 1 2 11.5v-7ZM5 11H3v.5c0 .83.67 1.5 1.5 1.5H5v-2Zm0-5H3v4h2V6Zm1-1h4V3H6v2ZM5 3h-.5C3.67 3 3 3.67 3 4.5V5h2V3Zm8 2v-.5c0-.83-.67-1.5-1.5-1.5H11v2h2ZM8.06 7.44a2 2 0 0 1-1.43 2.48l-.46.12a4.71 4.71 0 0 0 .01 1.01l.35.09A2 2 0 0 1 8 13.66l-.13.42c.26.2.54.38.84.52l.32-.35a2 2 0 0 1 2.91 0l.34.36c.3-.13.57-.3.82-.5l-.16-.55a2 2 0 0 1 1.44-2.48l.46-.12a4.7 4.7 0 0 0-.01-1.01l-.35-.09A2 2 0 0 1 13 7.34l.13-.42c-.26-.2-.54-.38-.84-.52l-.32.35a2 2 0 0 1-2.91 0l-.34-.36c-.3.13-.57.3-.82.5l.15.55Zm2.44 4.06a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z\"/>";
 
             /// <summary />
-            public static string TextItalicEn { get; } = ResourceManager.GetString("TextItalicEn");
+            public static string TableSimpleCheckmarkSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 2A2.5 2.5 0 0 0 2 4.5v7A2.5 2.5 0 0 0 4.5 14h7a2.5 2.5 0 0 0 2.5-2.5v-7A2.5 2.5 0 0 0 11.5 2h-7ZM3 4.5C3 3.67 3.67 3 4.5 3h3v4.5H3v-3Zm0 4h4.5V13h-3A1.5 1.5 0 0 1 3 11.5v-3Zm5.5-1V3h3c.83 0 1.5.67 1.5 1.5v3H8.5Zm3.6 2.15c.2.2.2.5 0 .7l-1.5 1.5a.5.5 0 0 1-.7 0l-.75-.75a.5.5 0 0 1 .7-.7l.4.4 1.15-1.15c.2-.2.5-.2.7 0Z\"/>";
 
             /// <summary />
-            public static string TextItalicEs { get; } = ResourceManager.GetString("TextItalicEs");
+            public static string TableSimpleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 4.5v7A2.5 2.5 0 0 0 4.5 14h7a2.5 2.5 0 0 0 2.5-2.5v-7A2.5 2.5 0 0 0 11.5 2h-7A2.5 2.5 0 0 0 2 4.5Zm1 4h4.5V13h-3A1.5 1.5 0 0 1 3 11.5v-3Zm4.5-1H3v-3C3 3.67 3.67 3 4.5 3h3v4.5Zm1 1H13v3c0 .83-.67 1.5-1.5 1.5h-3V8.5Zm4.5-1H8.5V3h3c.83 0 1.5.67 1.5 1.5v3Z\"/>";
 
             /// <summary />
-            public static string TextItalicEt { get; } = ResourceManager.GetString("TextItalicEt");
+            public static string TableStackAboveSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2.5 2a.5.5 0 0 0 0 1h11a.5.5 0 0 0 0-1h-11Zm9 12a2.5 2.5 0 0 0 2.5-2.5v-5a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0-.5.5v5A2.5 2.5 0 0 0 4.5 14h7ZM3 7h2v3H3V7Zm3 0h4v3H6V7Zm5 0h2v3h-2V7Zm-1 6H6v-2h4v2Zm-5 0h-.5A1.5 1.5 0 0 1 3 11.5V11h2v2Zm6 0v-2h2v.5c0 .83-.67 1.5-1.5 1.5H11Z\"/>";
 
             /// <summary />
-            public static string TextItalicEu { get; } = ResourceManager.GetString("TextItalicEu");
+            public static string TableStackBelowSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13.5 14a.5.5 0 0 0 0-1h-11a.5.5 0 0 0 0 1h11Zm-9-12A2.5 2.5 0 0 0 2 4.5v5c0 .28.22.5.5.5h11a.5.5 0 0 0 .5-.5v-5A2.5 2.5 0 0 0 11.5 2h-7ZM13 9h-2V6h2v3Zm-3 0H6V6h4v3ZM5 9H3V6h2v3Zm1-6h4v2H6V3Zm5 0h.5c.83 0 1.5.67 1.5 1.5V5h-2V3ZM5 3v2H3v-.5C3 3.67 3.67 3 4.5 3H5Z\"/>";
 
             /// <summary />
-            public static string TextItalicGl { get; } = ResourceManager.GetString("TextItalicGl");
+            public static string TableStackLeftSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 13.5a.5.5 0 0 0 1 0v-11a.5.5 0 0 0-1 0v11Zm12-9A2.5 2.5 0 0 0 11.5 2h-5a.5.5 0 0 0-.5.5v11c0 .28.22.5.5.5h5a2.5 2.5 0 0 0 2.5-2.5v-7ZM7 13v-2h3v2H7Zm0-3V6h3v4H7Zm0-5V3h3v2H7Zm6 1v4h-2V6h2Zm0 5v.5c0 .83-.67 1.5-1.5 1.5H11v-2h2Zm0-6h-2V3h.5c.83 0 1.5.67 1.5 1.5V5Z\"/>";
 
             /// <summary />
-            public static string TextItalicHu { get; } = ResourceManager.GetString("TextItalicHu");
+            public static string TableStackRightSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M14 2.5a.5.5 0 0 0-1 0v11a.5.5 0 0 0 1 0v-11Zm-12 9A2.5 2.5 0 0 0 4.5 14h5a.5.5 0 0 0 .5-.5v-11a.5.5 0 0 0-.5-.5h-5A2.5 2.5 0 0 0 2 4.5v7ZM9 3v2H6V3h3Zm0 3v4H6V6h3Zm0 5v2H6v-2h3Zm-6-1V6h2v4H3Zm0-5v-.5C3 3.67 3.67 3 4.5 3H5v2H3Zm0 6h2v2h-.5A1.5 1.5 0 0 1 3 11.5V11Z\"/>";
 
             /// <summary />
-            public static string TextItalicIt { get; } = ResourceManager.GetString("TextItalicIt");
+            public static string TableSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 4.5A2.5 2.5 0 0 1 4.5 2h7A2.5 2.5 0 0 1 14 4.5v7a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 11.5v-7ZM6 13h4v-2H6v2Zm-1-2H3v.5c0 .83.67 1.5 1.5 1.5H5v-2Zm1-1h4V6H6v4ZM5 6H3v4h2V6Zm1-1h4V3H6v2ZM5 3h-.5C3.67 3 3 3.67 3 4.5V5h2V3Zm8 3h-2v4h2V6Zm0 5h-2v2h.5c.83 0 1.5-.67 1.5-1.5V11Zm0-6v-.5c0-.83-.67-1.5-1.5-1.5H11v2h2Z\"/>";
 
             /// <summary />
-            public static string TextItalicKk { get; } = ResourceManager.GetString("TextItalicKk");
+            public static string TableSwitchSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6.85.15a.5.5 0 1 0-.7.7L7.29 2H5a3 3 0 0 0-3 3v2.3L.85 6.14a.5.5 0 1 0-.7.7l2 2a.5.5 0 0 0 .7 0l2-2a.5.5 0 1 0-.7-.7L3 7.29V5c0-1.1.9-2 2-2h2.3L6.14 4.15a.5.5 0 1 0 .7.7l2-2a.5.5 0 0 0 0-.7l-2-2ZM2 10v1.5A2.5 2.5 0 0 0 4.5 14h7a2.5 2.5 0 0 0 2.5-2.5v-7A2.5 2.5 0 0 0 11.5 2H10v3H8.12l-.56.56c-.3.3-.68.44-1.06.44H10v4H6V6.5c0 .38-.15.77-.44 1.06L5 8.12V10H2Zm4 3v-2h4v2H6Zm-1-2v2h-.5A1.5 1.5 0 0 1 3 11.5V11h2Zm8-5v4h-2V6h2Zm0 5v.5c0 .83-.67 1.5-1.5 1.5H11v-2h2Zm0-6h-2V3h.5c.83 0 1.5.67 1.5 1.5V5Z\"/>";
 
             /// <summary />
-            public static string TextItalicKo { get; } = ResourceManager.GetString("TextItalicKo");
+            public static string TabletSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6.5 10a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3ZM2.75 3C1.78 3 1 3.78 1 4.75v6.5c0 .97.78 1.75 1.75 1.75h10.5c.97 0 1.75-.78 1.75-1.75v-6.5C15 3.78 14.22 3 13.25 3H2.75ZM2 4.75c0-.41.34-.75.75-.75h10.5c.41 0 .75.34.75.75v6.5c0 .41-.34.75-.75.75H2.75a.75.75 0 0 1-.75-.75v-6.5Z\"/>";
 
             /// <summary />
-            public static string TextItalicLt { get; } = ResourceManager.GetString("TextItalicLt");
+            public static string TabsSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6.5 2A4.5 4.5 0 0 0 2 6.5v5a2.5 2.5 0 0 1-1-2v-3A5.5 5.5 0 0 1 6.5 1h3c.82 0 1.54.4 2 1h-5ZM4.06 6.4A3 3 0 0 1 7 4h6.5a2.5 2.5 0 0 0-2-1H7a4 4 0 0 0-4 4v4.5c0 .82.4 1.54 1 2V7c0-.2.02-.4.06-.6ZM5 7.5A2.5 2.5 0 0 1 7.5 5h5A2.5 2.5 0 0 1 15 7.5v5a2.5 2.5 0 0 1-2.5 2.5h-5A2.5 2.5 0 0 1 5 12.5v-5ZM7.5 6C6.67 6 6 6.67 6 7.5v5c0 .83.67 1.5 1.5 1.5h5c.83 0 1.5-.67 1.5-1.5v-5c0-.83-.67-1.5-1.5-1.5h-5Z\"/>";
 
             /// <summary />
-            public static string TextItalicLv { get; } = ResourceManager.GetString("TextItalicLv");
+            public static string TabSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 4c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4Z\"/>";
 
             /// <summary />
-            public static string TextItalicNo { get; } = ResourceManager.GetString("TextItalicNo");
+            public static string TagDismissSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10.5 15a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm1.85-6.35c.2.2.2.5 0 .7l-1.14 1.15 1.14 1.15a.5.5 0 0 1-.7.7l-1.15-1.14-1.15 1.14a.5.5 0 0 1-.7-.7l1.14-1.15-1.14-1.15a.5.5 0 1 1 .7-.7l1.15 1.14 1.15-1.14c.2-.2.5-.2.7 0Zm-2-3.99c-.3.3-.78.3-1.08 0a.76.76 0 0 1 0-1.08c.3-.3.78-.3 1.09 0 .3.3.3.78 0 1.08Zm-8.82 4.5a2 2 0 0 1 0-2.83L6.3 1.6c.38-.37.89-.58 1.42-.59L10.97 1A2 2 0 0 1 13 3.02l-.02 2.57c-.32-.16-.66-.3-1-.4V3.02a1 1 0 0 0-1-1.01l-3.27.01c-.26 0-.52.11-.7.3L2.25 7.04a1 1 0 0 0 0 1.41l2.8 2.79c.08.59.25 1.15.5 1.66a2 2 0 0 1-.7-.45l-3.32-3.3Z\"/>";
 
             /// <summary />
-            public static string TextItalicRu { get; } = ResourceManager.GetString("TextItalicRu");
+            public static string TagErrorSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9.27 4.66c.3.3.79.3 1.09 0 .3-.3.3-.78 0-1.08a.77.77 0 0 0-1.1 0c-.3.3-.3.78 0 1.08ZM1.54 6.33a2 2 0 0 0 0 2.83l3.3 3.29c.21.2.45.36.71.45a5.46 5.46 0 0 1-.5-1.66l-2.8-2.79a1 1 0 0 1 0-1.41L7 2.3c.18-.19.44-.3.7-.3L10.98 2a1 1 0 0 1 1.01 1l-.02 2.2c.35.1.69.23 1 .39L13 3.02A2 2 0 0 0 10.97 1l-3.26.01c-.53 0-1.04.22-1.41.59L1.54 6.33ZM15 10.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM10.5 8a.5.5 0 0 0-.5.5v2a.5.5 0 1 0 1 0v-2a.5.5 0 0 0-.5-.5Zm0 5.13a.62.62 0 1 0 0-1.25.62.62 0 0 0 0 1.24Z\"/>";
 
             /// <summary />
-            public static string TextItalicSl { get; } = ResourceManager.GetString("TextItalicSl");
+            public static string TagLockSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9.27 4.66c.3.3.79.3 1.09 0 .3-.3.3-.78 0-1.08a.77.77 0 0 0-1.1 0c-.3.3-.3.78 0 1.08ZM1.54 6.33a2 2 0 0 0 0 2.83l3.3 3.29c.59.58 1.44.73 2.16.45v-1.18l-.02.02c-.4.4-1.03.4-1.42 0L2.25 8.45a1 1 0 0 1 0-1.41L7 2.3c.18-.19.44-.3.7-.3L10.98 2a1 1 0 0 1 1.01 1l-.02 2.04c.37.05.7.18 1 .35L13 3.02A2 2 0 0 0 10.97 1l-3.26.01c-.53 0-1.04.22-1.41.59L1.54 6.33ZM9.5 8v1H9a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-.5V8a2 2 0 1 0-4 0Zm1 1V8a1 1 0 1 1 2 0v1h-2Zm1 2.25a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5Z\"/>";
 
             /// <summary />
-            public static string TextItalicSr { get; } = ResourceManager.GetString("TextItalicSr");
+            public static string TagMultipleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.36 4.66c-.3.3-.8.3-1.1 0a.76.76 0 0 1 0-1.08c.3-.3.8-.3 1.1 0 .3.3.3.78 0 1.08Zm-8.82 4.5a2 2 0 0 1 0-2.83L7.29 1.6c.38-.37.89-.58 1.42-.59L11.97 1A2 2 0 0 1 14 3.02l-.03 3.37a2 2 0 0 1-.59 1.4L8.7 12.45c-.78.78-2.06.78-2.84 0l-3.31-3.3Zm.7-2.12a1 1 0 0 0 0 1.41l3.32 3.3c.39.38 1.03.38 1.42 0l4.69-4.67a1 1 0 0 0 .3-.7l.02-3.37A1 1 0 0 0 11.98 2l-3.27.01c-.26 0-.52.11-.7.3L3.25 7.04ZM2 9.75a2 2 0 0 0 .46 2.11l1.96 1.97a4 4 0 0 0 5.66 0l3.48-3.48c.28-.28.44-.67.44-1.06V8.5l-3.92 3.92-.21.2-.5.5a3 3 0 0 1-4.24 0l-.5-.5a4.08 4.08 0 0 1-.2-.2l-1.97-1.97A2 2 0 0 1 2 9.75Z\"/>";
 
             /// <summary />
-            public static string TextItalicSv { get; } = ResourceManager.GetString("TextItalicSv");
+            public static string TagQuestionMarkSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2.59 7.31a1.99 1.99 0 0 0 0 2.83l3.17 3.16a5.46 5.46 0 0 1-.72-2.13L3.3 9.43a1 1 0 0 1 0-1.41L8.04 3.3a1 1 0 0 1 .7-.29L11.99 3a1 1 0 0 1 1 1v1.6c.35.17.69.4 1 .64L14 4.01A2 2 0 0 0 11.99 2l-3.25.01c-.53 0-1.04.22-1.41.59L2.59 7.3ZM10.5 15a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm-.62-2a.62.62 0 1 1 1.24 0 .62.62 0 0 1-1.24 0ZM8.65 9.46c-.01-1.14.8-1.96 1.85-1.96 1.03 0 1.85.85 1.85 1.95 0 .59-.21.91-.72 1.32l-.28.22c-.25.19-.33.3-.35.44v.16a.5.5 0 0 1-1-.09c0-.57.21-.88.72-1.29l.27-.21c.3-.23.36-.35.36-.55 0-.55-.38-.95-.85-.95-.5 0-.86.37-.85.95a.5.5 0 0 1-1 0Z\"/>";
 
             /// <summary />
-            public static string TextItalicTr { get; } = ResourceManager.GetString("TextItalicTr");
+            public static string TagSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm-8.41 4.14a1.99 1.99 0 0 1 0-2.83L7.33 2.6c.37-.37.88-.58 1.4-.59L12 2A2 2 0 0 1 14 4l-.02 3.37c0 .53-.22 1.03-.6 1.4l-4.66 4.65c-.78.77-2.05.77-2.84 0l-3.3-3.28Zm.7-2.12a1 1 0 0 0 0 1.41l3.3 3.28a1 1 0 0 0 1.42 0l4.67-4.65a1 1 0 0 0 .3-.7L13 4a1 1 0 0 0-1-1L8.73 3a1 1 0 0 0-.7.3L3.3 8.01Z\"/>";
 
             /// <summary />
-            public static string TextItalicUk { get; } = ResourceManager.GetString("TextItalicUk");
+            public static string TargetArrowSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.7 1.04c.18.08.3.26.3.46V4h2.5a.5.5 0 0 1 .35.85l-2 2a.5.5 0 0 1-.35.15H9.7l-.73.74A1 1 0 1 1 7 8v-.05a1 1 0 0 1 1.26-.92L9 6.3V3.5a.5.5 0 0 1 .15-.35l2-2a.5.5 0 0 1 .54-.11ZM12.3 6l1-1h-1.8a.5.5 0 0 1-.5-.5V2.7l-1 1V6h2.3Zm1.65 1.18a6 6 0 1 1-5.12-5.12l-.39.38a1.5 1.5 0 0 0-.35.56H8a5 5 0 1 0 5 4.91c.2-.07.4-.19.56-.35l.39-.38ZM8 4.5A3.5 3.5 0 1 0 11.5 8h-1A2.5 2.5 0 1 1 8 5.5v-1Z\"/>";
 
             /// <summary />
-            public static string TextNumberListLtr { get; } = ResourceManager.GetString("TextNumberListLtr");
+            public static string TargetEditSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM8 4.5a3.5 3.5 0 0 0-.95 6.87c.09-.12.19-.23.3-.34l.53-.53a2.5 2.5 0 1 1 2.62-2.62l.86-.86A3.5 3.5 0 0 0 8 4.5Zm4.64 1.63a5 5 0 1 0-6.28 6.6l-.01.06-.23.9a6 6 0 1 1 7.54-7.68c-.34-.03-.7 0-1.02.12ZM8.3 11.48l3.18-3.18.85-.85a1.56 1.56 0 0 1 2.2 2.2l-4.28 4.3c-.36.35-.8.6-1.3.73l-1.2.3a.6.6 0 0 1-.74-.74l.07-.3.23-.9.02-.08c.13-.46.37-.88.7-1.22l.27-.26Z\"/>";
 
             /// <summary />
-            public static string TextNumberListRtl { get; } = ResourceManager.GetString("TextNumberListRtl");
+            public static string TargetSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2ZM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0ZM8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5ZM2 8a6 6 0 1 1 12 0A6 6 0 0 1 2 8Zm6-5a5 5 0 1 0 0 10A5 5 0 0 0 8 3Z\"/>";
 
             /// <summary />
-            public static string TextParagraph { get; } = ResourceManager.GetString("TextParagraph");
+            public static string TaskListSquareLtrSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 4.5A2.5 2.5 0 0 1 4.5 2h7A2.5 2.5 0 0 1 14 4.5v7a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 11.5v-7ZM4.5 3C3.67 3 3 3.67 3 4.5v7c0 .83.67 1.5 1.5 1.5h7c.83 0 1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5h-7Zm4 7.5c0-.28.22-.5.5-.5h2.25a.5.5 0 0 1 0 1H9a.5.5 0 0 1-.5-.5ZM9 6a.5.5 0 0 0 0 1h2.25a.5.5 0 0 0 0-1H9ZM7.35 9.15c.2.2.2.5 0 .7l-1.5 1.5a.5.5 0 0 1-.7 0l-.75-.74a.5.5 0 1 1 .7-.71l.4.4 1.15-1.15c.2-.2.5-.2.7 0Zm0-3.3a.5.5 0 1 0-.7-.7L5.5 6.29l-.4-.4a.5.5 0 0 0-.7.72l.75.74c.2.2.5.2.7 0l1.5-1.5Z\"/>";
 
             /// <summary />
-            public static string TextParagraphDirectionLeft { get; } = ResourceManager.GetString("TextParagraphDirectionLeft");
+            public static string TaskListSquareRtlSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 4.5A2.5 2.5 0 0 1 4.5 2h7A2.5 2.5 0 0 1 14 4.5v7a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 11.5v-7ZM4.5 3C3.67 3 3 3.67 3 4.5v7c0 .83.67 1.5 1.5 1.5h7c.83 0 1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5h-7Zm-.25 7.5c0-.28.22-.5.5-.5H7a.5.5 0 0 1 0 1H4.75a.5.5 0 0 1-.5-.5Zm.5-4.5a.5.5 0 0 0 0 1H7a.5.5 0 0 0 0-1H4.75Zm6.85 3.15c.2.2.2.5 0 .7l-1.5 1.5a.5.5 0 0 1-.7 0l-.75-.74a.5.5 0 1 1 .7-.71l.4.4 1.14-1.15c.2-.2.52-.2.71 0Zm0-3.3a.5.5 0 1 0-.7-.7L9.74 6.29l-.4-.4a.5.5 0 1 0-.7.72l.74.74c.2.2.52.2.71 0l1.5-1.5Z\"/>";
 
             /// <summary />
-            public static string TextParagraphDirectionRight { get; } = ResourceManager.GetString("TextParagraphDirectionRight");
+            public static string TemperatureSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 3.5a2.5 2.5 0 1 1 5 0v5.45a3.49 3.49 0 0 1-2.5 5.95A3.5 3.5 0 0 1 5 8.95V3.5ZM7.5 2C6.67 2 6 2.67 6 3.5v5.89l-.17.15A2.5 2.5 0 0 0 7.5 13.9a2.5 2.5 0 0 0 1.67-4.36L9 9.39V3.5C9 2.67 8.33 2 7.5 2ZM8 6a.5.5 0 0 0-1 0v4.09a1.5 1.5 0 1 0 1 0V6Z\"/>";
 
             /// <summary />
-            public static string TextParagraphEn { get; } = ResourceManager.GetString("TextParagraphEn");
+            public static string TentSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.4 1.35a.5.5 0 0 0-.76 0 18.24 18.24 0 0 1-4.3 3.4.5.5 0 0 0-.24.37L2.15 12h-.66a.5.5 0 0 0 0 1H14.5a.5.5 0 0 0 0-1h-.6l-.96-6.88a.5.5 0 0 0-.25-.37 18.23 18.23 0 0 1-4.28-3.4ZM11.28 12A17.4 17.4 0 0 1 8.5 5.73a.5.5 0 0 0-.97 0c-.86 3.34-1.87 5-2.8 6.27H3.16l.9-6.5c1.12-.66 2.84-1.9 3.96-3.08A20.47 20.47 0 0 0 12 5.5l.9 6.5h-1.62Zm-1.2 0H5.93A16.5 16.5 0 0 0 8 7.66c.6 1.81 1.25 3.1 2.06 4.34Z\"/>";
 
             /// <summary />
-            public static string TextParagraphJa { get; } = ResourceManager.GetString("TextParagraphJa");
+            public static string TetrisAppSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 3a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H9v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h2V3Zm6 0H9v2h2V3ZM8 3H6v2h2V3ZM3 6v2h2V6H3Zm5 0H6v2h2V6Zm2 2.07a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1V13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1h5V8.07ZM13 10V8.07h-2V10h2Zm-2 3h2v-2h-2v2Zm-3-2v2h2v-2H8Zm-1 0H5v2h2v-2Z\"/>";
 
             /// <summary />
-            public static string TextParagraphKo { get; } = ResourceManager.GetString("TextParagraphKo");
+            public static string TextAlignCenterRotate270SvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.5 13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 1 0v9a.5.5 0 0 1-.5.5Zm4 2a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5Zm4-4a.5.5 0 0 1-.5-.5v-5a.5.5 0 0 1 1 0v5a.5.5 0 0 1-.5.5Z\"/>";
 
             /// <summary />
-            public static string TextParagraphTempLtr { get; } = ResourceManager.GetString("TextParagraphTempLtr");
+            public static string TextAlignCenterRotate90SvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M12.5 3c.28 0 .5.22.5.5v9a.5.5 0 0 1-1 0v-9c0-.28.22-.5.5-.5Zm-4-2c.28 0 .5.22.5.5v13a.5.5 0 0 1-1 0v-13c0-.28.22-.5.5-.5Zm-4 4c.28 0 .5.22.5.5v5a.5.5 0 0 1-1 0v-5c0-.28.22-.5.5-.5Z\"/>";
 
             /// <summary />
-            public static string TextParagraphTempRtl { get; } = ResourceManager.GetString("TextParagraphTempRtl");
+            public static string TextAlignCenterSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3 3.5c0-.28.22-.5.5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5Zm-2 4c0-.28.22-.5.5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5Zm4 4c0-.28.22-.5.5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Z\"/>";
 
             /// <summary />
-            public static string TextParagraphZh { get; } = ResourceManager.GetString("TextParagraphZh");
+            public static string TextAlignLeftRotate270SvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.5 15a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 1 0v9a.5.5 0 0 1-.5.5Zm4 0a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5Zm4 0a.5.5 0 0 1-.5-.5v-5a.5.5 0 0 1 1 0v5a.5.5 0 0 1-.5.5Z\"/>";
 
             /// <summary />
-            public static string TextPositionSquareLeft { get; } = ResourceManager.GetString("TextPositionSquareLeft");
+            public static string TextAlignLeftRotate90SvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M12.5 1c.28 0 .5.22.5.5v9a.5.5 0 0 1-1 0v-9c0-.28.22-.5.5-.5Zm-4 0c.28 0 .5.22.5.5v13a.5.5 0 0 1-1 0v-13c0-.28.22-.5.5-.5Zm-4 0c.28 0 .5.22.5.5v5a.5.5 0 0 1-1 0v-5c0-.28.22-.5.5-.5Z\"/>";
 
             /// <summary />
-            public static string TextPositionSquareRight { get; } = ResourceManager.GetString("TextPositionSquareRight");
+            public static string TextAlignLeftSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1 3.5c0-.28.22-.5.5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5Zm0 4c0-.28.22-.5.5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5Zm0 4c0-.28.22-.5.5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Z\"/>";
 
             /// <summary />
-            public static string TextQuote { get; } = ResourceManager.GetString("TextQuote");
+            public static string TextAlignRightRotate270SvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.5 11a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 1 0v9a.5.5 0 0 1-.5.5Zm4 4a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5Zm4-8a.5.5 0 0 1-.5-.5v-5a.5.5 0 0 1 1 0v5a.5.5 0 0 1-.5.5Z\"/>";
 
             /// <summary />
-            public static string TextSortAscending { get; } = ResourceManager.GetString("TextSortAscending");
+            public static string TextAlignRightRotate90SvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M12.5 5c.28 0 .5.22.5.5v9a.5.5 0 0 1-1 0v-9c0-.28.22-.5.5-.5Zm-4-4c.28 0 .5.22.5.5v13a.5.5 0 0 1-1 0v-13c0-.28.22-.5.5-.5Zm-4 8c.28 0 .5.22.5.5v5a.5.5 0 0 1-1 0v-5c0-.28.22-.5.5-.5Z\"/>";
 
             /// <summary />
-            public static string TextSortAscendingBg { get; } = ResourceManager.GetString("TextSortAscendingBg");
+            public static string TextAlignRightSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 3.5c0-.28.22-.5.5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5Zm-4 4c0-.28.22-.5.5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5Zm8 4c0-.28.22-.5.5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Z\"/>";
 
             /// <summary />
-            public static string TextSortAscendingDa { get; } = ResourceManager.GetString("TextSortAscendingDa");
+            public static string TextBold { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 3a1 1 0 0 0-2 0v3.37A3.5 3.5 0 0 0 8.27 9.8L10 9.4V13a1 1 0 1 0 2 0V3a1 1 0 1 0-2 0v4.35l-2.17.49A1.5 1.5 0 0 1 6 6.37V3Z\"/>";
 
             /// <summary />
-            public static string TextSortAscendingEn { get; } = ResourceManager.GetString("TextSortAscendingEn");
+            public static string TextBoldSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 3.1C4 2.5 4.5 2 5.1 2h3c2.1 0 3.4 1.4 3.4 3.4 0 .9-.3 2-.7 2.6.8.6 1.4 1.2 1.4 2.5 0 2.7-2.1 3.5-3.6 3.5H5.1c-.6 0-1.1-.5-1.1-1.1V3.1ZM6 9v3h2.4c.7 0 1.5-.5 1.5-1.5S9.1 9 8.4 9H6Zm0-2h2.2c.9 0 1.5-.7 1.5-1.5S9.1 4 8.3 4H6v3Z\"/>";
 
             /// <summary />
-            public static string TextSortAscendingFi { get; } = ResourceManager.GetString("TextSortAscendingFi");
+            public static string TextboxSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.5 5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5Zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3Zm0 2a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5Zm-1-7A2.5 2.5 0 0 0 2 4.5v7A2.5 2.5 0 0 0 4.5 14h7a2.5 2.5 0 0 0 2.5-2.5v-7A2.5 2.5 0 0 0 11.5 2h-7ZM3 4.5C3 3.67 3.67 3 4.5 3h7c.83 0 1.5.67 1.5 1.5v7c0 .83-.67 1.5-1.5 1.5h-7A1.5 1.5 0 0 1 3 11.5v-7Z\"/>";
 
             /// <summary />
-            public static string TextSortAscendingGr { get; } = ResourceManager.GetString("TextSortAscendingGr");
+            public static string TextBulletListLtrSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 4.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2ZM2 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm1 3.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM5.5 3a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9ZM5 8c0-.28.22-.5.5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 5 8Zm.5 4a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9Z\"/>";
 
             /// <summary />
-            public static string TextSortAscendingKk { get; } = ResourceManager.GetString("TextSortAscendingKk");
+            public static string TextBulletListRtlSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M14 4.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2ZM14 9a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm-1 3.5a1 1 0 1 0 2 0 1 1 0 0 0-2 0ZM10.5 3a.5.5 0 0 1 0 1h-9a.5.5 0 0 1 0-1h9Zm.5 5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0 0 1h9A.5.5 0 0 0 11 8Zm-.5 4a.5.5 0 0 1 0 1h-9a.5.5 0 0 1 0-1h9Z\"/>";
 
             /// <summary />
-            public static string TextSortAscendingKo { get; } = ResourceManager.GetString("TextSortAscendingKo");
+            public static string TextBulletListSquareWarningSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 4c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v6.13l-1-1.7V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h2.3l-.03.07c-.17.28-.26.6-.27.93H4a2 2 0 0 1-2-2V4Zm5.2 7.5.58-1H7a.5.5 0 0 0 0 1h.2Zm1.76-3 .31-.52c.1-.19.24-.35.4-.48H7a.5.5 0 0 0 0 1h1.96ZM5.5 5A.75.75 0 1 1 4 5a.75.75 0 0 1 1.5 0Zm-.75 3.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM5.5 11A.75.75 0 1 1 4 11a.75.75 0 0 1 1.5 0ZM7 4.5a.5.5 0 0 0 0 1h4.48a.5.5 0 1 0 0-1H7Zm3.74 3.53c.25-.06.52-.03.76.1.16.09.28.2.37.36l3 5.09c.14.22.16.48.1.71a.96.96 0 0 1-.47.58c-.15.08-.32.13-.5.13H8c-.28 0-.53-.11-.71-.29a.93.93 0 0 1-.16-1.13l3-5.1a.99.99 0 0 1 .6-.45Zm.76 1.47a.5.5 0 0 0-1 0v2a.5.5 0 1 0 1 0v-2Zm-.5 5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z\"/>";
 
             /// <summary />
-            public static string TextSortAscendingRu { get; } = ResourceManager.GetString("TextSortAscendingRu");
+            public static string TextBulletListTreeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 4.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2ZM2 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm5 3.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM5.5 3a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9ZM5 8c0-.28.22-.5.5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 5 8Zm4.5 4a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5Z\"/>";
 
             /// <summary />
-            public static string TextSortAscendingSe { get; } = ResourceManager.GetString("TextSortAscendingSe");
+            public static string TextCaseLowercaseSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9.5 2.5c.28 0 .5.22.5.5v4.6c.42-.38.94-.6 1.5-.6 1.38 0 2.5 1.34 2.5 3s-1.12 3-2.5 3c-.56 0-1.08-.22-1.5-.6v.1a.5.5 0 0 1-1 0V3c0-.28.22-.5.5-.5Zm2 9.5c.67 0 1.5-.72 1.5-2s-.83-2-1.5-2-1.5.72-1.5 2 .83 2 1.5 2ZM7 8.7v3.81a.5.5 0 0 1-.43.49H6.5a.5.5 0 0 1-.5-.43v-.14c-.66.38-1.27.57-1.83.57A2.09 2.09 0 0 1 2 10.83c0-1.15.8-2 2.1-2.16a5.02 5.02 0 0 1 1.9.14c0-.74-.37-1.1-1.2-1.14-.63-.04-1.08.05-1.35.24a.5.5 0 0 1-.57-.82c.44-.3 1.03-.44 1.79-.43h.19c1.3.07 2.08.83 2.14 2.04ZM5.8 9.82a4.04 4.04 0 0 0-1.57-.13c-.82.1-1.23.53-1.23 1.17 0 .73.47 1.16 1.17 1.16a3.2 3.2 0 0 0 1.66-.64l.17-.11v-1.4l-.2-.05Z\"/>";
 
             /// <summary />
-            public static string TextSortAscendingSl { get; } = ResourceManager.GetString("TextSortAscendingSl");
+            public static string TextCaseTitleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 2.5c.21 0 .4.13.47.33l3.5 9.5a.5.5 0 0 1-.94.34L7.05 10h-4.1l-.98 2.67a.5.5 0 0 1-.94-.34l3.5-9.5A.5.5 0 0 1 5 2.5Zm0 1.95L3.32 9h3.36L5 4.45Zm5.5-1.95c.28 0 .5.22.5.5v4.6c.42-.38.94-.6 1.5-.6 1.38 0 2.5 1.34 2.5 3s-1.12 3-2.5 3c-.56 0-1.08-.22-1.5-.6v.1a.5.5 0 0 1-1 0V3c0-.28.22-.5.5-.5Zm2 9.5c.67 0 1.5-.72 1.5-2s-.83-2-1.5-2-1.5.72-1.5 2 .83 2 1.5 2Z\"/>";
 
             /// <summary />
-            public static string TextSortAscendingSr { get; } = ResourceManager.GetString("TextSortAscendingSr");
+            public static string TextCaseUppercaseSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 2.5c.21 0 .4.13.47.33l3.5 9.5a.5.5 0 0 1-.94.34L6.55 10h-4.1l-.98 2.67a.5.5 0 0 1-.94-.34l3.5-9.5a.5.5 0 0 1 .47-.33Zm0 1.95L2.82 9h3.36L4.5 4.45Zm5-1.95A.5.5 0 0 0 9 3v9.5c0 .28.22.5.5.5H12a3 3 0 0 0 1.16-5.77 2.74 2.74 0 0 0-1.91-4.73H9.5ZM13 5.25C13 6.22 12.22 7 11.25 7H10V3.5h1.25c.97 0 1.75.78 1.75 1.75ZM12 12h-2V8h2a2 2 0 1 1 0 4Z\"/>";
 
             /// <summary />
-            public static string TextSortDescending { get; } = ResourceManager.GetString("TextSortDescending");
+            public static string TextChangeCaseSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11 2.5c.21 0 .4.13.47.33l3.5 9.5a.5.5 0 0 1-.94.34L13.05 10h-4.1l-.98 2.67a.5.5 0 0 1-.94-.34l3.5-9.5A.5.5 0 0 1 11 2.5Zm0 1.95L9.32 9h3.36L11 4.45ZM6 8.7v3.81a.5.5 0 0 1-.43.49H5.5a.5.5 0 0 1-.5-.43v-.14c-.66.38-1.27.57-1.83.57A2.09 2.09 0 0 1 1 10.83c0-1.15.8-2 2.1-2.16a5.02 5.02 0 0 1 1.9.14c0-.74-.37-1.1-1.2-1.14-.63-.04-1.08.05-1.35.24a.5.5 0 0 1-.57-.82c.44-.3 1.03-.44 1.79-.43h.19c1.3.07 2.08.83 2.14 2.04ZM4.8 9.82a4.04 4.04 0 0 0-1.57-.13c-.82.1-1.23.53-1.23 1.17 0 .73.47 1.16 1.17 1.16a3.2 3.2 0 0 0 1.66-.64l.17-.11v-1.4l-.2-.05Z\"/>";
 
             /// <summary />
-            public static string TextSortDescendingBg { get; } = ResourceManager.GetString("TextSortDescendingBg");
+            public static string TextClearFormatting { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 1c.2 0 .38.12.46.3l2.88 6.73-.75.76a.5.5 0 0 1-.05-.1L6.31 7H2.7l-.73 1.7a.5.5 0 0 1-.92-.4l3-7A.5.5 0 0 1 4.5 1Zm1.38 5L4.5 2.77 3.12 6h2.76Zm8.43.2V6c0-1.82-.95-3-2.42-3a2 2 0 0 0-1.82 1.02H10V1.5a.5.5 0 1 0-1 0v5.38l1-1v-.4c.15-1.03.76-1.65 1.67-1.65.86 0 1.43.53 1.62 1.44.17.1.33.23.48.38l.54.54ZM9.51 15a1.5 1.5 0 0 1-1.57-.35l-1.59-1.59a1.5 1.5 0 0 1 0-2.12l4.59-4.59a1.5 1.5 0 0 1 2.12 0l1.59 1.59a1.5 1.5 0 0 1 0 2.12l-3.29 3.29-.01.01-.64.64h1.79a.5.5 0 0 1 0 1h-3Zm.78-2L8 10.7l-.94.95a.5.5 0 0 0 0 .7l1.59 1.59c.2.2.5.2.7 0l.94-.94Zm.71-.7 2.94-2.95a.5.5 0 0 0 0-.7l-1.59-1.59a.5.5 0 0 0-.7 0L8.7 10 11 12.3Z\"/>";
 
             /// <summary />
-            public static string TextSortDescendingDa { get; } = ResourceManager.GetString("TextSortDescendingDa");
+            public static string TextClearFormattingSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 1c.2 0 .38.12.46.3l2.88 6.73-.75.76a.5.5 0 0 1-.05-.1L6.31 7H2.7l-.73 1.7a.5.5 0 0 1-.92-.4l3-7A.5.5 0 0 1 4.5 1Zm1.38 5L4.5 2.77 3.12 6h2.76Zm8.43.2V6c0-1.82-.95-3-2.42-3a2 2 0 0 0-1.82 1.02H10V1.5a.5.5 0 1 0-1 0v5.38l1-1v-.4c.15-1.03.76-1.65 1.67-1.65.86 0 1.43.53 1.62 1.44.17.1.33.23.48.38l.54.54ZM9.51 15a1.5 1.5 0 0 1-1.57-.35l-1.59-1.59a1.5 1.5 0 0 1 0-2.12l4.59-4.59a1.5 1.5 0 0 1 2.12 0l1.59 1.59a1.5 1.5 0 0 1 0 2.12l-3.29 3.29-.01.01-.64.64h1.79a.5.5 0 0 1 0 1h-3Zm.78-2L8 10.7l-.94.95a.5.5 0 0 0 0 .7l1.59 1.59c.2.2.5.2.7 0l.94-.94Zm.71-.7 2.94-2.95a.5.5 0 0 0 0-.7l-1.59-1.59a.5.5 0 0 0-.7 0L8.7 10 11 12.3Z\"/>";
 
             /// <summary />
-            public static string TextSortDescendingEn { get; } = ResourceManager.GetString("TextSortDescendingEn");
+            public static string TextColor { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.46 1.3a.5.5 0 0 0-.92 0l-3 7a.5.5 0 1 0 .92.4L6.19 7H9.8l.73 1.7a.5.5 0 1 0 .92-.4l-3-7ZM9.38 6H6.62L8 2.77 9.38 6ZM3.5 10c-.83 0-1.5.67-1.5 1.5v2c0 .83.67 1.5 1.5 1.5h9c.83 0 1.5-.67 1.5-1.5v-2c0-.83-.67-1.5-1.5-1.5h-9ZM3 11.5c0-.28.22-.5.5-.5h9c.28 0 .5.22.5.5v2a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-2Z\"/>";
 
             /// <summary />
-            public static string TextSortDescendingFi { get; } = ResourceManager.GetString("TextSortDescendingFi");
+            public static string TextColorSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.46 1.3a.5.5 0 0 0-.92 0l-3 7a.5.5 0 1 0 .92.4L6.19 7H9.8l.73 1.7a.5.5 0 1 0 .92-.4l-3-7ZM9.38 6H6.62L8 2.77 9.38 6ZM3.5 10c-.83 0-1.5.67-1.5 1.5v2c0 .83.67 1.5 1.5 1.5h9c.83 0 1.5-.67 1.5-1.5v-2c0-.83-.67-1.5-1.5-1.5h-9ZM3 11.5c0-.28.22-.5.5-.5h9c.28 0 .5.22.5.5v2a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-2Z\"/>";
 
             /// <summary />
-            public static string TextSortDescendingGr { get; } = ResourceManager.GetString("TextSortDescendingGr");
+            public static string TextDensitySvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.5 1c.28 0 .5.22.5.5v13a.5.5 0 0 1-1 0v-13c0-.28.22-.5.5-.5ZM7 3H2.5a.5.5 0 0 0 0 1H7V3Zm0 3H2.5a.5.5 0 0 0 0 1H7V6Zm0 3H2.5a.5.5 0 0 0 0 1H7V9Zm0 3H2.5a.5.5 0 0 0 0 1H7v-1Zm5.5 0H10v-1h2.5a.5.5 0 1 0 0-1H10V9h2.5a1.5 1.5 0 1 1 0 3Zm0-5H10V6h2.5a.5.5 0 1 0 0-1H10V4h2.5a1.5 1.5 0 1 1 0 3Z\"/>";
 
             /// <summary />
-            public static string TextSortDescendingKk { get; } = ResourceManager.GetString("TextSortDescendingKk");
+            public static string TextExpandSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 2.5c0-.28.22-.5.5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5Zm0 12c0-.28.22-.5.5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5Zm7-4c0-.28.22-.5.5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5Zm0-4c0-.28.22-.5.5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5ZM4.5 12a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7ZM5 6.5a.5.5 0 0 0-1 0V8H2.5a.5.5 0 0 0 0 1H4v1.5a.5.5 0 0 0 1 0V9h1.5a.5.5 0 0 0 0-1H5V6.5Z\"/>";
 
             /// <summary />
-            public static string TextSortDescendingKo { get; } = ResourceManager.GetString("TextSortDescendingKo");
+            public static string TextFieldSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6.5 11.5c0-.28.22-.5.5-.5h.5V5H5v.5a.5.5 0 0 1-1 0v-1c0-.28.22-.5.5-.5h7c.28 0 .5.22.5.5v1a.5.5 0 0 1-1 0V5H8.5v6H9a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5ZM1 4.5A2.5 2.5 0 0 1 3.5 2h9A2.5 2.5 0 0 1 15 4.5v7a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 11.5v-7ZM3.5 3C2.67 3 2 3.67 2 4.5v7c0 .83.67 1.5 1.5 1.5h9c.83 0 1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5h-9Z\"/>";
 
             /// <summary />
-            public static string TextSortDescendingRu { get; } = ResourceManager.GetString("TextSortDescendingRu");
+            public static string TextFontInfoSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.47 1.83a.5.5 0 0 0-.94 0l-3.5 9.5a.5.5 0 0 0 .94.34L2.95 9h2.26c.1-.35.23-.68.39-1H3.32L5 3.45l1.3 3.5c.23-.27.5-.53.78-.76L5.47 1.83Zm5.03 6.04a.62.62 0 1 0 0 1.25.62.62 0 0 0 0-1.24Zm0 5.13a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-1 0v2c0 .28.22.5.5.5Zm0-7a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9Zm0 8a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Z\"/>";
 
             /// <summary />
-            public static string TextSortDescendingSe { get; } = ResourceManager.GetString("TextSortDescendingSe");
+            public static string TextFontSizeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10.97 2.33a.5.5 0 0 0-.94 0l-3.56 9.8-.34-.81v-.02l-1.67-4a.5.5 0 0 0-.92 0l-1.66 4-.01.02-.83 1.99a.5.5 0 1 0 .92.38l.7-1.69h2.67l.7 1.7h.01a.5.5 0 0 0 .93-.03L8.3 10h4.4l1.33 3.67a.5.5 0 0 0 .94-.34l-4-11Zm-.47 1.63L12.33 9H8.67l1.83-5.04ZM4 8.8l.92 2.2H3.08L4 8.8Z\"/>";
 
             /// <summary />
-            public static string TextSortDescendingSl { get; } = ResourceManager.GetString("TextSortDescendingSl");
+            public static string TextFontSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.75 2c.2 0 .4.13.47.32l1.73 4.61-.55 1.4-.3-.83H3.4l-.44 1.18a.5.5 0 0 1-.94-.36l2.25-6A.5.5 0 0 1 4.75 2Zm-.97 4.5h1.94l-.97-2.58-.97 2.58ZM6.7 10.3v.03L5.65 13H5.5a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-.77l.78-2h3.98l.78 2h-.77a.5.5 0 1 0 0 1h2.01a.5.5 0 0 0 0-1h-.17L9.97 4.32a.5.5 0 0 0-.94 0l-2.33 6Zm4.4-.3H7.9l1.6-4.13 1.6 4.13Z\"/>";
 
             /// <summary />
-            public static string TextSortDescendingSr { get; } = ResourceManager.GetString("TextSortDescendingSr");
+            public static string TextGrammarWandSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2.5 3a.5.5 0 0 0 0 1h11a.5.5 0 0 0 0-1h-11Zm1.94 9.44.44-.44H2.5a.5.5 0 0 0 0 1h1.58c.08-.2.2-.4.36-.56ZM6.97 9.9A1.5 1.5 0 0 1 6.1 9H2.5a.5.5 0 0 0 0 1h4.38l.1-.1ZM7.41 7l.27-.03A.5.5 0 0 0 7.5 6h-5a.5.5 0 0 0 0 1h4.9Zm3.09-2a.5.5 0 0 1 .5.44l.09.73a2 2 0 0 0 1.74 1.74l.73.1a.5.5 0 0 1 0 .99l-.73.09a2 2 0 0 0-1.74 1.74l-.1.73a.5.5 0 0 1-.99 0l-.09-.73a2 2 0 0 0-1.74-1.74l-.73-.1a.5.5 0 0 1 0-.99l.73-.09a2 2 0 0 0 1.74-1.74l.1-.73A.5.5 0 0 1 10.5 5Zm0 2.47A3 3 0 0 1 9.47 8.5a3 3 0 0 1 1.03 1.03 3 3 0 0 1 1.03-1.03 3 3 0 0 1-1.03-1.03Zm-1.65 2.68c.2.2.2.5 0 .7l-3 3a.5.5 0 1 1-.7-.7l3-3c.2-.2.5-.2.7 0Z\"/>";
 
             /// <summary />
-            public static string TextStrikethrough { get; } = ResourceManager.GetString("TextStrikethrough");
+            public static string TextIndentDecreaseLtrSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.5 3a.5.5 0 0 1 0 1h-6a.5.5 0 0 1 0-1h6Zm3 4a.5.5 0 0 1 0 1h-9a.5.5 0 0 1 0-1h9Zm-5 4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1 0-1h4ZM2.65 5.65a.5.5 0 0 1 .7.7L2.21 7.5l1.14 1.15a.5.5 0 0 1-.7.7l-1.5-1.5a.5.5 0 0 1 0-.7l1.5-1.5Z\"/>";
 
             /// <summary />
-            public static string TextStrikethroughEn { get; } = ResourceManager.GetString("TextStrikethroughEn");
+            public static string TextIndentDecreaseRtlSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 3.5c0-.28.22-.5.5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5Zm8.65 2.15c.2-.2.5-.2.7 0l1.5 1.5c.2.2.2.5 0 .7l-1.5 1.5a.5.5 0 0 1-.7-.7l1.14-1.15-1.14-1.15a.5.5 0 0 1 0-.7ZM1 7.5c0-.28.22-.5.5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5Zm5 4c0-.28.22-.5.5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5Z\"/>";
 
             /// <summary />
-            public static string TextStrikethroughKo { get; } = ResourceManager.GetString("TextStrikethroughKo");
+            public static string TextIndentIncreaseLtrSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.5 3a.5.5 0 0 1 0 1h-6a.5.5 0 0 1 0-1h6Zm3 4a.5.5 0 0 1 0 1h-9a.5.5 0 0 1 0-1h9Zm-5 4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1 0-1h4ZM1.85 5.65a.5.5 0 0 0-.7.7L2.29 7.5 1.15 8.65a.5.5 0 0 0 .7.7l1.5-1.5a.5.5 0 0 0 0-.7l-1.5-1.5Z\"/>";
 
             /// <summary />
-            public static string TextSubscript { get; } = ResourceManager.GetString("TextSubscript");
+            public static string TextIndentIncreaseRtlSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 3.5c0-.28.22-.5.5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5Zm10.85 2.15c.2.2.2.5 0 .7L13.71 7.5l1.14 1.15a.5.5 0 0 1-.7.7l-1.5-1.5a.5.5 0 0 1 0-.7l1.5-1.5c.2-.2.5-.2.7 0ZM1 7.5c0-.28.22-.5.5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5Zm5 4c0-.28.22-.5.5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5Z\"/>";
 
             /// <summary />
-            public static string TextSuperscript { get; } = ResourceManager.GetString("TextSuperscript");
+            public static string TextItalic { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.97 2.67a.5.5 0 0 0-.94-.34l-4 11a.5.5 0 1 0 .94.34l2-5.47 5.16 5.64a.5.5 0 0 0 .74-.68L6.77 7.6l7-4.67a.5.5 0 0 0-.55-.84L6.57 6.52l1.4-3.85Z\"/>";
 
             /// <summary />
-            public static string TextT { get; } = ResourceManager.GetString("TextT");
+            public static string TextItalicSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13 2H7a.5.5 0 0 0 0 1h2.47L5.66 13H3a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1H6.73l3.81-10H13a.5.5 0 0 0 0-1Z\"/>";
 
             /// <summary />
-            public static string TextTTag { get; } = ResourceManager.GetString("TextTTag");
+            public static string TextNumberListLtrSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.68 1.01c.2.04.33.21.33.4v3.3c0 .22-.19.4-.42.4a.42.42 0 0 1-.43-.4V2.58c-.19.16-.4.31-.67.44a.44.44 0 0 1-.57-.19.4.4 0 0 1 .2-.55A2.5 2.5 0 0 0 3.2 1.23c.1-.17.29-.26.48-.22ZM2.15 7.06a.4.4 0 0 1 0-.59h.01a1.12 1.12 0 0 1 .11-.1l.28-.17c.24-.13.6-.26 1.03-.26h.01c.32 0 .67.09.95.29.3.2.48.53.48.95 0 .45-.2.76-.48.99-.22.17-.5.3-.72.4l-.1.06c-.27.12-.47.24-.61.39a.76.76 0 0 0-.15.22H4.6c.23 0 .42.18.42.4 0 .23-.19.42-.42.42H2.46a.42.42 0 0 1-.43-.41c0-.51.17-.9.44-1.19.26-.27.6-.44.87-.57l.12-.06c.23-.11.4-.19.53-.3.12-.1.18-.19.18-.35 0-.15-.06-.23-.14-.3a.82.82 0 0 0-.45-.12 1.32 1.32 0 0 0-.82.3.44.44 0 0 1-.6 0Zm.94 5.88c0-.23.2-.41.43-.41.3 0 .46-.08.54-.15a.3.3 0 0 0 .1-.25c0-.16-.15-.42-.64-.42-.35 0-.53.08-.62.13a.35.35 0 0 0-.07.07v-.02.02a.44.44 0 0 1-.57.16.4.4 0 0 1-.19-.55l.01-.02a.71.71 0 0 1 .09-.12c.06-.07.14-.15.26-.22.24-.16.59-.28 1.1-.28.87 0 1.47.56 1.5 1.22 0 .3-.1.6-.35.84.24.23.36.54.34.84C5 14.44 4.4 15 3.52 15c-.5 0-.85-.12-1.1-.28a1.2 1.2 0 0 1-.34-.34v-.01h-.01a.4.4 0 0 1 .2-.56c.2-.1.44-.03.55.16l.08.07c.09.05.27.14.62.14.49 0 .64-.27.65-.43a.3.3 0 0 0-.11-.25c-.08-.07-.25-.15-.54-.15a.42.42 0 0 1-.43-.4ZM7.5 3a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1h-6Zm0 4a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1h-6Zm0 4a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1h-6Z\"/>";
 
             /// <summary />
-            public static string TextUnderline { get; } = ResourceManager.GetString("TextUnderline");
+            public static string TextNumberListRtlSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M12.68 1.01c.2.04.33.21.33.4v3.3c0 .22-.19.4-.42.4a.42.42 0 0 1-.43-.4V2.58c-.19.16-.4.31-.67.44a.44.44 0 0 1-.57-.19.4.4 0 0 1 .2-.55 2.5 2.5 0 0 0 1.08-1.05c.1-.17.29-.26.48-.22Zm-1.53 6.05a.4.4 0 0 1 0-.59h.01a.95.95 0 0 1 .11-.1l.28-.17c.24-.13.6-.26 1.03-.26h.01c.32 0 .67.09.95.29.3.2.48.53.48.95 0 .45-.2.76-.48.99-.22.17-.5.3-.72.4l-.1.06c-.27.12-.47.24-.61.39a.76.76 0 0 0-.15.22h1.64c.23 0 .42.18.42.4 0 .23-.19.42-.42.42h-2.14a.42.42 0 0 1-.43-.41c0-.51.17-.9.44-1.19.26-.27.6-.44.87-.57l.12-.06c.23-.11.4-.19.53-.3.12-.1.18-.19.18-.35 0-.15-.06-.23-.14-.3a.82.82 0 0 0-.45-.12 1.32 1.32 0 0 0-.82.3.44.44 0 0 1-.6 0Zm.94 5.88c0-.23.2-.41.43-.41.3 0 .46-.08.54-.15a.3.3 0 0 0 .1-.25c0-.16-.15-.42-.64-.42-.35 0-.53.08-.62.13a.35.35 0 0 0-.07.07v-.02.02a.44.44 0 0 1-.57.16.4.4 0 0 1-.2-.55h.01l.01-.02.02-.03a1.19 1.19 0 0 1 .33-.3c.24-.17.59-.29 1.1-.29.87 0 1.47.56 1.5 1.22 0 .3-.1.6-.35.84.24.23.36.54.34.84-.02.66-.62 1.22-1.5 1.22-.5 0-.85-.12-1.1-.28a1.19 1.19 0 0 1-.34-.34v-.01h-.01a.4.4 0 0 1 .2-.56c.2-.1.44-.03.55.16l.08.07c.09.05.27.14.62.14.49 0 .64-.27.65-.43a.3.3 0 0 0-.11-.25c-.08-.07-.25-.15-.54-.15a.42.42 0 0 1-.43-.4ZM2.5 3a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1h-6Zm0 4a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1h-6Zm0 4a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1h-6Z\"/>";
 
             /// <summary />
-            public static string TextUnderlineBg { get; } = ResourceManager.GetString("TextUnderlineBg");
+            public static string TextParagraph { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2.5 3a.5.5 0 0 0 0 1h11a.5.5 0 0 0 0-1h-11Zm9 11a.5.5 0 0 0 .5-.5V6h1v7.5a.5.5 0 0 0 1 0V6h.5a.5.5 0 0 0 0-1H11a3 3 0 1 0 0 6v2.5c0 .28.22.5.5.5ZM10 6.27A2 2 0 0 1 11 6v4a2 2 0 0 1-2-2 2 2 0 0 1 1-1.73ZM7.54 6H2.5a.5.5 0 0 0 0 1h4.63c.09-.35.23-.69.4-1Zm-.41 3c.09.35.23.69.4 1H2.5a.5.5 0 0 1 0-1h4.63Z\"/>";
 
             /// <summary />
-            public static string TextUnderlineCa { get; } = ResourceManager.GetString("TextUnderlineCa");
+            public static string TextParagraphDirectionLeftSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9 3a2.5 2.5 0 0 0 0 5h1V3H9Zm2 0v10.5a.5.5 0 0 1-1 0V9H9a3.5 3.5 0 1 1 0-7h4.5a.5.5 0 0 1 0 1H13v10.5a.5.5 0 0 1-1 0V3h-1ZM3.85 6.15c.2.2.2.5 0 .7L2.71 8l1.14 1.15a.5.5 0 1 1-.7.7l-1.5-1.5a.5.5 0 0 1 0-.7l1.5-1.5c.2-.2.5-.2.7 0Z\"/>";
 
             /// <summary />
-            public static string TextUnderlineCharacterU { get; } = ResourceManager.GetString("TextUnderlineCharacterU");
+            public static string TextParagraphDirectionRightSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9 3a2.5 2.5 0 0 0 0 5h1V3H9Zm2 0v10.5a.5.5 0 0 1-1 0V9H9a3.5 3.5 0 1 1 0-7h4.5a.5.5 0 0 1 0 1H13v10.5a.5.5 0 0 1-1 0V3h-1ZM2.15 6.15c.2-.2.5-.2.7 0l1.5 1.5c.2.2.2.5 0 .7l-1.5 1.5a.5.5 0 0 1-.7-.7L3.29 8 2.15 6.85a.5.5 0 0 1 0-.7Z\"/>";
 
             /// <summary />
-            public static string TextUnderlineEn { get; } = ResourceManager.GetString("TextUnderlineEn");
+            public static string TextParagraphSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13.5 2a.5.5 0 0 0-.5.5V5a1 1 0 0 1-1 1H8.7l1.15-1.15a.5.5 0 0 0-.7-.7l-2 2a.5.5 0 0 0 0 .7l2 2a.5.5 0 1 0 .7-.7L8.71 7H12a2 2 0 0 0 2-2V2.5a.5.5 0 0 0-.5-.5ZM5.65 8.15c.2-.2.5-.2.7 0l2 2c.2.2.2.5 0 .7l-2 2a.5.5 0 0 1-.7-.7L6.79 11H1.5a.5.5 0 0 1 0-1h5.3L5.64 8.85a.5.5 0 0 1 0-.7Z\"/>";
 
             /// <summary />
-            public static string TextUnderlineEs { get; } = ResourceManager.GetString("TextUnderlineEs");
+            public static string TextPositionSquareLeftSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2.5 2a.5.5 0 0 0 0 1h11a.5.5 0 0 0 0-1h-11ZM10 4.5a.5.5 0 0 0 0 1h3.5a.5.5 0 0 0 0-1H10Zm-.5 3c0-.28.22-.5.5-.5h3.5a.5.5 0 0 1 0 1H10a.5.5 0 0 1-.5-.5Zm.5 2a.5.5 0 0 0 0 1h3.5a.5.5 0 0 0 0-1H10Zm-8 3c0-.28.22-.5.5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5ZM3 7a2 2 0 1 1 4 0v3.5a.5.5 0 0 0 1 0V7a3 3 0 0 0-6 0v3.5a.5.5 0 0 0 1 0V7Z\"/>";
 
             /// <summary />
-            public static string TextUnderlineEt { get; } = ResourceManager.GetString("TextUnderlineEt");
+            public static string TextPositionSquareRightSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13.5 2a.5.5 0 0 1 0 1h-11a.5.5 0 0 1 0-1h11ZM6 4.5a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1 0-1H6Zm.5 3A.5.5 0 0 0 6 7H2.5a.5.5 0 0 0 0 1H6a.5.5 0 0 0 .5-.5Zm-.5 2a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1 0-1H6Zm8 3a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0 0 1h11a.5.5 0 0 0 .5-.5ZM13 7a2 2 0 1 0-4 0v3.5a.5.5 0 0 1-1 0V7a3 3 0 0 1 6 0v3.5a.5.5 0 0 1-1 0V7Z\"/>";
 
             /// <summary />
-            public static string TextUnderlineEu { get; } = ResourceManager.GetString("TextUnderlineEu");
+            public static string TextQuoteSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11 4a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm.89 2.8a7.31 7.31 0 0 1-2.24 4.35.5.5 0 0 0 .7.7C12.47 9.73 13 7.6 13 5a2 2 0 1 0-1.11 1.8ZM5 4a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm.89 2.8a7.31 7.31 0 0 1-2.24 4.35.5.5 0 0 0 .7.7C6.47 9.73 7 7.6 7 5a2 2 0 1 0-1.11 1.8Z\"/>";
 
             /// <summary />
-            public static string TextUnderlineFr { get; } = ResourceManager.GetString("TextUnderlineFr");
+            public static string TextSortAscending { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 1c.2 0 .38.12.46.3l2.5 6a.5.5 0 0 1-.92.4L6.34 6H3.66l-.7 1.7a.5.5 0 1 1-.93-.4l2.5-6A.5.5 0 0 1 5 1Zm0 1.8L4.08 5h1.84L5 2.8ZM4 9a2 2 0 0 0-1.2 3.6c-.22.21-.38.45-.5.68a2.96 2.96 0 0 0-.3 1.18v.04a.5.5 0 0 0 1 0 1.18 1.18 0 0 1 .02-.23c.03-.15.08-.35.18-.55.1-.19.23-.36.42-.5.2-.12.47-.22.88-.22H7v1.5a.5.5 0 0 0 1 0v-5a.5.5 0 0 0-.5-.5H4Zm3 3H4a1 1 0 1 1 0-2h3v2Zm5.5-11c.28 0 .5.22.5.5v11.8l1.15-1.15a.5.5 0 0 1 .7.7l-2 2a.5.5 0 0 1-.7 0l-2-2a.5.5 0 0 1 .7-.7L12 13.29V1.5c0-.28.22-.5.5-.5Z\"/>";
 
             /// <summary />
-            public static string TextUnderlineGl { get; } = ResourceManager.GetString("TextUnderlineGl");
+            public static string TextSortAscendingSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.46 1.3a.5.5 0 0 0-.92 0l-2.5 6a.5.5 0 0 0 .92.4l.7-1.7h2.67l.7 1.7a.5.5 0 1 0 .93-.4l-2.5-6ZM4.08 5 5 2.8 5.92 5H4.08ZM2.5 9.5c0-.28.22-.5.5-.5h3.5a.5.5 0 0 1 .41.79L3.96 14H6.5a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.4-.79L5.53 10H3a.5.5 0 0 1-.5-.5Zm10-8.5c.28 0 .5.22.5.5v11.8l1.15-1.15a.5.5 0 0 1 .7.7l-2 2a.5.5 0 0 1-.7 0l-2-2a.5.5 0 0 1 .7-.7L12 13.29V1.5c0-.28.22-.5.5-.5Z\"/>";
 
             /// <summary />
-            public static string TextUnderlineHu { get; } = ResourceManager.GetString("TextUnderlineHu");
+            public static string TextSortDescending { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 1a2 2 0 0 0-1.2 3.6c-.22.21-.38.45-.5.68A2.96 2.96 0 0 0 2 6.46v.04a.5.5 0 0 0 1 0 1.17 1.17 0 0 1 .02-.23c.03-.16.08-.35.18-.55.1-.19.23-.36.42-.5.2-.12.47-.22.88-.22H7v1.5a.5.5 0 0 0 1 0v-5a.5.5 0 0 0-.5-.5H4Zm3 3H4a1 1 0 0 1 0-2h3v2ZM5 8c.2 0 .38.12.46.3l2.5 6a.5.5 0 1 1-.92.4l-.7-1.7H3.66l-.7 1.7a.5.5 0 0 1-.93-.4l2.5-6A.5.5 0 0 1 5 8Zm0 1.8L4.08 12h1.84L5 9.8ZM12.5 1c.28 0 .5.22.5.5v11.8l1.15-1.15a.5.5 0 0 1 .7.7l-2 2a.5.5 0 0 1-.7 0l-2-2a.5.5 0 0 1 .7-.7L12 13.29V1.5c0-.28.22-.5.5-.5Z\"/>";
 
             /// <summary />
-            public static string TextUnderlineIt { get; } = ResourceManager.GetString("TextUnderlineIt");
+            public static string TextSortDescendingSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2.5 1.5c0-.28.22-.5.5-.5h3.5a.5.5 0 0 1 .41.79L3.96 6H6.5a.5.5 0 1 1 0 1H3a.5.5 0 0 1-.41-.79L5.54 2H3a.5.5 0 0 1-.5-.5Zm2.96 6.8a.5.5 0 0 0-.92 0l-2.5 6a.5.5 0 1 0 .92.4l.7-1.7h2.67l.7 1.7a.5.5 0 0 0 .93-.4l-2.5-6ZM4.08 12 5 9.8l.92 2.2H4.08ZM12.5 1c.28 0 .5.22.5.5v11.8l1.15-1.15a.5.5 0 0 1 .7.7l-2 2a.5.5 0 0 1-.7 0l-2-2a.5.5 0 0 1 .7-.7L12 13.29V1.5c0-.28.22-.5.5-.5Z\"/>";
 
             /// <summary />
-            public static string TextUnderlineKk { get; } = ResourceManager.GetString("TextUnderlineKk");
+            public static string TextStrikethrough { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 5.1c0-.55.3-1.06.84-1.46C6.39 3.25 7.19 3 8.1 3c1.3 0 2.38.56 2.76 1.24a.5.5 0 0 0 .88-.48C11.12 2.64 9.6 2 8.1 2c-1.09 0-2.1.3-2.84.83A2.78 2.78 0 0 0 4 5.1c0 .72.3 1.37.79 1.9H6.5C5.55 6.6 5 5.83 5 5.1ZM13.5 8a.5.5 0 0 1 0 1h-2.34c.52.5.84 1.15.84 1.9 0 .9-.51 1.69-1.26 2.23C10 13.67 9 14 7.9 14c-1.62 0-3-.65-3.72-1.72a.5.5 0 0 1 .84-.56C5.5 12.45 6.52 13 7.9 13c.9 0 1.7-.27 2.25-.68.56-.4.85-.92.85-1.42 0-.78-.63-1.53-1.78-1.9H2.5a.5.5 0 0 1 0-1h11Z\"/>";
 
             /// <summary />
-            public static string TextUnderlineKo { get; } = ResourceManager.GetString("TextUnderlineKo");
+            public static string TextStrikethroughSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 5.1c0-.55.3-1.06.84-1.46C6.39 3.25 7.19 3 8.1 3c1.3 0 2.38.56 2.76 1.24a.5.5 0 0 0 .88-.48C11.12 2.64 9.6 2 8.1 2c-1.09 0-2.1.3-2.84.83A2.78 2.78 0 0 0 4 5.1c0 .72.3 1.37.79 1.9H6.5C5.55 6.6 5 5.83 5 5.1ZM13.5 8a.5.5 0 0 1 0 1h-2.34c.52.5.84 1.15.84 1.9 0 .9-.51 1.69-1.26 2.23C10 13.67 9 14 7.9 14c-1.62 0-3-.65-3.72-1.72a.5.5 0 0 1 .84-.56C5.5 12.45 6.52 13 7.9 13c.9 0 1.7-.27 2.25-.68.56-.4.85-.92.85-1.42 0-.78-.63-1.53-1.78-1.9H2.5a.5.5 0 0 1 0-1h11Z\"/>";
 
             /// <summary />
-            public static string TextUnderlineLt { get; } = ResourceManager.GetString("TextUnderlineLt");
+            public static string TextSubscriptSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2.17 3.13a.5.5 0 0 1 .7.04L6.5 7.25l3.63-4.08a.5.5 0 0 1 .74.66L7.17 8l2.85 3.2-.02.3c0 .47.22.9.56 1.17-.07.1-.13.2-.18.31a.5.5 0 0 1-.25-.15L6.5 8.75l-3.63 4.08a.5.5 0 1 1-.74-.66L5.83 8l-3.7-4.17a.5.5 0 0 1 .04-.7ZM12 11.5a.5.5 0 0 1 1 0c0 .26-.08.4-.19.5-.1.1-.2.17-.35.26l-.24.15C11.36 13 11 13.77 11 14.5c0 .28.22.5.5.5h2a.5.5 0 0 0 0-1h-1.4c.12-.25.32-.52.68-.76l.13-.08c.17-.11.42-.27.6-.45.29-.29.49-.67.49-1.21a1.5 1.5 0 0 0-3 0 .5.5 0 0 0 1 0Z\"/>";
 
             /// <summary />
-            public static string TextUnderlineLv { get; } = ResourceManager.GetString("TextUnderlineLv");
+            public static string TextSuperscriptSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M12 2.5a.5.5 0 0 1 1 0c0 .26-.08.4-.19.5-.1.1-.2.17-.35.26l-.24.15C11.36 4 11 4.77 11 5.5c0 .28.22.5.5.5h2a.5.5 0 0 0 0-1h-1.4a1.8 1.8 0 0 1 .81-.84c.17-.11.42-.27.6-.45.29-.29.49-.67.49-1.21a1.5 1.5 0 0 0-3 0 .5.5 0 0 0 1 0Zm-2 2c0-.5.12-1.01.36-1.48a.5.5 0 0 0-.23.15L6.5 7.25 2.87 3.17a.5.5 0 0 0-.74.66L5.83 8l-3.7 4.17a.5.5 0 0 0 .74.66L6.5 8.75l3.63 4.08a.5.5 0 1 0 .74-.66L7.17 8l2.86-3.22A1.5 1.5 0 0 1 10 4.5Z\"/>";
 
             /// <summary />
-            public static string TextUnderlinePt { get; } = ResourceManager.GetString("TextUnderlinePt");
+            public static string TextSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3 2.5c0-.28.22-.5.5-.5h8c.28 0 .5.22.5.5v2a.5.5 0 0 1-1 0V3H8v10h1a.5.5 0 0 1 0 1H6a.5.5 0 0 1 0-1h1V3H4v1.5a.5.5 0 0 1-1 0v-2Z\"/>";
 
             /// <summary />
-            public static string TextUnderlineRu { get; } = ResourceManager.GetString("TextUnderlineRu");
+            public static string TextTSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3 2.5c0-.28.22-.5.5-.5h8c.28 0 .5.22.5.5v2a.5.5 0 0 1-1 0V3H8v10h1a.5.5 0 0 1 0 1H6a.5.5 0 0 1 0-1h1V3H4v1.5a.5.5 0 0 1-1 0v-2Z\"/>";
 
             /// <summary />
-            public static string TextUnderlineSl { get; } = ResourceManager.GetString("TextUnderlineSl");
+            public static string TextTTagSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 3.5c0-.28.22-.5.5-.5h7c.28 0 .5.22.5.5v1a.5.5 0 0 1-1 0V4H8.5v8H9a.5.5 0 0 1 0 1H7a.5.5 0 0 1 0-1h.5V4H5v.5a.5.5 0 0 1-1 0v-1Zm.35 3.15c.2.2.2.5 0 .7L2.21 9.5l2.14 2.15a.5.5 0 0 1-.7.7l-2.5-2.5a.5.5 0 0 1 0-.7l2.5-2.5c.2-.2.5-.2.7 0Zm10.5 2.5-2.5-2.5a.5.5 0 0 0-.7.7l2.14 2.15-2.14 2.15a.5.5 0 0 0 .7.7l2.5-2.5a.5.5 0 0 0 0-.7Z\"/>";
 
             /// <summary />
-            public static string TextUnderlineSr { get; } = ResourceManager.GetString("TextUnderlineSr");
+            public static string TextUnderline { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11 3.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 1 0V4h4v6.5a.5.5 0 0 0 1 0v-7ZM4.5 13a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7Z\"/>";
 
             /// <summary />
-            public static string TextUnderlineTr { get; } = ResourceManager.GetString("TextUnderlineTr");
+            public static string TextUnderlineCharacterUSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.5 2.5a.5.5 0 0 0-1 0v5a3.5 3.5 0 1 0 7 0v-5a.5.5 0 0 0-1 0v5a2.5 2.5 0 0 1-5 0v-5ZM4.5 13a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7Z\"/>";
 
             /// <summary />
-            public static string TextUnderlineUk { get; } = ResourceManager.GetString("TextUnderlineUk");
+            public static string TextUnderlineSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 2c.28 0 .5.22.5.5V8c0 1.62 1.38 3 3 3s3-1.38 3-3V2.5a.5.5 0 0 1 1 0V8c0 2.18-1.82 4-4 4-2.18 0-4-1.82-4-4V2.5c0-.28.22-.5.5-.5ZM4 13.5c0-.28.22-.5.5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5Z\"/>";
 
             /// <summary />
-            public static string TextWrap { get; } = ResourceManager.GetString("TextWrap");
+            public static string TextWrapOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M14.15 14.85 11.29 12H9.71l.64.65a.5.5 0 0 1-.7.7l-1.5-1.5a.5.5 0 0 1 0-.7L9.29 10l-2-2H2.5a.5.5 0 0 1 0-1h3.8l-3-3h-.8a.5.5 0 0 1-.18-.97L1.15 1.85a.5.5 0 1 1 .7-.7l13 13a.5.5 0 0 1-.7.7ZM10.12 8l-1-1h3.38a2.5 2.5 0 0 1 1.27 4.65l-.74-.74A1.5 1.5 0 0 0 12.5 8h-2.38Zm-4-4-1-1h8.38a.5.5 0 0 1 0 1H6.12ZM6 11a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1 0-1H6Z\"/>";
 
             /// <summary />
-            public static string TextWrapOff { get; } = ResourceManager.GetString("TextWrapOff");
+            public static string TextWrapSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 3.5c0-.28.22-.5.5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5Zm0 4c0-.28.22-.5.5-.5h10a2.5 2.5 0 0 1 0 5H9.7l.65.65a.5.5 0 0 1-.7.7l-1.5-1.5a.5.5 0 0 1 0-.7l1.5-1.5a.5.5 0 0 1 .7.7l-.64.65h2.79a1.5 1.5 0 0 0 0-3h-10a.5.5 0 0 1-.5-.5ZM6 11a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1 0-1H6Z\"/>";
 
             /// <summary />
-            public static string ThumbDislike { get; } = ResourceManager.GetString("ThumbDislike");
+            public static string ThumbDislikeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m10.58 10 .05.45a11 11 0 0 1-.02 2.68c-.07.44-.2.88-.44 1.23-.25.38-.64.64-1.17.64-.52 0-.83-.37-1.02-.7-.2-.31-.36-.75-.54-1.2l-.01-.03c-.55-1.4-1.3-3.31-3.3-4.65-.31-.2-.6-.36-.86-.46-.7-.3-1.32-1.06-1.16-1.94l.23-1.2a2 2 0 0 1 1.43-1.55l4.95-1.38a3.5 3.5 0 0 1 4.37 2.73l.46 2.42A2.5 2.5 0 0 1 11.09 10h-.51Zm1.53-5.2a2.5 2.5 0 0 0-3.13-1.94L4.03 4.23a1 1 0 0 0-.71.78l-.22 1.2c-.06.28.16.66.55.82.31.13.66.31 1.03.55 2.28 1.53 3.13 3.7 3.67 5.11l.01.02c.2.5.33.85.47 1.08A.73.73 0 0 0 9 14c.14 0 .25-.05.35-.2.12-.18.22-.46.28-.83a10.06 10.06 0 0 0-.08-3.12l-.03-.2-.01-.05V9.6A.5.5 0 0 1 10 9h1.09a1.5 1.5 0 0 0 1.47-1.78l-.45-2.42Z\"/>";
 
             /// <summary />
-            public static string ThumbLike { get; } = ResourceManager.GetString("ThumbLike");
+            public static string ThumbLikeSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.03 1.92c.21-.52.8-1.08 1.55-.87.6.17.97.52 1.2 1 .2.44.25.96.26 1.46a7.5 7.5 0 0 1-.24 1.74c-.06.26-.12.51-.19.74h1.38a2 2 0 0 1 1.92 2.56l-1.36 4.65a2.5 2.5 0 0 1-3.15 1.68L4.05 13.2A2 2 0 0 1 2.77 12l-.52-1.4a2 2 0 0 1 .86-2.42l1.87-1.1.02-.01.1-.09c.1-.07.23-.2.4-.4.35-.39.82-1.03 1.3-2.04.2-.44.37-.78.53-1.1.25-.5.46-.92.7-1.52Zm-2.51 6-.02.01-1.88 1.11a1 1 0 0 0-.43 1.22l.52 1.38a1 1 0 0 0 .64.6l5.35 1.68c.8.26 1.65-.2 1.89-1l1.36-4.65A1 1 0 0 0 12 6.99H9.93a.5.5 0 0 1-.48-.67c.1-.28.26-.77.38-1.3.13-.54.22-1.08.2-1.5 0-.46-.05-.8-.16-1.05a.78.78 0 0 0-.56-.45c-.04-.02-.1-.01-.16.03a.54.54 0 0 0-.19.25c-.25.63-.5 1.11-.76 1.65-.16.3-.32.63-.5 1.01a9.52 9.52 0 0 1-1.45 2.28 5.06 5.06 0 0 1-.7.66l-.02.01-.01.01Zm-.54-.84Z\"/>";
 
             /// <summary />
-            public static string TicketDiagonal { get; } = ResourceManager.GetString("TicketDiagonal");
+            public static string TicketDiagonalSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9.44 1.94a.6.6 0 0 0-.83.02L1.99 8.58a.6.6 0 0 0 0 .84l.93.93h.02a.2.2 0 0 0 .1-.03A1.9 1.9 0 0 1 6 11.9c0 .39-.12.75-.32 1.05a.2.2 0 0 0-.03.11v.02l.9.9a.6.6 0 0 0 .87 0l6.6-7.02a.6.6 0 0 0-.04-.85l-.88-.81h-.05c-.05 0-.1.04-.14.08a1.9 1.9 0 1 1-2.8-2.57c.03-.04.06-.1.06-.15a.11.11 0 0 0 0-.05l-.73-.67Zm-1.4-.55a1.4 1.4 0 0 1 1.94-.04l.73.67c.22.2.28.48.26.71-.02.23-.12.46-.28.63a1.1 1.1 0 1 0 1.62 1.49c.16-.18.37-.3.6-.34.23-.04.5 0 .73.2l.88.81c.58.53.61 1.42.08 2l-6.6 7a1.4 1.4 0 0 1-2.01.03l-.9-.9c-.35-.35-.27-.85-.07-1.14a1.1 1.1 0 0 0-1.53-1.53c-.3.2-.8.28-1.14-.06l-.92-.93a1.4 1.4 0 0 1 0-1.98L8.04 1.4Z\"/>";
 
             /// <summary />
-            public static string Timer { get; } = ResourceManager.GetString("Timer");
+            public static string TimerSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 1.5c0-.28.22-.5.5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5ZM7.5 5a.5.5 0 0 0-.5.5v4a.5.5 0 0 0 1 0v-4a.5.5 0 0 0-.5-.5Zm6 4a6 6 0 1 1-12 0 6 6 0 0 1 12 0Zm-1 0a5 5 0 1 0-10 0 5 5 0 0 0 10 0Zm-.05-6.36a.5.5 0 1 0-.7.7l1.4 1.41a.5.5 0 1 0 .7-.7l-1.4-1.4Z\"/>";
 
             /// <summary />
-            public static string ToggleLeft { get; } = ResourceManager.GetString("ToggleLeft");
+            public static string ToggleLeftSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 10a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm10-2a4 4 0 0 0-4-4H5a4 4 0 1 0 0 8h6a4 4 0 0 0 4-4Zm-4-3a3 3 0 1 1 0 6H5a3 3 0 0 1 0-6h6Z\"/>";
 
             /// <summary />
-            public static string ToggleMultiple { get; } = ResourceManager.GetString("ToggleMultiple");
+            public static string ToggleMultipleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 4a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM2 4a3 3 0 0 1 3-3h6a3 3 0 1 1 0 6H5a3 3 0 0 1-3-3Zm3-2a2 2 0 1 0 0 4h6a2 2 0 1 0 0-4H5Zm6 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm-9-1a3 3 0 0 1 3-3h6a3 3 0 1 1 0 6H5a3 3 0 0 1-3-3Zm3-2a2 2 0 1 0 0 4h6a2 2 0 1 0 0-4H5Z\"/>";
 
             /// <summary />
-            public static string ToggleRight { get; } = ResourceManager.GetString("ToggleRight");
+            public static string ToggleRightSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM1 8a4 4 0 0 1 4-4h6a4 4 0 0 1 0 8H5a4 4 0 0 1-4-4Zm4-3a3 3 0 0 0 0 6h6a3 3 0 1 0 0-6H5Z\"/>";
 
             /// <summary />
-            public static string Toolbox { get; } = ResourceManager.GetString("Toolbox");
+            public static string ToolboxSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5 4.5V5H4a2 2 0 0 0-2 2v4c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1v-.5c0-.83-.66-1.5-1.5-1.5h-3C5.69 3 5 3.67 5 4.5ZM6.5 4h3c.28 0 .5.22.5.5V5H6v-.5c0-.28.23-.5.5-.5ZM4 6h8a1 1 0 0 1 1 1v1h-2v-.5a.5.5 0 0 0-1 0V8H6v-.5a.5.5 0 0 0-1 0V8H3V7a1 1 0 0 1 1-1Zm6 3v.5a.5.5 0 0 0 1 0V9h2v2a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9h2v.5a.5.5 0 0 0 1 0V9h4Z\"/>";
 
             /// <summary />
-            public static string Translate { get; } = ResourceManager.GetString("Translate");
+            public static string TranslateOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10.67 11.38a.5.5 0 0 1-.05-.05l-.23-.23c-.18.09-.37.15-.55.2-.48.1-1.02.06-1.4-.33-.52-.53-.59-1.36-.29-2.11L7 7.71V11a.5.5 0 0 1-1 0v-.36c-.16.09-.33.17-.5.24-.57.25-1.31.43-2.07.2-1.7-.53-1.92-2.81-.46-3.71a3.9 3.9 0 0 1 2.37-.35c.24.03.46.06.65.1 0-.16-.01-.31-.03-.46L5 5.7a2.74 2.74 0 0 0-1.75.23.5.5 0 0 1-.5-.86l.02-.02a1.93 1.93 0 0 1 .22-.1 3.77 3.77 0 0 1 .99-.27L1.15 1.85a.5.5 0 1 1 .7-.7l13 13a.5.5 0 0 1-.7.7l-3.48-3.47Zm-1.06-1.06-.64-.64c-.01.27.07.48.18.6.04.03.17.1.46.04ZM6 8.14a7.5 7.5 0 0 0-.77-.12c-.67-.08-1.33-.04-1.74.2-.75.47-.61 1.64.23 1.9.44.13.92.04 1.39-.16.35-.14.65-.33.89-.48V8.14Zm8 .41c.18.66-.11 1.6-1.12 2.21l.72.72c1.18-.81 1.66-2.08 1.37-3.19a2.36 2.36 0 0 0-1.38-1.57 2.91 2.91 0 0 0-.6-.19V6.5a.5.5 0 0 0-1-.02c-.28.02-.58.07-.9.15l.1-.83c.66-.07 1.32-.17 1.92-.31a.5.5 0 0 0-.23-.98c-.48.12-1 .2-1.53.26l.14-.67a.5.5 0 1 0-.98-.2l-.19.95c-.44.02-.87.01-1.29-.02a.5.5 0 1 0-.07 1c.4.03.8.04 1.21.03-.05.4-.08.78-.1 1.14-.22.1-.43.22-.61.34l1.62 1.62c-.03-.38-.05-.8-.04-1.27a5.26 5.26 0 0 1 .86-.2 4.28 4.28 0 0 1-.68 1.6l.71.72c.46-.6.82-1.36.98-2.27.1.03.2.06.28.1.44.19.7.52.81.91Z\"/>";
 
             /// <summary />
-            public static string TranslateAuto { get; } = ResourceManager.GetString("TranslateAuto");
+            public static string TranslateSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M11.49 4.1a.5.5 0 1 0-.98-.2l-.19.95c-.44.02-.87.01-1.29-.02a.5.5 0 0 0-.07 1c.4.03.8.04 1.21.03-.05.4-.08.78-.1 1.14a3.73 3.73 0 0 0-1.83 1.67c-.4.8-.36 1.73.2 2.3.38.39.92.43 1.4.32.21-.04.43-.13.65-.24l.04.13a.5.5 0 1 0 .94-.35l-.12-.38a5.13 5.13 0 0 0 1.56-2.91c.1.03.2.06.28.1.44.19.7.52.81.91.2.77-.22 1.92-1.68 2.48a.5.5 0 1 0 .36.94c1.83-.7 2.65-2.31 2.29-3.68a2.36 2.36 0 0 0-1.38-1.57 2.91 2.91 0 0 0-.6-.18V6.5a.5.5 0 0 0-1-.02c-.28.02-.58.07-.9.15l.1-.83c.66-.07 1.32-.17 1.92-.31a.5.5 0 0 0-.23-.98c-.48.12-1 .2-1.53.26l.14-.66ZM9.13 9.12c.16-.31.45-.66.91-.96.01.75.08 1.38.18 1.9-.22.14-.42.23-.6.27-.3.06-.43 0-.47-.05-.17-.18-.29-.6-.02-1.16ZM11.9 7.5c-.15.7-.44 1.29-.79 1.74a11.6 11.6 0 0 1-.07-1.55 5.26 5.26 0 0 1 .86-.2ZM5.5 4.8a3.7 3.7 0 0 0-2.73.25l-.01.01h-.01a.5.5 0 0 0 .5.88.93.93 0 0 1 .13-.07 2.77 2.77 0 0 1 1.83-.11c.4.12.58.34.67.6.08.23.1.48.11.76-.19-.04-.41-.07-.65-.1a3.9 3.9 0 0 0-2.37.35c-1.46.9-1.25 3.18.46 3.7.76.24 1.5.06 2.07-.18l.5-.25V11a.5.5 0 1 0 1 0V7.44c0-.38 0-.92-.17-1.4A1.9 1.9 0 0 0 5.49 4.8ZM6 8.14v1.34a5.9 5.9 0 0 1-.9.48c-.46.2-.94.3-1.38.16-.84-.26-.98-1.43-.23-1.9.4-.24 1.07-.28 1.74-.2.3.03.57.08.77.12Z\"/>";
 
             /// <summary />
-            public static string TranslateOff { get; } = ResourceManager.GetString("TranslateOff");
+            public static string TriangleDownSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9.31 14.22a1.5 1.5 0 0 1-2.63 0l-5.5-10A1.5 1.5 0 0 1 2.5 2h11a1.5 1.5 0 0 1 1.31 2.22l-5.5 10Zm-1.75-.48a.5.5 0 0 0 .88 0l5.5-10A.5.5 0 0 0 13.5 3h-11a.5.5 0 0 0-.44.74l5.5 10Z\"/>";
 
             /// <summary />
-            public static string Triangle { get; } = ResourceManager.GetString("Triangle");
+            public static string TriangleLeftSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1.78 9.31a1.5 1.5 0 0 1 0-2.63l10-5.5c1-.54 2.22.18 2.22 1.32v11a1.5 1.5 0 0 1-2.22 1.31l-10-5.5Zm.48-1.75a.5.5 0 0 0 0 .88l10 5.5a.5.5 0 0 0 .74-.44v-11a.5.5 0 0 0-.74-.44l-10 5.5Z\"/>";
 
             /// <summary />
-            public static string TriangleDown { get; } = ResourceManager.GetString("TriangleDown");
+            public static string TriangleRightSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M14.22 6.69a1.5 1.5 0 0 1 0 2.63l-10 5.5A1.5 1.5 0 0 1 2 13.5v-11A1.5 1.5 0 0 1 4.22 1.2l10 5.5Zm-.48 1.75a.5.5 0 0 0 0-.88l-10-5.5A.5.5 0 0 0 3 2.5v11c0 .38.4.62.74.44l10-5.5Z\"/>";
 
             /// <summary />
-            public static string TriangleLeft { get; } = ResourceManager.GetString("TriangleLeft");
+            public static string TriangleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6.69 1.78a1.5 1.5 0 0 1 2.63 0l5.5 10A1.5 1.5 0 0 1 13.5 14h-11a1.5 1.5 0 0 1-1.31-2.22l5.5-10Zm1.75.48a.5.5 0 0 0-.88 0l-5.5 10a.5.5 0 0 0 .44.74h11a.5.5 0 0 0 .44-.74l-5.5-10Z\"/>";
 
             /// <summary />
-            public static string TriangleRight { get; } = ResourceManager.GetString("TriangleRight");
+            public static string TrophyLockSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 3c0-1.1.9-2 2-2h4a2 2 0 0 1 2 2h.5c.83 0 1.5.67 1.5 1.5v.9c-.3-.17-.64-.3-1-.36V4.5a.5.5 0 0 0-.5-.5H12v1.04c-.36.06-.7.19-1 .36V3a1 1 0 0 0-1-1H6a1 1 0 0 0-1 1v4a3 3 0 0 0 3 3v3H6a1 1 0 0 0-1 1h3c0 .37.1.71.27 1H4.5a.5.5 0 0 1-.5-.5V14c0-1.1.9-2 2-2h1.5v-1.03a4 4 0 0 1-3.38-3A2.5 2.5 0 0 1 2 5.5v-1C2 3.67 2.67 3 3.5 3H4Zm0 1h-.5a.5.5 0 0 0-.5.5v1c0 .65.42 1.2 1 1.41V4Zm6.5 4v1H10a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-.5V8a2 2 0 1 0-4 0Zm1 1V8a1 1 0 1 1 2 0v1h-2Zm1 2.25a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5Z\"/>";
 
             /// <summary />
-            public static string Trophy { get; } = ResourceManager.GetString("Trophy");
+            public static string TrophyOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.32 4.03A.5.5 0 0 0 3 4.5v1c0 .65.42 1.2 1 1.41v-2.2l-.68-.68ZM2.6 3.3 1.15 1.85a.5.5 0 1 1 .7-.7l13 13a.5.5 0 0 1-.7.7l-4.3-4.3c-.42.21-.87.36-1.35.42V12H10a2 2 0 0 1 2 2v.5a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5V14c0-1.1.9-2 2-2h1.5v-1.03a4 4 0 0 1-3.38-3A2.5 2.5 0 0 1 2 5.5v-1c0-.49.23-.92.6-1.2Zm6.5 6.5-4.1-4.1V7a3 3 0 0 0 4.1 2.8Zm1.9-2.73c0 .51-.14 1-.38 1.41l.72.73c.25-.37.44-.8.55-1.24A2.5 2.5 0 0 0 14 5.5v-1c0-.83-.67-1.5-1.5-1.5H12a2 2 0 0 0-2-2H6a2 2 0 0 0-1.78 1.1l.79.78A1 1 0 0 1 6 2h4a1 1 0 0 1 1 1v4.07Zm1-.16V4h.5c.29 0 .5.22.5.5v1c0 .65-.4 1.2-1 1.41ZM5 14h6a1 1 0 0 0-1-1H6a1 1 0 0 0-1 1Z\"/>";
 
             /// <summary />
-            public static string TrophyLock { get; } = ResourceManager.GetString("TrophyLock");
+            public static string TrophySvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 3c0-1.1.9-2 2-2h4a2 2 0 0 1 2 2h.5c.83 0 1.5.67 1.5 1.5v1a2.5 2.5 0 0 1-2.12 2.47 4 4 0 0 1-3.38 3V12H10a2 2 0 0 1 2 2v.5a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5V14c0-1.1.9-2 2-2h1.5v-1.03a4 4 0 0 1-3.38-3A2.5 2.5 0 0 1 2 5.5v-1C2 3.67 2.67 3 3.5 3H4Zm7 0a1 1 0 0 0-1-1H6a1 1 0 0 0-1 1v4a3 3 0 0 0 6 .07V3Zm1 3.91c.58-.2 1-.76 1-1.41v-1a.5.5 0 0 0-.5-.5H12v2.91ZM4 4h-.5a.5.5 0 0 0-.5.5v1c0 .65.42 1.2 1 1.41V4Zm1 10h6a1 1 0 0 0-1-1H6a1 1 0 0 0-1 1Z\"/>";
 
             /// <summary />
-            public static string TrophyOff { get; } = ResourceManager.GetString("TrophyOff");
+            public static string TvSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 3a2 2 0 0 0-2 2v4c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H4ZM3 5a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5Zm1.5 7a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7Z\"/>";
 
             /// <summary />
-            public static string TvUsb { get; } = ResourceManager.GetString("TvUsb");
+            public static string TvUsbSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4 3a2 2 0 0 0-2 2v4c0 1.1.9 2 2 2h4.03a2 2 0 0 1-.03-.33V10H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h9.5c.08 0 .16 0 .24.02A2 2 0 0 0 12 3H4Zm.5 9h4l.75 1H4.5a.5.5 0 0 1 0-1Zm6 1-1.3-1.73a1 1 0 0 1-.2-.6V8c0-.28.22-.5.5-.5h.5v-2c0-.28.22-.5.5-.5h3c.28 0 .5.22.5.5v2h.5c.28 0 .5.22.5.5v2.67a1 1 0 0 1-.2.6L13.5 13v1.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5V13Zm.5-7v1.5h2V6h-2Z\"/>";
 
             /// <summary />
-            public static string Vault { get; } = ResourceManager.GetString("Vault");
+            public static string VaultSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 6c.28 0 .5.22.5.5v3a.5.5 0 0 1-1 0v-3c0-.28.22-.5.5-.5Zm7 2c0 .23-.05.45-.15.65l.5.5a.5.5 0 0 1-.7.7l-.5-.5a1.5 1.5 0 0 1-1.3 0l-.5.5a.5.5 0 0 1-.7-.7l.5-.5a1.5 1.5 0 0 1 0-1.3l-.5-.5a.5.5 0 1 1 .7-.7l.5.5a1.5 1.5 0 0 1 1.3 0l.5-.5a.5.5 0 0 1 .7.7l-.5.5c.1.2.15.42.15.65Zm-1 0a.5.5 0 1 0-1 0 .5.5 0 0 0 1 0ZM1 5.5A2.5 2.5 0 0 1 3.5 3h9A2.5 2.5 0 0 1 15 5.5v5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 10.5v-5ZM3.5 4C2.67 4 2 4.67 2 5.5v5c0 .83.67 1.5 1.5 1.5h9c.83 0 1.5-.67 1.5-1.5v-5c0-.83-.67-1.5-1.5-1.5h-9Z\"/>";
 
             /// <summary />
-            public static string VehicleBicycle { get; } = ResourceManager.GetString("VehicleBicycle");
+            public static string VehicleBicycleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.5 2a.5.5 0 0 0 0 1h1.12l.53 2H6V3.5a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0 0 1H5v1.2c0 .05 0 .1.02.15l-.56 1.69A3 3 0 1 0 7 10.2l3.5-3.93.26 1a3 3 0 1 0 .97-.26l-1.24-4.64A.5.5 0 0 0 10 2H8.5ZM4 8h.14l-.61 1.84a.5.5 0 0 0 .47.66h1.94A2 2 0 1 1 4 8Zm.7 1.5.39-1.18a2 2 0 0 1 .85 1.18H4.69Zm.71-2.15L5.86 6h3.53l-2.6 2.91a3.01 3.01 0 0 0-1.38-1.56Zm5.6.9.5 1.88a.5.5 0 0 0 .97-.26L11.98 8H12a2 2 0 1 1-.98.26Z\"/>";
 
             /// <summary />
-            public static string VehicleBus { get; } = ResourceManager.GetString("VehicleBus");
+            public static string VehicleBusSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.5 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1Zm-1 7.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm3.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM2 3.9C2 2.3 3.3 1 4.9 1h6.2C12.7 1 14 2.3 14 3.9V6h.5a.5.5 0 0 1 0 1H14v6.7c0 .72-.58 1.3-1.3 1.3h-1.4a1.3 1.3 0 0 1-1.3-1.3V13H6v.7c0 .72-.58 1.3-1.3 1.3H3.3A1.3 1.3 0 0 1 2 13.7V7h-.5a.5.5 0 0 1 0-1H2V3.9Zm11 0A1.9 1.9 0 0 0 11.1 2H4.9A1.9 1.9 0 0 0 3 3.9V8h10V3.9ZM11 13v.7c0 .17.13.3.3.3h1.4a.3.3 0 0 0 .3-.3V13h-2Zm-8 0v.7c0 .17.13.3.3.3h1.4a.3.3 0 0 0 .3-.3V13H3Zm0-1h10V9H3v3Z\"/>";
 
             /// <summary />
-            public static string VehicleCab { get; } = ResourceManager.GetString("VehicleCab");
+            public static string VehicleCabSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.25 9.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM11.5 9A.75.75 0 1 1 10 9a.75.75 0 0 1 1.5 0Zm-5-8a.5.5 0 0 0-.5.5V2h-.68a2 2 0 0 0-1.98 1.74L3.17 5H2.5a.5.5 0 0 0 0 1h.54v.07C2.43 6.27 2 6.83 2 7.5v3c0 .83.67 1.5 1.5 1.5v1.25a.75.75 0 0 0 1.5 0V12h6v1.25a.75.75 0 0 0 1.5 0V12c.83 0 1.5-.67 1.5-1.5v-3a1.5 1.5 0 0 0-1.04-1.43V6h.54a.5.5 0 0 0 0-1h-.68l-.16-1.25A2 2 0 0 0 10.68 2H10v-.5a.5.5 0 0 0-.5-.5h-3ZM4.05 6l.28-2.13A1 1 0 0 1 5.32 3h5.36a1 1 0 0 1 1 .87L11.93 6H4.05ZM13 10.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-3c0-.28.22-.5.5-.5h9c.28 0 .5.22.5.5v3Z\"/>";
 
             /// <summary />
-            public static string VehicleCar { get; } = ResourceManager.GetString("VehicleCar");
+            public static string VehicleCarCollisionSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.9 1.2a.5.5 0 0 0-.9.3v2a.5.5 0 0 0 1 0V3l.61.8a.5.5 0 0 0 .59.16l1.48-.6-.65 1.98a.5.5 0 0 0 .47.66h1.58l-1.39 1.11a.5.5 0 0 0 0 .78L13.08 9H11.5a.5.5 0 0 0 0 1h3a.5.5 0 0 0 .31-.89l-2-1.61 2-1.61A.5.5 0 0 0 14.5 5h-2.3l.77-2.34a.5.5 0 0 0-.66-.62l-2.13.85L8.9 1.2ZM7.5 11a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1ZM4 10.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM9.36 8l.1.62A2 2 0 0 1 10 10v3a1 1 0 1 1-2 0H3a1 1 0 1 1-2 0v-3a2 2 0 0 1 .55-1.38L1.64 8H1a.5.5 0 0 1 0-1h.75a.5.5 0 0 1 .03 0l.1-.71A1.5 1.5 0 0 1 3.37 5h4.26c.75 0 1.38.55 1.49 1.29l.1.71a.5.5 0 0 1 .03 0H10a.5.5 0 0 1 0 1h-.64ZM2.87 6.43l-.23 1.6L3 8h5l.36.03-.23-1.6a.5.5 0 0 0-.5-.43H3.37a.5.5 0 0 0-.5.43ZM9 10a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v2h7v-2Z\"/>";
 
             /// <summary />
-            public static string VehicleCarCollision { get; } = ResourceManager.GetString("VehicleCarCollision");
+            public static string VehicleCarParkingSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10 .5c0-.28.22-.5.5-.5h4c.28 0 .5.22.5.5v5a.5.5 0 0 1-.5.5H13v8.5a.5.5 0 0 1-1 0V6h-1.5a.5.5 0 0 1-.5-.5v-5ZM5.32 2H9v1H5.32a1 1 0 0 0-1 .87L4.06 6H9.1c.2.58.76 1 1.41 1h-7a.5.5 0 0 0-.5.5v3c0 .28.22.5.5.5H11v1H5v1.25a.75.75 0 0 1-1.5 0V12A1.5 1.5 0 0 1 2 10.5v-3c0-.67.43-1.23 1.03-1.43L3.04 6H2.5a.5.5 0 0 1 0-1h.67l.17-1.26A2 2 0 0 1 5.32 2Zm5.43 6.25c.09 0 .17.02.25.04v1.42a.75.75 0 1 1-.25-1.46ZM6 9a.75.75 0 1 1-1.5 0A.75.75 0 0 1 6 9Z\"/>";
 
             /// <summary />
-            public static string VehicleCarParking { get; } = ResourceManager.GetString("VehicleCarParking");
+            public static string VehicleCarProfileLtrClockSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9 5.5a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM4.5 3a.5.5 0 0 0-.5.5v2c0 .28.22.5.5.5H6a.5.5 0 0 0 0-1H5V3.5a.5.5 0 0 0-.5-.5Zm8.1 6.5H8.28c.31-.3.6-.63.83-1h2.42l-.9-1.7a1.5 1.5 0 0 0-.67-.65A5.56 5.56 0 0 0 10 5.1c.64.18 1.2.62 1.52 1.22l1.13 2.13.14.05h.05v.02l1.5.54A2.5 2.5 0 0 1 16 11.4v.34c0 .71-.42 1.32-1.03 1.6a2 2 0 0 1-3.9.15H6.93a2 2 0 0 1-3.91-.15A1.75 1.75 0 0 1 2 11.75v-1.11l.01-.23c.31.16.65.29.99.38v.96c0 .18.06.34.16.46a2 2 0 0 1 3.78.29h4.12a2 2 0 0 1 3.78-.29c.1-.12.16-.28.16-.46v-.34c0-.63-.4-1.2-1-1.41l-1.4-.5ZM4 13a1 1 0 1 0 2 0 1 1 0 0 0-2 0Zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z\"/>";
 
             /// <summary />
-            public static string VehicleCarProfileLtr { get; } = ResourceManager.GetString("VehicleCarProfileLtr");
+            public static string VehicleCarProfileLtrSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m11.78 6.5-.14-.05-1.13-2.13A2.5 2.5 0 0 0 8.3 3H5.44a2.5 2.5 0 0 0-2.37 1.7l-.54 1.63A2.5 2.5 0 0 0 1 8.63v1.12c0 .71.42 1.32 1.03 1.6a2 2 0 0 0 3.9.15h4.13a2 2 0 0 0 3.91-.15c.6-.28 1.03-.89 1.03-1.6v-.34c0-1.06-.67-2-1.66-2.35l-1.51-.54V6.5h-.05ZM5.44 4H6.5v2.5H3.53l.49-1.47A1.5 1.5 0 0 1 5.44 4ZM7.5 4h.8c.55 0 1.06.3 1.32.8l.91 1.7H7.5V4Zm4.1 3.5L13 8c.6.21 1 .78 1 1.41v.34c0 .18-.06.34-.16.46a2 2 0 0 0-3.78.29H5.94a2 2 0 0 0-3.78-.29.75.75 0 0 1-.16-.46V8.64c0-.45.2-.86.52-1.14h9.08ZM3 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0Zm9-1a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z\"/>";
 
             /// <summary />
-            public static string VehicleCarProfileLtrClock { get; } = ResourceManager.GetString("VehicleCarProfileLtrClock");
+            public static string VehicleCarProfileRtlSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m4.22 6.5.14-.05 1.13-2.13A2.5 2.5 0 0 1 7.7 3h2.86a2.5 2.5 0 0 1 2.37 1.7l.54 1.63A2.5 2.5 0 0 1 15 8.63v1.12c0 .71-.42 1.32-1.03 1.6a2 2 0 0 1-3.9.15H5.93a2 2 0 0 1-3.91-.15A1.75 1.75 0 0 1 1 9.75v-.34c0-1.06.67-2 1.66-2.35l1.51-.54V6.5h.05ZM10.56 4H9.5v2.5h2.97l-.49-1.47A1.5 1.5 0 0 0 10.56 4ZM8.5 4h-.8c-.55 0-1.06.3-1.32.8l-.91 1.7H8.5V4ZM4.4 7.5 3 8c-.6.21-1 .78-1 1.41v.34c0 .18.06.34.16.46a2 2 0 0 1 3.78.29h4.12a2 2 0 0 1 3.78-.29c.1-.12.16-.28.16-.46V8.64c0-.45-.2-.86-.52-1.14H4.4ZM13 11a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm-9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z\"/>";
 
             /// <summary />
-            public static string VehicleCarProfileRtl { get; } = ResourceManager.GetString("VehicleCarProfileRtl");
+            public static string VehicleCarSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 9a.75.75 0 1 1-1.5 0A.75.75 0 0 1 6 9Zm4.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM3.03 6.07 3.04 6H2.5a.5.5 0 0 1 0-1h.67l.17-1.26A2 2 0 0 1 5.32 2h5.36a2 2 0 0 1 1.98 1.75L12.82 5h.68a.5.5 0 0 1 0 1h-.55l.01.07c.6.2 1.04.76 1.04 1.43v3c0 .83-.67 1.5-1.5 1.5v1.25a.75.75 0 1 1-1.5 0V12H5v1.25a.75.75 0 0 1-1.5 0V12A1.5 1.5 0 0 1 2 10.5v-3c0-.67.43-1.23 1.03-1.43Zm1.3-2.2L4.05 6h7.9l-.28-2.13a1 1 0 0 0-1-.87H5.33a1 1 0 0 0-1 .87ZM12.5 11a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v3c0 .28.22.5.5.5h9Z\"/>";
 
             /// <summary />
-            public static string VehicleShip { get; } = ResourceManager.GetString("VehicleShip");
+            public static string VehicleShipSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 2.5c0-.28.22-.5.5-.5h3c.28 0 .5.22.5.5V4h2.5c.28 0 .5.22.5.5v3.52l1.2.52a.5.5 0 0 1 .24.7l-1.15 2.06c-.15-.28-.35-.57-.74-.71l.74-1.35L8.6 7.2a1.5 1.5 0 0 0-1.19 0L2.7 9.24l.75 1.35c-.4.14-.59.43-.74.71L1.56 9.24a.5.5 0 0 1 .24-.7L3 8.02V4.5c0-.28.22-.5.5-.5H6V2.5ZM4 7.59l3-1.3a2.5 2.5 0 0 1 2 0l3 1.3V5H4v2.59ZM9 3H7v1h2V3Zm-5.4 8.7a1.1 1.1 0 0 0-.1.18 1.85 1.85 0 0 1-.36.52c-.28.28-.78.6-1.64.6a.5.5 0 0 0 0 1 3.2 3.2 0 0 0 2.48-1.03l.07.1c.38.45 1 .93 1.95.93a2.48 2.48 0 0 0 2-1l.05.07c.38.45 1 .93 1.95.93a2.48 2.48 0 0 0 2.02-1.03l.13.13c.46.47 1.2.9 2.35.9a.5.5 0 1 0 0-1c-.86 0-1.36-.32-1.65-.6a1.75 1.75 0 0 1-.38-.56.5.5 0 0 0-.95 0 2.2 2.2 0 0 1-.35.59c-.24.3-.61.57-1.17.57-.56 0-.93-.27-1.18-.57a2.2 2.2 0 0 1-.34-.59.5.5 0 0 0-.66-.31.5.5 0 0 0-.3.31l-.07.17a2.2 2.2 0 0 1-.27.42c-.25.3-.62.57-1.18.57-.56 0-.93-.27-1.18-.57a2.2 2.2 0 0 1-.32-.53l-.07-.15a.5.5 0 0 0-.27-.22.5.5 0 0 0-.56.17Z\"/>";
 
             /// <summary />
-            public static string VehicleSubway { get; } = ResourceManager.GetString("VehicleSubway");
+            public static string VehicleSubwaySvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7 10a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2ZM6 4.5c0-.28.22-.5.5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Zm-4 0A2.5 2.5 0 0 1 4.5 2h7A2.5 2.5 0 0 1 14 4.5v6a2.5 2.5 0 0 1-2.5 2.5h-.62l1.87 1.07a.5.5 0 1 1-.5.86L8.87 13H7.13l-3.38 1.93a.5.5 0 0 1-.5-.86L5.12 13H4.5A2.5 2.5 0 0 1 2 10.5v-6ZM3 8v2.5c0 .83.67 1.5 1.5 1.5h7c.83 0 1.5-.67 1.5-1.5V8H3Zm10-1V4.5c0-.83-.67-1.5-1.5-1.5h-7C3.67 3 3 3.67 3 4.5V7h10Z\"/>";
 
             /// <summary />
-            public static string VehicleTruck { get; } = ResourceManager.GetString("VehicleTruck");
+            public static string VehicleTruckProfileSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 3.75C2 2.78 2.78 2 3.75 2h5.5c.97 0 1.75.78 1.75 1.75V4h.38c.57 0 1.09.32 1.34.83l1.12 2.24c.1.2.16.43.16.67V11c0 .83-.67 1.5-1.5 1.5h-.56a2 2 0 0 1-3.88 0H6.94a2 2 0 0 1-3.91-.15A1.75 1.75 0 0 1 2 10.75v-7Zm6.06 7.75A2 2 0 0 1 10 10V3.75A.75.75 0 0 0 9.25 3h-5.5a.75.75 0 0 0-.75.75v7c0 .18.06.34.16.46a2 2 0 0 1 3.78.29h1.12ZM11 10.27c.46.26.8.7.94 1.23h.56a.5.5 0 0 0 .5-.5V8h-2v2.27ZM11 7h1.7l-.87-1.72a.5.5 0 0 0-.45-.28H11v2Zm-6 4a1 1 0 1 0 0 2 1 1 0 0 0 0-2Zm4 1a1 1 0 1 0 2 0 1 1 0 0 0-2 0Z\"/>";
 
             /// <summary />
-            public static string VehicleTruckProfile { get; } = ResourceManager.GetString("VehicleTruckProfile");
+            public static string VehicleTruckSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6.5 9.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm3.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM7 10.5c0-.28.22-.5.5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5ZM2.7 1C1.76 1 1 1.76 1 2.7v9c0 .72.58 1.3 1.3 1.3H3v.7c0 .72.58 1.3 1.3 1.3h1.4c.72 0 1.3-.58 1.3-1.3V13h2v.7c0 .72.58 1.3 1.3 1.3h1.4c.72 0 1.3-.58 1.3-1.3V13h.7c.72 0 1.3-.58 1.3-1.3v-9c0-.94-.76-1.7-1.7-1.7H2.7ZM10 13.7V13h2v.7a.3.3 0 0 1-.3.3h-1.4a.3.3 0 0 1-.3-.3ZM6 13v.7a.3.3 0 0 1-.3.3H4.3a.3.3 0 0 1-.3-.3V13h2ZM2 2.7c0-.39.31-.7.7-.7h10.6c.39 0 .7.31.7.7v9a.3.3 0 0 1-.3.3H13V7.76c0-.23-.04-.45-.1-.66l-.74-2.21A1.3 1.3 0 0 0 10.92 4H5.08a1.3 1.3 0 0 0-1.24.89l-.73 2.2c-.07.22-.11.44-.11.67V12h-.7a.3.3 0 0 1-.3-.3v-9ZM4 12V8h8v4H4Zm.2-5 .6-1.8a.3.3 0 0 1 .28-.2h5.84a.3.3 0 0 1 .29.2l.6 1.8H4.19Z\"/>";
 
             /// <summary />
-            public static string Video { get; } = ResourceManager.GetString("Video");
+            public static string VideoBackgroundEffectHorizontalSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M1.17 4c.28-.6.88-1 1.58-1h10.5c.7 0 1.3.4 1.58 1H1.17Zm4 2H1v1h4a3 3 0 0 1 .17-1ZM6 7a2 2 0 0 1 2-2 2 2 0 1 1-2 2Zm1 0a1 1 0 1 0 2 0 1 1 0 0 0-2 0ZM5.76 9H1v1h3.27a2 2 0 0 1 1.5-.99V9ZM4 12H1.17c.28.6.88 1 1.58 1H4v-1Zm1-1a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2h-1v-2H6v2H5v-2Zm7 1v1h1.25c.7 0 1.3-.4 1.58-1H12Zm-.27-2a2 2 0 0 0-1.5-.99V9H15v1h-3.27ZM11 7h4V6h-4.17A3 3 0 0 1 11 7Z\"/>";
 
             /// <summary />
-            public static string VideoBackgroundEffect { get; } = ResourceManager.GetString("VideoBackgroundEffect");
+            public static string VideoBackgroundEffectSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.3 3h1.4L1 6.7V5.3L3.3 3ZM1 8.8v1.4l4.15-4.14a3 3 0 0 1 1.9-1.9L8.22 3H6.79L1 8.8Zm4.2-.71L1.1 12.2c.12.32.38.58.7.7l2.24-2.23a2 2 0 0 1 1.65-1.65l.06-.06a3 3 0 0 1-.54-.88Zm6.52 1.9c-.17-.3-.41-.54-.7-.71L15 5.29v1.42l-3.28 3.27ZM12 13h.2l2.8-2.8V8.8l-3 3V13ZM9.97 4.74a3 3 0 0 0-.88-.54l1.2-1.2h1.42L9.97 4.74Zm1.02 2.47a3 3 0 0 0-.17-1.24L13.79 3c.38.01.72.2.94.48L11 7.2ZM8 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2ZM6 7a2 2 0 1 1 4 0 2 2 0 0 1-4 0Zm0 3a1 1 0 0 0-1 1v2h1v-2h4v2h1v-2a1 1 0 0 0-1-1H6Z\"/>";
 
             /// <summary />
-            public static string VideoBackgroundEffectHorizontal { get; } = ResourceManager.GetString("VideoBackgroundEffectHorizontal");
+            public static string VideoChatSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.5 3.5C2.67 3.5 2 4.17 2 5v.6c-.36.18-.7.4-1 .66V5a2.5 2.5 0 0 1 2.5-2.5h6A2.5 2.5 0 0 1 12 5v.5l1.8-1.35a.75.75 0 0 1 1.2.6v6.5c0 .62-.7.97-1.2.6L12 10.5v.5a2.5 2.5 0 0 1-2.5 2.5h-.39c.2-.31.38-.65.52-1A1.5 1.5 0 0 0 11 11V5c0-.83-.67-1.5-1.5-1.5h-6ZM12 9.25l2 1.5v-5.5l-2 1.5v2.5ZM8.24 13A4.48 4.48 0 0 0 4.5 6a4.5 4.5 0 0 0-3.94 6.68l-.54 1.8c-.1.3.2.6.5.5l1.8-.54A4.48 4.48 0 0 0 8.24 13ZM2.5 12a.5.5 0 0 1 0-1h2a.5.5 0 0 1 0 1h-2ZM2 9.5c0-.28.22-.5.5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5Z\"/>";
 
             /// <summary />
-            public static string VideoChat { get; } = ResourceManager.GetString("VideoChat");
+            public static string VideoClipMultipleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6 5v4c0 .4.44.63.78.41l3-2a.5.5 0 0 0 0-.83l-3-2A.5.5 0 0 0 6 5Zm-4-.75C2 3.01 3 2 4.25 2h6.5C11.99 2 13 3 13 4.25v5.5c0 1.24-1 2.25-2.25 2.25h-6.5C3.01 12 2 11 2 9.75v-5.5ZM4.25 3C3.56 3 3 3.56 3 4.25v5.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25v-5.5C12 3.56 11.44 3 10.75 3h-6.5ZM4 13c.46.6 1.18 1 2 1h5.25A3.75 3.75 0 0 0 15 10.25V6c0-.82-.4-1.54-1-2v6.25A2.75 2.75 0 0 1 11.25 13H4Z\"/>";
 
             /// <summary />
-            public static string VideoClip { get; } = ResourceManager.GetString("VideoClip");
+            public static string VideoClipOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m12.2 12.9 1.95 1.95a.5.5 0 0 0 .7-.7l-13-13a.5.5 0 1 0-.7.7L2.88 3.6A2.5 2.5 0 0 0 2 5.5v5A2.5 2.5 0 0 0 4.5 13h7c.24 0 .47-.03.7-.1Zm-.9-.9H4.5A1.5 1.5 0 0 1 3 10.5v-5c0-.49.23-.92.6-1.2l2.9 2.9v2.98c0 .25.27.4.49.27l1.7-1.04L11.3 12ZM8.73 6.62l1.68 1.68a.54.54 0 0 0-.17-.76l-1.51-.92ZM13 10.5c0 .12-.01.23-.04.34l.78.78c.17-.34.26-.72.26-1.12v-5A2.5 2.5 0 0 0 11.5 3H5.12l1 1h5.38c.83 0 1.5.67 1.5 1.5v5Z\"/>";
 
             /// <summary />
-            public static string VideoClipMultiple { get; } = ResourceManager.GetString("VideoClipMultiple");
+            public static string VideoClipSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6.5 5.82v4.36c0 .25.27.4.49.27l3.26-1.99a.54.54 0 0 0 0-.92l-3.26-2a.32.32 0 0 0-.49.28ZM4.5 3A2.5 2.5 0 0 0 2 5.5v5A2.5 2.5 0 0 0 4.5 13h7a2.5 2.5 0 0 0 2.5-2.5v-5A2.5 2.5 0 0 0 11.5 3h-7ZM3 5.5C3 4.67 3.67 4 4.5 4h7c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5h-7A1.5 1.5 0 0 1 3 10.5v-5Z\"/>";
 
             /// <summary />
-            public static string VideoClipOff { get; } = ResourceManager.GetString("VideoClipOff");
+            public static string VideoPersonCallSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 9a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0-1a1 1 0 1 1 0-2 1 1 0 0 1 0 2ZM1 4.75C1 3.78 1.78 3 2.75 3h10.5c.97 0 1.75.78 1.75 1.75v.43A2.3 2.3 0 0 0 14 5v-.25a.75.75 0 0 0-.75-.75H2.75a.75.75 0 0 0-.75.75v6.5c0 .41.34.75.75.75H5v-1a1 1 0 0 1 1-1h4a1 1 0 0 1 .96.71c-.49-.07-.98.04-1.4.29H6v1h2.56c-.26.3-.43.64-.51 1h-5.3C1.78 13 1 12.22 1 11.25v-6.5Zm11.58 2.83.29-.75a1.32 1.32 0 0 1 1.74-.73l.39.17c.47.2.86.57.94 1.06.46 2.73-1.9 6.6-4.63 7.59a1.6 1.6 0 0 1-1.44-.25l-.35-.23c-.6-.41-.7-1.24-.2-1.79l.54-.6c.26-.3.66-.42 1.04-.33l1.22.29c.97-.6 1.5-1.46 1.56-2.56l-.88-.86a.94.94 0 0 1-.22-1Z\"/>";
 
             /// <summary />
-            public static string VideoPerson { get; } = ResourceManager.GetString("VideoPerson");
+            public static string VideoPersonClockSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0-1a1 1 0 1 1 0-2 1 1 0 0 1 0 2ZM0 2.75C0 1.78.78 1 1.75 1h10.5c.97 0 1.75.78 1.75 1.75V6.6c-.32-.16-.65-.3-1-.4V2.76a.75.75 0 0 0-.75-.75H1.75a.75.75 0 0 0-.75.75v6.5c0 .41.34.75.75.75H4V9a1 1 0 0 1 1-1h2.26c-.26.3-.48.64-.66 1H5v1h1.2c-.08.32-.15.66-.18 1H1.75C.78 11 0 10.22 0 9.25v-6.5Zm16 8.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM11.5 9a.5.5 0 0 0-.5.5v2c0 .28.22.5.5.5H13a.5.5 0 0 0 0-1h-1V9.5a.5.5 0 0 0-.5-.5Z\"/>";
 
             /// <summary />
-            public static string VideoPersonCall { get; } = ResourceManager.GetString("VideoPersonCall");
+            public static string VideoPersonSparkleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M3.22 3h10.03A1.75 1.75 0 0 1 15 4.75v6.5A1.75 1.75 0 0 1 13.25 13H2.76a1.75 1.75 0 0 1-1.75-1.75V7.49a1.22 1.22 0 0 0 1 .51v3.25a.75.75 0 0 0 .75.75h2.25v-1a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1h2.24a.75.75 0 0 0 .75-.75v-6.5a.75.75 0 0 0-.75-.75H4.5c-.1-.07-.2-.13-.32-.17l-.04-.02H4.1l-.58-.2a.27.27 0 0 1-.1-.05.28.28 0 0 1-.06-.1L3.22 3ZM6 12h4v-1H6v1ZM1.28 5.73a1.24 1.24 0 0 0-.27-.2L1 5.54a1.16 1.16 0 0 0-.23-.1l-.6-.2a.24.24 0 0 1-.13-.1.24.24 0 0 1 0-.27.24.24 0 0 1 .12-.09l.61-.2a1.29 1.29 0 0 0 .79-.78v-.02l.2-.6a.24.24 0 0 1 .37-.12c.04.02.07.06.09.11l.2.61a1.3 1.3 0 0 0 .3.5c.14.13.31.24.5.3l.61.2h.01c.05.01.09.04.12.09a.24.24 0 0 1-.12.36l-.6.2c-.2.06-.36.17-.5.3-.14.14-.24.31-.3.5l-.2.6v.02a.26.26 0 0 1-.1.1.24.24 0 0 1-.27 0 .25.25 0 0 1-.1-.11l-.2-.61a1.28 1.28 0 0 0-.3-.5ZM10 7a2 2 0 1 0-4 0 2 2 0 0 0 4 0ZM7 7a1 1 0 1 1 2 0 1 1 0 0 1-2 0Zm-3.11.08c0-.02.02-.04.04-.06l.03-.01L4 7c.02 0 .05 0 .07.02l.02.02.02.04.1.3a.64.64 0 0 0 .4.4l.3.1h.02l.02.02.03.03c.02.02.02.04.03.07 0 .03-.01.05-.03.07a.12.12 0 0 1-.05.04l-.31.1a.64.64 0 0 0-.4.4l-.1.31c0 .02-.02.04-.04.06A.12.12 0 0 1 4 9a.12.12 0 0 1-.12-.08l-.1-.3a.63.63 0 0 0-.4-.4l-.3-.1a.12.12 0 0 1 0-.23l.3-.1a.64.64 0 0 0 .4-.4l.1-.3Z\"/>";
 
             /// <summary />
-            public static string VideoPersonClock { get; } = ResourceManager.GetString("VideoPersonClock");
+            public static string VideoPersonSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 9a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0-1a1 1 0 1 1 0-2 1 1 0 0 1 0 2ZM1 4.75C1 3.78 1.78 3 2.75 3h10.5c.97 0 1.75.78 1.75 1.75v6.5c0 .97-.78 1.75-1.75 1.75H2.75C1.78 13 1 12.22 1 11.25v-6.5ZM6 12h4v-1H6v1Zm5 0h2.25c.41 0 .75-.34.75-.75v-6.5a.75.75 0 0 0-.75-.75H2.75a.75.75 0 0 0-.75.75v6.5c0 .41.34.75.75.75H5v-1a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1Z\"/>";
 
             /// <summary />
-            public static string VideoPersonSparkle { get; } = ResourceManager.GetString("VideoPersonSparkle");
+            public static string VideoProhibitedSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 5c0-.83.67-1.5 1.5-1.5h6c.83 0 1.5.67 1.5 1.5v1.02a5.57 5.57 0 0 1 1.8.13l1.2-.9V6.6c.36.18.7.4 1 .66v-2.5c0-.62-.7-.98-1.2-.6L12 5.5V5a2.5 2.5 0 0 0-2.5-2.5h-6A2.5 2.5 0 0 0 1 5v6a2.5 2.5 0 0 0 2.5 2.5h2.87a5.46 5.46 0 0 1-.28-1H3.5A1.5 1.5 0 0 1 2 11V5Zm5 6.5a4.5 4.5 0 1 0 9 0 4.5 4.5 0 0 0-9 0Zm1 0a3.5 3.5 0 0 1 5.6-2.8l-4.9 4.9a3.48 3.48 0 0 1-.7-2.1Zm3.5 3.5c-.79 0-1.51-.26-2.1-.7l4.9-4.9a3.5 3.5 0 0 1-2.8 5.6Z\"/>";
 
             /// <summary />
-            public static string VideoProhibited { get; } = ResourceManager.GetString("VideoProhibited");
+            public static string VideoSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 5c0-.83.67-1.5 1.5-1.5h6c.83 0 1.5.67 1.5 1.5v6c0 .83-.67 1.5-1.5 1.5h-6A1.5 1.5 0 0 1 2 11V5Zm1.5-2.5A2.5 2.5 0 0 0 1 5v6a2.5 2.5 0 0 0 2.5 2.5h6A2.5 2.5 0 0 0 12 11v-.5l1.8 1.35c.5.37 1.2.02 1.2-.6v-6.5c0-.61-.7-.97-1.2-.6L12 5.5V5a2.5 2.5 0 0 0-2.5-2.5h-6ZM12 6.75l2-1.5v5.5l-2-1.5v-2.5Z\"/>";
 
             /// <summary />
-            public static string Voicemail { get; } = ResourceManager.GetString("Voicemail");
+            public static string VoicemailArrowBackSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6.5 5.75c0-.27-.06-.52-.17-.75h1.34a1.74 1.74 0 0 0-.16.89c.35-.23.72-.42 1.12-.56a.75.75 0 0 1 .95-.25A5.54 5.54 0 0 1 10.84 5 1.75 1.75 0 0 0 9.25 4h-4.5A1.75 1.75 0 1 0 6.5 5.75Zm-1.75.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 5.2V2.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5V9c0 .28.22.5.5.5h2.6c-.07.32-.1.66-.1 1H2.5A1.5 1.5 0 0 1 1 9V2.5C1 1.67 1.67 1 2.5 1h9c.83 0 1.5.67 1.5 1.5v3.1c-.32-.16-.65-.3-1-.4Zm3 5.3a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM9.6 7.9a.5.5 0 0 0-.7 0L7.15 9.65a.5.5 0 0 0 0 .7L8.9 12.1a.5.5 0 0 0 .7-.7l-.9-.9h1.55c.97 0 1.75.78 1.75 1.75v.25a.5.5 0 0 0 1 0v-.25a2.75 2.75 0 0 0-2.75-2.75H8.71l.9-.9a.5.5 0 0 0 0-.7Z\"/>";
 
             /// <summary />
-            public static string VoicemailArrowBack { get; } = ResourceManager.GetString("VoicemailArrowBack");
+            public static string VoicemailArrowForwardSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6.33 5a1.75 1.75 0 1 1-1.58-1h4.5c.7 0 1.3.41 1.59 1.01a5.59 5.59 0 0 0-1.26.07.75.75 0 0 0-.95.25c-.4.14-.77.33-1.12.56A1.78 1.78 0 0 1 7.67 5H6.33ZM4 5.75a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Zm8-3.25v2.7c.35.1.68.24 1 .4V2.5c0-.83-.67-1.5-1.5-1.5h-9C1.67 1 1 1.67 1 2.5V9c0 .83.67 1.5 1.5 1.5H5c0-.34.03-.68.1-1H2.5A.5.5 0 0 1 2 9V2.5c0-.28.22-.5.5-.5h9c.28 0 .5.22.5.5ZM10.5 15a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9Zm.9-6.4.9.9h-1.55A2.75 2.75 0 0 0 8 12.25v.25a.5.5 0 0 0 1 0v-.25c0-.97.78-1.75 1.75-1.75h1.54l-.9.9a.5.5 0 0 0 .71.7l1.76-1.75a.5.5 0 0 0 0-.7L12.1 7.9a.5.5 0 0 0-.7.7Z\"/>";
 
             /// <summary />
-            public static string VoicemailArrowForward { get; } = ResourceManager.GetString("VoicemailArrowForward");
+            public static string VoicemailSubtractSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M6.33 5a1.75 1.75 0 1 1-1.58-1h4.5c.7 0 1.3.41 1.59 1.01a5.59 5.59 0 0 0-1.26.07.75.75 0 0 0-.95.25c-.4.14-.77.33-1.12.56A1.78 1.78 0 0 1 7.67 5H6.33ZM4 5.75a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Zm8-3.25v2.7c.35.1.68.24 1 .4V2.5c0-.83-.67-1.5-1.5-1.5h-9C1.67 1 1 1.67 1 2.5V9c0 .83.67 1.5 1.5 1.5H5c0-.34.03-.68.1-1H2.5A.5.5 0 0 1 2 9V2.5c0-.28.22-.5.5-.5h9c.28 0 .5.22.5.5Zm3 8a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm-2 0a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 0 0 1h4a.5.5 0 0 0 .5-.5Z\"/>";
 
             /// <summary />
-            public static string VoicemailSubtract { get; } = ResourceManager.GetString("VoicemailSubtract");
+            public static string VoicemailSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.33 7a1.75 1.75 0 1 1-1.58-1h4.5a1.75 1.75 0 1 1-1.58 1H7.33ZM5 7.75a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0ZM10.25 7a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5ZM3.5 3C2.67 3 2 3.67 2 4.5V11c0 .83.67 1.5 1.5 1.5h9c.83 0 1.5-.67 1.5-1.5V4.5c0-.83-.67-1.5-1.5-1.5h-9ZM3 4.5c0-.28.22-.5.5-.5h9c.28 0 .5.22.5.5V11a.5.5 0 0 1-.5.5h-9A.5.5 0 0 1 3 11V4.5Z\"/>";
 
             /// <summary />
-            public static string Wallet { get; } = ResourceManager.GetString("Wallet");
+            public static string WalletCreditCardSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.95 1.37a1 1 0 0 1 1.42-.15l3.26 2.67a1 1 0 0 1 .25 1.24A3 3 0 0 0 12 5h-.3l.3-.34-1.72-1.4L8.86 5H7.57L9.5 2.62 8.74 2l-2.4 3H5.06l2.9-3.63ZM10.5 10a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1ZM3 5.5c0-.28.22-.5.5-.5h.56l.8-1H3.5C2.67 4 2 4.67 2 5.5v6A2.5 2.5 0 0 0 4.5 14H12a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2H3.5a.5.5 0 0 1-.5-.5Zm0 6V6.91c.16.06.32.09.5.09H12a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H4.5A1.5 1.5 0 0 1 3 11.5Z\"/>";
 
             /// <summary />
-            public static string WalletCreditCard { get; } = ResourceManager.GetString("WalletCreditCard");
+            public static string WalletSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M10.5 8a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1Zm-7-6C2.67 2 2 2.67 2 3.5v8A2.5 2.5 0 0 0 4.5 14H12a2 2 0 0 0 2-2V6a2 2 0 0 0-1-1.73V4a2 2 0 0 0-2-2H3.5Zm0 1H11a1 1 0 0 1 1 1H3.5a.5.5 0 0 1 0-1Zm0 2H12a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H4.5A1.5 1.5 0 0 1 3 11.5V4.91c.16.06.32.09.5.09Z\"/>";
 
             /// <summary />
-            public static string Wand { get; } = ResourceManager.GetString("Wand");
+            public static string WandSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M13.5 1c.28 0 .5.22.5.5V2h.5a.5.5 0 0 1 0 1H14v.5a.5.5 0 0 1-1 0V3h-.5a.5.5 0 0 1 0-1h.5v-.5c0-.28.22-.5.5-.5Zm-10 2c.28 0 .5.22.5.5V4h.5a.5.5 0 1 1 0 1H4v.5a.5.5 0 1 1-1 0V5h-.5a.5.5 0 0 1 0-1H3v-.5c0-.28.22-.5.5-.5Zm9 9a.5.5 0 0 0 0-1H12v-.5a.5.5 0 0 0-1 0v.5h-.5a.5.5 0 0 0 0 1h.5v.5a.5.5 0 0 0 1 0V12h.5ZM8.73 4.56a1.91 1.91 0 0 1 2.7 2.71l-7.16 7.17a1.91 1.91 0 0 1-2.71-2.7l7.17-7.18Zm-.48 1.9-5.98 5.98a.91.91 0 0 0 1.29 1.3l5.98-5.99-1.29-1.3Zm2 .58.48-.48a.91.91 0 1 0-1.3-1.29l-.47.48 1.29 1.3Z\"/>";
 
             /// <summary />
-            public static string Warning { get; } = ResourceManager.GetString("Warning");
+            public static string WarningSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8.75 10.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM7.5 8a.5.5 0 0 0 1 0V5.5a.5.5 0 0 0-1 0V8Zm-.6-5.36c.49-.86 1.71-.86 2.2 0l4.74 8.5c.47.83-.14 1.86-1.09 1.86h-9.5a1.25 1.25 0 0 1-1.1-1.86l4.76-8.5Zm1.32.49a.25.25 0 0 0-.44 0l-4.75 8.5c-.1.16.03.37.22.37h9.5c.2 0 .31-.2.22-.37l-4.75-8.5Z\"/>";
 
             /// <summary />
-            public static string Water { get; } = ResourceManager.GetString("Water");
+            public static string WaterSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M12 2.5c.2 0 .39.12.46.31C12.8 3.64 13.42 4 14 4a.5.5 0 0 1 0 1c-.76 0-1.48-.35-2-1-.52.65-1.24 1-2 1s-1.48-.35-2-1c-.52.65-1.24 1-2 1s-1.48-.35-2-1c-.52.65-1.24 1-2 1a.5.5 0 0 1 0-1c.58 0 1.2-.36 1.54-1.19a.5.5 0 0 1 .92 0C4.8 3.64 5.42 4 6 4c.58 0 1.2-.36 1.54-1.19a.5.5 0 0 1 .92 0C8.8 3.64 9.42 4 10 4c.58 0 1.2-.36 1.54-1.19A.5.5 0 0 1 12 2.5Zm0 8c.2 0 .39.12.46.31.34.83.96 1.19 1.54 1.19a.5.5 0 0 1 0 1c-.76 0-1.48-.35-2-1-.52.65-1.24 1-2 1s-1.48-.35-2-1c-.52.65-1.24 1-2 1s-1.48-.35-2-1c-.52.65-1.24 1-2 1a.5.5 0 1 1 0-1c.58 0 1.2-.36 1.54-1.19a.5.5 0 0 1 .92 0C4.8 11.64 5.42 12 6 12c.58 0 1.2-.36 1.54-1.19a.5.5 0 0 1 .92 0C8.8 11.64 9.42 12 10 12c.58 0 1.2-.36 1.54-1.19a.5.5 0 0 1 .46-.31Zm.46-3.69a.5.5 0 0 0-.92 0C11.2 7.64 10.58 8 10 8c-.58 0-1.2-.36-1.54-1.19a.5.5 0 0 0-.92 0C7.2 7.64 6.58 8 6 8c-.58 0-1.2-.36-1.54-1.19a.5.5 0 0 0-.92 0C3.2 7.64 2.58 8 2 8a.5.5 0 0 0 0 1c.76 0 1.48-.35 2-1 .52.65 1.24 1 2 1s1.48-.35 2-1c.52.65 1.24 1 2 1s1.48-.35 2-1c.52.65 1.24 1 2 1a.5.5 0 0 0 0-1c-.58 0-1.2-.36-1.54-1.19Z\"/>";
 
             /// <summary />
-            public static string WeatherMoon { get; } = ResourceManager.GetString("WeatherMoon");
+            public static string WeatherMoonOffSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"m11.62 12.32 2.53 2.53a.5.5 0 0 0 .7-.7l-13-13a.5.5 0 1 0-.7.7L6.38 7.1c-.86 1.93-2.75 2.58-3.97 2.8a.5.5 0 0 0-.36.71 6 6 0 0 0 9.57 1.72Zm-.71-.7a4.98 4.98 0 0 1-7.65-.9 6 6 0 0 0 3.87-2.88l3.78 3.78ZM12.46 8c0 .69-.14 1.35-.4 1.94l.76.76A6 6 0 0 0 7.25 2a.5.5 0 0 0-.48.6c.13.66.2 1.4.15 2.2l.9.9a9.2 9.2 0 0 0 .03-2.68A5 5 0 0 1 12.45 8Z\"/>";
 
             /// <summary />
-            public static string WeatherMoonOff { get; } = ResourceManager.GetString("WeatherMoonOff");
+            public static string WeatherMoonSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.85 3.02a5 5 0 1 1-4.59 7.7 5.86 5.86 0 0 0 4.16-3.54c.56-1.48.59-2.94.43-4.16ZM13.45 8a6 6 0 0 0-6.2-6 .5.5 0 0 0-.48.6 7.89 7.89 0 0 1-.28 4.22c-.8 2.14-2.8 2.84-4.08 3.08a.5.5 0 0 0-.36.7A6 6 0 0 0 13.45 8Z\"/>";
 
             /// <summary />
-            public static string WeatherPartlyCloudyDay { get; } = ResourceManager.GetString("WeatherPartlyCloudyDay");
+            public static string WeatherPartlyCloudyDaySvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9 7a2.5 2.5 0 0 0-2.5 2.5v.5h-1a1.5 1.5 0 0 0 0 3h7a1.5 1.5 0 0 0 0-3h-1v-.5A2.5 2.5 0 0 0 9 7ZM5.53 9a3.5 3.5 0 0 1 6.93 0h.04a2.5 2.5 0 0 1 0 5h-7a2.5 2.5 0 0 1 0-5h.03ZM8.8 2.82a.5.5 0 1 0-.89-.47l-.42.8a.5.5 0 0 0 .88.47l.43-.8ZM5 2.07a.5.5 0 1 0-.95.3l.26.87a.5.5 0 0 0 .96-.3l-.27-.87ZM6 4a3 3 0 0 1 2.29 1.06c-.4.06-.76.17-1.11.32a2 2 0 0 0-2.8 2.8c-.32.1-.62.26-.9.46A3 3 0 0 1 6 4Zm-4.18.21a.5.5 0 1 0-.47.89l.8.42a.5.5 0 0 0 .47-.88l-.8-.43Zm.42 4.47a.5.5 0 0 0-.3-.96L1.07 8a.5.5 0 1 0 .3.95l.87-.26Z\"/>";
 
             /// <summary />
-            public static string WeatherSunny { get; } = ResourceManager.GetString("WeatherSunny");
+            public static string WeatherSunnySvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M8 1c.28 0 .5.22.5.5v1a.5.5 0 0 1-1 0v-1c0-.28.22-.5.5-.5Zm0 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm0-1a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm6.5-1.5a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1h1ZM8 13c.28 0 .5.22.5.5v1a.5.5 0 0 1-1 0v-1c0-.28.22-.5.5-.5ZM2.5 8.5a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1h1Zm.65-5.35c.2-.2.5-.2.7 0l1 1a.5.5 0 1 1-.7.7l-1-1a.5.5 0 0 1 0-.7Zm.7 9.7a.5.5 0 1 1-.7-.7l1-1a.5.5 0 0 1 .7.7l-1 1Zm9-9.7a.5.5 0 0 0-.7 0l-1 1a.5.5 0 0 0 .7.7l1-1a.5.5 0 0 0 0-.7Zm-.7 9.7a.5.5 0 0 0 .7-.7l-1-1a.5.5 0 0 0-.7.7l1 1Z\"/>";
 
             /// <summary />
-            public static string WebAsset { get; } = ResourceManager.GetString("WebAsset");
+            public static string WebAssetSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 2A2.5 2.5 0 0 0 2 4.5v7A2.5 2.5 0 0 0 4.5 14h7a2.5 2.5 0 0 0 2.5-2.5v-7A2.5 2.5 0 0 0 11.5 2h-7ZM3 4.5C3 3.67 3.67 3 4.5 3h7c.83 0 1.5.67 1.5 1.5v7c0 .83-.67 1.5-1.5 1.5h-7A1.5 1.5 0 0 1 3 11.5v-7ZM5 5a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1H5Z\"/>";
 
             /// <summary />
-            public static string Window { get; } = ResourceManager.GetString("Window");
+            public static string WindowAppsSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 2A2.5 2.5 0 0 0 2 4.5v7A2.5 2.5 0 0 0 4.5 14H6v-1H4.5A1.5 1.5 0 0 1 3 11.5V6h11V4.5A2.5 2.5 0 0 0 11.5 2h-7ZM13 5H3v-.5C3 3.67 3.67 3 4.5 3h7c.83 0 1.5.67 1.5 1.5V5Zm-.25 2h1.5c.97 0 1.75.78 1.75 1.75V14a2 2 0 0 1-2 2H8.75C7.78 16 7 15.22 7 14.25v-1.5c0-.97.78-1.75 1.75-1.75H11V8.75c0-.97.78-1.75 1.75-1.75ZM11 12H8.75a.75.75 0 0 0-.75.75v1.5c0 .41.34.75.75.75H11v-3Zm1 3h2a1 1 0 0 0 1-1v-2h-3v3Zm0-4h3V8.75a.75.75 0 0 0-.75-.75h-1.5a.75.75 0 0 0-.75.75V11Z\"/>";
 
             /// <summary />
-            public static string WindowApps { get; } = ResourceManager.GetString("WindowApps");
+            public static string WindowArrowUpSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 4.5A2.5 2.5 0 0 1 4.5 2h7A2.5 2.5 0 0 1 14 4.5v1.76a5.5 5.5 0 0 0-1-.66V5H3v6.5c0 .83.67 1.5 1.5 1.5h1.1c.18.36.4.7.66 1H4.5A2.5 2.5 0 0 1 2 11.5v-7ZM4.5 3c-.65 0-1.2.42-1.41 1h9.83c-.21-.58-.77-1-1.42-1h-7Zm6 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm2.35-4.85a.5.5 0 0 1-.7.7L11 9.71v2.79a.5.5 0 0 1-1 0V9.7l-1.15 1.15a.5.5 0 0 1-.7-.7l2-2A.5.5 0 0 1 10.5 8a.5.5 0 0 1 .35.14l2 2Z\"/>";
 
             /// <summary />
-            public static string WindowArrowUp { get; } = ResourceManager.GetString("WindowArrowUp");
+            public static string WindowDevEditSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><svg width=\"17\" height=\"16\" viewBox=\"0 0 17 16\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M2 4.5A2.5 2.5 0 0 1 4.5 2h6A2.5 2.5 0 0 1 13 4.5v1.94c-.13.09-.25.2-.37.3l-.63.64V5H3v5.5c0 .83.67 1.5 1.5 1.5h3.14c-.12.25-.22.52-.3.8l-.04.2H4.5A2.5 2.5 0 0 1 2 10.5v-6ZM4.5 3c-.65 0-1.21.42-1.42 1h8.83c-.2-.58-.76-1-1.41-1h-6Zm6.49 5.4-2.6 2.59a.5.5 0 0 1-.24-.84L9.79 8.5 8.15 6.85a.5.5 0 1 1 .7-.7l2 2a.5.5 0 0 1 .14.24ZM6.85 6.84a.5.5 0 1 0-.7-.7l-2 2a.5.5 0 0 0 0 .7l2 2a.5.5 0 0 0 .7-.7L5.21 8.5l1.64-1.65Zm8.7.6c-.61-.6-1.6-.6-2.21 0l-4.3 4.3c-.35.35-.6.8-.72 1.28l-.3 1.21a.6.6 0 0 0 .73.74l1.22-.3c.48-.12.93-.37 1.29-.73l4.28-4.29c.61-.6.61-1.6 0-2.2Z\"/>";
 
             /// <summary />
-            public static string WindowDevEdit { get; } = ResourceManager.GetString("WindowDevEdit");
+            public static string WindowDevToolsSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 2A2.5 2.5 0 0 0 2 4.5v6A2.5 2.5 0 0 0 4.5 13h4.28c.03-.21.1-.43.22-.63l.22-.37H4.5A1.5 1.5 0 0 1 3 10.5V5h9v1.2c.32-.13.66-.2 1-.21V4.5A2.5 2.5 0 0 0 10.5 2h-6ZM3.08 4c.21-.58.77-1 1.42-1h6c.65 0 1.2.42 1.41 1H3.08Zm7.34 3.7L8.85 6.16a.5.5 0 0 0-.7.7L9.79 8.5l-1.64 1.65a.5.5 0 1 0 .7.7l1.37-1.36a2.9 2.9 0 0 1 .2-1.78ZM6.85 6.16c.2.2.2.5 0 .7L5.21 8.5l1.64 1.65a.5.5 0 1 1-.7.7l-2-2a.5.5 0 0 1 0-.7l2-2c.2-.2.5-.2.7 0Zm5.67 2.43.9-1.56a1.91 1.91 0 0 0-1.9 3l-1.65 2.85a.8.8 0 0 0 1.38.8l1.65-2.87a1.91 1.91 0 0 0 1.62-3.14l-.9 1.56a.64.64 0 1 1-1.1-.64Z\"/>";
 
             /// <summary />
-            public static string WindowDevTools { get; } = ResourceManager.GetString("WindowDevTools");
+            public static string WindowEditSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 2A2.5 2.5 0 0 0 2 4.5v7A2.5 2.5 0 0 0 4.5 14h1.55l.25-1H4.5A1.5 1.5 0 0 1 3 11.5V5h10v1.04c.33-.06.67-.05 1 .02V4.5A2.5 2.5 0 0 0 11.5 2h-7ZM3.09 4c.2-.58.76-1 1.41-1h7c.65 0 1.2.42 1.41 1H3.1Zm11.45 3.46c-.6-.61-1.6-.61-2.2 0l-4.3 4.28c-.35.36-.6.8-.72 1.3l-.3 1.2a.6.6 0 0 0 .73.74l1.22-.3c.48-.12.93-.37 1.29-.73l4.28-4.29c.61-.6.61-1.6 0-2.2Z\"/>";
 
             /// <summary />
-            public static string WindowEdit { get; } = ResourceManager.GetString("WindowEdit");
+            public static string WindowMultipleSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 2A2.5 2.5 0 0 0 2 4.5v5A2.5 2.5 0 0 0 4.5 12h5A2.5 2.5 0 0 0 12 9.5v-5A2.5 2.5 0 0 0 9.5 2h-5Zm6.41 2H3.1c.2-.58.76-1 1.41-1h5c.65 0 1.2.42 1.41 1ZM3 5h8v4.5c0 .83-.67 1.5-1.5 1.5h-5A1.5 1.5 0 0 1 3 9.5V5Zm3.5 9a2.5 2.5 0 0 1-2-1H10a3 3 0 0 0 3-3V4.5c.6.46 1 1.18 1 2V10a4 4 0 0 1-4 4H6.5Z\"/>";
 
             /// <summary />
-            public static string WindowMultiple { get; } = ResourceManager.GetString("WindowMultiple");
+            public static string WindowNewSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7.5 5.5c0-.28.22-.5.5-.5h2.5c.28 0 .5.22.5.5V8a.5.5 0 0 1-1 0V6.7L7.35 9.36a.5.5 0 1 1-.7-.7L9.29 6H8a.5.5 0 0 1-.5-.5ZM4.13 3.7A2.5 2.5 0 0 1 6.5 2h5A2.5 2.5 0 0 1 14 4.5v5c0 1.1-.7 2.03-1.7 2.37v.36c0 .34-.1.76-.38 1.12-.3.37-.75.65-1.38.65H4.77A2.75 2.75 0 0 1 2 11.23V5.46c0-.55.2-1 .55-1.32.34-.31.78-.45 1.22-.45h.36ZM4 4.7h-.23a.81.81 0 0 0-.55.18c-.12.1-.22.28-.22.58v5.77c0 1 .78 1.77 1.77 1.77h5.77a.7.7 0 0 0 .59-.27.89.89 0 0 0 .18-.5V12H6.5A2.5 2.5 0 0 1 4 9.5V4.7ZM6.5 3C5.67 3 5 3.67 5 4.5v5c0 .83.67 1.5 1.5 1.5h5c.83 0 1.5-.67 1.5-1.5v-5c0-.83-.67-1.5-1.5-1.5h-5Z\"/>";
 
             /// <summary />
-            public static string WindowNew { get; } = ResourceManager.GetString("WindowNew");
+            public static string WindowShieldSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 2A2.5 2.5 0 0 0 2 4.5v7A2.5 2.5 0 0 0 4.5 14h3.74a5.26 5.26 0 0 1-.63-1H4.5A1.5 1.5 0 0 1 3 11.5V5h10v.9c.33.26.67.43 1 .52V4.5A2.5 2.5 0 0 0 11.5 2h-7ZM3.09 4c.2-.58.76-1 1.41-1h7c.65 0 1.2.42 1.42 1H3.09ZM14 7.44a3.52 3.52 0 0 1-1-.35 4.72 4.72 0 0 1-1.25-.98.33.33 0 0 0-.5 0 3.89 3.89 0 0 1-2.9 1.39c-.2 0-.35.17-.35.38v2.48c.04 1.03.29 1.91.75 2.64.24.37.53.7.88 1 .48.4 1.07.73 1.76.98.07.03.15.03.22 0a4.75 4.75 0 0 0 3.4-4.85V7.88l-.02-.08a.36.36 0 0 0-.34-.3c-.22 0-.44-.02-.65-.06Z\"/>";
 
             /// <summary />
-            public static string WindowShield { get; } = ResourceManager.GetString("WindowShield");
+            public static string WindowSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 2A2.5 2.5 0 0 0 2 4.5v7A2.5 2.5 0 0 0 4.5 14h7a2.5 2.5 0 0 0 2.5-2.5v-7A2.5 2.5 0 0 0 11.5 2h-7ZM13 5H3v-.5C3 3.67 3.67 3 4.5 3h7c.83 0 1.5.67 1.5 1.5V5ZM3 6h10v5.5c0 .83-.67 1.5-1.5 1.5h-7A1.5 1.5 0 0 1 3 11.5V6Z\"/>";
 
             /// <summary />
-            public static string WindowWrench { get; } = ResourceManager.GetString("WindowWrench");
+            public static string WindowWrenchSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M2 4.5A2.5 2.5 0 0 1 4.5 2h7A2.5 2.5 0 0 1 14 4.5v1.12a1.38 1.38 0 0 0-1-.59 4.53 4.53 0 0 0-.52-.03H13v-.5c0-.83-.67-1.5-1.5-1.5h-7C3.67 3 3 3.67 3 4.5V5h9.48c-1 0-2 .33-2.83 1H3v5.5c0 .83.67 1.5 1.5 1.5h1c-.23.3-.38.65-.45 1H4.5A2.5 2.5 0 0 1 2 11.5v-7Zm11.24 1.86a.39.39 0 0 0-.35-.34 3.51 3.51 0 0 0-3.72 4.68l-2.73 2.73a1.5 1.5 0 0 0 0 2.13 1.5 1.5 0 0 0 2.13 0l2.73-2.73a3.52 3.52 0 0 0 4.68-3.72c-.05-.37-.48-.47-.75-.21l-.97.97a1.5 1.5 0 1 1-2.13-2.13l.97-.97a.49.49 0 0 0 .14-.4Z\"/>";
 
             /// <summary />
-            public static string Wrench { get; } = ResourceManager.GetString("Wrench");
+            public static string WrenchSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7 5a4 4 0 0 1 5.45-3.73.5.5 0 0 1 .17.82L10.7 4 12 5.3l1.91-1.92a.5.5 0 0 1 .82.17 4 4 0 0 1-4.83 5.3l-5 5.07a1.99 1.99 0 0 1-2.85-2.77L7.1 5.9c-.06-.3-.1-.6-.1-.91Zm4-3a3 3 0 0 0-2.86 3.9.5.5 0 0 1-.12.5l-5.25 5.44a.99.99 0 0 0 1.41 1.38l5.23-5.3a.5.5 0 0 1 .53-.11 3 3 0 0 0 4.05-3.09l-1.64 1.63a.5.5 0 0 1-.7 0l-2-2a.5.5 0 0 1 0-.7L11.28 2 11 2Z\"/>";
 
             /// <summary />
-            public static string XboxController { get; } = ResourceManager.GetString("XboxController");
+            public static string XboxControllerSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M9.98 4.57a.8.8 0 0 1 .51-.05l.83.16a1 1 0 0 1 .7.52c.97 1.9 1.62 3.32 1.87 4.48.24 1.12.09 1.95-.55 2.72a.28.28 0 0 1-.24.1.45.45 0 0 1-.31-.15 167 167 0 0 1-1.28-1.48 2.5 2.5 0 0 0-1.9-.87H6.38a2.5 2.5 0 0 0-1.9.87L3.2 12.35c-.08.1-.2.15-.3.15a.28.28 0 0 1-.25-.1c-.63-.77-.79-1.6-.55-2.72.25-1.16.9-2.58 1.87-4.48a1 1 0 0 1 .7-.52l.83-.16a.8.8 0 0 1 .51.05l.2.1c.38.2.8.33 1.25.33h1.07c.45 0 .88-.12 1.25-.32l.2-.1Zm.7-1.03a1.8 1.8 0 0 0-1.15.14 10 10 0 0 0-.22.12c-.25.13-.51.2-.78.2H7.46c-.26 0-.53-.07-.78-.2a10 10 0 0 0-.22-.12 1.8 1.8 0 0 0-1.15-.14l-.82.15a2 2 0 0 0-1.4 1.06C2.12 6.62 1.4 8.16 1.11 9.47a3.93 3.93 0 0 0 .76 3.56c.57.7 1.56.56 2.07-.02l1.3-1.48c.28-.34.7-.53 1.13-.53h3.23c.44 0 .86.2 1.14.53L12.04 13c.51.58 1.5.72 2.08.02a3.93 3.93 0 0 0 .75-3.56c-.28-1.31-1-2.85-1.96-4.72a2 2 0 0 0-1.4-1.06l-.83-.15ZM8 7.5A.75.75 0 1 0 8 6a.75.75 0 0 0 0 1.5Z\"/>";
 
             /// <summary />
-            public static string ZoomFit { get; } = ResourceManager.GetString("ZoomFit");
+            public static string ZoomFitSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M5.66 2.64a.5.5 0 0 0 .69.72l1.3-1.25a.5.5 0 0 1 .7 0l1.3 1.25a.5.5 0 1 0 .7-.72l-1.3-1.25a1.5 1.5 0 0 0-2.08 0L5.66 2.63Zm-2.3 3.7a.5.5 0 0 0-.72-.69L1.39 6.96a1.5 1.5 0 0 0 0 2.08l1.25 1.3a.5.5 0 0 0 .72-.69l-1.25-1.3a.5.5 0 0 1 0-.7l1.25-1.3Zm2.99 6.3a.5.5 0 1 0-.7.72l1.32 1.26c.58.55 1.5.55 2.08 0l1.3-1.26a.5.5 0 1 0-.7-.72l-1.3 1.25a.5.5 0 0 1-.69 0l-1.31-1.25Zm7.01-6.99a.5.5 0 1 0-.72.7l1.26 1.3c.18.2.18.5 0 .7l-1.26 1.3a.5.5 0 1 0 .72.7l1.26-1.3a1.5 1.5 0 0 0 0-2.09l-1.26-1.3ZM6.5 5C5.67 5 5 5.67 5 6.5v3c0 .83.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5h-3ZM6 6.5c0-.28.22-.5.5-.5h3c.28 0 .5.22.5.5v3a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-3Z\"/>";
 
             /// <summary />
-            public static string ZoomIn { get; } = ResourceManager.GetString("ZoomIn");
+            public static string ZoomInSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M7 4.5a.5.5 0 0 0-1 0V6H4.5a.5.5 0 0 0 0 1H6v1.5a.5.5 0 0 0 1 0V7h1.5a.5.5 0 0 0 0-1H7V4.5ZM6.5 11c1.06 0 2.04-.37 2.8-.98l3.85 3.83a.5.5 0 0 0 .7-.7L10.02 9.3A4.5 4.5 0 1 0 6.5 11Zm0-8a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7Z\"/>";
 
             /// <summary />
-            public static string ZoomOut { get; } = ResourceManager.GetString("ZoomOut");
+            public static string ZoomOutSvgIcons { get; } = "<icon size=\"16\" variant=\"R\" /><path d=\"M4.5 6a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4Zm2 5c1.06 0 2.04-.37 2.8-.98l3.85 3.83a.5.5 0 0 0 .7-.7L10.02 9.3A4.5 4.5 0 1 0 6.5 11Zm0-8a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7Z\"/>";
 
         }
     }

@@ -1,7 +1,5 @@
-﻿using System.Diagnostics;
-using System.Drawing;
-using System.Text;
-using Microsoft.Extensions.Primitives;
+﻿using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Microsoft.Fast.Components.FluentUI.IconsGenerator;
 
@@ -33,7 +31,7 @@ internal class CodeGenerator
     /// <returns></returns>
     public IEnumerable<Model.Icon> ReadAllAssets()
     {
-        const string searchPattern = "ic_fluent_*.svg";
+        const string searchPattern = "*.svg";
         var icons = new Dictionary<string, Model.Icon>();
 
         Logger.Invoke($"Reading all SVG files in {Configuration.AssetsFolder}.");
@@ -81,6 +79,17 @@ internal class CodeGenerator
         var allSizes = icons.Where(i => Configuration.Sizes.Contains(i.Size)).Select(i => i.Size).Distinct().OrderBy(i => i);
         var allVariants = icons.Select(i => i.Variant).Distinct().OrderBy(i => i);
         
+        // Delete previous files
+        foreach (var file in Configuration.TargetFolder.GetFiles("*.*", SearchOption.TopDirectoryOnly))
+        {
+            bool toDelete = Regex.IsMatch(file.Name, @"^(Filled|Regular)[0-9][0-9](\.cs|Data\.resx)$");
+            if (toDelete)
+            {
+                file.Delete();
+            }
+        }
+
+        // Generate all classes
         foreach (var variant in allVariants)
         {
             foreach (var size in allSizes)

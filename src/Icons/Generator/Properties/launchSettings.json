@@ -2,7 +2,7 @@
   "profiles": {
     "Microsoft.Fast.Components.FluentUI.IconsGenerator": {
       "commandName": "Project",
-      "commandLineArgs": "--Assets=C:/_Temp/fluentui-system-icons/main/assets --Target=../FluentUI.Icons/Assets --Sizes=16,24,32"
+      "commandLineArgs": "--Assets=C:/_Temp/Icons --Target=../FluentUI.Icons/Assets"
     }
   }
 }

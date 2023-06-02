@@ -12,7 +12,9 @@ internal class Icon
 
     /// <summary>
     /// Convert the file to an icon
-    /// Example: "ic_fluent_add_circle_20_regular.svg" => "AddCircle", 20, "Regular"
+    /// Examples:
+    ///   "add_circle_20_regular.svg" => "AddCircle", 20, "Regular"
+    ///   "fr/text_bold_24_filled.svg" => "TextBoldFr", 24, "Filled"
     /// </summary>
     /// <param name="file"></param>
     public Icon(FileInfo file)
@@ -21,24 +23,19 @@ internal class Icon
 
         string filename = Path.GetFileNameWithoutExtension(file.Name);
         string[] nameParts = filename.Split(InvalidCharacters);
+        string parentName = file.Directory!.Parent!.Name; // Check if the SVG is included in a "language" folder.
 
-        if (nameParts.Length >= 5)
+        if (string.Compare(parentName, "icons", StringComparison.CurrentCultureIgnoreCase) == 0)
+        {
+            parentName = string.Empty;
+        }
+
+        if (nameParts.Length >= 3)
         {
             Variant = ToPascalCase(nameParts[^1]);
             Size = int.Parse(nameParts[^2]);
-            Name = GetIconName(file);
-        }
+            Name = ToPascalCase(nameParts[..^2].Union(parentName.Split(InvalidCharacters)).ToArray());
 
-        // Gets the icon name from the parent folder
-        // Because the icon name is not always the same as the file name
-        // It's possible to have subfolders to identify the country (en, it, etc.) or LTR/RTL.
-        string GetIconName(FileInfo file)
-        {
-            string parentName = file.Directory!.Parent!.Name;
-            string parentParentName = file.Directory!.Parent!.Parent!.Name;
-            
-            string name = parentName.Length <= 3 ? $"{parentParentName} {parentName}" : parentName;
-            return ToPascalCase(name.Split(InvalidCharacters));
         }
     }
 
