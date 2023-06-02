@@ -61,7 +61,7 @@ internal class Icon
     /// <summary>
     /// Gets the key of the icon: Regular_20_AddCircle
     /// </summary>
-    public string Key => $"{Variant}_{Size}_{Name}";
+    public string Key => $"{Name}_{Size}_{Variant}";
 
     /// <summary>
     /// Returns the SVG content of the icon, with or without the root SVG element.

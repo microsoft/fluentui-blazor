@@ -87,27 +87,27 @@ internal class Configuration
     /// </summary>
     public void DisplayHelp()
     {
-        Console.WriteLine("Microsoft FluentUI Icons Generator");
+        Console.WriteLine($"Microsoft FluentUI Icons Generator");
         Console.WriteLine();
-        Console.WriteLine("  FluentIconsGenerator --folder:<Icons_Folder_Directory>");
+        Console.WriteLine($"  FluentIconsGenerator --folder:<Icons_Folder_Directory>");
         Console.WriteLine();
-        Console.WriteLine("  --Assets    | -a   The root directory containing all SVG icons,");
-        Console.WriteLine("                     downloaded from https://github.com/microsoft/fluentui-system-icons.");
-        Console.WriteLine("                     If not specified, the current working directory will be used.");
+        Console.WriteLine($"  --Assets    | -a   The root directory containing all SVG icons,");
+        Console.WriteLine($"                     downloaded from https://github.com/microsoft/fluentui-system-icons.");
+        Console.WriteLine($"                     If not specified, the current working directory will be used.");
         Console.WriteLine();
-        Console.WriteLine("  --Namespace | -ns  The namespace used for generated classes.");
-        Console.WriteLine("                     If not specified, \"Microsoft.Fast.Components.FluentUI\" will be used.");
+        Console.WriteLine($"  --Namespace | -ns  The namespace used for generated classes.");
+        Console.WriteLine($"                     If not specified, \"{DefaultNamespace}\" will be used.");
         Console.WriteLine();
-        Console.WriteLine("  --Sizes     | -s   The list of icon sizes to generate, separated by coma.");
-        Console.WriteLine("                     By default: 16,24,32");
+        Console.WriteLine($"  --Sizes     | -s   The list of icon sizes to generate, separated by coma.");
+        Console.WriteLine($"                     By default: {DefaultSizes}");
         Console.WriteLine();
-        Console.WriteLine("  --Target    | -t   The target directory where C# classes will be created.");
-        Console.WriteLine("                     If not specified, the current working directory will be used.");
+        Console.WriteLine($"  --Target    | -t   The target directory where C# classes will be created.");
+        Console.WriteLine($"                     If not specified, the current working directory will be used.");
         Console.WriteLine();
-        Console.WriteLine("  --Mode      | -m   The generator mode: 'class' or 'resx'.");
-        Console.WriteLine("                     By default: 'class'");
+        Console.WriteLine($"  --Mode      | -m   The generator mode: 'class' or 'resx'.");
+        Console.WriteLine($"                     By default: '{DefaultMode}'");
         Console.WriteLine();
-        Console.WriteLine("  --Help      | -h   Display this documentation.");
+        Console.WriteLine($"  --Help      | -h   Display this documentation.");
     }
 
     /// <summary>

@@ -49,9 +49,9 @@ internal class CodeGenerator
         }
 
         return icons.Values
-                    .OrderBy(i => i.Variant)
+                    .OrderBy(i => i.Name)
                     .ThenBy(i => i.Size)
-                    .ThenBy(i => i.Name)
+                    .ThenBy(i => i.Variant)
                     .ToArray();
     }
 

@@ -13,11 +13,11 @@ public partial class FluentSystemIcon : FluentComponentBase
         .Build();
 
     /// <summary />
-    protected string? StyleValue => new StyleBuilder()
-        .AddStyle(Style)
+    protected string? StyleValue => new StyleBuilder()        
         .AddStyle("width", $"{Size}px", Size.HasValue && Size.Value > 0)
-        .AddStyle("fill", Color, !string.IsNullOrEmpty(Color))
+        .AddStyle("fill", Color == FluentUI.Color.Custom ? CustomColor : Color.ToAttributeValue())
         .AddStyle("cursor", "pointer", OnClick.HasDelegate)
+        .AddStyle(Style)
         .Build();
 
     /// <summary>
@@ -59,7 +59,15 @@ public partial class FluentSystemIcon : FluentComponentBase
     /// Value comes from the <see cref="FluentUI.Color"/> enumeration. Defaults to Accent.
     /// </summary>
     [Parameter]
-    public string? Color { get; set; }
+    public Color? Color { get; set; } = FluentUI.Color.Accent;
+
+    /// <summary>
+    /// Gets or sets the icon drawing and fill color to a custom value.
+    /// Needs to be formatted as an HTML hex color string (#rrggbb or #rgb) or CSS variable.
+    /// ⚠️ Only available when Color is set to Color.Custom.
+    /// </summary>
+    [Parameter]
+    public string? CustomColor { get; set; }
 
     /// <summary>
     /// Gets or sets the icon size, used to create the viewbox, width and height attributes.
@@ -88,5 +96,13 @@ public partial class FluentSystemIcon : FluentComponentBase
         }
 
         return Task.CompletedTask;
+    }
+
+    protected override void OnParametersSet()
+    {
+        if (!string.IsNullOrEmpty(CustomColor) && Color != FluentUI.Color.Custom)
+        {
+            throw new ArgumentException("CustomColor can only be used when Color is set to Color.Custom.");
+        }
     }
 }

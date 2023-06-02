@@ -38221,6 +38221,13 @@
             Value comes from the <see cref="T:Microsoft.Fast.Components.FluentUI.Color"/> enumeration. Defaults to Accent.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemIcon.CustomColor">
+            <summary>
+            Gets or sets the icon drawing and fill color to a custom value.
+            Needs to be formatted as an HTML hex color string (#rrggbb or #rgb) or CSS variable.
+            ⚠️ Only available when Color is set to Color.Custom.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemIcon.Size">
             <summary>
             Gets or sets the icon size, used to create the viewbox, width and height attributes.

@@ -53,10 +53,10 @@ Run the application with the `--help` parameter to see all available parameters.
                      If not specified, the current working directory will be used.
   
   --Namespace | -ns  The namespace used for generated classes.
-                     If not specified, \"Microsoft.Fast.Components.FluentUI\" will be used.
+                     If not specified, "Microsoft.Fast.Components.FluentUI\ will be used.
   
   --Sizes     | -s   The list of icon sizes to generate, separated by coma.
-                     By default: 16,24,32
+                     By default: 16,20,24,32,48
   
   --Target    | -t   The target directory where C# classes will be created.
                      If not specified, the current working directory will be used.
