@@ -7,14 +7,14 @@ from the official website https://github.com/microsoft/fluentui-system-icons
 
 To generate the icons, you need:
 
-1. Download SVG images in a local from the [official website](https://github.com/microsoft/fluentui-system-icons), using this command.
+1. Download SVG images in a local folder (ex. C:\Temp) from the [official NPM repo](https://www.npmjs.com/package/@fluentui/svg-icons), using this command.
 
    ```cmd
    npm install @fluentui/svg-icons
    ```
 
 2. Compile the project and run the `FluentUIIconsGenerator.exe` application,
-   passing the **Assets** path to this previous folder containing the SVG images as a parameter.
+   passing the **Assets** path to this local folder containing the SVG images as a parameter.
    
    ```cmd
    FluentUIIconsGenerator.exe --Assets=C:\Temp\Icons --Target=./Samples

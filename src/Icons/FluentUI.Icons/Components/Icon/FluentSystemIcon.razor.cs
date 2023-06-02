@@ -76,12 +76,6 @@ public partial class FluentSystemIcon : FluentComponentBase
     public int? Size { get; set; }
 
     /// <summary>
-    /// Child content of component.
-    /// </summary>
-    [Parameter]
-    public RenderFragment ChildContent { get; set; } = default!;
-
-    /// <summary>
     /// Allows for capturing a mouse click on an icon
     /// </summary>
     [Parameter]
