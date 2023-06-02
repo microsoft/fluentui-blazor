@@ -8,7 +8,36 @@ namespace FluentUI.Demo.Shared.Components;
 
 public partial class TableOfContents : IAsyncDisposable
 {
-    private record Anchor(string Level, string Text, string Href, Anchor[] Anchors);
+    private record Anchor(string Level, string Text, string Href, Anchor[] Anchors)
+    {
+        public virtual bool Equals(Anchor? other)
+        {
+            if (other is null) return false;
+
+            if (Level != other.Level ||
+                Text != other.Text ||
+                Href != other.Href ||
+                (Anchors?.Length ?? 0) != (other.Anchors?.Length ?? 0))
+            {
+                return false;
+            }
+
+            if (Anchors is not null &&
+                Anchors.Length > 0)
+            {
+                for (var i = 0; i < Anchors.Length; i++)
+                {
+                    if (!Anchors[i].Equals(other.Anchors![i]))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+    }
+
     private Anchor[]? _anchors;
     private bool _expanded = true;
 
@@ -63,8 +92,21 @@ public partial class TableOfContents : IAsyncDisposable
 
     private async Task QueryDom()
     {
-        _anchors = await _jsModule.InvokeAsync<Anchor[]?>("queryDomForTocEntries");
+        var foundAnchors = await _jsModule.InvokeAsync<Anchor[]?>("queryDomForTocEntries");
+
+        if (AnchorsEqual(_anchors, foundAnchors))
+        {
+            return;
+        }
+
+        _anchors = foundAnchors;
         StateHasChanged();
+    }
+
+    private bool AnchorsEqual(Anchor[]? firstSet, Anchor[]? secondSet)
+    {
+        return (firstSet ?? Array.Empty<Anchor>())
+            .SequenceEqual(secondSet ?? Array.Empty<Anchor>());
     }
 
     protected override void OnInitialized()
@@ -128,6 +170,8 @@ public partial class TableOfContents : IAsyncDisposable
         }
 
     }
+
+
 
     async ValueTask IAsyncDisposable.DisposeAsync()
     {

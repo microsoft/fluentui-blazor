@@ -14,6 +14,25 @@ export function init(gridElement) {
         }
     };
 
+    const cells = gridElement.querySelectorAll('[role="gridcell"]');
+    cells.forEach((cell) => {
+        cell.columnDefinition = {
+            columnDataKey: "",
+            cellInternalFocusQueue: true,
+            cellFocusTargetCallback: (cell) => {
+                return cell.firstElementChild
+            }
+        }
+        cell.addEventListener(
+            "keydown",
+            (event) => {
+                if (event.target.role !== "gridcell" && (event.key === "ArrowRight" || event.key === "ArrowLeft")) {
+                    event.stopPropagation();
+                }
+            }
+        );
+    });
+
     document.body.addEventListener('click', bodyClickHandler);
     document.body.addEventListener('mousedown', bodyClickHandler); // Otherwise it seems strange that it doesn't go away until you release the mouse button
     document.body.addEventListener('keydown', keyDownHandler);
