@@ -2,6 +2,11 @@
     text-overflow: ellipsis;
 }
 
+.multiline-text {
+    white-space: inherit;
+    overflow: auto;
+}
+
 .column-header {
     display: flex;
     align-self: center;
