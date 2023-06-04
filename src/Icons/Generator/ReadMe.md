@@ -55,6 +55,10 @@ Run the application with the `--help` parameter to see all available parameters.
   --Namespace | -ns  The namespace used for generated classes.
                      If not specified, "Microsoft.Fast.Components.FluentUI\ will be used.
   
+  --Names     | -n   The list of icon names to generate, separated by coma.
+                     Example: accessibility_32_filled,add_circle_20_filled"
+                     By default: all icons
+
   --Sizes     | -s   The list of icon sizes to generate, separated by coma.
                      Example: 12,24. By default: all sizes
   

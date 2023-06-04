@@ -35,6 +35,8 @@ internal class Configuration
             { "--namespace", "namespace" },
             { "-s", "sizes" },
             { "--sizes", "sizes" },
+            { "-n", "names" },
+            { "--names", "names" },
             { "-m", "mode" },
             { "--mode", "mode" },
         };
@@ -46,6 +48,7 @@ internal class Configuration
         TargetFolder = GetAbsoluteFolder(config.GetSection("target").Value);
         Namespace = config.GetSection("namespace").Value ?? DefaultNamespace;
         Sizes = (config.GetSection("sizes").Value ?? DefaultSizes).Split(",", StringSplitOptions.RemoveEmptyEntries).Select(i => Convert.ToInt32(i));
+        Names = (config.GetSection("names").Value ?? string.Empty).Split(",", StringSplitOptions.RemoveEmptyEntries);
         Mode = config.GetSection("mode").Value ?? DefaultMode;
     }
 
@@ -68,6 +71,11 @@ internal class Configuration
     /// Gets the list of icon sizes to generate.
     /// </summary>
     public IEnumerable<int> Sizes { get; set; } = Array.Empty<int>();
+
+    /// <summary>
+    /// Gets a value indicating whether the resx files should be generated.
+    /// </summary>
+    public IEnumerable<string> Names { get; set; } = Array.Empty<string>();
 
     /// <summary>
     /// Gets a value indicating whether the resx files should be generated.
@@ -97,6 +105,10 @@ internal class Configuration
         Console.WriteLine();
         Console.WriteLine($"  --Namespace | -ns  The namespace used for generated classes.");
         Console.WriteLine($"                     If not specified, \"{DefaultNamespace}\" will be used.");
+        Console.WriteLine();
+        Console.WriteLine($"  --Names     | -n   The list of icon names to generate, separated by coma.");
+        Console.WriteLine($"                     Example: accessibility_32_filled,add_circle_20_filled");
+        Console.WriteLine($"                     By default: all icons");
         Console.WriteLine();
         Console.WriteLine($"  --Sizes     | -s   The list of icon sizes to generate, separated by coma.");
         Console.WriteLine($"                     Example: 12,24. By default: all sizes");
