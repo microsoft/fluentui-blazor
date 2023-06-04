@@ -10,7 +10,7 @@ namespace Microsoft.Fast.Components.FluentUI.IconsGenerator;
 internal class Configuration
 {
     private const string DefaultNamespace = "Microsoft.Fast.Components.FluentUI";
-    private const string DefaultSizes = "16,20,24,32,48";
+    private const string DefaultSizes = ""; // All sizes
     private const string DefaultMode = "class";
 
     /// <summary>
@@ -45,7 +45,7 @@ internal class Configuration
         AssetsFolder = GetAbsoluteFolder(config.GetSection("assets").Value);
         TargetFolder = GetAbsoluteFolder(config.GetSection("target").Value);
         Namespace = config.GetSection("namespace").Value ?? DefaultNamespace;
-        Sizes = (config.GetSection("sizes").Value ?? DefaultSizes).Split(",").Select(i => Convert.ToInt32(i));
+        Sizes = (config.GetSection("sizes").Value ?? DefaultSizes).Split(",", StringSplitOptions.RemoveEmptyEntries).Select(i => Convert.ToInt32(i));
         Mode = config.GetSection("mode").Value ?? DefaultMode;
     }
 
@@ -99,7 +99,7 @@ internal class Configuration
         Console.WriteLine($"                     If not specified, \"{DefaultNamespace}\" will be used.");
         Console.WriteLine();
         Console.WriteLine($"  --Sizes     | -s   The list of icon sizes to generate, separated by coma.");
-        Console.WriteLine($"                     By default: {DefaultSizes}");
+        Console.WriteLine($"                     Example: 12,24. By default: all sizes");
         Console.WriteLine();
         Console.WriteLine($"  --Target    | -t   The target directory where C# classes will be created.");
         Console.WriteLine($"                     If not specified, the current working directory will be used.");

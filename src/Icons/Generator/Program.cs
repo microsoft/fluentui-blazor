@@ -33,8 +33,9 @@ internal class Program
 
         // Start the generation
         var assets = factory.ReadAllAssets()
-                            .Where(i => configuration.Sizes.Contains(i.Size)); // Only specified sizes
-        
+                            .Where(i => configuration.Sizes.Any() == false ||   // All sizes (if not specified)
+                                        configuration.Sizes.Contains(i.Size));  // Only specified sizes 
+
         factory.GenerateMainIconsClass(assets);
         factory.GenerateClasses(assets);
 

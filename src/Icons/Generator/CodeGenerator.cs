@@ -76,8 +76,12 @@ internal class CodeGenerator
     public IEnumerable<FileInfo> GenerateClasses(IEnumerable<Model.Icon> icons)
     {
         var generatedFiles = new List<FileInfo>();
-        var allSizes = icons.Where(i => Configuration.Sizes.Contains(i.Size)).Select(i => i.Size).Distinct().OrderBy(i => i);
-        var allVariants = icons.Select(i => i.Variant).Distinct().OrderBy(i => i);
+        var allSizes = icons.Select(i => i.Size)
+                            .Distinct()
+                            .OrderBy(i => i);
+        var allVariants = icons.Select(i => i.Variant)
+                               .Distinct()
+                               .OrderBy(i => i);
         
         // Delete previous files
         foreach (var file in Configuration.TargetFolder.GetFiles("*.*", SearchOption.TopDirectoryOnly))
