@@ -36,6 +36,9 @@ public partial class TableOfContents : IAsyncDisposable
 
             return true;
         }
+
+        public override int GetHashCode()
+             => HashCode.Combine(Level, Text, Href);
     }
 
     private Anchor[]? _anchors;
@@ -73,16 +76,18 @@ public partial class TableOfContents : IAsyncDisposable
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        // Remember to replace the location of the script with your own project specific location.
-        _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-        "./_content/FluentUI.Demo.Shared/Components/TableOfContents.razor.js");
-        bool mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
+        if (firstRender)
+        {
+            // Remember to replace the location of the script with your own project specific location.
+            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
+            "./_content/FluentUI.Demo.Shared/Components/TableOfContents.razor.js");
+            bool mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
 
-        if (mobile)
-            _expanded = false;
+            if (mobile)
+                _expanded = false;
+            await QueryDom();
+        }
 
-
-        await QueryDom();
     }
 
     private async Task BackToTop()
@@ -92,7 +97,7 @@ public partial class TableOfContents : IAsyncDisposable
 
     private async Task QueryDom()
     {
-        var foundAnchors = await _jsModule.InvokeAsync<Anchor[]?>("queryDomForTocEntries");
+        Anchor[]? foundAnchors = await _jsModule.InvokeAsync<Anchor[]?>("queryDomForTocEntries");
 
         if (AnchorsEqual(_anchors, foundAnchors))
         {
