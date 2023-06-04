@@ -9,6 +9,7 @@ namespace FluentUI.Demo.Shared.Components;
 public partial class MarkdownSection : FluentComponentBase
 {
     private string? _content;
+    private bool _raiseContentConverted;
 
     [Inject]
     private IStaticAssetService StaticAssetService { get; set; } = default!;
@@ -36,10 +37,8 @@ public partial class MarkdownSection : FluentComponentBase
         {
             _content = value;
             HtmlContent = ConvertToMarkupString(_content);
-            if (OnContentConverted.HasDelegate)
-            {
-                OnContentConverted.InvokeAsync();
-            }
+            _raiseContentConverted = true;
+
 
             StateHasChanged();
         }
@@ -60,8 +59,19 @@ public partial class MarkdownSection : FluentComponentBase
     {
 
         if (firstRender && !string.IsNullOrEmpty(FromAsset))
+        {
             InternalContent = await StaticAssetService.GetAsync(FromAsset);
+        }
 
+        if (_raiseContentConverted)
+        {
+            _raiseContentConverted = false;
+            if (OnContentConverted.HasDelegate)
+            {
+                await OnContentConverted.InvokeAsync();
+            }
+
+        }
     }
 
     private MarkupString ConvertToMarkupString(string? value)
