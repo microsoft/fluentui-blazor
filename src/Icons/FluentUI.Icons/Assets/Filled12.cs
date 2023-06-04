@@ -17,433 +17,433 @@ public static partial class Icons
         public static partial class Size12
         {
             /// <summary />
-            public static string Add { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M6.5 1.75a.75.75 0 0 0-1.5 0V5H1.75a.75.75 0 0 0 0 1.5H5v3.25a.75.75 0 0 0 1.5 0V6.5h3.25a.75.75 0 0 0 0-1.5H6.5V1.75Z\"/>";
+            public static Icon Add { get; } = new Icon("Add", "Filled", 12, "<path d=\"M6.5 1.75a.75.75 0 0 0-1.5 0V5H1.75a.75.75 0 0 0 0 1.5H5v3.25a.75.75 0 0 0 1.5 0V6.5h3.25a.75.75 0 0 0 0-1.5H6.5V1.75Z\"/>");
 
             /// <summary />
-            public static string AddCircle { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M1 6a5 5 0 1 1 10 0A5 5 0 0 1 1 6Zm5-2.5a.42.42 0 0 0-.42.42v1.66H3.92a.42.42 0 0 0 0 .84h1.66v1.66a.42.42 0 0 0 .84 0V6.42h1.66a.42.42 0 0 0 0-.84H6.42V3.92A.42.42 0 0 0 6 3.5Z\"/>";
+            public static Icon AddCircle { get; } = new Icon("AddCircle", "Filled", 12, "<path d=\"M1 6a5 5 0 1 1 10 0A5 5 0 0 1 1 6Zm5-2.5a.42.42 0 0 0-.42.42v1.66H3.92a.42.42 0 0 0 0 .84h1.66v1.66a.42.42 0 0 0 .84 0V6.42h1.66a.42.42 0 0 0 0-.84H6.42V3.92A.42.42 0 0 0 6 3.5Z\"/>");
 
             /// <summary />
-            public static string Alert { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M6 1a4 4 0 0 0-4 4v1.38l-.95 1.9A.5.5 0 0 0 1.5 9h9a.5.5 0 0 0 .45-.72L10 6.38V5a4 4 0 0 0-4-4Zm0 10.5A2 2 0 0 1 4.06 10h3.88A2 2 0 0 1 6 11.5Z\"/>";
+            public static Icon Alert { get; } = new Icon("Alert", "Filled", 12, "<path d=\"M6 1a4 4 0 0 0-4 4v1.38l-.95 1.9A.5.5 0 0 0 1.5 9h9a.5.5 0 0 0 .45-.72L10 6.38V5a4 4 0 0 0-4-4Zm0 10.5A2 2 0 0 1 4.06 10h3.88A2 2 0 0 1 6 11.5Z\"/>");
 
             /// <summary />
-            public static string AlertSnooze { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M6.09 1A1.5 1.5 0 0 0 7.5 3L6.3 4.6A1.5 1.5 0 0 0 7.5 7h2.8l.65 1.28a.5.5 0 0 1-.45.72h-9a.5.5 0 0 1-.45-.72L2 6.38V5a4 4 0 0 1 4.09-4Zm-2.03 9a2 2 0 0 0 3.88 0H4.06ZM7.5 1a.5.5 0 0 0 0 1h2L7.1 5.2a.5.5 0 0 0 .4.8h3a.5.5 0 0 0 0-1h-2l2.4-3.2a.5.5 0 0 0-.4-.8h-3Z\"/>";
+            public static Icon AlertSnooze { get; } = new Icon("AlertSnooze", "Filled", 12, "<path d=\"M6.09 1A1.5 1.5 0 0 0 7.5 3L6.3 4.6A1.5 1.5 0 0 0 7.5 7h2.8l.65 1.28a.5.5 0 0 1-.45.72h-9a.5.5 0 0 1-.45-.72L2 6.38V5a4 4 0 0 1 4.09-4Zm-2.03 9a2 2 0 0 0 3.88 0H4.06ZM7.5 1a.5.5 0 0 0 0 1h2L7.1 5.2a.5.5 0 0 0 .4.8h3a.5.5 0 0 0 0-1h-2l2.4-3.2a.5.5 0 0 0-.4-.8h-3Z\"/>");
 
             /// <summary />
-            public static string ArrowBidirectionalUpDown { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M3.78 4.53a.75.75 0 0 1-1.06-1.06l2.5-2.5c.3-.3.77-.3 1.06 0l2.5 2.5a.75.75 0 0 1-1.06 1.06L6.5 3.31V8.7l1.22-1.22a.75.75 0 0 1 1.06 1.06l-2.5 2.5c-.3.3-.77.3-1.06 0l-2.5-2.5a.75.75 0 0 1 1.06-1.06L5 8.69V3.3L3.78 4.53Z\"/>";
+            public static Icon ArrowBidirectionalUpDown { get; } = new Icon("ArrowBidirectionalUpDown", "Filled", 12, "<path d=\"M3.78 4.53a.75.75 0 0 1-1.06-1.06l2.5-2.5c.3-.3.77-.3 1.06 0l2.5 2.5a.75.75 0 0 1-1.06 1.06L6.5 3.31V8.7l1.22-1.22a.75.75 0 0 1 1.06 1.06l-2.5 2.5c-.3.3-.77.3-1.06 0l-2.5-2.5a.75.75 0 0 1 1.06-1.06L5 8.69V3.3L3.78 4.53Z\"/>");
 
             /// <summary />
-            public static string ArrowCircleDown { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M11 6A5 5 0 1 1 1 6a5 5 0 0 1 10 0Zm-2.65.1a.5.5 0 0 0-.7 0L6.5 7.24V3.5a.5.5 0 0 0-1 0v3.74L4.35 6.1a.5.5 0 1 0-.7.7l2 2c.2.2.5.2.7 0l2-2a.5.5 0 0 0 0-.7Z\"/>";
+            public static Icon ArrowCircleDown { get; } = new Icon("ArrowCircleDown", "Filled", 12, "<path d=\"M11 6A5 5 0 1 1 1 6a5 5 0 0 1 10 0Zm-2.65.1a.5.5 0 0 0-.7 0L6.5 7.24V3.5a.5.5 0 0 0-1 0v3.74L4.35 6.1a.5.5 0 1 0-.7.7l2 2c.2.2.5.2.7 0l2-2a.5.5 0 0 0 0-.7Z\"/>");
 
             /// <summary />
-            public static string ArrowCircleLeft { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M6 1a5 5 0 1 0 0 10A5 5 0 0 0 6 1Zm-.1 2.65c.2.2.2.5 0 .7L4.76 5.5H8.5a.5.5 0 0 1 0 1H4.76L5.9 7.65a.5.5 0 1 1-.7.7l-2-2a.5.5 0 0 1 0-.7l2-2c.2-.2.5-.2.7 0Z\"/>";
+            public static Icon ArrowCircleLeft { get; } = new Icon("ArrowCircleLeft", "Filled", 12, "<path d=\"M6 1a5 5 0 1 0 0 10A5 5 0 0 0 6 1Zm-.1 2.65c.2.2.2.5 0 .7L4.76 5.5H8.5a.5.5 0 0 1 0 1H4.76L5.9 7.65a.5.5 0 1 1-.7.7l-2-2a.5.5 0 0 1 0-.7l2-2c.2-.2.5-.2.7 0Z\"/>");
 
             /// <summary />
-            public static string ArrowCircleRight { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M6 1a5 5 0 1 1 0 10A5 5 0 0 1 6 1Zm.1 2.65a.5.5 0 0 0 0 .7L7.24 5.5H3.5a.5.5 0 0 0 0 1h3.74L6.1 7.65a.5.5 0 1 0 .7.7l2-2a.5.5 0 0 0 0-.7l-2-2a.5.5 0 0 0-.7 0Z\"/>";
+            public static Icon ArrowCircleRight { get; } = new Icon("ArrowCircleRight", "Filled", 12, "<path d=\"M6 1a5 5 0 1 1 0 10A5 5 0 0 1 6 1Zm.1 2.65a.5.5 0 0 0 0 .7L7.24 5.5H3.5a.5.5 0 0 0 0 1h3.74L6.1 7.65a.5.5 0 1 0 .7.7l2-2a.5.5 0 0 0 0-.7l-2-2a.5.5 0 0 0-.7 0Z\"/>");
 
             /// <summary />
-            public static string ArrowCircleUp { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M1 6a5 5 0 1 1 10 0A5 5 0 0 1 1 6Zm2.65-.1c.2.2.5.2.7 0L5.5 4.76V8.5a.5.5 0 0 0 1 0V4.76L7.65 5.9a.5.5 0 1 0 .7-.7l-2-2a.5.5 0 0 0-.7 0l-2 2a.5.5 0 0 0 0 .7Z\"/>";
+            public static Icon ArrowCircleUp { get; } = new Icon("ArrowCircleUp", "Filled", 12, "<path d=\"M1 6a5 5 0 1 1 10 0A5 5 0 0 1 1 6Zm2.65-.1c.2.2.5.2.7 0L5.5 4.76V8.5a.5.5 0 0 0 1 0V4.76L7.65 5.9a.5.5 0 1 0 .7-.7l-2-2a.5.5 0 0 0-.7 0l-2 2a.5.5 0 0 0 0 .7Z\"/>");
 
             /// <summary />
-            public static string ArrowClockwise { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M10.5 2A.75.75 0 0 0 9 2v.65a4.5 4.5 0 1 0 1.42 4.2c.09-.46-.3-.85-.78-.85-.35 0-.63.3-.7.64A3 3 0 1 1 7.66 3.5h-.42a.75.75 0 0 0 0 1.5h2.5c.41 0 .75-.33.75-.75V2Z\"/>";
+            public static Icon ArrowClockwise { get; } = new Icon("ArrowClockwise", "Filled", 12, "<path d=\"M10.5 2A.75.75 0 0 0 9 2v.65a4.5 4.5 0 1 0 1.42 4.2c.09-.46-.3-.85-.78-.85-.35 0-.63.3-.7.64A3 3 0 1 1 7.66 3.5h-.42a.75.75 0 0 0 0 1.5h2.5c.41 0 .75-.33.75-.75V2Z\"/>");
 
             /// <summary />
-            public static string ArrowCounterclockwise { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M1.5 2A.75.75 0 0 1 3 2v.65a4.5 4.5 0 1 1-1.42 4.2c-.09-.46.3-.85.78-.85.35 0 .63.3.7.64A3 3 0 1 0 4.34 3.5h.42a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75V2Z\"/>";
+            public static Icon ArrowCounterclockwise { get; } = new Icon("ArrowCounterclockwise", "Filled", 12, "<path d=\"M1.5 2A.75.75 0 0 1 3 2v.65a4.5 4.5 0 1 1-1.42 4.2c-.09-.46.3-.85.78-.85.35 0 .63.3.7.64A3 3 0 1 0 4.34 3.5h.42a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75V2Z\"/>");
 
             /// <summary />
-            public static string ArrowDown { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M6 1.5c.41 0 .75.34.75.75v5.94l1.97-1.97a.75.75 0 0 1 1.06 1.06l-3.25 3.25c-.3.3-.77.3-1.06 0L2.22 7.28a.75.75 0 1 1 1.06-1.06l1.97 1.97V2.25c0-.41.34-.75.75-.75Z\"/>";
+            public static Icon ArrowDown { get; } = new Icon("ArrowDown", "Filled", 12, "<path d=\"M6 1.5c.41 0 .75.34.75.75v5.94l1.97-1.97a.75.75 0 0 1 1.06 1.06l-3.25 3.25c-.3.3-.77.3-1.06 0L2.22 7.28a.75.75 0 1 1 1.06-1.06l1.97 1.97V2.25c0-.41.34-.75.75-.75Z\"/>");
 
             /// <summary />
-            public static string ArrowLeft { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M10.5 6a.75.75 0 0 0-.75-.75H3.81l1.97-1.97a.75.75 0 0 0-1.06-1.06L1.47 5.47c-.3.3-.3.77 0 1.06l3.25 3.25a.75.75 0 0 0 1.06-1.06L3.81 6.75h5.94c.41 0 .75-.34.75-.75Z\"/>";
+            public static Icon ArrowLeft { get; } = new Icon("ArrowLeft", "Filled", 12, "<path d=\"M10.5 6a.75.75 0 0 0-.75-.75H3.81l1.97-1.97a.75.75 0 0 0-1.06-1.06L1.47 5.47c-.3.3-.3.77 0 1.06l3.25 3.25a.75.75 0 0 0 1.06-1.06L3.81 6.75h5.94c.41 0 .75-.34.75-.75Z\"/>");
 
             /// <summary />
-            public static string ArrowNext { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M2.47 3.28a.75.75 0 0 1 1.06-1.06l3.25 3.25c.3.3.3.77 0 1.06L3.53 9.78a.75.75 0 0 1-1.06-1.06L5.19 6 2.47 3.28ZM9.75 10c.41 0 .75-.34.75-.75v-6.5a.75.75 0 0 0-1.5 0v6.5c0 .41.34.75.75.75Z\"/>";
+            public static Icon ArrowNext { get; } = new Icon("ArrowNext", "Filled", 12, "<path d=\"M2.47 3.28a.75.75 0 0 1 1.06-1.06l3.25 3.25c.3.3.3.77 0 1.06L3.53 9.78a.75.75 0 0 1-1.06-1.06L5.19 6 2.47 3.28ZM9.75 10c.41 0 .75-.34.75-.75v-6.5a.75.75 0 0 0-1.5 0v6.5c0 .41.34.75.75.75Z\"/>");
 
             /// <summary />
-            public static string ArrowPrevious { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"m6.81 6 2.72-2.72a.75.75 0 0 0-1.06-1.06L5.22 5.47c-.3.3-.3.77 0 1.06l3.25 3.25a.75.75 0 0 0 1.06-1.06L6.81 6ZM3 2.75a.75.75 0 0 0-1.5 0v6.5a.75.75 0 0 0 1.5 0v-6.5Z\"/>";
+            public static Icon ArrowPrevious { get; } = new Icon("ArrowPrevious", "Filled", 12, "<path d=\"m6.81 6 2.72-2.72a.75.75 0 0 0-1.06-1.06L5.22 5.47c-.3.3-.3.77 0 1.06l3.25 3.25a.75.75 0 0 0 1.06-1.06L6.81 6ZM3 2.75a.75.75 0 0 0-1.5 0v6.5a.75.75 0 0 0 1.5 0v-6.5Z\"/>");
 
             /// <summary />
-            public static string ArrowRight { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M1.5 6c0-.41.34-.75.75-.75h5.94L6.22 3.28a.75.75 0 0 1 1.06-1.06l3.25 3.25c.3.3.3.77 0 1.06L7.28 9.78a.75.75 0 0 1-1.06-1.06l1.97-1.97H2.25A.75.75 0 0 1 1.5 6Z\"/>";
+            public static Icon ArrowRight { get; } = new Icon("ArrowRight", "Filled", 12, "<path d=\"M1.5 6c0-.41.34-.75.75-.75h5.94L6.22 3.28a.75.75 0 0 1 1.06-1.06l3.25 3.25c.3.3.3.77 0 1.06L7.28 9.78a.75.75 0 0 1-1.06-1.06l1.97-1.97H2.25A.75.75 0 0 1 1.5 6Z\"/>");
 
             /// <summary />
-            public static string ArrowStepIn { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M6 1c.28 0 .5.22.5.5v3.8l1.15-1.15a.5.5 0 1 1 .7.7l-2 2a.5.5 0 0 1-.7 0l-2-2a.5.5 0 1 1 .7-.7L5.5 5.29V1.5c0-.28.22-.5.5-.5Zm0 10a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z\"/>";
+            public static Icon ArrowStepIn { get; } = new Icon("ArrowStepIn", "Filled", 12, "<path d=\"M6 1c.28 0 .5.22.5.5v3.8l1.15-1.15a.5.5 0 1 1 .7.7l-2 2a.5.5 0 0 1-.7 0l-2-2a.5.5 0 1 1 .7-.7L5.5 5.29V1.5c0-.28.22-.5.5-.5Zm0 10a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z\"/>");
 
             /// <summary />
-            public static string ArrowStepInLeft { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M11 6a.5.5 0 0 0-.5-.5H6.7l1.15-1.15a.5.5 0 1 0-.7-.7l-2 2a.5.5 0 0 0 0 .7l2 2a.5.5 0 1 0 .7-.7L6.71 6.5h3.79A.5.5 0 0 0 11 6ZM1 6a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Z\"/>";
+            public static Icon ArrowStepInLeft { get; } = new Icon("ArrowStepInLeft", "Filled", 12, "<path d=\"M11 6a.5.5 0 0 0-.5-.5H6.7l1.15-1.15a.5.5 0 1 0-.7-.7l-2 2a.5.5 0 0 0 0 .7l2 2a.5.5 0 1 0 .7-.7L6.71 6.5h3.79A.5.5 0 0 0 11 6ZM1 6a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Z\"/>");
 
             /// <summary />
-            public static string ArrowStepInRight { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M1 6c0-.28.22-.5.5-.5h3.8L4.14 4.35a.5.5 0 1 1 .7-.7l2 2c.2.2.2.5 0 .7l-2 2a.5.5 0 1 1-.7-.7L5.29 6.5H1.5A.5.5 0 0 1 1 6Zm10 0a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0Z\"/>";
+            public static Icon ArrowStepInRight { get; } = new Icon("ArrowStepInRight", "Filled", 12, "<path d=\"M1 6c0-.28.22-.5.5-.5h3.8L4.14 4.35a.5.5 0 1 1 .7-.7l2 2c.2.2.2.5 0 .7l-2 2a.5.5 0 1 1-.7-.7L5.29 6.5H1.5A.5.5 0 0 1 1 6Zm10 0a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0Z\"/>");
 
             /// <summary />
-            public static string ArrowStepOut { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M5.5 6.5a.5.5 0 0 0 1 0V2.7l1.15 1.15a.5.5 0 1 0 .7-.7l-2-2a.5.5 0 0 0-.7 0l-2 2a.5.5 0 1 0 .7.7L5.5 2.71V6.5ZM6 11a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z\"/>";
+            public static Icon ArrowStepOut { get; } = new Icon("ArrowStepOut", "Filled", 12, "<path d=\"M5.5 6.5a.5.5 0 0 0 1 0V2.7l1.15 1.15a.5.5 0 1 0 .7-.7l-2-2a.5.5 0 0 0-.7 0l-2 2a.5.5 0 1 0 .7.7L5.5 2.71V6.5ZM6 11a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z\"/>");
 
             /// <summary />
-            public static string ArrowSync { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M7.42 2.92a.6.6 0 0 0 0-.84L6.17.83a.6.6 0 0 0-.85.84l.25.25A4.1 4.1 0 0 0 2.82 8.6a.6.6 0 0 0 .93-.76 2.9 2.9 0 0 1 1.76-4.7l-.19.2a.6.6 0 0 0 .85.84l1.25-1.25Zm.7.24A.6.6 0 0 0 8.1 4 2.9 2.9 0 0 1 6.5 8.86l.18-.19a.6.6 0 0 0-.85-.84L4.57 9.08a.6.6 0 0 0 0 .84l1.25 1.25a.6.6 0 0 0 .85-.84l-.25-.25a4.1 4.1 0 0 0 2.55-6.9.6.6 0 0 0-.85-.02Z\"/>";
+            public static Icon ArrowSync { get; } = new Icon("ArrowSync", "Filled", 12, "<path d=\"M7.42 2.92a.6.6 0 0 0 0-.84L6.17.83a.6.6 0 0 0-.85.84l.25.25A4.1 4.1 0 0 0 2.82 8.6a.6.6 0 0 0 .93-.76 2.9 2.9 0 0 1 1.76-4.7l-.19.2a.6.6 0 0 0 .85.84l1.25-1.25Zm.7.24A.6.6 0 0 0 8.1 4 2.9 2.9 0 0 1 6.5 8.86l.18-.19a.6.6 0 0 0-.85-.84L4.57 9.08a.6.6 0 0 0 0 .84l1.25 1.25a.6.6 0 0 0 .85-.84l-.25-.25a4.1 4.1 0 0 0 2.55-6.9.6.6 0 0 0-.85-.02Z\"/>");
 
             /// <summary />
-            public static string ArrowSyncOff { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M2.77 3.48a4.08 4.08 0 0 0 .05 5.11.6.6 0 0 0 .93-.76 2.89 2.89 0 0 1-.12-3.5l4.04 4.04c-.35.25-.75.42-1.18.49l.18-.19a.6.6 0 1 0-.84-.84L4.58 9.08a.6.6 0 0 0 0 .84l1.25 1.25a.6.6 0 1 0 .84-.84l-.24-.25c.78-.08 1.5-.39 2.1-.85l1.62 1.62a.5.5 0 0 0 .7-.7l-9-9a.5.5 0 0 0-.7.7l1.62 1.63ZM8.82 6.7l.94.94a4.09 4.09 0 0 0-.79-4.46.6.6 0 1 0-.87.82 2.89 2.89 0 0 1 .72 2.7ZM4.36 2.24l1.87 1.87 1.2-1.19a.6.6 0 0 0 0-.84L6.16.83a.6.6 0 0 0-.84.84l.24.25c-.42.05-.83.16-1.2.32Z\"/>";
+            public static Icon ArrowSyncOff { get; } = new Icon("ArrowSyncOff", "Filled", 12, "<path d=\"M2.77 3.48a4.08 4.08 0 0 0 .05 5.11.6.6 0 0 0 .93-.76 2.89 2.89 0 0 1-.12-3.5l4.04 4.04c-.35.25-.75.42-1.18.49l.18-.19a.6.6 0 1 0-.84-.84L4.58 9.08a.6.6 0 0 0 0 .84l1.25 1.25a.6.6 0 1 0 .84-.84l-.24-.25c.78-.08 1.5-.39 2.1-.85l1.62 1.62a.5.5 0 0 0 .7-.7l-9-9a.5.5 0 0 0-.7.7l1.62 1.63ZM8.82 6.7l.94.94a4.09 4.09 0 0 0-.79-4.46.6.6 0 1 0-.87.82 2.89 2.89 0 0 1 .72 2.7ZM4.36 2.24l1.87 1.87 1.2-1.19a.6.6 0 0 0 0-.84L6.16.83a.6.6 0 0 0-.84.84l.24.25c-.42.05-.83.16-1.2.32Z\"/>");
 
             /// <summary />
-            public static string ArrowTrending { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M6.25 1.5a.75.75 0 0 0 0 1.5h2.32l-2.6 2.9-.94-.93a.75.75 0 0 0-1.06 0L1.22 7.72a.75.75 0 0 0 1.06 1.06L4.5 6.56l.97.97a.75.75 0 0 0 1.09-.03L9.5 4.21v2.04a.75.75 0 0 0 1.5 0v-4a.75.75 0 0 0-.75-.75h-4Z\"/>";
+            public static Icon ArrowTrending { get; } = new Icon("ArrowTrending", "Filled", 12, "<path d=\"M6.25 1.5a.75.75 0 0 0 0 1.5h2.32l-2.6 2.9-.94-.93a.75.75 0 0 0-1.06 0L1.22 7.72a.75.75 0 0 0 1.06 1.06L4.5 6.56l.97.97a.75.75 0 0 0 1.09-.03L9.5 4.21v2.04a.75.75 0 0 0 1.5 0v-4a.75.75 0 0 0-.75-.75h-4Z\"/>");
 
             /// <summary />
-            public static string ArrowUp { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M6 10.5c.41 0 .75-.34.75-.75V3.81l1.97 1.97a.75.75 0 0 0 1.06-1.06L6.53 1.47a.75.75 0 0 0-1.06 0L2.22 4.72a.75.75 0 1 0 1.06 1.06l1.97-1.97v5.94c0 .41.34.75.75.75Z\"/>";
+            public static Icon ArrowUp { get; } = new Icon("ArrowUp", "Filled", 12, "<path d=\"M6 10.5c.41 0 .75-.34.75-.75V3.81l1.97 1.97a.75.75 0 0 0 1.06-1.06L6.53 1.47a.75.75 0 0 0-1.06 0L2.22 4.72a.75.75 0 1 0 1.06 1.06l1.97-1.97v5.94c0 .41.34.75.75.75Z\"/>");
 
             /// <summary />
-            public static string Attach { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M8.98 2.8a1.7 1.7 0 0 0-2.3.09l-3.4 3.39a.75.75 0 1 1-1.06-1.06l3.4-3.4a3.2 3.2 0 1 1 4.45 4.58l-4.72 4.5a1.92 1.92 0 0 1-2.69-2.76L6.9 3.9a.75.75 0 1 1 1.06 1.06L3.72 9.2a.42.42 0 0 0 .6.6l4.72-4.49a1.7 1.7 0 0 0-.06-2.5Z\"/>";
+            public static Icon Attach { get; } = new Icon("Attach", "Filled", 12, "<path d=\"M8.98 2.8a1.7 1.7 0 0 0-2.3.09l-3.4 3.39a.75.75 0 1 1-1.06-1.06l3.4-3.4a3.2 3.2 0 1 1 4.45 4.58l-4.72 4.5a1.92 1.92 0 0 1-2.69-2.76L6.9 3.9a.75.75 0 1 1 1.06 1.06L3.72 9.2a.42.42 0 0 0 .6.6l4.72-4.49a1.7 1.7 0 0 0-.06-2.5Z\"/>");
 
             /// <summary />
-            public static string Backpack { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M4.06 3.5H4v-1C4 1.67 4.67 1 5.5 1h1C7.33 1 8 1.67 8 2.5v1h-.06A4 4 0 0 1 10 7v2.5c0 .83-.67 1.5-1.5 1.5h-5A1.5 1.5 0 0 1 2 9.5V7a4 4 0 0 1 2.06-3.5Zm.94-1v.63a4 4 0 0 1 2 0V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5Zm0 3c0 .28.22.5.5.5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0-.5.5ZM4.5 8a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3Z\"/>";
+            public static Icon Backpack { get; } = new Icon("Backpack", "Filled", 12, "<path d=\"M4.06 3.5H4v-1C4 1.67 4.67 1 5.5 1h1C7.33 1 8 1.67 8 2.5v1h-.06A4 4 0 0 1 10 7v2.5c0 .83-.67 1.5-1.5 1.5h-5A1.5 1.5 0 0 1 2 9.5V7a4 4 0 0 1 2.06-3.5Zm.94-1v.63a4 4 0 0 1 2 0V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5Zm0 3c0 .28.22.5.5.5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0-.5.5ZM4.5 8a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3Z\"/>");
 
             /// <summary />
-            public static string Balloon { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M5.5 1C7.41 1 9 2.48 9 4.36c0 1.24-.46 2.38-1.1 3.21A3.65 3.65 0 0 1 6 8.94v.46c0 .22.18.4.4.4h1.2c.77 0 1.4.63 1.4 1.4v.3a.5.5 0 0 1-1 0v-.3a.4.4 0 0 0-.4-.4H6.4A1.4 1.4 0 0 1 5 9.4v-.46a3.65 3.65 0 0 1-1.9-1.37A5.32 5.32 0 0 1 2 4.37 3.43 3.43 0 0 1 5.5 1Zm.07 2a.5.5 0 0 0-.14 1c.3.04.53.27.58.57A.5.5 0 0 0 7 4.43 1.68 1.68 0 0 0 5.57 3Z\"/>";
+            public static Icon Balloon { get; } = new Icon("Balloon", "Filled", 12, "<path d=\"M5.5 1C7.41 1 9 2.48 9 4.36c0 1.24-.46 2.38-1.1 3.21A3.65 3.65 0 0 1 6 8.94v.46c0 .22.18.4.4.4h1.2c.77 0 1.4.63 1.4 1.4v.3a.5.5 0 0 1-1 0v-.3a.4.4 0 0 0-.4-.4H6.4A1.4 1.4 0 0 1 5 9.4v-.46a3.65 3.65 0 0 1-1.9-1.37A5.32 5.32 0 0 1 2 4.37 3.43 3.43 0 0 1 5.5 1Zm.07 2a.5.5 0 0 0-.14 1c.3.04.53.27.58.57A.5.5 0 0 0 7 4.43 1.68 1.68 0 0 0 5.57 3Z\"/>");
 
             /// <summary />
-            public static string BezierCurveSquare { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M1 3c0-1.1.9-2 2-2h6a2 2 0 0 1 2 2v5c-.88 0-1.44-.27-1.85-.65-.41-.39-.7-.93-.94-1.54l-.23-.61-.1-.3c-.12-.29-.23-.59-.38-.85C7.22 3.5 6.78 3 6 3s-1.22.51-1.5 1.05a7.22 7.22 0 0 0-.48 1.15l-.23.61c-.25.61-.53 1.15-.94 1.54-.4.38-.97.65-1.85.65V3Zm0 6c0 1.1.9 2 2 2h6a2 2 0 0 0 2-2 3.53 3.53 0 0 1-2.53-.92 5.16 5.16 0 0 1-1.18-1.9 23.7 23.7 0 0 1-.25-.65l-.1-.27c-.11-.3-.21-.54-.32-.74C6.4 4.12 6.22 4 6 4c-.22 0-.4.11-.62.52a6.29 6.29 0 0 0-.42 1c-.07.22-.16.44-.25.67-.25.64-.6 1.35-1.18 1.9C2.93 8.64 2.12 9 1 9Z\"/>";
+            public static Icon BezierCurveSquare { get; } = new Icon("BezierCurveSquare", "Filled", 12, "<path d=\"M1 3c0-1.1.9-2 2-2h6a2 2 0 0 1 2 2v5c-.88 0-1.44-.27-1.85-.65-.41-.39-.7-.93-.94-1.54l-.23-.61-.1-.3c-.12-.29-.23-.59-.38-.85C7.22 3.5 6.78 3 6 3s-1.22.51-1.5 1.05a7.22 7.22 0 0 0-.48 1.15l-.23.61c-.25.61-.53 1.15-.94 1.54-.4.38-.97.65-1.85.65V3Zm0 6c0 1.1.9 2 2 2h6a2 2 0 0 0 2-2 3.53 3.53 0 0 1-2.53-.92 5.16 5.16 0 0 1-1.18-1.9 23.7 23.7 0 0 1-.25-.65l-.1-.27c-.11-.3-.21-.54-.32-.74C6.4 4.12 6.22 4 6 4c-.22 0-.4.11-.62.52a6.29 6.29 0 0 0-.42 1c-.07.22-.16.44-.25.67-.25.64-.6 1.35-1.18 1.9C2.93 8.64 2.12 9 1 9Z\"/>");
 
             /// <summary />
-            public static string Briefcase { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M5 2a1 1 0 0 0-1 1v1h-.5C2.67 4 2 4.67 2 5.5v3c0 .83.67 1.5 1.5 1.5h5c.83 0 1.5-.67 1.5-1.5v-3C10 4.67 9.33 4 8.5 4H8V3a1 1 0 0 0-1-1H5Zm2 2H5V3h2v1Z\"/>";
+            public static Icon Briefcase { get; } = new Icon("Briefcase", "Filled", 12, "<path d=\"M5 2a1 1 0 0 0-1 1v1h-.5C2.67 4 2 4.67 2 5.5v3c0 .83.67 1.5 1.5 1.5h5c.83 0 1.5-.67 1.5-1.5v-3C10 4.67 9.33 4 8.5 4H8V3a1 1 0 0 0-1-1H5Zm2 2H5V3h2v1Z\"/>");
 
             /// <summary />
-            public static string CalendarLtr { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M1.05 3A2.5 2.5 0 0 1 3.5 1h5c1.2 0 2.22.86 2.45 2h-9.9ZM1 4v4.5A2.5 2.5 0 0 0 3.5 11h5A2.5 2.5 0 0 0 11 8.5V4H1Zm2 1.5a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0Zm0 2a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0ZM5.5 5a.5.5 0 1 1 0 1 .5.5 0 0 1 0-1ZM5 7.5a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0ZM7.5 5a.5.5 0 1 1 0 1 .5.5 0 0 1 0-1Z\"/>";
+            public static Icon CalendarLtr { get; } = new Icon("CalendarLtr", "Filled", 12, "<path d=\"M1.05 3A2.5 2.5 0 0 1 3.5 1h5c1.2 0 2.22.86 2.45 2h-9.9ZM1 4v4.5A2.5 2.5 0 0 0 3.5 11h5A2.5 2.5 0 0 0 11 8.5V4H1Zm2 1.5a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0Zm0 2a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0ZM5.5 5a.5.5 0 1 1 0 1 .5.5 0 0 1 0-1ZM5 7.5a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0ZM7.5 5a.5.5 0 1 1 0 1 .5.5 0 0 1 0-1Z\"/>");
 
             /// <summary />
-            public static string CalendarRtl { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M10.95 3A2.5 2.5 0 0 0 8.5 1h-5a2.5 2.5 0 0 0-2.45 2h9.9ZM11 4v4.5A2.5 2.5 0 0 1 8.5 11h-5A2.5 2.5 0 0 1 1 8.5V4h10ZM9 5.5a.5.5 0 1 0-1 0 .5.5 0 0 0 1 0Zm0 2a.5.5 0 1 0-1 0 .5.5 0 0 0 1 0ZM6.5 5a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1ZM7 7.5a.5.5 0 1 0-1 0 .5.5 0 0 0 1 0ZM4.5 5a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1Z\"/>";
+            public static Icon CalendarRtl { get; } = new Icon("CalendarRtl", "Filled", 12, "<path d=\"M10.95 3A2.5 2.5 0 0 0 8.5 1h-5a2.5 2.5 0 0 0-2.45 2h9.9ZM11 4v4.5A2.5 2.5 0 0 1 8.5 11h-5A2.5 2.5 0 0 1 1 8.5V4h10ZM9 5.5a.5.5 0 1 0-1 0 .5.5 0 0 0 1 0Zm0 2a.5.5 0 1 0-1 0 .5.5 0 0 0 1 0ZM6.5 5a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1ZM7 7.5a.5.5 0 1 0-1 0 .5.5 0 0 0 1 0ZM4.5 5a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1Z\"/>");
 
             /// <summary />
-            public static string Call { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"m5.97 4.49-.83.74a4.91 4.91 0 0 0 .45 1.07 4.74 4.74 0 0 0 .73.93l1.07-.33c.6-.19 1.25 0 1.65.48l.61.72c.51.61.45 1.5-.14 2.05-1 .9-2.52 1.21-3.67.3a10.43 10.43 0 0 1-3.81-6.44c-.22-1.42.82-2.56 2.12-2.94.77-.24 1.6.16 1.88.9l.34.88c.22.57.06 1.22-.4 1.64Z\"/>";
+            public static Icon Call { get; } = new Icon("Call", "Filled", 12, "<path d=\"m5.97 4.49-.83.74a4.91 4.91 0 0 0 .45 1.07 4.74 4.74 0 0 0 .73.93l1.07-.33c.6-.19 1.25 0 1.65.48l.61.72c.51.61.45 1.5-.14 2.05-1 .9-2.52 1.21-3.67.3a10.43 10.43 0 0 1-3.81-6.44c-.22-1.42.82-2.56 2.12-2.94.77-.24 1.6.16 1.88.9l.34.88c.22.57.06 1.22-.4 1.64Z\"/>");
 
             /// <summary />
-            public static string CallMissed { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"m6.95 3.02.2 1.05c.08.42.4.75.8.82l.44.09c.69.13 1.36-.33 1.51-1.06l.05-.2c.17-.78-.1-1.66-.85-2.02a7.23 7.23 0 0 0-6.18 0c-.77.36-1.04 1.24-.87 2.02l.04.2c.16.73.83 1.19 1.52 1.06l.44-.09c.4-.07.72-.4.8-.82l.2-1.05A6.5 6.5 0 0 1 6 2.91a4.52 4.52 0 0 1 .95.11ZM6 7.5a.5.5 0 0 0-1 0v1c0 .28.22.5.5.5h1a.5.5 0 0 0 0-1H6v-.5ZM6 5a3 3 0 1 0 0 6 3 3 0 0 0 0-6ZM4 8a2 2 0 1 1 4 0 2 2 0 0 1-4 0Z\"/>";
+            public static Icon CallMissed { get; } = new Icon("CallMissed", "Filled", 12, "<path d=\"m6.95 3.02.2 1.05c.08.42.4.75.8.82l.44.09c.69.13 1.36-.33 1.51-1.06l.05-.2c.17-.78-.1-1.66-.85-2.02a7.23 7.23 0 0 0-6.18 0c-.77.36-1.04 1.24-.87 2.02l.04.2c.16.73.83 1.19 1.52 1.06l.44-.09c.4-.07.72-.4.8-.82l.2-1.05A6.5 6.5 0 0 1 6 2.91a4.52 4.52 0 0 1 .95.11ZM6 7.5a.5.5 0 0 0-1 0v1c0 .28.22.5.5.5h1a.5.5 0 0 0 0-1H6v-.5ZM6 5a3 3 0 1 0 0 6 3 3 0 0 0 0-6ZM4 8a2 2 0 1 1 4 0 2 2 0 0 1-4 0Z\"/>");
 
             /// <summary />
-            public static string CaretDown { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M3.08 4.62A1 1 0 0 1 4 4h4a1 1 0 0 1 .7 1.7l-2 2a1 1 0 0 1-1.4 0l-2-2a1 1 0 0 1-.22-1.08Z\"/>";
+            public static Icon CaretDown { get; } = new Icon("CaretDown", "Filled", 12, "<path d=\"M3.08 4.62A1 1 0 0 1 4 4h4a1 1 0 0 1 .7 1.7l-2 2a1 1 0 0 1-1.4 0l-2-2a1 1 0 0 1-.22-1.08Z\"/>");
 
             /// <summary />
-            public static string CaretDownRight { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M9 3.96a1 1 0 0 0-1.7-.7L3.25 7.3A1 1 0 0 0 3.96 9H7.5C8.33 9 9 8.34 9 7.5V3.97Z\"/>";
+            public static Icon CaretDownRight { get; } = new Icon("CaretDownRight", "Filled", 12, "<path d=\"M9 3.96a1 1 0 0 0-1.7-.7L3.25 7.3A1 1 0 0 0 3.96 9H7.5C8.33 9 9 8.34 9 7.5V3.97Z\"/>");
 
             /// <summary />
-            public static string CaretLeft { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M6.3 3.28A1 1 0 0 1 8 4v4.02a1 1 0 0 1-1.7.7l-2.04-2a1 1 0 0 1 0-1.42l2.04-2Z\"/>";
+            public static Icon CaretLeft { get; } = new Icon("CaretLeft", "Filled", 12, "<path d=\"M6.3 3.28A1 1 0 0 1 8 4v4.02a1 1 0 0 1-1.7.7l-2.04-2a1 1 0 0 1 0-1.42l2.04-2Z\"/>");
 
             /// <summary />
-            public static string CaretRight { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M5.7 3.28A1 1 0 0 0 4 4v4.02a1 1 0 0 0 1.7.7l2.04-2a1 1 0 0 0 0-1.42l-2.04-2Z\"/>";
+            public static Icon CaretRight { get; } = new Icon("CaretRight", "Filled", 12, "<path d=\"M5.7 3.28A1 1 0 0 0 4 4v4.02a1 1 0 0 0 1.7.7l2.04-2a1 1 0 0 0 0-1.42l-2.04-2Z\"/>");
 
             /// <summary />
-            public static string CaretUp { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M3.08 7.38A1 1 0 0 0 4 8h4a1 1 0 0 0 .7-1.7l-2-2a1 1 0 0 0-1.4 0l-2 2a1 1 0 0 0-.22 1.08Z\"/>";
+            public static Icon CaretUp { get; } = new Icon("CaretUp", "Filled", 12, "<path d=\"M3.08 7.38A1 1 0 0 0 4 8h4a1 1 0 0 0 .7-1.7l-2-2a1 1 0 0 0-1.4 0l-2 2a1 1 0 0 0-.22 1.08Z\"/>");
 
             /// <summary />
-            public static string ChannelShare { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M3 1a2 2 0 0 0-2 2v3c0 1.1.9 2 2 2h3.09a1.5 1.5 0 1 0 0-1H3a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1h1a2 2 0 0 0-2-2H3Zm6 10a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H5.91a1.5 1.5 0 1 0 0 1H9a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1H4c0 1.1.9 2 2 2h3Z\"/>";
+            public static Icon ChannelShare { get; } = new Icon("ChannelShare", "Filled", 12, "<path d=\"M3 1a2 2 0 0 0-2 2v3c0 1.1.9 2 2 2h3.09a1.5 1.5 0 1 0 0-1H3a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1h1a2 2 0 0 0-2-2H3Zm6 10a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H5.91a1.5 1.5 0 1 0 0 1H9a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1H4c0 1.1.9 2 2 2h3Z\"/>");
 
             /// <summary />
-            public static string Chat { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M1 6a5 5 0 1 1 2.6 4.38l-1.95.6a.5.5 0 0 1-.63-.63l.6-1.95A4.98 4.98 0 0 1 1 6Zm3-.5c0 .28.22.5.5.5h3a.5.5 0 0 0 0-1h-3a.5.5 0 0 0-.5.5ZM4.5 7a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2Z\"/>";
+            public static Icon Chat { get; } = new Icon("Chat", "Filled", 12, "<path d=\"M1 6a5 5 0 1 1 2.6 4.38l-1.95.6a.5.5 0 0 1-.63-.63l.6-1.95A4.98 4.98 0 0 1 1 6Zm3-.5c0 .28.22.5.5.5h3a.5.5 0 0 0 0-1h-3a.5.5 0 0 0-.5.5ZM4.5 7a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2Z\"/>");
 
             /// <summary />
-            public static string ChatEmpty { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M6 1a5 5 0 0 0-4.39 7.4l-.59 1.95a.5.5 0 0 0 .63.62l1.94-.59A5 5 0 1 0 6 1Z\"/>";
+            public static Icon ChatEmpty { get; } = new Icon("ChatEmpty", "Filled", 12, "<path d=\"M6 1a5 5 0 0 0-4.39 7.4l-.59 1.95a.5.5 0 0 0 .63.62l1.94-.59A5 5 0 1 0 6 1Z\"/>");
 
             /// <summary />
-            public static string CheckboxUnchecked { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M2 4c0-1.1.9-2 2-2h4a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4Zm2-.5a.5.5 0 0 0-.5.5v4c0 .28.22.5.5.5h4a.5.5 0 0 0 .5-.5V4a.5.5 0 0 0-.5-.5H4Z\"/>";
+            public static Icon CheckboxUnchecked { get; } = new Icon("CheckboxUnchecked", "Filled", 12, "<path d=\"M2 4c0-1.1.9-2 2-2h4a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4Zm2-.5a.5.5 0 0 0-.5.5v4c0 .28.22.5.5.5h4a.5.5 0 0 0 .5-.5V4a.5.5 0 0 0-.5-.5H4Z\"/>");
 
             /// <summary />
-            public static string Checkmark { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M9.76 3.2c.3.29.32.76.04 1.06l-4.25 4.5a.75.75 0 0 1-1.08.02L2.22 6.53a.75.75 0 0 1 1.06-1.06l1.7 1.7L8.7 3.24a.75.75 0 0 1 1.06-.04Z\"/>";
+            public static Icon Checkmark { get; } = new Icon("Checkmark", "Filled", 12, "<path d=\"M9.76 3.2c.3.29.32.76.04 1.06l-4.25 4.5a.75.75 0 0 1-1.08.02L2.22 6.53a.75.75 0 0 1 1.06-1.06l1.7 1.7L8.7 3.24a.75.75 0 0 1 1.06-.04Z\"/>");
 
             /// <summary />
-            public static string CheckmarkCircle { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M1 6a5 5 0 1 1 10 0A5 5 0 0 1 1 6Zm7.35-.9a.5.5 0 1 0-.7-.7L5.5 6.54 4.35 5.4a.5.5 0 1 0-.7.7l1.5 1.5c.2.2.5.2.7 0l2.5-2.5Z\"/>";
+            public static Icon CheckmarkCircle { get; } = new Icon("CheckmarkCircle", "Filled", 12, "<path d=\"M1 6a5 5 0 1 1 10 0A5 5 0 0 1 1 6Zm7.35-.9a.5.5 0 1 0-.7-.7L5.5 6.54 4.35 5.4a.5.5 0 1 0-.7.7l1.5 1.5c.2.2.5.2.7 0l2.5-2.5Z\"/>");
 
             /// <summary />
-            public static string ChevronCircleDown { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M6 1a5 5 0 1 1 0 10A5 5 0 0 1 6 1Zm1.85 4.85a.5.5 0 1 0-.7-.7L6 6.29 4.85 5.15a.5.5 0 1 0-.7.7l1.5 1.5c.2.2.5.2.7 0l1.5-1.5Z\"/>";
+            public static Icon ChevronCircleDown { get; } = new Icon("ChevronCircleDown", "Filled", 12, "<path d=\"M6 1a5 5 0 1 1 0 10A5 5 0 0 1 6 1Zm1.85 4.85a.5.5 0 1 0-.7-.7L6 6.29 4.85 5.15a.5.5 0 1 0-.7.7l1.5 1.5c.2.2.5.2.7 0l1.5-1.5Z\"/>");
 
             /// <summary />
-            public static string ChevronCircleLeft { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M11 6A5 5 0 1 1 1 6a5 5 0 0 1 10 0ZM6.15 7.85a.5.5 0 1 0 .7-.7L5.71 6l1.14-1.15a.5.5 0 1 0-.7-.7l-1.5 1.5a.5.5 0 0 0 0 .7l1.5 1.5Z\"/>";
+            public static Icon ChevronCircleLeft { get; } = new Icon("ChevronCircleLeft", "Filled", 12, "<path d=\"M11 6A5 5 0 1 1 1 6a5 5 0 0 1 10 0ZM6.15 7.85a.5.5 0 1 0 .7-.7L5.71 6l1.14-1.15a.5.5 0 1 0-.7-.7l-1.5 1.5a.5.5 0 0 0 0 .7l1.5 1.5Z\"/>");
 
             /// <summary />
-            public static string ChevronCircleRight { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M1 6a5 5 0 1 1 10 0A5 5 0 0 1 1 6Zm4.85-1.85a.5.5 0 1 0-.7.7L6.29 6 5.15 7.15a.5.5 0 1 0 .7.7l1.5-1.5a.5.5 0 0 0 0-.7l-1.5-1.5Z\"/>";
+            public static Icon ChevronCircleRight { get; } = new Icon("ChevronCircleRight", "Filled", 12, "<path d=\"M1 6a5 5 0 1 1 10 0A5 5 0 0 1 1 6Zm4.85-1.85a.5.5 0 1 0-.7.7L6.29 6 5.15 7.15a.5.5 0 1 0 .7.7l1.5-1.5a.5.5 0 0 0 0-.7l-1.5-1.5Z\"/>");
 
             /// <summary />
-            public static string ChevronCircleUp { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M6 11A5 5 0 1 1 6 1a5 5 0 0 1 0 10ZM4.15 6.15a.5.5 0 1 0 .7.7L6 5.71l1.15 1.14a.5.5 0 1 0 .7-.7l-1.5-1.5a.5.5 0 0 0-.7 0l-1.5 1.5Z\"/>";
+            public static Icon ChevronCircleUp { get; } = new Icon("ChevronCircleUp", "Filled", 12, "<path d=\"M6 11A5 5 0 1 1 6 1a5 5 0 0 1 0 10ZM4.15 6.15a.5.5 0 1 0 .7.7L6 5.71l1.15 1.14a.5.5 0 1 0 .7-.7l-1.5-1.5a.5.5 0 0 0-.7 0l-1.5 1.5Z\"/>");
 
             /// <summary />
-            public static string ChevronDown { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M2.22 4.47c.3-.3.77-.3 1.06 0L6 7.19l2.72-2.72a.75.75 0 0 1 1.06 1.06L6.53 8.78c-.3.3-.77.3-1.06 0L2.22 5.53a.75.75 0 0 1 0-1.06Z\"/>";
+            public static Icon ChevronDown { get; } = new Icon("ChevronDown", "Filled", 12, "<path d=\"M2.22 4.47c.3-.3.77-.3 1.06 0L6 7.19l2.72-2.72a.75.75 0 0 1 1.06 1.06L6.53 8.78c-.3.3-.77.3-1.06 0L2.22 5.53a.75.75 0 0 1 0-1.06Z\"/>");
 
             /// <summary />
-            public static string ChevronLeft { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M7.53 2.22c.3.3.3.77 0 1.06L4.81 6l2.72 2.72a.75.75 0 0 1-1.06 1.06L3.22 6.53a.75.75 0 0 1 0-1.06l3.25-3.25c.3-.3.77-.3 1.06 0Z\"/>";
+            public static Icon ChevronLeft { get; } = new Icon("ChevronLeft", "Filled", 12, "<path d=\"M7.53 2.22c.3.3.3.77 0 1.06L4.81 6l2.72 2.72a.75.75 0 0 1-1.06 1.06L3.22 6.53a.75.75 0 0 1 0-1.06l3.25-3.25c.3-.3.77-.3 1.06 0Z\"/>");
 
             /// <summary />
-            public static string ChevronRight { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M4.47 2.22c-.3.3-.3.77 0 1.06L7.19 6 4.47 8.72a.75.75 0 0 0 1.06 1.06l3.25-3.25c.3-.3.3-.77 0-1.06L5.53 2.22a.75.75 0 0 0-1.06 0Z\"/>";
+            public static Icon ChevronRight { get; } = new Icon("ChevronRight", "Filled", 12, "<path d=\"M4.47 2.22c-.3.3-.3.77 0 1.06L7.19 6 4.47 8.72a.75.75 0 0 0 1.06 1.06l3.25-3.25c.3-.3.3-.77 0-1.06L5.53 2.22a.75.75 0 0 0-1.06 0Z\"/>");
 
             /// <summary />
-            public static string ChevronUp { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M2.22 7.53c.3.3.77.3 1.06 0L6 4.81l2.72 2.72a.75.75 0 0 0 1.06-1.06L6.53 3.22a.75.75 0 0 0-1.06 0L2.22 6.47c-.3.3-.3.77 0 1.06Z\"/>";
+            public static Icon ChevronUp { get; } = new Icon("ChevronUp", "Filled", 12, "<path d=\"M2.22 7.53c.3.3.77.3 1.06 0L6 4.81l2.72 2.72a.75.75 0 0 0 1.06-1.06L6.53 3.22a.75.75 0 0 0-1.06 0L2.22 6.47c-.3.3-.3.77 0 1.06Z\"/>");
 
             /// <summary />
-            public static string Circle { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M6 1a5 5 0 1 0 0 10A5 5 0 0 0 6 1Z\"/>";
+            public static Icon Circle { get; } = new Icon("Circle", "Filled", 12, "<path d=\"M6 1a5 5 0 1 0 0 10A5 5 0 0 0 6 1Z\"/>");
 
             /// <summary />
-            public static string CircleHalfFill { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M1 6a5 5 0 1 1 10 0A5 5 0 0 1 1 6Zm1.5 0h7a3.5 3.5 0 1 0-7 0Z\"/>";
+            public static Icon CircleHalfFill { get; } = new Icon("CircleHalfFill", "Filled", 12, "<path d=\"M1 6a5 5 0 1 1 10 0A5 5 0 0 1 1 6Zm1.5 0h7a3.5 3.5 0 1 0-7 0Z\"/>");
 
             /// <summary />
-            public static string CircleLine { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M1 6a5 5 0 0 1 10 0H1Zm.1 1a5 5 0 0 0 9.8 0H1.1Z\"/>";
+            public static Icon CircleLine { get; } = new Icon("CircleLine", "Filled", 12, "<path d=\"M1 6a5 5 0 0 1 10 0H1Zm.1 1a5 5 0 0 0 9.8 0H1.1Z\"/>");
 
             /// <summary />
-            public static string Clock { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M6 1a5 5 0 1 1 0 10A5 5 0 0 1 6 1Zm-.5 2.5A.5.5 0 0 0 5 4v2.5c0 .28.22.5.5.5h2a.5.5 0 0 0 0-1H6V4a.5.5 0 0 0-.5-.5Z\"/>";
+            public static Icon Clock { get; } = new Icon("Clock", "Filled", 12, "<path d=\"M6 1a5 5 0 1 1 0 10A5 5 0 0 1 6 1Zm-.5 2.5A.5.5 0 0 0 5 4v2.5c0 .28.22.5.5.5h2a.5.5 0 0 0 0-1H6V4a.5.5 0 0 0-.5-.5Z\"/>");
 
             /// <summary />
-            public static string Comment { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M3.5 2C2.67 2 2 2.67 2 3.5v4C2 8.33 2.67 9 3.5 9H4v1a.5.5 0 0 0 .76.43L7.14 9H8.5c.83 0 1.5-.67 1.5-1.5v-4C10 2.67 9.33 2 8.5 2h-5Z\"/>";
+            public static Icon Comment { get; } = new Icon("Comment", "Filled", 12, "<path d=\"M3.5 2C2.67 2 2 2.67 2 3.5v4C2 8.33 2.67 9 3.5 9H4v1a.5.5 0 0 0 .76.43L7.14 9H8.5c.83 0 1.5-.67 1.5-1.5v-4C10 2.67 9.33 2 8.5 2h-5Z\"/>");
 
             /// <summary />
-            public static string CommentAdd { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M12 3.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3-2a.5.5 0 0 0-1 0V3H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V4h1.5a.5.5 0 0 0 0-1H9V1.5ZM8.5 8c.92 0 1.77-.28 2.48-.75A2 2 0 0 1 9 9H6.65l-2.87 1.92A.5.5 0 0 1 3 10.5V9a2 2 0 0 1-2-2V3c0-1.1.9-2 2-2h1.76A4.5 4.5 0 0 0 8.5 8Z\"/>";
+            public static Icon CommentAdd { get; } = new Icon("CommentAdd", "Filled", 12, "<path d=\"M12 3.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3-2a.5.5 0 0 0-1 0V3H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V4h1.5a.5.5 0 0 0 0-1H9V1.5ZM8.5 8c.92 0 1.77-.28 2.48-.75A2 2 0 0 1 9 9H6.65l-2.87 1.92A.5.5 0 0 1 3 10.5V9a2 2 0 0 1-2-2V3c0-1.1.9-2 2-2h1.76A4.5 4.5 0 0 0 8.5 8Z\"/>");
 
             /// <summary />
-            public static string CommentArrowLeft { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M12 3.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0ZM6.5 3a.5.5 0 0 0 0 1h2.8l-.65.65a.5.5 0 1 0 .7.7l1.5-1.5A.5.5 0 0 0 11 3.5a.5.5 0 0 0-.15-.35l-1.5-1.5a.5.5 0 1 0-.7.7l.64.65H6.5Zm2 5c.92 0 1.77-.28 2.48-.75A2 2 0 0 1 9 9H6.65l-2.87 1.92A.5.5 0 0 1 3 10.5V9a2 2 0 0 1-2-2V3c0-1.1.9-2 2-2h1.76A4.5 4.5 0 0 0 8.5 8Z\"/>";
+            public static Icon CommentArrowLeft { get; } = new Icon("CommentArrowLeft", "Filled", 12, "<path d=\"M12 3.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0ZM6.5 3a.5.5 0 0 0 0 1h2.8l-.65.65a.5.5 0 1 0 .7.7l1.5-1.5A.5.5 0 0 0 11 3.5a.5.5 0 0 0-.15-.35l-1.5-1.5a.5.5 0 1 0-.7.7l.64.65H6.5Zm2 5c.92 0 1.77-.28 2.48-.75A2 2 0 0 1 9 9H6.65l-2.87 1.92A.5.5 0 0 1 3 10.5V9a2 2 0 0 1-2-2V3c0-1.1.9-2 2-2h1.76A4.5 4.5 0 0 0 8.5 8Z\"/>");
 
             /// <summary />
-            public static string CommentArrowRight { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M12 3.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-1.5.5a.5.5 0 0 0 0-1H7.7l.65-.65a.5.5 0 1 0-.7-.7l-1.5 1.5A.5.5 0 0 0 6 3.5a.5.5 0 0 0 .15.35l1.5 1.5a.5.5 0 1 0 .7-.7L7.71 4h2.79Zm-2 4c.92 0 1.77-.28 2.48-.75A2 2 0 0 1 9 9H6.65l-2.87 1.92A.5.5 0 0 1 3 10.5V9a2 2 0 0 1-2-2V3c0-1.1.9-2 2-2h1.76A4.5 4.5 0 0 0 8.5 8Z\"/>";
+            public static Icon CommentArrowRight { get; } = new Icon("CommentArrowRight", "Filled", 12, "<path d=\"M12 3.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-1.5.5a.5.5 0 0 0 0-1H7.7l.65-.65a.5.5 0 1 0-.7-.7l-1.5 1.5A.5.5 0 0 0 6 3.5a.5.5 0 0 0 .15.35l1.5 1.5a.5.5 0 1 0 .7-.7L7.71 4h2.79Zm-2 4c.92 0 1.77-.28 2.48-.75A2 2 0 0 1 9 9H6.65l-2.87 1.92A.5.5 0 0 1 3 10.5V9a2 2 0 0 1-2-2V3c0-1.1.9-2 2-2h1.76A4.5 4.5 0 0 0 8.5 8Z\"/>");
 
             /// <summary />
-            public static string CommentCheckmark { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M12 3.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-1.65-1.35a.5.5 0 0 0-.7 0L8 3.79l-.65-.64a.5.5 0 1 0-.7.7l1 1c.2.2.5.2.7 0l2-2a.5.5 0 0 0 0-.7ZM8.5 8c.92 0 1.77-.28 2.48-.75A2 2 0 0 1 9 9H6.65l-2.87 1.92A.5.5 0 0 1 3 10.5V9a2 2 0 0 1-2-2V3c0-1.1.9-2 2-2h1.76A4.5 4.5 0 0 0 8.5 8Z\"/>";
+            public static Icon CommentCheckmark { get; } = new Icon("CommentCheckmark", "Filled", 12, "<path d=\"M12 3.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-1.65-1.35a.5.5 0 0 0-.7 0L8 3.79l-.65-.64a.5.5 0 1 0-.7.7l1 1c.2.2.5.2.7 0l2-2a.5.5 0 0 0 0-.7ZM8.5 8c.92 0 1.77-.28 2.48-.75A2 2 0 0 1 9 9H6.65l-2.87 1.92A.5.5 0 0 1 3 10.5V9a2 2 0 0 1-2-2V3c0-1.1.9-2 2-2h1.76A4.5 4.5 0 0 0 8.5 8Z\"/>");
 
             /// <summary />
-            public static string Couch { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M8.5 2h-5C2.67 2 2 2.67 2 3.5v.51L2.25 4c1.16 0 2.11.88 2.24 2H7.5A2.25 2.25 0 0 1 10 4.01V3.5C10 2.67 9.33 2 8.5 2Zm1.25 3c.09 0 .17 0 .25.03.57.11 1 .62 1 1.22V8.5c0 .65-.42 1.2-1 1.41v.59a.5.5 0 0 1-1 0V10H3v.5a.5.5 0 0 1-1 0v-.59c-.58-.2-1-.76-1-1.41V6.25a1.25 1.25 0 0 1 2.5 0c0 .41.34.75.75.75h3.5c.41 0 .75-.34.75-.75C8.5 5.56 9.06 5 9.75 5Z\"/>";
+            public static Icon Couch { get; } = new Icon("Couch", "Filled", 12, "<path d=\"M8.5 2h-5C2.67 2 2 2.67 2 3.5v.51L2.25 4c1.16 0 2.11.88 2.24 2H7.5A2.25 2.25 0 0 1 10 4.01V3.5C10 2.67 9.33 2 8.5 2Zm1.25 3c.09 0 .17 0 .25.03.57.11 1 .62 1 1.22V8.5c0 .65-.42 1.2-1 1.41v.59a.5.5 0 0 1-1 0V10H3v.5a.5.5 0 0 1-1 0v-.59c-.58-.2-1-.76-1-1.41V6.25a1.25 1.25 0 0 1 2.5 0c0 .41.34.75.75.75h3.5c.41 0 .75-.34.75-.75C8.5 5.56 9.06 5 9.75 5Z\"/>");
 
             /// <summary />
-            public static string Cube { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M6.43 2.07a1.5 1.5 0 0 0-.86 0l-2.85.85a1 1 0 0 0-.72.95v4.26c0 .44.3.83.72.96l2.85.85c.28.08.58.08.86 0l2.85-.85a1 1 0 0 0 .72-.96V3.87a1 1 0 0 0-.72-.95l-2.85-.85Zm-2.4 2.77a.5.5 0 0 1 .63-.31L6 4.97l1.34-.44a.5.5 0 0 1 .32.95l-1.16.38V7a.5.5 0 0 1-1 0V5.86l-1.16-.38a.5.5 0 0 1-.31-.64Z\"/>";
+            public static Icon Cube { get; } = new Icon("Cube", "Filled", 12, "<path d=\"M6.43 2.07a1.5 1.5 0 0 0-.86 0l-2.85.85a1 1 0 0 0-.72.95v4.26c0 .44.3.83.72.96l2.85.85c.28.08.58.08.86 0l2.85-.85a1 1 0 0 0 .72-.96V3.87a1 1 0 0 0-.72-.95l-2.85-.85Zm-2.4 2.77a.5.5 0 0 1 .63-.31L6 4.97l1.34-.44a.5.5 0 0 1 .32.95l-1.16.38V7a.5.5 0 0 1-1 0V5.86l-1.16-.38a.5.5 0 0 1-.31-.64Z\"/>");
 
             /// <summary />
-            public static string Delete { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M5 3h2a1 1 0 0 0-2 0ZM4 3a2 2 0 1 1 4 0h2.5a.5.5 0 0 1 0 1h-.44l-.44 5.17a2 2 0 0 1-2 1.83H4.38a2 2 0 0 1-2-1.83L1.94 4H1.5a.5.5 0 0 1 0-1H4Zm3.5 3a.5.5 0 0 0-1 0v2a.5.5 0 0 0 1 0V6ZM5 5.5a.5.5 0 0 0-.5.5v2a.5.5 0 0 0 1 0V6a.5.5 0 0 0-.5-.5Z\"/>";
+            public static Icon Delete { get; } = new Icon("Delete", "Filled", 12, "<path d=\"M5 3h2a1 1 0 0 0-2 0ZM4 3a2 2 0 1 1 4 0h2.5a.5.5 0 0 1 0 1h-.44l-.44 5.17a2 2 0 0 1-2 1.83H4.38a2 2 0 0 1-2-1.83L1.94 4H1.5a.5.5 0 0 1 0-1H4Zm3.5 3a.5.5 0 0 0-1 0v2a.5.5 0 0 0 1 0V6ZM5 5.5a.5.5 0 0 0-.5.5v2a.5.5 0 0 0 1 0V6a.5.5 0 0 0-.5-.5Z\"/>");
 
             /// <summary />
-            public static string Dentist { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M5.47 2.1a2.32 2.32 0 0 0-1.96-.5c-.6.13-1.14.46-1.5.85-.4.42-.8.98-.82 1.8 0 .36.04.96.38 1.42.3.44.47.67.55.88.09.26.1.53.1.96 0 .42.08.99.3 1.51.2.51.57 1.08 1.2 1.3l.02.01.02.01c.37.1.75.07 1.04-.2.25-.23.34-.56.39-.82.04-.25.07-.53.09-.8v-.08c.03-.3.06-.6.11-.87.15-.7.34-.8.37-.81.24-.06.35-.02.41.01.08.04.16.13.24.31.17.39.22.94.26 1.5.05.53.16 1.06.4 1.4.13.2.32.38.6.44a1 1 0 0 0 .76-.16c.76-.48 1.17-1.47 1.28-2.69.05-.56.11-.8.19-.99.05-.14.12-.25.22-.42a19 19 0 0 0 .24-.4c.15-.28.42-.8.45-1.43.03-.66-.2-1.37-.96-1.98a2.9 2.9 0 0 0-1.99-.76c-.6.03-1.1.3-1.43.6l-.02.01-.01.01c-.3.31-.4.3-.4.3s-.04 0-.12-.05a2.4 2.4 0 0 1-.37-.32l-.02-.02-.02-.02Zm2.34.98c.34 0 .7.1.98.35.29.26.46.63.5 1.07a.5.5 0 0 1-1 .1c-.02-.24-.1-.36-.16-.42a.46.46 0 0 0-.32-.1.5.5 0 1 1 0-1Z\"/>";
+            public static Icon Dentist { get; } = new Icon("Dentist", "Filled", 12, "<path d=\"M5.47 2.1a2.32 2.32 0 0 0-1.96-.5c-.6.13-1.14.46-1.5.85-.4.42-.8.98-.82 1.8 0 .36.04.96.38 1.42.3.44.47.67.55.88.09.26.1.53.1.96 0 .42.08.99.3 1.51.2.51.57 1.08 1.2 1.3l.02.01.02.01c.37.1.75.07 1.04-.2.25-.23.34-.56.39-.82.04-.25.07-.53.09-.8v-.08c.03-.3.06-.6.11-.87.15-.7.34-.8.37-.81.24-.06.35-.02.41.01.08.04.16.13.24.31.17.39.22.94.26 1.5.05.53.16 1.06.4 1.4.13.2.32.38.6.44a1 1 0 0 0 .76-.16c.76-.48 1.17-1.47 1.28-2.69.05-.56.11-.8.19-.99.05-.14.12-.25.22-.42a19 19 0 0 0 .24-.4c.15-.28.42-.8.45-1.43.03-.66-.2-1.37-.96-1.98a2.9 2.9 0 0 0-1.99-.76c-.6.03-1.1.3-1.43.6l-.02.01-.01.01c-.3.31-.4.3-.4.3s-.04 0-.12-.05a2.4 2.4 0 0 1-.37-.32l-.02-.02-.02-.02Zm2.34.98c.34 0 .7.1.98.35.29.26.46.63.5 1.07a.5.5 0 0 1-1 .1c-.02-.24-.1-.36-.16-.42a.46.46 0 0 0-.32-.1.5.5 0 1 1 0-1Z\"/>");
 
             /// <summary />
-            public static string Dismiss { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"m1.9 2.05.07-.08a.75.75 0 0 1 .98-.07l.08.07L6 4.94l2.97-2.97a.75.75 0 1 1 1.06 1.06L7.06 6l2.97 2.97c.27.27.3.68.07.98l-.07.08a.75.75 0 0 1-.98.07l-.08-.07L6 7.06l-2.97 2.97a.75.75 0 1 1-1.06-1.06L4.94 6 1.97 3.03a.75.75 0 0 1-.07-.98l.07-.08-.07.08Z\"/>";
+            public static Icon Dismiss { get; } = new Icon("Dismiss", "Filled", 12, "<path d=\"m1.9 2.05.07-.08a.75.75 0 0 1 .98-.07l.08.07L6 4.94l2.97-2.97a.75.75 0 1 1 1.06 1.06L7.06 6l2.97 2.97c.27.27.3.68.07.98l-.07.08a.75.75 0 0 1-.98.07l-.08-.07L6 7.06l-2.97 2.97a.75.75 0 1 1-1.06-1.06L4.94 6 1.97 3.03a.75.75 0 0 1-.07-.98l.07-.08-.07.08Z\"/>");
 
             /// <summary />
-            public static string DismissCircle { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M6 11A5 5 0 1 0 6 1a5 5 0 0 0 0 10Zm1.85-6.85c.2.2.2.5 0 .7L6.71 6l1.14 1.15a.5.5 0 1 1-.7.7L6 6.71 4.85 7.85a.5.5 0 1 1-.7-.7L5.29 6 4.15 4.85a.5.5 0 1 1 .7-.7L6 5.29l1.15-1.14c.2-.2.5-.2.7 0Z\"/>";
+            public static Icon DismissCircle { get; } = new Icon("DismissCircle", "Filled", 12, "<path d=\"M6 11A5 5 0 1 0 6 1a5 5 0 0 0 0 10Zm1.85-6.85c.2.2.2.5 0 .7L6.71 6l1.14 1.15a.5.5 0 1 1-.7.7L6 6.71 4.85 7.85a.5.5 0 1 1-.7-.7L5.29 6 4.15 4.85a.5.5 0 1 1 .7-.7L6 5.29l1.15-1.14c.2-.2.5-.2.7 0Z\"/>");
 
             /// <summary />
-            public static string Doctor { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M5 2a1 1 0 0 0-1 1v1H3a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h1v1a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V8h1a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H8V3a1 1 0 0 0-1-1H5Z\"/>";
+            public static Icon Doctor { get; } = new Icon("Doctor", "Filled", 12, "<path d=\"M5 2a1 1 0 0 0-1 1v1H3a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h1v1a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V8h1a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H8V3a1 1 0 0 0-1-1H5Z\"/>");
 
             /// <summary />
-            public static string Drop { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M6 1a.5.5 0 0 1 .35.15c.26.25 1.04 1.03 1.75 2.07A6.99 6.99 0 0 1 9.5 7c0 1.34-.36 2.35-1.02 3.03-.66.69-1.55.97-2.48.97-.93 0-1.82-.28-2.48-.97C2.86 9.35 2.5 8.33 2.5 7c0-1.4.7-2.76 1.4-3.78a14.9 14.9 0 0 1 1.75-2.07A.5.5 0 0 1 6 1Z\"/>";
+            public static Icon Drop { get; } = new Icon("Drop", "Filled", 12, "<path d=\"M6 1a.5.5 0 0 1 .35.15c.26.25 1.04 1.03 1.75 2.07A6.99 6.99 0 0 1 9.5 7c0 1.34-.36 2.35-1.02 3.03-.66.69-1.55.97-2.48.97-.93 0-1.82-.28-2.48-.97C2.86 9.35 2.5 8.33 2.5 7c0-1.4.7-2.76 1.4-3.78a14.9 14.9 0 0 1 1.75-2.07A.5.5 0 0 1 6 1Z\"/>");
 
             /// <summary />
-            public static string EqualOff { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M1.85 1.15a.5.5 0 1 0-.7.7L2.79 3.5h-.54a.75.75 0 0 0 0 1.5h2.04l2 2H2.25a.75.75 0 0 0 0 1.5h5.54l2.36 2.35a.5.5 0 0 0 .7-.7l-9-9ZM9.12 7l1.22 1.22c.1-.13.16-.3.16-.47A.75.75 0 0 0 9.75 7h-.63Zm-3.5-3.5L7.12 5h2.63a.75.75 0 0 0 0-1.5H5.62Z\"/>";
+            public static Icon EqualOff { get; } = new Icon("EqualOff", "Filled", 12, "<path d=\"M1.85 1.15a.5.5 0 1 0-.7.7L2.79 3.5h-.54a.75.75 0 0 0 0 1.5h2.04l2 2H2.25a.75.75 0 0 0 0 1.5h5.54l2.36 2.35a.5.5 0 0 0 .7-.7l-9-9ZM9.12 7l1.22 1.22c.1-.13.16-.3.16-.47A.75.75 0 0 0 9.75 7h-.63Zm-3.5-3.5L7.12 5h2.63a.75.75 0 0 0 0-1.5H5.62Z\"/>");
 
             /// <summary />
-            public static string ErrorCircle { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M6 11A5 5 0 1 0 6 1a5 5 0 0 0 0 10Zm-.75-2.75a.75.75 0 1 1 1.5 0 .75.75 0 0 1-1.5 0Zm.26-4.84a.5.5 0 0 1 .98 0l.01.09v2.59a.5.5 0 0 1-1 0V3.41Z\"/>";
+            public static Icon ErrorCircle { get; } = new Icon("ErrorCircle", "Filled", 12, "<path d=\"M6 11A5 5 0 1 0 6 1a5 5 0 0 0 0 10Zm-.75-2.75a.75.75 0 1 1 1.5 0 .75.75 0 0 1-1.5 0Zm.26-4.84a.5.5 0 0 1 .98 0l.01.09v2.59a.5.5 0 0 1-1 0V3.41Z\"/>");
 
             /// <summary />
-            public static string Eye { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M1.97 6.66a.5.5 0 0 1-.94-.32c-.01.03 0 0 0 0a1.63 1.63 0 0 1 .06-.16l.18-.38A5.15 5.15 0 0 1 6 3a5.15 5.15 0 0 1 4.96 3.3l.02.1.02.1s.08.33-.34.47a.5.5 0 0 1-.63-.31l-.01-.02a2.25 2.25 0 0 0-.17-.38A4.15 4.15 0 0 0 6 4a4.15 4.15 0 0 0-4.02 2.64v.02ZM4 7a2 2 0 1 1 4 0 2 2 0 0 1-4 0Z\"/>";
+            public static Icon Eye { get; } = new Icon("Eye", "Filled", 12, "<path d=\"M1.97 6.66a.5.5 0 0 1-.94-.32c-.01.03 0 0 0 0a1.63 1.63 0 0 1 .06-.16l.18-.38A5.15 5.15 0 0 1 6 3a5.15 5.15 0 0 1 4.96 3.3l.02.1.02.1s.08.33-.34.47a.5.5 0 0 1-.63-.31l-.01-.02a2.25 2.25 0 0 0-.17-.38A4.15 4.15 0 0 0 6 4a4.15 4.15 0 0 0-4.02 2.64v.02ZM4 7a2 2 0 1 1 4 0 2 2 0 0 1-4 0Z\"/>");
 
             /// <summary />
-            public static string Filter { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M1 2.75c0-.41.34-.75.75-.75h8.5a.75.75 0 0 1 0 1.5h-8.5A.75.75 0 0 1 1 2.75Zm2 3c0-.41.34-.75.75-.75h4.5a.75.75 0 0 1 0 1.5h-4.5A.75.75 0 0 1 3 5.75ZM5.25 8a.75.75 0 0 0 0 1.5h1.5a.75.75 0 0 0 0-1.5h-1.5Z\"/>";
+            public static Icon Filter { get; } = new Icon("Filter", "Filled", 12, "<path d=\"M1 2.75c0-.41.34-.75.75-.75h8.5a.75.75 0 0 1 0 1.5h-8.5A.75.75 0 0 1 1 2.75Zm2 3c0-.41.34-.75.75-.75h4.5a.75.75 0 0 1 0 1.5h-4.5A.75.75 0 0 1 3 5.75ZM5.25 8a.75.75 0 0 0 0 1.5h1.5a.75.75 0 0 0 0-1.5h-1.5Z\"/>");
 
             /// <summary />
-            public static string FoodCake { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M4.93 1.65c-.18.3-.29.64-.3.88-.02.43.04.85.3 1.16.28.33.68.44 1.07.44.4 0 .8-.12 1.07-.45.26-.32.33-.73.3-1.15a2.06 2.06 0 0 0-.3-.87C6.87 1.36 6.53 1 6 1s-.88.36-1.07.65ZM3.5 5C2.67 5 2 5.67 2 6.5l1.87 1.46c.08.07.2.07.3 0l1.1-.78c.44-.31 1.02-.31 1.46 0l1.1.79c.1.06.22.06.3 0L10 6.5V6.5C10 5.67 9.33 5 8.5 5h-5Zm5.25 3.75L10 7.77V10h.5a.5.5 0 0 1 0 1h-9a.5.5 0 0 1 0-1H2V7.77l1.25.98c.44.34 1.05.35 1.5.03L5.85 8c.1-.06.2-.06.3 0l1.1.8c.45.31 1.06.3 1.5-.04Z\"/>";
+            public static Icon FoodCake { get; } = new Icon("FoodCake", "Filled", 12, "<path d=\"M4.93 1.65c-.18.3-.29.64-.3.88-.02.43.04.85.3 1.16.28.33.68.44 1.07.44.4 0 .8-.12 1.07-.45.26-.32.33-.73.3-1.15a2.06 2.06 0 0 0-.3-.87C6.87 1.36 6.53 1 6 1s-.88.36-1.07.65ZM3.5 5C2.67 5 2 5.67 2 6.5l1.87 1.46c.08.07.2.07.3 0l1.1-.78c.44-.31 1.02-.31 1.46 0l1.1.79c.1.06.22.06.3 0L10 6.5V6.5C10 5.67 9.33 5 8.5 5h-5Zm5.25 3.75L10 7.77V10h.5a.5.5 0 0 1 0 1h-9a.5.5 0 0 1 0-1H2V7.77l1.25.98c.44.34 1.05.35 1.5.03L5.85 8c.1-.06.2-.06.3 0l1.1.8c.45.31 1.06.3 1.5-.04Z\"/>");
 
             /// <summary />
-            public static string Glance { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M6 9.5c0 .83.67 1.5 1.5 1.5h2c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5h-2C6.67 5 6 5.67 6 6.5v3Zm-5-4C1 6.33 1.67 7 2.5 7h1C4.33 7 5 6.33 5 5.5v-3C5 1.67 4.33 1 3.5 1h-1C1.67 1 1 1.67 1 2.5v3ZM7.5 4a1.5 1.5 0 1 1 0-3h2a1.5 1.5 0 0 1 0 3h-2ZM1 9.5c0 .83.67 1.5 1.5 1.5h1a1.5 1.5 0 0 0 0-3h-1C1.67 8 1 8.67 1 9.5Z\"/>";
+            public static Icon Glance { get; } = new Icon("Glance", "Filled", 12, "<path d=\"M6 9.5c0 .83.67 1.5 1.5 1.5h2c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5h-2C6.67 5 6 5.67 6 6.5v3Zm-5-4C1 6.33 1.67 7 2.5 7h1C4.33 7 5 6.33 5 5.5v-3C5 1.67 4.33 1 3.5 1h-1C1.67 1 1 1.67 1 2.5v3ZM7.5 4a1.5 1.5 0 1 1 0-3h2a1.5 1.5 0 0 1 0 3h-2ZM1 9.5c0 .83.67 1.5 1.5 1.5h1a1.5 1.5 0 0 0 0-3h-1C1.67 8 1 8.67 1 9.5Z\"/>");
 
             /// <summary />
-            public static string GlanceDefault { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M6 9.5c0 .83.67 1.5 1.5 1.5h2c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5h-2C6.67 5 6 5.67 6 6.5v3Zm-5-4C1 6.33 1.67 7 2.5 7h1C4.33 7 5 6.33 5 5.5v-3C5 1.67 4.33 1 3.5 1h-1C1.67 1 1 1.67 1 2.5v3ZM7.5 4a1.5 1.5 0 1 1 0-3h2a1.5 1.5 0 0 1 0 3h-2ZM1 9.5c0 .83.67 1.5 1.5 1.5h1a1.5 1.5 0 0 0 0-3h-1C1.67 8 1 8.67 1 9.5Z\"/>";
+            public static Icon GlanceDefault { get; } = new Icon("GlanceDefault", "Filled", 12, "<path d=\"M6 9.5c0 .83.67 1.5 1.5 1.5h2c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5h-2C6.67 5 6 5.67 6 6.5v3Zm-5-4C1 6.33 1.67 7 2.5 7h1C4.33 7 5 6.33 5 5.5v-3C5 1.67 4.33 1 3.5 1h-1C1.67 1 1 1.67 1 2.5v3ZM7.5 4a1.5 1.5 0 1 1 0-3h2a1.5 1.5 0 0 1 0 3h-2ZM1 9.5c0 .83.67 1.5 1.5 1.5h1a1.5 1.5 0 0 0 0-3h-1C1.67 8 1 8.67 1 9.5Z\"/>");
 
             /// <summary />
-            public static string GlanceHorizontal { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M2.5 6A1.5 1.5 0 0 1 1 4.5v-2C1 1.67 1.67 1 2.5 1h3C6.33 1 7 1.67 7 2.5v2C7 5.33 6.33 6 5.5 6h-3Z\"/><path d=\"M6.5 11A1.5 1.5 0 0 1 5 9.5v-1C5 7.67 5.67 7 6.5 7h3c.83 0 1.5.67 1.5 1.5v1c0 .83-.67 1.5-1.5 1.5h-3Z\"/><path d=\"M8 4.5a1.5 1.5 0 1 0 3 0v-2a1.5 1.5 0 0 0-3 0v2Z\"/><path d=\"M2.5 11A1.5 1.5 0 0 1 1 9.5v-1a1.5 1.5 0 1 1 3 0v1c0 .83-.67 1.5-1.5 1.5Z\"/>";
+            public static Icon GlanceHorizontal { get; } = new Icon("GlanceHorizontal", "Filled", 12, "<path d=\"M2.5 6A1.5 1.5 0 0 1 1 4.5v-2C1 1.67 1.67 1 2.5 1h3C6.33 1 7 1.67 7 2.5v2C7 5.33 6.33 6 5.5 6h-3Z\"/><path d=\"M6.5 11A1.5 1.5 0 0 1 5 9.5v-1C5 7.67 5.67 7 6.5 7h3c.83 0 1.5.67 1.5 1.5v1c0 .83-.67 1.5-1.5 1.5h-3Z\"/><path d=\"M8 4.5a1.5 1.5 0 1 0 3 0v-2a1.5 1.5 0 0 0-3 0v2Z\"/><path d=\"M2.5 11A1.5 1.5 0 0 1 1 9.5v-1a1.5 1.5 0 1 1 3 0v1c0 .83-.67 1.5-1.5 1.5Z\"/>");
 
             /// <summary />
-            public static string HatGraduation { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M5.16 2.19a1.96 1.96 0 0 1 1.68 0l4.87 2.3a.5.5 0 0 1 .01.9L6.87 7.8c-.55.28-1.2.28-1.74 0L1 5.76V8a.5.5 0 0 1-1 0V4.97A.5.5 0 0 1 .3 4.5l4.87-2.31ZM2 7.37V9c0 .13.05.26.15.35l.02.03a3.45 3.45 0 0 0 .28.24c.19.15.46.36.8.56.66.4 1.63.82 2.75.82s2.09-.42 2.76-.82a6.74 6.74 0 0 0 1.07-.8l.02-.02A.5.5 0 0 0 10 9V7.37L7.32 8.7c-.83.41-1.8.41-2.64 0L2 7.37Z\"/>";
+            public static Icon HatGraduation { get; } = new Icon("HatGraduation", "Filled", 12, "<path d=\"M5.16 2.19a1.96 1.96 0 0 1 1.68 0l4.87 2.3a.5.5 0 0 1 .01.9L6.87 7.8c-.55.28-1.2.28-1.74 0L1 5.76V8a.5.5 0 0 1-1 0V4.97A.5.5 0 0 1 .3 4.5l4.87-2.31ZM2 7.37V9c0 .13.05.26.15.35l.02.03a3.45 3.45 0 0 0 .28.24c.19.15.46.36.8.56.66.4 1.63.82 2.75.82s2.09-.42 2.76-.82a6.74 6.74 0 0 0 1.07-.8l.02-.02A.5.5 0 0 0 10 9V7.37L7.32 8.7c-.83.41-1.8.41-2.64 0L2 7.37Z\"/>");
 
             /// <summary />
-            public static string Heart { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M5.66 2.74a2.4 2.4 0 0 0-3.45-.01 2.55 2.55 0 0 0 0 3.53L5.76 9.9c.15.15.38.15.53 0l3.51-3.6c.95-.98.95-2.56 0-3.54a2.4 2.4 0 0 0-3.46 0L6 3.08l-.34-.35Z\"/>";
+            public static Icon Heart { get; } = new Icon("Heart", "Filled", 12, "<path d=\"M5.66 2.74a2.4 2.4 0 0 0-3.45-.01 2.55 2.55 0 0 0 0 3.53L5.76 9.9c.15.15.38.15.53 0l3.51-3.6c.95-.98.95-2.56 0-3.54a2.4 2.4 0 0 0-3.46 0L6 3.08l-.34-.35Z\"/>");
 
             /// <summary />
-            public static string Home { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M5.37 1.22a1 1 0 0 1 1.26 0l3.81 3.1c.36.28.56.7.56 1.16V10a1 1 0 0 1-1 1H8.5a1 1 0 0 1-1-1V7.5A.5.5 0 0 0 7 7H5a.5.5 0 0 0-.5.5V10a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V5.48c0-.46.2-.88.56-1.17l3.81-3.09Z\"/>";
+            public static Icon Home { get; } = new Icon("Home", "Filled", 12, "<path d=\"M5.37 1.22a1 1 0 0 1 1.26 0l3.81 3.1c.36.28.56.7.56 1.16V10a1 1 0 0 1-1 1H8.5a1 1 0 0 1-1-1V7.5A.5.5 0 0 0 7 7H5a.5.5 0 0 0-.5.5V10a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V5.48c0-.46.2-.88.56-1.17l3.81-3.09Z\"/>");
 
             /// <summary />
-            public static string Important { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M4.28 2.98a1.73 1.73 0 1 1 3.44 0l-.58 4.03a1.15 1.15 0 0 1-2.28 0l-.58-4.03ZM7 10a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z\"/>";
+            public static Icon Important { get; } = new Icon("Important", "Filled", 12, "<path d=\"M4.28 2.98a1.73 1.73 0 1 1 3.44 0l-.58 4.03a1.15 1.15 0 0 1-2.28 0l-.58-4.03ZM7 10a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z\"/>");
 
             /// <summary />
-            public static string Info { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M11 6A5 5 0 1 1 1 6a5 5 0 0 1 10 0Zm-5.5.5V8a.5.5 0 0 0 1 0V6.5a.5.5 0 0 0-1 0ZM6 3.75a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Z\"/>";
+            public static Icon Info { get; } = new Icon("Info", "Filled", 12, "<path d=\"M11 6A5 5 0 1 1 1 6a5 5 0 0 1 10 0Zm-5.5.5V8a.5.5 0 0 0 1 0V6.5a.5.5 0 0 0-1 0ZM6 3.75a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Z\"/>");
 
             /// <summary />
-            public static string Link { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M1.5 5.2c0-1.5 1.2-2.7 2.7-2.7h.05a.75.75 0 0 1 0 1.5H4.2C3.54 4 3 4.54 3 5.2v.6C3 6.46 3.54 7 4.2 7h.05a.75.75 0 0 1 0 1.5H4.2a2.7 2.7 0 0 1-2.7-2.7v-.6Zm9 0c0-1.5-1.2-2.7-2.7-2.7h-.05a.75.75 0 0 0 0 1.5h.05C8.46 4 9 4.54 9 5.2v.6C9 6.46 8.46 7 7.8 7h-.05a.75.75 0 0 0 0 1.5h.05c1.5 0 2.7-1.2 2.7-2.7v-.6Zm-5.75-.45a.75.75 0 0 0 0 1.5h2.5a.75.75 0 0 0 0-1.5h-2.5Z\"/>";
+            public static Icon Link { get; } = new Icon("Link", "Filled", 12, "<path d=\"M1.5 5.2c0-1.5 1.2-2.7 2.7-2.7h.05a.75.75 0 0 1 0 1.5H4.2C3.54 4 3 4.54 3 5.2v.6C3 6.46 3.54 7 4.2 7h.05a.75.75 0 0 1 0 1.5H4.2a2.7 2.7 0 0 1-2.7-2.7v-.6Zm9 0c0-1.5-1.2-2.7-2.7-2.7h-.05a.75.75 0 0 0 0 1.5h.05C8.46 4 9 4.54 9 5.2v.6C9 6.46 8.46 7 7.8 7h-.05a.75.75 0 0 0 0 1.5h.05c1.5 0 2.7-1.2 2.7-2.7v-.6Zm-5.75-.45a.75.75 0 0 0 0 1.5h2.5a.75.75 0 0 0 0-1.5h-2.5Z\"/>");
 
             /// <summary />
-            public static string LinkSquare { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M1 3.25C1 2 2 1 3.25 1h2.5c1.22 0 2.2.96 2.25 2.16v2.68a2.25 2.25 0 0 1-1.5 2.03V3.25a.75.75 0 0 0-.75-.75h-2.5a.75.75 0 0 0-.75.75v2.5c0 .33.2.6.5.71v1.53a2.25 2.25 0 0 1-2-2.24v-2.5Zm3 5.5C4 9.99 5 11 6.25 11h2.5C9.99 11 11 10 11 8.75v-2.5c0-1.16-.88-2.11-2-2.24v1.53c.3.1.5.38.5.71v2.5c0 .41-.34.75-.75.75h-2.5a.75.75 0 0 1-.75-.75V4.13C4.63 4.43 4 5.27 4 6.25v2.5Z\"/>";
+            public static Icon LinkSquare { get; } = new Icon("LinkSquare", "Filled", 12, "<path d=\"M1 3.25C1 2 2 1 3.25 1h2.5c1.22 0 2.2.96 2.25 2.16v2.68a2.25 2.25 0 0 1-1.5 2.03V3.25a.75.75 0 0 0-.75-.75h-2.5a.75.75 0 0 0-.75.75v2.5c0 .33.2.6.5.71v1.53a2.25 2.25 0 0 1-2-2.24v-2.5Zm3 5.5C4 9.99 5 11 6.25 11h2.5C9.99 11 11 10 11 8.75v-2.5c0-1.16-.88-2.11-2-2.24v1.53c.3.1.5.38.5.71v2.5c0 .41-.34.75-.75.75h-2.5a.75.75 0 0 1-.75-.75V4.13C4.63 4.43 4 5.27 4 6.25v2.5Z\"/>");
 
             /// <summary />
-            public static string Location { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M6 .5A4.5 4.5 0 0 1 10.5 5c0 1.86-1.42 3.81-4.2 5.9a.5.5 0 0 1-.6 0C2.92 8.81 1.5 6.86 1.5 5A4.5 4.5 0 0 1 6 .5Zm0 3a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z\"/>";
+            public static Icon Location { get; } = new Icon("Location", "Filled", 12, "<path d=\"M6 .5A4.5 4.5 0 0 1 10.5 5c0 1.86-1.42 3.81-4.2 5.9a.5.5 0 0 1-.6 0C2.92 8.81 1.5 6.86 1.5 5A4.5 4.5 0 0 1 6 .5Zm0 3a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z\"/>");
 
             /// <summary />
-            public static string LocationArrow { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M9.64 1.07a1 1 0 0 1 1.3 1.3l-3.08 7.99a1 1 0 0 1-1.9-.1l-.8-3.06a.5.5 0 0 0-.36-.35l-3.05-.8a1 1 0 0 1-.1-1.9l7.99-3.08Z\"/>";
+            public static Icon LocationArrow { get; } = new Icon("LocationArrow", "Filled", 12, "<path d=\"M9.64 1.07a1 1 0 0 1 1.3 1.3l-3.08 7.99a1 1 0 0 1-1.9-.1l-.8-3.06a.5.5 0 0 0-.36-.35l-3.05-.8a1 1 0 0 1-.1-1.9l7.99-3.08Z\"/>");
 
             /// <summary />
-            public static string LockClosed { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M4 4V3a2 2 0 1 1 4 0v1h1a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h1Zm1-1v1h2V3a1 1 0 0 0-2 0Z\"/>";
+            public static Icon LockClosed { get; } = new Icon("LockClosed", "Filled", 12, "<path d=\"M4 4V3a2 2 0 1 1 4 0v1h1a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h1Zm1-1v1h2V3a1 1 0 0 0-2 0Z\"/>");
 
             /// <summary />
-            public static string Mail { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M2 5.25V7.5C2 8.33 2.67 9 3.5 9h5c.83 0 1.5-.67 1.5-1.5V5.25l-3.8 1.7a.5.5 0 0 1-.4 0L2 5.26Zm.04-1.08L6 5.95l3.96-1.78A1.5 1.5 0 0 0 8.5 3h-5c-.71 0-1.31.5-1.46 1.17Z\"/>";
+            public static Icon Mail { get; } = new Icon("Mail", "Filled", 12, "<path d=\"M2 5.25V7.5C2 8.33 2.67 9 3.5 9h5c.83 0 1.5-.67 1.5-1.5V5.25l-3.8 1.7a.5.5 0 0 1-.4 0L2 5.26Zm.04-1.08L6 5.95l3.96-1.78A1.5 1.5 0 0 0 8.5 3h-5c-.71 0-1.31.5-1.46 1.17Z\"/>");
 
             /// <summary />
-            public static string MailUnread { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M9.5 4.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2ZM3.5 3h4.06a2 2 0 0 0 .6 1.98L6 5.95 2.04 4.17A1.5 1.5 0 0 1 3.5 3Zm2.7 3.96L9.44 5.5a2.01 2.01 0 0 0 .56-.06V7.5C10 8.33 9.33 9 8.5 9h-5A1.5 1.5 0 0 1 2 7.5V5.25l3.8 1.7a.5.5 0 0 0 .4 0Z\"/>";
+            public static Icon MailUnread { get; } = new Icon("MailUnread", "Filled", 12, "<path d=\"M9.5 4.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2ZM3.5 3h4.06a2 2 0 0 0 .6 1.98L6 5.95 2.04 4.17A1.5 1.5 0 0 1 3.5 3Zm2.7 3.96L9.44 5.5a2.01 2.01 0 0 0 .56-.06V7.5C10 8.33 9.33 9 8.5 9h-5A1.5 1.5 0 0 1 2 7.5V5.25l3.8 1.7a.5.5 0 0 0 .4 0Z\"/>");
 
             /// <summary />
-            public static string Mention { get; } = "<icon size=\"12\" variant=\"F\" /><g clip-path=\"url(#a)\"><path d=\"M2 6a4 4 0 1 1 8 0c0 1.17-.59 1.47-.8 1.48-.1 0-.24-.03-.39-.22-.15-.2-.31-.59-.31-1.26V3.75a.75.75 0 0 0-1.4-.37C6.7 3.14 6.25 3 5.75 3 4.15 3 3 4.43 3 6s1.15 3 2.75 3c.75 0 1.4-.31 1.88-.81.42.54 1.02.82 1.66.79C10.6 8.9 11.5 7.63 11.5 6a5.5 5.5 0 1 0-4.05 5.3.75.75 0 0 0-.4-1.44A4 4 0 0 1 2 6Zm5 0c0 .91-.64 1.5-1.25 1.5S4.5 6.91 4.5 6s.64-1.5 1.25-1.5S7 5.09 7 6Z\"/></g><defs><clipPath id=\"a\"><path fill=\"#fff\" d=\"M0 0h12v12H0z\"/></clipPath></defs>";
+            public static Icon Mention { get; } = new Icon("Mention", "Filled", 12, "<g clip-path=\"url(#a)\"><path d=\"M2 6a4 4 0 1 1 8 0c0 1.17-.59 1.47-.8 1.48-.1 0-.24-.03-.39-.22-.15-.2-.31-.59-.31-1.26V3.75a.75.75 0 0 0-1.4-.37C6.7 3.14 6.25 3 5.75 3 4.15 3 3 4.43 3 6s1.15 3 2.75 3c.75 0 1.4-.31 1.88-.81.42.54 1.02.82 1.66.79C10.6 8.9 11.5 7.63 11.5 6a5.5 5.5 0 1 0-4.05 5.3.75.75 0 0 0-.4-1.44A4 4 0 0 1 2 6Zm5 0c0 .91-.64 1.5-1.25 1.5S4.5 6.91 4.5 6s.64-1.5 1.25-1.5S7 5.09 7 6Z\"/></g><defs><clipPath id=\"a\"><path fill=\"#fff\" d=\"M0 0h12v12H0z\"/></clipPath></defs>");
 
             /// <summary />
-            public static string MicOff { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M1.85 1.15a.5.5 0 1 0-.7.7L4 4.71v.79a2 2 0 0 0 2.68 1.88l.75.76A3 3 0 0 1 3 5.5a.5.5 0 1 0-1 0 4 4 0 0 0 3.5 3.97v1.03a.5.5 0 1 0 1 0V9.47c.6-.08 1.17-.29 1.66-.6l1.99 1.98a.5.5 0 0 0 .7-.7l-9-9ZM9.52 7.4l-.75-.75A3 3 0 0 0 9 5.5a.5.5 0 1 1 1 0c0 .69-.17 1.33-.48 1.9ZM7.97 5.85 4.22 2.09A2 2 0 0 1 8 3v2.5c0 .12-.01.24-.03.35Z\"/>";
+            public static Icon MicOff { get; } = new Icon("MicOff", "Filled", 12, "<path d=\"M1.85 1.15a.5.5 0 1 0-.7.7L4 4.71v.79a2 2 0 0 0 2.68 1.88l.75.76A3 3 0 0 1 3 5.5a.5.5 0 1 0-1 0 4 4 0 0 0 3.5 3.97v1.03a.5.5 0 1 0 1 0V9.47c.6-.08 1.17-.29 1.66-.6l1.99 1.98a.5.5 0 0 0 .7-.7l-9-9ZM9.52 7.4l-.75-.75A3 3 0 0 0 9 5.5a.5.5 0 1 1 1 0c0 .69-.17 1.33-.48 1.9ZM7.97 5.85 4.22 2.09A2 2 0 0 1 8 3v2.5c0 .12-.01.24-.03.35Z\"/>");
 
             /// <summary />
-            public static string MyLocation { get; } = "<icon size=\"12\" variant=\"F\" /><g clip-path=\"url(#a)\"><path d=\"M6 7.75a1.75 1.75 0 1 0 0-3.5 1.75 1.75 0 0 0 0 3.5Zm.75-5.68a4 4 0 0 1 3.18 3.18h1.32a.75.75 0 0 1 0 1.5H9.93a4 4 0 0 1-3.18 3.18v1.32a.75.75 0 0 1-1.5 0V9.93a4 4 0 0 1-3.18-3.18H.75a.75.75 0 0 1 0-1.5h1.32a4 4 0 0 1 3.18-3.18V.75a.75.75 0 0 1 1.5 0v1.32ZM8.5 6a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Z\"/></g><defs><clipPath id=\"a\"><path fill=\"#fff\" d=\"M0 0h12v12H0z\"/></clipPath></defs>";
+            public static Icon MyLocation { get; } = new Icon("MyLocation", "Filled", 12, "<g clip-path=\"url(#a)\"><path d=\"M6 7.75a1.75 1.75 0 1 0 0-3.5 1.75 1.75 0 0 0 0 3.5Zm.75-5.68a4 4 0 0 1 3.18 3.18h1.32a.75.75 0 0 1 0 1.5H9.93a4 4 0 0 1-3.18 3.18v1.32a.75.75 0 0 1-1.5 0V9.93a4 4 0 0 1-3.18-3.18H.75a.75.75 0 0 1 0-1.5h1.32a4 4 0 0 1 3.18-3.18V.75a.75.75 0 0 1 1.5 0v1.32ZM8.5 6a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Z\"/></g><defs><clipPath id=\"a\"><path fill=\"#fff\" d=\"M0 0h12v12H0z\"/></clipPath></defs>");
 
             /// <summary />
-            public static string Notepad { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M4 1.5a.5.5 0 0 1 1 0V2h2v-.5a.5.5 0 0 1 1 0V2a2 2 0 0 1 2 2v3H7.5C6.67 7 6 7.67 6 8.5V11H4a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2v-.5Zm0 3c0 .28.22.5.5.5h3a.5.5 0 0 0 0-1h-3a.5.5 0 0 0-.5.5Zm0 2c0 .28.22.5.5.5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0-.5.5ZM4.5 9a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1ZM7 8.5c0-.28.22-.5.5-.5H10l-3 3V8.5Z\"/>";
+            public static Icon Notepad { get; } = new Icon("Notepad", "Filled", 12, "<path d=\"M4 1.5a.5.5 0 0 1 1 0V2h2v-.5a.5.5 0 0 1 1 0V2a2 2 0 0 1 2 2v3H7.5C6.67 7 6 7.67 6 8.5V11H4a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2v-.5Zm0 3c0 .28.22.5.5.5h3a.5.5 0 0 0 0-1h-3a.5.5 0 0 0-.5.5Zm0 2c0 .28.22.5.5.5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0-.5.5ZM4.5 9a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1ZM7 8.5c0-.28.22-.5.5-.5H10l-3 3V8.5Z\"/>");
 
             /// <summary />
-            public static string Organization { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M5.5 4.94a2 2 0 1 1 1 0V6h2a1 1 0 0 1 1 1v1.06a2 2 0 1 1-1 0V7h-5v1.06a2 2 0 1 1-1 0V7a1 1 0 0 1 1-1h2V4.94Z\"/>";
+            public static Icon Organization { get; } = new Icon("Organization", "Filled", 12, "<path d=\"M5.5 4.94a2 2 0 1 1 1 0V6h2a1 1 0 0 1 1 1v1.06a2 2 0 1 1-1 0V7h-5v1.06a2 2 0 1 1-1 0V7a1 1 0 0 1 1-1h2V4.94Z\"/>");
 
             /// <summary />
-            public static string Pause { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M3 2a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H3Zm5 0a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H8Z\"/>";
+            public static Icon Pause { get; } = new Icon("Pause", "Filled", 12, "<path d=\"M3 2a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H3Zm5 0a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H8Z\"/>");
 
             /// <summary />
-            public static string People { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M4 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm4.5 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3ZM2.25 7C1.56 7 1 7.56 1 8.25c0 0 0 2.25 3 2.25 2.38 0 2.87-1.41 2.97-2C7 8.35 7 8.25 7 8.25 7 7.56 6.44 7 5.75 7h-3.5ZM8 8.6a2.26 2.26 0 0 1-.1.54c-.06.22-.16.49-.34.76.27.06.58.1.94.1C11 10 11 8.25 11 8.25 11 7.56 10.44 7 9.75 7H7.62c.24.36.38.79.38 1.25v.35Z\"/>";
+            public static Icon People { get; } = new Icon("People", "Filled", 12, "<path d=\"M4 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm4.5 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3ZM2.25 7C1.56 7 1 7.56 1 8.25c0 0 0 2.25 3 2.25 2.38 0 2.87-1.41 2.97-2C7 8.35 7 8.25 7 8.25 7 7.56 6.44 7 5.75 7h-3.5ZM8 8.6a2.26 2.26 0 0 1-.1.54c-.06.22-.16.49-.34.76.27.06.58.1.94.1C11 10 11 8.25 11 8.25 11 7.56 10.44 7 9.75 7H7.62c.24.36.38.79.38 1.25v.35Z\"/>");
 
             /// <summary />
-            public static string Person { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M6 1a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm2.5 5h-5C2.67 6 2 6.67 2 7.5c0 1.12.46 2.01 1.21 2.61.74.6 1.74.89 2.79.89s2.05-.29 2.79-.89C9.54 9.51 10 8.61 10 7.5 10 6.67 9.33 6 8.5 6Z\"/>";
+            public static Icon Person { get; } = new Icon("Person", "Filled", 12, "<path d=\"M6 1a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm2.5 5h-5C2.67 6 2 6.67 2 7.5c0 1.12.46 2.01 1.21 2.61.74.6 1.74.89 2.79.89s2.05-.29 2.79-.89C9.54 9.51 10 8.61 10 7.5 10 6.67 9.33 6 8.5 6Z\"/>");
 
             /// <summary />
-            public static string PersonCircle { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M11 6A5 5 0 1 1 1 6a5 5 0 0 1 10 0Zm-6.78.26a.84.84 0 0 0-.22.55v.16c0 .82.82 1.53 2 1.53 1.18 0 2-.71 2-1.53v-.16c0-.2-.09-.4-.22-.55A.75.75 0 0 0 7.22 6H4.79a.75.75 0 0 0-.56.26ZM6 5a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z\"/>";
+            public static Icon PersonCircle { get; } = new Icon("PersonCircle", "Filled", 12, "<path d=\"M11 6A5 5 0 1 1 1 6a5 5 0 0 1 10 0Zm-6.78.26a.84.84 0 0 0-.22.55v.16c0 .82.82 1.53 2 1.53 1.18 0 2-.71 2-1.53v-.16c0-.2-.09-.4-.22-.55A.75.75 0 0 0 7.22 6H4.79a.75.75 0 0 0-.56.26ZM6 5a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z\"/>");
 
             /// <summary />
-            public static string Phone { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M3 2.5C3 1.67 3.67 1 4.5 1h3C8.33 1 9 1.67 9 2.5v7c0 .83-.67 1.5-1.5 1.5h-3A1.5 1.5 0 0 1 3 9.5v-7ZM5.5 8a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1Z\"/>";
+            public static Icon Phone { get; } = new Icon("Phone", "Filled", 12, "<path d=\"M3 2.5C3 1.67 3.67 1 4.5 1h3C8.33 1 9 1.67 9 2.5v7c0 .83-.67 1.5-1.5 1.5h-3A1.5 1.5 0 0 1 3 9.5v-7ZM5.5 8a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1Z\"/>");
 
             /// <summary />
-            public static string Pin { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M8.05 1.44a1.5 1.5 0 0 0-2.38.34L4.14 4.61l-2.33.93a.5.5 0 0 0-.16.81L3.29 8l-2.14 2.15L1 11l.85-.15L4 8.71l1.65 1.64a.5.5 0 0 0 .81-.16l.94-2.34 2.82-1.52a1.5 1.5 0 0 0 .34-2.38l-2.5-2.51Z\"/>";
+            public static Icon Pin { get; } = new Icon("Pin", "Filled", 12, "<path d=\"M8.05 1.44a1.5 1.5 0 0 0-2.38.34L4.14 4.61l-2.33.93a.5.5 0 0 0-.16.81L3.29 8l-2.14 2.15L1 11l.85-.15L4 8.71l1.65 1.64a.5.5 0 0 0 .81-.16l.94-2.34 2.82-1.52a1.5 1.5 0 0 0 .34-2.38l-2.5-2.51Z\"/>");
 
             /// <summary />
-            public static string Play { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M4.5 2a1 1 0 0 0-1.5.86v6.28a1 1 0 0 0 1.5.87l5.49-3.14a1 1 0 0 0 0-1.74L4.49 2Z\"/>";
+            public static Icon Play { get; } = new Icon("Play", "Filled", 12, "<path d=\"M4.5 2a1 1 0 0 0-1.5.86v6.28a1 1 0 0 0 1.5.87l5.49-3.14a1 1 0 0 0 0-1.74L4.49 2Z\"/>");
 
             /// <summary />
-            public static string Premium { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M3 1h1.05L3 4H1.2l1.35-2.72A.5.5 0 0 1 3 1ZM1.23 5l3.01 4.69L2.97 5H1.23ZM4 5l1.53 5.65a.48.48 0 0 0 .92 0L8 5H4Zm5.02 0L7.76 9.69 10.77 5H9.03Zm1.78-1H9L7.96 1H9c.19 0 .36.1.45.28L10.8 4ZM7.95 4h-3.9l1.06-3H6.9l1.05 3Z\"/>";
+            public static Icon Premium { get; } = new Icon("Premium", "Filled", 12, "<path d=\"M3 1h1.05L3 4H1.2l1.35-2.72A.5.5 0 0 1 3 1ZM1.23 5l3.01 4.69L2.97 5H1.23ZM4 5l1.53 5.65a.48.48 0 0 0 .92 0L8 5H4Zm5.02 0L7.76 9.69 10.77 5H9.03Zm1.78-1H9L7.96 1H9c.19 0 .36.1.45.28L10.8 4ZM7.95 4h-3.9l1.06-3H6.9l1.05 3Z\"/>");
 
             /// <summary />
-            public static string PresenceAvailable { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M6 12A6 6 0 1 0 6 0a6 6 0 0 0 0 12Zm2.53-6.72L5.78 8.03c-.3.3-.77.3-1.06 0l-1-1a.75.75 0 0 1 1.06-1.06l.47.47 2.22-2.22a.75.75 0 0 1 1.06 1.06Z\"/>";
+            public static Icon PresenceAvailable { get; } = new Icon("PresenceAvailable", "Filled", 12, "<path d=\"M6 12A6 6 0 1 0 6 0a6 6 0 0 0 0 12Zm2.53-6.72L5.78 8.03c-.3.3-.77.3-1.06 0l-1-1a.75.75 0 0 1 1.06-1.06l.47.47 2.22-2.22a.75.75 0 0 1 1.06 1.06Z\"/>");
 
             /// <summary />
-            public static string PresenceAway { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M6 12A6 6 0 1 0 6 0a6 6 0 0 0 0 12Zm.5-8.75v2.4l1.49 1.28A.75.75 0 1 1 7 8.07l-1.75-1.5A.75.75 0 0 1 5 6V3.25a.75.75 0 0 1 1.5 0Z\"/>";
+            public static Icon PresenceAway { get; } = new Icon("PresenceAway", "Filled", 12, "<path d=\"M6 12A6 6 0 1 0 6 0a6 6 0 0 0 0 12Zm.5-8.75v2.4l1.49 1.28A.75.75 0 1 1 7 8.07l-1.75-1.5A.75.75 0 0 1 5 6V3.25a.75.75 0 0 1 1.5 0Z\"/>");
 
             /// <summary />
-            public static string PresenceBusy { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M12 6A6 6 0 1 1 0 6a6 6 0 0 1 12 0Z\"/>";
+            public static Icon PresenceBusy { get; } = new Icon("PresenceBusy", "Filled", 12, "<path d=\"M12 6A6 6 0 1 1 0 6a6 6 0 0 1 12 0Z\"/>");
 
             /// <summary />
-            public static string PresenceDnd { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M6 12A6 6 0 1 0 6 0a6 6 0 0 0 0 12ZM3.75 5.25h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5Z\"/>";
+            public static Icon PresenceDnd { get; } = new Icon("PresenceDnd", "Filled", 12, "<path d=\"M6 12A6 6 0 1 0 6 0a6 6 0 0 0 0 12ZM3.75 5.25h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5Z\"/>");
 
             /// <summary />
-            public static string Prohibited { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M11 6A5 5 0 1 1 1 6a5 5 0 0 1 10 0ZM9.5 6c0-.7-.2-1.34-.55-1.89L4.1 8.95A3.5 3.5 0 0 0 9.5 6ZM7.89 3.05A3.5 3.5 0 0 0 3.05 7.9L7.9 3.05Z\"/>";
+            public static Icon Prohibited { get; } = new Icon("Prohibited", "Filled", 12, "<path d=\"M11 6A5 5 0 1 1 1 6a5 5 0 0 1 10 0ZM9.5 6c0-.7-.2-1.34-.55-1.89L4.1 8.95A3.5 3.5 0 0 0 9.5 6ZM7.89 3.05A3.5 3.5 0 0 0 3.05 7.9L7.9 3.05Z\"/>");
 
             /// <summary />
-            public static string QuestionCircle { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M6 1a5 5 0 1 0 0 10A5 5 0 0 0 6 1Zm.5 7.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM5 4.75a.5.5 0 0 1-1 0c0-.59.27-1.04.67-1.34C5.05 3.13 5.54 3 6 3c.46 0 .95.12 1.33.41.4.3.67.75.67 1.34 0 .43-.14.76-.37 1-.18.2-.41.34-.58.43L7 6.21c-.19.11-.3.19-.37.29-.06.08-.13.22-.13.5a.5.5 0 0 1-1 0c0-.47.12-.83.34-1.11.2-.27.47-.43.66-.54l.03-.02c.2-.11.3-.17.37-.25.05-.05.1-.13.1-.33 0-.25-.1-.42-.27-.54A1.25 1.25 0 0 0 6 4c-.29 0-.55.08-.73.21a.63.63 0 0 0-.27.54Z\"/>";
+            public static Icon QuestionCircle { get; } = new Icon("QuestionCircle", "Filled", 12, "<path d=\"M6 1a5 5 0 1 0 0 10A5 5 0 0 0 6 1Zm.5 7.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM5 4.75a.5.5 0 0 1-1 0c0-.59.27-1.04.67-1.34C5.05 3.13 5.54 3 6 3c.46 0 .95.12 1.33.41.4.3.67.75.67 1.34 0 .43-.14.76-.37 1-.18.2-.41.34-.58.43L7 6.21c-.19.11-.3.19-.37.29-.06.08-.13.22-.13.5a.5.5 0 0 1-1 0c0-.47.12-.83.34-1.11.2-.27.47-.43.66-.54l.03-.02c.2-.11.3-.17.37-.25.05-.05.1-.13.1-.33 0-.25-.1-.42-.27-.54A1.25 1.25 0 0 0 6 4c-.29 0-.55.08-.73.21a.63.63 0 0 0-.27.54Z\"/>");
 
             /// <summary />
-            public static string Record { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M6 11A5 5 0 1 0 6 1a5 5 0 0 0 0 10Zm0-2a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z\"/>";
+            public static Icon Record { get; } = new Icon("Record", "Filled", 12, "<path d=\"M6 11A5 5 0 1 0 6 1a5 5 0 0 0 0 10Zm0-2a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z\"/>");
 
             /// <summary />
-            public static string RecordStop { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M6 11A5 5 0 1 0 6 1a5 5 0 0 0 0 10ZM5 4h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z\"/>";
+            public static Icon RecordStop { get; } = new Icon("RecordStop", "Filled", 12, "<path d=\"M6 11A5 5 0 1 0 6 1a5 5 0 0 0 0 10ZM5 4h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z\"/>");
 
             /// <summary />
-            public static string RectangleLandscape { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M3 2a2 2 0 0 0-2 2v4c0 1.1.9 2 2 2h6a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H3Z\"/>";
+            public static Icon RectangleLandscape { get; } = new Icon("RectangleLandscape", "Filled", 12, "<path d=\"M3 2a2 2 0 0 0-2 2v4c0 1.1.9 2 2 2h6a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H3Z\"/>");
 
             /// <summary />
-            public static string Reward { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M2.25 1C1.56 1 1 1.56 1 2.25v1.16c0 .55.3 1.05.77 1.31l2.88 1.6a3 3 0 1 0 2.7 0l2.88-1.6c.47-.26.77-.76.77-1.3V2.24C11 1.56 10.44 1 9.75 1h-7.5ZM5 5.37V2h2v3.37l-1 .56-1-.56ZM8 9a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z\"/>";
+            public static Icon Reward { get; } = new Icon("Reward", "Filled", 12, "<path d=\"M2.25 1C1.56 1 1 1.56 1 2.25v1.16c0 .55.3 1.05.77 1.31l2.88 1.6a3 3 0 1 0 2.7 0l2.88-1.6c.47-.26.77-.76.77-1.3V2.24C11 1.56 10.44 1 9.75 1h-7.5ZM5 5.37V2h2v3.37l-1 .56-1-.56ZM8 9a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z\"/>");
 
             /// <summary />
-            public static string Ribbon { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M6 8a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm0 1c.73 0 1.41-.2 2-.54v2.04a.5.5 0 0 1-.78.42L6 10.1l-1.22.82A.5.5 0 0 1 4 10.5V8.46c.59.35 1.27.54 2 .54Z\"/>";
+            public static Icon Ribbon { get; } = new Icon("Ribbon", "Filled", 12, "<path d=\"M6 8a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm0 1c.73 0 1.41-.2 2-.54v2.04a.5.5 0 0 1-.78.42L6 10.1l-1.22.82A.5.5 0 0 1 4 10.5V8.46c.59.35 1.27.54 2 .54Z\"/>");
 
             /// <summary />
-            public static string RibbonOff { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M2.68 3.39a3.5 3.5 0 0 0 4.43 4.43l.73.73A3.98 3.98 0 0 1 4 8.46v2.04a.5.5 0 0 0 .78.42L6 10.1l1.22.82A.5.5 0 0 0 8 10.5V8.7l2.15 2.15a.5.5 0 0 0 .7-.7l-9-9a.5.5 0 1 0-.7.7L2.68 3.4ZM9.5 4.5c0 .8-.27 1.55-.73 2.14l-4.91-4.9A3.5 3.5 0 0 1 9.5 4.5Z\"/>";
+            public static Icon RibbonOff { get; } = new Icon("RibbonOff", "Filled", 12, "<path d=\"M2.68 3.39a3.5 3.5 0 0 0 4.43 4.43l.73.73A3.98 3.98 0 0 1 4 8.46v2.04a.5.5 0 0 0 .78.42L6 10.1l1.22.82A.5.5 0 0 0 8 10.5V8.7l2.15 2.15a.5.5 0 0 0 .7-.7l-9-9a.5.5 0 1 0-.7.7L2.68 3.4ZM9.5 4.5c0 .8-.27 1.55-.73 2.14l-4.91-4.9A3.5 3.5 0 0 1 9.5 4.5Z\"/>");
 
             /// <summary />
-            public static string ScanDash { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M4.25 2C3.01 2 2 3 2 4.25v.36a.75.75 0 1 0 1.5 0v-.36c0-.41.34-.75.75-.75h.36a.75.75 0 1 0 0-1.5h-.36Zm3.14 0a.75.75 0 1 0 0 1.5h.36c.41 0 .75.34.75.75v.36a.75.75 0 1 0 1.5 0v-.36C10 3.01 9 2 7.75 2h-.36ZM3.5 7.4a.75.75 0 1 0-1.5 0v.35C2 8.99 3 10 4.25 10h.36a.75.75 0 1 0 0-1.5h-.36a.75.75 0 0 1-.75-.75v-.36Zm6.5 0a.75.75 0 1 0-1.5 0v.35c0 .41-.34.75-.75.75h-.36a.75.75 0 1 0 0 1.5h.36C8.99 10 10 9 10 7.75v-.36ZM4.75 5.24a.75.75 0 0 0 0 1.5h2.5a.75.75 0 0 0 0-1.5h-2.5Z\"/>";
+            public static Icon ScanDash { get; } = new Icon("ScanDash", "Filled", 12, "<path d=\"M4.25 2C3.01 2 2 3 2 4.25v.36a.75.75 0 1 0 1.5 0v-.36c0-.41.34-.75.75-.75h.36a.75.75 0 1 0 0-1.5h-.36Zm3.14 0a.75.75 0 1 0 0 1.5h.36c.41 0 .75.34.75.75v.36a.75.75 0 1 0 1.5 0v-.36C10 3.01 9 2 7.75 2h-.36ZM3.5 7.4a.75.75 0 1 0-1.5 0v.35C2 8.99 3 10 4.25 10h.36a.75.75 0 1 0 0-1.5h-.36a.75.75 0 0 1-.75-.75v-.36Zm6.5 0a.75.75 0 1 0-1.5 0v.35c0 .41-.34.75-.75.75h-.36a.75.75 0 1 0 0 1.5h.36C8.99 10 10 9 10 7.75v-.36ZM4.75 5.24a.75.75 0 0 0 0 1.5h2.5a.75.75 0 0 0 0-1.5h-2.5Z\"/>");
 
             /// <summary />
-            public static string Search { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M5 1a4 4 0 1 0 2.25 7.3l2.47 2.48a.75.75 0 1 0 1.06-1.06L8.31 7.25A4 4 0 0 0 5 1ZM2.5 5a2.5 2.5 0 1 1 5 0 2.5 2.5 0 0 1-5 0Z\"/>";
+            public static Icon Search { get; } = new Icon("Search", "Filled", 12, "<path d=\"M5 1a4 4 0 1 0 2.25 7.3l2.47 2.48a.75.75 0 1 0 1.06-1.06L8.31 7.25A4 4 0 0 0 5 1ZM2.5 5a2.5 2.5 0 1 1 5 0 2.5 2.5 0 0 1-5 0Z\"/>");
 
             /// <summary />
-            public static string Shield { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M6.01 10.99c-.05 0-.1 0-.16-.03-4.43-1.47-4.37-4.84-4.34-7.29v-.68c0-.28.22-.5.5-.5.02 0 2.31-.02 3.63-1.35a.52.52 0 0 1 .71 0C7.7 2.47 9.97 2.49 10 2.49c.28 0 .5.22.5.5v.68c.04 2.45.1 5.81-4.34 7.3A.42.42 0 0 1 6 11l.02-.01Z\"/>";
+            public static Icon Shield { get; } = new Icon("Shield", "Filled", 12, "<path d=\"M6.01 10.99c-.05 0-.1 0-.16-.03-4.43-1.47-4.37-4.84-4.34-7.29v-.68c0-.28.22-.5.5-.5.02 0 2.31-.02 3.63-1.35a.52.52 0 0 1 .71 0C7.7 2.47 9.97 2.49 10 2.49c.28 0 .5.22.5.5v.68c.04 2.45.1 5.81-4.34 7.3A.42.42 0 0 1 6 11l.02-.01Z\"/>");
 
             /// <summary />
-            public static string SlashForward { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M7.46 1.03c.4.12.63.53.51.93l-2.5 8.5a.75.75 0 0 1-1.44-.42l2.5-8.5c.12-.4.54-.63.93-.5Z\"/>";
+            public static Icon SlashForward { get; } = new Icon("SlashForward", "Filled", 12, "<path d=\"M7.46 1.03c.4.12.63.53.51.93l-2.5 8.5a.75.75 0 0 1-1.44-.42l2.5-8.5c.12-.4.54-.63.93-.5Z\"/>");
 
             /// <summary />
-            public static string SplitHorizontal { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M8.5 1c.83 0 1.5.67 1.5 1.5V4H2V2.5C2 1.67 2.67 1 3.5 1h5Zm2 4a.5.5 0 0 1 0 1h-9a.5.5 0 0 1 0-1h9ZM2 7v1.5c0 .83.67 1.5 1.5 1.5h5c.83 0 1.5-.67 1.5-1.5V7H2Z\"/>";
+            public static Icon SplitHorizontal { get; } = new Icon("SplitHorizontal", "Filled", 12, "<path d=\"M8.5 1c.83 0 1.5.67 1.5 1.5V4H2V2.5C2 1.67 2.67 1 3.5 1h5Zm2 4a.5.5 0 0 1 0 1h-9a.5.5 0 0 1 0-1h9ZM2 7v1.5c0 .83.67 1.5 1.5 1.5h5c.83 0 1.5-.67 1.5-1.5V7H2Z\"/>");
 
             /// <summary />
-            public static string SplitVertical { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M6 1.5a.5.5 0 0 0-1 0v9a.5.5 0 0 0 1 0v-9Zm-5 2C1 2.67 1.67 2 2.5 2H4v8H2.5A1.5 1.5 0 0 1 1 8.5v-5ZM7 10h1.5c.83 0 1.5-.67 1.5-1.5v-5C10 2.67 9.33 2 8.5 2H7v8Z\"/>";
+            public static Icon SplitVertical { get; } = new Icon("SplitVertical", "Filled", 12, "<path d=\"M6 1.5a.5.5 0 0 0-1 0v9a.5.5 0 0 0 1 0v-9Zm-5 2C1 2.67 1.67 2 2.5 2H4v8H2.5A1.5 1.5 0 0 1 1 8.5v-5ZM7 10h1.5c.83 0 1.5-.67 1.5-1.5v-5C10 2.67 9.33 2 8.5 2H7v8Z\"/>");
 
             /// <summary />
-            public static string Square { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M2 4c0-1.1.9-2 2-2h4a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4Z\"/>";
+            public static Icon Square { get; } = new Icon("Square", "Filled", 12, "<path d=\"M2 4c0-1.1.9-2 2-2h4a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4Z\"/>");
 
             /// <summary />
-            public static string SquareShadow { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M3 1a2 2 0 0 0-2 2v4c0 1.1.9 2 2 2 0 1.1.9 2 2 2h3.5A2.5 2.5 0 0 0 11 8.5V5a2 2 0 0 0-2-2 2 2 0 0 0-2-2H3Zm-.5 2c0-.28.22-.5.5-.5h4c.28 0 .5.22.5.5v4a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V3Z\"/>";
+            public static Icon SquareShadow { get; } = new Icon("SquareShadow", "Filled", 12, "<path d=\"M3 1a2 2 0 0 0-2 2v4c0 1.1.9 2 2 2 0 1.1.9 2 2 2h3.5A2.5 2.5 0 0 0 11 8.5V5a2 2 0 0 0-2-2 2 2 0 0 0-2-2H3Zm-.5 2c0-.28.22-.5.5-.5h4c.28 0 .5.22.5.5v4a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V3Z\"/>");
 
             /// <summary />
-            public static string Star { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M5.28 1.55a.8.8 0 0 1 1.44 0L7.83 3.8l2.49.36c.65.1.91.9.44 1.36l-1.8 1.76.43 2.47a.8.8 0 0 1-1.17.85L6 9.43 3.78 10.6a.8.8 0 0 1-1.16-.85l.42-2.47-1.8-1.76a.8.8 0 0 1 .45-1.36l2.48-.36 1.11-2.25Z\"/>";
+            public static Icon Star { get; } = new Icon("Star", "Filled", 12, "<path d=\"M5.28 1.55a.8.8 0 0 1 1.44 0L7.83 3.8l2.49.36c.65.1.91.9.44 1.36l-1.8 1.76.43 2.47a.8.8 0 0 1-1.17.85L6 9.43 3.78 10.6a.8.8 0 0 1-1.16-.85l.42-2.47-1.8-1.76a.8.8 0 0 1 .45-1.36l2.48-.36 1.11-2.25Z\"/>");
 
             /// <summary />
-            public static string StarHalf { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M6 1.1a.8.8 0 0 0-.72.45L4.18 3.8l-2.5.36a.8.8 0 0 0-.44 1.36l1.8 1.76-.42 2.47a.8.8 0 0 0 1.16.85L6 9.43V1.1Z\"/>";
+            public static Icon StarHalf { get; } = new Icon("StarHalf", "Filled", 12, "<path d=\"M6 1.1a.8.8 0 0 0-.72.45L4.18 3.8l-2.5.36a.8.8 0 0 0-.44 1.36l1.8 1.76-.42 2.47a.8.8 0 0 0 1.16.85L6 9.43V1.1Z\"/>");
 
             /// <summary />
-            public static string StarOff { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M1.85 1.15a.5.5 0 1 0-.7.7l2.08 2.09-1.54.22a.8.8 0 0 0-.45 1.36l1.8 1.76-.42 2.47a.8.8 0 0 0 1.16.85L6 9.43l2.22 1.17a.8.8 0 0 0 1.15-.52l.78.77a.5.5 0 0 0 .7-.7l-9-9Zm8.9 4.37L9.19 7.06 4.75 2.63l.53-1.08a.8.8 0 0 1 1.44 0L7.83 3.8l2.49.36c.65.1.91.9.44 1.36Z\"/>";
+            public static Icon StarOff { get; } = new Icon("StarOff", "Filled", 12, "<path d=\"M1.85 1.15a.5.5 0 1 0-.7.7l2.08 2.09-1.54.22a.8.8 0 0 0-.45 1.36l1.8 1.76-.42 2.47a.8.8 0 0 0 1.16.85L6 9.43l2.22 1.17a.8.8 0 0 0 1.15-.52l.78.77a.5.5 0 0 0 .7-.7l-9-9Zm8.9 4.37L9.19 7.06 4.75 2.63l.53-1.08a.8.8 0 0 1 1.44 0L7.83 3.8l2.49.36c.65.1.91.9.44 1.36Z\"/>");
 
             /// <summary />
-            public static string StarOneQuarter { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M5 2.12 4.17 3.8l-2.48.36a.8.8 0 0 0-.45 1.36l1.8 1.76-.42 2.47a.84.84 0 0 0 0 .26.8.8 0 0 0 1.16.59L5 9.95V2.12Z\"/>";
+            public static Icon StarOneQuarter { get; } = new Icon("StarOneQuarter", "Filled", 12, "<path d=\"M5 2.12 4.17 3.8l-2.48.36a.8.8 0 0 0-.45 1.36l1.8 1.76-.42 2.47a.84.84 0 0 0 0 .26.8.8 0 0 0 1.16.59L5 9.95V2.12Z\"/>");
 
             /// <summary />
-            public static string StarThreeQuarter { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"m7 2.12-.28-.57a.8.8 0 0 0-1.44 0L4.18 3.8l-2.5.36a.8.8 0 0 0-.44 1.36l1.8 1.76-.42 2.47a.8.8 0 0 0 1.16.85L6 9.43l1 .52V2.12Z\"/>";
+            public static Icon StarThreeQuarter { get; } = new Icon("StarThreeQuarter", "Filled", 12, "<path d=\"m7 2.12-.28-.57a.8.8 0 0 0-1.44 0L4.18 3.8l-2.5.36a.8.8 0 0 0-.44 1.36l1.8 1.76-.42 2.47a.8.8 0 0 0 1.16.85L6 9.43l1 .52V2.12Z\"/>");
 
             /// <summary />
-            public static string Status { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M6 1c.28 0 .55.02.82.07L5.88 2A4 4 0 1 0 10 6.13l.93-.94A5 5 0 1 1 6 1Zm4.44.56a1.91 1.91 0 0 0-2.7 0l-2.6 2.59a.5.5 0 0 0-.11.19l-.98 2.92c-.15.43.26.84.7.7l2.91-.99a.5.5 0 0 0 .2-.12l2.58-2.58c.75-.75.75-1.96 0-2.7Z\"/>";
+            public static Icon Status { get; } = new Icon("Status", "Filled", 12, "<path d=\"M6 1c.28 0 .55.02.82.07L5.88 2A4 4 0 1 0 10 6.13l.93-.94A5 5 0 1 1 6 1Zm4.44.56a1.91 1.91 0 0 0-2.7 0l-2.6 2.59a.5.5 0 0 0-.11.19l-.98 2.92c-.15.43.26.84.7.7l2.91-.99a.5.5 0 0 0 .2-.12l2.58-2.58c.75-.75.75-1.96 0-2.7Z\"/>");
 
             /// <summary />
-            public static string Sticker { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M3 1h6a2 2 0 0 1 2 2v3H8a2 2 0 0 0-1.71.96.92.92 0 0 1-.3.05c-.31 0-.57-.16-.76-.35a1.79 1.79 0 0 1-.28-.37.5.5 0 0 0-.9.44v.01l.01.02a1.78 1.78 0 0 0 .12.18c.07.12.19.27.34.42.3.3.8.65 1.48.65V11H3a2 2 0 0 1-2-2V3c0-1.1.9-2 2-2Zm1.5 4a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Zm3 0a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1ZM11 7H8a1 1 0 0 0-1 1v3h.5a.5.5 0 0 0 .35-.15l3-3A.5.5 0 0 0 11 7.5V7Z\"/>";
+            public static Icon Sticker { get; } = new Icon("Sticker", "Filled", 12, "<path d=\"M3 1h6a2 2 0 0 1 2 2v3H8a2 2 0 0 0-1.71.96.92.92 0 0 1-.3.05c-.31 0-.57-.16-.76-.35a1.79 1.79 0 0 1-.28-.37.5.5 0 0 0-.9.44v.01l.01.02a1.78 1.78 0 0 0 .12.18c.07.12.19.27.34.42.3.3.8.65 1.48.65V11H3a2 2 0 0 1-2-2V3c0-1.1.9-2 2-2Zm1.5 4a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Zm3 0a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1ZM11 7H8a1 1 0 0 0-1 1v3h.5a.5.5 0 0 0 .35-.15l3-3A.5.5 0 0 0 11 7.5V7Z\"/>");
 
             /// <summary />
-            public static string Subtract { get; } = "<icon size=\"12\" variant=\"F\" /><rect x=\"2\" y=\"5.25\" width=\"8\" height=\"1.5\" rx=\".75\"/>";
+            public static Icon Subtract { get; } = new Icon("Subtract", "Filled", 12, "<rect x=\"2\" y=\"5.25\" width=\"8\" height=\"1.5\" rx=\".75\"/>");
 
             /// <summary />
-            public static string SubtractCircle { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M1 6a5 5 0 1 1 10 0A5 5 0 0 1 1 6Zm3-.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1H4Z\"/>";
+            public static Icon SubtractCircle { get; } = new Icon("SubtractCircle", "Filled", 12, "<path d=\"M1 6a5 5 0 1 1 10 0A5 5 0 0 1 1 6Zm3-.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1H4Z\"/>");
 
             /// <summary />
-            public static string Tablet { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M1 3.5C1 2.67 1.67 2 2.5 2h7c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5h-7A1.5 1.5 0 0 1 1 8.5v-5ZM5 7a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1H5Z\"/>";
+            public static Icon Tablet { get; } = new Icon("Tablet", "Filled", 12, "<path d=\"M1 3.5C1 2.67 1.67 2 2.5 2h7c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5h-7A1.5 1.5 0 0 1 1 8.5v-5ZM5 7a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1H5Z\"/>");
 
             /// <summary />
-            public static string Tent { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M6.43 1.46a.5.5 0 0 0-.77 0c-.72.87-2.18 1.92-3.01 2.39a.5.5 0 0 0-.25.37L1.74 9H1.5a.5.5 0 1 0 0 1h9a.5.5 0 1 0 0-1h-.14L9.7 4.22a.5.5 0 0 0-.25-.37 12.87 12.87 0 0 1-3.02-2.4ZM4.83 9c.41-.63.82-1.42 1.2-2.5.36 1 .75 1.77 1.21 2.5h-2.4Z\"/>";
+            public static Icon Tent { get; } = new Icon("Tent", "Filled", 12, "<path d=\"M6.43 1.46a.5.5 0 0 0-.77 0c-.72.87-2.18 1.92-3.01 2.39a.5.5 0 0 0-.25.37L1.74 9H1.5a.5.5 0 1 0 0 1h9a.5.5 0 1 0 0-1h-.14L9.7 4.22a.5.5 0 0 0-.25-.37 12.87 12.87 0 0 1-3.02-2.4ZM4.83 9c.41-.63.82-1.42 1.2-2.5.36 1 .75 1.77 1.21 2.5h-2.4Z\"/>");
 
             /// <summary />
-            public static string Text { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M2 2.75c0-.41.34-.75.75-.75h6c.41 0 .75.34.75.75v1.5a.75.75 0 0 1-1.5 0V3.5H6.5v5h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5H5v-5H3.5v.75a.75.75 0 0 1-1.5 0v-1.5Z\"/>";
+            public static Icon Text { get; } = new Icon("Text", "Filled", 12, "<path d=\"M2 2.75c0-.41.34-.75.75-.75h6c.41 0 .75.34.75.75v1.5a.75.75 0 0 1-1.5 0V3.5H6.5v5h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5H5v-5H3.5v.75a.75.75 0 0 1-1.5 0v-1.5Z\"/>");
 
             /// <summary />
-            public static string TextT { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M2 2.75c0-.41.34-.75.75-.75h6c.41 0 .75.34.75.75v1.5a.75.75 0 0 1-1.5 0V3.5H6.5v5h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5H5v-5H3.5v.75a.75.75 0 0 1-1.5 0v-1.5Z\"/>";
+            public static Icon TextT { get; } = new Icon("TextT", "Filled", 12, "<path d=\"M2 2.75c0-.41.34-.75.75-.75h6c.41 0 .75.34.75.75v1.5a.75.75 0 0 1-1.5 0V3.5H6.5v5h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5H5v-5H3.5v.75a.75.75 0 0 1-1.5 0v-1.5Z\"/>");
 
             /// <summary />
-            public static string Timer { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M3.5 0a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4ZM1 6.5a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0Zm4 1a.5.5 0 0 0 1 0v-3a.5.5 0 0 0-1 0v3Zm5.85-3.65a.5.5 0 0 1-.7 0l-1-1a.5.5 0 1 1 .7-.7l1 1c.2.2.2.5 0 .7Z\"/>";
+            public static Icon Timer { get; } = new Icon("Timer", "Filled", 12, "<path d=\"M3.5 0a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4ZM1 6.5a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0Zm4 1a.5.5 0 0 0 1 0v-3a.5.5 0 0 0-1 0v3Zm5.85-3.65a.5.5 0 0 1-.7 0l-1-1a.5.5 0 1 1 .7-.7l1 1c.2.2.2.5 0 .7Z\"/>");
 
             /// <summary />
-            public static string Toolbox { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M3 3.5C3 2.67 3.67 2 4.5 2h3C8.33 2 9 2.67 9 3.5V4h.5c.83 0 1.5.67 1.5 1.5V7H8v-.5a.5.5 0 0 0-1 0V7H5v-.5a.5.5 0 0 0-1 0V7H1V5.5C1 4.67 1.67 4 2.5 4H3v-.5ZM4.5 3a.5.5 0 0 0-.5.5V4h4v-.5a.5.5 0 0 0-.5-.5h-3ZM11 8H8v.5a.5.5 0 0 1-1 0V8H5v.5a.5.5 0 0 1-1 0V8H1v1.5c0 .83.67 1.5 1.5 1.5h7c.83 0 1.5-.67 1.5-1.5V8Z\"/>";
+            public static Icon Toolbox { get; } = new Icon("Toolbox", "Filled", 12, "<path d=\"M3 3.5C3 2.67 3.67 2 4.5 2h3C8.33 2 9 2.67 9 3.5V4h.5c.83 0 1.5.67 1.5 1.5V7H8v-.5a.5.5 0 0 0-1 0V7H5v-.5a.5.5 0 0 0-1 0V7H1V5.5C1 4.67 1.67 4 2.5 4H3v-.5ZM4.5 3a.5.5 0 0 0-.5.5V4h4v-.5a.5.5 0 0 0-.5-.5h-3ZM11 8H8v.5a.5.5 0 0 1-1 0V8H5v.5a.5.5 0 0 1-1 0V8H1v1.5c0 .83.67 1.5 1.5 1.5h7c.83 0 1.5-.67 1.5-1.5V8Z\"/>");
 
             /// <summary />
-            public static string Triangle { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M6.79 1.46a.9.9 0 0 0-1.58 0L1.12 8.63A.92.92 0 0 0 1.91 10H10.09c.7 0 1.14-.76.79-1.37l-4.1-7.17Z\"/>";
+            public static Icon Triangle { get; } = new Icon("Triangle", "Filled", 12, "<path d=\"M6.79 1.46a.9.9 0 0 0-1.58 0L1.12 8.63A.92.92 0 0 0 1.91 10H10.09c.7 0 1.14-.76.79-1.37l-4.1-7.17Z\"/>");
 
             /// <summary />
-            public static string TriangleDown { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M5.21 10.54a.9.9 0 0 0 1.58 0l4.09-7.17A.92.92 0 0 0 10.09 2H1.91a.92.92 0 0 0-.79 1.37l4.1 7.17Z\"/>";
+            public static Icon TriangleDown { get; } = new Icon("TriangleDown", "Filled", 12, "<path d=\"M5.21 10.54a.9.9 0 0 0 1.58 0l4.09-7.17A.92.92 0 0 0 10.09 2H1.91a.92.92 0 0 0-.79 1.37l4.1 7.17Z\"/>");
 
             /// <summary />
-            public static string TriangleLeft { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M1.46 5.21a.9.9 0 0 0 0 1.58l7.17 4.09a.92.92 0 0 0 1.37-.79V1.91a.92.92 0 0 0-1.37-.79l-7.17 4.1Z\"/>";
+            public static Icon TriangleLeft { get; } = new Icon("TriangleLeft", "Filled", 12, "<path d=\"M1.46 5.21a.9.9 0 0 0 0 1.58l7.17 4.09a.92.92 0 0 0 1.37-.79V1.91a.92.92 0 0 0-1.37-.79l-7.17 4.1Z\"/>");
 
             /// <summary />
-            public static string TriangleRight { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M10.54 6.79a.9.9 0 0 0 0-1.58L3.37 1.12A.92.92 0 0 0 2 1.91V10.09c0 .7.76 1.14 1.37.79l7.17-4.1Z\"/>";
+            public static Icon TriangleRight { get; } = new Icon("TriangleRight", "Filled", 12, "<path d=\"M10.54 6.79a.9.9 0 0 0 0-1.58L3.37 1.12A.92.92 0 0 0 2 1.91V10.09c0 .7.76 1.14 1.37.79l7.17-4.1Z\"/>");
 
             /// <summary />
-            public static string VideoPerson { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M7.5 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0ZM1 3.5C1 2.67 1.67 2 2.5 2h7c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5h-7A1.5 1.5 0 0 1 1 8.5v-5ZM8 9h1.5a.5.5 0 0 0 .5-.5v-5a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0-.5.5v5c0 .28.22.5.5.5H4v-.5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1V9Z\"/>";
+            public static Icon VideoPerson { get; } = new Icon("VideoPerson", "Filled", 12, "<path d=\"M7.5 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0ZM1 3.5C1 2.67 1.67 2 2.5 2h7c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5h-7A1.5 1.5 0 0 1 1 8.5v-5ZM8 9h1.5a.5.5 0 0 0 .5-.5v-5a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0-.5.5v5c0 .28.22.5.5.5H4v-.5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1V9Z\"/>");
 
             /// <summary />
-            public static string Warning { get; } = "<icon size=\"12\" variant=\"F\" /><path d=\"M5.21 1.46a.9.9 0 0 1 1.58 0l4.09 7.17a.92.92 0 0 1-.79 1.37H1.91a.92.92 0 0 1-.79-1.37l4.1-7.17ZM5.5 4.5v1a.5.5 0 0 0 1 0v-1a.5.5 0 0 0-1 0ZM6 6.75a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Z\"/>";
+            public static Icon Warning { get; } = new Icon("Warning", "Filled", 12, "<path d=\"M5.21 1.46a.9.9 0 0 1 1.58 0l4.09 7.17a.92.92 0 0 1-.79 1.37H1.91a.92.92 0 0 1-.79-1.37l4.1-7.17ZM5.5 4.5v1a.5.5 0 0 0 1 0v-1a.5.5 0 0 0-1 0ZM6 6.75a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Z\"/>");
 
         }
     }

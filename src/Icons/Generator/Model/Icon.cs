@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace Microsoft.Fast.Components.FluentUI.IconsGenerator.Model;
 
@@ -77,11 +78,11 @@ internal class Icon
             return content;
         }
 
-        return content.Replace($"<svg width=\"{Size}\" height=\"{Size}\" viewBox=\"0 0 {Size} {Size}\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">", "")
-                      .Replace($"<svg width=\"{Size}\" height=\"{Size}\" viewBox=\"0 0 {Size} {Size}\" xmlns=\"http://www.w3.org/2000/svg\">", "")
-                      .Replace("</svg>", "")
-                      .Replace("\n", "")
-                      .Replace("\r", "");
+        string pattern = @"<svg\swidth=""\d+""\sheight=""\d+""\sviewBox=""0\s0\s\d+\s\d+""(?:\sfill=""\w+"")?\sxmlns=""http:\/\/www\.w3\.org\/2000\/svg"">";
+        return Regex.Replace(content, pattern, string.Empty)
+                    .Replace("</svg>", "")
+                    .Replace("\n", "")
+                    .Replace("\r", "");
     }
 
     /// <summary />

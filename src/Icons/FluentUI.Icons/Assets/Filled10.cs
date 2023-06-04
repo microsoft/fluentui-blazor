@@ -17,16 +17,16 @@ public static partial class Icons
         public static partial class Size10
         {
             /// <summary />
-            public static string PresenceAvailable { get; } = "<icon size=\"10\" variant=\"F\" /><path d=\"M5 10A5 5 0 1 0 5 0a5 5 0 0 0 0 10Zm2.1-5.9L4.85 6.35a.5.5 0 0 1-.7 0l-1-1a.5.5 0 0 1 .7-.7l.65.64 1.9-1.9a.5.5 0 0 1 .7.71Z\"/>";
+            public static Icon PresenceAvailable { get; } = new Icon("PresenceAvailable", "Filled", 10, "<path d=\"M5 10A5 5 0 1 0 5 0a5 5 0 0 0 0 10Zm2.1-5.9L4.85 6.35a.5.5 0 0 1-.7 0l-1-1a.5.5 0 0 1 .7-.7l.65.64 1.9-1.9a.5.5 0 0 1 .7.71Z\"/>");
 
             /// <summary />
-            public static string PresenceAway { get; } = "<icon size=\"10\" variant=\"F\" /><path d=\"M5 10A5 5 0 1 0 5 0a5 5 0 0 0 0 10Zm0-7v1.8l1.35 1.35a.5.5 0 1 1-.7.7l-1.5-1.5A.5.5 0 0 1 4 5V3a.5.5 0 0 1 1 0Z\"/>";
+            public static Icon PresenceAway { get; } = new Icon("PresenceAway", "Filled", 10, "<path d=\"M5 10A5 5 0 1 0 5 0a5 5 0 0 0 0 10Zm0-7v1.8l1.35 1.35a.5.5 0 1 1-.7.7l-1.5-1.5A.5.5 0 0 1 4 5V3a.5.5 0 0 1 1 0Z\"/>");
 
             /// <summary />
-            public static string PresenceBusy { get; } = "<icon size=\"10\" variant=\"F\" /><path d=\"M10 5A5 5 0 1 1 0 5a5 5 0 0 1 10 0Z\"/>";
+            public static Icon PresenceBusy { get; } = new Icon("PresenceBusy", "Filled", 10, "<path d=\"M10 5A5 5 0 1 1 0 5a5 5 0 0 1 10 0Z\"/>");
 
             /// <summary />
-            public static string PresenceDnd { get; } = "<icon size=\"10\" variant=\"F\" /><path d=\"M5 10A5 5 0 1 0 5 0a5 5 0 0 0 0 10ZM3.5 4.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1 0-1Z\"/>";
+            public static Icon PresenceDnd { get; } = new Icon("PresenceDnd", "Filled", 10, "<path d=\"M5 10A5 5 0 1 0 5 0a5 5 0 0 0 0 10ZM3.5 4.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1 0-1Z\"/>");
 
         }
     }

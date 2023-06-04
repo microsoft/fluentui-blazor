@@ -4,16 +4,19 @@ using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
+/// <summary>
+/// FluentSystemIcon is a component that renders an icon from the Fluent System icon set.
+/// </summary>
 public partial class FluentSystemIcon : FluentComponentBase
 {
-    private string _icon = string.Empty;
+    private Icon _icon;
 
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
         .Build();
 
     /// <summary />
-    protected string? StyleValue => new StyleBuilder()        
+    protected string? StyleValue => new StyleBuilder()
         .AddStyle("width", $"{Size}px", Size.HasValue && Size.Value > 0)
         .AddStyle("fill", Color == FluentUI.Color.Custom ? CustomColor : Color.ToAttributeValue())
         .AddStyle("cursor", "pointer", OnClick.HasDelegate)
@@ -24,7 +27,7 @@ public partial class FluentSystemIcon : FluentComponentBase
     /// Icon to be used can either be svg paths.
     /// </summary>
     [Parameter]
-    public string Icon
+    public Icon Icon
     {
         get
         {
@@ -36,8 +39,7 @@ public partial class FluentSystemIcon : FluentComponentBase
 
             if (Size == null)
             {
-                var iconDetails = value.ExtractSystemIconDetails();
-                Size = iconDetails.Size > 0 ? iconDetails.Size : null;
+                Size = _icon.Size;
             }
         }
     }
@@ -82,7 +84,7 @@ public partial class FluentSystemIcon : FluentComponentBase
     public EventCallback<MouseEventArgs> OnClick { get; set; }
 
     /// <summary />
-    protected Task OnClickHandlerAsync(MouseEventArgs e)
+    protected virtual Task OnClickHandlerAsync(MouseEventArgs e)
     {
         if (OnClick.HasDelegate)
         {
@@ -92,11 +94,21 @@ public partial class FluentSystemIcon : FluentComponentBase
         return Task.CompletedTask;
     }
 
+    /// <summary />
     protected override void OnParametersSet()
     {
         if (!string.IsNullOrEmpty(CustomColor) && Color != FluentUI.Color.Custom)
         {
             throw new ArgumentException("CustomColor can only be used when Color is set to Color.Custom.");
         }
+    }
+
+    /// <summary>
+    /// Returns true if the icon contains a SVG content.
+    /// </summary>
+    /// <returns></returns>
+    private bool IsSvgIcon()
+    {
+        return !string.IsNullOrEmpty(Icon.Content) && Icon.Content.StartsWith("<", StringComparison.OrdinalIgnoreCase);
     }
 }

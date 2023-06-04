@@ -146,11 +146,11 @@ internal class CodeGenerator
 
         // Dictionary
         builder.AppendLine("    /// <summary />");
-        builder.AppendLine("    public static IReadOnlyDictionary<string, string> AllIcons { get; } = new Dictionary<string, string>()");
+        builder.AppendLine("    public static IEnumerable<Icon> AllIcons { get; } = new List<Icon>()");
         builder.AppendLine("    {");
         foreach (var icon in icons)
         {
-            builder.AppendLine($"        {{ \"{icon.Key}\", {Configuration.Namespace}.Icons.{icon.Variant}.Size{icon.Size}.{icon.Name} }},");
+            builder.AppendLine($"        {Configuration.Namespace}.Icons.{icon.Variant}.Size{icon.Size}.{icon.Name},");
         }
         builder.AppendLine("    };");
         builder.AppendLine("}");
@@ -214,7 +214,7 @@ internal class CodeGenerator
             if (isResx)
             {
                 builder.AppendLine($"            /// <summary />");
-                builder.AppendLine($"            public static string {icon.Name} {{ get; }} = ResourceManager.GetString(\"{icon.Name}\");");
+                builder.AppendLine($"            public static Icon {icon.Name} {{ get; }} = new Icon(\"{icon.Name}\", \"{variant}\", {size}, ResourceManager.GetString(\"{icon.Name}\"));");
                 builder.AppendLine();
             }
             else
@@ -223,7 +223,7 @@ internal class CodeGenerator
                                      .Replace("\"", "\\\"");
 
                 builder.AppendLine($"            /// <summary />");
-                builder.AppendLine($"            public static string {icon.Name} {{ get; }} = \"<icon size=\\\"{size}\\\" variant=\\\"{variant[0]}\\\" />{svgContent}\";");
+                builder.AppendLine($"            public static Icon {icon.Name} {{ get; }} = new Icon(\"{icon.Name}\", \"{variant}\", {size}, \"{svgContent}\");");
                 builder.AppendLine();
             }
         }

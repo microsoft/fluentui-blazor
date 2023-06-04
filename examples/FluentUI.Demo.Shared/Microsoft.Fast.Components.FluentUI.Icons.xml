@@ -16,12 +16,468 @@
             <summary />
             <summary />
             <summary />
+            <summary />
+            <summary />
+            <summary />
+            <summary />
+            <summary />
+            <summary />
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.Icons.Filled">
             <summary />
             <summary />
             <summary />
             <summary />
+            <summary />
+            <summary />
+            <summary />
+            <summary />
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size10">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size10.PresenceAvailable">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size10.PresenceAway">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size10.PresenceBusy">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size10.PresenceDnd">
+            <summary />
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Add">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.AddCircle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Alert">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.AlertSnooze">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.ArrowBidirectionalUpDown">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.ArrowCircleDown">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.ArrowCircleLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.ArrowCircleRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.ArrowCircleUp">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.ArrowClockwise">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.ArrowCounterclockwise">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.ArrowDown">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.ArrowLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.ArrowNext">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.ArrowPrevious">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.ArrowRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.ArrowStepIn">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.ArrowStepInLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.ArrowStepInRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.ArrowStepOut">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.ArrowSync">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.ArrowSyncOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.ArrowTrending">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.ArrowUp">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Attach">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Backpack">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Balloon">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.BezierCurveSquare">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Briefcase">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.CalendarLtr">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.CalendarRtl">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Call">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.CallMissed">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.CaretDown">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.CaretDownRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.CaretLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.CaretRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.CaretUp">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.ChannelShare">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Chat">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.ChatEmpty">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.CheckboxUnchecked">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Checkmark">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.CheckmarkCircle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.ChevronCircleDown">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.ChevronCircleLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.ChevronCircleRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.ChevronCircleUp">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.ChevronDown">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.ChevronLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.ChevronRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.ChevronUp">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Circle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.CircleHalfFill">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.CircleLine">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Clock">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Comment">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.CommentAdd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.CommentArrowLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.CommentArrowRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.CommentCheckmark">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Couch">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Cube">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Delete">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Dentist">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Dismiss">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.DismissCircle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Doctor">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Drop">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.EqualOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.ErrorCircle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Eye">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Filter">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.FoodCake">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Glance">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.GlanceDefault">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.GlanceHorizontal">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.HatGraduation">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Heart">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Home">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Important">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Info">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Link">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.LinkSquare">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Location">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.LocationArrow">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.LockClosed">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Mail">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.MailUnread">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Mention">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.MicOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.MyLocation">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Notepad">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Organization">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Pause">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.People">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Person">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.PersonCircle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Phone">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Pin">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Play">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Premium">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.PresenceAvailable">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.PresenceAway">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.PresenceBusy">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.PresenceDnd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Prohibited">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.QuestionCircle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Record">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.RecordStop">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.RectangleLandscape">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Reward">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Ribbon">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.RibbonOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.ScanDash">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Search">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Shield">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.SlashForward">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.SplitHorizontal">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.SplitVertical">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Square">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.SquareShadow">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Star">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.StarHalf">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.StarOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.StarOneQuarter">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.StarThreeQuarter">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Status">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Sticker">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Subtract">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.SubtractCircle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Tablet">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Tent">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Text">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.TextT">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Timer">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Toolbox">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Triangle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.TriangleDown">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.TriangleLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.TriangleRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.VideoPerson">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size12.Warning">
             <summary />
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size16">
@@ -16686,6 +17142,1641 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size24.ZoomOut">
             <summary />
         </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Accessibility">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.AccessibilityCheckmark">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Add">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.AddCircle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.AddSubtractCircle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Alert">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.AlertOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.AlignBottom">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.AlignCenterHorizontal">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.AlignCenterVertical">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.AlignLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.AlignRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.AlignTop">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.AnimalCat">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.AnimalRabbit">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.AnimalTurtle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.AppFolder">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ApprovalsApp">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Apps">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.AppsAddIn">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Archive">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ArchiveArrowBack">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ArchiveSettings">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ArrowCircleDown">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ArrowCircleLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ArrowCircleRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ArrowCircleUp">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ArrowClockwise">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ArrowCounterclockwise">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ArrowCurveDownLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ArrowDown">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ArrowForward">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ArrowHookDownLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ArrowHookDownRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ArrowHookUpLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ArrowHookUpRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ArrowLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ArrowMaximize">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ArrowMinimize">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ArrowRedo">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ArrowReply">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ArrowReplyAll">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ArrowRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ArrowShuffle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ArrowShuffleOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ArrowSort">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ArrowStepIn">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ArrowStepInLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ArrowStepInRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ArrowStepOut">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ArrowUndo">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ArrowUp">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Backpack">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.BackpackAdd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Beach">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Bluetooth">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Blur">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Board">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.BoardSplit">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.BookContacts">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Bookmark">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.BookmarkMultiple">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.BookOpen">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.BookOpenMicrophone">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.BowlChopsticks">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Braces">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.BreakoutRoom">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Briefcase">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.BriefcaseOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.BrightnessHigh">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.BrightnessLow">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Broom">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.BuildingBank">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.BuildingBankLink">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.BuildingFactory">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Calendar3Day">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CalendarAdd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CalendarAgenda">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CalendarArrowCounterclockwise">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CalendarCheckmark">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CalendarDataBar">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CalendarDay">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CalendarEmpty">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CalendarLock">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CalendarLtr">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CalendarMonth">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CalendarMultiple">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CalendarPlay">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CalendarReply">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CalendarRtl">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CalendarSettings">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CalendarShield">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CalendarToday">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CalendarWeekStart">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CalendarWorkWeek">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Call">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CallEnd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CallForward">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CallInbound">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CallMissed">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CallOutbound">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CallPark">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CallProhibited">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Camera">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CameraDome">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Cast">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Channel">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ChannelAdd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ChannelAlert">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ChannelArrowLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ChannelDismiss">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ChannelShare">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ChannelSubtract">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ChartPerson">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Chat">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ChatAdd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ChatBubblesQuestion">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ChatEmpty">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ChatMultiple">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ChatMultipleHeart">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ChatSparkle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Checkmark">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ChevronCircleDown">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ChevronCircleLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ChevronCircleRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ChevronCircleUp">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ChevronDown">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ChevronLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ChevronRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ChevronUp">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Circle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CircleImage">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Clock">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ClosedCaption">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ClosedCaptionOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Cloud">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CloudArchive">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CloudArrowDown">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CloudArrowUp">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CloudCheckmark">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CloudDismiss">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CloudError">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CloudOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CloudSync">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CloudWords">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Clover">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CodeBlock">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ColorFill">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Comment">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CommentAdd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CommentArrowLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CommentArrowRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CommentCheckmark">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CommentLink">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CommentMultiple">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CommentMultipleCheckmark">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CommentMultipleLink">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CommentOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CompassNorthwest">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Compose">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ConferenceRoom">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ContactCard">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ContactCardGroup">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ContactCardRibbon">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ContentView">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ContentViewGallery">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ContractDownLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CreditCardClock">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Crop">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CubeQuick">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CursorHover">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.CursorHoverOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.DataTrending">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Delete">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.DeleteDismiss">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Dentist">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Desktop">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.DesktopCursor">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.DesktopKeyboard">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.DesktopPulse">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.DeviceMeetingRoom">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.DeviceMeetingRoomRemote">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Dialpad">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Diamond">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Dismiss">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.DismissCircle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Diversity">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Doctor">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Document">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.DocumentAdd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.DocumentArrowLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.DocumentLock">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.DocumentMention">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.DocumentPrint">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.DocumentRibbon">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Door">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.DoorArrowRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Drop">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Dumbbell">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Edit">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.EditOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.EditProhibited">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Emoji">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.EmojiEdit">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.EmojiHand">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.EmojiSparkle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ExpandUpLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ExpandUpRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Eye">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.EyeLines">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.FastForward">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Feed">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Filter">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Flag">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.FlagClock">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.FlagOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.FlagPride">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Flash">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.FlashCheckmark">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.FlipHorizontal">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.FlipVertical">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Folder">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.FolderAdd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.FolderArrowLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.FolderArrowRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.FolderArrowUp">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.FolderLink">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.FolderMail">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.FolderProhibited">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.FontSpaceTrackingIn">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.FontSpaceTrackingOut">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Form">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.FormMultiple">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.FormNew">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Fps30">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Fps60">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.FStop">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Games">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Glasses">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.GlassesOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.GlobeVideo">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Grid">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.GridCircles">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.GridDots">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Guardian">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Guest">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Guitar">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.HandDraw">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.HandLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.HandLeftChat">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.HandRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Headphones">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.HeadphonesSoundWave">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Headset">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Heart">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.HeartCircleHint">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.History">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.HistoryDismiss">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Home">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Image">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ImageBorder">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ImageCircle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ImageCopy">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ImageMultiple">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ImageTable">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ImmersiveReader">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Info">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.InprivateAccount">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Laptop">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Lasso">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Library">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Lightbulb">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.LightbulbPerson">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Link">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.List">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.LocalLanguage">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.LocalLanguageEn">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.LocalLanguageKo">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Location">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.LocationArrow">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.LocationOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.LockOpen">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Luggage">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Mail">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.MailAlert">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.MailAllRead">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.MailAttach">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.MailDismiss">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.MailInbox">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.MailInboxAdd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.MailInboxCheckmark">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.MailInboxDismiss">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.MailList">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.MailMultiple">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.MailProhibited">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.MailRead">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.MailReadMultiple">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.MailUnread">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.MathSymbols">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Maximize">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.MeetNow">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Megaphone">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.MegaphoneLoud">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.MegaphoneOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Mic">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.MicOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.MicProhibited">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.MicPulse">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.MicPulseOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Molecule">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.MoreCircle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.MoreHorizontal">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.MoreVertical">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.MountainLocationBottom">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.MountainLocationTop">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.MountainTrail">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Multiplier12x">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Multiplier15x">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Multiplier18x">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Multiplier1x">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Multiplier2x">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Multiplier5x">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.News">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Next">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Note">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.NoteAdd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Notepad">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.NumberSymbol">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Open">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.OpenFolder">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.OpenOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Organization">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Oval">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PanelLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PanelLeftAdd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PanelLeftContract">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PanelLeftExpand">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PanelLeftFocusRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PanelLeftHeader">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PanelLeftHeaderAdd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PanelRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Pause">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Payment">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Pen">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PenDismiss">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PenOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PenProhibited">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.People">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PeopleAdd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PeopleCommunity">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PeopleCommunityAdd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PeopleList">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PeopleSettings">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PeopleStar">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PeopleSwap">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PeopleSync">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PeopleTeam">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PeopleTeamDelete">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Person">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PersonAdd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PersonArrowBack">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PersonBoard">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PersonCircle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PersonFeedback">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PersonLink">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PersonMail">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PersonProhibited">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PersonStar">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PersonSync">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PersonTag">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Phone">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PhoneChat">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PhoneDesktop">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PhoneSpanIn">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PhoneSpanOut">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Pill">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Pin">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PinOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Play">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PlayCircle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PlugDisconnected">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Power">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Premium">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Previous">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Print">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Prohibited">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ProjectionScreen">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ProjectionScreenDismiss">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Pulse">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.PuzzleCube">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.QrCode">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Question">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.QuestionCircle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.QuizNew">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ReadAloud">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ReadingList">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ReadingListAdd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Receipt">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Record">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.RecordStop">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.RectangleLandscape">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Rename">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Rewind">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Rhombus">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.RoadCone">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Ruler">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Save">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ScanCamera">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ScanDash">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ScanText">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ScanThumbUp">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ScanThumbUpOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Search">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Send">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.SendBeaker">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Settings">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Shapes">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Share">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ShareIos">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ShareScreenPerson">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ShareScreenPersonOverlay">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ShareScreenPersonOverlayInside">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ShareScreenPersonP">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ShareScreenStart">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ShareScreenStop">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Shield">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ShieldCheckmark">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ShieldLock">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ShieldTask">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Shifts">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Signature">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.SkipBack10">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.SkipForward10">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.SkipForward30">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.SlideAdd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.SlideSearch">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.SlideText">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.SlideTextPerson">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.SlideTextSparkle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.SoundSource">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Space3d">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Sparkle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.SparkleCircle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Speaker0">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Speaker1">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Speaker2">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.SpeakerBluetooth">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.SpeakerMute">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.SpeakerOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.SpeakerSettings">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.SpeakerUsb">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.SplitHorizontal">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.SplitVertical">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Square">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.SquareArrowForward">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.SquareHint">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.SquareHintSparkles">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.SquareMultiple">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Star">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.StarAdd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.StarDismiss">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.StarHalf">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.StarOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.StarOneQuarter">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.StarThreeQuarter">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Subtract">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.SubtractCircle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Tab">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TabInPrivate">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Table">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TableAdd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TableBottomRow">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TableCellEdit">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TableCellsMerge">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TableCellsSplit">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TableDeleteColumn">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TableDeleteRow">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TableDismiss">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TableEdit">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TableFreezeColumn">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TableFreezeColumnAndRow">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TableFreezeRow">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TableInsertColumn">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TableInsertRow">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TableLightning">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TableLink">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TableLock">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TableMoveAbove">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TableMoveBelow">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TableMoveLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TableMoveRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TableResizeColumn">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TableResizeRow">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TableSettings">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TableSimple">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TableSimpleCheckmark">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TableStackAbove">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TableStackBelow">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TableStackLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TableStackRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TableSwitch">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Tag">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TasksApp">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Tent">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TetrisApp">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TextDensity">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TextT">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ThumbLike">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TicketDiagonal">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Timer">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ToggleLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.ToggleRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Toolbox">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Trophy">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TrophyLock">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TrophyOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Tv">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.TvUsb">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.VehicleCab">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.VehicleCableCar">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.VehicleCar">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.VehicleCarCollision">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Video">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.VideoBackgroundEffect">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.VideoBackgroundEffectHorizontal">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.VideoChat">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.VideoClip">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.VideoOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.VideoPerson">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.VideoPersonClock">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.VideoPersonSparkle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.VideoProhibited">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Voicemail">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.WalkieTalkie">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Wallet">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Wand">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Warning">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.WeatherMoon">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.WeatherMoonOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.WeatherSunny">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.Window">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.WindowApps">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.WindowWrench">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size28.XboxController">
+            <summary />
+        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.Icons.Filled.Size32">
             <summary />
         </member>
@@ -19118,6 +21209,474 @@
             <summary />
             <summary />
             <summary />
+            <summary />
+            <summary />
+            <summary />
+            <summary />
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size10">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size10.PresenceAvailable">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size10.PresenceAway">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size10.PresenceBlocked">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size10.PresenceDnd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size10.PresenceOffline">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size10.PresenceOof">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size10.PresenceUnknown">
+            <summary />
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Add">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.AddCircle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Alert">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.AlertSnooze">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.ArrowBidirectionalUpDown">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.ArrowCircleDown">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.ArrowCircleLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.ArrowCircleRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.ArrowCircleUp">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.ArrowClockwise">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.ArrowCounterclockwise">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.ArrowDown">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.ArrowLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.ArrowNext">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.ArrowPrevious">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.ArrowRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.ArrowStepIn">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.ArrowStepInLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.ArrowStepInRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.ArrowStepOut">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.ArrowSync">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.ArrowSyncOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.ArrowTrending">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.ArrowUp">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Attach">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Backpack">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Balloon">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.BezierCurveSquare">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Briefcase">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.CalendarLtr">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.CalendarRtl">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Call">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.CallMissed">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.CaretDown">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.CaretDownRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.CaretLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.CaretRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.CaretUp">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.ChannelShare">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Chat">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.ChatEmpty">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.CheckboxUnchecked">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Checkmark">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.CheckmarkCircle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.ChevronCircleDown">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.ChevronCircleLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.ChevronCircleRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.ChevronCircleUp">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.ChevronDown">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.ChevronLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.ChevronRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.ChevronUp">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Circle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.CircleHalfFill">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.CircleLine">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Clock">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Comment">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.CommentAdd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.CommentArrowLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.CommentArrowRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.CommentCheckmark">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Couch">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Cube">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Delete">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Dentist">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Dismiss">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.DismissCircle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Doctor">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Drop">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.EqualOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.ErrorCircle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Eye">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Filter">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.FoodCake">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Glance">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.GlanceDefault">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.GlanceHorizontal">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.HatGraduation">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Heart">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Home">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Important">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Info">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Link">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.LinkSquare">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Location">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.LocationArrow">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.LockClosed">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Mail">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.MailUnread">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Mention">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.MicOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.MyLocation">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Notepad">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Organization">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Pause">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.People">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Person">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.PersonCircle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Phone">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Pin">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Play">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Premium">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.PresenceAvailable">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.PresenceAway">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.PresenceBlocked">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.PresenceDnd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.PresenceOffline">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.PresenceOof">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.PresenceUnknown">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Prohibited">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.QuestionCircle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Record">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.RecordStop">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.RectangleLandscape">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Reward">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Ribbon">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.RibbonOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.ScanDash">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Search">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Shield">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.SlashForward">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.SplitHorizontal">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.SplitVertical">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Square">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.SquareShadow">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Star">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.StarHalf">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.StarOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.StarOneQuarter">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.StarThreeQuarter">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Status">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Sticker">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Subtract">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.SubtractCircle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Tablet">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Tent">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Text">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.TextT">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Timer">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Toolbox">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Triangle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.TriangleDown">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.TriangleLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.TriangleRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.VideoPerson">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size12.Warning">
             <summary />
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size16">
@@ -35779,6 +38338,1638 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size24.ZoomOut">
             <summary />
         </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Accessibility">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.AccessibilityCheckmark">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Add">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.AddCircle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.AddSubtractCircle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Alert">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.AlertOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.AlignBottom">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.AlignCenterHorizontal">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.AlignCenterVertical">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.AlignLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.AlignRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.AlignTop">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.AnimalCat">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.AnimalRabbit">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.AnimalTurtle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.AppFolder">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ApprovalsApp">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Apps">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.AppsAddIn">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Archive">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ArchiveArrowBack">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ArchiveSettings">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ArrowCircleDown">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ArrowCircleLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ArrowCircleRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ArrowCircleUp">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ArrowClockwise">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ArrowCounterclockwise">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ArrowCurveDownLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ArrowDown">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ArrowForward">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ArrowHookDownLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ArrowHookDownRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ArrowHookUpLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ArrowHookUpRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ArrowLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ArrowMaximize">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ArrowMinimize">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ArrowRedo">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ArrowReply">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ArrowReplyAll">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ArrowRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ArrowShuffle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ArrowShuffleOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ArrowSort">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ArrowStepIn">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ArrowStepInLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ArrowStepInRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ArrowStepOut">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ArrowUndo">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ArrowUp">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Backpack">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.BackpackAdd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Beach">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Bluetooth">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Blur">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Board">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.BoardSplit">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.BookContacts">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Bookmark">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.BookmarkMultiple">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.BookOpen">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.BookOpenMicrophone">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.BowlChopsticks">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Braces">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.BreakoutRoom">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Briefcase">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.BriefcaseOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.BrightnessHigh">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.BrightnessLow">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Broom">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.BuildingBank">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.BuildingBankLink">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.BuildingFactory">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Calendar3Day">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CalendarAdd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CalendarAgenda">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CalendarArrowCounterclockwise">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CalendarCheckmark">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CalendarDataBar">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CalendarDay">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CalendarEmpty">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CalendarLock">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CalendarLtr">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CalendarMonth">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CalendarMultiple">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CalendarPlay">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CalendarReply">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CalendarRtl">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CalendarSettings">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CalendarShield">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CalendarToday">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CalendarWeekStart">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CalendarWorkWeek">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Call">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CallEnd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CallForward">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CallInbound">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CallMissed">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CallOutbound">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CallPark">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CallProhibited">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Camera">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CameraDome">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Cast">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Channel">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ChannelAdd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ChannelAlert">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ChannelArrowLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ChannelDismiss">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ChannelShare">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ChannelSubtract">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ChartPerson">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Chat">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ChatAdd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ChatBubblesQuestion">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ChatEmpty">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ChatMultiple">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ChatMultipleHeart">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ChatSparkle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Checkmark">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ChevronCircleDown">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ChevronCircleLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ChevronCircleRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ChevronCircleUp">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ChevronDown">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ChevronLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ChevronRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ChevronUp">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Circle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CircleImage">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Clock">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ClosedCaption">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ClosedCaptionOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Cloud">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CloudArchive">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CloudArrowDown">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CloudArrowUp">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CloudCheckmark">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CloudDismiss">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CloudError">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CloudOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CloudSync">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CloudWords">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Clover">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CodeBlock">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ColorFill">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ColorFillAccent">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Comment">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CommentAdd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CommentArrowLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CommentArrowRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CommentCheckmark">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CommentLink">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CommentMultiple">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CommentMultipleCheckmark">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CommentMultipleLink">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CommentOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CompassNorthwest">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Compose">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ConferenceRoom">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ContactCard">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ContactCardGroup">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ContactCardRibbon">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ContentView">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ContentViewGallery">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ContractDownLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CreditCardClock">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Crop">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CubeQuick">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CursorHover">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.CursorHoverOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.DataTrending">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Delete">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.DeleteDismiss">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Dentist">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Desktop">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.DesktopCursor">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.DesktopKeyboard">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.DesktopPulse">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.DeviceMeetingRoom">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.DeviceMeetingRoomRemote">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Dialpad">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Diamond">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Dismiss">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.DismissCircle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Diversity">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Doctor">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Document">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.DocumentAdd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.DocumentArrowLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.DocumentLock">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.DocumentMention">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.DocumentPrint">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.DocumentRibbon">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Door">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.DoorArrowRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Drop">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Dumbbell">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Edit">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.EditOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.EditProhibited">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Emoji">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.EmojiEdit">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.EmojiHand">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.EmojiSparkle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ExpandUpLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ExpandUpRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Eye">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.EyeLines">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.FastForward">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Feed">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Filter">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Flag">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.FlagClock">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.FlagOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Flash">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.FlashCheckmark">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.FlipHorizontal">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.FlipVertical">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Folder">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.FolderAdd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.FolderArrowLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.FolderArrowRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.FolderArrowUp">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.FolderLink">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.FolderMail">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.FolderProhibited">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.FontSpaceTrackingIn">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.FontSpaceTrackingOut">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Form">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.FormMultiple">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.FormNew">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Fps30">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Fps60">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.FStop">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Games">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Glasses">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.GlassesOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.GlobeVideo">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Grid">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.GridCircles">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.GridDots">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Guardian">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Guest">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Guitar">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.HandDraw">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.HandLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.HandLeftChat">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.HandRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Headphones">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.HeadphonesSoundWave">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Headset">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Heart">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.HeartCircleHint">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.History">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.HistoryDismiss">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Home">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Image">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ImageBorder">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ImageCircle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ImageCopy">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ImageMultiple">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ImageTable">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ImmersiveReader">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Info">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.InprivateAccount">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Laptop">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Lasso">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Library">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Lightbulb">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.LightbulbPerson">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Link">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.List">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.LocalLanguage">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.LocalLanguageEn">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.LocalLanguageKo">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Location">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.LocationArrow">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.LocationOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.LockOpen">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Luggage">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Mail">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.MailAlert">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.MailAllRead">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.MailAttach">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.MailDismiss">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.MailInbox">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.MailInboxAdd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.MailInboxCheckmark">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.MailInboxDismiss">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.MailList">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.MailMultiple">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.MailProhibited">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.MailRead">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.MailReadMultiple">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.MailUnread">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.MathSymbols">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Maximize">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.MeetNow">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Megaphone">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.MegaphoneLoud">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.MegaphoneOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Mic">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.MicOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.MicProhibited">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.MicPulse">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.MicPulseOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Molecule">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.MoreCircle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.MoreHorizontal">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.MoreVertical">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.MountainLocationBottom">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.MountainLocationTop">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.MountainTrail">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Multiplier12x">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Multiplier15x">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Multiplier18x">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Multiplier1x">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Multiplier2x">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Multiplier5x">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.News">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Next">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Note">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.NoteAdd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Notepad">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.NumberSymbol">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Open">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.OpenFolder">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.OpenOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Organization">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Oval">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PanelLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PanelLeftAdd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PanelLeftContract">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PanelLeftExpand">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PanelLeftHeader">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PanelLeftHeaderAdd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PanelRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Pause">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Payment">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Pen">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PenDismiss">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PenOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PenProhibited">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.People">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PeopleAdd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PeopleCommunity">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PeopleCommunityAdd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PeopleList">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PeopleSettings">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PeopleStar">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PeopleSwap">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PeopleSync">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PeopleTeam">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PeopleTeamDelete">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Person">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PersonAdd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PersonArrowBack">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PersonBoard">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PersonCircle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PersonFeedback">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PersonLink">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PersonMail">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PersonProhibited">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PersonStar">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PersonSync">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PersonTag">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Phone">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PhoneChat">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PhoneDesktop">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PhoneSpanIn">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PhoneSpanOut">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Pill">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Pin">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PinOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Play">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PlayCircle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PlugDisconnected">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Power">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Premium">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Previous">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Print">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Prohibited">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ProjectionScreen">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ProjectionScreenDismiss">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Pulse">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.PuzzleCube">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.QrCode">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Question">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.QuestionCircle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.QuizNew">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ReadAloud">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ReadingList">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ReadingListAdd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Receipt">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Record">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.RecordStop">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.RectangleLandscape">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Rename">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Rewind">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Rhombus">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.RoadCone">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Ruler">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Save">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ScanCamera">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ScanDash">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ScanText">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ScanThumbUp">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ScanThumbUpOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Search">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Send">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.SendBeaker">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Settings">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Shapes">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Share">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ShareIos">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ShareScreenPerson">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ShareScreenPersonOverlay">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ShareScreenPersonOverlayInside">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ShareScreenPersonP">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ShareScreenStart">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ShareScreenStop">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Shield">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ShieldCheckmark">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ShieldLock">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ShieldTask">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Shifts">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Signature">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.SkipBack10">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.SkipForward10">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.SkipForward30">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.SlideAdd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.SlideSearch">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.SlideText">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.SlideTextPerson">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.SlideTextSparkle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.SoundSource">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Space3d">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Sparkle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.SparkleCircle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Speaker0">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Speaker1">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Speaker2">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.SpeakerBluetooth">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.SpeakerMute">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.SpeakerOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.SpeakerSettings">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.SpeakerUsb">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.SplitHorizontal">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.SplitVertical">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Square">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.SquareArrowForward">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.SquareHint">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.SquareHintSparkles">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.SquareMultiple">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Star">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.StarAdd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.StarDismiss">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.StarHalf">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.StarOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.StarOneQuarter">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.StarThreeQuarter">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Subtract">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.SubtractCircle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Tab">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TabInPrivate">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Table">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TableAdd">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TableBottomRow">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TableCellEdit">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TableCellsMerge">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TableCellsSplit">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TableDeleteColumn">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TableDeleteRow">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TableDismiss">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TableEdit">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TableFreezeColumn">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TableFreezeColumnAndRow">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TableFreezeRow">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TableInsertColumn">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TableInsertRow">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TableLightning">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TableLink">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TableLock">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TableMoveAbove">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TableMoveBelow">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TableMoveLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TableMoveRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TableResizeColumn">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TableResizeRow">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TableSettings">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TableSimple">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TableSimpleCheckmark">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TableStackAbove">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TableStackBelow">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TableStackLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TableStackRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TableSwitch">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Tag">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TasksApp">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Tent">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TetrisApp">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TextDensity">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TextT">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ThumbLike">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TicketDiagonal">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Timer">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ToggleLeft">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.ToggleRight">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Toolbox">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Trophy">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TrophyLock">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TrophyOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Tv">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.TvUsb">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.VehicleCab">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.VehicleCableCar">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.VehicleCar">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.VehicleCarCollision">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Video">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.VideoBackgroundEffect">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.VideoBackgroundEffectHorizontal">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.VideoChat">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.VideoClip">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.VideoOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.VideoPerson">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.VideoPersonClock">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.VideoPersonSparkle">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.VideoProhibited">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Voicemail">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.WalkieTalkie">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Wallet">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Wand">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Warning">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.WeatherMoon">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.WeatherMoonOff">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.WeatherSunny">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.Window">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.WindowApps">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.WindowWrench">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size28.XboxController">
+            <summary />
+        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size32">
             <summary />
         </member>
@@ -38194,6 +42385,11 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.Icons.Regular.Size48.XboxControllerError">
             <summary />
         </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.FluentSystemIcon">
+            <summary>
+            FluentSystemIcon is a component that renders an icon from the Fluent System icon set.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemIcon.ClassValue">
             <summary />
         </member>
@@ -38233,11 +42429,6 @@
             Gets or sets the icon size, used to create the viewbox, width and height attributes.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemIcon.ChildContent">
-            <summary>
-            Child content of component.
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemIcon.OnClick">
             <summary>
             Allows for capturing a mouse click on an icon
@@ -38246,19 +42437,48 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentSystemIcon.OnClickHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
             <summary />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IconsExtensions.IsSystemIcon(System.String)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentSystemIcon.OnParametersSet">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentSystemIcon.IsSvgIcon">
             <summary>
-            Returns true if the icon is a system icon.
+            Returns true if the icon contains a SVG content.
             </summary>
-            <param name="icon"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IconsExtensions.ExtractSystemIconDetails(System.String)">
+        <member name="T:Microsoft.Fast.Components.FluentUI.Icon">
             <summary>
-            Extract the size and variant from the System Icon string.
+            FluentUI Icon content.
             </summary>
-            <param name="icon"></param>
-            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Icon.#ctor(System.String,System.String,System.Int32,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Fast.Components.FluentUI.Icon"/> class.
+            </summary>
+            <param name="name"><see cref="P:Microsoft.Fast.Components.FluentUI.Icon.Name"/></param>
+            <param name="variant"><see cref="P:Microsoft.Fast.Components.FluentUI.Icon.Variant"/></param>
+            <param name="size"><see cref="P:Microsoft.Fast.Components.FluentUI.Icon.Size"/></param>
+            <param name="content"><see cref="P:Microsoft.Fast.Components.FluentUI.Icon.Content"/></param>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icon.Name">
+            <summary>
+            Gets the name of the icon: AddCircle, Accessibility, etc.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icon.Size">
+            <summary>
+            Gets the size of the icon: 20, 24, etc.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icon.Variant">
+            <summary>
+            Gets the variant of the icon: Filled, Regular.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icon.Content">
+            <summary>
+            Gets the content of the icon: SVG path.
+            </summary>
         </member>
     </members>
 </doc>
