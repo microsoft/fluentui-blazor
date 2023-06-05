@@ -40,12 +40,13 @@ public partial class MarkdownSection : FluentComponentBase
             _content = value;
             HtmlContent = ConvertToMarkupString(_content);
 
+
             if (OnContentConverted.HasDelegate)
             {
                 OnContentConverted.InvokeAsync();
             }
             _raiseContentConverted = true;
-           StateHasChanged();
+            StateHasChanged();
         }
     }
 
