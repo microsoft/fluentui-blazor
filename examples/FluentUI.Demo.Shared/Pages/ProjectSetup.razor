@@ -1,3 +1,14 @@
 ﻿@page "/ProjectSetup"
 
-<MarkdownSection FromAsset="./_content/FluentUI.Demo.Shared/docs/ProjectSetup.md" />
+<MarkdownSection FromAsset="./_content/FluentUI.Demo.Shared/docs/ProjectSetup.md" OnContentConverted="RefreshTableOfContents" />
+
+@code {
+
+    [CascadingParameter]
+    public EventCallback OnRefreshTableOfContents { get; set; }
+
+    private async Task RefreshTableOfContents()
+    {
+        await OnRefreshTableOfContents.InvokeAsync();
+    }
+}

@@ -5,4 +5,15 @@
 
 <h1>What's new?</h1>
 
-<MarkdownSection FromAsset="./_content/FluentUI.Demo.Shared/docs/WhatsNew.md" />
+<MarkdownSection FromAsset="./_content/FluentUI.Demo.Shared/docs/WhatsNew.md" OnContentConverted="RefreshTableOfContents" />
+
+@code {
+
+    [CascadingParameter]
+    public EventCallback OnRefreshTableOfContents { get; set; }
+
+    private async Task RefreshTableOfContents()
+    {
+        await OnRefreshTableOfContents.InvokeAsync();
+    }
+}

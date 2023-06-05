@@ -12,15 +12,15 @@ using Microsoft.CodeAnalysis.Text;
 namespace Microsoft.Fast.Components.FluentUI.Generators
 {
     [Generator]
-    public class DesignTokenGenerator : ISourceGenerator
+    public class DesignTokenGenerator : IIncrementalGenerator
     {
-        public void Initialize(GeneratorInitializationContext context)
+        public void Initialize(IncrementalGeneratorInitializationContext context)
         {
-            // Debugger.Launch();
-            // No initialization required for this one
+            IncrementalValueProvider<string?> assemblyName = context.CompilationProvider.Select(static (c, _) => c.AssemblyName);
+            context.RegisterSourceOutput(assemblyName, GenerateSource);
         }
 
-        public void Execute(GeneratorExecutionContext context)
+        public void GenerateSource(SourceProductionContext context, string? assemblyName)
         {
             StringBuilder? sb = new();
 
@@ -31,6 +31,10 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             sb.AppendLine("{");
             foreach (FieldInfo info in GetConstants(typeof(DesignTokenConstants)))
             {
+                if (context.CancellationToken.IsCancellationRequested)
+                {
+                    return;
+                }
                 string PascalCase = info.Name[0].ToString().ToUpperInvariant() + info.Name.Substring(1);
                 sb.AppendLine($"\tpublic const string {PascalCase} = \"{info.Name}\";");
             }
@@ -39,15 +43,17 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
 
             sb.Clear();
             sb.AppendLine("using System.Drawing;");
-            sb.AppendLine("using Microsoft.JSInterop;");
-            sb.AppendLine("");
-            sb.AppendLine("namespace Microsoft.Fast.Components.FluentUI.DesignTokens;");
+            sb.AppendLine("using Microsoft.JSInterop;\n");
+            sb.AppendLine("namespace Microsoft.Fast.Components.FluentUI.DesignTokens;\n");
             foreach (FieldInfo info in GetConstants(typeof(DesignTokenConstants)))
             {
+                if (context.CancellationToken.IsCancellationRequested)
+                {
+                    return;
+                }
                 string name = info.Name[0].ToString().ToUpperInvariant() + info.Name.Substring(1);
                 string type = info.GetValue(null).ToString();
 
-                sb.AppendLine("");
                 sb.AppendLine("/// <summary>");
                 sb.AppendLine($"/// The {name} design token");
                 sb.AppendLine("/// </summary>");
@@ -74,10 +80,8 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             context.AddSource($"DesignTokens.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
 
             sb.Clear();
-            sb.AppendLine($"using Microsoft.Extensions.DependencyInjection;");
-            sb.AppendLine($"");
-            sb.AppendLine($"namespace Microsoft.Fast.Components.FluentUI.DesignTokens;");
-            sb.AppendLine($"");
+            sb.AppendLine("using Microsoft.Extensions.DependencyInjection;\n");
+            sb.AppendLine("namespace Microsoft.Fast.Components.FluentUI.DesignTokens;\n");
             sb.AppendLine("public static class ServiceCollectionExtensions");
             sb.AppendLine("{");
             sb.AppendLine("\tpublic static void AddDesignTokens(this IServiceCollection services)");
@@ -86,7 +90,7 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             {
                 sb.AppendLine($"\t\tservices.AddTransient<{info.Name[0].ToString().ToUpperInvariant() + info.Name.Substring(1)}>();");
             }
-            sb.AppendLine("	}");
+            sb.AppendLine("\t}");
             sb.AppendLine("}");
             context.AddSource($"ServiceCollectionExtensions.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
         }

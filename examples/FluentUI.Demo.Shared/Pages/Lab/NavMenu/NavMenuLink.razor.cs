@@ -40,7 +40,7 @@ public partial class NavMenuLink : FluentComponentBase
     /// </summary>
     [Parameter]
     public bool Disabled { get; set; } = false;
-   
+
     /// <summary>
     /// Gets or sets whether the link is selected.
     /// </summary>
@@ -73,7 +73,7 @@ public partial class NavMenuLink : FluentComponentBase
     /// </summary>
     [Parameter]
     public string Text { get; set; } = string.Empty;
-    
+
     /// <summary>
     /// Gets or sets the width of the link (in pixels).
     /// </summary>
@@ -101,14 +101,20 @@ public partial class NavMenuLink : FluentComponentBase
     }
 
 
-    protected override void OnParametersSet() 
+    protected override void OnParametersSet()
     {
         NavMenu.AddNavMenuLink(this);
+
+        if (!string.IsNullOrEmpty(Href) && (new Uri(NavigationManager.Uri).LocalPath) == Href)
+        {
+            Selected = true;
+        }
     }
+
 
     internal void HandleIconClick()
     {
         if (!Disabled)
-            Selected=true;
+            Selected = true;
     }
 }

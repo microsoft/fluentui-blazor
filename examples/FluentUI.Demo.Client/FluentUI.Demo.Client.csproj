@@ -33,7 +33,7 @@
 				10,12,16,20,24,28,32,48 
 			Or leave out the property to have all sizes included.
 		-->
-		<FluentIconSizes>10,12,16,20,24,48</FluentIconSizes>
+		<FluentIconSizes>10,16,20,24,48</FluentIconSizes>
 
 		<!-- 
 			Specify at least one (or more) variant(s) from the following options (separated by ','):
@@ -89,18 +89,14 @@
 	</ItemGroup>
 	
 	<ItemGroup Condition="'$(TargetFramework)'=='net8.0'">
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.0-preview.3.*" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.0-preview.3.*" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.0-preview.4.*" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.0-preview.4.*" PrivateAssets="all" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\FluentUI.Demo.Shared\FluentUI.Demo.Shared.csproj" />
 	</ItemGroup>
-
-	<ItemGroup Condition="'$(Configuration)'=='Release'">
-		<PackageReference Include="Microsoft.Fast.Components.FluentUI" Version="2.*-*" PrivateAssets="none" />
-	</ItemGroup>
-
+	
 	<ItemGroup Condition="'$(Configuration)'=='Debug'">
 		<CompilerVisibleProperty Include="PublishFluentIconAssets" />
 		<CompilerVisibleProperty Include="PublishFluentEmojiAssets" />
@@ -109,12 +105,10 @@
 		<CompilerVisibleProperty Include="FluentIconSizes" />
 		<CompilerVisibleProperty Include="FluentIconVariants" />
 		<ProjectReference Include="..\..\src\Microsoft.Fast.Components.FluentUI.Configuration\Microsoft.Fast.Components.FluentUI.Configuration.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-		<ProjectReference Include="..\..\src\Microsoft.Fast.Components.FluentUI\Microsoft.Fast.Components.FluentUI.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<TrimmerRootAssembly Include="Microsoft.Fast.Components.FluentUI" />
 		<TrimmerRootAssembly Include="FluentUI.Demo.Shared" />
 	</ItemGroup>
-
 </Project>

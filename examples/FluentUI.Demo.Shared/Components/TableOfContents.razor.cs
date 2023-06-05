@@ -8,7 +8,39 @@ namespace FluentUI.Demo.Shared.Components;
 
 public partial class TableOfContents : IAsyncDisposable
 {
-    private record Anchor(string Level, string Text, string Href, Anchor[] Anchors);
+    private record Anchor(string Level, string Text, string Href, Anchor[] Anchors)
+    {
+        public virtual bool Equals(Anchor? other)
+        {
+            if (other is null) return false;
+
+            if (Level != other.Level ||
+                Text != other.Text ||
+                Href != other.Href ||
+                (Anchors?.Length ?? 0) != (other.Anchors?.Length ?? 0))
+            {
+                return false;
+            }
+
+            if (Anchors is not null &&
+                Anchors.Length > 0)
+            {
+                for (var i = 0; i < Anchors.Length; i++)
+                {
+                    if (!Anchors[i].Equals(other.Anchors![i]))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        public override int GetHashCode()
+             => HashCode.Combine(Level, Text, Href);
+    }
+
     private Anchor[]? _anchors;
     private bool _expanded = true;
 
@@ -48,14 +80,14 @@ public partial class TableOfContents : IAsyncDisposable
         {
             // Remember to replace the location of the script with your own project specific location.
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-                "./_content/FluentUI.Demo.Shared/Components/TableOfContents.razor.js");
-            await QueryDom();
-            
+            "./_content/FluentUI.Demo.Shared/Components/TableOfContents.razor.js");
             bool mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
 
             if (mobile)
                 _expanded = false;
+            await QueryDom();
         }
+
     }
 
     private async Task BackToTop()
@@ -65,15 +97,27 @@ public partial class TableOfContents : IAsyncDisposable
 
     private async Task QueryDom()
     {
-        _anchors = await _jsModule.InvokeAsync<Anchor[]?>("queryDomForTocEntries");
+        Anchor[]? foundAnchors = await _jsModule.InvokeAsync<Anchor[]?>("queryDomForTocEntries");
+
+        if (AnchorsEqual(_anchors, foundAnchors))
+        {
+            return;
+        }
+
+        _anchors = foundAnchors;
         StateHasChanged();
+    }
+
+    private bool AnchorsEqual(Anchor[]? firstSet, Anchor[]? secondSet)
+    {
+        return (firstSet ?? Array.Empty<Anchor>())
+            .SequenceEqual(secondSet ?? Array.Empty<Anchor>());
     }
 
     protected override void OnInitialized()
     {
         // Subscribe to the event
         NavigationManager.LocationChanged += LocationChanged;
-        base.OnInitialized();
     }
 
     private async void LocationChanged(object? sender, LocationChangedEventArgs e)
@@ -87,7 +131,12 @@ public partial class TableOfContents : IAsyncDisposable
             // Already disposed
         }
     }
-    
+
+    public async Task Refresh()
+    {
+        await QueryDom();
+    }
+
     private RenderFragment? GetTocItems(IEnumerable<Anchor>? items)
     {
         if (items is not null)
@@ -106,12 +155,11 @@ public partial class TableOfContents : IAsyncDisposable
                     builder.AddAttribute(i++, "ChildContent", (RenderFragment)(content =>
                     {
                         content.AddContent(i++, item.Text);
-                        
                     }));
                     builder.CloseComponent();
                     if (item.Anchors is not null)
                     {
-                       builder.AddContent(i++, GetTocItems(item.Anchors));
+                        builder.AddContent(i++, GetTocItems(item.Anchors));
                     }
                     builder.CloseElement();
                 }
@@ -127,14 +175,16 @@ public partial class TableOfContents : IAsyncDisposable
         }
 
     }
-    
+
+
+
     async ValueTask IAsyncDisposable.DisposeAsync()
     {
         try
         {
             // Unsubscribe from the event when our component is disposed
             NavigationManager.LocationChanged -= LocationChanged;
-            
+
             if (_jsModule is not null)
             {
                 await _jsModule.DisposeAsync();

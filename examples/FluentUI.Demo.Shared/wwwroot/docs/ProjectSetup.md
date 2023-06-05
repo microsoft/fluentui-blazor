@@ -73,71 +73,71 @@ A `PropertyGroup` without additional comments is supplied below.
 
 ```xml
 <PropertyGroup>
-    <!-- 
-        The icon component is part of the library. By default, NO icons (static assets) will be included when publishing the project. 
+	<!-- 
+		The icon component is part of the library. By default, NO icons (static assets) will be included when publishing the project. 
  
-        Setting the property 'PublishFluentIconAssets' to false (default), or leaving the property out completely, will disable publishing of the 
-        icon static assets (with exception of the icons that are being used by the library itself). 
+		Setting the property 'PublishFluentIconAssets' to false (default), or leaving the property out completely, will disable publishing of the 
+		icon static assets (with exception of the icons that are being used by the library itself). 
 
-        Setting the property 'PublishFluentIconAssets' to 'true' will enable publishing of the icon static assets. You can limit what icon assets get 
-        published by specifying a set of icon sizes and a set of variants in the '<FluentIconSizes>' and '<FluentIconVariants>' properties respectively.
+		Setting the property 'PublishFluentIconAssets' to 'true' will enable publishing of the icon static assets. You can limit what icon assets get 
+		published by specifying a set of icon sizes and a set of variants in the '<FluentIconSizes>' and '<FluentIconVariants>' properties respectively.
 
-        To determine what icons will be published, the specified options for sizes and variants are combined. Specifying sizes '10' and '16' and 
-        variants 'Filled' and 'Regular' means all '10/Filled', all '10/Regular', all '16/Filled' and all '16/Regular' icons assets will be published. 
-        It is not possible to specify multiple individual combinations like '10/Filled' and '16/Regular' in the same set. 
+		To determine what icons will be published, the specified options for sizes and variants are combined. Specifying sizes '10' and '16' and 
+		variants 'Filled' and 'Regular' means all '10/Filled', all '10/Regular', all '16/Filled' and all '16/Regular' icons assets will be published. 
+		It is not possible to specify multiple individual combinations like '10/Filled' and '16/Regular' in the same set. 
 
-        When no icon size set is specified in the '<FluentIconSizes>' property, ALL sizes will be included*  
-        When no icon variant set is specified in the '<FluentIconVariants>' property, ALL variants will be included*  
-        * when publishing of icon assets is enabled 
-    -->
-    <PublishFluentIconAssets>true</PublishFluentIconAssets>
+		When no icon size set is specified in the '<FluentIconSizes>' property, ALL sizes will be included*  
+		When no icon variant set is specified in the '<FluentIconVariants>' property, ALL variants will be included*  
+		* when publishing of icon assets is enabled 
+	-->
+	<PublishFluentIconAssets>true</PublishFluentIconAssets>
 
-    <!-- 
-        Specify (at least) one or more sizes from the following options (separated by ','):
-        10,12,16,20,24,28,32,48 
-        Leave out the property to have all sizes included.
-    -->
-    <FluentIconSizes>10,12,16,20,24,28,32,48</FluentIconSizes>
+	<!-- 
+		Specify (at least) one or more sizes from the following options (separated by ','):
+		10,12,16,20,24,28,32,48 
+		Leave out the property to have all sizes included.
+	-->
+	<FluentIconSizes>10,12,16,20,24,28,32,48</FluentIconSizes>
 
-    <!-- 
-        Specify (at least) one or more variants from the following options (separated by ','):
-        Filled,Regular 
-        Leave out the property to have all variants included.
-    -->
-    <FluentIconVariants>Filled,Regular</FluentIconVariants>
+	<!-- 
+		Specify (at least) one or more variants from the following options (separated by ','):
+		Filled,Regular 
+		Leave out the property to have all variants included.
+	-->
+	<FluentIconVariants>Filled,Regular</FluentIconVariants>
 
-    <!-- 
-        The emoji component is part of the library. By default, NO emojis (static assets) will be included when publishing the project. 
+	<!-- 
+		The emoji component is part of the library. By default, NO emojis (static assets) will be included when publishing the project. 
  
-        Setting the property 'PublishFluentEmoji' to false (default), or leaving the property out completely, will disable publishing of the emoji static assets. 
+		Setting the property 'PublishFluentEmoji' to false (default), or leaving the property out completely, will disable publishing of the emoji static assets. 
 
-        Setting the property 'PublishFluentEmojiAssets' to 'true' will enable publishing of the emoji static assets. You can limit what emoji assets get 
-        published by specifying a set of emoji groups and a set of emoji styles in the '<FluentEmojiGroups>' and '<FluentEmojiStyles>' properties respectively.
+		Setting the property 'PublishFluentEmojiAssets' to 'true' will enable publishing of the emoji static assets. You can limit what emoji assets get 
+		published by specifying a set of emoji groups and a set of emoji styles in the '<FluentEmojiGroups>' and '<FluentEmojiStyles>' properties respectively.
 
-        To determine what emojis will be published, the specified options for sizes and variants are combined. Specifying emoji groups 'Activities' and 'Flags' 
-        and emoji styles 'Color' and 'Flat' means all 'Activities/Color', all 'Activities/Flat', all 'Flags/Color' and all 'Flags/Flat' emoji assets will be published.
+		To determine what emojis will be published, the specified options for sizes and variants are combined. Specifying emoji groups 'Activities' and 'Flags' 
+		and emoji styles 'Color' and 'Flat' means all 'Activities/Color', all 'Activities/Flat', all 'Flags/Color' and all 'Flags/Flat' emoji assets will be published.
 
-        It is not possible to specify multiple individual combinations like 'Activities/Color' and 'Flags/Flat' in the same published set
+		It is not possible to specify multiple individual combinations like 'Activities/Color' and 'Flags/Flat' in the same published set
 
-        When no emoji group set is specified in the '<FluentEmojiGroups>' property, ALL groups will be included*  
-        When no emoji variant set is specified in the '<FluentEmojiStyles>' property, ALL styles will be included*  
-        * when publishing of emoji assets is enabled 
-    -->
-    <PublishFluentEmojiAssets>true</PublishFluentEmojiAssets>
+		When no emoji group set is specified in the '<FluentEmojiGroups>' property, ALL groups will be included*  
+		When no emoji variant set is specified in the '<FluentEmojiStyles>' property, ALL styles will be included*  
+		* when publishing of emoji assets is enabled 
+	-->
+	<PublishFluentEmojiAssets>true</PublishFluentEmojiAssets>
 
-    <!-- 
-        Specify (at least) one or more groups from the following options (separated by ','):
-        Activities,Animals_Nature,Flags,Food_Drink,Objects,People_Body,Smileys_Emotion,Symbols,Travel_Places 
-        Leave out the property to have all groups included.
-    -->
-    <FluentEmojiGroups>Activities,Animals_Nature,Flags,Food_Drink,Objects,People_Body,Smileys_Emotion,Symbols,Travel_Places</FluentEmojiGroups>
+	<!-- 
+		Specify (at least) one or more groups from the following options (separated by ','):
+		Activities,Animals_Nature,Flags,Food_Drink,Objects,People_Body,Smileys_Emotion,Symbols,Travel_Places 
+		Leave out the property to have all groups included.
+	-->
+	<FluentEmojiGroups>Activities,Animals_Nature,Flags,Food_Drink,Objects,People_Body,Smileys_Emotion,Symbols,Travel_Places</FluentEmojiGroups>
 
-    <!-- 
-        Specify (at least) one or more styles from the following options (separated by ','): 
-        Color,Flat,HighContrast
-        Leave out the property to have all styles included.
-    -->
-    <FluentEmojiStyles>Color,Flat,HighContrast</FluentEmojiStyles>
+	<!-- 
+		Specify (at least) one or more styles from the following options (separated by ','): 
+		Color,Flat,HighContrast
+		Leave out the property to have all styles included.
+	-->
+	<FluentEmojiStyles>Color,Flat,HighContrast</FluentEmojiStyles>
 </PropertyGroup>
 ```
 
@@ -146,14 +146,33 @@ A `PropertyGroup` without additional comments is supplied below.
 ### `PropertyGroup` without comments
 ```xml
 <PropertyGroup>
-    <PublishFluentIconAssets>true</PublishFluentIconAssets>
-    <FluentIconSizes>10,12,16,20,24,28,32,48</FluentIconSizes>
-    <FluentIconVariants>Filled,Regular</FluentIconVariants>
-    <PublishFluentEmojiAssets>true</PublishFluentEmojiAssets>
-    <FluentEmojiGroups>Activities,Animals_Nature,Flags,Food_Drink,Objects,People_Body,Smileys_Emotion,Symbols,Travel_Places</FluentEmojiGroups>
-    <FluentEmojiStyles>Color,Flat,HighContrast</FluentEmojiStyles>
+	<PublishFluentIconAssets>true</PublishFluentIconAssets>
+	<FluentIconSizes>10,12,16,20,24,28,32,48</FluentIconSizes>
+	<FluentIconVariants>Filled,Regular</FluentIconVariants>
+	<PublishFluentEmojiAssets>true</PublishFluentEmojiAssets>
+	<FluentEmojiGroups>Activities,Animals_Nature,Flags,Food_Drink,Objects,People_Body,Smileys_Emotion,Symbols,Travel_Places</FluentEmojiGroups>
+	<FluentEmojiStyles>Color,Flat,HighContrast</FluentEmojiStyles>
 </PropertyGroup>
 ```
 
 ## Changes needed in code 
 Please see the [Code Setup](https://www.fluentui-blazor.net/CodeSetup) page to lean more about the neccesary changes to your `Program.cs` file.
+
+## Can I include the library in a Razor Class Library (RCL) project?
+Yes, you can! You just need to add the following code to your RCL `.csproj` file (somewhere near the end) to make it work:
+
+```xml
+<Target Name="DisableAnalyzers" BeforeTargets="CoreCompile">
+	<ItemGroup>
+		<Analyzer Remove="@(Analyzer)" Condition="'%(Filename)' == 'Microsoft.Fast.Components.FluentUI.Configuration'" />
+	</ItemGroup>
+</Target>
+```
+
+This will disable the analyzer that generates the icon/emoji configuration to run in the RCL project. If it would run, you would get compilation 
+issues in the project that uses your RCL as the `ConfigurationGenerator` class would then exist in both projects. 
+
+### Code setup needed in a project that references the RCL
+1. Follow the steps described above to add the necessary icon/emoji settings to you project that references the RCL.
+2. Add code to the `Program.cs` file in your project that references the RCL to make the library work as expected. Please see the [Code Setup](https://www.fluentui-blazor.net/CodeSetup) 
+page to lean more about the neccesary.

@@ -5,7 +5,6 @@
 ![Nuget](https://img.shields.io/nuget/v/Microsoft.Fast.Components.FluentUI?label=NuGet%20Component%20Library)
 ![Nuget](https://img.shields.io/nuget/v/Microsoft.Fast.Templates.FluentUI?label=NuGet%20Templates)
 
-[![Validate PRs](https://github.com/microsoft/fluentui-blazor/actions/workflows/ci-validate.yml/badge.svg)](https://github.com/microsoft/fluentui-blazor/actions/workflows/ci-validate.yml)
 [![Validate Security](https://github.com/microsoft/fluentui-blazor/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/microsoft/fluentui-blazor/actions/workflows/codeql-analysis.yml)
 [![Discord](https://img.shields.io/badge/chat%20on-discord-7289da.svg)](https://discord.gg/FcSNfg4)
 

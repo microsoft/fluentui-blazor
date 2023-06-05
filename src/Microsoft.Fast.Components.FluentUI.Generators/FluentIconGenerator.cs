@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Text;
 
 
@@ -10,28 +12,25 @@ using Microsoft.CodeAnalysis.Text;
 namespace Microsoft.Fast.Components.FluentUI.Generators
 {
     [Generator]
-    public class FluentIconGenerator : ISourceGenerator
+    [SuppressMessage("MicrosoftCodeAnalysisCorrectness", "RS1035:Do not use APIs banned for analyzers", Justification = "The whole purpose of this generator is to process directories...")]
+    public class FluentIconGenerator : IIncrementalGenerator
     {
-        public void Initialize(GeneratorInitializationContext context)
+        public void Initialize(IncrementalGeneratorInitializationContext context)
         {
-            // Debugger.Launch();
-            // No initialization required for this one
+            var iconPathValueProvider = context.AnalyzerConfigOptionsProvider
+                .Select((provider, _) => GetFilePathFromOptions(provider.GlobalOptions));
+
+            context.RegisterSourceOutput(iconPathValueProvider, GenerateSource);
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("MicrosoftCodeAnalysisCorrectness", "RS1035:Do not use APIs banned for analyzers", Justification = "The whole purpose of this generator is to process directories...")]
-        public void Execute(GeneratorExecutionContext context)
+        public string GetFilePathFromOptions(AnalyzerConfigOptions options)
         {
-            StringBuilder? sb = new();
-            int iconcount = 0;
             string? baseFolder;
 
-
-            List<(string folder, string iconbase)> constants = new();
-
-            bool getResult = context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.FluentUISourceBaseFolder", out string? sourceFolder);
+            bool getResult = options.TryGetValue("build_property.FluentUISourceBaseFolder", out string? sourceFolder);
             if (!getResult || string.IsNullOrEmpty(sourceFolder))
             {
-                context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.MSBuildProjectDirectory", out string? projectDirectory);
+                options.TryGetValue("build_property.MSBuildProjectDirectory", out string? projectDirectory);
                 baseFolder = Directory.GetParent(projectDirectory).FullName;
             }
             else
@@ -40,6 +39,15 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             }
 
             string iconsFolder = Path.Combine(baseFolder, $"Microsoft.Fast.Components.FluentUI{Path.DirectorySeparatorChar}Assets{Path.DirectorySeparatorChar}icons{Path.DirectorySeparatorChar}");
+
+            return iconsFolder;
+        }
+
+        public void GenerateSource(SourceProductionContext context, string iconsFolder)
+        {
+            List<(string folder, string iconbase)> constants = new();
+            StringBuilder? sb = new();
+            int iconcount = 0;
 
             sb.AppendLine($"#pragma warning disable CS1591");
             sb.AppendLine("using System.Collections.Generic;\r\n");
@@ -52,6 +60,10 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
 
             foreach (string foldername in Directory.EnumerateDirectories(iconsFolder))
             {
+                if (context.CancellationToken.IsCancellationRequested)
+                {
+                    return;
+                }
                 string folder = foldername.Substring(foldername.LastIndexOf(Path.DirectorySeparatorChar) + 1);
 
                 string iconbase = string.Empty;
@@ -89,17 +101,6 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             sb.AppendLine("}");
 
             context.AddSource($"FluentIcons.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
-        }
-
-        static string ToSentenceCase(string s)
-        {
-            // Check for empty string.
-            if (string.IsNullOrEmpty(s))
-            {
-                return string.Empty;
-            }
-            // Return char and concat substring.
-            return char.ToUpper(s[0]) + s.Substring(1);
         }
     }
 }

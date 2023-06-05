@@ -1,6 +1,6 @@
 ﻿async function openCacheStorage() {
     try {
-        return await window.caches.open("Microsoft.Fast.Components.FluentUI")
+        return await window.caches.open("Microsoft.FluentUI.AspNetCore.Components")
     }
     catch (err) {
         return undefined;
