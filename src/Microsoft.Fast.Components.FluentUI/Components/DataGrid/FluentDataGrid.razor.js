@@ -14,7 +14,6 @@ export function init(gridElement) {
         }
     };
 
-
     const cells = gridElement.querySelectorAll('[role="gridcell"]');
     cells.forEach((cell) => {
         cell.columnDefinition = {
