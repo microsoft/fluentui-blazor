@@ -14,7 +14,7 @@ dotnet new fluentuiblazorserver -o {your project name}
 ``` 
 For creating a Blazor WebAssembly project from the CLI:
 ```
-dotnet new fluentuiBlazorWebAssembly -o {your project name}
+dotnet new fluentuiblazorwasm -o {your project name}
 ``` 
 In Visual Studio you can create a new project by selecting either the FluentUI Blazor Server App template or the FluentUI Blazor WebAssembly template in the 'File->New->Project'-dialog.
 
