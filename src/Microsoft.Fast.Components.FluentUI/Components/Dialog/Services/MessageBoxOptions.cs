@@ -8,7 +8,7 @@ public class MessageBoxOptions
 
     public string Icon { get; set; } = string.Empty;
 
-    public string? IconColor { get; set; }
+    public Color IconColor { get; set; } = Color.Accent;
 
     public string Message { get; set; } = string.Empty;
 

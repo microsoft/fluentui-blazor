@@ -1,5 +1,5 @@
 ﻿@page "/Toast"
-@inject ToastManager ToastManager
+@inject IToastService ToastService
 
 @using FluentUI.Demo.Shared.Pages.Toast.Examples
 @using Microsoft.Fast.Components.FluentUI
@@ -17,7 +17,7 @@
 <p>
     The information in a toast is useful and relevant but never critical.
 </p>
-<ApiDocumentation Component="typeof(FluentToasts)" />
+<ApiDocumentation Component="typeof(FluentToastContainer)" />
 <ApiDocumentation Component="typeof(FluentToast)" />
 
 <h2>Examples</h2>

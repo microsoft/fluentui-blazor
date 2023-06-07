@@ -11,8 +11,7 @@ public class DialogParameters : IEnumerable<KeyValuePair<string, object>>
         _parameters = new Dictionary<string, object>();
     }
 
-    public int Count =>
-        _parameters.Count;
+    public int Count => _parameters.Count;
 
     public object this[string parameterName]
     {

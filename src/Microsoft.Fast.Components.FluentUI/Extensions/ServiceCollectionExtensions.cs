@@ -1,9 +1,5 @@
-﻿using System.Runtime.InteropServices;
-using System.Runtime.Versioning;
-using System.Net;
-using Microsoft.AspNetCore.Components;
+﻿using System.Runtime.Versioning;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Fast.Components.FluentUI.DesignTokens;
 using Microsoft.Fast.Components.FluentUI.Infrastructure;
 
@@ -72,7 +68,7 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddFluentToasts(this IServiceCollection services)
     {
-        return services.AddScoped<ToastManager>();
+        return services.AddScoped<IToastService, ToastService>();
     }
 
     /// <summary>

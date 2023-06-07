@@ -33,15 +33,15 @@ public interface IDialogService
 
     Task<IDialogReference> ShowAsync(Type component, string title, DialogParameters parameters, DialogOptions options);
 
-    //Task<IDialogReference> ShowLaunchScreenAsync(string title, string subTitle, string? loading = null);
+    Task<IDialogReference> ShowSplashScreenAsync(string title, string subTitle, string? loading = null);
 
-    //Task<bool> ShowMessageBoxErrorAsync(string message, string? title = null);
+    Task<bool> ShowMessageBoxErrorAsync(string message, string? title = null);
 
-    //Task<bool> ShowMessageBoxInformationAsync(string message, string? title = null);
+    Task<bool> ShowMessageBoxInformationAsync(string message, string? title = null);
 
-    //Task<bool> ShowMessageBoxConfirmationAsync(string message, string? title = null);
+    Task<bool> ShowMessageBoxConfirmationAsync(string message, string? title = null);
 
-    //Task<bool> ShowMessageBoxAsync(MessageBoxOptions options);
+    Task<bool> ShowMessageBoxAsync(MessageBoxOptions options);
 
     Task CloseAsync(DialogReference dialog);
 

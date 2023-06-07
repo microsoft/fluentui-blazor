@@ -12,13 +12,13 @@ public class DialogService : IDialogService
     public Task<IDialogReference> ShowAsync<T>()
         where T : ComponentBase
     {
-        return ShowAsync<T>(string.Empty, new DialogParameters(), new DialogOptions());
+        return ShowAsync<T>(string.Empty, new DialogParameters(), new());
     }
 
     public Task<IDialogReference> ShowAsync<T>(string title)
         where T : ComponentBase
     {
-        return ShowAsync<T>(title, new DialogParameters(), new DialogOptions());
+        return ShowAsync<T>(title, new DialogParameters(), new());
     }
 
     public Task<IDialogReference> ShowAsync<T>(string title, DialogOptions options)
@@ -41,12 +41,12 @@ public class DialogService : IDialogService
 
     public Task<IDialogReference> ShowAsync(Type contentComponent)
     {
-        return ShowAsync(contentComponent, string.Empty, new DialogParameters(), new DialogOptions());
+        return ShowAsync(contentComponent, string.Empty, new DialogParameters(), new());
     }
 
     public Task<IDialogReference> ShowAsync(Type contentComponent, string title)
     {
-        return ShowAsync(contentComponent, title, new DialogParameters(), new DialogOptions());
+        return ShowAsync(contentComponent, title, new DialogParameters(), new());
     }
 
     public Task<IDialogReference> ShowAsync(Type contentComponent, string title, DialogOptions options)
@@ -56,32 +56,9 @@ public class DialogService : IDialogService
 
     public Task<IDialogReference> ShowAsync(Type contentComponent, string title, DialogParameters parameters)
     {
-        return ShowAsync(contentComponent, title, parameters, new DialogOptions());
+        return ShowAsync(contentComponent, title, parameters, new());
     }
 
-    //public Task<IDialogReference> ShowLaunchScreenAsync(string title, string subTitle, string? loading = null)
-    //{
-    //    DialogParameters parameters = new()
-    //    {
-    //        { nameof(PowerLaunchScreen.ProductName), title },
-    //        { nameof(PowerLaunchScreen.SuiteName), subTitle },
-    //        { nameof(PowerLaunchScreen.LoadingLabel), loading ?? PowerLaunchScreenResource.LoadingLabel },
-    //    };
-
-    //    DialogOptions options = new()
-    //    {
-    //        Alignment = HorizontalAlignment.Center,
-    //        IsAllowadToCancelOusideDialog = false,
-    //        ShowDismiss = false,
-    //        IsCancelDisplayed = false,
-    //        ShowOK = false,
-    //        Width = "600px",
-    //        Height = "370px",
-    //        StyleBody = "width: 100%; height: 100%; margin: 0px;",
-    //    };
-
-    //    return ShowAsync(typeof(PowerLaunchScreen), string.Empty, parameters, options);
-    //}
 
     public virtual async Task<IDialogReference> ShowAsync(Type contentComponent, string title, DialogParameters? parameters, DialogOptions? options)
     {
@@ -142,7 +119,7 @@ public class DialogService : IDialogService
             builder.AddAttribute(3, "Body", dialogContent);         // Property PowerPanel.Body
             builder.AddAttribute(4, "Id", dialogReference.Id);
             builder.AddAttribute(5, "IsOpen", true);
-            builder.AddAttribute(6, "Options", options ?? new DialogOptions());
+            builder.AddAttribute(6, "Options", options ?? new());
             builder.CloseComponent();
         });
         dialogReference.InjectRenderFragment(dialogInstance);
@@ -161,83 +138,106 @@ public class DialogService : IDialogService
 
         return dialogReference;
     }
+    public Task<IDialogReference> ShowSplashScreenAsync(string title, string subTitle, string? loading = null)
+    {
+        DialogParameters parameters = new()
+        {
+            { nameof(FluentSplashScreen.ProductName), title },
+            { nameof(FluentSplashScreen.SuiteName), subTitle },
+            { nameof(FluentSplashScreen.LoadingLabel), loading ?? "Loading..." }, //PowerLaunchScreenResource.LoadingLabel },
+        };
 
-    //public Task<bool> ShowMessageBoxErrorAsync(string message, string? title = null)
-    //{
-    //    return ShowMessageBoxAsync(new MessageBoxOptions()
-    //    {
-    //        OkText = "Ok", /*FluentPanelResources.ButtonOK,*/
-    //        CancelText = string.Empty,
-    //        Icon = Icons.Regular.DismissCircle,
-    //        IconColor = Colors.Status.ErrorType,
-    //        Title = string.IsNullOrWhiteSpace(title) ? "Error!" /*FluentPanelResources.TitleError*/ : title,
-    //        Message = message,
-    //    }) ; ;
-    //}
+        DialogOptions options = new()
+        {
+            Alignment = HorizontalAlignment.Center,
+            Modal = false,
+            ShowDismiss = false,
+            ShowCancel = false,
+            ShowOK = false,
+            Width = "600px",
+            Height = "370px",
+            StyleBody = "width: 100%; height: 100%; margin: 0px;",
+        };
 
-    //public Task<bool> ShowMessageBoxInformationAsync(string message, string? title = null)
-    //{
-    //    return ShowMessageBoxAsync(new MessageBoxOptions()
-    //    {
-    //        OkText = "Ok", /*FluentPanelResources.ButtonOK,*/
-    //        CancelText = string.Empty,
-    //        Icon = Icons.Regular.Info,
-    //        IconColor = Colors.Status.WarningType,
-    //        Title = string.IsNullOrWhiteSpace(title) ? "Information" /*FluentPanelResources.TitleInformation*/ : title,
-    //        Message = message,
-    //    });
-    //}
+        return ShowAsync(typeof(FluentSplashScreen), string.Empty, parameters, options);
+    }
 
-    //public Task<bool> ShowMessageBoxConfirmationAsync(string message, string? title = null)
-    //{
-    //    return ShowMessageBoxAsync(new MessageBoxOptions()
-    //    {
-    //        OkText = "Yes", /*FluentPanelResources.ButtonYes,*/
-    //        CancelText = "No", /*FluentPanelResources.ButtonNo,*/
-    //        Icon = Icons.Regular.QuestionCircle,
-    //        IconColor = Colors.Status.SuccessType,
-    //        Title = string.IsNullOrWhiteSpace(title) ? "Confirm" /*FluentPanelResources.TitleConfirmation*/ : title,
-    //        Message = message,
-    //    });
-    //}
+    public Task<bool> ShowMessageBoxErrorAsync(string message, string? title = null)
+    {
+        return ShowMessageBoxAsync(new MessageBoxOptions()
+        {
+            OkText = "Ok", /*FluentPanelResources.ButtonOK,*/
+            CancelText = string.Empty,
+            Icon = FluentIcons.DismissCircle,
+            IconColor = Color.Error,
+            Title = string.IsNullOrWhiteSpace(title) ? "Error!" /*FluentPanelResources.TitleError*/ : title,
+            Message = message,
+        }); ;
+    }
 
-    //public async Task<bool> ShowMessageBoxAsync(MessageBoxOptions options)
-    //{
-    //    DialogParameters parameters = new()
-    //    {
-    //        { nameof(PowerMessageBox.MessageBoxOptions), options },
-    //    };
+    public Task<bool> ShowMessageBoxInformationAsync(string message, string? title = null)
+    {
+        return ShowMessageBoxAsync(new MessageBoxOptions()
+        {
+            OkText = "Ok", /*FluentPanelResources.ButtonOK,*/
+            CancelText = string.Empty,
+            Icon = FluentIcons.Info,
+            IconColor = Color.Warning,
+            Title = string.IsNullOrWhiteSpace(title) ? "Information" /*FluentPanelResources.TitleInformation*/ : title,
+            Message = message,
+        });
+    }
 
-    //    DialogOptions dialogOptions = new()
-    //    {
-    //        Alignment = HorizontalAlignment.Center,
-    //        IsAllowadToCancelOusideDialog = false,
-    //        ShowDismiss = false,
-    //        CancelText = options.CancelText,
-    //        IsCancelDisplayed = !string.IsNullOrEmpty(options.CancelText),
-    //        OKText = options.OkText,
-    //        ShowOK = !string.IsNullOrEmpty(options.OkText),
-    //        Width = options.Width,
-    //        Height = options.Height,
-    //    };
+    public Task<bool> ShowMessageBoxConfirmationAsync(string message, string? title = null)
+    {
+        return ShowMessageBoxAsync(new MessageBoxOptions()
+        {
+            OkText = "Yes", /*FluentPanelResources.ButtonYes,*/
+            CancelText = "No", /*FluentPanelResources.ButtonNo,*/
+            Icon = FluentIcons.QuestionCircle,
+            IconColor = Color.Success,
+            Title = string.IsNullOrWhiteSpace(title) ? "Confirm" /*FluentPanelResources.TitleConfirmation*/ : title,
+            Message = message,
+        });
+    }
 
-    //    if (string.IsNullOrWhiteSpace(options.Title))
-    //    {
-    //        options.Title = "...";
-    //    }
+    public async Task<bool> ShowMessageBoxAsync(MessageBoxOptions options)
+    {
+        DialogParameters parameters = new()
+        {
+            { nameof(FluentMessageBox.MessageBoxOptions), options },
+        };
 
-    //    var dialog = await ShowAsync(typeof(PowerMessageBox), options.Title, parameters, dialogOptions);
-    //    var result = await dialog.Result;
+        DialogOptions dialogOptions = new()
+        {
+            Alignment = HorizontalAlignment.Center,
+            Modal = false,
+            ShowDismiss = false,
+            CancelText = options.CancelText,
+            ShowCancel = !string.IsNullOrEmpty(options.CancelText),
+            OKText = options.OkText,
+            ShowOK = !string.IsNullOrEmpty(options.OkText),
+            Width = options.Width,
+            Height = options.Height,
+        };
 
-    //    if (result.Cancelled)
-    //    {
-    //        return false;
-    //    }
-    //    else
-    //    {
-    //        return true;
-    //    }
-    //}
+        if (string.IsNullOrWhiteSpace(options.Title))
+        {
+            options.Title = "...";
+        }
+
+        var dialog = await ShowAsync(typeof(FluentMessageBox), options.Title, parameters, dialogOptions);
+        var result = await dialog.Result;
+
+        if (result.Cancelled)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
 
     public Task CloseAsync(DialogReference dialog)
     {

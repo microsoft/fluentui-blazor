@@ -24,7 +24,7 @@ public class DialogOptions
     /// <summary>
     /// Allow to close (cancel) this dialog when the user click outside the dialog panel.
     /// </summary>
-    public bool AllowedToCancelOutsideDialog { get; set; } = true;
+    public bool Modal { get; set; } = true;
 
     /// <summary>
     /// Display or hide the Cancel button (in the footer).
@@ -32,7 +32,7 @@ public class DialogOptions
     public bool ShowCancel { get; set; } = true;
 
     /// <summary>
-    /// Display or hide the close cross button (in the header).
+    /// Display or hide the dismiss icon button (in the header).
     /// </summary>
     public bool ShowDismiss { get; set; } = true;
 
@@ -64,7 +64,7 @@ public class DialogOptions
         Alignment = HorizontalAlignment.Center,
         Width = "80vw",
         Height = "95vh",
-        AllowedToCancelOutsideDialog = false,
+        Modal = false,
         ShowOK = false,
         ShowCancel = false,
     };

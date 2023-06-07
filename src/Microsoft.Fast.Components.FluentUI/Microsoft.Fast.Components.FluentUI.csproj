@@ -115,6 +115,10 @@
 		<None Remove="bin\Release\net6.0\net7.0\**" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Components\Dialog\Parameters\" />
+	</ItemGroup>
+
 
 	<Target Name="GetFluentUIAssets" Returns="@(ReferenceAsset)">
 		<ItemGroup>

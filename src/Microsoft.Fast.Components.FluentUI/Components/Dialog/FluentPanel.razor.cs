@@ -28,7 +28,7 @@ public partial class FluentPanel : FluentComponentBase
     public EventCallback<bool> OnOpenChanged { get; set; }
 
     [Parameter]
-    public DialogOptions Options { get; set; } = new DialogOptions();
+    public DialogOptions Options { get; set; } = new();
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("fluent-panel-main")

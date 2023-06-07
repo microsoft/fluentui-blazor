@@ -55,6 +55,9 @@ public partial class FluentDialog : FluentComponentBase
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    [Parameter]
+    public IDialogInstance Instance { get; set; } = default!;
+
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogEventArgs))]
 
     public FluentDialog()
