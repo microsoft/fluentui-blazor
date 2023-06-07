@@ -48,6 +48,7 @@
 
 	<ItemGroup>
 		<None Include="..\..\README.md" Pack="true" PackagePath="\" />
+		<None Include="Components\Label\FluentLabel.razor" />
 	</ItemGroup>
 
 	<ItemGroup>

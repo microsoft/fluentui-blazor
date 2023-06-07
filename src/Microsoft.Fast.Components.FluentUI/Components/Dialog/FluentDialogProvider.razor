@@ -1,0 +1,20 @@
+﻿@namespace Microsoft.Fast.Components.FluentUI
+
+<CascadingValue Value="this" IsFixed="true">
+    @foreach (var dialogReference in _dialogs)
+    {
+        @dialogReference.RenderFragment
+    }
+</CascadingValue>
+
+@*
+
+    Installation
+
+    1. Add the following components to your MainLayout.razor
+    `<PowerDialogProvider/>`
+
+    2. Inject DialogService in program.cs
+    `builder.Services.AddScoped<IDialogService, DialogService>();`
+
+*@

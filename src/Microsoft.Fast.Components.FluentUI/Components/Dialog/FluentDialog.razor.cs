@@ -59,7 +59,7 @@ public partial class FluentDialog : FluentComponentBase
 
     public FluentDialog()
     {
-        
+
     }
 
     public void Show()
@@ -74,9 +74,9 @@ public partial class FluentDialog : FluentComponentBase
         StateHasChanged();
     }
 
-    protected override void OnAfterRender(bool firstRender)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        Element.FocusAsync();
+        await Element.FocusAsync();
         base.OnAfterRender(firstRender);
     }
 }

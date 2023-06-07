@@ -4,7 +4,7 @@
 /// <summary>
 /// Determines the vertical alignment of the content within the <see cref="FluentStack"/>.
 /// </summary>
-public enum StackVerticalAlignment
+public enum VerticalAlignment
 {
     /// <summary>
     /// The content is aligned to the top.

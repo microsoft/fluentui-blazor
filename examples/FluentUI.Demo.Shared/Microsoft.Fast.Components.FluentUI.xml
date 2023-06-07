@@ -1377,6 +1377,99 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogOptions.Alignment">
+            <summary>
+            Gets or sets the window position:
+            left (full height), right (full height)
+            or screen middle (using Width and Height properties).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogOptions.CancelText">
+            <summary>
+            Label of the Cancel button.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogOptions.Height">
+            <summary>
+            Window height, only if <see cref="P:Microsoft.Fast.Components.FluentUI.DialogOptions.Alignment"/> is Center.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogOptions.AllowedToCancelOutsideDialog">
+            <summary>
+            Allow to close (cancel) this dialog when the user click outside the dialog panel.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogOptions.ShowCancel">
+            <summary>
+            Display or hide the Cancel button (in the footer).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogOptions.ShowDismiss">
+            <summary>
+            Display or hide the close cross button (in the header).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogOptions.ShowOK">
+            <summary>
+            Display or hide the OK button (in the footer).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogOptions.OKText">
+            <summary>
+            Label of the OK button.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogOptions.StyleBody">
+            <summary>
+            Gets or sets the extra styles appied to the Body content.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogOptions.Width">
+            <summary>
+            Window width, only if <see cref="P:Microsoft.Fast.Components.FluentUI.DialogOptions.Alignment"/> is Center.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogOptions.LargeScreen">
+            <summary>
+            Default configuration for a and almost full screen dialog.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.DialogResult">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogResult.#ctor(System.Object,System.Boolean)">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogResult.Data">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogResult.Cancelled">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogResult.Ok``1(``0)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogResult.Cancel">
+            <summary />
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.IDialogInstance">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IDialogInstance.OnValidateAsync(System.Boolean)">
+            <summary>
+            Returns True is the validation is correct and the process can continue.
+            Returns False to stop the dialog from closing.
+            </summary>
+            <param name="cancelled"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IDialogInstance.OnCloseAsync(Microsoft.Fast.Components.FluentUI.DialogResult)">
+            <summary>
+            Dialog closing.
+            </summary>
+            <param name="result"></param>
+            <returns></returns>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDivider.Role">
             <summary>
             The role of the element.
@@ -1771,6 +1864,46 @@
                     ○ Match if at the end of the string or if before an ending newline.<br/>
             </code>
             </remarks>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.FluentLabel">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentLabel.Typo">
+            <summary>
+            Applies the theme typography styles.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentLabel.Disabled">
+            <summary>
+            Activates or deactivates the component (changes the color).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentLabel.Alignment">
+            <summary>
+            Set the text-align on the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentLabel.Color">
+            <summary>
+            The color of the component. It supports the theme colors.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentLabel.Weight">
+            <summary>7
+            The front weight of the component:
+            Normal (400), Bold (600) or Bolder (800).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentLabel.MarginBlock">
+            <summary>
+            "default" to use the margin-block prefefined by browser.
+            If not set, the MarginBlock will be 0px.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentLabel.ChildContent">
+            <summary>
+            Child content of component.
+            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentLayout.ChildContent">
             <summary>
@@ -7184,6 +7317,11 @@
             Move to the next element.
             </summary>
         </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.FontWeight">
+            <summary>
+            Possible FontWeight choices
+            </summary>
+        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.GenerateHeaderOption">
             <summary>
             The option for generating a header for the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1" />.
@@ -7202,6 +7340,36 @@
         <member name="F:Microsoft.Fast.Components.FluentUI.GenerateHeaderOption.Sticky">
             <summary>
             Generate a sticky header row.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.HorizontalAlignment">
+            <summary>
+            Determines the horizontal alignment of the content within the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentStack"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.HorizontalAlignment.Left">
+            <summary>
+            The content is aligned to the left.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.HorizontalAlignment.Start">
+            <summary>
+            The content is aligned to the start.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.HorizontalAlignment.Center">
+            <summary>
+            The content is center aligned.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.HorizontalAlignment.Right">
+            <summary>
+            The content is aligned to the right.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.HorizontalAlignment.End">
+            <summary>
+            The content is aligned to the end.
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.HorizontalPosition">
@@ -7609,46 +7777,6 @@
             Descending order.
             </summary>
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.StackHorizontalAlignment">
-            <summary>
-            Determines the horizontal alignment of the content within the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentStack"/>.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.StackHorizontalAlignment.Left">
-            <summary>
-            The content is aligned to the left.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.StackHorizontalAlignment.Center">
-            <summary>
-            The content is center aligned.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.StackHorizontalAlignment.Right">
-            <summary>
-            The content is aligned to the right.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.StackVerticalAlignment">
-            <summary>
-            Determines the vertical alignment of the content within the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentStack"/>.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.StackVerticalAlignment.Top">
-            <summary>
-            The content is aligned to the top.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.StackVerticalAlignment.Center">
-            <summary>
-            The content is center aligned.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.StackVerticalAlignment.Bottom">
-            <summary>
-            The content is aligned to the bottom
-            </summary>
-        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.StandardLuminance">
             <summary>
             The standard luminance values for light and dark mode.
@@ -7898,6 +8026,31 @@
         <member name="F:Microsoft.Fast.Components.FluentUI.TooltipPosition.End">
             <summary>
             The tooltip is positioned at the end of the enachor elemenet.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.Typography">
+            <summary>
+            The typography marker
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.VerticalAlignment">
+            <summary>
+            Determines the vertical alignment of the content within the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentStack"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.VerticalAlignment.Top">
+            <summary>
+            The content is aligned to the top.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.VerticalAlignment.Center">
+            <summary>
+            The content is center aligned.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.VerticalAlignment.Bottom">
+            <summary>
+            The content is aligned to the bottom
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.VerticalPosition">
