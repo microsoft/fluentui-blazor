@@ -102,11 +102,12 @@
     }
 
     .fluent-calendar ::deep .inactive {
+        color: var(--neutral-stroke-focus);
         cursor: default;
     }
 
         .fluent-calendar ::deep .inactive:hover {
-            background: unset;
+            background: unset !important;
         }
 
     .fluent-calendar ::deep .disabled {

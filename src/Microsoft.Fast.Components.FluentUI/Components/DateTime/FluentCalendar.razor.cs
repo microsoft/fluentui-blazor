@@ -72,21 +72,19 @@ public partial class FluentCalendar : FluentCalendarBase
     private DayProperties GetDayProperties(DateTime day)
     {
         var isDisabledDay = DisabledDateFunc?.Invoke(day) ?? false;
+        var isOutsideCurrentMonth = !CalendarExtended.IsInCurrentMonth(day);
         var cssClasses = new List<string>
         {
             "day" // Default
         };
 
-        if (isDisabledDay || !CalendarExtended.IsInCurrentMonth(day))
+        if (isOutsideCurrentMonth)
         {
-            if (DisabledSelectable)
-            {
-                cssClasses.Add("disabled");
-            }
-            else
-            {
-                cssClasses.Add("inactive");
-            }
+            cssClasses.Add("inactive");
+        }
+        else if (isDisabledDay)
+        {
+            cssClasses.Add(DisabledSelectable ? "disabled" : "inactive");
         }
 
         if (day == DateTime.Today)
@@ -102,7 +100,7 @@ public partial class FluentCalendar : FluentCalendarBase
         return new DayProperties(CalendarExtended, day)
         {
             CssClasses = cssClasses.ToArray(),
-            IsDisabled = isDisabledDay,
+            IsDisabled = isDisabledDay || isOutsideCurrentMonth,
         };
     }
 
