@@ -12,7 +12,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// integrates with an <see cref="AspNetCore.Components.Forms.EditContext"/>, which must be supplied
 /// as a cascading parameter.
 /// </summary>
-public abstract class FluentInputBase<TValue> : FluentComponentBase, IDisposable
+public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDisposable
 {
     private readonly EventHandler<ValidationStateChangedEventArgs> _validationStateChangedHandler;
     private bool _hasInitializedParameters;
@@ -77,7 +77,19 @@ public abstract class FluentInputBase<TValue> : FluentComponentBase, IDisposable
     /// </summary>
     [Parameter]
     public string? DisplayName { get; set; }
-    
+
+    /// <summary>
+    /// Determines if the element should receive document focus on page load.
+    /// </summary>
+    [Parameter]
+    public virtual bool Autofocus { get; set; } = false; // TODO: To update in all Input fields
+
+    /// <summary>
+    /// The short hint displayed in the input before the user enters a value.
+    /// </summary>
+    [Parameter]
+    public virtual string Placeholder { get; set; } = string.Empty; // TODO: To update in all Input fields
+
     /// <summary>
     /// Gets the associated <see cref="AspNetCore.Components.Forms.EditContext"/>.
     /// This property is uninitialized if the input does not have a parent <see cref="EditForm"/>.
@@ -382,6 +394,9 @@ public abstract class FluentInputBase<TValue> : FluentComponentBase, IDisposable
         {
             EditContext.OnValidationStateChanged -= _validationStateChangedHandler;
         }
+        
+        _timerCancellationTokenSource.Dispose();
+
         Dispose(disposing: true);
     }
 

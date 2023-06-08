@@ -1,0 +1,17 @@
+﻿@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentInputBase<DateTime?>
+
+<fluent-text-field class="@ClassValue"
+                   style="@StyleValue"
+                   autofocus="@Autofocus"
+                   appearance="@Appearance.ToAttributeValue()"
+                   type="time"
+                   current-value="@Value?.ToString("HH:mm")"
+                   @onchange="@ChangeHandlerAsync"
+                   @oninput="@InputHandlerAsync"
+                   readonly="@Readonly"
+                   disabled="@Disabled"
+                   required="@Required"
+                   placeholder="@Placeholder"
+                   @attributes="@AdditionalAttributes">
+</fluent-text-field>

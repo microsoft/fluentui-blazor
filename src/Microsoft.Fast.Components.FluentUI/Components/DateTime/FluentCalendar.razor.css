@@ -1,0 +1,95 @@
+﻿.fluent-calendar {
+    --calendar-cell-size: 28px;
+    --calendar-gap: 2px;
+    font-family: var(--body-font);
+    font-size: var(--type-ramp-base-font-size);
+    line-height: var(--type-ramp-base-line-height);
+    color: var(--neutral-foreground-rest);
+    width: calc((var(--calendar-cell-size) + 2 * var(--calendar-gap)) * 7);
+    height: calc((var(--calendar-cell-size) + 3 * var(--calendar-gap)) * 8);
+}
+
+    .fluent-calendar .month {
+        vertical-align: middle;
+    }
+
+    .fluent-calendar .change-month {
+        float: right;
+        padding-right: 8px;
+    }
+
+    .fluent-calendar .previous-month,
+    .fluent-calendar .next-month {
+        width: 16px;
+        fill: var(--neutral-fill-strong-focus);
+    }
+
+    .fluent-calendar .title {
+        padding: calc(var(--design-unit) * 2px);
+        font-weight: 600;
+        width: 100%;
+        height: calc(var(--calendar-cell-size) + 2 * var(--calendar-gap));
+    }
+
+    .fluent-calendar slot {
+        display: contents;
+    }
+
+    .fluent-calendar .days {
+        text-align: center;
+    }
+
+    .fluent-calendar div {
+        display: block;
+        line-height: inherit;
+        font-weight: inherit;
+    }
+
+    .fluent-calendar .week-days,
+    .fluent-calendar .week {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        grid-gap: var(--calendar-gap);
+        border: 0px;
+        padding: 0px;
+    }
+
+    .fluent-calendar .day,
+    .fluent-calendar .week-day {
+        border: 1px solid transparent;
+        width: var(--calendar-cell-size);
+        height: var(--calendar-cell-size);
+        line-height: var(--calendar-cell-size);
+        padding: 0px;
+        box-sizing: initial;
+    }
+
+    .fluent-calendar .week-day {
+        font-weight: 600;
+    }
+
+    .fluent-calendar .day {
+        border: calc(var(--stroke-width) * 1px) solid transparent;
+        border-radius: calc(var(--control-corner-radius) * 1px);
+        cursor: pointer;
+    }
+
+    .fluent-calendar .inactive {
+        color: var(--neutral-stroke-focus);
+        cursor: default;
+    }
+
+    .fluent-calendar .today .date {
+        color: var(--foreground-on-accent-rest);
+        background: var(--accent-fill-rest);
+        border-radius: 50%;
+        position: relative;
+        cursor: pointer;
+    }
+
+    .fluent-calendar .selected {
+        color: var(--accent-fill-rest);
+        border: 1px solid var(--accent-fill-rest);
+        background: var(--fill-color);
+        cursor: pointer;
+    }

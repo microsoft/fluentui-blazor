@@ -5,7 +5,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 
 
 
-public partial class FluentCalendar : FluentComponentBase
+public partial class FluentCalendar_OLD : FluentComponentBase
 {
     private string? disabledDatesAsString = null;
     private string? selectedDatesAsString = null;
@@ -137,7 +137,7 @@ public partial class FluentCalendar : FluentComponentBase
 
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(CalendarSelectEventArgs))]
 
-    public FluentCalendar()
+    public FluentCalendar_OLD()
     {
         
     }
