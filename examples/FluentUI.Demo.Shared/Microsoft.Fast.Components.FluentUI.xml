@@ -6090,6 +6090,13 @@
             Position at the bottom
             </summary>
         </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.AdditionalAttributesExtensions.RenderedAttributesEqual(System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object})">
+            <summary> Determines whether two sets of attributes are equal when rendered. </summary>
+            <param name="x">The compared set</param>
+            <param name="y">The set to compare with</param>
+            <remarks></remarks>
+            <returns><c>true</c> if both sets render the same attributes; otherwise, <c>false</c>.</returns>
+        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.BuilderExtensions.NullIfEmpty(Microsoft.Fast.Components.FluentUI.Utilities.CssBuilder)">
             <summary>
             Used to convert a CssBuilder into a null when it is empty.

@@ -12,7 +12,53 @@ public partial class FluentIcons
         new IconModel("ChevronRight", IconSize.Size20, IconVariant.Regular),
         new IconModel("Filter", IconSize.Size20, IconVariant.Regular),
         new IconModel("Info", IconSize.Size20, IconVariant.Regular),
-        new IconModel("Info", IconSize.Size32, IconVariant.Regular)
+        new IconModel("Info", IconSize.Size32, IconVariant.Regular),
+        new IconModel("Info", IconSize.Size48, IconVariant.Regular),
+        new IconModel("PresenceAvailable", IconSize.Size10, IconVariant.Regular),
+        new IconModel("PresenceAvailable", IconSize.Size12, IconVariant.Regular),
+        new IconModel("PresenceAvailable", IconSize.Size16, IconVariant.Regular),
+        new IconModel("PresenceAvailable", IconSize.Size20, IconVariant.Regular),
+        new IconModel("PresenceAvailable", IconSize.Size24, IconVariant.Regular),
+        new IconModel("PresenceAvailable", IconSize.Size10, IconVariant.Filled),
+        new IconModel("PresenceAvailable", IconSize.Size12, IconVariant.Filled),
+        new IconModel("PresenceAvailable", IconSize.Size16, IconVariant.Filled),
+        new IconModel("PresenceAvailable", IconSize.Size20, IconVariant.Filled),
+        new IconModel("PresenceAvailable", IconSize.Size24, IconVariant.Filled),
+        new IconModel("PresenceOffline", IconSize.Size10, IconVariant.Regular),
+        new IconModel("PresenceOffline", IconSize.Size12, IconVariant.Regular),
+        new IconModel("PresenceOffline", IconSize.Size16, IconVariant.Regular),
+        new IconModel("PresenceOffline", IconSize.Size20, IconVariant.Regular),
+        new IconModel("PresenceOffline", IconSize.Size24, IconVariant.Regular),
+        new IconModel("PresenceAway", IconSize.Size10, IconVariant.Filled),
+        new IconModel("PresenceAway", IconSize.Size12, IconVariant.Filled),
+        new IconModel("PresenceAway", IconSize.Size16, IconVariant.Filled),
+        new IconModel("PresenceAway", IconSize.Size20, IconVariant.Filled),
+        new IconModel("PresenceAway", IconSize.Size24, IconVariant.Filled),
+        new IconModel("PresenceUnknown", IconSize.Size10, IconVariant.Regular),
+        new IconModel("PresenceUnknown", IconSize.Size12, IconVariant.Regular),
+        new IconModel("PresenceUnknown", IconSize.Size16, IconVariant.Regular),
+        new IconModel("PresenceUnknown", IconSize.Size20, IconVariant.Regular),
+        new IconModel("PresenceUnknown", IconSize.Size24, IconVariant.Regular),
+        new IconModel("PresenceBusy", IconSize.Size10, IconVariant.Filled),
+        new IconModel("PresenceBusy", IconSize.Size12, IconVariant.Filled),
+        new IconModel("PresenceBusy", IconSize.Size16, IconVariant.Filled),
+        new IconModel("PresenceBusy", IconSize.Size20, IconVariant.Filled),
+        new IconModel("PresenceBusy", IconSize.Size24, IconVariant.Filled),
+        new IconModel("PresenceDND", IconSize.Size10, IconVariant.Regular),
+        new IconModel("PresenceDND", IconSize.Size12, IconVariant.Regular),
+        new IconModel("PresenceDND", IconSize.Size16, IconVariant.Regular),
+        new IconModel("PresenceDND", IconSize.Size20, IconVariant.Regular),
+        new IconModel("PresenceDND", IconSize.Size24, IconVariant.Regular),
+        new IconModel("PresenceDND", IconSize.Size10, IconVariant.Filled),
+        new IconModel("PresenceDND", IconSize.Size12, IconVariant.Filled),
+        new IconModel("PresenceDND", IconSize.Size16, IconVariant.Filled),
+        new IconModel("PresenceDND", IconSize.Size20, IconVariant.Filled),
+        new IconModel("PresenceDND", IconSize.Size24, IconVariant.Filled),
+        new IconModel("PresenceOOF", IconSize.Size10, IconVariant.Regular),
+        new IconModel("PresenceOOF", IconSize.Size12, IconVariant.Regular),
+        new IconModel("PresenceOOF", IconSize.Size16, IconVariant.Regular),
+        new IconModel("PresenceOOF", IconSize.Size20, IconVariant.Regular),
+        new IconModel("PresenceOOF", IconSize.Size24, IconVariant.Regular),
     };
 
     private static readonly ushort SizesCount = (ushort)Enum.GetValues(typeof(IconSize)).Length;
@@ -42,16 +88,19 @@ public partial class FluentIcons
         return FullIconMap.Where(x => sizes.Contains(x.Size) && variants.Contains(x.Variant));
     }
 
-    public static bool IconAvailable(IconConfiguration configuration, FluentIcon icon)
-    {
-        if (configuration.PublishedAssets)
-            return configuration.Variants.Contains(icon.Variant) &&
-                   configuration.Sizes.Contains(icon.Size) &&
-                   IconsAvailability.TryGetValue(icon.Name, out var iconAvailability) &&
-                   (iconAvailability & GetAvailabilityBitMask(icon.Size, icon.Variant)) != 0;
-        else
-            return LibraryUsedIcons.Any(x => x.Name == icon.Name && x.Size == icon.Size && x.Variant == icon.Variant);
-    }
+    public static bool IconAvailable(IconConfiguration configuration, FluentIcon icon) =>
+       IsDefaultIcon(icon) || IsPublishedIcon(configuration, icon);
+
+    private static bool IsPublishedIcon(IconConfiguration configuration, FluentIcon icon) =>
+        configuration.PublishedAssets &&
+            configuration.Variants.Contains(icon.Variant) &&
+            configuration.Sizes.Contains(icon.Size) &&
+            IconsAvailability.TryGetValue(icon.Name, out var iconAvailability) &&
+            (iconAvailability & GetAvailabilityBitMask(icon.Size, icon.Variant)) != 0;
+
+    private static bool IsDefaultIcon(FluentIcon icon) =>
+        LibraryUsedIcons
+            .Any(x => x.Name == icon.Name && x.Size == icon.Size && x.Variant == icon.Variant);
 
     private static uint GetAvailabilityBitMask(IconSize size, IconVariant variant)
     {
