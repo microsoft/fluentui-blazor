@@ -9,44 +9,58 @@
     height: calc((var(--calendar-cell-size) + 3 * var(--calendar-gap)) * 8);
 }
 
-    .fluent-calendar .month {
+    .fluent-calendar ::deep .month {
         vertical-align: middle;
     }
 
-    .fluent-calendar .change-month {
+    .fluent-calendar ::deep .change-month {
         float: right;
-        padding-right: 8px;
+        display: flex;
+        margin-right: -6px;
     }
 
-    .fluent-calendar .previous-month,
-    .fluent-calendar .next-month {
+    .fluent-calendar ::deep .previous-month,
+    .fluent-calendar ::deep .next-month {
+        width: var(--calendar-cell-size);
+        height: var(--calendar-cell-size);
+        margin-left: calc(2 * var(--calendar-gap));
+        text-align: center;
+    }
+
+        .fluent-calendar ::deep .previous-month:hover,
+        .fluent-calendar ::deep .next-month:hover {
+            background: var(--neutral-fill-stealth-hover);
+        }
+
+    .fluent-calendar ::deep .previous-month svg,
+    .fluent-calendar ::deep .next-month svg {
         width: 16px;
         fill: var(--neutral-fill-strong-focus);
     }
 
-    .fluent-calendar .title {
+    .fluent-calendar ::deep .title {
         padding: calc(var(--design-unit) * 2px);
         font-weight: 600;
         width: 100%;
-        height: calc(var(--calendar-cell-size) + 2 * var(--calendar-gap));
+        height: calc(var(--calendar-cell-size) + 4 * var(--calendar-gap));
     }
 
-    .fluent-calendar slot {
+    .fluent-calendar ::deep slot {
         display: contents;
     }
 
-    .fluent-calendar .days {
+    .fluent-calendar ::deep .days {
         text-align: center;
     }
 
-    .fluent-calendar div {
+    .fluent-calendar ::deep div {
         display: block;
         line-height: inherit;
         font-weight: inherit;
     }
 
-    .fluent-calendar .week-days,
-    .fluent-calendar .week {
+    .fluent-calendar ::deep .week-days,
+    .fluent-calendar ::deep .week {
         display: grid;
         grid-template-columns: repeat(7, 1fr);
         grid-gap: var(--calendar-gap);
@@ -54,8 +68,8 @@
         padding: 0px;
     }
 
-    .fluent-calendar .day,
-    .fluent-calendar .week-day {
+    .fluent-calendar ::deep .day,
+    .fluent-calendar ::deep .week-day {
         border: 1px solid transparent;
         width: var(--calendar-cell-size);
         height: var(--calendar-cell-size);
@@ -64,22 +78,22 @@
         box-sizing: initial;
     }
 
-    .fluent-calendar .week-day {
+    .fluent-calendar ::deep .week-day {
         font-weight: 600;
     }
 
-    .fluent-calendar .day {
+    .fluent-calendar ::deep .day {
         border: calc(var(--stroke-width) * 1px) solid transparent;
         border-radius: calc(var(--control-corner-radius) * 1px);
         cursor: pointer;
     }
 
-    .fluent-calendar .inactive {
+    .fluent-calendar ::deep .inactive {
         color: var(--neutral-stroke-focus);
         cursor: default;
     }
 
-    .fluent-calendar .today .date {
+    .fluent-calendar ::deep .today .date {
         color: var(--foreground-on-accent-rest);
         background: var(--accent-fill-rest);
         border-radius: 50%;
@@ -87,7 +101,7 @@
         cursor: pointer;
     }
 
-    .fluent-calendar .selected {
+    .fluent-calendar ::deep .selected {
         color: var(--accent-fill-rest);
         border: 1px solid var(--accent-fill-rest);
         background: var(--fill-color);

@@ -1595,11 +1595,6 @@
             Gets or sets the design of this input.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTimePicker.Width">
-            <summary>
-            Width of this input component.
-            </summary>
-        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentTimePicker.TryParseValueFromString(System.String,System.Nullable{System.DateTime}@,System.String@)">
             <summary />
         </member>
