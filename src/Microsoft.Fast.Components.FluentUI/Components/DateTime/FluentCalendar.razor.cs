@@ -77,10 +77,16 @@ public partial class FluentCalendar : FluentCalendarBase
             "day" // Default
         };
 
-        if (isDisabledDay ||
-            CalendarExtended.IsInCurrentMonth(day) == false)
+        if (isDisabledDay || !CalendarExtended.IsInCurrentMonth(day))
         {
-            cssClasses.Add("inactive");
+            if (DisabledSelectable)
+            {
+                cssClasses.Add("disabled");
+            }
+            else
+            {
+                cssClasses.Add("inactive");
+            }
         }
 
         if (day == DateTime.Today)

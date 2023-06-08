@@ -1566,6 +1566,17 @@
             Function to know if a specific day must be disabled.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendarBase.DisabledSelectable">
+            <summary>
+            Apply the disabled style to the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentCalendarBase.DisabledDateFunc"/> days.
+            If this is not the case, the days are displayed like the others, but cannot be selected.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendarBase.DayFormat">
+            <summary>
+            Format style for the day (numeric or 2-digits).
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendarBase.SelectedDate">
             <summary>
             Selected date (two-way bindable).

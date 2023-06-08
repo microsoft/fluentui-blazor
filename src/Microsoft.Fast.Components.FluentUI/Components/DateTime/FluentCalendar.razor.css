@@ -32,11 +32,11 @@
             background: var(--neutral-fill-stealth-hover);
         }
 
-    .fluent-calendar ::deep .previous-month svg,
-    .fluent-calendar ::deep .next-month svg {
-        width: 16px;
-        fill: var(--neutral-fill-strong-focus);
-    }
+        .fluent-calendar ::deep .previous-month svg,
+        .fluent-calendar ::deep .next-month svg {
+            width: 16px;
+            fill: var(--neutral-fill-strong-focus);
+        }
 
     .fluent-calendar ::deep .title {
         padding: calc(var(--design-unit) * 2px);
@@ -88,22 +88,49 @@
         cursor: pointer;
     }
 
-    .fluent-calendar ::deep .inactive {
+        .fluent-calendar ::deep .day:hover {
+            background: var(--neutral-fill-stealth-hover);
+        }
+
+        .fluent-calendar ::deep .inactive {
+            cursor: default;
+        }
+
+            .fluent-calendar ::deep .inactive:hover {
+                background: unset;
+            }
+
+    .fluent-calendar ::deep .disabled {
         color: var(--neutral-stroke-focus);
         cursor: default;
     }
+
+        .fluent-calendar ::deep .disabled:hover {
+            background: unset;
+        }
+
+        .fluent-calendar ::deep .disabled::before {
+            transform: translate(-50%, 0px) rotate(45deg);
+            content: "";
+            display: inline-block;
+            width: calc(var(--calendar-cell-size) * .8);
+            height: calc(var(--stroke-width) * 1px);
+            background: currentcolor;
+            position: absolute;
+            margin-top: calc(var(--calendar-cell-size) / 2);
+            transform-origin: center center;
+            z-index: 1;
+        }
 
     .fluent-calendar ::deep .today .date {
         color: var(--foreground-on-accent-rest);
         background: var(--accent-fill-rest);
         border-radius: 50%;
         position: relative;
-        cursor: pointer;
     }
 
     .fluent-calendar ::deep .selected {
         color: var(--accent-fill-rest);
         border: 1px solid var(--accent-fill-rest);
         background: var(--fill-color);
-        cursor: pointer;
     }

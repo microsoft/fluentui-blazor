@@ -45,9 +45,9 @@
                     <div part="day"
                          class="@String.Join(" ", dayProperties.CssClasses)"
                          aria-label="@dayProperties.Title"
-                    @onclick="@(() => OnSelectedDateHandler(day, dayProperties.IsDisabled))">
+                         @onclick="@(() => OnSelectedDateHandler(day, dayProperties.IsDisabled))">
                         <div class="date" part="date">
-                            @dayProperties.DayNumber
+                            @(DayFormat == FluentUI.DayFormat.Numeric ? dayProperties.DayNumber : dayProperties.DayNumber.ToString("00"))
                         </div>
                         <slot name="@dayProperties.DayIdentifier"></slot>
                     </div>

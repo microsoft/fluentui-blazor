@@ -21,6 +21,20 @@ public abstract class FluentCalendarBase : FluentComponentBase
     public virtual Func<DateTime, bool>? DisabledDateFunc { get; set; }
 
     /// <summary>
+    /// Apply the disabled style to the <see cref="DisabledDateFunc"/> days.
+    /// If this is not the case, the days are displayed like the others, but cannot be selected.
+    /// </summary>
+    [Parameter] 
+    public virtual bool DisabledSelectable { get; set; } = true;
+
+    /// <summary>
+    /// Format style for the day (numeric or 2-digits).
+    /// </summary>
+    [Parameter]
+    public DayFormat? DayFormat { get; set; } = FluentUI.DayFormat.Numeric;
+
+
+    /// <summary>
     /// Selected date (two-way bindable).
     /// </summary>
     [Parameter]
