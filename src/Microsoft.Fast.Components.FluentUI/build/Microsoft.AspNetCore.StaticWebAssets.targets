@@ -47,6 +47,11 @@
 	<Import Condition="$(FluentIconSizes.Contains('32')) AND $(FluentIconVariants.Contains('Regular'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Regular32.targets"/>
 	<Import Condition="$(FluentIconSizes.Contains('48')) AND $(FluentIconVariants.Contains('Regular'))" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.Regular48.targets"/>
 
-	<Import Condition="!($(FluentIconSizes.Contains('20')) AND $(FluentIconVariants.Contains('Regular'))) OR '$(PublishFluentIconAssets)' == 'false'" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.RequiredIcons20.targets"/>
-	<Import Condition="!($(FluentIconSizes.Contains('32')) AND $(FluentIconVariants.Contains('Regular'))) OR '$(PublishFluentIconAssets)' == 'false'" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.RequiredIcons32.targets"/>
+	<Import Condition="!($(FluentIconSizes.Contains('10'))) OR '$(PublishFluentIconAssets)' == 'false'" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.RequiredIcons10.targets"/>
+	<Import Condition="!($(FluentIconSizes.Contains('12'))) OR '$(PublishFluentIconAssets)' == 'false'" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.RequiredIcons12.targets"/>
+	<Import Condition="!($(FluentIconSizes.Contains('16'))) OR '$(PublishFluentIconAssets)' == 'false'" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.RequiredIcons16.targets"/>
+	<Import Condition="!($(FluentIconSizes.Contains('20'))) OR '$(PublishFluentIconAssets)' == 'false'" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.RequiredIcons20.targets"/>
+	<Import Condition="!($(FluentIconSizes.Contains('24'))) OR '$(PublishFluentIconAssets)' == 'false'" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.RequiredIcons24.targets"/>
+	<Import Condition="!($(FluentIconSizes.Contains('32'))) OR '$(PublishFluentIconAssets)' == 'false'" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.RequiredIcons32.targets"/>
+	<Import Condition="!($(FluentIconSizes.Contains('48'))) OR '$(PublishFluentIconAssets)' == 'false'" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.RequiredIcons48.targets"/>
 </Project>

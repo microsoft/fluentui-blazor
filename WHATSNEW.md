@@ -45,7 +45,7 @@ V2.3.2 will be hidden from NuGet packages because of icon issue
 
 - [Unit Tests] Refactoring and fixing of unit tests
 - Rework of generators after code review
-- Update Fluent UI Sysem Icons to version 1.1.202
+- Update Fluent UI System Icons to version 1.1.202
 - Fix [#402](https://github.com/microsoft/fluentui-blazor/issues/402): FluentUI Combobox in Blazor still showing value, not text 
 
 **What's new (Name / Size(s) / Variant(s))**
