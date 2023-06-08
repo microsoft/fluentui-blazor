@@ -53,4 +53,5 @@
 	<Import Condition="!($(FluentIconSizes.Contains('20'))) OR '$(PublishFluentIconAssets)' == 'false'" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.RequiredIcons20.targets"/>
 	<Import Condition="!($(FluentIconSizes.Contains('24'))) OR '$(PublishFluentIconAssets)' == 'false'" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.RequiredIcons24.targets"/>
 	<Import Condition="!($(FluentIconSizes.Contains('32'))) OR '$(PublishFluentIconAssets)' == 'false'" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.RequiredIcons32.targets"/>
+	<Import Condition="!($(FluentIconSizes.Contains('48'))) OR '$(PublishFluentIconAssets)' == 'false'" Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.RequiredIcons48.targets"/>
 </Project>
