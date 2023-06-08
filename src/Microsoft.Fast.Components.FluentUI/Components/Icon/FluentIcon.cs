@@ -100,7 +100,7 @@ public partial class FluentIcon : FluentComponentBase
     [Parameter]
     public EventCallback<MouseEventArgs> OnClick { get; set; }
 
-    protected override async Task OnParametersSetAsync()
+    protected override void OnParametersSet()
     {
         string? nc = NeutralCultureName ?? null;
 
@@ -245,40 +245,13 @@ public partial class FluentIcon : FluentComponentBase
         return _previousIconUrl != _iconUrl;
     }
 
-    private bool GetParametersChanged()
-    {
-        if (_previousId != Id ||
-            _previousColor != _color ||
-            _previousSlot != Slot ||
-            _previousClass != Class ||
-            _previousStyle != Style ||
-            (_previousAdditionalAttributes?.Count ?? 0) != (AdditionalAttributes?.Count ?? 0))
-        {
-            return true;
-        }
-
-        if (_previousAdditionalAttributes != null &&
-            _previousAdditionalAttributes.Count > 0)
-        {
-            foreach (var key in _previousAdditionalAttributes.Keys)
-            {
-                if (!AdditionalAttributes!.TryGetValue(key, out var currentValue))
-                {
-                    return true;
-                }
-
-                var previousValue = _previousAdditionalAttributes[key];
-
-                if ((previousValue is null && currentValue is not null) ||
-                    (previousValue is not null && !previousValue.Equals(currentValue)))
-                {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
+    private bool GetParametersChanged() =>
+        _previousId != Id ||
+        _previousColor != _color ||
+        _previousSlot != Slot ||
+        _previousClass != Class ||
+        _previousStyle != Style ||
+        !_previousAdditionalAttributes.RenderedAttributesEqual(AdditionalAttributes);
 
     private void UpdatePreviousParameters()
     {
