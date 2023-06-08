@@ -1556,6 +1556,11 @@
             <param name="day"></param>
             <returns></returns>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendarBase.ReadOnly">
+            <summary>
+            Gets or sets if the calendar is readonly 
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendarBase.Culture">
             <summary>
             The culture of the component. By default "en-US".
@@ -1592,10 +1597,10 @@
             Event raised when a date is selected (clicked).
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentCalendarBase.OnSelectedDateHandler(System.Nullable{System.DateTime})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentCalendarBase.OnSelectedDateHandlerAsync(System.Nullable{System.DateTime})">
             <summary />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentCalendarBase.OnSelectedDateHandler(System.Nullable{System.DateTime},System.Boolean)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentCalendarBase.OnSelectedDateHandlerAsync(System.Nullable{System.DateTime},System.Boolean)">
             <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTimePicker.StyleValue">

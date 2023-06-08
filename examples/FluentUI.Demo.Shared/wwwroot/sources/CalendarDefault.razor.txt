@@ -1,23 +1,14 @@
-﻿<FluentCalendar DisabledDateFunc="@DisabledDate" OnDateClicked="HandleDateClicked" DayFormat="DayFormat.TwoDigit" />
-<FluentCalendar DisabledDateFunc="@DisabledDate" OnDateClicked="HandleDateClicked" Culture="@(System.Globalization.CultureInfo.GetCultureInfo("fr-FR"))" />
+﻿<FluentCalendar DisabledDateFunc="@DisabledDate" @bind-SelectedDate="@SelectedValue" />
+<p>Selected date @(SelectedValue?.ToString("yyyy-MM-dd"))</p>
 
-<p>You clicked on @clickedDate</p>
+@code
+{
+    private DateTime? SelectedValue = null;
 
-@code {
-    private DateOnly? clickedDate = null;
-
-    private bool DisabledDate(DateTime date)
+    private bool DisabledDate(DateTime date) 
     {
-        if (date.Day == 10 || date.Day == 12 || date.Day == 14)
-        {
-            return true;   
-        }
-
-        return false;
-    }
-
-    private void HandleDateClicked(DateOnly date)
-    {
-        clickedDate = date;
+        return (date.Day == 10 ||
+                date.Day == 12 ||
+                date.Day == 14);
     }
 }

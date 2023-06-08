@@ -1,7 +1,7 @@
 ﻿@namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentCalendarBase
 
-<div class="@ClassValue" style="@StyleValue">
+<div class="@ClassValue" style="@StyleValue" readonly="@(ReadOnly ? true : null)">
     @* Month name *@
     <div class="title" part="title" aria-label="@CalendarExtended.GetMonthNameAndYear()">
         <FluentStack Orientation="Orientation.Horizontal">
@@ -45,7 +45,7 @@
                     <div part="day"
                          class="@String.Join(" ", dayProperties.CssClasses)"
                          aria-label="@dayProperties.Title"
-                         @onclick="@(() => OnSelectedDateHandler(day, dayProperties.IsDisabled))">
+                         @onclick="@((e) => OnSelectedDateHandlerAsync(day, dayProperties.IsDisabled))">
                         <div class="date" part="date">
                             @(DayFormat == FluentUI.DayFormat.Numeric ? dayProperties.DayNumber : dayProperties.DayNumber.ToString("00"))
                         </div>

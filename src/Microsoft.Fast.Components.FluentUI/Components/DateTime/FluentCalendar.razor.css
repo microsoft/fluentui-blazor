@@ -25,6 +25,7 @@
         height: var(--calendar-cell-size);
         margin-left: calc(2 * var(--calendar-gap));
         text-align: center;
+        cursor: pointer;
     }
 
         .fluent-calendar ::deep .previous-month:hover,
@@ -82,23 +83,31 @@
         font-weight: 600;
     }
 
+    .fluent-calendar[readonly] ::deep .day {
+        cursor: default;
+    }
+
+        .fluent-calendar[readonly] ::deep .day:hover {
+            background: unset;
+        }
+
     .fluent-calendar ::deep .day {
         border: calc(var(--stroke-width) * 1px) solid transparent;
         border-radius: calc(var(--control-corner-radius) * 1px);
         cursor: pointer;
     }
 
-        .fluent-calendar ::deep .day:hover {
-            background: var(--neutral-fill-stealth-hover);
-        }
+    .fluent-calendar:not([readonly]) ::deep .day:hover {
+        background: var(--neutral-fill-stealth-hover);
+    }
 
-        .fluent-calendar ::deep .inactive {
-            cursor: default;
-        }
+    .fluent-calendar ::deep .inactive {
+        cursor: default;
+    }
 
-            .fluent-calendar ::deep .inactive:hover {
-                background: unset;
-            }
+        .fluent-calendar ::deep .inactive:hover {
+            background: unset;
+        }
 
     .fluent-calendar ::deep .disabled {
         color: var(--neutral-stroke-focus);

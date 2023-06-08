@@ -9,6 +9,12 @@ public abstract class FluentCalendarBase : FluentComponentBase
     private DateTime? _selectedDate = null;
 
     /// <summary>
+    /// Gets or sets if the calendar is readonly 
+    /// </summary>
+    [Parameter]
+    public bool ReadOnly { get; set; } = false;
+
+    /// <summary>
     /// The culture of the component. By default "en-US".
     /// </summary>
     [Parameter]
@@ -32,7 +38,6 @@ public abstract class FluentCalendarBase : FluentComponentBase
     /// </summary>
     [Parameter]
     public DayFormat? DayFormat { get; set; } = FluentUI.DayFormat.Numeric;
-
 
     /// <summary>
     /// Selected date (two-way bindable).
@@ -69,19 +74,36 @@ public abstract class FluentCalendarBase : FluentComponentBase
     [Parameter]
     public virtual EventCallback<DateTime?> OnSelectedDate { get; set; }
 
+    [Parameter]
+    public EventCallback<DateOnly> OnDateClicked { get; set; }
+
     /// <summary />
-    protected virtual void OnSelectedDateHandler(DateTime? value)
+    protected virtual async Task OnSelectedDateHandlerAsync(DateTime? value)
     {
-        this.SelectedDate = value;
-        OnSelectedDate.InvokeAsync(value);
+        if (ReadOnly)
+        {
+            return;
+        }
+
+        SelectedDate = value;
+
+        if (OnSelectedDate.HasDelegate)
+        {
+            await OnSelectedDate.InvokeAsync(value);
+        }
+
+        if (OnDateClicked.HasDelegate && value != null)
+        {
+            await OnDateClicked.InvokeAsync(DateOnly.FromDateTime(value.Value));
+        }
     }
 
     /// <summary />
-    protected virtual void OnSelectedDateHandler(DateTime? value, bool dayDisabled)
+    protected virtual async Task OnSelectedDateHandlerAsync(DateTime? value, bool dayDisabled)
     {
         if (!dayDisabled)
         {
-            OnSelectedDateHandler(value);
+            await OnSelectedDateHandlerAsync(value);
         }
     }
 }

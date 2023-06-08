@@ -3,5 +3,5 @@
 
 @code
 {
-    DateTime? SelectedValue;
+    private DateTime? SelectedValue = null;
 }
