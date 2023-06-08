@@ -1,6 +1,36 @@
-﻿## V2.3.5
+﻿## V2.3.6
+- Fix [#418](https://github.com/microsoft/fluentui-blazor/issues/418): Partial fix for not being able to use arrow keys in FluentTextArea inside a FluentDataGrid. Does not work for virtualized grid.
+- Fix [#419](https://github.com/microsoft/fluentui-blazor/issues/419): Partial fix for feat: Add multi line text to FluentDataGrid PropertyColumn
+- Fix [#424](https://github.com/microsoft/fluentui-blazor/issues/422): Demo site not working on iPhone
+- Fix [#424](https://github.com/microsoft/fluentui-blazor/issues/424): [Demo apps] Infinite rendering loop in TableOfContents
+- Fix [#370](https://github.com/microsoft/fluentui-blazor/pull/439): FluentIcon performance improvements by @andreisaperski 
+- Make arrow keys work in FluentDataGrid colum options
+- Add required icon assets for all sizes
+- Add all Presence icons as required
+- Update Fluent UI System Icons to version 1.1.203
+**What's new (Name / Size(s) / Variant(s))**
+- Book Default / 28 / Filled & Regular
+- Folder Lightning / 16, 20, 24 / Filled & Regular
+- Hat Graduation / 28 / Filled & Regular
+- Image Sparkle / 16, 20, 24 / Filled & Regular
+- Mail / 32 / Filled & Regular
+- Person Info / 24 / Filled & Regular
+- Prohibited Multiple / 28 / Filled & Regular
+- Prohibited / 32 / Filled & Regular
+- Spinner iOS / 16 / Filled & Regular
+- Star Emphasis / 16 / Filled & Regular
+- Text Direction Rotate 315 Right / 20, 24 / Filled & Regular
+- Text Direction Rotate 45 Right / 20, 24 / Filled & Regular
+
+**What's updated (Name / Size(s) / Variant(s))**
+- Add Square / 16, 20, 28, 32, 48 / Filled & Regular
+- Book Add / 24, 28 / Filled & Regular
+- Subtract / 12, 16, 20 / Filled & Regular
+
+## V2.3.5
 - Fix [#386](https://github.com/microsoft/fluentui-blazor/issues/386) by updating web-components.min.js to 2.5.15
-- 
+
+
 ## V2.3.4
 - Fix not being able to use library in a Razor Class Library (discussion [#391](https://github.com/microsoft/fluentui-blazor/discussions/391))
 - Fix [#414](https://github.com/microsoft/fluentui-blazor/issues/414): Table of Contents doesn't work correctly with Markdown Section in demo site/new components 
