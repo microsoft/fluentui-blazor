@@ -163,7 +163,19 @@ builder.Services.AddFluentUIComponents(options =>
 });
 builder.Services.AddScoped<IStaticAssetService, FileBasedStaticAssetService>();
 ```
+### Tempory workaround for MAUI issues
+Currently in MAUI the web-components script is not imported automatically (see [#404](https://github.com/microsoft/fluentui-blazor/issues/404). There is also an isue with loading the custom event handelers that are being raised by the web-components script. Until these are fixed on the MAUI side, there is a workaround available, namely to intercept '_framework/blazor.modules.json' and provide proper JS initializers file (created by build). You can drop this [initializersLoader.windows.js](https://github.com/andreisaperski/fluentui-blazor/blob/hybrid-examples/examples/FluentUI.Demo.Hybrid.Shared/wwwroot/js/initializersLoader.windows.js) into wwwroot folder of your app and add a script tag for it to your `index.html` right before the `_framework/blazor.webview.js` tag:
 
+```xml
+<script app-name="FluentUI.Demo.Hybrid.MAUI" src="./_content/FluentUI.Demo.Hybrid.Shared/js/initializersLoader.windows.js"></script>
+<script src="_framework/blazor.webview.js"></script>
+```
+
+The `app-name` attribute needs to match your app's assembly name - initializersLoader uses 'app-name' to resolve name of the file with initializers.
+initializersLoader replaces standard `fetch` function with one which provides the correct file in place of the empty `blazor.modules.json`. `fetch` is restored to its original state once `_framework/blazor.modules.json` request is intercepted.
+
+For more information regarding the MAUI bug see issues [15234](https://github.com/dotnet/maui/issues/15234) there.
+	
 ## Use the DataGrid component with EF Core
 If you want to use the `<FluentDataGrid>` with data provided through EF Core, you need to install 
 an additional package so the grid knows how to resolve queries asynchronously for efficiency.  .
