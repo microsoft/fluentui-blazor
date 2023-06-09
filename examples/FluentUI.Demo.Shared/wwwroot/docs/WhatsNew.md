@@ -112,7 +112,7 @@ Thanks @Ogglas and @pk9r327 for your contributions!
 - Icon/Emoji fix for when using Windows authentication 
 
 ## Script change
-The hart of this library is formed by the Fluent UI Web Components and the accompanying `web-components.min.js` file. From now 
+The heart of this library is formed by the Fluent UI Web Components and the accompanying `web-components.min.js` file. From now 
 on, the script is included in the library itself and no longer needs to be added to your `index.html` or `_Layout.cshtml`. In fact, doing this might lead to 
 unpredictable results. 
 
@@ -215,7 +215,7 @@ still providing powerful features like sorting, filtering, paging, and virtualiz
 
 QuickGrid was originally introduced as an experimental package based on .NET 7 and we copied it's code over to the Fluent UI library to re-use it's 
 features (and some more) but render it with the Fluent UI Web Components instead of it's orignal rendering based on HTML table, tr and td elements. As part 
-of bringing QuickGrid into .NET 8 the ASP.NET Core team made some changes and improvements to the API. We brougth these changes over to the `<FluentDataGrid>` as well. To update an app that uses `<FluentDataGrid>`, 
+of bringing QuickGrid into .NET 8 the ASP.NET Core team made some changes and improvements to the API. We brought these changes over to the `<FluentDataGrid>` as well. To update an app that uses `<FluentDataGrid>`, 
 you may need to make the following adjustments:
 
 **------BREAKING CHANGES------**
