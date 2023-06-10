@@ -7,8 +7,8 @@
 
     private bool DisabledDate(DateTime date) 
     {
-        return (date.Day == 10 ||
-                date.Day == 12 ||
-                date.Day == 14);
+        return (date.Day == 3 ||
+                date.Day == 8 ||
+                date.Day == 20);
     }
 }

@@ -47,11 +47,9 @@
                          today="@dayProperties.IsToday"
                          selected="@dayProperties.IsSelected"
                          aria-label="@dayProperties.Title"
-                         @onclick="@((e) => OnSelectedDateHandlerAsync(day, dayProperties.IsDisabled))">
-                        <div class="date" part="date">
-                            @(DayFormat == FluentUI.DayFormat.Numeric ? dayProperties.DayNumber : dayProperties.DayNumber.ToString("00"))
-                        </div>
-                        <slot name="@dayProperties.DayIdentifier"></slot>
+                         value="@dayProperties.DayIdentifier"
+                         @onclick="@((e) => OnSelectedDateHandlerAsync(day, dayProperties.IsDisabled || dayProperties.IsInactive))">
+                        @dayProperties.DayNumber
                     </div>
                 }
             </div>

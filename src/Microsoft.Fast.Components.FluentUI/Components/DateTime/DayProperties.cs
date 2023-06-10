@@ -58,7 +58,19 @@ internal class DayProperties
     /// <summary>
     /// Gets the number of day of the month in the current Culture.
     /// </summary>
-    public int DayNumber => _calendar.CalendarExtended.GetCalendarDayOfMonth(this.Day);
+    public string DayNumber
+    {
+        get
+        {
+            var day = _calendar.CalendarExtended.GetCalendarDayOfMonth(this.Day);
+
+            return _calendar.DayFormat switch
+            {
+                DayFormat.TwoDigit => Convert.ToString(day),
+                _ => day.ToString("00", CultureInfo.InvariantCulture),
+            };
+        }
+    }
 
     /// <summary>
     /// Gets the identifier of the day in the format yyyy-MM-dd.

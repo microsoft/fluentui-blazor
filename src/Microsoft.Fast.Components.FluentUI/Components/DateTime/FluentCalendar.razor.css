@@ -7,6 +7,7 @@
     color: var(--neutral-foreground-rest);
     width: calc((var(--calendar-cell-size) + 2 * var(--calendar-gap)) * 7);
     height: calc((var(--calendar-cell-size) + 3 * var(--calendar-gap)) * 8);
+    user-select: none;
 }
 
     /* Header: month name and month navigation */
@@ -90,11 +91,7 @@
         cursor: default;
     }
 
-        .fluent-calendar[readonly] ::deep .day:hover {
-            background: unset;
-        }
-
-    .fluent-calendar:not([readonly]) ::deep .day:hover {
+    .fluent-calendar:not([readonly]) ::deep .day:not([disabled]):not([inactive]):not([today]):hover {
         background: var(--neutral-fill-stealth-hover);
     }
 
@@ -104,21 +101,13 @@
         cursor: default;
     }
 
-        .fluent-calendar ::deep .day[inactive]:hover {
-            background: unset;
-        }
-
     .fluent-calendar ::deep .day[disabled] {
         color: var(--neutral-stroke-focus);
         cursor: default;
     }
 
-        .fluent-calendar ::deep .day[disabled]:hover {
-            background: unset;
-        }
-
         .fluent-calendar ::deep .day[disabled]::before { /* strikethrough */
-            transform: translate(-50%, 0px) rotate(45deg);
+            transform: translate(-4px, 0px) rotate(45deg);
             content: "";
             display: inline-block;
             width: calc(var(--calendar-cell-size) * .8);
@@ -131,11 +120,11 @@
         }
 
     /* Today */
-    .fluent-calendar ::deep .day[today] .date {
+    .fluent-calendar ::deep .day:not([selected])[today] {
         color: var(--foreground-on-accent-rest);
         background: var(--accent-fill-rest);
         border-radius: 50%;
-        position: relative;
+        position: relative;        
     }
 
     /* Selected */
