@@ -43,7 +43,7 @@ public abstract class FluentCalendarBase : FluentComponentBase
     /// Selected date (two-way bindable).
     /// </summary>
     [Parameter]
-    public virtual DateTime? SelectedDate
+    public virtual DateTime? Value
     {
         get
         {
@@ -59,9 +59,9 @@ public abstract class FluentCalendarBase : FluentComponentBase
 
             _selectedDate = value;
 
-            if (SelectedDateChanged.HasDelegate)
+            if (ValueChanged.HasDelegate)
             {
-                SelectedDateChanged.InvokeAsync(value);
+                ValueChanged.InvokeAsync(value);
             }
         }
     }
@@ -70,14 +70,14 @@ public abstract class FluentCalendarBase : FluentComponentBase
     /// Fired when the display month changes.
     /// </summary>
     [Parameter]
-    public virtual EventCallback<DateTime?> SelectedDateChanged { get; set; }
+    public virtual EventCallback<DateTime?> ValueChanged { get; set; }
 
     /// <summary />
     protected virtual Task OnSelectedDateHandlerAsync(DateTime? value)
     {
         if (!ReadOnly)
         {
-            SelectedDate = value;
+            Value = value;
         }
 
         return Task.CompletedTask;

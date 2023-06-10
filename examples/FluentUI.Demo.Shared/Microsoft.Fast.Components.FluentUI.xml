@@ -1592,12 +1592,12 @@
             Format style for the day (numeric or 2-digits).
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendarBase.SelectedDate">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendarBase.Value">
             <summary>
             Selected date (two-way bindable).
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendarBase.SelectedDateChanged">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendarBase.ValueChanged">
             <summary>
             Fired when the display month changes.
             </summary>

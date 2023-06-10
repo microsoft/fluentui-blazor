@@ -48,7 +48,7 @@ internal class DayProperties
     /// <summary>
     /// Whether the day is selected by the user
     /// </summary>
-    public bool IsSelected => Day == _calendar.SelectedDate;
+    public bool IsSelected => Day == _calendar.Value;
 
     /// <summary>
     /// Gets the name of the day and month in current culture.

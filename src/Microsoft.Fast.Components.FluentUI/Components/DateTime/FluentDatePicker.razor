@@ -30,7 +30,7 @@
                           Class="fluent-datepicker"
                           Style="@($"z-index: {ZIndex.DatePickerPopup}")">
         <FluentCalendar Culture="@Culture"
-                        SelectedDate="@SelectedDate"
-                        SelectedDateChanged="@OnSelectedDateAsync" />
+                        Value="@Value"
+                        ValueChanged="@OnSelectedDateAsync" />
     </FluentAnchoredRegion>
 }

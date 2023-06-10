@@ -36,7 +36,7 @@ public partial class FluentCalendar : FluentCalendarBase
         get
         {
             return FirstDayOfMonth(_pickerMonth
-                                  ?? (SelectedDate ?? DateTime.Today));
+                                  ?? (Value ?? DateTime.Today));
         }
 
         set

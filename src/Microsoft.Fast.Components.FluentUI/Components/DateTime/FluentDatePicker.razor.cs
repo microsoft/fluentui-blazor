@@ -69,7 +69,7 @@ public partial class FluentDatePicker : FluentCalendarBase
     {
         get
         {
-            return SelectedDate?.ToString(Culture.DateTimeFormat.ShortDatePattern);
+            return Value?.ToString(Culture.DateTimeFormat.ShortDatePattern);
         }
 
         set
@@ -84,11 +84,11 @@ public partial class FluentDatePicker : FluentCalendarBase
 
             if (isValid)
             {
-                SelectedDate = newDate;
+                Value = newDate;
             }
             else
             {
-                SelectedDate = null;
+                Value = null;
             }
         }
     }
@@ -108,7 +108,7 @@ public partial class FluentDatePicker : FluentCalendarBase
     protected Task OnSelectedDateAsync(DateTime? value)
     {
         Opened = false;
-        SelectedDate = value;
+        Value = value;
 
         return Task.CompletedTask;
     }
