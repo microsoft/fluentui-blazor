@@ -3,7 +3,7 @@
 }
 
     ::deep .fluent-datepicker svg {
-        fill: var(--accent-fill-rest);
+        fill: var(--neutral-fill-strong-focus);
         width: 20px;
         height: 20px;
     }
