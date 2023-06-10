@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Fast.Components.FluentUI.Infrastructure;
+using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
@@ -13,15 +14,32 @@ public partial class FluentIcon : FluentComponentBase
     private string? _iconUrl;
     private string? _iconUrlFallback;
     private string? _color;
-    private string? _prevResult;
 
     private int _size;
+
+    private string? _previousId;
+    private string? _previousIconUrl;
+    private string? _previousColor;
+    private string? _previousSlot;
+    private string? _previousIconContent;
+    private string? _previousClass;
+    private string? _previousStyle;
+    private IReadOnlyDictionary<string, object>? _previousAdditionalAttributes;
+
+    private bool _iconChanged;
+    private bool _shouldRender;
 
     [Inject]
     private IStaticAssetService StaticAssetService { get; set; } = default!;
 
     [Inject]
     private IconService IconService { get; set; } = default!;
+
+    protected string? StyleValue => new StyleBuilder()
+        .AddStyle("fill", _color)
+        .AddStyle("cursor", "pointer", OnClick.HasDelegate)
+        .AddStyle(Style)
+        .Build();
 
     /// <summary>
     /// Gets or sets the <see cref="IconVariant"/> to use. 
@@ -82,7 +100,6 @@ public partial class FluentIcon : FluentComponentBase
     [Parameter]
     public EventCallback<MouseEventArgs> OnClick { get; set; }
 
-
     protected override void OnParametersSet()
     {
         string? nc = NeutralCultureName ?? null;
@@ -118,46 +135,35 @@ public partial class FluentIcon : FluentComponentBase
 
         _iconUrl = $"{ICON_ROOT}/{Name}{(nc is not null ? "/" + nc : "")}/{ComposedName}.svg";
         _iconUrlFallback = $"{ICON_ROOT}/{Name}/{ComposedName}.svg";
+
+        _iconChanged = GetIconChanged();
+
+        _shouldRender = _iconChanged || GetParametersChanged();
+        UpdatePreviousParameters();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        string? result;
-
-        if (!string.IsNullOrEmpty(_iconUrl))
+        if (!_iconChanged)
         {
-            result = await StaticAssetService.GetAsync(_iconUrl);
-            if (string.IsNullOrEmpty(result))
-            {
-                _iconUrlFallback = $"{ICON_ROOT}/{Name}/{ComposedName}.svg";
-                result = await StaticAssetService.GetAsync(_iconUrlFallback);
-
-                if (string.IsNullOrEmpty(result))
-                {
-                    return;
-                }
-            }
-
-            result = result.Replace("<path ", $"<path fill=\"{_color}\"");
-
-            string pattern = "<svg (?<attributes>.*?)>(?<path>.*?)</svg>";
-            Regex regex = new(pattern);
-            MatchCollection matches = regex.Matches(result);
-            Match? match = matches.FirstOrDefault();
-
-            if (match is not null)
-                result = match.Groups["path"].Value;
-
-
-            if (_prevResult != result)
-            {
-                _svg = result;
-                _prevResult = result;
-                _size = Convert.ToInt32(Size);
-
-                StateHasChanged();
-            }
+            return;
         }
+
+        _iconChanged = false;
+        var iconContent = await GetIconContentAsync();
+
+        if (_previousIconContent != iconContent)
+        {
+            _svg = iconContent;
+            _previousIconContent = iconContent;
+            _size = Convert.ToInt32(Size);
+            StateHasChanged();
+        }
+    }
+
+    protected override bool ShouldRender()
+    {
+        return _shouldRender;
     }
 
     protected override void BuildRenderTree(RenderTreeBuilder builder)
@@ -168,7 +174,7 @@ public partial class FluentIcon : FluentComponentBase
             builder.AddAttribute(1, "id", GetId());
             builder.AddAttribute(2, "slot", Slot);
             builder.AddAttribute(3, "class", Class);
-            builder.AddAttribute(4, "style", Style);
+            builder.AddAttribute(4, "style", StyleValue);
             builder.AddAttribute(5, "width", _size);
             builder.AddAttribute(6, "height", _size);
             builder.AddAttribute(7, "viewBox", $"0 0 {_size} {_size}");
@@ -192,6 +198,39 @@ public partial class FluentIcon : FluentComponentBase
             await OnClick.InvokeAsync(e);
     }
 
+    private async Task<string?> GetIconContentAsync()
+    {
+        _previousIconUrl = _iconUrl;
+
+        string? result = null;
+
+        if (!string.IsNullOrEmpty(_iconUrl))
+        {
+            result = await StaticAssetService.GetAsync(_iconUrl);
+
+            if (string.IsNullOrEmpty(result) &&
+                !string.IsNullOrEmpty(_iconUrlFallback))
+            {
+                result = await StaticAssetService.GetAsync(_iconUrlFallback);
+            }
+        }
+
+        if (string.IsNullOrEmpty(result))
+        {
+            return result;
+        }
+
+        string pattern = "<svg (?<attributes>.*?)>(?<path>.*?)</svg>";
+        Regex regex = new(pattern);
+        MatchCollection matches = regex.Matches(result);
+        Match? match = matches.FirstOrDefault();
+
+        if (match is not null)
+            result = match.Groups["path"].Value;
+
+        return result;
+    }
+
     private string ComposedName
     {
         get
@@ -205,6 +244,29 @@ public partial class FluentIcon : FluentComponentBase
 
             return $"{(int)Size}_{variant}";
         }
+    }
+
+    private bool GetIconChanged()
+    {
+        return _previousIconUrl != _iconUrl;
+    }
+
+    private bool GetParametersChanged() =>
+        _previousId != Id ||
+        _previousColor != _color ||
+        _previousSlot != Slot ||
+        _previousClass != Class ||
+        _previousStyle != Style ||
+        !_previousAdditionalAttributes.RenderedAttributesEqual(AdditionalAttributes);
+
+    private void UpdatePreviousParameters()
+    {
+        _previousId = Id;
+        _previousColor = _color;
+        _previousSlot = Slot;
+        _previousClass = Class;
+        _previousStyle = Style;
+        _previousAdditionalAttributes = AdditionalAttributes;
     }
 
 #if NET7_0_OR_GREATER
