@@ -62,47 +62,14 @@ public partial class FluentCalendar : FluentCalendarBase
     /// <summary>
     /// All days of this current month.
     /// </summary>
-    private CalendarExtended CalendarExtended => _calendarExtended ?? new CalendarExtended(this.Culture, this.PickerMonth);
+    internal CalendarExtended CalendarExtended => _calendarExtended ?? new CalendarExtended(this.Culture, this.PickerMonth);
 
     /// <summary>
     /// Returns the class name to display a day (day, inactive, today).
     /// </summary>
     /// <param name="day"></param>
     /// <returns></returns>
-    private DayProperties GetDayProperties(DateTime day)
-    {
-        var isDisabledDay = DisabledDateFunc?.Invoke(day) ?? false;
-        var isOutsideCurrentMonth = !CalendarExtended.IsInCurrentMonth(day);
-        var cssClasses = new List<string>
-        {
-            "day" // Default
-        };
-
-        if (isOutsideCurrentMonth)
-        {
-            cssClasses.Add("inactive");
-        }
-        else if (isDisabledDay)
-        {
-            cssClasses.Add(DisabledSelectable ? "disabled" : "inactive");
-        }
-
-        if (day == DateTime.Today)
-        {
-            cssClasses.Add("today");
-        }
-
-        if (day == SelectedDate)
-        {
-            cssClasses.Add("selected");
-        }
-
-        return new DayProperties(CalendarExtended, day)
-        {
-            CssClasses = cssClasses.ToArray(),
-            IsDisabled = isDisabledDay || isOutsideCurrentMonth,
-        };
-    }
+    private DayProperties GetDayProperties(DateTime day) => new(this, day);
 
     private DateTime FirstDayOfMonth(DateTime date)
     {

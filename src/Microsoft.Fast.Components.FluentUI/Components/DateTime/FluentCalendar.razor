@@ -4,23 +4,21 @@
 <div class="@ClassValue" style="@StyleValue" readonly="@(ReadOnly ? true : null)">
     @* Month name *@
     <div class="title" part="title" aria-label="@CalendarExtended.GetMonthNameAndYear()">
-        <FluentStack Orientation="Orientation.Horizontal">
-            <span part="month" class="month">
-                @CalendarExtended.GetMonthNameAndYear()
-            </span>
-            <span part="move" class="change-month">
-                <div class="previous-month"
-                     title="@CalendarExtended.GetMonthName(PickerMonth.AddMonths(-1))"
-                     @onclick="@((e) => this.PickerMonth = PickerMonth.AddMonths(-1))">
-                    @((MarkupString)ArrowUp)
-                </div>
-                <div title="@CalendarExtended.GetMonthName(PickerMonth.AddMonths(+1))"
-                     class="next-month"
-                     @onclick="@((e) => this.PickerMonth = PickerMonth.AddMonths(+1))">
-                    @((MarkupString)ArrowDown)
-                </div>
-            </span>
-        </FluentStack>
+        <span part="month" class="month">
+            @CalendarExtended.GetMonthNameAndYear()
+        </span>
+        <span part="move" class="change-month">
+            <div class="previous-month"
+                    title="@CalendarExtended.GetMonthName(PickerMonth.AddMonths(-1))"
+                    @onclick="@((e) => this.PickerMonth = PickerMonth.AddMonths(-1))">
+                @((MarkupString)ArrowUp)
+            </div>
+            <div title="@CalendarExtended.GetMonthName(PickerMonth.AddMonths(+1))"
+                    class="next-month"
+                    @onclick="@((e) => this.PickerMonth = PickerMonth.AddMonths(+1))">
+                @((MarkupString)ArrowDown)
+            </div>
+        </span>
     </div>
 
     <div class="days" part="days">
@@ -43,7 +41,11 @@
                     var dayProperties = GetDayProperties(day);
 
                     <div part="day"
-                         class="@String.Join(" ", dayProperties.CssClasses)"
+                         class="day"
+                         disabled="@dayProperties.IsDisabled"
+                         inactive="@dayProperties.IsInactive"
+                         today="@dayProperties.IsToday"
+                         selected="@dayProperties.IsSelected"
                          aria-label="@dayProperties.Title"
                          @onclick="@((e) => OnSelectedDateHandlerAsync(day, dayProperties.IsDisabled))">
                         <div class="date" part="date">

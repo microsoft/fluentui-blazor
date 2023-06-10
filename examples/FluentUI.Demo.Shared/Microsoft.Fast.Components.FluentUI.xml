@@ -1481,11 +1481,11 @@
             Computes the properties of a day in the calendar, depending on the current culture.
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DayProperties.#ctor(Microsoft.Fast.Components.FluentUI.CalendarExtended,System.DateTime)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DayProperties.#ctor(Microsoft.Fast.Components.FluentUI.FluentCalendar,System.DateTime)">
             <summary>
             Initializes a new instance of the <see cref="T:Microsoft.Fast.Components.FluentUI.DayProperties"/> class.
             </summary>
-            <param name="calendarData"></param>
+            <param name="calendar"></param>
             <param name="day"></param>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DayProperties.Day">
@@ -1493,14 +1493,24 @@
             Current day
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DayProperties.CssClasses">
-            <summary>
-            CSS classes to apply to the day: day, inactive, today, selected.
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DayProperties.IsDisabled">
             <summary>
-            Whether the day is active or not.
+            Whether the day is disabled by the user.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DayProperties.IsInactive">
+            <summary>
+            Whether the day is inactive (out of the current month).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DayProperties.IsToday">
+            <summary>
+            Whether the day is now
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DayProperties.IsSelected">
+            <summary>
+            Whether the day is selected by the user
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DayProperties.Title">
