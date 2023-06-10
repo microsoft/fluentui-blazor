@@ -5,7 +5,6 @@ namespace Microsoft.Fast.Components.FluentUI;
 
 public abstract class FluentCalendarBase : FluentComponentBase
 {
-    private static readonly CultureInfo DEFAULT_CULTURE = CultureInfo.GetCultureInfo("en-US");
     private DateTime? _selectedDate = null;
 
     /// <summary>
@@ -15,10 +14,11 @@ public abstract class FluentCalendarBase : FluentComponentBase
     public bool ReadOnly { get; set; } = false;
 
     /// <summary>
-    /// The culture of the component. By default "en-US".
+    /// The culture of the component.
+    /// By default <see cref="CultureInfo.CurrentCulture"/> to display using the OS culture.
     /// </summary>
     [Parameter]
-    public virtual CultureInfo Culture { get; set; } = DEFAULT_CULTURE;
+    public virtual CultureInfo Culture { get; set; } = CultureInfo.CurrentCulture;
 
     /// <summary>
     /// Function to know if a specific day must be disabled.

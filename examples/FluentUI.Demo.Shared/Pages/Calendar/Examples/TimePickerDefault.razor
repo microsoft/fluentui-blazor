@@ -1,5 +1,5 @@
 <FluentTimePicker @bind-Value="@SelectedValue" />
-<p>Selected Time: @SelectedValue</p>
+<p>Selected Time: @(SelectedValue?.ToString("HH:mm"))</p>
 
 @code
 {

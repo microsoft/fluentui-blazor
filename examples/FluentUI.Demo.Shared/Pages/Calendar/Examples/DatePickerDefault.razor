@@ -1,6 +1,5 @@
 <FluentDatePicker @bind-Value="@SelectedValue" />
-<p>Selected Date: @SelectedValue</p>
-
+<p>Selected Date: @(SelectedValue?.ToString("yyyy-MM-dd"))</p>
 @code
 {
     private DateTime? SelectedValue = null;

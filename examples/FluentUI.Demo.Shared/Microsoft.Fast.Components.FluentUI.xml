@@ -1573,7 +1573,8 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendarBase.Culture">
             <summary>
-            The culture of the component. By default "en-US".
+            The culture of the component.
+            By default <see cref="P:System.Globalization.CultureInfo.CurrentCulture"/> to display using the OS culture.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendarBase.DisabledDateFunc">
