@@ -519,7 +519,7 @@
 		<DefineStaticWebAssets Condition="'@(Regular48AssetsCandidates-&gt;Count())' != '0'" CandidateAssets="@(Regular48AssetsCandidates)" SourceId="$(PackageId)" SourceType="Discovered" AssetKind="All" ContentRoot="Assets/icons" BasePath="$(StaticWebAssetBasePath)">
 			<Output TaskParameter="Assets" ItemName="Regular48Assets" />
 		</DefineStaticWebAssets>
-    
+	
 		<DefineStaticWebAssets CandidateAssets="@(RequiredIcon10AssetsCandidates)" SourceId="$(PackageId)" SourceType="Discovered" AssetKind="All" ContentRoot="Assets/icons" BasePath="$(StaticWebAssetBasePath)">
 			<Output TaskParameter="Assets" ItemName="RequiredIcon10Assets" />
 		</DefineStaticWebAssets>
