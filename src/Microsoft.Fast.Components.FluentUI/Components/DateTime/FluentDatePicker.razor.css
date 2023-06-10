@@ -1,0 +1,9 @@
+﻿::deep .fluent-datepicker {
+    
+}
+
+    ::deep .fluent-datepicker svg {
+        fill: var(--accent-fill-rest);
+        width: 20px;
+        height: 20px;
+    }

@@ -82,13 +82,13 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     /// Determines if the element should receive document focus on page load.
     /// </summary>
     [Parameter]
-    public virtual bool Autofocus { get; set; } = false; // TODO: To update in all Input fields
+    public virtual bool Autofocus { get; set; } = false;
 
     /// <summary>
     /// The short hint displayed in the input before the user enters a value.
     /// </summary>
     [Parameter]
-    public virtual string Placeholder { get; set; } = string.Empty; // TODO: To update in all Input fields
+    public virtual string? Placeholder { get; set; }
 
     /// <summary>
     /// Gets the associated <see cref="AspNetCore.Components.Forms.EditContext"/>.

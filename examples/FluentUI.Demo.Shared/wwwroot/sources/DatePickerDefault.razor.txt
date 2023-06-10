@@ -1,0 +1,7 @@
+<FluentDatePicker @bind-SelectedDate="@SelectedValue" />
+<p>Selected Date: @SelectedValue</p>
+
+@code
+{
+    private DateTime? SelectedValue = null;
+}

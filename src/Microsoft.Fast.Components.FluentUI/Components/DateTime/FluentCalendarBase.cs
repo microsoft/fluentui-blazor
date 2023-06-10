@@ -58,7 +58,11 @@ public abstract class FluentCalendarBase : FluentComponentBase
             }
 
             _selectedDate = value;
-            SelectedDateChanged.InvokeAsync(value);
+
+            if (SelectedDateChanged.HasDelegate)
+            {
+                SelectedDateChanged.InvokeAsync(value);
+            }
         }
     }
 
@@ -68,34 +72,15 @@ public abstract class FluentCalendarBase : FluentComponentBase
     [Parameter]
     public virtual EventCallback<DateTime?> SelectedDateChanged { get; set; }
 
-    /// <summary>
-    /// Event raised when a date is selected (clicked).
-    /// </summary>
-    [Parameter]
-    public virtual EventCallback<DateTime?> OnSelectedDate { get; set; }
-
-    [Parameter]
-    public EventCallback<DateOnly> OnDateClicked { get; set; }
-
     /// <summary />
-    protected virtual async Task OnSelectedDateHandlerAsync(DateTime? value)
+    protected virtual Task OnSelectedDateHandlerAsync(DateTime? value)
     {
-        if (ReadOnly)
+        if (!ReadOnly)
         {
-            return;
+            SelectedDate = value;
         }
 
-        SelectedDate = value;
-
-        if (OnSelectedDate.HasDelegate)
-        {
-            await OnSelectedDate.InvokeAsync(value);
-        }
-
-        if (OnDateClicked.HasDelegate && value != null)
-        {
-            await OnDateClicked.InvokeAsync(DateOnly.FromDateTime(value.Value));
-        }
+        return Task.CompletedTask;
     }
 
     /// <summary />

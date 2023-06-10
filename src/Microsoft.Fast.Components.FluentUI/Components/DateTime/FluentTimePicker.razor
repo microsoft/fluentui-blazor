@@ -1,7 +1,7 @@
 ﻿@namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentInputBase<DateTime?>
 
-<fluent-text-field class="@ClassValue"
+<fluent-text-field class="@($"{ClassValue} fluent-timepicker")"
                    style="@StyleValue"
                    autofocus="@Autofocus"
                    appearance="@Appearance.ToAttributeValue()"
@@ -12,6 +12,6 @@
                    readonly="@Readonly"
                    disabled="@Disabled"
                    required="@Required"
+                   name="@Name"
                    placeholder="@Placeholder"
-                   @attributes="@AdditionalAttributes">
-</fluent-text-field>
+                   @attributes="@AdditionalAttributes" />

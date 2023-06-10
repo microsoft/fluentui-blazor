@@ -1602,16 +1602,53 @@
             Fired when the display month changes.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendarBase.OnSelectedDate">
-            <summary>
-            Event raised when a date is selected (clicked).
-            </summary>
-        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentCalendarBase.OnSelectedDateHandlerAsync(System.Nullable{System.DateTime})">
             <summary />
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentCalendarBase.OnSelectedDateHandlerAsync(System.Nullable{System.DateTime},System.Boolean)">
             <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDatePicker.#ctor">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDatePicker.AnchorId">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDatePicker.ClassValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDatePicker.StyleValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDatePicker.Appearance">
+            <summary>
+            Gets or sets the design of this input.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDatePicker.Disabled">
+            <summary>
+            Disables the form control, ensuring it doesn't participate in form submission.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDatePicker.Name">
+            <summary>
+            The name of the element.Allows access by name from the associated form.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDatePicker.Required">
+            <summary>
+            Whether the element needs to have a value
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDatePicker.Autofocus">
+            <summary>
+            Determines if the element should receive document focus on page load.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDatePicker.Placeholder">
+            <summary>
+            The short hint displayed in the input before the user enters a value.
+            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTimePicker.StyleValue">
             <summary />
@@ -2599,19 +2636,9 @@
             Gets or sets the width of the link (in pixels).
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNumberField`1.Autofocus">
-            <summary>
-            Gets or sets if the field should automatically receive focus
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNumberField`1.HideStep">
             <summary>
             When true, spin buttons will not be rendered
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNumberField`1.Placeholder">
-            <summary>
-            Gets or sets the placeholder text
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNumberField`1.DataList">
@@ -2779,6 +2806,9 @@
             <summary />
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.FluentOverlay">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOverlay.StyleValue">
             <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentOverlay.Visible">
@@ -3118,16 +3148,6 @@
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentRadioGroup`1.TryParseValueFromString(System.String,`0@,System.String@)">
             <inheritdoc />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSearch.Autofocus">
-            <summary>
-            Gets or sets if the text area is auto focussed
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSearch.Placeholder">
-            <summary>
-            Gets or sets the placholder text
-            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentSearch.DataList">
             <summary>
@@ -3526,16 +3546,6 @@
             Gets or sets if the text area is resizeable. See <see cref="T:Microsoft.Fast.Components.FluentUI.TextAreaResize"/>
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextArea.Autofocus">
-            <summary>
-            Gets or sets if the text area is auto focussed
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextArea.Placeholder">
-            <summary>
-            Gets or sets the placholder text
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextArea.Form">
             <summary>
             The <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id">id</see> the <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form">form</see> the element is associated to
@@ -3580,16 +3590,6 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextArea.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextField.Autofocus">
-            <summary>
-            Gets or sets if the text area is auto focussed
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextField.Placeholder">
-            <summary>
-            Gets or sets the placholder text
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextField.TextFieldType">
