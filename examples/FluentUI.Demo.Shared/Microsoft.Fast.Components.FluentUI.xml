@@ -1543,9 +1543,6 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentDatePicker.#ctor">
             <summary />
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDatePicker.AnchorId">
-            <summary />
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDatePicker.ClassValue">
             <summary />
         </member>

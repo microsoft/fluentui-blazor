@@ -1,28 +1,26 @@
 @namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentCalendarBase
 
-<span>
-    <FluentTextField Id="@AnchorId"
-                     Class="@ClassValue"
-                     Style="@StyleValue"
-                     Autofocus="@Autofocus"
-                     Appearance="@Appearance"
-                     @bind-Value="@DateAsString"
-                     @onclick="@OnCalendarOpenHandlerAsync" 
-                     Readonly="@ReadOnly"
-                     Disabled="@Disabled"
-                     Required="@Required"
-                     Placeholder="@Placeholder"
-                     Name="@Name"
-                     @attributes="@AdditionalAttributes">
-        @((MarkupString)CalendarIcon)
-    </FluentTextField>
-</span>
+<FluentTextField Id="@Id"
+                    Class="@ClassValue"
+                    Style="@StyleValue"
+                    Autofocus="@Autofocus"
+                    Appearance="@Appearance"
+                    @bind-Value="@DateAsString"
+                    @onclick="@OnCalendarOpenHandlerAsync" 
+                    Readonly="@ReadOnly"
+                    Disabled="@Disabled"
+                    Required="@Required"
+                    Placeholder="@Placeholder"
+                    Name="@Name"
+                    @attributes="@AdditionalAttributes">
+    @((MarkupString)CalendarIcon)
+</FluentTextField>
 
 @if (Opened)
 {
     <FluentOverlay @bind-Visible="@Opened" Dismissable="true" FullScreen="true" />
-    <FluentAnchoredRegion Anchor="@AnchorId"
+    <FluentAnchoredRegion Anchor="@Id"
                           HorizontalDefaultPosition="@HorizontalPosition.Right"
                           HorizontalInset="true"
                           VerticalDefaultPosition="@VerticalPosition.Bottom"
