@@ -55,11 +55,14 @@ public partial class FluentDialog : FluentComponentBase
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    [Parameter]
+    public IDialogInstance Instance { get; set; } = default!;
+
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogEventArgs))]
 
     public FluentDialog()
     {
-        
+
     }
 
     public void Show()
@@ -74,9 +77,9 @@ public partial class FluentDialog : FluentComponentBase
         StateHasChanged();
     }
 
-    protected override void OnAfterRender(bool firstRender)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        Element.FocusAsync();
+        await Element.FocusAsync();
         base.OnAfterRender(firstRender);
     }
 }

@@ -1,4 +1,4 @@
-﻿@inject ToastManager ToastManager
+﻿@inject IToastService ToastService
 
 <p>Click on this button to open a Toast. The toast is created by specifying an intent, a message, an  action and a rando timeout between  and 15 seconds.</p>
 
@@ -14,7 +14,7 @@
         var intent = Enum.GetValues<ToastIntent>()[rnd.Next(10)];
         var message = $"Simple Toast #{counter++}";
 
-        ToastManager.ShowToast(
+        ToastService.ShowToast(
             intent, 
             message, 
             action =>

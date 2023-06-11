@@ -1,0 +1,63 @@
+﻿.fluent-panel-main {
+    background-color: var(--neutral-layer-floating);
+    box-shadow: var(--elevation-shadow-flyout);
+    pointer-events: auto;
+    position: fixed;
+    display: flex;
+    overflow: hidden auto;
+    width: 100%;
+    z-index: 9999;
+}
+
+.fluent-panel-content {
+    font-family: var(--body-font);
+    -webkit-font-smoothing: antialiased;
+    color: rgb(50, 49, 48);
+    line-height: 27px;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+    overflow: hidden;
+}
+
+    .fluent-panel-content .fluent-panel-header {
+        font-size: 20px;
+        font-weight: 600;
+        margin: 20px;
+        width: calc(100% - 30px);
+    }
+
+    .fluent-panel-content .fluent-panel-body {
+        height: calc(100% - 150px);
+        margin: 0px 20px 0px 20px;
+        width: calc(100% - 30px);
+        font-size: 14px;
+        overflow: auto;
+    }
+
+    .fluent-panel-content .fluent-panel-body[nofooter] {
+        height: calc(100% - 95px);
+    }
+
+    .fluent-panel-content .fluent-panel-footer-bottom {
+        font-size: 14px;
+        font-weight: normal;
+        margin: 20px;
+        width: calc(100% - 30px);
+        position: fixed;
+        bottom: 0px;
+    }
+
+    .fluent-panel-content .fluent-panel-footer-normal {
+        font-size: 14px;
+        font-weight: normal;
+        margin: 20px;
+        width: calc(100% - 30px);
+    }
+
+
+@media (min-width: 800px) {
+    .fluent-panel-main {
+        width: 340px;
+    }
+}

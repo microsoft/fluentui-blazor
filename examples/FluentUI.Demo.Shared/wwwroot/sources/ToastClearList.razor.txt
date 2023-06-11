@@ -1,4 +1,4 @@
-﻿@inject ToastManager ToastManager
+﻿@inject IToastService ToastService
 
 <FluentStack Wrap=true>
     <FluentButton Appearance=Appearance.Neutral @onclick="ClearAll">Clear all</FluentButton>
@@ -60,41 +60,41 @@
 
 @code {
     private void ClearAll()
-        => ToastManager.ClearAll();
+        => ToastService.ClearAll();
 
     private void ClearAllPreserveQueue()
-        => ToastManager.ClearAll(false);
+        => ToastService.ClearAll(false);
 
     private void ClearIntent()
-        => ToastManager.ClearIntent(ToastIntent.Warning);
+        => ToastService.ClearIntent(ToastIntent.Warning);
 
     private void ClearSuccess()
-        => ToastManager.ClearSuccessToasts();
+        => ToastService.ClearSuccessToasts();
 
     private void ClearWarning()
-        => ToastManager.ClearWarningToasts();
+        => ToastService.ClearWarningToasts();
 
     private void ClearError()
-        => ToastManager.ClearErrorToasts();
+        => ToastService.ClearErrorToasts();
 
     private void ClearInfo()
-        => ToastManager.ClearInfoToasts();
+        => ToastService.ClearInfoToasts();
 
     private void ClearProgress()
-       => ToastManager.ClearProgressToasts();
+       => ToastService.ClearProgressToasts();
 
     private void ClearUpload()
-        => ToastManager.ClearUploadToasts();
+        => ToastService.ClearUploadToasts();
 
     private void ClearDownload()
-       => ToastManager.ClearDownloadToasts();
+       => ToastService.ClearDownloadToasts();
 
     private void ClearEvent()
-        => ToastManager.ClearEventToasts();
+        => ToastService.ClearEventToasts();
 
     private void ClearAvatar()
-       => ToastManager.ClearAvatarToasts();
+       => ToastService.ClearAvatarToasts();
 
     private void ClearCustomIntent()
-        => ToastManager.ClearCustomIntentToasts();
+        => ToastService.ClearCustomIntentToasts();
 }

@@ -1,6 +1,6 @@
-﻿@inject ToastManager ToastManager
+﻿@inject IToastService ToastService
 
-<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastManager.ShowToast<ProgressToast>(_progressToastParameters1, settings => { settings.Timeout = 7; }))">Progress toast example 1</FluentButton>
+<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowToast<ProgressToast>(_progressToastParameters1, settings => { settings.Timeout = 7; }))">Progress toast example 1</FluentButton>
 
 <FluentButton Appearance="Appearance.Accent" @onclick=UpdateProgress>Update</FluentButton>
 

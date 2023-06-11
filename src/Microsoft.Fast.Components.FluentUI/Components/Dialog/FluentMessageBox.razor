@@ -1,0 +1,20 @@
+﻿@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentComponentBase
+
+<FluentStack Orientation="Orientation.Vertical"
+                 HorizontalAlignment="HorizontalAlignment.Left"
+                 Class="power-messagebox">
+    <FluentStack Orientation="Orientation.Horizontal" VerticalAlignment="VerticalAlignment.Center">
+        @if (MessageBoxOptions is not null)
+        {
+            <FluentIcon Name="@MessageBoxOptions.Icon"
+                        Color="@MessageBoxOptions.IconColor"
+                        Size="@IconSize.Size24"
+                        Class="icon" />
+            <div class="body">
+                @MessageBoxOptions.Message
+                @MessageBoxOptions.MarkupMessage
+        </div>
+        }
+    </FluentStack>
+</FluentStack>

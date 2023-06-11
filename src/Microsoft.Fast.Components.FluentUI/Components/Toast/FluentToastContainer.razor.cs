@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Components.Routing;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentToasts
+public partial class FluentToastContainer
 {
     [Inject]
-    private ToastManager ToastManager { get; set; } = default!;
+    private IToastService ToastService { get; set; } = default!;
 
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
@@ -52,24 +52,25 @@ public partial class FluentToasts
     private readonly RenderFragment _renderToasts;
 
     /// <summary>
-    /// Constructs an instance of <see cref="FluentToasts"/>.
+    /// Constructs an instance of <see cref="FluentToastContainer"/>.
     /// </summary>
-    public FluentToasts()
+    public FluentToastContainer()
     {
         _internalToastContext = new(this);
         _toastList = new();
         _toastWaitingQueue = new();
         _renderToasts = RenderToasts;
+
     }
 
 
     protected override void OnInitialized()
     {
-        ToastManager.OnShow += ShowToast;
-        ToastManager.OnClearAll += ClearAll;
-        ToastManager.OnClearIntent += ClearIntent;
-        ToastManager.OnClearQueue += ClearQueue;
-        ToastManager.OnClearQueueIntent += ClearQueueIntent;
+        ToastService.OnShow += ShowToast;
+        ToastService.OnClearAll += ClearAll;
+        ToastService.OnClearIntent += ClearIntent;
+        ToastService.OnClearQueue += ClearQueue;
+        ToastService.OnClearQueueIntent += ClearQueueIntent;
 
         if (RemoveToastsOnNavigation)
         {
