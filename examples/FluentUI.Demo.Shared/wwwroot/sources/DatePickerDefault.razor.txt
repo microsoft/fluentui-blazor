@@ -1,6 +1,7 @@
+<FluentDatePicker @bind-Value="@SelectedValue" ReadOnly />
 <FluentDatePicker @bind-Value="@SelectedValue" />
 <p>Selected Date: @(SelectedValue?.ToString("yyyy-MM-dd"))</p>
 @code
 {
-    private DateTime? SelectedValue = null;
+    private DateTime? SelectedValue = DateTime.Today.AddDays(-2);
 }

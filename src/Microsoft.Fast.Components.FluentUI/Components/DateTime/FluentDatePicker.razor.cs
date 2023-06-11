@@ -95,11 +95,14 @@ public partial class FluentDatePicker : FluentCalendarBase
 
     protected Task OnCalendarOpenHandlerAsync(MouseEventArgs e)
     {
-        Opened = !Opened;
-
-        if (OnCalendarOpen.HasDelegate)
+        if (!ReadOnly)
         {
-            return OnCalendarOpen.InvokeAsync(Opened);
+            Opened = !Opened;
+
+            if (OnCalendarOpen.HasDelegate)
+            {
+                return OnCalendarOpen.InvokeAsync(Opened);
+            }
         }
 
         return Task.CompletedTask;
