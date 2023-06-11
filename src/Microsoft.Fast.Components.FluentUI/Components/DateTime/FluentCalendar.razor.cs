@@ -63,7 +63,7 @@ public partial class FluentCalendar : FluentCalendarBase
     /// Defines the appearance of a Day cell.
     /// </summary>
     [Parameter]
-    public RenderFragment<DayProperty>? DaysTemplate { get; set; }
+    public RenderFragment<FluentCalendarDay>? DaysTemplate { get; set; }
 
     /// <summary>
     /// All days of this current month.
@@ -75,7 +75,7 @@ public partial class FluentCalendar : FluentCalendarBase
     /// </summary>
     /// <param name="day"></param>
     /// <returns></returns>
-    private DayProperty GetDayProperties(DateTime day) => new(this, day);
+    private FluentCalendarDay GetDayProperties(DateTime day) => new(this, day);
 
     private DateTime FirstDayOfMonth(DateTime date)
     {

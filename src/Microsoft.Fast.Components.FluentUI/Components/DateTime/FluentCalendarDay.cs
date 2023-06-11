@@ -5,18 +5,18 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// <summary>
 /// Computes the properties of a day in the calendar, depending on the current culture.
 /// </summary>
-public class DayProperty
+public class FluentCalendarDay
 {
     FluentCalendar _calendar;
     private bool _isInDisabledList;
     private bool _isOutsideCurrentMonth;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="DayProperty"/> class.
+    /// Initializes a new instance of the <see cref="FluentCalendarDay"/> class.
     /// </summary>
     /// <param name="calendar"></param>
     /// <param name="day"></param>
-    internal DayProperty(FluentCalendar calendar, DateTime day)
+    internal FluentCalendarDay(FluentCalendar calendar, DateTime day)
     {
         _calendar = calendar;
         Date = day;
