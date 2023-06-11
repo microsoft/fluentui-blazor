@@ -5,21 +5,21 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// <summary>
 /// Computes the properties of a day in the calendar, depending on the current culture.
 /// </summary>
-internal class DayProperties
+public class DayProperty
 {
     FluentCalendar _calendar;
     private bool _isInDisabledList;
     private bool _isOutsideCurrentMonth;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="DayProperties"/> class.
+    /// Initializes a new instance of the <see cref="DayProperty"/> class.
     /// </summary>
     /// <param name="calendar"></param>
     /// <param name="day"></param>
-    internal DayProperties(FluentCalendar calendar, DateTime day)
+    internal DayProperty(FluentCalendar calendar, DateTime day)
     {
         _calendar = calendar;
-        Day = day;
+        Date = day;
 
         _isInDisabledList = calendar.DisabledDateFunc?.Invoke(day) ?? false;
         _isOutsideCurrentMonth = !calendar.CalendarExtended.IsInCurrentMonth(day);
@@ -28,7 +28,7 @@ internal class DayProperties
     /// <summary>
     /// Current day
     /// </summary>
-    public DateTime Day { get; }
+    public DateTime Date { get; }
 
     /// <summary>
     /// Whether the day is disabled by the user.
@@ -43,17 +43,17 @@ internal class DayProperties
     /// <summary>
     /// Whether the day is now
     /// </summary>
-    public bool IsToday => Day == DateTime.Today && !_isOutsideCurrentMonth;
+    public bool IsToday => Date == DateTime.Today && !_isOutsideCurrentMonth;
 
     /// <summary>
     /// Whether the day is selected by the user
     /// </summary>
-    public bool IsSelected => Day == _calendar.Value;
+    public bool IsSelected => Date == _calendar.Value;
 
     /// <summary>
     /// Gets the name of the day and month in current culture.
     /// </summary>
-    public string Title => _calendar.CalendarExtended.GetCalendarDayWithMonthName(this.Day);
+    public string Title => _calendar.CalendarExtended.GetCalendarDayWithMonthName(this.Date);
 
     /// <summary>
     /// Gets the number of day of the month in the current Culture.
@@ -62,7 +62,7 @@ internal class DayProperties
     {
         get
         {
-            var day = _calendar.CalendarExtended.GetCalendarDayOfMonth(this.Day);
+            var day = _calendar.CalendarExtended.GetCalendarDayOfMonth(this.Date);
 
             return _calendar.DayFormat switch
             {
@@ -75,5 +75,5 @@ internal class DayProperties
     /// <summary>
     /// Gets the identifier of the day in the format yyyy-MM-dd.
     /// </summary>
-    public string DayIdentifier => this.Day.ToString("yyyy-MM-dd");
+    public string DayIdentifier => this.Date.ToString("yyyy-MM-dd");
 }

@@ -49,7 +49,14 @@
                          aria-label="@dayProperties.Title"
                          value="@dayProperties.DayIdentifier"
                          @onclick="@((e) => OnSelectedDateHandlerAsync(day, dayProperties.IsDisabled || dayProperties.IsInactive))">
-                        @dayProperties.DayNumber
+                        @if (DaysTemplate == null)
+                        {
+                            @dayProperties.DayNumber
+                        }
+                        else
+                        {
+                            @DaysTemplate(dayProperties)
+                        }
                     </div>
                 }
             </div>

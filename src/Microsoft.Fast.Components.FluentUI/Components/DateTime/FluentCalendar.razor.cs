@@ -60,6 +60,12 @@ public partial class FluentCalendar : FluentCalendarBase
     public virtual EventCallback<DateTime> PickerMonthChanged { get; set; }
 
     /// <summary>
+    /// Defines the appearance of a Day cell.
+    /// </summary>
+    [Parameter]
+    public RenderFragment<DayProperty>? DaysTemplate { get; set; }
+
+    /// <summary>
     /// All days of this current month.
     /// </summary>
     internal CalendarExtended CalendarExtended => _calendarExtended ?? new CalendarExtended(this.Culture, this.PickerMonth);
@@ -69,7 +75,7 @@ public partial class FluentCalendar : FluentCalendarBase
     /// </summary>
     /// <param name="day"></param>
     /// <returns></returns>
-    private DayProperties GetDayProperties(DateTime day) => new(this, day);
+    private DayProperty GetDayProperties(DateTime day) => new(this, day);
 
     private DateTime FirstDayOfMonth(DateTime date)
     {
