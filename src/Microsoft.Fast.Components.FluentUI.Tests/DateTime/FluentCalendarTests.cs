@@ -33,6 +33,7 @@ public class FluentCalendarTests : TestBase
         // Act
         var calendar = ctx.RenderComponent<FluentCalendar>(parameters =>
         {
+            parameters.Add(p => p.Culture, CultureInfo.GetCultureInfo("en-US"));
             parameters.Add(p => p.Value, new System.DateTime(2022, 02, 15));
         });
         var title = calendar.Find(".title");
@@ -112,6 +113,7 @@ public class FluentCalendarTests : TestBase
         // Act
         var calendar = ctx.RenderComponent<FluentCalendar>(parameters =>
         {
+            parameters.Add(p => p.Culture, CultureInfo.GetCultureInfo("en-US"));
             parameters.Add(p => p.Value, new System.DateTime(2022, 02, 15));
         });
         var day = calendar.Find("[value='2022-02-20']");
@@ -120,9 +122,7 @@ public class FluentCalendarTests : TestBase
         day.MarkupMatches(@"<div part=""day""
                                  class=""day""
                                  aria-label=""February 20""
-                                 value=""2022-02-20"">
-                              20
-                            </div>");
+                                 value=""2022-02-20"">20</div>");
     }
 
     [Fact]
@@ -159,6 +159,7 @@ public class FluentCalendarTests : TestBase
         // Act
         var calendar = ctx.RenderComponent<FluentCalendar>(parameters =>
         {
+            parameters.Add(p => p.Culture, CultureInfo.GetCultureInfo("en-US"));
             parameters.Add(p => p.Value, new System.DateTime(2022, 02, 15));
             parameters.Add(p => p.PickerMonth, new System.DateTime(2022, 06, 15));
         });
@@ -203,6 +204,7 @@ public class FluentCalendarTests : TestBase
         // Act
         var calendar = ctx.RenderComponent<FluentCalendar>(parameters =>
         {
+            parameters.Add(p => p.Culture, CultureInfo.GetCultureInfo("en-US"));
             parameters.Add(p => p.PickerMonth, System.DateTime.Parse("2022-06-15"));
         });
 
@@ -224,6 +226,7 @@ public class FluentCalendarTests : TestBase
         // Act
         var calendar = ctx.RenderComponent<FluentCalendar>(parameters =>
         {
+            parameters.Add(p => p.Culture, CultureInfo.GetCultureInfo("en-US"));
             parameters.Add(p => p.PickerMonth, System.DateTime.Parse("2022-06-15"));
         });
 

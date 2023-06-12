@@ -23,7 +23,7 @@ public class FluentDatePickerTests : TestBase
         picker.MarkupMatches(@$"<fluent-text-field class=""fluent-datepicker""
                                                    placeholder=""dd/MM/yyyy""
                                                    id=""{id}""
-                                                   appearance=""outline"">
+                                                   appearance=""outline""  >
                                     {FluentDatePicker.CalendarIcon}
                                 </fluent-text-field>");
     }
