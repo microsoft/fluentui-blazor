@@ -71,16 +71,22 @@ public static class DateTimeExtensions
     /// Get a string showing how long ago a DateTime was, for example '4 minutes ago'.
     /// </summary>
     /// <param name="delay"></param>
+    /// <param name="resources"
     /// <returns></returns>
     /// <remarks>Inspired from https://github.com/NickStrupat/TimeAgo.</remarks>
-    public static string ToTimeAgo(this TimeSpan delay)
-{
+    public static string ToTimeAgo(this TimeSpan delay, TimeAgoOptions? resources = null)
+    {
         const int MAX_SECONDS_FOR_JUST_NOW = 10;
+
+        if (resources == null)
+        {
+            resources = new TimeAgoOptions();
+        }
 
         if (delay.Days > 365)
         {
             var years = Math.Round(decimal.Divide(delay.Days, 365));
-            return string.Format(years == 1 ? TimeAgoResource.YearAgo : TimeAgoResource.YearsAgo, years);
+            return string.Format(years == 1 ? resources.YearAgo : resources.YearsAgo, years);
         }
 
         if (delay.Days > 30)
@@ -91,32 +97,32 @@ public static class DateTimeExtensions
                 months += 1;
             }
 
-            return string.Format(months == 1 ? TimeAgoResource.MonthAgo : TimeAgoResource.MonthsAgo, months);
+            return string.Format(months == 1 ? resources.MonthAgo : resources.MonthsAgo, months);
         }
 
         if (delay.Days > 0)
         {
-            return string.Format(delay.Days == 1 ? TimeAgoResource.DayAgo : TimeAgoResource.DaysAgo, delay.Days);
+            return string.Format(delay.Days == 1 ? resources.DayAgo : resources.DaysAgo, delay.Days);
         }
 
         if (delay.Hours > 0)
         {
-            return string.Format(delay.Hours == 1 ? TimeAgoResource.HourAgo : TimeAgoResource.HoursAgo, delay.Hours);
+            return string.Format(delay.Hours == 1 ? resources.HourAgo : resources.HoursAgo, delay.Hours);
         }
 
         if (delay.Minutes > 0)
         {
-            return string.Format(delay.Minutes == 1 ? TimeAgoResource.MinuteAgo : TimeAgoResource.MinutesAgo, delay.Minutes);
+            return string.Format(delay.Minutes == 1 ? resources.MinuteAgo : resources.MinutesAgo, delay.Minutes);
         }
 
         if (delay.Seconds > MAX_SECONDS_FOR_JUST_NOW)
         {
-            return string.Format(TimeAgoResource.SecondsAgo, delay.Seconds);
+            return string.Format(resources.SecondsAgo, delay.Seconds);
         }
 
         if (delay.Seconds <= MAX_SECONDS_FOR_JUST_NOW)
         {
-            return string.Format(TimeAgoResource.SecondAgo, delay.Seconds);
+            return string.Format(resources.SecondAgo, delay.Seconds);
         }
 
         throw new NotSupportedException("The DateTime object does not have a supported value.");

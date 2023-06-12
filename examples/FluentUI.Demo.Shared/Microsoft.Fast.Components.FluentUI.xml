@@ -1590,6 +1590,66 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentTimePicker.TryParseValueFromString(System.String,System.Nullable{System.DateTime}@,System.String@)">
             <summary />
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.TimeAgoOptions.DayAgo">
+            <summary>
+            Gets the resource string for the format "{0} day ago"
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.TimeAgoOptions.DaysAgo">
+            <summary>
+            Gets the resource string for the format "{0} days ago"
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.TimeAgoOptions.HourAgo">
+            <summary>
+            Gets the resource string for the format "{0} hour ago"
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.TimeAgoOptions.HoursAgo">
+            <summary>
+            Gets the resource string for the format "{0} hours ago"
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.TimeAgoOptions.MinuteAgo">
+            <summary>
+            Gets the resource string for the format "{0} minute ago"
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.TimeAgoOptions.MinutesAgo">
+            <summary>
+            Gets the resource string for the format "{0} minutes ago"
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.TimeAgoOptions.MonthAgo">
+            <summary>
+            Gets the resource string for the format "{0} month ago"
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.TimeAgoOptions.MonthsAgo">
+            <summary>
+            Gets the resource string for the format "{0} months ago"
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.TimeAgoOptions.SecondAgo">
+            <summary>
+            Gets the resource string for the format "Just now"
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.TimeAgoOptions.SecondsAgo">
+            <summary>
+            Gets the resource string for the format "{0} seconds ago"
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.TimeAgoOptions.YearAgo">
+            <summary>
+            Gets the resource string for the format "{0} year ago"
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.TimeAgoOptions.YearsAgo">
+            <summary>
+            Gets the resource string for the format "{0} years ago"
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDesignSystemProvider.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
@@ -8379,14 +8439,7 @@
             <param name="firstDayOfWeek"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DateTimeExtensions.ToTimeAgo(System.TimeSpan)">
-            <summary>
-            Get a string showing how long ago a DateTime was, for example '4 minutes ago'.
-            </summary>
-            <param name="delay"></param>
-            <returns></returns>
-            <remarks>Inspired from https://github.com/NickStrupat/TimeAgo.</remarks>
-        </member>
+        <!-- Badly formed XML comment ignored for member "M:Microsoft.Fast.Components.FluentUI.DateTimeExtensions.ToTimeAgo(System.TimeSpan,Microsoft.Fast.Components.FluentUI.TimeAgoOptions)" -->
         <member name="M:Microsoft.Fast.Components.FluentUI.ServiceCollectionExtensions.AddFluentIcons(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Fast.Components.FluentUI.IconConfiguration)">
             <summary>
             Adds an Icon Service as a Scoped instance.

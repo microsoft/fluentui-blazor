@@ -20,10 +20,48 @@ public class ToTimeAgoTests : TestBase
     [InlineData("740.00:00:00", "2 years ago")]
     [InlineData("900.00:00:00", "2 years ago")]
     [InlineData("920.00:00:00", "3 years ago")]
-    public void ToTimeAgo_Tests(string delayAsString, string expectedValue)
+    public void ToTimeAgo_Default(string delayAsString, string expectedValue)
     {
         var delay = TimeSpan.ParseExact(delayAsString, @"ddd\.hh\:mm\:ss", null);
 
         Assert.Equal(expectedValue, delay.ToTimeAgo());
+    }
+
+    [Theory]
+    [InlineData("000.00:00:02", "Maintenant")]
+    [InlineData("000.00:00:25", "Il y a 25 secondes")]
+    [InlineData("000.00:01:00", "Il y a une minute")]
+    [InlineData("000.00:05:00", "Il y a 5 minutes")]
+    [InlineData("000.01:00:00", "Il y a une heure")]
+    [InlineData("000.05:00:00", "Il y a 5 heures")]
+    [InlineData("001.00:00:00", "Il y a un jour")]
+    [InlineData("005.00:00:00", "Il y a 5 jours")]
+    [InlineData("031.00:00:00", "Il y a un mois")]
+    [InlineData("035.00:00:00", "Il y a 2 mois")]
+    [InlineData("150.00:00:00", "Il y a 6 mois")]
+    [InlineData("370.00:00:00", "Il y a 1 an")]
+    [InlineData("740.00:00:00", "Il y a 2 ans")]
+    [InlineData("900.00:00:00", "Il y a 2 ans")]
+    [InlineData("920.00:00:00", "Il y a 3 ans")]
+    public void ToTimeAgo_Customized(string delayAsString, string expectedValue)
+    {
+        var delay = TimeSpan.ParseExact(delayAsString, @"ddd\.hh\:mm\:ss", null);
+        var options = new TimeAgoOptions()
+        {
+            SecondAgo = "Maintenant",
+            SecondsAgo = "Il y a {0} secondes",
+            MinuteAgo = "Il y a une minute",
+            MinutesAgo = "Il y a {0} minutes",
+            HourAgo = "Il y a une heure",
+            HoursAgo = "Il y a {0} heures",
+            DayAgo = "Il y a un jour",
+            DaysAgo = "Il y a {0} jours",
+            MonthAgo = "Il y a un mois",
+            MonthsAgo = "Il y a {0} mois",            
+            YearAgo = "Il y a {0} an",
+            YearsAgo = "Il y a {0} ans",
+        };
+
+        Assert.Equal(expectedValue, delay.ToTimeAgo(options));
     }
 }
