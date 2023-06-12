@@ -58,7 +58,7 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
     /// Gets or sets the <see cref="FluentUI.Appearance" />
     /// </summary>
     [Parameter]
-    public Appearance? Appearance { get; set; }
+    public FluentInputAppearance Appearance { get; set; } = FluentInputAppearance.Outline;
 
     /// <summary>
     /// Gets or sets the error message to show when the field can not be parsed

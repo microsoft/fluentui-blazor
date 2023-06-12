@@ -11,7 +11,7 @@
         <FluentRadioGroup @bind-Value=value2 slot="end">
             <FluentRadio>Filter</FluentRadio>
             <FluentRadio>
-                <FluentTextField @bind-Value=text1 Placeholder="Search" Appearance="Appearance.Outline"></FluentTextField>
+                <FluentTextField @bind-Value=text1 Placeholder="Search"></FluentTextField>
             </FluentRadio>
         </FluentRadioGroup>
         <FluentIcon Name="@FluentIcons.Globe" Slot="end" Size="@IconSize.Size16" Variant=IconVariant.Filled Color="Color.Accent" />

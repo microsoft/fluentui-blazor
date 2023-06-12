@@ -1,7 +1,9 @@
 ﻿namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary />
-public enum TextFieldAppearance
+public enum FluentInputAppearance
+
+
 {
     /// <summary />
     Filled,

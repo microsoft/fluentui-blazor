@@ -49,7 +49,7 @@
         <FluentRadioGroup @bind-Value=value3 slot="end">
             <FluentRadio >Filter</FluentRadio>
             <FluentRadio>
-                <FluentTextField @bind-Value=text1 Placeholder="Search" Appearance="Appearance.Outline"></FluentTextField>
+                <FluentTextField @bind-Value=text1 Placeholder="Search"></FluentTextField>
             </FluentRadio>
         </FluentRadioGroup>
     </FluentToolbar>

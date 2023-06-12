@@ -15,7 +15,7 @@ public partial class FluentTimePicker : FluentInputBase<DateTime?>
     /// Gets or sets the design of this input.
     /// </summary>
     [Parameter]
-    public virtual TextFieldAppearance Appearance { get; set; } = TextFieldAppearance.Outline;
+    public virtual FluentInputAppearance Appearance { get; set; } = FluentInputAppearance.Outline;
 
     /// <summary />
     protected override bool TryParseValueFromString(string? value, out DateTime? result, [NotNullWhen(false)] out string? validationErrorMessage)

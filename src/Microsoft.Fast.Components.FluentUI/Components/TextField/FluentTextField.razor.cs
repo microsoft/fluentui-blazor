@@ -48,10 +48,10 @@ public partial class FluentTextField : FluentInputBase<string?>
     public bool? Spellcheck { get; set; }
 
     /// <summary>
-    /// Gets or sets the visual appearance. See <see cref="FluentUI.Appearance"/>
+    /// Gets or sets the visual appearance. See <see cref="FluentUI.FluentInputAppearance"/>
     /// </summary>
     [Parameter]
-    public Appearance? Appearance { get; set; }
+    public FluentInputAppearance Appearance { get; set; } = FluentInputAppearance.Outline;
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
