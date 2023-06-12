@@ -66,8 +66,8 @@ public class FluentCalendarDay
 
             return _calendar.DayFormat switch
             {
-                DayFormat.TwoDigit => Convert.ToString(day),
-                _ => day.ToString("00", CultureInfo.InvariantCulture),
+                DayFormat.TwoDigit => day.ToString("00", CultureInfo.InvariantCulture),
+                _ => Convert.ToString(day),
             };
         }
     }
