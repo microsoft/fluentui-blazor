@@ -25,8 +25,8 @@
                           HorizontalInset="true"
                           VerticalDefaultPosition="@VerticalPosition.Bottom"
                           Shadow="ElevationShadow.Flyout"
-                          Class="fluent-datepicker"
-                          Style="@($"z-index: {ZIndex.DatePickerPopup}")">
+                          Class="fluent-datepicker-popup"
+                          Style="@($"z-index: {ZIndex.DatePickerPopup}; padding: 10px;")">
         <FluentCalendar Culture="@Culture"
                         Value="@Value"
                         ValueChanged="@OnSelectedDateAsync" />
