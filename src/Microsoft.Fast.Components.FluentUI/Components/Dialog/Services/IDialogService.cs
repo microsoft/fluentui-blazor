@@ -4,46 +4,37 @@ namespace Microsoft.Fast.Components.FluentUI;
 
 public interface IDialogService
 {
-    public event Action<IDialogReference> OnDialogInstanceAdded;
+    /// <summary>
+    /// A event that will be invoked when showing a dialog with a custom component
+    /// </summary>
+    public event Action<Type, DialogParameters, Action<DialogSettings>?>? OnShow;
 
-    public event Action<IDialogReference, DialogResult> OnDialogCloseRequested;
 
-    Task<IDialogReference> ShowAsync<TComponent>()
-        where TComponent : ComponentBase;
+    //public event Action<DialogInstance> OnDialogInstanceAdded;
 
-    Task<IDialogReference> ShowAsync<TComponent>(string title)
-        where TComponent : ComponentBase;
+    public event Action<string> OnDialogCloseRequested;
 
-    Task<IDialogReference> ShowAsync<TComponent>(string title, DialogOptions options)
-        where TComponent : ComponentBase;
+    void ShowDialog<T>(string title, DialogParameters parameters, Action<DialogSettings>? settings)
+        where T : IDialogContentComponent;
 
-    Task<IDialogReference> ShowAsync<TComponent>(string title, DialogParameters parameters)
-        where TComponent : ComponentBase;
+    void ShowDialog(Type component, string title, DialogParameters parameters, Action<DialogSettings>? settings);
 
-    Task<IDialogReference> ShowAsync<TComponent>(string title, DialogParameters parameters, DialogOptions options)
-        where TComponent : ComponentBase;
 
-    Task<IDialogReference> ShowAsync(Type component);
+    void ShowSplashScreen(string title, string subTitle, string? loading = null);
 
-    Task<IDialogReference> ShowAsync(Type component, string title);
 
-    Task<IDialogReference> ShowAsync(Type component, string title, DialogOptions options);
+    void ShowErrorAsync(string message, string? title = null);
 
-    Task<IDialogReference> ShowAsync(Type component, string title, DialogParameters parameters);
+    void ShowInfoAsync(string message, string? title = null);
 
-    Task<IDialogReference> ShowAsync(Type component, string title, DialogParameters parameters, DialogOptions options);
+    void ShowConfirmationAsync(object receiver, Func<DialogResult, Task> callback, string message, string? title = null);
 
-    Task<IDialogReference> ShowSplashScreenAsync(string title, string subTitle, string? loading = null);
+    void ShowMessageBox(MessageBoxParameters parameters);
 
-    Task<bool> ShowMessageBoxErrorAsync(string message, string? title = null);
 
-    Task<bool> ShowMessageBoxInformationAsync(string message, string? title = null);
+    //Task CloseAsync(string Id);
 
-    Task<bool> ShowMessageBoxConfirmationAsync(string message, string? title = null);
+    //Task CloseAsync(string Id, DialogResult result);
 
-    Task<bool> ShowMessageBoxAsync(MessageBoxOptions options);
-
-    Task CloseAsync(DialogReference dialog);
-
-    Task CloseAsync(DialogReference dialog, DialogResult result);
+    public EventCallback<DialogResult> CreateDialogCallback(object receiver, Func<DialogResult, Task> callback);
 }

@@ -95,6 +95,7 @@ export function afterStarted(Blazor) {
         createEventArgs: event => {
             if (event.target.localName == 'fluent-dialog') {
                 return {
+                    id: event.target.id,
                     reason: event.type
                 };
             };

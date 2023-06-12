@@ -13,10 +13,10 @@
         Trap focus
     </FluentCheckbox>
 </div>
-<FluentDialog Hidden="Hidden" id="foo" aria-label="Simple dialog" Modal=Modal TrapFocus=TrapFocus>
+<FluentDialog Hidden="@Hidden" Id="foo" aria-label="Simple dialog" Modal=Modal TrapFocus=TrapFocus @ondialogdismiss=OnDismiss>
     <h2>Just a simple dialog</h2>
     <p>The 'Close dialog' button is automatically focussed.</p>
-    <p>The 'Another button' doesn't do anything other than showing receiving focus.</p>
+    <p>The 'Another button' doesn't do anything other than showing it can receive focus.</p>
     <FluentButton Autofocus="true" Appearance="Appearance.Accent" @onclick="OnClose">Close dialog</FluentButton>
     <FluentButton>Another button</FluentButton>
 </FluentDialog>
@@ -30,6 +30,25 @@
     public bool Modal = true;
     public bool Hidden = true;
 
-    private void OnOpen() => Hidden = false;
-    private void OnClose() => Hidden = true;
+    private void OnOpen()
+    {
+        Hidden = false;
+        DemoLogger.WriteLine($"Dialog opened - Hidden: {Hidden}");
+
+    }
+
+    private void OnClose()
+    {
+        Hidden = true;
+        DemoLogger.WriteLine($"Dialog closed - Hidden: {Hidden}");
+        
+    }
+
+    private void OnDismiss(DialogEventArgs args)
+    {
+        if (args is not null && args.Reason is not null && args.Reason == "dismiss")
+        {
+            Hidden = true;
+        }
+    }
 }

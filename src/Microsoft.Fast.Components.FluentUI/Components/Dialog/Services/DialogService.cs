@@ -1,144 +1,142 @@
-﻿using System.Reflection;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
 public class DialogService : IDialogService
 {
-    public event Action<IDialogReference>? OnDialogInstanceAdded;
+    /// <summary>
+    /// A event that will be invoked when showing a dialog with a custom component
+    /// </summary>
+    public event Action<Type, DialogParameters, Action<DialogSettings>?>? OnShow;
 
-    public event Action<IDialogReference, DialogResult>? OnDialogCloseRequested;
+    //public event Action<DialogInstance>? OnDialogInstanceAdded;
 
-    public Task<IDialogReference> ShowAsync<T>()
-        where T : ComponentBase
+    public event Action<string>? OnDialogCloseRequested;
+
+
+    public void ShowDialog<T>(string title, DialogParameters parameters, Action<DialogSettings>? settings = null)
+        where T : IDialogContentComponent
     {
-        return ShowAsync<T>(string.Empty, new DialogParameters(), new());
-    }
-
-    public Task<IDialogReference> ShowAsync<T>(string title)
-        where T : ComponentBase
-    {
-        return ShowAsync<T>(title, new DialogParameters(), new());
-    }
-
-    public Task<IDialogReference> ShowAsync<T>(string title, DialogOptions options)
-        where T : ComponentBase
-    {
-        return ShowAsync<T>(title, new DialogParameters(), options);
-    }
-
-    public Task<IDialogReference> ShowAsync<T>(string title, DialogParameters parameters)
-        where T : ComponentBase
-    {
-        return ShowAsync<T>(title, parameters, new DialogOptions());
-    }
-
-    public Task<IDialogReference> ShowAsync<T>(string title, DialogParameters parameters, DialogOptions options)
-        where T : ComponentBase
-    {
-        return ShowAsync(typeof(T), title, parameters, options);
-    }
-
-    public Task<IDialogReference> ShowAsync(Type contentComponent)
-    {
-        return ShowAsync(contentComponent, string.Empty, new DialogParameters(), new());
-    }
-
-    public Task<IDialogReference> ShowAsync(Type contentComponent, string title)
-    {
-        return ShowAsync(contentComponent, title, new DialogParameters(), new());
-    }
-
-    public Task<IDialogReference> ShowAsync(Type contentComponent, string title, DialogOptions options)
-    {
-        return ShowAsync(contentComponent, title, new DialogParameters(), options);
-    }
-
-    public Task<IDialogReference> ShowAsync(Type contentComponent, string title, DialogParameters parameters)
-    {
-        return ShowAsync(contentComponent, title, parameters, new());
+        ShowDialog(typeof(T), title, parameters, settings);
     }
 
 
-    public virtual async Task<IDialogReference> ShowAsync(Type contentComponent, string title, DialogParameters? parameters, DialogOptions? options)
+
+    //public virtual async Task<DialogInstance> ShowDialog(Type contentComponent, string title, DialogParameters? parameters, DialogSettings? settings)
+    //{
+    //    if (!typeof(IDialogContentComponent).IsAssignableFrom(contentComponent))
+    //    {
+    //        throw new ArgumentException($"{contentComponent.FullName} must be a Dialog Component");
+    //    }
+
+    //    IDialogReference? dialogReference = CreateReference();
+
+    //    RenderFragment? dialogContent = new(builder =>
+    //    {
+    //        int i = 0;
+    //        builder.OpenComponent(i++, contentComponent);
+
+    //        // DialogReference
+    //        string? dialogReferenceProperty = GetDialogReferenceProperty(contentComponent);
+    //        if (!string.IsNullOrEmpty(dialogReferenceProperty))
+    //        {
+    //            builder.AddAttribute(i++, dialogReferenceProperty, dialogReference);
+    //        }
+
+    //        if (parameters != null)
+    //        {
+    //            if (!dialogReference.AreParametersRendered)
+    //            {
+    //                foreach (KeyValuePair<string, object> parameter in parameters)
+    //                {
+    //                    builder.AddAttribute(i++, parameter.Key, parameter.Value);
+    //                }
+
+    //                dialogReference.AreParametersRendered = true;
+    //            }
+    //            else
+    //            {
+    //                i += parameters.Count;
+    //            }
+    //        }
+
+    //        builder.AddComponentReferenceCapture(i++, inst => { dialogReference.InjectDialog(inst); });
+    //        builder.CloseComponent();
+    //    });
+
+    //    var titleContent = new RenderFragment(builder =>
+    //    {
+    //        builder.AddContent(0, (MarkupString)title);
+    //    });
+
+    //    var dialogInstance = new RenderFragment(builder =>
+    //    {
+    //        builder.OpenComponent<FluentPanel>(0);
+    //        builder.SetKey(dialogReference.Id);
+    //        if (!string.IsNullOrEmpty(title))
+    //        {
+    //            builder.AddAttribute(1, "Header", titleContent);    // Property PowerPanel.Header
+    //        }
+
+    //        builder.AddAttribute(3, "Body", dialogContent);         // Property PowerPanel.Body
+    //        builder.AddAttribute(4, "Id", dialogReference.Id);
+    //        builder.AddAttribute(5, "IsOpen", true);
+    //        builder.AddAttribute(6, "Settings", settings ?? new());
+    //        builder.CloseComponent();
+    //    });
+    //    dialogReference.InjectRenderFragment(dialogInstance);
+    //    OnDialogInstanceAdded?.Invoke(dialogReference);
+
+    //    // If contentComponent implements IDialogInstance,
+    //    // try to run close method
+    //    if (contentComponent.GetInterface(nameof(IDialogInstance)) != null)
+    //    {
+    //        DialogResult? result = await dialogReference.Result;
+    //        if (dialogReference.Dialog is IDialogInstance dialog)
+    //        {
+    //            await dialog.OnCloseAsync(result);
+    //        }
+    //    }
+
+    //    return dialogReference;
+    //}
+
+
+    /// <summary>
+    /// Shows the dialog with the component type />,
+    /// passing the specified <paramref name="parameters"/> 
+    /// </summary>
+    /// <param name="dialogComponent">Type of component to display.</param>
+    /// <param name="title">TTitle of the dialog</param>
+    /// <param name="parameters">Key/Value collection of parameters to pass to component being displayed.</param>
+    /// <param name="settings">Settings to configure the dialog component.</param>
+    public virtual void ShowDialog(Type dialogComponent, string title, DialogParameters parameters, Action<DialogSettings>? settings = null)
     {
-        if (!typeof(ComponentBase).IsAssignableFrom(contentComponent))
+        if (!typeof(IDialogContentComponent).IsAssignableFrom(dialogComponent))
         {
-            throw new ArgumentException($"{contentComponent.FullName} must be a Blazor Component");
+            throw new ArgumentException($"{dialogComponent.FullName} must be a Dialog Component");
         }
 
-        var dialogReference = CreateReference();
-
-        var dialogContent = new RenderFragment(builder =>
+        if (!string.IsNullOrEmpty(title))
         {
-            var i = 0;
-            builder.OpenComponent(i++, contentComponent);
-
-            // DialogReference
-            var dialogReferenceProperty = GetDialogReferenceProperty(contentComponent);
-            if (!string.IsNullOrEmpty(dialogReferenceProperty))
-            {
-                builder.AddAttribute(i++, dialogReferenceProperty, dialogReference);
-            }
-
-            if (parameters != null)
-            {
-                if (!dialogReference.AreParametersRendered)
-                {
-                    foreach (var parameter in parameters)
-                    {
-                        builder.AddAttribute(i++, parameter.Key, parameter.Value);
-                    }
-
-                    dialogReference.AreParametersRendered = true;
-                }
-                else
-                {
-                    i += parameters.Count;
-                }
-            }
-
-            builder.AddComponentReferenceCapture(i++, inst => { dialogReference.InjectDialog(inst); });
-            builder.CloseComponent();
-        });
-
-        var titleContent = new RenderFragment(builder =>
-        {
-            builder.AddContent(0, (MarkupString)title);
-        });
-
-        var dialogInstance = new RenderFragment(builder =>
-        {
-            builder.OpenComponent<FluentPanel>(0);
-            builder.SetKey(dialogReference.Id);
-            if (!string.IsNullOrEmpty(title))
-            {
-                builder.AddAttribute(1, "Header", titleContent);    // Property PowerPanel.Header
-            }
-
-            builder.AddAttribute(3, "Body", dialogContent);         // Property PowerPanel.Body
-            builder.AddAttribute(4, "Id", dialogReference.Id);
-            builder.AddAttribute(5, "IsOpen", true);
-            builder.AddAttribute(6, "Options", options ?? new());
-            builder.CloseComponent();
-        });
-        dialogReference.InjectRenderFragment(dialogInstance);
-        OnDialogInstanceAdded?.Invoke(dialogReference);
-
-        // If contentComponent implements IDialogInstance,
-        // try to run close method
-        if (contentComponent.GetInterface(nameof(IDialogInstance)) != null)
-        {
-            DialogResult? result = await dialogReference.Result;
-            if (dialogReference.Dialog is IDialogInstance dialog)
-            {
-                await dialog.OnCloseAsync(result);
-            }
+            parameters.Add("Title", title);
         }
 
-        return dialogReference;
+        OnShow?.Invoke(dialogComponent, parameters, settings);
+
+        //if (dialogComponent.GetInterface(nameof(IDialogHandler)) != null)
+        //{
+        //    DialogResult? result = await dialogReference.Result;
+        //    if (dialogReference.Dialog is IDialogHandler dialog)
+        //    {
+        //        await dialog.OnCloseAsync(result);
+        //    }
+        //}
+
+        //return dialogReference;
     }
-    public Task<IDialogReference> ShowSplashScreenAsync(string title, string subTitle, string? loading = null)
+
+    public void ShowSplashScreen(string title, string subTitle, string? loading = null)
     {
         DialogParameters parameters = new()
         {
@@ -147,27 +145,30 @@ public class DialogService : IDialogService
             { nameof(FluentSplashScreen.LoadingLabel), loading ?? "Loading..." }, //PowerLaunchScreenResource.LoadingLabel },
         };
 
-        DialogOptions options = new()
+        Action<DialogSettings> settings = new(x =>
         {
-            Alignment = HorizontalAlignment.Center,
-            Modal = false,
-            ShowDismiss = false,
-            ShowCancel = false,
-            ShowOK = false,
-            Width = "600px",
-            Height = "370px",
-            StyleBody = "width: 100%; height: 100%; margin: 0px;",
-        };
+            x.Alignment = HorizontalAlignment.Center;
+            x.Modal = true;
+            x.ShowDismiss = false;
+            x.PrimaryButton = null;
+            x.SecondaryButton = null;
+            x.Width = "600px";
+            x.Height = "370px";
+            x.DialogBodyStyle = "width: 100%; height: 100%; margin: 0px;";
+            x.AriaLabel = "splashscreen";
+        });
 
-        return ShowAsync(typeof(FluentSplashScreen), string.Empty, parameters, options);
+        ShowDialog(typeof(FluentSplashScreen), title, parameters, settings);
     }
 
-    public Task<bool> ShowMessageBoxErrorAsync(string message, string? title = null)
+    // ToDo: Add Success, Warning?
+    public void ShowErrorAsync(string message, string? title = null)
     {
-        return ShowMessageBoxAsync(new MessageBoxOptions()
+        ShowMessageBox(new MessageBoxParameters()
         {
-            OkText = "Ok", /*FluentPanelResources.ButtonOK,*/
-            CancelText = string.Empty,
+            Intent = MessageBoxIntent.Error,
+            PrimaryButtonText = "Ok", /*FluentPanelResources.ButtonOK,*/
+            SecondaryButtonText = string.Empty,
             Icon = FluentIcons.DismissCircle,
             IconColor = Color.Error,
             Title = string.IsNullOrWhiteSpace(title) ? "Error!" /*FluentPanelResources.TitleError*/ : title,
@@ -175,12 +176,13 @@ public class DialogService : IDialogService
         }); ;
     }
 
-    public Task<bool> ShowMessageBoxInformationAsync(string message, string? title = null)
+    public void ShowInfoAsync(string message, string? title = null)
     {
-        return ShowMessageBoxAsync(new MessageBoxOptions()
+        ShowMessageBox(new MessageBoxParameters()
         {
-            OkText = "Ok", /*FluentPanelResources.ButtonOK,*/
-            CancelText = string.Empty,
+            Intent = MessageBoxIntent.Info,
+            PrimaryButtonText = "Ok", /*FluentPanelResources.ButtonOK,*/
+            SecondaryButtonText = string.Empty,
             Icon = FluentIcons.Info,
             IconColor = Color.Warning,
             Title = string.IsNullOrWhiteSpace(title) ? "Information" /*FluentPanelResources.TitleInformation*/ : title,
@@ -188,89 +190,56 @@ public class DialogService : IDialogService
         });
     }
 
-    public Task<bool> ShowMessageBoxConfirmationAsync(string message, string? title = null)
+    public void ShowConfirmationAsync(object receiver, Func<DialogResult, Task> callback, string message, string? title = null)
     {
-        return ShowMessageBoxAsync(new MessageBoxOptions()
+        ShowMessageBox(new MessageBoxParameters()
         {
-            OkText = "Yes", /*FluentPanelResources.ButtonYes,*/
-            CancelText = "No", /*FluentPanelResources.ButtonNo,*/
+            Intent = MessageBoxIntent.Confirmation,
+            PrimaryButtonText = "Yes", /*FluentPanelResources.ButtonYes,*/
+            SecondaryButtonText = "No", /*FluentPanelResources.ButtonNo,*/
             Icon = FluentIcons.QuestionCircle,
             IconColor = Color.Success,
             Title = string.IsNullOrWhiteSpace(title) ? "Confirm" /*FluentPanelResources.TitleConfirmation*/ : title,
             Message = message,
+            OnDialogResult = EventCallback.Factory.Create(receiver, callback)
         });
     }
 
-    public async Task<bool> ShowMessageBoxAsync(MessageBoxOptions options)
+    public void ShowMessageBox(MessageBoxParameters parameters)
     {
-        DialogParameters parameters = new()
+        Action<DialogSettings> dialogSettings = new(x =>
         {
-            { nameof(FluentMessageBox.MessageBoxOptions), options },
-        };
+            x.Alignment = HorizontalAlignment.Center;
+            x.Modal = string.IsNullOrEmpty(parameters.SecondaryButtonText);
+            x.ShowDismiss = false;
+            x.PrimaryButton = parameters.PrimaryButtonText;
+            x.SecondaryButton = parameters.SecondaryButtonText;
+            x.Width = parameters.Width;
+            x.Height = parameters.Height;
+        });
 
-        DialogOptions dialogOptions = new()
-        {
-            Alignment = HorizontalAlignment.Center,
-            Modal = false,
-            ShowDismiss = false,
-            CancelText = options.CancelText,
-            ShowCancel = !string.IsNullOrEmpty(options.CancelText),
-            OKText = options.OkText,
-            ShowOK = !string.IsNullOrEmpty(options.OkText),
-            Width = options.Width,
-            Height = options.Height,
-        };
 
-        if (string.IsNullOrWhiteSpace(options.Title))
+        if (string.IsNullOrWhiteSpace(parameters.Title))
         {
-            options.Title = "...";
+            parameters.Title = "...";
         }
 
-        var dialog = await ShowAsync(typeof(FluentMessageBox), options.Title, parameters, dialogOptions);
-        var result = await dialog.Result;
-
-        if (result.Cancelled)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        ShowDialog<MessageBox>(parameters.Title, parameters, dialogSettings);
     }
 
-    public Task CloseAsync(DialogReference dialog)
+    //public Task CloseAsync(string dialogId)
+    //{
+    //    return CloseAsync(dialogId, DialogResult.Ok<object?>(null));
+    //}
+
+    //public async Task CloseAsync(string dialogId, DialogResult result)
+    //{
+    //    await Task.Run(() => { });  // To avoid warning
+    //    OnDialogCloseRequested?.Invoke(dialogId, result);
+    //}
+
+    public EventCallback<DialogResult> CreateDialogCallback(object receiver, Func<DialogResult, Task> callback)
     {
-        return CloseAsync(dialog, DialogResult.Ok<object?>(null));
-    }
-
-    public async Task CloseAsync(DialogReference dialog, DialogResult result)
-    {
-        await Task.Run(() => { });  // To avoid warning
-        OnDialogCloseRequested?.Invoke(dialog, result);
-    }
-
-    internal virtual IDialogReference CreateReference()
-    {
-        return new DialogReference(Identifier.NewId(), this);
-    }
-
-    private static string? GetDialogReferenceProperty(Type contentComponent)
-    {
-        var property = contentComponent.GetProperties()
-                                       .FirstOrDefault(i => i.PropertyType == typeof(IDialogReference) &&
-                                                            i.CanRead &&
-                                                            i.CanWrite);
-
-        var parameterAttribute = property?.GetCustomAttribute<ParameterAttribute>();
-
-        if (property != null && parameterAttribute != null)
-        {
-            return property.Name;
-        }
-        else
-        {
-            return null;
-        }
+        return EventCallback.Factory.Create(receiver, callback);
     }
 }

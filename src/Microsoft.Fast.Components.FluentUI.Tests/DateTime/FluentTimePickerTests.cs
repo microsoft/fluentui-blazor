@@ -35,7 +35,7 @@ public class FluentTimePickerTests : TestBase
         var picker = new TestTimePicker();
 
         // Act
-        var ok = picker.CallTryParseValueFromString(value, out var resultDate, out var message);
+        bool _ = picker.CallTryParseValueFromString(value, out var resultDate, out var _);
 
         // Assert
         if (resultDate != null)

@@ -83,6 +83,7 @@ public static class ServiceCollectionExtensions
         services.AddFluentIcons(configuration?.IconConfiguration);
         services.AddFluentEmojis(configuration?.EmojiConfiguration);
         services.AddFluentToasts();
+        services.AddScoped<IDialogService, DialogService>();
 
         if (configuration is not null)
         {
@@ -153,6 +154,7 @@ public static class ServiceCollectionExtensions
         services.AddFluentIcons(options.IconConfiguration);
         services.AddFluentEmojis(options.EmojiConfiguration);
         services.AddFluentToasts();
+        services.AddScoped<IDialogService, DialogService>();
 
         if (options is not null)
         {

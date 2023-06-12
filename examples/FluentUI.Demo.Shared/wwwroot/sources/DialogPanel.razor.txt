@@ -1,0 +1,5 @@
+﻿<h3>DialogPanel</h3>
+
+@code {
+
+}

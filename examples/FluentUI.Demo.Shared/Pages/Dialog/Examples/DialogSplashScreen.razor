@@ -1,0 +1,25 @@
+﻿@inject IDialogService DialogService
+
+<FluentButton @onclick="@OpenDialogAsync" Appearance="Appearance.Accent">
+    Open Dialog
+</FluentButton>
+
+@code
+{
+    // [Setup] Inject the DialogService in Program.cs
+    // builder.Services.AddScoped<IDialogService, DialogService>();
+
+    private async void OpenDialogAsync(MouseEventArgs e)
+    {
+        DemoLogger.WriteLine($"Open LaunchScreen for 4 seconds");
+        //var dialog = await 
+        DialogService.ShowSplashScreen("Product name", "Suite name");
+        
+        // Simulation of loading process
+        await Task.Delay(4000);
+        
+        // Process completed
+        //await dialog.CloseAsync();
+        DemoLogger.WriteLine($"Dialog closed");
+    }
+}

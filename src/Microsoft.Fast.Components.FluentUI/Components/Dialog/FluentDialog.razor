@@ -1,16 +1,73 @@
 @namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentComponentBase
-<fluent-dialog @ref=Element
-               class="@Class"
-               style="@StyleValue"
-               modal="@Modal"
-               hidden="@Hidden"
-               trap-focus=@TrapFocus
-               aria-describedby=@AriaDescribedby
-               aria-labelledby=@AriaLabelledby
-               aria-label=@AriaLabel
-               @attributes="AdditionalAttributes">
-    @ChildContent
-    @* <DynamicComponent Type="@Instance.ContentType" Parameters="@Instance.Parameters.Parameters" /> *@
-</fluent-dialog>
 
+<CascadingValue Value="this" IsFixed="true">
+    <fluent-dialog @ref=Element
+                   id="@Id"
+                   class="@Class"
+                   style="@StyleValue"
+                   modal="@(Settings.Modal ?? Modal)"
+                   hidden="@Hidden"
+                   trap-focus=@(Settings.TrapFocus ?? TrapFocus)
+                   aria-describedby=@(Settings.AriaDescribedby ?? AriaDescribedby)
+                   aria-labelledby=@(Settings.AriaLabelledby ?? AriaLabelledby)
+                   aria-label=@(Settings.AriaLabel ?? AriaLabel)
+                   @attributes="AdditionalAttributes">
+        <FluentStack Orientation="Orientation.Vertical" Class="fluent-dialog-content">
+            @if (Instance?.Title != null || Settings.ShowDismiss)
+            {
+                <div class="fluent-dialog-header">
+                    <FluentStack Orientation="Orientation.Horizontal" VerticalAlignment="VerticalAlignment.Center">
+                        <FluentLabel Typo="Typography.PaneHeader" Style="width: 100%; margin: 0px;">@Instance?.Title</FluentLabel>
+                        @if (Settings.ShowDismiss)
+                        {
+                            <FluentButton Appearance="Appearance.Stealth"
+                            @onclick="@(() => CancelAsync())"
+                                          Style="color: rgb(96, 94, 92);">
+                                Cancel
+                                <FluentIcon Name="@FluentIcons.Dismiss" Size="IconSize.Size16" Slot="start" />
+                            </FluentButton>
+                        }
+                    </FluentStack>
+                </div>
+            }
+
+            <div class="fluent-dialog-body" nofooter=@(!HasButtons) style="@(Settings.DialogBodyStyle ?? null)">
+                @if (Instance is null)
+                {
+                    
+                @ChildContent
+                }
+                else
+                {
+                    <DynamicComponent Type="@Instance.ContentType" Parameters="@Instance.GetParameterDictionary()" />
+                }
+            </div>
+
+            @if (HasButtons)
+            {
+                <div class="@(Settings.Alignment == HorizontalAlignment.Center ? "fluent-dialog-footer-normal" : "fluent-dialog-footer-bottom")">
+                    <FluentStack Orientation="Orientation.Horizontal"
+                                 HorizontalAlignment="@(Settings.Alignment == HorizontalAlignment.Center ? HorizontalAlignment.Right : HorizontalAlignment.Left)">
+                        @if (Settings.ShowPrimaryButton)
+                        {
+                            <FluentButton title="@Settings.PrimaryButton"
+                                          @onclick="@(() => CloseAsync())"
+                                          Appearance="Appearance.Accent">
+                                @Settings.PrimaryButton
+                            </FluentButton>
+                        }
+                        @if (Settings.ShowSecondaryButton)
+                        {
+                            <FluentButton title="@Settings.SecondaryButton"
+                                          @onclick="@(() => CancelAsync())"
+                                          Appearance="Appearance.Neutral">
+                                @Settings.SecondaryButton
+                            </FluentButton>
+                        }
+                    </FluentStack>
+                </div>
+            }
+        </FluentStack>
+    </fluent-dialog>
+</CascadingValue>

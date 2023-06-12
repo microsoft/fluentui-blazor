@@ -4,13 +4,13 @@ using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentDialog : FluentComponentBase
+public partial class FluentDialog : FluentComponentBase, IDisposable
 {
-    protected string? StyleValue => new StyleBuilder()
-        .AddStyle(Style)
-        .AddStyle("position", "absolute")
-        .AddStyle("z-index", "5")
-        .Build();
+    private const string DEFAULT_WIDTH = "500px";
+    private const string DEFAULT_HEIGHT = "unset";
+
+    [CascadingParameter]
+    private InternalDialogContext? DialogContext { get; set; } = default!;
 
     /// <summary>
     /// Indicates the element is modal. When modal, user mouse interaction will be limited to the contents of the element by a modal
@@ -49,14 +49,42 @@ public partial class FluentDialog : FluentComponentBase
     [Parameter]
     public string? AriaLabel { get; set; }
 
-    /// <summary>
-    /// Gets or sets the content to be rendered inside the component.
-    /// </summary>
+    [Parameter]
+    public DialogInstance Instance { get; set; } = default!;
+
+    /// <inheritdoc/>
+    [Parameter]
+    public DialogSettings Settings { get; set; } = default!;
+
+    [Parameter]
+    public bool Open { get; set; }
+
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     [Parameter]
-    public IDialogInstance Instance { get; set; } = default!;
+    public EventCallback<bool> OpenChanged { get; set; }
+
+    [Parameter]
+    public EventCallback<DialogResult> OnDialogResult { get; set; }
+
+    protected string? ClassValue => new CssBuilder(Class)
+        .AddClass("fluent-panel-main")
+        .Build();
+
+    protected string? StyleValue => new StyleBuilder()
+        .AddStyle(Style)
+        .AddStyle("position", "absolute")
+        .AddStyle("z-index", "5")
+        //.AddStyle("inset", "0px 0px 0px auto", () => Settings.Alignment == HorizontalAlignment.Right || Settings.Alignment == HorizontalAlignment.End)
+        //.AddStyle("inset", "0px auto 0px 0px", () => Settings.Alignment == HorizontalAlignment.Left || Settings.Alignment == HorizontalAlignment.Start)
+        .AddStyle("top", "50%", () => Settings.Alignment == HorizontalAlignment.Center)
+        .AddStyle("left", "50%", () => Settings.Alignment == HorizontalAlignment.Center)
+        //.AddStyle("transform", "translate(-50%, -50%)", () => Settings.Alignment == HorizontalAlignment.Center)
+        //.AddStyle("max-height", "100%", () => Settings.Alignment == HorizontalAlignment.Center)
+        .AddStyle("--dialog-width", Settings.Width ?? DEFAULT_WIDTH, () => Settings.Alignment == HorizontalAlignment.Center)
+        .AddStyle("--dialog-height", Settings.Height ?? DEFAULT_HEIGHT, () => Settings.Alignment == HorizontalAlignment.Center)
+        .Build();
 
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogEventArgs))]
 
@@ -64,6 +92,33 @@ public partial class FluentDialog : FluentComponentBase
     {
 
     }
+
+    protected override void OnParametersSet()
+    {
+        Settings ??= new()
+        {
+            Alignment = HorizontalAlignment.Center,
+            PrimaryButton = null,
+            SecondaryButton = null,
+            ShowDismiss = false,
+            Modal = null,
+            TrapFocus = null,
+            Height = "unset",
+
+        };
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await Element.FocusAsync();
+        }
+    }
+
+    protected override void OnInitialized() => DialogContext?.Register(this);
+
+    private bool HasButtons => Settings.ShowPrimaryButton || Settings.ShowSecondaryButton;
 
     public void Show()
     {
@@ -77,9 +132,23 @@ public partial class FluentDialog : FluentComponentBase
         StateHasChanged();
     }
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    public virtual async Task CancelAsync() => await CloseAsync(DialogResult.Cancel());
+
+    public virtual async Task CloseAsync() => await CloseAsync(DialogResult.Ok<object?>(null));
+
+    //public virtual async Task CloseAsync<T>(T returnValue) => await CloseAsync(DialogResult.Ok(returnValue));
+
+    /// <summary>
+    /// Closes the dialog
+    /// </summary>
+    public virtual async Task CloseAsync(DialogResult dialogResult)
     {
-        await Element.FocusAsync();
-        base.OnAfterRender(firstRender);
+        Open = false;
+        DialogContext?.DialogContainer.DismissInstance(Id!);
+        await OpenChanged.InvokeAsync(Open);
+
+        await ((EventCallback<DialogResult>)Instance.Parameters["OnDialogResult"]).InvokeAsync(dialogResult);
     }
+
+    public void Dispose() => DialogContext?.Unregister(this);
 }

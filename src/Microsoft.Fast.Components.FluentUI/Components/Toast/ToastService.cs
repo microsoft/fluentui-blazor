@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-
-namespace Microsoft.Fast.Components.FluentUI;
+﻿namespace Microsoft.Fast.Components.FluentUI;
 
 public class ToastService : IToastService
 
@@ -199,9 +197,9 @@ public class ToastService : IToastService
     /// <param name="settings">Settings to configure the toast component.</param>
     public void ShowToast(Type toastComponent, ToastParameters parameters, Action<ToastSettings>? settings = null)
     {
-        if (!typeof(IComponent).IsAssignableFrom(toastComponent))
+        if (!typeof(IToastContentComponent).IsAssignableFrom(toastComponent))
         {
-            throw new ArgumentException($"{toastComponent.FullName} must be a Blazor Component");
+            throw new ArgumentException($"{toastComponent.FullName} must be a Toast Component");
         }
 
         OnShow?.Invoke(toastComponent, parameters, settings);

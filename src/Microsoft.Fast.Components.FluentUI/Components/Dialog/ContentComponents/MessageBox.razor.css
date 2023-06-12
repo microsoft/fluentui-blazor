@@ -5,16 +5,6 @@
     color: var( --neutral-foreground-rest);
 }
 
-    .fluent-messagebox h1 {
-        font-size: var(--type-ramp-plus-2-font-size);
-        line-height: var(--type-ramp-plus-2-line-height);
-        font-weight: 600;
-        margin: 40px 0px 0px 0px;
-    }
-
-    .fluent-messagebox .icon {
-    }
-
     .fluent-messagebox .body {
         width: calc(100% - 24px);
         text-align: justify;

@@ -1,0 +1,26 @@
+﻿@inject Microsoft.Fast.Components.FluentUI.IDialogService DialogService
+
+<FluentButton @onclick="@OpenDialogAsync" Appearance="Appearance.Accent">
+    Open Dialog
+</FluentButton>
+
+<p>If you want to display only the window's closing cross, use these options:</p>
+<ul>
+    <li>options.<b>ShowOk</b> = false;</li>
+    <li>options.<b>ShowCancel</b> = false;</li>
+    <li>options.<b>ShowDismiss</b> = true;</li>
+</ul>
+
+@code
+{
+    DialogParameters parameters = new() { { "Name", "Scott" } };
+    //DialogSettings options = new() { Alignment = HorizontalAlignment.Right };
+
+    private async void OpenDialogAsync(MouseEventArgs e)
+    {
+        DemoLogger.WriteLine($"Open Simple Dialog");
+        var dialog = await DialogService.ShowAsync<SimpleDialog>("Simple Dialog", parameters, settings => { settings.Alignment = HorizontalAlignment.Right; });
+        var result = await dialog.Result!;
+        DemoLogger.WriteLine($"Dialog Result: {result.Data} - Canceled: {result.Cancelled}");
+    }
+}
