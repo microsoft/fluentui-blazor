@@ -45,7 +45,7 @@ public partial class FluentSearch : FluentInputBase<string?>
     /// Gets or sets the visual appearance. See <see cref="FluentUI.Appearance"/>
     /// </summary>
     [Parameter]
-    public Appearance? Appearance { get; set; }
+    public FluentInputAppearance Appearance { get; set; } = FluentInputAppearance.Outline;
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.

@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using Microsoft.Fast.Components.FluentUI.Resources;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
@@ -71,7 +70,7 @@ public static class DateTimeExtensions
     /// Get a string showing how long ago a DateTime was, for example '4 minutes ago'.
     /// </summary>
     /// <param name="delay"></param>
-    /// <param name="resources"
+    /// <param name="resources"></param>
     /// <returns></returns>
     /// <remarks>Inspired from https://github.com/NickStrupat/TimeAgo.</remarks>
     public static string ToTimeAgo(this TimeSpan delay, TimeAgoOptions? resources = null)

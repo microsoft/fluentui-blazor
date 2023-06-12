@@ -3719,7 +3719,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextArea.Appearance">
             <summary>
-            Gets or sets the visual appearance. See <see cref="T:Microsoft.Fast.Components.FluentUI.Appearance"/>
+            Gets or sets the visual appearance. See <see cref="T:Microsoft.Fast.Components.FluentUI.FluentInputAppearance"/>
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextArea.ChildContent">
@@ -3764,7 +3764,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextField.Appearance">
             <summary>
-            Gets or sets the visual appearance. See <see cref="T:Microsoft.Fast.Components.FluentUI.Appearance"/>
+            Gets or sets the visual appearance. See <see cref="T:Microsoft.Fast.Components.FluentUI.FluentInputAppearance"/>
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextField.ChildContent">
@@ -7607,6 +7607,15 @@
             Move to the next element.
             </summary>
         </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.FluentInputAppearance">
+            <summary />
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.FluentInputAppearance.Filled">
+            <summary />
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.FluentInputAppearance.Outline">
+            <summary />
+        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.FontWeight">
             <summary>
             Possible FontWeight choices
@@ -8122,15 +8131,6 @@
             The textarea can resize both horizontally and vertically.
             </summary>
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.TextFieldAppearance">
-            <summary />
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.TextFieldAppearance.Filled">
-            <summary />
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.TextFieldAppearance.Outline">
-            <summary />
-        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.TextFieldType">
             <summary>
             Describes the type of input of a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentTextField"/>.
@@ -8439,7 +8439,15 @@
             <param name="firstDayOfWeek"></param>
             <returns></returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Microsoft.Fast.Components.FluentUI.DateTimeExtensions.ToTimeAgo(System.TimeSpan,Microsoft.Fast.Components.FluentUI.TimeAgoOptions)" -->
+        <member name="M:Microsoft.Fast.Components.FluentUI.DateTimeExtensions.ToTimeAgo(System.TimeSpan,Microsoft.Fast.Components.FluentUI.TimeAgoOptions)">
+            <summary>
+            Get a string showing how long ago a DateTime was, for example '4 minutes ago'.
+            </summary>
+            <param name="delay"></param>
+            <param name="resources"></param>
+            <returns></returns>
+            <remarks>Inspired from https://github.com/NickStrupat/TimeAgo.</remarks>
+        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ServiceCollectionExtensions.AddFluentIcons(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Fast.Components.FluentUI.IconConfiguration)">
             <summary>
             Adds an Icon Service as a Scoped instance.

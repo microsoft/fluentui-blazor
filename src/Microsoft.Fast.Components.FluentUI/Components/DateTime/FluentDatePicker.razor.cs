@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Components.Web;
+﻿using System.Globalization;
 using Microsoft.AspNetCore.Components;
-using System.Globalization;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
@@ -26,7 +26,7 @@ public partial class FluentDatePicker : FluentCalendarBase
     /// Gets or sets the design of this input.
     /// </summary>
     [Parameter]
-    public virtual Appearance Appearance { get; set; } = Appearance.Outline;
+    public virtual FluentInputAppearance Appearance { get; set; } = FluentInputAppearance.Outline;
 
     /// <summary>
     /// Disables the form control, ensuring it doesn't participate in form submission.
@@ -62,7 +62,7 @@ public partial class FluentDatePicker : FluentCalendarBase
     public EventCallback<bool> OnCalendarOpen { get; set; }
 
     public bool Opened { get; set; } = false;
-    
+
     private string? DateAsString
     {
         get
