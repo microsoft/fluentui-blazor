@@ -118,6 +118,27 @@
 	<ItemGroup>
 	  <Folder Include="Components\Dialog\Parameters\" />
 	</ItemGroup>
+  <!-- Embedd other languages under root resx file -->
+  <ItemGroup>    
+    <None Include="**\*.*.resx" />
+    <None Update="**\*.*.resx">
+      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
+      <DependentUpon>%(ParentFile).resx</DependentUpon>
+    </None>
+
+    <Compile Update="**\*.Designer.cs">
+      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>%(ParentFile).resx</DependentUpon>
+    </Compile>
+
+    <EmbeddedResource Update="**\*.resx">
+      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>%(ParentFile).Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
 
 
 	<Target Name="GetFluentUIAssets" Returns="@(ReferenceAsset)">

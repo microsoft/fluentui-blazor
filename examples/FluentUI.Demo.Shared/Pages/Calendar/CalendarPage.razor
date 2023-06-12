@@ -15,14 +15,25 @@
 
 <DemoSection Title="Default calendar" Component="@typeof(CalendarDefault)"></DemoSection>
 
-<DemoSection Title="Readonly calendar" Component="@typeof(CalendarReadonly)"></DemoSection>
+<DemoSection Title="Customized calendar" Component="@typeof(CalendarDayCustomized)"></DemoSection>
 
-<DemoSection Title="Show 6 weeks per month" Component="@typeof(Calendar6Weeks)"></DemoSection>
+<DemoSection Title="ReadOnly calendar with 2-digits and using French Culture" Component="@typeof(CalendarReadonly)"></DemoSection>
 
-<DemoSection Title="Use 2 digits for day number" Component="@typeof(CalendarDayFormat)"></DemoSection>
+<DemoSection Title="Default Date Picker" Component="@typeof(DatePickerDefault)"></DemoSection>
 
-<DemoSection Title="Bind to selected dates" Component="@typeof(CalendarBindSelected)"></DemoSection>
+<DemoSection Title="Default Time Picker" Component="@typeof(TimePickerDefault)"></DemoSection>
 
-<DemoSection Title="Disabled dates not selectable" Component="@typeof(CalendarDisabledNotSelectable)"></DemoSection>
+<h2>ToTimeAgo() method</h2>
 
-<DemoSection Title="No selection beyond month" Component="@typeof(CalendarNoSelectionBeyondMonth)"></DemoSection>
+An extension method <b>ToTimeAgo(TimeSpan delay)</b> returns a string with one of these samples, depending of the delay.
+
+<ul>
+    <li>Just now</li>
+    <li>25 seconds ago</li>
+    <li>14 minutes ago</li>
+    <li>9 hours ago</li>
+    <li>1 day ago</li>
+    <li>5 days ago</li>
+    <li>6 months ago</li>
+    <li>2 years ago</li>
+</ul>

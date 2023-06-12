@@ -13,18 +13,6 @@ public partial class FluentTextArea : FluentInputBase<string?>
     public TextAreaResize? Resize { get; set; }
 
     /// <summary>
-    /// Gets or sets if the text area is auto focussed
-    /// </summary>
-    [Parameter]
-    public bool Autofocus { get; set; }
-
-    /// <summary>
-    /// Gets or sets the placholder text
-    /// </summary>
-    [Parameter]
-    public string? Placeholder { get; set; }
-
-    /// <summary>
     /// The <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id">id</see> the <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form">form</see> the element is associated to
     /// </summary>
     [Parameter]

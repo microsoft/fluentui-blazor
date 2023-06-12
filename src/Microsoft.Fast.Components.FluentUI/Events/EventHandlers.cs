@@ -9,7 +9,6 @@ namespace Microsoft.Fast.Components.FluentUI;
 [EventHandler("ontabchange", typeof(TabChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("onselectedchange", typeof(TreeChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("onexpandedchange", typeof(TreeChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
-[EventHandler("ondateselected", typeof(CalendarSelectEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("onaccordionchange", typeof(AccordionChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("ondialogdismiss", typeof(DialogEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("onmenuchange", typeof(MenuChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]

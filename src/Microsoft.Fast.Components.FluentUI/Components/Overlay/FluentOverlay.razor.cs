@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
@@ -11,6 +12,16 @@ public partial class FluentOverlay
 {
     private string? _color = null;
     private int _r, _g, _b;
+
+    /// <summary />
+    protected string? StyleValue => new StyleBuilder()
+        .AddStyle("cursor", "auto", () => Transparent)
+        .AddStyle("background-color", $"rgba({_r}, {_g}, {_b}, {Opacity.ToString()!.Replace(',', '.')})", () => !Transparent)
+        .AddStyle("cursor", "default", () => !Transparent)
+        .AddStyle("position", "fixed", () => FullScreen)
+        .AddStyle("position", "absolute", () => !FullScreen)
+        .AddStyle("z-index", $"{ZIndex.Overlay}")
+        .Build();
 
     /// <summary>
     /// Gets or sets if the overlay is visible.

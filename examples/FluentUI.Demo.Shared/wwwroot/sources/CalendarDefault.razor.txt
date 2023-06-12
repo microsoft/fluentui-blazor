@@ -1,11 +1,14 @@
-﻿<FluentCalendar OnDateClicked="HandleDateClicked" />
-<p>You clicked on @clickedDate</p>
+﻿<FluentCalendar DisabledDateFunc="@DisabledDate" @bind-Value="@SelectedValue" />
+<p>Selected date @(SelectedValue?.ToString("yyyy-MM-dd"))</p>
 
-@code {
-    private DateOnly? clickedDate = null;
+@code
+{
+    private DateTime? SelectedValue = null;
 
-    private void HandleDateClicked(DateOnly date)
+    private bool DisabledDate(DateTime date) 
     {
-        clickedDate = date;
+        return (date.Day == 3 ||
+                date.Day == 8 ||
+                date.Day == 20);
     }
 }

@@ -6,18 +6,6 @@ namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentSearch : FluentInputBase<string?>
 {
     /// <summary>
-    /// Gets or sets if the text area is auto focussed
-    /// </summary>
-    [Parameter]
-    public bool Autofocus { get; set; }
-
-    /// <summary>
-    /// Gets or sets the placholder text
-    /// </summary>
-    [Parameter]
-    public string? Placeholder { get; set; }
-
-    /// <summary>
     /// Allows associating a <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist">datalist</see> to the element by <see href="https://developer.mozilla.org/en-US/docs/Web/API/Element/id">id</see>.
     /// </summary>
     [Parameter]

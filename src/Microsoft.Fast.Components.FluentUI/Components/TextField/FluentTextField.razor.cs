@@ -6,18 +6,6 @@ namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentTextField : FluentInputBase<string?>
 {
     /// <summary>
-    /// Gets or sets if the text area is auto focussed
-    /// </summary>
-    [Parameter]
-    public bool Autofocus { get; set; }
-
-    /// <summary>
-    /// Gets or sets the placholder text
-    /// </summary>
-    [Parameter]
-    public string? Placeholder { get; set; }
-
-    /// <summary>
     /// Gets or sets the text filed type. See <see cref="FluentUI.TextFieldType"/>
     /// </summary>
     [Parameter]

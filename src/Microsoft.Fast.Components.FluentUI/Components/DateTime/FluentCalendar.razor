@@ -1,0 +1,65 @@
+﻿@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentCalendarBase
+
+<div class="@ClassValue" style="@StyleValue" readonly="@(ReadOnly ? true : null)">
+    @* Month name *@
+    <div class="title" part="title" aria-label="@CalendarExtended.GetMonthNameAndYear()">
+        <span part="month" class="month">
+            @CalendarExtended.GetMonthNameAndYear()
+        </span>
+        <span part="move" class="change-month">
+            <div class="previous-month"
+                    title="@CalendarExtended.GetMonthName(PickerMonth.AddMonths(-1))"
+                    @onclick="@((e) => this.PickerMonth = PickerMonth.AddMonths(-1))">
+                @((MarkupString)ArrowUp)
+            </div>
+            <div title="@CalendarExtended.GetMonthName(PickerMonth.AddMonths(+1))"
+                    class="next-month"
+                    @onclick="@((e) => this.PickerMonth = PickerMonth.AddMonths(+1))">
+                @((MarkupString)ArrowDown)
+            </div>
+        </span>
+    </div>
+
+    <div class="days" part="days">
+        @* Titles: Mon, Tue, ... *@
+        <div class="week-days" part="week-days">
+            @foreach (var weekDay in CalendarExtended.GetDayNames())
+            {
+                <div class="week-day" part="week-day" title="@weekDay.Name" abbr="@weekDay.Name">
+                    @weekDay.Abbreviated[0]
+                </div>
+            }
+        </div>
+
+        @for (int week = 0; week < 6; week++)
+        {
+            @* A week of 7 days *@
+            <div class="week">
+                @foreach (var day in CalendarExtended.GetDaysOfWeek(week))
+                {
+                    var dayProperties = GetDayProperties(day);
+
+                    <div part="day"
+                         class="day"
+                         disabled="@dayProperties.IsDisabled"
+                         inactive="@dayProperties.IsInactive"
+                         today="@dayProperties.IsToday"
+                         selected="@dayProperties.IsSelected"
+                         aria-label="@dayProperties.Title"
+                         value="@dayProperties.DayIdentifier"
+                         @onclick="@((e) => OnSelectedDateHandlerAsync(day, dayProperties.IsDisabled || dayProperties.IsInactive))">
+                        @if (DaysTemplate == null)
+                        {
+                            @dayProperties.DayNumber
+                        }
+                        else
+                        {
+                            @DaysTemplate(dayProperties)
+                        }
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>
