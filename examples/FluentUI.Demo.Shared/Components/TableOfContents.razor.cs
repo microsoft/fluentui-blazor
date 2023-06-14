@@ -8,7 +8,39 @@ namespace FluentUI.Demo.Shared.Components;
 
 public partial class TableOfContents : IAsyncDisposable
 {
-    private record Anchor(string Level, string Text, string Href, Anchor[] Anchors);
+    private record Anchor(string Level, string Text, string Href, Anchor[] Anchors)
+    {
+        public virtual bool Equals(Anchor? other)
+        {
+            if (other is null) return false;
+
+            if (Level != other.Level ||
+                Text != other.Text ||
+                Href != other.Href ||
+                (Anchors?.Length ?? 0) != (other.Anchors?.Length ?? 0))
+            {
+                return false;
+            }
+
+            if (Anchors is not null &&
+                Anchors.Length > 0)
+            {
+                for (var i = 0; i < Anchors.Length; i++)
+                {
+                    if (!Anchors[i].Equals(other.Anchors![i]))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        public override int GetHashCode()
+             => HashCode.Combine(Level, Text, Href);
+    }
+
     private Anchor[]? _anchors;
     private bool _expanded = true;
 
@@ -44,19 +76,17 @@ public partial class TableOfContents : IAsyncDisposable
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        //if (firstRender)
-        //{
-        // Remember to replace the location of the script with your own project specific location.
-        _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
+        if (firstRender)
+        {
+            // Remember to replace the location of the script with your own project specific location.
+            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
             "./_content/FluentUI.Demo.Shared/Components/TableOfContents.razor.js");
+            bool mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
 
-        bool mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
-
-        if (mobile)
-            _expanded = false;
-
-        await QueryDom();
-        //}
+            if (mobile)
+                _expanded = false;
+            await QueryDom();
+        }
     }
 
     private async Task BackToTop()
@@ -66,8 +96,21 @@ public partial class TableOfContents : IAsyncDisposable
 
     private async Task QueryDom()
     {
-        _anchors = await _jsModule.InvokeAsync<Anchor[]?>("queryDomForTocEntries");
+        Anchor[]? foundAnchors = await _jsModule.InvokeAsync<Anchor[]?>("queryDomForTocEntries");
+
+        if (AnchorsEqual(_anchors, foundAnchors))
+        {
+            return;
+        }
+
+        _anchors = foundAnchors;
         StateHasChanged();
+    }
+
+    private bool AnchorsEqual(Anchor[]? firstSet, Anchor[]? secondSet)
+    {
+        return (firstSet ?? Array.Empty<Anchor>())
+            .SequenceEqual(secondSet ?? Array.Empty<Anchor>());
     }
 
     protected override void OnInitialized()
@@ -131,6 +174,8 @@ public partial class TableOfContents : IAsyncDisposable
         }
 
     }
+
+
 
     async ValueTask IAsyncDisposable.DisposeAsync()
     {

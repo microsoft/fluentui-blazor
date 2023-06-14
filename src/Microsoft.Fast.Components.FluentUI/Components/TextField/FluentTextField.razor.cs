@@ -6,18 +6,6 @@ namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentTextField : FluentInputBase<string?>
 {
     /// <summary>
-    /// Gets or sets if the text area is auto focussed
-    /// </summary>
-    [Parameter]
-    public bool Autofocus { get; set; }
-
-    /// <summary>
-    /// Gets or sets the placholder text
-    /// </summary>
-    [Parameter]
-    public string? Placeholder { get; set; }
-
-    /// <summary>
     /// Gets or sets the text filed type. See <see cref="FluentUI.TextFieldType"/>
     /// </summary>
     [Parameter]
@@ -60,10 +48,10 @@ public partial class FluentTextField : FluentInputBase<string?>
     public bool? Spellcheck { get; set; }
 
     /// <summary>
-    /// Gets or sets the visual appearance. See <see cref="FluentUI.Appearance"/>
+    /// Gets or sets the visual appearance. See <see cref="FluentUI.FluentInputAppearance"/>
     /// </summary>
     [Parameter]
-    public Appearance? Appearance { get; set; }
+    public FluentInputAppearance Appearance { get; set; } = FluentInputAppearance.Outline;
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.

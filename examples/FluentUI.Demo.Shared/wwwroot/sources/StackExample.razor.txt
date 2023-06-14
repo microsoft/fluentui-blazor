@@ -3,10 +3,10 @@
 <p>Alignment of the Stack content elements:</p>
 <FluentStack>
     <div style="width: 150px;">
-        Horizontal<FluentListbox Items=@(Enum.GetValues<StackHorizontalAlignment>()) @bind-SelectedOption="@Horizontal" />
+        Horizontal<FluentListbox Items=@(Enum.GetValues<HorizontalAlignment>()) @bind-SelectedOption="@Horizontal" />
     </div>
     <div style="width: 150px;">
-        Vertical<FluentListbox Items=@(Enum.GetValues<StackVerticalAlignment>()) @bind-SelectedOption="@Vertical"  />
+        Vertical<FluentListbox Items=@(Enum.GetValues<VerticalAlignment>()) @bind-SelectedOption="@Vertical"  />
     </div>
 </FluentStack>
 
@@ -30,6 +30,6 @@
 
 @code
 {
-    StackHorizontalAlignment Horizontal;
-    StackVerticalAlignment Vertical;
+    HorizontalAlignment Horizontal;
+    VerticalAlignment Vertical;
 }

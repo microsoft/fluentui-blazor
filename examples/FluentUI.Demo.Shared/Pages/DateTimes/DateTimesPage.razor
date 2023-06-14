@@ -1,0 +1,47 @@
+@page "/DateTime"
+
+@using FluentUI.Demo.Shared.Pages.DateTimes.Examples
+
+<h1>Date & Time</h1>
+
+<p>
+    The <code>&lt;FluentCalendar&gt;</code> is an implementation of a month calendar display leveraging the Fluent UI design system.
+    It allows for setting selected and/or disabled dates and can handle a click on a day event (if not <code>ReadOnly</code>)
+</p>
+<p>e
+The <code>&lt;FluentDatePicker&gt;</code> is an input field that shos a calendar dropdown to select a date.
+</p>
+<p>
+    The <code>&lt;FluentTimePicker&gt;</code> allows for picking a specific time of day by selecting hour, minutes and AM/PM
+</p>
+
+<ApiDocumentation Component="typeof(FluentCalendar)" />
+<ApiDocumentation Component="typeof(FluentDatePicker)" />
+<ApiDocumentation Component="typeof(FluentTimePicker)" />
+
+<h2>Examples</h2>
+
+<DemoSection Title="Default calendar" Component="@typeof(CalendarDefault)"></DemoSection>
+
+<DemoSection Title="Customized calendar" Component="@typeof(CalendarDayCustomized)"></DemoSection>
+
+<DemoSection Title="ReadOnly calendar with 2-digits and using French Culture" Component="@typeof(CalendarReadonly)"></DemoSection>
+
+<DemoSection Title="Default Date Picker" Component="@typeof(DatePickerDefault)"></DemoSection>
+
+<DemoSection Title="Default Time Picker" Component="@typeof(TimePickerDefault)"></DemoSection>
+
+<h2>ToTimeAgo() method</h2>
+
+An extension method <b>ToTimeAgo(TimeSpan delay)</b> returns a string with one of these samples, depending of the delay.
+
+<ul>
+    <li>Just now</li>
+    <li>25 seconds ago</li>
+    <li>14 minutes ago</li>
+    <li>9 hours ago</li>
+    <li>1 day ago</li>
+    <li>5 days ago</li>
+    <li>6 months ago</li>
+    <li>2 years ago</li>
+</ul>

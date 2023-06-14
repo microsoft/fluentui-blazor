@@ -1,4 +1,4 @@
-﻿@inject ToastManager ToastManager
+﻿@inject IToastService ToastService
 
 
 <p>Click on this button to open a Toast. The toast is created by just specifying an intent and a message.</p>
@@ -14,6 +14,6 @@
 
         var intent = Enum.GetValues<ToastIntent>()[rnd.Next(10)];
         var message = $"Simple Toast #{counter++}";
-        ToastManager.ShowToast(intent, message);
+        ToastService.ShowToast(intent, message);
     }
 }

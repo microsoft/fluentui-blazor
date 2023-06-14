@@ -2,10 +2,10 @@
 
 internal sealed class InternalToastContext
 {
-    public FluentToasts ToastsContainer { get; }
+    public FluentToastContainer ToastsContainer { get; }
 
 
-    public InternalToastContext(FluentToasts container)
+    public InternalToastContext(FluentToastContainer container)
     {
         ToastsContainer = container;
     }

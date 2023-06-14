@@ -1,0 +1,34 @@
+@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentCalendarBase
+
+<FluentTextField Id="@Id"
+                    Class="@ClassValue"
+                    Style="@StyleValue"
+                    Autofocus="@Autofocus"
+                    Appearance="@Appearance"
+                    @bind-Value="@DateAsString"
+                    @onclick="@OnCalendarOpenHandlerAsync" 
+                    Readonly="@ReadOnly"
+                    Disabled="@Disabled"
+                    Required="@Required"
+                    Placeholder="@(Placeholder ?? Culture.DateTimeFormat.ShortDatePattern)"
+                    Name="@Name"
+                    @attributes="@AdditionalAttributes">
+    @((MarkupString)CalendarIcon)
+</FluentTextField>
+
+@if (Opened)
+{
+    <FluentOverlay @bind-Visible="@Opened" Dismissable="true" FullScreen="true" />
+    <FluentAnchoredRegion Anchor="@Id"
+                          HorizontalDefaultPosition="@HorizontalPosition.Right"
+                          HorizontalInset="true"
+                          VerticalDefaultPosition="@VerticalPosition.Bottom"
+                          Shadow="ElevationShadow.Flyout"
+                          Class="fluent-datepicker-popup"
+                          Style="@($"z-index: {ZIndex.DatePickerPopup}; padding: 10px;")">
+        <FluentCalendar Culture="@Culture"
+                        Value="@Value"
+                        ValueChanged="@OnSelectedDateAsync" />
+    </FluentAnchoredRegion>
+}

@@ -9,11 +9,20 @@ export function init(gridElement) {
     };
     const keyDownHandler = event => {
         const columnOptionsElement = gridElement?.querySelector('.col-options');
-        if (columnOptionsElement && event.key === "Escape") {
-            gridElement.dispatchEvent(new CustomEvent('closecolumnoptions', { bubbles: true }));
+        if (columnOptionsElement) {
+            if (event.key === "Escape") {
+                gridElement.dispatchEvent(new CustomEvent('closecolumnoptions', { bubbles: true }));
+            }
+            columnOptionsElement.addEventListener(
+                "keydown",
+                (event) => {
+                    if (event.key === "ArrowRight" || event.key === "ArrowLeft" || event.key === "ArrowDown" || event.key === "ArrowUp") {
+                        event.stopPropagation();
+                    }
+                }
+            );
         }
     };
-
 
     const cells = gridElement.querySelectorAll('[role="gridcell"]');
     cells.forEach((cell) => {
@@ -21,7 +30,7 @@ export function init(gridElement) {
             columnDataKey: "",
             cellInternalFocusQueue: true,
             cellFocusTargetCallback: (cell) => {
-                return cell.firstElementChild
+                return cell.children[0];
             }
         }
         cell.addEventListener(
@@ -46,6 +55,8 @@ export function init(gridElement) {
         }
     };
 }
+
+
 
 export function checkColumnOptionsPosition(gridElement) {
     const colOptions = gridElement?._rowItems[0] && gridElement?.querySelector('.col-options'); // Only match within *our* thead, not nested tables

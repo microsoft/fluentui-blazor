@@ -278,14 +278,9 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.NumberField
         }
 
         [Theory]
-        [InlineData(Appearance.Accent)]
-        [InlineData(Appearance.Filled)]
-        [InlineData(Appearance.Hypertext)]
-        [InlineData(Appearance.Lightweight)]
-        [InlineData(Appearance.Neutral)]
-        [InlineData(Appearance.Outline)]
-        [InlineData(Appearance.Stealth)]
-        public void FluentNumberField_AppearanceParameter(Appearance appearance)
+        [InlineData(FluentInputAppearance.Filled)]
+        [InlineData(FluentInputAppearance.Outline)]
+        public void FluentNumberField_AppearanceParameter(FluentInputAppearance appearance)
         {
             int currentValue = 100;
 

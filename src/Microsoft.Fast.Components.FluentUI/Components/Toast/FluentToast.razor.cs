@@ -7,7 +7,7 @@ public partial class FluentToast : FluentComponentBase, IDisposable
     private CountdownTimer? _countdownTimer;
 
     [CascadingParameter]
-    private FluentToasts ToastContainer { get; set; } = default!;
+    private FluentToastContainer ToastContainer { get; set; } = default!;
 
     /// <inheritdoc/>
     [Parameter]

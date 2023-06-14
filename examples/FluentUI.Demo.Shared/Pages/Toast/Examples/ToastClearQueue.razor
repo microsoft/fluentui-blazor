@@ -1,4 +1,4 @@
-﻿@inject ToastManager ToastManager
+﻿@inject IToastService ToastService
 
 <FluentStack Wrap=true>
     <FluentButton Appearance=Appearance.Neutral @onclick="ClearQueue">Clear all</FluentButton>
@@ -58,38 +58,38 @@
 
 @code {
     private void ClearQueue()
-        => ToastManager.ClearQueue();
+        => ToastService.ClearQueue();
 
     private void ClearQueueIntent()
-        => ToastManager.ClearQueueToasts(ToastIntent.Warning);
+        => ToastService.ClearQueueToasts(ToastIntent.Warning);
 
     private void ClearQueueSuccess()
-        => ToastManager.ClearQueueSuccessToasts();
+        => ToastService.ClearQueueSuccessToasts();
 
     private void ClearQueueWarning()
-        => ToastManager.ClearQueueWarningToasts();
+        => ToastService.ClearQueueWarningToasts();
 
     private void ClearQueueError()
-        => ToastManager.ClearQueueErrorToasts();
+        => ToastService.ClearQueueErrorToasts();
 
     private void ClearQueueInfo()
-        => ToastManager.ClearQueueInfoToasts();
+        => ToastService.ClearQueueInfoToasts();
 
     private void ClearQueueProgress()
-       => ToastManager.ClearQueueProgressToasts();
+       => ToastService.ClearQueueProgressToasts();
 
     private void ClearQueueUpload()
-        => ToastManager.ClearQueueUploadToasts();
+        => ToastService.ClearQueueUploadToasts();
 
     private void ClearQueueDownload()
-       => ToastManager.ClearQueueDownloadToasts();
+       => ToastService.ClearQueueDownloadToasts();
 
     private void ClearQueueEvent()
-        => ToastManager.ClearQueueEventToasts();
+        => ToastService.ClearQueueEventToasts();
 
     private void ClearQueueAvatar()
-       => ToastManager.ClearQueueAvatarToasts();
+       => ToastService.ClearQueueAvatarToasts();
 
     private void ClearQueueCustom()
-        => ToastManager.ClearQueueCustomIntentToasts();
+        => ToastService.ClearQueueCustomIntentToasts();
 }

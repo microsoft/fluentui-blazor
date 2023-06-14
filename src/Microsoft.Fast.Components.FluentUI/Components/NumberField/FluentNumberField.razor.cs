@@ -6,24 +6,11 @@ namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
 {
-
-    /// <summary>
-    /// Gets or sets if the field should automatically receive focus
-    /// </summary>
-    [Parameter]
-    public bool Autofocus { get; set; }
-
     /// <summary>
     /// When true, spin buttons will not be rendered
     /// </summary>
     [Parameter]
     public bool HideStep { get; set; }
-
-    /// <summary>
-    /// Gets or sets the placeholder text
-    /// </summary>
-    [Parameter]
-    public string? Placeholder { get; set; }
 
     /// <summary>
     /// Allows associating a <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist">datalist</see> to the element by <see href="https://developer.mozilla.org/en-US/docs/Web/API/Element/id">id</see>.
@@ -71,7 +58,7 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
     /// Gets or sets the <see cref="FluentUI.Appearance" />
     /// </summary>
     [Parameter]
-    public Appearance? Appearance { get; set; }
+    public FluentInputAppearance Appearance { get; set; } = FluentInputAppearance.Outline;
 
     /// <summary>
     /// Gets or sets the error message to show when the field can not be parsed
@@ -243,8 +230,8 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
 
     private static void ValidateDoubleInput(string? max, string? min)
     {
-        double maxValue = double.Parse(max!);
-        double minValue = double.Parse(min!);
+        double maxValue = double.Parse(max!, CultureInfo.InvariantCulture);
+        double minValue = double.Parse(min!, CultureInfo.InvariantCulture);
 
         if (maxValue < minValue)
         {
@@ -254,8 +241,8 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
 
     private static void ValidateFloatInput(string? max, string? min)
     {
-        float maxValue = float.Parse(max!);
-        float minValue = float.Parse(min!);
+        float maxValue = float.Parse(max!, CultureInfo.InvariantCulture);
+        float minValue = float.Parse(min!, CultureInfo.InvariantCulture);
 
         if (maxValue < minValue)
         {
@@ -265,8 +252,8 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
 
     private static void ValidateShortInput(string? max, string? min)
     {
-        short maxValue = short.Parse(max!);
-        short minValue = short.Parse(min!);
+        short maxValue = short.Parse(max!, CultureInfo.InvariantCulture);
+        short minValue = short.Parse(min!, CultureInfo.InvariantCulture);
 
         if (maxValue < minValue)
         {
@@ -276,8 +263,8 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
 
     private static void ValidateLongInput(string? max, string? min)
     {
-        long maxValue = long.Parse(max!);
-        long minValue = long.Parse(min!);
+        long maxValue = long.Parse(max!, CultureInfo.InvariantCulture);
+        long minValue = long.Parse(min!, CultureInfo.InvariantCulture);
 
         if (maxValue < minValue)
         {
@@ -287,8 +274,8 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
 
     private static void ValidateIntegerInputs(string? max, string? min)
     {
-        int maxValue = int.Parse(max!);
-        int minValue = int.Parse(min!);
+        int maxValue = int.Parse(max!, CultureInfo.InvariantCulture);
+        int minValue = int.Parse(min!, CultureInfo.InvariantCulture);
 
         if (maxValue < minValue)
         {

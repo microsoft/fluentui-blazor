@@ -13,18 +13,6 @@ public partial class FluentTextArea : FluentInputBase<string?>
     public TextAreaResize? Resize { get; set; }
 
     /// <summary>
-    /// Gets or sets if the text area is auto focussed
-    /// </summary>
-    [Parameter]
-    public bool Autofocus { get; set; }
-
-    /// <summary>
-    /// Gets or sets the placholder text
-    /// </summary>
-    [Parameter]
-    public string? Placeholder { get; set; }
-
-    /// <summary>
     /// The <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id">id</see> the <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form">form</see> the element is associated to
     /// </summary>
     [Parameter]
@@ -69,10 +57,10 @@ public partial class FluentTextArea : FluentInputBase<string?>
     public bool? Spellcheck { get; set; }
 
     /// <summary>
-    /// Gets or sets the visual appearance. See <see cref="FluentUI.Appearance"/>
+    /// Gets or sets the visual appearance. See <see cref="FluentUI.FluentInputAppearance"/>
     /// </summary>
     [Parameter]
-    public Appearance? Appearance { get; set; }
+    public FluentInputAppearance Appearance { get; set; } = FluentInputAppearance.Outline;
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
