@@ -82,7 +82,7 @@ internal class CodeGenerator
         var allVariants = icons.Select(i => i.Variant)
                                .Distinct()
                                .OrderBy(i => i);
-        
+
         // Delete previous files
         foreach (var file in Configuration.TargetFolder.GetFiles("*.*", SearchOption.TopDirectoryOnly))
         {
@@ -169,15 +169,13 @@ internal class CodeGenerator
         builder.AppendLine("//     the code is regenerated.");
         builder.AppendLine("// </auto-generated>");
         builder.AppendLine();
+        builder.AppendLine("#pragma warning disable 1591");
         builder.AppendLine("namespace " + Configuration.Namespace + ";");
         builder.AppendLine();
-        builder.AppendLine("/// <summary />");
         builder.AppendLine("public static partial class Icons");
         builder.AppendLine("{");
-        builder.AppendLine("    /// <summary />");
         builder.AppendLine("    public static partial class " + variant);
         builder.AppendLine("    {");
-        builder.AppendLine("        /// <summary />");
         builder.AppendLine("        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]");
         builder.AppendLine("        public static partial class Size" + size);
         builder.AppendLine("        {");
@@ -213,26 +211,25 @@ internal class CodeGenerator
         {
             if (isResx)
             {
-                builder.AppendLine($"            /// <summary />");
-                builder.AppendLine($"            public static Icon {icon.Name} {{ get; }} = new Icon(\"{icon.Name}\", \"{variant}\", {size}, ResourceManager.GetString(\"{icon.Name}\"));");
-                builder.AppendLine();
+                builder.AppendLine($"            public static Icon {icon.Name} {{ get; }} = new Icon(\"{icon.Name}\", IconVariant.{variant}, IconSize.Size{size}, ResourceManager.GetString(\"{icon.Name}\"));");
+
             }
             else
             {
                 var svgContent = icon.GetContent(removeSvgRoot: true)
                                      .Replace("\"", "\\\"");
 
-                builder.AppendLine($"            /// <summary />");
-                builder.AppendLine($"            public static Icon {icon.Name} {{ get; }} = new Icon(\"{icon.Name}\", \"{variant}\", {size}, \"{svgContent}\");");
-                builder.AppendLine();
+                builder.AppendLine($"            public static Icon {icon.Name} {{ get; }} = new Icon(\"{icon.Name}\", IconVariant.{variant}, IconSize.Size{size}, \"{svgContent}\");");
+
             }
         }
 
-    
+
 
         builder.AppendLine("        }");
         builder.AppendLine("    }");
         builder.AppendLine("}");
+        builder.AppendLine("#pragma enable disable 1591");
 
         return builder.ToString();
     }

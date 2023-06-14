@@ -9,7 +9,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// </summary>
 public partial class FluentSystemIcon : FluentComponentBase
 {
-    private Icon _icon;
+    private Icon _icon = default!;
 
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
@@ -75,7 +75,7 @@ public partial class FluentSystemIcon : FluentComponentBase
     /// Gets or sets the icon size, used to create the viewbox, width and height attributes.
     /// </summary>
     [Parameter]
-    public int? Size { get; set; }
+    public IconSize? Size { get; set; }
 
     /// <summary>
     /// Allows for capturing a mouse click on an icon

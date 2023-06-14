@@ -12,7 +12,7 @@ public record Icon
     /// <param name="variant"><see cref="Icon.Variant"/></param>
     /// <param name="size"><see cref="Icon.Size"/></param>
     /// <param name="content"><see cref="Icon.Content"/></param>
-    public Icon(string name, string variant, int size, string content)
+    public Icon(string name, IconVariant variant, IconSize size, string content)
     {
         Name = name;
         Variant = variant;
@@ -28,12 +28,12 @@ public record Icon
     /// <summary>
     /// Gets the size of the icon: 20, 24, etc.
     /// </summary>
-    public int Size { get; }
+    public IconSize Size { get; }
 
     /// <summary>
     /// Gets the variant of the icon: Filled, Regular.
     /// </summary>
-    public string Variant { get; }
+    public IconVariant Variant { get; }
 
     /// <summary>
     /// Gets the content of the icon: SVG path.
