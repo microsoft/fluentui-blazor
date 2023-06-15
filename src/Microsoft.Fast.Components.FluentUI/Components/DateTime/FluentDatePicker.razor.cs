@@ -13,7 +13,6 @@ public partial class FluentDatePicker : FluentCalendarBase
     public FluentDatePicker()
     {
         Id = Identifier.NewId();
-        Placeholder = Culture.DateTimeFormat.ShortDatePattern;
     }
 
     /// <summary />

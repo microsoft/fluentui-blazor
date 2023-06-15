@@ -11,7 +11,7 @@
                     Readonly="@ReadOnly"
                     Disabled="@Disabled"
                     Required="@Required"
-                    Placeholder="@Placeholder"
+                    Placeholder="@(Placeholder ?? Culture.DateTimeFormat.ShortDatePattern)"
                     Name="@Name"
                     @attributes="@AdditionalAttributes">
     @((MarkupString)CalendarIcon)
