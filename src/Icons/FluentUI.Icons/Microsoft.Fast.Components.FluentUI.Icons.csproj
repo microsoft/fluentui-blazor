@@ -10,6 +10,8 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <ImplicitUsings>enable</ImplicitUsings>
     <IsTrimmable>true</IsTrimmable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>Microsoft.Fast.Components.FluentUI.Icons</Title>
   </PropertyGroup>
 
   <ItemGroup>

@@ -3,7 +3,7 @@
 /// <summary>
 /// FluentUI Icon content.
 /// </summary>
-public record Icon
+public abstract record Icon
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="Icon"/> class.
@@ -23,20 +23,25 @@ public record Icon
     /// <summary>
     /// Gets the name of the icon: AddCircle, Accessibility, etc.
     /// </summary>
-    public string Name { get; }
+    public virtual string Name { get; }
 
     /// <summary>
     /// Gets the size of the icon: 20, 24, etc.
     /// </summary>
-    public IconSize Size { get; }
+    public virtual IconSize Size { get; }
 
     /// <summary>
     /// Gets the variant of the icon: Filled, Regular.
     /// </summary>
-    public IconVariant Variant { get; }
+    public virtual IconVariant Variant { get; }
 
     /// <summary>
     /// Gets the content of the icon: SVG path.
     /// </summary>
-    public string Content { get; }
+    public virtual string Content { get; }
+
+    /// <summary>
+    /// Gets the width of the icon.
+    /// </summary>
+    protected internal virtual int Width => (int)Size;
 }

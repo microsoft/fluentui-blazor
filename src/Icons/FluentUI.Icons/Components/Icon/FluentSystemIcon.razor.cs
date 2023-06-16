@@ -7,9 +7,10 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// <summary>
 /// FluentSystemIcon is a component that renders an icon from the Fluent System icon set.
 /// </summary>
-public partial class FluentSystemIcon : FluentComponentBase
+public partial class FluentSystemIcon<Icon> : FluentComponentBase
+    where Icon : FluentUI.Icon, new()
 {
-    private Icon _icon = default!;
+    private Icon _icon = new Icon();
 
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
@@ -17,32 +18,11 @@ public partial class FluentSystemIcon : FluentComponentBase
 
     /// <summary />
     protected string? StyleValue => new StyleBuilder()
-        .AddStyle("width", $"{Size}px", Size.HasValue && Size.Value > 0)
+        .AddStyle("width", $"{Width ?? _icon.Width}px")
         .AddStyle("fill", Color == FluentUI.Color.Custom ? CustomColor : Color.ToAttributeValue())
         .AddStyle("cursor", "pointer", OnClick.HasDelegate)
         .AddStyle(Style)
         .Build();
-
-    /// <summary>
-    /// Icon to be used can either be svg paths.
-    /// </summary>
-    [Parameter]
-    public Icon Icon
-    {
-        get
-        {
-            return _icon;
-        }
-        set
-        {
-            _icon = value;
-
-            if (Size == null)
-            {
-                Size = _icon.Size;
-            }
-        }
-    }
 
     /// <summary>
     /// Gets or sets the slot where the icon is displayed in
@@ -72,10 +52,11 @@ public partial class FluentSystemIcon : FluentComponentBase
     public string? CustomColor { get; set; }
 
     /// <summary>
-    /// Gets or sets the icon size, used to create the viewbox, width and height attributes.
+    /// Gets or sets the icon width.
+    /// If not set, the icon size will be used.
     /// </summary>
     [Parameter]
-    public IconSize? Size { get; set; }
+    public int? Width { get; set; }
 
     /// <summary>
     /// Allows for capturing a mouse click on an icon
@@ -109,6 +90,6 @@ public partial class FluentSystemIcon : FluentComponentBase
     /// <returns></returns>
     private bool IsSvgIcon()
     {
-        return !string.IsNullOrEmpty(Icon.Content) && Icon.Content.StartsWith("<", StringComparison.OrdinalIgnoreCase);
+        return !string.IsNullOrEmpty(_icon.Content) && _icon.Content.StartsWith('<');
     }
 }

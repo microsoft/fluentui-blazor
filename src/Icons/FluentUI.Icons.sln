@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.33808.371
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Fast.Components.FluentUI", "..\Microsoft.Fast.Components.FluentUI\Microsoft.Fast.Components.FluentUI.csproj", "{48793C4B-89DD-44C6-BF62-51987419248E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Fast.Components.FluentUI.Icons", "FluentUI.Icons\Microsoft.Fast.Components.FluentUI.Icons.csproj", "{DC366683-C48A-4506-9CB1-7C2AFEF5E35A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Fast.Components.FluentUI.IconsGenerator", "Generator\Microsoft.Fast.Components.FluentUI.IconsGenerator.csproj", "{09CF3927-40A3-4138-9B07-8CD2BB18B005}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Fast.Components.FluentUI.IconsSample", "Sample\Microsoft.Fast.Components.FluentUI.IconsSample.csproj", "{DCA944C6-0EFF-44A5-8D9A-CCAFA83D5CCE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{48793C4B-89DD-44C6-BF62-51987419248E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48793C4B-89DD-44C6-BF62-51987419248E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48793C4B-89DD-44C6-BF62-51987419248E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48793C4B-89DD-44C6-BF62-51987419248E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC366683-C48A-4506-9CB1-7C2AFEF5E35A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC366683-C48A-4506-9CB1-7C2AFEF5E35A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC366683-C48A-4506-9CB1-7C2AFEF5E35A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC366683-C48A-4506-9CB1-7C2AFEF5E35A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09CF3927-40A3-4138-9B07-8CD2BB18B005}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09CF3927-40A3-4138-9B07-8CD2BB18B005}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09CF3927-40A3-4138-9B07-8CD2BB18B005}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09CF3927-40A3-4138-9B07-8CD2BB18B005}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCA944C6-0EFF-44A5-8D9A-CCAFA83D5CCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCA944C6-0EFF-44A5-8D9A-CCAFA83D5CCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCA944C6-0EFF-44A5-8D9A-CCAFA83D5CCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCA944C6-0EFF-44A5-8D9A-CCAFA83D5CCE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C5BFB74A-C3A6-4AD7-A757-725B1CB815CD}
+	EndGlobalSection
+EndGlobal
