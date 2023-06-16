@@ -191,6 +191,7 @@ public partial class FluentToastContainer
             }
         });
     }
+
     private void ClearAll(bool includeQueue)
     {
         _ = InvokeAsync(() =>

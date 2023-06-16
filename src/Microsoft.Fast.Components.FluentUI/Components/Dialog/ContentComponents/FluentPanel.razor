@@ -7,13 +7,13 @@
     <div class="@ClassValue" style="@StyleValue" @attributes="AdditionalAttributes">
         <FluentStack Orientation="Orientation.Vertical" Class="fluent-panel-content">
 
-            @if (this.Header != null || Options.ShowDismiss)
+            @if (this.Header != null || Settings.ShowDismiss)
             {
                 <div class="fluent-panel-header">
                     <FluentStack Orientation="Orientation.Horizontal"
                                      VerticalAlignment="VerticalAlignment.Center">
                         <FluentLabel Typo="Typography.PaneHeader" Style="width: 100%; margin: 0px;">@Header</FluentLabel>
-                        @if (Options.ShowDismiss)
+                        @if (Settings.ShowDismiss)
                         {
                             <FluentButton Appearance="Appearance.Stealth"
                                          @onclick="@(() => CancelAsync())"
@@ -26,28 +26,28 @@
                 </div>
             }
 
-            <div class="fluent-panel-body" nofooter=@(!HasFooter) style="@Options.StyleBody">@Body</div>
+            <div class="fluent-panel-body" nofooter=@(!HasFooter) style="@Settings.DialogBodyStyle">@Body</div>
 
             @if (HasFooter)
             {
-                <div class="@(Options.Alignment == HorizontalAlignment.Center ? "fluent-panel-footer-normal" : "fluent-panel-footer-bottom")">
+                <div class="@(Settings.Alignment == HorizontalAlignment.Center ? "fluent-panel-footer-normal" : "fluent-panel-footer-bottom")">
                     <FluentStack Orientation="Orientation.Horizontal"
-                                     HorizontalAlignment="@(Options.Alignment == HorizontalAlignment.Center ? HorizontalAlignment.Right : HorizontalAlignment.Left)">
-                        @if (Options.ShowOK)
+                                     HorizontalAlignment="@(Settings.Alignment == HorizontalAlignment.Center ? HorizontalAlignment.Right : HorizontalAlignment.Left)">
+                        @if (Settings.ShowPrimaryButton)
                         {
-                            <FluentButton title="@Options.OKText"
+                            <FluentButton title="@Settings.PrimaryButton"
                                          @onclick="@(() => CloseAsync())"
                                          Appearance="Appearance.Accent">
-                                @Options.OKText
+                                @Settings.PrimaryButton
                             </FluentButton>
                         }
-                        @if (Options.ShowCancel)
+                        @if (Settings.ShowSecondaryButton)
                         {
                             <FluentButton 
-                                         title="@Options.CancelText"
+                                         title="@Settings.SecondaryButton"
                                          @onclick="@(() => CancelAsync())"
                                          Appearance="Appearance.Neutral">
-                                @Options.CancelText
+                                @Settings.SecondaryButton
                             </FluentButton>
                         }
                     </FluentStack>

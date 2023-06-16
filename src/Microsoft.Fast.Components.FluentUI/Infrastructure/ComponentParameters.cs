@@ -1,17 +1,17 @@
 ﻿using System.Collections;
+using System.Reflection;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public class DialogParameters : IEnumerable<KeyValuePair<string, object>>
+public class ComponentParameters : IEnumerable<KeyValuePair<string, object>>
 {
     private readonly Dictionary<string, object> _parameters;
 
-    public DialogParameters()
+    public ComponentParameters()
     {
         _parameters = new Dictionary<string, object>();
     }
 
-    public int Count => _parameters.Count;
 
     public object this[string parameterName]
     {
@@ -42,6 +42,15 @@ public class DialogParameters : IEnumerable<KeyValuePair<string, object>>
     IEnumerator IEnumerable.GetEnumerator()
     {
         return _parameters.GetEnumerator();
+    }
+
+    public Dictionary<string, object> GetDictionary()
+    {
+        foreach (PropertyInfo property in GetType().GetProperties().Where(x => x.Name != "Item"))
+        {
+            _parameters[property.Name] = property.GetValue(this)!;
+        }
+        return _parameters;
     }
 
     public T TryGet<T>(string parameterName)

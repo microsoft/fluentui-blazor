@@ -3,7 +3,7 @@ using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentPanel : FluentComponentBase
+public partial class FluentPanel : FluentComponentBase, IDialogContentComponent
 {
     private const string DEFAULT_WIDTH = "500px";
 
@@ -28,7 +28,7 @@ public partial class FluentPanel : FluentComponentBase
     public EventCallback<bool> OnOpenChanged { get; set; }
 
     [Parameter]
-    public DialogOptions Options { get; set; } = new();
+    public DialogSettings Settings { get; set; } = new();
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("fluent-panel-main")
@@ -36,25 +36,25 @@ public partial class FluentPanel : FluentComponentBase
 
     protected string? StyleValue => new StyleBuilder()
         .AddStyle(Style)
-        .AddStyle("inset", "0px 0px 0px auto", () => Options.Alignment == HorizontalAlignment.Right || Options.Alignment == HorizontalAlignment.End)
-        .AddStyle("inset", "0px auto 0px 0px", () => Options.Alignment == HorizontalAlignment.Left || Options.Alignment == HorizontalAlignment.Start)
-        .AddStyle("top", "50%", () => Options.Alignment == HorizontalAlignment.Center)
-        .AddStyle("left", "50%", () => Options.Alignment == HorizontalAlignment.Center)
-        .AddStyle("transform", "translate(-50%, -50%)", () => Options.Alignment == HorizontalAlignment.Center)
-        .AddStyle("max-height", "100%", () => Options.Alignment == HorizontalAlignment.Center)
-        .AddStyle("width", Options.Width ?? DEFAULT_WIDTH, () => Options.Alignment == HorizontalAlignment.Center)
-        .AddStyle("height", Options.Height, () => Options.Alignment == HorizontalAlignment.Center && !string.IsNullOrWhiteSpace(Options.Height))
+        .AddStyle("inset", "0px 0px 0px auto", () => Settings.Alignment == HorizontalAlignment.Right || Settings.Alignment == HorizontalAlignment.End)
+        .AddStyle("inset", "0px auto 0px 0px", () => Settings.Alignment == HorizontalAlignment.Left || Settings.Alignment == HorizontalAlignment.Start)
+        .AddStyle("top", "50%", () => Settings.Alignment == HorizontalAlignment.Center)
+        .AddStyle("left", "50%", () => Settings.Alignment == HorizontalAlignment.Center)
+        .AddStyle("transform", "translate(-50%, -50%)", () => Settings.Alignment == HorizontalAlignment.Center)
+        .AddStyle("max-height", "100%", () => Settings.Alignment == HorizontalAlignment.Center)
+        .AddStyle("width", Settings.Width ?? DEFAULT_WIDTH, () => Settings.Alignment == HorizontalAlignment.Center)
+        .AddStyle("height", Settings.Height, () => Settings.Alignment == HorizontalAlignment.Center && !string.IsNullOrWhiteSpace(Settings.Height))
         .Build();
 
     [CascadingParameter]
-    private FluentDialogProvider? DialogProvider { get; set; }
+    private FluentDialogContainer? DialogContainer { get; set; }
 
     public FluentPanel()
     {
         Id = Identifier.NewId();
     }
 
-    private bool HasFooter => Footer != null || Options.ShowOK || Options.ShowCancel;
+    private bool HasFooter => Footer is not null || Settings.ShowPrimaryButton || Settings.ShowSecondaryButton;
 
     public virtual async Task CancelAsync()
     {
@@ -73,13 +73,8 @@ public partial class FluentPanel : FluentComponentBase
 
     public virtual async Task CloseAsync(DialogResult dialogResult)
     {
-        if (DialogProvider?.GetDialogReference(Id!)?.Dialog is IDialogInstance dialog && (await dialog.OnValidateAsync(dialogResult.Cancelled)) == false)
-        {
-            return;
-        }
-
         Open = false;
-        DialogProvider?.DismissInstance(Id!, dialogResult);
+        DialogContainer?.DismissInstance(Id!);
         await OpenChanged.InvokeAsync(Open);
     }
 

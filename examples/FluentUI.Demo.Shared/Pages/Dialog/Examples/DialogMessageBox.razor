@@ -1,0 +1,66 @@
+﻿@inject IDialogService DialogService
+
+Click on this button to open a MessageBox.
+
+<br />
+<FluentButton @onclick="@ShowError" Appearance="Appearance.Accent">Show Error</FluentButton>
+<FluentButton @onclick="@ShowInformation" Appearance="Appearance.Accent">Show Information</FluentButton>
+<FluentButton @onclick="@ShowConfirmation" Appearance="Appearance.Accent">Show Confirmation</FluentButton>
+<br /><br />
+<FluentButton @onclick="@ShowMessageBoxLong" Appearance="Appearance.Accent">Show Long message</FluentButton>
+<br /><br />
+<FluentButton @onclick="@ShowMessageBox" Appearance="Appearance.Accent">Show customized message</FluentButton>
+
+@code
+{
+    private void ShowError()
+    {
+        DemoLogger.WriteLine($"Open Error MessageBox");
+        DialogService.ShowErrorAsync("This is an error", "Error title here");
+    }
+
+    private void ShowInformation()
+    {
+        DemoLogger.WriteLine($"Open Information MessageBox");
+        DialogService.ShowInfoAsync("This is a message", "Info title here");
+    }
+
+    private void ShowConfirmation()
+    {
+        DemoLogger.WriteLine($"Open Confirmation MessageBox");
+        DialogService.ShowConfirmationAsync(this, HandleConfirmation, "Do you have two eyes?", "Eyes on you");
+    }
+
+    private void ShowMessageBoxLong()
+    {
+        DemoLogger.WriteLine($"Open Long MessageBox");
+        DialogService.ShowInfoAsync("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum");
+    }
+
+    private void ShowMessageBox()
+    {
+        DemoLogger.WriteLine($"Open Customized MessageBox");
+        DialogService.ShowMessageBox(new MessageBoxParameters()
+            {
+                Title = "My title",
+                MarkupMessage = new MarkupString("My <strong>customized</strong> message"),
+                Icon = FluentIcons.Games,
+                IconColor = Color.Success,
+                SecondaryButtonText = "Minus",
+                PrimaryButtonText = "Plus",
+                Width = "300px",
+                OnDialogResult = DialogService.CreateDialogCallback(this, HandleCustom)
+            });
+    }
+
+   
+    private async Task HandleConfirmation(DialogResult result)
+    {
+        await Task.Run(() => DemoLogger.WriteLine($"2 eyes: {(result.Cancelled ? "no" : "yes")}"));
+    }
+
+    private async Task HandleCustom(DialogResult result)
+    {
+        await Task.Run(() => DemoLogger.WriteLine($"Result: {result.Cancelled.ToString()}"));
+    }
+}

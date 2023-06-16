@@ -1,0 +1,63 @@
+﻿.fluent-dialog-main {
+    background-color: var(--neutral-layer-floating);
+    box-shadow: var(--elevation-shadow-flyout);
+    pointer-events: auto;
+    position: fixed;
+    display: flex;
+    overflow: hidden auto;
+    width: 100%;
+    z-index: 9999;
+}
+
+::deep .fluent-dialog-content {
+    font-family: var(--body-font);
+    -webkit-font-smoothing: antialiased;
+    color: rgb(50, 49, 48);
+    line-height: 27px;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+    overflow: hidden;
+}
+
+    .fluent-dialog-content .fluent-dialog-header {
+        font-size: 20px;
+        font-weight: 600;
+        margin: 20px;
+        width: calc(100% - 40px);
+    }
+
+    .fluent-dialog-content .fluent-dialog-body {
+        height: calc(100% - 150px);
+        margin: 0px 20px 0px 20px;
+        width: calc(100% - 40px);
+        font-size: 14px;
+        overflow: auto;
+    }
+
+    .fluent-dialog-content .fluent-dialog-body[nofooter] {
+        height: calc(100% - 95px);
+    }
+
+    .fluent-dialog-content .fluent-dialog-footer-bottom {
+        font-size: 14px;
+        font-weight: normal;
+        margin: 20px;
+        width: calc(100% - 40px);
+        position: fixed;
+        bottom: 0px;
+    }
+
+    .fluent-dialog-content .fluent-dialog-footer-normal {
+        font-size: 14px;
+        font-weight: normal;
+        margin: 20px;
+        width: calc(100% - 40px);
+    }
+
+
+@media (min-width: 800px) {
+    .fluent-dialog-main {
+        width: 340px;
+    }
+}

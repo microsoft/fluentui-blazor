@@ -16,10 +16,11 @@
     </FluentCheckbox>
 </div>
 <div>
-    <FluentDialog @ref="MyFluentDialog" aria-label="Simple dialog" Modal=@Modal TrapFocus=@TrapFocus @ondialogdismiss=OnDismiss>
+    <FluentDialog @ref="MyFluentDialog" Hidden="@Hidden" aria-label="Simple dialog" Modal=@Modal TrapFocus=@TrapFocus @ondialogdismiss=OnDismiss>
         <h2>Just a simple dialog</h2>
         <p>The 'Close dialog' button is automatically focussed.</p>
-        <p>The 'Another button' doesn't do anything other than showing receiving focus.</p>
+        <p>The 'Another button' doesn't do anything other than showing it can receive focus.</p>
+        <p>The width, height and padding of the dialog are customized in (isolated) CSS</p>
         <FluentButton Appearance="Appearance.Accent" Autofocus="true" @onclick="OnClose">Close dialog</FluentButton>
         <FluentButton>Another button</FluentButton>
     </FluentDialog>
@@ -34,6 +35,7 @@
     public bool TrapFocus = true;
     public bool Modal = true;
     private string? status;
+    private bool Hidden = true;
 
     protected override void OnAfterRender(bool firstRender)
     {
@@ -44,14 +46,17 @@
     private void OnOpen()
     {
         status = "Dialog opened with button click";
+        Hidden = false;
         MyFluentDialog!.Show();
+        DemoLogger.WriteLine(status);
     }
 
     private void OnClose()
     {
         status = $"Dialog dismissed with reason: Close button clicked";
         MyFluentDialog!.Hide();
-        
+        Hidden = true;
+        DemoLogger.WriteLine(status);
     }
 
     private void OnDismiss(DialogEventArgs args)
@@ -59,7 +64,9 @@
         if (args is not null && args.Reason is not null && args.Reason == "dismiss")
         {
             status = $"Dialog dismissed with reason: Dismissed";
+            Hidden = true;
             MyFluentDialog!.Hide();
+            DemoLogger.WriteLine(status);
         }
     }
 }
