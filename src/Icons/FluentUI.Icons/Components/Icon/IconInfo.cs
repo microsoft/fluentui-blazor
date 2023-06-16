@@ -34,8 +34,8 @@ public class IconInfo
         var allIcons = assembly.GetTypes().Where(i => i.BaseType == typeof(Icon)).ToArray();
 
         // Ex. Microsoft.Fast.Components.FluentUI.Icons+Filled+Size10+PresenceAvailable
-        var iconFullname = $"{assembly.GetName().Name}+{Variant}+Size{(int)Size}+{Name}";
-        var iconType = allIcons.FirstOrDefault(i => i.FullName == iconFullname);
+        var iconFullName = $"{assembly.GetName().Name}+{Variant}+Size{(int)Size}+{Name}";
+        var iconType = allIcons.FirstOrDefault(i => i.FullName == iconFullName);
 
         if (iconType != null)
         {
