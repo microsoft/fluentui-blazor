@@ -12,6 +12,7 @@
     <IsTrimmable>true</IsTrimmable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>Microsoft.Fast.Components.FluentUI.Icons</Title>
+    <Version>3.0.0-preview.4d</Version>
   </PropertyGroup>
 
   <ItemGroup>

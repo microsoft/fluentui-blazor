@@ -3,13 +3,13 @@ using System.Text.RegularExpressions;
 
 namespace Microsoft.Fast.Components.FluentUI.IconsGenerator;
 
-internal class CodeGenerator
+internal class IconsCodeGenerator
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="CodeGenerator"/> class.
+    /// Initializes a new instance of the <see cref="IconsCodeGenerator"/> class.
     /// </summary>
     /// <param name="configuration"></param>
-    public CodeGenerator(Configuration configuration)
+    public IconsCodeGenerator(Configuration configuration)
     {
         Configuration = configuration;
         Logger = (message) => { };
@@ -86,7 +86,7 @@ internal class CodeGenerator
         // Delete previous files
         foreach (var file in Configuration.TargetFolder.GetFiles("*.*", SearchOption.TopDirectoryOnly))
         {
-            bool toDelete = Regex.IsMatch(file.Name, @"^(Filled|Regular)[0-9][0-9](\.cs|Data\.resx)$");
+            bool toDelete = Regex.IsMatch(file.Name, @"^(Filled|Regular)[0-9][0-9](\.cs|\.resx)$");
             if (toDelete)
             {
                 file.Delete();
@@ -103,23 +103,10 @@ internal class CodeGenerator
                 var iconsForSizeAndVariant = icons.Where(i => i.Size == size && i.Variant == variant).OrderBy(i => i.Name);
 
                 Logger.Invoke($"Generating {file.Name}, containing {iconsForSizeAndVariant.Count()} icons.");
-                var classContent = GenerateClass(size, variant, iconsForSizeAndVariant, Configuration.GenerateResx);
+                var classContent = GenerateClass(size, variant, iconsForSizeAndVariant);
 
                 File.WriteAllText(file.FullName, classContent);
-                generatedFiles.Add(file);
-
-                // Resx
-                if (Configuration.GenerateResx)
-                {
-                    var resxFile = new FileInfo(Path.Combine(Configuration.TargetFolder.FullName, $"{variant}{size}Data.resx"));
-                    Logger.Invoke($"Generating associated {resxFile.Name}.");
-
-                    var resxContent = new ResourceGenerator(size, variant, iconsForSizeAndVariant).GenerateResx();
-
-                    File.WriteAllText(resxFile.FullName, resxContent);
-                    generatedFiles.Add(resxFile);
-                }
-
+                generatedFiles.Add(file);               
             }
         }
 
@@ -159,7 +146,7 @@ internal class CodeGenerator
     }
 
     /// <summary />
-    private string GenerateClass(int size, string variant, IEnumerable<Model.Icon> icons, bool isResx)
+    private string GenerateClass(int size, string variant, IEnumerable<Model.Icon> icons)
     {
         var builder = new StringBuilder();
 
@@ -181,48 +168,13 @@ internal class CodeGenerator
         builder.AppendLine("        public static partial class Size" + size);
         builder.AppendLine("        {");
 
-        // Resource Manager
-        if (isResx)
-        {
-            var className = $"{variant}{size}Data";
-
-            builder.AppendLine($"            private static System.Resources.ResourceManager _resourceMananager;");
-            builder.AppendLine();
-            builder.AppendLine($"            /// <summary>");
-            builder.AppendLine($"            /// Returns the cached ResourceManager instance used by this class.");
-            builder.AppendLine($"            /// </summary>");
-            builder.AppendLine($"            [System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]");
-            builder.AppendLine($"            internal static System.Resources.ResourceManager ResourceManager");
-            builder.AppendLine($"            {{");
-            builder.AppendLine($"                get");
-            builder.AppendLine($"                {{");
-            builder.AppendLine($"                    if (_resourceMananager == null)");
-            builder.AppendLine($"                    {{");
-            builder.AppendLine($"                        _resourceMananager = new System.Resources.ResourceManager(\"{Configuration.Namespace}.Icons.Assets.{className}\", typeof(Icons).Assembly);");
-            builder.AppendLine($"                    }}");
-            builder.AppendLine();
-            builder.AppendLine($"                    return _resourceMananager;");
-            builder.AppendLine($"                }}");
-            builder.AppendLine($"            }}");
-            builder.AppendLine();
-        }
-
         // Properties
         foreach (var icon in icons)
         {
-            if (isResx)
-            {
-                builder.AppendLine($"            public static Icon {icon.Name} {{ get; }} = new Icon(\"{icon.Name}\", IconVariant.{variant}, IconSize.Size{size}, ResourceManager.GetString(\"{icon.Name}\"));");
+            var svgContent = icon.GetContent(removeSvgRoot: true)
+                                    .Replace("\"", "\\\"");
 
-            }
-            else
-            {
-                var svgContent = icon.GetContent(removeSvgRoot: true)
-                                     .Replace("\"", "\\\"");
-
-                builder.AppendLine($"            public record {icon.Name} : Icon {{ public {icon.Name}() : base(\"{icon.Name}\", IconVariant.{variant}, IconSize.Size{size}, \"{svgContent}\") {{ }} }}");
-
-            }
+            builder.AppendLine($"            public record {icon.Name} : Icon {{ public {icon.Name}() : base(\"{icon.Name}\", IconVariant.{variant}, IconSize.Size{size}, \"{svgContent}\") {{ }} }}");
         }
 
 

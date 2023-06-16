@@ -26,7 +26,7 @@ internal class Program
         }
 
         // Initialize the factory
-        var factory = new CodeGenerator(configuration)
+        var factory = new IconsCodeGenerator(configuration)
         {
             Logger = (message) => Console.WriteLine($"{DateTime.Now.ToString("HH:mm:ss")} - {message}")
         };

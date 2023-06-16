@@ -4,7 +4,7 @@
 //     the code is regenerated.
 // </auto-generated>
 
-#pragma warning disable 1591 // Missing XML comment
+#pragma warning disable 1591
 
 namespace Microsoft.Fast.Components.FluentUI;
 

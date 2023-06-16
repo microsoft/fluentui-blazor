@@ -65,18 +65,5 @@ Run the application with the `--help` parameter to see all available parameters.
   --Target    | -t   The target directory where C# classes will be created.
                      If not specified, the current working directory will be used.
   
-  --Mode      | -m   The generator mode: 'class' or 'resx'.
-                     By default: 'class'
-  
   --Help      | -h   Display this documentation.
-```
-
-## Technical information
-
-Using `--mode=resx` This application can store the SVG data of the icons in RESX files,
-because, due to the large number of icons, it's not possible to place such a large 
-quantity of character strings without receiving a compilation error.
-
-```
-Error CS8103: Combined length of user strings used by the program exceeds allowed limit
 ```

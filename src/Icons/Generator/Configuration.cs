@@ -11,7 +11,6 @@ internal class Configuration
 {
     private const string DefaultNamespace = "Microsoft.Fast.Components.FluentUI";
     private const string DefaultSizes = ""; // All sizes
-    private const string DefaultMode = "class";
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Configuration"/> class.
@@ -37,8 +36,6 @@ internal class Configuration
             { "--sizes", "sizes" },
             { "-n", "names" },
             { "--names", "names" },
-            { "-m", "mode" },
-            { "--mode", "mode" },
         };
 
         var config = new ConfigurationBuilder().AddCommandLine(args, switchMappings)
@@ -49,7 +46,6 @@ internal class Configuration
         Namespace = config.GetSection("namespace").Value ?? DefaultNamespace;
         Sizes = (config.GetSection("sizes").Value ?? DefaultSizes).Split(",", StringSplitOptions.RemoveEmptyEntries).Select(i => Convert.ToInt32(i));
         Names = (config.GetSection("names").Value ?? string.Empty).Split(",", StringSplitOptions.RemoveEmptyEntries);
-        Mode = config.GetSection("mode").Value ?? DefaultMode;
     }
 
     /// <summary>
@@ -73,17 +69,9 @@ internal class Configuration
     public IEnumerable<int> Sizes { get; set; } = Array.Empty<int>();
 
     /// <summary>
-    /// Gets a value indicating whether the resx files should be generated.
+    /// Gets a value indicating whether the files should be generated.
     /// </summary>
     public IEnumerable<string> Names { get; set; } = Array.Empty<string>();
-
-    /// <summary>
-    /// Gets a value indicating whether the resx files should be generated.
-    /// </summary>
-    public string Mode { get; set; } = DefaultMode;
-
-    /// <summary />
-    internal bool GenerateResx => Mode == "resx";
 
     /// <summary>
     /// Gets a value indicating whether the help documentation should be displayed.
@@ -115,9 +103,6 @@ internal class Configuration
         Console.WriteLine();
         Console.WriteLine($"  --Target    | -t   The target directory where C# classes will be created.");
         Console.WriteLine($"                     If not specified, the current working directory will be used.");
-        Console.WriteLine();
-        Console.WriteLine($"  --Mode      | -m   The generator mode: 'class' or 'resx'.");
-        Console.WriteLine($"                     By default: '{DefaultMode}'");
         Console.WriteLine();
         Console.WriteLine($"  --Help      | -h   Display this documentation.");
     }
