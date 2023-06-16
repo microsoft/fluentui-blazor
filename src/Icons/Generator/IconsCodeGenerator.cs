@@ -106,7 +106,7 @@ internal class IconsCodeGenerator
                 var classContent = GenerateClass(size, variant, iconsForSizeAndVariant);
 
                 File.WriteAllText(file.FullName, classContent);
-                generatedFiles.Add(file);               
+                generatedFiles.Add(file);
             }
         }
 
@@ -133,13 +133,16 @@ internal class IconsCodeGenerator
 
         // Dictionary
         builder.AppendLine("    /// <summary />");
-        builder.AppendLine("    public static IEnumerable<Icon> AllIcons { get; } = new List<Icon>()");
+        builder.AppendLine("    public static IEnumerable<IconInfo> AllIcons");
         builder.AppendLine("    {");
+        builder.AppendLine("        get");
+        builder.AppendLine("        {");
         foreach (var icon in icons)
         {
-            builder.AppendLine($"        {Configuration.Namespace}.Icons.{icon.Variant}.Size{icon.Size}.{icon.Name},");
+            builder.AppendLine($"            yield return new IconInfo {{ Name = \"{icon.Name}\", Variant = IconVariant.{icon.Variant}, Size = IconSize.Size{icon.Size} }};");
         }
-        builder.AppendLine("    };");
+        builder.AppendLine("        }");
+        builder.AppendLine("    }");
         builder.AppendLine("}");
 
         return builder.ToString();

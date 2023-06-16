@@ -58,6 +58,13 @@ public partial class FluentSystemIcon<Icon> : FluentComponentBase
     [Parameter]
     public int? Width { get; set; }
 
+    [Parameter]
+    public Icon Value
+    {
+        get => _icon;
+        set => _icon = value;
+    }
+
     /// <summary>
     /// Allows for capturing a mouse click on an icon
     /// </summary>

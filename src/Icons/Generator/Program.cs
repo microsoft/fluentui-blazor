@@ -40,7 +40,7 @@ internal class Program
                             .Where(i => configuration.Sizes.Any() == false ||
                                         configuration.Sizes.Contains(i.Size));
 
-        // factory.GenerateMainIconsClass(assets);
+        factory.GenerateMainIconsClass(assets);
         factory.GenerateClasses(assets);
 
         // Sample
