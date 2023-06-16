@@ -174,10 +174,8 @@ internal class IconsCodeGenerator
             var svgContent = icon.GetContent(removeSvgRoot: true)
                                     .Replace("\"", "\\\"");
 
-            builder.AppendLine($"            public record {icon.Name} : Icon {{ public {icon.Name}() : base(\"{icon.Name}\", IconVariant.{variant}, IconSize.Size{size}, \"{svgContent}\") {{ }} }}");
+            builder.AppendLine($"            public class {icon.Name} : Icon {{ public {icon.Name}() : base(\"{icon.Name}\", IconVariant.{variant}, IconSize.Size{size}, \"{svgContent}\") {{ }} }}");
         }
-
-
 
         builder.AppendLine("        }");
         builder.AppendLine("    }");

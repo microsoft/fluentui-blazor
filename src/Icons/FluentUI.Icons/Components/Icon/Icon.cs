@@ -3,7 +3,7 @@
 /// <summary>
 /// FluentUI Icon content.
 /// </summary>
-public abstract record Icon
+public abstract class Icon
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="Icon"/> class.
