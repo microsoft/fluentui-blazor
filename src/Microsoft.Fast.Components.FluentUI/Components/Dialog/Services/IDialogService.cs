@@ -19,8 +19,10 @@ public interface IDialogService
 
     void ShowDialog(Type component, string title, DialogParameters parameters, Action<DialogSettings>? settings);
 
+    void ShowSplashScreen<T>(object receiver, Func<DialogResult, Task> callback, SplashScreenParameters parameters)
+        where T : IDialogContentComponent;
 
-    void ShowSplashScreen(string title, string subTitle, string? loading = null);
+    void ShowSplashScreen(Type component, object receiver, Func<DialogResult, Task> callback, SplashScreenParameters parameters);
 
 
     void ShowErrorAsync(string message, string? title = null);

@@ -93,6 +93,43 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:FluentUI.Demo.Shared.SplashScreen.Title">
+            <summary>
+            Typically used to show the product name.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.SplashScreen.SubTitle">
+            <summary>
+            Typically used to show the name of the suite the product belongs to.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.SplashScreen.LoadingText">
+            <summary>
+            Text to indicate something is happening.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.SplashScreen.Message">
+            <summary>
+            An extra message. 
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.SplashScreen.Width">
+            <summary>
+            Width of the splash screen. 
+            Should be a valid CSS width string like "600px" or "3em".
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.SplashScreen.Height">
+            <summary>
+            Height of the splash screen. 
+            Should be a valid CSS height string like "600px" or "3em".
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.SplashScreen.OnDialogResult">
+            <summary>
+            Callback for when the dialog is dismissed.
+            </summary>
+        </member>
         <member name="M:FluentUI.Demo.Shared.Pages.ComponentBindings.#ctor">
             <summary>
             Within this constructor you can set default values for the form fields through the FormModel

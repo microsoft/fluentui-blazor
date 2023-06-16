@@ -1,6 +1,6 @@
 ﻿namespace Microsoft.Fast.Components.FluentUI;
 
-internal sealed class InternalDialogContext
+public sealed class InternalDialogContext
 {
     public Dictionary<string, FluentDialog> References { get; set; } = new();
 

@@ -2,7 +2,7 @@
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentSplashScreen : FluentComponentBase, IDialogContentComponent
+public partial class FluentSplashScreen : IDialogContentComponent
 {
     [Parameter]
     public string ProductName { get; set; } = "Product name"; //PowerLaunchScreenResource.ProductName;
