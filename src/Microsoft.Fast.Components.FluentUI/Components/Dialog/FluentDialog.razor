@@ -6,7 +6,7 @@
                    id="@Id"
                    class="@Class"
                    style="@StyleValue"
-                   modal="@(Settings.Modal ?? Modal)"
+                   modal="@((Settings.Modal ?? Modal).ToString()?.ToLower())"
                    hidden="@Hidden"
                    trap-focus=@(Settings.TrapFocus ?? TrapFocus)
                    aria-describedby=@(Settings.AriaDescribedby ?? AriaDescribedby)
@@ -14,7 +14,7 @@
                    aria-label=@(Settings.AriaLabel ?? AriaLabel)
                    @attributes="AdditionalAttributes">
         <FluentStack Orientation="Orientation.Vertical" Class="fluent-dialog-content">
-            @if (Instance?.Title != null || Settings.ShowDismiss)
+            @if (Settings.ShowTitle && (Instance?.Title != null || Settings.ShowDismiss))
             {
                 <div class="fluent-dialog-header">
                     <FluentStack Orientation="Orientation.Horizontal" VerticalAlignment="VerticalAlignment.Center">
@@ -22,7 +22,7 @@
                         @if (Settings.ShowDismiss)
                         {
                             <FluentButton Appearance="Appearance.Stealth"
-                            @onclick="@(() => CancelAsync())"
+                                          @onclick="@(() => CancelAsync())"
                                           Style="color: rgb(96, 94, 92);">
                                 Cancel
                                 <FluentIcon Name="@FluentIcons.Dismiss" Size="IconSize.Size16" Slot="start" />
@@ -52,7 +52,7 @@
                         @if (Settings.ShowPrimaryButton)
                         {
                             <FluentButton title="@Settings.PrimaryButton"
-                                          @onclick="@(() => CloseAsync())"
+                                          @onclick="@(() => CloseAsync<string?>(Settings.PrimaryButton))"
                                           Appearance="Appearance.Accent">
                                 @Settings.PrimaryButton
                             </FluentButton>
@@ -60,7 +60,7 @@
                         @if (Settings.ShowSecondaryButton)
                         {
                             <FluentButton title="@Settings.SecondaryButton"
-                                          @onclick="@(() => CancelAsync())"
+                                          @onclick="@(() => CancelAsync<string?>(Settings.SecondaryButton))"
                                           Appearance="Appearance.Neutral">
                                 @Settings.SecondaryButton
                             </FluentButton>

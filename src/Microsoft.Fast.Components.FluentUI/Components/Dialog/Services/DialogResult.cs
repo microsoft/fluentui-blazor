@@ -20,5 +20,5 @@ public class DialogResult
     public static DialogResult Ok<T>(T result) => new(result, false);
 
     /// <summary />
-    public static DialogResult Cancel() => new(default, true);
+    public static DialogResult Cancel(object? data = null) => new(data ?? default, true);
 }

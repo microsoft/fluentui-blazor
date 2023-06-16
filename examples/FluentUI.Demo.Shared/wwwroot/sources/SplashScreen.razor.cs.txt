@@ -49,15 +49,8 @@ public partial class SplashScreen : ISplashScreenParameters, IDialogContentCompo
     [Parameter]
     public EventCallback<DialogResult> OnDialogResult { get; set; }
 
-    ///// <summary>
-    ///// Gets or sets whether the dialog is hidden.
-    ///// </summary>
-    //[Parameter]
-    //public bool? Hidden { get; set; }
-
     [CascadingParameter]
-    public InternalDialogContext DialogContext { get; set; } = default!;
-
+    public FluentDialog ParentDialog { get; set; } = default!;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -65,11 +58,9 @@ public partial class SplashScreen : ISplashScreenParameters, IDialogContentCompo
         {
             // Simulation of loading process
             await Task.Delay(4000);
-            //Hidden = true;
-
 
             // Close the dialog
-            await OnDialogResult.InvokeAsync(DialogResult.Cancel());
+            await ParentDialog.CloseAsync();
         }
     }
 }

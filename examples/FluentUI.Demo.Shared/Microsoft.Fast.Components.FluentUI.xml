@@ -1722,7 +1722,7 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogResult.Ok``1(``0)">
             <summary />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogResult.Cancel">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogResult.Cancel(System.Object)">
             <summary />
         </member>
         <member name="E:Microsoft.Fast.Components.FluentUI.DialogService.OnShow">
@@ -1771,6 +1771,11 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogSettings.TrapFocus">
             <summary>
             Indicates that the dialog should trap focus.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogSettings.ShowTitle">
+            <summary>
+            Determines whether the dialog title part shown or hidden.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogSettings.ShowDismiss">

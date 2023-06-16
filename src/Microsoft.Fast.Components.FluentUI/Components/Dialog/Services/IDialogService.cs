@@ -9,10 +9,8 @@ public interface IDialogService
     /// </summary>
     public event Action<Type, DialogParameters, Action<DialogSettings>?>? OnShow;
 
-
     //public event Action<DialogInstance> OnDialogInstanceAdded;
-
-    public event Action<string> OnDialogCloseRequested;
+    //public event Action<string> OnDialogCloseRequested;
 
     void ShowDialog<T>(string title, DialogParameters parameters, Action<DialogSettings>? settings)
         where T : IDialogContentComponent;
@@ -29,7 +27,7 @@ public interface IDialogService
 
     void ShowInfoAsync(string message, string? title = null);
 
-    void ShowConfirmationAsync(object receiver, Func<DialogResult, Task> callback, string message, string? title = null);
+    void ShowConfirmationAsync(object receiver, Func<DialogResult, Task> callback, string message, string primaryText = "Yes", string secondaryText = "No", string? title = null);
 
     void ShowMessageBox(MessageBoxParameters parameters);
 

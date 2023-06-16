@@ -10,8 +10,7 @@ public class DialogService : IDialogService
     public event Action<Type, DialogParameters, Action<DialogSettings>?>? OnShow;
 
     //public event Action<DialogInstance>? OnDialogInstanceAdded;
-
-    public event Action<string>? OnDialogCloseRequested;
+    //public event Action<string>? OnDialogCloseRequested;
 
 
     public void ShowDialog<T>(string title, DialogParameters parameters, Action<DialogSettings>? settings = null)
@@ -54,8 +53,9 @@ public class DialogService : IDialogService
         Action<DialogSettings> settings = new(x =>
         {
             x.Alignment = HorizontalAlignment.Center;
-            x.Modal = true;
+            x.Modal = false;
             x.ShowDismiss = false;
+            x.ShowTitle = false;
             x.PrimaryButton = null;
             x.SecondaryButton = null;
             x.Width = parameters.Width ?? "600px";
@@ -73,11 +73,11 @@ public class DialogService : IDialogService
         ShowMessageBox(new MessageBoxParameters()
         {
             Intent = MessageBoxIntent.Error,
-            PrimaryButtonText = "Ok", /*FluentPanelResources.ButtonOK,*/
+            PrimaryButtonText = "Ok", /*DialogResources.ButtonOK,*/
             SecondaryButtonText = string.Empty,
             Icon = FluentIcons.DismissCircle,
             IconColor = Color.Error,
-            Title = string.IsNullOrWhiteSpace(title) ? "Error!" /*FluentPanelResources.TitleError*/ : title,
+            Title = string.IsNullOrWhiteSpace(title) ? "Error!" /*DialogResources.TitleError*/ : title,
             Message = message,
         }); ;
     }
@@ -87,25 +87,25 @@ public class DialogService : IDialogService
         ShowMessageBox(new MessageBoxParameters()
         {
             Intent = MessageBoxIntent.Info,
-            PrimaryButtonText = "Ok", /*FluentPanelResources.ButtonOK,*/
+            PrimaryButtonText = "Ok", /*DialogResources.ButtonOK,*/
             SecondaryButtonText = string.Empty,
             Icon = FluentIcons.Info,
             IconColor = Color.Warning,
-            Title = string.IsNullOrWhiteSpace(title) ? "Information" /*FluentPanelResources.TitleInformation*/ : title,
+            Title = string.IsNullOrWhiteSpace(title) ? "Information" /*DialogResources.TitleInformation*/ : title,
             Message = message,
         });
     }
 
-    public void ShowConfirmationAsync(object receiver, Func<DialogResult, Task> callback, string message, string? title = null)
+    public void ShowConfirmationAsync(object receiver, Func<DialogResult, Task> callback, string message, string primaryText = "Yes", string secondaryText = "No", string? title = null)
     {
         ShowMessageBox(new MessageBoxParameters()
         {
             Intent = MessageBoxIntent.Confirmation,
-            PrimaryButtonText = "Yes", /*FluentPanelResources.ButtonYes,*/
-            SecondaryButtonText = "No", /*FluentPanelResources.ButtonNo,*/
+            PrimaryButtonText = primaryText, /*DialogResources.ButtonYes,*/
+            SecondaryButtonText = secondaryText, /*DialogResources.ButtonNo,*/
             Icon = FluentIcons.QuestionCircle,
             IconColor = Color.Success,
-            Title = string.IsNullOrWhiteSpace(title) ? "Confirm" /*FluentPanelResources.TitleConfirmation*/ : title,
+            Title = string.IsNullOrWhiteSpace(title) ? "Confirm" /*DialogResources.TitleConfirmation*/ : title,
             Message = message,
             OnDialogResult = EventCallback.Factory.Create(receiver, callback)
         });

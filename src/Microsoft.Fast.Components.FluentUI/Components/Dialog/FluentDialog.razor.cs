@@ -17,7 +17,7 @@ public partial class FluentDialog : FluentComponentBase, IDisposable
     /// overlay.  Clicks on the overlay will cause the dialog to emit a "dismiss" event.
     /// </summary>
     [Parameter]
-    public bool Modal { get; set; } = true;
+    public bool? Modal { get; set; } = true;
 
     /// <summary>
     /// Gets or sets if the dialog is hidden
@@ -29,7 +29,7 @@ public partial class FluentDialog : FluentComponentBase, IDisposable
     /// Indicates that the dialog should trap focus.
     /// </summary>
     [Parameter]
-    public bool TrapFocus { get; set; } = true;
+    public bool? TrapFocus { get; set; } = true;
 
     /// <summary>
     /// The id of the element describing the dialog.
@@ -98,13 +98,13 @@ public partial class FluentDialog : FluentComponentBase, IDisposable
         Settings ??= new()
         {
             Alignment = HorizontalAlignment.Center,
+            ShowTitle = true,
             PrimaryButton = null,
             SecondaryButton = null,
             ShowDismiss = false,
             Modal = null,
             TrapFocus = null,
             Height = "unset",
-
         };
     }
 
@@ -134,9 +134,11 @@ public partial class FluentDialog : FluentComponentBase, IDisposable
 
     public virtual async Task CancelAsync() => await CloseAsync(DialogResult.Cancel());
 
+    public virtual async Task CancelAsync<T>(T returnValue) => await CloseAsync(DialogResult.Cancel(returnValue));
+
     public virtual async Task CloseAsync() => await CloseAsync(DialogResult.Ok<object?>(null));
 
-    //public virtual async Task CloseAsync<T>(T returnValue) => await CloseAsync(DialogResult.Ok(returnValue));
+    public virtual async Task CloseAsync<T>(T returnValue) => await CloseAsync(DialogResult.Ok(returnValue));
 
     /// <summary>
     /// Closes the dialog

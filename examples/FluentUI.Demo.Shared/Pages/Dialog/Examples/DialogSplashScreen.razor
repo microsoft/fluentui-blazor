@@ -15,10 +15,10 @@
             Title = "Product name",
             SubTitle = "Suite name",
             LoadingText = "Loading...",
-            Message = (MarkupString)"some <i>extra</i> text <em>here</em>",
+            Message = (MarkupString)"some <i>extra</i> text <strong>here</strong>",
             Width = "640px",
             Height = "480px",
-            OnDialogResult = DialogService.CreateDialogCallback(this, HandleSplash)
+            //OnDialogResult = DialogService.CreateDialogCallback(this, HandleSplash)
         };
         
         DialogService.ShowSplashScreen<SplashScreen>(this, HandleSplash, parameters);

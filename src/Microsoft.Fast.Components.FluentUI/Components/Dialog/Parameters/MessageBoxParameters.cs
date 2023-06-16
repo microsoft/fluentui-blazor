@@ -13,9 +13,9 @@ public class MessageBoxParameters : DialogParameters, IMessageBoxParameters
     public string? Icon { get; set; }
 
     public Color IconColor { get; set; } = Color.Accent;
-    public string PrimaryButtonText { get; set; } = "Ok"; //FluentPanelResources.ButtonPrimary;
+    public string PrimaryButtonText { get; set; } = "Ok"; //DialogResources.ButtonPrimary;
 
-    public string SecondaryButtonText { get; set; } = "Cancel"; //FluentPanelResources.ButtonSecondary;
+    public string SecondaryButtonText { get; set; } = "Cancel"; //DialogResources.ButtonSecondary;
 
     public string? Width { get; set; }
 

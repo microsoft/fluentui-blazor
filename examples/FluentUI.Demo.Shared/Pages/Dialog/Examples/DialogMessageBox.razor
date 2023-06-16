@@ -28,7 +28,7 @@ Click on this button to open a MessageBox.
     private void ShowConfirmation()
     {
         DemoLogger.WriteLine($"Open Confirmation MessageBox");
-        DialogService.ShowConfirmationAsync(this, HandleConfirmation, "Do you have two eyes?", "Eyes on you");
+        DialogService.ShowConfirmationAsync(this, HandleConfirmation, "Do you have two eyes?", "Eyes on you", "Yup", "Nope");
     }
 
     private void ShowMessageBoxLong()
@@ -46,8 +46,8 @@ Click on this button to open a MessageBox.
                 MarkupMessage = new MarkupString("My <strong>customized</strong> message"),
                 Icon = FluentIcons.Games,
                 IconColor = Color.Success,
-                SecondaryButtonText = "Minus",
                 PrimaryButtonText = "Plus",
+                SecondaryButtonText = "Minus",
                 Width = "300px",
                 OnDialogResult = DialogService.CreateDialogCallback(this, HandleCustom)
             });
@@ -56,11 +56,11 @@ Click on this button to open a MessageBox.
    
     private async Task HandleConfirmation(DialogResult result)
     {
-        await Task.Run(() => DemoLogger.WriteLine($"2 eyes: {(result.Cancelled ? "no" : "yes")}"));
+        await Task.Run(() => DemoLogger.WriteLine($"2 eyes: Cancelled: {result.Cancelled}, Data: {result.Data?.ToString()}"));
     }
 
     private async Task HandleCustom(DialogResult result)
     {
-        await Task.Run(() => DemoLogger.WriteLine($"Result: {result.Cancelled.ToString()}"));
+        await Task.Run(() => DemoLogger.WriteLine($"Result: {result.Data?.ToString()}"));
     }
 }

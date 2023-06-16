@@ -56,11 +56,11 @@ Click on this button to open a MessageBox.
    
     private async Task HandleConfirmation(DialogResult result)
     {
-        await Task.Run(() => DemoLogger.WriteLine($"2 eyes: {(result.Cancelled ? "no" : "yes")}"));
+        await Task.Run(() => DemoLogger.WriteLine($"2 eyes: Cancelled: {result.Cancelled}, Data: {result.Data?.ToString()}"));
     }
 
     private async Task HandleCustom(DialogResult result)
     {
-        await Task.Run(() => DemoLogger.WriteLine($"Result: {result.Cancelled.ToString()}"));
+        await Task.Run(() => DemoLogger.WriteLine($"Result: {result.Data?.ToString()}"));
     }
 }
