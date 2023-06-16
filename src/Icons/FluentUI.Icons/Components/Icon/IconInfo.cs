@@ -1,4 +1,6 @@
-﻿namespace Microsoft.Fast.Components.FluentUI;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary>
 /// FluentUI Icon meta-data.
@@ -25,6 +27,7 @@ public class IconInfo
     /// </summary>
     /// <returns></returns>
     /// <exception cref="ArgumentException">Raised when the <see cref="Name"/> is not found in predefined icons.</exception>
+    [RequiresUnreferencedCode("This method requires dynamic access to code. This code may be removed by the trimmer.")]
     public virtual Icon GetInstance()
     {
         var assembly = typeof(Icon).Assembly;
@@ -36,11 +39,13 @@ public class IconInfo
 
         if (iconType != null)
         {
-            return Activator.CreateInstance(iconType) as Icon;
+            var icon = Activator.CreateInstance(iconType);
+            if (icon != null)
+            {
+                return (Icon)icon;
+            }
         }
-        else 
-        { 
-            throw new ArgumentException($"Icon '{Name}' not found.");
-        }
+
+        throw new ArgumentException($"Icon '{Name}' not found.");
     }
 }
