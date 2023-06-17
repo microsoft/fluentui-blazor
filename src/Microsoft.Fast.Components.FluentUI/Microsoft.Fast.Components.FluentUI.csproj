@@ -114,9 +114,6 @@
 		<None Remove="bin\Debug\net6.0\net7.0\**" />
 		<None Remove="bin\Release\net6.0\net7.0\**" />
 	</ItemGroup>
-  <ItemGroup>
-    <Compile Include="Assets\CoreIcons.cs" />
-  </ItemGroup>
   <!-- Embedd other languages under root resx file -->
   <ItemGroup>    
 	<None Include="**\*.*.resx" />    
