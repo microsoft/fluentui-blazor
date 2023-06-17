@@ -1,4 +1,5 @@
-﻿using Microsoft.Fast.Components.FluentUI.IconsGenerator.Model;
+﻿using System.Linq;
+using Microsoft.Fast.Components.FluentUI.IconsGenerator.Model;
 
 namespace Microsoft.Fast.Components.FluentUI.IconsGenerator;
 
@@ -75,9 +76,6 @@ internal class Program
                                                       configuration.Names.Any(name => String.Compare(name.Replace("_", string.Empty), i.Key.Replace("_", string.Empty), StringComparison.InvariantCultureIgnoreCase) == 0));
 
                 var groups = emojis.Select(i => i.Group).Distinct().ToArray();
-
-
-                var x = emojis.First().GetContent(Emoji.Categories[0]);
 
                 break;
 

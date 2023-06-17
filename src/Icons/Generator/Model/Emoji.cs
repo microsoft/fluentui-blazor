@@ -8,19 +8,9 @@ namespace Microsoft.Fast.Components.FluentUI.IconsGenerator.Model;
 /// <summary>
 /// Emoji model.
 /// </summary>
-[DebuggerDisplay("{Name} [{Group}]")]
+[DebuggerDisplay("{Name} [{Group}] - {Count} files")]
 internal class Emoji
 {
-    /// <summary>
-    /// List of categories
-    /// </summary>
-    public static readonly string[] Categories = new[]
-    {
-        "Color",
-        "Flat",
-        "High Contrast",
-    };
-
     private static readonly JsonSerializerOptions JsonOptions = new JsonSerializerOptions()
     {
         AllowTrailingCommas = true,
@@ -30,20 +20,20 @@ internal class Emoji
     /// <summary>
     /// Convert the "metadata.json" file to an Emoji
     /// </summary>
-    /// <param name="file"></param>
-    public Emoji(FileInfo file)
+    /// <param name="metaDataFile"></param>
+    public Emoji(FileInfo metaDataFile)
     {
-        File = file;
+        MetaFile = metaDataFile;
 
-        string content = System.IO.File.ReadAllText(file.FullName);
-        Meta = JsonSerializer.Deserialize<MetaData>(content, JsonOptions)!;
+        string content = System.IO.File.ReadAllText(metaDataFile.FullName);
+        Meta = JsonSerializer.Deserialize<EmojiMetaData>(content, JsonOptions)!;
 
         Name = Tools.ToPascalCase(Meta.Cldr);
         Group = Tools.ToPascalCase(Meta.Group);
         Keywords = Meta.Keywords;
     }
 
-    public MetaData Meta { get; } = new MetaData();
+    public EmojiMetaData Meta { get; } = new EmojiMetaData();
 
     /// <summary>
     /// Gets the name of the emoji.
@@ -68,60 +58,23 @@ internal class Emoji
     /// <summary>
     /// Gets the file info for the emoji
     /// </summary>
-    public FileInfo File { get; }
+    public FileInfo MetaFile { get; }
 
     /// <summary>
-    /// Returns the SVG content of the emoji, with or without the root SVG element.
+    /// Folder structure: [Name]/[SkinTone]/[Style] - Ex. Artist/Default/Color
+    ///                   [Name]/[Style]            - Ex. Accordion/High Contrast
     /// </summary>
-    /// <param name="category">Category from <see cref="Emoji.Categories"/></param>
-    /// <param name="removeSvgRoot"></param>
-    /// <returns></returns>
-    public (string Content, Size Size) GetContent(string category, bool removeSvgRoot = true)
+    public EmojiFileData[] Files
     {
-        var path = Path.Combine(File.Directory!.FullName, category);
-        var filename = Directory.GetFiles(path, "*.svg").FirstOrDefault() ?? "FileNotFound";
-        var content = System.IO.File.ReadAllText(filename);
-        var size = new Size();
-
-        string viewboxRegex = @"viewBox=""([^""]+)""";
-
-        Match match = Regex.Match(content, viewboxRegex);
-        if (match.Success)
+        get
         {
-            var sizeValues = match.Groups[1].Value.Split(' ');
-            if (sizeValues.Length > 3)
-            {
-                size = new Size(int.Parse(sizeValues[2]), int.Parse(sizeValues[3]));
-            }
-        }
+            var files = MetaFile.Directory!.GetFiles("*.svg", SearchOption.AllDirectories);
+            var hasSkinTone = files.Length > 4;
 
-        if (!removeSvgRoot)
-        {
-            return (content, size);
+            return files.Select(i => new EmojiFileData(i, hasSkinTone)).ToArray();
         }
-
-        string pattern = @"<svg\swidth=""\d+""\sheight=""\d+""\sviewBox=""0\s0\s\d+\s\d+""(?:\sfill=""\w+"")?\sxmlns=""http:\/\/www\.w3\.org\/2000\/svg"">";
-        return (
-                Regex.Replace(content, pattern, string.Empty)
-                     .Replace("</svg>", "")
-                     .Replace("\n", "")
-                     .Replace("\r", ""),
-                size
-                );
     }
 
-    public class MetaData
-    {
-        /// <summary />
-        public string Cldr { get; set; } = string.Empty;
-
-        /// <summary />
-        public string Group { get; set; } = string.Empty;
-
-        /// <summary />
-        public string[] Keywords { get; set; } = Array.Empty<string>();
-
-        /// <summary />
-        public string Tts { get; set; } = string.Empty;
-    }
+    /// <summary />
+    private int Count => Files.Count();
 }
