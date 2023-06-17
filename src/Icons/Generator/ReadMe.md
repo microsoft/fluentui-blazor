@@ -36,6 +36,14 @@ To generate the icons, you need:
 
 3. All generated C# files are located in the **Target** folder, or in the current folder if this attribute has not been defined.
 
+## How to generate FluentUI Emoji
+
+1. Download the [repository](https://github.com/microsoft/fluentui-emoji).
+
+```cmd
+git clone https://github.com/microsoft/fluentui-emoji
+```
+
 
 ## Help
 

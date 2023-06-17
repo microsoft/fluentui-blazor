@@ -9,8 +9,6 @@ namespace Microsoft.Fast.Components.FluentUI.IconsGenerator.Model;
 [DebuggerDisplay("{Name} {Variant} {Size}")]
 internal class Icon
 {
-    private char[] InvalidCharacters = new[] { '_', ' ', '-', '.', ',' };
-
     /// <summary>
     /// Convert the file to an icon
     /// Examples:
@@ -23,7 +21,7 @@ internal class Icon
         File = file;
 
         string filename = Path.GetFileNameWithoutExtension(file.Name);
-        string[] nameParts = filename.Split(InvalidCharacters);
+        string[] nameParts = filename.Split(Tools.InvalidCharacters);
         string folderName = file.Directory!.Name; // Check if the SVG is included in a "language" folder.
 
         if (string.Compare(folderName, "icons", StringComparison.CurrentCultureIgnoreCase) == 0)
@@ -33,9 +31,9 @@ internal class Icon
 
         if (nameParts.Length >= 3)
         {
-            Variant = ToPascalCase(nameParts[^1]);
+            Variant = Tools.ToPascalCase(nameParts[^1]);
             Size = int.Parse(nameParts[^2]);
-            Name = ToPascalCase(nameParts[..^2].Union(folderName.Split(InvalidCharacters)).ToArray());
+            Name = Tools.ToPascalCase(nameParts[..^2].Union(folderName.Split(Tools.InvalidCharacters)).ToArray());
         }
     }
 
@@ -83,20 +81,5 @@ internal class Icon
                     .Replace("</svg>", "")
                     .Replace("\n", "")
                     .Replace("\r", "");
-    }
-
-    /// <summary />
-    private string ToPascalCase(params string[] words)
-    {
-        for (int i = 0; i < words.Length; i++)
-        {
-            string word = words[i];
-            if (word.Length > 0)
-            {
-                words[i] = char.ToUpper(word[0]) + word.Substring(1).ToLower();
-            }
-        }
-
-        return string.Join(string.Empty, words);
     }
 }

@@ -25,29 +25,55 @@ internal class Program
             configuration.TargetFolder.Create();
         }
 
-        // Initialize the factory
-        var factory = new IconsCodeGenerator(configuration)
+        switch (configuration.Library)
         {
-            Logger = (message) => Console.WriteLine($"{DateTime.Now.ToString("HH:mm:ss")} - {message}")
-        };
+            // *** Icons ***
+            case "icon":
 
-        // Start the generation
-        var assets = factory.ReadAllAssets()
-                            // All names (if not specified) or Only specified names
-                            .Where(i => configuration.Names.Any() == false ||
-                                        configuration.Names.Any(name => String.Compare(name.Replace("_", string.Empty), i.Key.Replace("_", string.Empty), StringComparison.InvariantCultureIgnoreCase) == 0))
-                            // All sizes (if not specified) or Only specified sizes
-                            .Where(i => configuration.Sizes.Any() == false ||
-                                        configuration.Sizes.Contains(i.Size));
+                // Initialize the factory
+                var factoryIcons = new IconsCodeGenerator(configuration)
+                {
+                    Logger = (message) => Console.WriteLine($"{DateTime.Now.ToString("HH:mm:ss")} - {message}")
+                };
 
-        if (configuration.Names.Any())
-        {
-            factory.GenerateOneClass(assets, "CoreIcons");
-        }
-        else
-        {
-            factory.GenerateMainIconsClass(assets);
-            factory.GenerateClasses(assets);
+                // Start the generation
+                var assets = factoryIcons.ReadAllAssets()
+                                         // All names (if not specified) or Only specified names
+                                         .Where(i => configuration.Names.Any() == false ||
+                                                     configuration.Names.Any(name => String.Compare(name.Replace("_", string.Empty), i.Key.Replace("_", string.Empty), StringComparison.InvariantCultureIgnoreCase) == 0))
+                                         // All sizes (if not specified) or Only specified sizes
+                                         .Where(i => configuration.Sizes.Any() == false ||
+                                                     configuration.Sizes.Contains(i.Size));
+
+                if (configuration.Names.Any())
+                {
+                    factoryIcons.GenerateOneClass(assets, "CoreIcons");
+                }
+                else
+                {
+                    factoryIcons.GenerateMainIconsClass(assets);
+                    factoryIcons.GenerateClasses(assets);
+                }
+
+                break;
+
+            // *** Emojis ***
+            case "emoji":
+
+                // Initialize the factory
+                var factoryEmojis = new EmojisCodeGenerator(configuration)
+                {
+                    Logger = (message) => Console.WriteLine($"{DateTime.Now.ToString("HH:mm:ss")} - {message}")
+                };
+
+                // Start the generation
+                var emojis = factoryEmojis.ReadAllAssets()
+                                          // All names (if not specified) or Only specified names
+                                          .Where(i => configuration.Names.Any() == false ||
+                                                      configuration.Names.Any(name => String.Compare(name.Replace("_", string.Empty), i.Key.Replace("_", string.Empty), StringComparison.InvariantCultureIgnoreCase) == 0));
+
+                break;
+
         }
 
         // Sample

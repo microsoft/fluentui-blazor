@@ -10,6 +10,7 @@ namespace Microsoft.Fast.Components.FluentUI.IconsGenerator;
 internal class Configuration
 {
     private const string DefaultNamespace = "Microsoft.Fast.Components.FluentUI";
+    private const string DefaultLibrary = "icon";
     private const string DefaultSizes = ""; // All sizes
 
     /// <summary>
@@ -36,6 +37,8 @@ internal class Configuration
             { "--sizes", "sizes" },
             { "-n", "names" },
             { "--names", "names" },
+            { "-l", "library" },
+            { "--library", "library" },
         };
 
         var config = new ConfigurationBuilder().AddCommandLine(args, switchMappings)
@@ -46,6 +49,7 @@ internal class Configuration
         Namespace = config.GetSection("namespace").Value ?? DefaultNamespace;
         Sizes = (config.GetSection("sizes").Value ?? DefaultSizes).Split(",", StringSplitOptions.RemoveEmptyEntries).Select(i => Convert.ToInt32(i));
         Names = (config.GetSection("names").Value ?? string.Empty).Split(",", StringSplitOptions.RemoveEmptyEntries);
+        Library = config.GetSection("library").Value ?? DefaultLibrary;
     }
 
     /// <summary>
@@ -72,6 +76,11 @@ internal class Configuration
     /// Gets a value indicating whether the files should be generated.
     /// </summary>
     public IEnumerable<string> Names { get; set; } = Array.Empty<string>();
+
+    /// <summary>
+    /// Gets a value indicating which files should be generated: icon or emoji.
+    /// </summary>
+    public string Library { get; set; } = DefaultLibrary;
 
     /// <summary>
     /// Gets a value indicating whether the help documentation should be displayed.
