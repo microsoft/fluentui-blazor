@@ -3,19 +3,19 @@ using Microsoft.Fast.Components.FluentUI;
 
 namespace FluentUI.Demo.Shared;
 
-public partial class SplashScreen : ISplashScreenParameters, IDialogContentComponent
+public partial class CustomSplashScreen : ISplashScreenParameters, IDialogContentComponent
 {
     /// <summary>
     /// Typically used to show the product name.
     /// </summary>
     [Parameter]
-    public string? Title { get; set; } = "Product name"; //SplashScreenResources.ProductName;
+    public string? Title { get; set; } = "Your Product name"; //SplashScreenResources.ProductName;
 
     /// <summary>
     /// Typically used to show the name of the suite the product belongs to.
     /// </summary>
     [Parameter]
-    public string? SubTitle { get; set; } = "Suite name"; //SplashScreenResources.SuiteName;
+    public string? SubTitle { get; set; } = "Your Suite name"; //SplashScreenResources.SuiteName;
 
     /// <summary>
     /// Text to indicate something is happening.
@@ -28,6 +28,13 @@ public partial class SplashScreen : ISplashScreenParameters, IDialogContentCompo
     /// </summary>
     [Parameter]
     public MarkupString? Message { get; set; }
+
+    /// <summary>
+    /// Logo to show on the splash screen.
+    /// Can be a URL or a base64 encoded string or an SVG.
+    /// </summary>
+    [Parameter]
+    public string? Logo { get; set; }
 
     /// <summary>
     /// Width of the splash screen. 

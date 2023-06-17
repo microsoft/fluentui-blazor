@@ -28,7 +28,7 @@ Click on this button to open a MessageBox.
     private void ShowConfirmation()
     {
         DemoLogger.WriteLine($"Open Confirmation MessageBox");
-        DialogService.ShowConfirmationAsync(this, HandleConfirmation, "Do you have two eyes?", "Eyes on you");
+        DialogService.ShowConfirmationAsync(this, HandleConfirmation, "Do you have two eyes?", "Eyes on you", "Yup", "Nope");
     }
 
     private void ShowMessageBoxLong()
@@ -46,8 +46,8 @@ Click on this button to open a MessageBox.
                 MarkupMessage = new MarkupString("My <strong>customized</strong> message"),
                 Icon = FluentIcons.Games,
                 IconColor = Color.Success,
-                SecondaryButtonText = "Minus",
                 PrimaryButtonText = "Plus",
+                SecondaryButtonText = "Minus",
                 Width = "300px",
                 OnDialogResult = DialogService.CreateDialogCallback(this, HandleCustom)
             });
