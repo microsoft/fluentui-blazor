@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace Microsoft.Fast.Components.FluentUI;
+﻿namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary>
 /// FluentUI Icon meta-data.
@@ -21,34 +19,4 @@ public class IconInfo
     /// Gets the variant of the icon: Filled, Regular.
     /// </summary>
     public virtual IconVariant Variant { get; init; } = IconVariant.Regular;
-
-    /// <summary>
-    /// Returns a new instance of the icon.
-    /// </summary>
-    /// <remarks>
-    /// This method requires dynamic access to code. This code may be removed by the trimmer.
-    /// </remarks>
-    /// <returns></returns>
-    /// <exception cref="ArgumentException">Raised when the <see cref="Name"/> is not found in predefined icons.</exception>
-    [RequiresUnreferencedCode("This method requires dynamic access to code. This code may be removed by the trimmer.")]
-    public virtual Icon GetInstance()
-    {
-        var assembly = typeof(Icon).Assembly;
-        var allIcons = assembly.GetTypes().Where(i => i.BaseType == typeof(Icon)).ToArray();
-
-        // Ex. Microsoft.Fast.Components.FluentUI.Icons+Filled+Size10+PresenceAvailable
-        var iconFullName = $"{assembly.GetName().Name}+{Variant}+Size{(int)Size}+{Name}";
-        var iconType = allIcons.FirstOrDefault(i => i.FullName == iconFullName);
-
-        if (iconType != null)
-        {
-            var icon = Activator.CreateInstance(iconType);
-            if (icon != null)
-            {
-                return (Icon)icon;
-            }
-        }
-
-        throw new ArgumentException($"Icon '{Name}' not found.");
-    }
 }

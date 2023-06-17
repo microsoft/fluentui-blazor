@@ -1,4 +1,6 @@
-﻿namespace Microsoft.Fast.Components.FluentUI;
+﻿using Microsoft.AspNetCore.Components;
+
+namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary>
 /// FluentUI Icon content.
@@ -24,6 +26,17 @@ public abstract class Icon : IconInfo
     /// Gets the content of the icon: SVG path.
     /// </summary>
     public virtual string Content { get; }
+
+    /// <summary>
+    /// Gets the HTML markup of the icon.
+    /// </summary>
+    public virtual MarkupString Markup
+    {
+        get
+        {
+            return new MarkupString($"<svg viewBox=\"0 0 {(int)Size} {(int)Size}\" fill=\"var(--accent-fill-rest)\" style=\"width: {(int)Size}px;\" aria-hidden=\"true\">{Content}</svg>");
+        }
+    }
 
     /// <summary>
     /// Gets the width of the icon.

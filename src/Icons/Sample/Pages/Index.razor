@@ -4,19 +4,14 @@
 <FluentSystemIcon Icon="@(Icons.Regular.Size24.Save)"  />
 <FluentSystemIcon Icon="@(Icons.Regular.Size24.Album)" />
 
-@foreach (var item in Icons.AllIcons.Take(30))
-{
-    <FluentSystemIcon Value="@(new CustomIcon(item.GetInstance()))" />
-}
+<h2>Markup</h2>
+@(new Icons.Regular.Size20.Add().Markup)
 
-@code
+<h2>AllIcons</h2>
+@foreach (var item in Icons.AllIcons
+                           .Where(i => i.Variant == IconVariant.Regular
+                                    && i.Size == IconSize.Size24)
+                           .Take(30))
 {
-    public class CustomIcon : Icon
-    {
-        public CustomIcon() : base(string.Empty, IconVariant.Regular, IconSize.Size24, string.Empty)
-        { }
-
-        public CustomIcon(Icon icon) : base(icon.Name, icon.Variant, icon.Size, icon.Content)
-        { }
-    }
+    <FluentSystemIcon Value="Icons.GetInstance(item)" />
 }
