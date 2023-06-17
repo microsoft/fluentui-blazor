@@ -40,8 +40,15 @@ internal class Program
                             .Where(i => configuration.Sizes.Any() == false ||
                                         configuration.Sizes.Contains(i.Size));
 
-        factory.GenerateMainIconsClass(assets);
-        factory.GenerateClasses(assets);
+        if (configuration.Names.Any())
+        {
+            factory.GenerateOneClass(assets, "CoreIcons");
+        }
+        else
+        {
+            factory.GenerateMainIconsClass(assets);
+            factory.GenerateClasses(assets);
+        }
 
         // Sample
         // var x = Icons.Regular.Size24.Accessibility;
