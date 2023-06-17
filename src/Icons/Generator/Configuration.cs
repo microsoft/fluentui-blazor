@@ -49,7 +49,7 @@ internal class Configuration
         Namespace = config.GetSection("namespace").Value ?? DefaultNamespace;
         Sizes = (config.GetSection("sizes").Value ?? DefaultSizes).Split(",", StringSplitOptions.RemoveEmptyEntries).Select(i => Convert.ToInt32(i));
         Names = (config.GetSection("names").Value ?? string.Empty).Split(",", StringSplitOptions.RemoveEmptyEntries);
-        Library = config.GetSection("library").Value ?? DefaultLibrary;
+        Library = config.GetSection("library").Value?.ToLower() ?? DefaultLibrary;
     }
 
     /// <summary>

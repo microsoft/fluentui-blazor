@@ -3,7 +3,7 @@
 internal static class Tools
 {
     /// <summary />
-    public static readonly char[] InvalidCharacters = new[] { '_', ' ', '-', '.', ',' };
+    public static readonly char[] InvalidCharacters = new[] { '_', ' ', '-', '.', ',', '&' };
 
     /// <summary />
     public static string ToPascalCase(string value)

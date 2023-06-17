@@ -1,7 +1,7 @@
 {
   "profiles": {
     "Microsoft.Fast.Components.FluentUI.IconsGenerator": {
-      "commandName": "Project"
+      "commandName": "Project",
       // 1. To generate all icons in Icons Lib
       // "commandLineArgs": "--Assets=C:/_Temp/Icons --Target=../FluentUI.Icons/Icons"
 
@@ -9,7 +9,7 @@
       // "commandLineArgs": "--Assets=C:/_Temp/Icons --Target=../../Microsoft.Fast.Components.FluentUI/Components/Icons --Names=ArrowDownload_24_Regular,ArrowSortDown_24_regular,ArrowSortUp_24_regular,ArrowUpload_24_Regular,CalendarLTR_24_Regular,CheckmarkCircle_24_Filled,ChevronDoubleLeft_2,_Regular,ChevronDoubleRight_24_Regular,ChevronDown_24_Regular,ChevronLeft_24_Regular,ChevronRight_24_Regular,Dismiss_24_regular,DismissCircle_24_Filled,DismissCircl,_24_Regular,Filter_24_regular,Flash_24_Regular,Info_24_Filled,Info_24_Regular,MoreHorizontal_24_Regular,Navigation_24_Regular,Person_24_Regular,PresenceAvailable_24,Filled,PresenceAvailable_24_Regular,PresenceAway_24_Filled,PresenceBusy_24_Filled,PresenceDND_24_Filled,PresenceDND_24_Regular,PresenceOffline_24_Regular,PresenceOf,line_24_Regular,PresenceOOF_24_Regular,PresenceUnknown_24_Regular,QuestionCircle_24_Regular,Warning_24_Filled"
 
       // 3. To generate all emojis in Lib
-      "commandLineArgs": "--Assets=C:/_Temp/fluentui-emoji --Target=../FluentUI.Icons/Emojis"
+      "commandLineArgs": "--Assets=C:/_Temp/fluentui-emoji --Library=Emoji --Target=../FluentUI.Icons/Emojis"
     }
   }
 }
