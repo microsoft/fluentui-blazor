@@ -70,7 +70,8 @@ internal class Program
                 };
 
                 // Start the generation
-                var emojis = factoryEmojis.ReadAllAssets();
+                var emojis = factoryEmojis.ReadAllAssets()
+                                          .Where(i => i.Style == "Color");
 
                 factoryEmojis.GenerateClasses(emojis);
 
