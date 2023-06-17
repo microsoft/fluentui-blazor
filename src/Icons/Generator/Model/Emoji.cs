@@ -28,7 +28,10 @@ internal class Emoji
         string content = System.IO.File.ReadAllText(metaDataFile.FullName);
         Meta = JsonSerializer.Deserialize<EmojiMetaData>(content, JsonOptions)!;
 
-        Name = Tools.ToPascalCase(Meta.Cldr);
+        Name = Tools.ToPascalCase(Meta.Cldr)
+                    .Replace("1st", "First")
+                    .Replace("2nd", "Second")
+                    .Replace("3rd", "third");
         Group = Tools.ToPascalCase(Meta.Group);
         Keywords = Meta.Keywords;
     }
@@ -69,9 +72,9 @@ internal class Emoji
         get
         {
             var files = MetaFile.Directory!.GetFiles("*.svg", SearchOption.AllDirectories);
-            var hasSkinTone = files.Length > 4;
+            var hasSkinTone = files.Length > 3;
 
-            return files.Select(i => new EmojiFileData(i, hasSkinTone)).ToArray();
+            return files.Select(file => new EmojiFileData(this, file, hasSkinTone)).ToArray();
         }
     }
 

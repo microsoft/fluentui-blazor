@@ -3,16 +3,16 @@
 internal static class Tools
 {
     /// <summary />
-    public static readonly char[] InvalidCharacters = new[] { '_', ' ', '-', '.', ',', '&' };
+    public static readonly char[] InvalidCharacters = new[] { '_', ' ', '-', '.', ',', '&', '’', '\'', ':', '(', ')', '“', '”', '"', '!' };
 
     /// <summary />
-    public static string ToPascalCase(string value)
+    public static string ToPascalCase(string value, string separator = "")
     {
-        return ToPascalCase(value.Split(InvalidCharacters));
+        return ToPascalCase(value.Split(InvalidCharacters, StringSplitOptions.RemoveEmptyEntries), separator);
     }
 
     /// <summary />
-    public static string ToPascalCase(string[] words)
+    public static string ToPascalCase(string[] words, string separator = "")
     {
         for (int i = 0; i < words.Length; i++)
         {
@@ -23,6 +23,6 @@ internal static class Tools
             }
         }
 
-        return string.Join(string.Empty, words);
+        return string.Join(separator, words);
     }
 }

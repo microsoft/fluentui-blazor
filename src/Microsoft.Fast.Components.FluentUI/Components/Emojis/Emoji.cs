@@ -5,20 +5,24 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// <summary>
 /// FluentUI Icon content.
 /// </summary>
-public abstract class Icon : IconInfo
+public abstract class Emoji : EmojiInfo
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="Icon"/> class.
     /// </summary>
-    /// <param name="name"><see cref="IconInfo.Name"/></param>
-    /// <param name="variant"><see cref="IconInfo.Variant"/></param>
-    /// <param name="size"><see cref="IconInfo.Size"/></param>
-    /// <param name="content"><see cref="Icon.Content"/></param>
-    public Icon(string name, IconVariant variant, IconSize size, string content)
+    /// <param name="name"></param>
+    /// <param name="size"></param>
+    /// <param name="skintone"></param>
+    /// <param name="group"></param>
+    /// <param name="style"></param>
+    /// <param name="content"></param>
+    public Emoji(string name, EmojiSize size, EmojiGroup group, EmojiSkintone skintone, EmojiStyle style, string content)
     {
         Name = name;
-        Variant = variant;
         Size = size;
+        Skintone = skintone;
+        Group = group;
+        Style = style;
         Content = content;
     }
 
@@ -34,7 +38,7 @@ public abstract class Icon : IconInfo
     {
         get
         {
-            return new MarkupString($"<svg viewBox=\"0 0 {(int)Size} {(int)Size}\" fill=\"var(--accent-fill-rest)\" style=\"width: {(int)Size}px;\" aria-hidden=\"true\">{Content}</svg>");
+            return new MarkupString($"<svg viewBox=\"0 0 {(int)Size} {(int)Size}\" style=\"width: {(int)Size}px;\" aria-hidden=\"true\">{Content}</svg>");
         }
     }
 

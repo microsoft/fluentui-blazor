@@ -70,12 +70,9 @@ internal class Program
                 };
 
                 // Start the generation
-                var emojis = factoryEmojis.ReadAllAssets()
-                                          // All names (if not specified) or Only specified names
-                                          .Where(i => configuration.Names.Any() == false ||
-                                                      configuration.Names.Any(name => String.Compare(name.Replace("_", string.Empty), i.Key.Replace("_", string.Empty), StringComparison.InvariantCultureIgnoreCase) == 0));
+                var emojis = factoryEmojis.ReadAllAssets();
 
-                var groups = emojis.Select(i => i.Group).Distinct().ToArray();
+                factoryEmojis.GenerateClasses(emojis);
 
                 break;
 

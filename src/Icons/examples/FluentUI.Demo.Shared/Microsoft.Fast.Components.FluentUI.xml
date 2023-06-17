@@ -1969,6 +1969,67 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentDropZone`1.OnDropHandler(Microsoft.AspNetCore.Components.Web.DragEventArgs)">
             <summary />
         </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.Emoji">
+            <summary>
+            FluentUI Icon content.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Emoji.#ctor(System.String,Microsoft.Fast.Components.FluentUI.EmojiSize,Microsoft.Fast.Components.FluentUI.EmojiGroup,Microsoft.Fast.Components.FluentUI.EmojiSkintone,Microsoft.Fast.Components.FluentUI.EmojiStyle,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Fast.Components.FluentUI.Icon"/> class.
+            </summary>
+            <param name="name"></param>
+            <param name="size"></param>
+            <param name="skintone"></param>
+            <param name="group"></param>
+            <param name="style"></param>
+            <param name="content"></param>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Emoji.Content">
+            <summary>
+            Gets the content of the icon: SVG path.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Emoji.Markup">
+            <summary>
+            Gets the HTML markup of the icon.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Emoji.Width">
+            <summary>
+            Gets the width of the icon.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.EmojiInfo">
+            <summary>
+            FluentUI Emoji meta-data.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.EmojiInfo.Name">
+            <summary>
+            Gets the name of the icon: AddCircle, Accessibility, etc.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.EmojiInfo.Size">
+            <summary>
+            Gets the size of the emoji.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.EmojiInfo.Group">
+            <summary>
+            Gets the group of the emoji.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.EmojiInfo.Skintone">
+             <summary>
+            Gets the skin tone of the emoji.
+             </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.EmojiInfo.Style">
+             <summary>
+            Gets the style of the emoji.
+             </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentEmoji.Name">
             <summary>
             Gets or sets the name of the emoji. Can be specified by using const value from <see cref="T:Microsoft.Fast.Components.FluentUI.FluentEmojis" />
@@ -2005,6 +2066,20 @@
             <summary>
             Allows for capturing a mouse click on an emoji
             </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentEmoji.SvgSplitter">
+            <remarks>
+            Pattern explanation:<br/>
+            <code>
+            ○ Match the string "&lt;svg ".<br/>
+            ○ "attributes" capture group.<br/>
+                ○ Match any character lazily any number of times.<br/>
+            ○ Match '&gt;'.<br/>
+            ○ "payload" capture group.<br/>
+                ○ Match any character lazily any number of times.<br/>
+            ○ Match the string "&lt;/svg&gt;".<br/>
+            </code>
+            </remarks>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentFlipper.Disabled">
             <summary>
@@ -2192,9 +2267,9 @@
             <summary>
             Initializes a new instance of the <see cref="T:Microsoft.Fast.Components.FluentUI.Icon"/> class.
             </summary>
-            <param name="name"><see cref="!:Icon.Name"/></param>
-            <param name="variant"><see cref="!:Icon.Variant"/></param>
-            <param name="size"><see cref="!:Icon.Size"/></param>
+            <param name="name"><see cref="P:Microsoft.Fast.Components.FluentUI.IconInfo.Name"/></param>
+            <param name="variant"><see cref="P:Microsoft.Fast.Components.FluentUI.IconInfo.Variant"/></param>
+            <param name="size"><see cref="P:Microsoft.Fast.Components.FluentUI.IconInfo.Size"/></param>
             <param name="content"><see cref="P:Microsoft.Fast.Components.FluentUI.Icon.Content"/></param>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.Icon.Content">
@@ -2280,6 +2355,25 @@
             <summary>
             Allows for capturing a mouse click on an icon
             </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentIcon.CheckRGBString">
+            <remarks>
+            Pattern explanation:<br/>
+            <code>
+            ○ Match with 2 alternative expressions, atomically.<br/>
+                ○ Match a sequence of expressions.<br/>
+                    ○ Match if at the beginning of the string.<br/>
+                    ○ Match '#'.<br/>
+                    ○ Match with 2 alternative expressions, atomically.<br/>
+                        ○ Match a character in the set [0-9A-Fa-f] exactly 6 times.<br/>
+                        ○ Match a character in the set [0-9A-Fa-f] exactly 3 times.<br/>
+                ○ Match a sequence of expressions.<br/>
+                    ○ Match the string "var(--".<br/>
+                    ○ Match a character other than '\n' greedily any number of times.<br/>
+                    ○ Match ')'.<br/>
+                    ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.FluentLabel">
             <summary />
@@ -3083,6 +3177,18 @@
             Needs to be formatted as an HTML hex color string (#rrggbb or #rgb)
             Default is '#ffffff'
             </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentOverlay.CheckRGBString">
+            <remarks>
+            Pattern explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ Match '#'.<br/>
+            ○ Match with 2 alternative expressions, atomically.<br/>
+                ○ Match a character in the set [0-9A-Fa-f] exactly 6 times.<br/>
+                ○ Match a character in the set [0-9A-Fa-f] exactly 3 times.<br/>
+            </code>
+            </remarks>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.FluentPaginator">
             <summary>
@@ -9021,6 +9127,111 @@
             <param name="value"></param>
             <param name="when"></param>
             <returns></returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.SvgSplitter_0">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the SvgSplitter method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.SvgSplitter_0.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.SvgSplitter_0.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.SvgSplitter_0.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.SvgSplitter_0.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.SvgSplitter_0.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.SvgSplitter_0.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.SvgSplitter_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.SvgSplitter_0.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.CheckRGBString_1">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the CheckRGBString method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.CheckRGBString_1.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_1.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.CheckRGBString_1.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_1.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.CheckRGBString_1.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_1.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_1.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_1.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.CheckRGBString_2">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the CheckRGBString method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.CheckRGBString_2.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_2.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.CheckRGBString_2.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_2.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.CheckRGBString_2.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_2.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_2.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_2.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.Utilities">
+            <summary>Helper methods used by generated <see cref="T:System.Text.RegularExpressions.Regex"/>-derived implementations.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout">
+            <summary>Default timeout value set in <see cref="T:System.AppContext"/>, or <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout"/> if none was set.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_hasTimeout">
+            <summary>Whether <see cref="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout"/> is non-infinite.</summary>
         </member>
     </members>
 </doc>

@@ -8,25 +8,31 @@ namespace Microsoft.Fast.Components.FluentUI.IconsGenerator.Model;
 [DebuggerDisplay("{File.Name} / {SkinTone} / {Style}")]
 public class EmojiFileData
 {
+    private const string DefaultSkinTone = "Default";
+
     /// <summary />
-    public EmojiFileData(FileInfo file, bool hasSkinTone)
+    internal EmojiFileData(Emoji emoji, FileInfo file, bool hasSkinTone)
     {
+        Emoji = emoji;
         File = file;
 
         // [Name]/[SkinTone]/[Style]
         if (hasSkinTone)
         {
-            SkinTone = file.Directory!.Parent!.Name;
-            Style = file.Directory!.Name;
+            SkinTone = Tools.ToPascalCase(file.Directory!.Parent!.Name);
+            Style = Tools.ToPascalCase(file.Directory!.Name);
         }
 
         // [Name]/[Style]
         else
         {
-            SkinTone = string.Empty;
-            Style = file.Directory!.Name;
+            SkinTone = DefaultSkinTone;
+            Style = Tools.ToPascalCase(file.Directory!.Name);
         }
     }
+
+    /// <summary />
+    internal Emoji Emoji { get; }
 
     /// <summary />
     public FileInfo File { get; }
