@@ -146,6 +146,6 @@ export function beforeStart(options, extensions) {
     wcScript.type = 'module';
     wcScript.src = './_content/Microsoft.Fast.Components.FluentUI/js/web-components.min.js';
     wcScript.async = true;
-    document.body.appendChild(wcScript);
+    document.head.appendChild(wcScript);
 }
 
