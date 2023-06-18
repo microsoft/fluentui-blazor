@@ -81,7 +81,6 @@ internal class EmojisCodeGenerator
                 foreach (var skintone in allSkinTones)
                 {
                     // CSharp
-                    var file = new FileInfo(Path.Combine(Configuration.TargetFolder.FullName, $"{group}-{style}-{skintone}.cs"));
                     var emojisForFile = emojis.Where(i => i.Emoji.Group == group
                                                        && i.Style == style
                                                        && i.SkinTone == skintone)
@@ -92,11 +91,19 @@ internal class EmojisCodeGenerator
                         continue;
                     }
 
-                    Logger.Invoke($"Generating {file.Name}, containing {emojisForFile.Count()} emojis.");
-                    var classContent = GenerateClass(group, style, skintone, emojisForFile);
+                    int part = 0;
+                    foreach (var emojisPart in Tools.Split(emojisForFile, 100))
+                    {
+                        var file = new FileInfo(Path.Combine(Configuration.TargetFolder.FullName, $"{group}-{style}-{skintone}-{part}.cs"));
 
-                    File.WriteAllText(file.FullName, classContent);
-                    generatedFiles.Add(file);
+                        Logger.Invoke($"Generating {file.Name}, containing {emojisPart.Count()} emojis.");
+                        var classContent = GenerateClass(group, style, skintone, emojisPart);
+
+                        File.WriteAllText(file.FullName, classContent);
+                        generatedFiles.Add(file);
+
+                        part++;
+                    }
                 }
             }
         }

@@ -25,4 +25,13 @@ internal static class Tools
 
         return string.Join(separator, words);
     }
+
+    public static IEnumerable<IEnumerable<T>> Split<T>(IEnumerable<T> source, int groupSize)
+    {
+        return source
+            .Select((x, i) => new { Index = i, Value = x })
+            .GroupBy(x => x.Index / groupSize)
+            .Select(x => x.Select(v => v.Value).ToList())
+            .ToList();
+    }
 }
