@@ -45,27 +45,27 @@
 
     }
     
-    private void ToggleMenu()
+    private async Task ToggleMenu()
     {
         if (toggle is null || toggle == false) 
-            ShowMenu();
+            await ShowMenu();
         else
-            HideMenu();
+            await HideMenu();
     }
 
-    public void ShowMenu()
+    public async Task ShowMenu()
     {
         toggle = true;
         menuClass = "menu visible";
-        menu!.Element.FocusAsync();
+        await menu!.Element.FocusAsync();
         StateHasChanged();
     }
 
     [JSInvokable]
-    public void HideMenu()
+    public async Task HideMenu()
     {
         toggle = null;
-        button!.Element.FocusAsync();
+        await button!.Element.FocusAsync();
         menuClass = "menu";
         StateHasChanged();
         
@@ -76,15 +76,15 @@
         if (args is not null && args.Id is not null)
         {
             await AccentBaseColor.SetValueFor(button!.Element, $"#{args.Id}".ToSwatch());
-            ToggleMenu();
+            await ToggleMenu();
         }
     }
 
-    private void OnKeyDown(KeyboardEventArgs args)
+    private async Task OnKeyDown(KeyboardEventArgs args)
     {
         if (args is not null && args.Key == "Escape")
         {
-            ToggleMenu();
+            await ToggleMenu();
         }
     }
     public async ValueTask DisposeAsync()
