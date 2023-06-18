@@ -6,8 +6,8 @@
 ![Nuget](https://img.shields.io/nuget/v/Microsoft.Fast.Templates.FluentUI?label=NuGet%20Templates)
 
 [![Validate Security](https://github.com/microsoft/fluentui-blazor/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/microsoft/fluentui-blazor/actions/workflows/codeql-analysis.yml)
+[![Gitter](https://img.shields.io/badge/chat%20on-gitter-7289da.svg)](https://app.gitter.im/#/room/#fluentui-blazor:gitter.im)
 [![Discord](https://img.shields.io/badge/chat%20on-discord-7289da.svg)](https://discord.gg/FcSNfg4)
-
 
 :star:  We appreciate your star, it helps!
 
@@ -17,9 +17,9 @@ The `Microsoft.Fast.Components.FluentUI` package provides a set of [Blazor](http
 the look and feel or modern Microsoft applications. Some of the componets are wrappers around Microsoft's official FluentUI Web Components. Others are components 
 that leverage the Fluent UI design system or make it easier to work with Fluent UI. To get up and running with the library, see the 'Getting Started' section below.
 
-The source for the library is hosted in the [Fast Blazor](https://github.com/microsoft/fluentui-blazor) repository at GitHub. Documentation on the components is available at the [demo site](https://www.fluentui-blazor.net) and at [docs.microsoft.com](https://docs.microsoft.com/en-us/fluent-ui/web-components/). 
+The source for the library is hosted in the [fluentui-blazor](https://github.com/microsoft/fluentui-blazor) repository at GitHub. Documentation on the components is available at the [demo site](https://www.fluentui-blazor.net) and at [docs.microsoft.com](https://docs.microsoft.com/en-us/fluent-ui/web-components/). 
 
-The source for `@fluentui/web-components` is hosted in the [Fluent UI](https://github.com/microsoft/fluentui/tree/master/packages/web-components) mono-repository. Documentation on the components is available on [docs.microsoft.com](https://docs.microsoft.com/en-us/fluent-ui/web-components/).
+The source for `@fluentui/web-components` is hosted in the [fluentui](https://github.com/microsoft/fluentui/tree/master/packages/web-components) mono-repository. Documentation for those components is available on [docs.microsoft.com](https://docs.microsoft.com/en-us/fluent-ui/web-components/).
 The FluentUI Web Components are built on [FAST](https://www.fast.design/) and work in every major browser. 
 
 ## Upgrading from an earlier version 
@@ -28,14 +28,14 @@ If you are upgrading from an earlier version of the library, please see the [wha
 
 ## Getting Started
 
-To get started using the Fluent UI Blazor components for Blazor, you will first need to install [the official Nuget package for Fluent UI](https://www.nuget.org/packages/Microsoft.Fast.Components.FluentUI/) in the project you would like to use the library and components. You can use the following command:
+To get started using the Fluent UI Blazor components for Blazor, you will first need to install the official [Nuget package for Fluent UI Blazor](https://www.nuget.org/packages/Microsoft.Fast.Components.FluentUI/) in the project you would like to use the library and components. You can use the following command:
 
 ```shell
 dotnet add package Microsoft.Fast.Components.FluentUI
 ```
 
 ### Script
-The hart of this library is formed by the Fluent UI Web Components and the accompanying `web-components.min.js` file. From version 2.3 onwards, the 
+The heart of this library is formed by the Fluent UI Web Components and the accompanying `web-components.min.js` file. From version 2.3 onwards, the 
 script is included in the library itself and no longer needs to be added to your `index.html` or `_Layout.cshtml`. In fact, doing this might lead to 
 unpredictable results. 
 
@@ -74,7 +74,7 @@ to your `index.html` or `_Layout.cshtml` file in the `<head>` section like this:
 The file contains a number of CSS variables that are required to be defined for the components to work correctly. 
 
 ### Project file
-if you want to use icons and/or emoji, starting with version 2.1 you need add a `<PropertyGroup>` to your project file. With this you can specify which icons and emoji are made available for usage and publication. Please refer to the [project setup](https://www.fluentui-blazor.net/ProjectSetup) document for more information.
+if you want to use icons and/or emoji, starting with version 2.1 you need add a `<PropertyGroup>` to your project file. Within this group you can specify which icons and emoji are made available for usage and publication. Please refer to the [project setup](https://www.fluentui-blazor.net/ProjectSetup) document for more information.
 
 
 ### Code
@@ -83,12 +83,12 @@ so that all necessary services are available and setup in the correct way.
 
 
 ## Getting started by using project templates
-To make it easier to start a project that uses the Fluent UI Web Components for Blazor out of the box, we have created the
+To make it easier to start a project that uses the Fluent UI Blazor components out of the box, we have created the
 [Microsoft.Fast.Templates.FluentUI](https://www.nuget.org/packages/Microsoft.Fast.Templates.FluentUI/) template package.
 
 The package contains templates for creating Blazor Server and/or Blazor WebAssembly apps that mimic the regular Blazor 
-templates with the Fluent UI components already set up (and all the Bootstrap styling removed). All components have been 
-replaced with Fluent UI counterparts (and a few extra have been added). Please see the [documentation page](https://www.fluentui-blazor.net/Templates)
+templates. The library is already set up (and all the Bootstrap styling removed). All components fromthe regular template have been 
+replaced with Fluent UI Blazor counterparts (and a few extra have been added). Please see the [documentation page](https://www.fluentui-blazor.net/Templates)
 for more information.
 
 If you want to use icons and/or emoji with applications based on the templates, you still need to make the changes to the project file 
@@ -120,8 +120,8 @@ that uses one of the components.
 
 
 ## Configuring the Design System
-The Fluent UI Blazor components are built on FAST's Adaptive UI technology, which enables design customization and personalization, while automatically
-maintaining accessibility. This is accomplished through setting various "Design Tokens". The library exposes all of the (over 160) Design Tokens, which you can use both from code as in a declarative way in your `.razor` pages. The three different ways of working with design tokens are described in the [design tokens](https://www.fluentui-blazor.net/DesignTokens) page.
+The Fluent UI Blazor components are built on FAST's (Adaptive UI) technology, which enables design customization and personalization, while automatically
+maintaining accessibility. This is accomplished through setting various "design tokens". The library exposes all design tokens, which you can use both from code as in a declarative way in your `.razor` pages. The three different ways of working with design tokens are described in the [design tokens](https://www.fluentui-blazor.net/DesignTokens) page.
 
 ## Blazor Hybrid
 Starting with the 2.0 release, you can also use this library in your Blazor Hybrid projects. Setup is almost the same as described in the "Getting started" section above, but to get everything to work you'll need to take two extra steps:
@@ -196,18 +196,18 @@ builder.Services.AddDataGridEntityFrameworkAdapter();
 
 
 ## Additional resources
-* The Microsoft [Fluent UI Blazor components documentation and demo site](https://www.fluentui-blazor.net)
+* The Microsoft Fluent UI Blazor components [documentation and demo site](https://www.fluentui-blazor.net)
 
 
 ### Joining the Community
 
-Looking to get answers to questions or engage with us in real-time? Our community is  active [on Discord](https://discord.gg/FcSNfg4). Submit requests 
+Looking to get answers to questions or engage with us in real-time? Our community is  active on [Gitter](https://app.gitter.im/#/room/#fluentui-blazor:gitter.im) and [Discord](https://discord.gg/FcSNfg4). Submit requests 
 and issues on [GitHub](https://github.com/microsoft/blazor-fluentui/issues/new/choose), or join us by contributing on [some good first issues via GitHub](https://github.com/microsoft/fluentui-blazor/labels/community:good-first-issue).
 
 We look forward to building an amazing open source community with you!
 
 ### Contact
 
-* Join the community and chat with us in real-time on [Discord](https://discord.gg/FcSNfg4).
+* Join the community and chat with us in real-time on [Gitter](https://app.gitter.im/#/room/#fluentui-blazor:gitter.im) or [Discord](https://discord.gg/FcSNfg4).
 * Submit requests and issues on [GitHub](https://github.com/microsoft/fluentui-blazor/issues/new/choose).
 * Contribute by helping out on some of our recommended first issues on [GitHub](https://github.com/microsoft/fluentui-blazor/labels/community:good-first-issue).
