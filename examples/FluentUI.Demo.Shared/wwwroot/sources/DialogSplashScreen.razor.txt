@@ -40,7 +40,7 @@
                 LoadingText = "Filling the oxygen bottles...",
                 Message = (MarkupString)"Don't hold your breath <strong>too</strong> long!",
                 Width = "500px",
-                Height = "500px",
+                Height = "450px",
                 Logo = "_content/FluentUI.Demo.Shared/images/Splash_Corporation_logo.png",
             };
 

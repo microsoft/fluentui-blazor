@@ -4,6 +4,7 @@
     background-color: white;
     color: rgb(73, 72, 71);
     --accent-fill-rest: #d3d3d3;
+    user-select: none;
 }
 
     .my-splash h1 {
@@ -12,6 +13,7 @@
         margin-top: 40px;
         line-height: 40px;
         margin: 40px 0px 0px 0px;
+        user-select: none;
     }
 
     .my-splash h2 {
@@ -19,12 +21,17 @@
         font-weight: 400;
         line-height: 32px;
         margin: 24px 0px 50px 0px;
+        user-select: none;
     }
 
     .my-splash h3 {
         font-size: 12px;
         font-weight: 300;
         margin: 0px;
+        user-select: none;
+    }
+    .my-splash p {
+        user-select: none;
     }
 
     .my-splash .icon {
