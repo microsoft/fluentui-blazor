@@ -7,6 +7,8 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// </summary>
 public abstract class Emoji : EmojiInfo
 {
+    private byte[] _data;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="Icon"/> class.
     /// </summary>
@@ -15,31 +17,30 @@ public abstract class Emoji : EmojiInfo
     /// <param name="skintone"></param>
     /// <param name="group"></param>
     /// <param name="style"></param>
-    /// <param name="content"></param>
-    public Emoji(string name, EmojiSize size, EmojiGroup group, EmojiSkintone skintone, EmojiStyle style, string content, byte[] data)
+    /// <param name="data"></param>
+    public Emoji(string name, EmojiSize size, EmojiGroup group, EmojiSkintone skintone, EmojiStyle style, byte[] data)
     {
         Name = name;
         Size = size;
         Skintone = skintone;
         Group = group;
         Style = style;
-        Content = content;
+
+        _data = data; // Zipped SVG content 
     }
 
     /// <summary>
     /// Gets the content of the icon: SVG path.
     /// </summary>
-    public virtual string Content { get; }
+    public virtual string Content => EmojiCompress.Unzip(_data);
 
     /// <summary>
-    /// Gets the HTML markup of the icon.
+    /// Gets the HTML markup of the emoji.
     /// </summary>
-    public virtual MarkupString Markup
+    public virtual MarkupString ToMarkup(string? size = null)
     {
-        get
-        {
-            return new MarkupString($"<svg viewBox=\"0 0 {(int)Size} {(int)Size}\" style=\"width: {(int)Size}px;\" aria-hidden=\"true\">{Content}</svg>");
-        }
+        var styleWidth = size ?? $"{(int)Size}px";
+        return new MarkupString($"<svg viewBox=\"0 0 {(int)Size} {(int)Size}\" style=\"width: {styleWidth};\" aria-hidden=\"true\">{Content}</svg>");
     }
 
     /// <summary>

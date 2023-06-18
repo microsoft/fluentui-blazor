@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <TargetFrameworks>net8.0</TargetFrameworks>
+    <TargetFrameworks>net7.0;net8.0</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <PackageId>Microsoft.Fast.Components.FluentUI.Icons</PackageId>
     <AssemblyName>Microsoft.Fast.Components.FluentUI.Icons</AssemblyName>
@@ -12,6 +12,7 @@
     <IsTrimmable>true</IsTrimmable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>Microsoft.Fast.Components.FluentUI.Icons</Title>
+    <Version>$(VersionPrefix)-$(VersionSuffix)-j</Version>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,17 +1,44 @@
 ﻿@page "/"
 
-<h2>Icons</h2>
-<FluentSystemIcon Icon="@(Icons.Regular.Size24.Save)"  />
+<h1>1. Icons</h1>
+<FluentSystemIcon Icon="@(Icons.Regular.Size24.Save)" />
 <FluentSystemIcon Icon="@(Icons.Regular.Size24.Album)" />
 
 <h2>Markup</h2>
-@(new Icons.Regular.Size20.Add().Markup)
+@(new Icons.Regular.Size20.Add().ToMarkup())
+@(new Icons.Regular.Size20.Airplane().ToMarkup("60px", "red"))
 
 <h2>AllIcons</h2>
-@foreach (var item in Icons.AllIcons
-                           .Where(i => i.Variant == IconVariant.Regular
-                                    && i.Size == IconSize.Size24)
-                           .Take(30))
+<div>
+    <FluentTextField Placeholder="search icons" @bind-Value="@SearchIcon" @onkeydown="@StartSearch" /><br/>
+</div>
+
+@foreach (var item in IconsFound)
 {
-    <FluentSystemIcon Value="Icons.GetInstance(item)" />
+    <FluentSystemIcon Value="Icons.GetInstance(item)" Title="@($"{item.Name}")" />
+}
+
+<h1>2. Emojis</h1>
+
+<h2>Markup</h2>
+@(new Emojis.Objects.Color.Default.Accordion().ToMarkup("80px"))
+@(new Emojis.TravelPlaces.Color.Default.Ambulance().ToMarkup())
+
+@code
+{
+    private string SearchIcon = string.Empty;
+    private IEnumerable<IconInfo> IconsFound = Array.Empty<IconInfo>();
+
+    private async Task StartSearch(KeyboardEventArgs e)
+    {
+        if (e.Code == "Enter" || e.Code == "NumpadEnter")
+        {
+            IconsFound = Icons.AllIcons
+                              .Where(i => i.Name.Contains(SearchIcon)
+                                       && i.Variant == IconVariant.Regular
+                                       && i.Size == IconSize.Size24)
+                              .Take(100);
+        }
+
+    }
 }

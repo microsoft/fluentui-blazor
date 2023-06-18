@@ -14,7 +14,7 @@ public static partial class Icons
     /// This method requires dynamic access to code. This code may be removed by the trimmer.
     /// </remarks>
     /// <returns></returns>
-    /// <exception cref="ArgumentException">Raised when the <see cref="Name"/> is not found in predefined icons.</exception>
+    /// <exception cref="ArgumentException">Raised when the <see cref="IconInfo.Name"/> is not found in predefined icons.</exception>
     [RequiresUnreferencedCode("This method requires dynamic access to code. This code may be removed by the trimmer.")]
     public static CustomIcon GetInstance(IconInfo icon)
     {

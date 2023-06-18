@@ -30,12 +30,11 @@ public abstract class Icon : IconInfo
     /// <summary>
     /// Gets the HTML markup of the icon.
     /// </summary>
-    public virtual MarkupString Markup
+    public virtual MarkupString ToMarkup(string? size = null, string? color = null)
     {
-        get
-        {
-            return new MarkupString($"<svg viewBox=\"0 0 {(int)Size} {(int)Size}\" fill=\"var(--accent-fill-rest)\" style=\"width: {(int)Size}px;\" aria-hidden=\"true\">{Content}</svg>");
-        }
+        var styleWidth = size ?? $"{(int)Size}px";
+        var styleColor = color ?? "var(--accent-fill-rest)";
+        return new MarkupString($"<svg viewBox=\"0 0 {(int)Size} {(int)Size}\" fill=\"{styleColor}\" style=\"width: {styleWidth};\" aria-hidden=\"true\">{Content}</svg>");
     }
 
     /// <summary>

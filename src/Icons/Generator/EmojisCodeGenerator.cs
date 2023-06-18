@@ -1,11 +1,12 @@
 ﻿using System.Text;
-using System.Text.RegularExpressions;
 using Microsoft.Fast.Components.FluentUI.IconsGenerator.Model;
 
 namespace Microsoft.Fast.Components.FluentUI.IconsGenerator;
 
 internal class EmojisCodeGenerator
 {
+    private const int MaxEmojiPerClass = int.MaxValue;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="EmojisCodeGenerator"/> class.
     /// </summary>
@@ -92,9 +93,13 @@ internal class EmojisCodeGenerator
                     }
 
                     int part = 0;
-                    foreach (var emojisPart in Tools.Split(emojisForFile, 100))
+                    var emojisParts = Tools.Split(emojisForFile, MaxEmojiPerClass);
+                    foreach (var emojisPart in emojisParts)
                     {
-                        var file = new FileInfo(Path.Combine(Configuration.TargetFolder.FullName, $"{group}-{style}-{skintone}-{part}.cs"));
+                        var filename = emojisParts.Count() == 1
+                                     ? $"{group}-{style}-{skintone}.cs"
+                                     : $"{group}-{style}-{skintone}-{part}.cs";
+                        var file = new FileInfo(Path.Combine(Configuration.TargetFolder.FullName, filename));
 
                         Logger.Invoke($"Generating {file.Name}, containing {emojisPart.Count()} emojis.");
                         var classContent = GenerateClass(group, style, skintone, emojisPart);
@@ -156,11 +161,11 @@ internal class EmojisCodeGenerator
 
         var content = file.GetContent(removeSvgRoot: true);
         var size = content.Size.Width;
-        var svgContent = content.Content.Replace("\"", "\\\"");
+        var svgContent = content.Content;
         var group = Tools.ToPascalCase(file.Emoji.Meta.Group, "_");
         var svgZipped = String.Join(", ", Tools.Zip(svgContent).Select(i => Convert.ToString(i)));
         var svgBytes = $"new byte [] {{ {svgZipped} }}";
 
-        builder.AppendLine($"{indentationString}public class {file.Emoji.Name} : Emoji {{ public {file.Emoji.Name}() : base(\"{file.Emoji.Name}\", EmojiSize.Size{size}, EmojiGroup.{group}, EmojiSkintone.{file.SkinTone}, EmojiStyle.{file.Style}, \"\", {svgBytes}) {{ }} }}");
+        builder.AppendLine($"{indentationString}public class {file.Emoji.Name} : Emoji {{ public {file.Emoji.Name}() : base(\"{file.Emoji.Name}\", EmojiSize.Size{size}, EmojiGroup.{group}, EmojiSkintone.{file.SkinTone}, EmojiStyle.{file.Style}, {svgBytes}) {{ }} }}");
     }
 }

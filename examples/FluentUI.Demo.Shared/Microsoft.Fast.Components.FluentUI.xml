@@ -1969,6 +1969,67 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentDropZone`1.OnDropHandler(Microsoft.AspNetCore.Components.Web.DragEventArgs)">
             <summary />
         </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.Emoji">
+            <summary>
+            FluentUI Icon content.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Emoji.#ctor(System.String,Microsoft.Fast.Components.FluentUI.EmojiSize,Microsoft.Fast.Components.FluentUI.EmojiGroup,Microsoft.Fast.Components.FluentUI.EmojiSkintone,Microsoft.Fast.Components.FluentUI.EmojiStyle,System.String,System.Byte[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Fast.Components.FluentUI.Icon"/> class.
+            </summary>
+            <param name="name"></param>
+            <param name="size"></param>
+            <param name="skintone"></param>
+            <param name="group"></param>
+            <param name="style"></param>
+            <param name="content"></param>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Emoji.Content">
+            <summary>
+            Gets the content of the icon: SVG path.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Emoji.Markup">
+            <summary>
+            Gets the HTML markup of the icon.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Emoji.Width">
+            <summary>
+            Gets the width of the icon.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.EmojiInfo">
+            <summary>
+            FluentUI Emoji meta-data.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.EmojiInfo.Name">
+            <summary>
+            Gets the name of the icon: AddCircle, Accessibility, etc.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.EmojiInfo.Size">
+            <summary>
+            Gets the size of the emoji.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.EmojiInfo.Group">
+            <summary>
+            Gets the group of the emoji.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.EmojiInfo.Skintone">
+             <summary>
+            Gets the skin tone of the emoji.
+             </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.EmojiInfo.Style">
+             <summary>
+            Gets the style of the emoji.
+             </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentEmoji.Name">
             <summary>
             Gets or sets the name of the emoji. Can be specified by using const value from <see cref="T:Microsoft.Fast.Components.FluentUI.FluentEmojis" />
@@ -2206,14 +2267,19 @@
             <summary>
             Initializes a new instance of the <see cref="T:Microsoft.Fast.Components.FluentUI.Icon"/> class.
             </summary>
-            <param name="name"><see cref="!:Icon.Name"/></param>
-            <param name="variant"><see cref="!:Icon.Variant"/></param>
-            <param name="size"><see cref="!:Icon.Size"/></param>
+            <param name="name"><see cref="P:Microsoft.Fast.Components.FluentUI.IconInfo.Name"/></param>
+            <param name="variant"><see cref="P:Microsoft.Fast.Components.FluentUI.IconInfo.Variant"/></param>
+            <param name="size"><see cref="P:Microsoft.Fast.Components.FluentUI.IconInfo.Size"/></param>
             <param name="content"><see cref="P:Microsoft.Fast.Components.FluentUI.Icon.Content"/></param>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.Icon.Content">
             <summary>
             Gets the content of the icon: SVG path.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icon.Markup">
+            <summary>
+            Gets the HTML markup of the icon.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.Icon.Width">
@@ -2240,16 +2306,6 @@
             <summary>
             Gets the variant of the icon: Filled, Regular.
             </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IconInfo.GetInstance">
-            <summary>
-            Returns a new instance of the icon.
-            </summary>
-            <remarks>
-            This method requires dynamic access to code. This code may be removed by the trimmer.
-            </remarks>
-            <returns></returns>
-            <exception cref="T:System.ArgumentException">Raised when the <see cref="P:Microsoft.Fast.Components.FluentUI.IconInfo.Name"/> is not found in predefined icons.</exception>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.Variant">
             <summary>

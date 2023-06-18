@@ -71,7 +71,19 @@ internal class Program
 
                 // Start the generation
                 var emojis = factoryEmojis.ReadAllAssets()
-                                          .Where(i => i.Style == "Color"); // && i.SkinTone == "Dark" && i.Emoji.Name == "Artist");
+                                          // All names (if not specified) or Only specified names
+                                          .Where(i => configuration.Names.Any() == false ||
+                                                     configuration.Names.Any(name => String.Compare(name + ".svg", i.File.Name, StringComparison.InvariantCultureIgnoreCase) == 0));
+
+                // Remove the duplicates
+                var duplicateBoy = emojis.FirstOrDefault(i => i.File.Name == "boy_high_contrast_default.svg");
+                if (duplicateBoy != null)
+                {
+                    emojis.ToList().Remove(duplicateBoy);
+                }
+
+                // TODO: Only for dev
+                emojis = emojis.Where(i => i.SkinTone == "Default" && i.Style == "Color");
 
                 factoryEmojis.GenerateClasses(emojis);
 
