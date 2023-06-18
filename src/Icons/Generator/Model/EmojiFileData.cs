@@ -64,6 +64,11 @@ public class EmojiFileData
             {
                 size = new Size(int.Parse(sizeValues[2]), int.Parse(sizeValues[3]));
             }
+
+            if (size.Width == 33 || size.Height == 33)
+            {
+                size = new Size(32, 32);
+            }
         }
 
         if (!removeSvgRoot)

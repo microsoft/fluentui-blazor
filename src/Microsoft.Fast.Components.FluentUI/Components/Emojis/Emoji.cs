@@ -16,7 +16,7 @@ public abstract class Emoji : EmojiInfo
     /// <param name="group"></param>
     /// <param name="style"></param>
     /// <param name="content"></param>
-    public Emoji(string name, EmojiSize size, EmojiGroup group, EmojiSkintone skintone, EmojiStyle style, string content)
+    public Emoji(string name, EmojiSize size, EmojiGroup group, EmojiSkintone skintone, EmojiStyle style, string content, byte[] data)
     {
         Name = name;
         Size = size;

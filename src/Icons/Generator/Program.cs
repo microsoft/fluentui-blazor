@@ -71,7 +71,7 @@ internal class Program
 
                 // Start the generation
                 var emojis = factoryEmojis.ReadAllAssets()
-                                          .Where(i => i.Style == "Color");
+                                          .Where(i => i.Style == "Color"); // && i.SkinTone == "Dark" && i.Emoji.Name == "Artist");
 
                 factoryEmojis.GenerateClasses(emojis);
 

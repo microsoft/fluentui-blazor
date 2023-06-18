@@ -158,7 +158,9 @@ internal class EmojisCodeGenerator
         var size = content.Size.Width;
         var svgContent = content.Content.Replace("\"", "\\\"");
         var group = Tools.ToPascalCase(file.Emoji.Meta.Group, "_");
+        var svgZipped = String.Join(", ", Tools.Zip(svgContent).Select(i => Convert.ToString(i)));
+        var svgBytes = $"new byte [] {{ {svgZipped} }}";
 
-        builder.AppendLine($"{indentationString}public class {file.Emoji.Name} : Emoji {{ public {file.Emoji.Name}() : base(\"{file.Emoji.Name}\", EmojiSize.Size{size}, EmojiGroup.{group}, EmojiSkintone.{file.SkinTone}, EmojiStyle.{file.Style}, \"{svgContent}\") {{ }} }}");
+        builder.AppendLine($"{indentationString}public class {file.Emoji.Name} : Emoji {{ public {file.Emoji.Name}() : base(\"{file.Emoji.Name}\", EmojiSize.Size{size}, EmojiGroup.{group}, EmojiSkintone.{file.SkinTone}, EmojiStyle.{file.Style}, \"\", {svgBytes}) {{ }} }}");
     }
 }

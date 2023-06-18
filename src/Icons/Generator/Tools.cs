@@ -1,4 +1,7 @@
-﻿namespace Microsoft.Fast.Components.FluentUI.IconsGenerator;
+﻿using System.IO.Compression;
+using System.Text;
+
+namespace Microsoft.Fast.Components.FluentUI.IconsGenerator;
 
 internal static class Tools
 {
@@ -26,6 +29,7 @@ internal static class Tools
         return string.Join(separator, words);
     }
 
+    /// <summary />
     public static IEnumerable<IEnumerable<T>> Split<T>(IEnumerable<T> source, int groupSize)
     {
         return source
@@ -33,5 +37,50 @@ internal static class Tools
             .GroupBy(x => x.Index / groupSize)
             .Select(x => x.Select(v => v.Value).ToList())
             .ToList();
+    }
+
+    /// <summary />
+    public static void CopyTo(Stream src, Stream dest)
+    {
+        byte[] bytes = new byte[4096];
+
+        int cnt;
+
+        while ((cnt = src.Read(bytes, 0, bytes.Length)) != 0)
+        {
+            dest.Write(bytes, 0, cnt);
+        }
+    }
+
+    /// <summary />
+    public static byte[] Zip(string str)
+    {
+        var bytes = Encoding.UTF8.GetBytes(str);
+
+        using (var msi = new MemoryStream(bytes))
+        using (var mso = new MemoryStream())
+        {
+            using (var gs = new GZipStream(mso, CompressionMode.Compress))
+            {
+                CopyTo(msi, gs);
+            }
+
+            return mso.ToArray();
+        }
+    }
+
+    /// <summary />
+    public static string Unzip(byte[] bytes)
+    {
+        using (var msi = new MemoryStream(bytes))
+        using (var mso = new MemoryStream())
+        {
+            using (var gs = new GZipStream(msi, CompressionMode.Decompress))
+            {
+                CopyTo(gs, mso);
+            }
+
+            return Encoding.UTF8.GetString(mso.ToArray());
+        }
     }
 }
