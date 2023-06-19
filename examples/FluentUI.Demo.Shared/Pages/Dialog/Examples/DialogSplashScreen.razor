@@ -1,25 +1,62 @@
 ﻿@inject IDialogService DialogService
 
-<FluentButton @onclick="@OpenDialogAsync" Appearance="Appearance.Accent">
-    Open Dialog
+<FluentButton @onclick="@OpenDialog" Appearance="Appearance.Accent">
+    Open default splash screen
+</FluentButton>
+
+<FluentButton @onclick="@OpenDialogCustom" Appearance="Appearance.Accent">
+    Open customized splash screen
 </FluentButton>
 
 @code
 {
-    // [Setup] Inject the DialogService in Program.cs
-    // builder.Services.AddScoped<IDialogService, DialogService>();
-
-    private async void OpenDialogAsync(MouseEventArgs e)
+    private void OpenDialog()
     {
         DemoLogger.WriteLine($"Open LaunchScreen for 4 seconds");
-        //var dialog = await 
-        DialogService.ShowSplashScreen("Product name", "Suite name");
+
+        SplashScreenParameters parameters = new()
+        {
+            Title = "Product name",
+            SubTitle = "Suite name",
+            LoadingText = "Loading...",
+            Message = (MarkupString)"some <i>extra</i> text <strong>here</strong>",
+            Width = "640px",
+            Height = "480px",
+            Logo = FluentSplashScreen.LOGO,
+        };
         
-        // Simulation of loading process
-        await Task.Delay(4000);
+        DialogService.ShowSplashScreen<FluentSplashScreen>(this, HandleDefaultSplash, parameters);
+
+    }
+
+    private void OpenDialogCustom()
+    {
+        DemoLogger.WriteLine($"Open LaunchScreen for 4 seconds");
+
+        SplashScreenParameters parameters = new()
+            {
+                Title = "Deap sea diving 101",
+                //SubTitle = "Suite name",
+                LoadingText = "Filling the oxygen bottles...",
+                Message = (MarkupString)"Don't hold your breath <strong>too</strong> long!",
+                Width = "500px",
+                Height = "450px",
+                Logo = "_content/FluentUI.Demo.Shared/images/Splash_Corporation_logo.png",
+            };
+
+        DialogService.ShowSplashScreen<CustomSplashScreen>(this, HandleCustomSplash, parameters);
+
+    }
+
+    private async Task HandleDefaultSplash(DialogResult result)
+    {
         
-        // Process completed
-        //await dialog.CloseAsync();
-        DemoLogger.WriteLine($"Dialog closed");
+        await Task.Run(() => DemoLogger.WriteLine($"Default splash closed"));
+    }
+
+    private async Task HandleCustomSplash(DialogResult result)
+    {
+
+        await Task.Run(() => DemoLogger.WriteLine($"Custom splash closed"));
     }
 }

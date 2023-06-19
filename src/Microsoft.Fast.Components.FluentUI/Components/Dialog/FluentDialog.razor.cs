@@ -17,7 +17,7 @@ public partial class FluentDialog : FluentComponentBase, IDisposable
     /// overlay.  Clicks on the overlay will cause the dialog to emit a "dismiss" event.
     /// </summary>
     [Parameter]
-    public bool Modal { get; set; } = true;
+    public bool? Modal { get; set; } = true;
 
     /// <summary>
     /// Gets or sets if the dialog is hidden
@@ -29,7 +29,7 @@ public partial class FluentDialog : FluentComponentBase, IDisposable
     /// Indicates that the dialog should trap focus.
     /// </summary>
     [Parameter]
-    public bool TrapFocus { get; set; } = true;
+    public bool? TrapFocus { get; set; } = true;
 
     /// <summary>
     /// The id of the element describing the dialog.
@@ -57,9 +57,6 @@ public partial class FluentDialog : FluentComponentBase, IDisposable
     public DialogSettings Settings { get; set; } = default!;
 
     [Parameter]
-    public bool Open { get; set; }
-
-    [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     [Parameter]
@@ -69,13 +66,15 @@ public partial class FluentDialog : FluentComponentBase, IDisposable
     public EventCallback<DialogResult> OnDialogResult { get; set; }
 
     protected string? ClassValue => new CssBuilder(Class)
-        .AddClass("fluent-panel-main")
+        .AddClass("fluent-dialog-main")
+        .AddClass("right", () => Settings.Alignment == HorizontalAlignment.Right)
+        .AddClass("left", () => Settings.Alignment == HorizontalAlignment.Left)
         .Build();
 
     protected string? StyleValue => new StyleBuilder()
         .AddStyle(Style)
         .AddStyle("position", "absolute")
-        .AddStyle("z-index", "5")
+        //.AddStyle("z-index", "9999")
         //.AddStyle("inset", "0px 0px 0px auto", () => Settings.Alignment == HorizontalAlignment.Right || Settings.Alignment == HorizontalAlignment.End)
         //.AddStyle("inset", "0px auto 0px 0px", () => Settings.Alignment == HorizontalAlignment.Left || Settings.Alignment == HorizontalAlignment.Start)
         .AddStyle("top", "50%", () => Settings.Alignment == HorizontalAlignment.Center)
@@ -98,13 +97,13 @@ public partial class FluentDialog : FluentComponentBase, IDisposable
         Settings ??= new()
         {
             Alignment = HorizontalAlignment.Center,
+            ShowTitle = true,
             PrimaryButton = null,
             SecondaryButton = null,
             ShowDismiss = false,
             Modal = null,
             TrapFocus = null,
             Height = "unset",
-
         };
     }
 
@@ -132,21 +131,20 @@ public partial class FluentDialog : FluentComponentBase, IDisposable
         StateHasChanged();
     }
 
-    public virtual async Task CancelAsync() => await CloseAsync(DialogResult.Cancel());
+    public async Task CancelAsync() => await CloseAsync(DialogResult.Cancel());
 
-    public virtual async Task CloseAsync() => await CloseAsync(DialogResult.Ok<object?>(null));
+    public async Task CancelAsync<T>(T returnValue) => await CloseAsync(DialogResult.Cancel(returnValue));
 
-    //public virtual async Task CloseAsync<T>(T returnValue) => await CloseAsync(DialogResult.Ok(returnValue));
+    public async Task CloseAsync() => await CloseAsync(DialogResult.Ok<object?>(null));
+
+    public virtual async Task CloseAsync<T>(T returnValue) => await CloseAsync(DialogResult.Ok(returnValue));
 
     /// <summary>
     /// Closes the dialog
     /// </summary>
-    public virtual async Task CloseAsync(DialogResult dialogResult)
+    public async Task CloseAsync(DialogResult dialogResult)
     {
-        Open = false;
         DialogContext?.DialogContainer.DismissInstance(Id!);
-        await OpenChanged.InvokeAsync(Open);
-
         await ((EventCallback<DialogResult>)Instance.Parameters["OnDialogResult"]).InvokeAsync(dialogResult);
     }
 

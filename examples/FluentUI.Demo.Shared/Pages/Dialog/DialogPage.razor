@@ -30,14 +30,14 @@
 </DemoSection> *@
 
 
-<DemoSection Title="Default" Component="@typeof(DialogDefault)" CollocatedFiles="@(new[] {"css"})"></DemoSection>
-
-<DemoSection Title="Dialog without reference" Component="@typeof(DialogNoRef)">
+<DemoSection Title="Default" Component="@typeof(DialogDefault)" CollocatedFiles="@(new[] {"css"})">
     <Description>
-        Because no reference is created between the component and the <code>fast-dialog</code> web component, the interaction is limited here. For example, clicking on the 
-        overlay when modal is set to true does not have any effect.Also note that no additional styling has been applied to the dialog.
+        This example shows a simple dialog created by specifying it's content manually (see the Razor tab). Because of this, the dialog is not automatically styled.
+        A CSS file has been added toset the width, heigth and padding of the dialog.         
     </Description>
 </DemoSection>
+
+
 
 <DemoSection Title="MessageBox" Component="@typeof(DialogMessageBox)">
     <Description>
@@ -53,3 +53,7 @@
 
 <DemoSection Title="Splash screen" Component="@typeof(DialogSplashScreen)">
 </DemoSection>
+
+<DemoSection Title="Simple Panel" Component="@typeof(DialogPanel)">
+</DemoSection>
+

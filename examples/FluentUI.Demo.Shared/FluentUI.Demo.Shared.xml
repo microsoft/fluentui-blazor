@@ -93,6 +93,49 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:FluentUI.Demo.Shared.Pages.Dialog.Examples.CustomSplashScreen.Title">
+            <summary>
+            Typically used to show the product name.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.Pages.Dialog.Examples.CustomSplashScreen.SubTitle">
+            <summary>
+            Typically used to show the name of the suite the product belongs to.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.Pages.Dialog.Examples.CustomSplashScreen.LoadingText">
+            <summary>
+            Text to indicate something is happening.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.Pages.Dialog.Examples.CustomSplashScreen.Message">
+            <summary>
+            An extra message. 
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.Pages.Dialog.Examples.CustomSplashScreen.Logo">
+            <summary>
+            Logo to show on the splash screen.
+            Can be a URL or a base64 encoded string or an SVG.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.Pages.Dialog.Examples.CustomSplashScreen.Width">
+            <summary>
+            Width of the splash screen. 
+            Should be a valid CSS width string like "600px" or "3em".
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.Pages.Dialog.Examples.CustomSplashScreen.Height">
+            <summary>
+            Height of the splash screen. 
+            Should be a valid CSS height string like "600px" or "3em".
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.Pages.Dialog.Examples.CustomSplashScreen.OnDialogResult">
+            <summary>
+            Callback for when the dialog is dismissed.
+            </summary>
+        </member>
         <member name="M:FluentUI.Demo.Shared.Pages.ComponentBindings.#ctor">
             <summary>
             Within this constructor you can set default values for the form fields through the FormModel

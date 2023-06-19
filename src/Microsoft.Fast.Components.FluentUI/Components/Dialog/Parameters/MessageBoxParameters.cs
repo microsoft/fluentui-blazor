@@ -4,21 +4,31 @@ namespace Microsoft.Fast.Components.FluentUI;
 
 public class MessageBoxParameters : DialogParameters, IMessageBoxParameters
 {
+    [Parameter]
     public MessageBoxIntent Intent { get; set; } = MessageBoxIntent.Info;
 
+    [Parameter]
     public string? Message { get; set; } = string.Empty;
 
+    [Parameter]
     public MarkupString? MarkupMessage { get; set; }
 
+    [Parameter]
     public string? Icon { get; set; }
 
+    [Parameter]
     public Color IconColor { get; set; } = Color.Accent;
-    public string PrimaryButtonText { get; set; } = "Ok"; //FluentPanelResources.ButtonPrimary;
 
-    public string SecondaryButtonText { get; set; } = "Cancel"; //FluentPanelResources.ButtonSecondary;
+    [Parameter]
+    public string PrimaryButtonText { get; set; } = "Ok"; //DialogResources.ButtonPrimary;
 
+    [Parameter]
+    public string SecondaryButtonText { get; set; } = "Cancel"; //DialogResources.ButtonSecondary;
+
+    [Parameter]
     public string? Width { get; set; }
 
+    [Parameter]
     public string? Height { get; set; }
 
 }

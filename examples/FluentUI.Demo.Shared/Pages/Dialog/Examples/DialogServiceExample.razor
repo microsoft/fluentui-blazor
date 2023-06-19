@@ -19,8 +19,8 @@
     private async void OpenDialogAsync(MouseEventArgs e)
     {
         DemoLogger.WriteLine($"Open Simple Dialog");
-        var dialog = await DialogService.ShowAsync<SimpleDialog>("Simple Dialog", parameters, settings => { settings.Alignment = HorizontalAlignment.Right; });
-        var result = await dialog.Result!;
-        DemoLogger.WriteLine($"Dialog Result: {result.Data} - Canceled: {result.Cancelled}");
+        //var dialog = await DialogService.ShowAsync<SimpleDialog>("Simple Dialog", parameters, settings => { settings.Alignment = HorizontalAlignment.Right; });
+        //var result = await dialog.Result!;
+        //DemoLogger.WriteLine($"Dialog Result: {result.Data} - Canceled: {result.Cancelled}");
     }
 }

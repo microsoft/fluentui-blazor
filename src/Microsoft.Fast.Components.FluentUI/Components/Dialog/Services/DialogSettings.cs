@@ -34,6 +34,11 @@ public class DialogSettings
     public bool? TrapFocus { get; set; } = true;
 
     /// <summary>
+    /// Determines whether the dialog title part shown or hidden.
+    /// </summary>
+    public bool ShowTitle { get; set; } = true;
+
+    /// <summary>
     /// Display or hide the dismiss icon button (in the header).
     /// </summary>
     public bool ShowDismiss { get; set; } = true;

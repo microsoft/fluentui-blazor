@@ -1,15 +1,31 @@
-﻿<FluentButton id="myPopoverButton" Appearance="Appearance.Accent" @onclick="() => _visible = !_visible">
-    Open Callout
-</FluentButton>
+﻿<div style="display: flex; width=100%">
+    <FluentButton id="myPopoverButtonl" Appearance="Appearance.Accent" @onclick="() => _visiblel = !_visiblel">
+        Open Callout 1
+    </FluentButton>
 
-<FluentPopover Style="width: 300px;" AnchorId="myPopoverButton" @bind-Open="_visible">
-    <Header>Callout Header</Header>
-    <Body>
-        Callout Body
-    </Body>
-    <Footer>Callout Footer</Footer>
-</FluentPopover>
+    <FluentSpacer />
+
+    <FluentButton id="myPopoverButtonr" Appearance="Appearance.Accent" @onclick="() => _visibler = !_visibler">
+        Open Callout 2
+    </FluentButton>
+
+    <FluentPopover Style="width: 300px;" AnchorId="myPopoverButtonl" @bind-Open="_visiblel">
+        <Header>Callout Header</Header>
+        <Body>
+            Callout Body
+        </Body>
+        <Footer>Callout Footer</Footer>
+    </FluentPopover>
+
+    <FluentPopover Style="width: 300px;" AnchorId="myPopoverButtonr" @bind-Open="_visibler">
+        <Header>Callout Header</Header>
+        <Body>
+            Callout Body
+        </Body>
+        <Footer>Callout Footer</Footer>
+    </FluentPopover>
+</div>
 
 @code {
-    bool _visible;
+    bool _visiblel, _visibler;
 }

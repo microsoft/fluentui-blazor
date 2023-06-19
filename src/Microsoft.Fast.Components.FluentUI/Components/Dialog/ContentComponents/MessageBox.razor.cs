@@ -40,27 +40,18 @@ public partial class MessageBox : IDialogContentComponent, IMessageBoxParameters
     [Parameter]
     public string? Height { get; set; }
 
+    //[Parameter]
+    //public bool? Hidden { get; set; }
+
     [Parameter]
     public DialogSettings Settings { get; set; } = default!;
+
+    [Parameter]
+    public EventCallback<DialogResult> OnDialogResult { get; set; }
 
     protected override void OnInitialized()
     {
         _dialogId = Dialog.Id;
         Settings = Dialog.Settings;
-    }
-
-    protected virtual Task ConfirmAsync()
-    {
-        return OnCloseAsync(DialogResult.Ok(true));
-    }
-
-    protected virtual Task CancelAsync()
-    {
-        return OnCloseAsync(DialogResult.Cancel());
-    }
-
-    public virtual Task OnCloseAsync(DialogResult result)
-    {
-        return Dialog.CloseAsync(result);
     }
 }

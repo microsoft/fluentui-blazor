@@ -16,25 +16,25 @@ Click on this button to open a MessageBox.
     private void ShowError()
     {
         DemoLogger.WriteLine($"Open Error MessageBox");
-        DialogService.ShowErrorAsync("This is an error", "Error title here");
+        DialogService.ShowError("This is an error", "Error title here");
     }
 
     private void ShowInformation()
     {
         DemoLogger.WriteLine($"Open Information MessageBox");
-        DialogService.ShowInfoAsync("This is a message", "Info title here");
+        DialogService.ShowInfo("This is a message", "Info title here");
     }
 
     private void ShowConfirmation()
     {
         DemoLogger.WriteLine($"Open Confirmation MessageBox");
-        DialogService.ShowConfirmationAsync(this, HandleConfirmation, "Do you have two eyes?", "Eyes on you");
+        DialogService.ShowConfirmation(this, HandleConfirmation, "Do you have two eyes?", "Yup", "Nope", "Eyes on you");
     }
 
     private void ShowMessageBoxLong()
     {
         DemoLogger.WriteLine($"Open Long MessageBox");
-        DialogService.ShowInfoAsync("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum");
+        DialogService.ShowInfo("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum");
     }
 
     private void ShowMessageBox()
@@ -46,8 +46,8 @@ Click on this button to open a MessageBox.
                 MarkupMessage = new MarkupString("My <strong>customized</strong> message"),
                 Icon = FluentIcons.Games,
                 IconColor = Color.Success,
-                SecondaryButtonText = "Minus",
                 PrimaryButtonText = "Plus",
+                SecondaryButtonText = "Minus",
                 Width = "300px",
                 OnDialogResult = DialogService.CreateDialogCallback(this, HandleCustom)
             });
@@ -56,11 +56,11 @@ Click on this button to open a MessageBox.
    
     private async Task HandleConfirmation(DialogResult result)
     {
-        await Task.Run(() => DemoLogger.WriteLine($"2 eyes: {(result.Cancelled ? "no" : "yes")}"));
+        await Task.Run(() => DemoLogger.WriteLine($"2 eyes: Cancelled: {result.Cancelled}, Data: {result.Data?.ToString()}"));
     }
 
     private async Task HandleCustom(DialogResult result)
     {
-        await Task.Run(() => DemoLogger.WriteLine($"Result: {result.Cancelled.ToString()}"));
+        await Task.Run(() => DemoLogger.WriteLine($"Result: {result.Data?.ToString()}"));
     }
 }
