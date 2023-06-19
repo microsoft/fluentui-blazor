@@ -19,6 +19,20 @@ public partial class FluentNavMenuGroup : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// Gets or sets the content to be rendered for the icon when
+    /// the menu is collapsed.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? CollapsedIconContent { get; set; }
+
+    /// <summary>
+    /// Gets or sets the content to be rendered for the icon when
+    /// the menu is expanded.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ExpandedIconContent { get; set; }
+
+    /// <summary>
     /// Gets or sets the destination of the link.
     /// </summary>
     [Parameter]
@@ -94,7 +108,8 @@ public partial class FluentNavMenuGroup : FluentComponentBase
         .AddStyle(Style)
         .Build();
 
-    private bool HasIcon => !string.IsNullOrWhiteSpace(Icon);
+    private bool HasCollapsedIcon => !string.IsNullOrWhiteSpace(Icon) || CollapsedIconContent is not null;
+    private bool HasExpandedIcon => !string.IsNullOrWhiteSpace(Icon) || ExpandedIconContent is not null;
 
     protected override void OnParametersSet()
     {

@@ -2700,6 +2700,13 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.NavigationIconContent">
+            <summary>
+            Gets or sets the content to be rendered for the navigation icon
+            when the menu is collapsible.  The default icon will be used if
+            this is not specified.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.Title">
             <summary>
             Gets or sets the title of the navigation menu
@@ -2734,6 +2741,18 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.CollapsedIconContent">
+            <summary>
+            Gets or sets the content to be rendered for the icon when
+            the menu is collapsed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.ExpandedIconContent">
+            <summary>
+            Gets or sets the content to be rendered for the icon when
+            the menu is expanded.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Href">
@@ -2787,6 +2806,11 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.IconContent">
+            <summary>
+            Gets or sets the content to be rendered for the icon.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.Href">
