@@ -30,16 +30,6 @@ internal static class Tools
     }
 
     /// <summary />
-    public static IEnumerable<IEnumerable<T>> Split<T>(IEnumerable<T> source, int groupSize)
-    {
-        return source
-            .Select((x, i) => new { Index = i, Value = x })
-            .GroupBy(x => x.Index / groupSize)
-            .Select(x => x.Select(v => v.Value).ToList())
-            .ToList();
-    }
-
-    /// <summary />
     public static byte[] Zip(string str)
     {
         var bytes = Encoding.UTF8.GetBytes(str);

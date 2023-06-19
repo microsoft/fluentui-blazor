@@ -2038,14 +2038,19 @@
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.EmojiInfo.Skintone">
-             <summary>
+            <summary>
             Gets the skin tone of the emoji.
-             </summary>
+            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.EmojiInfo.Style">
-             <summary>
+            <summary>
             Gets the style of the emoji.
-             </summary>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.EmojiInfo.KeyWords">
+            <summary>
+            Gets a list of keywords associated with the emoji (separated by comas).
+            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentEmoji.Name">
             <summary>

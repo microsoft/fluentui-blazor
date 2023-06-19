@@ -83,9 +83,10 @@ internal class Program
                 }
 
                 // TODO: Only for dev
-                emojis = emojis.Where(i => i.SkinTone == "Default" && i.Style == "Color");
+                emojis = emojis.Where(i => i.SkinTone == "Default" && i.Style == "Color" );
 
                 factoryEmojis.GenerateClasses(emojis);
+                factoryEmojis.GenerateMainEmojisClass(emojis);
 
                 break;
 

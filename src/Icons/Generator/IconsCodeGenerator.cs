@@ -56,6 +56,11 @@ internal class IconsCodeGenerator
                     .ToArray();
     }
 
+    /// <summary>
+    /// Generates the main class with all icon info.
+    /// </summary>
+    /// <param name="icons"></param>
+    /// <returns></returns>
     public FileInfo GenerateMainIconsClass(IEnumerable<Model.Icon> icons)
     {
         var file = new FileInfo(Path.Combine(Configuration.TargetFolder.FullName, "Icons.cs"));

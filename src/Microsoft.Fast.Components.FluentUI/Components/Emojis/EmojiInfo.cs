@@ -21,12 +21,17 @@ public class EmojiInfo
     public virtual EmojiGroup Group { get; init; } = EmojiGroup.Activities;
 
     /// <summary>
-    ///Gets the skin tone of the emoji.
+    /// Gets the skin tone of the emoji.
     /// </summary>
     public virtual EmojiSkintone Skintone { get; init; } = EmojiSkintone.Default;
 
     /// <summary>
-    ///Gets the style of the emoji.
+    /// Gets the style of the emoji.
     /// </summary>
     public virtual EmojiStyle Style { get; init; } = EmojiStyle.Color;
+
+    /// <summary>
+    /// Gets a list of keywords associated with the emoji (separated by comas).
+    /// </summary>
+    public virtual string KeyWords { get; init; } = string.Empty;
 }

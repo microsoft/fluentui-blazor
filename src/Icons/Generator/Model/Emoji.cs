@@ -44,9 +44,14 @@ internal class Emoji
     public string Name { get; } = string.Empty;
 
     /// <summary>
-    /// Gets the name of the emoji.
+    /// Gets the group of the emoji: SmileysEmotion
     /// </summary>
     public string Group { get; } = string.Empty;
+
+    /// <summary>
+    /// Gets the group Key of the emoji: Smileys_Emotion
+    /// </summary>
+    public string GroupKey => Tools.ToPascalCase(Meta.Group, separator: "_");
 
     /// <summary>
     /// Gets the name of the emoji.
