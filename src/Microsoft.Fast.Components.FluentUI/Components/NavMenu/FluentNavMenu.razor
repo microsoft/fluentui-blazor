@@ -12,7 +12,12 @@
                               Class="navmenu-main-button"
                               @onclick="CollapsibleClickAsync"
                               title="@Title">
-                        <FluentIcon Name="@(FluentIcons.Navigation)" Size="IconSize.Size20" />
+                        @if (NavigationIconContent is not null) {
+                            @NavigationIconContent
+                        }
+                        else {
+                            <FluentIcon Name="@(FluentIcons.Navigation)" Size="IconSize.Size20" />
+                        }
                     </FluentButton>
                 }
                 @ChildContent

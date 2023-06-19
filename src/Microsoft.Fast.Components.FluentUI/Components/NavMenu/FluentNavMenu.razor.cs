@@ -35,6 +35,14 @@ public partial class FluentNavMenu : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// Gets or sets the content to be rendered for the navigation icon
+    /// when the menu is collapsible.  The default icon will be used if
+    /// this is not specified.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? NavigationIconContent { get; set; }
+
+    /// <summary>
     /// Gets or sets the title of the navigation menu
     /// Default to "Navigation menu"
     /// </summary>
@@ -78,7 +86,7 @@ public partial class FluentNavMenu : FluentComponentBase
 
     internal bool HasSubMenu => _groups.Any();
 
-    internal bool HasIcons => _links.Any(i => !string.IsNullOrWhiteSpace(i.Icon));
+    internal bool HasIcons => _links.Any(i => i.HasIcon);
 
     internal async Task CollapsibleClickAsync()
     {

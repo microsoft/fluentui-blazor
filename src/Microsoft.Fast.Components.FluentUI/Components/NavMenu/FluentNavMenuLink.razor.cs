@@ -16,6 +16,12 @@ public partial class FluentNavMenuLink : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// Gets or sets the content to be rendered for the icon.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? IconContent { get; set; }
+
+    /// <summary>
     /// Gets or sets the destination of the link.
     /// </summary>
     [Parameter]
@@ -83,7 +89,7 @@ public partial class FluentNavMenuLink : FluentComponentBase
         .AddStyle(Style)
         .Build();
 
-    private bool HasIcon => !string.IsNullOrWhiteSpace(Icon);
+    internal bool HasIcon => !string.IsNullOrWhiteSpace(Icon) || IconContent is not null;
 
     [CascadingParameter(Name = "NavMenuExpanded")]
     private bool NavMenuExpanded { get; set; }
