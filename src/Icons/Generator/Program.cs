@@ -82,9 +82,6 @@ internal class Program
                     emojis.ToList().Remove(duplicateBoy);
                 }
 
-                // TODO: Only for dev
-                emojis = emojis.Where(i => i.SkinTone == "Default" && i.Style == "Color" );
-
                 factoryEmojis.GenerateClasses(emojis);
                 factoryEmojis.GenerateMainEmojisClass(emojis);
 

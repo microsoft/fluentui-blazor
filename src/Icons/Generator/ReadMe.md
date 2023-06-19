@@ -53,25 +53,29 @@ Run the application with the `--help` parameter to see all available parameters.
 > FluentUIIconsGenerator.exe --help
 
 
-
   FluentIconsGenerator --folder:<Icons_Folder_Directory>
-  
+
   --Assets    | -a   The root directory containing all SVG icons,
                      downloaded from https://github.com/microsoft/fluentui-system-icons.
                      If not specified, the current working directory will be used.
-  
+
+  --Library   | -l   The type of library to generate: icon or emoji.
+                     If not specified, "icon" will be used.
+
   --Namespace | -ns  The namespace used for generated classes.
-                     If not specified, "Microsoft.Fast.Components.FluentUI\ will be used.
-  
+                     If not specified, "Microsoft.Fast.Components.FluentUI" will be used.
+
   --Names     | -n   The list of icon names to generate, separated by coma.
-                     Example: accessibility_32_filled,add_circle_20_filled"
+                     Example of icons: accessibility_32_filled,add_circle_20_filled
+                     Example of emojis: accordion_flat,ambulance_high_contrast
                      By default: all icons
 
   --Sizes     | -s   The list of icon sizes to generate, separated by coma.
                      Example: 12,24. By default: all sizes
-  
+                     (Not available for emoji library)
+
   --Target    | -t   The target directory where C# classes will be created.
                      If not specified, the current working directory will be used.
-  
+
   --Help      | -h   Display this documentation.
 ```
