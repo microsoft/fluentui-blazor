@@ -5,13 +5,11 @@ namespace FluentUI.Demo.Shared.Pages.Dialog.Examples;
 
 public partial class SimplePanel : FluentPanel
 {
-    [CascadingParameter]
-    private FluentDialog Dialog { get; set; } = default!;
 
     [Parameter]
     public string Name { get; set; } = "";
 
-    public async Task OnCloseAsync(DialogResult result)
+    public override async Task CloseAsync(DialogResult result)
     {
         //await Task.CompletedTask;   // To avoid a warning
         if (result.Cancelled)

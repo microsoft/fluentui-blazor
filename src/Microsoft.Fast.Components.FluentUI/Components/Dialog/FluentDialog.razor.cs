@@ -137,7 +137,7 @@ public partial class FluentDialog : FluentComponentBase, IDisposable
 
     public async Task CloseAsync() => await CloseAsync(DialogResult.Ok<object?>(null));
 
-    public virtual async Task CloseAsync<T>(T returnValue) => await CloseAsync(DialogResult.Ok(returnValue));
+    public async Task CloseAsync<T>(T returnValue) => await CloseAsync(DialogResult.Ok(returnValue));
 
     /// <summary>
     /// Closes the dialog

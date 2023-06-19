@@ -32,8 +32,19 @@ public partial class FluentPanel : FluentComponentBase, IPanelParameters, IDialo
     [Parameter]
     public EventCallback<DialogResult> OnDialogResult { get; set; }
 
+    [CascadingParameter]
+    public FluentDialog Dialog { get; set; } = default!;
+
     public FluentPanel()
     {
         Id = Identifier.NewId();
     }
+
+    public virtual async Task CancelAsync() => await Dialog.CloseAsync(DialogResult.Cancel());
+
+    public virtual async Task CancelAsync<T>(DialogResult returnValue) => await Dialog.CloseAsync(DialogResult.Cancel(returnValue));
+
+    public virtual async Task CloseAsync() => await Dialog.CloseAsync(DialogResult.Ok<object?>(null));
+
+    public virtual async Task CloseAsync(DialogResult result) => await Dialog.CloseAsync(DialogResult.Ok(result));
 }
