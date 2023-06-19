@@ -39,7 +39,7 @@ public partial class FluentMenuItem : FluentComponentBase, IDisposable
     /// </summary>
     [Parameter]
     public bool Checked { get; set; }
-  
+
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>
@@ -81,10 +81,7 @@ public partial class FluentMenuItem : FluentComponentBase, IDisposable
             await Owner.CloseAsync();
         }
 
-        if (OnClick.HasDelegate)
-        {
-            await OnClick.InvokeAsync();
-        }
+        await OnClick.InvokeAsync();
     }
 
     protected string? GetRole()
@@ -93,7 +90,7 @@ public partial class FluentMenuItem : FluentComponentBase, IDisposable
             return Role.ToAttributeValue();
         else
             if (Checked)
-                return "menuitemcheckbox";
+            return "menuitemcheckbox";
 
         return null;
     }
