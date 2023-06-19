@@ -5,6 +5,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// <summary />
 public static partial class Icons
 {
+    private const string Namespace = "Microsoft.Fast.Components.FluentUI";
     private const string LibraryName = "Microsoft.Fast.Components.FluentUI.Icons.dll";
 
     /// <summary>
@@ -28,7 +29,7 @@ public static partial class Icons
                                    .Where(i => i.BaseType == typeof(Icon));
 
             // Ex. Microsoft.Fast.Components.FluentUI.Icons+Filled+Size10+PresenceAvailable
-            var iconFullName = $"{assembly.GetName().Name}+{icon.Variant}+Size{(int)icon.Size}+{icon.Name}";
+            var iconFullName = $"{Namespace}.Icons+{icon.Variant}+Size{(int)icon.Size}+{icon.Name}";
             var iconType = allIcons.FirstOrDefault(i => i.FullName == iconFullName);
 
             if (iconType != null)

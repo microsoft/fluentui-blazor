@@ -4,13 +4,12 @@
 <FluentSystemIcon Icon="@(Icons.Regular.Size24.Save)" />
 <FluentSystemIcon Icon="@(Icons.Regular.Size24.Album)" />
 
-<h2>Markup</h2>
 @(new Icons.Regular.Size20.Add().ToMarkup())
 @(new Icons.Regular.Size20.Airplane().ToMarkup("60px", "red"))
 
-<h2>AllIcons</h2>
+<b>All Icons</b>
 <div>
-    <FluentTextField Placeholder="search icons" @bind-Value="@SearchIcon" @onkeydown="@StartSearch" /><br/>
+    <FluentTextField Placeholder="search icons" @bind-Value="@IconSearch" @onkeydown="@IconSearch_Start" /><br />
 </div>
 
 @foreach (var item in IconsFound)
@@ -19,25 +18,51 @@
 }
 
 <h1>2. Emojis</h1>
+<FluentSystemEmoji Emoji="@(Emojis.PeopleBody.Color.Default.Artist)" />
+<FluentSystemEmoji Emoji="@(Emojis.SmileysEmotion.Color.Default.RollingOnTheFloorLaughing)" Width="50px" />
 
-<h2>Markup</h2>
 @(new Emojis.Objects.Color.Default.Accordion().ToMarkup("80px"))
 @(new Emojis.TravelPlaces.Color.Default.Ambulance().ToMarkup())
 
+<b>All Emojis</b>
+<div>
+    <FluentTextField Placeholder="search emoji's" @bind-Value="@EmojiSearch" @onkeydown="@EmojiSearch_Start" /><br />
+</div>
+
+@foreach (var item in emojisFound)
+{
+    <FluentSystemEmoji Value="Emojis.GetInstance(item)" Title="@($"{item.Name}")" Width="64px" />
+}
+
 @code
 {
-    private string SearchIcon = string.Empty;
+    private string IconSearch = string.Empty;
+    private string EmojiSearch = string.Empty;
     private IEnumerable<IconInfo> IconsFound = Array.Empty<IconInfo>();
+    private IEnumerable<EmojiInfo> emojisFound = Array.Empty<EmojiInfo>();
 
-    private async Task StartSearch(KeyboardEventArgs e)
+    private void IconSearch_Start(KeyboardEventArgs e)
     {
         if (e.Code == "Enter" || e.Code == "NumpadEnter")
         {
             IconsFound = Icons.AllIcons
-                              .Where(i => i.Name.Contains(SearchIcon)
+                              .Where(i => i.Name.Contains(IconSearch)
                                        && i.Variant == IconVariant.Regular
                                        && i.Size == IconSize.Size24)
                               .Take(100);
+        }
+
+    }
+
+    private void EmojiSearch_Start(KeyboardEventArgs e)
+    {
+        if (e.Code == "Enter" || e.Code == "NumpadEnter")
+        {
+            emojisFound = Emojis.AllEmojis
+                                .Where(i => (i.Name.Contains(EmojiSearch) && i.KeyWords.Contains(EmojiSearch))
+                                         && i.Style == EmojiStyle.Color
+                                         && i.Skintone == EmojiSkintone.Default)
+                                .Take(100);
         }
 
     }

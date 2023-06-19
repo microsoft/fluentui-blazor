@@ -7,7 +7,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// </summary>
 public abstract class Emoji : EmojiInfo
 {
-    private byte[] _data;
+    private string? _content = null;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Icon"/> class.
@@ -25,14 +25,15 @@ public abstract class Emoji : EmojiInfo
         Skintone = skintone;
         Group = group;
         Style = style;
-
-        _data = data; // Zipped SVG content 
+        Data = data; // Zipped SVG content 
     }
+
+    private byte[] Data { get; }
 
     /// <summary>
     /// Gets the content of the icon: SVG path.
     /// </summary>
-    public virtual string Content => EmojiCompress.Unzip(_data);
+    public virtual string Content => _content ?? (_content = EmojiCompress.Unzip(Data));
 
     /// <summary>
     /// Gets the HTML markup of the emoji.

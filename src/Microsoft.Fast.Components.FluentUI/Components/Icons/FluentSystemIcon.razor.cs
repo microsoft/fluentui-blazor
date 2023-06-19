@@ -18,7 +18,7 @@ public partial class FluentSystemIcon<Icon> : FluentComponentBase
 
     /// <summary />
     protected string? StyleValue => new StyleBuilder()
-        .AddStyle("width", $"{Width ?? _icon.Width}px")
+        .AddStyle("width", Width ?? $"{_icon.Width}px")
         .AddStyle("fill", Color == FluentUI.Color.Custom ? CustomColor : Color.ToAttributeValue())
         .AddStyle("cursor", "pointer", OnClick.HasDelegate)
         .AddStyle(Style)
@@ -56,7 +56,7 @@ public partial class FluentSystemIcon<Icon> : FluentComponentBase
     /// If not set, the icon size will be used.
     /// </summary>
     [Parameter]
-    public int? Width { get; set; }
+    public string? Width { get; set; }
 
     [Parameter]
     public Icon Value
