@@ -21,7 +21,7 @@ steps:
   displayName: "Install .NET8 SDK"
   inputs:
     packageType: 'sdk'
-    version: '8.0.0-preview.5'
+    version: '8.0.100-preview.5.23303.2'
     includePreviewVersions: true
 
 - task: NuGetCommand@2
