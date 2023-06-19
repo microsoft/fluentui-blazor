@@ -12,7 +12,14 @@
         <FluentIcon Name="@IconNavMenuCollapsed" Size="@IconSize.Size20" Slot="start" OnClick="ExpandMenu" />
     }
     @if (HasIcon) {
-        <FluentIcon Name="@Icon" Size="@IconSize.Size20" Slot="start" OnClick="HandleIconClick" />
+        if (IconContent is not null) {
+            <div slot="start" @onclick="HandleIconClick">
+                @IconContent
+            </div>
+        }
+        else {
+            <FluentIcon Name="@Icon" Size="@IconSize.Size20" Slot="start" OnClick="HandleIconClick" />
+        }
     }
     @if (NavMenuExpanded) {
         @ChildContent
