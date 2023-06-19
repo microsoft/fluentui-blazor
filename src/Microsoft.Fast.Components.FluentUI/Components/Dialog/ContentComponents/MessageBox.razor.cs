@@ -49,26 +49,9 @@ public partial class MessageBox : IDialogContentComponent, IMessageBoxParameters
     [Parameter]
     public EventCallback<DialogResult> OnDialogResult { get; set; }
 
-
-
     protected override void OnInitialized()
     {
         _dialogId = Dialog.Id;
         Settings = Dialog.Settings;
-    }
-
-    protected virtual Task ConfirmAsync()
-    {
-        return OnCloseAsync(DialogResult.Ok(true));
-    }
-
-    protected virtual Task CancelAsync()
-    {
-        return OnCloseAsync(DialogResult.Cancel());
-    }
-
-    public virtual Task OnCloseAsync(DialogResult result)
-    {
-        return Dialog.CloseAsync(result);
     }
 }

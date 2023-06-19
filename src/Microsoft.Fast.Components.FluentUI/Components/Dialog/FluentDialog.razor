@@ -4,7 +4,7 @@
 <CascadingValue Value="this" IsFixed="true">
     <fluent-dialog @ref=Element
                    id="@Id"
-                   class="@Class"
+                   class="@ClassValue"
                    style="@StyleValue"
                    modal="@((Settings.Modal ?? Modal).ToString()?.ToLower())"
                    hidden="@Hidden"
@@ -13,7 +13,7 @@
                    aria-labelledby=@(Settings.AriaLabelledby ?? AriaLabelledby)
                    aria-label=@(Settings.AriaLabel ?? AriaLabel)
                    @attributes="AdditionalAttributes">
-        <FluentStack Orientation="Orientation.Vertical" Class="fluent-dialog-content">
+        <FluentStack Orientation="Orientation.Vertical" Class="fluent-dialog-content" Style="height:100%;">
             @if (Settings.ShowTitle && (Instance?.Title != null || Settings.ShowDismiss))
             {
                 <div class="fluent-dialog-header">
@@ -21,10 +21,7 @@
                         <FluentLabel Typo="Typography.PaneHeader" Style="width: 100%; margin: 0px;">@Instance?.Title</FluentLabel>
                         @if (Settings.ShowDismiss)
                         {
-                            <FluentButton Appearance="Appearance.Stealth"
-                                          @onclick="@(() => CancelAsync())"
-                                          Style="color: rgb(96, 94, 92);">
-                                Cancel
+                            <FluentButton Appearance="Appearance.Stealth" @onclick="@(() => CancelAsync())">
                                 <FluentIcon Name="@FluentIcons.Dismiss" Size="IconSize.Size16" Slot="start" />
                             </FluentButton>
                         }

@@ -1,5 +1,63 @@
-﻿<h3>DialogPanel</h3>
+﻿@inject IDialogService DialogService
+
+<FluentButton @onclick="@OpenPanelRight" Appearance="Appearance.Accent">
+    Open (right) panel
+</FluentButton>
+
+<FluentButton @onclick="@OpenPanelLeft" Appearance="Appearance.Accent">
+    Open (left) panel
+</FluentButton>
 
 @code {
+    private void OpenPanelRight()
+    {
+        DemoLogger.WriteLine($"Open right panel");
+
+        //ComponentParameters parameters = new ComponentParameters();
+
+        PanelParameters parameters = new()
+        {
+            Title = "Title",
+            OnDialogResult = DialogService.CreateDialogCallback(this, HandlePanel),
+            PrimaryButton = "Yes",
+            SecondaryButton = "No", 
+        };
+
+        parameters.Add(nameof(SimplePanel.Name), "Steven");
+
+        DialogService.ShowPanel<SimplePanel>(parameters);
+
+    }
+
+    private void OpenPanelLeft()
+    {
+        DemoLogger.WriteLine($"Open left panel");
+
+        //ComponentParameters parameters = new ComponentParameters();
+
+        PanelParameters parameters = new()
+            {
+                Title = "Title",
+                OnDialogResult = DialogService.CreateDialogCallback(this, HandlePanel),
+                Alignment = HorizontalAlignment.Left,
+                Modal = false,
+                ShowDismiss = false,
+                PrimaryButton = "Maybe",
+                SecondaryButton = "Cancel",
+                Width = "300px",
+
+            };
+
+        parameters.Add(nameof(SimplePanel.Name), "Daniel");
+
+        DialogService.ShowPanel<SimplePanel>(parameters);
+
+    }
+
+    private async Task HandlePanel(DialogResult result)
+    {
+
+        await Task.Run(() => DemoLogger.WriteLine($"Panel closed"));
+    }
 
 }

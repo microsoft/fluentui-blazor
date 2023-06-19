@@ -1,15 +1,28 @@
-﻿.fluent-dialog-main {
-    background-color: var(--neutral-layer-floating);
-    box-shadow: var(--elevation-shadow-flyout);
+﻿fluent-dialog[class~="right"]::part(control) {
+    position: absolute;
+    right: 0;
+    border-radius: unset;
+    border-width: 0;
+    max-height: 100%;
+    --dialog-height: 100%;
+}
+
+fluent-dialog[class~="left"]::part(control) {
+    position: absolute;
+    left: 0;
+    border-radius: unset;
+    border-width: 0;
+    max-height: 100%;
+    --dialog-height: 100%;
+}
+
+.fluent-dialog-main {
     pointer-events: auto;
-    position: fixed;
-    display: flex;
-    overflow: hidden auto;
-    width: 100%;
     z-index: 9999;
 }
 
-::deep .fluent-dialog-content {
+
+.fluent-dialog-content {
     font-family: var(--body-font);
     -webkit-font-smoothing: antialiased;
     color: rgb(50, 49, 48);
@@ -31,7 +44,6 @@
         height: calc(100% - 150px);
         margin: 0px 20px 0px 20px;
         width: calc(100% - 40px);
-        font-size: 14px;
         overflow: auto;
     }
 
@@ -58,6 +70,6 @@
 
 @media (min-width: 800px) {
     .fluent-dialog-main {
-        width: 340px;
+        --dialog-width: 340px;
     }
 }

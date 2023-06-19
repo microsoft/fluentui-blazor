@@ -6,7 +6,5 @@ namespace Microsoft.Fast.Components.FluentUI
     {
         EventCallback<DialogResult> OnDialogResult { get; set; }
         string? Title { get; set; }
-
-        //bool? Hidden { get; set; }
     }
 }

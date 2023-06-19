@@ -47,8 +47,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Content Remove="Pages\Dialog\Examples\DialogServiceExample.razor" />
-		<Content Remove="Pages\Dialog\Examples\SimpleDialog.razor" />
 		<Content Remove="Pages\RawBindings.razor" />
 		<Content Remove="libman.json" />
 		<AdditionalFiles Include="$(ProjectDir)/*.xml" />

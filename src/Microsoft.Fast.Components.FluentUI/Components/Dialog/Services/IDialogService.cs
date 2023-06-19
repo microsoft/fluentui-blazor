@@ -12,10 +12,6 @@ public interface IDialogService
     //public event Action<DialogInstance> OnDialogInstanceAdded;
     //public event Action<string> OnDialogCloseRequested;
 
-    void ShowDialog<T>(string title, DialogParameters parameters, Action<DialogSettings>? settings)
-        where T : IDialogContentComponent;
-
-    void ShowDialog(Type component, string title, DialogParameters parameters, Action<DialogSettings>? settings);
 
     void ShowSplashScreen<T>(object receiver, Func<DialogResult, Task> callback, SplashScreenParameters parameters)
         where T : IDialogContentComponent;
@@ -23,18 +19,23 @@ public interface IDialogService
     void ShowSplashScreen(Type component, object receiver, Func<DialogResult, Task> callback, SplashScreenParameters parameters);
 
 
-    void ShowErrorAsync(string message, string? title = null);
+    void ShowError(string message, string? title = null);
 
-    void ShowInfoAsync(string message, string? title = null);
+    void ShowInfo(string message, string? title = null);
 
-    void ShowConfirmationAsync(object receiver, Func<DialogResult, Task> callback, string message, string primaryText = "Yes", string secondaryText = "No", string? title = null);
+    void ShowConfirmation(object receiver, Func<DialogResult, Task> callback, string message, string primaryText = "Yes", string secondaryText = "No", string? title = null);
 
     void ShowMessageBox(MessageBoxParameters parameters);
 
+    void ShowPanel<T>(PanelParameters parameters)
+        where T : IDialogContentComponent;
 
-    //Task CloseAsync(string Id);
+    void ShowPanel(Type component, PanelParameters parameters);
 
-    //Task CloseAsync(string Id, DialogResult result);
+    void ShowDialog<T>(string title, DialogParameters parameters, Action<DialogSettings>? settings)
+        where T : IDialogContentComponent;
+
+    void ShowDialog(Type component, string title, DialogParameters parameters, Action<DialogSettings>? settings);
 
     public EventCallback<DialogResult> CreateDialogCallback(object receiver, Func<DialogResult, Task> callback);
 }

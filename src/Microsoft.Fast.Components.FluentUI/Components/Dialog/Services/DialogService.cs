@@ -12,36 +12,6 @@ public class DialogService : IDialogService
     //public event Action<DialogInstance>? OnDialogInstanceAdded;
     //public event Action<string>? OnDialogCloseRequested;
 
-
-    public void ShowDialog<T>(string title, DialogParameters parameters, Action<DialogSettings>? settings = null)
-        where T : IDialogContentComponent
-    {
-        ShowDialog(typeof(T), title, parameters, settings);
-    }
-
-    /// <summary>
-    /// Shows the dialog with the component type />,
-    /// passing the specified <paramref name="parameters"/> 
-    /// </summary>
-    /// <param name="dialogComponent">Type of component to display.</param>
-    /// <param name="title">TTitle of the dialog</param>
-    /// <param name="parameters">Key/Value collection of parameters to pass to component being displayed.</param>
-    /// <param name="settings">Settings to configure the dialog component.</param>
-    public virtual void ShowDialog(Type dialogComponent, string title, DialogParameters parameters, Action<DialogSettings>? settings = null)
-    {
-        if (!typeof(IDialogContentComponent).IsAssignableFrom(dialogComponent))
-        {
-            throw new ArgumentException($"{dialogComponent.FullName} must be a Dialog Component");
-        }
-
-        if (!string.IsNullOrEmpty(title))
-        {
-            parameters.Add("Title", title);
-        }
-
-        OnShow?.Invoke(dialogComponent, parameters, settings);
-    }
-
     public void ShowSplashScreen<T>(object receiver, Func<DialogResult, Task> callback, SplashScreenParameters parameters)
          where T : IDialogContentComponent
     {
@@ -68,7 +38,7 @@ public class DialogService : IDialogService
     }
 
     // ToDo: Add Success, Warning?
-    public void ShowErrorAsync(string message, string? title = null)
+    public void ShowError(string message, string? title = null)
     {
         ShowMessageBox(new MessageBoxParameters()
         {
@@ -82,7 +52,7 @@ public class DialogService : IDialogService
         }); ;
     }
 
-    public void ShowInfoAsync(string message, string? title = null)
+    public void ShowInfo(string message, string? title = null)
     {
         ShowMessageBox(new MessageBoxParameters()
         {
@@ -96,7 +66,7 @@ public class DialogService : IDialogService
         });
     }
 
-    public void ShowConfirmationAsync(object receiver, Func<DialogResult, Task> callback, string message, string primaryText = "Yes", string secondaryText = "No", string? title = null)
+    public void ShowConfirmation(object receiver, Func<DialogResult, Task> callback, string message, string primaryText = "Yes", string secondaryText = "No", string? title = null)
     {
         ShowMessageBox(new MessageBoxParameters()
         {
@@ -131,6 +101,62 @@ public class DialogService : IDialogService
         }
 
         ShowDialog<MessageBox>(parameters.Title, parameters, dialogSettings);
+    }
+
+    public void ShowPanel<T>(PanelParameters parameters)
+        where T : IDialogContentComponent
+    {
+        ShowPanel(typeof(T), parameters);
+    }
+
+    public void ShowPanel(Type dialogComponent, PanelParameters parameters)
+    {
+        Action<DialogSettings> settings = new(x =>
+        {
+            x.Alignment = parameters.Alignment;
+            x.Modal = parameters.Modal;
+            x.ShowDismiss = parameters.ShowDismiss;
+            x.PrimaryButton = parameters.PrimaryButton;
+            x.SecondaryButton = parameters.SecondaryButton;
+            x.Width = parameters.Width;
+        });
+
+
+        if (string.IsNullOrWhiteSpace(parameters.Title))
+        {
+            parameters.Title = "...";
+        }
+
+        ShowDialog(dialogComponent, parameters.Title, parameters, settings);
+    }
+
+    public void ShowDialog<T>(string title, DialogParameters parameters, Action<DialogSettings>? settings = null)
+        where T : IDialogContentComponent
+    {
+        ShowDialog(typeof(T), title, parameters, settings);
+    }
+
+    /// <summary>
+    /// Shows the dialog with the component type />,
+    /// passing the specified <paramref name="parameters"/> 
+    /// </summary>
+    /// <param name="dialogComponent">Type of component to display.</param>
+    /// <param name="title">TTitle of the dialog</param>
+    /// <param name="parameters">Key/Value collection of parameters to pass to component being displayed.</param>
+    /// <param name="settings">Settings to configure the dialog component.</param>
+    public virtual void ShowDialog(Type dialogComponent, string title, DialogParameters parameters, Action<DialogSettings>? settings = null)
+    {
+        if (!typeof(IDialogContentComponent).IsAssignableFrom(dialogComponent))
+        {
+            throw new ArgumentException($"{dialogComponent.FullName} must be a Dialog Component");
+        }
+
+        if (!string.IsNullOrEmpty(title))
+        {
+            parameters.Add("Title", title);
+        }
+
+        OnShow?.Invoke(dialogComponent, parameters, settings);
     }
 
     public EventCallback<DialogResult> CreateDialogCallback(object receiver, Func<DialogResult, Task> callback)

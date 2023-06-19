@@ -1,5 +1,4 @@
 ﻿@using Microsoft.Fast.Components.FluentUI
-@namespace FluentUI.Demo.Shared
 @implements IDialogContentComponent
 @implements ISplashScreenParameters
 

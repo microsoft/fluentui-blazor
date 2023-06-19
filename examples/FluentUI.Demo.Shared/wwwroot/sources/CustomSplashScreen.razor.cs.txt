@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.Fast.Components.FluentUI;
 
-namespace FluentUI.Demo.Shared;
+namespace FluentUI.Demo.Shared.Pages.Dialog.Examples;
 
 public partial class CustomSplashScreen : ISplashScreenParameters, IDialogContentComponent
 {
