@@ -11,8 +11,9 @@
 
 <div>
     <b>All Icons</b>
-    <FluentTextField Placeholder="search icons" @bind-Value="@IconSearch" @onkeydown="@IconsSearch_Start" />
-    <br />
+    <div>
+        <FluentTextField Placeholder="search icons" @bind-Value="@IconSearch" @onkeydown="@IconsSearch_Start" />
+    </div>
 
     @if (IconSearchInProgress)
     {
@@ -21,7 +22,7 @@
 
     @foreach (var item in IconsFound)
     {
-        <FluentSystemIcon Value="Icons.GetInstance(item)" Title="@($"{item.Name}")" />
+        <FluentSystemIcon Value="Icons.GetInstance(item)" Title="@($"{item.Name}")" Width="32px" />
     }
 </div>
 
@@ -36,7 +37,9 @@
 
 <div>
     <b>All Emojis</b>
-    <FluentTextField Placeholder="search emoji's" @bind-Value="@EmojiSearch" @onkeydown="@EmojiSearch_Start" /><br />
+    <div>
+        <FluentTextField Placeholder="search emoji's" @bind-Value="@EmojiSearch" @onkeydown="@EmojiSearch_Start" />
+    </div>
 
     @if (EmojiSearchInProgress)
     {
@@ -70,7 +73,7 @@
             await Task.Delay(1);
 
             IconsFound = Icons.AllIcons
-                             .Where(i => i.Name.Contains(IconSearch)
+                             .Where(i => i.Name.Contains(IconSearch, StringComparison.InvariantCultureIgnoreCase)
                                      && i.Variant == IconVariant.Regular
                                      && i.Size == IconSize.Size24)
                              .Take(100)
@@ -89,7 +92,7 @@
             await Task.Delay(1);
 
             emojisFound = Emojis.AllEmojis
-                                .Where(i => (i.Name.Contains(EmojiSearch) && i.KeyWords.Contains(EmojiSearch))
+                                .Where(i => (i.Name.Contains(EmojiSearch, StringComparison.InvariantCultureIgnoreCase) && i.KeyWords.Contains(EmojiSearch, StringComparison.InvariantCultureIgnoreCase))
                                          && i.Style == EmojiStyle.Color
                                          && i.Skintone == EmojiSkintone.Default)
                                 .Take(100)
