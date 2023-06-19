@@ -35,6 +35,14 @@ public partial class FluentNavMenu : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// Gets or sets the content to be rendered for the navigation icon
+    /// when the menu is collapsible.  The default icon will be used if
+    /// this is not specified.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? NavigationIconContent { get; set; }
+
+    /// <summary>
     /// Gets or sets the title of the navigation menu
     /// Default to "Navigation menu"
     /// </summary>
