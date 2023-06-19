@@ -6,7 +6,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 public static partial class Emojis
 {
     private const string Namespace = "Microsoft.Fast.Components.FluentUI";
-    private const string LibraryName = "Microsoft.Fast.Components.FluentUI.Icons.dll";
+    private const string LibraryName = "Microsoft.Fast.Components.FluentUI.Emojis.dll";
 
     /// <summary>
     /// Returns a new instance of the emoji.

@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Fast.Components.F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Fast.Components.FluentUI.IconsGenerator", "Generator\Microsoft.Fast.Components.FluentUI.IconsGenerator.csproj", "{09CF3927-40A3-4138-9B07-8CD2BB18B005}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Fast.Components.FluentUI.IconsSample", "Sample\Microsoft.Fast.Components.FluentUI.IconsSample.csproj", "{DCA944C6-0EFF-44A5-8D9A-CCAFA83D5CCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Fast.Components.FluentUI.IconsSample", "Sample\Microsoft.Fast.Components.FluentUI.IconsSample.csproj", "{DCA944C6-0EFF-44A5-8D9A-CCAFA83D5CCE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Fast.Components.FluentUI.Emojis", "FluentUI.Emojis\Microsoft.Fast.Components.FluentUI.Emojis.csproj", "{9F88D6E5-6D3B-4EBA-8009-2D496A3F918C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{DCA944C6-0EFF-44A5-8D9A-CCAFA83D5CCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCA944C6-0EFF-44A5-8D9A-CCAFA83D5CCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCA944C6-0EFF-44A5-8D9A-CCAFA83D5CCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F88D6E5-6D3B-4EBA-8009-2D496A3F918C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F88D6E5-6D3B-4EBA-8009-2D496A3F918C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F88D6E5-6D3B-4EBA-8009-2D496A3F918C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F88D6E5-6D3B-4EBA-8009-2D496A3F918C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

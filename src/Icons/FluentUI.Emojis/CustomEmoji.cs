@@ -9,7 +9,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 public class CustomEmoji : Emoji
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="CustomIcon"/> class.
+    /// Initializes a new instance of the <see cref="CustomEmoji"/> class.
     /// </summary>
     public CustomEmoji()
         : base(string.Empty, EmojiSize.Size32, EmojiGroup.Objects, EmojiSkintone.Default, EmojiStyle.Color, Array.Empty<byte>())
