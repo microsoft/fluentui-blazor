@@ -10,28 +10,44 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  solution: '**/FluentUI.Icons.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  projects: |
+   **/Microsoft.Fast.Components.FluentUI.csproj
+   **/Microsoft.Fast.Components.FluentUI.Icons.csproj
+   **/Microsoft.Fast.Components.FluentUI.Emojis.csproj
 
 steps:
 - task: NuGetToolInstaller@1
+  displayName: Install NuGet tools
 
 - task: UseDotNet@2
-  displayName: "Install .NET8 SDK"
+  displayName: 'Install .NET 6.0'
   inputs:
-    packageType: 'sdk'
-    version: '8.0.100-preview.5.23303.2'
+    version: 6.0.408
     includePreviewVersions: true
 
-- task: NuGetCommand@2
-  displayName: "Restore NuGets"
+- task: UseDotNet@2
+  displayName: 'Install .NET 7.0'
   inputs:
-    restoreSolution: '$(solution)'
+    version: 7.0.203
+    includePreviewVersions: true
+
+- task: UseDotNet@2
+  displayName: 'Install .NET 8.0'
+  inputs:
+    version: 8.0.x
+    includePreviewVersions: true
+
+- task: DotNetCoreCLI@2
+  displayName: Install dependencies
+  inputs:
+    command: 'restore'
+    projects: $(projects)
 
 - task: DotNetCoreCLI@2
   displayName: "Build Icons and Emojis"
   inputs:
     command: 'build'
-    projects: '$(solution)'
-    arguments: '-c Release'
+    projects: '$(projects)'
+    arguments: '-c $(buildConfiguration-'
