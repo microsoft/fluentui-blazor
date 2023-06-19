@@ -89,7 +89,7 @@ public partial class FluentNavMenuLink : FluentComponentBase
         .AddStyle(Style)
         .Build();
 
-    private bool HasIcon => !string.IsNullOrWhiteSpace(Icon) || IconContent is not null;
+    internal bool HasIcon => !string.IsNullOrWhiteSpace(Icon) || IconContent is not null;
 
     [CascadingParameter(Name = "NavMenuExpanded")]
     private bool NavMenuExpanded { get; set; }

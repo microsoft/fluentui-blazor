@@ -86,7 +86,7 @@ public partial class FluentNavMenu : FluentComponentBase
 
     internal bool HasSubMenu => _groups.Any();
 
-    internal bool HasIcons => _links.Any(i => !string.IsNullOrWhiteSpace(i.Icon));
+    internal bool HasIcons => _links.Any(i => i.HasIcon);
 
     internal async Task CollapsibleClickAsync()
     {
