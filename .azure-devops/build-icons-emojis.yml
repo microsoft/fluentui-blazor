@@ -17,12 +17,20 @@ variables:
 steps:
 - task: NuGetToolInstaller@1
 
+- task: UseDotNet@2
+  displayName: "Install .NET8 SDK"
+  inputs:
+    packageType: 'sdk'
+    version: '8.0.0-preview.5'
+    includePreviewVersions: true
+
 - task: NuGetCommand@2
   displayName: "Restore NuGets"
   inputs:
     restoreSolution: '$(solution)'
 
 - task: DotNetCoreCLI@2
+  displayName: "Build Icons and Emojis"
   inputs:
     command: 'build'
     projects: '$(solution)'
