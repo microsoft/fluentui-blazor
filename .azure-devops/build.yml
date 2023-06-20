@@ -1,4 +1,4 @@
-name: Publish Microsoft FluentUI-Blazor
+name: Build Microsoft.Fast.Components.FluentUI package
 
 pr: none
 trigger: none
@@ -58,39 +58,33 @@ steps:
     nugetConfigPath: 
 
 - task: EsrpCodeSigning@3
-  displayName: Code Signing Assemblies (Authenticode Signing)
   inputs:
-    ConnectedServiceName: 'FAST-NuGet-Publishing-SC'
+    ConnectedServiceName: 'ESRP Code Signing SC'
     FolderPath: '$(Build.ArtifactStagingDirectory)'
-    Pattern: | 
-      **/*.nupkg
+    Pattern: '**/*.nupkg'
     UseMinimatch: true
     signConfigType: 'inlineSignParams'
     inlineOperation: |
       [
-        {
-            "KeyCode" : "CP-401405",
-            "OperationCode" : "NuGetSign",
-            "Parameters" : {},
-            "ToolName" : "sign",
-            "ToolVersion" : "1.0"
-        },
-        {
-            "KeyCode" : "CP-401405",
-            "OperationCode" : "NuGetVerify",
-            "Parameters" : {},
-            "ToolName" : "sign",
-            "ToolVersion" : "1.0"
-        }
-      ]
+              {
+                  "KeyCode" : "CP-401405",
+                  "OperationCode" : "NuGetSign",
+                  "Parameters" : {},
+                  "ToolName" : "sign",
+                  "ToolVersion" : "1.0"
+              },
+              {
+                  "KeyCode" : "CP-401405",
+                  "OperationCode" : "NuGetVerify",
+                  "Parameters" : {},
+                  "ToolName" : "sign",
+                  "ToolVersion" : "1.0"
+              }
+            ]
     SessionTimeout: '60'
     MaxConcurrency: '200'
     MaxRetryAttempts: '5'
 
-- task: NuGetCommand@2
-  displayName: Publish to NuGet
+- task: PublishBuildArtifacts@1
   inputs:
-    command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)\*.nupkg;'
-    nuGetFeedType: 'external'
-    publishFeedCredentials: 'NugetServiceConnect'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'

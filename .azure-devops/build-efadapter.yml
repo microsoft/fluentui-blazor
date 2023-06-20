@@ -1,4 +1,4 @@
-name: Publish Microsoft FluentUI-Blazor DataGid EF Adapter
+name: Build microsoft.fast.components.fluentui.datagrid.entityframeworkadapter
 
 pr: none
 trigger: none

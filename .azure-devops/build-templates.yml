@@ -1,4 +1,4 @@
-name: Publish Microsoft FluentUI-Blazor Templates
+name: Build microsoft.fast.templates.fluentui
 
 pr: none
 trigger: none
