@@ -87,10 +87,6 @@ steps:
     MaxConcurrency: '200'
     MaxRetryAttempts: '5'
 
-- task: NuGetCommand@2
-  displayName: Publish to NuGet
+- task: PublishBuildArtifacts@1
   inputs:
-    command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)\*.nupkg;'
-    nuGetFeedType: 'external'
-    publishFeedCredentials: 'NugetServiceConnect'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
