@@ -46,7 +46,7 @@ steps:
     packagesToPack: $(project)
     versioningScheme: 'off'
 
-- task: EsrpCodeSigning@2
+- task: EsrpCodeSigning@3
   displayName: Code Signing Assemblies (Authenticode Signing)
   inputs:
     ConnectedServiceName: 'FAST-NuGet-Publishing-SC'
