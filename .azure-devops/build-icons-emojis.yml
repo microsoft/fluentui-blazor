@@ -14,8 +14,7 @@ variables:
   buildConfiguration: 'Release'
   projects: |
    **/Microsoft.Fast.Components.FluentUI.csproj
-   **/Microsoft.Fast.Components.FluentUI.Icons.csproj
-   **/Microsoft.Fast.Components.FluentUI.Emojis.csproj
+   **/Microsoft.Fast.Components.FluentUI.Icons.csproj   
 
 steps:
 - task: NuGetToolInstaller@1

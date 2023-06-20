@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <TargetFrameworks>net7.0;net8.0</TargetFrameworks>
+    <TargetFrameworks>net7.0</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <PackageId>Microsoft.Fast.Components.FluentUI.Emojis</PackageId>
     <AssemblyName>Microsoft.Fast.Components.FluentUI.Emojis</AssemblyName>
@@ -14,22 +14,6 @@
     <Title>Microsoft.Fast.Components.FluentUI.Emojis</Title>
     <Version>$(VersionPrefix)-$(VersionSuffix)-j</Version>
   </PropertyGroup>
-
-  <ItemGroup>
-    <SupportedPlatform Include="browser" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)'=='net6.0'">
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.16" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)'=='net7.0'">
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.5" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)'=='net8.0'">
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.0-preview.5.*" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Microsoft.Fast.Components.FluentUI\Microsoft.Fast.Components.FluentUI.csproj" />
