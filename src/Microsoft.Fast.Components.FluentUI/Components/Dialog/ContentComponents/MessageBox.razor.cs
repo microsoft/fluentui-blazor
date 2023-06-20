@@ -3,7 +3,7 @@
 namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary />
-public partial class MessageBox : IDialogContentComponent, IMessageBoxParameters
+public partial class MessageBox : IMessageBoxParameters, IDialogContentComponent
 {
     private string? _dialogId;
 

@@ -18,10 +18,10 @@ public partial class FluentPanel : FluentComponentBase, IPanelParameters, IDialo
     public bool ShowDismiss { get; set; }
 
     [Parameter]
-    public string PrimaryButton { get; set; }
+    public string? PrimaryButton { get; set; }
 
     [Parameter]
-    public string SecondaryButton { get; set; }
+    public string? SecondaryButton { get; set; }
 
     [Parameter]
     public string? Width { get; set; }
