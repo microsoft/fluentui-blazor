@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFrameworks>net7.0</TargetFrameworks>
@@ -12,7 +12,7 @@
     <IsTrimmable>true</IsTrimmable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>Microsoft.Fast.Components.FluentUI.Emojis</Title>
-    <Version>$(VersionPrefix)-$(VersionSuffix)-j</Version>
+    <Version>$(VersionPrefix)-$(VersionSuffix)</Version>
   </PropertyGroup>
 
   <ItemGroup>

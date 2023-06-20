@@ -13,6 +13,7 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="IconFromImage"/> class.
         /// </summary>
+        /// <param name="imageUrl">Image source</param>
         public IconFromImage(string imageUrl)
             : base(string.Empty, IconVariant.Regular, IconSize.Size24, $"<img src=\"{imageUrl}\" style=\"width: 100%;\" />")
         { }

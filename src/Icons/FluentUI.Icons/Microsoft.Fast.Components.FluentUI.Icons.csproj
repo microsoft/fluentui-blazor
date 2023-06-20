@@ -12,7 +12,7 @@
     <IsTrimmable>true</IsTrimmable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>Microsoft.Fast.Components.FluentUI.Icons</Title>
-    <Version>$(VersionPrefix)-$(VersionSuffix)-j</Version>
+    <Version>$(VersionPrefix)-$(VersionSuffix)</Version>
   </PropertyGroup>
 
   <ItemGroup>
