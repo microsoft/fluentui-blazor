@@ -2398,7 +2398,11 @@
             Gets the width of the icon.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "T:Microsoft.Fast.Components.FluentUI.IconFromImage" -->
+        <member name="T:Microsoft.Fast.Components.FluentUI.IconFromImage">
+            <summary>
+            Icon generated from an image (img src).
+            </summary>
+        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.IconFromImage.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:Microsoft.Fast.Components.FluentUI.IconFromImage"/> class.

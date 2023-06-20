@@ -1,4 +1,4 @@
-# FluentUI Icons Generator
+# FluentUI Icons & Emoji's Generator
 
 ## How to generate FluentUI Icons classes
 
