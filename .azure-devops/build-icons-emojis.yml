@@ -16,7 +16,6 @@ variables:
   # Build Icons Lib only (build time too long for Emojis Lib on Azure DevOps)
   projects: |
    **/Microsoft.Fast.Components.FluentUI.Icons.csproj
-   **/Microsoft.Fast.Components.FluentUI.Emojis.csproj
 
 steps:
 - task: NuGetToolInstaller@1

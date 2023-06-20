@@ -1,6 +1,8 @@
 ﻿namespace Microsoft.Fast.Components.FluentUI
 {
     /// <summary>
+    /// Icon generated from an image (img src).
+    /// </summary>
     public sealed class IconFromImage : Icon
     {
         /// <summary>
