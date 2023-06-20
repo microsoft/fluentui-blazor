@@ -21,9 +21,21 @@ steps:
   displayName: Install NuGet tools
 
 - task: UseDotNet@2
+  displayName: 'Install .NET 6.0'
+  inputs:
+    version: 6.0.408
+    includePreviewVersions: true
+
+- task: UseDotNet@2
   displayName: 'Install .NET 7.0'
   inputs:
-    version: 7.0.x
+    version: 7.0.203
+    includePreviewVersions: true
+
+- task: UseDotNet@2
+  displayName: 'Install .NET 8.0'
+  inputs:
+    version: 8.0.x
     includePreviewVersions: true
 
 - task: DotNetCoreCLI@2
