@@ -8,26 +8,26 @@
                 Selected="@Selected"
                 Expanded="@(NavMenuExpanded ? Expanded : false)"
                 Text="@(NavMenuExpanded ? Text : string.Empty)">
-    @if (NavMenuExpanded && HasExpandedIcon)
+    @if (!NavMenuExpanded && HasNavMenuGutterIcon)
     {
-        if (ExpandedIconContent is not null)
+        if (NavMenuGutterIconContent is not null)
         {
-            <div slot="start" @onclick="HandleIconClick">@ExpandedIconContent</div>
+            <div slot="start" @onclick="ExpandMenu">@NavMenuGutterIconContent</div>
+        }
+        else
+        {
+            <FluentIcon Name="@NavMenuGutterIcon" Size="@IconSize.Size20" Slot="start" OnClick="ExpandMenu" />
+        }
+    }
+    @if (NavMenuExpanded && HasIcon)
+    {
+        if (IconContent is not null)
+        {
+            <div slot="start" @onclick="HandleIconClick">@IconContent</div>
         }
         else
         {
             <FluentIcon Name="@Icon" Size="@IconSize.Size20" Slot="start" OnClick="HandleIconClick" />
-        }
-    }
-    @if(!NavMenuExpanded && HasCollapsedIcon)
-    {
-        if (CollapsedIconContent is not null)
-        {
-            <div slot="start" @onclick="ExpandMenu">@CollapsedIconContent</div>
-        }
-        else
-        {
-            <FluentIcon Name="@IconNavMenuCollapsed" Size="@IconSize.Size20" Slot="start" OnClick="ExpandMenu" />
         }
     }
     @if (NavMenuExpanded) {

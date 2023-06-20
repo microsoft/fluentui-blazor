@@ -1,14 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.Fast.Components.FluentUI;
 using Microsoft.Fast.Components.FluentUI.Utilities;
 
 
 namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentNavMenuGroup : FluentComponentBase
 {
-    private bool _expanded = false;
-
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
 
@@ -19,44 +15,52 @@ public partial class FluentNavMenuGroup : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the content to be rendered for the icon when
-    /// the menu is collapsed.
+    /// Gets or sets the content to be displayed for this group
+    /// in the <see cref="FluentNavMenu"/> gutter when the menu is collapsed.
+    /// This setting takes priority over <see cref="NavMenuGutterIcon"/>.
     /// </summary>
     [Parameter]
-    public RenderFragment? CollapsedIconContent { get; set; }
+    public RenderFragment? NavMenuGutterIconContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the content to be rendered for the icon when
-    /// the menu is expanded.
+    /// Gets or sets the name of the icon to display for this group
+    /// in the <see cref="FluentNavMenu"/> gutter when the nav menu is collapsed.
+    /// This setting is not used when <see cref="NavMenuGutterIconContent"/>
+    /// is not null.
     /// </summary>
     [Parameter]
-    public RenderFragment? ExpandedIconContent { get; set; }
+    public string NavMenuGutterIcon { get; set; } = FluentIcons.MoreHorizontal;
+
+    /// <summary>
+    /// Gets or sets the icon content to be displayed for this group
+    /// before its <see cref="Text"/>.
+    /// This setting takes priority over <see cref="Icon"/>.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? IconContent { get; set; }
+
+    /// <summary>
+    /// Gets or sets the name of the icon to display for this group
+    /// before its <see cref="Text"/>.
+    /// This setting is not used when <see cref="IconContent"/>
+    /// is not null.
+    /// </summary>
+    [Parameter]
+    public string? Icon { get; set; }
 
     /// <summary>
     /// Gets or sets the destination of the link.
     /// </summary>
     [Parameter]
     public string? Href { get; set; } = string.Empty;
-    
-    /// <summary>
-    /// Gets or sets the name of the icon to display with the link
-    /// </summary>
-    [Parameter]
-    public string Icon { get; set; } = string.Empty;
-
-    /// <summary>
-    /// Icon displayed only when the <see cref="FluentNavMenu.Expanded"/> is false.
-    /// </summary>
-    [Parameter]
-    public string IconNavMenuCollapsed { get; set; } = FluentIcons.MoreHorizontal;
 
     /// <summary>
     /// Gets or sets whether the menu group is disabled
     /// </summary>
     [Parameter]
     public bool Disabled { get; set; }
-    
-   
+
+
     /// <summary>
     /// Gets or sets whether the menu group is expanded
     /// </summary>
@@ -80,19 +84,19 @@ public partial class FluentNavMenuGroup : FluentComponentBase
     /// </summary>
     [Parameter]
     public int? Width { get; set; }
-    
+
     /// <summary>
     /// Callback function for when the menu group is expanded
     /// </summary>
     [Parameter]
     public EventCallback<bool> OnExpandedChanged { get; set; }
- 
+
 
     [CascadingParameter(Name = "NavMenu")]
     public FluentNavMenu NavMenu { get; set; } = default!;
 
     [CascadingParameter(Name = "NavMenuExpanded")]
-    private bool NavMenuExpanded { get; set; }
+    public bool NavMenuExpanded { get; set; }
 
     public FluentNavMenuGroup()
     {
@@ -108,38 +112,42 @@ public partial class FluentNavMenuGroup : FluentComponentBase
         .AddStyle(Style)
         .Build();
 
-    private bool HasCollapsedIcon => !string.IsNullOrWhiteSpace(Icon) || CollapsedIconContent is not null;
-    private bool HasExpandedIcon => !string.IsNullOrWhiteSpace(Icon) || ExpandedIconContent is not null;
+    private bool HasIcon => !string.IsNullOrWhiteSpace(Icon) || IconContent is not null;
 
-    protected override void OnParametersSet()
+    internal bool HasNavMenuGutterIcon => !string.IsNullOrWhiteSpace(NavMenuGutterIcon) || NavMenuGutterIconContent is not null;
+
+    public override async Task SetParametersAsync(ParameterView parameters)
     {
-        NavMenu.AddNavMenuGroup(this);
-
-        if (_expanded != Expanded)
-        {
-            _expanded = Expanded;
-            if (OnExpandedChanged.HasDelegate)
-                OnExpandedChanged.InvokeAsync(_expanded);
-        }
+        bool originalExpanded = Expanded;
+        await base.SetParametersAsync(parameters);
+        if (Expanded != originalExpanded)
+            await OnExpandedChanged.InvokeAsync(Expanded);
     }
 
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        NavMenu.AddNavMenuGroup(this);
+    }
 
-
-    /// <summary />
-    internal async Task ExpandMenu()
+    private async Task ExpandMenu()
     {
         if (Disabled)
             return;
 
-        // Expand the Menu Group if the user click on it
+        // Expand the Nav Menu and this Group if the user clicks on its NavMenuToggleIcon
         if (!NavMenuExpanded)
         {
-            Selected = true;
             await NavMenu.CollapsibleClickAsync();
+
+            Expanded = true;
+            await OnExpandedChanged.InvokeAsync(Expanded);
+
+            Selected = true;
         }
     }
 
-    internal void HandleIconClick()
+    private void HandleIconClick()
     {
         if (!Disabled)
             Selected = true;

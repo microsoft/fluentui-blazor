@@ -2743,31 +2743,39 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.CollapsedIconContent">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.NavMenuGutterIconContent">
             <summary>
-            Gets or sets the content to be rendered for the icon when
-            the menu is collapsed.
+            Gets or sets the content to be displayed for this group
+            in the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenu"/> gutter when the menu is collapsed.
+            This setting takes priority over <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.NavMenuGutterIcon"/>.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.ExpandedIconContent">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.NavMenuGutterIcon">
             <summary>
-            Gets or sets the content to be rendered for the icon when
-            the menu is expanded.
+            Gets or sets the name of the icon to display for this group
+            in the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenu"/> gutter when the nav menu is collapsed.
+            This setting is not used when <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.NavMenuGutterIconContent"/>
+            is not null.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.IconContent">
+            <summary>
+            Gets or sets the icon content to be displayed for this group
+            before its <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Text"/>.
+            This setting takes priority over <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Icon"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Icon">
+            <summary>
+            Gets or sets the name of the icon to display for this group
+            before its <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Text"/>.
+            This setting is not used when <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.IconContent"/>
+            is not null.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Href">
             <summary>
             Gets or sets the destination of the link.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Icon">
-            <summary>
-            Gets or sets the name of the icon to display with the link
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.IconNavMenuCollapsed">
-            <summary>
-            Icon displayed only when the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.Expanded"/> is false.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Disabled">
@@ -2799,9 +2807,6 @@
             <summary>
             Callback function for when the menu group is expanded
             </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.ExpandMenu">
-            <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.ChildContent">
             <summary>
@@ -2837,6 +2842,11 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.SelectedChanged">
             <summary>
             Callback function for when the selected state changes.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.NavMenuExpanded">
+            <summary>
+            Indicates whether the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenu"/> is expanded or not.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.OnClick">

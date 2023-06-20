@@ -56,6 +56,12 @@ public partial class FluentNavMenuLink : FluentComponentBase
     public FluentNavMenu NavMenu { get; set; } = default!;
 
     /// <summary>
+    /// Indicates whether the <see cref="FluentNavMenu"/> is expanded or not.
+    /// </summary>
+    [CascadingParameter(Name = "NavMenuExpanded")]
+    public bool NavMenuExpanded { get; set; }
+
+    /// <summary>
     /// Callback function for when the link is clicked.
     /// </summary>
     [Parameter]
@@ -91,22 +97,21 @@ public partial class FluentNavMenuLink : FluentComponentBase
 
     internal bool HasIcon => !string.IsNullOrWhiteSpace(Icon) || IconContent is not null;
 
-    [CascadingParameter(Name = "NavMenuExpanded")]
-    private bool NavMenuExpanded { get; set; }
-
     public FluentNavMenuLink()
     {
         Id = Identifier.NewId();
     }
 
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        NavMenu.AddNavMenuLink(this);
+    }
+
     protected override void OnParametersSet()
     {
-        NavMenu.AddNavMenuLink(this);
-
         if (!string.IsNullOrEmpty(Href) && (new Uri(NavigationManager.Uri).LocalPath) == Href)
-        {
             Selected = true;
-        }
     }
 
 

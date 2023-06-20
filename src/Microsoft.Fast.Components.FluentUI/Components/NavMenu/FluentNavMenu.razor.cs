@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.Fast.Components.FluentUI;
 using Microsoft.Fast.Components.FluentUI.Utilities;
-
 
 namespace Microsoft.Fast.Components.FluentUI;
 
@@ -81,12 +78,12 @@ public partial class FluentNavMenu : FluentComponentBase
 
     public FluentNavMenu()
     {
-        Id = Identifier.NewId();     
+        Id = Identifier.NewId();
     }
 
     internal bool HasSubMenu => _groups.Any();
 
-    internal bool HasIcons => _links.Any(i => i.HasIcon);
+    internal bool HasIcons => _links.Any(i => i.HasIcon) || _groups.Any(g => g.HasNavMenuGutterIcon);
 
     internal async Task CollapsibleClickAsync()
     {
@@ -131,5 +128,4 @@ public partial class FluentNavMenu : FluentComponentBase
         _groups.Add(group);
     }
 
-    
 }
