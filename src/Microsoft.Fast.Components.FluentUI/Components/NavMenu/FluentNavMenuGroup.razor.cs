@@ -92,8 +92,8 @@ public partial class FluentNavMenuGroup : FluentComponentBase
     public EventCallback<bool> OnExpandedChanged { get; set; }
 
 
-    [CascadingParameter(Name = "NavMenu")]
-    public FluentNavMenu NavMenu { get; set; } = default!;
+    [CascadingParameter]
+    private FluentNavMenu NavMenu { get; set; } = default!;
 
     [CascadingParameter(Name = "NavMenuExpanded")]
     private bool NavMenuExpanded { get; set; }

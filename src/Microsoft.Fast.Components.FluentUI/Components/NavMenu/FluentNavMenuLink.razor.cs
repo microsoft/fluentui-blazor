@@ -52,15 +52,6 @@ public partial class FluentNavMenuLink : FluentComponentBase
     [Parameter]
     public EventCallback<bool> SelectedChanged { get; set; }
 
-    [CascadingParameter(Name = "NavMenu")]
-    public FluentNavMenu NavMenu { get; set; } = default!;
-
-    /// <summary>
-    /// Indicates whether the <see cref="FluentNavMenu"/> is expanded or not.
-    /// </summary>
-    [CascadingParameter(Name = "NavMenuExpanded")]
-    public bool NavMenuExpanded { get; set; }
-
     /// <summary>
     /// Callback function for when the link is clicked.
     /// </summary>
@@ -84,6 +75,12 @@ public partial class FluentNavMenuLink : FluentComponentBase
     /// </summary>
     [Parameter]
     public int? Width { get; set; }
+
+    [CascadingParameter]
+    private FluentNavMenu NavMenu { get; set; } = default!;
+
+    [CascadingParameter(Name = "NavMenuExpanded")]
+    private bool NavMenuExpanded { get; set; }
 
     protected string? ClassValue => new CssBuilder(Class)
        .AddClass("navmenu-link", () => NavMenu.HasSubMenu || NavMenu.HasIcons)

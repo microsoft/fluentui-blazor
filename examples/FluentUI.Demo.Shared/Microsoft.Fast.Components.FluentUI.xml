@@ -2844,11 +2844,6 @@
             Callback function for when the selected state changes.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.NavMenuExpanded">
-            <summary>
-            Indicates whether the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenu"/> is expanded or not.
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.OnClick">
             <summary>
             Callback function for when the link is clicked.
