@@ -1,4 +1,4 @@
-name: Publish Microsoft FluentUI-Blazor
+name: Build Microsoft.Fast.Components.FluentUI package
 
 pr: none
 trigger: none
