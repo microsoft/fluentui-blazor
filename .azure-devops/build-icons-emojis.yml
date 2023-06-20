@@ -13,9 +13,9 @@ pool:
 variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  # Build Icons Lib only (build time too long for Emojis Lib on Azure DevOps)
   projects: |
-   **/Microsoft.Fast.Components.FluentUI.Icons.csproj
-   **/Microsoft.Fast.Components.FluentUI.Emojis.csproj
+   **/Microsoft.Fast.Components.FluentUI.Icons.csproj   
 
 steps:
 - task: NuGetToolInstaller@1
@@ -46,7 +46,7 @@ steps:
     projects: $(projects)
 
 - task: DotNetCoreCLI@2
-  displayName: "Build Icons and Emojis"
+  displayName: "Build Libs"
   inputs:
     command: 'build'
     projects: '$(projects)'
