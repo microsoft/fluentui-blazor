@@ -41,4 +41,9 @@ public abstract class Icon : IconInfo
     /// Gets the width of the icon.
     /// </summary>
     protected internal virtual int Width => (int)Size;
+
+    public static IconFromImage FromImageUrl(string imageSource)
+    {
+        return new IconFromImage(imageSource);
+    }
 }

@@ -20,6 +20,7 @@ public partial class FluentSystemEmoji<Emoji> : FluentComponentBase
     protected string? StyleValue => new StyleBuilder()
         .AddStyle("width", Width ?? $"{_emoji.Width}px")
         .AddStyle("cursor", "pointer", OnClick.HasDelegate)
+        .AddStyle("display", "inline-block", !IsSvgEmoji())
         .AddStyle(Style)
         .Build();
 
@@ -72,6 +73,12 @@ public partial class FluentSystemEmoji<Emoji> : FluentComponentBase
     /// <returns></returns>
     private bool IsSvgEmoji()
     {
-        return !string.IsNullOrEmpty(_emoji.Content) && _emoji.Content.StartsWith('<');
+        return !string.IsNullOrEmpty(_emoji.Content) &&
+               (_emoji.Content.StartsWith("<path ") ||
+                _emoji.Content.StartsWith("<rect ") ||
+                _emoji.Content.StartsWith("<g ") ||
+                _emoji.Content.StartsWith("<circle ") ||
+                _emoji.Content.StartsWith("<mark "));
+
     }
 }

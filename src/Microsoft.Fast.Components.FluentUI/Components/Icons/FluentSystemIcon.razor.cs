@@ -21,6 +21,7 @@ public partial class FluentSystemIcon<Icon> : FluentComponentBase
         .AddStyle("width", Width ?? $"{_icon.Width}px")
         .AddStyle("fill", Color == FluentUI.Color.Custom ? CustomColor : Color.ToAttributeValue())
         .AddStyle("cursor", "pointer", OnClick.HasDelegate)
+        .AddStyle("display", "inline-block", !IsSvgIcon())
         .AddStyle(Style)
         .Build();
 
@@ -97,6 +98,11 @@ public partial class FluentSystemIcon<Icon> : FluentComponentBase
     /// <returns></returns>
     private bool IsSvgIcon()
     {
-        return !string.IsNullOrEmpty(_icon.Content) && _icon.Content.StartsWith('<');
+        return !string.IsNullOrEmpty(_icon.Content) &&
+               (_icon.Content.StartsWith("<path ") ||
+                _icon.Content.StartsWith("<rect ") ||
+                _icon.Content.StartsWith("<g ") ||
+                _icon.Content.StartsWith("<circle ") ||
+                _icon.Content.StartsWith("<mark "));
     }
 }
