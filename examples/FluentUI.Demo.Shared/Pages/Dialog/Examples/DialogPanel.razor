@@ -13,27 +13,23 @@
     {
         DemoLogger.WriteLine($"Open right panel");
 
-        //ComponentParameters parameters = new ComponentParameters();
-
         PanelParameters parameters = new()
-        {
-            Title = "Title",
-            OnDialogResult = DialogService.CreateDialogCallback(this, HandlePanel),
-            PrimaryButton = "Yes",
-            SecondaryButton = "No", 
-        };
+            {
+                Title = "Title",
+                OnDialogResult = DialogService.CreateDialogCallback(this, HandlePanel),
+                PrimaryButton = "Yes",
+                SecondaryButton = "No",
+            };
 
+        // Add your additional IDailogContentComponente derived component's parameters here
         parameters.Add(nameof(SimplePanel.Name), "Steven");
 
         DialogService.ShowPanel<SimplePanel>(parameters);
-
     }
 
     private void OpenPanelLeft()
     {
         DemoLogger.WriteLine($"Open left panel");
-
-        //ComponentParameters parameters = new ComponentParameters();
 
         PanelParameters parameters = new()
             {
@@ -47,11 +43,11 @@
                 Width = "300px",
 
             };
-
+        
+        // Add your additional IDailogContentComponente derived component's parameters here
         parameters.Add(nameof(SimplePanel.Name), "Daniel");
 
         DialogService.ShowPanel<SimplePanel>(parameters);
-
     }
 
     private async Task HandlePanel(DialogResult result)
