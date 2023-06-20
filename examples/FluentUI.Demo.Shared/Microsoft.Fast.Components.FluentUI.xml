@@ -2743,31 +2743,40 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.CollapsedIconContent">
-            <summary>
-            Gets or sets the content to be rendered for the icon when
-            the menu is collapsed.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.ExpandedIconContent">
-            <summary>
-            Gets or sets the content to be rendered for the icon when
-            the menu is expanded.
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Href">
             <summary>
             Gets or sets the destination of the link.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Icon">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.ExpandedIconContent">
             <summary>
-            Gets or sets the name of the icon to display with the link
+            Gets or sets the content to be rendered for the icon when
+            the menu is expanded. If not set, then <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.ExpandedIcon"/> will
+            take next priority, followed by <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.IconContent"/>
+            and then <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Icon"/>.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.IconNavMenuCollapsed">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.ExpandedIcon">
             <summary>
-            Icon displayed only when the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.Expanded"/> is false.
+            Gets or sets the content to be rendered for the icon when
+            the menu is expanded. <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.ExpandedIconContent"/> will take
+            precedence over this setting. If not set, then <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.IconContent"/> will
+            take next priority, followed <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Icon"/>
+            and then <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Icon"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.IconContent">
+            <summary>
+            Gets or sets the content to be rendered for the icon when
+            the menu is collapsed. If not set, then <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Icon"/> will
+            take next priority.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Icon">
+            <summary>
+            Gets or sets the content to be rendered for the icon when
+            the menu is collapsed. <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.IconContent"/> will take
+            precedence over this setting. If not set, no icon will be displayed
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Disabled">

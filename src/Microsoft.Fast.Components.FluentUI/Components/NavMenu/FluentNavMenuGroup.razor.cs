@@ -19,36 +19,45 @@ public partial class FluentNavMenuGroup : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the content to be rendered for the icon when
-    /// the menu is collapsed.
+    /// Gets or sets the destination of the link.
     /// </summary>
     [Parameter]
-    public RenderFragment? CollapsedIconContent { get; set; }
+    public string? Href { get; set; } = string.Empty;
 
     /// <summary>
     /// Gets or sets the content to be rendered for the icon when
-    /// the menu is expanded.
+    /// the menu is expanded. If not set, then <see cref="ExpandedIcon"/> will
+    /// take next priority, followed by <see cref="FluentNavMenuGroup.IconContent"/>
+    /// and then <see cref="FluentNavMenuGroup.Icon"/>.
     /// </summary>
     [Parameter]
     public RenderFragment? ExpandedIconContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the destination of the link.
+    /// Gets or sets the content to be rendered for the icon when
+    /// the menu is expanded. <see cref="FluentNavMenuGroup.ExpandedIconContent"/> will take
+    /// precedence over this setting. If not set, then <see cref="IconContent"/> will
+    /// take next priority, followed <see cref="FluentNavMenuGroup.Icon"/>
+    /// and then <see cref="FluentNavMenuGroup.Icon"/>.
     /// </summary>
     [Parameter]
-    public string? Href { get; set; } = string.Empty;
-    
-    /// <summary>
-    /// Gets or sets the name of the icon to display with the link
-    /// </summary>
-    [Parameter]
-    public string Icon { get; set; } = string.Empty;
+    public string ExpandedIcon { get; set; } = string.Empty;
 
     /// <summary>
-    /// Icon displayed only when the <see cref="FluentNavMenu.Expanded"/> is false.
+    /// Gets or sets the content to be rendered for the icon when
+    /// the menu is collapsed. If not set, then <see cref="Icon"/> will
+    /// take next priority.
     /// </summary>
     [Parameter]
-    public string IconNavMenuCollapsed { get; set; } = FluentIcons.MoreHorizontal;
+    public RenderFragment? IconContent { get; set; }
+
+    /// <summary>
+    /// Gets or sets the content to be rendered for the icon when
+    /// the menu is collapsed. <see cref="FluentNavMenuGroup.IconContent"/> will take
+    /// precedence over this setting. If not set, no icon will be displayed
+    /// </summary>
+    [Parameter]
+    public string Icon { get; set; }
 
     /// <summary>
     /// Gets or sets whether the menu group is disabled
@@ -108,8 +117,9 @@ public partial class FluentNavMenuGroup : FluentComponentBase
         .AddStyle(Style)
         .Build();
 
-    private bool HasCollapsedIcon => !string.IsNullOrWhiteSpace(Icon) || CollapsedIconContent is not null;
-    private bool HasExpandedIcon => !string.IsNullOrWhiteSpace(Icon) || ExpandedIconContent is not null;
+    internal bool HasIcon => HasCollapsedIcon || HasExpandedIcon;
+    private bool HasCollapsedIcon => IconContent is not null || !string.IsNullOrWhiteSpace(Icon);
+    private bool HasExpandedIcon => ExpandedIconContent is not null || !string.IsNullOrWhiteSpace(ExpandedIcon);
 
     protected override void OnParametersSet()
     {

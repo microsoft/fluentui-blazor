@@ -8,6 +8,7 @@
                 Selected="@Selected"
                 Expanded="@(NavMenuExpanded ? Expanded : false)"
                 Text="@(NavMenuExpanded ? Text : string.Empty)">
+
     @if (NavMenuExpanded && HasExpandedIcon)
     {
         if (ExpandedIconContent is not null)
@@ -16,18 +17,27 @@
         }
         else
         {
-            <FluentIcon Name="@Icon" Size="@IconSize.Size20" Slot="start" OnClick="HandleIconClick" />
+            if (!string.IsNullOrEmpty(ExpandedIcon))
+            {
+                <FluentIcon Name="@ExpandedIcon" Size="@IconSize.Size20" Slot="start" OnClick="HandleIconClick" />
+            }
         }
-    }
-    @if(!NavMenuExpanded && HasCollapsedIcon)
+    } 
+    else 
     {
-        if (CollapsedIconContent is not null)
+        if (HasCollapsedIcon)
         {
-            <div slot="start" @onclick="ExpandMenu">@CollapsedIconContent</div>
-        }
-        else
-        {
-            <FluentIcon Name="@IconNavMenuCollapsed" Size="@IconSize.Size20" Slot="start" OnClick="ExpandMenu" />
+            if (IconContent is not null)
+            {
+                <div slot="start" @onclick="ExpandMenu">@IconContent</div>
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(Icon))
+                {
+                    <FluentIcon Name="@Icon" Size="@IconSize.Size20" Slot="start" OnClick="ExpandMenu" />
+                }
+            }
         }
     }
     @if (NavMenuExpanded) {
