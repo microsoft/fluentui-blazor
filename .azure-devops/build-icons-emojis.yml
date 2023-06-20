@@ -3,6 +3,7 @@
 # Add steps that publish symbols, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
 
+pr: none # Disable pull request triggers.
 trigger:
 - users/dvoituron/icons
 
@@ -49,4 +50,4 @@ steps:
   inputs:
     command: 'build'
     projects: '$(projects)'
-    arguments: '-c $(buildConfiguration-'
+    arguments: '-c $(buildConfiguration)'

@@ -13,37 +13,55 @@ To generate the icons, you need:
    npm install @fluentui/svg-icons
    ```
 
-2. Compile the project and run the `FluentUIIconsGenerator.exe` application,
+2. a) Compile the project and run the `FluentUIIconsGenerator.exe` application,
    passing the **Assets** path to this local folder containing the SVG images as a parameter.
    
-   ```cmd
-   FluentUIIconsGenerator.exe --Assets=C:\Temp\Icons --Target=./Samples
-   ```
+	   ```cmd
+	   FluentUIIconsGenerator.exe --Assets=C:\Temp\Icons --Target=./Samples --Library=Icon
+	   ```
    
-   Or run the project, passing parameters to the `Properties/launchSettings.json` file:
+   b) Or run the project, passing parameters to the `Properties/launchSettings.json` file:
 
-   Example:
-   ```json
-   {
-	  "profiles": {
-		"Microsoft.Fast.Components.FluentUI.IconsGenerator": {
-		  "commandName": "Project",
-		  "commandLineArgs": "--Assets=C:/Temp/Icons --Target=./Samples"
+	   ```json
+	   {
+		  "profiles": {
+			"Microsoft.Fast.Components.FluentUI.IconsGenerator": {
+			  "commandName": "Project",
+			  "commandLineArgs": "--Assets=C:/Temp/Icons --Target=./Samples --Library=Icon"
+			}
+		  }
 		}
-	  }
-	}
-   ```
+	   ```
 
 3. All generated C# files are located in the **Target** folder, or in the current folder if this attribute has not been defined.
 
-## How to generate FluentUI Emoji
+## How to generate FluentUI Emoji classes
 
 1. Download the [repository](https://github.com/microsoft/fluentui-emoji).
 
-```cmd
-git clone https://github.com/microsoft/fluentui-emoji
-```
+	```cmd
+	git clone https://github.com/microsoft/fluentui-emoji
+	```
 
+2. a) Compile the project and run the `FluentUIIconsGenerator.exe` application,
+   passing the **Assets** path to this local folder containing the SVG images as a parameter.
+   
+	   ```cmd
+	   FluentUIIconsGenerator.exe --Assets=C:\Temp\Emojis --Target=./Samples --Library=Emoji
+	   ```
+   
+   b) Or run the project, passing parameters to the `Properties/launchSettings.json` file:
+
+	   ```json
+	   {
+		  "profiles": {
+			"Microsoft.Fast.Components.FluentUI.IconsGenerator": {
+			  "commandName": "Project",
+			  "commandLineArgs": "--Assets=C:/Temp/Icons --Target=./Samples --Library=Emoji"
+			}
+		  }
+		}
+	   ```
 
 ## Help
 
