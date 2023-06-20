@@ -60,7 +60,7 @@ steps:
 - task: EsrpCodeSigning@2
   displayName: Code Signing Assemblies (Authenticode Signing)
   inputs:
-    ConnectedServiceName: 'FAST-NuGet-Publishing-SC'
+    ConnectedServiceName: 'ESRP Code Signing SC'
     FolderPath: '$(Build.ArtifactStagingDirectory)'
     Pattern: | 
       **/*.nupkg
