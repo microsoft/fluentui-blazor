@@ -52,9 +52,6 @@ public partial class FluentNavMenuLink : FluentComponentBase
     [Parameter]
     public EventCallback<bool> SelectedChanged { get; set; }
 
-    [CascadingParameter(Name = "NavMenu")]
-    public FluentNavMenu NavMenu { get; set; } = default!;
-
     /// <summary>
     /// Callback function for when the link is clicked.
     /// </summary>
@@ -79,6 +76,12 @@ public partial class FluentNavMenuLink : FluentComponentBase
     [Parameter]
     public int? Width { get; set; }
 
+    [CascadingParameter]
+    private FluentNavMenu NavMenu { get; set; } = default!;
+
+    [CascadingParameter(Name = "NavMenuExpanded")]
+    private bool NavMenuExpanded { get; set; }
+
     protected string? ClassValue => new CssBuilder(Class)
        .AddClass("navmenu-link", () => NavMenu.HasSubMenu || NavMenu.HasIcons)
        .AddClass("navmenu-link-nogroup", () => !NavMenu.HasSubMenu && NavMenu.HasIcons)
@@ -91,22 +94,21 @@ public partial class FluentNavMenuLink : FluentComponentBase
 
     internal bool HasIcon => !string.IsNullOrWhiteSpace(Icon) || IconContent is not null;
 
-    [CascadingParameter(Name = "NavMenuExpanded")]
-    private bool NavMenuExpanded { get; set; }
-
     public FluentNavMenuLink()
     {
         Id = Identifier.NewId();
     }
 
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        NavMenu.AddNavMenuLink(this);
+    }
+
     protected override void OnParametersSet()
     {
-        NavMenu.AddNavMenuLink(this);
-
         if (!string.IsNullOrEmpty(Href) && (new Uri(NavigationManager.Uri).LocalPath) == Href)
-        {
             Selected = true;
-        }
     }
 
 
