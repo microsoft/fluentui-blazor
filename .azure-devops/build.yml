@@ -57,32 +57,30 @@ steps:
     feedsToUse: 'config'
     nugetConfigPath: 
 
-- task: EsrpCodeSigning@2
-  displayName: Code Signing Assemblies (Authenticode Signing)
+- task: EsrpCodeSigning@3
   inputs:
     ConnectedServiceName: 'ESRP Code Signing SC'
     FolderPath: '$(Build.ArtifactStagingDirectory)'
-    Pattern: | 
-      **/*.nupkg
+    Pattern: '**/*.nupkg'
     UseMinimatch: true
     signConfigType: 'inlineSignParams'
     inlineOperation: |
       [
-        {
-            "KeyCode" : "CP-401405",
-            "OperationCode" : "NuGetSign",
-            "Parameters" : {},
-            "ToolName" : "sign",
-            "ToolVersion" : "1.0"
-        },
-        {
-            "KeyCode" : "CP-401405",
-            "OperationCode" : "NuGetVerify",
-            "Parameters" : {},
-            "ToolName" : "sign",
-            "ToolVersion" : "1.0"
-        }
-      ]
+              {
+                  "KeyCode" : "CP-401405",
+                  "OperationCode" : "NuGetSign",
+                  "Parameters" : {},
+                  "ToolName" : "sign",
+                  "ToolVersion" : "1.0"
+              },
+              {
+                  "KeyCode" : "CP-401405",
+                  "OperationCode" : "NuGetVerify",
+                  "Parameters" : {},
+                  "ToolName" : "sign",
+                  "ToolVersion" : "1.0"
+              }
+            ]
     SessionTimeout: '60'
     MaxConcurrency: '200'
     MaxRetryAttempts: '5'
