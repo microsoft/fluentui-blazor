@@ -1,7 +1,7 @@
 ﻿using System.IO.Compression;
 using System.Text;
 
-namespace Microsoft.Fast.Components.FluentUI.IconsGenerator;
+namespace Microsoft.Fast.Components.FluentUI.AssetsGenerator;
 
 internal static class Tools
 {

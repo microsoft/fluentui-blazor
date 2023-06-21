@@ -1,8 +1,8 @@
 ﻿using System.Text;
 using System.Text.RegularExpressions;
-using Microsoft.Fast.Components.FluentUI.IconsGenerator.Model;
+using Microsoft.Fast.Components.FluentUI.AssetsGenerator.Model;
 
-namespace Microsoft.Fast.Components.FluentUI.IconsGenerator;
+namespace Microsoft.Fast.Components.FluentUI.AssetsGenerator;
 
 internal class IconsCodeGenerator
 {

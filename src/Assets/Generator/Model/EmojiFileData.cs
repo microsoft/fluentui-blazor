@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Text.RegularExpressions;
 
-namespace Microsoft.Fast.Components.FluentUI.IconsGenerator.Model;
+namespace Microsoft.Fast.Components.FluentUI.AssetsGenerator.Model;
 
 /// <summary />
 [DebuggerDisplay("{File.Name} / {SkinTone} / {Style}")]

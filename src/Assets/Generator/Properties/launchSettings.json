@@ -1,6 +1,11 @@
+/*
+    UPDATE `C:/_Temp/Icons` with your local path to the FluentUI Icons repo.
+    Check the ReadMe.md files for more details.
+*/
+
 {
   "profiles": {
-    "Microsoft.Fast.Components.FluentUI.IconsGenerator": {
+    "Microsoft.Fast.Components.FluentUI.AssetsGenerator": {
       "commandName": "Project",
       // 1. To generate all icons in Icons Lib
       "commandLineArgs": "--Assets=C:/_Temp/Icons --Target=../FluentUI.Icons/Icons"

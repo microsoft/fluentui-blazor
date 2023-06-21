@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace Microsoft.Fast.Components.FluentUI.IconsGenerator.Model;
+namespace Microsoft.Fast.Components.FluentUI.AssetsGenerator.Model;
 
 /// <summary />
 [DebuggerDisplay("{Cldr} [{Group}]")]

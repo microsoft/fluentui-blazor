@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Text.RegularExpressions;
 
-namespace Microsoft.Fast.Components.FluentUI.IconsGenerator.Model;
+namespace Microsoft.Fast.Components.FluentUI.AssetsGenerator.Model;
 
 /// <summary>
 /// Icon model.

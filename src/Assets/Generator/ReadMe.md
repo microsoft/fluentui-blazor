@@ -67,11 +67,11 @@ To generate the icons, you need:
 	
    The `rsync` command should only copy new ad/or update files. 
 
-7. a) Compile the project and run the `FluentUIIconsGenerator.exe` application,
+7. a) Compile the project and run the `FluentAssetsGenerator.exe` application,
    passing the **Assets** path to this local folder containing the SVG images as a parameter.
    
 	   ```cmd
-	   FluentUIIconsGenerator.exe --Assets=C:\Temp\Icons --Target=./Samples --Library=Icon
+	   FluentAssetsGenerator.exe --Assets=C:\Temp\Icons --Target=./Samples --Library=Icon
 	   ```
    
    b) Or run the project, passing parameters to the `Properties/launchSettings.json` file:
@@ -79,7 +79,7 @@ To generate the icons, you need:
 	   ```json
 	   {
 		  "profiles": {
-			"Microsoft.Fast.Components.FluentUI.IconsGenerator": {
+			"Microsoft.Fast.Components.FluentUI.AssetsGenerator": {
 			  "commandName": "Project",
 			  "commandLineArgs": "--Assets=C:/Temp/Icons --Target=./Samples --Library=Icon"
 			}
@@ -97,11 +97,11 @@ To generate the icons, you need:
 	git clone https://github.com/microsoft/fluentui-emoji
 	```
 
-2. a) Compile the project and run the `FluentUIIconsGenerator.exe` application,
+2. a) Compile the project and run the `FluentAssetsGenerator.exe` application,
    passing the **Assets** path to this local folder containing the SVG images as a parameter.
    
 	   ```cmd
-	   FluentUIIconsGenerator.exe --Assets=C:\Temp\Emojis --Target=./Samples --Library=Emoji
+	   FluentAssetsGenerator.exe --Assets=C:\Temp\Emojis --Target=./Samples --Library=Emoji
 	   ```
    
    b) Or run the project, passing parameters to the `Properties/launchSettings.json` file:
@@ -109,7 +109,7 @@ To generate the icons, you need:
 	   ```json
 	   {
 		  "profiles": {
-			"Microsoft.Fast.Components.FluentUI.IconsGenerator": {
+			"Microsoft.Fast.Components.FluentUI.AssetsGenerator": {
 			  "commandName": "Project",
 			  "commandLineArgs": "--Assets=C:/Temp/Icons --Target=./Samples --Library=Emoji"
 			}
@@ -122,10 +122,10 @@ To generate the icons, you need:
 Run the application with the `--help` parameter to see all available parameters.
 
 ```cmd
-> FluentUIIconsGenerator.exe --help
+> FluentAssetsGenerator.exe --help
 
 
-  FluentIconsGenerator --folder:<Icons_Folder_Directory>
+  FluentAssetsGenerator --folder:<Icons_Folder_Directory>
 
   --Assets    | -a   The root directory containing all SVG icons,
                      downloaded from https://github.com/microsoft/fluentui-system-icons.

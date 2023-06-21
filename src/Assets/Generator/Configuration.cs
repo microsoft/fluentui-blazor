@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using Microsoft.Extensions.Configuration;
 
-namespace Microsoft.Fast.Components.FluentUI.IconsGenerator;
+namespace Microsoft.Fast.Components.FluentUI.AssetsGenerator;
 
 /// <summary>
 /// Configuration for the generator.
@@ -94,7 +94,7 @@ internal class Configuration
     {
         Console.WriteLine($"Microsoft FluentUI Icons Generator");
         Console.WriteLine();
-        Console.WriteLine($"  FluentIconsGenerator --folder:<Icons_Folder_Directory>");
+        Console.WriteLine($"  FluentAssetsGenerator --folder:<Icons_Folder_Directory>");
         Console.WriteLine();
         Console.WriteLine($"  --Assets    | -a   The root directory containing all SVG icons,");
         Console.WriteLine($"                     downloaded from https://github.com/microsoft/fluentui-system-icons.");

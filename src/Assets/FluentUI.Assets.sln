@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Fast.Components.F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Fast.Components.FluentUI.Icons", "FluentUI.Icons\Microsoft.Fast.Components.FluentUI.Icons.csproj", "{DC366683-C48A-4506-9CB1-7C2AFEF5E35A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Fast.Components.FluentUI.IconsGenerator", "Generator\Microsoft.Fast.Components.FluentUI.IconsGenerator.csproj", "{09CF3927-40A3-4138-9B07-8CD2BB18B005}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Fast.Components.FluentUI.AssetsGenerator", "Generator\Microsoft.Fast.Components.FluentUI.AssetsGenerator.csproj", "{09CF3927-40A3-4138-9B07-8CD2BB18B005}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Fast.Components.FluentUI.IconsSample", "Sample\Microsoft.Fast.Components.FluentUI.IconsSample.csproj", "{DCA944C6-0EFF-44A5-8D9A-CCAFA83D5CCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Fast.Components.FluentUI.AssetsSample", "Sample\Microsoft.Fast.Components.FluentUI.AssetsSample.csproj", "{DCA944C6-0EFF-44A5-8D9A-CCAFA83D5CCE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Fast.Components.FluentUI.Emojis", "FluentUI.Emojis\Microsoft.Fast.Components.FluentUI.Emojis.csproj", "{9F88D6E5-6D3B-4EBA-8009-2D496A3F918C}"
 EndProject
