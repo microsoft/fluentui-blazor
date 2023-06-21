@@ -9,6 +9,8 @@ namespace Microsoft.Fast.Components.FluentUI.IconsGenerator.Model;
 [DebuggerDisplay("{Name} {Variant} {Size}")]
 internal class Icon
 {
+    private string[] LangageSubFolders = new[] { "bg", "ca", "da", "de", "en", "es", "et", "fr", "gl", "hu", "it", "kk", "ko", "lt", "lv", "ms", "no", "pt", "ru", "sl", "sr-cyrl", "sr-latn", "sv" };
+
     /// <summary>
     /// Convert the file to an icon
     /// Examples:
@@ -24,7 +26,8 @@ internal class Icon
         string[] nameParts = filename.Split(Tools.InvalidCharacters);
         string folderName = file.Directory!.Name; // Check if the SVG is included in a "language" folder.
 
-        if (string.Compare(folderName, "icons", StringComparison.CurrentCultureIgnoreCase) == 0)
+        // This file is in a language folder?
+        if (!LangageSubFolders.Any(language => string.Compare(folderName, language, StringComparison.CurrentCultureIgnoreCase) == 0))
         {
             folderName = string.Empty;
         }
