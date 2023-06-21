@@ -2,7 +2,7 @@
 @typeparam Emoji
 @inherits FluentComponentBase
 
-@if (IsSvgEmoji())
+@if (ContainsSVG())
 {
     <svg id="@Id" slot="@Slot" class="@ClassValue" style="@StyleValue" focusable="false" viewBox="@($"0 0 {((int)_emoji.Size)} {((int)_emoji.Size)}")" aria-hidden="true" @onclick="@OnClickHandlerAsync" @attributes="@AdditionalAttributes">
         @if (!string.IsNullOrEmpty(Title))

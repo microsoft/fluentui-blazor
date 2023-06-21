@@ -13,10 +13,10 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 
     <PackageId>Microsoft.Fast.Components.FluentUI.Emojis</PackageId>
-    <Summary>A set of emoji's wrapping Microsoft’s official Fluent UI Emoji library.</Summary>
+    <Summary>A Blazor wrapper library for the official Microsoft Fluent UI Emoji set.</Summary>
     <PackageTags>Emoji, Fluent UI, FAST, Blazor, .NET6, .NET7, .NET8</PackageTags>
-    <Title>A set of emoji's wrapping Microsoft’s official Fluent UI Emoji library.</Title>
-    <Description>A set of emoji's wrapping Microsoft’s official Fluent UI Emoji library.</Description>
+    <Title>A Blazor wrapper library for the official Microsoft Fluent UI Emoji set.</Title>
+    <Description>A Blazor wrapper library for the official Microsoft Fluent UI Emoji set.</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <Version>$(VersionPrefix)-$(VersionSuffix)</Version>
   </PropertyGroup>

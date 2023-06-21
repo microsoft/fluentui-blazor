@@ -21,7 +21,7 @@ public partial class FluentSystemIcon<Icon> : FluentComponentBase
         .AddStyle("width", Width ?? $"{_icon.Width}px")
         .AddStyle("fill", Color == FluentUI.Color.Custom ? CustomColor : Color.ToAttributeValue())
         .AddStyle("cursor", "pointer", OnClick.HasDelegate)
-        .AddStyle("display", "inline-block", !IsSvgIcon())
+        .AddStyle("display", "inline-block", !ContainsSVG())
         .AddStyle(Style)
         .Build();
 
@@ -96,7 +96,7 @@ public partial class FluentSystemIcon<Icon> : FluentComponentBase
     /// Returns true if the icon contains a SVG content.
     /// </summary>
     /// <returns></returns>
-    private bool IsSvgIcon()
+    private bool ContainsSVG()
     {
         return !string.IsNullOrEmpty(_icon.Content) &&
                (_icon.Content.StartsWith("<path ") ||

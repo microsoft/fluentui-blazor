@@ -20,7 +20,7 @@ public partial class FluentSystemEmoji<Emoji> : FluentComponentBase
     protected string? StyleValue => new StyleBuilder()
         .AddStyle("width", Width ?? $"{_emoji.Width}px")
         .AddStyle("cursor", "pointer", OnClick.HasDelegate)
-        .AddStyle("display", "inline-block", !IsSvgEmoji())
+        .AddStyle("display", "inline-block", !ContainsSVG())
         .AddStyle(Style)
         .Build();
 
@@ -71,7 +71,7 @@ public partial class FluentSystemEmoji<Emoji> : FluentComponentBase
     /// Returns true if the emoji contains a SVG content.
     /// </summary>
     /// <returns></returns>
-    private bool IsSvgEmoji()
+    private bool ContainsSVG()
     {
         return !string.IsNullOrEmpty(_emoji.Content) &&
                (_emoji.Content.StartsWith("<path ") ||

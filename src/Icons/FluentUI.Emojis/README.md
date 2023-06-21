@@ -11,7 +11,8 @@ The [Microsoft.Fast.Components.FluentUI](https://github.com/microsoft/fluentui-b
 a set of [Blazor](https://blazor.net) components which you can use to build applications
 that have the look and feel or modern Microsoft applications.
 
-This library is a set of emoji's wrapping Microsoft’s official [Fluent UI Emoji library](https://github.com/microsoft/fluentui-emoji).
+This library wraps the official Microsoft [Fluent UI Emoji library](https://github.com/microsoft/fluentui-emoji)
+and offers a way to make the emoji usable in projects that use the Microsoft Fluent UI Blazor library.
 
 ## Getting Started
 
