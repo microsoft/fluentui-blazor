@@ -2135,7 +2135,7 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentSystemEmoji`1.OnClickHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
             <summary />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentSystemEmoji`1.IsSvgEmoji">
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentSystemEmoji`1.ContainsSVG">
             <summary>
             Returns true if the emoji contains a SVG content.
             </summary>
@@ -2363,7 +2363,7 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentSystemIcon`1.OnParametersSet">
             <summary />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentSystemIcon`1.IsSvgIcon">
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentSystemIcon`1.ContainsSVG">
             <summary>
             Returns true if the icon contains a SVG content.
             </summary>
