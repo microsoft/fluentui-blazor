@@ -17,7 +17,6 @@
     <Title>A set of icons wrapping Microsoft’s official Fluent UI Icon library.</Title>
     <Description>A set of icons wrapping Microsoft’s official Fluent UI Icon library.</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <Version>$(VersionPrefix)-$(VersionSuffix)</Version>
   </PropertyGroup>
 
   <ItemGroup>

@@ -18,7 +18,6 @@
     <Title>A Blazor wrapper library for the official Microsoft Fluent UI Emoji set.</Title>
     <Description>A Blazor wrapper library for the official Microsoft Fluent UI Emoji set.</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <Version>$(VersionPrefix)-$(VersionSuffix)</Version>
   </PropertyGroup>
 
   <ItemGroup>
