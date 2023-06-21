@@ -8,6 +8,8 @@ public partial class FluentDialog : FluentComponentBase, IDisposable
 {
     private const string DEFAULT_WIDTH = "500px";
     private const string DEFAULT_HEIGHT = "unset";
+    private Dictionary<string, object> _parameters = new();
+
 
     [CascadingParameter]
     private InternalDialogContext? DialogContext { get; set; } = default!;
@@ -49,19 +51,27 @@ public partial class FluentDialog : FluentComponentBase, IDisposable
     [Parameter]
     public string? AriaLabel { get; set; }
 
+    /// <summary>
+    /// The instance containing the programmatic API for the dialog.
+    /// </summary>
     [Parameter]
     public DialogInstance Instance { get; set; } = default!;
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Contains the actual parameters for the settings of the dialog.
+    /// </summary>
     [Parameter]
     public DialogSettings Settings { get; set; } = default!;
 
+    /// <summary>
+    /// Used when not calling the <see cref="DialogService" /> to show a dialog
+    /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    [Parameter]
-    public EventCallback<bool> OpenChanged { get; set; }
-
+    /// <summary>
+    /// The event callback invoked to return the dialog result.
+    /// </summary>
     [Parameter]
     public EventCallback<DialogResult> OnDialogResult { get; set; }
 
@@ -74,13 +84,8 @@ public partial class FluentDialog : FluentComponentBase, IDisposable
     protected string? StyleValue => new StyleBuilder()
         .AddStyle(Style)
         .AddStyle("position", "absolute")
-        //.AddStyle("z-index", "9999")
-        //.AddStyle("inset", "0px 0px 0px auto", () => Settings.Alignment == HorizontalAlignment.Right || Settings.Alignment == HorizontalAlignment.End)
-        //.AddStyle("inset", "0px auto 0px 0px", () => Settings.Alignment == HorizontalAlignment.Left || Settings.Alignment == HorizontalAlignment.Start)
         .AddStyle("top", "50%", () => Settings.Alignment == HorizontalAlignment.Center)
         .AddStyle("left", "50%", () => Settings.Alignment == HorizontalAlignment.Center)
-        //.AddStyle("transform", "translate(-50%, -50%)", () => Settings.Alignment == HorizontalAlignment.Center)
-        //.AddStyle("max-height", "100%", () => Settings.Alignment == HorizontalAlignment.Center)
         .AddStyle("--dialog-width", Settings.Width ?? DEFAULT_WIDTH, () => Settings.Alignment == HorizontalAlignment.Center)
         .AddStyle("--dialog-height", Settings.Height ?? DEFAULT_HEIGHT, () => Settings.Alignment == HorizontalAlignment.Center)
         .Build();
@@ -105,6 +110,15 @@ public partial class FluentDialog : FluentComponentBase, IDisposable
             TrapFocus = null,
             Height = "unset",
         };
+
+        if (Instance is not null)
+        {
+            _parameters = Instance.GetParameterDictionary();
+            if (_parameters.TryGetValue("Data", out object? _data))
+            {
+                Data = _data;
+            }
+        }
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

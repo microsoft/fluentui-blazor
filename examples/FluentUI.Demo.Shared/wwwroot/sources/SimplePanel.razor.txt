@@ -1,4 +1,17 @@
 ﻿@inherits FluentPanel
 
-<h1>Hello @Name</h1>
+<h1>Hello @SimplePerson.Firstname </h1>
+<p>Your lastname is @SimplePerson.Lastname and you are @SimplePerson.Age years young </p>
 
+<FluentTextField @bind-Value="@SimplePerson.Firstname">Your firstname:</FluentTextField>
+<FluentTextField @bind-Value="@SimplePerson.Lastname">Your lastname:</FluentTextField>
+<FluentNumberField @bind-Value="@SimplePerson.Age">Your age:</FluentNumberField>
+
+@code {
+    SimplePerson SimplePerson { get; set; } = new SimplePerson();
+
+    protected override void OnInitialized()
+    {
+        SimplePerson = (SimplePerson)Data!;
+    }
+}

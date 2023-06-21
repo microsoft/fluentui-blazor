@@ -1737,8 +1737,25 @@
             The label surfaced to assistive technologies.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.Instance">
+            <summary>
+            The instance containing the programmatic API for the dialog.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.Settings">
-            <inheritdoc/>
+            <summary>
+            Contains the actual parameters for the settings of the dialog.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.ChildContent">
+            <summary>
+            Used when not calling the <see cref="T:Microsoft.Fast.Components.FluentUI.DialogService" /> to show a dialog
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.OnDialogResult">
+            <summary>
+            The event callback invoked to return the dialog result.
+            </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentDialog.CloseAsync(Microsoft.Fast.Components.FluentUI.DialogResult)">
             <summary>

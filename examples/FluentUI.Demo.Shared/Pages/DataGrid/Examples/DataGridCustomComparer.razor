@@ -41,7 +41,7 @@
         .ThenDescending(x => x.Medals.Silver)
         .ThenDescending(x => x.Medals.Bronze);
 
-    // Uncomment line below when using the TemplateColumn example for the country name
+    // Uncomment line below when using the TemplateColumn example for the country _name
     GridSort<Country> nameSort = GridSort<Country>.ByAscending(x => x.Name, StringLengthComparer.Instance);
 
 

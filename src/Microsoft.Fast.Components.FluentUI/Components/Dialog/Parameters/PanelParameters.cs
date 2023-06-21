@@ -8,4 +8,5 @@ public class PanelParameters : DialogParameters, IPanelParameters
     public string? PrimaryButton { get; set; } = "Ok"; //DialogResources.ButtonPrimary;
     public string? SecondaryButton { get; set; } = "Cancel"; //DialogResources.ButtonSecondary;
     public string? Width { get; set; }
+    public object? Data { get; set; }
 }

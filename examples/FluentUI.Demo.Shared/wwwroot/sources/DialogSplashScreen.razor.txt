@@ -16,8 +16,8 @@
 
         SplashScreenParameters parameters = new()
         {
-            Title = "Product name",
-            SubTitle = "Suite name",
+            Title = "Product _name",
+            SubTitle = "Suite _name",
             LoadingText = "Loading...",
             Message = (MarkupString)"some <i>extra</i> text <strong>here</strong>",
             Width = "640px",
@@ -36,7 +36,7 @@
         SplashScreenParameters parameters = new()
             {
                 Title = "Deap sea diving 101",
-                //SubTitle = "Suite name",
+                //SubTitle = "Suite _name",
                 LoadingText = "Filling the oxygen bottles...",
                 Message = (MarkupString)"Don't hold your breath <strong>too</strong> long!",
                 Width = "500px",

@@ -44,6 +44,8 @@ public partial class FluentDialogContainer : IDisposable
 
             DialogInstance dialog = new(dialogComponent, parameters, dialogSettings);
 
+            string id = dialog.Id;
+
             _dialogs.Add(dialog);
             StateHasChanged();
         });

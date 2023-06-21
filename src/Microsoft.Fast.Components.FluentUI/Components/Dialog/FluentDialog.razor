@@ -33,11 +33,12 @@
                 @if (Instance is null)
                 {
                     
-                @ChildContent
+                    @ChildContent
                 }
                 else
                 {
-                    <DynamicComponent Type="@Instance.ContentType" Parameters="@Instance.GetParameterDictionary()" />
+                    
+                    <DynamicComponent Type="@Instance.ContentType" Parameters="_parameters" />
                 }
             </div>
 
@@ -49,7 +50,7 @@
                         @if (Settings.ShowPrimaryButton)
                         {
                             <FluentButton title="@Settings.PrimaryButton"
-                                          @onclick="@(() => CloseAsync<string?>(Settings.PrimaryButton))"
+                                          @onclick="@(() => CloseAsync<object?>(Data ??= true))"
                                           Appearance="Appearance.Accent">
                                 @Settings.PrimaryButton
                             </FluentButton>
@@ -57,7 +58,7 @@
                         @if (Settings.ShowSecondaryButton)
                         {
                             <FluentButton title="@Settings.SecondaryButton"
-                                          @onclick="@(() => CancelAsync<string?>(Settings.SecondaryButton))"
+                                          @onclick="@(() => CancelAsync<object?>(Data ??= false))"
                                           Appearance="Appearance.Neutral">
                                 @Settings.SecondaryButton
                             </FluentButton>

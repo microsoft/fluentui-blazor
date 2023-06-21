@@ -6,16 +6,16 @@ namespace FluentUI.Demo.Shared.Pages.Dialog.Examples;
 public partial class CustomSplashScreen : ISplashScreenParameters, IDialogContentComponent
 {
     /// <summary>
-    /// Typically used to show the product name.
+    /// Typically used to show the product _name.
     /// </summary>
     [Parameter]
-    public string? Title { get; set; } = "Your Product name"; //SplashScreenResources.ProductName;
+    public string? Title { get; set; } = "Your Product _name"; //SplashScreenResources.ProductName;
 
     /// <summary>
-    /// Typically used to show the name of the suite the product belongs to.
+    /// Typically used to show the _name of the suite the product belongs to.
     /// </summary>
     [Parameter]
-    public string? SubTitle { get; set; } = "Your Suite name"; //SplashScreenResources.SuiteName;
+    public string? SubTitle { get; set; } = "Your Suite _name"; //SplashScreenResources.SuiteName;
 
     /// <summary>
     /// Text to indicate something is happening.

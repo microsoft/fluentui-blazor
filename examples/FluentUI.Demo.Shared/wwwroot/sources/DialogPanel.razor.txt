@@ -9,31 +9,31 @@
 </FluentButton>
 
 @code {
+    SimplePerson simplePerson = new()
+        {
+            Firstname = "Steve",
+            Lastname = "Sanderson",
+            Age = 42,
+        };
+
     private void OpenPanelRight()
     {
         DemoLogger.WriteLine($"Open right panel");
 
-        //ComponentParameters parameters = new ComponentParameters();
-
         PanelParameters parameters = new()
-        {
-            Title = "Title",
-            OnDialogResult = DialogService.CreateDialogCallback(this, HandlePanel),
-            PrimaryButton = "Yes",
-            SecondaryButton = "No", 
-        };
-
-        parameters.Add(nameof(SimplePanel.Name), "Steven");
-
+            {
+                Title = "Title",
+                OnDialogResult = DialogService.CreateDialogCallback(this, HandlePanel),
+                PrimaryButton = "Yes",
+                SecondaryButton = "No",
+                Data = simplePerson,
+            };
         DialogService.ShowPanel<SimplePanel>(parameters);
-
     }
 
     private void OpenPanelLeft()
     {
         DemoLogger.WriteLine($"Open left panel");
-
-        //ComponentParameters parameters = new ComponentParameters();
 
         PanelParameters parameters = new()
             {
@@ -45,19 +45,28 @@
                 PrimaryButton = "Maybe",
                 SecondaryButton = "Cancel",
                 Width = "300px",
-
+                Data = simplePerson,
             };
 
-        parameters.Add(nameof(SimplePanel.Name), "Daniel");
-
         DialogService.ShowPanel<SimplePanel>(parameters);
-
     }
 
     private async Task HandlePanel(DialogResult result)
     {
+        if (result.Cancelled)
+        {
+            await Task.Run(() => DemoLogger.WriteLine($"Panel cancelled"));
+            return;
+        }
+        if (result.Data is not null)
+        {
+            SimplePerson? simplePerson = result.Data as SimplePerson;
+            await Task.Run(() => DemoLogger.WriteLine($"Panel closed by {simplePerson?.Firstname} {simplePerson?.Lastname}({simplePerson?.Age})"));
+            return;
+        }
 
         await Task.Run(() => DemoLogger.WriteLine($"Panel closed"));
+
     }
 
 }

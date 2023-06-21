@@ -37,13 +37,13 @@ public abstract class FluentComponentBase : ComponentBase
     /// Optional in-line styles. If given, these will be included in the style attribute of the component.
     /// </summary>
     [Parameter]
-    public virtual string? Style { get; set; }
+    public virtual string? Style { get; set; } = null;
 
     /// <summary>
     /// Used to attach any user data object to the component.
     /// </summary>
     [Parameter]
-    public virtual object? Data { get; set; } = null;
+    public virtual object? Data { get; set; } = default!;
 
     /// <summary>
     /// A reference to the enclosing component.
