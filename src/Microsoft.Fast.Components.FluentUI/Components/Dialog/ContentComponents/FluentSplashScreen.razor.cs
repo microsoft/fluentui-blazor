@@ -41,7 +41,7 @@ public partial class FluentSplashScreen : ISplashScreenParameters, IDialogConten
     public string? LoadingText { get; set; } = "Loading..."; //SplashScreenResources.LoadingLabel;
 
     /// <summary>
-    /// An extra message. 
+    /// An extra message. Can contain HTML. 
     /// </summary>
     [Parameter]
     public MarkupString? Message { get; set; }
@@ -74,7 +74,7 @@ public partial class FluentSplashScreen : ISplashScreenParameters, IDialogConten
     public EventCallback<DialogResult> OnDialogResult { get; set; }
 
     [CascadingParameter]
-    public FluentDialog ParentDialog { get; set; } = default!;
+    public FluentDialog Dialog { get; set; } = default!;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -84,7 +84,7 @@ public partial class FluentSplashScreen : ISplashScreenParameters, IDialogConten
             await Task.Delay(4000);
 
             // Close the dialog
-            await ParentDialog.CloseAsync();
+            await Dialog.CloseAsync();
         }
     }
 }

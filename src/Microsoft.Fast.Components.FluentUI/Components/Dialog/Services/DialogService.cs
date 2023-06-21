@@ -9,14 +9,12 @@ public class DialogService : IDialogService
     /// </summary>
     public event Action<Type, DialogParameters, Action<DialogSettings>?>? OnShow;
 
-    //public event Action<DialogInstance>? OnDialogInstanceAdded;
-    //public event Action<string>? OnDialogCloseRequested;
+    public void ShowSplashScreen(object receiver, Func<DialogResult, Task> callback, SplashScreenParameters parameters)
+        => ShowSplashScreen<FluentSplashScreen>(receiver, callback, parameters);
 
     public void ShowSplashScreen<T>(object receiver, Func<DialogResult, Task> callback, SplashScreenParameters parameters)
-         where T : IDialogContentComponent
-    {
-        ShowSplashScreen(typeof(T), receiver, callback, parameters);
-    }
+         where T : IDialogContentComponent => ShowSplashScreen(typeof(T), receiver, callback, parameters);
+
 
     public void ShowSplashScreen(Type component, object receiver, Func<DialogResult, Task> callback, SplashScreenParameters parameters)
     {
@@ -38,48 +36,40 @@ public class DialogService : IDialogService
     }
 
     // ToDo: Add Success, Warning?
-    public void ShowError(string message, string? title = null)
+    public void ShowError(string message, string? title = null) => ShowMessageBox(new MessageBoxParameters()
     {
-        ShowMessageBox(new MessageBoxParameters()
-        {
-            Intent = MessageBoxIntent.Error,
-            PrimaryButtonText = "Ok", /*DialogResources.ButtonOK,*/
-            SecondaryButtonText = string.Empty,
-            Icon = FluentIcons.DismissCircle,
-            IconColor = Color.Error,
-            Title = string.IsNullOrWhiteSpace(title) ? "Error!" /*DialogResources.TitleError*/ : title,
-            Message = message,
-        }); ;
-    }
+        Intent = MessageBoxIntent.Error,
+        PrimaryButtonText = "Ok", /*DialogResources.ButtonOK,*/
+        SecondaryButtonText = string.Empty,
+        Icon = FluentIcons.DismissCircle,
+        IconColor = Color.Error,
+        Title = string.IsNullOrWhiteSpace(title) ? "Error!" /*DialogResources.TitleError*/ : title,
+        Message = message,
+    });
 
-    public void ShowInfo(string message, string? title = null)
-    {
-        ShowMessageBox(new MessageBoxParameters()
-        {
-            Intent = MessageBoxIntent.Info,
-            PrimaryButtonText = "Ok", /*DialogResources.ButtonOK,*/
-            SecondaryButtonText = string.Empty,
-            Icon = FluentIcons.Info,
-            IconColor = Color.Warning,
-            Title = string.IsNullOrWhiteSpace(title) ? "Information" /*DialogResources.TitleInformation*/ : title,
-            Message = message,
-        });
-    }
 
-    public void ShowConfirmation(object receiver, Func<DialogResult, Task> callback, string message, string primaryText = "Yes", string secondaryText = "No", string? title = null)
+    public void ShowInfo(string message, string? title = null) => ShowMessageBox(new MessageBoxParameters()
     {
-        ShowMessageBox(new MessageBoxParameters()
-        {
-            Intent = MessageBoxIntent.Confirmation,
-            PrimaryButtonText = primaryText, /*DialogResources.ButtonYes,*/
-            SecondaryButtonText = secondaryText, /*DialogResources.ButtonNo,*/
-            Icon = FluentIcons.QuestionCircle,
-            IconColor = Color.Success,
-            Title = string.IsNullOrWhiteSpace(title) ? "Confirm" /*DialogResources.TitleConfirmation*/ : title,
-            Message = message,
-            OnDialogResult = EventCallback.Factory.Create(receiver, callback)
-        });
-    }
+        Intent = MessageBoxIntent.Info,
+        PrimaryButtonText = "Ok", /*DialogResources.ButtonOK,*/
+        SecondaryButtonText = string.Empty,
+        Icon = FluentIcons.Info,
+        IconColor = Color.Warning,
+        Title = string.IsNullOrWhiteSpace(title) ? "Information" /*DialogResources.TitleInformation*/ : title,
+        Message = message,
+    });
+
+    public void ShowConfirmation(object receiver, Func<DialogResult, Task> callback, string message, string primaryText = "Yes", string secondaryText = "No", string? title = null) => ShowMessageBox(new MessageBoxParameters()
+    {
+        Intent = MessageBoxIntent.Confirmation,
+        PrimaryButtonText = primaryText, /*DialogResources.ButtonYes,*/
+        SecondaryButtonText = secondaryText, /*DialogResources.ButtonNo,*/
+        Icon = FluentIcons.QuestionCircle,
+        IconColor = Color.Success,
+        Title = string.IsNullOrWhiteSpace(title) ? "Confirm" /*DialogResources.TitleConfirmation*/ : title,
+        Message = message,
+        OnDialogResult = EventCallback.Factory.Create(receiver, callback)
+    });
 
     public void ShowMessageBox(MessageBoxParameters parameters)
     {
@@ -104,10 +94,7 @@ public class DialogService : IDialogService
     }
 
     public void ShowPanel<T>(PanelParameters parameters)
-        where T : IDialogContentComponent
-    {
-        ShowPanel(typeof(T), parameters);
-    }
+        where T : IDialogContentComponent => ShowPanel(typeof(T), parameters);
 
     public void ShowPanel(Type dialogComponent, PanelParameters parameters)
     {
@@ -131,10 +118,7 @@ public class DialogService : IDialogService
     }
 
     public void ShowDialog<T>(string title, DialogParameters parameters, Action<DialogSettings>? settings = null)
-        where T : IDialogContentComponent
-    {
-        ShowDialog(typeof(T), title, parameters, settings);
-    }
+        where T : IDialogContentComponent => ShowDialog(typeof(T), title, parameters, settings);
 
     /// <summary>
     /// Shows the dialog with the component type />,
@@ -159,8 +143,5 @@ public class DialogService : IDialogService
         OnShow?.Invoke(dialogComponent, parameters, settings);
     }
 
-    public EventCallback<DialogResult> CreateDialogCallback(object receiver, Func<DialogResult, Task> callback)
-    {
-        return EventCallback.Factory.Create(receiver, callback);
-    }
+    public EventCallback<DialogResult> CreateDialogCallback(object receiver, Func<DialogResult, Task> callback) => EventCallback.Factory.Create(receiver, callback);
 }

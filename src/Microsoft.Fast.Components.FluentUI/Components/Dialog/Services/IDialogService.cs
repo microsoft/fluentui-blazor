@@ -9,9 +9,7 @@ public interface IDialogService
     /// </summary>
     public event Action<Type, DialogParameters, Action<DialogSettings>?>? OnShow;
 
-    //public event Action<DialogInstance> OnDialogInstanceAdded;
-    //public event Action<string> OnDialogCloseRequested;
-
+    void ShowSplashScreen(object receiver, Func<DialogResult, Task> callback, SplashScreenParameters parameters);
 
     void ShowSplashScreen<T>(object receiver, Func<DialogResult, Task> callback, SplashScreenParameters parameters)
         where T : IDialogContentComponent;

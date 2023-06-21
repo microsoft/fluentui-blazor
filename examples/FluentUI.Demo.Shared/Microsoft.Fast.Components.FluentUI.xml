@@ -1672,7 +1672,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentSplashScreen.Message">
             <summary>
-            An extra message. 
+            An extra message. Can contain HTML. 
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentSplashScreen.Logo">
@@ -1767,6 +1767,155 @@
             Constructs an instance of <see cref="T:Microsoft.Fast.Components.FluentUI.FluentToastContainer"/>.
             </summary>
         </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.DialogParameters">
+            <summary>
+            A dialog always has a title and a callback function for the result.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.Title">
+            <summary>
+            Title of the dialog
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.OnDialogResult">
+            <summary>
+            Callback function for the result.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.MessageBoxParameters">
+            <summary>
+            The set of parameters for a message box.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageBoxParameters.Intent">
+            <summary>
+            The intent of the message box. See <see cref="T:Microsoft.Fast.Components.FluentUI.MessageBoxIntent"/> for more details.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageBoxParameters.Message">
+            <summary>
+            The actual message to display.
+            Do not use this property if you are using the <see cref="P:Microsoft.Fast.Components.FluentUI.MessageBoxParameters.MarkupMessage"/> property.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageBoxParameters.MarkupMessage">
+            <summary>
+            The actual message to display as a MarkupString.
+            Do not use this property if you are using the <see cref="P:Microsoft.Fast.Components.FluentUI.MessageBoxParameters.Message"/> property.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageBoxParameters.Icon">
+            <summary>
+            Icon to display in the message box.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageBoxParameters.IconColor">
+            <summary>
+            Color of the icon.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageBoxParameters.PrimaryButtonText">
+            <summary>
+            Text to display on the primary button.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageBoxParameters.SecondaryButtonText">
+            <summary>
+            Text to display on the secondary button.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageBoxParameters.Width">
+            <summary>
+            The width of the message box.
+            Must be a valid CSS width string like "600px" or "3em".
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageBoxParameters.Height">
+            <summary>
+            Height of the message box.
+            Usually no need to set this. Height adapts to the displayed content by default.
+            Must be a valid CSS height string like "600px" or "3em".
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.PanelParameters">
+            <summary>
+            The set of parameters for a panel.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.PanelParameters.Alignment">
+            <summary>
+            Determines the alignment of the panel.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.PanelParameters.Modal">
+            <summary>
+            Determines if the panel is modal. Defaults to true.
+            When true, clicking outside the panel will dismiss the panel.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.PanelParameters.ShowDismiss">
+            <summary>
+            When true, shows the dismiss button in the header.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.PanelParameters.PrimaryButton">
+            <summary>
+            Text to display on the primary button.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.PanelParameters.SecondaryButton">
+            <summary>
+            Text to display on the secondary button.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.PanelParameters.Width">
+            <summary>
+            Width of the panel.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.PanelParameters.Data">
+            <summary>
+            Data to pass to and from the panel.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.SplashScreenParameters">
+            <summary>
+            The set of parameters for a splash screen dialog.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.SplashScreenParameters.SubTitle">
+            <summary>
+            The subtitle of the splash screen.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.SplashScreenParameters.LoadingText">
+            <summary>
+            The text to display while loading.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.SplashScreenParameters.Message">
+            <summary>
+            Extra message to display. Supports HTML.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.SplashScreenParameters.Logo">
+            <summary>
+            Logo to show on the splash screen.
+            Can be a URL or a base64 encoded string or an SVG.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.SplashScreenParameters.Width">
+            <summary>
+            The width of the splash screen.
+            Must be a valid CSS width string like "600px" or "3em".
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.SplashScreenParameters.Height">
+            <summary>
+            The height of the splash screen.
+            Must be a valid CSS height string like "600px" or "3em".
+            </summary>
+        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DialogResult">
             <summary />
         </member>
@@ -1802,7 +1951,7 @@
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DialogSettings">
             <summary>
-            Instance specific settings for a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDialog"/> component
+            _instance specific settings for a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDialog"/> component
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogSettings.Alignment">
@@ -1860,7 +2009,7 @@
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogSettings.LargeScreen">
             <summary>
-            Default configuration for a and almost full screen dialog.
+            Default configuration for a large, almost full screen dialog.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogSettings.ShowPrimaryButton">
@@ -4343,7 +4492,7 @@
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.ToastSettings">
             <summary>
-            Instance specific settings for a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentToast"/> component
+            _instance specific settings for a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentToast"/> component
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ToastSettings.Icon">

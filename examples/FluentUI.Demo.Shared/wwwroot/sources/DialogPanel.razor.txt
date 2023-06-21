@@ -61,7 +61,7 @@
         if (result.Data is not null)
         {
             SimplePerson? simplePerson = result.Data as SimplePerson;
-            await Task.Run(() => DemoLogger.WriteLine($"Panel closed by {simplePerson?.Firstname} {simplePerson?.Lastname}({simplePerson?.Age})"));
+            await Task.Run(() => DemoLogger.WriteLine($"Panel closed by {simplePerson?.Firstname} {simplePerson?.Lastname} ({simplePerson?.Age})"));
             return;
         }
 

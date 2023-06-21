@@ -1,7 +1,7 @@
 ﻿namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary>
-/// Instance specific settings for a <see cref="FluentDialog"/> component
+/// _instance specific settings for a <see cref="FluentDialog"/> component
 /// </summary>
 public class DialogSettings
 {
@@ -64,10 +64,9 @@ public class DialogSettings
 
     public string? AriaLabel { get; set; }
 
-    //internal DialogSettings() { }
 
     /// <summary>
-    /// Default configuration for a and almost full screen dialog.
+    /// Default configuration for a large, almost full screen dialog.
     /// </summary>
     public static DialogSettings LargeScreen() => new()
     {
