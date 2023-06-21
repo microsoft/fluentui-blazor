@@ -2,8 +2,8 @@
 
 @inherits FluentComponentBase
 <div>
-    <CascadingValue Value="this" Name="NavMenu" IsFixed="true">
-        <CascadingValue Value="Expanded" Name="NavMenuExpanded">
+    <CascadingValue Value="this" IsFixed="true">
+        <CascadingValue Value="@Expanded" Name="NavMenuExpanded">
             <FluentTreeView Class="@ClassValue"
                             Style="@StyleValue"
                             OnSelectedChange="HandleSelectedChange">

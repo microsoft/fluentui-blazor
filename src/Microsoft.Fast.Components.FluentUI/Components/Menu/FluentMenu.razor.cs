@@ -54,8 +54,8 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
     /// Gets or sets the Menu status.
     /// </summary>
     [Parameter]
-    public bool Open { get; set; } 
-    
+    public bool Open { get; set; }
+
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>
@@ -138,10 +138,8 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
     {
         Open = false;
 
-        if (OpenChanged.HasDelegate)
-        {
-            await OpenChanged.InvokeAsync(Open);
-        }
+        await OpenChanged.InvokeAsync(Open);
+
     }
 
     /// <summary>
