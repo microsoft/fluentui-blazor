@@ -61,9 +61,9 @@ public partial class IconPage : IAsyncDisposable
         HandleSearch();
     }
 
-    public void HandleSearchField(ChangeEventArgs args)
+    public void HandleSearchField(string value)
     {
-        Form.Searchterm = (string?)args.Value;
+        Form.Searchterm = value;
 
         HandleSearch();
     }

@@ -1,7 +1,6 @@
 <FluentSearch @ref=searchTest 
-              @oninput=handleSearchInput 
-              @onchange=handleSearchInput
               @bind-Value="@searchValue"
+              AfterBindValue=HandleSearchInput
               Placeholder="Search for State" />
 <br />
 <FluentListbox Items=@searchResults TOption="string" SelectedOptionChanged="@(e => searchValue = (e != defaultResultsText ? e : string.Empty) )"  />
@@ -76,11 +75,16 @@
         return new() { defaultResultsText };
     }
 
-    void handleSearchInput(ChangeEventArgs args)
+    void HandleSearchInput(string? value)
     {
-        if (args is not null && ! string.IsNullOrWhiteSpace(args.Value?.ToString()))
+        if (string.IsNullOrWhiteSpace(value))
         {
-            string searchTerm = args.Value.ToString()!.ToLower();
+            searchResults = defaultResults();
+            searchValue = string.Empty;
+        }
+        else
+        {
+            string searchTerm = value.ToLower();
 
             if (searchTerm.Length > 0)
             {
@@ -90,11 +94,6 @@
                     searchResults = temp;
                 }
             }
-        }
-        else
-        {
-            searchResults = defaultResults();
-            searchValue = string.Empty;
         }
     }
 }

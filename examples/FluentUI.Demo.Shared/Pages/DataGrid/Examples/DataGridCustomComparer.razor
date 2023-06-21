@@ -8,14 +8,14 @@
     @*<PropertyColumn Property="@(c => c.Name)" InitialSortDirection=SortDirection.Descending Sortable="true" Comparer="@StringLengthComparer.Instance">
         <ColumnOptions>
             <div class="search-box">
-                <FluentSearch type="search" Autofocus=true @bind-Value=nameFilter @oninput="HandleCountryFilter" @onchange="HandleClear" Placeholder="Country name..." />
+                <FluentSearch type="search" Autofocus=true @bind-Value=nameFilter @oninput="HandleCountryFilter" AfterBindValue="HandleClear" Placeholder="Country name..." />
             </div>
         </ColumnOptions>
     </PropertyColumn>*@
     <TemplateColumn Title="Name" InitialSortDirection=SortDirection.Descending SortBy="@nameSort" IsDefaultSortColumn=true>
         <ColumnOptions>
             <div class="search-box">
-                <FluentSearch type="search" Autofocus=true @bind-Value=nameFilter @oninput="HandleCountryFilter" @onchange="HandleClear" Placeholder="Country name..." />
+                <FluentSearch type="search" Autofocus=true @bind-Value=nameFilter @oninput="HandleCountryFilter" AfterBindValue="HandleClear" Placeholder="Country name..." />
             </div>
         </ColumnOptions>
         <ChildContent>
@@ -60,12 +60,9 @@
         }
     }
 
-    private void HandleClear(ChangeEventArgs args)
+    private void HandleClear(string? value)
     {
-        if (args is not null && string.IsNullOrWhiteSpace(args.Value?.ToString()))
-        {
-            nameFilter = string.Empty;
-        }
+        nameFilter = value ?? string.Empty;
     }
 
     public class StringLengthComparer : IComparer<string>
