@@ -7,13 +7,59 @@ from the official website https://github.com/microsoft/fluentui-system-icons
 
 To generate the icons, you need:
 
-1. Download SVG images in a local folder (ex. C:\Temp) from the [official NPM repo](https://www.npmjs.com/package/@fluentui/svg-icons), using this command.
+1. To work with the `fluentui-system-icons` repo, you will need a Linux environment.
+   This is due to the way the `npm` scripts are handling paths.
+
+   If you are working on Windows, we recommend you setup a [WSL2 environment](https://learn.microsoft.com/en-us/windows/wsl/install).
+   We have validated the steps to work from an Ubuntu 22.04 installation.
+   If you are wotking on a Mac, you are probably good to go but this has not been verified.
 
    ```cmd
-   npm install @fluentui/svg-icons
+   wsl --install -d Ubuntu-22.04
    ```
 
-2. a) Compile the project and run the `FluentUIIconsGenerator.exe` application,
+2. Once your Linux environment is setup clone the [fluentui-system-icons](https://github.com/microsoft/fluentui-system-icons) repository to your Linux environment. 
+
+   ```cmd
+   git clone https://github.com/microsoft/fluentui-system-icons.git
+   ```
+
+   You do not need to create a fork of the repo as all the necessary work has been integrated into the repo already
+
+3. Once cloned, navigate to the directory `/packages/svg-icons` and install the needed dependencies:
+ 
+   ```cmd
+   npm install --only=dev
+   ```
+
+   You might need to repeat this command on the root folder of the repo as well.
+
+
+4. Clean out any previous work and run the build command.
+
+   ```
+   npm run clean
+   npm run buildforblazor
+   ```
+
+5. Navigate to the created icons folder (under `svg-icons`)
+
+   ```
+   cd icons
+   ```
+
+6. Copy the result to your local fast-blazor clone/fork.
+
+   ```
+   rsync -r -v  .  /mnt/c/Temp/Icons
+   ```
+
+   The `/mnt/..` path is a WSL2 thing. Adjust accordingly if you are working  on a Mac.
+   Make sure the path in the mnt (c/Temp/FluentIcons) points to a temporary folder will use in next steps.
+	
+   The `rsync` command should only copy new ad/or update files. 
+
+7. a) Compile the project and run the `FluentUIIconsGenerator.exe` application,
    passing the **Assets** path to this local folder containing the SVG images as a parameter.
    
 	   ```cmd
@@ -37,7 +83,7 @@ To generate the icons, you need:
 
 ## How to generate FluentUI Emoji classes
 
-1. Download the [repository](https://github.com/microsoft/fluentui-emoji).
+1. Download SVG images in a local folder (ex. C:\Temp) from the [repository](https://github.com/microsoft/fluentui-emoji).
 
 	```cmd
 	git clone https://github.com/microsoft/fluentui-emoji
