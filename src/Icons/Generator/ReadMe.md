@@ -34,6 +34,14 @@ To generate the icons, you need:
 
    You might need to repeat this command on the root folder of the repo as well.
 
+   > If you have an issue with the NPM command, try to install NVM and to re-install the latest version of NPM on your Linux environment.
+   > ```cmd
+   > curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
+   > ```
+   > ```cmd
+   > nvm install --lts
+   > ```
+
 
 4. Clean out any previous work and run the build command.
 
