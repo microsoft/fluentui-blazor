@@ -1,0 +1,34 @@
+﻿using Microsoft.AspNetCore.Components;
+
+namespace FluentUI.Demo.Shared;
+
+/// <summary>
+/// The data to show in a splash screen dialog.
+/// </summary>
+public class CustomSplashScreenData
+{
+    /// <summary>
+    /// Typically used to show the name of the product.
+    /// </summary>
+    public string? ProductName { get; set; }
+    /// <summary>
+    /// Typically used to show the name of the suite the product belongs to.
+    /// </summary>
+    public string? SuiteName { get; set; }
+
+    /// <summary>
+    /// Text to indicate something is happening.
+    /// </summary>
+    public string? LoadingText { get; set; }
+
+    /// <summary>
+    /// An extra message. Can contain HTML. 
+    /// </summary>
+    public MarkupString? Message { get; set; }
+
+    /// <summary>
+    /// Logo to show on the splash screen.
+    /// Can be a URL or a base64 encoded string or an SVG.
+    /// </summary>
+    public string? Logo { get; set; }
+}

@@ -54,7 +54,7 @@
 
     private async Task HandleResult(DialogResult result)
     {
-        MessageBoxParameters? data = result.Data as MessageBoxParameters;
-        await Task.Run(() => DemoLogger.WriteLine($"{data?.Title} - : Cancelled: {result.Cancelled}, Data: {(result.Cancelled ? data?.SecondaryButton : data?.PrimaryButton)}"));
+        MessageBoxData? data = result.Data as MessageBoxData;
+        await Task.Run(() => DemoLogger.WriteLine($"{data?.Title} - : Cancelled: {result.Cancelled}"));
     }
 }

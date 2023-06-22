@@ -2,29 +2,34 @@
 
 @using FluentUI.Demo.Shared.Pages.SplashScreen.Examples;
 
-<h1>Dialog</h1>
+<h1>SplashScreen</h1>
 
-<p>As defined by the <a href="https://w3c.github.io/aria-practices/#dialog_modal" target="_blank" rel="noopener noreferrer">W3C</a>:</p>
-<blockquote>
-    <p>
-        A dialog is a window overlaid on either the primary window or another dialog window. Windows under a modal dialog are inert.
-        That is, users cannot interact with content outside an active dialog window. Inert content outside an active dialog is typically visually
-        obscured or dimmed so it is difficult to discern, and in some implementations, attempts to interact with the inert content cause the dialog
-        to close.
-    </p>
-    <p>
-        Like non-modal dialogs, modal dialogs contain their tab sequence. That is, Tab and Shift + Tab do not move focus outside
-        the dialog. However, unlike most non-modal dialogs, modal dialogs do not provide means for moving keyboard focus outside the dialog window
-        without closing the dialog.
-    </p>
-</blockquote>
+<p></p>
 
-<p><code>&lt;FluentDialog&gt;</code> wraps the <code>&lt;fluent-dialog&gt;</code> element, a web component implementation of a dialog leveraging the Fluent UI design system.</p>
+<p>
+    For defining the information to display in the <code>SplashScreen</code>, the <code>SplashScreenParameters</code> class is used. It has the following properties:
+</p>
 
-<ApiDocumentation Component="typeof(FluentDialog)" />
+<ApiDocumentation Component="typeof(SplashScreenParameters)" />
+
+<p>
+    The <code>DialogService</code> is a singleton service that can be injected into any component. It exposes 2 methods to show a splash screen dialog:
+    <ul>
+        <li><code>SplashScreenParameters</code></li>
+        <li><code>SplashScreenParameters&lt;T&gt;></code> where T is a custom component which inherits the <code>FluentSplashScreen</code> component</li>
+    </ul>
+</p>
+
+<ApiDocumentation Component="typeof(FluentSplashScreen)" />
 
 <h2>Examples</h2>
 
-<DemoSection Title="Splash screen" Component="@typeof(DialogSplashScreen)">
+<DemoSection Title="Splash screen" Component="@typeof(DialogSplashScreen)" AdditionalFiles="@(new [] {"CustomSplashScreen.razor"})">
+    <Description>
+        The default example shows the standard splash screen. It's content can be alterd by means of the <code>SplashScreenParameters</code> class.
+        In this example we simulate a startup process that takes 4 seconds. The second example shows a splash screen that uses a customized layout. 
+        See the <code>CustomSplashScreen</code> razor file to see how that can be done. 
+        The <code>OnParametersSet</code> method is needed to transfer the data from/to the dialog.
+    </Description>
 </DemoSection>
 

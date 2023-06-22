@@ -3,7 +3,7 @@
 /// <summary>
 /// The set of parameters for a panel.
 /// </summary>
-public class PanelParameters : DialogParameters, IPanelParameters
+public class PanelParameters<TData> : DialogParameters<TData>
 {
-
+    public override HorizontalAlignment Alignment { get; set; } = HorizontalAlignment.Right;
 }

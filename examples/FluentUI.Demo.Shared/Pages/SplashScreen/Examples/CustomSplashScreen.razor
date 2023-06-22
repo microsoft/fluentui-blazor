@@ -1,29 +1,33 @@
 ﻿@using Microsoft.Fast.Components.FluentUI
-@inherits FluentSplashScreen
+@implements IDialogContentComponent<SplashScreenData>
 
 <FluentStack Orientation="Orientation.Vertical" HorizontalAlignment="HorizontalAlignment.Center" Class="my-splash">
-    <img class="icon" src="@SplashScreenData.Logo" />
-    <p>@SplashScreenData.Message</p>
+    <img class="icon" src="@Data.Logo" />
+    <p>@Data.Message</p>
     <h3>
-        @SplashScreenData.Title
+        @Data.Title
     </h3>
     <h3>
-        @SplashScreenData.SubTitle
+        @Data.SubTitle
     </h3>
     <div style="width: 340px;">
         <FluentProgress/>
     </div>
     
     <h3>
-        @SplashScreenData.LoadingText
+        @Data.LoadingText
     </h3>
 </FluentStack>
 
 @code{
-    protected override void OnParametersSet()
-    {
-        SplashScreenData = (SplashScreenParameters)Dialog.Data!;
-    }
+    
+
+    [Parameter]
+    public SplashScreenData Data { get; set; } = default!;
+
+    [CascadingParameter]
+    public FluentDialog Dialog { get; set; } = default!;
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)

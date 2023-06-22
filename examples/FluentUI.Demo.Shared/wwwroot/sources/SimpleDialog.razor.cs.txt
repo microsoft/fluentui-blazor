@@ -1,0 +1,10 @@
+using FluentUI.Demo.Shared.SampleData;
+using Microsoft.Fast.Components.FluentUI;
+
+namespace FluentUI.Demo.Shared.Pages.Dialog.Examples
+{
+    public partial class SimpleDialog : IDialogContentComponent<SimplePerson>
+    {
+        public SimplePerson Data { get; set; } = default!;
+    }
+}

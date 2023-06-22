@@ -5,12 +5,12 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// <summary>
 /// A dialog always has a title and a callback function for the result.
 /// </summary>
-public class DialogParameters : ComponentParameters, IDialogParameters
+public class DialogParameters<TData> : ComponentParameters
 {
     /// <summary>
     /// Determines the alignment of the panel.
     /// </summary>
-    public HorizontalAlignment Alignment { get; set; } = HorizontalAlignment.Right;
+    public virtual HorizontalAlignment Alignment { get; set; } = HorizontalAlignment.Center;
 
     /// <summary>
     /// Title of the dialog
@@ -52,7 +52,7 @@ public class DialogParameters : ComponentParameters, IDialogParameters
     /// <summary>
     /// Data to pass to and from the panel.
     /// </summary>
-    public object? Data { get; set; }
+    public TData Data { get; set; } = default!;
 
     /// <summary>
     /// Callback function for the result.

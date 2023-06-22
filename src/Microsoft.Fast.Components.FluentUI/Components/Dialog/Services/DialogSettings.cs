@@ -1,4 +1,6 @@
-﻿namespace Microsoft.Fast.Components.FluentUI;
+﻿using Microsoft.AspNetCore.Components;
+
+namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary>
 /// Instance specific parameters for a <see cref="FluentDialog"/> component
@@ -11,6 +13,11 @@ public class DialogSettings
     /// or screen middle (using Width and Height properties).
     /// </summary>
     public HorizontalAlignment Alignment { get; set; } = HorizontalAlignment.Center;
+
+    /// <summary>
+    /// Gets or sets the dialog title.
+    /// </summary>
+    public string? Title { get; set; }
 
     /// <summary>
     /// Window width, only if <see cref="Alignment"/> is Center.
@@ -86,6 +93,11 @@ public class DialogSettings
         PrimaryButton = null,
         SecondaryButton = null
     };
+
+    /// <summary>
+    /// Callback function for the result.
+    /// </summary>
+    public EventCallback<DialogResult> OnDialogResult { get; set; } = default!;
 
     /// <summary>
     /// Gets whether the primary button is displayed or not. Depends on PrimaryButton having a value.

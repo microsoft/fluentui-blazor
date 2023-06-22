@@ -16,7 +16,7 @@
     {
         @foreach (DialogInstance dialog in _dialogs)
         {
-            <FluentDialog @key="@dialog" Id="@dialog.Id" Settings="@dialog.Settings" Instance="@dialog"  @ondialogdismiss=OnDismissAsync />
+            <FluentDialog @key="@dialog" Id="@dialog.Id" Settings="@dialog.Settings" Instance="@dialog" Data="@dialog.Data" @ondialogdismiss=OnDismissAsync />
         }
     }
 }

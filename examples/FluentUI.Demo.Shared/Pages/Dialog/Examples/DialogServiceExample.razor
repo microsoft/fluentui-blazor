@@ -17,10 +17,9 @@
     {
         DemoLogger.WriteLine($"Open dialog centered");
 
-        DialogParameters parameters = new()
+        DialogParameters<SimplePerson> parameters = new()
             {
                 Title = $"Hello {simplePerson.Firstname}",
-                Alignment = HorizontalAlignment.Center,
                 OnDialogResult = DialogService.CreateDialogCallback(this, HandlePanel),
                 PrimaryButton = "Yes",
                 SecondaryButton = "No",
@@ -28,7 +27,7 @@
                 Height = "400px",
                 Data = simplePerson,
             };
-        DialogService.ShowDialog<SimpleDialog>(parameters);
+        DialogService.ShowDialog<SimpleDialog, SimplePerson>(parameters);
     }
 
     private async Task HandlePanel(DialogResult result)

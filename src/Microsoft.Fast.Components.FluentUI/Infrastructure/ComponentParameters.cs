@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public class ComponentParameters : IEnumerable<KeyValuePair<string, object>>
+public class ComponentParameters : IComponentParameters
 {
     private readonly Dictionary<string, object> _parameters;
 

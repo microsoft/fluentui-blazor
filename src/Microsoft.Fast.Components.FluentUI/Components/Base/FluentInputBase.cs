@@ -126,9 +126,15 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
         // but that would involve a complex change in the renderer to keep the render queue sorted
         // by component depth or similar.
         Value = value;
-        await ValueChanged.InvokeAsync(Value);
+        if (ValueChanged.HasDelegate)
+        {
+            await ValueChanged.InvokeAsync(value);
+        }
         EditContext?.NotifyFieldChanged(FieldIdentifier);
-        await AfterBindValue.InvokeAsync(Value);
+        if (AfterBindValue.HasDelegate)
+        {
+            await AfterBindValue.InvokeAsync(Value);
+        }
     }
 
     /// <summary>
@@ -150,8 +156,8 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
         // match what's on the .NET model. This avoids interfering with typing, but still notifies the EditContext
         // about the validation error message.
         get => _parsingFailed ? _incomingValueBeforeParsing : FormatValueAsString(CurrentValue);
-        set => SetCurrentValueAsString(value);
-    
+        set => _ = SetCurrentValueAsString(value);
+
     }
 
     /// <summary>

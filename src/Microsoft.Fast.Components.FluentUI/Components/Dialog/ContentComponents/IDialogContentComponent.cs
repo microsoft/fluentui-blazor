@@ -5,5 +5,9 @@
 /// </summary>
 public interface IDialogContentComponent
 {
+}
 
+public interface IDialogContentComponent<TData> : IDialogContentComponent
+{
+    TData Data { get; set; }
 }

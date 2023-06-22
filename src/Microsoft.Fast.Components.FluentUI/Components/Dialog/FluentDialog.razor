@@ -12,13 +12,13 @@
                    aria-describedby=@(Settings.AriaDescribedby ?? AriaDescribedby)
                    aria-labelledby=@(Settings.AriaLabelledby ?? AriaLabelledby)
                    aria-label=@(Settings.AriaLabel ?? AriaLabel)
-                   @attributes="AdditionalAttributes">
+                   @attributes=@AdditionalAttributes>
         <FluentStack Orientation="Orientation.Vertical" Class="fluent-dialog-content" Style="height:100%;">
-            @if (Settings.ShowTitle && (Instance?.Title != null || Settings.ShowDismiss))
+            @if (Settings.ShowTitle && (Settings.Title != null || Settings.ShowDismiss))
             {
                 <div class="fluent-dialog-header">
                     <FluentStack Orientation="Orientation.Horizontal" VerticalAlignment="VerticalAlignment.Center">
-                        <FluentLabel Typo="Typography.PaneHeader" Style="width: 100%; margin: 0px;">@Instance?.Title</FluentLabel>
+                        <FluentLabel Typo="Typography.PaneHeader" Style="width: 100%; margin: 0px;">@Settings.Title</FluentLabel>
                         @if (Settings.ShowDismiss)
                         {
                             <FluentButton Appearance="Appearance.Stealth" @onclick="@(() => CancelAsync())">
@@ -36,7 +36,7 @@
                 }
                 else
                 {
-                    <DynamicComponent Type="@Instance.ContentType" Parameters="_parameters" />
+                    <DynamicComponent Type="@Instance.ContentType" Parameters="Instance.GetParameterDictionary()" />
                 }
             </div>
 

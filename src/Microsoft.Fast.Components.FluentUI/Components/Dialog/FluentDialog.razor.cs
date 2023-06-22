@@ -8,7 +8,7 @@ public partial class FluentDialog : FluentComponentBase, IDisposable
 {
     private const string DEFAULT_WIDTH = "500px";
     private const string DEFAULT_HEIGHT = "unset";
-    private Dictionary<string, object> _parameters = new();
+    //private Dictionary<string, object> _parameters = new();
 
 
     [CascadingParameter]
@@ -110,15 +110,6 @@ public partial class FluentDialog : FluentComponentBase, IDisposable
             TrapFocus = null,
             Height = "unset",
         };
-
-        if (Instance is not null)
-        {
-            _parameters = Instance.GetParameterDictionary();
-            if (_parameters.TryGetValue("Data", out object? _data))
-            {
-                Data = _data;
-            }
-        }
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -159,7 +150,7 @@ public partial class FluentDialog : FluentComponentBase, IDisposable
     public async Task CloseAsync(DialogResult dialogResult)
     {
         DialogContext?.DialogContainer.DismissInstance(Id!);
-        await ((EventCallback<DialogResult>)Instance.Parameters["OnDialogResult"]).InvokeAsync(dialogResult);
+        await Instance.Settings.OnDialogResult.InvokeAsync(dialogResult);
     }
 
     public void Dispose() => DialogContext?.Unregister(this);

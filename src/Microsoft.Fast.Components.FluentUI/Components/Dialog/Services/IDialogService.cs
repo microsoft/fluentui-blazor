@@ -7,14 +7,14 @@ public interface IDialogService
     /// <summary>
     /// A event that will be invoked when showing a dialog with a custom component
     /// </summary>
-    public event Action<Type, DialogParameters, Action<DialogSettings>?>? OnShow;
+    public event Action<Type, object, Action<DialogSettings>?>? OnShow;
 
-    void ShowSplashScreen(object receiver, Func<DialogResult, Task> callback, SplashScreenParameters parameters);
+    void ShowSplashScreen(object receiver, Func<DialogResult, Task> callback, ISplashScreenParameters parameters);
 
-    void ShowSplashScreen<T>(object receiver, Func<DialogResult, Task> callback, SplashScreenParameters parameters)
-        where T : IDialogContentComponent;
+    void ShowSplashScreen<T>(object receiver, Func<DialogResult, Task> callback, ISplashScreenParameters parameters)
+        where T : IDialogContentComponent<SplashScreenData>;
 
-    void ShowSplashScreen(Type component, object receiver, Func<DialogResult, Task> callback, SplashScreenParameters parameters);
+    void ShowSplashScreen(Type component, object receiver, Func<DialogResult, Task> callback, ISplashScreenParameters parameters);
 
 
     void ShowError(string message, string? title = null);
@@ -25,18 +25,26 @@ public interface IDialogService
 
     void ShowMessageBox(MessageBoxParameters parameters);
 
-    void ShowPanel<T>(DialogParameters parameters)
-        where T : IDialogContentComponent;
+    void ShowPanel<T, TData>(PanelParameters<TData> parameters)
+        where T : IDialogContentComponent<TData>
+        where TData : class;
 
-    void ShowPanel(Type component, DialogParameters parameters);
+    void ShowPanel<TData>(Type component, PanelParameters<TData> parameters)
+        where TData : class;
 
-    void ShowDialog<T>(DialogParameters parameters)
-        where T : IDialogContentComponent;
+    void ShowDialog<T, TData>(DialogParameters<TData> parameters)
+        where T : IDialogContentComponent<TData>
+        where TData : class;
 
-    void ShowDialog<T>(DialogParameters parameters, Action<DialogSettings> settings)
-        where T : IDialogContentComponent;
+    void ShowDialog<T, TData>(DialogParameters<TData> parameters, Action<DialogSettings> settings)
+        where T : IDialogContentComponent<TData>
+        where TData : class;
 
-    void ShowDialog(Type component, DialogParameters parameters, Action<DialogSettings> settings);
+    //void ShowDialog<TData>(Type component, IDialogContentParameters<TData> parameters, Action<DialogSettings> settings)
+    //    where TData : class;
+
+    void ShowDialog<TData>(Type component, TData data, Action<DialogSettings> settings)
+        where TData : class;
 
     public EventCallback<DialogResult> CreateDialogCallback(object receiver, Func<DialogResult, Task> callback);
 }

@@ -2,26 +2,23 @@
 
 public sealed class DialogInstance
 {
-    public DialogInstance(Type type, DialogParameters parameters, DialogSettings settings)
+    public DialogInstance(Type type, object data, DialogSettings settings)
     {
         ContentType = type;
-        Parameters = parameters;
+        Data = data;
         Settings = settings;
-        Title = parameters.Title;
     }
 
     public string Id { get; } = Identifier.NewId();
 
-    public string? Title { get; set; }
-
     public Type? ContentType { get; set; }
 
-    public DialogParameters Parameters { get; set; } = new();
+    public object Data { get; set; } = default!;
 
     public DialogSettings Settings { get; }
 
     public Dictionary<string, object> GetParameterDictionary()
     {
-        return Parameters.GetDictionary();
+        return new Dictionary<string, object> { { "Data", Data! } };
     }
 }

@@ -20,7 +20,7 @@
     {
         DemoLogger.WriteLine($"Open right panel");
 
-        DialogParameters parameters = new()
+        PanelParameters<SimplePerson> parameters = new PanelParameters<SimplePerson>()
             {
                 Title = $"Hello {simplePerson.Firstname}",
                 OnDialogResult = DialogService.CreateDialogCallback(this, HandlePanel),
@@ -28,14 +28,14 @@
                 SecondaryButton = "No",
                 Data = simplePerson,
             };
-        DialogService.ShowPanel<SimplePanel>(parameters);
+        DialogService.ShowPanel<SimplePanel, SimplePerson>(parameters);
     }
 
     private void OpenPanelLeft()
     {
         DemoLogger.WriteLine($"Open left panel");
 
-        DialogParameters parameters = new()
+        PanelParameters<SimplePerson> parameters = new()
             {
                 Title = $"Hello {simplePerson.Firstname}",
                 OnDialogResult = DialogService.CreateDialogCallback(this, HandlePanel),
@@ -48,7 +48,7 @@
                 Data = simplePerson,
             };
 
-        DialogService.ShowPanel<SimplePanel>(parameters);
+        DialogService.ShowPanel<SimplePanel, SimplePerson>(parameters);
     }
 
     private async Task HandlePanel(DialogResult result)

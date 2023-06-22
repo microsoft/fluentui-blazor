@@ -2,7 +2,8 @@
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentSplashScreen : FluentDialogContent, ISplashScreenParameters
+public partial class FluentSplashScreen : IDialogContentComponent<SplashScreenData>
+
 {
     public const string LOGO = """
         <svg class="icon" focusable="false" viewBox="0 0 60 20" aria-hidden="true" >
@@ -21,36 +22,18 @@ public partial class FluentSplashScreen : FluentDialogContent, ISplashScreenPara
             </svg>
         </svg>
         """;
-    protected SplashScreenParameters SplashScreenData { get; set; } = new();
 
-    /// <summary>
-    /// Typically used to show the name of the suite the product belongs to.
-    /// </summary>
-    [Parameter]
-    public string? SubTitle { get; set; }
 
-    /// <summary>
-    /// Text to indicate something is happening.
-    /// </summary>
     [Parameter]
-    public string? LoadingText { get; set; }
+    public SplashScreenData Data { get; set; } = default!;
 
-    /// <summary>
-    /// An extra message. Can contain HTML. 
-    /// </summary>
-    [Parameter]
-    public MarkupString? Message { get; set; }
 
-    /// <summary>
-    /// Logo to show on the splash screen.
-    /// Can be a URL or a base64 encoded string or an SVG.
-    /// </summary>
-    [Parameter]
-    public string? Logo { get; set; } = LOGO;
+    [CascadingParameter]
+    public FluentDialog Dialog { get; set; } = default!;
 
     protected override void OnParametersSet()
     {
-        SplashScreenData = (SplashScreenParameters)Dialog.Data!;
+        //SplashScreenData = (Data as SplashScreenParameters)!;
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

@@ -34,7 +34,7 @@ public partial class FluentDialogContainer : IDisposable
         DialogService.OnShow += ShowDialog;
     }
 
-    private void ShowDialog(Type dialogComponent, DialogParameters parameters, Action<DialogSettings>? settings)
+    private void ShowDialog(Type dialogComponent, object parameters, Action<DialogSettings>? settings)
     {
         _ = InvokeAsync(() =>
         {
