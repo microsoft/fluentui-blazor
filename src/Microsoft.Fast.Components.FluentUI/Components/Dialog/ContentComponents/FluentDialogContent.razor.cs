@@ -2,7 +2,7 @@
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentPanel : FluentComponentBase, IDialogParameters, IDialogContentComponent
+public partial class FluentDialogContent : FluentComponentBase, IDialogParameters, IDialogContentComponent
 {
 
     [Parameter]
@@ -45,7 +45,7 @@ public partial class FluentPanel : FluentComponentBase, IDialogParameters, IDial
     [CascadingParameter]
     public FluentDialog Dialog { get; set; } = default!;
 
-    public FluentPanel()
+    public FluentDialogContent()
     {
         Id = Identifier.NewId();
     }

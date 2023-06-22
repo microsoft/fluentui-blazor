@@ -1,0 +1,41 @@
+@page "/MessageBox"
+
+@using FluentUI.Demo.Shared.Pages.MessageBox.Examples;
+
+<h1>MessageBox</h1>
+
+<p>
+    A MessageBox is a dialog that is used to display information with a specific intent to the user. It uses the <code>DialogService</code> to display the dialog.
+    The <code>DialogService</code> exposes the following methods for working with <code>MessageBox</code>es:
+    <ul>
+        <li><code>ShowInfo</code></li>
+        <li><code>ShowError</code></li>
+        <li><code>ShowConfirmation</code></li>
+        <li><code>ShowMessageBox</code></li>
+    </ul>
+
+</p>
+<p>
+    For defining the information to display in the <code>MessageBox</code>, the <code>MessageBoxParameters</code> class is used. It has the following properties:
+</p>
+<ApiDocumentation Component="typeof(MessageBoxParameters)" />
+<p>
+    The <code>DialogService</code> is a singleton service that can be injected into any component. It exposes methods to show a dialog
+</p>
+
+<ApiDocumentation Component="typeof(DialogService)" />
+
+<h2>Examples</h2>
+
+<DemoSection Title="MessageBox" Component="@typeof(DialogMessageBox)">
+    <Description>
+        A dialog can be used as a simple <code>MessageBox</code> component. The <code>DialogService</code> exposes the following shortcut methods:
+        <ul>
+            <li><code>ShowInfo</code></li>
+            <li><code>ShowError</code></li>
+            <li><code>ShowConfirmation</code></li>
+            <li><code>ShowMessageBox</code></li>
+        </ul>
+        Click on a button below to open a MessageBox.
+    </Description>
+</DemoSection>

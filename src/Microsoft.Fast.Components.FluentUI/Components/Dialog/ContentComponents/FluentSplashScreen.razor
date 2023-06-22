@@ -1,23 +1,23 @@
 ﻿@namespace Microsoft.Fast.Components.FluentUI
-@implements IDialogContentComponent
+@inherits FluentDialogContent
 @implements ISplashScreenParameters
 
 <FluentStack Orientation="Orientation.Vertical"
              HorizontalAlignment="HorizontalAlignment.Center"
              Class="fluent-launch">
     <h1>
-        @Title
+        @SplashScreenData.Title
     </h1>
     <h2>
-        @SubTitle
+        @SplashScreenData.SubTitle
     </h2>
     <FluentProgressRing />
     <h3>
-        @LoadingText
+        @SplashScreenData.LoadingText
     </h3>
-    <p>@Message</p>
+    <p>@SplashScreenData.Message</p>
     <div class="icon">
-        @(new MarkupString(Logo!))
+        @(new MarkupString(SplashScreenData.Logo!))
     </div>
 </FluentStack>
 

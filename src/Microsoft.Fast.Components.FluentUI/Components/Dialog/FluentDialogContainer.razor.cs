@@ -29,8 +29,6 @@ public partial class FluentDialogContainer : IDisposable
 
     protected override void OnInitialized()
     {
-        //DialogService.OnDialogInstanceAdded += AddInstance;
-        //DialogService.OnDialogCloseRequested += DismissInstance;
         NavigationManager.LocationChanged += LocationChanged;
 
         DialogService.OnShow += ShowDialog;
@@ -43,8 +41,6 @@ public partial class FluentDialogContainer : IDisposable
             DialogSettings? dialogSettings = BuildDialogSettings(settings);
 
             DialogInstance dialog = new(dialogComponent, parameters, dialogSettings);
-
-            string id = dialog.Id;
 
             _dialogs.Add(dialog);
             StateHasChanged();

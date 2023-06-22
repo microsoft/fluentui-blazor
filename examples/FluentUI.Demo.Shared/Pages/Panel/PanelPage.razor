@@ -1,6 +1,6 @@
-@page "/Dialog"
+@page "/Panel"
 
-@using FluentUI.Demo.Shared.Pages.Dialog.Examples;
+@using FluentUI.Demo.Shared.Pages.Panel.Examples;
 
 <h1>Dialog</h1>
 
@@ -25,18 +25,6 @@
 
 <h2>Examples</h2>
 
-
-
-
-<DemoSection Title="Default" Component="@typeof(DialogDefault)" CollocatedFiles="@(new[] {"css"})">
-    <Description>
-        This example shows a simple dialog created by specifying it's content manually (see the Razor tab). Because of this, the dialog is not automatically styled.
-        A CSS file has been added toset the width, heigth and padding of the dialog.         
-    </Description>
+<DemoSection Title="Simple Panel" Component="@typeof(DialogPanel)">
 </DemoSection>
-
-<DemoSection Title="Dialog Services" Component="@typeof(DialogServiceExample)">
-
-</DemoSection>
-
 

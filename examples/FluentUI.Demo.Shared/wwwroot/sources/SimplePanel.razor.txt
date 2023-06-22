@@ -1,6 +1,5 @@
 ﻿@inherits FluentPanel
-
-<h1>Hello @SimplePerson.Firstname </h1>
+<h3>Hello @SimplePerson.Firstname </h3>
 <p>Your lastname is @SimplePerson.Lastname and you are @SimplePerson.Age years young </p>
 
 <FluentTextField @bind-Value="@SimplePerson.Firstname">Your firstname:</FluentTextField>

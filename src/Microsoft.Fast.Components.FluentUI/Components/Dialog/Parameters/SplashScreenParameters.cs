@@ -5,8 +5,13 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// <summary>
 /// The set of parameters for a splash screen dialog.
 /// </summary>
-public class SplashScreenParameters : DialogParameters, ISplashScreenParameters
+public class SplashScreenParameters : ISplashScreenParameters
 {
+    /// <summary>
+    /// The title of the splash screen.
+    /// </summary>
+    public string? Title { get; set; }
+
     /// <summary>
     /// The subtitle of the splash screen.
     /// </summary>

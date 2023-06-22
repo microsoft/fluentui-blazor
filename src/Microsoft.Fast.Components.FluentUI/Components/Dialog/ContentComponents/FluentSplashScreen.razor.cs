@@ -2,7 +2,7 @@
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentSplashScreen : ISplashScreenParameters, IDialogContentComponent
+public partial class FluentSplashScreen : FluentDialogContent, ISplashScreenParameters
 {
     public const string LOGO = """
         <svg class="icon" focusable="false" viewBox="0 0 60 20" aria-hidden="true" >
@@ -21,24 +21,19 @@ public partial class FluentSplashScreen : ISplashScreenParameters, IDialogConten
             </svg>
         </svg>
         """;
-
-    /// <summary>
-    /// Typically used to show the product name.
-    /// </summary>
-    [Parameter]
-    public string? Title { get; set; } = "Product name"; //SplashScreenResources.ProductName;
+    protected SplashScreenParameters SplashScreenData { get; set; } = new();
 
     /// <summary>
     /// Typically used to show the name of the suite the product belongs to.
     /// </summary>
     [Parameter]
-    public string? SubTitle { get; set; } = "Suite name"; //SplashScreenResources.SuiteName;
+    public string? SubTitle { get; set; }
 
     /// <summary>
     /// Text to indicate something is happening.
     /// </summary>
     [Parameter]
-    public string? LoadingText { get; set; } = "Loading..."; //SplashScreenResources.LoadingLabel;
+    public string? LoadingText { get; set; }
 
     /// <summary>
     /// An extra message. Can contain HTML. 
@@ -53,28 +48,10 @@ public partial class FluentSplashScreen : ISplashScreenParameters, IDialogConten
     [Parameter]
     public string? Logo { get; set; } = LOGO;
 
-    /// <summary>
-    /// Width of the splash screen. 
-    /// Must be a valid CSS width string like "600px" or "3em".
-    /// </summary>
-    [Parameter]
-    public string? Width { get; set; }
-
-    /// <summary>
-    /// Height of the splash screen. 
-    /// Must be a valid CSS height string like "600px" or "3em".
-    /// </summary>
-    [Parameter]
-    public string? Height { get; set; }
-
-    /// <summary>
-    /// Callback for when the dialog is dismissed.
-    /// </summary>
-    [Parameter]
-    public EventCallback<DialogResult> OnDialogResult { get; set; }
-
-    [CascadingParameter]
-    public FluentDialog Dialog { get; set; } = default!;
+    protected override void OnParametersSet()
+    {
+        SplashScreenData = (SplashScreenParameters)Dialog.Data!;
+    }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

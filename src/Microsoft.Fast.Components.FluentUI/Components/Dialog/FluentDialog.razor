@@ -22,7 +22,7 @@
                         @if (Settings.ShowDismiss)
                         {
                             <FluentButton Appearance="Appearance.Stealth" @onclick="@(() => CancelAsync())">
-                                <FluentIcon Name="@FluentIcons.Dismiss" Size="IconSize.Size16" Slot="start" />
+                                <FluentIcon Name="@FluentIcons.Dismiss" Size="IconSize.Size16" />
                             </FluentButton>
                         }
                     </FluentStack>
@@ -32,12 +32,10 @@
             <div class="fluent-dialog-body" nofooter=@(!HasButtons) style="@(Settings.DialogBodyStyle ?? null)">
                 @if (Instance is null)
                 {
-                    
                     @ChildContent
                 }
                 else
                 {
-                    
                     <DynamicComponent Type="@Instance.ContentType" Parameters="_parameters" />
                 }
             </div>

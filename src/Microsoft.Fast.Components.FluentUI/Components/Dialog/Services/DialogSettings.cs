@@ -1,7 +1,7 @@
 ﻿namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary>
-/// _instance specific settings for a <see cref="FluentDialog"/> component
+/// Instance specific parameters for a <see cref="FluentDialog"/> component
 /// </summary>
 public class DialogSettings
 {
@@ -10,7 +10,7 @@ public class DialogSettings
     /// left (full height), right (full height)
     /// or screen middle (using Width and Height properties).
     /// </summary>
-    public HorizontalAlignment Alignment { get; set; } = HorizontalAlignment.Right;
+    public HorizontalAlignment Alignment { get; set; } = HorizontalAlignment.Center;
 
     /// <summary>
     /// Window width, only if <see cref="Alignment"/> is Center.
@@ -58,10 +58,19 @@ public class DialogSettings
     /// </summary>
     public string DialogBodyStyle { get; set; } = string.Empty;
 
+    /// <summary>
+    /// Identifies the element that labels the element it is applied to.
+    /// </summary>
     public string? AriaLabelledby { get; set; }
 
+    /// <summary>
+    /// Identifies the element that describes the element on which the attribute is set.
+    /// </summary>
     public string? AriaDescribedby { get; set; }
 
+    /// <summary>
+    /// The value that labels an interactive element.
+    /// </summary>
     public string? AriaLabel { get; set; }
 
 
@@ -81,10 +90,10 @@ public class DialogSettings
     /// <summary>
     /// Gets whether the primary button is displayed or not. Depends on PrimaryButton having a value.
     /// </summary>
-    public bool ShowPrimaryButton => !string.IsNullOrEmpty(PrimaryButton);
+    internal bool ShowPrimaryButton => !string.IsNullOrEmpty(PrimaryButton);
 
     /// <summary>
     /// Gets whether the secondary button is displayed or not. Depends on SecondaryButton having a value. 
     /// </summary>
-    public bool ShowSecondaryButton => !string.IsNullOrEmpty(SecondaryButton);
+    internal bool ShowSecondaryButton => !string.IsNullOrEmpty(SecondaryButton);
 }

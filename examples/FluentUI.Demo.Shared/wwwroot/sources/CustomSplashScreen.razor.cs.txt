@@ -4,6 +4,10 @@ namespace FluentUI.Demo.Shared.Pages.Dialog.Examples;
 
 public partial class CustomSplashScreen : FluentSplashScreen
 {
+    protected override void OnParametersSet()
+    {
+        SplashScreenData = (SplashScreenParameters)Dialog.Data!;
+    }
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)

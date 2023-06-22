@@ -25,15 +25,18 @@ public interface IDialogService
 
     void ShowMessageBox(MessageBoxParameters parameters);
 
-    void ShowPanel<T>(PanelParameters parameters)
+    void ShowPanel<T>(DialogParameters parameters)
         where T : IDialogContentComponent;
 
-    void ShowPanel(Type component, PanelParameters parameters);
+    void ShowPanel(Type component, DialogParameters parameters);
 
-    void ShowDialog<T>(string title, DialogParameters parameters, Action<DialogSettings>? settings)
+    void ShowDialog<T>(DialogParameters parameters)
         where T : IDialogContentComponent;
 
-    void ShowDialog(Type component, string title, DialogParameters parameters, Action<DialogSettings>? settings);
+    void ShowDialog<T>(DialogParameters parameters, Action<DialogSettings> settings)
+        where T : IDialogContentComponent;
+
+    void ShowDialog(Type component, DialogParameters parameters, Action<DialogSettings> settings);
 
     public EventCallback<DialogResult> CreateDialogCallback(object receiver, Func<DialogResult, Task> callback);
 }

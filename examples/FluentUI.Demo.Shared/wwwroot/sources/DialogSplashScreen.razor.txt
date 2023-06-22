@@ -1,23 +1,23 @@
 ﻿@inject IDialogService DialogService
 
-<FluentButton @onclick="@OpenDialog" Appearance="Appearance.Accent">
+<FluentButton @onclick="@OpenSplashDefault" Appearance="Appearance.Accent">
     Open default splash screen
 </FluentButton>
 
-<FluentButton @onclick="@OpenDialogCustom" Appearance="Appearance.Accent">
+<FluentButton @onclick="@OpenSplashCustom" Appearance="Appearance.Accent">
     Open customized splash screen
 </FluentButton>
 
 @code
 {
-    private void OpenDialog()
+    private void OpenSplashDefault()
     {
         DemoLogger.WriteLine($"Open LaunchScreen for 4 seconds");
 
         SplashScreenParameters parameters = new()
         {
-            Title = "Product _name",
-            SubTitle = "Suite _name",
+            Title = "Core components",
+            SubTitle = "Microsoft Fluent UI Blazor library",
             LoadingText = "Loading...",
             Message = (MarkupString)"some <i>extra</i> text <strong>here</strong>",
             Width = "640px",
@@ -25,22 +25,21 @@
             Logo = FluentSplashScreen.LOGO,
         };
         
-        DialogService.ShowSplashScreen<FluentSplashScreen>(this, HandleDefaultSplash, parameters);
+        DialogService.ShowSplashScreen(this, HandleDefaultSplash, parameters);
 
     }
 
-    private void OpenDialogCustom()
+    private void OpenSplashCustom()
     {
         DemoLogger.WriteLine($"Open LaunchScreen for 4 seconds");
 
         SplashScreenParameters parameters = new()
             {
-                Title = "Deap sea diving 101",
-                //SubTitle = "Suite _name",
-                LoadingText = "Filling the oxygen bottles...",
-                Message = (MarkupString)"Don't hold your breath <strong>too</strong> long!",
+                Title = "Water drinking 101",
+                LoadingText = "Filling the re-useable bottles...",
+                Message = (MarkupString)"Don't drink <strong>too</strong> much water!",
                 Width = "500px",
-                Height = "450px",
+                Height = "300px",
                 Logo = "_content/FluentUI.Demo.Shared/images/Splash_Corporation_logo.png",
             };
 

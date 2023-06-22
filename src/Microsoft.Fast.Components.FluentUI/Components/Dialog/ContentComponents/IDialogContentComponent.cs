@@ -5,17 +5,5 @@
 /// </summary>
 public interface IDialogContentComponent
 {
-    ///// <summary>
-    ///// Gets or sets the title dialog.
-    ///// </summary>
-    //[Parameter]
-    //public string? Title { get; set; }
-
-
-    ///// <summary>
-    ///// Dialog instance specific settings
-    ///// </summary>
-    //[Parameter]
-    //public DialogSettings Settings { get; set; }
 
 }

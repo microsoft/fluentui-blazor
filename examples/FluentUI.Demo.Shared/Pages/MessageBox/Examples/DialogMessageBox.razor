@@ -1,15 +1,13 @@
 ﻿@inject IDialogService DialogService
 
-Click on this button to open a MessageBox.
 
-<br />
-<FluentButton @onclick="@ShowError" Appearance="Appearance.Accent">Show Error</FluentButton>
-<FluentButton @onclick="@ShowInformation" Appearance="Appearance.Accent">Show Information</FluentButton>
-<FluentButton @onclick="@ShowConfirmation" Appearance="Appearance.Accent">Show Confirmation</FluentButton>
-<br /><br />
-<FluentButton @onclick="@ShowMessageBoxLong" Appearance="Appearance.Accent">Show Long message</FluentButton>
-<br /><br />
-<FluentButton @onclick="@ShowMessageBox" Appearance="Appearance.Accent">Show customized message</FluentButton>
+<FluentStack>
+    <FluentButton @onclick="@ShowError" Appearance="Appearance.Accent">Show Error</FluentButton>
+    <FluentButton @onclick="@ShowInformation" Appearance="Appearance.Accent">Show Information</FluentButton>
+    <FluentButton @onclick="@ShowConfirmation" Appearance="Appearance.Accent">Show Confirmation</FluentButton>
+    <FluentButton @onclick="@ShowMessageBoxLong" Appearance="Appearance.Accent">Show Long message</FluentButton>
+    <FluentButton @onclick="@ShowMessageBox" Appearance="Appearance.Accent">Show customized message</FluentButton>
+</FluentStack>
 
 @code
 {
@@ -28,7 +26,7 @@ Click on this button to open a MessageBox.
     private void ShowConfirmation()
     {
         DemoLogger.WriteLine($"Open Confirmation MessageBox");
-        DialogService.ShowConfirmation(this, HandleConfirmation, "Do you have two eyes?", "Yup", "Nope", "Eyes on you");
+        DialogService.ShowConfirmation(this, HandleResult, "Do you have two eyes?", "Yup", "Nope", "Eyes on you");
     }
 
     private void ShowMessageBoxLong()
@@ -46,21 +44,17 @@ Click on this button to open a MessageBox.
                 MarkupMessage = new MarkupString("My <strong>customized</strong> message"),
                 Icon = FluentIcons.Games,
                 IconColor = Color.Success,
-                PrimaryButtonText = "Plus",
-                SecondaryButtonText = "Minus",
+                PrimaryButton = "Plus",
+                SecondaryButton = "Minus",
                 Width = "300px",
-                OnDialogResult = DialogService.CreateDialogCallback(this, HandleCustom)
+                OnDialogResult = DialogService.CreateDialogCallback(this, HandleResult)
             });
     }
 
-   
-    private async Task HandleConfirmation(DialogResult result)
-    {
-        await Task.Run(() => DemoLogger.WriteLine($"2 eyes: Cancelled: {result.Cancelled}, Data: {result.Data?.ToString()}"));
-    }
 
-    private async Task HandleCustom(DialogResult result)
+    private async Task HandleResult(DialogResult result)
     {
-        await Task.Run(() => DemoLogger.WriteLine($"Result: {result.Data?.ToString()}"));
+        MessageBoxParameters? data = result.Data as MessageBoxParameters;
+        await Task.Run(() => DemoLogger.WriteLine($"{data?.Title} - : Cancelled: {result.Cancelled}, Data: {(result.Cancelled ? data?.SecondaryButton : data?.PrimaryButton)}"));
     }
 }

@@ -1,4 +1,5 @@
 ﻿.demo-console {
+    text-overflow: ellipsis;
     overflow-y: auto;
     height: 300px;
     color: black;
