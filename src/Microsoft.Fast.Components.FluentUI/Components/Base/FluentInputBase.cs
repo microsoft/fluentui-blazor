@@ -86,7 +86,8 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
 
     /// <summary>
     /// An event that is called after the <see cref="Value"/> property has been changed
-    /// through data binding.
+    /// through data binding. This is equivalent to <code>@bind-Value:after</code> which is supported
+    /// from .Net 7, but not available in .Net 6.
     /// </summary>
     [Parameter]
     public EventCallback<TValue> AfterBindValue { get; set; }
