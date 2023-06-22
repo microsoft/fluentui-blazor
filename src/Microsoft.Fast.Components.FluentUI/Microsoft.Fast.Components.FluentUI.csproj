@@ -108,15 +108,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Compile Remove="Assets\**" />
+    <Compile Remove="Assets\**" />
 		<Content Remove="Assets\**" />
-		<EmbeddedResource Remove="Assets\**" />
+    <EmbeddedResource Remove="Assets\**" />
 		<None Remove="bin\Debug\net6.0\net7.0\**" />
 		<None Remove="bin\Release\net6.0\net7.0\**" />
 	</ItemGroup>
   <!-- Embedd other languages under root resx file -->
   <ItemGroup>    
-	<None Include="**\*.*.resx" />
+	<None Include="**\*.*.resx" />    
 	<None Update="**\*.*.resx">
 	  <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
 	  <DependentUpon>%(ParentFile).resx</DependentUpon>

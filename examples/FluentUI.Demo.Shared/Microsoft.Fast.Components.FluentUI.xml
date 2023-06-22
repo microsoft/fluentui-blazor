@@ -2183,6 +2183,130 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentDropZone`1.OnDropHandler(Microsoft.AspNetCore.Components.Web.DragEventArgs)">
             <summary />
         </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.Emoji">
+            <summary>
+            FluentUI Icon content.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Emoji.#ctor(System.String,Microsoft.Fast.Components.FluentUI.EmojiSize,Microsoft.Fast.Components.FluentUI.EmojiGroup,Microsoft.Fast.Components.FluentUI.EmojiSkintone,Microsoft.Fast.Components.FluentUI.EmojiStyle,System.Byte[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Fast.Components.FluentUI.Icon"/> class.
+            </summary>
+            <param name="name"></param>
+            <param name="size"></param>
+            <param name="skintone"></param>
+            <param name="group"></param>
+            <param name="style"></param>
+            <param name="data"></param>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Emoji.Content">
+            <summary>
+            Gets the content of the icon: SVG path.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Emoji.ToMarkup(System.String)">
+            <summary>
+            Gets the HTML markup of the emoji.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Emoji.Width">
+            <summary>
+            Gets the width of the icon.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.EmojiCompress.Zip(System.String)">
+            <summary>
+            Compresses a character string into an array of bytes.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.EmojiCompress.Unzip(System.Byte[])">
+            <summary>
+            Decompression of an array of bytes into a character string.
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.EmojiCompress.CopyTo(System.IO.Stream,System.IO.Stream)">
+            <summary />
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.EmojiInfo">
+            <summary>
+            FluentUI Emoji meta-data.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.EmojiInfo.Name">
+            <summary>
+            Gets the name of the icon: AddCircle, Accessibility, etc.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.EmojiInfo.Size">
+            <summary>
+            Gets the size of the emoji.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.EmojiInfo.Group">
+            <summary>
+            Gets the group of the emoji.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.EmojiInfo.Skintone">
+            <summary>
+            Gets the skin tone of the emoji.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.EmojiInfo.Style">
+            <summary>
+            Gets the style of the emoji.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.EmojiInfo.KeyWords">
+            <summary>
+            Gets a list of keywords associated with the emoji (separated by comas).
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.FluentSystemEmoji`1">
+            <summary>
+            FluentSystemEmoji is a component that renders an emoji from the Microsoft FluentUI emoji set.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemEmoji`1.ClassValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemEmoji`1.StyleValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemEmoji`1.Slot">
+            <summary>
+            Gets or sets the slot where the emoji is displayed in
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemEmoji`1.Title">
+            <summary>
+            Gets or sets the title for the emoji
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemEmoji`1.Width">
+            <summary>
+            Gets or sets the emoji width.
+            If not set, the emoji size will be used.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemEmoji`1.OnClick">
+            <summary>
+            Allows for capturing a mouse click on an emoji
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentSystemEmoji`1.OnClickHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentSystemEmoji`1.ContainsSVG">
+            <summary>
+            Returns true if the emoji contains a SVG content.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentEmoji.Name">
             <summary>
             Gets or sets the name of the emoji. Can be specified by using const value from <see cref="T:Microsoft.Fast.Components.FluentUI.FluentEmojis" />
@@ -2352,6 +2476,128 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentHorizontalScroll.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.FluentSystemIcon`1">
+            <summary>
+            FluentSystemIcon is a component that renders an icon from the Fluent System icon set.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemIcon`1.ClassValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemIcon`1.StyleValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemIcon`1.Slot">
+            <summary>
+            Gets or sets the slot where the icon is displayed in
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemIcon`1.Title">
+            <summary>
+            Gets or sets the title for the icon
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemIcon`1.Color">
+            <summary>
+            Gets or sets the icon drawing and fill color. 
+            Value comes from the <see cref="T:Microsoft.Fast.Components.FluentUI.Color"/> enumeration. Defaults to Accent.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemIcon`1.CustomColor">
+            <summary>
+            Gets or sets the icon drawing and fill color to a custom value.
+            Needs to be formatted as an HTML hex color string (#rrggbb or #rgb) or CSS variable.
+            ⚠️ Only available when Color is set to Color.Custom.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemIcon`1.Width">
+            <summary>
+            Gets or sets the icon width.
+            If not set, the icon size will be used.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemIcon`1.OnClick">
+            <summary>
+            Allows for capturing a mouse click on an icon
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentSystemIcon`1.OnClickHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentSystemIcon`1.OnParametersSet">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentSystemIcon`1.ContainsSVG">
+            <summary>
+            Returns true if the icon contains a SVG content.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.Icon">
+            <summary>
+            FluentUI Icon content.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Icon.#ctor(System.String,Microsoft.Fast.Components.FluentUI.IconVariant,Microsoft.Fast.Components.FluentUI.IconSize,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Fast.Components.FluentUI.Icon"/> class.
+            </summary>
+            <param name="name"><see cref="P:Microsoft.Fast.Components.FluentUI.IconInfo.Name"/></param>
+            <param name="variant"><see cref="P:Microsoft.Fast.Components.FluentUI.IconInfo.Variant"/></param>
+            <param name="size"><see cref="P:Microsoft.Fast.Components.FluentUI.IconInfo.Size"/></param>
+            <param name="content"><see cref="P:Microsoft.Fast.Components.FluentUI.Icon.Content"/></param>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icon.Content">
+            <summary>
+            Gets the content of the icon: SVG path.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Icon.ToMarkup(System.String,System.String)">
+            <summary>
+            Gets the HTML markup of the icon.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Icon.Width">
+            <summary>
+            Gets the width of the icon.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.IconFromImage">
+            <summary>
+            Icon generated from an image (img src).
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IconFromImage.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Fast.Components.FluentUI.IconFromImage"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IconFromImage.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Fast.Components.FluentUI.IconFromImage"/> class.
+            </summary>
+            <param name="imageUrl">Image source</param>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.IconInfo">
+            <summary>
+            FluentUI Icon meta-data.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.IconInfo.Name">
+            <summary>
+            Gets the name of the icon: AddCircle, Accessibility, etc.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.IconInfo.Size">
+            <summary>
+            Gets the size of the icon: 20, 24, etc.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.IconInfo.Variant">
+            <summary>
+            Gets the variant of the icon: Filled, Regular.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.Variant">
