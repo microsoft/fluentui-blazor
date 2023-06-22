@@ -45,16 +45,16 @@
                           TOption="OfficeColor"
                           Position="SelectPosition.Below"
                           @bind-SelectedOption="@_selectedColorOption"
-                          @onchange="@(x => HandleColorChange(x))" 
+                          @onchange="@(x => HandleColorChange((OfficeColor?)x.Value))" 
                           aria-label="Accent color selector"/>
         </div>
         <div class="switches">
-            <FluentSwitch @bind-Value="@_inDarkMode" @onchange=SwitchTheme title="Switch theme">
+            <FluentSwitch @bind-Value="@_inDarkMode" AfterBindValue="UpdateTheme" title="Switch theme">
                 <span class="label">Theme</span>
                 <span slot="unchecked-message">light</span>
                 <span slot="checked-message">dark</span>
             </FluentSwitch>
-            <FluentSwitch @bind-Value="@_ltr" @onchange="SwitchDirection" title="Switch direction">
+            <FluentSwitch @bind-Value="@_ltr" AfterBindValue="UpdateDirection" title="Switch direction">
                 <span>Direction</span>
                 <span slot="unchecked-message">LTR</span>
                 <span slot="checked-message">RTL</span>

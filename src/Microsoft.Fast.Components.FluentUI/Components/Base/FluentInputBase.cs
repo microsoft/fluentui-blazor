@@ -85,6 +85,14 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     public virtual bool Autofocus { get; set; } = false;
 
     /// <summary>
+    /// An event that is called after the <see cref="Value"/> property has been changed
+    /// through data binding. This is equivalent to <code>@bind-Value:after</code> which is supported
+    /// from .Net 7, but not available in .Net 6.
+    /// </summary>
+    [Parameter]
+    public EventCallback<TValue> AfterBindValue { get; set; }
+
+    /// <summary>
     /// The short hint displayed in the input before the user enters a value.
     /// </summary>
     [Parameter]
@@ -101,32 +109,35 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     /// </summary>
     protected internal FieldIdentifier FieldIdentifier { get; set; }
 
+    protected async Task SetCurrentValue(TValue? value)
+    {
+        var hasChanged = !EqualityComparer<TValue>.Default.Equals(value, Value);
+        if (!hasChanged)
+            return;
+
+        _parsingFailed = false;
+
+        // If we don't do this, then when the user edits from A to B, we'd:
+        // - Do a render that changes back to A
+        // - Then send the updated value to the parent, which sends the B back to this component
+        // - Do another render that changes it to B again
+        // The unnecessary reversion from B to A can cause selection to be lost while typing
+        // A better solution would be somehow forcing the parent component's render to occur first,
+        // but that would involve a complex change in the renderer to keep the render queue sorted
+        // by component depth or similar.
+        Value = value;
+        await ValueChanged.InvokeAsync(Value);
+        EditContext?.NotifyFieldChanged(FieldIdentifier);
+        await AfterBindValue.InvokeAsync(Value);
+    }
+
     /// <summary>
     /// Gets or sets the current value of the input.
     /// </summary>
     protected TValue? CurrentValue
     {
         get => Value;
-        set
-        {
-            var hasChanged = !EqualityComparer<TValue>.Default.Equals(value, Value);
-            if (hasChanged)
-            {
-                _parsingFailed = false;
-
-                // If we don't do this, then when the user edits from A to B, we'd:
-                // - Do a render that changes back to A
-                // - Then send the updated value to the parent, which sends the B back to this component
-                // - Do another render that changes it to B again
-                // The unnecessary reversion from B to A can cause selection to be lost while typing
-                // A better solution would be somehow forcing the parent component's render to occur first,
-                // but that would involve a complex change in the renderer to keep the render queue sorted
-                // by component depth or similar.
-                Value = value;
-                _ = ValueChanged.InvokeAsync(Value);
-                EditContext?.NotifyFieldChanged(FieldIdentifier);
-            }
-        }
+        set => _ = SetCurrentValue(value);
     }
 
     /// <summary>
@@ -139,45 +150,52 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
         // match what's on the .NET model. This avoids interfering with typing, but still notifies the EditContext
         // about the validation error message.
         get => _parsingFailed ? _incomingValueBeforeParsing : FormatValueAsString(CurrentValue);
-        set
+        set => SetCurrentValueAsString(value);
+    
+    }
+
+    /// <summary>
+    /// Attempts to set the current value of the input, represented as a string.
+    /// </summary>
+    /// <param name="value"></param>
+    protected async Task SetCurrentValueAsString(string? value)
+    {
+        _incomingValueBeforeParsing = value;
+        _parsingValidationMessages?.Clear();
+
+        if (_nullableUnderlyingType != null && string.IsNullOrEmpty(value))
         {
-            _incomingValueBeforeParsing = value;
-            _parsingValidationMessages?.Clear();
+            // Assume if it's a nullable type, null/empty inputs should correspond to default(T)
+            // Then all subclasses get nullable support almost automatically (they just have to
+            // not reject Nullable<T> based on the type itself).
+            _parsingFailed = false;
+            CurrentValue = default!;
+        }
+        else if (TryParseValueFromString(value, out TValue? parsedValue, out var validationErrorMessage))
+        {
+            _parsingFailed = false;
+            await SetCurrentValue(parsedValue);
+        }
+        else
+        {
+            _parsingFailed = true;
 
-            if (_nullableUnderlyingType != null && string.IsNullOrEmpty(value))
+            // EditContext may be null if the input is not a child component of EditForm.
+            if (EditContext is not null)
             {
-                // Assume if it's a nullable type, null/empty inputs should correspond to default(T)
-                // Then all subclasses get nullable support almost automatically (they just have to
-                // not reject Nullable<T> based on the type itself).
-                _parsingFailed = false;
-                CurrentValue = default!;
-            }
-            else if (TryParseValueFromString(value, out var parsedValue, out var validationErrorMessage))
-            {
-                _parsingFailed = false;
-                CurrentValue = parsedValue!;
-            }
-            else
-            {
-                _parsingFailed = true;
+                _parsingValidationMessages ??= new ValidationMessageStore(EditContext);
+                _parsingValidationMessages.Add(FieldIdentifier, validationErrorMessage);
 
-                // EditContext may be null if the input is not a child component of EditForm.
-                if (EditContext is not null)
-                {
-                    _parsingValidationMessages ??= new ValidationMessageStore(EditContext);
-                    _parsingValidationMessages.Add(FieldIdentifier, validationErrorMessage);
-
-                    // Since we're not writing to CurrentValue, we'll need to notify about modification from here
-                    EditContext.NotifyFieldChanged(FieldIdentifier);
-                }
+                // Since we're not writing to CurrentValue, we'll need to notify about modification from here
+                EditContext.NotifyFieldChanged(FieldIdentifier);
             }
+        }
 
-            // We can skip the validation notification if we were previously valid and still are
-            if (_parsingFailed || _previousParsingAttemptFailed)
-            {
-                EditContext?.NotifyValidationStateChanged();
-                _previousParsingAttemptFailed = _parsingFailed;
-            }
+        // We can skip the validation notification if we were previously valid and still are
+        if (_parsingFailed || _previousParsingAttemptFailed)
+        {
+            EditContext?.NotifyValidationStateChanged();
+            _previousParsingAttemptFailed = _parsingFailed;
         }
     }
 
@@ -394,7 +412,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
         {
             EditContext.OnValidationStateChanged -= _validationStateChangedHandler;
         }
-        
+
         _timerCancellationTokenSource.Dispose();
 
         Dispose(disposing: true);

@@ -341,6 +341,13 @@
             Determines if the element should receive document focus on page load.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.AfterBindValue">
+            <summary>
+            An event that is called after the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.Value"/> property has been changed
+            through data binding. This is equivalent to <code>@bind-Value:after</code> which is supported
+            from .Net 7, but not available in .Net 6.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.Placeholder">
             <summary>
             The short hint displayed in the input before the user enters a value.
@@ -366,6 +373,12 @@
             <summary>
             Gets or sets the current value of the input, represented as a string.
             </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.SetCurrentValueAsString(System.String)">
+            <summary>
+            Attempts to set the current value of the input, represented as a string.
+            </summary>
+            <param name="value"></param>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.#ctor">
             <summary>

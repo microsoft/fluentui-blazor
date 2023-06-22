@@ -1,9 +1,9 @@
 @using System.Timers;
 
 <FluentSearch @ref=searchTest
-              @bind-Value="SearchValue"
-              @oninput="@(e => SearchValue = e.Value?.ToString())"
-              @onchange="HandleClear"
+@bind-Value="SearchValue"
+@oninput="@(e => SearchValue = e.Value?.ToString())"
+              AfterBindValue="HandleClear"
               Placeholder="Search for name" />
 <br />
 <FluentListbox Items=@searchResults TOption="string" SelectedOptionChanged="@(e => SearchValue = (e != defaultResultsText ? e : string.Empty))" />
@@ -64,7 +64,7 @@
 
     private async Task OnSearchAsync()
     {
-       if (!string.IsNullOrWhiteSpace(SearchValue))
+        if (!string.IsNullOrWhiteSpace(SearchValue))
         {
             string searchTerm = SearchValue.ToLower();
 
@@ -83,21 +83,21 @@
         else
         {
             searchResults = defaultResults();
-            await InvokeAsync(StateHasChanged); 
+            await InvokeAsync(StateHasChanged);
         }
     }
 
-    private void HandleClear(ChangeEventArgs args)
+    private void HandleClear(string value)
     {
-        if (args is not null && string.IsNullOrWhiteSpace(args.Value?.ToString()))
-        {
-            DisposeTimer();
-            searchResults = defaultResults();
-            SearchValue = string.Empty;
-            StateHasChanged();
-        }
+        if (string.IsNullOrWhiteSpace(value))
+            return;
+
+        DisposeTimer();
+        searchResults = defaultResults();
+        SearchValue = string.Empty;
+        StateHasChanged();
     }
-    
+
     //This component is made for a lot of data. You can copy and paste a list with 6000 entries here https://sharetext.me/vfknowohwl"
     private List<string> searchData = new()
     {

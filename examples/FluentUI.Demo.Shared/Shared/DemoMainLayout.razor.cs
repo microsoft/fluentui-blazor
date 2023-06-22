@@ -75,6 +75,9 @@ public partial class DemoMainLayout : IAsyncDisposable
                  "./_content/FluentUI.Demo.Shared/Shared/DemoMainLayout.razor.js");
 
             _inDarkMode = await _jsModule!.InvokeAsync<bool>("isDarkMode");
+            if (_inDarkMode)
+                UpdateTheme();
+
             _mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
 
             if (_selectedColorOption != OfficeColor.Default)
@@ -91,9 +94,9 @@ public partial class DemoMainLayout : IAsyncDisposable
         await _toc!.Refresh();
     }
 
-    public async Task SwitchDirection()
+    public async Task UpdateDirection()
     {
-        dir = (dir == LocalizationDirection.rtl) ? LocalizationDirection.ltr : LocalizationDirection.rtl;
+        dir = _ltr ? LocalizationDirection.ltr : LocalizationDirection.rtl;
 
         GlobalState.SetDirection(dir);
 
@@ -101,10 +104,8 @@ public partial class DemoMainLayout : IAsyncDisposable
         await Direction.SetValueFor(container, dir.ToAttributeValue());
     }
 
-    public async void SwitchTheme()
+    public async void UpdateTheme()
     {
-        await Task.Delay(50);
-
         if (_inDarkMode)
             baseLayerLuminance = StandardLuminance.DarkMode;
         else
@@ -122,21 +123,22 @@ public partial class DemoMainLayout : IAsyncDisposable
         menuchecked = !menuchecked;
     }
 
-    private async void HandleColorChange(ChangeEventArgs args)
+    private async void HandleColorChange(OfficeColor? value)
     {
-        string? value = args.Value?.ToString();
-        if (!string.IsNullOrEmpty(value))
+        string? textValue = value?.ToString();
+
+        if (string.IsNullOrEmpty(textValue))
+            return;
+
+        if (textValue != "default")
         {
-            if (value != "default")
-            {
-                //_selectValue = value;
-                await AccentBaseColor.SetValueFor(container, value.ToSwatch());
-            }
-            else
-            {
-                //_selectValue = "default";
-                await AccentBaseColor.DeleteValueFor(container);
-            }
+            //_selectValue = value;
+            await AccentBaseColor.SetValueFor(container, textValue.ToSwatch());
+        }
+        else
+        {
+            //_selectValue = "default";
+            await AccentBaseColor.DeleteValueFor(container);
         }
     }
 
