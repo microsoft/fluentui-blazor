@@ -24,7 +24,7 @@
                      name=@Name
                      required="@Required"
                      appearance="@Appearance.ToAttributeValue()"
-                     @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
+                     @onchange="@(e => SetCurrentValueAsString((string?)e.Value))"
                      @attributes="AdditionalAttributes">
     @ChildContent
 </fluent-number-field>

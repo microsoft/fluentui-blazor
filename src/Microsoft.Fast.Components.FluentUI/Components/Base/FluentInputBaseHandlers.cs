@@ -27,33 +27,27 @@ public partial class FluentInputBase<TValue>
     /// <returns></returns>
     protected virtual async Task ChangeHandlerAsync(ChangeEventArgs e)
     {
-        if (ValueChanged.HasDelegate)
-        {
-            bool isValid = TryParseValueFromString(e.Value?.ToString(), out TValue? result, out string? validationErrorMessage);
+        bool isValid = TryParseValueFromString(e.Value?.ToString(), out TValue? result, out string? validationErrorMessage);
 
-            if (isValid)
+        if (isValid)
+        {
+            await SetCurrentValue(result ?? default);
+        }
+        else
+        {
+            if (CascadedEditContext != null)
             {
-                await ValueChanged.InvokeAsync(result ?? default(TValue));
-            }
-            else
-            {
-                if (CascadedEditContext != null)
+                if (_parsingValidationMessages == null)
                 {
-                    if (_parsingValidationMessages == null)
-                    {
-                        _parsingValidationMessages = new ValidationMessageStore(CascadedEditContext);
-                    }
-
-                    _parsingValidationMessages.Clear();
-                    _parsingValidationMessages.Add(FieldIdentifier, validationErrorMessage ?? "Unknown parsing error");
+                    _parsingValidationMessages = new ValidationMessageStore(CascadedEditContext);
                 }
+
+                _parsingValidationMessages.Clear();
+                _parsingValidationMessages.Add(FieldIdentifier, validationErrorMessage ?? "Unknown parsing error");
             }
         }
 
-        if (CascadedEditContext != null)
-        {
-            CascadedEditContext.NotifyFieldChanged(FieldIdentifier);
-        }
+        CascadedEditContext?.NotifyFieldChanged(FieldIdentifier);
     }
 
     /// <summary>
@@ -75,10 +69,7 @@ public partial class FluentInputBase<TValue>
                     await this.ChangeHandlerAsync(e);
                     _timerCancellationTokenSource.Cancel();
                 }
-
-                await Task.CompletedTask;
             }
-
             // Raise ChangeHandler immediately
             else
             {
@@ -86,7 +77,7 @@ public partial class FluentInputBase<TValue>
                 _timerForImmediate?.Dispose();
                 _timerForImmediate = null;
 
-                await this.ChangeHandlerAsync(e);
+                await ChangeHandlerAsync(e);
             }
         }
 

@@ -57,7 +57,7 @@
 <p>
    <div class="form-grid">
         <div id="item-0">
-            <FluentSearch Style="width: 100%" Name="Searchterm" @bind-Value="Form.Searchterm" @onchange=@(x => HandleSearchField(x)) Placeholder="Part of icon name..."></FluentSearch>
+            <FluentSearch Style="width: 100%" Name="Searchterm" @bind-Value="Form.Searchterm" AfterBindValue="HandleSearchField" Placeholder="Part of icon name..."></FluentSearch>
         </div>
         <div id="item-1">
             @if (IconService.Configuration.Variants.Contains(IconVariant.Filled))
