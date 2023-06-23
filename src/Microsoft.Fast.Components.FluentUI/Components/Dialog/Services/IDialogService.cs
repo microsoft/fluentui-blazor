@@ -9,12 +9,12 @@ public interface IDialogService
     /// </summary>
     public event Action<Type, object, Action<DialogSettings>?>? OnShow;
 
-    void ShowSplashScreen(object receiver, Func<DialogResult, Task> callback, ISplashScreenParameters parameters);
+    void ShowSplashScreen(object receiver, Func<DialogResult, Task> callback, DialogParameters<SplashScreenData> parameters);
 
-    void ShowSplashScreen<T>(object receiver, Func<DialogResult, Task> callback, ISplashScreenParameters parameters)
+    void ShowSplashScreen<T>(object receiver, Func<DialogResult, Task> callback, DialogParameters<SplashScreenData> parameters)
         where T : IDialogContentComponent<SplashScreenData>;
 
-    void ShowSplashScreen(Type component, object receiver, Func<DialogResult, Task> callback, ISplashScreenParameters parameters);
+    void ShowSplashScreen(Type component, object receiver, Func<DialogResult, Task> callback, DialogParameters<SplashScreenData> parameters);
 
 
     void ShowError(string message, string? title = null);
@@ -23,13 +23,13 @@ public interface IDialogService
 
     void ShowConfirmation(object receiver, Func<DialogResult, Task> callback, string message, string primaryText = "Yes", string secondaryText = "No", string? title = null);
 
-    void ShowMessageBox(MessageBoxParameters parameters);
+    void ShowMessageBox(DialogParameters<MessageBoxData> parameters);
 
-    void ShowPanel<T, TData>(PanelParameters<TData> parameters)
+    void ShowPanel<T, TData>(DialogParameters<TData> parameters)
         where T : IDialogContentComponent<TData>
         where TData : class;
 
-    void ShowPanel<TData>(Type component, PanelParameters<TData> parameters)
+    void ShowPanel<TData>(Type component, DialogParameters<TData> parameters)
         where TData : class;
 
     void ShowDialog<T, TData>(DialogParameters<TData> parameters)

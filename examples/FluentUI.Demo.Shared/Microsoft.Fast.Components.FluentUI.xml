@@ -1739,12 +1739,12 @@
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DialogParameters`1">
             <summary>
-            A dialog always has a title and a callback function for the result.
+            
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters`1.Alignment">
             <summary>
-            Determines the alignment of the panel.
+            Determines the alignment of the dialog.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters`1.Title">
@@ -1754,8 +1754,13 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters`1.Modal">
             <summary>
-            Determines if the panel is modal. Defaults to true.
-            When true, clicking outside the panel will dismiss the panel.
+            Determines if the dialog is modal. Defaults to true.
+            When true, clicking outside the dialog will dismiss the dialog.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters`1.ShowTitle">
+            <summary>
+            When true, shows the title in the header.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters`1.ShowDismiss">
@@ -1775,93 +1780,23 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters`1.Width">
             <summary>
-            Width of the panel. Must be a valid CSS width value like "600px" or "3em"
+            Width of the dialog. Must be a valid CSS width value like "600px" or "3em"
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters`1.Height">
             <summary>
-            Height of the panel. Must be a valid CSS height value like "600px" or "3em"
+            Height of the dialog. Must be a valid CSS height value like "600px" or "3em"
             Only used if Alignment is set to "HorizotalAlignment.Center"
             </summary>  
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters`1.Data">
             <summary>
-            Data to pass to and from the panel.
+            Data to pass to and from the dialog.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters`1.OnDialogResult">
             <summary>
             Callback function for the result.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.MessageBoxParameters">
-            <summary>
-            The set of parameters for a message box.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MessageBoxParameters.Title">
-            <summary>
-            The title of the splash screen.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MessageBoxParameters.Intent">
-            <summary>
-            The intent of the message box. See <see cref="T:Microsoft.Fast.Components.FluentUI.MessageBoxIntent"/> for more details.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MessageBoxParameters.Message">
-            <summary>
-            The actual message to display.
-            Do not use this property if you are using the <see cref="P:Microsoft.Fast.Components.FluentUI.MessageBoxParameters.MarkupMessage"/> property.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MessageBoxParameters.MarkupMessage">
-            <summary>
-            The actual message to display as a MarkupString.
-            Do not use this property if you are using the <see cref="P:Microsoft.Fast.Components.FluentUI.MessageBoxParameters.Message"/> property.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MessageBoxParameters.Icon">
-            <summary>
-            Icon to display in the message box.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MessageBoxParameters.IconColor">
-            <summary>
-            Color of the icon.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MessageBoxParameters.PrimaryButton">
-            <summary>
-            Text to display on the primary button.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MessageBoxParameters.SecondaryButton">
-            <summary>
-            Text to display on the secondary button.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MessageBoxParameters.Width">
-            <summary>
-            The width of the message box.
-            Must be a valid CSS width string like "600px" or "3em".
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MessageBoxParameters.Height">
-            <summary>
-            Height of the message box.
-            Usually no need to set this. Height adapts to the displayed content by default.
-            Must be a valid CSS height string like "600px" or "3em".
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MessageBoxParameters.OnDialogResult">
-            <summary>
-            The callback to invoke to return the result when the dialog is closed or dismissed.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.PanelParameters`1">
-            <summary>
-            The set of parameters for a panel.
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.SplashScreenData">
@@ -1893,49 +1828,6 @@
             <summary>
             Logo to show on the splash screen.
             Can be a URL or a base64 encoded string or an SVG.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.SplashScreenParameters">
-            <summary>
-            The set of parameters for a splash screen dialog.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.SplashScreenParameters.Title">
-            <summary>
-            The title of the splash screen.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.SplashScreenParameters.SubTitle">
-            <summary>
-            The subtitle of the splash screen.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.SplashScreenParameters.LoadingText">
-            <summary>
-            The text to display while loading.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.SplashScreenParameters.Message">
-            <summary>
-            Extra message to display. Supports HTML.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.SplashScreenParameters.Logo">
-            <summary>
-            Logo to show on the splash screen.
-            Can be a URL or a base64 encoded string or an SVG.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.SplashScreenParameters.Width">
-            <summary>
-            The width of the splash screen.
-            Must be a valid CSS width string like "600px" or "3em".
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.SplashScreenParameters.Height">
-            <summary>
-            The height of the splash screen.
-            Must be a valid CSS height string like "600px" or "3em".
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DialogResult">

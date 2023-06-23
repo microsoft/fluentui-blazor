@@ -94,13 +94,13 @@ public partial class ApiDocumentation
                     if (propertyInfo != null)
                     {
                         bool isParameter = memberInfo.GetCustomAttribute<ParameterAttribute>() != null;
-                       
 
-                        Type t = propertyInfo.PropertyType; 
+
+                        Type t = propertyInfo.PropertyType;
                         bool isEvent = t == typeof(EventCallback) || (t.IsGenericType && t.GetGenericTypeDefinition() == typeof(EventCallback<>));
 
                         // Parameters
-                        if (isParameter && !isEvent)
+                        if (!isEvent)
                         {
                             members.Add(new MemberDescription()
                             {

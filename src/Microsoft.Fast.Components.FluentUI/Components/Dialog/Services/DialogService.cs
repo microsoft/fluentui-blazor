@@ -9,24 +9,15 @@ public class DialogService : IDialogService
     /// </summary>
     public event Action<Type, object, Action<DialogSettings>?>? OnShow;
 
-    public void ShowSplashScreen(object receiver, Func<DialogResult, Task> callback, ISplashScreenParameters parameters)
+    public void ShowSplashScreen(object receiver, Func<DialogResult, Task> callback, DialogParameters<SplashScreenData> parameters)
         => ShowSplashScreen<FluentSplashScreen>(receiver, callback, parameters);
 
-    public void ShowSplashScreen<T>(object receiver, Func<DialogResult, Task> callback, ISplashScreenParameters parameters)
+    public void ShowSplashScreen<T>(object receiver, Func<DialogResult, Task> callback, DialogParameters<SplashScreenData> parameters)
         where T : IDialogContentComponent<SplashScreenData>
         => ShowSplashScreen(typeof(T), receiver, callback, parameters);
 
-    public void ShowSplashScreen(Type component, object receiver, Func<DialogResult, Task> callback, ISplashScreenParameters parameters)
+    public void ShowSplashScreen(Type component, object receiver, Func<DialogResult, Task> callback, DialogParameters<SplashScreenData> parameters)
     {
-        SplashScreenData splashScreenData = new()
-        {
-            Title = parameters.Title,
-            SubTitle = parameters.SubTitle,
-            LoadingText = parameters.LoadingText,
-            Message = parameters.Message,
-            Logo = parameters.Logo
-        };
-
         Action<DialogSettings> settings = new(x =>
         {
             x.Alignment = HorizontalAlignment.Center;
@@ -38,83 +29,83 @@ public class DialogService : IDialogService
             x.Width = parameters.Width ?? "600px";
             x.Height = parameters.Height ?? "370px";
             x.DialogBodyStyle = "width: 100%; height: 100%; margin: 0px;";
-            x.AriaLabel = $"{parameters.Title} splashscreen";
+            x.AriaLabel = $"{parameters.Data.Title} splashscreen";
+            x.OnDialogResult = EventCallback.Factory.Create(receiver, callback);
         });
 
-        ShowDialog(component, splashScreenData, settings);
+        ShowDialog(component, parameters.Data, settings);
     }
 
     // ToDo: Add Success, Warning?
-    public void ShowError(string message, string? title = null) => ShowMessageBox(new MessageBoxParameters()
+    public void ShowError(string message, string? title = null) => ShowMessageBox(new DialogParameters<MessageBoxData>()
     {
-        Title = string.IsNullOrWhiteSpace(title) ? "Error!" /*DialogResources.TitleError*/ : title,
-        Intent = MessageBoxIntent.Error,
+        Data = new MessageBoxData()
+        {
+            Title = string.IsNullOrWhiteSpace(title) ? "Error!" /*DialogResources.TitleError*/ : title,
+            Intent = MessageBoxIntent.Error,
+            Icon = FluentIcons.DismissCircle,
+            IconColor = Color.Error,
+            Message = message,
+        },
         PrimaryButton = "Ok", /*DialogResources.ButtonOK,*/
         SecondaryButton = string.Empty,
-        Icon = FluentIcons.DismissCircle,
-        IconColor = Color.Error,
-        Message = message,
     });
 
-
-    public void ShowInfo(string message, string? title = null) => ShowMessageBox(new MessageBoxParameters()
+    public void ShowInfo(string message, string? title = null) => ShowMessageBox(new DialogParameters<MessageBoxData>()
     {
-        Title = string.IsNullOrWhiteSpace(title) ? "Information" /*DialogResources.TitleInformation*/ : title,
-        Intent = MessageBoxIntent.Info,
+        Data = new MessageBoxData()
+        {
+            Title = string.IsNullOrWhiteSpace(title) ? "Information" /*DialogResources.TitleInformation*/ : title,
+            Intent = MessageBoxIntent.Info,
+            Icon = FluentIcons.Info,
+            IconColor = Color.Warning,
+            Message = message,
+        },
         PrimaryButton = "Ok", /*DialogResources.ButtonOK,*/
         SecondaryButton = string.Empty,
-        Icon = FluentIcons.Info,
-        IconColor = Color.Warning,
-        Message = message,
     });
 
     public void ShowConfirmation(object receiver, Func<DialogResult, Task> callback, string message, string primaryText = "Yes", string secondaryText = "No", string? title = null)
-        => ShowMessageBox(new MessageBoxParameters()
+        => ShowMessageBox(new DialogParameters<MessageBoxData>()
         {
-            Title = string.IsNullOrWhiteSpace(title) ? "Confirm" /*DialogResources.TitleConfirmation*/ : title,
-            Intent = MessageBoxIntent.Confirmation,
+            Data = new MessageBoxData()
+            {
+                Title = string.IsNullOrWhiteSpace(title) ? "Confirm" /*DialogResources.TitleConfirmation*/ : title,
+                Intent = MessageBoxIntent.Confirmation,
+                Icon = FluentIcons.QuestionCircle,
+                IconColor = Color.Success,
+                Message = message,
+            },
             PrimaryButton = primaryText, /*DialogResources.ButtonYes,*/
             SecondaryButton = secondaryText, /*DialogResources.ButtonNo,*/
-            Icon = FluentIcons.QuestionCircle,
-            IconColor = Color.Success,
-            Message = message,
             OnDialogResult = EventCallback.Factory.Create(receiver, callback)
         });
 
-    public void ShowMessageBox(MessageBoxParameters parameters)
+    public void ShowMessageBox(DialogParameters<MessageBoxData> parameters)
     {
-        MessageBoxData messageBoxData = new()
-        {
-            Title = parameters.Title,
-            Intent = parameters.Intent,
-            Icon = parameters.Icon,
-            IconColor = parameters.IconColor,
-            Message = parameters.Message,
-            MarkupMessage = parameters.MarkupMessage,
-        };
-
         Action<DialogSettings> dialogSettings = new(x =>
-        {
-            x.Alignment = HorizontalAlignment.Center;
-            x.Title = parameters.Title;
-            x.Modal = string.IsNullOrEmpty(parameters.SecondaryButton);
-            x.ShowDismiss = false;
-            x.PrimaryButton = parameters.PrimaryButton;
-            x.SecondaryButton = parameters.SecondaryButton;
-            x.Width = parameters.Width;
-            x.Height = parameters.Height;
-            x.OnDialogResult = parameters.OnDialogResult;
-        });
+       {
+           x.Alignment = HorizontalAlignment.Center;
+           x.Title = parameters.Data.Title;
+           x.Modal = string.IsNullOrEmpty(parameters.SecondaryButton);
+           x.ShowDismiss = false;
+           x.PrimaryButton = parameters.PrimaryButton;
+           x.SecondaryButton = parameters.SecondaryButton;
+           x.Width = parameters.Width;
+           x.Height = parameters.Height;
+           x.AriaLabel = $"{parameters.Data.Title}";
+           x.OnDialogResult = parameters.OnDialogResult;
+       });
 
-        ShowDialog(typeof(MessageBox), messageBoxData, dialogSettings);
+        ShowDialog(typeof(MessageBox), parameters.Data, dialogSettings);
     }
 
-    public void ShowPanel<T, TData>(PanelParameters<TData> parameters)
+    public void ShowPanel<T, TData>(DialogParameters<TData> parameters)
         where T : IDialogContentComponent<TData>
         where TData : class
         => ShowPanel(typeof(T), parameters);
 
-    public void ShowPanel<TData>(Type dialogComponent, PanelParameters<TData> parameters)
+    public void ShowPanel<TData>(Type dialogComponent, DialogParameters<TData> parameters)
         where TData : class
     {
         Action<DialogSettings> settings = new(x =>
@@ -122,18 +113,14 @@ public class DialogService : IDialogService
             x.Alignment = parameters.Alignment;
             x.Title = parameters.Title;
             x.Modal = parameters.Modal;
+            x.ShowTitle = parameters.ShowTitle;
             x.ShowDismiss = parameters.ShowDismiss;
             x.PrimaryButton = parameters.PrimaryButton;
             x.SecondaryButton = parameters.SecondaryButton;
             x.Width = parameters.Width;
+            x.AriaLabel = $"{parameters.Title}";
             x.OnDialogResult = parameters.OnDialogResult;
         });
-
-
-        if (string.IsNullOrWhiteSpace(parameters.Title))
-        {
-            parameters.Title = "...";
-        }
 
         ShowDialog(dialogComponent, parameters.Data, settings);
     }
@@ -148,12 +135,12 @@ public class DialogService : IDialogService
             x.Title = parameters.Title;
             x.Modal = parameters.Modal;
             x.ShowDismiss = parameters.ShowDismiss;
-            x.ShowTitle = true;
+            x.ShowTitle = parameters.ShowTitle;
             x.PrimaryButton = parameters.PrimaryButton;
             x.SecondaryButton = parameters.SecondaryButton;
             x.Width = parameters.Width;
             x.Height = parameters.Height;
-            x.AriaLabel = $"{parameters.Title} dialog";
+            x.AriaLabel = $"{parameters.Title}";
             x.OnDialogResult = parameters.OnDialogResult;
         });
 

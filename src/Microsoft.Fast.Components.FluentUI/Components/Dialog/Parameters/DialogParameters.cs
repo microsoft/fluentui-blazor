@@ -3,12 +3,12 @@
 namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary>
-/// A dialog always has a title and a callback function for the result.
+/// 
 /// </summary>
 public class DialogParameters<TData> : ComponentParameters
 {
     /// <summary>
-    /// Determines the alignment of the panel.
+    /// Determines the alignment of the dialog.
     /// </summary>
     public virtual HorizontalAlignment Alignment { get; set; } = HorizontalAlignment.Center;
 
@@ -18,10 +18,15 @@ public class DialogParameters<TData> : ComponentParameters
     public string? Title { get; set; }
 
     /// <summary>
-    /// Determines if the panel is modal. Defaults to true.
-    /// When true, clicking outside the panel will dismiss the panel.
+    /// Determines if the dialog is modal. Defaults to true.
+    /// When true, clicking outside the dialog will dismiss the dialog.
     /// </summary>
     public bool Modal { get; set; } = true;
+
+    /// <summary>
+    /// When true, shows the title in the header.
+    /// </summary>
+    public bool ShowTitle { get; set; } = true;
 
     /// <summary>
     /// When true, shows the dismiss button in the header.
@@ -39,18 +44,18 @@ public class DialogParameters<TData> : ComponentParameters
     public string? SecondaryButton { get; set; } = "Cancel"; //DialogResources.ButtonSecondary;
 
     /// <summary>
-    /// Width of the panel. Must be a valid CSS width value like "600px" or "3em"
+    /// Width of the dialog. Must be a valid CSS width value like "600px" or "3em"
     /// </summary>
     public string? Width { get; set; }
 
     /// <summary>
-    /// Height of the panel. Must be a valid CSS height value like "600px" or "3em"
+    /// Height of the dialog. Must be a valid CSS height value like "600px" or "3em"
     /// Only used if Alignment is set to "HorizotalAlignment.Center"
     /// </summary>  
     public string? Height { get; set; }
 
     /// <summary>
-    /// Data to pass to and from the panel.
+    /// Data to pass to and from the dialog.
     /// </summary>
     public TData Data { get; set; } = default!;
 
