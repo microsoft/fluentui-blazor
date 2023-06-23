@@ -1,4 +1,4 @@
-name: Publish Microsoft FluentUI-Blazor DataGid EF Adapter
+name: Build microsoft.fast.components.fluentui.datagrid.entityframeworkadapter
 
 pr: none
 trigger: none
@@ -18,19 +18,13 @@ steps:
 - task: UseDotNet@2
   displayName: 'Install .NET 6.0'
   inputs:
-    version: 6.0.408
+    version: 6.0.407
     includePreviewVersions: true
 
 - task: UseDotNet@2
   displayName: 'Install .NET 7.0'
   inputs:
-    version: 7.0.203
-    includePreviewVersions: true
-
-- task: UseDotNet@2
-  displayName: 'Install .NET 8.0'
-  inputs:
-    version: 8.0.x
+    version: 7.0.202
     includePreviewVersions: true
 
 - task: DotNetCoreCLI@2

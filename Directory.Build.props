@@ -13,11 +13,11 @@
 	 
 	 <VersionFile>3.0.2306.2101</VersionFile>
 	 <VersionPrefix>3.0.0</VersionPrefix>
-	 <VersionSuffix>preview.5.230621.1</VersionSuffix> 
+	 <VersionSuffix>preview.5.230623.1</VersionSuffix> 
 	 
 	 <AssemblyVersion>$(VersionFile)</AssemblyVersion>
 	 <FileVersion>$(VersionFile)</FileVersion>
 	 <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
-     <Version>$(VersionPrefix)-$(VersionSuffix)</Version>     
+   <Version>$(VersionPrefix)-$(VersionSuffix)</Version>     
  </PropertyGroup>
 </Project>

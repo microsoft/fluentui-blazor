@@ -1,4 +1,26 @@
-﻿## V2.3.6
+﻿## V2.3.7
+
+- Small Templates package updates. Version is now 2.0.6 (thanks @c0g1t8) 
+- Update Fluent UI System Icons to version 1.1.204
+
+**What's new (Name / Size(s) / Variant(s))**
+- Clipboard Paste / 32 / Filled & Regular
+- Cloud Bidirectional / 20, 24 / Filled & Regular
+- Comment Edit / 16 / Filled & Regular
+- Crown Subtract / 24 / Filled & Regular
+- Crown / 24 / Filled & Regular
+- Pause Circle / 32, 48 / Filled & Regular
+- Person Subtract / 24 / Filled & Regular
+- Plug Connected Settings / 20, 24 / Filled & Regular
+- Signature / 32 / Filled & Regular
+- Speaker Mute / 32 / Filled & Regular
+- Thumb Like Dislike / 16, 20, 24 / Filled & Regular
+
+**What's updated (Name / Size(s) / Variant(s))**
+- Folder / 16, 20, 24, 28, 32, 48 / Filled & Regular
+- Paint Brush / 16, 32 / Filled & Regular
+
+## V2.3.6
 - Fix [#418](https://github.com/microsoft/fluentui-blazor/issues/418): Partial fix for not being able to use arrow keys in FluentTextArea inside a FluentDataGrid. Does not work for virtualized grid.
 - Fix [#419](https://github.com/microsoft/fluentui-blazor/issues/419): Partial fix for feat: Add multi line text to FluentDataGrid PropertyColumn
 - Fix [#424](https://github.com/microsoft/fluentui-blazor/issues/422): Demo site not working on iPhone
@@ -8,6 +30,7 @@
 - Add required icon assets for all sizes
 - Add all Presence icons as required
 - Update Fluent UI System Icons to version 1.1.203
+
 **What's new (Name / Size(s) / Variant(s))**
 - Book Default / 28 / Filled & Regular
 - Folder Lightning / 16, 20, 24 / Filled & Regular
