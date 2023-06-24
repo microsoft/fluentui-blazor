@@ -12,9 +12,11 @@
         <em>There might be parameters and/or methods shown here that are inherited from the component's base type but are not applicable to this component.</em>
     </p>
 }
+
 @if (this.Properties.Any())
 {
-    <h3 id="@(_id + "_parameters")">Parameters</h3>
+    string header = Properties.Any(x => x.IsParameter) ? "Parameters" : "Properties";
+    <h3 id="@(_id + "_properties")">@header</h3>
     <FluentDataGrid Class="docgrid" Items="@this.Properties.AsQueryable()" GridTemplateColumns="1fr 1fr 0.5fr 1.5fr">
         <TemplateColumn Title="Name"><code>@context.Name</code></TemplateColumn>
         <TemplateColumn Title="Type">

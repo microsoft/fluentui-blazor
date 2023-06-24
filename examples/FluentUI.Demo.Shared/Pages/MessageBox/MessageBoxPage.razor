@@ -5,37 +5,37 @@
 <h1>MessageBox</h1>
 
 <p>
-    A MessageBox is a dialog that is used to display information with a specific intent to the user. It uses the <code>DialogService</code> to display the dialog.
-    The <code>DialogService</code> exposes the following methods for working with <code>MessageBox</code>es:
+    A MessageBox is a dialog that is used to display information with a specific intent to the user. It uses the
+    <code>DialogService</code> to display the dialog.
+</p>
+<p>
+    For defining the information to display in the <code>MessageBox</code>, the <code>MessageBoxData</code> class is used. It has the following properties:
+</p>
+
+<ApiDocumentation Component="typeof(MessageBoxData)" />
+
+<p>
+    The <code>MessageBoxData</code> class is then used as the generic type parameter for the <code>DialogParameters</code> class. The <code>DialogParameters</code> class is used to pass parameters to the <code>DialogService</code> when showing a dialog.
+</p>
+
+<ApiDocumentation Component="typeof(DialogParameters<>)" InstanceType="typeof(MessageBoxData)" GenericLabel="MessageBoxData" />
+
+<p>
+    The <code>DialogService</code> is a singleton service that can be injected into any component. It exposes methods to show a dialog. 
+    For working with a <code>MessageBox</code>, the following methods are available:
     <ul>
         <li><code>ShowInfo</code></li>
         <li><code>ShowError</code></li>
         <li><code>ShowConfirmation</code></li>
         <li><code>ShowMessageBox</code></li>
     </ul>
-
 </p>
-<p>
-    For defining the information to display in the <code>MessageBox</code>, the <code>MessageBoxData</code> class is used. It has the following properties:
+<p> 
+    For more information on how to use the <code>DialogService</code>, see the <a href="/DialogService">DialogService</a> page.
 </p>
-<ApiDocumentation Component="typeof(DialogParameters<>)" InstanceType="typeof(MessageBoxData)" GenericLabel="MessageBoxData" />
-<p>
-    The <code>DialogService</code> is a singleton service that can be injected into any component. It exposes methods to show a dialog
-</p>
-
-<ApiDocumentation Component="typeof(DialogService)" />
 
 <h2>Examples</h2>
 
 <DemoSection Title="MessageBox" Component="@typeof(DialogMessageBox)">
-    <Description>
-        A dialog can be used as a simple <code>MessageBox</code> component. The <code>DialogService</code> exposes the following shortcut methods:
-        <ul>
-            <li><code>ShowInfo</code></li>
-            <li><code>ShowError</code></li>
-            <li><code>ShowConfirmation</code></li>
-            <li><code>ShowMessageBox</code></li>
-        </ul>
-        Click on a button below to open a MessageBox.
-    </Description>
+    
 </DemoSection>

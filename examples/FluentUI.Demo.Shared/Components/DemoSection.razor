@@ -21,43 +21,35 @@
         @if (!HideExample) 
         {
             <FluentTab id="@("tab-example-"+@ariaid)" Label="Example" />
-        }
-        @if (!HideAllButExample) 
-        {
-            @foreach (string tab in GetCollocatedFiles()) 
-            {
-                <FluentTab id="@("tab-"+@GetDisplayName(tab).Replace("#","").ToLower()+"-"+@ariaid)" Label="@GetDisplayName(tab)" />
-            }
-            @foreach (string tab in GetAdditionalFiles()) 
-            {
-                <FluentTab id="@("tab-"+tab.Replace("#","").ToLower()+"-"+@ariaid)" Label="@tab" />
-            }
-
-
-        }
-        @if (!HideExample) 
-        {
             <FluentTabPanel>
                 <div class="demo-section-example">
                     @ChildContent
-                    @if (Component is not null) 
+                    @if (Component is not null)
                     {
                         <DynamicComponent Type="Component" Parameters="ComponentParameters" />
                     }
                 </div>
             </FluentTabPanel>
         }
-        @if (!HideAllButExample) 
+        
+        @if (!HideAllButExample && _hasCode)
         {
-            @foreach (string tab in _allFiles) 
+            @foreach (KeyValuePair<string, string> pair in _tabPanelsContent) 
             {
+                string tab = Path.GetExtension(pair.Key);
+
+                if (pair.Key.StartsWith(Component.Name))
+                {
+                    <FluentTab id="@("tab-"+@GetDisplayName(tab).Replace("#","").ToLower()+"-"+@ariaid)" Label="@GetDisplayName(tab)" />
+                }
+                else
+                {
+                    <FluentTab id="@("tab-"+tab.Replace("#","").ToLower()+"-"+@ariaid)" Label="@tab" />
+                }
                 <FluentTabPanel>
-                    @if (_hasCode) 
-                    {
-                        _tabPanelsContent.TryGetValue(tab, out string? sourcecode);
-                        <CodeSnippet Language="@TabLanguageClass(tab)">@sourcecode</CodeSnippet>
-                    }
-                </FluentTabPanel>
+
+                    <CodeSnippet Language="@TabLanguageClass(tab)">@pair.Value</CodeSnippet>
+                </FluentTabPanel>  
             }
         }
     </FluentTabs>
@@ -67,8 +59,9 @@
     <div class="demo-section-downloads">
         <FluentSpacer />
         Download:&nbsp;
-        @foreach (string source in _allFiles) 
+        @foreach (KeyValuePair<string, string> pair in _tabPanelsContent)
         {
+            string source = pair.Key;
             <FluentAnchor Style="width: 85px;" Download="@source" Href="@($"_content/FluentUI.Demo.Shared/sources/{source}.txt")" Appearance="Appearance.Neutral">
                 @if (source.StartsWith(Component.Name)) 
                 {
@@ -80,7 +73,7 @@
                 }
             </FluentAnchor>
 
-            @if (source != _allFiles.Last()) 
+            @if (source != _tabPanelsContent.Last().Key)
             {
                 <span>&nbsp;</span>
             }

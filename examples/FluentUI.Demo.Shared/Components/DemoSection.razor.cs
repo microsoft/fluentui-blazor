@@ -8,6 +8,7 @@ public partial class DemoSection : ComponentBase
     private bool _hasCode = false;
     private readonly Dictionary<string, string> _tabPanelsContent = new();
     private readonly List<string> _allFiles = new();
+    private readonly string[]? _collocatedFiles = new[] { "cs", "css", "js" };
 
     [Inject]
     private HttpClient HttpClient { get; set; } = default!;
@@ -36,13 +37,6 @@ public partial class DemoSection : ComponentBase
     /// </summary>
     [Parameter]
     public Dictionary<string, object>? ComponentParameters { get; set; }
-
-    /// <summary>
-    /// Any collocated isolated .cs, .css or .js files (enter the extensions only) that need to be shown in a tab and as a download. 
-    /// Example: @(new[] { "css", "js", "abc.cs" })
-    /// </summary>
-    [Parameter]
-    public string[]? CollocatedFiles { get; set; }
 
     /// <summary>
     /// Any additional files that need to be shown in a tab and as a download. 
@@ -93,6 +87,7 @@ public partial class DemoSection : ComponentBase
         {
             await SetCodeContentsAsync();
             _hasCode = true;
+            StateHasChanged();
         }
     }
 
@@ -105,7 +100,10 @@ public partial class DemoSection : ComponentBase
             foreach (string source in _allFiles)
             {
                 string? result = await StaticAssetService.GetAsync($"./_content/FluentUI.Demo.Shared/sources/{source}.txt");
-                _tabPanelsContent.Add(source, result ?? string.Empty);
+                if (!string.IsNullOrEmpty(result))
+                {
+                    _tabPanelsContent.Add(source, result);
+                }
             }
         }
         catch
@@ -117,7 +115,7 @@ public partial class DemoSection : ComponentBase
     private IEnumerable<string> GetCollocatedFiles()
     {
         yield return $"{Component.Name}.razor";
-        foreach (string ext in CollocatedFiles ?? Enumerable.Empty<string>())
+        foreach (string ext in _collocatedFiles ?? Enumerable.Empty<string>())
         {
             yield return $"{Component.Name}.razor.{ext}";
         }

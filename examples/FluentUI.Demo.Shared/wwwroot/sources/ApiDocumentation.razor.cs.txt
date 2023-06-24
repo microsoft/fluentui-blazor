@@ -16,6 +16,7 @@ public partial class ApiDocumentation
         public string[] Parameters { get; set; } = Array.Empty<string>();
         public string? Default { get; set; } = null;
         public string Description { get; set; } = "";
+        public bool IsParameter { get; set; }
     }
 
     private IEnumerable<MemberDescription>? _allMembers = null;
@@ -49,7 +50,6 @@ public partial class ApiDocumentation
         _displayName = Component.Name.Replace("`1", $"<{GenericLabel}>") + " Class";
         _id = _displayName.Replace(' ', '-').ToLowerInvariant();
     }
-
     private IEnumerable<MemberDescription> Properties => GetMembers(MemberTypes.Property);
 
     private IEnumerable<MemberDescription> Events => GetMembers(MemberTypes.Event);
@@ -99,7 +99,7 @@ public partial class ApiDocumentation
                         Type t = propertyInfo.PropertyType;
                         bool isEvent = t == typeof(EventCallback) || (t.IsGenericType && t.GetGenericTypeDefinition() == typeof(EventCallback<>));
 
-                        // Parameters
+                        // Parameters/properies
                         if (!isEvent)
                         {
                             members.Add(new MemberDescription()
@@ -109,8 +109,9 @@ public partial class ApiDocumentation
                                 Type = propertyInfo.ToTypeNameString(),
                                 EnumValues = GetEnumValues(propertyInfo),
                                 Default = propertyInfo.PropertyType.IsValueType ? obj?.GetType().GetProperty(propertyInfo.Name)?.GetValue(obj)?.ToString() : "",
-                                Description = CodeComments.GetSummary(Component.Name + "." + propertyInfo.Name) ?? CodeComments.GetSummary(Component.BaseType?.Name + "." + propertyInfo.Name)
-                            }); ;
+                                Description = CodeComments.GetSummary(Component.Name + "." + propertyInfo.Name) ?? CodeComments.GetSummary(Component.BaseType?.Name + "." + propertyInfo.Name),
+                                IsParameter = isParameter,
+                            });
                         }
 
                         // Events
