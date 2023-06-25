@@ -19,6 +19,7 @@ namespace FluentUI.Demo.Shared.Pages.Panel.Examples
             DialogService.ShowPanel<SimplePanel, SimplePerson>(new DialogParameters<SimplePerson>()
             {
                 Data = simplePerson,
+                Alignment = HorizontalAlignment.Right,
                 Title = $"Hello {simplePerson.Firstname}",
                 OnDialogResult = DialogService.CreateDialogCallback(this, HandlePanel),
                 PrimaryButton = "Yes",

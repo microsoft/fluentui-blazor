@@ -3,27 +3,8 @@ using Microsoft.Fast.Components.FluentUI;
 
 namespace FluentUI.Demo.Shared.Pages.SplashScreen.Examples
 {
-    public partial class DialogSplashScreen
+    public partial class DialogSplashScreenCustom
     {
-        private void OpenSplashDefault()
-        {
-            DemoLogger.WriteLine($"Open default splashscreen for 4 seconds");
-            DialogParameters<SplashScreenData> parameters = new()
-            {
-                Data = new()
-                {
-                    Title = "Core components",
-                    SubTitle = "Microsoft Fluent UI Blazor library",
-                    LoadingText = "Loading...",
-                    Message = (MarkupString)"some <i>extra</i> text <strong>here</strong>",
-                    Logo = FluentSplashScreen.LOGO,
-                },
-                Width = "640px",
-                Height = "480px",
-            };
-            DialogService.ShowSplashScreen(this, HandleDefaultSplash, parameters);
-        }
-
         private void OpenSplashCustom()
         {
             DemoLogger.WriteLine($"Open custom splashscreen for 7 seconds");
@@ -40,11 +21,6 @@ namespace FluentUI.Demo.Shared.Pages.SplashScreen.Examples
                 Height = "300px",
             };
             DialogService.ShowSplashScreen<CustomSplashScreen>(this, HandleCustomSplash, parameters);
-        }
-
-        private async Task HandleDefaultSplash(DialogResult result)
-        {
-            await Task.Run(() => DemoLogger.WriteLine($"Default splash closed"));
         }
 
         private async Task HandleCustomSplash(DialogResult result)

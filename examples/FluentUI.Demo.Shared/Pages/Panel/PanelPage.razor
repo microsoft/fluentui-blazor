@@ -2,26 +2,18 @@
 
 @using FluentUI.Demo.Shared.Pages.Panel.Examples;
 
-<h1>Dialog</h1>
+<h1>Panel</h1>
 
-<p>As defined by the <a href="https://w3c.github.io/aria-practices/#dialog_modal" target="_blank" rel="noopener noreferrer">W3C</a>:</p>
-<blockquote>
-    <p>
-        A dialog is a window overlaid on either the primary window or another dialog window. Windows under a modal dialog are inert.
-        That is, users cannot interact with content outside an active dialog window. Inert content outside an active dialog is typically visually
-        obscured or dimmed so it is difficult to discern, and in some implementations, attempts to interact with the inert content cause the dialog
-        to close.
-    </p>
-    <p>
-        Like non-modal dialogs, modal dialogs contain their tab sequence. That is, Tab and Shift + Tab do not move focus outside
-        the dialog. However, unlike most non-modal dialogs, modal dialogs do not provide means for moving keyboard focus outside the dialog window
-        without closing the dialog.
-    </p>
-</blockquote>
+<p>
+    A panel is a dialog that is anchored to the side of the screen. 
+    By implementing <code>IDialogContentComponent&lt;T&gt;</code>, a component can be used as the content of a panel.
+    The appearance of the panel can be altered by using the <code>DialogParameters</code> class.
+</p>
 
-<p><code>&lt;FluentDialog&gt;</code> wraps the <code>&lt;fluent-dialog&gt;</code> element, a web component implementation of a dialog leveraging the Fluent UI design system.</p>
-
-<ApiDocumentation Component="typeof(FluentDialog)" />
+<p>
+    A panel can be shown by calling one of the two <code>ShowPanel</code> methods on the <code>DialogService</code>.
+    For more information on how to use the <code>DialogService</code>, see the <a href="DialogService">DialogService</a> page.
+</p>
 
 <h2>Examples</h2>
 

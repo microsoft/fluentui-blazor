@@ -4,7 +4,3 @@
     Open default splash screen
 </FluentButton>
 
-<FluentButton @onclick="@OpenSplashCustom" Appearance="Appearance.Accent">
-    Open customized splash screen
-</FluentButton>
-

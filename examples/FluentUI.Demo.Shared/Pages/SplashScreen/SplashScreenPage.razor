@@ -7,16 +7,18 @@
 <p></p>
 
 <p>
-    For defining the information to display in the <code>SplashScreen</code>, the <code>SplashScreenParameters</code> class is used. It has the following properties:
+    For defining the information to display in the <code>SplashScreen</code>, the <code>SplashScreenData</code> class is used.
+    It has the following properties:
 </p>
 
-<ApiDocumentation Component="typeof(DialogParameters<>)" InstanceType="typeof(SplashScreenData)" GenericLabel="SplashScreenData" />
+<ApiDocumentation Component="typeof(SplashScreenData)"/>
 
 <p>
+    To show a splash screen, the <code>DialogService</code> is used.
     The <code>DialogService</code> is a singleton service that can be injected into any component. It exposes 2 methods to show a splash screen dialog:
     <ul>
         <li><code>SplashScreenParameters</code></li>
-        <li><code>SplashScreenParameters&lt;T&gt;></code> where T is a custom component which inherits the <code>FluentSplashScreen</code> component</li>
+        <li><code>SplashScreenParameters&lt;T&gt;</code> where T is a custom component which inherits the <code>FluentSplashScreen</code> component</li>
     </ul>
 </p>
 
@@ -24,12 +26,17 @@
 
 <h2>Examples</h2>
 
-<DemoSection Title="Splash screen" Component="@typeof(DialogSplashScreen)" AdditionalFiles="@(new [] {"CustomSplashScreen.razor"})">
+<DemoSection Title="Default splash screen" Component="@typeof(DialogSplashScreenDefault)" >
     <Description>
-        The default example shows the standard splash screen. It's content can be alterd by means of the <code>SplashScreenParameters</code> class.
-        In this example we simulate a startup process that takes 4 seconds. The second example shows a splash screen that uses a customized layout. 
-        See the <code>CustomSplashScreen</code> razor file to see how that can be done. 
-        The <code>OnParametersSet</code> method is needed to transfer the data from/to the dialog.
+        The default example shows the standard splash screen. It's content can be alterd by means of the <code>SplashScreenData</code> class.
+        In this example we simulate a startup process that takes 4 seconds. 
+    </Description>
+</DemoSection>
+
+<DemoSection Title="Custom splash screen" Component="@typeof(DialogSplashScreenCustom)" AdditionalFiles="@(new [] {"CustomSplashScreen.razor"})">
+    <Description>
+        The custom example shows a splash screen that uses a customized layout. 
+        See the <code>CustomSplashScreen</code> razor file to see how that can be done.
     </Description>
 </DemoSection>
 

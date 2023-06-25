@@ -19,9 +19,15 @@
     </p>
 </blockquote>
 
-<p><code>&lt;FluentDialog&gt;</code> wraps the <code>&lt;fluent-dialog&gt;</code> element, a web component implementation of a dialog leveraging the Fluent UI design system.</p>
+<p>
+    <code>&lt;FluentDialog&gt;</code> wraps the <code>&lt;fluent-dialog&gt;</code> element, a web component implementation of a dialog leveraging
+    the Fluent UI design system. It acts as a shell for the dialog content, which can be specified in a number of ways. The dialog is always 
+    centered on the screen. To alter the properties of the dialog, use the <code>DialogParameters</code> class.
+</p>
 
 <ApiDocumentation Component="typeof(FluentDialog)" />
+
+<ApiDocumentation Component="typeof(DialogParameters<>)" GenericLabel="TData" />
 
 <h2>Examples</h2>
 
@@ -32,14 +38,18 @@
     </Description>
 </DemoSection>
 
-<DemoSection Title="Dialog Services" Component="@typeof(DialogServiceExample)">
-
+<DemoSection Title="Dialog Services" Component="@typeof(DialogServiceExample)" AdditionalFiles="@(new[] {"SimpleDialog.razor"})">
+    <Description>
+        This example shows how to use the <code>DialogService</code> to show a dialog. The content of the dialog is specified by
+        a component which implements <code>IDialogContentComponent&lt;T&gt;</code>. Here that is done in <code>SimpleDialog.razor</code>. The dialog is automatically styled and centered.
+    </Description>
 </DemoSection>
 
 
 <DemoSection Title="SimpleDialog as component" Component="@typeof(DialogSimpleDialog)">
     <Description>
-        Components that are shown in a dialog can be used as a normal component. This example shows 
-        the <code>SimpleDialog</code> component being rendered directly in the page.
+        For a components to be useable in a dialog, it just needs to inherit from <code>IDialogContentComponent&lt;T&gt;</code>. 
+        They can still be used as a normal component as well. This example shows the <code>SimpleDialog</code> component from the
+        previous example being rendered directly in the page.
     </Description>
 </DemoSection>
