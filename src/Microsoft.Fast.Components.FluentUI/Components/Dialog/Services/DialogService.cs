@@ -37,6 +37,34 @@ public class DialogService : IDialogService
     }
 
     // ToDo: Add Success, Warning?
+    public void ShowSuccess(string message, string? title = null) => ShowMessageBox(new DialogParameters<MessageBoxData>()
+    {
+        Data = new MessageBoxData()
+        {
+            Title = string.IsNullOrWhiteSpace(title) ? "Success!" /*DialogResources.TitleError*/ : title,
+            Intent = MessageBoxIntent.Success,
+            Icon = FluentIcons.CheckmarkCircle,
+            IconColor = Color.Success,
+            Message = message,
+        },
+        PrimaryButton = "Ok", /*DialogResources.ButtonOK,*/
+        SecondaryButton = string.Empty,
+    });
+
+    public void ShowWarning(string message, string? title = null) => ShowMessageBox(new DialogParameters<MessageBoxData>()
+    {
+        Data = new MessageBoxData()
+        {
+            Title = string.IsNullOrWhiteSpace(title) ? "Warning!" /*DialogResources.TitleError*/ : title,
+            Intent = MessageBoxIntent.Warning,
+            Icon = FluentIcons.Warning,
+            IconColor = Color.Warning,
+            Message = message,
+        },
+        PrimaryButton = "Ok", /*DialogResources.ButtonOK,*/
+        SecondaryButton = string.Empty,
+    });
+
     public void ShowError(string message, string? title = null) => ShowMessageBox(new DialogParameters<MessageBoxData>()
     {
         Data = new MessageBoxData()
@@ -58,7 +86,7 @@ public class DialogService : IDialogService
             Title = string.IsNullOrWhiteSpace(title) ? "Information" /*DialogResources.TitleInformation*/ : title,
             Intent = MessageBoxIntent.Info,
             Icon = FluentIcons.Info,
-            IconColor = Color.Warning,
+            IconColor = Color.Info,
             Message = message,
         },
         PrimaryButton = "Ok", /*DialogResources.ButtonOK,*/

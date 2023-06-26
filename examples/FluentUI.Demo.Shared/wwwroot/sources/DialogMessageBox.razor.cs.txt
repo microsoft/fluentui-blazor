@@ -5,6 +5,18 @@ namespace FluentUI.Demo.Shared.Pages.MessageBox.Examples
 {
     public partial class DialogMessageBox
     {
+        private void ShowSuccess()
+        {
+            DemoLogger.WriteLine($"Open Success MessageBox");
+            DialogService.ShowSuccess("The action was run successfuly", "Success title here");
+        }
+
+        private void ShowWarning()
+        {
+            DemoLogger.WriteLine($"Open Warning MessageBox");
+            DialogService.ShowWarning("This is your final warning!", "Warning title here");
+        }
+
         private void ShowError()
         {
             DemoLogger.WriteLine($"Open Error MessageBox");

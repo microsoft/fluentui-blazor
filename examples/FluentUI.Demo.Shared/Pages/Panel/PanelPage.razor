@@ -5,10 +5,15 @@
 <h1>Panel</h1>
 
 <p>
-    A panel is a dialog that is anchored to the side of the screen. 
-    By implementing <code>IDialogContentComponent&lt;T&gt;</code>, a component can be used as the content of a panel.
-    The appearance of the panel can be altered by using the <code>DialogParameters</code> class.
+    A panel is a dialog that is anchored to the either left or right side of the screen. By implementing <code>IDialogContentComponent&lt;T&gt;</code>, 
+    a component can be used as the content of a panel. The appearance of the panel can be altered by using the <code>DialogParameters</code> class.
 </p>
+<p>
+    Data can be exchanged between the panel and the component that opened the panel by using the <code>DialogParameters.Data</code> parameter.
+    A complete overview of the <code>DialogParameters</code> class:
+</p>
+
+<ApiDocumentation Component="typeof(DialogParameters<>)" InstanceType="typeof(string)" GenericLabel="TData" />
 
 <p>
     A panel can be shown by calling one of the two <code>ShowPanel</code> methods on the <code>DialogService</code>.
@@ -17,6 +22,12 @@
 
 <h2>Examples</h2>
 
-<DemoSection Title="Simple Panel" Component="@typeof(DialogPanel)">
+<DemoSection Title="Simple Panel" Component="@typeof(DialogPanel)" AdditionalFiles="@(new[] {"SimplePanel.razor"})">
+    <Description>
+        This example panel that is anchored to the right side of the screen can be dismissed by clicking the dismiss button (at the top), 
+        'No' button (at the bottom) or by clicking outside of the panel.<br />
+        The panel shown on the left side of the screen can only be closed by clicking the 'Cancel'' button at the bottom of the panel. It does 
+        not show a dissmiss button and is shown in a modal fashion based on the settings provided through the <code>DialogParameters</code>
+    </Description>
 </DemoSection>
 

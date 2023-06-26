@@ -9,6 +9,19 @@
     <code>DialogService</code> to display the dialog.
 </p>
 <p>
+    The <code>DialogService</code> is a singleton service that can be injected into any component. It exposes methods to show a dialog.
+    For working with a <code>MessageBox</code>, the following methods are available:
+    <ul>
+        <li><code>ShowSuccess</code></li>
+        <li><code>ShowWarning</code></li>
+        <li><code>ShowInfo</code></li>
+        <li><code>ShowError</code></li>
+        <li><code>ShowConfirmation</code></li>
+        <li><code>ShowMessageBox</code></li>
+    </ul>
+    For more information on how to use the <code>DialogService</code>, see the <a href="/DialogService">DialogService</a> page.
+</p>
+<p>
     For defining the information to display in the <code>MessageBox</code>, the <code>MessageBoxData</code> class is used. It has the following properties:
 </p>
 
@@ -19,21 +32,16 @@
     The <code>DialogParameters</code> class is used to pass parameters to the <code>DialogService</code> when showing a dialog.
 </p>
 
+<p>
+    When both the <code>PrimaryButton</code> and <code>SecondaryButton</code> properties are set, the <code>MessageBox</code> will be 
+    displayed as a modal. This means that the user has to click one of the buttons to close the dialog. It cannot be closed by clicking
+    outside of the dialog. Clicking <code>PrimaryButton</code> will return <code>true</code> and clicking <code>SecondaryButton</code> will 
+    return <code>false</code> as the dialog result. See the Console log for these return values.
+</p>
+
+
 <ApiDocumentation Component="typeof(DialogParameters<>)" InstanceType="typeof(MessageBoxData)" GenericLabel="MessageBoxData" />
 
-<p>
-    The <code>DialogService</code> is a singleton service that can be injected into any component. It exposes methods to show a dialog. 
-    For working with a <code>MessageBox</code>, the following methods are available:
-    <ul>
-        <li><code>ShowInfo</code></li>
-        <li><code>ShowError</code></li>
-        <li><code>ShowConfirmation</code></li>
-        <li><code>ShowMessageBox</code></li>
-    </ul>
-</p>
-<p> 
-    For more information on how to use the <code>DialogService</code>, see the <a href="/DialogService">DialogService</a> page.
-</p>
 
 <h2>Examples</h2>
 

@@ -17,8 +17,9 @@
     To show a splash screen, the <code>DialogService</code> is used.
     The <code>DialogService</code> is a singleton service that can be injected into any component. It exposes 2 methods to show a splash screen dialog:
     <ul>
-        <li><code>SplashScreenParameters</code></li>
-        <li><code>SplashScreenParameters&lt;T&gt;</code> where T is a custom component which inherits the <code>FluentSplashScreen</code> component</li>
+        <li><code>SplashScreenParameters</code> (uses the <code>FluentSplashScreen</code> to show the dialog)</li>
+        <li><code>SplashScreenParameters&lt;T&gt;</code> where T is a custom component which inherits the <code>FluentSplashScreen</code> component 
+            and implements <code>IDialogContentComponent&lt;SplashScreenData&gt;</code> .</li>
     </ul>
 </p>
 

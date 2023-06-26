@@ -17,6 +17,10 @@ public interface IDialogService
     void ShowSplashScreen(Type component, object receiver, Func<DialogResult, Task> callback, DialogParameters<SplashScreenData> parameters);
 
 
+    void ShowSuccess(string message, string? title = null);
+
+    void ShowWarning(string message, string? title = null);
+
     void ShowError(string message, string? title = null);
 
     void ShowInfo(string message, string? title = null);

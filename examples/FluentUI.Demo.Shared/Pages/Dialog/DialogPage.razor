@@ -21,11 +21,29 @@
 
 <p>
     <code>&lt;FluentDialog&gt;</code> wraps the <code>&lt;fluent-dialog&gt;</code> element, a web component implementation of a dialog leveraging
-    the Fluent UI design system. It acts as a shell for the dialog content, which can be specified in a number of ways. The dialog is always 
-    centered on the screen. To alter the properties of the dialog, use the <code>DialogParameters</code> class.
+    the Fluent UI design system. <code>&lt;FluentDialog&gt;</code> acts as a shell for the dialog content, which can be specified in a number of ways. 
+</p>
+<p>
+    Normally, the dialog content is specified by a component which implements <code>IDialogContentComponent&lt;T&gt;</code>. This component is then
+    passed to the <code>DialogService</code> to be shown. The <code>DialogService</code> will then render a <code>&lt;FluentDialog&gt;</code> with the 
+    component inside of it. Alternatively, the dialog content can be specified manually by setting the <code>ChildContent</code> parameter of <code>&lt;FluentDialog&gt;</code>.
+    This is useful if you want to show a simple dialog without having to create a component for it or if you do not want to use the <code>DialogService</code>for it.
+</p>
+<p>
+    The <code>DialogService</code> is a service which can be used to show different types of dialogs. It is registered as a scoped service, so it can be injected into 
+    pages/components that want to use it. For more information on the <code>DialosService</code>, see the <a href="DialogService">Dialog Service</a> page.
+</p>
+<p>
+        When using the <code>DialogService</code>, for displaying a regular dialog, the dialog will always be shown centered on the screen.
 </p>
 
 <ApiDocumentation Component="typeof(FluentDialog)" />
+
+<p>To alter the properties of a dialog which uses the <code>DialogService</code> to display it, use the <code>DialogParameters</code> class.</p>
+<blockquote>
+    Note: Not all properties can be used for all types of dialogs. For example, the <code>DialogParameters</code> class has a <code>Height</code> property,
+    which is ignored when displaying a Panel.
+</blockquote>
 
 <ApiDocumentation Component="typeof(DialogParameters<>)" GenericLabel="TData" />
 
