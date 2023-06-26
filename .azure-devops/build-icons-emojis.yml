@@ -55,7 +55,7 @@ steps:
   inputs:
     command: 'build'
     projects: '$(projects)'
-    arguments: '-c $(buildConfiguration) -p:Version=$(Build.BuildNumber)'
+    arguments: '-c $(buildConfiguration) -p:Version=$(Build.BuildNumber) --output $(Build.ArtifactStagingDirectory)'
 
 - task: PublishBuildArtifacts@1
   inputs:
