@@ -5,7 +5,7 @@
 
 pr: none # Disable pull request triggers.
 trigger:
-- users/dvoituron/icons
+- users/dvoituron/pipeline/version
 
 pool:
   vmImage: 'windows-latest'
@@ -15,7 +15,8 @@ variables:
   buildConfiguration: 'Release'
   # Build Icons Lib only (build time too long for Emojis Lib on Azure DevOps)
   projects: |
-   **/Microsoft.Fast.Components.FluentUI.Icons.csproj
+   **/Microsoft.Fast.Components.FluentUI.AssetsGenerator.csproj  
+  # **/Microsoft.Fast.Components.FluentUI.Icons.csproj
 
 steps:
 - task: NuGetToolInstaller@1
