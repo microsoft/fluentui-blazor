@@ -10,7 +10,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentSystemEmoji<Emoji> : FluentComponentBase
     where Emoji : FluentUI.Emoji, new()
 {
-    private Emoji _emoji = new Emoji();
+    private Emoji _emoji = new();
 
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)

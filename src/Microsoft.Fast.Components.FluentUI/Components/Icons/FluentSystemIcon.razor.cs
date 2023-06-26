@@ -10,7 +10,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentSystemIcon<Icon> : FluentComponentBase
     where Icon : FluentUI.Icon, new()
 {
-    private Icon _icon = new Icon();
+    private Icon _icon = new();
 
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)

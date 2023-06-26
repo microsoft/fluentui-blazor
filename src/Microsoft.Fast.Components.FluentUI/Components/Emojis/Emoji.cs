@@ -33,7 +33,7 @@ public abstract class Emoji : EmojiInfo
     /// <summary>
     /// Gets the content of the icon: SVG path.
     /// </summary>
-    public virtual string Content => _content ?? (_content = EmojiCompress.Unzip(Data));
+    public virtual string Content => _content ??= EmojiCompress.Unzip(Data);
 
     /// <summary>
     /// Gets the HTML markup of the emoji.
