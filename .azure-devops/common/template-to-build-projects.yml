@@ -60,17 +60,17 @@ steps:
 #     arguments: '-c $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
 
 - task: DotNetCoreCLI@2
-  displayName: 'dotnet build $(buildConfiguration)'
+  displayName: 'Build $(Build.BuildNumber)'
   inputs:
     command: 'build'
     projects: ${{ parameters.Projects }}
     arguments: '--configuration $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
-  displayName: Pack
+  displayName: Pack $(Build.BuildNumber)
   inputs:
     command: 'pack'
-    packagesToPack: $(project)
+    packagesToPack: ${{ parameters.Projects }}
     versioningScheme: 'off'
     nobuild: true
     verbosityPack: 'Normal'
