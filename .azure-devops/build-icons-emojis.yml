@@ -15,7 +15,7 @@ variables:
   VersionPreview: 'preview.5'
 
   VersionAssembly : $(VersionMajor).$(Year:yy)$(DayOfYear).$(Rev:r)
-  VersionPackage: $(MajorVersion).0-$(VersionPreview).$(Year:yy)$(DayOfYear).$(Rev:r)
+  VersionPackage: $(VersionMajor).0-$(VersionPreview).$(Year:yy)$(DayOfYear).$(Rev:r)
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
   # Build Icons Lib only (build time too long for Emojis Lib on Azure DevOps)
