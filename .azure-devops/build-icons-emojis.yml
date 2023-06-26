@@ -11,6 +11,7 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
+  buildVersion: '3.0.$(Year:yy)$(DayOfYear).$(Rev:r)'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
   # Build Icons Lib only (build time too long for Emojis Lib on Azure DevOps)
@@ -47,7 +48,7 @@ steps:
     projects: $(projects)
 
 - task: DotNetCoreCLI@2
-  displayName: "Build Libs"
+  displayName: "Build Libs $(buildVersion)"
   inputs:
     command: 'build'
     projects: '$(projects)'
