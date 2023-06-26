@@ -10,7 +10,7 @@ trigger:
 pool:
   vmImage: 'windows-latest'
 
-# Build.BuildNumber
+# Build.BuildNumber 
 name: 3.0.$(Year:yy)$(DayOfYear).$(Rev:r)
 
 variables:
