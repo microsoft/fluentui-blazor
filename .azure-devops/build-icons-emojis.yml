@@ -70,7 +70,7 @@ steps:
   inputs:
     command: 'build'
     projects: '$(projects)'
-    arguments: '-c $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)\$(projects)'
+    arguments: '-c $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/$(System.TeamProject)'
 
 - task: PublishBuildArtifacts@1
   inputs:
