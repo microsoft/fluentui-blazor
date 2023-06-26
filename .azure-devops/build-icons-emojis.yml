@@ -12,7 +12,7 @@ pool:
 
 variables:
   VersionMajor: '3.0'
-  buildPlatform: 'Any CPU'
+
   buildConfiguration: 'Release'
   # Build Icons Lib only (build time too long for Emojis Lib on Azure DevOps)
   projects: |
@@ -70,7 +70,7 @@ steps:
   inputs:
     command: 'build'
     projects: '$(projects)'
-    arguments: '-c $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    arguments: '-c $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)\$(projects)'
 
 - task: PublishBuildArtifacts@1
   inputs:
