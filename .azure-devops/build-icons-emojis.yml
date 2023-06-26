@@ -44,6 +44,21 @@ steps:
     version: 8.0.x
     includePreviewVersions: true
 
+- task: Assembly-Info-NetCore@3
+  displayName: 'Update Assembly Versions to $(Build.BuildNumber)'
+  inputs:
+    Path: '$(Build.SourcesDirectory)'
+    FileNames: '**/*.csproj'
+    InsertAttributes: true
+    FileEncoding: 'auto'
+    WriteBOM: false
+    VersionNumber: '$(Build.BuildNumber)'
+    FileVersionNumber: '$(Build.BuildNumber)'
+    InformationalVersion: '$(Build.BuildNumber)'
+    LogLevel: 'verbose'
+    FailOnWarning: false
+    DisableTelemetry: false
+
 - task: DotNetCoreCLI@2
   displayName: Install dependencies
   inputs:
@@ -55,7 +70,7 @@ steps:
   inputs:
     command: 'build'
     projects: '$(projects)'
-    arguments: '-c $(buildConfiguration) -p:Version=$(Build.BuildNumber) --output $(Build.ArtifactStagingDirectory)'
+    arguments: '-c $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
 
 - task: PublishBuildArtifacts@1
   inputs:
