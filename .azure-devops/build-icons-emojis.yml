@@ -10,10 +10,12 @@ trigger:
 pool:
   vmImage: 'windows-latest'
 
-# Build.BuildNumber 
-name: 3.0.$(Year:yy)$(DayOfYear).$(Rev:r)
-
 variables:
+  VersionMajor: '3.0'
+  VersionPreview: 'preview.5'
+
+  VersionAssembly : '$(VersionMajor).$(Year:yy)$(DayOfYear).$(Rev:r)'
+  VersionPackage: '$(MajorVersion).0-$(VersionPreview).$(Year:yy)$(DayOfYear).$(Rev:r)'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
   # Build Icons Lib only (build time too long for Emojis Lib on Azure DevOps)
@@ -21,12 +23,15 @@ variables:
    **/Microsoft.Fast.Components.FluentUI.AssetsGenerator.csproj  
   # **/Microsoft.Fast.Components.FluentUI.Icons.csproj
 
+# Build.BuildNumber
+name: $(VersionMajor).$(Year:yy)$(DayOfYear).$(Rev:r)
+
 steps:
 - task: NuGetToolInstaller@1
-  displayName: Install NuGet tools
+  displayName: Install NuGet tools $(VersionAssembly)
 
 - task: UseDotNet@2
-  displayName: 'Install .NET 6.0'
+  displayName: Install .NET 6.0 $(VersionPackage)
   inputs:
     version: 6.0.408
     includePreviewVersions: true
