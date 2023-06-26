@@ -10,70 +10,76 @@ trigger:
 pool:
   vmImage: 'windows-latest'
 
-variables:
-  VersionMajor: '3.0'
+extends:
+  template: template-to-build-projects.yml
+  parameters:
+      Projects: |
+       **/Microsoft.Fast.Components.FluentUI.AssetsGenerator.csproj  
 
-  buildConfiguration: 'Release'
-  # Build Icons Lib only (build time too long for Emojis Lib on Azure DevOps)
-  projects: |
-   **/Microsoft.Fast.Components.FluentUI.AssetsGenerator.csproj  
-  # **/Microsoft.Fast.Components.FluentUI.Icons.csproj
+# variables:
+#   VersionMajor: '3.0'
 
-# Build.BuildNumber
-name: $(VersionMajor).$(Year:yy)$(DayOfYear).$(Rev:r)
+#   buildConfiguration: 'Release'
+#   # Build Icons Lib only (build time too long for Emojis Lib on Azure DevOps)
+#   projects: |
+#    **/Microsoft.Fast.Components.FluentUI.AssetsGenerator.csproj  
+#   # **/Microsoft.Fast.Components.FluentUI.Icons.csproj
 
-steps:
-- task: NuGetToolInstaller@1
-  displayName: Install NuGet tools
+# # Build.BuildNumber
+# name: $(VersionMajor).$(Year:yy)$(DayOfYear).$(Rev:r)
 
-- task: UseDotNet@2
-  displayName: Install .NET 6.0
-  inputs:
-    version: 6.0.408
-    includePreviewVersions: true
+# steps:
+# - task: NuGetToolInstaller@1
+#   displayName: Install NuGet tools
 
-- task: UseDotNet@2
-  displayName: 'Install .NET 7.0'
-  inputs:
-    version: 7.0.203
-    includePreviewVersions: true
+# - task: UseDotNet@2
+#   displayName: Install .NET 6.0
+#   inputs:
+#     version: 6.0.408
+#     includePreviewVersions: true
 
-- task: UseDotNet@2
-  displayName: 'Install .NET 8.0'
-  inputs:
-    version: 8.0.x
-    includePreviewVersions: true
+# - task: UseDotNet@2
+#   displayName: 'Install .NET 7.0'
+#   inputs:
+#     version: 7.0.203
+#     includePreviewVersions: true
 
-- task: Assembly-Info-NetCore@3
-  displayName: 'Update Assembly Versions to $(Build.BuildNumber)'
-  inputs:
-    Path: '$(Build.SourcesDirectory)'
-    FileNames: '**/*.csproj'
-    InsertAttributes: true
-    FileEncoding: 'auto'
-    WriteBOM: false
-    VersionNumber: '$(Build.BuildNumber)'
-    FileVersionNumber: '$(Build.BuildNumber)'
-    InformationalVersion: '$(Build.BuildNumber)'
-    LogLevel: 'verbose'
-    FailOnWarning: false
-    DisableTelemetry: false
+# - task: UseDotNet@2
+#   displayName: 'Install .NET 8.0'
+#   inputs:
+#     version: 8.0.x
+#     includePreviewVersions: true
 
-- task: DotNetCoreCLI@2
-  displayName: Install dependencies
-  inputs:
-    command: 'restore'
-    projects: $(projects)
+# - task: Assembly-Info-NetCore@3
+#   displayName: 'Update Assembly Versions to $(Build.BuildNumber)'
+#   inputs:
+#     Path: '$(Build.SourcesDirectory)'
+#     FileNames: '**/*.csproj'
+#     InsertAttributes: true
+#     FileEncoding: 'auto'
+#     WriteBOM: false
+#     VersionNumber: '$(Build.BuildNumber)'
+#     FileVersionNumber: '$(Build.BuildNumber)'
+#     InformationalVersion: '$(Build.BuildNumber)'
+#     LogLevel: 'verbose'
+#     FailOnWarning: false
+#     DisableTelemetry: false
 
-- task: DotNetCoreCLI@2
-  displayName: "Build Libs $(Build.BuildNumber)"
-  inputs:
-    command: 'build'
-    projects: '$(projects)'
-    arguments: '-c $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/$(System.TeamProject)'
+# - task: DotNetCoreCLI@2
+#   displayName: Install dependencies
+#   inputs:
+#     command: 'restore'
+#     projects: $(projects)
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
+# - task: DotNetCoreCLI@2
+#   displayName: "Build Libs $(Build.BuildNumber)"
+#   inputs:
+#     command: 'build'
+#     projects: '$(projects)'
+#     arguments: '-c $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+#     ArtifactName: 'drop'
+#     publishLocation: 'Container'
