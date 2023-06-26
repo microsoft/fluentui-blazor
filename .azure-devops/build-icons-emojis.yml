@@ -17,4 +17,5 @@ extends:
   template: common/template-to-build-projects.yml
   parameters:
       Projects: |
-       **/Microsoft.Fast.Components.FluentUI.AssetsGenerator.csproj  
+       **/Microsoft.Fast.Components.FluentUI.AssetsGenerator.csproj
+       **/Microsoft.Fast.Components.FluentUI.Icons.csproj
