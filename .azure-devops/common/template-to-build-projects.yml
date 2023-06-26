@@ -41,6 +41,7 @@ steps:
     VersionNumber: '$(Build.BuildNumber)'
     FileVersionNumber: '$(Build.BuildNumber)'
     InformationalVersion: '$(Build.BuildNumber)'
+    PackageVersion: '$(Build.BuildNumber)'
     LogLevel: 'verbose'
     FailOnWarning: false
     DisableTelemetry: false
@@ -51,15 +52,59 @@ steps:
     command: 'restore'
     projects: ${{ parameters.Projects }}
 
+# - task: DotNetCoreCLI@2
+#   displayName: "Build Projects $(Build.BuildNumber)"
+#   inputs:
+#     command: 'build'
+#     projects: ${{ parameters.Projects }}
+#     arguments: '-c $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+
 - task: DotNetCoreCLI@2
-  displayName: "Build Projects $(Build.BuildNumber)"
+  displayName: 'dotnet build $(buildConfiguration)'
   inputs:
     command: 'build'
     projects: ${{ parameters.Projects }}
-    arguments: '-c $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    arguments: '--configuration $(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: Pack
+  inputs:
+    command: 'pack'
+    packagesToPack: $(project)
+    versioningScheme: 'off'
+    nobuild: true
+    verbosityPack: 'Normal'
+    feedsToUse: 'config'
+    nugetConfigPath: 
+
+- task: EsrpCodeSigning@3
+  inputs:
+    ConnectedServiceName: 'ESRP Code Signing SC'
+    FolderPath: '$(Build.ArtifactStagingDirectory)'
+    Pattern: '**/*.nupkg'
+    UseMinimatch: true
+    signConfigType: 'inlineSignParams'
+    inlineOperation: |
+      [
+              {
+                  "KeyCode" : "CP-401405",
+                  "OperationCode" : "NuGetSign",
+                  "Parameters" : {},
+                  "ToolName" : "sign",
+                  "ToolVersion" : "1.0"
+              },
+              {
+                  "KeyCode" : "CP-401405",
+                  "OperationCode" : "NuGetVerify",
+                  "Parameters" : {},
+                  "ToolName" : "sign",
+                  "ToolVersion" : "1.0"
+              }
+            ]
+    SessionTimeout: '60'
+    MaxConcurrency: '200'
+    MaxRetryAttempts: '5'
 
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'

@@ -8,7 +8,7 @@ trigger:
 - users/dvoituron/pipeline/version
 
 pool:
-  vmImage: 'windows-latest'
+  vmImage: 'windows-2022'
 
 # Build.BuildNumber
 name: $(VersionMajor).$(Year:yy)$(DayOfYear).$(Rev:r)
@@ -17,5 +17,4 @@ extends:
   template: common/template-to-build-projects.yml
   parameters:
       Projects: |
-       **/Microsoft.Fast.Components.FluentUI.AssetsGenerator.csproj
        **/Microsoft.Fast.Components.FluentUI.Icons.csproj
