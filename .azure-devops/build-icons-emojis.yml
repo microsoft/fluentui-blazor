@@ -10,6 +10,9 @@ trigger:
 pool:
   vmImage: 'windows-latest'
 
+# Build.BuildNumber
+name: $(VersionMajor).$(Year:yy)$(DayOfYear).$(Rev:r)
+
 extends:
   template: template-to-build-projects.yml
   parameters:

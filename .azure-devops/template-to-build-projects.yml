@@ -7,9 +7,6 @@ variables:
   VersionMajor: '3.0'
   buildConfiguration: 'Release'
 
-# Build.BuildNumber
-name: $(VersionMajor).$(Year:yy)$(DayOfYear).$(Rev:r)
-
 steps:
 - task: NuGetToolInstaller@1
   displayName: Install NuGet tools
