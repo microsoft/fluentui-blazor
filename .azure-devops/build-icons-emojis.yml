@@ -12,10 +12,6 @@ pool:
 
 variables:
   VersionMajor: '3.0'
-  VersionPreview: 'preview.5'
-
-  VersionAssembly : $(VersionMajor).$(Year:yy)$(DayOfYear).$(Rev:r)
-  VersionPackage: $(VersionMajor).0-$(VersionPreview).$(Year:yy)$(DayOfYear).$(Rev:r)
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
   # Build Icons Lib only (build time too long for Emojis Lib on Azure DevOps)
@@ -28,10 +24,10 @@ name: $(VersionMajor).$(Year:yy)$(DayOfYear).$(Rev:r)
 
 steps:
 - task: NuGetToolInstaller@1
-  displayName: Install NuGet tools $(VersionAssembly)
+  displayName: Install NuGet tools
 
 - task: UseDotNet@2
-  displayName: Install .NET 6.0 $(VersionPackage)
+  displayName: Install .NET 6.0
   inputs:
     version: 6.0.408
     includePreviewVersions: true
@@ -59,4 +55,4 @@ steps:
   inputs:
     command: 'build'
     projects: '$(projects)'
-    arguments: '-c $(buildConfiguration)'
+    arguments: '-c $(buildConfiguration) -p:Version=$(Build.BuildNumber)'
