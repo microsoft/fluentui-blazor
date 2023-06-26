@@ -6,12 +6,8 @@ parameters:
 variables:
   VersionMajor: '3.0'				# Major version of the projects
   buildConfiguration: 'Release'		# Build configuration
-  buildNumber: $(VersionMajor).$(Year:yy)$(DayOfYear).$(Rev:r)
 
 steps:
-
-- script: |
-   echo "##vso[build.updatebuildnumber]$(buildNumber)"
 
 - task: NuGetToolInstaller@1
   displayName: Install NuGet tools
