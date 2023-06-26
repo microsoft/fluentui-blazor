@@ -56,3 +56,9 @@ steps:
     command: 'build'
     projects: '$(projects)'
     arguments: '-c $(buildConfiguration) -p:Version=$(Build.BuildNumber)'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
