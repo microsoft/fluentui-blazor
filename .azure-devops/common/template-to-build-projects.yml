@@ -26,12 +26,14 @@ steps:
     
       [Environment]::SetEnvironmentVariable("VersionPackage", $package, "User")  # This will allow you to use it from env var in later steps of the same phase
       Write-Host "##vso[task.setvariable variable=VersionPackage]${package}"    # Custom build version to build from One Branch Pipeline.       
-
-      Write-Output "VersionPackage    = $(VersionPackage)"
-      Write-Output "Build.BuildNumber = $(Build.BuildNumber)"
-      Write-Output "PublicVersion     = $(PublicVersion)"
-      Write-Output "ShouldSign        = $(ShouldSign)"
     displayName: Compute VersionPackage
+
+  - script: |
+      echo "VersionPackage = $(VersionPackage)"
+      echo "BuildNumber    = $(Build.BuildNumber)"
+      echo "PublicVersion  = $(PublicVersion)"
+      echo "ShouldSign     = $(ShouldSign)"
+    displayName: Display computed variables
 
   - task: NuGetToolInstaller@1
     displayName: Install NuGet tools
