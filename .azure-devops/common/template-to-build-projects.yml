@@ -14,7 +14,8 @@ variables:
 steps:
 
 - script: |
-    echo ${{ variables.VersionPackage }} # outputs VersionPackage  
+    echo "VersionPackage = $(VersionPackage)"
+    echo "BuildNumber    = $(Build.BuildNumber)"
 
 - task: NuGetToolInstaller@1
   displayName: Install NuGet tools
