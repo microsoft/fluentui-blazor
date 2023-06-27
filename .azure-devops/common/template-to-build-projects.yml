@@ -9,6 +9,7 @@ variables:
 
 steps:
 
+  # In the main YAML script, set the "name: $(VersionMajor).$(Year:yy)$(DayOfYear).$(Rev:r)"
   - powershell: |
       $builds = "$(Build.BuildNumber)".Split('.')
       $preview = "$(VersionPreview)"

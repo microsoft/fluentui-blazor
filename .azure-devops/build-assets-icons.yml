@@ -1,0 +1,16 @@
+# Build and test projects.
+
+pr: none      # Disable pull request triggers.
+trigger: none # Disable push triggers.
+
+# Build.BuildNumber
+name: $(VersionMajor).$(Year:yy)$(DayOfYear).$(Rev:r)
+
+pool:
+  vmImage: 'windows-2022'
+
+extends:
+  template: common/template-to-build-projects.yml
+  parameters:
+      Projects: |
+       **/Microsoft.Fast.Components.FluentUI.Icons.csproj
