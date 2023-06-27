@@ -8,20 +8,28 @@ variables:
   VersionPreview: '5'				# Preview number of the projects - Ex. 3.1.0-preview.5.23280.4
 
   # Private vs Public
-  ${{ if eq(variables['PublicVersion'], '') }}:
-    VersionPackage: $[replace(variables['Build.BuildNumber'], format('{0}.', variables['VersionMajor']), format('{0}.0-preview.{1}.', variables['VersionMajor'], variables['VersionPreview']))]
-    ShouldSign: false
-  ${{ else }}:
-    VersionPackage: $(PublicVersion)
-    ShouldSign: true
+  # ${{ if eq(variables['PublicVersion'], '') }}:
+  #   VersionPackage: $[replace(variables['Build.BuildNumber'], format('{0}.', variables['VersionMajor']), format('{0}.0-preview.{1}.', variables['VersionMajor'], variables['VersionPreview']))]
+  #   ShouldSign: false
+  # ${{ else }}:
+  #   VersionPackage: $(PublicVersion)
+  #   ShouldSign: true
 
 steps:
-    
+
+  - powershell: |
+      $builds = ([String]$(Build.BuildNumber)).Split('.')
+      $package = "$builds[0].$builds[1].0-preview.$(VersionPreview).$builds[2].$builds[3]"
+
+      [Environment]::SetEnvironmentVariable("PublicVersion", $package, "User")  # This will allow you to use it from env var in later steps of the same phase
+      Write-Host "##vso[task.setvariable variable=PublicVersion]${$package}" # Custom build version to build from One Branch Pipeline. 
+      displayName: Compute VersionPackage
+
   - script: |
       echo "VersionPackage = $(VersionPackage)"
       echo "BuildNumber    = $(Build.BuildNumber)"
-      echo "ShouldSign     = $(ShouldSign)"
       echo "PublicVersion  = $(PublicVersion)"
+      echo "ShouldSign     = $(ShouldSign)"
   
   - task: NuGetToolInstaller@1
     displayName: Install NuGet tools
