@@ -1,19 +1,11 @@
 parameters:
-- name: Projects					# List of projects to build
+- name: Projects		# List of projects to build
   type: string
   default: false
 
 variables:
-  VersionMajor: '3.1'				# Major version of the projects  - Ex. 3.1.23280.4
-  VersionPreview: '5'				# Preview number of the projects - Ex. 3.1.0-preview.5.23280.4
-
-  # Private vs Public
-  # ${{ if eq(variables['PublicVersion'], '') }}:
-  #   VersionPackage: $[replace(variables['Build.BuildNumber'], format('{0}.', variables['VersionMajor']), format('{0}.0-preview.{1}.', variables['VersionMajor'], variables['VersionPreview']))]
-  #   ShouldSign: false
-  # ${{ else }}:
-  #   VersionPackage: $(PublicVersion)
-  #   ShouldSign: true
+  VersionMajor: '3.1'	# Major version of the projects  - Ex. 3.1.23280.4
+  VersionPreview: '5'	# Preview number of the projects - Ex. 3.1.0-preview.5.23280.4
 
 steps:
 
@@ -21,11 +13,18 @@ steps:
       $builds = "$(Build.BuildNumber)".Split('.')
       $preview = "$(VersionPreview)"
       $package = "$($builds[0]).$($builds[1]).0-preview.$($preview).$($builds[2]).$($builds[3])"
+      $sign = false;
 
-      if ("$(PublicVersion)" -ne "") { $package = "$(PublicVersion)" }
-    
-      # [Environment]::SetEnvironmentVariable("VersionPackage", $package, "User")  # This will allow you to use it from env var in later steps of the same phase
-      Write-Host "##vso[task.setvariable variable=VersionPackage]${package}"     # Custom build version to build from One Branch Pipeline.       
+      # If PublicVersion is set, then we are building a public and signed version.
+      if ("$(PublicVersion)" -ne "")
+      {
+        $package = "$(PublicVersion)"
+        $sign = true
+      }
+
+      # Set the output variable for use in other tasks.
+      Write-Host "##vso[task.setvariable variable=VersionPackage]${package}"
+      Write-Host "##vso[task.setvariable variable=ShouldSign]${sign}"
     displayName: Compute VersionPackage
 
   - script: |
@@ -77,13 +76,6 @@ steps:
     inputs:
       command: 'restore'
       projects: ${{ parameters.Projects }}
-  
-  # - task: DotNetCoreCLI@2
-  #   displayName: "Build Projects $(Build.BuildNumber)"
-  #   inputs:
-  #     command: 'build'
-  #     projects: ${{ parameters.Projects }}
-  #     arguments: '-c $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
   
   - task: DotNetCoreCLI@2
     displayName: 'Build $(Build.BuildNumber)'
