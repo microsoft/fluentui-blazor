@@ -8,7 +8,7 @@ variables:
   VersionPreview: '5'				# Preview number of the projects - Ex. 3.1.0-preview.5.23280.4
 
   ${{ if eq(variables['PackageVersion'], '') }}:
-    VersionPackage: ${{ replace($(Build.BuildNumber), format('{0}.', $(VersionMajor)), format('{0}.{1}.', $(VersionMajor), $(VersionPreview))) }}
+    VersionPackage: $[replace($(Build.BuildNumber), format('{0}.', $(VersionMajor)), format('{0}.{1}.', $(VersionMajor), $(VersionPreview)))]
   ${{ else }}:
     VersionPackage: $(PackageVersion)
 
