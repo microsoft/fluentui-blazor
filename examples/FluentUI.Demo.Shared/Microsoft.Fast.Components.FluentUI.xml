@@ -4190,7 +4190,7 @@
             Gets or sets a callback when the bound value is changed.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.ActiveIndicator">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.ShowActiveIndicator">
             <summary>
             Whether or not to show the active indicator 
             </summary>
