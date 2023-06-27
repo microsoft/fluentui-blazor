@@ -7,13 +7,14 @@ variables:
   VersionMajor: '3.1'				# Major version of the projects
   
   ${{ if eq(variables['PackageVersion'], '') }}:
-    VersionPackage: ${{ replace(variables['Build.BuildNumber'], ' ', '') }}
+    VersionPackage: $(Build.BuildNumber)
   ${{ else }}:
     VersionPackage: $(PackageVersion)
 
 steps:
 
-- script: echo ${{ variables.VersionPackage }} # outputs VersionPackage  
+- script: |
+    echo ${{ variables.VersionPackage }} # outputs VersionPackage  
 
 - task: NuGetToolInstaller@1
   displayName: Install NuGet tools
@@ -37,7 +38,7 @@ steps:
     includePreviewVersions: true
 
 - task: Assembly-Info-NetCore@3
-  displayName: 'Versioning ${{ variables.VersionPackage }}'
+  displayName: 'Versioning $(Build.BuildNumber)'
   inputs:
     Path: '$(Build.SourcesDirectory)'
     FileNames: '**/*.csproj'
