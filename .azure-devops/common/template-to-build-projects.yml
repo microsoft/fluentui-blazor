@@ -18,12 +18,9 @@ variables:
 steps:
 
   - powershell: |
-      $builds = "$(Build.BuildNumber)"
-      $major = ([String]$(Build.BuildNumber)).Split('.')[0]
-      $minor = ([String]$(Build.BuildNumber)).Split('.')[1]
-      $patch = ([String]$(Build.BuildNumber)).Split('.')[2]
-      $revision = ([String]$(Build.BuildNumber)).Split('.')[3]
-      $package = "$($major).$($minor).0-preview.$(VersionPreview).$($patch).$($revision)"
+      $builds = ([String]$(Build.BuildNumber)).Split('.')
+      $preview = [String]$(VersionPreview)
+      $package = "$($builds[0]).$($builds[1]).0-preview.$($preview).$($builds[2]).$($builds[3])"
 
       Write-Output "builds = $builds"
       Write-Output "BuildNumber = $(Build.BuildNumber)"
