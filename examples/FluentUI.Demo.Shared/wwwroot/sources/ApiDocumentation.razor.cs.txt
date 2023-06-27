@@ -131,10 +131,16 @@ public partial class ApiDocumentation
                     // Methods
                     if (methodInfo != null)
                     {
+                        string genericArguments = "";
+                        if (methodInfo.IsGenericMethod)
+                        {
+                            genericArguments = "<" + string.Join(", ", methodInfo.GetGenericArguments().Select(i => i.Name)) + ">";
+                        }
+
                         members.Add(new MemberDescription()
                         {
                             MemberType = MemberTypes.Method,
-                            Name = methodInfo.Name,
+                            Name = methodInfo.Name + genericArguments,
                             Parameters = methodInfo.GetParameters().Select(i => $"{i.ToTypeNameString()} {i.Name}").ToArray(),
                             Type = methodInfo.ToTypeNameString(),
                             Description = CodeComments.GetSummary(Component.Name + "." + methodInfo.Name) ?? CodeComments.GetSummary(Component.BaseType?.Name + "." + methodInfo.Name)

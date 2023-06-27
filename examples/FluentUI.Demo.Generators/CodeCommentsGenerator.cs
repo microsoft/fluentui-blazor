@@ -104,6 +104,11 @@ namespace FluentUI.Demo.Generators
             regex = new("<see href=\"(.*?)\">(.*?)</see>");
             value = regex.Replace(value, "<a href=\"$1\">$2</a>");
 
+            // <param name="source">An <see cref="T:System.Linq.IQueryable`1"/>.</param>
+            //<returns> A new <see cref = "T:System.Linq.IQueryable`1" /> representing the <paramref name = "source" /> with sorting rules applied.</returns>
+
+            regex = new("<param(?:ref)? name=[\"|'](.*)[\"|']\\s*/>");
+            value = regex.Replace(value, m => $"<code>{m.Groups[0].Value}</code>{m.Groups[1].Value}");
 
             return value.Trim()
                         .Replace("<summary>" + Environment.NewLine, "")

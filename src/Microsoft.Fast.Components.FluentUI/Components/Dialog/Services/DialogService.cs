@@ -9,13 +9,33 @@ public class DialogService : IDialogService
     /// </summary>
     public event Action<Type, object, Action<DialogSettings>?>? OnShow;
 
+    /// <summary>
+    /// Shows the standard <see cref="FluentSplashScreen"/> with the given parameters."/>
+    /// </summary>
+    /// <param name="receiver">The componente that receives the callback</param>
+    /// <param name="callback">Name of the callback function</param>
+    /// <param name="parameters"><see cref="SplashScreenData"/> that holds the data to display</param>
     public void ShowSplashScreen(object receiver, Func<DialogResult, Task> callback, DialogParameters<SplashScreenData> parameters)
         => ShowSplashScreen<FluentSplashScreen>(receiver, callback, parameters);
 
+    /// <summary>
+    /// Shows a custom splash screen dialog with the given parameters."/>
+    /// </summary>
+    /// <param name="receiver">The componente that receives the callback</param>
+    /// <param name="callback">Name of the callback function</param>
+    /// <param name="parameters"><see cref="SplashScreenData"/> that holds the data to display</param>
     public void ShowSplashScreen<T>(object receiver, Func<DialogResult, Task> callback, DialogParameters<SplashScreenData> parameters)
         where T : IDialogContentComponent<SplashScreenData>
         => ShowSplashScreen(typeof(T), receiver, callback, parameters);
 
+
+    /// <summary>
+    /// Shows a splash screen of the given type with the given parameters."/>
+    /// </summary>
+    /// <param name="component">The type of the component to show</param>
+    /// <param name="receiver">The componente that receives the callback</param>
+    /// <param name="callback">Name of the callback function</param>
+    /// <param name="parameters"><see cref="SplashScreenData"/> that holds the data to display</param>
     public void ShowSplashScreen(Type component, object receiver, Func<DialogResult, Task> callback, DialogParameters<SplashScreenData> parameters)
     {
         Action<DialogSettings> settings = new(x =>
@@ -36,7 +56,11 @@ public class DialogService : IDialogService
         ShowDialog(component, parameters.Data, settings);
     }
 
-    // ToDo: Add Success, Warning?
+    /// <summary>
+    /// Shows a success message box. Does not have a callback function.
+    /// </summary>
+    /// <param name="message">The message to display.</param>
+    /// <param name="title">The title to display on the dialog.</param>
     public void ShowSuccess(string message, string? title = null) => ShowMessageBox(new DialogParameters<MessageBoxData>()
     {
         Data = new MessageBoxData()
@@ -51,6 +75,11 @@ public class DialogService : IDialogService
         SecondaryButton = string.Empty,
     });
 
+    /// <summary>
+    /// Shows a warning message box. Does not have a callback function.
+    /// </summary>
+    /// <param name="message">The message to display.</param>
+    /// <param name="title">The title to display on the dialog.</param>
     public void ShowWarning(string message, string? title = null) => ShowMessageBox(new DialogParameters<MessageBoxData>()
     {
         Data = new MessageBoxData()
@@ -65,6 +94,11 @@ public class DialogService : IDialogService
         SecondaryButton = string.Empty,
     });
 
+    /// <summary>
+    /// Shows an error message box. Does not have a callback function.
+    /// </summary>
+    /// <param name="message">The message to display.</param>
+    /// <param name="title">The title to display on the dialog.</param>
     public void ShowError(string message, string? title = null) => ShowMessageBox(new DialogParameters<MessageBoxData>()
     {
         Data = new MessageBoxData()
@@ -79,6 +113,11 @@ public class DialogService : IDialogService
         SecondaryButton = string.Empty,
     });
 
+    /// <summary>
+    /// Shows an information message box. Does not have a callback function.
+    /// </summary>
+    /// <param name="message">The message to display.</param>
+    /// <param name="title">The title to display on the dialog.</param>
     public void ShowInfo(string message, string? title = null) => ShowMessageBox(new DialogParameters<MessageBoxData>()
     {
         Data = new MessageBoxData()
@@ -93,6 +132,16 @@ public class DialogService : IDialogService
         SecondaryButton = string.Empty,
     });
 
+    /// <summary>
+    /// Shows a confirmation message box. Has a callback function which returns boolean 
+    /// (true=PrimaryButton clicked, false=SecondaryButton clicked).
+    /// </summary>
+    /// <param name="receiver">The component that receives the callback function.</param>
+    /// <param name="callback">The callback function.</param>
+    /// <param name="message">The message to display.</param>
+    /// <param name="primaryText">The text to display on the primary button.</param>
+    /// <param name="secondaryText">The text to display on the secondary button.</param>
+    /// <param name="title">The title to display on the dialog.</param>
     public void ShowConfirmation(object receiver, Func<DialogResult, Task> callback, string message, string primaryText = "Yes", string secondaryText = "No", string? title = null)
         => ShowMessageBox(new DialogParameters<MessageBoxData>()
         {
@@ -109,6 +158,11 @@ public class DialogService : IDialogService
             OnDialogResult = EventCallback.Factory.Create(receiver, callback)
         });
 
+    /// <summary>
+    /// Shows a custom message box. Has a callback function which returns boolean
+    /// (true=PrimaryButton clicked, false=SecondaryButton clicked).
+    /// </summary>
+    /// <param name="parameters">Parameters to pass to component being displayed.</param>
     public void ShowMessageBox(DialogParameters<MessageBoxData> parameters)
     {
         Action<DialogSettings> dialogSettings = new(x =>
@@ -128,11 +182,22 @@ public class DialogService : IDialogService
         ShowDialog(typeof(MessageBox), parameters.Data, dialogSettings);
     }
 
+    /// <summary>
+    /// Shows a panel with the dialog component type as the body,
+    /// passing the specified <paramref name="parameters "/>
+    /// </summary>
+    /// <param name="parameters">Parameters to pass to component being displayed.</param>
     public void ShowPanel<T, TData>(DialogParameters<TData> parameters)
         where T : IDialogContentComponent<TData>
         where TData : class
         => ShowPanel(typeof(T), parameters);
 
+    /// <summary>
+    /// Shows a panel with the dialog component type as the body,
+    /// passing the specified <paramref name="parameters "/>
+    /// </summary>
+    /// <param name="dialogComponent">Type of component to display.</param>
+    /// <param name="parameters">Parameters to pass to component being displayed.</param>
     public void ShowPanel<TData>(Type dialogComponent, DialogParameters<TData> parameters)
         where TData : class
     {
@@ -153,6 +218,11 @@ public class DialogService : IDialogService
         ShowDialog(dialogComponent, parameters.Data, settings);
     }
 
+    /// <summary>
+    /// Shows a dialog with the component type as the body,
+    /// passing the specified <paramref name="parameters "/>
+    /// </summary>
+    /// <param name="parameters">Parameters to pass to component being displayed.</param>
     public void ShowDialog<T, TData>(DialogParameters<TData> parameters)
         where T : IDialogContentComponent<TData>
         where TData : class
@@ -175,6 +245,12 @@ public class DialogService : IDialogService
         ShowDialog(typeof(T), parameters.Data, settings);
     }
 
+    /// <summary>
+    /// Shows a dialog with the component type as the body,
+    /// passing the specified <paramref name="parameters "/> and <paramref name="settings "/>
+    /// </summary>
+    /// <param name="parameters">Data to pass to component being displayed.</param>
+    /// <param name="settings">Settings to configure the dialog component.</param>
     public void ShowDialog<T, TData>(DialogParameters<TData> parameters, Action<DialogSettings> settings)
         where T : IDialogContentComponent<TData>
         where TData : class
@@ -200,6 +276,13 @@ public class DialogService : IDialogService
         OnShow?.Invoke(dialogComponent, data, settings);
     }
 
+    /// <summary>
+    /// Convenience method to create a <see cref="EventCallback"/> for a dialog result.
+    /// You can also call <code>EventCallback.Factory.Create</code> directly.
+    /// </summary>
+    /// <param name="receiver"></param>
+    /// <param name="callback"></param>
+    /// <returns></returns>
     public EventCallback<DialogResult> CreateDialogCallback(object receiver, Func<DialogResult, Task> callback) => EventCallback.Factory.Create(receiver, callback);
 
 
