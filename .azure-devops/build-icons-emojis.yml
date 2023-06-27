@@ -11,7 +11,7 @@ pool:
   vmImage: 'windows-2022'
 
 # Build.BuildNumber
-name: $(VersionMajor).$(Year:yy)$(DayOfYear).$(Rev:r)
+name: $(VersionAssembly)
 
 extends:
   template: common/template-to-build-projects.yml
