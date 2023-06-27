@@ -24,8 +24,8 @@ steps:
 
       if ("$(PublicVersion)" -ne "") { $package = "$(PublicVersion)" }
     
-      [Environment]::SetEnvironmentVariable("VersionPackage", $package, "User")  # This will allow you to use it from env var in later steps of the same phase
-      Write-Host "##vso[task.setvariable variable=VersionPackage]${package}"    # Custom build version to build from One Branch Pipeline.       
+      # [Environment]::SetEnvironmentVariable("VersionPackage", $package, "User")  # This will allow you to use it from env var in later steps of the same phase
+      Write-Host "##vso[task.setvariable variable=VersionPackage]${package}"     # Custom build version to build from One Branch Pipeline.       
     displayName: Compute VersionPackage
 
   - script: |
