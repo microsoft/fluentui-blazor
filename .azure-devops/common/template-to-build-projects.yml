@@ -1,0 +1,130 @@
+parameters:
+- name: Projects		# List of projects to build
+  type: string
+  default: false
+
+variables:
+  VersionMajor: '3.1'	# Major version of the projects  - Ex. 3.1.23280.4
+  VersionPreview: '5'	# Preview number of the projects - Ex. 3.1.0-preview.5.23280.4
+
+steps:
+
+  # In the main YAML script, set the "name: $(VersionMajor).$(Year:yy)$(DayOfYear).$(Rev:r)"
+  - powershell: |
+      $builds = "$(Build.BuildNumber)".Split('.')
+      $preview = "$(VersionPreview)"
+      $package = "$($builds[0]).$($builds[1]).0-preview.$($preview).$($builds[2]).$($builds[3])"
+      $sign = "false";
+
+      # If PublicVersion is set, then we are building a public and signed version.
+      if ("$(PublicVersion)" -ne "")
+      {
+        $package = "$(PublicVersion)"
+        $sign = "true"
+      }
+
+      # Set the output variable for use in other tasks.
+      Write-Host "##vso[task.setvariable variable=VersionPackage]${package}"
+      Write-Host "##vso[task.setvariable variable=ShouldSign]${sign}"
+    displayName: Compute VersionPackage
+
+  - script: |
+      echo "VersionPackage = $(VersionPackage)"
+      echo "BuildNumber    = $(Build.BuildNumber)"
+      echo "PublicVersion  = $(PublicVersion)"
+      echo "ShouldSign     = $(ShouldSign)"
+    displayName: Display computed variables
+
+  - task: NuGetToolInstaller@1
+    displayName: Install NuGet tools
+  
+  - task: UseDotNet@2
+    displayName: Install .NET 6.0
+    inputs:
+      version: 6.0.408
+      includePreviewVersions: true
+  
+  - task: UseDotNet@2
+    displayName: 'Install .NET 7.0'
+    inputs:
+      version: 7.0.203
+      includePreviewVersions: true
+  
+  - task: UseDotNet@2
+    displayName: 'Install .NET 8.0'
+    inputs:
+      version: 8.0.x
+      includePreviewVersions: true
+  
+  - task: Assembly-Info-NetCore@3
+    displayName: 'Versioning $(Build.BuildNumber)'
+    inputs:
+      Path: '$(Build.SourcesDirectory)'
+      FileNames: '**/*.csproj'
+      InsertAttributes: true
+      FileEncoding: 'auto'
+      WriteBOM: false
+      VersionNumber: '$(Build.BuildNumber)'
+      FileVersionNumber: '$(Build.BuildNumber)'
+      InformationalVersion: '$(Build.BuildNumber)'
+      PackageVersion: '$(VersionPackage)'
+      LogLevel: 'verbose'
+      FailOnWarning: false
+      DisableTelemetry: false
+  
+  - task: DotNetCoreCLI@2
+    displayName: Install dependencies
+    inputs:
+      command: 'restore'
+      projects: ${{ parameters.Projects }}
+  
+  - task: DotNetCoreCLI@2
+    displayName: 'Build $(Build.BuildNumber)'
+    inputs:
+      command: 'build'
+      projects: ${{ parameters.Projects }}
+      arguments: '--configuration Release'
+  
+  - task: DotNetCoreCLI@2
+    displayName: Pack $(Build.BuildNumber)
+    inputs:
+      command: 'pack'
+      packagesToPack: ${{ parameters.Projects }}
+      versioningScheme: 'off'
+      nobuild: true
+      verbosityPack: 'Normal'
+      feedsToUse: 'config'
+      nugetConfigPath: 
+  
+  - task: EsrpCodeSigning@3
+    condition: eq(variables['ShouldSign'], 'true')
+    inputs:
+      ConnectedServiceName: 'ESRP Code Signing SC'
+      FolderPath: '$(Build.ArtifactStagingDirectory)'
+      Pattern: '**/*.nupkg'
+      UseMinimatch: true
+      signConfigType: 'inlineSignParams'
+      inlineOperation: |
+        [
+                {
+                    "KeyCode" : "CP-401405",
+                    "OperationCode" : "NuGetSign",
+                    "Parameters" : {},
+                    "ToolName" : "sign",
+                    "ToolVersion" : "1.0"
+                },
+                {
+                    "KeyCode" : "CP-401405",
+                    "OperationCode" : "NuGetVerify",
+                    "Parameters" : {},
+                    "ToolName" : "sign",
+                    "ToolVersion" : "1.0"
+                }
+              ]
+      SessionTimeout: '60'
+      MaxConcurrency: '200'
+      MaxRetryAttempts: '5'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
