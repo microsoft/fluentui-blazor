@@ -26,6 +26,7 @@
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<IsPackable>true</IsPackable>
 		<IsShipping>true</IsShipping>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	</PropertyGroup>
 
 	<ItemGroup Condition="$(TargetFramework)=='net6.0' ">
