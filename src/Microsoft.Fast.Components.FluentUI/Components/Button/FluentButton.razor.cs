@@ -99,7 +99,7 @@ public partial class FluentButton : FluentComponentBase
 
     public FluentButton()
     {
-        Id = Identifier.NewId();
+        //Id = Identifier.NewId();
     }
 
     protected override void OnParametersSet()

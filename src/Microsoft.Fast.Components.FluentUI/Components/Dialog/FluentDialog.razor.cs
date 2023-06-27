@@ -8,7 +8,6 @@ public partial class FluentDialog : FluentComponentBase, IDisposable
 {
     private const string DEFAULT_WIDTH = "500px";
     private const string DEFAULT_HEIGHT = "unset";
-    //private Dictionary<string, object> _parameters = new();
 
 
     [CascadingParameter]
