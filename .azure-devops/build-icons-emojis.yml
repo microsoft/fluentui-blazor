@@ -8,7 +8,7 @@ trigger:
 - users/dvoituron/pipeline/version
 
 # Build.BuildNumber
-name: $(VersionMajor).$(Year:yy)$(DayOfYear).$(Rev:r) $(PackageVersion)
+name: $(VersionMajor).$(Year:yy)$(DayOfYear).$(Rev:r)
 
 pool:
   vmImage: 'windows-2022'
