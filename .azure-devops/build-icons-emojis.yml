@@ -12,7 +12,7 @@ variables:
   VersionMinor: $(Year:yy)$(DayOfYear).$(Rev:r)
   
   ${{ if eq(variables['PackageVersion'], '') }}:
-    VersionAssembly: $[format('{0}.{1}', variables['VersionMajor']], $[variables['VersionMinor'])]. # $(VersionMajor).$(Year:yy)$(DayOfYear).$(Rev:r)
+    VersionAssembly: $[format('{0}.{1}', variables['VersionMajor'], variables['VersionMinor'])]. # $(VersionMajor).$(Year:yy)$(DayOfYear).$(Rev:r)
   ${{ else }}:
     VersionAssembly: $(PackageVersion)
 
