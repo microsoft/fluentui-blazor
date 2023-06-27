@@ -9,9 +9,10 @@ trigger:
 
 variables:
   VersionMajor: '3.1'				# Major version of the projects
-
+  VersionMinor: $(Year:yy)$(DayOfYear).$(Rev:r)
+  
   ${{ if eq(variables['PackageVersion'], '') }}:
-    VersionAssembly: $(VersionMajor).$(Year:yy)$(DayOfYear).$(Rev:r)
+    VersionAssembly: $[format('{0}.{1}', variables['VersionMajor']], $[variables['VersionMinor'])]. # $(VersionMajor).$(Year:yy)$(DayOfYear).$(Rev:r)
   ${{ else }}:
     VersionAssembly: $(PackageVersion)
 
