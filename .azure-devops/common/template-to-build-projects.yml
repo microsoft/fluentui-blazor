@@ -23,7 +23,7 @@ steps:
       $minor = ([String]$(Build.BuildNumber)).Split('.')[1]
       $patch = ([String]$(Build.BuildNumber)).Split('.')[2]
       $revision = ([String]$(Build.BuildNumber)).Split('.')[3]
-      $package = "$major.$minor.0-preview.$patch.$revision"
+      $package = "$($major).$($minor).0-preview.$(VersionPreview).$($patch).$($revision)"
 
       Write-Output "builds = $builds"
       Write-Output "BuildNumber = $(Build.BuildNumber)"
