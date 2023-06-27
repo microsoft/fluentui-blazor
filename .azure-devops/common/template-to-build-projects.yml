@@ -85,17 +85,28 @@ steps:
       projects: ${{ parameters.Projects }}
       arguments: '--configuration Release'
   
-  - task: DotNetCoreCLI@2
-    displayName: Pack $(Build.BuildNumber)
-    inputs:
-      command: 'pack'
-      packagesToPack: ${{ parameters.Projects }}
-      versioningScheme: 'off'
-      nobuild: true
-      verbosityPack: 'Normal'
-      feedsToUse: 'config'
-      nugetConfigPath: 
+  # - task: DotNetCoreCLI@2
+  #   displayName: Pack $(Build.BuildNumber)
+  #   inputs:
+  #     command: 'pack'
+  #     packagesToPack: ${{ parameters.Projects }}
+  #     versioningScheme: 'off'
+  #     nobuild: true
+  #     verbosityPack: 'Normal'
+  #     feedsToUse: 'config'
+  #     nugetConfigPath: 
   
+  # Since NuGet packages are generated during the build, we need to copy them to the artifacts folder.
+  - task: CopyFiles@2
+    displayName: 'Pack $(Build.BuildNumber)'
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)'
+      Contents: '**/*$(VersionPackage).nupkg'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+      CleanTargetFolder: true
+      OverWrite: true
+      flattenFolders: true
+
   - task: EsrpCodeSigning@3
     condition: eq(variables['ShouldSign'], 'true')
     inputs:
