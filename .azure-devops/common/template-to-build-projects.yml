@@ -13,13 +13,13 @@ steps:
       $builds = "$(Build.BuildNumber)".Split('.')
       $preview = "$(VersionPreview)"
       $package = "$($builds[0]).$($builds[1]).0-preview.$($preview).$($builds[2]).$($builds[3])"
-      $sign = false;
+      $sign = "false";
 
       # If PublicVersion is set, then we are building a public and signed version.
       if ("$(PublicVersion)" -ne "")
       {
         $package = "$(PublicVersion)"
-        $sign = true
+        $sign = "true"
       }
 
       # Set the output variable for use in other tasks.
