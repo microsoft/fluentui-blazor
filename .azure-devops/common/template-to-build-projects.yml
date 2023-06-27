@@ -8,7 +8,7 @@ variables:
   VersionPreview: '5'				# Preview number of the projects - Ex. 3.1.0-preview.5.23280.4
 
   ${{ if eq(variables['PackageVersion'], '') }}:
-    VersionPackage: $[replace(variables['Build.BuildNumber'], format('{0}.', variables['VersionMajor']), format('{0}.{1}.', variables['VersionMajor'], variables['VersionPreview']))]
+    VersionPackage: $[replace(variables['Build.BuildNumber'], format('{0}.', variables['VersionMajor']), format('{0}.0-preview.{1}.', variables['VersionMajor'], variables['VersionPreview']))]
   ${{ else }}:
     VersionPackage: $(PackageVersion)
 
@@ -50,7 +50,7 @@ steps:
     VersionNumber: '$(Build.BuildNumber)'
     FileVersionNumber: '$(Build.BuildNumber)'
     InformationalVersion: '$(Build.BuildNumber)'
-    PackageVersion: '$(Build.BuildNumber)'
+    PackageVersion: '$(VersionPackage)'
     LogLevel: 'verbose'
     FailOnWarning: false
     DisableTelemetry: false
