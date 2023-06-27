@@ -18,13 +18,16 @@ variables:
 steps:
 
   - powershell: |
+      $builds = "$(Build.BuildNumber)"
       $major = ([String]$(Build.BuildNumber)).Split('.')[0]
       $minor = ([String]$(Build.BuildNumber)).Split('.')[1]
       $patch = ([String]$(Build.BuildNumber)).Split('.')[2]
       $revision = ([String]$(Build.BuildNumber)).Split('.')[3]
       $package = "$major.$minor.0-preview.$patch.$revision"
 
-      Write-Output $package
+      Write-Output "builds = $builds"
+      Write-Output "BuildNumber = $(Build.BuildNumber)"
+      Write-Output "VersionPackage = $package"
 
       [Environment]::SetEnvironmentVariable("VersionPackage", $package, "User")  # This will allow you to use it from env var in later steps of the same phase
       Write-Host "##vso[task.setvariable variable=VersionPackage]${package}"    # Custom build version to build from One Branch Pipeline. 
