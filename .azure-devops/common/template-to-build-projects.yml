@@ -3,15 +3,6 @@ parameters:
   type: string
   default: false
 
-variables:
-  VersionMajor: '3.1'				# Major version of the projects
-  buildConfiguration: 'Release'		# Build configuration
-
-  ${{ if eq(variables['PackageVersion'], '') }}:
-    VersionAssembly: $(VersionMajor).$(Year:yy)$(DayOfYear).$(Rev:r)
-  ${{ else }}:
-    VersionAssembly: $(PackageVersion)
-
 steps:
 
 - task: NuGetToolInstaller@1
@@ -69,7 +60,7 @@ steps:
   inputs:
     command: 'build'
     projects: ${{ parameters.Projects }}
-    arguments: '--configuration $(buildConfiguration)'
+    arguments: '--configuration Release'
 
 - task: DotNetCoreCLI@2
   displayName: Pack $(Build.BuildNumber)

@@ -7,6 +7,14 @@ pr: none # Disable pull request triggers.
 trigger:
 - users/dvoituron/pipeline/version
 
+variables:
+  VersionMajor: '3.1'				# Major version of the projects
+
+  ${{ if eq(variables['PackageVersion'], '') }}:
+    VersionAssembly: $(VersionMajor).$(Year:yy)$(DayOfYear).$(Rev:r)
+  ${{ else }}:
+    VersionAssembly: $(PackageVersion)
+
 # Build.BuildNumber
 name: $(VersionAssembly)
 
