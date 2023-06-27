@@ -7,11 +7,17 @@ pr: none # Disable pull request triggers.
 trigger:
 - users/dvoituron/pipeline/version
 
-pool:
-  vmImage: 'windows-2022'
+variables:
+  ${{ if eq(variables['PackageVersion'], '') }}:
+    VersionAssembly: $(VersionMajor).$(Year:yy)$(DayOfYear).$(Rev:r)
+  ${{ else }}:
+    VersionAssembly: $(PackageVersion)
 
 # Build.BuildNumber
-name: $(VersionMajor).$(Year:yy)$(DayOfYear).$(Rev:r)
+name: $(VersionAssembly)
+
+pool:
+  vmImage: 'windows-2022'
 
 extends:
   template: common/template-to-build-projects.yml
