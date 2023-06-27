@@ -20,6 +20,7 @@ steps:
   - script: |
       echo "VersionPackage = $(VersionPackage)"
       echo "BuildNumber    = $(Build.BuildNumber)"
+      echo "ShouldSign     = $(ShouldSign)"
   
   - task: NuGetToolInstaller@1
     displayName: Install NuGet tools
