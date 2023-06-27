@@ -18,8 +18,8 @@ variables:
 steps:
 
   - powershell: |
-      $builds = ([String]$(Build.BuildNumber)).Split('.')
-      $preview = [String]$(VersionPreview)
+      $builds = "$(Build.BuildNumber)".Split('.')
+      $preview = "$(VersionPreview)"
       $package = "$($builds[0]).$($builds[1]).0-preview.$($preview).$($builds[2]).$($builds[3])"
 
       Write-Output "builds = $builds"
