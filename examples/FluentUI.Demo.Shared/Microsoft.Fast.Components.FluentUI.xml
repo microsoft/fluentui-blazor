@@ -2356,57 +2356,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentEmoji.Name">
-            <summary>
-            Gets or sets the name of the emoji. Can be specified by using const value from <see cref="T:Microsoft.Fast.Components.FluentUI.FluentEmojis" />
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentEmoji.EmojiStyle">
-            <summary>
-            Gets or sets the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentEmoji.EmojiStyle"/> to use. 
-            Defaults to Color
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentEmoji.Skintone">
-            <summary>
-            Gets or sets the <see cref="T:Microsoft.Fast.Components.FluentUI.EmojiSkintone"/> to use.
-            Defaults to Default
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentEmoji.Size">
-            <summary>
-            Gets or sets the <see cref="T:Microsoft.Fast.Components.FluentUI.EmojiSize"/> of the emoji. Defaults to Size32.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentEmoji.CustomSize">
-            <summary>
-            Gets or sets the custom size of the emoji. Can only be set if Size is set to Custom.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentEmoji.Slot">
-            <summary>
-            Gets or sets the slot where the emoji is displayed in
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentEmoji.OnClick">
-            <summary>
-            Allows for capturing a mouse click on an emoji
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentEmoji.SvgSplitter">
-            <remarks>
-            Pattern explanation:<br/>
-            <code>
-            ○ Match the string "&lt;svg ".<br/>
-            ○ "attributes" capture group.<br/>
-                ○ Match any character lazily any number of times.<br/>
-            ○ Match '&gt;'.<br/>
-            ○ "payload" capture group.<br/>
-                ○ Match any character lazily any number of times.<br/>
-            ○ Match the string "&lt;/svg&gt;".<br/>
-            </code>
-            </remarks>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentFlipper.Disabled">
             <summary>
             Gets or set if the element is disabled
@@ -2613,6 +2562,19 @@
             Gets the width of the icon.
             </summary>
         </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Icon.FromType``1">
+            <summary>
+            Returns an icon instance.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Icon.FromImageUrl(System.String)">
+            <summary>
+            Returns an icon from an image source.
+            </summary>
+            <param name="imageSource"></param>
+            <returns></returns>
+        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.IconFromImage">
             <summary>
             Icon generated from an image (img src).
@@ -2648,74 +2610,6 @@
             <summary>
             Gets the variant of the icon: Filled, Regular.
             </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.Variant">
-            <summary>
-            Gets or sets the <see cref="T:Microsoft.Fast.Components.FluentUI.IconVariant"/> to use. 
-            Defaults to Regular
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.Color">
-            <summary>
-            Gets or sets the icon drawing and fill color. 
-            Value comes from the <see cref="T:Microsoft.Fast.Components.FluentUI.Color"/> enumeration. Defaults to Accent.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.CustomColor">
-            <summary>
-            Gets or sets the icon drawing and fill color to a custom value.
-            Needs to be formatted as an HTML hex color string (#rrggbb or #rgb) or CSS variable.
-            ⚠️ Only available when Color is set to Color.Custom.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.Name">
-            <summary>
-            Gets or sets the name of the icon. Can be specified by using const value from <see cref="T:Microsoft.Fast.Components.FluentUI.FluentIcons" />
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.Size">
-            <summary>
-            Gets or sets the <see cref="T:Microsoft.Fast.Components.FluentUI.IconSize"/> of the icon. Defaults to 20. Not all sizes are available for all icons.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.Slot">
-            <summary>
-            Gets or sets the slot where the icon is displayed in
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.Title">
-            <summary>
-            Gets or sets the title for the icon
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.NeutralCultureName">
-            <summary>
-            Gets or sets the two letter neutral culture variant used. Not all neutral cultures are available for all icons
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.OnClick">
-            <summary>
-            Allows for capturing a mouse click on an icon
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentIcon.CheckRGBString">
-            <remarks>
-            Pattern explanation:<br/>
-            <code>
-            ○ Match with 2 alternative expressions, atomically.<br/>
-                ○ Match a sequence of expressions.<br/>
-                    ○ Match if at the beginning of the string.<br/>
-                    ○ Match '#'.<br/>
-                    ○ Match with 2 alternative expressions, atomically.<br/>
-                        ○ Match a character in the set [0-9A-Fa-f] exactly 6 times.<br/>
-                        ○ Match a character in the set [0-9A-Fa-f] exactly 3 times.<br/>
-                ○ Match a sequence of expressions.<br/>
-                    ○ Match the string "var(--".<br/>
-                    ○ Match a character other than '\n' greedily any number of times.<br/>
-                    ○ Match ')'.<br/>
-                    ○ Match if at the end of the string or if before an ending newline.<br/>
-            </code>
-            </remarks>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.FluentLabel">
             <summary />
@@ -3213,7 +3107,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.NavMenuGutterIcon">
             <summary>
-            Gets or sets the name of the icon to display for this group
+            Gets or sets the icon to display for this group
             in the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenu"/> gutter when the nav menu is collapsed.
             This setting is not used when <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.NavMenuGutterIconContent"/>
             is not null.
@@ -3287,7 +3181,7 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.Icon">
             <summary>
             Gets or sets the name of the icon to display with the link
-            Use a constant value from the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentIcons" /> class 
+            Use a constant value from the <see cref="!:FluentIcons" /> class 
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.Disabled">
@@ -4793,12 +4687,9 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.ToastSettings.Icon">
             <summary>
             Gets or sets the the icon to display in the notification
-            Use a constant from the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentIcons" /> class for the <c>Name</c> value
+            Use a constant from the <see cref="!:FluentIcons" /> class for the <c>Name</c> value
             The <c>Color</c> value determines the display color of the icon.
-            It is based on either the <see cref="T:Microsoft.Fast.Components.FluentUI.ToastIntent"/> or the active Accent color 
-            The <c>Variant</c> value determines the variant of the icon.
-            For the intents Success, Warning, Error and Information the defualt is IconVariant.Filled.
-            For all other intents the default is IconVariant.Regular.
+            It is based on either the <see cref="T:Microsoft.Fast.Components.FluentUI.ToastIntent"/> or the active Accent color.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ToastSettings.Timeout">
@@ -9038,37 +8929,9 @@
             <returns></returns>
             <remarks>Inspired from https://github.com/NickStrupat/TimeAgo.</remarks>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ServiceCollectionExtensions.AddFluentIcons(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Fast.Components.FluentUI.IconConfiguration)">
-            <summary>
-            Adds an Icon Service as a Scoped instance.
-            </summary>
-            <param name="services">IServiceCollection</param>
-            <param name="configuration">Defines IconConfiguration for this instance.</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ServiceCollectionExtensions.AddFluentIcons(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.Fast.Components.FluentUI.IconConfiguration})">
-            <summary>
-            Adds an Icon Service as a Scoped instance.
-            </summary>
-            <param name="services">IServiceCollection</param>
-            <param name="configuration">Defines IconConfiguration for this instance.</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ServiceCollectionExtensions.AddFluentEmojis(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Fast.Components.FluentUI.EmojiConfiguration)">
-            <summary>
-            Adds an Emoji Service as a Scoped instance.
-            </summary>
-            <param name="services">IServiceCollection</param>
-            <param name="configuration">Defines EmojiConfiguration for this instance.</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ServiceCollectionExtensions.AddFluentEmojis(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.Fast.Components.FluentUI.EmojiConfiguration})">
-            <summary>
-            Adds an Emoji Service as a Scoped instance.
-            </summary>
-            <param name="services">IServiceCollection</param>
-            <param name="configuration">Defines EmojiConfiguration for this instance.</param>
-        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ServiceCollectionExtensions.AddFluentUIComponents(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Fast.Components.FluentUI.LibraryConfiguration)">
             <summary>
-            Add common servIconConfiguration?s required by the Fluent UI Web Components for Blazor library
+            Add common services required by the Fluent UI Web Components for Blazor library
             </summary>
             <param name="services">Service collection</param>
             <param name="configuration">Library configuration</param>
@@ -9499,98 +9362,34 @@
             <param name="when"></param>
             <returns></returns>
         </member>
-        <member name="T:System.Text.RegularExpressions.Generated.SvgSplitter_0">
-            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the SvgSplitter method.</summary>
-        </member>
-        <member name="F:System.Text.RegularExpressions.Generated.SvgSplitter_0.Instance">
-            <summary>Cached, thread-safe singleton instance.</summary>
-        </member>
-        <member name="M:System.Text.RegularExpressions.Generated.SvgSplitter_0.#ctor">
-            <summary>Initializes the instance.</summary>
-        </member>
-        <member name="T:System.Text.RegularExpressions.Generated.SvgSplitter_0.RunnerFactory">
-            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
-        </member>
-        <member name="M:System.Text.RegularExpressions.Generated.SvgSplitter_0.RunnerFactory.CreateInstance">
-            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
-        </member>
-        <member name="T:System.Text.RegularExpressions.Generated.SvgSplitter_0.RunnerFactory.Runner">
-            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
-        </member>
-        <member name="M:System.Text.RegularExpressions.Generated.SvgSplitter_0.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
-            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
-            <param name="inputSpan">The text being scanned by the regular expression.</param>
-        </member>
-        <member name="M:System.Text.RegularExpressions.Generated.SvgSplitter_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
-            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
-            <param name="inputSpan">The text being scanned by the regular expression.</param>
-            <returns>true if a possible match was found; false if no more matches are possible.</returns>
-        </member>
-        <member name="M:System.Text.RegularExpressions.Generated.SvgSplitter_0.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
-            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
-            <param name="inputSpan">The text being scanned by the regular expression.</param>
-            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
-        </member>
-        <member name="T:System.Text.RegularExpressions.Generated.CheckRGBString_1">
+        <member name="T:System.Text.RegularExpressions.Generated.CheckRGBString_0">
             <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the CheckRGBString method.</summary>
         </member>
-        <member name="F:System.Text.RegularExpressions.Generated.CheckRGBString_1.Instance">
+        <member name="F:System.Text.RegularExpressions.Generated.CheckRGBString_0.Instance">
             <summary>Cached, thread-safe singleton instance.</summary>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_1.#ctor">
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_0.#ctor">
             <summary>Initializes the instance.</summary>
         </member>
-        <member name="T:System.Text.RegularExpressions.Generated.CheckRGBString_1.RunnerFactory">
+        <member name="T:System.Text.RegularExpressions.Generated.CheckRGBString_0.RunnerFactory">
             <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_1.RunnerFactory.CreateInstance">
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_0.RunnerFactory.CreateInstance">
             <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
         </member>
-        <member name="T:System.Text.RegularExpressions.Generated.CheckRGBString_1.RunnerFactory.Runner">
+        <member name="T:System.Text.RegularExpressions.Generated.CheckRGBString_0.RunnerFactory.Runner">
             <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_1.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_0.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
             <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
             <param name="inputSpan">The text being scanned by the regular expression.</param>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_1.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
             <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
             <param name="inputSpan">The text being scanned by the regular expression.</param>
             <returns>true if a possible match was found; false if no more matches are possible.</returns>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_1.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
-            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
-            <param name="inputSpan">The text being scanned by the regular expression.</param>
-            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
-        </member>
-        <member name="T:System.Text.RegularExpressions.Generated.CheckRGBString_2">
-            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the CheckRGBString method.</summary>
-        </member>
-        <member name="F:System.Text.RegularExpressions.Generated.CheckRGBString_2.Instance">
-            <summary>Cached, thread-safe singleton instance.</summary>
-        </member>
-        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_2.#ctor">
-            <summary>Initializes the instance.</summary>
-        </member>
-        <member name="T:System.Text.RegularExpressions.Generated.CheckRGBString_2.RunnerFactory">
-            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
-        </member>
-        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_2.RunnerFactory.CreateInstance">
-            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
-        </member>
-        <member name="T:System.Text.RegularExpressions.Generated.CheckRGBString_2.RunnerFactory.Runner">
-            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
-        </member>
-        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_2.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
-            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
-            <param name="inputSpan">The text being scanned by the regular expression.</param>
-        </member>
-        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_2.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
-            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
-            <param name="inputSpan">The text being scanned by the regular expression.</param>
-            <returns>true if a possible match was found; false if no more matches are possible.</returns>
-        </member>
-        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_2.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_0.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
             <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
             <param name="inputSpan">The text being scanned by the regular expression.</param>
             <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
