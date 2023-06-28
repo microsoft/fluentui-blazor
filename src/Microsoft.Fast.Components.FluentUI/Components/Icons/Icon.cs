@@ -34,7 +34,7 @@ public abstract class Icon : IconInfo
     {
         var styleWidth = size ?? $"{(int)Size}px";
         var styleColor = color ?? "var(--accent-fill-rest)";
-        return new MarkupString($"<svg viewBox=\"0 0 {(int)Size} {(int)Size}\" fill=\"{styleColor}\" style=\"width: {styleWidth};\" aria-hidden=\"true\">{Content}</svg>");
+        return new MarkupString($"<svg viewBox=\"0 0 {(int)Size} {(int)Size}\" fill=\"{styleColor}\" style=\"background-color: var(--neutral-layer-1); width: {styleWidth};\" aria-hidden=\"true\">{Content}</svg>");
     }
 
     /// <summary>
@@ -42,6 +42,21 @@ public abstract class Icon : IconInfo
     /// </summary>
     protected internal virtual int Width => (int)Size;
 
+    /// <summary>
+    /// Returns an icon instance.
+    /// </summary>
+    /// <returns></returns>
+    public static TIcon FromType<TIcon>()
+        where TIcon : Icon, new()
+    {
+        return new TIcon();
+    }
+
+    /// <summary>
+    /// Returns an icon from an image source.
+    /// </summary>
+    /// <param name="imageSource"></param>
+    /// <returns></returns>
     public static IconFromImage FromImageUrl(string imageSource)
     {
         return new IconFromImage(imageSource);

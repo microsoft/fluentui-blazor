@@ -8,9 +8,9 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// FluentSystemIcon is a component that renders an icon from the Fluent System icon set.
 /// </summary>
 public partial class FluentSystemIcon<Icon> : FluentComponentBase
-    where Icon : FluentUI.Icon, new()
+    where Icon : FluentUI.Icon
 {
-    private Icon _icon = new();
+    private Icon _icon = default!;
 
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)

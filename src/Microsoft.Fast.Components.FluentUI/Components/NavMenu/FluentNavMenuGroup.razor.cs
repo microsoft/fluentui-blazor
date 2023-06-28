@@ -29,7 +29,7 @@ public partial class FluentNavMenuGroup : FluentComponentBase
     /// is not null.
     /// </summary>
     [Parameter]
-    public string NavMenuGutterIcon { get; set; } = FluentIcons.MoreHorizontal;
+    public Icon NavMenuGutterIcon { get; set; } = new CoreIcons.Regular.Size24.MoreHorizontal();
 
     /// <summary>
     /// Gets or sets the icon content to be displayed for this group

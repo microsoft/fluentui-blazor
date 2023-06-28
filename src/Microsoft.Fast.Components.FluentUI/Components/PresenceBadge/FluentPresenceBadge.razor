@@ -4,7 +4,6 @@
 <div class="presencebadge-container">
     @ChildContent
     <div class="@ClassValue" style="@StyleValue" title="@Status.ToString()">
-        <FluentSystemIcon Value="Icons.GetInstance(item)" Title="@($"{item.Name}")" Width="32px" />
-        <FluentIcon Name="@_config.name" Style="background-color: var(--neutral-layer-1);" Size="_config.size" Color=Color.Custom CustomColor="@_config.color" Variant="@_config.variant" />
+        @GetIconInstance().ToMarkup(size: GetIconSize(), color: GetIconColor())
     </div>
 </div>

@@ -18,6 +18,7 @@ internal static partial class CoreIcons
             public class CheckmarkCircle : Icon { public CheckmarkCircle() : base("CheckmarkCircle", IconVariant.Filled, IconSize.Size24, "<path d=\"M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm3.22 6.97-4.47 4.47-1.97-1.97a.75.75 0 0 0-1.06 1.06l2.5 2.5c.3.3.77.3 1.06 0l5-5a.75.75 0 1 0-1.06-1.06Z\"/>") { } }
             public class DismissCircle : Icon { public DismissCircle() : base("DismissCircle", IconVariant.Filled, IconSize.Size24, "<path d=\"M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm3.53 6.47-.08-.07a.75.75 0 0 0-.89-.01l-.09.08L12 10.94 9.53 8.47l-.08-.07a.75.75 0 0 0-.89-.01l-.09.08-.07.08c-.2.26-.2.62-.01.89l.08.09L10.94 12l-2.47 2.47-.07.08c-.2.26-.2.62-.01.89l.08.09.08.07c.26.2.62.2.89.01l.09-.08L12 13.06l2.47 2.47.08.07c.26.2.62.2.89.01l.09-.08.07-.08c.2-.26.2-.62.01-.89l-.08-.09L13.06 12l2.47-2.47.07-.08c.2-.26.2-.62.01-.89l-.08-.09-.08-.07.08.07Z\"/>") { } }
             public class Info : Icon { public Info() : base("Info", IconVariant.Filled, IconSize.Size24, "<path d=\"M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm0 8.25a1 1 0 0 0-1 .88v5.74a1 1 0 0 0 2 0v-5.62l-.01-.12a1 1 0 0 0-1-.88Zm0-3.75A1.25 1.25 0 1 0 12 9a1.25 1.25 0 0 0 0-2.5Z\"/>") { } }
+            public class PresenceAvailable : Icon { public PresenceAvailable() : base("PresenceAvailable", IconVariant.Filled, IconSize.Size24, "<path d=\"M12 24a12 12 0 1 0 0-24 12 12 0 0 0 0 24Zm5.06-13.44-5.5 5.5a1.5 1.5 0 0 1-2.12 0l-2-2a1.5 1.5 0 0 1 2.12-2.12l.94.94 4.44-4.44a1.5 1.5 0 0 1 2.12 2.12Z\"/>") { } }
             public class PresenceAway : Icon { public PresenceAway() : base("PresenceAway", IconVariant.Filled, IconSize.Size24, "<path d=\"M12 24a12 12 0 1 0 0-24 12 12 0 0 0 0 24Zm1-17.5v4.81l2.98 2.55a1.5 1.5 0 0 1-1.96 2.28l-3.5-3A1.5 1.5 0 0 1 10 12V6.5a1.5 1.5 0 0 1 3 0Z\"/>") { } }
             public class PresenceBusy : Icon { public PresenceBusy() : base("PresenceBusy", IconVariant.Filled, IconSize.Size24, "<path d=\"M24 12a12 12 0 1 1-24 0 12 12 0 0 1 24 0Z\"/>") { } }
             public class PresenceDnd : Icon { public PresenceDnd() : base("PresenceDnd", IconVariant.Filled, IconSize.Size24, "<path d=\"M12 24a12 12 0 1 0 0-24 12 12 0 0 0 0 24ZM7.5 10.5h9a1.5 1.5 0 0 1 0 3h-9a1.5 1.5 0 0 1 0-3Z\"/>") { } }
@@ -33,6 +34,10 @@ internal static partial class CoreIcons
             public class ChevronDoubleLeft : Icon { public ChevronDoubleLeft() : base("ChevronDoubleLeft", IconVariant.Regular, IconSize.Size20, "<path d=\"M11.35 15.85a.5.5 0 0 1-.7 0L5.16 10.4a.55.55 0 0 1 0-.78l5.49-5.46a.5.5 0 1 1 .7.7L6.2 10l5.16 5.15c.2.2.2.5 0 .7Zm4 0a.5.5 0 0 1-.7 0L9.16 10.4a.55.55 0 0 1 0-.78l5.49-5.46a.5.5 0 1 1 .7.7L10.2 10l5.16 5.15c.2.2.2.5 0 .7Z\"/>") { } }
             public class ChevronDoubleRight : Icon { public ChevronDoubleRight() : base("ChevronDoubleRight", IconVariant.Regular, IconSize.Size20, "<path d=\"M8.65 4.15c.2-.2.5-.2.7 0l5.49 5.46c.21.22.21.57 0 .78l-5.49 5.46a.5.5 0 0 1-.7-.7L13.8 10 8.65 4.85a.5.5 0 0 1 0-.7Zm-4 0c.2-.2.5-.2.7 0l5.49 5.46c.21.22.21.57 0 .78l-5.49 5.46a.5.5 0 0 1-.7-.7L9.8 10 4.65 4.85a.5.5 0 0 1 0-.7Z\"/>") { } }
         }
+    }
+
+    internal static partial class Regular
+    {
         [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
         internal static partial class Size24
         {
