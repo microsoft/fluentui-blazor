@@ -5,9 +5,9 @@
 <FluentStack Orientation="Orientation.Horizontal" Width="100%" VerticalAlignment="VerticalAlignment.Center" HorizontalGap="8">
     @if (Settings.Icon is not null)
     {
-        (string Name, Color Color, IconVariant Variant) Icon = Settings.Icon.Value;
+        (Icon Value, Color Color) Icon = Settings.Icon.Value;
 
-        <FluentIcon Name="@Icon.Name" Style="min-width: 16px;" Size="IconSize.Size16" Color=@Icon.Color Variant="Icon.Variant" />
+        <FluentSystemIcon Value="@Icon.Value" Style="min-width: 16px;" Width="16px" Color="@Icon.Color" />
     }
 
     <div class="fluent-toast-title">@Title</div>
