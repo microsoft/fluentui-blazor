@@ -5,7 +5,7 @@
 <div class="fluent-menubutton-container">
     <FluentButton @ref="Button" Appearance="Appearance.Accent" aria-haspopup="true" aria-expanded="@_visible" @onclick=ToggleMenu @onkeydown=OnKeyDown>
         @Text
-        <FluentIcon Slot="end" Name="@FluentIcons.ChevronDown" Color="@Color.Fill" />
+        <FluentSystemIcon Icon="CoreIcons.Regular.Size24.ChevronDown" Slot="end" Color="@Color.Fill" />
     </FluentButton>
     <FluentMenu @ref="Menu" aria-labelledby="button" @bind-Open=@_visible @onmenuchange=OnMenuChange>
         @foreach (KeyValuePair<string, string> item in Items)

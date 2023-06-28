@@ -24,8 +24,15 @@ internal static partial class CoreIcons
             public class Warning : Icon { public Warning() : base("Warning", IconVariant.Filled, IconSize.Size24, "<path d=\"M10.03 3.66a2.25 2.25 0 0 1 3.94 0l7.74 14A2.25 2.25 0 0 1 19.74 21H4.25a2.25 2.25 0 0 1-1.97-3.34l7.75-14ZM13 17a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm-.26-7.85a.75.75 0 0 0-1.5.1v4.5l.02.1a.75.75 0 0 0 1.49-.1v-4.5l-.01-.1Z\"/>") { } }
         }
     }
+
     internal static partial class Regular
     {
+        [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+        internal static partial class Size20
+        {
+            public class ChevronDoubleLeft : Icon { public ChevronDoubleLeft() : base("ChevronDoubleLeft", IconVariant.Regular, IconSize.Size20, "<path d=\"M11.35 15.85a.5.5 0 0 1-.7 0L5.16 10.4a.55.55 0 0 1 0-.78l5.49-5.46a.5.5 0 1 1 .7.7L6.2 10l5.16 5.15c.2.2.2.5 0 .7Zm4 0a.5.5 0 0 1-.7 0L9.16 10.4a.55.55 0 0 1 0-.78l5.49-5.46a.5.5 0 1 1 .7.7L10.2 10l5.16 5.15c.2.2.2.5 0 .7Z\"/>") { } }
+            public class ChevronDoubleRight : Icon { public ChevronDoubleRight() : base("ChevronDoubleRight", IconVariant.Regular, IconSize.Size20, "<path d=\"M8.65 4.15c.2-.2.5-.2.7 0l5.49 5.46c.21.22.21.57 0 .78l-5.49 5.46a.5.5 0 0 1-.7-.7L13.8 10 8.65 4.85a.5.5 0 0 1 0-.7Zm-4 0c.2-.2.5-.2.7 0l5.49 5.46c.21.22.21.57 0 .78l-5.49 5.46a.5.5 0 0 1-.7-.7L9.8 10 4.65 4.85a.5.5 0 0 1 0-.7Z\"/>") { } }
+        }
         [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
         internal static partial class Size24
         {

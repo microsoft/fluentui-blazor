@@ -15,11 +15,11 @@
     <div class="fluent-toast-action">
         @if (EndContentType == ToastEndContentType.Dismiss)
         {
-            <FluentIcon Name="@FluentIcons.Dismiss"
-                        Size="@IconSize.Size12"
-                        Title="Close"
-                        Color="Color.FillInverse"
-                        OnClick=@Close />
+            <FluentSystemIcon Icon="CoreIcons.Regular.Size24.Dismiss"
+                              Width="12px"
+                              Title="Close"
+                              Color="Color.FillInverse"
+                              OnClick=@Close />
         }
         @if (EndContentType == ToastEndContentType.Action)
         {
