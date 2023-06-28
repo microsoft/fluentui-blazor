@@ -23,7 +23,7 @@ public partial class FluentNavMenuGroup : FluentComponentBase
     public RenderFragment? NavMenuGutterIconContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the name of the icon to display for this group
+    /// Gets or sets the icon to display for this group
     /// in the <see cref="FluentNavMenu"/> gutter when the nav menu is collapsed.
     /// This setting is not used when <see cref="NavMenuGutterIconContent"/>
     /// is not null.
@@ -114,7 +114,7 @@ public partial class FluentNavMenuGroup : FluentComponentBase
 
     private bool HasIcon => !string.IsNullOrWhiteSpace(Icon) || IconContent is not null;
 
-    internal bool HasNavMenuGutterIcon => !string.IsNullOrWhiteSpace(NavMenuGutterIcon) || NavMenuGutterIconContent is not null;
+    internal bool HasNavMenuGutterIcon => NavMenuGutterIcon != null || NavMenuGutterIconContent is not null;
 
     public override async Task SetParametersAsync(ParameterView parameters)
     {

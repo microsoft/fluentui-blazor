@@ -86,6 +86,18 @@ public partial class FluentSystemIcon<Icon> : FluentComponentBase
     /// <summary />
     protected override void OnParametersSet()
     {
+        if (_icon == null)
+        {
+            bool hasParameterlessConstructor = typeof(Icon).GetConstructor(Type.EmptyTypes) != null;
+            
+            if (!hasParameterlessConstructor)
+            {
+                throw new ArgumentException($"The type {typeof(Icon).FullName} must have a parameterless constructor.");
+            }
+
+            _icon = Activator.CreateInstance<Icon>();
+        }
+
         if (!string.IsNullOrEmpty(CustomColor) && Color != FluentUI.Color.Custom)
         {
             throw new ArgumentException("CustomColor can only be used when Color is set to Color.Custom.");
