@@ -81,7 +81,7 @@ public partial class FluentPresenceBadge : FluentComponentBase, IDisposable
         GlobalState.OnChange += StateHasChanged;
     }
 
-    private (string name, string color, IconVariant variant, IconSize size) GetConfig()
+    private (Icon icon, string color, IconVariant variant, IconSize size) GetConfig()
     {
         (string name, string color, IconVariant variant, IconSize size) config = (FluentIcons.PresenceAvailable, "var(--presence-available)", IconVariant.Filled, IconSize.Size16);
 
@@ -152,6 +152,111 @@ public partial class FluentPresenceBadge : FluentComponentBase, IDisposable
 
         return config;
 
+    }
+
+    private Icon GetIconInstance()
+    {
+        return Status switch
+        {
+            PresenceStatus.Available => OutOfOffice
+                                      ? new CoreIcons.Regular.Size24.PresenceAvailable()
+                                      : new CoreIcons.Filled.Size24.PresenceAvailable(),
+            PresenceStatus.Busy => OutOfOffice
+                                 ? new CoreIcons.Regular.Size24.PresenceAvailable()
+                                 : new CoreIcons.Filled.Size24.PresenceAvailable(),
+            PresenceStatus.OutOfOffice => "var(--presence-oof)",
+            PresenceStatus.Away => "var(--presence-away)",
+            PresenceStatus.Offline => "var(--presence-offline)",
+            PresenceStatus.DoNotDisturb => "var(--presence-dnd)",
+            PresenceStatus.Unknown => "var(--presence-unknown)",
+            _ => "var(--presence-unknown)",
+        };
+
+        /*
+        switch (Status)
+        {
+            case PresenceStatus.Available:
+                return new CoreIcons.Regular.Size24.PresenceAvailable();
+                config.name = FluentIcons.PresenceAvailable;
+                config.color = "var(--presence-available)";
+                config.variant = OutOfOffice ? IconVariant.Regular : IconVariant.Filled;
+                break;
+            case PresenceStatus.Away:
+                if (OutOfOffice)
+                {
+                    config.name = FluentIcons.PresenceOffline;
+                    config.variant = IconVariant.Regular;
+                }
+                else
+                {
+                    config.name = FluentIcons.PresenceAway;
+                    config.variant = IconVariant.Filled;
+                }
+                config.color = "var(--presence-away)";
+                break;
+            case PresenceStatus.Busy:
+                if (OutOfOffice)
+                {
+                    config.name = FluentIcons.PresenceUnknown;
+                    config.variant = IconVariant.Regular;
+                }
+                else
+                {
+                    config.name = FluentIcons.PresenceBusy;
+                    config.variant = IconVariant.Filled;
+                }
+                config.color = "var(--presence-busy)";
+                break;
+            case PresenceStatus.DoNotDisturb:
+                config.name = FluentIcons.PresenceDND;
+                config.color = "var(--presence-dnd)";
+                config.variant = OutOfOffice ? IconVariant.Regular : IconVariant.Filled;
+                break;
+            case PresenceStatus.Offline:
+                config.name = FluentIcons.PresenceOffline;
+                config.color = "var(--presence-offline)";
+                config.variant = IconVariant.Regular;
+                break;
+            case PresenceStatus.OutOfOffice:
+                config.name = FluentIcons.PresenceOOF;
+                config.color = "var(--presence-oof)";
+                config.variant = IconVariant.Regular;
+                break;
+            case PresenceStatus.Unknown:
+                config.name = FluentIcons.PresenceUnknown;
+                config.color = "var(--presence-unknown)";
+                config.variant = IconVariant.Regular;
+                break;
+        }
+        */
+    }
+
+    private string GetIconColor()
+    {
+        return Status switch
+        {
+            PresenceStatus.Available => "var(--presence-available)",
+            PresenceStatus.Busy => "var(--presence-busy)",
+            PresenceStatus.OutOfOffice => "var(--presence-oof)",
+            PresenceStatus.Away => "var(--presence-away)",
+            PresenceStatus.Offline => "var(--presence-offline)",
+            PresenceStatus.DoNotDisturb => "var(--presence-dnd)",
+            PresenceStatus.Unknown => "var(--presence-unknown)",
+            _ => "var(--presence-unknown)",
+        };
+    }
+
+    private string GetIconSize()
+    {
+        return Size switch
+        {
+            PresenceBadgeSize.Tiny => "10px",
+            PresenceBadgeSize.ExtraSmall => "12px",
+            PresenceBadgeSize.Small => "16px",
+            PresenceBadgeSize.Medium => "20px",
+            PresenceBadgeSize.Large => "24px",
+            _ => "16px",
+        };
     }
 
     public void Dispose()
