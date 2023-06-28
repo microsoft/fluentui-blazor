@@ -87,15 +87,15 @@ public partial class FluentToastContainer
 
         toastInstanceSettings.Icon = intent switch
         {
-            ToastIntent.Success => (FluentIcons.CheckmarkCircle, Color.Success, IconVariant.Filled),
-            ToastIntent.Warning => (FluentIcons.Warning, Color.Warning, IconVariant.Filled),
-            ToastIntent.Error => (FluentIcons.DismissCircle, Color.Error, IconVariant.Filled),
-            ToastIntent.Info => (FluentIcons.Info, Color.Info, IconVariant.Filled),
-            ToastIntent.Progress => (FluentIcons.Flash, Color.Neutral, IconVariant.Regular),
-            ToastIntent.Upload => (FluentIcons.ArrowUpload, Color.Neutral, IconVariant.Regular),
-            ToastIntent.Download => (FluentIcons.ArrowDownload, Color.Neutral, IconVariant.Regular),
-            ToastIntent.Event => (FluentIcons.CalendarLTR, Color.Neutral, IconVariant.Regular),
-            ToastIntent.Avatar => (FluentIcons.Person, Color.Neutral, IconVariant.Regular),
+            ToastIntent.Success => (new CoreIcons.Filled.Size24.CheckmarkCircle(), Color.Success),
+            ToastIntent.Warning => (new CoreIcons.Filled.Size24.Warning(), Color.Warning),
+            ToastIntent.Error => (new CoreIcons.Filled.Size24.DismissCircle(), Color.Error),
+            ToastIntent.Info => (new CoreIcons.Filled.Size24.Info(), Color.Info),
+            ToastIntent.Progress => (new CoreIcons.Regular.Size24.Flash(), Color.Neutral),
+            ToastIntent.Upload => (new CoreIcons.Regular.Size24.ArrowUpload(), Color.Neutral),
+            ToastIntent.Download => (new CoreIcons.Regular.Size24.ArrowDownload(), Color.Neutral),
+            ToastIntent.Event => (new CoreIcons.Regular.Size24.CalendarLtr(), Color.Neutral),
+            ToastIntent.Avatar => (new CoreIcons.Regular.Size24.Person(), Color.Neutral),
             ToastIntent.Custom => toastInstanceSettings.Icon,
             _ => throw new InvalidOperationException()
         };
