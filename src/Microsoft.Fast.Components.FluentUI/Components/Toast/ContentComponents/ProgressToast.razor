@@ -1,67 +1,44 @@
-﻿@implements IToastContentComponent
+﻿@namespace Microsoft.Fast.Components.FluentUI
+@implements IToastContentComponent<ProgressToastData>
 
-@namespace Microsoft.Fast.Components.FluentUI
 
-<FluentStack Orientation="Orientation.Horizontal" Width="100%" VerticalAlignment="VerticalAlignment.Center" HorizontalGap="8">
-    @if (Settings.Icon is not null)
+<div class="fluent-toast-body">
+    @if (!string.IsNullOrWhiteSpace(Data.Details))
     {
-        (string Name, Color Color, IconVariant Variant) Icon = Settings.Icon.Value;
-
-        <FluentIcon Name="@Icon.Name" Style="min-width: 16px;" Size="IconSize.Size16" Color=@Icon.Color Variant="Icon.Variant" />
+        <div class="fluent-toast-details">@Data.Details</div>
     }
 
-    <div class="fluent-toast-title">@Title</div>
-    <div class="fluent-toast-action">
-        @switch (EndContentType)
+    <FluentProgress Class="fluent-toast-progressbar" Min="0" Max="100" @bind-Value="@Data.Progress"></FluentProgress>
+    <div class="fluent-toast-progressbar-percentage">@Data.Progress%</div>
+</div>
+
+
+@* @if (Data.PrimaryAction is not null || Data.SecondaryAction is not null)
+{
+    <div class="fluent-toast-actions">
+        @if (Data.PrimaryAction is not null)
         {
-            case ToastEndContentType.Dismiss:
-                <FluentIcon Name="@FluentIcons.Dismiss"
-                            Size="@IconSize.Size12"
-                            Title="Close"
-                            Color="Color.FillInverse"
-                            OnClick=@Close />
-                break;
-            case ToastEndContentType.Timestamp:
-                <span class="fluent-toast-subtitle">@TimeStamp.ToString("HH:mm tt")</span>
-                break;
+            <FluentAnchor Href="@(String.IsNullOrEmpty(Data.PrimaryAction?.Href) ? "#" : Data.PrimaryAction?.Href)"
+                          title="@Data.SecondaryAction?.Text"
+                          Style="font-size: 14px; font-weight:400;"
+                          Appearance="Appearance.Hypertext"
+                          @onfocusin="@Toast.PauseTimeout"
+                          @onfocusout="@Toast.ResumeTimeout"
+                          @onclick="HandlePrimaryActionClick">
+                @Data.PrimaryAction?.Text
+            </FluentAnchor>
+        }
+        @if (Data.SecondaryAction is not null)
+        {
+            <FluentAnchor Href="@(String.IsNullOrEmpty(Data.SecondaryAction?.Href) ? "#" : Data.SecondaryAction?.Href)"
+                          title="@Data.SecondaryAction?.Text"
+                          Style="font-size: 14px; font-weight:400;"
+                          Appearance="Appearance.Hypertext"
+                          @onfocusin="@Toast.PauseTimeout"
+                          @onfocusout="@Toast.ResumeTimeout"
+                          @onclick="HandleSecondaryActionClick">
+                @Data.SecondaryAction?.Text
+            </FluentAnchor>
         }
     </div>
-</FluentStack>
-<div class="fluent-toast-body">
-    
-
-    @if (!string.IsNullOrWhiteSpace(Details))
-    {
-        <div class="fluent-toast-details">@Details</div>
-    }
-
-    <FluentProgress Class="fluent-toast-progressbar" Min="0" Max="100" @bind-Value="@Progress"></FluentProgress>
-    <div class="fluent-toast-progressbar-percentage">@Progress%</div>
-
-
-    @if (PrimaryAction is not null || SecondaryAction is not null)
-    {
-        <div class="fluent-toast-actions">
-            @if (PrimaryAction is not null)
-            {
-                <FluentAnchor Href="@(String.IsNullOrEmpty(PrimaryAction?.Href) ? "#" : PrimaryAction?.Href)"
-                              title="Toast action"
-                              Style="font-size: 14px; font-weight:400;"
-                              Appearance="Appearance.Hypertext"
-                @onclick="HandlePrimaryActionClick">
-                    @PrimaryAction?.Text
-                </FluentAnchor>
-            }
-            @if (SecondaryAction is not null)
-            {
-                <FluentAnchor Href="@(String.IsNullOrEmpty(SecondaryAction?.Href) ? "#" : SecondaryAction?.Href)"
-                              title="Toast action"
-                              Style="font-size: 14px; font-weight:400;"
-                              Appearance="Appearance.Hypertext"
-                @onclick="HandleSecondaryActionClick">
-                    @SecondaryAction?.Text
-                </FluentAnchor>
-            }
-        </div>
-    }
-</div>
+}    *@

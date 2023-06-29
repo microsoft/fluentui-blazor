@@ -1,24 +1,26 @@
 ﻿@inject IToastService ToastService
 
-<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowToast<ProgressToast>(_progressToastParameters1, settings => { settings.Timeout = 7; }))">Progress toast example 1</FluentButton>
+<FluentButton Appearance=Appearance.Neutral @onclick="@ShowExample">Progress toast example 1</FluentButton>
 
 <FluentButton Appearance="Appearance.Accent" @onclick=UpdateProgress>Update</FluentButton>
 
 @code {
-    private ProgressToastParameters _progressToastParameters1 = default!;
 
-
-    protected override void OnInitialized()
+    private void ShowExample()
     {
-        _progressToastParameters1 = new ProgressToastParameters()
+        ToastService.ShowProgressToast(new()
             {
                 Intent = ToastIntent.Upload,
                 Title = "Uploading file",
-                Details = "This may take a while.",
+                Timeout = 7,
                 PrimaryAction = new ToastAction() { Text = "Cancel", Href = "#", OnClick = Clicked },
                 SecondaryAction = new ToastAction() { Text = "Pause", Href = "#", OnClick = Clicked },
-                Progress = "0"
-        };
+                Data = new ProgressToastData()
+                {
+                    Details = "This may take a while.",
+                    Progress = "0",
+                },
+            });
     }
 
     private void Clicked()
@@ -30,7 +32,7 @@
     {
         for (int i = 0; i < 100; i++)
         {
-            _progressToastParameters1.Progress = i.ToString();
+            //_progressToastData.Data.Progress = i.ToString();
             StateHasChanged();
             Thread.Sleep(100);
         };

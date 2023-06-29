@@ -6,7 +6,7 @@ public class ToastService : IToastService
     /// <summary>
     /// A event that will be invoked when showing a toast with a custom component
     /// </summary>
-    public event Action<Type, ToastParameters, Action<ToastSettings>?>? OnShow;
+    public event Action<Type?, object, Action<ToastSettings>?>? OnShow;
 
     /// <summary>
     /// A event that will be invoked when clearing all toasts
@@ -28,15 +28,49 @@ public class ToastService : IToastService
     /// </summary>
     public event Action<ToastIntent>? OnClearQueueIntent;
 
+    private static (string Name, Color Color, IconVariant Variant)? GetIntentIcon(ToastIntent intent)
+    {
+        return intent switch
+        {
+            ToastIntent.Success => (FluentIcons.CheckmarkCircle, Color.Success, IconVariant.Filled),
+            ToastIntent.Warning => (FluentIcons.Warning, Color.Warning, IconVariant.Filled),
+            ToastIntent.Error => (FluentIcons.DismissCircle, Color.Error, IconVariant.Filled),
+            ToastIntent.Info => (FluentIcons.Info, Color.Info, IconVariant.Filled),
+            ToastIntent.Progress => (FluentIcons.Flash, Color.Neutral, IconVariant.Regular),
+            ToastIntent.Upload => (FluentIcons.ArrowUpload, Color.Neutral, IconVariant.Regular),
+            ToastIntent.Download => (FluentIcons.ArrowDownload, Color.Neutral, IconVariant.Regular),
+            ToastIntent.Event => (FluentIcons.CalendarLTR, Color.Neutral, IconVariant.Regular),
+            ToastIntent.Mention => (FluentIcons.Person, Color.Neutral, IconVariant.Regular),
+            ToastIntent.Custom => null,
+            _ => throw new InvalidOperationException()
+        };
+    }
+
+    private static ToastParameters<ConfirmationToastData> BuildConfirmationData(ToastIntent intent, string title, Action<ToastAction>? action = null, int? timeout = null, (string Name, Color Color, IconVariant Variant)? icon = null)
+    {
+        ToastAction? toastAction = new();
+        action?.Invoke(toastAction);
+
+        return new()
+        {
+            Intent = intent,
+            Title = title,
+            Icon = icon ?? GetIntentIcon(intent),
+            TopCTAType = action is null ? ToastTopCTAType.Dismiss : ToastTopCTAType.Action,
+            TopAction = toastAction,
+            Timeout = timeout,
+        };
+    }
+
     /// <summary>
     /// Shows a simple succes confirmation toast.
     /// Only shows icon, title and close button or action.
     /// </summary>
     /// <param name="title">Text to display on the toast</param>
     /// <param name="action">Action to use for this toast</param>
-    /// <param name="settings">Settings to configure the toast instance</param>
-    public void ShowSuccess(string title, Action<ToastAction>? action = null, Action<ToastSettings>? settings = null)
-        => ShowToast<ConfirmationToast>(ToastIntent.Success, title, action, settings);
+    /// <param name="timeout">Duration toast is shown</param>
+    public void ShowSuccess(string title, Action<ToastAction>? action = null, int? timeout = null)
+        => ShowConfirmationToast(BuildConfirmationData(ToastIntent.Success, title, action, timeout));
 
     /// <summary>
     /// Shows a simple warning confirmation toast.
@@ -44,9 +78,9 @@ public class ToastService : IToastService
     /// </summary>
     /// <param name="title">Text to display on the toast</param>
     /// <param name="action">Action to use for this toast</param>
-    /// <param name="settings">Settings to configure the toast instance</param>
-    public void ShowWarning(string title, Action<ToastAction>? action = null, Action<ToastSettings>? settings = null)
-        => ShowToast<ConfirmationToast>(ToastIntent.Warning, title, action, settings);
+    /// <param name="timeout">Duration toast is shown</param>
+    public void ShowWarning(string title, Action<ToastAction>? action = null, int? timeout = null)
+        => ShowConfirmationToast(BuildConfirmationData(ToastIntent.Warning, title, action, timeout));
 
     /// <summary>
     /// Shows a simple error confirmation toast.
@@ -54,9 +88,9 @@ public class ToastService : IToastService
     /// </summary>
     /// <param name="title">Text to display on the toast</param>
     /// <param name="action">Action to use for this toast</param>
-    /// <param name="settings">Settings to configure the toast instance</param>
-    public void ShowError(string title, Action<ToastAction>? action = null, Action<ToastSettings>? settings = null)
-        => ShowToast<ConfirmationToast>(ToastIntent.Error, title, action, settings);
+    /// <param name="timeout">Duration toast is shown</param>
+    public void ShowError(string title, Action<ToastAction>? action = null, int? timeout = null)
+        => ShowConfirmationToast(BuildConfirmationData(ToastIntent.Error, title, action, timeout));
 
     /// <summary>
     /// Shows a simple information confirmation toast.
@@ -64,9 +98,9 @@ public class ToastService : IToastService
     /// </summary>
     /// <param name="title">Text to display on the toast</param>
     /// <param name="action">Action to use for this toast</param>
-    /// <param name="settings">Settings to configure the toast instance</param>
-    public void ShowInfo(string title, Action<ToastAction>? action = null, Action<ToastSettings>? settings = null)
-        => ShowToast<ConfirmationToast>(ToastIntent.Info, title, action, settings);
+    /// <param name="timeout">Duration toast is shown</param>
+    public void ShowInfo(string title, Action<ToastAction>? action = null, int? timeout = null)
+        => ShowConfirmationToast(BuildConfirmationData(ToastIntent.Info, title, action, timeout));
 
     /// <summary>
     /// Shows a simple progress confirmation toast.
@@ -74,9 +108,9 @@ public class ToastService : IToastService
     /// </summary>
     /// <param name="title">Text to display on the toast</param>
     /// <param name="action">Action to use for this toast</param>
-    /// <param name="settings">Settings to configure the toast instance</param>
-    public void ShowProgress(string title, Action<ToastAction>? action = null, Action<ToastSettings>? settings = null)
-        => ShowToast<ConfirmationToast>(ToastIntent.Progress, title, action, settings);
+    /// <param name="timeout">Duration toast is shown</param>
+    public void ShowProgress(string title, Action<ToastAction>? action = null, int? timeout = null)
+        => ShowConfirmationToast(BuildConfirmationData(ToastIntent.Progress, title, action, timeout));
 
     /// <summary>
     /// Shows a simple upload confirmation toast.
@@ -84,9 +118,9 @@ public class ToastService : IToastService
     /// </summary>
     /// <param name="title">Text to display on the toast</param>
     /// <param name="action">Action to use for this toast</param>
-    /// <param name="settings">Settings to configure the toast instance</param>
-    public void ShowUpload(string title, Action<ToastAction>? action = null, Action<ToastSettings>? settings = null)
-        => ShowToast<ConfirmationToast>(ToastIntent.Upload, title, action, settings);
+    /// <param name="timeout">Duration toast is shown</param>
+    public void ShowUpload(string title, Action<ToastAction>? action = null, int? timeout = null)
+        => ShowConfirmationToast(BuildConfirmationData(ToastIntent.Upload, title, action, timeout));
 
     /// <summary>
     /// Shows a simple download confirmation toast.
@@ -94,9 +128,9 @@ public class ToastService : IToastService
     /// </summary>
     /// <param name="title">Text to display on the toast</param>
     /// <param name="action">Action to use for this toast</param>
-    /// <param name="settings">Settings to configure the toast instance</param>
-    public void ShowDownload(string title, Action<ToastAction>? action = null, Action<ToastSettings>? settings = null)
-        => ShowToast<ConfirmationToast>(ToastIntent.Download, title, action, settings);
+    /// <param name="timeout">Duration toast is shown</param>
+    public void ShowDownload(string title, Action<ToastAction>? action = null, int? timeout = null)
+        => ShowConfirmationToast(BuildConfirmationData(ToastIntent.Download, title, action, timeout));
 
     /// <summary>
     /// Shows a simple event confirmation toast.
@@ -104,19 +138,19 @@ public class ToastService : IToastService
     /// </summary>
     /// <param name="title">Text to display on the toast</param>
     /// <param name="action">Action to use for this toast</param>
-    /// <param name="settings">Settings to configure the toast instance</param>
-    public void ShowEvent(string title, Action<ToastAction>? action = null, Action<ToastSettings>? settings = null)
-        => ShowToast<ConfirmationToast>(ToastIntent.Event, title, action, settings);
+    /// <param name="timeout">Duration toast is shown</param>
+    public void ShowEvent(string title, Action<ToastAction>? action = null, int? timeout = null)
+        => ShowConfirmationToast(BuildConfirmationData(ToastIntent.Event, title, action, timeout));
 
     /// <summary>
-    /// Shows a simple avatar confirmation toast.
+    /// Shows a simple mention confirmation toast.
     /// Only shows icon, title and close button or action.
     /// </summary>
     /// <param name="title">Text to display on the toast</param>
     /// <param name="action">Action to use for this toast</param>
-    /// <param name="settings">Settings to configure the toast instance</param>
-    public void ShowAvatar(string title, Action<ToastAction>? action = null, Action<ToastSettings>? settings = null)
-        => ShowToast<ConfirmationToast>(ToastIntent.Avatar, title, action, settings);
+    /// <param name="timeout">Duration toast is shown</param>
+    public void ShowMention(string title, Action<ToastAction>? action = null, int? timeout = null)
+        => ShowConfirmationToast(BuildConfirmationData(ToastIntent.Mention, title, action, timeout));
 
     /// <summary>
     /// Shows a simple custom confirmation toast.
@@ -124,9 +158,20 @@ public class ToastService : IToastService
     /// </summary>
     /// <param name="title">Text to display on the toast</param>
     /// <param name="action">Action to use for this toast</param>
-    /// <param name="settings">Settings to configure the toast instance</param>
-    public void ShowCustom(string title, Action<ToastAction>? action = null, Action<ToastSettings>? settings = null)
-        => ShowToast<ConfirmationToast>(ToastIntent.Custom, title, action, settings);
+    /// <param name="timeout">Duration toast is shown</param>
+    /// <param name="icon">Custom icon for this toast</param>
+    public void ShowCustom(string title, Action<ToastAction>? action = null, int? timeout = null, (string Name, Color Color, IconVariant Variant)? icon = null)
+        => ShowConfirmationToast(BuildConfirmationData(ToastIntent.Custom, title, action, timeout, icon));
+
+
+    public void ShowConfirmationToast(ToastParameters<ConfirmationToastData> parameters)
+        => ShowToast(null, parameters);
+
+    public void ShowCommunicationToast(ToastParameters<CommunicationToastData> parameters)
+        => ShowToast(typeof(CommunicationToast), parameters);
+
+    public void ShowProgressToast(ToastParameters<ProgressToastData> parameters)
+        => ShowToast(typeof(ProgressToast), parameters);
 
     /// <summary>
     /// Shows a toast using the supplied settings
@@ -134,75 +179,47 @@ public class ToastService : IToastService
     /// <param name="intent">Toast intent to display</param>
     /// <param name="title">Text to display on the toast</param>
     /// <param name="action">Action to use for this toast</param>
-    /// <param name="settings">Settings to configure the toast instance</param>
-    public void ShowToast(ToastIntent intent, string title, Action<ToastAction>? action = null, Action<ToastSettings>? settings = null)
-        => ShowToast<ConfirmationToast>(intent, title, action, settings);
-
-    /// <summary>
-    /// Shows a toast using the supplied settings
-    /// </summary>
-    /// <param name="intent">Toast intent to display</param>
-    /// <param name="title">Text to display on the toast</param>
-    /// <param name="action">Action to show (instead of close button)</param>
-    /// <param name="settings">Settings to configure the toast instance</param>
-    public void ShowToast<TComponent>(ToastIntent intent, string title, Action<ToastAction>? action = null, Action<ToastSettings>? settings = null) where TComponent : IToastContentComponent
-        => ShowToast(typeof(TComponent), intent, title, action, settings);
+    public void ShowToast(ToastIntent intent, string title, Action<ToastAction>? action = null)
+        => ShowConfirmationToast(BuildConfirmationData(intent, title, action));
 
     /// <summary>
     /// Shows the toast with the component type
     /// </summary>
-    public void ShowToast<TComponent>(ToastParameters parameters, Action<ToastSettings>? settings = null) where TComponent : IToastContentComponent
-        => ShowToast(typeof(TComponent), parameters, settings);
+    public void ShowToast<T, TData>(ToastParameters<TData> parameters)
+        where T : IToastContentComponent<TData>
+        where TData : class
+        => ShowToast(typeof(T), parameters);
 
     /// <summary>
-    /// Shows the specified toast component type />,
-    /// </summary>
-    /// <param name="toastComponent">Type of toast component to display.</param>
-    /// <param name="intent">The intent of the notification.</param>
-    /// <param name="title">The title of the notification</param>
-    /// <param name="action">The action to use for this toast.</param>
-    /// <param name="settings">Settings to configure the toast component.</param>
-    public void ShowToast(Type toastComponent, ToastIntent intent, string title, Action<ToastAction>? action = null, Action<ToastSettings>? settings = null)
-    {
-        if (!typeof(IToastContentComponent).IsAssignableFrom(toastComponent))
-        {
-            throw new ArgumentException($"{toastComponent.FullName} must be a Toast Component");
-        }
-
-        ToastParameters parameters = new()
-        {
-            Intent = intent,
-            Title = title,
-            EndContentType = ToastEndContentType.Dismiss
-        };
-
-        if (action is not null)
-        {
-            ToastAction act = new();
-            action.Invoke(act);
-
-            parameters.Add("PrimaryAction", act);
-            parameters.EndContentType = ToastEndContentType.Action;
-        }
-        ShowToast(toastComponent, parameters, settings);
-    }
-
-
-    /// <summary>
-    /// Shows the toast with the component type />,
-    /// passing the specified <paramref name="parameters"/> 
+    /// Shows a toast with the component type as the body,
+    /// passing the specified <paramref name="parameters "/> 
     /// </summary>
     /// <param name="toastComponent">Type of component to display.</param>
-    /// <param name="parameters">Key/Value collection of parameters to pass to component being displayed.</param>
+    /// <param name="parameters">Parametes used to construct toast.</param>
     /// <param name="settings">Settings to configure the toast component.</param>
-    public void ShowToast(Type toastComponent, ToastParameters parameters, Action<ToastSettings>? settings = null)
+    public virtual void ShowToast<TData>(Type? toastComponent, ToastParameters<TData> parameters, Action<ToastSettings>? settings = null)
+       where TData : class
     {
-        if (!typeof(IToastContentComponent).IsAssignableFrom(toastComponent))
+        if (toastComponent is not null && !typeof(IToastContentComponent).IsAssignableFrom(toastComponent))
         {
             throw new ArgumentException($"{toastComponent.FullName} must be a Toast Component");
         }
 
-        OnShow?.Invoke(toastComponent, parameters, settings);
+        Action<ToastSettings> toastSettings = settings ?? new(x =>
+        {
+            x.Title = parameters.Title;
+            x.Intent = parameters.Intent;
+            x.TopCTAType = parameters.TopCTAType;
+            x.TopAction = parameters.TopAction;
+            x.Timeout = parameters.Timeout;
+            x.Icon = parameters.Icon ?? GetIntentIcon(parameters.Intent);
+            x.Timestamp = parameters.Timestamp;
+            x.PrimaryAction = parameters.PrimaryAction;
+            x.SecondaryAction = parameters.SecondaryAction;
+            x.OnToastResult = parameters.OnToastResult;
+        });
+
+        OnShow?.Invoke(toastComponent, parameters.Data, toastSettings);
     }
 
     /// <summary>
@@ -266,10 +283,10 @@ public class ToastService : IToastService
         => OnClearIntent?.Invoke(ToastIntent.Event, includeQueue);
 
     /// <summary>
-    /// Removes all toasts with toast intent Avatar
+    /// Removes all toasts with toast intent Mention
     /// </summary>
-    public void ClearAvatarToasts(bool includeQueue = true)
-        => OnClearIntent?.Invoke(ToastIntent.Avatar, includeQueue);
+    public void ClearMentionToasts(bool includeQueue = true)
+        => OnClearIntent?.Invoke(ToastIntent.Mention, includeQueue);
 
     /// <summary>
     /// Removes all toasts with toast intent Custom
@@ -338,14 +355,16 @@ public class ToastService : IToastService
         => OnClearQueueIntent?.Invoke(ToastIntent.Event);
 
     /// <summary>
-    /// Removes all queued toasts with toast intent Avatar
+    /// Removes all queued toasts with toast intent Mention
     /// </summary>
-    public void ClearQueueAvatarToasts()
-        => OnClearQueueIntent?.Invoke(ToastIntent.Avatar);
+    public void ClearQueueMentionToasts()
+        => OnClearQueueIntent?.Invoke(ToastIntent.Mention);
 
     /// <summary>
     /// Removes all queued toasts with toast intent Custom
     /// </summary>
     public void ClearQueueCustomIntentToasts()
         => OnClearQueueIntent?.Invoke(ToastIntent.Custom);
+
+
 }

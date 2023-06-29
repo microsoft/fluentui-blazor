@@ -4,7 +4,7 @@
 @if (_toastList.Any())
 {
     <div class="fluent-toast-container @_positionClass">
-        <CascadingValue Value="this" IsFixed="true">
+        <CascadingValue TValue="InternalToastContext" IsFixed="true" Value="@_internalToastContext">
             @_renderToasts
         </CascadingValue>
     </div>
@@ -16,7 +16,7 @@
     {
         @foreach (var toast in _toastList.OrderBy(x => x.Timestamp))
         {
-            <FluentToast @key="@toast" Id="@toast.Id" Settings="@toast.Settings" Instance="@toast" />
+            <FluentToast @key="@toast" Id="@toast.Id" Instance="@toast" Settings=@toast.Settings Data="@toast.Data"/>
         }
     }
 }

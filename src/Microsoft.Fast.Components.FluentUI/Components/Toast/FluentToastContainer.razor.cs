@@ -80,32 +80,6 @@ public partial class FluentToastContainer
         _positionClass = $"position-{Position.ToString().ToLower()}";
     }
 
-    private ToastSettings BuildToastSettings(ToastIntent intent, Action<ToastSettings>? settings)
-    {
-        ToastSettings? toastInstanceSettings = new();
-        settings?.Invoke(toastInstanceSettings);
-
-        toastInstanceSettings.Icon = intent switch
-        {
-            ToastIntent.Success => (FluentIcons.CheckmarkCircle, Color.Success, IconVariant.Filled),
-            ToastIntent.Warning => (FluentIcons.Warning, Color.Warning, IconVariant.Filled),
-            ToastIntent.Error => (FluentIcons.DismissCircle, Color.Error, IconVariant.Filled),
-            ToastIntent.Info => (FluentIcons.Info, Color.Info, IconVariant.Filled),
-            ToastIntent.Progress => (FluentIcons.Flash, Color.Neutral, IconVariant.Regular),
-            ToastIntent.Upload => (FluentIcons.ArrowUpload, Color.Neutral, IconVariant.Regular),
-            ToastIntent.Download => (FluentIcons.ArrowDownload, Color.Neutral, IconVariant.Regular),
-            ToastIntent.Event => (FluentIcons.CalendarLTR, Color.Neutral, IconVariant.Regular),
-            ToastIntent.Avatar => (FluentIcons.Person, Color.Neutral, IconVariant.Regular),
-            ToastIntent.Custom => toastInstanceSettings.Icon,
-            _ => throw new InvalidOperationException()
-        };
-
-        toastInstanceSettings.Timeout = toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout;
-
-
-        return toastInstanceSettings;
-    }
-
     private void ListOrQueue(ToastInstance toast)
     {
         if (_toastList.Count < MaxToastCount)
@@ -120,46 +94,46 @@ public partial class FluentToastContainer
         }
     }
 
-    private void ShowToast(Type toastComponent, ToastParameters parameters, Action<ToastSettings>? settings)
+    private void ShowToast<TData>(Type? toastComponent, TData parameters, Action<ToastSettings>? settings = null)
     {
         _ = InvokeAsync(() =>
         {
-            ToastIntent intent = parameters.Intent;
-            ToastSettings? toastSettings = BuildToastSettings(intent, settings);
+            ToastSettings? toastSettings = new();
+            settings?.Invoke(toastSettings);
 
-            ToastInstance toast = new(toastComponent, parameters, toastSettings);
+            ToastInstance toast = new(toastComponent, parameters!, toastSettings);
 
             ListOrQueue(toast);
         });
     }
 
-    private void ShowToastComponentToast(Type toastComponent, ToastIntent intent, string title, Action<ToastAction>? action = null, Action<ToastSettings>? settings = null)
-    {
-        _ = InvokeAsync(() =>
-        {
-            ToastParameters parameters = new()
-            {
-                Intent = intent,
-                Title = title,
-                EndContentType = ToastEndContentType.Dismiss
-            };
+    //private void ShowToastComponentToast(Type toastComponent, ToastIntent intent, string title, Action<ToastAction>? action = null, Action<ToastSettings>? settings = null)
+    //{
+    //    _ = InvokeAsync(() =>
+    //    {
+    //        ToastParameters<object> parameters = new()
+    //        {
+    //            Intent = intent,
+    //            Title = title,
+    //            TopCTAType = ToastTopCTAType.Dismiss
+    //        };
 
-            if (action is not null)
-            {
-                ToastAction act = new();
-                action.Invoke(act);
+    //        if (action is not null)
+    //        {
+    //            ToastAction act = new();
+    //            action.Invoke(act);
 
-                parameters.Add("PrimaryAction", act);
-                parameters.EndContentType = ToastEndContentType.Action;
-            }
+    //            parameters.Add("PrimaryAction", act);
+    //            parameters.TopCTAType = ToastTopCTAType.Action;
+    //        }
 
-            ToastSettings? toastSettings = BuildToastSettings(intent, settings);
+    //        ToastSettings? toastSettings = BuildToastSettings(intent, settings);
 
-            ToastInstance toast = new(toastComponent, parameters, toastSettings);
+    //        ToastInstance toast = new(toastComponent, parameters, toastSettings);
 
-            ListOrQueue(toast);
-        });
-    }
+    //        ListOrQueue(toast);
+    //    });
+    //}
 
     private void ShowEnqueuedToasts()
     {

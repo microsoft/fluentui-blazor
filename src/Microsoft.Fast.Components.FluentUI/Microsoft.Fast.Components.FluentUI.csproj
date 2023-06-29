@@ -121,6 +121,10 @@
 	<Compile Remove="Components\Dialog\ContentComponents\FluentPanelContentBase.razor.cs" />    
 	<Compile Remove="Components\Dialog\Parameters\IDialogParameters.cs" />    
 	<Compile Remove="Components\Dialog\Parameters\IPanelParameters.cs" />    
+	<Compile Remove="Components\Toast\Parameters\CommunicationToastParameters.cs" />    
+	<Compile Remove="Components\Toast\Parameters\ConfirmationToastParameters.cs" />    
+	<Compile Remove="Components\Toast\Parameters\CustomToastParameters.cs" />    
+	<Compile Remove="Components\Toast\Parameters\ProgressToastParameters.cs" />    
 	<None Update="**\*.*.resx">
 	  <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
 	  <DependentUpon>%(ParentFile).resx</DependentUpon>

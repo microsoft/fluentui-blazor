@@ -5,7 +5,74 @@
 @namespace Microsoft.Fast.Components.FluentUI
 
 <CascadingValue Value="this" IsFixed="true">
-    <div class="fluent-toast" id="@Id" tabindex="0" @onfocus="PauseTimeout" @onblur="ResumeTimeout">
-        <DynamicComponent Type="@Instance.ContentType" Parameters="@Instance.Parameters.Parameters" />
+    <div class="fluent-toast" id="@Id" tabindex="0" >
+        <FluentStack Orientation="Orientation.Horizontal" Width="100%" VerticalAlignment="VerticalAlignment.Center" HorizontalGap="8">
+            @if (Settings.Icon is not null)
+            {
+                var Icon = Settings.Icon.Value;
+                <FluentIcon Name="@Icon.Name" Style="min-width: 16px;" Size="IconSize.Size16" Color=@Icon.Color Variant="Icon.Variant" />
+            }
+
+            <div class="fluent-toast-title">@Settings.Title</div>
+            <div class="fluent-toast-action">
+                @switch (Settings.TopCTAType)
+                {
+                    case ToastTopCTAType.Dismiss:
+                        <FluentIcon Name="@FluentIcons.Dismiss"
+                                    Size="@IconSize.Size12"
+                                    Title="Close"
+                                    Color="Color.FillInverse"
+                                    OnClick=@Close />
+                        break;
+                    case ToastTopCTAType.Timestamp:
+                        <span class="fluent-toast-small timestamp ">@Settings.Timestamp.ToString("HH:mm tt")</span>
+                        break;
+                    case ToastTopCTAType.Action:
+                       <FluentAnchor Href="@(String.IsNullOrEmpty(Settings.TopAction?.Href) ? "#" : Settings.TopAction?.Href)"
+                                      title="@Settings.TopAction?.Text"
+                                      Style="font-size: 14px; font-weight:400;"
+                                      Appearance="Appearance.Hypertext"
+                                      @onfocusin="@PauseTimeout"
+                                      @onfocusout="@ResumeTimeout"
+                                      @onclick="HandleTopActionClick">
+                            @Settings.TopAction?.Text
+                        </FluentAnchor>
+                        break;
+                }
+            </div>
+        </FluentStack>
+        @if (Instance.ContentType is not null)
+        {
+            <DynamicComponent Type="@Instance.ContentType" Parameters="@Instance.GetParameterDictionary()" />
+        }
+        @if (Settings.PrimaryAction is not null || Settings.SecondaryAction is not null)
+        {
+            <div class="fluent-toast-actions">
+                @if (Settings.PrimaryAction is not null)
+                {
+                    <FluentAnchor Href="@(String.IsNullOrEmpty(Settings.PrimaryAction?.Href) ? "#" : Settings.PrimaryAction?.Href)"
+                                  title="@Settings.SecondaryAction?.Text"
+                                  Style="font-size: 14px; font-weight:400;"
+                                  Appearance="Appearance.Hypertext"
+                    @onfocusin="@PauseTimeout"
+                    @onfocusout="@ResumeTimeout"
+                    @onclick="HandlePrimaryActionClick">
+                        @Settings.PrimaryAction?.Text
+                    </FluentAnchor>
+                }
+                @if (Settings.SecondaryAction is not null)
+                {
+                    <FluentAnchor Href="@(String.IsNullOrEmpty(Settings.SecondaryAction?.Href) ? "#" : Settings.SecondaryAction?.Href)"
+                                  title="@Settings.SecondaryAction?.Text"
+                                  Style="font-size: 14px; font-weight:400;"
+                                  Appearance="Appearance.Hypertext"
+                    @onfocusin="@PauseTimeout"
+                    @onfocusout="@ResumeTimeout"
+                    @onclick="HandleSecondaryActionClick">
+                        @Settings.SecondaryAction?.Text
+                    </FluentAnchor>
+                }
+            </div>
+        }
     </div>
 </CascadingValue>
