@@ -7,6 +7,9 @@ public class ToastService : IToastService
     /// A event that will be invoked when showing a toast with a custom component
     /// </summary>
     public event Action<Type?, object, Action<ToastSettings>?>? OnShow;
+    public event Action<string, object, Action<ToastSettings>?>? OnUpdate;
+    public event Action<string>? OnClose;
+
 
     /// <summary>
     /// A event that will be invoked when clearing all toasts
@@ -179,8 +182,9 @@ public class ToastService : IToastService
     /// <param name="intent">Toast intent to display</param>
     /// <param name="title">Text to display on the toast</param>
     /// <param name="action">Action to use for this toast</param>
-    public void ShowToast(ToastIntent intent, string title, Action<ToastAction>? action = null)
-        => ShowConfirmationToast(BuildConfirmationData(intent, title, action));
+    /// <param name="timeout">Duration toast is shown</param>
+    public void ShowToast(ToastIntent intent, string title, Action<ToastAction>? action = null, int? timeout = null)
+        => ShowConfirmationToast(BuildConfirmationData(intent, title, action, timeout));
 
     /// <summary>
     /// Shows the toast with the component type
@@ -197,7 +201,7 @@ public class ToastService : IToastService
     /// <param name="toastComponent">Type of component to display.</param>
     /// <param name="parameters">Parametes used to construct toast.</param>
     /// <param name="settings">Settings to configure the toast component.</param>
-    public virtual void ShowToast<TData>(Type? toastComponent, ToastParameters<TData> parameters, Action<ToastSettings>? settings = null)
+    public void ShowToast<TData>(Type? toastComponent, ToastParameters<TData> parameters, Action<ToastSettings>? settings = null)
        where TData : class
     {
         if (toastComponent is not null && !typeof(IToastContentComponent).IsAssignableFrom(toastComponent))
@@ -207,6 +211,7 @@ public class ToastService : IToastService
 
         Action<ToastSettings> toastSettings = settings ?? new(x =>
         {
+            x.Id = parameters.Id;
             x.Title = parameters.Title;
             x.Intent = parameters.Intent;
             x.TopCTAType = parameters.TopCTAType;
@@ -221,6 +226,36 @@ public class ToastService : IToastService
 
         OnShow?.Invoke(toastComponent, parameters.Data, toastSettings);
     }
+
+    /// <summary>
+    /// Updates a toast 
+    /// </summary>
+    /// <param name="id">Id of the toast to update.</param>
+    /// <param name="parameters">Parametes used to construct toast.</param>
+    /// <param name="settings">Settings to configure the toast component.</param>
+    public void UpdateToast<TData>(string id, ToastParameters<TData> parameters, Action<ToastSettings>? settings = null)
+        where TData : class
+    {
+        Action<ToastSettings> toastSettings = settings ?? new(x =>
+        {
+            x.Id = parameters.Id;
+            x.Title = parameters.Title;
+            x.Intent = parameters.Intent;
+            x.TopCTAType = parameters.TopCTAType;
+            x.TopAction = parameters.TopAction;
+            x.Timeout = parameters.Timeout;
+            x.Icon = parameters.Icon ?? GetIntentIcon(parameters.Intent);
+            x.Timestamp = parameters.Timestamp;
+            x.PrimaryAction = parameters.PrimaryAction;
+            x.SecondaryAction = parameters.SecondaryAction;
+            x.OnToastResult = parameters.OnToastResult;
+        });
+
+        OnUpdate?.Invoke(id, parameters.Data, toastSettings);
+    }
+
+    public void CloseToast(string id)
+        => OnClose?.Invoke(id);
 
     /// <summary>
     /// Removes all toasts

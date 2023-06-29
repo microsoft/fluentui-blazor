@@ -1,40 +1,68 @@
 ﻿@inject IToastService ToastService
 
-<FluentButton Appearance=Appearance.Neutral @onclick="@ShowExample">Progress toast example 1</FluentButton>
-
-<FluentButton Appearance="Appearance.Accent" @onclick=UpdateProgress>Update</FluentButton>
+<FluentStack>
+    <FluentButton Appearance=Appearance.Neutral @onclick="@ShowExample">Progress toast example 1</FluentButton>
+    <FluentButton @ref=_button Appearance="Appearance.Neutral" @onclick=UpdateProgress>Update</FluentButton>
+    <FluentButton Appearance="Appearance.Neutral" @onclick=Reset>Reset</FluentButton>
+    <FluentButton Appearance="Appearance.Neutral" @onclick=Close>Close</FluentButton>
+</FluentStack>
 
 @code {
+    private FluentButton? _button;
+    private static string _id = "progressToast";
+
+    private ToastParameters<ProgressToastData> _progressToastData = new()
+        {
+            Id = _id,
+            Intent = ToastIntent.Upload,
+            Title = "Uploading file",
+            Timeout = 0,
+            TopAction = new ToastAction() { Text = "Cancel", Href = "#", OnClick = ClickedPrimary },
+            //SecondaryAction = new ToastAction() { Text = "Pause", Href = "#", OnClick = ClickedSecondary },
+            Data = new ProgressToastData()
+            {
+                Details = "This may take a while.",
+                Progress = "0",
+            },
+        };
 
     private void ShowExample()
     {
-        ToastService.ShowProgressToast(new()
-            {
-                Intent = ToastIntent.Upload,
-                Title = "Uploading file",
-                Timeout = 7,
-                PrimaryAction = new ToastAction() { Text = "Cancel", Href = "#", OnClick = Clicked },
-                SecondaryAction = new ToastAction() { Text = "Pause", Href = "#", OnClick = Clicked },
-                Data = new ProgressToastData()
-                {
-                    Details = "This may take a while.",
-                    Progress = "0",
-                },
-            });
+        ToastService.ShowProgressToast(_progressToastData);
     }
 
-    private void Clicked()
+    private static void ClickedPrimary()
     {
-        DemoLogger.WriteLine("Clicked toast action");
+        DemoLogger.WriteLine("Clicked cancel action");
     }
 
-    private void UpdateProgress()
+    private static void ClickedSecondary()
     {
-        for (int i = 0; i < 100; i++)
+        DemoLogger.WriteLine("Clicked pause action");
+    }
+
+    private async Task UpdateProgress()
+    {
+        _button!.Disabled = true;
+        for (int i = 0; i < 101; i++)
         {
-            //_progressToastData.Data.Progress = i.ToString();
-            StateHasChanged();
-            Thread.Sleep(100);
+            _progressToastData.Data.Progress = i.ToString();
+            ToastService.UpdateToast(_id, _progressToastData);
+            await Task.Delay(100);
+            //StateHasChanged();
         };
+
+    }
+
+    private void Reset()
+    {
+        _progressToastData.Data.Progress = "0";
+        ToastService.UpdateToast(_id, _progressToastData);
+        _button!.Disabled = false;
+    }
+
+    private void Close()
+    {
+        ToastService.CloseToast(_id);
     }
 }

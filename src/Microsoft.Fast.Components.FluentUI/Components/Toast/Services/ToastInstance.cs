@@ -7,13 +7,10 @@ public sealed class ToastInstance
         ContentType = type;
         Data = data;
         Settings = settings;
+        Id = Settings.Id ?? Identifier.NewId();
     }
 
-    public string Id { get; } = Identifier.NewId();
-
-    public DateTime Timestamp { get; } = DateTime.Now;
-
-    public ToastIntent Intent { get; }
+    public string Id { get; }
 
     public Type? ContentType { get; set; }
 

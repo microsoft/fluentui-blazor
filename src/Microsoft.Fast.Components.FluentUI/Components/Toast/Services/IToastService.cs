@@ -7,6 +7,8 @@
         event Action? OnClearQueue;
         event Action<ToastIntent>? OnClearQueueIntent;
         event Action<Type?, object, Action<ToastSettings>?>? OnShow;
+        event Action<string?, object, Action<ToastSettings>?>? OnUpdate;
+        event Action<string>? OnClose;
 
         void ClearAll(bool includeQueue = true);
         void ClearMentionToasts(bool includeQueue = true);
@@ -54,7 +56,7 @@
         void ShowProgressToast(ToastParameters<ProgressToastData> parameters);
 
         // No type given, defaults to ConfirmationToast with timeout set by <see cref="FluentToastContainer"/>.
-        void ShowToast(ToastIntent intent, string title, Action<ToastAction>? action = null);
+        void ShowToast(ToastIntent intent, string title, Action<ToastAction>? action = null, int? timout = null);
 
         void ShowToast<TData>(Type? toastComponent, ToastParameters<TData> data, Action<ToastSettings>? settings = null)
             where TData : class;
@@ -63,5 +65,9 @@
             where T : IToastContentComponent<TData>
             where TData : class;
 
+        void UpdateToast<TData>(string id, ToastParameters<TData> parameters, Action<ToastSettings>? settings = null)
+            where TData : class;
+
+        void CloseToast(string id);
     }
 }

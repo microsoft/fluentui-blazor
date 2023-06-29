@@ -2,7 +2,6 @@
 
 <FluentButton Appearance=Appearance.Neutral @onclick="@ShowExample">Custom Toast with parameters</FluentButton>
 
-
 @code {
     private void ShowExample()
     {
@@ -11,11 +10,11 @@
             Intent = ToastIntent.Custom,
             Title = "I'm a custom toast component with parameters",
             Timeout = 105,
+            Icon = (FluentIcons.Backpack, Color.Accent, IconVariant.Regular),
             Data = new MyToastData()
             {
                 ToastParam = "I'm a parameter"
             }
         });
     }
-    
 }

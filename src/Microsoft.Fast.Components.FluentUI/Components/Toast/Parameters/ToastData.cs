@@ -4,6 +4,7 @@ namespace Microsoft.Fast.Components.FluentUI
 {
     public class ToastData : ComponentParameters, IToastData
     {
+        public string? Id { get; set; }
         public ToastIntent Intent { get; set; }
         public string? Title { get; set; }
         public ToastTopCTAType TopCTAType { get; set; }

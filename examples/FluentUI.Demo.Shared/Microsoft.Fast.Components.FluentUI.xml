@@ -4346,11 +4346,6 @@
             The instance containing the programmatic API for the toast.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToast.OnToastResult">
-            <summary>
-            The event callback invoked to return the dialog result.
-            </summary>
-        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentToast.Close">
             <summary>
             Closes the toast
@@ -4529,13 +4524,14 @@
             <param name="timeout">Duration toast is shown</param>
             <param name="icon">Custom icon for this toast</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowToast(Microsoft.Fast.Components.FluentUI.ToastIntent,System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowToast(Microsoft.Fast.Components.FluentUI.ToastIntent,System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Nullable{System.Int32})">
             <summary>
             Shows a toast using the supplied settings
             </summary>
             <param name="intent">Toast intent to display</param>
             <param name="title">Text to display on the toast</param>
             <param name="action">Action to use for this toast</param>
+            <param name="timeout">Duration toast is shown</param>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowToast``2(Microsoft.Fast.Components.FluentUI.ToastParameters{``1})">
             <summary>
@@ -4548,6 +4544,14 @@
             passing the specified <paramref name="parameters "/> 
             </summary>
             <param name="toastComponent">Type of component to display.</param>
+            <param name="parameters">Parametes used to construct toast.</param>
+            <param name="settings">Settings to configure the toast component.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.UpdateToast``1(System.String,Microsoft.Fast.Components.FluentUI.ToastParameters{``0},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+            <summary>
+            Updates a toast 
+            </summary>
+            <param name="id">Id of the toast to update.</param>
             <param name="parameters">Parametes used to construct toast.</param>
             <param name="settings">Settings to configure the toast component.</param>
         </member>
@@ -4675,56 +4679,6 @@
         <member name="T:Microsoft.Fast.Components.FluentUI.ToastSettings">
             <summary>
             Instance specific settings for a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentToast"/> component
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ToastSettings.Intent">
-            <summary>
-            The intent of the toast.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ToastSettings.Title">
-            <summary>
-            The main text of the toast.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ToastSettings.TopCTAType">
-            <summary>
-            The type of the top Call To Action.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ToastSettings.TopAction">
-            <summary>
-            If the top CTA is of type <see cref="F:Microsoft.Fast.Components.FluentUI.ToastTopCTAType.Action"/>, this is the action to be performed.
-            </summary>  
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ToastSettings.Timestamp">
-            <summary>
-            The timestamp of the toast. If the top CTA is of type <see cref="F:Microsoft.Fast.Components.FluentUI.ToastTopCTAType.Timestamp"/>, this is the value displayed.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ToastSettings.Icon">
-            <summary>
-            Gets or sets the the icon to display in the notification
-            Use a constant from the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentIcons" /> class for the <c>Name</c> value
-            The <c>Color</c> value determines the display color of the icon.
-            It is based on either the <see cref="T:Microsoft.Fast.Components.FluentUI.ToastIntent"/> or the active Accent color 
-            The <c>Variant</c> value determines the variant of the icon.
-            For the intents Success, Warning, Error and Information the defualt is IconVariant.Filled.
-            For all other intents the default is IconVariant.Regular.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ToastSettings.Timeout">
-            <summary>
-            The <c>Timeout</c> property determines the amount of time, in seconds, that the toast notification will be displayed before it is automatically closed.
-            Defaults to the timeout of the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentToastContainer"/> if not specified.
-            </summary>
-            <remarks>
-            By setting this property, you can control the duration of the notification and ensure that it is visible to the user for an appropriate amount of time.
-            </remarks>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ToastSettings.OnToastResult">
-            <summary>
-            Callback function for the result.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentToolbar.Orientation">
