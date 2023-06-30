@@ -39,7 +39,7 @@
             <FluentIcon Name="@FluentIcons.Person" Size="@IconSize.Size20" Color="@Color.Neutral" Slot="start" />
             Show mention
         </FluentButton>
-        <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowCustom("Custom confirmation.", null, null, null, null, (FluentIcons.Delete,Color.Accent, IconVariant.Regular)))">
+        <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowCustom("Custom confirmation.", null, null, null, (FluentIcons.Delete,Color.Accent, IconVariant.Regular)))">
             <FluentIcon Name="@FluentIcons.Delete" Size="@IconSize.Size20" Color="@Color.Neutral" Slot="start" />
             Show custom
         </FluentButton>
@@ -49,16 +49,12 @@
             Without icon
         </FluentButton>
 
-        <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowSuccess("Success confirmation with action.", null, "Action", this, HandleTopActionAsync))">
+        <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowSuccess("Success confirmation with action.", null, "Action", EventCallback.Factory.Create<ToastResult>(this, HandleTopAction)))">
             With action
         </FluentButton>
 
         <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowInfo("Info confirmation custom settings.", 10))">
-            With settings
-        </FluentButton>
-
-        <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowInfo("Click to refresh the page", null, null, this, HandleNavigationAsync))">
-            Custom action on click
+            Custom timeout
         </FluentButton>
 
         <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowSuccess("Success confirmation with a lot of text to see what a toast looks like when it's really big."))">
@@ -69,13 +65,8 @@
 </FluentStack>
 
 @code {
-    private async Task HandleNavigationAsync(ToastResult result)
+    private void HandleTopAction(ToastResult result)
     {
-        await Task.Run(() => NavigationManager.NavigateTo(NavigationManager.Uri, true));
-    }
-
-    private async Task HandleTopActionAsync(ToastResult result)
-    {
-        await Task.Run(() => DemoLogger.WriteLine($"Toast clicked"));
+        DemoLogger.WriteLine($"Toast clicked");
     }
 }

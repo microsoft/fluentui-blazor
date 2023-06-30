@@ -1,4 +1,6 @@
-﻿namespace Microsoft.Fast.Components.FluentUI
+﻿using Microsoft.AspNetCore.Components;
+
+namespace Microsoft.Fast.Components.FluentUI
 {
     public interface IToastService
     {
@@ -36,16 +38,16 @@
         void ClearWarningToasts(bool includeQueue = true);
 
         // Confirmation toasts.
-        void ShowSuccess(string title, int? timeout = null, string? topAction = null, object? receiver = null, Func<ToastResult, Task>? callback = null);
-        void ShowWarning(string title, int? timeout = null, string? topAction = null, object? receiver = null, Func<ToastResult, Task>? callback = null);
-        void ShowError(string title, int? timeout = null, string? topAction = null, object? receiver = null, Func<ToastResult, Task>? callback = null);
-        void ShowInfo(string title, int? timeout = null, string? topAction = null, object? receiver = null, Func<ToastResult, Task>? callback = null);
-        void ShowProgress(string title, int? timeout = null, string? topAction = null, object? receiver = null, Func<ToastResult, Task>? callback = null);
-        void ShowUpload(string title, int? timeout = null, string? topAction = null, object? receiver = null, Func<ToastResult, Task>? callback = null);
-        void ShowDownload(string title, int? timeout = null, string? topAction = null, object? receiver = null, Func<ToastResult, Task>? callback = null);
-        void ShowEvent(string title, int? timeout = null, string? topAction = null, object? receiver = null, Func<ToastResult, Task>? callback = null);
-        void ShowMention(string title, int? timeout = null, string? topAction = null, object? receiver = null, Func<ToastResult, Task>? callback = null);
-        void ShowCustom(string title, int? timeout = null, string? topAction = null, object? receiver = null, Func<ToastResult, Task>? callback = null, (string Name, Color Color, IconVariant Variant)? icon = null);
+        void ShowSuccess(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null);
+        void ShowWarning(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null);
+        void ShowError(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null);
+        void ShowInfo(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null);
+        void ShowProgress(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null);
+        void ShowUpload(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null);
+        void ShowDownload(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null);
+        void ShowEvent(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null);
+        void ShowMention(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null);
+        void ShowCustom(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null, (string Name, Color Color, IconVariant Variant)? icon = null);
         void ShowConfirmationToast(ToastParameters<ConfirmationToastContent> parameters);
 
 
@@ -57,7 +59,7 @@
 
         // No type given, defaults to ConfirmationToast with timeout set by <see cref="FluentToastContainer"/>.
         //void ShowToast(ToastIntent intent, string title, Action<ToastAction>? action = null, int? timout = null);
-        void ShowToast(ToastIntent intent, string title, int? timout = null, string? topAction = null, object? receiver = null, Func<ToastResult, Task>? callback = null);
+        void ShowToast(ToastIntent intent, string title, int? timout = null, string? topAction = null, EventCallback<ToastResult>? callback = null);
 
 
         //void ShowToast<TToastContent>(Type? toastComponent, ToastParameters<TToastContent> data, Action<ToastParameters>? settings = null)

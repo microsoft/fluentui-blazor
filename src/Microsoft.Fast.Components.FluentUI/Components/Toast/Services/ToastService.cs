@@ -51,18 +51,16 @@ public class ToastService : IToastService
         };
     }
 
-    private static ToastParameters<ConfirmationToastContent> BuildConfirmationData(ToastIntent intent, string title, int? timeout = null, string? topAction = null, object? receiver = null, Func<ToastResult, Task>? callback = null, (string Name, Color Color, IconVariant Variant)? icon = null)
+    private static ToastParameters<ConfirmationToastContent> BuildConfirmationData(ToastIntent intent, string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null, (string Name, Color Color, IconVariant Variant)? icon = null)
     {
-        ToastTopCTAType topCTAType = receiver is null ? ToastTopCTAType.Dismiss : ToastTopCTAType.Action;
-
         return new()
         {
             Intent = intent,
             Title = title,
             Icon = icon ?? GetIntentIcon(intent),
-            TopCTAType = topCTAType,
+            TopCTAType = callback is null ? ToastTopCTAType.Dismiss : ToastTopCTAType.Action,
             TopAction = topAction,
-            OnTopAction = topCTAType == ToastTopCTAType.Action ? EventCallback.Factory.Create(receiver!, callback!) : null,
+            OnTopAction = callback,
             Timeout = timeout,
         };
     }
@@ -74,10 +72,9 @@ public class ToastService : IToastService
     /// <param name="title">Text to display on the toast</param>
     /// <param name="timeout">Duration toast is shown</param>
     /// <param name="topAction">Text to use for the TopAction</param>
-    /// <param name="receiver">Receiver of the TopAction callback</param>
     /// <param name="callback">Callback to invoke when TopAction is clicked</param>
-    public void ShowSuccess(string title, int? timeout = null, string? topAction = null, object? receiver = null, Func<ToastResult, Task>? callback = null)
-        => ShowConfirmationToast(BuildConfirmationData(ToastIntent.Success, title, timeout, topAction, receiver, callback));
+    public void ShowSuccess(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null)
+        => ShowConfirmationToast(BuildConfirmationData(ToastIntent.Success, title, timeout, topAction, callback));
 
     /// <summary>
     /// Shows a simple warning confirmation toast.
@@ -86,10 +83,9 @@ public class ToastService : IToastService
     /// <param name="title">Text to display on the toast</param>
     /// <param name="timeout">Duration toast is shown</param>
     /// <param name="topAction">Text to use for the TopAction</param>
-    /// <param name="receiver">Receiver of the TopAction callback</param>
     /// <param name="callback">Callback to invoke when TopAction is clicked</param>
-    public void ShowWarning(string title, int? timeout = null, string? topAction = null, object? receiver = null, Func<ToastResult, Task>? callback = null)
-        => ShowConfirmationToast(BuildConfirmationData(ToastIntent.Warning, title, timeout, topAction, receiver, callback));
+    public void ShowWarning(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null)
+        => ShowConfirmationToast(BuildConfirmationData(ToastIntent.Warning, title, timeout, topAction, callback));
 
     /// <summary>
     /// Shows a simple error confirmation toast.
@@ -98,10 +94,9 @@ public class ToastService : IToastService
     /// <param name="title">Text to display on the toast</param>
     /// <param name="timeout">Duration toast is shown</param>
     /// <param name="topAction">Text to use for the TopAction</param>
-    /// <param name="receiver">Receiver of the TopAction callback</param>
     /// <param name="callback">Callback to invoke when TopAction is clicked</param>
-    public void ShowError(string title, int? timeout = null, string? topAction = null, object? receiver = null, Func<ToastResult, Task>? callback = null)
-        => ShowConfirmationToast(BuildConfirmationData(ToastIntent.Error, title, timeout, topAction, receiver, callback));
+    public void ShowError(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null)
+        => ShowConfirmationToast(BuildConfirmationData(ToastIntent.Error, title, timeout, topAction, callback));
 
     /// <summary>
     /// Shows a simple information confirmation toast.
@@ -110,10 +105,9 @@ public class ToastService : IToastService
     /// <param name="title">Text to display on the toast</param>
     /// <param name="timeout">Duration toast is shown</param>
     /// <param name="topAction">Text to use for the TopAction</param>
-    /// <param name="receiver">Receiver of the TopAction callback</param>
     /// <param name="callback">Callback to invoke when TopAction is clicked</param>
-    public void ShowInfo(string title, int? timeout = null, string? topAction = null, object? receiver = null, Func<ToastResult, Task>? callback = null)
-        => ShowConfirmationToast(BuildConfirmationData(ToastIntent.Info, title, timeout, topAction, receiver, callback));
+    public void ShowInfo(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null)
+        => ShowConfirmationToast(BuildConfirmationData(ToastIntent.Info, title, timeout, topAction, callback));
 
     /// <summary>
     /// Shows a simple progress confirmation toast.
@@ -122,10 +116,9 @@ public class ToastService : IToastService
     /// <param name="title">Text to display on the toast</param>
     /// <param name="timeout">Duration toast is shown</param>
     /// <param name="topAction">Text to use for the TopAction</param>
-    /// <param name="receiver">Receiver of the TopAction callback</param>
     /// <param name="callback">Callback to invoke when TopAction is clicked</param>
-    public void ShowProgress(string title, int? timeout = null, string? topAction = null, object? receiver = null, Func<ToastResult, Task>? callback = null)
-        => ShowConfirmationToast(BuildConfirmationData(ToastIntent.Progress, title, timeout, topAction, receiver, callback));
+    public void ShowProgress(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null)
+        => ShowConfirmationToast(BuildConfirmationData(ToastIntent.Progress, title, timeout, topAction, callback));
 
     /// <summary>
     /// Shows a simple upload confirmation toast.
@@ -134,10 +127,9 @@ public class ToastService : IToastService
     /// <param name="title">Text to display on the toast</param>
     /// <param name="timeout">Duration toast is shown</param>
     /// <param name="topAction">Text to use for the TopAction</param>
-    /// <param name="receiver">Receiver of the TopAction callback</param>
     /// <param name="callback">Callback to invoke when TopAction is clicked</param>
-    public void ShowUpload(string title, int? timeout = null, string? topAction = null, object? receiver = null, Func<ToastResult, Task>? callback = null)
-        => ShowConfirmationToast(BuildConfirmationData(ToastIntent.Upload, title, timeout, topAction, receiver, callback));
+    public void ShowUpload(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null)
+        => ShowConfirmationToast(BuildConfirmationData(ToastIntent.Upload, title, timeout, topAction, callback));
 
     /// <summary>
     /// Shows a simple download confirmation toast.
@@ -146,10 +138,9 @@ public class ToastService : IToastService
     /// <param name="title">Text to display on the toast</param>
     /// <param name="timeout">Duration toast is shown</param>
     /// <param name="topAction">Text to use for the TopAction</param>
-    /// <param name="receiver">Receiver of the TopAction callback</param>
     /// <param name="callback">Callback to invoke when TopAction is clicked</param>
-    public void ShowDownload(string title, int? timeout = null, string? topAction = null, object? receiver = null, Func<ToastResult, Task>? callback = null)
-        => ShowConfirmationToast(BuildConfirmationData(ToastIntent.Download, title, timeout, topAction, receiver, callback));
+    public void ShowDownload(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null)
+        => ShowConfirmationToast(BuildConfirmationData(ToastIntent.Download, title, timeout, topAction, callback));
 
     /// <summary>
     /// Shows a simple event confirmation toast.
@@ -158,10 +149,9 @@ public class ToastService : IToastService
     /// <param name="title">Text to display on the toast</param>
     /// <param name="timeout">Duration toast is shown</param>
     /// <param name="topAction">Text to use for the TopAction</param>
-    /// <param name="receiver">Receiver of the TopAction callback</param>
     /// <param name="callback">Callback to invoke when TopAction is clicked</param>
-    public void ShowEvent(string title, int? timeout = null, string? topAction = null, object? receiver = null, Func<ToastResult, Task>? callback = null)
-        => ShowConfirmationToast(BuildConfirmationData(ToastIntent.Event, title, timeout, topAction, receiver, callback));
+    public void ShowEvent(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null)
+        => ShowConfirmationToast(BuildConfirmationData(ToastIntent.Event, title, timeout, topAction, callback));
 
     /// <summary>
     /// Shows a simple mention confirmation toast.
@@ -170,10 +160,9 @@ public class ToastService : IToastService
     /// <param name="title">Text to display on the toast</param>
     /// <param name="timeout">Duration toast is shown</param>
     /// <param name="topAction">Text to use for the TopAction</param>
-    /// <param name="receiver">Receiver of the TopAction callback</param>
     /// <param name="callback">Callback to invoke when TopAction is clicked</param>
-    public void ShowMention(string title, int? timeout = null, string? topAction = null, object? receiver = null, Func<ToastResult, Task>? callback = null)
-        => ShowConfirmationToast(BuildConfirmationData(ToastIntent.Mention, title, timeout, topAction, receiver, callback));
+    public void ShowMention(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null)
+        => ShowConfirmationToast(BuildConfirmationData(ToastIntent.Mention, title, timeout, topAction, callback));
 
     /// <summary>
     /// Shows a simple custom confirmation toast.
@@ -182,11 +171,10 @@ public class ToastService : IToastService
     /// <param name="title">Text to display on the toast</param>
     /// <param name="timeout">Duration toast is shown</param>
     /// <param name="topAction">Text to use for the TopAction</param>
-    /// <param name="receiver">Receiver of the TopAction callback</param>
     /// <param name="callback">Callback to invoke when TopAction is clicked</param>
     /// <param name="icon">Custom icon for this toast</param>
-    public void ShowCustom(string title, int? timeout = null, string? topAction = null, object? receiver = null, Func<ToastResult, Task>? callback = null, (string Name, Color Color, IconVariant Variant)? icon = null)
-        => ShowConfirmationToast(BuildConfirmationData(ToastIntent.Custom, title, timeout, topAction, receiver, callback, icon));
+    public void ShowCustom(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null, (string Name, Color Color, IconVariant Variant)? icon = null)
+        => ShowConfirmationToast(BuildConfirmationData(ToastIntent.Custom, title, timeout, topAction, callback, icon));
 
 
     public void ShowConfirmationToast(ToastParameters<ConfirmationToastContent> parameters)
@@ -205,11 +193,10 @@ public class ToastService : IToastService
     /// <param name="title">Text to display on the toast</param>
     /// <param name="timeout">Duration toast is shown</param>
     /// <param name="topAction">Text to use for the TopAction</param>
-    /// <param name="receiver">Componente that receivesthe callback</param>
     /// <param name="callback">Callback to execute on the top action</param>
     //public void ShowToast(ToastIntent intent, string title, int? timeout = null)
-    public void ShowToast(ToastIntent intent, string title, int? timeout = null, string? topAction = null, object? receiver = null, Func<ToastResult, Task>? callback = null)
-        => ShowConfirmationToast(BuildConfirmationData(intent, title, timeout, topAction, receiver, callback));
+    public void ShowToast(ToastIntent intent, string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null)
+        => ShowConfirmationToast(BuildConfirmationData(intent, title, timeout, topAction, callback));
 
     /// <summary>
     /// Shows the toast with the component type

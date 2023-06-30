@@ -19,11 +19,13 @@
             message,
             rnd.Next(3, 15),
             "Log click",
-            this,
-            HandleTopActionAsync
-     
-            
+            EventCallback.Factory.Create<ToastResult>(this, HandleTopAction)
         );
+    }
+
+    private void HandleTopAction(ToastResult result)
+    {
+        DemoLogger.WriteLine($"Toast clicked");
     }
 
     private async Task HandleTopActionAsync(ToastResult result)
