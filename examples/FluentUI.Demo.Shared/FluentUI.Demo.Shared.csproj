@@ -69,6 +69,24 @@
 		<Folder Include="wwwroot\sources\" />
 	</ItemGroup>
 
+	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
+	  <PackageReference Include="Microsoft.Fast.Components.FluentUI.Emojis">
+	    <Version>3.0.0-preview.4.230627.1</Version>
+	  </PackageReference>
+	  <PackageReference Include="Microsoft.Fast.Components.FluentUI.Icons">
+	    <Version>3.0.0-preview.4.230627.1</Version>
+	  </PackageReference>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
+	  <PackageReference Include="Microsoft.Fast.Components.FluentUI.Emojis">
+	    <Version>3.0.0-preview.4.230627.1</Version>
+	  </PackageReference>
+	  <PackageReference Include="Microsoft.Fast.Components.FluentUI.Icons">
+	    <Version>3.0.0-preview.4.230627.1</Version>
+	  </PackageReference>
+	</ItemGroup>
+
 	<Target Name="DisableAnalyzers" BeforeTargets="CoreCompile">
 		<ItemGroup>
 			<Analyzer Remove="@(Analyzer)" Condition="'%(Filename)' == 'Microsoft.Fast.Components.FluentUI.Configuration'" />
