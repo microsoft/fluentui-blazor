@@ -45,7 +45,7 @@
         void ShowDownload(string title, Action<ToastAction>? action = null, int? timeout = null);
         void ShowEvent(string title, Action<ToastAction>? action = null, int? timeout = null);
         void ShowMention(string title, Action<ToastAction>? action = null, int? timeout = null);
-        void ShowCustom(string title, Action<ToastAction>? action = null, int? timeout = null, (string Name, Color Color, IconVariant Variant)? icon = null);
+        void ShowCustom(string title, Action<ToastAction>? action = null, int? timeout = null, (Icon Value, Color Color)? icon = null);
         void ShowConfirmationToast(ToastParameters<ConfirmationToastData> parameters);
 
 

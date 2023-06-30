@@ -9,7 +9,7 @@ namespace Microsoft.Fast.Components.FluentUI
         ToastTopCTAType TopCTAType { get; set; }
         ToastAction? TopAction { get; set; }
 
-        (string Name, Color Color, IconVariant Variant)? Icon { get; set; }
+        (Icon Value, Color Color)? Icon { get; set; }
         DateTime Timestamp { get; set; }
         int? Timeout { get; set; }
 

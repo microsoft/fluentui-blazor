@@ -4220,66 +4220,7 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.CommunicationToast.Intent">
-            <inheritdoc/>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.CommunicationToast.Title">
-            <inheritdoc/>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.CommunicationToast.EndContentType">
-            <inheritdoc/>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.CommunicationToast.Settings">
-            <inheritdoc/>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.CommunicationToast.TimeStamp">
-            <summary>
-            The primary action of the notification. Will be shown after title or at bottom of the toast.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.CommunicationToast.Subtitle">
-            <summary>
-            The Subtitle will be shown below the title in a slightly smaller and lighter font. 
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.CommunicationToast.Details">
-            <summary>
-            Used to show additional details about the notification.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.CommunicationToast.PrimaryAction">
-            <summary>
-            The primary action of the notification. Will be shown after title or at bottom of the toast.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.CommunicationToast.SecondaryAction">
-            <summary>
-            The secondary action of the notification. Will be shown after primary action at bottom of the toast.
-            </summary>
-        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.CommunicationToast.Close">
-            <summary>
-            Closes the toast
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ConfirmationToast.Intent">
-            <inheritdoc/>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ConfirmationToast.Title">
-            <inheritdoc/>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ConfirmationToast.EndContentType">
-            <inheritdoc/>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ConfirmationToast.Settings">
-            <inheritdoc/>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ConfirmationToast.PrimaryAction">
-            <summary>
-            The primary action of the notification. Will be shown after title or at bottom of the toast.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ConfirmationToast.Close">
             <summary>
             Closes the toast
             </summary>
@@ -4289,77 +4230,14 @@
             A component implementing this interface can be used as toast content.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.IToastContentComponent.Intent">
-            <summary>
-            Gets or sets the intent of the notification. See <see cref="T:Microsoft.Fast.Components.FluentUI.ToastIntent"/>
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.IToastContentComponent.Title">
-            <summary>
-            Gets or sets the main message of the notification.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.IToastContentComponent.Settings">
-            <summary>
-            Notification instance specific settings
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ProgressToast.Intent">
-            <inheritdoc/>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ProgressToast.Title">
-            <inheritdoc/>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ProgressToast.EndContentType">
-            <inheritdoc/>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ProgressToast.Settings">
-            <inheritdoc/>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ProgressToast.TimeStamp">
-            <summary>
-            The primary action of the notification. Will be shown after title or at bottom of the toast.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ProgressToast.Details">
-            <summary>
-            Used to show additional details about the notification.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ProgressToast.PrimaryAction">
-            <summary>
-            The primary action of the notification. Will be shown after title or at bottom of the toast.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ProgressToast.SecondaryAction">
-            <summary>
-            The secondary action of the notification. Will be shown after primary action at bottom of the toast.
-            </summary>
-        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ProgressToast.Close">
             <summary>
             Closes the toast
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToast.Intent">
-            <inheritdoc/>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToast.Settings">
-            <inheritdoc/>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToast.PrimaryAction">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToast.Instance">
             <summary>
-            The primary action of the notification. Will be shown after title or at bottom of the toast.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToast.Timestamp">
-            <summary>
-            Record a timestamp of when the toast was created.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToast.ChildContent">
-            <summary>
-            Use a custom component in the notification
+            The instance containing the programmatic API for the toast.
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentToast.Close">
@@ -4398,7 +4276,30 @@
             Constructs an instance of <see cref="T:Microsoft.Fast.Components.FluentUI.FluentToastContainer"/>.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ToastParameters`1.Data">
+            <summary>
+            The data to be passed to the toast content component.
+            </summary>
+        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.ToastAction">
+            <summary />
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.ToastResult">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastResult.#ctor(System.Object,System.Boolean)">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ToastResult.Data">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ToastResult.Cancelled">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastResult.Ok``1(``0)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastResult.Cancel(System.Object)">
             <summary />
         </member>
         <member name="E:Microsoft.Fast.Components.FluentUI.ToastService.OnShow">
@@ -4426,136 +4327,126 @@
             A event that will be invoked to clear queued toast of specified intent
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowSuccess(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowSuccess(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Nullable{System.Int32})">
             <summary>
             Shows a simple succes confirmation toast.
             Only shows icon, title and close button or action.
             </summary>
             <param name="title">Text to display on the toast</param>
             <param name="action">Action to use for this toast</param>
-            <param name="settings">Settings to configure the toast instance</param>
+            <param name="timeout">Duration toast is shown</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowWarning(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowWarning(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Nullable{System.Int32})">
             <summary>
             Shows a simple warning confirmation toast.
             Only shows icon, title and close button or action.
             </summary>
             <param name="title">Text to display on the toast</param>
             <param name="action">Action to use for this toast</param>
-            <param name="settings">Settings to configure the toast instance</param>
+            <param name="timeout">Duration toast is shown</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowError(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowError(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Nullable{System.Int32})">
             <summary>
             Shows a simple error confirmation toast.
             Only shows icon, title and close button or action.
             </summary>
             <param name="title">Text to display on the toast</param>
             <param name="action">Action to use for this toast</param>
-            <param name="settings">Settings to configure the toast instance</param>
+            <param name="timeout">Duration toast is shown</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowInfo(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowInfo(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Nullable{System.Int32})">
             <summary>
             Shows a simple information confirmation toast.
             Only shows icon, title and close button or action.
             </summary>
             <param name="title">Text to display on the toast</param>
             <param name="action">Action to use for this toast</param>
-            <param name="settings">Settings to configure the toast instance</param>
+            <param name="timeout">Duration toast is shown</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowProgress(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowProgress(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Nullable{System.Int32})">
             <summary>
             Shows a simple progress confirmation toast.
             Only shows icon, title and close button or action.
             </summary>
             <param name="title">Text to display on the toast</param>
             <param name="action">Action to use for this toast</param>
-            <param name="settings">Settings to configure the toast instance</param>
+            <param name="timeout">Duration toast is shown</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowUpload(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowUpload(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Nullable{System.Int32})">
             <summary>
             Shows a simple upload confirmation toast.
             Only shows icon, title and close button or action.
             </summary>
             <param name="title">Text to display on the toast</param>
             <param name="action">Action to use for this toast</param>
-            <param name="settings">Settings to configure the toast instance</param>
+            <param name="timeout">Duration toast is shown</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowDownload(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowDownload(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Nullable{System.Int32})">
             <summary>
             Shows a simple download confirmation toast.
             Only shows icon, title and close button or action.
             </summary>
             <param name="title">Text to display on the toast</param>
             <param name="action">Action to use for this toast</param>
-            <param name="settings">Settings to configure the toast instance</param>
+            <param name="timeout">Duration toast is shown</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowEvent(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowEvent(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Nullable{System.Int32})">
             <summary>
             Shows a simple event confirmation toast.
             Only shows icon, title and close button or action.
             </summary>
             <param name="title">Text to display on the toast</param>
             <param name="action">Action to use for this toast</param>
-            <param name="settings">Settings to configure the toast instance</param>
+            <param name="timeout">Duration toast is shown</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowAvatar(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowMention(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Nullable{System.Int32})">
             <summary>
-            Shows a simple avatar confirmation toast.
+            Shows a simple mention confirmation toast.
             Only shows icon, title and close button or action.
             </summary>
             <param name="title">Text to display on the toast</param>
             <param name="action">Action to use for this toast</param>
-            <param name="settings">Settings to configure the toast instance</param>
+            <param name="timeout">Duration toast is shown</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowCustom(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowCustom(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Nullable{System.Int32},System.Nullable{System.ValueTuple{Microsoft.Fast.Components.FluentUI.Icon,Microsoft.Fast.Components.FluentUI.Color}})">
             <summary>
             Shows a simple custom confirmation toast.
             Only shows icon, title and close button or action.
             </summary>
             <param name="title">Text to display on the toast</param>
             <param name="action">Action to use for this toast</param>
-            <param name="settings">Settings to configure the toast instance</param>
+            <param name="timeout">Duration toast is shown</param>
+            <param name="icon">Custom icon for this toast</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowToast(Microsoft.Fast.Components.FluentUI.ToastIntent,System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowToast(Microsoft.Fast.Components.FluentUI.ToastIntent,System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Nullable{System.Int32})">
             <summary>
             Shows a toast using the supplied settings
             </summary>
             <param name="intent">Toast intent to display</param>
             <param name="title">Text to display on the toast</param>
             <param name="action">Action to use for this toast</param>
-            <param name="settings">Settings to configure the toast instance</param>
+            <param name="timeout">Duration toast is shown</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowToast``1(Microsoft.Fast.Components.FluentUI.ToastIntent,System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
-            <summary>
-            Shows a toast using the supplied settings
-            </summary>
-            <param name="intent">Toast intent to display</param>
-            <param name="title">Text to display on the toast</param>
-            <param name="action">Action to show (instead of close button)</param>
-            <param name="settings">Settings to configure the toast instance</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowToast``1(Microsoft.Fast.Components.FluentUI.ToastParameters,System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowToast``2(Microsoft.Fast.Components.FluentUI.ToastParameters{``1})">
             <summary>
             Shows the toast with the component type
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowToast(System.Type,Microsoft.Fast.Components.FluentUI.ToastIntent,System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowToast``1(System.Type,Microsoft.Fast.Components.FluentUI.ToastParameters{``0},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
             <summary>
-            Shows the specified toast component type />,
-            </summary>
-            <param name="toastComponent">Type of toast component to display.</param>
-            <param name="intent">The intent of the notification.</param>
-            <param name="title">The title of the notification</param>
-            <param name="action">The action to use for this toast.</param>
-            <param name="settings">Settings to configure the toast component.</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowToast(System.Type,Microsoft.Fast.Components.FluentUI.ToastParameters,System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
-            <summary>
-            Shows the toast with the component type />,
-            passing the specified <paramref name="parameters"/> 
+            Shows a toast with the component type as the body,
+            passing the specified <paramref name="parameters "/> 
             </summary>
             <param name="toastComponent">Type of component to display.</param>
-            <param name="parameters">Key/Value collection of parameters to pass to component being displayed.</param>
+            <param name="parameters">Parametes used to construct toast.</param>
+            <param name="settings">Settings to configure the toast component.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.UpdateToast``1(System.String,Microsoft.Fast.Components.FluentUI.ToastParameters{``0},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+            <summary>
+            Updates a toast 
+            </summary>
+            <param name="id">Id of the toast to update.</param>
+            <param name="parameters">Parametes used to construct toast.</param>
             <param name="settings">Settings to configure the toast component.</param>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearAll(System.Boolean)">
@@ -4608,9 +4499,9 @@
             Removes all toasts with toast intent Event
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearAvatarToasts(System.Boolean)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearMentionToasts(System.Boolean)">
             <summary>
-            Removes all toasts with toast intent Avatar
+            Removes all toasts with toast intent Mention
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearCustomIntentToasts(System.Boolean)">
@@ -4669,9 +4560,9 @@
             Removes all queued toasts with toast intent Event
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearQueueAvatarToasts">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearQueueMentionToasts">
             <summary>
-            Removes all queued toasts with toast intent Avatar
+            Removes all queued toasts with toast intent Mention
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearQueueCustomIntentToasts">
@@ -4681,24 +4572,8 @@
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.ToastSettings">
             <summary>
-            _instance specific settings for a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentToast"/> component
+            Instance specific settings for a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentToast"/> component
             </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ToastSettings.Icon">
-            <summary>
-            Gets or sets the the icon to display in the notification
-            Use a constant from the <see cref="!:FluentIcons" /> class for the <c>Name</c> value
-            The <c>Color</c> value determines the display color of the icon.
-            It is based on either the <see cref="T:Microsoft.Fast.Components.FluentUI.ToastIntent"/> or the active Accent color.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ToastSettings.Timeout">
-            <summary>
-            The <c>Timeout</c> property determines the amount of time, in seconds, that the toast notification will be displayed before it is automatically closed.
-            </summary>
-            <remarks>
-            By setting this property, you can control the duration of the notification and ensure that it is visible to the user for an appropriate amount of time.
-            </remarks>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentToolbar.Orientation">
             <summary>
@@ -8642,24 +8517,6 @@
             A text field that is used for URL input.
             </summary>
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.ToastEndContentType">
-            <summary />
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToastEndContentType.Action">
-            <summary>
-            Toast shows a call to action after the title
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToastEndContentType.Dismiss">
-            <summary>
-            Toast shows a dismiss button after the title.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToastEndContentType.Timestamp">
-            <summary>
-            Toast shows a timestamp after the title.
-            </summary>
-        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.ToastIntent">
             <summary />
         </member>
@@ -8709,9 +8566,9 @@
             Informs about an operation concerning an event. 
             </summary>
         </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToastIntent.Avatar">
+        <member name="F:Microsoft.Fast.Components.FluentUI.ToastIntent.Mention">
             <summary>
-            Avatar is used when another person performs an action related to the user or their account.
+            Mention is used when another person performs an action related to the user or their account.
             For example, the user receives a meeting invitation or is mentioned in a chat. 
             </summary>
         </member>
@@ -8771,6 +8628,26 @@
         <member name="F:Microsoft.Fast.Components.FluentUI.ToastPosition.TopEnd">
             <summary>
             Toasts are displayed in the top-end corner of the screen
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.ToastTopCTAType">
+            <summary>
+            Call To Action type for the top action of the toast.
+            </summary>  
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.ToastTopCTAType.Dismiss">
+            <summary>
+            Toast shows a dismiss button after the title.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.ToastTopCTAType.Action">
+            <summary>
+            Toast shows a call to action after the title
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.ToastTopCTAType.Timestamp">
+            <summary>
+            Toast shows a timestamp after the title.
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.TooltipPosition">

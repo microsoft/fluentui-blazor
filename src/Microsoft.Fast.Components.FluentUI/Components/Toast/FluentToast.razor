@@ -10,7 +10,7 @@
             @if (_settings.Icon is not null)
             {
                 var Icon = _settings.Icon.Value;
-                <FluentIcon Name="@Icon.Name" Style="min-width: 16px;" Size="IconSize.Size16" Color=@Icon.Color Variant="Icon.Variant" />
+                <FluentSystemIcon Value="@Icon.Value" Style="min-width: 16px;" Width="16" Color=@Icon.Color />
             }
 
             <div class="fluent-toast-title">@_settings.Title</div>
@@ -18,11 +18,11 @@
                 @switch (_settings.TopCTAType)
                 {
                     case ToastTopCTAType.Dismiss:
-                        <FluentIcon Name="@FluentIcons.Dismiss"
-                                    Size="@IconSize.Size12"
-                                    Title="Close"
-                                    Color="Color.FillInverse"
-                                    OnClick=@Close />
+                        <FluentSystemIcon Icon="CoreIcons.Regular.Size24.Dismiss"
+                                          Width="12"
+                                          Title="Close"
+                                          Color="@Color.FillInverse"
+                                          OnClick="@Close" />
                         break;
                     case ToastTopCTAType.Timestamp:
                         <span class="fluent-toast-small timestamp ">@_settings.Timestamp.ToString("HH:mm tt")</span>
