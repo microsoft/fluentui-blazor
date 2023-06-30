@@ -19,11 +19,11 @@
 </h5>
 <FluentSlider Min="0" Max="100" Step="10" @bind-Value=value2>
     <FluentSliderLabel Position="0" HideMark="true">
-        <FluentIcon Name="@FluentIcons.Star" Size="@IconSize.Size16" Color=Color.Neutral />
+        <FluentIcon Name="@Icons.Regular.Size24.Star" Size="@IconSize.Size16" Color=Color.Neutral />
     </FluentSliderLabel>
     <FluentSliderLabel Position="50" HideMark="true">50</FluentSliderLabel>
     <FluentSliderLabel Position="100" HideMark="true">
-        <FluentIcon Name="@FluentIcons.Clock" Size="@IconSize.Size16" Color=Color.Neutral />
+        <FluentIcon Name="@Icons.Regular.Size24.Clock" Size="@IconSize.Size16" Color=Color.Neutral />
     </FluentSliderLabel>
     <FluentSystemIcon Icon="Icons.Regular.Size16.Globe" Color="@Color.Neutral" Slot="thumb" />
 </FluentSlider>

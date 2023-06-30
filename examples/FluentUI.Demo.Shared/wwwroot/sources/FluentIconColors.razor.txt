@@ -27,7 +27,7 @@
     <dd style="background-color: var(--accent-fill-rest); width:48px"><FluentSystemIcon Icon="Icons.Filled.Size48.Alert" Color="@Color.Lightweight" /></dd>
 
     <dt><code>Color.Custom</code> - Supply your own color value through the <code>CustomColor</code> parameter. Needs to be formatted as an HTML hex color string (#rrggbb or #rgb) or a CSS variable (var(--...)).</dt>
-    <dd><FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Filled Color="Color.Custom" CustomColor="#570078" /></dd>
+    <dd><FluentIcon Name="@Icons.Regular.Size24.Alert" Size="IconSize.Size48" Variant=IconVariant.Filled Color="Color.Custom" CustomColor="#570078" /></dd>
 </dl>
 <strong>(*)</strong>: This color is defined in the <code>variables.css</code> file. If your site is using
 <FluentAnchor Href="/Reboot" Appearance="Appearance.Hypertext">Reboot</FluentAnchor> the <code>variables.css</code> file is automatically imported. If you do not

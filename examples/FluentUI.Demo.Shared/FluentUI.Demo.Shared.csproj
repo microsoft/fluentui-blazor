@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 	<PropertyGroup>
-		<TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
+		<TargetFrameworks>net7.0;net8.0</TargetFrameworks>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<LangVersion>latest</LangVersion>
@@ -27,10 +27,6 @@
 		<DebuggerSupport>false</DebuggerSupport>
 		<TrimmerRemoveSymbols>true</TrimmerRemoveSymbols>
 	</PropertyGroup>
-
-	<ItemGroup Condition="'$(TargetFramework)'=='net6.0'">
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.16" />
-	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)'=='net7.0'">
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.5" />

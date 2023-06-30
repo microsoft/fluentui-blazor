@@ -1,6 +1,6 @@
 ﻿<h4>With start</h4>
 <FluentTextField @bind-Value=value1>
-    <FluentIcon  Name="@FluentIcons.Globe" Slot="start" Size="@IconSize.Size16" Color=Color.Neutral />
+    <FluentIcon  Name="@Icons.Regular.Size24.Globe" Slot="start" Size="@IconSize.Size16" Color=Color.Neutral />
 </FluentTextField>
 
 <h4>With end</h4>

@@ -1,7 +1,7 @@
 ﻿<h4>With icons</h4>
 <FluentSelect Value=2 TOption="int">
     <FluentOption Value=1>
-        <FluentIcon Name="@FluentIcons.Globe" Slot="start" Size="@IconSize.Size16" Color=Color.Neutral/>
+        <FluentIcon Name="@Icons.Regular.Size24.Globe" Slot="start" Size="@IconSize.Size16" Color=Color.Neutral/>
         <FluentSystemIcon Icon="Icons.Regular.Size16.Globe" Color="@Color.Neutral" Slot="end" />
         This option has an icon in its start and end slots.
     </FluentOption>

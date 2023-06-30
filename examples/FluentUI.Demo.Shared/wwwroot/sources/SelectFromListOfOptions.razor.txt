@@ -53,7 +53,7 @@
 
     static List<Option<string>> stringOptions1 = new()
     {
-        { new Option<string> { Value = "9", Text = "Nine", Icon = (@FluentIcons.AppsList, null , null , Color.Neutral, "start" ) } },
+        { new Option<string> { Value = "9", Text = "Nine", Icon = (@Icons.Regular.Size24.AppsList, null , null , Color.Neutral, "start" ) } },
         { new Option<string> { Value = "8", Text = "Eight", Selected = true } },
         { new Option<string> { Value = "7", Text = "Seven" } },
         { new Option<string> { Value = "6", Text = "Six" } },

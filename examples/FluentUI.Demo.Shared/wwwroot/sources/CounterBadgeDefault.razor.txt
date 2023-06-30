@@ -2,7 +2,7 @@
 
 <FluentCounterBadge Count="100" Appearance="Appearance.Accent">
     <FluentButton>
-        <FluentSystemIcon Icon="Icons.Regular.Size34.Alert" Color="@Color.Neutral" />
+        <FluentSystemIcon Icon="Icons.Regular.Size24.Alert" Color="@Color.Neutral" />
     </FluentButton>
 </FluentCounterBadge>
 
@@ -10,7 +10,7 @@
 
 <FluentCounterBadge Count="5" Appearance="Appearance.Neutral">
     <FluentButton Appearance="Appearance.Accent">
-        <FluentSystemIcon Icon="Icons.Regular.Size34.Alert" Color="@Color.Fill" />
+        <FluentSystemIcon Icon="Icons.Regular.Size24.Alert" Color="@Color.Fill" />
     </FluentButton>
 </FluentCounterBadge>
 
@@ -18,7 +18,7 @@
 
 <FluentCounterBadge Count="5" Appearance="Appearance.Lightweight">
     <FluentButton Appearance="Appearance.Accent">
-        <FluentSystemIcon Icon="Icons.Regular.Size34.Alert" Color="@Color.Fill" />
+        <FluentSystemIcon Icon="Icons.Regular.Size24.Alert" Color="@Color.Fill" />
     </FluentButton>
 </FluentCounterBadge>
 
@@ -26,7 +26,7 @@
 
 <FluentCounterBadge Count="5" Appearance="Appearance.Lightweight" BackgroundColor="Color.Lightweight"  Color="Color.Error"> 
     <FluentButton Appearance="Appearance.Accent">
-        <FluentSystemIcon Icon="Icons.Regular.Size34.Alert" Color="@Color.Fill" />
+        <FluentSystemIcon Icon="Icons.Regular.Size24.Alert" Color="@Color.Fill" />
     </FluentButton>
 </FluentCounterBadge>
 
@@ -35,7 +35,7 @@
 
 <FluentCounterBadge Count="9" BackgroundColor="@Color.Error" Color="Color.Fill">
     <FluentButton Appearance="Appearance.Filled">
-        <FluentSystemIcon Icon="Icons.Regular.Size34.Mail" Color="@Color.FillInverse" />
+        <FluentSystemIcon Icon="Icons.Regular.Size24.Mail" Color="@Color.FillInverse" />
     </FluentButton>
 </FluentCounterBadge>
 
@@ -43,6 +43,6 @@
 
 <FluentCounterBadge Count="0" Appearance="Appearance.Accent" ShowZero=true> 
     <FluentButton>
-        <FluentSystemIcon Icon="Icons.Regular.Size34.Alert" Color="@Color.Neutral" />
+        <FluentSystemIcon Icon="Icons.Regular.Size24.Alert" Color="@Color.Neutral" />
     </FluentButton>
 </FluentCounterBadge>
