@@ -249,7 +249,7 @@ public class DialogService : IDialogService
     /// Shows a dialog with the component type as the body,
     /// passing the specified <paramref name="parameters "/> and <paramref name="settings "/>
     /// </summary>
-    /// <param name="parameters">Data to pass to component being displayed.</param>
+    /// <param name="parameters">ToastContent to pass to component being displayed.</param>
     /// <param name="settings">Settings to configure the dialog component.</param>
     public void ShowDialog<T, TData>(DialogParameters<TData> parameters, Action<DialogSettings>? settings = null)
         where T : IDialogContentComponent<TData>
@@ -263,7 +263,7 @@ public class DialogService : IDialogService
     /// passing the specified <paramref name="data "/> 
     /// </summary>
     /// <param name="dialogComponent">Type of component to display.</param>
-    /// <param name="data">Data to pass to component being displayed.</param>
+    /// <param name="data">ToastContent to pass to component being displayed.</param>
     /// <param name="settings">Settings to configure the dialog component.</param>
     public virtual void ShowDialog<TData>(Type dialogComponent, TData data, Action<DialogSettings>? settings = null)
         where TData : class

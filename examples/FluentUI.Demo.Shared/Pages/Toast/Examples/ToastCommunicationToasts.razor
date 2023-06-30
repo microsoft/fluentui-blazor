@@ -7,14 +7,14 @@
 @code {
     private void ShowExample1()
     {
-        ToastService.ShowCommunicationToast(new ToastParameters<CommunicationToastData>()
+        ToastService.ShowCommunicationToast(new ToastParameters<CommunicationToastContent>()
         {
             Intent = ToastIntent.Success,
             Title = "Your dataset is ready",
             Timeout = 15,
-            PrimaryAction = new ToastAction() { Text = "See dataset", Href = "#", OnClick = Clicked },
-            SecondaryAction = new ToastAction() { Text = "Get insights", Href = "#", OnClick = Clicked },
-            Data = new CommunicationToastData()
+            PrimaryAction = new ToastAction() { Text = "See dataset", Href = "#", OnClick = ClickedPrimary },
+            SecondaryAction = new ToastAction() { Text = "Get insights", Href = "#", OnClick = ClickedSecondary },
+            ToastContent = new CommunicationToastContent()
             {
                 Subtitle = "A communication toast subtitle",
                 Details = "Let Power BI help you explore your data.",
@@ -24,15 +24,15 @@
 
     private void ShowExample2()
     {
-        ToastService.ShowCommunicationToast(new ToastParameters<CommunicationToastData>()
+        ToastService.ShowCommunicationToast(new ToastParameters<CommunicationToastContent>()
         {
             Intent = ToastIntent.Error,
             Title = "File didn't upload to ABC folder",
             TopCTAType = ToastTopCTAType.Timestamp,
             Timeout = 12,
-            PrimaryAction = new ToastAction() { Text = "Replace", Href = "#", OnClick = Clicked },
-            SecondaryAction = new ToastAction() { Text = "Keep both", Href = "#", OnClick = Clicked },
-            Data = new CommunicationToastData()
+            PrimaryAction = new ToastAction() { Text = "Replace", Href = "#", OnClick = ClickedPrimary },
+            SecondaryAction = new ToastAction() { Text = "Keep both", Href = "#", OnClick = ClickedSecondary },
+            ToastContent = new CommunicationToastContent()
             {
                 Details = "A file with the same _name already exists.",
             },
@@ -40,8 +40,13 @@
     }
 
 
-    private void Clicked()
+    private static void ClickedPrimary()
     {
-        DemoLogger.WriteLine("Clicked toast action");
+        DemoLogger.WriteLine("Clicked primary action");
+    }
+
+    private static void ClickedSecondary()
+    {
+        DemoLogger.WriteLine("Clicked secondary action");
     }
 }

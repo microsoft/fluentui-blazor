@@ -1791,7 +1791,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters`1.Data">
             <summary>
-            Data to pass to and from the dialog.
+            ToastContent to pass to and from the dialog.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters`1.OnDialogResult">
@@ -1952,7 +1952,7 @@
             Shows a dialog with the component type as the body,
             passing the specified <paramref name="parameters "/> and <paramref name="settings "/>
             </summary>
-            <param name="parameters">Data to pass to component being displayed.</param>
+            <param name="parameters">ToastContent to pass to component being displayed.</param>
             <param name="settings">Settings to configure the dialog component.</param>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialog``1(System.Type,``0,System.Action{Microsoft.Fast.Components.FluentUI.DialogSettings})">
@@ -1961,7 +1961,7 @@
             passing the specified <paramref name="data "/> 
             </summary>
             <param name="dialogComponent">Type of component to display.</param>
-            <param name="data">Data to pass to component being displayed.</param>
+            <param name="data">ToastContent to pass to component being displayed.</param>
             <param name="settings">Settings to configure the dialog component.</param>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.CreateDialogCallback(System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task})">
@@ -2917,7 +2917,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.Items">
             <summary>
-            Data source of all items to display in this list.
+            ToastContent source of all items to display in this list.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.SelectedOption">
@@ -4382,7 +4382,7 @@
             Constructs an instance of <see cref="T:Microsoft.Fast.Components.FluentUI.FluentToastContainer"/>.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ToastParameters`1.Data">
+        <member name="P:Microsoft.Fast.Components.FluentUI.ToastParameters`1.ToastContent">
             <summary>
             The data to be passed to the toast content component.
             </summary>
@@ -4538,7 +4538,7 @@
             Shows the toast with the component type
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowToast``1(System.Type,Microsoft.Fast.Components.FluentUI.ToastParameters{``0},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowToast``1(System.Type,Microsoft.Fast.Components.FluentUI.ToastParameters{``0},System.Action{Microsoft.Fast.Components.FluentUI.ToastParameters})">
             <summary>
             Shows a toast with the component type as the body,
             passing the specified <paramref name="parameters "/> 
@@ -4547,7 +4547,7 @@
             <param name="parameters">Parametes used to construct toast.</param>
             <param name="settings">Settings to configure the toast component.</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.UpdateToast``1(System.String,Microsoft.Fast.Components.FluentUI.ToastParameters{``0},System.Action{Microsoft.Fast.Components.FluentUI.ToastSettings})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.UpdateToast``1(System.String,Microsoft.Fast.Components.FluentUI.ToastParameters{``0},System.Action{Microsoft.Fast.Components.FluentUI.ToastParameters})">
             <summary>
             Updates a toast 
             </summary>
@@ -4674,11 +4674,6 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearQueueCustomIntentToasts">
             <summary>
             Removes all queued toasts with toast intent Custom
-            </summary>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.ToastSettings">
-            <summary>
-            Instance specific settings for a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentToast"/> component
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentToolbar.Orientation">

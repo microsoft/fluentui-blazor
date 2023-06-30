@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
-public partial class CommunicationToast : IToastContentComponent<CommunicationToastData>
+public partial class CommunicationToast : IToastContentComponent<CommunicationToastContent>
 {
 
     [Parameter]
-    public CommunicationToastData Data { get; set; } = default!;
+    public CommunicationToastContent ToastContent { get; set; } = default!;
 
 
     [CascadingParameter]
@@ -25,13 +25,13 @@ public partial class CommunicationToast : IToastContentComponent<CommunicationTo
 
     public void HandlePrimaryActionClick()
     {
-        //Data.PrimaryAction?.OnClick?.Invoke();
+        //ToastContent.PrimaryAction?.OnClick?.Invoke();
         Close();
     }
 
     public void HandleSecondaryActionClick()
     {
-        //Data.SecondaryAction?.OnClick?.Invoke();
+        //ToastContent.SecondaryAction?.OnClick?.Invoke();
         Close();
     }
 }

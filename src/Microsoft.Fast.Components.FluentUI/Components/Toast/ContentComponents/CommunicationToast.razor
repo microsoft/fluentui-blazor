@@ -1,43 +1,14 @@
 ﻿@namespace Microsoft.Fast.Components.FluentUI
-@implements IToastContentComponent<CommunicationToastData>
+@implements IToastContentComponent<CommunicationToastContent>
 
 <div class="fluent-toast-body">
-    @if (!string.IsNullOrWhiteSpace(Data.Subtitle))
+    @if (!string.IsNullOrWhiteSpace(ToastContent.Subtitle))
     {
-        <div class="fluent-toast-subtitle">@Data.Subtitle</div>
+        <div class="fluent-toast-subtitle">@ToastContent.Subtitle</div>
     }
 
-    @if (!string.IsNullOrWhiteSpace(Data.Details))
+    @if (!string.IsNullOrWhiteSpace(ToastContent.Details))
     {
-        <div class="fluent-toast-details">@Data.Details</div>
+        <div class="fluent-toast-details">@ToastContent.Details</div>
     }
 </div>
-@* @if (Data.PrimaryAction is not null || Data.SecondaryAction is not null)
-{
-    <div class="fluent-toast-actions">
-        @if (Data.PrimaryAction is not null)
-        {
-            <FluentAnchor Href="@(String.IsNullOrEmpty(Data.PrimaryAction?.Href) ? "#" : Data.PrimaryAction?.Href)"
-                          title="@Data.PrimaryAction?.Text"
-                          Style="font-size: 14px; font-weight:400;"
-                          Appearance="Appearance.Hypertext"
-                          @onfocusin="@Toast.PauseTimeout"
-                          @onfocusout="@Toast.ResumeTimeout"
-                          @onclick="HandlePrimaryActionClick">
-                @Data.PrimaryAction?.Text
-            </FluentAnchor>
-        }
-        @if (Data.SecondaryAction is not null)
-        {
-            <FluentAnchor Href="@(String.IsNullOrEmpty(Data.SecondaryAction?.Href) ? "#" : Data.SecondaryAction?.Href)"
-                          title="@Data.SecondaryAction?.Text"
-                          Style="font-size: 14px; font-weight:400;"
-                          Appearance="Appearance.Hypertext"
-                          @onfocusin="@Toast.PauseTimeout"
-                          @onfocusout="@Toast.ResumeTimeout"
-                          @onclick="HandleSecondaryActionClick">
-                @Data.SecondaryAction?.Text
-            </FluentAnchor>
-        }
-    </div>
-} *@

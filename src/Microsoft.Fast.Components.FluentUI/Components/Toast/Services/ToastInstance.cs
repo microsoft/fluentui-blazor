@@ -2,24 +2,23 @@
 
 public sealed class ToastInstance
 {
-    public ToastInstance(Type? type, object data, ToastSettings settings)
+    public ToastInstance(Type? type, object toastContent, ToastParameters parameters)
     {
         ContentType = type;
-        Data = data;
-        Settings = settings;
+        ToastContent = toastContent;
+        Settings = parameters;
         Id = Settings.Id ?? Identifier.NewId();
     }
-
     public string Id { get; }
 
     public Type? ContentType { get; set; }
 
-    public object Data { get; set; } = default!;
+    public object ToastContent { get; set; } = default!;
 
-    public ToastSettings Settings { get; set; } = default!;
+    public ToastParameters Settings { get; set; } = default!;
 
     public Dictionary<string, object> GetParameterDictionary()
     {
-        return new Dictionary<string, object> { { "Data", Data! } };
+        return new Dictionary<string, object> { { "ToastContent", ToastContent! } };
     }
 }

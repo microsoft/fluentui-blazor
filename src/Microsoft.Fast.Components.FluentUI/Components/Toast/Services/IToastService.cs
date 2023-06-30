@@ -6,8 +6,8 @@
         event Action<ToastIntent, bool>? OnClearIntent;
         event Action? OnClearQueue;
         event Action<ToastIntent>? OnClearQueueIntent;
-        event Action<Type?, object, Action<ToastSettings>?>? OnShow;
-        event Action<string?, object, Action<ToastSettings>?>? OnUpdate;
+        event Action<Type?, object, Action<ToastParameters>>? OnShow;
+        event Action<string?, object, Action<ToastParameters>>? OnUpdate;
         event Action<string>? OnClose;
 
         void ClearAll(bool includeQueue = true);
@@ -46,26 +46,26 @@
         void ShowEvent(string title, Action<ToastAction>? action = null, int? timeout = null);
         void ShowMention(string title, Action<ToastAction>? action = null, int? timeout = null);
         void ShowCustom(string title, Action<ToastAction>? action = null, int? timeout = null, (string Name, Color Color, IconVariant Variant)? icon = null);
-        void ShowConfirmationToast(ToastParameters<ConfirmationToastData> parameters);
+        void ShowConfirmationToast(ToastParameters<ConfirmationToastContent> parameters);
 
 
         //Communication toasts.
-        void ShowCommunicationToast(ToastParameters<CommunicationToastData> parameters);
+        void ShowCommunicationToast(ToastParameters<CommunicationToastContent> parameters);
 
         //Progress toasts.
-        void ShowProgressToast(ToastParameters<ProgressToastData> parameters);
+        void ShowProgressToast(ToastParameters<ProgressToastContent> parameters);
 
         // No type given, defaults to ConfirmationToast with timeout set by <see cref="FluentToastContainer"/>.
         void ShowToast(ToastIntent intent, string title, Action<ToastAction>? action = null, int? timout = null);
 
-        void ShowToast<TData>(Type? toastComponent, ToastParameters<TData> data, Action<ToastSettings>? settings = null)
+        void ShowToast<TData>(Type? toastComponent, ToastParameters<TData> data, Action<ToastParameters>? settings = null)
             where TData : class;
 
         void ShowToast<T, TData>(ToastParameters<TData> parameters)
             where T : IToastContentComponent<TData>
             where TData : class;
 
-        void UpdateToast<TData>(string id, ToastParameters<TData> parameters, Action<ToastSettings>? settings = null)
+        void UpdateToast<TData>(string id, ToastParameters<TData> parameters, Action<ToastParameters>? settings = null)
             where TData : class;
 
         void CloseToast(string id);
