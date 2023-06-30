@@ -3122,7 +3122,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Icon">
             <summary>
-            Gets or sets the name of the icon to display for this group
+            Gets or sets the icon to display for this group
             before its <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Text"/>.
             This setting is not used when <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.IconContent"/>
             is not null.
@@ -3180,8 +3180,8 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.Icon">
             <summary>
-            Gets or sets the name of the icon to display with the link
-            Use a constant value from the <see cref="!:FluentIcons" /> class 
+            Gets or sets the icon to display with the link
+            Use a constant value from the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentSystemIcon`1" /> class 
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.Disabled">
@@ -3988,7 +3988,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.Icon">
             <summary>
-            Gets or sets the name of the icon to display in front of the tab
+            Gets or sets the icon to display in front of the tab
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.Index">

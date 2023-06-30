@@ -8,9 +8,9 @@
             aria-label="@Label"
             overflow=@Overflow
             @attributes="AdditionalAttributes">
-    @if (!string.IsNullOrEmpty(Icon))
+    @if (Icon != null)
     {
-        <FluentIcon Name="@Icon" Size="@IconSize.Size20" Class="fluent-tab-icon" />
+        <FluentSystemIcon Value="@Icon" Width="20px" Class="fluent-tab-icon" />
     }
     @if (LabelEditable)
     {

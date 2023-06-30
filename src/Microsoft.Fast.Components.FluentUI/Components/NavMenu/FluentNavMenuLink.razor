@@ -13,7 +13,7 @@
             <div slot="start">@IconContent</div>
         }
         else {
-            <FluentIcon Name="@Icon" Size="@IconSize.Size20" Slot="start" OnClick="HandleIconClick"/>
+            <FluentSystemIcon Value="@Icon" Width="20px" Slot="start" OnClick="@HandleIconClick"/>
         }
     } 
     @if (!HasIcon && NavMenu.HasIcons)

@@ -28,11 +28,11 @@ public partial class FluentNavMenuLink : FluentComponentBase
     public string? Href { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the name of the icon to display with the link
-    /// Use a constant value from the <see cref="FluentIcons" /> class 
+    /// Gets or sets the icon to display with the link
+    /// Use a constant value from the <see cref="FluentSystemIcon{Icon}" /> class 
     /// </summary>
     [Parameter]
-    public string Icon { get; set; } = string.Empty;
+    public Icon? Icon { get; set; }
 
     /// <summary>
     /// Gets or sets whether the link is disabled.
@@ -92,7 +92,7 @@ public partial class FluentNavMenuLink : FluentComponentBase
         .AddStyle(Style)
         .Build();
 
-    internal bool HasIcon => !string.IsNullOrWhiteSpace(Icon) || IconContent is not null;
+    internal bool HasIcon => Icon != null || IconContent is not null;
 
     public FluentNavMenuLink()
     {
