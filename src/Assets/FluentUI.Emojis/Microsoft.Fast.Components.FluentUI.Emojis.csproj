@@ -18,10 +18,12 @@
     <Title>A Blazor wrapper library for the official Microsoft Fluent UI Emoji set.</Title>
     <Description>A Blazor wrapper library for the official Microsoft Fluent UI Emoji set.</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Include="README.md" Pack="true" PackagePath="\" />
+    <None Include="..\..\..\icon.png" Pack="true" PackagePath="\" />
     <ProjectReference Include="..\..\Microsoft.Fast.Components.FluentUI\Microsoft.Fast.Components.FluentUI.csproj" />
   </ItemGroup>
 
