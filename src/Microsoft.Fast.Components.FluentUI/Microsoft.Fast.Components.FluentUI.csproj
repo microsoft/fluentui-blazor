@@ -107,15 +107,7 @@
 
   <!-- Embedd other languages under root resx file -->
   <ItemGroup>    
-	<None Include="**\*.*.resx" />    
-	<Compile Remove="Components\Dialog\ContentComponents\FluentDialogContentBase.razor.cs" />    
-	<Compile Remove="Components\Dialog\ContentComponents\FluentPanelContentBase.razor.cs" />    
-	<Compile Remove="Components\Dialog\Parameters\IDialogParameters.cs" />    
-	<Compile Remove="Components\Dialog\Parameters\IPanelParameters.cs" />    
-	<Compile Remove="Components\Toast\Parameters\CommunicationToastParameters.cs" />    
-	<Compile Remove="Components\Toast\Parameters\ConfirmationToastParameters.cs" />    
-	<Compile Remove="Components\Toast\Parameters\CustomToastParameters.cs" />    
-	<Compile Remove="Components\Toast\Parameters\ProgressToastParameters.cs" />    
+	<None Include="**\*.*.resx" />
 	<None Update="**\*.*.resx">
 	  <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
 	  <DependentUpon>%(ParentFile).resx</DependentUpon>

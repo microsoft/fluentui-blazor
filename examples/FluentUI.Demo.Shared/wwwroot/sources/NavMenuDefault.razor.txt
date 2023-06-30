@@ -7,39 +7,39 @@
 <FluentStack Orientation="Orientation.Horizontal" >
     <!-- Menu with sub-items and icons -->
     <FluentNavMenu Collapsible="false">
-        <FluentNavMenuLink Class="level1" Text="Item 1" Icon="@(Icons.Regular.Size24.Home)" />
+        <FluentNavMenuLink Class="level1" Text="Item 1" Icon="@(new (Icons.Regular.Size24.Home)())" />
         <FluentNavMenuLink Class="level1" Text="Item 2" />
         <FluentNavMenuGroup Text="Item 3"  >
-            <FluentNavMenuLink Text="Item 3.1" Icon="@(Icons.Regular.Size24.LeafOne)" />
-            <FluentNavMenuLink Text="Item 3.2" Icon="@(Icons.Regular.Size24.LeafTwo)" />
+            <FluentNavMenuLink Text="Item 3.1" Icon="@(new (Icons.Regular.Size24.LeafOne)())" />
+            <FluentNavMenuLink Text="Item 3.2" Icon="@(new (Icons.Regular.Size24.LeafTwo)())" />
         </FluentNavMenuGroup>
         <FluentNavMenuGroup Text="Item 4" @onclick="OnClick" >
             <FluentNavMenuLink Text="Item 4.1" @onclick="OnClick" />
-            <FluentNavMenuLink Text="Item 4.2" @onclick="OnClick" Icon="@(Icons.Regular.Size24.LeafOne)" />
+            <FluentNavMenuLink Text="Item 4.2" @onclick="OnClick" Icon="@(new (Icons.Regular.Size24.LeafOne)())" />
         </FluentNavMenuGroup>
         <FluentNavMenuGroup Text="Item 5" @onclick="OnClick" >
-            <FluentNavMenuLink Text="Item 5.1" @onclick="OnClick" Icon="@(Icons.Regular.Size24.LeafTwo)" />
+            <FluentNavMenuLink Text="Item 5.1" @onclick="OnClick" Icon="@(new (Icons.Regular.Size24.LeafTwo)())" />
             <FluentNavMenuGroup @onclick="OnClick" Text="Item 5.2">
                 <FluentNavMenuLink Text="Item 5.2.1" @onclick="OnClick" />
                 <FluentNavMenuLink Text="Item 5.2.2" @onclick="OnClick" />                
             </FluentNavMenuGroup>
             <FluentNavMenuGroup @onclick="OnClick" Text="Item 5.3">
-                <FluentNavMenuLink Text="Item 5.3.1" @onclick="OnClick" Icon="@(Icons.Regular.Size24.LeafOne)" />
+                <FluentNavMenuLink Text="Item 5.3.1" @onclick="OnClick" Icon="@(new (Icons.Regular.Size24.LeafOne)())" />
                 <FluentNavMenuLink Text="Item 5.3.2" @onclick="OnClick" />                
             </FluentNavMenuGroup>
         </FluentNavMenuGroup>
         <FluentNavMenuGroup @onclick="OnClick" Text="Item with Href" >
-            <FluentNavMenuLink Text="Go to Bing" @onclick="OnClick" Icon="@(Icons.Regular.Size24.LeafOne)" Href="https://bing.com" />
-            <FluentNavMenuLink Text="Go to home page" @onclick="OnClick" Icon="@(Icons.Regular.Size24.Home)" Href="/" />
+            <FluentNavMenuLink Text="Go to Bing" @onclick="OnClick" Icon="@(new (Icons.Regular.Size24.LeafOne)())" Href="https://bing.com" />
+            <FluentNavMenuLink Text="Go to home page" @onclick="OnClick" Icon="@(new (Icons.Regular.Size24.Home)())" Href="/" />
         </FluentNavMenuGroup>
-        <FluentNavMenuLink Class="level1" Text="Last item" @onclick="OnClick" Icon="@(Icons.Regular.Size24.LeafThree)" Disabled="true" />
+        <FluentNavMenuLink Class="level1" Text="Last item" @onclick="OnClick" Icon="@(new (Icons.Regular.Size24.LeafThree)())" Disabled="true" />
     </FluentNavMenu>
 
     <!-- Menu with icons -->
     <FluentNavMenu>
-        <FluentNavMenuLink Text="Item 1" @onclick="OnClick" Icon="@(Icons.Regular.Size24.Home)" />
+        <FluentNavMenuLink Text="Item 1" @onclick="OnClick" Icon="@(new (Icons.Regular.Size24.Home)())" />
         <FluentNavMenuLink Text="Item 2" @onclick="OnClick" />
-        <FluentNavMenuLink Text="Item 3" @onclick="OnClick" Icon="@(Icons.Regular.Size24.LeafOne)" />
+        <FluentNavMenuLink Text="Item 3" @onclick="OnClick" Icon="@(new (Icons.Regular.Size24.LeafOne)())" />
         <FluentNavMenuLink Text="Item 4" @onclick="OnClick" />
     </FluentNavMenu>
 

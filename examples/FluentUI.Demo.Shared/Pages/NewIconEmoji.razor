@@ -14,7 +14,7 @@ automatically when you publish your application. This will reduce the the total 
 <ApiDocumentation Component="typeof(FluentSystemIcon<>)" InstanceType="typeof(IconFromImage)" GenericLabel="Icon" />
 <p>
     An example of calling an icon with the new implementation:
-    <CodeSnippet>&lt;FluentSystemIcon Icon="@@(Icons.Regular.Size24.Save)" /&gt;></CodeSnippet>
+    <CodeSnippet>&lt;FluentSystemIcon Icon="@(new @(Icons.Regular.Size24.Save)())" /&gt;></CodeSnippet>
 You can use your custom images by setting the Value property calling the Icon.FromImageUrl method:
     <CodeSnippet>&lt;FluentSystemIcon Value="@@(Icon.FromImageUrl("/Blazor.png"))" Width="32px" /&gt;</CodeSnippet>
 </p>

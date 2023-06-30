@@ -39,7 +39,7 @@
             <FluentSystemIcon Icon="Icons.Regular.Size20.Person" Color="@Color.Neutral" Slot="start" />
             Show mention
         </FluentButton>
-        <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowCustom("Custom confirmation.", null, null, (FluentIcons.Delete,Color.Accent, IconVariant.Regular)))">
+        <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowCustom("Custom confirmation.", null, null, (new Icons.Regular.Size24.Delete(), Color.Accent)))">
             <FluentSystemIcon Icon="Icons.Regular.Size20.Delete" Color="@Color.Neutral" Slot="start" />
             Show custom
         </FluentButton>
