@@ -5,7 +5,7 @@
 
 <h4>With end</h4>
 <FluentTextField @bind-Value=value2                                                                                                                                                                                                                                                                                                                                                                                                       >
-    <FluentIcon Name="@FluentIcons.Globe" Slot="end" Size="@IconSize.Size16" Color=Color.Neutral />
+    <FluentSystemIcon Icon="Icons.Regular.Size16.Globe" Color="@Color.Neutral" Slot="end" />
 </FluentTextField>
 
 @code {

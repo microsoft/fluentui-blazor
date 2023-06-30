@@ -1,11 +1,11 @@
 ﻿@namespace FluentUI.Demo.Shared
 
 <div style="display: flex; width=100%">
-    <FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Filled Color="Color.Neutral" />
+    <FluentSystemIcon Icon="Icons.Filled.Size48.Alert" Color="@Color.Neutral" />
     <FluentSpacer />
-    <FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Filled Color="Color.Accent" />
+    <FluentSystemIcon Icon="Icons.Filled.Size48.Alert" Color="@Color.Accent" />
     <FluentSpacer />
-    <FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Filled Color="Color.Warning" />
+    <FluentSystemIcon Icon="Icons.Filled.Size48.Alert" Color="@Color.Warning" />
     <FluentSpacer />
-    <FluentIcon Name="@FluentIcons.Alert" Size="IconSize.Size48" Variant=IconVariant.Filled Color="Color.Info" />
+    <FluentSystemIcon Icon="Icons.Filled.Size48.Alert" Color="@Color.Info" />
 </div>

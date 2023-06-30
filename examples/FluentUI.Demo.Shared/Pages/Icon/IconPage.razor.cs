@@ -105,7 +105,7 @@ public partial class IconPage
     {
         Logger.LogInformation($"You clicked on {icon.Name}");
 
-        string Text = $$"""<FluentIcon Name="@FluentIcons.{{icon.Name}}" Size="@IconSize.{{icon.Size}}" Variant="@IconVariant.{{icon.Variant}}" Color="@Color.{{Form.Color}}"/>""";
+        string Text = $$"""<FluentSystemIcon Name="@FluentIcons.{{icon.Name}}" Size="@IconSize.{{icon.Size}}" Variant="@IconVariant.{{icon.Variant}}" Color="@Color.{{Form.Color}}"/>""";
 
         if (_jsModule is not null)
         {

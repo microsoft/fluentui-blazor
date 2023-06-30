@@ -1,7 +1,7 @@
 ﻿<FluentTabs ActiveTabId="tab-1">
     <FluentTab Id="tab-1">
         <Header>
-            <FluentIcon Name="@FluentIcons.LeafOne" Size="IconSize.Size16" />
+            <FluentSystemIcon Icon="Icons.Regular.Size16.LeafOne" />
             All
         </Header>
 

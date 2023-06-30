@@ -1,6 +1,6 @@
 ﻿<FluentAccordion>
     <FluentAccordionItem Expanded="_expanded" Heading="Console log">
-        <FluentIcon Slot="start" Name="@FluentIcons.DocumentChevronDouble" Size="@IconSize.Size20" Color="@Color.Accent" />
+        <FluentSystemIcon Icon="Icons.Regular.Size20.DocumentChevronDouble" Color="@Color.Accent" Slot="start" />
         
         @((MarkupString)ConsoleContent.Replace(Environment.NewLine, "<br/>"))
         @if (!string.IsNullOrWhiteSpace(ConsoleContent))

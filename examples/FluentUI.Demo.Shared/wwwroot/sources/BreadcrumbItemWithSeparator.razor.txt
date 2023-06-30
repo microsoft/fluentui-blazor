@@ -1,4 +1,4 @@
 <FluentBreadcrumbItem Href="#">
     Breadcrumb item
-    <FluentIcon Slot="separator" Name="@FluentIcons.ChevronDoubleRight" Size="@IconSize.Size20" Color=Color.Neutral />
+    <FluentSystemIcon Icon="Icons.Regular.Size20.ChevronDoubleRight" Color="@Color.Neutral" Slot="separator" />
 </FluentBreadcrumbItem>
