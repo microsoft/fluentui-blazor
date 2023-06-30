@@ -49,7 +49,7 @@ public partial class FluentToast : FluentComponentBase, IDisposable
 
     public void HandleTopActionClick()
     {
-        _parameters.TopAction?.OnClick?.Invoke();
+        _parameters.OnTopAction?.InvokeAsync(ToastResult.Ok<object?>(null));
         Close();
     }
 
@@ -67,13 +67,13 @@ public partial class FluentToast : FluentComponentBase, IDisposable
 
     public void HandlePrimaryActionClick()
     {
-        _parameters.PrimaryAction?.OnClick?.Invoke();
+        _parameters.OnPrimaryAction?.InvokeAsync();
         Close();
     }
 
     public void HandleSecondaryActionClick()
     {
-        _parameters.SecondaryAction?.OnClick?.Invoke();
+        _parameters.OnSecondaryAction?.InvokeAsync();
         Close();
     }
 

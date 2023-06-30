@@ -10,20 +10,26 @@
 @code {
     private FluentButton? _button;
     private static string _id = "progressToast";
-    
-    private ToastParameters<ProgressToastContent> _progressToastData = new()
-        {
-            Id = _id,
-            Intent = ToastIntent.Upload,
-            Title = "Uploading file",
-            Timeout = 0,
-            TopAction = new ToastAction() { Text = "Cancel", Href = "#", OnClick = ClickedCancel },
-            ToastContent = new ProgressToastContent()
+
+    private ToastParameters<ProgressToastContent> _progressToastData;
+
+    public ToastProgressToasts()
+    {
+        _progressToastData = new()
             {
-                Details = "This may take a while.",
-                Progress = "0",
-            },
-        };
+                Id = _id,
+                Intent = ToastIntent.Upload,
+                Title = "Uploading file",
+                Timeout = 0,
+                TopAction = "Cancel",
+                OnTopAction = EventCallback.Factory.Create<ToastResult>(this, ClickedCancel),
+                ToastContent = new ProgressToastContent()
+                {
+                    Details = "This may take a while.",
+                    Progress = "0",
+                },
+            };
+    }
 
     private void ShowExample()
     {

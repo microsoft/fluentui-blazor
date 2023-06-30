@@ -39,7 +39,7 @@
             <FluentIcon Name="@FluentIcons.Person" Size="@IconSize.Size20" Color="@Color.Neutral" Slot="start" />
             Show mention
         </FluentButton>
-        <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowCustom("Custom confirmation.", null, null, (FluentIcons.Delete,Color.Accent, IconVariant.Regular)))">
+        <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowCustom("Custom confirmation.", null, null, null, null, (FluentIcons.Delete,Color.Accent, IconVariant.Regular)))">
             <FluentIcon Name="@FluentIcons.Delete" Size="@IconSize.Size20" Color="@Color.Neutral" Slot="start" />
             Show custom
         </FluentButton>
@@ -49,15 +49,15 @@
             Without icon
         </FluentButton>
 
-        <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowSuccess("Success confirmation with action.", action => { action.Text = "Action"; action.OnClick = (() => DemoLogger.WriteLine("Success confirmation clicked!"));}))">
+        <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowSuccess("Success confirmation with action.", null, "Action", this, HandleTopActionAsync))">
             With action
         </FluentButton>
 
-        <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowInfo("Info confirmation custom settings.", null, 10))">
+        <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowInfo("Info confirmation custom settings.", 10))">
             With settings
         </FluentButton>
 
-        <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowInfo("Click to refresh the page",  action => action.OnClick = () => NavigationManager.NavigateTo("/", true)))">
+        <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowInfo("Click to refresh the page", null, null, this, HandleNavigationAsync))">
             Custom action on click
         </FluentButton>
 
@@ -67,3 +67,15 @@
         </FluentButton>
     </FluentStack>
 </FluentStack>
+
+@code {
+    private async Task HandleNavigationAsync(ToastResult result)
+    {
+        await Task.Run(() => NavigationManager.NavigateTo(NavigationManager.Uri, true));
+    }
+
+    private async Task HandleTopActionAsync(ToastResult result)
+    {
+        await Task.Run(() => DemoLogger.WriteLine($"Toast clicked"));
+    }
+}

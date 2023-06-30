@@ -96,14 +96,15 @@ public partial class FluentToastContainer
         }
     }
 
-    private void ShowToast(Type? toastComponent, object toastContent, Action<ToastParameters> parameters)
+    private void ShowToast(Type? toastComponent, object toastContent, ToastParameters parameters)
     {
         _ = InvokeAsync(() =>
         {
-            ToastParameters? toastParameters = new();
-            parameters?.Invoke(toastParameters);
+            //ToastParameters? toastParameters = new();
+            //parameters?.Invoke(toastParameters);
 
-            ToastInstance toast = new(toastComponent, toastContent!, toastParameters);
+            //ToastInstance toast = new(toastComponent, toastContent!, toastParameters);
+            ToastInstance toast = new(toastComponent, toastContent!, parameters);
 
             ListOrQueue(toast);
         });

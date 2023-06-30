@@ -4387,9 +4387,6 @@
             The data to be passed to the toast content component.
             </summary>
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.ToastAction">
-            <summary />
-        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.ToastResult">
             <summary />
         </member>
@@ -4433,119 +4430,141 @@
             A event that will be invoked to clear queued toast of specified intent
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowSuccess(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Nullable{System.Int32})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowSuccess(System.String,System.Nullable{System.Int32},System.String,System.Object,System.Func{Microsoft.Fast.Components.FluentUI.ToastResult,System.Threading.Tasks.Task})">
             <summary>
             Shows a simple succes confirmation toast.
             Only shows icon, title and close button or action.
             </summary>
             <param name="title">Text to display on the toast</param>
-            <param name="action">Action to use for this toast</param>
             <param name="timeout">Duration toast is shown</param>
+            <param name="topAction">Text to use for the TopAction</param>
+            <param name="receiver">Receiver of the TopAction callback</param>
+            <param name="callback">Callback to invoke when TopAction is clicked</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowWarning(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Nullable{System.Int32})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowWarning(System.String,System.Nullable{System.Int32},System.String,System.Object,System.Func{Microsoft.Fast.Components.FluentUI.ToastResult,System.Threading.Tasks.Task})">
             <summary>
             Shows a simple warning confirmation toast.
             Only shows icon, title and close button or action.
             </summary>
             <param name="title">Text to display on the toast</param>
-            <param name="action">Action to use for this toast</param>
             <param name="timeout">Duration toast is shown</param>
+            <param name="topAction">Text to use for the TopAction</param>
+            <param name="receiver">Receiver of the TopAction callback</param>
+            <param name="callback">Callback to invoke when TopAction is clicked</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowError(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Nullable{System.Int32})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowError(System.String,System.Nullable{System.Int32},System.String,System.Object,System.Func{Microsoft.Fast.Components.FluentUI.ToastResult,System.Threading.Tasks.Task})">
             <summary>
             Shows a simple error confirmation toast.
             Only shows icon, title and close button or action.
             </summary>
             <param name="title">Text to display on the toast</param>
-            <param name="action">Action to use for this toast</param>
             <param name="timeout">Duration toast is shown</param>
+            <param name="topAction">Text to use for the TopAction</param>
+            <param name="receiver">Receiver of the TopAction callback</param>
+            <param name="callback">Callback to invoke when TopAction is clicked</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowInfo(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Nullable{System.Int32})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowInfo(System.String,System.Nullable{System.Int32},System.String,System.Object,System.Func{Microsoft.Fast.Components.FluentUI.ToastResult,System.Threading.Tasks.Task})">
             <summary>
             Shows a simple information confirmation toast.
             Only shows icon, title and close button or action.
             </summary>
             <param name="title">Text to display on the toast</param>
-            <param name="action">Action to use for this toast</param>
             <param name="timeout">Duration toast is shown</param>
+            <param name="topAction">Text to use for the TopAction</param>
+            <param name="receiver">Receiver of the TopAction callback</param>
+            <param name="callback">Callback to invoke when TopAction is clicked</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowProgress(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Nullable{System.Int32})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowProgress(System.String,System.Nullable{System.Int32},System.String,System.Object,System.Func{Microsoft.Fast.Components.FluentUI.ToastResult,System.Threading.Tasks.Task})">
             <summary>
             Shows a simple progress confirmation toast.
             Only shows icon, title and close button or action.
             </summary>
             <param name="title">Text to display on the toast</param>
-            <param name="action">Action to use for this toast</param>
             <param name="timeout">Duration toast is shown</param>
+            <param name="topAction">Text to use for the TopAction</param>
+            <param name="receiver">Receiver of the TopAction callback</param>
+            <param name="callback">Callback to invoke when TopAction is clicked</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowUpload(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Nullable{System.Int32})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowUpload(System.String,System.Nullable{System.Int32},System.String,System.Object,System.Func{Microsoft.Fast.Components.FluentUI.ToastResult,System.Threading.Tasks.Task})">
             <summary>
             Shows a simple upload confirmation toast.
             Only shows icon, title and close button or action.
             </summary>
             <param name="title">Text to display on the toast</param>
-            <param name="action">Action to use for this toast</param>
             <param name="timeout">Duration toast is shown</param>
+            <param name="topAction">Text to use for the TopAction</param>
+            <param name="receiver">Receiver of the TopAction callback</param>
+            <param name="callback">Callback to invoke when TopAction is clicked</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowDownload(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Nullable{System.Int32})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowDownload(System.String,System.Nullable{System.Int32},System.String,System.Object,System.Func{Microsoft.Fast.Components.FluentUI.ToastResult,System.Threading.Tasks.Task})">
             <summary>
             Shows a simple download confirmation toast.
             Only shows icon, title and close button or action.
             </summary>
             <param name="title">Text to display on the toast</param>
-            <param name="action">Action to use for this toast</param>
             <param name="timeout">Duration toast is shown</param>
+            <param name="topAction">Text to use for the TopAction</param>
+            <param name="receiver">Receiver of the TopAction callback</param>
+            <param name="callback">Callback to invoke when TopAction is clicked</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowEvent(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Nullable{System.Int32})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowEvent(System.String,System.Nullable{System.Int32},System.String,System.Object,System.Func{Microsoft.Fast.Components.FluentUI.ToastResult,System.Threading.Tasks.Task})">
             <summary>
             Shows a simple event confirmation toast.
             Only shows icon, title and close button or action.
             </summary>
             <param name="title">Text to display on the toast</param>
-            <param name="action">Action to use for this toast</param>
             <param name="timeout">Duration toast is shown</param>
+            <param name="topAction">Text to use for the TopAction</param>
+            <param name="receiver">Receiver of the TopAction callback</param>
+            <param name="callback">Callback to invoke when TopAction is clicked</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowMention(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Nullable{System.Int32})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowMention(System.String,System.Nullable{System.Int32},System.String,System.Object,System.Func{Microsoft.Fast.Components.FluentUI.ToastResult,System.Threading.Tasks.Task})">
             <summary>
             Shows a simple mention confirmation toast.
             Only shows icon, title and close button or action.
             </summary>
             <param name="title">Text to display on the toast</param>
-            <param name="action">Action to use for this toast</param>
             <param name="timeout">Duration toast is shown</param>
+            <param name="topAction">Text to use for the TopAction</param>
+            <param name="receiver">Receiver of the TopAction callback</param>
+            <param name="callback">Callback to invoke when TopAction is clicked</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowCustom(System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Nullable{System.Int32},System.Nullable{System.ValueTuple{System.String,Microsoft.Fast.Components.FluentUI.Color,Microsoft.Fast.Components.FluentUI.IconVariant}})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowCustom(System.String,System.Nullable{System.Int32},System.String,System.Object,System.Func{Microsoft.Fast.Components.FluentUI.ToastResult,System.Threading.Tasks.Task},System.Nullable{System.ValueTuple{System.String,Microsoft.Fast.Components.FluentUI.Color,Microsoft.Fast.Components.FluentUI.IconVariant}})">
             <summary>
             Shows a simple custom confirmation toast.
             Only shows icon, title and close button or action.
             </summary>
             <param name="title">Text to display on the toast</param>
-            <param name="action">Action to use for this toast</param>
             <param name="timeout">Duration toast is shown</param>
+            <param name="topAction">Text to use for the TopAction</param>
+            <param name="receiver">Receiver of the TopAction callback</param>
+            <param name="callback">Callback to invoke when TopAction is clicked</param>
             <param name="icon">Custom icon for this toast</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowToast(Microsoft.Fast.Components.FluentUI.ToastIntent,System.String,System.Action{Microsoft.Fast.Components.FluentUI.ToastAction},System.Nullable{System.Int32})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowToast(Microsoft.Fast.Components.FluentUI.ToastIntent,System.String,System.Nullable{System.Int32},System.String,System.Object,System.Func{Microsoft.Fast.Components.FluentUI.ToastResult,System.Threading.Tasks.Task})">
             <summary>
-            Shows a toast using the supplied settings
+            Shows a toast using the supplied parameters
             </summary>
             <param name="intent">Toast intent to display</param>
             <param name="title">Text to display on the toast</param>
-            <param name="action">Action to use for this toast</param>
             <param name="timeout">Duration toast is shown</param>
+            <param name="topAction">Text to use for the TopAction</param>
+            <param name="receiver">Componente that receivesthe callback</param>
+            <param name="callback">Callback to execute on the top action</param>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowToast``2(Microsoft.Fast.Components.FluentUI.ToastParameters{``1})">
             <summary>
             Shows the toast with the component type
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowToast``1(System.Type,Microsoft.Fast.Components.FluentUI.ToastParameters{``0},System.Action{Microsoft.Fast.Components.FluentUI.ToastParameters})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowToast``1(System.Type,Microsoft.Fast.Components.FluentUI.ToastParameters,``0)">
             <summary>
             Shows a toast with the component type as the body,
             passing the specified <paramref name="parameters "/> 
             </summary>
             <param name="toastComponent">Type of component to display.</param>
-            <param name="parameters">Parametes used to construct toast.</param>
-            <param name="settings">Settings to configure the toast component.</param>
+            <param name="toastContent">Content to be displayed in the toast.</param>
+            <param name="parameters">Settings to configure the toast component.</param>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.UpdateToast``1(System.String,Microsoft.Fast.Components.FluentUI.ToastParameters{``0},System.Action{Microsoft.Fast.Components.FluentUI.ToastParameters})">
             <summary>

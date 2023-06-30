@@ -102,6 +102,8 @@ public partial class DemoSection : ComponentBase
                 string? result = await StaticAssetService.GetAsync($"./_content/FluentUI.Demo.Shared/sources/{source}.txt");
                 if (!string.IsNullOrEmpty(result))
                 {
+                    Console.WriteLine($"Loaded {source}");
+                    Console.WriteLine(result);
                     _tabPanelsContent.Add(source, result);
                 }
             }
