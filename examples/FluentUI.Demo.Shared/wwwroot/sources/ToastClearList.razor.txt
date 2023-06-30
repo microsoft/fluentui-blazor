@@ -43,7 +43,7 @@
     </FluentButton>
 
     <FluentButton Appearance=Appearance.Neutral @onclick="ClearEvent">
-        <FluentSystemIcon Icon="Icons.Regular.Size20.CalendarLTR" Color="@Color.Neutral" Slot="start" />
+        <FluentSystemIcon Icon="Icons.Regular.Size20.CalendarLtr" Color="@Color.Neutral" Slot="start" />
         Clear event
     </FluentButton>
 

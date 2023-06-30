@@ -22,10 +22,9 @@
 		<IsTrimmable>true</IsTrimmable>
 		<SuppressTrimAnalysisWarnings>true</SuppressTrimAnalysisWarnings>
 
-		<StaticWebAssetBasePath>_content/$(MSBuildProjectName)</StaticWebAssetBasePath>
+		<!--<StaticWebAssetBasePath>_content/$(MSBuildProjectName)</StaticWebAssetBasePath>
 		<DisableStaticWebAssetsBuildPropsFileGeneration></DisableStaticWebAssetsBuildPropsFileGeneration>
-		<StaticWebAssetsDisableProjectBuildPropsFileGeneration>true</StaticWebAssetsDisableProjectBuildPropsFileGeneration>
-		<StaticWebAssetsGetBuildAssetsTargets>GetFluentUIAssets;GetCurrentProjectBuildStaticWebAssetItems</StaticWebAssetsGetBuildAssetsTargets>
+		<StaticWebAssetsDisableProjectBuildPropsFileGeneration>true</StaticWebAssetsDisableProjectBuildPropsFileGeneration>-->
 		<IsPackable>true</IsPackable>
 	</PropertyGroup>
 

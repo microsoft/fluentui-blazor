@@ -3,7 +3,7 @@
 <div style="display: flex; width=100%">
     <FluentSystemIcon Icon="Icons.Filled.Size48.Alert" Color="@Color.Neutral" />
     <FluentSpacer Width="50" />
-    <FluentIcon Name="@Icons.Regular.Size24.Alert" Size="IconSize.Size48" Variant=IconVariant.Filled />
+    <FluentSystemIcon Icon="Icons.Filled.Size48.Alert" />
     <FluentSpacer Width="50" />
     <FluentSystemIcon Icon="Icons.Filled.Size48.Alert" Color="@Color.Warning" />
     <FluentSpacer Width="50" />

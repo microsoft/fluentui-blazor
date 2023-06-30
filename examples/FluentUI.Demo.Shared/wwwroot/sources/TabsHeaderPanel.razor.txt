@@ -8,14 +8,14 @@
     </FluentTab>
     <FluentTab Id="tab-2">
         <Header>
-            <FluentIcon Name="@Icons.Regular.Size24.LeafTwo" Color="Color.Success" Size="IconSize.Size16"  />
+            <FluentSystemIcon Icon="Icons.Regular.Size16.LeafTwo" Color="@Color.Success" />
             January
         </Header>
 
     </FluentTab>
     <FluentTab Id="tab-3">
         <Header>
-            <FluentIcon Name="@Icons.Regular.Size24.LeafThree" Color="Color.Error" Size="IconSize.Size16" />
+            <FluentSystemIcon Icon="Icons.Regular.Size16.LeafThree" Color="@Color.Error" />
             <span style="color:forestgreen;">February</span>
         </Header>
     </FluentTab>

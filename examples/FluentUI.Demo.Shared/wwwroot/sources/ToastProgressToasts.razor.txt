@@ -44,7 +44,7 @@
     private async Task UpdateProgress()
     {
         _button!.Disabled = true;
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 101; i++)
         {
             _progressToastData.Data.Progress = i.ToString();
             ToastService.UpdateToast(_id, _progressToastData);
@@ -58,6 +58,7 @@
     {
         _progressToastData.Data.Progress = "0";
         ToastService.UpdateToast(_id, _progressToastData);
+        _button!.Disabled = false;
     }
 
     private void Close()

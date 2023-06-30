@@ -1,8 +1,8 @@
 ﻿<FluentToolbar id="toolbar-start-end-slots" Orientation="Orientation.Horizontal">
-    <FluentIcon Name="@Icons.Regular.Size24.Globe" Slot="start" Size="@IconSize.Size16" Variant=IconVariant.Filled Color="Color.Accent" />
-    <FluentIcon Name="@Icons.Regular.Size24.Globe" Slot="end" Size="@IconSize.Size16" Variant=IconVariant.Filled Color="Color.Accent" />
+    <FluentSystemIcon Icon="Icons.Filled.Size16.Globe" Slot="start" Color="Color.Accent" />
+    <FluentSystemIcon Icon="Icons.Filled.Size16.Globe" Slot="end" Color="Color.Accent" />
 </FluentToolbar>
 <FluentToolbar id="toolbar-start-end-slots-vertical" Orientation="Orientation.Vertical">
-    <FluentIcon Name="@Icons.Regular.Size24.Globe" Slot="start" Size="@IconSize.Size16" Variant=IconVariant.Filled Color="Color.Accent" />
-    <FluentIcon Name="@Icons.Regular.Size24.Globe" Slot="end" Size="@IconSize.Size16" Variant=IconVariant.Filled Color="Color.Accent" />
+    <FluentSystemIcon Icon="Icons.Filled.Size16.Globe" Slot="start" Color="Color.Accent" />
+    <FluentSystemIcon Icon="Icons.Filled.Size16.Globe" Slot="end" Color="Color.Accent" />
 </FluentToolbar>

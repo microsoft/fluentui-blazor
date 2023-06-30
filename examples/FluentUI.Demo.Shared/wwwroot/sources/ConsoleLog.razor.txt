@@ -8,7 +8,7 @@
         <div style="display:flex">
             <FluentSpacer />
             <FluentButton @onclick="@(()=>ConsoleContent = "")" Appearance="Appearance.Neutral" title="Clear log">
-                <FluentIcon Name="@Icons.Regular.Size24.Eraser" Size="IconSize.Size20" Color="Color.Accent"  />
+                <FluentSystemIcon Icon="Icons.Regular.Size20.Eraser" Color="@Color.Accent" />
             </FluentButton>  
         </div>
         }

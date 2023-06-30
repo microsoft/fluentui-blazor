@@ -1,5 +1,6 @@
 ﻿
 @namespace FluentUI.Demo.Shared
+@* 
 
 <div style="display: flex; align-items: flex-end; margin-bottom: 0.75em; gap: 10px">
     <span>16x16: </span><FluentEmoji Name="@FluentEmojis.Hamburger" EmojiStyle="EmojiStyle.Color" Size=@EmojiSize.Size16 />
@@ -26,4 +27,4 @@
 @code {
     string custom = "";
 
-}
+} *@

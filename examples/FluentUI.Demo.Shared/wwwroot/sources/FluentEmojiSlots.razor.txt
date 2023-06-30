@@ -1,4 +1,4 @@
-﻿<div style="display:flex">
+﻿@* <div style="display:flex">
     <FluentButton Appearance="Appearance.Neutral"><FluentEmoji Slot="start" Name="@FluentEmojis.SmilingFace" Size="@EmojiSize.Size16" /> Button with emoji in 'start' slot</FluentButton>
     <FluentButton Appearance="Appearance.Neutral"><FluentEmoji Slot="end" Name="@FluentEmojis.SmilingCatWithHeartEyes" Size="@EmojiSize.Size16" /> Button with emoji in 'end' slot</FluentButton>
-</div>
+</div> *@
