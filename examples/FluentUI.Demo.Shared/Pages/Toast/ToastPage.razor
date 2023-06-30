@@ -32,7 +32,7 @@
 
 <DemoSection Title="Communication Toasts" Component="typeof(ToastCommunicationToasts)"></DemoSection>
 
-<DemoSection Title="Communication Toasts" Component="typeof(ToastProgressToasts)"></DemoSection>
+<DemoSection Title="Progress Toasts" Component="typeof(ToastProgressToasts)"></DemoSection>
 
 <DemoSection Title="Custom component" Component="typeof(ToastCustomComponent)"></DemoSection>
 
@@ -44,25 +44,3 @@
 </DemoSection>
 
 <DemoSection Title="Remove queued toasts" Component="typeof(ToastClearQueue)" ShowDownloads=false></DemoSection>
-
-@code
-{
-    private ToastParameters _toastParameters = default!;
-    private ToastParameters _confirmParameters = default!;
-
-    protected override void OnInitialized()
-    {
-        _toastParameters = new ToastParameters()
-        .Add(nameof(MyToastComponent.Title), "I'm a custom toast component with parameters")
-        .Add(nameof(MyToastComponent.ToastParam), "I'm a parameter");
-
-        _confirmParameters = new ToastParameters()
-        .Add(nameof(ConfirmationToast.PrimaryAction), new ToastAction()
-            {
-                Text = "Confirm",
-                Href = string.Empty,
-            });
-
-
-    }    
-}

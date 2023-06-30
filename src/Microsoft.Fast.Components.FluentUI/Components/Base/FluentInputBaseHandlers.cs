@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
@@ -37,10 +37,7 @@ public partial class FluentInputBase<TValue>
         {
             if (CascadedEditContext != null)
             {
-                if (_parsingValidationMessages == null)
-                {
-                    _parsingValidationMessages = new ValidationMessageStore(CascadedEditContext);
-                }
+                _parsingValidationMessages ??= new ValidationMessageStore(CascadedEditContext);
 
                 _parsingValidationMessages.Clear();
                 _parsingValidationMessages.Add(FieldIdentifier, validationErrorMessage ?? "Unknown parsing error");

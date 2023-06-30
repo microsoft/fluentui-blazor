@@ -1,37 +1,44 @@
 ﻿@inject IToastService ToastService
 
-<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowToast<CommunicationToast>(ToastIntent.Success, "Title", null, settings => { settings.Timeout = 15;}))">Communication toast</FluentButton>
-<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowToast<CommunicationToast>(_communicationToastParameters1, settings => { settings.Timeout = 15; }))">Communication toast example 1</FluentButton>
-<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowToast<CommunicationToast>(_communicationToastParameters2, settings => { settings.Timeout = 15; }))">Communication toast example 2</FluentButton>
+<FluentButton Appearance=Appearance.Neutral @onclick="@ShowExample1">Communication toast example 1</FluentButton>
+<FluentButton Appearance=Appearance.Neutral @onclick="@ShowExample2">Communication toast example 2</FluentButton>
 
 
 @code {
-    private CommunicationToastParameters _communicationToastParameters1 = default!;
-    private CommunicationToastParameters _communicationToastParameters2 = default!;
-
-    protected override void OnInitialized()
+    private void ShowExample1()
     {
-        _communicationToastParameters1 = new CommunicationToastParameters()
+        ToastService.ShowCommunicationToast(new ToastParameters<CommunicationToastData>()
         {
             Intent = ToastIntent.Success,
             Title = "Your dataset is ready",
-            Subtitle = "A communication toast subtitle",
-            Details = "Let Power BI help you explore your data.",
+            Timeout = 15,
             PrimaryAction = new ToastAction() { Text = "See dataset", Href = "#", OnClick = Clicked },
-            SecondaryAction = new ToastAction() { Text = "Get insights", Href = "#", OnClick = Clicked }
-        };
+            SecondaryAction = new ToastAction() { Text = "Get insights", Href = "#", OnClick = Clicked },
+            Data = new CommunicationToastData()
+            {
+                Subtitle = "A communication toast subtitle",
+                Details = "Let Power BI help you explore your data.",
+            },
+        });
+    }
 
-        _communicationToastParameters2 = new CommunicationToastParameters()
+    private void ShowExample2()
+    {
+        ToastService.ShowCommunicationToast(new ToastParameters<CommunicationToastData>()
         {
             Intent = ToastIntent.Error,
-            EndContentType  = ToastEndContentType.Timestamp,
             Title = "File didn't upload to ABC folder",
-            Details = "A file with the same _name already exists.",
+            TopCTAType = ToastTopCTAType.Timestamp,
+            Timeout = 12,
             PrimaryAction = new ToastAction() { Text = "Replace", Href = "#", OnClick = Clicked },
             SecondaryAction = new ToastAction() { Text = "Keep both", Href = "#", OnClick = Clicked },
-        };
-   
+            Data = new CommunicationToastData()
+            {
+                Details = "A file with the same _name already exists.",
+            },
+        });
     }
+
 
     private void Clicked()
     {

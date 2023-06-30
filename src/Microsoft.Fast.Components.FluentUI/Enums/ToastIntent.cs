@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace Microsoft.Fast.Components.FluentUI;
+﻿namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary />
 public enum ToastIntent
@@ -52,10 +50,10 @@ public enum ToastIntent
     Event,
 
     /// <summary>
-    /// Avatar is used when another person performs an action related to the user or their account.
+    /// Mention is used when another person performs an action related to the user or their account.
     /// For example, the user receives a meeting invitation or is mentioned in a chat. 
     /// </summary>
-    Avatar,
+    Mention,
 
     /// <summary>
     /// Informs about a custom event or operation. 

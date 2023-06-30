@@ -2,6 +2,7 @@
 
 public class CustomToastParameters : ToastParameters
 {
+
     public CustomToastParameters(string title) : this(ToastIntent.Custom, title, ToastEndContentType.Dismiss)
     {
     }

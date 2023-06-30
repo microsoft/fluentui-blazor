@@ -15,7 +15,7 @@
         }
         else
         {
-            @if (ColumnOptions is not null && Align == Align.Start)
+            @if (ColumnOptions is not null && (Align == Align.Left || Align == Align.Start || Align == Align.Center))
             {
                 <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="Filter this column">
                     <FluentSystemIcon Icon="CoreIcons.Regular.Size24.Filter" />

@@ -1,13 +1,13 @@
 ﻿@inject IToastService ToastService
 
-<p>Click on this button to open a Toast. The toast is created by specifying an intent, a message, an  action and a rando timeout between  and 15 seconds.</p>
+<p>Click on this button to open a Toast. The toast is created by specifying an intent, message, action and a random timeout between 3 and 15 seconds.</p>
 
-<FluentButton @onclick="@OpenToast" Appearance="Appearance.Accent">Open</FluentButton>
+<FluentButton @onclick="@ShowToast" Appearance="Appearance.Accent">Open</FluentButton>
 
 @code
 {
     int counter = 1;
-    void OpenToast()
+    void ShowToast()
     {
         Random rnd = new();
 
@@ -17,13 +17,8 @@
         ToastService.ShowToast(
             intent, 
             message, 
-            action =>
-            { 
-                action.Text = "Visit site"; action.OnClick = () => DemoLogger.WriteLine($"Action clicked"); 
-            },
-            settings => 
-            { 
-                settings.Timeout = rnd.Next(15); 
-            });
+            action => { action.Text = "Log click"; action.OnClick = () => DemoLogger.WriteLine($"Action clicked"); },
+            rnd.Next(3, 15)
+        );
     }
 }
