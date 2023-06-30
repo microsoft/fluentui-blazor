@@ -6,16 +6,11 @@ using Microsoft.JSInterop;
 
 namespace FluentUI.Demo.Shared.Pages.Emoji;
 
-public partial class EmojiPage : IAsyncDisposable
+public partial class EmojiPage
 {
+/*
     [Inject]
     private ILogger<EmojiPage> Logger { get; set; } = default!;
-
-    [Inject]
-    private IJSRuntime JSRuntime { get; set; } = default!;
-
-    [Inject]
-    private EmojiService EmojiService { get; set; } = default!;
 
     private IJSObjectReference? _jsModule;
     private EditContext? editContext;
@@ -152,4 +147,5 @@ public partial class EmojiPage : IAsyncDisposable
             // the client disconnected. This is not an error.
         }
     }
+*/
 }

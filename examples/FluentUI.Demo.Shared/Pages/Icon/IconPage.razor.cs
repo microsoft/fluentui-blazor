@@ -5,8 +5,9 @@ using Microsoft.Fast.Components.FluentUI;
 using Microsoft.JSInterop;
 
 namespace FluentUI.Demo.Shared.Pages.Icon;
-public partial class IconPage : IAsyncDisposable
+public partial class IconPage
 {
+/*
     [Inject]
     private ILogger<IconPage> Logger { get; set; } = default!;
 
@@ -144,4 +145,5 @@ public partial class IconPage : IAsyncDisposable
             // the client disconnected. This is not an error.
         }
     }
+*/
 }
