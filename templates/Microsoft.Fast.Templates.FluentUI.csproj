@@ -18,11 +18,13 @@
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<Title>Microsoft FAST Fluent UI Blazor Templates</Title>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageIcon>icon.png</PackageIcon>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<Content Include="Projects\**\*" Exclude="Projects\**\bin\**;Projects\**\obj\**" />
 		<None Include="README.md" Pack="true" PackagePath="\" />
+    <None Include="..\icon.png" Pack="true" PackagePath="\" />
 		<Compile Remove="**\*" />
 	</ItemGroup>
 </Project>

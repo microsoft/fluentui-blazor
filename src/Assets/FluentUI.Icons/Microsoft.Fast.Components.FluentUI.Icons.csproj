@@ -17,10 +17,12 @@
     <Title>A set of icons wrapping Microsoft’s official Fluent UI Icon library.</Title>
     <Description>A set of icons wrapping Microsoft’s official Fluent UI Icon library.</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Include="README.md" Pack="true" PackagePath="\" />
+    <None Include="..\..\..\icon.png" Pack="true" PackagePath="\" />
     <ProjectReference Include="..\..\Microsoft.Fast.Components.FluentUI\Microsoft.Fast.Components.FluentUI.csproj" />
   </ItemGroup>
 

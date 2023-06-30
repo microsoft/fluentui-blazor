@@ -8,7 +8,8 @@
 		<Title>Microsoft Fluent UI Web Components for Blazor</Title>
 		<Description>A set of Blazor components wrapping Microsoft’s official Fluent UI Web Components. They implement the latest state of the Fluent design language, are built on FAST and work in every major browser.</Description>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-
+    <PackageIcon>icon.png</PackageIcon>
+    
 		<SignAssembly>true</SignAssembly>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
@@ -48,6 +49,7 @@
 
 	<ItemGroup>
 		<None Include="..\..\README.md" Pack="true" PackagePath="\" />
+    <None Include="..\..\icon.png" Pack="true" PackagePath="\" />
 		<None Include="Components\Label\FluentLabel.razor" />
 	</ItemGroup>
 
