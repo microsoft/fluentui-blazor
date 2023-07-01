@@ -4,8 +4,13 @@
 
 <FluentStack Orientation="Orientation.Horizontal" Width="100%">
     <div>
-        <FluentNavMenu @bind-Expanded="@Expanded" Width="150"
-                       ShowToolTips=ShowToolTips>
+        <FluentNavMenu @bind-Expanded="@Expanded"
+                       Width="150"
+                       ToolTipsPosition="@SelectedToolTipPosition"
+                       ToolTipsHorizontalViewportLock="@true"
+                       ToolTipsVerticalViewportLock="@true"
+                       ToolTipsAutoUpdateMode="@AutoUpdateMode.Anchor"
+                       ShowToolTips="@SelectedShowToolTipsOption">
             <FluentNavMenuLink Icon="@(FluentIcons.Home)" Text="Item 1" ToolTip="This is item 1" />
             <FluentNavMenuLink Icon="@(FluentIcons.Cloud)" Text="Item 2">
                 <ToolTipContent>
@@ -25,24 +30,41 @@
             <FluentNavMenuLink Icon="@(FluentIcons.CalendarAgenda)" Text="Item 4" Disabled="true" ToolTip="This is disabled" />
         </FluentNavMenu>
     </div>
-    <div style="width: 100%;">
-        <FluentLabel Id="show-tool-tips">Show tool tips</FluentLabel>
-        <FluentRadioGroup aria-labelledby="show-tool-tips" Orientation="@Orientation.Vertical" @bind-Value="@ShowToolTips">
-            @foreach (var option in AvailableShowToolTipsOptions)
-            {
-                <FluentRadio Value="@option">@option</FluentRadio>
-            }
-        </FluentRadioGroup>
-    </div>
+    <FluentStack Orientation="Orientation.Horizontal" Width="100%">
+        <div>
+            <FluentLabel Id="show-tool-tips">Show tool tips</FluentLabel>
+            <FluentRadioGroup aria-labelledby="show-tool-tips" Orientation="@Orientation.Vertical" @bind-Value="@SelectedShowToolTipsOption">
+                @foreach (var option in AvailableShowToolTipsOptions)
+                {
+                    <FluentRadio Value="@option">@option</FluentRadio>
+                }
+            </FluentRadioGroup>
+        </div>
+        <div>
+            <FluentLabel Id="tool-tip-position">Tool tip position</FluentLabel>
+            <FluentRadioGroup aria-labelledby="tool-tip-position" Orientation="@Orientation.Vertical" @bind-Value="@SelectedToolTipPosition">
+                @foreach (var option in AvailableToolTipPositions)
+                {
+                    <FluentRadio Value="@option">@option</FluentRadio>
+                }
+            </FluentRadioGroup>
+        </div>
+    </FluentStack>
 </FluentStack>
 
 @code
 {
     bool Expanded = true;
-    NavMenuShowToolTipsOption ShowToolTips = NavMenuShowToolTipsOption.Always;
+    NavMenuShowToolTipsOption SelectedShowToolTipsOption = NavMenuShowToolTipsOption.Always;
+    TooltipPosition SelectedToolTipPosition = TooltipPosition.Top;
 
     static readonly IEnumerable<NavMenuShowToolTipsOption> AvailableShowToolTipsOptions =
-        Enum.GetValues(typeof(NavMenuShowToolTipsOption))
+    Enum.GetValues(typeof(NavMenuShowToolTipsOption))
             .Cast<NavMenuShowToolTipsOption>()
+            .ToArray();
+
+    static readonly IEnumerable<TooltipPosition> AvailableToolTipPositions =
+        Enum.GetValues(typeof(TooltipPosition))
+            .Cast<TooltipPosition>()
             .ToArray();
 }
