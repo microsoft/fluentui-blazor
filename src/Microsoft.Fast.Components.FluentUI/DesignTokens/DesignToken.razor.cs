@@ -1,6 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Configuration;
 using Microsoft.JSInterop;
 
 namespace Microsoft.Fast.Components.FluentUI.DesignTokens;
@@ -14,7 +13,7 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
 
-    private T? _defaultValue;
+    //private T? _defaultValue;
 
     /// <summary>
     /// Gets the name of this design token 
@@ -76,7 +75,7 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
     /// </summary>
     public DesignToken<T> WithDefault(T value)
     {
-        _defaultValue = value;
+        //_defaultValue = value;
         return this;
     }
 

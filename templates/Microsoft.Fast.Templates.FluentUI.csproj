@@ -17,6 +17,7 @@
 		<PackageVersion>2.0.6</PackageVersion>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<Title>Microsoft FAST Fluent UI Blazor Templates</Title>
+    <PackageIcon>icon.png</PackageIcon>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)'=='Release'">
@@ -26,6 +27,7 @@
 	<ItemGroup>
 		<Content Include="Projects\**\*" Exclude="Projects\**\bin\**;Projects\**\obj\**" />
 		<None Include="README.md" Pack="true" PackagePath="\" />
+    <None Include="..\icon.png" Pack="true" PackagePath="\" />
 		<Compile Remove="**\*" />
 	</ItemGroup>
 </Project>

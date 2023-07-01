@@ -1,5 +1,5 @@
 ﻿<h4>Horizontal</h4>
-<FluentTabs>
+<FluentTabs ActiveTabId="tab-2" >
     <div slot="start">
         <FluentButton>1</FluentButton>
         <FluentButton>2</FluentButton>
@@ -10,9 +10,9 @@
         <FluentButton>2</FluentButton>
         <FluentButton>3</FluentButton>
     </div>
-    <FluentTab Label="Tab one"></FluentTab>
-    <FluentTab Label="Tab two"></FluentTab>
-    <FluentTab Label="Tab three"></FluentTab>
+    <FluentTab Id="tab-1" Label="Tab one"></FluentTab>
+    <FluentTab Id="tab-2" Label="Tab two"></FluentTab>
+    <FluentTab Id="tab-3" Label="Tab three"></FluentTab>
     <FluentTabPanel>
         Tab one content. This is for testing.
     </FluentTabPanel>
@@ -25,7 +25,7 @@
 </FluentTabs>
 
 <h4>Vertical</h4>
-<FluentTabs Orientation="Orientation.Vertical">
+<FluentTabs Orientation="Orientation.Vertical" ActiveTabId="tab-v3">
     <div slot="start">
         <FluentButton>1</FluentButton>
         <FluentButton>2</FluentButton>
@@ -36,9 +36,9 @@
         <FluentButton>2</FluentButton>
         <FluentButton>3</FluentButton>
     </div>
-    <FluentTab Label="Tab one"></FluentTab>
-    <FluentTab Label="Tab two"></FluentTab>
-    <FluentTab Label="Tab three"></FluentTab>
+    <FluentTab Id="tab-v1" Label="Tab one"></FluentTab>
+    <FluentTab Id="tab-v2" Label="Tab two"></FluentTab>
+    <FluentTab Id="tab-v3" Label="Tab three"></FluentTab>
     <FluentTabPanel>
         Tab one content. This is for testing.
     </FluentTabPanel>

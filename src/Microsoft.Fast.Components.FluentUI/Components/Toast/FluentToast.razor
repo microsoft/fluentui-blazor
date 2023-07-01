@@ -5,7 +5,74 @@
 @namespace Microsoft.Fast.Components.FluentUI
 
 <CascadingValue Value="this" IsFixed="true">
-    <div class="fluent-toast" id="@Id" tabindex="0" @onfocus="PauseTimeout" @onblur="ResumeTimeout">
-        <DynamicComponent Type="@Instance.ContentType" Parameters="@Instance.Parameters.Parameters" />
+    <div class="fluent-toast" id="@Id" tabindex="0" >
+        <FluentStack Orientation="Orientation.Horizontal" Width="100%" VerticalAlignment="VerticalAlignment.Center" HorizontalGap="8">
+            @if (_parameters.Icon is not null)
+            {
+                var Icon = _parameters.Icon.Value;
+                <FluentIcon Name="@Icon.Name" Style="min-width: 16px;" Size="IconSize.Size16" Color=@Icon.Color Variant="Icon.Variant" />
+            }
+
+            <div class="fluent-toast-title">@_parameters.Title</div>
+            <div class="fluent-toast-action">
+                @switch (_parameters.TopCTAType)
+                {
+                    case ToastTopCTAType.Dismiss:
+                        <FluentIcon Name="@FluentIcons.Dismiss"
+                                    Size="@IconSize.Size12"
+                                    Title="Close"
+                                    Color="Color.FillInverse"
+                                    OnClick=@Close />
+                        break;
+                    case ToastTopCTAType.Timestamp:
+                        <span class="fluent-toast-small timestamp ">@_parameters.Timestamp.ToString("HH:mm tt")</span>
+                        break;
+                    case ToastTopCTAType.Action:
+                       <FluentAnchor title="@_parameters.TopAction"
+                                      Href="#"  
+                                      Style="font-size: 14px; font-weight:400;"
+                                      Appearance="Appearance.Hypertext"
+                                      @onfocusin="@PauseTimeout"
+                                      @onfocusout="@ResumeTimeout"
+                                      @onclick="HandleTopActionClick">
+                            @_parameters.TopAction
+                        </FluentAnchor>
+                        break;
+                }
+            </div>
+        </FluentStack>
+        @if (Instance.ContentType is not null)
+        {
+            <DynamicComponent Type="@Instance.ContentType" Parameters="@Instance.GetParameterDictionary()" />
+        }
+        @if (_parameters.PrimaryAction is not null || _parameters.SecondaryAction is not null)
+        {
+            <div class="fluent-toast-actions">
+                @if (_parameters.PrimaryAction is not null)
+                {
+                    <FluentAnchor title="@_parameters.SecondaryAction"
+                                  Href="#"
+                                  Style="font-size: 14px; font-weight:400;"
+                                  Appearance="Appearance.Hypertext"
+                                  @onfocusin="@PauseTimeout"
+                                  @onfocusout="@ResumeTimeout"
+                                  @onclick="HandlePrimaryActionClick">
+                        @_parameters.PrimaryAction
+                    </FluentAnchor>
+                }
+                @if (_parameters.SecondaryAction is not null)
+                {
+                    <FluentAnchor title="@_parameters.SecondaryAction"
+                                  Href="#"        
+                                  Style="font-size: 14px; font-weight:400;"
+                                  Appearance="Appearance.Hypertext"
+                                  @onfocusin="@PauseTimeout"
+                                  @onfocusout="@ResumeTimeout"
+                                  @onclick="HandleSecondaryActionClick">
+                        @_parameters.SecondaryAction
+                    </FluentAnchor>
+                }
+            </div>
+        }
     </div>
 </CascadingValue>

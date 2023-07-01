@@ -1,74 +1,33 @@
-﻿namespace Microsoft.Fast.Components.FluentUI;
+﻿using Microsoft.AspNetCore.Components;
 
-public class ToastParameters
+namespace Microsoft.Fast.Components.FluentUI;
+
+public class ToastParameters : ComponentParameters, IToastParameters
 {
-    private ToastIntent _intent;
-    private string? _title;
-    private ToastEndContentType _endContentType;
+    public string? Id { get; set; }
+    public ToastIntent Intent { get; set; }
+    public string? Title { get; set; }
+    public ToastTopCTAType TopCTAType { get; set; }
 
-    internal readonly Dictionary<string, object> Parameters;
+    public string? TopAction { get; set; }
+    public EventCallback<ToastResult>? OnTopAction { get; set; } = default!;
 
-    public ToastIntent Intent
-    {
-        get => _intent;
-        set
-        {
-            _intent = value;
-            Parameters[nameof(Intent)] = _intent;
-        }
-    }
+    public (string Name, Color Color, IconVariant Variant)? Icon { get; set; }
+    public DateTime Timestamp { get; set; } = DateTime.Now;
+    public int? Timeout { get; set; }
 
-    public string? Title
-    {
-        get => _title;
-        set
-        {
-            _title = value;
-            if (!string.IsNullOrEmpty(_title))
-            {
-                Parameters[nameof(Title)] = _title;
-            }
-        }
-    }
+    public string? PrimaryAction { get; set; }
+    public EventCallback<ToastResult>? OnPrimaryAction { get; set; } = default!;
 
-    public ToastEndContentType EndContentType
-    {
-        get => _endContentType;
-        set
-        {
-            _endContentType = value;
+    public string? SecondaryAction { get; set; }
+    public EventCallback<ToastResult>? OnSecondaryAction { get; set; } = default!;
+}
 
-            Parameters[nameof(EndContentType)] = _endContentType;
-        }
-    }
-
-    public ToastParameters()
-    {
-        Parameters = new Dictionary<string, object>();
-    }
-    public ToastParameters Add(string parameterName, object value)
-    {
-        Parameters[parameterName] = value;
-        return this;
-    }
-
-    public T Get<T>(string parameterName)
-    {
-        if (Parameters.TryGetValue(parameterName, out var value))
-        {
-            return (T)value;
-        }
-
-        throw new KeyNotFoundException($"{parameterName} does not exist in toast parameters");
-    }
-
-    public T? TryGet<T>(string parameterName)
-    {
-        if (Parameters.TryGetValue(parameterName, out var value))
-        {
-            return (T)value;
-        }
-
-        return default;
-    }
+public class ToastParameters<TToastContent> : ToastParameters
+    where TToastContent : class
+{
+    /// <summary>
+    /// The data to be passed to the toast content component.
+    /// </summary>
+    public TToastContent ToastContent { get; set; } = default!;
 }

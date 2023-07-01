@@ -5,80 +5,84 @@ namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentToast : FluentComponentBase, IDisposable
 {
     private CountdownTimer? _countdownTimer;
+    private ToastParameters _parameters = default!;
 
     [CascadingParameter]
-    private FluentToastContainer ToastContainer { get; set; } = default!;
-
-    /// <inheritdoc/>
-    [Parameter]
-    public ToastIntent Intent { get; set; }
-
-
-    /// <inheritdoc/>
-    [Parameter]
-    public ToastSettings Settings { get; set; } = default!;
+    private InternalToastContext ToastContext { get; set; } = default!;
 
     /// <summary>
-    /// The primary action of the notification. Will be shown after title or at bottom of the toast.
+    /// The instance containing the programmatic API for the toast.
     /// </summary>
-    [Parameter]
-    public ToastAction? PrimaryAction { get; set; } = default;
-
-    /// <summary>
-    /// Record a timestamp of when the toast was created.
-    /// </summary>
-    [Parameter]
-    public DateTime Timestamp { get; set; } = DateTime.Now;
-
-
     [Parameter]
     public ToastInstance Instance { get; set; } = default!;
 
-    /// <summary>
-    /// Use a custom component in the notification
-    /// </summary>
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
-
-
     protected override async Task OnInitializedAsync()
     {
-        _countdownTimer = new CountdownTimer(Settings.Timeout)
-            .OnElapsed(Close);
+        _parameters = Instance.Settings;
+        ToastContext!.Register(this);
 
+        if (_parameters.Timeout.HasValue && _parameters.Timeout == 0)
+        {
+            return;
+        }
+        _countdownTimer = new CountdownTimer(_parameters.Timeout ?? ToastContext!.ToastContainer.Timeout).OnElapsed(Close);
         await _countdownTimer.StartAsync();
     }
 
-    public FluentToast()
+    protected override void OnParametersSet()
     {
+        if (Instance.ContentType == typeof(CommunicationToast) && _parameters.TopCTAType == ToastTopCTAType.Action)
+        {
+            throw new InvalidOperationException("ToastTopCTAType.Action is not supported for a CommunicationToast  ");
+        }
+        if (Instance.ContentType != typeof(CommunicationToast) && _parameters.TopCTAType == ToastTopCTAType.Timestamp)
+        {
+            throw new InvalidOperationException("ToastTopCTAType.Timestamp is not supported for a this type of toast");
+        }
     }
 
     /// <summary>
     /// Closes the toast
     /// </summary>
     public void Close()
-        => ToastContainer.RemoveToast(Id!);
+        => ToastContext?.ToastContainer.RemoveToast(Id!);
 
-    public void HandlePrimaryActionClick()
+    public void HandleTopActionClick()
     {
-        PrimaryAction?.OnClick?.Invoke();
+        _parameters.OnTopAction?.InvokeAsync(ToastResult.Ok<object?>(null));
         Close();
     }
 
     public void PauseTimeout()
     {
+        Console.WriteLine("PauseTimeout");
         _countdownTimer?.Pause();
     }
 
     public void ResumeTimeout()
     {
+        Console.WriteLine("ResumeTimeout");
         _countdownTimer?.Resume();
+    }
+
+    public void HandlePrimaryActionClick()
+    {
+        _parameters.OnPrimaryAction?.InvokeAsync();
+        Close();
+    }
+
+    public void HandleSecondaryActionClick()
+    {
+        _parameters.OnSecondaryAction?.InvokeAsync();
+        Close();
     }
 
     public void Dispose()
     {
         _countdownTimer?.Dispose();
         _countdownTimer = null;
+
+        ToastContext?.Unregister(this);
 
         GC.SuppressFinalize(this);
     }

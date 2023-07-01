@@ -1,6 +1,6 @@
 ﻿<FluentAccordion ExpandMode="AccordionExpandMode.Single">
     <FluentAccordionItem Heading="Panel one">
-        Panel one contet
+        Panel one content
     </FluentAccordionItem>
     <FluentAccordionItem Heading="Panel two">
         Panel two content

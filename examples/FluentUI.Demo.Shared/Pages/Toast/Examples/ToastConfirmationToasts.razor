@@ -35,11 +35,11 @@
             <FluentIcon Name="@FluentIcons.CalendarLTR" Size="@IconSize.Size20" Color="@Color.Neutral" Slot="start" />
             Show event
         </FluentButton>
-        <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowAvatar("Avatar confirmation."))">
+        <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowMention("Mention confirmation."))">
             <FluentIcon Name="@FluentIcons.Person" Size="@IconSize.Size20" Color="@Color.Neutral" Slot="start" />
-            Show avatar
+            Show mention
         </FluentButton>
-        <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowCustom("Custom confirmation.", null, settings => { settings.Icon = (FluentIcons.Delete,Color.Accent, IconVariant.Regular); }))">
+        <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowCustom("Custom confirmation.", null, null, null, (FluentIcons.Delete,Color.Accent, IconVariant.Regular)))">
             <FluentIcon Name="@FluentIcons.Delete" Size="@IconSize.Size20" Color="@Color.Neutral" Slot="start" />
             Show custom
         </FluentButton>
@@ -49,16 +49,12 @@
             Without icon
         </FluentButton>
 
-        <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowSuccess("Success confirmation with action.", action => { action.Text = "Action"; action.OnClick = (() => DemoLogger.WriteLine("Success confirmation clicked!"));}))">
+        <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowSuccess("Success confirmation with action.", null, "Action", EventCallback.Factory.Create<ToastResult>(this, HandleTopAction)))">
             With action
         </FluentButton>
 
-        <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowInfo("Info confirmation custom settings.", null, settings => { settings.Timeout = 10; }))">
-            With settings
-        </FluentButton>
-
-        <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowInfo("Click to refresh the page",  settings => settings.OnClick = () => NavigationManager.NavigateTo("/", true)))">
-            Custom action on click
+        <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowInfo("Info confirmation custom settings.", 10))">
+            Custom timeout
         </FluentButton>
 
         <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowSuccess("Success confirmation with a lot of text to see what a toast looks like when it's really big."))">
@@ -67,3 +63,10 @@
         </FluentButton>
     </FluentStack>
 </FluentStack>
+
+@code {
+    private void HandleTopAction(ToastResult result)
+    {
+        DemoLogger.WriteLine($"Toast clicked");
+    }
+}

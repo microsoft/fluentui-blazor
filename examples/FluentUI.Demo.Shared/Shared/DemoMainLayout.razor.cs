@@ -123,22 +123,21 @@ public partial class DemoMainLayout : IAsyncDisposable
         menuchecked = !menuchecked;
     }
 
-    private async void HandleColorChange(OfficeColor? value)
+    private async void HandleColorChange(ChangeEventArgs args)
     {
-        string? textValue = value?.ToString();
-
-        if (string.IsNullOrEmpty(textValue))
-            return;
-
-        if (textValue != "default")
+        string? value = args.Value?.ToString();
+        if (!string.IsNullOrEmpty(value))
         {
-            //_selectValue = value;
-            await AccentBaseColor.SetValueFor(container, textValue.ToSwatch());
-        }
-        else
-        {
-            //_selectValue = "default";
-            await AccentBaseColor.DeleteValueFor(container);
+            if (value != "default")
+            {
+                //_selectValue = value;
+                await AccentBaseColor.SetValueFor(container, value.ToSwatch());
+            }
+            else
+            {
+                //_selectValue = "default";
+                await AccentBaseColor.DeleteValueFor(container);
+            }
         }
     }
 
@@ -154,8 +153,6 @@ public partial class DemoMainLayout : IAsyncDisposable
             }
         }
     }
-
-
 
     async ValueTask IAsyncDisposable.DisposeAsync()
     {

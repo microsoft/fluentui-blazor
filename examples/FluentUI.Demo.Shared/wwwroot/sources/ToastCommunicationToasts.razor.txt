@@ -1,40 +1,56 @@
 ﻿@inject IToastService ToastService
 
-<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowToast<CommunicationToast>(ToastIntent.Success, "Title", null, settings => { settings.Timeout = 15;}))">Communication toast</FluentButton>
-<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowToast<CommunicationToast>(_communicationToastParameters1, settings => { settings.Timeout = 15; }))">Communication toast example 1</FluentButton>
-<FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowToast<CommunicationToast>(_communicationToastParameters2, settings => { settings.Timeout = 15; }))">Communication toast example 2</FluentButton>
+<FluentButton Appearance=Appearance.Neutral @onclick="@ShowExample1">Communication toast example 1</FluentButton>
+<FluentButton Appearance=Appearance.Neutral @onclick="@ShowExample2">Communication toast example 2</FluentButton>
 
 
 @code {
-    private CommunicationToastParameters _communicationToastParameters1 = default!;
-    private CommunicationToastParameters _communicationToastParameters2 = default!;
-
-    protected override void OnInitialized()
-    {
-        _communicationToastParameters1 = new CommunicationToastParameters()
+        private void ShowExample1()
         {
-            Intent = ToastIntent.Success,
-            Title = "Your dataset is ready",
-            Subtitle = "A communication toast subtitle",
-            Details = "Let Power BI help you explore your data.",
-            PrimaryAction = new ToastAction() { Text = "See dataset", Href = "#", OnClick = Clicked },
-            SecondaryAction = new ToastAction() { Text = "Get insights", Href = "#", OnClick = Clicked }
-        };
+            ToastService.ShowCommunicationToast(new ToastParameters<CommunicationToastContent>()
+                {
+                    Intent = ToastIntent.Success,
+                    Title = "Your dataset is ready",
+                    Timeout = 15,
+                    PrimaryAction = "See dataset",
+                    OnPrimaryAction = EventCallback.Factory.Create<ToastResult>(this, ClickedPrimary),
+                    SecondaryAction = "Get insights",
+                    OnSecondaryAction = EventCallback.Factory.Create<ToastResult>(this, ClickedSecondary),
+                    ToastContent = new CommunicationToastContent()
+                    {
+                        Subtitle = "A communication toast subtitle",
+                        Details = "Let Power BI help you explore your data.",
+                    },
+                });
+        }
 
-        _communicationToastParameters2 = new CommunicationToastParameters()
+        private void ShowExample2()
         {
-            Intent = ToastIntent.Error,
-            EndContentType  = ToastEndContentType.Timestamp,
-            Title = "File didn't upload to ABC folder",
-            Details = "A file with the same _name already exists.",
-            PrimaryAction = new ToastAction() { Text = "Replace", Href = "#", OnClick = Clicked },
-            SecondaryAction = new ToastAction() { Text = "Keep both", Href = "#", OnClick = Clicked },
-        };
-   
-    }
+            ToastService.ShowCommunicationToast(new ToastParameters<CommunicationToastContent>()
+                {
+                    Intent = ToastIntent.Error,
+                    Title = "File didn't upload to ABC folder",
+                    TopCTAType = ToastTopCTAType.Timestamp,
+                    Timeout = 12,
+                    PrimaryAction = "Replace",
+                    OnPrimaryAction = EventCallback.Factory.Create<ToastResult>(this, ClickedPrimary),
+                    SecondaryAction = "Keep both",
+                    OnSecondaryAction = EventCallback.Factory.Create<ToastResult>(this, ClickedSecondary),
+                    ToastContent = new CommunicationToastContent()
+                    {
+                        Details = "A file with the same _name already exists.",
+                    },
+                });
+        }
 
-    private void Clicked()
-    {
-        DemoLogger.WriteLine("Clicked toast action");
-    }
+
+        private void ClickedPrimary(ToastResult result)
+        {
+            DemoLogger.WriteLine("Clicked primary action");
+        }
+
+        private void ClickedSecondary()
+        {
+            DemoLogger.WriteLine("Clicked secondary action");
+        }
 }

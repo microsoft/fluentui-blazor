@@ -36,18 +36,18 @@ public interface IDialogService
     void ShowPanel<TData>(Type component, DialogParameters<TData> parameters)
         where TData : class;
 
-    void ShowDialog<T, TData>(DialogParameters<TData> parameters)
-        where T : IDialogContentComponent<TData>
-        where TData : class;
+    //void ShowDialog<T, TData>(DialogParameters<TData> parameters)
+    //    where T : IDialogContentComponent<TData>
+    //    where TData : class;
 
-    void ShowDialog<T, TData>(DialogParameters<TData> parameters, Action<DialogSettings> settings)
+    void ShowDialog<T, TData>(DialogParameters<TData> parameters, Action<DialogSettings>? settings = null)
         where T : IDialogContentComponent<TData>
         where TData : class;
 
     //void ShowDialog<TData>(Type component, IDialogContentParameters<TData> parameters, Action<DialogSettings> settings)
     //    where TData : class;
 
-    void ShowDialog<TData>(Type component, TData data, Action<DialogSettings> settings)
+    void ShowDialog<TData>(Type component, TData data, Action<DialogSettings>? settings = null)
         where TData : class;
 
     public EventCallback<DialogResult> CreateDialogCallback(object receiver, Func<DialogResult, Task> callback);

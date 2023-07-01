@@ -45,7 +45,7 @@
                           TOption="OfficeColor"
                           Position="SelectPosition.Below"
                           @bind-SelectedOption="@_selectedColorOption"
-                          @onchange="@(x => HandleColorChange((OfficeColor?)x.Value))" 
+                          @onchange="@(x => HandleColorChange(x))" 
                           aria-label="Accent color selector"/>
         </div>
         <div class="switches">
@@ -95,7 +95,7 @@
                 <ConsoleLog />
             </aside>
         </div>
-        <FluentToastContainer MaxToastCount="10" Timeout="70" />
+        <FluentToastContainer MaxToastCount="10"  />
         <FluentDialogContainer />
     </main>
     <footer>

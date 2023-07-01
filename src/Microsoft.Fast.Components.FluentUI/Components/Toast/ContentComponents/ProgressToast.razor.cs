@@ -2,73 +2,16 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class ProgressToast
+public partial class ProgressToast : IToastContentComponent<ProgressToastContent>
 {
-    private string? _toastId;
+
+
+    [Parameter]
+    public ProgressToastContent ToastContent { get; set; } = default!;
+
 
     [CascadingParameter]
     private FluentToast Toast { get; set; } = default!;
-
-    /// <inheritdoc/>
-    [Parameter]
-    public ToastIntent Intent { get; set; }
-
-    /// <inheritdoc/>
-    [Parameter]
-    public string? Title { get; set; }
-
-    /// <inheritdoc/>
-    [Parameter]
-    public ToastEndContentType EndContentType { get; set; } = ToastEndContentType.Dismiss;
-
-    /// <inheritdoc/>
-    [Parameter]
-    public ToastSettings Settings { get; set; } = default!;
-
-    /// <summary>
-    /// The primary action of the notification. Will be shown after title or at bottom of the toast.
-    /// </summary>
-    [Parameter]
-    public DateTime TimeStamp { get; set; } = DateTime.Now;
-
-    /// <summary>
-    /// Used to show additional details about the notification.
-    /// </summary>
-    [Parameter]
-    public string? Details { get; set; }
-
-    /// <summary>
-    /// The primary action of the notification. Will be shown after title or at bottom of the toast.
-    /// </summary>
-    [Parameter]
-    public ToastAction? PrimaryAction { get; set; }
-
-    /// <summary>
-    /// The secondary action of the notification. Will be shown after primary action at bottom of the toast.
-    /// </summary>
-    [Parameter]
-    public ToastAction? SecondaryAction { get; set; }
-
-    [Parameter]
-    public string? Progress { get; set; }
-
-    [Parameter]
-    public EventCallback<string?> ProgressChanged { get; set; }
-
-    protected override void OnInitialized()
-    {
-        _toastId = Toast.Id;
-        Settings = Toast.Settings;
-
-    }
-
-    protected override void OnParametersSet()
-    {
-        if (EndContentType == ToastEndContentType.Action)
-            throw new InvalidOperationException("EndContentType.Action is not supported for a CommunicationToast  ");
-
-
-    }
 
     /// <summary>
     /// Closes the toast
@@ -78,13 +21,13 @@ public partial class ProgressToast
 
     public void HandlePrimaryActionClick()
     {
-        PrimaryAction?.OnClick?.Invoke();
+        //ToastContent.PrimaryAction?.OnClick?.Invoke();
         Close();
     }
 
     public void HandleSecondaryActionClick()
     {
-        SecondaryAction?.OnClick?.Invoke();
+        //ToastContent.SecondaryAction?.OnClick?.Invoke();
         Close();
     }
 }

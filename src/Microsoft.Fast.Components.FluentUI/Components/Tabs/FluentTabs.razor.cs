@@ -21,7 +21,7 @@ public partial class FluentTabs : FluentComponentBase
     /// <summary />
     protected string? StyleValues => new StyleBuilder()
         .AddStyle(Style)
-        .AddStyle("padding", "6px", () => Size== TabSize.Small)
+        .AddStyle("padding", "6px", () => Size == TabSize.Small)
         .AddStyle("padding", "12px 10px", () => Size == TabSize.Small)
         .AddStyle("padding", "16px 10px", () => Size == TabSize.Small)
         .Build();
@@ -89,7 +89,7 @@ public partial class FluentTabs : FluentComponentBase
     /// Whether or not to show the active indicator 
     /// </summary>
     [Parameter]
-    public bool ActiveIndicator { get; set; } = true;
+    public bool ShowActiveIndicator { get; set; } = true;
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
@@ -126,6 +126,8 @@ public partial class FluentTabs : FluentComponentBase
     {
         if (firstRender)
         {
+
+
             _dotNetHelper = DotNetObjectReference.Create(this);
             // Overflow
             _jsModuleOverflow = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
@@ -152,7 +154,7 @@ public partial class FluentTabs : FluentComponentBase
     internal int RegisterTab(FluentTab tab)
     {
         _tabs.Add(tab.Id!, tab);
-        return _tabs.Count-1;
+        return _tabs.Count - 1;
     }
 
     internal async Task UnregisterTabAsync(FluentTab tab)
@@ -218,7 +220,7 @@ public partial class FluentTabs : FluentComponentBase
         await InvokeAsync(() => StateHasChanged());
     }
 
-   
+
 
     /// <summary />
     private async Task ResizeTabsForOverflowButtonAsync()
