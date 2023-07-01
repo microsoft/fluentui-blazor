@@ -12,6 +12,7 @@ public partial class FluentNavMenu : FluentComponentBase
     private readonly List<FluentNavMenuLink> _links = new();
     private readonly List<FluentNavMenuGroup> _groups = new();
     private string _prevHref = "/";
+    private string _expandCollapseTreeItemId = Identifier.NewId();
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("navmenu")
@@ -104,8 +105,13 @@ public partial class FluentNavMenu : FluentComponentBase
         }
     }
 
-    internal void HandleSelectedChange(FluentTreeItem treeItem)
+    internal async Task HandleSelectedChangeAsync(FluentTreeItem treeItem)
     {
+        if (treeItem.Id == _expandCollapseTreeItemId)
+        {
+            await CollapsibleClickAsync();
+            return;
+        }
         string? href = _links.FirstOrDefault(x => x.Id == treeItem.Id)?.Href;
         if (string.IsNullOrWhiteSpace(href))
         {
