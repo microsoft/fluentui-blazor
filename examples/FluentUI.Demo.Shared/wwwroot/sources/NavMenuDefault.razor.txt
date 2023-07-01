@@ -2,11 +2,11 @@
 
 @inject ILogger<NavMenuDefault> logger;
 
-<h2>Navigation Examples</h2>
+<h2>Navigation Examples .</h2>
 
 <FluentStack Orientation="Orientation.Horizontal" >
     <!-- Menu with sub-items and icons -->
-    <FluentNavMenu Collapsible="false">
+    <FluentNavMenu Collapsible>
         <FluentNavMenuLink Class="level1" Text="Item 1" Icon="@(FluentIcons.Home)" />
         <FluentNavMenuLink Class="level1" Text="Item 2" />
         <FluentNavMenuGroup Text="Item 3"  >

@@ -8,18 +8,15 @@
                             Style="@StyleValue"
                             OnSelectedChange="HandleSelectedChange">
                 @if (Collapsible) {
-                    <FluentButton Appearance="Appearance.Lightweight"
-                              Class="navmenu-main-button"
-                              @onclick="CollapsibleClickAsync"
-                              title="@Title">
+                    <FluentTreeItem Id="@_expandCollapseTreeItemId" Class="nav-menu-expander" @onclick="CollapsibleClickAsync">
                         @if (NavigationIconContent is not null) {
                             @NavigationIconContent
                         }
                         else {
                             <FluentIcon Name="@(FluentIcons.Navigation)" Size="IconSize.Size20" />
                         }
-                    </FluentButton>
-                }
+                    </FluentTreeItem>
+                    }
                 @ChildContent
             </FluentTreeView>
         </CascadingValue>

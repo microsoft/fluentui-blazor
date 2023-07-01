@@ -3,6 +3,22 @@
 
 }
 
+::deep .nav-menu-expander::part(positioning-region) {
+    background-color: var(--neutral-fill-stealth-rest);
+}
+
+::deep .nav-menu-expander::part(content-region) {
+    margin-inline-start: calc(var(--design-unit) * 2px);
+}
+
+::deep .nav-menu-expander::part(positioning-region):hover {
+    background-color: var(--neutral-fill-secondary-rest);
+}
+
+::deep .nav-menu-expander.selected::after {
+    display:none;
+}
+
 ::deep .navmenu-main-button {
     width: 40px;
     margin-bottom: 5px
