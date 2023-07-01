@@ -17,7 +17,10 @@
 		<PackageVersion>2.0.6</PackageVersion>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<Title>Microsoft FAST Fluent UI Blazor Templates</Title>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	</PropertyGroup>
 
 	<ItemGroup>
