@@ -6,7 +6,7 @@
         <CascadingValue Value="@Expanded" Name="NavMenuExpanded">
             <FluentTreeView Class="@ClassValue"
                             Style="@StyleValue"
-                            OnSelectedChange="HandleSelectedChange">
+                            OnSelectedChange="HandleSelectedChangeAsync">
                 @if (Collapsible) {
                     <FluentTreeItem Id="@_expandCollapseTreeItemId" Class="nav-menu-expander" @onclick="CollapsibleClickAsync">
                         @if (NavigationIconContent is not null) {

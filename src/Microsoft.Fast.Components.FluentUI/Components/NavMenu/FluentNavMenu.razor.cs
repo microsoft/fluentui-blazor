@@ -105,7 +105,7 @@ public partial class FluentNavMenu : FluentComponentBase
         }
     }
 
-    internal async Task HandleSelectedChange(FluentTreeItem treeItem)
+    internal async Task HandleSelectedChangeAsync(FluentTreeItem treeItem)
     {
         if (treeItem.Id == _expandCollapseTreeItemId)
         {
