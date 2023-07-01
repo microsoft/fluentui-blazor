@@ -34,3 +34,21 @@
         @ChildContent
     }
 </FluentTreeItem>
+@if (ShouldShowToolTip)
+{
+    <FluentTooltip Anchor="@Id"
+                   AutoUpdateMode="@TooltipOptions.Value!.AutoUpdateMode"
+                   Delay="@TooltipOptions.Value!.Delay"
+                   HorizontalViewportLock="@TooltipOptions.Value!.HorizontalViewportLock"
+                   Position="@TooltipOptions.Value!.Position"
+                   VerticalViewportLock="@TooltipOptions.Value!.VerticalViewportLock">
+        @if (ToolTipContent is not null)
+        {
+            @ToolTipContent
+        }
+        else
+        {
+            @ToolTip
+        }
+    </FluentTooltip>
+}

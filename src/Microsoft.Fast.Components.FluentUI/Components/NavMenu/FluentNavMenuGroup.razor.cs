@@ -3,7 +3,7 @@ using Microsoft.Fast.Components.FluentUI.Utilities;
 
 
 namespace Microsoft.Fast.Components.FluentUI;
-public partial class FluentNavMenuGroup : FluentComponentBase
+public partial class FluentNavMenuGroup : FluentComponentBase, IDisposable
 {
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
@@ -80,6 +80,18 @@ public partial class FluentNavMenuGroup : FluentComponentBase
     public string Text { get; set; } = string.Empty;
 
     /// <summary>
+    /// Gets or sets the text to display in a tool tip.
+    /// </summary>
+    [Parameter]
+    public string? ToolTip { get; set; }
+
+    /// <summary>
+    /// Gets or sets the contents to display in a tool tip.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ToolTipContent { get; set; }
+
+    /// <summary>
     /// Gets or sets the width of the menu group
     /// </summary>
     [Parameter]
@@ -98,23 +110,37 @@ public partial class FluentNavMenuGroup : FluentComponentBase
     [CascadingParameter(Name = "NavMenuExpanded")]
     private bool NavMenuExpanded { get; set; }
 
-    public FluentNavMenuGroup()
-    {
-        Id = Identifier.NewId();
-    }
+    [CascadingParameter]
+    private IObservableValue<FluentNavMenuToolTipOptions> TooltipOptions { get; set; } = default!;
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("navmenu-group")
         .Build();
+
+    protected bool ShouldShowToolTip =>
+        TooltipOptions.Value is not null
+        && TooltipOptions.Value.ShowToolTips.ShouldDisplay(NavMenuExpanded)
+        && (ToolTipContent is not null || !string.IsNullOrWhiteSpace(ToolTip));
 
     protected string? StyleValue => new StyleBuilder()
         .AddStyle("width", $"{Width}px", () => Width.HasValue)
         .AddStyle(Style)
         .Build();
 
+
     private bool HasIcon => !string.IsNullOrWhiteSpace(Icon) || IconContent is not null;
 
     internal bool HasNavMenuGutterIcon => !string.IsNullOrWhiteSpace(NavMenuGutterIcon) || NavMenuGutterIconContent is not null;
+
+    public FluentNavMenuGroup()
+    {
+        Id = Identifier.NewId();
+    }
+
+    void IDisposable.Dispose()
+    {
+        TooltipOptions.Unsubscribe(ToolTipOptionsChanged);
+    }
 
     public override async Task SetParametersAsync(ParameterView parameters)
     {
@@ -128,6 +154,7 @@ public partial class FluentNavMenuGroup : FluentComponentBase
     {
         base.OnInitialized();
         NavMenu.AddNavMenuGroup(this);
+        TooltipOptions.Subscribe(ToolTipOptionsChanged);
     }
 
     private async Task ExpandMenu()
@@ -152,4 +179,11 @@ public partial class FluentNavMenuGroup : FluentComponentBase
         if (!Disabled)
             Selected = true;
     }
+
+    private Task ToolTipOptionsChanged(FluentNavMenuToolTipOptions? options)
+    {
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
 }

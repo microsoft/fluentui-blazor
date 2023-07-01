@@ -3168,10 +3168,41 @@
             this is not specified.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.ShowToolTips">
+            <summary>
+            Gets or sets the option for when to show tool tips for items in the menu.
+            The default value is <see cref="F:Microsoft.Fast.Components.FluentUI.NavMenuShowToolTipsOption.Always"/>.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.Title">
             <summary>
             Gets or sets the title of the navigation menu
             Default to "Navigation menu"
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.ToolTipsAutoUpdateMode">
+            <summary>
+            <see cref="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.AutoUpdateMode"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.ToolTipsDelay">
+            <summary>
+            <see cref="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.Delay"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.ToolTipsHorizontalViewportLock">
+            <summary>
+            <see cref="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.HorizontalViewportLock"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.ToolTipsPosition">
+            <summary>
+            <see cref="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.Position"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.ToolTipsVerticalViewportLock">
+            <summary>
+            <see cref="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.VerticalViewportLock"/>
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.Width">
@@ -3259,6 +3290,16 @@
             Gets or sets the text of the menu group
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.ToolTip">
+            <summary>
+            Gets or sets the text to display in a tool tip.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.ToolTipContent">
+            <summary>
+            Gets or sets the contents to display in a tool tip.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Width">
             <summary>
             Gets or sets the width of the menu group
@@ -3298,6 +3339,16 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.Selected">
             <summary>
             Gets or sets whether the link is selected.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.ToolTip">
+            <summary>
+            Gets or sets the text to display in a tool tip.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.ToolTipContent">
+            <summary>
+            Gets or sets the contents to display in a tool tip.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.SelectedChanged">

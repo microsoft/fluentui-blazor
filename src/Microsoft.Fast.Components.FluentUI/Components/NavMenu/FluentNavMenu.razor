@@ -2,23 +2,25 @@
 
 @inherits FluentComponentBase
 <div>
-    <CascadingValue Value="this" IsFixed="true">
-        <CascadingValue Value="@Expanded" Name="NavMenuExpanded">
-            <FluentTreeView Class="@ClassValue"
-                            Style="@StyleValue"
-                            OnSelectedChange="HandleSelectedChangeAsync">
-                @if (Collapsible) {
-                    <FluentTreeItem Id="@_expandCollapseTreeItemId" Class="nav-menu-expander" @onclick="CollapsibleClickAsync">
-                        @if (NavigationIconContent is not null) {
-                            @NavigationIconContent
+    <CascadingValue Value="this" IsFixed>
+        <CascadingValue TValue="IObservableValue<FluentNavMenuToolTipOptions>" Value="ToolTipOptions" IsFixed>
+            <CascadingValue Value="@Expanded" Name="NavMenuExpanded">
+                <FluentTreeView Class="@ClassValue"
+                                Style="@StyleValue"
+                                OnSelectedChange="HandleSelectedChangeAsync">
+                    @if (Collapsible) {
+                        <FluentTreeItem Id="@_expandCollapseTreeItemId" Class="nav-menu-expander" @onclick="CollapsibleClickAsync">
+                            @if (NavigationIconContent is not null) {
+                                @NavigationIconContent
+                            }
+                            else {
+                                <FluentIcon Name="@(FluentIcons.Navigation)" Size="IconSize.Size20" />
+                            }
+                        </FluentTreeItem>
                         }
-                        else {
-                            <FluentIcon Name="@(FluentIcons.Navigation)" Size="IconSize.Size20" />
-                        }
-                    </FluentTreeItem>
-                    }
-                @ChildContent
-            </FluentTreeView>
+                    @ChildContent
+                </FluentTreeView>
+            </CascadingValue>
         </CascadingValue>
     </CascadingValue>
 </div>

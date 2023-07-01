@@ -13,6 +13,7 @@ public partial class FluentNavMenu : FluentComponentBase
     private readonly List<FluentNavMenuGroup> _groups = new();
     private string _prevHref = "/";
     private string _expandCollapseTreeItemId = Identifier.NewId();
+    private ValueProvider<FluentNavMenuToolTipOptions> ToolTipOptions = new ValueProvider<FluentNavMenuToolTipOptions>();
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("navmenu")
@@ -41,11 +42,48 @@ public partial class FluentNavMenu : FluentComponentBase
     public RenderFragment? NavigationIconContent { get; set; }
 
     /// <summary>
+    /// Gets or sets the option for when to show tool tips for items in the menu.
+    /// The default value is <see cref="NavMenuShowToolTipsOption.Always"/>.
+    /// </summary>
+    [Parameter]
+    public NavMenuShowToolTipsOption ShowToolTips { get; set; } = NavMenuShowToolTipsOption.Always;
+
+    /// <summary>
     /// Gets or sets the title of the navigation menu
     /// Default to "Navigation menu"
     /// </summary>
     [Parameter]
     public string? Title { get; set; } = "Navigation menu";
+
+    /// <summary>
+    /// <see cref="FluentTooltip.AutoUpdateMode"/>
+    /// </summary>
+    [Parameter]
+    public AutoUpdateMode? ToolTipsAutoUpdateMode { get; set; }
+
+    /// <summary>
+    /// <see cref="FluentTooltip.Delay"/>
+    /// </summary>
+    [Parameter]
+    public int? ToolTipsDelay { get; set; } = 300;
+
+    /// <summary>
+    /// <see cref="FluentTooltip.HorizontalViewportLock"/>
+    /// </summary>
+    [Parameter]
+    public bool ToolTipsHorizontalViewportLock { get; set; }
+
+    /// <summary>
+    /// <see cref="FluentTooltip.Position"/>
+    /// </summary>
+    [Parameter]
+    public TooltipPosition? ToolTipsPosition { get; set; }
+
+    /// <summary>
+    /// <see cref="FluentTooltip.VerticalViewportLock"/>
+    /// </summary>
+    [Parameter]
+    public bool ToolTipsVerticalViewportLock { get; set; }
 
     /// <summary>
     /// Gets or sets the width of the menu (in pixels).
@@ -132,6 +170,22 @@ public partial class FluentNavMenu : FluentComponentBase
     internal void AddNavMenuGroup(FluentNavMenuGroup group)
     {
         _groups.Add(group);
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+
+        var newToolTipOptions = new FluentNavMenuToolTipOptions 
+        (
+            ShowToolTips: ShowToolTips,
+            AutoUpdateMode: ToolTipsAutoUpdateMode,
+            Delay: ToolTipsDelay,
+            HorizontalViewportLock: ToolTipsHorizontalViewportLock,
+            Position: ToolTipsPosition,
+            VerticalViewportLock: ToolTipsVerticalViewportLock
+        );
+        await ToolTipOptions.SetValueAsync(newToolTipOptions);
     }
 
 }

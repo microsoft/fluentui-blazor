@@ -1,0 +1,48 @@
+﻿@namespace FluentUI.Demo.Shared
+
+<h2>Tool Tips Example</h2>
+
+<FluentStack Orientation="Orientation.Horizontal" Width="100%">
+    <div>
+        <FluentNavMenu @bind-Expanded="@Expanded" Width="150"
+                       ShowToolTips=ShowToolTips>
+            <FluentNavMenuLink Icon="@(FluentIcons.Home)" Text="Item 1" ToolTip="This is item 1" />
+            <FluentNavMenuLink Icon="@(FluentIcons.Cloud)" Text="Item 2">
+                <ToolTipContent>
+                    <FluentIcon Name="@(FluentIcons.Cloud)" />
+                    This is item 2
+                    <FluentIcon Name="@(FluentIcons.Cloud)" />
+                </ToolTipContent>
+            </FluentNavMenuLink>
+            <FluentNavMenuGroup Text="Item 3" ToolTip="This is a group">
+                <FluentNavMenuLink Icon="@(FluentIcons.LeafOne)" Text="Item 3.1" ToolTip="This item 3.1" />
+                <FluentNavMenuLink Icon="@(FluentIcons.LeafTwo)" Text="Item 3.2">
+                    <ToolTipContent>
+                        This is <FluentIcon Name="@(FluentIcons.LeafTwo)" /> 2 of item 3
+                    </ToolTipContent>
+                </FluentNavMenuLink>
+            </FluentNavMenuGroup>
+            <FluentNavMenuLink Icon="@(FluentIcons.CalendarAgenda)" Text="Item 4" Disabled="true" ToolTip="This is disabled" />
+        </FluentNavMenu>
+    </div>
+    <div style="width: 100%;">
+        <FluentLabel Id="show-tool-tips">Show tool tips</FluentLabel>
+        <FluentRadioGroup aria-labelledby="show-tool-tips" Orientation="@Orientation.Vertical" @bind-Value="@ShowToolTips">
+            @foreach (var option in AvailableShowToolTipsOptions)
+            {
+                <FluentRadio Value="@option">@option</FluentRadio>
+            }
+        </FluentRadioGroup>
+    </div>
+</FluentStack>
+
+@code
+{
+    bool Expanded = true;
+    NavMenuShowToolTipsOption ShowToolTips = NavMenuShowToolTipsOption.Always;
+
+    static readonly IEnumerable<NavMenuShowToolTipsOption> AvailableShowToolTipsOptions =
+        Enum.GetValues(typeof(NavMenuShowToolTipsOption))
+            .Cast<NavMenuShowToolTipsOption>()
+            .ToArray();
+}

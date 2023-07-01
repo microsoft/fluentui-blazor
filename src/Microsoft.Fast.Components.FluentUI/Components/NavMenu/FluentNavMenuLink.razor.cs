@@ -4,7 +4,7 @@ using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentNavMenuLink : FluentComponentBase
+public partial class FluentNavMenuLink : FluentComponentBase, IDisposable
 {
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
@@ -47,6 +47,18 @@ public partial class FluentNavMenuLink : FluentComponentBase
     public bool Selected { get; set; } = false;
 
     /// <summary>
+    /// Gets or sets the text to display in a tool tip.
+    /// </summary>
+    [Parameter]
+    public string? ToolTip { get; set; }
+
+    /// <summary>
+    /// Gets or sets the contents to display in a tool tip.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ToolTipContent { get; set; }
+
+    /// <summary>
     /// Callback function for when the selected state changes.
     /// </summary>
     [Parameter]
@@ -82,6 +94,14 @@ public partial class FluentNavMenuLink : FluentComponentBase
     [CascadingParameter(Name = "NavMenuExpanded")]
     private bool NavMenuExpanded { get; set; }
 
+    [CascadingParameter]
+    private IObservableValue<FluentNavMenuToolTipOptions> TooltipOptions { get; set; } = default!;
+
+    protected bool ShouldShowToolTip =>
+        TooltipOptions.Value is not null
+        && TooltipOptions.Value.ShowToolTips.ShouldDisplay(NavMenuExpanded)
+        && (ToolTipContent is not null || !string.IsNullOrWhiteSpace(ToolTip));
+
     protected string? ClassValue => new CssBuilder(Class)
        .AddClass("navmenu-link", () => NavMenu.HasSubMenu || NavMenu.HasIcons)
        .AddClass("navmenu-link-nogroup", () => !NavMenu.HasSubMenu && NavMenu.HasIcons)
@@ -99,10 +119,16 @@ public partial class FluentNavMenuLink : FluentComponentBase
         Id = Identifier.NewId();
     }
 
+    void IDisposable.Dispose()
+    {
+        TooltipOptions.Unsubscribe(ToolTipOptionsChanged);
+    }
+
     protected override void OnInitialized()
     {
         base.OnInitialized();
         NavMenu.AddNavMenuLink(this);
+        TooltipOptions.Subscribe(ToolTipOptionsChanged);
     }
 
     protected override void OnParametersSet()
@@ -120,5 +146,11 @@ public partial class FluentNavMenuLink : FluentComponentBase
     internal void SetSelected(bool value)
     {
         Selected = value;
+    }
+
+    private Task ToolTipOptionsChanged(FluentNavMenuToolTipOptions? options)
+    {
+        StateHasChanged();
+        return Task.CompletedTask;
     }
 }
