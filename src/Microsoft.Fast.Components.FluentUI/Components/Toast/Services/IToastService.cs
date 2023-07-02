@@ -9,7 +9,7 @@ namespace Microsoft.Fast.Components.FluentUI
         event Action? OnClearQueue;
         event Action<ToastIntent>? OnClearQueueIntent;
         event Action<Type?, object, ToastParameters>? OnShow;
-        event Action<string?, object, Action<ToastParameters>>? OnUpdate;
+        event Action<string?, ToastParameters>? OnUpdate;
         event Action<string>? OnClose;
 
         void ClearAll(bool includeQueue = true);
@@ -65,15 +65,15 @@ namespace Microsoft.Fast.Components.FluentUI
         //void ShowToast<TContent>(Type? toastComponent, ToastParameters<TContent> data, Action<ToastParameters>? settings = null)
         //    where TContent : class;
 
-        void ShowToast<TToastContent>(Type? toastComponent, ToastParameters parameters, TToastContent toastContent)
-            where TToastContent : class;
+        void ShowToast<TContent>(Type? toastComponent, ToastParameters parameters, TContent content)
+            where TContent : class;
 
-        void ShowToast<T, TToastContent>(ToastParameters<TToastContent> parameters)
-            where T : IToastContentComponent<TToastContent>
-            where TToastContent : class;
+        void ShowToast<T, TContent>(ToastParameters<TContent> parameters)
+            where T : IToastContentComponent<TContent>
+            where TContent : class;
 
-        void UpdateToast<TToastContent>(string id, ToastParameters<TToastContent> parameters, Action<ToastParameters>? settings = null)
-            where TToastContent : class;
+        void UpdateToast<TContent>(string id, ToastParameters<TContent> parameters)
+            where TContent : class;
 
         void CloseToast(string id);
     }

@@ -11,7 +11,7 @@
             Title = "I'm a custom toast component with parameters",
             Timeout = 105,
             Icon = (FluentIcons.Backpack, Color.Accent, IconVariant.Regular),
-            ToastContent = new MyToastData()
+            Content = new MyToastData()
             {
                 ToastParam = "I'm a parameter"
             }

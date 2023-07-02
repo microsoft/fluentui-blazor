@@ -8,6 +8,7 @@ public partial class FluentDialog : FluentComponentBase, IDisposable
 {
     private const string DEFAULT_WIDTH = "500px";
     private const string DEFAULT_HEIGHT = "unset";
+    private DialogParameters _parameters = default!;
 
 
     [CascadingParameter]
@@ -56,11 +57,6 @@ public partial class FluentDialog : FluentComponentBase, IDisposable
     [Parameter]
     public DialogInstance Instance { get; set; } = default!;
 
-    /// <summary>
-    /// Contains the actual parameters for the settings of the dialog.
-    /// </summary>
-    [Parameter]
-    public DialogSettings Settings { get; set; } = default!;
 
     /// <summary>
     /// Used when not calling the <see cref="DialogService" /> to show a dialog
@@ -76,17 +72,17 @@ public partial class FluentDialog : FluentComponentBase, IDisposable
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("fluent-dialog-main")
-        .AddClass("right", () => Settings.Alignment == HorizontalAlignment.Right)
-        .AddClass("left", () => Settings.Alignment == HorizontalAlignment.Left)
+        .AddClass("right", () => _parameters.Alignment == HorizontalAlignment.Right)
+        .AddClass("left", () => _parameters.Alignment == HorizontalAlignment.Left)
         .Build();
 
     protected string? StyleValue => new StyleBuilder()
         .AddStyle(Style)
         .AddStyle("position", "absolute")
-        .AddStyle("top", "50%", () => Settings.Alignment == HorizontalAlignment.Center)
-        .AddStyle("left", "50%", () => Settings.Alignment == HorizontalAlignment.Center)
-        .AddStyle("--dialog-width", Settings.Width ?? DEFAULT_WIDTH, () => Settings.Alignment == HorizontalAlignment.Center)
-        .AddStyle("--dialog-height", Settings.Height ?? DEFAULT_HEIGHT, () => Settings.Alignment == HorizontalAlignment.Center)
+        .AddStyle("top", "50%", () => _parameters.Alignment == HorizontalAlignment.Center)
+        .AddStyle("left", "50%", () => _parameters.Alignment == HorizontalAlignment.Center)
+        .AddStyle("--dialog-width", _parameters.Width ?? DEFAULT_WIDTH, () => _parameters.Alignment == HorizontalAlignment.Center)
+        .AddStyle("--dialog-height", _parameters.Height ?? DEFAULT_HEIGHT, () => _parameters.Alignment == HorizontalAlignment.Center)
         .Build();
 
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogEventArgs))]
@@ -96,19 +92,16 @@ public partial class FluentDialog : FluentComponentBase, IDisposable
 
     }
 
+    protected override async Task OnInitializedAsync()
+    {
+        _parameters = Instance.Parameters;
+        DialogContext!.Register(this);
+    }
+
     protected override void OnParametersSet()
     {
-        Settings ??= new()
-        {
-            Alignment = HorizontalAlignment.Center,
-            ShowTitle = true,
-            PrimaryButton = null,
-            SecondaryButton = null,
-            ShowDismiss = false,
-            Modal = null,
-            TrapFocus = null,
-            Height = "unset",
-        };
+        //_parameters = Instance.Parameters;
+
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -119,9 +112,9 @@ public partial class FluentDialog : FluentComponentBase, IDisposable
         }
     }
 
-    protected override void OnInitialized() => DialogContext?.Register(this);
+    //protected override void OnInitialized() => DialogContext?.Register(this);
 
-    private bool HasButtons => Settings.ShowPrimaryButton || Settings.ShowSecondaryButton;
+    private bool HasButtons => _parameters.ShowPrimaryAction || _parameters.ShowSecondaryAction;
 
     public void Show()
     {
@@ -149,7 +142,7 @@ public partial class FluentDialog : FluentComponentBase, IDisposable
     public async Task CloseAsync(DialogResult dialogResult)
     {
         DialogContext?.DialogContainer.DismissInstance(Id!);
-        await Instance.Settings.OnDialogResult.InvokeAsync(dialogResult);
+        await Instance.Parameters.OnDialogResult.InvokeAsync(dialogResult);
     }
 
     public void Dispose() => DialogContext?.Unregister(this);

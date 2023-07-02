@@ -8,7 +8,6 @@ public partial class FluentDialogContainer : IDisposable
 {
     private readonly InternalDialogContext _internalDialogContext;
     private readonly Collection<DialogInstance> _dialogs;
-    private readonly DialogSettings _globalDialogOptions = new();
     private readonly RenderFragment _renderDialogs;
 
     [Inject]
@@ -34,13 +33,13 @@ public partial class FluentDialogContainer : IDisposable
         DialogService.OnShow += ShowDialog;
     }
 
-    private void ShowDialog(Type dialogComponent, object parameters, Action<DialogSettings>? settings)
+    private void ShowDialog(Type dialogComponent, object content, DialogParameters parameters)
     {
         _ = InvokeAsync(() =>
         {
-            DialogSettings? dialogSettings = BuildDialogSettings(settings);
+            //DialogSettings? dialogSettings = BuildDialogSettings(settings);
 
-            DialogInstance dialog = new(dialogComponent, parameters, dialogSettings);
+            DialogInstance dialog = new(dialogComponent, content, parameters);
 
             _dialogs.Add(dialog);
             StateHasChanged();

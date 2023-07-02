@@ -16,7 +16,7 @@
     {
         @foreach (ToastInstance toast in _toastList.OrderBy(x => x.Parameters.Timestamp))
         {
-            <FluentToast @key="@toast" Id="@toast.Id" Instance="@toast"  Data="@toast.ToastContent"/>
+            <FluentToast @key="@toast" Id="@toast.Id" Instance="@toast"  Data="@toast.Content"/>
         }
     }
 }

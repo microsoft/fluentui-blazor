@@ -53,8 +53,8 @@ namespace FluentUI.Demo.Shared.Pages.MessageBox.Examples
                     Icon = FluentIcons.Games,
                     IconColor = Color.Success,
                 },
-                PrimaryButton = "Plus",
-                SecondaryButton = "Minus",
+                PrimaryAction = "Plus",
+                SecondaryAction = "Minus",
                 Width = "300px",
                 OnDialogResult = DialogService.CreateDialogCallback(this, HandleResult)
             });

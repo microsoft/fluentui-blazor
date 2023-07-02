@@ -1712,11 +1712,6 @@
             The instance containing the programmatic API for the dialog.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.Settings">
-            <summary>
-            Contains the actual parameters for the settings of the dialog.
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.ChildContent">
             <summary>
             Used when not calling the <see cref="T:Microsoft.Fast.Components.FluentUI.DialogService" /> to show a dialog
@@ -1737,94 +1732,161 @@
             Constructs an instance of <see cref="T:Microsoft.Fast.Components.FluentUI.FluentToastContainer"/>.
             </summary>
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.DialogParameters`1">
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.Alignment">
             <summary>
-            
+            Gets or sets the dialog position:
+            left (full height), right (full height)
+            or screen middle (using Width and Height properties).
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters`1.Alignment">
-            <summary>
-            Determines the alignment of the dialog.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters`1.Title">
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.Title">
             <summary>
             Title of the dialog
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters`1.Modal">
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.Modal">
             <summary>
             Determines if the dialog is modal. Defaults to true.
             When true, clicking outside the dialog will dismiss the dialog.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters`1.ShowTitle">
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.TrapFocus">
+            <summary>
+            Indicates that the dialog should trap focus.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.ShowTitle">
             <summary>
             When true, shows the title in the header.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters`1.ShowDismiss">
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.ShowDismiss">
             <summary>
             When true, shows the dismiss button in the header.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters`1.PrimaryButton">
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.PrimaryAction">
             <summary>
-            Text to display on the primary button.
+            Text to display for the primary action.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters`1.SecondaryButton">
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.SecondaryAction">
             <summary>
-            Text to display on the secondary button.
+            Text to display for the secondary action.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters`1.Width">
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.Width">
             <summary>
             Width of the dialog. Must be a valid CSS width value like "600px" or "3em"
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters`1.Height">
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.Height">
             <summary>
             Height of the dialog. Must be a valid CSS height value like "600px" or "3em"
             Only used if Alignment is set to "HorizontalAlignment.Center"
             </summary>  
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.DialogBodyStyle">
+            <summary>
+            Gets or sets the extra styles appied to the Body content.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.AriaLabelledby">
+            <summary>
+            Identifies the element that labels the element it is applied to.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.AriaDescribedby">
+            <summary>
+            Identifies the element that describes the element on which the attribute is set.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.AriaLabel">
+            <summary>
+            The value that labels an interactive element.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.ShowPrimaryAction">
+            <summary>
+            Gets whether the primary button is displayed or not. Depends on PrimaryAction having a value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.ShowSecondaryAction">
+            <summary>
+            Gets whether the secondary button is displayed or not. Depends on SecondaryAction having a value. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.OnDialogResult">
+            <summary>
+            Callback function for the result.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.DialogParameters`1">
+            <summary>
+            Parameters for a dialog.
+            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters`1.Content">
             <summary>
             Content to pass to and from the dialog.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters`1.OnDialogResult">
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageBoxContent.Title">
             <summary>
-            Callback function for the result.
+            The title of the message box.
             </summary>
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.SplashScreenData">
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageBoxContent.Intent">
+            <summary>
+            The intent of the message box. See <see cref="T:Microsoft.Fast.Components.FluentUI.MessageBoxIntent"/> for details.
+            </summary>    
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageBoxContent.Icon">
+            <summary>
+            Name of the icon to display.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageBoxContent.IconColor">
+            <summary>
+            Color of the icon to display.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageBoxContent.Message">
+            <summary>
+            The text to display in the message box.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageBoxContent.MarkupMessage">
+            <summary>
+            The html text to display in the message box.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent">
             <summary>
             The data to show in a splash screen dialog.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.SplashScreenData.Title">
+        <member name="P:Microsoft.Fast.Components.FluentUI.SplashScreenContent.Title">
             <summary>
             Typically used to show the name of the product.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.SplashScreenData.SubTitle">
+        <member name="P:Microsoft.Fast.Components.FluentUI.SplashScreenContent.SubTitle">
             <summary>
             Typically used to show the name of the suite the product belongs to.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.SplashScreenData.LoadingText">
+        <member name="P:Microsoft.Fast.Components.FluentUI.SplashScreenContent.LoadingText">
             <summary>
             Text to indicate something is happening.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.SplashScreenData.Message">
+        <member name="P:Microsoft.Fast.Components.FluentUI.SplashScreenContent.Message">
             <summary>
             An extra message. Can contain HTML. 
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.SplashScreenData.Logo">
+        <member name="P:Microsoft.Fast.Components.FluentUI.SplashScreenContent.Logo">
             <summary>
             Logo to show on the splash screen.
             Can be a URL or a base64 encoded string or an SVG.
@@ -1853,30 +1915,30 @@
             A event that will be invoked when showing a dialog with a custom component
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreen(System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenData})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreen(System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
             <summary>
             Shows the standard <see cref="T:Microsoft.Fast.Components.FluentUI.FluentSplashScreen"/> with the given parameters."/>
             </summary>
             <param name="receiver">The componente that receives the callback</param>
             <param name="callback">Name of the callback function</param>
-            <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenData"/> that holds the data to display</param>
+            <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent"/> that holds the content to display</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreen``1(System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenData})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreen``1(System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
             <summary>
             Shows a custom splash screen dialog with the given parameters."/>
             </summary>
             <param name="receiver">The componente that receives the callback</param>
             <param name="callback">Name of the callback function</param>
-            <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenData"/> that holds the data to display</param>
+            <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent"/> that holds the content to display</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreen(System.Type,System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenData})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreen(System.Type,System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
             <summary>
             Shows a splash screen of the given type with the given parameters."/>
             </summary>
             <param name="component">The type of the component to show</param>
             <param name="receiver">The componente that receives the callback</param>
             <param name="callback">Name of the callback function</param>
-            <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenData"/> that holds the data to display</param>
+            <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent"/> that holds the content to display</param>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSuccess(System.String,System.String)">
             <summary>
@@ -1909,7 +1971,7 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowConfirmation(System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},System.String,System.String,System.String,System.String)">
             <summary>
             Shows a confirmation message box. Has a callback function which returns boolean 
-            (true=PrimaryButton clicked, false=SecondaryButton clicked).
+            (true=PrimaryAction clicked, false=SecondaryAction clicked).
             </summary>
             <param name="receiver">The component that receives the callback function.</param>
             <param name="callback">The callback function.</param>
@@ -1918,10 +1980,10 @@
             <param name="secondaryText">The text to display on the secondary button.</param>
             <param name="title">The title to display on the dialog.</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowMessageBox(Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.MessageBoxData})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowMessageBox(Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.MessageBoxContent})">
             <summary>
             Shows a custom message box. Has a callback function which returns boolean
-            (true=PrimaryButton clicked, false=SecondaryButton clicked).
+            (true=PrimaryAction clicked, false=SecondaryAction clicked).
             </summary>
             <param name="parameters">Parameters to pass to component being displayed.</param>
         </member>
@@ -1947,22 +2009,14 @@
             </summary>
             <param name="parameters">Parameters to pass to component being displayed.</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialog``2(Microsoft.Fast.Components.FluentUI.DialogParameters{``1},System.Action{Microsoft.Fast.Components.FluentUI.DialogSettings})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialog``1(System.Type,``0,Microsoft.Fast.Components.FluentUI.DialogParameters)">
             <summary>
             Shows a dialog with the component type as the body,
-            passing the specified <paramref name="parameters "/> and <paramref name="settings "/>
-            </summary>
-            <param name="parameters">Content to pass to component being displayed.</param>
-            <param name="settings">Parameters to configure the dialog component.</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialog``1(System.Type,``0,System.Action{Microsoft.Fast.Components.FluentUI.DialogSettings})">
-            <summary>
-            Shows a dialog with the component type as the body,
-            passing the specified <paramref name="data "/> 
+            passing the specified <paramref name="content "/> 
             </summary>
             <param name="dialogComponent">Type of component to display.</param>
-            <param name="data">Content to pass to component being displayed.</param>
-            <param name="settings">Parameters to configure the dialog component.</param>
+            <param name="content">Content to pass to component being displayed.</param>
+            <param name="parameters">Parameters to configure the dialog component.</param>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.CreateDialogCallback(System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task})">
             <summary>
@@ -1978,49 +2032,6 @@
             Instance specific parameters for a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDialog"/> component
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogSettings.Alignment">
-            <summary>
-            Gets or sets the dialog position:
-            left (full height), right (full height)
-            or screen middle (using Width and Height properties).
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogSettings.Title">
-            <summary>
-            Gets or sets the dialog title.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogSettings.Width">
-            <summary>
-            Window width, only if <see cref="P:Microsoft.Fast.Components.FluentUI.DialogSettings.Alignment"/> is Center.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogSettings.Height">
-            <summary>
-            Window height, only if <see cref="P:Microsoft.Fast.Components.FluentUI.DialogSettings.Alignment"/> is Center.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogSettings.Modal">
-            <summary>
-            Indicates the element is modal. When modal, user mouse interaction will be limited to the contents of the element by a modal
-            overlay. Clicking on the overlay will cause the dialog to be dismissed.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogSettings.TrapFocus">
-            <summary>
-            Indicates that the dialog should trap focus.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogSettings.ShowTitle">
-            <summary>
-            Determines whether the dialog title part shown or hidden.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogSettings.ShowDismiss">
-            <summary>
-            Display or hide the dismiss icon button (in the header).
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogSettings.PrimaryButton">
             <summary>
             Label of the primary (OK) button. If <value>null</value> button will not be shown.
@@ -2029,46 +2040,6 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogSettings.SecondaryButton">
             <summary>
             Label of the secondary (Cancel) button. If <value>null</value> button will not be shown.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogSettings.DialogBodyStyle">
-            <summary>
-            Gets or sets the extra styles appied to the Body content.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogSettings.AriaLabelledby">
-            <summary>
-            Identifies the element that labels the element it is applied to.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogSettings.AriaDescribedby">
-            <summary>
-            Identifies the element that describes the element on which the attribute is set.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogSettings.AriaLabel">
-            <summary>
-            The value that labels an interactive element.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogSettings.LargeScreen">
-            <summary>
-            Default configuration for a large, almost full screen dialog.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogSettings.OnDialogResult">
-            <summary>
-            Callback function for the result.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogSettings.ShowPrimaryButton">
-            <summary>
-            Gets whether the primary button is displayed or not. Depends on PrimaryButton having a value.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogSettings.ShowSecondaryButton">
-            <summary>
-            Gets whether the secondary button is displayed or not. Depends on SecondaryButton having a value. 
             </summary>
         </member>
         <member name="E:Microsoft.Fast.Components.FluentUI.IDialogService.OnShow">
@@ -2917,7 +2888,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.Items">
             <summary>
-            Data source of all items to display in this list.
+            Content source of all items to display in this list.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.SelectedOption">
@@ -4382,9 +4353,9 @@
             Constructs an instance of <see cref="T:Microsoft.Fast.Components.FluentUI.FluentToastContainer"/>.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ToastParameters`1.ToastContent">
+        <member name="P:Microsoft.Fast.Components.FluentUI.ToastParameters`1.Content">
             <summary>
-            The data to be passed to the toast content component.
+            The content to be shown in the toast body.
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.ToastResult">
@@ -4551,17 +4522,16 @@
             Shows a toast with the component type as the body,
             passing the specified <paramref name="parameters "/> 
             </summary>
-            <param name="toastComponent">Type of component to display.</param>
-            <param name="toastContent">Content to be displayed in the toast.</param>
+            <param name="component">Type of component to display.</param>
+            <param name="content">Content to be displayed in the toast.</param>
             <param name="parameters">Parameters to configure the toast component.</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.UpdateToast``1(System.String,Microsoft.Fast.Components.FluentUI.ToastParameters{``0},System.Action{Microsoft.Fast.Components.FluentUI.ToastParameters})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.UpdateToast``1(System.String,Microsoft.Fast.Components.FluentUI.ToastParameters{``0})">
             <summary>
             Updates a toast 
             </summary>
             <param name="id">Id of the toast to update.</param>
-            <param name="parameters">Parametes used to construct toast.</param>
-            <param name="settings">Parameters to configure the toast component.</param>
+            <param name="parameters">Parameters to configure the toast component.</param>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearAll(System.Boolean)">
             <summary>

@@ -93,7 +93,7 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
     public virtual Func<TOption, bool>? OptionSelected { get; set; }
 
     /// <summary>
-    /// Data source of all items to display in this list.
+    /// Content source of all items to display in this list.
     /// </summary>
     [Parameter]
     public virtual IEnumerable<TOption>? Items { get; set; }

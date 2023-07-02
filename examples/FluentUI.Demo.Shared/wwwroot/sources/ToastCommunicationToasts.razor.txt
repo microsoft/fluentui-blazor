@@ -16,7 +16,7 @@
                     OnPrimaryAction = EventCallback.Factory.Create<ToastResult>(this, ClickedPrimary),
                     SecondaryAction = "Get insights",
                     OnSecondaryAction = EventCallback.Factory.Create<ToastResult>(this, ClickedSecondary),
-                    ToastContent = new CommunicationToastContent()
+                    Content = new CommunicationToastContent()
                     {
                         Subtitle = "A communication toast subtitle",
                         Details = "Let Power BI help you explore your data.",
@@ -36,7 +36,7 @@
                     OnPrimaryAction = EventCallback.Factory.Create<ToastResult>(this, ClickedPrimary),
                     SecondaryAction = "Keep both",
                     OnSecondaryAction = EventCallback.Factory.Create<ToastResult>(this, ClickedSecondary),
-                    ToastContent = new CommunicationToastContent()
+                    Content = new CommunicationToastContent()
                     {
                         Details = "A file with the same _name already exists.",
                     },

@@ -1,13 +1,13 @@
 ﻿@implements IDialogContentComponent<SimplePerson>
 
-<h3>Hello @Data.Firstname </h3>
-<p>Your lastname is @Data.Lastname and you are @Data.Age years young </p>
+<h3>Hello @Content.Firstname </h3>
+<p>Your lastname is @Content.Lastname and you are @Content.Age years young </p>
 
-<FluentTextField @bind-Value="@Data.Firstname">Your firstname:</FluentTextField>
-<FluentTextField @bind-Value="@Data.Lastname">Your lastname:</FluentTextField>
-<FluentNumberField @bind-Value="@Data.Age">Your age:</FluentNumberField>
+<FluentTextField @bind-Value="@Content.Firstname">Your firstname:</FluentTextField>
+<FluentTextField @bind-Value="@Content.Lastname">Your lastname:</FluentTextField>
+<FluentNumberField @bind-Value="@Content.Age">Your age:</FluentNumberField>
 
 @code {
     [Parameter]
-    public SimplePerson Data { get; set; } = default!;
+    public SimplePerson Content { get; set; } = default!;
 }

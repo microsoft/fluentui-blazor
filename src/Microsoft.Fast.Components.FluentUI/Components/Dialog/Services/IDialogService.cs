@@ -7,7 +7,7 @@ public interface IDialogService
     /// <summary>
     /// A event that will be invoked when showing a dialog with a custom component
     /// </summary>
-    public event Action<Type, object, Action<DialogSettings>?>? OnShow;
+    public event Action<Type, object, DialogParameters>? OnShow;
 
     void ShowSplashScreen(object receiver, Func<DialogResult, Task> callback, DialogParameters<SplashScreenContent> parameters);
 
@@ -40,14 +40,14 @@ public interface IDialogService
     //    where T : IDialogContentComponent<TContent>
     //    where TContent : class;
 
-    void ShowDialog<T, TData>(DialogParameters<TData> parameters, Action<DialogSettings>? settings = null)
+    void ShowDialog<T, TData>(DialogParameters<TData> parameters)
         where T : IDialogContentComponent<TData>
         where TData : class;
 
     //void ShowDialog<TContent>(Type component, IDialogContentParameters<TContent> parameters, Action<DialogSettings> settings)
     //    where TContent : class;
 
-    void ShowDialog<TData>(Type component, TData data, Action<DialogSettings>? settings = null)
+    void ShowDialog<TData>(Type component, TData data, DialogParameters parameters)
         where TData : class;
 
     public EventCallback<DialogResult> CreateDialogCallback(object receiver, Func<DialogResult, Task> callback);

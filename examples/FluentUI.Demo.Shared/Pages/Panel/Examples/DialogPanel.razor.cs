@@ -22,8 +22,8 @@ namespace FluentUI.Demo.Shared.Pages.Panel.Examples
                 Alignment = HorizontalAlignment.Right,
                 Title = $"Hello {simplePerson.Firstname}",
                 OnDialogResult = DialogService.CreateDialogCallback(this, HandlePanel),
-                PrimaryButton = "Yes",
-                SecondaryButton = "No",
+                PrimaryAction = "Yes",
+                SecondaryAction = "No",
             });
         }
 
@@ -38,8 +38,8 @@ namespace FluentUI.Demo.Shared.Pages.Panel.Examples
                 Alignment = HorizontalAlignment.Left,
                 Modal = false,
                 ShowDismiss = false,
-                PrimaryButton = "Maybe",
-                SecondaryButton = "Cancel",
+                PrimaryAction = "Maybe",
+                SecondaryAction = "Cancel",
                 Width = "300px",
             };
             DialogService.ShowPanel<SimplePanel, SimplePerson>(parameters);
