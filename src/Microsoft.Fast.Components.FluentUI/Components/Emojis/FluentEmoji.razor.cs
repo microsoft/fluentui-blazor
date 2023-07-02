@@ -5,9 +5,9 @@ using Microsoft.Fast.Components.FluentUI.Utilities;
 namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary>
-/// FluentSystemEmoji is a component that renders an emoji from the Microsoft FluentUI emoji set.
+/// FluentEmoji is a component that renders an emoji from the Microsoft FluentUI emoji set.
 /// </summary>
-public partial class FluentSystemEmoji<Emoji> : FluentComponentBase
+public partial class FluentEmoji<Emoji> : FluentComponentBase
     where Emoji : FluentUI.Emoji
 {
     private Emoji _emoji = default!;

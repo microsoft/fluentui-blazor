@@ -2315,50 +2315,50 @@
             Gets a list of keywords associated with the emoji (separated by comas).
             </summary>
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.FluentSystemEmoji`1">
+        <member name="T:Microsoft.Fast.Components.FluentUI.FluentEmoji`1">
             <summary>
-            FluentSystemEmoji is a component that renders an emoji from the Microsoft FluentUI emoji set.
+            FluentEmoji is a component that renders an emoji from the Microsoft FluentUI emoji set.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemEmoji`1.ClassValue">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentEmoji`1.ClassValue">
             <summary />
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemEmoji`1.StyleValue">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentEmoji`1.StyleValue">
             <summary />
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemEmoji`1.Slot">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentEmoji`1.Slot">
             <summary>
             Gets or sets the slot where the emoji is displayed in
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemEmoji`1.Title">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentEmoji`1.Title">
             <summary>
             Gets or sets the title for the emoji
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemEmoji`1.Width">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentEmoji`1.Width">
             <summary>
             Gets or sets the emoji width.
             If not set, the emoji size will be used.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemEmoji`1.Value">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentEmoji`1.Value">
             <summary>
             Gets or sets the Emoji object to render.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemEmoji`1.OnClick">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentEmoji`1.OnClick">
             <summary>
             Allows for capturing a mouse click on an emoji
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentSystemEmoji`1.OnClickHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentEmoji`1.OnClickHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
             <summary />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentSystemEmoji`1.OnParametersSet">
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentEmoji`1.OnParametersSet">
             <summary />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentSystemEmoji`1.ContainsSVG">
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentEmoji`1.ContainsSVG">
             <summary>
             Returns true if the emoji contains a SVG content.
             </summary>
