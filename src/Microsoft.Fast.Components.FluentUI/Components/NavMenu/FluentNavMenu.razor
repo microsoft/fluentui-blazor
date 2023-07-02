@@ -6,22 +6,18 @@
         <CascadingValue Value="@Expanded" Name="NavMenuExpanded">
             <FluentTreeView Class="@ClassValue"
                             Style="@StyleValue"
-                            OnSelectedChange="HandleSelectedChange">
+                            OnSelectedChange="HandleSelectedChangeAsync">
                 @if (Collapsible) {
-                    <FluentButton Appearance="Appearance.Lightweight"
-                              Class="navmenu-main-button"
-                              @onclick="CollapsibleClickAsync"
-                              title="@Title">
-                        @if (NavigationIconContent is not null)
-                        {
+                    <FluentTreeItem Id="@_expandCollapseTreeItemId" Class="nav-menu-expander" @onclick="CollapsibleClickAsync">
+                        @if (NavigationIconContent is not null) {
                             @NavigationIconContent
                         }
                         else
                         {
                             <FluentSystemIcon Icon="CoreIcons.Regular.Size24.Navigation" Width="20px" />
                         }
-                    </FluentButton>
-                }
+                    </FluentTreeItem>
+                    }
                 @ChildContent
             </FluentTreeView>
         </CascadingValue>

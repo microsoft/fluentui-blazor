@@ -49,16 +49,12 @@
             Without icon
         </FluentButton>
 
-        <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowSuccess("Success confirmation with action.", action => { action.Text = "Action"; action.OnClick = (() => DemoLogger.WriteLine("Success confirmation clicked!"));}))">
+        <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowSuccess("Success confirmation with action.", null, "Action", EventCallback.Factory.Create<ToastResult>(this, HandleTopAction)))">
             With action
         </FluentButton>
 
-        <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowInfo("Info confirmation custom settings.", null, 10))">
-            With settings
-        </FluentButton>
-
-        <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowInfo("Click to refresh the page",  action => action.OnClick = () => NavigationManager.NavigateTo("/", true)))">
-            Custom action on click
+        <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowInfo("Info confirmation custom settings.", 10))">
+            Custom timeout
         </FluentButton>
 
         <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowSuccess("Success confirmation with a lot of text to see what a toast looks like when it's really big."))">
@@ -67,3 +63,10 @@
         </FluentButton>
     </FluentStack>
 </FluentStack>
+
+@code {
+    private void HandleTopAction(ToastResult result)
+    {
+        DemoLogger.WriteLine($"Toast clicked");
+    }
+}

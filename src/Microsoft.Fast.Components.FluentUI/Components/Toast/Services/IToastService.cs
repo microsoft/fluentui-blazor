@@ -1,4 +1,6 @@
-﻿namespace Microsoft.Fast.Components.FluentUI
+﻿using Microsoft.AspNetCore.Components;
+
+namespace Microsoft.Fast.Components.FluentUI
 {
     public interface IToastService
     {
@@ -6,8 +8,8 @@
         event Action<ToastIntent, bool>? OnClearIntent;
         event Action? OnClearQueue;
         event Action<ToastIntent>? OnClearQueueIntent;
-        event Action<Type?, object, Action<ToastSettings>?>? OnShow;
-        event Action<string?, object, Action<ToastSettings>?>? OnUpdate;
+        event Action<Type?, object, ToastParameters>? OnShow;
+        event Action<string?, object, Action<ToastParameters>>? OnUpdate;
         event Action<string>? OnClose;
 
         void ClearAll(bool includeQueue = true);
@@ -36,37 +38,42 @@
         void ClearWarningToasts(bool includeQueue = true);
 
         // Confirmation toasts.
-        void ShowSuccess(string title, Action<ToastAction>? action = null, int? timeout = null);
-        void ShowWarning(string title, Action<ToastAction>? action = null, int? timeout = null);
-        void ShowError(string title, Action<ToastAction>? action = null, int? timeout = null);
-        void ShowInfo(string title, Action<ToastAction>? action = null, int? timeout = null);
-        void ShowProgress(string title, Action<ToastAction>? action = null, int? timeout = null);
-        void ShowUpload(string title, Action<ToastAction>? action = null, int? timeout = null);
-        void ShowDownload(string title, Action<ToastAction>? action = null, int? timeout = null);
-        void ShowEvent(string title, Action<ToastAction>? action = null, int? timeout = null);
-        void ShowMention(string title, Action<ToastAction>? action = null, int? timeout = null);
-        void ShowCustom(string title, Action<ToastAction>? action = null, int? timeout = null, (Icon Value, Color Color)? icon = null);
-        void ShowConfirmationToast(ToastParameters<ConfirmationToastData> parameters);
+        void ShowSuccess(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null);
+        void ShowWarning(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null);
+        void ShowError(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null);
+        void ShowInfo(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null);
+        void ShowProgress(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null);
+        void ShowUpload(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null);
+        void ShowDownload(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null);
+        void ShowEvent(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null);
+        void ShowMention(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null);
+        void ShowCustom(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null, (string Name, Color Color, IconVariant Variant)? icon = null);
+        void ShowConfirmationToast(ToastParameters<ConfirmationToastContent> parameters);
 
 
         //Communication toasts.
-        void ShowCommunicationToast(ToastParameters<CommunicationToastData> parameters);
+        void ShowCommunicationToast(ToastParameters<CommunicationToastContent> parameters);
 
         //Progress toasts.
-        void ShowProgressToast(ToastParameters<ProgressToastData> parameters);
+        void ShowProgressToast(ToastParameters<ProgressToastContent> parameters);
 
         // No type given, defaults to ConfirmationToast with timeout set by <see cref="FluentToastContainer"/>.
-        void ShowToast(ToastIntent intent, string title, Action<ToastAction>? action = null, int? timout = null);
+        //void ShowToast(ToastIntent intent, string title, Action<ToastAction>? action = null, int? timout = null);
+        void ShowToast(ToastIntent intent, string title, int? timout = null, string? topAction = null, EventCallback<ToastResult>? callback = null);
 
-        void ShowToast<TData>(Type? toastComponent, ToastParameters<TData> data, Action<ToastSettings>? settings = null)
-            where TData : class;
 
-        void ShowToast<T, TData>(ToastParameters<TData> parameters)
-            where T : IToastContentComponent<TData>
-            where TData : class;
+        //void ShowToast<TToastContent>(Type? toastComponent, ToastParameters<TToastContent> data, Action<ToastParameters>? settings = null)
+        //    where TToastContent : class;
 
-        void UpdateToast<TData>(string id, ToastParameters<TData> parameters, Action<ToastSettings>? settings = null)
-            where TData : class;
+        void ShowToast<TToastContent>(Type? toastComponent, ToastParameters parameters, TToastContent toastContent)
+            where TToastContent : class;
+
+        void ShowToast<T, TToastContent>(ToastParameters<TToastContent> parameters)
+            where T : IToastContentComponent<TToastContent>
+            where TToastContent : class;
+
+        void UpdateToast<TToastContent>(string id, ToastParameters<TToastContent> parameters, Action<ToastParameters>? settings = null)
+            where TToastContent : class;
 
         void CloseToast(string id);
     }

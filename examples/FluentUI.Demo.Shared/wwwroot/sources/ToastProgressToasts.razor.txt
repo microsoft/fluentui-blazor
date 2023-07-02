@@ -11,42 +11,43 @@
     private FluentButton? _button;
     private static string _id = "progressToast";
 
-    private ToastParameters<ProgressToastData> _progressToastData = new()
-        {
-            Id = _id,
-            Intent = ToastIntent.Upload,
-            Title = "Uploading file",
-            Timeout = 0,
-            TopAction = new ToastAction() { Text = "Cancel", Href = "#", OnClick = ClickedPrimary },
-            //SecondaryAction = new ToastAction() { Text = "Pause", Href = "#", OnClick = ClickedSecondary },
-            Data = new ProgressToastData()
+    private ToastParameters<ProgressToastContent> _progressToastData;
+
+    public ToastProgressToasts()
+    {
+        _progressToastData = new()
             {
-                Details = "This may take a while.",
-                Progress = "0",
-            },
-        };
+                Id = _id,
+                Intent = ToastIntent.Upload,
+                Title = "Uploading file",
+                Timeout = 0,
+                TopAction = "Cancel",
+                OnTopAction = EventCallback.Factory.Create<ToastResult>(this, ClickedCancel),
+                ToastContent = new ProgressToastContent()
+                {
+                    Details = "This may take a while.",
+                    Progress = "0",
+                },
+            };
+    }
 
     private void ShowExample()
     {
         ToastService.ShowProgressToast(_progressToastData);
     }
 
-    private static void ClickedPrimary()
+    private static void ClickedCancel()
     {
-        DemoLogger.WriteLine("Clicked cancel action");
+        DemoLogger.WriteLine($"Clicked cancel");
     }
 
-    private static void ClickedSecondary()
-    {
-        DemoLogger.WriteLine("Clicked pause action");
-    }
-
+    
     private async Task UpdateProgress()
     {
         _button!.Disabled = true;
         for (int i = 0; i < 101; i++)
         {
-            _progressToastData.Data.Progress = i.ToString();
+            _progressToastData.ToastContent.Progress = i.ToString();
             ToastService.UpdateToast(_id, _progressToastData);
             await Task.Delay(100);
             //StateHasChanged();
@@ -56,7 +57,7 @@
 
     private void Reset()
     {
-        _progressToastData.Data.Progress = "0";
+        _progressToastData.ToastContent.Progress = "0";
         ToastService.UpdateToast(_id, _progressToastData);
         _button!.Disabled = false;
     }

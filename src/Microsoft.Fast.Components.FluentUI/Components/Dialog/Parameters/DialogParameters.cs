@@ -55,7 +55,7 @@ public class DialogParameters<TData> : ComponentParameters
     public string? Height { get; set; }
 
     /// <summary>
-    /// Data to pass to and from the dialog.
+    /// ToastContent to pass to and from the dialog.
     /// </summary>
     public TData Data { get; set; } = default!;
 

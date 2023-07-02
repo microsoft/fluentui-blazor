@@ -96,32 +96,33 @@ public partial class FluentToastContainer
         }
     }
 
-    private void ShowToast(Type? toastComponent, object data, Action<ToastSettings>? settings = null)
+    private void ShowToast(Type? toastComponent, object toastContent, ToastParameters parameters)
     {
         _ = InvokeAsync(() =>
         {
-            ToastSettings? toastSettings = new();
-            settings?.Invoke(toastSettings);
+            //ToastParameters? toastParameters = new();
+            //parameters?.Invoke(toastParameters);
 
-            ToastInstance toast = new(toastComponent, data!, toastSettings);
+            //ToastInstance toast = new(toastComponent, toastContent!, toastParameters);
+            ToastInstance toast = new(toastComponent, toastContent!, parameters);
 
             ListOrQueue(toast);
         });
     }
 
-    private void UpdateToast(string? toastId, object data, Action<ToastSettings>? settings = null)
+    private void UpdateToast(string? toastId, object toastContent, Action<ToastParameters> parameters)
     {
         _ = InvokeAsync(() =>
         {
-            ToastSettings? toastSettings = new();
-            settings?.Invoke(toastSettings);
+            ToastParameters? toastParameters = new();
+            parameters?.Invoke(toastParameters);
 
             ToastInstance? toastInstance = _toastList.SingleOrDefault(x => x.Id == toastId);
 
             if (toastInstance is not null)
             {
-                toastInstance.Data = data;
-                toastInstance.Settings = toastSettings;
+                toastInstance.ToastContent = toastContent;
+                toastInstance.Settings = toastParameters;
 
                 StateHasChanged();
             }
@@ -138,7 +139,7 @@ public partial class FluentToastContainer
 
             while (_toastList.Count < MaxToastCount && _toastWaitingQueue.Count > 0)
             {
-                ToastInstance? toast = _toastWaitingQueue.Dequeue();
+                ToastInstance toast = _toastWaitingQueue.Dequeue();
 
                 _toastList.Add(toast);
             }

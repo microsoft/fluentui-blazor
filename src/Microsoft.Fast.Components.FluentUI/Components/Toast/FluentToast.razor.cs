@@ -5,7 +5,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentToast : FluentComponentBase, IDisposable
 {
     private CountdownTimer? _countdownTimer;
-    private ToastSettings _settings = default!;
+    private ToastParameters _parameters = default!;
 
     [CascadingParameter]
     private InternalToastContext ToastContext { get; set; } = default!;
@@ -18,24 +18,24 @@ public partial class FluentToast : FluentComponentBase, IDisposable
 
     protected override async Task OnInitializedAsync()
     {
-        _settings = Instance.Settings;
+        _parameters = Instance.Settings;
         ToastContext!.Register(this);
 
-        if (_settings.Timeout.HasValue && _settings.Timeout == 0)
+        if (_parameters.Timeout.HasValue && _parameters.Timeout == 0)
         {
             return;
         }
-        _countdownTimer = new CountdownTimer(_settings.Timeout ?? ToastContext!.ToastContainer.Timeout).OnElapsed(Close);
+        _countdownTimer = new CountdownTimer(_parameters.Timeout ?? ToastContext!.ToastContainer.Timeout).OnElapsed(Close);
         await _countdownTimer.StartAsync();
     }
 
     protected override void OnParametersSet()
     {
-        if (Instance.ContentType == typeof(CommunicationToast) && _settings.TopCTAType == ToastTopCTAType.Action)
+        if (Instance.ContentType == typeof(CommunicationToast) && _parameters.TopCTAType == ToastTopCTAType.Action)
         {
             throw new InvalidOperationException("ToastTopCTAType.Action is not supported for a CommunicationToast  ");
         }
-        if (Instance.ContentType != typeof(CommunicationToast) && _settings.TopCTAType == ToastTopCTAType.Timestamp)
+        if (Instance.ContentType != typeof(CommunicationToast) && _parameters.TopCTAType == ToastTopCTAType.Timestamp)
         {
             throw new InvalidOperationException("ToastTopCTAType.Timestamp is not supported for a this type of toast");
         }
@@ -49,7 +49,7 @@ public partial class FluentToast : FluentComponentBase, IDisposable
 
     public void HandleTopActionClick()
     {
-        _settings.TopAction?.OnClick?.Invoke();
+        _parameters.OnTopAction?.InvokeAsync(ToastResult.Ok<object?>(null));
         Close();
     }
 
@@ -67,13 +67,13 @@ public partial class FluentToast : FluentComponentBase, IDisposable
 
     public void HandlePrimaryActionClick()
     {
-        _settings.PrimaryAction?.OnClick?.Invoke();
+        _parameters.OnPrimaryAction?.InvokeAsync();
         Close();
     }
 
     public void HandleSecondaryActionClick()
     {
-        _settings.SecondaryAction?.OnClick?.Invoke();
+        _parameters.OnSecondaryAction?.InvokeAsync();
         Close();
     }
 

@@ -15,10 +15,21 @@
         var message = $"Simple Toast #{counter++}";
 
         ToastService.ShowToast(
-            intent, 
-            message, 
-            action => { action.Text = "Log click"; action.OnClick = () => DemoLogger.WriteLine($"Action clicked"); },
-            rnd.Next(3, 15)
+            intent,
+            message,
+            rnd.Next(3, 15),
+            "Log click",
+            EventCallback.Factory.Create<ToastResult>(this, HandleTopAction)
         );
+    }
+
+    private void HandleTopAction(ToastResult result)
+    {
+        DemoLogger.WriteLine($"Toast clicked");
+    }
+
+    private async Task HandleTopActionAsync(ToastResult result)
+    {
+        await Task.Run(()=> DemoLogger.WriteLine($"Toast clicked"));
     }
 }

@@ -7,15 +7,15 @@
 <CascadingValue Value="this" IsFixed="true">
     <div class="fluent-toast" id="@Id" tabindex="0" >
         <FluentStack Orientation="Orientation.Horizontal" Width="100%" VerticalAlignment="VerticalAlignment.Center" HorizontalGap="8">
-            @if (_settings.Icon is not null)
+            @if (_parameters.Icon is not null)
             {
-                var Icon = _settings.Icon.Value;
-                <FluentSystemIcon Value="@Icon.Value" Style="min-width: 16px;" Width="16" Color=@Icon.Color />
+                var Icon = _parameters.Icon.Value;
+                <FluentSystemIcon Value="@Icon.Value" Style="min-width: 16px;" Width="16" Color="@Icon.Color"/>
             }
 
-            <div class="fluent-toast-title">@_settings.Title</div>
+            <div class="fluent-toast-title">@_parameters.Title</div>
             <div class="fluent-toast-action">
-                @switch (_settings.TopCTAType)
+                @switch (_parameters.TopCTAType)
                 {
                     case ToastTopCTAType.Dismiss:
                         <FluentSystemIcon Icon="CoreIcons.Regular.Size24.Dismiss"
@@ -25,17 +25,17 @@
                                           OnClick="@Close" />
                         break;
                     case ToastTopCTAType.Timestamp:
-                        <span class="fluent-toast-small timestamp ">@_settings.Timestamp.ToString("HH:mm tt")</span>
+                        <span class="fluent-toast-small timestamp ">@_parameters.Timestamp.ToString("HH:mm tt")</span>
                         break;
                     case ToastTopCTAType.Action:
-                       <FluentAnchor Href="@(String.IsNullOrEmpty(_settings.TopAction?.Href) ? "#" : _settings.TopAction?.Href)"
-                                      title="@_settings.TopAction?.Text"
+                       <FluentAnchor title="@_parameters.TopAction"
+                                      Href="#"  
                                       Style="font-size: 14px; font-weight:400;"
                                       Appearance="Appearance.Hypertext"
                                       @onfocusin="@PauseTimeout"
                                       @onfocusout="@ResumeTimeout"
                                       @onclick="HandleTopActionClick">
-                            @_settings.TopAction?.Text
+                            @_parameters.TopAction
                         </FluentAnchor>
                         break;
                 }
@@ -45,31 +45,31 @@
         {
             <DynamicComponent Type="@Instance.ContentType" Parameters="@Instance.GetParameterDictionary()" />
         }
-        @if (_settings.PrimaryAction is not null || _settings.SecondaryAction is not null)
+        @if (_parameters.PrimaryAction is not null || _parameters.SecondaryAction is not null)
         {
             <div class="fluent-toast-actions">
-                @if (_settings.PrimaryAction is not null)
+                @if (_parameters.PrimaryAction is not null)
                 {
-                    <FluentAnchor Href="@(String.IsNullOrEmpty(_settings.PrimaryAction?.Href) ? "#" : _settings.PrimaryAction?.Href)"
-                                  title="@_settings.SecondaryAction?.Text"
+                    <FluentAnchor title="@_parameters.SecondaryAction"
+                                  Href="#"
                                   Style="font-size: 14px; font-weight:400;"
                                   Appearance="Appearance.Hypertext"
-                    @onfocusin="@PauseTimeout"
-                    @onfocusout="@ResumeTimeout"
-                    @onclick="HandlePrimaryActionClick">
-                        @_settings.PrimaryAction?.Text
+                                  @onfocusin="@PauseTimeout"
+                                  @onfocusout="@ResumeTimeout"
+                                  @onclick="HandlePrimaryActionClick">
+                        @_parameters.PrimaryAction
                     </FluentAnchor>
                 }
-                @if (_settings.SecondaryAction is not null)
+                @if (_parameters.SecondaryAction is not null)
                 {
-                    <FluentAnchor Href="@(String.IsNullOrEmpty(_settings.SecondaryAction?.Href) ? "#" : _settings.SecondaryAction?.Href)"
-                                  title="@_settings.SecondaryAction?.Text"
+                    <FluentAnchor title="@_parameters.SecondaryAction"
+                                  Href="#"        
                                   Style="font-size: 14px; font-weight:400;"
                                   Appearance="Appearance.Hypertext"
-                    @onfocusin="@PauseTimeout"
-                    @onfocusout="@ResumeTimeout"
-                    @onclick="HandleSecondaryActionClick">
-                        @_settings.SecondaryAction?.Text
+                                  @onfocusin="@PauseTimeout"
+                                  @onfocusout="@ResumeTimeout"
+                                  @onclick="HandleSecondaryActionClick">
+                        @_parameters.SecondaryAction
                     </FluentAnchor>
                 }
             </div>

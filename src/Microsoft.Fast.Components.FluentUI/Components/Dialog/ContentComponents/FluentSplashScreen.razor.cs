@@ -33,7 +33,7 @@ public partial class FluentSplashScreen : IDialogContentComponent<SplashScreenDa
 
     protected override void OnParametersSet()
     {
-        //SplashScreenData = (Data as SplashScreenParameters)!;
+        //SplashScreenData = (ToastContent as SplashScreenParameters)!;
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

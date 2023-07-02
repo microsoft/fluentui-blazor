@@ -2,12 +2,12 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class ProgressToast : IToastContentComponent<ProgressToastData>
+public partial class ProgressToast : IToastContentComponent<ProgressToastContent>
 {
 
 
     [Parameter]
-    public ProgressToastData Data { get; set; } = default!;
+    public ProgressToastContent ToastContent { get; set; } = default!;
 
 
     [CascadingParameter]
@@ -21,13 +21,13 @@ public partial class ProgressToast : IToastContentComponent<ProgressToastData>
 
     public void HandlePrimaryActionClick()
     {
-        //Data.PrimaryAction?.OnClick?.Invoke();
+        //ToastContent.PrimaryAction?.OnClick?.Invoke();
         Close();
     }
 
     public void HandleSecondaryActionClick()
     {
-        //Data.SecondaryAction?.OnClick?.Invoke();
+        //ToastContent.SecondaryAction?.OnClick?.Invoke();
         Close();
     }
 }
