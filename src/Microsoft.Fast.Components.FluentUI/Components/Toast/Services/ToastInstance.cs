@@ -6,8 +6,8 @@ public sealed class ToastInstance
     {
         ContentType = type;
         ToastContent = toastContent;
-        Settings = parameters;
-        Id = Settings.Id ?? Identifier.NewId();
+        Parameters = parameters;
+        Id = Parameters.Id ?? Identifier.NewId();
     }
     public string Id { get; }
 
@@ -15,7 +15,7 @@ public sealed class ToastInstance
 
     public object ToastContent { get; set; } = default!;
 
-    public ToastParameters Settings { get; set; } = default!;
+    public ToastParameters Parameters { get; set; } = default!;
 
     public Dictionary<string, object> GetParameterDictionary()
     {

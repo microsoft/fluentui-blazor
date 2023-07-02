@@ -31,11 +31,6 @@ public partial class FluentSplashScreen : IDialogContentComponent<SplashScreenDa
     [CascadingParameter]
     public FluentDialog Dialog { get; set; } = default!;
 
-    protected override void OnParametersSet()
-    {
-        //SplashScreenData = (ToastContent as SplashScreenParameters)!;
-    }
-
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)

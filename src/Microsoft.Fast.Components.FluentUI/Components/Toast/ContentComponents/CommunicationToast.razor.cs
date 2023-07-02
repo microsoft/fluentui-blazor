@@ -5,7 +5,7 @@ public partial class CommunicationToast : IToastContentComponent<CommunicationTo
 {
 
     [Parameter]
-    public CommunicationToastContent ToastContent { get; set; } = default!;
+    public CommunicationToastContent Content { get; set; } = default!;
 
 
     [CascadingParameter]
@@ -25,13 +25,13 @@ public partial class CommunicationToast : IToastContentComponent<CommunicationTo
 
     public void HandlePrimaryActionClick()
     {
-        //ToastContent.PrimaryAction?.OnClick?.Invoke();
+        //Content.PrimaryAction?.OnClick?.Invoke();
         Close();
     }
 
     public void HandleSecondaryActionClick()
     {
-        //ToastContent.SecondaryAction?.OnClick?.Invoke();
+        //Content.SecondaryAction?.OnClick?.Invoke();
         Close();
     }
 }

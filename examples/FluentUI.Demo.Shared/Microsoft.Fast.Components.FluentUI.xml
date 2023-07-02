@@ -1786,12 +1786,12 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters`1.Height">
             <summary>
             Height of the dialog. Must be a valid CSS height value like "600px" or "3em"
-            Only used if Alignment is set to "HorizotalAlignment.Center"
+            Only used if Alignment is set to "HorizontalAlignment.Center"
             </summary>  
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters`1.Data">
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters`1.Content">
             <summary>
-            ToastContent to pass to and from the dialog.
+            Content to pass to and from the dialog.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters`1.OnDialogResult">
@@ -1952,8 +1952,8 @@
             Shows a dialog with the component type as the body,
             passing the specified <paramref name="parameters "/> and <paramref name="settings "/>
             </summary>
-            <param name="parameters">ToastContent to pass to component being displayed.</param>
-            <param name="settings">Settings to configure the dialog component.</param>
+            <param name="parameters">Content to pass to component being displayed.</param>
+            <param name="settings">Parameters to configure the dialog component.</param>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialog``1(System.Type,``0,System.Action{Microsoft.Fast.Components.FluentUI.DialogSettings})">
             <summary>
@@ -1961,8 +1961,8 @@
             passing the specified <paramref name="data "/> 
             </summary>
             <param name="dialogComponent">Type of component to display.</param>
-            <param name="data">ToastContent to pass to component being displayed.</param>
-            <param name="settings">Settings to configure the dialog component.</param>
+            <param name="data">Content to pass to component being displayed.</param>
+            <param name="settings">Parameters to configure the dialog component.</param>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.CreateDialogCallback(System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task})">
             <summary>
@@ -2917,7 +2917,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.Items">
             <summary>
-            ToastContent source of all items to display in this list.
+            Data source of all items to display in this list.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.SelectedOption">
@@ -4553,7 +4553,7 @@
             </summary>
             <param name="toastComponent">Type of component to display.</param>
             <param name="toastContent">Content to be displayed in the toast.</param>
-            <param name="parameters">Settings to configure the toast component.</param>
+            <param name="parameters">Parameters to configure the toast component.</param>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.UpdateToast``1(System.String,Microsoft.Fast.Components.FluentUI.ToastParameters{``0},System.Action{Microsoft.Fast.Components.FluentUI.ToastParameters})">
             <summary>
@@ -4561,7 +4561,7 @@
             </summary>
             <param name="id">Id of the toast to update.</param>
             <param name="parameters">Parametes used to construct toast.</param>
-            <param name="settings">Settings to configure the toast component.</param>
+            <param name="settings">Parameters to configure the toast component.</param>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearAll(System.Boolean)">
             <summary>

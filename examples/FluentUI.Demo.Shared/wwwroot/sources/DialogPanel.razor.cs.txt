@@ -18,7 +18,7 @@ namespace FluentUI.Demo.Shared.Pages.Panel.Examples
 
             DialogService.ShowPanel<SimplePanel, SimplePerson>(new DialogParameters<SimplePerson>()
             {
-                Data = simplePerson,
+                Content = simplePerson,
                 Alignment = HorizontalAlignment.Right,
                 Title = $"Hello {simplePerson.Firstname}",
                 OnDialogResult = DialogService.CreateDialogCallback(this, HandlePanel),
@@ -32,7 +32,7 @@ namespace FluentUI.Demo.Shared.Pages.Panel.Examples
             DemoLogger.WriteLine($"Open left panel");
             DialogParameters<SimplePerson> parameters = new()
             {
-                Data = simplePerson,
+                Content = simplePerson,
                 Title = $"Hello {simplePerson.Firstname}",
                 OnDialogResult = DialogService.CreateDialogCallback(this, HandlePanel),
                 Alignment = HorizontalAlignment.Left,

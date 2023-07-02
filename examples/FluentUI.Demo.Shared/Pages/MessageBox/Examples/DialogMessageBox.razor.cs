@@ -46,7 +46,7 @@ namespace FluentUI.Demo.Shared.Pages.MessageBox.Examples
             DemoLogger.WriteLine($"Open Customized MessageBox");
             DialogService.ShowMessageBox(new DialogParameters<MessageBoxData>()
             {
-                Data = new()
+                Content = new()
                 {
                     Title = "My title",
                     MarkupMessage = new MarkupString("My <strong>customized</strong> message"),

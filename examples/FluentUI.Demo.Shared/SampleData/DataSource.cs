@@ -92,7 +92,7 @@ public class DataSource
                      .ElementAt(index % 12);
     }
 
-    // ToastContent derived from https://www.kaggle.com/datasets/arjunprasadsarkhel/2021-olympics-in-tokyo,
+    // Data derived from https://www.kaggle.com/datasets/arjunprasadsarkhel/2021-olympics-in-tokyo,
     // which is licensed as https://creativecommons.org/licenses/by-sa/4.0/
     private readonly static Country[] _countries = new[]
     {

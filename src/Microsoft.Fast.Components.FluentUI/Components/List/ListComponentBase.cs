@@ -93,7 +93,7 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
     public virtual Func<TOption, bool>? OptionSelected { get; set; }
 
     /// <summary>
-    /// ToastContent source of all items to display in this list.
+    /// Data source of all items to display in this list.
     /// </summary>
     [Parameter]
     public virtual IEnumerable<TOption>? Items { get; set; }
@@ -153,7 +153,7 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
     public ListComponentBase()
     {
         _internalListContext = new(this);
-        
+
         Id = Identifier.NewId();
 
         OptionText = (item) => item?.ToString() ?? null;

@@ -10,7 +10,7 @@ namespace FluentUI.Demo.Shared.Pages.SplashScreen.Examples
             DemoLogger.WriteLine($"Open default splashscreen for 4 seconds");
             DialogParameters<SplashScreenData> parameters = new()
             {
-                Data = new()
+                Content = new()
                 {
                     Title = "Core components",
                     SubTitle = "Microsoft Fluent UI Blazor library",

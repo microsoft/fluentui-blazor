@@ -212,7 +212,7 @@ public class ToastService : IToastService
     /// </summary>
     /// <param name="toastComponent">Type of component to display.</param>
     /// <param name="toastContent">Content to be displayed in the toast.</param>
-    /// <param name="parameters">Settings to configure the toast component.</param>
+    /// <param name="parameters">Parameters to configure the toast component.</param>
     public void ShowToast<TToastContent>(Type? toastComponent, ToastParameters parameters, TToastContent toastContent)
        where TToastContent : class
     {
@@ -236,7 +236,7 @@ public class ToastService : IToastService
         //    //x.OnToastResult = parameters.OnToastResult;
         //});
 
-        //OnShow?.Invoke(toastComponent, parameters.ToastContent, toastSettings);
+        //OnShow?.Invoke(toastComponent, parameters.Content, toastSettings);
         parameters.Icon ??= GetIntentIcon(parameters.Intent);
         OnShow?.Invoke(toastComponent, toastContent, parameters);
     }
@@ -248,7 +248,7 @@ public class ToastService : IToastService
     /// </summary>
     /// <param name="id">Id of the toast to update.</param>
     /// <param name="parameters">Parametes used to construct toast.</param>
-    /// <param name="settings">Settings to configure the toast component.</param>
+    /// <param name="settings">Parameters to configure the toast component.</param>
     public void UpdateToast<TData>(string id, ToastParameters<TData> parameters, Action<ToastParameters>? settings = null)
         where TData : class
     {

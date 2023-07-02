@@ -2,13 +2,13 @@
 @implements IToastContentComponent<CommunicationToastContent>
 
 <div class="fluent-toast-body">
-    @if (!string.IsNullOrWhiteSpace(ToastContent.Subtitle))
+    @if (!string.IsNullOrWhiteSpace(Content.Subtitle))
     {
-        <div class="fluent-toast-subtitle">@ToastContent.Subtitle</div>
+        <div class="fluent-toast-subtitle">@Content.Subtitle</div>
     }
 
-    @if (!string.IsNullOrWhiteSpace(ToastContent.Details))
+    @if (!string.IsNullOrWhiteSpace(Content.Details))
     {
-        <div class="fluent-toast-details">@ToastContent.Details</div>
+        <div class="fluent-toast-details">@Content.Details</div>
     }
 </div>

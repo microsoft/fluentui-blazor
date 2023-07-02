@@ -122,7 +122,7 @@ public partial class FluentToastContainer
             if (toastInstance is not null)
             {
                 toastInstance.ToastContent = toastContent;
-                toastInstance.Settings = toastParameters;
+                toastInstance.Parameters = toastParameters;
 
                 StateHasChanged();
             }
@@ -198,10 +198,10 @@ public partial class FluentToastContainer
 
         //});
 
-        _toastList.RemoveAll(x => x.Settings.Intent == intent);
+        _toastList.RemoveAll(x => x.Parameters.Intent == intent);
         if (includeQueue)
         {
-            _toastWaitingQueue = new(_toastWaitingQueue.Where(x => x.Settings.Intent != intent));
+            _toastWaitingQueue = new(_toastWaitingQueue.Where(x => x.Parameters.Intent != intent));
         }
 
         ShowEnqueuedToasts();
@@ -220,7 +220,7 @@ public partial class FluentToastContainer
     {
         _ = InvokeAsync(() =>
         {
-            _toastWaitingQueue = new(_toastWaitingQueue.Where(x => x.Settings.Intent != intent));
+            _toastWaitingQueue = new(_toastWaitingQueue.Where(x => x.Parameters.Intent != intent));
             StateHasChanged();
         });
     }

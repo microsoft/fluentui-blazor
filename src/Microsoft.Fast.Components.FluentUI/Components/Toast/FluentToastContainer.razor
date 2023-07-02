@@ -14,7 +14,7 @@
 @code {
     protected void RenderToasts(RenderTreeBuilder __builder)
     {
-        @foreach (ToastInstance toast in _toastList.OrderBy(x => x.Settings.Timestamp))
+        @foreach (ToastInstance toast in _toastList.OrderBy(x => x.Parameters.Timestamp))
         {
             <FluentToast @key="@toast" Id="@toast.Id" Instance="@toast"  Data="@toast.ToastContent"/>
         }

@@ -3,11 +3,11 @@
 
 
 <div class="fluent-toast-body">
-    @if (!string.IsNullOrWhiteSpace(ToastContent.Details))
+    @if (!string.IsNullOrWhiteSpace(Content.Details))
     {
-        <div class="fluent-toast-details">@ToastContent.Details</div>
+        <div class="fluent-toast-details">@Content.Details</div>
     }
 
-    <FluentProgress Class="fluent-toast-progressbar" Min="0" Max="100" @bind-Value="@ToastContent.Progress"></FluentProgress>
-    <div class="fluent-toast-progressbar-percentage">@ToastContent.Progress%</div>
+    <FluentProgress Class="fluent-toast-progressbar" Min="0" Max="100" @bind-Value="@Content.Progress"></FluentProgress>
+    <div class="fluent-toast-progressbar-percentage">@Content.Progress%</div>
 </div>

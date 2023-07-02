@@ -7,7 +7,7 @@ public interface IDialogContentComponent
 {
 }
 
-public interface IDialogContentComponent<TData> : IDialogContentComponent
+public interface IDialogContentComponent<TContent> : IDialogContentComponent
 {
-    TData Data { get; set; }
+    TContent Data { get; set; }
 }

@@ -9,7 +9,7 @@ public interface IToastContentComponent
 }
 
 
-public interface IToastContentComponent<TToastContent> : IToastContentComponent
+public interface IToastContentComponent<TContent> : IToastContentComponent
 {
-    TToastContent ToastContent { get; set; }
+    TContent Content { get; set; }
 }

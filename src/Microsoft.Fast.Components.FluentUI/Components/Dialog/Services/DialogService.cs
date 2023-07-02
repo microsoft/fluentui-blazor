@@ -49,11 +49,11 @@ public class DialogService : IDialogService
             x.Width = parameters.Width ?? "600px";
             x.Height = parameters.Height ?? "370px";
             x.DialogBodyStyle = "width: 100%; height: 100%; margin: 0px;";
-            x.AriaLabel = $"{parameters.Data.Title} splashscreen";
+            x.AriaLabel = $"{parameters.Content.Title} splashscreen";
             x.OnDialogResult = EventCallback.Factory.Create(receiver, callback);
         });
 
-        ShowDialog(component, parameters.Data, settings);
+        ShowDialog(component, parameters.Content, settings);
     }
 
     /// <summary>
@@ -63,7 +63,7 @@ public class DialogService : IDialogService
     /// <param name="title">The title to display on the dialog.</param>
     public void ShowSuccess(string message, string? title = null) => ShowMessageBox(new DialogParameters<MessageBoxData>()
     {
-        Data = new MessageBoxData()
+        Content = new MessageBoxData()
         {
             Title = string.IsNullOrWhiteSpace(title) ? "Success!" /*DialogResources.TitleError*/ : title,
             Intent = MessageBoxIntent.Success,
@@ -82,7 +82,7 @@ public class DialogService : IDialogService
     /// <param name="title">The title to display on the dialog.</param>
     public void ShowWarning(string message, string? title = null) => ShowMessageBox(new DialogParameters<MessageBoxData>()
     {
-        Data = new MessageBoxData()
+        Content = new MessageBoxData()
         {
             Title = string.IsNullOrWhiteSpace(title) ? "Warning!" /*DialogResources.TitleError*/ : title,
             Intent = MessageBoxIntent.Warning,
@@ -101,7 +101,7 @@ public class DialogService : IDialogService
     /// <param name="title">The title to display on the dialog.</param>
     public void ShowError(string message, string? title = null) => ShowMessageBox(new DialogParameters<MessageBoxData>()
     {
-        Data = new MessageBoxData()
+        Content = new MessageBoxData()
         {
             Title = string.IsNullOrWhiteSpace(title) ? "Error!" /*DialogResources.TitleError*/ : title,
             Intent = MessageBoxIntent.Error,
@@ -120,7 +120,7 @@ public class DialogService : IDialogService
     /// <param name="title">The title to display on the dialog.</param>
     public void ShowInfo(string message, string? title = null) => ShowMessageBox(new DialogParameters<MessageBoxData>()
     {
-        Data = new MessageBoxData()
+        Content = new MessageBoxData()
         {
             Title = string.IsNullOrWhiteSpace(title) ? "Information" /*DialogResources.TitleInformation*/ : title,
             Intent = MessageBoxIntent.Info,
@@ -145,7 +145,7 @@ public class DialogService : IDialogService
     public void ShowConfirmation(object receiver, Func<DialogResult, Task> callback, string message, string primaryText = "Yes", string secondaryText = "No", string? title = null)
         => ShowMessageBox(new DialogParameters<MessageBoxData>()
         {
-            Data = new MessageBoxData()
+            Content = new MessageBoxData()
             {
                 Title = string.IsNullOrWhiteSpace(title) ? "Confirm" /*DialogResources.TitleConfirmation*/ : title,
                 Intent = MessageBoxIntent.Confirmation,
@@ -168,18 +168,18 @@ public class DialogService : IDialogService
         Action<DialogSettings> dialogSettings = new(x =>
        {
            x.Alignment = HorizontalAlignment.Center;
-           x.Title = parameters.Data.Title;
+           x.Title = parameters.Content.Title;
            x.Modal = string.IsNullOrEmpty(parameters.SecondaryButton);
            x.ShowDismiss = false;
            x.PrimaryButton = parameters.PrimaryButton;
            x.SecondaryButton = parameters.SecondaryButton;
            x.Width = parameters.Width;
            x.Height = parameters.Height;
-           x.AriaLabel = $"{parameters.Data.Title}";
+           x.AriaLabel = $"{parameters.Content.Title}";
            x.OnDialogResult = parameters.OnDialogResult;
        });
 
-        ShowDialog(typeof(MessageBox), parameters.Data, dialogSettings);
+        ShowDialog(typeof(MessageBox), parameters.Content, dialogSettings);
     }
 
     /// <summary>
@@ -215,7 +215,7 @@ public class DialogService : IDialogService
             x.OnDialogResult = parameters.OnDialogResult;
         });
 
-        ShowDialog(dialogComponent, parameters.Data, settings);
+        ShowDialog(dialogComponent, parameters.Content, settings);
     }
 
     /// <summary>
@@ -242,20 +242,20 @@ public class DialogService : IDialogService
             x.OnDialogResult = parameters.OnDialogResult;
         });
 
-        ShowDialog(typeof(T), parameters.Data, settings);
+        ShowDialog(typeof(T), parameters.Content, settings);
     }
 
     /// <summary>
     /// Shows a dialog with the component type as the body,
     /// passing the specified <paramref name="parameters "/> and <paramref name="settings "/>
     /// </summary>
-    /// <param name="parameters">ToastContent to pass to component being displayed.</param>
-    /// <param name="settings">Settings to configure the dialog component.</param>
+    /// <param name="parameters">Content to pass to component being displayed.</param>
+    /// <param name="settings">Parameters to configure the dialog component.</param>
     public void ShowDialog<T, TData>(DialogParameters<TData> parameters, Action<DialogSettings>? settings = null)
         where T : IDialogContentComponent<TData>
         where TData : class
     {
-        ShowDialog(typeof(T), parameters.Data, settings);
+        ShowDialog(typeof(T), parameters.Content, settings);
     }
 
     /// <summary>
@@ -263,8 +263,8 @@ public class DialogService : IDialogService
     /// passing the specified <paramref name="data "/> 
     /// </summary>
     /// <param name="dialogComponent">Type of component to display.</param>
-    /// <param name="data">ToastContent to pass to component being displayed.</param>
-    /// <param name="settings">Settings to configure the dialog component.</param>
+    /// <param name="data">Content to pass to component being displayed.</param>
+    /// <param name="settings">Parameters to configure the dialog component.</param>
     public virtual void ShowDialog<TData>(Type dialogComponent, TData data, Action<DialogSettings>? settings = null)
         where TData : class
     {

@@ -62,8 +62,8 @@ namespace Microsoft.Fast.Components.FluentUI
         void ShowToast(ToastIntent intent, string title, int? timout = null, string? topAction = null, EventCallback<ToastResult>? callback = null);
 
 
-        //void ShowToast<TToastContent>(Type? toastComponent, ToastParameters<TToastContent> data, Action<ToastParameters>? settings = null)
-        //    where TToastContent : class;
+        //void ShowToast<TContent>(Type? toastComponent, ToastParameters<TContent> data, Action<ToastParameters>? settings = null)
+        //    where TContent : class;
 
         void ShowToast<TToastContent>(Type? toastComponent, ToastParameters parameters, TToastContent toastContent)
             where TToastContent : class;

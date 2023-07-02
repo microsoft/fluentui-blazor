@@ -5,7 +5,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// <summary>
 /// 
 /// </summary>
-public class DialogParameters<TData> : ComponentParameters
+public class DialogParameters<TContent> : ComponentParameters
 {
     /// <summary>
     /// Determines the alignment of the dialog.
@@ -50,14 +50,14 @@ public class DialogParameters<TData> : ComponentParameters
 
     /// <summary>
     /// Height of the dialog. Must be a valid CSS height value like "600px" or "3em"
-    /// Only used if Alignment is set to "HorizotalAlignment.Center"
+    /// Only used if Alignment is set to "HorizontalAlignment.Center"
     /// </summary>  
     public string? Height { get; set; }
 
     /// <summary>
-    /// ToastContent to pass to and from the dialog.
+    /// Content to pass to and from the dialog.
     /// </summary>
-    public TData Data { get; set; } = default!;
+    public TContent Content { get; set; } = default!;
 
     /// <summary>
     /// Callback function for the result.

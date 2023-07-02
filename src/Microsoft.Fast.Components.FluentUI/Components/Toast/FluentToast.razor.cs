@@ -18,7 +18,7 @@ public partial class FluentToast : FluentComponentBase, IDisposable
 
     protected override async Task OnInitializedAsync()
     {
-        _parameters = Instance.Settings;
+        _parameters = Instance.Parameters;
         ToastContext!.Register(this);
 
         if (_parameters.Timeout.HasValue && _parameters.Timeout == 0)

@@ -36,16 +36,16 @@ public interface IDialogService
     void ShowPanel<TData>(Type component, DialogParameters<TData> parameters)
         where TData : class;
 
-    //void ShowDialog<T, TData>(DialogParameters<TData> parameters)
-    //    where T : IDialogContentComponent<TData>
-    //    where TData : class;
+    //void ShowDialog<T, TContent>(DialogParameters<TContent> parameters)
+    //    where T : IDialogContentComponent<TContent>
+    //    where TContent : class;
 
     void ShowDialog<T, TData>(DialogParameters<TData> parameters, Action<DialogSettings>? settings = null)
         where T : IDialogContentComponent<TData>
         where TData : class;
 
-    //void ShowDialog<TData>(Type component, IDialogContentParameters<TData> parameters, Action<DialogSettings> settings)
-    //    where TData : class;
+    //void ShowDialog<TContent>(Type component, IDialogContentParameters<TContent> parameters, Action<DialogSettings> settings)
+    //    where TContent : class;
 
     void ShowDialog<TData>(Type component, TData data, Action<DialogSettings>? settings = null)
         where TData : class;

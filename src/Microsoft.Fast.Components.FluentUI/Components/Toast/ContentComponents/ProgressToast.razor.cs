@@ -7,7 +7,7 @@ public partial class ProgressToast : IToastContentComponent<ProgressToastContent
 
 
     [Parameter]
-    public ProgressToastContent ToastContent { get; set; } = default!;
+    public ProgressToastContent Content { get; set; } = default!;
 
 
     [CascadingParameter]
@@ -21,13 +21,13 @@ public partial class ProgressToast : IToastContentComponent<ProgressToastContent
 
     public void HandlePrimaryActionClick()
     {
-        //ToastContent.PrimaryAction?.OnClick?.Invoke();
+        //Content.PrimaryAction?.OnClick?.Invoke();
         Close();
     }
 
     public void HandleSecondaryActionClick()
     {
-        //ToastContent.SecondaryAction?.OnClick?.Invoke();
+        //Content.SecondaryAction?.OnClick?.Invoke();
         Close();
     }
 }
