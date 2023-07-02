@@ -21,11 +21,7 @@
 		<ProjectReference Include="..\FluentUI.Demo.Shared\FluentUI.Demo.Shared.csproj" />
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(Configuration)'=='Release'">
-		<PackageReference Include="Microsoft.Fast.Components.FluentUI" Version="3.*-*" PrivateAssets="none" />
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(Configuration)'=='Debug'">
+	<ItemGroup>
 		<ProjectReference Include="..\..\src\Microsoft.Fast.Components.FluentUI\Microsoft.Fast.Components.FluentUI.csproj" />
 	</ItemGroup>
 

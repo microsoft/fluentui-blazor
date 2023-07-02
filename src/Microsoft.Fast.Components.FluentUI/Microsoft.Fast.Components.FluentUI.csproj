@@ -100,10 +100,6 @@
 		<Copy SourceFiles="@(XmlFiles)" DestinationFolder="$(SolutionDir)examples\FluentUI.Demo.Shared" />
 	</Target>
 
-	<ItemGroup>
-		<None Include="$(OutputPath)\net7.0\Microsoft.Fast.Components.FluentUI.Configuration.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
-	</ItemGroup>
-
   <!-- Embedd other languages under root resx file -->
   <ItemGroup>    
 	<None Include="**\*.*.resx" />
