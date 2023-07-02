@@ -416,6 +416,4 @@ public class ToastService : IToastService
     /// </summary>
     public void ClearQueueCustomIntentToasts()
         => OnClearQueueIntent?.Invoke(ToastIntent.Custom);
-
-
 }
