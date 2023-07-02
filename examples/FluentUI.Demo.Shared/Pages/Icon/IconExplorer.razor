@@ -12,7 +12,7 @@
     <FluentSelect TOption="IconVariant" @bind-SelectedOption="@Criteria.Variant"
                   Style="min-width: unset;"
                   Items="@(Enum.GetValues<IconVariant>())" />
-    <FluentSystemIcon Icon="Icons.Regular.Size24.ArrowCircleRight" OnClick="@HandleSearchField" />
+    <FluentIcon Icon="Icons.Regular.Size24.ArrowCircleRight" OnClick="@HandleSearchField" />
 </div>
 
 @* Results *@
@@ -41,7 +41,7 @@
             {
                 <FluentCard Class="card">
                     <div class="icon">
-                        <FluentSystemIcon Value="Icons.GetInstance(item)" Title="@item.Name" />
+                        <FluentIcon Value="Icons.GetInstance(item)" Title="@item.Name" />
                     </div>
                     <label>@item.Name</label>
                 </FluentCard>

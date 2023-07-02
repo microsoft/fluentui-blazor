@@ -1,21 +1,21 @@
 ﻿<FluentTabs ActiveTabId="tab-1">
     <FluentTab Id="tab-1">
         <Header>
-            <FluentSystemIcon Icon="Icons.Regular.Size16.LeafOne" />
+            <FluentIcon Icon="Icons.Regular.Size16.LeafOne" />
             All
         </Header>
 
     </FluentTab>
     <FluentTab Id="tab-2">
         <Header>
-            <FluentSystemIcon Icon="Icons.Regular.Size16.LeafTwo" Color="@Color.Success" />
+            <FluentIcon Icon="Icons.Regular.Size16.LeafTwo" Color="@Color.Success" />
             January
         </Header>
 
     </FluentTab>
     <FluentTab Id="tab-3">
         <Header>
-            <FluentSystemIcon Icon="Icons.Regular.Size16.LeafThree" Color="@Color.Error" />
+            <FluentIcon Icon="Icons.Regular.Size16.LeafThree" Color="@Color.Error" />
             <span style="color:forestgreen;">February</span>
         </Header>
     </FluentTab>

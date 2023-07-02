@@ -5,9 +5,9 @@ using Microsoft.Fast.Components.FluentUI.Utilities;
 namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary>
-/// FluentSystemIcon is a component that renders an icon from the Fluent System icon set.
+/// FluentIcon is a component that renders an icon from the Fluent System icon set.
 /// </summary>
-public partial class FluentSystemIcon<Icon> : FluentComponentBase
+public partial class FluentIcon<Icon> : FluentComponentBase
     where Icon : FluentUI.Icon
 {
     private Icon _icon = default!;

@@ -1,16 +1,16 @@
 ﻿<p>With icon at start</p>
 <FluentButton>
     Button
-    <FluentSystemIcon Icon="Icons.Regular.Size16.Globe" Slot="start" />
+    <FluentIcon Icon="Icons.Regular.Size16.Globe" Slot="start" />
 </FluentButton>
 
 <p>With icon at end</p>
 <FluentButton>
-    <FluentSystemIcon Icon="Icons.Regular.Size16.Globe" Slot="end" />
+    <FluentIcon Icon="Icons.Regular.Size16.Globe" Slot="end" />
     Button
 </FluentButton>
 
 <p>With icon in default slot</p>
 <FluentButton>
-    <FluentSystemIcon Icon="Icons.Regular.Size16.Globe" />
+    <FluentIcon Icon="Icons.Regular.Size16.Globe" />
 </FluentButton>

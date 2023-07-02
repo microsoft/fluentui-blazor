@@ -2484,63 +2484,63 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.FluentSystemIcon`1">
+        <member name="T:Microsoft.Fast.Components.FluentUI.FluentIcon`1">
             <summary>
-            FluentSystemIcon is a component that renders an icon from the Fluent System icon set.
+            FluentIcon is a component that renders an icon from the Fluent System icon set.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemIcon`1.ClassValue">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon`1.ClassValue">
             <summary />
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemIcon`1.StyleValue">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon`1.StyleValue">
             <summary />
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemIcon`1.Slot">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon`1.Slot">
             <summary>
             Gets or sets the slot where the icon is displayed in
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemIcon`1.Title">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon`1.Title">
             <summary>
             Gets or sets the title for the icon
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemIcon`1.Color">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon`1.Color">
             <summary>
             Gets or sets the icon drawing and fill color. 
             Value comes from the <see cref="T:Microsoft.Fast.Components.FluentUI.Color"/> enumeration. Defaults to Accent.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemIcon`1.CustomColor">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon`1.CustomColor">
             <summary>
             Gets or sets the icon drawing and fill color to a custom value.
             Needs to be formatted as an HTML hex color string (#rrggbb or #rgb) or CSS variable.
             ⚠️ Only available when Color is set to Color.Custom.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemIcon`1.Width">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon`1.Width">
             <summary>
             Gets or sets the icon width.
             If not set, the icon size will be used.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemIcon`1.Value">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon`1.Value">
             <summary>
             Gets or sets the Icon object to render.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemIcon`1.OnClick">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon`1.OnClick">
             <summary>
             Allows for capturing a mouse click on an icon
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentSystemIcon`1.OnClickHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentIcon`1.OnClickHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
             <summary />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentSystemIcon`1.OnParametersSet">
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentIcon`1.OnParametersSet">
             <summary />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentSystemIcon`1.ContainsSVG">
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentIcon`1.ContainsSVG">
             <summary>
             Returns true if the icon contains a SVG content.
             </summary>
@@ -3194,7 +3194,7 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.Icon">
             <summary>
             Gets or sets the icon to display with the link
-            Use a constant value from the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentSystemIcon`1" /> class 
+            Use a constant value from the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentIcon`1" /> class 
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.Disabled">

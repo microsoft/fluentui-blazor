@@ -18,7 +18,7 @@
             @if (ColumnOptions is not null && (Align == Align.Start || Align == Align.Center))
             {
                 <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="Filter this column">
-                    <FluentSystemIcon Icon="CoreIcons.Regular.Size24.Filter" />
+                    <FluentIcon Icon="CoreIcons.Regular.Size24.Filter" />
                 </FluentButton>
             }
             
@@ -31,11 +31,11 @@
                     {
                         if (Grid.SortByAscending == true)
                         {
-                            <FluentSystemIcon Icon="CoreIcons.Regular.Size24.ArrowSortUp" Slot="@(Align == Align.End ? "start" : "end")" />
+                            <FluentIcon Icon="CoreIcons.Regular.Size24.ArrowSortUp" Slot="@(Align == Align.End ? "start" : "end")" />
                         }
                         else
                         {
-                            <FluentSystemIcon Icon="CoreIcons.Regular.Size24.ArrowSortDown" Slot="@(Align == Align.End ? "start" : "end")" />
+                            <FluentIcon Icon="CoreIcons.Regular.Size24.ArrowSortDown" Slot="@(Align == Align.End ? "start" : "end")" />
                         }
                      }
 
@@ -51,7 +51,7 @@
             @if (ColumnOptions is not null && Align == Align.End)
             {
                 <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="Filter this column">
-                    <FluentSystemIcon Icon="CoreIcons.Regular.Size24.Filter" />
+                    <FluentIcon Icon="CoreIcons.Regular.Size24.Filter" />
                 </FluentButton>
             }
         }

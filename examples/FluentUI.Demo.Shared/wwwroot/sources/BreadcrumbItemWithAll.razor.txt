@@ -1,6 +1,6 @@
 <FluentBreadcrumbItem Href="#">
     Breadcrumb item
-    <FluentSystemIcon Icon="Icons.Regular.Size20.ChevronDoubleRight" Color="@Color.Neutral" Slot="separator" />
-    <FluentSystemIcon Icon="Icons.Regular.Size16.Globe" Color="@Color.Neutral" Slot="end" />
-    <FluentSystemIcon Icon="Icons.Regular.Size16.Globe" Color="@Color.Neutral" Slot="start" />
+    <FluentIcon Icon="Icons.Regular.Size20.ChevronDoubleRight" Color="@Color.Neutral" Slot="separator" />
+    <FluentIcon Icon="Icons.Regular.Size16.Globe" Color="@Color.Neutral" Slot="end" />
+    <FluentIcon Icon="Icons.Regular.Size16.Globe" Color="@Color.Neutral" Slot="start" />
 </FluentBreadcrumbItem>

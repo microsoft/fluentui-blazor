@@ -381,7 +381,7 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
                                 (Icon Value, Color? Color, string? Slot) = t.Icon;
                                 if (Value != null)
                                 {
-                                    content.OpenComponent<FluentSystemIcon<Icon>>(6);
+                                    content.OpenComponent<FluentIcon<Icon>>(6);
                                     content.AddAttribute(7, "Value", Value);
 
                                     if (Slot is not null)

@@ -57,7 +57,7 @@ public partial class CodeEditorDefaultExample
                 <div>
                     <FluentButton @ref="button" id="@idButton" Appearance="Appearance.Accent" aria-haspopup="true" aria-expanded="@toggle" @onclick=ToggleMenu @onkeydown=OnKeyDown>
                         Select Brand Color
-                        <FluentSystemIcon Slot="end" Name="@Icons.Regular.Size24.ChevronDown" Color="@Color.Fill" />
+                        <FluentIcon Slot="end" Name="@Icons.Regular.Size24.ChevronDown" Color="@Color.Fill" />
                     </FluentButton>
                     <FluentMenu @ref="menu" id="@idMenu" Class="@menuClass" aria-labelledby="button" @onmenuchange=OnMenuChange>
                         <FluentMenuItem id="0078D4">Windows</FluentMenuItem>

@@ -29,7 +29,7 @@ public partial class FluentNavMenuLink : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the icon to display with the link
-    /// Use a constant value from the <see cref="FluentSystemIcon{Icon}" /> class 
+    /// Use a constant value from the <see cref="FluentIcon{Icon}" /> class 
     /// </summary>
     [Parameter]
     public Icon? Icon { get; set; }

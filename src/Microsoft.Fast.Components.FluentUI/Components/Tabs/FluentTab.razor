@@ -10,7 +10,7 @@
             @attributes="AdditionalAttributes">
     @if (Icon != null)
     {
-        <FluentSystemIcon Value="@Icon" Width="20px" Class="fluent-tab-icon" />
+        <FluentIcon Value="@Icon" Width="20px" Class="fluent-tab-icon" />
     }
     @if (LabelEditable)
     {
@@ -27,7 +27,7 @@
 
     @if (Owner.ShowClose)
     {
-        <FluentSystemIcon Icon="CoreIcons.Regular.Size24.Dismiss" Width="12px" Class="fluent-tab-close" Title="Close" OnClick="CloseClickedAsync" />
+        <FluentIcon Icon="CoreIcons.Regular.Size24.Dismiss" Width="12px" Class="fluent-tab-close" Title="Close" OnClick="CloseClickedAsync" />
     }
 </fluent-tab>
 @ChildContent

@@ -8,52 +8,52 @@
     <FluentButton Appearance=Appearance.Neutral @onclick="ClearIntent">Clear specific intent</FluentButton>
 
     <FluentButton Appearance=Appearance.Neutral @onclick="ClearSuccess">
-        <FluentSystemIcon Icon="Icons.Filled.Size20.CheckmarkCircle" Color="@Color.Success" Slot="start" />
+        <FluentIcon Icon="Icons.Filled.Size20.CheckmarkCircle" Color="@Color.Success" Slot="start" />
         Clear success
     </FluentButton>
 
     <FluentButton Appearance=Appearance.Neutral @onclick="ClearWarning">
-        <FluentSystemIcon Icon="Icons.Filled.Size20.Warning" Color="@Color.Warning" Slot="start" />
+        <FluentIcon Icon="Icons.Filled.Size20.Warning" Color="@Color.Warning" Slot="start" />
         Clear warning
     </FluentButton>
 
     <FluentButton Appearance=Appearance.Neutral @onclick="ClearError">
-        <FluentSystemIcon Icon="Icons.Filled.Size20.DismissCircle" Color="@Color.Error" Slot="start" />
+        <FluentIcon Icon="Icons.Filled.Size20.DismissCircle" Color="@Color.Error" Slot="start" />
         Clear error
     </FluentButton>
 
     <FluentButton Appearance=Appearance.Neutral @onclick="ClearInfo">
-        <FluentSystemIcon Icon="Icons.Filled.Size20.Info" Color="@Color.Info" Slot="start" />
+        <FluentIcon Icon="Icons.Filled.Size20.Info" Color="@Color.Info" Slot="start" />
         Clear info
     </FluentButton>
 
     <FluentButton Appearance=Appearance.Neutral @onclick="ClearProgress">
-        <FluentSystemIcon Icon="Icons.Regular.Size20.Flash" Color="@Color.Neutral" Slot="start" />
+        <FluentIcon Icon="Icons.Regular.Size20.Flash" Color="@Color.Neutral" Slot="start" />
         Clear progress
     </FluentButton>
 
     <FluentButton Appearance=Appearance.Neutral @onclick="ClearUpload">
-        <FluentSystemIcon Icon="Icons.Regular.Size20.ArrowUpload" Color="@Color.Neutral" Slot="start" />
+        <FluentIcon Icon="Icons.Regular.Size20.ArrowUpload" Color="@Color.Neutral" Slot="start" />
         Clear upload
     </FluentButton>
 
     <FluentButton Appearance=Appearance.Neutral @onclick="ClearDownload">
-        <FluentSystemIcon Icon="Icons.Regular.Size20.ArrowDownload" Color="@Color.Neutral" Slot="start" />
+        <FluentIcon Icon="Icons.Regular.Size20.ArrowDownload" Color="@Color.Neutral" Slot="start" />
         Clear download
     </FluentButton>
 
     <FluentButton Appearance=Appearance.Neutral @onclick="ClearEvent">
-        <FluentSystemIcon Icon="Icons.Regular.Size20.CalendarLtr" Color="@Color.Neutral" Slot="start" />
+        <FluentIcon Icon="Icons.Regular.Size20.CalendarLtr" Color="@Color.Neutral" Slot="start" />
         Clear event
     </FluentButton>
 
     <FluentButton Appearance=Appearance.Neutral @onclick="ClearAvatar">
-        <FluentSystemIcon Icon="Icons.Regular.Size20.Person" Color="@Color.Neutral" Slot="start" />
+        <FluentIcon Icon="Icons.Regular.Size20.Person" Color="@Color.Neutral" Slot="start" />
         Clear avatar
     </FluentButton>
 
     <FluentButton Appearance=Appearance.Neutral @onclick="ClearCustomIntent">
-        <FluentSystemIcon Icon="Icons.Regular.Size20.Delete" Color="@Color.Neutral" Slot="start" />
+        <FluentIcon Icon="Icons.Regular.Size20.Delete" Color="@Color.Neutral" Slot="start" />
         Clear custom
     </FluentButton>
 </FluentStack>
