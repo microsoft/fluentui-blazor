@@ -14,8 +14,8 @@ public class DialogService : IDialogService
     /// </summary>
     /// <param name="receiver">The componente that receives the callback</param>
     /// <param name="callback">Name of the callback function</param>
-    /// <param name="parameters"><see cref="SplashScreenData"/> that holds the data to display</param>
-    public void ShowSplashScreen(object receiver, Func<DialogResult, Task> callback, DialogParameters<SplashScreenData> parameters)
+    /// <param name="parameters"><see cref="SplashScreenContent"/> that holds the data to display</param>
+    public void ShowSplashScreen(object receiver, Func<DialogResult, Task> callback, DialogParameters<SplashScreenContent> parameters)
         => ShowSplashScreen<FluentSplashScreen>(receiver, callback, parameters);
 
     /// <summary>
@@ -23,9 +23,9 @@ public class DialogService : IDialogService
     /// </summary>
     /// <param name="receiver">The componente that receives the callback</param>
     /// <param name="callback">Name of the callback function</param>
-    /// <param name="parameters"><see cref="SplashScreenData"/> that holds the data to display</param>
-    public void ShowSplashScreen<T>(object receiver, Func<DialogResult, Task> callback, DialogParameters<SplashScreenData> parameters)
-        where T : IDialogContentComponent<SplashScreenData>
+    /// <param name="parameters"><see cref="SplashScreenContent"/> that holds the data to display</param>
+    public void ShowSplashScreen<T>(object receiver, Func<DialogResult, Task> callback, DialogParameters<SplashScreenContent> parameters)
+        where T : IDialogContentComponent<SplashScreenContent>
         => ShowSplashScreen(typeof(T), receiver, callback, parameters);
 
 
@@ -35,8 +35,8 @@ public class DialogService : IDialogService
     /// <param name="component">The type of the component to show</param>
     /// <param name="receiver">The componente that receives the callback</param>
     /// <param name="callback">Name of the callback function</param>
-    /// <param name="parameters"><see cref="SplashScreenData"/> that holds the data to display</param>
-    public void ShowSplashScreen(Type component, object receiver, Func<DialogResult, Task> callback, DialogParameters<SplashScreenData> parameters)
+    /// <param name="parameters"><see cref="SplashScreenContent"/> that holds the data to display</param>
+    public void ShowSplashScreen(Type component, object receiver, Func<DialogResult, Task> callback, DialogParameters<SplashScreenContent> parameters)
     {
         Action<DialogSettings> settings = new(x =>
         {
@@ -61,9 +61,9 @@ public class DialogService : IDialogService
     /// </summary>
     /// <param name="message">The message to display.</param>
     /// <param name="title">The title to display on the dialog.</param>
-    public void ShowSuccess(string message, string? title = null) => ShowMessageBox(new DialogParameters<MessageBoxData>()
+    public void ShowSuccess(string message, string? title = null) => ShowMessageBox(new DialogParameters<MessageBoxContent>()
     {
-        Content = new MessageBoxData()
+        Content = new MessageBoxContent()
         {
             Title = string.IsNullOrWhiteSpace(title) ? "Success!" /*DialogResources.TitleError*/ : title,
             Intent = MessageBoxIntent.Success,
@@ -80,9 +80,9 @@ public class DialogService : IDialogService
     /// </summary>
     /// <param name="message">The message to display.</param>
     /// <param name="title">The title to display on the dialog.</param>
-    public void ShowWarning(string message, string? title = null) => ShowMessageBox(new DialogParameters<MessageBoxData>()
+    public void ShowWarning(string message, string? title = null) => ShowMessageBox(new DialogParameters<MessageBoxContent>()
     {
-        Content = new MessageBoxData()
+        Content = new MessageBoxContent()
         {
             Title = string.IsNullOrWhiteSpace(title) ? "Warning!" /*DialogResources.TitleError*/ : title,
             Intent = MessageBoxIntent.Warning,
@@ -99,9 +99,9 @@ public class DialogService : IDialogService
     /// </summary>
     /// <param name="message">The message to display.</param>
     /// <param name="title">The title to display on the dialog.</param>
-    public void ShowError(string message, string? title = null) => ShowMessageBox(new DialogParameters<MessageBoxData>()
+    public void ShowError(string message, string? title = null) => ShowMessageBox(new DialogParameters<MessageBoxContent>()
     {
-        Content = new MessageBoxData()
+        Content = new MessageBoxContent()
         {
             Title = string.IsNullOrWhiteSpace(title) ? "Error!" /*DialogResources.TitleError*/ : title,
             Intent = MessageBoxIntent.Error,
@@ -118,9 +118,9 @@ public class DialogService : IDialogService
     /// </summary>
     /// <param name="message">The message to display.</param>
     /// <param name="title">The title to display on the dialog.</param>
-    public void ShowInfo(string message, string? title = null) => ShowMessageBox(new DialogParameters<MessageBoxData>()
+    public void ShowInfo(string message, string? title = null) => ShowMessageBox(new DialogParameters<MessageBoxContent>()
     {
-        Content = new MessageBoxData()
+        Content = new MessageBoxContent()
         {
             Title = string.IsNullOrWhiteSpace(title) ? "Information" /*DialogResources.TitleInformation*/ : title,
             Intent = MessageBoxIntent.Info,
@@ -143,9 +143,9 @@ public class DialogService : IDialogService
     /// <param name="secondaryText">The text to display on the secondary button.</param>
     /// <param name="title">The title to display on the dialog.</param>
     public void ShowConfirmation(object receiver, Func<DialogResult, Task> callback, string message, string primaryText = "Yes", string secondaryText = "No", string? title = null)
-        => ShowMessageBox(new DialogParameters<MessageBoxData>()
+        => ShowMessageBox(new DialogParameters<MessageBoxContent>()
         {
-            Content = new MessageBoxData()
+            Content = new MessageBoxContent()
             {
                 Title = string.IsNullOrWhiteSpace(title) ? "Confirm" /*DialogResources.TitleConfirmation*/ : title,
                 Intent = MessageBoxIntent.Confirmation,
@@ -163,7 +163,7 @@ public class DialogService : IDialogService
     /// (true=PrimaryButton clicked, false=SecondaryButton clicked).
     /// </summary>
     /// <param name="parameters">Parameters to pass to component being displayed.</param>
-    public void ShowMessageBox(DialogParameters<MessageBoxData> parameters)
+    public void ShowMessageBox(DialogParameters<MessageBoxContent> parameters)
     {
         Action<DialogSettings> dialogSettings = new(x =>
        {

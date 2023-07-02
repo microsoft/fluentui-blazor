@@ -2,7 +2,7 @@
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public class MessageBoxData
+public class MessageBoxContent
 {
     public string? Title { get; set; }
     public MessageBoxIntent Intent { get; set; }

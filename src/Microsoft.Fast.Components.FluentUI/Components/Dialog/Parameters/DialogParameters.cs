@@ -2,8 +2,9 @@
 
 namespace Microsoft.Fast.Components.FluentUI;
 
+
 /// <summary>
-/// 
+/// Parameters for a dialog.
 /// </summary>
 public class DialogParameters<TContent> : ComponentParameters
 {

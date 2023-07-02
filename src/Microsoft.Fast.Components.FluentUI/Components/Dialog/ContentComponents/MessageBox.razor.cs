@@ -3,10 +3,10 @@
 namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary />
-public partial class MessageBox : IDialogContentComponent<MessageBoxData>
+public partial class MessageBox : IDialogContentComponent<MessageBoxContent>
 {
     [Parameter]
-    public MessageBoxData Data { get; set; } = default!;
+    public MessageBoxContent Content { get; set; } = default!;
 
     [CascadingParameter]
     public FluentDialog Dialog { get; set; } = default!;
