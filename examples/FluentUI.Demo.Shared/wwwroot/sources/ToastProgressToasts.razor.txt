@@ -50,7 +50,6 @@
             _progressToastData.ToastContent.Progress = i.ToString();
             ToastService.UpdateToast(_id, _progressToastData);
             await Task.Delay(100);
-            //StateHasChanged();
         };
 
     }
