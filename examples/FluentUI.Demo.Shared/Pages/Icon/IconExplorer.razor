@@ -1,0 +1,25 @@
+<FluentSearch Style="width: 100%"
+              Name="Searchterm"
+              @bind-Value="SearchTerm"
+              AfterBindValue="HandleSearchField"
+              Placeholder="Part of icon name..." />
+
+<div class="icon-explorer">
+    @if (SearchInProgress)
+    {
+        <FluentProgressRing Style="width: unset; margin: 50px;" />
+    }
+
+    @foreach (var item in IconsFound)
+    {
+        <FluentCard>
+            <FluentSystemIcon Value="Icons.GetInstance(item)" Title="@item.Name" />
+        </FluentCard>
+       @* <div class="card">
+            <div class="icon">
+                <FluentSystemIcon Value="Icons.GetInstance(item)" Title="@item.Name" />
+            </div>
+            <label>@item.Name</label>
+        </div>*@
+    }
+</div>

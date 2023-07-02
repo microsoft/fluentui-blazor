@@ -1,0 +1,18 @@
+.icon-explorer {
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: auto;
+    height: 600px;
+    justify-content: center
+}
+
+    .icon-explorer .card {
+        height: 100px;
+        width: 100px;
+        margin: 10px;
+        background: var(--fill-color);
+        color: var(--neutral-foreground-rest);
+        border: calc(var(--stroke-width) * 1px) solid var(--neutral-stroke-layer-rest);
+        border-radius: calc(var(--layer-corner-radius) * 1px);
+        box-shadow: var(--elevation-shadow-card-rest);
+    }

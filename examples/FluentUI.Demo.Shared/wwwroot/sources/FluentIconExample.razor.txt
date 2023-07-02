@@ -1,0 +1,16 @@
+﻿<FluentStack>
+    <FluentSystemIcon Icon="Icons.Regular.Size24.Save" Title="Save" />
+    <FluentSystemIcon Icon="Icons.Regular.Size24.Open" Title="Open" Color="Color.Error" />
+    <FluentSystemIcon Value="@(new Icons.Regular.Size24.Album())" />
+
+    @*<FluentSystemIcon Value="@(Icon.FromImageUrl("/Blazor.png"))" />*@
+
+    @(new Icons.Regular.Size20.Add().ToMarkup())
+    @(new Icons.Regular.Size20.Airplane().ToMarkup("12px", "blue"))
+
+    <FluentButton>
+        <FluentSystemIcon Slot="start" Icon="Icons.Regular.Size24.ArrowCircleLeft" />
+        Back
+    </FluentButton>
+
+</FluentStack>

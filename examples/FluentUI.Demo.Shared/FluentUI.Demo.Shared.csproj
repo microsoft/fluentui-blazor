@@ -89,7 +89,7 @@
 		</ItemGroup>
 	</Target>
 
-	<Target Name="CopySources" BeforeTargets="CoreBuild">
+	<Target Name="CopySources" BeforeTargets="CoreBuild" Condition="'$(Configuration)'=='Release'">
 		<ItemGroup>
 			<Sources Include="$(ProjectDir)\Pages\**\Examples\*" />
 			<Sources Include="$(ProjectDir)\Pages\Lab\**" />
