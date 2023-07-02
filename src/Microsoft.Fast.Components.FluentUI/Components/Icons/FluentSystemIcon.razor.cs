@@ -59,6 +59,9 @@ public partial class FluentSystemIcon<Icon> : FluentComponentBase
     [Parameter]
     public string? Width { get; set; }
 
+    /// <summary>
+    /// Gets or sets the Icon object to render.
+    /// </summary>
     [Parameter]
     public Icon Value
     {

@@ -8,9 +8,9 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// FluentSystemEmoji is a component that renders an emoji from the Microsoft FluentUI emoji set.
 /// </summary>
 public partial class FluentSystemEmoji<Emoji> : FluentComponentBase
-    where Emoji : FluentUI.Emoji, new()
+    where Emoji : FluentUI.Emoji
 {
-    private Emoji _emoji = new();
+    private Emoji _emoji = default!;
 
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
@@ -43,6 +43,9 @@ public partial class FluentSystemEmoji<Emoji> : FluentComponentBase
     [Parameter]
     public string? Width { get; set; }
 
+    /// <summary>
+    /// Gets or sets the Emoji object to render.
+    /// </summary>
     [Parameter]
     public Emoji Value
     {
@@ -66,6 +69,23 @@ public partial class FluentSystemEmoji<Emoji> : FluentComponentBase
 
         return Task.CompletedTask;
     }
+
+    /// <summary />
+    protected override void OnParametersSet()
+    {
+        if (_emoji == null)
+        {
+            bool hasParameterlessConstructor = typeof(Emoji).GetConstructor(Type.EmptyTypes) != null;
+
+            if (!hasParameterlessConstructor)
+            {
+                throw new ArgumentException($"The type {typeof(Emoji).FullName} must have a parameterless constructor.");
+            }
+
+            _emoji = Activator.CreateInstance<Emoji>();
+        }
+    }
+
 
     /// <summary>
     /// Returns true if the emoji contains a SVG content.

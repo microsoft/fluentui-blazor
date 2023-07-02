@@ -2342,12 +2342,20 @@
             If not set, the emoji size will be used.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemEmoji`1.Value">
+            <summary>
+            Gets or sets the Emoji object to render.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemEmoji`1.OnClick">
             <summary>
             Allows for capturing a mouse click on an emoji
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentSystemEmoji`1.OnClickHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentSystemEmoji`1.OnParametersSet">
             <summary />
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentSystemEmoji`1.ContainsSVG">
@@ -2514,6 +2522,11 @@
             <summary>
             Gets or sets the icon width.
             If not set, the icon size will be used.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemIcon`1.Value">
+            <summary>
+            Gets or sets the Icon object to render.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentSystemIcon`1.OnClick">
