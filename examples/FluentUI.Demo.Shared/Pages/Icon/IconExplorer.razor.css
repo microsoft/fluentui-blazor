@@ -1,18 +1,38 @@
+.icon-explorer-criteria {
+    display: flex;
+    gap: 10px;
+}
+
 .icon-explorer {
     display: flex;
     flex-wrap: wrap;
     overflow-y: auto;
     height: 600px;
-    justify-content: center
+    align-content: start;
 }
 
-    .icon-explorer .card {
+    .icon-explorer ::deep .card {
         height: 100px;
         width: 100px;
         margin: 10px;
-        background: var(--fill-color);
-        color: var(--neutral-foreground-rest);
-        border: calc(var(--stroke-width) * 1px) solid var(--neutral-stroke-layer-rest);
-        border-radius: calc(var(--layer-corner-radius) * 1px);
-        box-shadow: var(--elevation-shadow-card-rest);
+        text-align: center;
     }
+
+    .icon-explorer ::deep .icon {
+        height: 80px;
+        width: 100px;
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    .icon-explorer ::deep label {
+        height: 20px;
+        width: 100px;
+        text-align: center;
+        font-size: 10px;
+        font-family: Monaco, monospace;
+        white-space: nowrap;
+        overflow: hidden;
+        background: var(--neutral-stroke-rest);
+    }
+}
