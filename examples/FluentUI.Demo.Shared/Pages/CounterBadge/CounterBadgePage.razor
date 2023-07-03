@@ -29,8 +29,7 @@
     {
         {"Count", 3},
         {"ChildContent", (RenderFragment)(builder => {
-                builder.OpenComponent<FluentIcon>(0);
-                builder.AddAttribute(1, "Name", FluentIcons.Mail);
+                builder.OpenComponent<FluentIcon<Icons.Regular.Size24.FolderMail>>(0);
                 builder.CloseComponent();
             }
         )}

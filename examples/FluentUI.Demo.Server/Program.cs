@@ -18,8 +18,6 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddFluentUIComponents(options => 
 {
     options.HostingModel = BlazorHostingModel.Server;
-    options.IconConfiguration = ConfigurationGenerator.GetIconConfiguration();
-    options.EmojiConfiguration = ConfigurationGenerator.GetEmojiConfiguration();
 });
 
 builder.Services.AddScoped<DataSource>();

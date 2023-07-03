@@ -1,3 +1,0 @@
-<Project>
-  <Import Project="$(MSBuildThisFileDirectory)..\buildTransitive\Microsoft.Fast.Components.FluentUI.targets"/>
-</Project>

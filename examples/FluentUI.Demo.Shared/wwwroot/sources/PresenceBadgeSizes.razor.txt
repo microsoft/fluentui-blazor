@@ -2,31 +2,31 @@
 @namespace FluentUI.Demo.Shared
 
 <FluentPresenceBadge Status="PresenceStatus.Available" Size="PresenceBadgeSize.Tiny">
-    <FluentIcon Name="@FluentIcons.Person" />
+    <FluentIcon Icon="Icons.Regular.Size24.Person" />
 </FluentPresenceBadge>
 
 <FluentSpacer Width="25" />
 
 <FluentPresenceBadge Status="PresenceStatus.Available" Size="PresenceBadgeSize.ExtraSmall">
-    <FluentIcon Name="@FluentIcons.Person" />
+    <FluentIcon Icon="Icons.Regular.Size24.Person" />
 </FluentPresenceBadge>
 
 <FluentSpacer Width="25" />
 
 <FluentPresenceBadge Status="PresenceStatus.Available" Size="PresenceBadgeSize.Small">
-    <FluentIcon Name="@FluentIcons.Person" />
+    <FluentIcon Icon="Icons.Regular.Size24.Person" />
 </FluentPresenceBadge>
 
 <FluentSpacer Width="25" />
 
 <FluentPresenceBadge Status="PresenceStatus.Available" Size="PresenceBadgeSize.Medium">
-    <FluentIcon Name="@FluentIcons.Person" />
+    <FluentIcon Icon="Icons.Regular.Size24.Person" />
 </FluentPresenceBadge>
 
 <FluentSpacer Width="25" />
 
 <FluentPresenceBadge Status="PresenceStatus.Available" Size="PresenceBadgeSize.Large">
-    <FluentIcon Name="@FluentIcons.Person" />
+    <FluentIcon Icon="Icons.Regular.Size24.Person" />
 </FluentPresenceBadge>
 
 

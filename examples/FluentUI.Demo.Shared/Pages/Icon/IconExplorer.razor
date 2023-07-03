@@ -1,0 +1,51 @@
+<div class="icon-explorer-criteria">
+    <FluentSearch Style="width: 100%"
+                  Name="Searchterm"
+                  @bind-Value="@Criteria.SearchTerm"
+                  AfterBindValue="@HandleSearchField"
+                  Placeholder="Part of icon name..." />
+
+    <FluentSelect TOption="IconSize" @bind-SelectedOption="@Criteria.Size"
+                  Style="min-width: unset;"
+                  Items="@(Enum.GetValues<IconSize>())" />
+
+    <FluentSelect TOption="IconVariant" @bind-SelectedOption="@Criteria.Variant"
+                  Style="min-width: unset;"
+                  Items="@(Enum.GetValues<IconVariant>())" />
+    <FluentIcon Icon="Icons.Regular.Size24.ArrowCircleRight" OnClick="@HandleSearchField" />
+</div>
+
+@* Results *@
+<div class="icon-explorer">
+    @if (SearchInProgress)
+    {
+        <FluentProgressRing Style="width: unset; margin: 50px;" />
+    }
+    else
+    {
+        if (IconsCount <= 0)
+        {
+            <p>No icons found</p>
+        }
+        else
+        {
+            <div style="width: 100%;">
+                <strong>@IconsCount</strong> icons found.
+                @if (IconsCount > MAX_ICONS)
+                {
+                    <em>Only the first @MAX_ICONS results are shown.</em>
+                }
+            </div>
+    
+            @foreach (var item in IconsFound)
+            {
+                <FluentCard Class="card">
+                    <div class="icon">
+                        <FluentIcon Value="Icons.GetInstance(item)" Title="@item.Name" />
+                    </div>
+                    <label>@item.Name</label>
+                </FluentCard>
+            }
+        }
+    }
+</div>

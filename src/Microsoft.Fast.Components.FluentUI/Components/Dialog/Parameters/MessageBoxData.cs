@@ -6,7 +6,7 @@ public class MessageBoxData
 {
     public string? Title { get; set; }
     public MessageBoxIntent Intent { get; set; }
-    public string? Icon { get; set; }
+    public Icon? Icon { get; set; }
     public Color IconColor { get; set; }
     public string? Message { get; set; }
     public MarkupString? MarkupMessage { get; set; }

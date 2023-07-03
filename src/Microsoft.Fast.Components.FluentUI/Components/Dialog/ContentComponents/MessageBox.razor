@@ -4,7 +4,7 @@
 
 <FluentStack Orientation="Orientation.Vertical" HorizontalAlignment="HorizontalAlignment.Left" Class="fluent-messagebox">
     <FluentStack Orientation="Orientation.Horizontal" VerticalAlignment="VerticalAlignment.Center">
-        <FluentIcon Name="@Data.Icon" Color="@Data.IconColor" Size="@IconSize.Size24" Class="icon" />
+        <FluentIcon Value="@Data.Icon" Color="@Data.IconColor" Width="24px" Class="icon" />
         <div class="body">
             @Data.Message
             @Data.MarkupMessage

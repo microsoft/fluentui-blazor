@@ -60,10 +60,10 @@ public partial class FluentTab : FluentComponentBase
     public RenderFragment? Header { get; set; }
 
     /// <summary>
-    /// Gets or sets the name of the icon to display in front of the tab
+    /// Gets or sets the icon to display in front of the tab
     /// </summary>
     [Parameter]
-    public string Icon { get; set; } = string.Empty;
+    public Icon? Icon { get; set; }
 
     /// <summary>
     /// Gets the index number of this tab.
