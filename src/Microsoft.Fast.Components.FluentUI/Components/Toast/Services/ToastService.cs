@@ -8,8 +8,8 @@ public class ToastService : IToastService
     /// <summary>
     /// A event that will be invoked when showing a toast with a custom component
     /// </summary>
-    public event Action<Type?, object, ToastParameters>? OnShow;
-    public event Action<string, object, Action<ToastParameters>>? OnUpdate;
+    public event Action<Type?, ToastParameters, object>? OnShow;
+    public event Action<string, ToastParameters>? OnUpdate;
     public event Action<string>? OnClose;
 
 
@@ -178,13 +178,13 @@ public class ToastService : IToastService
 
 
     public void ShowConfirmationToast(ToastParameters<ConfirmationToastContent> parameters)
-        => ShowToast(null, parameters, parameters.ToastContent);
+        => ShowToast(null, parameters, parameters.Content);
 
     public void ShowCommunicationToast(ToastParameters<CommunicationToastContent> parameters)
-        => ShowToast(typeof(CommunicationToast), parameters, parameters.ToastContent);
+        => ShowToast(typeof(CommunicationToast), parameters, parameters.Content);
 
     public void ShowProgressToast(ToastParameters<ProgressToastContent> parameters)
-        => ShowToast(typeof(ProgressToast), parameters, parameters.ToastContent);
+        => ShowToast(typeof(ProgressToast), parameters, parameters.Content);
 
     /// <summary>
     /// Shows a toast using the supplied parameters
@@ -204,21 +204,21 @@ public class ToastService : IToastService
     public void ShowToast<T, TData>(ToastParameters<TData> parameters)
         where T : IToastContentComponent<TData>
         where TData : class
-        => ShowToast(typeof(T), parameters, parameters.ToastContent);
+        => ShowToast(typeof(T), parameters, parameters.Content);
 
     /// <summary>
     /// Shows a toast with the component type as the body,
     /// passing the specified <paramref name="parameters "/> 
     /// </summary>
-    /// <param name="toastComponent">Type of component to display.</param>
-    /// <param name="toastContent">Content to be displayed in the toast.</param>
+    /// <param name="component">Type of component to display.</param>
+    /// <param name="content">Content to be displayed in the toast.</param>
     /// <param name="parameters">Parameters to configure the toast component.</param>
-    public void ShowToast<TToastContent>(Type? toastComponent, ToastParameters parameters, TToastContent toastContent)
-       where TToastContent : class
+    public void ShowToast<TContent>(Type? component, ToastParameters parameters, TContent content)
+       where TContent : class
     {
-        if (toastComponent is not null && !typeof(IToastContentComponent).IsAssignableFrom(toastComponent))
+        if (component is not null && !typeof(IToastContentComponent).IsAssignableFrom(component))
         {
-            throw new ArgumentException($"{toastComponent.FullName} must be a Toast Component");
+            throw new ArgumentException($"{component.FullName} must be a Toast Component");
         }
 
         //Action<ToastParameters> toastSettings = parameters ?? new(x =>
@@ -236,9 +236,9 @@ public class ToastService : IToastService
         //    //x.OnToastResult = parameters.OnToastResult;
         //});
 
-        //OnShow?.Invoke(toastComponent, parameters.Content, toastSettings);
+        //OnShow?.Invoke(component, parameters.Content, toastSettings);
         parameters.Icon ??= GetIntentIcon(parameters.Intent);
-        OnShow?.Invoke(toastComponent, toastContent, parameters);
+        OnShow?.Invoke(component, parameters, content);
     }
 
 
@@ -247,27 +247,12 @@ public class ToastService : IToastService
     /// Updates a toast 
     /// </summary>
     /// <param name="id">Id of the toast to update.</param>
-    /// <param name="parameters">Parametes used to construct toast.</param>
-    /// <param name="settings">Parameters to configure the toast component.</param>
-    public void UpdateToast<TData>(string id, ToastParameters<TData> parameters, Action<ToastParameters>? settings = null)
-        where TData : class
+    /// <param name="parameters">Parameters to configure the toast component.</param>
+    public void UpdateToast<TContent>(string id, ToastParameters<TContent> parameters)
+        where TContent : class
     {
-        Action<ToastParameters> toastSettings = settings ?? new(x =>
-        {
-            x.Id = parameters.Id;
-            x.Title = parameters.Title;
-            x.Intent = parameters.Intent;
-            x.TopCTAType = parameters.TopCTAType;
-            x.TopAction = parameters.TopAction;
-            x.Timeout = parameters.Timeout;
-            x.Icon = parameters.Icon ?? GetIntentIcon(parameters.Intent);
-            x.Timestamp = parameters.Timestamp;
-            x.PrimaryAction = parameters.PrimaryAction;
-            x.SecondaryAction = parameters.SecondaryAction;
-            //x.OnToastResult = parameters.OnToastResult;
-        });
-
-        OnUpdate?.Invoke(id, parameters.ToastContent, toastSettings);
+        parameters.Icon ??= GetIntentIcon(parameters.Intent);
+        OnUpdate?.Invoke(id, parameters);
     }
 
     public void CloseToast(string id)

@@ -9,7 +9,7 @@
     SimplePerson simplePerson = new()
         {
             Firstname = "Dan",
-            Lastname = "Roth",
+            Lastname = "Sanderson",
             Age = 42,
         };
 
@@ -21,8 +21,8 @@
             {
                 Title = $"Hello {simplePerson.Firstname}",
                 OnDialogResult = DialogService.CreateDialogCallback(this, HandlePanel),
-                PrimaryButton = "Yes",
-                SecondaryButton = "No",
+                PrimaryAction = "Yes",
+                SecondaryAction = "No",
                 Width = "500px",
                 Height = "400px",
                 Content = simplePerson,

@@ -1,20 +1,20 @@
 ﻿@namespace Microsoft.Fast.Components.FluentUI
-@implements IDialogContentComponent<SplashScreenData>
+@implements IDialogContentComponent<SplashScreenContent>
 
 <FluentStack Orientation="Orientation.Vertical" HorizontalAlignment="HorizontalAlignment.Center" Class="fluent-launch">
     <h1>
-        @Data.Title
+        @Content.Title
     </h1>
     <h2>
-        @Data.SubTitle
+        @Content.SubTitle
     </h2>
     <FluentProgressRing />
     <h3>
-        @Data.LoadingText
+        @Content.LoadingText
     </h3>
-    <p>@Data.Message</p>
+    <p>@Content.Message</p>
     <div class="icon">
-        @(new MarkupString(Data.Logo!))
+        @(new MarkupString(Content.Logo!))
     </div>
 </FluentStack>
 

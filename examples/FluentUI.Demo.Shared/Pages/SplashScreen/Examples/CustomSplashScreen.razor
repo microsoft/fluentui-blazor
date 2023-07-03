@@ -1,21 +1,21 @@
 ﻿@using Microsoft.Fast.Components.FluentUI
-@implements IDialogContentComponent<SplashScreenData>
+@implements IDialogContentComponent<SplashScreenContent>
 
 <FluentStack Orientation="Orientation.Vertical" HorizontalAlignment="HorizontalAlignment.Center" Class="my-splash">
-    <img class="icon" src="@Data.Logo" />
-    <p>@Data.Message</p>
+    <img class="icon" src="@Content.Logo" />
+    <p>@Content.Message</p>
     <h3>
-        @Data.Title
+        @Content.Title
     </h3>
     <h3>
-        @Data.SubTitle
+        @Content.SubTitle
     </h3>
     <div style="width: 340px;">
         <FluentProgress/>
     </div>
     
     <h3>
-        @Data.LoadingText
+        @Content.LoadingText
     </h3>
 </FluentStack>
 
@@ -23,7 +23,7 @@
     
 
     [Parameter]
-    public SplashScreenData Data { get; set; } = default!;
+    public SplashScreenContent Content { get; set; } = default!;
 
     [CascadingParameter]
     public FluentDialog Dialog { get; set; } = default!;

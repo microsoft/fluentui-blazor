@@ -5,7 +5,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// <summary>
 /// The data to show in a splash screen dialog.
 /// </summary>
-public class SplashScreenData
+public class SplashScreenContent
 {
     /// <summary>
     /// Typically used to show the name of the product.

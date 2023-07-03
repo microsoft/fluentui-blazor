@@ -10,8 +10,8 @@
             Intent = ToastIntent.Custom,
             Title = "I'm a custom toast component with parameters",
             Timeout = 105,
-            Icon = (new Icons.Regular.Size24.Backpack(), Color.Accent),
-            ToastContent = new MyToastData()
+            Icon = (new Icons.Regular.Size20.Backpack(), Color.Accent),
+            Content = new MyToastData()
             {
                 ToastParam = "I'm a parameter"
             }

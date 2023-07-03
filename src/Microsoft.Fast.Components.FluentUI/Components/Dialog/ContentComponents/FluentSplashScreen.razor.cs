@@ -2,7 +2,7 @@
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentSplashScreen : IDialogContentComponent<SplashScreenData>
+public partial class FluentSplashScreen : IDialogContentComponent<SplashScreenContent>
 
 {
     public const string LOGO = """
@@ -25,7 +25,7 @@ public partial class FluentSplashScreen : IDialogContentComponent<SplashScreenDa
 
 
     [Parameter]
-    public SplashScreenData Data { get; set; } = default!;
+    public SplashScreenContent Content { get; set; } = default!;
 
 
     [CascadingParameter]

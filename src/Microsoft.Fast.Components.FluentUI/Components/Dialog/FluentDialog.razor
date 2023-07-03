@@ -6,20 +6,20 @@
                    id="@Id"
                    class="@ClassValue"
                    style="@StyleValue"
-                   modal="@((Settings.Modal ?? Modal).ToString()?.ToLower())"
+                   modal="@((_parameters.Modal ?? Modal).ToString()?.ToLower())"
                    hidden="@Hidden"
-                   trap-focus=@(Settings.TrapFocus ?? TrapFocus)
-                   aria-describedby=@(Settings.AriaDescribedby ?? AriaDescribedby)
-                   aria-labelledby=@(Settings.AriaLabelledby ?? AriaLabelledby)
-                   aria-label=@(Settings.AriaLabel ?? AriaLabel)
+                   trap-focus=@(_parameters.TrapFocus ?? TrapFocus)
+                   aria-describedby=@(_parameters.AriaDescribedby ?? AriaDescribedby)
+                   aria-labelledby=@(_parameters.AriaLabelledby ?? AriaLabelledby)
+                   aria-label=@(_parameters.AriaLabel ?? AriaLabel)
                    @attributes=@AdditionalAttributes>
         <FluentStack Orientation="Orientation.Vertical" Class="fluent-dialog-content" Style="height:100%;">
-            @if (Settings.ShowTitle && (Settings.Title != null || Settings.ShowDismiss))
+            @if (_parameters.ShowTitle && (_parameters.Title != null || _parameters.ShowDismiss))
             {
                 <div class="fluent-dialog-header">
                     <FluentStack Orientation="Orientation.Horizontal" VerticalAlignment="VerticalAlignment.Center">
-                        <FluentLabel Typo="Typography.PaneHeader" Style="width: 100%; margin: 0px;">@Settings.Title</FluentLabel>
-                        @if (Settings.ShowDismiss)
+                        <FluentLabel Typo="Typography.PaneHeader" Style="width: 100%; margin: 0px;">@_parameters.Title</FluentLabel>
+                        @if (_parameters.ShowDismiss)
                         {
                             <FluentButton Appearance="Appearance.Stealth" @onclick="@(() => CancelAsync())">
                                 <FluentIcon Icon="CoreIcons.Regular.Size24.Dismiss" Width="16px" />
@@ -29,7 +29,7 @@
                 </div>
             }
 
-            <div class="fluent-dialog-body" nofooter=@(!HasButtons) style="@(Settings.DialogBodyStyle ?? null)">
+            <div class="fluent-dialog-body" nofooter=@(!HasButtons) style="@(_parameters.DialogBodyStyle ?? null)">
                 @if (Instance is null)
                 {
                     @ChildContent
@@ -42,23 +42,23 @@
 
             @if (HasButtons)
             {
-                <div class="@(Settings.Alignment == HorizontalAlignment.Center ? "fluent-dialog-footer-normal" : "fluent-dialog-footer-bottom")">
+                <div class="@(_parameters.Alignment == HorizontalAlignment.Center ? "fluent-dialog-footer-normal" : "fluent-dialog-footer-bottom")">
                     <FluentStack Orientation="Orientation.Horizontal"
-                                 HorizontalAlignment="@(Settings.Alignment == HorizontalAlignment.Center ? HorizontalAlignment.Right : HorizontalAlignment.Left)">
-                        @if (Settings.ShowPrimaryButton)
+                                 HorizontalAlignment="@(_parameters.Alignment == HorizontalAlignment.Center ? HorizontalAlignment.Right : HorizontalAlignment.Left)">
+                        @if (_parameters.ShowPrimaryAction)
                         {
-                            <FluentButton title="@Settings.PrimaryButton"
-                                          @onclick="@(() => CloseAsync<object?>(Data ??= true))"
+                            <FluentButton title="@_parameters.PrimaryAction"
+                                          @onclick="@(() => CloseAsync<object?>(Instance!.Content ??= true))"
                                           Appearance="Appearance.Accent">
-                                @Settings.PrimaryButton
+                                @_parameters.PrimaryAction
                             </FluentButton>
                         }
-                        @if (Settings.ShowSecondaryButton)
+                        @if (_parameters.ShowSecondaryAction)
                         {
-                            <FluentButton title="@Settings.SecondaryButton"
-                                          @onclick="@(() => CancelAsync<object?>(Data ??= false))"
+                            <FluentButton title="@_parameters.SecondaryAction"
+                                          @onclick="@(() => CancelAsync<object?>(Instance!.Content ??= false))"
                                           Appearance="Appearance.Neutral">
-                                @Settings.SecondaryButton
+                                @_parameters.SecondaryAction
                             </FluentButton>
                         }
                     </FluentStack>

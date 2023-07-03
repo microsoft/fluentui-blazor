@@ -21,10 +21,6 @@
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<IsTrimmable>true</IsTrimmable>
 		<SuppressTrimAnalysisWarnings>true</SuppressTrimAnalysisWarnings>
-
-		<!--<StaticWebAssetBasePath>_content/$(MSBuildProjectName)</StaticWebAssetBasePath>
-		<DisableStaticWebAssetsBuildPropsFileGeneration></DisableStaticWebAssetsBuildPropsFileGeneration>
-		<StaticWebAssetsDisableProjectBuildPropsFileGeneration>true</StaticWebAssetsDisableProjectBuildPropsFileGeneration>-->
 		<IsPackable>true</IsPackable>
 	</PropertyGroup>
 
@@ -48,7 +44,7 @@
 
 	<ItemGroup>
 		<None Include="..\..\README.md" Pack="true" PackagePath="\" />
-    <None Include="..\..\icon.png" Pack="true" PackagePath="\" />
+        <None Include="..\..\icon.png" Pack="true" PackagePath="\" />
 		<None Include="Components\Label\FluentLabel.razor" />
 	</ItemGroup>
 
@@ -102,7 +98,7 @@
 
   <!-- Embedd other languages under root resx file -->
   <ItemGroup>    
-	<None Include="**\*.*.resx" />
+	<None Include="**\*.*.resx" />    
 	<None Update="**\*.*.resx">
 	  <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
 	  <DependentUpon>%(ParentFile).resx</DependentUpon>

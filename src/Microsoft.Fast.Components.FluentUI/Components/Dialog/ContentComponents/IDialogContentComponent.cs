@@ -9,5 +9,5 @@ public interface IDialogContentComponent
 
 public interface IDialogContentComponent<TContent> : IDialogContentComponent
 {
-    TContent Data { get; set; }
+    TContent Content { get; set; }
 }

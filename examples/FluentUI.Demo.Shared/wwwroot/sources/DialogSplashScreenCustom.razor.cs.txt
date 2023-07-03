@@ -8,7 +8,7 @@ namespace FluentUI.Demo.Shared.Pages.SplashScreen.Examples
         private void OpenSplashCustom()
         {
             DemoLogger.WriteLine($"Open custom splashscreen for 7 seconds");
-            DialogParameters<SplashScreenData> parameters = new()
+            DialogParameters<SplashScreenContent> parameters = new()
             {
                 Content = new()
                 {

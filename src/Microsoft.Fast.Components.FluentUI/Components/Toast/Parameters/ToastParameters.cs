@@ -23,11 +23,11 @@ public class ToastParameters : ComponentParameters, IToastParameters
     public EventCallback<ToastResult>? OnSecondaryAction { get; set; } = default!;
 }
 
-public class ToastParameters<TToastContent> : ToastParameters
-    where TToastContent : class
+public class ToastParameters<TContent> : ToastParameters, IToastParameters<TContent>
+    where TContent : class
 {
     /// <summary>
-    /// The data to be passed to the toast content component.
+    /// The content to be shown in the toast body.
     /// </summary>
-    public TToastContent ToastContent { get; set; } = default!;
+    public TContent Content { get; set; } = default!;
 }

@@ -48,7 +48,6 @@ public partial class FluentToastContainer
     private readonly InternalToastContext _internalToastContext;
     private readonly List<ToastInstance> _toastList;
     private Queue<ToastInstance> _toastWaitingQueue;
-
     private readonly RenderFragment _renderToasts;
 
     /// <summary>
@@ -60,9 +59,7 @@ public partial class FluentToastContainer
         _toastList = new();
         _toastWaitingQueue = new();
         _renderToasts = RenderToasts;
-
     }
-
 
     protected override void OnInitialized()
     {
@@ -96,33 +93,29 @@ public partial class FluentToastContainer
         }
     }
 
-    private void ShowToast(Type? toastComponent, object toastContent, ToastParameters parameters)
+    private void ShowToast(Type? toastComponent, ToastParameters parameters, object content)
+    {
+        _ = InvokeAsync(() =>
+        {
+            ToastInstance toast = new(toastComponent, parameters, content);
+
+            ListOrQueue(toast);
+        });
+    }
+
+    private void UpdateToast(string? toastId, ToastParameters parameters)
     {
         _ = InvokeAsync(() =>
         {
             //ToastParameters? toastParameters = new();
             //parameters?.Invoke(toastParameters);
 
-            //ToastInstance toast = new(toastComponent, toastContent!, toastParameters);
-            ToastInstance toast = new(toastComponent, toastContent!, parameters);
-
-            ListOrQueue(toast);
-        });
-    }
-
-    private void UpdateToast(string? toastId, object toastContent, Action<ToastParameters> parameters)
-    {
-        _ = InvokeAsync(() =>
-        {
-            ToastParameters? toastParameters = new();
-            parameters?.Invoke(toastParameters);
-
             ToastInstance? toastInstance = _toastList.SingleOrDefault(x => x.Id == toastId);
 
             if (toastInstance is not null)
             {
-                toastInstance.ToastContent = toastContent;
-                toastInstance.Parameters = toastParameters;
+                //toastInstance.Content = content;
+                toastInstance.Parameters = parameters;
 
                 StateHasChanged();
             }

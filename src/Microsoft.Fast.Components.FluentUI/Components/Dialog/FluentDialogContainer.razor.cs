@@ -8,14 +8,13 @@ public partial class FluentDialogContainer : IDisposable
 {
     private readonly InternalDialogContext _internalDialogContext;
     private readonly Collection<DialogInstance> _dialogs;
-    private readonly DialogSettings _globalDialogOptions = new();
     private readonly RenderFragment _renderDialogs;
 
     [Inject]
-    protected IDialogService DialogService { get; set; } = default!;
+    private IDialogService DialogService { get; set; } = default!;
 
     [Inject]
-    protected NavigationManager NavigationManager { get; set; } = default!;
+    private NavigationManager NavigationManager { get; set; } = default!;
 
     /// <summary>
     /// Constructs an instance of <see cref="FluentToastContainer"/>.
@@ -34,13 +33,13 @@ public partial class FluentDialogContainer : IDisposable
         DialogService.OnShow += ShowDialog;
     }
 
-    private void ShowDialog(Type dialogComponent, object parameters, Action<DialogSettings>? settings)
+    private void ShowDialog(Type? dialogComponent, DialogParameters parameters, object content)
     {
         _ = InvokeAsync(() =>
         {
-            DialogSettings? dialogSettings = BuildDialogSettings(settings);
+            //DialogSettings? dialogSettings = BuildDialogSettings(settings);
 
-            DialogInstance dialog = new(dialogComponent, parameters, dialogSettings);
+            DialogInstance dialog = new(dialogComponent, parameters, content);
 
             _dialogs.Add(dialog);
             StateHasChanged();
@@ -82,15 +81,6 @@ public partial class FluentDialogContainer : IDisposable
     {
         _dialogs.Remove(dialog);
         StateHasChanged();
-    }
-
-
-    private static DialogSettings BuildDialogSettings(Action<DialogSettings>? settings)
-    {
-        DialogSettings? dialogInstanceSettings = new();
-        settings?.Invoke(dialogInstanceSettings);
-
-        return dialogInstanceSettings;
     }
 
     private void LocationChanged(object? sender, LocationChangedEventArgs args)

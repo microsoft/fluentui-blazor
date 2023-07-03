@@ -21,4 +21,10 @@ namespace Microsoft.Fast.Components.FluentUI
         DateTime Timestamp { get; set; }
         int? Timeout { get; set; }
     }
+
+    public interface IToastParameters<TContent> : IToastParameters
+         where TContent : class
+    {
+        TContent Content { get; set; }
+    }
 }

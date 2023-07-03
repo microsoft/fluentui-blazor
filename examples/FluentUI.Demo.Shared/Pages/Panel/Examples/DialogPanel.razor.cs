@@ -8,7 +8,7 @@ namespace FluentUI.Demo.Shared.Pages.Panel.Examples
         private readonly SimplePerson simplePerson = new()
         {
             Firstname = "Steve",
-            Lastname = "Sanderson",
+            Lastname = "Roth",
             Age = 42,
         };
 
@@ -22,8 +22,8 @@ namespace FluentUI.Demo.Shared.Pages.Panel.Examples
                 Alignment = HorizontalAlignment.Right,
                 Title = $"Hello {simplePerson.Firstname}",
                 OnDialogResult = DialogService.CreateDialogCallback(this, HandlePanel),
-                PrimaryButton = "Yes",
-                SecondaryButton = "No",
+                PrimaryAction = "Yes",
+                SecondaryAction = "No",
             });
         }
 
@@ -38,8 +38,8 @@ namespace FluentUI.Demo.Shared.Pages.Panel.Examples
                 Alignment = HorizontalAlignment.Left,
                 Modal = false,
                 ShowDismiss = false,
-                PrimaryButton = "Maybe",
-                SecondaryButton = "Cancel",
+                PrimaryAction = "Maybe",
+                SecondaryAction = "Cancel",
                 Width = "300px",
             };
             DialogService.ShowPanel<SimplePanel, SimplePerson>(parameters);
