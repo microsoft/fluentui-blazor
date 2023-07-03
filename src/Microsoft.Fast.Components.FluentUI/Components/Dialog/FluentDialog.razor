@@ -48,7 +48,7 @@
                         @if (_parameters.ShowPrimaryAction)
                         {
                             <FluentButton title="@_parameters.PrimaryAction"
-                                          @onclick="@(() => CloseAsync<object?>(Data ??= true))"
+                                          @onclick="@(() => CloseAsync<object?>(Instance!.Content ??= true))"
                                           Appearance="Appearance.Accent">
                                 @_parameters.PrimaryAction
                             </FluentButton>
@@ -56,7 +56,7 @@
                         @if (_parameters.ShowSecondaryAction)
                         {
                             <FluentButton title="@_parameters.SecondaryAction"
-                                          @onclick="@(() => CancelAsync<object?>(Data ??= false))"
+                                          @onclick="@(() => CancelAsync<object?>(Instance!.Content ??= false))"
                                           Appearance="Appearance.Neutral">
                                 @_parameters.SecondaryAction
                             </FluentButton>

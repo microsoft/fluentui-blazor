@@ -2027,21 +2027,6 @@
             <param name="callback"></param>
             <returns></returns>
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.DialogSettings">
-            <summary>
-            Instance specific parameters for a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDialog"/> component
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogSettings.PrimaryButton">
-            <summary>
-            Label of the primary (OK) button. If <value>null</value> button will not be shown.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogSettings.SecondaryButton">
-            <summary>
-            Label of the secondary (Cancel) button. If <value>null</value> button will not be shown.
-            </summary>
-        </member>
         <member name="E:Microsoft.Fast.Components.FluentUI.IDialogService.OnShow">
             <summary>
             A event that will be invoked when showing a dialog with a custom component

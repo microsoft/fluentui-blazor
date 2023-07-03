@@ -19,6 +19,6 @@ public sealed class ToastInstance
 
     public Dictionary<string, object> GetParameterDictionary()
     {
-        return new Dictionary<string, object> { { "Content", Content! } };
+        return new Dictionary<string, object> { { "Content", Content } };
     }
 }

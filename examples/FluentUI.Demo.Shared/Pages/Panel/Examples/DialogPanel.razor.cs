@@ -8,7 +8,7 @@ namespace FluentUI.Demo.Shared.Pages.Panel.Examples
         private readonly SimplePerson simplePerson = new()
         {
             Firstname = "Steve",
-            Lastname = "Sanderson",
+            Lastname = "Roth",
             Age = 42,
         };
 

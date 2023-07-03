@@ -20,6 +20,6 @@ public sealed class DialogInstance
 
     public Dictionary<string, object> GetParameterDictionary()
     {
-        return new Dictionary<string, object> { { "Content", Content! } };
+        return new Dictionary<string, object> { { "Content", Content } };
     }
 }

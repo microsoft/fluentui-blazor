@@ -12,9 +12,9 @@ namespace Microsoft.Fast.Components.FluentUI
         bool ShowTitle { get; set; }
         bool ShowDismiss { get; set; }
         string? PrimaryAction { get; set; }
-        EventCallback<ToastResult>? OnPrimaryAction { get; set; }
+        //EventCallback<DialogResult>? OnPrimaryAction { get; set; }
         string? SecondaryAction { get; set; }
-        EventCallback<ToastResult>? OnSecondaryAction { get; set; }
+        //EventCallback<DialogResult>? OnSecondaryAction { get; set; }
         string? Width { get; set; }
         string? Height { get; set; }
         string DialogBodyStyle { get; set; }

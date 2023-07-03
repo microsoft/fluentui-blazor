@@ -43,14 +43,14 @@ public class DialogParameters : ComponentParameters, IDialogParameters
     /// </summary>
     public string? PrimaryAction { get; set; } = "Ok"; //DialogResources.ButtonPrimary;
 
-    public EventCallback<ToastResult>? OnPrimaryAction { get; set; } = default!;
+    //public EventCallback<DialogResult>? OnPrimaryAction { get; set; } = default!;
 
     /// <summary>
     /// Text to display for the secondary action.
     /// </summary>
     public string? SecondaryAction { get; set; } = "Cancel"; //DialogResources.ButtonSecondary;
 
-    public EventCallback<ToastResult>? OnSecondaryAction { get; set; } = default!;
+    //public EventCallback<DialogResult>? OnSecondaryAction { get; set; } = default!;
 
     /// <summary>
     /// Width of the dialog. Must be a valid CSS width value like "600px" or "3em"
