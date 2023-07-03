@@ -2,11 +2,11 @@
 
 public sealed class ToastInstance
 {
-    public ToastInstance(Type? type, object content, ToastParameters parameters)
+    public ToastInstance(Type? type, ToastParameters parameters, object content)
     {
         ContentType = type;
-        Content = content;
         Parameters = parameters;
+        Content = content;
         Id = Parameters.Id ?? Identifier.NewId();
     }
     public string Id { get; }

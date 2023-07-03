@@ -121,7 +121,6 @@
 	<None Include="**\*.*.resx" />    
 	<Compile Remove="Components\Dialog\ContentComponents\FluentDialogContentBase.razor.cs" />    
 	<Compile Remove="Components\Dialog\ContentComponents\FluentPanelContentBase.razor.cs" />    
-	<Compile Remove="Components\Dialog\Parameters\IDialogParameters.cs" />    
 	<Compile Remove="Components\Dialog\Parameters\IPanelParameters.cs" />    
 	<Compile Remove="Components\Toast\Parameters\CommunicationToastParameters.cs" />    
 	<Compile Remove="Components\Toast\Parameters\ConfirmationToastParameters.cs" />    

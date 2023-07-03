@@ -2,7 +2,7 @@
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public class DialogParameters : ComponentParameters
+public class DialogParameters : ComponentParameters, IDialogParameters
 {
     public string? Id { get; set; }
     /// <summary>
@@ -102,7 +102,8 @@ public class DialogParameters : ComponentParameters
 /// <summary>
 /// Parameters for a dialog.
 /// </summary>
-public class DialogParameters<TContent> : DialogParameters
+public class DialogParameters<TContent> : DialogParameters, IDialogParameters<TContent>
+    where TContent : class
 {
     /// <summary>
     /// Content to pass to and from the dialog.

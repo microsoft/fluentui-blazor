@@ -7,7 +7,7 @@ public class DialogService : IDialogService
     /// <summary>
     /// A event that will be invoked when showing a dialog with a custom component
     /// </summary>
-    public event Action<Type, object, DialogParameters>? OnShow;
+    public event Action<Type?, DialogParameters, object>? OnShow;
 
     /// <summary>
     /// Shows the standard <see cref="FluentSplashScreen"/> with the given parameters."/>
@@ -272,7 +272,7 @@ public class DialogService : IDialogService
             throw new ArgumentException($"{dialogComponent.FullName} must be a Dialog Component");
         }
 
-        OnShow?.Invoke(dialogComponent, content, parameters);
+        OnShow?.Invoke(dialogComponent, parameters, content);
     }
 
     /// <summary>

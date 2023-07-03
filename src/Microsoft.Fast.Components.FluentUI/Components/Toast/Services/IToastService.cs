@@ -8,7 +8,7 @@ namespace Microsoft.Fast.Components.FluentUI
         event Action<ToastIntent, bool>? OnClearIntent;
         event Action? OnClearQueue;
         event Action<ToastIntent>? OnClearQueueIntent;
-        event Action<Type?, object, ToastParameters>? OnShow;
+        event Action<Type?, ToastParameters, object>? OnShow;
         event Action<string?, ToastParameters>? OnUpdate;
         event Action<string>? OnClose;
 

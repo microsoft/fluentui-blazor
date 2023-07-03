@@ -8,7 +8,7 @@ public class ToastService : IToastService
     /// <summary>
     /// A event that will be invoked when showing a toast with a custom component
     /// </summary>
-    public event Action<Type?, object, ToastParameters>? OnShow;
+    public event Action<Type?, ToastParameters, object>? OnShow;
     public event Action<string, ToastParameters>? OnUpdate;
     public event Action<string>? OnClose;
 
@@ -238,7 +238,7 @@ public class ToastService : IToastService
 
         //OnShow?.Invoke(component, parameters.Content, toastSettings);
         parameters.Icon ??= GetIntentIcon(parameters.Intent);
-        OnShow?.Invoke(component, content, parameters);
+        OnShow?.Invoke(component, parameters, content);
     }
 
 

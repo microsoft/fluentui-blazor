@@ -7,7 +7,7 @@ public interface IDialogService
     /// <summary>
     /// A event that will be invoked when showing a dialog with a custom component
     /// </summary>
-    public event Action<Type, object, DialogParameters>? OnShow;
+    public event Action<Type?, DialogParameters, object>? OnShow;
 
     void ShowSplashScreen(object receiver, Func<DialogResult, Task> callback, DialogParameters<SplashScreenContent> parameters);
 

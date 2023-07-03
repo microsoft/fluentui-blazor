@@ -83,7 +83,5 @@ public partial class FluentToast : FluentComponentBase, IDisposable
         _countdownTimer = null;
 
         ToastContext?.Unregister(this);
-
-        GC.SuppressFinalize(this);
     }
 }

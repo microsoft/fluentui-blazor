@@ -10,7 +10,6 @@ public partial class FluentDialog : FluentComponentBase, IDisposable
     private const string DEFAULT_HEIGHT = "unset";
     private DialogParameters _parameters = default!;
 
-
     [CascadingParameter]
     private InternalDialogContext? DialogContext { get; set; } = default!;
 
@@ -92,16 +91,24 @@ public partial class FluentDialog : FluentComponentBase, IDisposable
 
     }
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        _parameters = Instance.Parameters;
-        DialogContext!.Register(this);
-    }
-
-    protected override void OnParametersSet()
-    {
-        //_parameters = Instance.Parameters;
-
+        if (Instance is not null)
+        {
+            _parameters = Instance.Parameters;
+            DialogContext!.Register(this);
+        }
+        else
+        {
+            _parameters = new()
+            {
+                Alignment = HorizontalAlignment.Center,
+                Id = Id ?? Identifier.NewId(),
+                ShowTitle = false,
+                PrimaryAction = string.Empty,
+                SecondaryAction = string.Empty
+            };
+        }
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -111,8 +118,6 @@ public partial class FluentDialog : FluentComponentBase, IDisposable
             await Element.FocusAsync();
         }
     }
-
-    //protected override void OnInitialized() => DialogContext?.Register(this);
 
     private bool HasButtons => _parameters.ShowPrimaryAction || _parameters.ShowSecondaryAction;
 
