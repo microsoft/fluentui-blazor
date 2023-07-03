@@ -19,13 +19,6 @@
     display:none;
 }
 
-::deep .navmenu-main-button {
-    width: 40px;
-    margin-bottom: 5px
-    
-}
-
-
 ::deep .navmenu-link.nested::part(start) {
     margin-inline-start: -18px;
     -webkit-user-select: none;
@@ -64,4 +57,10 @@
 
 ::deep .collapsed .navmenu-group svg:first-of-type {
     margin-inline-end: 8px;
+}
+
+
+::deep .navmenu-group.nested::part(expand-collapse-button) {
+    left: unset;
+    right: 0;
 }
