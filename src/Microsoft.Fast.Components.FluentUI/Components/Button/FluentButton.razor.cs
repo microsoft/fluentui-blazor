@@ -108,4 +108,10 @@ public partial class FluentButton : FluentComponentBase
         if (!string.IsNullOrEmpty(Target) && !values.Contains(Target))
             throw new ArgumentException("Target must be one of the following values: _self, _blank, _parent, _top");
     }
+
+    public void SetDisabled(bool disabled)
+    {
+        Disabled = disabled;
+        StateHasChanged();
+    }
 }

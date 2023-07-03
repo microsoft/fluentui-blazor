@@ -40,40 +40,22 @@
 	<ItemGroup>
 		<PackageReference Include="Markdig" Version="0.31.0" />
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
-    <ProjectReference Include="..\..\src\Microsoft.Fast.Components.FluentUI\Microsoft.Fast.Components.FluentUI.csproj" />
-    <ProjectReference Include="..\FluentUI.Demo.Generators\FluentUI.Demo.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-    <TrimmerRootAssembly Include="Microsoft.Fast.Components.FluentUI" />
-  </ItemGroup>
+		<ProjectReference Include="..\..\src\Microsoft.Fast.Components.FluentUI\Microsoft.Fast.Components.FluentUI.csproj" />
+		<ProjectReference Include="..\FluentUI.Demo.Generators\FluentUI.Demo.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+		<TrimmerRootAssembly Include="Microsoft.Fast.Components.FluentUI" />
+		<PackageReference Include="Microsoft.Fast.Components.FluentUI.Emojis">
+			<Version>3.*-*</Version>
+		</PackageReference>
+		<PackageReference Include="Microsoft.Fast.Components.FluentUI.Icons">
+			<Version>3.*-*</Version>
+		</PackageReference>
+	</ItemGroup>
 
 	<ItemGroup>
 		<AdditionalFiles Include="$(ProjectDir)/*.xml" />
-    <Folder Include="wwwroot\sources\" />
+		<Folder Include="wwwroot\sources\" />
 	</ItemGroup>
-
-	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
-	  <PackageReference Include="Microsoft.Fast.Components.FluentUI.Emojis">
-	    <Version>3.0.0-preview.4.230627.1</Version>
-	  </PackageReference>
-	  <PackageReference Include="Microsoft.Fast.Components.FluentUI.Icons">
-	    <Version>3.0.0-preview.4.230627.1</Version>
-	  </PackageReference>
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
-	  <PackageReference Include="Microsoft.Fast.Components.FluentUI.Emojis">
-	    <Version>3.0.0-preview.4.230627.1</Version>
-	  </PackageReference>
-	  <PackageReference Include="Microsoft.Fast.Components.FluentUI.Icons">
-	    <Version>3.0.0-preview.4.230627.1</Version>
-	  </PackageReference>
-	</ItemGroup>
-
-	<Target Name="DisableAnalyzers" BeforeTargets="CoreCompile">
-		<ItemGroup>
-			<Analyzer Remove="@(Analyzer)" Condition="'%(Filename)' == 'Microsoft.Fast.Components.FluentUI.Configuration'" />
-		</ItemGroup>
-	</Target>
-
+	
 	<Target Name="CopySources" BeforeTargets="CoreBuild">
 		<ItemGroup>
 			<Sources Include="$(ProjectDir)\Pages\**\Examples\*" />
