@@ -2,21 +2,47 @@
     <FluentSearch Style="width: 100%"
                   Name="Searchterm"
                   @bind-Value="@Criteria.SearchTerm"
-                  AfterBindValue="@HandleSearchField"
+                  AfterBindValue="@HandleSearch"
                   Placeholder="Part of emoji name..." />
 
     <FluentSelect TOption="EmojiGroup?"
                   @bind-SelectedOption="@Criteria.Group"
+                  @onchange=@(x => HandleGroup(x))
                   OptionText="@(e => e?.ToString() ?? "[All]")" 
                   Style="min-width: 150px;"
                   Items="@(GetListWithNullable<EmojiGroup>())" />
 
-    <FluentSelect TOption="EmojiStyle?" @bind-SelectedOption="@Criteria.Style"
+    <FluentSelect TOption="EmojiStyle?"
+                  @bind-SelectedOption="@Criteria.Style"
+                  @onchange=@(x => HandleStyle(x))
                   OptionText="@(e => e?.ToString() ?? "[All]")"
                   Style="min-width: 120px;"
                   Items="@(GetListWithNullable<EmojiStyle>())" />
 
-    <FluentIcon Icon="Icons.Regular.Size24.ArrowCircleRight" OnClick="@HandleSearchField" />
+    <FluentSelect TOption="EmojiSkintone?" 
+                  Id="Skintone" 
+                  @bind-SelectedOption="Criteria.Skintone" 
+                  @onchange=@(x => HandleSkintone(x))
+                  OptionText="@(e => e?.ToString() ?? "[All]")"
+                  Items="@(GetListWithNullable<EmojiSkintone>())" />
+
+    <FluentSelect TOption="EmojiSize?" 
+                  Id="Size" 
+                  @bind-SelectedOption="Criteria.Size" 
+                  @onchange=@(x => HandleSize(x))>
+        @foreach (EmojiSize size in Enum.GetValues<EmojiSize>())
+        {
+            if (size != EmojiSize.Custom)
+            {
+                <FluentOption Value=@size.ToString() Selected=@(size == Criteria.Size)>@((int)size)</FluentOption>
+            }
+        }
+                  </FluentSelect>
+    
+        <span style="display: block; width: 24px; height: 24px">
+            <FluentIcon Icon="Icons.Regular.Size24.ArrowCircleRight" />
+        </span>
+    
 </div>
 
 @* Results *@
@@ -29,11 +55,13 @@
     {
         if (EmojisCount <= 0)
         {
-            <p>No emoji's found</p>
+            <div style="width: 100%; line-height: var(--type-ramp-plus-4-line-height);">
+                <strong>No emoji's found</strong>
+            </div>
         }
         else
         {
-            <div style="width: 100%;">
+            <div style="width: 100%; line-height: var(--type-ramp-plus-4-line-height);">
                 <strong>@EmojisCount</strong> emojis found.
                 @if (EmojisCount > MAX_ICONS)
                 {
@@ -43,9 +71,9 @@
 
             @foreach (var item in EmojisFound)
             {
-                <FluentCard Class="card">
+                <FluentCard Class="card" @onclick="()=> HandleClick(item)" Style="@($"width: {(int)Criteria.Size + 50}px; height: {(int)Criteria.Size + 50}px; ")">
                     <div class="emoji">
-                        <FluentEmoji Value="Emojis.GetInstance(item)" Title="@item.Name" />
+                        <FluentEmoji Value="Emojis.GetInstance(item)" Title="@item.Name" Width="@($"{(int)Criteria.Size}px")" />
                     </div>
                     <label>@item.Name</label>
                 </FluentCard>

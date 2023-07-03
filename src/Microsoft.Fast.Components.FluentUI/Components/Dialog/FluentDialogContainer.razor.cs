@@ -53,11 +53,11 @@ public partial class FluentDialogContainer : IDisposable
 
     internal DialogInstance? GetDialogInstance(string id)
     {
-        if (!_internalDialogContext.References.ContainsKey(id))
+        if (!_internalDialogContext.References.TryGetValue(id, out FluentDialog? value))
         {
             return null;
         }
-        FluentDialog dialog = _internalDialogContext.References[id];
+        FluentDialog dialog = value;
         return dialog.Instance;
 
     }

@@ -45,6 +45,9 @@ public partial class ApiDocumentation
     [Parameter]
     public string? GenericLabel { get; set; } = null;
 
+    [Parameter]
+    public RenderFragment? Description { get; set; }
+
     protected override void OnParametersSet()
     {
         _displayName = Component.Name.Replace("`1", $"<{GenericLabel}>") + " Class";

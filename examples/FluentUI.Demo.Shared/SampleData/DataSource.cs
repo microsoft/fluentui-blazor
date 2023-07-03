@@ -1,18 +1,17 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Microsoft.AspNetCore.Components;
 
 namespace FluentUI.Demo.Shared.SampleData;
 
 public class DataSource
 {
-    private readonly HttpClient _http;
-    private readonly NavigationManager _navigationManager;
+    //private readonly HttpClient _http;
+    //private readonly NavigationManager _navigationManager;
 
-    public DataSource(HttpClient http, NavigationManager navigationManager)
-    {
-        _http = http;
-        _navigationManager = navigationManager;
-    }
+    //public DataSource(HttpClient http, NavigationManager navigationManager)
+    //{
+    //    //_http = http;
+    //    //_navigationManager = navigationManager;
+    //}
 
     [UnconditionalSuppressMessage("Trimming", "IL2026:Members annotated with 'RequiresUnreferencedCodeAttribute' require dynamic access otherwise can break functionality when trimming application code", Justification = "This is just being used for sample data")]
     public IQueryable<Person> People { get; } = _people.AsQueryable();

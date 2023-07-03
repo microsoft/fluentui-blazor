@@ -2,17 +2,32 @@
     <FluentSearch Style="width: 100%"
                   Name="Searchterm"
                   @bind-Value="@Criteria.SearchTerm"
-                  AfterBindValue="@HandleSearchField"
+                  AfterBindValue="@HandleSearch"
                   Placeholder="Part of icon name..." />
 
     <FluentSelect TOption="IconSize" @bind-SelectedOption="@Criteria.Size"
                   Style="min-width: unset;"
-                  Items="@(Enum.GetValues<IconSize>())" />
+                  Items="@(Enum.GetValues<IconSize>())"
+                  @onchange="@(x => HandleSize(x))" />
 
     <FluentSelect TOption="IconVariant" @bind-SelectedOption="@Criteria.Variant"
                   Style="min-width: unset;"
-                  Items="@(Enum.GetValues<IconVariant>())" />
-    <FluentIcon Icon="Icons.Regular.Size24.ArrowCircleRight" OnClick="@HandleSearchField" />
+                  Items="@(Enum.GetValues<IconVariant>())"
+                  @onchange="@(x => HandleVariant(x))" />
+
+    <FluentSelect TOption="Color" 
+                  Id="Color" 
+                  @bind-SelectedOption="IconColor" 
+                  @onchange="@(x => HandleColor(x))">
+        @foreach (Color color in Enum.GetValues<Color>())
+        {
+            if (color != Color.Custom)
+            {
+                <FluentOption Value=@color.ToString() Selected=@(color == IconColor)>@(color)</FluentOption>
+            }
+        }
+    </FluentSelect>
+    <FluentIcon Icon="Icons.Regular.Size24.ArrowCircleRight" OnClick="@HandleSearch" />
 </div>
 
 @* Results *@
@@ -25,11 +40,13 @@
     {
         if (IconsCount <= 0)
         {
-            <p>No icons found</p>
+            <div style="width: 100%; line-height: var(--type-ramp-plus-4-line-height);">
+                <strong>No icons found</strong>
+            </div>
         }
         else
         {
-            <div style="width: 100%;">
+            <div style="width: 100%; line-height: var(--type-ramp-plus-4-line-height);">
                 <strong>@IconsCount</strong> icons found.
                 @if (IconsCount > MAX_ICONS)
                 {
@@ -39,9 +56,9 @@
     
             @foreach (var item in IconsFound)
             {
-                <FluentCard Class="card">
+                <FluentCard Class="card" @onclick="()=> HandleClick(item)">
                     <div class="icon">
-                        <FluentIcon Value="Icons.GetInstance(item)" Title="@item.Name" />
+                        <FluentIcon Value="Icons.GetInstance(item)" Color=IconColor Title="@item.Name" />
                     </div>
                     <label>@item.Name</label>
                 </FluentCard>

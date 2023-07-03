@@ -1,6 +1,7 @@
 ﻿.emoji-explorer-criteria {
     display: flex;
     gap: 10px;
+    align-items: center;
 }
 
 .emoji-explorer {
@@ -12,22 +13,25 @@
 }
 
     .emoji-explorer ::deep .card {
-        height: 100px;
-        width: 100px;
+        height: 100%;
+        min-height: 100px;
+        width: 100%;
+        min-width: 100px;
         margin: 10px;
         text-align: center;
     }
 
     .emoji-explorer ::deep .emoji {
-        height: 80px;
-        width: 100px;
-        display: table-cell;
-        vertical-align: middle;
+        height: calc(100% - 20px);
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .emoji-explorer ::deep label {
         height: 20px;
-        width: 100px;
+        width: 100%;
         text-align: center;
         font-size: 10px;
         font-family: Monaco, monospace;

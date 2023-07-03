@@ -5,6 +5,13 @@
 <div>
     <h2 id="@_id">@_displayName</h2>
 
+    @if (Description != null)
+    {
+        <div class="section-description">
+            @Description
+        </div>
+    }
+
 @if (Component.BaseType != null && Component.BaseType != typeof(FluentComponentBase) && Component.BaseType.Name.StartsWith("Fluent"))
 {
     <p>
@@ -28,7 +35,7 @@
                         
                         var id = Identifier.NewId();
                         <span id="@id">
-                            <FluentIcon Icon="Icons.Regular.Size24.Info" Style="margin-left: 10px; vertical-align: top;" Color="@Color.Accent" />
+                            <FluentIcon Icon="Icons.Regular.Size20.Info" Style="margin-left: 10px; vertical-align: top;" Color="@Color.Accent" />
                         </span>
                         <FluentTooltip Anchor="@id" Position="TooltipPosition.Right">
                             @foreach (var item in context.EnumValues)
