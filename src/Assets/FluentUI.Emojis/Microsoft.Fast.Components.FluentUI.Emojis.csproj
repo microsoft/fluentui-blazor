@@ -1,30 +1,32 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
-  <PropertyGroup>
-    <TargetFrameworks>net7.0</TargetFrameworks>
-    <LangVersion>latest</LangVersion>
-    <PackageId>Microsoft.Fast.Components.FluentUI.Emojis</PackageId>
-    <AssemblyName>Microsoft.Fast.Components.FluentUI.Emojis</AssemblyName>
-    <RootNamespace>Microsoft.Fast.Components.FluentUI.Emojis</RootNamespace>
-    <Nullable>enable</Nullable>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <IsTrimmable>true</IsTrimmable>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	<PropertyGroup>
+		<TargetFrameworks>net6.0</TargetFrameworks>
+		<LangVersion>latest</LangVersion>
+		<PackageId>Microsoft.Fast.Components.FluentUI.Emojis</PackageId>
+		<AssemblyName>Microsoft.Fast.Components.FluentUI.Emojis</AssemblyName>
+		<RootNamespace>Microsoft.Fast.Components.FluentUI.Emojis</RootNamespace>
+		<Nullable>enable</Nullable>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<IsTrimmable>true</IsTrimmable>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 
-    <PackageId>Microsoft.Fast.Components.FluentUI.Emojis</PackageId>
-    <Summary>A Blazor wrapper library for the official Microsoft Fluent UI Emoji set.</Summary>
-    <PackageTags>Emoji, Fluent UI, FAST, Blazor, .NET6, .NET7, .NET8</PackageTags>
-    <Title>A Blazor wrapper library for the official Microsoft Fluent UI Emoji set.</Title>
-    <Description>A Blazor wrapper library for the official Microsoft Fluent UI Emoji set.</Description>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageIcon>icon.png</PackageIcon>
-  </PropertyGroup>
+		<PackageId>Microsoft.Fast.Components.FluentUI.Emojis</PackageId>
+		<Summary>A Blazor wrapper library for the official Microsoft Fluent UI Emoji set.</Summary>
+		<PackageTags>Emoji, Fluent UI, FAST, Blazor, .NET6, .NET7, .NET8</PackageTags>
+		<Title>A Blazor wrapper library for the official Microsoft Fluent UI Emoji set.</Title>
+		<Description>A Blazor wrapper library for the official Microsoft Fluent UI Emoji set.</Description>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageIcon>icon.png</PackageIcon>
 
-  <ItemGroup>
-    <None Include="README.md" Pack="true" PackagePath="\" />
-    <None Include="..\..\..\icon.png" Pack="true" PackagePath="\" />
-    <PackageReference Include="Microsoft.Fast.Components.FluentUI" Version="3.0.0-preview.4.230627.1" />
-  </ItemGroup>
+		<PackageOutputPath>..\..\..\artifacts</PackageOutputPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="README.md" Pack="true" PackagePath="\" />
+		<None Include="..\..\..\icon.png" Pack="true" PackagePath="\" />
+		<PackageReference Include="Microsoft.Fast.Components.FluentUI" Version="3.*-*" />
+	</ItemGroup>
 
 </Project>
