@@ -1,3 +1,6 @@
+jobs:
+   timeoutInMinutes: 0
+    
 parameters:
 - name: Projects		# List of projects to build
   type: string
