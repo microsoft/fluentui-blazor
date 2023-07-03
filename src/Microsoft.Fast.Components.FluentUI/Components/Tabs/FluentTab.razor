@@ -8,9 +8,9 @@
             aria-label="@Label"
             overflow=@Overflow
             @attributes="AdditionalAttributes">
-    @if (!string.IsNullOrEmpty(Icon))
+    @if (Icon != null)
     {
-        <FluentIcon Name="@Icon" Size="@IconSize.Size20" Class="fluent-tab-icon" />
+        <FluentIcon Value="@Icon" Width="20px" Class="fluent-tab-icon" />
     }
     @if (LabelEditable)
     {
@@ -27,7 +27,7 @@
 
     @if (Owner.ShowClose)
     {
-        <FluentIcon Name="@FluentIcons.Dismiss" Size="@IconSize.Size12" Class="fluent-tab-close" Title="Close" OnClick="CloseClickedAsync" />
+        <FluentIcon Icon="CoreIcons.Regular.Size24.Dismiss" Width="12px" Class="fluent-tab-close" Title="Close" OnClick="CloseClickedAsync" />
     }
 </fluent-tab>
 @ChildContent

@@ -47,7 +47,7 @@ namespace Microsoft.Fast.Components.FluentUI
         void ShowDownload(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null);
         void ShowEvent(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null);
         void ShowMention(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null);
-        void ShowCustom(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null, (string Name, Color Color, IconVariant Variant)? icon = null);
+        void ShowCustom(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null, (Icon Value, Color Color)? icon = null);
         void ShowConfirmationToast(ToastParameters<ConfirmationToastContent> parameters);
 
 

@@ -16,7 +16,7 @@
         Menu item 3 Disabled
     </FluentMenuItem>
     <FluentMenuItem OnClick="@((e) => DemoLogger.WriteLine("Item 4 Clicked"))">
-        <span slot="start"><FluentIcon Name="@FluentIcons.ClipboardPaste" Color="Color.Neutral" Slot="start" /></span>
+        <span slot="start"><FluentIcon Icon="Icons.Regular.Size24.ClipboardPaste" Color="Color.Neutral" Slot="start" /></span>
         Menu item 4 with Icon
     </FluentMenuItem>
 </FluentMenu>

@@ -4,43 +4,43 @@
 <FluentStack Orientation="Orientation.Vertical" VerticalGap="10">
     <FluentStack Wrap=true>
         <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowSuccess("Success confirmation."))">
-            <FluentIcon Name="@FluentIcons.CheckmarkCircle" Size="@IconSize.Size20" Variant="@IconVariant.Filled" Color="@Color.Success" Slot="start" />
+            <FluentIcon Icon="Icons.Filled.Size20.CheckmarkCircle" Color="@Color.Success" Slot="start" />
             Show Success
         </FluentButton>
         <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowWarning("Warning confirmation."))">
-            <FluentIcon Name="@FluentIcons.Warning" Size="@IconSize.Size20" Variant="@IconVariant.Filled" Color="@Color.Warning" Slot="start" />
+            <FluentIcon Icon="Icons.Filled.Size20.Warning" Color="@Color.Warning" Slot="start" />
             Show Warning
         </FluentButton>
         <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowError("Error confirmation."))">
-            <FluentIcon Name="@FluentIcons.DismissCircle" Size="@IconSize.Size20" Variant="@IconVariant.Filled" Color="@Color.Error" Slot="start" />
+            <FluentIcon Icon="Icons.Filled.Size20.DismissCircle" Color="@Color.Error" Slot="start" />
             Show Error
         </FluentButton>
         <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowInfo("Info confirmation."))">
-            <FluentIcon Name="@FluentIcons.Info" Size="@IconSize.Size20" Variant="@IconVariant.Filled" Color="@Color.Info" Slot="start" />
+            <FluentIcon Icon="Icons.Filled.Size20.Info" Color="@Color.Info" Slot="start" />
             Show Info
         </FluentButton>
         <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowProgress("Progress confirmation."))">
-            <FluentIcon Name="@FluentIcons.Flash" Size="@IconSize.Size20" Color="@Color.Neutral" Slot="start" />
+            <FluentIcon Icon="Icons.Regular.Size20.Flash" Color="@Color.Neutral" Slot="start" />
             Show progress
         </FluentButton>
         <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowUpload("Upload confirmation."))">
-            <FluentIcon Name="@FluentIcons.ArrowUpload" Size="@IconSize.Size20" Color="@Color.Neutral" Slot="start" />
+            <FluentIcon Icon="Icons.Regular.Size20.ArrowUpload" Color="@Color.Neutral" Slot="start" />
             Show upload
         </FluentButton>
         <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowDownload("Download confirmation."))">
-            <FluentIcon Name="@FluentIcons.ArrowDownload" Size="@IconSize.Size20" Color="@Color.Neutral" Slot="start" />
+            <FluentIcon Icon="Icons.Regular.Size20.ArrowDownload" Color="@Color.Neutral" Slot="start" />
             Show download
         </FluentButton>
         <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowEvent("Event confirmation."))">
-            <FluentIcon Name="@FluentIcons.CalendarLTR" Size="@IconSize.Size20" Color="@Color.Neutral" Slot="start" />
+            <FluentIcon Icon="Icons.Regular.Size20.CalendarLtr" Color="@Color.Neutral" Slot="start" />
             Show event
         </FluentButton>
         <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowMention("Mention confirmation."))">
-            <FluentIcon Name="@FluentIcons.Person" Size="@IconSize.Size20" Color="@Color.Neutral" Slot="start" />
+            <FluentIcon Icon="Icons.Regular.Size20.Person" Color="@Color.Neutral" Slot="start" />
             Show mention
         </FluentButton>
-        <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowCustom("Custom confirmation.", null, null, null, (FluentIcons.Delete,Color.Accent, IconVariant.Regular)))">
-            <FluentIcon Name="@FluentIcons.Delete" Size="@IconSize.Size20" Color="@Color.Neutral" Slot="start" />
+        <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowCustom("Custom confirmation.", null, null, null, (new Icons.Regular.Size24.Delete(), Color.Accent)))">
+            <FluentIcon Icon="Icons.Regular.Size20.Delete" Color="@Color.Neutral" Slot="start" />
             Show custom
         </FluentButton>
     </FluentStack>
@@ -58,7 +58,7 @@
         </FluentButton>
 
         <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowSuccess("Success confirmation with a lot of text to see what a toast looks like when it's really big."))">
-            <FluentIcon Name="@FluentIcons.CheckmarkCircle" Size="@IconSize.Size20" Variant="@IconVariant.Filled" Color="@Color.Success" Slot="start" />
+            <FluentIcon Icon="Icons.Filled.Size20.CheckmarkCircle" Color="@Color.Success" Slot="start" />
             Long Success
         </FluentButton>
     </FluentStack>

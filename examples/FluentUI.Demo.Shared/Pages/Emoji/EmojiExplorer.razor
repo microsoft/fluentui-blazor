@@ -1,0 +1,55 @@
+<div class="emoji-explorer-criteria">
+    <FluentSearch Style="width: 100%"
+                  Name="Searchterm"
+                  @bind-Value="@Criteria.SearchTerm"
+                  AfterBindValue="@HandleSearchField"
+                  Placeholder="Part of emoji name..." />
+
+    <FluentSelect TOption="EmojiGroup?"
+                  @bind-SelectedOption="@Criteria.Group"
+                  OptionText="@(e => e?.ToString() ?? "[All]")" 
+                  Style="min-width: 150px;"
+                  Items="@(GetListWithNullable<EmojiGroup>())" />
+
+    <FluentSelect TOption="EmojiStyle?" @bind-SelectedOption="@Criteria.Style"
+                  OptionText="@(e => e?.ToString() ?? "[All]")"
+                  Style="min-width: 120px;"
+                  Items="@(GetListWithNullable<EmojiStyle>())" />
+
+    <FluentIcon Icon="Icons.Regular.Size24.ArrowCircleRight" OnClick="@HandleSearchField" />
+</div>
+
+@* Results *@
+<div class="emoji-explorer">
+    @if (SearchInProgress)
+    {
+        <FluentProgressRing Style="width: unset; margin: 50px;" />
+    }
+    else
+    {
+        if (EmojisCount <= 0)
+        {
+            <p>No emoji's found</p>
+        }
+        else
+        {
+            <div style="width: 100%;">
+                <strong>@EmojisCount</strong> emojis found.
+                @if (EmojisCount > MAX_ICONS)
+                {
+                    <em>Only the first @MAX_ICONS results are shown.</em>
+                }
+            </div>
+
+            @foreach (var item in EmojisFound)
+            {
+                <FluentCard Class="card">
+                    <div class="emoji">
+                        <FluentEmoji Value="Emojis.GetInstance(item)" Title="@item.Name" />
+                    </div>
+                    <label>@item.Name</label>
+                </FluentCard>
+            }
+        }
+    }
+</div>

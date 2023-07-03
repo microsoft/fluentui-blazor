@@ -67,7 +67,7 @@ public class DialogService : IDialogService
         {
             Title = string.IsNullOrWhiteSpace(title) ? "Success!" /*DialogResources.TitleError*/ : title,
             Intent = MessageBoxIntent.Success,
-            Icon = FluentIcons.CheckmarkCircle,
+            Icon = new CoreIcons.Filled.Size24.CheckmarkCircle(),
             IconColor = Color.Success,
             Message = message,
         },
@@ -86,7 +86,7 @@ public class DialogService : IDialogService
         {
             Title = string.IsNullOrWhiteSpace(title) ? "Warning!" /*DialogResources.TitleError*/ : title,
             Intent = MessageBoxIntent.Warning,
-            Icon = FluentIcons.Warning,
+            Icon = new CoreIcons.Filled.Size24.Warning(),
             IconColor = Color.Warning,
             Message = message,
         },
@@ -105,7 +105,7 @@ public class DialogService : IDialogService
         {
             Title = string.IsNullOrWhiteSpace(title) ? "Error!" /*DialogResources.TitleError*/ : title,
             Intent = MessageBoxIntent.Error,
-            Icon = FluentIcons.DismissCircle,
+            Icon = new CoreIcons.Filled.Size24.DismissCircle(),
             IconColor = Color.Error,
             Message = message,
         },
@@ -124,7 +124,7 @@ public class DialogService : IDialogService
         {
             Title = string.IsNullOrWhiteSpace(title) ? "Information" /*DialogResources.TitleInformation*/ : title,
             Intent = MessageBoxIntent.Info,
-            Icon = FluentIcons.Info,
+            Icon = new CoreIcons.Filled.Size24.Info(),
             IconColor = Color.Info,
             Message = message,
         },
@@ -149,7 +149,7 @@ public class DialogService : IDialogService
             {
                 Title = string.IsNullOrWhiteSpace(title) ? "Confirm" /*DialogResources.TitleConfirmation*/ : title,
                 Intent = MessageBoxIntent.Confirmation,
-                Icon = FluentIcons.QuestionCircle,
+                Icon = new CoreIcons.Regular.Size24.QuestionCircle(),
                 IconColor = Color.Success,
                 Message = message,
             },

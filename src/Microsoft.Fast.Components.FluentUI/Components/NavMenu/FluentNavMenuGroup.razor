@@ -10,14 +10,16 @@
                 Text="@(NavMenuExpanded ? Text : string.Empty)">
     @if (!NavMenuExpanded && HasNavMenuGutterIcon)
     {
-        if (NavMenuGutterIconContent is not null)
-        {
-            <div slot="start" @onclick="ExpandMenu">@NavMenuGutterIconContent</div>
-        }
-        else
-        {
-            <FluentIcon Name="@NavMenuGutterIcon" Size="@IconSize.Size20" Slot="start" OnClick="ExpandMenu" />
-        }
+        <div slot="start" @onclick="ExpandMenu">
+            @if (NavMenuGutterIconContent is not null)
+            {
+                @NavMenuGutterIconContent
+            }
+            else
+            {
+                <FluentIcon Value="@NavMenuGutterIcon" Width="20px" Slot="start" />
+            }
+        </div>
     }
     @if (NavMenuExpanded && HasIcon)
     {
@@ -27,7 +29,7 @@
         }
         else
         {
-            <FluentIcon Name="@Icon" Size="@IconSize.Size20" Slot="start" OnClick="HandleIconClick" />
+            <FluentIcon Value="@Icon" Width="20px" Slot="start" OnClick="HandleIconClick" />
         }
     }
     @if (NavMenuExpanded) {

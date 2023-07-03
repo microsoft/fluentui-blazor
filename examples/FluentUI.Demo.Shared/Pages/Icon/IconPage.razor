@@ -9,15 +9,18 @@
     available in both filled and outlined versions and in various sizes. In total the collections consists of well over 11k icons in SVG format.
 </p>
 <p>
+    This <a href="https://www.nuget.org/packages/Microsoft.Fast.Components.FluentUI.Icons" target="_blank">FluentUI Icons NuGet package</a>
+    contains all these icons, which you can access directly in your projects.
+    To use them, simply reference this package in your project.
+</p>
+<p>
     You can use any of these icons by levaraging the <code>&lt;FluentIcon&gt;</code>&nbsp;component. See below for the parameters and examples. 
     There is also a search capability available on this page wich allows you to browse to all the different icons.
 </p>
 
-<ApiDocumentation Component="typeof(FluentIcon)" />
-
 <h2 id="overview">Overview</h2>
 
-<DemoSection Component="typeof(FluentIconSlots)" Title="Icon placement">
+<DemoSection Component="typeof(FluentIconExample)" Title="Icon examples">
     <Description>
         A lot of the web components have named slots that declare locations in which content can be rendered.
         FluentIcon leverages this capability through its <code>Slot</code> parameter. With this you can for
@@ -26,112 +29,12 @@
     </Description>
 </DemoSection>
 
-<DemoSection Component="typeof(FluentIconColors)" Title="Color options">
-    <Description>
-        Icons can be drawn and filled with a color through the <code>Color</code> parameter which takes a <code>Color</code> enumeration value. 
-        <br /><br /> 
-        &nbsp;&nbsp;&nbsp;<code>&lt;FluentIcon Name="@@FluentIcons.Alert"" Size="IconSize.Size48"" Variant=IconVariant.Regular Color="<em>{&middot;&middot;&middot;}</em>" /&gt;</code>
-        <br /><br />
-        With the code above you can use the following options at the <em>{&middot;&middot;&middot;}</em>:
-    </Description>
-</DemoSection>
-
-<DemoSection Component="typeof(FluentIconCultures)" Title="Culture aware">
-    <Description>
-        Some icons offer alternatives for specific languages (neutral cultures). You can specify a language to use for the icon by using the <code>NeutralCultureName</code> parameter and giving it the two letter ISO code of the culture.
-        If a language version of an icon is not found, the original version will be used.
-    </Description>
-</DemoSection>
-
-<DemoSection Component="typeof(FluentIconInvalidCombination)" Title="Invalid Name, Size and Variation combination">
-    <Description>
-        The component checks at runtime if the combination of Name, Size and Variation is available in the collection and throws an error if the combination is not found.
-        <br />
-        
-    </Description>
-</DemoSection>
     
 <FluentDivider Role="DividerRole.Separator" />
 
-<h2 id="explore-icons">Explore Icons</h2>
-<p>
-   <div class="form-grid">
-        <div id="item-0">
-            <FluentSearch Style="width: 100%" Name="Searchterm" @bind-Value="Form.Searchterm" AfterBindValue="HandleSearchField" Placeholder="Part of icon name..."></FluentSearch>
-        </div>
-        <div id="item-1">
-            @if (IconService.Configuration.Variants.Contains(IconVariant.Filled))
-            {
-                <FluentCheckbox @bind-Value="Form.Filled" @onclick="HandleStyle">Filled</FluentCheckbox>
-            }
-            @if (IconService.Configuration.Variants.Contains(IconVariant.Regular))
-            {
-                <FluentCheckbox @bind-Value="Form.Regular" @onclick="HandleStyle">Regular</FluentCheckbox>
-            }
+<h2>Explore Icons</h2>
+<IconExplorer />
+<br />
+<br />
 
-        </div>
-        <div id="item-2">
-            <label for="Size">Size</label>
-            <FluentSelect TOption="IconSize" Id="Size" @bind-SelectedOption="Form.Size" @onchange="@(x => HandleSize(x))">
-                @foreach (IconSize size in IconService.Configuration.Sizes)
-                {
-                    <FluentOption Value=@size.ToString() Selected=@(size == Form.Size)>@((int)size)</FluentOption>
-                }
-            </FluentSelect>
-        </div>
-        <div id="item-3">
-                
-        </div>
-        <div id="item-4"><label for="Color">Color</label>
-            <FluentSelect TOption="Color" Id="Color" @bind-SelectedOption="Form.Color" @onchange="@(x => HandleColor(x))">
-                @foreach (Color color in Enum.GetValues<Color>())
-                {
-                    if (color != Color.Custom)
-                    {
-                        <FluentOption Value=@color.ToString() Selected=@(color == Form.Color)>@(color)</FluentOption>
-                    }
-                }
-            </FluentSelect>
-        </div>
-        <div id="item-5">
-            <FluentButton Appearance="Appearance.Accent" @onclick="HandleSearch" Type=ButtonType.Submit><FluentIcon Name="@FluentIcons.Search" Color=Color.Fill Slot="start"></FluentIcon> Search</FluentButton>
-            <FluentButton Appearance="Appearance.Neutral" @onclick="HandleReset" Type=ButtonType.Reset><FluentIcon Name="@FluentIcons.ArrowReset" Color=Color.Neutral Slot="start"></FluentIcon> Reset</FluentButton>
-        </div>
-    </div>
-</p>
-
-<FluentDivider Role="DividerRole.Presentation" />
-
-@if (icons?.Count > 0)
-{
-    <p style="padding: 1rem 0;">
-        In the results below, click on an icon card to copy a 'ready-to-paste' <code>FluentIcon</code> component to the clipboard.     
-    </p>
-    <p style="padding: 1rem 0;">
-        <strong>@totalCount</strong> icons found.
-        @if (totalCount > maxResults)
-        {
-            <em>Only the first @maxResults results are shown.</em>
-        }
-    </p>
-}
-<div id="filled" data-is-scrollable="true" style="overflow-y:auto;height:600px;">
-    <div style="display:flex;flex-flow: row wrap;">
-        @foreach (IconModel icon in icons!)
-        {
-            <FluentCard Class="preview" @onclick="()=> HandleClick(icon)">
-                <div class="inner" style="background-color: @(Form.Color == Color.Fill ? "var(--accent-fill-rest)" : "")" >
-                    <FluentIcon Name=@icon.Name Size=@icon.Size Variant=@icon.Variant Color="@Form.Color" Title="@icon.Name" />
-                </div>
-                <div class="label">@icon.Name</div>
-            </FluentCard>
-        }
-        @if (icons.Count == 0)
-        {
-        <div style="display: flex;align-content: center;align-items: center;">
-            <p style="padding: 1rem 0;">No icons found</p>
-        </div>
-        }
-    </div>
-</div>
-
+<ApiDocumentation Component="typeof(FluentIcon<>)" InstanceType="typeof(Icon)" GenericLabel="Icon" />

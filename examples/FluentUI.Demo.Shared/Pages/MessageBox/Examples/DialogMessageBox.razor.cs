@@ -50,7 +50,7 @@ namespace FluentUI.Demo.Shared.Pages.MessageBox.Examples
                 {
                     Title = "My title",
                     MarkupMessage = new MarkupString("My <strong>customized</strong> message"),
-                    Icon = FluentIcons.Games,
+                    Icon = new Icons.Regular.Size24.Games(),
                     IconColor = Color.Success,
                 },
                 PrimaryButton = "Plus",

@@ -1,6 +1,6 @@
 ﻿@using Microsoft.Fast.Components.FluentUI
 @page "/NewIconEmoji"
-<h2>New Icon and Emoji implementation</h2>
+@* <h2>New Icon and Emoji implementation</h2>
 
 <p>
     For the final v3 release we will be changing the way we handle icons and emojis. This will be a breaking change for the package. 
@@ -11,20 +11,19 @@ automatically when you publish your application. This will reduce the the total 
     If you want to use icons and/or emoji in your application, you will need to add the respective NuGet package (not available yet).
 </p>
 <h3>Icons</h3>
-<ApiDocumentation Component="typeof(FluentSystemIcon<>)" InstanceType="typeof(IconFromImage)" GenericLabel="Icon" />
+<ApiDocumentation Component="typeof(FluentIcon<>)" InstanceType="typeof(IconFromImage)" GenericLabel="Icon" />
 <p>
     An example of calling an icon with the new implementation:
-    <CodeSnippet>&lt;FluentSystemIcon Icon="@@(Icons.Regular.Size24.Save)" /&gt;></CodeSnippet>
+    <CodeSnippet>&lt;FluentIcon Icon="@(new @(Icons.Regular.Size24.Save)())" /&gt;></CodeSnippet>
 You can use your custom images by setting the Value property calling the Icon.FromImageUrl method:
-    <CodeSnippet>&lt;FluentSystemIcon Value="@@(Icon.FromImageUrl("/Blazor.png"))" Width="32px" /&gt;</CodeSnippet>
+    <CodeSnippet>&lt;FluentIcon Value="@@(Icon.FromImageUrl("/Blazor.png"))" Width="32px" /&gt;</CodeSnippet>
 </p>
-<blockquote> The name FluentSystemIcon will be replaced with (current) FluentIcon name</blockquote>
+<blockquote> The name FluentIcon will be replaced with (current) FluentIcon name</blockquote>
 
 <h3>Emoji</h3>
-@* <ApiDocumentation Component="typeof(FluentSystemEmoji<>)" InstanceType="typeof(Microsoft.Fast.Components.FluentUI.Emoji)" GenericLabel="Emoji" /> *@
 <p>
     An example of calling an emoji with the new implementation:<br />
-    <CodeSnippet>&lt;FluentSystemEmoji Emoji="@@(Emojis.PeopleBody.Color.Default.Artist)" /&gt;</CodeSnippet>
+    <CodeSnippet>&lt;FluentEmoji Emoji="@@(Emojis.PeopleBody.Color.Default.Artist)" /&gt;</CodeSnippet>
 </p>
 <blockquote> The name FluentSystemEmjoi will be replaced with (current) FluentEmoji name</blockquote>
-
+ *@

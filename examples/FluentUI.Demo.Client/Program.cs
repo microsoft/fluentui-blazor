@@ -13,8 +13,6 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 builder.Services.AddFluentUIComponents(options =>
 {
     options.HostingModel = BlazorHostingModel.WebAssembly;
-    options.IconConfiguration = ConfigurationGenerator.GetIconConfiguration();
-    options.EmojiConfiguration = ConfigurationGenerator.GetEmojiConfiguration();
 });
 
 builder.Services.AddScoped<DataSource>();
