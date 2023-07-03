@@ -1,11 +1,11 @@
 ﻿<h4>With start</h4>
 <FluentSearch @bind-Value=value>
-    <FluentIcon Name="@FluentIcons.Globe" Slot="start" Size="@IconSize.Size16" Color=Color.Neutral />
+    <FluentIcon Icon="Icons.Regular.Size16.Globe" Color="@Color.Neutral" Slot="start" />
 </FluentSearch>
 
 <h4>With end</h4>
 <FluentSearch @bind-Value=value>
-    <FluentIcon Name="@FluentIcons.Globe" Slot="end" Size="@IconSize.Size16" Color=Color.Neutral />
+    <FluentIcon Icon="Icons.Regular.Size16.Globe" Color="@Color.Neutral" Slot="end" />
 </FluentSearch>
 @code {
     string? value;

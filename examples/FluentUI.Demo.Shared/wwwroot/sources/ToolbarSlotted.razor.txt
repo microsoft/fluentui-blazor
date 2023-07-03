@@ -14,7 +14,7 @@
                 <FluentTextField @bind-Value=text1 Placeholder="Search"></FluentTextField>
             </FluentRadio>
         </FluentRadioGroup>
-        <FluentIcon Name="@FluentIcons.Globe" Slot="end" Size="@IconSize.Size16" Variant=IconVariant.Filled Color="Color.Accent" />
+        <FluentIcon Icon="Icons.Filled.Size16.Globe" Slot="end" Color="Color.Accent" />
     </FluentToolbar>
 </div>
 @code {

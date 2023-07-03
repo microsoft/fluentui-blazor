@@ -6,7 +6,7 @@ namespace Microsoft.Fast.Components.FluentUI
     {
         string? Id { get; set; }
         ToastIntent Intent { get; set; }
-        (string Name, Color Color, IconVariant Variant)? Icon { get; set; }
+        (Icon Value, Color Color)? Icon { get; set; }
         string? Title { get; set; }
 
         ToastTopCTAType TopCTAType { get; set; }

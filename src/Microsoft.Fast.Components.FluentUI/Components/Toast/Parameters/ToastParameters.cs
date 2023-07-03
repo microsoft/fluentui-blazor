@@ -12,7 +12,7 @@ public class ToastParameters : ComponentParameters, IToastParameters
     public string? TopAction { get; set; }
     public EventCallback<ToastResult>? OnTopAction { get; set; } = default!;
 
-    public (string Name, Color Color, IconVariant Variant)? Icon { get; set; }
+    public (Icon Value, Color Color)? Icon { get; set; }
     public DateTime Timestamp { get; set; } = DateTime.Now;
     public int? Timeout { get; set; }
 

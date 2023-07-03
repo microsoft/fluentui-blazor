@@ -33,25 +33,25 @@ public class ToastService : IToastService
     /// </summary>
     public event Action<ToastIntent>? OnClearQueueIntent;
 
-    private static (string Name, Color Color, IconVariant Variant)? GetIntentIcon(ToastIntent intent)
+    private static (Icon Icon, Color Color)? GetIntentIcon(ToastIntent intent)
     {
         return intent switch
         {
-            ToastIntent.Success => (FluentIcons.CheckmarkCircle, Color.Success, IconVariant.Filled),
-            ToastIntent.Warning => (FluentIcons.Warning, Color.Warning, IconVariant.Filled),
-            ToastIntent.Error => (FluentIcons.DismissCircle, Color.Error, IconVariant.Filled),
-            ToastIntent.Info => (FluentIcons.Info, Color.Info, IconVariant.Filled),
-            ToastIntent.Progress => (FluentIcons.Flash, Color.Neutral, IconVariant.Regular),
-            ToastIntent.Upload => (FluentIcons.ArrowUpload, Color.Neutral, IconVariant.Regular),
-            ToastIntent.Download => (FluentIcons.ArrowDownload, Color.Neutral, IconVariant.Regular),
-            ToastIntent.Event => (FluentIcons.CalendarLTR, Color.Neutral, IconVariant.Regular),
-            ToastIntent.Mention => (FluentIcons.Person, Color.Neutral, IconVariant.Regular),
+            ToastIntent.Success => (new CoreIcons.Filled.Size24.CheckmarkCircle(), Color.Success),
+            ToastIntent.Warning => (new CoreIcons.Filled.Size24.Warning(), Color.Warning),
+            ToastIntent.Error => (new CoreIcons.Filled.Size24.DismissCircle(), Color.Error),
+            ToastIntent.Info => (new CoreIcons.Filled.Size24.Info(), Color.Info),
+            ToastIntent.Progress => (new CoreIcons.Regular.Size24.Flash(), Color.Neutral),
+            ToastIntent.Upload => (new CoreIcons.Regular.Size24.ArrowUpload(), Color.Neutral),
+            ToastIntent.Download => (new CoreIcons.Regular.Size24.ArrowDownload(), Color.Neutral),
+            ToastIntent.Event => (new CoreIcons.Regular.Size24.CalendarLtr(), Color.Neutral),
+            ToastIntent.Mention => (new CoreIcons.Regular.Size24.Person(), Color.Neutral),
             ToastIntent.Custom => null,
             _ => throw new InvalidOperationException()
         };
     }
 
-    private static ToastParameters<ConfirmationToastContent> BuildConfirmationData(ToastIntent intent, string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null, (string Name, Color Color, IconVariant Variant)? icon = null)
+    private static ToastParameters<ConfirmationToastContent> BuildConfirmationData(ToastIntent intent, string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null, (Icon Value, Color Color)? icon = null)
     {
         return new()
         {
@@ -173,7 +173,7 @@ public class ToastService : IToastService
     /// <param name="topAction">Text to use for the TopAction</param>
     /// <param name="callback">Callback to invoke when TopAction is clicked</param>
     /// <param name="icon">Custom icon for this toast</param>
-    public void ShowCustom(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null, (string Name, Color Color, IconVariant Variant)? icon = null)
+    public void ShowCustom(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null, (Icon Value, Color Color)? icon = null)
         => ShowConfirmationToast(BuildConfirmationData(ToastIntent.Custom, title, timeout, topAction, callback, icon));
 
 
@@ -401,6 +401,4 @@ public class ToastService : IToastService
     /// </summary>
     public void ClearQueueCustomIntentToasts()
         => OnClearQueueIntent?.Invoke(ToastIntent.Custom);
-
-
 }

@@ -43,9 +43,7 @@
     Dictionary<string, object> PresenceBadgeParameters = new()
     {
         {"ChildContent", (RenderFragment)(builder => {
-                builder.OpenComponent<FluentIcon>(0);
-                builder.AddAttribute(1, "Name", FluentIcons.Person);
-                builder.AddAttribute(2, "Size", IconSize.Size48);
+                builder.OpenComponent<FluentIcon<Icons.Regular.Size48.Person>>(0);
                 builder.CloseComponent();
             }
         )}
