@@ -7,6 +7,7 @@
         <FluentSliderLabel Position="100">100&#8451;</FluentSliderLabel>
     </FluentSlider>
 </div>
+<p>Selected value: @value</p>
 
 @code {
     Orientation orientation = Orientation.Horizontal;

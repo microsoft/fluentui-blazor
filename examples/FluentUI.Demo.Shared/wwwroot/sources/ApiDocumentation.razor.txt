@@ -12,6 +12,13 @@
         <em>There might be parameters and/or methods shown here that are inherited from the component's base type but are not applicable to this component.</em>
     </p>
 }
+    @if (Description != null)
+    {
+        <div class="section-description">
+            @Description
+        </div>
+    }
+
 @if (this.Properties.Any())
 {
     <h3 id="@(_id + "_parameters")">Parameters</h3>
@@ -20,9 +27,9 @@
         <TemplateColumn Title="Type">
                     @context.Type
 
-                    @* Display list of Enumerations (if available) *@
-                    @if (context.EnumValues.Length > 0)
-                    {
+                        @* Display list of Enumerations (if available) *@
+                        @if (context.EnumValues.Length > 0)
+                        {
                         
                         var id = Identifier.NewId();
                         <span id="@id">
@@ -35,16 +42,16 @@
                             }
                         </FluentTooltip>
 
-                    }
-        </TemplateColumn>
-        <PropertyColumn Property="@(c => c.Default)" />
-        <TemplateColumn Title="Description">
-            <div style="white-space: break-spaces">
-                @(new MarkupString(context.Description))
-            </div>
-        </TemplateColumn>        
-    </FluentDataGrid>
-}
+                        }
+            </TemplateColumn>
+            <PropertyColumn Property="@(c => c.Default)" />
+            <TemplateColumn Title="Description">
+                <div style="white-space: break-spaces">
+                    @(new MarkupString(context.Description))
+                </div>
+            </TemplateColumn>        
+        </FluentDataGrid>
+    }
 
 @if (this.Events.Any())
 {
