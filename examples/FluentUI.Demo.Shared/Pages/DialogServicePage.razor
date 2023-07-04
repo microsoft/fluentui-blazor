@@ -3,7 +3,7 @@
 
 <p>
     The DialogService is a service that can be used to show dialogs. It can be injected into a page and used to show 
-    the different type of dialogs.
+    different type of dialogs.
 </p>
 <p>
     For a component to be useable by the DialogService, it needs to implement <code>IDialogContentComponent&lt;T&gt;</code>.
@@ -15,16 +15,16 @@
 <p>
     See the following pages for examples on how to use the DialogService.
     <ul>
-        <li><a href="Dialog">Regular dialogs</a></li>
-        <li><a href="MessageBox">Message boxes</a></li>
-        <li><a href="Panel">Panels</a></li>
-        <li><a href="SplashScreen">Splash screens</a></li>
+        <li><a href="/Dialog">Regular dialogs</a></li>
+        <li><a href="/MessageBox">Message boxes</a></li>
+        <li><a href="/Panel">Panels</a></li>
+        <li><a href="/SplashScreen">Splash screens</a></li>
     </ul>
 </p>
 <ApiDocumentation Component="typeof(DialogService)" />
 
 <p>
-    You can exchange data between the component that opened the dialog and the dialog component by using the <code>DialogParameters.Data</code> 
+    You can exchange data between the component that opened the dialog and the dialog component by using the <code>DialogParameters.Content</code> 
     parameter to specify the type of data and providing a callback function to the <code>DialogParameters.OnDialogResult</code> method. <br />
     Any changes you make to the data in the Dialog component will be reflected in the Data object in the calling component when the dialog is closed.<br />
     You can use the <code>CreateDialogCallback</code> method in the <code>Dialogservice</code> to create the callback function.<br />

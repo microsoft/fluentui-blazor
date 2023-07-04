@@ -92,7 +92,7 @@ public partial class EmojiExplorer
         //Emojis.SmileysEmotion.Color.Default.RollingOnTheFloorLaughing
         string skintone = Criteria.Skintone is not null ? $".{emoji.Skintone}" : string.Empty;
 
-        string Text = $$"""<FluentEmoji Value="@Emojis.{{emoji.Group}}.{{emoji.Style}}{{skintone}}.{{emoji.Name}}" Size="@EmojiSize.{{Criteria.Size}}" />""";
+        string Text = $$"""<FluentEmoji Emoji="@Emojis.{{emoji.Group}}.{{emoji.Style}}{{skintone}}.{{emoji.Name}}" Width="{{(int)Criteria.Size!}}px" />""";
 
         if (_jsModule is not null)
         {

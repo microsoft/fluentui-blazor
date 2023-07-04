@@ -18,6 +18,12 @@
         text-align: center;
     }
 
+    .icon-explorer ::deep .copy {
+        position: fixed;
+        top: 5px;
+        right: 5px;
+    }
+
     .icon-explorer ::deep .icon {
         height: 80px;
         width: 100px;

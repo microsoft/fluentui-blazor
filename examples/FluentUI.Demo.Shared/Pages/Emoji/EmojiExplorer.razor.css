@@ -21,6 +21,12 @@
         text-align: center;
     }
 
+    .emoji-explorer ::deep .copy {
+        position: fixed;
+        top: 5px;
+        right: 5px;
+    }
+
     .emoji-explorer ::deep .emoji {
         height: calc(100% - 20px);
         width: 100%;

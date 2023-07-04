@@ -56,7 +56,8 @@
     
             @foreach (var item in IconsFound)
             {
-                <FluentCard Class="card" @onclick="()=> HandleClick(item)">
+                <FluentCard Class="card">
+                    <FluentIcon Class="copy" Icon="@Icons.Regular.Size16.Clipboard" Color="@Color.Accent" OnClick="()=>HandleClick(item)" />
                     <div class="icon">
                         <FluentIcon Value="Icons.GetInstance(item)" Color=IconColor Title="@item.Name" />
                     </div>

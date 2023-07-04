@@ -71,7 +71,8 @@
 
             @foreach (var item in EmojisFound)
             {
-                <FluentCard Class="card" @onclick="()=> HandleClick(item)" Style="@($"width: {(int)Criteria.Size + 50}px; height: {(int)Criteria.Size + 50}px; ")">
+                <FluentCard Class="card" Style="@($"width: {(int)Criteria.Size + 50}px; height: {(int)Criteria.Size + 50}px; ")">
+                    <FluentIcon Class="copy" Icon="@Icons.Regular.Size16.Clipboard" Color="@Color.Accent" OnClick="()=>HandleClick(item)" />
                     <div class="emoji">
                         <FluentEmoji Value="Emojis.GetInstance(item)" Title="@item.Name" Width="@($"{(int)Criteria.Size}px")" />
                     </div>

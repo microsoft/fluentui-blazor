@@ -1,5 +1,3 @@
-# ToDo
-
 ## When using icons or emoji in version 2
 For version 2 you had to add a `<ProjectGroup>` similar to below to your project file:
 ```xml
