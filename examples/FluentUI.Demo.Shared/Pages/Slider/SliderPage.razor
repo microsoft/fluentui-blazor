@@ -17,14 +17,32 @@
     Fluent UI design system.
 </p>
 
-<ApiDocumentation Component="typeof(FluentSliderLabel)" />
-<ApiDocumentation Component="typeof(FluentSlider)" GenericLabel="int"/>
+<p>
+    
+</p>
+
+<ApiDocumentation Component="typeof(FluentSlider<>)" InstanceType="typeof(int)" GenericLabel="TValue">
+    <Description>
+        <code>TValue</code> can be one of the following <code>Type</code>'s:
+        <ul>
+            <li><code>int</code></li>
+            <li><code>long</code></li>
+            <li><code>short</code></li>
+            <li><code>float</code></li>
+            <li><code>double</code></li>
+            <li><code>decimal</code></li>
+        </ul>
+    </Description>
+</ApiDocumentation>
+<ApiDocumentation Component="typeof(FluentSliderLabel<>)" InstanceType="typeof(int)" GenericLabel="TValue" />
 
 <h2>Examples</h2>
 
 
 <div style="display: flex; flex-direction: column; justify-content: space-evenly; width: 750px;">
     <DemoSection Title="Toggle orientation" Component="@typeof(SliderToggle)"></DemoSection>
+
+    <DemoSection Title="Value is of type double" Component="@typeof(SliderDouble)"></DemoSection>
 
     <DemoSection Title="Vertical slider" Component="@typeof(SliderVertical)"></DemoSection>
 

@@ -40,12 +40,12 @@
 
                 if (pair.Key.StartsWith(Component.Name))
                 {
-                    <FluentTab id="@("tab-"+@GetDisplayName(tab).Replace("#","").ToLower()+"-"+@ariaid)" Label="@GetDisplayName(tab)" />
+                    <FluentTab id="@("tab-"+@GetDisplayName(tab).Replace("#","").Replace("/","").ToLower()+"-"+@ariaid)" Label="@GetDisplayName(tab)" />
                 }
                 else
                 {
                     string tabName = Path.GetFileNameWithoutExtension(pair.Key);
-                    <FluentTab id="@("tab-"+tabName.Replace("#","").ToLower()+"-"+@ariaid)" Label="@tabName" />
+                    <FluentTab id="@("tab-"+tabName.Replace("#","").Replace("/","").ToLower()+"-"+@ariaid)" Label="@tabName" />
                 }
                 <FluentTabPanel>
 

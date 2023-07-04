@@ -9,7 +9,7 @@
     for (let element of headings) {
         if (!element.id) {
             let anchorText = element.innerText;
-            let elementId = anchorText.replaceAll(" ", "-").toLowerCase();
+            let elementId = anchorText.replaceAll(" ", "-", "/", "\\", "#", "$", "@", ":", ",").toLowerCase();
             element.id = elementId;
         }
                 
