@@ -36,13 +36,13 @@ Then you can use the icons in your Blazor components like this:
 > **Note:** Names are structured as follows: `Icons.[IconVariant].[IconSize].[IconName]`.
 
 ```razor
-<FluentSystemIcon Icon="@(Icons.Regular.Size24.Save)" />
+<FluentIcon Icon="@(Icons.Regular.Size24.Save)" />
 ```
 
 You can use your custom images by setting the `Value` property calling the `Icon.FromImageUrl` method:
 
 ```razor
-<FluentSystemIcon Value="@(Icon.FromImageUrl("/Blazor.png"))" Width="32px" />
+<FluentIcon Value="@(Icon.FromImageUrl("/Blazor.png"))" Width="32px" />
 ```
 
 ## List of icons and additional resources
