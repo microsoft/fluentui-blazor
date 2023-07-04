@@ -69,7 +69,7 @@ Then you can use the emoji's in your Blazor components like this:
 Please see the [Code Setup](https://www.fluentui-blazor.net/CodeSetup) page to lean more about the neccesary changes to your `Program.cs` file.
 
 ## Can I include the library in a Razor Class Library (RCL) project?
-Yes, you can! You just need to add the following code to your RCL `.csproj` file (somewhere near the end) to make it work:
+Yes, it should work without any changes to your project
 
 ```xml
 <Target Name="DisableAnalyzers" BeforeTargets="CoreCompile">
