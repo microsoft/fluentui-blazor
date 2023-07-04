@@ -85,7 +85,7 @@ adds content to the page that contains headings:
 
 <h2>Example</h2>
 
-<DemoSection Component="typeof(TableOfContents)" Title="Default">
+<DemoSection Component="typeof(TableOfContents)" Title="Default" CollocatedFiles="@(new[] {"css", "cs", "js"})">
     <Description>
         
     </Description>
