@@ -48,8 +48,6 @@ jobs:
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: |
-            #6.0.408
-            #7.0.302
             8.0.x
         include-prerelease: true
     
@@ -93,8 +91,6 @@ jobs:
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: |
-            #6.0.408
-            #7.0.302
             8.0.x
           include-prerelease: true
       
