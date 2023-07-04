@@ -5,25 +5,25 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentSlider : FluentInputBase<int>
+public partial class FluentSlider<TValue> : FluentInputBase<TValue>
 {
     /// <summary>
     /// Gets or sets the slider's minimal value
     /// </summary>
-    [Parameter]
-    public int? Min { get; set; }
+    [Parameter, EditorRequired]
+    public TValue? Min { get; set; }
 
     /// <summary>
     /// Gets or sets the slider's maximum value
     /// </summary>
-    [Parameter]
-    public int? Max { get; set; }
+    [Parameter, EditorRequired]
+    public TValue? Max { get; set; }
 
     /// <summary>
     /// Gets or sets the slider's step value
     /// </summary>
-    [Parameter]
-    public int? Step { get; set; }
+    [Parameter, EditorRequired]
+    public TValue? Step { get; set; }
 
     /// <summary>
     /// Gets or sets the orentation of the slider. See <see cref="FluentUI.Orientation"/>
@@ -43,9 +43,17 @@ public partial class FluentSlider : FluentInputBase<int>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    protected override bool TryParseValueFromString(string? value, out int result, [NotNullWhen(false)] out string? validationErrorMessage)
+
+    protected override void OnParametersSet()
     {
-        if (BindConverter.TryConvertTo<int>(value, CultureInfo.InvariantCulture, out result))
+        ArgumentNullException.ThrowIfNull(Min, nameof(Min));
+        ArgumentNullException.ThrowIfNull(Max, nameof(Max));
+        ArgumentNullException.ThrowIfNull(Step, nameof(Step));
+    }
+
+    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
+    {
+        if (BindConverter.TryConvertTo<TValue>(value, CultureInfo.InvariantCulture, out result))
         {
             validationErrorMessage = null;
             return true;
@@ -57,8 +65,48 @@ public partial class FluentSlider : FluentInputBase<int>
         }
     }
 
-    protected override string? FormatValueAsString(int value)
+    /// <summary>
+    /// Formats the value as a string. Derived classes can override this to determine the formatting used for <c>CurrentValueAsString</c>.
+    /// </summary>
+    /// <param name = "value">The value to format.</param>
+    /// <returns>A string representation of the value.</returns>
+    protected override string? FormatValueAsString(TValue? value)
     {
-        return BindConverter.FormatValue(value, CultureInfo.InvariantCulture);
+        // Avoiding a cast to IFormattable to avoid boxing.
+        return value switch
+        {
+            null => null,
+            int @int => BindConverter.FormatValue(@int, CultureInfo.InvariantCulture),
+            long @long => BindConverter.FormatValue(@long, CultureInfo.InvariantCulture),
+            short @short => BindConverter.FormatValue(@short, CultureInfo.InvariantCulture),
+            float @float => BindConverter.FormatValue(@float, CultureInfo.InvariantCulture),
+            double @double => BindConverter.FormatValue(@double, CultureInfo.InvariantCulture),
+            decimal @decimal => BindConverter.FormatValue(@decimal, CultureInfo.InvariantCulture),
+            _ => throw new InvalidOperationException($"Unsupported type {value.GetType()}"),
+        };
     }
+
+    private static readonly string _stepAttributeValue = GetStepAttributeValue();
+
+    private static string GetStepAttributeValue()
+    {
+        // Unwrap Nullable<T>, because InputBase already deals with the Nullable aspect
+        // of it for us. We will only get asked to parse the T for nonempty inputs.
+        var targetType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
+        if (targetType == typeof(int) ||
+            targetType == typeof(long) ||
+            targetType == typeof(short) ||
+            targetType == typeof(float) ||
+            targetType == typeof(double) ||
+            targetType == typeof(decimal))
+        {
+            return "1";
+        }
+        else
+        {
+            throw new InvalidOperationException($"The type '{targetType}' is not a supported numeric type.");
+        }
+    }
+
+
 }

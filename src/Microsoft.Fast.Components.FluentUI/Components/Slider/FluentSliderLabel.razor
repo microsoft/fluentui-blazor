@@ -1,11 +1,11 @@
 @namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentComponentBase
+@typeparam TValue
 <fluent-slider-label @ref=Element
                      class="@Class"
                      style="@Style"
-                     position="@Position"
+                     position="@FormatValueAsString(Position)"
                      hide-mark="@HideMark"
-                     disabled=@Disabled
-                     @attributes="AdditionalAttributes">
+                     disabled=@Disabled>
     @ChildContent
 </fluent-slider-label>
