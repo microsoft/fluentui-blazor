@@ -1,9 +1,18 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentProgressRing : FluentComponentBase
 {
+    protected string? ClassValue => new CssBuilder(Class)
+        .Build();
+
+    protected string? StyleValue => new StyleBuilder()
+        .AddStyle(Style)
+        .AddStyle("visibility", "hidden", () => Visible == false)
+        .Build();
+
     /// <summary>
     /// Gets or sets the minimum value 
     /// </summary>
@@ -20,7 +29,10 @@ public partial class FluentProgressRing : FluentComponentBase
     /// Gets or sets the current value 
     /// </summary>
     [Parameter]
-    public string? Value { get; set; }
+    public int? Value { get; set; }
+
+    [Parameter]
+    public bool Visible { get; set; } = true;
 
     /// <summary>
     /// Gets or sets if the progress element is paused

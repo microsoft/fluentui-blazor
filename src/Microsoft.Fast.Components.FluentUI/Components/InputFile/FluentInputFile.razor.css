@@ -1,0 +1,39 @@
+﻿.fluent-inputfile-container {
+    display: grid;
+    grid-gap: 10px;
+    background-color: var(--neutral-fill-hover);
+    /*border: 2px solid transparent;*/
+}
+
+    .fluent-inputfile-container[drop-files] {
+        border: 2px dashed var(--accent-foreground-focus);
+    }
+    .fluent-inputfile-container .inputfile-content {
+        grid-column: 1;
+        grid-row: 1;
+        text-align: center;
+        align-self: center;
+        justify-self: center;
+    }
+
+    .fluent-inputfile-container ::deep input[type='file'] {
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+    }
+
+    .fluent-inputfile-container ::deep label,
+    .fluent-inputfile-container ::deep a {
+        color: var(--accent-fill-rest);
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+    .fluent-inputfile-container .progress {
+        padding-top: 20px;
+        height: 50px;
+        margin: 0px 15%;
+        text-align: center;
+        line-height: 8px;
+        font-size: var(--type-ramp-minus-2-font-size);
+    }
