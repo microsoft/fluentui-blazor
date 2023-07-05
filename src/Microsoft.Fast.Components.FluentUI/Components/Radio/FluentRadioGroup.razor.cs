@@ -51,7 +51,7 @@ public partial class FluentRadioGroup<[DynamicallyAccessedMembers(DynamicallyAcc
         // FluentRadio/FluentRadioGroup components will get notified to re-render and will see the new values.
         _context.GroupName = !string.IsNullOrEmpty(Name) ? Name : _defaultGroupName;
         _context.CurrentValue = CurrentValue;
-        _context.FieldClass = EditContext?.FieldCssClass(FieldIdentifier);
+        _context.FieldClass = FieldBound ? EditContext?.FieldCssClass(FieldIdentifier) : string.Empty;
     }
 
     /// <inheritdoc />

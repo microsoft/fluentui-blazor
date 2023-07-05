@@ -104,7 +104,7 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
         }
         else
         {
-            validationErrorMessage = string.Format(CultureInfo.InvariantCulture, ParsingErrorMessage, FieldIdentifier.FieldName);
+            validationErrorMessage = string.Format(CultureInfo.InvariantCulture, ParsingErrorMessage, FieldBound ? FieldIdentifier.FieldName : "(unknown)");
             return false;
         }
     }

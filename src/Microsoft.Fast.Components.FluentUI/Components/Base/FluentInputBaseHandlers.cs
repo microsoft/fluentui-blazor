@@ -35,7 +35,7 @@ public partial class FluentInputBase<TValue>
         }
         else
         {
-            if (CascadedEditContext != null)
+            if (FieldBound && CascadedEditContext != null)
             {
                 _parsingValidationMessages ??= new ValidationMessageStore(CascadedEditContext);
 
@@ -43,8 +43,8 @@ public partial class FluentInputBase<TValue>
                 _parsingValidationMessages.Add(FieldIdentifier, validationErrorMessage ?? "Unknown parsing error");
             }
         }
-
-        CascadedEditContext?.NotifyFieldChanged(FieldIdentifier);
+        if (FieldBound)
+            CascadedEditContext?.NotifyFieldChanged(FieldIdentifier);
     }
 
     /// <summary>
