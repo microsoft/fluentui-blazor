@@ -1,4 +1,39 @@
-﻿## V2.3.7
+﻿## V3.0.0
+
+** 26 New components**
+- Header
+- Footer
+- BodyContent
+- Grid
+- Layout
+- MainLayout
+- Spacer
+- Splitter
+- Stack
+- CounterBadge
+- PresenceBadge
+- CodeEditor
+- Date & Time (Calendar, DatePicker, TimePicker)
+- Dialog
+- DragDrop
+- Highlighter
+- Label
+- MessageBox
+- Overflow
+- Overlay
+- Panel
+- Popover
+- SplashScreen
+- Toast
+
+
+** Completely redone components **
+
+- Icon
+- Emoji
+
+
+## V2.3.7
 
 - Small Templates package updates. Version is now 2.0.6 (thanks @c0g1t8) 
 - Update Fluent UI System Icons to version 1.1.204

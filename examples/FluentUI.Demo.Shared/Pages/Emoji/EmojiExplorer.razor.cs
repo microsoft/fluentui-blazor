@@ -8,7 +8,7 @@ public partial class EmojiExplorer
 {
     private const int MAX_ICONS = 200;
     private bool SearchInProgress = false;
-    private SearchCriteria Criteria = new();
+    private readonly SearchCriteria Criteria = new();
     private IEnumerable<EmojiInfo> EmojisFound = Array.Empty<EmojiInfo>();
     private int EmojisCount = 0;
     private IJSObjectReference? _jsModule;
@@ -78,14 +78,6 @@ public partial class EmojiExplorer
             Criteria.Size = Enum.Parse<EmojiSize>((string)args.Value!);
 
         await HandleSearch();
-    }
-
-    private IEnumerable<TEnum?> GetListWithNullable<TEnum>()
-        where TEnum : struct, Enum
-    {
-        var values = Enum.GetValues<TEnum>().Cast<TEnum?>().ToList();
-        // values.Insert(0, null); // TODO: Uncomment when "ListComponentBase => item!.GetType()" will be fixed.
-        return values;
     }
 
 
