@@ -37,7 +37,7 @@
                   Items="@(Enum.GetValues<EmojiSize>())" />
     
         <span style="display: block; width: 24px; height: 24px">
-            <FluentIcon Icon="@Icons.Regular.Size24.ArrowCircleRight" />
+            <FluentIcon Value="@(new Icons.Regular.Size24.ArrowCircleRight())" OnClick="@HandleSearch"/>
         </span>
     
 </div>

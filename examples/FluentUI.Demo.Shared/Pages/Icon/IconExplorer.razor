@@ -25,7 +25,7 @@
                   OptionSelected="x => x == IconColor"
                   OptionDisabled="x => x == Color.Custom" />
         
-    <FluentIcon Icon="@Icons.Regular.Size24.ArrowCircleRight" OnClick="@HandleSearch" />
+    <FluentIcon Value="@(new Icons.Regular.Size24.ArrowCircleRight())" OnClick="@HandleSearch" />
 </div>
 
 @* Results *@

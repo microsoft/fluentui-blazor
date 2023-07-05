@@ -60,7 +60,7 @@ public partial class IconExplorer
 
     public async void HandleClick(IconInfo icon)
     {
-        string Text = $$"""<FluentIcon Icon="@Icons.{{icon.Variant}}.{{icon.Size}}.{{icon.Name}}" Color="@Color.{{IconColor}}"/>""";
+        string Text = $$"""<FluentIcon Icon="Icons.{{icon.Variant}}.{{icon.Size}}.{{icon.Name}}" Color="@Color.{{IconColor}}"/>""";
 
         if (_jsModule is not null)
         {
