@@ -60,7 +60,7 @@ Then you can use the emoji's in your Blazor components like this:
 > **Note:** Names are structured as follows: `Emojis.[EmojiGroup].[EmojiStyle].[EmojiSkintone].[EmojiName]`.
 
 ```razor
-<FluentSystemEmoji Emoji="@(Emojis.PeopleBody.Color.Default.Artist)" />
+<FluentEmoji Emoji="@(Emojis.PeopleBody.Color.Default.Artist)" />
 ```
 
 
@@ -69,20 +69,4 @@ Then you can use the emoji's in your Blazor components like this:
 Please see the [Code Setup](https://www.fluentui-blazor.net/CodeSetup) page to lean more about the neccesary changes to your `Program.cs` file.
 
 ## Can I include the library in a Razor Class Library (RCL) project?
-Yes, it should work without any changes to your project
-
-```xml
-<Target Name="DisableAnalyzers" BeforeTargets="CoreCompile">
-	<ItemGroup>
-		<Analyzer Remove="@(Analyzer)" Condition="'%(Filename)' == 'Microsoft.Fast.Components.FluentUI.Configuration'" />
-	</ItemGroup>
-</Target>
-```
-
-This will disable the analyzer that generates the icon/emoji configuration to run in the RCL project. If it would run, you would get compilation 
-issues in the project that uses your RCL as the `ConfigurationGenerator` class would then exist in both projects. 
-
-### Code setup needed in a project that references the RCL
-1. Follow the steps described above to add the necessary icon/emoji settings to you project that references the RCL.
-2. Add code to the `Program.cs` file in your project that references the RCL to make the library work as expected. Please see the [Code Setup](https://www.fluentui-blazor.net/CodeSetup) 
-page to lean more about the neccesary.
+Yes, it should work without any changes to your project.
