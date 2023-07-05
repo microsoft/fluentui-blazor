@@ -103,10 +103,7 @@ public partial class FluentNavMenuLink : FluentComponentBase
     {
         base.OnInitialized();
         NavMenu.AddNavMenuLink(this);
-    }
 
-    protected override void OnParametersSet()
-    {
         if (!string.IsNullOrEmpty(Href) && (new Uri(NavigationManager.Uri).LocalPath) == Href)
             Selected = true;
     }
