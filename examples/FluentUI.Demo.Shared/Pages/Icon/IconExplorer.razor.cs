@@ -28,6 +28,13 @@ public partial class IconExplorer
 
     private async Task HandleSearch()
     {
+        if (Criteria.SearchTerm.Length < 2)
+        {
+            SearchInProgress = false;
+            IconsCount = 0;
+            return;
+        }
+
         SearchInProgress = true;
         await Task.Delay(1);
 

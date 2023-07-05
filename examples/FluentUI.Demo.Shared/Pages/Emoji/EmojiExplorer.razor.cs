@@ -28,16 +28,18 @@ public partial class EmojiExplorer
     private async Task HandleSearch()
     {
         if (Criteria.SearchTerm.Length < 2)
+        {
+            SearchInProgress = false;
+            EmojisCount = 0;
             return;
+        }
 
         SearchInProgress = true;
         await Task.Delay(1);
 
         var emojis = Emojis.AllEmojis
                            .Where(i => i.Name.Contains(Criteria.SearchTerm, StringComparison.InvariantCultureIgnoreCase)
-                                    && (Criteria.Group == null || i.Group == Criteria.Group)
-                                    && (Criteria.Style == null || i.Style == Criteria.Style)
-                                    && (Criteria.Skintone == null || i.Skintone == Criteria.Skintone));
+                                && (i.Group == Criteria.Group) && (i.Style == Criteria.Style) && (i.Skintone == Criteria.Skintone));
 
         EmojisCount = emojis.Count();
         EmojisFound = emojis.Take(MAX_ICONS).ToArray();
@@ -90,22 +92,22 @@ public partial class EmojiExplorer
     public async void HandleClick(EmojiInfo emoji)
     {
         //Emojis.SmileysEmotion.Color.Default.RollingOnTheFloorLaughing
-        string skintone = Criteria.Skintone is not null ? $".{emoji.Skintone}" : string.Empty;
 
-        string Text = $$"""<FluentEmoji Emoji="@Emojis.{{emoji.Group}}.{{emoji.Style}}{{skintone}}.{{emoji.Name}}" Width="{{(int)Criteria.Size!}}px" />""";
+
+        string Text = $$"""<FluentEmoji Emoji="@Emojis.{{emoji.Group}}.{{emoji.Style}}.{{emoji.Skintone}}.{{emoji.Name}}" Width="{{(int)Criteria.Size!}}px" />""";
 
         if (_jsModule is not null)
         {
-            await _jsModule.InvokeVoidAsync("copyText", Text);
+            await _jsModule.InvokeVoidAsync("copyText", Text.Replace("_", ""));
         }
     }
 
     private class SearchCriteria
     {
         public string SearchTerm { get; set; } = string.Empty;
-        public EmojiGroup? Group { get; set; } = EmojiGroup.Objects;
-        public EmojiStyle? Style { get; set; } = EmojiStyle.Color;
-        public EmojiSkintone? Skintone { get; set; } = EmojiSkintone.Default;
-        public EmojiSize? Size { get; set; } = EmojiSize.Size32;
+        public EmojiGroup Group { get; set; } = EmojiGroup.Objects;
+        public EmojiStyle Style { get; set; } = EmojiStyle.Color;
+        public EmojiSkintone Skintone { get; set; } = EmojiSkintone.Default;
+        public EmojiSize Size { get; set; } = EmojiSize.Size32;
     }
 }

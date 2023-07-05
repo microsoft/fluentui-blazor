@@ -8,6 +8,7 @@
     <FluentSelect TOption="IconSize" @bind-SelectedOption="@Criteria.Size"
                   Style="min-width: unset;"
                   Items="@(Enum.GetValues<IconSize>())"
+                  OptionText="x=>((int)x).ToString()"
                   @onchange="@(x => HandleSize(x))" />
 
     <FluentSelect TOption="IconVariant" @bind-SelectedOption="@Criteria.Variant"
@@ -18,16 +19,13 @@
     <FluentSelect TOption="Color" 
                   Id="Color" 
                   @bind-SelectedOption="IconColor" 
-                  @onchange="@(x => HandleColor(x))">
-        @foreach (Color color in Enum.GetValues<Color>())
-        {
-            if (color != Color.Custom)
-            {
-                <FluentOption Value=@color.ToString() Selected=@(color == IconColor)>@(color)</FluentOption>
-            }
-        }
-    </FluentSelect>
-    <FluentIcon Icon="Icons.Regular.Size24.ArrowCircleRight" OnClick="@HandleSearch" />
+                  @onchange="@(x => HandleColor(x))"
+                  Items="@(Enum.GetValues<Color>())"
+                  OptionValue="x=> x.ToAttributeValue()"
+                  OptionSelected="x => x == IconColor"
+                  OptionDisabled="x => x == Color.Custom" />
+        
+    <FluentIcon Icon="@Icons.Regular.Size24.ArrowCircleRight" OnClick="@HandleSearch" />
 </div>
 
 @* Results *@
