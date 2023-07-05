@@ -64,3 +64,8 @@
     left: unset;
     right: 0;
 }
+
+[dir="rtl"] * ::deep .navmenu-group.nested::part(expand-collapse-button) {
+    left: 0;
+    right: unset;
+}
