@@ -1,5 +1,4 @@
 ﻿@namespace Microsoft.Fast.Components.FluentUI
-@implements IDisposable
 @inherits FluentComponentBase
 <FluentTreeItem Id="@Id"
                 Class="@ClassValue"
@@ -33,6 +32,10 @@
         {
             <FluentIcon Value="@Icon" Width="20px" Slot="start" />
         }
+    }
+    else if (NavMenu.HasIcons)
+    {
+        <span style="width:20px;" slot="start"></span>
     }
     @if (NavMenuExpanded) {
         @ChildContent

@@ -61,13 +61,19 @@
     margin-inline-end: 8px;
 }
 
+::deep .navmenu-group::part(content-region) {
+    margin-inline-end: var(--expand-collapse-button-size);
+    margin-inline-start: unset;
+}
 
-::deep .navmenu-group.nested::part(expand-collapse-button) {
+::deep .navmenu-group::part(expand-collapse-button) {
     left: unset;
     right: 0;
+    margin-inline-end: calc(var(--expand-collapse-button-size) * -1 + (var(--design-unit) * 2px));
 }
 
 [dir="rtl"] * ::deep .navmenu-group.nested::part(expand-collapse-button) {
     left: 0;
     right: unset;
+    margin-inline-start: calc(var(--expand-collapse-button-size) - (var(--design-unit) * 2px));
 }
