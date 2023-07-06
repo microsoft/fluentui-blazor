@@ -1,3 +1,22 @@
+## `FluentDataGrid` Breaking changes
+ The `FluentDataGrid` component is, as you may know, a `QuickGrid` in disguise. We 
+ aligned the underlying code even more to the productized version that will ship with 
+ .NET 8. Where we previously aligned parameter names to the `fluent-datagrid` Web 
+ Component, we will now align to the `QuickGrid` naming. This should make 
+ integrating/copying `QuickGrid` component examples in your own environment easier and 
+ will make it easier for us to keep the code up-to-date. Changes that need to be made in parameter names from v2 are:  
+* RowsData -> Items 
+* RowsDataProvider -> ItemsProvider 
+* RowsDataSize -> ItemSize 
+* RowsDataKey -> ItemKey	
+
+## `FluentComponentBase` changes
+The `FluentComponentBase` class now has an `Id` parameter. This has been lifted from the `FluentInputBase` class. 
+The `Id` parameter is used to set the `id` attribute on the root element of the component. 
+Previously, in the `FluentInputBase` class, a value was always created for the `Id`. This is no longer the case and 
+a value is now only created for components that need to have an id. If needed, you can assign an value to the `Id` 
+parameter yourself which will then be used as the 'id' on the root element.
+
 ## When using icons or emoji in version 2
 There are a couple of changes that need to be done to upgrade from v2 to v3 when using icons/emoji:
 
