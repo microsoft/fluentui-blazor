@@ -4,7 +4,7 @@ using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentNavMenuLink : FluentComponentBase
+public partial class FluentNavMenuLink : FluentComponentBase, IDisposable
 {
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
@@ -117,5 +117,13 @@ public partial class FluentNavMenuLink : FluentComponentBase
     internal void SetSelected(bool value)
     {
         Selected = value;
+    }
+
+    /// <summary>
+    /// Dispose of this navmenu link.
+    /// </summary>
+    public void Dispose()
+    {
+        NavMenu.RemoveNavMenuLink(this);
     }
 }
