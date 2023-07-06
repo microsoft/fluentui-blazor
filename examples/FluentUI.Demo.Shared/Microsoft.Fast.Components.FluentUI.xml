@@ -3117,6 +3117,11 @@
             Callback function for when the menu group is expanded
             </summary>
         </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Dispose">
+            <summary>
+            Dispose of this navmenu group.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
@@ -3171,6 +3176,11 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.Width">
             <summary>
             Gets or sets the width of the link (in pixels).
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.Dispose">
+            <summary>
+            Dispose of this navmenu link.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNumberField`1.HideStep">

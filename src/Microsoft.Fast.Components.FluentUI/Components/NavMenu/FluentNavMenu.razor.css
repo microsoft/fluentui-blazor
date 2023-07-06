@@ -67,10 +67,11 @@
 ::deep .navmenu-group::part(expand-collapse-button) {
     left: unset;
     right: 0;
-    margin-right: calc(var(--expand-collapse-button-size) * -1);
+    margin-inline-end: calc(var(--expand-collapse-button-size) * -1 + (var(--design-unit) * 2px));
 }
 
 [dir="rtl"] * ::deep .navmenu-group.nested::part(expand-collapse-button) {
     left: 0;
     right: unset;
+    margin-inline-start: calc(var(--expand-collapse-button-size) - (var(--design-unit) * 2px));
 }
