@@ -1,0 +1,15 @@
+﻿<div style="margin-bottom: 60px;">
+    <FluentButton style="width: 90px; margin: 10px;" @onclick="() => orientation = (orientation == Orientation.Vertical) ? Orientation.Horizontal : Orientation.Vertical">Toggle orientation</FluentButton>
+    <FluentSlider TValue="double" Orientation="@orientation" Min="-1.50" Max="7.0" Step="0.5" @bind-Value=value>
+        <FluentSliderLabel Position="-1">-1&#8451;</FluentSliderLabel>
+        <FluentSliderLabel Position="1.5">1.5&#8451;</FluentSliderLabel>
+        <FluentSliderLabel Position="5">5&#8451;</FluentSliderLabel>
+        <FluentSliderLabel Position="6">6&#8451;</FluentSliderLabel>
+    </FluentSlider>
+</div>
+<p>Selected value: @value</p>
+
+@code {
+    Orientation orientation = Orientation.Horizontal;
+    double value = 3.5;
+}
