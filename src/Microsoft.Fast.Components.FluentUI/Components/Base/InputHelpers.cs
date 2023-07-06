@@ -46,61 +46,48 @@ internal static class InputHelpers<TValue>
             TypeCode.UInt32 => uint.MinValue.ToString(),
             TypeCode.UInt64 => "-999999999999",
             _ => ""
-        }; ; ;
+        };
 
         return value;
     }
 
     internal static void ValidateIntegerInputs(string? max, string? min)
     {
-        int maxValue = int.Parse(max!, CultureInfo.InvariantCulture);
-        int minValue = int.Parse(min!, CultureInfo.InvariantCulture);
+        int maxValue = Convert.ToInt32(max);
+        int minValue = Convert.ToInt32(min);
 
         if (maxValue < minValue)
         {
             throw new ArgumentException("Integer Max value is smaller then Min value.");
         }
+
     }
 
-    internal static void ValidateDecimalInput(string? max, string? min)
+    internal static void ValidateLongInputs(string? max, string? min)
     {
-        if (!decimal.TryParse(max!, out decimal maxValue))
-            maxValue = decimal.MaxValue;
-        if (!decimal.TryParse(min!, out decimal minValue))
-            minValue = decimal.MinValue;
+        long maxValue = Convert.ToInt64(max);
+        long minValue = Convert.ToInt64(min);
 
         if (maxValue < minValue)
         {
-            throw new ArgumentException("Decimal Max value is smaller than Min value.");
+            throw new ArgumentException("Long Max value is smaller then Min value.");
         }
-    }
 
-    internal static void ValidateDoubleInput(string? max, string? min)
-    {
-        double maxValue = double.Parse(max!, CultureInfo.InvariantCulture);
-        double minValue = double.Parse(min!, CultureInfo.InvariantCulture);
-
-        if (maxValue < minValue)
+        if (maxValue > 999999999999)
         {
-            throw new ArgumentException("Double Max value is smaller than Min value.");
+            throw new ArgumentException("Long Max value can not be bigger than 999999999999.");
         }
-    }
 
-    internal static void ValidateFloatInput(string? max, string? min)
-    {
-        float maxValue = float.Parse(max!, CultureInfo.InvariantCulture);
-        float minValue = float.Parse(min!, CultureInfo.InvariantCulture);
-
-        if (maxValue < minValue)
+        if (minValue < -999999999999)
         {
-            throw new ArgumentException("Float Max value is smaller than Min value.");
+            throw new ArgumentException("Long Min value can not be less than -999999999999.");
         }
     }
 
-    internal static void ValidateShortInput(string? max, string? min)
+    internal static void ValidateShortInputs(string? max, string? min)
     {
-        short maxValue = short.Parse(max!, CultureInfo.InvariantCulture);
-        short minValue = short.Parse(min!, CultureInfo.InvariantCulture);
+        short maxValue = Convert.ToInt16(max);
+        short minValue = Convert.ToInt16(min);
 
         if (maxValue < minValue)
         {
@@ -108,19 +95,46 @@ internal static class InputHelpers<TValue>
         }
     }
 
-    internal static void ValidateLongInput(string? max, string? min)
+    internal static void ValidateDoubleInputs(string? max, string? min)
     {
-        long maxValue = long.Parse(max!, CultureInfo.InvariantCulture);
-        long minValue = long.Parse(min!, CultureInfo.InvariantCulture);
+        double maxValue = Convert.ToDouble(max, CultureInfo.InvariantCulture);
+        double minValue = Convert.ToDouble(min, CultureInfo.InvariantCulture);
 
         if (maxValue < minValue)
         {
-            throw new ArgumentException("Long Max value is smaller than Min value.");
+            throw new ArgumentException("Double Max value is smaller than Min value.");
+        }
+    }
+
+    internal static void ValidateFloatInputs(string? max, string? min)
+    {
+        float maxValue = Convert.ToSingle(max, CultureInfo.InvariantCulture);
+        float minValue = Convert.ToSingle(min, CultureInfo.InvariantCulture);
+
+        if (maxValue < minValue)
+        {
+            throw new ArgumentException("Float Max value is smaller than Min value.");
+        }
+    }
+
+    internal static void ValidateDecimalInputs(string? max, string? min)
+    {
+        decimal maxValue = Convert.ToDecimal(max, CultureInfo.InvariantCulture);
+        decimal minValue = Convert.ToDecimal(min, CultureInfo.InvariantCulture);
+
+        if (maxValue < minValue)
+        {
+            throw new ArgumentException("Decimal Max value is smaller than Min value.");
         }
     }
 
     internal static void ValidateInputParameters(string? max, string? min)
     {
+        if (max == null || min == null)
+        {
+            return; //nothing to validate
+        }
+
         if (typeof(TValue) == typeof(int))
         {
             ValidateIntegerInputs(max, min);
@@ -128,27 +142,27 @@ internal static class InputHelpers<TValue>
 
         if (typeof(TValue) == typeof(long))
         {
-            ValidateLongInput(max, min);
+            ValidateLongInputs(max, min);
         }
 
         if (typeof(TValue) == typeof(short))
         {
-            ValidateShortInput(max, min);
-        }
-
-        if (typeof(TValue) == typeof(float))
-        {
-            ValidateFloatInput(max, min);
+            ValidateShortInputs(max, min);
         }
 
         if (typeof(TValue) == typeof(double))
         {
-            ValidateDoubleInput(max, min);
+            ValidateDoubleInputs(max, min);
+        }
+
+        if (typeof(TValue) == typeof(float))
+        {
+            ValidateFloatInputs(max, min);
         }
 
         if (typeof(TValue) == typeof(decimal))
         {
-            ValidateDecimalInput(max, min);
+            ValidateDecimalInputs(max, min);
         }
     }
 }
