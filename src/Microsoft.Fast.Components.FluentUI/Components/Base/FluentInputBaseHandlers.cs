@@ -44,7 +44,9 @@ public partial class FluentInputBase<TValue>
             }
         }
         if (FieldBound)
+        {
             CascadedEditContext?.NotifyFieldChanged(FieldIdentifier);
+        }
     }
 
     /// <summary>

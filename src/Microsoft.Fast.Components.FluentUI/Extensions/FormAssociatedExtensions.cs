@@ -39,7 +39,7 @@ internal static class FormAssociatedExtensions
             }
 
             result = default;
-            validationErrorMessage = $"The {input.DisplayName ?? (input.FieldBound ? input.FieldIdentifier.FieldName : "(unknown)")} field is not valid.";
+            validationErrorMessage = $"The {input.DisplayName ?? (input.FieldBound ? input.FieldIdentifier.FieldName : input.UnknownBoundField)} field is not valid.";
             return false;
         }
         catch (InvalidOperationException ex)

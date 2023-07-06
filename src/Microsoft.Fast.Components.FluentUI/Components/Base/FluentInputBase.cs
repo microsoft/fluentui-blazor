@@ -14,7 +14,10 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// </summary>
 public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDisposable
 {
+    internal readonly string UnknownBoundField = "(unknown)";
+
     private readonly EventHandler<ValidationStateChangedEventArgs> _validationStateChangedHandler;
+
     private bool _hasInitializedParameters;
     private bool _parsingFailed;
     private string? _incomingValueBeforeParsing;
@@ -109,7 +112,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     /// </summary>
     protected internal FieldIdentifier FieldIdentifier { get; set; }
 
-    public bool FieldBound => ValueExpression != null || ValueChanged.HasDelegate;
+    internal bool FieldBound => ValueExpression != null || ValueChanged.HasDelegate;
 
     protected async Task SetCurrentValue(TValue? value)
     {
@@ -245,7 +248,8 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     {
         get
         {
-            string? fieldClass = !FieldBound ? string.Empty : EditContext?.FieldCssClass(FieldIdentifier);
+            string? fieldClass = FieldBound ? EditContext?.FieldCssClass(FieldIdentifier) : null;
+
             string? cssClass = CombineClassNames(AdditionalAttributes, fieldClass);
 
             if (!string.IsNullOrEmpty(cssClass) || !string.IsNullOrEmpty(Class))
@@ -276,11 +280,6 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
 
             if (ValueExpression is not null)
             {
-                //throw new InvalidOperationException($"{GetType()} requires a value for the 'ValueExpression' " +
-                //    $"parameter. Normally this is provided automatically when using 'bind-Value'.");
-                //}
-                //else
-                //{
                 FieldIdentifier = FieldIdentifier.Create(ValueExpression);
             }
 
