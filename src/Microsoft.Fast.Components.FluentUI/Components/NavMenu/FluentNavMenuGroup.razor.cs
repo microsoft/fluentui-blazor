@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using System.Runtime.CompilerServices;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Fast.Components.FluentUI.Utilities;
 
@@ -174,6 +175,26 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuItem, INa
     {
         NavMenuItemsHolder.RemoveItem(this);
         _navMenuItems.Clear();
+    }
+
+    private async Task HandleClickAsync()
+    {
+        if (NavMenu.Expanded)
+        {
+            // Normal behavior for expanded nav menu
+            await ToggleCollapsedAsync();
+        }
+        else
+        {
+            // There is no user group collapsing when the nav menu is collapsed.
+            // So a click on a collapsed group should expand that group, but
+            // a click on an already expanded group should do nothing to the group
+            // but tell the nav menu to expand.
+            if (Collapsed)
+                await ExpandAsync();
+            else
+                await NavMenu.GroupExpandedAsync(this);
+        }
     }
 
     private Task ToggleCollapsedAsync() =>

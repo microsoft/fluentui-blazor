@@ -1,6 +1,8 @@
-﻿.navmenu {
+﻿::deep .navmenu {
     background-color: var(--neutral-layer-1);
 }
+
+
 
 ::deep .nav-menu-expander::part(positioning-region) {
     background-color: var(--neutral-fill-stealth-rest);
@@ -17,58 +19,32 @@
 }
 
 ::deep .nav-menu-expander.selected::after {
-    display:none;
+    display: none;
 }
 
-::deep .navmenu-link.nested::part(start) {
-    /*margin-inline-start: -18px;*/
+
+
+::deep .navmenu-item::part(content-region) {
     -webkit-user-select: none;
     user-select: none;
+    margin-inline-start: calc(var(--design-unit) * 2px);
 }
 
-::deep .navmenu-link.nested::part(content-region) {
-    -webkit-user-select: none;
-    user-select: none;
-}
 
-::deep .navmenu-link-nogroup::part(start) {
-    /*margin-inline-start: -8px;*/
-}
 
-::deep .navmenu-group.nested::part(start) {
-    /*margin-inline-start: 4px;*/
-}
-
-::deep .navmenu-group.nested::part(content-region) {
-    -webkit-user-select: none;
-    user-select: none;
-}
-
-::deep .collapsed .navmenu-group::part(content-region) {
-    /*margin-inline-start: 5px;*/
-}
-
-::deep .collapsed .navmenu-link svg:first-of-type {
-    /*margin-inline-end: 8px;*/
-}
-
-::deep .collapsed .navmenu-group svg:first-of-type {
-    /*margin-inline-end: 8px;*/
-}
 
 ::deep .navmenu-group::part(content-region) {
     margin-inline-end: var(--expand-collapse-button-size);
-    margin-inline-start: unset;
 }
 
 ::deep .navmenu-group::part(expand-collapse-button) {
-    left: unset;
     right: 0;
+    left: unset;
     margin-inline-end: calc(var(--expand-collapse-button-size) * -1 + (var(--design-unit) * 2px));
 }
 
-[dir="rtl"] * ::deep .navmenu-group.nested::part(expand-collapse-button) {
-    left: 0;
+[dir="rtl"] * .navmenu-group::part(expand-collapse-button) {
+    left: calc(var(--design-unit) * 2px);
     right: unset;
     margin-inline-start: calc(var(--expand-collapse-button-size) - (var(--design-unit) * 2px));
 }

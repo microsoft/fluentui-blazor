@@ -89,7 +89,7 @@ public partial class FluentNavMenuLink : FluentComponentBase, INavMenuItem, IDis
     private bool SiblingHasIcon { get; set; }
 
     protected string? ClassValue => new CssBuilder(Class)
-       //.AddClass("navmenu-link")
+       .AddClass("navmenu-link")
 	   .AddClass("navmenu-item")
        .Build();
 

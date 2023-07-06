@@ -12,7 +12,7 @@
                         Expanded="@(NavMenuExpanded ? Expanded : false)"
                         Text="@(NavMenuExpanded ? Text : string.Empty)"
                         @onkeydown="@HandleKeyDownAsync"
-                        @onclick="@ToggleCollapsedAsync">
+                        @onclick="@HandleClickAsync">
              @if (HasIcon)
             {
                 if (IconContent is not null)

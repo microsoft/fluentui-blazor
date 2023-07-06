@@ -62,13 +62,13 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsHolder, I
     public bool Collapsible { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets whether the menu is collapsed.
+    /// Gets or sets whether the menu is expanded.
     /// </summary>
     [Parameter]
     public bool Expanded { get; set; } = true;
 
     /// <summary>
-    /// Event callback for when the menu is collapsed status changed.
+    /// Event callback for when the <see cref="Expanded"/> property changes.
     /// </summary>
     [Parameter]
     public EventCallback<bool> ExpandedChanged { get; set; }
@@ -79,12 +79,12 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsHolder, I
     [Parameter]
     public EventCallback<bool> OnExpanded { get; set; }
 
+    public bool Collapsed => !Expanded;
+
     public FluentNavMenu()
     {
         Id = Identifier.NewId();
     }
-
-    private bool Collapsed => !Expanded;
 
     private readonly List<INavMenuItem> _navMenuItems = new();
 
