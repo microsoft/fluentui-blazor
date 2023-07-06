@@ -59,8 +59,13 @@
     margin-inline-end: 8px;
 }
 
+::deep .navmenu-group::part(content-region) {
+    margin-inline-end: var(--expand-collapse-button-size);
+    margin-inline-start: unset;
+}
 
-::deep .navmenu-group.nested::part(expand-collapse-button) {
+::deep .navmenu-group::part(expand-collapse-button) {
     left: unset;
     right: 0;
+    margin-right: calc(var(--expand-collapse-button-size) * -1);
 }
