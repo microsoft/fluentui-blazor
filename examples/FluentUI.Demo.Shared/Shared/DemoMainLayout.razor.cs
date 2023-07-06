@@ -96,7 +96,7 @@ public partial class DemoMainLayout : IAsyncDisposable
 
     public async Task UpdateDirection()
     {
-        dir = _ltr ? LocalizationDirection.ltr : LocalizationDirection.rtl;
+        dir = (dir == LocalizationDirection.rtl) ? LocalizationDirection.ltr : LocalizationDirection.rtl;
 
         GlobalState.SetDirection(dir);
 

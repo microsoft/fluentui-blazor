@@ -3,7 +3,7 @@ using Microsoft.Fast.Components.FluentUI.Utilities;
 
 
 namespace Microsoft.Fast.Components.FluentUI;
-public partial class FluentNavMenuGroup : FluentComponentBase
+public partial class FluentNavMenuGroup : FluentComponentBase, IDisposable
 {
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
@@ -132,5 +132,12 @@ public partial class FluentNavMenuGroup : FluentComponentBase
     {
         if (!Disabled)
             Selected = true;
+    }
+    /// <summary>
+    /// Dispose of this navmenu group.
+    /// </summary>
+    public void Dispose()
+    {
+        NavMenu.RemoveNavMenuGroup(this);
     }
 }

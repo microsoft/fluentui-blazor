@@ -27,8 +27,7 @@
 - Toast
 
 
-** Completely redone components **
-
+**Completely redone components (and configuration)**
 - Icon
 - Emoji
 
