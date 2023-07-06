@@ -1,6 +1,5 @@
 ﻿.navmenu {
     background-color: var(--neutral-layer-1);
-
 }
 
 ::deep .nav-menu-expander::part(positioning-region) {
@@ -22,7 +21,7 @@
 }
 
 ::deep .navmenu-link.nested::part(start) {
-    margin-inline-start: -18px;
+    /*margin-inline-start: -18px;*/
     -webkit-user-select: none;
     user-select: none;
 }
@@ -33,15 +32,11 @@
 }
 
 ::deep .navmenu-link-nogroup::part(start) {
-    margin-inline-start: -8px;
-}
-
-::deep .level1::part(start) {
-    margin-inline-start: -24px!important;
+    /*margin-inline-start: -8px;*/
 }
 
 ::deep .navmenu-group.nested::part(start) {
-    margin-inline-start: 4px;
+    /*margin-inline-start: 4px;*/
 }
 
 ::deep .navmenu-group.nested::part(content-region) {
@@ -50,15 +45,15 @@
 }
 
 ::deep .collapsed .navmenu-group::part(content-region) {
-    margin-inline-start: 5px;
+    /*margin-inline-start: 5px;*/
 }
 
 ::deep .collapsed .navmenu-link svg:first-of-type {
-    margin-inline-end: 8px;
+    /*margin-inline-end: 8px;*/
 }
 
 ::deep .collapsed .navmenu-group svg:first-of-type {
-    margin-inline-end: 8px;
+    /*margin-inline-end: 8px;*/
 }
 
 ::deep .navmenu-group::part(content-region) {

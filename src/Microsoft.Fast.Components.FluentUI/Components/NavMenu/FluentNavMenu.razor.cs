@@ -4,20 +4,21 @@ using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentNavMenu : FluentComponentBase, IDisposable
+public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsHolder, IDisposable
 {
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
 
     private const string WIDTH_COLLAPSED_MENU = "40px";
-    private readonly List<FluentNavMenuLink> _links = new();
-    private readonly List<FluentNavMenuGroup> _groups = new();
     private string _prevHref = "/";
     private readonly string _expandCollapseTreeItemId = Identifier.NewId();
+
+    private bool HasChildIcons => ((INavMenuItemsHolder)this).HasChildIcons;
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("navmenu")
         .AddClass("collapsed", !Expanded)
+        .AddClass("navmenu-item-holder")
         .Build();
 
     protected string? StyleValue => new StyleBuilder()
@@ -83,11 +84,9 @@ public partial class FluentNavMenu : FluentComponentBase, IDisposable
         Id = Identifier.NewId();
     }
 
-    internal bool HasSubMenu => _groups.Any();
-
-    internal bool HasIcons => _links.Any(i => i.HasIcon) || _groups.Any(g => g.HasIcon);
-
     private bool Collapsed => !Expanded;
+
+    private readonly List<INavMenuItem> _navMenuItems = new();
 
     private Task ToggleCollapsedAsync() => 
         Expanded
@@ -153,11 +152,8 @@ public partial class FluentNavMenu : FluentComponentBase, IDisposable
     {
         if (treeItem.Selected && treeItem.Id != _expandCollapseTreeItemId)
         {
-            string? href = _links.FirstOrDefault(x => x.Id == treeItem.Id)?.Href;
-            if (string.IsNullOrWhiteSpace(href))
-            {
-                href = _groups.FirstOrDefault(x => x.Id == treeItem.Id)?.Href;
-            }
+            INavMenuItem? menuItem = ((INavMenuItemsHolder)this).GetItemById(treeItem.Id);
+            string? href = menuItem?.Href;
             if (!string.IsNullOrWhiteSpace(href) && href != _prevHref)
             {
                 _prevHref = href;
@@ -166,30 +162,9 @@ public partial class FluentNavMenu : FluentComponentBase, IDisposable
         }
     }
 
-    internal void AddNavMenuLink(FluentNavMenuLink link)
-    {
-        _links.Add(link);
-    }
-
-    internal void RemoveNavMenuLink(FluentNavMenuLink link)
-    {
-        _links.Remove(link);
-    }
-
-    internal void AddNavMenuGroup(FluentNavMenuGroup group)
-    {
-        _groups.Add(group);
-    }
-
-    internal void RemoveNavMenuGroup(FluentNavMenuGroup group)
-    {
-        _groups.Remove(group);
-    }
-
     void IDisposable.Dispose()
     {
-        _links.Clear();
-        _groups.Clear();
+        _navMenuItems.Clear();
     }
 
     internal async Task GroupExpandedAsync(FluentNavMenuGroup group)
@@ -197,4 +172,18 @@ public partial class FluentNavMenu : FluentComponentBase, IDisposable
         if (Collapsed)
             await ExpandAsync();
     }
+
+    void INavMenuItemsHolder.AddItem(INavMenuItem item)
+    {
+        _navMenuItems.Add(item);
+        StateHasChanged();
+    }
+
+    void INavMenuItemsHolder.RemoveItem(INavMenuItem item)
+    {
+        _navMenuItems.Remove(item);
+        StateHasChanged();
+    }
+
+    IEnumerable<INavMenuItem> INavMenuItemsHolder.GetItems() => _navMenuItems;
 }

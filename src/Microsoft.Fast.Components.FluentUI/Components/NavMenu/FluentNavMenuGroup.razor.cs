@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Fast.Components.FluentUI.Utilities;
 
-
 namespace Microsoft.Fast.Components.FluentUI;
-public partial class FluentNavMenuGroup : FluentComponentBase, IDisposable
+
+public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuItem, INavMenuItemsHolder, IDisposable
 {
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
@@ -82,6 +82,14 @@ public partial class FluentNavMenuGroup : FluentComponentBase, IDisposable
     [CascadingParameter(Name = "NavMenuExpanded")]
     private bool NavMenuExpanded { get; set; }
 
+    [CascadingParameter]
+    private INavMenuItemsHolder NavMenuItemsHolder { get; set; } = null!;
+
+    [CascadingParameter(Name = "NavMenuItemSiblingHasIcon")]
+    private bool SiblingHasIcon { get; set; }
+
+    private readonly List<INavMenuItem> _navMenuItems = new();
+    private bool HasChildIcons => ((INavMenuItemsHolder)this).HasChildIcons;
     private bool Collapsed => !Expanded;
 
     public FluentNavMenuGroup()
@@ -90,7 +98,9 @@ public partial class FluentNavMenuGroup : FluentComponentBase, IDisposable
     }
 
     protected string? ClassValue => new CssBuilder(Class)
+        .AddClass("navmenu-item-holder")
         .AddClass("navmenu-group")
+        .AddClass("navmenu-item")
         .Build();
 
     protected string? StyleValue => new StyleBuilder()
@@ -98,7 +108,7 @@ public partial class FluentNavMenuGroup : FluentComponentBase, IDisposable
         .AddStyle(Style)
         .Build();
 
-    internal bool HasIcon => Icon != null || IconContent is not null;
+    public bool HasIcon => Icon != null || IconContent is not null;
 
     /// <summary>
     /// Ensures the <see cref="FluentNavMenu"/> is collasped.
@@ -154,7 +164,7 @@ public partial class FluentNavMenuGroup : FluentComponentBase, IDisposable
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        NavMenu.AddNavMenuGroup(this);
+        NavMenuItemsHolder.AddItem(this);
     }
 
     /// <summary>
@@ -162,11 +172,26 @@ public partial class FluentNavMenuGroup : FluentComponentBase, IDisposable
     /// </summary>
     void IDisposable.Dispose()
     {
-        NavMenu.RemoveNavMenuGroup(this);
+        NavMenuItemsHolder.RemoveItem(this);
+        _navMenuItems.Clear();
     }
 
     private Task ToggleCollapsedAsync() =>
         Expanded
         ? CollapseAsync()
         : ExpandAsync();
+
+    void INavMenuItemsHolder.AddItem(INavMenuItem item)
+    {
+        NavMenuItemsHolder.AddItem(item);
+        StateHasChanged();
+    }
+
+    void INavMenuItemsHolder.RemoveItem(INavMenuItem item)
+    {
+        NavMenuItemsHolder.RemoveItem(item);
+        StateHasChanged();
+    }
+
+    IEnumerable<INavMenuItem> INavMenuItemsHolder.GetItems() => _navMenuItems;
 }
