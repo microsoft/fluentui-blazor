@@ -3139,7 +3139,7 @@
             Gets or sets the width of the menu group
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.ExpandedChanged">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.OnExpandedChanged">
             <summary>
             Callback function for when the menu group is expanded
             </summary>

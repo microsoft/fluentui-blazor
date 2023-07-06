@@ -141,7 +141,7 @@ public partial class FluentNavMenu : FluentComponentBase, IDisposable
     {
         Task handler = args.Code switch
         {
-            "Enter" => ToggleCollapsedAsync(),
+            "Enter" => ExpandAsync(),
             "ArrowRight" => ExpandAsync(),
             "ArrowLeft" => CollapseAsync(),
             _ => Task.CompletedTask

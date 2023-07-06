@@ -90,7 +90,7 @@ public partial class FluentNavMenuGroup : FluentComponentBase, IDisposable
     /// Callback function for when the menu group is expanded
     /// </summary>
     [Parameter]
-    public EventCallback<bool> ExpandedChanged { get; set; }
+    public EventCallback<bool> OnExpandedChanged { get; set; }
 
 
     [CascadingParameter]
@@ -130,9 +130,9 @@ public partial class FluentNavMenuGroup : FluentComponentBase, IDisposable
 
         Expanded = false;
 
-        if (ExpandedChanged.HasDelegate)
+        if (OnExpandedChanged.HasDelegate)
         {
-            await ExpandedChanged.InvokeAsync(Expanded);
+            await OnExpandedChanged.InvokeAsync(Expanded);
         }
 
         StateHasChanged();
@@ -149,9 +149,9 @@ public partial class FluentNavMenuGroup : FluentComponentBase, IDisposable
 
         Expanded = true;
 
-        if (ExpandedChanged.HasDelegate)
+        if (OnExpandedChanged.HasDelegate)
         {
-            await ExpandedChanged.InvokeAsync(Expanded);
+            await OnExpandedChanged.InvokeAsync(Expanded);
         }
 
         await NavMenu.GroupExpandedAsync(this);
@@ -162,7 +162,7 @@ public partial class FluentNavMenuGroup : FluentComponentBase, IDisposable
     {
         Task handler = args.Code switch
         {
-            "Enter" => ToggleCollapsedAsync(),
+            "Enter" => ExpandAsync(),
             "ArrowRight" => ExpandAsync(),
             "ArrowLeft" => CollapseAsync(),
             _ => Task.CompletedTask
