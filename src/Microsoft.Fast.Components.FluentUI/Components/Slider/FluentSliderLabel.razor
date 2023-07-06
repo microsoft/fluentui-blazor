@@ -4,7 +4,7 @@
 <fluent-slider-label @ref=Element
                      class="@Class"
                      style="@Style"
-                     position="@FormatValueAsString(Position)"
+                     position="@(InputHelpers<TValue>.FormatValueAsString(Position))"
                      hide-mark="@HideMark"
                      disabled=@Disabled>
     @ChildContent

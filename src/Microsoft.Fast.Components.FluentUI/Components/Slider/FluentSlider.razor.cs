@@ -6,6 +6,11 @@ using Microsoft.AspNetCore.Components;
 namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentSlider<TValue> : FluentInputBase<TValue>
+#if NET7_0_OR_GREATER
+    where TValue : System.Numerics.INumber<TValue>
+#else
+    where TValue : IComparable, IComparable<TValue>, IConvertible, IEquatable<TValue>, IFormattable
+#endif
 {
     /// <summary>
     /// Gets or sets the slider's minimal value
@@ -72,18 +77,7 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
     /// <returns>A string representation of the value.</returns>
     protected override string? FormatValueAsString(TValue? value)
     {
-        // Avoiding a cast to IFormattable to avoid boxing.
-        return value switch
-        {
-            null => null,
-            int @int => BindConverter.FormatValue(@int, CultureInfo.InvariantCulture),
-            long @long => BindConverter.FormatValue(@long, CultureInfo.InvariantCulture),
-            short @short => BindConverter.FormatValue(@short, CultureInfo.InvariantCulture),
-            float @float => BindConverter.FormatValue(@float, CultureInfo.InvariantCulture),
-            double @double => BindConverter.FormatValue(@double, CultureInfo.InvariantCulture),
-            decimal @decimal => BindConverter.FormatValue(@decimal, CultureInfo.InvariantCulture),
-            _ => throw new InvalidOperationException($"Unsupported type {value.GetType()}"),
-        };
+        return InputHelpers<TValue>.FormatValueAsString(value);
     }
 
     private static readonly string _stepAttributeValue = GetStepAttributeValue();
@@ -107,6 +101,4 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
             throw new InvalidOperationException($"The type '{targetType}' is not a supported numeric type.");
         }
     }
-
-
 }

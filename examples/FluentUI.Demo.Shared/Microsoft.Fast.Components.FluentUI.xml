@@ -409,6 +409,13 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.Dispose(System.Boolean)">
             <inheritdoc />
         </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.InputHelpers`1.FormatValueAsString(`0)">
+            <summary>
+            Formats the value as a string. 
+            </summary>
+            <param name = "value">The value to format.</param>
+            <returns>A string representation of the value.</returns>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentBreadcrumb.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.

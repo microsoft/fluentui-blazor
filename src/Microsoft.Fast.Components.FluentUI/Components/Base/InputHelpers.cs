@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
@@ -150,5 +151,26 @@ internal static class InputHelpers<TValue>
         {
             ValidateDecimalInput(max, min);
         }
+    }
+
+    /// <summary>
+    /// Formats the value as a string. 
+    /// </summary>
+    /// <param name = "value">The value to format.</param>
+    /// <returns>A string representation of the value.</returns>
+    internal static string? FormatValueAsString(TValue? value)
+    {
+        // Avoiding a cast to IFormattable to avoid boxing.
+        return value switch
+        {
+            null => null,
+            int @int => BindConverter.FormatValue(@int, CultureInfo.InvariantCulture),
+            long @long => BindConverter.FormatValue(@long, CultureInfo.InvariantCulture),
+            short @short => BindConverter.FormatValue(@short, CultureInfo.InvariantCulture),
+            float @float => BindConverter.FormatValue(@float, CultureInfo.InvariantCulture),
+            double @double => BindConverter.FormatValue(@double, CultureInfo.InvariantCulture),
+            decimal @decimal => BindConverter.FormatValue(@decimal, CultureInfo.InvariantCulture),
+            _ => throw new InvalidOperationException($"Unsupported type {value.GetType()}"),
+        };
     }
 }
