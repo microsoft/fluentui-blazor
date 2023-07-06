@@ -1,16 +1,17 @@
 ﻿@namespace Microsoft.Fast.Components.FluentUI
-@implements IDisposable
 @inherits FluentComponentBase
 <div>
     <CascadingValue Value="this" IsFixed="true">
         <CascadingValue Value="@Expanded" Name="NavMenuExpanded">
             <FluentTreeView Class="@ClassValue"
                             Style="@StyleValue"
-                            OnSelectedChange="HandleSelectedChangeAsync">
+                            OnSelectedChange="@HandleSelectedChange">
                 @if (Collapsible) {
-                    <FluentTreeItem Id="@_expandCollapseTreeItemId" Class="nav-menu-expander" @onclick="CollapsibleClickAsync">
+                    <FluentTreeItem Id="@_expandCollapseTreeItemId" Class="nav-menu-expander" @onclick="@ToggleCollapsedAsync" @onkeydown="@HandleExpandCollapseKeyDownAsync">
                         @if (NavigationIconContent is not null) {
-                            @NavigationIconContent
+                            <div>
+                               @NavigationIconContent
+                            </div>
                         }
                         else
                         {

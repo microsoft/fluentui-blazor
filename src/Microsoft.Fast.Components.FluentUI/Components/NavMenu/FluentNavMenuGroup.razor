@@ -1,5 +1,4 @@
 ﻿@namespace Microsoft.Fast.Components.FluentUI
-@implements IDisposable
 @inherits FluentComponentBase
 <FluentTreeItem Id="@Id"
                 Class="@ClassValue"
@@ -7,16 +6,18 @@
                 Disabled="@Disabled"
                 Selected="@Selected"
                 Expanded="@(NavMenuExpanded ? Expanded : false)"
-                Text="@(NavMenuExpanded ? Text : string.Empty)">
+                Text="@(NavMenuExpanded ? Text : string.Empty)"
+                @onkeydown="@HandleKeyDownAsync"
+                @onclick="@ToggleCollapsedAsync">
     @if (HasIcon)
     {
         if (IconContent is not null)
         {
-            <div slot="start" @onclick="HandleIconClick">@IconContent</div>
+            <div slot="start">@IconContent</div>
         }
         else
         {
-            <FluentIcon Value="@Icon" Width="20px" Slot="start" OnClick="HandleIconClick" />
+            <FluentIcon Value="@Icon" Width="20px" Slot="start" />
         }
     }
     else if (NavMenu.HasIcons)

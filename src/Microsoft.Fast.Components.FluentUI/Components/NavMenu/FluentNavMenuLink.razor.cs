@@ -114,6 +114,7 @@ public partial class FluentNavMenuLink : FluentComponentBase, IDisposable
         if (!Disabled)
             Selected = true;
     }
+
     internal void SetSelected(bool value)
     {
         Selected = value;
@@ -122,7 +123,7 @@ public partial class FluentNavMenuLink : FluentComponentBase, IDisposable
     /// <summary>
     /// Dispose of this navmenu link.
     /// </summary>
-    public void Dispose()
+    void IDisposable.Dispose()
     {
         NavMenu.RemoveNavMenuLink(this);
     }

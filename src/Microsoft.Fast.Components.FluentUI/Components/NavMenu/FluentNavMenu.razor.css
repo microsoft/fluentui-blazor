@@ -9,6 +9,8 @@
 
 ::deep .nav-menu-expander::part(content-region) {
     margin-inline-start: calc(var(--design-unit) * 2px);
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 ::deep .nav-menu-expander::part(positioning-region):hover {
