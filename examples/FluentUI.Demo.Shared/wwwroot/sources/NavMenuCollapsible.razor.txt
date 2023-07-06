@@ -7,7 +7,7 @@
         <FluentNavMenu @bind-Expanded="@Expanded" Width="150">
             <FluentNavMenuLink Class="level1" Icon="@(new Icons.Regular.Size24.Home())" Text="Item 1" />
             <FluentNavMenuLink Class="level1" Icon="@(new Icons.Regular.Size24.Cloud())" Text="Item 2" />
-            <FluentNavMenuGroup Text="Item 3">
+            <FluentNavMenuGroup Text="Item 3" Icon="@(new Icons.Regular.Size24.EarthLeaf())">
                 <FluentNavMenuLink Icon="@(new Icons.Regular.Size24.LeafOne())" Text="Item 3.1" />
                 <FluentNavMenuLink Icon="@(new Icons.Regular.Size24.LeafTwo())" Text="Item 3.2" />
             </FluentNavMenuGroup>
