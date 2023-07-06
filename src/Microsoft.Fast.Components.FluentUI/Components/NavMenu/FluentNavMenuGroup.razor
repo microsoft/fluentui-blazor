@@ -9,20 +9,7 @@
                 Text="@(NavMenuExpanded ? Text : string.Empty)"
                 @onkeydown="@HandleKeyDownAsync"
                 @onclick="@ToggleCollapsedAsync">
-    @if (!NavMenuExpanded && HasNavMenuGutterIcon)
-    {
-        <div slot="start">
-            @if (NavMenuGutterIconContent is not null)
-            {
-                @NavMenuGutterIconContent
-            }
-            else
-            {
-                <FluentIcon Value="@NavMenuGutterIcon" Width="20px" Slot="start" />
-            }
-        </div>
-    }
-    @if (NavMenuExpanded && HasIcon)
+    @if (HasIcon)
     {
         if (IconContent is not null)
         {

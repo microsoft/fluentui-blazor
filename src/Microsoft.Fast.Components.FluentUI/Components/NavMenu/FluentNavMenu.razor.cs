@@ -85,7 +85,7 @@ public partial class FluentNavMenu : FluentComponentBase, IDisposable
 
     internal bool HasSubMenu => _groups.Any();
 
-    internal bool HasIcons => _links.Any(i => i.HasIcon) || _groups.Any(g => g.HasNavMenuGutterIcon);
+    internal bool HasIcons => _links.Any(i => i.HasIcon) || _groups.Any(g => g.HasIcon);
 
     private bool Collapsed => !Expanded;
 
