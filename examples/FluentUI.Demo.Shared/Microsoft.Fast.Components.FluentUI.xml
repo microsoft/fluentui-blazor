@@ -3062,6 +3062,18 @@
             Event callback for when group/link is expanded
             </summary>
         </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentNavMenu.CollapseAsync">
+            <summary>
+            Ensures the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenu"/> is collasped.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentNavMenu.ExpandAsync">
+            <summary>
+            Ensures the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenu"/> is expanded.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
@@ -3127,9 +3139,26 @@
             Gets or sets the width of the menu group
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.OnExpandedChanged">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.ExpandedChanged">
             <summary>
             Callback function for when the menu group is expanded
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.CollapseAsync">
+            <summary>
+            Ensures the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenu"/> is collasped.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.ExpandAsync">
+            <summary>
+            Ensures the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenu"/> is expanded.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.System#IDisposable#Dispose">
+            <summary>
+            Dispose of this navmenu group.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.ChildContent">
@@ -3186,6 +3215,11 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.Width">
             <summary>
             Gets or sets the width of the link (in pixels).
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.System#IDisposable#Dispose">
+            <summary>
+            Dispose of this navmenu link.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNumberField`1.HideStep">

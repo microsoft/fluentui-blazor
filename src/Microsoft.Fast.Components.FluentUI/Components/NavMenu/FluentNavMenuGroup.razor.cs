@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Fast.Components.FluentUI.Utilities;
 
 
@@ -89,7 +90,7 @@ public partial class FluentNavMenuGroup : FluentComponentBase, IDisposable
     /// Callback function for when the menu group is expanded
     /// </summary>
     [Parameter]
-    public EventCallback<bool> OnExpandedChanged { get; set; }
+    public EventCallback<bool> ExpandedChanged { get; set; }
 
 
     [CascadingParameter]
@@ -97,6 +98,8 @@ public partial class FluentNavMenuGroup : FluentComponentBase, IDisposable
 
     [CascadingParameter(Name = "NavMenuExpanded")]
     private bool NavMenuExpanded { get; set; }
+
+    private bool Collapsed => !Expanded;
 
     public FluentNavMenuGroup()
     {
@@ -116,12 +119,55 @@ public partial class FluentNavMenuGroup : FluentComponentBase, IDisposable
 
     internal bool HasNavMenuGutterIcon => NavMenuGutterIcon != null || NavMenuGutterIconContent is not null;
 
-    public override async Task SetParametersAsync(ParameterView parameters)
+    /// <summary>
+    /// Ensures the <see cref="FluentNavMenu"/> is collasped.
+    /// </summary>
+    /// <returns></returns>
+    public async Task CollapseAsync()
     {
-        bool originalExpanded = Expanded;
-        await base.SetParametersAsync(parameters);
-        if (Expanded != originalExpanded)
-            await OnExpandedChanged.InvokeAsync(Expanded);
+        if (Collapsed)
+            return;
+
+        Expanded = false;
+
+        if (ExpandedChanged.HasDelegate)
+        {
+            await ExpandedChanged.InvokeAsync(Expanded);
+        }
+
+        StateHasChanged();
+    }
+
+    /// <summary>
+    /// Ensures the <see cref="FluentNavMenu"/> is expanded.
+    /// </summary>
+    /// <returns></returns>
+    public async Task ExpandAsync()
+    {
+        if (Expanded)
+            return;
+
+        Expanded = true;
+
+        if (ExpandedChanged.HasDelegate)
+        {
+            await ExpandedChanged.InvokeAsync(Expanded);
+        }
+
+        await NavMenu.GroupExpandedAsync(this);
+        StateHasChanged();
+    }
+
+    private async Task HandleKeyDownAsync(KeyboardEventArgs args)
+    {
+        Task handler = args.Code switch
+        {
+            "Enter" => ToggleCollapsedAsync(),
+            "ArrowRight" => ExpandAsync(),
+            "ArrowLeft" => CollapseAsync(),
+            _ => Task.CompletedTask
+        };
+        await handler;
     }
 
     protected override void OnInitialized()
@@ -130,33 +176,16 @@ public partial class FluentNavMenuGroup : FluentComponentBase, IDisposable
         NavMenu.AddNavMenuGroup(this);
     }
 
-    private async Task ExpandMenu()
-    {
-        if (Disabled)
-            return;
-
-        // Expand the Nav Menu and this Group if the user clicks on its NavMenuToggleIcon
-        if (!NavMenuExpanded)
-        {
-            await NavMenu.CollapsibleClickAsync();
-
-            Expanded = true;
-            await OnExpandedChanged.InvokeAsync(Expanded);
-
-            Selected = true;
-        }
-    }
-
-    private void HandleIconClick()
-    {
-        if (!Disabled)
-            Selected = true;
-    }
     /// <summary>
     /// Dispose of this navmenu group.
     /// </summary>
-    public void Dispose()
+    void IDisposable.Dispose()
     {
         NavMenu.RemoveNavMenuGroup(this);
     }
+
+    private Task ToggleCollapsedAsync() =>
+        Expanded
+        ? CollapseAsync()
+        : ExpandAsync();
 }

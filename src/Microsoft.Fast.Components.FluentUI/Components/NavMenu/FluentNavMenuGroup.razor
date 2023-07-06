@@ -7,10 +7,12 @@
                 Disabled="@Disabled"
                 Selected="@Selected"
                 Expanded="@(NavMenuExpanded ? Expanded : false)"
-                Text="@(NavMenuExpanded ? Text : string.Empty)">
+                Text="@(NavMenuExpanded ? Text : string.Empty)"
+                @onkeydown="@HandleKeyDownAsync"
+                @onclick="@ToggleCollapsedAsync">
     @if (!NavMenuExpanded && HasNavMenuGutterIcon)
     {
-        <div slot="start" @onclick="ExpandMenu">
+        <div slot="start">
             @if (NavMenuGutterIconContent is not null)
             {
                 @NavMenuGutterIconContent
@@ -25,11 +27,11 @@
     {
         if (IconContent is not null)
         {
-            <div slot="start" @onclick="HandleIconClick">@IconContent</div>
+            <div slot="start">@IconContent</div>
         }
         else
         {
-            <FluentIcon Value="@Icon" Width="20px" Slot="start" OnClick="HandleIconClick" />
+            <FluentIcon Value="@Icon" Width="20px" Slot="start" />
         }
     }
     @if (NavMenuExpanded) {

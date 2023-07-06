@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
@@ -86,41 +87,82 @@ public partial class FluentNavMenu : FluentComponentBase, IDisposable
 
     internal bool HasIcons => _links.Any(i => i.HasIcon) || _groups.Any(g => g.HasNavMenuGutterIcon);
 
-    internal async Task CollapsibleClickAsync()
+    private bool Collapsed => !Expanded;
+
+    private Task ToggleCollapsedAsync() => 
+        Expanded
+        ? CollapseAsync()
+        : ExpandAsync();
+
+    /// <summary>
+    /// Ensures the <see cref="FluentNavMenu"/> is collasped.
+    /// </summary>
+    /// <returns></returns>
+    public async Task CollapseAsync()
     {
-        if (Collapsible)
+        if (Collapsed || !Collapsible)
+            return;
+
+        Expanded = false;
+
+        if (ExpandedChanged.HasDelegate)
         {
-            Expanded = !Expanded;
-            await InvokeAsync(StateHasChanged);
-
-            if (ExpandedChanged.HasDelegate)
-            {
-                await ExpandedChanged.InvokeAsync(Expanded);
-            }
-
-            if (OnExpanded.HasDelegate)
-            {
-                await OnExpanded.InvokeAsync(Expanded);
-            }
+            await ExpandedChanged.InvokeAsync(Expanded);
         }
+
+        StateHasChanged();
     }
 
-    internal async Task HandleSelectedChangeAsync(FluentTreeItem treeItem)
+
+    /// <summary>
+    /// Ensures the <see cref="FluentNavMenu"/> is expanded.
+    /// </summary>
+    /// <returns></returns>
+    public async Task ExpandAsync()
     {
-        if (treeItem.Id == _expandCollapseTreeItemId)
-        {
-            await CollapsibleClickAsync();
+        if (Expanded)
             return;
-        }
-        string? href = _links.FirstOrDefault(x => x.Id == treeItem.Id)?.Href;
-        if (string.IsNullOrWhiteSpace(href))
+
+        Expanded = true;
+
+        if (ExpandedChanged.HasDelegate)
         {
-            href = _groups.FirstOrDefault(x => x.Id == treeItem.Id)?.Href;
+            await ExpandedChanged.InvokeAsync(Expanded);
         }
-        if (!string.IsNullOrWhiteSpace(href) && href != _prevHref)
+
+        if (OnExpanded.HasDelegate)
         {
-            _prevHref = href;
-            NavigationManager.NavigateTo(href);
+            await OnExpanded.InvokeAsync(Expanded);
+        }
+        StateHasChanged();
+    }
+
+    private async Task HandleExpandCollapseKeyDownAsync(KeyboardEventArgs args)
+    {
+        Task handler = args.Code switch
+        {
+            "Enter" => ToggleCollapsedAsync(),
+            "ArrowRight" => ExpandAsync(),
+            "ArrowLeft" => CollapseAsync(),
+            _ => Task.CompletedTask
+        };
+        await handler;
+    }
+
+    private void HandleSelectedChange(FluentTreeItem treeItem)
+    {
+        if (treeItem.Selected && treeItem.Id != _expandCollapseTreeItemId)
+        {
+            string? href = _links.FirstOrDefault(x => x.Id == treeItem.Id)?.Href;
+            if (string.IsNullOrWhiteSpace(href))
+            {
+                href = _groups.FirstOrDefault(x => x.Id == treeItem.Id)?.Href;
+            }
+            if (!string.IsNullOrWhiteSpace(href) && href != _prevHref)
+            {
+                _prevHref = href;
+                NavigationManager.NavigateTo(href);
+            }
         }
     }
 
@@ -144,10 +186,15 @@ public partial class FluentNavMenu : FluentComponentBase, IDisposable
         _groups.Remove(group);
     }
 
-    public void Dispose()
+    void IDisposable.Dispose()
     {
         _links.Clear();
         _groups.Clear();
     }
 
+    internal async Task GroupExpandedAsync(FluentNavMenuGroup group)
+    {
+        if (Collapsed)
+            await ExpandAsync();
+    }
 }
