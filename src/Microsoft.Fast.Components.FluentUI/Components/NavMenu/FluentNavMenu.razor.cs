@@ -73,10 +73,11 @@ public partial class FluentNavMenu : FluentComponentBase, IDisposable
     public EventCallback<bool> ExpandedChanged { get; set; }
 
     /// <summary>
-    /// Event callback for when group/link is expanded
+    /// If set to <see langword="true"/> then the tree will
+    /// expand when it is created.
     /// </summary>
     [Parameter]
-    public EventCallback<bool> OnExpanded { get; set; }
+    public bool InitiallyExpanded { get; set; }
 
     public FluentNavMenu()
     {
@@ -130,11 +131,20 @@ public partial class FluentNavMenu : FluentComponentBase, IDisposable
             await ExpandedChanged.InvokeAsync(Expanded);
         }
 
-        if (OnExpanded.HasDelegate)
-        {
-            await OnExpanded.InvokeAsync(Expanded);
-        }
         StateHasChanged();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        if (InitiallyExpanded)
+        {
+            Expanded = true;
+            if (ExpandedChanged.HasDelegate)
+            {
+                await ExpandedChanged.InvokeAsync(true);
+            }
+        }
     }
 
     private async Task HandleExpandCollapseKeyDownAsync(KeyboardEventArgs args)

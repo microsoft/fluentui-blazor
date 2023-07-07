@@ -73,8 +73,14 @@ public partial class FluentNavMenuGroup : FluentComponentBase, IDisposable
     /// Callback function for when the menu group is expanded
     /// </summary>
     [Parameter]
-    public EventCallback<bool> OnExpandedChanged { get; set; }
+    public EventCallback<bool> ExpandedChanged { get; set; }
 
+    /// <summary>
+    /// If set to <see langword="true"/> then the tree will
+    /// expand when it is created.
+    /// </summary>
+    [Parameter]
+    public bool InitiallyExpanded { get; set; }
 
     [CascadingParameter]
     private FluentNavMenu NavMenu { get; set; } = default!;
@@ -111,9 +117,9 @@ public partial class FluentNavMenuGroup : FluentComponentBase, IDisposable
 
         Expanded = false;
 
-        if (OnExpandedChanged.HasDelegate)
+        if (ExpandedChanged.HasDelegate)
         {
-            await OnExpandedChanged.InvokeAsync(Expanded);
+            await ExpandedChanged.InvokeAsync(Expanded);
         }
 
         StateHasChanged();
@@ -130,9 +136,9 @@ public partial class FluentNavMenuGroup : FluentComponentBase, IDisposable
 
         Expanded = true;
 
-        if (OnExpandedChanged.HasDelegate)
+        if (ExpandedChanged.HasDelegate)
         {
-            await OnExpandedChanged.InvokeAsync(Expanded);
+            await ExpandedChanged.InvokeAsync(Expanded);
         }
 
         await NavMenu.GroupExpandedAsync(this);
@@ -151,10 +157,18 @@ public partial class FluentNavMenuGroup : FluentComponentBase, IDisposable
         await handler;
     }
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        base.OnInitialized();
+        await base.OnInitializedAsync();
         NavMenu.AddNavMenuGroup(this);
+        if (InitiallyExpanded)
+        {
+            Expanded = true;
+            if (ExpandedChanged.HasDelegate)
+            {
+                await ExpandedChanged.InvokeAsync(true);
+            }
+        }
     }
 
     /// <summary>
