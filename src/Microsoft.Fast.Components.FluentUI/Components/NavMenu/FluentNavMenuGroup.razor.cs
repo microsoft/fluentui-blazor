@@ -142,6 +142,7 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
 
         StateHasChanged();
     }
+
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();

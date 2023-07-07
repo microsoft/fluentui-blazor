@@ -140,12 +140,10 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
 
     private async Task HandleTreeItemExpandedChangedAsync(FluentTreeItem item)
     {
-        if (!item.Expanded)
+        if (item.Expanded)
         {
-            return;
+            await SetExpandedAsync(expanded: true);
         }
-
-        await SetExpandedAsync(expanded: true);
 
         INavMenuChildElement? menuItem = (this as INavMenuParentElement).FindElementById(item.Id);
         if (menuItem is INavMenuParentElement elementToExpand)
