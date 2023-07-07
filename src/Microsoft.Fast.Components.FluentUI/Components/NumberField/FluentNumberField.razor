@@ -1,6 +1,6 @@
 @namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentInputBase<TValue>
-@typeparam TValue
+@typeparam TValue where TValue : new()
 @using System.Globalization;
 @using System.Reflection;
 <fluent-number-field @ref=Element

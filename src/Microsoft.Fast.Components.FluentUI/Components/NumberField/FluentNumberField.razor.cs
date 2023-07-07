@@ -5,6 +5,11 @@ using Microsoft.AspNetCore.Components;
 namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
+    //#if NET7_0_OR_GREATER
+    //    where TValue : System.Numerics.INumber<TValue>
+    //#else
+    where TValue : new()
+    //#endif
 {
     /// <summary>
     /// When true, spin buttons will not be rendered
@@ -46,13 +51,13 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
     /// Gets or sets the maximum value
     /// </summary>
     [Parameter]
-    public string? Max { get; set; } //= InputHelpers<TValue>.GetMaxValue();
+    public TValue? Max { get; set; } //= InputHelpers<TValue>.GetMaxValue();
 
     /// <summary>
     /// Gets or sets the minimum value
     /// </summary>
     [Parameter]
-    public string? Min { get; set; } //= InputHelpers<TValue>.GetMinValue();
+    public TValue? Min { get; set; } //= InputHelpers<TValue>.GetMinValue();
 
     /// <summary>
     /// Gets or sets the <see cref="FluentUI.Appearance" />
@@ -114,7 +119,7 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
     /// </summary>
     /// <param name = "value">The value to format.</param>
     /// <returns>A string representation of the value.</returns>
-    protected override string? FormatValueAsString(TValue? value)
+    protected string? FormatValueAsString(TValue? value)
     {
         // Avoiding a cast to IFormattable to avoid boxing.
         return value switch
@@ -132,7 +137,7 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
 
     protected override void OnParametersSet()
     {
-        InputHelpers<TValue>.ValidateInputParameters(Max, Min);
+        InputHelpers<TValue?>.ValidateInputParameters(Max, Min);
         base.OnParametersSet();
     }
 }
