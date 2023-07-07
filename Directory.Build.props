@@ -11,9 +11,9 @@
 	 <PublishRepositoryUrl>true</PublishRepositoryUrl>
 	 <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>	 
 	 
-	 <VersionFile>3.0.2307.0301</VersionFile>
+	 <VersionFile>3.0.2307.0501</VersionFile>
 	 <VersionPrefix>3.0.0</VersionPrefix>
-	 <VersionSuffix>preview.5.230703.1</VersionSuffix> 
+	 <VersionSuffix>preview.6.230705.1</VersionSuffix> 
 	 
 	 <AssemblyVersion>$(VersionFile)</AssemblyVersion>
 	 <FileVersion>$(VersionFile)</FileVersion>

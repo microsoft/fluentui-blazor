@@ -60,7 +60,7 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
         }
         else
         {
-            validationErrorMessage = string.Format(CultureInfo.InvariantCulture, "The {0} field must be a number.", DisplayName ?? FieldIdentifier.FieldName);
+            validationErrorMessage = string.Format(CultureInfo.InvariantCulture, "The {0} field must be a number.", DisplayName ?? (FieldBound ? FieldIdentifier.FieldName : "(unknown)"));
             return false;
         }
     }
