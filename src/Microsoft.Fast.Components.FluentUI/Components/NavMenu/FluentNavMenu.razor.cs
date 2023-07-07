@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using System.Runtime.CompilerServices;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Fast.Components.FluentUI.Utilities;
 
@@ -89,7 +90,7 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
 
     private readonly List<INavMenuChildElement> _childElements = new();
 
-    private Task ToggleCollapsedAsync() => 
+    private Task ToggleCollapsedAsync() =>
         Expanded
         ? CollapseAsync()
         : ExpandAsync();
@@ -157,17 +158,47 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
         await handler;
     }
 
-    private void HandleSelectedChange(FluentTreeItem treeItem)
+    private async Task HandleTreeItemExpandedChangedAsync(FluentTreeItem item)
     {
-        if (treeItem.Selected && treeItem.Id != _expandCollapseTreeItemId)
+        if (item.Expanded)
         {
-            INavMenuChildElement? menuItem = ((INavMenuParentElement)this).FindElementById(treeItem.Id);
-            string? href = menuItem?.Href;
-            if (!string.IsNullOrWhiteSpace(href) && href != _prevHref)
-            {
-                _prevHref = href;
-                NavigationManager.NavigateTo(href);
-            }
+            await ExpandAsync();
+        }
+    }
+
+    private async Task HandleSelectedChangedAsync(FluentTreeItem treeItem)
+    {
+        if (!treeItem.Selected || treeItem.Id == _expandCollapseTreeItemId)
+        {
+            return;
+        }
+
+        INavMenuChildElement? menuElement = ((INavMenuParentElement)this).FindElementById(treeItem.Id);
+
+        if (menuElement is INavMenuParentElement parentElement)
+        {
+            await EnsureGroupAndMenuAreExpandedAsync(parentElement);
+        }
+
+        if (menuElement is INavMenuChildElement childElement)
+        {
+            Navigate(childElement);
+        }
+    }
+
+    private async Task EnsureGroupAndMenuAreExpandedAsync(INavMenuParentElement element)
+    {
+        await element.ExpandAsync();
+        await ExpandAsync();
+    }
+
+    private void Navigate(INavMenuChildElement element)
+    {
+        string? href = element?.Href;
+        if (!string.IsNullOrWhiteSpace(href) && href != _prevHref)
+        {
+            _prevHref = href;
+            NavigationManager.NavigateTo(href);
         }
     }
 

@@ -4656,19 +4656,9 @@
             When true, the control will be appear expanded by user interaction.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.ExpandedChanged">
-            <summary>
-            Gets or sets a callback that is triggered whenever <see cref="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Expanded"/> changes.
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Selected">
             <summary>
             When true, the control will appear selected by user interaction.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.SelectedChanged">
-            <summary>
-            Gets or sets a callback that is triggered whenever <see cref="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Selected"/> changes.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Disabled">

@@ -155,11 +155,6 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
         {
             await ExpandedChanged.InvokeAsync(true);
         }
-
-        if (NavMenu.Collapsed)
-        {
-            await NavMenu.ExpandAsync();
-        }
         StateHasChanged();
     }
 
