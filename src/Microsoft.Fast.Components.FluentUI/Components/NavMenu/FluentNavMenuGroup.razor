@@ -1,5 +1,5 @@
 ﻿@namespace Microsoft.Fast.Components.FluentUI
-
+@implements IDisposable
 @inherits FluentComponentBase
 <FluentTreeItem Id="@Id"
                 Class="@ClassValue"
@@ -8,20 +8,7 @@
                 Selected="@Selected"
                 Expanded="@(NavMenuExpanded ? Expanded : false)"
                 Text="@(NavMenuExpanded ? Text : string.Empty)">
-    @if (!NavMenuExpanded && HasNavMenuGutterIcon)
-    {
-        <div slot="start" @onclick="ExpandMenu">
-            @if (NavMenuGutterIconContent is not null)
-            {
-                @NavMenuGutterIconContent
-            }
-            else
-            {
-                <FluentIcon Value="@NavMenuGutterIcon" Width="20px" Slot="start" />
-            }
-        </div>
-    }
-    @if (NavMenuExpanded && HasIcon)
+    @if (HasIcon)
     {
         if (IconContent is not null)
         {
@@ -31,6 +18,10 @@
         {
             <FluentIcon Value="@Icon" Width="20px" Slot="start" OnClick="HandleIconClick" />
         }
+    }
+    else if (NavMenu.HasIcons)
+    {
+        <span style="width:20px;" slot="start"></span>
     }
     @if (NavMenuExpanded) {
         @ChildContent

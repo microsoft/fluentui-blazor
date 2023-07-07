@@ -8,7 +8,7 @@
             <NavigationIconContent>⛚</NavigationIconContent>
             <ChildContent>
                 <FluentNavMenuGroup Text="Weather">
-                    <NavMenuGutterIconContent>☀</NavMenuGutterIconContent>
+                    <IconContent>☀</IconContent>
                     <ChildContent>
                         <FluentNavMenuLink Text="Sunny">
                             <IconContent>☀</IconContent>
@@ -22,7 +22,7 @@
                     </ChildContent>
                 </FluentNavMenuGroup>
                 <FluentNavMenuGroup Text="Notes">
-                    <NavMenuGutterIconContent>♬</NavMenuGutterIconContent>
+                    <IconContent>♬</IconContent>
                     <ChildContent>
                         <FluentNavMenuLink Text="Quarter">
                             <IconContent>♩</IconContent>

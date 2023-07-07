@@ -3,7 +3,7 @@ using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentNavMenu : FluentComponentBase
+public partial class FluentNavMenu : FluentComponentBase, IDisposable
 {
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
@@ -84,7 +84,7 @@ public partial class FluentNavMenu : FluentComponentBase
 
     internal bool HasSubMenu => _groups.Any();
 
-    internal bool HasIcons => _links.Any(i => i.HasIcon) || _groups.Any(g => g.HasNavMenuGutterIcon);
+    internal bool HasIcons => _links.Any(i => i.HasIcon) || _groups.Any(g => g.HasIcon);
 
     internal async Task CollapsibleClickAsync()
     {
@@ -129,9 +129,25 @@ public partial class FluentNavMenu : FluentComponentBase
         _links.Add(link);
     }
 
+    internal void RemoveNavMenuLink(FluentNavMenuLink link)
+    {
+        _links.Remove(link);
+    }
+
     internal void AddNavMenuGroup(FluentNavMenuGroup group)
     {
         _groups.Add(group);
+    }
+
+    internal void RemoveNavMenuGroup(FluentNavMenuGroup group)
+    {
+        _groups.Remove(group);
+    }
+
+    public void Dispose()
+    {
+        _links.Clear();
+        _groups.Clear();
     }
 
 }

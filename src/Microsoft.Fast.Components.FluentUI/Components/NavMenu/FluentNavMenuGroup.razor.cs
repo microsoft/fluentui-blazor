@@ -3,7 +3,7 @@ using Microsoft.Fast.Components.FluentUI.Utilities;
 
 
 namespace Microsoft.Fast.Components.FluentUI;
-public partial class FluentNavMenuGroup : FluentComponentBase
+public partial class FluentNavMenuGroup : FluentComponentBase, IDisposable
 {
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
@@ -13,23 +13,6 @@ public partial class FluentNavMenuGroup : FluentComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
-
-    /// <summary>
-    /// Gets or sets the content to be displayed for this group
-    /// in the <see cref="FluentNavMenu"/> gutter when the menu is collapsed.
-    /// This setting takes priority over <see cref="NavMenuGutterIcon"/>.
-    /// </summary>
-    [Parameter]
-    public RenderFragment? NavMenuGutterIconContent { get; set; }
-
-    /// <summary>
-    /// Gets or sets the icon to display for this group
-    /// in the <see cref="FluentNavMenu"/> gutter when the nav menu is collapsed.
-    /// This setting is not used when <see cref="NavMenuGutterIconContent"/>
-    /// is not null.
-    /// </summary>
-    [Parameter]
-    public Icon NavMenuGutterIcon { get; set; } = new CoreIcons.Regular.Size24.MoreHorizontal();
 
     /// <summary>
     /// Gets or sets the icon content to be displayed for this group
@@ -112,9 +95,7 @@ public partial class FluentNavMenuGroup : FluentComponentBase
         .AddStyle(Style)
         .Build();
 
-    private bool HasIcon => Icon != null || IconContent is not null;
-
-    internal bool HasNavMenuGutterIcon => NavMenuGutterIcon != null || NavMenuGutterIconContent is not null;
+    internal bool HasIcon => Icon != null || IconContent is not null;
 
     public override async Task SetParametersAsync(ParameterView parameters)
     {
@@ -151,5 +132,12 @@ public partial class FluentNavMenuGroup : FluentComponentBase
     {
         if (!Disabled)
             Selected = true;
+    }
+    /// <summary>
+    /// Dispose of this navmenu group.
+    /// </summary>
+    public void Dispose()
+    {
+        NavMenu.RemoveNavMenuGroup(this);
     }
 }
