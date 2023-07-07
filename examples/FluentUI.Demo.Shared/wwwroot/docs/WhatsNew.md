@@ -31,6 +31,11 @@
 - Icon
 - Emoji
 
+﻿## V2.4.0
+- The `FluentSlider` is now generic which means it also supports `double`, `float`, `decimal`, `long' and `short` values besides `int` 
+values. An example for this has been added to the demo site
+- Add Style to `FluentDesignSystemProvider` (thanks @luohauRain
+- Fix missing `ColumnOptions` button in `FluentDataGrid` when column style = `Align.Center` (thanks @cupsos)
 
 ## V2.3.7
 

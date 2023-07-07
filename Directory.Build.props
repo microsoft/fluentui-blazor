@@ -9,6 +9,7 @@
 	 <RepositoryUrl>https://github.com/microsoft/fluentui-blazor</RepositoryUrl>
 	 <RepositoryType>git</RepositoryType>
 	 <PublishRepositoryUrl>true</PublishRepositoryUrl>
+
 	 <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>	 
 	 
 	 <VersionFile>3.0.2307.0501</VersionFile>
