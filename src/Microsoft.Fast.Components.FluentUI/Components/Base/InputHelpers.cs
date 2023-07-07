@@ -46,13 +46,14 @@ internal static class InputHelpers<TValue>
             TypeCode.UInt32 => uint.MinValue.ToString(),
             TypeCode.UInt64 => "-999999999999",
             _ => ""
-        };
 
+        };
         return value;
     }
 
     internal static void ValidateIntegerInputs(string? max, string? min)
     {
+
         int maxValue = Convert.ToInt32(max);
         int minValue = Convert.ToInt32(min);
 
@@ -60,6 +61,7 @@ internal static class InputHelpers<TValue>
         {
             throw new ArgumentException("Integer Max value is smaller then Min value.");
         }
+
 
     }
 
@@ -130,6 +132,7 @@ internal static class InputHelpers<TValue>
 
     internal static void ValidateInputParameters(string? max, string? min)
     {
+
         if (max == null || min == null)
         {
             return; //nothing to validate
@@ -147,6 +150,7 @@ internal static class InputHelpers<TValue>
 
         if (typeof(TValue) == typeof(short))
         {
+
             ValidateShortInputs(max, min);
         }
 
@@ -162,8 +166,8 @@ internal static class InputHelpers<TValue>
 
         if (typeof(TValue) == typeof(decimal))
         {
+
             ValidateDecimalInputs(max, min);
         }
     }
-
 }

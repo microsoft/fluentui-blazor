@@ -99,6 +99,7 @@ public partial class ApiDocumentation
                         bool isParameter = memberInfo.GetCustomAttribute<ParameterAttribute>() != null;
 
 
+
                         Type t = propertyInfo.PropertyType;
                         bool isEvent = t == typeof(EventCallback) || (t.IsGenericType && t.GetGenericTypeDefinition() == typeof(EventCallback<>));
 
