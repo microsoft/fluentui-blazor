@@ -51,7 +51,7 @@ internal static class InputHelpers<TValue>
         return value;
     }
 
-    internal static void ValidateIntegerInputs(TValue? max, TValue? min)
+    internal static void ValidateIntegerInputs(string? max, string? min)
     {
         int maxValue = Convert.ToInt32(max);
         int minValue = Convert.ToInt32(min);
@@ -63,7 +63,7 @@ internal static class InputHelpers<TValue>
 
     }
 
-    internal static void ValidateLongInputs(TValue? max, TValue? min)
+    internal static void ValidateLongInputs(string? max, string? min)
     {
         long maxValue = Convert.ToInt64(max);
         long minValue = Convert.ToInt64(min);
@@ -84,7 +84,7 @@ internal static class InputHelpers<TValue>
         }
     }
 
-    internal static void ValidateShortInputs(TValue? max, TValue? min)
+    internal static void ValidateShortInputs(string? max, string? min)
     {
         short maxValue = Convert.ToInt16(max);
         short minValue = Convert.ToInt16(min);
@@ -95,7 +95,7 @@ internal static class InputHelpers<TValue>
         }
     }
 
-    internal static void ValidateDoubleInputs(TValue? max, TValue? min)
+    internal static void ValidateDoubleInputs(string? max, string? min)
     {
         double maxValue = Convert.ToDouble(max, CultureInfo.InvariantCulture);
         double minValue = Convert.ToDouble(min, CultureInfo.InvariantCulture);
@@ -106,7 +106,7 @@ internal static class InputHelpers<TValue>
         }
     }
 
-    internal static void ValidateFloatInputs(TValue? max, TValue? min)
+    internal static void ValidateFloatInputs(string? max, string? min)
     {
         float maxValue = Convert.ToSingle(max, CultureInfo.InvariantCulture);
         float minValue = Convert.ToSingle(min, CultureInfo.InvariantCulture);
@@ -117,7 +117,7 @@ internal static class InputHelpers<TValue>
         }
     }
 
-    internal static void ValidateDecimalInputs(TValue? max, TValue? min)
+    internal static void ValidateDecimalInputs(string? max, string? min)
     {
         decimal maxValue = Convert.ToDecimal(max, CultureInfo.InvariantCulture);
         decimal minValue = Convert.ToDecimal(min, CultureInfo.InvariantCulture);
@@ -128,7 +128,7 @@ internal static class InputHelpers<TValue>
         }
     }
 
-    internal static void ValidateInputParameters(TValue? max, TValue? min)
+    internal static void ValidateInputParameters(string? max, string? min)
     {
         if (max == null || min == null)
         {
