@@ -1,27 +1,31 @@
 ﻿@namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentComponentBase
-<FluentTreeItem Id="@Id"
-                Class="@ClassValue"
-                Style="@StyleValue"
-                Disabled="@Disabled"
-                Selected="@Selected"
-                Text="@(NavMenuExpanded ? Text : string.Empty)">
-    @if (HasIcon)
-    {
-        if (IconContent is not null) {
-            <div slot="start">@IconContent</div>
+
+<CascadingValue TValue=INavMenuParentElement Value="@null" IsFixed>
+    <FluentTreeItem Id="@Id"
+                    Class="@ClassValue"
+                    Style="@StyleValue"
+                    Disabled="@Disabled"
+                    Selected="@Selected"
+                    Text="@(NavMenuExpanded ? Text : string.Empty)">
+        @if (HasIcon)
+        {
+            if (IconContent is not null)
+            {
+                <div slot="start">@IconContent</div>
+            }
+            else
+            {
+                <FluentIcon Value="@Icon" Width="20px" Slot="start" OnClick="@HandleIconClick" />
+            }
         }
-        else {
-            <FluentIcon Value="@Icon" Width="20px" Slot="start" OnClick="@HandleIconClick"/>
+        else if (SiblingHasIcon)
+        {
+            <span style="width:20px;" slot="start"></span>
         }
-    } 
-    @if (!HasIcon && NavMenu.HasIcons)
-    {
-        <span style="width:20px;" slot="start"></span>
-    }
-    @if (NavMenuExpanded)
-    {
-        @ChildContent
-    }
-    
-</FluentTreeItem>
+        @if (NavMenuExpanded)
+        {
+            @ChildContent
+        }
+    </FluentTreeItem>
+</CascadingValue>

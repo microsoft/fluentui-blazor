@@ -4,7 +4,7 @@ using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentNavMenuLink : FluentComponentBase, IDisposable
+public partial class FluentNavMenuLink : FluentComponentBase, INavMenuChildElement, IDisposable
 {
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
@@ -82,9 +82,15 @@ public partial class FluentNavMenuLink : FluentComponentBase, IDisposable
     [CascadingParameter(Name = "NavMenuExpanded")]
     private bool NavMenuExpanded { get; set; }
 
+    [CascadingParameter]
+    private INavMenuParentElement ParentElement { get; set; } = null!;
+
+    [CascadingParameter(Name = "NavMenuItemSiblingHasIcon")]
+    private bool SiblingHasIcon { get; set; }
+
     protected string? ClassValue => new CssBuilder(Class)
-       .AddClass("navmenu-link", () => NavMenu.HasSubMenu || NavMenu.HasIcons)
-       .AddClass("navmenu-link-nogroup", () => !NavMenu.HasSubMenu && NavMenu.HasIcons)
+       .AddClass("navmenu-link")
+	   .AddClass("navmenu-child-element")
        .Build();
 
     protected string? StyleValue => new StyleBuilder()
@@ -92,7 +98,7 @@ public partial class FluentNavMenuLink : FluentComponentBase, IDisposable
         .AddStyle(Style)
         .Build();
 
-    internal bool HasIcon => Icon != null || IconContent is not null;
+    public bool HasIcon => Icon != null || IconContent is not null;
 
     public FluentNavMenuLink()
     {
@@ -102,7 +108,7 @@ public partial class FluentNavMenuLink : FluentComponentBase, IDisposable
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        NavMenu.AddNavMenuLink(this);
+        ParentElement.Register(this);
 
         if (!string.IsNullOrEmpty(Href) && (new Uri(NavigationManager.Uri).LocalPath) == Href)
             Selected = true;
@@ -125,6 +131,6 @@ public partial class FluentNavMenuLink : FluentComponentBase, IDisposable
     /// </summary>
     void IDisposable.Dispose()
     {
-        NavMenu.RemoveNavMenuLink(this);
+        ParentElement.Unregister(this);
     }
 }

@@ -1,6 +1,8 @@
 <div>
     <FluentNavMenu Collapsible="false">
-        <FluentNavMenuLink Class="level1"  Icon="@(new Icons.Regular.Size20.Home())" Href="/" />
+        <FluentNavMenuLink Icon="@(new Icons.Regular.Size20.Home())" Href="/">
+            <h2>Home</h2>
+        </FluentNavMenuLink>
 
         <FluentNavMenuGroup InitiallyExpanded>
             <h2>More information</h2>
@@ -13,7 +15,6 @@
             <FluentNavMenuLink Href="/Templates" Icon="@(new Icons.Regular.Size20.Classification())" Text="Project templates" />
             <FluentNavMenuLink Href="/DialogService" Icon="@(new Icons.Regular.Size20.AppGeneric())" Text="DialogService" />
             <FluentNavMenuLink Href="/ToastService" Icon="@(new Icons.Regular.Size20.FoodToast())" Text="ToastService" />
-
         </FluentNavMenuGroup>
 
         <FluentNavMenuGroup InitiallyExpanded>

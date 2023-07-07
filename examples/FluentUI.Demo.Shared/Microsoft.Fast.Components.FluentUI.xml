@@ -3049,12 +3049,12 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.Expanded">
             <summary>
-            Gets or sets whether the menu is collapsed.
+            Gets or sets whether the menu is expanded.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.ExpandedChanged">
             <summary>
-            Event callback for when the menu is collapsed status changed.
+            Event callback for when the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.Expanded"/> property changes.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.InitiallyExpanded">
@@ -3065,7 +3065,7 @@
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentNavMenu.CollapseAsync">
             <summary>
-            Ensures the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenu"/> is collasped.
+            Ensures the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenu"/> is collapsed.
             </summary>
             <returns></returns>
         </member>
