@@ -1,11 +1,10 @@
-﻿using System.Runtime.CompilerServices;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuItem, INavMenuItemsHolder, IDisposable
+public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElement, INavMenuParentElement, IDisposable
 {
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
@@ -84,13 +83,13 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuItem, INa
     private bool NavMenuExpanded { get; set; }
 
     [CascadingParameter]
-    private INavMenuItemsHolder NavMenuItemsHolder { get; set; } = null!;
+    private INavMenuParentElement ParentElement { get; set; } = null!;
 
     [CascadingParameter(Name = "NavMenuItemSiblingHasIcon")]
     private bool SiblingHasIcon { get; set; }
 
-    private readonly List<INavMenuItem> _navMenuItems = new();
-    private bool HasChildIcons => ((INavMenuItemsHolder)this).HasChildIcons;
+    private readonly List<INavMenuChildElement> _childElements = new();
+    private bool HasChildIcons => ((INavMenuParentElement)this).HasChildIcons;
     private bool Collapsed => !Expanded;
 
     public FluentNavMenuGroup()
@@ -99,9 +98,9 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuItem, INa
     }
 
     protected string? ClassValue => new CssBuilder(Class)
-        .AddClass("navmenu-item-holder")
+        .AddClass("navmenu-parent-element")
         .AddClass("navmenu-group")
-        .AddClass("navmenu-item")
+        .AddClass("navmenu-child-element")
         .Build();
 
     protected string? StyleValue => new StyleBuilder()
@@ -165,7 +164,7 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuItem, INa
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        NavMenuItemsHolder.AddItem(this);
+        ParentElement.Register(this);
     }
 
     /// <summary>
@@ -173,8 +172,8 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuItem, INa
     /// </summary>
     void IDisposable.Dispose()
     {
-        NavMenuItemsHolder.RemoveItem(this);
-        _navMenuItems.Clear();
+        ParentElement.Unregister(this);
+        _childElements.Clear();
     }
 
     private async Task HandleClickAsync()
@@ -202,17 +201,17 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuItem, INa
         ? CollapseAsync()
         : ExpandAsync();
 
-    void INavMenuItemsHolder.AddItem(INavMenuItem item)
+    void INavMenuParentElement.Register(INavMenuChildElement child)
     {
-        NavMenuItemsHolder.AddItem(item);
+        ParentElement.Register(child);
         StateHasChanged();
     }
 
-    void INavMenuItemsHolder.RemoveItem(INavMenuItem item)
+    void INavMenuParentElement.Unregister(INavMenuChildElement child)
     {
-        NavMenuItemsHolder.RemoveItem(item);
+        ParentElement.Unregister(child);
         StateHasChanged();
     }
 
-    IEnumerable<INavMenuItem> INavMenuItemsHolder.GetItems() => _navMenuItems;
+    IEnumerable<INavMenuChildElement> INavMenuParentElement.GetChildElements() => _childElements;
 }

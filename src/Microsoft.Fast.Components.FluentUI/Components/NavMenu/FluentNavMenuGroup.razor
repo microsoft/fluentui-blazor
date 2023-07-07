@@ -2,7 +2,7 @@
 @inherits FluentComponentBase
 
 
-<CascadingValue TValue=INavMenuItemsHolder Value="@this" IsFixed>
+<CascadingValue TValue=INavMenuParentElement Value="@this" IsFixed>
     <CascadingValue Value="@HasChildIcons" Name="NavMenuItemSiblingHasIcon">
         <FluentTreeItem Id="@Id"
                         Class="@ClassValue"

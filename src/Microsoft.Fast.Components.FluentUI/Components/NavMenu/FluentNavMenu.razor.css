@@ -1,9 +1,10 @@
-﻿::deep .navmenu {
+﻿ /*NavMenu*/
+::deep .navmenu {
     background-color: var(--neutral-layer-1);
 }
 
 
-
+/*NavMenu expander*/
 ::deep .nav-menu-expander::part(positioning-region) {
     background-color: var(--neutral-fill-stealth-rest);
 }
@@ -23,8 +24,8 @@
 }
 
 
-
-::deep .navmenu-item::part(content-region) {
+/*Child Elements (Groups and Items)*/
+::deep .navmenu-child-element::part(content-region) {
     -webkit-user-select: none;
     user-select: none;
     margin-inline-start: calc(var(--design-unit) * 2px);
@@ -32,7 +33,7 @@
 
 
 
-
+/* Parent elements (NavMenu and Groups) */
 ::deep .navmenu-group::part(content-region) {
     margin-inline-end: var(--expand-collapse-button-size);
 }

@@ -4,7 +4,7 @@ using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentNavMenuLink : FluentComponentBase, INavMenuItem, IDisposable
+public partial class FluentNavMenuLink : FluentComponentBase, INavMenuChildElement, IDisposable
 {
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
@@ -83,14 +83,14 @@ public partial class FluentNavMenuLink : FluentComponentBase, INavMenuItem, IDis
     private bool NavMenuExpanded { get; set; }
 
     [CascadingParameter]
-    private INavMenuItemsHolder NavMenuItemsHolder { get; set; } = null!;
+    private INavMenuParentElement ParentElement { get; set; } = null!;
 
     [CascadingParameter(Name = "NavMenuItemSiblingHasIcon")]
     private bool SiblingHasIcon { get; set; }
 
     protected string? ClassValue => new CssBuilder(Class)
        .AddClass("navmenu-link")
-	   .AddClass("navmenu-item")
+	   .AddClass("navmenu-child-element")
        .Build();
 
     protected string? StyleValue => new StyleBuilder()
@@ -108,7 +108,7 @@ public partial class FluentNavMenuLink : FluentComponentBase, INavMenuItem, IDis
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        NavMenuItemsHolder.AddItem(this);
+        ParentElement.Register(this);
 
         if (!string.IsNullOrEmpty(Href) && (new Uri(NavigationManager.Uri).LocalPath) == Href)
             Selected = true;
@@ -131,6 +131,6 @@ public partial class FluentNavMenuLink : FluentComponentBase, INavMenuItem, IDis
     /// </summary>
     void IDisposable.Dispose()
     {
-        NavMenuItemsHolder.RemoveItem(this);
+        ParentElement.Unregister(this);
     }
 }

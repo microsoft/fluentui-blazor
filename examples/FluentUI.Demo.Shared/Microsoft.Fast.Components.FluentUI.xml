@@ -3064,7 +3064,7 @@
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentNavMenu.CollapseAsync">
             <summary>
-            Ensures the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenu"/> is collasped.
+            Ensures the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenu"/> is collapsed.
             </summary>
             <returns></returns>
         </member>

@@ -1,6 +1,6 @@
 ﻿namespace Microsoft.Fast.Components.FluentUI;
 
-internal interface INavMenuItem
+internal interface INavMenuChildElement
 {
     string? Id { get; }
     string? Href { get; }

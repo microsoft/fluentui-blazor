@@ -3,7 +3,7 @@
 
 <div>
     <CascadingValue Value="this" IsFixed="true">
-        <CascadingValue TValue=INavMenuItemsHolder Value="@this" IsFixed>
+        <CascadingValue TValue=INavMenuParentElement Value="@this" IsFixed>
             <CascadingValue Value="@Expanded" Name="NavMenuExpanded">
                 <CascadingValue Value="@HasChildIcons" Name="NavMenuItemSiblingHasIcon">
                     <FluentTreeView Class="@ClassValue"
