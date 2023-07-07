@@ -25,10 +25,23 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
     public bool Expanded { get; set; }
 
     /// <summary>
+    /// Gets or sets a callback that is triggered whenever <see cref="Expanded"/> changes.
+    /// </summary>
+    [Parameter]
+    public EventCallback<bool> ExpandedChanged { get; set; }
+
+    /// <summary>
     /// When true, the control will appear selected by user interaction.
     /// </summary>
     [Parameter]
     public bool Selected { get; set; }
+
+    /// <summary>
+    /// Gets or sets a callback that is triggered whenever <see cref="Selected"/> changes.
+    /// </summary>
+    [Parameter]
+    public EventCallback<bool> SelectedChanged { get; set; }
+
 
     /// <summary>
     /// When true, the control will be immutable by user interaction. See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled">disabled</see> HTML attribute for more information.
@@ -62,5 +75,24 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
         Expanded = value;
     }
 
-    public void Dispose() => Owner?.Unregister(this);
+    void IDisposable.Dispose() => Owner?.Unregister(this);
+
+    private async Task HandleExpandedChangedAsync(TreeChangeEventArgs args)
+    {
+        if (args.Expanded is bool expanded && expanded != Expanded && ExpandedChanged.HasDelegate)
+        {
+            Expanded = expanded;
+            await ExpandedChanged.InvokeAsync(expanded);
+        }
+    }
+
+    private async Task HandleSelectedChangedAsync(TreeChangeEventArgs args)
+    {
+        if (args.Selected is bool selected && selected != Selected && SelectedChanged.HasDelegate)
+        {
+            Selected = selected;
+            await SelectedChanged.InvokeAsync(selected);
+        }
+    }
+
 }

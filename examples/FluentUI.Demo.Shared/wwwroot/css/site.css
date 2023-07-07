@@ -562,7 +562,6 @@ code {
 /* Group items */
 .navmenu-group .navmenu-child-element::part(content-region) {
     padding-inline-start: 20px;
-    border: 1px solid red;
 }
 
 

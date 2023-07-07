@@ -9,10 +9,10 @@
                         Style="@StyleValue"
                         Disabled="@Disabled"
                         Selected="@Selected"
+                        SelectedChanged="@HandleSelectedChangedAsync"
                         Expanded="@(NavMenuExpanded ? Expanded : false)"
-                        Text="@(NavMenuExpanded ? Text : string.Empty)"
-                        @onkeydown="@HandleKeyDownAsync"
-                        @onclick="@HandleClickAsync">
+                        ExpandedChanged="@HandleSelectedChangedAsync"
+                        Text="@(NavMenuExpanded ? Text : string.Empty)">
              @if (HasIcon)
             {
                 if (IconContent is not null)

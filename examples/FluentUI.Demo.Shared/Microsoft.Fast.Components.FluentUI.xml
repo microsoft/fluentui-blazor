@@ -3107,12 +3107,22 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Expanded">
             <summary>
-            Gets or sets whether the menu group is expanded
+            When true, the control will be appear expanded by user interaction.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.ExpandedChanged">
+            <summary>
+            Gets or sets a callback that is triggered whenever <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Expanded"/> changes.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Selected">
             <summary>
-            Gets or sets whether the menu group is selected
+            When true, the control will appear selected by user interaction.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.SelectedChanged">
+            <summary>
+            Gets or sets a callback that is triggered whenever <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Selected"/> changes.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Text">
@@ -3123,11 +3133,6 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Width">
             <summary>
             Gets or sets the width of the menu group
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.ExpandedChanged">
-            <summary>
-            Callback function for when the menu group is expanded
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.InitiallyExpanded">
@@ -4651,9 +4656,19 @@
             When true, the control will be appear expanded by user interaction.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.ExpandedChanged">
+            <summary>
+            Gets or sets a callback that is triggered whenever <see cref="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Expanded"/> changes.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Selected">
             <summary>
             When true, the control will appear selected by user interaction.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.SelectedChanged">
+            <summary>
+            Gets or sets a callback that is triggered whenever <see cref="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Selected"/> changes.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Disabled">

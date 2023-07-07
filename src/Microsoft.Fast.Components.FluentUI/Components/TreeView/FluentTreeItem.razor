@@ -8,6 +8,8 @@
                   expanded="@Expanded"
                   selected="@Selected"
                   disabled="@Disabled"
+                  @onexpandedchange="@HandleExpandedChangedAsync"
+                  @onselectedchange="@HandleSelectedChangedAsync"
                   @attributes="AdditionalAttributes">
     @Text
     @ChildContent

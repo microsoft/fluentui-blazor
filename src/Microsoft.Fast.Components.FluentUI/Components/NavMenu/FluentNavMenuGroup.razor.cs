@@ -46,16 +46,28 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
 
 
     /// <summary>
-    /// Gets or sets whether the menu group is expanded
+    /// When true, the control will be appear expanded by user interaction.
     /// </summary>
     [Parameter]
     public bool Expanded { get; set; }
 
     /// <summary>
-    /// Gets or sets whether the menu group is selected
+    /// Gets or sets a callback that is triggered whenever <see cref="Expanded"/> changes.
+    /// </summary>
+    [Parameter]
+    public EventCallback<bool> ExpandedChanged { get; set; }
+
+    /// <summary>
+    /// When true, the control will appear selected by user interaction.
     /// </summary>
     [Parameter]
     public bool Selected { get; set; }
+
+    /// <summary>
+    /// Gets or sets a callback that is triggered whenever <see cref="Selected"/> changes.
+    /// </summary>
+    [Parameter]
+    public EventCallback<bool> SelectedChanged { get; set; }
 
     /// <summary>
     /// Gets or sets the text of the menu group
@@ -68,12 +80,6 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
     /// </summary>
     [Parameter]
     public int? Width { get; set; }
-
-    /// <summary>
-    /// Callback function for when the menu group is expanded
-    /// </summary>
-    [Parameter]
-    public EventCallback<bool> ExpandedChanged { get; set; }
 
     /// <summary>
     /// If set to <see langword="true"/> then the tree will
@@ -151,7 +157,10 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
             await ExpandedChanged.InvokeAsync(true);
         }
 
-        await NavMenu.GroupExpandedAsync(this);
+        if (NavMenu.Collapsed)
+        {
+            await NavMenu.ExpandAsync();
+        }
         StateHasChanged();
     }
 
@@ -190,26 +199,6 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
         _childElements.Clear();
     }
 
-    private async Task HandleClickAsync()
-    {
-        if (NavMenu.Expanded)
-        {
-            // Normal behavior for expanded nav menu
-            await ToggleCollapsedAsync();
-        }
-        else
-        {
-            // There is no user group collapsing when the nav menu is collapsed.
-            // So a click on a collapsed group should expand that group, but
-            // a click on an already expanded group should do nothing to the group
-            // but tell the nav menu to expand.
-            if (Collapsed)
-                await ExpandAsync();
-            else
-                await NavMenu.GroupExpandedAsync(this);
-        }
-    }
-
     private Task ToggleCollapsedAsync() =>
         Expanded
         ? CollapseAsync()
@@ -228,4 +217,30 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
     }
 
     IEnumerable<INavMenuChildElement> INavMenuParentElement.GetChildElements() => _childElements;
+
+    private async Task HandleExpandedChangedAsync(bool expanded)
+    {
+        if (expanded != Expanded && ExpandedChanged.HasDelegate)
+        {
+            Expanded = expanded;
+            await ExpandedChanged.InvokeAsync(expanded);
+            if (NavMenu.Collapsed)
+            {
+                await NavMenu.ExpandAsync();
+            }
+        }
+    }
+
+    private async Task HandleSelectedChangedAsync(bool selected)
+    {
+        if (selected != Selected && SelectedChanged.HasDelegate)
+        {
+            Selected = selected;
+            await SelectedChanged.InvokeAsync(selected);
+            if (!Expanded)
+            {
+                await ExpandAsync();
+            }
+        }
+    }
 }

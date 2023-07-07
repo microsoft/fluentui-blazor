@@ -177,12 +177,6 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
         _childElements.Clear();
     }
 
-    internal async Task GroupExpandedAsync(FluentNavMenuGroup group)
-    {
-        if (Collapsed)
-            await ExpandAsync();
-    }
-
     void INavMenuParentElement.Register(INavMenuChildElement child)
     {
         _childElements.Add(child);
