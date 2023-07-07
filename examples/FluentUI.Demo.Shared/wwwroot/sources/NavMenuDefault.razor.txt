@@ -7,8 +7,8 @@
 <FluentStack Orientation="Orientation.Horizontal" >
     <!-- Menu with sub-items and icons -->
     <FluentNavMenu Collapsible="false">
-        <FluentNavMenuLink Class="level1" Text="Item 1" Icon="@(new Icons.Regular.Size24.Home())" />
-        <FluentNavMenuLink Class="level1" Text="Item 2" />
+        <FluentNavMenuLink Text="Item 1" Icon="@(new Icons.Regular.Size24.Home())" />
+        <FluentNavMenuLink Text="Item 2" />
         <FluentNavMenuGroup Text="Item 3"  >
             <FluentNavMenuLink Text="Item 3.1" Icon="@(new Icons.Regular.Size24.LeafOne())" />
             <FluentNavMenuLink Text="Item 3.2" Icon="@(new Icons.Regular.Size24.LeafTwo())" />
@@ -32,7 +32,7 @@
             <FluentNavMenuLink Text="Go to Bing" @onclick="OnClick" Icon="@(new Icons.Regular.Size24.LeafOne())" Href="https://bing.com" />
             <FluentNavMenuLink Text="Go to home page" @onclick="OnClick" Icon="@(new Icons.Regular.Size24.Home())" Href="/" />
         </FluentNavMenuGroup>
-        <FluentNavMenuLink Class="level1" Text="Last item" @onclick="OnClick" Icon="@(new Icons.Regular.Size24.LeafThree())" Disabled="true" />
+        <FluentNavMenuLink Text="Last item" @onclick="OnClick" Icon="@(new Icons.Regular.Size24.LeafThree())" Disabled="true" />
     </FluentNavMenu>
 
     <!-- Menu with icons -->

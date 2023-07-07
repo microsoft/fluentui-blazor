@@ -4,20 +4,21 @@ using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentNavMenu : FluentComponentBase, IDisposable
+public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement, IDisposable
 {
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
 
     private const string WIDTH_COLLAPSED_MENU = "40px";
-    private readonly List<FluentNavMenuLink> _links = new();
-    private readonly List<FluentNavMenuGroup> _groups = new();
     private string _prevHref = "/";
     private readonly string _expandCollapseTreeItemId = Identifier.NewId();
+
+    private bool HasChildIcons => ((INavMenuParentElement)this).HasChildIcons;
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("navmenu")
         .AddClass("collapsed", !Expanded)
+        .AddClass("navmenu-parent-element")
         .Build();
 
     protected string? StyleValue => new StyleBuilder()
@@ -61,13 +62,13 @@ public partial class FluentNavMenu : FluentComponentBase, IDisposable
     public bool Collapsible { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets whether the menu is collapsed.
+    /// Gets or sets whether the menu is expanded.
     /// </summary>
     [Parameter]
     public bool Expanded { get; set; } = true;
 
     /// <summary>
-    /// Event callback for when the menu is collapsed status changed.
+    /// Event callback for when the <see cref="Expanded"/> property changes.
     /// </summary>
     [Parameter]
     public EventCallback<bool> ExpandedChanged { get; set; }
@@ -78,16 +79,14 @@ public partial class FluentNavMenu : FluentComponentBase, IDisposable
     [Parameter]
     public EventCallback<bool> OnExpanded { get; set; }
 
+    public bool Collapsed => !Expanded;
+
     public FluentNavMenu()
     {
         Id = Identifier.NewId();
     }
 
-    internal bool HasSubMenu => _groups.Any();
-
-    internal bool HasIcons => _links.Any(i => i.HasIcon) || _groups.Any(g => g.HasIcon);
-
-    private bool Collapsed => !Expanded;
+    private readonly List<INavMenuChildElement> _childElements = new();
 
     private Task ToggleCollapsedAsync() => 
         Expanded
@@ -95,7 +94,7 @@ public partial class FluentNavMenu : FluentComponentBase, IDisposable
         : ExpandAsync();
 
     /// <summary>
-    /// Ensures the <see cref="FluentNavMenu"/> is collasped.
+    /// Ensures the <see cref="FluentNavMenu"/> is collapsed.
     /// </summary>
     /// <returns></returns>
     public async Task CollapseAsync()
@@ -153,11 +152,8 @@ public partial class FluentNavMenu : FluentComponentBase, IDisposable
     {
         if (treeItem.Selected && treeItem.Id != _expandCollapseTreeItemId)
         {
-            string? href = _links.FirstOrDefault(x => x.Id == treeItem.Id)?.Href;
-            if (string.IsNullOrWhiteSpace(href))
-            {
-                href = _groups.FirstOrDefault(x => x.Id == treeItem.Id)?.Href;
-            }
+            INavMenuChildElement? menuItem = ((INavMenuParentElement)this).FindElementById(treeItem.Id);
+            string? href = menuItem?.Href;
             if (!string.IsNullOrWhiteSpace(href) && href != _prevHref)
             {
                 _prevHref = href;
@@ -166,30 +162,9 @@ public partial class FluentNavMenu : FluentComponentBase, IDisposable
         }
     }
 
-    internal void AddNavMenuLink(FluentNavMenuLink link)
-    {
-        _links.Add(link);
-    }
-
-    internal void RemoveNavMenuLink(FluentNavMenuLink link)
-    {
-        _links.Remove(link);
-    }
-
-    internal void AddNavMenuGroup(FluentNavMenuGroup group)
-    {
-        _groups.Add(group);
-    }
-
-    internal void RemoveNavMenuGroup(FluentNavMenuGroup group)
-    {
-        _groups.Remove(group);
-    }
-
     void IDisposable.Dispose()
     {
-        _links.Clear();
-        _groups.Clear();
+        _childElements.Clear();
     }
 
     internal async Task GroupExpandedAsync(FluentNavMenuGroup group)
@@ -197,4 +172,18 @@ public partial class FluentNavMenu : FluentComponentBase, IDisposable
         if (Collapsed)
             await ExpandAsync();
     }
+
+    void INavMenuParentElement.Register(INavMenuChildElement child)
+    {
+        _childElements.Add(child);
+        StateHasChanged();
+    }
+
+    void INavMenuParentElement.Unregister(INavMenuChildElement child)
+    {
+        _childElements.Remove(child);
+        StateHasChanged();
+    }
+
+    IEnumerable<INavMenuChildElement> INavMenuParentElement.GetChildElements() => _childElements;
 }
