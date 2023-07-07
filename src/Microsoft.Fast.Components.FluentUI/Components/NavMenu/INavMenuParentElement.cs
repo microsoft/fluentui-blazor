@@ -2,8 +2,7 @@
 
 internal interface INavMenuParentElement
 {
-    Task CollapseAsync();
-    Task ExpandAsync();
+    Task SetExpandedAsync(bool expanded, bool forceChangedEvent);
     void Register(INavMenuChildElement child);
     void Unregister(INavMenuChildElement child);
     IEnumerable<INavMenuChildElement> GetChildElements();

@@ -3063,16 +3063,12 @@
             expand when it is created.
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentNavMenu.CollapseAsync">
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentNavMenu.SetExpandedAsync(System.Boolean,System.Boolean)">
             <summary>
-            Ensures the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenu"/> is collapsed.
+            Sets if the menu is expanded or not.
             </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentNavMenu.ExpandAsync">
-            <summary>
-            Ensures the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenu"/> is expanded.
-            </summary>
+            <param name="expanded">Whether or not the menu should be expanded.</param>
+            <param name="forceChangedEvent">Trigger a <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.ExpandedChanged"/> event even if the value hasn't changed.</param>
             <returns></returns>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.ChildContent">
@@ -3120,11 +3116,6 @@
             When true, the control will appear selected by user interaction.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.SelectedChanged">
-            <summary>
-            Gets or sets a callback that is triggered whenever <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Selected"/> changes.
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Text">
             <summary>
             Gets or sets the text of the menu group
@@ -3141,16 +3132,16 @@
             expand when it is created.
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.CollapseAsync">
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.SetExpandedAsync(System.Boolean,System.Boolean)">
             <summary>
-            Ensures the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenu"/> is collasped.
+            Sets if the group is expanded or not.
             </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.ExpandAsync">
-            <summary>
-            Ensures the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenu"/> is expanded.
-            </summary>
+            <param name="expanded">Whether or not the group should be expanded.</param>
+            <param name="forceChangedEvent">
+                Trigger a <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.ExpandedChanged"/> event even if the value hasn't changed.
+                This is used when the value is changed via the FAST component's JavaScript and
+                notified to us via the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentTreeView.OnExpandedChange"/>.
+            </param>
             <returns></returns>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.System#IDisposable#Dispose">

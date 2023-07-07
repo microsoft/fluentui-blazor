@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Fast.Components.FluentUI.Utilities;
 
@@ -90,48 +89,29 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
 
     private readonly List<INavMenuChildElement> _childElements = new();
 
-    private Task ToggleCollapsedAsync() =>
-        Expanded
-        ? CollapseAsync()
-        : ExpandAsync();
-
     /// <summary>
-    /// Ensures the <see cref="FluentNavMenu"/> is collapsed.
+    /// Sets if the menu is expanded or not.
     /// </summary>
+    /// <param name="expanded">Whether or not the menu should be expanded.</param>
+    /// <param name="forceChangedEvent">Trigger a <see cref="ExpandedChanged"/> event even if the value hasn't changed.</param>
     /// <returns></returns>
-    public async Task CollapseAsync()
+    public async Task SetExpandedAsync(bool expanded, bool forceChangedEvent = false)
     {
-        if (Collapsed || !Collapsible)
+        bool changesRequired = forceChangedEvent || expanded != Expanded;
+
+        if (!changesRequired)
             return;
 
-        Expanded = false;
-
+        Expanded = expanded;
         if (ExpandedChanged.HasDelegate)
         {
-            await ExpandedChanged.InvokeAsync(false);
+            await ExpandedChanged.InvokeAsync(expanded);
         }
 
         StateHasChanged();
     }
 
-
-    /// <summary>
-    /// Ensures the <see cref="FluentNavMenu"/> is expanded.
-    /// </summary>
-    /// <returns></returns>
-    public async Task ExpandAsync()
-    {
-        if (Expanded)
-            return;
-
-        Expanded = true;
-        if (ExpandedChanged.HasDelegate)
-        {
-            await ExpandedChanged.InvokeAsync(true);
-        }
-
-        StateHasChanged();
-    }
+    private Task ToggleCollapsedAsync() => SetExpandedAsync(!Expanded);
 
     protected override async Task OnInitializedAsync()
     {
@@ -150,9 +130,9 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
     {
         Task handler = args.Code switch
         {
-            "Enter" => ExpandAsync(),
-            "ArrowRight" => ExpandAsync(),
-            "ArrowLeft" => CollapseAsync(),
+            "Enter" => SetExpandedAsync(true),
+            "ArrowRight" => SetExpandedAsync(true),
+            "ArrowLeft" => SetExpandedAsync(false),
             _ => Task.CompletedTask
         };
         await handler;
@@ -160,9 +140,17 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
 
     private async Task HandleTreeItemExpandedChangedAsync(FluentTreeItem item)
     {
-        if (item.Expanded)
+        if (!item.Expanded)
         {
-            await ExpandAsync();
+            return;
+        }
+
+        await SetExpandedAsync(expanded: true);
+
+        INavMenuChildElement? menuItem = (this as INavMenuParentElement).FindElementById(item.Id);
+        if (menuItem is INavMenuParentElement elementToExpand)
+        {
+            await elementToExpand.SetExpandedAsync(expanded: item.Expanded, forceChangedEvent: true);
         }
     }
 
@@ -188,8 +176,8 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
 
     private async Task EnsureGroupAndMenuAreExpandedAsync(INavMenuParentElement element)
     {
-        await element.ExpandAsync();
-        await ExpandAsync();
+        await element.SetExpandedAsync(expanded: true, forceChangedEvent: false);
+        await SetExpandedAsync(true);
     }
 
     private void Navigate(INavMenuChildElement element)
