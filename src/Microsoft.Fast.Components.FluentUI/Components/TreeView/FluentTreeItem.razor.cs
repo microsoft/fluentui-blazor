@@ -16,8 +16,6 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
     [Parameter]
     public string? Text { get; set; }
 
-
-
     /// <summary>
     /// When true, the control will be appear expanded by user interaction.
     /// </summary>
@@ -79,6 +77,9 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
 
     private async Task HandleExpandedChangedAsync(TreeChangeEventArgs args)
     {
+        if (args.AffectedId != Id)
+            return;
+
         if (args.Expanded is bool expanded && expanded != Expanded && ExpandedChanged.HasDelegate)
         {
             Expanded = expanded;
@@ -88,6 +89,9 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
 
     private async Task HandleSelectedChangedAsync(TreeChangeEventArgs args)
     {
+        if (args.AffectedId != Id)
+            return;
+
         if (args.Selected is bool selected && selected != Selected && SelectedChanged.HasDelegate)
         {
             Selected = selected;

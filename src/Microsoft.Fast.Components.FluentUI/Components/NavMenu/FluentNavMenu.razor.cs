@@ -107,7 +107,7 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
 
         if (ExpandedChanged.HasDelegate)
         {
-            await ExpandedChanged.InvokeAsync(Expanded);
+            await ExpandedChanged.InvokeAsync(false);
         }
 
         StateHasChanged();
@@ -124,10 +124,9 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
             return;
 
         Expanded = true;
-
         if (ExpandedChanged.HasDelegate)
         {
-            await ExpandedChanged.InvokeAsync(Expanded);
+            await ExpandedChanged.InvokeAsync(true);
         }
 
         StateHasChanged();

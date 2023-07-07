@@ -5,11 +5,9 @@
                   style="@Style"
                   id="@Id"
                   tree-item-id="@Id"
-                  expanded="@Expanded"
+                  @bind-expanded="@Expanded"
                   selected="@Selected"
                   disabled="@Disabled"
-                  @onexpandedchange="@HandleExpandedChangedAsync"
-                  @onselectedchange="@HandleSelectedChangedAsync"
                   @attributes="AdditionalAttributes">
     @Text
     @ChildContent

@@ -151,7 +151,6 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
             return;
 
         Expanded = true;
-
         if (ExpandedChanged.HasDelegate)
         {
             await ExpandedChanged.InvokeAsync(true);
@@ -162,18 +161,6 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
             await NavMenu.ExpandAsync();
         }
         StateHasChanged();
-    }
-
-    private async Task HandleKeyDownAsync(KeyboardEventArgs args)
-    {
-        Task handler = args.Code switch
-        {
-            "Enter" => ExpandAsync(),
-            "ArrowRight" => ExpandAsync(),
-            "ArrowLeft" => CollapseAsync(),
-            _ => Task.CompletedTask
-        };
-        await handler;
     }
 
     protected override async Task OnInitializedAsync()
@@ -220,27 +207,36 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
 
     private async Task HandleExpandedChangedAsync(bool expanded)
     {
-        if (expanded != Expanded && ExpandedChanged.HasDelegate)
+        if (expanded == Expanded)
         {
-            Expanded = expanded;
-            await ExpandedChanged.InvokeAsync(expanded);
-            if (NavMenu.Collapsed)
-            {
-                await NavMenu.ExpandAsync();
-            }
+            return;
         }
+
+        if (Collapsed)
+            await ExpandAsync();
+        else
+            await CollapseAsync();
     }
 
     private async Task HandleSelectedChangedAsync(bool selected)
     {
-        if (selected != Selected && SelectedChanged.HasDelegate)
+        if (Selected == selected)
         {
-            Selected = selected;
+            return;
+        }
+
+        Selected = selected;
+        if (SelectedChanged.HasDelegate)
+        {
             await SelectedChanged.InvokeAsync(selected);
-            if (!Expanded)
-            {
+        }
+
+        if (selected && NavMenu.Collapsed)
+        {
+            if (Collapsed)
                 await ExpandAsync();
-            }
+            else
+                await NavMenu.ExpandAsync();
         }
     }
 }
