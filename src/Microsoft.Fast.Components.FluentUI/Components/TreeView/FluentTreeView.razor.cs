@@ -21,13 +21,16 @@ public partial class FluentTreeView : FluentComponentBase
     public FluentTreeItem CurrentSelected { get; set; } = default!;
 
     /// <summary>
+    /// Callback that is called whenever <see cref="CurrentSelected"/> changes.
+    /// </summary>
+    [Parameter]
+    public EventCallback<FluentTreeItem> CurrentSelectedChanged { get; set; }
+
+    /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
-
-    [Parameter]
-    public EventCallback<FluentTreeItem> CurrentSelectedChanged { get; set; }
 
     [Parameter]
     public EventCallback<FluentTreeItem> OnSelectedChange { get; set; }

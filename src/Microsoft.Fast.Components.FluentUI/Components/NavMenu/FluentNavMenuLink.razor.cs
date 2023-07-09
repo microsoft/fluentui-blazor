@@ -90,7 +90,7 @@ public partial class FluentNavMenuLink : FluentComponentBase, INavMenuChildEleme
 
     protected string? ClassValue => new CssBuilder(Class)
        .AddClass("navmenu-link")
-	   .AddClass("navmenu-child-element")
+       .AddClass("navmenu-child-element")
        .Build();
 
     protected string? StyleValue => new StyleBuilder()
@@ -103,6 +103,32 @@ public partial class FluentNavMenuLink : FluentComponentBase, INavMenuChildEleme
     public FluentNavMenuLink()
     {
         Id = Identifier.NewId();
+    }
+
+    /// <summary>
+    /// Sets if the group is selected or not.
+    /// </summary>
+    /// <param name="selected">Whether or not the group should be selected.</param>
+    /// <param name="forceChangedEvent">
+    ///     Trigger a <see cref="SelectedChanged"/> event even if the value hasn't changed.
+    ///     This is used when <see cref="Selected"/> is changed via the FAST component's JavaScript and
+    ///     notified to us via the <see cref="FluentTreeView.OnSelectedChange"/>.
+    /// </param>
+    /// <returns></returns>
+    public async Task SetSelectedAsync(bool selected, bool forceChangedEvent = false)
+    {
+        bool changesRequired = forceChangedEvent || selected != Selected;
+
+        if (!changesRequired)
+            return;
+
+        Selected = selected;
+        if (SelectedChanged.HasDelegate)
+        {
+            await SelectedChanged.InvokeAsync(selected);
+        }
+
+        StateHasChanged();
     }
 
     protected override void OnInitialized()
@@ -119,11 +145,6 @@ public partial class FluentNavMenuLink : FluentComponentBase, INavMenuChildEleme
     {
         if (!Disabled)
             Selected = true;
-    }
-
-    internal void SetSelected(bool value)
-    {
-        Selected = value;
     }
 
     /// <summary>

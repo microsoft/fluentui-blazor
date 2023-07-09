@@ -138,21 +138,21 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
         await handler;
     }
 
-    private async Task HandleTreeItemExpandedChangedAsync(FluentTreeItem item)
+    private async Task HandleTreeItemExpandedChangedAsync(FluentTreeItem treeItem)
     {
-        if (item.Expanded)
+        if (treeItem.Expanded)
         {
             await SetExpandedAsync(expanded: true);
         }
 
-        INavMenuChildElement? menuItem = (this as INavMenuParentElement).FindElementById(item.Id);
+        INavMenuChildElement? menuItem = (this as INavMenuParentElement).FindElementById(treeItem.Id);
         if (menuItem is INavMenuParentElement elementToExpand)
         {
-            await elementToExpand.SetExpandedAsync(expanded: item.Expanded, forceChangedEvent: true);
+            await elementToExpand.SetExpandedAsync(expanded: treeItem.Expanded, forceChangedEvent: true);
         }
     }
 
-    private async Task HandleSelectedChangedAsync(FluentTreeItem treeItem)
+    private async Task HandleTreeItemSelectedChangedAsync(FluentTreeItem treeItem)
     {
         if (!treeItem.Selected || treeItem.Id == _expandCollapseTreeItemId)
         {
@@ -169,6 +169,7 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
         if (menuElement is INavMenuChildElement childElement)
         {
             Navigate(childElement);
+            await childElement.SetSelectedAsync(selected: treeItem.Selected, forceChangedEvent: true);
         }
     }
 

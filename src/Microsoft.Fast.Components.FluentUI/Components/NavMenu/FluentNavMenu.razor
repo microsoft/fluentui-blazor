@@ -9,7 +9,7 @@
                     <FluentTreeView Class="@ClassValue"
                                     Style="@StyleValue"
                                     OnExpandedChange="@HandleTreeItemExpandedChangedAsync"
-                                    OnSelectedChange="@HandleSelectedChangedAsync">
+                                    OnSelectedChange="@HandleTreeItemSelectedChangedAsync">
                         @if (Collapsible)
                         {
                             <FluentTreeItem Id="@_expandCollapseTreeItemId" Class="nav-menu-expander" @onclick="@ToggleCollapsedAsync" @onkeydown="@HandleExpandCollapseKeyDownAsync">

@@ -64,6 +64,12 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
     public bool Selected { get; set; }
 
     /// <summary>
+    /// Callback function for when the selected state changes.
+    /// </summary>
+    [Parameter]
+    public EventCallback<bool> SelectedChanged { get; set; }
+
+    /// <summary>
     /// Gets or sets the text of the menu group
     /// </summary>
     [Parameter]
@@ -102,6 +108,7 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
     {
         Id = Identifier.NewId();
     }
+
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("navmenu-parent-element")
@@ -143,6 +150,33 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
         StateHasChanged();
     }
 
+    /// <summary>
+    /// Sets if the group is selected or not.
+    /// </summary>
+    /// <param name="selected">Whether or not the group should be selected.</param>
+    /// <param name="forceChangedEvent">
+    ///     Trigger a <see cref="SelectedChanged"/> event even if the value hasn't changed.
+    ///     This is used when <see cref="Selected"/> is changed via the FAST component's JavaScript and
+    ///     notified to us via the <see cref="FluentTreeView.OnSelectedChange"/>.
+    /// </param>
+    /// <returns></returns>
+    public async Task SetSelectedAsync(bool selected, bool forceChangedEvent = false)
+    {
+        bool changesRequired = forceChangedEvent || selected != Selected;
+
+        if (!changesRequired)
+            return;
+
+        Selected = selected;
+        if (SelectedChanged.HasDelegate)
+        {
+            await SelectedChanged.InvokeAsync(selected);
+        }
+
+        StateHasChanged();
+    }
+
+
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
@@ -181,5 +215,4 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
     }
 
     IEnumerable<INavMenuChildElement> INavMenuParentElement.GetChildElements() => _childElements;
-
 }
