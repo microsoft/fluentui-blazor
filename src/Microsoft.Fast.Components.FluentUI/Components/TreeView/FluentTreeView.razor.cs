@@ -59,6 +59,15 @@ public partial class FluentTreeView : FluentComponentBase
 
     internal async Task ItemSelectedChangeAsync(FluentTreeItem item)
     {
+        if (CurrentSelected != item)
+        {
+            CurrentSelected = item.Selected ? item : null;
+            if (CurrentSelectedChanged.HasDelegate)
+            {
+                await CurrentSelectedChanged.InvokeAsync(item);
+            }
+        }
+
         if (OnSelectedChange.HasDelegate)
         {
             await OnSelectedChange.InvokeAsync(item);

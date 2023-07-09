@@ -44,4 +44,9 @@
     bool DaisySelected = false;
     bool SunflowerSelected = true;
     bool RoseSelected = false;
+
+    private void Ha()
+    {
+        Console.WriteLine("HA");
+    }
 }
