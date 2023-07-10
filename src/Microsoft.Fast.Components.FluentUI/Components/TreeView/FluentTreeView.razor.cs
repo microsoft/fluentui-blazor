@@ -5,8 +5,6 @@ namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentTreeView : FluentComponentBase
 {
-    private readonly Dictionary<string, FluentTreeItem> items = new();
-
     /// <summary>
     /// Gets or sets whether the tree should render nodes under collapsed items
     /// Defaults to false
@@ -18,7 +16,13 @@ public partial class FluentTreeView : FluentComponentBase
     /// Gets or sets the currently selected tree item
     /// </summary>
     [Parameter]
-    public FluentTreeItem CurrentSelected { get; set; } = default!;
+    public FluentTreeItem? CurrentSelected { get; set; } = default!;
+
+    /// <summary>
+    /// Called when <see cref="CurrentSelected"/> changes.
+    /// </summary>
+    [Parameter]
+    public EventCallback<FluentTreeItem?> CurrentSelectedChanged { get; set; }
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
@@ -26,52 +30,47 @@ public partial class FluentTreeView : FluentComponentBase
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    [Parameter]
-    public EventCallback<FluentTreeItem> CurrentSelectedChanged { get; set; }
-
+    /// <summary>
+    /// Called whenever <see cref="FluentTreeItem.Selected"/> changes on an
+    /// item within the tree.
+    /// </summary>
     [Parameter]
     public EventCallback<FluentTreeItem> OnSelectedChange { get; set; }
 
+    /// <summary>
+    /// Called whenever <see cref="FluentTreeItem.Expanded"/> changes on an
+    /// item within the tree.
+    /// </summary>
     [Parameter]
     public EventCallback<FluentTreeItem> OnExpandedChange { get; set; }
 
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(TreeChangeEventArgs))]
-
     public FluentTreeView()
     {
-        
     }
 
-    public async Task HandleOnSelectedChanged(TreeChangeEventArgs args)
+    internal async Task ItemExpandedChangeAsync(FluentTreeItem item)
     {
-        string? treeItemId = args.AffectedId;
-        if (items.TryGetValue(treeItemId!, out FluentTreeItem? treeItem))
+        if (OnExpandedChange.HasDelegate)
         {
-            treeItem.SetSelected(args.Selected ?? false);
-            treeItem.SetExpanded(args.Expanded ?? false);
-
-            await CurrentSelectedChanged.InvokeAsync(treeItem);
-            await OnSelectedChange.InvokeAsync(treeItem);
+            await OnExpandedChange.InvokeAsync(item);
         }
     }
 
-    public async Task HandleOnExpandedChanged(TreeChangeEventArgs args)
+    internal async Task ItemSelectedChangeAsync(FluentTreeItem item)
     {
-        string? treeItemId = args.AffectedId;
-        if (items.TryGetValue(treeItemId!, out FluentTreeItem? treeItem))
+        if (CurrentSelected != item)
         {
-            await OnExpandedChange.InvokeAsync(treeItem);
+            CurrentSelected = item.Selected ? item : null;
+            if (CurrentSelectedChanged.HasDelegate)
+            {
+                await CurrentSelectedChanged.InvokeAsync(item);
+            }
         }
-    }
 
-    internal void Register(FluentTreeItem item)
-    {
-        if (!items.ContainsKey(item.Id!))
-            items.Add(item.Id!, item);
-    }
-
-    internal void Unregister(FluentTreeItem item)
-    {
-        items.Remove(item.Id!);
+        if (OnSelectedChange.HasDelegate)
+        {
+            await OnSelectedChange.InvokeAsync(item);
+        }
     }
 }

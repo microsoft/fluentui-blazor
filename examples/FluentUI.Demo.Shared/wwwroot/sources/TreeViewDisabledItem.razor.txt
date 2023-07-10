@@ -1,5 +1,5 @@
 ﻿<FluentTreeView>
-    <FluentTreeItem Expanded="true">
+    <FluentTreeItem InitiallyExpanded="true">
         Root item
         <FluentTreeItem>
             Flowers

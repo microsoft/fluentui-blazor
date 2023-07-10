@@ -466,7 +466,6 @@
             <summary>
             Gets or sets the content to be rendered inside the component.
             </summary>
-
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentBreadcrumb.ChildContent">
             <summary>
@@ -4270,25 +4269,20 @@
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentToastContainer.ShowCloseButton">
-
             <summary>
             Gets or sets whether to show a close button on a toast. Default is true.
             </summary>
         </member>
-
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentToastContainer.#ctor">
-
             <summary>
             Constructs an instance of <see cref="T:Microsoft.Fast.Components.FluentUI.FluentToastContainer"/>.
             </summary>
         </member>
-
         <member name="P:Microsoft.Fast.Components.FluentUI.ToastParameters`1.Content">
             <summary>
             The content to be shown in the toast body.
             </summary>
         </member>
-
         <member name="T:Microsoft.Fast.Components.FluentUI.ToastResult">
             <summary />
         </member>
@@ -4312,9 +4306,8 @@
             A event that will be invoked when showing a toast with a custom component
             </summary>
         </member>
-
         <member name="E:Microsoft.Fast.Components.FluentUI.ToastService.OnClearAll">
-           <summary>
+            <summary>
             A event that will be invoked when clearing all toasts
             </summary>
         </member>
@@ -4323,18 +4316,16 @@
             A event that will be invoked when clearing toasts of a certain intent
             </summary>
         </member>
-
         <member name="E:Microsoft.Fast.Components.FluentUI.ToastService.OnClearQueue">
             <summary>
             A event that will be invoked to clear all queued toasts
             </summary>
         </member>
         <member name="E:Microsoft.Fast.Components.FluentUI.ToastService.OnClearQueueIntent">
-           <summary>
+            <summary>
             A event that will be invoked to clear queued toast of specified intent
             </summary>
         </member>
-
         <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowSuccess(System.String,System.Nullable{System.Int32},System.String,System.Nullable{Microsoft.AspNetCore.Components.EventCallback{Microsoft.Fast.Components.FluentUI.ToastResult}})">
             <summary>
             Shows a simple succes confirmation toast.
@@ -4345,7 +4336,6 @@
             <param name="topAction">Text to use for the TopAction</param>
             <param name="callback">Callback to invoke when TopAction is clicked</param>
         </member>
-
         <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowWarning(System.String,System.Nullable{System.Int32},System.String,System.Nullable{Microsoft.AspNetCore.Components.EventCallback{Microsoft.Fast.Components.FluentUI.ToastResult}})">
             <summary>
             Shows a simple warning confirmation toast.
@@ -4646,11 +4636,6 @@
             Callback for when the tooltip is dismissed
             </summary>  
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Owner">
-            <summary>
-            Gets or sets the owning FluentTreeView
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Text">
             <summary>
             Gets or sets the text of the tree item
@@ -4661,9 +4646,19 @@
             When true, the control will be appear expanded by user interaction.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.ExpandedChanged">
+            <summary>
+            Called whenever <see cref="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Expanded"/> changes.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Selected">
             <summary>
             When true, the control will appear selected by user interaction.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.SelectedChanged">
+            <summary>
+            Called whenever <see cref="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Selected"/> changes.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Disabled">
@@ -4674,6 +4669,23 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.InitiallyExpanded">
+            <summary>
+            If set to <see langword="true"/> then the tree item will
+            be expanded when it is created.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.InitiallySelected">
+            <summary>
+            If set to <see langword="true"/> then the tree item will
+            be selected when it is created.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Owner">
+            <summary>
+            Gets or sets the owning FluentTreeView
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeView.RenderCollapsedNodes">
@@ -4687,9 +4699,26 @@
             Gets or sets the currently selected tree item
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeView.CurrentSelectedChanged">
+            <summary>
+            Called when <see cref="P:Microsoft.Fast.Components.FluentUI.FluentTreeView.CurrentSelected"/> changes.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeView.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeView.OnSelectedChange">
+            <summary>
+            Called whenever <see cref="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Selected"/> changes on an
+            item within the tree.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeView.OnExpandedChange">
+            <summary>
+            Called whenever <see cref="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Expanded"/> changes on an
+            item within the tree.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DesignTokens.DesignToken`1.Name">

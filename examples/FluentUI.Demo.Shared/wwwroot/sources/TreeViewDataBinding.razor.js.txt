@@ -1,0 +1,3 @@
+﻿export function hahaha(element) {
+    console.log(element);
+}

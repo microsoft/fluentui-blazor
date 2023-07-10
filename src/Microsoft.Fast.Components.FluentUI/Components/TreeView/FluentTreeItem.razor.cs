@@ -2,21 +2,13 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentTreeItem : FluentComponentBase, IDisposable
+public partial class FluentTreeItem : FluentComponentBase
 {
-    /// <summary>
-    /// Gets or sets the owning FluentTreeView
-    /// </summary>
-    [CascadingParameter]
-    public FluentTreeView Owner { get; set; } = default!;
-
     /// <summary>
     /// Gets or sets the text of the tree item
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
-
-
 
     /// <summary>
     /// When true, the control will be appear expanded by user interaction.
@@ -25,10 +17,22 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
     public bool Expanded { get; set; }
 
     /// <summary>
+    /// Called whenever <see cref="Expanded"/> changes.
+    /// </summary>
+    [Parameter]
+    public EventCallback<bool> ExpandedChanged { get; set; }
+
+    /// <summary>
     /// When true, the control will appear selected by user interaction.
     /// </summary>
     [Parameter]
     public bool Selected { get; set; }
+
+    /// <summary>
+    /// Called whenever <see cref="Selected"/> changes.
+    /// </summary>
+    [Parameter]
+    public EventCallback<bool> SelectedChanged { get; set; }
 
     /// <summary>
     /// When true, the control will be immutable by user interaction. See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled">disabled</see> HTML attribute for more information.
@@ -42,25 +46,87 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    /// <summary>
+    /// If set to <see langword="true"/> then the tree item will
+    /// be expanded when it is created.
+    /// </summary>
+    [Parameter]
+    public bool InitiallyExpanded { get; set; }
+
+    /// <summary>
+    /// If set to <see langword="true"/> then the tree item will
+    /// be selected when it is created.
+    /// </summary>
+    [Parameter]
+    public bool InitiallySelected { get; set; }
+
+    /// <summary>
+    /// Gets or sets the owning FluentTreeView
+    /// </summary>
+    [CascadingParameter]
+    private FluentTreeView Owner { get; set; } = default!;
+
     public FluentTreeItem()
     {
         Id = Identifier.NewId();
     }
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        Owner?.Register(this);
+        await base.OnInitializedAsync();
+        if (InitiallyExpanded)
+        {
+            Expanded = true;
+            if (ExpandedChanged.HasDelegate)
+            {
+                await ExpandedChanged.InvokeAsync(true);
+            }
+        }
+        if (InitiallySelected)
+        {
+            Selected = true;
+            if (SelectedChanged.HasDelegate)
+            {
+                await SelectedChanged.InvokeAsync(true);
+            }
+        }
     }
 
-    internal void SetSelected(bool value)
+    private async Task HandleExpandedChangeAsync(TreeChangeEventArgs args)
     {
-        Selected = value;
+        if (args.AffectedId != Id || args.Expanded is null || args.Expanded == Expanded)
+        {
+            return;
+        }
+
+        Expanded = args.Expanded.Value;
+        if (ExpandedChanged.HasDelegate)
+        {
+            await ExpandedChanged.InvokeAsync(Expanded);
+        }
+
+        if (Owner is FluentTreeView tree)
+        {
+            await tree.ItemExpandedChangeAsync(this);
+        }
     }
 
-    internal void SetExpanded(bool value)
+    private async Task HandleSelectedChangeAsync(TreeChangeEventArgs args)
     {
-        Expanded = value;
-    }
+        if (args.AffectedId != Id || args.Selected is null || args.Selected == Selected)
+        {
+            return;
+        }
 
-    public void Dispose() => Owner?.Unregister(this);
+        Selected = args.Selected.Value;
+        if (SelectedChanged.HasDelegate)
+        {
+            await SelectedChanged.InvokeAsync(Selected);
+        }
+
+        if (Owner is FluentTreeView tree)
+        {
+            await tree.ItemSelectedChangeAsync(this);
+        }
+    }
 }

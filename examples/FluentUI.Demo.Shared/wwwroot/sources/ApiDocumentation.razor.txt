@@ -30,6 +30,7 @@
             <TemplateColumn Title="Type">
                         @context.Type
 
+
                         @* Display list of Enumerations (if available) *@
                         @if (context.EnumValues.Length > 0)
                         {
