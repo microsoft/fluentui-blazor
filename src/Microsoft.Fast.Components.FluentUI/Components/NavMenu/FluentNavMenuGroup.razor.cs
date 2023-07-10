@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
@@ -171,7 +170,7 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
             await ExpandedChanged.InvokeAsync(expanded);
         }
 
-        await NavMenu.SetExpandedAsync(true);
+        await NavMenu.HandleTreeItemExpandedChangedAsync(this);
     }
 
     private async Task HandleSelectedChangedAsync(bool selected)
@@ -187,7 +186,12 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
             await SelectedChanged.InvokeAsync(selected);
         }
 
-        await NavMenu.SetExpandedAsync(true);
+        await NavMenu.HandleTreeItemSelectedChangedAsync(this);
+
+        if (NavMenu.SelectedElementId == Id || NavMenu.SelectedElementId is null)
+        {
+            await HandleExpandedChangedAsync(true);
+        }
     }
 
     private bool Visible => NavMenu.Expanded || HasIcon;

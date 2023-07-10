@@ -4,4 +4,5 @@ internal interface INavMenuChildElement
 {
     string? Id { get; }
     bool HasIcon { get; }
+    bool Selected { get; }
 }

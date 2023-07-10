@@ -4,19 +4,20 @@
 
 <h2>Navigation Examples</h2>
 
-<FluentStack Orientation="Orientation.Horizontal" >
+<FluentStack Orientation="Orientation.Horizontal">
     <!-- Menu with sub-items and icons -->
-    <FluentNavMenu @bind-Expanded=MenuExpanded>
-        <FluentNavMenuGroup Text="Item 1" @bind-Expanded=Item1Expanded Icon="@(new Icons.Regular.Size24.LeafOne())">
+    <FluentNavMenu @bind-Expanded=MenuExpanded @ref=NavMenu>
+        <FluentNavMenuGroup Id="Group1" Text="Item 1" @bind-Expanded=Item1Expanded Icon="@(new Icons.Regular.Size24.LeafOne())">
             <FluentNavMenuLink Text="Item 1.1" Icon="@(new Icons.Regular.Size24.LeafOne())" @bind-Selected=Item1Point1Selected />
             <FluentNavMenuLink Text="Item 1.2" Icon="@(new Icons.Regular.Size24.LeafTwo())" @bind-Selected=Item1Point2Selected />
         </FluentNavMenuGroup>
-        <FluentNavMenuGroup Text="Item 2" @bind-Expanded=Item2Expanded Icon="@(new Icons.Regular.Size24.LeafTwo())">
+        <FluentNavMenuGroup Id="Group2" Text="Item 2" @bind-Expanded=Item2Expanded Icon="@(new Icons.Regular.Size24.LeafTwo())">
             <FluentNavMenuLink Text="Item 2.1" Icon="@(new Icons.Regular.Size24.LeafOne())" @bind-Selected=Item2Point1Selected />
             <FluentNavMenuLink Text="Item 2.2" Icon="@(new Icons.Regular.Size24.LeafTwo())" @bind-Selected=Item2Point2Selected />
         </FluentNavMenuGroup>
     </FluentNavMenu>
     <FluentStack Orientation="Orientation.Vertical">
+
         <h2>Expanded elements</h2>
         <FluentCheckbox @bind-Value=MenuExpanded>
             <span aria-label="Menu expanded">Menu</span>
@@ -27,7 +28,9 @@
         <FluentCheckbox @bind-Value=Item2Expanded>
             <span aria-label="Item 2 expanded">Item 2</span>
         </FluentCheckbox>
+
         <h2>Selected elements</h2>
+        <button @onclick="StateHasChanged">Selected &gt; @NavMenu.SelectedElementId</button>
         <FluentCheckbox @bind-Value=Item1Point1Selected>
             <span aria-label="Item 1.1 selected">Item 1.1</span>
         </FluentCheckbox>
@@ -40,6 +43,7 @@
         <FluentCheckbox @bind-Value=Item2Point2Selected>
             <span aria-label="Item 2.2 selected">Item 2.2</span>
         </FluentCheckbox>
+
     </FluentStack>
 </FluentStack>
 
@@ -52,6 +56,8 @@
     bool Item1Point2Selected = false;
     bool Item2Point1Selected = false;
     bool Item2Point2Selected = false;
+
+    FluentNavMenu NavMenu = null!;
 }
 
 

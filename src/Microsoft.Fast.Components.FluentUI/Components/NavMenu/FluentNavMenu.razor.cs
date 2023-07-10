@@ -98,6 +98,7 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
     public bool InitiallyExpanded { get; set; }
 
     public bool Collapsed => !Expanded;
+    public string? SelectedElementId { get; private set; }
 
     public FluentNavMenu()
     {
@@ -124,6 +125,48 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
         }
 
         StateHasChanged();
+    }
+
+
+    internal async Task HandleTreeItemExpandedChangedAsync(INavMenuParentElement parent)
+    {
+        if (parent.Id == _expandCollapseTreeItemId)
+        {
+            return;
+        }
+
+        if (parent.Expanded && !Expanded)
+        {
+            await SetExpandedAsync(expanded: true);
+        }
+
+        if (OnGroupExpandedChange.HasDelegate)
+        {
+            await OnGroupExpandedChange.InvokeAsync((FluentNavMenuGroup)parent);
+        }
+    }
+
+
+    internal async Task HandleTreeItemSelectedChangedAsync(INavMenuChildElement child)
+    {
+        if (child.Id == _expandCollapseTreeItemId)
+        {
+            return;
+        }
+
+        SelectedElementId = null;
+        if (child.Selected)
+        {
+            SelectedElementId = child.Id;
+        }
+        if (child is FluentNavMenuGroup group)
+        {
+            await HandleGroupSelectedChangeAsync(group);
+        }
+        else if (child is FluentNavMenuLink link)
+        {
+            await HandleLinkSelectedChangeAsync(link);
+        }
     }
 
     IEnumerable<INavMenuChildElement> INavMenuParentElement.GetChildElements() => _childElements.Values;
@@ -183,45 +226,6 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
         await handler;
     }
 
-    private async Task HandleTreeItemExpandedChangedAsync(FluentTreeItem treeItem)
-    {
-        if (treeItem.Id == _expandCollapseTreeItemId)
-        {
-            return;
-        }
-
-        if (treeItem.Expanded && !Expanded)
-        {
-            await SetExpandedAsync(expanded: true);
-        }
-
-        if (OnGroupExpandedChange.HasDelegate && _childElements.TryGetValue(treeItem.Id!, out INavMenuChildElement? child))
-        {
-            await OnGroupExpandedChange.InvokeAsync((FluentNavMenuGroup)child);
-        }
-    }
-
-    private async Task HandleTreeItemSelectedChangedAsync(FluentTreeItem treeItem)
-    {
-        if (treeItem.Id == _expandCollapseTreeItemId)
-        {
-            return;
-        }
-
-        if (!_childElements.TryGetValue(treeItem.Id!, out INavMenuChildElement? child))
-        {
-            return;
-        }
-
-        if (child is FluentNavMenuGroup group)
-        {
-            await HandleGroupSelectedChangeAsync(group);
-        }
-        else if (child is FluentNavMenuLink link)
-        {
-            await HandleLinkSelectedChangeAsync(link);
-        }
-    }
 
     private async Task HandleLinkSelectedChangeAsync(FluentNavMenuLink link)
     {
@@ -233,9 +237,9 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
 
     private async Task HandleGroupSelectedChangeAsync(FluentNavMenuGroup group)
     {
-        if (OnGroupExpandedChange.HasDelegate)
+        if (OnGroupSelectedChange.HasDelegate)
         {
-            await OnGroupExpandedChange.InvokeAsync(group);
+            await OnGroupSelectedChange.InvokeAsync(group);
         }
         if (group.Selected)
         {
