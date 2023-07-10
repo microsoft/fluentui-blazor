@@ -10,7 +10,7 @@
             <FluentNavMenuGroup Text="Item 3" Icon="@(new Icons.Regular.Size24.EarthLeaf())">
                 <FluentNavMenuLink Icon="@(new Icons.Regular.Size24.LeafOne())" Text="Item 3.1" />
                 <FluentNavMenuLink Icon="@(new Icons.Regular.Size24.LeafTwo())" Text="Item 3.2" />
-            </FluentNavMenuGroup>
+            </FluentNavMenuGroup> 
             <FluentNavMenuLink Icon="@(new Icons.Regular.Size24.CalendarAgenda())" Text="Item 4" Disabled="true" />
         </FluentNavMenu>
     </div>

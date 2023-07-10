@@ -12,14 +12,7 @@
                     Text="@(NavMenuExpanded ? Text : string.Empty)">
         @if (HasIcon)
         {
-            if (IconContent is not null)
-            {
-                <div slot="start">@IconContent</div>
-            }
-            else
-            {
-                <FluentIcon Value="@Icon" Width="20px" Slot="start"/>
-            }
+            <FluentIcon Value="@Icon" Width="20px" Slot="start" />
         }
         else if (SiblingHasIcon)
         {

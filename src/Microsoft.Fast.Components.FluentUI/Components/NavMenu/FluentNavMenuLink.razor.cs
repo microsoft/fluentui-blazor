@@ -13,12 +13,6 @@ public partial class FluentNavMenuLink : FluentComponentBase, INavMenuChildEleme
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the content to be rendered for the icon.
-    /// </summary>
-    [Parameter]
-    public RenderFragment? IconContent { get; set; }
-
-    /// <summary>
     /// Gets or sets the destination of the link.
     /// </summary>
     [Parameter]
@@ -95,7 +89,7 @@ public partial class FluentNavMenuLink : FluentComponentBase, INavMenuChildEleme
         .AddStyle(Style)
         .Build();
 
-    public bool HasIcon => Icon != null || IconContent is not null;
+    public bool HasIcon => Icon != null;
 
     public FluentNavMenuLink()
     {
