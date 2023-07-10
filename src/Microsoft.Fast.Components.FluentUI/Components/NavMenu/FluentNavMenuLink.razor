@@ -1,12 +1,14 @@
 ﻿@namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentComponentBase
+@inject NavigationManager NavigationManager
 
 <CascadingValue TValue=INavMenuParentElement Value="@null" IsFixed>
     <FluentTreeItem Id="@Id"
                     Class="@ClassValue"
                     Style="@StyleValue"
                     Disabled="@Disabled"
-                    @bind-Selected="@Selected"
+                    Selected="@Selected"
+                    SelectedChanged="@SelectedChanged"
                     Text="@(NavMenuExpanded ? Text : string.Empty)">
         @if (HasIcon)
         {
@@ -16,7 +18,7 @@
             }
             else
             {
-                <FluentIcon Value="@Icon" Width="20px" Slot="start" OnClick="@HandleIconClickAsync" />
+                <FluentIcon Value="@Icon" Width="20px" Slot="start"/>
             }
         }
         else if (SiblingHasIcon)

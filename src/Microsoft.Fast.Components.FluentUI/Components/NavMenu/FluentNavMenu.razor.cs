@@ -6,9 +6,6 @@ namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement, IDisposable
 {
-    [Inject]
-    private NavigationManager NavigationManager { get; set; } = default!;
-
     private const string WIDTH_COLLAPSED_MENU = "40px";
     private string _prevHref = "/";
     private readonly string _expandCollapseTreeItemId = Identifier.NewId();
@@ -188,6 +185,11 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
 
     private async Task HandleTreeItemExpandedChangedAsync(FluentTreeItem treeItem)
     {
+        if (treeItem.Id == _expandCollapseTreeItemId)
+        {
+            return;
+        }
+
         if (treeItem.Expanded && !Expanded)
         {
             await SetExpandedAsync(expanded: true);
@@ -227,7 +229,6 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
         {
             await OnLinkSelectedChange.InvokeAsync(link);
         }
-        Navigate(link.Href);
     }
 
     private async Task HandleGroupSelectedChangeAsync(FluentNavMenuGroup group)
@@ -236,19 +237,9 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
         {
             await OnGroupExpandedChange.InvokeAsync(group);
         }
-        if (AutoExpandOnGroupExpanded && group.Selected)
+        if (group.Selected)
         {
-            await group.SetExpandedAsync(expanded: true);
             await SetExpandedAsync(expanded: true);
-        }
-    }
-
-    private void Navigate(string? href)
-    {
-        if (!string.IsNullOrWhiteSpace(href) && href != _prevHref)
-        {
-            _prevHref = href;
-            NavigationManager.NavigateTo(href);
         }
     }
 }

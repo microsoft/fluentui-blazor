@@ -6,9 +6,6 @@ namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentNavMenuLink : FluentComponentBase, INavMenuChildElement, IDisposable
 {
-    [Inject]
-    private NavigationManager NavigationManager { get; set; } = default!;
-
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>
@@ -105,32 +102,6 @@ public partial class FluentNavMenuLink : FluentComponentBase, INavMenuChildEleme
         Id = Identifier.NewId();
     }
 
-    /// <summary>
-    /// Sets if the group is selected or not.
-    /// </summary>
-    /// <param name="selected">Whether or not the group should be selected.</param>
-    /// <param name="forceChangedEvent">
-    ///     Trigger a <see cref="SelectedChanged"/> event even if the value hasn't changed.
-    ///     This is used when <see cref="Selected"/> is changed via the FAST component's JavaScript and
-    ///     notified to us via the <see cref="FluentTreeView.OnSelectedChange"/>.
-    /// </param>
-    /// <returns></returns>
-    public async Task SetSelectedAsync(bool selected, bool forceChangedEvent = false)
-    {
-        bool changesRequired = forceChangedEvent || selected != Selected;
-
-        if (!changesRequired)
-            return;
-
-        Selected = selected;
-        if (SelectedChanged.HasDelegate)
-        {
-            await SelectedChanged.InvokeAsync(selected);
-        }
-
-        StateHasChanged();
-    }
-
     protected override void OnInitialized()
     {
         base.OnInitialized();
@@ -141,14 +112,6 @@ public partial class FluentNavMenuLink : FluentComponentBase, INavMenuChildEleme
             Selected = true;
     }
 
-
-    internal async void HandleIconClickAsync()
-    {
-        if (!Disabled && !Selected)
-        {
-            await SetSelectedAsync(selected: true);
-        }
-    }
 
     /// <summary>
     /// Dispose of this navmenu link.

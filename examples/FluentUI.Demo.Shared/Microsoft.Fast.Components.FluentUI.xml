@@ -3019,13 +3019,6 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentMenuItem.OnClickHandlerAsync">
             <summary />
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.AutoExpandOnGroupExpanded">
-            <summary>
-            If a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup"/> expands when the menu is
-            collapsed, this property specifies if the menu should automatically]
-            expand or not.
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
@@ -3159,30 +3152,6 @@
             expand when it is created.
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.SetExpandedAsync(System.Boolean,System.Boolean)">
-            <summary>
-            Sets if the group is expanded or not.
-            </summary>
-            <param name="expanded">Whether or not the group should be expanded.</param>
-            <param name="forceChangedEvent">
-                Trigger a <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.ExpandedChanged"/> event even if the value hasn't changed.
-                This is used when the value is changed via the FAST component's JavaScript and
-                notified to us via the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentTreeView.OnExpandedChange"/>.
-            </param>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.SetSelectedAsync(System.Boolean,System.Boolean)">
-            <summary>
-            Sets if the group is selected or not.
-            </summary>
-            <param name="selected">Whether or not the group should be selected.</param>
-            <param name="forceChangedEvent">
-                Trigger a <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.SelectedChanged"/> event even if the value hasn't changed.
-                This is used when <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Selected"/> is changed via the FAST component's JavaScript and
-                notified to us via the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentTreeView.OnSelectedChange"/>.
-            </param>
-            <returns></returns>
-        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.System#IDisposable#Dispose">
             <summary>
             Dispose of this navmenu group.
@@ -3243,18 +3212,6 @@
             <summary>
             Gets or sets the width of the link (in pixels).
             </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.SetSelectedAsync(System.Boolean,System.Boolean)">
-            <summary>
-            Sets if the group is selected or not.
-            </summary>
-            <param name="selected">Whether or not the group should be selected.</param>
-            <param name="forceChangedEvent">
-                Trigger a <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.SelectedChanged"/> event even if the value hasn't changed.
-                This is used when <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.Selected"/> is changed via the FAST component's JavaScript and
-                notified to us via the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentTreeView.OnSelectedChange"/>.
-            </param>
-            <returns></returns>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.System#IDisposable#Dispose">
             <summary>

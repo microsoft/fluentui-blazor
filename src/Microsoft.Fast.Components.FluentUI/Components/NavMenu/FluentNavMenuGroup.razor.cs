@@ -124,59 +124,6 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
     public bool HasIcon => Icon != null || IconContent is not null;
 
 
-    /// <summary>
-    /// Sets if the group is expanded or not.
-    /// </summary>
-    /// <param name="expanded">Whether or not the group should be expanded.</param>
-    /// <param name="forceChangedEvent">
-    ///     Trigger a <see cref="ExpandedChanged"/> event even if the value hasn't changed.
-    ///     This is used when the value is changed via the FAST component's JavaScript and
-    ///     notified to us via the <see cref="FluentTreeView.OnExpandedChange"/>.
-    /// </param>
-    /// <returns></returns>
-    public async Task SetExpandedAsync(bool expanded, bool forceChangedEvent = false)
-    {
-        bool changesRequired = forceChangedEvent || expanded != Expanded;
-
-        if (!changesRequired)
-            return;
-
-        Expanded = expanded;
-        if (ExpandedChanged.HasDelegate)
-        {
-            await ExpandedChanged.InvokeAsync(expanded);
-        }
-
-        StateHasChanged();
-    }
-
-    /// <summary>
-    /// Sets if the group is selected or not.
-    /// </summary>
-    /// <param name="selected">Whether or not the group should be selected.</param>
-    /// <param name="forceChangedEvent">
-    ///     Trigger a <see cref="SelectedChanged"/> event even if the value hasn't changed.
-    ///     This is used when <see cref="Selected"/> is changed via the FAST component's JavaScript and
-    ///     notified to us via the <see cref="FluentTreeView.OnSelectedChange"/>.
-    /// </param>
-    /// <returns></returns>
-    public async Task SetSelectedAsync(bool selected, bool forceChangedEvent = false)
-    {
-        bool changesRequired = forceChangedEvent || selected != Selected;
-
-        if (!changesRequired)
-            return;
-
-        Selected = selected;
-        if (SelectedChanged.HasDelegate)
-        {
-            await SelectedChanged.InvokeAsync(selected);
-        }
-
-        StateHasChanged();
-    }
-
-
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
@@ -202,7 +149,6 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
         _childElements.Clear();
     }
 
-    private Task ToggleCollapsedAsync() => SetExpandedAsync(!Expanded);
 
     void INavMenuParentElement.Register(INavMenuChildElement child)
     {
@@ -217,4 +163,17 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
     }
 
     IEnumerable<INavMenuChildElement> INavMenuParentElement.GetChildElements() => _childElements;
+
+    private Task ToggleCollapsedAsync() => SetExpandedAsync(!Expanded);
+
+    private async Task SetExpandedAsync(bool expanded)
+    {
+        Expanded = expanded;
+        if (ExpandedChanged.HasDelegate)
+        {
+            await ExpandedChanged.InvokeAsync(expanded);
+        }
+
+        StateHasChanged();
+    }
 }
