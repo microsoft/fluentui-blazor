@@ -502,6 +502,18 @@ code {
 }
 
 
+.navmenu-child-element::after {
+    display: none;
+}
 
-
-
+.navmenu .navmenu-child-element.navmenu-element.navmenu-current-location::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: calc(((var(--base-height-multiplier) + var(--density)) * var(--design-unit) / 4) * 1px);
+    width: 3px;
+    height: calc(((var(--base-height-multiplier) + var(--density)) * var(--design-unit) / 2) * 1px);
+    background: var(--accent-fill-rest);
+    border-radius: calc(var(--control-corner-radius) * 1px);
+    margin-inline-start: calc(var(--focus-stroke-width) * 1px);
+}

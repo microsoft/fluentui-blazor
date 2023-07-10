@@ -79,17 +79,24 @@ public partial class FluentNavMenuLink : FluentComponentBase, INavMenuChildEleme
     [CascadingParameter(Name = "NavMenuItemSiblingHasIcon")]
     private bool SiblingHasIcon { get; set; }
 
+    [CascadingParameter(Name = "NavMenuLocalPath")]
+    private string NavMenuLocalPath { get; set; }
+
+    public bool HasIcon => Icon != null;
+
     protected string? ClassValue => new CssBuilder(Class)
-       .AddClass("navmenu-link")
-       .AddClass("navmenu-child-element")
-       .Build();
+        .AddClass("navmenu-link")
+        .AddClass("navmenu-element")
+        .AddClass("navmenu-child-element")
+        .AddClass("navmenu-current-location", () => MatchesLocalPath)
+        .Build();
 
     protected string? StyleValue => new StyleBuilder()
         .AddStyle("width", $"{Width}px", () => Width.HasValue)
         .AddStyle(Style)
         .Build();
 
-    public bool HasIcon => Icon != null;
+    private bool MatchesLocalPath => !string.IsNullOrEmpty(Href) && string.Equals(Href, NavMenuLocalPath, StringComparison.OrdinalIgnoreCase);
 
     public FluentNavMenuLink()
     {

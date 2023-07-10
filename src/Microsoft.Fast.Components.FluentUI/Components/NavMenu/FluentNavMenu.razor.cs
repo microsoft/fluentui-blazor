@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Fast.Components.FluentUI.Utilities;
 
@@ -7,16 +8,17 @@ namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement, IDisposable
 {
     private const string WIDTH_COLLAPSED_MENU = "40px";
-    private string _prevHref = "/";
     private readonly string _expandCollapseTreeItemId = Identifier.NewId();
     private readonly Dictionary<string, INavMenuChildElement> _childElements = new();
 
     private bool HasChildIcons => ((INavMenuParentElement)this).HasChildIcons;
+    private string _localPath;
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("navmenu")
         .AddClass("collapsed", !Expanded)
         .AddClass("navmenu-parent-element")
+        .AddClass("navmenu-element")
         .Build();
 
     protected string? StyleValue => new StyleBuilder()
@@ -185,6 +187,7 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
 
     void IDisposable.Dispose()
     {
+        NavigationManager.LocationChanged -= HandleLocationChanged;
         _childElements.Clear();
     }
 
@@ -204,6 +207,8 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
+        NavigationManager.LocationChanged += HandleLocationChanged;
+        HandleLocationChanged(null, new LocationChangedEventArgs(NavigationManager.Uri, isNavigationIntercepted: false));
         if (InitiallyExpanded)
         {
             Expanded = true;
@@ -212,6 +217,12 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
                 await ExpandedChanged.InvokeAsync(true);
             }
         }
+    }
+
+    private void HandleLocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        _localPath = new Uri(NavigationManager.Uri).LocalPath;
+        StateHasChanged();
     }
 
     private async Task HandleExpandCollapseKeyDownAsync(KeyboardEventArgs args)

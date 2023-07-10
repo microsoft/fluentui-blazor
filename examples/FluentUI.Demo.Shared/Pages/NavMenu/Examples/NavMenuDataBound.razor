@@ -6,7 +6,7 @@
 
 <FluentStack Orientation="Orientation.Horizontal">
     <!-- Menu with sub-items and icons -->
-    <FluentNavMenu @bind-Expanded=MenuExpanded @ref=NavMenu>
+    <FluentNavMenu @bind-Expanded=MenuExpanded>
         <FluentNavMenuGroup Id="Group1" Text="Item 1" @bind-Expanded=Item1Expanded Icon="@(new Icons.Regular.Size24.LeafOne())">
             <FluentNavMenuLink Text="Item 1.1" Icon="@(new Icons.Regular.Size24.LeafOne())" @bind-Selected=Item1Point1Selected />
             <FluentNavMenuLink Text="Item 1.2" Icon="@(new Icons.Regular.Size24.LeafTwo())" @bind-Selected=Item1Point2Selected />
@@ -30,7 +30,6 @@
         </FluentCheckbox>
 
         <h2>Selected elements</h2>
-        <button @onclick="StateHasChanged">Selected &gt; @NavMenu.SelectedElementId</button>
         <FluentCheckbox @bind-Value=Item1Point1Selected>
             <span aria-label="Item 1.1 selected">Item 1.1</span>
         </FluentCheckbox>
@@ -56,8 +55,6 @@
     bool Item1Point2Selected = false;
     bool Item2Point1Selected = false;
     bool Item2Point2Selected = false;
-
-    FluentNavMenu NavMenu = null!;
 }
 
 
