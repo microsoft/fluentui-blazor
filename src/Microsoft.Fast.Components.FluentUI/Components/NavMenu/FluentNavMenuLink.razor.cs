@@ -135,16 +135,19 @@ public partial class FluentNavMenuLink : FluentComponentBase, INavMenuChildEleme
     {
         base.OnInitialized();
         ParentElement.Register(this);
+        NavMenu.Register(this);
 
         if (!string.IsNullOrEmpty(Href) && (new Uri(NavigationManager.Uri).LocalPath) == Href)
             Selected = true;
     }
 
 
-    internal void HandleIconClick()
+    internal async void HandleIconClickAsync()
     {
-        if (!Disabled)
-            Selected = true;
+        if (!Disabled && !Selected)
+        {
+            await SetSelectedAsync(selected: true);
+        }
     }
 
     /// <summary>
@@ -153,5 +156,6 @@ public partial class FluentNavMenuLink : FluentComponentBase, INavMenuChildEleme
     void IDisposable.Dispose()
     {
         ParentElement.Unregister(this);
+        NavMenu.Unregister(this);
     }
 }

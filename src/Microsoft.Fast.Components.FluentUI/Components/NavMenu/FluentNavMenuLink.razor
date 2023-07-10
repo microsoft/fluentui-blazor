@@ -6,7 +6,7 @@
                     Class="@ClassValue"
                     Style="@StyleValue"
                     Disabled="@Disabled"
-                    Selected="@Selected"
+                    @bind-Selected="@Selected"
                     Text="@(NavMenuExpanded ? Text : string.Empty)">
         @if (HasIcon)
         {
@@ -16,7 +16,7 @@
             }
             else
             {
-                <FluentIcon Value="@Icon" Width="20px" Slot="start" OnClick="@HandleIconClick" />
+                <FluentIcon Value="@Icon" Width="20px" Slot="start" OnClick="@HandleIconClickAsync" />
             }
         }
         else if (SiblingHasIcon)

@@ -8,8 +8,8 @@
                         Class="@ClassValue"
                         Style="@StyleValue"
                         Disabled="@Disabled"
-                        Selected="@Selected"
-                        Expanded="@(NavMenuExpanded ? Expanded : false)"
+                        @bind-Selected="@Selected"
+                        @bind-Expanded="@Expanded"
                         Text="@(NavMenuExpanded ? Text : string.Empty)">
              @if (HasIcon)
             {

@@ -3019,6 +3019,13 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentMenuItem.OnClickHandlerAsync">
             <summary />
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.AutoExpandOnGroupExpanded">
+            <summary>
+            If a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup"/> expands when the menu is
+            collapsed, this property specifies if the menu should automatically]
+            expand or not.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
@@ -3055,6 +3062,21 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.ExpandedChanged">
             <summary>
             Event callback for when the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.Expanded"/> property changes.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.OnGroupExpandedChange">
+            <summary>
+            Called whenever a contained <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup"/> is expanded or collapsed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.OnGroupSelectedChange">
+            <summary>
+            Called whenever a contained <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup"/> is selected or unselected.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.OnLinkSelectedChange">
+            <summary>
+            Called whever a contained <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink"/> is selected or unselected.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.InitiallyExpanded">
@@ -4726,6 +4748,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeView.CurrentSelectedChanged">
             <summary>
+            Called when <see cref="P:Microsoft.Fast.Components.FluentUI.FluentTreeView.CurrentSelected"/> changes.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeView.ChildContent">

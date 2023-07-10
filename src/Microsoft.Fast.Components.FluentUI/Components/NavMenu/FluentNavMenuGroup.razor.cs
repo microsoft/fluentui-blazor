@@ -181,6 +181,7 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
     {
         await base.OnInitializedAsync();
         ParentElement.Register(this);
+        NavMenu.Register(this);
         if (InitiallyExpanded)
         {
             Expanded = true;
@@ -197,6 +198,7 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
     void IDisposable.Dispose()
     {
         ParentElement.Unregister(this);
+        NavMenu.Unregister(this);
         _childElements.Clear();
     }
 
