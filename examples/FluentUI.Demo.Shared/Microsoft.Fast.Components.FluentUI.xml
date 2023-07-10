@@ -3080,18 +3080,11 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.IconContent">
-            <summary>
-            Gets or sets the icon content to be displayed for this group
-            before its <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Text"/>.
-            This setting takes priority over <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Icon"/>.
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Icon">
             <summary>
             Gets or sets the icon to display for this group
             before its <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Text"/>.
-            This setting is not used when <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.IconContent"/>
+            This setting is not used when <see cref="!:IconContent"/>
             is not null.
             </summary>
         </member>
@@ -3156,11 +3149,6 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.IconContent">
-            <summary>
-            Gets or sets the content to be rendered for the icon.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.Href">
