@@ -178,6 +178,8 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
         {
             await ExpandedChanged.InvokeAsync(expanded);
         }
+
+        await NavMenu.SetExpandedAsync(true);
     }
 
     private async Task HandleSelectedChangedAsync(bool selected)
@@ -192,5 +194,10 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
         {
             await SelectedChanged.InvokeAsync(selected);
         }
+
+        await NavMenu.SetExpandedAsync(true);
     }
+
+    private bool Visible => NavMenu.Expanded || HasIcon;
+
 }

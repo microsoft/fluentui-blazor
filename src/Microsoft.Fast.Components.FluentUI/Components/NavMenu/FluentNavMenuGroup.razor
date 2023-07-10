@@ -1,37 +1,39 @@
 ﻿@namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentComponentBase
 
-
-<CascadingValue TValue=INavMenuParentElement Value="@this" IsFixed>
-    <CascadingValue Value="@HasChildIcons" Name="NavMenuItemSiblingHasIcon">
-        <FluentTreeItem Id="@Id"
-                        Class="@ClassValue"
-                        Style="@StyleValue"
-                        Disabled="@Disabled"
-                        Selected="@Selected"
-                        SelectedChanged="@HandleSelectedChangedAsync"
-                        Expanded="@Expanded"
-                        ExpandedChanged="@HandleExpandedChangedAsync"
-                        Text="@(NavMenuExpanded ? Text : string.Empty)">
-            @if (HasIcon)
-            {
-                if (IconContent is not null)
+@if (Visible)
+{
+    <CascadingValue TValue=INavMenuParentElement Value="@this" IsFixed>
+     <CascadingValue Value="@HasChildIcons" Name="NavMenuItemSiblingHasIcon">
+         <FluentTreeItem Id="@Id"
+                         Class="@ClassValue"
+                         Style="@StyleValue"
+                         Disabled="@Disabled"
+                         Selected="@Selected"
+                         SelectedChanged="@HandleSelectedChangedAsync"
+                         Expanded="@Expanded"
+                         ExpandedChanged="@HandleExpandedChangedAsync"
+                         Text="@(NavMenuExpanded ? Text : string.Empty)">
+             @if (HasIcon)
                 {
-                    <div slot="start" @onclick="@ToggleCollapsedAsync">@IconContent</div>
+                    if (IconContent is not null)
+                    {
+                        <div slot="start" @onclick="@ToggleCollapsedAsync">@IconContent</div>
+                    }
+                    else
+                    {
+                        <FluentIcon Value="@Icon" Width="20px" Slot="start" OnClick="@ToggleCollapsedAsync" />
+                    }
                 }
-                else
+                else if (SiblingHasIcon)
                 {
-                    <FluentIcon Value="@Icon" Width="20px" Slot="start" OnClick="@ToggleCollapsedAsync" />
+                    <span style="width:20px;" slot="start"></span>
                 }
-            }
-            else if (SiblingHasIcon)
-            {
-                <span style="width:20px;" slot="start"></span>
-            }
-            @if (NavMenuExpanded)
-            {
-                @ChildContent
-            }
-        </FluentTreeItem>
+                @if (NavMenuExpanded)
+                {
+                    @ChildContent
+                }
+            </FluentTreeItem>
+        </CascadingValue>
     </CascadingValue>
-</CascadingValue>
+}

@@ -6,12 +6,12 @@
 
 <FluentStack Orientation="Orientation.Horizontal" >
     <!-- Menu with sub-items and icons -->
-    <FluentNavMenu @bind-Expanded=MenuExpanded >
+    <FluentNavMenu @bind-Expanded=MenuExpanded>
         <FluentNavMenuGroup Text="Item 1" @bind-Expanded=Item1Expanded>
             <FluentNavMenuLink Text="Item 1.1" Icon="@(new Icons.Regular.Size24.LeafOne())" @bind-Selected=Item1Point1Selected />
             <FluentNavMenuLink Text="Item 1.2" Icon="@(new Icons.Regular.Size24.LeafTwo())" @bind-Selected=Item1Point2Selected />
         </FluentNavMenuGroup>
-        <FluentNavMenuGroup Text="Item 2" @bind-Expanded=Item2Expanded>
+        <FluentNavMenuGroup Text="Item 2" @bind-Expanded=Item2Expanded Icon="@(new Icons.Regular.Size24.LeafTwo())">
             <FluentNavMenuLink Text="Item 2.1" Icon="@(new Icons.Regular.Size24.LeafOne())" @bind-Selected=Item2Point1Selected />
             <FluentNavMenuLink Text="Item 2.2" Icon="@(new Icons.Regular.Size24.LeafTwo())" @bind-Selected=Item2Point2Selected />
         </FluentNavMenuGroup>
