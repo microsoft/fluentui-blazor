@@ -16,14 +16,6 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the icon content to be displayed for this group
-    /// before its <see cref="Text"/>.
-    /// This setting takes priority over <see cref="Icon"/>.
-    /// </summary>
-    [Parameter]
-    public RenderFragment? IconContent { get; set; }
-
-    /// <summary>
     /// Gets or sets the icon to display for this group
     /// before its <see cref="Text"/>.
     /// This setting is not used when <see cref="IconContent"/>
@@ -114,7 +106,7 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
         .AddStyle(Style)
         .Build();
 
-    public bool HasIcon => Icon != null || IconContent is not null;
+    public bool HasIcon => Icon != null;
 
     /// <summary>
     /// Ensures the <see cref="FluentNavMenu"/> is collasped.
