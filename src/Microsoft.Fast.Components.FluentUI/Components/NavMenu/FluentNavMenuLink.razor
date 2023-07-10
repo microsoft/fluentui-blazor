@@ -8,7 +8,7 @@
                     Style="@StyleValue"
                     Disabled="@Disabled"
                     Selected="@Selected"
-                    SelectedChanged="@SelectedChanged"
+                    SelectedChanged="@HandleSelectedChangedAsync"
                     Text="@(NavMenuExpanded ? Text : string.Empty)">
         @if (HasIcon)
         {

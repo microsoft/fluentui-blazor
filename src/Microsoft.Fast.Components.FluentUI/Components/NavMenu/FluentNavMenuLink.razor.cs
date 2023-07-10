@@ -121,4 +121,23 @@ public partial class FluentNavMenuLink : FluentComponentBase, INavMenuChildEleme
         Owner.Unregister(this);
         NavMenu.Unregister(this);
     }
+
+    private async Task HandleSelectedChangedAsync(bool selected)
+    {
+        if (selected == Selected)
+        {
+            return;
+        }
+
+        Selected = selected;
+        if (SelectedChanged.HasDelegate)
+        {
+            await SelectedChanged.InvokeAsync(selected);
+        }
+
+        if (Selected && !string.IsNullOrEmpty(Href) && new Uri(NavigationManager.Uri).LocalPath != Href)
+        {
+            NavigationManager.NavigateTo(Href);
+        }
+    }
 }

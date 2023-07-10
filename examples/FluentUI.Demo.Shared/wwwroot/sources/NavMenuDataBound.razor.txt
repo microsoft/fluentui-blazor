@@ -48,10 +48,10 @@
     bool Item1Expanded = true;
     bool Item2Expanded = true;
 
-    bool Item1Point1Selected = true;
-    bool Item1Point2Selected = true;
-    bool Item2Point1Selected = true;
-    bool Item2Point2Selected = true;
+    bool Item1Point1Selected = false;
+    bool Item1Point2Selected = false;
+    bool Item2Point1Selected = false;
+    bool Item2Point2Selected = false;
 }
 
 
