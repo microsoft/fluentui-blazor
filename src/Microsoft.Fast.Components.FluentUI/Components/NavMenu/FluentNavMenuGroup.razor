@@ -8,18 +8,20 @@
                         Class="@ClassValue"
                         Style="@StyleValue"
                         Disabled="@Disabled"
-                        @bind-Selected="@Selected"
-                        @bind-Expanded="@Expanded"
+                        Selected="@Selected"
+                        SelectedChanged="@HandleSelectedChangedAsync"
+                        Expanded="@Expanded"
+                        ExpandedChanged="@HandleExpandedChangedAsync"
                         Text="@(NavMenuExpanded ? Text : string.Empty)">
             @if (HasIcon)
             {
                 if (IconContent is not null)
                 {
-                    <div slot="start">@IconContent</div>
+                    <div slot="start" @onclick="@ToggleCollapsedAsync">@IconContent</div>
                 }
                 else
                 {
-                    <FluentIcon Value="@Icon" Width="20px" Slot="start" />
+                    <FluentIcon Value="@Icon" Width="20px" Slot="start" OnClick="@ToggleCollapsedAsync" />
                 }
             }
             else if (SiblingHasIcon)

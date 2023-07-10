@@ -164,16 +164,33 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
 
     IEnumerable<INavMenuChildElement> INavMenuParentElement.GetChildElements() => _childElements;
 
-    private Task ToggleCollapsedAsync() => SetExpandedAsync(!Expanded);
+    private Task ToggleCollapsedAsync() => HandleExpandedChangedAsync(!Expanded);
 
-    private async Task SetExpandedAsync(bool expanded)
+    private async Task HandleExpandedChangedAsync(bool expanded)
     {
+        if (expanded == Expanded)
+        {
+            return;
+        }
+
         Expanded = expanded;
         if (ExpandedChanged.HasDelegate)
         {
             await ExpandedChanged.InvokeAsync(expanded);
         }
+    }
 
-        StateHasChanged();
+    private async Task HandleSelectedChangedAsync(bool selected)
+    {
+        if (selected == Selected)
+        {
+            return;
+        }
+
+        Selected = selected;
+        if (SelectedChanged.HasDelegate)
+        {
+            await SelectedChanged.InvokeAsync(selected);
+        }
     }
 }
