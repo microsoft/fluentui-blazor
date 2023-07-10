@@ -95,7 +95,7 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
     private bool NavMenuExpanded { get; set; }
 
     [CascadingParameter]
-    private INavMenuParentElement ParentElement { get; set; } = null!;
+    private INavMenuParentElement Owner { get; set; } = null!;
 
     [CascadingParameter(Name = "NavMenuItemSiblingHasIcon")]
     private bool SiblingHasIcon { get; set; }
@@ -180,7 +180,7 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        ParentElement.Register(this);
+        Owner.Register(this);
         NavMenu.Register(this);
         if (InitiallyExpanded)
         {
@@ -197,7 +197,7 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
     /// </summary>
     void IDisposable.Dispose()
     {
-        ParentElement.Unregister(this);
+        Owner.Unregister(this);
         NavMenu.Unregister(this);
         _childElements.Clear();
     }
@@ -206,13 +206,13 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
 
     void INavMenuParentElement.Register(INavMenuChildElement child)
     {
-        ParentElement.Register(child);
+        Owner.Register(child);
         StateHasChanged();
     }
 
     void INavMenuParentElement.Unregister(INavMenuChildElement child)
     {
-        ParentElement.Unregister(child);
+        Owner.Unregister(child);
         StateHasChanged();
     }
 

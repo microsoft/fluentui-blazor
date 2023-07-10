@@ -83,7 +83,7 @@ public partial class FluentNavMenuLink : FluentComponentBase, INavMenuChildEleme
     private bool NavMenuExpanded { get; set; }
 
     [CascadingParameter]
-    private INavMenuParentElement ParentElement { get; set; } = null!;
+    private INavMenuParentElement Owner { get; set; } = null!;
 
     [CascadingParameter(Name = "NavMenuItemSiblingHasIcon")]
     private bool SiblingHasIcon { get; set; }
@@ -134,7 +134,7 @@ public partial class FluentNavMenuLink : FluentComponentBase, INavMenuChildEleme
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        ParentElement.Register(this);
+        Owner.Register(this);
         NavMenu.Register(this);
 
         if (!string.IsNullOrEmpty(Href) && (new Uri(NavigationManager.Uri).LocalPath) == Href)
@@ -155,7 +155,7 @@ public partial class FluentNavMenuLink : FluentComponentBase, INavMenuChildEleme
     /// </summary>
     void IDisposable.Dispose()
     {
-        ParentElement.Unregister(this);
+        Owner.Unregister(this);
         NavMenu.Unregister(this);
     }
 }
