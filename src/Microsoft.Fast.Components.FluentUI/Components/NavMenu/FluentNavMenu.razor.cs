@@ -30,14 +30,6 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
         .Build();
 
     /// <summary>
-    /// If a <see cref="FluentNavMenuGroup"/> expands when the menu is
-    /// collapsed, this property specifies if the menu should automatically]
-    /// expand or not.
-    /// </summary>
-    [Parameter]
-    public bool AutoExpandOnGroupExpanded { get; set; } = true;
-
-    /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>
     [Parameter]
@@ -196,7 +188,7 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
 
     private async Task HandleTreeItemExpandedChangedAsync(FluentTreeItem treeItem)
     {
-        if (treeItem.Expanded && AutoExpandOnGroupExpanded)
+        if (treeItem.Expanded && !Expanded)
         {
             await SetExpandedAsync(expanded: true);
         }
