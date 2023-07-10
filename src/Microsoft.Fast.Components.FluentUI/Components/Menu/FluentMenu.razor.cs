@@ -159,7 +159,7 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
             await OpenChanged.InvokeAsync(Open);
         }
 
-        await InvokeAsync(StateHasChanged);
+        StateHasChanged();
     }
 
     internal void Register(FluentMenuItem item)

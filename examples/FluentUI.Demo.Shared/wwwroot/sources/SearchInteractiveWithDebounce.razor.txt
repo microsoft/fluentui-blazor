@@ -48,7 +48,7 @@
     private async void TimerElapsed_TickAsync(object? sender, EventArgs e)
     {
         DisposeTimer();
-        await OnSearchAsync();
+        await InvokeAsync(OnSearch);
     }
 
     private void DisposeTimer()
@@ -62,7 +62,7 @@
         }
     }
 
-    private async Task OnSearchAsync()
+    private void OnSearch()
     {
         if (!string.IsNullOrWhiteSpace(SearchValue))
         {
@@ -78,12 +78,12 @@
             {
                 searchResults = defaultResults();
             }
-            await InvokeAsync(StateHasChanged);
+            StateHasChanged();
         }
         else
         {
             searchResults = defaultResults();
-            await InvokeAsync(StateHasChanged);
+            StateHasChanged();
         }
     }
 
