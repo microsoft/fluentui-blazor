@@ -357,7 +357,7 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
         if (ValueChanged.HasDelegate)
             await ValueChanged.InvokeAsync(InternalValue);
 
-        await InvokeAsync(StateHasChanged);
+        StateHasChanged();
     }
 
 
