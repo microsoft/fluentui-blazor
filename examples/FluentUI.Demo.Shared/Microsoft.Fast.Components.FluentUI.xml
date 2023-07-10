@@ -4661,11 +4661,6 @@
             Callback for when the tooltip is dismissed
             </summary>  
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Owner">
-            <summary>
-            Gets or sets the owning FluentTreeView
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Text">
             <summary>
             Gets or sets the text of the tree item
@@ -4676,9 +4671,19 @@
             When true, the control will be appear expanded by user interaction.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.ExpandedChanged">
+            <summary>
+            Called whenever <see cref="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Expanded"/> changes.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Selected">
             <summary>
             When true, the control will appear selected by user interaction.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.SelectedChanged">
+            <summary>
+            Called whenever <see cref="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Selected"/> changes.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Disabled">
@@ -4689,6 +4694,23 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.InitiallyExpanded">
+            <summary>
+            If set to <see langword="true"/> then the tree item will
+            be expanded when it is created.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.InitiallySelected">
+            <summary>
+            If set to <see langword="true"/> then the tree item will
+            be selected when it is created.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Owner">
+            <summary>
+            Gets or sets the owning FluentTreeView
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeView.RenderCollapsedNodes">
@@ -4704,12 +4726,23 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeView.CurrentSelectedChanged">
             <summary>
-            Callback that is called whenever <see cref="P:Microsoft.Fast.Components.FluentUI.FluentTreeView.CurrentSelected"/> changes.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeView.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeView.OnSelectedChange">
+            <summary>
+            Called whenever <see cref="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Selected"/> changes on an
+            item within the tree.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeView.OnExpandedChange">
+            <summary>
+            Called whenever <see cref="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Expanded"/> changes on an
+            item within the tree.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DesignTokens.DesignToken`1.Name">

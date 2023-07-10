@@ -118,6 +118,9 @@ public partial class FluentTreeItem : FluentComponentBase
             return;
         }
 
+<<<<<<< HEAD
+    void IDisposable.Dispose() => Owner?.Unregister(this);
+=======
         Selected = args.Selected.Value;
         if (SelectedChanged.HasDelegate)
         {
@@ -129,4 +132,5 @@ public partial class FluentTreeItem : FluentComponentBase
             await tree.ItemSelectedChangeAsync(this);
         }
     }
+>>>>>>> new-components
 }
