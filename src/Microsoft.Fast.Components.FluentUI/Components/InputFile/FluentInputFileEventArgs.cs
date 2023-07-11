@@ -60,10 +60,23 @@ public class FluentInputFileEventArgs : EventArgs
     /// <summary>
     /// Gets a list of all files currently in an upload process.
     /// </summary>
-    public IEnumerable<(string Name, long Size, string ContentType)> AllFiles { get; internal set; } = default!;
+    public IEnumerable<UploadedFileDetails> AllFiles { get; internal set; } = default!;
 
     /// <summary>
     /// Set this property to True to cancel the current upload file.
     /// </summary>
     public bool IsCancelled { get; set; } = false;
+}
+
+public record struct UploadedFileDetails(string Name, long Size, string ContentType)
+{
+    public static implicit operator (string Name, long Size, string ContentType)(UploadedFileDetails value)
+    {
+        return (value.Name, value.Size, value.ContentType);
+    }
+
+    public static implicit operator UploadedFileDetails((string Name, long Size, string ContentType) value)
+    {
+        return new UploadedFileDetails(value.Name, value.Size, value.ContentType);
+    }
 }

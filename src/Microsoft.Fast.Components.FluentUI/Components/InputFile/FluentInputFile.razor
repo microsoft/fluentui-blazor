@@ -4,14 +4,14 @@
 
 <div class="@ClassValue"
      style="@StyleValue"
-     drop-files=@DropOver
-@ondragenter="@(e => DropOver = true)"
-@ondragenter:stopPropagation
-@ondragover="@(e => DropOver = true)"
-@ondragover:stopPropagation
-@ondragleave="@(e => DropOver = false)"
-@ondragleave:stopPropagation
-@ondragend="@(e => DropOver = false)">
+     drop-files="@DropOver"
+     @ondragenter="@(e => DropOver = true)"
+     @ondragenter:stopPropagation
+     @ondragover="@(e => DropOver = true)"
+     @ondragover:stopPropagation
+     @ondragleave="@(e => DropOver = false)"
+     @ondragleave:stopPropagation
+     @ondragend="@(e => DropOver = false)">
 
     <div class="inputfile-content" style="z-index: @(DropOver ? null : 999)">
 
@@ -26,11 +26,10 @@
         </div>
     </div>
 
-    <div style="grid-column: 1; grid-row: 1; z-index: @(DropOver ? 999 : null)">
+    <div style="grid-column: 1; grid-row: 1; z-index: @(DropOver ? ZIndex.DropOver : null)">
         <InputFile OnChange="OnUploadFilesHandlerAsync"
-                       id="@Id"
-                       class="power-input-uploader"
-                       multiple=@Multiple
-                       accept="@Accept" />
+                   id="@Id"
+                   multiple=@Multiple
+                   accept="@Accept" />
     </div>
 </div>

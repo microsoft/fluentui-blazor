@@ -1,6 +1,8 @@
 @namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentComponentBase
-<fluent-progress @ref=Element
+@if (Visible)
+{
+    <fluent-progress @ref=Element
                  class="@ClassValue"
                  style="@StyleValue"
                  min="@Min"
@@ -8,5 +10,6 @@
                  value="@Value"
                  Paused="@Paused"
                  @attributes="AdditionalAttributes">
-    @ChildContent
-</fluent-progress>
+        @ChildContent
+    </fluent-progress>
+}

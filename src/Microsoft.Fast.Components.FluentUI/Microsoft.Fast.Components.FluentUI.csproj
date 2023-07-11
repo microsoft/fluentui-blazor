@@ -45,7 +45,6 @@
 	<ItemGroup>
 		<None Include="..\..\README.md" Pack="true" PackagePath="\" />
         <None Include="..\..\icon.png" Pack="true" PackagePath="\" />
-		<None Include="Components\Label\FluentLabel.razor" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -117,10 +116,4 @@
 	  <LastGenOutput>%(ParentFile).Designer.cs</LastGenOutput>
 	</EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Resources\FluentInputFileResource.Designer.cs">
-      <DependentUpon>FluentInputFileResource.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
 </Project>
