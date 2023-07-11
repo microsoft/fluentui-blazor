@@ -73,22 +73,16 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
     public EventCallback<bool> ExpandedChanged { get; set; }
 
     /// <summary>
-    /// Called whenever a contained <see cref="FluentNavMenuGroup"/> is expanded or collapsed.
-    /// </summary>
-    [Parameter]
-    public EventCallback<FluentNavMenuGroup> OnGroupExpandedChange { get; set; }
-
-    /// <summary>
     /// Called whenever a contained <see cref="FluentNavMenuGroup"/> is selected or unselected.
     /// </summary>
     [Parameter]
-    public EventCallback<FluentNavMenuGroup> OnGroupSelectedChange { get; set; }
+    public EventCallback<FluentNavMenuGroup> OnGroupSelected { get; set; }
 
     /// <summary>
     /// Called whever a contained <see cref="FluentNavMenuLink"/> is selected or unselected.
     /// </summary>
     [Parameter]
-    public EventCallback<FluentNavMenuLink> OnLinkSelectedChange { get; set; }
+    public EventCallback<FluentNavMenuLink> OnLinkSelected { get; set; }
 
 
     /// <summary>
@@ -99,7 +93,6 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
     public bool InitiallyExpanded { get; set; }
 
     public bool Collapsed => !Expanded;
-    public string? SelectedElementId { get; private set; }
 
     internal INavMenuChildElement? CurrentSelected { get; private set; }
 
@@ -108,67 +101,16 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
         Id = Identifier.NewId();
     }
 
-    /// <summary>
-    /// Sets if the menu is expanded or not.
-    /// </summary>
-    /// <param name="expanded">Whether or not the menu should be expanded.</param>
-    /// <param name="forceChangedEvent">Trigger a <see cref="ExpandedChanged"/> event even if the value hasn't changed.</param>
-    /// <returns></returns>
-    public async Task SetExpandedAsync(bool expanded, bool forceChangedEvent = false)
+    internal async Task HandleMenuItemExpandedChangedAsync(INavMenuParentElement menuItem)
     {
-        bool changesRequired = forceChangedEvent || expanded != Expanded;
-
-        if (!changesRequired)
-            return;
-
-        Expanded = expanded;
-        if (ExpandedChanged.HasDelegate)
-        {
-            await ExpandedChanged.InvokeAsync(expanded);
-        }
-
-        StateHasChanged();
-    }
-
-
-    internal async Task HandleTreeItemExpandedChangedAsync(INavMenuParentElement parent)
-    {
-        if (parent.Id == _expandCollapseTreeItemId)
+        if (menuItem.Id == _expandCollapseTreeItemId)
         {
             return;
         }
 
-        if (parent.Expanded && !Expanded)
+        if (menuItem.Expanded && !Expanded)
         {
             await SetExpandedAsync(expanded: true);
-        }
-
-        if (OnGroupExpandedChange.HasDelegate)
-        {
-            await OnGroupExpandedChange.InvokeAsync((FluentNavMenuGroup)parent);
-        }
-    }
-
-
-    internal async Task HandleTreeItemSelectedChangedAsync(INavMenuChildElement child)
-    {
-        if (child.Id == _expandCollapseTreeItemId)
-        {
-            return;
-        }
-
-        SelectedElementId = null;
-        if (child.Selected)
-        {
-            SelectedElementId = child.Id;
-        }
-        if (child is FluentNavMenuGroup group)
-        {
-            await HandleGroupSelectedChangeAsync(group);
-        }
-        else if (child is FluentNavMenuLink link)
-        {
-            await HandleLinkSelectedChangeAsync(link);
         }
     }
 
@@ -188,7 +130,7 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
 
     void IDisposable.Dispose()
     {
-        NavigationManager.LocationChanged -= HandleLocationChanged;
+        NavigationManager.LocationChanged -= HandleNavigationManagerLocationChanged;
         _childElements.Clear();
     }
 
@@ -202,36 +144,41 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
         _childElements.Remove(element.Id!);
     }
 
-
-    private Task ToggleCollapsedAsync() => SetExpandedAsync(!Expanded);
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        if (firstRender)
+        {
+            HandleNavigationManagerLocationChanged(null, new LocationChangedEventArgs(NavigationManager.Uri, isNavigationIntercepted: false));
+        }
+       
+    }
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        NavigationManager.LocationChanged += HandleLocationChanged;
-        HandleLocationChanged(null, new LocationChangedEventArgs(NavigationManager.Uri, isNavigationIntercepted: false));
+
+        NavigationManager.LocationChanged += HandleNavigationManagerLocationChanged;
+
         if (InitiallyExpanded)
         {
-            Expanded = true;
-            if (ExpandedChanged.HasDelegate)
-            {
-                await ExpandedChanged.InvokeAsync(true);
-            }
+            await SetExpandedAsync(true);
         }
     }
 
-    private void HandleLocationChanged(object? sender, LocationChangedEventArgs e)
+    private Task ToggleCollapsedAsync() => SetExpandedAsync(!Expanded);
+
+    private void HandleNavigationManagerLocationChanged(object? sender, LocationChangedEventArgs e)
     {
         string localPath = new Uri(NavigationManager.Uri).LocalPath;
-        if (localPath == "")
-            localPath += "/";
+        if (string.IsNullOrEmpty(localPath))
+            localPath = "/";
 
         INavMenuChildElement? menuItem = _childElements.Values
             .FirstOrDefault(x => x.Href == localPath);
 
-        if (menuItem is not null)
+        if (menuItem is not null && menuItem != CurrentSelected)
         {
-            StateHasChanged();
             CurrentSelected = menuItem;
             StateHasChanged();
         }
@@ -249,48 +196,73 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
         await handler;
     }
 
-    private void HandleCurrentSelectedChanged(FluentTreeItem? treeItem)
+    private async Task HandleTreeItemSelectedChangedAsync(FluentTreeItem treeItem)
     {
-        if (treeItem?.Selected != true)
+        if (!treeItem.Selected || treeItem.Id == _expandCollapseTreeItemId)
         {
             return;
         }
 
-        if (!_childElements.TryGetValue(treeItem.Id!, out INavMenuChildElement? menuItem) || string.IsNullOrEmpty(menuItem.Href))
+        if (!_childElements.TryGetValue(treeItem.Id!, out INavMenuChildElement? menuItem))
         {
             return;
         }
 
-        CurrentSelected = menuItem;
+        if (menuItem is FluentNavMenuGroup group)
+        {
+            await HandleGroupSelectedAsync(group);
+        }
+        else if (menuItem is FluentNavMenuLink link)
+        {
+            await HandleLinkSelectedAsync(link);
+        }
+    }
+
+    private async Task HandleGroupSelectedAsync(FluentNavMenuGroup group)
+    {
+        if (OnGroupSelected.HasDelegate)
+        {
+            await OnGroupSelected.InvokeAsync(group);
+        }
+
+        await SetExpandedAsync(expanded: true);
+        Navigate(group);
+    }
+
+    private async Task HandleLinkSelectedAsync(FluentNavMenuLink link)
+    {
+        if (OnLinkSelected.HasDelegate)
+        {
+            await OnLinkSelected.InvokeAsync(link);
+        }
+
+        Navigate(link);
+    }
+
+    private void Navigate(INavMenuChildElement menuItem)
+    {
+        if (!string.IsNullOrEmpty(menuItem.Href))
+        {
+            CurrentSelected = menuItem;
+            NavigationManager.NavigateTo(menuItem.Href);
+            StateHasChanged();
+        }
+    }
+
+    private async Task SetExpandedAsync(bool expanded)
+    {
+        if (expanded == Expanded)
+        {
+            return;
+        }
+
+        Expanded = expanded;
+        if (ExpandedChanged.HasDelegate)
+        {
+            await ExpandedChanged.InvokeAsync(expanded);
+        }
+
         StateHasChanged();
     }
 
-
-    private async Task HandleLinkSelectedChangeAsync(FluentNavMenuLink link)
-    {
-        if (OnLinkSelectedChange.HasDelegate)
-        {
-            await OnLinkSelectedChange.InvokeAsync(link);
-        }
-        if (link.Selected && !string.IsNullOrEmpty(link.Href))
-        {
-            NavigationManager.NavigateTo(link.Href);
-        }
-    }
-
-    private async Task HandleGroupSelectedChangeAsync(FluentNavMenuGroup group)
-    {
-        if (OnGroupSelectedChange.HasDelegate)
-        {
-            await OnGroupSelectedChange.InvokeAsync(group);
-        }
-        if (group.Selected)
-        {
-            await SetExpandedAsync(expanded: true);
-        }
-        if (group.Selected && !string.IsNullOrEmpty(group.Href))
-        {
-            NavigationManager.NavigateTo(group.Href);
-        }
-    }
 }

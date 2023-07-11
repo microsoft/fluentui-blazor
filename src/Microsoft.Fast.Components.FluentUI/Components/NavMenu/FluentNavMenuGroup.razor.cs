@@ -47,18 +47,6 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
     public EventCallback<bool> ExpandedChanged { get; set; }
 
     /// <summary>
-    /// When true, the control will appear selected by user interaction.
-    /// </summary>
-    [Parameter]
-    public bool Selected { get; set; }
-
-    /// <summary>
-    /// Callback function for when the selected state changes.
-    /// </summary>
-    [Parameter]
-    public EventCallback<bool> SelectedChanged { get; set; }
-
-    /// <summary>
     /// Gets or sets the text of the menu group
     /// </summary>
     [Parameter]
@@ -89,11 +77,12 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
     [CascadingParameter(Name = "NavMenuItemSiblingHasIcon")]
     private bool SiblingHasIcon { get; set; }
 
+    public bool Selected => NavMenu.CurrentSelected == this;
+
     private readonly List<INavMenuChildElement> _childElements = new();
     private bool HasChildIcons => ((INavMenuParentElement)this).HasChildIcons;
     private bool Collapsed => !Expanded;
 
-    private bool IsNavMenuCurrentSelected => NavMenu.CurrentSelected == this;
 
     public FluentNavMenuGroup()
     {
@@ -106,7 +95,7 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
         .AddClass("navmenu-group")
         .AddClass("navmenu-element")
         .AddClass("navmenu-child-element")
-        .AddClass("navmenu-current-location selected", () => IsNavMenuCurrentSelected)
+        .AddClass("navmenu-current-location selected", () => Selected)
         .Build();
 
     protected string? StyleValue => new StyleBuilder()
@@ -172,25 +161,12 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
             await ExpandedChanged.InvokeAsync(expanded);
         }
 
-        await NavMenu.HandleTreeItemExpandedChangedAsync(this);
+        await NavMenu.HandleMenuItemExpandedChangedAsync(this);
     }
 
     private async Task HandleSelectedChangedAsync(bool selected)
     {
-        if (selected == Selected)
-        {
-            return;
-        }
-
-        Selected = selected;
-        if (SelectedChanged.HasDelegate)
-        {
-            await SelectedChanged.InvokeAsync(selected);
-        }
-
-        await NavMenu.HandleTreeItemSelectedChangedAsync(this);
-
-        if (NavMenu.SelectedElementId == Id || NavMenu.SelectedElementId is null)
+        if (selected)
         {
             await HandleExpandedChangedAsync(true);
         }

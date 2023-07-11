@@ -3267,17 +3267,12 @@
             Event callback for when the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.Expanded"/> property changes.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.OnGroupExpandedChange">
-            <summary>
-            Called whenever a contained <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup"/> is expanded or collapsed.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.OnGroupSelectedChange">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.OnGroupSelected">
             <summary>
             Called whenever a contained <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup"/> is selected or unselected.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.OnLinkSelectedChange">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.OnLinkSelected">
             <summary>
             Called whever a contained <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink"/> is selected or unselected.
             </summary>
@@ -3287,14 +3282,6 @@
             If set to <see langword="true"/> then the tree will
             expand when it is created.
             </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentNavMenu.SetExpandedAsync(System.Boolean,System.Boolean)">
-            <summary>
-            Sets if the menu is expanded or not.
-            </summary>
-            <param name="expanded">Whether or not the menu should be expanded.</param>
-            <param name="forceChangedEvent">Trigger a <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.ExpandedChanged"/> event even if the value hasn't changed.</param>
-            <returns></returns>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.ChildContent">
             <summary>
@@ -3325,16 +3312,6 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.ExpandedChanged">
             <summary>
             Gets or sets a callback that is triggered whenever <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Expanded"/> changes.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Selected">
-            <summary>
-            When true, the control will appear selected by user interaction.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.SelectedChanged">
-            <summary>
-            Callback function for when the selected state changes.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Text">
@@ -3377,21 +3354,6 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.Disabled">
             <summary>
             Gets or sets whether the link is disabled.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.Selected">
-            <summary>
-            Gets or sets whether the link is selected.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.SelectedChanged">
-            <summary>
-            Callback function for when the selected state changes.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.OnClick">
-            <summary>
-            Callback function for when the link is clicked.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.Target">

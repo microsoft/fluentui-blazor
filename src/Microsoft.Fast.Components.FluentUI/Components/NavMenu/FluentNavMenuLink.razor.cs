@@ -32,24 +32,6 @@ public partial class FluentNavMenuLink : FluentComponentBase, INavMenuChildEleme
     public bool Disabled { get; set; } = false;
 
     /// <summary>
-    /// Gets or sets whether the link is selected.
-    /// </summary>
-    [Parameter]
-    public bool Selected { get; set; } = false;
-
-    /// <summary>
-    /// Callback function for when the selected state changes.
-    /// </summary>
-    [Parameter]
-    public EventCallback<bool> SelectedChanged { get; set; }
-
-    /// <summary>
-    /// Callback function for when the link is clicked.
-    /// </summary>
-    [Parameter]
-    public EventCallback<MouseEventArgs> OnClick { get; set; }
-
-    /// <summary>
     /// Gets or sets the target of the link.
     /// </summary>
     [Parameter]
@@ -80,12 +62,13 @@ public partial class FluentNavMenuLink : FluentComponentBase, INavMenuChildEleme
     private bool SiblingHasIcon { get; set; }
 
     public bool HasIcon => Icon != null;
+    public bool Selected => NavMenu.CurrentSelected == this;
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("navmenu-link")
         .AddClass("navmenu-element")
         .AddClass("navmenu-child-element")
-        .AddClass("navmenu-current-location selected", () => IsNavMenuCurrentSelected)
+        .AddClass("navmenu-current-location selected", () => Selected)
         .Build();
 
     protected string? StyleValue => new StyleBuilder()
@@ -93,7 +76,6 @@ public partial class FluentNavMenuLink : FluentComponentBase, INavMenuChildEleme
         .AddStyle(Style)
         .Build();
 
-    private bool IsNavMenuCurrentSelected => NavMenu.CurrentSelected == this;
 
     public FluentNavMenuLink()
     {
@@ -115,22 +97,5 @@ public partial class FluentNavMenuLink : FluentComponentBase, INavMenuChildEleme
     {
         Owner.Unregister(this);
         NavMenu.Unregister(this);
-    }
-
-    private async Task HandleSelectedChangedAsync(bool selected)
-    {
-        if (selected == Selected)
-        {
-            return;
-        }
-
-        Selected = selected;
-
-        await NavMenu.HandleTreeItemSelectedChangedAsync(this);
-
-        if (SelectedChanged.HasDelegate)
-        {
-            await SelectedChanged.InvokeAsync(selected);
-        }
     }
 }
