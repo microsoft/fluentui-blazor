@@ -64,15 +64,16 @@ public partial class FluentInputFile : FluentComponentBase
     /// <summary>
     /// Filter for what file types the user can pick from the file input dialog box.
     /// Example: ".gif, .jpg, .png, .doc", "audio/*", "video/*", "image/*"
-    /// See https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept.
+    /// See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept">https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept</see>
+    /// for more information.
     /// </summary>
     [Parameter]
     public string Accept { get; set; } = string.Empty;
 
     /// <summary>
     /// Type of file reading.
-    /// For SaveToTemporaryFolder, use PowerInputFileEventArgs.LocalFile to retrieve the file.
-    /// For Buffer, use PowerInputFileEventArgs.Buffer to retrieve bytes.
+    /// For SaveToTemporaryFolder, use <see cref="FluentInputFileEventArgs.LocalFile" /> to retrieve the file.
+    /// For Buffer, use <see cref="FluentInputFileEventArgs.Buffer" /> to retrieve bytes.
     /// </summary>
     [Parameter]
     public InputFileMode Mode { get; set; } = InputFileMode.SaveToTemporaryFolder;
@@ -172,7 +173,7 @@ public partial class FluentInputFile : FluentComponentBase
 
         List<FluentInputFileEventArgs>? uploadedFiles = new();
         IReadOnlyList<IBrowserFile>? allFiles = e.GetMultipleFiles(MaximumFileCount);
-        (string Name, long Size, string ContentType)[]? allFilesSummary = allFiles.Select(i => (i.Name, i.Size, i.ContentType)).ToArray();
+        List<UploadedFileDetails>? allFilesSummary = allFiles.Select(i => (new UploadedFileDetails(i.Name, i.Size, i.ContentType))).ToList();
         long totalFileSizes = allFiles.Sum(i => i.Size);
         long totalRead = 0L;
         int fileNumber = 0;
@@ -182,7 +183,7 @@ public partial class FluentInputFile : FluentComponentBase
         foreach (IBrowserFile file in allFiles)
         {
             // Keep a trace of this file
-            FluentInputFileEventArgs? fileDetails = new FluentInputFileEventArgs()
+            FluentInputFileEventArgs? fileDetails = new()
             {
                 AllFiles = allFilesSummary,
                 Index = fileNumber,
@@ -235,7 +236,7 @@ public partial class FluentInputFile : FluentComponentBase
                         {
                             totalRead += bytesRead;
 
-                            await writeStream.WriteAsync(buffer, 0, bytesRead);
+                            await writeStream.WriteAsync(buffer.AsMemory(0, bytesRead));
 
                             ProgressPercent = Convert.ToInt32(decimal.Divide(totalRead, totalFileSizes) * 100);
                         });
