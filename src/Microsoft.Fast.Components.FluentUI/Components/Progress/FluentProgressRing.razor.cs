@@ -10,7 +10,6 @@ public partial class FluentProgressRing : FluentComponentBase
 
     protected string? StyleValue => new StyleBuilder()
         .AddStyle(Style)
-        .AddStyle("visibility", "hidden", () => Visible == false)
         .Build();
 
     /// <summary>

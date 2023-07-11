@@ -17,3 +17,5 @@ extends:
   parameters:
       Projects: |
        **/Microsoft.Fast.Components.FluentUI.csproj
+      Tests: |
+       **/Microsoft.Fast.Components.FluentUI.Tests.csproj

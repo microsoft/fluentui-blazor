@@ -27,10 +27,8 @@ public class FluentInputFileBuffer
     /// <returns></returns>
     public async Task AppendToFileAsync(string file)
     {
-        using (var stream = new FileStream(file, FileMode.Append))
-        {
-            await stream.WriteAsync(Data, 0, BytesRead);
-        }
+        using var stream = new FileStream(file, FileMode.Append);
+        await stream.WriteAsync(Data.AsMemory(0, BytesRead));
     }
 
     /// <summary>
