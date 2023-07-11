@@ -112,7 +112,7 @@ steps:
       publishTestResults: true
 
   # Coverage Generation
-  - task: reportgenerator@4
+  - task: reportgenerator@5
     condition: eq(variables['ShouldTest'], 'true')
     displayName: Generate reports
     inputs:
@@ -121,7 +121,7 @@ steps:
       reporttypes: 'HtmlInline_AzurePipelines'
   
   # Publish code coverage
-  - task: PublishCodeCoverageResults@1
+  - task: PublishCodeCoverageResults@2
     condition: eq(variables['ShouldTest'], 'true')
     displayName: 'Publish code coverage'
     inputs:
