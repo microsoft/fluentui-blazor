@@ -1,7 +1,9 @@
 # Build and test projects.
 
-pr: none      # Disable pull request triggers.
-trigger: none # Disable push triggers.
+pr:
+- new-components
+trigger:
+- new-components
 
 # Build.BuildNumber
 # use the variable "PublicVersion" to define a public version number (Ex. 2.3.6 or 3.0.0-preview.3)
