@@ -3,6 +3,10 @@ parameters:
   type: string
   default: false
 
+- name: Tests		    # List of Unit-Test projects to run
+  type: string
+  default: false
+
 variables:
   VersionMajor: '3.1'	# Major version of the projects  - Ex. 3.1.23280.4
   VersionPreview: '5'	# Preview number of the projects - Ex. 3.1.0-preview.5.23280.4
@@ -15,6 +19,7 @@ steps:
       $preview = "$(VersionPreview)"
       $package = "$($builds[0]).$($builds[1]).0-preview.$($preview).$($builds[2]).$($builds[3])"
       $sign = "false";
+      $toTest = "false";
 
       # If PublicVersion is set, then we are building a public and signed version.
       if ("$(PublicVersion)" -ne "")
@@ -23,9 +28,16 @@ steps:
         $sign = "true"
       }
 
+      # If Tests is set, then we are testing these projects.
+      if ("${{ parameters.Tests }}" -ne "")
+      {
+        $toTest = "true"
+      }
+
       # Set the output variable for use in other tasks.
       Write-Host "##vso[task.setvariable variable=VersionPackage]${package}"
       Write-Host "##vso[task.setvariable variable=ShouldSign]${sign}"
+      Write-Host "##vso[task.setvariable variable=ShouldTest]${toTest}"
     displayName: Compute VersionPackage
 
   - script: |
@@ -33,6 +45,7 @@ steps:
       echo "BuildNumber    = $(Build.BuildNumber)"
       echo "PublicVersion  = $(PublicVersion)"
       echo "ShouldSign     = $(ShouldSign)"
+      echo "ShouldTest     = $(ShouldTest)"
     displayName: Display computed variables
 
   - task: NuGetToolInstaller@1
@@ -56,6 +69,7 @@ steps:
       version: 8.0.x
       includePreviewVersions: true
   
+  # Set version number
   - task: Assembly-Info-NetCore@3
     displayName: 'Versioning $(Build.BuildNumber)'
     inputs:
@@ -72,12 +86,14 @@ steps:
       FailOnWarning: false
       DisableTelemetry: false
   
+  # Install dependencies
   - task: DotNetCoreCLI@2
     displayName: Install dependencies
     inputs:
       command: 'restore'
       projects: ${{ parameters.Projects }}
   
+  # Build the projects
   - task: DotNetCoreCLI@2
     displayName: 'Build $(Build.BuildNumber)'
     inputs:
@@ -85,6 +101,34 @@ steps:
       projects: ${{ parameters.Projects }}
       arguments: '--configuration Release'
   
+  # Test and generate Code Coverage
+  - task: DotNetCoreCLI@2
+    condition: eq(variables['ShouldTest'], 'true')
+    displayName: 'Test and Code Coverage'
+    inputs:
+      command: test
+      projects: ${{ parameters.Tests }}
+      arguments: '--configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full'
+      publishTestResults: true
+
+  # Coverage Generation
+  - task: reportgenerator@4
+    condition: eq(variables['ShouldTest'], 'true')
+    displayName: Generate reports
+    inputs:
+      reports: '**/coverage.cobertura.xml'
+      targetdir: 'CoverageFolder'
+      reporttypes: 'HtmlInline_AzurePipelines'
+  
+  # Publish code coverage
+  - task: PublishCodeCoverageResults@1
+    condition: eq(variables['ShouldTest'], 'true')
+    displayName: 'Publish code coverage'
+    inputs:
+      codeCoverageTool: Cobertura
+      summaryFileLocation: '**/coverage.cobertura.xml'
+      reportDirectory: CoverageFolder
+
   # - task: DotNetCoreCLI@2
   #   displayName: Pack $(Build.BuildNumber)
   #   inputs:
@@ -107,6 +151,7 @@ steps:
       OverWrite: true
       flattenFolders: true
 
+  # ESRP Code Signing SC
   - task: EsrpCodeSigning@3
     condition: eq(variables['ShouldSign'], 'true')
     inputs:
