@@ -8,7 +8,8 @@
             <CascadingValue Value="@Expanded" Name="NavMenuExpanded">
                 <CascadingValue Value="@HasChildIcons" Name="NavMenuItemSiblingHasIcon">
                     <FluentTreeView Class="@ClassValue"
-                                    Style="@StyleValue">
+                                    Style="@StyleValue"
+                                    CurrentSelectedChanged="HandleTreeItemSelectedChangedAsync">
                         @if (Collapsible)
                         {
                             <FluentTreeItem Id="@_expandCollapseTreeItemId" Class="nav-menu-expander" @onclick="@ToggleCollapsedAsync" @onkeydown="@HandleExpandCollapseKeyDownAsync">
