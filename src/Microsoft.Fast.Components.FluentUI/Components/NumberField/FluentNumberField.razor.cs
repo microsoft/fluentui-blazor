@@ -47,14 +47,14 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
     /// </summary>
     [Parameter]
 
-    public string? Max { get; set; } //= InputHelpers<TValue>.GetMaxValue();
+    public string? Max { get; set; }
 
     /// <summary>
     /// Gets or sets the minimum value
     /// </summary>
     [Parameter]
 
-    public string? Min { get; set; } //= InputHelpers<TValue>.GetMinValue();
+    public string? Min { get; set; }
 
     /// <summary>
     /// Gets or sets the <see cref="FluentUI.Appearance" />

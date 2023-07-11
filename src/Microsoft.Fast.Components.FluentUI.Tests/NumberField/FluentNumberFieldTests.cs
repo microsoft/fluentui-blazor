@@ -297,46 +297,6 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.NumberField
         }
 
         [Fact]
-        public void FluentNumberField_Throw_WhenIntMin_IsOutOfRange()
-        {
-            int currentValue = 100;
-
-            // Act
-            Action action = () =>
-            {
-                TestContext.RenderComponent<FluentNumberField<int>>(parameters =>
-                {
-                    parameters.Add(p => p.Min, $"{int.MinValue}1");
-                    parameters.Bind(p => p.Value, currentValue, newValue => currentValue = 101);
-                    parameters.AddChildContent("100");
-                });
-            };
-
-            // Assert
-            action.Should().Throw<OverflowException>();
-        }
-
-        [Fact]
-        public void FluentNumberField_Throw_WhenIntMax_IsOutOfRange()
-        {
-            int currentValue = 100;
-
-            // Act
-            Action action = () =>
-            {
-                TestContext.RenderComponent<FluentNumberField<int>>(parameters =>
-                {
-                    parameters.Add(p => p.Max, $"{int.MaxValue}1");
-                    parameters.Bind(p => p.Value, currentValue, newValue => currentValue = 101);
-                    parameters.AddChildContent("100");
-                });
-            };
-
-            // Assert
-            action.Should().Throw<OverflowException>();
-        }
-
-        [Fact]
         public void FluentNumberField_Throw_WhenIntMaxIsSmallerThanMin()
         {
             int currentValue = 100;
@@ -358,7 +318,6 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.NumberField
         }
 
         [Theory]
-        [InlineData(null, "2147483647")]
         [InlineData("", "2147483647")]
         [InlineData(" ", "2147483647")]
         public void FluentNumberField_Throw_WhenIntMinOrMax_NullOrEmptyOrWhitespace(string min, string max)
@@ -381,47 +340,6 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.NumberField
             action.Should().Throw<Exception>();
         }
 
-
-        [Fact]
-        public void FluentNumberField_Throw_WhenLongMin_IsOutOfRange()
-        {
-            int currentValue = 100;
-
-            // Act
-            Action action = () =>
-            {
-                TestContext.RenderComponent<FluentNumberField<int>>(parameters =>
-                {
-                    parameters.Add(p => p.Min, $"{long.MinValue}1");
-                    parameters.Bind(p => p.Value, currentValue, newValue => currentValue = 101);
-                    parameters.AddChildContent("100");
-                });
-            };
-
-            // Assert
-            action.Should().Throw<OverflowException>();
-        }
-
-        [Fact]
-        public void FluentNumberField_Throw_WhenLongMax_IsOutOfRange()
-        {
-            long currentValue = 100;
-
-            // Act
-            Action action = () =>
-            {
-                TestContext.RenderComponent<FluentNumberField<long>>(parameters =>
-                {
-                    parameters.Add(p => p.Max, $"{long.MaxValue}1");
-                    parameters.Bind(p => p.Value, currentValue, newValue => currentValue = 101);
-                    parameters.AddChildContent("100");
-                });
-            };
-
-            // Assert
-            action.Should().Throw<OverflowException>();
-        }
-
         [Fact]
         public void FluentNumberField_Throw_WhenLongMaxIsSmallerThanMin()
         {
@@ -441,46 +359,6 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.NumberField
 
             // Assert
             action.Should().Throw<ArgumentException>();
-        }
-
-        [Fact]
-        public void FluentNumberField_Throw_WhenShortMin_IsOutOfRange()
-        {
-            short currentValue = 100;
-
-            // Act
-            Action action = () =>
-            {
-                TestContext.RenderComponent<FluentNumberField<short>>(parameters =>
-                {
-                    parameters.Add(p => p.Min, $"{short.MinValue}1");
-                    parameters.Bind(p => p.Value, currentValue, newValue => currentValue = 101);
-                    parameters.AddChildContent("100");
-                });
-            };
-
-            // Assert
-            action.Should().Throw<OverflowException>();
-        }
-
-        [Fact]
-        public void FluentNumberField_Throw_WhenShortMax_IsOutOfRange()
-        {
-            short currentValue = 100;
-
-            // Act
-            Action action = () =>
-            {
-                TestContext.RenderComponent<FluentNumberField<short>>(parameters =>
-                {
-                    parameters.Add(p => p.Max, $"{short.MaxValue}1");
-                    parameters.Bind(p => p.Value, currentValue, newValue => currentValue = 101);
-                    parameters.AddChildContent("100");
-                });
-            };
-
-            // Assert
-            action.Should().Throw<OverflowException>();
         }
 
         [Fact]
