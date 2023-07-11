@@ -11,8 +11,6 @@ namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentInputFile : FluentComponentBase
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.Fast.Components.FluentUI/Components/InputFile/FluentInputFile.razor.js";
-    private InputFile? _inputFile;
-    private ElementReference _previewImage;
 
     /// <summary />
     [Inject]
@@ -55,12 +53,6 @@ public partial class FluentInputFile : FluentComponentBase
     /// </summary>
     [Parameter]
     public long MaximumFileSize { get; set; } = 10 * 1024 * 1024;
-
-    /// <summary>
-    /// Show a preview when uploaded file(s) are images.
-    /// </summary>  
-    [Parameter]
-    public bool ShowPreview { get; set; } = false;
 
     /// <summary>
     /// Size of buffer to read bytes from uploaded file (in bytes).
@@ -206,13 +198,6 @@ public partial class FluentInputFile : FluentComponentBase
             {
                 fileDetails.ErrorMessage = "The maximum size allowed is reached";
                 continue;
-            }
-
-
-            if (ShowPreview && file.ContentType.Contains("image"))
-            {
-                Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
-                await Module.InvokeVoidAsync("previewImage", _inputFile!.Element, fileNumber, _previewImage);
             }
 
             // Progress

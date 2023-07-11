@@ -27,12 +27,10 @@
     </div>
 
     <div style="grid-column: 1; grid-row: 1; z-index: @(DropOver ? 999 : null)">
-        <InputFile @ref="_inputFile" OnChange="OnUploadFilesHandlerAsync"
+        <InputFile OnChange="OnUploadFilesHandlerAsync"
                        id="@Id"
                        class="power-input-uploader"
                        multiple=@Multiple
                        accept="@Accept" />
     </div>
-
-    <img style="max-width:200px;max-height:200px" @ref="_previewImage" />
 </div>
