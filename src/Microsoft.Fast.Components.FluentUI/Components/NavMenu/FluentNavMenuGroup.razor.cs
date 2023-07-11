@@ -65,6 +65,18 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
     [Parameter]
     public bool InitiallyExpanded { get; set; }
 
+    /// <summary>
+    /// Gets or sets if the item is selected.
+    /// </summary>
+    [Parameter]
+    public bool Selected { get; set; }
+
+    /// <summary>
+    /// Event callback for when <see cref="Selected"/> changes.
+    /// </summary>
+    [Parameter]
+    public EventCallback<bool> SelectedChanged { get; set; }
+
     [CascadingParameter]
     private FluentNavMenu NavMenu { get; set; } = default!;
 
@@ -76,8 +88,6 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
 
     [CascadingParameter(Name = "NavMenuItemSiblingHasIcon")]
     private bool SiblingHasIcon { get; set; }
-
-    public bool Selected => NavMenu.CurrentSelected == this;
 
     private readonly List<INavMenuChildElement> _childElements = new();
     private bool HasChildIcons => ((INavMenuParentElement)this).HasChildIcons;
@@ -166,9 +176,10 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
 
     private async Task HandleSelectedChangedAsync(bool selected)
     {
-        if (selected)
+        Selected = selected;
+        if (SelectedChanged.HasDelegate)
         {
-            await HandleExpandedChangedAsync(true);
+            await SelectedChanged.InvokeAsync(selected);
         }
     }
 

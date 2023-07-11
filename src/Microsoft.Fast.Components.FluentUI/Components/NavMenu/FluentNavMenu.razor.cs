@@ -196,14 +196,11 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
         await handler;
     }
 
-    private async Task HandleTreeItemSelectedChangedAsync(FluentTreeItem treeItem)
+    private async Task HandleMenuItemSelectedAsync(INavMenuChildElement menuItem)
     {
-        if (!treeItem.Selected || treeItem.Id == _expandCollapseTreeItemId)
-        {
-            return;
-        }
+        ArgumentNullException.ThrowIfNull(menuItem);
 
-        if (!_childElements.TryGetValue(treeItem.Id!, out INavMenuChildElement? menuItem))
+        if (menuItem.Id == _expandCollapseTreeItemId)
         {
             return;
         }

@@ -49,6 +49,18 @@ public partial class FluentNavMenuLink : FluentComponentBase, INavMenuChildEleme
     [Parameter]
     public int? Width { get; set; }
 
+    /// <summary>
+    /// Gets or sets if the item is selected.
+    /// </summary>
+    [Parameter]
+    public bool Selected { get; set; }
+
+    /// <summary>
+    /// Event callback for when <see cref="Selected"/> changes.
+    /// </summary>
+    [Parameter]
+    public EventCallback<bool> SelectedChanged { get; set; }
+
     [CascadingParameter]
     private FluentNavMenu NavMenu { get; set; } = default!;
 
@@ -62,7 +74,6 @@ public partial class FluentNavMenuLink : FluentComponentBase, INavMenuChildEleme
     private bool SiblingHasIcon { get; set; }
 
     public bool HasIcon => Icon != null;
-    public bool Selected => NavMenu.CurrentSelected == this;
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("navmenu-link")
@@ -90,12 +101,18 @@ public partial class FluentNavMenuLink : FluentComponentBase, INavMenuChildEleme
     }
 
 
-    /// <summary>
-    /// Dispose of this navmenu link.
-    /// </summary>
     void IDisposable.Dispose()
     {
         Owner.Unregister(this);
         NavMenu.Unregister(this);
+    }
+
+    private async Task HandleSelectedChangedAsync(bool selected)
+    {
+        Selected = selected;
+        if (SelectedChanged.HasDelegate)
+        {
+            await SelectedChanged.InvokeAsync(selected);
+        }
     }
 }
