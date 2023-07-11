@@ -49,6 +49,10 @@ header {
         display: flex;
         align-items: center;
     }
+
+        header .colorgroup label {
+            margin-inline-end: calc(var(--design-unit) * 2px);
+        }
     
     header .switches {
         grid-column: 5;
