@@ -12,7 +12,6 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
     private readonly Dictionary<string, INavMenuChildElement> _childElements = new();
 
     private bool HasChildIcons => ((INavMenuParentElement)this).HasChildIcons;
-    private string _localPath;
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("navmenu")
@@ -101,6 +100,8 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
 
     public bool Collapsed => !Expanded;
     public string? SelectedElementId { get; private set; }
+
+    internal INavMenuChildElement? CurrentSelected { get; private set; }
 
     public FluentNavMenu()
     {
@@ -221,8 +222,19 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
 
     private void HandleLocationChanged(object? sender, LocationChangedEventArgs e)
     {
-        _localPath = new Uri(NavigationManager.Uri).LocalPath;
-        StateHasChanged();
+        string localPath = new Uri(NavigationManager.Uri).LocalPath;
+        if (localPath == "")
+            localPath += "/";
+
+        INavMenuChildElement? menuItem = _childElements.Values
+            .FirstOrDefault(x => x.Href == localPath);
+
+        if (menuItem is not null)
+        {
+            StateHasChanged();
+            CurrentSelected = menuItem;
+            StateHasChanged();
+        }
     }
 
     private async Task HandleExpandCollapseKeyDownAsync(KeyboardEventArgs args)
@@ -237,12 +249,32 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
         await handler;
     }
 
+    private void HandleCurrentSelectedChanged(FluentTreeItem? treeItem)
+    {
+        if (treeItem?.Selected != true)
+        {
+            return;
+        }
+
+        if (!_childElements.TryGetValue(treeItem.Id!, out INavMenuChildElement? menuItem) || string.IsNullOrEmpty(menuItem.Href))
+        {
+            return;
+        }
+
+        CurrentSelected = menuItem;
+        StateHasChanged();
+    }
+
 
     private async Task HandleLinkSelectedChangeAsync(FluentNavMenuLink link)
     {
         if (OnLinkSelectedChange.HasDelegate)
         {
             await OnLinkSelectedChange.InvokeAsync(link);
+        }
+        if (link.Selected && !string.IsNullOrEmpty(link.Href))
+        {
+            NavigationManager.NavigateTo(link.Href);
         }
     }
 
@@ -255,6 +287,10 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
         if (group.Selected)
         {
             await SetExpandedAsync(expanded: true);
+        }
+        if (group.Selected && !string.IsNullOrEmpty(group.Href))
+        {
+            NavigationManager.NavigateTo(group.Href);
         }
     }
 }

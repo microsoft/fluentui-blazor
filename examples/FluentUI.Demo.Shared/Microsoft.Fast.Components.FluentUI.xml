@@ -2580,6 +2580,216 @@
             Gets the variant of the icon: Filled, Regular.
             </summary>
         </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.FluentInputFile">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFile.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFile.Module">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFile.DropOver">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFile.ClassValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFile.StyleValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFile.Multiple">
+            <summary>
+            To enable multiple file selection and upload, set the Multiple property to true.
+            Set <see cref="P:Microsoft.Fast.Components.FluentUI.FluentInputFile.MaximumFileCount"/> to change the number of allowed files.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFile.MaximumFileCount">
+            <summary>
+            To select multiple files, set the maximum number of files allowed to be uploaded.
+            Default value is 10
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFile.MaximumFileSize">
+            <summary>
+            Maximum size of a file to be uploaded (in bytes).
+            Default value is 10 MB.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFile.BufferSize">
+            <summary>
+            Size of buffer to read bytes from uploaded file (in bytes).
+            Default value is 10 KB.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFile.Accept">
+            <summary>
+            Filter for what file types the user can pick from the file input dialog box.
+            Example: ".gif, .jpg, .png, .doc", "audio/*", "video/*", "image/*"
+            See https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFile.Mode">
+            <summary>
+            Type of file reading.
+            For SaveToTemporaryFolder, use PowerInputFileEventArgs.LocalFile to retrieve the file.
+            For Buffer, use PowerInputFileEventArgs.Buffer to retrieve bytes.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFile.DragDropZoneVisible">
+            <summary>
+            Drag/Drop zone visible or not. Default is true.
+            You can.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFile.ProgressTitle">
+            <summary>
+            Current label display when an upload is in progress.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFile.ProgressPercent">
+            <summary>
+            Current global value of the percentage of a current upload.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFile.ChildContent">
+            <summary>
+            Child content of the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFile.OnInputFileChange">
+            <summary>
+            Use the native event raised by the <seealso href="https://docs.microsoft.com/en-us/aspnet/core/blazor/file-uploads">InputFile</seealso> component.
+            If you use this event, the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentInputFile.OnFileUploaded"/> will never be raised.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFile.OnFileUploaded">
+            <summary>
+            Raise when a file is completely uploaded.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFile.OnProgressChange">
+            <summary>
+            Raise when a progression step is updated.
+            You can use <see cref="P:Microsoft.Fast.Components.FluentUI.FluentInputFile.ProgressPercent"/> and <see cref="P:Microsoft.Fast.Components.FluentUI.FluentInputFile.ProgressTitle"/> to have more detail on the progression.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFile.OnFileError">
+            <summary>
+            Raise when a file raised an error.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFile.OnCompleted">
+            <summary>
+            Raise when all files are completely uploaded.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentInputFile.ShowFilesDialogAsync">
+            <summary>
+            Open the dialogbox to select files.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentInputFile.OnUploadFilesHandlerAsync(Microsoft.AspNetCore.Components.Forms.InputFileChangeEventArgs)">
+            <summary />
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.FluentInputFileBuffer">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentInputFileBuffer.#ctor(System.Byte[],System.Int32)">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFileBuffer.Data">
+            <summary>
+            Buffer data read.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFileBuffer.BytesRead">
+            <summary>
+            Number of bytes read.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentInputFileBuffer.AppendToFileAsync(System.String)">
+            <summary>
+            Append the current buffer (Data) to this file.
+            </summary>
+            <param name="file"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentInputFileBuffer.AppendToFileAsync(System.IO.FileInfo)">
+            <summary>
+            Append the current buffer (Data) to this file.
+            </summary>
+            <param name="file"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.FluentInputFileEventArgs">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFileEventArgs.Index">
+            <summary>
+            Gets the index of the current file in an upload process.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFileEventArgs.LocalFile">
+            <summary>
+            Gets the local file of the current file in an upload process.
+            Only if Mode = SaveToTemporaryFolder (otherwise, this value is null).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFileEventArgs.Buffer">
+            <summary>
+            Gets a small buffer data of the current file in an upload process.
+            Only if Mode = Buffer.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFileEventArgs.Stream">
+            <summary>
+            Gets a reference to the current stream in an upload process.
+            Only if Mode = Stream (otherwise, this value is null).
+            The OnProgressChange event will not be triggered.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFileEventArgs.Name">
+            <summary>
+            Gets the name of the current file in an upload process.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFileEventArgs.Size">
+            <summary>
+            Gets the size (in bytes) of the current file in an upload process.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFileEventArgs.ContentType">
+            <summary>
+            Gets the content type of the current file in an upload process.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFileEventArgs.ProgressTitle">
+            <summary>
+            Gets the label to display in an upload process.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFileEventArgs.ProgressPercent">
+            <summary>
+            Gets the global percent value in an upload process.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFileEventArgs.ErrorMessage">
+            <summary>
+            Gets the error message (or null if no error occurred).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFileEventArgs.AllFiles">
+            <summary>
+            Gets a list of all files currently in an upload process.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFileEventArgs.IsCancelled">
+            <summary>
+            Set this property to True to cancel the current upload file.
+            </summary>
+        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.FluentLabel">
             <summary />
         </member>
@@ -3049,12 +3259,27 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.Expanded">
             <summary>
-            Gets or sets whether the menu is collapsed.
+            Gets or sets whether the menu is expanded.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.ExpandedChanged">
             <summary>
-            Event callback for when the menu is collapsed status changed.
+            Event callback for when the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.Expanded"/> property changes.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.OnGroupExpandedChange">
+            <summary>
+            Called whenever a contained <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup"/> is expanded or collapsed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.OnGroupSelectedChange">
+            <summary>
+            Called whenever a contained <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup"/> is selected or unselected.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.OnLinkSelectedChange">
+            <summary>
+            Called whever a contained <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink"/> is selected or unselected.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.InitiallyExpanded">
@@ -3063,46 +3288,23 @@
             expand when it is created.
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentNavMenu.CollapseAsync">
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentNavMenu.SetExpandedAsync(System.Boolean,System.Boolean)">
             <summary>
-            Gets or sets the content to be rendered inside the component.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.NavMenuGutterIconContent">
-            <summary>
-            Gets or sets the content to be displayed for this group
-            Ensures the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenu"/> is collapsed.
-            This setting takes priority over <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.NavMenuGutterIcon"/>.
-            </summary>
-            <returns></returns>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.OnLinkSelectedChange">
-            <summary>
-            Called whever a contained <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink"/> is selected or unselected.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentNavMenu.ExpandAsync">
-            <summary>
-            expand when it is created.
-            </summary>
-        </member>
-            Ensures the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenu"/> is expanded.
+            Sets if the menu is expanded or not.
             </summary>
             <param name="expanded">Whether or not the menu should be expanded.</param>
             <param name="forceChangedEvent">Trigger a <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.ExpandedChanged"/> event even if the value hasn't changed.</param>
+            <returns></returns>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.IconContent">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.ChildContent">
             <summary>
-            Gets or sets the icon content to be displayed for this group
-            before its <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Text"/>.
-            This setting takes priority over <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Icon"/>.
+            Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Icon">
             <summary>
             Gets or sets the icon to display for this group
             before its <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Text"/>.
-            This setting is not used when <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.IconContent"/>
-            is not null.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Href">
@@ -3145,14 +3347,20 @@
             Gets or sets the width of the menu group
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.ExpandedChanged">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.InitiallyExpanded">
+            <summary>
+            If set to <see langword="true"/> then the tree will
+            expand when it is created.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.System#IDisposable#Dispose">
+            <summary>
+            Dispose of this navmenu group.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.ChildContent">
             <summary>
-            Ensures the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenu"/> is expanded.
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.IconContent">
-            <summary>
-            Gets or sets the content to be rendered for the icon.
+            Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.Href">
@@ -3199,6 +3407,11 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.Width">
             <summary>
             Gets or sets the width of the link (in pixels).
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.System#IDisposable#Dispose">
+            <summary>
+            Dispose of this navmenu link.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNumberField`1.HideStep">
@@ -3779,52 +3992,59 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider.Min">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider`1.Min">
             <summary>
             Gets or sets the slider's minimal value
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider.Max">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider`1.Max">
             <summary>
             Gets or sets the slider's maximum value
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider.Step">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider`1.Step">
             <summary>
             Gets or sets the slider's step value
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider.Orientation">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider`1.Orientation">
             <summary>
             Gets or sets the orentation of the slider. See <see cref="T:Microsoft.Fast.Components.FluentUI.Orientation"/>
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider.Mode">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider`1.Mode">
             <summary>
             The selection mode.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider.ChildContent">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider`1.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSliderLabel.Position">
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentSlider`1.FormatValueAsString(`0)">
             <summary>
-            Gets or sets the slider's label position
+            Formats the value as a string. Derived classes can override this to determine the formatting used for <c>CurrentValueAsString</c>.
+            </summary>
+            <param name = "value">The value to format.</param>
+            <returns>A string representation of the value.</returns>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSliderLabel`1.Position">
+            <summary>
+            Gets or sets the value for this slider position.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSliderLabel.HideMark">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSliderLabel`1.HideMark">
             <summary>
             Gets or sets if marks are hidden
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSliderLabel.Disabled">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSliderLabel`1.Disabled">
             <summary>
             The disabled state of the label. This is generally controlled by the parent .
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSliderLabel.ChildContent">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSliderLabel`1.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
             </summary>
@@ -4614,6 +4834,8 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.OnDissmissed">
             <summary>
             Callback for when the tooltip is dismissed
+            </summary>  
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Text">
             <summary>
             Gets or sets the text of the tree item
@@ -8117,6 +8339,20 @@
             FluentUI System Icon font size 12x12
             </summary>
         </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.InputFileMode">
+            <summary>
+            How to handle the input file(s).
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.InputFileMode.SaveToTemporaryFolder">
+            <summary />
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.InputFileMode.Buffer">
+            <summary />
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.InputFileMode.Stream">
+            <summary />
+        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.JustifyContent">
             <summary>
             The size of the emoji (in multiples of 32).
@@ -8905,6 +9141,42 @@
         <member name="T:Microsoft.Fast.Components.FluentUI.LibraryConfiguration">
             <summary>
             Defines the global Fluent UI Blazor component library services configuration
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.Resources.FluentInputFileResource">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Resources.FluentInputFileResource.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Resources.FluentInputFileResource.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Resources.FluentInputFileResource.LoadingAfter">
+            <summary>
+              Looks up a localized string similar to Completed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Resources.FluentInputFileResource.LoadingBefore">
+            <summary>
+              Looks up a localized string similar to Loading....
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Resources.FluentInputFileResource.LoadingCanceled">
+            <summary>
+              Looks up a localized string similar to Canceled.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Resources.FluentInputFileResource.LoadingInProgress">
+            <summary>
+              Looks up a localized string similar to Loading {0}/{1} - {2}.
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.Resources.TimeAgoResource">

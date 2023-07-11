@@ -7,27 +7,25 @@
         <CascadingValue TValue=INavMenuParentElement Value="@this" IsFixed>
             <CascadingValue Value="@Expanded" Name="NavMenuExpanded">
                 <CascadingValue Value="@HasChildIcons" Name="NavMenuItemSiblingHasIcon">
-                    <CascadingValue Value="@_localPath" Name="NavMenuLocalPath">
-                        <FluentTreeView Class="@ClassValue"
-                                        Style="@StyleValue">
-                            @if (Collapsible)
-                            {
-                                <FluentTreeItem Id="@_expandCollapseTreeItemId" Class="nav-menu-expander" @onclick="@ToggleCollapsedAsync" @onkeydown="@HandleExpandCollapseKeyDownAsync">
-                                    @if (NavigationIconContent is not null)
-                                    {
-                                        <div>
-                                            @NavigationIconContent
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <FluentIcon Icon="CoreIcons.Regular.Size24.Navigation" Width="20px" />
-                                    }
-                                </FluentTreeItem>
-                            }
-                            @ChildContent
-                        </FluentTreeView>
-                    </CascadingValue>
+                    <FluentTreeView Class="@ClassValue"
+                                    Style="@StyleValue">
+                        @if (Collapsible)
+                        {
+                            <FluentTreeItem Id="@_expandCollapseTreeItemId" Class="nav-menu-expander" @onclick="@ToggleCollapsedAsync" @onkeydown="@HandleExpandCollapseKeyDownAsync">
+                                @if (NavigationIconContent is not null)
+                                {
+                                    <div>
+                                        @NavigationIconContent
+                                    </div>
+                                }
+                                else
+                                {
+                                    <FluentIcon Icon="CoreIcons.Regular.Size24.Navigation" Width="20px" />
+                                }
+                            </FluentTreeItem>
+                        }
+                        @ChildContent
+                    </FluentTreeView>
                 </CascadingValue>
             </CascadingValue>
         </CascadingValue>

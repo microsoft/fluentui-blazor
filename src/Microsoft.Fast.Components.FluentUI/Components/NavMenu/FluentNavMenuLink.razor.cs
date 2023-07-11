@@ -79,16 +79,13 @@ public partial class FluentNavMenuLink : FluentComponentBase, INavMenuChildEleme
     [CascadingParameter(Name = "NavMenuItemSiblingHasIcon")]
     private bool SiblingHasIcon { get; set; }
 
-    [CascadingParameter(Name = "NavMenuLocalPath")]
-    private string NavMenuLocalPath { get; set; }
-
     public bool HasIcon => Icon != null;
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("navmenu-link")
         .AddClass("navmenu-element")
         .AddClass("navmenu-child-element")
-        .AddClass("navmenu-current-location", () => MatchesLocalPath)
+        .AddClass("navmenu-current-location selected", () => IsNavMenuCurrentSelected)
         .Build();
 
     protected string? StyleValue => new StyleBuilder()
@@ -96,7 +93,7 @@ public partial class FluentNavMenuLink : FluentComponentBase, INavMenuChildEleme
         .AddStyle(Style)
         .Build();
 
-    private bool MatchesLocalPath => !string.IsNullOrEmpty(Href) && string.Equals(Href, NavMenuLocalPath, StringComparison.OrdinalIgnoreCase);
+    private bool IsNavMenuCurrentSelected => NavMenu.CurrentSelected == this;
 
     public FluentNavMenuLink()
     {
@@ -108,9 +105,6 @@ public partial class FluentNavMenuLink : FluentComponentBase, INavMenuChildEleme
         base.OnInitialized();
         Owner.Register(this);
         NavMenu.Register(this);
-
-        if (!string.IsNullOrEmpty(Href) && (new Uri(NavigationManager.Uri).LocalPath) == Href)
-            Selected = true;
     }
 
 
@@ -131,14 +125,12 @@ public partial class FluentNavMenuLink : FluentComponentBase, INavMenuChildEleme
         }
 
         Selected = selected;
+
+        await NavMenu.HandleTreeItemSelectedChangedAsync(this);
+
         if (SelectedChanged.HasDelegate)
         {
             await SelectedChanged.InvokeAsync(selected);
-        }
-
-        if (Selected && !string.IsNullOrEmpty(Href) && new Uri(NavigationManager.Uri).LocalPath != Href)
-        {
-            NavigationManager.NavigateTo(Href);
         }
     }
 }

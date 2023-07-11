@@ -89,13 +89,11 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
     [CascadingParameter(Name = "NavMenuItemSiblingHasIcon")]
     private bool SiblingHasIcon { get; set; }
 
-    [CascadingParameter(Name = "NavMenuLocalPath")]
-    public string NavMenuLocalPath { get; set; }
-
     private readonly List<INavMenuChildElement> _childElements = new();
     private bool HasChildIcons => ((INavMenuParentElement)this).HasChildIcons;
     private bool Collapsed => !Expanded;
-    private bool MatchesLocalPath => !string.IsNullOrEmpty(Href) && string.Equals(Href, NavMenuLocalPath , StringComparison.OrdinalIgnoreCase);
+
+    private bool IsNavMenuCurrentSelected => NavMenu.CurrentSelected == this;
 
     public FluentNavMenuGroup()
     {
@@ -108,7 +106,7 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
         .AddClass("navmenu-group")
         .AddClass("navmenu-element")
         .AddClass("navmenu-child-element")
-        .AddClass("navmenu-current-location", () => MatchesLocalPath)
+        .AddClass("navmenu-current-location selected", () => IsNavMenuCurrentSelected)
         .Build();
 
     protected string? StyleValue => new StyleBuilder()
