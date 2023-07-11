@@ -1,25 +1,33 @@
 ﻿@namespace Microsoft.Fast.Components.FluentUI
-
 @inherits FluentComponentBase
+
 <div>
     <CascadingValue Value="this" IsFixed="true">
-        <CascadingValue Value="@Expanded" Name="NavMenuExpanded">
-            <FluentTreeView Class="@ClassValue"
-                            Style="@StyleValue"
-                            OnSelectedChange="HandleSelectedChangeAsync">
-                @if (Collapsible) {
-                    <FluentTreeItem Id="@_expandCollapseTreeItemId" Class="nav-menu-expander" @onclick="CollapsibleClickAsync">
-                        @if (NavigationIconContent is not null) {
-                            @NavigationIconContent
-                        }
-                        else
+        <CascadingValue TValue=INavMenuParentElement Value="@this" IsFixed>
+            <CascadingValue Value="@Expanded" Name="NavMenuExpanded">
+                <CascadingValue Value="@HasChildIcons" Name="NavMenuItemSiblingHasIcon">
+                    <FluentTreeView Class="@ClassValue"
+                                    Style="@StyleValue"
+                                    OnSelectedChange="@HandleSelectedChange">
+                        @if (Collapsible)
                         {
-                            <FluentIcon Icon="CoreIcons.Regular.Size24.Navigation" Width="20px" />
+                            <FluentTreeItem Id="@_expandCollapseTreeItemId" Class="nav-menu-expander" @onclick="@ToggleCollapsedAsync" @onkeydown="@HandleExpandCollapseKeyDownAsync">
+                                @if (NavigationIconContent is not null)
+                                {
+                                    <div>
+                                        @NavigationIconContent
+                                    </div>
+                                }
+                                else
+                                {
+                                    <FluentIcon Icon="CoreIcons.Regular.Size24.Navigation" Width="20px" />
+                                }
+                            </FluentTreeItem>
                         }
-                    </FluentTreeItem>
-                    }
-                @ChildContent
-            </FluentTreeView>
+                        @ChildContent
+                    </FluentTreeView>
+                </CascadingValue>
+            </CascadingValue>
         </CascadingValue>
     </CascadingValue>
 </div>

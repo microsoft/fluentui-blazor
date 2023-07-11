@@ -6,6 +6,7 @@ namespace Microsoft.Fast.Components.FluentUI.Extensions;
 
 internal static class FluentInputExtensions
 {
+
     public static bool TryParseSelectableValueFromString<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue>(
         this FluentInputBase<TValue> input, string? value,
         [MaybeNullWhen(false)] out TValue result,
@@ -38,7 +39,7 @@ internal static class FluentInputExtensions
             }
 
             result = default;
-            validationErrorMessage = $"The {input.DisplayName ?? input.FieldIdentifier.FieldName} field is not valid.";
+            validationErrorMessage = $"The {input.DisplayName ?? (input.FieldBound ? input.FieldIdentifier.FieldName : input.UnknownBoundField)} field is not valid.";
             return false;
         }
         catch (InvalidOperationException ex)

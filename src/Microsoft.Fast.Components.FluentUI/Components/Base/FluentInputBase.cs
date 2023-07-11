@@ -14,7 +14,10 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// </summary>
 public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDisposable
 {
+    internal readonly string UnknownBoundField = "(unknown)";
+
     private readonly EventHandler<ValidationStateChangedEventArgs> _validationStateChangedHandler;
+
     private bool _hasInitializedParameters;
     private bool _parsingFailed;
     private string? _incomingValueBeforeParsing;
@@ -109,6 +112,8 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     /// </summary>
     protected internal FieldIdentifier FieldIdentifier { get; set; }
 
+    internal bool FieldBound => ValueExpression != null || ValueChanged.HasDelegate;
+
     protected async Task SetCurrentValue(TValue? value)
     {
         var hasChanged = !EqualityComparer<TValue>.Default.Equals(value, Value);
@@ -130,7 +135,10 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
         {
             await ValueChanged.InvokeAsync(value);
         }
-        EditContext?.NotifyFieldChanged(FieldIdentifier);
+        if (FieldBound)
+        {
+            EditContext?.NotifyFieldChanged(FieldIdentifier);
+        }
         if (AfterBindValue.HasDelegate)
         {
             await AfterBindValue.InvokeAsync(Value);
@@ -187,7 +195,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
             _parsingFailed = true;
 
             // EditContext may be null if the input is not a child component of EditForm.
-            if (EditContext is not null)
+            if (EditContext is not null && FieldBound)
             {
                 _parsingValidationMessages ??= new ValidationMessageStore(EditContext);
                 _parsingValidationMessages.Add(FieldIdentifier, validationErrorMessage);
@@ -240,7 +248,8 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     {
         get
         {
-            string? fieldClass = EditContext?.FieldCssClass(FieldIdentifier);
+            string? fieldClass = FieldBound ? EditContext?.FieldCssClass(FieldIdentifier) : null;
+
             string? cssClass = CombineClassNames(AdditionalAttributes, fieldClass);
 
             if (!string.IsNullOrEmpty(cssClass) || !string.IsNullOrEmpty(Class))
@@ -269,13 +278,11 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
             // This is the first run
             // Could put this logic in OnInit, but its nice to avoid forcing people who override OnInit to call base.OnInit()
 
-            if (ValueExpression == null)
+            if (ValueExpression is not null)
             {
-                throw new InvalidOperationException($"{GetType()} requires a value for the 'ValueExpression' " +
-                    $"parameter. Normally this is provided automatically when using 'bind-Value'.");
+                FieldIdentifier = FieldIdentifier.Create(ValueExpression);
             }
 
-            FieldIdentifier = FieldIdentifier.Create(ValueExpression);
 
             if (CascadedEditContext != null)
             {
@@ -338,7 +345,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
         }
 
         var hasAriaInvalidAttribute = AdditionalAttributes != null && AdditionalAttributes.ContainsKey("aria-invalid");
-        if (EditContext.GetValidationMessages(FieldIdentifier).Any())
+        if (FieldBound && EditContext.GetValidationMessages(FieldIdentifier).Any())
         {
             if (hasAriaInvalidAttribute)
             {

@@ -6,6 +6,12 @@ using Microsoft.AspNetCore.Components;
 namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentSlider<TValue> : FluentInputBase<TValue>
+#if NET7_0_OR_GREATER
+    where TValue : System.Numerics.INumber<TValue>
+#else
+    where TValue : IComparable, IComparable<TValue>, IConvertible, IEquatable<TValue>, IFormattable
+#endif
+
 {
     /// <summary>
     /// Gets or sets the slider's minimal value
@@ -60,7 +66,7 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
         }
         else
         {
-            validationErrorMessage = string.Format(CultureInfo.InvariantCulture, "The {0} field must be a number.", DisplayName ?? FieldIdentifier.FieldName);
+            validationErrorMessage = string.Format(CultureInfo.InvariantCulture, "The {0} field must be a number.", DisplayName ?? (FieldBound ? FieldIdentifier.FieldName : "(unknown)"));
             return false;
         }
     }
@@ -71,6 +77,7 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
     /// <param name = "value">The value to format.</param>
     /// <returns>A string representation of the value.</returns>
     protected override string? FormatValueAsString(TValue? value)
+
     {
         // Avoiding a cast to IFormattable to avoid boxing.
         return value switch
@@ -107,6 +114,4 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
             throw new InvalidOperationException($"The type '{targetType}' is not a supported numeric type.");
         }
     }
-
-
 }

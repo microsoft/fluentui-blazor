@@ -46,13 +46,15 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
     /// Gets or sets the maximum value
     /// </summary>
     [Parameter]
-    public string? Max { get; set; } = InputHelpers<TValue>.GetMaxValue();
+
+    public string? Max { get; set; } //= InputHelpers<TValue>.GetMaxValue();
 
     /// <summary>
     /// Gets or sets the minimum value
     /// </summary>
     [Parameter]
-    public string? Min { get; set; } = InputHelpers<TValue>.GetMinValue();
+
+    public string? Min { get; set; } //= InputHelpers<TValue>.GetMinValue();
 
     /// <summary>
     /// Gets or sets the <see cref="FluentUI.Appearance" />
@@ -104,7 +106,7 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
         }
         else
         {
-            validationErrorMessage = string.Format(CultureInfo.InvariantCulture, ParsingErrorMessage, FieldIdentifier.FieldName);
+            validationErrorMessage = string.Format(CultureInfo.InvariantCulture, ParsingErrorMessage, FieldBound ? FieldIdentifier.FieldName : UnknownBoundField);
             return false;
         }
     }

@@ -4,7 +4,7 @@ using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentNavMenuLink : FluentComponentBase
+public partial class FluentNavMenuLink : FluentComponentBase, INavMenuChildElement, IDisposable
 {
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
@@ -14,12 +14,6 @@ public partial class FluentNavMenuLink : FluentComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
-
-    /// <summary>
-    /// Gets or sets the content to be rendered for the icon.
-    /// </summary>
-    [Parameter]
-    public RenderFragment? IconContent { get; set; }
 
     /// <summary>
     /// Gets or sets the destination of the link.
@@ -82,9 +76,15 @@ public partial class FluentNavMenuLink : FluentComponentBase
     [CascadingParameter(Name = "NavMenuExpanded")]
     private bool NavMenuExpanded { get; set; }
 
+    [CascadingParameter]
+    private INavMenuParentElement ParentElement { get; set; } = null!;
+
+    [CascadingParameter(Name = "NavMenuItemSiblingHasIcon")]
+    private bool SiblingHasIcon { get; set; }
+
     protected string? ClassValue => new CssBuilder(Class)
-       .AddClass("navmenu-link", () => NavMenu.HasSubMenu || NavMenu.HasIcons)
-       .AddClass("navmenu-link-nogroup", () => !NavMenu.HasSubMenu && NavMenu.HasIcons)
+       .AddClass("navmenu-link")
+	   .AddClass("navmenu-child-element")
        .Build();
 
     protected string? StyleValue => new StyleBuilder()
@@ -92,7 +92,7 @@ public partial class FluentNavMenuLink : FluentComponentBase
         .AddStyle(Style)
         .Build();
 
-    internal bool HasIcon => Icon != null || IconContent is not null;
+    public bool HasIcon => Icon != null;
 
     public FluentNavMenuLink()
     {
@@ -102,7 +102,7 @@ public partial class FluentNavMenuLink : FluentComponentBase
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        NavMenu.AddNavMenuLink(this);
+        ParentElement.Register(this);
 
         if (!string.IsNullOrEmpty(Href) && (new Uri(NavigationManager.Uri).LocalPath) == Href)
             Selected = true;
@@ -114,8 +114,17 @@ public partial class FluentNavMenuLink : FluentComponentBase
         if (!Disabled)
             Selected = true;
     }
+
     internal void SetSelected(bool value)
     {
         Selected = value;
+    }
+
+    /// <summary>
+    /// Dispose of this navmenu link.
+    /// </summary>
+    void IDisposable.Dispose()
+    {
+        ParentElement.Unregister(this);
     }
 }

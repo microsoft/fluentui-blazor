@@ -1,8 +1,10 @@
 <div>
     <FluentNavMenu Collapsible="false">
-        <FluentNavMenuLink Class="level1" Text="Home" Icon="@(new Icons.Regular.Size20.Home())" Href="/" />
+        <FluentNavMenuLink Icon="@(new Icons.Regular.Size20.Home())" Href="/">
+            <h2>Home</h2>
+        </FluentNavMenuLink>
 
-        <FluentNavMenuGroup Expanded=true>
+        <FluentNavMenuGroup InitiallyExpanded>
             <h2>More information</h2>
             <FluentNavMenuLink Href="/WhatsNew" Icon="@(new Icons.Regular.Size20.Info())" Text="What's new" />
             <FluentNavMenuLink Href="/UpgradeGuide" Icon="@(new Icons.Regular.Size20.ArrowUp())" Text="Upgrade guide" />
@@ -13,17 +15,16 @@
             <FluentNavMenuLink Href="/Templates" Icon="@(new Icons.Regular.Size20.Classification())" Text="Project templates" />
             <FluentNavMenuLink Href="/DialogService" Icon="@(new Icons.Regular.Size20.AppGeneric())" Text="DialogService" />
             <FluentNavMenuLink Href="/ToastService" Icon="@(new Icons.Regular.Size20.FoodToast())" Text="ToastService" />
-
         </FluentNavMenuGroup>
 
-        <FluentNavMenuGroup Expanded=true>
+        <FluentNavMenuGroup InitiallyExpanded>
             <h2>Base classes & Utilities</h2>
             <FluentNavMenuLink Href="/FluentComponentBase" Icon="@(new Icons.Regular.Size20.Compose())" Text="FluentComponentBase" />
             <FluentNavMenuLink Href="/FluentInputBase" Icon="@(new Icons.Regular.Size20.Form())" Text="FluentInputBase" />
             <FluentNavMenuLink Href="/clearcache" Icon="@(new Icons.Regular.Size20.Broom())" Text="Clear cache" />
         </FluentNavMenuGroup>
 
-        <FluentNavMenuGroup Expanded=true>
+        <FluentNavMenuGroup InitiallyExpanded>
             <h2>Layout components</h2>
             <FluentNavMenuLink Href="/Header" Icon="@(new Icons.Regular.Size20.DocumentHeader())" Text="Header" />
             <FluentNavMenuLink Href="/Footer" Icon="@(new Icons.Regular.Size20.DocumentFooter())" Text="Footer" />
@@ -36,12 +37,12 @@
             <FluentNavMenuLink Href="/Stack" Icon="@(new Icons.Regular.Size20.Stack())" Text="Stack" />
         </FluentNavMenuGroup>
 
-        <FluentNavMenuGroup Expanded=true>
+        <FluentNavMenuGroup InitiallyExpanded>
             <h2>Components</h2>
             <FluentNavMenuLink Href="/Accordion" Icon="@(new Icons.Regular.Size20.TextCollapse())" Text="Accordion" />
             <FluentNavMenuLink Href="/Anchor" Icon="@(new Icons.Regular.Size20.Link())" Text="Anchor" />
             <FluentNavMenuLink Href="/AnchoredRegion" Icon="@(new Icons.Regular.Size20.LinkSquare())" Text="Anchored Region" />
-            <FluentNavMenuGroup Expanded=true>
+            <FluentNavMenuGroup InitiallyExpanded>
                 <h3>Badge</h3>
                 <FluentNavMenuLink Href="/Badge" Icon="@(new Icons.Regular.Size20.Badge())" Text="Badge" />
                 <FluentNavMenuLink Href="/CounterBadge" Icon="@(new Icons.Regular.Size20.NumberCircle1())" Text="CounterBadge" />
@@ -95,9 +96,9 @@
             <FluentNavMenuLink Href="/TreeView" Icon="@(new Icons.Regular.Size20.TextBulletListTree())" Text="Tree View" />
         </FluentNavMenuGroup>
 
-        <FluentNavMenuGroup Expanded=true Href="/Lab/Overview" Icon="@(new Icons.Regular.Size20.Beaker())">
+        <FluentNavMenuGroup InitiallyExpanded Href="/Lab/Overview" Icon="@(new Icons.Regular.Size20.Beaker())">
             <h2>Incubation lab</h2>
-            <FluentNavMenuGroup Expanded=true>
+            <FluentNavMenuGroup InitiallyExpanded>
                 <h3>Components</h3>
                 <FluentNavMenuLink Href="/Lab/MarkdownSection" Icon="@(new Icons.Regular.Size20.ArrowSortDown())" Text="MarkdownSection" />
                 <FluentNavMenuLink Href="/Lab/TableOfContents" Icon="@(new Icons.Regular.Size20.DocumentTextLink())" Text="TableOfContents" />
