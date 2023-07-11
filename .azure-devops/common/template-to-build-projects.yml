@@ -116,7 +116,7 @@ steps:
     condition: eq(variables['ShouldTest'], 'true')
     displayName: Generate reports
     inputs:
-      reports: '**/coverage.cobertura.xml'
+      reports: '**/*.cobertura.xml'
       targetdir: 'CoverageFolder'
       reporttypes: 'HtmlInline_AzurePipelines'
   
@@ -126,7 +126,7 @@ steps:
     displayName: 'Publish code coverage'
     inputs:
       codeCoverageTool: Cobertura
-      summaryFileLocation: '**/coverage.cobertura.xml'
+      summaryFileLocation: '**/*.cobertura.xml'
       reportDirectory: CoverageFolder
 
   # - task: DotNetCoreCLI@2
