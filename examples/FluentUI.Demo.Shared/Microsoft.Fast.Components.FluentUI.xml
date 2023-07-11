@@ -3049,27 +3049,12 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.Expanded">
             <summary>
-            Gets or sets whether the menu is expanded.
+            Gets or sets whether the menu is collapsed.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.ExpandedChanged">
             <summary>
-            Event callback for when the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.Expanded"/> property changes.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.OnGroupExpandedChange">
-            <summary>
-            Called whenever a contained <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup"/> is expanded or collapsed.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.OnGroupSelectedChange">
-            <summary>
-            Called whenever a contained <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup"/> is selected or unselected.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.OnLinkSelectedChange">
-            <summary>
-            Called whever a contained <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink"/> is selected or unselected.
+            Event callback for when the menu is collapsed status changed.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.InitiallyExpanded">
@@ -3078,24 +3063,45 @@
             expand when it is created.
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentNavMenu.SetExpandedAsync(System.Boolean,System.Boolean)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentNavMenu.CollapseAsync">
             <summary>
-            Sets if the menu is expanded or not.
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.NavMenuGutterIconContent">
+            <summary>
+            Gets or sets the content to be displayed for this group
+            Ensures the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenu"/> is collapsed.
+            This setting takes priority over <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.NavMenuGutterIcon"/>.
+            </summary>
+            <returns></returns>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.OnLinkSelectedChange">
+            <summary>
+            Called whever a contained <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink"/> is selected or unselected.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentNavMenu.ExpandAsync">
+            <summary>
+            expand when it is created.
+            </summary>
+        </member>
+            Ensures the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenu"/> is expanded.
             </summary>
             <param name="expanded">Whether or not the menu should be expanded.</param>
             <param name="forceChangedEvent">Trigger a <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.ExpandedChanged"/> event even if the value hasn't changed.</param>
-            <returns></returns>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.ChildContent">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.IconContent">
             <summary>
-            Gets or sets the content to be rendered inside the component.
+            Gets or sets the icon content to be displayed for this group
+            before its <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Text"/>.
+            This setting takes priority over <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Icon"/>.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Icon">
             <summary>
             Gets or sets the icon to display for this group
             before its <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Text"/>.
-            This setting is not used when <see cref="!:IconContent"/>
+            This setting is not used when <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.IconContent"/>
             is not null.
             </summary>
         </member>
@@ -3139,20 +3145,14 @@
             Gets or sets the width of the menu group
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.InitiallyExpanded">
-            <summary>
-            If set to <see langword="true"/> then the tree will
-            expand when it is created.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.System#IDisposable#Dispose">
-            <summary>
-            Dispose of this navmenu group.
-            </summary>
-        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.ExpandedChanged">
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.ChildContent">
             <summary>
-            Gets or sets the content to be rendered inside the component.
+            Ensures the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenu"/> is expanded.
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.IconContent">
+            <summary>
+            Gets or sets the content to be rendered for the icon.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.Href">
@@ -3199,11 +3199,6 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.Width">
             <summary>
             Gets or sets the width of the link (in pixels).
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink.System#IDisposable#Dispose">
-            <summary>
-            Dispose of this navmenu link.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNumberField`1.HideStep">
@@ -3784,59 +3779,52 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider`1.Min">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider.Min">
             <summary>
             Gets or sets the slider's minimal value
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider`1.Max">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider.Max">
             <summary>
             Gets or sets the slider's maximum value
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider`1.Step">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider.Step">
             <summary>
             Gets or sets the slider's step value
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider`1.Orientation">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider.Orientation">
             <summary>
             Gets or sets the orentation of the slider. See <see cref="T:Microsoft.Fast.Components.FluentUI.Orientation"/>
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider`1.Mode">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider.Mode">
             <summary>
             The selection mode.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider`1.ChildContent">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentSlider`1.FormatValueAsString(`0)">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSliderLabel.Position">
             <summary>
-            Formats the value as a string. Derived classes can override this to determine the formatting used for <c>CurrentValueAsString</c>.
-            </summary>
-            <param name = "value">The value to format.</param>
-            <returns>A string representation of the value.</returns>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSliderLabel`1.Position">
-            <summary>
-            Gets or sets the value for this slider position.
+            Gets or sets the slider's label position
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSliderLabel`1.HideMark">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSliderLabel.HideMark">
             <summary>
             Gets or sets if marks are hidden
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSliderLabel`1.Disabled">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSliderLabel.Disabled">
             <summary>
             The disabled state of the label. This is generally controlled by the parent .
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSliderLabel`1.ChildContent">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSliderLabel.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
             </summary>
@@ -4626,8 +4614,6 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.OnDissmissed">
             <summary>
             Callback for when the tooltip is dismissed
-            </summary>  
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Text">
             <summary>
             Gets or sets the text of the tree item

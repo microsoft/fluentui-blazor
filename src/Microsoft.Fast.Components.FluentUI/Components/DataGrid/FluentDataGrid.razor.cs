@@ -287,7 +287,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public Task ShowColumnOptionsAsync(ColumnBase<TGridItem> column)
     {
         _displayOptionsForColumn = column;
-        _checkColumnOptionsPosition = true; // Triggers a call to JS to position the options element, apply autofocus, and any other setup
+        _checkColumnOptionsPosition = true; // Triggers a call to JSRuntime to position the options element, apply autofocus, and any other setup
         StateHasChanged();
         return Task.CompletedTask;
     }
@@ -460,7 +460,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
         catch (JSDisconnectedException)
         {
-            // The JS side may routinely be gone already if the reason we're disposing is that
+            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
             // the client disconnected. This is not an error.
         }
     }
