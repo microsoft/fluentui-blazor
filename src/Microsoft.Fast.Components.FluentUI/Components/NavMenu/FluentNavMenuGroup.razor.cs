@@ -18,8 +18,6 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
     /// <summary>
     /// Gets or sets the icon to display for this group
     /// before its <see cref="Text"/>.
-    /// This setting is not used when <see cref="IconContent"/>
-    /// is not null.
     /// </summary>
     [Parameter]
     public Icon? Icon { get; set; }
