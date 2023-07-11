@@ -1,0 +1,36 @@
+﻿@namespace Microsoft.Fast.Components.FluentUI
+@using Microsoft.AspNetCore.Components.Forms
+@inherits FluentComponentBase
+
+<div class="@ClassValue"
+     style="@StyleValue"
+     drop-files=@DropOver
+@ondragenter="@(e => DropOver = true)"
+@ondragenter:stopPropagation
+@ondragover="@(e => DropOver = true)"
+@ondragover:stopPropagation
+@ondragleave="@(e => DropOver = false)"
+@ondragleave:stopPropagation
+@ondragend="@(e => DropOver = false)">
+
+    <div class="inputfile-content" style="z-index: @(DropOver ? null : 999)">
+
+        @ChildContent
+
+        <div class="progress">
+            <FluentProgress Visible="@(ProgressPercent > 0)"
+                            Min="0"
+                            Max="100"
+                            Value="@ProgressPercent" /><br />
+            @ProgressTitle
+        </div>
+    </div>
+
+    <div style="grid-column: 1; grid-row: 1; z-index: @(DropOver ? 999 : null)">
+        <InputFile OnChange="OnUploadFilesHandlerAsync"
+                       id="@Id"
+                       class="power-input-uploader"
+                       multiple=@Multiple
+                       accept="@Accept" />
+    </div>
+</div>

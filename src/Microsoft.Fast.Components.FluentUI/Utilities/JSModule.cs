@@ -31,7 +31,7 @@ public abstract class JSModule : IAsyncDisposable
     private bool _isDisposed = false;
     private readonly Lazy<Task<IJSObjectReference>> _moduleTask;
     
-    // On construction, we start loading the JS module
+    // On construction, we start loading the JSRuntime module
     protected JSModule(IJSRuntime js, string moduleUrl)
     {
         //if (!((AspNetCore.Components.Server.Circuits.RemoteJSRuntime)js).IsInitialized)
@@ -53,7 +53,7 @@ public abstract class JSModule : IAsyncDisposable
         => await (await _moduleTask.Value).InvokeAsync<T>(identifier, args);
 
 
-    // On disposal, we release the JS module
+    // On disposal, we release the JSRuntime module
     public async ValueTask DisposeAsync()
     {
         await DisposeAsyncCore().ConfigureAwait(false);

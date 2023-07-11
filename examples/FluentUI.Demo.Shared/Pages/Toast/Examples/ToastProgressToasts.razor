@@ -26,7 +26,7 @@
                 Content = new ProgressToastContent()
                 {
                     Details = "This may take a while.",
-                    Progress = "0",
+                    Progress = 0,
                 },
             };
     }
@@ -47,7 +47,7 @@
         _button!.SetDisabled(true);
         for (int i = 0; i < 101; i++)
         {
-            _progressToastData.Content.Progress = i.ToString();
+            _progressToastData.Content.Progress = i;
             ToastService.UpdateToast(_id, _progressToastData);
             await Task.Delay(100);
         };
@@ -56,7 +56,7 @@
 
     private void Reset()
     {
-        _progressToastData.Content.Progress = "0";
+        _progressToastData.Content.Progress = 0;
         ToastService.UpdateToast(_id, _progressToastData);
         _button!.SetDisabled(false);
     }

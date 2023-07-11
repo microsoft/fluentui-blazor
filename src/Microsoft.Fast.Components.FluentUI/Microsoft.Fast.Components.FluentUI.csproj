@@ -117,5 +117,10 @@
 	  <LastGenOutput>%(ParentFile).Designer.cs</LastGenOutput>
 	</EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Resources\FluentInputFileResource.Designer.cs">
+      <DependentUpon>FluentInputFileResource.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
 
 </Project>
