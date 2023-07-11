@@ -57,6 +57,11 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAccordionItem.Id">
+            <summary>
+            The item ID
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchoredRegion.Anchor">
             <summary>
             The HTML ID of the anchor element this region is positioned relative to
@@ -222,14 +227,9 @@
             Gets or sets the color
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentBadge.BackgroundColor">
-            <summary>
-            Gets or sets the background color
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentBadge.Fill">
             <summary>
-            Gets or sets the background color based on fill value
+            Gets or sets the background color
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentBadge.Circular">
@@ -240,7 +240,7 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentBadge.Appearance">
             <summary>
             Gets or sets the visual appearance. See <seealso cref="T:Microsoft.Fast.Components.FluentUI.Appearance"/>
-            Possible values are Accent, Neutral (default) or Lightweight
+            Possible values are Accent (default), Neutral or Lightweight
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentBadge.ChildContent">
@@ -254,12 +254,6 @@
             May be <see langword="null"/> if accessed before the component is rendered.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentComponentBase.Id">
-            <summary>
-            Unique identifier. If not provided, a random value will be generated.
-            The value will be used as the HTML <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id">global id attribute</see>.
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentComponentBase.Class">
             <summary>
             Optional CSS class names. If given, these will be included in the class attribute of the component.
@@ -270,12 +264,7 @@
             Optional in-line styles. If given, these will be included in the style attribute of the component.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentComponentBase.Data">
-            <summary>
-            Used to attach any user data object to the component.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentComponentBase.ParentReference">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentComponentBase.BackReference">
             <summary>
             A reference to the enclosing component.
             </summary>
@@ -295,6 +284,11 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.Readonly">
             <summary>
             When true, the control will be immutable by user interaction. <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/readonly">readonly</see> HTML attribute for more information.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.Id">
+            <summary>
+            The id attribute of the element. Used for label association.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.Disabled">
@@ -336,23 +330,6 @@
             <para>This value is used when generating error messages when the input value fails to parse correctly.</para>
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.Autofocus">
-            <summary>
-            Determines if the element should receive document focus on page load.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.AfterBindValue">
-            <summary>
-            An event that is called after the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.Value"/> property has been changed
-            through data binding. This is equivalent to <code>@bind-Value:after</code> which is supported
-            from .Net 7, but not available in .Net 6.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.Placeholder">
-            <summary>
-            The short hint displayed in the input before the user enters a value.
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.EditContext">
             <summary>
             Gets the associated <see cref="T:Microsoft.AspNetCore.Components.Forms.EditContext"/>.
@@ -373,12 +350,6 @@
             <summary>
             Gets or sets the current value of the input, represented as a string.
             </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.SetCurrentValueAsString(System.String)">
-            <summary>
-            Attempts to set the current value of the input, represented as a string.
-            </summary>
-            <param name="value"></param>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.#ctor">
             <summary>
@@ -438,34 +409,12 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.Dispose(System.Boolean)">
             <inheritdoc />
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.Immediate">
+        <member name="M:Microsoft.Fast.Components.FluentUI.InputHelpers`1.FormatValueAsString(`0)">
             <summary>
-            Change the content of this input field when the user write text (based on 'OnInput' HTML event).
+            Formats the value as a string. 
             </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.ImmediateDelay">
-            <summary>
-            Delay, in milliseconds, before to raise the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.ValueChanged"/> event.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.ChangeHandlerAsync(Microsoft.AspNetCore.Components.ChangeEventArgs)">
-            <summary>
-            Handler for the OnChange event.
-            </summary>
-            <param name="e"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.InputHandlerAsync(Microsoft.AspNetCore.Components.ChangeEventArgs)">
-            <summary>
-            Handler for the OnInput event, with an optional delay to avoid to raise the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.ValueChanged"/> event too often.
-            </summary>
-            <param name="e"></param>
-            <returns></returns>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentBodyContent.ChildContent">
-            <summary>
-            Gets or sets the content to be rendered inside the component.
-            </summary>
+            <param name = "value">The value to format.</param>
+            <returns>A string representation of the value.</returns>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentBreadcrumb.ChildContent">
             <summary>
@@ -567,6 +516,11 @@
             Default is ButtonType.Button"
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.Id">
+            <summary>
+            The id attribute of the element.Used for label association.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.Value">
             <summary>
             The value of the element
@@ -603,6 +557,80 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.Readonly">
+            <summary>
+            Gets or sets if the calendar is readonly 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.Locale">
+            <summary>
+            String representation of the full locale including market, calendar type and numbering system
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.Month">
+            <summary>
+            Gets or sets the month of the calendar to display
+            Defaults to current month
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.Year">
+            <summary>
+            Gets or sets the year of the calendar to display
+            Defaults to current year
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.DayFormat">
+            <summary>
+            Format style for the day
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.WeekdayFormat">
+            <summary>
+            Format style for the week day labels
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.MonthFormat">
+            <summary>
+            Format style for the month label
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.YearFormat">
+            <summary>
+            Format style for the year used in the title
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.MinWeeks">
+            <summary>
+            Minimum number of weeks to show for the month
+            This can be used to normalize the calendar view
+            when changing or across multiple calendars
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.DisabledSelectable">
+            <summary>
+            A list of dates that should be shown as disabled
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.OutOfMonthSelectable">
+            <summary>
+            Gets or sets whether dates outside of shown month are selectable
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.DisabledDates">
+            <summary>
+            Gets or sets dates to be shown as disabled.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.SelectedDates">
+            <summary>
+            A list of dates that should be shown as highlighted
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentCard.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
@@ -613,138 +641,35 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.FluentCodeEditor">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCodeEditor.JSRuntime">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCodeEditor._jsModule">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCodeEditor.Language">
+        <member name="T:Microsoft.Fast.Components.FluentUI.Align">
             <summary>
-            Language used by the editor: csharp, javascript, ...
+            Describes alignment for a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/> column.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCodeEditor.Height">
+        <member name="F:Microsoft.Fast.Components.FluentUI.Align.Start">
             <summary>
-            Height of this component.
+            Justifies the content against the start of the container.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCodeEditor.Width">
+        <member name="F:Microsoft.Fast.Components.FluentUI.Align.Center">
             <summary>
-            Width of this component.
+            Justifies the content at the center of the container.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCodeEditor.IsDarkMode">
+        <member name="F:Microsoft.Fast.Components.FluentUI.Align.End">
             <summary>
-            Theme of the editor (Light or Dark).
+            Justifies the content at the end of the container.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCodeEditor.Value">
+        <member name="F:Microsoft.Fast.Components.FluentUI.Align.Left">
             <summary>
-            Gets or sets the value of the input. This should be used with two-way binding.
+            Justifies the content against the left of the container.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCodeEditor.ValueChanged">
+        <member name="F:Microsoft.Fast.Components.FluentUI.Align.Right">
             <summary>
-            Gets or sets a callback that updates the bound value.
+            Justifies the content at the right of the container.
             </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentCodeEditor.OnParametersSetAsync">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentCodeEditor.OnAfterRenderAsync(System.Boolean)">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentCodeEditor.GetTheme(System.Boolean)">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentCodeEditor.UpdateValueAsync(System.String)">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentCodeEditor.DisposeAsync">
-            <summary />
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.FluentCounterBadge">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCounterBadge.ClassValue">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCounterBadge.StyleValue">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCounterBadge.ChildContent">
-            <summary>
-            Child content of component, the content that the badge will apply to.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCounterBadge.Count">
-            <summary>
-            Number displayed inside the badge.
-            Can be enriched with a plus sign with <see cref="P:Microsoft.Fast.Components.FluentUI.FluentCounterBadge.ShowOverflow"/>
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCounterBadge.BadgeContent">
-            <summary>
-            Content you want inside the badge, to customize the badge content.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCounterBadge.Max">
-            <summary>
-            Max number that can be displayed inside the badge.
-            Default is 99.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCounterBadge.HorizontalPosition">
-            <summary>
-            Left position of the badge in percentage.
-            By default, this value is 50 to center the badge.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCounterBadge.BottomPosition">
-            <summary>
-            Bottom position of the badge in percentage.
-            By default, this value is 50 to center the badge.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCounterBadge.Appearance">
-            <summary>
-            Default design of this badge using colors from theme.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCounterBadge.BackgroundColor">
-            <summary>
-            Background color to replace the color inferred from property.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCounterBadge.Color">
-            <summary>
-            Font color to replace the color inferred from property.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCounterBadge.ShowZero">
-             <summary>
-             If the counter badge should be displayed when the count is zero.
-             Defaults to false.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCounterBadge.ShowOverflow">
-             <summary>
-             If an plus sign should be displayed when the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentCounterBadge.Count"/> is greater than <see cref="P:Microsoft.Fast.Components.FluentUI.FluentCounterBadge.Max"/>.
-             Defaults to true.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentCounterBadge.GetBackgroundColor">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentCounterBadge.GetBorderColor">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentCounterBadge.GetFontColor">
-            <summary />
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.ColumnBase`1">
             <summary>
@@ -759,13 +684,13 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.Class">
             <summary>
-            An optional CSS class name. If specified, this is included in the class attribute of header and grid cells
+            An optional CSS class name. If specified, this is included in the class attribute of table header and body cells
             for this column.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.Align">
             <summary>
-            If specified, controls the justification of header and grid cells for this column.
+            If specified, controls the justification of table header and body cells for this column.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.HeaderCellItemTemplate">
@@ -968,7 +893,7 @@
             </summary>
             <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.Items">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowsData">
              <summary>
              A queryable source of data for the grid.
             
@@ -976,14 +901,14 @@
              <see cref="M:System.Linq.Queryable.AsQueryable(System.Collections.IEnumerable)"/> extension method,
              or an EntityFramework DataSet or an <see cref="T:System.Linq.IQueryable"/> derived from it.
             
-             You should supply either <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.Items"/> or <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.ItemsProvider"/>, but not both.
+             You should supply either <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowsData"/> or <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowsDataProvider"/>, but not both.
              </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.ItemsProvider">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowsDataProvider">
              <summary>
              A callback that supplies data for the rid.
             
-             You should supply either <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.Items"/> or <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.ItemsProvider"/>, but not both.
+             You should supply either <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowsData"/> or <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowsDataProvider"/>, but not both.
              </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.ChildContent">
@@ -998,14 +923,14 @@
              scrolling and causes the grid to fetch and render only the data around the current scroll viewport.
              This can greatly improve the performance when scrolling through large data sets.
             
-             If you use <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.Virtualize"/>, you should supply a value for <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.ItemSize"/> and must
+             If you use <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.Virtualize"/>, you should supply a value for <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowsDataSize"/> and must
              ensure that every row renders with the same constant height.
             
              Generally it's preferable not to use <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.Virtualize"/> if the amount of data being rendered
              is small or if you are using pagination.
              </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.ItemSize">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowsDataSize">
             <summary>
             This is applicable only when using <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.Virtualize"/>. It defines an expected height in pixels for
             each row, allowing the virtualization mechanism to fetch the correct number of items to match the display
@@ -1018,7 +943,7 @@
             manually. Size changes are not persisted.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.ItemKey">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowsDataKey">
              <summary>
              Optionally defines a value for @key on each rendered row. Typically this should be used to specify a
              unique identifier, such as a primary key value, for each data item.
@@ -1096,7 +1021,7 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RefreshDataAsync">
             <summary>
             Instructs the grid to re-fetch and render the current data from the supplied data source
-            (either <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.Items"/> or <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.ItemsProvider"/>).
+            (either <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowsData"/> or <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowsDataProvider"/>).
             </summary>
             <returns>A <see cref="T:System.Threading.Tasks.Task"/> that represents the completion of the operation.</returns>
         </member>
@@ -1160,7 +1085,7 @@
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.GridItemsProviderRequest`1">
             <summary>
-            Parameters for data to be supplied by a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/>'s <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.ItemsProvider"/>.
+            Parameters for data to be supplied by a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/>'s <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowsDataProvider"/>.
             </summary>
             <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
         </member>
@@ -1210,7 +1135,7 @@
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.GridItemsProviderResult`1">
             <summary>
-            Holds data being supplied to a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/>'s <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.ItemsProvider"/>.
+            Holds data being supplied to a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/>'s <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowsDataProvider"/>.
             </summary>
             <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
         </member>
@@ -1309,372 +1234,10 @@
             <typeparam name="TItem">Model item type</typeparam>
             <typeparam name="TProp">Type of property</typeparam>
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.CalendarExtended">
-            <summary>
-            Gets few calendar details in the right culture.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.CalendarExtended.#ctor(System.Globalization.CultureInfo,System.DateTime)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.Fast.Components.FluentUI.CalendarExtended"/> class.
-            </summary>
-            <param name="culture"></param>
-            <param name="currentDate"></param>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.CalendarExtended.Culture">
-            <summary>
-            Gets the culture to use for the calendar.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.CalendarExtended.Date">
-            <summary>
-            Gets the currently date.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.CalendarExtended.GetDaysOfWeek(System.Int32,System.Int32)">
-            <summary>
-            Returns the n-th week of the currently displayed month.
-            </summary>
-            <param name="weekNumber">between 0 and 4.</param>
-            <param name="monthOffset">offset from _picker_month.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.CalendarExtended.GetFirstDayToDisplay(System.Int32)">
-            <summary>
-            Gets the first day of the n-th month.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.CalendarExtended.GetLastDayToDisplay(System.Int32)">
-            <summary>
-            Returns the last day of the n-th month.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.CalendarExtended.GetFirstDayOfWeek">
-            <summary>
-            Returns the first day of the week.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.CalendarExtended.GetMonthName">
-            <summary>
-            Returns the name of the month in the right culture.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.CalendarExtended.GetMonthName(System.DateTime)">
-            <summary>
-            Returns the name of the month in the right culture.
-            </summary>
-            <param name="date"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.CalendarExtended.GetMonthNameAndYear">
-            <summary>
-            Returns the name of the month in the right culture, followed by the year.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.CalendarExtended.GetDayNames">
-            <summary>
-            Returns a list of days, abbreviated and complete (Mon, Monday), ...,(Sun, Sunday) in the correct culture.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.CalendarExtended.IsInCurrentMonth(System.DateTime)">
-            <summary>
-            Returns True if the specified date is in the current month of the <see cref="P:Microsoft.Fast.Components.FluentUI.CalendarExtended.Date"/>.
-            </summary>
-            <param name="date"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.CalendarExtended.GetCalendarDayOfMonth(System.DateTime)">
-            <summary>
-            Returns the number of day of the month in the current Culture.
-            </summary>
-            <param name="date"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.CalendarExtended.GetCalendarDayWithMonthName(System.DateTime)">
-            <summary>
-            Returns the name of the day and month in current culture.
-            </summary>
-            <param name="date"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.CalendarExtended.Shift``1(``0[],System.Int32)">
-            <summary>
-            Shift array and cycle around from the end.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.CalendarExtended.ToTitleCase(System.String)">
-            <summary>
-            Returns the string in title case (the first letter of a word is an uppercase letter).
-            </summary>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.FluentCalendar">
-            <summary>
-            Fluent Calendar based on
-            https://github.com/microsoft/fluentui/blob/master/packages/web-components/src/calendar/.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.ClassValue">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.StyleValue">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.PickerMonth">
-            <summary>
-            The current month of the date picker (two-way bindable).
-            This changes when the user browses through the calendar.
-            The month is represented as a DateTime which is always the first day of that month.
-            You can also set this to determine which month is displayed first.
-            If not set, the current month is displayed.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.PickerMonthChanged">
-            <summary>
-            Fired when the display month changes.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.DaysTemplate">
-            <summary>
-            Defines the appearance of a Day cell.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendar.CalendarExtended">
-            <summary>
-            All days of this current month.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentCalendar.GetDayProperties(System.DateTime)">
-            <summary>
-            Returns the class name to display a day (day, inactive, today).
-            </summary>
-            <param name="day"></param>
-            <returns></returns>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendarBase.ReadOnly">
-            <summary>
-            Gets or sets if the calendar is readonly 
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendarBase.Culture">
-            <summary>
-            The culture of the component.
-            By default <see cref="P:System.Globalization.CultureInfo.CurrentCulture"/> to display using the OS culture.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendarBase.DisabledDateFunc">
-            <summary>
-            Function to know if a specific day must be disabled.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendarBase.DisabledSelectable">
-            <summary>
-            Apply the disabled style to the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentCalendarBase.DisabledDateFunc"/> days.
-            If this is not the case, the days are displayed like the others, but cannot be selected.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendarBase.DayFormat">
-            <summary>
-            Format style for the day (numeric or 2-digits).
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendarBase.Value">
-            <summary>
-            Selected date (two-way bindable).
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendarBase.ValueChanged">
-            <summary>
-            Fired when the display month changes.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentCalendarBase.OnSelectedDateHandlerAsync(System.Nullable{System.DateTime})">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentCalendarBase.OnSelectedDateHandlerAsync(System.Nullable{System.DateTime},System.Boolean)">
-            <summary />
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.FluentCalendarDay">
-            <summary>
-            Computes the properties of a day in the calendar, depending on the current culture.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentCalendarDay.#ctor(Microsoft.Fast.Components.FluentUI.FluentCalendar,System.DateTime)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentCalendarDay"/> class.
-            </summary>
-            <param name="calendar"></param>
-            <param name="day"></param>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendarDay.Date">
-            <summary>
-            Current day
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendarDay.IsDisabled">
-            <summary>
-            Whether the day is disabled by the user.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendarDay.IsInactive">
-            <summary>
-            Whether the day is inactive (out of the current month).
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendarDay.IsToday">
-            <summary>
-            Whether the day is now
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendarDay.IsSelected">
-            <summary>
-            Whether the day is selected by the user
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendarDay.Title">
-            <summary>
-            Gets the name of the day and month in current culture.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendarDay.DayNumber">
-            <summary>
-            Gets the number of day of the month in the current Culture.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendarDay.DayIdentifier">
-            <summary>
-            Gets the identifier of the day in the format yyyy-MM-dd.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDatePicker.#ctor">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDatePicker.ClassValue">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDatePicker.StyleValue">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDatePicker.Appearance">
-            <summary>
-            Gets or sets the design of this input.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDatePicker.Disabled">
-            <summary>
-            Disables the form control, ensuring it doesn't participate in form submission.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDatePicker.Name">
-            <summary>
-            The name of the element.Allows access by name from the associated form.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDatePicker.Required">
-            <summary>
-            Whether the element needs to have a value
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDatePicker.Autofocus">
-            <summary>
-            Determines if the element should receive document focus on page load.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDatePicker.Placeholder">
-            <summary>
-            The short hint displayed in the input before the user enters a value.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTimePicker.StyleValue">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTimePicker.Appearance">
-            <summary>
-            Gets or sets the design of this input.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentTimePicker.TryParseValueFromString(System.String,System.Nullable{System.DateTime}@,System.String@)">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.TimeAgoOptions.DayAgo">
-            <summary>
-            Gets the resource string for the format "{0} day ago"
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.TimeAgoOptions.DaysAgo">
-            <summary>
-            Gets the resource string for the format "{0} days ago"
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.TimeAgoOptions.HourAgo">
-            <summary>
-            Gets the resource string for the format "{0} hour ago"
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.TimeAgoOptions.HoursAgo">
-            <summary>
-            Gets the resource string for the format "{0} hours ago"
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.TimeAgoOptions.MinuteAgo">
-            <summary>
-            Gets the resource string for the format "{0} minute ago"
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.TimeAgoOptions.MinutesAgo">
-            <summary>
-            Gets the resource string for the format "{0} minutes ago"
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.TimeAgoOptions.MonthAgo">
-            <summary>
-            Gets the resource string for the format "{0} month ago"
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.TimeAgoOptions.MonthsAgo">
-            <summary>
-            Gets the resource string for the format "{0} months ago"
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.TimeAgoOptions.SecondAgo">
-            <summary>
-            Gets the resource string for the format "Just now"
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.TimeAgoOptions.SecondsAgo">
-            <summary>
-            Gets the resource string for the format "{0} seconds ago"
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.TimeAgoOptions.YearAgo">
-            <summary>
-            Gets the resource string for the format "{0} year ago"
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.TimeAgoOptions.YearsAgo">
-            <summary>
-            Gets the resource string for the format "{0} years ago"
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDesignSystemProvider.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
             </summary>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.IDialogContentComponent">
-            <summary>
-            A component implementing this interface can be used as dialog content.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.MessageBox">
-            <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.Modal">
             <summary>
@@ -1707,329 +1270,9 @@
             The label surfaced to assistive technologies.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.Instance">
-            <summary>
-            The instance containing the programmatic API for the dialog.
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.ChildContent">
             <summary>
-            Used when not calling the <see cref="T:Microsoft.Fast.Components.FluentUI.DialogService" /> to show a dialog
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.OnDialogResult">
-            <summary>
-            The event callback invoked to return the dialog result.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDialog.CloseAsync(Microsoft.Fast.Components.FluentUI.DialogResult)">
-            <summary>
-            Closes the dialog
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDialogContainer.#ctor">
-            <summary>
-            Constructs an instance of <see cref="T:Microsoft.Fast.Components.FluentUI.FluentToastContainer"/>.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.Alignment">
-            <summary>
-            Gets or sets the dialog position:
-            left (full height), right (full height)
-            or screen middle (using Width and Height properties).
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.Title">
-            <summary>
-            Title of the dialog
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.Modal">
-            <summary>
-            Determines if the dialog is modal. Defaults to true.
-            When true, clicking outside the dialog will dismiss the dialog.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.TrapFocus">
-            <summary>
-            Indicates that the dialog should trap focus.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.ShowTitle">
-            <summary>
-            When true, shows the title in the header.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.ShowDismiss">
-            <summary>
-            When true, shows the dismiss button in the header.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.PrimaryAction">
-            <summary>
-            Text to display for the primary action.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.SecondaryAction">
-            <summary>
-            Text to display for the secondary action.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.Width">
-            <summary>
-            Width of the dialog. Must be a valid CSS width value like "600px" or "3em"
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.Height">
-            <summary>
-            Height of the dialog. Must be a valid CSS height value like "600px" or "3em"
-            Only used if Alignment is set to "HorizontalAlignment.Center"
-            </summary>  
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.DialogBodyStyle">
-            <summary>
-            Gets or sets the extra styles appied to the Body content.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.AriaLabelledby">
-            <summary>
-            Identifies the element that labels the element it is applied to.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.AriaDescribedby">
-            <summary>
-            Identifies the element that describes the element on which the attribute is set.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.AriaLabel">
-            <summary>
-            The value that labels an interactive element.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.ShowPrimaryAction">
-            <summary>
-            Gets whether the primary button is displayed or not. Depends on PrimaryAction having a value.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.ShowSecondaryAction">
-            <summary>
-            Gets whether the secondary button is displayed or not. Depends on SecondaryAction having a value. 
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.OnDialogResult">
-            <summary>
-            Callback function for the result.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.DialogParameters`1">
-            <summary>
-            Parameters for a dialog.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters`1.Content">
-            <summary>
-            Content to pass to and from the dialog.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MessageBoxContent.Title">
-            <summary>
-            The title of the message box.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MessageBoxContent.Intent">
-            <summary>
-            The intent of the message box. See <see cref="T:Microsoft.Fast.Components.FluentUI.MessageBoxIntent"/> for details.
-            </summary>    
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MessageBoxContent.Icon">
-            <summary>
-            Name of the icon to display.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MessageBoxContent.IconColor">
-            <summary>
-            Color of the icon to display.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MessageBoxContent.Message">
-            <summary>
-            The text to display in the message box.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MessageBoxContent.MarkupMessage">
-            <summary>
-            The html text to display in the message box.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent">
-            <summary>
-            The data to show in a splash screen dialog.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.SplashScreenContent.Title">
-            <summary>
-            Typically used to show the name of the product.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.SplashScreenContent.SubTitle">
-            <summary>
-            Typically used to show the name of the suite the product belongs to.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.SplashScreenContent.LoadingText">
-            <summary>
-            Text to indicate something is happening.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.SplashScreenContent.Message">
-            <summary>
-            An extra message. Can contain HTML. 
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.SplashScreenContent.Logo">
-            <summary>
-            Logo to show on the splash screen.
-            Can be a URL or a base64 encoded string or an SVG.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.DialogResult">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogResult.#ctor(System.Object,System.Boolean)">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogResult.Data">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogResult.Cancelled">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogResult.Ok``1(``0)">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogResult.Cancel(System.Object)">
-            <summary />
-        </member>
-        <member name="E:Microsoft.Fast.Components.FluentUI.DialogService.OnShow">
-            <summary>
-            A event that will be invoked when showing a dialog with a custom component
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreen(System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
-            <summary>
-            Shows the standard <see cref="T:Microsoft.Fast.Components.FluentUI.FluentSplashScreen"/> with the given parameters."/>
-            </summary>
-            <param name="receiver">The componente that receives the callback</param>
-            <param name="callback">Name of the callback function</param>
-            <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent"/> that holds the content to display</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreen``1(System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
-            <summary>
-            Shows a custom splash screen dialog with the given parameters."/>
-            </summary>
-            <param name="receiver">The componente that receives the callback</param>
-            <param name="callback">Name of the callback function</param>
-            <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent"/> that holds the content to display</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreen(System.Type,System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
-            <summary>
-            Shows a splash screen of the given type with the given parameters."/>
-            </summary>
-            <param name="component">The type of the component to show</param>
-            <param name="receiver">The componente that receives the callback</param>
-            <param name="callback">Name of the callback function</param>
-            <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent"/> that holds the content to display</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSuccess(System.String,System.String)">
-            <summary>
-            Shows a success message box. Does not have a callback function.
-            </summary>
-            <param name="message">The message to display.</param>
-            <param name="title">The title to display on the dialog.</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowWarning(System.String,System.String)">
-            <summary>
-            Shows a warning message box. Does not have a callback function.
-            </summary>
-            <param name="message">The message to display.</param>
-            <param name="title">The title to display on the dialog.</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowError(System.String,System.String)">
-            <summary>
-            Shows an error message box. Does not have a callback function.
-            </summary>
-            <param name="message">The message to display.</param>
-            <param name="title">The title to display on the dialog.</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowInfo(System.String,System.String)">
-            <summary>
-            Shows an information message box. Does not have a callback function.
-            </summary>
-            <param name="message">The message to display.</param>
-            <param name="title">The title to display on the dialog.</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowConfirmation(System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},System.String,System.String,System.String,System.String)">
-            <summary>
-            Shows a confirmation message box. Has a callback function which returns boolean 
-            (true=PrimaryAction clicked, false=SecondaryAction clicked).
-            </summary>
-            <param name="receiver">The component that receives the callback function.</param>
-            <param name="callback">The callback function.</param>
-            <param name="message">The message to display.</param>
-            <param name="primaryText">The text to display on the primary button.</param>
-            <param name="secondaryText">The text to display on the secondary button.</param>
-            <param name="title">The title to display on the dialog.</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowMessageBox(Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.MessageBoxContent})">
-            <summary>
-            Shows a custom message box. Has a callback function which returns boolean
-            (true=PrimaryAction clicked, false=SecondaryAction clicked).
-            </summary>
-            <param name="parameters">Parameters to pass to component being displayed.</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowPanel``2(Microsoft.Fast.Components.FluentUI.DialogParameters{``1})">
-            <summary>
-            Shows a panel with the dialog component type as the body,
-            passing the specified <paramref name="parameters "/>
-            </summary>
-            <param name="parameters">Parameters to pass to component being displayed.</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowPanel``1(System.Type,Microsoft.Fast.Components.FluentUI.DialogParameters{``0})">
-            <summary>
-            Shows a panel with the dialog component type as the body,
-            passing the specified <paramref name="parameters "/>
-            </summary>
-            <param name="dialogComponent">Type of component to display.</param>
-            <param name="parameters">Parameters to pass to component being displayed.</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialog``2(Microsoft.Fast.Components.FluentUI.DialogParameters{``1})">
-            <summary>
-            Shows a dialog with the component type as the body,
-            passing the specified <paramref name="parameters "/>
-            </summary>
-            <param name="parameters">Parameters to pass to component being displayed.</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialog``1(System.Type,``0,Microsoft.Fast.Components.FluentUI.DialogParameters)">
-            <summary>
-            Shows a dialog with the component type as the body,
-            passing the specified <paramref name="content "/> 
-            </summary>
-            <param name="dialogComponent">Type of component to display.</param>
-            <param name="content">Content to pass to component being displayed.</param>
-            <param name="parameters">Parameters to configure the dialog component.</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.CreateDialogCallback(System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task})">
-            <summary>
-            Convenience method to create a <see cref="T:Microsoft.AspNetCore.Components.EventCallback"/> for a dialog result.
-            You can also call <code>EventCallback.Factory.Create</code> directly.
-            </summary>
-            <param name="receiver"></param>
-            <param name="callback"></param>
-            <returns></returns>
-        </member>
-        <member name="E:Microsoft.Fast.Components.FluentUI.IDialogService.OnShow">
-            <summary>
-            A event that will be invoked when showing a dialog with a custom component
+            Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDivider.Role">
@@ -2047,92 +1290,719 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.FluentDragContainer`1">
-            <summary />
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentEmoji.Id">
+            <summary>
+            Gets or sets the id.
+            </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDragContainer`1.ClassValue">
-            <summary />
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentEmoji.Name">
+            <summary>
+            Gets or sets the name of the emoji. Can be specified by using const value from <see cref="T:Microsoft.Fast.Components.FluentUI.FluentEmojis" />
+            </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDragContainer`1.StyleValue">
-            <summary />
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentEmoji.EmojiStyle">
+            <summary>
+            Gets or sets the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentEmoji.EmojiStyle"/> to use. 
+            Defaults to Color
+            </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDragContainer`1.ChildContent">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentEmoji.Skintone">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.Fast.Components.FluentUI.EmojiSkintone"/> to use.
+            Defaults to Default
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentEmoji.Size">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.Fast.Components.FluentUI.EmojiSize"/> of the emoji. Defaults to Size32.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentEmoji.CustomSize">
+            <summary>
+            Gets or sets the custom size of the emoji. Can only be set if Size is set to Custom.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentEmoji.Slot">
+            <summary>
+            Gets or sets the slot where the emoji is displayed in
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentEmoji.OnClick">
+            <summary>
+            Allows for capturing a mouse click on an emoji
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentEmoji.SvgSplitter">
+            <remarks>
+            Pattern explanation:<br/>
+            <code>
+            ○ Match the string "&lt;svg ".<br/>
+            ○ "attributes" capture group.<br/>
+                ○ Match any character lazily any number of times.<br/>
+            ○ Match '&gt;'.<br/>
+            ○ "payload" capture group.<br/>
+                ○ Match any character lazily any number of times.<br/>
+            ○ Match the string "&lt;/svg&gt;".<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentFlipper.Disabled">
+            <summary>
+            Gets or set if the element is disabled
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentFlipper.AriaHidden">
+            <summary>
+            Indicates the flipper should be hidden from assistive technology. Because flippers are often supplementary navigation, they are often hidden from assistive technology.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentFlipper.Direction">
+            <summary>
+            Gets or sets the direction. See <see cref="T:Microsoft.Fast.Components.FluentUI.FlipperDirection"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentFlipper.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDragContainer`1.OnDragStart">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentHorizontalScroll.Speed">
             <summary>
-            This event is fired when the user starts dragging an element.
+            Description: Scroll speed in pixels per second
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDragContainer`1.OnDragEnter">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentHorizontalScroll.Duration">
             <summary>
-            This event is fired when a dragged element enters a valid drop target.
+            The CSS time value for the scroll transition duration. Overrides the `speed` attribute.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDragContainer`1.OnDragOver">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentHorizontalScroll.Easing">
             <summary>
-            This event is fired when an element is being dragged over a valid drop target.
+            Attribute used for easing, defaults to ease-in-out
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDragContainer`1.OnDragLeave">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentHorizontalScroll.FlippersHiddenFromAt">
             <summary>
-            This event is fired when a dragged element leaves a valid drop target.
+            Attribute to hide flippers from assistive technology
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDragContainer`1.OnDropEnd">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentHorizontalScroll.View">
             <summary>
-            This event is fired when an element is dropped on a valid drop target.
+            View: default | mobile
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDragContainer`1.StartedZone">
-            <summary>
-            property to keep the zone currently dragged.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDragContainer`1.SetStartedZone(Microsoft.Fast.Components.FluentUI.FluentDropZone{`0})">
-            <summary />
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.FluentDragEventArgs`1">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDragEventArgs`1.#ctor">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDragEventArgs`1.#ctor(Microsoft.Fast.Components.FluentUI.FluentDropZone{`0},Microsoft.Fast.Components.FluentUI.FluentDropZone{`0})">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDragEventArgs`1.Source">
-            <summary>
-            Gets the zone where the drag started.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDragEventArgs`1.Target">
-            <summary>
-            Gets the zone where the drag ended.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.FluentDropZone`1">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDropZone`1.ClassValue">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDropZone`1.StyleValue">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDropZone`1.Container">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDropZone`1.Item">
-            <summary>
-            Item to identify a draggable zone.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDropZone`1.ChildContent">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentHorizontalScroll.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.Id">
+            <summary>
+            Gets or sets the id.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.Variant">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.Fast.Components.FluentUI.IconVariant"/> to use. 
+            Defaults to Regular
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.Color">
+            <summary>
+            Gets or sets the icon drawing and fill color. 
+            Value comes from the <see cref="T:Microsoft.Fast.Components.FluentUI.Color"/> enumeration. Defaults to Accent.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.CustomColor">
+            <summary>
+            Gets or sets the icon drawing and fill _color to a custom value.
+            Needs to be formatted as an HTML hex _color string (#rrggbb or #rgb)
+            ⚠️ Only available when Color is set to Color.Custom.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.Name">
+            <summary>
+            Gets or sets the name of the icon. Can be specified by using const value from <see cref="T:Microsoft.Fast.Components.FluentUI.FluentIcons" />
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.Size">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.Fast.Components.FluentUI.IconSize"/> of the icon. Defaults to 20. Not all sizes are available for all icons.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.Slot">
+            <summary>
+            Gets or sets the slot where the icon is displayed in
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.NeutralCultureName">
+            <summary>
+            Gets or sets the two letter neutral culture variant used. Not all neutral cultures are available for all icons
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon.OnClick">
+            <summary>
+            Allows for capturing a mouse click on an icon
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentIcon.CheckRGBString">
+            <remarks>
+            Pattern explanation:<br/>
+            <code>
+            ○ Match with 2 alternative expressions, atomically.<br/>
+                ○ Match a sequence of expressions.<br/>
+                    ○ Match if at the beginning of the string.<br/>
+                    ○ Match '#'.<br/>
+                    ○ Match with 2 alternative expressions, atomically.<br/>
+                        ○ Match a character in the set [0-9A-Fa-f] exactly 6 times.<br/>
+                        ○ Match a character in the set [0-9A-Fa-f] exactly 3 times.<br/>
+                ○ Match a sequence of expressions.<br/>
+                    ○ Match the string "var(--".<br/>
+                    ○ Match a character other than '\n' greedily any number of times.<br/>
+                    ○ Match ')'.<br/>
+                    ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCombobox`1.Autocomplete">
+            <summary>
+            Gets or sets if the element is auto completes. See <seealso cref="T:Microsoft.Fast.Components.FluentUI.ComboboxAutocomplete"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCombobox`1.Open">
+            <summary>
+            The open attribute.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCombobox`1.Placeholder">
+            <summary>
+            Sets the placeholder value of the element, generally used to provide a hint to the user.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCombobox`1.Position">
+            <summary>
+            The placement for the listbox when the combobox is open.
+            See <seealso cref="T:Microsoft.Fast.Components.FluentUI.SelectPosition"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCombobox`1.Appearance">
+            <summary>
+            Gets or sets the visual appearance. See <seealso cref="T:Microsoft.Fast.Components.FluentUI.Appearance"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentListbox`1.Width">
+            <summary>
+            Width style
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentListbox`1.Height">
+            <summary>
+            Height style
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentListbox`1.Size">
+            <summary>
+            The maximum number of options that should be visible in the listbox scroll area.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOption`1.Disabled">
+            <summary>
+            Gets or sets if the element is disabled
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOption`1.Value">
+            <summary>
+            Gets or sets the value of this option.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOption`1.Selected">
+            <summary>
+            Gets or sets if the element is selected
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOption`1.SelectedChanged">
+            <summary>
+            Called whenever the selection changed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOption`1.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOption`1.OnSelect">
+            <summary>
+            Called whenever the selection changed.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentOption`1.OnSelectHandler">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSelect`1.Open">
+            <summary>
+            The open attribute.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSelect`1.Position">
+            <summary>
+            Reflects the placement for the listbox when the select is open.
+            See <see cref="T:Microsoft.Fast.Components.FluentUI.SelectPosition"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSelect`1.Appearance">
+            <summary>
+            Gets or sets the visual appearance. See <seealso cref="T:Microsoft.Fast.Components.FluentUI.Appearance"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.InternalListContext`1.Options">
+            <summary>
+            Gets the list of all select items inside of this select component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.InternalListContext`1.ValueChanged">
+            <summary>
+            Gets the event callback to be invoked when the selected value is changed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.InternalListContext`1.SelectedOptionChanged">
+            <summary>
+            Gets the event callback to be invoked when the selected value is changed.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.ListComponentBase`1">
+            <summary>
+            Component that provides a list of options.
+            </summary>
+            <typeparam name="TOption"></typeparam>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.ClassValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.StyleValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.Id">
+            <summary>
+            Unique identifier. If not provided, a random value will be generated.
+            The value will be used as the HTML <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id">global id attribute</see>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.Title">
+            <summary>
+            Text used on aria-label attribute.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.Disabled">
+            <summary>
+            If true, will disable the list of items.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            In this case list of FluentOptions
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.OptionText">
+            <summary>
+            Function used to determine which text to display for each option.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.OptionValue">
+            <summary>
+            Function used to determine which text to return for the selected item.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.OptionDisabled">
+            <summary>
+            Function used to determine if an option is disabled.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.OptionSelected">
+            <summary>
+            Function used to determine if an option is initially selected.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.Items">
+            <summary>
+            Data source of all items to display in this list.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.SelectedOption">
+            <summary>
+            Gets or sets the selected item.
+            ⚠️ Only available when Multiple = false.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.SelectedOptionChanged">
+            <summary>
+            Called whenever the selection changed.
+            ⚠️ Only available when Multiple = false.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.Value">
+            <summary>
+            Gets or sets the selected value.
+            When Multiple = true this only reflects the first selected option value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.ValueChanged">
+            <summary>
+            Called whenever the selection changed.
+            ⚠️ Only available when Multiple = false.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.Multiple">
+            <summary>
+            If true, the user can select multiple elements.
+            ⚠️ Only available for the FluentSelect and FluentListbox components.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.SelectedOptions">
+            <summary>
+            Gets or sets all selected items.
+            ⚠️ Only available when Multiple = true.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.SelectedOptionsChanged">
+            <summary>
+            Called whenever the selection changed.
+            ⚠️ Only available when Multiple = true.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.#ctor">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.DisabledItem(`0)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.GetOptionSelected(`0)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.GetOptionValue(`0)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.GetOptionText(`0)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.OnSelectedItemChangedHandlerAsync(`0)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.RaiseChangedEvents">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.GetListOptions(System.Collections.Generic.IEnumerable{`0})">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.OnChangedHandlerAsync(Microsoft.AspNetCore.Components.ChangeEventArgs)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.RemoveSelectedItem(`0)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.AddSelectedItem(`0)">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenu.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenuItem.Owner">
+            <summary>
+            Gets or sets the owning FluentMenu
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenuItem.Id">
+            <summary>
+            Gets or sets if the id
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenuItem.Disabled">
+            <summary>
+            Gets or sets if the element is disabled
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenuItem.Expanded">
+            <summary>
+            The expanded state of the element.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenuItem.Role">
+            <summary>
+            The role of the element.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenuItem.Checked">
+            <summary>
+            Gets or sets if the element is checked
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenuItem.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNumberField`1.Autofocus">
+            <summary>
+            Gets or sets if the field should automatically receive focus
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNumberField`1.HideStep">
+            <summary>
+            When true, spin buttons will not be rendered
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNumberField`1.Placeholder">
+            <summary>
+            Gets or sets the placeholder text
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNumberField`1.DataList">
+            <summary>
+            Allows associating a <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist">datalist</see> to the element by <see href="https://developer.mozilla.org/en-US/docs/Web/API/Element/id">id</see>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNumberField`1.MaxLength">
+            <summary>
+            Gets or sets the maximum lenth
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNumberField`1.MinLength">
+            <summary>
+            Gets or sets the minimum length
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNumberField`1.Size">
+            <summary>
+            Gets or sets the size
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNumberField`1.Step">
+            <summary>
+            Gets or sets the amount to increase/decrease the number with. Only use whole number when TValue is int or long. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNumberField`1.Max">
+            <summary>
+            Gets or sets the maximum value
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNumberField`1.Min">
+            <summary>
+            Gets or sets the minimum value
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNumberField`1.Appearance">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.Fast.Components.FluentUI.Appearance" />
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNumberField`1.ParsingErrorMessage">
+            <summary>
+            Gets or sets the error message to show when the field can not be parsed
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNumberField`1.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentNumberField`1.FormatValueAsString(`0)">
+            <summary>
+            Formats the value as a string. Derived classes can override this to determine the formatting used for <c>CurrentValueAsString</c>.
+            </summary>
+            <param name = "value">The value to format.</param>
+            <returns>A string representation of the value.</returns>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.FluentPaginator">
+            <summary>
+            A component that provides a user interface for <see cref="T:Microsoft.Fast.Components.FluentUI.PaginationState"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPaginator.State">
+            <summary>
+            Specifies the associated <see cref="T:Microsoft.Fast.Components.FluentUI.PaginationState"/>. This parameter is required.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPaginator.SummaryTemplate">
+            <summary>
+            Optionally supplies a template for rendering the page count summary.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentPaginator.#ctor">
+            <summary>
+            Constructs an instance of <see cref="T:Microsoft.Fast.Components.FluentUI.FluentPaginator" />.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentPaginator.OnParametersSet">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentPaginator.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.PaginationState">
+            <summary>
+            Holds state to represent pagination in a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.PaginationState.ItemsPerPage">
+            <summary>
+            Gets or sets the number of items on each page.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.PaginationState.CurrentPageIndex">
+            <summary>
+            Gets the current zero-based page index. To set it, call <see cref="M:Microsoft.Fast.Components.FluentUI.PaginationState.SetCurrentPageIndexAsync(System.Int32)" />.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.PaginationState.TotalItemCount">
+            <summary>
+            Gets the total number of items across all pages, if known. The value will be null until an
+            associated <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/> assigns a value after loading data.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.PaginationState.LastPageIndex">
+            <summary>
+            Gets the zero-based index of the last page, if known. The value will be null until <see cref="P:Microsoft.Fast.Components.FluentUI.PaginationState.TotalItemCount"/> is known.
+            </summary>
+        </member>
+        <member name="E:Microsoft.Fast.Components.FluentUI.PaginationState.TotalItemCountChanged">
+            <summary>
+            An event that is raised when the total item count has changed.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.PaginationState.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.PaginationState.SetCurrentPageIndexAsync(System.Int32)">
+            <summary>
+            Sets the current page index, and notifies any associated <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/>
+            to fetch and render updated data.
+            </summary>
+            <param name="pageIndex">The new, zero-based page index.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentProgress.Min">
+            <summary>
+            Gets or sets the minimum value 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentProgress.Max">
+            <summary>
+            Gets or sets the maximum value 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentProgress.Value">
+            <summary>
+            Gets or sets the current value 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentProgress.Paused">
+            <summary>
+            Gets or sets if the progress element is paused
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentProgress.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentProgressRing.Min">
+            <summary>
+            Gets or sets the minimum value 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentProgressRing.Max">
+            <summary>
+            Gets or sets the maximum value 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentProgressRing.Value">
+            <summary>
+            Gets or sets the current value 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentProgressRing.Paused">
+            <summary>
+            Gets or sets if the progress element is paused
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentProgressRing.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadio`1.Context">
+            <summary>
+            Gets context for this <see cref="T:Microsoft.Fast.Components.FluentUI.FluentRadio`1"/>. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadio`1.Readonly">
+            <summary>
+            Gets or sets if the element is readonly
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadio`1.Id">
+            <summary>
+            The id attribute of the element.Used for label association.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadio`1.Value">
+            <summary>
+            The value of the element
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadio`1.Disabled">
+            <summary>
+            Disables the form control, ensuring it doesn't participate in form submission
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadio`1.Name">
+            <summary>
+            Gets or sets the name of the parent fluent radio group.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadio`1.Required">
+            <summary>
+            The element needs to have a value
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadio`1.Checked">
+            <summary>
+            Gets or sets if the element is checked
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadio`1.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentRadio`1.OnInitialized">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.FluentRadioContext">
+            <summary>
+            Describes context for an <see cref="T:Microsoft.Fast.Components.FluentUI.FluentRadio`1"/> component. 
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentRadioContext.#ctor(Microsoft.Fast.Components.FluentUI.FluentRadioContext,Microsoft.AspNetCore.Components.EventCallback{Microsoft.AspNetCore.Components.ChangeEventArgs})">
+            <summary>
+            Instantiates a new <see cref="T:Microsoft.Fast.Components.FluentUI.FluentRadioContext" />.
+            </summary>
+            <param name="parentContext">The parent context, if any.</param>
+            <param name="changeEventCallback">The event callback to be invoked when the selected value is changed.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentRadioContext.FindContextInAncestors(System.String)">
+            <summary>
+            Finds an <see cref="T:Microsoft.Fast.Components.FluentUI.FluentRadioContext"/> in the context's ancestors with the matching <paramref name="groupName"/>.
+            </summary>
+            <param name="groupName">The group name of the ancestor <see cref="T:Microsoft.Fast.Components.FluentUI.FluentRadioContext"/>.</param>
+            <returns>The <see cref="T:Microsoft.Fast.Components.FluentUI.FluentRadioContext"/>, or <c>null</c> if none was found.</returns>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.FluentRadioGroup`1">
+            <summary>
+            Groups child <see cref="T:Microsoft.Fast.Components.FluentUI.FluentRadio`1"/> components. 
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDropZone`1.Droppable">
@@ -4265,32 +4135,230 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.IdMoreButton">
             <summary>
-            Gets the unique identifier associated to the more button ([Id]-more).
+            Gets or sets the orientation of the group. See <see cref="T:Microsoft.Fast.Components.FluentUI.Orientation"/>
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.TabsOverflow">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadioGroup`1.ChildContent">
             <summary>
-            Gets all tabs with <see cref="P:Microsoft.Fast.Components.FluentUI.FluentTab.Overflow"/> assigned to True.
+            Gets or sets the child content to be rendering inside the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentRadioGroup`1"/>. 
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentTabs.OnAfterRenderAsync(System.Boolean)">
-            <summary />
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentRadioGroup`1.OnParametersSet">
+            <inheritdoc />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentTabs.OnTabChangeHandlerAsync(Microsoft.Fast.Components.FluentUI.TabChangeEventArgs)">
-            <summary />
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentRadioGroup`1.TryParseValueFromString(System.String,`0@,System.String@)">
+            <inheritdoc />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentTabs.OverflowRaisedAsync(System.String)">
-            <summary />
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSearch.Autofocus">
+            <summary>
+            Gets or sets if the text area is auto focussed
+            </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentTabs.ResizeTabsForOverflowButtonAsync">
-            <summary />
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSearch.Placeholder">
+            <summary>
+            Gets or sets the placholder text
+            </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentTabs.DisplayMoreTabAsync(Microsoft.Fast.Components.FluentUI.FluentTab)">
-            <summary />
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSearch.DataList">
+            <summary>
+            Allows associating a <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist">datalist</see> to the element by <see href="https://developer.mozilla.org/en-US/docs/Web/API/Element/id">id</see>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSearch.Maxlength">
+            <summary>
+            The maximum number of characters a user can enter.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSearch.Minlength">
+            <summary>
+            The minimum number of characters a user can enter.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSearch.Pattern">
+            <summary>
+            A regular expression that the value must match to pass validation.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSearch.Size">
+            <summary>
+            Gets or sets the size of the text field
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSearch.Spellcheck">
+            <summary>
+            Gets or sets the if spellcheck should be used
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSearch.Appearance">
+            <summary>
+            Gets or sets the visual appearance. See <see cref="T:Microsoft.Fast.Components.FluentUI.Appearance"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSearch.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSkeleton.Fill">
+            <summary>
+            Indicates the Skeleton should have a filled style.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSkeleton.Shape">
+            <summary>
+            Gets or sets the shape of the skeleton. See <see cref="T:Microsoft.Fast.Components.FluentUI.SkeletonShape"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSkeleton.Pattern">
+            <summary>
+            Gets or sets the skeleton pattern
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSkeleton.Shimmer">
+            <summary>
+            Gets or sets if the skeleton is shimmered
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSkeleton.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider`1.Min">
+            <summary>
+            Gets or sets the slider's minimal value
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider`1.Max">
+            <summary>
+            Gets or sets the slider's maximum value
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider`1.Step">
+            <summary>
+            Gets or sets the slider's step value
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider`1.Orientation">
+            <summary>
+            Gets or sets the orentation of the slider. See <see cref="T:Microsoft.Fast.Components.FluentUI.Orientation"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider`1.Mode">
+            <summary>
+            The selection mode.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider`1.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentSlider`1.FormatValueAsString(`0)">
+            <summary>
+            Formats the value as a string. Derived classes can override this to determine the formatting used for <c>CurrentValueAsString</c>.
+            </summary>
+            <param name = "value">The value to format.</param>
+            <returns>A string representation of the value.</returns>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSliderLabel`1.Position">
+            <summary>
+            Gets or sets the value for this slider position.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSliderLabel`1.HideMark">
+            <summary>
+            Gets or sets if marks are hidden
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSliderLabel`1.Disabled">
+            <summary>
+            The disabled state of the label. This is generally controlled by the parent .
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSliderLabel`1.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSwitch.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSwitch.CheckedMessage">
+            <summary>
+            Gets or sets the checked message
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSwitch.UncheckedMessage">
+            <summary>
+            Gets or sets the unchecked message
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.Disabled">
+            <summary>
+            When true, the control will be immutable by user interaction. See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled">disabled</see> HTML attribute for more information.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.Text">
+            <summary>
+            Gets or sets the text of the tab
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.Owner">
+            <summary>
+            Gets or sets the owning FluentTabs component
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabPanel.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.Orientation">
+            <summary>
+            Gets or sets the tab's orentation. See <see cref="T:Microsoft.Fast.Components.FluentUI.Orientation"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.ActiveIndicator">
+            <summary>
+            Whether or not to show the active indicator 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.ActiveIdChanged">
+            <summary>
+            Gets or sets a callback when the bound value is changed .
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.OnTabChange">
+            <summary>
+            Gets or sets a callback when a tab is changed .
+            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextArea.Resize">
             <summary>
             Gets or sets if the text area is resizeable. See <see cref="T:Microsoft.Fast.Components.FluentUI.TextAreaResize"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextArea.Autofocus">
+            <summary>
+            Gets or sets if the text area is auto focussed
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextArea.Placeholder">
+            <summary>
+            Gets or sets the placholder text
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextArea.Form">
@@ -4331,12 +4399,22 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextArea.Appearance">
             <summary>
-            Gets or sets the visual appearance. See <see cref="T:Microsoft.Fast.Components.FluentUI.FluentInputAppearance"/>
+            Gets or sets the visual appearance. See <see cref="T:Microsoft.Fast.Components.FluentUI.Appearance"/>
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextArea.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextField.Autofocus">
+            <summary>
+            Gets or sets if the text area is auto focussed
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextField.Placeholder">
+            <summary>
+            Gets or sets the placholder text
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextField.TextFieldType">
@@ -4376,369 +4454,12 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextField.Appearance">
             <summary>
-            Gets or sets the visual appearance. See <see cref="T:Microsoft.Fast.Components.FluentUI.FluentInputAppearance"/>
+            Gets or sets the visual appearance. See <see cref="T:Microsoft.Fast.Components.FluentUI.Appearance"/>
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextField.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.CommunicationToast.Close">
-            <summary>
-            Closes the toast
-            </summary>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.IToastContentComponent">
-            <summary>
-            A component implementing this interface can be used as toast content.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ProgressToast.Close">
-            <summary>
-            Closes the toast
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToast.Instance">
-            <summary>
-            The instance containing the programmatic API for the toast.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentToast.Close">
-            <summary>
-            Closes the toast
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToastContainer.Position">
-            <summary>
-            Gets or sets the position on screen where the toasts are shown. See <see cref="T:Microsoft.Fast.Components.FluentUI.ToastPosition"/>
-            Default is ToastPosition.TopRight
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToastContainer.Timeout">
-            <summary>
-            Gets or sets the number of seconds a toast remains visible. Default is 7 seconds.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToastContainer.MaxToastCount">
-            <summary>
-            Gets or sets the maximum number of toasts that can be shown at once. Default is 4.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToastContainer.RemoveToastsOnNavigation">
-            <summary>
-            Gets or sets whether to remove toasts when the user navigates to a new page. Default is true.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentToastContainer.ShowCloseButton">
-            <summary>
-            Gets or sets whether to show a close button on a toast. Default is true.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentToastContainer.#ctor">
-            <summary>
-            Constructs an instance of <see cref="T:Microsoft.Fast.Components.FluentUI.FluentToastContainer"/>.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ToastParameters`1.Content">
-            <summary>
-            The content to be shown in the toast body.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.ToastResult">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastResult.#ctor(System.Object,System.Boolean)">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ToastResult.Data">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ToastResult.Cancelled">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastResult.Ok``1(``0)">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastResult.Cancel(System.Object)">
-            <summary />
-        </member>
-        <member name="E:Microsoft.Fast.Components.FluentUI.ToastService.OnShow">
-            <summary>
-            A event that will be invoked when showing a toast with a custom component
-            </summary>
-        </member>
-        <member name="E:Microsoft.Fast.Components.FluentUI.ToastService.OnClearAll">
-            <summary>
-            A event that will be invoked when clearing all toasts
-            </summary>
-        </member>
-        <member name="E:Microsoft.Fast.Components.FluentUI.ToastService.OnClearIntent">
-            <summary>
-            A event that will be invoked when clearing toasts of a certain intent
-            </summary>
-        </member>
-        <member name="E:Microsoft.Fast.Components.FluentUI.ToastService.OnClearQueue">
-            <summary>
-            A event that will be invoked to clear all queued toasts
-            </summary>
-        </member>
-        <member name="E:Microsoft.Fast.Components.FluentUI.ToastService.OnClearQueueIntent">
-            <summary>
-            A event that will be invoked to clear queued toast of specified intent
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowSuccess(System.String,System.Nullable{System.Int32},System.String,System.Nullable{Microsoft.AspNetCore.Components.EventCallback{Microsoft.Fast.Components.FluentUI.ToastResult}})">
-            <summary>
-            Shows a simple succes confirmation toast.
-            Only shows icon, title and close button or action.
-            </summary>
-            <param name="title">Text to display on the toast</param>
-            <param name="timeout">Duration toast is shown</param>
-            <param name="topAction">Text to use for the TopAction</param>
-            <param name="callback">Callback to invoke when TopAction is clicked</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowWarning(System.String,System.Nullable{System.Int32},System.String,System.Nullable{Microsoft.AspNetCore.Components.EventCallback{Microsoft.Fast.Components.FluentUI.ToastResult}})">
-            <summary>
-            Shows a simple warning confirmation toast.
-            Only shows icon, title and close button or action.
-            </summary>
-            <param name="title">Text to display on the toast</param>
-            <param name="timeout">Duration toast is shown</param>
-            <param name="topAction">Text to use for the TopAction</param>
-            <param name="callback">Callback to invoke when TopAction is clicked</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowError(System.String,System.Nullable{System.Int32},System.String,System.Nullable{Microsoft.AspNetCore.Components.EventCallback{Microsoft.Fast.Components.FluentUI.ToastResult}})">
-            <summary>
-            Shows a simple error confirmation toast.
-            Only shows icon, title and close button or action.
-            </summary>
-            <param name="title">Text to display on the toast</param>
-            <param name="timeout">Duration toast is shown</param>
-            <param name="topAction">Text to use for the TopAction</param>
-            <param name="callback">Callback to invoke when TopAction is clicked</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowInfo(System.String,System.Nullable{System.Int32},System.String,System.Nullable{Microsoft.AspNetCore.Components.EventCallback{Microsoft.Fast.Components.FluentUI.ToastResult}})">
-            <summary>
-            Shows a simple information confirmation toast.
-            Only shows icon, title and close button or action.
-            </summary>
-            <param name="title">Text to display on the toast</param>
-            <param name="timeout">Duration toast is shown</param>
-            <param name="topAction">Text to use for the TopAction</param>
-            <param name="callback">Callback to invoke when TopAction is clicked</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowProgress(System.String,System.Nullable{System.Int32},System.String,System.Nullable{Microsoft.AspNetCore.Components.EventCallback{Microsoft.Fast.Components.FluentUI.ToastResult}})">
-            <summary>
-            Shows a simple progress confirmation toast.
-            Only shows icon, title and close button or action.
-            </summary>
-            <param name="title">Text to display on the toast</param>
-            <param name="timeout">Duration toast is shown</param>
-            <param name="topAction">Text to use for the TopAction</param>
-            <param name="callback">Callback to invoke when TopAction is clicked</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowUpload(System.String,System.Nullable{System.Int32},System.String,System.Nullable{Microsoft.AspNetCore.Components.EventCallback{Microsoft.Fast.Components.FluentUI.ToastResult}})">
-            <summary>
-            Shows a simple upload confirmation toast.
-            Only shows icon, title and close button or action.
-            </summary>
-            <param name="title">Text to display on the toast</param>
-            <param name="timeout">Duration toast is shown</param>
-            <param name="topAction">Text to use for the TopAction</param>
-            <param name="callback">Callback to invoke when TopAction is clicked</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowDownload(System.String,System.Nullable{System.Int32},System.String,System.Nullable{Microsoft.AspNetCore.Components.EventCallback{Microsoft.Fast.Components.FluentUI.ToastResult}})">
-            <summary>
-            Shows a simple download confirmation toast.
-            Only shows icon, title and close button or action.
-            </summary>
-            <param name="title">Text to display on the toast</param>
-            <param name="timeout">Duration toast is shown</param>
-            <param name="topAction">Text to use for the TopAction</param>
-            <param name="callback">Callback to invoke when TopAction is clicked</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowEvent(System.String,System.Nullable{System.Int32},System.String,System.Nullable{Microsoft.AspNetCore.Components.EventCallback{Microsoft.Fast.Components.FluentUI.ToastResult}})">
-            <summary>
-            Shows a simple event confirmation toast.
-            Only shows icon, title and close button or action.
-            </summary>
-            <param name="title">Text to display on the toast</param>
-            <param name="timeout">Duration toast is shown</param>
-            <param name="topAction">Text to use for the TopAction</param>
-            <param name="callback">Callback to invoke when TopAction is clicked</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowMention(System.String,System.Nullable{System.Int32},System.String,System.Nullable{Microsoft.AspNetCore.Components.EventCallback{Microsoft.Fast.Components.FluentUI.ToastResult}})">
-            <summary>
-            Shows a simple mention confirmation toast.
-            Only shows icon, title and close button or action.
-            </summary>
-            <param name="title">Text to display on the toast</param>
-            <param name="timeout">Duration toast is shown</param>
-            <param name="topAction">Text to use for the TopAction</param>
-            <param name="callback">Callback to invoke when TopAction is clicked</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowCustom(System.String,System.Nullable{System.Int32},System.String,System.Nullable{Microsoft.AspNetCore.Components.EventCallback{Microsoft.Fast.Components.FluentUI.ToastResult}},System.Nullable{System.ValueTuple{Microsoft.Fast.Components.FluentUI.Icon,Microsoft.Fast.Components.FluentUI.Color}})">
-            <summary>
-            Shows a simple custom confirmation toast.
-            Only shows icon, title and close button or action.
-            </summary>
-            <param name="title">Text to display on the toast</param>
-            <param name="timeout">Duration toast is shown</param>
-            <param name="topAction">Text to use for the TopAction</param>
-            <param name="callback">Callback to invoke when TopAction is clicked</param>
-            <param name="icon">Custom icon for this toast</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowToast(Microsoft.Fast.Components.FluentUI.ToastIntent,System.String,System.Nullable{System.Int32},System.String,System.Nullable{Microsoft.AspNetCore.Components.EventCallback{Microsoft.Fast.Components.FluentUI.ToastResult}})">
-            <summary>
-            Shows a toast using the supplied parameters
-            </summary>
-            <param name="intent">Toast intent to display</param>
-            <param name="title">Text to display on the toast</param>
-            <param name="timeout">Duration toast is shown</param>
-            <param name="topAction">Text to use for the TopAction</param>
-            <param name="callback">Callback to execute on the top action</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowToast``2(Microsoft.Fast.Components.FluentUI.ToastParameters{``1})">
-            <summary>
-            Shows the toast with the component type
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ShowToast``1(System.Type,Microsoft.Fast.Components.FluentUI.ToastParameters,``0)">
-            <summary>
-            Shows a toast with the component type as the body,
-            passing the specified <paramref name="parameters "/> 
-            </summary>
-            <param name="component">Type of component to display.</param>
-            <param name="content">Content to be displayed in the toast.</param>
-            <param name="parameters">Parameters to configure the toast component.</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.UpdateToast``1(System.String,Microsoft.Fast.Components.FluentUI.ToastParameters{``0})">
-            <summary>
-            Updates a toast 
-            </summary>
-            <param name="id">Id of the toast to update.</param>
-            <param name="parameters">Parameters to configure the toast component.</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearAll(System.Boolean)">
-            <summary>
-            Removes all toasts
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearIntent(Microsoft.Fast.Components.FluentUI.ToastIntent,System.Boolean)">
-            <summary>
-            Removes all toasts with a specified <paramref name="intent"/>.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearSuccessToasts(System.Boolean)">
-            <summary>
-            Removes all toasts with toast intent Success
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearWarningToasts(System.Boolean)">
-            <summary>
-            Removes all toasts with toast intent Warning
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearErrorToasts(System.Boolean)">
-            <summary>
-            Removes all toasts with toast intent Error
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearInfoToasts(System.Boolean)">
-            <summary>
-            Removes all toasts with toast intent Info
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearProgressToasts(System.Boolean)">
-            <summary>
-            Removes all toasts with toast intent Progress
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearUploadToasts(System.Boolean)">
-            <summary>
-            Removes all toasts with toast intent Upload
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearDownloadToasts(System.Boolean)">
-            <summary>
-            Removes all toasts with toast intent Download
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearEventToasts(System.Boolean)">
-            <summary>
-            Removes all toasts with toast intent Event
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearMentionToasts(System.Boolean)">
-            <summary>
-            Removes all toasts with toast intent Mention
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearCustomIntentToasts(System.Boolean)">
-            <summary>
-            Removes all toasts with toast intent Custom
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearQueue">
-            <summary>
-            Removes all queued toasts
-            </summary>
-            
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearQueueToasts(Microsoft.Fast.Components.FluentUI.ToastIntent)">
-            <summary>
-            Removes all queued toasts with a specified <paramref name="intent"/>.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearQueueSuccessToasts">
-            <summary>
-            Removes all queued toasts with toast intent Success
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearQueueWarningToasts">
-            <summary>
-            Removes all queued toasts with toast intent Warning
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearQueueErrorToasts">
-            <summary>
-            Removes all queued toasts with toast intent Error
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearQueueInfoToasts">
-            <summary>
-            Removes all queued toasts with toast intent o
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearQueueProgressToasts">
-            <summary>
-            Removes all queued toasts with toast intent Progress
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearQueueUploadToasts">
-            <summary>
-            Removes all queued toasts with toast intent Upload
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearQueueDownloadToasts">
-            <summary>
-            Removes all queued toasts with toast intent Download
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearQueueEventToasts">
-            <summary>
-            Removes all queued toasts with toast intent Event
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearQueueMentionToasts">
-            <summary>
-            Removes all queued toasts with toast intent Mention
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ToastService.ClearQueueCustomIntentToasts">
-            <summary>
-            Removes all queued toasts with toast intent Custom
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentToolbar.Orientation">
@@ -4797,6 +4518,16 @@
             <summary>
             Callback for when the tooltip is dismissed
             </summary>  
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Id">
+            <summary>
+            Gets or sets a reasonably unique ID.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Owner">
+            <summary>
+            Gets or sets the owning FluentTreeView
+            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Text">
             <summary>
@@ -7541,36 +7272,6 @@
             The accordion allows multiple items expanded at a time.
             </summary>
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.Align">
-            <summary>
-            Describes alignment for a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/> column, <see cref="T:Microsoft.Fast.Components.FluentUI.FluentOverlay"/> content, etc.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.Align.Start">
-            <summary>
-            Aligns the content against at the start of the container.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.Align.Center">
-            <summary>
-            Aligns the content at the center of the container.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.Align.End">
-            <summary>
-            Aligns the content at the end of the container.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.Align.Stretch">
-            <summary>
-            Aligns content to strech to the container.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.Align.Baseline">
-            <summary>
-            Aligns content at the baseline of the container.
-            </summary>
-        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.Appearance">
             <summary>
             The visual appearance of a component.
@@ -7616,7 +7317,7 @@
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.AutoUpdateMode.Anchor">
             <summary>
-            The position only updates when the anchor resizes 
+            The position only updates when the anchor resizes (default)
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.AutoUpdateMode.Auto">
@@ -7627,7 +7328,6 @@
             - the window resizes
             - the viewport resizes
             - any scroll event in the document
-            This is the default setting
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.AxisPositioningMode">
@@ -7931,31 +7631,6 @@
             The divider is used for presentation purpose.
             </summary>
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.ElevationShadow">
-            <summary>
-             Defines the possible options for elevation shadow. 
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ElevationShadow.None">
-            <summary>
-            No shadow effect applied (default);
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ElevationShadow.Tooltip">
-            <summary>
-            Tooltip elevation shadow settings
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ElevationShadow.Flyout">
-            <summary>
-            Flyout elevation shadow settings
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ElevationShadow.Dialog">
-            <summary>
-            Dialog elevation shadow settings
-            </summary>
-        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.EmojiGroup">
             <summary>
             The collection of groups emojis are placed in
@@ -8132,20 +7807,6 @@
             Move to the next element.
             </summary>
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.FluentInputAppearance">
-            <summary />
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.FluentInputAppearance.Filled">
-            <summary />
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.FluentInputAppearance.Outline">
-            <summary />
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.FontWeight">
-            <summary>
-            Possible FontWeight choices
-            </summary>
-        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.GenerateHeaderOption">
             <summary>
             The option for generating a header for the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1" />.
@@ -8164,36 +7825,6 @@
         <member name="F:Microsoft.Fast.Components.FluentUI.GenerateHeaderOption.Sticky">
             <summary>
             Generate a sticky header row.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.HorizontalAlignment">
-            <summary>
-            Determines the horizontal alignment of the content within the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentStack"/>.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.HorizontalAlignment.Left">
-            <summary>
-            The content is aligned to the left.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.HorizontalAlignment.Start">
-            <summary>
-            The content is aligned to the start.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.HorizontalAlignment.Center">
-            <summary>
-            The content is center aligned.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.HorizontalAlignment.Right">
-            <summary>
-            The content is aligned to the right.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.HorizontalAlignment.End">
-            <summary>
-            The content is aligned to the end.
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.HorizontalPosition">
@@ -8358,6 +7989,71 @@
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.LocalizationDirection.ltr">
             <summary>
+            The size of the icon.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.IconSize.Size10">
+            <summary>
+            FluentUI System Icon size 10x10
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.IconSize.Size12">
+            <summary>
+            FluentUI System Icon size 12x12
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.IconSize.Size16">
+            <summary>
+            FluentUI System Icon size 16x16
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.IconSize.Size20">
+            <summary>
+            FluentUI System Icon size 20x20
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.IconSize.Size24">
+            <summary>
+            FluentUI System Icon size 24x24
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.IconSize.Size28">
+            <summary>
+            FluentUI System Icon size 28x28
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.IconSize.Size32">
+            <summary>
+            FluentUI System Icon size 32x32
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.IconSize.Size48">
+            <summary>
+            FluentUI System Icon size 48x48
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.IconVariant">
+            <summary>
+            The icon variant.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.IconVariant.Filled">
+            <summary>
+            FluentUI System Icon font size 10x10
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.IconVariant.Regular">
+            <summary>
+            FluentUI System Icon font size 12x12
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.LocalizationDirection">
+            <summary>
+            The direction of the text.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.LocalizationDirection.ltr">
+            <summary>
             Left to right.
             </summary>
         </member>
@@ -8384,77 +8080,6 @@
         <member name="F:Microsoft.Fast.Components.FluentUI.MenuItemRole.MenuItemRadio">
             <summary>
             The menu item has a "menuitemradio" role
-            </summary>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.MessageBoxIntent">
-            <summary />
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.MessageBoxIntent.Success">
-            <summary>
-            Positive confirmation of status, process, or operation.The person or task can proceed.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.MessageBoxIntent.Warning">
-            <summary>
-            Indicates possible or upcoming issues that need to be addressed. It’s a signal that 
-            something isn’t quite right.The person can continue without addressing it, but warnings 
-            can become errors.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.MessageBoxIntent.Error">
-            <summary>
-            Negative status due to an incomplete process or a failed task.The person can continue 
-            using the app, but the item with the error will need to be addressed.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.MessageBoxIntent.Info">
-            <summary>
-            Neutral status and information related to the person’s action.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.MessageBoxIntent.Confirmation">
-            <summary>
-            THe message box is used to ask the user for confirmation.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.MessageBoxIntent.Custom">
-            <summary>
-            Informs about a custom event or operation. 
-            </summary>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.MouseButton">
-            <summary>
-             Defines the possible options for mouse buttons. 
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.MouseButton.None">
-            <summary>
-            No button.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.MouseButton.Left">
-            <summary>
-            Left button.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.MouseButton.Middle">
-            <summary>
-            Middle button.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.MouseButton.Right">
-            <summary>
-            Right button.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.MouseButton.Back">
-            <summary>
-            X1 button (back).
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.MouseButton.Forward">
-            <summary>
-            X2 button (forward).
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.OfficeColor">
@@ -8531,11 +8156,6 @@
         <member name="F:Microsoft.Fast.Components.FluentUI.Orientation.Vertical">
             <summary>
             The component is oriented vertically.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.PresenceBadgeSize">
-            <summary>
-            Sizes for presence badge
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.PresenceStatus">
@@ -8666,26 +8286,6 @@
             Dark mode luminance
             </summary>
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.TabSize">
-            <summary>
-            The size of the tab item.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.TabSize.Small">
-            <summary>
-            The tab item size is small
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.TabSize.Medium">
-            <summary>
-            The tab item size is medium
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.TabSize.Large">
-            <summary>
-            The tab item size is large
-            </summary>
-        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.TextAreaResize">
             <summary>
             Describes the direction in which a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentTextArea"/> can resize.
@@ -8736,139 +8336,6 @@
             A text field that is used for URL input.
             </summary>
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.ToastIntent">
-            <summary />
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToastIntent.Success">
-            <summary>
-            Positive confirmation of status, process, or operation.The person or task can proceed.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToastIntent.Warning">
-            <summary>
-            Indicates possible or upcoming issues that need to be addressed. It’s a signal that 
-            something isn’t quite right.The person can continue without addressing it, but warnings 
-            can become errors.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToastIntent.Error">
-            <summary>
-            Negative status due to an incomplete process or a failed task.The person can continue 
-            using the app, but the item with the error will need to be addressed.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToastIntent.Info">
-            <summary>
-            Neutral status and information related to the person’s action.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToastIntent.Progress">
-            <summary>
-            Informs that an operation someone kicked off is in progress.The person can continue using
-            the app while the process continues.They can also cancel the process.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToastIntent.Upload">
-            <summary>
-            Informs that an upload operation someone kicked off is in progress.The person can continue using
-            the app while the process continues.They can also cancel the process.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToastIntent.Download">
-            <summary>
-            Informs that a dowload operation someone kicked off is in progress.The person can continue using
-            the app while the process continues.They can also cancel the process.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToastIntent.Event">
-            <summary>
-            Informs about an operation concerning an event. 
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToastIntent.Mention">
-            <summary>
-            Mention is used when another person performs an action related to the user or their account.
-            For example, the user receives a meeting invitation or is mentioned in a chat. 
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToastIntent.Custom">
-            <summary>
-            Informs about a custom event or operation. 
-            </summary>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.ToastPosition">
-            <summary />
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToastPosition.BottomLeft">
-            <summary>
-            Toasts are displayed in the bottom-left corner of the screen
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToastPosition.BottomStart">
-            <summary>
-            Toasts are displayed in the bottom-start corner of the screen
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToastPosition.BottomCenter">
-            <summary>
-            Toasts are displayed in the bottom-center of the screen
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToastPosition.BottomRight">
-            <summary>
-            Toasts are displayed in the bottom-right corner of the screen
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToastPosition.BottomEnd">
-            <summary>
-            Toasts are displayed in the bottom-end corner of the screen
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToastPosition.TopLeft">
-            <summary>
-            Toasts are displayed in the top-left corner of the screen
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToastPosition.TopStart">
-            <summary>
-            Toasts are displayed in the top-left corner of the screen
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToastPosition.TopCenter">
-            <summary>
-            Toasts are displayed in the top-center of the screen
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToastPosition.TopRight">
-            <summary>
-            Toasts are displayed in the top-right corner of the screen
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToastPosition.TopEnd">
-            <summary>
-            Toasts are displayed in the top-end corner of the screen
-            </summary>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.ToastTopCTAType">
-            <summary>
-            Call To Action type for the top action of the toast.
-            </summary>  
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToastTopCTAType.Dismiss">
-            <summary>
-            Toast shows a dismiss button after the title.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToastTopCTAType.Action">
-            <summary>
-            Toast shows a call to action after the title
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.ToastTopCTAType.Timestamp">
-            <summary>
-            Toast shows a timestamp after the title.
-            </summary>
-        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.TooltipPosition">
             <summary>
             Describes the position at which a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentTooltip"/> is shown.
@@ -8902,31 +8369,6 @@
         <member name="F:Microsoft.Fast.Components.FluentUI.TooltipPosition.End">
             <summary>
             The tooltip is positioned at the end of the enachor elemenet.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.Typography">
-            <summary>
-            The typography marker
-            </summary>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.VerticalAlignment">
-            <summary>
-            Determines the vertical alignment of the content within the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentStack"/>.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.VerticalAlignment.Top">
-            <summary>
-            The content is aligned to the top.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.VerticalAlignment.Center">
-            <summary>
-            The content is center aligned.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.VerticalAlignment.Bottom">
-            <summary>
-            The content is aligned to the bottom
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.VerticalPosition">
@@ -8980,54 +8422,37 @@
             <param name="s"></param>
             <returns>string</returns>
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.DateTimeExtensions">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ServiceCollectionExtensions.AddFluentIcons(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Fast.Components.FluentUI.IconConfiguration)">
             <summary>
-            Extension methods for <see cref="T:System.DateTime"/>.
+            Adds an Icon Service as a Scoped instance.
             </summary>
+            <param name="services">IServiceCollection</param>
+            <param name="configuration">Defines IconConfiguration for this instance.</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DateTimeExtensions.ToIsoDateString(System.Nullable{System.DateTime})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ServiceCollectionExtensions.AddFluentIcons(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.Fast.Components.FluentUI.IconConfiguration})">
             <summary>
-            Returns a string in the ISO format yyyy-MM-dd.
+            Adds an Icon Service as a Scoped instance.
             </summary>
-            <param name="self"></param>
-            <returns></returns>
+            <param name="services">IServiceCollection</param>
+            <param name="configuration">Defines IconConfiguration for this instance.</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DateTimeExtensions.StartOfMonth(System.DateTime,System.Globalization.CultureInfo)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ServiceCollectionExtensions.AddFluentEmojis(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Fast.Components.FluentUI.EmojiConfiguration)">
             <summary>
-            Returns the first day of the month.
+            Adds an Emoji Service as a Scoped instance.
             </summary>
-            <param name="self"></param>
-            <param name="culture"></param>
-            <returns></returns>
+            <param name="services">IServiceCollection</param>
+            <param name="configuration">Defines EmojiConfiguration for this instance.</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DateTimeExtensions.EndOfMonth(System.DateTime,System.Globalization.CultureInfo)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ServiceCollectionExtensions.AddFluentEmojis(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.Fast.Components.FluentUI.EmojiConfiguration})">
             <summary>
-            Returns the last day of the month.
+            Adds an Emoji Service as a Scoped instance.
             </summary>
-            <param name="self"></param>
-            <param name="culture"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DateTimeExtensions.StartOfWeek(System.DateTime,System.DayOfWeek)">
-            <summary>
-            Returns the first day of the week.
-            </summary>
-            <param name="self"></param>
-            <param name="firstDayOfWeek"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DateTimeExtensions.ToTimeAgo(System.TimeSpan,Microsoft.Fast.Components.FluentUI.TimeAgoOptions)">
-            <summary>
-            Get a string showing how long ago a DateTime was, for example '4 minutes ago'.
-            </summary>
-            <param name="delay"></param>
-            <param name="resources"></param>
-            <returns></returns>
-            <remarks>Inspired from https://github.com/NickStrupat/TimeAgo.</remarks>
+            <param name="services">IServiceCollection</param>
+            <param name="configuration">Defines EmojiConfiguration for this instance.</param>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ServiceCollectionExtensions.AddFluentUIComponents(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Fast.Components.FluentUI.LibraryConfiguration)">
             <summary>
-            Add common services required by the Fluent UI Web Components for Blazor library
+            Add common servIconConfiguration?s required by the Fluent UI Web Components for Blazor library
             </summary>
             <param name="services">Service collection</param>
             <param name="configuration">Library configuration</param>
@@ -9039,33 +8464,14 @@
             <param name="services">Service collection</param>
             <param name="configuration">Library configuration</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.StringExtensions.ToPercentage(System.Decimal)">
-            <summary />
-        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.Identifier">
             <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Identifier.SequentialContext">
-            <summary>
-            Returns a new <see cref="T:Microsoft.Fast.Components.FluentUI.IdentifierContext"/> where ID are sequential: "f0000", "f0001", "f0002", ...
-            </summary>
-            <returns></returns>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Identifier.NewId(System.Int32)">
             <summary>
             Returns a new small Id.
             HTML id must start with a letter.
             Example: f127d9edf14385adb
-            </summary>
-            <remarks>
-            You can use a <see cref="T:Microsoft.Fast.Components.FluentUI.IdentifierContext"/> instance to customize the Generation process,
-            for example in Unit Tests.
-            </remarks>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IdentifierContext.GenerateId">
-            <summary>
-            Returns the next number between 0 and 99999999.
             </summary>
             <returns></returns>
         </member>
@@ -9341,23 +8747,6 @@
             Helper for loading any JavaScript (ES6) module and calling its exports
             </summary>
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.Utilities.Splitter">
-            <summary>
-            Splits the text into fragments, according to the text to be highlighted
-            </summary>
-            <remarks>Inspired from https://github.com/MudBlazor</remarks>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.Splitter.GetFragments(System.String,System.Collections.Generic.IEnumerable{System.String},System.String@,System.Boolean)">
-            <summary>
-            Splits the text into fragments, according to the
-            text to be highlighted
-            </summary>
-            <param name="text">The whole text</param>
-            <param name="highlightedTexts">The texts to be highlighted</param>
-            <param name="regex">Regex expression that was used to split fragments.</param>
-            <param name="caseSensitive">Whether it's case sensitive or not</param>
-            <returns></returns>
-        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.Default(System.String,System.String)">
             <summary>
             Creates a StyleBuilder used to define conditional in-line style used in a component. Call Build() to return the completed style as a string.
@@ -9494,34 +8883,66 @@
             <param name="when"></param>
             <returns></returns>
         </member>
-        <member name="T:System.Text.RegularExpressions.Generated.CheckRGBString_0">
-            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the CheckRGBString method.</summary>
+        <member name="T:System.Text.RegularExpressions.Generated.SvgSplitter_0">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the SvgSplitter method.</summary>
         </member>
-        <member name="F:System.Text.RegularExpressions.Generated.CheckRGBString_0.Instance">
+        <member name="F:System.Text.RegularExpressions.Generated.SvgSplitter_0.Instance">
             <summary>Cached, thread-safe singleton instance.</summary>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_0.#ctor">
+        <member name="M:System.Text.RegularExpressions.Generated.SvgSplitter_0.#ctor">
             <summary>Initializes the instance.</summary>
         </member>
-        <member name="T:System.Text.RegularExpressions.Generated.CheckRGBString_0.RunnerFactory">
+        <member name="T:System.Text.RegularExpressions.Generated.SvgSplitter_0.RunnerFactory">
             <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_0.RunnerFactory.CreateInstance">
+        <member name="M:System.Text.RegularExpressions.Generated.SvgSplitter_0.RunnerFactory.CreateInstance">
             <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
         </member>
-        <member name="T:System.Text.RegularExpressions.Generated.CheckRGBString_0.RunnerFactory.Runner">
+        <member name="T:System.Text.RegularExpressions.Generated.SvgSplitter_0.RunnerFactory.Runner">
             <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_0.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+        <member name="M:System.Text.RegularExpressions.Generated.SvgSplitter_0.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
             <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
             <param name="inputSpan">The text being scanned by the regular expression.</param>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+        <member name="M:System.Text.RegularExpressions.Generated.SvgSplitter_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
             <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
             <param name="inputSpan">The text being scanned by the regular expression.</param>
             <returns>true if a possible match was found; false if no more matches are possible.</returns>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_0.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+        <member name="M:System.Text.RegularExpressions.Generated.SvgSplitter_0.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.CheckRGBString_1">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the CheckRGBString method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.CheckRGBString_1.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_1.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.CheckRGBString_1.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_1.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.CheckRGBString_1.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_1.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_1.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CheckRGBString_1.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
             <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
             <param name="inputSpan">The text being scanned by the regular expression.</param>
             <returns>true if the regular expression matches at the current position; otherwise, false.</returns>

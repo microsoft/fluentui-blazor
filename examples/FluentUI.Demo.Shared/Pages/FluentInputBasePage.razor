@@ -82,6 +82,7 @@
 
     private List<paramDef> Properties = new List<paramDef>
     {
+        new paramDef("AutoFocus","bool","false","Determines if the element should receive document focus on page load."),
         new paramDef("Readonly","bool","false","When true, the control will be immutable by user interaction. <a href=\"https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/readonly\">readonly</a> HTML attribute for more information."),
         new paramDef("Id","string?","","The id attribute of the element.Used for label association."),
         new paramDef("Disabled","bool","false","Disables the form control, ensuring it doesn't participate in form submission."),
@@ -89,11 +90,13 @@
         new paramDef("Required","bool","false","Whether the element needs to have a value"),
         new paramDef("Value","TValue?","null","Gets or sets the value of the input. This should be used with two-way binding."),
         new paramDef("DisplayName","string?","null","Gets or sets the display name for _this field."),
-        new paramDef("ValueExpression","Expression<Func<TValue>>?","null","Gets or sets an expression that identifies the bound value.")
+        new paramDef("ValueExpression","Expression<Func<TValue>>?","null","Gets or sets an expression that identifies the bound value."),
+        new paramDef("Placeholder","string","null","he short hint displayed in the input before the user enters a value.")
     };
 
     private List<eventDef> Callbacks = new List<eventDef>
     {
+        new eventDef("AfterBindValue","EventCallback<TValue>","An event that is called after the Value property has been changed through data binding. This is equivalent to @bind-Value:after which is supported from .NET 7, but not available in .NET 6."),
         new eventDef("ValueChanged","EventCallback<TValue>"," Gets or sets a callback that updates the bound value")
     };
 
@@ -102,6 +105,13 @@
         new methodDef("FocusAsync","","Exposes the FocusAsync() method."),
         new methodDef("FocusAsync","bool preventScroll","Exposes the elements FocusAsync(bool preventScroll) method.")
     };
+
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Parameter]
+    public virtual bool Autofocus { get; set; } = false;
 }
 
 

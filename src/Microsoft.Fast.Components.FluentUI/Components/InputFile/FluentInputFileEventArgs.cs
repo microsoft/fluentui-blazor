@@ -60,7 +60,7 @@ public class FluentInputFileEventArgs : EventArgs
     /// <summary>
     /// Gets a list of all files currently in an upload process.
     /// </summary>
-    public IEnumerable<(string Name, long Size, string ContentType)> AllFiles { get; internal set; } = default!;
+    public IEnumerable<UploadedFileDetails> AllFiles { get; internal set; } = default!;
 
     /// <summary>
     /// Set this property to True to cancel the current upload file.
