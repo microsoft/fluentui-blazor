@@ -87,11 +87,14 @@ public partial class FluentNavMenuLink : FluentComponentBase, INavMenuChildEleme
         .AddStyle(Style)
         .Build();
 
+    private FluentTreeItem _treeItem = null!;
 
     public FluentNavMenuLink()
     {
         Id = Identifier.NewId();
     }
+
+    FluentTreeItem INavMenuChildElement.TreeItem => _treeItem;
 
     protected override void OnInitialized()
     {

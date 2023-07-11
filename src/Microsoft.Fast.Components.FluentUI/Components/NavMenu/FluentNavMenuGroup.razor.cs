@@ -89,6 +89,7 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
     [CascadingParameter(Name = "NavMenuItemSiblingHasIcon")]
     private bool SiblingHasIcon { get; set; }
 
+    private FluentTreeItem _treeItem = null!;
     private readonly List<INavMenuChildElement> _childElements = new();
     private bool HasChildIcons => ((INavMenuParentElement)this).HasChildIcons;
     private bool Collapsed => !Expanded;
@@ -114,7 +115,6 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
         .Build();
 
     public bool HasIcon => Icon != null;
-
 
     protected override async Task OnInitializedAsync()
     {
@@ -155,6 +155,9 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
     }
 
     IEnumerable<INavMenuChildElement> INavMenuParentElement.GetChildElements() => _childElements;
+
+    FluentTreeItem INavMenuChildElement.TreeItem => _treeItem;
+
 
     private Task ToggleCollapsedAsync() => HandleExpandedChangedAsync(!Expanded);
 

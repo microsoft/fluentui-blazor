@@ -5,7 +5,8 @@
 {
     <CascadingValue TValue=INavMenuParentElement Value="@this" IsFixed>
      <CascadingValue Value="@HasChildIcons" Name="NavMenuItemSiblingHasIcon">
-         <FluentTreeItem Id="@Id"
+         <FluentTreeItem @ref=_treeItem
+                         Id="@Id"
                          Class="@ClassValue"
                          Style="@StyleValue"
                          Disabled="@Disabled"

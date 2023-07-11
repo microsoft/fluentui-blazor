@@ -2,7 +2,8 @@
 @inherits FluentComponentBase
 
 <CascadingValue TValue=INavMenuParentElement Value="@null" IsFixed>
-    <FluentTreeItem Id="@Id"
+    <FluentTreeItem @ref=_treeItem
+                    Id="@Id"
                     Class="@ClassValue"
                     Style="@StyleValue"
                     Disabled="@Disabled"

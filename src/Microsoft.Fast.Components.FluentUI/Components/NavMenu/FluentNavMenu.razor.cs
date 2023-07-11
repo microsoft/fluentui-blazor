@@ -10,6 +10,7 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
     private const string WIDTH_COLLAPSED_MENU = "40px";
     private readonly string _expandCollapseTreeItemId = Identifier.NewId();
     private readonly Dictionary<string, INavMenuChildElement> _childElements = new();
+    private FluentTreeItem? _selectedTreeItem;
 
     private bool HasChildIcons => ((INavMenuParentElement)this).HasChildIcons;
 
@@ -94,8 +95,6 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
 
     public bool Collapsed => !Expanded;
 
-    internal INavMenuChildElement? CurrentSelected { get; private set; }
-
     public FluentNavMenu()
     {
         Id = Identifier.NewId();
@@ -177,11 +176,11 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
         INavMenuChildElement? menuItem = _childElements.Values
             .FirstOrDefault(x => x.Href == localPath);
 
-        if (menuItem is not null && menuItem != CurrentSelected)
+        if (menuItem is not null)
         {
-            CurrentSelected = menuItem;
-            StateHasChanged();
+            _selectedTreeItem = menuItem.TreeItem;
         }
+
     }
 
     private async Task HandleExpandCollapseKeyDownAsync(KeyboardEventArgs args)
@@ -240,9 +239,7 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
     {
         if (!string.IsNullOrEmpty(menuItem.Href))
         {
-            CurrentSelected = menuItem;
             NavigationManager.NavigateTo(menuItem.Href);
-            StateHasChanged();
         }
     }
 
@@ -262,4 +259,33 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
         StateHasChanged();
     }
 
+    private void HandleCurrentSelectedChanged(FluentTreeItem? treeItem)
+    {
+        // Don't allow null selection
+        if (treeItem is null)
+        {
+            return;
+        }
+
+        if (!_childElements.TryGetValue(treeItem.Id!, out INavMenuChildElement? menuItem))
+        {
+            return;
+        }
+
+        if (string.IsNullOrEmpty(menuItem.Href))
+        {
+            return;
+        }
+
+        string localPath = new Uri(NavigationManager.Uri).LocalPath;
+        localPath = localPath == "" ? "/" : localPath;
+
+        if (string.Equals(localPath, menuItem.Href, StringComparison.InvariantCultureIgnoreCase))
+        {
+            return;
+        }
+
+        _selectedTreeItem = treeItem;
+        NavigationManager.NavigateTo(menuItem.Href);
+    }
 }
