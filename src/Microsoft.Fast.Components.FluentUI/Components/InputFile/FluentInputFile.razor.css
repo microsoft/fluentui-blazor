@@ -2,7 +2,6 @@
     display: grid;
     grid-gap: 10px;
     background-color: var(--neutral-fill-hover);
-    /*border: 2px solid transparent;*/
 }
 
     .fluent-inputfile-container[drop-files] {
