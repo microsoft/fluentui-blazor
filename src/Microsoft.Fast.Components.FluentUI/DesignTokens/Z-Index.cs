@@ -6,5 +6,5 @@ public static class ZIndex
 
     public static int Overlay { get; set; } = 9900;
 
-    public static int DropOver { get; set; } = 990;
+    public static int InputFileDropZone { get; set; } = 990;
 }

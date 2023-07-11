@@ -26,7 +26,7 @@
         </div>
     </div>
 
-    <div style="grid-column: 1; grid-row: 1; z-index: @(DropOver ? ZIndex.DropOver : null)">
+    <div style="grid-column: 1; grid-row: 1; z-index: @(DropOver ? ZIndex.InputFileDropZone : null)">
         <InputFile OnChange="OnUploadFilesHandlerAsync"
                    id="@Id"
                    multiple=@Multiple

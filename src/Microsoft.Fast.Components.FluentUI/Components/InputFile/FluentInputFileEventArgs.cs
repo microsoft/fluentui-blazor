@@ -67,16 +67,3 @@ public class FluentInputFileEventArgs : EventArgs
     /// </summary>
     public bool IsCancelled { get; set; } = false;
 }
-
-public record struct UploadedFileDetails(string Name, long Size, string ContentType)
-{
-    public static implicit operator (string Name, long Size, string ContentType)(UploadedFileDetails value)
-    {
-        return (value.Name, value.Size, value.ContentType);
-    }
-
-    public static implicit operator UploadedFileDetails((string Name, long Size, string ContentType) value)
-    {
-        return new UploadedFileDetails(value.Name, value.Size, value.ContentType);
-    }
-}
