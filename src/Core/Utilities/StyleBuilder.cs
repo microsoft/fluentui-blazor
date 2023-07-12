@@ -146,7 +146,7 @@ public struct StyleBuilder
     public string? Build()
     {
         // String buffer finalization code
-        return stringBuffer?.Trim(';', ' ');
+        return stringBuffer?.Trim();
     }
 
     // ToString should only and always call Build to finalize the rendered string.
