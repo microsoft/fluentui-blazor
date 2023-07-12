@@ -36,7 +36,7 @@ jobs:
       DOTNET_GENERATE_ASPNET_CERTIFICATE: false
       DOTNET_ADD_GLOBAL_TOOLS_TO_PATH: false
       DOTNET_MULTILEVEL_LOOKUP: 0
-      PROJECT: "src/Microsoft.Fast.Components.FluentUI/Microsoft.Fast.Components.FluentUI.csproj"
+      PROJECT: "src/Core/Microsoft.Fast.Components.FluentUI.csproj"
       BUILD_ARCH: "Any CPU"
       BUILD_CONFIG: "Release"
 
@@ -79,7 +79,7 @@ jobs:
       DOTNET_GENERATE_ASPNET_CERTIFICATE: false
       DOTNET_ADD_GLOBAL_TOOLS_TO_PATH: false
       DOTNET_MULTILEVEL_LOOKUP: 0
-      PROJECT: "examples/FluentUI.Demo.Client/FluentUI.Demo.Client.csproj"
+      PROJECT: "examples/Demo/Client/FluentUI.Demo.Client.csproj"
       BUILD_ARCH: "Any CPU"
       BUILD_CONFIG: "Release"
       SKIP_DEPLOY_ON_MISSING_SECRETS: true
