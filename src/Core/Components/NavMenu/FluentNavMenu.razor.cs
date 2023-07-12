@@ -37,12 +37,12 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the content to be rendered for the navigation icon
+    /// Gets or sets the content to be rendered for the expander icon
     /// when the menu is collapsible.  The default icon will be used if
     /// this is not specified.
     /// </summary>
     [Parameter]
-    public RenderFragment? NavigationIconContent { get; set; }
+    public RenderFragment? ExpanderContent { get; set; }
 
     /// <summary>
     /// Gets or sets the title of the navigation menu
@@ -95,6 +95,12 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
     /// <inheritdoc/>
     public bool Collapsed => !Expanded;
 
+    /// <summary>
+    /// Navigation manager
+    /// </summary>
+    [Inject]
+    protected NavigationManager NavigationManager { get; private set; } = null!;
+
     public FluentNavMenu()
     {
         Id = Identifier.NewId();
@@ -123,7 +129,6 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
         Dispose(disposing: true);
         GC.SuppressFinalize(this);
     }
-
 
     internal void Register(FluentNavMenuItemBase item)
     {
