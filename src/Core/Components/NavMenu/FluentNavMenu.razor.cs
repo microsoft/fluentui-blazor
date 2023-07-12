@@ -157,8 +157,8 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
             _hasRendered = true;
             HandleNavigationManagerLocationChanged(null, new LocationChangedEventArgs(NavigationManager.Uri, isNavigationIntercepted: false));
         }
-        bool hasSelectedItem = _selectedTreeItem is not null && _selectedTreeItem.Selected;
 
+        bool hasSelectedItem = _selectedTreeItem is not null && _selectedTreeItem.Selected;
         if (!hasSelectedItem && _hasRendered && _previouslyDeselectedTreeItem is not null)
         {
             await _previouslyDeselectedTreeItem.SetSelectedAsync(true);
@@ -192,6 +192,7 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
         if (menuItem is not null)
         {
             _selectedTreeItem = menuItem.TreeItem;
+            _previouslyDeselectedTreeItem = _selectedTreeItem;
         }
 
     }
