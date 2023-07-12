@@ -1,8 +1,8 @@
 ﻿@namespace Microsoft.Fast.Components.FluentUI
-@inherits FluentComponentBase
+@inherits FluentNavMenuItem
 
 <CascadingValue TValue=INavMenuItemsOwner Value="@null" IsFixed>
-    <FluentTreeItem @ref=_treeItem
+    <FluentTreeItem @ref=TreeItem
                     Id="@Id"
                     Class="@ClassValue"
                     Style="@StyleValue"

@@ -9,8 +9,8 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
 {
     private const string WIDTH_COLLAPSED_MENU = "40px";
     private readonly string _expandCollapseTreeItemId = Identifier.NewId();
-    private readonly Dictionary<string, INavMenuChildElement> _allItems = new();
-    private readonly List<INavMenuChildElement> _childItems = new();
+    private readonly Dictionary<string, FluentNavMenuItem> _allItems = new();
+    private readonly List<FluentNavMenuItem> _childItems = new();
     private FluentTreeItem? _selectedTreeItem;
     private FluentTreeItem? _previouslyDeselectedTreeItem;
     private bool _hasRendered;
@@ -119,15 +119,15 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
         }
     }
 
-    IEnumerable<INavMenuChildElement> INavMenuItemsOwner.GetChildItems() => _childItems;
+    IEnumerable<FluentNavMenuItem> INavMenuItemsOwner.GetChildItems() => _childItems;
 
-    void INavMenuItemsOwner.Register(INavMenuChildElement child)
+    void INavMenuItemsOwner.Register(FluentNavMenuItem child)
     {
         _allItems.Add(child.Id!, child);
         StateHasChanged();
     }
 
-    void INavMenuItemsOwner.Unregister(INavMenuChildElement child)
+    void INavMenuItemsOwner.Unregister(FluentNavMenuItem child)
     {
         _allItems.Remove(child.Id!);
         StateHasChanged();
@@ -139,15 +139,15 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
         _allItems.Clear();
     }
 
-    internal void Register(INavMenuChildElement element)
+    internal void Register(FluentNavMenuItem item)
     {
-        _allItems[element.Id!] = element;
+        _allItems[item.Id!] = item;
         StateHasChanged();
     }
 
-    internal void Unregister(INavMenuChildElement element)
+    internal void Unregister(FluentNavMenuItem item)
     {
-        _allItems.Remove(element.Id!);
+        _allItems.Remove(item.Id!);
         StateHasChanged();
     }
 
@@ -188,7 +188,7 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
         if (string.IsNullOrEmpty(localPath))
             localPath = "/";
 
-        INavMenuChildElement? menuItem = _allItems.Values
+        FluentNavMenuItem? menuItem = _allItems.Values
             .FirstOrDefault(x => x.Href == localPath);
 
         if (menuItem is not null)
@@ -236,7 +236,7 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
             return;
         }
 
-        if (!_allItems.TryGetValue(treeItem.Id!, out INavMenuChildElement? menuItem))
+        if (!_allItems.TryGetValue(treeItem.Id!, out FluentNavMenuItem? menuItem))
         {
             return;
         }

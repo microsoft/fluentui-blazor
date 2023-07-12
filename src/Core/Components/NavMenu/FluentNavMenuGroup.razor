@@ -1,11 +1,11 @@
 ﻿@namespace Microsoft.Fast.Components.FluentUI
-@inherits FluentComponentBase
+@inherits FluentNavMenuItem
 
 @if (Visible)
 {
     <CascadingValue TValue=INavMenuItemsOwner Value="@this" IsFixed>
      <CascadingValue Value="@HasChildIcons" Name="NavMenuItemSiblingHasIcon">
-         <FluentTreeItem @ref=_treeItem
+         <FluentTreeItem @ref=TreeItem
                          Id="@Id"
                          Class="@ClassValue"
                          Style="@StyleValue"
