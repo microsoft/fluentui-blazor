@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using System;
+using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
@@ -7,6 +8,8 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// </summary>
 public abstract class FluentNavMenuItemBase : FluentComponentBase, IDisposable
 {
+    private bool _disposed;
+
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>
@@ -31,6 +34,12 @@ public abstract class FluentNavMenuItemBase : FluentComponentBase, IDisposable
     /// </summary>
     [Parameter]
     public Icon? Icon { get; set; }
+
+    /// <summary>
+    /// Called when the user attempts to execute the default action of a menu item.
+    /// </summary>
+    [Parameter]
+    public EventCallback<NavMenuActionArgs> OnAction { get; set; }
 
     /// <summary>
     /// Gets or sets if the item is selected.
@@ -74,12 +83,48 @@ public abstract class FluentNavMenuItemBase : FluentComponentBase, IDisposable
     [CascadingParameter(Name = "NavMenuItemSiblingHasIcon")]
     protected bool SiblingHasIcon { get; private set; }
 
+    [Inject]
+    protected NavigationManager NavigationManager { get; private set; } = null!;
+
+    /// <summary>
+    /// Returns <see langword="true"/> if the item has an <see cref="Icon"/> set.
+    /// </summary>
     public bool HasIcon => Icon != null;
 
-    internal FluentTreeItem TreeItem { get; set; } = null!;
+    /// <summary>
+    /// The tree item associated with this menu item.
+    /// </summary>
+    protected internal FluentTreeItem TreeItem { get; set; } = null!;
 
-    private bool _disposed;
 
+    void IDisposable.Dispose()
+    {
+        // Do not change this code. Put clean-up code in 'Dispose(bool disposing)' method
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
+    }
+
+    /// <summary>
+    /// Called when the user attempts to action a menu item
+    /// </summary>
+    /// <param name="args">Information about the menu item</param>
+    /// <returns></returns>
+    protected internal virtual async ValueTask ExecuteAsync(NavMenuActionArgs args)
+    {
+        if (OnAction.HasDelegate)
+        {
+            await OnAction.InvokeAsync(args);
+            if (args.Handled)
+            {
+                return;
+            }
+        }
+        if (!string.IsNullOrEmpty(Href))
+        {
+            NavigationManager.NavigateTo(Href);
+            args.SetHandled();
+        }
+    }
     protected override void OnInitialized()
     {
         base.OnInitialized();
@@ -101,12 +146,5 @@ public abstract class FluentNavMenuItemBase : FluentComponentBase, IDisposable
         }
 
         _disposed = true;
-    }
-
-    void IDisposable.Dispose()
-    {
-        // Do not change this code. Put clean-up code in 'Dispose(bool disposing)' method
-        Dispose(disposing: true);
-        GC.SuppressFinalize(this);
     }
 }

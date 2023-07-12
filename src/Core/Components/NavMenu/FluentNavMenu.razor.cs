@@ -86,6 +86,12 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
     public EventCallback<FluentNavMenuLink> OnLinkSelected { get; set; }
 
     /// <summary>
+    /// Called when the user attempts to execute the default action of a menu item.
+    /// </summary>
+    [Parameter]
+    public EventCallback<NavMenuActionArgs> OnAction { get; set; }
+
+    /// <summary>
     /// If set to <see langword="true"/> then the tree will
     /// expand when it is created.
     /// </summary>
@@ -247,7 +253,7 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
         StateHasChanged();
     }
 
-    private void HandleCurrentSelectedChanged(FluentTreeItem? treeItem)
+    private async Task HandleCurrentSelectedChangedAsync(FluentTreeItem? treeItem)
     {
         if (treeItem?.Selected != true)
         {
@@ -261,21 +267,26 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
             return;
         }
 
-        if (string.IsNullOrEmpty(menuItem.Href))
+        var actionArgs = new NavMenuActionArgs(target: menuItem);
+        if (OnAction.HasDelegate)
         {
-            return;
+            await OnAction.InvokeAsync(actionArgs);
         }
 
-        string localPath = new Uri(NavigationManager.Uri).LocalPath;
-        localPath = localPath == "" ? "/" : localPath;
-
-        if (string.Equals(localPath, menuItem.Href, StringComparison.InvariantCultureIgnoreCase))
+        if (!actionArgs.Handled)
         {
-            return;
+            await menuItem.ExecuteAsync(actionArgs);
         }
 
-        _selectedTreeItem = treeItem;
-        NavigationManager.NavigateTo(menuItem.Href);
+        if (actionArgs.Handled)
+        {
+            _selectedTreeItem = treeItem;
+            _previouslyDeselectedTreeItem = treeItem;
+        }
+        else
+        {
+            _selectedTreeItem = _previouslyDeselectedTreeItem;
+        }
     }
 
 }

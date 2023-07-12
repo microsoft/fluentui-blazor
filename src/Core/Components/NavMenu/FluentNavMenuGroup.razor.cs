@@ -5,8 +5,9 @@ namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentNavMenuGroup : FluentNavMenuItemBase, INavMenuItemsOwner, IDisposable
 {
-    [Inject]
-    private NavigationManager NavigationManager { get; set; } = default!;
+    private readonly List<FluentNavMenuItemBase> _childItems = new();
+    private bool HasChildIcons => ((INavMenuItemsOwner)this).HasChildIcons;
+    private bool Visible => NavMenu.Expanded || HasIcon;
 
     /// <summary>
     /// Returns <see langword="true"/> if the group is expanded,
@@ -34,8 +35,6 @@ public partial class FluentNavMenuGroup : FluentNavMenuItemBase, INavMenuItemsOw
     /// </summary>
     public bool Collapsed => !Expanded;
 
-    private readonly List<FluentNavMenuItemBase> _childItems = new();
-    private bool HasChildIcons => ((INavMenuItemsOwner)this).HasChildIcons;
 
     public FluentNavMenuGroup()
     {
@@ -52,8 +51,6 @@ public partial class FluentNavMenuGroup : FluentNavMenuItemBase, INavMenuItemsOw
         .AddStyle("width", $"{Width}px", () => Width.HasValue)
         .AddStyle(Style)
         .Build();
-
-    private bool Visible => NavMenu.Expanded || HasIcon;
 
     protected override async Task OnInitializedAsync()
     {

@@ -14,12 +14,10 @@ public partial class FluentNavMenuLink : FluentNavMenuItemBase, IDisposable
         .AddStyle(Style)
         .Build();
 
-
     public FluentNavMenuLink()
     {
         Id = Identifier.NewId();
     }
-
 
     private async Task HandleSelectedChangedAsync(bool value)
     {
