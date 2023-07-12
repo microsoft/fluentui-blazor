@@ -186,7 +186,7 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
         if (!hasSelectedItem && _hasRendered && _previouslyDeselectedTreeItem is not null)
         {
             _selectedTreeItem = _previouslyDeselectedTreeItem;
-            await _previouslyDeselectedTreeItem.SetSelectedAsync(true);
+            await _selectedTreeItem.SetSelectedAsync(true);
             StateHasChanged();
         }
     }
