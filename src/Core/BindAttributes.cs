@@ -53,8 +53,6 @@ namespace Microsoft.Fast.Components.FluentUI;
 
 [BindElement("fluent-search", null, "value", "onchange")]
 [BindElement("fluent-search", "value", "value", "onchange")]
-
-[BindElement("fluent-tree-item", "expanded", "expanded", "onexpandedchange")]
 public static class BindAttributes
 {
 }
