@@ -61,7 +61,7 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
     /// Gets or sets whether or not the menu can be collapsed.
     /// </summary>
     [Parameter]
-    public bool Collapsible { get; set; } = true;
+    public bool Collapsible { get; set; }
 
     /// <inheritdoc/>
     [Parameter]
