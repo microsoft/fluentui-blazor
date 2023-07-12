@@ -1,16 +1,14 @@
 ﻿<p>With icon at start</p>
-<FluentButton>
+<FluentButton IconStart="@(new Icons.Regular.Size16.Globe())">
     Button
-    <FluentIcon Icon="Icons.Regular.Size16.Globe" Slot="start" />
 </FluentButton>
 
 <p>With icon at end</p>
-<FluentButton>
-    <FluentIcon Icon="Icons.Regular.Size16.Globe" Slot="end" />
+<FluentButton IconEnd="@(new Icons.Regular.Size16.Globe())">
     Button
 </FluentButton>
 
 <p>With icon in default slot</p>
-<FluentButton>
-    <FluentIcon Icon="Icons.Regular.Size16.Globe" />
-</FluentButton>
+<FluentButton IconEnd="@(new Icons.Regular.Size16.Globe())"
+              Title="Globe"
+              OnClick="@(() => DemoLogger.WriteLine("Button clicked"))" />

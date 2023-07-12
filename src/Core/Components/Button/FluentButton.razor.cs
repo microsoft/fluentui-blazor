@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentButton : FluentComponentBase
@@ -46,7 +47,6 @@ public partial class FluentButton : FluentComponentBase
     [Parameter]
     public string? Target { get; set; }
 
-
     /// <summary>
     /// The button type. See <see cref="ButtonType"/> for more details.
     /// Default is ButtonType.Button"
@@ -92,21 +92,51 @@ public partial class FluentButton : FluentComponentBase
     public Appearance? Appearance { get; set; } = FluentUI.Appearance.Neutral;
 
     /// <summary>
+    /// <see cref="Icon"/> displayed to the left of button content.
+    /// </summary>
+    [Parameter]
+    public Icon? IconStart { get; set; }
+
+    /// <summary>
+    /// <see cref="Icon"/> displayed to the right of button content.
+    /// </summary>
+    [Parameter]
+    public Icon? IconEnd { get; set; }
+
+    /// <summary>
+    /// Title of the button: the text usually displayed in a 'tooltip' popup when the mouse is over the button.
+    /// </summary>
+    [Parameter]
+    public string? Title { get; set; }
+
+    /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    public FluentButton()
-    {
-        //Id = Identifier.NewId();
-    }
+    /// <summary>
+    /// Command executed when the user clicks on the button.
+    /// </summary>
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClick { get; set; }
 
     protected override void OnParametersSet()
     {
         string[] values = { "_self", "_blank", "_parent", "_top" };
         if (!string.IsNullOrEmpty(Target) && !values.Contains(Target))
             throw new ArgumentException("Target must be one of the following values: _self, _blank, _parent, _top");
+    }
+
+    /// <summary />
+    protected Task OnClickHandlerAsync(MouseEventArgs e)
+    {
+        if (!Disabled && OnClick.HasDelegate)
+        {
+            return OnClick.InvokeAsync(e);
+        }
+
+        return Task.CompletedTask;
     }
 
     public void SetDisabled(bool disabled)
