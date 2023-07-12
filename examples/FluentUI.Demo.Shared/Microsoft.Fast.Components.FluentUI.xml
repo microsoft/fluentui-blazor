@@ -3260,8 +3260,9 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.Expanded">
             <summary>
-            Gets or sets whether the menu is expanded.
-            </summary>
+            Returns <see langword="true"/> if the nav menu item is expanded,
+            and <see langword="false"/> if collapsed.
+            </summary>    [Parameter]
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.ExpandedChanged">
             <summary>
@@ -3282,6 +3283,12 @@
             <summary>
             If set to <see langword="true"/> then the tree will
             expand when it is created.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.Collapsed">
+            <summary>
+            Returns <see langword="true"/> if the tree item is collapsed,
+            and <see langword="false"/> if expanded.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.ChildContent">
@@ -3307,7 +3314,8 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Expanded">
             <summary>
-            When true, the control will be appear expanded by user interaction.
+            Returns <see langword="true"/> if the group is expanded,
+            and <see langword="false"/> if collapsed.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.ExpandedChanged">
@@ -3339,6 +3347,12 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.SelectedChanged">
             <summary>
             Event callback for when <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Selected"/> changes.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.Collapsed">
+            <summary>
+            Returns <see langword="true"/> if the group is collapsed,
+            and <see langword="false"/> if expanded.
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup.System#IDisposable#Dispose">
@@ -4821,7 +4835,8 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Expanded">
             <summary>
-            When true, the control will be appear expanded by user interaction.
+            Returns <see langword="true"/> if the tree item is expanded,
+            and <see langword="false"/> if collapsed.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.ExpandedChanged">
@@ -4864,6 +4879,12 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Owner">
             <summary>
             Gets or sets the owning FluentTreeView
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Collapsed">
+            <summary>
+            Returns <see langword="true"/> if the tree item is collapsed,
+            and <see langword="false"/> if expanded.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeView.RenderCollapsedNodes">

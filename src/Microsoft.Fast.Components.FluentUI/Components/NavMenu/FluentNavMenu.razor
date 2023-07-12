@@ -8,7 +8,7 @@
             <CascadingValue Value="@Expanded" Name="NavMenuExpanded">
                 <CascadingValue Value="@HasChildIcons" Name="NavMenuItemSiblingHasIcon">
                     <FluentTreeView Class="@ClassValue"
-                                    Style="@StyleValue">
+                                    Style="@StyleValue"
                                     CurrentSelected="@_selectedTreeItem"
                                     CurrentSelectedChanged="@HandleCurrentSelectedChanged">
                         @if (Collapsible)

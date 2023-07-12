@@ -35,7 +35,8 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
 
 
     /// <summary>
-    /// When true, the control will be appear expanded by user interaction.
+    /// Returns <see langword="true"/> if the group is expanded,
+    /// and <see langword="false"/> if collapsed.
     /// </summary>
     [Parameter]
     public bool Expanded { get; set; }
@@ -89,17 +90,22 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
     [CascadingParameter(Name = "NavMenuItemSiblingHasIcon")]
     private bool SiblingHasIcon { get; set; }
 
+    /// <summary>
+    /// Returns <see langword="true"/> if the group is collapsed,
+    /// and <see langword="false"/> if expanded.
+    /// </summary>
+    public bool Collapsed => !Expanded;
+
     private FluentTreeItem _treeItem = null!;
     private readonly List<INavMenuChildElement> _childElements = new();
     private bool HasChildIcons => ((INavMenuParentElement)this).HasChildIcons;
-    private bool Collapsed => !Expanded;
+
 
 
     public FluentNavMenuGroup()
     {
         Id = Identifier.NewId();
     }
-
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("navmenu-parent-element")
@@ -121,7 +127,7 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
         await base.OnInitializedAsync();
         Owner.Register(this);
         NavMenu.Register(this);
-        if (InitiallyExpanded)
+        if (InitiallyExpanded && Collapsed)
         {
             Expanded = true;
             if (ExpandedChanged.HasDelegate)
@@ -161,28 +167,33 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
 
     private Task ToggleCollapsedAsync() => HandleExpandedChangedAsync(!Expanded);
 
-    private async Task HandleExpandedChangedAsync(bool expanded)
+    private async Task HandleExpandedChangedAsync(bool value)
     {
-        if (expanded == Expanded)
+        if (value == Expanded)
         {
             return;
         }
 
-        Expanded = expanded;
+        Expanded = value;
         if (ExpandedChanged.HasDelegate)
         {
-            await ExpandedChanged.InvokeAsync(expanded);
+            await ExpandedChanged.InvokeAsync(value);
         }
 
-        await NavMenu.HandleMenuItemExpandedChangedAsync(this);
+        await NavMenu.MenuItemExpandedChangedAsync(this);
     }
 
-    private async Task HandleSelectedChangedAsync(bool selected)
+    private async Task HandleSelectedChangedAsync(bool value)
     {
-        Selected = selected;
+        if (value == Selected)
+        {
+            return;
+        }
+
+        Selected = value;
         if (SelectedChanged.HasDelegate)
         {
-            await SelectedChanged.InvokeAsync(selected);
+            await SelectedChanged.InvokeAsync(value);
         }
     }
 
