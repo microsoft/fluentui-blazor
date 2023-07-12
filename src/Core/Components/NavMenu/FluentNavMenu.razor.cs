@@ -185,6 +185,7 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
         bool hasSelectedItem = _selectedTreeItem is not null && _selectedTreeItem.Selected;
         if (!hasSelectedItem && _hasRendered && _previouslyDeselectedTreeItem is not null)
         {
+            _selectedTreeItem = _previouslyDeselectedTreeItem;
             await _previouslyDeselectedTreeItem.SetSelectedAsync(true);
             StateHasChanged();
         }
@@ -221,7 +222,6 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
         if (menuItem is not null)
         {
             _selectedTreeItem = menuItem.TreeItem;
-            _previouslyDeselectedTreeItem = _selectedTreeItem;
         }
     }
 
@@ -257,7 +257,6 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
     {
         if (treeItem?.Selected != true)
         {
-            _previouslyDeselectedTreeItem = _selectedTreeItem;
             _selectedTreeItem = null;
             return;
         }
