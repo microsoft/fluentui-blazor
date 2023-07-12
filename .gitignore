@@ -402,3 +402,4 @@ FodyWeavers.xsd
 .idea
 *.cobertura.xml
 /Directory.Build.targets
+Microsoft.Fast.Components.FluentUI.xml

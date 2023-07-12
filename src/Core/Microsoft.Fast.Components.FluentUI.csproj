@@ -92,7 +92,7 @@
     <ItemGroup>
       <XmlFiles Include="$(ProjectDir)bin\$(Configuration)\$(TargetFramework)\*.xml" />
     </ItemGroup>
-    <Copy SourceFiles="@(XmlFiles)" DestinationFolder="$(SolutionDir)examples\FluentUI.Demo.Shared" />
+    <Copy SourceFiles="@(XmlFiles)" DestinationFolder="$(SolutionDir)examples\Demo\Shared" />
   </Target>
 
   <!-- Embedd other languages under root resx file -->
