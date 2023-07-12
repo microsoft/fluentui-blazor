@@ -2,7 +2,7 @@
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentNavMenuLink : FluentNavMenuItem, IDisposable
+public partial class FluentNavMenuLink : FluentNavMenuItemBase, IDisposable
 {
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("navmenu-link")
@@ -14,7 +14,6 @@ public partial class FluentNavMenuLink : FluentNavMenuItem, IDisposable
         .AddStyle(Style)
         .Build();
 
-    private FluentTreeItem _treeItem = null!;
 
     public FluentNavMenuLink()
     {

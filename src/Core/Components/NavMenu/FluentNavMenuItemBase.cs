@@ -3,9 +3,9 @@
 namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary>
-/// Base class for <see cref="FluentNavMenuGroup"/> and <see cref="FluentNavMenuItem"/>.
+/// Base class for <see cref="FluentNavMenuGroup"/> and <see cref="FluentNavMenuItemBase"/>.
 /// </summary>
-public abstract class FluentNavMenuItem : FluentComponentBase, IDisposable
+public abstract class FluentNavMenuItemBase : FluentComponentBase, IDisposable
 {
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
@@ -105,7 +105,7 @@ public abstract class FluentNavMenuItem : FluentComponentBase, IDisposable
 
     void IDisposable.Dispose()
     {
-        // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+        // Do not change this code. Put clean-up code in 'Dispose(bool disposing)' method
         Dispose(disposing: true);
         GC.SuppressFinalize(this);
     }

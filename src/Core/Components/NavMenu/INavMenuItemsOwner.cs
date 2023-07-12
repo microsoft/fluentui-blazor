@@ -2,9 +2,9 @@
 
 internal interface INavMenuItemsOwner
 {
-    void Register(FluentNavMenuItem child);
-    void Unregister(FluentNavMenuItem child);
-    IEnumerable<FluentNavMenuItem> GetChildItems();
+    void Register(FluentNavMenuItemBase child);
+    void Unregister(FluentNavMenuItemBase child);
+    IEnumerable<FluentNavMenuItemBase> GetChildItems();
 
     string? Id { get; }
     bool Expanded { get; set; }

@@ -3,7 +3,7 @@ using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentNavMenuGroup : FluentNavMenuItem, INavMenuItemsOwner, IDisposable
+public partial class FluentNavMenuGroup : FluentNavMenuItemBase, INavMenuItemsOwner, IDisposable
 {
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
@@ -35,7 +35,7 @@ public partial class FluentNavMenuGroup : FluentNavMenuItem, INavMenuItemsOwner,
     /// </summary>
     public bool Collapsed => !Expanded;
 
-    private readonly List<FluentNavMenuItem> _childItems = new();
+    private readonly List<FluentNavMenuItemBase> _childItems = new();
     private bool HasChildIcons => ((INavMenuItemsOwner)this).HasChildIcons;
 
     public FluentNavMenuGroup()
@@ -78,19 +78,19 @@ public partial class FluentNavMenuGroup : FluentNavMenuItem, INavMenuItemsOwner,
         }
     }
 
-    void INavMenuItemsOwner.Register(FluentNavMenuItem child)
+    void INavMenuItemsOwner.Register(FluentNavMenuItemBase child)
     {
         _childItems.Add(child);
         StateHasChanged();
     }
 
-    void INavMenuItemsOwner.Unregister(FluentNavMenuItem child)
+    void INavMenuItemsOwner.Unregister(FluentNavMenuItemBase child)
     {
         _childItems.Remove(child);
         StateHasChanged();
     }
 
-    IEnumerable<FluentNavMenuItem> INavMenuItemsOwner.GetChildItems() => _childItems;
+    IEnumerable<FluentNavMenuItemBase> INavMenuItemsOwner.GetChildItems() => _childItems;
 
     private Task ToggleCollapsedAsync() => HandleExpandedChangedAsync(!Expanded);
 

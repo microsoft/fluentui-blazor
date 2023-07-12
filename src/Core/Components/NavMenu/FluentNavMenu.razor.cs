@@ -9,11 +9,12 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
 {
     private const string WIDTH_COLLAPSED_MENU = "40px";
     private readonly string _expandCollapseTreeItemId = Identifier.NewId();
-    private readonly Dictionary<string, FluentNavMenuItem> _allItems = new();
-    private readonly List<FluentNavMenuItem> _childItems = new();
+    private readonly Dictionary<string, FluentNavMenuItemBase> _allItems = new();
+    private readonly List<FluentNavMenuItemBase> _childItems = new();
     private FluentTreeItem? _selectedTreeItem;
     private FluentTreeItem? _previouslyDeselectedTreeItem;
     private bool _hasRendered;
+    private bool _disposed;
 
     private bool HasChildIcons => ((INavMenuItemsOwner)this).HasChildIcons;
 
@@ -119,33 +120,27 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
         }
     }
 
-    IEnumerable<FluentNavMenuItem> INavMenuItemsOwner.GetChildItems() => _childItems;
+    IEnumerable<FluentNavMenuItemBase> INavMenuItemsOwner.GetChildItems() => _childItems;
 
-    void INavMenuItemsOwner.Register(FluentNavMenuItem child)
+    void INavMenuItemsOwner.Register(FluentNavMenuItemBase child)
     {
         _allItems.Add(child.Id!, child);
         StateHasChanged();
     }
 
-    void INavMenuItemsOwner.Unregister(FluentNavMenuItem child)
+    void INavMenuItemsOwner.Unregister(FluentNavMenuItemBase child)
     {
         _allItems.Remove(child.Id!);
         StateHasChanged();
     }
 
-    void IDisposable.Dispose()
-    {
-        NavigationManager.LocationChanged -= HandleNavigationManagerLocationChanged;
-        _allItems.Clear();
-    }
-
-    internal void Register(FluentNavMenuItem item)
+    internal void Register(FluentNavMenuItemBase item)
     {
         _allItems[item.Id!] = item;
         StateHasChanged();
     }
 
-    internal void Unregister(FluentNavMenuItem item)
+    internal void Unregister(FluentNavMenuItemBase item)
     {
         _allItems.Remove(item.Id!);
         StateHasChanged();
@@ -188,7 +183,7 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
         if (string.IsNullOrEmpty(localPath))
             localPath = "/";
 
-        FluentNavMenuItem? menuItem = _allItems.Values
+        FluentNavMenuItemBase? menuItem = _allItems.Values
             .FirstOrDefault(x => x.Href == localPath);
 
         if (menuItem is not null)
@@ -236,7 +231,7 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
             return;
         }
 
-        if (!_allItems.TryGetValue(treeItem.Id!, out FluentNavMenuItem? menuItem))
+        if (!_allItems.TryGetValue(treeItem.Id!, out FluentNavMenuItemBase? menuItem))
         {
             return;
         }
@@ -256,5 +251,29 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
 
         _selectedTreeItem = treeItem;
         NavigationManager.NavigateTo(menuItem.Href);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (_disposed)
+        {
+            return;
+        }
+
+        if (disposing)
+        {
+            NavigationManager.LocationChanged -= HandleNavigationManagerLocationChanged;
+            _allItems.Clear();
+            _childItems.Clear();
+        }
+
+        _disposed = true;
+    }
+
+    void IDisposable.Dispose()
+    {
+        // Do not change this code. Put clean-up code in 'Dispose(bool disposing)' method
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
     }
 }
