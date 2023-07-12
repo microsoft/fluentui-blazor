@@ -1,7 +1,0 @@
-﻿<FluentStack>
-    <FluentEmoji Emoji="Emojis.PeopleBody.Color.Default.Artist" />
-    <FluentEmoji Emoji="Emojis.SmileysEmotion.Color.Default.RollingOnTheFloorLaughing" Width="50px" />
-
-    @(new Emojis.Objects.Color.Default.Accordion().ToMarkup("80px"))
-    @(new Emojis.TravelPlaces.Color.Default.Ambulance().ToMarkup())
-</FluentStack>
