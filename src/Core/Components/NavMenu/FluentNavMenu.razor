@@ -1,23 +1,22 @@
 ﻿@namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentComponentBase
-@inject NavigationManager NavigationManager
 
 <div>
     <CascadingValue Value="this" IsFixed="true">
-        <CascadingValue TValue=INavMenuParentElement Value="@this" IsFixed>
+        <CascadingValue TValue=INavMenuItemsOwner Value="@this" IsFixed>
             <CascadingValue Value="@Expanded" Name="NavMenuExpanded">
-                <CascadingValue Value="@HasChildIcons" Name="NavMenuItemSiblingHasIcon">
+                <CascadingValue Value="@_hasChildIcons" Name="NavMenuItemSiblingHasIcon">
                     <FluentTreeView Class="@ClassValue"
                                     Style="@StyleValue"
                                     CurrentSelected="@_selectedTreeItem"
-                                    CurrentSelectedChanged="@HandleCurrentSelectedChanged">
+                                    CurrentSelectedChanged="@HandleCurrentSelectedChangedAsync">
                         @if (Collapsible)
                         {
                             <FluentTreeItem Id="@_expandCollapseTreeItemId" Class="nav-menu-expander" @onclick="@ToggleCollapsedAsync" @onkeydown="@HandleExpandCollapseKeyDownAsync">
-                                @if (NavigationIconContent is not null)
+                                @if (ExpanderContent is not null)
                                 {
                                     <div>
-                                        @NavigationIconContent
+                                        @ExpanderContent
                                     </div>
                                 }
                                 else

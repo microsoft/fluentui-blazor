@@ -5,22 +5,22 @@ using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement, IDisposable
+public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, IDisposable
 {
     private const string WIDTH_COLLAPSED_MENU = "40px";
-    private readonly string _expandCollapseTreeItemId = Identifier.NewId();
-    private readonly Dictionary<string, INavMenuChildElement> _childElements = new();
-    private FluentTreeItem? _selectedTreeItem;
-    private FluentTreeItem? _previouslyDeselectedTreeItem;
+    private bool _disposed;
+    private bool _hasChildIcons => ((INavMenuItemsOwner)this).HasChildIcons;
     private bool _hasRendered;
-
-    private bool HasChildIcons => ((INavMenuParentElement)this).HasChildIcons;
+    private readonly Dictionary<string, FluentNavMenuItemBase> _allItems = new();
+    private readonly List<FluentNavMenuItemBase> _childItems = new();
+    private readonly string _expandCollapseTreeItemId = Identifier.NewId();
+    private FluentTreeItem? _previouslyDeselectedTreeItem;
+    private FluentTreeItem? _selectedTreeItem;
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("navmenu")
         .AddClass("collapsed", Collapsed)
         .AddClass("navmenu-parent-element")
-        .AddClass("navmenu-element")
         .Build();
 
     protected string? StyleValue => new StyleBuilder()
@@ -37,12 +37,12 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the content to be rendered for the navigation icon
+    /// Gets or sets the content to be rendered for the expander icon
     /// when the menu is collapsible.  The default icon will be used if
     /// this is not specified.
     /// </summary>
     [Parameter]
-    public RenderFragment? NavigationIconContent { get; set; }
+    public RenderFragment? ExpanderContent { get; set; }
 
     /// <summary>
     /// Gets or sets the title of the navigation menu
@@ -58,15 +58,13 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
     public int? Width { get; set; }
 
     /// <summary>
-    /// Gets or sets whether the menu can be collapsed.
+    /// Gets or sets whether or not the menu can be collapsed.
     /// </summary>
     [Parameter]
-    public bool Collapsible { get; set; } = true;
+    public bool Collapsible { get; set; }
 
-    /// <summary>
-    /// Returns <see langword="true"/> if the nav menu item is expanded,
-    /// and <see langword="false"/> if collapsed.
-    /// </summary>    [Parameter]
+    /// <inheritdoc/>
+    [Parameter]
     public bool Expanded { get; set; } = true;
 
     /// <summary>
@@ -87,6 +85,11 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
     [Parameter]
     public EventCallback<FluentNavMenuLink> OnLinkSelected { get; set; }
 
+    /// <summary>
+    /// Called when the user attempts to execute the default action of a menu item.
+    /// </summary>
+    [Parameter]
+    public EventCallback<NavMenuActionArgs> OnAction { get; set; }
 
     /// <summary>
     /// If set to <see langword="true"/> then the tree will
@@ -95,18 +98,51 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
     [Parameter]
     public bool InitiallyExpanded { get; set; }
 
-    /// <summary>
-    /// Returns <see langword="true"/> if the tree item is collapsed,
-    /// and <see langword="false"/> if expanded.
-    /// </summary>
+    /// <inheritdoc/>
     public bool Collapsed => !Expanded;
+
+    /// <summary>
+    /// Navigation manager
+    /// </summary>
+    [Inject]
+    protected NavigationManager NavigationManager { get; private set; } = null!;
 
     public FluentNavMenu()
     {
         Id = Identifier.NewId();
     }
 
-    internal async Task MenuItemExpandedChangedAsync(INavMenuParentElement menuItem)
+    /// <inheritdoc/>
+    IEnumerable<FluentNavMenuItemBase> INavMenuItemsOwner.GetChildItems() => _childItems;
+
+    /// <inheritdoc/>
+    void INavMenuItemsOwner.Register(FluentNavMenuItemBase child)
+    {
+        _childItems.Add(child);
+        StateHasChanged();
+    }
+
+    /// <inheritdoc/>
+    void INavMenuItemsOwner.Unregister(FluentNavMenuItemBase child)
+    {
+        _childItems.Remove(child);
+        StateHasChanged();
+    }
+
+    void IDisposable.Dispose()
+    {
+        // Do not change this code. Put clean-up code in 'Dispose(bool disposing)' method
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
+    }
+
+    internal void Register(FluentNavMenuItemBase item)
+    {
+        _allItems[item.Id!] = item;
+        StateHasChanged();
+    }
+
+    internal async Task MenuItemExpandedChangedAsync(INavMenuItemsOwner menuItem)
     {
         if (menuItem.Id == _expandCollapseTreeItemId)
         {
@@ -119,51 +155,10 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
         }
     }
 
-    IEnumerable<INavMenuChildElement> INavMenuParentElement.GetChildElements() => _childElements.Values;
-
-    void INavMenuParentElement.Register(INavMenuChildElement child)
+    internal void Unregister(FluentNavMenuItemBase item)
     {
-        _childElements.Add(child.Id!, child);
+        _allItems.Remove(item.Id!);
         StateHasChanged();
-    }
-
-    void INavMenuParentElement.Unregister(INavMenuChildElement child)
-    {
-        _childElements.Remove(child.Id!);
-        StateHasChanged();
-    }
-
-    void IDisposable.Dispose()
-    {
-        NavigationManager.LocationChanged -= HandleNavigationManagerLocationChanged;
-        _childElements.Clear();
-    }
-
-    internal void Register(INavMenuChildElement element)
-    {
-        _childElements[element.Id!] = element;
-    }
-
-    internal void Unregister(INavMenuChildElement element)
-    {
-        _childElements.Remove(element.Id!);
-    }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-        if (firstRender)
-        {
-            _hasRendered = true;
-            HandleNavigationManagerLocationChanged(null, new LocationChangedEventArgs(NavigationManager.Uri, isNavigationIntercepted: false));
-        }
-
-        bool hasSelectedItem = _selectedTreeItem is not null && _selectedTreeItem.Selected;
-        if (!hasSelectedItem && _hasRendered && _previouslyDeselectedTreeItem is not null)
-        {
-            await _previouslyDeselectedTreeItem.SetSelectedAsync(true);
-            StateHasChanged();
-        }
     }
 
     protected override async Task OnInitializedAsync()
@@ -178,6 +173,41 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
         }
     }
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        if (firstRender)
+        {
+            _hasRendered = true;
+            HandleNavigationManagerLocationChanged(null, new LocationChangedEventArgs(NavigationManager.Uri, isNavigationIntercepted: false));
+        }
+
+        bool hasSelectedItem = _selectedTreeItem is not null && _selectedTreeItem.Selected;
+        if (!hasSelectedItem && _hasRendered && _previouslyDeselectedTreeItem is not null)
+        {
+            _selectedTreeItem = _previouslyDeselectedTreeItem;
+            await _selectedTreeItem.SetSelectedAsync(true);
+            StateHasChanged();
+        }
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (_disposed)
+        {
+            return;
+        }
+
+        if (disposing)
+        {
+            NavigationManager.LocationChanged -= HandleNavigationManagerLocationChanged;
+            _allItems.Clear();
+            _childItems.Clear();
+        }
+
+        _disposed = true;
+    }
+
     private Task ToggleCollapsedAsync() => SetExpandedAsync(!Expanded);
 
     private void HandleNavigationManagerLocationChanged(object? sender, LocationChangedEventArgs e)
@@ -186,15 +216,13 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
         if (string.IsNullOrEmpty(localPath))
             localPath = "/";
 
-        INavMenuChildElement? menuItem = _childElements.Values
+        FluentNavMenuItemBase? menuItem = _allItems.Values
             .FirstOrDefault(x => x.Href == localPath);
 
         if (menuItem is not null)
         {
             _selectedTreeItem = menuItem.TreeItem;
-            _previouslyDeselectedTreeItem = _selectedTreeItem;
         }
-
     }
 
     private async Task HandleExpandCollapseKeyDownAsync(KeyboardEventArgs args)
@@ -225,34 +253,39 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
         StateHasChanged();
     }
 
-    private void HandleCurrentSelectedChanged(FluentTreeItem? treeItem)
+    private async Task HandleCurrentSelectedChangedAsync(FluentTreeItem? treeItem)
     {
         if (treeItem?.Selected != true)
         {
-            _previouslyDeselectedTreeItem = _selectedTreeItem;
             _selectedTreeItem = null;
             return;
         }
 
-        if (!_childElements.TryGetValue(treeItem.Id!, out INavMenuChildElement? menuItem))
+        if (!_allItems.TryGetValue(treeItem.Id!, out FluentNavMenuItemBase? menuItem))
         {
             return;
         }
 
-        if (string.IsNullOrEmpty(menuItem.Href))
+        var actionArgs = new NavMenuActionArgs(target: menuItem);
+        if (OnAction.HasDelegate)
         {
-            return;
+            await OnAction.InvokeAsync(actionArgs);
         }
 
-        string localPath = new Uri(NavigationManager.Uri).LocalPath;
-        localPath = localPath == "" ? "/" : localPath;
-
-        if (string.Equals(localPath, menuItem.Href, StringComparison.InvariantCultureIgnoreCase))
+        if (!actionArgs.Handled)
         {
-            return;
+            await menuItem.ExecuteAsync(actionArgs);
         }
 
-        _selectedTreeItem = treeItem;
-        NavigationManager.NavigateTo(menuItem.Href);
+        if (actionArgs.Handled)
+        {
+            _selectedTreeItem = treeItem;
+            _previouslyDeselectedTreeItem = treeItem;
+        }
+        else
+        {
+            _selectedTreeItem = _previouslyDeselectedTreeItem;
+        }
     }
+
 }

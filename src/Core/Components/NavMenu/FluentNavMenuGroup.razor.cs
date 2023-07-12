@@ -3,36 +3,11 @@ using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElement, INavMenuParentElement, IDisposable
+public partial class FluentNavMenuGroup : FluentNavMenuItemBase, INavMenuItemsOwner, IDisposable
 {
-    [Inject]
-    private NavigationManager NavigationManager { get; set; } = default!;
-
-    /// <summary>
-    /// Gets or sets the content to be rendered inside the component.
-    /// </summary>
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
-
-    /// <summary>
-    /// Gets or sets the icon to display for this group
-    /// before its <see cref="Text"/>.
-    /// </summary>
-    [Parameter]
-    public Icon? Icon { get; set; }
-
-    /// <summary>
-    /// Gets or sets the destination of the link.
-    /// </summary>
-    [Parameter]
-    public string? Href { get; set; } = string.Empty;
-
-    /// <summary>
-    /// Gets or sets whether the menu group is disabled
-    /// </summary>
-    [Parameter]
-    public bool Disabled { get; set; }
-
+    private readonly List<FluentNavMenuItemBase> _childItems = new();
+    private bool HasChildIcons => ((INavMenuItemsOwner)this).HasChildIcons;
+    private bool Visible => NavMenu.Expanded || HasIcon;
 
     /// <summary>
     /// Returns <see langword="true"/> if the group is expanded,
@@ -48,18 +23,6 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
     public EventCallback<bool> ExpandedChanged { get; set; }
 
     /// <summary>
-    /// Gets or sets the text of the menu group
-    /// </summary>
-    [Parameter]
-    public string Text { get; set; } = string.Empty;
-
-    /// <summary>
-    /// Gets or sets the width of the menu group
-    /// </summary>
-    [Parameter]
-    public int? Width { get; set; }
-
-    /// <summary>
     /// If set to <see langword="true"/> then the tree will
     /// expand when it is created.
     /// </summary>
@@ -67,39 +30,10 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
     public bool InitiallyExpanded { get; set; }
 
     /// <summary>
-    /// Gets or sets if the item is selected.
-    /// </summary>
-    [Parameter]
-    public bool Selected { get; set; }
-
-    /// <summary>
-    /// Event callback for when <see cref="Selected"/> changes.
-    /// </summary>
-    [Parameter]
-    public EventCallback<bool> SelectedChanged { get; set; }
-
-    [CascadingParameter]
-    private FluentNavMenu NavMenu { get; set; } = default!;
-
-    [CascadingParameter(Name = "NavMenuExpanded")]
-    private bool NavMenuExpanded { get; set; }
-
-    [CascadingParameter]
-    private INavMenuParentElement Owner { get; set; } = null!;
-
-    [CascadingParameter(Name = "NavMenuItemSiblingHasIcon")]
-    private bool SiblingHasIcon { get; set; }
-
-    /// <summary>
     /// Returns <see langword="true"/> if the group is collapsed,
     /// and <see langword="false"/> if expanded.
     /// </summary>
     public bool Collapsed => !Expanded;
-
-    private FluentTreeItem _treeItem = null!;
-    private readonly List<INavMenuChildElement> _childElements = new();
-    private bool HasChildIcons => ((INavMenuParentElement)this).HasChildIcons;
-
 
 
     public FluentNavMenuGroup()
@@ -110,7 +44,6 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("navmenu-parent-element")
         .AddClass("navmenu-group")
-        .AddClass("navmenu-element")
         .AddClass("navmenu-child-element")
         .Build();
 
@@ -119,13 +52,9 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
         .AddStyle(Style)
         .Build();
 
-    public bool HasIcon => Icon != null;
-
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        Owner.Register(this);
-        NavMenu.Register(this);
         if (InitiallyExpanded && Collapsed)
         {
             Expanded = true;
@@ -136,33 +65,28 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
         }
     }
 
-    /// <summary>
-    /// Dispose of this navmenu group.
-    /// </summary>
-    void IDisposable.Dispose()
+    protected override void Dispose(bool disposing)
     {
-        Owner.Unregister(this);
-        NavMenu.Unregister(this);
-        _childElements.Clear();
+        base.Dispose(disposing);
+        if (disposing)
+        {
+            _childItems.Clear();
+        }
     }
 
-
-    void INavMenuParentElement.Register(INavMenuChildElement child)
+    void INavMenuItemsOwner.Register(FluentNavMenuItemBase child)
     {
-        Owner.Register(child);
+        _childItems.Add(child);
         StateHasChanged();
     }
 
-    void INavMenuParentElement.Unregister(INavMenuChildElement child)
+    void INavMenuItemsOwner.Unregister(FluentNavMenuItemBase child)
     {
-        Owner.Unregister(child);
+        _childItems.Remove(child);
         StateHasChanged();
     }
 
-    IEnumerable<INavMenuChildElement> INavMenuParentElement.GetChildElements() => _childElements;
-
-    FluentTreeItem INavMenuChildElement.TreeItem => _treeItem;
-
+    IEnumerable<FluentNavMenuItemBase> INavMenuItemsOwner.GetChildItems() => _childItems;
 
     private Task ToggleCollapsedAsync() => HandleExpandedChangedAsync(!Expanded);
 
@@ -195,7 +119,4 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
             await SelectedChanged.InvokeAsync(value);
         }
     }
-
-    private bool Visible => NavMenu.Expanded || HasIcon;
-
 }

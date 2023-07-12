@@ -1,0 +1,118 @@
+@namespace FluentUI.Demo.Shared
+@using System.Text;
+
+<h2>Custom Actions Example</h2>
+
+<FluentStack Orientation="Orientation.Horizontal" Width="100%">
+    <div>
+        <FluentNavMenu OnAction="@InterceptAtMenuLevel">
+            @*
+            These items are handled by the MenuLevelHandler, which intercepts any components
+            with a name ending with _HandleAtMenuLevel
+            *@
+            <FluentNavMenuLink Id="Item1_HandleAtMenuLevel" Text="Item 1 - Handled at menu level" />
+            <FluentNavMenuLink Id="Item2_HandleAtMenuLevel" Text="Item 2 - Handled at menu level" />
+
+            @*
+            These items each have an OnAction callback specified that intercepts any components
+            with a name ending with _HandleAtItemLevel
+            *@
+            <FluentNavMenuGroup OnAction="@InterceptAtMenuLevelAsync" Id="Item3_HandleAtItemLevel" Text="Item 3" InitiallyExpanded="true">
+                <FluentNavMenuLink OnAction="@InterceptAtMenuLevelAsync" Id="Item3_1_HandleAtItemLevel" Text="Item 3.1" />
+                <FluentNavMenuLink OnAction="@InterceptAtMenuLevelAsync" Id="Item3_2_HandleAtItemLevel" Text="Item 3.2" />
+            </FluentNavMenuGroup>
+
+            @*
+            None of these items have an Id that is handled by the two previous handler callbacks, and
+            none have a Href, so these won't be selectable
+            *@
+            <FluentNavMenuGroup Text="Item 4" InitiallyExpanded="true">
+                <FluentNavMenuLink Text="Item 4.1" />
+                <FluentNavMenuLink OnAction="@InterceptAtMenuLevelAsync" Text="Item 4.2" />
+            </FluentNavMenuGroup>
+
+            @*
+            This item shows a dialog
+            *@
+            <FluentNavMenuLink OnAction="@ShowDialog" Text="Show a dialog" />
+
+            @*
+            This item doesn't have a special Id, so won't be handled by the menu-level handler.
+            It doesn't have a menu-level interceptor specified.
+            It does have a Href, so will navigate.
+            *@
+            <FluentNavMenuLink OnAction="@InterceptAtMenuLevelAsync" Href="https://microsoft.com" Text="Default behavior (navigate)" />
+
+        </FluentNavMenu>
+    </div>
+    <div style="width: 100%;">
+        <h2>Log</h2>
+        <pre><code>@_output</code></pre>
+    </div>
+</FluentStack>
+
+<FluentDialog Hidden="@_hideDialog" aria-label="Simple dialog" Modal="@true" TrapFocus="@true" @ondialogdismiss=CloseDialog>
+    <h2>Just a simple dialog</h2>
+    <p>The 'Close dialog' button is automatically focused.</p>
+    <FluentButton Appearance="Appearance.Accent" Autofocus="true" @onclick="CloseDialog">Close dialog</FluentButton>
+</FluentDialog>
+
+@code
+{
+    StringBuilder _output = new();
+    bool _hideDialog = true;
+
+    void InterceptAtMenuLevel(NavMenuActionArgs args)
+    {
+        _output = new StringBuilder();
+        _output.AppendLine($"Item \"{args.Target.Id}\" actioned at {DateTime.Now}");
+        _output.AppendLine($"Intercepting at menu level via {nameof(FluentNavMenu)}.{nameof(FluentNavMenu.OnAction)}");
+        if (args.Target.Id?.EndsWith("_HandleAtMenuLevel", StringComparison.OrdinalIgnoreCase) == true)
+        {
+            _output.AppendLine($"Handled!");
+            args.SetHandled();
+        }
+        else
+        {
+            _output.AppendLine($"Ignored!");
+        }
+    }
+
+    async Task InterceptAtMenuLevelAsync(NavMenuActionArgs args)
+    {
+        _output.AppendLine();
+        _output.AppendLine($"Intercepting at item level via {args.Target.GetType().Name}.{nameof(FluentNavMenu.OnAction)}");
+        if (args.Target.Id?.EndsWith("_HandleAtItemLevel", StringComparison.OrdinalIgnoreCase) == true)
+        {
+            _output.AppendLine($"Handled!");
+            args.SetHandled();
+        }
+        else
+        {
+            _output.AppendLine($"Ignored!");
+            if (string.IsNullOrEmpty(args.Target.Href))
+            {
+                _output.AppendLine($"No {nameof(FluentNavMenuItemBase.Href)} - so selection was prevented");
+            }
+            else
+            {
+                _output.AppendLine($"{nameof(FluentNavMenuItemBase.Href)} was set, navigating to {args.Target.Href}");
+                _output.AppendLine();
+                _output.AppendLine("BYE!!");
+                StateHasChanged();
+                await Task.Delay(1000);
+            }
+        }
+    }
+
+    void ShowDialog(NavMenuActionArgs args)
+    {
+        _hideDialog = false;
+        args.SetHandled();
+    }
+
+    void CloseDialog()
+    {
+        _hideDialog = true;
+    }
+}
