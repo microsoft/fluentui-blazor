@@ -1,5 +1,0 @@
-﻿<h3>SplashScreen2</h3>
-
-@code {
-    
-}
