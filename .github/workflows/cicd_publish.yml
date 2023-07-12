@@ -36,7 +36,7 @@ jobs:
       DOTNET_GENERATE_ASPNET_CERTIFICATE: false
       DOTNET_ADD_GLOBAL_TOOLS_TO_PATH: false
       DOTNET_MULTILEVEL_LOOKUP: 0
-      PROJECT: "src/Microsoft.Fast.Components.FluentUI/Microsoft.Fast.Components.FluentUI.csproj"
+      PROJECT: "src/Core/Microsoft.Fast.Components.FluentUI.csproj"
       BUILD_ARCH: "Any CPU"
       BUILD_CONFIG: "Release"
 
@@ -79,7 +79,7 @@ jobs:
       DOTNET_GENERATE_ASPNET_CERTIFICATE: false
       DOTNET_ADD_GLOBAL_TOOLS_TO_PATH: false
       DOTNET_MULTILEVEL_LOOKUP: 0
-      PROJECT: "examples/FluentUI.Demo.Client/FluentUI.Demo.Client.csproj"
+      PROJECT: "examples/Demo/Client/FluentUI.Demo.Client.csproj"
       BUILD_ARCH: "Any CPU"
       BUILD_CONFIG: "Release"
       SKIP_DEPLOY_ON_MISSING_SECRETS: true
@@ -101,7 +101,7 @@ jobs:
           path: artifacts
                
       - name: .NET Publish 
-        run: dotnet publish ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o publish -f net8.0 -r linux-x64 --sc -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
+        run: dotnet publish ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o publish -f net8.0 -r linux-x64 --sc -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true -p:-p:CopyDocumentationFilesFromPackages=true
         
       - name: Deploy demo site to new Azure Static Web App
         id: builddeploy
