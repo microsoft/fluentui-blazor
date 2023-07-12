@@ -8,7 +8,6 @@ public partial class FluentNavMenuGroup : FluentNavMenuItemBase, INavMenuItemsOw
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
 
-
     /// <summary>
     /// Returns <see langword="true"/> if the group is expanded,
     /// and <see langword="false"/> if collapsed.

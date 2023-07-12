@@ -8,15 +8,14 @@ namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, IDisposable
 {
     private const string WIDTH_COLLAPSED_MENU = "40px";
-    private readonly string _expandCollapseTreeItemId = Identifier.NewId();
+    private bool _disposed;
+    private bool _hasChildIcons => ((INavMenuItemsOwner)this).HasChildIcons;
+    private bool _hasRendered;
     private readonly Dictionary<string, FluentNavMenuItemBase> _allItems = new();
     private readonly List<FluentNavMenuItemBase> _childItems = new();
-    private FluentTreeItem? _selectedTreeItem;
+    private readonly string _expandCollapseTreeItemId = Identifier.NewId();
     private FluentTreeItem? _previouslyDeselectedTreeItem;
-    private bool _hasRendered;
-    private bool _disposed;
-
-    private bool HasChildIcons => ((INavMenuItemsOwner)this).HasChildIcons;
+    private FluentTreeItem? _selectedTreeItem;
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("navmenu")
@@ -59,15 +58,13 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
     public int? Width { get; set; }
 
     /// <summary>
-    /// Gets or sets whether the menu can be collapsed.
+    /// Gets or sets whether or not the menu can be collapsed.
     /// </summary>
     [Parameter]
     public bool Collapsible { get; set; } = true;
 
-    /// <summary>
-    /// Returns <see langword="true"/> if the nav menu item is expanded,
-    /// and <see langword="false"/> if collapsed.
-    /// </summary>    [Parameter]
+    /// <inheritdoc/>
+    [Parameter]
     public bool Expanded { get; set; } = true;
 
     /// <summary>
@@ -88,7 +85,6 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
     [Parameter]
     public EventCallback<FluentNavMenuLink> OnLinkSelected { get; set; }
 
-
     /// <summary>
     /// If set to <see langword="true"/> then the tree will
     /// expand when it is created.
@@ -96,15 +92,43 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
     [Parameter]
     public bool InitiallyExpanded { get; set; }
 
-    /// <summary>
-    /// Returns <see langword="true"/> if the tree item is collapsed,
-    /// and <see langword="false"/> if expanded.
-    /// </summary>
+    /// <inheritdoc/>
     public bool Collapsed => !Expanded;
 
     public FluentNavMenu()
     {
         Id = Identifier.NewId();
+    }
+
+    /// <inheritdoc/>
+    IEnumerable<FluentNavMenuItemBase> INavMenuItemsOwner.GetChildItems() => _childItems;
+
+    /// <inheritdoc/>
+    void INavMenuItemsOwner.Register(FluentNavMenuItemBase child)
+    {
+        _childItems.Add(child);
+        StateHasChanged();
+    }
+
+    /// <inheritdoc/>
+    void INavMenuItemsOwner.Unregister(FluentNavMenuItemBase child)
+    {
+        _childItems.Remove(child);
+        StateHasChanged();
+    }
+
+    void IDisposable.Dispose()
+    {
+        // Do not change this code. Put clean-up code in 'Dispose(bool disposing)' method
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
+    }
+
+
+    internal void Register(FluentNavMenuItemBase item)
+    {
+        _allItems[item.Id!] = item;
+        StateHasChanged();
     }
 
     internal async Task MenuItemExpandedChangedAsync(INavMenuItemsOwner menuItem)
@@ -120,30 +144,22 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
         }
     }
 
-    IEnumerable<FluentNavMenuItemBase> INavMenuItemsOwner.GetChildItems() => _childItems;
-
-    void INavMenuItemsOwner.Register(FluentNavMenuItemBase child)
-    {
-        _allItems.Add(child.Id!, child);
-        StateHasChanged();
-    }
-
-    void INavMenuItemsOwner.Unregister(FluentNavMenuItemBase child)
-    {
-        _allItems.Remove(child.Id!);
-        StateHasChanged();
-    }
-
-    internal void Register(FluentNavMenuItemBase item)
-    {
-        _allItems[item.Id!] = item;
-        StateHasChanged();
-    }
-
     internal void Unregister(FluentNavMenuItemBase item)
     {
         _allItems.Remove(item.Id!);
         StateHasChanged();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        NavigationManager.LocationChanged += HandleNavigationManagerLocationChanged;
+
+        if (InitiallyExpanded)
+        {
+            await SetExpandedAsync(true);
+        }
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -163,16 +179,21 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
         }
     }
 
-    protected override async Task OnInitializedAsync()
+    protected virtual void Dispose(bool disposing)
     {
-        await base.OnInitializedAsync();
-
-        NavigationManager.LocationChanged += HandleNavigationManagerLocationChanged;
-
-        if (InitiallyExpanded)
+        if (_disposed)
         {
-            await SetExpandedAsync(true);
+            return;
         }
+
+        if (disposing)
+        {
+            NavigationManager.LocationChanged -= HandleNavigationManagerLocationChanged;
+            _allItems.Clear();
+            _childItems.Clear();
+        }
+
+        _disposed = true;
     }
 
     private Task ToggleCollapsedAsync() => SetExpandedAsync(!Expanded);
@@ -191,7 +212,6 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
             _selectedTreeItem = menuItem.TreeItem;
             _previouslyDeselectedTreeItem = _selectedTreeItem;
         }
-
     }
 
     private async Task HandleExpandCollapseKeyDownAsync(KeyboardEventArgs args)
@@ -253,27 +273,4 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
         NavigationManager.NavigateTo(menuItem.Href);
     }
 
-    protected virtual void Dispose(bool disposing)
-    {
-        if (_disposed)
-        {
-            return;
-        }
-
-        if (disposing)
-        {
-            NavigationManager.LocationChanged -= HandleNavigationManagerLocationChanged;
-            _allItems.Clear();
-            _childItems.Clear();
-        }
-
-        _disposed = true;
-    }
-
-    void IDisposable.Dispose()
-    {
-        // Do not change this code. Put clean-up code in 'Dispose(bool disposing)' method
-        Dispose(disposing: true);
-        GC.SuppressFinalize(this);
-    }
 }
