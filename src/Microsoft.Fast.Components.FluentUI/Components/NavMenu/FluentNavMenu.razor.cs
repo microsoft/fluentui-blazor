@@ -11,6 +11,8 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
     private readonly string _expandCollapseTreeItemId = Identifier.NewId();
     private readonly Dictionary<string, INavMenuChildElement> _childElements = new();
     private FluentTreeItem? _selectedTreeItem;
+    private FluentTreeItem? _previouslyDeselectedTreeItem;
+    private bool _hasRendered;
 
     private bool HasChildIcons => ((INavMenuParentElement)this).HasChildIcons;
 
@@ -147,14 +149,21 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
         _childElements.Remove(element.Id!);
     }
 
-    protected override void OnAfterRender(bool firstRender)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        base.OnAfterRender(firstRender);
+        await base.OnAfterRenderAsync(firstRender);
         if (firstRender)
         {
-            //HandleNavigationManagerLocationChanged(null, new LocationChangedEventArgs(NavigationManager.Uri, isNavigationIntercepted: false));
+            _hasRendered = true;
+            HandleNavigationManagerLocationChanged(null, new LocationChangedEventArgs(NavigationManager.Uri, isNavigationIntercepted: false));
         }
-       
+        bool hasSelectedItem = _selectedTreeItem is not null && _selectedTreeItem.Selected;
+
+        if (!hasSelectedItem && _hasRendered && _previouslyDeselectedTreeItem is not null)
+        {
+            await _previouslyDeselectedTreeItem.SetSelectedAsync(true);
+            StateHasChanged();
+        }
     }
 
     protected override async Task OnInitializedAsync()
@@ -217,31 +226,32 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
 
     private void HandleCurrentSelectedChanged(FluentTreeItem? treeItem)
     {
-        //if (treeItem?.Selected != true)
-        //{
-        //    _selectedTreeItem = null;
-        //    return;
-        //}
+        if (treeItem?.Selected != true)
+        {
+            _previouslyDeselectedTreeItem = _selectedTreeItem;
+            _selectedTreeItem = null;
+            return;
+        }
 
-        //if (!_childElements.TryGetValue(treeItem.Id!, out INavMenuChildElement? menuItem))
-        //{
-        //    return;
-        //}
+        if (!_childElements.TryGetValue(treeItem.Id!, out INavMenuChildElement? menuItem))
+        {
+            return;
+        }
 
-        //if (string.IsNullOrEmpty(menuItem.Href))
-        //{
-        //    return;
-        //}
+        if (string.IsNullOrEmpty(menuItem.Href))
+        {
+            return;
+        }
 
-        //string localPath = new Uri(NavigationManager.Uri).LocalPath;
-        //localPath = localPath == "" ? "/" : localPath;
+        string localPath = new Uri(NavigationManager.Uri).LocalPath;
+        localPath = localPath == "" ? "/" : localPath;
 
-        //if (string.Equals(localPath, menuItem.Href, StringComparison.InvariantCultureIgnoreCase))
-        //{
-        //    return;
-        //}
+        if (string.Equals(localPath, menuItem.Href, StringComparison.InvariantCultureIgnoreCase))
+        {
+            return;
+        }
 
-        //_selectedTreeItem = treeItem;
-        //NavigationManager.NavigateTo(menuItem.Href);
+        _selectedTreeItem = treeItem;
+        NavigationManager.NavigateTo(menuItem.Href);
     }
 }
