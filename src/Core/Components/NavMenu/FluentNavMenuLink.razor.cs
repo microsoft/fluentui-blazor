@@ -68,7 +68,7 @@ public partial class FluentNavMenuLink : FluentComponentBase, INavMenuChildEleme
     private bool NavMenuExpanded { get; set; }
 
     [CascadingParameter]
-    private INavMenuParentElement Owner { get; set; } = null!;
+    private INavMenuItemsOwner Owner { get; set; } = null!;
 
     [CascadingParameter(Name = "NavMenuItemSiblingHasIcon")]
     private bool SiblingHasIcon { get; set; }
@@ -77,7 +77,6 @@ public partial class FluentNavMenuLink : FluentComponentBase, INavMenuChildEleme
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("navmenu-link")
-        .AddClass("navmenu-element")
         .AddClass("navmenu-child-element")
         .Build();
 

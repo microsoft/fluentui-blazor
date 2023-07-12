@@ -3,7 +3,7 @@ using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElement, INavMenuParentElement, IDisposable
+public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElement, INavMenuItemsOwner, IDisposable
 {
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
@@ -85,7 +85,7 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
     private bool NavMenuExpanded { get; set; }
 
     [CascadingParameter]
-    private INavMenuParentElement Owner { get; set; } = null!;
+    private INavMenuItemsOwner Owner { get; set; } = null!;
 
     [CascadingParameter(Name = "NavMenuItemSiblingHasIcon")]
     private bool SiblingHasIcon { get; set; }
@@ -97,8 +97,8 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
     public bool Collapsed => !Expanded;
 
     private FluentTreeItem _treeItem = null!;
-    private readonly List<INavMenuChildElement> _childElements = new();
-    private bool HasChildIcons => ((INavMenuParentElement)this).HasChildIcons;
+    private readonly List<INavMenuChildElement> _childItems = new();
+    private bool HasChildIcons => ((INavMenuItemsOwner)this).HasChildIcons;
 
 
 
@@ -110,7 +110,6 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("navmenu-parent-element")
         .AddClass("navmenu-group")
-        .AddClass("navmenu-element")
         .AddClass("navmenu-child-element")
         .Build();
 
@@ -143,23 +142,23 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
     {
         Owner.Unregister(this);
         NavMenu.Unregister(this);
-        _childElements.Clear();
+        _childItems.Clear();
     }
 
 
-    void INavMenuParentElement.Register(INavMenuChildElement child)
+    void INavMenuItemsOwner.Register(INavMenuChildElement child)
     {
-        Owner.Register(child);
+        _childItems.Add(child);
         StateHasChanged();
     }
 
-    void INavMenuParentElement.Unregister(INavMenuChildElement child)
+    void INavMenuItemsOwner.Unregister(INavMenuChildElement child)
     {
-        Owner.Unregister(child);
+        _childItems.Remove(child);
         StateHasChanged();
     }
 
-    IEnumerable<INavMenuChildElement> INavMenuParentElement.GetChildElements() => _childElements;
+    IEnumerable<INavMenuChildElement> INavMenuItemsOwner.GetChildItems() => _childItems;
 
     FluentTreeItem INavMenuChildElement.TreeItem => _treeItem;
 

@@ -1,13 +1,13 @@
 ﻿namespace Microsoft.Fast.Components.FluentUI;
 
-internal interface INavMenuParentElement
+internal interface INavMenuItemsOwner
 {
     void Register(INavMenuChildElement child);
     void Unregister(INavMenuChildElement child);
-    IEnumerable<INavMenuChildElement> GetChildElements();
+    IEnumerable<INavMenuChildElement> GetChildItems();
 
     string? Id { get; }
     bool Expanded { get; set; }
     bool Collapsed => !Expanded;
-    bool HasChildIcons => GetChildElements().Any(x => x.HasIcon);
+    bool HasChildIcons => GetChildItems().Any(x => x.HasIcon);
 }
