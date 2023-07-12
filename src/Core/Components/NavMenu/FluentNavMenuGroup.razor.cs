@@ -112,7 +112,6 @@ public partial class FluentNavMenuGroup : FluentComponentBase, INavMenuChildElem
         .AddClass("navmenu-group")
         .AddClass("navmenu-element")
         .AddClass("navmenu-child-element")
-        .AddClass("navmenu-current-location selected", () => Selected)
         .Build();
 
     protected string? StyleValue => new StyleBuilder()

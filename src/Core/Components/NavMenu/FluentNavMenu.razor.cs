@@ -18,7 +18,7 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuParentElement,
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("navmenu")
-        .AddClass("collapsed", !Expanded)
+        .AddClass("collapsed", Collapsed)
         .AddClass("navmenu-parent-element")
         .AddClass("navmenu-element")
         .Build();
