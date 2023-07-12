@@ -103,19 +103,23 @@ public partial class FluentNavMenuLink : FluentComponentBase, INavMenuChildEleme
         NavMenu.Register(this);
     }
 
-
     void IDisposable.Dispose()
     {
         Owner.Unregister(this);
         NavMenu.Unregister(this);
     }
 
-    private async Task HandleSelectedChangedAsync(bool selected)
+    private async Task HandleSelectedChangedAsync(bool value)
     {
-        Selected = selected;
+        if (value == Selected)
+        {
+            return;
+        }
+
+        Selected = value;
         if (SelectedChanged.HasDelegate)
         {
-            await SelectedChanged.InvokeAsync(selected);
+            await SelectedChanged.InvokeAsync(value);
         }
     }
 }

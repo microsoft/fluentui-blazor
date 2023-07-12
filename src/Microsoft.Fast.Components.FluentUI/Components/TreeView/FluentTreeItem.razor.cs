@@ -11,7 +11,8 @@ public partial class FluentTreeItem : FluentComponentBase
     public string? Text { get; set; }
 
     /// <summary>
-    /// When true, the control will be appear expanded by user interaction.
+    /// Returns <see langword="true"/> if the tree item is expanded,
+    /// and <see langword="false"/> if collapsed.
     /// </summary>
     [Parameter]
     public bool Expanded { get; set; }
@@ -66,15 +67,35 @@ public partial class FluentTreeItem : FluentComponentBase
     [CascadingParameter]
     private FluentTreeView Owner { get; set; } = default!;
 
+    /// <summary>
+    /// Returns <see langword="true"/> if the tree item is collapsed,
+    /// and <see langword="false"/> if expanded.
+    /// </summary>
+    public bool Collapsed => !Expanded;
+
     public FluentTreeItem()
     {
         Id = Identifier.NewId();
     }
 
+    internal async Task SetSelectedAsync(bool value)
+    {
+        if (value == Selected)
+        {
+            return;
+        }
+
+        Selected = value;
+        if (SelectedChanged.HasDelegate)
+        {
+            await SelectedChanged.InvokeAsync(value);
+        }
+    }
+
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        if (InitiallyExpanded)
+        if (InitiallyExpanded && !Expanded)
         {
             Expanded = true;
             if (ExpandedChanged.HasDelegate)
@@ -84,11 +105,7 @@ public partial class FluentTreeItem : FluentComponentBase
         }
         if (InitiallySelected)
         {
-            Selected = true;
-            if (SelectedChanged.HasDelegate)
-            {
-                await SelectedChanged.InvokeAsync(true);
-            }
+            await SetSelectedAsync(true);
         }
     }
 
@@ -118,15 +135,12 @@ public partial class FluentTreeItem : FluentComponentBase
             return;
         }
 
-        Selected = args.Selected.Value;
-        if (SelectedChanged.HasDelegate)
-        {
-            await SelectedChanged.InvokeAsync(Selected);
-        }
+        await SetSelectedAsync(args.Selected.Value);
 
         if (Owner is FluentTreeView tree)
         {
             await tree.ItemSelectedChangeAsync(this);
         }
     }
+
 }
