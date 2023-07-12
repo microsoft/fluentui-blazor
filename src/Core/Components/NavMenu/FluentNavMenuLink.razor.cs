@@ -6,9 +6,6 @@ namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentNavMenuLink : FluentComponentBase, INavMenuChildElement, IDisposable
 {
-    [Inject]
-    private NavigationManager NavigationManager { get; set; } = default!;
-
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>
@@ -35,24 +32,6 @@ public partial class FluentNavMenuLink : FluentComponentBase, INavMenuChildEleme
     public bool Disabled { get; set; } = false;
 
     /// <summary>
-    /// Gets or sets whether the link is selected.
-    /// </summary>
-    [Parameter]
-    public bool Selected { get; set; } = false;
-
-    /// <summary>
-    /// Callback function for when the selected state changes.
-    /// </summary>
-    [Parameter]
-    public EventCallback<bool> SelectedChanged { get; set; }
-
-    /// <summary>
-    /// Callback function for when the link is clicked.
-    /// </summary>
-    [Parameter]
-    public EventCallback<MouseEventArgs> OnClick { get; set; }
-
-    /// <summary>
     /// Gets or sets the target of the link.
     /// </summary>
     [Parameter]
@@ -70,6 +49,18 @@ public partial class FluentNavMenuLink : FluentComponentBase, INavMenuChildEleme
     [Parameter]
     public int? Width { get; set; }
 
+    /// <summary>
+    /// Gets or sets if the item is selected.
+    /// </summary>
+    [Parameter]
+    public bool Selected { get; set; }
+
+    /// <summary>
+    /// Event callback for when <see cref="Selected"/> changes.
+    /// </summary>
+    [Parameter]
+    public EventCallback<bool> SelectedChanged { get; set; }
+
     [CascadingParameter]
     private FluentNavMenu NavMenu { get; set; } = default!;
 
@@ -77,54 +68,57 @@ public partial class FluentNavMenuLink : FluentComponentBase, INavMenuChildEleme
     private bool NavMenuExpanded { get; set; }
 
     [CascadingParameter]
-    private INavMenuParentElement ParentElement { get; set; } = null!;
+    private INavMenuParentElement Owner { get; set; } = null!;
 
     [CascadingParameter(Name = "NavMenuItemSiblingHasIcon")]
     private bool SiblingHasIcon { get; set; }
 
+    public bool HasIcon => Icon != null;
+
     protected string? ClassValue => new CssBuilder(Class)
-       .AddClass("navmenu-link")
-	   .AddClass("navmenu-child-element")
-       .Build();
+        .AddClass("navmenu-link")
+        .AddClass("navmenu-element")
+        .AddClass("navmenu-child-element")
+        .Build();
 
     protected string? StyleValue => new StyleBuilder()
         .AddStyle("width", $"{Width}px", () => Width.HasValue)
         .AddStyle(Style)
         .Build();
 
-    public bool HasIcon => Icon != null;
+    private FluentTreeItem _treeItem = null!;
 
     public FluentNavMenuLink()
     {
         Id = Identifier.NewId();
     }
 
+    FluentTreeItem INavMenuChildElement.TreeItem => _treeItem;
+
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        ParentElement.Register(this);
-
-        if (!string.IsNullOrEmpty(Href) && (new Uri(NavigationManager.Uri).LocalPath) == Href)
-            Selected = true;
+        Owner.Register(this);
+        NavMenu.Register(this);
     }
 
-
-    internal void HandleIconClick()
-    {
-        if (!Disabled)
-            Selected = true;
-    }
-
-    internal void SetSelected(bool value)
-    {
-        Selected = value;
-    }
-
-    /// <summary>
-    /// Dispose of this navmenu link.
-    /// </summary>
     void IDisposable.Dispose()
     {
-        ParentElement.Unregister(this);
+        Owner.Unregister(this);
+        NavMenu.Unregister(this);
+    }
+
+    private async Task HandleSelectedChangedAsync(bool value)
+    {
+        if (value == Selected)
+        {
+            return;
+        }
+
+        Selected = value;
+        if (SelectedChanged.HasDelegate)
+        {
+            await SelectedChanged.InvokeAsync(value);
+        }
     }
 }

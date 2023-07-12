@@ -6,9 +6,8 @@ internal interface INavMenuParentElement
     void Unregister(INavMenuChildElement child);
     IEnumerable<INavMenuChildElement> GetChildElements();
 
+    string? Id { get; }
+    bool Expanded { get; set; }
+    bool Collapsed => !Expanded;
     bool HasChildIcons => GetChildElements().Any(x => x.HasIcon);
-
-    INavMenuChildElement? FindElementById(string? id) =>
-        GetChildElements().FirstOrDefault(x => x.Id == id)
-        ?? GetChildElements().OfType<INavMenuParentElement>().Select(x => x.FindElementById(id)).FirstOrDefault(x => x is not null);
 }

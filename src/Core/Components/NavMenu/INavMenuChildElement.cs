@@ -3,6 +3,7 @@
 internal interface INavMenuChildElement
 {
     string? Id { get; }
-    string? Href { get; }
     bool HasIcon { get; }
+    string? Href { get; }
+    FluentTreeItem TreeItem { get; }
 }
