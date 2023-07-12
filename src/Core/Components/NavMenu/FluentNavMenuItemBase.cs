@@ -54,12 +54,6 @@ public abstract class FluentNavMenuItemBase : FluentComponentBase, IDisposable
     public EventCallback<bool> SelectedChanged { get; set; }
 
     /// <summary>
-    /// Gets or sets the target of the link.
-    /// </summary>
-    [Parameter]
-    public string? Target { get; set; } = string.Empty;
-
-    /// <summary>
     /// Gets or sets the text of the link.
     /// </summary>
     [Parameter]
