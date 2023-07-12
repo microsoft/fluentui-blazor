@@ -27,13 +27,13 @@ public struct StyleBuilder
     /// </summary>
     /// <param name="prop"></param>
     /// <param name="value"></param>
-    public StyleBuilder(string prop, string value) => stringBuffer = $"{prop}:{value};";
+    public StyleBuilder(string prop, string value) => stringBuffer = $"{prop}: {value};";
 
     /// <summary>
     /// Adds a conditional in-line style to the builder with space separator and closing semicolon.
     /// </summary>
     /// <param name="style"></param>
-    public StyleBuilder AddStyle(string? style) => !string.IsNullOrWhiteSpace(style) ? AddRaw($"{style};") : this;
+    public StyleBuilder AddStyle(string? style) => !string.IsNullOrWhiteSpace(style) ? AddRaw($"{style}; ") : this;
 
     /// <summary>
     /// Adds a raw string to the builder that will be concatenated with the next style or value added to the builder.
@@ -52,7 +52,7 @@ public struct StyleBuilder
     /// <param name="prop"></param>
     /// <param name="value">Style to add</param>
     /// <returns>StyleBuilder</returns>
-    public StyleBuilder AddStyle(string prop, string? value) => AddRaw($"{prop}:{value};");
+    public StyleBuilder AddStyle(string prop, string? value) => AddRaw($"{prop}: {value}; ");
 
     /// <summary>
     /// Adds a conditional in-line style to the builder with space separator and closing semicolon..
@@ -146,7 +146,7 @@ public struct StyleBuilder
     public string? Build()
     {
         // String buffer finalization code
-        return stringBuffer?.Trim();
+        return stringBuffer?.Trim(';', ' ');
     }
 
     // ToString should only and always call Build to finalize the rendered string.
