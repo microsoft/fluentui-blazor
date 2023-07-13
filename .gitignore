@@ -47,3 +47,4 @@ UpgradeLog.htm
 /examples/FluentUI.Demo.Client/Properties
 /publish
 /artifacts
+*/Demo/Shared/wwwroot/sources/*.txt
