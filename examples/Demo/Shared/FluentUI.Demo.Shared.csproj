@@ -59,7 +59,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<AdditionalFiles Include="$(ProjectDir)/$(Configuration)/$(TargetFramework)/*.xml" />
+		<AdditionalFiles Include="$(ProjectDir)bin/$(Configuration)/$(TargetFramework)/*.xml" />
 		<Folder Include="wwwroot\sources\" />
 	</ItemGroup>
 	
