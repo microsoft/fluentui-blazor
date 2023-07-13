@@ -6,31 +6,29 @@ internal sealed class Debouncer : IDisposable
 {
     private bool _disposed;
     private Timer? _currentTimer;
-    private TaskCompletionSource<bool> _currentTaskCompletionSource = new();
+    private TaskCompletionSource<bool>? _currentTaskCompletionSource;
 
     public bool Busy => _currentTimer is not null && !_disposed;
 
-    public async ValueTask<bool> DebounceAsync(Func<Task> action, double milliseconds)
+    public async ValueTask<bool> DebounceAsync(double milliseconds, Func<Task> action)
     {
         ArgumentNullException.ThrowIfNull(action);
 
         Timer? originalTimer = _currentTimer;
-        TaskCompletionSource<bool> originalTaskCompletionSource = _currentTaskCompletionSource;
+        TaskCompletionSource<bool>? originalTaskCompletionSource = _currentTaskCompletionSource;
 
         originalTimer?.Dispose();
-        originalTaskCompletionSource.SetResult(false);
+        originalTaskCompletionSource?.SetResult(false);
 
         Timer newTimer = new Timer(milliseconds);
         var newTaskCompletionSource = new TaskCompletionSource<bool>();
-
-        bool mayStart = Interlocked.CompareExchange(ref _currentTimer, newTimer, originalTimer) == originalTimer;
-        mayStart |= Interlocked.CompareExchange(ref _currentTaskCompletionSource, newTaskCompletionSource, originalTaskCompletionSource) == originalTaskCompletionSource;
-
-        if (!mayStart)
+        
+        if (Interlocked.CompareExchange(ref _currentTimer, newTimer, originalTimer) != originalTimer)
         {
             newTimer.Dispose();
             return false;
         }
+        _currentTaskCompletionSource = newTaskCompletionSource;
 
         newTimer.Elapsed += async(_, _) =>
         {
@@ -44,9 +42,16 @@ internal sealed class Debouncer : IDisposable
             }
             finally
             {
-                Interlocked.CompareExchange(ref _currentTimer, null, newTimer);
                 newTimer.Dispose();
-                newTaskCompletionSource.SetResult(!_disposed);
+                if (Interlocked.CompareExchange(ref _currentTimer, null, newTimer) == newTimer)
+                {
+                    newTaskCompletionSource.SetResult(false);
+                }
+                else
+                {
+                    newTaskCompletionSource.SetResult(!_disposed);
+                }
+                Interlocked.CompareExchange(ref _currentTaskCompletionSource, null, newTaskCompletionSource);
             }
         };
 
