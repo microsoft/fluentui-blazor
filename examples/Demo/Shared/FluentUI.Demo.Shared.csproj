@@ -59,7 +59,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<AdditionalFiles Include="$(ProjectDir)bin/$(Configuration)/net8.0/*.xml" />
+		<AdditionalFiles Include="$(ProjectDir)/*.xml" />
 		<Folder Include="wwwroot\sources\" />
 	</ItemGroup>
 
