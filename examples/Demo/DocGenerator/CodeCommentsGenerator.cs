@@ -15,8 +15,6 @@ namespace FluentUI.Demo.Generators
     {
         public void Initialize(IncrementalGeneratorInitializationContext context)
         {
-            //IncrementalValuesProvider<AdditionalText> additionalTexts = context.AdditionalTextsProvider.Where(static file => file.Path.EndsWith(".xml"));
-
             IncrementalValueProvider<ImmutableArray<AdditionalText>> files = context.AdditionalTextsProvider.Where(at => at.Path.EndsWith(".xml")).Collect();
             context.RegisterSourceOutput(files, GenerateSource);
         }
