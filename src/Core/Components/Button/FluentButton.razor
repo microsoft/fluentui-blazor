@@ -17,7 +17,17 @@
                disabled=@Disabled
                name=@Name
                required=@Required
+               title=@Title
+               @onclick="@OnClickHandlerAsync"
                appearance=@Appearance.ToAttributeValue()
                @attributes="AdditionalAttributes">
+    @if (IconStart != null)
+    {
+        <FluentIcon Value="@IconStart" Slot="@(ChildContent != null ? "start" : null)" />
+    }
     @ChildContent
+    @if (IconEnd != null)
+    {
+        <FluentIcon Value="@IconEnd" Slot="@(ChildContent != null ? "end" : null)" />
+    }
 </fluent-button>
