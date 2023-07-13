@@ -10,7 +10,6 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
     private const string WIDTH_COLLAPSED_MENU = "40px";
     private bool _disposed;
     private bool _hasChildIcons => ((INavMenuItemsOwner)this).HasChildIcons;
-    private bool _hasRendered;
     private readonly Dictionary<string, FluentNavMenuItemBase> _allItems = new();
     private readonly List<FluentNavMenuItemBase> _childItems = new();
     private readonly string _expandCollapseTreeItemId = Identifier.NewId();
@@ -179,25 +178,11 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
         await base.OnAfterRenderAsync(firstRender);
         if (firstRender)
         {
-            _hasRendered = true;
             HandleNavigationManagerLocationChanged(null, new LocationChangedEventArgs(NavigationManager.Uri, isNavigationIntercepted: false));
         }
-        await UpdateStateFromWebComponentChangesAsync();
     }
 
-    private async Task UpdateStateFromWebComponentChangesAsync()
-    {
-        if (_hasRendered && _webComponentStateUpdating)
-        {
-            _webComponentStateUpdating = false;
-
-            if (_selectedTreeItem is null && _previouslyDeselectedTreeItem is not null)
-            {
-                _selectedTreeItem = _previouslyDeselectedTreeItem;
-                await _selectedTreeItem.SetSelectedAsync(true);
-            }
-        }
-    }
+    protected override bool ShouldRender() => base.ShouldRender() && !_debouncer.Busy;
 
     protected virtual void Dispose(bool disposing)
     {
@@ -264,16 +249,71 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
 
     private async Task HandleCurrentSelectedChangedAsync(FluentTreeItem? treeItem)
     {
-        _webComponentStateUpdating = true;
-        if (treeItem?.Selected != true)
+        Console.WriteLine($"{treeItem?.Text} selected = {treeItem?.Selected}");
+
+        double debounceTime;
+        if (treeItem?.Selected == true)
+        {
+            debounceTime = 0.001;
+            _selectedTreeItem = treeItem;
+        }
+        else
         {
             _previouslyDeselectedTreeItem = treeItem;
+            debounceTime = 50;
+        }
+
+        bool shouldRender = await _debouncer.DebounceAsync(debounceTime, () => InvokeAsync(SelectionCompleteAsync));
+        if (shouldRender)
+        {
+            StateHasChanged();
+        }
+    }
+
+    private async Task SelectionCompleteAsync()
+    {
+        bool onlyDeselected = _selectedTreeItem is null && _previouslyDeselectedTreeItem is not null;
+        if (onlyDeselected)
+        {
+            await _previouslyDeselectedTreeItem!.SetSelectedAsync(true);
             return;
+        }
+
+        bool activated = await TryActivateMenuItemAsync(_selectedTreeItem);
+
+        if (activated)
+        {
+            await _selectedTreeItem!.SetSelectedAsync(true);
+            if (_previouslyDeselectedTreeItem is not null)
+            {
+                await _previouslyDeselectedTreeItem.SetSelectedAsync(false);
+            }
+        }
+        else
+        {
+            if (_previouslyDeselectedTreeItem is null)
+            {
+                _selectedTreeItem = null;
+            }
+            else
+            {
+                _selectedTreeItem = _previouslyDeselectedTreeItem;
+                await _selectedTreeItem.SetSelectedAsync(true);
+                _previouslyDeselectedTreeItem = null;
+            }
+        }
+    }
+
+    private async ValueTask<bool> TryActivateMenuItemAsync(FluentTreeItem? treeItem)
+    {
+        if (treeItem is null)
+        {
+            return false;
         }
 
         if (!_allItems.TryGetValue(treeItem.Id!, out FluentNavMenuItemBase? menuItem))
         {
-            return;
+            return false;
         }
 
         var actionArgs = new NavMenuActionArgs(target: menuItem);
@@ -287,14 +327,7 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
             await menuItem.ExecuteAsync(actionArgs);
         }
 
-        if (actionArgs.Handled)
-        {
-            _selectedTreeItem = treeItem;
-        }
-        else
-        {
-            _selectedTreeItem = null;
-        }
+        return actionArgs.Handled;
     }
 
 }

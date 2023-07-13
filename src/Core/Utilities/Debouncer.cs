@@ -17,8 +17,11 @@ internal sealed class Debouncer : IDisposable
 
         lock (_syncRoot)
         {
-            _taskCompletionSource?.SetResult(false);
+            _taskCompletionSource?.TrySetResult(false);
+            _taskCompletionSource = null;
+
             _timer?.Dispose();
+            _timer = null;
 
             Timer newTimer = _timer = new Timer(milliseconds);
             TaskCompletionSource<bool> newTaskCompletionSource = _taskCompletionSource = new TaskCompletionSource<bool>();
