@@ -12,3 +12,9 @@
 <FluentButton IconEnd="@(new Icons.Regular.Size16.Globe())"
               Title="Globe"
               OnClick="@(() => DemoLogger.WriteLine("Button clicked"))" />
+
+<p>With icon in the content</p>
+<FluentButton>
+    <FluentIcon Value="@(new Icons.Regular.Size16.Globe())" Slot="start" />
+    Button
+</FluentButton>
