@@ -1,16 +1,18 @@
 ﻿@namespace Microsoft.Fast.Components.FluentUI
-@inherits FluentComponentBase
+@inherits FluentNavMenuItemBase
 
-<CascadingValue TValue=INavMenuParentElement Value="@null" IsFixed>
-    <FluentTreeItem Id="@Id"
+<CascadingValue TValue=INavMenuItemsOwner Value="@null" IsFixed>
+    <FluentTreeItem @ref=TreeItem
+                    Id="@Id"
                     Class="@ClassValue"
                     Style="@StyleValue"
                     Disabled="@Disabled"
                     Selected="@Selected"
+                    SelectedChanged="@HandleSelectedChangedAsync"
                     Text="@(NavMenuExpanded ? Text : string.Empty)">
         @if (HasIcon)
         {
-            <FluentIcon Value="@Icon" Width="20px" Slot="start" OnClick="@HandleIconClick" />
+            <FluentIcon Value="@Icon" Width="20px" Slot="start" />
         }
         else if (SiblingHasIcon)
         {
