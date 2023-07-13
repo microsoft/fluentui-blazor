@@ -96,6 +96,11 @@ public partial class TableOfContents : IAsyncDisposable
 
     private async Task QueryDom()
     {
+        if (_jsModule is null)
+        {
+            return;
+        }
+
         Anchor[]? foundAnchors = await _jsModule.InvokeAsync<Anchor[]?>("queryDomForTocEntries");
 
         if (AnchorsEqual(_anchors, foundAnchors))
