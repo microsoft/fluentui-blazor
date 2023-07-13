@@ -16,6 +16,7 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
     private readonly string _expandCollapseTreeItemId = Identifier.NewId();
     private FluentTreeItem? _previouslyDeselectedTreeItem;
     private FluentTreeItem? _selectedTreeItem;
+    private bool _webComponentStateUpdating;
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("navmenu")
@@ -80,7 +81,7 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
     public EventCallback<FluentNavMenuGroup> OnGroupSelected { get; set; }
 
     /// <summary>
-    /// Called whever a contained <see cref="FluentNavMenuLink"/> is selected or unselected.
+    /// Called whenever a contained <see cref="FluentNavMenuLink"/> is selected or unselected.
     /// </summary>
     [Parameter]
     public EventCallback<FluentNavMenuLink> OnLinkSelected { get; set; }
@@ -181,13 +182,20 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
             _hasRendered = true;
             HandleNavigationManagerLocationChanged(null, new LocationChangedEventArgs(NavigationManager.Uri, isNavigationIntercepted: false));
         }
+        await UpdateStateFromWebComponentChangesAsync();
+    }
 
-        bool hasSelectedItem = _selectedTreeItem is not null && _selectedTreeItem.Selected;
-        if (!hasSelectedItem && _hasRendered && _previouslyDeselectedTreeItem is not null)
+    private async Task UpdateStateFromWebComponentChangesAsync()
+    {
+        if (_hasRendered && _webComponentStateUpdating)
         {
-            _selectedTreeItem = _previouslyDeselectedTreeItem;
-            await _selectedTreeItem.SetSelectedAsync(true);
-            StateHasChanged();
+            _webComponentStateUpdating = false;
+
+            if (_selectedTreeItem is null && _previouslyDeselectedTreeItem is not null)
+            {
+                _selectedTreeItem = _previouslyDeselectedTreeItem;
+                await _selectedTreeItem.SetSelectedAsync(true);
+            }
         }
     }
 
@@ -255,9 +263,10 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
 
     private async Task HandleCurrentSelectedChangedAsync(FluentTreeItem? treeItem)
     {
+        _webComponentStateUpdating = true;
         if (treeItem?.Selected != true)
         {
-            _selectedTreeItem = null;
+            _previouslyDeselectedTreeItem = treeItem;
             return;
         }
 
@@ -280,11 +289,10 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
         if (actionArgs.Handled)
         {
             _selectedTreeItem = treeItem;
-            _previouslyDeselectedTreeItem = treeItem;
         }
         else
         {
-            _selectedTreeItem = _previouslyDeselectedTreeItem;
+            _selectedTreeItem = null;
         }
     }
 
