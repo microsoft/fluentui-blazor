@@ -60,7 +60,7 @@
 
 	<ItemGroup>
 		<!--<AdditionalFiles Include="../../../src/Core/Microsoft.Fast.Components.FluentUI/bin/$(Configuration)/net8.0/*.xml" />-->
-		<AdditionalFiles Include="$(ProjectDir)bin/$(Configuration)/net8.0/*.xml" />
+		<AdditionalFiles Include="$(ProjectDir)/bin/$(Configuration)/net8.0/*.xml" />
 	</ItemGroup>
 
 	<Target Name="CopySources" BeforeTargets="CoreBuild">
