@@ -17,7 +17,7 @@
 						vertical-scaling="@VerticalScaling.ToAttributeValue()"
 						fixed-placement=@FixedPlacement
 						auto-update-mode="@AutoUpdateMode.ToAttributeValue()"
-						style="z-index: 9999;"
+						style="@($"z-index: {ZIndex.AnchoredRegion};")"
 						@attributes="AdditionalAttributes">
 	<div class="@ClassValue" style="@StyleValue">
 		@ChildContent
