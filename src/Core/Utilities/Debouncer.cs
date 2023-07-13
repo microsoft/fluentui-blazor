@@ -4,65 +4,58 @@ namespace Microsoft.Fast.Components.FluentUI.Utilities;
 
 internal sealed class Debouncer : IDisposable
 {
+    private readonly object _syncRoot = new();
     private bool _disposed;
-    private Timer? _currentTimer;
-    private TaskCompletionSource<bool>? _currentTaskCompletionSource;
+    private Timer? _timer;
+    private TaskCompletionSource<bool>? _taskCompletionSource;
 
-    public bool Busy => _currentTimer is not null && !_disposed;
+    public bool Busy => _timer is not null && !_disposed;
 
-    public async ValueTask<bool> DebounceAsync(double milliseconds, Func<Task> action)
+    public Task<bool> DebounceAsync(double milliseconds, Func<Task> action)
     {
         ArgumentNullException.ThrowIfNull(action);
 
-        Timer? originalTimer = _currentTimer;
-        TaskCompletionSource<bool>? originalTaskCompletionSource = _currentTaskCompletionSource;
-
-        originalTimer?.Dispose();
-        originalTaskCompletionSource?.SetResult(false);
-
-        Timer newTimer = new Timer(milliseconds);
-        var newTaskCompletionSource = new TaskCompletionSource<bool>();
-        
-        if (Interlocked.CompareExchange(ref _currentTimer, newTimer, originalTimer) != originalTimer)
+        lock (_syncRoot)
         {
-            newTimer.Dispose();
-            return false;
+            _taskCompletionSource?.SetResult(false);
+            _timer?.Dispose();
+
+            Timer newTimer = _timer = new Timer(milliseconds);
+            TaskCompletionSource<bool> newTaskCompletionSource = _taskCompletionSource = new TaskCompletionSource<bool>();
+
+            newTimer.Elapsed += async (_, _) =>
+            {
+                newTimer.Stop();
+                try
+                {
+                    if (!_disposed)
+                    {
+                        await action();
+                    }
+                }
+                finally
+                {
+                    lock(_syncRoot)
+                    {
+                        if (_timer == newTimer)
+                        {
+                            _timer.Dispose();
+                            _timer = null;
+                            newTaskCompletionSource?.SetResult(!_disposed);
+                        }
+                    }
+                }
+            };
+
+            newTimer.Start();
+            return newTaskCompletionSource.Task;
         }
-        _currentTaskCompletionSource = newTaskCompletionSource;
-
-        newTimer.Elapsed += async(_, _) =>
-        {
-            newTimer.Stop();
-            try
-            {
-                if (!_disposed)
-                {
-                    await action();
-                }
-            }
-            finally
-            {
-                newTimer.Dispose();
-                if (Interlocked.CompareExchange(ref _currentTimer, null, newTimer) == newTimer)
-                {
-                    newTaskCompletionSource.SetResult(false);
-                }
-                else
-                {
-                    newTaskCompletionSource.SetResult(!_disposed);
-                }
-                Interlocked.CompareExchange(ref _currentTaskCompletionSource, null, newTaskCompletionSource);
-            }
-        };
-
-        newTimer.Start();
-        return await newTaskCompletionSource.Task;
     }
 
     public void Dispose()
     {
         _disposed = true;
-        _currentTimer?.Dispose();
+        _timer?.Dispose();
     }
 }
 
