@@ -16,7 +16,7 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
     private readonly string _expandCollapseTreeItemId = Identifier.NewId();
     private FluentTreeItem? _previouslyDeselectedTreeItem;
     private FluentTreeItem? _selectedTreeItem;
-    private bool _webComponentStateUpdating;
+    private Debouncer _debouncer = new();
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("navmenu")
@@ -209,6 +209,7 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
         if (disposing)
         {
             NavigationManager.LocationChanged -= HandleNavigationManagerLocationChanged;
+            _debouncer.Dispose();
             _allItems.Clear();
             _childItems.Clear();
         }
