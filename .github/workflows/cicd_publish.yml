@@ -102,7 +102,7 @@ jobs:
                
       - name: .NET Publish 
         run: dotnet publish ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o publish -f net8.0 -r linux-x64 --sc -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true -p:CopyDocumentationFilesFromPackages=true
-        
+       
       - name: Deploy demo site to new Azure Static Web App
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
