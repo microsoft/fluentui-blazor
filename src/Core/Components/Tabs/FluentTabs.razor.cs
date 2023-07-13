@@ -24,6 +24,8 @@ public partial class FluentTabs : FluentComponentBase
         .AddStyle("padding", "6px", () => Size == TabSize.Small)
         .AddStyle("padding", "12px 10px", () => Size == TabSize.Small)
         .AddStyle("padding", "16px 10px", () => Size == TabSize.Small)
+        .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
+        .AddStyle("height", Height, () => !string.IsNullOrEmpty(Height))
         .Build();
 
     /// <summary />
@@ -68,6 +70,20 @@ public partial class FluentTabs : FluentComponentBase
     /// </summary>
     [Parameter]
     public TabSize? Size { get; set; } = TabSize.Medium;
+
+    /// <summary>
+    /// Width of the tabs component.
+    /// Needs to be a valid CSS value (e.g. 100px, 50%).
+    /// </summary>
+    [Parameter]
+    public string? Width { get; set; }
+
+    /// <summary>
+    /// Height of the tabs component.
+    /// Needs to be a valid CSS value (e.g. 100px, 50%).
+    /// </summary>
+    [Parameter]
+    public string? Height { get; set; }
 
     /// <summary>
     /// Gets the active selected tab.
@@ -133,7 +149,7 @@ public partial class FluentTabs : FluentComponentBase
             _jsModuleOverflow = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
                 "./_content/Microsoft.Fast.Components.FluentUI/Components/Overflow/FluentOverflow.razor.js");
 
-            bool horizontal = Orientation == FluentUI.Orientation.Horizontal;
+            bool horizontal = Orientation == Orientation.Horizontal;
             await _jsModuleOverflow.InvokeVoidAsync("FluentOverflowInitialize", _dotNetHelper, Id, horizontal, FLUENT_TAB_TAG);
         }
     }

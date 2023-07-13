@@ -15,7 +15,7 @@ public partial class FluentTab : FluentComponentBase
 
     /// <summary />
     protected string? StyleValue => new StyleBuilder()
-        //.AddStyle("height", $"calc({Owner?.Height} - 40px); overflow-y: auto", () => !string.IsNullOrEmpty(Owner?.Height))
+        .AddStyle("height", $"calc({Owner?.Height} - 40px); overflow-y: auto", () => !string.IsNullOrEmpty(Owner?.Height))
         .AddStyle(Style)
         .Build();
 
@@ -75,6 +75,12 @@ public partial class FluentTab : FluentComponentBase
     /// </summary>
     [Parameter]
     public bool LabelEditable { get; set; } = false;
+
+    /// <summary>
+    /// Customized content of this tab panel.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? Content { get; set; }
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.

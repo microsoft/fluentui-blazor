@@ -3,12 +3,12 @@
     Regex pattern = new Regex("[;,<>&(){}!$^#@= ]");
     string ariaid = pattern.Replace(Title.ToLower(), "");
 }
-@if (!string.IsNullOrEmpty(Title)) 
+@if (!string.IsNullOrEmpty(Title))
 {
     <h3 id="@ariaid">@Title</h3>
 }
 
-@if (Description != null) 
+@if (Description != null)
 {
     <div class="section-description">
         @Description
@@ -17,45 +17,49 @@
 
 <div class="demo-section-content">
 
-    <FluentTabs ActiveTabId="@(!HideExample ? $"tab-example-{ariaid}" : $"tab-razor-{ariaid}")">
-        @if (!HideExample) 
+    <FluentTabs ActiveTabId="@(!HideExample ? $"tab-example-{ariaid}" : $"tab-razor-{ariaid}")" fixed>
+        @if (!HideExample)
         {
-            <FluentTab id="@("tab-example-"+@ariaid)" Label="Example" />
-            <FluentTabPanel>
-                <div class="demo-section-example">
-                    @ChildContent
-                    @if (Component is not null)
-                    {
-                        <DynamicComponent Type="Component" Parameters="ComponentParameters" />
-                    }
-                </div>
-            </FluentTabPanel>
+            <FluentTab Id="@("tab-example-"+@ariaid)" Label="Example">
+                <Content>
+                    <div class="demo-section-example">
+                        @ChildContent
+                        @if (Component is not null)
+                        {
+                            <DynamicComponent Type="Component" Parameters="ComponentParameters" />
+                        }
+                    </div>
+                </Content>
+            </FluentTab>
         }
-        
+
         @if (!HideAllButExample && _hasCode)
         {
-            @foreach (KeyValuePair<string, string> pair in _tabPanelsContent) 
+            @foreach (KeyValuePair<string, string> pair in _tabPanelsContent)
             {
                 string tab = Path.GetExtension(pair.Key);
 
+                string id = string.Empty;
+
                 if (pair.Key.StartsWith(Component.Name))
                 {
-                    <FluentTab id="@("tab-"+@GetDisplayName(tab).Replace("#","").Replace("/","").ToLower()+"-"+@ariaid)" Label="@GetDisplayName(tab)" />
+                    id = "tab-" + @GetDisplayName(tab).Replace("#", "").Replace("/", "").ToLower() + "-" + @ariaid;
                 }
                 else
                 {
                     string tabName = Path.GetFileNameWithoutExtension(pair.Key);
-                    <FluentTab id="@("tab-"+tabName.Replace("#","").Replace("/","").ToLower()+"-"+@ariaid)" Label="@tabName" />
+                    id = "tab-" + tabName.Replace("#", "").Replace("/", "").ToLower() + "-" + @ariaid;
                 }
-                <FluentTabPanel>
-
-                    <CodeSnippet Language="@TabLanguageClass(tab)">@pair.Value</CodeSnippet>
-                </FluentTabPanel>  
+                <FluentTab Id="@id" Label="@GetDisplayName(tab)" fixed>
+                    <Content>
+                        <CodeSnippet Language="@TabLanguageClass(tab)">@pair.Value</CodeSnippet>
+                    </Content>
+                </FluentTab>
             }
         }
     </FluentTabs>
 </div>
-@if (ShowDownloads) 
+@if (ShowDownloads)
 {
     <div class="demo-section-downloads">
         <FluentSpacer />
@@ -64,11 +68,11 @@
         {
             string source = pair.Key;
             <FluentAnchor Style="width: 85px; text-overflow: ellipsis" Download="@source" Href="@($"_content/FluentUI.Demo.Shared/sources/{source}.txt")" Appearance="Appearance.Neutral">
-                @if (source.StartsWith(Component.Name)) 
+                @if (source.StartsWith(Component.Name))
                 {
                     @GetDisplayName(source.Substring(source.LastIndexOf('.')))
                 }
-                else 
+                else
                 {
                     @source
                 }
