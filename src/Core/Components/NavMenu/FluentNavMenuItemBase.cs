@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
@@ -119,11 +120,29 @@ public abstract class FluentNavMenuItemBase : FluentComponentBase, IDisposable
             args.SetHandled();
         }
     }
+
     protected override void OnInitialized()
     {
         base.OnInitialized();
         Owner.Register(this);
         NavMenu.Register(this);
+    }
+
+    protected internal async Task SetSelectedAsync(bool value)
+    {
+        if (value == Selected)
+        {
+            return;
+        }
+
+        Console.WriteLine($"***** Set {Text}.Selected = {value}");
+        Console.WriteLine(new StackTrace());
+        Selected = value;
+        if (SelectedChanged.HasDelegate)
+        {
+            await SelectedChanged.InvokeAsync(value);
+        }
+        StateHasChanged();
     }
 
     protected virtual void Dispose(bool disposing)
