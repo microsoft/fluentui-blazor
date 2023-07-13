@@ -1,0 +1,317 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FluentUI.Demo.Shared</name>
+    </assembly>
+    <members>
+        <member name="T:FluentUI.Demo.Shared.Components.ApiDocumentation">
+            <summary />
+        </member>
+        <member name="P:FluentUI.Demo.Shared.Components.ApiDocumentation.Component">
+            <summary>
+            The Component for which the Parameters, Methods and Events should be displayed
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.Components.ApiDocumentation.InstanceType">
+            <summary>
+            It Component is a generic type, a generic type argument needs to be provided
+            so an instance of the type can be created. 
+            This is needed to get and display any default values
+            Default for this parameter is 'typeof(string)'
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.Components.ApiDocumentation.GenericLabel">
+            <summary>
+            The label used for displaying the type parameter
+            </summary>
+        </member>
+        <member name="T:FluentUI.Demo.Shared.Components.CodeSnippet">
+            <summary />
+        </member>
+        <member name="P:FluentUI.Demo.Shared.Components.DemoSection.Component">
+            <summary>
+            The component for wich the example will be shown. Enter the type (typeof(...)) _name 
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.Components.DemoSection.ComponentParameters">
+            <summary>
+             Any parameters that need to be supplied to the component
+             </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.Components.DemoSection.CollocatedFiles">
+            <summary>
+            Any collocated isolated .cs, .css or .js files (enter the extensions only) that need to be shown in a tab and as a download. 
+            Example: @(new[] { "css", "js", "abc.cs" })
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.Components.DemoSection.AdditionalFiles">
+            <summary>
+            Any additional files that need to be shown in a tab and as a download. 
+            Example: @(new[] { "abc.cs", "def.js" })
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.Components.DemoSection.ShowDownloads">
+            <summary>
+            Show download links for the example sources
+            Default = true
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.Components.DemoSection.HideExample">
+            <summary>
+            Hide the 'Example' tab
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.Components.DemoSection.HideAllButExample">
+            <summary>
+            Hides all but the 'Example' tab
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.Components.MarkdownSection.Content">
+            <summary>
+            Gets or sets the Markdown content 
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.Components.MarkdownSection.FromAsset">
+            <summary>
+            Gets or sets asset to read the Markdown from
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.Components.TableOfContents.Heading">
+            <summary>
+            Gets or sets the heading for the ToC 
+            Defaults to 'In this article'
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.Components.TableOfContents.ShowBackButton">
+            <summary>
+            Gets or sets if a 'Back to top' button should be rendered.
+            Defaults to true
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.Components.TableOfContents.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="M:FluentUI.Demo.Shared.Pages.ComponentBindings.#ctor">
+            <summary>
+            Within this constructor you can set default values for the form fields through the FormModel
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.Pages.FluentInputBasePage.Autofocus">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:FluentUI.Demo.Shared.ReflectionExtensions">
+            <summary>
+            Reflection extension methods with supporting properties.
+            </summary>
+        </member>
+        <member name="P:FluentUI.Demo.Shared.ReflectionExtensions.KnownTypeNames">
+            <summary>
+            A dictionary containing a mapping of type to type names.
+            </summary>
+        </member>
+        <member name="M:FluentUI.Demo.Shared.ReflectionExtensions.CreateKnownTypeNamesDictionary">
+            <summary>
+            Create a dictionary of standard value types and a string type. 
+            </summary>
+            <returns>Dictionary mapping types to type names</returns>
+        </member>
+        <member name="M:FluentUI.Demo.Shared.ReflectionExtensions.IsNullable(System.Type)">
+            <summary>
+            Checks if the specified type is a nullable value type. 
+            Returns false for object references.
+            </summary>
+            <param _name="type">Type to check.</param>
+            <returns>True if the type is nullable like int? or Nullable&lt;Something&gt;</returns>
+        </member>
+        <member name="M:FluentUI.Demo.Shared.ReflectionExtensions.ToNameString(System.Type,System.Func{System.Type,System.String})">
+            <summary>
+            Convert type to the proper type _name.
+            Optional <paramref _name="typeNameConverter"/> function can convert type names to strings 
+            if type names should be decorated in some way either by converting text to markdown or 
+            HTML links or adding some formatting.
+            
+            This method returns ValueTuple types without field names. 
+            </summary>
+            <param _name="type">Type information.</param>
+            <param _name="typeNameConverter">The optional function that converts type _name to string.</param>
+            <returns>Full type _name</returns>
+        </member>
+        <member name="M:FluentUI.Demo.Shared.ReflectionExtensions.ToNameString(System.Type,System.Func{System.Type,System.Collections.Generic.Queue{System.String},System.String},System.Boolean)">
+            <summary>
+            Convert type to the proper type _name.
+            Optional <paramref _name="typeNameConverter"/> function can convert type names to strings 
+            if type names should be decorated in some way either by converting text to markdown or 
+            HTML links or adding some formatting.
+            
+            This method returns ValueTuple types without field names. 
+            </summary>
+            <param _name="type">Type information.</param>
+            <param _name="typeNameConverter">The optional function that converts type _name to string.</param>
+            <param _name="invokeTypeNameConverterForGenericType">
+            True if typeNameConverter lambda function should be invoked for generic type _name such as for the List _name in case of List&lt;SomeType&gt;
+            If the parameter value is false then typeNameConverter is not invoked for the generic type _name and only the plain type _name is returned.
+            If the parameter value is true then typeNameConverter must handle generic type definitions carefully and avoid calling 
+            ToNameString() to avoid infinite recursion.  
+            This is an optional parameter with default value of false.</param>
+            <returns>Full type _name</returns>
+        </member>
+        <member name="M:FluentUI.Demo.Shared.ReflectionExtensions.ToParametersString(System.Reflection.MethodBase,System.Func{System.Type,System.Collections.Generic.Queue{System.String},System.String},System.Boolean)">
+            <summary>
+            Convert method parameters to the string. If method has no parameters then returned string is ()
+            If parameters are present then returned string contains parameter names with their type names.
+            Optional <paramref _name="typeNameConverter"/> function can convert type names to strings 
+            if type names should be decorated in some way either by converting text to markdown or 
+            HTML links or adding some formatting.
+            
+            This method returns ValueTuple types with field names like this (Type1 name1, Type2 name2). 
+            </summary>
+            <param _name="methodInfo">Method information</param>
+            <param _name="typeNameConverter">The optional function that converts type _name to string.</param>
+            <param _name="invokeTypeNameConverterForGenericType">
+            True if typeNameConverter lambda function should be invoked for generic type _name such as for the List _name in case of List&lt;SomeType&gt;
+            If the parameter value is false then typeNameConverter is not invoked for the generic type _name and only the plain type _name is returned.
+            If the parameter value is true then typeNameConverter must handle generic type definitions carefully and avoid calling 
+            ToNameString() to avoid infinite recursion.  
+            This is an optional parameter with default value of false.</param>
+            <returns>Full list of parameter types and their names</returns>
+        </member>
+        <member name="M:FluentUI.Demo.Shared.ReflectionExtensions.ToTypeNameString(System.Reflection.ParameterInfo,System.Func{System.Type,System.Collections.Generic.Queue{System.String},System.String},System.Boolean)">
+            <summary>
+            Convert method parameter type to the string.
+            Optional <paramref _name="typeNameConverter"/> function can convert type names to strings 
+            if type names should be decorated in some way either by converting text to markdown or 
+            HTML links or adding some formatting.
+            
+            This method returns ValueTuple types with field names like this (Type1 name1, Type2 name2). 
+            </summary>
+            <param _name="parameterInfo">Parameter information.</param>
+            <param _name="typeNameConverter">The optional function that converts type _name to string.</param>
+            <param _name="invokeTypeNameConverterForGenericType">
+            True if typeNameConverter lambda function should be invoked for generic type _name such as for the List _name in case of List&lt;SomeType&gt;
+            If the parameter value is false then typeNameConverter is not invoked for the generic type _name and only the plain type _name is returned.
+            If the parameter value is true then typeNameConverter must handle generic type definitions carefully and avoid calling 
+            ToNameString() to avoid infinite recursion.  
+            This is an optional parameter with default value of false.</param>
+            <returns>Full type _name of the parameter</returns>
+        </member>
+        <member name="M:FluentUI.Demo.Shared.ReflectionExtensions.ToTypeNameString(System.Reflection.MethodInfo,System.Func{System.Type,System.Collections.Generic.Queue{System.String},System.String},System.Boolean)">
+            <summary>
+            Convert method return value type to the string.
+            Optional <paramref _name="typeNameConverter"/> function can convert type names to strings 
+            if type names should be decorated in some way either by converting text to markdown or 
+            HTML links or adding some formatting.
+            
+            This method returns ValueTuple types with field names like this (Type1 name1, Type2 name2). 
+            </summary>
+            <param _name="methodInfo">Method information.</param>
+            <param _name="typeNameConverter">The optional function that converts type _name to string.</param>
+            <param _name="invokeTypeNameConverterForGenericType">
+            True if typeNameConverter lambda function should be invoked for generic type _name such as for the List _name in case of List&lt;SomeType&gt;
+            If the parameter value is false then typeNameConverter is not invoked for the generic type _name and only the plain type _name is returned.
+            If the parameter value is true then typeNameConverter must handle generic type definitions carefully and avoid calling 
+            ToNameString() to avoid infinite recursion.  
+            This is an optional parameter with default value of false.</param>
+            <returns>Full type _name of the return value</returns>
+        </member>
+        <member name="M:FluentUI.Demo.Shared.ReflectionExtensions.ToTypeNameString(System.Reflection.PropertyInfo,System.Func{System.Type,System.Collections.Generic.Queue{System.String},System.String},System.Boolean)">
+            <summary>
+            Convert property type to the string.
+            Optional <paramref _name="typeNameConverter"/> function can convert type names to strings 
+            if type names should be decorated in some way either by converting text to markdown or 
+            HTML links or adding some formatting.
+            
+            This method returns ValueTuple types with field names like this (Type1 name1, Type2 name2). 
+            </summary>
+            <param _name="propertyInfo">Property information.</param>
+            <param _name="typeNameConverter">The optional function that converts type _name to string.</param>
+            <param _name="invokeTypeNameConverterForGenericType">
+            True if typeNameConverter lambda function should be invoked for generic type _name such as for the List _name in case of List&lt;SomeType&gt;
+            If the parameter value is false then typeNameConverter is not invoked for the generic type _name and only the plain type _name is returned.
+            If the parameter value is true then typeNameConverter must handle generic type definitions carefully and avoid calling 
+            ToNameString() to avoid infinite recursion.  
+            This is an optional parameter with default value of false.</param>
+            <returns>Full type _name of the property</returns>
+        </member>
+        <member name="M:FluentUI.Demo.Shared.ReflectionExtensions.ToTypeNameString(System.Reflection.FieldInfo,System.Func{System.Type,System.Collections.Generic.Queue{System.String},System.String},System.Boolean)">
+            <summary>
+            Convert field type to the string.
+            Optional <paramref _name="typeNameConverter"/> function can convert type names to strings 
+            if type names should be decorated in some way either by converting text to markdown or 
+            HTML links or adding some formatting.
+            
+            This method returns ValueTuple types with field names like this (Type1 name1, Type2 name2). 
+            </summary>
+            <param _name="fieldInfo">Field information.</param>
+            <param _name="typeNameConverter">The optional function that converts type _name to string.</param>
+            <param _name="invokeTypeNameConverterForGenericType">
+            True if typeNameConverter lambda function should be invoked for generic type _name such as for the List _name in case of List&lt;SomeType&gt;
+            If the parameter value is false then typeNameConverter is not invoked for the generic type _name and only the plain type _name is returned.
+            If the parameter value is true then typeNameConverter must handle generic type definitions carefully and avoid calling 
+            ToNameString() to avoid infinite recursion.  
+            This is an optional parameter with default value of false.</param>
+            <returns>Full type _name of the field</returns>
+        </member>
+        <member name="M:FluentUI.Demo.Shared.ReflectionExtensions.ToNameStringWithValueTupleNames(System.Type,System.Collections.Generic.IList{System.String},System.Func{System.Type,System.Collections.Generic.Queue{System.String},System.String},System.Boolean)">
+            <summary>
+            Convert type to the string.
+            Optional <paramref _name="typeNameConverter"/> function can convert type names to strings 
+            if type names should be decorated in some way either by converting text to markdown or 
+            HTML links or adding some formatting.
+            
+            This method returns ValueTuple types with field names like this (Type1 name1, Type2 name2). 
+            </summary>
+            <param _name="type"></param>
+            <param _name="tupleNames">The names of the tuple fields from compiler-generated TupleElementNames attribute</param>
+            <param _name="typeNameConverter">The optional function that converts type _name to string.</param>
+            <param _name="invokeTypeNameConverterForGenericType">
+            True if typeNameConverter lambda function should be invoked for generic type _name such as for the List _name in case of List&lt;SomeType&gt;
+            If the parameter value is false then typeNameConverter is not invoked for the generic type _name and only the plain type _name is returned.
+            If the parameter value is true then typeNameConverter must handle generic type definitions carefully and avoid calling 
+            ToNameString() to avoid infinite recursion.  
+            This is an optional parameter with default value of false.</param>
+            <returns>Full _name of the specified type</returns>
+        </member>
+        <member name="M:FluentUI.Demo.Shared.ReflectionExtensions.ToNameString(System.Type,System.Collections.Generic.Queue{System.String},System.Func{System.Type,System.Collections.Generic.Queue{System.String},System.String},System.Boolean)">
+            <summary>
+            Convert type to the proper type _name.
+            Optional <paramref _name="typeNameConverter"/> function can convert type names to strings 
+            if type names should be decorated in some way either by converting text to markdown or 
+            HTML links or adding some formatting.
+            
+            This method returns named tuples with field names like this (Type1 field1, Type2 field2).  <paramref _name="tupleFieldNames"/> parameter
+            must be specified with all tuple field names stored in the same order as they are in compiler-generated TupleElementNames attribute.
+            If you do not know what it is then the better and easier way is to use ToTypeNameString() methods that retrieve field names from attributes.
+            </summary>
+            <param _name="type"></param>
+            <param _name="tupleFieldNames">The names of value tuple fields as stored in TupleElementNames attribute. This queue is modified during call.</param>
+            <param _name="typeNameConverter">The optional function that converts type _name to string.</param>
+            <param _name="invokeTypeNameConverterForGenericType">
+            True if typeNameConverter lambda function should be invoked for generic type _name such as for the List _name in case of List&lt;SomeType&gt;
+            If the parameter value is false then typeNameConverter is not invoked for the generic type _name and only the plain type _name is returned.
+            If the parameter value is true then typeNameConverter must handle generic type definitions carefully and avoid calling 
+            ToNameString() to avoid infinite recursion.  
+            This is an optional parameter with default value of false.</param>
+            <returns>Full type _name</returns>
+        </member>
+        <member name="F:FluentUI.Demo.Shared.ReflectionExtensions.GenericTuples">
+            <summary>
+            Hash of all possible ValueTuple type definitions for quick check if type is value tuple.
+            </summary>
+        </member>
+        <member name="M:FluentUI.Demo.Shared.ReflectionExtensions.CleanGenericTypeName(System.String)">
+            <summary>
+            Remove the parameter count part of the generic type _name. 
+            For example the generic list type _name is List`1.
+            This method leaves only the _name part of the type such as List.
+            If specified string does not contain the number of parameters 
+            part then the same string is returned.
+            </summary>
+            <param _name="genericTypeName">Type _name</param>
+            <returns>Type _name without the number of parameters.</returns>
+        </member>
+    </members>
+</doc>

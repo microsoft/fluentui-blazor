@@ -35,7 +35,7 @@
 	<ItemGroup Condition="'$(TargetFramework)'=='net6.0'">
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.20" />
 	</ItemGroup>
-	
+
 	<ItemGroup Condition="'$(TargetFramework)'=='net7.0'">
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.9" />
 	</ItemGroup>
@@ -45,11 +45,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-    <ProjectReference Include="..\..\..\src\Core\Microsoft.Fast.Components.FluentUI.csproj" />
-    <ProjectReference Include="..\DocGenerator\FluentUI.Demo.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-    <PackageReference Include="Markdig" Version="0.31.0" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
-    <TrimmerRootAssembly Include="Microsoft.Fast.Components.FluentUI" />
+		<ProjectReference Include="..\..\..\src\Core\Microsoft.Fast.Components.FluentUI.csproj" />
+		<ProjectReference Include="..\DocGenerator\FluentUI.Demo.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+		<PackageReference Include="Markdig" Version="0.31.0" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+		<TrimmerRootAssembly Include="Microsoft.Fast.Components.FluentUI" />
 		<PackageReference Include="Microsoft.Fast.Components.FluentUI.Emojis">
 			<Version>3.*-*</Version>
 		</PackageReference>
@@ -59,10 +59,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<AdditionalFiles Include="$(ProjectDir)bin/$(Configuration)/$(TargetFramework)/*.xml" />
+		<AdditionalFiles Include="$(ProjectDir)bin/$(Configuration)/net8.0/*.xml" />
 		<Folder Include="wwwroot\sources\" />
 	</ItemGroup>
-	
+
 	<Target Name="CopySources" BeforeTargets="CoreBuild">
 		<ItemGroup>
 			<Sources Include="$(ProjectDir)\Pages\**\Examples\*" />
@@ -72,11 +72,11 @@
 		<Copy SourceFiles="@(Sources)" DestinationFiles="@(Sources->'$(ProjectDir)wwwroot\sources\%(Filename)%(Extension).txt')" SkipUnchangedFiles="true" />
 	</Target>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <ItemGroup>
-      <XmlFiles Include="$(ProjectDir)bin\$(Configuration)\net7.0\*.xml" />
-    </ItemGroup>
-    <Copy SourceFiles="@(XmlFiles)" DestinationFolder="$(SolutionDir)examples\Demo\Shared" SkipUnchangedFiles="true" />
-  </Target>
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<ItemGroup>
+			<XmlFiles Include="$(ProjectDir)bin/$(Configuration)/net8.0/$(ProjectName).xml" />
+		</ItemGroup>
+		<Copy SourceFiles="@(XmlFiles)" DestinationFolder="$(SolutionDir)examples\Demo\Shared" SkipUnchangedFiles="true" />
+	</Target>
 
 </Project>
