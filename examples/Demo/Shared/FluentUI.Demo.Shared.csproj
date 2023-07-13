@@ -59,8 +59,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<AdditionalFiles Include="$(ProjectDir)/*.xml" />
-		<Folder Include="wwwroot\sources\" />
+		<AdditionalFiles Include="$(ProjectDir)/bin/Release/net8.0/*.xml" />
 	</ItemGroup>
 
 	<Target Name="CopySources" BeforeTargets="CoreBuild">
@@ -72,7 +71,7 @@
 		<Copy SourceFiles="@(Sources)" DestinationFiles="@(Sources->'$(ProjectDir)wwwroot\sources\%(Filename)%(Extension).txt')" SkipUnchangedFiles="true" />
 	</Target>
 
-	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+	<Target Name="CopyPostBuild" AfterTargets="CoreBuild">
 		<ItemGroup>
 			<XmlFiles Include="$(ProjectDir)bin/$(Configuration)/net8.0/$(ProjectName).xml" />
 		</ItemGroup>
