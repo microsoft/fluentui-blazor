@@ -78,5 +78,4 @@
 		</ItemGroup>
 		<Copy SourceFiles="@(XmlFiles)" DestinationFolder="$(SolutionDir)examples\Demo\Shared" SkipUnchangedFiles="true" />
 	</Target>
-
 </Project>
