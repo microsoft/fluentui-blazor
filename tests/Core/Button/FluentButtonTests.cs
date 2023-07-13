@@ -1,5 +1,6 @@
 using Bunit;
 using FluentAssertions;
+using Microsoft.Fast.Components.FluentUI.Tests.Extensions;
 using Xunit;
 
 namespace Microsoft.Fast.Components.FluentUI.Tests.Button
@@ -349,6 +350,100 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.Button
 
             // Assert
             cut.Verify();
+        }
+
+        [Fact]
+        public void FluentButton_IconStart()
+        {
+            // Arrange && Act
+            var cut = TestContext.RenderComponent<FluentButton>(parameters =>
+            {
+                parameters.Add(p => p.IconStart, SampleIcons.Info);
+                parameters.AddChildContent("My button");
+            });
+
+            // Assert
+            cut.Verify();
+        }
+
+        [Fact]
+        public void FluentButton_IconEnd()
+        {
+            // Arrange && Act
+            var cut = TestContext.RenderComponent<FluentButton>(parameters =>
+            {
+                parameters.Add(p => p.IconEnd, SampleIcons.Info);
+                parameters.AddChildContent("My button");
+            });
+
+            // Assert
+            cut.Verify();
+        }
+
+        [Fact]
+        public void FluentButton_IconNoContent()
+        {
+            // Arrange && Act
+            var cut = TestContext.RenderComponent<FluentButton>(parameters =>
+            {
+                parameters.Add(p => p.IconEnd, SampleIcons.Info);
+            });
+
+            // Assert
+            cut.Verify();
+        }
+
+        [Fact]
+        public void FluentButton_Title()
+        {
+            // Arrange && Act
+            var cut = TestContext.RenderComponent<FluentButton>(parameters =>
+            {
+                parameters.Add(p => p.Title, "My Title");
+                parameters.AddChildContent("My button");
+            });
+
+            // Assert
+            cut.Verify();
+        }
+
+        [Fact]
+        public void FluentButton_OnClick()
+        {
+            bool clicked = false;
+
+            // Arrange
+            var cut = TestContext.RenderComponent<FluentButton>(parameters =>
+            {
+                parameters.Add(p => p.OnClick, (e) => { clicked = true; });
+                parameters.AddChildContent("My button");
+            });
+
+            // Act
+            cut.Find("fluent-button").Click();
+
+            // Assert
+            Assert.True(clicked);
+        }
+
+        [Fact]
+        public void FluentButton_OnClick_Disabled()
+        {
+            bool clicked = false;
+
+            // Arrange
+            var cut = TestContext.RenderComponent<FluentButton>(parameters =>
+            {
+                parameters.Add(p => p.OnClick, (e) => { clicked = true; });
+                parameters.AddChildContent("My button");                
+            });
+
+            // Act - `InvokeAsync` to avoid "The current thread is not associated with the Dispatcher" error.
+            cut.InvokeAsync(() => cut.Instance.SetDisabled(true));
+            cut.Find("fluent-button").Click();
+
+            // Assert
+            Assert.False(clicked);
         }
     }
 }
