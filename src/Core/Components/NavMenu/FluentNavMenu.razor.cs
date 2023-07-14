@@ -222,6 +222,8 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
         if (menuItem is not null)
         {
             _selectedTreeItem = menuItem.TreeItem;
+            // menuItem.SelectedChanged.InvokeAsync(true);
+            // StateHasChanged();
         }
     }
 
@@ -255,6 +257,11 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
 
     private async Task HandleCurrentSelectedChangedAsync(FluentTreeItem? treeItem)
     {
+        foreach (KeyValuePair<string, FluentNavMenuItemBase> item in _allItems.Where(x => x.Value.Selected))
+        {
+            item.Value.Selected = false;
+        }
+
         if (treeItem?.Selected != true)
         {
             _selectedTreeItem = null;
