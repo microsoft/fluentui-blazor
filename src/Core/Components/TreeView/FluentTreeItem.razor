@@ -4,13 +4,11 @@
                   class="@Class"
                   style="@Style"
                   id="@Id"
-                  tree-item-id="@Id"
                   expanded="@Expanded"
                   selected="@Selected"
                   disabled="@Disabled"
                   @onselectedchange="@HandleSelectedChangeAsync"
-                  @onexpandedchange="@HandleExpandedChangeAsync"
-                  @attributes="AdditionalAttributes">
+                  @onexpandedchange="@HandleExpandedChangeAsync">
     @Text
     @ChildContent
 </fluent-tree-item>
