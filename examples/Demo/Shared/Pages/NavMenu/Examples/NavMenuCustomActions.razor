@@ -32,12 +32,12 @@
             @*
             This item is disabled
             *@
-            <FluentNavMenuLink Disabled Text="Disabled" Icon="@(new Icons.Regular.Size24.Prohibited())" />
+            <FluentNavMenuLink Disabled Text="Disabled" Icon="@(new Icons.Regular.Size24.Prohibited())" Href="https://microsoft.com"/>
 
             @*
             This item is intercepted by the menu but not marked as handled.
             It does not have an item handler to mark it as handled.
-            It does have a Href, so will navigate.
+            It does have a Href, so it will navigate.
             *@
             <FluentNavMenuLink Href="https://microsoft.com" Text="Default behavior (navigate)" Icon="@(new Icons.Regular.Size24.Earth())" />
         </FluentNavMenu>

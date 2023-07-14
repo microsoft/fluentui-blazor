@@ -239,11 +239,6 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
 
     private async Task HandleCurrentSelectedChangedAsync(FluentTreeItem? treeItem)
     {
-        if (_previousSuccessfullySelectedTreeItem is not null)
-        {
-            await _previousSuccessfullySelectedTreeItem.SetSelectedAsync(false);
-        }
-
         // If an already activated menu item is clicked again, then re-trigger
         // its action. For the case of a simple navigation, this will be the same
         // page and therefore do nothing.
@@ -283,13 +278,26 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
             SelectMenuItemForCurrentUrl();
         }
 
+        if (_currentlySelectedTreeItem?.Selected == false)
+        {
+            await _currentlySelectedTreeItem.SetSelectedAsync(true);
+        }
+
+        if (_currentlySelectedTreeItem?.Selected == true)
+        {
+            if (_previousSuccessfullySelectedTreeItem?.Selected == true && _previousSuccessfullySelectedTreeItem != _currentlySelectedTreeItem)
+            {
+                await _previousSuccessfullySelectedTreeItem.SetSelectedAsync(false);
+            }
+            _previousSuccessfullySelectedTreeItem = _currentlySelectedTreeItem;
+        }
+
         // If we still don't have a currently selected item, then make sure the one
         // the user tried to select is not selected.
         if (treeItem?.Selected == true && treeItem != _currentlySelectedTreeItem)
         {
             await treeItem.SetSelectedAsync(false);
         }
-
     }
 
     private async ValueTask<bool> TryActivateMenuItemAsync(FluentTreeItem? treeItem)
