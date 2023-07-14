@@ -193,19 +193,20 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
 
     private Task ToggleCollapsedAsync() => SetExpandedAsync(!Expanded);
 
-    private void HandleNavigationManagerLocationChanged(object? sender, LocationChangedEventArgs e)
+    private async void HandleNavigationManagerLocationChanged(object? sender, LocationChangedEventArgs e)
     {
         string localPath = new Uri(NavigationManager.Uri).LocalPath;
         if (string.IsNullOrEmpty(localPath))
             localPath = "/";
 
         FluentNavMenuItemBase? menuItem = _allItems.Values
-            .FirstOrDefault(x => x.Href == localPath);
+            .FirstOrDefault(x => localPath.Equals(x.Href, StringComparison.InvariantCultureIgnoreCase));
 
         if (menuItem is not null)
         {
             _currentlySelectedTreeItem = menuItem.TreeItem;
             _previousSuccessfullySelectedTreeItem = menuItem.TreeItem;
+            await _currentlySelectedTreeItem.SetSelectedAsync(true);
         }
     }
 

@@ -7,13 +7,13 @@
 <FluentStack Orientation="Orientation.Horizontal">
     <!-- Menu with sub-items and icons -->
     <FluentNavMenu @bind-Expanded=MenuExpanded>
-        <FluentNavMenuGroup Id="Group1" Text="Item 1" @bind-Expanded=Item1Expanded Icon="@(new Icons.Regular.Size24.LeafOne())" Href="/NavMenu#1">
-            <FluentNavMenuLink Text="Item 1.1" Icon="@(new Icons.Regular.Size24.LeafOne())" @bind-Selected=Item1Point1Selected Href="/NavMenu#1_1" />
-            <FluentNavMenuLink Text="Item 1.2" Icon="@(new Icons.Regular.Size24.LeafTwo())" @bind-Selected=Item1Point2Selected Href="/NavMenu#1_2" />
+        <FluentNavMenuGroup Id="Group1" Text="Item 1" @bind-Expanded=Item1Expanded Icon="@(new Icons.Regular.Size24.LeafOne())" Href="/NavMenu">
+            <FluentNavMenuLink Text="Item 1.1" Icon="@(new Icons.Regular.Size24.LeafOne())" @bind-Selected=Item1Point1Selected Href="/NavMenu" />
+            <FluentNavMenuLink Text="Item 1.2" Icon="@(new Icons.Regular.Size24.LeafTwo())" @bind-Selected=Item1Point2Selected Href="/NavMenu" />
         </FluentNavMenuGroup>
-        <FluentNavMenuGroup Id="Group2" Text="Item 2" @bind-Expanded=Item2Expanded Icon="@(new Icons.Regular.Size24.LeafTwo())" Href="/NavMenu#2">
-            <FluentNavMenuLink Text="Item 2.1" Icon="@(new Icons.Regular.Size24.LeafOne())" @bind-Selected=Item2Point1Selected Href="/NavMenu#2_1" />
-            <FluentNavMenuLink Text="Item 2.2" Icon="@(new Icons.Regular.Size24.LeafTwo())" @bind-Selected=Item2Point2Selected Href="/NavMenu#2_2" />
+        <FluentNavMenuGroup Id="Group2" Text="Item 2" @bind-Expanded=Item2Expanded Icon="@(new Icons.Regular.Size24.LeafTwo())" Href="/NavMenu">
+            <FluentNavMenuLink Text="Item 2.1" Icon="@(new Icons.Regular.Size24.LeafOne())" @bind-Selected=Item2Point1Selected Href="/NavMenu" />
+            <FluentNavMenuLink Text="Item 2.2" Icon="@(new Icons.Regular.Size24.LeafTwo())" @bind-Selected=Item2Point2Selected Href="/NavMenu" />
         </FluentNavMenuGroup>
     </FluentNavMenu>
     <FluentStack Orientation="Orientation.Vertical">

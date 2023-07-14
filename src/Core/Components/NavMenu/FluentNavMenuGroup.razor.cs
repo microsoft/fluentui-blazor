@@ -88,19 +88,26 @@ public partial class FluentNavMenuGroup : FluentNavMenuItemBase, INavMenuItemsOw
 
     IEnumerable<FluentNavMenuItemBase> INavMenuItemsOwner.GetChildItems() => _childItems;
 
-    private Task ToggleCollapsedAsync() => HandleExpandedChangedAsync(!Expanded);
-
-    private async Task HandleExpandedChangedAsync(bool value)
+    protected internal override async ValueTask ExecuteAsync(NavMenuActionArgs args)
     {
-        if (value == Expanded)
+        await base.ExecuteAsync(args);
+        if (Collapsed)
         {
-            return;
+            await SetExpandedAsync(true);
         }
+    }
 
-        Expanded = value;
-        if (ExpandedChanged.HasDelegate)
+    private Task ToggleCollapsedAsync() => SetExpandedAsync(!Expanded);
+
+    private async Task SetExpandedAsync(bool value)
+    {
+        if (value != Expanded)
         {
-            await ExpandedChanged.InvokeAsync(value);
+            Expanded = value;
+            if (ExpandedChanged.HasDelegate)
+            {
+                await ExpandedChanged.InvokeAsync(value);
+            }
         }
 
         await NavMenu.MenuItemExpandedChangedAsync(this);

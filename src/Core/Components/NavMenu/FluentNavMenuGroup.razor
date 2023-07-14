@@ -13,17 +13,17 @@
                          Selected="@Selected"
                          SelectedChanged="@HandleSelectedChangedAsync"
                          Expanded="@Expanded"
-                         ExpandedChanged="@HandleExpandedChangedAsync"
+                         ExpandedChanged="@SetExpandedAsync"
                          Text="@(NavMenuExpanded ? Text : string.Empty)">
-            @if (HasIcon)
-            {
-                <FluentIcon Value="@Icon" Width="20px" Slot="start" />
-            }
+                @if (HasIcon)
+                {
+                    <FluentIcon Value="@Icon" Width="20px" Slot="start" />
+                }
                 else if (SiblingHasIcon)
                 {
                     <span style="width:20px;" slot="start"></span>
                 }
-                @if (NavMenuExpanded)
+                @if (NavMenu.Expanded || Owner == NavMenu)
                 {
                     @ChildContent
                 }
