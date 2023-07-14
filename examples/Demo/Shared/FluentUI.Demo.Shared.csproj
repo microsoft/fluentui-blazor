@@ -63,7 +63,7 @@
 		<Folder Include="wwwroot\sources\" />
 	</ItemGroup>
 
-	<Target Name="CopySources" BeforeTargets="CoreBuild">
+	<Target Name="CopySources" BeforeTargets="BeforeBuild">
 		<ItemGroup>
 			<Sources Include="$(ProjectDir)\Pages\**\Examples\*" />
 			<Sources Include="$(ProjectDir)\Pages\Lab\**" />
