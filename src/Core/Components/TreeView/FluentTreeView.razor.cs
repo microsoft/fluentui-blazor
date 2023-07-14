@@ -1,9 +1,10 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentTreeView : FluentComponentBase
+public partial class FluentTreeView : FluentComponentBase, IDisposable
 {
     /// <summary>
     /// Gets or sets whether the tree should render nodes under collapsed items
@@ -44,9 +45,20 @@ public partial class FluentTreeView : FluentComponentBase
     [Parameter]
     public EventCallback<FluentTreeItem> OnExpandedChange { get; set; }
 
+    private readonly Dictionary<string, FluentTreeItem> _allItems = new();
+    private readonly Debouncer _currentSelectedChangedDebouncer = new();
+    private bool disposedValue;
+
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(TreeChangeEventArgs))]
     public FluentTreeView()
     {
+    }
+
+    void IDisposable.Dispose()
+    {
+        // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
     }
 
     internal async Task ItemExpandedChangeAsync(FluentTreeItem item)
@@ -59,17 +71,57 @@ public partial class FluentTreeView : FluentComponentBase
 
     internal async Task ItemSelectedChangeAsync(FluentTreeItem item)
     {
-        var previousSelected = CurrentSelected;
-
-        CurrentSelected = item.Selected ? item : null;
-        {
-            if (CurrentSelected != previousSelected && CurrentSelectedChanged.HasDelegate)
-                await CurrentSelectedChanged.InvokeAsync(item);
-        }
-
         if (OnSelectedChange.HasDelegate)
         {
             await OnSelectedChange.InvokeAsync(item);
         }
     }
+
+    internal void Register(FluentTreeItem fluentTreeItem)
+    {
+        ArgumentNullException.ThrowIfNull(fluentTreeItem);
+        _allItems[fluentTreeItem.Id!] = fluentTreeItem;
+    }
+
+    internal void Unregister(FluentTreeItem fluentTreeItem)
+    {
+        ArgumentNullException.ThrowIfNull(fluentTreeItem);
+        _allItems.Remove(fluentTreeItem.Id!);
+    }
+
+
+    private async Task HandleCurrentSelectedChangeAsync(TreeChangeEventArgs args)
+    {
+        if (!_allItems.TryGetValue(args.AffectedId!, out FluentTreeItem? treeItem))
+        {
+            return;
+        }
+
+        var previouslySelected = CurrentSelected;
+        await _currentSelectedChangedDebouncer.DebounceAsync(100,() => InvokeAsync(async () =>
+        {
+            CurrentSelected = treeItem?.Selected == true ? treeItem : null;
+            if (CurrentSelected != previouslySelected && CurrentSelectedChanged.HasDelegate)
+            {
+                await CurrentSelectedChanged.InvokeAsync(treeItem);
+            }
+        }));
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposedValue)
+        {
+            return;
+        }
+
+        if (disposing)
+        {
+            _currentSelectedChangedDebouncer?.Dispose();
+        }
+
+        disposedValue = true;
+    }
+
+
 }
