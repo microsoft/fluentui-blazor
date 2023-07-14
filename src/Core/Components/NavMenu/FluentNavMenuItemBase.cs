@@ -135,8 +135,6 @@ public abstract class FluentNavMenuItemBase : FluentComponentBase, IDisposable
             return;
         }
 
-        Console.WriteLine($"***** Set {Text}.Selected = {value}");
-        Console.WriteLine(new StackTrace());
         Selected = value;
         if (SelectedChanged.HasDelegate)
         {

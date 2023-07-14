@@ -13,9 +13,8 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
     private readonly Dictionary<string, FluentNavMenuItemBase> _allItems = new();
     private readonly List<FluentNavMenuItemBase> _childItems = new();
     private readonly string _expandCollapseTreeItemId = Identifier.NewId();
-    private FluentTreeItem? _previouslyDeselectedTreeItem;
-    private FluentTreeItem? _selectedTreeItem;
-    private Debouncer _debouncer = new();
+    private FluentTreeItem? _currentlySelectedTreeItem;
+    private FluentTreeItem? _previousSuccessfullySelectedTreeItem;
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("navmenu")
@@ -72,18 +71,6 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
     /// </summary>
     [Parameter]
     public EventCallback<bool> ExpandedChanged { get; set; }
-
-    /// <summary>
-    /// Called whenever a contained <see cref="FluentNavMenuGroup"/> is selected or unselected.
-    /// </summary>
-    [Parameter]
-    public EventCallback<FluentNavMenuGroup> OnGroupSelected { get; set; }
-
-    /// <summary>
-    /// Called whenever a contained <see cref="FluentNavMenuLink"/> is selected or unselected.
-    /// </summary>
-    [Parameter]
-    public EventCallback<FluentNavMenuLink> OnLinkSelected { get; set; }
 
     /// <summary>
     /// Called when the user attempts to execute the default action of a menu item.
@@ -178,11 +165,14 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
         await base.OnAfterRenderAsync(firstRender);
         if (firstRender)
         {
-            HandleNavigationManagerLocationChanged(null, new LocationChangedEventArgs(NavigationManager.Uri, isNavigationIntercepted: false));
+            SelectMenuItemForCurrentUrl();
         }
     }
 
-    protected override bool ShouldRender() => base.ShouldRender() && !_debouncer.Busy;
+    private void SelectMenuItemForCurrentUrl()
+    {
+        HandleNavigationManagerLocationChanged(null, new LocationChangedEventArgs(NavigationManager.Uri, isNavigationIntercepted: false));
+    }
 
     protected virtual void Dispose(bool disposing)
     {
@@ -194,7 +184,6 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
         if (disposing)
         {
             NavigationManager.LocationChanged -= HandleNavigationManagerLocationChanged;
-            _debouncer.Dispose();
             _allItems.Clear();
             _childItems.Clear();
         }
@@ -215,7 +204,8 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
 
         if (menuItem is not null)
         {
-            _selectedTreeItem = menuItem.TreeItem;
+            _currentlySelectedTreeItem = menuItem.TreeItem;
+            _previousSuccessfullySelectedTreeItem = menuItem.TreeItem;
         }
     }
 
@@ -249,59 +239,57 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
 
     private async Task HandleCurrentSelectedChangedAsync(FluentTreeItem? treeItem)
     {
-        Console.WriteLine($"{treeItem?.Text} selected = {treeItem?.Selected}");
-
-        double debounceTime;
-        if (treeItem?.Selected == true)
+        if (_previousSuccessfullySelectedTreeItem is not null)
         {
-            debounceTime = 0.001;
-            _selectedTreeItem = treeItem;
-        }
-        else
-        {
-            _previouslyDeselectedTreeItem = treeItem;
-            debounceTime = 50;
+            await _previousSuccessfullySelectedTreeItem.SetSelectedAsync(false);
         }
 
-        bool shouldRender = await _debouncer.DebounceAsync(debounceTime, () => InvokeAsync(SelectionCompleteAsync));
-        if (shouldRender)
+        // If an already activated menu item is clicked again, then re-trigger
+        // its action. For the case of a simple navigation, this will be the same
+        // page and therefore do nothing.
+        // But for a nav menu with custom actions like showing a dialog etc, it will
+        // re-trigger and repeat that action.
+        bool itemWasClickedWhilstAlreadySelected =
+            treeItem?.Selected == false && treeItem == _previousSuccessfullySelectedTreeItem;
+        if (itemWasClickedWhilstAlreadySelected)
         {
-            StateHasChanged();
-        }
-    }
-
-    private async Task SelectionCompleteAsync()
-    {
-        bool onlyDeselected = _selectedTreeItem is null && _previouslyDeselectedTreeItem is not null;
-        if (onlyDeselected)
-        {
-            await _previouslyDeselectedTreeItem!.SetSelectedAsync(true);
+            await TryActivateMenuItemAsync(treeItem);
             return;
         }
 
-        bool activated = await TryActivateMenuItemAsync(_selectedTreeItem);
-
-        if (activated)
+        // Otherwise, the user selected a different tree item. So try to activate that one instead.
+        // If it succeeds then keep it selected, if it fails then revert to the last successfully selected
+        // tree item. This prevents the user from selecting an item with no Href or custom action.
+        if (treeItem?.Selected == true && _allItems.TryGetValue(treeItem.Id!, out FluentNavMenuItemBase? menuItem))
         {
-            await _selectedTreeItem!.SetSelectedAsync(true);
-            if (_previouslyDeselectedTreeItem is not null)
+            bool activated = await TryActivateMenuItemAsync(treeItem);
+            if (activated)
             {
-                await _previouslyDeselectedTreeItem.SetSelectedAsync(false);
-            }
-        }
-        else
-        {
-            if (_previouslyDeselectedTreeItem is null)
-            {
-                _selectedTreeItem = null;
+                _currentlySelectedTreeItem = treeItem;
+                _previousSuccessfullySelectedTreeItem = treeItem;
             }
             else
             {
-                _selectedTreeItem = _previouslyDeselectedTreeItem;
-                await _selectedTreeItem.SetSelectedAsync(true);
-                _previouslyDeselectedTreeItem = null;
+                _currentlySelectedTreeItem = _previousSuccessfullySelectedTreeItem;
             }
         }
+
+        // At this point we have either succeeded, failed and reverted to a previously successful item
+        // without re-executing its action, or failed and have no previously successful item to revert to.
+        // If we have no currently selected item then we fall back to selecting whichever matches the current
+        // URI.
+        if (_currentlySelectedTreeItem is null)
+        {
+            SelectMenuItemForCurrentUrl();
+        }
+
+        // If we still don't have a currently selected item, then make sure the one
+        // the user tried to select is not selected.
+        if (treeItem?.Selected == true && treeItem != _currentlySelectedTreeItem)
+        {
+            await treeItem.SetSelectedAsync(false);
+        }
+
     }
 
     private async ValueTask<bool> TryActivateMenuItemAsync(FluentTreeItem? treeItem)
@@ -327,6 +315,10 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
             await menuItem.ExecuteAsync(actionArgs);
         }
 
+        if (actionArgs.Handled)
+        {
+            await menuItem.SetSelectedAsync(true);
+        }
         return actionArgs.Handled;
     }
 
