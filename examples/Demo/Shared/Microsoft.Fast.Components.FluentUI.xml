@@ -4256,6 +4256,11 @@
             True to let the user edit the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentTab.Label"/> property.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.Content">
+            <summary>
+            Customized content of this tab panel.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
@@ -4282,14 +4287,6 @@
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentTab.SetProperties(System.Nullable{System.Boolean})">
             <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabPanel.StyleValue">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabPanel.ChildContent">
-            <summary>
-            Gets or sets the content to be rendered inside the component.
-            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.ClassValue">
             <summary />
@@ -4327,6 +4324,18 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.Size">
             <summary>
             Width of the tab items.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.Width">
+            <summary>
+            Width of the tabs component.
+            Needs to be a valid CSS value (e.g. 100px, 50%).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.Height">
+            <summary>
+            Height of the tabs component.
+            Needs to be a valid CSS value (e.g. 100px, 50%).
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.ActiveTab">
