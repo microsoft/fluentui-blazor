@@ -54,8 +54,8 @@ public class PaginationState
         return CurrentPageItemsChanged.InvokeCallbacksAsync(this);
     }
 
-    // Can be internal because this only needs to be called by FluentDataGrid itself, not any custom pagination UI components.
-    internal Task SetTotalItemCountAsync(int totalItemCount)
+
+    public Task SetTotalItemCountAsync(int totalItemCount)
     {
         if (totalItemCount == TotalItemCount)
         {
