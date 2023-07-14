@@ -239,7 +239,9 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
 
     private async Task HandleCurrentSelectedChangedAsync(FluentTreeItem? treeItem)
     {
-        // If an already activated menu item is clicked again, then re-trigger
+        // If an already activated menu item is clicked again, then it will
+        // it will match the previously selected one but have Selected == false.
+        // In this case, the user has indicated they wish to re-trigger
         // its action. For the case of a simple navigation, this will be the same
         // page and therefore do nothing.
         // But for a nav menu with custom actions like showing a dialog etc, it will
@@ -252,7 +254,9 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
             return;
         }
 
-        // Otherwise, the user selected a different tree item. So try to activate that one instead.
+        // If the user has selected a different item, then it will not match the previously
+        // selected item, and it will have Selected == true.
+        // So try to activate the new one instead of the old one.
         // If it succeeds then keep it selected, if it fails then revert to the last successfully selected
         // tree item. This prevents the user from selecting an item with no Href or custom action.
         if (treeItem?.Selected == true && _allItems.TryGetValue(treeItem.Id!, out FluentNavMenuItemBase? menuItem))
@@ -269,8 +273,10 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
             }
         }
 
-        // At this point we have either succeeded, failed and reverted to a previously successful item
-        // without re-executing its action, or failed and have no previously successful item to revert to.
+        // At this point we have either
+        // 1) Succeeded,
+        // 2) Failed and reverted to a previously successful item without re-executing its action,
+        // 3) Failed and have no previously successful item to revert to.
         // If we have no currently selected item then we fall back to selecting whichever matches the current
         // URI.
         if (_currentlySelectedTreeItem is null)
@@ -278,6 +284,8 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
             SelectMenuItemForCurrentUrl();
         }
 
+        // Now we need to ensure the currently selected item has Selected=true, and
+        // the previous has Selected=false
         if (_currentlySelectedTreeItem?.Selected == false)
         {
             await _currentlySelectedTreeItem.SetSelectedAsync(true);
@@ -292,7 +300,7 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
             _previousSuccessfullySelectedTreeItem = _currentlySelectedTreeItem;
         }
 
-        // If we still don't have a currently selected item, then make sure the one
+        // If we still don't have a currently selected item, then make sure the invalid one
         // the user tried to select is not selected.
         if (treeItem?.Selected == true && treeItem != _currentlySelectedTreeItem)
         {
