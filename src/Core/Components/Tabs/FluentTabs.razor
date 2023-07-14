@@ -13,7 +13,7 @@
         @ChildContent
         @if (TabsOverflow.Any())
         {
-            <FluentBadge id="@IdMoreButton" Appearance="Appearance.Neutral" Style="@StyleMoreValues" slot="end">
+            <FluentBadge Id="@IdMoreButton" Appearance="Appearance.Neutral" Style="@StyleMoreValues" slot="end">
                 @($"+{TabsOverflow.Count()}")
             </FluentBadge>
         }

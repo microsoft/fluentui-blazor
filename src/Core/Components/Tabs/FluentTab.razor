@@ -1,8 +1,7 @@
 @namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentComponentBase
-<fluent-tab @ref=Element
-            class="@ClassValue"
-            style="@StyleValue"
+<fluent-tab class="@LabelClass"
+            style="@LabelStyle"
             id="@Id"
             disabled="@Disabled"
             aria-label="@Label"
@@ -30,7 +29,11 @@
         <FluentIcon Icon="CoreIcons.Regular.Size24.Dismiss" Width="12px" Class="fluent-tab-close" Title="Close" OnClick="CloseClickedAsync" />
     }
 </fluent-tab>
-@ChildContent
+<fluent-tab-panel style="@StyleValue" class="@ClassValue">
+    @Content
+    @ChildContent
+</fluent-tab-panel>
+
 
 
 
