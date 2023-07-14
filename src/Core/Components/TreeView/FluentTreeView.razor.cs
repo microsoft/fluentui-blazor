@@ -118,6 +118,7 @@ public partial class FluentTreeView : FluentComponentBase, IDisposable
         if (disposing)
         {
             _currentSelectedChangedDebouncer?.Dispose();
+            _allItems.Clear();
         }
 
         disposedValue = true;
