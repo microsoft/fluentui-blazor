@@ -1,0 +1,11 @@
+﻿@namespace FluentUI.Demo.Shared
+
+<div style="display: flex; width=100%">
+    <FluentIcon Icon="Icons.Filled.Size48.Alert" Color="@Color.Neutral" />
+    <FluentSpacer />
+    <FluentIcon Icon="Icons.Filled.Size48.Alert" Color="@Color.Accent" />
+    <FluentSpacer />
+    <FluentIcon Icon="Icons.Filled.Size48.Alert" Color="@Color.Warning" />
+    <FluentSpacer />
+    <FluentIcon Icon="Icons.Filled.Size48.Alert" Color="@Color.Info" />
+</div>

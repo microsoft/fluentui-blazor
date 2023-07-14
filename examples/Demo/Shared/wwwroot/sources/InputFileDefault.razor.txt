@@ -1,0 +1,67 @@
+﻿<FluentInputFile Id="my-file-uploader"
+                 Multiple=true
+                 ShowPreview=true
+                 MaximumFileCount="4"
+                 MaximumFileSize="50000000"
+                 Accept="image/*"
+                 OnCompleted="@OnCompleted"
+                 OnFileError="@OnError"
+                 Style="height: 300px;"
+                 Class="demopanel">
+
+    <label for="my-file-uploader">
+        <FluentIcon Icon="@Icons.Regular.Size24.ArrowUpload" />
+    </label>
+
+    <div>
+        Drag files here you wish to upload,
+        or <label for="my-file-uploader">browse</label>
+        for them<span style="color: red;">*</span>.
+        <br/>
+        <em>Maximum of 4 files allowed.</em>
+    </div>
+
+    <div>
+        <br/>
+        <a href="#">Read more about our supported file formats.</a>
+    </div>
+
+</FluentInputFile>
+
+@if (Files.Any())
+{
+    <h4>File(s) uploaded:</h4>
+    <ul>
+        @foreach (var file in Files)
+        {
+            <li>
+                <b>@file.Name</b> 🔹
+                @($"{Decimal.Divide(file.Size, 1024):N} KB") 🔹
+                @file.ContentType 🔹
+                @file.LocalFile?.FullName 
+                @file.ErrorMessage
+            </li>
+        }
+    </ul>
+}
+
+@code
+{
+    FluentInputFileEventArgs[] Files = Array.Empty<FluentInputFileEventArgs>();
+
+    void OnCompleted(IEnumerable<FluentInputFileEventArgs> files)
+    {
+        Files = files.ToArray();
+
+        // For the demo, delete these files.
+        foreach (var file in Files)
+        {
+            file.LocalFile?.Delete();
+        }
+    }
+
+    void OnError(FluentInputFileEventArgs file)
+    {
+        DemoLogger.WriteLine($"Error: {file.ErrorMessage}");
+    }
+}

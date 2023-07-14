@@ -1,0 +1,42 @@
+﻿@inject AccentBaseColor AccentBaseColor
+
+<div style="margin-top: 12px; display: flex;">
+    <FluentButton @ref="cref1" Appearance="Appearance.Accent" style="margin-right: 5px; width: 95px;">Office</FluentButton>
+    <FluentButton @ref="cref2" Appearance="Appearance.Accent" style="margin-right: 5px; width: 95px;">Word</FluentButton>
+    <FluentButton @ref="cref3" Appearance="Appearance.Accent" style="margin-right: 5px; width: 95px;">Excel</FluentButton>
+    <FluentButton @ref="cref4" Appearance="Appearance.Accent" style="margin-right: 5px; width: 95px;">PowerPoint</FluentButton>
+    <FluentButton @ref="cref5" Appearance="Appearance.Accent" style="margin-right: 5px; width: 95px;">Teams</FluentButton>
+    <FluentButton @ref="cref6" Appearance="Appearance.Accent" style="margin-right: 5px; width: 95px;">OneNote</FluentButton>
+    <FluentButton @ref="cref7" Appearance="Appearance.Accent" style="margin-right: 5px; width: 95px;">SharePoint</FluentButton>
+    <FluentButton @ref="cref8" Appearance="Appearance.Accent" style="margin-right: 5px; width: 95px;">Stream</FluentButton>
+</div>
+
+@code {
+  
+    private FluentButton? cref1;
+    private FluentButton? cref2;
+    private FluentButton? cref3;
+    private FluentButton? cref4;
+    private FluentButton? cref5;
+    private FluentButton? cref6;
+    private FluentButton? cref7;
+    private FluentButton? cref8;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await AccentBaseColor.SetValueFor(cref1!.Element, "#D83B01".ToSwatch());
+            await AccentBaseColor.SetValueFor(cref2!.Element, "#185ABD".ToSwatch());
+            await AccentBaseColor.SetValueFor(cref3!.Element, "#107C41".ToSwatch());
+            await AccentBaseColor.SetValueFor(cref4!.Element, "#C43E1C".ToSwatch());
+            await AccentBaseColor.SetValueFor(cref5!.Element, "#6264A7".ToSwatch());
+            await AccentBaseColor.SetValueFor(cref6!.Element, "#7719AA".ToSwatch());
+            await AccentBaseColor.SetValueFor(cref7!.Element, "#03787C".ToSwatch());
+            await AccentBaseColor.SetValueFor(cref8!.Element, "#BC1948".ToSwatch());
+
+            StateHasChanged();
+        }
+
+    }
+}

@@ -1,0 +1,68 @@
+﻿@inject IToastService ToastService
+
+<FluentStack>
+    <FluentButton Appearance=Appearance.Neutral @onclick="@ShowExample">Progress toast example 1</FluentButton>
+    <FluentButton @ref=_button Appearance="Appearance.Neutral" @onclick=UpdateProgress>Update</FluentButton>
+    <FluentButton Appearance="Appearance.Neutral" @onclick=Reset>Reset</FluentButton>
+    <FluentButton Appearance="Appearance.Neutral" @onclick=Close>Close</FluentButton>
+</FluentStack>
+
+@code {
+    private FluentButton? _button;
+    private static string _id = "progressToast";
+
+    private ToastParameters<ProgressToastContent> _progressToastData;
+
+    public ToastProgressToasts()
+    {
+        _progressToastData = new()
+            {
+                Id = _id,
+                Intent = ToastIntent.Upload,
+                Title = "Uploading file",
+                Timeout = 0,
+                TopAction = "Cancel",
+                OnTopAction = EventCallback.Factory.Create<ToastResult>(this, ClickedCancel),
+                Content = new ProgressToastContent()
+                {
+                    Details = "This may take a while.",
+                    Progress = 0,
+                },
+            };
+    }
+
+    private void ShowExample()
+    {
+        ToastService.ShowProgressToast(_progressToastData);
+    }
+
+    private static void ClickedCancel()
+    {
+        DemoLogger.WriteLine($"Clicked cancel");
+    }
+
+    
+    private async Task UpdateProgress()
+    {
+        _button!.SetDisabled(true);
+        for (int i = 0; i < 101; i++)
+        {
+            _progressToastData.Content.Progress = i;
+            ToastService.UpdateToast(_id, _progressToastData);
+            await Task.Delay(100);
+        };
+
+    }
+
+    private void Reset()
+    {
+        _progressToastData.Content.Progress = 0;
+        ToastService.UpdateToast(_id, _progressToastData);
+        _button!.SetDisabled(false);
+    }
+
+    private void Close()
+    {
+        ToastService.CloseToast(_id);
+    }
+}

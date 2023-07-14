@@ -1,0 +1,12 @@
+<div id="viewport-thresholds" style="position:relative;height:400px;width:400px;background: var(--neutral-layer-4);overflow:scroll">
+    <FluentButton Appearance=Appearance.Neutral id="anchor-thresholds" style="margin-left:100px;margin-top:100px">anchor</FluentButton>
+    <FluentAnchoredRegion Anchor="anchor-thresholds" Viewport="viewport-thresholds"
+                          VerticalPositioningMode="AxisPositioningMode.Dynamic"
+                          VerticalDefaultPosition="VerticalPosition.Top"
+                          VerticalThreshold=0
+                          HorizontalPositioningMode="AxisPositioningMode.Dynamic"
+                          HorizontalDefaultPosition="HorizontalPosition.Left"
+                          HorizontalThreshold="200">
+        <div style="height:100px;width:100px;background:var(--highlight-bg);" />
+    </FluentAnchoredRegion>
+</div>

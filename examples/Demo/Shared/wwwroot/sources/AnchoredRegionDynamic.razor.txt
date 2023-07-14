@@ -1,0 +1,9 @@
+<div id="viewport-default" style="position:relative;height:400px;width:400px;background: var(--neutral-layer-4);overflow:auto">
+    <FluentButton Appearance=Appearance.Neutral id="anchor-default" style="margin-left:100px;margin-top:100px">anchor</FluentButton>
+    <FluentAnchoredRegion Anchor="anchor-default" Viewport="viewport-default"
+                          VerticalPositioningMode="AxisPositioningMode.Dynamic"
+                          HorizontalPositioningMode="AxisPositioningMode.Dynamic"
+                          AutoUpdateMode="AutoUpdateMode.Anchor">
+        <div style="height:100px;width:100px;background:var(--highlight-bg);" />
+    </FluentAnchoredRegion>
+</div>

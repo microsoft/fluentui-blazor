@@ -1,0 +1,5 @@
+﻿<h4>Paused</h4>
+<div style="width: 300px; display: grid; grid-gap: 12px; grid-auto-flow: column;">
+    <FluentProgress Paused="true" Min="0" Max="100" Value="75"></FluentProgress>
+    <FluentProgress Paused="true"></FluentProgress>
+</div>

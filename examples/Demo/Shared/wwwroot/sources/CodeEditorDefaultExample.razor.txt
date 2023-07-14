@@ -1,0 +1,18 @@
+﻿@namespace FluentUI.Demo.Shared
+
+<FluentStack>
+    <FluentSelect TOption="string">
+        <FluentOption OnSelect="@Display_CSharp">C#</FluentOption>
+        <FluentOption OnSelect="@Display_JavaScript">JavaScript</FluentOption>
+        <FluentOption OnSelect="@Display_Json">Json</FluentOption>
+        <FluentOption OnSelect="@Display_Razor">Razor</FluentOption>
+    </FluentSelect>
+    <FluentSwitch @bind-Value="@IsDarkMode">Dark Theme</FluentSwitch>
+</FluentStack>
+<br />
+<FluentCodeEditor @bind-Value="@Code" Language="@Language" IsDarkMode="@IsDarkMode" />
+
+<b>Language:</b> @Language; <b>Code:</b> @Code; <b>IsDarkMode:</b> @IsDarkMode
+<br />
+<br />
+<b>Code:</b> <pre style="border: solid 1px lightgray;">@Code</pre>

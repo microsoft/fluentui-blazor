@@ -1,0 +1,17 @@
+<FluentAnchoredRegion Anchor="anchor-fixed"
+                      VerticalPositioningMode="AxisPositioningMode.Dynamic"
+                      VerticalScaling="AxisScalingMode.Anchor"
+                      VerticalInset="false"
+                      HorizontalPositioningMode="AxisPositioningMode.Locktodefault"
+                      HorizontalDefaultPosition="HorizontalPosition.Left"
+                      FixedPlacement="true"
+                      Style="z-index: 11;"
+                      Viewport=""
+                      HorizontalScaling="AxisScalingMode.Content"
+                      VerticalDefaultPosition="VerticalPosition.Unset"
+                      AutoUpdateMode="AutoUpdateMode.Anchor">
+    <div style="height:100%;width:100%;background:var(--accent-fill-active);z-index:11;">outside &amp; fixed</div>
+</FluentAnchoredRegion>
+<p>
+    No actual output shown here.The result of this example is added to the <FluentAnchor Href="#fixed" Appearance="Appearance.Hypertext">fixed region</FluentAnchor> shown at the top of the examples section
+</p> 
