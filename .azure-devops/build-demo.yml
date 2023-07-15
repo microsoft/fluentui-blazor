@@ -15,13 +15,11 @@ extends:
   parameters:
       Projects: |
        **/FluentUI.Demo.Client.csproj.csproj
-
-tasks:
-
-  # Publish the project
-  - task: DotNetCoreCLI@2
-    displayName: 'Publish $(Build.BuildNumber)'
-    inputs:
-      command: 'publish'
-      projects: ${{ parameters.Projects }}
-      arguments: '--configuration Release --output $(Build.SourcesDirectory)\Publish'
+  steps:
+    # Publish the project
+    - task: DotNetCoreCLI@2
+      displayName: 'Publish $(Build.BuildNumber)'
+      inputs:
+        command: 'publish'
+        projects: ${{ parameters.Projects }}
+        arguments: '--configuration Release --output $(Build.SourcesDirectory)\Publish'
