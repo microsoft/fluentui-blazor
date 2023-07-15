@@ -13,13 +13,13 @@ pool:
 extends:
   template: common/template-to-build-projects.yml
   parameters:
-      Projects: |
+    Projects: |
        **/FluentUI.Demo.Client.csproj.csproj
-  steps:
-    # Publish the project
-    - task: DotNetCoreCLI@2
-      displayName: 'Publish $(Build.BuildNumber)'
-      inputs:
-        command: 'publish'
-        projects: ${{ parameters.Projects }}
-        arguments: '--configuration Release --output $(Build.SourcesDirectory)\Publish'
+    buildSteps:
+      # Publish the project
+      - task: DotNetCoreCLI@2
+        displayName: 'Publish $(Build.BuildNumber)'
+        inputs:
+          command: 'publish'
+          projects: ${{ parameters.Projects }}
+          arguments: '--configuration Release --output $(Build.SourcesDirectory)\Publish'
