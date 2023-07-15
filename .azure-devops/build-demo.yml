@@ -48,15 +48,18 @@ steps:
     displayName: Install dependencies
     inputs:
       command: 'restore'
-      projects: '**/FluentUI.Demo.Client.csproj'
+      projects: $(Projects)
   
   # Build the projects
   - task: DotNetCoreCLI@2
     displayName: 'Build $(Build.BuildNumber)'
     inputs:
       command: 'publish'
-      projects: '**/FluentUI.Demo.Client.csproj'
+      publishWebProjects: false  # True to build all Web Projects
+      projects: $(Projects)
       arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
+      zipAfterPublish: false
+      workingDirectory: '$(Build.SourcesDirectory)'
   
   # Publish the Artifacts
   - task: PublishBuildArtifacts@1
