@@ -55,7 +55,7 @@ steps:
     displayName: 'Build $(Build.BuildNumber)'
     inputs:
       command: 'publish'
-      projects: '$(Projects)'
+      projects: $(Projects)
       arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
   
   # Publish the Artifacts
