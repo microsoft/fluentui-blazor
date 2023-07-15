@@ -1,0 +1,29 @@
+# Build and test projects.
+
+pr:
+- new-components
+trigger:
+- new-components
+
+# Build.BuildNumber
+# use the variable "PublicVersion" to define a public version number (Ex. 2.3.6 or 3.0.0-preview.3)
+name: $(VersionMajor).$(Year:yy)$(DayOfYear).$(Rev:r)
+
+pool:
+  vmImage: 'windows-2022'
+
+extends:
+  template: common/template-to-build-projects.yml
+  parameters:
+      Projects: |
+       **/FluentUI.Demo.Client.csproj.csproj
+
+steps:
+
+  # Publish the project
+  - task: DotNetCoreCLI@2
+    displayName: 'Publish $(Build.BuildNumber)'
+    inputs:
+      command: 'publish'
+      projects: ${{ parameters.Projects }}
+      arguments: '--configuration Release --output $(Build.SourcesDirectory)\Publish'
