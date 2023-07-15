@@ -1,9 +1,7 @@
-# Build and test projects.
+# Build Demo Project.
 
-pr:
-- new-components
-trigger:
-- new-components
+pr: none      # Disable pull request triggers.
+trigger: none # Disable push triggers.
 
 # Build.BuildNumber
 # use the variable "PublicVersion" to define a public version number (Ex. 2.3.6 or 3.0.0-preview.3)
@@ -12,11 +10,12 @@ name: $(VersionMajor).$(Year:yy)$(DayOfYear).$(Rev:r)
 pool:
   vmImage: 'windows-2022'
 
-extends:
-  template: common/template-to-build-projects.yml
-  parameters:
-      Projects: |
+parameters:
+  - name: Projects
+    value: |
        **/FluentUI.Demo.Client.csproj.csproj
+
+<<: common/template-to-build-projects.yml
 
 steps:
 
