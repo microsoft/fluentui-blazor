@@ -1,1 +1,0 @@
-﻿<pre class="snippet"><code class="@Language" @ref="codeElement" style="@Style">@ChildContent</code></pre>

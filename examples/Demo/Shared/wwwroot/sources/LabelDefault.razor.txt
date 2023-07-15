@@ -1,4 +1,0 @@
-﻿@foreach (var typo in Enum.GetValues<Typography>())
-{
-    <FluentLabel Typo = "@typo" > Example '@(typo.ToString())' label </FluentLabel>
-}

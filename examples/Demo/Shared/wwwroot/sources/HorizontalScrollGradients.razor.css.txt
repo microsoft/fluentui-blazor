@@ -1,8 +1,0 @@
-﻿::deep > .right-gradient {
-    --scroll-fade-next: var(--fill-color)
-}
-
-::deep > .both-gradient {
-    --scroll-fade-next: var(--fill-color);
-    --scroll-fade-previous: var(--fill-color)
-}
