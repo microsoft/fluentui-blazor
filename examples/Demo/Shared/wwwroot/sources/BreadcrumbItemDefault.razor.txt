@@ -1,3 +1,0 @@
-<FluentBreadcrumbItem Href="#">
-    Breadcrumb item
-</FluentBreadcrumbItem>
