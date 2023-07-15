@@ -1,0 +1,42 @@
+﻿
+@namespace FluentUI.Demo.Shared
+
+<FluentPresenceBadge OutOfOffice=true Status="PresenceStatus.Available">
+    <FluentIcon Icon="Icons.Regular.Size24.Person" />
+</FluentPresenceBadge>
+
+<FluentSpacer Width="25" />
+
+<FluentPresenceBadge OutOfOffice=true Status="PresenceStatus.Away">
+    <FluentIcon Icon="Icons.Regular.Size24.Person" />
+</FluentPresenceBadge>
+
+<FluentSpacer Width="25" />
+
+<FluentPresenceBadge OutOfOffice=true Status="PresenceStatus.Busy">
+    <FluentIcon Icon="Icons.Regular.Size24.Person" />
+</FluentPresenceBadge>
+
+<FluentSpacer Width="25" />
+
+<FluentPresenceBadge OutOfOffice=true Status="PresenceStatus.DoNotDisturb">
+    <FluentIcon Icon="Icons.Regular.Size24.Person" />
+</FluentPresenceBadge>
+
+<FluentSpacer Width="25" />
+
+<FluentPresenceBadge OutOfOffice=true Status="PresenceStatus.Offline">
+    <FluentIcon Icon="Icons.Regular.Size24.Person" />
+</FluentPresenceBadge>
+
+<FluentSpacer Width="25" />
+
+<FluentPresenceBadge OutOfOffice=true Status="PresenceStatus.OutOfOffice">
+    <FluentIcon Icon="Icons.Regular.Size24.Person" />
+</FluentPresenceBadge>
+
+<FluentSpacer Width="25" />
+
+<FluentPresenceBadge OutOfOffice=true Status="PresenceStatus.Unknown">
+    <FluentIcon Icon="Icons.Regular.Size24.Person" />
+</FluentPresenceBadge>

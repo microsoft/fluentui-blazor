@@ -1,0 +1,9 @@
+﻿<FluentOverflow>
+    <FluentOverflowItem><FluentBadge>Blazor</FluentBadge></FluentOverflowItem>
+    <FluentOverflowItem><FluentBadge>Microsoft</FluentBadge></FluentOverflowItem>
+    <FluentOverflowItem><FluentBadge>Azure</FluentBadge></FluentOverflowItem>
+    <FluentOverflowItem><FluentBadge>DevOps</FluentBadge></FluentOverflowItem>
+    <FluentOverflowItem><FluentBadge>Framework</FluentBadge></FluentOverflowItem>
+    <FluentOverflowItem><FluentBadge>Office</FluentBadge></FluentOverflowItem>
+    <FluentOverflowItem><FluentBadge>Installation</FluentBadge></FluentOverflowItem>
+</FluentOverflow>

@@ -1,0 +1,72 @@
+﻿<h4>With long list</h4>
+<FluentCombobox Id="combobox-with-long-list" Autocomplete="ComboboxAutocomplete.Both" @bind-Value="@comboboxValue" TOption="string">
+    <FluentOption>Alabama</FluentOption>
+    <FluentOption>Alaska</FluentOption>
+    <FluentOption>Arizona</FluentOption>
+    <FluentOption>Arkansas</FluentOption>
+    <FluentOption>California</FluentOption>
+    <FluentOption>Colorado</FluentOption>
+    <FluentOption>Connecticut</FluentOption>
+    <FluentOption>Delaware</FluentOption>
+    <FluentOption>Florida</FluentOption>
+    <FluentOption>Georgia</FluentOption>
+    <FluentOption>Hawaii</FluentOption>
+    <FluentOption>Idaho</FluentOption>
+    <FluentOption>Illinois</FluentOption>
+    <FluentOption>Indiana</FluentOption>
+    <FluentOption>Iowa</FluentOption>
+    <FluentOption>Kansas</FluentOption>
+    <FluentOption>Kentucky</FluentOption>
+    <FluentOption>Louisiana</FluentOption>
+    <FluentOption>Maine</FluentOption>
+    <FluentOption>Maryland</FluentOption>
+    <FluentOption>Massachussets</FluentOption>
+    <FluentOption>Michigain</FluentOption>
+    <FluentOption>Minnesota</FluentOption>
+    <FluentOption>Mississippi</FluentOption>
+    <FluentOption>Missouri</FluentOption>
+    <FluentOption>Montana</FluentOption>
+    <FluentOption>Nebraska</FluentOption>
+    <FluentOption>Nevada</FluentOption>
+    <FluentOption>New Hampshire</FluentOption>
+    <FluentOption>New Jersey</FluentOption>
+    <FluentOption>New Mexico</FluentOption>
+    <FluentOption>New York</FluentOption>
+    <FluentOption>North Carolina</FluentOption>
+    <FluentOption>North Dakota</FluentOption>
+    <FluentOption>Ohio</FluentOption>
+    <FluentOption>Oklahoma</FluentOption>
+    <FluentOption>Oregon</FluentOption>
+    <FluentOption>Pennsylvania</FluentOption>
+    <FluentOption>Rhode Island</FluentOption>
+    <FluentOption>South Carolina</FluentOption>
+    <FluentOption>South Dakota</FluentOption>
+    <FluentOption>Texas</FluentOption>
+    <FluentOption>Tennessee</FluentOption>
+    <FluentOption>Utah</FluentOption>
+    <FluentOption>Vermont</FluentOption>
+    <FluentOption>Virginia</FluentOption>
+    <FluentOption>Washington</FluentOption>
+    <FluentOption>Wisconsin</FluentOption>
+    <FluentOption>West Virginia</FluentOption>
+    <FluentOption>Wyoming</FluentOption>
+</FluentCombobox>
+
+<h4>With forced position above</h4>
+<FluentCombobox Id="combobox-with-forced-position-above" Position="SelectPosition.Above" @bind-Value="@comboboxValue2" TOption="string">
+    <FluentOption>Position forced above</FluentOption>
+    <FluentOption>Option Two</FluentOption>
+</FluentCombobox>
+
+<h4>with forced position below</h4>
+<FluentCombobox Id="combobox-with-forced-position-below" Position="SelectPosition.Below" @bind-Value="@comboboxValue3" TOption="string">
+    <FluentOption>Position forced below</FluentOption>
+    <FluentOption>Option Two</FluentOption>
+</FluentCombobox>
+
+@code {
+    string? comboboxValue;
+    string? comboboxValue2 ="Position forced above" ;
+    string? comboboxValue3 = "Position forced below";
+
+}

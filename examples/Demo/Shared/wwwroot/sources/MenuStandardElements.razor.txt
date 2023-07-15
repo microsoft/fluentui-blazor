@@ -1,0 +1,5 @@
+﻿<FluentMenu Open="true">
+    <div role="menuitem">Menu item 1</div>
+    <div role="menuitem">Menu item 2</div>
+    <div role="menuitem">Menu item 3</div>
+</FluentMenu>

@@ -1,0 +1,56 @@
+﻿@inject BaseLayerLuminance BaseLayerLuminance
+@inject AccentBaseColor AccentBaseColor
+@inject BodyFont BodyFont
+@inject StrokeWidth StrokeWidth
+@inject ControlCornerRadius ControlCornerRadius
+
+<FluentButton @ref="ref1" Appearance="Appearance.Neutral">A button set to Dark</FluentButton>
+<FluentButton @ref="ref2" Appearance="Appearance.Accent">A button set to Excel green</FluentButton>
+<FluentAnchor @ref="ref3" Appearance="Appearance.Neutral" Href="componentbindings" title="A link styled as a button with a specific font">A link styled as a button</FluentAnchor>
+<FluentButton @ref="ref4" Appearance="Appearance.Neutral" @onclick=OnClick>Click me to toggle the border!</FluentButton>
+
+
+@code {
+    private FluentButton? ref1;
+    private FluentButton? ref2;
+    private FluentAnchor? ref3;
+    private FluentButton? ref4;
+
+    private bool bigBorder = true;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Set to dark mode
+            await BaseLayerLuminance.SetValueFor(ref1!.Element, (float)0.23);
+
+            // Set the accent color 
+            await AccentBaseColor.SetValueFor(ref2!.Element, "#107C41".ToSwatch());
+
+            // Set the font
+            await BodyFont.SetValueFor(ref3!.Element, "Comic Sans MS");
+
+            // Set 'border' width for ref4
+            await StrokeWidth.SetValueFor(ref4!.Element, 7);
+
+            // And change conrner radius as well
+            await ControlCornerRadius.SetValueFor(ref4!.Element, 15);
+
+            StateHasChanged();
+        }
+
+    }
+
+    public async Task OnClick()
+    {
+
+
+        if (bigBorder)
+            await StrokeWidth.DeleteValueFor(ref4!.Element);
+        else
+            await StrokeWidth.SetValueFor(ref4!.Element, 7);
+
+        bigBorder = !bigBorder;
+    }
+}
