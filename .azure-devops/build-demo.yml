@@ -50,9 +50,20 @@ steps:
       command: 'restore'
       projects: $(Projects)
   
-  # Publish the projects
+  # Build the projects
   - task: DotNetCoreCLI@2
     displayName: 'Build $(Build.BuildNumber)'
+    inputs:
+      command: 'build'
+      publishWebProjects: false  # True to build all Web Projects
+      projects: $(Projects)
+      arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
+      zipAfterPublish: false
+      workingDirectory: '$(Build.SourcesDirectory)'
+
+  # Publish the projects
+  - task: DotNetCoreCLI@2
+    displayName: 'Publish $(Build.BuildNumber)'
     inputs:
       command: 'publish'
       publishWebProjects: false  # True to build all Web Projects
