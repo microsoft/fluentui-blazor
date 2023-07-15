@@ -1,19 +1,64 @@
-# Build the Demo projects.
+# Build and test projects.
 
 pr: none      # Disable pull request triggers.
 trigger: none # Disable push triggers.
 
 # Build.BuildNumber
-# use the variable "PublicVersion" to define a public version number (Ex. 2.3.6 or 3.0.0-preview.3)
 name: $(VersionMajor).$(Year:yy)$(DayOfYear).$(Rev:r)
 
 pool:
   vmImage: 'windows-2022'
 
-extends:
-  template: common/template-to-build-projects.yml
-  parameters:
-      Projects: |
-       **/FluentUI.Demo.Client.csproj
-      Demos: |
-       **/FluentUI.Demo.Client.csproj
+variables:
+- group: Versioning # These variables are in Azure DevOps / Pipelines / Library
+
+- name: Projects
+  value: |
+      **/FluentUI.Demo.Client.csproj
+
+steps:
+  - task: NuGetToolInstaller@1
+    displayName: Install NuGet tools
+
+  - task: UseDotNet@2
+    displayName: 'Install .NET 8.0'
+    inputs:
+      version: 8.0.x
+      includePreviewVersions: true
+  
+  # Set version number
+  - task: Assembly-Info-NetCore@3
+    displayName: 'Versioning $(Build.BuildNumber)'
+    inputs:
+      Path: '$(Build.SourcesDirectory)'
+      FileNames: '**/*.csproj'
+      InsertAttributes: true
+      FileEncoding: 'auto'
+      WriteBOM: false
+      VersionNumber: '$(Build.BuildNumber)'
+      FileVersionNumber: '$(Build.BuildNumber)'
+      InformationalVersion: '$(Build.BuildNumber)'
+      PackageVersion: '$(Build.BuildNumber)'
+      LogLevel: 'verbose'
+      FailOnWarning: false
+      DisableTelemetry: false
+  
+  # Install dependencies
+  - task: DotNetCoreCLI@2
+    displayName: Install dependencies
+    inputs:
+      command: 'restore'
+      projects: '$(Projects)'
+  
+  # Build the projects
+  - task: DotNetCoreCLI@2
+    displayName: 'Build $(Build.BuildNumber)'
+    inputs:
+      command: 'publish'
+      projects: '$(Projects)'
+      arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
+  
+  # Publish the Artifacts
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'

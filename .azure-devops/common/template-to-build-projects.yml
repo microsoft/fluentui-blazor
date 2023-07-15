@@ -7,12 +7,8 @@ parameters:
   type: string
   default: false
 
-- name: Demos       # List of demo projects to publish
-  type: string
-  default: false
-
 variables:
-- group: Versioning
+- group: Versioning # These variables are in Azure DevOps / Pipelines / Library
 
 steps:
 
@@ -23,7 +19,7 @@ steps:
       $package = "$($builds[0]).$($builds[1]).0-preview.$($preview).$($builds[2]).$($builds[3])"
       $sign = "false";
       $toTest = "false";
- 
+
       # If PublicVersion is set, then we are building a public and signed version.
       if ("$(PublicVersion)" -ne "")
       {
@@ -103,15 +99,7 @@ steps:
       command: 'build'
       projects: ${{ parameters.Projects }}
       arguments: '--configuration Release'
-
-  # Publish the Demo Website
-  - task: DotNetCoreCLI@2
-    displayName: 'Publish Demo $(Build.BuildNumber)'
-    inputs:
-      command: 'publish'
-      projects: ${{ parameters.Demos }}
-      arguments: '--configuration Release --output "$(Build.ArtifactStagingDirectory)/demo"'
-
+  
   # Test and generate Code Coverage
   - task: DotNetCoreCLI@2
     condition: eq(variables['ShouldTest'], 'true')
