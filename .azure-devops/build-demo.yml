@@ -13,7 +13,7 @@ pool:
 extends:
   template: common/template-to-build-projects.yml
   parameters:
-    Projects: |
+      Projects: |
        **/FluentUI.Demo.Client.csproj.csproj
     buildSteps:
       # Publish the project
