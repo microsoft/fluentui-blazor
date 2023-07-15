@@ -1,0 +1,10 @@
+﻿::deep fluent-card {
+    --card-height: 400px;
+    --card-width: 500px;
+    padding: 20px;
+    margin: 12px;
+}
+::deep > .contents {
+    display: flex;
+    flex-direction: column;
+}

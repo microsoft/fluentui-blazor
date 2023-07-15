@@ -1,0 +1,18 @@
+﻿@inject DataSource Data
+<h4>Filled</h4>
+<FluentCombobox Id="combobox" 
+                Appearance="Appearance.Filled"                
+                TOption="string"
+                Items="@Data.Hits"
+                @bind-Value="@selectedValue">
+    
+</FluentCombobox>
+
+<p>
+    Selected Value: @selectedValue<br />
+    
+</p>
+
+@code {
+    string? selectedValue = "Help!";
+}

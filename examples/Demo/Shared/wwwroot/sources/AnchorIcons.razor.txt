@@ -1,0 +1,21 @@
+﻿<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1em;">
+    <FluentAnchor Href="#">
+        With icon at start
+        <FluentIcon Icon="Icons.Regular.Size16.Globe" Color="@Color.Neutral" Slot="start" />
+    </FluentAnchor>
+
+    <FluentAnchor Href="#">
+        <FluentIcon Icon="Icons.Regular.Size16.Globe" Color="@Color.Neutral" Slot="end" />
+        With icon at end
+    </FluentAnchor>
+</div>
+
+<FluentDivider Role=DividerRole.Separator />
+
+<div style="display: flex; align-items: center; gap: 10px; margin-top: 1em;">
+    With icon in default slot:
+        <FluentAnchor Href="#">
+            <FluentIcon Icon="Icons.Regular.Size16.Globe" />
+        </FluentAnchor>
+    
+</div>

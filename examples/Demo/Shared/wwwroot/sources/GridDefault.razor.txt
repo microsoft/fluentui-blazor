@@ -1,0 +1,54 @@
+﻿<FluentSelect Items=@(Enum.GetValues<JustifyContent>())
+              OptionValue="@(c => c.ToAttributeValue())"
+              TOption="JustifyContent"
+              Position="SelectPosition.Below"
+              @bind-SelectedOption="@Justification" />
+<br /><br />
+
+<FluentGrid Spacing="3" Justify="@Justification" Style="background-color: #f5f5f5;">
+    <FluentGridItem xs="12">
+        <div class="card">
+            xs="12"
+        </div>
+    </FluentGridItem>
+    <FluentGridItem xs="12" sm="6">
+        <div class="card">
+            xs="12" sm="6"
+        </div>
+    </FluentGridItem>
+    <FluentGridItem xs="12" sm="6">
+        <div class="card">
+            xs="12" sm="6"
+        </div>
+    </FluentGridItem>
+    <FluentGridItem xs="6" sm="3">
+        <div class="card">
+            xs="6" sm="3"
+        </div>
+    </FluentGridItem>
+    <FluentGridItem xs="6" sm="3">
+        <div class="card">
+            xs="6" sm="3"
+        </div>
+    </FluentGridItem>
+    <FluentGridItem xs="6" sm="3">
+        <div class="card">
+            xs="6" sm="3"
+        </div>
+    </FluentGridItem>
+    <FluentGridItem xs="6" sm="3">
+        <div class="card">
+            xs="6" sm="3"
+        </div>
+    </FluentGridItem>
+    <FluentGridItem xs="3">
+        <div class="card">
+            xs="3"
+        </div>
+    </FluentGridItem>
+</FluentGrid>
+
+@code
+{
+    JustifyContent Justification = JustifyContent.FlexStart;
+}

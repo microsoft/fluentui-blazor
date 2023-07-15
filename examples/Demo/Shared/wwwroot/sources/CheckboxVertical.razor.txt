@@ -1,0 +1,11 @@
+﻿
+<fieldset style="display: flex; flex-direction: column; align-items: start; grid-row-gap:10px;" >
+    <legend>Fruit</legend>
+    <FluentCheckbox @bind-Value=value1>Apples</FluentCheckbox>
+    <FluentCheckbox @bind-Value=value2>Bananas</FluentCheckbox>
+    <FluentCheckbox @bind-Value=value3>Honeydew</FluentCheckbox>
+    <FluentCheckbox @bind-Value=value4>Oranges</FluentCheckbox>
+</fieldset>
+@code {
+    bool value1 = true , value2 = true, value3, value4 = true;
+}
