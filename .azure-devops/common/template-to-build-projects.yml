@@ -12,7 +12,7 @@ parameters:
   default: false
 
 variables:
-- group: my-variable-group
+- group: Versioning
 
 steps:
 
