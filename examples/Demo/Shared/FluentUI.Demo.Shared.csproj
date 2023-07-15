@@ -60,7 +60,7 @@
 
 	<ItemGroup>
 		<AdditionalFiles Include="$(ProjectDir)/*.xml" />
-		<Folder Include="wwwroot\sources\" />
+		<Content Include="wwwroot\sources\**" />
 	</ItemGroup>
 
 	<Target Name="CopySources" BeforeTargets="BeforeBuild">
