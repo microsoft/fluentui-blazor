@@ -50,7 +50,7 @@ steps:
       command: 'restore'
       projects: $(Projects)
   
-  # Build the projects
+  # Publish the projects
   - task: DotNetCoreCLI@2
     displayName: 'Build $(Build.BuildNumber)'
     inputs:
