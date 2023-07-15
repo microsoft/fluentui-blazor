@@ -1,4 +1,4 @@
-# Build Demo Project.
+# Build the Demo projects.
 
 pr: none      # Disable pull request triggers.
 trigger: none # Disable push triggers.
@@ -14,13 +14,6 @@ extends:
   template: common/template-to-build-projects.yml
   parameters:
       Projects: |
-       **/FluentUI.Demo.Client.csproj.csproj
-
-      buildSteps:
-        # Publish the project
-        - task: DotNetCoreCLI@2
-          displayName: 'Publish $(Build.BuildNumber)'
-          inputs:
-            command: 'publish'
-            projects: ${{ parameters.Projects }}
-            arguments: '--configuration Release --output $(Build.SourcesDirectory)\Publish'
+       **/FluentUI.Demo.Client.csproj
+      Demos: |
+       **/FluentUI.Demo.Client.csproj
