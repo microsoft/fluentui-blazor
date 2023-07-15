@@ -62,13 +62,6 @@
 		<AdditionalFiles Include="$(ProjectDir)/*.xml" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Compile Remove="wwwroot\sources\**" />
-	  <Content Remove="wwwroot\sources\**" />
-	  <EmbeddedResource Remove="wwwroot\sources\**" />
-	  <None Remove="wwwroot\sources\**" />
-	</ItemGroup>
-
 	<Target Name="CopySources" BeforeTargets="BeforeBuild">
 		<ItemGroup>
 			<Sources Include="$(ProjectDir)\Pages\**\Examples\*" />
