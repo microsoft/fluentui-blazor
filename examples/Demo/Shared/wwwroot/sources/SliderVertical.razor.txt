@@ -1,9 +1,0 @@
-﻿<FluentSlider Orientation="Orientation.Vertical" Min="0" Max="100" Step="10" @bind-Value=value style="height: 300px; width: 50px;">
-    <FluentSliderLabel Position="0">0&#8451;</FluentSliderLabel>
-    <FluentSliderLabel Position="10">10&#8451;</FluentSliderLabel>
-    <FluentSliderLabel Position="90">90&#8451;</FluentSliderLabel>
-    <FluentSliderLabel Position="100">100&#8451;</FluentSliderLabel>
-</FluentSlider>
-@code {
-    int value=50;
-}
