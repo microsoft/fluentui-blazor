@@ -1,11 +1,11 @@
 parameters:
 - name: Projects		# List of projects to build
   type: string
-  default: false
+  default: ''
 
 - name: Tests		    # List of Unit-Test projects to run
   type: string
-  default: false
+  default: ''
 
 variables:
 - group: Versioning # These variables are in Azure DevOps / Pipelines / Library
