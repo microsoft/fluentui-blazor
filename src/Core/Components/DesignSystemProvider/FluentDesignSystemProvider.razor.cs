@@ -45,58 +45,58 @@ public partial class FluentDesignSystemProvider : FluentComponentBase
     public float? DisabledOpacity { get; set; }
 
     [Parameter]
-    public float? TypeRampMinus2FontSize { get; set; }
+    public string? TypeRampMinus2FontSize { get; set; }
 
     [Parameter]
-    public float? TypeRampMinus2LineHeight { get; set; }
+    public string? TypeRampMinus2LineHeight { get; set; }
 
     [Parameter]
-    public float? TypeRampMinus1FontSize { get; set; }
+    public string? TypeRampMinus1FontSize { get; set; }
 
     [Parameter]
-    public float? TypeRampMinus1LineHeight { get; set; }
+    public string? TypeRampMinus1LineHeight { get; set; }
 
     [Parameter]
-    public float? TypeRampBaseFontSize { get; set; }
+    public string? TypeRampBaseFontSize { get; set; }
 
     [Parameter]
-    public float? TypeRampBaseLineHeight { get; set; }
+    public string? TypeRampBaseLineHeight { get; set; }
 
     [Parameter]
-    public float? TypeRampPlus1FontSize { get; set; }
+    public string? TypeRampPlus1FontSize { get; set; }
 
     [Parameter]
-    public float? TypeRampPlus1LineHeight { get; set; }
+    public string? TypeRampPlus1LineHeight { get; set; }
 
     [Parameter]
-    public float? TypeRampPlus2FontSize { get; set; }
+    public string? TypeRampPlus2FontSize { get; set; }
 
     [Parameter]
-    public float? TypeRampPlus2LineHeight { get; set; }
+    public string? TypeRampPlus2LineHeight { get; set; }
 
     [Parameter]
-    public float? TypeRampPlus3FontSize { get; set; }
+    public string? TypeRampPlus3FontSize { get; set; }
 
     [Parameter]
-    public float? TypeRampPlus3LineHeight { get; set; }
+    public string? TypeRampPlus3LineHeight { get; set; }
 
     [Parameter]
-    public float? TypeRampPlus4FontSize { get; set; }
+    public string? TypeRampPlus4FontSize { get; set; }
 
     [Parameter]
-    public float? TypeRampPlus4LineHeight { get; set; }
+    public string? TypeRampPlus4LineHeight { get; set; }
 
     [Parameter]
-    public float? TypeRampPlus5FontSize { get; set; }
+    public string? TypeRampPlus5FontSize { get; set; }
 
     [Parameter]
-    public float? TypeRampPlus5LineHeight { get; set; }
+    public string? TypeRampPlus5LineHeight { get; set; }
 
     [Parameter]
-    public float? TypeRampPlus6FontSize { get; set; }
+    public string? TypeRampPlus6FontSize { get; set; }
 
     [Parameter]
-    public float? TypeRampPlus6LineHeight { get; set; }
+    public string? TypeRampPlus6LineHeight { get; set; }
 
     [Parameter]
     public int? AccentFillRestDelta { get; set; }

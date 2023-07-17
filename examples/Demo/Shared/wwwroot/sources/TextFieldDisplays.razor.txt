@@ -1,0 +1,9 @@
+﻿<h4>Full Width</h4>
+<FluentTextField @bind-Value=value1 style="width: 100%;"></FluentTextField>
+
+<h4>Placeholder</h4>
+<FluentTextField @bind-Value=value2 Placeholder="Placeholder"></FluentTextField>
+
+@code {
+    string? value1, value2;
+}

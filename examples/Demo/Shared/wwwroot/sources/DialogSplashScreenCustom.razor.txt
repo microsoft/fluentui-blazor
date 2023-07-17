@@ -1,0 +1,6 @@
+﻿@inject IDialogService DialogService
+
+<FluentButton @onclick="@OpenSplashCustom" Appearance="Appearance.Accent">
+    Open customized splash screen
+</FluentButton>
+

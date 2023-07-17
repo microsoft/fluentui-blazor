@@ -56,18 +56,21 @@ export function afterStarted(Blazor) {
     Blazor.registerCustomEventType('selectedchange', {
         browserEventName: 'selected-change',
         createEventArgs: event => {
-            return {
-                affectedId: event.detail.attributes['tree-item-id'].value,
-                selected: event.detail._selected,
-                expanded: event.detail._expanded
+            if (event.target.localName == 'fluent-tree-item') {
+                return {
+                    affectedId: event.detail.attributes['id'].value,
+                    selected: event.detail._selected,
+                    expanded: event.detail._expanded
+                }
             };
+            return null;
         }
     });
     Blazor.registerCustomEventType('expandedchange', {
         browserEventName: 'expanded-change',
         createEventArgs: event => {
             return {
-                affectedId: event.detail.attributes['tree-item-id'].value,
+                affectedId: event.detail.attributes['id'].value,
                 selected: event.detail._selected,
                 expanded: event.detail._expanded
             };

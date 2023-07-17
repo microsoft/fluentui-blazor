@@ -1,0 +1,11 @@
+﻿
+
+<h4>Minlength</h4>
+<FluentSearch @bind-Value=value Minlength ="4">Minlength</FluentSearch>
+
+<h4>Maxlength</h4>
+<FluentSearch @bind-Value=value Maxlength ="4">Maxlength</FluentSearch>
+@code {
+    string? value;
+}
+

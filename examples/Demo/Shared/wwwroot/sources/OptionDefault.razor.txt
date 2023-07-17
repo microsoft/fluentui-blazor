@@ -1,0 +1,15 @@
+﻿<FluentSelect Value=@("a string value") TOption="string">
+    <FluentOption>
+        Text content is the value when the value attribute is absent.
+    </FluentOption>
+</FluentSelect>
+<br />
+<FluentSelect Value=@("a string value") TOption="string">
+    <FluentOption Value=@("here is a value attribute")>
+        Even when the value attribute and text are both present, this text should be displayed.
+    </FluentOption>
+</FluentSelect>
+<br />
+<FluentSelect TOption=string>
+    <FluentOption Value=@("This option has no text content.")></FluentOption>
+</FluentSelect>

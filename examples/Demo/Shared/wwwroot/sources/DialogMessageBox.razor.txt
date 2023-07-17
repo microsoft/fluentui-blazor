@@ -1,0 +1,13 @@
+﻿@inject IDialogService DialogService
+
+
+<FluentStack>
+    <FluentButton @onclick="@ShowSuccess" Appearance="Appearance.Accent">Success</FluentButton>
+    <FluentButton @onclick="@ShowWarning" Appearance="Appearance.Accent">Warning</FluentButton>
+    <FluentButton @onclick="@ShowError" Appearance="Appearance.Accent">Error</FluentButton>
+    <FluentButton @onclick="@ShowInformation" Appearance="Appearance.Accent">Information</FluentButton>
+    <FluentButton @onclick="@ShowConfirmation" Appearance="Appearance.Accent">Confirmation</FluentButton>
+    <FluentButton @onclick="@ShowMessageBoxLong" Appearance="Appearance.Accent">Long message</FluentButton>
+    <FluentButton @onclick="@ShowMessageBox" Appearance="Appearance.Accent">Custom message</FluentButton>
+</FluentStack>
+

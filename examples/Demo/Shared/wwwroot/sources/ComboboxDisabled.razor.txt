@@ -1,0 +1,32 @@
+﻿<h4>Disabled Combobox</h4>
+<FluentCombobox Disabled="true" @bind-Value="@comboboxValue" TOption="string">
+    <FluentOption>Extra Small</FluentOption>
+    <FluentOption>Small</FluentOption>
+    <FluentOption>Medium</FluentOption>
+    <FluentOption>Large</FluentOption>
+    <FluentOption>Extra Large</FluentOption>
+</FluentCombobox>
+
+<h4>Combobox with disabled items</h4>
+<FluentCombobox @bind-Value="@comboboxValue" TOption="string">
+    <FluentOption>Extra Small</FluentOption>
+    <FluentOption Disabled="true">Small</FluentOption>
+    <FluentOption>Medium</FluentOption>
+    <FluentOption Disabled="true">Large</FluentOption>
+    <FluentOption>Extra Large</FluentOption>
+</FluentCombobox>
+
+
+<h4>Combobox with all items disabled</h4>
+<p><em>Note that 'Small' has been selected through the <code>@@bind-Value</code> callback and cannot be changed.</em></p>
+<FluentCombobox Id="combobox-with-all-disabled" @bind-Value="@comboboxValue" TOption="string">
+    <FluentOption Disabled="true">Extra Small</FluentOption>
+    <FluentOption Disabled="true">Small</FluentOption>
+    <FluentOption Disabled="true">Medium</FluentOption>
+    <FluentOption Disabled="true">Large</FluentOption>
+    <FluentOption Disabled="true">Extra Large</FluentOption>
+</FluentCombobox>
+
+@code {
+    string? comboboxValue = "Small";
+}

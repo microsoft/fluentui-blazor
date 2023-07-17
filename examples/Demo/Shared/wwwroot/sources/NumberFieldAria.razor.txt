@@ -1,0 +1,15 @@
+﻿<h4>Visual vs audio label</h4>
+<FluentNumberField @bind-Value=value1>
+    <span aria-label="Audio label">Visible label</span>
+</FluentNumberField>
+
+<h4>Audio label only</h4>
+<FluentNumberField @bind-Value=value2>
+    <span aria-label="Audio label only"></span>
+</FluentNumberField>
+
+<h4>With aria-label</h4>
+<FluentNumberField @bind-Value=value3 aria-label="Text field with aria-label"></FluentNumberField>
+@code {
+    int? value1, value2, value3;
+}

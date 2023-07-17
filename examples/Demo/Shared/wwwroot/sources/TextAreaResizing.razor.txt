@@ -1,0 +1,12 @@
+﻿<h4>Both</h4>
+<FluentTextArea @bind-Value=value1 Resize="TextAreaResize.Both"></FluentTextArea>
+
+<h4>Horizontal</h4>
+<FluentTextArea @bind-Value=value2 Resize="TextAreaResize.Horizontal"></FluentTextArea>
+
+<h4>Vertical</h4>
+<FluentTextArea @bind-Value=value3 Resize="TextAreaResize.Vertical"></FluentTextArea>
+
+@code {
+    string? value1, value2, value3;
+}

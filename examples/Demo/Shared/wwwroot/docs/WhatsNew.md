@@ -31,7 +31,12 @@
 - Icon
 - Emoji
 
-﻿## V2.4.0
+﻿## V2.4.1
+- Fix [#537](https://github.com/microsoft/fluentui-blazor/issues/537): Make SetTotalItemCountAsync in PaginationState public
+- Fix [#539](https://github.com/microsoft/fluentui-blazor/issues/539): Slider bugs
+- Fix [#528](https://github.com/microsoft/fluentui-blazor/issues/537): FluentDesignSystemProvider fixes
+
+## V2.4.0
 - The `FluentSlider` is now generic which means it also supports `double`, `float`, `decimal`, `long' and `short` values besides `int` 
 values. An example for this has been added to the demo site
 - Add Style to `FluentDesignSystemProvider` (thanks @luohuaRain)
