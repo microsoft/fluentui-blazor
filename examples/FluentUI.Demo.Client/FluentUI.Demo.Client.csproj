@@ -68,7 +68,7 @@
 				Activities,Animals_Nature,Flags,Food_Drink,Objects,People_Body,Smileys_Emotion,Symbols,Travel_Places 
 			Or leave out the property to have all groups included.
 		-->
-		<FluentEmojiGroups>Activities,  Animals_Nature,Flags  ,Food_Drink,Objects,Smileys_Emotion,Symbols,Travel_Places</FluentEmojiGroups>
+		<FluentEmojiGroups>Activities,  Animals_Nature,Flags  ,Food_Drink,Objects,Smileys_Emotion,Symbols</FluentEmojiGroups>
 
 		<!-- 
 			Specify at least one (or more) style(s) from the following options: (separated by ',':) 
