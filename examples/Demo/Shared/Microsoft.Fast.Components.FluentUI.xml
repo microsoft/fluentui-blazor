@@ -3289,16 +3289,6 @@
             Event callback for when the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.Expanded"/> property changes.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.OnGroupSelected">
-            <summary>
-            Called whenever a contained <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenuGroup"/> is selected or unselected.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.OnLinkSelected">
-            <summary>
-            Called whever a contained <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenuLink"/> is selected or unselected.
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.OnAction">
             <summary>
             Called when the user attempts to execute the default action of a menu item.
