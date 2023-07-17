@@ -20,4 +20,3 @@ builder.Services.AddFluentUIComponents(options =>
 builder.Services.AddScoped<DataSource>();
 
 await builder.Build().RunAsync();
-// force rebuild
