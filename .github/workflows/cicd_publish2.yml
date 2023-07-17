@@ -72,6 +72,7 @@ jobs:
           api_location: "Api"
           output_location: "publish/wwwroot"
           skip_api_build: true
+          skip_app_build: true
           production_branch: "version2"
 
   destroy:
