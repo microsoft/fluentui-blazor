@@ -35,7 +35,6 @@ public partial class FluentNavMenuGroup : FluentNavMenuItemBase, INavMenuItemsOw
     /// </summary>
     public bool Collapsed => !Expanded;
 
-
     public FluentNavMenuGroup()
     {
         Id = Identifier.NewId();
@@ -88,19 +87,32 @@ public partial class FluentNavMenuGroup : FluentNavMenuItemBase, INavMenuItemsOw
 
     IEnumerable<FluentNavMenuItemBase> INavMenuItemsOwner.GetChildItems() => _childItems;
 
-    private Task ToggleCollapsedAsync() => HandleExpandedChangedAsync(!Expanded);
-
-    private async Task HandleExpandedChangedAsync(bool value)
+    protected internal override async ValueTask ExecuteAsync(NavMenuActionArgs args)
     {
-        if (value == Expanded)
+        await base.ExecuteAsync(args);
+        if (Collapsed)
         {
-            return;
+            await SetExpandedAsync(true);
         }
+    }
 
-        Expanded = value;
-        if (ExpandedChanged.HasDelegate)
+    // Always render a group's child items when the nav menu is expanded.
+    // Otherwise, only groups directly parented by the nav menu should render
+    // their child items; this is so the web components know the item has
+    // children and will allow the arrow keys to expand the group.
+    private bool GetShouldRenderChildContent() => NavMenu.Expanded || Owner == NavMenu;
+
+    private Task ToggleCollapsedAsync() => SetExpandedAsync(!Expanded);
+
+    private async Task SetExpandedAsync(bool value)
+    {
+        if (value != Expanded)
         {
-            await ExpandedChanged.InvokeAsync(value);
+            Expanded = value;
+            if (ExpandedChanged.HasDelegate)
+            {
+                await ExpandedChanged.InvokeAsync(value);
+            }
         }
 
         await NavMenu.MenuItemExpandedChangedAsync(this);

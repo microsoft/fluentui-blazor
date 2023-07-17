@@ -6,6 +6,7 @@
                       style="@Style"
                       render-collapsed-nodes="@RenderCollapsedNodes"
                       currentSelected="@CurrentSelected"
+                      @onselectedchange="@HandleCurrentSelectedChangeAsync"
                       @attributes="AdditionalAttributes">
         @ChildContent
     </fluent-tree-view>

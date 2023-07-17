@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
@@ -115,15 +116,34 @@ public abstract class FluentNavMenuItemBase : FluentComponentBase, IDisposable
         }
         if (!string.IsNullOrEmpty(Href))
         {
-            NavigationManager.NavigateTo(Href);
             args.SetHandled();
+            if (NeedsNavigation())
+            {
+                NavigationManager.NavigateTo(Href);
+            }
         }
     }
+
     protected override void OnInitialized()
     {
         base.OnInitialized();
         Owner.Register(this);
         NavMenu.Register(this);
+    }
+
+    protected internal async Task SetSelectedAsync(bool value)
+    {
+        if (value == Selected)
+        {
+            return;
+        }
+
+        Selected = value;
+        if (SelectedChanged.HasDelegate)
+        {
+            await SelectedChanged.InvokeAsync(value);
+        }
+        StateHasChanged();
     }
 
     protected virtual void Dispose(bool disposing)
@@ -141,4 +161,23 @@ public abstract class FluentNavMenuItemBase : FluentComponentBase, IDisposable
 
         _disposed = true;
     }
+
+    private bool NeedsNavigation()
+    {
+        if (string.IsNullOrEmpty(Href) || NavigationManager.Uri.Equals(Href, StringComparison.InvariantCultureIgnoreCase))
+        {
+            return false;
+        }
+
+        Uri baseUri = new Uri(NavigationManager.BaseUri);
+        Uri currentUri = new Uri(NavigationManager.Uri);
+        if (Uri.TryCreate(baseUri, Href, out Uri? comparisonUri) && comparisonUri.Equals(currentUri))
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+
 }

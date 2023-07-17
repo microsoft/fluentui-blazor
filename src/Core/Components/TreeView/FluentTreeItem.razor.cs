@@ -2,8 +2,10 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentTreeItem : FluentComponentBase
+public partial class FluentTreeItem : FluentComponentBase, IDisposable
 {
+    private bool _disposed;
+
     /// <summary>
     /// Gets or sets the text of the tree item
     /// </summary>
@@ -78,6 +80,29 @@ public partial class FluentTreeItem : FluentComponentBase
         Id = Identifier.NewId();
     }
 
+    void IDisposable.Dispose()
+    {
+        // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (_disposed)
+        {
+            return;
+        }
+
+        if (disposing)
+        {
+            Owner?.Unregister(this);
+        }
+
+        _disposed = true;
+    }
+
+
     internal async Task SetSelectedAsync(bool value)
     {
         if (value == Selected)
@@ -95,6 +120,7 @@ public partial class FluentTreeItem : FluentComponentBase
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
+        Owner.Register(this);
         if (InitiallyExpanded && !Expanded)
         {
             Expanded = true;
@@ -142,5 +168,6 @@ public partial class FluentTreeItem : FluentComponentBase
             await tree.ItemSelectedChangeAsync(this);
         }
     }
+
 
 }

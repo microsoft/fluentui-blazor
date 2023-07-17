@@ -1,5 +1,5 @@
-@namespace FluentUI.Demo.Shared
 @using System.Text;
+@namespace FluentUI.Demo.Shared
 
 <h2>Custom Actions Example</h2>
 
@@ -7,42 +7,39 @@
     <div>
         <FluentNavMenu OnAction="@InterceptAtMenuLevel">
             @*
-            These items are handled by the MenuLevelHandler, which intercepts any components
-            with a name ending with _HandleAtMenuLevel
+            This item is handled by the MenuLevelHandler, which intercepts all items
+            but will only handle ones with Id ending with _HandleAtMenuLevel
             *@
-            <FluentNavMenuLink Id="Item1_HandleAtMenuLevel" Text="Item 1 - Handled at menu level" />
-            <FluentNavMenuLink Id="Item2_HandleAtMenuLevel" Text="Item 2 - Handled at menu level" />
+            <FluentNavMenuLink Id="HandleAtMenuLevel" Text="Handled at menu level" Icon="@(new Icons.Regular.Size24.Home())" />
 
             @*
-            These items each have an OnAction callback specified that intercepts any components
-            with a name ending with _HandleAtItemLevel
+            This item has an OnAction callback specified at item level
             *@
-            <FluentNavMenuGroup OnAction="@InterceptAtMenuLevelAsync" Id="Item3_HandleAtItemLevel" Text="Item 3" InitiallyExpanded="true">
-                <FluentNavMenuLink OnAction="@InterceptAtMenuLevelAsync" Id="Item3_1_HandleAtItemLevel" Text="Item 3.1" />
-                <FluentNavMenuLink OnAction="@InterceptAtMenuLevelAsync" Id="Item3_2_HandleAtItemLevel" Text="Item 3.2" />
-            </FluentNavMenuGroup>
+            <FluentNavMenuLink OnAction="@InterceptAtItemLevel" Text="Handled at item level" Icon="@(new Icons.Regular.Size24.LeafOne())" />
 
             @*
-            None of these items have an Id that is handled by the two previous handler callbacks, and
-            none have a Href, so these won't be selectable
+            This item is intercepted by the menu but not marked as handled.
+            It does not have an item handler to mark it as handled.
+            It does not have a Href, so will not be selectable.
             *@
-            <FluentNavMenuGroup Text="Item 4" InitiallyExpanded="true">
-                <FluentNavMenuLink Text="Item 4.1" />
-                <FluentNavMenuLink OnAction="@InterceptAtMenuLevelAsync" Text="Item 4.2" />
-            </FluentNavMenuGroup>
+            <FluentNavMenuLink Text="Not selectable" Icon="@(new Icons.Regular.Size24.DismissCircle())" />
 
             @*
             This item shows a dialog
             *@
-            <FluentNavMenuLink OnAction="@ShowDialog" Text="Show a dialog" />
+            <FluentNavMenuLink OnAction="@ShowDialog" Text="Show a dialog" Icon="@(new Icons.Regular.Size24.Window())" />
 
             @*
-            This item doesn't have a special Id, so won't be handled by the menu-level handler.
-            It doesn't have a menu-level interceptor specified.
-            It does have a Href, so will navigate.
+            This item is disabled
             *@
-            <FluentNavMenuLink OnAction="@InterceptAtMenuLevelAsync" Href="https://microsoft.com" Text="Default behavior (navigate)" />
+            <FluentNavMenuLink Disabled Text="Disabled" Icon="@(new Icons.Regular.Size24.Prohibited())" Href="https://microsoft.com"/>
 
+            @*
+            This item is intercepted by the menu but not marked as handled.
+            It does not have an item handler to mark it as handled.
+            It does have a Href, so it will navigate.
+            *@
+            <FluentNavMenuLink Href="https://microsoft.com" Text="Default behavior (navigate)" Icon="@(new Icons.Regular.Size24.Earth())" />
         </FluentNavMenu>
     </div>
     <div style="width: 100%;">
@@ -59,54 +56,31 @@
 
 @code
 {
-    StringBuilder _output = new();
     bool _hideDialog = true;
+    StringBuilder _output = new();
 
     void InterceptAtMenuLevel(NavMenuActionArgs args)
     {
         _output = new StringBuilder();
-        _output.AppendLine($"Item \"{args.Target.Id}\" actioned at {DateTime.Now}");
-        _output.AppendLine($"Intercepting at menu level via {nameof(FluentNavMenu)}.{nameof(FluentNavMenu.OnAction)}");
-        if (args.Target.Id?.EndsWith("_HandleAtMenuLevel", StringComparison.OrdinalIgnoreCase) == true)
+        _output.AppendLine($"Actioned at {DateTime.Now}");
+        _output.AppendLine($"Item \"{args.Target.Id}\" intercepted at menu level.");
+        if (args.Target.Id == "HandleAtMenuLevel")
         {
-            _output.AppendLine($"Handled!");
+            _output.AppendLine("Handled at menu level.");
             args.SetHandled();
-        }
-        else
-        {
-            _output.AppendLine($"Ignored!");
         }
     }
 
-    async Task InterceptAtMenuLevelAsync(NavMenuActionArgs args)
+    void InterceptAtItemLevel(NavMenuActionArgs args)
     {
-        _output.AppendLine();
-        _output.AppendLine($"Intercepting at item level via {args.Target.GetType().Name}.{nameof(FluentNavMenu.OnAction)}");
-        if (args.Target.Id?.EndsWith("_HandleAtItemLevel", StringComparison.OrdinalIgnoreCase) == true)
-        {
-            _output.AppendLine($"Handled!");
-            args.SetHandled();
-        }
-        else
-        {
-            _output.AppendLine($"Ignored!");
-            if (string.IsNullOrEmpty(args.Target.Href))
-            {
-                _output.AppendLine($"No {nameof(FluentNavMenuItemBase.Href)} - so selection was prevented");
-            }
-            else
-            {
-                _output.AppendLine($"{nameof(FluentNavMenuItemBase.Href)} was set, navigating to {args.Target.Href}");
-                _output.AppendLine();
-                _output.AppendLine("BYE!!");
-                StateHasChanged();
-                await Task.Delay(1000);
-            }
-        }
+        _output.AppendLine($"Item \"{args.Target.Id}\" intercepted at item level.");
+        _output.AppendLine("Handled at item level.");
+        args.SetHandled();
     }
 
     void ShowDialog(NavMenuActionArgs args)
     {
+        _output.AppendLine($"Item \"{args.Target.Id}\" intercepted at item level.");
         _hideDialog = false;
         args.SetHandled();
     }
