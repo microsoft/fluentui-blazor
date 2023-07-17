@@ -25,7 +25,7 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
         .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
 
         // For Anchored == false
-        .AddStyle("z-index", "9999", () => !Anchored)
+        .AddStyle("z-index", $"{ZIndex.Menu}", () => !Anchored)
         .AddStyle("position", "fixed", () => !Anchored && !string.IsNullOrEmpty(Anchor))
         .AddStyle("width", "unset", () => !Anchored)
         .AddStyle("height", "unset", () => !Anchored)

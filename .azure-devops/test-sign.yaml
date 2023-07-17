@@ -17,8 +17,7 @@ parameters:
     **/Microsoft.Fast.Components.FluentUI.Emojis.csproj
 
 variables:
-  VersionMajor: '3.0'	# Major version of the projects  - Ex. 3.1.23280.4
-  VersionPreview: '5'	# Preview number of the projects - Ex. 3.1.0-preview.5.23280.4
+- group: Versioning # These variables are in Azure DevOps / Pipelines / Library
 
 steps:
 

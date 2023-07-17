@@ -116,8 +116,11 @@ public abstract class FluentNavMenuItemBase : FluentComponentBase, IDisposable
         }
         if (!string.IsNullOrEmpty(Href))
         {
-            NavigationManager.NavigateTo(Href);
             args.SetHandled();
+            if (NeedsNavigation())
+            {
+                NavigationManager.NavigateTo(Href);
+            }
         }
     }
 
@@ -135,8 +138,6 @@ public abstract class FluentNavMenuItemBase : FluentComponentBase, IDisposable
             return;
         }
 
-        Console.WriteLine($"***** Set {Text}.Selected = {value}");
-        Console.WriteLine(new StackTrace());
         Selected = value;
         if (SelectedChanged.HasDelegate)
         {
@@ -160,4 +161,23 @@ public abstract class FluentNavMenuItemBase : FluentComponentBase, IDisposable
 
         _disposed = true;
     }
+
+    private bool NeedsNavigation()
+    {
+        if (string.IsNullOrEmpty(Href) || NavigationManager.Uri.Equals(Href, StringComparison.InvariantCultureIgnoreCase))
+        {
+            return false;
+        }
+
+        Uri baseUri = new Uri(NavigationManager.BaseUri);
+        Uri currentUri = new Uri(NavigationManager.Uri);
+        if (Uri.TryCreate(baseUri, Href, out Uri? comparisonUri) && comparisonUri.Equals(currentUri))
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+
 }

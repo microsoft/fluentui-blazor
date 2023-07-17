@@ -8,7 +8,7 @@
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<LangVersion>latest</LangVersion>
-		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<GenerateDocumentationFile>false</GenerateDocumentationFile>
 		<IsTrimmable>true</IsTrimmable>
 		<SuppressTrimAnalysisWarnings>false</SuppressTrimAnalysisWarnings>
 	</PropertyGroup>
@@ -60,22 +60,14 @@
 
 	<ItemGroup>
 		<AdditionalFiles Include="$(ProjectDir)/*.xml" />
-		<Folder Include="wwwroot\sources\" />
 	</ItemGroup>
 
-	<Target Name="CopySources" BeforeTargets="CoreBuild">
+	<Target Name="CopySources" BeforeTargets="BeforeBuild">
 		<ItemGroup>
 			<Sources Include="$(ProjectDir)\Pages\**\Examples\*" />
 			<Sources Include="$(ProjectDir)\Pages\Lab\**" />
 			<Sources Include="$(ProjectDir)\Components\*" />
 		</ItemGroup>
 		<Copy SourceFiles="@(Sources)" DestinationFiles="@(Sources->'$(ProjectDir)wwwroot\sources\%(Filename)%(Extension).txt')" SkipUnchangedFiles="true" />
-	</Target>
-
-	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<ItemGroup>
-			<XmlFiles Include="$(ProjectDir)bin/$(Configuration)/net8.0/$(ProjectName).xml" />
-		</ItemGroup>
-		<Copy SourceFiles="@(XmlFiles)" DestinationFolder="$(SolutionDir)examples\Demo\Shared" SkipUnchangedFiles="true" />
 	</Target>
 </Project>

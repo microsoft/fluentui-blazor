@@ -25,51 +25,8 @@ on:
       - '**/*.gitattributes'
 
 jobs:
-  build_package:
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
-    name: Build and pack library package
-    runs-on: ubuntu-latest
-    env:
-      DOTNET_CLI_TELEMETRY_OPTOUT: 1
-      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
-      DOTNET_NOLOGO: true
-      DOTNET_GENERATE_ASPNET_CERTIFICATE: false
-      DOTNET_ADD_GLOBAL_TOOLS_TO_PATH: false
-      DOTNET_MULTILEVEL_LOOKUP: 0
-      PROJECT: "src/Core/Microsoft.Fast.Components.FluentUI.csproj"
-      BUILD_ARCH: "Any CPU"
-      BUILD_CONFIG: "Release"
-
-    steps:
-    - name: Checkout source
-      uses: actions/checkout@v3
-    
-    - name: .NET Setup SDKs 
-      uses: actions/setup-dotnet@v2
-      with:
-        dotnet-version: |
-            8.0.x
-        include-prerelease: true
-    
-    - name: Create build number
-      run: echo "BUILD_NUMBER=$NOW.$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
-      
-    - name: .NET Restore
-      run: dotnet restore ${{ env.PROJECT }}
-
-    - name: .NET Build package
-      run: dotnet build ${{ env.PROJECT }} --configuration ${{ env.BUILD_CONFIG }} --no-restore -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
-
-    - name: Upload package 
-      uses: actions/upload-artifact@v3
-      with:
-        name: nupkg
-        path: artifacts/**/*.nupkg
-        retention-days: 5
-  
-  deploy_demo:
+  build_deploy_demo:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed') 
-    needs: build_package
     runs-on: ubuntu-latest
     name: Build and deploy Demo site 
     env:
@@ -93,16 +50,13 @@ jobs:
           dotnet-version: |
             8.0.x
           include-prerelease: true
+     
+      - name: .NET Builld 
+        run: dotnet build ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o 'publish' -f net8.0 -r linux-x64 --self-contained=true -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
       
-      - name: Download package
-        uses: actions/download-artifact@v3
-        with:
-          name: nupkg
-          path: artifacts
-               
       - name: .NET Publish 
-        run: dotnet publish ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o publish -f net8.0 -r linux-x64 --sc -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true -p:CopyDocumentationFilesFromPackages=true
-        
+        run: dotnet publish ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o 'publish' -f net8.0 -r linux-x64 --self-contained=true -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
+       
       - name: Deploy demo site to new Azure Static Web App
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1

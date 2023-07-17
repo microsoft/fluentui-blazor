@@ -1,10 +1,14 @@
-﻿/*NavMenu*/
+﻿/*
+    NavMenu
+*/
 .navmenu {
     background-color: var(--neutral-layer-1);
 }
 
 
-/*NavMenu expander*/
+/*
+    NavMenu expander
+*/
 ::deep .nav-menu-expander::part(positioning-region) {
     background-color: var(--neutral-fill-stealth-rest);
 }
@@ -25,7 +29,9 @@
 
 
 
-/*Child Elements (Groups and Items)*/
+/*
+    Child Elements (Groups and Items)
+*/
 ::deep .navmenu-child-element::part(content-region) {
     -webkit-user-select: none;
     user-select: none;
@@ -35,14 +41,18 @@
 
 
 
-/* Groups */
+/* 
+    Groups
+*/
 ::deep .navmenu-group::part(content-region) {
     margin-inline-end: var(--expand-collapse-button-size);
 }
 
 
 
-/* Group expander*/
+/*
+    Group expander
+*/
 ::deep .navmenu .navmenu-group::part(expand-collapse-button) {
     right: calc(var(--design-unit) * 2px);
     left: unset;
@@ -56,15 +66,22 @@
 }
 
 
-
-/* Group items */
+/*
+    Group items
+*/
 ::deep .navmenu-group .navmenu-child-element::part(content-region) {
     padding-inline-start: 20px;
 }
 
+/* Hide any items inside groups of a collapsed nav menu*/
+::deep .navmenu.collapsed > .navmenu-parent-element::part(items) {
+    display: none;
+}
 
 
-/* Nav links */
+/*
+    Nav links
+*/
 ::deep .navmenu .navmenu-link::part(content-region) {
     margin-inline-start: calc(var(--design-unit) * 2px);
 }

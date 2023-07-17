@@ -1,0 +1,78 @@
+# Build and test projects.
+
+pr: none      # Disable pull request triggers.
+trigger: none # Disable push triggers.
+
+# Build.BuildNumber
+name: $(VersionMajor).$(Year:yy)$(DayOfYear).$(Rev:r)
+
+pool:
+  vmImage: 'windows-2022'
+
+variables:
+- group: Versioning # These variables are in Azure DevOps / Pipelines / Library
+
+- name: Projects
+  value: |
+      **/FluentUI.Demo.Client.csproj
+
+steps:
+  - task: NuGetToolInstaller@1
+    displayName: Install NuGet tools
+
+  - task: UseDotNet@2
+    displayName: 'Install .NET 8.0'
+    inputs:
+      version: 8.0.x
+      includePreviewVersions: true
+  
+  # Set version number
+  - task: Assembly-Info-NetCore@3
+    displayName: 'Versioning $(Build.BuildNumber)'
+    inputs:
+      Path: '$(Build.SourcesDirectory)'
+      FileNames: '**/*.csproj'
+      InsertAttributes: true
+      FileEncoding: 'auto'
+      WriteBOM: false
+      VersionNumber: '$(Build.BuildNumber)'
+      FileVersionNumber: '$(Build.BuildNumber)'
+      InformationalVersion: '$(Build.BuildNumber)'
+      PackageVersion: '$(Build.BuildNumber)'
+      LogLevel: 'verbose'
+      FailOnWarning: false
+      DisableTelemetry: false
+  
+  # Install dependencies
+  - task: DotNetCoreCLI@2
+    displayName: Install dependencies
+    inputs:
+      command: 'restore'
+      projects: $(Projects)
+  
+  # Build the projects
+  - task: DotNetCoreCLI@2
+    displayName: 'Build $(Build.BuildNumber)'
+    inputs:
+      command: 'build'
+      publishWebProjects: false  # True to build all Web Projects
+      projects: $(Projects)
+      arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
+      zipAfterPublish: false
+      workingDirectory: '$(Build.SourcesDirectory)'
+
+  # Publish the projects
+  - task: DotNetCoreCLI@2
+    displayName: 'Publish $(Build.BuildNumber)'
+    inputs:
+      command: 'publish'
+      publishWebProjects: false  # True to build all Web Projects
+      projects: $(Projects)
+      arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
+      zipAfterPublish: false
+      workingDirectory: '$(Build.SourcesDirectory)'
+  
+  # Publish the Artifacts
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'

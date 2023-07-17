@@ -5,13 +5,13 @@
 <FluentStack Orientation="Orientation.Horizontal" Width="100%">
     <div>
         <FluentNavMenu @bind-Expanded="@Expanded" Width="150" Collapsible="true">
-            <FluentNavMenuLink Icon="@(new Icons.Regular.Size24.Home())" Text="Item 1" />
-            <FluentNavMenuLink Icon="@(new Icons.Regular.Size24.Cloud())" Text="Item 2" />
-            <FluentNavMenuGroup Text="Item 3" Icon="@(new Icons.Regular.Size24.EarthLeaf())">
-                <FluentNavMenuLink Icon="@(new Icons.Regular.Size24.LeafOne())" Text="Item 3.1" />
-                <FluentNavMenuLink Icon="@(new Icons.Regular.Size24.LeafTwo())" Text="Item 3.2" />
+            <FluentNavMenuLink Icon="@(new Icons.Regular.Size24.Home())" Text="Item 1" Href="/NavMenu" />
+            <FluentNavMenuLink Icon="@(new Icons.Regular.Size24.Cloud())" Text="Item 2" Href="/NavMenu" />
+            <FluentNavMenuGroup Text="Item 3" Icon="@(new Icons.Regular.Size24.EarthLeaf())" Href="/NavMenu">
+                <FluentNavMenuLink Icon="@(new Icons.Regular.Size24.LeafOne())" Text="Item 3.1" Href="/NavMenu" />
+                <FluentNavMenuLink Icon="@(new Icons.Regular.Size24.LeafTwo())" Text="Item 3.2" Href="/NavMenu" />
             </FluentNavMenuGroup> 
-            <FluentNavMenuLink Icon="@(new Icons.Regular.Size24.CalendarAgenda())" Text="Item 4" Disabled="true" />
+            <FluentNavMenuLink Icon="@(new Icons.Regular.Size24.CalendarAgenda())" Text="Item 4" Disabled="true" Href="https://microsoft.com" />
         </FluentNavMenu>
     </div>
     <div style="width: 100%;">

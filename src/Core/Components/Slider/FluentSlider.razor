@@ -12,11 +12,9 @@
                orientation="@Orientation.ToAttributeValue()"
                mode="@Mode.ToAttributeValue()"
                id="@Id"
-               value="@FormatValueAsString(Value)"
-               current-value="@CurrentValueAsString"
+               @bind-value="CurrentValueAsString"
                disabled="@Disabled"
                name=@Name
-               required=@Required
-               @oncustomclick="@((e) => CurrentValueAsString = e?.Value?.ToString())">
+               required=@Required>
     @ChildContent
 </fluent-slider>
