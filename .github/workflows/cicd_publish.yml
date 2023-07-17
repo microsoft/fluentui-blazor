@@ -3,8 +3,7 @@ on:
   push:
     branches: 
       - main
-      - dev
-      - v2 
+      
     paths-ignore:
       - '**/*.md'
       - '**/*.gitignore'
@@ -72,7 +71,6 @@ jobs:
           output_location: "publish/wwwroot"
           skip_api_build: true
           skip_app_build: true
-          production_branch: "v2"
 
   destroy:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
