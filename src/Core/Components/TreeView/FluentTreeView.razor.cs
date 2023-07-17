@@ -6,6 +6,10 @@ namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentTreeView : FluentComponentBase, IDisposable
 {
+    private readonly Dictionary<string, FluentTreeItem> _allItems = new();
+    private readonly Debouncer _currentSelectedChangedDebouncer = new();
+    private bool _disposed;
+
     /// <summary>
     /// Gets or sets whether the tree should render nodes under collapsed items
     /// Defaults to false
@@ -44,10 +48,6 @@ public partial class FluentTreeView : FluentComponentBase, IDisposable
     /// </summary>
     [Parameter]
     public EventCallback<FluentTreeItem> OnExpandedChange { get; set; }
-
-    private readonly Dictionary<string, FluentTreeItem> _allItems = new();
-    private readonly Debouncer _currentSelectedChangedDebouncer = new();
-    private bool disposedValue;
 
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(TreeChangeEventArgs))]
     public FluentTreeView()
@@ -110,7 +110,7 @@ public partial class FluentTreeView : FluentComponentBase, IDisposable
 
     protected virtual void Dispose(bool disposing)
     {
-        if (disposedValue)
+        if (_disposed)
         {
             return;
         }
@@ -121,7 +121,7 @@ public partial class FluentTreeView : FluentComponentBase, IDisposable
             _allItems.Clear();
         }
 
-        disposedValue = true;
+        _disposed = true;
     }
 
 

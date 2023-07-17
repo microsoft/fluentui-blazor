@@ -4,6 +4,8 @@ namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentTreeItem : FluentComponentBase, IDisposable
 {
+    private bool _disposed;
+
     /// <summary>
     /// Gets or sets the text of the tree item
     /// </summary>
@@ -72,8 +74,6 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
     /// and <see langword="false"/> if expanded.
     /// </summary>
     public bool Collapsed => !Expanded;
-
-    private bool _disposed;
 
     public FluentTreeItem()
     {

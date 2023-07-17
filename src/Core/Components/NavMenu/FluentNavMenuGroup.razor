@@ -23,7 +23,7 @@
                 {
                     <span style="width:20px;" slot="start"></span>
                 }
-                @if (NavMenu.Expanded || Owner == NavMenu)
+                @if (GetShouldRenderChildContent())
                 {
                     @ChildContent
                 }
