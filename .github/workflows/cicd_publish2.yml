@@ -4,7 +4,6 @@ on:
     branches: 
       - main
       - version2
-      - dev
       - new-components
     paths-ignore:
       - '**/*.md'
@@ -73,7 +72,7 @@ jobs:
           output_location: "publish/wwwroot"
           skip_api_build: true
           skip_app_build: true
-          production_branch: "version2"
+          production_branch: "main"
 
   destroy:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
