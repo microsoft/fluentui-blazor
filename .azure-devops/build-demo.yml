@@ -1,7 +1,8 @@
 # Build and test projects.
 
 pr: none      # Disable pull request triggers.
-trigger: none # Disable push triggers.
+trigger:
+- new-components
 
 # Build.BuildNumber
 name: $(VersionMajor).$(Year:yy)$(DayOfYear).$(Rev:r)
