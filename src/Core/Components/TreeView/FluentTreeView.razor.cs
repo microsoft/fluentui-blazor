@@ -103,7 +103,7 @@ public partial class FluentTreeView : FluentComponentBase, IDisposable
             CurrentSelected = treeItem?.Selected == true ? treeItem : null;
             if (CurrentSelected != previouslySelected && CurrentSelectedChanged.HasDelegate)
             {
-                await CurrentSelectedChanged.InvokeAsync(treeItem);
+                await CurrentSelectedChanged.InvokeAsync(CurrentSelected);
             }
         }));
     }

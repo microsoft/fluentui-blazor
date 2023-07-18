@@ -14,7 +14,7 @@
                          SelectedChanged="@HandleSelectedChangedAsync"
                          Expanded="@Expanded"
                          ExpandedChanged="@SetExpandedAsync"
-                         Text="@(NavMenuExpanded ? Text : string.Empty)">
+                         Text="@Text">
                 @if (HasIcon)
                 {
                     <FluentIcon Value="@Icon" Width="20px" Slot="start" />
