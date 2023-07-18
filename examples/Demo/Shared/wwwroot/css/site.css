@@ -213,7 +213,7 @@ code {
 }
 
 .demopanel {
-    border: 1px dashed red;
+    border: 1px dashed var(--accent-fill-rest);
     padding: 5px;
 }
 
