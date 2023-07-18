@@ -16,7 +16,7 @@ export function afterStarted(Blazor) {
         }
     });
     Blazor.registerCustomEventType('checkedchange', {
-        browserEventName: 'click',
+        browserEventName: 'change',
         createEventArgs: event => {
             return {
                 checked: event.target.currentChecked
