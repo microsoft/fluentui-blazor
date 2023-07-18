@@ -2,6 +2,8 @@
 @inherits FluentComponentBase
 <fluent-tree-item @ref=Element
                   class="@Class"
+                  aria-label="@Text"
+                  aria-expanded="@Expanded.ToAttributeValue()"
                   style="@Style"
                   id="@Id"
                   expanded="@Expanded"
@@ -10,6 +12,6 @@
                   @onselectedchange="@HandleSelectedChangeAsync"
                   @onexpandedchange="@HandleExpandedChangeAsync"
                   @attributes="AdditionalAttributes">
-    @Text
+    <span class="treeitem-text">@Text</span>
     @ChildContent
 </fluent-tree-item>

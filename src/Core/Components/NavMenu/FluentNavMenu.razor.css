@@ -9,21 +9,21 @@
 /*
     NavMenu expander
 */
-::deep .nav-menu-expander::part(positioning-region) {
+::deep .navmenu-expander::part(positioning-region) {
     background-color: var(--neutral-fill-stealth-rest);
 }
 
-::deep .nav-menu-expander::part(content-region) {
+::deep .navmenu-expander::part(content-region) {
     margin-inline-start: calc(var(--design-unit) * 2px);
     -webkit-user-select: none;
     user-select: none;
 }
 
-::deep .nav-menu-expander::part(positioning-region):hover {
+::deep .navmenu-expander::part(positioning-region):hover {
     background-color: var(--neutral-fill-secondary-rest);
 }
 
-::deep .nav-menu-expander.selected::after {
+::deep .navmenu-expander.selected::after {
     display: none;
 }
 
@@ -37,6 +37,14 @@
     user-select: none;
     margin-inline-start: calc(var(--design-unit) * 2px);
     margin-inline-end: calc(var(--design-unit) * 2px);
+}
+
+::deep .navmenu .treeitem-text, ::deep .navmenu fluent-tree-item.navmenu-child-element::part(start) {
+    pointer-events: none;
+}
+
+::deep .navmenu.collapsed .treeitem-text, ::deep .navmenu.collapsed fluent-tree-item.navmenu-child-element::part(expand-collapse-button) {
+    display: none;
 }
 
 
