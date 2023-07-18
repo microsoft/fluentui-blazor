@@ -9,7 +9,7 @@
                     Disabled="@Disabled"
                     Selected="@Selected"
                     SelectedChanged="@HandleSelectedChangedAsync"
-                    Text="@(NavMenuExpanded ? Text : "")">
+                    Text="@Text">
         @if (HasIcon)
         {
             <FluentIcon Value="@Icon" Width="20px" Slot="start" />
