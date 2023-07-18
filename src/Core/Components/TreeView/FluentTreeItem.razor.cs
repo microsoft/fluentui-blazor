@@ -113,7 +113,7 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
         Selected = value;
         if (SelectedChanged.HasDelegate)
         {
-            await SelectedChanged.InvokeAsync(value);
+            await SelectedChanged.InvokeAsync(Selected);
         }
     }
 

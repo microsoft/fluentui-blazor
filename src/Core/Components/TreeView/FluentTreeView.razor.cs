@@ -98,11 +98,18 @@ public partial class FluentTreeView : FluentComponentBase, IDisposable
         }
 
         var previouslySelected = CurrentSelected;
-        await _currentSelectedChangedDebouncer.DebounceAsync(100,() => InvokeAsync(async () =>
+        await _currentSelectedChangedDebouncer.DebounceAsync(100, () => InvokeAsync(async () =>
         {
             CurrentSelected = treeItem?.Selected == true ? treeItem : null;
             if (CurrentSelected != previouslySelected && CurrentSelectedChanged.HasDelegate)
             {
+                foreach(FluentTreeItem item in _allItems.Values)
+                {
+                    if (item != CurrentSelected && item.Selected)
+                    {
+                        await item.SetSelectedAsync(false);
+                    }
+                }
                 await CurrentSelectedChanged.InvokeAsync(CurrentSelected);
             }
         }));
