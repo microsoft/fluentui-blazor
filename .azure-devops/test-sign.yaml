@@ -44,7 +44,7 @@ steps:
     displayName: 'Pack $(Build.BuildNumber)'
     inputs:
       SourceFolder: '/home/vsts/work/1/s/'
-      Contents: '**/Microsoft.Fast.Components.FluentUI.Emojis.3.0.0-preview.5.nupkg'
+      Contents: '**/Microsoft.Fast.Components.FluentUI.Emojis.3.0.0-RC.1.nupkg'
       TargetFolder: '$(Build.ArtifactStagingDirectory)'
       CleanTargetFolder: true
       OverWrite: true
