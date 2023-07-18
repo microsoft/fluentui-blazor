@@ -2,10 +2,10 @@
 
 <h1>1. Icons</h1>
 <div>
-    <FluentSystemIcon Icon="Icons.Regular.Size24.Save" />
-    <FluentSystemIcon Icon="Icons.Regular.Size24.Album" />
+    <FluentIcon Icon="Icons.Regular.Size24.Save" />
+    <FluentIcon Icon="Icons.Regular.Size24.Album" />
 
-    <FluentSystemIcon Value="@(Icon.FromImageUrl("/Blazor.png"))" />
+    <FluentIcon Value="@(Icon.FromImageUrl("/Blazor.png"))" />
     
     @(new Icons.Regular.Size20.Add().ToMarkup())
     @(new Icons.Regular.Size20.Airplane().ToMarkup("60px", "red"))
@@ -24,14 +24,14 @@
 
     @foreach (var item in IconsFound)
     {
-        <FluentSystemIcon Value="Icons.GetInstance(item)" Title="@($"{item.Name}")" Width="32px" />
+        <FluentIcon Value="Icons.GetInstance(item)" Title="@($"{item.Name}")" Width="32px" />
     }
 </div>
 
 <h1>2. Emojis</h1>
 <div>
-    <FluentSystemEmoji Emoji="@(Emojis.PeopleBody.Color.Default.Artist)" />
-    <FluentSystemEmoji Emoji="@(Emojis.SmileysEmotion.Color.Default.RollingOnTheFloorLaughing)" Width="50px" />
+    <FluentEmoji Emoji="@(Emojis.PeopleBody.Color.Default.Artist)" />
+    <FluentEmoji Emoji="@(Emojis.SmileysEmotion.Color.Default.RollingOnTheFloorLaughing)" Width="50px" />
 
     @(new Emojis.Objects.Color.Default.Accordion().ToMarkup("80px"))
     @(new Emojis.TravelPlaces.Color.Default.Ambulance().ToMarkup())
@@ -51,7 +51,7 @@
     {
         @foreach (var item in emojisFound)
         {
-            <FluentSystemEmoji Value="Emojis.GetInstance(item)" Title="@($"{item.Name}")" Width="64px" />
+            <FluentEmoji Value="Emojis.GetInstance(item)" Title="@($"{item.Name}")" Width="64px" />
         }
     }
 </div>
