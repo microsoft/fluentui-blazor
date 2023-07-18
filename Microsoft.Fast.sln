@@ -51,6 +51,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		WHATSNEW.md = WHATSNEW.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Azure DevOps pipelines", "Azure DevOps pipelines", "{BECDF0C6-072E-4B4E-8E72-295CA171F0B2}"
+	ProjectSection(SolutionItems) = preProject
+		.azure-devops\build-assets-emoji.yml = .azure-devops\build-assets-emoji.yml
+		.azure-devops\build-assets-icons.yml = .azure-devops\build-assets-icons.yml
+		.azure-devops\build-core-lib.yml = .azure-devops\build-core-lib.yml
+		.azure-devops\build-demo.yml = .azure-devops\build-demo.yml
+		.azure-devops\build-tools.yml = .azure-devops\build-tools.yml
+		.azure-devops\test-sign.yaml = .azure-devops\test-sign.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{9AAEFCC9-1D75-4294-B06F-C5959EC14055}"
+	ProjectSection(SolutionItems) = preProject
+		.azure-devops\common\template-to-build-projects.yml = .azure-devops\common\template-to-build-projects.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -112,6 +127,7 @@ Global
 		{3EF0E994-318F-4CB9-A109-81E6CE9B762C} = {EBE3ACB2-9B23-4F91-9953-7153E3D2B0DA}
 		{DAE11C9D-6756-4B05-B3D8-FE7C28411F95} = {9468ADD1-3660-410D-8231-6F89384D135D}
 		{345DE479-8DB3-4F84-BBC0-C44C12D9DED0} = {DAE11C9D-6756-4B05-B3D8-FE7C28411F95}
+		{9AAEFCC9-1D75-4294-B06F-C5959EC14055} = {BECDF0C6-072E-4B4E-8E72-295CA171F0B2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {420693A7-C2FD-498C-8E78-4B65CC25389A}

@@ -53,13 +53,13 @@ steps:
   - task: UseDotNet@2
     displayName: Install .NET 6.0
     inputs:
-      version: 6.0.408
+      version: 6.0.412
       includePreviewVersions: true
   
   - task: UseDotNet@2
     displayName: 'Install .NET 7.0'
     inputs:
-      version: 7.0.203
+      version: 7.0.306
       includePreviewVersions: true
   
   - task: UseDotNet@2
