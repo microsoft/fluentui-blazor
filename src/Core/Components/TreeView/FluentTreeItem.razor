@@ -2,6 +2,8 @@
 @inherits FluentComponentBase
 <fluent-tree-item @ref=Element
                   class="@Class"
+                  aria-label="@Text"
+                  aria-expanded="@Expanded.ToAttributeValue()"
                   style="@Style"
                   id="@Id"
                   expanded="@Expanded"

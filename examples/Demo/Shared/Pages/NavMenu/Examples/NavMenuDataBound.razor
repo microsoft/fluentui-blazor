@@ -6,7 +6,7 @@
 
 <FluentStack Orientation="Orientation.Horizontal">
     <!-- Menu with sub-items and icons -->
-    <FluentNavMenu @bind-Expanded=MenuExpanded>
+    <FluentNavMenu @bind-Expanded=MenuExpanded Title="Databound demo">
         <FluentNavMenuGroup Id="Group1" Text="Item 1" @bind-Expanded=Item1Expanded Icon="@(new Icons.Regular.Size24.LeafOne())" Href="/NavMenu">
             <FluentNavMenuLink Text="Item 1.1" Icon="@(new Icons.Regular.Size24.LeafOne())" @bind-Selected=Item1Point1Selected Href="/NavMenu" />
             <FluentNavMenuLink Text="Item 1.2" Icon="@(new Icons.Regular.Size24.LeafTwo())" @bind-Selected=Item1Point2Selected Href="/NavMenu" />
