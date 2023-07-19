@@ -14,8 +14,7 @@
                          SelectedChanged="@HandleSelectedChangedAsync"
                          Expanded="@Expanded"
                          ExpandedChanged="@SetExpandedAsync"
-                         Text="@Text"
-                         @onclickwithtargetid="@HandleClickAsync">
+                         Text="@Text">
                 @if (HasIcon)
                 {
                     <FluentIcon Value="@Icon" Width="20px" Slot="start" />

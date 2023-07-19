@@ -9054,17 +9054,6 @@
             Position at the bottom
             </summary>
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.MouseWithTargetIdEventArgs">
-            <summary>
-            Supplies information about a mouse event that is being raised, including the
-            HTML id of the element clicked
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MouseWithTargetIdEventArgs.TargetId">
-            <summary>
-            The HTML id of the element clicked.
-            </summary>
-        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.NavMenuActionArgs">
             <summary>
             An <see cref="T:System.EventArgs"/> class that is used as arguments
