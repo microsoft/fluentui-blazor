@@ -11,7 +11,7 @@
                         value="@BindConverter.FormatValue(Value?.ToString())"
                         orientation="@Orientation.ToAttributeValue()"
                         required="@Required"
-                        @oncustomclick="@((e) => CurrentValueAsString = e?.Value?.ToString())"
+                        @onradiogroupclick="@((e) => CurrentValueAsString = e?.Value?.ToString())"
                         @attributes="AdditionalAttributes">
         @ChildContent
     </fluent-radio-group>
