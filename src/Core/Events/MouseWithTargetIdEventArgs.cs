@@ -6,7 +6,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// Supplies information about a mouse event that is being raised, including the
 /// HTML id of the element clicked
 /// </summary>
-public class TargetIdMouseEventArgs : MouseEventArgs
+public class MouseWithTargetIdEventArgs : MouseEventArgs
 {
     /// <summary>
     /// The HTML id of the element clicked.

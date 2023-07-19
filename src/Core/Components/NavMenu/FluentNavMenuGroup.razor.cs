@@ -106,7 +106,7 @@ public partial class FluentNavMenuGroup : FluentNavMenuItemBase, INavMenuItemsOw
 
     private Task ToggleCollapsedAsync() => SetExpandedAsync(!Expanded);
 
-    private async Task HandleClickAsync(TargetIdMouseEventArgs args)
+    private async Task HandleClickAsync(MouseWithTargetIdEventArgs args)
     {
         if (args.TargetId != Id || args.Button != 0)
         {

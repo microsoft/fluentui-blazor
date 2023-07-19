@@ -19,7 +19,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 [EventHandler("onclosecolumnoptions", typeof(EventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("ontooltipdismiss", typeof(EventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("onsizechanged", typeof(EventArgs), enableStopPropagation: true, enablePreventDefault: true)]
-[EventHandler("onclickwithtargetid", typeof(TargetIdMouseEventArgs), enableStopPropagation: true, enablePreventDefault:true)]
+[EventHandler("onclickwithtargetid", typeof(MouseWithTargetIdEventArgs), enableStopPropagation: true, enablePreventDefault:true)]
 public static class EventHandlers
 {
 }
