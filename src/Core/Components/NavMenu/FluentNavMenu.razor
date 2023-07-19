@@ -12,7 +12,12 @@
                                     CurrentSelectedChanged="@HandleCurrentSelectedChangedAsync">
                         @if (Collapsible)
                         {
-                            <FluentTreeItem Id="@_expandCollapseTreeItemId" Class="nav-menu-expander" @onclick="@ToggleCollapsedAsync" @onkeydown="@HandleExpandCollapseKeyDownAsync">
+                            <FluentTreeItem aria-label="@Title"
+                                            aria-expanded="@Expanded.ToAttributeValue()"
+                                            Id="@_expandCollapseTreeItemId"
+                                            Class="navmenu-expander"
+                                            @onclick="@ToggleCollapsedAsync"
+                                            @onkeydown="@HandleExpandCollapseKeyDownAsync">
                                 @if (ExpanderContent is not null)
                                 {
                                     <div>
