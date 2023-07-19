@@ -91,10 +91,13 @@ public partial class FluentNavMenuGroup : FluentNavMenuItemBase, INavMenuItemsOw
     {
         await base.ExecuteAsync(args);
 
-        bool shouldExpand = Collapsed || NavMenu.Collapsed;
-        if (shouldExpand)
+        if (!args.Handled)
         {
-            await SetExpandedAsync(true);
+            bool shouldExpand = Collapsed || NavMenu.Collapsed;
+            if (shouldExpand)
+            {
+                await SetExpandedAsync(true);
+            }
         }
     }
 
