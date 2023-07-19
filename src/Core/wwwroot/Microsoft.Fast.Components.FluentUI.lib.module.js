@@ -3,7 +3,8 @@
 export function afterStarted(Blazor) {
 
     customElements.define("split-panels", SplitPanels);
-    Blazor.registerCustomEventType('customclick', {
+
+    Blazor.registerCustomEventType('radiogroupclick', {
         browserEventName: 'click',
         createEventArgs: event => {
             if (event.target._readOnly || event.target._disabled) {
