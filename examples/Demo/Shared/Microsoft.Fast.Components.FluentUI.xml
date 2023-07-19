@@ -9060,6 +9060,17 @@
             whenever a user attempts to execute the default action on a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenuItemBase"/>.
             </summary>
         </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.TargetIdMouseEventArgs">
+            <summary>
+            Supplies information about a mouse event that is being raised, including the
+            HTML id of the element clicked
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.TargetIdMouseEventArgs.TargetId">
+            <summary>
+            The HTML id of the element clicked.
+            </summary>
+        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.AdditionalAttributesExtensions.RenderedAttributesEqual(System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object})">
             <summary> Determines whether two sets of attributes are equal when rendered. </summary>
             <param name="x">The compared set</param>
