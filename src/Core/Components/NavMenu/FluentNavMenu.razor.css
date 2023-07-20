@@ -78,7 +78,7 @@
     Group items
 */
 ::deep .navmenu-group .navmenu-child-element::part(content-region) {
-    padding-inline-start: 20px;
+    padding-inline-start: calc(var(--design-unit) * 2px);
 }
 
 /* Hide any items inside groups of a collapsed nav menu*/
