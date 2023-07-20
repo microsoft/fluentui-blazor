@@ -1,7 +1,7 @@
 ﻿@namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentComponentBase
 
-<div>
+<div id="@Id">
     <CascadingValue Value="this" IsFixed="true">
         <CascadingValue TValue=INavMenuItemsOwner Value="@this" IsFixed>
             <CascadingValue Value="@Expanded" Name="NavMenuExpanded">
