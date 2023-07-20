@@ -16,7 +16,8 @@ steps:
   - powershell: |
       $builds = "$(Build.BuildNumber)".Split('.')
       $preview = "$(VersionPreview)"
-      $package = "$($builds[0]).$($builds[1]).0-preview.$($preview).$($builds[2]).$($builds[3])"
+      $stage = "RC"
+      $package = "$($builds[0]).$($builds[1]).0-$($stage).$($preview).$($builds[2]).$($builds[3])"
       $sign = "false";
       $toTest = "false";
 
