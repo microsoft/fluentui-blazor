@@ -16,7 +16,7 @@
                 Class="@ClassValue"
                 Style="@StyleValue"
                 @attributes="AdditionalAttributes">
-                <fluent-menu @ref=Element>
+                <fluent-menu @ref=Element id="@Id">
                     @ChildContent
                 </fluent-menu>
             </FluentAnchoredRegion>
@@ -24,6 +24,7 @@
         else
         {
             <fluent-menu @ref=Element
+                         id="@Id"
                          class="@ClassValue"
                          style="@StyleValue"
                          @attributes="AdditionalAttributes">
