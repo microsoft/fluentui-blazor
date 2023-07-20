@@ -1,129 +1,128 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Accordion
+namespace Microsoft.Fast.Components.FluentUI.Tests.Accordion;
+
+public class FluentAccordionItemTests : TestBase
 {
-    public class FluentAccordionItemTests : TestBase
+    [Fact]
+    public void FluentAccordionItem_WithChildContent_IsNull()
     {
-        [Fact]
-        public void FluentAccordionItem_WithChildContent_IsNull()
+        // Arrange & Act
+        var cut = TestContext.RenderComponent<FluentAccordionItem>();
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAccordionItem_WithProvided_Content()
+    {
+        // Arrange & Act
+        var cut = TestContext.RenderComponent<FluentAccordionItem>(parameters =>
         {
-            // Arrange & Act
-            var cut = TestContext.RenderComponent<FluentAccordionItem>();
+            parameters.AddChildContent("child content");
+        });
 
-            // Assert
-            cut.Verify();
-        }
+        // Assert
+        cut.Verify();
+    }
 
-        [Fact]
-        public void FluentAccordionItem_WithProvided_Content()
+    [Fact]
+    public void FluentAccordionItem_WithCustomHeaderValue()
+    {
+        // Arrange & Act
+        var cut = TestContext.RenderComponent<FluentAccordionItem>(parameters =>
         {
-            // Arrange & Act
-            var cut = TestContext.RenderComponent<FluentAccordionItem>(parameters =>
-            {
-                parameters.AddChildContent("child content");
-            });
+            parameters.Add(p => p.Heading, "custom heading value");
+        });
 
-            // Assert
-            cut.Verify();
-        }
+        // Assert
+        cut.Verify();
+    }
 
-        [Fact]
-        public void FluentAccordionItem_WithCustomHeaderValue()
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void FluentAccordionItem_WithProvidedExpanded_Parameter(bool expanded)
+    {
+        // Arrange & Act
+        var cut = TestContext.RenderComponent<FluentAccordionItem>(parameters =>
         {
-            // Arrange & Act
-            var cut = TestContext.RenderComponent<FluentAccordionItem>(parameters =>
-            {
-                parameters.Add(p => p.Heading, "custom heading value");
-            });
+            parameters.Add(p => p.Expanded, expanded);
+        });
 
-            // Assert
-            cut.Verify();
-        }
+        // Assert
+        cut.Verify(suffix: expanded.ToString());
+    }
 
-        [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public void FluentAccordionItem_WithProvidedExpanded_Parameter(bool expanded)
+    [Fact]
+    public void FluentAccordionItem_WithAnAdditionalAttribute()
+    {
+        // Arrange & Act
+        var cut = TestContext.RenderComponent<FluentAccordionItem>(parameters =>
         {
-            // Arrange & Act
-            var cut = TestContext.RenderComponent<FluentAccordionItem>(parameters =>
-            {
-                parameters.Add(p => p.Expanded, expanded);
-            });
+            parameters.AddUnmatched("unknown", "unknowns-value");
+        });
 
-            // Assert
-            cut.Verify(suffix: expanded.ToString());
-        }
+        // Assert
+        cut.Verify();
+    }
 
-        [Fact]
-        public void FluentAccordionItem_WithAnAdditionalAttribute()
+    [Fact]
+    public void FluentAccordionItem_WithMultipleAdditionalAttributes()
+    {
+        // Arrange & Act
+        var cut = TestContext.RenderComponent<FluentAccordionItem>(parameters =>
         {
-            // Arrange & Act
-            var cut = TestContext.RenderComponent<FluentAccordionItem>(parameters =>
-            {
-                parameters.AddUnmatched("unknown", "unknowns-value");
-            });
+            parameters.AddUnmatched("unknown1", "unknown1s-value");
+            parameters.AddUnmatched("unknown2", "unknown2s-value");
+        });
 
-            // Assert
-            cut.Verify();
-        }
+        // Assert
+        cut.Verify();
+    }
 
-        [Fact]
-        public void FluentAccordionItem_WithMultipleAdditionalAttributes()
+    [Fact]
+    public void FluentAccordionItem_WhenAllParamsAdded_AndAdditionalAttributes_AndContent()
+    {
+        // Arrange & Act
+        var cut = TestContext.RenderComponent<FluentAccordionItem>(parameters =>
         {
-            // Arrange & Act
-            var cut = TestContext.RenderComponent<FluentAccordionItem>(parameters =>
-            {
-                parameters.AddUnmatched("unknown1", "unknown1s-value");
-                parameters.AddUnmatched("unknown2", "unknown2s-value");
-            });
+            parameters.Add(p => p.Expanded, true);
+            parameters.Add(p => p.Heading, "custom heading value");
+            parameters.AddUnmatched("unknown1", "unknown1s-value");
+            parameters.AddUnmatched("unknown2", "unknown2s-value");
+            parameters.AddChildContent("child content");
+        });
 
-            // Assert
-            cut.Verify();
-        }
+        // Assert
+        cut.Verify();
+    }
 
-        [Fact]
-        public void FluentAccordionItem_WhenAllParamsAdded_AndAdditionalAttributes_AndContent()
+    [Fact]
+    public void FluentAccordionItem_WhenAdditionalCSSClass_IsProvided()
+    {
+        // Arrange & Act
+        var cut = TestContext.RenderComponent<FluentAccordionItem>(parameters =>
         {
-            // Arrange & Act
-            var cut = TestContext.RenderComponent<FluentAccordionItem>(parameters =>
-            {
-                parameters.Add(p => p.Expanded, true);
-                parameters.Add(p => p.Heading, "custom heading value");
-                parameters.AddUnmatched("unknown1", "unknown1s-value");
-                parameters.AddUnmatched("unknown2", "unknown2s-value");
-                parameters.AddChildContent("child content");
-            });
+            parameters.Add(p => p.Class, "additional-class");
+        });
 
-            // Assert
-            cut.Verify();
-        }
+        // Assert
+        cut.Verify();
+    }
 
-        [Fact]
-        public void FluentAccordionItem_WhenAdditionalCSSClass_IsProvided()
+    [Fact]
+    public void FluentAccordionItem_WhenAdditionalStyle_IsProvided()
+    {
+        // Arrange & Act
+        var cut = TestContext.RenderComponent<FluentAccordionItem>(parameters =>
         {
-            // Arrange & Act
-            var cut = TestContext.RenderComponent<FluentAccordionItem>(parameters =>
-            {
-                parameters.Add(p => p.Class, "additional-class");
-            });
+            parameters.Add(p => p.Style, "background-color: grey");
+        });
 
-            // Assert
-            cut.Verify();
-        }
-
-        [Fact]
-        public void FluentAccordionItem_WhenAdditionalStyle_IsProvided()
-        {
-            // Arrange & Act
-            var cut = TestContext.RenderComponent<FluentAccordionItem>(parameters =>
-            {
-                parameters.Add(p => p.Style, "background-color: grey");
-            });
-
-            // Assert
-            cut.Verify();
-        }
+        // Assert
+        cut.Verify();
     }
 }

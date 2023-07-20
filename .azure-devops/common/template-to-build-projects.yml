@@ -15,9 +15,9 @@ steps:
   # In the main YAML script, set the "name: $(VersionMajor).$(Year:yy)$(DayOfYear).$(Rev:r)"
   - powershell: |
       $builds = "$(Build.BuildNumber)".Split('.')
-      $preview = "$(VersionPreview)"
-      $stage = "RC"
-      $package = "$($builds[0]).$($builds[1]).0-$($stage).$($preview).$($builds[2]).$($builds[3])"
+      $stage = "$(VersionStage)"
+      $stageId = "$(VersionStageId)"
+      $package = "$($builds[0]).$($builds[1]).0-$($stageId).$($stage).$($builds[2]).$($builds[3])"
       $sign = "false";
       $toTest = "false";
 

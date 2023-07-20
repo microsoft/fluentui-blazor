@@ -3,447 +3,446 @@ using FluentAssertions;
 using Microsoft.Fast.Components.FluentUI.Tests.Extensions;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Button
+namespace Microsoft.Fast.Components.FluentUI.Tests.Button;
+
+public class FluentButtonTests : TestBase
 {
-    public class FluentButtonTests : TestBase
+    [Fact]
+    public void FluentButton_Default()
     {
-        [Fact]
-        public void FluentButton_Default()
+        // Arrange
+        using var id = Identifier.SequentialContext();
+
+        // Act
+        var cut = TestContext.RenderComponent<FluentButton>(parameters =>
         {
-            // Arrange
-            using var id = Identifier.SequentialContext();
+            parameters.AddChildContent("fluent-button");
+        });
 
-            // Act
-            var cut = TestContext.RenderComponent<FluentButton>(parameters =>
-            {
-                parameters.AddChildContent("fluent-button");
-            });
+        // Assert
+        cut.Verify();
+    }
 
-            // Assert
-            cut.Verify();
-        }
-
-        [Fact]
-        public void FluentButton_AutofocusAttribute()
+    [Fact]
+    public void FluentButton_AutofocusAttribute()
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentButton>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentButton>(parameters =>
-            {
-                parameters.AddChildContent("fluent-button");
-                parameters.Add(p => p.Autofocus, true);
-            });
+            parameters.AddChildContent("fluent-button");
+            parameters.Add(p => p.Autofocus, true);
+        });
 
-            // Assert
-            cut.Verify();
-        }
+        // Assert
+        cut.Verify();
+    }
 
-        [Theory]
-        [InlineData("form-id-attribute")]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData(" ")]
-        public void FluentButton_FormIdAttribute(string? formId)
+    [Theory]
+    [InlineData("form-id-attribute")]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData(" ")]
+    public void FluentButton_FormIdAttribute(string? formId)
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentButton>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentButton>(parameters =>
-            {
-                parameters.Add(p => p.FormId, formId);
-                parameters.AddChildContent("fluent-button");
-            });
+            parameters.Add(p => p.FormId, formId);
+            parameters.AddChildContent("fluent-button");
+        });
 
-            // Assert
-            cut.Verify(suffix: formId);
-        }
+        // Assert
+        cut.Verify(suffix: formId);
+    }
 
-        [Theory]
-        [InlineData("submit")]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData(" ")]
-        public void FluentButton_FormActionAttribute(string? formAction)
+    [Theory]
+    [InlineData("submit")]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData(" ")]
+    public void FluentButton_FormActionAttribute(string? formAction)
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentButton>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentButton>(parameters =>
-            {
-                parameters.Add(p => p.Action, formAction);
-                parameters.AddChildContent("fluent-button");
-            });
+            parameters.Add(p => p.Action, formAction);
+            parameters.AddChildContent("fluent-button");
+        });
 
-            // Assert
-            cut.Verify(suffix: formAction);
-        }
+        // Assert
+        cut.Verify(suffix: formAction);
+    }
 
-        [Theory]
-        [InlineData("multipart/form-data")]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData(" ")]
-        public void FluentButton_FormEnctypeAttribute(string? formEnctype)
+    [Theory]
+    [InlineData("multipart/form-data")]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData(" ")]
+    public void FluentButton_FormEnctypeAttribute(string? formEnctype)
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentButton>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentButton>(parameters =>
-            {
-                parameters.Add(p => p.Enctype, formEnctype);
-                parameters.AddChildContent("fluent-button");
-            });
-           
-            // Assert
-            cut.Verify(suffix: formEnctype);
-        }
+            parameters.Add(p => p.Enctype, formEnctype);
+            parameters.AddChildContent("fluent-button");
+        });
 
-        [Theory]
-        [InlineData("post")]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData(" ")]
-        public void FluentButton_FormMethodAttribute(string? formMethod)
+        // Assert
+        cut.Verify(suffix: formEnctype);
+    }
+
+    [Theory]
+    [InlineData("post")]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData(" ")]
+    public void FluentButton_FormMethodAttribute(string? formMethod)
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentButton>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentButton>(parameters =>
-            {
-                parameters.Add(p => p.Method, formMethod);
-                parameters.AddChildContent("fluent-button");
-            });
-           
-            // Assert
-            cut.Verify(suffix: formMethod);
-        }
+            parameters.Add(p => p.Method, formMethod);
+            parameters.AddChildContent("fluent-button");
+        });
 
-        [Fact]
-        public void FluentButton_FormNovalidateAttribute()
+        // Assert
+        cut.Verify(suffix: formMethod);
+    }
+
+    [Fact]
+    public void FluentButton_FormNovalidateAttribute()
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentButton>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentButton>(parameters =>
-            {
-                parameters.Add(p => p.NoValidate, true);
-                parameters.AddChildContent("fluent-button");
-            });
+            parameters.Add(p => p.NoValidate, true);
+            parameters.AddChildContent("fluent-button");
+        });
 
-            // Assert
-            cut.Verify();
-        }
+        // Assert
+        cut.Verify();
+    }
 
-        [Theory]
-        [InlineData("_self")]
-        [InlineData("_blank")]
-        [InlineData("_parent")]
-        [InlineData("_top")]
-        [InlineData("")]
-        public void FluentButton_FormTargetAttribute(string? formTarget)
+    [Theory]
+    [InlineData("_self")]
+    [InlineData("_blank")]
+    [InlineData("_parent")]
+    [InlineData("_top")]
+    [InlineData("")]
+    public void FluentButton_FormTargetAttribute(string? formTarget)
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentButton>(parameters =>
         {
-            // Arrange && Act
+            parameters.Add(p => p.Target, formTarget);
+            parameters.AddChildContent("fluent-button");
+        });
+
+        // Assert
+        cut.Verify(suffix: formTarget);
+    }
+
+    [Theory]
+    [InlineData(" ")]
+    [InlineData("_funky")]
+    public void Throw_ArgumentException_When_FormTargetAttribute_IsInvalid(string? formTarget)
+    {
+        // Arrange && Act
+        Action action = () =>
+        {
             var cut = TestContext.RenderComponent<FluentButton>(parameters =>
             {
                 parameters.Add(p => p.Target, formTarget);
                 parameters.AddChildContent("fluent-button");
             });
+        };
 
-            // Assert
-            cut.Verify(suffix: formTarget);
-        }
+        // Assert
+        action.Should().Throw<ArgumentException>();
+    }
 
-        [Theory]
-        [InlineData(" ")]
-        [InlineData("_funky")]
-        public void Throw_ArgumentException_When_FormTargetAttribute_IsInvalid(string? formTarget)
+    [Theory]
+    [InlineData(ButtonType.Button)]
+    [InlineData(ButtonType.Reset)]
+    [InlineData(ButtonType.Submit)]
+    public void FluentButton_TypeAttribute(ButtonType buttonType)
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentButton>(parameters =>
         {
-            // Arrange && Act
-            Action action = () =>
-            {
-                var cut = TestContext.RenderComponent<FluentButton>(parameters =>
-                {
-                    parameters.Add(p => p.Target, formTarget);
-                    parameters.AddChildContent("fluent-button");
-                });
-            };
+            parameters.Add(p => p.Type, buttonType);
+            parameters.AddChildContent("fluent-button");
+        });
 
-            // Assert
-            action.Should().Throw<ArgumentException>();
-        }
+        // Assert
+        cut.Verify(suffix: buttonType.ToString());
+    }
 
-        [Theory]
-        [InlineData(ButtonType.Button)]
-        [InlineData(ButtonType.Reset)]
-        [InlineData(ButtonType.Submit)]
-        public void FluentButton_TypeAttribute(ButtonType buttonType)
+    [Theory]
+    [InlineData("id-value")]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData(" ")]
+    public void FluentButton_IdAttribute(string? id)
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentButton>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentButton>(parameters =>
-            {
-                parameters.Add(p => p.Type, buttonType);
-                parameters.AddChildContent("fluent-button");
-            });
+            parameters.Add(p => p.Id, id);
+            parameters.AddChildContent("fluent-button");
+        });
 
-            // Assert
-            cut.Verify(suffix: buttonType.ToString());
-        }
+        // Assert
+        cut.Verify(suffix: id);
+    }
 
-        [Theory]
-        [InlineData("id-value")]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData(" ")]
-        public void FluentButton_IdAttribute(string? id)
+    [Theory]
+    [InlineData("some-value")]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData(" ")]
+    public void FluentButton_ValueAttribute(string? value)
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentButton>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentButton>(parameters =>
-            {
-                parameters.Add(p => p.Id, id);
-                parameters.AddChildContent("fluent-button");
-            });
+            parameters.Add(p => p.Value, value);
+            parameters.AddChildContent("fluent-button");
+        });
 
-            // Assert
-            cut.Verify(suffix: id);
-        }
+        // Assert
+        cut.Verify(suffix: value);
+    }
 
-        [Theory]
-        [InlineData("some-value")]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData(" ")]
-        public void FluentButton_ValueAttribute(string? value)
+    [Theory]
+    [InlineData("some-value")]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData(" ")]
+    public void FluentButton_CurrentValueAttribute(string? currentValue)
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentButton>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentButton>(parameters =>
-            {
-                parameters.Add(p => p.Value, value);
-                parameters.AddChildContent("fluent-button");
-            });
+            parameters.Add(p => p.CurrentValue, currentValue);
+            parameters.AddChildContent("fluent-button");
+        });
 
-            // Assert
-            cut.Verify(suffix: value);
-        }
+        // Assert
+        cut.Verify(suffix: currentValue);
+    }
 
-        [Theory]
-        [InlineData("some-value")]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData(" ")]
-        public void FluentButton_CurrentValueAttribute(string? currentValue)
+    [Fact]
+    public void FluentButton_DisabledAttribute()
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentButton>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentButton>(parameters =>
-            {
-                parameters.Add(p => p.CurrentValue, currentValue);
-                parameters.AddChildContent("fluent-button");
-            });
+            parameters.Add(p => p.Disabled, true);
+            parameters.AddChildContent("fluent-button");
+        });
 
-            // Assert
-            cut.Verify(suffix: currentValue);
-        }
+        // Assert
+        cut.Verify();
+    }
 
-        [Fact]
-        public void FluentButton_DisabledAttribute()
+    [Fact]
+    public void FluentButton_NameAttribute()
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentButton>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentButton>(parameters =>
-            {
-                parameters.Add(p => p.Disabled, true);
-                parameters.AddChildContent("fluent-button");
-            });
+            parameters.Add(p => p.Name, "name-value");
+            parameters.AddChildContent("fluent-button");
+        });
 
-            // Assert
-            cut.Verify();
-        }
+        // Assert
+        cut.Verify();
+    }
 
-        [Fact]
-        public void FluentButton_NameAttribute()
+    [Fact]
+    public void FluentButton_RequiredAttribute()
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentButton>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentButton>(parameters =>
-            {
-                parameters.Add(p => p.Name, "name-value");
-                parameters.AddChildContent("fluent-button");
-            });
+            parameters.Add(p => p.Required, true);
+            parameters.AddChildContent("fluent-button");
+        });
 
-            // Assert
-            cut.Verify();
-        }
+        // Assert
+        cut.Verify();
+    }
 
-        [Fact]
-        public void FluentButton_RequiredAttribute()
+    [Theory]
+    [InlineData(Appearance.Accent)]
+    [InlineData(Appearance.Filled)]
+    [InlineData(Appearance.Hypertext)]
+    [InlineData(Appearance.Lightweight)]
+    [InlineData(Appearance.Neutral)]
+    [InlineData(Appearance.Outline)]
+    [InlineData(Appearance.Stealth)]
+    public void FluentButton_AppearanceAttribute(Appearance appearance)
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentButton>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentButton>(parameters =>
-            {
-                parameters.Add(p => p.Required, true);
-                parameters.AddChildContent("fluent-button");
-            });
+            parameters.Add(p => p.Appearance, appearance);
+            parameters.AddChildContent("fluent-button");
+        });
 
-            // Assert
-            cut.Verify();
-        }
+        // Assert
+        cut.Verify(suffix: appearance.ToString());
+    }
 
-        [Theory]
-        [InlineData(Appearance.Accent)]
-        [InlineData(Appearance.Filled)]
-        [InlineData(Appearance.Hypertext)]
-        [InlineData(Appearance.Lightweight)]
-        [InlineData(Appearance.Neutral)]
-        [InlineData(Appearance.Outline)]
-        [InlineData(Appearance.Stealth)]
-        public void FluentButton_AppearanceAttribute(Appearance appearance)
+    [Fact]
+    public void FluentButton_ClassAttribute()
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentButton>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentButton>(parameters =>
-            {
-                parameters.Add(p => p.Appearance, appearance);
-                parameters.AddChildContent("fluent-button");
-            });
+            parameters.Add(p => p.Class, "additional-class");
+            parameters.AddChildContent("fluent-button");
+        });
 
-            // Assert
-            cut.Verify(suffix: appearance.ToString());
-        }
+        // Assert
+        cut.Verify();
+    }
 
-        [Fact]
-        public void FluentButton_ClassAttribute()
+    [Fact]
+    public void FluentButton_StyleAttribute()
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentButton>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentButton>(parameters =>
-            {
-                parameters.Add(p => p.Class, "additional-class");
-                parameters.AddChildContent("fluent-button");
-            });
-            
-            // Assert
-            cut.Verify();
-        }
+            parameters.Add(p => p.Style, "background-color: green;");
+            parameters.AddChildContent("fluent-button");
+        });
 
-        [Fact]
-        public void FluentButton_StyleAttribute()
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentButton_AdditionalAttribute()
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentButton>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentButton>(parameters =>
-            {
-                parameters.Add(p => p.Style, "background-color: green;");
-                parameters.AddChildContent("fluent-button");
-            });
+            parameters.AddUnmatched("additional-attribute-name", "additional-attribute-value");
+            parameters.AddChildContent("fluent-button");
+        });
 
-            // Assert
-            cut.Verify();
-        }
+        // Assert
+        cut.Verify();
+    }
 
-        [Fact]
-        public void FluentButton_AdditionalAttribute()
+    [Fact]
+    public void FluentButton_AdditionalAttributes()
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentButton>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentButton>(parameters =>
-            {
-                parameters.AddUnmatched("additional-attribute-name", "additional-attribute-value");
-                parameters.AddChildContent("fluent-button");
-            });
+            parameters.AddUnmatched("additional-attribute1-name", "additional-attribute1-value");
+            parameters.AddUnmatched("additional-attribute2-name", "additional-attribute2-value");
+            parameters.AddChildContent("fluent-button");
+        });
 
-            // Assert
-            cut.Verify();
-        }
+        // Assert
+        cut.Verify();
+    }
 
-        [Fact]
-        public void FluentButton_AdditionalAttributes()
+    [Fact]
+    public void FluentButton_IconStart()
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentButton>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentButton>(parameters =>
-            {
-                parameters.AddUnmatched("additional-attribute1-name", "additional-attribute1-value");
-                parameters.AddUnmatched("additional-attribute2-name", "additional-attribute2-value");
-                parameters.AddChildContent("fluent-button");
-            });
+            parameters.Add(p => p.IconStart, SampleIcons.Info);
+            parameters.AddChildContent("My button");
+        });
 
-            // Assert
-            cut.Verify();
-        }
+        // Assert
+        cut.Verify();
+    }
 
-        [Fact]
-        public void FluentButton_IconStart()
+    [Fact]
+    public void FluentButton_IconEnd()
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentButton>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentButton>(parameters =>
-            {
-                parameters.Add(p => p.IconStart, SampleIcons.Info);
-                parameters.AddChildContent("My button");
-            });
+            parameters.Add(p => p.IconEnd, SampleIcons.Info);
+            parameters.AddChildContent("My button");
+        });
 
-            // Assert
-            cut.Verify();
-        }
+        // Assert
+        cut.Verify();
+    }
 
-        [Fact]
-        public void FluentButton_IconEnd()
+    [Fact]
+    public void FluentButton_IconNoContent()
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentButton>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentButton>(parameters =>
-            {
-                parameters.Add(p => p.IconEnd, SampleIcons.Info);
-                parameters.AddChildContent("My button");
-            });
+            parameters.Add(p => p.IconEnd, SampleIcons.Info);
+        });
 
-            // Assert
-            cut.Verify();
-        }
+        // Assert
+        cut.Verify();
+    }
 
-        [Fact]
-        public void FluentButton_IconNoContent()
+    [Fact]
+    public void FluentButton_Title()
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentButton>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentButton>(parameters =>
-            {
-                parameters.Add(p => p.IconEnd, SampleIcons.Info);
-            });
+            parameters.Add(p => p.Title, "My Title");
+            parameters.AddChildContent("My button");
+        });
 
-            // Assert
-            cut.Verify();
-        }
+        // Assert
+        cut.Verify();
+    }
 
-        [Fact]
-        public void FluentButton_Title()
+    [Fact]
+    public void FluentButton_OnClick()
+    {
+        bool clicked = false;
+
+        // Arrange
+        var cut = TestContext.RenderComponent<FluentButton>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentButton>(parameters =>
-            {
-                parameters.Add(p => p.Title, "My Title");
-                parameters.AddChildContent("My button");
-            });
+            parameters.Add(p => p.OnClick, (e) => { clicked = true; });
+            parameters.AddChildContent("My button");
+        });
 
-            // Assert
-            cut.Verify();
-        }
+        // Act
+        cut.Find("fluent-button").Click();
 
-        [Fact]
-        public void FluentButton_OnClick()
+        // Assert
+        Assert.True(clicked);
+    }
+
+    [Fact]
+    public void FluentButton_OnClick_Disabled()
+    {
+        bool clicked = false;
+
+        // Arrange
+        var cut = TestContext.RenderComponent<FluentButton>(parameters =>
         {
-            bool clicked = false;
+            parameters.Add(p => p.OnClick, (e) => { clicked = true; });
+            parameters.AddChildContent("My button");
+        });
 
-            // Arrange
-            var cut = TestContext.RenderComponent<FluentButton>(parameters =>
-            {
-                parameters.Add(p => p.OnClick, (e) => { clicked = true; });
-                parameters.AddChildContent("My button");
-            });
+        // Act - `InvokeAsync` to avoid "The current thread is not associated with the Dispatcher" error.
+        cut.InvokeAsync(() => cut.Instance.SetDisabled(true));
+        cut.Find("fluent-button").Click();
 
-            // Act
-            cut.Find("fluent-button").Click();
-
-            // Assert
-            Assert.True(clicked);
-        }
-
-        [Fact]
-        public void FluentButton_OnClick_Disabled()
-        {
-            bool clicked = false;
-
-            // Arrange
-            var cut = TestContext.RenderComponent<FluentButton>(parameters =>
-            {
-                parameters.Add(p => p.OnClick, (e) => { clicked = true; });
-                parameters.AddChildContent("My button");                
-            });
-
-            // Act - `InvokeAsync` to avoid "The current thread is not associated with the Dispatcher" error.
-            cut.InvokeAsync(() => cut.Instance.SetDisabled(true));
-            cut.Find("fluent-button").Click();
-
-            // Assert
-            Assert.False(clicked);
-        }
+        // Assert
+        Assert.False(clicked);
     }
 }
