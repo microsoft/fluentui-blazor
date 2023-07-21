@@ -91,10 +91,13 @@ public partial class FluentNavMenuGroup : FluentNavMenuItemBase, INavMenuItemsOw
     {
         await base.ExecuteAsync(args);
 
-        bool shouldExpand = Collapsed || NavMenu.Collapsed;
-        if (shouldExpand)
+        if (!args.Handled)
         {
-            await SetExpandedAsync(true);
+            bool shouldExpand = Collapsed || NavMenu.Collapsed;
+            if (shouldExpand)
+            {
+                await SetExpandedAsync(true);
+            }
         }
     }
 
@@ -105,17 +108,6 @@ public partial class FluentNavMenuGroup : FluentNavMenuItemBase, INavMenuItemsOw
     private bool GetShouldRenderChildContent() => NavMenu.Expanded || Owner == NavMenu;
 
     private Task ToggleCollapsedAsync() => SetExpandedAsync(!Expanded);
-
-    private async Task HandleClickAsync(MouseWithTargetIdEventArgs args)
-    {
-        if (args.TargetId != Id || args.Button != 0)
-        {
-            return;
-        }
-
-        var navMenuActionArgs = new NavMenuActionArgs(this);
-        await ExecuteAsync(navMenuActionArgs);
-    }
 
     private async Task SetExpandedAsync(bool value)
     {

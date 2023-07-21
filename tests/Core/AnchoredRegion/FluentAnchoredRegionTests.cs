@@ -1,325 +1,324 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.AnchoredRegion
+namespace Microsoft.Fast.Components.FluentUI.Tests.AnchoredRegion;
+
+public class FluentAnchoredRegionTests : TestBase
 {
-    public class FluentAnchoredRegionTests : TestBase
+    [Fact]
+    public void FluentAnchoredRegion_AttributeDefaultValues()
     {
-        [Fact]
-        public void FluentAnchoredRegion_AttributeDefaultValues()
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
-            {
-                parameters.AddChildContent("content");
-            });
+            parameters.AddChildContent("content");
+        });
 
-            // Assert
-            cut.Verify();
-        }
+        // Assert
+        cut.Verify();
+    }
 
-        [Fact]
-        public void FluentAnchoredRegion_AnchorAttribute()
+    [Fact]
+    public void FluentAnchoredRegion_AnchorAttribute()
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
-            {
-                parameters.Add(p => p.Anchor, "anchor-id");
-                parameters.AddChildContent("content");
-            });
+            parameters.Add(p => p.Anchor, "anchor-id");
+            parameters.AddChildContent("content");
+        });
 
-            // Assert
-            cut.Verify();
-        }
+        // Assert
+        cut.Verify();
+    }
 
-        [Fact]
-        public void FluentAnchoredRegion_ViewportAttribute()
+    [Fact]
+    public void FluentAnchoredRegion_ViewportAttribute()
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
-            {
-                parameters.Add(p => p.Viewport, "viewport-value");
-                parameters.AddChildContent("content");
-            });
+            parameters.Add(p => p.Viewport, "viewport-value");
+            parameters.AddChildContent("content");
+        });
 
-            // Assert
-            cut.Verify();
-        }
+        // Assert
+        cut.Verify();
+    }
 
-        [Theory]
-        [InlineData(AxisPositioningMode.Dynamic)]
-        [InlineData(AxisPositioningMode.Locktodefault)]
-        [InlineData(AxisPositioningMode.Uncontrolled)]
-        public void FluentAnchoredRegion_HorizontalPositioningAttribute(AxisPositioningMode axisPositioningMode)
+    [Theory]
+    [InlineData(AxisPositioningMode.Dynamic)]
+    [InlineData(AxisPositioningMode.Locktodefault)]
+    [InlineData(AxisPositioningMode.Uncontrolled)]
+    public void FluentAnchoredRegion_HorizontalPositioningAttribute(AxisPositioningMode axisPositioningMode)
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
-            {
-                parameters.Add(p => p.HorizontalPositioningMode, axisPositioningMode);
-                parameters.AddChildContent("content");
-            });
+            parameters.Add(p => p.HorizontalPositioningMode, axisPositioningMode);
+            parameters.AddChildContent("content");
+        });
 
-            // Assert
-            cut.Verify(suffix: axisPositioningMode.ToString());
-        }
+        // Assert
+        cut.Verify(suffix: axisPositioningMode.ToString());
+    }
 
-        [Theory]
-        [InlineData(HorizontalPosition.End)]
-        [InlineData(HorizontalPosition.Left)]
-        [InlineData(HorizontalPosition.Right)]
-        [InlineData(HorizontalPosition.Start)]
-        [InlineData(HorizontalPosition.Unset)]
-        public void FluentAnchoredRegion_HorizontalDefaultPositionAttribute(HorizontalPosition horizontalPosition)
+    [Theory]
+    [InlineData(HorizontalPosition.End)]
+    [InlineData(HorizontalPosition.Left)]
+    [InlineData(HorizontalPosition.Right)]
+    [InlineData(HorizontalPosition.Start)]
+    [InlineData(HorizontalPosition.Unset)]
+    public void FluentAnchoredRegion_HorizontalDefaultPositionAttribute(HorizontalPosition horizontalPosition)
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
-            {
-                parameters.Add(p => p.HorizontalDefaultPosition, horizontalPosition);
-                parameters.AddChildContent("content");
-            });
+            parameters.Add(p => p.HorizontalDefaultPosition, horizontalPosition);
+            parameters.AddChildContent("content");
+        });
 
-            // Assert
-            cut.Verify(suffix: horizontalPosition.ToString());
-        }
+        // Assert
+        cut.Verify(suffix: horizontalPosition.ToString());
+    }
 
-        [Fact]
-        public void FluentAnchoredRegion_HorizontalViewportLockAttribute()
+    [Fact]
+    public void FluentAnchoredRegion_HorizontalViewportLockAttribute()
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
-            {
-                parameters.Add(p => p.HorizontalViewportLock, true);
-                parameters.AddChildContent("content");
-            });
+            parameters.Add(p => p.HorizontalViewportLock, true);
+            parameters.AddChildContent("content");
+        });
 
-            // Assert
-            cut.Verify();
-        }
+        // Assert
+        cut.Verify();
+    }
 
-        [Fact]
-        public void FluentAnchoredRegion_HorizontalInsetAttribute()
+    [Fact]
+    public void FluentAnchoredRegion_HorizontalInsetAttribute()
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
-            {
-                parameters.Add(p => p.HorizontalInset, true);
-                parameters.AddChildContent("content");
-            });
+            parameters.Add(p => p.HorizontalInset, true);
+            parameters.AddChildContent("content");
+        });
 
-            // Assert
-            cut.Verify();
-        }
+        // Assert
+        cut.Verify();
+    }
 
-        [Fact]
-        public void FluentAnchoredRegion_HorizontalThresholdAttribute()
+    [Fact]
+    public void FluentAnchoredRegion_HorizontalThresholdAttribute()
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
-            {
-                parameters.Add(p => p.HorizontalThreshold, 10);
-                parameters.AddChildContent("content");
-            });
+            parameters.Add(p => p.HorizontalThreshold, 10);
+            parameters.AddChildContent("content");
+        });
 
-            // Assert
-            cut.Verify();
-        }
+        // Assert
+        cut.Verify();
+    }
 
-        [Theory]
-        [InlineData(AxisScalingMode.Anchor)]
-        [InlineData(AxisScalingMode.Content)]
-        [InlineData(AxisScalingMode.Fill)]
-        public void FluentAnchoredRegion_HorizontalScalingAttribute(AxisScalingMode axisScalingMode)
+    [Theory]
+    [InlineData(AxisScalingMode.Anchor)]
+    [InlineData(AxisScalingMode.Content)]
+    [InlineData(AxisScalingMode.Fill)]
+    public void FluentAnchoredRegion_HorizontalScalingAttribute(AxisScalingMode axisScalingMode)
+    {
+        // Arrange && Act
+
+        var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
         {
-            // Arrange && Act
+            parameters.Add(p => p.HorizontalScaling, axisScalingMode);
+            parameters.AddChildContent("content");
+        });
 
-            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
-            {
-                parameters.Add(p => p.HorizontalScaling, axisScalingMode);
-                parameters.AddChildContent("content");
-            });
+        // Assert
+        cut.Verify(suffix: axisScalingMode.ToString());
+    }
 
-            // Assert
-            cut.Verify(suffix: axisScalingMode.ToString());
-        }
-
-        [Theory]
-        [InlineData(AxisPositioningMode.Dynamic)]
-        [InlineData(AxisPositioningMode.Locktodefault)]
-        [InlineData(AxisPositioningMode.Uncontrolled)]
-        public void FluentAnchoredRegion_VerticalPositioningModeAttribute(AxisPositioningMode axisPositioningMode)
+    [Theory]
+    [InlineData(AxisPositioningMode.Dynamic)]
+    [InlineData(AxisPositioningMode.Locktodefault)]
+    [InlineData(AxisPositioningMode.Uncontrolled)]
+    public void FluentAnchoredRegion_VerticalPositioningModeAttribute(AxisPositioningMode axisPositioningMode)
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
-            {
-                parameters.Add(p => p.VerticalPositioningMode, axisPositioningMode);
-                parameters.AddChildContent("content");
-            });
+            parameters.Add(p => p.VerticalPositioningMode, axisPositioningMode);
+            parameters.AddChildContent("content");
+        });
 
-            // Assert
-            cut.Verify(suffix: axisPositioningMode.ToString());
-        }
+        // Assert
+        cut.Verify(suffix: axisPositioningMode.ToString());
+    }
 
-        [Theory]
-        [InlineData(VerticalPosition.Unset)]
-        [InlineData(VerticalPosition.Bottom)]
-        [InlineData(VerticalPosition.Top)]
-        public void FluentAnchoredRegion_VerticalDefaultPositionAttribute(VerticalPosition verticalPosition)
+    [Theory]
+    [InlineData(VerticalPosition.Unset)]
+    [InlineData(VerticalPosition.Bottom)]
+    [InlineData(VerticalPosition.Top)]
+    public void FluentAnchoredRegion_VerticalDefaultPositionAttribute(VerticalPosition verticalPosition)
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
-            {
-                parameters.Add(p => p.VerticalDefaultPosition, verticalPosition);
-                parameters.AddChildContent("content");
-            });
+            parameters.Add(p => p.VerticalDefaultPosition, verticalPosition);
+            parameters.AddChildContent("content");
+        });
 
-            // Assert
-            cut.Verify(suffix: verticalPosition.ToString());
-        }
+        // Assert
+        cut.Verify(suffix: verticalPosition.ToString());
+    }
 
-        [Fact]
-        public void FluentAnchoredRegion_VerticalViewportLockAttribute()
+    [Fact]
+    public void FluentAnchoredRegion_VerticalViewportLockAttribute()
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
-            {
-                parameters.Add(p => p.VerticalViewportLock, true);
-                parameters.AddChildContent("content");
-            });
+            parameters.Add(p => p.VerticalViewportLock, true);
+            parameters.AddChildContent("content");
+        });
 
-            // Assert
-            cut.Verify();
-        }
+        // Assert
+        cut.Verify();
+    }
 
-        [Fact]
-        public void FluentAnchoredRegion_VerticalInsetAttribute()
+    [Fact]
+    public void FluentAnchoredRegion_VerticalInsetAttribute()
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
-            {
-                parameters.Add(p => p.VerticalInset, true);
-                parameters.AddChildContent("content");
-            });
+            parameters.Add(p => p.VerticalInset, true);
+            parameters.AddChildContent("content");
+        });
 
-            // Assert
-            cut.Verify();
-        }
+        // Assert
+        cut.Verify();
+    }
 
-        [Fact]
-        public void FluentAnchoredRegion_VerticalThresholdAttribute()
+    [Fact]
+    public void FluentAnchoredRegion_VerticalThresholdAttribute()
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
-            {
-                parameters.Add(p => p.VerticalThreshold, 100);
-                parameters.AddChildContent("content");
-            });
+            parameters.Add(p => p.VerticalThreshold, 100);
+            parameters.AddChildContent("content");
+        });
 
-            // Assert
-            cut.Verify();
-        }
+        // Assert
+        cut.Verify();
+    }
 
-        [Theory]
-        [InlineData(AxisScalingMode.Content)]
-        [InlineData(AxisScalingMode.Anchor)]
-        [InlineData(AxisScalingMode.Fill)]
-        public void FluentAnchoredRegion_VerticalScalingAttribute(AxisScalingMode axisScalingMode)
+    [Theory]
+    [InlineData(AxisScalingMode.Content)]
+    [InlineData(AxisScalingMode.Anchor)]
+    [InlineData(AxisScalingMode.Fill)]
+    public void FluentAnchoredRegion_VerticalScalingAttribute(AxisScalingMode axisScalingMode)
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
-            {
-                parameters.Add(p => p.VerticalScaling, axisScalingMode);
-                parameters.AddChildContent("content");
-            });
+            parameters.Add(p => p.VerticalScaling, axisScalingMode);
+            parameters.AddChildContent("content");
+        });
 
-            // Assert
-            cut.Verify(suffix: axisScalingMode.ToString());
-        }
+        // Assert
+        cut.Verify(suffix: axisScalingMode.ToString());
+    }
 
-        [Fact]
-        public void FluentAnchoredRegion_FixedPlacementAttribute()
+    [Fact]
+    public void FluentAnchoredRegion_FixedPlacementAttribute()
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
-            {
-                parameters.Add(p => p.FixedPlacement, true);
-                parameters.AddChildContent("content");
-            });
+            parameters.Add(p => p.FixedPlacement, true);
+            parameters.AddChildContent("content");
+        });
 
-            // Assert
-            cut.Verify();
-        }
+        // Assert
+        cut.Verify();
+    }
 
-        [Theory]
-        [InlineData(AutoUpdateMode.Auto)]
-        [InlineData(AutoUpdateMode.Anchor)]
-        public void FluentAnchoredRegion_AutoUpdateModeAttribute(AutoUpdateMode autoUpdateMode)
+    [Theory]
+    [InlineData(AutoUpdateMode.Auto)]
+    [InlineData(AutoUpdateMode.Anchor)]
+    public void FluentAnchoredRegion_AutoUpdateModeAttribute(AutoUpdateMode autoUpdateMode)
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
-            {
-                parameters.Add(p => p.AutoUpdateMode, autoUpdateMode);
-                parameters.AddChildContent("content");
-            });
+            parameters.Add(p => p.AutoUpdateMode, autoUpdateMode);
+            parameters.AddChildContent("content");
+        });
 
-            // Assert
-            cut.Verify(suffix: autoUpdateMode.ToString());
-        }
+        // Assert
+        cut.Verify(suffix: autoUpdateMode.ToString());
+    }
 
-        [Fact]
-        public void FluentAnchoredRegion_WithAdditionalCSSClass()
+    [Fact]
+    public void FluentAnchoredRegion_WithAdditionalCSSClass()
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
-            {
-                parameters.Add(p => p.Class, "additional-css-class");
-                parameters.AddChildContent("content");
-            });
+            parameters.Add(p => p.Class, "additional-css-class");
+            parameters.AddChildContent("content");
+        });
 
-            // Assert
-            cut.Verify();
-        }
+        // Assert
+        cut.Verify();
+    }
 
-        [Fact]
-        public void FluentAnchoredRegion_WithAdditionalStyle()
+    [Fact]
+    public void FluentAnchoredRegion_WithAdditionalStyle()
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
-            {
-                parameters.Add(p => p.Style, "background-color: black");
-                parameters.AddChildContent("content");
-            });
+            parameters.Add(p => p.Style, "background-color: black");
+            parameters.AddChildContent("content");
+        });
 
-            // Assert
-            cut.Verify();
-        }
+        // Assert
+        cut.Verify();
+    }
 
-        [Fact]
-        public void FluentAnchoredRegion_WithAnAdditionalAttribute()
+    [Fact]
+    public void FluentAnchoredRegion_WithAnAdditionalAttribute()
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
-            {
-                parameters.AddUnmatched("additional", "additional-value");
-                parameters.AddChildContent("content");
-            });
+            parameters.AddUnmatched("additional", "additional-value");
+            parameters.AddChildContent("content");
+        });
 
-            // Assert
-            cut.Verify();
-        }
+        // Assert
+        cut.Verify();
+    }
 
-        [Fact]
-        public void FluentAnchoredRegion_WithMultipleAdditionalAttributes()
+    [Fact]
+    public void FluentAnchoredRegion_WithMultipleAdditionalAttributes()
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentAnchoredRegion>(parameters =>
-            {
-                parameters.AddUnmatched("additional1", "additional1-value");
-                parameters.AddUnmatched("additional2", "additional2-value");
-                parameters.AddChildContent("content");
-            });
+            parameters.AddUnmatched("additional1", "additional1-value");
+            parameters.AddUnmatched("additional2", "additional2-value");
+            parameters.AddChildContent("content");
+        });
 
-            // Assert
-            cut.Verify();
-        }
+        // Assert
+        cut.Verify();
     }
 }

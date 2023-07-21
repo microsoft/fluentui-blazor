@@ -2,261 +2,260 @@ using Bunit;
 using FluentAssertions;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Anchor
+namespace Microsoft.Fast.Components.FluentUI.Tests.Anchor;
+
+public class FluentAnchorTests : TestBase
 {
-    public class FluentAnchorTests : TestBase
+    private const string FluentAnchorRazorJs = "./_content/Microsoft.Fast.Components.FluentUI/Components/Anchor/FluentAnchor.razor.js";
+
+    public FluentAnchorTests()
     {
-        private const string FluentAnchorRazorJs = "./_content/Microsoft.Fast.Components.FluentUI/Components/Anchor/FluentAnchor.razor.js";
+        TestContext.JSInterop.SetupModule(FluentAnchorRazorJs);
+    }
 
-        public FluentAnchorTests()
+    [Fact]
+    public void FluentAnchor_AttributesDefaultValues()
+    {
+        // Arrange
+        var cut = TestContext.RenderComponent<FluentAnchor>(parameters =>
         {
-            TestContext.JSInterop.SetupModule(FluentAnchorRazorJs);
-        }
+            parameters.AddChildContent("click me!");
+        });
 
-        [Fact]
-        public void FluentAnchor_AttributesDefaultValues()
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData("something")]
+    public void FluentAnchor_DownloadAttribute(string download)
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentAnchor>(parameters =>
         {
-            // Arrange
-            var cut = TestContext.RenderComponent<FluentAnchor>(parameters =>
-            {
-                parameters.AddChildContent("click me!");
-            });
+            parameters.Add(p => p.Href, "https://fast.design");
+            parameters.Add(p => p.Download, download);
+            parameters.AddChildContent("click me!");
+        });
 
-            // Assert
-            cut.Verify();
-        }
+        // Assert
+        cut.Verify(suffix: download);
+    }
 
-        [Theory]
-        [InlineData("")]
-        [InlineData("something")]
-        public void FluentAnchor_DownloadAttribute(string download)
+    [Theory]
+    [InlineData("https://fast.design", "file1")]
+    [InlineData("/something/something", "file2")]
+    [InlineData("#/something/something", "file3")]
+    public void FluentAnchor_HrefAttribute(string url, string suffix)
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentAnchor>(parameters =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentAnchor>(parameters =>
-            {
-                parameters.Add(p => p.Href, "https://fast.design");
-                parameters.Add(p => p.Download, download);
-                parameters.AddChildContent("click me!");
-            });
+            parameters.Add(p => p.Href, url);
+            parameters.AddChildContent("click me!");
+        });
 
-            // Assert
-            cut.Verify(suffix: download);
-        }
+        // Assert
+        cut.Verify(suffix: suffix);
+    }
 
-        [Theory]
-        [InlineData("https://fast.design", "file1")]
-        [InlineData("/something/something", "file2")]
-        [InlineData("#/something/something", "file3")]
-        public void FluentAnchor_HrefAttribute(string url, string suffix)
+    [Theory]
+    [InlineData("en-GB")]
+    [InlineData("fr")]
+    public void FluentAnchor_HrefLangAttribute(string lang)
+    {
+        // Arrange
+        var cut = TestContext.RenderComponent<FluentAnchor>(
+            parameters => parameters
+                .Add(p => p.Hreflang, lang)
+                .Add(p => p.Href, "https://fast.design")
+                .AddChildContent("click me!"));
+
+        // Assert
+        cut.Verify(suffix: lang);
+    }
+
+    [Theory]
+    [InlineData("https://fast.design", "file1")]
+    [InlineData("https://fast.design https://google.com", "file2")]
+    public void FluentAnchor_PingAttribute(string ping, string suffix)
+    {
+        // Arrange
+        var cut = TestContext.RenderComponent<FluentAnchor>(
+            parameters => parameters
+                .Add(p => p.Ping, ping)
+                .Add(p => p.Href, "https://fast.design")
+                .AddChildContent("click me!"));
+
+        // Assert
+        cut.Verify(suffix: suffix);
+    }
+
+    [Theory]
+    [InlineData("no-referrer")]
+    [InlineData("no-referrer-when-downgrade")]
+    public void FluentAnchor_ReferrerPolicyAttribute(string referrerPolicy)
+    {
+        // Arrange
+        var cut = TestContext.RenderComponent<FluentAnchor>(
+            parameters => parameters
+                .Add(p => p.Referrerpolicy, referrerPolicy)
+                .Add(p => p.Href, "https://fast.design")
+                .AddChildContent("click me!"));
+
+        // Assert
+        cut.Verify(suffix: referrerPolicy);
+    }
+
+    [Theory]
+    [InlineData("alternate")]
+    [InlineData("bookmark")]
+    public void FluentAnchor_RelAttribute(string rel)
+    {
+        // Arrange
+        var cut = TestContext.RenderComponent<FluentAnchor>(
+            parameters => parameters
+                .Add(p => p.Rel, rel)
+                .Add(p => p.Href, "https://fast.design")
+                .AddChildContent("click me!"));
+
+        // Assert
+        cut.Verify(suffix: rel);
+    }
+
+    [Theory]
+    [InlineData("_blank")]
+    [InlineData("_self")]
+    [InlineData("_parent")]
+    [InlineData("_top")]
+    [InlineData("invalid")]
+    public void FluentAnchor_TargetAttribute(string target)
+    {
+        // Arrange
+        IRenderedComponent<FluentAnchor>? cut = null;
+        Action action = () =>
         {
-            // Arrange && Act
-            var cut = TestContext.RenderComponent<FluentAnchor>(parameters =>
-            {
-                parameters.Add(p => p.Href, url);
-                parameters.AddChildContent("click me!");
-            });
-
-            // Assert
-            cut.Verify(suffix: suffix);
-        }
-
-        [Theory]
-        [InlineData("en-GB")]
-        [InlineData("fr")]
-        public void FluentAnchor_HrefLangAttribute(string lang)
-        {
-            // Arrange
-            var cut = TestContext.RenderComponent<FluentAnchor>(
+            cut = TestContext.RenderComponent<FluentAnchor>(
                 parameters => parameters
-                    .Add(p => p.Hreflang, lang)
+                    .Add(p => p.Target, target)
                     .Add(p => p.Href, "https://fast.design")
                     .AddChildContent("click me!"));
+        };
 
-            // Assert
-            cut.Verify(suffix: lang);
-        }
-
-        [Theory]
-        [InlineData("https://fast.design", "file1")]
-        [InlineData("https://fast.design https://google.com", "file2")]
-        public void FluentAnchor_PingAttribute(string ping, string suffix)
+        // Assert
+        if (target == "invalid")
         {
-            // Arrange
-            var cut = TestContext.RenderComponent<FluentAnchor>(
-                parameters => parameters
-                    .Add(p => p.Ping, ping)
-                    .Add(p => p.Href, "https://fast.design")
-                    .AddChildContent("click me!"));
-
-            // Assert
-            cut.Verify(suffix: suffix);
+            action.Should().Throw<ArgumentException>();
         }
-
-        [Theory]
-        [InlineData("no-referrer")]
-        [InlineData("no-referrer-when-downgrade")]
-        public void FluentAnchor_ReferrerPolicyAttribute(string referrerPolicy)
+        else
         {
-            // Arrange
-            var cut = TestContext.RenderComponent<FluentAnchor>(
-                parameters => parameters
-                    .Add(p => p.Referrerpolicy, referrerPolicy)
-                    .Add(p => p.Href, "https://fast.design")
-                    .AddChildContent("click me!"));
-
-            // Assert
-            cut.Verify(suffix: referrerPolicy);
+            action.Should().NotThrow();
+            cut!.Verify(suffix: target);
         }
+    }
 
-        [Theory]
-        [InlineData("alternate")]
-        [InlineData("bookmark")]
-        public void FluentAnchor_RelAttribute(string rel)
-        {
-            // Arrange
-            var cut = TestContext.RenderComponent<FluentAnchor>(
-                parameters => parameters
-                    .Add(p => p.Rel, rel)
-                    .Add(p => p.Href, "https://fast.design")
-                    .AddChildContent("click me!"));
+    [Theory]
+    [InlineData("image/png", "png")]
+    [InlineData("application/pdf", "pdf")]
+    public void FluentAnchor_TypeAttribute(string type, string suffix)
+    {
+        // Arrange
+        var cut = TestContext.RenderComponent<FluentAnchor>(
+            parameters => parameters
+                .Add(p => p.Type, type)
+                .Add(p => p.Href, "https://fast.design")
+                .AddChildContent("click me!"));
 
-            // Assert
-            cut.Verify(suffix: rel);
-        }
+        // Assert
+        cut.Verify(suffix: suffix);
+    }
 
-        [Theory]
-        [InlineData("_blank")]
-        [InlineData("_self")]
-        [InlineData("_parent")]
-        [InlineData("_top")]
-        [InlineData("invalid")]
-        public void FluentAnchor_TargetAttribute(string target)
-        {
-            // Arrange
-            IRenderedComponent<FluentAnchor>? cut = null;
-            Action action = () =>
-            {
-                cut = TestContext.RenderComponent<FluentAnchor>(
-                    parameters => parameters
-                        .Add(p => p.Target, target)
-                        .Add(p => p.Href, "https://fast.design")
-                        .AddChildContent("click me!"));
-            };
+    [Theory]
+    [InlineData(Appearance.Accent)]
+    [InlineData(Appearance.Filled)]
+    [InlineData(Appearance.Hypertext)]
+    [InlineData(Appearance.Outline)]
+    [InlineData(Appearance.Lightweight)]
+    [InlineData(Appearance.Neutral)]
+    [InlineData(Appearance.Stealth)]
+    public void FluentAnchor_AppearanceAttribute(Appearance appearance)
+    {
+        // Arrange
+        var cut = TestContext.RenderComponent<FluentAnchor>(
+            parameters => parameters
+                .Add(p => p.Appearance, appearance)
+                .Add(p => p.Href, "https://fast.design")
+                .AddChildContent("click me!"));
 
-            // Assert
-            if (target == "invalid")
-            {
-                action.Should().Throw<ArgumentException>();
-            }
-            else
-            {
-                action.Should().NotThrow();
-                cut!.Verify(suffix: target);
-            }
-        }
+        // Assert
+        cut.Verify(suffix: appearance.ToString());
+    }
 
-        [Theory]
-        [InlineData("image/png", "png")]
-        [InlineData("application/pdf", "pdf")]
-        public void FluentAnchor_TypeAttribute(string type, string suffix)
-        {
-            // Arrange
-            var cut = TestContext.RenderComponent<FluentAnchor>(
-                parameters => parameters
-                    .Add(p => p.Type, type)
-                    .Add(p => p.Href, "https://fast.design")
-                    .AddChildContent("click me!"));
+    [Fact]
+    public void FluentAnchor_Without_ChildContent()
+    {
+        // Arrange
+        var cut = TestContext.RenderComponent<FluentAnchor>();
 
-            // Assert
-            cut.Verify(suffix: suffix);
-        }
+        // Assert
+        cut.Verify();
+    }
 
-        [Theory]
-        [InlineData(Appearance.Accent)]
-        [InlineData(Appearance.Filled)]
-        [InlineData(Appearance.Hypertext)]
-        [InlineData(Appearance.Outline)]
-        [InlineData(Appearance.Lightweight)]
-        [InlineData(Appearance.Neutral)]
-        [InlineData(Appearance.Stealth)]
-        public void FluentAnchor_AppearanceAttribute(Appearance appearance)
-        {
-            // Arrange
-            var cut = TestContext.RenderComponent<FluentAnchor>(
-                parameters => parameters
-                    .Add(p => p.Appearance, appearance)
-                    .Add(p => p.Href, "https://fast.design")
-                    .AddChildContent("click me!"));
+    [Fact]
+    public void FluentAnchor_WithAdditionalCSSClass()
+    {
+        // Arrange & Act
+        var cut = TestContext.RenderComponent<FluentAnchor>(
+            parameters => parameters
+                .Add(p => p.Href, "https://fast.design")
+                .Add(p => p.Class, "additional-class")
+                .AddChildContent("click me!"));
 
-            // Assert
-            cut.Verify(suffix: appearance.ToString());
-        }
+        // Assert
+        cut.Verify();
+    }
 
-        [Fact]
-        public void FluentAnchor_Without_ChildContent()
-        {
-            // Arrange
-            var cut = TestContext.RenderComponent<FluentAnchor>();
+    [Fact]
+    public void FluentAnchor_WithAdditionalStyle()
+    {
+        // Arrange & Act
+        var cut = TestContext.RenderComponent<FluentAnchor>(
+            parameters => parameters
+                .Add(p => p.Href, "https://fast.design")
+                .Add(p => p.Style, "background-color: black;")
+                .AddChildContent("click me!"));
 
-            // Assert
-            cut.Verify();
-        }
+        // Assert
+        cut.Verify();
+    }
 
-        [Fact]
-        public void FluentAnchor_WithAdditionalCSSClass()
-        {
-            // Arrange & Act
-            var cut = TestContext.RenderComponent<FluentAnchor>(
-                parameters => parameters
-                    .Add(p => p.Href, "https://fast.design")
-                    .Add(p => p.Class, "additional-class")
-                    .AddChildContent("click me!"));
+    [Fact]
+    public void FluentAnchor_WithASingleAdditionalAttribute()
+    {
+        // Arrange & Act
+        var cut = TestContext.RenderComponent<FluentAnchor>(
+            parameters => parameters
+                .Add(p => p.Href, "https://fast.design")
+                .AddUnmatched("additional", "additional-value")
+                .AddChildContent("click me!"));
 
-            // Assert
-            cut.Verify();
-        }
+        // Assert
+        cut.Verify();
+    }
 
-        [Fact]
-        public void FluentAnchor_WithAdditionalStyle()
-        {
-            // Arrange & Act
-            var cut = TestContext.RenderComponent<FluentAnchor>(
-                parameters => parameters
-                    .Add(p => p.Href, "https://fast.design")
-                    .Add(p => p.Style, "background-color: black;")
-                    .AddChildContent("click me!"));
+    [Fact]
+    public void FluentAnchor_WithMultipleAdditionalAttributes()
+    {
+        // Arrange & Act
+        var cut = TestContext.RenderComponent<FluentAnchor>(
+            parameters => parameters
+                .Add(p => p.Href, "https://fast.design")
+                .AddUnmatched("additional1", "additional1-value")
+                .AddUnmatched("additional2", "additional2-value")
+                .AddChildContent("click me!"));
 
-            // Assert
-            cut.Verify();
-        }
-
-        [Fact]
-        public void FluentAnchor_WithASingleAdditionalAttribute()
-        {
-            // Arrange & Act
-            var cut = TestContext.RenderComponent<FluentAnchor>(
-                parameters => parameters
-                    .Add(p => p.Href, "https://fast.design")
-                    .AddUnmatched("additional", "additional-value")
-                    .AddChildContent("click me!"));
-
-            // Assert
-            cut.Verify();
-        }
-
-        [Fact]
-        public void FluentAnchor_WithMultipleAdditionalAttributes()
-        {
-            // Arrange & Act
-            var cut = TestContext.RenderComponent<FluentAnchor>(
-                parameters => parameters
-                    .Add(p => p.Href, "https://fast.design")
-                    .AddUnmatched("additional1", "additional1-value")
-                    .AddUnmatched("additional2", "additional2-value")
-                    .AddChildContent("click me!"));
-
-            // Assert
-            cut.Verify();
-        }
+        // Assert
+        cut.Verify();
     }
 }

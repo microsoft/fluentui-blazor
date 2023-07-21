@@ -1,9 +1,8 @@
 using Bunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests
+namespace Microsoft.Fast.Components.FluentUI.Tests;
+
+public class TestBase
 {
-    public class TestBase
-    {
-        protected readonly TestContext TestContext = new TestContext();
-    }
+    protected readonly TestContext TestContext = new TestContext();
 }
