@@ -2,20 +2,15 @@
 @using Microsoft.AspNetCore.Components.Forms
 @inherits ValidationSummary
 
-@{ var validationMessages = Model is null ? FluentEditContext.GetValidationMessages() : FluentEditContext.GetValidationMessages(new FieldIdentifier(Model, string.Empty));
+@if (_validationMessages is not null && _validationMessages.Any())
+{
+    <div @attributes="AdditionalAttributes">
+        <ul class="validation-errors">
 
-    @if (validationMessages.Count() > 0)
-    {
-        <div @attributes="AdditionalAttributes">
-             <ul class="validation-errors">
-
-            @foreach (var error in validationMessages)
+            @foreach (var error in _validationMessages)
             {
                 <li class="validation-mesage">@error</li>
             }
-            </ul>
-        </div>
-    }
+        </ul>
+    </div>
 }
-
-

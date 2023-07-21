@@ -1,6 +1,9 @@
 ﻿@page "/basicform-fluentui-components"
 
 <h1>Starfleet Starship Database</h1>
+<p>
+    This form uses the Fluent UI input components. It uses a <code>DataAnnotationsValidator</code> and a <code>FluentValidationSummary</code>
+</p>
 
 <h2>New Ship Entry Form</h2>
 
@@ -8,27 +11,28 @@
     <DataAnnotationsValidator />
     <FluentValidationSummary />
 
-    <div style="display:grid; gap: 5px;">
-        <div><FluentTextField @bind-Value="starship.Identifier">Identifier:</FluentTextField></div>
-        <div><FluentTextArea @bind-Value="starship.Description">Description (optional):</FluentTextArea></div>
-        <div><label>Primary Classification:</label>
-            <FluentSelect @bind-Value="starship.Classification" TOption="string">
-                <FluentOption Value="">Select classification ...</FluentOption>
-                <FluentOption Value="Exploration">Exploration</FluentOption>
-                <FluentOption Value="Diplomacy">Diplomacy</FluentOption>
-                <FluentOption Value="Defense">Defense</FluentOption>
-            </FluentSelect>
-        </div>
-        <div><FluentNumberField @bind-Value="starship.MaximumAccommodation"> Maximum Accommodation:</FluentNumberField></div>
-        <div><FluentCheckbox @bind-Value="starship.IsValidatedDesign">Engineering Approval</FluentCheckbox></div>
-        <div><label>Production Date:</label>
-            <FluentDatePicker @bind-Value="prodDate" />
-        </div>
-        <div><FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent">Submit</FluentButton></div>
-        <div><a href="http://www.startrek.com/">Star Trek</a>, ©1966-2023 CBS Studios, Inc. and <a href="https://www.paramount.com">Paramount Pictures</a></div>
-    </div>
+
+    <FluentStack Orientation="Orientation.Vertical">
+        <FluentTextField @bind-Value="starship.Identifier">Identifier:</FluentTextField>
+        <FluentTextArea Rows=5 Cols=60 @bind-Value="starship.Description">Description (optional):</FluentTextArea>
+        <label for="classification">Primary Classification:</label>
+        <FluentSelect Id="classification" @bind-Value="starship.Classification" TOption="string">
+            <FluentOption Value="">Select classification ...</FluentOption>
+            <FluentOption Value="Exploration">Exploration</FluentOption>
+            <FluentOption Value="Diplomacy">Diplomacy</FluentOption>
+            <FluentOption Value="Defense">Defense</FluentOption>
+        </FluentSelect>
+        
+        <FluentNumberField @bind-Value="starship.MaximumAccommodation"> Maximum Accommodation:</FluentNumberField>
+        <FluentCheckbox @bind-Value="starship.IsValidatedDesign">Engineering Approval</FluentCheckbox>
+        <label for="proddate">Production Date:</label>
+        <FluentDatePicker Id="proddate" @bind-Value="prodDate" />
+        
+        <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent">Submit</FluentButton>
+    </FluentStack>
 </EditForm>
 
+<div style="margin-top: 3rem;"><a href="http://www.startrek.com/">Star Trek</a>, ©1966-2023 CBS Studios, Inc. and <a href="https://www.paramount.com">Paramount Pictures</a></div>
 @code {
     DateTime? prodDate = DateTime.Now;
 
