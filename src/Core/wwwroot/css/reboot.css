@@ -315,6 +315,14 @@ textarea {
     border: 1px solid black;
 }
 
+.invalid::part(root) {
+    outline: 1px solid var(--error);
+}
+
+.invalid[role='checkbox']::part(control) {
+    outline: 1px solid var(--error);
+}
+
 button,
 select {
     text-transform: none;
