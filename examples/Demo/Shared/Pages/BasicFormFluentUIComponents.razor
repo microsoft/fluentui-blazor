@@ -1,4 +1,6 @@
 ﻿@page "/basicform-fluentui-components"
+@using Microsoft.Extensions.Logging
+@inject ILogger<BasicFormFluentUIComponents> Logger
 
 <h1>Starfleet Starship Database</h1>
 
@@ -6,7 +8,7 @@
 
 <EditForm Model="@starship" OnValidSubmit="@HandleValidSubmit">
     <DataAnnotationsValidator />
-    <FluentValidationSummary />
+    <ValidationSummary />
 
     <div style="display:grid; gap: 5px;">
         <div><FluentTextField @bind-Value="starship.Identifier">Identifier:</FluentTextField></div>
@@ -22,26 +24,27 @@
         <div><FluentNumberField @bind-Value="starship.MaximumAccommodation"> Maximum Accommodation:</FluentNumberField></div>
         <div><FluentCheckbox @bind-Value="starship.IsValidatedDesign">Engineering Approval</FluentCheckbox></div>
         <div><label>Production Date:</label>
-            <FluentDatePicker @bind-Value="prodDate" />
+            <FluentCalendar @bind-SelectedDates="prodDate" />
         </div>
         <div><FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent">Submit</FluentButton></div>
-        <div><a href="http://www.startrek.com/">Star Trek</a>, ©1966-2023 CBS Studios, Inc. and <a href="https://www.paramount.com">Paramount Pictures</a></div>
+        <div><a href="http://www.startrek.com/">Star Trek</a>, ©1966-2019 CBS Studios, Inc. and <a href="https://www.paramount.com">Paramount Pictures</a></div>
     </div>
 </EditForm>
 
 @code {
-    DateTime? prodDate = DateTime.Now;
+    List<DateOnly> prodDate = new();
 
     protected override void OnInitialized()
     {
-        starship.ProductionDate = new DateOnly(prodDate!.Value.Year, prodDate!.Value.Month, prodDate!.Value.Day);
+        prodDate.Add(new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day));
+        starship.ProductionDate = prodDate[0];
     }
 
     private Starship starship = new();
 
     private void HandleValidSubmit()
     {
-        DemoLogger.WriteLine("HandleValidSubmit called");
+        Logger.LogInformation("HandleValidSubmit called");
 
         // Process the valid form
     }

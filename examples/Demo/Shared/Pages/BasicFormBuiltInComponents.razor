@@ -1,4 +1,6 @@
 ﻿@page "/basicform-built-in-components"
+@using Microsoft.Extensions.Logging
+@inject ILogger<BasicFormBuiltInComponents> Logger
 
 <h1>Starfleet Starship Database</h1>
 
@@ -6,7 +8,7 @@
 
 <EditForm Model="@starship" OnValidSubmit="@HandleValidSubmit">
     <DataAnnotationsValidator />
-    <FluentValidationSummary />
+    <ValidationSummary />
 
     <p>
         <label>
@@ -64,7 +66,7 @@
 
     private void HandleValidSubmit()
     {
-        DemoLogger.WriteLine("HandleValidSubmit called");
+        Logger.LogInformation("HandleValidSubmit called");
 
         // Process the valid form
     }
