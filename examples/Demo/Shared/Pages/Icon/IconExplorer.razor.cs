@@ -6,13 +6,15 @@ namespace FluentUI.Demo.Shared.Pages.Icon;
 
 public partial class IconExplorer
 {
-    private const int MAX_ICONS = 200;
     private bool SearchInProgress = false;
     private readonly SearchCriteria Criteria = new();
     private Color IconColor = Color.Accent;
-    private IEnumerable<IconInfo> IconsFound = Array.Empty<IconInfo>();
+    private IconInfo[] IconsFound = Array.Empty<IconInfo>();
     private int IconsCount = 0;
     private IJSObjectReference? _jsModule;
+    private PaginationState PaginationState = new PaginationState {  ItemsPerPage = 25 };
+    private IEnumerable<IconInfo> IconsForCurrentPage =>
+        IconsFound.Skip(PaginationState.CurrentPageIndex * PaginationState.ItemsPerPage).Take(PaginationState.ItemsPerPage);
 
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
@@ -28,26 +30,28 @@ public partial class IconExplorer
 
     private async Task HandleSearch()
     {
-        if (Criteria.SearchTerm.Length < 2)
-        {
-            SearchInProgress = false;
-            IconsCount = 0;
-            return;
-        }
-
         SearchInProgress = true;
         await Task.Delay(1);
 
         var icons = Icons.AllIcons
-                         .Where(i => i.Name.Contains(Criteria.SearchTerm, StringComparison.InvariantCultureIgnoreCase)
-                                  && i.Variant == Criteria.Variant
-                                  && i.Size == Criteria.Size);
+            .Where(i => i.Variant == Criteria.Variant)
+            .Where(i => i.Size == Criteria.Size);
+
+        if (!string.IsNullOrWhiteSpace(Criteria.SearchTerm))
+        {
+            icons = icons.Where(i => i.Name.Contains(Criteria.SearchTerm, StringComparison.InvariantCultureIgnoreCase));
+        }
 
         IconsCount = icons.Count();
-        IconsFound = icons.Take(MAX_ICONS).ToArray();
+        IconsFound = icons.ToArray();
 
         SearchInProgress = false;
-        await Task.Delay(1);
+        await PaginationState.SetTotalItemCountAsync(IconsCount);
+    }
+
+    private void HandleCurrentPageIndexChanged()
+    {
+        StateHasChanged();
     }
 
     public async Task HandleColor(ChangeEventArgs args)
