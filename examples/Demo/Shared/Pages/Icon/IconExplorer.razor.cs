@@ -12,7 +12,7 @@ public partial class IconExplorer
     private IconInfo[] IconsFound = Array.Empty<IconInfo>();
     private int IconsCount = 0;
     private IJSObjectReference? _jsModule;
-    private PaginationState PaginationState = new PaginationState {  ItemsPerPage = 50 };
+    private PaginationState PaginationState = new PaginationState {  ItemsPerPage = 25 };
     private IEnumerable<IconInfo> IconsForCurrentPage =>
         IconsFound.Skip(PaginationState.CurrentPageIndex * PaginationState.ItemsPerPage).Take(PaginationState.ItemsPerPage);
 
@@ -46,7 +46,6 @@ public partial class IconExplorer
         IconsFound = icons.ToArray();
 
         SearchInProgress = false;
-        await Task.Delay(1);
         await PaginationState.SetTotalItemCountAsync(IconsCount);
     }
 
