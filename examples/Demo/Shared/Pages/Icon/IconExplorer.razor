@@ -1,7 +1,7 @@
 <div class="icon-explorer-criteria">
     <FluentSearch Style="width: 100%"
                   Name="Searchterm"
-    @bind-Value="@Criteria.SearchTerm"
+                  @bind-Value="@Criteria.SearchTerm"
                   AfterBindValue="@HandleSearch"
                   Placeholder="Part of icon name..." />
 
@@ -9,17 +9,17 @@
                   Style="min-width: unset;"
                   Items="@(Enum.GetValues<IconSize>())"
                   OptionText="x=>((int)x).ToString()"
-    @onchange="@(x => HandleSize(x))" />
+                  @onchange="@(x => HandleSize(x))" />
 
     <FluentSelect TOption="IconVariant" @bind-SelectedOption="@Criteria.Variant"
                   Style="min-width: unset;"
                   Items="@(Enum.GetValues<IconVariant>())"
-    @onchange="@(x => HandleVariant(x))" />
+                  @onchange="@(x => HandleVariant(x))" />
 
     <FluentSelect TOption="Color"
                   Id="Color"
-    @bind-SelectedOption="IconColor"
-    @onchange="@(x => HandleColor(x))"
+                  @bind-SelectedOption="IconColor"
+                  @onchange="@(x => HandleColor(x))"
                   Items="@(Enum.GetValues<Color>())"
                   OptionValue="x=> x.ToAttributeValue()"
                   OptionSelected="x => x == IconColor"
