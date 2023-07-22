@@ -10,15 +10,20 @@ public partial class FluentPaginator : FluentComponentBase, IDisposable
 {
     private readonly EventCallbackSubscriber<PaginationState> _totalItemCountChanged;
 
+    [Parameter]
+    public EventCallback<int> CurrentPageIndexChanged { get; set; }
+
     /// <summary>
     /// Specifies the associated <see cref="PaginationState"/>. This parameter is required.
     /// </summary>
-    [Parameter, EditorRequired] public PaginationState State { get; set; } = default!;
+    [Parameter, EditorRequired]
+    public PaginationState State { get; set; } = default!;
 
     /// <summary>
     /// Optionally supplies a template for rendering the page count summary.
     /// </summary>
-    [Parameter] public RenderFragment? SummaryTemplate { get; set; }
+    [Parameter]
+    public RenderFragment? SummaryTemplate { get; set; }
 
     /// <summary>
     /// Constructs an instance of <see cref="FluentPaginator" />.
@@ -37,8 +42,14 @@ public partial class FluentPaginator : FluentComponentBase, IDisposable
     private bool CanGoBack => State.CurrentPageIndex > 0;
     private bool CanGoForwards => State.CurrentPageIndex < State.LastPageIndex;
 
-    private Task GoToPageAsync(int pageIndex)
-        => State.SetCurrentPageIndexAsync(pageIndex);
+    private async Task GoToPageAsync(int pageIndex)
+    { 
+        await State.SetCurrentPageIndexAsync(pageIndex);
+        if (CurrentPageIndexChanged.HasDelegate)
+        {
+            await CurrentPageIndexChanged.InvokeAsync(State.CurrentPageIndex);
+        }
+    }
 
     /// <inheritdoc />
     protected override void OnParametersSet()
