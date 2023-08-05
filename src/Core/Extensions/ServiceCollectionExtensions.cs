@@ -1,5 +1,6 @@
 ﻿using System.Runtime.Versioning;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Fast.Components.FluentUI.Components.Tooltip;
 using Microsoft.Fast.Components.FluentUI.DesignTokens;
 using Microsoft.Fast.Components.FluentUI.Infrastructure;
 
@@ -7,11 +8,6 @@ namespace Microsoft.Fast.Components.FluentUI;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddFluentToasts(this IServiceCollection services)
-    {
-        return services.AddScoped<IToastService, ToastService>();
-    }
-
     /// <summary>
     /// Add common services required by the Fluent UI Web Components for Blazor library
     /// </summary>
@@ -21,11 +17,16 @@ public static class ServiceCollectionExtensions
     {
         services.AddScoped<GlobalState>();
         services.AddScoped<CacheStorageAccessor>();
-        services.AddFluentToasts();
+        services.AddScoped<IToastService, ToastService>();
         services.AddScoped<IDialogService, DialogService>();
 
         if (configuration is not null)
         {
+            if (configuration.UseTooltipServiceProvider)
+            {
+                services.AddScoped<ITooltipService, TooltipService>();
+            }
+
             switch (configuration.HostingModel)
             {
                 case BlazorHostingModel.Server:
@@ -88,60 +89,7 @@ public static class ServiceCollectionExtensions
         LibraryConfiguration options = new();
         configuration.Invoke(options);
 
-        services.AddScoped<GlobalState>();
-        services.AddScoped<CacheStorageAccessor>();
-        services.AddFluentToasts();
-        services.AddScoped<IDialogService, DialogService>();
-
-        if (options is not null)
-        {
-            switch (options.HostingModel)
-            {
-                case BlazorHostingModel.Server:
-                    if (string.IsNullOrEmpty(options.StaticAssetServiceConfiguration.BaseAddress))
-                    {
-#pragma warning disable CA1416 // Validate platform compatibility
-                        services.AddHttpClient<IStaticAssetService, HttpBasedStaticAssetService>()
-                            .ConfigurePrimaryHttpMessageHandler(GetHandler);
-#pragma warning restore CA1416 // Validate platform compatibility
-                    }
-                    else
-                    {
-#pragma warning disable CA1416 // Validate platform compatibility
-                        services.AddHttpClient<IStaticAssetService, HttpBasedStaticAssetService>(c =>
-                        {
-                            c.BaseAddress = new Uri(options.StaticAssetServiceConfiguration.BaseAddress);
-                        }).ConfigurePrimaryHttpMessageHandler(GetHandler);
-#pragma warning restore CA1416 // Validate platform compatibility
-                    }
-                    break;
-                case BlazorHostingModel.WebAssembly:
-                    if (string.IsNullOrEmpty(options.StaticAssetServiceConfiguration.BaseAddress))
-                    {
-                        services.AddHttpClient<IStaticAssetService, HttpBasedStaticAssetService>();
-                    }
-                    else
-                    {
-                        services.AddHttpClient<IStaticAssetService, HttpBasedStaticAssetService>(c =>
-                        {
-                            c.BaseAddress = new Uri(options.StaticAssetServiceConfiguration.BaseAddress);
-
-                        });
-                    }
-                    break;
-                case BlazorHostingModel.NotSpecified:
-                    services.AddHttpClient<IStaticAssetService, HttpBasedStaticAssetService>();
-                    break;
-                case BlazorHostingModel.Hybrid:
-                    break;
-            }
-        }
-        else
-            services.AddHttpClient<IStaticAssetService, HttpBasedStaticAssetService>();
-
-        services.AddDesignTokens();
-
-        return services;
+        return AddFluentUIComponents(services, options);
     }
 
     [UnsupportedOSPlatform("browser")]

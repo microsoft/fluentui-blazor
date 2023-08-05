@@ -4841,6 +4841,30 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.ServiceProvider">
+            <summary>
+            Gets or sets a reference to the list of registered services.
+            </summary>
+            <remarks>
+            https://github.com/dotnet/aspnetcore/issues/24193
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.TooltipService">
+            <summary>
+            Gets a reference to the tooltip service (if registered).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.GlobalOptions">
+            <summary>
+            Gets the default tooltip options.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.UseTooltipService">
+            <summary>
+            Use ITooltipService to create the tooltip, if this service was injected.
+            Default, true.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.Visible">
             <summary>
             Gets or sets if the tooltip is visible
@@ -4848,17 +4872,23 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.Anchor">
             <summary>
-            Gets or sets the anchor
+            Required. Gets or sets the control identifier associated with the tooltip.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.Delay">
             <summary>
-            Gets or sets the delay (in miliseconds)
+            Gets or sets the delay (in milliseconds). Default is 300.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.Position">
             <summary>
-            Gets or sets the tooltip's position. See <see cref="T:Microsoft.Fast.Components.FluentUI.TooltipPosition"/>
+            Gets or sets the tooltip's position. See <see cref="T:Microsoft.Fast.Components.FluentUI.TooltipPosition"/>.
+            Don't set this if you want the tooltip to use the best position.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.MaxWidth">
+            <summary>
+            Gets or sets the maximum width of tooltip panel.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.AutoUpdateMode">
@@ -4870,12 +4900,12 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.HorizontalViewportLock">
             <summary>
-            Gets or sets wether the horizontal viewport is locked
+            Gets or sets whether the horizontal viewport is locked
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.VerticalViewportLock">
             <summary>
-            Gets or sets wether the vertical viewport is locked
+            Gets or sets whether the vertical viewport is locked
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.ChildContent">
@@ -4883,10 +4913,187 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.OnDissmissed">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.OnDismissed">
             <summary>
             Callback for when the tooltip is dismissed
             </summary>  
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.DrawTooltip">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentTooltip.HandleDismissed">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentTooltip.OnInitialized">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentTooltip.Dispose">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltipProvider.ClassValue">
+            <summary />
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService">
+            <summary>
+            Service for managing tooltips.
+            </summary>
+        </member>
+        <member name="E:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.OnTooltipUpdated">
+            <summary>
+            Action that is invoked when the tooltip list is updated.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.Tooltips">
+            <summary>
+            Gets the list of tooltips currently registered with the service.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.GlobalOptions">
+            <summary>
+            Gets the global options for tooltips.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.Add(Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipOptions)">
+            <summary>
+            Adds a tooltip to the service.
+            </summary>
+            <param name="options"></param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.Clear">
+            <summary>
+            clears all tooltips from the service.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.Remove(System.Guid)">
+            <summary>
+            removes a tooltip from the service.
+            </summary>
+            <param name="value">Identifier of the tooltip</param>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipGlobalOptions">
+            <summary>
+            Global options for tooltips.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipGlobalOptions.DefaultDelay">
+            <summary>
+            Default delay (in milliseconds).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipGlobalOptions.Delay">
+            <summary>
+            Gets or sets the delay (in milliseconds). Default is 300.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipGlobalOptions.Position">
+            <summary>
+            Gets or sets the default tooltip's position.
+            See <see cref="T:Microsoft.Fast.Components.FluentUI.TooltipPosition"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipGlobalOptions.MaxWidth">
+            <summary>
+            Gets or sets the default maximum width of tooltip panel.
+            Default is 500px.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipGlobalOptions.HorizontalViewportLock">
+            <summary>
+            Gets or sets whether the horizontal viewport is locked
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipGlobalOptions.VerticalViewportLock">
+            <summary>
+            Gets or sets whether the vertical viewport is locked
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipOptions">
+            <summary>
+            Options for a tooltip.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipOptions.Id">
+            <summary>
+            Gets or sets the unique identifier of the tooltip.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipOptions.Anchor">
+            <summary>
+            Gets or sets the anchor identifier of the tooltip.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipOptions.ChildContent">
+            <summary>
+            Gets or sets the tooltip content.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipOptions.MaxWidth">
+            <summary>
+            Gets or sets the tooltip panel width.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipOptions.Delay">
+            <summary>
+            Gets or sets the delay (in milliseconds). Default is 300.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipOptions.Position">
+            <summary>
+            Gets or sets the tooltip's position. See <see cref="T:Microsoft.Fast.Components.FluentUI.TooltipPosition"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipOptions.OnDismissed">
+            <summary>
+            Callback for when the tooltip is dismissed
+            </summary>  
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipOptions.Visible">
+            <summary>
+            Gets or sets if the tooltip is visible
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService">
+            <inheritdoc cref="T:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService"/>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService.#ctor(Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipGlobalOptions)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService"/> class.
+            </summary>
+            <param name="options">Default global options</param>
+        </member>
+        <member name="E:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService.OnTooltipUpdated">
+            <inheritdoc cref="E:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.OnTooltipUpdated"/>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService.GlobalOptions">
+            <inheritdoc cref="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.GlobalOptions"/>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService.Tooltips">
+            <inheritdoc cref="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.Tooltips"/>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService.TooltipList">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService.TooltipLock">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService.Add(Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipOptions)">
+            <inheritdoc cref="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.Add(Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipOptions)"/>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService.Clear">
+            <inheritdoc cref="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.Clear"/>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService.Dispose">
+            <summary>
+            Clears all tooltips from the service.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService.Remove(System.Guid)">
+            <inheritdoc cref="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.Remove(System.Guid)"/>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Text">
             <summary>
@@ -9214,6 +9421,12 @@
         <member name="T:Microsoft.Fast.Components.FluentUI.LibraryConfiguration">
             <summary>
             Defines the global Fluent UI Blazor component library services configuration
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.LibraryConfiguration.UseTooltipServiceProvider">
+            <summary>
+            Gets or sets a value indicating whether the library should use the TooltipServiceProvider.
+            If set to true, add the FluentTooltipProvider component at end of the MainLayout.razor page.
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.Resources.FluentInputFileResource">
