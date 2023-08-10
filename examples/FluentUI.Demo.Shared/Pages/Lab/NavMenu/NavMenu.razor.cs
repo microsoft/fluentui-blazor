@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Fast.Components.FluentUI;
 using Microsoft.Fast.Components.FluentUI.Utilities;
 
@@ -86,7 +85,7 @@ public partial class NavMenu : FluentComponentBase
         if (Collapsible)
         {
             Expanded = !Expanded;
-            await InvokeAsync(StateHasChanged);
+            StateHasChanged();
 
             if (ExpandedChanged.HasDelegate)
             {
@@ -124,5 +123,5 @@ public partial class NavMenu : FluentComponentBase
         _groups.Add(group);
     }
 
-    
+
 }

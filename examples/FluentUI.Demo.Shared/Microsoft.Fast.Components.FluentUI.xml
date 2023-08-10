@@ -409,6 +409,13 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.Dispose(System.Boolean)">
             <inheritdoc />
         </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.InputHelpers`1.FormatValueAsString(`0)">
+            <summary>
+            Formats the value as a string. 
+            </summary>
+            <param name = "value">The value to format.</param>
+            <returns>A string representation of the value.</returns>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentBreadcrumb.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
@@ -2079,52 +2086,59 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider.Min">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider`1.Min">
             <summary>
             Gets or sets the slider's minimal value
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider.Max">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider`1.Max">
             <summary>
             Gets or sets the slider's maximum value
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider.Step">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider`1.Step">
             <summary>
             Gets or sets the slider's step value
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider.Orientation">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider`1.Orientation">
             <summary>
             Gets or sets the orentation of the slider. See <see cref="T:Microsoft.Fast.Components.FluentUI.Orientation"/>
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider.Mode">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider`1.Mode">
             <summary>
             The selection mode.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider.ChildContent">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider`1.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSliderLabel.Position">
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentSlider`1.FormatValueAsString(`0)">
             <summary>
-            Gets or sets the slider's label position
+            Formats the value as a string. Derived classes can override this to determine the formatting used for <c>CurrentValueAsString</c>.
+            </summary>
+            <param name = "value">The value to format.</param>
+            <returns>A string representation of the value.</returns>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSliderLabel`1.Position">
+            <summary>
+            Gets or sets the value for this slider position.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSliderLabel.HideMark">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSliderLabel`1.HideMark">
             <summary>
             Gets or sets if marks are hidden
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSliderLabel.Disabled">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSliderLabel`1.Disabled">
             <summary>
             The disabled state of the label. This is generally controlled by the parent .
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSliderLabel.ChildContent">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSliderLabel`1.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
             </summary>

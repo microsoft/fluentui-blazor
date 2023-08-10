@@ -1,4 +1,16 @@
-﻿## V2.3.7
+﻿## V2.4.1
+- Fix [#537](https://github.com/microsoft/fluentui-blazor/issues/537): Make SetTotalItemCountAsync in PaginationState public
+- Fix [#539](https://github.com/microsoft/fluentui-blazor/issues/539): Slider bugs
+- Fix [#528](https://github.com/microsoft/fluentui-blazor/issues/537): FluentDesignSystemProvider fixes
+
+## V2.4.0
+- The `FluentSlider` is now generic which means it also supports `double`, `float`, `decimal`, `long' and `short` values besides `int` 
+values. An example for this has been added to the demo site
+- Add Style to `FluentDesignSystemProvider` (thanks @luohuaRain)
+- Fix missing `ColumnOptions` button in `FluentDataGrid` when column style = `Align.Center` (thanks @cupsos)
+
+
+## V2.3.7
 
 - Small Templates package updates. Version is now 2.0.6 (thanks @c0g1t8) 
 - Update Fluent UI System Icons to version 1.1.204

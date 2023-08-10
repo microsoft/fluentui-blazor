@@ -44,6 +44,9 @@ public partial class ApiDocumentation
     [Parameter]
     public string? GenericLabel { get; set; } = null;
 
+    [Parameter]
+    public RenderFragment? Description { get; set; }
+
     protected override void OnParametersSet()
     {
         _displayName = Component.Name.Replace("`1", $"<{GenericLabel}>") + " Class";
@@ -94,9 +97,9 @@ public partial class ApiDocumentation
                     if (propertyInfo != null)
                     {
                         bool isParameter = memberInfo.GetCustomAttribute<ParameterAttribute>() != null;
-                       
 
-                        Type t = memberInfo.GetType(); 
+
+                        Type t = memberInfo.GetType();
                         bool isEvent = t == typeof(EventCallback) || (t.IsGenericType && t.GetGenericTypeDefinition() == typeof(EventCallback<>));
 
                         // Parameters

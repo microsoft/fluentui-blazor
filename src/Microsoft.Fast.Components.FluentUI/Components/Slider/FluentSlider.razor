@@ -1,21 +1,20 @@
 @namespace Microsoft.Fast.Components.FluentUI
-@inherits FluentInputBase<int>
+@inherits FluentInputBase<TValue>
+@typeparam TValue
+@attribute [CascadingTypeParameter(nameof(TValue))]
 <fluent-slider @ref=Element
                class="@ClassValue"
                style="@StyleValue"
                readonly="@Readonly"
-               min="@Min"
-               max="@Max"
-               step="@Step"
+               min="@FormatValueAsString(Min)"
+               max="@FormatValueAsString(Max)"
+               step="@FormatValueAsString(Step)"
                orientation="@Orientation.ToAttributeValue()"
                mode="@Mode.ToAttributeValue()"
-               id=@Id
-               value=@Value
-               current-value="@BindConverter.FormatValue(CurrentValue)"
+               id="@Id"
+               @bind-value="CurrentValueAsString"
                disabled="@Disabled"
                name=@Name
-               required=@Required
-               @oncustomclick="@((e) => CurrentValueAsString = e.Value?.ToString())"
-               @attributes="AdditionalAttributes">
+               required=@Required>
     @ChildContent
 </fluent-slider>
