@@ -133,6 +133,18 @@ public partial class FluentDialog : FluentComponentBase, IDisposable
         StateHasChanged();
     }
 
+    public void TogglePrimaryActionButton(bool isEnabled)
+    {
+        _parameters.PrimaryActionEnabled = isEnabled;
+        StateHasChanged();
+    }
+
+    public void ToggleSecondaryActionButton(bool isEnabled)
+    {
+        _parameters.SecondaryActionEnabled = isEnabled;
+        StateHasChanged();
+    }
+
     public async Task CancelAsync() => await CloseAsync(DialogResult.Cancel());
 
     public async Task CancelAsync<T>(T returnValue) => await CloseAsync(DialogResult.Cancel(returnValue));

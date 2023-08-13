@@ -22,9 +22,10 @@
                 Title = $"Hello {simplePerson.Firstname}",
                 OnDialogResult = DialogService.CreateDialogCallback(this, HandlePanel),
                 PrimaryAction = "Yes",
+                PrimaryActionEnabled = false,
                 SecondaryAction = "No",
                 Width = "500px",
-                Height = "400px",
+                Height = "500px",
                 Content = simplePerson,
             };
         DialogService.ShowDialog<SimpleDialog, SimplePerson>(parameters);

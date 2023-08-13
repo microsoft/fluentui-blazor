@@ -31,7 +31,7 @@
 </p>
 <p>
     The <code>DialogService</code> is a service which can be used to show different types of dialogs. It is registered as a scoped service, so it can be injected into 
-    pages/components that want to use it. For more information on the <code>DialosService</code>, see the <a href="DialogService">Dialog Service</a> page.
+    pages/components that want to use it. For more information on the <code>DialogService</code>, see the <a href="DialogService">Dialog Service</a> page.
 </p>
 <p>
         When using the <code>DialogService</code>, for displaying a regular dialog, the dialog will always be shown centered on the screen.
@@ -58,8 +58,13 @@
 
 <DemoSection Title="Dialog Services" Component="@typeof(DialogServiceExample)" AdditionalFiles="@(new[] {"SimpleDialog.razor"})">
     <Description>
-        This example shows how to use the <code>DialogService</code> to show a dialog. The content of the dialog is specified by
-        a component which implements <code>IDialogContentComponent&lt;T&gt;</code>. Here that is done in <code>SimpleDialog.razor</code>. The dialog is automatically styled and centered.
+        <p>
+            This example shows how to use the <code>DialogService</code> to show a dialog. The content of the dialog is specified by
+            a component which implements <code>IDialogContentComponent&lt;T&gt;</code>. Here that is done in <code>SimpleDialog.razor</code>. The dialog is automatically styled and centered.
+        </p>
+        <p>
+            Interaction with parent dialog can be made by injecting FluentDialog as Cascading Parameter.
+        </p>
     </Description>
 </DemoSection>
 
