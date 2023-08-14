@@ -31,7 +31,11 @@
 - Icon
 - Emoji
 
-﻿## V2.4.1
+﻿## V2.4.2
+- Fix [#72](https://github.com/microsoft/fluentui-blazor/pull/72): rows attribute in TextArea.
+- Fix [#466](https://github.com/microsoft/fluentui-blazor/pull/466): Divider vertical orientation.
+
+## V2.4.1
 - Fix [#537](https://github.com/microsoft/fluentui-blazor/issues/537): Make SetTotalItemCountAsync in PaginationState public
 - Fix [#539](https://github.com/microsoft/fluentui-blazor/issues/539): Slider bugs
 - Fix [#528](https://github.com/microsoft/fluentui-blazor/issues/537): FluentDesignSystemProvider fixes

@@ -11,6 +11,7 @@
                    multiple="@Multiple"
                    disabled="@Disabled"
                    appearance="@Appearance.ToAttributeValue()"
+                   current-value="@Value"
                    aria-label="@(!string.IsNullOrWhiteSpace(Title) ? Title : "")"
                    @onchange="@OnChangedHandlerAsync"
                    @attributes="AdditionalAttributes">

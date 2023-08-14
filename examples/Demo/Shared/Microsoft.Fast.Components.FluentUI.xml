@@ -2885,16 +2885,6 @@
             Gets or sets the visual appearance. See <seealso cref="T:Microsoft.Fast.Components.FluentUI.Appearance"/>
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentListbox`1.Width">
-            <summary>
-            Width style
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentListbox`1.Height">
-            <summary>
-            Height style
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentListbox`1.Size">
             <summary>
             The maximum number of options that should be visible in the listbox scroll area.
