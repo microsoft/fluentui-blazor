@@ -1,9 +1,40 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Fast.Components.FluentUI.Components.Tooltip;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentTooltip : FluentComponentBase
+public partial class FluentTooltip : FluentComponentBase, IDisposable
 {
+    private readonly Guid _guid = Guid.NewGuid();
+    private ITooltipService? _tooltipService = null;
+
+    /// <summary>
+    /// Gets or sets a reference to the list of registered services.
+    /// </summary>
+    /// <remarks>
+    /// https://github.com/dotnet/aspnetcore/issues/24193
+    /// </remarks>
+    [Inject]
+    internal IServiceProvider? ServiceProvider { get; set; }
+
+    /// <summary>
+    /// Gets a reference to the tooltip service (if registered).
+    /// </summary>
+    protected virtual ITooltipService? TooltipService => _tooltipService;
+
+    /// <summary>
+    /// Gets the default tooltip options.
+    /// </summary>
+    protected virtual TooltipGlobalOptions? GlobalOptions => TooltipService?.GlobalOptions;
+
+    /// <summary>
+    /// Use ITooltipService to create the tooltip, if this service was injected.
+    /// Default, true.
+    /// </summary>
+    [Parameter]
+    public bool UseTooltipService { get; set; } = true;
+
     /// <summary>
     /// Gets or sets if the tooltip is visible
     /// </summary>
@@ -11,22 +42,30 @@ public partial class FluentTooltip : FluentComponentBase
     public bool Visible { get; set; }
 
     /// <summary>
-    /// Gets or sets the anchor
+    /// Required. Gets or sets the control identifier associated with the tooltip.
     /// </summary>
     [Parameter]
-    public string? Anchor { get; set; }
+    [EditorRequired]
+    public string Anchor { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the delay (in miliseconds)
+    /// Gets or sets the delay (in milliseconds). Default is 300.
     /// </summary>
     [Parameter]
-    public int? Delay { get; set; } = 300;
+    public int? Delay { get; set; } = TooltipGlobalOptions.DefaultDelay;
 
     /// <summary>
-    /// Gets or sets the tooltip's position. See <see cref="FluentUI.TooltipPosition"/>
+    /// Gets or sets the tooltip's position. See <see cref="FluentUI.TooltipPosition"/>.
+    /// Don't set this if you want the tooltip to use the best position.
     /// </summary>
     [Parameter]
     public TooltipPosition? Position { get; set; }
+
+    /// <summary>
+    /// Gets or sets the maximum width of tooltip panel.
+    /// </summary>
+    [Parameter]
+    public string? MaxWidth { get; set; }
 
     /// <summary>
     /// Controls when the tooltip updates its position, default is anchor which only updates when
@@ -37,13 +76,13 @@ public partial class FluentTooltip : FluentComponentBase
     public AutoUpdateMode? AutoUpdateMode { get; set; }
 
     /// <summary>
-    /// Gets or sets wether the horizontal viewport is locked
+    /// Gets or sets whether the horizontal viewport is locked
     /// </summary>
     [Parameter]
     public bool HorizontalViewportLock { get; set; }
 
     /// <summary>
-    /// Gets or sets wether the vertical viewport is locked
+    /// Gets or sets whether the vertical viewport is locked
     /// </summary>
     [Parameter]
     public bool VerticalViewportLock { get; set; }
@@ -58,11 +97,45 @@ public partial class FluentTooltip : FluentComponentBase
     /// Callback for when the tooltip is dismissed
     /// </summary>  
     [Parameter]
-    public EventCallback<EventArgs> OnDissmissed{ get; set; }
+    public EventCallback<EventArgs> OnDismissed{ get; set; }
 
+    /// <summary />
+    private bool DrawTooltip => TooltipService == null ||
+                                (TooltipService != null && !UseTooltipService);
 
+    /// <summary />
     private void HandleDismissed()
     {
-        OnDissmissed.InvokeAsync(EventArgs.Empty);
+        OnDismissed.InvokeAsync(EventArgs.Empty);
+    }
+
+    /// <summary />
+    protected override void OnInitialized()
+    {
+        _tooltipService = ServiceProvider?.GetService<ITooltipService>();
+
+        if (TooltipService != null && UseTooltipService)
+        {
+            TooltipService.Add(new TooltipOptions()
+            {
+                Id = _guid,
+                Anchor = Anchor,
+                ChildContent = ChildContent,
+                MaxWidth = MaxWidth,
+                Delay = Delay,
+                Position = Position,
+                OnDismissed = OnDismissed,
+                Visible = Visible,
+            });
+        }
+    }
+
+    /// <summary />
+    public void Dispose()
+    {
+        if (TooltipService != null)
+        {
+            TooltipService?.Remove(_guid);
+        }
     }
 }

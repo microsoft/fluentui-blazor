@@ -1,16 +1,27 @@
 @namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentComponentBase
-<fluent-tooltip @ref=Element
-                class="@Class"
-                style="@Style"
-                visible=@Visible
-                anchor=@Anchor
-                delay=@Delay
-                position=@Position.ToAttributeValue()
-                auto-update-mode=@AutoUpdateMode
-                horizontal-viewport-lock=@HorizontalViewportLock
-                vertical-viewport-lock=@VerticalViewportLock
-                @ontooltipdismiss=HandleDismissed
-                @attributes="AdditionalAttributes">
-    @ChildContent
-</fluent-tooltip>
+
+@if (DrawTooltip)
+{
+    <fluent-tooltip @ref=Element
+                    class="@Class"
+                    style="@Style"
+                    visible="@Visible"
+                    anchor="@Anchor"
+                    delay="@Delay"
+                    position="@Position.ToAttributeValue()"
+                    auto-update-mode="@AutoUpdateMode"
+                    horizontal-viewport-lock="@HorizontalViewportLock"
+                    vertical-viewport-lock="@VerticalViewportLock"
+                    @ontooltipdismiss="HandleDismissed"
+                    @attributes="AdditionalAttributes">
+        @if (string.IsNullOrWhiteSpace(MaxWidth ?? GlobalOptions?.MaxWidth))
+        {
+            @ChildContent
+        }
+        else
+        {
+            <div style="max-width: @(MaxWidth ?? GlobalOptions?.MaxWidth); text-wrap: wrap;">@ChildContent</div>
+        }
+    </fluent-tooltip>
+}

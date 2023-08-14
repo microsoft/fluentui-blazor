@@ -1,23 +1,18 @@
-﻿@inject ILogger<TooltipDefault> logger;
+﻿<FluentStack>
+    <FluentButton Id="visible1"
+                  Appearance="Appearance.Accent"
+                  OnClick="@(e => visible = !visible)">
+        Click me to toggle tooltip visibility
+    </FluentButton>
 
+    <FluentTooltip Anchor="visible1"
+                   Position="TooltipPosition.End"
+                   Delay="200"
+                   UseTooltipService="false"
+                   Visible="@visible">I'm helping!</FluentTooltip>
+</FluentStack>
 
-<div style="height:100px; display: flex; gap: 10px; margin: 2em; flex-direction: row; align-items: center; justify-content: center;" >
-    <FluentButton id="visible1" Appearance=Appearance.Accent @onclick=ToggleVisible>Click me to toggle tooltip visibility</FluentButton>
-    <FluentTooltip Anchor="visible1" Position=TooltipPosition.End Delay=200 Visible=@visible @ontooltipdismiss=OnDismiss>I'm helping!</FluentTooltip>
-    
-</div>
-@code {
+@code
+{
     bool visible = true;
-    
-    private void OnDismiss()
-    {
-        visible = false;
-        logger.LogInformation("Tooltip dismissed!");
-    }
-
-    
-    private void ToggleVisible()
-    {
-        visible = !visible;
-    }
 }

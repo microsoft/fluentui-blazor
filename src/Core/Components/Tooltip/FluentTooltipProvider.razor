@@ -1,0 +1,18 @@
+@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentComponentBase
+
+<div @attributes="AdditionalAttributes" class="@ClassValue" style="@Style">
+    @if (Tooltips != null)
+    {
+        @foreach (var item in Tooltips)
+        {
+            <FluentTooltip Anchor="@item.Anchor"
+                           MaxWidth="@item.MaxWidth"
+                           Visible="@item.Visible"
+                           Delay="@item.Delay"
+                           Position="@item.Position"
+                           OnDismissed="@item.OnDismissed"
+                           UseTooltipService="false">@item.ChildContent</FluentTooltip>
+        }
+    }
+</div>
