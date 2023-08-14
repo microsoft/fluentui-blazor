@@ -12,6 +12,27 @@
     The DialogService is automatically registered in the DI container with the <code>AddFluentUIComponents()</code> call.
 </p>
 
+<h2>Dialog container</h2>
+<strong>IMPORTANT!!</strong>
+<p>
+    Dialogs are rendered through the <code>&lt;FluentDialogContainer /&gt;</code> component. This component needs to be added to the main layout of your application/site.
+    You typically do this in the <code>MainLayout.razor</code> file at the end of the <code>&lt;main&gt;</code> section like this:
+</p>
+<CodeSnippet>
+    &lt;main&gt;
+        &lt;nav&gt;
+        :
+        &lt;/nav&gt;
+        &lt;div class=&quot;content&quot;&gt;
+            &lt;article id=&quot;article&quot;&gt;
+                @@Body
+            &lt;/article&gt;
+        &lt;/div&gt;
+        &lt;FluentDialogContainer /&gt;
+    &lt;/main&gt;
+</CodeSnippet>
+
+
 <p>
     See the following pages for examples on how to use the DialogService.
     <ul>
@@ -22,6 +43,9 @@
     </ul>
 </p>
 <ApiDocumentation Component="typeof(DialogService)" />
+<ApiDocumentation Component="typeof(FluentDialogContainer)" />
+
+<h2>Exchange data between dialog and calling component</h2>
 
 <p>
     You can exchange data between the component that opened the dialog and the dialog component by using the <code>DialogParameters.Content</code> 

@@ -13,6 +13,31 @@
     The ToastService is automatically registered in the DI container with the <code>AddFluentUIComponents()</code> call.
 </p>
 
+<h2>Toast container</h2>
+<strong>IMPORTANT!!</strong>
+<p>
+    Toasts are rendered through the <code>&lt;FluentToastContainer /&gt;</code> component. This component needs to be added to the main layout of your application/site.
+    You typically do this in the <code>MainLayout.razor</code> file at the end of the <code>&lt;main&gt;</code> section like this:
+</p>
+<CodeSnippet>
+    &lt;main&gt;
+        &lt;nav&gt;
+        :
+        &lt;/nav&gt;
+        &lt;div class=&quot;content&quot;&gt;
+            &lt;article id=&quot;article&quot;&gt;
+                @@Body
+            &lt;/article&gt;
+        &lt;/div&gt;
+        &lt;FluentToastContainer MaxToastCount=&quot;10&quot; /&gt;
+    &lt;/main&gt;
+</CodeSnippet>
+
+<p>
+    See the documentation below for more information about the <code>FluentToastContainer</code> parameters.
+</p>
+
+<h2>Examples</h2>
 <p>
     See the <a href="/Toast">toast page</a> for examples of the different types of available toasts:
     <ul>
@@ -21,31 +46,7 @@
         <li>Progress toast</li>
     </ul>
 </p>
+
 <ApiDocumentation Component="typeof(ToastService)" />
+<ApiDocumentation Component="typeof(FluentToastContainer)" />
 
-<p>
-    You can exchange data between the component that opened the toast and the toast component by using the <code>ToastParameters.Content</code> 
-    parameter to specify the type of data and providing a callback function to the <code>ToastParameters.OnDialogResult</code> method. <br />
-    Any changes you make to the data in the toast component will be reflected in the Content object in the calling component when the toast is closed.<br />
-</p>
-
-<p>
-    An typical implemtation of a callback function could look something like this:
-    <CodeSnippet Language="csharp">
-        private async Task HandleIt(DialogResult result)
-        {
-            if (result.Cancelled)
-            {
-                //Handle the cancellation
-                return;
-            }
-            if (result.Data is not null)
-            {
-                //Handle the data
-                   
-            }
-            //Handle closing the dialog
-            await Task.Run(() => ...);
-        }
-    </CodeSnippet>
-</p>

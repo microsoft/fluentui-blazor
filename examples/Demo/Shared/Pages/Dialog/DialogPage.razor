@@ -37,26 +37,8 @@
         When using the <code>DialogService</code>, for displaying a regular dialog, the dialog will always be shown centered on the screen.
 </p>
 
-<ApiDocumentation Component="typeof(FluentDialog)" />
-
-<p>To alter the properties of a dialog which uses the <code>DialogService</code> to display it, use the <code>DialogParameters</code> class.</p>
-<blockquote>
-    Note: Not all properties can be used for all types of dialogs. For example, the <code>DialogParameters</code> class has a <code>Height</code> property,
-    which is ignored when displaying a Panel.
-</blockquote>
-
-<ApiDocumentation Component="typeof(DialogParameters<>)" GenericLabel="TData" />
-
 <h2>Examples</h2>
-
-<DemoSection Title="Default" Component="@typeof(DialogDefault)" CollocatedFiles="@(new[] {"css"})">
-    <Description>
-        This example shows a simple dialog created by specifying it's content manually (see the Razor tab). Because of this, the dialog is not automatically styled.
-        A CSS file has been added to set the width, heigth and padding of the dialog.         
-    </Description>
-</DemoSection>
-
-<DemoSection Title="Dialog Services" Component="@typeof(DialogServiceExample)" AdditionalFiles="@(new[] {"SimpleDialog.razor"})">
+<DemoSection Title="Dialog using DialogService" Component="@typeof(DialogServiceExample)" AdditionalFiles="@(new[] {"SimpleDialog.razor"})">
     <Description>
         <p>
             This example shows how to use the <code>DialogService</code> to show a dialog. The content of the dialog is specified by
@@ -68,11 +50,53 @@
     </Description>
 </DemoSection>
 
+<DemoSection Title="Dialog without using DialogService" Component="@typeof(DialogDefault)" CollocatedFiles="@(new[] {"css"})">
+    <Description>
+        This example shows a simple dialog created by specifying it's content manually (see the Razor tab). Because of this, the dialog is not automatically styled.
+        A CSS file has been added to set the width, heigth and padding of the dialog.
+    </Description>
+</DemoSection>
+
+
 
 <DemoSection Title="SimpleDialog as component" Component="@typeof(DialogSimpleDialog)">
     <Description>
-        For a components to be useable in a dialog, it just needs to inherit from <code>IDialogContentComponent&lt;T&gt;</code>. 
+        For a components to be useable in a dialog, it just needs to inherit from <code>IDialogContentComponent&lt;T&gt;</code>.
         They can still be used as a normal component as well. This example shows the <code>SimpleDialog</code> component from the
         previous example being rendered directly in the page.
     </Description>
 </DemoSection>
+
+
+<h2>Dialog container</h2>
+<strong>IMPORTANT!!</strong>
+<p>
+    Dialogs are rendered through the <code>&lt;FluentDialogContainer /&gt;</code> component. This component needs to be added to the main layout of your application/site.
+    You typically do this in the <code>MainLayout.razor</code> file at the end of the <code>&lt;main&gt;</code> section like this:
+</p>
+<CodeSnippet>
+    &lt;main&gt;
+        &lt;nav&gt;
+        :
+        &lt;/nav&gt;
+        &lt;div class=&quot;content&quot;&gt;
+            &lt;article id=&quot;article&quot;&gt;
+                @@Body
+            &lt;/article&gt;
+        &lt;/div&gt;
+        &lt;FluentDialogContainer /&gt;
+    &lt;/main&gt;
+</CodeSnippet>
+
+<ApiDocumentation Component="typeof(FluentDialogContainer)" />
+
+<ApiDocumentation Component="typeof(FluentDialog)" />
+
+<p>To alter the properties of a dialog which uses the <code>DialogService</code> to display it, use the <code>DialogParameters</code> class.</p>
+<blockquote>
+    Note: Not all properties can be used for all types of dialogs. For example, the <code>DialogParameters</code> class has a <code>Height</code> property,
+    which is ignored when displaying a Panel.
+</blockquote>
+
+<ApiDocumentation Component="typeof(DialogParameters<>)" GenericLabel="TData" />
+
