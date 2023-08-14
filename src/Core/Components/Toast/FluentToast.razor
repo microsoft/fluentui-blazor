@@ -10,7 +10,7 @@
             @if (_parameters.Icon is not null)
             {
                 var Icon = _parameters.Icon.Value;
-                <FluentIcon Value="@Icon.Value" Style="min-width: 16px;" Width="16" Color="@Icon.Color"/>
+                <FluentIcon Value="@Icon.Value" Style="min-width: 16px;" Width="16px" Color="@Icon.Color"/>
             }
 
             <div class="fluent-toast-title">@_parameters.Title</div>
@@ -19,7 +19,7 @@
                 {
                     case ToastTopCTAType.Dismiss:
                         <FluentIcon Icon="CoreIcons.Regular.Size24.Dismiss"
-                                          Width="12"
+                                          Width="12px"
                                           Title="Close"
                                           Color="@Color.FillInverse"
                                           OnClick="@Close" />
