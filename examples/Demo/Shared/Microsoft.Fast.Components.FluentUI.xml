@@ -1793,9 +1793,19 @@
             Text to display for the primary action.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.PrimaryActionEnabled">
+            <summary>
+            When true, primary action's button is enabled.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.SecondaryAction">
             <summary>
             Text to display for the secondary action.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.SecondaryActionEnabled">
+            <summary>
+            When true, secondary action's button is enabled.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.Width">
@@ -3673,7 +3683,9 @@
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentOverlay.CheckRGBString">
             <remarks>
-            Pattern explanation:<br/>
+            Pattern:<br/>
+            <code>^(?:#(?:[a-fA-F0-9]{6}|[a-fA-F0-9]{3}))</code><br/>
+            Explanation:<br/>
             <code>
             ○ Match if at the beginning of the string.<br/>
             ○ Match '#'.<br/>

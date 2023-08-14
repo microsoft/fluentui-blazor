@@ -43,12 +43,22 @@ public class DialogParameters : ComponentParameters, IDialogParameters
     /// </summary>
     public string? PrimaryAction { get; set; } = "Ok"; //DialogResources.ButtonPrimary;
 
+    /// <summary>
+    /// When true, primary action's button is enabled.
+    /// </summary>
+    public bool PrimaryActionEnabled { get; set; } = true;
+
     //public EventCallback<DialogResult>? OnPrimaryAction { get; set; } = default!;
 
     /// <summary>
     /// Text to display for the secondary action.
     /// </summary>
     public string? SecondaryAction { get; set; } = "Cancel"; //DialogResources.ButtonSecondary;
+
+    /// <summary>
+    /// When true, secondary action's button is enabled.
+    /// </summary>
+    public bool SecondaryActionEnabled { get; set; } = true;
 
     //public EventCallback<DialogResult>? OnSecondaryAction { get; set; } = default!;
 
