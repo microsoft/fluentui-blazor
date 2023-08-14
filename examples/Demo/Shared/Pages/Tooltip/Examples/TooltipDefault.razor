@@ -1,19 +1,11 @@
 ﻿@inject ILogger<TooltipDefault> logger;
 
-<div style="height:100px; display: flex; gap: 10px; margin: 2em; flex-direction: row; align-items: center; justify-content: center;" >
-    <FluentButton id="default1" Appearance=Appearance.Accent>Tooltip at the left</FluentButton>
-    <FluentTooltip Anchor="default1" Position=TooltipPosition.Left>I'm helping!</FluentTooltip>
-    
-    <FluentButton id="default2" Appearance=Appearance.Accent>Tooltip at the bottom</FluentButton>
-    <FluentTooltip Anchor="default2" Position=TooltipPosition.Bottom @ontooltipdismiss=OnDismiss>I'm helping!</FluentTooltip>
+<FluentIcon Id="myFirstButton" Icon="Icons.Regular.Size24.Notepad" />
 
-    <FluentButton id="default3" Appearance=Appearance.Accent>Tooltip at the top</FluentButton>
-    <FluentTooltip Anchor="default3" Position=TooltipPosition.Top>I'm helping!</FluentTooltip>
-
-    <FluentButton id="default4" Appearance=Appearance.Accent>Tooltip at the right</FluentButton>
-    <FluentTooltip Anchor="default4" Position=TooltipPosition.Right>I'm helping!</FluentTooltip>
-</div>
-
+<FluentTooltip Anchor="myFirstButton">
+    Hello World <br />
+    It is a <i>small</i> tootip.
+</FluentTooltip>
 
 @code {
     private void OnDismiss()

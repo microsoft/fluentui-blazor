@@ -10,19 +10,50 @@
     <code>&lt;FluentTooltip&gt;</code> wraps the <code>&lt;fluent-tooltip&gt;</code> element, a web component implementation of a tooltip composition leveraging the
     Fluent UI design system.
 </p>
-<ApiDocumentation Component="typeof(FluentTooltip)" />
+
+
+<h2>Using Tooltip Service Provider</h2>
+
+In the <b>Program.cs</b>, inject the Tooltip service with global options.
+You can also use the <b>Services.AddFluentUIComponents</b> method to register
+all required FluentUI services, including this one.
+<CodeSnippet>builder.Services.AddScoped&lt;ITooltipService, TooltipService&gt;();</CodeSnippet>
+<br />
+At the end of your <b>MainLayout.razor</b> page, include the provider:
+<CodeSnippet>&lt;FluentTooltipProvider /&gt;</CodeSnippet>
+<br />
+With this provider, all tooltip definitions will be generated with these global options
+and will be written at the end of the HTML page to support the different z-index levels.
+<br />
+<br />
+<b>Example</b>
+    <FluentStack>
+    <FluentButton Id="btnWithoutService" Appearance=Appearance.Accent>Tooltip without service</FluentButton>
+        <FluentTooltip Anchor="btnWithoutService" UseTooltipService="false" Position=TooltipPosition.Start>Example of tooltip</FluentTooltip>
+    </FluentStack>
+    <br/>
+    <FluentStack>
+        <FluentButton Id="btnWithService" Appearance=Appearance.Accent>Tooltip using TooltipService</FluentButton>
+        <FluentTooltip Anchor="btnWithService" Position=TooltipPosition.Start>Example of tooltip</FluentTooltip>
+    </FluentStack>
+<br />
+<br />
 
 <h2>Examples</h2>
 
 <DemoSection Title="Default" Component="@typeof(TooltipDefault)">
-    <Description>Hover one of the buttons to have a tooltip appear on hover at the position mentioned.</Description>
+    <Description>Move your mouse over this icon to display a tooltip.</Description>
 </DemoSection>
 
+<DemoSection Title="Large tooltip" Component="@typeof(TooltipLongExample)">
+    <Description>Move your mouse over this icon to display a very large tooltip.</Description>
+</DemoSection>
 
 <DemoSection Title="Different delays" Component="@typeof(TooltipDelay)">
     <Description>Hover one of the buttons to have a tooltip appear on hover at the position mentioned.</Description>
 </DemoSection>
 
-<DemoSection Title="Always visible" Component="@typeof(TooltipVisible)">
-    
-</DemoSection>
+<DemoSection Title="Always visible" Component="@typeof(TooltipVisible)" />
+
+
+<ApiDocumentation Component="typeof(FluentTooltip)" />
