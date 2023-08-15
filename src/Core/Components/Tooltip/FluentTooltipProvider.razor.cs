@@ -8,7 +8,7 @@ public partial class FluentTooltipProvider : FluentComponentBase, IDisposable
 {
     /// <summary />
     protected string? ClassValue
-        =>  new CssBuilder(Class).AddClass("fluent-tooltip-provider")
+        => new CssBuilder(Class).AddClass("fluent-tooltip-provider")
                                  .Build();
 
     [Inject]
@@ -24,7 +24,7 @@ public partial class FluentTooltipProvider : FluentComponentBase, IDisposable
 
     private void OnTooltipUpdated()
     {
-        StateHasChanged();
+        InvokeAsync(StateHasChanged);
     }
 
     public void Dispose()
