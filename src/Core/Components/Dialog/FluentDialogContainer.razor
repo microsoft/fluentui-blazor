@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Components.Rendering
 @namespace Microsoft.Fast.Components.FluentUI
 
-@if (_dialogs.Any())
+@if (_internalDialogContext.References.Any())
 {
     <div class="fluent-dialog-container">
         <CascadingValue TValue="InternalDialogContext" IsFixed="true" Value = "@_internalDialogContext" >
@@ -14,9 +14,9 @@
 @code {
     protected void RenderDialogs(RenderTreeBuilder __builder)
     {
-        @foreach (DialogInstance dialog in _dialogs)
+        @foreach (DialogReference dialog in _internalDialogContext.References)
         {
-            <FluentDialog @key="@dialog" Id="@dialog.Id" Settings="@dialog.Parameters" Instance="@dialog" Data="@dialog.Content" @ondialogdismiss=OnDismissAsync />
+            <FluentDialog @key="@dialog" Id="@dialog.Id" Instance="@dialog.Instance" Data="@dialog.Instance.Content" @ondialogdismiss=OnDismissAsync />
         }
     }
 }

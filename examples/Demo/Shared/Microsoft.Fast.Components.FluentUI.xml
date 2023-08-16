@@ -1133,8 +1133,8 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGridCell`1.GridColumn">
             <summary>
-            The column _index of the cell.
-            This will be applied to the css grid-column-_index value
+            The column index of the cell.
+            This will be applied to the css grid-column-index value
             applied to the cell
             </summary>
         </member>
@@ -1150,8 +1150,8 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGridRow`1.RowIndex">
             <summary>
-            Gets or sets the _index of this row.
-            When FluentDataGrid is virtualized, this value is always -1.
+            Gets or sets the index of this row
+            When FluentDataGrid is virtualized, this value is not used
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGridRow`1.GridTemplateColumns">
@@ -1190,7 +1190,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.GridItemsProviderRequest`1.StartIndex">
             <summary>
-            The zero-based _index of the first item to be supplied.
+            The zero-based index of the first item to be supplied.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.GridItemsProviderRequest`1.Count">
@@ -2052,6 +2052,109 @@
             <param name="content">Content to pass to component being displayed.</param>
             <param name="parameters">Parameters to configure the dialog component.</param>
         </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreenAsync(System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
+            <summary>
+            Shows the standard <see cref="T:Microsoft.Fast.Components.FluentUI.FluentSplashScreen"/> with the given parameters."/>
+            </summary>
+            <param name="receiver">The componente that receives the callback</param>
+            <param name="callback">Name of the callback function</param>
+            <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent"/> that holds the content to display</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreenAsync``1(System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
+            <summary>
+            Shows a custom splash screen dialog with the given parameters."/>
+            </summary>
+            <param name="receiver">The componente that receives the callback</param>
+            <param name="callback">Name of the callback function</param>
+            <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent"/> that holds the content to display</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreenAsync(System.Type,System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
+            <summary>
+            Shows a splash screen of the given type with the given parameters."/>
+            </summary>
+            <param name="component">The type of the component to show</param>
+            <param name="receiver">The componente that receives the callback</param>
+            <param name="callback">Name of the callback function</param>
+            <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent"/> that holds the content to display</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialogAsync``2(Microsoft.Fast.Components.FluentUI.DialogParameters{``1})">
+            <summary>
+            Shows a dialog with the component type as the body,
+            passing the specified <paramref name="parameters "/>
+            </summary>
+            <param name="parameters">Parameters to pass to component being displayed.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSuccessAsync(System.String,System.String)">
+            <summary>
+            Shows a success message box. Does not have a callback function.
+            </summary>
+            <param name="message">The message to display.</param>
+            <param name="title">The title to display on the dialog.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowWarningAsync(System.String,System.String)">
+            <summary>
+            Shows a warning message box. Does not have a callback function.
+            </summary>
+            <param name="message">The message to display.</param>
+            <param name="title">The title to display on the dialog.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowErrorAsync(System.String,System.String)">
+            <summary>
+            Shows an error message box. Does not have a callback function.
+            </summary>
+            <param name="message">The message to display.</param>
+            <param name="title">The title to display on the dialog.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowInfoAsync(System.String,System.String)">
+            <summary>
+            Shows an information message box. Does not have a callback function.
+            </summary>
+            <param name="message">The message to display.</param>
+            <param name="title">The title to display on the dialog.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowConfirmationAsync(System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},System.String,System.String,System.String,System.String)">
+            <summary>
+            Shows a confirmation message box. Has a callback function which returns boolean 
+            (true=PrimaryAction clicked, false=SecondaryAction clicked).
+            </summary>
+            <param name="receiver">The component that receives the callback function.</param>
+            <param name="callback">The callback function.</param>
+            <param name="message">The message to display.</param>
+            <param name="primaryText">The text to display on the primary button.</param>
+            <param name="secondaryText">The text to display on the secondary button.</param>
+            <param name="title">The title to display on the dialog.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowMessageBoxAsync(Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.MessageBoxContent})">
+            <summary>
+            Shows a custom message box. Has a callback function which returns boolean
+            (true=PrimaryAction clicked, false=SecondaryAction clicked).
+            </summary>
+            <param name="parameters">Parameters to pass to component being displayed.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowPanelAsync``2(Microsoft.Fast.Components.FluentUI.DialogParameters{``1})">
+            <summary>
+            Shows a panel with the dialog component type as the body,
+            passing the specified <paramref name="parameters "/>
+            </summary>
+            <param name="parameters">Parameters to pass to component being displayed.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowPanelAsync``1(System.Type,Microsoft.Fast.Components.FluentUI.DialogParameters{``0})">
+            <summary>
+            Shows a panel with the dialog component type as the body,
+            passing the specified <paramref name="parameters "/>
+            </summary>
+            <param name="dialogComponent">Type of component to display.</param>
+            <param name="parameters">Parameters to pass to component being displayed.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialogAsync``1(System.Type,``0,Microsoft.Fast.Components.FluentUI.DialogParameters)">
+            <summary>
+            Shows a dialog with the component type as the body,
+            passing the specified <paramref name="content "/> 
+            </summary>
+            <param name="dialogComponent">Type of component to display.</param>
+            <param name="content">Content to pass to component being displayed.</param>
+            <param name="parameters">Parameters to configure the dialog component.</param>
+        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.CreateDialogCallback(System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task})">
             <summary>
             Convenience method to create a <see cref="T:Microsoft.AspNetCore.Components.EventCallback"/> for a dialog result.
@@ -2763,7 +2866,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFileEventArgs.Index">
             <summary>
-            Gets the _index of the current file in an upload process.
+            Gets the index of the current file in an upload process.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFileEventArgs.LocalFile">
@@ -3734,7 +3837,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.PaginationState.CurrentPageIndex">
             <summary>
-            Gets the current zero-based page _index. To set it, call <see cref="M:Microsoft.Fast.Components.FluentUI.PaginationState.SetCurrentPageIndexAsync(System.Int32)" />.
+            Gets the current zero-based page index. To set it, call <see cref="M:Microsoft.Fast.Components.FluentUI.PaginationState.SetCurrentPageIndexAsync(System.Int32)" />.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.PaginationState.TotalItemCount">
@@ -3745,7 +3848,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.PaginationState.LastPageIndex">
             <summary>
-            Gets the zero-based _index of the last page, if known. The value will be null until <see cref="P:Microsoft.Fast.Components.FluentUI.PaginationState.TotalItemCount"/> is known.
+            Gets the zero-based index of the last page, if known. The value will be null until <see cref="P:Microsoft.Fast.Components.FluentUI.PaginationState.TotalItemCount"/> is known.
             </summary>
         </member>
         <member name="E:Microsoft.Fast.Components.FluentUI.PaginationState.TotalItemCountChanged">
@@ -3758,10 +3861,10 @@
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.PaginationState.SetCurrentPageIndexAsync(System.Int32)">
             <summary>
-            Sets the current page _index, and notifies any associated <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/>
+            Sets the current page index, and notifies any associated <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/>
             to fetch and render updated data.
             </summary>
-            <param name="pageIndex">The new, zero-based page _index.</param>
+            <param name="pageIndex">The new, zero-based page index.</param>
             <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentPopover.AnchorId">
@@ -4241,7 +4344,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.Index">
             <summary>
-            Gets the _index number of this tab.
+            Gets the index number of this tab.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.LabelEditable">

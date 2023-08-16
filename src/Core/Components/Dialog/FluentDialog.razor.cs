@@ -4,7 +4,7 @@ using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentDialog : FluentComponentBase, IDisposable
+public partial class FluentDialog : FluentComponentBase //, IDisposable
 {
     private const string DEFAULT_WIDTH = "500px";
     private const string DEFAULT_HEIGHT = "unset";
@@ -18,7 +18,7 @@ public partial class FluentDialog : FluentComponentBase, IDisposable
     /// overlay.  Clicks on the overlay will cause the dialog to emit a "dismiss" event.
     /// </summary>
     [Parameter]
-    public bool? Modal { get; set; } = true;
+    public bool? Modal { get; set; }
 
     /// <summary>
     /// Gets or sets if the dialog is hidden
@@ -30,7 +30,7 @@ public partial class FluentDialog : FluentComponentBase, IDisposable
     /// Indicates that the dialog should trap focus.
     /// </summary>
     [Parameter]
-    public bool? TrapFocus { get; set; } = true;
+    public bool? TrapFocus { get; set; }
 
     /// <summary>
     /// The id of the element describing the dialog.
@@ -93,21 +93,22 @@ public partial class FluentDialog : FluentComponentBase, IDisposable
 
     protected override void OnInitialized()
     {
-        if (Instance is not null)
-        {
-            _parameters = Instance.Parameters;
-            DialogContext!.Register(this);
-        }
-        else
+        if (Instance is null)
         {
             _parameters = new()
             {
                 Alignment = HorizontalAlignment.Center,
-                Id = Id ?? Identifier.NewId(),
                 ShowTitle = false,
                 PrimaryAction = string.Empty,
                 SecondaryAction = string.Empty
             };
+            Modal = true;
+            TrapFocus = true;
+        }
+        else
+        {
+            _parameters = Instance.Parameters;
+            //DialogContext!.Register(this);
         }
     }
 
@@ -158,9 +159,12 @@ public partial class FluentDialog : FluentComponentBase, IDisposable
     /// </summary>
     public async Task CloseAsync(DialogResult dialogResult)
     {
-        DialogContext?.DialogContainer.DismissInstance(Id!);
-        await Instance.Parameters.OnDialogResult.InvokeAsync(dialogResult);
+        DialogContext?.DialogContainer.DismissInstance(Id!, dialogResult);
+        if (Instance.Parameters.OnDialogResult.HasDelegate)
+        {
+            await Instance.Parameters.OnDialogResult.InvokeAsync(dialogResult);
+        }
     }
 
-    public void Dispose() => DialogContext?.Unregister(this);
+    //public void Dispose() => DialogContext?.Unregister(this);
 }

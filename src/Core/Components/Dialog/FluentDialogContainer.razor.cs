@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 
 namespace Microsoft.Fast.Components.FluentUI;
@@ -7,7 +6,6 @@ namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentDialogContainer : IDisposable
 {
     private readonly InternalDialogContext _internalDialogContext;
-    private readonly Collection<DialogInstance> _dialogs;
     private readonly RenderFragment _renderDialogs;
 
     [Inject]
@@ -22,7 +20,6 @@ public partial class FluentDialogContainer : IDisposable
     public FluentDialogContainer()
     {
         _internalDialogContext = new(this);
-        _dialogs = new();
         _renderDialogs = RenderDialogs;
     }
 
@@ -31,55 +28,79 @@ public partial class FluentDialogContainer : IDisposable
         NavigationManager.LocationChanged += LocationChanged;
 
         DialogService.OnShow += ShowDialog;
+        DialogService.OnShowAsync += ShowDialogAsync;
+        DialogService.OnDialogCloseRequested += DismissInstance;
     }
 
-    private void ShowDialog(Type? dialogComponent, DialogParameters parameters, object content)
+    private void ShowDialog(IDialogReference dialogReference, Type? dialogComponent, DialogParameters parameters, object content)
     {
         _ = InvokeAsync(() =>
         {
-            //DialogSettings? dialogSettings = BuildDialogSettings(settings);
-
             DialogInstance dialog = new(dialogComponent, parameters, content);
+            dialogReference.Instance = dialog;
 
-            _dialogs.Add(dialog);
+            _internalDialogContext.References.Add(dialogReference);
             StateHasChanged();
         });
     }
 
-    internal FluentDialog GetDialogReference(string id)
+    private async Task<IDialogReference> ShowDialogAsync(IDialogReference dialogReference, Type? dialogComponent, DialogParameters parameters, object content)
     {
-        return _internalDialogContext.References[id];
+        return await Task.Run<IDialogReference>(() =>
+        {
+            DialogInstance dialog = new(dialogComponent, parameters, content);
+            dialogReference.Instance = dialog;
+
+            _internalDialogContext.References.Add(dialogReference);
+            InvokeAsync(StateHasChanged);
+
+            return dialogReference;
+        });
     }
 
-    internal DialogInstance? GetDialogInstance(string id)
+    internal void DismissInstance(string id, DialogResult result)
     {
-        if (!_internalDialogContext.References.TryGetValue(id, out FluentDialog? value))
+        var reference = GetDialogReference(id);
+        if (reference != null)
         {
-            return null;
+            DismissInstance(reference, result);
         }
-        FluentDialog dialog = value;
-        return dialog.Instance;
+    }
 
+    internal IDialogReference? GetDialogReference(string id)
+    {
+        return _internalDialogContext.References.SingleOrDefault(x => x.Id == id);
     }
 
     public void DismissAll()
     {
-        _dialogs.ToList().ForEach(r => DismissInstance(r));
+        _internalDialogContext.References.ToList().ForEach(r => DismissInstance(r, DialogResult.Cancel()));
         StateHasChanged();
     }
 
-    internal void DismissInstance(string id)
-    {
-        DialogInstance? instance = GetDialogInstance(id);
-        if (instance != null)
-        {
-            DismissInstance(instance);
-        }
-    }
+    //internal void DismissInstance(string id)
+    //{
+    //    DialogInstance? instance = GetDialogInstance(id);
+    //    if (instance != null)
+    //    {
+    //        DismissInstance(instance);
+    //    }
+    //}
 
-    private void DismissInstance(DialogInstance dialog)
+    //private void DismissInstance(DialogInstance dialog)
+    //{
+    //    _dialogs.Remove(dialog);
+    //    StateHasChanged();
+    //}
+
+    private void DismissInstance(IDialogReference dialog, DialogResult result)
     {
-        _dialogs.Remove(dialog);
+        if (!dialog.Dismiss(result))
+        {
+            return;
+        }
+
+        _internalDialogContext.References.Remove(dialog);
         StateHasChanged();
     }
 
@@ -90,18 +111,15 @@ public partial class FluentDialogContainer : IDisposable
 
     private void ClearAll()
     {
-        _ = InvokeAsync(() =>
-        {
-            _dialogs.Clear();
-        });
+        _internalDialogContext.References.Clear();
     }
 
     private async Task OnDismissAsync(DialogEventArgs args)
     {
         if (args is not null && args.Reason is not null && args.Reason == "dismiss" && !string.IsNullOrWhiteSpace(args.Id))
         {
-            FluentDialog dialog = GetDialogReference(args.Id);
-            await dialog.CancelAsync();
+            IDialogReference? dialog = GetDialogReference(args.Id);
+            await dialog!.CloseAsync(DialogResult.Cancel());
         }
     }
 
