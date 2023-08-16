@@ -6,7 +6,7 @@ namespace Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
 // so that it doesn't show up by mistake in unrelated components.
 internal sealed class InternalGridContext<TGridItem>
 {
-    private int index=0;
+    private int _index = 0;
     public Dictionary<string, FluentDataGridRow<TGridItem>> Rows { get; set; } = new();
 
     public FluentDataGrid<TGridItem> Grid { get; }
@@ -17,10 +17,18 @@ internal sealed class InternalGridContext<TGridItem>
         Grid = grid;
     }
 
+    internal void ResetRowIndexes(int start)
+    {
+        _index = start;
+    }
+
     internal void Register(FluentDataGridRow<TGridItem> row)
     {
         Rows.Add(row.RowId, row);
-        row.RowIndex = index++;
+        if (!Grid.Virtualize)
+        {
+            row.RowIndex = _index++;
+        }
     }
 
     internal void Unregister(FluentDataGridRow<TGridItem> row)

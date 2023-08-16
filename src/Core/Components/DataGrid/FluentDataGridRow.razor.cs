@@ -11,6 +11,7 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
 
     /// <summary>
     /// Gets or sets the index of this row
+    /// When FluentDataGrid is virtualized, this value is not used
     /// </summary>
     [Parameter]
     public int? RowIndex { get; set; }

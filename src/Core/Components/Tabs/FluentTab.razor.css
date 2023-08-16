@@ -6,6 +6,7 @@
 
     fluent-tab[aria-selected="true"] {
         font-weight: 600;
+        z-index: 1;
     }
 
     fluent-tab[overflow] {
