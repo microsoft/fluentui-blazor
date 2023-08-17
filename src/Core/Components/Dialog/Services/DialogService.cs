@@ -453,6 +453,29 @@ public class DialogService : IDialogService
         });
 
     /// <summary>
+    /// Shows a confirmation message box. Has no callback function
+    /// (true=PrimaryAction clicked, false=SecondaryAction clicked).
+    /// </summary>
+    /// <param name="message">The message to display.</param>
+    /// <param name="primaryText">The text to display on the primary button.</param>
+    /// <param name="secondaryText">The text to display on the secondary button.</param>
+    /// <param name="title">The title to display on the dialog.</param>
+    public async Task<IDialogReference> ShowConfirmationAsync(string message, string primaryText = "Yes", string secondaryText = "No", string? title = null)
+        => await ShowMessageBoxAsync(new DialogParameters<MessageBoxContent>()
+        {
+            Content = new MessageBoxContent()
+            {
+                Title = string.IsNullOrWhiteSpace(title) ? "Confirm" /*DialogResources.TitleConfirmation*/ : title,
+                Intent = MessageBoxIntent.Confirmation,
+                Icon = new CoreIcons.Regular.Size24.QuestionCircle(),
+                IconColor = Color.Success,
+                Message = message,
+            },
+            PrimaryAction = primaryText, /*DialogResources.ButtonYes,*/
+            SecondaryAction = secondaryText, /*DialogResources.ButtonNo,*/
+        });
+
+    /// <summary>
     /// Shows a custom message box. Has a callback function which returns boolean
     /// (true=PrimaryAction clicked, false=SecondaryAction clicked).
     /// </summary>

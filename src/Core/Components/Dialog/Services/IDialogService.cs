@@ -65,6 +65,8 @@ public interface IDialogService
 
     Task<IDialogReference> ShowConfirmationAsync(object receiver, Func<DialogResult, Task> callback, string message, string primaryText = "Yes", string secondaryText = "No", string? title = null);
 
+    Task<IDialogReference> ShowConfirmationAsync(string message, string primaryText = "Yes", string secondaryText = "No", string? title = null);
+
     Task<IDialogReference> ShowMessageBoxAsync(DialogParameters<MessageBoxContent> parameters);
 
 

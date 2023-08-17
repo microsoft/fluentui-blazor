@@ -2124,6 +2124,16 @@
             <param name="secondaryText">The text to display on the secondary button.</param>
             <param name="title">The title to display on the dialog.</param>
         </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowConfirmationAsync(System.String,System.String,System.String,System.String)">
+            <summary>
+            Shows a confirmation message box. Has no callback function
+            (true=PrimaryAction clicked, false=SecondaryAction clicked).
+            </summary>
+            <param name="message">The message to display.</param>
+            <param name="primaryText">The text to display on the primary button.</param>
+            <param name="secondaryText">The text to display on the secondary button.</param>
+            <param name="title">The title to display on the dialog.</param>
+        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowMessageBoxAsync(Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.MessageBoxContent})">
             <summary>
             Shows a custom message box. Has a callback function which returns boolean
