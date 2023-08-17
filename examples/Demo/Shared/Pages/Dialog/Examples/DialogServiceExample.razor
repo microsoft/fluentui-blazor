@@ -39,18 +39,18 @@
         DemoLogger.WriteLine($"Open dialog centered");
 
         DialogParameters<SimplePerson> parameters = new()
-            {
-                Title = $"Hello {simplePerson.Firstname}",
-                OnDialogResult = DialogService.CreateDialogCallback(this, HandlePanel),
-                PrimaryAction = "Yes",
-                PrimaryActionEnabled = false,
-                SecondaryAction = "No",
-                Width = "500px",
-                Height = "500px",
-                Content = simplePerson,
-                TrapFocus = _trapFocus,
-                Modal = _modal,
-            };
+        {
+            Title = $"Hello {simplePerson.Firstname}",
+            PrimaryAction = "Yes",
+            PrimaryActionEnabled = false,
+            SecondaryAction = "No",
+            Width = "500px",
+            Height = "500px",
+            Content = simplePerson,
+            TrapFocus = _trapFocus,
+            Modal = _modal,
+        };
+
         IDialogReference dialog = await DialogService.ShowDialogAsync<SimpleDialog, SimplePerson>(parameters);
         DialogResult? result = await dialog.Result;
         
@@ -64,23 +64,5 @@
         {
             DemoLogger.WriteLine($"Dialog closed - Canceled: {result.Cancelled}");
         }
-    }
-
-    private async Task HandlePanel(DialogResult result)
-    {
-        if (result.Cancelled)
-        {
-            await Task.Run(() => DemoLogger.WriteLine($"Dialog cancelled"));
-            return;
-        }
-        if (result.Data is not null)
-        {
-            SimplePerson? simplePerson = result.Data as SimplePerson;
-            await Task.Run(() => DemoLogger.WriteLine($"Dialog closed by {simplePerson?.Firstname} {simplePerson?.Lastname} ({simplePerson?.Age})"));
-            return;
-        }
-
-        await Task.Run(() => DemoLogger.WriteLine($"Dialog closed"));
-
     }
 }

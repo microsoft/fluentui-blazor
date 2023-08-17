@@ -8,10 +8,10 @@ internal sealed class InternalDialogContext
 
     public Collection<IDialogReference> References { get; set; } = [];
 
-    public FluentDialogContainer DialogContainer { get; }
+    public FluentDialogProvider DialogContainer { get; }
 
 
-    public InternalDialogContext(FluentDialogContainer container)
+    public InternalDialogContext(FluentDialogProvider container)
     {
         DialogContainer = container;
     }

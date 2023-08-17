@@ -2,20 +2,20 @@
 <h1>DialogService</h1>
 
 <p>
-    The DialogService is a service that can be used to show dialogs. It can be injected into a page and used to show 
+    The DialogService is a service that can be used to show dialogs. It can be injected into a page or component and is used to show 
     different type of dialogs.
 </p>
 <p>
     For a component to be useable by the DialogService, it needs to implement <code>IDialogContentComponent&lt;T&gt;</code>.
 </p>
 <p>
-    The DialogService is automatically registered in the DI container with the <code>AddFluentUIComponents()</code> call.
+    The DialogService is automatically registered in the DI container with the <code>.AddFluentUIComponents()</code> method call.
 </p>
 
-<h2>Dialog container</h2>
+<h2>Dialog provider</h2>
 <strong>IMPORTANT!!</strong>
 <p>
-    Dialogs are rendered through the <code>&lt;FluentDialogContainer /&gt;</code> component. This component needs to be added to the main layout of your application/site.
+    Dialogs are rendered by the <code>&lt;FluentDialogProvider /&gt;</code>. This component needs to be added to the main layout of your application/site.
     You typically do this in the <code>MainLayout.razor</code> file at the end of the <code>&lt;main&gt;</code> section like this:
 </p>
 <CodeSnippet>
@@ -28,13 +28,13 @@
                 @@Body
             &lt;/article&gt;
         &lt;/div&gt;
-        &lt;FluentDialogContainer /&gt;
+        &lt;FluentDialogProvider /&gt;
     &lt;/main&gt;
 </CodeSnippet>
 
 
 <p>
-    See the following pages for examples on how to use the DialogService.
+    See the following pages for examples on how to use the DialogService with thedifferent types of dialogs.
     <ul>
         <li><a href="/Dialog">Regular dialogs</a></li>
         <li><a href="/MessageBox">Message boxes</a></li>
@@ -42,11 +42,52 @@
         <li><a href="/SplashScreen">Splash screens</a></li>
     </ul>
 </p>
-<ApiDocumentation Component="typeof(DialogService)" />
-<ApiDocumentation Component="typeof(FluentDialogContainer)" />
 
 <h2>Exchange data between dialog and calling component</h2>
+<p>
+    There are two ways to exchange data between the dialog and the component which calls the dialog. The first is by capturing the returned <code>IDialogReference</code> from one of the <code>DialogService.Show...Async</code> methods and then use that
+    reference to get the dialog's result (of type <code>DialogResult</code>). The second is by using an <code>EventCalback</code> parameter as part of the
+    <code>DialogParameters</code>.
+</p>
+<h3>Using async/await with an <code>IDialogReference</code></h3>
+<p>
+    You can use the <code>DialogService.Show...Async()</code> methods to show a dialog. When the type of dialog supports data exchange with the
+    callingcomponent, these methods return an <code>IDialogReference</code> which can be used to get the dialog's result. The 
+    <code>DialogResult</code> contains the data that was passed to and altered in the dialog. It also contains a <code>Cancelled</code> property 
+    which indicates if the dialog was cancelled or not.
+</p>
+<p>
+    A typical implementation could look something like this:
+    <CodeSnippet Language="csharp">
+        DialogParameters&lt;SimplePerson&gt; parameters = new()
+        {
+            Title = $"Hello {simplePerson.Firstname}",
+            PrimaryAction = "Yes",
+            PrimaryActionEnabled = false,
+            SecondaryAction = "No",
+            Width = "500px",
+            Height = "500px",
+            Content = simplePerson,
+            TrapFocus = _trapFocus,
+            Modal = _modal,
+        };
 
+        IDialogReference dialog = await DialogService.ShowDialogAsync&lt;SimpleDialog, SimplePerson&gt;(parameters);
+        DialogResult? result = await dialog.Result;
+        
+        if (result.Data is not null)
+        {
+            SimplePerson? simplePerson = result.Data as SimplePerson;
+            Console.WriteLine($"Dialog closed by {simplePerson?.Firstname} {simplePerson?.Lastname} ({simplePerson?.Age}) - Canceled: {result.Cancelled}");
+        }
+        else
+        {
+            Console.WriteLine($"Dialog closed - Canceled: {result.Cancelled}");
+        }
+    </CodeSnippet>
+</p>
+
+<h3>Using an EventCallback</h3>
 <p>
     You can exchange data between the component that opened the dialog and the dialog component by using the <code>DialogParameters.Content</code> 
     parameter to specify the type of data and providing a callback function to the <code>DialogParameters.OnDialogResult</code> method. <br />
@@ -78,3 +119,6 @@
         }
     </CodeSnippet>
 </p>
+
+<ApiDocumentation Component="typeof(DialogService)" />
+<ApiDocumentation Component="typeof(FluentDialogProvider)" />

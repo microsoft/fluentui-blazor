@@ -3,11 +3,9 @@
 
 @if (_internalDialogContext.References.Any())
 {
-    <div class="fluent-dialog-container">
-        <CascadingValue TValue="InternalDialogContext" IsFixed="true" Value = "@_internalDialogContext" >
-            @_renderDialogs
-        </CascadingValue>
-    </div>
+    <CascadingValue TValue="InternalDialogContext" IsFixed="true" Value = "@_internalDialogContext" >
+        @_renderDialogs
+    </CascadingValue>
 }
 
 

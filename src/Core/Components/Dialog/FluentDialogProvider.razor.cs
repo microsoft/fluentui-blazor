@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components.Routing;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentDialogContainer : IDisposable
+public partial class FluentDialogProvider : IDisposable
 {
     private readonly InternalDialogContext _internalDialogContext;
     private readonly RenderFragment _renderDialogs;
@@ -17,7 +17,7 @@ public partial class FluentDialogContainer : IDisposable
     /// <summary>
     /// Constructs an instance of <see cref="FluentToastContainer"/>.
     /// </summary>
-    public FluentDialogContainer()
+    public FluentDialogProvider()
     {
         _internalDialogContext = new(this);
         _renderDialogs = RenderDialogs;
@@ -34,14 +34,11 @@ public partial class FluentDialogContainer : IDisposable
 
     private void ShowDialog(IDialogReference dialogReference, Type? dialogComponent, DialogParameters parameters, object content)
     {
-        _ = InvokeAsync(() =>
-        {
-            DialogInstance dialog = new(dialogComponent, parameters, content);
-            dialogReference.Instance = dialog;
+        DialogInstance dialog = new(dialogComponent, parameters, content);
+        dialogReference.Instance = dialog;
 
-            _internalDialogContext.References.Add(dialogReference);
-            StateHasChanged();
-        });
+        _internalDialogContext.References.Add(dialogReference);
+        InvokeAsync(StateHasChanged);
     }
 
     private async Task<IDialogReference> ShowDialogAsync(IDialogReference dialogReference, Type? dialogComponent, DialogParameters parameters, object content)
@@ -77,21 +74,6 @@ public partial class FluentDialogContainer : IDisposable
         _internalDialogContext.References.ToList().ForEach(r => DismissInstance(r, DialogResult.Cancel()));
         StateHasChanged();
     }
-
-    //internal void DismissInstance(string id)
-    //{
-    //    DialogInstance? instance = GetDialogInstance(id);
-    //    if (instance != null)
-    //    {
-    //        DismissInstance(instance);
-    //    }
-    //}
-
-    //private void DismissInstance(DialogInstance dialog)
-    //{
-    //    _dialogs.Remove(dialog);
-    //    StateHasChanged();
-    //}
 
     private void DismissInstance(IDialogReference dialog, DialogResult result)
     {

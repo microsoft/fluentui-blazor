@@ -1751,7 +1751,7 @@
             Closes the dialog
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDialogContainer.#ctor">
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDialogProvider.#ctor">
             <summary>
             Constructs an instance of <see cref="T:Microsoft.Fast.Components.FluentUI.FluentToastContainer"/>.
             </summary>
