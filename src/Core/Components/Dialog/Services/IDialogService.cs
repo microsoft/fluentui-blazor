@@ -10,6 +10,9 @@ public interface IDialogService
     public event Action<IDialogReference, Type?, DialogParameters, object>? OnShow;
     public event Func<IDialogReference, Type?, DialogParameters, object, Task<IDialogReference>>? OnShowAsync;
 
+    public event Action<string, DialogParameters>? OnUpdate;
+    public event Func<string, DialogParameters, Task>? OnUpdateAsync;
+
     public event Action<IDialogReference, DialogResult>? OnDialogCloseRequested;
 
     void ShowSplashScreen(object receiver, Func<DialogResult, Task> callback, DialogParameters<SplashScreenContent> parameters);
@@ -46,13 +49,23 @@ public interface IDialogService
     void ShowDialog<TData>(Type component, TData data, DialogParameters parameters)
         where TData : class;
 
+    void UpdateDialog<TContent>(string id, DialogParameters<TContent> parameters)
+        where TContent : class;
+
     // Async methods
     Task<IDialogReference> ShowSplashScreenAsync(object receiver, Func<DialogResult, Task> callback, DialogParameters<SplashScreenContent> parameters);
+
+    Task<IDialogReference> ShowSplashScreenAsync(DialogParameters<SplashScreenContent> parameters);
 
     Task<IDialogReference> ShowSplashScreenAsync<T>(object receiver, Func<DialogResult, Task> callback, DialogParameters<SplashScreenContent> parameters)
         where T : IDialogContentComponent<SplashScreenContent>;
 
+    Task<IDialogReference> ShowSplashScreenAsync<T>(DialogParameters<SplashScreenContent> parameters)
+        where T : IDialogContentComponent<SplashScreenContent>;
+
     Task<IDialogReference> ShowSplashScreenAsync(Type component, object receiver, Func<DialogResult, Task> callback, DialogParameters<SplashScreenContent> parameters);
+
+    Task<IDialogReference> ShowSplashScreenAsync(Type component, DialogParameters<SplashScreenContent> parameters);
 
 
     Task ShowSuccessAsync(string message, string? title = null);
@@ -83,6 +96,9 @@ public interface IDialogService
 
     Task<IDialogReference> ShowDialogAsync<TData>(Type component, TData data, DialogParameters parameters)
         where TData : class;
+
+    Task UpdateDialogAsync<TContent>(string id, DialogParameters<TContent> parameters)
+        where TContent : class;
 
     public EventCallback<DialogResult> CreateDialogCallback(object receiver, Func<DialogResult, Task> callback);
 

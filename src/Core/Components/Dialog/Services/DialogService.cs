@@ -8,13 +8,15 @@ public class DialogService : IDialogService
     /// A event that will be invoked when showing a dialog with a custom component
     /// </summary>
     public event Action<IDialogReference, Type?, DialogParameters, object>? OnShow;
-
     public event Func<IDialogReference, Type?, DialogParameters, object, Task<IDialogReference>>? OnShowAsync;
+
+    public event Action<string, DialogParameters>? OnUpdate;
+    public event Func<string, DialogParameters, Task>? OnUpdateAsync;
 
     public event Action<IDialogReference, DialogResult>? OnDialogCloseRequested;
 
     /// <summary>
-    /// Shows the standard <see cref="FluentSplashScreen"/> with the given parameters."/>
+    /// Shows the standard <see cref="FluentSplashScreen"/> with the given parameters.
     /// </summary>
     /// <param name="receiver">The componente that receives the callback</param>
     /// <param name="callback">Name of the callback function</param>
@@ -23,7 +25,7 @@ public class DialogService : IDialogService
         => ShowSplashScreen<FluentSplashScreen>(receiver, callback, parameters);
 
     /// <summary>
-    /// Shows a custom splash screen dialog with the given parameters."/>
+    /// Shows a custom splash screen dialog with the given parameters.
     /// </summary>
     /// <param name="receiver">The componente that receives the callback</param>
     /// <param name="callback">Name of the callback function</param>
@@ -34,7 +36,7 @@ public class DialogService : IDialogService
 
 
     /// <summary>
-    /// Shows a splash screen of the given type with the given parameters."/>
+    /// Shows a splash screen of the given type with the given parameters.
     /// </summary>
     /// <param name="component">The type of the component to show</param>
     /// <param name="receiver">The componente that receives the callback</param>
@@ -187,8 +189,7 @@ public class DialogService : IDialogService
     }
 
     /// <summary>
-    /// Shows a panel with the dialog component type as the body,
-    /// passing the specified <paramref name="parameters "/>
+    /// Shows a panel with the dialog component type as the body
     /// </summary>
     /// <param name="parameters">Parameters to pass to component being displayed.</param>
     public void ShowPanel<T, TData>(DialogParameters<TData> parameters)
@@ -197,8 +198,7 @@ public class DialogService : IDialogService
         => ShowPanel(typeof(T), parameters);
 
     /// <summary>
-    /// Shows a panel with the dialog component type as the body,
-    /// passing the specified <paramref name="parameters "/>
+    /// Shows a panel with the dialog component type as the body
     /// </summary>
     /// <param name="dialogComponent">Type of component to display.</param>
     /// <param name="parameters">Parameters to pass to component being displayed.</param>
@@ -223,8 +223,7 @@ public class DialogService : IDialogService
     }
 
     /// <summary>
-    /// Shows a dialog with the component type as the body,
-    /// passing the specified <paramref name="parameters "/>
+    /// Shows a dialog with the component type as the body
     /// </summary>
     /// <param name="parameters">Parameters to pass to component being displayed.</param>
     public void ShowDialog<T, TContent>(DialogParameters<TContent> parameters)
@@ -252,8 +251,7 @@ public class DialogService : IDialogService
     }
 
     /// <summary>
-    /// Shows a dialog with the component type as the body,
-    /// passing the specified <paramref name="content "/> 
+    /// Shows a dialog with the component type as the body
     /// </summary>
     /// <param name="dialogComponent">Type of component to display.</param>
     /// <param name="content">Content to pass to component being displayed.</param>
@@ -271,15 +269,34 @@ public class DialogService : IDialogService
         OnShow?.Invoke(dialogReference, dialogComponent, parameters, content);
     }
 
+    /// <summary>
+    /// Updates a dialog 
+    /// </summary>
+    /// <param name="id">Id of the dialog to update.</param>
+    /// <param name="parameters">Parameters to configure the dialog component.</param>
+    public void UpdateDialog<TContent>(string id, DialogParameters<TContent> parameters)
+        where TContent : class
+    {
+        OnUpdate?.Invoke(id, parameters);
+    }
+
+    //Async methods
 
     /// <summary>
-    /// Shows the standard <see cref="FluentSplashScreen"/> with the given parameters."/>
+    /// Shows the standard <see cref="FluentSplashScreen"/> with the given parameters.
     /// </summary>
     /// <param name="receiver">The componente that receives the callback</param>
     /// <param name="callback">Name of the callback function</param>
     /// <param name="parameters"><see cref="SplashScreenContent"/> that holds the content to display</param>
     public async Task<IDialogReference> ShowSplashScreenAsync(object receiver, Func<DialogResult, Task> callback, DialogParameters<SplashScreenContent> parameters)
         => await ShowSplashScreenAsync<FluentSplashScreen>(receiver, callback, parameters);
+
+    /// <summary>
+    /// Shows the standard <see cref="FluentSplashScreen"/> with the given parameters.
+    /// </summary>
+    /// <param name="parameters"><see cref="SplashScreenContent"/> that holds the content to display</param>
+    public async Task<IDialogReference> ShowSplashScreenAsync(DialogParameters<SplashScreenContent> parameters)
+        => await ShowSplashScreenAsync<FluentSplashScreen>(parameters);
 
     /// <summary>
     /// Shows a custom splash screen dialog with the given parameters."/>
@@ -291,9 +308,17 @@ public class DialogService : IDialogService
         where T : IDialogContentComponent<SplashScreenContent>
         => await ShowSplashScreenAsync(typeof(T), receiver, callback, parameters);
 
+    /// <summary>
+    /// Shows a custom splash screen dialog with the given parameters.
+    /// </summary>
+    /// <param name="parameters"><see cref="SplashScreenContent"/> that holds the content to display</param>
+    public async Task<IDialogReference> ShowSplashScreenAsync<T>(DialogParameters<SplashScreenContent> parameters)
+        where T : IDialogContentComponent<SplashScreenContent>
+        => await ShowSplashScreenAsync(typeof(T), parameters);
+
 
     /// <summary>
-    /// Shows a splash screen of the given type with the given parameters."/>
+    /// Shows a splash screen of the given type with the given parameters.
     /// </summary>
     /// <param name="component">The type of the component to show</param>
     /// <param name="receiver">The componente that receives the callback</param>
@@ -320,8 +345,31 @@ public class DialogService : IDialogService
     }
 
     /// <summary>
-    /// Shows a dialog with the component type as the body,
-    /// passing the specified <paramref name="parameters "/>
+    /// Shows a splash screen of the given type with the given parameters.
+    /// </summary>
+    /// <param name="component">The type of the component to show</param>
+    /// <param name="parameters"><see cref="SplashScreenContent"/> that holds the content to display</param>
+    public async Task<IDialogReference> ShowSplashScreenAsync(Type component, DialogParameters<SplashScreenContent> parameters)
+    {
+        DialogParameters dialogParameters = new()
+        {
+            Alignment = HorizontalAlignment.Center,
+            Modal = false,
+            ShowDismiss = false,
+            ShowTitle = false,
+            PrimaryAction = null,
+            SecondaryAction = null,
+            Width = parameters.Width ?? "600px",
+            Height = parameters.Height ?? "370px",
+            DialogBodyStyle = "width: 100%; height: 100%; margin: 0px;",
+            AriaLabel = $"{parameters.Content.Title} splashscreen",
+        };
+
+        return await ShowDialogAsync(component, parameters.Content, dialogParameters);
+    }
+
+    /// <summary>
+    /// Shows a dialog with the component type as the body
     /// </summary>
     /// <param name="parameters">Parameters to pass to component being displayed.</param>
     public async Task<IDialogReference> ShowDialogAsync<T, TContent>(DialogParameters<TContent> parameters)
@@ -500,8 +548,7 @@ public class DialogService : IDialogService
     }
 
     /// <summary>
-    /// Shows a panel with the dialog component type as the body,
-    /// passing the specified <paramref name="parameters "/>
+    /// Shows a panel with the dialog component type as the body
     /// </summary>
     /// <param name="parameters">Parameters to pass to component being displayed.</param>
     public async Task<IDialogReference> ShowPanelAsync<T, TData>(DialogParameters<TData> parameters)
@@ -510,8 +557,7 @@ public class DialogService : IDialogService
         => await ShowPanelAsync(typeof(T), parameters);
 
     /// <summary>
-    /// Shows a panel with the dialog component type as the body,
-    /// passing the specified <paramref name="parameters "/>
+    /// Shows a panel with the dialog component type as the body
     /// </summary>
     /// <param name="dialogComponent">Type of component to display.</param>
     /// <param name="parameters">Parameters to pass to component being displayed.</param>
@@ -553,6 +599,17 @@ public class DialogService : IDialogService
         IDialogReference? dialogReference = new DialogReference(parameters.Id, this);
 
         return await OnShowAsync!.Invoke(dialogReference, dialogComponent, parameters, content);
+    }
+
+    /// <summary>
+    /// Updates a dialog 
+    /// </summary>
+    /// <param name="id">Id of the dialog to update.</param>
+    /// <param name="parameters">Parameters to configure the dialog component.</param>
+    public async Task UpdateDialogAsync<TContent>(string id, DialogParameters<TContent> parameters)
+        where TContent : class
+    {
+        await OnUpdateAsync!.Invoke(id, parameters);
     }
 
     /// <summary>

@@ -29,6 +29,8 @@ public partial class FluentDialogProvider : IDisposable
 
         DialogService.OnShow += ShowDialog;
         DialogService.OnShowAsync += ShowDialogAsync;
+        DialogService.OnUpdate += UpdateDialog;
+        DialogService.OnUpdateAsync += UpdateDialogAsync;
         DialogService.OnDialogCloseRequested += DismissInstance;
     }
 
@@ -43,7 +45,7 @@ public partial class FluentDialogProvider : IDisposable
 
     private async Task<IDialogReference> ShowDialogAsync(IDialogReference dialogReference, Type? dialogComponent, DialogParameters parameters, object content)
     {
-        return await Task.Run<IDialogReference>(() =>
+        return await Task.Run(() =>
         {
             DialogInstance dialog = new(dialogComponent, parameters, content);
             dialogReference.Instance = dialog;
@@ -52,6 +54,35 @@ public partial class FluentDialogProvider : IDisposable
             InvokeAsync(StateHasChanged);
 
             return dialogReference;
+        });
+    }
+
+    private void UpdateDialog(string? dialogId, DialogParameters parameters)
+    {
+        IDialogReference reference = _internalDialogContext.References.SingleOrDefault(x => x.Id == dialogId)!;
+        DialogInstance? dialogInstance = reference.Instance;
+
+        if (dialogInstance is not null)
+        {
+            dialogInstance.Parameters = parameters;
+
+            InvokeAsync(StateHasChanged);
+        };
+    }
+
+    private async Task UpdateDialogAsync(string? dialogId, DialogParameters parameters)
+    {
+        await Task.Run(() =>
+        {
+            IDialogReference reference = _internalDialogContext.References.SingleOrDefault(x => x.Id == dialogId)!;
+            DialogInstance? dialogInstance = reference.Instance;
+
+            if (dialogInstance is not null)
+            {
+                dialogInstance.Parameters = parameters;
+
+                InvokeAsync(StateHasChanged);
+            }
         });
     }
 
