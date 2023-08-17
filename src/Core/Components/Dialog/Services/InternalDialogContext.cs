@@ -4,9 +4,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 
 internal sealed class InternalDialogContext
 {
-    //public Dictionary<string, FluentDialog> ComponentReferences { get; set; } = new();
-
-    public Collection<IDialogReference> References { get; set; } = [];
+    public Collection<IDialogReference> References { get; set; } = new();
 
     public FluentDialogProvider DialogContainer { get; }
 
@@ -15,14 +13,4 @@ internal sealed class InternalDialogContext
     {
         DialogContainer = container;
     }
-
-    //internal void Register(FluentDialog dialog)
-    //{
-    //    ComponentReferences.Add(dialog.Id!, dialog);
-    //}
-
-    //internal void Unregister(FluentDialog dialog)
-    //{
-    //    ComponentReferences.Remove(dialog.Id!);
-    //}
 }

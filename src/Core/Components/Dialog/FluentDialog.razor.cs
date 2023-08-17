@@ -108,7 +108,6 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
         else
         {
             _parameters = Instance.Parameters;
-            //DialogContext!.Register(this);
         }
     }
 
@@ -165,6 +164,4 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
             await Instance.Parameters.OnDialogResult.InvokeAsync(dialogResult);
         }
     }
-
-    //public void Dispose() => DialogContext?.Unregister(this);
 }
