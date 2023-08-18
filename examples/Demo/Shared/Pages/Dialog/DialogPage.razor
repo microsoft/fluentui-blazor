@@ -23,32 +23,71 @@
     <code>&lt;FluentDialog&gt;</code> wraps the <code>&lt;fluent-dialog&gt;</code> element, a web component implementation of a dialog leveraging
     the Fluent UI design system. <code>&lt;FluentDialog&gt;</code> acts as a shell for the dialog content, which can be specified in a number of ways. 
 </p>
+<h2>DialogService</h2>
 <p>
-    Normally, the dialog content is specified by a component which implements <code>IDialogContentComponent&lt;T&gt;</code>. This component is then
-    passed to the <code>DialogService</code> to be shown. The <code>DialogService</code> will then render a <code>&lt;FluentDialog&gt;</code> with the 
-    component inside of it. Alternatively, the dialog content can be specified manually by setting the <code>ChildContent</code> parameter of <code>&lt;FluentDialog&gt;</code>.
-    This is useful if you want to show a simple dialog without having to create a component for it or if you do not want to use the <code>DialogService</code>for it.
-</p>
-<p>
-    The <code>DialogService</code> is a service which can be used to show different types of dialogs. It is registered as a scoped service, so it can be injected into 
-    pages/components that want to use it. For more information on the <code>DialogService</code>, see the <a href="DialogService">Dialog Service</a> page.
-</p>
-<p>
-        When using the <code>DialogService</code>, for displaying a regular dialog, the dialog will always be shown centered on the screen.
+    The <code>DialogService</code> is a service which is used to show different types of dialogs. It is registered as a scoped service, so it can be injected into 
+    pages/components that use it. For more information on the <code>DialogService</code>, see the <a href="DialogService">Dialog Service</a> page.
 </p>
 
+<h2>Dialog content</h2>
+<p>
+    Normally, the dialog content is specified by a component which implements <code>IDialogContentComponent&lt;T&gt;</code>. This component is then
+    passed to the <code>DialogService</code> to be shown. The <code>DialogService</code> will then render a <code>&lt;FluentDialog&gt;</code> with
+    the component inside of it. 
+</p>
+<p>
+    Alternatively, the dialog content can be specified manually by setting the <code>ChildContent</code> parameter of <code>&lt;FluentDialog&gt;</code>.
+    This is useful if you want to show a simple dialog without having to create a component for it or if you do not want to use the <code>DialogService</code>for it.
+    <br/>
+    When using the <code>DialogService</code>, for displaying a regular dialog, the dialog will always be shown centered on the screen.
+</p>
+<h2>Exchange data between dialog and calling component</h2>
+<p>
+    There are two ways available to exchange data between the dialog and the component which shows it. The first is by capturing the returned 
+    <code>IDialogReference</code> from one of the <code>DialogService.Show...Async</code> methods and then use that reference to get the dialog's 
+    result (of type <code>DialogResult</code>). The second is by using an <code>EventCalback</code> parameter as part of the
+    <code>DialogParameters</code>. Both ways are demonstated in the samples below.
+</p>
+<h2>Dialog provider</h2>
+<strong>IMPORTANT!!</strong>
+<p>
+    Dialogs are rendered by the <code>&lt;FluentDialogProvider /&gt;</code> component. This component needs to be added to the main layout of your application/site.
+    You typically do this in the <code>MainLayout.razor</code> file at the end of the <code>&lt;main&gt;</code> section like this:
+</p>
+<CodeSnippet>
+    &lt;main&gt;
+    &lt;nav&gt;
+    :
+    &lt;/nav&gt;
+    &lt;div class=&quot;content&quot;&gt;
+    &lt;article id=&quot;article&quot;&gt;
+    @@Body
+    &lt;/article&gt;
+    &lt;/div&gt;
+    &lt;FluentDialogProvider /&gt;
+    &lt;/main&gt;
+</CodeSnippet>
+
 <h2>Examples</h2>
-<DemoSection Title="Dialog using DialogService" Component="@typeof(DialogServiceExample)" AdditionalFiles="@(new[] {"SimpleDialog.razor"})">
+<p>
+    These examples shows how to use the <code>DialogService</code> to show a dialog. The content of the dialog is specified by
+    a component which implements <code>IDialogContentComponent&lt;T&gt;</code>. Here that is done in <code>SimpleDialog.razor</code>. The dialog is automatically styled and centered.
+</p>
+<p>
+    Interaction with parent dialog can be made by injecting FluentDialog as Cascading Parameter. See <code>SimpleDialog.razor</code> for more details.
+</p>
+<DemoSection Title="DialogService with IDialogReference" Component="@typeof(DialogServiceExample)" AdditionalFiles="@(new[] {"SimpleDialog.razor"})">
     <Description>
-        <p>
-            This example shows how to use the <code>DialogService</code> to show a dialog. The content of the dialog is specified by
-            a component which implements <code>IDialogContentComponent&lt;T&gt;</code>. Here that is done in <code>SimpleDialog.razor</code>. The dialog is automatically styled and centered.
-        </p>
-        <p>
-            Interaction with parent dialog can be made by injecting FluentDialog as Cascading Parameter.
-        </p>
+        This example shows how to use async methods to show a dialog and get the result back from it. 
     </Description>
 </DemoSection>
+
+<DemoSection Title="DialogService with EventCallback" Component="@typeof(DialogServiceCallbackExample)" AdditionalFiles="@(new[] {"SimpleDialog.razor"})">
+    <Description>
+        This example shows how to use an <code>EventCallback</code> parameter to get data back from the dialog.
+    </Description>
+</DemoSection>
+
 
 <DemoSection Title="Dialog without using DialogService" Component="@typeof(DialogDefault)" CollocatedFiles="@(new[] {"css"})">
     <Description>
@@ -56,8 +95,6 @@
         A CSS file has been added to set the width, heigth and padding of the dialog.
     </Description>
 </DemoSection>
-
-
 
 <DemoSection Title="SimpleDialog as component" Component="@typeof(DialogSimpleDialog)">
     <Description>
@@ -67,28 +104,9 @@
     </Description>
 </DemoSection>
 
+<h2>API Documentation</h2>
 
-<h2>Dialog container</h2>
-<strong>IMPORTANT!!</strong>
-<p>
-    Dialogs are rendered through the <code>&lt;FluentDialogContainer /&gt;</code> component. This component needs to be added to the main layout of your application/site.
-    You typically do this in the <code>MainLayout.razor</code> file at the end of the <code>&lt;main&gt;</code> section like this:
-</p>
-<CodeSnippet>
-    &lt;main&gt;
-        &lt;nav&gt;
-        :
-        &lt;/nav&gt;
-        &lt;div class=&quot;content&quot;&gt;
-            &lt;article id=&quot;article&quot;&gt;
-                @@Body
-            &lt;/article&gt;
-        &lt;/div&gt;
-        &lt;FluentDialogContainer /&gt;
-    &lt;/main&gt;
-</CodeSnippet>
-
-<ApiDocumentation Component="typeof(FluentDialogContainer)" />
+<ApiDocumentation Component="typeof(FluentDialogProvider)" />
 
 <ApiDocumentation Component="typeof(FluentDialog)" />
 

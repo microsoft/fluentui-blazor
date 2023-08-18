@@ -4,7 +4,7 @@ namespace Microsoft.Fast.Components.FluentUI
 {
     public interface IDialogParameters
     {
-        string? Id { get; set; }
+        string Id { get; set; }
         HorizontalAlignment Alignment { get; set; }
         string? Title { get; set; }
         bool? Modal { get; set; }
@@ -13,10 +13,8 @@ namespace Microsoft.Fast.Components.FluentUI
         bool ShowDismiss { get; set; }
         string? PrimaryAction { get; set; }
         bool PrimaryActionEnabled { get; set; }
-        //EventCallback<DialogResult>? OnPrimaryAction { get; set; }
         string? SecondaryAction { get; set; }
         bool SecondaryActionEnabled { get; set; }
-        //EventCallback<DialogResult>? OnSecondaryAction { get; set; }
         string? Width { get; set; }
         string? Height { get; set; }
         string DialogBodyStyle { get; set; }
@@ -25,6 +23,7 @@ namespace Microsoft.Fast.Components.FluentUI
         string? AriaLabelledby { get; set; }
         EventCallback<DialogResult> OnDialogResult { get; set; }
     }
+
     public interface IDialogParameters<TContent> : IDialogParameters
          where TContent : class
     {

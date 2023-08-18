@@ -1751,7 +1751,7 @@
             Closes the dialog
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDialogContainer.#ctor">
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDialogProvider.#ctor">
             <summary>
             Constructs an instance of <see cref="T:Microsoft.Fast.Components.FluentUI.FluentToastContainer"/>.
             </summary>
@@ -1951,7 +1951,7 @@
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreen(System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
             <summary>
-            Shows the standard <see cref="T:Microsoft.Fast.Components.FluentUI.FluentSplashScreen"/> with the given parameters."/>
+            Shows the standard <see cref="T:Microsoft.Fast.Components.FluentUI.FluentSplashScreen"/> with the given parameters.
             </summary>
             <param name="receiver">The componente that receives the callback</param>
             <param name="callback">Name of the callback function</param>
@@ -1959,7 +1959,7 @@
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreen``1(System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
             <summary>
-            Shows a custom splash screen dialog with the given parameters."/>
+            Shows a custom splash screen dialog with the given parameters.
             </summary>
             <param name="receiver">The componente that receives the callback</param>
             <param name="callback">Name of the callback function</param>
@@ -1967,7 +1967,7 @@
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreen(System.Type,System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
             <summary>
-            Shows a splash screen of the given type with the given parameters."/>
+            Shows a splash screen of the given type with the given parameters.
             </summary>
             <param name="component">The type of the component to show</param>
             <param name="receiver">The componente that receives the callback</param>
@@ -2023,33 +2023,149 @@
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowPanel``2(Microsoft.Fast.Components.FluentUI.DialogParameters{``1})">
             <summary>
-            Shows a panel with the dialog component type as the body,
-            passing the specified <paramref name="parameters "/>
+            Shows a panel with the dialog component type as the body
             </summary>
             <param name="parameters">Parameters to pass to component being displayed.</param>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowPanel``1(System.Type,Microsoft.Fast.Components.FluentUI.DialogParameters{``0})">
             <summary>
-            Shows a panel with the dialog component type as the body,
-            passing the specified <paramref name="parameters "/>
+            Shows a panel with the dialog component type as the body
             </summary>
             <param name="dialogComponent">Type of component to display.</param>
             <param name="parameters">Parameters to pass to component being displayed.</param>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialog``2(Microsoft.Fast.Components.FluentUI.DialogParameters{``1})">
             <summary>
-            Shows a dialog with the component type as the body,
-            passing the specified <paramref name="parameters "/>
+            Shows a dialog with the component type as the body
             </summary>
             <param name="parameters">Parameters to pass to component being displayed.</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialog``1(System.Type,``0,Microsoft.Fast.Components.FluentUI.DialogParameters)">
+        <!-- Badly formed XML comment ignored for member "M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialog``1(System.Type,``0,Microsoft.Fast.Components.FluentUI.DialogParameters)" -->
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.UpdateDialog``1(System.String,Microsoft.Fast.Components.FluentUI.DialogParameters{``0})">
+            <summary>
+            Updates a dialog 
+            </summary>
+            <param name="id">Id of the dialog to update.</param>
+            <param name="parameters">Parameters to configure the dialog component.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreenAsync(System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
+            <summary>
+            Shows the standard <see cref="T:Microsoft.Fast.Components.FluentUI.FluentSplashScreen"/> with the given parameters.
+            </summary>
+            <param name="receiver">The componente that receives the callback</param>
+            <param name="callback">Name of the callback function</param>
+            <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent"/> that holds the content to display</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreenAsync(Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
+            <summary>
+            Shows the standard <see cref="T:Microsoft.Fast.Components.FluentUI.FluentSplashScreen"/> with the given parameters.
+            </summary>
+            <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent"/> that holds the content to display</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreenAsync``1(System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
+            <summary>
+            Shows a custom splash screen dialog with the given parameters."/>
+            </summary>
+            <param name="receiver">The componente that receives the callback</param>
+            <param name="callback">Name of the callback function</param>
+            <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent"/> that holds the content to display</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreenAsync``1(Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
+            <summary>
+            Shows a custom splash screen dialog with the given parameters.
+            </summary>
+            <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent"/> that holds the content to display</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreenAsync(System.Type,System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
+            <summary>
+            Shows a splash screen of the given type with the given parameters.
+            </summary>
+            <param name="component">The type of the component to show</param>
+            <param name="receiver">The componente that receives the callback</param>
+            <param name="callback">Name of the callback function</param>
+            <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent"/> that holds the content to display</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreenAsync(System.Type,Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
+            <summary>
+            Shows a splash screen of the given type with the given parameters.
+            </summary>
+            <param name="component">The type of the component to show</param>
+            <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent"/> that holds the content to display</param>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialogAsync``2(Microsoft.Fast.Components.FluentUI.DialogParameters{``1})" -->
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSuccessAsync(System.String,System.String)">
+            <summary>
+            Shows a success message box. Does not have a callback function.
+            </summary>
+            <param name="message">The message to display.</param>
+            <param name="title">The title to display on the dialog.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowWarningAsync(System.String,System.String)">
+            <summary>
+            Shows a warning message box. Does not have a callback function.
+            </summary>
+            <param name="message">The message to display.</param>
+            <param name="title">The title to display on the dialog.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowErrorAsync(System.String,System.String)">
+            <summary>
+            Shows an error message box. Does not have a callback function.
+            </summary>
+            <param name="message">The message to display.</param>
+            <param name="title">The title to display on the dialog.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowInfoAsync(System.String,System.String)">
+            <summary>
+            Shows an information message box. Does not have a callback function.
+            </summary>
+            <param name="message">The message to display.</param>
+            <param name="title">The title to display on the dialog.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowConfirmationAsync(System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},System.String,System.String,System.String,System.String)">
+            <summary>
+            Shows a confirmation message box. Has a callback function which returns boolean 
+            (true=PrimaryAction clicked, false=SecondaryAction clicked).
+            </summary>
+            <param name="receiver">The component that receives the callback function.</param>
+            <param name="callback">The callback function.</param>
+            <param name="message">The message to display.</param>
+            <param name="primaryText">The text to display on the primary button.</param>
+            <param name="secondaryText">The text to display on the secondary button.</param>
+            <param name="title">The title to display on the dialog.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowConfirmationAsync(System.String,System.String,System.String,System.String)">
+            <summary>
+            Shows a confirmation message box. Has no callback function
+            (true=PrimaryAction clicked, false=SecondaryAction clicked).
+            </summary>
+            <param name="message">The message to display.</param>
+            <param name="primaryText">The text to display on the primary button.</param>
+            <param name="secondaryText">The text to display on the secondary button.</param>
+            <param name="title">The title to display on the dialog.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowMessageBoxAsync(Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.MessageBoxContent})">
+            <summary>
+            Shows a custom message box. Has a callback function which returns boolean
+            (true=PrimaryAction clicked, false=SecondaryAction clicked).
+            </summary>
+            <param name="parameters">Parameters to pass to component being displayed.</param>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Microsoft.Fast.Components.FluentUI.DialogService.ShowPanelAsync``2(Microsoft.Fast.Components.FluentUI.DialogParameters{``1})" -->
+        <!-- Badly formed XML comment ignored for member "M:Microsoft.Fast.Components.FluentUI.DialogService.ShowPanelAsync``1(System.Type,Microsoft.Fast.Components.FluentUI.DialogParameters{``0})" -->
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialogAsync``1(System.Type,``0,Microsoft.Fast.Components.FluentUI.DialogParameters)">
             <summary>
             Shows a dialog with the component type as the body,
             passing the specified <paramref name="content "/> 
             </summary>
             <param name="dialogComponent">Type of component to display.</param>
             <param name="content">Content to pass to component being displayed.</param>
+            <param name="parameters">Parameters to configure the dialog component.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.UpdateDialogAsync``1(System.String,Microsoft.Fast.Components.FluentUI.DialogParameters{``0})">
+            <summary>
+            Updates a dialog 
+            </summary>
+            <param name="id">Id of the dialog to update.</param>
             <param name="parameters">Parameters to configure the dialog component.</param>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.CreateDialogCallback(System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task})">
