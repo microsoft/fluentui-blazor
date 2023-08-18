@@ -4,7 +4,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 
 public class DialogParameters : ComponentParameters, IDialogParameters
 {
-    public string? Id { get; set; }
+    public string Id { get; set; } = Identifier.NewId();
     /// <summary>
     /// Gets or sets the dialog position:
     /// left (full height), right (full height)

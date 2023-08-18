@@ -4,32 +4,29 @@
 
 <h1>SplashScreen</h1>
 
-<p></p>
 
 <p>
-    For defining the information to display in the <code>SplashScreen</code>, the <code>SplashScreenData</code> class is used.
-    It has the following properties:
+    For defining the information to display in the <code>SplashScreen</code>, the <code>SplashScreenContent</code> class is used. See the API 
+    documentation below for the available properties
 </p>
 
-<ApiDocumentation Component="typeof(SplashScreenContent)"/>
-
 <p>
-    To show a splash screen, the <code>DialogService</code> is used.
-    The <code>DialogService</code> is a singleton service that can be injected into any component. It exposes 2 methods to show a splash screen dialog:
+    To show a splash screen, the <code>DialogService</code> is used. The <code>DialogService</code> is a singleton service that can be injected 
+    into any page/component. It exposes the following methods to show a splash screen dialog:
     <ul>
-        <li><code>SplashScreenParameters</code> (uses the <code>FluentSplashScreen</code> to show the dialog)</li>
-        <li><code>SplashScreenParameters&lt;T&gt;</code> where T is a custom component which inherits the <code>FluentSplashScreen</code> component 
-            and implements <code>IDialogContentComponent&lt;SplashScreenData&gt;</code> .</li>
+        <li><code>ShowSplashScreen</code> / <code>ShowSplashScreenAsync</code> (uses the <code>FluentSplashScreen</code> to show the dialog)</li>
+        <li>
+            <code>ShowSplashScreen&lt;T&gt;</code> / <code>ShowSplashScreenAsync&lt;T&gt;</code> where T is a custom component which inherits the <code>FluentSplashScreen</code> component
+            and implements <code>IDialogContentComponent&lt;SplashScreenContent&gt;</code> .</li>
     </ul>
 </p>
 
-<ApiDocumentation Component="typeof(FluentSplashScreen)" />
 
 <h2>Examples</h2>
 
 <DemoSection Title="Default splash screen" Component="@typeof(DialogSplashScreenDefault)" >
     <Description>
-        The default example shows the standard splash screen. It's content can be alterd by means of the <code>SplashScreenData</code> class.
+        This example shows the standard splash screen. It's content can be alterd by means of the <code>SplashScreenContent</code> class.
         In this example we simulate a startup process that takes 4 seconds. 
     </Description>
 </DemoSection>
@@ -41,3 +38,6 @@
     </Description>
 </DemoSection>
 
+<h2>API Documentation</h2>
+<ApiDocumentation Component="typeof(SplashScreenContent)" />
+<ApiDocumentation Component="typeof(FluentSplashScreen)" />
