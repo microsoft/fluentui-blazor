@@ -4149,6 +4149,21 @@
             Gets or sets if the skeleton is shimmered
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSkeleton.Width">
+            <summary>
+            Gets or sets the width of the skeleton
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSkeleton.Height">
+            <summary>
+            Gets or sets the height of the skeleton
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSkeleton.Visible">
+            <summary>
+            Gets or sets whether the skeleton is visible
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentSkeleton.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.

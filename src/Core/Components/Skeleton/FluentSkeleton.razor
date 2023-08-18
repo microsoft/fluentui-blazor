@@ -1,12 +1,15 @@
 @namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentComponentBase
-<fluent-skeleton @ref=Element
-                 class="@Class"
-                 style="@Style"
-                 fill=@Fill
-                 shape="@Shape.ToAttributeValue()"
-                 pattern="@Pattern"
-                 shimmer="@Shimmer"
-                 @attributes="AdditionalAttributes">
-    @ChildContent
-</fluent-skeleton>
+@if (Visible)
+{
+    <fluent-skeleton @ref=Element
+                     class="@ClassValue"
+                     style="@StyleValue"
+                     fill=@Fill
+                     shape="@Shape.ToAttributeValue()"
+                     pattern="@Pattern"
+                     shimmer="@Shimmer"
+                     @attributes="AdditionalAttributes">
+        @ChildContent
+    </fluent-skeleton>
+}
