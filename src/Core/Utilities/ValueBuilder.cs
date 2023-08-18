@@ -1,10 +1,12 @@
-﻿namespace Microsoft.Fast.Components.FluentUI.Utilities;
+﻿using System.Text;
+
+namespace Microsoft.Fast.Components.FluentUI.Utilities;
 
 public class ValueBuilder
 {
-    private string? stringBuffer;
+    private StringBuilder stringBuffer = new();
 
-    public bool HasValue => !string.IsNullOrWhiteSpace(stringBuffer);
+    public bool HasValue => stringBuffer.Length > 0;
     /// <summary>
     /// Adds a space separated conditional value to a property.
     /// </summary>
@@ -16,9 +18,9 @@ public class ValueBuilder
 
     private ValueBuilder AddRaw(string? style)
     {
-        stringBuffer += style;
+        stringBuffer.Append(style);
         return this;
     }
 
-    public override string? ToString() => stringBuffer?.Trim();
+    public override string? ToString() => stringBuffer.ToString().Trim();
 }

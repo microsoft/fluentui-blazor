@@ -1,8 +1,10 @@
-﻿namespace Microsoft.Fast.Components.FluentUI.Utilities;
+﻿using System.Text;
+
+namespace Microsoft.Fast.Components.FluentUI.Utilities;
 
 public struct StyleBuilder
 {
-    private string? stringBuffer;
+    private StringBuilder stringBuffer;
 
     /// <summary>
     /// Creates a StyleBuilder used to define conditional in-line style used in a component. Call Build() to return the completed style as a string.
@@ -22,12 +24,14 @@ public struct StyleBuilder
     /// </summary>
     public static StyleBuilder Empty() => new();
 
+    public StyleBuilder() => stringBuffer = new();
+
     /// <summary>
     /// Creates a StyleBuilder used to define conditional in-line style used in a component. Call Build() to return the completed style as a string.
     /// </summary>
     /// <param name="prop"></param>
     /// <param name="value"></param>
-    public StyleBuilder(string prop, string value) => stringBuffer = $"{prop}: {value};";
+    public StyleBuilder(string prop, string value) => stringBuffer = new($"{prop}:{value};");
 
     /// <summary>
     /// Adds a conditional in-line style to the builder with space separator and closing semicolon.
@@ -42,7 +46,7 @@ public struct StyleBuilder
     /// <returns>StyleBuilder</returns>
     private StyleBuilder AddRaw(string? style)
     {
-        stringBuffer += style;
+        stringBuffer.Append(style);
         return this;
     }
 
@@ -146,7 +150,7 @@ public struct StyleBuilder
     public string? Build()
     {
         // String buffer finalization code
-        return stringBuffer?.Trim();
+        return stringBuffer.ToString().Trim();
     }
 
     // ToString should only and always call Build to finalize the rendered string.
