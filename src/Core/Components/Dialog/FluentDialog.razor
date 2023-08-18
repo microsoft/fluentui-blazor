@@ -6,9 +6,9 @@
                    id="@Id"
                    class="@ClassValue"
                    style="@StyleValue"
-                   modal="@((_parameters.Modal ?? Modal).ToString()?.ToLower())"
+                   modal="@((Modal ?? _parameters.Modal).ToString()?.ToLower())"
                    hidden="@Hidden"
-                   trap-focus=@(_parameters.TrapFocus ?? TrapFocus)
+                   trap-focus="@((TrapFocus ?? _parameters.TrapFocus).ToString()?.ToLower())"
                    aria-describedby=@(_parameters.AriaDescribedby ?? AriaDescribedby)
                    aria-labelledby=@(_parameters.AriaLabelledby ?? AriaLabelledby)
                    aria-label=@(_parameters.AriaLabel ?? AriaLabel)

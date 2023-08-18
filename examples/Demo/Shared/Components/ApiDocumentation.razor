@@ -3,7 +3,7 @@
 @using Microsoft.Fast.Components.FluentUI;
 
 <div>
-    <h2 id="@_id">@_displayName</h2>
+    <h3 id="@_id">@_displayName</h3>
 
 
     @if (Component.BaseType != null && Component.BaseType != typeof(FluentComponentBase) && Component.BaseType.Name.StartsWith("Fluent"))
@@ -24,7 +24,7 @@
     @if (this.Properties.Any())
     {
         string header = Properties.Any(x => x.IsParameter) ? "Parameters" : "Properties";
-        <h3 id="@(_id + "_properties")">@header</h3>
+        <h4 id="@(_id + "_properties")">@header</h4>
         <FluentDataGrid Class="docgrid" Items="@this.Properties.AsQueryable()" GridTemplateColumns="1fr 1fr 0.5fr 1.5fr">
             <TemplateColumn Title="Name"><code>@context.Name</code></TemplateColumn>
             <TemplateColumn Title="Type">
@@ -59,7 +59,7 @@
 
     @if (this.Events.Any())
     {
-        <h3 id="@(_id)_callbacks">EventCallbacks</h3>
+        <h4 id="@(_id)_callbacks">EventCallbacks</h4>
         <FluentDataGrid Class="docgrid" Items="@this.Events.AsQueryable()" GridTemplateColumns="1fr 1fr 1fr">
             <TemplateColumn Title="Name"><code>@context.Name</code></TemplateColumn>
             <PropertyColumn Property="@(c => c.Type)" />
@@ -73,7 +73,7 @@
 
     @if (this.Methods.Any())
     {
-         <h3 id="@(_id)_methods">Methods</h3>
+         <h4 id="@(_id)_methods">Methods</h4>
         <FluentDataGrid Class="docgrid" Items="@this.Methods.AsQueryable()" GridTemplateColumns="1fr 1fr 1fr 1fr">
             <TemplateColumn Title="Name"><code>@context.Name</code></TemplateColumn>
             <TemplateColumn Title="Parameters">

@@ -38,19 +38,20 @@
             @foreach (KeyValuePair<string, string> pair in _tabPanelsContent)
             {
                 string tab = Path.GetExtension(pair.Key);
+                string tabname = GetDisplayName(tab);
 
                 string id = string.Empty;
 
                 if (pair.Key.StartsWith(Component.Name))
                 {
-                    id = "tab-" + @GetDisplayName(tab).Replace("#", "").Replace("/", "").ToLower() + "-" + @ariaid;
+                    id = "tab-" + tabname + "-" + @ariaid;
                 }
                 else
                 {
-                    string tabName = Path.GetFileNameWithoutExtension(pair.Key);
-                    id = "tab-" + tabName.Replace("#", "").Replace("/", "").ToLower() + "-" + @ariaid;
+                    tabname = Path.GetFileNameWithoutExtension(pair.Key);
+                    id = "tab-" + tabname.Replace("#", "").Replace("/", "").ToLower() + "-" + @ariaid;
                 }
-                <FluentTab Id="@id" Label="@GetDisplayName(tab)" fixed>
+                <FluentTab Id="@id" Label="@tabname" fixed>
                     <Content>
                         <CodeSnippet Language="@TabLanguageClass(tab)">@pair.Value</CodeSnippet>
                     </Content>
@@ -63,25 +64,27 @@
 {
     <div class="demo-section-downloads">
         <FluentSpacer />
-        Download:&nbsp;
-        @foreach (KeyValuePair<string, string> pair in _tabPanelsContent)
-        {
-            string source = pair.Key;
-            <FluentAnchor Style="width: 85px; text-overflow: ellipsis" Download="@source" Href="@($"_content/FluentUI.Demo.Shared/sources/{source}.txt")" Appearance="Appearance.Neutral">
-                @if (source.StartsWith(Component.Name))
-                {
-                    @GetDisplayName(source.Substring(source.LastIndexOf('.')))
-                }
-                else
-                {
-                    @source
-                }
-            </FluentAnchor>
-
-            @if (source != _tabPanelsContent.Last().Key)
+        <div style="display: flex; align-items: center;">
+            Download:&nbsp;
+            @foreach (KeyValuePair<string, string> pair in _tabPanelsContent)
             {
-                <span>&nbsp;</span>
+                string source = pair.Key;
+                <FluentAnchor Style="min-width: 85px; text-overflow: ellipsis" Download="@source" Href="@($"_content/FluentUI.Demo.Shared/sources/{source}.txt")" Appearance="Appearance.Neutral">
+                    @if (source.StartsWith(Component.Name))
+                    {
+                        @GetDisplayName(source.Substring(source.LastIndexOf('.')))
+                    }
+                    else
+                    {
+                        @source.Substring(0, source.LastIndexOf('.'))
+                    }
+                </FluentAnchor>
+
+                @if (source != _tabPanelsContent.Last().Key)
+                {
+                    <span>&nbsp;</span>
+                }
             }
-        }
+        </div>
     </div>
 }

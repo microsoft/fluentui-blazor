@@ -1,11 +1,32 @@
 ﻿@inject IDialogService DialogService
 
-<FluentButton @onclick="@OpenDialog" Appearance="Appearance.Accent">
-    Open Dialog 
-</FluentButton>
-
+<div>
+    <p>
+        When 'Modal' is checked, the dialog can be <em>dismissed</em> by clicking outside of the dialog (anywhere on the overlay). When unchecked,
+        the dialog can be <em>dismissed</em> only by the 'ESC' key.<br />The dialog can always be <em>closed</em> by using the 'Close dialog'
+        button.
+    </p>
+    <p>
+        When 'Trap focus' is checked, only the elements within the dialog will receive focus. When unchecked, focus will also move outside of the
+        dialog.
+    </p>
+    <FluentCheckbox Name="modal" @bind-Value="_modal">
+        Modal
+    </FluentCheckbox>
+    <FluentCheckbox Name="trap" @bind-Value="_trapFocus">
+        Trap focus
+    </FluentCheckbox>
+</div>
+<div style="margin-top: 1rem;">
+    <FluentButton @onclick="@OpenDialogAsync" Appearance="Appearance.Accent">
+        Open Dialog
+    </FluentButton>
+</div>
 
 @code {
+    private bool _trapFocus = true;
+    private bool _modal = true;
+
     SimplePerson simplePerson = new()
         {
             Firstname = "Dan",
@@ -13,39 +34,35 @@
             Age = 42,
         };
 
-    private void OpenDialog()
+    private async Task OpenDialogAsync()
     {
         DemoLogger.WriteLine($"Open dialog centered");
 
         DialogParameters<SimplePerson> parameters = new()
-            {
-                Title = $"Hello {simplePerson.Firstname}",
-                OnDialogResult = DialogService.CreateDialogCallback(this, HandlePanel),
-                PrimaryAction = "Yes",
-                PrimaryActionEnabled = false,
-                SecondaryAction = "No",
-                Width = "500px",
-                Height = "500px",
-                Content = simplePerson,
-            };
-        DialogService.ShowDialog<SimpleDialog, SimplePerson>(parameters);
-    }
-
-    private async Task HandlePanel(DialogResult result)
-    {
-        if (result.Cancelled)
         {
-            await Task.Run(() => DemoLogger.WriteLine($"Dialog cancelled"));
-            return;
-        }
+            Title = $"Hello {simplePerson.Firstname}",
+            PrimaryAction = "Yes",
+            PrimaryActionEnabled = false,
+            SecondaryAction = "No",
+            Width = "500px",
+            Height = "500px",
+            Content = simplePerson,
+            TrapFocus = _trapFocus,
+            Modal = _modal,
+        };
+
+        IDialogReference dialog = await DialogService.ShowDialogAsync<SimpleDialog, SimplePerson>(parameters);
+        DialogResult? result = await dialog.Result;
+        
+        
         if (result.Data is not null)
         {
             SimplePerson? simplePerson = result.Data as SimplePerson;
-            await Task.Run(() => DemoLogger.WriteLine($"Dialog closed by {simplePerson?.Firstname} {simplePerson?.Lastname} ({simplePerson?.Age})"));
-            return;
+            DemoLogger.WriteLine($"Dialog closed by {simplePerson?.Firstname} {simplePerson?.Lastname} ({simplePerson?.Age}) - Canceled: {result.Cancelled}");
         }
-
-        await Task.Run(() => DemoLogger.WriteLine($"Dialog closed"));
-
+        else
+        {
+            DemoLogger.WriteLine($"Dialog closed - Canceled: {result.Cancelled}");
+        }
     }
 }
