@@ -22,12 +22,14 @@ internal class Splitter
     /// <param name="highlightedTexts">The texts to be highlighted</param>
     /// <param name="regex">Regex expression that was used to split fragments.</param>
     /// <param name="caseSensitive">Whether it's case sensitive or not</param>
+    /// <param name="untilNextBoundary">If true, splits until the next regex boundary</param>
     /// <returns></returns>
     internal static Memory<string> GetFragments(
         string text,
         IEnumerable<string> highlightedTexts,
         out string regex,
-        bool caseSensitive = false)
+        bool caseSensitive = false,
+        bool untilNextBoundary = false)
     {
         if (string.IsNullOrEmpty(text))
         {
@@ -103,6 +105,10 @@ internal class Splitter
             // escapes the text for regex
             value = Regex.Escape(value);
             builder.Append(value);
+            if (untilNextBoundary)
+            {
+                builder.Append(NextBoundary);
+            }
         }
     }
 }

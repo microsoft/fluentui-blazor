@@ -33,12 +33,18 @@ public partial class FluentHighlighter : FluentComponentBase
     [Parameter]
     public string Delimiters { get; set; } = string.Empty;
 
+    /// <summary>
+    /// If true, highlights the text until the next regex boundary
+    /// </summary>
+    [Parameter]
+    public bool UntilNextBoundary { get; set; }
+
     protected override void OnParametersSet()
     {
         var highlightedTexts = string.IsNullOrEmpty(Delimiters)
                              ? new string[] { HighlightedText }
                              : HighlightedText.Split(Delimiters.ToCharArray());
 
-        _fragments = Splitter.GetFragments(Text, highlightedTexts, out _regex, CaseSensitive);
+        _fragments = Splitter.GetFragments(Text, highlightedTexts, out _regex, CaseSensitive, UntilNextBoundary);
     }
 }

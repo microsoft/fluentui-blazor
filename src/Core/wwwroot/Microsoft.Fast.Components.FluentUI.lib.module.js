@@ -1,10 +1,10 @@
 ﻿import { SplitPanels } from "./js/SplitPanels.js";
 
-export function afterStarted(Blazor) {
+export function afterStarted(blazor) {
 
     customElements.define("split-panels", SplitPanels);
 
-    Blazor.registerCustomEventType('radiogroupclick', {
+    blazor.registerCustomEventType('radiogroupclick', {
         browserEventName: 'click',
         createEventArgs: event => {
             if (event.target._readOnly || event.target._disabled) {
@@ -15,7 +15,7 @@ export function afterStarted(Blazor) {
             };
         }
     });
-    Blazor.registerCustomEventType('checkedchange', {
+    blazor.registerCustomEventType('checkedchange', {
         browserEventName: 'change',
         createEventArgs: event => {
             return {
@@ -23,7 +23,7 @@ export function afterStarted(Blazor) {
             };
         }
     });
-    Blazor.registerCustomEventType('switchcheckedchange', {
+    blazor.registerCustomEventType('switchcheckedchange', {
         browserEventName: 'change',
         createEventArgs: event => {
             return {
@@ -31,7 +31,7 @@ export function afterStarted(Blazor) {
             };
         }
     });
-    Blazor.registerCustomEventType('accordionchange', {
+    blazor.registerCustomEventType('accordionchange', {
         browserEventName: 'change',
         createEventArgs: event => {
             if (event.target.localName == 'fluent-accordion-item') {
@@ -42,7 +42,7 @@ export function afterStarted(Blazor) {
             return null;
         }
     });
-    Blazor.registerCustomEventType('tabchange', {
+    blazor.registerCustomEventType('tabchange', {
         browserEventName: 'change',
         createEventArgs: event => {
             if (event.target.localName == 'fluent-tabs') {
@@ -53,7 +53,7 @@ export function afterStarted(Blazor) {
             return null;
         }
     });
-    Blazor.registerCustomEventType('selectedchange', {
+    blazor.registerCustomEventType('selectedchange', {
         browserEventName: 'selected-change',
         createEventArgs: event => {
             if (event.target.localName == 'fluent-tree-item') {
@@ -66,7 +66,7 @@ export function afterStarted(Blazor) {
             return null;
         }
     });
-    Blazor.registerCustomEventType('expandedchange', {
+    blazor.registerCustomEventType('expandedchange', {
         browserEventName: 'expanded-change',
         createEventArgs: event => {
             return {
@@ -76,7 +76,7 @@ export function afterStarted(Blazor) {
             };
         }
     });
-    Blazor.registerCustomEventType('dateselected', {
+    blazor.registerCustomEventType('dateselected', {
         browserEventName: 'dateselected',
         createEventArgs: event => {
             return {
@@ -84,7 +84,7 @@ export function afterStarted(Blazor) {
             };
         }
     });
-    Blazor.registerCustomEventType('tooltipdismiss', {
+    blazor.registerCustomEventType('tooltipdismiss', {
         browserEventName: 'dismiss',
         createEventArgs: event => {
             if (event.target.localName == 'fluent-tooltip') {
@@ -95,7 +95,7 @@ export function afterStarted(Blazor) {
             return null;
         }
     });
-    Blazor.registerCustomEventType('dialogdismiss', {
+    blazor.registerCustomEventType('dialogdismiss', {
         browserEventName: 'dismiss',
         createEventArgs: event => {
             if (event.target.localName == 'fluent-dialog') {
@@ -107,7 +107,7 @@ export function afterStarted(Blazor) {
             return null;
         }
     });
-    Blazor.registerCustomEventType('menuchange', {
+    blazor.registerCustomEventType('menuchange', {
         browserEventName: 'change',
         createEventArgs: event => {
             return {
@@ -116,7 +116,7 @@ export function afterStarted(Blazor) {
             };
         }
     });
-    Blazor.registerCustomEventType('scrollstart', {
+    blazor.registerCustomEventType('scrollstart', {
         browserEventName: 'scrollstart',
         createEventArgs: event => {
             return {
@@ -124,7 +124,7 @@ export function afterStarted(Blazor) {
             };
         }
     });
-    Blazor.registerCustomEventType('scrollend', {
+    blazor.registerCustomEventType('scrollend', {
         browserEventName: 'scrollend',
         createEventArgs: event => {
             return {
@@ -132,7 +132,7 @@ export function afterStarted(Blazor) {
             };
         }
     });
-    Blazor.registerCustomEventType('cellfocus', {
+    blazor.registerCustomEventType('cellfocus', {
         browserEventName: 'cell-focused',
         createEventArgs: event => {
             return {
@@ -140,7 +140,7 @@ export function afterStarted(Blazor) {
             };
         }
     });
-    Blazor.registerCustomEventType('rowfocus', {
+    blazor.registerCustomEventType('rowfocus', {
         browserEventName: 'row-focused',
         createEventArgs: event => {
             return {
@@ -148,9 +148,9 @@ export function afterStarted(Blazor) {
             };
         }
     });
-    Blazor.registerCustomEventType('sizechanged', {
+    blazor.registerCustomEventType('sizechanged', {
         browserEventName: 'sizechanged',
-        createEventArgs: event => {
+        createEventArgs: event => {js
             return event;
         }
     });
