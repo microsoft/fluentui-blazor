@@ -1133,8 +1133,8 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGridCell`1.GridColumn">
             <summary>
-            The column _index of the cell.
-            This will be applied to the css grid-column-_index value
+            The column index of the cell.
+            This will be applied to the css grid-column-index value
             applied to the cell
             </summary>
         </member>
@@ -1150,8 +1150,8 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGridRow`1.RowIndex">
             <summary>
-            Gets or sets the _index of this row.
-            When FluentDataGrid is virtualized, this value is always -1.
+            Gets or sets the index of this row
+            When FluentDataGrid is virtualized, this value is not used
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGridRow`1.GridTemplateColumns">
@@ -1190,7 +1190,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.GridItemsProviderRequest`1.StartIndex">
             <summary>
-            The zero-based _index of the first item to be supplied.
+            The zero-based index of the first item to be supplied.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.GridItemsProviderRequest`1.Count">
@@ -2763,7 +2763,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFileEventArgs.Index">
             <summary>
-            Gets the _index of the current file in an upload process.
+            Gets the index of the current file in an upload process.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFileEventArgs.LocalFile">
@@ -3734,7 +3734,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.PaginationState.CurrentPageIndex">
             <summary>
-            Gets the current zero-based page _index. To set it, call <see cref="M:Microsoft.Fast.Components.FluentUI.PaginationState.SetCurrentPageIndexAsync(System.Int32)" />.
+            Gets the current zero-based page index. To set it, call <see cref="M:Microsoft.Fast.Components.FluentUI.PaginationState.SetCurrentPageIndexAsync(System.Int32)" />.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.PaginationState.TotalItemCount">
@@ -3745,7 +3745,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.PaginationState.LastPageIndex">
             <summary>
-            Gets the zero-based _index of the last page, if known. The value will be null until <see cref="P:Microsoft.Fast.Components.FluentUI.PaginationState.TotalItemCount"/> is known.
+            Gets the zero-based index of the last page, if known. The value will be null until <see cref="P:Microsoft.Fast.Components.FluentUI.PaginationState.TotalItemCount"/> is known.
             </summary>
         </member>
         <member name="E:Microsoft.Fast.Components.FluentUI.PaginationState.TotalItemCountChanged">
@@ -3758,10 +3758,10 @@
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.PaginationState.SetCurrentPageIndexAsync(System.Int32)">
             <summary>
-            Sets the current page _index, and notifies any associated <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/>
+            Sets the current page index, and notifies any associated <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/>
             to fetch and render updated data.
             </summary>
-            <param name="pageIndex">The new, zero-based page _index.</param>
+            <param name="pageIndex">The new, zero-based page index.</param>
             <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentPopover.AnchorId">
@@ -4241,7 +4241,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.Index">
             <summary>
-            Gets the _index number of this tab.
+            Gets the index number of this tab.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.LabelEditable">
