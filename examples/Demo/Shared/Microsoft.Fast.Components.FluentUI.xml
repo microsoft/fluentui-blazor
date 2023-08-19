@@ -2040,7 +2040,14 @@
             </summary>
             <param name="parameters">Parameters to pass to component being displayed.</param>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialog``1(System.Type,``0,Microsoft.Fast.Components.FluentUI.DialogParameters)" -->
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialog``1(System.Type,``0,Microsoft.Fast.Components.FluentUI.DialogParameters)">
+            <summary>
+            Shows a dialog with the component type as the body
+            </summary>
+            <param name="dialogComponent">Type of component to display.</param>
+            <param name="content">Content to pass to component being displayed.</param>
+            <param name="parameters">Parameters to configure the dialog component.</param>
+        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.UpdateDialog``1(System.String,Microsoft.Fast.Components.FluentUI.DialogParameters{``0})">
             <summary>
             Updates a dialog 
@@ -2092,7 +2099,12 @@
             <param name="component">The type of the component to show</param>
             <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent"/> that holds the content to display</param>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialogAsync``2(Microsoft.Fast.Components.FluentUI.DialogParameters{``1})" -->
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialogAsync``2(Microsoft.Fast.Components.FluentUI.DialogParameters{``1})">
+            <summary>
+            Shows a dialog with the component type as the body
+            </summary>
+            <param name="parameters">Parameters to pass to component being displayed.</param>
+        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSuccessAsync(System.String,System.String)">
             <summary>
             Shows a success message box. Does not have a callback function.
@@ -2150,8 +2162,19 @@
             </summary>
             <param name="parameters">Parameters to pass to component being displayed.</param>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Microsoft.Fast.Components.FluentUI.DialogService.ShowPanelAsync``2(Microsoft.Fast.Components.FluentUI.DialogParameters{``1})" -->
-        <!-- Badly formed XML comment ignored for member "M:Microsoft.Fast.Components.FluentUI.DialogService.ShowPanelAsync``1(System.Type,Microsoft.Fast.Components.FluentUI.DialogParameters{``0})" -->
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowPanelAsync``2(Microsoft.Fast.Components.FluentUI.DialogParameters{``1})">
+            <summary>
+            Shows a panel with the dialog component type as the body
+            </summary>
+            <param name="parameters">Parameters to pass to component being displayed.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowPanelAsync``1(System.Type,Microsoft.Fast.Components.FluentUI.DialogParameters{``0})">
+            <summary>
+            Shows a panel with the dialog component type as the body
+            </summary>
+            <param name="dialogComponent">Type of component to display.</param>
+            <param name="parameters">Parameters to pass to component being displayed.</param>
+        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialogAsync``1(System.Type,``0,Microsoft.Fast.Components.FluentUI.DialogParameters)">
             <summary>
             Shows a dialog with the component type as the body,
@@ -2558,6 +2581,11 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentHighlighter.Delimiters">
             <summary>
             List of delimiters chars. Example: " ,;".
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentHighlighter.UntilNextBoundary">
+            <summary>
+            If true, highlights the text until the next regex boundary
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentHorizontalScroll.Speed">
@@ -9805,7 +9833,7 @@
             </summary>
             <remarks>Inspired from https://github.com/MudBlazor</remarks>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.Splitter.GetFragments(System.String,System.Collections.Generic.IEnumerable{System.String},System.String@,System.Boolean)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.Splitter.GetFragments(System.String,System.Collections.Generic.IEnumerable{System.String},System.String@,System.Boolean,System.Boolean)">
             <summary>
             Splits the text into fragments, according to the
             text to be highlighted
@@ -9814,6 +9842,7 @@
             <param name="highlightedTexts">The texts to be highlighted</param>
             <param name="regex">Regex expression that was used to split fragments.</param>
             <param name="caseSensitive">Whether it's case sensitive or not</param>
+            <param name="untilNextBoundary">If true, splits until the next regex boundary</param>
             <returns></returns>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.Default(System.String,System.String)">
