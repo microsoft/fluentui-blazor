@@ -4,7 +4,7 @@ namespace Microsoft.Fast.Components.FluentUI.Utilities;
 
 public struct CssBuilder
 {
-    private StringBuilder stringBuffer;
+    private readonly StringBuilder? stringBuffer;
 
     /// <summary>
     /// Creates a CssBuilder used to define conditional CSS classes used in a component.
@@ -35,7 +35,7 @@ public struct CssBuilder
     /// <returns>CssBuilder</returns>
     public CssBuilder AddValue(string? value)
     {
-        stringBuffer.Append(value);
+        stringBuffer?.Append(value);
         return this;
     }
 
@@ -119,7 +119,11 @@ public struct CssBuilder
     public string? Build()
     {
         // String buffer finalization code
-        return stringBuffer.ToString().Trim();
+        if (stringBuffer?.Length == 0)
+        {
+            return null;
+        }
+        return stringBuffer?.ToString().Trim();
     }
 
     // ToString should only and always call Build to finalize the rendered string.
