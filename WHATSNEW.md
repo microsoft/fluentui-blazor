@@ -1,4 +1,40 @@
-﻿## V2.4.2
+﻿## V3.0.0
+
+** 26 New components**
+- Header
+- Footer
+- BodyContent
+- Grid
+- Layout
+- MainLayout
+- Spacer
+- Splitter
+- Stack
+- CounterBadge
+- PresenceBadge
+- CodeEditor
+- Date & Time (Calendar, DatePicker, TimePicker)
+- Dialog
+- DragDrop
+- Highlighter
+- Label
+- MessageBox
+- Overflow
+- Overlay
+- Panel
+- Popover
+- SplashScreen
+- Toast
+
+
+**Completely redone components (and configuration)**
+- Icon
+- Emoji
+
+**Other changes**
+- Added initializersLoader.webview.js to work around Blazor Hybrid bug (see readme)
+
+## V2.4.2
 - Fix [#72](https://github.com/microsoft/fluentui-blazor/pull/72): rows attribute in TextArea.
 - Fix [#466](https://github.com/microsoft/fluentui-blazor/pull/466): Divider vertical orientation.
 
