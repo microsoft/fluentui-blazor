@@ -49,6 +49,14 @@ public partial class FluentPopover : FluentComponentBase
     [Parameter]
     public RenderFragment? Footer { get; set; }
 
+    protected override void OnParametersSet()
+    {
+        if (Header is null && Body is null && Footer is null)
+        {
+            throw new ArgumentException("At least one of Header, Body or Footer must be set.");
+        }
+    }
+
     protected virtual async Task CloseAsync(MouseEventArgs e)
     {
         Open = false;

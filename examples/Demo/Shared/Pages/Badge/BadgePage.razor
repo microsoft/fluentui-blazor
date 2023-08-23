@@ -11,11 +11,16 @@
 </p>
 
 
-<ApiDocumentation Component="typeof(FluentBadge)" />
-
 <h2>Examples</h2>
 
-<DemoSection Title="Appearances" Component="@typeof(BadgeAppearance)"></DemoSection>
+<DemoSection Title="Appearances" Component="@typeof(BadgeAppearance)">
+    <Description>
+        <p>
+            Clicking the 'Lightweight' badge will trigger the OnClick event. Clicking the dismiss icon on the 'Bigger' badge will trigger the OnDismissClick event.
+            See the 'Console log' for the generated output.
+        </p>
+    </Description>
+</DemoSection>
 
 <DemoSection Title="Circular" Component="@typeof(BadgeCircular)"></DemoSection>
 
@@ -35,5 +40,7 @@ fluent-badge {
     </Description>
 </DemoSection>
 
-<DemoSection Title="Use in a slot" Component="@typeof(BadgeInSlot)"></DemoSection>
-    
+<DemoSection Title="In a slot" Component="@typeof(BadgeInSlot)"></DemoSection>
+
+<h2>API Documentation</h2>
+<ApiDocumentation Component="typeof(FluentBadge)" />

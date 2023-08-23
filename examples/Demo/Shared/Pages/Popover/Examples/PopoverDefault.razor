@@ -1,15 +1,15 @@
 ﻿<div style="display: flex; width=100%">
-    <FluentButton id="myPopoverButtonl" Appearance="Appearance.Accent" @onclick="() => _visiblel = !_visiblel">
+    <FluentButton id="myPopoverButtonl" Appearance="Appearance.Accent" @onclick="() => _visibleL = !_visibleL">
         Open Callout 1
     </FluentButton>
 
     <FluentSpacer />
 
-    <FluentButton id="myPopoverButtonr" Appearance="Appearance.Accent" @onclick="() => _visibler = !_visibler">
+    <FluentButton id="myPopoverButtonr" Appearance="Appearance.Accent" @onclick="() => _visibleR = !_visibleR">
         Open Callout 2
     </FluentButton>
 
-    <FluentPopover Style="width: 300px;" AnchorId="myPopoverButtonl" @bind-Open="_visiblel">
+    <FluentPopover Style="width: 300px;" AnchorId="myPopoverButtonl" @bind-Open="_visibleL">
         <Header>Callout Header</Header>
         <Body>
             Callout Body
@@ -17,7 +17,7 @@
         <Footer>Callout Footer</Footer>
     </FluentPopover>
 
-    <FluentPopover Style="width: 300px;" AnchorId="myPopoverButtonr" @bind-Open="_visibler">
+    <FluentPopover Style="width: 300px;" AnchorId="myPopoverButtonr" @bind-Open="_visibleR">
         <Header>Callout Header</Header>
         <Body>
             Callout Body
@@ -27,5 +27,5 @@
 </div>
 
 @code {
-    bool _visiblel, _visibler;
+    bool _visibleL, _visibleR;
 }

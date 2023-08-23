@@ -9,11 +9,16 @@ public partial class FluentBadge : FluentComponentBase
          .Build();
 
     protected string? StyleValue => new StyleBuilder()
-        //.AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
         .AddStyle(Style)
+        .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
         .AddStyle("cursor", "pointer", () => OnClick.HasDelegate)
         .AddStyle($"--badge-fill-{Fill}", BackgroundColor, () => !string.IsNullOrEmpty(BackgroundColor))
         .AddStyle($"--badge-color-{Fill}", Color, () => !string.IsNullOrEmpty(Color))
+        .Build();
+
+    private string? InternalStyleValue => new StyleBuilder()
+        .AddStyle("height", Height, () => !string.IsNullOrEmpty(Height))
+        .AddStyle("width: 100%; display: flex; align-items: center; justify-content: center; white-space: nowrap;")
         .Build();
 
     /// <summary>
@@ -52,6 +57,12 @@ public partial class FluentBadge : FluentComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public string? Width { get; set; }
+
+    [Parameter]
+    public string? Height { get; set; }
 
     [Parameter]
     public EventCallback<MouseEventArgs> OnClick { get; set; }

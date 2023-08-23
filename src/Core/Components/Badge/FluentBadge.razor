@@ -10,10 +10,12 @@
               circular="@Circular"
               @onclick="@OnClickHandlerAsync"
               @attributes="AdditionalAttributes">
+    <div style="@InternalStyleValue">
         @ChildContent
         @if (OnDismissClick.HasDelegate)
         {
-            <FluentIcon Icon="CoreIcons.Regular.Size24.Dismiss" Width="12" OnClick="OnDismissClickHandlerAsync" />
+            <FluentIcon Icon="CoreIcons.Regular.Size24.Dismiss" Width="12px" Style="margin-top: 2px;" OnClick="OnDismissClickHandlerAsync" />
         }
+    </div>
     
 </fluent-badge>
