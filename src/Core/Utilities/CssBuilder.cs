@@ -2,7 +2,7 @@
 
 namespace Microsoft.Fast.Components.FluentUI.Utilities;
 
-public struct CssBuilder
+public readonly struct CssBuilder
 {
     private readonly StringBuilder? stringBuffer;
 

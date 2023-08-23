@@ -2,7 +2,7 @@
 
 namespace Microsoft.Fast.Components.FluentUI.Utilities;
 
-public struct StyleBuilder
+public readonly struct StyleBuilder
 {
     private readonly StringBuilder? stringBuffer;
 

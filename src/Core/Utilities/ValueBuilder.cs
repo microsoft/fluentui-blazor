@@ -4,7 +4,7 @@ namespace Microsoft.Fast.Components.FluentUI.Utilities;
 
 public class ValueBuilder
 {
-    private readonly StringBuilder? stringBuffer;
+    private readonly StringBuilder? stringBuffer = new();
 
     public bool HasValue => stringBuffer?.Length > 0;
     /// <summary>
