@@ -15,5 +15,13 @@
 			   @onclick=OnClickAsync 
 			   @onclick:preventDefault=@_preventDefault
 			   @attributes=@AdditionalAttributes>
+	@if (IconStart != null)
+	{
+		<FluentIcon Value="@IconStart" Slot="@(ChildContent != null ? "start" : null)" />
+	}
 	@ChildContent
+	@if (IconEnd != null)
+	{
+		<FluentIcon Value="@IconEnd" Slot="@(ChildContent != null ? "end" : null)" />
+	}
 </fluent-anchor>

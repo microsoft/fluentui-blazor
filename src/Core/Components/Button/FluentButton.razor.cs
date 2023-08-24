@@ -114,13 +114,13 @@ public partial class FluentButton : FluentComponentBase
     public bool Loading { get; set; } = false;
 
     /// <summary>
-    /// <see cref="Icon"/> displayed to the left of button content.
+    /// <see cref="Icon"/> displayed at the start of button content.
     /// </summary>
     [Parameter]
     public Icon? IconStart { get; set; }
 
     /// <summary>
-    /// <see cref="Icon"/> displayed to the right of button content.
+    /// <see cref="Icon"/> displayed at the end of button content.
     /// </summary>
     [Parameter]
     public Icon? IconEnd { get; set; }

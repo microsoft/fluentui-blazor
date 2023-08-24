@@ -209,6 +209,16 @@
             Defaults to <seealso cref="F:Microsoft.Fast.Components.FluentUI.Appearance.Neutral"/>
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchor.IconStart">
+            <summary>
+            <see cref="T:Microsoft.Fast.Components.FluentUI.Icon"/> displayed at the start of anchor content.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchor.IconEnd">
+            <summary>
+            <see cref="T:Microsoft.Fast.Components.FluentUI.Icon"/> displayed at the end of anchor content.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchor.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
@@ -616,12 +626,12 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.IconStart">
             <summary>
-            <see cref="T:Microsoft.Fast.Components.FluentUI.Icon"/> displayed to the left of button content.
+            <see cref="T:Microsoft.Fast.Components.FluentUI.Icon"/> displayed at the start of button content.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.IconEnd">
             <summary>
-            <see cref="T:Microsoft.Fast.Components.FluentUI.Icon"/> displayed to the right of button content.
+            <see cref="T:Microsoft.Fast.Components.FluentUI.Icon"/> displayed at the end of button content.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.Title">

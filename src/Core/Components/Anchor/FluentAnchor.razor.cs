@@ -1,4 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
@@ -72,6 +71,18 @@ public partial class FluentAnchor : FluentComponentBase, IAsyncDisposable
     public Appearance? Appearance { get; set; } = FluentUI.Appearance.Neutral;
 
     /// <summary>
+    /// <see cref="Icon"/> displayed at the start of anchor content.
+    /// </summary>
+    [Parameter]
+    public Icon? IconStart { get; set; }
+
+    /// <summary>
+    /// <see cref="Icon"/> displayed at the end of anchor content.
+    /// </summary>
+    [Parameter]
+    public Icon? IconEnd { get; set; }
+
+    /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>
     [Parameter]
@@ -82,7 +93,7 @@ public partial class FluentAnchor : FluentComponentBase, IAsyncDisposable
         string[] values = { "_self", "_blank", "_parent", "_top" };
         if (!string.IsNullOrEmpty(Target) && !values.Contains(Target))
             throw new ArgumentException("Target must be one of the following values: _self, _blank, _parent, _top");
-        
+
         // If the Href has been specified (as it should) and if starts with '#,'
         // we assume the rest of the value contains the id of the element the link points to.
         if (!string.IsNullOrEmpty(Href) && Href.StartsWith('#'))
