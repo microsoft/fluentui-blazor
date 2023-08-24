@@ -598,6 +598,22 @@
             Defaults to <seealso cref="F:Microsoft.Fast.Components.FluentUI.Appearance.Neutral"/>
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.BackgroundColor">
+            <summary>
+            Background color of this button (overrides the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentButton.Appearance"/> property).
+            Set the value "rgba(0, 0, 0, 0)" to display a transparent button.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.Color">
+            <summary>
+            Color of the font (overrides the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentButton.Appearance"/> property).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.Loading">
+            <summary>
+            Display a progress ring and disable the button.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.IconStart">
             <summary>
             <see cref="T:Microsoft.Fast.Components.FluentUI.Icon"/> displayed to the left of button content.
@@ -621,6 +637,11 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.OnClick">
             <summary>
             Command executed when the user clicks on the button.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentButton.#ctor">
+            <summary>
+            Constructs an instance of <see cref="T:Microsoft.Fast.Components.FluentUI.FluentButton"/>.
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentButton.OnClickHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
@@ -3911,6 +3932,12 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentPopover.AnchorId">
             <summary>
             Gets or sets the id of the component the popover is positioned relative to
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPopover.HorizontalPosition">
+            <summary>
+            The default horizontal position of the region relative to the anchor element
+            Default is unset. See <seealso cref="P:Microsoft.Fast.Components.FluentUI.FluentPopover.HorizontalPosition"/>
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentPopover.Open">
@@ -8684,7 +8711,7 @@
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.HorizontalPosition.End">
             <summary>
-            Psition at the end of the anchor.
+            Position at the end of the anchor.
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.HorizontalPosition.Left">
@@ -8697,7 +8724,11 @@
             Position on the right of the anchor.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "F:Microsoft.Fast.Components.FluentUI.HorizontalPosition.Center" -->
+        <member name="F:Microsoft.Fast.Components.FluentUI.HorizontalPosition.Center">
+            <summary>
+            Position at the center of the anchor.
+            </summary>
+        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.HorizontalScrollView">
             <summary>
             The horizontal scroll view mode.
@@ -9429,7 +9460,11 @@
             Position at the bottom.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "F:Microsoft.Fast.Components.FluentUI.VerticalPosition.Center" -->
+        <member name="F:Microsoft.Fast.Components.FluentUI.VerticalPosition.Center">
+            <summary>
+            Position at the center.
+            </summary>
+        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.NavMenuActionArgs">
             <summary>
             An <see cref="T:System.EventArgs"/> class that is used as arguments

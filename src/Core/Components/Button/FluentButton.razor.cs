@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Components.Web;
 namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentButton : FluentComponentBase
 {
+    private readonly string _customId = Identifier.NewId();
+    private readonly RenderFragment _renderButton;
+
     /// <summary>
     /// Determines if the element should receive document focus on page load.
     /// </summary>
@@ -92,6 +95,25 @@ public partial class FluentButton : FluentComponentBase
     public Appearance? Appearance { get; set; } = FluentUI.Appearance.Neutral;
 
     /// <summary>
+    /// Background color of this button (overrides the <see cref="Appearance"/> property).
+    /// Set the value "rgba(0, 0, 0, 0)" to display a transparent button.
+    /// </summary>
+    [Parameter]
+    public string? BackgroundColor { get; set; }
+
+    /// <summary>
+    /// Color of the font (overrides the <see cref="Appearance"/> property).
+    /// </summary>
+    [Parameter]
+    public string? Color { get; set; }
+
+    /// <summary>
+    /// Display a progress ring and disable the button.
+    /// </summary>
+    [Parameter]
+    public bool Loading { get; set; } = false;
+
+    /// <summary>
     /// <see cref="Icon"/> displayed to the left of button content.
     /// </summary>
     [Parameter]
@@ -126,6 +148,28 @@ public partial class FluentButton : FluentComponentBase
         string[] values = { "_self", "_blank", "_parent", "_top" };
         if (!string.IsNullOrEmpty(Target) && !values.Contains(Target))
             throw new ArgumentException("Target must be one of the following values: _self, _blank, _parent, _top");
+    }
+
+    private string? CustomId =>
+        string.IsNullOrEmpty(BackgroundColor) && string.IsNullOrEmpty(Color) ? null : _customId;
+
+    private string? CustomStyle =>
+            $@" fluent-button[custom-id='{_customId}']::part(control) {{
+                  background: padding-box linear-gradient({BackgroundColor}, {BackgroundColor}), border-box {BackgroundColor};
+                  color: {Color};
+                }}
+
+                fluent-button[custom-id='{_customId}']::part(control):hover {{
+                  opacity: 0.8;
+                }}
+              ";
+
+    /// <summary>
+    /// Constructs an instance of <see cref="FluentButton"/>.
+    /// </summary>
+    public FluentButton()
+    {
+        _renderButton = RenderButton;
     }
 
     /// <summary />

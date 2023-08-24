@@ -1,6 +1,31 @@
 @namespace Microsoft.Fast.Components.FluentUI
+@using Microsoft.AspNetCore.Components.Rendering;
 @inherits FluentComponentBase
-<fluent-button @ref=Element
+
+@if (!String.IsNullOrEmpty(CustomId))
+{
+    <style>@CustomStyle</style>
+}
+
+
+@if (Loading)
+{
+    <span class="loading-button">
+        @_renderButton
+        
+            <FluentProgressRing />
+        
+    </span>
+}
+else
+{
+    @_renderButton
+}
+
+@code{
+    protected void RenderButton(RenderTreeBuilder __builder)
+    {
+        <fluent-button @ref=Element
                class="@Class"
                style="@Style"
                autofocus=@Autofocus
@@ -14,12 +39,13 @@
                id=@Id
                value=@Value
                current-value=@CurrentValue
-               disabled=@Disabled
+               disabled=@(Disabled || Loading)
                name=@Name
                required=@Required
                title=@Title
-               @onclick="@OnClickHandlerAsync"
                appearance=@Appearance.ToAttributeValue()
+               custom-id="@CustomId"
+               @onclick="@OnClickHandlerAsync"
                @attributes="AdditionalAttributes">
     @if (IconStart != null)
     {
@@ -31,3 +57,5 @@
         <FluentIcon Value="@IconEnd" Slot="@(ChildContent != null ? "end" : null)" />
     }
 </fluent-button>
+    }
+}

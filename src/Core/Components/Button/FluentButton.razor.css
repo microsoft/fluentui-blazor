@@ -1,0 +1,13 @@
+.loading-button {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    justify-content: center;
+}
+
+    .loading-button ::deep fluent-progress-ring {
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        cursor: not-allowed;
+    }
