@@ -4408,6 +4408,11 @@
             True to let the user edit the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentTab.Label"/> property.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.DeferredLoading">
+            <summary>
+            Render the tab content only when the tab is selected.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.Content">
             <summary>
             Customized content of this tab panel.
@@ -8669,29 +8674,30 @@
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.HorizontalPosition.Unset">
             <summary>
-            The anchored region position is unset.
+            No positions set.
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.HorizontalPosition.Start">
             <summary>
-            The anchored region is positioned at the start of the anchor.
+            Position at the start of the anchor.
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.HorizontalPosition.End">
             <summary>
-            The anchored region is positioned at the end of the anchor.
+            Psition at the end of the anchor.
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.HorizontalPosition.Left">
             <summary>
-            The anchored region is positioned in the left of the anchor.
+            Position on the left of the anchor.
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.HorizontalPosition.Right">
             <summary>
-            The anchored region is positioned in the right of the anchor.
+            Position on the right of the anchor.
             </summary>
         </member>
+        <!-- Badly formed XML comment ignored for member "F:Microsoft.Fast.Components.FluentUI.HorizontalPosition.Center" -->
         <member name="T:Microsoft.Fast.Components.FluentUI.HorizontalScrollView">
             <summary>
             The horizontal scroll view mode.
@@ -9410,19 +9416,20 @@
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.VerticalPosition.Unset">
             <summary>
-            No positioning set
+            No position set.
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.VerticalPosition.Top">
             <summary>
-            Position at the top
+            Position at the top.
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.VerticalPosition.Bottom">
             <summary>
-            Position at the bottom
+            Position at the bottom.
             </summary>
         </member>
+        <!-- Badly formed XML comment ignored for member "F:Microsoft.Fast.Components.FluentUI.VerticalPosition.Center" -->
         <member name="T:Microsoft.Fast.Components.FluentUI.NavMenuActionArgs">
             <summary>
             An <see cref="T:System.EventArgs"/> class that is used as arguments

@@ -162,7 +162,8 @@ public partial class FluentTabs : FluentComponentBase
             if (tabId is not null && _tabs.TryGetValue(tabId, out FluentTab? tab))
             {
                 await OnTabChange.InvokeAsync(tab);
-                await ActiveTabIdChanged.InvokeAsync(args.ActiveId);
+                ActiveTabId = tabId;
+                await ActiveTabIdChanged.InvokeAsync(tabId);
             }
         }
     }

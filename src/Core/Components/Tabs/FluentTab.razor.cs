@@ -77,6 +77,12 @@ public partial class FluentTab : FluentComponentBase
     public bool LabelEditable { get; set; } = false;
 
     /// <summary>
+    /// Render the tab content only when the tab is selected.
+    /// </summary>
+    [Parameter]
+    public bool DeferredLoading { get; set; } = false;
+
+    /// <summary>
     /// Customized content of this tab panel.
     /// </summary>
     [Parameter]

@@ -20,6 +20,13 @@ public partial class FluentPopover : FluentComponentBase
     public string AnchorId { get; set; } = string.Empty;
 
     /// <summary>
+    /// The default horizontal position of the region relative to the anchor element
+    /// Default is unset. See <seealso cref="HorizontalPosition"/>
+    /// </summary>
+    [Parameter]
+    public HorizontalPosition? HorizontalPosition { get; set; } = FluentUI.HorizontalPosition.Unset;
+
+    /// <summary>
     /// Gets or sets popover opened state
     /// </summary>
     [Parameter]

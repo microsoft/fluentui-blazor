@@ -38,21 +38,30 @@
     {
         if (horizontalPosition == HorizontalPosition.Left)
         {
+            horizontalPosition = HorizontalPosition.Center;
+        }
+        else if (horizontalPosition == HorizontalPosition.Center)
+        {
             horizontalPosition = HorizontalPosition.Right;
         }
-        else
+        else if (horizontalPosition == HorizontalPosition.Right)
         {
             horizontalPosition = HorizontalPosition.Left;
         }
+        
     }
 
     private void ToggleVertical()
     {
         if (verticalPosition == VerticalPosition.Top)
         {
+            verticalPosition = VerticalPosition.Center;
+        }
+        else if (verticalPosition == VerticalPosition.Center)
+        {
             verticalPosition = VerticalPosition.Bottom;
         }
-        else
+        else if (verticalPosition == VerticalPosition.Bottom)
         {
             verticalPosition = VerticalPosition.Top;
         }

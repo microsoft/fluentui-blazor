@@ -30,8 +30,15 @@
     }
 </fluent-tab>
 <fluent-tab-panel style="@StyleValue" class="@ClassValue">
-    @Content
-    @ChildContent
+    @if (Owner.ActiveTabId == Id || !DeferredLoading)
+    {
+        @Content
+        @ChildContent
+    }
+    else
+    {
+        <FluentProgress />
+    }
 </fluent-tab-panel>
 
 

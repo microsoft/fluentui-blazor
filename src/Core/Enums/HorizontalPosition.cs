@@ -6,27 +6,32 @@
 public enum HorizontalPosition
 {
     /// <summary>
-    /// The anchored region position is unset.
+    /// No positions set.
     /// </summary>
     Unset,
 
     /// <summary>
-    /// The anchored region is positioned at the start of the anchor.
+    /// Position at the start of the anchor.
     /// </summary>
     Start,
 
     /// <summary>
-    /// The anchored region is positioned at the end of the anchor.
+    /// Psition at the end of the anchor.
     /// </summary>
     End,
 
     /// <summary>
-    /// The anchored region is positioned in the left of the anchor.
+    /// Position on the left of the anchor.
     /// </summary>
     Left,
 
     /// <summary>
-    /// The anchored region is positioned in the right of the anchor.
+    /// Position on the right of the anchor.
     /// </summary>
-    Right
+    Right,
+
+    /// <summary>
+    /// Position in the center of the anchor.
+    /// </summary
+    Center,
 }

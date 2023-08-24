@@ -6,17 +6,22 @@
 public enum VerticalPosition
 {
     /// <summary>
-    /// No positioning set
+    /// No position set.
     /// </summary>
     Unset,
 
     /// <summary>
-    /// Position at the top
+    /// Position at the top.
     /// </summary>
     Top,
 
     /// <summary>
-    /// Position at the bottom
+    /// Position at the bottom.
     /// </summary>
-    Bottom
+    Bottom,
+
+    /// <summary>
+    /// Position at the center.
+    /// </summary
+    Center
 }
