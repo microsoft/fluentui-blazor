@@ -16,7 +16,7 @@ public enum HorizontalPosition
     Start,
 
     /// <summary>
-    /// Psition at the end of the anchor.
+    /// Position at the end of the anchor.
     /// </summary>
     End,
 
@@ -31,7 +31,7 @@ public enum HorizontalPosition
     Right,
 
     /// <summary>
-    /// Position in the center of the anchor.
-    /// </summary
+    /// Position at the center of the anchor.
+    /// </summary>
     Center,
 }

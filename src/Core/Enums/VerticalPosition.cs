@@ -22,6 +22,6 @@ public enum VerticalPosition
 
     /// <summary>
     /// Position at the center.
-    /// </summary
+    /// </summary>
     Center
 }
