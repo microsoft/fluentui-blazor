@@ -4633,6 +4633,12 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextField.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextField.Module">
+            <summary />
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextField.TextFieldType">
             <summary>
             Gets or sets the text filed type. See <see cref="T:Microsoft.Fast.Components.FluentUI.TextFieldType"/>
@@ -4676,6 +4682,12 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextField.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextField.AutoComplete">
+            <summary>
+            Specifies whether a form or an input field should have autocomplete on or off.
+            An Id value must be set to use this property.
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.CommunicationToast.Close">

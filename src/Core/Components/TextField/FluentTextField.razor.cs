@@ -1,10 +1,20 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentTextField : FluentInputBase<string?>
 {
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.Fast.Components.FluentUI/Components/TextField/FluentTextField.razor.js";
+
+    /// <summary />
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; } = default!;
+
+    /// <summary />
+    private IJSObjectReference? Module { get; set; }
+
     /// <summary>
     /// Gets or sets the text filed type. See <see cref="FluentUI.TextFieldType"/>
     /// </summary>
@@ -59,10 +69,32 @@ public partial class FluentTextField : FluentInputBase<string?>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    /// <summary>
+    /// Specifies whether a form or an input field should have autocomplete on or off.
+    /// An Id value must be set to use this property.
+    /// </summary>
+    [Parameter]
+    public bool? AutoComplete { get; set; }
+
     protected override bool TryParseValueFromString(string? value, out string? result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
         result = value;
         validationErrorMessage = null;
         return true;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            if (AutoComplete != null && !string.IsNullOrEmpty(Id))
+            {
+                Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+                var autocomplete = AutoComplete == true ? "on" : "off";
+                await Module.InvokeVoidAsync("setAutocomplete", Id, autocomplete);
+            }
+        }
     }
 }
