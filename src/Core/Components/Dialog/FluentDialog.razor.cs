@@ -20,11 +20,28 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
     [Parameter]
     public bool? Modal { get; set; }
 
+    private bool _hidden;
     /// <summary>
     /// Gets or sets if the dialog is hidden
     /// </summary>
     [Parameter]
-    public bool Hidden { get; set; }
+    public bool Hidden
+    {
+        get => _hidden;
+        set
+        {
+            if (value == _hidden)
+                return;
+            _hidden = value;
+            HiddenChanged.InvokeAsync(value);
+        }
+    }
+
+    /// <summary>
+    /// The event callback invoked when <see cref="Hidden"/> change.
+    /// </summary>
+    [Parameter]
+    public EventCallback<bool> HiddenChanged { get; set; }
 
     /// <summary>
     /// Indicates that the dialog should trap focus.
@@ -54,14 +71,27 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
     /// The instance containing the programmatic API for the dialog.
     /// </summary>
     [Parameter]
-    public DialogInstance Instance { get; set; } = default!;
-
+    public DialogInstance? Instance { get; set; }
 
     /// <summary>
-    /// Used when not calling the <see cref="DialogService" /> to show a dialog
+    /// Used when not calling the <see cref="DialogService" /> to show a dialog.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// Content to render in header.
+    /// Used when not calling the <see cref="DialogService" /> to show dialog.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? HeaderTemplate { get; set; }
+
+    /// <summary>
+    /// Content to render in footer.
+    /// Used when not calling the <see cref="DialogService" /> to show dialog.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? FooterTemplate { get; set; }
 
     /// <summary>
     /// The event callback invoked to return the dialog result.
@@ -85,7 +115,6 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
         .Build();
 
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogEventArgs))]
-
     public FluentDialog()
     {
 

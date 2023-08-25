@@ -1,0 +1,25 @@
+<FluentFormDialog Model="FormModel" TModel="FormModel" Title="Simple Form" @bind-Hidden="Hidden" ShowDismiss="true" OnFormSubmit="@OnFormSubmit">
+    <FluentStack Orientation="Orientation.Vertical">
+        <DataAnnotationsValidator/>
+        <FluentValidationSummary />
+        <FluentTextField @bind-Value="@FormModel.Name" Style="width: 100%;">Name</FluentTextField>
+        <FluentTextArea @bind-Value="@FormModel.Description" Style="width: 100%;">Description</FluentTextArea>
+    </FluentStack>
+</FluentFormDialog>
+
+<FluentButton OnClick="() => { Hidden = false; }">Show Form Dialog</FluentButton>
+
+@code {
+
+    private FormModel FormModel { get; set; }= new();
+
+    private bool Hidden { get; set; } = true;
+
+    private void OnFormSubmit(FormModel formModel)
+    {
+        DemoLogger.WriteLine("Form has been submit:");
+        DemoLogger.WriteLine($"Name => {formModel.Name}");
+        DemoLogger.WriteLine($"Description => {formModel.Description}");
+    }
+
+}

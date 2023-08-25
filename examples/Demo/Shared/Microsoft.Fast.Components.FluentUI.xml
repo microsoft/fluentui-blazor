@@ -1742,6 +1742,11 @@
             Gets or sets if the dialog is hidden
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.HiddenChanged">
+            <summary>
+            The event callback invoked when <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDialog.Hidden"/> change.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.TrapFocus">
             <summary>
             Indicates that the dialog should trap focus.
@@ -1769,7 +1774,19 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.ChildContent">
             <summary>
-            Used when not calling the <see cref="T:Microsoft.Fast.Components.FluentUI.DialogService" /> to show a dialog
+            Used when not calling the <see cref="T:Microsoft.Fast.Components.FluentUI.DialogService" /> to show a dialog.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.HeaderTemplate">
+            <summary>
+            Content to render in header.
+            Used when not calling the <see cref="T:Microsoft.Fast.Components.FluentUI.DialogService" /> to show dialog.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.FooterTemplate">
+            <summary>
+            Content to render in footer.
+            Used when not calling the <see cref="T:Microsoft.Fast.Components.FluentUI.DialogService" /> to show dialog.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.OnDialogResult">
@@ -1785,6 +1802,128 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentDialogProvider.#ctor">
             <summary>
             Constructs an instance of <see cref="T:Microsoft.Fast.Components.FluentUI.FluentToastContainer"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogFooter.Alignment">
+            <summary>
+            Gets or sets the dialog position:
+            left (full height), right (full height)
+            or screen middle (using Width and Height properties).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogFooter.PrimaryAction">
+            <summary>
+            Text to display for the primary action.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogFooter.PrimaryActionEnabled">
+            <summary>
+            When true, primary action's button is enabled.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogFooter.OnPrimaryAction">
+            <summary>
+            The event callback invoked when primary button is clicked
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogFooter.SecondaryAction">
+            <summary>
+            Text to display for the secondary action.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogFooter.SecondaryActionEnabled">
+            <summary>
+            When true, secondary action's button is enabled.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogFooter.OnSecondaryAction">
+            <summary>
+            The event callback invoked when secondary button is clicked
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogFooter.ShowPrimaryAction">
+            <summary>
+            Gets whether the primary button is displayed or not. Depends on PrimaryAction having a value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogFooter.ShowSecondaryAction">
+            <summary>
+            Gets whether the secondary button is displayed or not. Depends on SecondaryAction having a value. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogHeader.Title">
+            <summary>
+            Title of the dialog
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogHeader.ShowDismiss">
+            <summary>
+            When true, shows the dismiss button in the header.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentFormDialog`1.Dialog">
+            <summary>
+            Reference to <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDialog"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentFormDialog`1.Hidden">
+            <summary>
+            Gets or sets if the dialog is hidden
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentFormDialog`1.HiddenChanged">
+            <summary>
+            The event callback invoked when <see cref="P:Microsoft.Fast.Components.FluentUI.FluentFormDialog`1.Hidden"/> change.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentFormDialog`1.Title">
+            <summary>
+            Title of the form
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentFormDialog`1.ShowDismiss">
+            <summary>
+            When true, shows the dismiss button in the header.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentFormDialog`1.Model">
+            <summary>
+            Model for the form
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentFormDialog`1.SubmitButtonText">
+            <summary>
+            Text to display in submit button
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentFormDialog`1.CancelButtonText">
+            <summary>
+            Text to display in cancel button
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentFormDialog`1.ValidateOnOpen">
+            <summary>
+            If true, form is validated as soon as dialog open
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentFormDialog`1.ValidateOnFieldChanged">
+            <summary>
+            If true, FormDialog subscribes to EditContext.OnFieldChanged and validates the form on every field change
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentFormDialog`1.ChildContent">
+            <summary>
+            Form content
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentFormDialog`1.OnFormSubmit">
+            <summary>
+            The event callback invoked when submit button is clicked
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentFormDialog`1.OnCancel">
+            <summary>
+            The event callback invoked when cancel button is clicked
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.Alignment">

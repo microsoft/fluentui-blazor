@@ -58,7 +58,11 @@
             <FluentNavMenuLink Href="/Combobox" Icon="@(new Icons.Regular.Size20.BoxEdit())" Text="Combobox" />
             <FluentNavMenuLink Href="/DataGrid" Icon="@(new Icons.Regular.Size20.Grid())" Text="Data grid" />
             <FluentNavMenuLink Href="/DateTime" Icon="@(new Icons.Regular.Size20.CalendarLtr())" Text="Date & Time" />
-            <FluentNavMenuLink Href="/Dialog" Icon="@(new Icons.Regular.Size20.AppGeneric())" Text="Dialog" />
+            <FluentNavMenuGroup InitiallyExpanded>
+                <h3>Dialog</h3>
+                <FluentNavMenuLink Href="/Dialog" Icon="@(new Icons.Regular.Size20.AppGeneric())" Text="Dialog" />
+                <FluentNavMenuLink Href="/FormDialog" Icon="@(new Icons.Regular.Size20.Form())" Text="Form Dialog" />
+            </FluentNavMenuGroup>
             <FluentNavMenuLink Href="/Divider" Icon="@(new Icons.Regular.Size20.DividerShort())" Text="Divider" />
             <FluentNavMenuLink Href="/Drag" Icon="@(new Icons.Regular.Size20.Drag())" Text="Drag and Drop" />
             <FluentNavMenuLink Href="/Emoji" Icon="@(new Icons.Regular.Size20.EmojiSmileSlight())" Text="Emoji" />

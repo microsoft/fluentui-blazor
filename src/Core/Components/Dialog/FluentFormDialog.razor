@@ -1,0 +1,25 @@
+@using Microsoft.AspNetCore.Components.Forms
+@namespace Microsoft.Fast.Components.FluentUI
+@typeparam TModel where TModel : new()
+
+<EditForm EditContext="@EditContext">
+    <CascadingValue Value="@EditContext">
+        <FluentDialog @bind-Hidden="@Hidden" @ref="Dialog">
+            <HeaderTemplate>
+                <FluentDialogHeader Title="@Title"
+                                    ShowDismiss="@ShowDismiss"/>
+            </HeaderTemplate>
+            <ChildContent>
+                @ChildContent
+            </ChildContent>
+            <FooterTemplate>
+                <FluentDialogFooter Alignment="HorizontalAlignment.Center"
+                                    PrimaryAction="@SubmitButtonText"
+                                    SecondaryAction="@CancelButtonText"
+                                    PrimaryActionEnabled="@IsSubmitEnabled"
+                                    OnPrimaryAction="@(async () => await OnSubmitButtonClick())"
+                                    OnSecondaryAction="@(async () => await OnCancelButtonClick())" />
+            </FooterTemplate>
+        </FluentDialog>
+    </CascadingValue>
+</EditForm>

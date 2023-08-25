@@ -33,13 +33,6 @@ fluent-dialog[class~="left"]::part(control) {
     overflow: hidden;
 }
 
-    .fluent-dialog-content .fluent-dialog-header {
-        font-size: 20px;
-        font-weight: 600;
-        margin: 20px;
-        width: calc(100% - 40px);
-    }
-
     .fluent-dialog-content .fluent-dialog-body {
         height: calc(100% - 150px);
         margin: 0px 20px 0px 20px;
@@ -49,22 +42,6 @@ fluent-dialog[class~="left"]::part(control) {
 
     .fluent-dialog-content .fluent-dialog-body[nofooter] {
         height: calc(100% - 95px);
-    }
-
-    .fluent-dialog-content .fluent-dialog-footer-bottom {
-        font-size: 14px;
-        font-weight: normal;
-        margin: 20px;
-        width: calc(100% - 40px);
-        position: fixed;
-        bottom: 0px;
-    }
-
-    .fluent-dialog-content .fluent-dialog-footer-normal {
-        font-size: 14px;
-        font-weight: normal;
-        margin: 20px;
-        width: calc(100% - 40px);
     }
 
 
