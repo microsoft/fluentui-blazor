@@ -1,4 +1,163 @@
-﻿## V2.4.2
+﻿## 2.4.3
+- Fix [#645](https://github.com/microsoft/fluentui-blazor/issues/645): FluentIcon sometimes  fails to render
+- Fix [#644](https://github.com/microsoft/fluentui-blazor/issues/644): FluentDataGrid column resize isseu (thanks @konvolution)
+- Update Fluent UI System Icons to 1.1.211 (from 1.1.204)
+
+**What's new (Name / Size(s) / Variant(s))**
+- Add Square Multiple / 24 / Filled & Regular
+- Arrow Bidirectional Left Right / 16, 20, 24, 28 / Filled & Regular
+- Arrow Outline Down Left / 16, 20, 24, 28, 32, 48 / Filled & Regular
+- Arrow Step In Diagonal Down Left / 16, 20, 24, 28 / Filled & Regular
+- Arrow Swap / 16, 28 / Filled & Regular
+- Arrow Up Square Settings / 24 / Filled & Regular
+- Braces Variable / 48 / Filled & Regular
+- Briefcase Person / 24 / Filled & Regular
+- Building Cloud / 24 / Filled & Regular
+- Building Mosque / 12, 16, 20, 24, 28, 32, 48 / Filled & Regular
+- Calendar Eye / 20 / Filled & Regular
+- Checkmark Circle Square / 16, 20, 24 / Filled & Regular
+- Cube / 48 / Filled & Regular
+- Desk / 16, 28, 32, 48 / Filled & Regular
+- Folder Add / 32 / Filled & Regular
+- Folder Arrow Left / 48 / Filled & Regular
+- Folder Arrow Right / 32 / Filled & Regular
+- Folder Arrow Up / 32 / Filled & Regular
+- Folder Link / 16, 32 / Filled & Regular
+- Folder Open Vertical / 24 / Filled & Regular
+- Folder Prohibited / 32 / Filled & Regular
+- Globe / 48 / Filled & Regular
+- Globe Shield / 48 / Filled & Regular
+- Hand Right Off / 16, 24, 28 / Filled & Regular
+- Hat Graduation Sparkle / 16 / Filled & Regular
+- Hat Graduation Sparkle / 20, 24, 28 / Filled & Regular
+- Heart Off / 16, 20, 24 / Filled & Regular
+- Hexagon / 16, 20 / Filled & Regular
+- Hexagon Three / 16, 20 / Filled & Regular
+- Key Multiple / 16, 24 / Filled & Regular
+- Kiosk / 24 / Filled & Regular
+- Laptop Multiple / 24 / Filled & Regular
+- Line Horizontal 1 / 16, 24, 28 / Filled & Regular
+- Line Horizontal 1 Dashes / 16, 20, 24, 28 / Filled & Regular
+- Line Horizontal 2 Dashes Solid / 16, 20, 24, 28 / Filled & Regular
+- Link Add / 24 / Filled & Regular
+- Link Multiple / 16, 20, 24 / Filled & Regular
+- Link Settings / 24 / Filled & Regular
+- Lock Closed / 28, 48 / Filled & Regular
+- Lock Open / 12, 32, 48 / Filled & Regular
+- Mail Off / 16 / Filled & Regular
+- Mic Record / 20, 24, 28 / Filled & Regular
+- Open / 12 / Filled & Regular
+- Pen Sparkle / 16, 20, 24, 28, 32, 48 / Filled & Regular
+- Person Edit / 48 / Filled & Regular
+- Person Phone / 24 / Filled & Regular
+- Phone Briefcase / 24 / Filled & Regular
+- Phone Multiple / 24 / Filled & Regular
+- Phone Multiple Settings / 24 / Filled & Regular
+- Phone Person / 24 / Filled & Regular
+- Phone Subtract / 24 / Filled & Regular
+- Plug Disconnected / 48 / Filled & Regular
+- Rectangle Landscape Hint Copy / 16, 20, 24 / Filled & Regular
+- Remix Add / 16, 20, 24, 32 / Filled & Regular
+- Script / 20, 24, 32 / Filled & Regular
+- Server Link / 24 / Filled & Regular
+- Stream / 48 / Filled & Regular
+- Tab Desktop / 28 / Filled & Regular
+- Tab Desktop Link / 16, 20, 24, 28 / Filled & Regular
+- Table Arrow Up / 20, 24 / Filled & Regular
+- Tablet Laptop / 24 / Filled & Regular
+- Text Bullet List Square / 48 / Filled & Regular
+- Text Bullet List Square Shield / 48 / Filled & Regular
+- Video Person Sparkle Off / 20, 24 / Filled & Regular
+- Warning / 32 / Filled & Regular
+- Window Database / 32 / Filled & Regular
+ 
+
+**What's updated (Name / Size(s) / Variant(s))**
+- Add Square Multiple / 24 / Filled & Regular
+- Arrow Outline Up Right / 32 / Filled & Regular
+- Braces Variable / 48 / Filled & Regular
+- Cast Multiple / 20, 24, 28 / Filled & Regular
+- Circle Hint Half Vertical / 16, 20, 24 / Filled & Regular
+- Cube / 48 / Filled & Regular
+- Desk / 16, 28, 32, 48 / Filled & Regular
+- Document Data / 16, 20, 24, 32 / Filled & Regular
+- Document Data Link / 16, 20, 24, 32 / Filled & Regular
+- Document Link / 20 / Filled & Regular
+- Flash Sparkle / 20, 24 / Filled & Regular
+- Folder Add / 16, 20, 24, 28, 48 / Filled & Regular
+- Folder Arrow Left / 16, 20, 24, 28, 32 / Filled & Regular
+- Folder Arrow Right / 16, 20, 24, 28, 48 / Filled & Regular
+- Folder Arrow Up / 16, 20, 24, 28, 48 / Filled & Regular
+- Folder Briefcase / 20 / Filled & Regular
+- Folder Globe / 16, 20 / Filled & Regular
+- Folder Lightning / 16, 20, 24 / Filled & Regular
+- Folder Link / 20, 24, 28, 48 / Filled & Regular
+- Folder List / 16, 20 / Filled & Regular
+- Folder Mail / 16, 20, 24, 28 / Filled & Regular
+- Folder Multiple / 16 / Filled & Regular
+- Folder Open / 16, 20, 24 / Filled & Regular
+- Folder Open / 16, 20, 24 / Filled & Regular
+- Folder Open Vertical / 16, 20 / Filled & Regular
+- Folder Open Vertical / 16, 20 / Filled & Regular
+- Folder Open Vertical / 24 / Filled & Regular
+- Folder People / 20, 24 / Filled & Regular
+- Folder Person / 16, 20 / Filled & Regular
+- Folder Prohibited / 16, 20, 24, 28, 48 / Filled & Regular
+- Folder Swap / 16, 20, 24 / Filled & Regular
+- Folder Sync / 16, 20, 24 / Filled & Regular
+- Folder Zip / 16, 20, 24 / Filled & Regular
+- Globe / 48 / Filled & Regular
+- Globe Shield / 48 / Filled & Regular
+- Hand Right Off / 16, 24, 28 / Filled & Regular
+- Hat Graduation Sparkle / 16 / Filled & Regular
+- Hexagon / 12, 24 / Filled & Regular
+- Hexagon Three / 12, 24 / Filled & Regular
+- Key Multiple / 16, 24 / Filled & Regular
+- Line Style / 24 / Filled & Regular
+- Link Multiple / 16, 20, 24 / Filled & Regular
+- Lock Closed / 12, 16, 20, 24, 32 / Filled & Regular
+- Lock Open / 16, 20, 24, 28 / Filled & Regular
+- Mail Off / 16 / Filled & Regular
+- Next Frame / 20, 24 / Filled & Regular
+- Open / 24 / Filled
+- Open Off / 24 / Filled
+- Person Edit / 48 / Filled & Regular
+- Plug Disconnected / 48 / Filled & Regular
+- Previous Frame / 20, 24 / Filled & Regular
+- Stream / 48 / Filled & Regular
+- Text Bullet List Square / 48 / Filled & Regular
+- Text Bullet List Square Shield / 48 / Filled & Regular
+- TextBox / 16 / Filled & Regular
+- TextBox Align Bottom / 20, 24 / Filled & Regular
+- TextBox Align Bottom Center / 16, 20, 24 / Filled & Regular
+- TextBox Align Bottom Left / 16, 20, 24 / Filled & Regular
+- TextBox Align Bottom Right / 16, 20, 24 / Filled & Regular
+- TextBox Align Bottom Rotate 90 / 20, 24 / Filled & Regular
+- TextBox Align Center / 16 / Filled & Regular
+- TextBox Align Center / 24 / Filled & Regular
+- TextBox Align Middle / 20, 24 / Filled
+- TextBox Align Middle Left / 16, 20, 24 / Filled & Regular
+- TextBox Align Middle Right / 16, 20, 24 / Filled & Regular
+- TextBox Align Middle Rotate 90 / 20, 24 / Filled & Regular
+- TextBox Align Top / 20, 24 / Filled
+- TextBox Align Top Center / 16, 20, 24 / Filled & Regular
+- TextBox Align Top Left / 16, 20, 24 / Filled & Regular
+- TextBox Align Top Right / 16, 20, 24 / Filled & Regular
+- TextBox Align Top Rotate 90 / 20, 24 / Filled & Regular
+- Triangle Down / 24 / Filled & Regular
+- What’s updated
+- Window Arrow Up / 16, 20, 24 / Filled & Regular
+
+🏳️‍🌈 Happy Pride 🏳️‍🌈
+Note we've revamped our Flag Pride icon to reflect the Traditional Pride Flag,
+and added other umbrella flags:
+
+- Flag Pride  / 32 / Filled
+- Flag Pride Philadelphia / 16, 20, 24, 28, 32, 48 / Filled
+- Flag Pride Progress / 16, 20, 24, 28, 32, 48 / Filled
+- Flag Pride Intersex Inclusive Progress / 16, 20, 24, 28, 32, 48 / Filled
+
+## V2.4.2
 - Fix [#72](https://github.com/microsoft/fluentui-blazor/pull/72): rows attribute in TextArea.
 - Fix [#466](https://github.com/microsoft/fluentui-blazor/pull/466): Divider vertical orientation.
 
