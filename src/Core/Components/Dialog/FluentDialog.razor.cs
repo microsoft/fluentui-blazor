@@ -21,6 +21,7 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
     public bool? Modal { get; set; }
 
     private bool _hidden;
+
     /// <summary>
     /// Gets or sets if the dialog is hidden
     /// </summary>
@@ -188,9 +189,16 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
     public async Task CloseAsync(DialogResult dialogResult)
     {
         DialogContext?.DialogContainer.DismissInstance(Id!, dialogResult);
-        if (Instance.Parameters.OnDialogResult.HasDelegate)
+        if (Instance is not null)
         {
-            await Instance.Parameters.OnDialogResult.InvokeAsync(dialogResult);
+            if (Instance.Parameters.OnDialogResult.HasDelegate)
+            {
+                await Instance.Parameters.OnDialogResult.InvokeAsync(dialogResult);
+            }
+        }
+        else
+        {
+            Hide();
         }
     }
 }

@@ -1799,11 +1799,6 @@
             Closes the dialog
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDialogProvider.#ctor">
-            <summary>
-            Constructs an instance of <see cref="T:Microsoft.Fast.Components.FluentUI.FluentToastContainer"/>.
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogFooter.Alignment">
             <summary>
             Gets or sets the dialog position:
@@ -1859,6 +1854,11 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogHeader.ShowDismiss">
             <summary>
             When true, shows the dismiss button in the header.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDialogProvider.#ctor">
+            <summary>
+            Constructs an instance of <see cref="T:Microsoft.Fast.Components.FluentUI.FluentToastContainer"/>.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentFormDialog`1.Dialog">
