@@ -83,76 +83,66 @@ export function checkColumnOptionsPosition(gridElement) {
 }
 
 function enableColumnResizing(gridElement) {
-    const min = 150;
+    const min = 50;
     const columns = [];
     let headerBeingResized;
+    let resizeHandle;
 
     if (gridElement === null) {
         return;
     };
+
     gridElement.querySelectorAll('.column-header').forEach(header => {
-        const max = '1fr';
+        columns.push({ header });
+        const onPointerMove = (e) => requestAnimationFrame(() => {
+            console.log(`onPointerMove${headerBeingResized ? '' : ' [not resizing]'}`);
 
-        columns.push({
-            header,
-            // The initial size value for grid-template-columns:
-            size: `minmax(${min}px, ${header.clientWidth}px)`
-        });
+            if (!headerBeingResized) {
+                return;
+            }
 
-        const onMouseMove = (e) => requestAnimationFrame(() => {
-            console.log('onMouseMove');
+            const gridLeft = gridElement.getBoundingClientRect().left;
+            const headerLocalLeft = headerBeingResized.getBoundingClientRect().left - gridLeft;
+            const pointerLocalLeft = e.clientX - gridLeft;
 
-            let horizontalScrollOffset = gridElement.offsetLeft;
-            
-            const width = (e.clientX) - (headerBeingResized.offsetLeft + horizontalScrollOffset);
+            const width = pointerLocalLeft - headerLocalLeft;
 
             const column = columns.find(({ header }) => header === headerBeingResized);
             column.size = Math.max(min, width) + 'px';
 
+            // Set initial sizes
             columns.forEach((column) => {
-                if (column.size.startsWith('minmax')) {
-                    column.size = parseInt(column.header.clientWidth, 10) + 'px';
+                if (column.size === undefined) {
+                    column.size = column.header.clientWidth + 'px';
                 }
             });
 
             gridElement.gridTemplateColumns = columns
-                .map(({ header, size }) => size)
+                .map(({ size }) => size)
                 .join(' ');
         });
 
-        const onMouseUp = () => {
-            console.log('onMouseUp');
+        const onPointerUp = () => {
+            console.log('onPointerUp');
 
-            window.removeEventListener('mousemove', onMouseMove);
-            window.removeEventListener('mouseup', onMouseUp);
-
-            if ('ontouchstart' in window) {
-                window.removeEventListener('touchmove', onMouseMove);
-                window.removeEventListener('touchend', onMouseUp);
-            }
-
-            headerBeingResized = null;
+            headerBeingResized = undefined;
+            resizeHandle = undefined;
         };
 
-        const initResize = ({ target }) => {
+        const initResize = ({ target, pointerId }) => {
             console.log('initResize');
 
+            resizeHandle = target;
             headerBeingResized = target.parentNode;
-            window.addEventListener('mousemove', onMouseMove);
-            window.addEventListener('mouseup', onMouseUp);
 
-            if ('ontouchstart' in window) {
-                window.addEventListener('touchmove', onMouseMove);
-                window.addEventListener('touchend', onMouseUp);
-            }
+            resizeHandle.setPointerCapture(pointerId);
         };
 
-        if (header.querySelector('.col-width-draghandle')) {
-
-            header.querySelector('.col-width-draghandle').addEventListener('mousedown', initResize);
-            if ('ontouchstart' in window) {
-                header.querySelector('.col-width-draghandle').addEventListener('touchstart', initResize);
-            }
+        const dragHandle = header.querySelector('.col-width-draghandle');
+        if (dragHandle) {
+            dragHandle.addEventListener('pointerdown', initResize);
+            dragHandle.addEventListener('pointermove', onPointerMove);
+            dragHandle.addEventListener('pointerup', onPointerUp);
         }
     });
 }
