@@ -140,55 +140,8 @@
 
 <h2 id="blazor-hybrid">Blazor Hybrid</h2>
 <p>
-	Starting with the 2.0 release, you can also use this library in your Blazor Hybrid projects. Setup is almost the same as described in the "Getting started" section above, but to get everything to work you'll need to take two extra steps:
+	Starting with the 2.0 release, you can also use this library in your Blazor Hybrid projects. Setup is almost the same as described in the "Getting started" section above, but to get everything to work you'll need to take one extra step:
 </p>
-<ol>
-	<li>
-		You need to add a MAUI specific IStaticAssetService implementation.<br>
-		Due to some issues, this file can't be part of the library (yet) so this needs to be added manually to your MAUI Blazor project.<br>
-		Create a new class in you project called <code>FileBasedStaticAssetService.cs</code> Replace it's contents with the following:
-	</li>
-</ol>
-
-<CodeSnippet Language="csharp">using System.Net;
-using Microsoft.Fast.Components.FluentUI.Infrastructure;
-
-namespace Microsoft.Fast.Components.FluentUI;
-
-public class FileBasedStaticAssetService : IStaticAssetService
-{
-	public async Task&lt;string&gt; GetAsync(string assetUrl, bool useCache = false)
-	{
-		string result = null;
-		HttpRequestMessage message = CreateMessage(assetUrl);
-		if (string.IsNullOrEmpty(result))
-		{
-			result = await ReadData(assetUrl);
-		}
-		return result;
-	}
-	private static HttpRequestMessage CreateMessage(string url) => new(HttpMethod.Get, url);
- 
-	private static async Task&lt;string&gt; ReadData(string file)
-	{
-		using var stream = await FileSystem.OpenAppPackageFileAsync($"wwwroot/{file}");
-		using var reader = new StreamReader(stream);
-		return await reader.ReadToEndAsync();
-	}
-}
-</CodeSnippet>
-<ol start="2">
-	<li>
-		You need to make some changes in your <code>MauiProgram.cs</code> file<br>
-		Make sure the following is added before the <code>return builder.Build()</code> line:
-	</li>
-</ol>
-<CodeSnippet Language="csharp">builder.Services.AddFluentUIComponents(options =>
-{
-	options.HostingModel = BlazorHostingModel.Hybrid;
-});
-builder.Services.AddSingleton&lt;IStaticAssetService, FileBasedStaticAssetService&gt;();
-</CodeSnippet>
 
 <h3 id="tempory-workaround-for-mauiwpfwindows-forms-issues">Tempory workaround for MAUI/WPF/Windows Forms issues</h3>
 <p>
