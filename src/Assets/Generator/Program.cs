@@ -12,7 +12,7 @@ internal class Program
         // Help
         if (configuration.Help)
         {
-            configuration.DisplayHelp();
+            Configuration.DisplayHelp();
             return;
         }
 

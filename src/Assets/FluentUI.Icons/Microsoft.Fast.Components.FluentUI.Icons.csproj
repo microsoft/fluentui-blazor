@@ -28,4 +28,8 @@
 		<None Include="..\..\..\icon.png" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Icons\" />
+	</ItemGroup>
+
 </Project>

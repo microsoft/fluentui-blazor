@@ -90,7 +90,7 @@ internal class Configuration
     /// <summary>
     /// Displays the help documentation.
     /// </summary>
-    public void DisplayHelp()
+    public static void DisplayHelp()
     {
         Console.WriteLine($"Microsoft FluentUI Icons Generator");
         Console.WriteLine();
@@ -108,7 +108,7 @@ internal class Configuration
         Console.WriteLine();
         Console.WriteLine($"  --Names     | -n   The list of icon names to generate, separated by coma.");
         Console.WriteLine($"                     Example of icons: accessibility_32_filled,add_circle_20_filled");
-        Console.WriteLine($"                     Example of emojis: accordion_flat,ambulance_high_contrast"); 
+        Console.WriteLine($"                     Example of emojis: accordion_flat,ambulance_high_contrast");
         Console.WriteLine($"                     By default: all icons");
         Console.WriteLine();
         Console.WriteLine($"  --Sizes     | -s   The list of icon sizes to generate, separated by coma.");
@@ -126,7 +126,7 @@ internal class Configuration
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>
-    private bool HasHelpCommand(string[] args)
+    private static bool HasHelpCommand(string[] args)
     {
         return args.Any(i => string.Compare(i, "-h", StringComparison.OrdinalIgnoreCase) == 0
                           || string.Compare(i, "--help", StringComparison.OrdinalIgnoreCase) == 0
@@ -134,7 +134,7 @@ internal class Configuration
                           || string.Compare(i, "/?", StringComparison.OrdinalIgnoreCase) == 0);
     }
 
-    private DirectoryInfo GetAbsoluteFolder(string? folder)
+    private static DirectoryInfo GetAbsoluteFolder(string? folder)
     {
         string currentPath = GetThisFilePath();
         string path = folder ?? currentPath;
