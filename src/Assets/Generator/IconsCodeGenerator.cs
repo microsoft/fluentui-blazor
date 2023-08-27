@@ -4,7 +4,7 @@ using Microsoft.Fast.Components.FluentUI.AssetsGenerator.Model;
 
 namespace Microsoft.Fast.Components.FluentUI.AssetsGenerator;
 
-internal class IconsCodeGenerator
+internal partial class IconsCodeGenerator
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="IconsCodeGenerator"/> class.
@@ -30,17 +30,17 @@ internal class IconsCodeGenerator
     /// Reads all SVG files in the assets folder.
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<Model.Icon> ReadAllAssets()
+    public IEnumerable<Icon> ReadAllAssets()
     {
         const string searchPattern = "*.svg";
-        var icons = new Dictionary<string, Model.Icon>();
+        var icons = new Dictionary<string, Icon>();
 
         Logger.Invoke($"Reading all SVG files in {Configuration.AssetsFolder}.");
         var allFiles = Configuration.AssetsFolder.GetFiles(searchPattern, SearchOption.AllDirectories);
 
         foreach (var file in allFiles)
         {
-            var newIcon = new Model.Icon(file);
+            var newIcon = new Icon(file);
             var key = newIcon.Key.ToLower();
 
             if (!icons.ContainsKey(key))
@@ -61,7 +61,7 @@ internal class IconsCodeGenerator
     /// </summary>
     /// <param name="icons"></param>
     /// <returns></returns>
-    public FileInfo GenerateMainIconsClass(IEnumerable<Model.Icon> icons)
+    public FileInfo GenerateMainIconsClass(IEnumerable<Icon> icons)
     {
         var file = new FileInfo(Path.Combine(Configuration.TargetFolder.FullName, "Icons.cs"));
 
@@ -79,8 +79,8 @@ internal class IconsCodeGenerator
     /// </summary>
     /// <param name="icons"></param>
     /// <returns></returns>
-    public FileInfo GenerateOneClass(IEnumerable<Model.Icon> icons, string className)
-    {       
+    public FileInfo GenerateOneClass(IEnumerable<Icon> icons, string className)
+    {
         Logger.Invoke($"Generating {className}, containing {icons.Count()} icons.");
         var classContent = GenerateOneClass(className, icons.OrderBy(i => i.Name));
 
@@ -95,7 +95,7 @@ internal class IconsCodeGenerator
     /// </summary>
     /// <param name="icons"></param>
     /// <returns></returns>
-    public IEnumerable<FileInfo> GenerateClasses(IEnumerable<Model.Icon> icons)
+    public IEnumerable<FileInfo> GenerateClasses(IEnumerable<Icon> icons)
     {
         var generatedFiles = new List<FileInfo>();
         var allSizes = icons.Select(i => i.Size)
@@ -108,7 +108,7 @@ internal class IconsCodeGenerator
         // Delete previous files
         foreach (var file in Configuration.TargetFolder.GetFiles("*.*", SearchOption.TopDirectoryOnly))
         {
-            bool toDelete = Regex.IsMatch(file.Name, @"^(Filled|Regular)[0-9][0-9](\.cs|\.resx)$");
+            bool toDelete = NameParser().IsMatch(file.Name);
             if (toDelete)
             {
                 file.Delete();
@@ -136,7 +136,7 @@ internal class IconsCodeGenerator
     }
 
     /// <summary />
-    private string GenerateMainClass(IEnumerable<Model.Icon> icons)
+    private string GenerateMainClass(IEnumerable<Icon> icons)
     {
         var builder = new StringBuilder();
 
@@ -171,7 +171,7 @@ internal class IconsCodeGenerator
     }
 
     /// <summary />
-    private string GenerateClass(int size, string variant, IEnumerable<Model.Icon> icons)
+    private string GenerateClass(int size, string variant, IEnumerable<Icon> icons)
     {
         var builder = new StringBuilder();
 
@@ -205,7 +205,7 @@ internal class IconsCodeGenerator
     }
 
     /// <summary />
-    private string GenerateOneClass(string className, IEnumerable<Model.Icon> icons)
+    private string GenerateOneClass(string className, IEnumerable<Icon> icons)
     {
         var builder = new StringBuilder();
 
@@ -261,9 +261,9 @@ internal class IconsCodeGenerator
         return builder.ToString();
     }
 
-    private void AddProperties(StringBuilder builder, IEnumerable<Icon> icons, int indentation = 12)
+    private static void AddProperties(StringBuilder builder, IEnumerable<Icon> icons, int indentation = 12)
     {
-        string indentationString = new string(' ', indentation);
+        string indentationString = new(' ', indentation);
 
         // Properties
         foreach (var icon in icons)
@@ -274,4 +274,7 @@ internal class IconsCodeGenerator
             builder.AppendLine($"{indentationString}public class {icon.Name} : Icon {{ public {icon.Name}() : base(\"{icon.Name}\", IconVariant.{icon.Variant}, IconSize.Size{icon.Size}, \"{svgContent}\") {{ }} }}");
         }
     }
+
+    [GeneratedRegex("^(Filled|Regular)[0-9][0-9](\\.cs|\\.resx)$")]
+    private static partial Regex NameParser();
 }
