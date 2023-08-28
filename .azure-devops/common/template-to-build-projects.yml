@@ -17,7 +17,16 @@ steps:
       $builds = "$(Build.BuildNumber)".Split('.')
       $stage = "$(VersionStage)"
       $stageId = "$(VersionStageId)"
-      $package = "$($builds[0]).$($builds[1]).0-$($stageId).$($stage).$($builds[2]).$($builds[3])"
+      
+      if ("$(stageId)" -eq "")
+      {
+        $package = "$($builds[0]).$($builds[1]).0.$($builds[2]).$($builds[3])"
+      }
+      else
+      {
+        $package = "$($builds[0]).$($builds[1]).0-$($stageId).$($stage).$($builds[2]).$($builds[3])"
+      }
+      
       $sign = "false";
       $toTest = "false";
 
