@@ -2,7 +2,7 @@
 
 pr: none      # Disable pull request triggers.
 trigger:
-- new-components
+- main
 
 # Build.BuildNumber
 name: $(VersionMajor).$(Year:yy)$(DayOfYear).$(Rev:r)

@@ -12,13 +12,13 @@
 
 	 <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>	 
 	 
-	 <VersionFile>3.0.23200.1</VersionFile>
+	 <VersionFile>3.0.23240.1</VersionFile>
 	 <VersionPrefix>3.0.0</VersionPrefix>
-	 <VersionSuffix>RC.2</VersionSuffix> 
+	 <VersionSuffix></VersionSuffix> 
 	 
 	 <AssemblyVersion>$(VersionFile)</AssemblyVersion>
 	 <FileVersion>$(VersionFile)</FileVersion>
 	 <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
-   <Version>$(VersionPrefix)-$(VersionSuffix)</Version>     
+   <Version>$(VersionPrefix)$(VersionSuffix)</Version>     
  </PropertyGroup>
 </Project>
