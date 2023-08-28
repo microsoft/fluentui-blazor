@@ -3,7 +3,8 @@ name: Deploy preview to Azure Static Web Apps
 on:
   push:
     branches:
-      - new-components
+      - dev
+      - archives/v2
     paths-ignore:
       - '**/*.md'
       - '**/*.gitignore'
@@ -12,7 +13,8 @@ on:
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
-      - new-components
+      - dev
+      - archives/v2
     paths-ignore:
       - '**/*.md'
       - '**/*.gitignore'
@@ -20,7 +22,8 @@ on:
   
   workflow_dispatch:
     branches:
-      - new-components
+      - dev
+      - archives/v2
     paths-ignore:
       - '**/*.md'
       - '**/*.gitignore'
@@ -71,7 +74,7 @@ jobs:
           output_location: "publish/wwwroot"
           skip_api_build: true
           skip_app_build: true
-          production_branch: 'new-components'
+          production_branch: 'dev'
 
   destroy:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
