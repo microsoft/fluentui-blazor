@@ -1,0 +1,13 @@
+﻿@namespace Microsoft.Fast.Components.FluentUI
+@implements IToastContentComponent<ProgressToastContent>
+
+
+<div class="fluent-toast-body">
+    @if (!string.IsNullOrWhiteSpace(Content.Details))
+    {
+        <div class="fluent-toast-details">@Content.Details</div>
+    }
+
+    <FluentProgress Class="fluent-toast-progressbar" Min="0" Max="100" @bind-Value="@Content.Progress"></FluentProgress>
+    <div class="fluent-toast-progressbar-percentage">@Content.Progress%</div>
+</div>

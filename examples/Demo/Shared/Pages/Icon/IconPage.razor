@@ -1,0 +1,65 @@
+﻿@page "/Icon"
+@using FluentUI.Demo.Shared.Pages.Icon.Examples;
+
+<h1>Icon</h1>
+
+<p>
+    The <a title="FluentUI System Icons repository" href="https://github.com/microsoft/fluentui-system-icons" target="_blank" rel="noopener">Fluent UI System Icons</a> 
+    are a (still growing) collection of familiar, friendly and modern icons from Microsoft. At the moment there are more than 2200 distinct icons 
+    available in both filled and outlined versions and in various sizes. In total the collections consists of well over 11k icons in SVG format.
+</p>
+<p>
+    This <a href="https://www.nuget.org/packages/Microsoft.Fast.Components.FluentUI.Icons" target="_blank">FluentUI Icons NuGet package</a>
+    contains all these icons, which you can access directly in your projects.
+    To use them, simply reference this package in your project.
+</p>
+<p>
+    You can use any of these icons by levaraging the <code>&lt;FluentIcon&gt;</code>&nbsp;component. See below for the parameters and examples. 
+    There is also a search capability available on this page wich allows you to browse to all the different icons.
+</p>
+
+<h2 id="overview">Overview</h2>
+
+<DemoSection Component="typeof(IconDefault)" Title="Icon examples">
+    <Description>
+        A lot of the web components have named slots that declare locations in which content can be rendered.
+        FluentIcon leverages this capability through its <code>Slot</code> parameter. With this you can for
+        example render the icon in front (<code>Slot="start"</code>) or after (<code>Slot="end"</code>) a
+        label in a <code>FluentButton</code> component.
+    </Description>
+</DemoSection>
+
+<DemoSection Component="typeof(IconPlacement)" Title="Icon placement">
+    <Description>
+        A lot of the web components have named slots that declare locations in which content can be rendered.
+        FluentIcon leverages this capability through its <code>Slot</code> parameter. With this you can for
+        example render the icon in front (<code>Slot="start"</code>) or after (<code>Slot="end"</code>) a
+        label in a <code>FluentButton</code> component.
+    </Description>
+</DemoSection>
+
+
+<DemoSection Component="typeof(IconColors)" Title="Color options">
+    <Description>
+        Icons can be drawn and filled with a color through the <code>Color</code> parameter which takes a <code>Color</code> enumeration value.
+        <br /><br />
+        &nbsp;&nbsp;&nbsp;<code>&lt;FluentIcon Icon="@@Icons.Filled.Size48.Alert" Color="<em>{&middot;&middot;&middot;}</em>" /&gt;</code>
+        <br /><br />
+        With the code above you can use the following options at the <em>{&middot;&middot;&middot;}</em>:
+    </Description>
+</DemoSection>
+
+    
+
+
+<h2>Explore Icons</h2>
+<IconExplorer />
+<br />
+<br />
+
+<ApiDocumentation Component="typeof(FluentIcon<>)" InstanceType="typeof(Icon)" GenericLabel="Icon">
+    <Description>
+        You can use either the <code>Icon</code> or <code>Value</code> parameter to specify the icon to render. The <code>Icon</code> parameter takes a 
+        <code>Icon</code> Type, while the <code>Value</code> parameter takes a icon object. 
+    </Description>
+</ApiDocumentation>

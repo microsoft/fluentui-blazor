@@ -1,0 +1,37 @@
+@page "/InputFile"
+
+@using FluentUI.Demo.Shared.Pages.InputFile.Examples
+
+
+<h1>InputFile</h1>
+
+<p>The <code>FluentInputFile</code> wraps the native Blazor <code>InputFile</code> component and extends it with drag/drop zone support. See the examples below for some different ways on how to use this component.</p>
+
+<ApiDocumentation Component="typeof(FluentInputFile)" />
+
+<h2>Examples</h2>
+<div>
+    <DemoSection Title="Default" Component="@typeof(InputFileDefault)">
+        <Description>
+
+        </Description>
+    </DemoSection>
+
+    <DemoSection Title="Manual upload" Component="@typeof(InputFileByCode)">
+        <Description>
+
+        </Description>
+    </DemoSection>
+
+    <DemoSection Title="Mode = InputFileMode.Buffer" Component="@typeof(InputFileBufferMode)">
+        <Description>
+
+        </Description>
+    </DemoSection>
+
+    <DemoSection Title="Mode = InputFileMode.Stream" Component="@typeof(InputFileStream)">
+        <Description>
+
+        </Description>
+    </DemoSection>
+</div>

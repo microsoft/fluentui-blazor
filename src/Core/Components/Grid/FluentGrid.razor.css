@@ -1,0 +1,637 @@
+.fluent-grid {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+}
+
+    .fluent-grid ::deep > div {
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    /* Spacing */
+
+    .fluent-grid[spacing="1"] {
+        width: calc(100% + 8px);
+        margin: -4px;
+    }
+
+        .fluent-grid[spacing="1"] ::deep > div {
+            padding: 4px;
+        }
+
+    .fluent-grid[spacing="2"] {
+        width: calc(100% + 16px);
+        margin: -8px;
+    }
+
+        .fluent-grid[spacing="2"] ::deep > div {
+            padding: 8px;
+        }
+
+    .fluent-grid[spacing="3"] {
+        width: calc(100% + 24px);
+        margin: -12px;
+    }
+
+        .fluent-grid[spacing="3"] ::deep > div {
+            padding: 12px;
+        }
+
+    .fluent-grid[spacing="4"] {
+        width: calc(100% + 32px);
+        margin: -16px;
+    }
+
+        .fluent-grid[spacing="4"] ::deep > div {
+            padding: 16px;
+        }
+
+    .fluent-grid[spacing="5"] {
+        width: calc(100% + 40px);
+        margin: -20px;
+    }
+
+        .fluent-grid[spacing="5"] ::deep > div {
+            padding: 20px;
+        }
+
+    .fluent-grid[spacing="6"] {
+        width: calc(100% + 48px);
+        margin: -24px;
+    }
+
+        .fluent-grid[spacing="6"] ::deep > div {
+            padding: 24px;
+        }
+
+    .fluent-grid[spacing="7"] {
+        width: calc(100% + 56px);
+        margin: -28px;
+    }
+
+        .fluent-grid[spacing="7"] ::deep > div {
+            padding: 28px;
+        }
+
+    .fluent-grid[spacing="8"] {
+        width: calc(100% + 64px);
+        margin: -32px;
+    }
+
+        .fluent-grid[spacing="8"] ::deep > div {
+            padding: 32px;
+        }
+
+    .fluent-grid[spacing="9"] {
+        width: calc(100% + 72px);
+        margin: -36px;
+    }
+
+        .fluent-grid[spacing="9"] ::deep > div {
+            padding: 36px;
+        }
+
+    .fluent-grid[spacing="10"] {
+        width: calc(100% + 80px);
+        margin: -40px;
+    }
+
+        .fluent-grid[spacing="10"] ::deep > div {
+            padding: 40px;
+        }
+
+
+
+    /* Size xs */
+
+    .fluent-grid ::deep > div[xs="auto"] {
+        flex-grow: 0;
+        max-width: none;
+        flex-basis: auto;
+    }
+
+    .fluent-grid ::deep > div[xs="true"] {
+        flex-grow: 1;
+        max-width: 100%;
+        flex-basis: 0;
+    }
+
+    .fluent-grid ::deep > div[xs="1"] {
+        flex-grow: 0;
+        max-width: 8.33333333333333%;
+        flex-basis: 8.333333333333333%;
+    }
+
+    .fluent-grid ::deep > div[xs="2"] {
+        flex-grow: 0;
+        max-width: 16.6666666666667%;
+        flex-basis: 16.66666666666673%;
+    }
+
+    .fluent-grid ::deep > div[xs="3"] {
+        flex-grow: 0;
+        max-width: 25%;
+        flex-basis: 253%;
+    }
+
+    .fluent-grid ::deep > div[xs="4"] {
+        flex-grow: 0;
+        max-width: 33.3333333333333%;
+        flex-basis: 33.33333333333333%;
+    }
+
+    .fluent-grid ::deep > div[xs="5"] {
+        flex-grow: 0;
+        max-width: 41.6666666666667%;
+        flex-basis: 41.66666666666673%;
+    }
+
+    .fluent-grid ::deep > div[xs="6"] {
+        flex-grow: 0;
+        max-width: 50%;
+        flex-basis: 503%;
+    }
+
+    .fluent-grid ::deep > div[xs="7"] {
+        flex-grow: 0;
+        max-width: 58.3333333333333%;
+        flex-basis: 58.33333333333333%;
+    }
+
+    .fluent-grid ::deep > div[xs="8"] {
+        flex-grow: 0;
+        max-width: 66.6666666666667%;
+        flex-basis: 66.66666666666673%;
+    }
+
+    .fluent-grid ::deep > div[xs="9"] {
+        flex-grow: 0;
+        max-width: 75%;
+        flex-basis: 753%;
+    }
+
+    .fluent-grid ::deep > div[xs="10"] {
+        flex-grow: 0;
+        max-width: 83.3333333333333%;
+        flex-basis: 83.33333333333333%;
+    }
+
+    .fluent-grid ::deep > div[xs="11"] {
+        flex-grow: 0;
+        max-width: 91.6666666666667%;
+        flex-basis: 91.66666666666673%;
+    }
+
+    .fluent-grid ::deep > div[xs="12"] {
+        flex-grow: 0;
+        max-width: 100%;
+        flex-basis: 1003%;
+    }
+
+
+@media(min-width: 600px) {
+
+    /* Size sm */
+
+    .fluent-grid ::deep > div[sm="auto"] {
+        flex-grow: 0;
+        max-width: none;
+        flex-basis: auto;
+    }
+
+    .fluent-grid ::deep > div[sm="true"] {
+        flex-grow: 1;
+        max-width: 100%;
+        flex-basis: 0;
+    }
+
+    .fluent-grid ::deep > div[sm="1"] {
+        flex-grow: 0;
+        max-width: 8.33333333333333%;
+        flex-basis: 8.333333333333333%;
+    }
+
+    .fluent-grid ::deep > div[sm="2"] {
+        flex-grow: 0;
+        max-width: 16.6666666666667%;
+        flex-basis: 16.66666666666673%;
+    }
+
+    .fluent-grid ::deep > div[sm="3"] {
+        flex-grow: 0;
+        max-width: 25%;
+        flex-basis: 253%;
+    }
+
+    .fluent-grid ::deep > div[sm="4"] {
+        flex-grow: 0;
+        max-width: 33.3333333333333%;
+        flex-basis: 33.33333333333333%;
+    }
+
+    .fluent-grid ::deep > div[sm="5"] {
+        flex-grow: 0;
+        max-width: 41.6666666666667%;
+        flex-basis: 41.66666666666673%;
+    }
+
+    .fluent-grid ::deep > div[sm="6"] {
+        flex-grow: 0;
+        max-width: 50%;
+        flex-basis: 503%;
+    }
+
+    .fluent-grid ::deep > div[sm="7"] {
+        flex-grow: 0;
+        max-width: 58.3333333333333%;
+        flex-basis: 58.33333333333333%;
+    }
+
+    .fluent-grid ::deep > div[sm="8"] {
+        flex-grow: 0;
+        max-width: 66.6666666666667%;
+        flex-basis: 66.66666666666673%;
+    }
+
+    .fluent-grid ::deep > div[sm="9"] {
+        flex-grow: 0;
+        max-width: 75%;
+        flex-basis: 753%;
+    }
+
+    .fluent-grid ::deep > div[sm="10"] {
+        flex-grow: 0;
+        max-width: 83.3333333333333%;
+        flex-basis: 83.33333333333333%;
+    }
+
+    .fluent-grid ::deep > div[sm="11"] {
+        flex-grow: 0;
+        max-width: 91.6666666666667%;
+        flex-basis: 91.66666666666673%;
+    }
+
+    .fluent-grid ::deep > div[sm="12"] {
+        flex-grow: 0;
+        max-width: 100%;
+        flex-basis: 1003%;
+    }
+}
+
+@media(min-width: 960px) {
+
+    /* Size md */
+
+    .fluent-grid ::deep > div[md="auto"] {
+        flex-grow: 0;
+        max-width: none;
+        flex-basis: auto;
+    }
+
+    .fluent-grid ::deep > div[md="true"] {
+        flex-grow: 1;
+        max-width: 100%;
+        flex-basis: 0;
+    }
+
+    .fluent-grid ::deep > div[md="1"] {
+        flex-grow: 0;
+        max-width: 8.33333333333333%;
+        flex-basis: 8.333333333333333%;
+    }
+
+    .fluent-grid ::deep > div[md="2"] {
+        flex-grow: 0;
+        max-width: 16.6666666666667%;
+        flex-basis: 16.66666666666673%;
+    }
+
+    .fluent-grid ::deep > div[md="3"] {
+        flex-grow: 0;
+        max-width: 25%;
+        flex-basis: 253%;
+    }
+
+    .fluent-grid ::deep > div[md="4"] {
+        flex-grow: 0;
+        max-width: 33.3333333333333%;
+        flex-basis: 33.33333333333333%;
+    }
+
+    .fluent-grid ::deep > div[md="5"] {
+        flex-grow: 0;
+        max-width: 41.6666666666667%;
+        flex-basis: 41.66666666666673%;
+    }
+
+    .fluent-grid ::deep > div[md="6"] {
+        flex-grow: 0;
+        max-width: 50%;
+        flex-basis: 503%;
+    }
+
+    .fluent-grid ::deep > div[md="7"] {
+        flex-grow: 0;
+        max-width: 58.3333333333333%;
+        flex-basis: 58.33333333333333%;
+    }
+
+    .fluent-grid ::deep > div[md="8"] {
+        flex-grow: 0;
+        max-width: 66.6666666666667%;
+        flex-basis: 66.66666666666673%;
+    }
+
+    .fluent-grid ::deep > div[md="9"] {
+        flex-grow: 0;
+        max-width: 75%;
+        flex-basis: 753%;
+    }
+
+    .fluent-grid ::deep > div[md="10"] {
+        flex-grow: 0;
+        max-width: 83.3333333333333%;
+        flex-basis: 83.33333333333333%;
+    }
+
+    .fluent-grid ::deep > div[md="11"] {
+        flex-grow: 0;
+        max-width: 91.6666666666667%;
+        flex-basis: 91.66666666666673%;
+    }
+
+    .fluent-grid ::deep > div[md="12"] {
+        flex-grow: 0;
+        max-width: 100%;
+        flex-basis: 1003%;
+    }
+}
+
+@media(min-width: 1280px) {
+
+    /* Size lg */
+
+    .fluent-grid ::deep > div[lg="auto"] {
+        flex-grow: 0;
+        max-width: none;
+        flex-basis: auto;
+    }
+
+    .fluent-grid ::deep > div[lg="true"] {
+        flex-grow: 1;
+        max-width: 100%;
+        flex-basis: 0;
+    }
+
+    .fluent-grid ::deep > div[lg="1"] {
+        flex-grow: 0;
+        max-width: 8.33333333333333%;
+        flex-basis: 8.333333333333333%;
+    }
+
+    .fluent-grid ::deep > div[lg="2"] {
+        flex-grow: 0;
+        max-width: 16.6666666666667%;
+        flex-basis: 16.66666666666673%;
+    }
+
+    .fluent-grid ::deep > div[lg="3"] {
+        flex-grow: 0;
+        max-width: 25%;
+        flex-basis: 253%;
+    }
+
+    .fluent-grid ::deep > div[lg="4"] {
+        flex-grow: 0;
+        max-width: 33.3333333333333%;
+        flex-basis: 33.33333333333333%;
+    }
+
+    .fluent-grid ::deep > div[lg="5"] {
+        flex-grow: 0;
+        max-width: 41.6666666666667%;
+        flex-basis: 41.66666666666673%;
+    }
+
+    .fluent-grid ::deep > div[lg="6"] {
+        flex-grow: 0;
+        max-width: 50%;
+        flex-basis: 503%;
+    }
+
+    .fluent-grid ::deep > div[lg="7"] {
+        flex-grow: 0;
+        max-width: 58.3333333333333%;
+        flex-basis: 58.33333333333333%;
+    }
+
+    .fluent-grid ::deep > div[lg="8"] {
+        flex-grow: 0;
+        max-width: 66.6666666666667%;
+        flex-basis: 66.66666666666673%;
+    }
+
+    .fluent-grid ::deep > div[lg="9"] {
+        flex-grow: 0;
+        max-width: 75%;
+        flex-basis: 753%;
+    }
+
+    .fluent-grid ::deep > div[lg="10"] {
+        flex-grow: 0;
+        max-width: 83.3333333333333%;
+        flex-basis: 83.33333333333333%;
+    }
+
+    .fluent-grid ::deep > div[lg="11"] {
+        flex-grow: 0;
+        max-width: 91.6666666666667%;
+        flex-basis: 91.66666666666673%;
+    }
+
+    .fluent-grid ::deep > div[lg="12"] {
+        flex-grow: 0;
+        max-width: 100%;
+        flex-basis: 1003%;
+    }
+}
+
+@media(min-width: 1920px) {
+
+    /* Size xl */
+
+    .fluent-grid ::deep > div[xl="auto"] {
+        flex-grow: 0;
+        max-width: none;
+        flex-basis: auto;
+    }
+
+    .fluent-grid ::deep > div[xl="true"] {
+        flex-grow: 1;
+        max-width: 100%;
+        flex-basis: 0;
+    }
+
+    .fluent-grid ::deep > div[xl="1"] {
+        flex-grow: 0;
+        max-width: 8.33333333333333%;
+        flex-basis: 8.333333333333333%;
+    }
+
+    .fluent-grid ::deep > div[xl="2"] {
+        flex-grow: 0;
+        max-width: 16.6666666666667%;
+        flex-basis: 16.66666666666673%;
+    }
+
+    .fluent-grid ::deep > div[xl="3"] {
+        flex-grow: 0;
+        max-width: 25%;
+        flex-basis: 253%;
+    }
+
+    .fluent-grid ::deep > div[xl="4"] {
+        flex-grow: 0;
+        max-width: 33.3333333333333%;
+        flex-basis: 33.33333333333333%;
+    }
+
+    .fluent-grid ::deep > div[xl="5"] {
+        flex-grow: 0;
+        max-width: 41.6666666666667%;
+        flex-basis: 41.66666666666673%;
+    }
+
+    .fluent-grid ::deep > div[xl="6"] {
+        flex-grow: 0;
+        max-width: 50%;
+        flex-basis: 503%;
+    }
+
+    .fluent-grid ::deep > div[xl="7"] {
+        flex-grow: 0;
+        max-width: 58.3333333333333%;
+        flex-basis: 58.33333333333333%;
+    }
+
+    .fluent-grid ::deep > div[xl="8"] {
+        flex-grow: 0;
+        max-width: 66.6666666666667%;
+        flex-basis: 66.66666666666673%;
+    }
+
+    .fluent-grid ::deep > div[xl="9"] {
+        flex-grow: 0;
+        max-width: 75%;
+        flex-basis: 753%;
+    }
+
+    .fluent-grid ::deep > div[xl="10"] {
+        flex-grow: 0;
+        max-width: 83.3333333333333%;
+        flex-basis: 83.33333333333333%;
+    }
+
+    .fluent-grid ::deep > div[xl="11"] {
+        flex-grow: 0;
+        max-width: 91.6666666666667%;
+        flex-basis: 91.66666666666673%;
+    }
+
+    .fluent-grid ::deep > div[xl="12"] {
+        flex-grow: 0;
+        max-width: 100%;
+        flex-basis: 1003%;
+    }
+}
+
+@media(min-width: 2560px) {
+
+    /* Size xxl */
+
+    .fluent-grid ::deep > div[xxl="auto"] {
+        flex-grow: 0;
+        max-width: none;
+        flex-basis: auto;
+    }
+
+    .fluent-grid ::deep > div[xxl="true"] {
+        flex-grow: 1;
+        max-width: 100%;
+        flex-basis: 0;
+    }
+
+    .fluent-grid ::deep > div[xxl="1"] {
+        flex-grow: 0;
+        max-width: 8.33333333333333%;
+        flex-basis: 8.333333333333333%;
+    }
+
+    .fluent-grid ::deep > div[xxl="2"] {
+        flex-grow: 0;
+        max-width: 16.6666666666667%;
+        flex-basis: 16.66666666666673%;
+    }
+
+    .fluent-grid ::deep > div[xxl="3"] {
+        flex-grow: 0;
+        max-width: 25%;
+        flex-basis: 253%;
+    }
+
+    .fluent-grid ::deep > div[xxl="4"] {
+        flex-grow: 0;
+        max-width: 33.3333333333333%;
+        flex-basis: 33.33333333333333%;
+    }
+
+    .fluent-grid ::deep > div[xxl="5"] {
+        flex-grow: 0;
+        max-width: 41.6666666666667%;
+        flex-basis: 41.66666666666673%;
+    }
+
+    .fluent-grid ::deep > div[xxl="6"] {
+        flex-grow: 0;
+        max-width: 50%;
+        flex-basis: 503%;
+    }
+
+    .fluent-grid ::deep > div[xxl="7"] {
+        flex-grow: 0;
+        max-width: 58.3333333333333%;
+        flex-basis: 58.33333333333333%;
+    }
+
+    .fluent-grid ::deep > div[xxl="8"] {
+        flex-grow: 0;
+        max-width: 66.6666666666667%;
+        flex-basis: 66.66666666666673%;
+    }
+
+    .fluent-grid ::deep > div[xxl="9"] {
+        flex-grow: 0;
+        max-width: 75%;
+        flex-basis: 753%;
+    }
+
+    .fluent-grid ::deep > div[xxl="10"] {
+        flex-grow: 0;
+        max-width: 83.3333333333333%;
+        flex-basis: 83.33333333333333%;
+    }
+
+    .fluent-grid ::deep > div[xxl="11"] {
+        flex-grow: 0;
+        max-width: 91.6666666666667%;
+        flex-basis: 91.66666666666673%;
+    }
+
+    .fluent-grid ::deep > div[xxl="12"] {
+        flex-grow: 0;
+        max-width: 100%;
+        flex-basis: 1003%;
+    }
+}

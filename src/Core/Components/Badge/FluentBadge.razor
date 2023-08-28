@@ -1,0 +1,21 @@
+@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentComponentBase
+<fluent-badge @ref=Element
+              id = "@Id"
+              class="@ClassValue"
+              style="@StyleValue"
+              appearance="@Appearance.ToAttributeValue()" 
+              fill="@Fill"
+              color="@Fill"
+              circular="@Circular"
+              @onclick="@OnClickHandlerAsync"
+              @attributes="AdditionalAttributes">
+    <div style="@InternalStyleValue">
+        @ChildContent
+        @if (OnDismissClick.HasDelegate)
+        {
+            <FluentIcon Icon="CoreIcons.Regular.Size24.Dismiss" Width="12px" Style="margin-top: 2px;" OnClick="OnDismissClickHandlerAsync" />
+        }
+    </div>
+    
+</fluent-badge>

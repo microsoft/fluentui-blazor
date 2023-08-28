@@ -1,0 +1,31 @@
+﻿.fluent-popover-content  {
+    font-family: var(--body-font);
+    -webkit-font-smoothing: antialiased;
+    color: rgb(50, 49, 48);
+    line-height: 27px;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+    width: 100%;
+    padding: 1em;
+}
+
+    .fluent-popover-content .fluent-popover-header {
+        font-size: 20px;
+        font-weight: 600;
+        width: inherit;
+    }
+
+    .fluent-popover-content .fluent-popover-body {
+        height: 100%;
+        width: inherit;
+        margin-top: 1em;
+        display: flex;
+    }
+
+    .fluent-popover-content .fluent-popover-footer {
+        font-size: 14px;
+        font-weight: normal;
+        width: inherit;
+        margin-top: 1em;
+    }

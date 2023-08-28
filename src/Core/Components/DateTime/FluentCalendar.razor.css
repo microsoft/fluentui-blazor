@@ -1,0 +1,135 @@
+﻿.fluent-calendar {
+    --calendar-cell-size: 28px;
+    --calendar-gap: 2px;
+    font-family: var(--body-font);
+    font-size: var(--type-ramp-base-font-size);
+    line-height: var(--type-ramp-base-line-height);
+    color: var(--neutral-foreground-rest);
+    width: calc((var(--calendar-cell-size) + 2 * var(--calendar-gap)) * 7);
+    height: calc((var(--calendar-cell-size) + 3 * var(--calendar-gap)) * 8);
+    user-select: none;
+}
+
+    /* Header: month name and month navigation */
+    .fluent-calendar ::deep .title {
+        display: flex;
+        padding: calc(var(--design-unit) * 2px);
+        font-weight: 600;
+        width: 100%;
+        height: calc(var(--calendar-cell-size) + 4 * var(--calendar-gap));
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .fluent-calendar ::deep .month {
+        vertical-align: middle;
+    }
+
+    .fluent-calendar ::deep .change-month {
+        float: right;
+        display: flex;
+        margin-right: -6px;
+    }
+
+    .fluent-calendar ::deep .previous-month,
+    .fluent-calendar ::deep .next-month {
+        width: var(--calendar-cell-size);
+        height: var(--calendar-cell-size);
+        margin-left: calc(2 * var(--calendar-gap));
+        text-align: center;
+        cursor: pointer;
+    }
+
+        .fluent-calendar ::deep .previous-month:hover,
+        .fluent-calendar ::deep .next-month:hover {
+            background: var(--neutral-fill-stealth-hover);
+        }
+
+        .fluent-calendar ::deep .previous-month svg,
+        .fluent-calendar ::deep .next-month svg {
+            width: 16px;
+            fill: var(--neutral-fill-strong-focus);
+        }
+
+    /* List of days */
+    .fluent-calendar ::deep .days {
+        text-align: center;
+    }
+
+    .fluent-calendar ::deep .week-days,
+    .fluent-calendar ::deep .week {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        grid-gap: var(--calendar-gap);
+        border: 0px;
+        padding: 0px;
+    }
+
+    .fluent-calendar ::deep .day,
+    .fluent-calendar ::deep .week-day {
+        border: 1px solid transparent;
+        width: var(--calendar-cell-size);
+        height: var(--calendar-cell-size);
+        line-height: var(--calendar-cell-size);
+        padding: 0px;
+        box-sizing: initial;
+    }
+
+    /* Week names */
+    .fluent-calendar ::deep .week-day {
+        font-weight: 600;
+    }
+
+    /* Days */
+    .fluent-calendar ::deep .day {
+        border: calc(var(--stroke-width) * 1px) solid transparent;
+        border-radius: calc(var(--control-corner-radius) * 1px);
+        cursor: pointer;
+    }
+
+    .fluent-calendar[readonly] ::deep .day {
+        cursor: default;
+    }
+
+    .fluent-calendar:not([readonly]) ::deep .day:not([disabled]):not([inactive]):not([today]):hover {
+        background: var(--neutral-fill-stealth-hover);
+    }
+
+    /* Inactive and Disabled */
+    .fluent-calendar ::deep .day[inactive] {
+        color: var(--neutral-stroke-focus);
+        cursor: default;
+    }
+
+    .fluent-calendar ::deep .day[disabled] {
+        color: var(--neutral-stroke-focus);
+        cursor: default;
+    }
+
+        .fluent-calendar ::deep .day[disabled]::before { /* strikethrough */
+            transform: translate(-4px, 0px) rotate(45deg);
+            content: "";
+            display: inline-block;
+            width: calc(var(--calendar-cell-size) * .8);
+            height: calc(var(--stroke-width) * 1px);
+            background: currentcolor;
+            position: absolute;
+            margin-top: calc(var(--calendar-cell-size) / 2);
+            transform-origin: center center;
+            z-index: 1;
+        }
+
+    /* Today */
+    .fluent-calendar ::deep .day:not([selected])[today] {
+        color: var(--foreground-on-accent-rest);
+        background: var(--accent-fill-rest);
+        border-radius: 50%;
+        position: relative;        
+    }
+
+    /* Selected */
+    .fluent-calendar ::deep .day[selected] {
+        color: var(--accent-fill-rest);
+        border: 1px solid var(--accent-fill-rest);
+        background: var(--fill-color);
+    }

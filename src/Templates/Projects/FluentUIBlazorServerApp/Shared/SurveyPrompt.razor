@@ -1,0 +1,17 @@
+﻿<div class="prompt">
+    <div style="display:flex; align-items:center">
+        <FluentIcon Icon="Icons.Regular.Size32.Info" Color="@Color.Neutral" />
+        <strong>@Title</strong>
+    </div>
+    <p class="text-nowrap">
+        Please take our
+        <FluentAnchor Href="https://go.microsoft.com/fwlink/?linkid=2149017" Appearance=Appearance.Hypertext>brief survey</FluentAnchor>
+        and tell us what you think.
+    </p>
+</div>
+
+@code {
+    // Demonstrates how a parent component can supply parameters
+    [Parameter]
+    public string? Title { get; set; }
+}

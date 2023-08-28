@@ -1,0 +1,45 @@
+﻿@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentComponentBase
+
+@switch (Typo)
+{
+    case Typography.Body:
+        <p @attributes="AdditionalAttributes" typo="@Typo.ToAttributeValue()" default-margin=@DefaultMarginBlock bold=@Bold bolder=@Bolder class="@ClassValue" style="@StyleValue" disabled=@Disabled>@ChildContent</p>
+        break;
+    case Typography.Subject:
+        <h6 @attributes="AdditionalAttributes" typo="@Typo.ToAttributeValue()" default-margin=@DefaultMarginBlock bold=@Bold bolder=@Bolder class="@ClassValue" style="@StyleValue" disabled=@Disabled>@ChildContent</h6>
+        break;
+    case Typography.Header:
+        <h5 @attributes="AdditionalAttributes" typo="@Typo.ToAttributeValue()" default-margin=@DefaultMarginBlock bold=@Bold bolder=@Bolder class="@ClassValue" style="@StyleValue" disabled=@Disabled>@ChildContent</h5>
+        break;
+    case Typography.PaneHeader:
+        <h4 @attributes="AdditionalAttributes" typo="@Typo.ToAttributeValue()" default-margin=@DefaultMarginBlock bold=@Bold bolder=@Bolder class="@ClassValue" style="@StyleValue" disabled=@Disabled>@ChildContent</h4>
+        break;
+    case Typography.EmailHeader:
+        <h3 @attributes="AdditionalAttributes" typo="@Typo.ToAttributeValue()" default-margin=@DefaultMarginBlock bold=@Bold bolder=@Bolder class="@ClassValue" style="@StyleValue" disabled=@Disabled>@ChildContent</h3>
+        break;
+    case Typography.PageTitle:
+        <h2 @attributes="AdditionalAttributes" typo="@Typo.ToAttributeValue()" default-margin=@DefaultMarginBlock bold=@Bold bolder=@Bolder class="@ClassValue" style="@StyleValue" disabled=@Disabled>@ChildContent</h2>
+        break;
+    case Typography.HeroTitle:
+        <h1 @attributes="AdditionalAttributes" typo="@Typo.ToAttributeValue()" default-margin=@DefaultMarginBlock bold=@Bold bolder=@Bolder class="@ClassValue" style="@StyleValue" disabled=@Disabled>@ChildContent</h1>
+        break;
+    case Typography.H1:
+        <h1 @attributes="AdditionalAttributes" typo="@Typo.ToAttributeValue()" default-margin=@DefaultMarginBlock bold=@Bold bolder=@Bolder class="@ClassValue" style="@StyleValue" disabled=@Disabled>@ChildContent</h1>
+        break;
+    case Typography.H2:
+        <h2 @attributes="AdditionalAttributes" typo="@Typo.ToAttributeValue()" default-margin=@DefaultMarginBlock bold=@Bold bolder=@Bolder class="@ClassValue" style="@StyleValue" disabled=@Disabled>@ChildContent</h2>
+        break;
+    case Typography.H3:
+        <h3 @attributes="AdditionalAttributes" typo="@Typo.ToAttributeValue()" default-margin=@DefaultMarginBlock bold=@Bold bolder=@Bolder class="@ClassValue" style="@StyleValue" disabled=@Disabled>@ChildContent</h3>
+        break;
+    case Typography.H4:
+        <h4 @attributes="AdditionalAttributes" typo="@Typo.ToAttributeValue()" default-margin=@DefaultMarginBlock bold=@Bold bolder=@Bolder class="@ClassValue" style="@StyleValue" disabled=@Disabled>@ChildContent</h4>
+        break;
+    case Typography.H5:
+        <h5 @attributes="AdditionalAttributes" typo="@Typo.ToAttributeValue()" default-margin=@DefaultMarginBlock bold=@Bold bolder=@Bolder class="@ClassValue" style="@StyleValue" disabled=@Disabled>@ChildContent</h5>
+        break;
+    case Typography.H6:
+        <h6 @attributes="AdditionalAttributes" typo="@Typo.ToAttributeValue()" default-margin=@DefaultMarginBlock bold=@Bold bolder=@Bolder class="@ClassValue" style="@StyleValue" disabled=@Disabled>@ChildContent</h6>
+        break;
+}

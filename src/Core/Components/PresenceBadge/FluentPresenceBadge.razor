@@ -1,0 +1,9 @@
+﻿@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentComponentBase
+
+<div class="presencebadge-container">
+    @ChildContent
+    <div class="@ClassValue" style="@StyleValue" title="@Status.ToString()">
+        @GetIconInstance().ToMarkup(size: GetIconSize(), color: GetIconColor())
+    </div>
+</div>

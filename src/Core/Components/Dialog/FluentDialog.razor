@@ -1,0 +1,71 @@
+@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentComponentBase
+
+<CascadingValue Value="this" IsFixed="true">
+    <fluent-dialog @ref=Element
+                   id="@Id"
+                   class="@ClassValue"
+                   style="@StyleValue"
+                   modal="@((Modal ?? _parameters.Modal).ToString()?.ToLower())"
+                   hidden="@Hidden"
+                   trap-focus="@((TrapFocus ?? _parameters.TrapFocus).ToString()?.ToLower())"
+                   aria-describedby=@(_parameters.AriaDescribedby ?? AriaDescribedby)
+                   aria-labelledby=@(_parameters.AriaLabelledby ?? AriaLabelledby)
+                   aria-label=@(_parameters.AriaLabel ?? AriaLabel)
+                   @attributes=@AdditionalAttributes>
+        <FluentStack Orientation="Orientation.Vertical" Class="fluent-dialog-content" Style="height:100%;">
+            @if (_parameters.ShowTitle && (_parameters.Title != null || _parameters.ShowDismiss))
+            {
+                <div class="fluent-dialog-header">
+                    <FluentStack Orientation="Orientation.Horizontal" VerticalAlignment="VerticalAlignment.Center">
+                        <FluentLabel Typo="Typography.PaneHeader" Style="width: 100%; margin: 0px;">@_parameters.Title</FluentLabel>
+                        @if (_parameters.ShowDismiss)
+                        {
+                            <FluentButton Appearance="Appearance.Stealth" @onclick="@(() => CancelAsync())">
+                                <FluentIcon Icon="CoreIcons.Regular.Size24.Dismiss" Width="16px" />
+                            </FluentButton>
+                        }
+                    </FluentStack>
+                </div>
+            }
+
+            <div class="fluent-dialog-body" nofooter=@(!HasButtons) style="@(_parameters.DialogBodyStyle ?? null)">
+                @if (Instance is null)
+                {
+                    @ChildContent
+                }
+                else
+                {
+                    <DynamicComponent Type="@Instance.ContentType" Parameters="Instance.GetParameterDictionary()" />
+                }
+            </div>
+
+            @if (HasButtons)
+            {
+                <div class="@(_parameters.Alignment == HorizontalAlignment.Center ? "fluent-dialog-footer-normal" : "fluent-dialog-footer-bottom")">
+                    <FluentStack Orientation="Orientation.Horizontal"
+                                 HorizontalAlignment="@(_parameters.Alignment == HorizontalAlignment.Center ? HorizontalAlignment.Right : HorizontalAlignment.Left)">
+                        @if (_parameters.ShowPrimaryAction)
+                        {
+                            <FluentButton title="@_parameters.PrimaryAction"
+                                          @onclick="@(() => CloseAsync<object?>(Instance!.Content ??= true))"
+                                          Appearance="Appearance.Accent"
+                                          Disabled="@(!_parameters.PrimaryActionEnabled)">
+                                @_parameters.PrimaryAction
+                            </FluentButton>
+                        }
+                        @if (_parameters.ShowSecondaryAction)
+                        {
+                            <FluentButton title="@_parameters.SecondaryAction"
+                                          @onclick="@(() => CancelAsync<object?>(Instance!.Content ??= false))"
+                                          Appearance="Appearance.Neutral"
+                                          Disabled="@(!_parameters.SecondaryActionEnabled)">
+                                @_parameters.SecondaryAction
+                            </FluentButton>
+                        }
+                    </FluentStack>
+                </div>
+            }
+        </FluentStack>
+    </fluent-dialog>
+</CascadingValue>

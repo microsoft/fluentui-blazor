@@ -1,0 +1,16 @@
+﻿@namespace Microsoft.Fast.Components.FluentUI
+@using Microsoft.Fast.Components.FluentUI.DesignTokens
+@inherits FluentComponentBase
+
+<div class="fluent-menubutton-container">
+    <FluentButton @ref="Button" Appearance="Appearance.Accent" aria-haspopup="true" aria-expanded="@_visible" @onclick=ToggleMenu @onkeydown=OnKeyDown>
+        @Text
+        <FluentIcon Icon="CoreIcons.Regular.Size24.ChevronDown" Slot="end" Color="@Color.Fill" />
+    </FluentButton>
+    <FluentMenu @ref="Menu" aria-labelledby="button" @bind-Open=@_visible @onmenuchange=OnMenuChange>
+        @foreach (KeyValuePair<string, string> item in Items)
+        {
+            <FluentMenuItem Id="@item.Key">@item.Value</FluentMenuItem>
+        }
+    </FluentMenu>
+</div>

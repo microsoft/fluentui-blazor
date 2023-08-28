@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FluentUI.Demo.Client</title>
+    <base href="/" />
+    <link href="_content/FluentUI.Demo.Shared/css/site.css" rel="stylesheet" />
+    <link href="FluentUI.Demo.Client.styles.css" rel="stylesheet" />
+    
+    <!-- Monaco editor -->
+    <link rel="stylesheet" data-name="vs/editor/editor.main" href="_content/Microsoft.Fast.Components.FluentUI/lib/monaco-editor/min/vs/editor/editor.main.min.css">
+
+    <!-- highlight -->
+    <link rel="stylesheet" title="light" href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.6.0/styles/vs.min.css">
+    <link rel="stylesheet" title="dark" disabled="disabled" href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.6.0/styles/vs2015.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlightjs-copy@1.0.3/dist/highlightjs-copy.min.css">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VML6BZWWTC"></script>
+    <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-VML6BZWWTC');
+    </script>
+    <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "hnr14wvzj8");
+    </script>
+</head>
+
+<body>
+    <div id="app">
+        <svg class="loading-progress">
+            <circle r="40%" cx="50%" cy="50%" />
+            <circle r="40%" cx="50%" cy="50%" />
+        </svg>
+        <div class="loading-progress-text"></div>
+    </div>
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+    <script src="_framework/blazor.webassembly.js"></script>
+    
+    <!-- Monaco Editor -->
+    <script src="_content/Microsoft.Fast.Components.FluentUI/lib/monaco-editor/min/vs/loader.min.js"></script>
+    <script>require.config({ paths: { 'vs': '_content/Microsoft.Fast.Components.FluentUI/lib/monaco-editor/min/vs' } });</script>
+    <script src="_content/Microsoft.Fast.Components.FluentUI/lib/monaco-editor/min/vs/editor/editor.main.js"></script>
+    
+    <!-- highlight -->
+    <script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/highlightjs-cshtml-razor@2.1.1/dist/cshtml-razor.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/highlightjs-copy@1.0.3/dist/highlightjs-copy.min.js"></script>
+    <script>
+        if (hljs != null) {
+            hljs.addPlugin(new CopyButtonPlugin());
+        }
+    </script>
+</body>
+
+</html>

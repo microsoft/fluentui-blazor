@@ -1,0 +1,68 @@
+@using Microsoft.AspNetCore.Components.Rendering
+@using Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure
+@namespace Microsoft.Fast.Components.FluentUI
+@typeparam TGridItem
+@{
+    InternalGridContext.Grid.AddColumn(this, InitialSortDirection, IsDefaultSortColumn);
+}
+@code
+{
+    private void RenderDefaultHeaderContent(RenderTreeBuilder __builder)
+    {
+        @if (HeaderCellItemTemplate is not null)
+        {
+            @HeaderCellItemTemplate(this)
+        }
+        else
+        {
+            @if (ColumnOptions is not null && (Align == Align.Start || Align == Align.Center))
+            {
+                <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="Filter this column">
+                    <FluentIcon Icon="CoreIcons.Regular.Size24.Filter" />
+                </FluentButton>
+            }
+            
+            if (Sortable.HasValue ? Sortable.Value : IsSortableByDefault())
+            {
+                <FluentButton Appearance="Appearance.Stealth" class="col-sort-button" @onclick="@(() => Grid.SortByColumnAsync(this))" aria-label="Sort on this column">
+                    <div class="col-title-text">@Title</div>
+
+                    @if (Grid.SortByAscending.HasValue && ShowSortIcon)
+                    {
+                        if (Grid.SortByAscending == true)
+                        {
+                            <FluentIcon Icon="CoreIcons.Regular.Size24.ArrowSortUp" Slot="@(Align == Align.End ? "start" : "end")" />
+                        }
+                        else
+                        {
+                            <FluentIcon Icon="CoreIcons.Regular.Size24.ArrowSortDown" Slot="@(Align == Align.End ? "start" : "end")" />
+                        }
+                     }
+
+                </FluentButton>
+            }
+            else
+            {
+                <div class="col-title">
+                    <div class="col-title-text">@Title</div>
+                </div>
+            }
+            
+            @if (ColumnOptions is not null && Align == Align.End)
+            {
+                <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="Filter this column">
+                    <FluentIcon Icon="CoreIcons.Regular.Size24.Filter" />
+                </FluentButton>
+            }
+        }
+    }
+
+    internal void RenderPlaceholderContent(RenderTreeBuilder __builder, PlaceholderContext placeholderContext)
+    {
+        // Blank if no placeholder template was supplied, as it's enough to style with CSS by default
+        if (PlaceholderTemplate is not null)
+        {
+            @PlaceholderTemplate(placeholderContext)
+        }
+    }
+}

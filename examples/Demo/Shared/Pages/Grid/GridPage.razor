@@ -1,0 +1,47 @@
+﻿@page "/Grid"
+
+@using FluentUI.Demo.Shared.Pages.Grid.Examples;
+@using Microsoft.Fast.Components.FluentUI;
+
+<h1>Grid</h1>
+<p>
+    The grid component helps keeping layout consistent across various screen resolutions and sizes. <code>FluentGrid</code> comes with a 12-point grid system and contains 5 types of breakpoints that are used for specific screen sizes.
+</p>
+
+<ApiDocumentation Component="typeof(FluentGrid)" />
+
+<ApiDocumentation Component="typeof(FluentGridItem)" />
+
+<h2>Breakpoints</h2>
+
+<p>
+    Breakpoints help you control your layout based on windows size:
+
+    <FluentDataGrid Items="@AllBreakpoints" GridTemplateColumns="20fr 10fr 50fr 20fr">
+        <PropertyColumn Property="x => x.Device" />
+        <PropertyColumn Property="x => x.Code" />
+        <PropertyColumn Property="x => x.Type" />
+        <PropertyColumn Property="x => x.Range" />
+    </FluentDataGrid>
+</p>
+
+<h2>Examples</h2>
+
+<DemoSection Title="Default" Component="@typeof(GridDefault)" />
+
+
+@code
+{
+    public record Breakpoint(string Device, string Code, string Type, string Range);
+
+
+    IQueryable<Breakpoint> AllBreakpoints = new List<Breakpoint>()
+    {
+        new ( "Extra Small", "xs", "Small to large phone", "< 600px" ),
+        new ( "Small", "sm", "Small to medium tablet", "< 960px" ),
+        new ( "Medium", "md", "Large tablet to laptop", "< 1280px" ),
+        new ( "Large", "lg", "Desktop", "< 1920px" ),
+        new ( "Extra Large", "xl", "HD and 4k", "< 2560px" ),
+        new ( "Extra Extra Large", "xxl", "4k+ and ultra-wide", ">= 2560px" ),
+    }.AsQueryable();
+}

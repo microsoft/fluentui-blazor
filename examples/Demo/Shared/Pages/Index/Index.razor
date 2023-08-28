@@ -1,0 +1,189 @@
+﻿@page "/"
+
+@using FluentUI.Demo.Shared.Pages.Index.Examples
+
+<PageTitle>Fluent UI Blazor components</PageTitle>
+
+<h1>Welcome to the Fluent UI Blazor components library</h1>
+<div class="demopanel" style="margin: 1rem 0; padding: 2.5rem; text-align: center">
+	<p>This is the demo and documentation site for the <strong>next</strong> version (<strong>3.0.0</strong>) of the library</p>
+	<br />
+	<p>The version <strong>2.4.2</strong> demo and documentation site is available at <a href="https://www.fluentui-blazor.net">https://www.fluentui-blazor.net</a></p>
+</div>
+
+<h2 id="introduction">Introduction</h2>
+<p>
+	The <code>Microsoft.Fast.Components.FluentUI</code> package provides a set of <a href="https://blazor.net">Blazor</a> components. Some of the 
+	components are  wrappers around Microsoft's official Fluent UI Blazor components. Others are components that leverage the Fluent UI design system
+	or make it easier to work with Fluent UI. To get up and running with <code>Microsoft.Fast.Components.FluentUI</code> library, see the Getting Started section below.
+</p>
+<p>
+	The source for the library is hosted in the <a href="https://github.com/microsoft/fluentui-blazor">fluentui-blazor</a> repository at GitHub. 
+	Documentation on the components is available at this <a href="https://aka.ms/fluentui-blazor">demo site</a>.
+</p>
+<p>
+	The source for the <code>@@fluentui/web-components</code> is hosted in the <a href="https://github.com/microsoft/fluentui/tree/master/packages/web-components">fluentui</a> mono-repository. 
+	Documentation on the components is available at <a href="https://docs.microsoft.com/en-us/fluent-ui/web-components/">docs.microsoft.com</a>. The Fluent UI Blazor components are built on <a href="https://www.fast.design/">FAST</a> and work in every major browser.
+</p>
+
+<h2 id="whatsnew">What's new?</h2>
+<p>
+	If you are already up-and-running and upgrading from an earlier version of the library, please see the <a href="/WhatsNew">What's new'</a> section 
+	for information on (breaking) changes.
+</p>
+
+<h2 id="getting-started">Getting Started</h2>
+<p>
+	To get started using the Fluent UI Blazor components for Blazor, you will first need to install <a href="https://www.nuget.org/packages/Microsoft.Fast.Components.FluentUI/">the official Nuget package for Fluent UI</a> in the project you want to use the library and components. You can use the following command:
+</p>
+<CodeSnippet>dotnet add package Microsoft.Fast.Components.FluentUI</CodeSnippet>
+
+<h3>Scripts</h3>
+<p>
+	The hart of this library is formed by the Fluent UI Web Components and the accompanying <code>web-components.min.js</code> file. From now
+	on, the script is included in the library itself and no longer needs to be added to your <code>index.html</code> or <code>_Layout.cshtml</code>. 
+	In fact, doing this might lead to unpredictable results.
+
+	<blockquote>
+		<strong>If you are upgrading from an earlier version please remove the script from your <code>index.html</code> or <code>_Layout.cshtml</code> file.</strong>
+	</blockquote>
+
+	 The script is added to the application automatically. This way we can safeguard that the you are always using the best matching script version.
+</p>
+
+<h3>Styles</h3>
+<p>
+	In order for this library to work as expected, you will need to add the composed scoped CSS file for the components. This can be done by 
+	adding the following line to the <code>&lt;head&gt;</code> section of your <code>index.html</code> or <code>_Layout.cshtml</code> file in the 
+	project you installed the package:
+</p>
+<CodeSnippet>&lt;link href="{PROJECT_NAME}.styles.css" rel="stylesheet" /&gt;</CodeSnippet>
+<p>
+	It is possible that the line is already there (but commented out).
+</p>
+
+<h4>Reboot</h4>
+<p>
+	Reboot is a collection of element-specific CSS changes in a single file to help kickstart building a site with the Fluent UI Blazor components. It provides an elegant, consistent, and simple baseline to build upon.
+</p>
+<p>
+	If you want to use Reboot, you'll need to add to your <code>index.html</code> or <code>_Layout.cshtml</code> file a line that includes the stylesheet (<code>.css</code> file). This can be done by adding the following line to the <code>&lt;head&gt;</code> section:
+<CodeSnippet Language="language-html">&lt;link href="_content/Microsoft.Fast.Components.FluentUI/css/reboot.css" rel="stylesheet" /&gt;</CodeSnippet>
+</p>
+<p>
+	It is entirely possible to build a site without using Reboot. If you choose not to use it, please do add the <code>variables.css</code> file (which is otherwise imported through the <code>reboot.css</code> file)
+	to your <code>index.html</code> or <code>_Layout.cshtml</code> file in the <code>&lt;head&gt;</code> section like this:
+<CodeSnippet Language="language-html">&lt;link href="_content/Microsoft.Fast.Components.FluentUI/css/variables.css" rel="stylesheet" /&gt;</CodeSnippet>
+	The file contains a number of CSS variables that are required to be defined for the components to work correctly. 
+</p>
+
+<h3>Project file setup</h3>
+<p>
+	If you want to use icons and/or emoji, starting with version 2.1 you need add a <code>PropertyGroup</code> to your project file. With this you can
+	specify which icons and emoji are made available for usage and publication. Please refer to the <a href="https://www.fluentui-blazor.net/ProjectSetup">project setup</a> document for more information.
+</p>
+<h3>Code setup</h3>
+<p>
+	Please refer to the <a href="https://www.fluentui-blazor.net/CodeSetup">code setup</a> document to learn what needs to be included in your
+	<code>Program.cs</code> file so that all necessary services are available and setup in the correct way.
+</p>
+
+<h2 id="getting-started-by-using-project-templates">Getting started by using project templates</h2>
+<p>
+	To make it easier to start a project that uses the Fluent UI Web Components for Blazor out of the box, we have created the
+	<a target="top" href="https://www.nuget.org/packages/Microsoft.Fast.Templates.FluentUI/">Microsoft.Fast.Templates.FluentUI</a> template package.
+</p>
+<p>
+	The package contains templates for creating Blazor Server and/or Blazor WebAssembly apps that mimic the regular Blazor
+	templates with the Fluent UI components already set up (and all the Bootstrap styling removed). All components have been
+	replaced with Fluent UI counterparts (and a few extra have been added). Please see the <a target="top" href="https://www.fluentui-blazor.net/Templates">documentation page</a>
+	for more information.
+</p>
+<p>
+	If you want to use icons and/or emoji with applications based on the templates, you still need to make the changes to the project file
+	and <code>Program.cs</code> as described in the previous sections.
+</p>
+
+
+<h2 id="using-the-fluentui-web-components">Using the Fluent UI Blazor components</h2>
+<p>With the package installed and the script configured, you can begin using the Fluent UI Blazor components in the same way as any other Blazor component. Just be sure to add the following using statement to your views:</p>
+<CodeSnippet>@@using Microsoft.Fast.Components.FluentUI</CodeSnippet>
+
+<DemoSection Title="Simple components example" Component="@typeof(IndexSimpleExample)" ShowDownloads=false HideAllButExample="true">
+	<Description>
+		<p>Here's a small example of a <code>FluentCard</code> with a <code>FluentButton</code> that uses Fluent's "Accent" appearance.</p>
+	</Description>
+	<ChildContent>
+		<CodeSnippet>
+@@using Microsoft.Fast.Components.FluentUI
+
+&lt;FluentCard Style="padding: 1.5rem; width: 400px; height: 250px; "&gt;
+  &lt;h2&gt;Hello World!&lt;/h2&gt;
+  &lt;FluentButton Appearance=&quot;@@Appearance.Accent&quot;&gt;Click Me&lt;/FluentButton&gt;
+&lt;/FluentCard&gt;
+		</CodeSnippet>
+		<p>Renders as:</p>
+	</ChildContent>
+</DemoSection>
+
+<blockquote>
+	<p><strong>Tip</strong></p>
+	<p>You can add <code>@@using Microsoft.Fast.Components.FluentUI</code> to the namespace collection in <code>_Imports.razor</code>, so you don't have to add it to every razor page that uses one of the components.</p>
+</blockquote>
+
+<h2 id="configuring-the-design-system">Configuring the Design System</h2>
+<p>
+	The Fluent UI Blazor components are built on FAST's Adaptive UI technology, which enables design customization and personalization, while automatically
+	maintaining accessibility. This is accomplished through setting various &quot;Design Tokens&quot;. The library exposes all of the (over 160) Design Tokens, which you can use both from code as in a declarative way in your <code>.razor</code> pages. The three different ways of working with design tokens are described in the <a target="top" href="https://www.fluentui-blazor.net/DesignTokens">design tokens</a> page.
+</p>
+
+
+<h2 id="blazor-hybrid">Blazor Hybrid</h2>
+<p>
+	Starting with the 2.0 release, you can also use this library in your Blazor Hybrid projects. Setup is almost the same as described in the "Getting started" section above, but to get everything to work you'll need to take one extra step:
+</p>
+
+<h3 id="tempory-workaround-for-mauiwpfwindows-forms-issues">Tempory workaround for MAUI/WPF/Windows Forms issues</h3>
+<p>
+	Currently when using the WebView to run Blazor (so all Hybrid variants) the web-components script is not imported automatically (see <a href="https://github.com/microsoft/fluentui-blazor/issues/404">#404</a>.
+	There is also an isue with loading the custom event handlers that are being configured by the web-components script. Until these are fixed on the WebView side, there is
+	a workaround available, namely to intercept '_framework/blazor.modules.json' and provide proper JS initializers file (created by build). The needed	<code>initializersLoader.webview.js</code> has
+	been added to the library and needs to be included with a script tag **before** the <code>_framework/blazor.webview.js</code> script tag:
+</p>
+<pre><code class="language-xml">&lt;script app-name=&quot;{NAME OF YOUR APP}&quot; src=&quot;./_content/Microsoft.Fast.Components.FluentUI/js/initializersLoader.webview.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;_framework/blazor.webview.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<p>
+	The <code>app-name</code> attribute needs to match your app's assembly name - initializersLoader uses 'app-name' to resolve name of the file with initializers.
+	initializersLoader replaces standard <code>fetch</code> function with one which provides the correct file in place of the empty <code>blazor.modules.json</code>. <code>fetch</code> is restored to its original state once <code>_framework/blazor.modules.json</code> request is intercepted.
+</p>
+<p>
+	For more information regarding the bug, see issue <a href="https://github.com/dotnet/maui/issues/15234">15234</a> in the MAUI repo.
+</p>
+
+
+<h2>Use the DataGrid component with EF Core</h2>
+<p>
+	If you want to use the <code>FluentDataGrid</code> with data provided through EF Core, you need to install an additional package so the 
+	grid knows how to resolve queries asynchronously for efficiency.
+</p>
+
+<h3>Installation</h3>
+Install the package by running the command:
+<CodeSnippet>dotnet add package Microsoft.Fast.Components.FluentUI.DataGrid.EntityFrameworkAdapter</CodeSnippet>
+
+<h3>Usage</h3>
+In your <code>Program.cs</code> file you need to add the following after the <code>builder.Services.AddFluentUIComponents();</code> line:
+<CodeSnippet Language="csharp">builder.Services.AddFluentUIDataGridEntityFrameworkAdapter();</CodeSnippet>
+
+<h3 id="joining-the-community">Joining the Community</h3>
+<p>
+	Looking to get answers to questions or engage with us in real-time? 
+	<ul>
+		<li>Join the community and chat with us in real-time on <a target="top" href="https://app.gitter.im/#/room/#fluentui-blazor:gitter.im">Gitter</a> and <a target="top" href="https://discord.gg/FcSNfg4">Discord</a>.</li>
+		<li>Submit requests and issues on <a target="top" href="https://github.com/microsoft/fluentui-blazor/issues/new/choose">GitHub</a>.</li>
+		<li>Contribute by helping out on some of our recommended first issues on <a target="top" href="https://github.com/microsoft/fluentui-blazor/labels/community:good-first-issue">GitHub</a>.</li>
+	</ul>
+</p>
+<p>We look forward to building an amazing open source community with you!</p>
+

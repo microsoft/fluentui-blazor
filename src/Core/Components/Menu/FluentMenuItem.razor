@@ -1,0 +1,21 @@
+@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentComponentBase
+<fluent-menu-item @ref=Element
+				  class="@Class"
+				  style="@Style"
+				  id="@Id"
+				  disabled="@Disabled" 
+				  expanded=@Expanded
+				  role="@GetRole()"
+				  checked="@Checked"
+				  @onclick="@OnClickHandlerAsync"
+				  @attributes="AdditionalAttributes">
+	@Label
+	@ChildContent
+	@if (MenuItems != null)
+	{
+		<fluent-menu slot="submenu">
+			@MenuItems
+		</fluent-menu>
+	}
+</fluent-menu-item>

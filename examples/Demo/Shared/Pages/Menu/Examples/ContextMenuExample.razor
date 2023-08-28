@@ -1,0 +1,35 @@
+﻿<div id="myId4" class="demopanel">
+    Right-click on this text <br />
+    to open a Context Menu.
+</div>
+
+<FluentMenu Anchor="myId4" Trigger="MouseButton.Right" Anchored="false" @onmenuchange=OnMenuChange>
+    <FluentMenuItem Label="Item 1" OnClick="@((e) => DemoLogger.WriteLine("Item 1 Clicked"))" />
+
+    <FluentMenuItem Label="Item 2">
+        <MenuItems>
+            <FluentMenuItem Label="Item 2.1">
+                <MenuItems>
+                    <FluentMenuItem Label="Item 2.1.1" OnClick="@((e) => DemoLogger.WriteLine("Item 2.1.1 Clicked"))" />
+                    <FluentMenuItem Label="Item 2.1.2" OnClick="@((e) => DemoLogger.WriteLine("Item 2.1.2 Clicked"))" />
+                </MenuItems>
+            </FluentMenuItem>
+            <FluentMenuItem Label="Item 2.2" OnClick="@((e) => DemoLogger.WriteLine("Item 2.2 Clicked"))" />
+        </MenuItems>
+    </FluentMenuItem>
+
+    <FluentMenuItem Label="Item 3" OnClick="@((e) => DemoLogger.WriteLine("Item 3 Clicked"))" />
+</FluentMenu>
+
+<p>@status</p>
+
+@code {
+ 
+    private string status = "";
+
+    private void OnMenuChange(MenuChangeEventArgs args)
+    {
+        if (args is not null && args.Value is not null)
+            status = $"Item \"{args.Value}\" clicked";
+    }
+}

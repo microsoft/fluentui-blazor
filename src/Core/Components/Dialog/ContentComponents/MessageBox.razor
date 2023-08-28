@@ -1,0 +1,14 @@
+﻿@namespace Microsoft.Fast.Components.FluentUI
+@implements IDialogContentComponent<MessageBoxContent>
+
+
+<FluentStack Orientation="Orientation.Vertical" HorizontalAlignment="HorizontalAlignment.Left" Class="fluent-messagebox">
+    <FluentStack Orientation="Orientation.Horizontal" VerticalAlignment="VerticalAlignment.Center">
+        <FluentIcon Value="@Content.Icon" Color="@Content.IconColor" Width="24px" Class="icon" />
+        <div class="body">
+            @Content.Message
+            @Content.MarkupMessage
+        </div>
+    </FluentStack>
+</FluentStack>
+

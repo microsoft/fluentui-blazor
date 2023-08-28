@@ -1,0 +1,35 @@
+@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentComponentBase
+<CascadingValue Value="this" IsFixed="true">
+    @if (Open)
+    {
+        <FluentOverlay OnClose="@CloseAsync" Transparent="true" />
+        @if (Anchored)
+        {
+            <FluentAnchoredRegion Anchor="@Anchor"
+                HorizontalDefaultPosition="@HorizontalPosition"
+                HorizontalInset="true"
+                HorizontalViewportLock="true"
+                HorizontalThreshold="200"
+                VerticalDefaultPosition="@VerticalPosition.Bottom"
+                Shadow="@ElevationShadow.None"
+                Class="@ClassValue"
+                Style="@StyleValue"
+                @attributes="AdditionalAttributes">
+                <fluent-menu @ref=Element id="@Id">
+                    @ChildContent
+                </fluent-menu>
+            </FluentAnchoredRegion>
+        }
+        else
+        {
+            <fluent-menu @ref=Element
+                         id="@Id"
+                         class="@ClassValue"
+                         style="@StyleValue"
+                         @attributes="AdditionalAttributes">
+                @ChildContent
+            </fluent-menu>
+        }
+    }
+</CascadingValue>

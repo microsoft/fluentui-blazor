@@ -1,0 +1,180 @@
+﻿@page "/DataGrid"
+
+@using FluentUI.Demo.Shared.Pages.DataGrid.Examples;
+@using Microsoft.Fast.Components.FluentUI;
+
+<h1>Data grid</h1>
+<p>
+    The <code>&lt;FluentDataGrid&gt;</code> component is used to display tabular data. The <code>&lt;FluentDataGridRow&gt;</code>
+    and <code>&lt;FluentDataGridCell&gt;</code> components are typically created programmatically by the parent grid but some
+    authors may find it useful to create them manually.
+</p>
+<p>
+    <code>&lt;FluentDataGrid&gt;</code> wraps the <code>&lt;fluent-data-grid&gt;</code> element, a web component implementation
+    of a data grid leveraging the Fluent  UI design system. Internally <code>&lt;FluentDataGrid&gt;</code> is using the code from
+    <a href="https://aspnet.github.io/quickgridsamples">QuickGrid</a> with a few adjustments to parameter names to stay in-line
+    with the fluent-data-grid web component (see table below)
+
+
+    <table title="Parameter name changes">
+        <tr>
+            <th align="left" style="width: 8rem;">QuickGrid</th>
+            <th align="left" style="width: 8rem;">FluentDataGrid</th>
+        </tr>
+        <tr>
+            <td>Items</td>
+            <td>RowsData</td>
+        </tr>
+        <tr>
+            <td>ItemsProvider</td>
+            <td>RowsDataProvider</td>
+        </tr>
+        <tr>
+            <td>ItemSize</td>
+            <td>RowsDataSize</td>
+        </tr>
+        <tr>
+            <td>ItemKey</td>
+            <td>RowsDataKey</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+</p>
+
+<ApiDocumentation Component="typeof(FluentDataGridCell<>)" GenericLabel="TGridItem" />
+
+<ApiDocumentation Component="typeof(FluentDataGridRow<>)" GenericLabel="TGridItem" />
+
+<ApiDocumentation Component="typeof(FluentDataGrid<>)" GenericLabel="TGridItem" />
+
+<h2>Examples</h2>
+
+<DemoSection Title="Get started" Component="@typeof(DataGridGetStarted)">
+    <Description>
+        The example and code below show what you need to add to one of your Blazor page components to render a very simple grid (with sortable columns)
+    </Description>
+</DemoSection>
+
+<DemoSection Title="Typical usage" Component="@typeof(DataGridTypical)" CollocatedFiles="@(new[] {"css"})">
+    <Description>
+        Here is an example of a data grid that uses in-memory data and enables features including pagination, sorting, filtering, column options, row highlighting and column resizing.
+    </Description>
+</DemoSection>
+
+
+<DemoSection Title="Remote data" Component="@typeof(DataGridRemoteData)">
+    <Description>
+        <p>
+            If you're using Blazor WebAssembly, it's very common to fetch data from a JSON API on a server. If you want to
+            fetch only the data that's needed for the current page/viewport and apply any sorting or filtering rules on the
+            server, you can use the <code>ItemsProvider</code> parameter.
+        </p>
+        <p>
+            You can also use <code>ItemsProvider</code> with Blazor Server if it needs to query an external endpoint, or in any
+            other case where your requirements aren't covered by an <code>IQueryable</code>.
+        </p>
+        <p>
+            To do this, supply a callback matching the <code>GridItemsProvider&lt;TGridItem&gt;</code> delegate type, where <code>TGridItem</code>
+            is the type of data displayed in the grid. Your callback will be given a parameter of type <code>GridItemsProviderRequest&lt;TGridItem&gt;</code>
+            which specifies the start index, maximum row count, and sort order of data to return. As well as returning the matching items, you need
+            to return a <code>totalItemCount</code> so that paging or virtualization can work.
+        </p>
+        <p>
+            Here is an example of connecting a grid to the public <a href="https://open.fda.gov/apis/food/enforcement/" target="_blank">OpenFDA Food Enforcement database</a>.
+        </p>
+        <p>
+            This grid is using a 'sticky' header (i.e. the header is always visible when scrolling).
+        </p>
+    </Description>
+</DemoSection>
+
+
+<DemoSection Title="Virtualized grid" Component="@typeof(DataGridVirtualize)">
+    <Description>
+        <p>
+            It can be expensive both to fetch and to render large numbers of items. If the amount of data you're
+            displaying might be large, you should use either paging or virtualization.
+        </p>
+        <p>
+            Virtualization provides the appearance of continuous scrolling through an arbitrarily-large data set,
+            while only needing to fetch and render the rows that are currently in the scroll viewport. This can provide
+            excellent performance even when the data set is vast. FluentDataGrid's virtualization feature is built on Blazor's
+            built-in <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/virtualization?view=aspnetcore-6.0">Virtualize component</a>, so it shares the
+            same capabilities, requirements, and limitations.
+        </p>
+        <p>
+            Enabling virtualization is just a matter of passing <code>Virtualize="true"</code>. For it to work
+            properly and reliably, every row rendered must have the same known height. <strong>This is handeled by the 
+            <code>FluentDataGrid</code> code</strong>.
+        </p>
+    </Description>
+</DemoSection>
+
+<DemoSection Title="Template columns" Component="@typeof(DataGridTemplateColumns)">
+    <Description>
+        <p>
+            <code>TemplateColumn</code> uses arbitrary Razor fragments to supply contents for its cells. It can't
+            infer the column's title or sort order automatically.
+        </p>
+    </Description>
+</DemoSection>
+
+@*<DemoSection Title="Template columns 2" Component="@typeof(DataGridTemplateColumns2)"></DemoSection>*@
+
+<DemoSection Title="Dynamic columns" Component="@typeof(DataGridDynamicColumns)">
+    <Description>
+        <p>
+            You can make columns appear conditionally using normal Razor logic such as <code>@@if</code>. Example:
+        </p>
+    </Description>
+</DemoSection>
+
+<DemoSection Title="Custom comparer" Component="@typeof(DataGridCustomComparer)">
+    <Description>
+        Here a custom comparer is being used to sort counties by the length of their name.<br/>
+        The code has examples for both <code>PropertyColumn</code> and <code>TemplateColumn</code>.<br />
+        For this example the code for the comparer is placed in the <code>DataGridCustomComparer.razor.cs</code> file but it could be placed in its own file of course.
+    </Description>
+</DemoSection>
+
+<DemoSection Title="Custom paging UI" Component="@typeof(DataGridCustomPaging)">
+    <Description>
+        <p>
+            You can customize the appearance of <code>Paginator</code> by supplying a <code>SummaryTemplate</code>.
+            If you want further customization, you can create your own alternative UI that works with
+            <code>PaginationState</code>. Example:
+        </p>
+    </Description>
+</DemoSection>
+
+<DemoSection Title="Manual grid" Component="@typeof(DataGridManual)"></DemoSection>
+
+<DemoSection Title="Template columns 2" Component="@typeof(DataGridTemplateColumns2)">
+    <Description>
+        <p>
+            <code>TemplateColumn</code> uses arbitrary Razor fragments to supply contents for its cells. It can't
+            infer the column's title or sort order automatically.
+        </p>
+    </Description>
+</DemoSection>
+
+
+<DemoSection Title="Column headers" Component="@typeof(DataGridColumnHeaderGeneration)">
+    <Description>
+        The DataGrid can generate column headers by using the <code>System.ComponentModel.DataAnnotations.DisplayAttribute</code> on properties 
+        shown in the grid.
+        <br/>
+        See the 'Razor' tab on how these attributes have been applied to the class properties.
+    </Description>
+</DemoSection>
+
+<DemoSection Title="Multiline text content" Component="@typeof(DataGridMultilineText)">
+    <Description>
+        
+        Example of using the <code>Class</code> parameter to style parts of the grid. Note that the class used in the example (<code>multiline-text</code>) has been added to the FluentDataGridCell css.
+    </Description>
+</DemoSection>
+

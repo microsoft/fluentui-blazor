@@ -1,0 +1,81 @@
+﻿@inject FillColor FillColor
+@inject BaseLayerLuminance BaseLayerLuminance
+
+<FluentToolbar id="toolbar-fluent-components">
+    <FluentButton Appearance="Appearance.Accent">Accent Button</FluentButton>
+    <FluentButton Appearance="Appearance.Stealth">Stealth Button</FluentButton>
+    <FluentRadioGroup @bind-Value=value1>
+        <FluentRadio Value=@("one") Checked="true">One</FluentRadio>
+        <FluentRadio Value=@("two")>Two</FluentRadio>
+        <FluentRadio Value=@("three")>Three</FluentRadio>
+    </FluentRadioGroup>
+    <FluentMenuButton @ref=menubutton Text="Select brand color" Items="@items" OnMenuChanged="HandleOnMenuChanged"></FluentMenuButton>
+
+    <FluentButton>Button</FluentButton>
+    <FluentSelect Class="below outline" @bind-Value="@comboboxValue" TOption="string">
+        <FluentOption id="option-15">Option 1</FluentOption>
+        <FluentOption id="option-16">Second option</FluentOption>
+        <FluentOption id="option-17">Option 3</FluentOption>
+    </FluentSelect>
+    <FluentCheckbox @bind-Value=check1>Checkbox</FluentCheckbox>
+</FluentToolbar>
+
+
+<div style="padding:10px">
+    <FluentToolbar id="toolbar-fluent-components-two" style="width:100%" @ref=Toolbar>
+        <FluentRadioGroup @bind-Value=value2>
+            <FluentRadio Value=@("one") Checked="true">Add</FluentRadio>
+            <FluentRadio Value=@("two")>Open</FluentRadio>
+            <FluentRadio Value=@("three")>Copy</FluentRadio>
+            <FluentRadio Value=@("four")>Export</FluentRadio>
+            <FluentRadio Value=@("five")>Automate</FluentRadio>
+        </FluentRadioGroup>
+        <FluentButton Appearance="Appearance.Stealth">Stealth</FluentButton>
+        <FluentButton Appearance="Appearance.Accent">Refresh</FluentButton>
+        <FluentBadge>21 items</FluentBadge>
+        <FluentRadioGroup @bind-Value=value3 slot="end">
+            <FluentRadio >Filter</FluentRadio>
+            <FluentRadio>
+                <FluentTextField @bind-Value=text1 Placeholder="Search"></FluentTextField>
+            </FluentRadio>
+        </FluentRadioGroup>
+    </FluentToolbar>
+</div>
+
+@code {
+    string? comboboxValue;
+    FluentToolbar? Toolbar;
+    string? value1 = "one", value2="two", value3;
+    bool check1;
+    string? text1;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender) {
+        if (firstRender) {
+            await FillColor.SetValueFor(Toolbar!.Element, "#333".ToSwatch());
+            await BaseLayerLuminance.SetValueFor(Toolbar!.Element, (float)0.15);
+
+            StateHasChanged();
+        }
+    }
+
+    private FluentMenuButton menubutton = new();
+
+    private Dictionary<string, string> items = new Dictionary<string, string>()
+    {
+        {"0078D4","Windows"},
+        {"D83B01","Office"},
+        {"464EB8","Teams"},
+        {"107C10","Xbox"},
+        {"8661C5","Visual Studio"},
+        {"F2C811","Power BI"},
+        {"0066FF","Power Automate"},
+        {"742774","Power Apps"},
+        {"0B556A","Power Virtual Agents"}
+    };
+
+    private void HandleOnMenuChanged(MenuChangeEventArgs args)
+    {
+
+       
+    }
+}

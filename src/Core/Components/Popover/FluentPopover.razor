@@ -1,0 +1,31 @@
+﻿@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentComponentBase
+
+@if (Open)
+{
+    <FluentOverlay OnClose="@CloseAsync" Transparent=true Dismissable=true FullScreen=true/>
+    <FluentAnchoredRegion Anchor="@AnchorId"
+                          HorizontalInset="true"
+                          HorizontalDefaultPosition="@HorizontalPosition"
+                          VerticalDefaultPosition="@VerticalPosition.Bottom"
+                          Shadow="@ElevationShadow.Flyout"
+                          Class="@ClassValue"
+                          Style="@StyleValue">
+        <FluentStack Orientation="Orientation.Vertical" >
+            <div class="fluent-popover-content">
+                @if (Header is not null)
+                {
+                    <div class="fluent-popover-header">@Header</div>
+                }
+                @if (Body is not null)
+                {
+                    <div class="fluent-popover-body">@Body</div>
+                }
+                @if (Footer is not null)
+                {
+                    <div class="fluent-popover-footer">@Footer</div>
+                }
+            </div>
+        </FluentStack>
+    </FluentAnchoredRegion>
+}

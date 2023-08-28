@@ -1,0 +1,57 @@
+﻿<FluentSwitch @bind-Value="@DeferredLoading">Use deferred loading</FluentSwitch>
+<p>
+If checked, the contents of Tab two and three will be loaded after 1 second of processing (to simulate a long running process). <br />
+</p>
+
+<FluentTabs @bind-ActiveTabId="@activeid" OnTabChange="HandleOnTabChange" >
+    <FluentTab Label="Tab one" Icon="@(new Icons.Regular.Size24.LeafOne())" Id="tab-1">
+        Tab one content. This is for testing.
+    </FluentTab>
+    <FluentTab Label="Tab two" Id="tab-2" DeferredLoading="@DeferredLoading">
+        @{
+            if (DeferredLoading)
+            {
+                Thread.Sleep(1000);
+            }
+        }
+        Tab two content. This is for testing.
+    </FluentTab>
+    <FluentTab Label="Tab three" Id="tab-3" DeferredLoading="@DeferredLoading">
+        @{
+            if (DeferredLoading)
+            {
+                Thread.Sleep(1000);
+            }
+        }
+        Tab three content. This is for testing.
+    </FluentTab>
+
+</FluentTabs>
+
+<p>Active tab changed to: @changedto?.Label</p>
+
+<h4>Vertical</h4>
+<FluentTabs Orientation="Orientation.Vertical" ActiveTabId="tab-v1">
+    <FluentTab Label="Tab one" Id="tab-v1">
+        Tab one content. This is for testing.
+    </FluentTab>
+    <FluentTab Label="Tab two" Id="tab-v2">
+        Tab two content. This is for testing.
+    </FluentTab>
+    <FluentTab Label="Tab three" Id="tab-v3">
+        Tab three content. This is for testing.
+    </FluentTab>
+</FluentTabs>
+
+@code {
+    bool DeferredLoading = false;
+
+    string? activeid = "tab-1";
+    FluentTab? changedto;
+
+    private void HandleOnTabChange(FluentTab tab)
+    {
+        changedto = tab;
+    }
+}
+

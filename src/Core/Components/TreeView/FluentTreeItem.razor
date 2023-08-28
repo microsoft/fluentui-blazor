@@ -1,0 +1,17 @@
+@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentComponentBase
+<fluent-tree-item @ref=Element
+                  class="@Class"
+                  aria-label="@Text"
+                  aria-expanded="@Expanded.ToAttributeValue()"
+                  style="@Style"
+                  id="@Id"
+                  expanded="@Expanded"
+                  selected="@Selected"
+                  disabled="@Disabled"
+                  @onselectedchange="@HandleSelectedChangeAsync"
+                  @onexpandedchange="@HandleExpandedChangeAsync"
+                  @attributes="AdditionalAttributes">
+    <span class="treeitem-text">@Text</span>
+    @ChildContent
+</fluent-tree-item>

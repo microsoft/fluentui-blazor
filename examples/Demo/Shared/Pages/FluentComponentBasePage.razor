@@ -1,0 +1,46 @@
+@page "/FluentComponentBase"
+
+
+<h1>FluentComponentBase</h1>
+
+<p>
+    <code>FluentComponentBase</code> is the abstract base class all other Fluent UI Blazor components inherit from.
+</p>
+<p>You can <b>not</b> create or use a <code>FluentComponentBase</code> on a page or in another component but it adds the following parameters to every derived component.<br /><br />
+<em>These parameters are not shown in the component overviews in the rest of the documentation pages</em>
+</p>
+
+<h2>FluentComponentBase Class</h2>
+
+<h3>Parameters</h3>
+<FluentDataGrid Items="@Properties.AsQueryable()" GridTemplateColumns="1fr 1fr 0.5fr 1.5fr">
+    <TemplateColumn Title="Name">
+        <code>@context.Name</code>
+    </TemplateColumn>
+    <PropertyColumn Property="@(c => c.Type)" />
+    <PropertyColumn Property="@(c => c.Default)" />
+    <TemplateColumn Title="Description">
+        <div style="white-space: break-spaces">
+            @(new MarkupString(context.Description))
+        </div>
+    </TemplateColumn>
+</FluentDataGrid>
+
+
+@code {
+    private record paramDef(string Name, string Type, string? Default, string Description);
+    
+    private List<paramDef> Properties = new List<paramDef>
+    {
+        new paramDef("Id","string?","null","Optional Id for the component. a unique id can be generated with <code>Identifier.NewId()</code> method."),
+        new paramDef("AdditionalAttributes"," IReadOnlyDictionary<string, object>?","null","Gets or sets a collection of additional attributes that will be applied to the created element."),
+        new paramDef("Data","object?","null","Used to attach any user data object to the component."),
+        new paramDef("ParentReference","Reference?","null","A reference to the enclosing component."),
+        new paramDef("Class","string?","null","Optional CSS class names. If given, these will be included in the class attribute of the component."),
+        new paramDef("Element","ElementReference","null","The associated web component.<br /><br />May be 'null' if accessed before the component is rendered.<br />"),
+        new paramDef("Style","string?","null","Optional in-line styles. If given, these will be included in the style attribute of the component.")
+    };
+}
+
+
+

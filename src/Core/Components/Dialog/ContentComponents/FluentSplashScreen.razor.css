@@ -1,0 +1,41 @@
+﻿.fluent-launch {
+    font-family: var(--body-font);
+    -webkit-font-smoothing: antialiased;
+    background-color: white;
+    color: rgb(73, 72, 71);
+    --accent-fill-rest: #d3d3d3;
+    user-select: none;
+}
+
+    .fluent-launch h1 {
+        font-size: 32px;
+        font-weight: 600;
+        margin-top: 40px;
+        line-height: 40px;
+        margin: 40px 0px 0px 0px;
+        user-select: none;
+    }
+
+    .fluent-launch h2 {
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 32px;
+        margin: 24px 0px 50px 0px;
+        user-select: none;
+    }
+
+    .fluent-launch h3 {
+        font-size: 12px;
+        font-weight: 300;
+        margin: 0px;
+        user-select: none;
+    }
+    
+    .fluent-launch p {
+        user-select: none;
+    }
+
+    .fluent-launch .icon {
+        width: 150px;
+        margin: 20px 0px 0px 0px;
+    }

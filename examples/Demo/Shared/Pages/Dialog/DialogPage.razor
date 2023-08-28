@@ -1,0 +1,120 @@
+@page "/Dialog"
+
+@using FluentUI.Demo.Shared.Pages.Dialog.Examples;
+
+<h1>Dialog</h1>
+
+<p>As defined by the <a href="https://w3c.github.io/aria-practices/#dialog_modal" target="_blank" rel="noopener noreferrer">W3C</a>:</p>
+<blockquote>
+    <p>
+        A dialog is a window overlaid on either the primary window or another dialog window. Windows under a modal dialog are inert.
+        That is, users cannot interact with content outside an active dialog window. Inert content outside an active dialog is typically visually
+        obscured or dimmed so it is difficult to discern, and in some implementations, attempts to interact with the inert content cause the dialog
+        to close.
+    </p>
+    <p>
+        Like non-modal dialogs, modal dialogs contain their tab sequence. That is, Tab and Shift + Tab do not move focus outside
+        the dialog. However, unlike most non-modal dialogs, modal dialogs do not provide means for moving keyboard focus outside the dialog window
+        without closing the dialog.
+    </p>
+</blockquote>
+
+<p>
+    <code>&lt;FluentDialog&gt;</code> wraps the <code>&lt;fluent-dialog&gt;</code> element, a web component implementation of a dialog leveraging
+    the Fluent UI design system. <code>&lt;FluentDialog&gt;</code> acts as a shell for the dialog content, which can be specified in a number of ways. 
+</p>
+<h2>DialogService</h2>
+<p>
+    The <code>DialogService</code> is a service which is used to show different types of dialogs. It is registered as a scoped service, so it can be injected into 
+    pages/components that use it. For more information on the <code>DialogService</code>, see the <a href="DialogService">Dialog Service</a> page.
+</p>
+
+<h2>Dialog content</h2>
+<p>
+    Normally, the dialog content is specified by a component which implements <code>IDialogContentComponent&lt;T&gt;</code>. This component is then
+    passed to the <code>DialogService</code> to be shown. The <code>DialogService</code> will then render a <code>&lt;FluentDialog&gt;</code> with
+    the component inside of it. 
+</p>
+<p>
+    Alternatively, the dialog content can be specified manually by setting the <code>ChildContent</code> parameter of <code>&lt;FluentDialog&gt;</code>.
+    This is useful if you want to show a simple dialog without having to create a component for it or if you do not want to use the <code>DialogService</code>for it.
+    <br/>
+    When using the <code>DialogService</code>, for displaying a regular dialog, the dialog will always be shown centered on the screen.
+</p>
+<h2>Exchange data between dialog and calling component</h2>
+<p>
+    There are two ways available to exchange data between the dialog and the component which shows it. The first is by capturing the returned 
+    <code>IDialogReference</code> from one of the <code>DialogService.Show...Async</code> methods and then use that reference to get the dialog's 
+    result (of type <code>DialogResult</code>). The second is by using an <code>EventCalback</code> parameter as part of the
+    <code>DialogParameters</code>. Both ways are demonstated in the samples below.
+</p>
+<h2>Dialog provider</h2>
+<strong>IMPORTANT!!</strong>
+<p>
+    Dialogs are rendered by the <code>&lt;FluentDialogProvider /&gt;</code> component. This component needs to be added to the main layout of your application/site.
+    You typically do this in the <code>MainLayout.razor</code> file at the end of the <code>&lt;main&gt;</code> section like this:
+</p>
+<CodeSnippet>
+    &lt;main&gt;
+    &lt;nav&gt;
+    :
+    &lt;/nav&gt;
+    &lt;div class=&quot;content&quot;&gt;
+    &lt;article id=&quot;article&quot;&gt;
+    @@Body
+    &lt;/article&gt;
+    &lt;/div&gt;
+    &lt;FluentDialogProvider /&gt;
+    &lt;/main&gt;
+</CodeSnippet>
+
+<h2>Examples</h2>
+<p>
+    These examples shows how to use the <code>DialogService</code> to show a dialog. The content of the dialog is specified by
+    a component which implements <code>IDialogContentComponent&lt;T&gt;</code>. Here that is done in <code>SimpleDialog.razor</code>. The dialog is automatically styled and centered.
+</p>
+<p>
+    Interaction with parent dialog can be made by injecting FluentDialog as Cascading Parameter. See <code>SimpleDialog.razor</code> for more details.
+</p>
+<DemoSection Title="DialogService with IDialogReference" Component="@typeof(DialogServiceExample)" AdditionalFiles="@(new[] {"SimpleDialog.razor"})">
+    <Description>
+        This example shows how to use async methods to show a dialog and get the result back from it. 
+    </Description>
+</DemoSection>
+
+<DemoSection Title="DialogService with EventCallback" Component="@typeof(DialogServiceCallbackExample)" AdditionalFiles="@(new[] {"SimpleDialog.razor"})">
+    <Description>
+        This example shows how to use an <code>EventCallback</code> parameter to get data back from the dialog.
+    </Description>
+</DemoSection>
+
+
+<DemoSection Title="Dialog without using DialogService" Component="@typeof(DialogDefault)" CollocatedFiles="@(new[] {"css"})">
+    <Description>
+        This example shows a simple dialog created by specifying it's content manually (see the Razor tab). Because of this, the dialog is not automatically styled.
+        A CSS file has been added to set the width, heigth and padding of the dialog.
+    </Description>
+</DemoSection>
+
+<DemoSection Title="SimpleDialog as component" Component="@typeof(DialogSimpleDialog)">
+    <Description>
+        For a components to be useable in a dialog, it just needs to inherit from <code>IDialogContentComponent&lt;T&gt;</code>.
+        They can still be used as a normal component as well. This example shows the <code>SimpleDialog</code> component from the
+        previous example being rendered directly in the page.
+    </Description>
+</DemoSection>
+
+<h2>API Documentation</h2>
+
+<ApiDocumentation Component="typeof(FluentDialogProvider)" />
+
+<ApiDocumentation Component="typeof(FluentDialog)" />
+
+<p>To alter the properties of a dialog which uses the <code>DialogService</code> to display it, use the <code>DialogParameters</code> class.</p>
+<blockquote>
+    Note: Not all properties can be used for all types of dialogs. For example, the <code>DialogParameters</code> class has a <code>Height</code> property,
+    which is ignored when displaying a Panel.
+</blockquote>
+
+<ApiDocumentation Component="typeof(DialogParameters<>)" GenericLabel="TData" />
+

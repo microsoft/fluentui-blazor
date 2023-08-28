@@ -1,0 +1,8 @@
+::deep .card-padding fluent-skeleton:not(:first-child) {
+    margin-top: 10px;
+}
+
+::deep .card-padding fluent-skeleton:last-child {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}

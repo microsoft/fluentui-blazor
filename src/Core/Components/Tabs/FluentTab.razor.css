@@ -1,0 +1,37 @@
+﻿fluent-tab {
+    -webkit-user-select: none;
+    user-select: none;
+    font-weight: 400;
+}
+
+    fluent-tab[aria-selected="true"] {
+        font-weight: 600;
+        z-index: 1;
+    }
+
+    fluent-tab[overflow] {
+        display: none;
+    }
+
+    fluent-tab[disabled] {
+        cursor: not-allowed;
+        color: var(--neutral-foreground-hint)
+    }
+
+::deep .fluent-tab-icon {
+    fill: var(--neutral-fill-strong-active);
+    min-width: 18px;
+    max-width: 18px;
+}
+
+::deep .fluent-tab-close {
+    fill: var(--neutral-fill-strong-active);
+    cursor: pointer;
+    max-width: 12px;
+    max-height: 12px;
+    margin-left: 6px;
+}
+
+    ::deep .fluent-tab-close:hover {
+        fill: var(--neutral-fill-strong-hover);
+    }

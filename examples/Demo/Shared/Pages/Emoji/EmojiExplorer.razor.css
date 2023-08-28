@@ -1,0 +1,48 @@
+﻿.emoji-explorer-criteria {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.emoji-explorer {
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: auto;
+    height: 600px;
+    align-content: start;
+}
+
+    .emoji-explorer ::deep .card {
+        height: 100%;
+        min-height: 100px;
+        width: 100%;
+        min-width: 100px;
+        margin: 10px;
+        text-align: center;
+    }
+
+    .emoji-explorer ::deep .copy {
+        position: fixed;
+        top: 5px;
+        right: 5px;
+    }
+
+    .emoji-explorer ::deep .emoji {
+        height: calc(100% - 20px);
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .emoji-explorer ::deep label {
+        height: 20px;
+        width: 100%;
+        text-align: center;
+        font-size: 10px;
+        font-family: Monaco, monospace;
+        white-space: nowrap;
+        overflow: hidden;
+        background: var(--neutral-stroke-rest);
+    }
+}

@@ -1,0 +1,13 @@
+@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentComponentBase
+<CascadingValue Value="this" IsFixed="true">
+    <fluent-tree-view @ref=Element
+                      class="@Class"
+                      style="@Style"
+                      render-collapsed-nodes="@RenderCollapsedNodes"
+                      currentSelected="@CurrentSelected?.Element"
+                      @onselectedchange="@HandleCurrentSelectedChangeAsync"
+                      @attributes="AdditionalAttributes">
+        @ChildContent
+    </fluent-tree-view>
+</CascadingValue>

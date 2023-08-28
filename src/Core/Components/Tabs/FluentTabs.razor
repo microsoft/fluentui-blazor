@@ -1,0 +1,30 @@
+@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentComponentBase
+<CascadingValue Value="this" IsFixed="true">
+    <fluent-tabs @ref=Element
+                 id="@Id"
+                 class="@Class"
+                 style="@Style"
+                 orientation=@Orientation.ToAttributeValue()
+                 activeid=@ActiveTabId
+                 activeindicator="@(ShowActiveIndicator.ToString().ToLower())"
+                 @ontabchange="HandleOnTabChanged"
+                 @attributes="AdditionalAttributes">
+        @ChildContent
+        @if (TabsOverflow.Any())
+        {
+            <FluentBadge Id="@IdMoreButton" Appearance="Appearance.Neutral" Style="@StyleMoreValues" slot="end">
+                @($"+{TabsOverflow.Count()}")
+            </FluentBadge>
+        }
+    </fluent-tabs>
+    @if (TabsOverflow.Any())
+    {
+        <FluentMenu Anchor="@IdMoreButton" Trigger="MouseButton.Left" Anchored="true">
+            @foreach (var item in TabsOverflow)
+            {
+                <FluentMenuItem Label="@item.Label" OnClick="@((e) => DisplayMoreTabAsync(item))" />
+            }
+        </FluentMenu>
+    }
+</CascadingValue>

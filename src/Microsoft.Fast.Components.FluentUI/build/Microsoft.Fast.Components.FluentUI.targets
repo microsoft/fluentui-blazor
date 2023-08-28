@@ -1,9 +1,0 @@
-<Project>
-	<PropertyGroup>
-		<FluentIconSizes Condition="'$(PublishFluentIconAssets)' == 'false' OR '$(PublishFluentIconAssets)' == ''"></FluentIconSizes>
-		<FluentIconVariants Condition="'$(PublishFluentIconAssets)' == 'false' OR '$(PublishFluentIconAssets)' == ''"></FluentIconVariants>
-		<FluentEmojiGroups Condition="'$(PublishFluentEmojiAssets)' == 'false' OR '$(PublishFluentEmojiAssets)' == ''"></FluentEmojiGroups>
-		<FluentEmojiStyles Condition="'$(PublishFluentEmojiAssets)' == 'false' OR '$(PublishFluentEmojiAssets)' == ''"></FluentEmojiStyles>
-	</PropertyGroup>
-  <Import Project="$(MSBuildThisFileDirectory)Microsoft.AspNetCore.StaticWebAssets.targets"/>
-</Project>

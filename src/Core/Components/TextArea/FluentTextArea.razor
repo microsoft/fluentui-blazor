@@ -1,0 +1,27 @@
+@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentInputBase<string?>
+<fluent-text-area @ref=Element
+                  class="@ClassValue"
+                  style="@StyleValue"
+                  readOnly="@Readonly"
+                  resize="@Resize.ToAttributeValue()"
+                  autofocus="@Autofocus"
+                  form=@Form
+                  list=@DataList
+                  maxlength=@Maxlength
+                  minlength=@Minlength
+                  placeholder="@Placeholder"
+                  cols=@Cols
+                  rows=@Rows
+                  spellcheck=@Spellcheck
+                  id=@Id
+                  value=@Value
+                  current-value="@BindConverter.FormatValue(CurrentValue)"
+                  disabled="@Disabled"
+                  name=@Name
+                  required="@Required"
+                  appearance="@Appearance.ToAttributeValue()"
+                  @onchange=@(e => SetCurrentValue((string?)e.Value))
+                  @attributes="AdditionalAttributes">
+    @ChildContent
+</fluent-text-area>

@@ -1,0 +1,69 @@
+<div id="viewport-toggle-positions" style="position:relative;height:400px;width:400px;background: var(--neutral-layer-4);overflow:scroll">
+    <FluentButton Appearance=Appearance.Neutral id="anchor-toggle-positions" style="margin-left:150px;margin-top:100px">anchor</FluentButton>
+    <FluentAnchoredRegion id="toggle-positions-region" Anchor="anchor-toggle-positions" Viewport="viewport-toggle-positions"
+                          VerticalPositioningMode="AxisPositioningMode.Locktodefault"
+                          VerticalDefaultPosition="@verticalPosition"
+                          HorizontalPositioningMode="AxisPositioningMode.Locktodefault"
+                          HorizontalDefaultPosition="@horizontalPosition"
+                          HorizontalScaling="AxisScalingMode.Content"
+                          VerticalScaling="AxisScalingMode.Content"
+                          AutoUpdateMode="AutoUpdateMode.Anchor">
+
+        <div style="height:@(size)px;width:@(size)px;background:var(--highlight-bg);" />
+    </FluentAnchoredRegion>
+    <div style="margin-top:20px;display:flex;flex-direction:row">
+        <FluentButton Appearance=Appearance.Neutral style="margin-left:10px;margin-top:120px" @onclick=ToggleHorizontal> toggle horizontal</FluentButton>
+        <FluentButton Appearance=Appearance.Neutral style="margin-top:120px" @onclick=ToggleVertical>toggle vertical</FluentButton>
+        <FluentButton Appearance=Appearance.Neutral style="margin-top:120px" @onclick=SetSmall>small</FluentButton>
+        <FluentButton Appearance=Appearance.Neutral style="margin-top:120px" @onclick=SetLarge>large</FluentButton>
+    </div>
+</div>
+
+@code {
+    int size = 50;
+    HorizontalPosition horizontalPosition = HorizontalPosition.Right;
+    VerticalPosition verticalPosition = VerticalPosition.Bottom;
+
+    private void SetSmall()
+    {
+        size = 50;
+    }
+
+    private void SetLarge()
+    {
+        size = 100;
+    }
+
+    private void ToggleHorizontal()
+    {
+        if (horizontalPosition == HorizontalPosition.Left)
+        {
+            horizontalPosition = HorizontalPosition.Center;
+        }
+        else if (horizontalPosition == HorizontalPosition.Center)
+        {
+            horizontalPosition = HorizontalPosition.Right;
+        }
+        else if (horizontalPosition == HorizontalPosition.Right)
+        {
+            horizontalPosition = HorizontalPosition.Left;
+        }
+        
+    }
+
+    private void ToggleVertical()
+    {
+        if (verticalPosition == VerticalPosition.Top)
+        {
+            verticalPosition = VerticalPosition.Center;
+        }
+        else if (verticalPosition == VerticalPosition.Center)
+        {
+            verticalPosition = VerticalPosition.Bottom;
+        }
+        else if (verticalPosition == VerticalPosition.Bottom)
+        {
+            verticalPosition = VerticalPosition.Top;
+        }
+    }
+}

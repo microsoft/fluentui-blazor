@@ -1,8 +1,0 @@
-﻿::deep > fluent-button + fluent-menu {
-    display: none;
-}
-
-::deep > fluent-menu.visible {
-    display: block;
-    width: fit-content;
-}

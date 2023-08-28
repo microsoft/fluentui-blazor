@@ -1,9 +1,0 @@
-﻿@page "/Lab/MenuButton"
-<h1>MenuButton</h1>
-
-<p>A menu button is a button with a chevron icon after the text typically used to trigger a menu.</p>
-
-
-<h2>Example</h2>
-
-<DemoSection Component="typeof(MenuButton)" Title="MenuButton to select accent color" CollocatedFiles="@(new[] {"css", "js"})"  />

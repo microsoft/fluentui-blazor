@@ -1,0 +1,50 @@
+@page "/Panel"
+
+@using FluentUI.Demo.Shared.Pages.Panel.Examples;
+
+<h1>Panel</h1>
+
+<p>
+    A panel is a dialog that is anchored to the either left or right side of the screen. By implementing <code>IDialogContentComponent&lt;T&gt;</code>, 
+    a component can be used as the content of a panel. The appearance of the panel can be altered by using the <code>DialogParameters</code> class.
+</p>
+<p>
+    Data can be exchanged between the panel and the component that opened the panel by by capturing the returned <code>IDialogReference</code> from 
+    one of the <code>DialogService.Show...Async</code> methods and then use that reference to get the dialog's result (of type <code>DialogResult</code>) 
+    or by using an EventCallback. 
+</p>
+
+
+<p>
+    A panel can be shown by calling one of following methods on the <code>DialogService</code>:
+    <ul>
+        <li><code>ShowPanel&lt;TDialogContent,TData&gt;</code> / <code>ShowPanelAsync&lt;TDialogContent,TData&gt;</code></li>
+        <li><code>ShowPanel&lt;TData&gt;</code> / <code>ShowPanelAsync&lt;TData&gt;</code></li>
+    </ul>
+</p>
+<p>
+    For more information on how to use the <code>DialogService</code>, see the <a href="DialogService">DialogService</a> page.
+</p>
+<h2>Examples</h2>
+
+<DemoSection Title="Panels using async" Component="@typeof(DialogPanelAsync)" AdditionalFiles="@(new[] {"SimplePanel.razor"})">
+    <Description>
+        The panel that is anchored to the right side of the screen can be dismissed by clicking the dismiss button (at the top), 
+        'No' button (at the bottom) or by clicking outside of the panel.<br />
+        The panel shown on the left side of the screen can only be closed by clicking the 'Cancel' button at the bottom of the panel. It does 
+        not show a dissmiss button and is shown in a modal fashion based on the settings provided through the <code>DialogParameters</code>.
+    </Description>
+</DemoSection>
+
+
+<DemoSection Title="Panels using callbacks" Component="@typeof(DialogPanel)" AdditionalFiles="@(new[] {"SimplePanel.razor"})">
+    <Description>
+        The panel that is anchored to the right side of the screen can be dismissed by clicking the dismiss button (at the top),
+        'No' button (at the bottom) or by clicking outside of the panel.<br />
+        The panel shown on the left side of the screen can only be closed by clicking the 'Cancel'' button at the bottom of the panel. It does
+        not show a dissmiss button and is shown in a modal fashion based on the settings provided through the <code>DialogParameters</code>
+    </Description>
+</DemoSection>
+
+<h2>API Documentation</h2>
+<ApiDocumentation Component="typeof(DialogParameters<>)" InstanceType="typeof(string)" GenericLabel="TData" />

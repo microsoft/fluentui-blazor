@@ -1,0 +1,9 @@
+﻿div[draggable='true'] {
+    cursor: move;
+}
+
+div[dragged-over] {
+    background-color: lightgray;
+    opacity: 0.6;
+    animation: blinker 1s linear infinite;
+}

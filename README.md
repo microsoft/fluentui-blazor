@@ -35,10 +35,13 @@ dotnet add package Microsoft.Fast.Components.FluentUI
 ```
 
 ### Script
-As of version 2.3 it is no longer needed to include the `web-components` script in your `index.html` or `_Layout.cshtml` file. The script is now included in 
-the library. This way we can safeguard that the you are always getting the version of the script that best matches the Blazor components.
+The heart of this library is formed by the Fluent UI Web Components and the accompanying `web-components.min.js` file. From version 2.3 onwards, the 
+script is included in the library itself and no longer needs to be added to your `index.html` or `_Layout.cshtml`. In fact, doing this might lead to 
+unpredictable results. 
 
 > **If you are upgrading from an earlier version please remove the script from your `index.html` or `_Layout.cshtml` file.**
+
+The script is added to the application automatically. This way we can safeguard that the you are always using the best matching script version.
 
 
 ### Styles
@@ -89,7 +92,7 @@ replaced with Fluent UI Blazor counterparts (and a few extra have been added). P
 for more information.
 
 If you want to use icons and/or emoji with applications based on the templates, you still need to make the changes to the project file 
-and `Program.cs` as described in the previous sections.
+and `Program.cs` as described in the [project setup](https://www.fluentui-blazor.net/ProjectSetup) and [code setup](https://www.fluentui-blazor.net/CodeSetup) documents.
 
 
 ## Using the FluentUI Web Components
@@ -110,9 +113,10 @@ Here's a small example of a `FluentCard` with a `FluentButton` that uses the Flu
   <FluentButton Appearance="@Appearance.Accent">Click Me</FluentButton>
 </FluentCard>
 ```
-> :bulb: **Tip**
+> **Tip**
 > 
-> You can add `@using Microsoft.Fast.Components.FluentUI` to the namespace collection in `_Imports.razor`, so you don't have to add it to every razor page that uses one of the components.
+> You can add `@using Microsoft.Fast.Components.FluentUI` to the namespace collection in `_Imports.razor`, so you don't have to add it to every razor page 
+that uses one of the components.
 
 
 ## Configuring the Design System
@@ -136,14 +140,12 @@ public class FileBasedStaticAssetService : IStaticAssetService
 	public async Task<string> GetAsync(string assetUrl, bool useCache = false)
 	{
 		string result = null;
-		HttpRequestMessage message = CreateMessage(assetUrl);
 		if (string.IsNullOrEmpty(result))
 		{
 			result = await ReadData(assetUrl);
 		}
 		return result;
 	}
-	private static HttpRequestMessage CreateMessage(string url) => new(HttpMethod.Get, url);
  
 	private static async Task<string> ReadData(string file)
 	{
@@ -163,18 +165,22 @@ builder.Services.AddFluentUIComponents(options =>
 });
 builder.Services.AddScoped<IStaticAssetService, FileBasedStaticAssetService>();
 ```
-### Tempory workaround for MAUI issues
-Currently in MAUI the web-components script is not imported automatically (see [#404](https://github.com/microsoft/fluentui-blazor/issues/404). There is also an isue with loading the custom event handelers that are being raised by the web-components script. Until these are fixed on the MAUI side, there is a workaround available, namely to intercept '_framework/blazor.modules.json' and provide proper JS initializers file (created by build). You can drop this [initializersLoader.windows.js](https://github.com/andreisaperski/fluentui-blazor/blob/hybrid-examples/examples/FluentUI.Demo.Hybrid.Shared/wwwroot/js/initializersLoader.windows.js) into wwwroot folder of your app and add a script tag for it to your `index.html` right before the `_framework/blazor.webview.js` tag:
+
+### Tempory workaround for MAUI/WPF/Windows Forms issues
+Currently when using the WebView to run Blazor (so all Hybrid variants) the web-components script is not imported automatically (see [#404](https://github.com/microsoft/fluentui-blazor/issues/404). 
+There is also an isue with loading the custom event handlers that are being configured by the web-components script. Until these are fixed on the WebView side, there is 
+a workaround available, namely to intercept '_framework/blazor.modules.json' and provide proper JS initializers file (created by build). The needed	`initializersLoader.webview.js` has 
+been added to the library and needs to be included with a script tag **before** the `_framework/blazor.webview.js` script tag:
 
 ```xml
-<script app-name="FluentUI.Demo.Hybrid.MAUI" src="./_content/FluentUI.Demo.Hybrid.Shared/js/initializersLoader.windows.js"></script>
+<script app-name="{NAME OF YOUR APP}" src="./_content/Microsoft.Fast.Components.FluentUI/js/initializersLoader.webview.js"></script>
 <script src="_framework/blazor.webview.js"></script>
 ```
 
 The `app-name` attribute needs to match your app's assembly name - initializersLoader uses 'app-name' to resolve name of the file with initializers.
 initializersLoader replaces standard `fetch` function with one which provides the correct file in place of the empty `blazor.modules.json`. `fetch` is restored to its original state once `_framework/blazor.modules.json` request is intercepted.
 
-For more information regarding the MAUI bug see issues [15234](https://github.com/dotnet/maui/issues/15234) there.
+For more information regarding the bug, see issue [15234](https://github.com/dotnet/maui/issues/15234) in the MAUI repo.
 	
 ## Use the DataGrid component with EF Core
 If you want to use the `<FluentDataGrid>` with data provided through EF Core, you need to install 

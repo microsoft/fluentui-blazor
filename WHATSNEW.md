@@ -1,4 +1,40 @@
-﻿## 2.4.3
+﻿## V3.0.0
+
+** 26 New components**
+- Header
+- Footer
+- BodyContent
+- Grid
+- Layout
+- MainLayout
+- Spacer
+- Splitter
+- Stack
+- CounterBadge
+- PresenceBadge
+- CodeEditor
+- Date & Time (Calendar, DatePicker, TimePicker)
+- Dialog
+- DragDrop
+- Highlighter
+- Label
+- MessageBox
+- Overflow
+- Overlay
+- Panel
+- Popover
+- SplashScreen
+- Toast
+
+
+**Completely redone components (and configuration)**
+- Icon
+- Emoji
+
+**Other changes**
+- Added initializersLoader.webview.js to work around Blazor Hybrid bug (see readme)
+
+## 2.4.3
 - Fix [#645](https://github.com/microsoft/fluentui-blazor/issues/645): FluentIcon sometimes  fails to render
 - Fix [#644](https://github.com/microsoft/fluentui-blazor/issues/644): FluentDataGrid column resize isseu (thanks @konvolution)
 - Update Fluent UI System Icons to 1.1.211 (from 1.1.204)

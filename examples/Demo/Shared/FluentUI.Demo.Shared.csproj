@@ -1,0 +1,69 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+	<PropertyGroup>
+		<!-- Uncomment below line if you want to target all mentioned frameworks -->
+		<!-- Targeting just one framework will speed up build time -->
+		<!--<TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>-->
+		<!-- Comment below line if you enable line above -->
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<LangVersion>latest</LangVersion>
+		<GenerateDocumentationFile>false</GenerateDocumentationFile>
+		<IsTrimmable>true</IsTrimmable>
+		<SuppressTrimAnalysisWarnings>false</SuppressTrimAnalysisWarnings>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<SupportedPlatform Include="browser" />
+	</ItemGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='Debug'">
+		<Optimize>False</Optimize>
+		<WarningLevel>6</WarningLevel>
+		<NullableReferenceTypes>true</NullableReferenceTypes>
+		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+		<NoWarn>1701;1702;8669;1591;1816</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
+		<Optimize>True</Optimize>
+		<NoWarn>1701;1702;8669;1591</NoWarn>
+		<DebuggerSupport>false</DebuggerSupport>
+		<TrimmerRemoveSymbols>true</TrimmerRemoveSymbols>
+	</PropertyGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)'=='net6.0'">
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.21" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)'=='net7.0'">
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.10" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)'=='net8.0'">
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.0-preview.7.*" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\src\Core\Microsoft.Fast.Components.FluentUI.csproj" />
+		<ProjectReference Include="..\DocGenerator\FluentUI.Demo.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+		<PackageReference Include="Markdig" Version="0.31.0" />
+		<PackageReference Include="Microsoft.Fast.Components.FluentUI.Emojis" Version="3.*-*" />
+		<PackageReference Include="Microsoft.Fast.Components.FluentUI.Icons" version="3.0.0-preview.5" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+		<TrimmerRootAssembly Include="Microsoft.Fast.Components.FluentUI" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<AdditionalFiles Include="$(ProjectDir)/*.xml" />
+	</ItemGroup>
+
+	<Target Name="CopySources" BeforeTargets="BeforeBuild">
+		<ItemGroup>
+			<Sources Include="$(ProjectDir)\Pages\**\Examples\*" />
+			<Sources Include="$(ProjectDir)\Pages\Lab\**" />
+			<Sources Include="$(ProjectDir)\Components\*" />
+		</ItemGroup>
+		<Copy SourceFiles="@(Sources)" DestinationFiles="@(Sources->'$(ProjectDir)wwwroot\sources\%(Filename)%(Extension).txt')" SkipUnchangedFiles="true" />
+	</Target>
+</Project>
