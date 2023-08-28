@@ -4,8 +4,7 @@ on:
     branches: 
       - main
       - dev
-      - new-components
-      - v2
+      - archives/v2
     paths-ignore:
       - '**/*.md'
       - '**/*.gitignore'
