@@ -124,47 +124,7 @@ The Fluent UI Blazor components are built on FAST's (Adaptive UI) technology, wh
 maintaining accessibility. This is accomplished through setting various "design tokens". The library exposes all design tokens, which you can use both from code as in a declarative way in your `.razor` pages. The three different ways of working with design tokens are described in the [design tokens](https://www.fluentui-blazor.net/DesignTokens) page.
 
 ## Blazor Hybrid
-Starting with the 2.0 release, you can also use this library in your Blazor Hybrid projects. Setup is almost the same as described in the "Getting started" section above, but to get everything to work you'll need to take two extra steps:
-1. You need to add a MAUI specific IStaticAssetService implementation.  
- Due to some issues, this file can't be part of the library (yet) so this needs to be added manually to your MAUI Blazor project.  
-Create a new class in you project called `FileBasedStaticAssetService.cs` Replace it's contents with the following:  
-
-```csharp
-using System.Net;
-using Microsoft.Fast.Components.FluentUI.Infrastructure;
-
-namespace Microsoft.Fast.Components.FluentUI;
-
-public class FileBasedStaticAssetService : IStaticAssetService
-{
-	public async Task<string> GetAsync(string assetUrl, bool useCache = false)
-	{
-		string result = null;
-		if (string.IsNullOrEmpty(result))
-		{
-			result = await ReadData(assetUrl);
-		}
-		return result;
-	}
- 
-	private static async Task<string> ReadData(string file)
-	{
-		using var stream = await FileSystem.OpenAppPackageFileAsync($"wwwroot/{file}");
-		using var reader = new StreamReader(stream);
-		return await reader.ReadToEndAsync();
-	}
-}
-```
-
-2. You need to make some changes in your `MauiProgram.cs` file  
-Make sure the following is added before the `return builder.Build()` line:  
-```csharp
-builder.Services.AddFluentUIComponents(options =>
-{
-		options.HostingModel = BlazorHostingModel.Hybrid;
-});
-builder.Services.AddScoped<IStaticAssetService, FileBasedStaticAssetService>();
-```
+Starting with the 2.0 release, you can also use this library in your Blazor Hybrid projects. Setup is almost the same as described in the "Getting started" section above, but to get everything to work you'll need to take one extra steps (for now):
 
 ### Tempory workaround for MAUI/WPF/Windows Forms issues
 Currently when using the WebView to run Blazor (so all Hybrid variants) the web-components script is not imported automatically (see [#404](https://github.com/microsoft/fluentui-blazor/issues/404). 
