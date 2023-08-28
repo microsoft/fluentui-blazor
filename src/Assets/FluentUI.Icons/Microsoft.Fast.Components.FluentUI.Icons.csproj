@@ -24,7 +24,7 @@
 
 	<ItemGroup>
 		<None Include="README.md" Pack="true" PackagePath="\" />
-		<PackageReference Include="Microsoft.Fast.Components.FluentUI" Version="3.*-*" />
+		<PackageReference Include="Microsoft.Fast.Components.FluentUI" Version="3.0.0" />
 		<None Include="..\..\..\icon.png" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
