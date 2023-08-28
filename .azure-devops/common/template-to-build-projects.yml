@@ -20,7 +20,7 @@ steps:
       
       if ("$stageId" -eq "")
       {
-        $package = "$($builds[0]).$($builds[1]).0"
+        $package = "$($builds[0]).$($builds[1]).$($builds[2]).$($builds[3])"
       }
       else
       {
