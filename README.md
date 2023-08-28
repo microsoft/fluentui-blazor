@@ -124,7 +124,16 @@ The Fluent UI Blazor components are built on FAST's (Adaptive UI) technology, wh
 maintaining accessibility. This is accomplished through setting various "design tokens". The library exposes all design tokens, which you can use both from code as in a declarative way in your `.razor` pages. The three different ways of working with design tokens are described in the [design tokens](https://www.fluentui-blazor.net/DesignTokens) page.
 
 ## Blazor Hybrid
-Starting with the 2.0 release, you can also use this library in your Blazor Hybrid projects. Setup is almost the same as described in the "Getting started" section above, but to get everything to work you'll need to take one extra steps (for now):
+You can use this library in Blazor Hybrid (MAUI/WPF/Windows Forms) projects. Setup is almost the same as described in the "Getting started" section above, but to get everything to work you'll need to take some extra steps (for now):
+
+1. You need to make some changes in your `{Type}Program.cs` file  
+Make sure the following is added before the `return builder.Build()` line:  
+```csharp
+builder.Services.AddFluentUIComponents(options =>
+{
+		options.HostingModel = BlazorHostingModel.Hybrid;
+});
+```
 
 ### Tempory workaround for MAUI/WPF/Windows Forms issues
 Currently when using the WebView to run Blazor (so all Hybrid variants) the web-components script is not imported automatically (see [#404](https://github.com/microsoft/fluentui-blazor/issues/404). 
