@@ -157,6 +157,7 @@ public partial class FluentIcon : FluentComponentBase
             _svg = iconContent;
             _previousIconContent = iconContent;
             _size = Convert.ToInt32(Size);
+            _shouldRender = true;
             StateHasChanged();
         }
     }
