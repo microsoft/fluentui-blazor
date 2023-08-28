@@ -18,7 +18,7 @@ steps:
       $stage = "$(VersionStage)"
       $stageId = "$(VersionStageId)"
       
-      if ("$(stageId)" -eq "")
+      if ("$stageId" -eq "")
       {
         $package = "$($builds[0]).$($builds[1]).0.$($builds[2]).$($builds[3])"
       }
