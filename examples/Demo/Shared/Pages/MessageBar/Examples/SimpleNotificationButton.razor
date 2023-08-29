@@ -1,0 +1,18 @@
+﻿
+@inject IDialogService DialogService
+
+<FluentCounterBadge Fill="Fill.Lowlight">
+    <BadgeContent>
+        <FluentMessageBarContainer IsNumberOnly="true" Category="ALERT_NOTIFICATION_CENTER" />
+    </BadgeContent>
+    <ChildContent>
+        <FluentButton Appearance="Appearance.Accent"
+                     Style="margin: 0px 5px;"
+                     Title="Notifications"
+                     IconStart="@(new Icons.Regular.Size32.Alert())"
+                     OnClick="@(e => DialogService.ShowDialogAsync<SimpleNotificationCenterDialog>("Notifications", new DialogParameters()
+                        {
+                            ShowDismiss = false,
+                        }))" />
+    </ChildContent>
+</FluentCounterBadge>

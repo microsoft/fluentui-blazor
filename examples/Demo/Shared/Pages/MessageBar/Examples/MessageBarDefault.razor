@@ -1,0 +1,35 @@
+﻿@inject IMessageService MessageService
+
+Click on this button to display a message (max 5) in the top
+or in the Notification Center (top/right icon).
+
+<br />
+<FluentButton OnClick="@AddInTopBar" Appearance="Appearance.Accent">Add on Top</FluentButton>
+<FluentButton OnClick="@AddInNotificationCenter" Appearance="Appearance.Accent">Add in Notification Center</FluentButton>
+<FluentButton Appearance="Appearance.Hypertext" OnClick="@((e) => MessageService.Clear())">Clear all alerts</FluentButton>
+
+@code
+{
+    int counter = 0;
+    void AddInTopBar()
+    {
+        var type = Enum.GetValues<MessageType>()[counter % 4];
+        var message = $"Simple message #{counter++}";
+        var category = "ALERT_TOP"; // App.ALERT_TOP;
+        MessageService.Add(message, category, type);
+    }
+
+    void AddInNotificationCenter()
+    {
+        MessageService.Add(option =>
+        {
+            option.Type = Enum.GetValues<MessageType>()[counter % 4];
+            option.Text = $"Simple Alert #{counter++}";
+            option.DetailedText = MessageBarSamples.OneRandomMessage;
+            option.Action.Text = "more info";
+            option.Action.Href = "http://papertoilet.com";
+            option.Timestamp = DateTime.Now;
+            option.Category = "ALERT_NOTIFICATION_CENTER"; // App.ALERT_NOTIFICATION_CENTER;
+        });
+    }
+}

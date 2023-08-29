@@ -1,0 +1,102 @@
+﻿@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentComponentBase
+@if (ChildContent == null || IsVisible)
+{
+    @**********@
+    @* OneRow *@
+    @**********@
+    @if (Format == MessageBarFormat.Default)
+    {
+        <div class="@ClassValue" style="@StyleValue">
+
+            @* Icon *@
+            @if (ShowIcon)
+            {
+                <FluentIcon Icon="@Icon" Class="power-alert-icon" Title="@(Message?.Type.ToAttributeValue())" />
+            }
+
+            @* Message *@
+            <div class="power-alert-message">
+                @((MarkupString)Text)
+                @ChildContent
+                @if (ShowActionButton)
+                {
+                    <FluentAnchor Href="@(String.IsNullOrEmpty(Action?.Href) ? "#" : Action?.Href)"
+                     @onclick="@ActionClickedAsync"
+                     title="Alert action"
+                     Class="power-alert-action"
+                     Target="_blank">
+                        @Action?.Text
+                    </FluentAnchor>
+                }
+            </div>
+
+            @* Close *@
+            @if (ShowDismiss)
+            {
+                <FluentIcon Icon="@CoreIcons.Filled.Size24.DismissCircle"
+               Class="power-alert-close"
+               OnClick="DismissClicked" />
+            }
+        </div>
+    }
+
+    @****************@
+    @* Notification *@
+    @****************@
+    @if (this.Format == MessageBarFormat.Notification)
+    {
+        <div class="@ClassValue" style="@StyleValue">
+
+            @* Icon *@
+            @if (ShowIcon)
+            {
+                <FluentIcon Icon="@Icon"
+               Class="power-alert-notification-icon"
+               
+               Title="@(Message?.Type?.ToAttributeValue())" />
+            }
+
+            @* Message *@
+            <div class="power-alert-notification-message" title="@Message">
+                @((MarkupString)Text)
+            </div>
+
+            @* Close *@
+            @if (ShowDismiss)
+            {
+                <FluentIcon Icon="@CoreIcons.Filled.Size24.DismissCircle"
+               Class="power-alert-notification-close"
+               OnClick="DismissClicked" />
+            }
+
+            @* Detailled content *@
+            <div class="power-alert-notification-content">
+                @ChildContent
+                @if (!String.IsNullOrEmpty(Message?.DetailledText))
+                {
+                    @((MarkupString)Message.DetailledText)
+                }
+                @if (ShowActionButton)
+                {
+                    <FluentAnchor Href="@(String.IsNullOrEmpty(Action?.Href) ? "#" : Action?.Href)"
+                     @onclick="@ActionClickedAsync"
+                     title="Alert action"
+                     Class="power-alert-notification-action"
+                     Target="_blank">
+                        @Action?.Text
+                    </FluentAnchor>
+                }
+            </div>
+
+            @* Recorded time *@
+            @if (Timestamp != null)
+            {
+                <div class="power-alert-notification-time">
+                    @((DateTime.Now - Timestamp)?.ToTimeAgo())
+                </div>
+            }
+
+        </div>
+    }
+}

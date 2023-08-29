@@ -3429,6 +3429,293 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentMenuItem.OnClickHandlerAsync">
             <summary />
         </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.FluentMessageBar">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.ClassValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.StyleValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.Format">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.Message">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.ChildContent">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.Type">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.Icon">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.ShowDismiss">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.IsVisible">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.Text">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.Recorded">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.DismissIcon">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.ShowIcon">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.Action">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.ShowActionButton">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentMessageBar.ActionClickedAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentMessageBar.DismissClicked">
+            <summary />
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.ClassValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.StyleValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.MessageService">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.Category">
+            <summary>
+            Display only alerts from this category.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.IsNumberOnly">
+            <summary>
+            Display the list of alerts (false) or only the number of alerts (true).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.Format">
+            <summary>
+            Displays alerts as a single line (with the message only)
+            or as a card (with the detailed message).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.MaxMessageCount">
+            <summary>
+            Maximum number of alerts displayed. All others are stored in memory to be displayed when an existing alert is closed.
+            By default, this property is <see cref="P:Microsoft.Fast.Components.FluentUI.MessageBarGlobalOptions.MaxMessageCount" />.
+            Set a value equal to or less than zero, to display all alerts for this <see cref="P:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.Category" /> (or all categories if not set).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.AllMessagesForThisCategory">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.MessagesShown">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.OnInitialized">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.OnAlertUpdateHandler">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.Dispose">
+            <summary />
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.Message">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Message.#ctor(Microsoft.Fast.Components.FluentUI.MessageOptions)">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Message.Options">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Message.Category">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Message.Text">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Message.DetailledText">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Message.Type">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Message.Close">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Message.Empty">
+            <summary />
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.IMessageService">
+            <summary />
+        </member>
+        <member name="E:Microsoft.Fast.Components.FluentUI.IMessageService.OnMessageItemsUpdated">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.IMessageService.Configuration">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.IMessageService.AllMessages">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IMessageService.MessagesShown(System.String)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IMessageService.Add(System.Action{Microsoft.Fast.Components.FluentUI.MessageOptions})">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IMessageService.Add(System.String)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IMessageService.Add(System.String,Microsoft.Fast.Components.FluentUI.MessageType)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IMessageService.Add(System.String,System.String,Microsoft.Fast.Components.FluentUI.MessageType)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IMessageService.Clear(System.String)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IMessageService.Remove(Microsoft.Fast.Components.FluentUI.Message)">
+            <summary />
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.MessageAction">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageAction.Text">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageAction.Href">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageAction.OnClick">
+            <summary />
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.MessageBarGlobalOptions">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageBarGlobalOptions.NewestOnTop">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageBarGlobalOptions.MaxMessageCount">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageBarGlobalOptions.ShowDismiss">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageBarGlobalOptions.ClearAfterNavigation">
+            <summary />
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.MessageOptions">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.MessageOptions.#ctor(Microsoft.Fast.Components.FluentUI.MessageBarGlobalOptions)">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.Global">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.Category">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.Timestamp">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.Text">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.DetailedText">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.Icon">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.ShowDismiss">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.OnClose">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.Action">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.Type">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.ClearAfterNavigation">
+            <summary />
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.MessageService">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.#ctor">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.#ctor(Microsoft.AspNetCore.Components.NavigationManager)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.#ctor(Microsoft.AspNetCore.Components.NavigationManager,Microsoft.Fast.Components.FluentUI.MessageBarGlobalOptions)">
+            <summary />
+        </member>
+        <member name="E:Microsoft.Fast.Components.FluentUI.MessageService.OnMessageItemsUpdated">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageService.MessageLock">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageService.MessageList">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageService.Configuration">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageService.AllMessages">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.MessagesShown(System.String)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.Add(System.String)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.Add(System.String,Microsoft.Fast.Components.FluentUI.MessageType)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.Add(System.String,System.String,Microsoft.Fast.Components.FluentUI.MessageType)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.Add(System.Action{Microsoft.Fast.Components.FluentUI.MessageOptions})">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.Clear(System.String)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.Remove(Microsoft.Fast.Components.FluentUI.Message)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.NavigationManager_LocationChanged(System.Object,Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.Dispose">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.RemoveMessageItems(System.String)">
+            <summary />
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
@@ -8919,6 +9206,19 @@
             The menu item has a "menuitemradio" role
             </summary>
         </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.MessageBarFormat">
+            <summary />
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.MessageBarFormat.Default">
+            <summary>
+            To display in the top of screen.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.MessageBarFormat.Notification">
+            <summary>
+            To display in a notification center.
+            </summary>
+        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.MessageBoxIntent">
             <summary />
         </member>
@@ -8954,6 +9254,21 @@
             <summary>
             Informs about a custom event or operation. 
             </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.MessageType">
+            <summary />
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.MessageType.Info">
+            <summary />
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.MessageType.Warning">
+            <summary />
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.MessageType.Error">
+            <summary />
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.MessageType.Success">
+            <summary />
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.MouseButton">
             <summary>

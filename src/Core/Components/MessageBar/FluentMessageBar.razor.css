@@ -1,0 +1,138 @@
+﻿/* OneRow */
+
+.power-alert {
+    font-family: var(--body-font);
+    color: var(--neutral-foreground-rest);
+    display: grid;
+    grid-template-columns: 24px 1fr auto;
+    width: 100%;
+    padding: 0px 3px;
+}
+
+    .power-alert.alert-info {
+        background-color: #f4f4f4; /* Gray */
+        fill: #797775;
+    }
+
+    .power-alert.alert-warning {
+        background-color: #fff9f0; /* Orange */
+        fill: #d83b01;
+    }
+
+    .power-alert.alert-error {
+        background-color: #fef4f3; /* Red */
+        fill: #a80000;
+    }
+
+    .power-alert.alert-success {
+        background-color: #f0fcf5; /* Green */
+        fill: #107c10;
+    }
+
+.power-alert-icon {
+    grid-column: 1;
+    padding: 4px;
+    max-width: 24px;
+    max-height: 24px;
+    align-self: center
+}
+
+.power-alert-message {
+    grid-column: 2;
+    padding: 6px 12px;
+    align-self: center;    
+}
+
+::deep .power-alert-action {
+    margin-left: 10px;
+}
+
+.power-alert-close {
+    grid-column: 3;
+    padding: 4px;
+    justify-self: center;
+    align-self: center;
+    fill: var(--neutral-fill-strong-active);
+    cursor: pointer;
+    max-width: 16px;
+    max-height: 16px;
+}
+
+/* Notification */
+
+.power-alert-notification {
+    font-family: var(--body-font);
+    color: var(--neutral-foreground-rest);
+    display: grid;
+    grid-template-columns: 24px 1fr auto;
+    grid-template-rows: 30px 1fr auto;
+    width: 100%;
+    padding: 3px;
+}
+
+    .power-alert-notification.alert-info {
+        fill: #797775; /* Gray */
+    }
+
+    .power-alert-notification.alert-warning {
+        fill: #d83b01; /* Orange */
+    }
+
+    .power-alert-notification.alert-error {
+        fill: #a80000; /* Red */
+    }
+
+    .power-alert-notification.alert-success {
+        fill: #107c10; /* Green */
+    }
+
+.power-alert-notification-icon {
+    grid-column: 1;
+    grid-row: 1;
+    padding: 4px;
+    max-width: 24px;
+    max-height: 24px;
+    align-self: center
+}
+
+.power-alert-notification-message {
+    grid-column: 2;
+    grid-row: 1;
+    padding: 6px 12px;
+    align-self: center;
+    font-weight: bold;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.power-alert-notification-content {
+    grid-column: 1 / 4;
+    grid-row: 2;
+    padding: 6px 6px;
+}
+
+::deep .power-alert-notification-action {
+    margin-left: 10px;
+}
+
+.power-alert-notification-close {
+    grid-column: 3;
+    grid-row: 1;
+    padding: 4px;
+    justify-self: center;
+    align-self: center;
+    fill: var(--neutral-fill-strong-active);
+    cursor: pointer;
+    max-width: 16px;
+    max-height: 16px;
+}
+
+.power-alert-notification-time {
+    grid-column: 2 / 4;
+    grid-row: 3;
+    font-size: small;
+    right: 10px;
+    text-align: right;
+    padding: 0px 4px 4px 0px;
+}

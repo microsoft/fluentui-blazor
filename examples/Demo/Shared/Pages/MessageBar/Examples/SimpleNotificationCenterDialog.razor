@@ -1,0 +1,21 @@
+﻿@implements IDialogContentComponent
+@inject IMessageService MessageService
+
+<div style="margin-right: 7px;">
+
+    <FluentStack>
+        <FluentAnchor Href="/DataGrids" IconEnd="@(new Icons.Regular.Size20.ArrowRight())">
+            More events in the activity log
+        </FluentAnchor>
+        <FluentSpacer />
+        <FluentAnchor Href="" @onclick="@(e => MessageService.Clear("ALERT_NOTIFICATION_CENTER") )">
+            Dismiss all
+        </FluentAnchor>
+    </FluentStack>
+
+    <br />
+
+    <FluentMessageBarContainer Category="ALERT_NOTIFICATION_CENTER"
+                        MaxMessageCount="-1"
+                        Format="@MessageBarFormat.Notification" />
+</div>

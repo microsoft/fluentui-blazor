@@ -1,0 +1,17 @@
+﻿<FluentMessageBar>First alert</FluentMessageBar>
+
+<FluentMessageBar Icon="@(new Icons.Regular.Size24.LeafTwo())"
+            Type="@MessageType.Success"
+            ShowDismiss="false">
+    Second alert
+</FluentMessageBar>
+
+<br /><br />
+
+<FluentMessageBar Text="Delete operation"
+            Timestamp="@(DateTime.Now.AddHours(-1))"
+            Style="width: 500px; border: 1px solid lightgray;"
+            Type="MessageType.Success"            
+            Format="@MessageBarFormat.Notification">
+    Successfully deleted <i>'LiveAI-fastblazor'</i>
+</FluentMessageBar>
