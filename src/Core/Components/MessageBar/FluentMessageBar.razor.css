@@ -7,40 +7,53 @@
     grid-template-columns: 24px 1fr auto;
     width: 100%;
     padding: 0px 3px;
+    align-items: center;
+    min-height: 36px;
+    border-radius: calc(var(--control-corner-radius) * 1px);
+    padding: 0 12px; 
+    column-gap: 8px;
 }
 
     .power-alert.alert-info {
-        background-color: #f4f4f4; /* Gray */
-        fill: #797775;
+        background-color: #f5f5f5;
+        border: 1px solid #d1d1d1;
     }
 
     .power-alert.alert-warning {
-        background-color: #fff9f0; /* Orange */
-        fill: #d83b01;
+        background-color: #FDF6F3; 
+        border: 1px solid #f4bfab;
     }
 
     .power-alert.alert-error {
-        background-color: #fef4f3; /* Red */
-        fill: #a80000;
+        background-color: #FDF3F4; 
+        border: 1px solid #f1bbbc;
     }
 
     .power-alert.alert-success {
-        background-color: #f0fcf5; /* Green */
-        fill: #107c10;
+        background-color: #f1faf1; 
+        border: 1px solid #9fd89f;
     }
 
 .power-alert-icon {
-    grid-column: 1;
-    padding: 4px;
-    max-width: 24px;
-    max-height: 24px;
-    align-self: center
-}
+        grid-column: 1;
+        display: flex;
+        justify-content:center;
+    }
 
 .power-alert-message {
     grid-column: 2;
-    padding: 6px 12px;
-    align-self: center;    
+    padding: 10px 0;
+    align-self: center;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+
+}
+
+.power-alert-message .title{
+    font-weight: 600;
+    padding: 0 4px 0 0;
+
 }
 
 ::deep .power-alert-action {
@@ -65,9 +78,13 @@
     color: var(--neutral-foreground-rest);
     display: grid;
     grid-template-columns: 24px 1fr auto;
-    grid-template-rows: 30px 1fr auto;
+    grid-template-rows: 36px 1fr auto;
     width: 100%;
-    padding: 3px;
+    min-height: 36px;
+    border-radius: calc(var(--control-corner-radius) * 1px);
+    border: 1px solid #d1d1d1;
+    padding: 0 12px;
+    column-gap: 8px;
 }
 
     .power-alert-notification.alert-info {
@@ -89,18 +106,18 @@
 .power-alert-notification-icon {
     grid-column: 1;
     grid-row: 1;
-    padding: 4px;
-    max-width: 24px;
-    max-height: 24px;
-    align-self: center
+    display: flex;
+    justify-content: center;
 }
 
 .power-alert-notification-message {
     grid-column: 2;
     grid-row: 1;
-    padding: 6px 12px;
+    padding: 10px 0;
     align-self: center;
-    font-weight: bold;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -120,18 +137,16 @@
     grid-column: 3;
     grid-row: 1;
     padding: 4px;
+    display: flex;
+    justify-content: center;
     justify-self: center;
-    align-self: center;
-    fill: var(--neutral-fill-strong-active);
     cursor: pointer;
-    max-width: 16px;
-    max-height: 16px;
 }
 
 .power-alert-notification-time {
     grid-column: 2 / 4;
     grid-row: 3;
-    font-size: small;
+    font-size: 12px;
     right: 10px;
     text-align: right;
     padding: 0px 4px 4px 0px;

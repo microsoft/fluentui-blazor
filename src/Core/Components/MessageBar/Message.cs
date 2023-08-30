@@ -3,6 +3,14 @@
 /// <summary />
 public class Message
 {
+    public Message()
+    {
+        Options = new MessageOptions(new MessageBarGlobalOptions())
+        {
+            Type = MessageType.Info,
+        };
+
+    }
     /// <summary />
     internal Message(MessageOptions options)
     {
@@ -18,30 +26,30 @@ public class Message
     public string? Category => Options.Category;
 
     /// <summary />
-    public string Text
+    public string Title
     {
         get
         {
-            return Options.Text;
+            return Options.Title;
         }
 
         set
         {
-            Options.Text = value;
+            Options.Title = value;
         }
     }
 
     /// <summary />
-    public string? DetailledText
+    public string? Body
     {
         get
         {
-            return Options.DetailedText;
+            return Options.Body;
         }
 
         set
         {
-            Options.DetailedText = value;
+            Options.Body = value;
         }
     }
 

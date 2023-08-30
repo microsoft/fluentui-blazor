@@ -104,11 +104,11 @@ public partial class FluentAnchor : FluentComponentBase, IAsyncDisposable
             // Handle text fragment (https://example.org/#test:~:text=foo)
             // https://github.com/WICG/scroll-to-text-fragment/
 
-            _targetId = Href.Substring(1);
+            _targetId = Href[1..];
             int index = _targetId.IndexOf(":~:", StringComparison.Ordinal);
             if (index > 0)
             {
-                _targetId = _targetId.Substring(0, index);
+                _targetId = _targetId[..index];
             }
         }
         base.OnParametersSet();

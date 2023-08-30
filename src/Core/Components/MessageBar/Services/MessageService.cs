@@ -4,29 +4,27 @@ using Microsoft.AspNetCore.Components.Routing;
 namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary />
-public class MessageService
-
-    : IMessageService, IDisposable
+public class MessageService : IMessageService, IDisposable
 {
     private readonly NavigationManager? _navigationManager;
 
     /// <summary />
     public MessageService()
     {
-        Configuration = new MessageBarGlobalOptions();
+        //Configuration = new MessageBarGlobalOptions();
     }
 
-    /// <summary />
-    public MessageService(NavigationManager navigationManager)
-        : this(navigationManager, new MessageBarGlobalOptions())
-    {
-    }
+    //// <summary />
+    //public MessageService(NavigationManager navigationManager)
+    //    : this(navigationManager) //, new MessageBarGlobalOptions())
+    //{
+    //}
 
     /// <summary />
-    public MessageService(NavigationManager navigationManager, MessageBarGlobalOptions commonOptions)
+    public MessageService(NavigationManager navigationManager) //, MessageBarGlobalOptions commonOptions)
     {
         _navigationManager = navigationManager;
-        Configuration = commonOptions;
+        //Configuration = commonOptions;
 
         _navigationManager.LocationChanged += NavigationManager_LocationChanged;
     }
@@ -40,8 +38,8 @@ public class MessageService
     /// <summary />
     private IList<Message> MessageList { get; } = new List<Message>();
 
-    /// <summary />
-    public virtual MessageBarGlobalOptions Configuration { get; }
+    //// <summary />
+    //public virtual MessageBarGlobalOptions Configuration { get; }
 
     /// <summary />
     public virtual IEnumerable<Message> AllMessages
@@ -61,7 +59,7 @@ public class MessageService
     }
 
     /// <summary />
-    public virtual IEnumerable<Message> MessagesShown(string? category = null)
+    public virtual IEnumerable<Message> MessagesShown(int count = 5, string? category = null)
     {
         MessageLock.EnterReadLock();
         try
@@ -70,7 +68,7 @@ public class MessageService
                        ? MessageList
                        : MessageList.Where(x => x.Category == category);
 
-            return messages.Take(Configuration.MaxMessageCount);
+            return count > 0 ? messages.Take(count) : messages;
         }
         finally
         {
@@ -83,7 +81,7 @@ public class MessageService
     {
         return Add(options =>
         {
-            options.Text = message;
+            options.Title = message;
         });
     }
 
@@ -92,7 +90,7 @@ public class MessageService
     {
         return Add(options =>
         {
-            options.Text = message;
+            options.Title = message;
             options.Type = severity;
         });
     }
@@ -102,7 +100,7 @@ public class MessageService
     {
         return Add(options =>
         {
-            options.Text = message;
+            options.Title = message;
             options.Category = category;
             options.Type = severity;
         });
@@ -111,10 +109,10 @@ public class MessageService
     /// <summary />
     public virtual Message Add(Action<MessageOptions> options)
     {
-        var configuration = new MessageOptions(Configuration);
-        options.Invoke(configuration);
+        //var configuration = new MessageOptions(Configuration);
+        //options.Invoke(configuration);
 
-        Message? message = new(configuration);
+        Message? message = new(); // (configuration);
 
         MessageLock.EnterWriteLock();
         try
@@ -176,16 +174,16 @@ public class MessageService
     /// <summary />
     private void NavigationManager_LocationChanged(object? sender, LocationChangedEventArgs e)
     {
-        if (Configuration.ClearAfterNavigation)
-        {
-            Clear();
-        }
-        else
-        {
-            MessagesShown().Where(s => s.Options.ClearAfterNavigation)
-                         .ToList()
-                         .ForEach(s => Remove(s));
-        }
+        //if (Configuration.ClearAfterNavigation)
+        //{
+        //    Clear();
+        //}
+        //else
+        //{
+        MessagesShown().Where(s => s.Options.ClearAfterNavigation)
+                     .ToList()
+                     .ForEach(s => Remove(s));
+        //}
     }
 
     /// <summary />
@@ -207,13 +205,13 @@ public class MessageService
             return;
         }
 
-        var alerts = string.IsNullOrEmpty(category)
+        IEnumerable<Message>? messages = string.IsNullOrEmpty(category)
                    ? MessageList
                    : MessageList.Where(i => i.Category == category);
 
-        foreach (var alert in alerts)
+        foreach (Message message in messages)
         {
-            alert.OnClose -= Remove;
+            message.OnClose -= Remove;
         }
 
         if (string.IsNullOrEmpty(category))
@@ -225,4 +223,8 @@ public class MessageService
             ((List<Message>)MessageList).RemoveAll(i => i.Category == category);
         }
     }
+
+    public int Count(string? category) => category is null
+            ? MessageList.Count
+            : MessageList.Count(x => x.Category == category);
 }

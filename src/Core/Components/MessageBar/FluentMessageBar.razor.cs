@@ -7,6 +7,8 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// <summary />
 public partial class FluentMessageBar : FluentComponentBase
 {
+    private Color? _color;
+
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("power-alert", () => Format == MessageBarFormat.Default)
@@ -61,24 +63,13 @@ public partial class FluentMessageBar : FluentComponentBase
             }
             else
             {
-                return Format switch
+                return Message.Type switch
                 {
-                    MessageBarFormat.Notification => Message.Type switch
-                    {
-                        MessageType.Info => new CoreIcons.Filled.Size24.Info(),
-                        MessageType.Warning => new CoreIcons.Filled.Size24.Warning(),
-                        MessageType.Error => new CoreIcons.Filled.Size24.DismissCircle(),
-                        MessageType.Success => new CoreIcons.Filled.Size24.CheckmarkCircle(),
-                        _ => null,
-                    },
-                    _ => Message.Type switch
-                    {
-                        MessageType.Info => new CoreIcons.Regular.Size24.Info(),
-                        MessageType.Warning => new CoreIcons.Filled.Size24.Warning(),
-                        MessageType.Error => new CoreIcons.Filled.Size24.DismissCircle(),
-                        MessageType.Success => new CoreIcons.Filled.Size24.CheckmarkCircle(),
-                        _ => null,
-                    },
+                    MessageType.Info => new CoreIcons.Filled.Size20.Info(),
+                    MessageType.Warning => new CoreIcons.Filled.Size20.Warning(),
+                    MessageType.Error => new CoreIcons.Filled.Size20.DismissCircle(),
+                    MessageType.Success => new CoreIcons.Filled.Size20.CheckmarkCircle(),
+                    _ => null,
                 };
             }
         }
@@ -110,16 +101,16 @@ public partial class FluentMessageBar : FluentComponentBase
 
     /// <summary />
     [Parameter]
-    public string Text
+    public string Title
     {
         get
         {
-            return Message.Text;
+            return Message.Title;
         }
 
         set
         {
-            Message.Text = value;
+            Message.Title = value;
         }
     }
 
@@ -138,6 +129,12 @@ public partial class FluentMessageBar : FluentComponentBase
         }
     }
 
+    /// <summary>
+    /// On app and page level a Message bar should NOT have rounded corners. On component level it should.
+    /// </summary>  
+    [Parameter]
+    public bool RoundedCorners { get; set; } = true;
+
     /// <summary />
     public Icon DismissIcon { get; set; } = new CoreIcons.Regular.Size24.Dismiss();
 
@@ -149,6 +146,18 @@ public partial class FluentMessageBar : FluentComponentBase
 
     /// <summary />
     protected bool ShowActionButton => !string.IsNullOrEmpty(Message.Options.Action.Text);
+
+    protected override void OnInitialized()
+    {
+        _color = Message.Type switch
+        {
+            MessageType.Info => Color.Info,
+            MessageType.Warning => Color.Warning,
+            MessageType.Error => Color.Error,
+            MessageType.Success => Color.Success,
+            _ => Color.Accent,
+        };
+    }
 
     /// <summary />
     protected Task ActionClickedAsync(MouseEventArgs e)

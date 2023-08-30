@@ -15,39 +15,43 @@ public partial class FluentMessageBarContainer : FluentComponentBase, IDisposabl
         .AddStyle(Style)
         .Build();
 
-    /// <summary />
-    [Inject]
-    private IMessageService MessageService { get; set; } = default!;
-
     /// <summary>
-    /// Display only alerts from this category.
+    /// Display only messages from this category.
     /// </summary>
     [Parameter]
     public string? Category { get; set; }
 
     /// <summary>
-    /// Display the list of alerts (false) or only the number of alerts (true).
-    /// </summary>
-    [Parameter]
-    public bool IsNumberOnly { get; set; } = false;
-
-    /// <summary>
-    /// Displays alerts as a single line (with the message only)
+    /// Displays messages as a single line (with the message only)
     /// or as a card (with the detailed message).
     /// </summary>
     [Parameter]
     public MessageBarFormat Format { get; set; } = MessageBarFormat.Default;
 
     /// <summary>
-    /// Maximum number of alerts displayed. All others are stored in memory to be displayed when an existing alert is closed.
-    /// By default, this property is <see cref="MessageBarGlobalOptions.MaxMessageCount" />.
-    /// Set a value equal to or less than zero, to display all alerts for this <see cref="Category" /> (or all categories if not set).
+    /// Maximum number of messages displayed. Rest is stored in memory to be displayed when an shown message is closed.
+    /// Default value is 5
+    /// Set a value equal to or less than zero, to display all messages for this <see cref="Category" /> (or all categories if not set).
     /// </summary>
     [Parameter]
-    public int? MaxMessageCount { get; set; }
+    public int? MaxMessageCount { get; set; } = 5;
+
+    /// <summary>
+    /// Display the newest messages on top (true) or on bottom (false).
+    /// </summary>
+    [Parameter]
+    public bool NewestOnTop { get; set; } = true;
+
+
+    /// <summary>
+    /// Clear all (shown and stored) messages when the user navigates to a new page.
+    /// </summary>
+    [Parameter]
+    public bool ClearAfterNavigation { get; set; } = false;
+
 
     /// <summary />
-    protected IEnumerable<Message> AllMessagesForThisCategory
+    protected IEnumerable<Message> AllMessagesForCategory
     {
         get
         {
@@ -64,17 +68,17 @@ public partial class FluentMessageBarContainer : FluentComponentBase, IDisposabl
         {
             if (MaxMessageCount.HasValue)
             {
-                int maxAlerts = MaxMessageCount.Value > 0 ? MaxMessageCount.Value : int.MaxValue;
+                int maxMessages = MaxMessageCount.Value > 0 ? MaxMessageCount.Value : int.MaxValue;
 
-                return MessageService.Configuration.NewestOnTop
-                            ? AllMessagesForThisCategory.Reverse().TakeLast(maxAlerts)
-                            : AllMessagesForThisCategory.TakeLast(maxAlerts);
+                return NewestOnTop
+                            ? AllMessagesForCategory.Reverse().TakeLast(maxMessages)
+                            : AllMessagesForCategory.TakeLast(maxMessages);
             }
             else
             {
-                return MessageService.Configuration.NewestOnTop
-                            ? MessageService.MessagesShown(Category).Reverse()
-                            : MessageService.MessagesShown(Category);
+                return NewestOnTop
+                            ? MessageService.MessagesShown(-1, Category).Reverse()
+                            : MessageService.MessagesShown(-1, Category);
             }
         }
     }

@@ -21,13 +21,13 @@ public class MessageOptions
     public DateTime? Timestamp { get; set; }
 
     /// <summary />
-    public string Text { get; set; } = string.Empty;
-
-    /// <summary />
-    public string? DetailedText { get; set; }
-
-    /// <summary />
     public Icon? Icon { get; set; }
+
+    /// <summary />
+    public string Title { get; set; } = string.Empty;
+
+    /// <summary />
+    public string? Body { get; set; }
 
     /// <summary />
     public bool ShowDismiss { get; set; }
@@ -39,7 +39,7 @@ public class MessageOptions
     public MessageAction Action { get; set; } = new MessageAction();
 
     /// <summary />
-    public MessageType? Type { get; set; }
+    public MessageType? Type { get; set; } = MessageType.Info;
 
     /// <summary />
     public bool ClearAfterNavigation { get; set; }

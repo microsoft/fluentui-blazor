@@ -1,4 +1,4 @@
-﻿@implements IDialogContentComponent
+﻿@implements IDialogContentComponent<SimplePerson>
 @inject IMessageService MessageService
 
 <div style="margin-right: 7px;">
@@ -8,14 +8,19 @@
             More events in the activity log
         </FluentAnchor>
         <FluentSpacer />
-        <FluentAnchor Href="" @onclick="@(e => MessageService.Clear("ALERT_NOTIFICATION_CENTER") )">
+        <FluentAnchor Href="" @onclick="@(e => MessageService.Clear(App.MESSAGE_NOTIFICATION_CENTER) )">
             Dismiss all
         </FluentAnchor>
     </FluentStack>
 
     <br />
 
-    <FluentMessageBarContainer Category="ALERT_NOTIFICATION_CENTER"
+    <FluentMessageBarContainer Category="@App.MESSAGE_NOTIFICATION_CENTER"
                         MaxMessageCount="-1"
                         Format="@MessageBarFormat.Notification" />
 </div>
+
+@code {
+    [Parameter]
+    public SimplePerson Content { get; set; } = default!;
+}

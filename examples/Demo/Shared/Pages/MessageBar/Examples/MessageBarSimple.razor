@@ -1,17 +1,17 @@
-﻿<FluentMessageBar>First alert</FluentMessageBar>
+﻿<FluentStack Orientation="@Orientation.Vertical" VerticalGap="8">
+    <FluentMessageBar Title="Descriptive title">
+        Message providing information to the user with actionable insights.
+    </FluentMessageBar>
 
-<FluentMessageBar Icon="@(new Icons.Regular.Size24.LeafTwo())"
-            Type="@MessageType.Success"
-            ShowDismiss="false">
-    Second alert
-</FluentMessageBar>
+    <FluentMessageBar Title="Descriptive title" Type="@MessageType.Success">
+        Message providing information to the user with actionable insights.
+    </FluentMessageBar>
 
-<br /><br />
+    <FluentMessageBar Title="Descriptive title" Type="@MessageType.Warning">
+        Message providing information to the user with actionable insights.
+    </FluentMessageBar>
 
-<FluentMessageBar Text="Delete operation"
-            Timestamp="@(DateTime.Now.AddHours(-1))"
-            Style="width: 500px; border: 1px solid lightgray;"
-            Type="MessageType.Success"            
-            Format="@MessageBarFormat.Notification">
-    Successfully deleted <i>'LiveAI-fastblazor'</i>
-</FluentMessageBar>
+    <FluentMessageBar Title="Descriptive title" Type="@MessageType.Error">
+        Message providing information to the user with actionable insights.
+    </FluentMessageBar>
+</FluentStack>

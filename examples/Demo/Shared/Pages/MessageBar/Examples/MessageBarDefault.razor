@@ -15,7 +15,7 @@ or in the Notification Center (top/right icon).
     {
         var type = Enum.GetValues<MessageType>()[counter % 4];
         var message = $"Simple message #{counter++}";
-        var category = "ALERT_TOP"; // App.ALERT_TOP;
+        var category = App.MESSAGE_TOP;
         MessageService.Add(message, category, type);
     }
 
@@ -24,12 +24,12 @@ or in the Notification Center (top/right icon).
         MessageService.Add(option =>
         {
             option.Type = Enum.GetValues<MessageType>()[counter % 4];
-            option.Text = $"Simple Alert #{counter++}";
-            option.DetailedText = MessageBarSamples.OneRandomMessage;
+            option.Title = $"Simple message #{counter++}";
+            option.Body = MessageBarSamples.OneRandomMessage;
             option.Action.Text = "more info";
             option.Action.Href = "http://papertoilet.com";
             option.Timestamp = DateTime.Now;
-            option.Category = "ALERT_NOTIFICATION_CENTER"; // App.ALERT_NOTIFICATION_CENTER;
+            option.Category = App.MESSAGE_NOTIFICATION_CENTER;
         });
     }
 }

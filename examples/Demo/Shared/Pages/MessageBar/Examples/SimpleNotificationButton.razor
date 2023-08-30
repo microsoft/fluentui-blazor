@@ -1,18 +1,61 @@
-﻿
-@inject IDialogService DialogService
+﻿@inject IDialogService DialogService
+@inject IMessageService MessageService
 
-<FluentCounterBadge Fill="Fill.Lowlight">
-    <BadgeContent>
-        <FluentMessageBarContainer IsNumberOnly="true" Category="ALERT_NOTIFICATION_CENTER" />
-    </BadgeContent>
+<FluentCounterBadge Count="MessageService.Count(App.MESSAGE_NOTIFICATION_CENTER)"
+                    Max="9"
+                    ShowOverflow="true"
+                    BackgroundColor="@Color.Error"
+                    Color="Color.Fill">
     <ChildContent>
         <FluentButton Appearance="Appearance.Accent"
-                     Style="margin: 0px 5px;"
-                     Title="Notifications"
-                     IconStart="@(new Icons.Regular.Size32.Alert())"
-                     OnClick="@(e => DialogService.ShowDialogAsync<SimpleNotificationCenterDialog>("Notifications", new DialogParameters()
-                        {
-                            ShowDismiss = false,
-                        }))" />
+                      Style="margin: 0px 5px;"
+                      Title="Notifications"
+                      IconStart="@(new Icons.Regular.Size32.Alert())"
+                      OnClick="OpenNotificationCenterAsync" />
     </ChildContent>
 </FluentCounterBadge>
+
+@code {
+    private IDialogReference? _dialog;
+
+    private readonly SimplePerson simplePerson = new()
+        {
+            Firstname = "Steve",
+            Lastname = "Roth",
+            Age = 42,
+        };
+
+    private async Task OpenNotificationCenterAsync()
+    {
+        DemoLogger.WriteLine($"Open right panel");
+
+        _dialog = await DialogService.ShowPanelAsync<SimpleNotificationCenterDialog, SimplePerson>(new DialogParameters<SimplePerson>()
+            {
+                Content = simplePerson,
+                Alignment = HorizontalAlignment.Right,
+                Title = $"Hello {simplePerson.Firstname}",
+                PrimaryAction = "Yes",
+                SecondaryAction = "No",
+                ShowDismiss = false
+            });
+        DialogResult result = await _dialog.Result;
+        HandlePanel(result);
+    }
+
+    private static void HandlePanel(DialogResult result)
+    {
+        if (result.Cancelled)
+        {
+            DemoLogger.WriteLine($"Panel cancelled");
+            return;
+        }
+
+        if (result.Data is not null)
+        {
+            SimplePerson? simplePerson = result.Data as SimplePerson;
+            DemoLogger.WriteLine($"Panel closed by {simplePerson?.Firstname} {simplePerson?.Lastname} ({simplePerson?.Age})");
+            return;
+        }
+    }
+
+}

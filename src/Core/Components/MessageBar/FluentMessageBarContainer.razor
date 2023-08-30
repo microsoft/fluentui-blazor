@@ -1,24 +1,13 @@
 ﻿@namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentComponentBase
+@inject IMessageService MessageService
+
 @if (MessageService != null)
 {
-    if (IsNumberOnly)
-    {
-        int messageCount = AllMessagesForThisCategory.Count();
-        if (messageCount > 0)
-        {            
-            <span @attributes="AdditionalAttributes" class="@ClassValue" style="@StyleValue">
-            @(messageCount > 9 ? "9+" : Convert.ToString(messageCount))
-            </span>
+    <div @attributes="AdditionalAttributes" class="@ClassValue" style="@StyleValue">
+        @foreach (var alert in MessagesShown)
+        {
+            <FluentMessageBar Message="@alert" Format="@Format" Style="@(Format == MessageBarFormat.Notification ? "border-top: 1px solid lightgray;" : "")" />
         }
-    }
-    else
-    {
-        <div @attributes="AdditionalAttributes" class="@ClassValue" style="@StyleValue">
-            @foreach (var alert in MessagesShown)
-            {
-                <FluentMessageBar Message="@alert" Format="@Format" Style="@(Format == MessageBarFormat.Notification ? "border-top: 1px solid lightgray;" : "")"/>
-            }
-        </div>
-    }
+    </div>
 }

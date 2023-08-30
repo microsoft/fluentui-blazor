@@ -1,4 +1,5 @@
 ﻿@using FluentUI.Demo.Shared.Shared
+@using FluentUI.Demo.Shared.Pages.MessageBar.Examples
 @using Microsoft.AspNetCore.Components
 @using System.Runtime.InteropServices
 @namespace FluentUI.Demo.Shared
@@ -48,6 +49,7 @@
                           @onchange="@(x => HandleColorChange(x))" 
                           aria-label="Accent color selector"/>
         </div>
+        <FluentUI.Demo.Shared.Pages.MessageBar.Examples.SimpleNotificationButton />
         <div class="switches">
             <FluentSwitch @bind-Value="@_inDarkMode" AfterBindValue="UpdateTheme" title="Switch theme">
                 <span class="label">Theme</span>
@@ -79,6 +81,9 @@
         </nav>
         <div class="content">
             <article id="article">
+                 
+                <FluentMessageBarContainer Category="@App.MESSAGE_TOP" />
+            
                 <ErrorBoundary @ref="errorBoundary">
                     <ChildContent>
                         <CascadingValue Value=@OnRefreshTableOfContents>
@@ -98,7 +103,6 @@
         <FluentToastContainer MaxToastCount="10"  />
         <FluentDialogProvider />
         <FluentTooltipProvider />
-        <FluentMessageBarContainer />
     </main>
     <footer>
         <div class="version">

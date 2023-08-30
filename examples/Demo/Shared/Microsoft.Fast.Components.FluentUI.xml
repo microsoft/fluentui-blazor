@@ -3459,11 +3459,16 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.IsVisible">
             <summary />
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.Text">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.Title">
             <summary />
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.Recorded">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.Timestamp">
             <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.RoundedCorners">
+            <summary>
+            On app and page level a Message bar should NOT have rounded corners. On component level it should.
+            </summary>  
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.DismissIcon">
             <summary />
@@ -3492,33 +3497,35 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.StyleValue">
             <summary />
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.MessageService">
-            <summary />
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.Category">
             <summary>
-            Display only alerts from this category.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.IsNumberOnly">
-            <summary>
-            Display the list of alerts (false) or only the number of alerts (true).
+            Display only messages from this category.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.Format">
             <summary>
-            Displays alerts as a single line (with the message only)
+            Displays messages as a single line (with the message only)
             or as a card (with the detailed message).
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.MaxMessageCount">
             <summary>
-            Maximum number of alerts displayed. All others are stored in memory to be displayed when an existing alert is closed.
-            By default, this property is <see cref="P:Microsoft.Fast.Components.FluentUI.MessageBarGlobalOptions.MaxMessageCount" />.
-            Set a value equal to or less than zero, to display all alerts for this <see cref="P:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.Category" /> (or all categories if not set).
+            Maximum number of messages displayed. Rest is stored in memory to be displayed when an shown message is closed.
+            Default value is 5
+            Set a value equal to or less than zero, to display all messages for this <see cref="P:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.Category" /> (or all categories if not set).
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.AllMessagesForThisCategory">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.NewestOnTop">
+            <summary>
+            Display the newest messages on top (true) or on bottom (false).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.ClearAfterNavigation">
+            <summary>
+            Clear all (shown and stored) messages when the user navigates to a new page.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.AllMessagesForCategory">
             <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.MessagesShown">
@@ -3545,10 +3552,10 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.Message.Category">
             <summary />
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.Message.Text">
+        <member name="P:Microsoft.Fast.Components.FluentUI.Message.Title">
             <summary />
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.Message.DetailledText">
+        <member name="P:Microsoft.Fast.Components.FluentUI.Message.Body">
             <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.Message.Type">
@@ -3566,13 +3573,10 @@
         <member name="E:Microsoft.Fast.Components.FluentUI.IMessageService.OnMessageItemsUpdated">
             <summary />
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.IMessageService.Configuration">
-            <summary />
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.IMessageService.AllMessages">
             <summary />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IMessageService.MessagesShown(System.String)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.IMessageService.MessagesShown(System.Int32,System.String)">
             <summary />
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.IMessageService.Add(System.Action{Microsoft.Fast.Components.FluentUI.MessageOptions})">
@@ -3635,13 +3639,13 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.Timestamp">
             <summary />
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.Text">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.DetailedText">
-            <summary />
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.Icon">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.Title">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.Body">
             <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.ShowDismiss">
@@ -3668,9 +3672,6 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.#ctor(Microsoft.AspNetCore.Components.NavigationManager)">
             <summary />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.#ctor(Microsoft.AspNetCore.Components.NavigationManager,Microsoft.Fast.Components.FluentUI.MessageBarGlobalOptions)">
-            <summary />
-        </member>
         <member name="E:Microsoft.Fast.Components.FluentUI.MessageService.OnMessageItemsUpdated">
             <summary />
         </member>
@@ -3680,13 +3681,10 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.MessageService.MessageList">
             <summary />
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MessageService.Configuration">
-            <summary />
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.MessageService.AllMessages">
             <summary />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.MessagesShown(System.String)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.MessagesShown(System.Int32,System.String)">
             <summary />
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.Add(System.String)">

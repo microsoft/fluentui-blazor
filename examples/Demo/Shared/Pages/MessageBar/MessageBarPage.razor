@@ -1,15 +1,20 @@
-﻿@page "/messagebar"
+﻿@page "/MessageBar"
 @using FluentUI.Demo.Shared.Pages.MessageBar.Examples
 
+<h2>Examples</h2>
+
 <DemoSection Title="Simple messages" Component="typeof(MessageBarSimple)">
-    
+    <p>This show the 4 different types of messages can can be shown in a MessageBar.</p>
+</DemoSection>
+
+<DemoSection Title="Simple notification" Component="typeof(MessageBarSimpleNotification)">
+    <p>This show how a MessageBar can be used to display a notification.</p>
 </DemoSection>
 
 <DemoSection Title="Message Service" Component="typeof(MessageBarDefault)">
 </DemoSection>
 
-<DemoSection Title="MessageBar with options"
-             Component="typeof(MessageBarDetailed)">
+<DemoSection Title="MessageBar with options" Component="typeof(MessageBarDetailed)">
 </DemoSection>
 
 <h3>Notification Center</h3>
@@ -19,7 +24,7 @@
     
 </DemoSection>
 
-<DemoSection Component="typeof(SimpleNotificationCenterDialog)" />
+<DemoSection Title="Notification center" Component="typeof(SimpleNotificationCenterDialog)" />
 
 <h2>Service injection</h2>
 

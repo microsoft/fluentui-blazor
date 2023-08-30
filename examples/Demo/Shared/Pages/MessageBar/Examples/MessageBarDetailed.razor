@@ -14,9 +14,9 @@ Click on this button to display an Alert (max 5).
 
         MessageService.Add(options =>
         {
-            options.Category = "ALERT_TOP"; // App.ALERT_TOP;
+            options.Category = App.MESSAGE_TOP;
 
-            options.Text = $"That's the message #{counter}.<br/> <b>You can't click these buttons really quickly.</b>";
+            options.Title = $"That's the message #{counter}.<br/> <b>You can't click these buttons really quickly.</b>";
             options.Type = Enum.GetValues<MessageType>()[counter % 4];
 
             options.Icon = new Icons.Regular.Size24.PersonCircle();            

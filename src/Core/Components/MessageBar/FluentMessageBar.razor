@@ -12,20 +12,22 @@
             @* Icon *@
             @if (ShowIcon)
             {
-                <FluentIcon Icon="@Icon" Class="power-alert-icon" Title="@(Message?.Type.ToAttributeValue())" />
+                <div class="power-alert-icon">
+                    <FluentIcon Value="@Icon" Title="@(Message?.Type.ToAttributeValue())" Color="@_color" />
+                </div>
             }
 
             @* Message *@
             <div class="power-alert-message">
-                @((MarkupString)Text)
+                <span class="title">@((MarkupString)Title)</span>
                 @ChildContent
                 @if (ShowActionButton)
                 {
                     <FluentAnchor Href="@(String.IsNullOrEmpty(Action?.Href) ? "#" : Action?.Href)"
-                     @onclick="@ActionClickedAsync"
-                     title="Alert action"
-                     Class="power-alert-action"
-                     Target="_blank">
+                    @onclick="@ActionClickedAsync"
+                                  title="Alert action"
+                                  Class="power-alert-action"
+                                  Target="_blank">
                         @Action?.Text
                     </FluentAnchor>
                 }
@@ -34,9 +36,10 @@
             @* Close *@
             @if (ShowDismiss)
             {
-                <FluentIcon Icon="@CoreIcons.Filled.Size24.DismissCircle"
-               Class="power-alert-close"
-               OnClick="DismissClicked" />
+                <FluentIcon Icon="CoreIcons.Regular.Size16.Dismiss"
+                            Color=@Color.Neutral
+                            Class="power-alert-close"
+                            OnClick="DismissClicked" />
             }
         </div>
     }
@@ -51,39 +54,44 @@
             @* Icon *@
             @if (ShowIcon)
             {
-                <FluentIcon Icon="@Icon"
-               Class="power-alert-notification-icon"
-               
-               Title="@(Message?.Type?.ToAttributeValue())" />
+                <div class="power-alert-notification-icon">
+                <FluentIcon Value="@Icon"
+                            
+                            Color="@_color"
+                            Title="@(Message?.Type?.ToAttributeValue())" />
+                </div>
             }
 
             @* Message *@
             <div class="power-alert-notification-message" title="@Message">
-                @((MarkupString)Text)
+                @((MarkupString)Title)
             </div>
 
             @* Close *@
             @if (ShowDismiss)
             {
-                <FluentIcon Icon="@CoreIcons.Filled.Size24.DismissCircle"
-               Class="power-alert-notification-close"
-               OnClick="DismissClicked" />
+                <div class="power-alert-notification-close">
+                <FluentIcon Icon="CoreIcons.Regular.Size16.Dismiss"
+                            Color=@Color.Neutral
+                            Class="power-alert-notification-close"
+                            OnClick="DismissClicked" />
+                </div>
             }
 
             @* Detailled content *@
             <div class="power-alert-notification-content">
                 @ChildContent
-                @if (!String.IsNullOrEmpty(Message?.DetailledText))
+                @if (!String.IsNullOrEmpty(Message?.Body))
                 {
-                    @((MarkupString)Message.DetailledText)
+                    @((MarkupString)Message.Body)
                 }
                 @if (ShowActionButton)
                 {
                     <FluentAnchor Href="@(String.IsNullOrEmpty(Action?.Href) ? "#" : Action?.Href)"
-                     @onclick="@ActionClickedAsync"
-                     title="Alert action"
-                     Class="power-alert-notification-action"
-                     Target="_blank">
+                    @onclick="@ActionClickedAsync"
+                                  title="Alert action"
+                                  Class="power-alert-notification-action"
+                                  Target="_blank">
                         @Action?.Text
                     </FluentAnchor>
                 }
