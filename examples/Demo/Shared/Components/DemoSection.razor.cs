@@ -79,7 +79,7 @@ public partial class DemoSection : ComponentBase
 
     protected override void OnInitialized()
     {
-        if (_allFiles.Any())
+        if (_allFiles.Count > 0)
             _allFiles.Clear();
 
         _allFiles.AddRange(GetCollocatedFiles());
