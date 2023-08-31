@@ -17,10 +17,10 @@
 
 <div class="demo-section-content">
 
-    <FluentTabs ActiveTabId="@(!HideExample ? $"tab-example-{ariaid}" : $"tab-razor-{ariaid}")">
+    <FluentTabs ActiveTabId="@(!HideExample ? $"tab-example-{ariaid}" : $"tab-razor-{ariaid}")" fixed>
         @if (!HideExample)
         {
-            <FluentTab Id="@("tab-example-"+@ariaid)" Label="Example">
+            <FluentTab Id="@("tab-example-"+@ariaid)" Label="Example" fixed>
                 <Content>
                     <div class="demo-section-example">
                         @ChildContent
@@ -53,7 +53,7 @@
                     label = Path.GetFileNameWithoutExtension(pair.Key);
                     id = "tab-" + Regex.Replace(label, "[#|/|\\|$|*|^]", "").ToLower() + "-" + @ariaid;
                 }
-                <FluentTab Id="@id" Label="@label" >
+                <FluentTab Id="@id" Label="@label" fixed>
                     <Content>
                         <CodeSnippet Language="@TabLanguageClass(tab)">@pair.Value</CodeSnippet>
                     </Content>
