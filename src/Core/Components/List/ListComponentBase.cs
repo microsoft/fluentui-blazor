@@ -22,6 +22,7 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
 
     /// <summary />
     protected virtual string? StyleValue => new StyleBuilder()
+        .AddStyle("width", Width, when: !string.IsNullOrEmpty(Width))
         .AddStyle(Style)
         .Build();
 
@@ -48,6 +49,18 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
             }
         }
     }
+
+    /// <summary>
+    /// Width of the component.
+    /// </summary>
+    [Parameter]
+    public string? Width { get; set; }
+
+    /// <summary>
+    /// Height of the component or of the popup panel.
+    /// </summary>
+    [Parameter]
+    public string? Height { get; set; }
 
     /// <summary>
     /// Text used on aria-label attribute.
@@ -192,6 +205,11 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
                 TOption? item = Items.FirstOrDefault(i => OptionSelected.Invoke(i));
                 InternalValue = GetOptionValue(item);
             }
+        }
+
+        if (!string.IsNullOrEmpty(Height) && string.IsNullOrEmpty(Id))
+        {
+            Id = Identifier.NewId();
         }
     }
 
