@@ -5,8 +5,17 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// <summary>
 /// FluentUI Icon content.
 /// </summary>
-public abstract class Icon : IconInfo
+public class Icon : IconInfo
 {
+    /// <summary>
+    /// Please use the constructor including parameters.
+    /// </summary>
+    /// <exception cref="ArgumentNullException"></exception>
+    public Icon() : this(string.Empty, IconVariant.Regular, IconSize.Size24, string.Empty)
+    { 
+        throw new ArgumentNullException("Please use the constructor including parameters.");
+    }
+
     /// <summary>
     /// Initializes a new instance of the <see cref="Icon"/> class.
     /// </summary>
