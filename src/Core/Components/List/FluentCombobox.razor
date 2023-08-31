@@ -2,6 +2,13 @@
 @inherits ListComponentBase<TOption>
 @typeparam TOption
 
+@if (!String.IsNullOrEmpty(Height))
+{
+    <style>
+        @($"#{Id}::part(listbox) {{ max-height: {Height}; z-index: {ZIndex.ComboboxPopup} }}")
+    </style>
+}
+
 <CascadingValue Value=@_internalListContext Name="ListContext" TValue="InternalListContext<TOption>" IsFixed=true>
     <fluent-combobox @ref=Element
                      id="@Id"

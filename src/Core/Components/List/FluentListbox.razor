@@ -1,18 +1,26 @@
 @namespace Microsoft.Fast.Components.FluentUI
 @inherits ListComponentBase<TOption>
 @typeparam TOption
+@if (!String.IsNullOrEmpty(Height))
+{
+    <style>
+        @($"#{Id}:focus-within:not([disabled]) {{outline: none; }}")
+    </style>
+}
 <CascadingValue Value="@_internalListContext" Name="ListContext" TValue="InternalListContext<TOption>" IsFixed="true">
-    <fluent-listbox @ref="Element"
-                    id="@Id"
-                    class="@ClassValue"
-                    style="@StyleValue"
-                    disabled="@Disabled"
-                    size="@Size"
-                    multiple="@Multiple"
-                    selectedOptions="@(SelectedOptions != null && SelectedOptions.Any() ? string.Join(',', SelectedOptions.Select(i => GetOptionValue(i))) : null)"
-                    aria-label="@(!string.IsNullOrWhiteSpace(Title) ? Title : "")"
-                    @onchange="@OnChangedHandlerAsync"
-                    @attributes="AdditionalAttributes">
-        @GetListOptions(Items)
-    </fluent-listbox>
+    <div style="@BorderStyle.Build()">
+        <fluent-listbox @ref="Element"
+                        id="@Id"
+                        class="@ClassValue"
+                        style="@($"{StyleValue} border: none; width: 100%;")"
+                        disabled="@Disabled"
+                        size="@Size"
+                        multiple="@Multiple"
+                        selectedOptions="@(SelectedOptions != null && SelectedOptions.Any() ? string.Join(',', SelectedOptions.Select(i => GetOptionValue(i))) : null)"
+                        aria-label="@(!string.IsNullOrWhiteSpace(Title) ? Title : "")"
+                        @onchange="@OnChangedHandlerAsync"
+                        @attributes="AdditionalAttributes">
+            @GetListOptions(Items)
+        </fluent-listbox>
+    </div>
 </CascadingValue>
