@@ -20,7 +20,7 @@
     <FluentTabs ActiveTabId="@(!HideExample ? $"tab-example-{_ariaId}" : $"tab-razor-{_ariaId}")" fixed>
         @if (!HideExample)
         {
-            <FluentTab Id="@("tab-example-"+@_ariaId)" Label="Example">
+            <FluentTab Id="@("tab-example-"+@ariaid)" Label="Example" fixed>
                 <Content>
                     <div class="demo-section-example">
                         @ChildContent
@@ -38,20 +38,22 @@
             @foreach (KeyValuePair<string, string> pair in _tabPanelsContent)
             {
                 string tab = Path.GetExtension(pair.Key);
-                string tabname = _pattern.Replace(GetDisplayName(tab), "");
-
+                string tabname = Regex.Replace(GetDisplayName(tab), "[#|/|\\|$|*|^]", "");
+                
+                string label = string.Empty;
                 string id = string.Empty;
 
                 if (pair.Key.StartsWith(Component.Name))
                 {
-                    id = "tab-" + tabname.ToLower() + "-" + @_ariaId;
+                    label = GetDisplayName(tab);
+                    id = "tab-" + tabname + "-" + @ariaid;
                 }
                 else
                 {
-                    tabname = _pattern.Replace(Path.GetFileNameWithoutExtension(pair.Key), "");
-                    id = "tab-" + tabname.ToLower() + "-" + @_ariaId;
+                    label = Path.GetFileNameWithoutExtension(pair.Key);
+                    id = "tab-" + Regex.Replace(label, "[#|/|\\|$|*|^]", "").ToLower() + "-" + @ariaid;
                 }
-                <FluentTab Id="@id" Label="@tabname" fixed>
+                <FluentTab Id="@id" Label="@label" fixed>
                     <Content>
                         <CodeSnippet Language="@TabLanguageClass(tab)">@pair.Value</CodeSnippet>
                     </Content>

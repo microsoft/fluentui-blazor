@@ -8,7 +8,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// FluentEmoji is a component that renders an emoji from the Microsoft FluentUI emoji set.
 /// </summary>
 public partial class FluentEmoji<Emoji> : FluentComponentBase
-    where Emoji : FluentUI.Emoji
+    where Emoji : FluentUI.Emoji, new()
 {
     private Emoji _emoji = default!;
 
@@ -75,14 +75,7 @@ public partial class FluentEmoji<Emoji> : FluentComponentBase
     {
         if (_emoji == null)
         {
-            bool hasParameterlessConstructor = typeof(Emoji).GetConstructor(Type.EmptyTypes) != null;
-
-            if (!hasParameterlessConstructor)
-            {
-                throw new ArgumentException($"The type {typeof(Emoji).FullName} must have a parameterless constructor.");
-            }
-
-            _emoji = Activator.CreateInstance<Emoji>();
+            _emoji = new Emoji();
         }
     }
 

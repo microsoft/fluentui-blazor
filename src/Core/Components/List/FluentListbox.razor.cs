@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
@@ -10,4 +11,12 @@ public partial class FluentListbox<TOption> : ListComponentBase<TOption>
     /// </summary>
     [Parameter]
     public int Size { get; set; }
+
+    /// <summary />
+    protected virtual StyleBuilder BorderStyle => new StyleBuilder()
+        .AddStyle("max-width", Width, when: !string.IsNullOrEmpty(Width))
+        .AddStyle("max-height", Height, when: !string.IsNullOrEmpty(Height))
+        .AddStyle("overflow-y", "auto")
+        .AddStyle("border", "calc(var(--stroke-width) * 1px) solid var(--neutral-stroke-rest)")
+        .AddStyle("border-radius", "calc(var(--control-corner-radius) * 1px)");
 }

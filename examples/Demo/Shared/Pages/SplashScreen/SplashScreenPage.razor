@@ -24,14 +24,14 @@
 
 <h2>Examples</h2>
 
-<DemoSection Title="Default splash screen" Component="@typeof(DialogSplashScreenDefault)" >
+<DemoSection Title="Default splash screen" Component="@typeof(DialogSplashScreenDefault)" CollocatedFiles="@(new[] { "cs" })">
     <Description>
         This example shows the standard splash screen. It's content can be alterd by means of the <code>SplashScreenContent</code> class.
         In this example we simulate a startup process that takes 4 seconds. 
     </Description>
 </DemoSection>
 
-<DemoSection Title="Custom splash screen" Component="@typeof(DialogSplashScreenCustom)" AdditionalFiles="@(new [] {"CustomSplashScreen.razor", "CustomSplashScreen.razor.css"})">
+<DemoSection Title="Custom splash screen" Component="@typeof(DialogSplashScreenCustom)" CollocatedFiles="@(new[] { "cs" })" AdditionalFiles="@(new [] {"CustomSplashScreen.razor", "CustomSplashScreen.razor.css"})">
     <Description>
         The custom example shows a splash screen that uses a customized layout. 
         See the <code>CustomSplashScreen</code> razor file to see how that can be done.
