@@ -11,4 +11,8 @@ public static class ZIndex
     public static int AnchoredRegion { get; set; } = 9999;
 
     public static int Menu { get; set; } = 9999;
+
+    public static int ComboboxPopup { get; set; } = 9995;
+    
+    public static int SelectPopup { get; set; } = 9995;
 }

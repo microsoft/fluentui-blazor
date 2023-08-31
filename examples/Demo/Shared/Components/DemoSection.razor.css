@@ -1,13 +1,4 @@
-﻿
-
-::deep fluent-tab-panel {
-    max-height: 535px;
-    overflow-y: auto;
-    padding-left: 0;
-    padding-right: 0;
-}
-
-::deep .heavy {
+﻿::deep .heavy {
     font-weight: 600;
 }
 
