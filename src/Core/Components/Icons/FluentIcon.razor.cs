@@ -8,7 +8,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// FluentIcon is a component that renders an icon from the Fluent System icon set.
 /// </summary>
 public partial class FluentIcon<Icon> : FluentComponentBase
-    where Icon : FluentUI.Icon
+    where Icon : FluentUI.Icon, new()
 {
     private Icon _icon = default!;
 
@@ -90,15 +90,8 @@ public partial class FluentIcon<Icon> : FluentComponentBase
     protected override void OnParametersSet()
     {
         if (_icon == null)
-        {
-            bool hasParameterlessConstructor = typeof(Icon).GetConstructor(Type.EmptyTypes) != null;
-            
-            if (!hasParameterlessConstructor)
-            {
-                throw new ArgumentException($"The type {typeof(Icon).FullName} must have a parameterless constructor.");
-            }
-
-            _icon = Activator.CreateInstance<Icon>();
+        {         
+            _icon = new Icon();
         }
 
         if (!string.IsNullOrEmpty(CustomColor) && Color != FluentUI.Color.Custom)

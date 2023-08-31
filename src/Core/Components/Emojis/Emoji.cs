@@ -3,11 +3,20 @@
 namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary>
-/// FluentUI Icon content.
+/// FluentUI Emoji content.
 /// </summary>
-public abstract class Emoji : EmojiInfo
+public class Emoji : EmojiInfo
 {
     private string? _content = null;
+
+    /// <summary>
+    /// Please use the constructor including parameters.
+    /// </summary>
+    /// <exception cref="ArgumentNullException"></exception>
+    public Emoji() : this(string.Empty, EmojiSize.Size16, EmojiGroup.Flags, EmojiSkintone.Default, EmojiStyle.Flat, new byte[] { })
+    {
+        throw new ArgumentNullException("Please use the constructor including parameters.");
+    }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Icon"/> class.
