@@ -17,7 +17,7 @@
 
 <div class="demo-section-content">
 
-    <FluentTabs ActiveTabId="@(!HideExample ? $"tab-example-{ariaid}" : $"tab-razor-{ariaid}")" fixed>
+    <FluentTabs ActiveTabId="@(!HideExample ? $"tab-example-{ariaid}" : $"tab-razor-{ariaid}")">
         @if (!HideExample)
         {
             <FluentTab Id="@("tab-example-"+@ariaid)" Label="Example">
@@ -39,19 +39,21 @@
             {
                 string tab = Path.GetExtension(pair.Key);
                 string tabname = Regex.Replace(GetDisplayName(tab), "[#|/|\\|$|*|^]", "");
-
+                
+                string label = string.Empty;
                 string id = string.Empty;
 
                 if (pair.Key.StartsWith(Component.Name))
                 {
+                    label = GetDisplayName(tab);
                     id = "tab-" + tabname + "-" + @ariaid;
                 }
                 else
                 {
-                    tabname = Path.GetFileNameWithoutExtension(pair.Key);
-                    id = "tab-" + Regex.Replace(tabname, "[#|/|\\|$|*|^]", "").ToLower() + "-" + @ariaid;
+                    label = Path.GetFileNameWithoutExtension(pair.Key);
+                    id = "tab-" + Regex.Replace(label, "[#|/|\\|$|*|^]", "").ToLower() + "-" + @ariaid;
                 }
-                <FluentTab Id="@id" Label="@tabname" fixed>
+                <FluentTab Id="@id" Label="@label" >
                     <Content>
                         <CodeSnippet Language="@TabLanguageClass(tab)">@pair.Value</CodeSnippet>
                     </Content>
