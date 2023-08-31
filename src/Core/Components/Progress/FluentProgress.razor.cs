@@ -30,8 +30,7 @@ public partial class FluentProgress : FluentComponentBase
     [Parameter]
     public int? Value { get; set; }
 
-    [Parameter]
-    public EventCallback<int?> ValueChanged { get; set; }
+
 
     [Parameter]
     public bool Visible { get; set; } = true;
