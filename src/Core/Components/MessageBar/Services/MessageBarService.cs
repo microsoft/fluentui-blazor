@@ -4,12 +4,12 @@ using Microsoft.AspNetCore.Components.Routing;
 namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary />
-public class MessageService : IMessageService, IDisposable
+public class MessageBarService : IMessageBarService, IDisposable
 {
     private readonly NavigationManager? _navigationManager;
 
     /// <summary />
-    public MessageService()
+    public MessageBarService()
     {
         //Configuration = new MessageBarGlobalOptions();
     }
@@ -21,7 +21,7 @@ public class MessageService : IMessageService, IDisposable
     //}
 
     /// <summary />
-    public MessageService(NavigationManager navigationManager) //, MessageBarGlobalOptions commonOptions)
+    public MessageBarService(NavigationManager navigationManager) //, MessageBarGlobalOptions commonOptions)
     {
         _navigationManager = navigationManager;
         //Configuration = commonOptions;
@@ -36,13 +36,13 @@ public class MessageService : IMessageService, IDisposable
     private ReaderWriterLockSlim MessageLock { get; } = new ReaderWriterLockSlim();
 
     /// <summary />
-    private IList<Message> MessageList { get; } = new List<Message>();
+    private IList<MessageBarContent> MessageList { get; } = new List<MessageBarContent>();
 
     //// <summary />
     //public virtual MessageBarGlobalOptions Configuration { get; }
 
     /// <summary />
-    public virtual IEnumerable<Message> AllMessages
+    public virtual IEnumerable<MessageBarContent> AllMessages
     {
         get
         {
@@ -59,14 +59,14 @@ public class MessageService : IMessageService, IDisposable
     }
 
     /// <summary />
-    public virtual IEnumerable<Message> MessagesShown(int count = 5, string? category = null)
+    public virtual IEnumerable<MessageBarContent> MessagesShown(int count = 5, string? category = null)
     {
         MessageLock.EnterReadLock();
         try
         {
             var messages = string.IsNullOrEmpty(category)
                        ? MessageList
-                       : MessageList.Where(x => x.Category == category);
+                       : MessageList.Where(x => x.Section == category);
 
             return count > 0 ? messages.Take(count) : messages;
         }
@@ -77,7 +77,7 @@ public class MessageService : IMessageService, IDisposable
     }
 
     /// <summary />
-    public Message Add(string message)
+    public MessageBarContent Add(string message)
     {
         return Add(options =>
         {
@@ -86,33 +86,33 @@ public class MessageService : IMessageService, IDisposable
     }
 
     /// <summary />
-    public Message Add(string message, MessageType severity)
+    public MessageBarContent Add(string message, MessageBarIntent intent)
     {
         return Add(options =>
         {
             options.Title = message;
-            options.Type = severity;
+            options.Intent = intent;
         });
     }
 
     /// <summary />
-    public Message Add(string message, string category, MessageType severity)
+    public MessageBarContent Add(string message, string category, MessageBarIntent intent)
     {
         return Add(options =>
         {
             options.Title = message;
-            options.Category = category;
-            options.Type = severity;
+            options.Section = category;
+            options.Intent = intent;
         });
     }
 
     /// <summary />
-    public virtual Message Add(Action<MessageOptions> options)
+    public virtual MessageBarContent Add(Action<MessageBarOptions> options)
     {
-        //var configuration = new MessageOptions(Configuration);
-        //options.Invoke(configuration);
+        var configuration = new MessageBarOptions();
+        options.Invoke(configuration);
 
-        Message? message = new(); // (configuration);
+        MessageBarContent? message = new(configuration);
 
         MessageLock.EnterWriteLock();
         try
@@ -147,7 +147,7 @@ public class MessageService : IMessageService, IDisposable
     }
 
     /// <summary />
-    public virtual void Remove(Message message)
+    public virtual void Remove(MessageBarContent message)
     {
         message.OnClose -= Remove;
         message.Options.OnClose?.Invoke(message); //.SafeFireAndForget();
@@ -205,11 +205,11 @@ public class MessageService : IMessageService, IDisposable
             return;
         }
 
-        IEnumerable<Message>? messages = string.IsNullOrEmpty(category)
+        IEnumerable<MessageBarContent>? messages = string.IsNullOrEmpty(category)
                    ? MessageList
-                   : MessageList.Where(i => i.Category == category);
+                   : MessageList.Where(i => i.Section == category);
 
-        foreach (Message message in messages)
+        foreach (MessageBarContent message in messages)
         {
             message.OnClose -= Remove;
         }
@@ -220,11 +220,11 @@ public class MessageService : IMessageService, IDisposable
         }
         else
         {
-            ((List<Message>)MessageList).RemoveAll(i => i.Category == category);
+            ((List<MessageBarContent>)MessageList).RemoveAll(i => i.Section == category);
         }
     }
 
     public int Count(string? category) => category is null
             ? MessageList.Count
-            : MessageList.Count(x => x.Category == category);
+            : MessageList.Count(x => x.Section == category);
 }

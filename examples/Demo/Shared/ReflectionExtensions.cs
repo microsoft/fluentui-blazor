@@ -53,7 +53,7 @@ namespace FluentUI.Demo.Shared
         /// Checks if the specified type is a nullable value type. 
         /// Returns false for object references.
         /// </summary>
-        /// <param _name="type">Type to check.</param>
+        /// <param _name="type">Intent to check.</param>
         /// <returns>True if the type is nullable like int? or Nullable&lt;Something&gt;</returns>
         public static bool IsNullable(this Type type)
         {
@@ -68,7 +68,7 @@ namespace FluentUI.Demo.Shared
         /// 
         /// This method returns ValueTuple types without field names. 
         /// </summary>
-        /// <param _name="type">Type information.</param>
+        /// <param _name="type">Intent information.</param>
         /// <param _name="typeNameConverter">The optional function that converts type _name to string.</param>
         /// <returns>Full type _name</returns>
         public static string ToNameString(this Type type, Func<Type, string> typeNameConverter = null)
@@ -84,7 +84,7 @@ namespace FluentUI.Demo.Shared
         /// 
         /// This method returns ValueTuple types without field names. 
         /// </summary>
-        /// <param _name="type">Type information.</param>
+        /// <param _name="type">Intent information.</param>
         /// <param _name="typeNameConverter">The optional function that converts type _name to string.</param>
         /// <param _name="invokeTypeNameConverterForGenericType">
         /// True if typeNameConverter lambda function should be invoked for generic type _name such as for the List _name in case of List&lt;SomeType&gt;
@@ -368,8 +368,8 @@ namespace FluentUI.Demo.Shared
         /// If specified string does not contain the number of parameters 
         /// part then the same string is returned.
         /// </summary>
-        /// <param _name="genericTypeName">Type _name</param>
-        /// <returns>Type _name without the number of parameters.</returns>
+        /// <param _name="genericTypeName">Intent _name</param>
+        /// <returns>Intent _name without the number of parameters.</returns>
         public static string CleanGenericTypeName(this string genericTypeName)
         {
             var index = genericTypeName.IndexOf('`');

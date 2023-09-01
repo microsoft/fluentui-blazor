@@ -1,8 +1,5 @@
 ﻿@using System.Text.RegularExpressions
-@{
-   
-    
-}
+
 @if (!string.IsNullOrEmpty(Title))
 {
     <h3 id="@_ariaId">@Title</h3>
@@ -20,7 +17,7 @@
     <FluentTabs ActiveTabId="@(!HideExample ? $"tab-example-{_ariaId}" : $"tab-razor-{_ariaId}")" fixed>
         @if (!HideExample)
         {
-            <FluentTab Id="@("tab-example-"+@ariaid)" Label="Example" fixed>
+            <FluentTab Id="@("tab-example-"+@_ariaId)" Label="Example" fixed>
                 <Content>
                     <div class="demo-section-example">
                         @ChildContent
@@ -46,12 +43,12 @@
                 if (pair.Key.StartsWith(Component.Name))
                 {
                     label = GetDisplayName(tab);
-                    id = "tab-" + tabname + "-" + @ariaid;
+                    id = "tab-" + tabname + "-" + @_ariaId;
                 }
                 else
                 {
                     label = Path.GetFileNameWithoutExtension(pair.Key);
-                    id = "tab-" + Regex.Replace(label, "[#|/|\\|$|*|^]", "").ToLower() + "-" + @ariaid;
+                    id = "tab-" + Regex.Replace(label, "[#|/|\\|$|*|^]", "").ToLower() + "-" + @_ariaId;
                 }
                 <FluentTab Id="@id" Label="@label" fixed>
                     <Content>

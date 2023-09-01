@@ -1,6 +1,6 @@
 ﻿/* OneRow */
 
-.power-alert {
+.fluent-messagebar {
     font-family: var(--body-font);
     color: var(--neutral-foreground-rest);
     display: grid;
@@ -14,33 +14,38 @@
     column-gap: 8px;
 }
 
-    .power-alert.alert-info {
+    .fluent-messagebar.intent-info {
         background-color: #f5f5f5;
         border: 1px solid #d1d1d1;
     }
 
-    .power-alert.alert-warning {
+    .fluent-messagebar.intent-warning {
         background-color: #FDF6F3; 
         border: 1px solid #f4bfab;
     }
 
-    .power-alert.alert-error {
+    .fluent-messagebar.intent-error {
         background-color: #FDF3F4; 
         border: 1px solid #f1bbbc;
     }
 
-    .power-alert.alert-success {
+    .fluent-messagebar.intent-success {
         background-color: #f1faf1; 
         border: 1px solid #9fd89f;
     }
 
-.power-alert-icon {
+    .fluent-messagebar.intent-custom {
+        background-color: var(--neutral-layer-1);
+        border: 1px solid var(--neutral-stroke-layer-rest);
+    }
+
+.fluent-messagebar-icon {
         grid-column: 1;
         display: flex;
         justify-content:center;
     }
 
-.power-alert-message {
+.fluent-messagebar-message {
     grid-column: 2;
     padding: 10px 0;
     align-self: center;
@@ -50,17 +55,17 @@
 
 }
 
-.power-alert-message .title{
+.fluent-messagebar-message .title{
     font-weight: 600;
     padding: 0 4px 0 0;
 
 }
 
-::deep .power-alert-action {
+::deep .fluent-messagebar-action {
     margin-left: 10px;
 }
 
-.power-alert-close {
+.fluent-messagebar-close {
     grid-column: 3;
     padding: 4px;
     justify-self: center;
@@ -73,7 +78,7 @@
 
 /* Notification */
 
-.power-alert-notification {
+.fluent-messagebar-notification {
     font-family: var(--body-font);
     color: var(--neutral-foreground-rest);
     display: grid;
@@ -87,30 +92,30 @@
     column-gap: 8px;
 }
 
-    .power-alert-notification.alert-info {
+    .fluent-messagebar-notification.intent-info {
         fill: #797775; /* Gray */
     }
 
-    .power-alert-notification.alert-warning {
+    .fluent-messagebar-notification.intent-warning {
         fill: #d83b01; /* Orange */
     }
 
-    .power-alert-notification.alert-error {
+    .fluent-messagebar-notification.intent-error {
         fill: #a80000; /* Red */
     }
 
-    .power-alert-notification.alert-success {
+    .fluent-messagebar-notification.intent-success {
         fill: #107c10; /* Green */
     }
 
-.power-alert-notification-icon {
+.fluent-messagebar-notification-icon {
     grid-column: 1;
     grid-row: 1;
     display: flex;
     justify-content: center;
 }
 
-.power-alert-notification-message {
+.fluent-messagebar-notification-message {
     grid-column: 2;
     grid-row: 1;
     padding: 10px 0;
@@ -123,17 +128,17 @@
     overflow: hidden;
 }
 
-.power-alert-notification-content {
+.fluent-messagebar-notification-content {
     grid-column: 1 / 4;
     grid-row: 2;
     padding: 6px 6px;
 }
 
-::deep .power-alert-notification-action {
+::deep .fluent-messagebar-notification-action {
     margin-left: 10px;
 }
 
-.power-alert-notification-close {
+.fluent-messagebar-notification-close {
     grid-column: 3;
     grid-row: 1;
     padding: 4px;
@@ -143,7 +148,7 @@
     cursor: pointer;
 }
 
-.power-alert-notification-time {
+.fluent-messagebar-notification-time {
     grid-column: 2 / 4;
     grid-row: 3;
     font-size: 12px;

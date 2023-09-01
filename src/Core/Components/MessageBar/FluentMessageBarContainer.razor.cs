@@ -16,10 +16,10 @@ public partial class FluentMessageBarContainer : FluentComponentBase, IDisposabl
         .Build();
 
     /// <summary>
-    /// Display only messages from this category.
+    /// Display only messages for this section.
     /// </summary>
     [Parameter]
-    public string? Category { get; set; }
+    public string? Section { get; set; }
 
     /// <summary>
     /// Displays messages as a single line (with the message only)
@@ -31,7 +31,7 @@ public partial class FluentMessageBarContainer : FluentComponentBase, IDisposabl
     /// <summary>
     /// Maximum number of messages displayed. Rest is stored in memory to be displayed when an shown message is closed.
     /// Default value is 5
-    /// Set a value equal to or less than zero, to display all messages for this <see cref="Category" /> (or all categories if not set).
+    /// Set a value equal to or less than zero, to display all messages for this <see cref="Section" /> (or all categories if not set).
     /// </summary>
     [Parameter]
     public int? MaxMessageCount { get; set; } = 5;
@@ -51,18 +51,18 @@ public partial class FluentMessageBarContainer : FluentComponentBase, IDisposabl
 
 
     /// <summary />
-    protected IEnumerable<Message> AllMessagesForCategory
+    protected IEnumerable<MessageBarContent> AllMessagesForCategory
     {
         get
         {
-            return string.IsNullOrEmpty(Category)
+            return string.IsNullOrEmpty(Section)
                           ? MessageService.AllMessages
-                          : MessageService.AllMessages.Where(x => x.Category == Category);
+                          : MessageService.AllMessages.Where(x => x.Section == Section);
         }
     }
 
     /// <summary />
-    protected IEnumerable<Message> MessagesShown
+    protected IEnumerable<MessageBarContent> MessagesShown
     {
         get
         {
@@ -77,8 +77,8 @@ public partial class FluentMessageBarContainer : FluentComponentBase, IDisposabl
             else
             {
                 return NewestOnTop
-                            ? MessageService.MessagesShown(-1, Category).Reverse()
-                            : MessageService.MessagesShown(-1, Category);
+                            ? MessageService.MessagesShown(-1, Section).Reverse()
+                            : MessageService.MessagesShown(-1, Section);
             }
         }
     }

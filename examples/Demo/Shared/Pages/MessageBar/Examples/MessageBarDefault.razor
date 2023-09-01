@@ -1,4 +1,4 @@
-﻿@inject IMessageService MessageService
+﻿@inject IMessageBarService MessageService
 
 Click on this button to display a message (max 5) in the top
 or in the Notification Center (top/right icon).
@@ -13,7 +13,7 @@ or in the Notification Center (top/right icon).
     int counter = 0;
     void AddInTopBar()
     {
-        var type = Enum.GetValues<MessageType>()[counter % 4];
+        var type = Enum.GetValues<MessageBarIntent>()[counter % 4];
         var message = $"Simple message #{counter++}";
         var category = App.MESSAGE_TOP;
         MessageService.Add(message, category, type);
@@ -23,13 +23,13 @@ or in the Notification Center (top/right icon).
     {
         MessageService.Add(option =>
         {
-            option.Type = Enum.GetValues<MessageType>()[counter % 4];
+            option.Intent = Enum.GetValues<MessageBarIntent>()[counter % 4];
             option.Title = $"Simple message #{counter++}";
             option.Body = MessageBarSamples.OneRandomMessage;
-            option.Action.Text = "more info";
-            option.Action.Href = "http://papertoilet.com";
+            option.PrimaryAction.Text = "more info";
+            option.PrimaryAction.Href = "http://papertoilet.com";
             option.Timestamp = DateTime.Now;
-            option.Category = App.MESSAGE_NOTIFICATION_CENTER;
+            option.Section = App.MESSAGE_NOTIFICATION_CENTER;
         });
     }
 }

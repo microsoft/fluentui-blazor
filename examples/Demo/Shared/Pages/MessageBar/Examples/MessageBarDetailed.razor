@@ -1,4 +1,4 @@
-﻿@inject IMessageService MessageService
+﻿@inject IMessageBarService MessageService
 
 Click on this button to display an Alert (max 5).
 <br />
@@ -14,20 +14,16 @@ Click on this button to display an Alert (max 5).
 
         MessageService.Add(options =>
         {
-            options.Category = App.MESSAGE_TOP;
+            options.Section = App.MESSAGE_TOP;
 
             options.Title = $"That's the message #{counter}.<br/> <b>You can't click these buttons really quickly.</b>";
-            options.Type = Enum.GetValues<MessageType>()[counter % 4];
-
+            options.Intent = Enum.GetValues<MessageBarIntent>()[counter % 4];
             options.Icon = new Icons.Regular.Size24.PersonCircle();            
-            options.ShowDismiss = true;
-
             options.ClearAfterNavigation = true;
-            options.OnClose = (e) => { DemoLogger.WriteLine($"Message {e.Type} dismissed"); return Task.CompletedTask; };
-
-            options.Action.Text = "Learn more";
-            options.Action.Href = "https://bing.com";
-            options.Action.OnClick = (e) => { DemoLogger.WriteLine($"Message 'learn more' clicked"); return Task.CompletedTask; };
+            options.OnClose = (e) => { DemoLogger.WriteLine($"Message {e.Intent} dismissed"); return Task.CompletedTask; };
+            options.PrimaryAction.Text = "Learn more";
+            options.PrimaryAction.Href = "https://bing.com";
+            options.PrimaryAction.OnClick = (e) => { DemoLogger.WriteLine($"Message 'learn more' clicked"); return Task.CompletedTask; };
         });
     }
 }

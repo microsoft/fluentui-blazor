@@ -1,5 +1,5 @@
 ﻿@implements IDialogContentComponent<SimplePerson>
-@inject IMessageService MessageService
+@inject IMessageBarService MessageService
 
 <div style="margin-right: 7px;">
 
@@ -15,7 +15,7 @@
 
     <br />
 
-    <FluentMessageBarContainer Category="@App.MESSAGE_NOTIFICATION_CENTER"
+    <FluentMessageBarContainer Section="@App.MESSAGE_NOTIFICATION_CENTER"
                         MaxMessageCount="-1"
                         Format="@MessageBarFormat.Notification" />
 </div>

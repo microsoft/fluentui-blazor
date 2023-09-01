@@ -2,97 +2,106 @@
 @inherits FluentComponentBase
 @if (ChildContent == null || IsVisible)
 {
-    @**********@
-    @* OneRow *@
-    @**********@
+    @* Default *@
+
     @if (Format == MessageBarFormat.Default)
     {
         <div class="@ClassValue" style="@StyleValue">
 
             @* Icon *@
-            @if (ShowIcon)
-            {
-                <div class="power-alert-icon">
-                    <FluentIcon Value="@Icon" Title="@(Message?.Type.ToAttributeValue())" Color="@_color" />
+                <div class="fluent-messagebar-icon">
+                    <FluentIcon Value="@Icon" Title="@(Content?.Intent.ToAttributeValue())" Color="@_color" />
                 </div>
-            }
-
+            
             @* Message *@
-            <div class="power-alert-message">
+            <div class="fluent-messagebar-message">
                 <span class="title">@((MarkupString)Title)</span>
                 @ChildContent
-                @if (ShowActionButton)
+                @if (ShowPrimaryAction)
                 {
-                    <FluentAnchor Href="@(String.IsNullOrEmpty(Action?.Href) ? "#" : Action?.Href)"
-                    @onclick="@ActionClickedAsync"
+                    <FluentAnchor Href="@(String.IsNullOrEmpty(PrimaryAction?.Href) ? "#" : PrimaryAction?.Href)"
+                                  @onclick="@PrimaryActionClickedAsync"
                                   title="Alert action"
-                                  Class="power-alert-action"
+                                  Class="fluent-messagebar-action"
                                   Target="_blank">
-                        @Action?.Text
+                        @PrimaryAction?.Text
+                    </FluentAnchor>
+                }
+                @if (ShowSecondaryAction)
+                {
+                    <FluentAnchor Href="@(String.IsNullOrEmpty(SecondaryAction?.Href) ? "#" : SecondaryAction?.Href)"
+                    @onclick="@SecondaryActionClickedAsync"
+                                  title="Alert action"
+                                  Class="fluent-messagebar-action"
+                                  Target="_blank">
+                        @SecondaryAction?.Text
                     </FluentAnchor>
                 }
             </div>
 
             @* Close *@
-            @if (ShowDismiss)
-            {
+            
                 <FluentIcon Icon="CoreIcons.Regular.Size16.Dismiss"
                             Color=@Color.Neutral
-                            Class="power-alert-close"
+                            Class="fluent-messagebar-close"
                             OnClick="DismissClicked" />
-            }
+            
         </div>
     }
 
-    @****************@
     @* Notification *@
-    @****************@
     @if (this.Format == MessageBarFormat.Notification)
     {
         <div class="@ClassValue" style="@StyleValue">
 
             @* Icon *@
-            @if (ShowIcon)
-            {
-                <div class="power-alert-notification-icon">
+                <div class="fluent-messagebar-notification-icon">
                 <FluentIcon Value="@Icon"
                             
                             Color="@_color"
-                            Title="@(Message?.Type?.ToAttributeValue())" />
+                            Title="@(Content?.Intent?.ToAttributeValue())" />
                 </div>
-            }
 
             @* Message *@
-            <div class="power-alert-notification-message" title="@Message">
+            <div class="fluent-messagebar-notification-message" title="@Content">
                 @((MarkupString)Title)
             </div>
 
             @* Close *@
-            @if (ShowDismiss)
-            {
-                <div class="power-alert-notification-close">
+            
+                <div class="fluent-messagebar-notification-close">
                 <FluentIcon Icon="CoreIcons.Regular.Size16.Dismiss"
                             Color=@Color.Neutral
-                            Class="power-alert-notification-close"
+                            Class="fluent-messagebar-notification-close"
                             OnClick="DismissClicked" />
                 </div>
-            }
+            
 
             @* Detailled content *@
-            <div class="power-alert-notification-content">
+            <div class="fluent-messagebar-notification-content">
                 @ChildContent
-                @if (!String.IsNullOrEmpty(Message?.Body))
+                @if (!String.IsNullOrEmpty(Content?.Body))
                 {
-                    @((MarkupString)Message.Body)
+                    @((MarkupString)Content.Body)
                 }
-                @if (ShowActionButton)
+                @if (ShowPrimaryAction)
                 {
-                    <FluentAnchor Href="@(String.IsNullOrEmpty(Action?.Href) ? "#" : Action?.Href)"
-                    @onclick="@ActionClickedAsync"
-                                  title="Alert action"
-                                  Class="power-alert-notification-action"
+                    <FluentAnchor Href="@(String.IsNullOrEmpty(PrimaryAction?.Href) ? "#" : PrimaryAction?.Href)"
+                    @onclick="@PrimaryActionClickedAsync"
+                                  title="MessageBar primary action"
+                                  Class="fluent-messagebar-action"
                                   Target="_blank">
-                        @Action?.Text
+                        @PrimaryAction?.Text
+                    </FluentAnchor>
+                }
+                @if (ShowSecondaryAction)
+                {
+                    <FluentAnchor Href="@(String.IsNullOrEmpty(SecondaryAction?.Href) ? "#" : SecondaryAction?.Href)"
+                    @onclick="@SecondaryActionClickedAsync"
+                                  title="MessageBar secondary action"
+                                  Class="fluent-messagebar-action"
+                                  Target="_blank">
+                        @SecondaryAction?.Text
                     </FluentAnchor>
                 }
             </div>
@@ -100,7 +109,7 @@
             @* Recorded time *@
             @if (Timestamp != null)
             {
-                <div class="power-alert-notification-time">
+                <div class="fluent-messagebar-notification-time">
                     @((DateTime.Now - Timestamp)?.ToTimeAgo())
                 </div>
             }

@@ -3,7 +3,7 @@
 namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary />
-public enum MessageType
+public enum MessageBarIntent
 {
     /// <summary />
     [Description("info")]
@@ -20,4 +20,8 @@ public enum MessageType
     /// <summary />
     [Description("success")]
     Success,
+
+    /// <summary />
+    [Description("custom")]
+    Custom,
 }
