@@ -1,4 +1,4 @@
-﻿## FluentDataGrid Breaking changes
+﻿## Breaking changes
  The `FluentDataGrid` component is, as you may know, a `QuickGrid` in disguise. We 
  aligned the underlying code even more to the productized version that will ship with 
  .NET 8. Where we previously aligned parameter names to the `fluent-datagrid` Web 
@@ -10,6 +10,14 @@
 * RowsDataSize -> ItemSize 
 * RowsDataKey -> ItemKey	
 
+Another breaking change is found in the `Align` enumeration. Where we previously used the values `Left` and `Right`, these have now been changed to `Start` and `End`. This to make working with those easier/more consistent in an RTL-based application.
+ 
+`FluentBadge` now uses a `Color` \ `BackgroundColor` combination to determine the fill values.
+ 
+`FluentCalendar` no longer wraps the `fluent-calendar` web component. It's functionality was too limited. Not all parameters are supported in the updated version.
+ 
+`StackHorizontalAlignment`/`StackVerticalAlignment` have been renamed to just `HorizontalAlignment`/`VerticalAlignment` as there are now more components using these enumarations.
+
 ## FluentComponentBase changes
 The `FluentComponentBase` class now has an `Id` parameter. This has been lifted from the `FluentInputBase` class. 
 The `Id` parameter is used to set the `id` attribute on the root element of the component. 
@@ -18,9 +26,8 @@ a value is now only created for components that need to have an id. If needed, y
 parameter yourself which will then be used as the 'id' on the root element.
 
 ## When using icons or emoji in version 2
-
-We have changed the way icons and emoji are used in version 3. We published a [FluentUI.Icons](https://www.nuget.org/packages/Microsoft.Fast.Components.FluentUI.Icons) NuGet package
-and a [FluentUI.Emojis](https://www.nuget.org/packages/Microsoft.Fast.Components.FluentUI.Emojis) NuGet package.
+We have changed the way icons and emoji are used in version 3. We published a [Icons](https://www.nuget.org/packages/Microsoft.Fast.Components.FluentUI.Icons) NuGet package
+and a [Emoji](https://www.nuget.org/packages/Microsoft.Fast.Components.FluentUI.Emojis) NuGet package.   
 The Fluent UI System Icons are a (still growing) collection of familiar, friendly and modern icons from Microsoft.
 At the moment there are more than 2200 distinct icons available in both filled and outlined versions and in various sizes. In total the collections consists of well over 11k icons in SVG format.
 
@@ -64,7 +71,7 @@ The `options.HostingModel` setting is used to determine the type of project you 
 
 For icons the new format is like:
  
-```xml
+```razor
 <FluentIcon Icon="@(Icons.Regular.Size24.Save)" />
 ```
 

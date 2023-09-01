@@ -6,7 +6,6 @@ on:
       - dev
       - archives/v2
     paths-ignore:
-      - '**/*.md'
       - '**/*.gitignore'
       - '**/*.gitattributes'
   
@@ -16,7 +15,6 @@ on:
       - dev
       - archives/v2
     paths-ignore:
-      - '**/*.md'
       - '**/*.gitignore'
       - '**/*.gitattributes'
   
@@ -25,7 +23,6 @@ on:
       - dev
       - archives/v2
     paths-ignore:
-      - '**/*.md'
       - '**/*.gitignore'
       - '**/*.gitattributes'
 
