@@ -23,7 +23,7 @@
     }
     else
     {
-        <FluentTooltip Anchor="@IdMoreButton">
+        <FluentTooltip UseTooltipService="false" Anchor="@IdMoreButton">            
             @foreach (var item in ItemsOverflow)
             {
                 <div style="margin: 5px;">@item.Text</div>

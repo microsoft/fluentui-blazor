@@ -11,7 +11,7 @@
         </FluentBadge>
     </MoreButtonTemplate>
     <OverflowTemplate>
-        <FluentTooltip Anchor="@context.IdMoreButton">
+        <FluentTooltip Anchor="@context.IdMoreButton" UseTooltipService="false">
             @foreach (var item in context.ItemsOverflow)
             {
                 <div style="margin: 5px;">@item.Text</div>
