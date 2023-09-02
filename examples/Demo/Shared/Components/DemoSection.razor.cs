@@ -1,4 +1,5 @@
 ﻿using System.Reflection.Metadata;
+using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Fast.Components.FluentUI.Infrastructure;
 
@@ -8,6 +9,9 @@ public partial class DemoSection : ComponentBase
     private bool _hasCode = false;
     private readonly Dictionary<string, string> _tabPanelsContent = new();
     private readonly List<string> _allFiles = new();
+    private string? _ariaId;
+
+    private readonly Regex _pattern = new(@"[;,<>&(){}!$^#@=/\ ]");
 
     [Inject]
     private HttpClient HttpClient { get; set; } = default!;
@@ -80,11 +84,15 @@ public partial class DemoSection : ComponentBase
     protected override void OnInitialized()
     {
         if (_allFiles.Count > 0)
+        {
             _allFiles.Clear();
+        }
 
         _allFiles.AddRange(GetCollocatedFiles());
         _allFiles.AddRange(GetAdditionalFiles());
 
+        _ariaId = _pattern.Replace(Title.ToLower(), "");
+        if (_ariaId.Length > 20) _ariaId = _ariaId[..20];
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

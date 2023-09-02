@@ -4711,7 +4711,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextField.AutoComplete">
             <summary>
-            Specifies whether a form or an input field should have autocomplete on or off.
+            Specifies whether a form or an input field should have autocomplete "on" or "off" or another value.
             An Id value must be set to use this property.
             </summary>
         </member>
@@ -5103,6 +5103,7 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.UseTooltipService">
             <summary>
             Use ITooltipService to create the tooltip, if this service was injected.
+            If the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.ChildContent"/> is dynamic, set this to false.
             Default, true.
             </summary>
         </member>

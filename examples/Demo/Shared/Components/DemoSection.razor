@@ -1,11 +1,8 @@
 ﻿@using System.Text.RegularExpressions
-@{
-    Regex pattern = new Regex("[;,<>&(){}!$^#@= ]");
-    string ariaid = pattern.Replace(Title.ToLower(), "");
-}
+
 @if (!string.IsNullOrEmpty(Title))
 {
-    <h3 id="@ariaid">@Title</h3>
+    <h3 id="@_ariaId">@Title</h3>
 }
 
 @if (Description != null)
@@ -17,10 +14,10 @@
 
 <div class="demo-section-content">
 
-    <FluentTabs ActiveTabId="@(!HideExample ? $"tab-example-{ariaid}" : $"tab-razor-{ariaid}")" fixed>
+    <FluentTabs ActiveTabId="@(!HideExample ? $"tab-example-{_ariaId}" : $"tab-razor-{_ariaId}")" fixed>
         @if (!HideExample)
         {
-            <FluentTab Id="@("tab-example-"+@ariaid)" Label="Example" fixed>
+            <FluentTab Id="@("tab-example-"+@_ariaId)" Label="Example" fixed>
                 <Content>
                     <div class="demo-section-example">
                         @ChildContent
@@ -39,19 +36,19 @@
             {
                 string tab = Path.GetExtension(pair.Key);
                 string tabname = Regex.Replace(GetDisplayName(tab), "[#|/|\\|$|*|^]", "");
-                
+
                 string label = string.Empty;
                 string id = string.Empty;
 
                 if (pair.Key.StartsWith(Component.Name))
                 {
                     label = GetDisplayName(tab);
-                    id = "tab-" + tabname + "-" + @ariaid;
+                    id = "tab-" + tabname + "-" + @_ariaId;
                 }
                 else
                 {
                     label = Path.GetFileNameWithoutExtension(pair.Key);
-                    id = "tab-" + Regex.Replace(label, "[#|/|\\|$|*|^]", "").ToLower() + "-" + @ariaid;
+                    id = "tab-" + Regex.Replace(label, "[#|/|\\|$|*|^]", "").ToLower() + "-" + @_ariaId;
                 }
                 <FluentTab Id="@id" Label="@label" fixed>
                     <Content>
