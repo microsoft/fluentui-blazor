@@ -2394,8 +2394,14 @@
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.Emoji">
             <summary>
-            FluentUI Icon content.
+            FluentUI Emoji content.
             </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Emoji.#ctor">
+            <summary>
+            Please use the constructor including parameters.
+            </summary>
+            <exception cref="T:System.ArgumentNullException"></exception>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Emoji.#ctor(System.String,Microsoft.Fast.Components.FluentUI.EmojiSize,Microsoft.Fast.Components.FluentUI.EmojiGroup,Microsoft.Fast.Components.FluentUI.EmojiSkintone,Microsoft.Fast.Components.FluentUI.EmojiStyle,System.Byte[])">
             <summary>
@@ -2715,6 +2721,12 @@
             <summary>
             FluentUI Icon content.
             </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Icon.#ctor">
+            <summary>
+            Please use the constructor including parameters.
+            </summary>
+            <exception cref="T:System.ArgumentNullException"></exception>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Icon.#ctor(System.String,Microsoft.Fast.Components.FluentUI.IconVariant,Microsoft.Fast.Components.FluentUI.IconSize,System.String)">
             <summary>
