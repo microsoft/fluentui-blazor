@@ -70,11 +70,11 @@ public partial class FluentTextField : FluentInputBase<string?>
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Specifies whether a form or an input field should have autocomplete on or off.
+    /// Specifies whether a form or an input field should have autocomplete "on" or "off" or another value.
     /// An Id value must be set to use this property.
     /// </summary>
     [Parameter]
-    public bool? AutoComplete { get; set; }
+    public string? AutoComplete { get; set; }
 
     protected override bool TryParseValueFromString(string? value, out string? result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
@@ -92,8 +92,7 @@ public partial class FluentTextField : FluentInputBase<string?>
             if (AutoComplete != null && !string.IsNullOrEmpty(Id))
             {
                 Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
-                var autocomplete = AutoComplete == true ? "on" : "off";
-                await Module.InvokeVoidAsync("setAutocomplete", Id, autocomplete);
+                await Module.InvokeVoidAsync("setAutocomplete", Id, AutoComplete);
             }
         }
     }
