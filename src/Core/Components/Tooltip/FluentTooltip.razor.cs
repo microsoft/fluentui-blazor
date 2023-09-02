@@ -30,6 +30,7 @@ public partial class FluentTooltip : FluentComponentBase, IDisposable
 
     /// <summary>
     /// Use ITooltipService to create the tooltip, if this service was injected.
+    /// If the <see cref="ChildContent"/> is dynamic, set this to false.
     /// Default, true.
     /// </summary>
     [Parameter]
