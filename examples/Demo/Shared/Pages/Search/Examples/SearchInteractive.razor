@@ -3,7 +3,7 @@
               AfterBindValue=HandleSearchInput
               Placeholder="Search for State" />
 <br />
-<FluentListbox Items=@searchResults TOption="string" SelectedOptionChanged="@(e => searchValue = (e != defaultResultsText ? e : string.Empty) )"  />
+<FluentListbox aria-label="search results" Items=@searchResults TOption="string" SelectedOptionChanged="@(e => searchValue = (e != defaultResultsText ? e : string.Empty) )"  />
 
 <p>
     You searched for: @searchValue

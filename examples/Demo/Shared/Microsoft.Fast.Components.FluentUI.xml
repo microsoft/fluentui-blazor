@@ -2394,8 +2394,14 @@
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.Emoji">
             <summary>
-            FluentUI Icon content.
+            FluentUI Emoji content.
             </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Emoji.#ctor">
+            <summary>
+            Please use the constructor including parameters.
+            </summary>
+            <exception cref="T:System.ArgumentNullException"></exception>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Emoji.#ctor(System.String,Microsoft.Fast.Components.FluentUI.EmojiSize,Microsoft.Fast.Components.FluentUI.EmojiGroup,Microsoft.Fast.Components.FluentUI.EmojiSkintone,Microsoft.Fast.Components.FluentUI.EmojiStyle,System.Byte[])">
             <summary>
@@ -2715,6 +2721,12 @@
             <summary>
             FluentUI Icon content.
             </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Icon.#ctor">
+            <summary>
+            Please use the constructor including parameters.
+            </summary>
+            <exception cref="T:System.ArgumentNullException"></exception>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Icon.#ctor(System.String,Microsoft.Fast.Components.FluentUI.IconVariant,Microsoft.Fast.Components.FluentUI.IconSize,System.String)">
             <summary>
@@ -4167,6 +4179,12 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentRadioGroup`1.TryParseValueFromString(System.String,`0@,System.String@)">
             <inheritdoc />
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSearch.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSearch.Module">
+            <summary />
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentSearch.DataList">
             <summary>
             Allows associating a <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist">datalist</see> to the element by <see href="https://developer.mozilla.org/en-US/docs/Web/API/Element/id">id</see>.
@@ -4699,7 +4717,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextField.AutoComplete">
             <summary>
-            Specifies whether a form or an input field should have autocomplete on or off.
+            Specifies whether a form or an input field should have autocomplete "on" or "off" or another value.
             An Id value must be set to use this property.
             </summary>
         </member>
@@ -5091,6 +5109,7 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.UseTooltipService">
             <summary>
             Use ITooltipService to create the tooltip, if this service was injected.
+            If the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.ChildContent"/> is dynamic, set this to false.
             Default, true.
             </summary>
         </member>

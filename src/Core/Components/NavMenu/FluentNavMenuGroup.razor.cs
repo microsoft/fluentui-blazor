@@ -89,6 +89,7 @@ public partial class FluentNavMenuGroup : FluentNavMenuItemBase, INavMenuItemsOw
 
     protected internal override async ValueTask ExecuteAsync(NavMenuActionArgs args)
     {
+        bool _justExpanded = false;
         await base.ExecuteAsync(args);
 
         if (!args.Handled)
@@ -97,6 +98,12 @@ public partial class FluentNavMenuGroup : FluentNavMenuItemBase, INavMenuItemsOw
             if (shouldExpand)
             {
                 await SetExpandedAsync(true);
+                _justExpanded = true;
+            }
+            bool shouldCollapse = Expanded && !NavMenu.Collapsed;
+            if (shouldCollapse && !_justExpanded)
+            {
+                await SetExpandedAsync(false);
             }
         }
     }

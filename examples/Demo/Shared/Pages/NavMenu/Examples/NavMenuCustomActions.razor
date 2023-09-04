@@ -40,6 +40,14 @@
             It does have a Href, so it will navigate.
             *@
             <FluentNavMenuLink Href="https://microsoft.com" Text="Default behavior (navigate)" Icon="@(new Icons.Regular.Size24.Earth())" />
+
+            @*
+                This is a group without link or action. Should expand/collapse when text clicked
+            *@
+             <FluentNavMenuGroup Text="Item 3" Icon="@(new Icons.Regular.Size24.EarthLeaf())" >
+                 <FluentNavMenuLink Icon="@(new Icons.Regular.Size24.LeafOne())" Text="Item 3.1" />
+                 <FluentNavMenuLink Icon="@(new Icons.Regular.Size24.LeafTwo())" Text="Item 3.2" />
+             </FluentNavMenuGroup>
         </FluentNavMenu>
     </div>
     <div style="width: 100%;">

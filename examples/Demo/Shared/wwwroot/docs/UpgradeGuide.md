@@ -79,7 +79,7 @@ For icons the new format is like:
 
 For emoji the new format is:
 
-```razor
+```xml
 <FluentEmoji Emoji="@(Emojis.PeopleBody.Color.Default.Artist)" />
 ```
 
