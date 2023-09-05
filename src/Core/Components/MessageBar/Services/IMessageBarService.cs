@@ -22,10 +22,10 @@ public interface IMessageBarService : IDisposable
     MessageBarContent Add(string message);
 
     /// <summary />
-    MessageBarContent Add(string message, MessageBarIntent severity);
+    MessageBarContent Add(string message, MessageBarIntent intent);
 
     /// <summary />
-    MessageBarContent Add(string message, string category, MessageBarIntent severity);
+    MessageBarContent Add(string message, string category, MessageBarIntent intent);
 
     /// <summary />
     void Clear(string? category = null);

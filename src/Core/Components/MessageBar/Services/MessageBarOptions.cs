@@ -29,7 +29,7 @@ public class MessageBarOptions
     public MessageBarAction SecondaryAction { get; set; } = new MessageBarAction();
 
     /// <summary />
-    public MessageBarIntent? Intent { get; set; } = MessageBarIntent.Info;
+    public MessageBarIntent? Intent { get; set; } // = MessageBarIntent.Info;
 
     /// <summary />
     public bool ClearAfterNavigation { get; set; }

@@ -1362,7 +1362,7 @@
             A column that can bind to a property of model
             </summary>
             <typeparam name="TItem">Model item type</typeparam>
-            <typeparam name="TProp">Intent of property</typeparam>
+            <typeparam name="TProp">Type of property</typeparam>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.CalendarExtended">
             <summary>
@@ -2062,7 +2062,7 @@
             <summary>
             Shows a panel with the dialog component type as the body
             </summary>
-            <param name="dialogComponent">Intent of component to display.</param>
+            <param name="dialogComponent">Type of component to display.</param>
             <param name="parameters">Parameters to pass to component being displayed.</param>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialog``2(Microsoft.Fast.Components.FluentUI.DialogParameters{``1})">
@@ -2075,7 +2075,7 @@
             <summary>
             Shows a dialog with the component type as the body
             </summary>
-            <param name="dialogComponent">Intent of component to display.</param>
+            <param name="dialogComponent">Type of component to display.</param>
             <param name="content">Content to pass to component being displayed.</param>
             <param name="parameters">Parameters to configure the dialog component.</param>
         </member>
@@ -2203,7 +2203,7 @@
             <summary>
             Shows a panel with the dialog component type as the body
             </summary>
-            <param name="dialogComponent">Intent of component to display.</param>
+            <param name="dialogComponent">Type of component to display.</param>
             <param name="parameters">Parameters to pass to component being displayed.</param>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialogAsync``1(System.Type,``0,Microsoft.Fast.Components.FluentUI.DialogParameters)">
@@ -2211,7 +2211,7 @@
             Shows a dialog with the component type as the body,
             passing the specified <paramref name="content "/> 
             </summary>
-            <param name="dialogComponent">Intent of component to display.</param>
+            <param name="dialogComponent">Type of component to display.</param>
             <param name="content">Content to pass to component being displayed.</param>
             <param name="parameters">Parameters to configure the dialog component.</param>
         </member>
@@ -2853,7 +2853,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFile.Mode">
             <summary>
-            Intent of file reading.
+            Type of file reading.
             For SaveToTemporaryFolder, use <see cref="P:Microsoft.Fast.Components.FluentUI.FluentInputFileEventArgs.LocalFile" /> to retrieve the file.
             For Buffer, use <see cref="P:Microsoft.Fast.Components.FluentUI.FluentInputFileEventArgs.Buffer" /> to retrieve bytes.
             </summary>
@@ -5207,7 +5207,7 @@
             Shows a toast with the component type as the body,
             passing the specified <paramref name="parameters "/> 
             </summary>
-            <param name="component">Intent of component to display.</param>
+            <param name="component">Type of component to display.</param>
             <param name="content">Content to be displayed in the toast.</param>
             <param name="parameters">Parameters to configure the toast component.</param>
         </member>

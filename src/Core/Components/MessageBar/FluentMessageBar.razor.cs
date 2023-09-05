@@ -140,7 +140,7 @@ public partial class FluentMessageBar : FluentComponentBase
     /// <summary />
     protected bool ShowSecondaryAction => !string.IsNullOrEmpty(Content.Options.SecondaryAction.Text);
 
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
         _color = Content.Intent switch
         {

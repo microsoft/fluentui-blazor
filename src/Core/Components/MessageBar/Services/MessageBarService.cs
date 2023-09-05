@@ -36,7 +36,7 @@ public class MessageBarService : IMessageBarService, IDisposable
     private ReaderWriterLockSlim MessageLock { get; } = new ReaderWriterLockSlim();
 
     /// <summary />
-    private IList<MessageBarContent> MessageList { get; } = new List<MessageBarContent>();
+    private List<MessageBarContent> MessageList { get; } = new List<MessageBarContent>();
 
     //// <summary />
     //public virtual MessageBarGlobalOptions Configuration { get; }
@@ -109,7 +109,7 @@ public class MessageBarService : IMessageBarService, IDisposable
     /// <summary />
     public virtual MessageBarContent Add(Action<MessageBarOptions> options)
     {
-        var configuration = new MessageBarOptions();
+        MessageBarOptions? configuration = new();
         options.Invoke(configuration);
 
         MessageBarContent? message = new(configuration);
