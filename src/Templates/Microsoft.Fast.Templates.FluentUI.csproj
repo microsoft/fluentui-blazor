@@ -14,17 +14,17 @@
 		<PackageProjectUrl>https://github.com/microsoft/fluentui-blazor</PackageProjectUrl>
 		<PackageTags>templates;fast;fast-blazor;blazor;fluentui;web-assembly</PackageTags>
 		<PackageType>Template</PackageType>
-		<PackageVersion>2.0.6</PackageVersion>
+		<PackageVersion>3.0.0</PackageVersion>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<Title>Microsoft FAST Fluent UI Blazor Templates</Title>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageIcon>icon.png</PackageIcon>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageIcon>icon.png</PackageIcon>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<Content Include="Projects\**\*" Exclude="Projects\**\bin\**;Projects\**\obj\**" />
 		<None Include="README.md" Pack="true" PackagePath="\" />
-    <None Include="..\..\icon.png" Pack="true" PackagePath="\" />
+		<None Include="..\..\icon.png" Pack="true" PackagePath="\" />
 		<Compile Remove="**\*" />
 	</ItemGroup>
 </Project>

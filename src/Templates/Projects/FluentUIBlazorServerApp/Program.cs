@@ -1,6 +1,3 @@
-using FluentUIBlazorServerApp.Data;
-using Microsoft.Fast.Components.FluentUI;
-
 WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -9,9 +6,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddHttpClient();
 
 builder.Services.AddFluentUIComponents();
-//When using icons and/or emoji replace the line above with the code below
-//LibraryConfiguration config = new(ConfigurationGenerator.GetIconConfiguration(), ConfigurationGenerator.GetEmojiConfiguration());
-//builder.Services.AddFluentUIComponents(config);
+
 
 builder.Services.AddSingleton<WeatherForecastService>();
 
