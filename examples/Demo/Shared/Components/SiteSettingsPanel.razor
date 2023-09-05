@@ -1,0 +1,19 @@
+﻿@implements IDialogContentComponent<Settings>
+@inject IMessageBarService MessageService
+
+<div style="margin-right: 7px;">
+
+    <FluentStack Orientation="Orientation.Vertical"> 
+    <FluentSwitch @bind-Value="@Content.DarkMode"  title="Switch theme">
+        <span class="label">Theme</span>
+        <span slot="unchecked-message">light</span>
+        <span slot="checked-message">dark</span>
+    </FluentSwitch>
+    <FluentSwitch @bind-Value="@Content.RtlMode" title="Switch direction">
+        <span>Direction</span>
+        <span slot="unchecked-message">LTR</span>
+        <span slot="checked-message">RTL</span>
+    </FluentSwitch>
+    </FluentStack>
+</div>
+

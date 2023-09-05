@@ -20,7 +20,7 @@ header {
     background-color: var(--neutral-layer-4);
     grid-area: header;
     display: grid;
-    grid-template-columns: 280px 1fr auto auto auto;
+    grid-template-columns: 280px 1fr auto auto auto auto auto;
     grid-template-rows: 1fr;
     align-items: center;
     justify-content: flex-start;
@@ -53,9 +53,25 @@ header {
         header .colorgroup label {
             margin-inline-end: calc(var(--design-unit) * 2px);
         }
-    
-    header .switches {
+
+    header .notifications {
         grid-column: 5;
+        justify-self: end;
+        padding: 0 20px 0 0;
+        display: flex;
+        align-items: center;
+    }
+
+    header .settings {
+        grid-column: 6;
+        justify-self: end;
+        padding: 0 20px 0 0;
+        display: flex;
+        align-items: center;
+    }
+
+    header .switches {
+        grid-column: 7;
         justify-self: end;
         padding: 0 20px 0 0;
         display: flex;

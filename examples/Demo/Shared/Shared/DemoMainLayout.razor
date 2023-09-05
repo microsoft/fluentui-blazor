@@ -49,7 +49,12 @@
                           @onchange="@(x => HandleColorChange(x))" 
                           aria-label="Accent color selector"/>
         </div>
-        <FluentUI.Demo.Shared.Pages.MessageBar.Examples.SimpleNotificationButton />
+        <div class="notifications">
+            <NotificationCenter />
+        </div>
+        <div class="settings">
+            <SiteSettings />
+        </div>
         <div class="switches">
             <FluentSwitch @bind-Value="@_inDarkMode" AfterBindValue="UpdateTheme" title="Switch theme">
                 <span class="label">Theme</span>

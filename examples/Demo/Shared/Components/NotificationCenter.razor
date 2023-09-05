@@ -1,0 +1,72 @@
+﻿@inject IDialogService DialogService
+@inject IMessageBarService MessageService
+
+@if (MessageService.Count(App.MESSAGE_NOTIFICATION_CENTER) > 0)
+{
+    <FluentCounterBadge Count="@MessageService.Count(App.MESSAGE_NOTIFICATION_CENTER)"
+                        Max="9"
+                        ShowOverflow="true"
+                        BackgroundColor="@Color.Error"
+                        Color="Color.Fill"
+                        Appearance="Appearance.Accent"
+                        ShowZero=true>
+        <ChildContent>
+            <FluentButton Appearance="Appearance.Filled"
+                          Style="margin: 0px 5px;"
+                          Title="Notification Center"
+                          OnClick="OpenNotificationCenterAsync">
+                <FluentIcon Icon="Icons.Regular.Size24.Alert" Color="Color.Neutral" />
+            </FluentButton>
+        </ChildContent>
+    </FluentCounterBadge>
+
+}
+else
+{
+    <FluentButton Appearance="Appearance.Filled"
+                  Style="margin: 0px 5px;"
+                  Title="Notification Center"
+                  OnClick="OpenNotificationCenterAsync">
+        <FluentIcon Icon="Icons.Regular.Size24.Alert" Color="Color.Neutral" />
+    </FluentButton>
+}
+
+
+@code {
+    private IDialogReference? _dialog;
+
+    private readonly SimplePerson simplePerson = default!;
+
+    private async Task OpenNotificationCenterAsync()
+    {
+        DemoLogger.WriteLine($"Open right panel");
+
+        _dialog = await DialogService.ShowPanelAsync<NotificationCenterPanel, SimplePerson>(new DialogParameters<SimplePerson>()
+            {
+                Alignment = HorizontalAlignment.Right,
+                Title = $"Notifications",
+                PrimaryAction = "Ok",
+                SecondaryAction = null,
+                ShowDismiss = true
+            });
+        DialogResult result = await _dialog.Result;
+        HandlePanel(result);
+    }
+
+    private static void HandlePanel(DialogResult result)
+    {
+        if (result.Cancelled)
+        {
+            DemoLogger.WriteLine($"Panel cancelled");
+            return;
+        }
+
+        if (result.Data is not null)
+        {
+            SimplePerson? simplePerson = result.Data as SimplePerson;
+            DemoLogger.WriteLine($"Panel closed by {simplePerson?.Firstname} {simplePerson?.Lastname} ({simplePerson?.Age})");
+            return;
+        }
+    }
+
+}

@@ -4,11 +4,11 @@
 <div style="margin-right: 7px;">
 
     <FluentStack>
-        <FluentAnchor Href="/DataGrids" IconEnd="@(new Icons.Regular.Size20.ArrowRight())">
+        <FluentAnchor Appearance="@Appearance.Hypertext" Href="/DataGrids" IconEnd="@(new Icons.Regular.Size20.ArrowRight())">
             More events in the activity log
         </FluentAnchor>
         <FluentSpacer />
-        <FluentAnchor Href="" @onclick="@(e => MessageService.Clear(App.MESSAGE_NOTIFICATION_CENTER) )">
+        <FluentAnchor Appearance="@Appearance.Hypertext" Href="" @onclick="@(e => MessageService.Clear(App.MESSAGE_NOTIFICATION_CENTER) )">
             Dismiss all
         </FluentAnchor>
     </FluentStack>

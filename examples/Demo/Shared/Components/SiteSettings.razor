@@ -1,0 +1,51 @@
+﻿@inject IDialogService DialogService
+
+<FluentButton Appearance="Appearance.Filled"
+              Style="margin: 0px 5px;"
+              Title="Notifications"
+              OnClick="OpenSiteSettingsAsync">
+    <FluentIcon Icon="Icons.Regular.Size24.Settings" Color="Color.Neutral" />
+</FluentButton>
+
+@code {
+    private IDialogReference? _dialog;
+
+    private readonly Settings settings = new()
+        {
+            DarkMode = false,
+            RtlMode = false
+        };
+
+    private async Task OpenSiteSettingsAsync()
+    {
+        DemoLogger.WriteLine($"Open right panel");
+
+        _dialog = await DialogService.ShowPanelAsync<SiteSettingsPanel, Settings>(new DialogParameters<Settings>()
+            {
+                Content = settings,
+                Alignment = HorizontalAlignment.Right,
+                PrimaryAction = "Ok",
+                SecondaryAction = null,
+                ShowDismiss = false
+            });
+        DialogResult result = await _dialog.Result;
+        HandlePanel(result);
+    }
+
+    private static void HandlePanel(DialogResult result)
+    {
+        if (result.Cancelled)
+        {
+            DemoLogger.WriteLine($"Panel cancelled");
+            return;
+        }
+
+        if (result.Data is not null)
+        {
+            SimplePerson? simplePerson = result.Data as SimplePerson;
+            DemoLogger.WriteLine($"Panel closed by {simplePerson?.Firstname} {simplePerson?.Lastname} ({simplePerson?.Age})");
+            return;
+        }
+    }
+
+}
