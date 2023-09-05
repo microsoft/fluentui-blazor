@@ -20,7 +20,7 @@ public partial class FluentCodeEditor : FluentComponentBase, IAsyncDisposable
                             }
                             """;
 
-    
+
     protected string? ClassValue => new CssBuilder(Class)
          .Build();
 
@@ -36,7 +36,7 @@ public partial class FluentCodeEditor : FluentComponentBase, IAsyncDisposable
     private IJSRuntime JSRuntime { get; set; } = default!;
 
     /// <summary />
-    private IJSObjectReference _jsModule { get; set; } = default!;
+    private IJSObjectReference _jsModule = default!;
 
     /// <summary>
     /// Language used by the editor: csharp, javascript, ...
@@ -154,9 +154,6 @@ public partial class FluentCodeEditor : FluentComponentBase, IAsyncDisposable
             await _jsModule.DisposeAsync();
         }
 
-        if (_dotNetHelper is not null)
-        {
-            _dotNetHelper.Dispose();
-        }
+        _dotNetHelper?.Dispose();
     }
 }

@@ -3,29 +3,30 @@
 <PageTitle>FluentUIBlazorWebAssemblyApp</PageTitle>
 
 <div class="container">
-        <div class="siteheader">
-            <a href="/">Home</a>
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+    <div class="siteheader">
+        <a href="/">Home</a>
+        <a href="https://www.fluentui-blazor.net" target="_blank">Documentation and demos</a>
+        <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor" target="_blank">About Blazor</a>
+    </div>
+    <div class="main">
+        <div class="navigation">
+            <NavMenu />
         </div>
-        <div class="main">
-            <div class="navigation">
-                <NavMenu />
-            </div>
 
-            <div class="content">
-                <main>
-                    <article class="content px-4">
-                       
-                        <ErrorBoundary>
-                            <ChildContent>
-                                @Body
-                            </ChildContent>
-                            <ErrorContent Context="ex">
-                                 <p class="error">@ex.Message</p>
-                            </ErrorContent>
-                        </ErrorBoundary>
-                    </article>
-                </main>
-            </div>
+        <div class="content">
+            <main>
+                <article class="content px-4">
+
+                    <ErrorBoundary>
+                        <ChildContent>
+                            @Body
+                        </ChildContent>
+                        <ErrorContent Context="ex">
+                            <p class="error">@ex.Message</p>
+                        </ErrorContent>
+                    </ErrorBoundary>
+                </article>
+            </main>
         </div>
     </div>
+</div>
