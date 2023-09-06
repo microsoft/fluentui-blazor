@@ -69,13 +69,13 @@
         {
             _rowsDataSize = $"height: {ItemSize}px";
         }
-        
-        <FluentDataGridRow @key="@(ItemKey(item))" GridTemplateColumns=@GridTemplateColumns aria-rowindex="@rowIndex" Class="@rowClass" Style="@_rowsDataSize" TGridItem="TGridItem">
+
+        <FluentDataGridRow @key="@(ItemKey(item))" GridTemplateColumns=@GridTemplateColumns aria-rowindex="@rowIndex" Class="@rowClass" Style="@_rowsDataSize" TGridItem="TGridItem" Item="@item">
             @for (var colIndex = 0; colIndex < _columns.Count; colIndex++)
             {
                 var col = _columns[colIndex];
             
-                <FluentDataGridCell GridColumn=@(colIndex+1) Class="@ColumnClass(col)" @key="@col" TGridItem="TGridItem">
+                <FluentDataGridCell GridColumn=@(colIndex+1) Class="@ColumnClass(col)" @key="@col" TGridItem="TGridItem" Item="@item">
                     @((RenderFragment)(__builder => col.CellContent(__builder, item)))
                 </FluentDataGridCell>
             }
