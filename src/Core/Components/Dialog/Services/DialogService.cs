@@ -11,7 +11,7 @@ public class DialogService : IDialogService
     public event Func<IDialogReference, Type?, DialogParameters, object, Task<IDialogReference>>? OnShowAsync;
 
     public event Action<string, DialogParameters>? OnUpdate;
-    public event Func<string, DialogParameters, Task>? OnUpdateAsync;
+    public event Func<string, DialogParameters, Task<IDialogReference>>? OnUpdateAsync;
 
     public event Action<IDialogReference, DialogResult>? OnDialogCloseRequested;
 
@@ -403,7 +403,7 @@ public class DialogService : IDialogService
     /// </summary>
     /// <param name="message">The message to display.</param>
     /// <param name="title">The title to display on the dialog.</param>
-    public async Task ShowSuccessAsync(string message, string? title = null) => await ShowMessageBoxAsync(new DialogParameters<MessageBoxContent>()
+    public async Task<IDialogReference> ShowSuccessAsync(string message, string? title = null) => await ShowMessageBoxAsync(new DialogParameters<MessageBoxContent>()
     {
         Content = new MessageBoxContent()
         {
@@ -422,7 +422,7 @@ public class DialogService : IDialogService
     /// </summary>
     /// <param name="message">The message to display.</param>
     /// <param name="title">The title to display on the dialog.</param>
-    public async Task ShowWarningAsync(string message, string? title = null) => await ShowMessageBoxAsync(new DialogParameters<MessageBoxContent>()
+    public async Task<IDialogReference> ShowWarningAsync(string message, string? title = null) => await ShowMessageBoxAsync(new DialogParameters<MessageBoxContent>()
     {
         Content = new MessageBoxContent()
         {
@@ -441,7 +441,7 @@ public class DialogService : IDialogService
     /// </summary>
     /// <param name="message">The message to display.</param>
     /// <param name="title">The title to display on the dialog.</param>
-    public async Task ShowErrorAsync(string message, string? title = null) => await ShowMessageBoxAsync(new DialogParameters<MessageBoxContent>()
+    public async Task<IDialogReference> ShowErrorAsync(string message, string? title = null) => await ShowMessageBoxAsync(new DialogParameters<MessageBoxContent>()
     {
         Content = new MessageBoxContent()
         {
@@ -460,7 +460,7 @@ public class DialogService : IDialogService
     /// </summary>
     /// <param name="message">The message to display.</param>
     /// <param name="title">The title to display on the dialog.</param>
-    public async Task ShowInfoAsync(string message, string? title = null) => await ShowMessageBoxAsync(new DialogParameters<MessageBoxContent>()
+    public async Task<IDialogReference> ShowInfoAsync(string message, string? title = null) => await ShowMessageBoxAsync(new DialogParameters<MessageBoxContent>()
     {
         Content = new MessageBoxContent()
         {
@@ -606,10 +606,10 @@ public class DialogService : IDialogService
     /// </summary>
     /// <param name="id">Id of the dialog to update.</param>
     /// <param name="parameters">Parameters to configure the dialog component.</param>
-    public async Task UpdateDialogAsync<TContent>(string id, DialogParameters<TContent> parameters)
+    public async Task<IDialogReference> UpdateDialogAsync<TContent>(string id, DialogParameters<TContent> parameters)
         where TContent : class
     {
-        await OnUpdateAsync!.Invoke(id, parameters);
+        return await OnUpdateAsync!.Invoke(id, parameters);
     }
 
     /// <summary>

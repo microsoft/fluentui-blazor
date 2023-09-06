@@ -70,9 +70,9 @@ public partial class FluentDialogProvider : IDisposable
         };
     }
 
-    private async Task UpdateDialogAsync(string? dialogId, DialogParameters parameters)
+    private async Task<IDialogReference> UpdateDialogAsync(string? dialogId, DialogParameters parameters)
     {
-        await Task.Run(() =>
+        return await Task.Run(() =>
         {
             IDialogReference reference = _internalDialogContext.References.SingleOrDefault(x => x.Id == dialogId)!;
             DialogInstance? dialogInstance = reference.Instance;
@@ -83,6 +83,7 @@ public partial class FluentDialogProvider : IDisposable
 
                 InvokeAsync(StateHasChanged);
             }
+            return reference;
         });
     }
 
