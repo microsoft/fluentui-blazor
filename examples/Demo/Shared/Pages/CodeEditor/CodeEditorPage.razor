@@ -12,7 +12,11 @@
         <strong>Important:</strong> When using this component, make sure to add the following line to your <code>index.html</code> / <code>_Layout.cshtml</code> <strong>before</strong> where the Blazor script is added:
         <br />
         <br />
-        <code>&lt;script src="_content/Microsoft.Fast.Components.FluentUI/lib/monaco-editor/min/vs/loader.min.js">&lt;/script></code>
+        <code>
+            &lt;script src="_content/Microsoft.Fast.Components.FluentUI/lib/monaco-editor/min/vs/loader.min.js">&lt;/script><br/>
+            &lt;script>require.config({ paths: { 'vs': '_content/Microsoft.Fast.Components.FluentUI/lib/monaco-editor/min/vs' } });&lt;/script><br />
+            &lt;script src="_content/Microsoft.Fast.Components.FluentUI/lib/monaco-editor/min/vs/editor/editor.main.js">&lt;/script>
+        </code>
     </p>
 </blockquote>
 
@@ -22,9 +26,9 @@
     An example of this can be found in this demo site's source code available on <a href="https://github.com/microsoft/fluentui-blazor/tree/dev/examples/Demo">GitHub</a>.
 </p>
 
-<ApiDocumentation Component="typeof(FluentCodeEditor)" />
-
 <h2>Example</h2>
 
 <DemoSection Component="typeof(CodeEditorDefaultExample)" Title="Default example" CollocatedFiles="@(new[] { "cs" })" />
 
+<h2>API Documentation</h2>
+<ApiDocumentation Component="typeof(FluentCodeEditor)" />
