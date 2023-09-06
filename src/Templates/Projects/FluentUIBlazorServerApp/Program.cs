@@ -9,10 +9,6 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddHttpClient();
 
 builder.Services.AddFluentUIComponents();
-//LibraryConfiguration config = new(ConfigurationGenerator.GetIconConfiguration(), ConfigurationGenerator.GetEmojiConfiguration());
-//builder.Services.AddFluentUIComponents(config);
-//LibraryConfiguration config = new(ConfigurationGenerator.GetIconConfiguration(), ConfigurationGenerator.GetEmojiConfiguration());
-//builder.Services.AddFluentUIComponents(config);
 
 builder.Services.AddSingleton<WeatherForecastService>();
 
