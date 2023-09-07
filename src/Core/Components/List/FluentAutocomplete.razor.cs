@@ -91,8 +91,17 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
     [Parameter]
     public int? MaximumSelectedOptions { get; set; }
 
+    /// <summary>
+    /// Template for the <see cref="ListComponentBase{TOption}.Items"/> items.
+    /// </summary>
     [Parameter]
-    public RenderFragment<TOption>? TemplateOption { get; set; }
+    public RenderFragment<TOption>? OptionTemplate { get; set; }
+
+    /// <summary>
+    /// Template for the <see cref="ListComponentBase{TOption}.SelectedOptions"/> items.
+    /// </summary>
+    [Parameter]
+    public RenderFragment<TOption>? SelectedOptionTemplate { get; set; }
 
     /// <summary />
     private string ComponentWidth

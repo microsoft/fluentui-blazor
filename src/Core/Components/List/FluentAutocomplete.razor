@@ -36,9 +36,16 @@
                                     direction="next"></fluent-flipper>
                     @foreach (var item in this.SelectedOptions)
                     {
-                        <FluentBadge Appearance="@FluentUI.Appearance.Neutral" OnDismissClick="@(e => RemoveSelectedItemAsync(item))">
-                            @GetOptionText(item)
-                        </FluentBadge>
+                        if (SelectedOptionTemplate == null)
+                        {
+                            <FluentBadge Appearance="@FluentUI.Appearance.Neutral" OnDismissClick="@(e => RemoveSelectedItemAsync(item))">
+                                @GetOptionText(item)
+                            </FluentBadge>
+                        }
+                        else
+                        {
+                            @SelectedOptionTemplate(item)
+                        }
                     }
                     &nbsp;
                 </fluent-horizontal-scroll>
@@ -75,13 +82,13 @@
                                           Disabled="@(GetOptionDisabled(item) ?? false)"
                                           OnSelect="@OnSelectCallback(item)"
                                           selectable="@(value == selectableItem)">
-                                @if (TemplateOption == null)
+                                @if (OptionTemplate == null)
                                 {
                                     @GetOptionText(item)
                                 }
                                 else
                                 {
-                                    @TemplateOption(item)
+                                    @OptionTemplate(item)
                                 }
                             </FluentOption>
                         }

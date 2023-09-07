@@ -1,41 +1,39 @@
 @inject DataSource Data
 
-<style>
-    .persona {
-        width: 32px;
-        height: 32px;
-        font-weight: 600;
-        color: var(--fill-color);
-        background: var(--accent-stroke-control-active);
-        border-radius: 50%;
-        padding: 4px;
-        text-align: center;
-    }
-    .name {
-        margin: 4px 10px;
-    }
-</style>
-
 <label for="my-customized">Select a person</label>
 <FluentAutocomplete Id="my-customized"
                     TOption="Person"
-                    Width="250px"
-                    Placeholder="Select people"
+                    Width="100%"
+                    Placeholder="search"
                     OnOptionsSearch="@OnSearch"
                     MaximumSelectedOptions="3"
                     OptionText="@(item => item.LastName)"
                     OptionStyle="min-height: 40px;"
                     @bind-SelectedOptions="@SelectedItems">
-    <TemplateOption>
-        <div style="display: flex">
-            <div class="persona">
-                @($"{context.FirstName[0]}{context.LastName[0]}")
+                    
+    @* Template used with each Selected items *@
+    <SelectedOptionTemplate>
+        <div style="display: flex;" class="item-selected">
+            <div class="persona small">
+                @Initials(context)
+            </div>
+            <div class="name-selected">
+                @context.LastName
+            </div>
+        </div>
+    </SelectedOptionTemplate>
+
+    @* Template used with each Option items *@
+    <OptionTemplate>
+        <div style="display: flex;">
+            <div class="persona large">
+                @Initials(context)
             </div>
             <div class="name">
                 @context.FirstName @context.LastName
             </div>
         </div>
-    </TemplateOption>
+    </OptionTemplate>
 </FluentAutocomplete>
 
 <p>
@@ -48,7 +46,53 @@
 
     private void OnSearch(OptionsSearchEventArgs<Person> e)
     {
-        e.Items = Data.People.Where(i => i.LastName.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase))
+        e.Items = Data.People.Where(i => i.LastName.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase) ||
+                                         i.FirstName.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase))
                              .OrderBy(i => i.LastName);
     }
+
+    private string Initials(Person person)
+    {
+        return $"{person.FirstName.ToUpper()[0]}{person.LastName.ToUpper()[0]}";
+    }
 }
+
+<style>
+    .persona {
+        font-weight: 600;
+        color: var(--fill-color);
+        background: var(--accent-stroke-control-active);
+        border-radius: 50%;
+        text-align: center;
+    }
+
+    .large {
+        width: 32px;
+        height: 32px;
+        padding: 4px;
+        font-size: 16px;
+    }
+
+    .small {
+        min-width: 20px;
+        height: 20px;
+        padding: 1px;
+        font-size: 11px;
+    }
+
+    .name {
+        margin: 5px 10px;
+        text-wrap: nowrap;
+    }
+
+    .name-selected {
+        margin: 0px 10px;
+        text-wrap: nowrap;
+    }
+
+    .item-selected {
+        border: solid 1px var(--accent-stroke-control-active);
+        border-radius: 12px;
+    }
+
+</style>
