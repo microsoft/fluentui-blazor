@@ -1,0 +1,33 @@
+﻿.fluent-autocomplete-multiselect div[role=listbox] {
+    overflow-y: auto;
+    max-height: 300px;
+    outline: none;
+    padding: 2px;
+    display: inline-flex;
+    flex-direction: column;
+}
+
+    .fluent-autocomplete-multiselect div[role=listbox] ::deep fluent-option {
+        min-height: 32px;
+    }
+
+        .fluent-autocomplete-multiselect div[role=listbox] ::deep fluent-option:hover {
+            background-color: var(--neutral-fill-stealth-hover) !important;
+        }
+
+        /* This first fluent-option will be selected when user presses Enter */
+        .fluent-autocomplete-multiselect div[role=listbox] ::deep fluent-option:first-child {
+            background-color: #f3f3f3;
+        }
+
+.fluent-autocomplete-multiselect fluent-text-field::part(start) {
+    max-width: calc(100% - 80px);
+}
+
+.fluent-autocomplete-next {
+    height: 25px;
+}
+
+.fluent-autocomplete-previous {
+    height: 25px;
+}

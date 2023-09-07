@@ -44,7 +44,7 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
 
                     Value = value;
                     // Raise Changed events in another thread
-                    Task.Run(() => RaiseChangedEvents());
+                    Task.Run(() => RaiseChangedEventsAsync());
                 }
             }
         }
@@ -177,9 +177,11 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
     {
         if (_multiple != Multiple)
         {
-            if (this is not FluentListbox<TOption> && this is not FluentSelect<TOption>)
+            if (this is not FluentListbox<TOption> &&
+                this is not FluentSelect<TOption> &&
+                this is not FluentAutocomplete<TOption>)
             {
-                throw new ArgumentException("Only FluentSelect and FluentListbox components support multi-selection mode. ", "Multiple");
+                throw new ArgumentException("Only FluentSelect, FluentListbox and FluentAutocomplete components support multi-selection mode. ", nameof(Multiple));
             }
 
             _multiple = Multiple;
@@ -334,12 +336,12 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
             if (_selectedOptions.Contains(item))
             {
                 RemoveSelectedItem(item);
-                await RaiseChangedEvents();
+                await RaiseChangedEventsAsync();
             }
             else
             {
                 AddSelectedItem(item);
-                await RaiseChangedEvents();
+                await RaiseChangedEventsAsync();
             }
 
         }
@@ -348,31 +350,36 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
             if (!Equals(item, SelectedOption))
             {
                 SelectedOption = item;
-                await RaiseChangedEvents();
+                await RaiseChangedEventsAsync();
             }
         }
     }
 
     /// <summary />
-    protected virtual async Task RaiseChangedEvents()
+    protected virtual async Task RaiseChangedEventsAsync()
     {
         if (Multiple)
         {
             if (SelectedOptionsChanged.HasDelegate)
+            {
                 await SelectedOptionsChanged.InvokeAsync(_selectedOptions);
+            }
         }
         else
         {
             if (SelectedOptionChanged.HasDelegate)
+            {
                 await SelectedOptionChanged.InvokeAsync(SelectedOption);
+            }
+
+            if (ValueChanged.HasDelegate)
+            {
+                await ValueChanged.InvokeAsync(InternalValue);
+            }
         }
-        if (ValueChanged.HasDelegate)
-            await ValueChanged.InvokeAsync(InternalValue);
 
         StateHasChanged();
     }
-
-
 
     /// <summary />
     protected virtual RenderFragment? GetListOptions(IEnumerable<TOption>? items)

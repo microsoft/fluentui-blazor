@@ -1,0 +1,22 @@
+﻿@inject DataSource Data
+
+<label for="people-autocomplete">Select a person</label>
+<FluentAutocomplete TOption="Person"
+                    Items="@Data.People"
+                    Id="people-autocomplete"
+                    Height="150px"
+                    OptionValue="@(p => p.PersonId.ToString())"
+                    OptionText="@(p => p.LastName + ", " + p.FirstName)"
+                    @bind-Value="@SelectedValue"
+                    @bind-SelectedOption="@SelectedItem" />
+
+<p>
+    Selected value: @SelectedValue <br />
+    Selected item: @SelectedItem?.ToString()
+</p>
+
+@code
+{
+    Person? SelectedItem;
+    string? SelectedValue;
+}

@@ -1,0 +1,62 @@
+@namespace Microsoft.Fast.Components.FluentUI
+@inherits ListComponentBase<TOption>
+@typeparam TOption
+
+<div class="@ClassValue fluent-autocomplete-multiselect"
+     style="@StyleValue">
+    <fluent-text-field role="combobox"
+                       id="@Id"
+                       appearance="neutral"
+                       disabled="@Disabled"
+                       placeholder="@Placeholder"
+                       aria-label="@(String.IsNullOrWhiteSpace(Title) ? "" : Title)"
+                       current-value="@_valueText"
+    @onclick="@OnDropDownExpandedAsync"
+    @oninput="@InputHandlerAsync"
+    @onkeydown="@KeyDownHandlerAsync"
+                       style="@ComponentWidth">
+        @if (this.SelectedOptions?.Any() == true)
+        {
+            <fluent-horizontal-scroll id="@IdScroll" style="width: 100%;" slot="start">
+                <fluent-flipper onclick="document.getElementById('@IdScroll').scrollToPrevious()"
+                                slot="previous-flipper"
+                                aria-hidden="false"
+                                role="button"
+                                tabindex="0"
+                                class="previous fluent-autocomplete-previous"
+                                direction="previous"></fluent-flipper>
+                <fluent-flipper onclick="document.getElementById('@IdScroll').scrollToNext()"
+                                slot="next-flipper"
+                                aria-hidden="false"
+                                role="button"
+                                tabindex="0"
+                                class="next fluent-autocomplete-next"
+                                direction="next"></fluent-flipper>
+                @foreach (var item in this.SelectedOptions)
+                {
+                    <FluentBadge Appearance="@AppearanceSelectedOptions" OnDismissClick="@(e => RemoveSelectedItemAsync(item))">
+                        @GetOptionValue(item)
+                    </FluentBadge>
+                }
+                &nbsp;
+            </fluent-horizontal-scroll>
+        }
+        <svg width="12" height="12" style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" slot="end" @onclick="@OnDropDownExpandedAsync">
+            <path d="M2.15 4.65c.2-.2.5-.2.7 0L6 7.79l3.15-3.14a.5.5 0 11.7.7l-3.5 3.5a.5.5 0 01-.7 0l-3.5-3.5a.5.5 0 010-.7z"></path>
+        </svg>
+    </fluent-text-field>
+    @if (IsMultiSelectOpened)
+    {
+        <FluentOverlay OnClose="@(e => IsMultiSelectOpened = false)" Transparent="true" FullScreen="true" />
+        <FluentAnchoredRegion Anchor="@Id"
+                              HorizontalDefaultPosition="HorizontalPosition.Right"
+                              IsHorizontalInset="true"
+                              VerticalPosition="@VerticalAlignment.Bottom"
+                              Style="margin-top: 10px; border-radius: calc(var(--control-corner-radius) * 2px); background-color: var(--neutral-layer-floating);"
+                              Shadow="ElevationShadow.Flyout">
+            <div role="listbox" style="@(String.IsNullOrEmpty(Width) ? null : $"width: {Width};")">
+                @GetListOptions(Items)
+            </div>
+        </FluentAnchoredRegion>
+    }
+</div>
