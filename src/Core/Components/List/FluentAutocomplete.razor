@@ -12,9 +12,9 @@
                            placeholder="@Placeholder"
                            aria-label="@(String.IsNullOrWhiteSpace(Title) ? Placeholder : Title)"
                            current-value="@_valueText"
-                           @onclick="@OnDropDownExpandedAsync"
-                           @oninput="@InputHandlerAsync"
-                           @onkeydown="@KeyDownHandlerAsync"
+        @onclick="@OnDropDownExpandedAsync"
+        @oninput="@InputHandlerAsync"
+        @onkeydown="@KeyDownHandlerAsync"
                            style="@ComponentWidth">
             @* Selected Items *@
             @if (this.SelectedOptions?.Any() == true)
@@ -47,7 +47,7 @@
                 <path d="M2.15 4.65c.2-.2.5-.2.7 0L6 7.79l3.15-3.14a.5.5 0 11.7.7l-3.5 3.5a.5.5 0 01-.7 0l-3.5-3.5a.5.5 0 010-.7z"></path>
             </svg>
         </fluent-text-field>
-        
+
         @* List of available items *@
         @if (IsMultiSelectOpened)
         {
@@ -59,8 +59,25 @@
                                   Style="margin-top: 10px; border-radius: calc(var(--control-corner-radius) * 2px); background-color: var(--neutral-layer-floating);"
                                   Shadow="ElevationShadow.Flyout">
                 <div role="listbox" style="@(String.IsNullOrEmpty(Width) ? null : $"width: {Width};")">
-                    @GetListOptions(Items)
-                </div>
+                    @* @GetListOptions(Items) *@
+
+                    @if (Items != null)
+                    {
+                        var selectableItem = GetOptionValue(SelectableItem);
+                        foreach (TOption item in Items)
+                        {
+                            var value = GetOptionValue(item);
+                            <FluentOption TOption="TOption"
+                                          Value="@value"
+                                          Selected="@GetOptionSelected(item)"
+                                          Disabled="@(GetOptionDisabled(item) ?? false)"
+                                          OnSelect="@OnSelectCallback(item)"
+                                          selectable="@(value == selectableItem)">
+                                @GetOptionText(item)
+                            </FluentOption>
+                        }
+                    }
+                 </div>
             </FluentAnchoredRegion>
         }
     </div>

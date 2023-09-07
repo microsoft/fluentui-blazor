@@ -3155,6 +3155,9 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.IsMultiSelectOpened">
             <summary />
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.SelectableItem">
+            <summary />
+        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.InputHandlerAsync(Microsoft.AspNetCore.Components.ChangeEventArgs)">
             <summary />
         </member>

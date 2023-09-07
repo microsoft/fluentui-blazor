@@ -115,6 +115,9 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
     private bool IsMultiSelectOpened { get; set; }
 
     /// <summary />
+    private TOption? SelectableItem { get; set; }
+
+    /// <summary />
     protected virtual async Task InputHandlerAsync(ChangeEventArgs e)
     {
         _valueText = e.Value?.ToString() ?? string.Empty;
@@ -135,12 +138,12 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
         await OnOptionsSearch.InvokeAsync(args);
 
         Items = args.Items.Take(MaximumOptionsSearch);
+        SelectableItem = Items.FirstOrDefault();
     }
 
     /// <summary />
     protected virtual async Task KeyDownHandlerAsync(KeyboardEventArgs e)
     {
-        Console.WriteLine("KeyDownHandlerAsync: " + e.Code);
         switch (e.Code)
         {
             case "Escape":
@@ -149,11 +152,13 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
 
             case "Enter":
             case "NumpadEnter":
-                if (Items != null && Items.Any())
+                if (Items != null && Items.Any() && SelectableItem != null)
                 {
-                    await OnSelectedItemChangedHandlerAsync(Items.FirstOrDefault());
+                    await OnSelectedItemChangedHandlerAsync(SelectableItem);
                 }
 
+                SelectableItem = default;
+                IsMultiSelectOpened = false;
                 break;
 
             case "Backspace":
@@ -163,6 +168,28 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
                     await RemoveSelectedItemAsync(SelectedOptions.LastOrDefault());
                 }
 
+                break;
+
+            case "ArrowDown":
+                if (Items != null && Items.Any())
+                {
+                    var index = Items.ToList().IndexOf(SelectableItem ?? Items.First());
+                    if (index < Items.Count() - 1)
+                    {
+                        SelectableItem = Items.ElementAt(index + 1);
+                    }
+                }
+                break;
+
+            case "ArrowUp":
+                if (Items != null && Items.Any())
+                {
+                    var index = Items.ToList().IndexOf(SelectableItem ?? Items.First());
+                    if (index > 0)
+                    {
+                        SelectableItem = Items.ElementAt(index - 1);
+                    }
+                }
                 break;
         }
     }
@@ -213,5 +240,10 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
         {
             await Module.InvokeVoidAsync("displayLastSelectedItem", Id);
         }
+    }
+
+    private EventCallback<string> OnSelectCallback(TOption? item)
+    {
+        return EventCallback.Factory.Create<string>(this, (e) => OnSelectedItemChangedHandlerAsync(item));
     }
 }

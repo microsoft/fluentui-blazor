@@ -7,7 +7,6 @@
                     Placeholder="Select countries"
                     OnOptionsSearch="@OnSearchAsync"
                     MaximumSelectedOptions="3"
-                    MaximumOptionsSearch="99"
                     OptionText="@(item => item.Name)"
                     @bind-SelectedOptions="@SelectedItems" />
 
@@ -21,8 +20,6 @@
 
     private async Task OnSearchAsync(OptionsSearchEventArgs<Country> e)
     {
-        Console.WriteLine("OnSearch: " + e.Text);
-
         var allCountries = await Data.GetCountriesAsync();
         e.Items = allCountries.Where(i => i.Name.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase))
                               .OrderBy(i => i.Name);
