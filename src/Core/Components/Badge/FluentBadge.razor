@@ -14,7 +14,7 @@
         @ChildContent
         @if (OnDismissClick.HasDelegate)
         {
-            <FluentIcon Icon="CoreIcons.Regular.Size24.Dismiss" Width="12px" Style="margin-top: 2px;" OnClick="OnDismissClickHandlerAsync" />
+            <FluentIcon Value="@(DismissIcon ?? new CoreIcons.Regular.Size24.Dismiss())" Width="12px" Style="margin: 2px 0px 0px 2px;" Title="@DismissTitle" OnClick="OnDismissClickHandlerAsync" />
         }
     </div>
     

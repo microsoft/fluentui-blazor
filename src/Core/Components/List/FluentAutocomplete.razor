@@ -10,12 +10,13 @@
                            appearance="@Appearance.ToAttributeValue()"
                            disabled="@Disabled"
                            placeholder="@Placeholder"
-                           aria-label="@(String.IsNullOrWhiteSpace(Title) ? "" : Title)"
+                           aria-label="@(String.IsNullOrWhiteSpace(Title) ? Placeholder : Title)"
                            current-value="@_valueText"
                            @onclick="@OnDropDownExpandedAsync"
                            @oninput="@InputHandlerAsync"
                            @onkeydown="@KeyDownHandlerAsync"
                            style="@ComponentWidth">
+            @* Selected Items *@
             @if (this.SelectedOptions?.Any() == true)
             {
                 <fluent-horizontal-scroll id="@IdScroll" style="width: 100%;" slot="start">
@@ -46,6 +47,8 @@
                 <path d="M2.15 4.65c.2-.2.5-.2.7 0L6 7.79l3.15-3.14a.5.5 0 11.7.7l-3.5 3.5a.5.5 0 01-.7 0l-3.5-3.5a.5.5 0 010-.7z"></path>
             </svg>
         </fluent-text-field>
+        
+        @* List of available items *@
         @if (IsMultiSelectOpened)
         {
             <FluentOverlay OnClose="@(e => IsMultiSelectOpened = false)" Visible="true" Transparent="true" FullScreen="true" />

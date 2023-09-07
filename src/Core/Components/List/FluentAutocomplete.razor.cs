@@ -33,7 +33,8 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
     public string? Placeholder { get; set; }
 
     /// <summary>
-    /// For <see cref="FluentAutocomplete{TOption}"/>, this property must be True. Set the <see cref="MaximumSelectedOptions"/> property to 1 to select just one item
+    /// For <see cref="FluentAutocomplete{TOption}"/>, this property must be True.
+    /// Set the <see cref="MaximumSelectedOptions"/> property to 1 to select just one item.
     /// </summary>
     public override bool Multiple
     {
@@ -60,7 +61,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
     public Appearance? Appearance { get; set; }
 
     /// <summary>
-    /// Appearance of the selected options (items).
+    /// Gets or sets the visual appearance of selected items / badges.
     /// </summary>
     [Parameter]
     public Appearance AppearanceSelectedOptions { get; set; } = FluentUI.Appearance.Neutral;
@@ -72,14 +73,14 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
     public EventCallback<OptionsSearchEventArgs<TOption>> OnOptionsSearch { get; set; }
 
     /// <summary>
-    /// Number of maximum options (items) returned by <see cref="OnOptionsSearch"/>.
+    /// Gets or sets the number of maximum options (items) returned by <see cref="OnOptionsSearch"/>.
     /// Default value is 9.
     /// </summary>
     [Parameter]
     public int MaximumOptionsSearch { get; set; } = 9;
 
     /// <summary>
-    /// Maximum number of options (items) selected. Exceeding this value, the user must delete some elements in order to select new ones.
+    /// Gets or sets the maximum number of options (items) selected. Exceeding this value, the user must delete some elements in order to select new ones.
     /// </summary>
     [Parameter]
     public int? MaximumSelectedOptions { get; set; }

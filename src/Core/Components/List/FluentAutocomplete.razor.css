@@ -17,7 +17,7 @@
 
         /* This first fluent-option will be selected when user presses Enter */
         .fluent-autocomplete-multiselect div[role=listbox] ::deep fluent-option:first-child {
-            background-color: #f3f3f3;
+            background: var(--neutral-fill-secondary-rest);
         }
 
 .fluent-autocomplete-multiselect fluent-text-field::part(start) {
