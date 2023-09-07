@@ -1,0 +1,54 @@
+@inject DataSource Data
+
+<style>
+    .persona {
+        width: 32px;
+        height: 32px;
+        font-weight: 600;
+        color: var(--fill-color);
+        background: var(--accent-stroke-control-active);
+        border-radius: 50%;
+        padding: 4px;
+        text-align: center;
+    }
+    .name {
+        margin: 4px 10px;
+    }
+</style>
+
+<label for="my-customized">Select a person</label>
+<FluentAutocomplete Id="my-customized"
+                    TOption="Person"
+                    Width="250px"
+                    Placeholder="Select people"
+                    OnOptionsSearch="@OnSearch"
+                    MaximumSelectedOptions="3"
+                    OptionText="@(item => item.LastName)"
+                    OptionStyle="min-height: 40px;"
+                    @bind-SelectedOptions="@SelectedItems">
+    <TemplateOption>
+        <div style="display: flex">
+            <div class="persona">
+                @($"{context.FirstName[0]}{context.LastName[0]}")
+            </div>
+            <div class="name">
+                @context.FirstName @context.LastName
+            </div>
+        </div>
+    </TemplateOption>
+</FluentAutocomplete>
+
+<p>
+    <b>Selected</b>: @(String.Join(" - ", SelectedItems.Select(i => i.LastName)))
+</p>
+
+@code
+{
+    IEnumerable<Person> SelectedItems = Array.Empty<Person>();
+
+    private void OnSearch(OptionsSearchEventArgs<Person> e)
+    {
+        e.Items = Data.People.Where(i => i.LastName.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase))
+                             .OrderBy(i => i.LastName);
+    }
+}

@@ -3125,14 +3125,19 @@
             Gets or sets the visual appearance. See <seealso cref="T:Microsoft.Fast.Components.FluentUI.Appearance"/>
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.AppearanceSelectedOptions">
-            <summary>
-            Gets or sets the visual appearance of selected items / badges.
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.OnOptionsSearch">
             <summary>
             Filter the list of options (items), using the text encoded by the user.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.OptionStyle">
+            <summary>
+            Gets or sets the style applied to all <see cref="T:Microsoft.Fast.Components.FluentUI.FluentOption`1"/> of the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.OptionClass">
+            <summary>
+            Gets or sets the css class applied to all <see cref="T:Microsoft.Fast.Components.FluentUI.FluentOption`1"/> of the component.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.MaximumOptionsSearch">

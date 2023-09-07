@@ -61,16 +61,22 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
     public Appearance? Appearance { get; set; }
 
     /// <summary>
-    /// Gets or sets the visual appearance of selected items / badges.
-    /// </summary>
-    [Parameter]
-    public Appearance AppearanceSelectedOptions { get; set; } = FluentUI.Appearance.Neutral;
-
-    /// <summary>
     /// Filter the list of options (items), using the text encoded by the user.
     /// </summary>
     [Parameter]
     public EventCallback<OptionsSearchEventArgs<TOption>> OnOptionsSearch { get; set; }
+
+    /// <summary>
+    /// Gets or sets the style applied to all <see cref="FluentOption{TOption}"/> of the component.
+    /// </summary>
+    [Parameter]
+    public string? OptionStyle { get; set; }
+
+    /// <summary>
+    /// Gets or sets the css class applied to all <see cref="FluentOption{TOption}"/> of the component.
+    /// </summary>
+    [Parameter]
+    public string? OptionClass { get; set; }
 
     /// <summary>
     /// Gets or sets the number of maximum options (items) returned by <see cref="OnOptionsSearch"/>.
@@ -84,6 +90,9 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
     /// </summary>
     [Parameter]
     public int? MaximumSelectedOptions { get; set; }
+
+    [Parameter]
+    public RenderFragment<TOption>? TemplateOption { get; set; }
 
     /// <summary />
     private string ComponentWidth

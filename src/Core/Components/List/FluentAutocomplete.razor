@@ -12,9 +12,9 @@
                            placeholder="@Placeholder"
                            aria-label="@(String.IsNullOrWhiteSpace(Title) ? Placeholder : Title)"
                            current-value="@_valueText"
-        @onclick="@OnDropDownExpandedAsync"
-        @oninput="@InputHandlerAsync"
-        @onkeydown="@KeyDownHandlerAsync"
+                           @onclick="@OnDropDownExpandedAsync"
+                           @oninput="@InputHandlerAsync"
+                           @onkeydown="@KeyDownHandlerAsync"
                            style="@ComponentWidth">
             @* Selected Items *@
             @if (this.SelectedOptions?.Any() == true)
@@ -36,7 +36,7 @@
                                     direction="next"></fluent-flipper>
                     @foreach (var item in this.SelectedOptions)
                     {
-                        <FluentBadge Appearance="@AppearanceSelectedOptions" OnDismissClick="@(e => RemoveSelectedItemAsync(item))">
+                        <FluentBadge Appearance="@FluentUI.Appearance.Neutral" OnDismissClick="@(e => RemoveSelectedItemAsync(item))">
                             @GetOptionText(item)
                         </FluentBadge>
                     }
@@ -69,11 +69,20 @@
                             var value = GetOptionValue(item);
                             <FluentOption TOption="TOption"
                                           Value="@value"
+                                          Style="@OptionStyle"
+                                          Class="@OptionClass"
                                           Selected="@GetOptionSelected(item)"
                                           Disabled="@(GetOptionDisabled(item) ?? false)"
                                           OnSelect="@OnSelectCallback(item)"
                                           selectable="@(value == selectableItem)">
-                                @GetOptionText(item)
+                                @if (TemplateOption == null)
+                                {
+                                    @GetOptionText(item)
+                                }
+                                else
+                                {
+                                    @TemplateOption(item)
+                                }
                             </FluentOption>
                         }
                     }
