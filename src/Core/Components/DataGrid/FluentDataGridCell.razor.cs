@@ -7,6 +7,12 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
     internal string CellId { get; } = Identifier.NewId();
 
     /// <summary>
+    /// Gets or sets the reference to the item that holds this cell's values
+    /// </summary>
+    [Parameter]
+    public TGridItem? Item { get; set; }
+
+    /// <summary>
     /// Gets or sets the cell type. See <see cref="DataGridCellType"/>
     /// </summary>
     [Parameter]

@@ -10,6 +10,12 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     private readonly Dictionary<string, FluentDataGridCell<TGridItem>> cells = new();
 
     /// <summary>
+    /// Gets or sets the reference to the item that holds this row's values
+    /// </summary>
+    [Parameter]
+    public TGridItem? Item { get; set; }
+
+    /// <summary>
     /// Gets or sets the index of this row
     /// When FluentDataGrid is virtualized, this value is not used
     /// </summary>
