@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Fast.Components.FluentUI.Components.List;
+﻿namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary>
 /// <see cref="FluentAutocomplete{TOption}"/> uses this event to return the list of items to display.

@@ -421,7 +421,9 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
                     }));
 
                     // Needed in fluent-listbox and fluent-select with mutliple select enabled
-                    if (this is FluentListbox<TOption> || (this is FluentSelect<TOption> && Multiple))
+                    if (this is FluentListbox<TOption> || 
+                       (this is FluentSelect<TOption> && Multiple) ||
+                       (this is FluentAutocomplete<TOption> && Multiple))
                     {
                         builder.AddAttribute(10, "OnSelect", OnSelectCallback(item));
                     }

@@ -1,22 +1,29 @@
 ﻿@inject DataSource Data
 
-<label for="people-autocomplete">Select a person</label>
-<FluentAutocomplete TOption="Person"
-                    Items="@Data.People"
-                    Id="people-autocomplete"
-                    Height="150px"
-                    OptionValue="@(p => p.PersonId.ToString())"
-                    OptionText="@(p => p.LastName + ", " + p.FirstName)"
-                    @bind-Value="@SelectedValue"
-                    @bind-SelectedOption="@SelectedItem" />
+<label for="my-autocomplete">Select a country</label>
+<FluentAutocomplete Id="my-autocomplete"
+                    TOption="Country"
+                    Width="250px"
+                    OnOptionsSearch="@OnSearchAsync"
+                    MaximumSelectedOptions="3"
+                    MaximumOptionsSearch="99"
+                    OptionText="@(item => item.Name)"
+                    @bind-SelectedOptions="@SelectedItems" />
 
 <p>
-    Selected value: @SelectedValue <br />
-    Selected item: @SelectedItem?.ToString()
+    <b>Selected</b>: @(String.Join(" - ", SelectedItems.Select(i => i.Name)))
 </p>
 
 @code
 {
-    Person? SelectedItem;
-    string? SelectedValue;
+    IEnumerable<Country> SelectedItems = Array.Empty<Country>();
+
+    private async Task OnSearchAsync(OptionsSearchEventArgs<Country> e)
+    {
+        Console.WriteLine("OnSearch: " + e.Text);
+
+        var allCountries = await Data.GetCountriesAsync();
+        e.Items = allCountries.Where(i => i.Name.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase))
+                              .OrderBy(i => i.Name);
+    }
 }

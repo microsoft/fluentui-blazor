@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.Fast.Components.FluentUI.Components.List;
 using Microsoft.JSInterop;
 
 namespace Microsoft.Fast.Components.FluentUI;
@@ -55,10 +54,16 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
     }
 
     /// <summary>
+    /// Gets or sets the visual appearance. See <seealso cref="FluentUI.Appearance"/>
+    /// </summary>
+    [Parameter]
+    public Appearance? Appearance { get; set; }
+
+    /// <summary>
     /// Appearance of the selected options (items).
     /// </summary>
     [Parameter]
-    public Appearance AppearanceSelectedOptions { get; set; } = Appearance.Neutral;
+    public Appearance AppearanceSelectedOptions { get; set; } = FluentUI.Appearance.Neutral;
 
     /// <summary>
     /// Filter the list of options (items), using the text encoded by the user.
@@ -134,8 +139,13 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
     /// <summary />
     protected virtual async Task KeyDownHandlerAsync(KeyboardEventArgs e)
     {
+        Console.WriteLine("KeyDownHandlerAsync: " + e.Code);
         switch (e.Code)
         {
+            case "Escape":
+                IsMultiSelectOpened = false;
+                break;
+
             case "Enter":
             case "NumpadEnter":
                 if (Items != null && Items.Any())
@@ -179,7 +189,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
     {
         _valueText = string.Empty;
         IsMultiSelectOpened = false;
-        await OnSelectedItemChangedHandlerAsync(item);
+        await base.OnSelectedItemChangedHandlerAsync(item);
         await DisplayLastSelectedItemAsync();
     }
 
