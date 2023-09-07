@@ -14,7 +14,6 @@
 		<PackageProjectUrl>https://github.com/microsoft/fluentui-blazor</PackageProjectUrl>
 		<PackageTags>templates;fast;fast-blazor;blazor;fluentui;web-assembly</PackageTags>
 		<PackageType>Template</PackageType>
-		<PackageVersion>3.0.0</PackageVersion>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<Title>Microsoft FAST Fluent UI Blazor Templates</Title>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>

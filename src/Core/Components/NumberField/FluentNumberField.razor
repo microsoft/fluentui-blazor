@@ -24,7 +24,8 @@
                      name=@Name
                      required="@Required"
                      appearance="@Appearance.ToAttributeValue()"
-                     @onchange="@(e => SetCurrentValueAsString((string?)e.Value))"
+                     @onchange="@ChangeHandlerAsync"
+                     @oninput="@InputHandlerAsync"
                      @attributes="AdditionalAttributes">
     @ChildContent
 </fluent-number-field>

@@ -11,7 +11,7 @@ public interface IDialogService
     public event Func<IDialogReference, Type?, DialogParameters, object, Task<IDialogReference>>? OnShowAsync;
 
     public event Action<string, DialogParameters>? OnUpdate;
-    public event Func<string, DialogParameters, Task>? OnUpdateAsync;
+    public event Func<string, DialogParameters, Task<IDialogReference>>? OnUpdateAsync;
 
     public event Action<IDialogReference, DialogResult>? OnDialogCloseRequested;
 
@@ -68,13 +68,13 @@ public interface IDialogService
     Task<IDialogReference> ShowSplashScreenAsync(Type component, DialogParameters<SplashScreenContent> parameters);
 
 
-    Task ShowSuccessAsync(string message, string? title = null);
+    Task<IDialogReference> ShowSuccessAsync(string message, string? title = null);
 
-    Task ShowWarningAsync(string message, string? title = null);
+    Task<IDialogReference> ShowWarningAsync(string message, string? title = null);
 
-    Task ShowErrorAsync(string message, string? title = null);
+    Task<IDialogReference> ShowErrorAsync(string message, string? title = null);
 
-    Task ShowInfoAsync(string message, string? title = null);
+    Task<IDialogReference> ShowInfoAsync(string message, string? title = null);
 
     Task<IDialogReference> ShowConfirmationAsync(object receiver, Func<DialogResult, Task> callback, string message, string primaryText = "Yes", string secondaryText = "No", string? title = null);
 
@@ -97,7 +97,7 @@ public interface IDialogService
     Task<IDialogReference> ShowDialogAsync<TData>(Type component, TData data, DialogParameters parameters)
         where TData : class;
 
-    Task UpdateDialogAsync<TContent>(string id, DialogParameters<TContent> parameters)
+    Task<IDialogReference> UpdateDialogAsync<TContent>(string id, DialogParameters<TContent> parameters)
         where TContent : class;
 
     public EventCallback<DialogResult> CreateDialogCallback(object receiver, Func<DialogResult, Task> callback);

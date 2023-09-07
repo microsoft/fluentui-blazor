@@ -673,7 +673,7 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentCodeEditor.JSRuntime">
             <summary />
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCodeEditor._jsModule">
+        <member name="F:Microsoft.Fast.Components.FluentUI.FluentCodeEditor._jsModule">
             <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentCodeEditor.Language">
