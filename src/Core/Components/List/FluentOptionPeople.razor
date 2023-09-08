@@ -2,7 +2,7 @@
 @inherits FluentComponentBase
 
 <div id="@Id" class="@ClassValue" style="@StyleValue">
-    <div class="initials">
+    <div class="initials" style="@(string.IsNullOrEmpty(ImageSize) ? "" : $"width: {ImageSize}; height: {ImageSize};")">
         @if (string.IsNullOrEmpty(Image))
         {
             @(Initials ?? GetDefaultInitials())

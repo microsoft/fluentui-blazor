@@ -28,10 +28,13 @@ public partial class FluentOptionPeople : FluentComponentBase
     public string? Image { get; set; }
 
     [Parameter]
+    public string? ImageSize { get; set; }
+
+    [Parameter]
     public EventCallback OnDismissClick { get; set; }
 
     [Parameter]
-    public string DismissTitle { get; set; } = "Delete";
+    public string? DismissTitle { get; set; }
 
     private string GetDefaultInitials()
     {

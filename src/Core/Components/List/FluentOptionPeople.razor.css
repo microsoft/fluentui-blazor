@@ -3,6 +3,9 @@
     height: 100%;
     width: fit-content;
     border-radius: 999px;
+    align-items: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
     .fluent-option-people .initials {
@@ -28,6 +31,7 @@
         text-align: center;
         align-items: center;
         justify-content: center;
+        margin-left: 8px;
     }
 
     .fluent-option-people .close {
@@ -35,5 +39,5 @@
         text-align: center;
         align-items: center;
         justify-content: center;
-        margin: 0px 4px 0px 0px;
+        margin: 0px 4px;
     }

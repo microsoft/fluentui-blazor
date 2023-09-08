@@ -261,7 +261,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
     }
 
     /// <summary />
-    protected virtual async Task RemoveSelectedItemAsync(TOption? item)
+    public virtual async Task RemoveSelectedItemAsync(TOption? item)
     {
         if (item == null)
         {
