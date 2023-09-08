@@ -8,7 +8,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 [CascadingTypeParameter(nameof(TOption))]
 public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
 {
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.Fast.Components.FluentUI/Components/List/FluentAutocomplete.razor.js";
+    public const string JAVASCRIPT_FILE = "./_content/Microsoft.Fast.Components.FluentUI/Components/List/FluentAutocomplete.razor.js";
     private string _valueText = string.Empty;
 
     /// <summary>

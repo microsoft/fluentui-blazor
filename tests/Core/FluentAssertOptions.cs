@@ -23,7 +23,8 @@ public class FluentAssertOptions
     public string ScrubLinesWithReplace(string content)
     {
         return content.ReplaceAttribute("id", "xxx")
-                      .ReplaceAttribute("anchor");
+                      .ReplaceAttribute("blazor:elementreference", "xxx")
+                      .ReplaceAttribute("anchor", "xxx");
     }
 
     /// <summary>
