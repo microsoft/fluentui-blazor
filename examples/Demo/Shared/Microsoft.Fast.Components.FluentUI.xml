@@ -3274,10 +3274,49 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentOption`1.OnSelectHandler">
             <summary />
         </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.FluentOptionPeople">
+            <summary>
+            People picker option component.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentOptionPeople.ClassValue">
             <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentOptionPeople.StyleValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOptionPeople.Initials">
+            <summary>
+            Gets or sets the initials to display if no image is provided.
+            Byt default, the first letters of the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentOptionPeople.Name"/> is used.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOptionPeople.Name">
+            <summary>
+            Gets or sets the name to display.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOptionPeople.Image">
+            <summary>
+            Gets or sets the image to display, in replacement of the initials.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOptionPeople.ImageSize">
+            <summary>
+            Gets or sets the size of the image.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOptionPeople.OnDismissClick">
+            <summary>
+            Gets or sets the event raised when the user clicks on the dismiss button.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOptionPeople.DismissTitle">
+            <summary>
+            Gets or sets the title of the dismiss button.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentOptionPeople.GetDefaultInitials">
             <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentSelect`1.Open">
