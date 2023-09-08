@@ -42,7 +42,7 @@ public partial class TableOfContents : IAsyncDisposable
     }
 
     private Anchor[]? _anchors;
-    private bool _expanded = false;
+    private bool _expanded = true;
 
     private IJSObjectReference _jsModule = default!;
 

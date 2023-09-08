@@ -153,7 +153,7 @@ nav {
 
 .content {
     display: grid;
-    grid-template-columns: 3fr auto;
+    grid-template-columns: 3fr 280px;
 }
 
 article {
@@ -168,9 +168,6 @@ article {
 aside {
     padding: 2rem 0.75rem;
     border-left: 1px solid var(--neutral-stroke-divider-rest);
-    position: absolute;
-    display: flex;
-    right: 10px;
 }
 
 #menu-toggle {
@@ -325,9 +322,6 @@ code {
     aside {
         grid-area: 1 / 1 / 2 / 3;
         padding: 1em 0.75em;
-        position: inherit;
-        display: inherit;
-        right: inherit;
     }
 
     article {
@@ -424,9 +418,6 @@ code {
     aside {
         grid-area: 1 / 1 / 2 / 2;
         padding: 1.5em 0.75em 1em 0.75em;
-        position: inherit;
-        display: inherit;
-        right: inherit;
     }
 
     article {
@@ -496,9 +487,6 @@ code {
         padding: 1.5em 0.75em 1em 0.75em;
         margin-inline-start: calc(env(viewport-segment-left 1 0) - env(viewport-segment-right 0 0)); /* hinge width */
         margin-inline-end: calc(100% - env(viewport-segment-left 1 0));
-        position: inherit;
-        display: inherit;
-        right: inherit;
     }
 
     article {
