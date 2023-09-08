@@ -1,0 +1,24 @@
+@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentComponentBase
+
+<div id="@Id" class="@ClassValue" style="@StyleValue">
+    <div class="initials">
+        @if (string.IsNullOrEmpty(Image))
+        {
+            @(Initials ?? GetDefaultInitials())
+        }
+        else
+        {
+            <img src="@Image" alt="@Name" title="@Name" />
+        }
+    </div>
+    <div class="name">
+        @Name
+    </div>
+    @if (OnDismissClick.HasDelegate)
+    {
+        <div class="close">
+            <FluentIcon Value="@(new CoreIcons.Regular.Size24.Dismiss())" Width="12px" Title="@DismissTitle" OnClick="OnDismissClick" />
+        </div>
+    }
+</div>

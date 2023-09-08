@@ -1,5 +1,19 @@
 @inject DataSource Data
 
+<FluentOptionPeople Name="Denis Voituron"
+                    Style="height: 32px; background: var(--neutral-fill-secondary-hover);"
+                    Image="@($"data:image/png;base64, {FluentOptionPeople.SamplePicture}")"
+                    OnDismissClick="@(() => {})" />
+
+<div style="height:56px;">
+    <FluentOptionPeople Name="Anne Dubois"
+                        Image="https://cdn.pixabay.com/photo/2015/04/19/08/32/rose-729509_640.jpg" />
+</div>
+
+<div style="height: 24px;">
+    <FluentOptionPeople Name="Denis Voituron" Style="color: red; font-size:10px;" />
+</div>
+
 <label for="my-customized">Select a person</label>
 <FluentAutocomplete Id="my-customized"
                     TOption="Person"

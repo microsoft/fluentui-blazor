@@ -3274,6 +3274,12 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentOption`1.OnSelectHandler">
             <summary />
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOptionPeople.ClassValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOptionPeople.StyleValue">
+            <summary />
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentSelect`1.Open">
             <summary>
             The open attribute.
