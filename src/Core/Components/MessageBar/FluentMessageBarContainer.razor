@@ -1,13 +1,13 @@
 ﻿@namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentComponentBase
-@inject IMessageBarService MessageService
+@inject IMessageService MessageService
 
 @if (MessageService != null)
 {
     <div @attributes="AdditionalAttributes" class="fluent-messagebar-container @ClassValue" style="@StyleValue">
-        @foreach (var message in MessagesShown)
+        @foreach (var message in MessagesToShow)
         {
-            <FluentMessageBar Content="@message" Format="@Format" Style="@(Format == MessageBarFormat.Notification ? "border-top: 1px solid lightgray;" : "")" />
+            <FluentMessageBar Content="@message" Type="@Type" Style="@(Type == MessageType.Notification ? "border-top: 1px solid lightgray;" : "")" />
         }
     </div>
 }

@@ -34,7 +34,7 @@ public abstract class FluentCalendarBase : FluentComponentBase
     public virtual bool DisabledSelectable { get; set; } = true;
 
     /// <summary>
-    /// Format style for the day (numeric or 2-digits).
+    /// Type style for the day (numeric or 2-digits).
     /// </summary>
     [Parameter]
     public DayFormat? DayFormat { get; set; } = FluentUI.DayFormat.Numeric;

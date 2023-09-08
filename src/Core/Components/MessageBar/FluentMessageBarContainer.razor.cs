@@ -26,7 +26,7 @@ public partial class FluentMessageBarContainer : FluentComponentBase, IDisposabl
     /// or as a card (with the detailed message).
     /// </summary>
     [Parameter]
-    public MessageBarFormat Format { get; set; } = MessageBarFormat.Default;
+    public MessageType Type { get; set; } = MessageType.MessageBar;
 
     /// <summary>
     /// Maximum number of messages displayed. Rest is stored in memory to be displayed when an shown message is closed.
@@ -51,7 +51,7 @@ public partial class FluentMessageBarContainer : FluentComponentBase, IDisposabl
 
 
     /// <summary />
-    protected IEnumerable<MessageBarContent> AllMessagesForCategory
+    protected IEnumerable<Message> AllMessagesForCategory
     {
         get
         {
@@ -62,7 +62,7 @@ public partial class FluentMessageBarContainer : FluentComponentBase, IDisposabl
     }
 
     /// <summary />
-    protected IEnumerable<MessageBarContent> MessagesShown
+    protected IEnumerable<Message> MessagesToShow
     {
         get
         {
@@ -77,8 +77,8 @@ public partial class FluentMessageBarContainer : FluentComponentBase, IDisposabl
             else
             {
                 return NewestOnTop
-                            ? MessageService.MessagesShown(-1, Section).Reverse()
-                            : MessageService.MessagesShown(-1, Section);
+                            ? MessageService.MessagesToShow(-1, Section).Reverse()
+                            : MessageService.MessagesToShow(-1, Section);
             }
         }
     }
@@ -93,7 +93,7 @@ public partial class FluentMessageBarContainer : FluentComponentBase, IDisposabl
     /// <summary />
     protected virtual void OnAlertUpdateHandler()
     {
-        InvokeAsync(StateHasChanged); //.SafeFireAndForget();
+        InvokeAsync(StateHasChanged); 
     }
 
     /// <summary />

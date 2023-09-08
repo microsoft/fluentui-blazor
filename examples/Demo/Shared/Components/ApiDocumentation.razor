@@ -25,7 +25,7 @@
     {
         string header = Properties.Any(x => x.IsParameter) ? "Parameters" : "Properties";
         <h4 id="@(_id + "_properties")">@header</h4>
-        <FluentDataGrid Class="docgrid" Items="@this.Properties.AsQueryable()" GridTemplateColumns="1fr 1fr 0.5fr 1.5fr">
+        <FluentDataGrid Class="docgrid" Items="@this.Properties.AsQueryable()" GridTemplateColumns="1fr 0.5fr 0.5fr 2fr">
             <TemplateColumn Title="Name"><code>@context.Name</code></TemplateColumn>
             <TemplateColumn Title="Type">
                         @context.Type
@@ -55,6 +55,7 @@
                 </div>
             </TemplateColumn>        
         </FluentDataGrid>
+        <p class="mobile-docs-warning demopanel">Please rotate the screen to a landscape orientation to see the documentation</p>
     }
 
     @if (this.Events.Any())
@@ -69,6 +70,7 @@
                 </div>
             </TemplateColumn>
         </FluentDataGrid>
+        <p class="mobile-docs-warning demopanel">Please rotate the screen to a landscape orientation to see the documentation</p>
     }
 
     @if (this.Methods.Any())
@@ -89,5 +91,6 @@
                 </div>
             </TemplateColumn>        
         </FluentDataGrid>
+        <p class="mobile-docs-warning demopanel">Please rotate the screen to a landscape orientation to see the documentation</p>
     }
 </div>

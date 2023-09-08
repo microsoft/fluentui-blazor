@@ -1,7 +1,7 @@
 ﻿namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary />
-public class MessageBarOptions
+public class MessageOptions
 
 {
     /// <summary />
@@ -19,17 +19,19 @@ public class MessageBarOptions
     /// <summary />
     public string? Body { get; set; }
 
-    /// <summary />
-    public Func<MessageBarContent, Task>? OnClose { get; set; }
+    public MessageAction Link { get; set; } = new MessageAction();
 
     /// <summary />
-    public MessageBarAction PrimaryAction { get; set; } = new MessageBarAction();
+    public Func<Message, Task>? OnClose { get; set; }
 
     /// <summary />
-    public MessageBarAction SecondaryAction { get; set; } = new MessageBarAction();
+    public MessageAction PrimaryAction { get; set; } = new MessageAction();
 
     /// <summary />
-    public MessageBarIntent? Intent { get; set; } // = MessageBarIntent.Info;
+    public MessageAction SecondaryAction { get; set; } = new MessageAction();
+
+    /// <summary />
+    public MessageIntent? Intent { get; set; } 
 
     /// <summary />
     public bool ClearAfterNavigation { get; set; }

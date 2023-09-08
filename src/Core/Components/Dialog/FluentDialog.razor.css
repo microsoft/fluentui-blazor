@@ -67,9 +67,3 @@ fluent-dialog[class~="left"]::part(control) {
         width: calc(100% - 40px);
     }
 
-
-@media (min-width: 800px) {
-    .fluent-dialog-main {
-        --dialog-width: 340px;
-    }
-}

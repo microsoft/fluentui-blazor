@@ -1,19 +1,30 @@
-﻿@implements IDialogContentComponent<Settings>
-@inject IMessageBarService MessageService
+﻿@implements IDialogContentComponent<GlobalState>
 
-<div style="margin-right: 7px;">
+<div>
+    <FluentStack Orientation="Orientation.Vertical" VerticalGap="8">
+        <div class="colorgroup">
+            <label for="color">Color</label><br />
+            <FluentSelect Id="color"
+                          Items=@(Enum.GetValues<OfficeColor>())
+                          OptionValue="@(c => c.ToAttributeValue())"
+                          OptionSelected="@(c => c == _selectedColorOption)"
+                          TOption="OfficeColor"
+                          Position="SelectPosition.Below"
+                          @bind-SelectedOption="@_selectedColorOption"
+                          @onchange="@(x => HandleColorChange(x))"
+                          aria-label="Accent color selector" />
+        </div>
 
-    <FluentStack Orientation="Orientation.Vertical"> 
-    <FluentSwitch @bind-Value="@Content.DarkMode"  title="Switch theme">
-        <span class="label">Theme</span>
-        <span slot="unchecked-message">light</span>
-        <span slot="checked-message">dark</span>
-    </FluentSwitch>
-    <FluentSwitch @bind-Value="@Content.RtlMode" title="Switch direction">
-        <span>Direction</span>
-        <span slot="unchecked-message">LTR</span>
-        <span slot="checked-message">RTL</span>
-    </FluentSwitch>
+        <FluentSwitch @bind-Value="@_inDarkMode" title="Switch theme" AfterBindValue="UpdateTheme">
+            <span class="label">Theme</span>
+            <span slot="unchecked-message">Light</span>
+            <span slot="checked-message">Dark</span>
+        </FluentSwitch>
+        <FluentSwitch @bind-Value="@_rtl" title="Switch direction" AfterBindValue="UpdateDirection">
+            <span>Direction</span>
+            <span slot="unchecked-message">LTR</span>
+            <span slot="checked-message">RTL</span>
+        </FluentSwitch>
     </FluentStack>
 </div>
 

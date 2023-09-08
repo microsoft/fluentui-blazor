@@ -1,7 +1,7 @@
 ﻿namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary />
-public class MessageBarAction
+public class MessageAction
 {
     /// <summary />
     public string? Text { get; set; }
@@ -10,5 +10,5 @@ public class MessageBarAction
     public string? Href { get; set; }
 
     /// <summary />
-    public Func<MessageBarContent, Task>? OnClick { get; set; }
+    public Func<Message, Task>? OnClick { get; set; }
 }

@@ -37,36 +37,14 @@
             </FluentRadioGroup>
         </div> 
         *@
-        <div class="colorgroup">
-            <label for="color">Color</label>
-            <FluentSelect Id="color" 
-                          Items=@(Enum.GetValues<OfficeColor>()) 
-                          OptionValue="@(c => c.ToAttributeValue())"
-                          OptionSelected="@(c => c == _selectedColorOption)"
-                          TOption="OfficeColor"
-                          Position="SelectPosition.Below"
-                          @bind-SelectedOption="@_selectedColorOption"
-                          @onchange="@(x => HandleColorChange(x))" 
-                          aria-label="Accent color selector"/>
-        </div>
+        
         <div class="notifications">
             <NotificationCenter />
         </div>
         <div class="settings">
             <SiteSettings />
         </div>
-        <div class="switches">
-            <FluentSwitch @bind-Value="@_inDarkMode" AfterBindValue="UpdateTheme" title="Switch theme">
-                <span class="label">Theme</span>
-                <span slot="unchecked-message">light</span>
-                <span slot="checked-message">dark</span>
-            </FluentSwitch>
-            <FluentSwitch @bind-Value="@_ltr" AfterBindValue="UpdateDirection" title="Switch direction">
-                <span>Direction</span>
-                <span slot="unchecked-message">LTR</span>
-                <span slot="checked-message">RTL</span>
-            </FluentSwitch>
-        </div>
+        
     </header>
 
     <main>
@@ -75,19 +53,12 @@
             <FluentIcon Icon="Icons.Regular.Size24.Navigation" />
         </label>
         <nav>
-            @if(_menuType == "list")
-            {
-                <DemoNavMenuList />
-            }
-            else
-            {
-                <DemoNavMenuTree />
-            }
+            <DemoNavMenuTree />
         </nav>
         <div class="content">
             <article id="article">
                  
-                <FluentMessageBarContainer Section="@App.MESSAGE_TOP" />
+                <FluentMessageBarContainer Section="@App.MESSAGES_TOP" />
             
                 <ErrorBoundary @ref="errorBoundary">
                     <ChildContent>
@@ -105,10 +76,10 @@
                 <ConsoleLog />
             </aside>
         </div>
+    </main>
         <FluentToastContainer MaxToastCount="10"  />
         <FluentDialogProvider />
         <FluentTooltipProvider />
-    </main>
     <footer>
         <div class="version">
             <small>

@@ -8,7 +8,7 @@
 </DemoSection>
 
 <DemoSection Title="Simple notification" Component="typeof(MessageBarSimpleNotification)">
-    <p>This example show how a MessageBar can be used to display a notification.</p>
+    <p>This example show how a MessageBar can be used to be shown as a notification. Border added here for styling puroses only</p>
 </DemoSection>
 
 <DemoSection Title="Message Service" Component="typeof(MessageBarDefault)">
@@ -29,26 +29,16 @@
 
 <h4>Injection with global options.</h4>
 <CodeSnippet>
-    @(@"builder.Services
-       .AddScoped&lt;IMessageService, MessageService>()")
+    @(@"builder.Services.AddScoped<IMessageService, MessageService>()")
 </CodeSnippet>
 
-<h4>Injection with global options.</h4>
-<CodeSnippet>
-    @(@"builder.Services
-       .AddScoped<IMessageService>(builder => new MessageService(builder.GetRequiredService<NavigationManager>(), new MessageBarGlobalOptions()
-       {
-           ShowDismiss = true,
-           ClearAfterNavigation = false,
-           MaxMessageCount= 5,
-           NewestOnTop = true,
-       }));")
-</CodeSnippet>
 
 <h4>Display the list of messages</h4>
-You can display the list of messages using the component <b>FluentMessageBarContainer</b>.
+<p>
+    You display a list of messages for a specific section using the <code>FluentMessageBarContainer</code> component.
+</p>
 <CodeSnippet>
-    @(@"<FluentMessageBarContainer Category=""MESSAGE_CATEGORY"" Format=""MessageFormat.Notification"" />")
+    @(@"<FluentMessageBarContainer Section=""MESSAGE_SECTION"" Format=""MessageFormat.Notification"" />")
 </CodeSnippet>
 
 <h2>API Documentation</h2>
@@ -56,6 +46,6 @@ You can display the list of messages using the component <b>FluentMessageBarCont
 
 <ApiDocumentation Component="typeof(FluentMessageBar)" />
 
-<ApiDocumentation Component="typeof(MessageBarService)" />
+<ApiDocumentation Component="typeof(MessageService)" />
 
-<ApiDocumentation Component="typeof(MessageBarContent)" />
+<ApiDocumentation Component="typeof(Message)" />

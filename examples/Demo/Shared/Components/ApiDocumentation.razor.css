@@ -1,4 +1,19 @@
 ﻿::deep .docgrid {
     margin-bottom: 1em;
-    max-width: 90%;
+    max-width: 100%;
+}
+
+::deep .mobile-docs-warning {
+    display: none;
+}
+
+@media screen and (max-width: 650px) {
+    ::deep .docgrid {
+        display: none;
+        
+    }
+
+    ::deep .mobile-docs-warning {
+        display: block;
+    }
 }

@@ -1,29 +1,34 @@
-﻿@inject IMessageBarService MessageService
-
-Click on this button to display an Alert (max 5).
-<br />
-<FluentButton OnClick="@DisplayAlert" Appearance="Appearance.Accent">Display</FluentButton>
-<FluentButton Appearance="Appearance.Hypertext" OnClick="@((e) => MessageService.Clear())">Clear all alerts</FluentButton>
+﻿@inject IMessageService MessageService
+<p>
+Click on this button to display a message (max 5).
+</p>
+<FluentButton OnClick="@DisplayMessage" Appearance="Appearance.Accent">Display</FluentButton>
+<FluentButton Appearance="Appearance.Hypertext" OnClick="@((e) => MessageService.Clear())">Clear all messages</FluentButton>
 
 @code
 {
     int counter = 0;
-    void DisplayAlert()
+    void DisplayMessage()
     {
         counter++;
 
+        MessageAction link = new ()
+        {
+            Text = "Learn more",
+            Href = "https://bing.com",
+            OnClick = (e) => { DemoLogger.WriteLine($"Message 'learn more' clicked"); return Task.CompletedTask; }
+        };
+
         MessageService.Add(options =>
         {
-            options.Section = App.MESSAGE_TOP;
-
-            options.Title = $"That's the message #{counter}.<br/> <b>You can't click these buttons really quickly.</b>";
-            options.Intent = Enum.GetValues<MessageBarIntent>()[counter % 4];
+            options.Section = App.MESSAGES_TOP;
+            options.Title = $"This is a message #{counter}.";
+            options.Body = @"<em>You can't click these buttons really quickly</em";
+            options.Intent = Enum.GetValues<MessageIntent>()[counter % 4];
             options.Icon = new Icons.Regular.Size24.PersonCircle();            
             options.ClearAfterNavigation = true;
             options.OnClose = (e) => { DemoLogger.WriteLine($"Message {e.Intent} dismissed"); return Task.CompletedTask; };
-            options.PrimaryAction.Text = "Learn more";
-            options.PrimaryAction.Href = "https://bing.com";
-            options.PrimaryAction.OnClick = (e) => { DemoLogger.WriteLine($"Message 'learn more' clicked"); return Task.CompletedTask; };
+            options.Link = link;
         });
     }
 }

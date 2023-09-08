@@ -1,23 +1,26 @@
 ﻿namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary />
-public class MessageBarContent
+public class Message
 {
-    public MessageBarContent()
+    public Message()
     {
-        Options = new MessageBarOptions();
+        Options = new MessageOptions();
     }
 
     /// <summary />
-    internal MessageBarContent(MessageBarOptions options)
+    internal Message(MessageOptions options)
     {
         Options = options;
     }
 
-    internal event Action<MessageBarContent>? OnClose;
+    internal event Action<Message>? OnClose;
 
     /// <summary />
-    internal MessageBarOptions Options { get; }
+    internal MessageOptions Options { get; }
+
+    /// <summary />
+    public MessageIntent? Intent => Options.Intent;
 
     /// <summary />
     public string? Section => Options.Section;
@@ -51,7 +54,20 @@ public class MessageBarContent
     }
 
     /// <summary />
-    public MessageBarIntent? Intent => Options.Intent;
+    public MessageAction Link
+    {
+        get
+        {
+            return Options.Link;
+        }
+
+        set
+        {
+            Options.Link = value;
+        }
+    }
+
+    
 
     /// <summary />
     public void Close()
@@ -60,11 +76,11 @@ public class MessageBarContent
     }
 
     /// <summary />
-    internal static MessageBarContent Empty()
+    internal static Message Empty()
     {
-        return new MessageBarContent(new MessageBarOptions()
+        return new Message(new MessageOptions()
         {
-            Intent = MessageBarIntent.Info,
+            Intent = MessageIntent.Info,
         });
     }
 }

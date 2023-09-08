@@ -1,9 +1,10 @@
-﻿@inject IDialogService DialogService
-@inject IMessageBarService MessageService
+﻿@implements IDisposable
+@inject IDialogService DialogService
+@inject IMessageService MessageService
 
-@if (MessageService.Count(App.MESSAGE_NOTIFICATION_CENTER) > 0)
+@if (MessageService.Count(App.MESSAGES_NOTIFICATION_CENTER) > 0)
 {
-    <FluentCounterBadge Count="@MessageService.Count(App.MESSAGE_NOTIFICATION_CENTER)"
+    <FluentCounterBadge Count="@MessageService.Count(App.MESSAGES_NOTIFICATION_CENTER)"
                         Max="9"
                         ShowOverflow="true"
                         BackgroundColor="@Color.Error"
@@ -11,41 +12,41 @@
                         Appearance="Appearance.Accent"
                         ShowZero=true>
         <ChildContent>
-            <FluentButton Appearance="Appearance.Filled"
-                          Style="margin: 0px 5px;"
-                          Title="Notification Center"
-                          OnClick="OpenNotificationCenterAsync">
-                <FluentIcon Icon="Icons.Regular.Size24.Alert" Color="Color.Neutral" />
-            </FluentButton>
+            @NotificationIcon()
         </ChildContent>
     </FluentCounterBadge>
-
 }
 else
 {
-    <FluentButton Appearance="Appearance.Filled"
-                  Style="margin: 0px 5px;"
-                  Title="Notification Center"
-                  OnClick="OpenNotificationCenterAsync">
-        <FluentIcon Icon="Icons.Regular.Size24.Alert" Color="Color.Neutral" />
-    </FluentButton>
+    @NotificationIcon() 
 }
 
 
 @code {
     private IDialogReference? _dialog;
+   
+    protected override void OnInitialized()
+    {
+        MessageService.OnMessageItemsUpdated += UpdateCount;    
+    }
 
-    private readonly SimplePerson simplePerson = default!;
+    private void UpdateCount()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    private RenderFragment NotificationIcon() =>
+        @<FluentIcon Icon="Icons.Regular.Size20.Alert" Color="Color.Neutral" OnClick="OpenNotificationCenterAsync" Title="Notification center" />;
 
     private async Task OpenNotificationCenterAsync()
     {
-        DemoLogger.WriteLine($"Open right panel");
+        DemoLogger.WriteLine($"Open notification center");
 
-        _dialog = await DialogService.ShowPanelAsync<NotificationCenterPanel, SimplePerson>(new DialogParameters<SimplePerson>()
+        _dialog = await DialogService.ShowPanelAsync<NotificationCenterPanel, GlobalState>(new DialogParameters<GlobalState>()
             {
                 Alignment = HorizontalAlignment.Right,
                 Title = $"Notifications",
-                PrimaryAction = "Ok",
+                PrimaryAction = null,
                 SecondaryAction = null,
                 ShowDismiss = true
             });
@@ -57,16 +58,20 @@ else
     {
         if (result.Cancelled)
         {
-            DemoLogger.WriteLine($"Panel cancelled");
+            DemoLogger.WriteLine($"Notification center dismissed");
             return;
         }
 
         if (result.Data is not null)
         {
-            SimplePerson? simplePerson = result.Data as SimplePerson;
-            DemoLogger.WriteLine($"Panel closed by {simplePerson?.Firstname} {simplePerson?.Lastname} ({simplePerson?.Age})");
+            DemoLogger.WriteLine($"Notification center closed");
             return;
         }
+    }
+
+    public void Dispose()
+    {
+        MessageService.OnMessageItemsUpdated -= UpdateCount;
     }
 
 }

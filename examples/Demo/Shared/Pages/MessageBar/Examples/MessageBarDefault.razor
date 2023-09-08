@@ -1,35 +1,90 @@
-﻿@inject IMessageBarService MessageService
+﻿@inject IMessageService MessageService
+@inject IDialogService DialogService
+@using FluentUI.Demo.Shared.Pages.Dialog.Examples;
 
-Click on this button to display a message (max 5) in the top
-or in the Notification Center (top/right icon).
+<p>
+    Click on these buttons to display a message (max 5) in the top, 
+    in the Notification Center (top/right bell icon) or in a dialog (max 1).<br/>
+    If you click on "Add in a dialog" multiple times, you will see that only one message is displayed. 
+    Once you dismiss that one, the next one will be displayed.
+</p>
 
-<br />
-<FluentButton OnClick="@AddInTopBar" Appearance="Appearance.Accent">Add on Top</FluentButton>
+<FluentButton OnClick="@AddInTopBar" Appearance="Appearance.Accent">Add on top</FluentButton>
 <FluentButton OnClick="@AddInNotificationCenter" Appearance="Appearance.Accent">Add in Notification Center</FluentButton>
+<FluentButton OnClick="@AddInDialog" Appearance="Appearance.Accent">Add in a dialog</FluentButton>
+
 <FluentButton Appearance="Appearance.Hypertext" OnClick="@((e) => MessageService.Clear())">Clear all alerts</FluentButton>
 
 @code
 {
+    SimplePerson simplePerson = new()
+        {
+            Firstname = "Dan",
+            Lastname = "Sanderson",
+            Age = 42,
+        };
+
+    MessageAction link = new()
+        {
+            Text = "Learn more",
+            Href = "https://bing.com",
+            OnClick = (e) => { DemoLogger.WriteLine($"Message 'learn more' clicked"); return Task.CompletedTask; }
+        };
+
     int counter = 0;
+
     void AddInTopBar()
     {
-        var type = Enum.GetValues<MessageBarIntent>()[counter % 4];
         var message = $"Simple message #{counter++}";
-        var category = App.MESSAGE_TOP;
-        MessageService.Add(message, category, type);
+        var type = Enum.GetValues<MessageIntent>()[counter % 4];
+        MessageService.Add(message, type, App.MESSAGES_TOP);
     }
 
     void AddInNotificationCenter()
     {
-        MessageService.Add(option =>
+        MessageService.Add(options =>
         {
-            option.Intent = Enum.GetValues<MessageBarIntent>()[counter % 4];
-            option.Title = $"Simple message #{counter++}";
-            option.Body = MessageBarSamples.OneRandomMessage;
-            option.PrimaryAction.Text = "more info";
-            option.PrimaryAction.Href = "http://papertoilet.com";
-            option.Timestamp = DateTime.Now;
-            option.Section = App.MESSAGE_NOTIFICATION_CENTER;
+            options.Intent = Enum.GetValues<MessageIntent>()[counter % 4];
+            options.Title = $"Simple message #{counter++}";
+            options.Body = MessageBarSamples.OneRandomMessage;
+            options.Link = link;
+            options.Timestamp = DateTime.Now;
+            options.Section = App.MESSAGES_NOTIFICATION_CENTER;
         });
+    }
+
+
+    async Task AddInDialog()
+    {
+        MessageService.Add(options =>
+        {
+            options.Intent = Enum.GetValues<MessageIntent>()[counter % 4];
+            options.Title = $"Simple message #{counter++}";
+            options.Body = MessageBarSamples.OneRandomMessage;
+            options.Link = link;
+            options.Timestamp = DateTime.Now;
+            options.Section = App.MESSAGES_DIALOG;
+        });
+
+        await OpenDialogAsync();
+    }
+
+    private async Task OpenDialogAsync()
+    {
+        DialogParameters<SimplePerson> parameters = new()
+            {
+                Title = $"Hi {simplePerson.Firstname}!",
+                PrimaryAction = "Yes",
+                PrimaryActionEnabled = false,
+                SecondaryAction = "No",
+                Width = "500px",
+                Height = "500px",
+                Content = simplePerson,
+                TrapFocus = true,
+                Modal = true,
+            };
+
+        IDialogReference dialog = await DialogService.ShowDialogAsync<SimpleDialog, SimplePerson>(parameters);
+        DialogResult? result = await dialog.Result;
     }
 }

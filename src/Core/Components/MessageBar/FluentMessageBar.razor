@@ -4,7 +4,7 @@
 {
     @* Default *@
 
-    @if (Format == MessageBarFormat.Default)
+    @if (Type == MessageType.MessageBar)
     {
         <div class="@ClassValue" style="@StyleValue">
 
@@ -16,7 +16,25 @@
             @* Message *@
             <div class="fluent-messagebar-message">
                 <span class="title">@((MarkupString)Title)</span>
-                @ChildContent
+                @if (ChildContent is not null)
+                {
+                    @ChildContent
+                }
+                else
+                {
+                    @((MarkupString)Content!.Body!)
+                }
+                @if (Link is not null)
+                {
+                    <FluentAnchor Href="@(String.IsNullOrEmpty(Link?.Href) ? "#" : Link?.Href)"
+                                  Appearance="Appearance.Hypertext"
+                                  Target="_blank"
+                                  @onclick="@LinkClickedAsync"
+                                  title="Link">
+                        @Link?.Text
+                    </FluentAnchor>
+                }
+                
                 @if (ShowPrimaryAction)
                 {
                     <FluentAnchor Href="@(String.IsNullOrEmpty(PrimaryAction?.Href) ? "#" : PrimaryAction?.Href)"
@@ -50,7 +68,7 @@
     }
 
     @* Notification *@
-    @if (this.Format == MessageBarFormat.Notification)
+    @if (Type == MessageType.Notification)
     {
         <div class="@ClassValue" style="@StyleValue">
 
@@ -84,26 +102,28 @@
                 {
                     @((MarkupString)Content.Body)
                 }
+                @if (Link is not null)
+                {
+                    <FluentAnchor Href="@(String.IsNullOrEmpty(Link?.Href) ? "#" : Link?.Href)"
+                                  Appearance="Appearance.Hypertext"
+                                  Target="_blank"
+                                  @onclick="@LinkClickedAsync"
+                                  title="Link">
+                        @Link?.Text
+                    </FluentAnchor>
+                }
                 @if (ShowPrimaryAction)
                 {
                     <FluentAnchor Href="@(String.IsNullOrEmpty(PrimaryAction?.Href) ? "#" : PrimaryAction?.Href)"
-                    @onclick="@PrimaryActionClickedAsync"
-                                  title="MessageBar primary action"
+                                  Appearance="Appearance.Hypertext"
+                                  @onclick="@PrimaryActionClickedAsync"
+                                  title="Notification action"
                                   Class="fluent-messagebar-action"
                                   Target="_blank">
                         @PrimaryAction?.Text
                     </FluentAnchor>
                 }
-                @if (ShowSecondaryAction)
-                {
-                    <FluentAnchor Href="@(String.IsNullOrEmpty(SecondaryAction?.Href) ? "#" : SecondaryAction?.Href)"
-                    @onclick="@SecondaryActionClickedAsync"
-                                  title="MessageBar secondary action"
-                                  Class="fluent-messagebar-action"
-                                  Target="_blank">
-                        @SecondaryAction?.Text
-                    </FluentAnchor>
-                }
+                
             </div>
 
             @* Recorded time *@

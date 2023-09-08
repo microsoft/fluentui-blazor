@@ -3,7 +3,7 @@
 namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary />
-public enum MessageBarIntent
+public enum MessageIntent
 {
     /// <summary />
     [Description("info")]

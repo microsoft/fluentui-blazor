@@ -61,6 +61,10 @@
 
 }
 
+.fluent-messagebar-message ::deep fluent-anchor {
+        margin-inline-start: 5px;
+ }
+
 ::deep .fluent-messagebar-action {
     margin-left: 10px;
 }
@@ -134,8 +138,12 @@
     padding: 6px 6px;
 }
 
+.fluent-messagebar-notification-content  ::deep fluent-anchor {
+    margin-inline-start: 5px;
+}
+
 ::deep .fluent-messagebar-notification-action {
-    margin-left: 10px;
+    margin-left: 5px;
 }
 
 .fluent-messagebar-notification-close {

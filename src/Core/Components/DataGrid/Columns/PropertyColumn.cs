@@ -58,7 +58,7 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
 			if (!string.IsNullOrEmpty(Format))
 			{
 				// TODO: Consider using reflection to avoid having to box every value just to call IFormattable.ToString
-				// For example, define a method "string Format<U>(Func<TGridItem, U> property) where U: IFormattable", and
+				// For example, define a method "string Type<U>(Func<TGridItem, U> property) where U: IFormattable", and
 				// then construct the closed type here with U=TProp when we know TProp implements IFormattable
 
 				// If the type is nullable, we're interested in formatting the underlying type

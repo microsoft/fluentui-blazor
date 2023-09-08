@@ -513,3 +513,18 @@ code {
         margin-inline-end: calc(100% - env(viewport-segment-left 1 0));
     }
 }
+
+
+
+@media (min-width: 800px) {
+    .fluent-dialog-main {
+        --dialog-width: 340px;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .fluent-dialog-main {
+        --dialog-width: 100vw;
+    }
+}

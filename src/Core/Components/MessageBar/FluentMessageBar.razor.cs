@@ -11,13 +11,13 @@ public partial class FluentMessageBar : FluentComponentBase
 
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
-        .AddClass("fluent-messagebar", () => Format == MessageBarFormat.Default)
-        .AddClass("fluent-messagebar-notification", () => Format == MessageBarFormat.Notification)
-        .AddClass("intent-info", () => Intent == MessageBarIntent.Info)
-        .AddClass("intent-warning", () => Intent == MessageBarIntent.Warning)
-        .AddClass("intent-error", () => Intent == MessageBarIntent.Error)
-        .AddClass("intent-success", () => Intent == MessageBarIntent.Success)
-        .AddClass("intent-custom", () => Intent == MessageBarIntent.Custom)
+        .AddClass("fluent-messagebar", () => Type == MessageType.MessageBar)
+        .AddClass("fluent-messagebar-notification", () => Type == MessageType.Notification)
+        .AddClass("intent-info", () => Intent == MessageIntent.Info)
+        .AddClass("intent-warning", () => Intent == MessageIntent.Warning)
+        .AddClass("intent-error", () => Intent == MessageIntent.Error)
+        .AddClass("intent-success", () => Intent == MessageIntent.Success)
+        .AddClass("intent-custom", () => Intent == MessageIntent.Custom)
         .Build();
 
     /// <summary />
@@ -27,11 +27,11 @@ public partial class FluentMessageBar : FluentComponentBase
 
     /// <summary />
     [Parameter]
-    public MessageBarFormat Format { get; set; } = MessageBarFormat.Default;
+    public MessageType Type { get; set; } = MessageType.MessageBar;
 
     /// <summary />
     [Parameter]
-    public MessageBarContent Content { get; set; } = MessageBarContent.Empty();
+    public Message Content { get; set; } = Message.Empty();
 
     /// <summary />
     [Parameter]
@@ -39,7 +39,7 @@ public partial class FluentMessageBar : FluentComponentBase
 
     /// <summary />
     [Parameter]
-    public MessageBarIntent? Intent
+    public MessageIntent? Intent
     {
         get
         {
@@ -58,7 +58,7 @@ public partial class FluentMessageBar : FluentComponentBase
     {
         get
         {
-            if (Content.Options.Icon != null && Content.Intent == MessageBarIntent.Custom)
+            if (Content.Options.Icon != null && Content.Intent == MessageIntent.Custom)
             {
                 return Content.Options.Icon;
             }
@@ -66,10 +66,10 @@ public partial class FluentMessageBar : FluentComponentBase
             {
                 return Content.Intent switch
                 {
-                    MessageBarIntent.Info => new CoreIcons.Filled.Size20.Info(),
-                    MessageBarIntent.Warning => new CoreIcons.Filled.Size20.Warning(),
-                    MessageBarIntent.Error => new CoreIcons.Filled.Size20.DismissCircle(),
-                    MessageBarIntent.Success => new CoreIcons.Filled.Size20.CheckmarkCircle(),
+                    MessageIntent.Info => new CoreIcons.Filled.Size20.Info(),
+                    MessageIntent.Warning => new CoreIcons.Filled.Size20.Warning(),
+                    MessageIntent.Error => new CoreIcons.Filled.Size20.DismissCircle(),
+                    MessageIntent.Success => new CoreIcons.Filled.Size20.CheckmarkCircle(),
                     _ => null,
                 };
             }
@@ -129,10 +129,13 @@ public partial class FluentMessageBar : FluentComponentBase
     public bool RoundedCorners { get; set; } = true;
 
     /// <summary />
-    protected MessageBarAction PrimaryAction => Content.Options.PrimaryAction;
+    protected MessageAction Link => Content.Options.Link;
 
     /// <summary />
-    protected MessageBarAction SecondaryAction => Content.Options.SecondaryAction;
+    protected MessageAction PrimaryAction => Content.Options.PrimaryAction;
+
+    /// <summary />
+    protected MessageAction SecondaryAction => Content.Options.SecondaryAction;
 
     /// <summary />
     protected bool ShowPrimaryAction => !string.IsNullOrEmpty(Content.Options.PrimaryAction.Text);
@@ -144,12 +147,23 @@ public partial class FluentMessageBar : FluentComponentBase
     {
         _color = Content.Intent switch
         {
-            MessageBarIntent.Info => Color.Info,
-            MessageBarIntent.Warning => Color.Warning,
-            MessageBarIntent.Error => Color.Error,
-            MessageBarIntent.Success => Color.Success,
+            MessageIntent.Info => Color.Info,
+            MessageIntent.Warning => Color.Warning,
+            MessageIntent.Error => Color.Error,
+            MessageIntent.Success => Color.Success,
             _ => IconColor,
         };
+    }
+
+    /// <summary />
+    protected Task LinkClickedAsync(MouseEventArgs e)
+    {
+        if (Link?.OnClick != null)
+        {
+            return Link.OnClick.Invoke(Content);
+        }
+
+        return Task.CompletedTask;
     }
 
     /// <summary />
