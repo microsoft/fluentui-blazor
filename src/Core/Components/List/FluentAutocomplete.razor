@@ -11,6 +11,8 @@
                            disabled="@Disabled"
                            placeholder="@Placeholder"
                            aria-label="@(String.IsNullOrWhiteSpace(Title) ? Placeholder : Title)"
+                           aria-expanded="@(IsMultiSelectOpened ? "true" : "false")"
+                           aria-controls="@(IsMultiSelectOpened ? IdScroll : string.Empty)"
                            current-value="@_valueText"
                            @onclick="@OnDropDownExpandedAsync"
                            @oninput="@InputHandlerAsync"
@@ -38,7 +40,9 @@
                     {
                         if (SelectedOptionTemplate == null)
                         {
-                            <FluentBadge Appearance="@FluentUI.Appearance.Neutral" OnDismissClick="@(e => RemoveSelectedItemAsync(item))">
+                            <FluentBadge Appearance="@FluentUI.Appearance.Neutral"
+                                         OnDismissClick="@(e => RemoveSelectedItemAsync(item))"
+                                         aria-label="@GetOptionText(item)">
                                 @GetOptionText(item)
                             </FluentBadge>
                         }
@@ -49,6 +53,10 @@
                     }
                     &nbsp;
                 </fluent-horizontal-scroll>
+            }
+            else
+            {
+                <div id="@IdScroll" slot="start"></div>
             }
             <svg width="12" height="12" style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" slot="end" @onclick="@OnDropDownExpandedAsync">
                 <path d="M2.15 4.65c.2-.2.5-.2.7 0L6 7.79l3.15-3.14a.5.5 0 11.7.7l-3.5 3.5a.5.5 0 01-.7 0l-3.5-3.5a.5.5 0 010-.7z"></path>
@@ -70,7 +78,7 @@
                     @HeaderContent(Items ?? Array.Empty<TOption>());
                 }
 
-                <div role="listbox" style="@ListStyleValue">
+                <div role="listbox" style="@ListStyleValue" aria-label="List">
                     @if (Items != null)
                     {
                         var selectableItem = GetOptionValue(SelectableItem);
