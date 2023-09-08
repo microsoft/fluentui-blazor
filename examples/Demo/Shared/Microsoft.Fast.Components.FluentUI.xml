@@ -3161,6 +3161,19 @@
             Template for the <see cref="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.SelectedOptions"/> items.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.HeaderContent">
+            <summary>
+            Footer content, placed at the top of the popup panel.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.FooterContent">
+            <summary>
+            Footer content, placed at the bottom of the popup panel.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.ListStyleValue">
+            <summary />
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.ComponentWidth">
             <summary />
         </member>

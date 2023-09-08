@@ -10,7 +10,7 @@
                     OptionText="@(item => item.LastName)"
                     OptionStyle="min-height: 40px;"
                     @bind-SelectedOptions="@SelectedItems">
-                    
+
     @* Template used with each Selected items *@
     <SelectedOptionTemplate>
         <div style="display: flex;" class="item-selected">
@@ -34,6 +34,21 @@
             </div>
         </div>
     </OptionTemplate>
+
+    <HeaderContent>
+        <FluentLabel Color="Color.Accent" Style="padding: 8px; font-size: 11px; border-bottom: 1px solid var(--neutral-fill-stealth-hover);">
+            Suggested contacts
+        </FluentLabel>
+    </HeaderContent>
+
+    <FooterContent>
+        @if (!context.Any())
+        {
+            <FluentLabel Style="font-size: 11px; text-align: center; width: 200px;">
+                No results found
+            </FluentLabel>
+        }
+    </FooterContent>
 </FluentAutocomplete>
 
 <p>
@@ -64,19 +79,20 @@
         background: var(--accent-stroke-control-active);
         border-radius: 50%;
         text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .large {
         width: 32px;
         height: 32px;
-        padding: 4px;
         font-size: 16px;
     }
 
     .small {
         min-width: 20px;
         height: 20px;
-        padding: 1px;
         font-size: 11px;
     }
 

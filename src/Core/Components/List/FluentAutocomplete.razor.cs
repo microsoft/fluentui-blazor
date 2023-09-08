@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.Fast.Components.FluentUI.Utilities;
 using Microsoft.JSInterop;
 
 namespace Microsoft.Fast.Components.FluentUI;
@@ -102,6 +103,26 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
     /// </summary>
     [Parameter]
     public RenderFragment<TOption>? SelectedOptionTemplate { get; set; }
+
+
+    /// <summary>
+    /// Footer content, placed at the top of the popup panel.
+    /// </summary>
+    [Parameter]
+    public RenderFragment<IEnumerable<TOption>>? HeaderContent { get; set; }
+
+    /// <summary>
+    /// Footer content, placed at the bottom of the popup panel.
+    /// </summary>
+    [Parameter]
+    public RenderFragment<IEnumerable<TOption>>? FooterContent { get; set; }
+
+    /// <summary />
+    private string? ListStyleValue => new StyleBuilder()
+                                                .AddStyle("width", Width, when: !string.IsNullOrEmpty(Width))
+                                                .AddStyle("display", "none", when: (Items == null || !Items.Any()) && 
+                                                                                   (HeaderContent != null || FooterContent != null))
+                                                .Build();
 
     /// <summary />
     private string ComponentWidth

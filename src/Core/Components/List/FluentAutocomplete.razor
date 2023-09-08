@@ -65,9 +65,12 @@
                                   VerticalDefaultPosition="@VerticalPosition.Bottom"
                                   Style="margin-top: 10px; border-radius: calc(var(--control-corner-radius) * 2px); background-color: var(--neutral-layer-floating);"
                                   Shadow="ElevationShadow.Flyout">
-                <div role="listbox" style="@(String.IsNullOrEmpty(Width) ? null : $"width: {Width};")">
-                    @* @GetListOptions(Items) *@
+                @if (HeaderContent != null)
+                {
+                    @HeaderContent(Items ?? Array.Empty<TOption>());
+                }
 
+                <div role="listbox" style="@ListStyleValue">
                     @if (Items != null)
                     {
                         var selectableItem = GetOptionValue(SelectableItem);
@@ -75,13 +78,13 @@
                         {
                             var value = GetOptionValue(item);
                             <FluentOption TOption="TOption"
-                                          Value="@value"
-                                          Style="@OptionStyle"
-                                          Class="@OptionClass"
-                                          Selected="@GetOptionSelected(item)"
-                                          Disabled="@(GetOptionDisabled(item) ?? false)"
-                                          OnSelect="@OnSelectCallback(item)"
-                                          selectable="@(value == selectableItem)">
+                                            Value="@value"
+                                            Style="@OptionStyle"
+                                            Class="@OptionClass"
+                                            Selected="@GetOptionSelected(item)"
+                                            Disabled="@(GetOptionDisabled(item) ?? false)"
+                                            OnSelect="@OnSelectCallback(item)"
+                                            selectable="@(value == selectableItem)">
                                 @if (OptionTemplate == null)
                                 {
                                     @GetOptionText(item)
@@ -93,7 +96,12 @@
                             </FluentOption>
                         }
                     }
-                 </div>
+                </div>
+
+                @if (FooterContent != null)
+                {
+                    @FooterContent(Items ?? Array.Empty<TOption>());
+                }
             </FluentAnchoredRegion>
         }
     </div>
