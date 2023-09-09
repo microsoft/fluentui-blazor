@@ -1157,6 +1157,11 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.DisposeAsync">
             <inheritdoc />
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGridCell`1.Item">
+            <summary>
+            Gets or sets the reference to the item that holds this cell's values
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGridCell`1.CellType">
             <summary>
             Gets or sets the cell type. See <see cref="T:Microsoft.Fast.Components.FluentUI.DataGridCellType"/>
@@ -1177,6 +1182,11 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGridCell`1.Owner">
             <summary>
             Gets or sets the owning <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGridRow`1"/> component
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGridRow`1.Item">
+            <summary>
+            Gets or sets the reference to the item that holds this row's values
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGridRow`1.RowIndex">
