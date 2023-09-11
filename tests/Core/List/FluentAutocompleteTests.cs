@@ -41,6 +41,42 @@ public class FluentAutocompleteTests : TestBase
         cut.Verify();
     }
 
+    [Fact]
+    public void FluentAutocomplete_Keyboard_Escape()
+    {
+        // Arrange
+        var cut = TestContext.RenderComponent<FluentAutocomplete<Customer>>(parameters =>
+        {
+            parameters.Add(p => p.Id, "myComponent");
+            parameters.Add(p => p.Items, GetCustomers());
+        });
+
+        // Act
+        cut.Find("fluent-text-field").Click();
+        cut.Find("fluent-text-field").KeyDown("Escape");
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAutocomplete_MultipleFalse_Exception()
+    {
+        // Arrange & Act
+        var ex = Assert.Throws<InvalidOperationException>(() =>
+        {
+            var cut = TestContext.RenderComponent<FluentAutocomplete<Customer>>(parameters =>
+            {
+                parameters.Add(p => p.Id, "myComponent");
+                parameters.Add(p => p.Multiple, false);
+            });
+        });
+
+        // Assert
+        Assert.Equal("For FluentAutocomplete, this property must be True. Set the MaximumSelectedOptions property to 1 to select just one item.", ex.InnerException.Message);
+    }
+
+    // Sample data...
     private IEnumerable<Customer> GetCustomers()
     {
         yield return new Customer(1, "Denis Voituron");
