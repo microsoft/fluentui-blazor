@@ -2,7 +2,8 @@
 
 .fluent-messagebar {
     font-family: var(--body-font);
-    
+    background-color: var(--neutral-layer-floating);
+    color: var(--neutral-foreground-rest);
     display: grid;
     grid-template-columns: 24px 1fr auto;
     width: 100%;
@@ -10,30 +11,56 @@
     align-items: center;
     min-height: 36px;
     border-radius: calc(var(--control-corner-radius) * 1px);
-    padding: 0 12px; 
+    padding: 0 12px;
     column-gap: 8px;
 }
 
+.fluent-messagebar-container-action {
+    display: flex;
+    padding: 6px 0px;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+}
+
     .fluent-messagebar.intent-info {
-        background-color: #f5f5f5; /*141414*/
-        border: 1px solid #d1d1d1; /*666*/
+        background-color: #f5f5f5; 
+        border: 1px solid #d1d1d1; 
+
+    }
+
+    .fluent-messagebar.dark.intent-info {
+        background-color: #141414;
+        border: 1px solid #666;
     }
 
     .fluent-messagebar.intent-warning {
-        background-color: #FDF6F3; /*DA3B01*/
-        border: 1px solid #f4bfab; /*411200*/
+        background-color: #FDF6F3; 
+        border: 1px solid #f4bfab; 
     }
 
+    .fluent-messagebar.dark.intent-warning {
+        background-color: #411200;
+        border: 1px solid #DA3B01;
+    }
     .fluent-messagebar.intent-error {
-        background-color: #FDF3F4; /*3F1011*/
-        border: 1px solid #f1bbbc; /*D13438*/
+        background-color: #FDF3F4;
+        border: 1px solid #f1bbbc;
     }
 
+    .fluent-messagebar.dark.intent-error {
+        background-color: #3F1011;
+        border: 1px solid #D13438;
+    }
     .fluent-messagebar.intent-success {
-        background-color: #f1faf1; /*107C10*/
-        border: 1px solid #9fd89f; /*052505*/
+        background-color: #f1faf1;
+        border: 1px solid #9fd89f;
     }
 
+    .fluent-messagebar.dark.intent-success {
+        background-color: #052505;
+        border: 1px solid #107C10;
+    }
     .fluent-messagebar.intent-custom {
         background-color: var(--neutral-layer-1);
         border: 1px solid var(--neutral-stroke-layer-rest);
@@ -66,7 +93,8 @@
  }
 
 ::deep .fluent-messagebar-action {
-    margin-left: 10px;
+    height: 24px;
+
 }
 
 .fluent-messagebar-close {

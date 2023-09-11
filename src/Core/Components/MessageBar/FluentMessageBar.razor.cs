@@ -9,9 +9,12 @@ public partial class FluentMessageBar : FluentComponentBase
 {
     private Color? _color;
 
+    [Inject] GlobalState GlobalState { get; set; } = default!;
+
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("fluent-messagebar", () => Type == MessageType.MessageBar)
+        .AddClass("dark", () => GlobalState.Luminance == StandardLuminance.DarkMode)
         .AddClass("fluent-messagebar-notification", () => Type == MessageType.Notification)
         .AddClass("intent-info", () => Intent == MessageIntent.Info)
         .AddClass("intent-warning", () => Intent == MessageIntent.Warning)
@@ -83,7 +86,7 @@ public partial class FluentMessageBar : FluentComponentBase
 
     /// <summary />
     [Parameter]
-    public bool IsVisible { get; set; } = true;
+    public bool Visible { get; set; } = true;
 
     /// <summary />
     [Parameter]
@@ -129,19 +132,24 @@ public partial class FluentMessageBar : FluentComponentBase
     public bool RoundedCorners { get; set; } = true;
 
     /// <summary />
-    protected MessageAction Link => Content.Options.Link;
+    protected ActionLink<Message>? Link => Content.Options.Link;
 
     /// <summary />
-    protected MessageAction PrimaryAction => Content.Options.PrimaryAction;
+    protected ActionButton<Message>? PrimaryAction => Content.Options.PrimaryAction;
 
     /// <summary />
-    protected MessageAction SecondaryAction => Content.Options.SecondaryAction;
+    protected ActionButton<Message>? SecondaryAction => Content.Options.SecondaryAction;
 
     /// <summary />
-    protected bool ShowPrimaryAction => !string.IsNullOrEmpty(Content.Options.PrimaryAction.Text);
+    protected bool ShowPrimaryAction => !string.IsNullOrEmpty(Content.Options.PrimaryAction?.Text);
 
     /// <summary />
-    protected bool ShowSecondaryAction => !string.IsNullOrEmpty(Content.Options.SecondaryAction.Text);
+    protected bool ShowSecondaryAction => !string.IsNullOrEmpty(Content.Options.SecondaryAction?.Text);
+
+    protected override void OnInitialized()
+    {
+        GlobalState.OnChange += StateHasChanged;
+    }
 
     protected override void OnParametersSet()
     {
@@ -190,7 +198,7 @@ public partial class FluentMessageBar : FluentComponentBase
     /// <summary />
     protected void DismissClicked()
     {
-        IsVisible = false;
+        Visible = false;
         Content.Close();
     }
 }

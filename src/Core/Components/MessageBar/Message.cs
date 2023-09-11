@@ -54,7 +54,7 @@ public class Message
     }
 
     /// <summary />
-    public MessageAction Link
+    public ActionLink<Message>? Link
     {
         get
         {

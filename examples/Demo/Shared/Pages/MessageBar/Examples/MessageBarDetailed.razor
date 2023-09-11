@@ -12,11 +12,23 @@ Click on this button to display a message (max 5).
     {
         counter++;
 
-        MessageAction link = new ()
+        ActionLink<Message> link = new ()
         {
             Text = "Learn more",
             Href = "https://bing.com",
             OnClick = (e) => { DemoLogger.WriteLine($"Message 'learn more' clicked"); return Task.CompletedTask; }
+        };
+
+        ActionButton<Message> action1 = new()
+        {
+            Text = "Action 1",
+            OnClick = (e) => { DemoLogger.WriteLine($"Message 'action 1' clicked"); return Task.CompletedTask; }
+        };
+
+        ActionButton<Message> action2 = new()
+        {
+            Text = "Action 2",
+            OnClick = (e) => { DemoLogger.WriteLine($"Message 'action 2' clicked"); return Task.CompletedTask; }
         };
 
         MessageService.Add(options =>
@@ -29,6 +41,9 @@ Click on this button to display a message (max 5).
             options.ClearAfterNavigation = true;
             options.OnClose = (e) => { DemoLogger.WriteLine($"Message {e.Intent} dismissed"); return Task.CompletedTask; };
             options.Link = link;
+            options.PrimaryAction = counter % 3 != 1 ? action1 : null;
+            options.SecondaryAction = counter % 3 != 2 ? action2 : null;
+
         });
     }
 }

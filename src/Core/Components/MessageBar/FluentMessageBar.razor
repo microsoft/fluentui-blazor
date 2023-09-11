@@ -1,6 +1,6 @@
 ﻿@namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentComponentBase
-@if (ChildContent == null || IsVisible)
+@if (ChildContent == null || Visible)
 {
     @* Default *@
 
@@ -34,36 +34,31 @@
                         @Link?.Text
                     </FluentAnchor>
                 }
-                
+            </div>
+            <div class="fluent-messagebar-container-action">
                 @if (ShowPrimaryAction)
                 {
-                    <FluentAnchor Href="@(String.IsNullOrEmpty(PrimaryAction?.Href) ? "#" : PrimaryAction?.Href)"
-                                  @onclick="@PrimaryActionClickedAsync"
-                                  title="Alert action"
-                                  Class="fluent-messagebar-action"
-                                  Target="_blank">
+                    <FluentButton Appearance="@Appearance.Neutral"
+                                    @onclick="@PrimaryActionClickedAsync"
+                                    title="Alert action"
+                                    Class="fluent-messagebar-action">
                         @PrimaryAction?.Text
-                    </FluentAnchor>
+                    </FluentButton>
                 }
                 @if (ShowSecondaryAction)
                 {
-                    <FluentAnchor Href="@(String.IsNullOrEmpty(SecondaryAction?.Href) ? "#" : SecondaryAction?.Href)"
-                    @onclick="@SecondaryActionClickedAsync"
+                    <FluentButton Appearance="@Appearance.Neutral"
+                                  @onclick="@SecondaryActionClickedAsync"
                                   title="Alert action"
-                                  Class="fluent-messagebar-action"
-                                  Target="_blank">
+                                  Class="fluent-messagebar-action">
                         @SecondaryAction?.Text
-                    </FluentAnchor>
+                    </FluentButton>
                 }
-            </div>
-
-            @* Close *@
-            
                 <FluentIcon Icon="CoreIcons.Regular.Size16.Dismiss"
                             Color=@Color.Neutral
                             Class="fluent-messagebar-close"
                             OnClick="DismissClicked" />
-            
+            </div>
         </div>
     }
 
@@ -114,14 +109,12 @@
                 }
                 @if (ShowPrimaryAction)
                 {
-                    <FluentAnchor Href="@(String.IsNullOrEmpty(PrimaryAction?.Href) ? "#" : PrimaryAction?.Href)"
-                                  Appearance="Appearance.Hypertext"
+                    <FluentButton Appearance="Appearance.Hypertext"
                                   @onclick="@PrimaryActionClickedAsync"
                                   title="Notification action"
-                                  Class="fluent-messagebar-action"
-                                  Target="_blank">
+                                  Class="fluent-messagebar-action">
                         @PrimaryAction?.Text
-                    </FluentAnchor>
+                    </FluentButton>
                 }
                 
             </div>

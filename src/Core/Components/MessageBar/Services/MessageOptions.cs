@@ -19,16 +19,16 @@ public class MessageOptions
     /// <summary />
     public string? Body { get; set; }
 
-    public MessageAction Link { get; set; } = new MessageAction();
+    public ActionLink<Message>? Link { get; set; } = new ();
 
     /// <summary />
     public Func<Message, Task>? OnClose { get; set; }
 
     /// <summary />
-    public MessageAction PrimaryAction { get; set; } = new MessageAction();
+    public ActionButton<Message>? PrimaryAction { get; set; } = new();
 
     /// <summary />
-    public MessageAction SecondaryAction { get; set; } = new MessageAction();
+    public ActionButton<Message>? SecondaryAction { get; set; } = new();
 
     /// <summary />
     public MessageIntent? Intent { get; set; } 

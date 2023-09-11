@@ -10,4 +10,5 @@
         text-align: justify;
         word-break: break-word;
         margin-right: 10px;
+        color: var( --neutral-foreground-rest);
     }

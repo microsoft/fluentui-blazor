@@ -3488,7 +3488,7 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.Icon">
             <summary />
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.IsVisible">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.Visible">
             <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.Title">
@@ -9961,6 +9961,36 @@
             Returns the next number between 0 and 99999999.
             </summary>
             <returns></returns>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ActionButton`1.Text">
+            <summary>
+            The text to show for the button
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ActionButton`1.OnClick">
+            <summary>
+            The function to call when the link is clicked
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ActionLink`1.Text">
+            <summary>
+            The text to show for the link
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ActionLink`1.Href">
+            <summary>
+            The address to navigate to when the link is clicked
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ActionLink`1.Target">
+            <summary>
+            The target window or frame to open the link in
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ActionLink`1.OnClick">
+            <summary>
+            The function to call when the link is clicked
+            </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.Infrastructure.EventCallbackSubscribable`1">
             <summary>
