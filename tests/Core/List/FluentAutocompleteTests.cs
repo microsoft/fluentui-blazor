@@ -1,4 +1,5 @@
 ﻿using Bunit;
+using Microsoft.AspNetCore.Components.Web;
 using Xunit;
 
 namespace Microsoft.Fast.Components.FluentUI.Tests.List;
@@ -52,8 +53,9 @@ public class FluentAutocompleteTests : TestBase
         });
 
         // Act
-        cut.Find("fluent-text-field").Click();
-        cut.Find("fluent-text-field").KeyDown("Escape");
+        var input = cut.Find("fluent-text-field");
+        input.Click();
+        input.KeyDown(new KeyboardEventArgs() { Code = "Escape" });
 
         // Assert
         cut.Verify();
