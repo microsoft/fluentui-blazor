@@ -9,6 +9,7 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
     private const string DEFAULT_WIDTH = "500px";
     private const string DEFAULT_HEIGHT = "unset";
     private DialogParameters _parameters = default!;
+    private bool _hidden;
 
     [CascadingParameter]
     private InternalDialogContext? DialogContext { get; set; } = default!;
@@ -24,7 +25,23 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
     /// Gets or sets if the dialog is hidden
     /// </summary>
     [Parameter]
-    public bool Hidden { get; set; }
+    public bool Hidden
+    {
+        get => _hidden;
+        set
+        {
+            if (value == _hidden)
+                return;
+            _hidden = value;
+            HiddenChanged.InvokeAsync(value);
+        }
+    }
+
+    /// <summary>
+    /// The event callback invoked when <see cref="Hidden"/> change.
+    /// </summary>
+    [Parameter]
+    public EventCallback<bool> HiddenChanged { get; set; }
 
     /// <summary>
     /// Indicates that the dialog should trap focus.
@@ -58,10 +75,22 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
 
 
     /// <summary>
-    /// Used when not calling the <see cref="DialogService" /> to show a dialog
+    /// Used when not calling the <see cref="DialogService" /> to show a dialog.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// Content to render in header.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? HeaderTemplate { get; set; }
+
+    /// <summary>
+    /// Content to render in footer.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? FooterTemplate { get; set; }
 
     /// <summary>
     /// The event callback invoked to return the dialog result.
@@ -85,7 +114,6 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
         .Build();
 
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogEventArgs))]
-
     public FluentDialog()
     {
 
@@ -159,9 +187,16 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
     public async Task CloseAsync(DialogResult dialogResult)
     {
         DialogContext?.DialogContainer.DismissInstance(Id!, dialogResult);
-        if (Instance.Parameters.OnDialogResult.HasDelegate)
+        if (Instance is not null)
         {
-            await Instance.Parameters.OnDialogResult.InvokeAsync(dialogResult);
+            if (Instance.Parameters.OnDialogResult.HasDelegate)
+            {
+                await Instance.Parameters.OnDialogResult.InvokeAsync(dialogResult);
+            }
+        }
+        else
+        {
+            Hide();
         }
     }
 }
