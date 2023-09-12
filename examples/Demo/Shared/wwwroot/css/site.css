@@ -163,7 +163,6 @@ article {
 aside {
     padding: 2rem 0.75rem;
     border-left: 1px solid var(--neutral-stroke-divider-rest);
-    grid-area: 1 / 2;
 }
 
 #menu-toggle {

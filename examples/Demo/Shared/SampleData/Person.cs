@@ -1,6 +1,6 @@
 ﻿namespace FluentUI.Demo.Shared.SampleData;
 
-public record Person(int PersonId, string CountryCode, string FirstName, string LastName, DateOnly BirthDate);
+public record Person(int PersonId, string CountryCode, string FirstName, string LastName, DateOnly BirthDate, string Picture);
 
 public class SimplePerson
 {
