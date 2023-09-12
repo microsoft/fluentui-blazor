@@ -15,7 +15,7 @@ public class MessageService : IMessageService, IDisposable
     }
 
     /// <summary />
-    public MessageService(NavigationManager navigationManager) //, MessageBarGlobalOptions commonOptions)
+    public MessageService(NavigationManager navigationManager) 
     {
         _navigationManager = navigationManager;
         _navigationManager.LocationChanged += NavigationManager_LocationChanged;
@@ -23,6 +23,8 @@ public class MessageService : IMessageService, IDisposable
 
     /// <summary />
     public event Action? OnMessageItemsUpdated = default!;
+    /// <summary />
+    public event Func<Task> OnMessageItemsUpdatedAsync = default!;
 
     /// <summary />
     private ReaderWriterLockSlim MessageLock { get; } = new ReaderWriterLockSlim();
@@ -30,7 +32,9 @@ public class MessageService : IMessageService, IDisposable
     /// <summary />
     private List<Message> MessageList { get; } = new List<Message>();
 
-    /// <summary />
+    /// <summary>
+    /// Gets all messages.
+    /// </summary>
     public virtual IEnumerable<Message> AllMessages
     {
         get
@@ -47,7 +51,12 @@ public class MessageService : IMessageService, IDisposable
         }
     }
 
-    /// <summary />
+    /// <summary>
+    /// Retrieve messages to show in the message bar.
+    /// </summary>
+    /// <param name="count">Number of messages to get (defaults to 5)</param>
+    /// <param name="section">Optional section to retrieve messages for</param>
+    /// <returns></returns>
     public virtual IEnumerable<Message> MessagesToShow(int count = 5, string? section = null)
     {
         MessageLock.EnterReadLock();
@@ -65,40 +74,59 @@ public class MessageService : IMessageService, IDisposable
         }
     }
 
-    /// <summary />
-    public Message Add(string message)
+    /// <summary>
+    /// Show a message based on the provided parameters in a message bar.
+    /// </summary>
+    /// <param name="title">Main info</param>
+    /// <returns></returns>
+    public Message ShowMessageBar(string title)
     {
-        return Add(options =>
+        return ShowMessageBar(options =>
         {
-            options.Title = message;
+            options.Title = title;
             options.Intent = MessageIntent.Info;
         });
     }
 
-    /// <summary />
-    public Message Add(string message, MessageIntent intent)
+    /// <summary>
+    /// Show a message based on the provided parameters in a message bar.
+    /// </summary>
+    /// <param name="title">Main info</param>
+    /// <param name="intent">Intent of the message</param>
+    /// <returns></returns>
+    public Message ShowMessageBar(string title, MessageIntent intent)
     {
-        return Add(options =>
+        return ShowMessageBar(options =>
         {
-            options.Title = message;
+            options.Title = title;
             options.Intent = intent;
             options.Section = string.Empty; 
         });
     }
 
-    /// <summary />
-    public Message Add(string message, MessageIntent intent, string section)
+    /// <summary>
+    /// Show a message based on the provided parameters in a message bar.
+    /// </summary>
+    /// <param name="title">Main info</param>
+    /// <param name="intent">Intent of the message</param>
+    /// <param name="section">Section to show the messagebar in </param>
+    /// <returns></returns>
+    public Message ShowMessageBar(string title, MessageIntent intent, string section)
     {
-        return Add(options =>
+        return ShowMessageBar(options =>
         {
-            options.Title = message;
+            options.Title = title;
             options.Intent = intent;
             options.Section = section;
         });
     }
 
-    /// <summary />
-    public virtual Message Add(Action<MessageOptions> options)
+    /// <summary>
+    /// Show a message based on the provided options in a message bar.
+    /// </summary>
+    /// <param name="options">Message options</param>
+    /// <returns></returns>
+    public virtual Message ShowMessageBar(Action<MessageOptions> options)
     {
         MessageOptions? configuration = new();
         options.Invoke(configuration);
@@ -121,7 +149,86 @@ public class MessageService : IMessageService, IDisposable
         return message;
     }
 
-    /// <summary />
+    /// <summary>
+    /// Show a message based on the provided parameters in a message bar.
+    /// </summary>
+    /// <param name="title">Main info</param>
+    /// <returns></returns>
+    public async Task<Message> ShowMessageBarAsync(string title)
+    {
+        return await ShowMessageBarAsync(options =>
+        {
+            options.Title = title;
+            options.Intent = MessageIntent.Info;
+        });
+    }
+
+    /// <summary>
+    /// Show a message based on the provided parameters in a message bar.
+    /// </summary>
+    /// <param name="title">Main info</param>
+    /// <param name="intent">Intent of the message</param>
+    /// <returns></returns>
+    public async Task<Message> ShowMessageBarAsync(string title, MessageIntent intent)
+    {
+        return await ShowMessageBarAsync(options =>
+        {
+            options.Title = title;
+            options.Intent = intent;
+            options.Section = string.Empty;
+        });
+    }
+
+    /// <summary>
+    /// Show a message based on the provided parameters in a message bar.
+    /// </summary>
+    /// <param name="title">Main info</param>
+    /// <param name="intent">Intent of the message</param>
+    /// <param name="section">Section to show the messagebar in </param>
+    /// <returns></returns>
+    public async Task<Message> ShowMessageBarAsync(string title, MessageIntent intent, string section)
+    {
+        return await ShowMessageBarAsync(options =>
+        {
+            options.Title = title;
+            options.Intent = intent;
+            options.Section = section;
+        });
+    }
+
+    /// <summary>
+    /// Show a message based on the provided message options in a message bar.
+    /// </summary>
+    /// <param name="options">Message options</param>
+    /// <returns></returns>
+    public virtual async Task<Message> ShowMessageBarAsync(Action<MessageOptions> options)
+    {
+        MessageOptions? configuration = new();
+        options.Invoke(configuration);
+
+        Message? message = new(configuration);
+
+        MessageLock.EnterWriteLock();
+        try
+        {
+            message.OnClose += Remove;
+            MessageList.Add(message);
+        }
+        finally
+        {
+            MessageLock.ExitWriteLock();
+        }
+
+        await OnMessageItemsUpdatedAsync!.Invoke();
+
+        return message;
+    }
+
+
+    /// <summary>
+    /// Clear all messages (per section, if provided) from the message bar.
+    /// </summary>
+    /// <param name="section">Optional section</param>
     public virtual void Clear(string? section = null)
     {
         MessageLock.EnterWriteLock();
@@ -137,7 +244,10 @@ public class MessageService : IMessageService, IDisposable
         OnMessageItemsUpdated?.Invoke();
     }
 
-    /// <summary />
+    /// <summary>
+    /// Remove a message from the message bar.
+    /// </summary>
+    /// <param name="message">Message to remove</param>
     public virtual void Remove(Message message)
     {
         message.OnClose -= Remove;
@@ -165,16 +275,9 @@ public class MessageService : IMessageService, IDisposable
     /// <summary />
     private void NavigationManager_LocationChanged(object? sender, LocationChangedEventArgs e)
     {
-        //if (Configuration.ClearAfterNavigation)
-        //{
-        //    Clear();
-        //}
-        //else
-        //{
         MessagesToShow().Where(s => s.Options.ClearAfterNavigation)
                      .ToList()
                      .ForEach(s => Remove(s));
-        //}
     }
 
     /// <summary />
@@ -188,7 +291,10 @@ public class MessageService : IMessageService, IDisposable
         RemoveMessageItems(section: null);
     }
 
-    /// <summary />
+    /// <summary>
+    /// Remove all messages (per section, if provided) from the message bar.
+    /// </summary>
+    /// <param name="section">Optional section</param>
     private void RemoveMessageItems(string? section = null)
     {
         if (MessageList.Count == 0)
@@ -196,9 +302,9 @@ public class MessageService : IMessageService, IDisposable
             return;
         }
 
-        IEnumerable<Message>? messages = string.IsNullOrEmpty(section)
-                   ? MessageList
-                   : MessageList.Where(i => i.Section == section);
+        IEnumerable<Message>? messages = string.IsNullOrEmpty(section) 
+            ? MessageList
+            : MessageList.Where(i => i.Section == section);
 
         foreach (Message message in messages)
         {
@@ -211,11 +317,16 @@ public class MessageService : IMessageService, IDisposable
         }
         else
         {
-            ((List<Message>)MessageList).RemoveAll(i => i.Section == section);
+            MessageList.RemoveAll(i => i.Section == section);
         }
     }
 
+    /// <summary>
+    /// Count the number of messages (per section, if provided) in the message bar .
+    /// </summary>
+    /// <param name="section">Optional section</param>
+    /// <returns>int</returns>
     public int Count(string? section) => section is null
-            ? MessageList.Count
-            : MessageList.Count(x => x.Section == section);
+        ? MessageList.Count
+        : MessageList.Count(x => x.Section == section);
 }

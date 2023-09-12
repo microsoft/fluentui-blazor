@@ -40,8 +40,8 @@ public class FluentMessageBarTests : TestBase
     //            Text = "Learn more"
     //        };
 
-    //        parameters.Add(p => p.Title, "This is a message");
-    //        parameters.Add(p => p.Content, content);
+    //        parameters.ShowMessageBar(p => p.Title, "This is a message");
+    //        parameters.ShowMessageBar(p => p.Content, content);
         
     //    });
 

@@ -1,7 +1,5 @@
 ﻿@inject IMessageService MessageService
-<p>
-Click on this button to display a message (max 5).
-</p>
+
 <FluentButton OnClick="@DisplayMessage" Appearance="Appearance.Accent">Display</FluentButton>
 <FluentButton Appearance="Appearance.Hypertext" OnClick="@((e) => MessageService.Clear())">Clear all messages</FluentButton>
 
@@ -31,11 +29,11 @@ Click on this button to display a message (max 5).
             OnClick = (e) => { DemoLogger.WriteLine($"Message 'action 2' clicked"); return Task.CompletedTask; }
         };
 
-        MessageService.Add(options =>
+        MessageService.ShowMessageBar(options =>
         {
             options.Section = App.MESSAGES_TOP;
-            options.Title = $"This is a message #{counter}.";
-            options.Body = @"<em>You can't click these buttons really quickly</em";
+            options.Title = $"This is the important stuff (#{counter}).";
+            options.Body = "The extra information should be kept at roughly 100 characters (which is about this long maximal).";
             options.Intent = Enum.GetValues<MessageIntent>()[counter % 4];
             options.Icon = new Icons.Regular.Size24.PersonCircle();            
             options.ClearAfterNavigation = true;

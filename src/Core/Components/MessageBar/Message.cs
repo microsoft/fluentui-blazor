@@ -19,13 +19,20 @@ public class Message
     /// <summary />
     internal MessageOptions Options { get; }
 
-    /// <summary />
+    /// <summary>
+    /// Intent of the message bar. Default is MessageIntent.Info. 
+    /// See <see cref="MessageIntent"/> for more details.
+    /// </summary>
     public MessageIntent? Intent => Options.Intent;
 
-    /// <summary />
+    /// <summary>
+    /// Indication of in which message bar the message needs to be shown. Default is null.
+    /// </summary>
     public string? Section => Options.Section;
 
-    /// <summary />
+    /// <summary>
+    /// Most important info to be shown in the message bar.
+    /// </summary>
     public string Title
     {
         get
@@ -39,7 +46,9 @@ public class Message
         }
     }
 
-    /// <summary />
+    /// <summary>
+    /// Message to be shown in the message bar.
+    /// </summary>
     public string? Body
     {
         get
@@ -53,7 +62,9 @@ public class Message
         }
     }
 
-    /// <summary />
+    /// <summary>
+    /// Link to be shown in the message bar (after the body).
+    /// </summary>
     public ActionLink<Message>? Link
     {
         get
@@ -69,7 +80,9 @@ public class Message
 
     
 
-    /// <summary />
+    /// <summary>
+    /// Close the message bar.
+    /// </summary>
     public void Close()
     {
         OnClose?.Invoke(this);

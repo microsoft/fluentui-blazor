@@ -25,7 +25,7 @@
     {
         string header = Properties.Any(x => x.IsParameter) ? "Parameters" : "Properties";
         <h4 id="@(_id + "_properties")">@header</h4>
-        <FluentDataGrid Class="docgrid" Items="@this.Properties.AsQueryable()" GridTemplateColumns="1fr 0.5fr 0.5fr 2fr">
+        <FluentDataGrid Class="docgrid" Items="@this.Properties.AsQueryable()" GridTemplateColumns="1fr 1fr 0.5fr 2fr">
             <TemplateColumn Title="Name"><code>@context.Name</code></TemplateColumn>
             <TemplateColumn Title="Type">
                         @context.Type

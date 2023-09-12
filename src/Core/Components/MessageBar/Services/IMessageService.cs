@@ -4,11 +4,8 @@
 public interface IMessageService : IDisposable
 {
     /// <summary />
-    event Action? OnMessageItemsUpdated;
-
-    //// <summary />
-    //MessageBarGlobalOptions Configuration { get; }
-
+    public event Action? OnMessageItemsUpdated;
+    public event Func<Task> OnMessageItemsUpdatedAsync;
     /// <summary />
     IEnumerable<Message> AllMessages { get; }
 
@@ -16,16 +13,29 @@ public interface IMessageService : IDisposable
     IEnumerable<Message> MessagesToShow(int count = 5, string? section = null);
 
     /// <summary />
-    Message Add(Action<MessageOptions> options);
+    Message ShowMessageBar(Action<MessageOptions> options);
 
     /// <summary />
-    Message Add(string message);
+    Message ShowMessageBar(string message);
 
     /// <summary />
-    Message Add(string message, MessageIntent intent);
+    Message ShowMessageBar(string message, MessageIntent intent);
 
     /// <summary />
-    Message Add(string message, MessageIntent intent, string section);
+    Message ShowMessageBar(string message, MessageIntent intent, string section);
+
+
+    /// <summary />
+    Task<Message> ShowMessageBarAsync(Action<MessageOptions> options);
+
+    /// <summary />
+    Task<Message> ShowMessageBarAsync(string message);
+
+    /// <summary />
+    Task<Message> ShowMessageBarAsync(string message, MessageIntent intent);
+
+    /// <summary />
+    Task<Message> ShowMessageBarAsync(string message, MessageIntent intent, string section);
 
     /// <summary />
     void Clear(string? section = null);

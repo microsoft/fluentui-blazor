@@ -28,19 +28,27 @@ public partial class FluentMessageBar : FluentComponentBase
         .AddStyle(Style)
         .Build();
 
-    /// <summary />
+    /// <summary>
+    /// The type of message bar. Default is MessageType.MessageBar. See <see cref="MessageType"/> for more details.
+    /// </summary>
     [Parameter]
     public MessageType Type { get; set; } = MessageType.MessageBar;
 
-    /// <summary />
+    /// <summary>
+    /// The actual message instance shown in the message bar.
+    /// </summary>
     [Parameter]
     public Message Content { get; set; } = Message.Empty();
 
-    /// <summary />
+    /// <summary>
+    /// The message to be shown whennot using the MessageService methods
+    /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    /// <summary />
+    /// <summary>
+    /// Intent of the message bar. Default is MessageIntent.Info. See <see cref="MessageIntent"/> for more details.
+    /// </summary>
     [Parameter]
     public MessageIntent? Intent
     {
@@ -55,7 +63,9 @@ public partial class FluentMessageBar : FluentComponentBase
         }
     }
 
-    /// <summary />
+    /// <summary>
+    /// Icon to show in the message bar based on the intent of the message. See <see cref="Icon"/> for more details.
+    /// </summary>
     [Parameter]
     public Icon? Icon
     {
@@ -84,11 +94,15 @@ public partial class FluentMessageBar : FluentComponentBase
         }
     }
 
-    /// <summary />
+    /// <summary>
+    /// Visibility of the message bar. Default is true.
+    /// </summary>
     [Parameter]
     public bool Visible { get; set; } = true;
 
-    /// <summary />
+    /// <summary>
+    /// Most important info to be shown in the message bar.
+    /// </summary>
     [Parameter]
     public string Title
     {
@@ -103,7 +117,9 @@ public partial class FluentMessageBar : FluentComponentBase
         }
     }
 
-    /// <summary />
+    /// <summary>
+    /// Time on which the message was created. Default is DateTime.Now. Onlu used when MessageType is Notification.
+    /// </summary>
     [Parameter]
     public DateTime? Timestamp
     {
@@ -125,19 +141,25 @@ public partial class FluentMessageBar : FluentComponentBase
     [Parameter]
     public Color? IconColor { get; set; } = Color.Accent;
 
-    /// <summary>
-    /// On app and page level a Message bar should NOT have rounded corners. On component level it should.
-    /// </summary>  
-    [Parameter]
-    public bool RoundedCorners { get; set; } = true;
+    ///// <summary>
+    ///// On app and page level a Message bar should NOT have rounded corners. On component level it should.
+    ///// </summary>  
+    //[Parameter]
+    //public bool RoundedCorners { get; set; } = true;
 
-    /// <summary />
+    /// <summary>
+    /// A link can be shown after the message. 
+    /// </summary>
     protected ActionLink<Message>? Link => Content.Options.Link;
 
-    /// <summary />
+    /// <summary>
+    /// Button to show as primary action.
+    /// </summary>
     protected ActionButton<Message>? PrimaryAction => Content.Options.PrimaryAction;
 
-    /// <summary />
+    /// <summary>
+    /// Button to show as secondary action.
+    /// </summary>
     protected ActionButton<Message>? SecondaryAction => Content.Options.SecondaryAction;
 
     /// <summary />

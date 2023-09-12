@@ -3474,28 +3474,44 @@
             <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.Type">
-            <summary />
+            <summary>
+            The type of message bar. Default is MessageType.MessageBar. See <see cref="T:Microsoft.Fast.Components.FluentUI.MessageType"/> for more details.
+            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.Content">
-            <summary />
+            <summary>
+            The content of the message bar. This is shown after the title.
+            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.ChildContent">
-            <summary />
+            <summary>
+            The message to be shown whennot using the MessageService methods
+            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.Intent">
-            <summary />
+            <summary>
+            Intent of the message bar. Default is MessageIntent.Info. See <see cref="T:Microsoft.Fast.Components.FluentUI.MessageIntent"/> for more details.
+            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.Icon">
-            <summary />
+            <summary>
+            Icon to show in the message bar based on the intent of the message. See <see cref="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.Icon"/> for more details.
+            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.Visible">
-            <summary />
+            <summary>
+            Visibility of the message bar. Default is true.
+            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.Title">
-            <summary />
+            <summary>
+            Most important info to be shown in the message bar.
+            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.Timestamp">
-            <summary />
+            <summary>
+            Time on which the message was created. Default is DateTime.Now. Onlu used when MessageType is Notification.
+            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.IconColor">
             <summary>
@@ -3503,19 +3519,20 @@
             Default is Color.Accent
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.RoundedCorners">
-            <summary>
-            On app and page level a Message bar should NOT have rounded corners. On component level it should.
-            </summary>  
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.Link">
-            <summary />
+            <summary>
+            A link can be shown after the message. 
+            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.PrimaryAction">
-            <summary />
+            <summary>
+            Button to show as primary action.
+            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.SecondaryAction">
-            <summary />
+            <summary>
+            Button to show as secondary action.
+            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.ShowPrimaryAction">
             <summary />
@@ -3594,22 +3611,35 @@
             <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.Message.Intent">
-            <summary />
+            <summary>
+            Intent of the message bar. Default is MessageIntent.Info. 
+            See <see cref="T:Microsoft.Fast.Components.FluentUI.MessageIntent"/> for more details.
+            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.Message.Section">
-            <summary />
+            <summary>
+            Indication of in which message bar the message needs to be shown. Default is null.
+            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.Message.Title">
-            <summary />
+            <summary>
+            Most important info to be shown in the message bar.
+            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.Message.Body">
-            <summary />
+            <summary>
+            Message to be shown in the message bar.
+            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.Message.Link">
-            <summary />
+            <summary>
+            Link to be shown in the message bar (after the body).
+            </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Message.Close">
-            <summary />
+            <summary>
+            Close the message bar.
+            </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Message.Empty">
             <summary />
@@ -3626,16 +3656,28 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.IMessageService.MessagesToShow(System.Int32,System.String)">
             <summary />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IMessageService.Add(System.Action{Microsoft.Fast.Components.FluentUI.MessageOptions})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.IMessageService.ShowMessageBar(System.Action{Microsoft.Fast.Components.FluentUI.MessageOptions})">
             <summary />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IMessageService.Add(System.String)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.IMessageService.ShowMessageBar(System.String)">
             <summary />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IMessageService.Add(System.String,Microsoft.Fast.Components.FluentUI.MessageIntent)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.IMessageService.ShowMessageBar(System.String,Microsoft.Fast.Components.FluentUI.MessageIntent)">
             <summary />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IMessageService.Add(System.String,Microsoft.Fast.Components.FluentUI.MessageIntent,System.String)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.IMessageService.ShowMessageBar(System.String,Microsoft.Fast.Components.FluentUI.MessageIntent,System.String)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IMessageService.ShowMessageBarAsync(System.Action{Microsoft.Fast.Components.FluentUI.MessageOptions})">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IMessageService.ShowMessageBarAsync(System.String)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IMessageService.ShowMessageBarAsync(System.String,Microsoft.Fast.Components.FluentUI.MessageIntent)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IMessageService.ShowMessageBarAsync(System.String,Microsoft.Fast.Components.FluentUI.MessageIntent,System.String)">
             <summary />
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.IMessageService.Clear(System.String)">
@@ -3644,50 +3686,63 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.IMessageService.Remove(Microsoft.Fast.Components.FluentUI.Message)">
             <summary />
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.MessageAction">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MessageAction.Text">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MessageAction.Href">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MessageAction.OnClick">
-            <summary />
-        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.MessageOptions">
             <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.Section">
-            <summary />
+            <summary>
+            Identification of the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer"/> the message belongs to.
+            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.Timestamp">
-            <summary />
+            <summary>
+            The timestamp of the message.
+            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.Icon">
-            <summary />
+            <summary>
+            Icon to show in the message bar based on the intent of the message. See <see cref="P:Microsoft.Fast.Components.FluentUI.MessageOptions.Icon"/> for more details.
+            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.Title">
-            <summary />
+            <summary>
+            Most important info to be shown in the message bar.
+            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.Body">
-            <summary />
+            <summary>
+            Message to be shown in the message bar after the title.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.Link">
+            <summary>
+            Link to be shown in the message bar after the title/message. 
+            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.OnClose">
-            <summary />
+            <summary>
+            Action to be executed when the message bar is closed.
+            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.PrimaryAction">
-            <summary />
+            <summary>
+            Action to be executed for the primary button.
+            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.SecondaryAction">
-            <summary />
+            <summary>
+            Action to be executed for the secondary button.
+            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.Intent">
-            <summary />
+            <summary>
+            Intent of the message bar. Default is MessageIntent.Info.
+            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.ClearAfterNavigation">
-            <summary />
+            <summary>
+            Remove the message bar after navigation.
+            </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.MessageService">
             <summary />
@@ -3701,6 +3756,9 @@
         <member name="E:Microsoft.Fast.Components.FluentUI.MessageService.OnMessageItemsUpdated">
             <summary />
         </member>
+        <member name="E:Microsoft.Fast.Components.FluentUI.MessageService.OnMessageItemsUpdatedAsync">
+            <summary />
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.MessageService.MessageLock">
             <summary />
         </member>
@@ -3708,28 +3766,91 @@
             <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.MessageService.AllMessages">
-            <summary />
+            <summary>
+            Gets all messages.
+            </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.MessagesToShow(System.Int32,System.String)">
-            <summary />
+            <summary>
+            Retrieve messages to show in the message bar.
+            </summary>
+            <param name="count">Number of messages to get (defaults to 5)</param>
+            <param name="section">Optional section to retrieve messages for</param>
+            <returns></returns>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.Add(System.String)">
-            <summary />
+        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.ShowMessageBar(System.String)">
+            <summary>
+            Show a message based on the provided parameters in a message bar.
+            </summary>
+            <param name="title">Main info</param>
+            <returns></returns>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.Add(System.String,Microsoft.Fast.Components.FluentUI.MessageIntent)">
-            <summary />
+        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.ShowMessageBar(System.String,Microsoft.Fast.Components.FluentUI.MessageIntent)">
+            <summary>
+            Show a message based on the provided parameters in a message bar.
+            </summary>
+            <param name="title">Main info</param>
+            <param name="intent">Intent of the message</param>
+            <returns></returns>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.Add(System.String,Microsoft.Fast.Components.FluentUI.MessageIntent,System.String)">
-            <summary />
+        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.ShowMessageBar(System.String,Microsoft.Fast.Components.FluentUI.MessageIntent,System.String)">
+            <summary>
+            Show a message based on the provided parameters in a message bar.
+            </summary>
+            <param name="title">Main info</param>
+            <param name="intent">Intent of the message</param>
+            <param name="section">Section to show the messagebar in </param>
+            <returns></returns>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.Add(System.Action{Microsoft.Fast.Components.FluentUI.MessageOptions})">
-            <summary />
+        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.ShowMessageBar(System.Action{Microsoft.Fast.Components.FluentUI.MessageOptions})">
+            <summary>
+            Show a message based on the provided options in a message bar.
+            </summary>
+            <param name="options">Message options</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.ShowMessageBarAsync(System.String)">
+            <summary>
+            Show a message based on the provided parameters in a message bar.
+            </summary>
+            <param name="title">Main info</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.ShowMessageBarAsync(System.String,Microsoft.Fast.Components.FluentUI.MessageIntent)">
+            <summary>
+            Show a message based on the provided parameters in a message bar.
+            </summary>
+            <param name="title">Main info</param>
+            <param name="intent">Intent of the message</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.ShowMessageBarAsync(System.String,Microsoft.Fast.Components.FluentUI.MessageIntent,System.String)">
+            <summary>
+            Show a message based on the provided parameters in a message bar.
+            </summary>
+            <param name="title">Main info</param>
+            <param name="intent">Intent of the message</param>
+            <param name="section">Section to show the messagebar in </param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.ShowMessageBarAsync(System.Action{Microsoft.Fast.Components.FluentUI.MessageOptions})">
+            <summary>
+            Show a message based on the provided message options in a message bar.
+            </summary>
+            <param name="options">Message options</param>
+            <returns></returns>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.Clear(System.String)">
-            <summary />
+            <summary>
+            Clear all messages (per section, if provided) from the message bar.
+            </summary>
+            <param name="section">Optional section</param>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.Remove(Microsoft.Fast.Components.FluentUI.Message)">
-            <summary />
+            <summary>
+            Remove a message from the message bar.
+            </summary>
+            <param name="message">Message to remove</param>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.NavigationManager_LocationChanged(System.Object,Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs)">
             <summary />
@@ -3738,7 +3859,17 @@
             <summary />
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.RemoveMessageItems(System.String)">
-            <summary />
+            <summary>
+            Remove all messages (per section, if provided) from the message bar.
+            </summary>
+            <param name="section">Optional section</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.Count(System.String)">
+            <summary>
+            Count the number of messages (per section, if provided) in the message bar .
+            </summary>
+            <param name="section">Optional section</param>
+            <returns>int</returns>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.ChildContent">
             <summary>
@@ -9920,14 +10051,14 @@
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ServiceCollectionExtensions.AddFluentUIComponents(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Fast.Components.FluentUI.LibraryConfiguration)">
             <summary>
-            Add common services required by the Fluent UI Web Components for Blazor library
+            ShowMessageBar common services required by the Fluent UI Web Components for Blazor library
             </summary>
             <param name="services">Service collection</param>
             <param name="configuration">Library configuration</param>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ServiceCollectionExtensions.AddFluentUIComponents(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.Fast.Components.FluentUI.LibraryConfiguration})">
             <summary>
-            Add common services required by the Fluent UI Web Components for Blazor library
+            ShowMessageBar common services required by the Fluent UI Web Components for Blazor library
             </summary>
             <param name="services">Service collection</param>
             <param name="configuration">Library configuration</param>

@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 StaticWebAssetsLoader.UseStaticWebAssets(builder.Environment, builder.Configuration);
 
-// Add services to the container.
+// ShowMessageBar services to the container.
 builder.Services.AddRazorPages();
 
 builder.Services.AddHttpClient();

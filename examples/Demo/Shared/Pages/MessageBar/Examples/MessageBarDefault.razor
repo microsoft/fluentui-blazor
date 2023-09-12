@@ -2,12 +2,7 @@
 @inject IDialogService DialogService
 @using FluentUI.Demo.Shared.Pages.Dialog.Examples;
 
-<p>
-    Click on these buttons to display a message (max 5) in the top, 
-    in the Notification Center (top/right bell icon) or in a dialog (max 1).<br/>
-    If you click on "Add in a dialog" multiple times, you will see that only one message is displayed. 
-    Once you dismiss that one, the next one will be displayed.
-</p>
+
 
 <FluentButton OnClick="@AddInTopBar" Appearance="Appearance.Accent">Add on top</FluentButton>
 <FluentButton OnClick="@AddInNotificationCenter" Appearance="Appearance.Accent">Add in Notification Center</FluentButton>
@@ -37,12 +32,12 @@
     {
         var message = $"Simple message #{counter++}";
         var type = Enum.GetValues<MessageIntent>()[counter % 4];
-        MessageService.Add(message, type, App.MESSAGES_TOP);
+        MessageService.ShowMessageBar(message, type, App.MESSAGES_TOP);
     }
 
     void AddInNotificationCenter()
     {
-        MessageService.Add(options =>
+        MessageService.ShowMessageBar(options =>
         {
             options.Intent = Enum.GetValues<MessageIntent>()[counter % 4];
             options.Title = $"Simple message #{counter++}";
@@ -56,7 +51,7 @@
 
     async Task AddInDialog()
     {
-        MessageService.Add(options =>
+        MessageService.ShowMessageBar(options =>
         {
             options.Intent = Enum.GetValues<MessageIntent>()[counter % 4];
             options.Title = $"Simple message #{counter++}";
