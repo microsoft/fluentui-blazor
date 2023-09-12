@@ -1,0 +1,64 @@
+@inject DataSource Data
+
+<label for="my-customized">Select a person</label>
+<FluentAutocomplete Id="my-customized"
+                    @ref="ContactList"
+                    TOption="Person"
+                    Width="100%"
+                    Placeholder="search"
+                    OnOptionsSearch="@OnSearch"
+                    MaximumSelectedOptions="3"
+                    OptionText="@(item => item.LastName)"
+                    OptionStyle="min-height: 40px;"
+                    @bind-SelectedOptions="@SelectedItems">
+
+    @* Template used with each Selected items *@
+    <SelectedOptionTemplate>
+        <FluentOptionPeople ImageSize="24px"
+                            Image="@context.Picture"
+                            Name="@($"{context.FirstName} {context.LastName}")"
+                            Style="height: 26px; background: var(--neutral-fill-secondary-hover)"
+                            DismissTitle="Remove"
+                            OnDismissClick="@(async () => await ContactList.RemoveSelectedItemAsync(context))" />
+    </SelectedOptionTemplate>
+
+    @* Template used with each Option items *@
+    <OptionTemplate>
+        <FluentOptionPeople ImageSize="32px"
+                            Image="@context.Picture"
+                            Name="@($"{context.FirstName} {context.LastName}")" />
+    </OptionTemplate>
+
+    <HeaderContent>
+        <FluentLabel Color="Color.Accent"
+                     Style="padding: 8px; font-size: 11px; border-bottom: 1px solid var(--neutral-fill-stealth-hover);">
+            Suggested contacts
+        </FluentLabel>
+    </HeaderContent>
+
+    <FooterContent>
+        @if (!context.Any())
+        {
+            <FluentLabel Style="font-size: 11px; text-align: center; width: 200px;">
+                No results found
+            </FluentLabel>
+        }
+    </FooterContent>
+</FluentAutocomplete>
+
+<p>
+    <b>Selected</b>: @(String.Join(" - ", SelectedItems.Select(i => i.LastName)))
+</p>
+
+@code
+{
+    FluentAutocomplete<Person> ContactList = default!;
+    IEnumerable<Person> SelectedItems = Array.Empty<Person>();
+
+    private void OnSearch(OptionsSearchEventArgs<Person> e)
+    {
+        e.Items = Data.People.Where(i => i.LastName.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase) ||
+                                         i.FirstName.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase))
+                             .OrderBy(i => i.LastName);
+    }
+}

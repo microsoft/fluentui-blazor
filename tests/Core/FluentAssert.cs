@@ -79,9 +79,8 @@ public static class FluentAssert
         var receivedNodes = receivedHtml.ToNodeList(htmlParser);
 
         // Difference?
-        var diffs = actual.Nodes
-                          .CompareTo(expectedNodes)
-                          .Where(i => !Options.IsExcluded(i));
+        var diffs = receivedNodes.CompareTo(expectedNodes)
+                                 .Where(i => !Options.IsExcluded(i));
 
         // Delete a previous "received.html" file
         if (!diffs.Any())
@@ -165,8 +164,8 @@ public static class FluentAssert
     public static string ReplaceAttribute(this string value, string attribute, string? newValue = "")
     {
         string newAttributeValue = string.IsNullOrEmpty(newValue) ? string.Empty : $" {attribute}=\"{newValue}\"";
-        value = Regex.Replace(value, $" {attribute}='\\w+'", newAttributeValue);
-        value = Regex.Replace(value, $" {attribute}=\"\\w+\"", newAttributeValue);
+        value = Regex.Replace(value, $" {attribute}='[\\w-]+'", newAttributeValue, RegexOptions.IgnoreCase);
+        value = Regex.Replace(value, $" {attribute}=\"[\\w-]+\"", newAttributeValue, RegexOptions.IgnoreCase);
         return value;
     }
 }
