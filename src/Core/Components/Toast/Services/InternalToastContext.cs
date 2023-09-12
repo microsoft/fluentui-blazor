@@ -11,14 +11,14 @@ internal sealed class InternalToastContext
         ToastContainer = container;
     }
 
-    internal void Register(FluentToast dialog)
+    internal void Register(FluentToast toast)
     {
-        References.Add(dialog.Id!, dialog);
+        References.Add(toast.Id!, toast);
     }
 
-    internal void Unregister(FluentToast dialog)
+    internal void Unregister(FluentToast toast)
     {
-        References.Remove(dialog.Id!);
+        References.Remove(toast.Id!);
     }
 
 }

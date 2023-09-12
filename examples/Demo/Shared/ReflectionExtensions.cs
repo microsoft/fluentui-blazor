@@ -362,14 +362,14 @@ namespace FluentUI.Demo.Shared
             typeof(ValueTuple<,,,,,,,>) });
 
         /// <summary>
-        /// Remove the parameter count part of the generic type _name. 
-        /// For example the generic list type _name is List`1.
+        /// Remove the parameter count part of the generic typename. 
+        /// For example the generic list typename is List`1.
         /// This method leaves only the _name part of the type such as List.
         /// If specified string does not contain the number of parameters 
         /// part then the same string is returned.
         /// </summary>
-        /// <param _name="genericTypeName">Type _name</param>
-        /// <returns>Type _name without the number of parameters.</returns>
+        /// <param _name="genericTypeName">Typename</param>
+        /// <returns>Typename without the number of parameters.</returns>
         public static string CleanGenericTypeName(this string genericTypeName)
         {
             var index = genericTypeName.IndexOf('`');

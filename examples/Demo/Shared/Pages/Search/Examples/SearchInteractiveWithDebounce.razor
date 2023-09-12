@@ -27,7 +27,7 @@
             {
                 searchValue = value;
                 DisposeTimer();
-                //Add the debounce time in ms to the timer below
+                //ShowMessageBar the debounce time in ms to the timer below
                 timer = new Timer(400);
                 timer.Elapsed += TimerElapsed_TickAsync;
                 timer.Enabled = true;
