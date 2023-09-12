@@ -1,4 +1,6 @@
 ﻿using Bunit;
+using FluentAssertions.Common;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Microsoft.Fast.Components.FluentUI.Tests.MessageBar;
@@ -15,6 +17,8 @@ public class FluentMessageBarTests : TestBase
     [Fact]
     public void FluentMessageBar_Default()
     {
+        TestContext.Services.AddFluentUIComponents();
+        
         // Arrange
         var cut = TestContext.RenderComponent<FluentMessageBar>(parameters =>
         {
