@@ -1,0 +1,92 @@
+﻿@page "/MessageBar"
+@using FluentUI.Demo.Shared.Pages.MessageBar.Examples
+<h1>MessageBar</h1>
+<strong>IMPORTANT!!</strong>
+<p>
+    Messages are rendered by the <code>&lt;FluentMessageBarContainer /&gt;</code>. This component needs to be added to the layout of your application/site.
+    For a message bar that needs to be shown at the top of the screen, you typically do this in the <code>MainLayout.razor</code> file at the location in 
+    the HTML structure where you want the message bars to appear  of the <code>&lt;main&gt;</code> section like this:
+</p>
+<CodeSnippet>
+    &lt;main&gt;
+        &lt;nav&gt;
+        :
+        &lt;/nav&gt;
+        &lt;div class=&quot;content&quot;&gt;
+            &lt;article id=&quot;article&quot;&gt;
+            &lt;FluentMessageBarContainer Section="MESSAGES_TOP"/&gt;
+                @@Body
+            &lt;/article&gt;
+        &lt;/div&gt;
+    &lt;/main&gt;
+</CodeSnippet>
+
+
+<h2>Examples</h2>
+
+<DemoSection Title="Message Service" Component="typeof(MessageBarDefault)">
+    <p>
+        Click on these buttons to display a message (max 5) in the top,
+        in the Notification Center (top/right bell icon) or in a dialog (max 1).<br />
+        If you click on "Add in a dialog" multiple times, you will see that only one message is displayed.
+        Once you dismiss that one, the next one will be displayed.
+    </p>
+    <p>This is the advised way to use MessageBars </p>
+</DemoSection>
+
+<DemoSection Title="Timed Messages" Component="typeof(MessageBarTimed)">
+    <p>
+        These message automatically dismiss after a set amount of time.
+    </p>
+</DemoSection>
+
+<DemoSection Title="MessageBar with options" Component="typeof(MessageBarDetailed)">
+    <p>
+        Click on the button to display a message (max 5) utilizing the <code>MessageOptions</code> class.
+    </p>
+</DemoSection>
+
+<DemoSection Title="Simple messages" Component="typeof(MessageBarSimple)">
+    <p>
+        This example show the different intents that can be shown in a MessageBar. 
+        This example does <b>not</b> use the <code>MessageBarService</code>.
+    </p>
+</DemoSection>
+
+<DemoSection Title="Simple notification" Component="typeof(MessageBarSimpleNotification)">
+    <p>
+        This example show how a MessageBar can be used to be shown as a notification (border added for styling puroses only).
+        This example does <b>not</b> use the <code>MessageBarService</code>.
+    </p>
+</DemoSection>
+
+
+
+
+<h3></h3>
+
+<DemoSection Title="Notification Center" Component="typeof(FluentUI.Demo.Shared.Components.NotificationCenter)">
+    <p>
+        Copy of the button shown in the header which displays the number of notifications. Use the button in the first example to add notifications.
+    </p>
+</DemoSection>
+
+
+<h2>MessageBar container</h2>
+
+<h4>Display the list of messages</h4>
+<p>
+    You display a list of messages for a specific section using the <code>FluentMessageBarContainer</code> component.
+</p>
+<CodeSnippet>
+    @(@"<FluentMessageBarContainer Section=""MESSAGE_SECTION"" Format=""MessageFormat.Notification"" />")
+</CodeSnippet>
+
+<h2>API Documentation</h2>
+<ApiDocumentation Component="typeof(FluentMessageBarContainer)" />
+
+<ApiDocumentation Component="typeof(FluentMessageBar)" />
+
+<ApiDocumentation Component="typeof(MessageService)" />
+
+<ApiDocumentation Component="typeof(Message)" />

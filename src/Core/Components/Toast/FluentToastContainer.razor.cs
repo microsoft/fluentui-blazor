@@ -105,21 +105,14 @@ public partial class FluentToastContainer
 
     private void UpdateToast(string? toastId, ToastParameters parameters)
     {
-        _ = InvokeAsync(() =>
+        ToastInstance? toastInstance = _toastList.SingleOrDefault(x => x.Id == toastId);
+
+        if (toastInstance is not null)
         {
-            //ToastParameters? toastParameters = new();
-            //parameters?.Invoke(toastParameters);
+            toastInstance.Parameters = parameters;
+            InvokeAsync(StateHasChanged);
+        };
 
-            ToastInstance? toastInstance = _toastList.SingleOrDefault(x => x.Id == toastId);
-
-            if (toastInstance is not null)
-            {
-                //toastInstance.Content = content;
-                toastInstance.Parameters = parameters;
-
-                StateHasChanged();
-            }
-        });
     }
 
     private void CloseToast(string id)

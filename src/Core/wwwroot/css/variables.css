@@ -1,9 +1,9 @@
 ﻿:root {
     --font-monospace: Consolas, "Courier New", "Liberation Mono", SFMono-Regular, Menlo, Monaco, monospace;
-    --success: #107c10;
-    --warning: #817400;
-    --error: #d13438;
-    --info: #424242;
+    --success: #0E700E;
+    --warning: #E9835E;
+    --error: #BC2F32;
+    --info: #616161;
     --presence-available: #13a10e;
     --presence-away: #eaa300;
     --presence-busy: #d13438;
