@@ -406,10 +406,11 @@ code {
     fluent-select::part(control) {
         width: 150px;
     }
-   
+
     .content {
         display: grid;
         grid-template-columns: auto;
+        grid-template-rows: max-content;
     }
     aside {
         grid-area: 1 / 1 / 2 / 2;

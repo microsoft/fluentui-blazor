@@ -1,19 +1,15 @@
 ﻿::deep .docgrid {
     margin-bottom: 1em;
-    max-width: 100%;
+    width: 100%;
 }
 
-::deep .mobile-docs-warning {
-    display: none;
+::deep fluent-data-grid {
+    min-width: 1200px;
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 1280px) {
     ::deep .docgrid {
-        display: none;
+        overflow-x: scroll;
         
-    }
-
-    ::deep .mobile-docs-warning {
-        display: block;
     }
 }
