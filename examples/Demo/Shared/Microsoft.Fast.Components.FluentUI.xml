@@ -4579,7 +4579,9 @@
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentOverlay.CheckRGBString">
             <remarks>
-            Pattern explanation:<br/>
+            Pattern:<br/>
+            <code>^(?:#(?:[a-fA-F0-9]{6}|[a-fA-F0-9]{3}))</code><br/>
+            Explanation:<br/>
             <code>
             ○ Match if at the beginning of the string.<br/>
             ○ Match '#'.<br/>

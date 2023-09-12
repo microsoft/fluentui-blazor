@@ -96,7 +96,7 @@ public class FluentAutocompleteTests : TestBase
         });
 
         // Assert
-        Assert.Equal("For FluentAutocomplete, this property must be True. Set the MaximumSelectedOptions property to 1 to select just one item.", ex.InnerException.Message);
+        Assert.Equal("For FluentAutocomplete, this property must be True. Set the MaximumSelectedOptions property to 1 to select just one item.", ex.InnerException?.Message);
     }
 
     [Fact]
