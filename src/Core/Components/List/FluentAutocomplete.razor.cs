@@ -186,50 +186,84 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
         switch (e.Code)
         {
             case "Escape":
-                IsMultiSelectOpened = false;
+                await KeyDown_Escape();
                 break;
 
             case "Enter":
             case "NumpadEnter":
-                if (Items != null && Items.Any() && SelectableItem != null)
-                {
-                    await OnSelectedItemChangedHandlerAsync(SelectableItem);
-                }
-
-                SelectableItem = default;
-                IsMultiSelectOpened = false;
+                await KeyDown_Enter();
                 break;
 
             case "Backspace":
-                if (string.IsNullOrEmpty(_valueText) &&
-                    SelectedOptions != null && SelectedOptions.Any())
-                {
-                    await RemoveSelectedItemAsync(SelectedOptions.LastOrDefault());
-                }
-
+                await KeyDown_Backspace();
                 break;
 
             case "ArrowDown":
-                if (Items != null && Items.Any())
-                {
-                    var index = Items.ToList().IndexOf(SelectableItem ?? Items.First());
-                    if (index < Items.Count() - 1)
-                    {
-                        SelectableItem = Items.ElementAt(index + 1);
-                    }
-                }
+                await KeyDown_ArrowDown();
                 break;
 
             case "ArrowUp":
-                if (Items != null && Items.Any())
-                {
-                    var index = Items.ToList().IndexOf(SelectableItem ?? Items.First());
-                    if (index > 0)
-                    {
-                        SelectableItem = Items.ElementAt(index - 1);
-                    }
-                }
+                await KeyDown_ArrowUp();
                 break;
+        }
+
+        // Escape
+        Task KeyDown_Escape()
+        {
+            IsMultiSelectOpened = false;
+            return Task.CompletedTask;
+        }
+
+        // Backspace
+        async Task KeyDown_Backspace()
+        {
+            if (string.IsNullOrEmpty(_valueText) &&
+                SelectedOptions != null && SelectedOptions.Any())
+            {
+                await RemoveSelectedItemAsync(SelectedOptions.LastOrDefault());
+            }
+        }
+
+        // ArrowUp
+        Task KeyDown_ArrowUp()
+        {
+            if (Items != null && Items.Any())
+            {
+                var index = Items.ToList().IndexOf(SelectableItem ?? Items.First());
+                if (index > 0)
+                {
+                    SelectableItem = Items.ElementAt(index - 1);
+                }
+            }
+
+            return Task.CompletedTask;
+        }
+
+        // ArrowDown
+        Task KeyDown_ArrowDown()
+        {
+            if (Items != null && Items.Any())
+            {
+                var index = Items.ToList().IndexOf(SelectableItem ?? Items.First());
+                if (index < Items.Count() - 1)
+                {
+                    SelectableItem = Items.ElementAt(index + 1);
+                }
+            }
+
+            return Task.CompletedTask;
+        }
+
+        // Enter
+        async Task KeyDown_Enter()
+        {
+            if (Items != null && Items.Any() && SelectableItem != null)
+            {
+                await OnSelectedItemChangedHandlerAsync(SelectableItem);
+            }
+
+            SelectableItem = default;
+            IsMultiSelectOpened = false;
         }
     }
 
