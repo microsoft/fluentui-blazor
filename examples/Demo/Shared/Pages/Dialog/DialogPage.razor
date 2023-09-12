@@ -118,3 +118,57 @@
 
 <ApiDocumentation Component="typeof(DialogParameters<>)" GenericLabel="TData" />
 
+<h3>Dialog header and footer</h3>
+<p>The dialog header and footer can be changed by using the <code>FluentDialog</code>'s <code>HeaderTemplate</code> and <code>FooterTemplate</code> parameters.</p>
+<p>
+    The default implementation uses the <code>FluentDialogHeader</code> and <code>FluentDialogFooter</code> components (see documentation below). 
+    You can use the content of these components as the base for your own implementation:
+</p>
+
+<h4>Default dialog header</h4>
+<CodeSnippet>
+&lt;div class=&quot;fluent-dialog-header&quot;&gt;
+    &lt;FluentStack Orientation=&quot;Orientation.Horizontal&quot; VerticalAlignment=&quot;VerticalAlignment.Center&quot;&gt;
+        &lt;FluentLabel Typo=&quot;Typography.PaneHeader&quot; Style=&quot;width: 100%; margin: 0px;&quot;&gt;@@Title&lt;/FluentLabel&gt;
+        @@if (ShowDismiss)
+        {
+            &lt;FluentButton Appearance = &quot; Appearance.Stealth &quot;
+                @@onclick= &quot;@@(() = &gt; Dialog!.CancelAsync())&quot; &gt;
+                &lt;FluentIcon Icon = &quot; CoreIcons.Regular.Size24.Dismiss & quot; Width = &quot; 16px & quot; / &gt;
+            &lt;/FluentButton &gt;
+        }
+    &lt;/FluentStack&gt;
+&lt;/div&gt;
+</CodeSnippet>
+
+<h4>Default dialog footer</h4>
+<CodeSnippet>
+&lt;div class=&quot;@@(Alignment == HorizontalAlignment.Center ? &quot;fluent-dialog-footer-normal&quot; : &quot;fluent-dialog-footer-bottom&quot;)&quot;&gt;
+    &lt;FluentStack Orientation=&quot;Orientation.Horizontal&quot;
+                 HorizontalAlignment=&quot;@@(Alignment == HorizontalAlignment.Center ? HorizontalAlignment.Right : HorizontalAlignment.Left)&quot;&gt;
+        @@if (ShowPrimaryAction)
+        {
+            &lt;FluentButton title=&quot;@@PrimaryAction&quot;
+                          @@onclick=&quot;@@OnPrimaryActionButtonClickAsync&quot;
+                          Appearance=&quot;Appearance.Accent&quot;
+                          Disabled=&quot;@@(!PrimaryActionEnabled)&quot;&gt;
+                @@PrimaryAction
+            &lt;/FluentButton&gt;
+        }
+        @@if (ShowSecondaryAction)
+        {
+            &lt;FluentButton title=&quot;@@SecondaryAction&quot;
+                          @@onclick=&quot;@@OnSecondaryActionButtonClickAsync&quot;
+                          Appearance=&quot;Appearance.Neutral&quot;
+                          Disabled=&quot;@@(!SecondaryActionEnabled)&quot;&gt;
+                @@SecondaryAction
+            &lt;/FluentButton&gt;
+        }
+    &lt;/FluentStack&gt;
+&lt;/div&gt;
+</CodeSnippet>
+
+<ApiDocumentation Component="typeof(FluentDialogHeader)" />
+
+<ApiDocumentation Component="typeof(FluentDialogFooter)" />
+
