@@ -3480,7 +3480,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.Content">
             <summary>
-            The content of the message bar. This is shown after the title.
+            The actual message instance shown in the message bar.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.ChildContent">
@@ -3742,6 +3742,11 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.ClearAfterNavigation">
             <summary>
             Remove the message bar after navigation.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.Timeout">
+            <summary>
+            Timeout in milliseconds after which the message bar is removed. Default is null.
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.MessageService">
@@ -10051,14 +10056,14 @@
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ServiceCollectionExtensions.AddFluentUIComponents(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Fast.Components.FluentUI.LibraryConfiguration)">
             <summary>
-            ShowMessageBar common services required by the Fluent UI Web Components for Blazor library
+            Add common services required by the Fluent UI Web Components for Blazor library
             </summary>
             <param name="services">Service collection</param>
             <param name="configuration">Library configuration</param>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ServiceCollectionExtensions.AddFluentUIComponents(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.Fast.Components.FluentUI.LibraryConfiguration})">
             <summary>
-            ShowMessageBar common services required by the Fluent UI Web Components for Blazor library
+            Add common services required by the Fluent UI Web Components for Blazor library
             </summary>
             <param name="services">Service collection</param>
             <param name="configuration">Library configuration</param>

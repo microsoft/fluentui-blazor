@@ -1,12 +1,14 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using System.Runtime.InteropServices;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary />
-public partial class FluentMessageBar : FluentComponentBase
+public partial class FluentMessageBar : FluentComponentBase, IDisposable
 {
+    private CountdownTimer? _countdownTimer;
     private Color? _color;
 
     [Inject] GlobalState GlobalState { get; set; } = default!;
@@ -168,9 +170,22 @@ public partial class FluentMessageBar : FluentComponentBase
     /// <summary />
     protected bool ShowSecondaryAction => !string.IsNullOrEmpty(Content.Options.SecondaryAction?.Text);
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         GlobalState.OnChange += StateHasChanged;
+
+        if (Content.Options.Timeout.HasValue)
+        {
+            if (Content.Options.Timeout == 0)
+            {
+                return;
+            }
+            else
+            {
+                _countdownTimer = new CountdownTimer(Content.Options.Timeout.Value).OnElapsed(DismissClicked);
+                await _countdownTimer.StartAsync();
+            }
+        }
     }
 
     protected override void OnParametersSet()
@@ -222,5 +237,23 @@ public partial class FluentMessageBar : FluentComponentBase
     {
         Visible = false;
         Content.Close();
+    }
+
+    protected void PauseTimeout()
+    {
+        Console.WriteLine("PauseTimeout");
+        _countdownTimer?.Pause();
+    }
+
+    protected void ResumeTimeout()
+    {
+        Console.WriteLine("ResumeTimeout");
+        _countdownTimer?.Resume();
+    }
+
+    public void Dispose()
+    {
+        _countdownTimer?.Dispose();
+        _countdownTimer = null;
     }
 }

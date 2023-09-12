@@ -13,6 +13,7 @@
     border-radius: calc(var(--control-corner-radius) * 1px);
     padding: 0 12px;
     column-gap: 8px;
+    animation: fade-out 1.5s;
 }
 
 .fluent-messagebar-container-action {
@@ -118,10 +119,9 @@
     grid-template-rows: 36px 1fr auto;
     width: 100%;
     min-height: 36px;
-    /*border-radius: calc(var(--control-corner-radius) * 1px);
-    border: 1px solid #d1d1d1;*/
     padding: 0 12px;
     column-gap: 8px;
+    animation: fade-out 1.5s;
 }
 
     .fluent-messagebar-notification.intent-info {
@@ -191,4 +191,14 @@
     right: 10px;
     text-align: right;
     padding: 0px 4px 4px 0px;
+}
+
+keyframes fade-out {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
 }

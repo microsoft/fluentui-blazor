@@ -78,7 +78,18 @@ public class Message
         }
     }
 
-    
+    public int? Timeout
+    {
+        get
+        {
+            return Options.Timeout;
+        }
+
+        set
+        {
+            Options.Timeout = value;
+        }
+    }
 
     /// <summary>
     /// Close the message bar.
