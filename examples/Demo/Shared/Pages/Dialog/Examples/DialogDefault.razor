@@ -8,15 +8,22 @@
         When 'Trap focus' is checked, only the elements within the dialog will receive focus. When unchecked, focus will also move outside of the 
         dialog.
     </p>
+    <p>
+        Hidden is bound to dialog visibility. You can show/hide dialog by changing this property or calling <code>Show()</code> / <code>Hide()</code>
+        on component reference.
+    </p>
     <FluentCheckbox Name="modal" @bind-Value="_modal">
         Modal
     </FluentCheckbox>
     <FluentCheckbox Name="trap" @bind-Value="_trapFocus">
         Trap focus
     </FluentCheckbox>
+    <FluentCheckbox Name="hidden" @bind-Value="Hidden" Readonly="true">
+        Hidden
+    </FluentCheckbox>
 </div>
 <div>
-    <FluentDialog @ref="_myFluentDialog" Hidden="@_hidden" aria-label="Simple dialog" Modal=@_modal TrapFocus=@_trapFocus @ondialogdismiss=OnDismiss>
+    <FluentDialog @ref="_myFluentDialog" @bind-Hidden="@Hidden" aria-label="Simple dialog" Modal=@_modal TrapFocus=@_trapFocus @ondialogdismiss=OnDismiss>
         <h2>Just a simple dialog</h2>
         <p>The 'Close dialog' button is automatically focused.</p>
         <p>The 'Another button' doesn't do anything other than showing it can receive focus.</p>
@@ -35,7 +42,7 @@
     private bool _trapFocus = true;
     private bool _modal = true;
     private string? _status;
-    private bool _hidden = true;
+    private bool Hidden { get; set; } = true;
 
     protected override void OnAfterRender(bool firstRender)
     {
@@ -46,7 +53,6 @@
     private void OnOpen()
     {
         _status = "Dialog opened with button click";
-        _hidden = false;
         _myFluentDialog!.Show();
         DemoLogger.WriteLine(_status);
     }
@@ -55,7 +61,6 @@
     {
         _status = $"Dialog dismissed with reason: Close button clicked";
         _myFluentDialog!.Hide();
-        _hidden = true;
         DemoLogger.WriteLine(_status);
     }
 
@@ -64,7 +69,6 @@
         if (args is not null && args.Reason is not null && args.Reason == "dismiss")
         {
             _status = $"Dialog dismissed with reason: Dismissed";
-            _hidden = true;
             _myFluentDialog!.Hide();
             DemoLogger.WriteLine(_status);
         }

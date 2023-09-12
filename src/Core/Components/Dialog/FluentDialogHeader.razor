@@ -1,0 +1,14 @@
+﻿@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentComponentBase
+
+<div class="fluent-dialog-header">
+    <FluentStack Orientation="Orientation.Horizontal" VerticalAlignment="VerticalAlignment.Center">
+        <FluentLabel Typo="Typography.PaneHeader" Style="width: 100%; margin: 0px;">@Title</FluentLabel>
+        @if (ShowDismiss)
+        {
+            <FluentButton Appearance="Appearance.Stealth" @onclick="@(() => Dialog!.CancelAsync())">
+                <FluentIcon Icon="CoreIcons.Regular.Size24.Dismiss" Width="16px" />
+            </FluentButton>
+        }
+    </FluentStack>
+</div>

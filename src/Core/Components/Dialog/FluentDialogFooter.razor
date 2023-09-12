@@ -1,0 +1,27 @@
+﻿@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentComponentBase
+
+<div class="@(Alignment == HorizontalAlignment.Center ? "fluent-dialog-footer-normal" : "fluent-dialog-footer-bottom")">
+    <FluentStack Orientation="Orientation.Horizontal"
+                 HorizontalAlignment="@(Alignment == HorizontalAlignment.Center ? HorizontalAlignment.Right : HorizontalAlignment.Left)">
+        @if (ShowPrimaryAction)
+        {
+            <FluentButton title="@PrimaryAction"
+                          @onclick="@OnPrimaryActionButtonClickAsync"
+                          Appearance="Appearance.Accent"
+                          Disabled="@(!PrimaryActionEnabled)">
+                @PrimaryAction
+            </FluentButton>
+        }
+        @if (ShowSecondaryAction)
+        {
+            <FluentButton title="@SecondaryAction"
+                          @onclick="@OnSecondaryActionButtonClickAsync"
+                          Appearance="Appearance.Neutral"
+                          Disabled="@(!SecondaryActionEnabled)">
+                @SecondaryAction
+            </FluentButton>
+        }
+    </FluentStack>
+</div>
+

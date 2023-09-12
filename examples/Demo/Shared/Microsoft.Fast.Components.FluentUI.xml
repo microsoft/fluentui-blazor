@@ -1752,6 +1752,11 @@
             Gets or sets if the dialog is hidden
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.HiddenChanged">
+            <summary>
+            The event callback invoked when <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDialog.Hidden"/> change.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.TrapFocus">
             <summary>
             Indicates that the dialog should trap focus.
@@ -1779,7 +1784,17 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.ChildContent">
             <summary>
-            Used when not calling the <see cref="T:Microsoft.Fast.Components.FluentUI.DialogService" /> to show a dialog
+            Used when not calling the <see cref="T:Microsoft.Fast.Components.FluentUI.DialogService" /> to show a dialog.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.HeaderTemplate">
+            <summary>
+            Content to render in header.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.FooterTemplate">
+            <summary>
+            Content to render in footer.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.OnDialogResult">
@@ -1790,6 +1805,63 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentDialog.CloseAsync(Microsoft.Fast.Components.FluentUI.DialogResult)">
             <summary>
             Closes the dialog
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogFooter.Alignment">
+            <summary>
+            Gets or sets the dialog position:
+            left (full height), right (full height)
+            or screen middle (using Width and Height properties).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogFooter.PrimaryAction">
+            <summary>
+            Text to display for the primary action.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogFooter.PrimaryActionEnabled">
+            <summary>
+            When true, primary action's button is enabled.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogFooter.OnPrimaryAction">
+            <summary>
+            The event callback invoked when primary button is clicked
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogFooter.SecondaryAction">
+            <summary>
+            Text to display for the secondary action.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogFooter.SecondaryActionEnabled">
+            <summary>
+            When true, secondary action's button is enabled.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogFooter.OnSecondaryAction">
+            <summary>
+            The event callback invoked when secondary button is clicked
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogFooter.ShowPrimaryAction">
+            <summary>
+            Gets whether the primary button is displayed or not. Depends on PrimaryAction having a value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogFooter.ShowSecondaryAction">
+            <summary>
+            Gets whether the secondary button is displayed or not. Depends on SecondaryAction having a value. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogHeader.Title">
+            <summary>
+            Title of the dialog
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogHeader.ShowDismiss">
+            <summary>
+            When true, shows the dismiss button in the header.
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentDialogProvider.#ctor">

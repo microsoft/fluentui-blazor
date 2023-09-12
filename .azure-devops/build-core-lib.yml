@@ -2,8 +2,10 @@
 
 pr:
 - main
+- dev
 trigger:
 - main
+- dev
 
 # Build.BuildNumber
 # use the variable "PublicVersion" to define a public version number (Ex. 2.3.6 or 3.0.0-preview.3)
