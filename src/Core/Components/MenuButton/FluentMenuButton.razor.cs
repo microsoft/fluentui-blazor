@@ -16,6 +16,12 @@ public partial class FluentMenuButton : FluentComponentBase
     [Parameter]
     public string? Text { get; set; }
 
+    [Parameter]
+    public string? ButtonStyle { get; set; }
+
+    [Parameter]
+    public string? MenuStyle { get; set; }
+
 
     [Parameter]
     public Dictionary<string, string> Items { get; set; } = new();
