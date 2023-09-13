@@ -170,25 +170,12 @@ public partial class FluentMessageBar : FluentComponentBase, IDisposable
     /// <summary />
     protected bool ShowSecondaryAction => !string.IsNullOrEmpty(Content.Options.SecondaryAction?.Text);
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
         GlobalState.OnChange += StateHasChanged;
-
-        if (Content.Options.Timeout.HasValue)
-        {
-            if (Content.Options.Timeout == 0)
-            {
-                return;
-            }
-            else
-            {
-                _countdownTimer = new CountdownTimer(Content.Options.Timeout.Value).OnElapsed(DismissClicked);
-                await _countdownTimer.StartAsync();
-            }
-        }
     }
 
-    protected override void OnParametersSet()
+    protected override async Task OnParametersSetAsync()
     {
         _color = Content.Intent switch
         {
@@ -198,6 +185,19 @@ public partial class FluentMessageBar : FluentComponentBase, IDisposable
             MessageIntent.Success => Color.Success,
             _ => IconColor,
         };
+        
+        if (Content.Options.Timeout.HasValue)
+        {
+            if (Content.Options.Timeout == 0)
+            {
+                return;
+            }
+            else
+            {
+                _countdownTimer = new CountdownTimer(Content.Options.Timeout.Value).OnElapsed(DismissClicked);
+                await _countdownTimer!.StartAsync();
+            }
+        }
     }
 
     /// <summary />
