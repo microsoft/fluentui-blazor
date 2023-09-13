@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using System.ComponentModel;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Fast.Components.FluentUI.Utilities;
 using Microsoft.JSInterop;
@@ -18,6 +19,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
     {
         Multiple = true;
         Width = "100%";
+        Id = Identifier.NewId();
     }
 
     /// <summary />
@@ -87,10 +89,18 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
     public int MaximumOptionsSearch { get; set; } = 9;
 
     /// <summary>
-    /// Gets or sets the maximum number of options (items) selected. Exceeding this value, the user must delete some elements in order to select new ones.
+    /// Gets or sets the maximum number of options (items) selected.
+    /// Exceeding this value, the user must delete some elements in order to select new ones.
+    /// See the <see cref="MaximumSelectedOptionsMessage"/>.
     /// </summary>
     [Parameter]
     public int? MaximumSelectedOptions { get; set; }
+
+    /// <summary>
+    /// Gets or sets the message displayed when the <see cref="MaximumSelectedOptions"/> is reached.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? MaximumSelectedOptionsMessage { get; set; }
 
     /// <summary>
     /// Template for the <see cref="ListComponentBase{TOption}.Items"/> items.
@@ -151,7 +161,10 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
     private string IdScroll => $"{Id}-scroll";
 
     /// <summary />
-    private bool IsMultiSelectOpened { get; set; }
+    private bool IsMultiSelectOpened { get; set; } = false;
+
+    /// <summary />
+    private bool IsReachedMaxItems { get; set; } = false;
 
     /// <summary />
     private TOption? SelectableItem { get; set; }
@@ -163,9 +176,11 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
 
         if (MaximumSelectedOptions > 0 && SelectedOptions?.Count() >= MaximumSelectedOptions)
         {
+            IsReachedMaxItems = true;
             return;
         }
 
+        IsReachedMaxItems = false;
         IsMultiSelectOpened = true;
 
         var args = new OptionsSearchEventArgs<TOption>()
@@ -283,6 +298,14 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
         {
             Value = _valueText,
         });
+    }
+
+    /// <summary />
+    protected virtual Task OnClearAsync()
+    {
+        RemoveAllSelectedItems();
+        _valueText = string.Empty;
+        return RaiseChangedEventsAsync();
     }
 
     /// <summary />

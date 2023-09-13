@@ -471,6 +471,14 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
     }
 
     /// <summary />
+    protected virtual bool RemoveAllSelectedItems()
+    {
+        _selectedOptions = new();
+        return true;
+    }
+
+
+    /// <summary />
     protected virtual void AddSelectedItem(TOption? item)
     {
         if (item == null)
