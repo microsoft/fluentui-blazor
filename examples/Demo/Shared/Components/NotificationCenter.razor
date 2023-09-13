@@ -2,6 +2,7 @@
 @inject IDialogService DialogService
 @inject IMessageService MessageService
 
+<FluentButton BackgroundColor="var(--neutral-layer-4)" OnClick="OpenNotificationCenterAsync">
 @if (MessageService.Count(App.MESSAGES_NOTIFICATION_CENTER) > 0)
 {
     <FluentCounterBadge Count="@MessageService.Count(App.MESSAGES_NOTIFICATION_CENTER)"
@@ -20,7 +21,7 @@ else
 {
     @NotificationIcon() 
 }
-
+</FluentButton>
 
 @code {
     private IDialogReference? _dialog;
@@ -36,7 +37,7 @@ else
     }
 
     private RenderFragment NotificationIcon() =>
-        @<FluentIcon Icon="Icons.Regular.Size20.Alert" Color="Color.Neutral" OnClick="OpenNotificationCenterAsync" Title="Notification center" />;
+        @<FluentIcon Icon="Icons.Regular.Size20.Alert" Color="Color.Neutral"  Title="Notification center" />;
 
     private async Task OpenNotificationCenterAsync()
     {
