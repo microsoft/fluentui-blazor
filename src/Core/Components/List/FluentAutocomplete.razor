@@ -9,14 +9,15 @@
                            id="@Id"
                            appearance="@Appearance.ToAttributeValue()"
                            disabled="@Disabled"
-                           placeholder="@Placeholder"
+                           placeholder="@(this.SelectedOptions?.Any() == false ? Placeholder : string.Empty)"
                            aria-label="@(String.IsNullOrWhiteSpace(Title) ? Placeholder : Title)"
                            aria-expanded="@(IsMultiSelectOpened ? "true" : "false")"
                            aria-controls="@(IsMultiSelectOpened ? IdScroll : string.Empty)"
                            current-value="@_valueText"
                            @onclick="@OnDropDownExpandedAsync"
                            @oninput="@InputHandlerAsync"
-                           @onkeydown="@KeyDownHandlerAsync"
+                           @onkeydown="@KeyDownHandlerAsync"                           
+                           @onfocusout="@(e => { IsReachedMaxItems = false; })"
                            style="@ComponentWidth">
             @* Selected Items *@
             @if (this.SelectedOptions?.Any() == true)
@@ -54,9 +55,27 @@
                     &nbsp;
                 </fluent-horizontal-scroll>
             }
-            <svg width="12" height="12" style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" slot="end" @onclick="@OnDropDownExpandedAsync">
-                <path d="M2.15 4.65c.2-.2.5-.2.7 0L6 7.79l3.15-3.14a.5.5 0 11.7.7l-3.5 3.5a.5.5 0 01-.7 0l-3.5-3.5a.5.5 0 010-.7z"></path>
-            </svg>
+            @if (!Disabled)
+            {
+                if (this.SelectedOptions?.Any() == true || !string.IsNullOrEmpty(_valueText))
+                {
+                    <FluentIcon Value="@(new CoreIcons.Regular.Size16.Dismiss())"
+                                Width="12px"
+                                Style="cursor: pointer;"
+                                Slot="end"
+                                Title="Clear"
+                                OnClick="@OnClearAsync" />
+                }
+                else
+                {
+                    <FluentIcon Value="@(new CoreIcons.Regular.Size16.Search())"
+                                Width="16px"
+                                Style="cursor: pointer;"
+                                Slot="end"
+                                Title="Search"
+                                OnClick="@OnDropDownExpandedAsync" />
+                }
+            }
         </fluent-text-field>
 
         @* List of available items *@
@@ -66,12 +85,12 @@
             <FluentAnchoredRegion Anchor="@Id"
                                   HorizontalDefaultPosition="HorizontalPosition.Right"
                                   HorizontalInset="true"
-                                  VerticalDefaultPosition="@VerticalPosition.Bottom"
+                                  VerticalDefaultPosition="@VerticalPosition.Unset"
                                   Style="margin-top: 10px; border-radius: calc(var(--control-corner-radius) * 2px); background-color: var(--neutral-layer-floating);"
                                   Shadow="ElevationShadow.Flyout">
                 @if (HeaderContent != null)
                 {
-                    @HeaderContent(Items ?? Array.Empty<TOption>());
+                    @HeaderContent(Items ?? Array.Empty<TOption>())
                 }
 
                 <div role="listbox" style="@ListStyleValue" aria-label="List">
@@ -82,13 +101,13 @@
                         {
                             var value = GetOptionValue(item);
                             <FluentOption TOption="TOption"
-                                            Value="@value"
-                                            Style="@OptionStyle"
-                                            Class="@OptionClass"
-                                            Selected="@GetOptionSelected(item)"
-                                            Disabled="@(GetOptionDisabled(item) ?? false)"
-                                            OnSelect="@OnSelectCallback(item)"
-                                            selectable="@(value == selectableItem)">
+                                          Value="@value"
+                                          Style="@OptionStyle"
+                                          Class="@OptionClass"
+                                          Selected="@GetOptionSelected(item)"
+                                          Disabled="@(GetOptionDisabled(item) ?? false)"
+                                          OnSelect="@OnSelectCallback(item)"
+                                          selectable="@(value == selectableItem)">
                                 @if (OptionTemplate == null)
                                 {
                                     @GetOptionText(item)
@@ -104,8 +123,23 @@
 
                 @if (FooterContent != null)
                 {
-                    @FooterContent(Items ?? Array.Empty<TOption>());
+                    @FooterContent(Items ?? Array.Empty<TOption>())
+                    ;
                 }
+            </FluentAnchoredRegion>
+        }
+
+        @* Tooltip *@
+        else if (IsReachedMaxItems && MaximumSelectedOptionsMessage != null)
+        {
+            <FluentOverlay OnClose="@(e => IsReachedMaxItems = false)" Visible="true" Transparent="true" FullScreen="true" />
+            <FluentAnchoredRegion Anchor="@Id"
+                                  HorizontalDefaultPosition="HorizontalPosition.Right"
+                                  HorizontalInset="true"
+                                  VerticalDefaultPosition="@VerticalPosition.Unset"
+                                  Style="margin-top: 10px; border-radius: calc(var(--control-corner-radius) * 2px); background-color: var(--neutral-layer-floating); padding: 10px;"
+                                  Shadow="ElevationShadow.Flyout">
+                @MaximumSelectedOptionsMessage
             </FluentAnchoredRegion>
         }
     </div>
