@@ -33,6 +33,12 @@ public partial class FluentOptionPeople : FluentComponentBase
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
+    /// Gets or sets the content to display under the <see cref="Name"/>.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
     /// Gets or sets the image to display, in replacement of the initials.
     /// </summary>
     [Parameter]
