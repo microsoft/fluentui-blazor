@@ -8,16 +8,32 @@
             @CalendarExtended.GetMonthNameAndYear()
         </span>
         <span part="move" class="change-month">
-            <div class="previous-month"
-                    title="@CalendarExtended.GetMonthName(PickerMonth.AddMonths(-1))"
-                    @onclick="@((e) => this.PickerMonth = PickerMonth.AddMonths(-1))">
-                @((MarkupString)ArrowUp)
-            </div>
-            <div title="@CalendarExtended.GetMonthName(PickerMonth.AddMonths(+1))"
-                    class="next-month"
-                    @onclick="@((e) => this.PickerMonth = PickerMonth.AddMonths(+1))">
-                @((MarkupString)ArrowDown)
-            </div>
+            @if (PickerMonth.Year == DateTime.MinValue.Year && 
+                 PickerMonth.Month == DateTime.MinValue.Month)
+            {
+                <div class="previous-month" />
+            }
+            else
+            {
+                <div class="previous-month"
+                     title="@CalendarExtended.GetMonthName(PickerMonth.AddMonths(-1))"
+                     @onclick="@((e) => this.PickerMonth = PickerMonth.AddMonths(-1))">
+                    @((MarkupString)ArrowUp)
+                </div>
+            }
+            @if (PickerMonth.Year == DateTime.MaxValue.Year &&
+            PickerMonth.Month == DateTime.MaxValue.Month)
+            {
+                <div class="next-month" />
+            }
+            else
+            {
+                <div title="@CalendarExtended.GetMonthName(PickerMonth.AddMonths(+1))"
+                     class="next-month"
+                     @onclick="@((e) => this.PickerMonth = PickerMonth.AddMonths(+1))">
+                    @((MarkupString)ArrowDown)
+                </div>  
+            }
         </span>
     </div>
 

@@ -63,6 +63,7 @@ internal static partial class CoreIcons
             public class DismissCircle : Icon { public DismissCircle() : base("DismissCircle", IconVariant.Regular, IconSize.Size16, "<path d=\"M8 2a6 6 0 1 1 0 12A6 6 0 0 1 8 2Zm0 1a5 5 0 1 0 0 10A5 5 0 0 0 8 3ZM5.84 5.97l.06-.07a.5.5 0 0 1 .63-.06l.07.06L8 7.3l1.4-1.4a.5.5 0 0 1 .63-.06l.07.06c.18.17.2.44.06.63l-.06.07L8.7 8l1.4 1.4c.18.17.2.44.06.63l-.06.07a.5.5 0 0 1-.63.06l-.07-.06L8 8.7l-1.4 1.4a.5.5 0 0 1-.63.06l-.07-.06a.5.5 0 0 1-.06-.63l.06-.07L7.3 8 5.9 6.6a.5.5 0 0 1-.06-.63l.06-.07-.06.07Z\"/>") { } }
             public class Info : Icon { public Info() : base("Info", IconVariant.Regular, IconSize.Size16, "<path d=\"M8 7c.28 0 .5.22.5.5v3a.5.5 0 0 1-1 0v-3c0-.28.22-.5.5-.5Zm0-.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM2 8a6 6 0 1 1 12 0A6 6 0 0 1 2 8Zm6-5a5 5 0 1 0 0 10A5 5 0 0 0 8 3Z\"/>") { } }
             public class Warning : Icon { public Warning() : base("Warning", IconVariant.Regular, IconSize.Size16, "<path d=\"M8.75 10.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM7.5 8a.5.5 0 0 0 1 0V5.5a.5.5 0 0 0-1 0V8Zm-.6-5.36c.49-.86 1.71-.86 2.2 0l4.74 8.5c.47.83-.14 1.86-1.09 1.86h-9.5a1.25 1.25 0 0 1-1.1-1.86l4.76-8.5Zm1.32.49a.25.25 0 0 0-.44 0l-4.75 8.5c-.1.16.03.37.22.37h9.5c.2 0 .31-.2.22-.37l-4.75-8.5Z\"/>") { } }
+            public class Search : Icon { public Search() : base("Search", IconVariant.Filled, IconSize.Size16, "<path d=\"M9.1 10.17a4.5 4.5 0 1 1 1.06-1.06l3.62 3.61a.75.75 0 1 1-1.06 1.06l-3.61-3.61Zm.4-3.67a3 3 0 1 0-6 0 3 3 0 0 0 6 0Z\"/>") { } }
         }
     }
 

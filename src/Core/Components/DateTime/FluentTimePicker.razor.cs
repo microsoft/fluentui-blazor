@@ -20,13 +20,15 @@ public partial class FluentTimePicker : FluentInputBase<DateTime?>
     /// <summary />
     protected override bool TryParseValueFromString(string? value, out DateTime? result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
+        DateTime currentValue = Value ?? DateTime.MinValue;
+
         if (value != null && DateTime.TryParse(value, out var valueConverted))
         {
-            result = valueConverted;
+            result = currentValue.Date + valueConverted.TimeOfDay;
         }
         else
         {
-            result = null;
+            result = Value?.Date;
         }
 
         validationErrorMessage = null;

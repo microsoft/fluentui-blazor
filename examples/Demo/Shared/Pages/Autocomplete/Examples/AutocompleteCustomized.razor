@@ -29,6 +29,12 @@
                             Name="@($"{context.FirstName} {context.LastName}")" />
     </OptionTemplate>
 
+    @* Template used when the maximum number of selected items (MaximumSelectedOptions) has been reached *@
+    <MaximumSelectedOptionsMessage>
+        The maximum number of selected items has been reached.
+    </MaximumSelectedOptionsMessage>
+
+    @* Content display at the top of the the Popup area *@
     <HeaderContent>
         <FluentLabel Color="Color.Accent"
                      Style="padding: 8px; font-size: 11px; border-bottom: 1px solid var(--neutral-fill-stealth-hover);">
@@ -36,6 +42,7 @@
         </FluentLabel>
     </HeaderContent>
 
+    @* Content display at the bottom of the the Popup area *@
     <FooterContent>
         @if (!context.Any())
         {
