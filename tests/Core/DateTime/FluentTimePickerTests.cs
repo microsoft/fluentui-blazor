@@ -40,7 +40,7 @@ public class FluentTimePickerTests : TestBase
         // Assert
         if (resultDate != null)
         {
-            Assert.Equal(System.DateTime.Today.Date, resultDate?.Date);
+            Assert.Equal(System.DateTime.MinValue.Date, resultDate?.Date);
             Assert.Equal(time, resultDate?.ToString("HH:mm:ss"));
         }
         else
