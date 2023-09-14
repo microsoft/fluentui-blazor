@@ -1155,6 +1155,11 @@
             Optionally defines a class to be applied to a rendered row. 
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.EmptyContent">
+            <summary>
+            If specified, grids render this fragment when there is no content.
+            </summary>
+        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.#ctor">
             <summary>
             Constructs an instance of <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/>.
@@ -3220,7 +3225,14 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.MaximumSelectedOptions">
             <summary>
-            Gets or sets the maximum number of options (items) selected. Exceeding this value, the user must delete some elements in order to select new ones.
+            Gets or sets the maximum number of options (items) selected.
+            Exceeding this value, the user must delete some elements in order to select new ones.
+            See the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.MaximumSelectedOptionsMessage"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.MaximumSelectedOptionsMessage">
+            <summary>
+            Gets or sets the message displayed when the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.MaximumSelectedOptions"/> is reached.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.OptionTemplate">
@@ -3255,6 +3267,9 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.IsMultiSelectOpened">
             <summary />
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.IsReachedMaxItems">
+            <summary />
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.SelectableItem">
             <summary />
         </member>
@@ -3268,6 +3283,9 @@
             <summary />
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.OnDropDownExpandedAsync">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.OnClearAsync">
             <summary />
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.OnSelectedItemChangedHandlerAsync(`0)">
@@ -3366,6 +3384,11 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentOptionPeople.Name">
             <summary>
             Gets or sets the name to display.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOptionPeople.ChildContent">
+            <summary>
+            Gets or sets the content to display under the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentOptionPeople.Name"/>.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentOptionPeople.Image">
@@ -3555,6 +3578,9 @@
             <summary />
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.RemoveSelectedItem(`0)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.RemoveAllSelectedItems">
             <summary />
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.AddSelectedItem(`0)">
@@ -4019,7 +4045,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.Timeout">
             <summary>
-            Timeout in milliseconds after which the message bar is removed. Default is null.
+            Timeout in seconds after which the message bar is removed. Default is null.
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.MessageService">

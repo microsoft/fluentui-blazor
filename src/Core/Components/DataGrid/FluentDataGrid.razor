@@ -29,19 +29,34 @@
                     @_renderColumnHeaders
                 </FluentDataGridRow>
             }
-
-            @if (Virtualize)
+            @if (Items?.Count() == 0 || _ariaBodyRowCount == 0)
             {
-                <Virtualize @ref="@_virtualizeComponent"
-                            TItem="(int RowIndex, TGridItem Data)"
-                            ItemSize="@ItemSize"
-                            ItemsProvider="@ProvideVirtualizedItems"
-                            ItemContent="@(item => builder => RenderRow(builder, item.RowIndex, item.Data))"
-                            Placeholder="@(placeholderContext => builder => RenderPlaceholderRow(builder, placeholderContext))" />
+                <div class="empty-content">
+                @if (EmptyContent is null)
+                {
+                     @("No data to show!");
+                }
+                else
+                {
+                    @EmptyContent
+                }
+                </div>
             }
             else
             {
-                @_renderNonVirtualizedRows
+                @if (Virtualize)
+                {
+                    <Virtualize @ref="@_virtualizeComponent"
+                                TItem="(int RowIndex, TGridItem Data)"
+                                ItemSize="@ItemSize"
+                                ItemsProvider="@ProvideVirtualizedItems"
+                                ItemContent="@(item => builder => RenderRow(builder, item.RowIndex, item.Data))"
+                                Placeholder="@(placeholderContext => builder => RenderPlaceholderRow(builder, placeholderContext))" />
+                }
+                else
+                {
+                    @_renderNonVirtualizedRows
+                }
             }
 
         </fluent-data-grid>
@@ -62,9 +77,9 @@
     private void RenderRow(RenderTreeBuilder __builder, int rowIndex, TGridItem item)
     {
         string? _rowsDataSize = null;
-        
+
         var rowClass = RowClass?.Invoke(item) ?? "";
-        
+
         if (Virtualize)
         {
             _rowsDataSize = $"height: {ItemSize}px";
@@ -74,7 +89,7 @@
             @for (var colIndex = 0; colIndex < _columns.Count; colIndex++)
             {
                 var col = _columns[colIndex];
-            
+
                 <FluentDataGridCell GridColumn=@(colIndex+1) Class="@ColumnClass(col)" @key="@col" TGridItem="TGridItem" Item="@item">
                     @((RenderFragment)(__builder => col.CellContent(__builder, item)))
                 </FluentDataGridCell>
@@ -85,7 +100,7 @@
     private void RenderPlaceholderRow(RenderTreeBuilder __builder, PlaceholderContext placeholderContext)
     {
         string? _rowsDataSize = $"height: {ItemSize}px";
-        
+
         <FluentDataGridRow GridTemplateColumns=@GridTemplateColumns aria-rowindex="@(placeholderContext.Index + 1)" Style="@_rowsDataSize" TGridItem="TGridItem">
             @for (var colIndex = 0; colIndex < _columns.Count; colIndex++)
             {
@@ -98,13 +113,14 @@
         </FluentDataGridRow>
     }
 
+
     private void RenderColumnHeaders(RenderTreeBuilder __builder)
     {
-        @for (var colIndex = 0; colIndex < _columns.Count; colIndex++) 
+        @for (var colIndex = 0; colIndex < _columns.Count; colIndex++)
         {
             var col = _columns[colIndex];
             string CellId = Identifier.NewId();
-            if (_sortByColumn == col) 
+            if (_sortByColumn == col)
                 col.ShowSortIcon = true;
             else
                 col.ShowSortIcon = false;
