@@ -19,7 +19,7 @@ builder.Services.AddHttpClient();
 **The `options.HostingModel` setting is used to determine the type of project you are building. Choose the approprate value form the `BlazorHostingModel` enumeration**
 
 ## Scripts 
-The hart of this library is formed by the Fluent UI Web Components and the accompanying `web-components.min.js` file. From version 2.3 onwards, the 
+The heart of this library is formed by the Fluent UI Web Components and the accompanying `web-components.min.js` file. From version 2.3 onwards, the 
 script is included in the library itself and no longer needs to be added to your `index.html` or `_Layout.cshtml`. In fact, doing this might lead to 
 unpredictable results. 
 
