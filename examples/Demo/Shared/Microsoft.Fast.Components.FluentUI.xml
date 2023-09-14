@@ -3220,7 +3220,14 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.MaximumSelectedOptions">
             <summary>
-            Gets or sets the maximum number of options (items) selected. Exceeding this value, the user must delete some elements in order to select new ones.
+            Gets or sets the maximum number of options (items) selected.
+            Exceeding this value, the user must delete some elements in order to select new ones.
+            See the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.MaximumSelectedOptionsMessage"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.MaximumSelectedOptionsMessage">
+            <summary>
+            Gets or sets the message displayed when the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.MaximumSelectedOptions"/> is reached.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.OptionTemplate">
@@ -3255,6 +3262,9 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.IsMultiSelectOpened">
             <summary />
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.IsReachedMaxItems">
+            <summary />
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.SelectableItem">
             <summary />
         </member>
@@ -3268,6 +3278,9 @@
             <summary />
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.OnDropDownExpandedAsync">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.OnClearAsync">
             <summary />
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.OnSelectedItemChangedHandlerAsync(`0)">
@@ -3555,6 +3568,9 @@
             <summary />
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.RemoveSelectedItem(`0)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.RemoveAllSelectedItems">
             <summary />
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.AddSelectedItem(`0)">
