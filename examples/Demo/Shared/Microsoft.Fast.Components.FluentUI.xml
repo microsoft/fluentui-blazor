@@ -1155,6 +1155,11 @@
             Optionally defines a class to be applied to a rendered row. 
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.EmptyContent">
+            <summary>
+            If specified, grids render this fragment when there is no content.
+            </summary>
+        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.#ctor">
             <summary>
             Constructs an instance of <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/>.
@@ -3381,6 +3386,11 @@
             Gets or sets the name to display.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOptionPeople.ChildContent">
+            <summary>
+            Gets or sets the content to display under the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentOptionPeople.Name"/>.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentOptionPeople.Image">
             <summary>
             Gets or sets the image to display, in replacement of the initials.
@@ -4035,7 +4045,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.Timeout">
             <summary>
-            Timeout in milliseconds after which the message bar is removed. Default is null.
+            Timeout in seconds after which the message bar is removed. Default is null.
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.MessageService">
