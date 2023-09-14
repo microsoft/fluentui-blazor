@@ -8,7 +8,7 @@
         display: block;
     }
 
-    .fluent-presence-badge ::deep img {
+    .fluent-presence-badge ::deep > img {
         border-radius: 999px;
         aspect-ratio: 1 / 1;
     }

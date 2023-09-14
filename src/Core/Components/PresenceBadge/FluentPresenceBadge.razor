@@ -1,12 +1,15 @@
 ﻿@namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentComponentBase
 
-<div class="@ClassValue" style="@StyleValue">
+<div class="@ClassValue" style="@StyleValue" title="@(string.IsNullOrEmpty(Title) ? (string.IsNullOrEmpty(StatusTitle) ? Status.ToString() : StatusTitle) : Title)">
     @ChildContent
-    <FluentIcon Class="status"
-                Value="@GetIconInstance()"
-                Title="@(string.IsNullOrEmpty(StatusTitle) ? Status.ToString() : StatusTitle)"
-                Color="Color.Custom"
-                CustomColor="@GetIconColor()"
-                Width="@GetIconSize()" />
+    @if (Status is not null)
+    {
+        <FluentIcon Class="status"
+                    Value="@GetIconInstance()"
+                    Title="@(string.IsNullOrEmpty(StatusTitle) ? Status.ToString() : StatusTitle)"
+                    Color="Color.Custom"
+                    CustomColor="@GetIconColor()"
+                    Width="@GetIconSize()" />
+    }
 </div>
