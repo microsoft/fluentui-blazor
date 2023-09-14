@@ -24,14 +24,11 @@
             border-radius: 50%;
             aspect-ratio: 1 / 1;
             height: 100%;
+            width: 100%;
         }
 
     .fluent-option-people .name {
-        display: flex;
-        text-align: center;
-        align-items: center;
-        justify-content: center;
-        margin-left: 8px;
+        margin-left: 16px;
     }
 
     .fluent-option-people .close {

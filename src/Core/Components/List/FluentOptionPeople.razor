@@ -2,19 +2,29 @@
 @inherits FluentComponentBase
 
 <div id="@Id" class="@ClassValue" style="@StyleValue">
-    <div class="initials" style="@(string.IsNullOrEmpty(ImageSize) ? "" : $"width: {ImageSize}; height: {ImageSize};")">
-        @if (string.IsNullOrEmpty(Image))
+    <div class="initials">
+        <FluentPresenceBadge Status="@Status" Size="@StatusSize" StatusTitle="@StatusTitle">
+            @if (string.IsNullOrEmpty(Image))
+            {
+                <div style="display: table-cell; vertical-align: middle; @GetImageSizeStyle()">
+                        @(Initials ?? GetDefaultInitials())
+                </div>
+            }
+            else
+            {
+                <img src="@Image" alt="@Name" title="@Name" style="@GetImageSizeStyle()" />
+            }
+        </FluentPresenceBadge>
+    </div>
+    <div class="name">
+        @if (@ChildContent is null)
         {
-            @(Initials ?? GetDefaultInitials())
+            @Name
         }
         else
         {
-            <img src="@Image" alt="@Name" title="@Name" />
+            @ChildContent
         }
-    </div>
-    <div class="name">
-        @Name
-        @ChildContent
     </div>
     @if (OnDismissClick.HasDelegate)
     {

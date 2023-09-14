@@ -51,6 +51,25 @@ public partial class FluentOptionPeople : FluentComponentBase
     public string? ImageSize { get; set; }
 
     /// <summary>
+    /// / The status to show. See <see cref="PresenceStatus"/> for options.
+    /// </summary>
+    [Parameter]
+    public PresenceStatus? Status { get; set; }
+
+    /// <summary>
+    /// The title to show on hover. If not provided, the status will be used.
+    /// </summary>
+    [Parameter]
+    public string? StatusTitle { get; set; }
+
+    /// <summary>
+    /// Gets or sets the <see cref="Status"/> size to use.
+    /// Default is ExtraSmall.
+    /// </summary>
+    [Parameter]
+    public PresenceBadgeSize StatusSize { get; set; } = PresenceBadgeSize.ExtraSmall;
+
+    /// <summary>
     /// Gets or sets the event raised when the user clicks on the dismiss button.
     /// </summary>
     [Parameter]
@@ -73,5 +92,10 @@ public partial class FluentOptionPeople : FluentComponentBase
             : parts.Length > 1
             ? $"{parts[0][0]}{parts[1][0]}"
             : $"{parts[0][0]}";
+    }
+
+    private string GetImageSizeStyle()
+    { 
+        return string.IsNullOrEmpty(ImageSize) ? string.Empty : $"width: {ImageSize}; min-width: {ImageSize}; height: {ImageSize}; min-height: {ImageSize};";
     }
 }

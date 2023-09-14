@@ -19,6 +19,7 @@
                             Name="@($"{context.FirstName} {context.LastName}")"
                             Style="height: 26px; background: var(--neutral-fill-secondary-hover)"
                             DismissTitle="Remove"
+                            Status="PresenceStatus.Available"
                             OnDismissClick="@(async () => await ContactList.RemoveSelectedItemAsync(context))" />
     </SelectedOptionTemplate>
 
@@ -26,6 +27,8 @@
     <OptionTemplate>
         <FluentOptionPeople ImageSize="32px"
                             Image="@context.Picture"
+                            Status="PresenceStatus.Available"
+                            StatusSize="PresenceBadgeSize.Small"
                             Name="@($"{context.FirstName} {context.LastName}")" />
     </OptionTemplate>
 
