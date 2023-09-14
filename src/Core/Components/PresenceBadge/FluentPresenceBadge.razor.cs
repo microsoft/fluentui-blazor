@@ -15,14 +15,14 @@ public partial class FluentPresenceBadge : FluentComponentBase, IDisposable
 
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
-        .AddClass("presencebadge")
+        .AddClass("fluent-presence-badge")
         .Build();
 
     /// <summary />
     protected string? StyleValue => new StyleBuilder()
-        .AddStyle("left", $"{HorizontalPosition!.Value.ToString(CultureInfo.InvariantCulture)}%", () => HorizontalPosition.HasValue && GlobalState.Dir == LocalizationDirection.ltr)
-        .AddStyle("right", $"{HorizontalPosition!.Value.ToString(CultureInfo.InvariantCulture)}%", () => HorizontalPosition.HasValue && GlobalState.Dir == LocalizationDirection.rtl)
-        .AddStyle("bottom", $"{BottomPosition!.Value.ToString(CultureInfo.InvariantCulture)}%", () => BottomPosition.HasValue)
+        //.AddStyle("left", $"{HorizontalPosition!.Value.ToString(CultureInfo.InvariantCulture)}%", () => HorizontalPosition.HasValue && GlobalState.Dir == LocalizationDirection.ltr)
+        //.AddStyle("right", $"{HorizontalPosition!.Value.ToString(CultureInfo.InvariantCulture)}%", () => HorizontalPosition.HasValue && GlobalState.Dir == LocalizationDirection.rtl)
+        //.AddStyle("bottom", $"{BottomPosition!.Value.ToString(CultureInfo.InvariantCulture)}%", () => BottomPosition.HasValue)
         .AddStyle(Style)
         .Build();
 
@@ -40,18 +40,10 @@ public partial class FluentPresenceBadge : FluentComponentBase, IDisposable
     public PresenceStatus Status { get; set; } = PresenceStatus.Available;
 
     /// <summary>
-    /// Left position of the badge (percentage as number).
-    /// Default value is 50.
+    /// The title to show on hover. If not provided, the status will be used.
     /// </summary>
     [Parameter]
-    public int? HorizontalPosition { get; set; } = 50;
-
-    /// <summary>
-    /// Bottom position of the badge (percentage as number).
-    /// Default value is -10.
-    /// </summary>
-    [Parameter]
-    public int? BottomPosition { get; set; } = -10;
+    public string? StatusTitle { get; set; }
 
     /// <summary>
     /// Modifies the display to indicate that the user is out of office. 
@@ -66,11 +58,6 @@ public partial class FluentPresenceBadge : FluentComponentBase, IDisposable
     /// </summary>
     [Parameter]
     public PresenceBadgeSize Size { get; set; } = PresenceBadgeSize.Small;
-
-    protected override Task OnParametersSetAsync()
-    {
-        return base.OnParametersSetAsync();
-    }
 
     protected override void OnInitialized()
     {

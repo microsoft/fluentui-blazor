@@ -9,7 +9,9 @@
         }
         else
         {
-            <img src="@Image" alt="@Name" title="@Name" />
+            <FluentPresenceBadge Status="PresenceStatus.Available" Size="PresenceBadgeSize.Medium">
+                <img src="@Image" alt="@Name" title="@Name" />
+            </FluentPresenceBadge>            
         }
     </div>
     <div class="name">
