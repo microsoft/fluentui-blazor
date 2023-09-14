@@ -13,8 +13,14 @@
         }
     </div>
     <div class="name">
-        @Name
-        @ChildContent
+        @if (@ChildContent is null)
+        {
+            @Name
+        }
+        else
+        {
+            @ChildContent
+        }
     </div>
     @if (OnDismissClick.HasDelegate)
     {
