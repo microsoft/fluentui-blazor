@@ -10,6 +10,15 @@
     Fluent UI design system. It uses the <code>&lt;FluentTab&gt;</code> component to define the structure and content.
 </p>
 
+<p>
+    The default width for the active tab indicator is 20 pixels. If you want to change this, you need to add some rules to your CSS like this:
+</p>
+<CodeSnippet Language="css">
+    ::deep fluent-tabs::part(activeIndicator) {
+        width: 85%;
+    }
+</CodeSnippet>
+
 
 <h2>Examples</h2>
 

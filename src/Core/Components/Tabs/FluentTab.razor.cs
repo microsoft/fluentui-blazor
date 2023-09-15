@@ -101,7 +101,7 @@ public partial class FluentTab : FluentComponentBase
     public FluentTabs Owner { get; set; } = default!;
 
     /// <summary>
-    /// Gets if this component is out of panel.
+    /// If this tab is outside of vistible tab panel area.
     /// </summary>
     public bool? Overflow { get; private set; }
 
