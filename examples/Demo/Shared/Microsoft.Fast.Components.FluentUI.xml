@@ -3401,6 +3401,22 @@
             Gets or sets the size of the image.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOptionPeople.Status">
+            <summary>
+            / The status to show. See <see cref="T:Microsoft.Fast.Components.FluentUI.PresenceStatus"/> for options.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOptionPeople.StatusTitle">
+            <summary>
+            The title to show on hover. If not provided, the status will be used.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOptionPeople.StatusSize">
+            <summary>
+            Gets or sets the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentOptionPeople.Status"/> size to use.
+            Default is ExtraSmall.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentOptionPeople.OnDismissClick">
             <summary>
             Gets or sets the event raised when the user clicks on the dismiss button.
@@ -4737,22 +4753,20 @@
             Child content of component, the content that the badge will be applied to.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPresenceBadge.Title">
+            <summary>
+            The title to show on hover the component.
+            If not provided, the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentPresenceBadge.StatusTitle"/> will be used.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentPresenceBadge.Status">
             <summary>
             The status to show. See <see cref="T:Microsoft.Fast.Components.FluentUI.PresenceStatus"/> for options.
-            Default is Available
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPresenceBadge.HorizontalPosition">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPresenceBadge.StatusTitle">
             <summary>
-            Left position of the badge (percentage as number).
-            Default value is 50.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPresenceBadge.BottomPosition">
-            <summary>
-            Bottom position of the badge (percentage as number).
-            Default value is -10.
+            The title to show on hover the status. If not provided, the status will be used.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentPresenceBadge.OutOfOffice">
@@ -4763,7 +4777,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentPresenceBadge.Size">
             <summary>
-            Gets or sets the <see cref="T:Microsoft.Fast.Components.FluentUI.PresenceBadgeSize"/> to use.
+            Gets or sets the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentPresenceBadge.Status"/> size to use.
             Default is Small.
             </summary>
         </member>
@@ -9787,10 +9801,16 @@
         <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Access">
             <summary/>
         </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Booking">
+            <summary/>
+        </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Exchange">
             <summary/>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Excel">
+            <summary/>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.GroupMe">
             <summary/>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Office">
@@ -9802,13 +9822,22 @@
         <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.OneNote">
             <summary/>
         </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Outlook">
+            <summary />
+        </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Planner">
             <summary/>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.PowerApps">
             <summary/>
         </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.PowerBI">
+            <summary/>
+        </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.PowerPoint">
+            <summary/>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Project">
             <summary/>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Publisher">
@@ -9820,6 +9849,9 @@
         <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Skype">
             <summary/>
         </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Stream">
+            <summary/>
+        </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Sway">
             <summary/>
         </member>
@@ -9827,6 +9859,9 @@
             <summary/>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Visio">
+            <summary/>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Windows">
             <summary/>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Word">

@@ -18,12 +18,20 @@ public enum OfficeColor
     Access,
 
     /// <summary/>
+    [Description("#00a99d")] 
+    Booking,
+
+    /// <summary/>
     [Description("#0078d4")]
     Exchange,
 
     /// <summary/>
     [Description("#217346")]
     Excel,
+
+    /// <summary/>
+    [Description("#00bcf2")] 
+    GroupMe,
 
     /// <summary/>
     [Description("#d83b01")]
@@ -37,6 +45,10 @@ public enum OfficeColor
     [Description("#7719aa")]
     OneNote,
 
+    /// <summary />
+    [Description("#0f6cbd")]
+    Outlook,
+
     /// <summary/>
     [Description("#31752f")]
     Planner,
@@ -46,8 +58,16 @@ public enum OfficeColor
     PowerApps,
 
     /// <summary/>
+    [Description("#f2c811")] 
+    PowerBI,
+
+    /// <summary/>
     [Description("#b7472a")]
     PowerPoint,
+
+    /// <summary/>
+    [Description("#31752f")]
+    Project,
 
     /// <summary/>
     [Description("#077568")]
@@ -62,6 +82,10 @@ public enum OfficeColor
     Skype,
 
     /// <summary/>
+    [Description("#bc1948")] 
+    Stream,
+
+    /// <summary/>
     [Description("#008272")]
     Sway,
 
@@ -72,6 +96,10 @@ public enum OfficeColor
     /// <summary/>
     [Description("#3955a3")]
     Visio,
+
+    /// <summary/>
+    [Description("#0078d4")] 
+    Windows,
 
     /// <summary/>
     [Description("#2b579a")]
