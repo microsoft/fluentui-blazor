@@ -46,6 +46,7 @@ public class DialogService : IDialogService
     {
         DialogParameters dialogParameters = new()
         {
+            DialogType = DialogType.SplashScreen,
             Alignment = HorizontalAlignment.Center,
             Modal = false,
             ShowDismiss = false,
@@ -77,6 +78,7 @@ public class DialogService : IDialogService
             IconColor = Color.Success,
             Message = message,
         },
+        DialogType = DialogType.MessageBox,
         PrimaryAction = "Ok", /*DialogResources.ButtonOK,*/
         SecondaryAction = string.Empty,
     });
@@ -96,6 +98,7 @@ public class DialogService : IDialogService
             IconColor = Color.Warning,
             Message = message,
         },
+        DialogType = DialogType.MessageBox,
         PrimaryAction = "Ok", /*DialogResources.ButtonOK,*/
         SecondaryAction = string.Empty,
     });
@@ -115,6 +118,7 @@ public class DialogService : IDialogService
             IconColor = Color.Error,
             Message = message,
         },
+        DialogType = DialogType.MessageBox,
         PrimaryAction = "Ok", /*DialogResources.ButtonOK,*/
         SecondaryAction = string.Empty,
     });
@@ -134,6 +138,7 @@ public class DialogService : IDialogService
             IconColor = Color.Info,
             Message = message,
         },
+        DialogType = DialogType.MessageBox,
         PrimaryAction = "Ok", /*DialogResources.ButtonOK,*/
         SecondaryAction = string.Empty,
     });
@@ -159,6 +164,7 @@ public class DialogService : IDialogService
                 IconColor = Color.Success,
                 Message = message,
             },
+            DialogType = DialogType.MessageBox,
             PrimaryAction = primaryText, /*DialogResources.ButtonYes,*/
             SecondaryAction = secondaryText, /*DialogResources.ButtonNo,*/
             OnDialogResult = EventCallback.Factory.Create(receiver, callback)
@@ -173,6 +179,7 @@ public class DialogService : IDialogService
     {
         DialogParameters dialogParameters = new()
         {
+            DialogType = DialogType.MessageBox,
             Alignment = HorizontalAlignment.Center,
             Title = parameters.Content.Title,
             Modal = string.IsNullOrEmpty(parameters.SecondaryAction),
@@ -207,6 +214,7 @@ public class DialogService : IDialogService
     {
         DialogParameters dialogParameters = new()
         {
+            DialogType = DialogType.Panel,
             Alignment = parameters.Alignment,
             Title = parameters.Title,
             Modal = parameters.Modal,
@@ -232,6 +240,7 @@ public class DialogService : IDialogService
     {
         DialogParameters dialogParameters = new()
         {
+            DialogType = parameters.DialogType,
             Alignment = parameters.Alignment,
             Title = parameters.Title,
             Modal = parameters.Modal,
@@ -330,6 +339,7 @@ public class DialogService : IDialogService
     {
         DialogParameters dialogParameters = new()
         {
+            DialogType = DialogType.SplashScreen,
             Alignment = HorizontalAlignment.Center,
             Modal = false,
             ShowDismiss = false,
@@ -355,6 +365,7 @@ public class DialogService : IDialogService
     {
         DialogParameters dialogParameters = new()
         {
+            DialogType = DialogType.SplashScreen,
             Alignment = HorizontalAlignment.Center,
             Modal = false,
             ShowDismiss = false,
@@ -386,6 +397,7 @@ public class DialogService : IDialogService
             IconColor = Color.Success,
             Message = message,
         },
+        DialogType = DialogType.MessageBox,
         PrimaryAction = "Ok", /*DialogResources.ButtonOK,*/
         SecondaryAction = string.Empty,
     });
@@ -406,6 +418,7 @@ public class DialogService : IDialogService
             IconColor = Color.Warning,
             Message = message,
         },
+        DialogType = DialogType.MessageBox,
         PrimaryAction = "Ok", /*DialogResources.ButtonOK,*/
         SecondaryAction = string.Empty,
     });
@@ -426,6 +439,7 @@ public class DialogService : IDialogService
             IconColor = Color.Error,
             Message = message,
         },
+        DialogType = DialogType.MessageBox,
         PrimaryAction = "Ok", /*DialogResources.ButtonOK,*/
         SecondaryAction = string.Empty,
     });
@@ -446,6 +460,7 @@ public class DialogService : IDialogService
             IconColor = Color.Info,
             Message = message,
         },
+        DialogType = DialogType.MessageBox,
         PrimaryAction = "Ok", /*DialogResources.ButtonOK,*/
         SecondaryAction = string.Empty,
     });
@@ -471,6 +486,7 @@ public class DialogService : IDialogService
                 IconColor = Color.Success,
                 Message = message,
             },
+            DialogType = DialogType.MessageBox,
             PrimaryAction = primaryText, /*DialogResources.ButtonYes,*/
             SecondaryAction = secondaryText, /*DialogResources.ButtonNo,*/
             OnDialogResult = EventCallback.Factory.Create(receiver, callback)
@@ -495,6 +511,7 @@ public class DialogService : IDialogService
                 IconColor = Color.Success,
                 Message = message,
             },
+            DialogType = DialogType.MessageBox,
             PrimaryAction = primaryText, /*DialogResources.ButtonYes,*/
             SecondaryAction = secondaryText, /*DialogResources.ButtonNo,*/
         });
@@ -508,6 +525,7 @@ public class DialogService : IDialogService
     {
         DialogParameters dialogParameters = new()
         {
+            DialogType = DialogType.MessageBox,
             Alignment = HorizontalAlignment.Center,
             Title = parameters.Content.Title,
             Modal = string.IsNullOrEmpty(parameters.SecondaryAction),
@@ -542,6 +560,7 @@ public class DialogService : IDialogService
     {
         DialogParameters dialogParameters = new()
         {
+            DialogType = DialogType.Panel,
             Alignment = parameters.Alignment,
             Title = parameters.Title,
             Modal = parameters.Modal,
@@ -567,6 +586,7 @@ public class DialogService : IDialogService
     {
         DialogParameters dialogParameters = new()
         {
+            DialogType = parameters.DialogType,
             Id = parameters.Id,
             Alignment = parameters.Alignment,
             Title = parameters.Title,

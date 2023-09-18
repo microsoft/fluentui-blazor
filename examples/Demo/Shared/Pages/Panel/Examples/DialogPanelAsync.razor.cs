@@ -45,7 +45,7 @@ namespace FluentUI.Demo.Shared.Pages.Panel.Examples
                 ShowDismiss = false,
                 PrimaryAction = "Maybe",
                 SecondaryAction = "Cancel",
-                Width = "300px",
+                Width = "500px",
             };
             _dialog = await DialogService.ShowPanelAsync<SimplePanel, SimplePerson>(parameters);
             DialogResult result = await _dialog.Result;

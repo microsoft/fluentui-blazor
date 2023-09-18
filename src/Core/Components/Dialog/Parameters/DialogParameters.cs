@@ -105,6 +105,11 @@ public class DialogParameters : ComponentParameters, IDialogParameters
     public RenderFragment? FooterTemplate { get; set; }
 
     /// <summary>
+    /// The type of dialog.
+    /// </summary>
+    public DialogType DialogType { get; set; } = DialogType.Dialog;
+
+    /// <summary>
     /// Gets whether the primary button is displayed or not. Depends on PrimaryAction having a value.
     /// </summary>
     internal bool ShowPrimaryAction => !string.IsNullOrEmpty(PrimaryAction);

@@ -101,8 +101,8 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("fluent-dialog-main")
-        .AddClass("right", () => _parameters.Alignment == HorizontalAlignment.Right)
-        .AddClass("left", () => _parameters.Alignment == HorizontalAlignment.Left)
+        .AddClass("right", () => _parameters.DialogType == DialogType.Panel && _parameters.Alignment == HorizontalAlignment.Right)
+        .AddClass("left", () => _parameters.DialogType == DialogType.Panel && _parameters.Alignment == HorizontalAlignment.Left)
         .Build();
 
     protected string? StyleValue => new StyleBuilder()
@@ -111,7 +111,7 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
         .AddStyle("top", "50%", () => _parameters.Alignment == HorizontalAlignment.Center)
         .AddStyle("left", "50%", () => _parameters.Alignment == HorizontalAlignment.Center)
         .AddStyle("--dialog-width", _parameters.Width ?? DEFAULT_DIALOG_WIDTH, () => _parameters.Alignment == HorizontalAlignment.Center)
-        .AddStyle("--dialog-width", _parameters.Width ?? DEFAULT_PANEL_WIDTH, () => _parameters.Alignment != HorizontalAlignment.Center)
+        .AddStyle("--dialog-width", _parameters.Width ?? DEFAULT_PANEL_WIDTH, () => _parameters.DialogType == DialogType.Panel)
         .AddStyle("--dialog-height", _parameters.Height ?? DEFAULT_HEIGHT, () => _parameters.Alignment == HorizontalAlignment.Center)
         .Build();
 
