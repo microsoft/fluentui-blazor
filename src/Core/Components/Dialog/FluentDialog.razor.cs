@@ -6,7 +6,8 @@ namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentDialog : FluentComponentBase //, IDisposable
 {
-    private const string DEFAULT_WIDTH = "500px";
+    private const string DEFAULT_DIALOG_WIDTH = "500px";
+    private const string DEFAULT_PANEL_WIDTH = "340px";
     private const string DEFAULT_HEIGHT = "unset";
     private DialogParameters _parameters = default!;
     private bool _hidden;
@@ -109,7 +110,8 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
         .AddStyle("position", "absolute")
         .AddStyle("top", "50%", () => _parameters.Alignment == HorizontalAlignment.Center)
         .AddStyle("left", "50%", () => _parameters.Alignment == HorizontalAlignment.Center)
-        .AddStyle("--dialog-width", _parameters.Width ?? DEFAULT_WIDTH, () => _parameters.Alignment == HorizontalAlignment.Center)
+        .AddStyle("--dialog-width", _parameters.Width ?? DEFAULT_DIALOG_WIDTH, () => _parameters.Alignment == HorizontalAlignment.Center)
+        .AddStyle("--dialog-width", _parameters.Width ?? DEFAULT_PANEL_WIDTH, () => _parameters.Alignment != HorizontalAlignment.Center)
         .AddStyle("--dialog-height", _parameters.Height ?? DEFAULT_HEIGHT, () => _parameters.Alignment == HorizontalAlignment.Center)
         .Build();
 
@@ -136,6 +138,8 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
         else
         {
             _parameters = Instance.Parameters;
+            HeaderTemplate = _parameters.HeaderTemplate;
+            FooterTemplate = _parameters.FooterTemplate;
         }
     }
 

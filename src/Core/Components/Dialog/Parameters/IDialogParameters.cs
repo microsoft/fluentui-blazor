@@ -21,6 +21,8 @@ namespace Microsoft.Fast.Components.FluentUI
         string? AriaDescribedby { get; set; }
         string? AriaLabel { get; set; }
         string? AriaLabelledby { get; set; }
+        RenderFragment? HeaderTemplate { get; set; }
+        RenderFragment? FooterTemplate { get; set; }
         EventCallback<DialogResult> OnDialogResult { get; set; }
     }
 

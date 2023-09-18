@@ -56,15 +56,15 @@
 </p>
 <CodeSnippet>
     &lt;main&gt;
-    &lt;nav&gt;
-    :
-    &lt;/nav&gt;
-    &lt;div class=&quot;content&quot;&gt;
-    &lt;article id=&quot;article&quot;&gt;
-    @@Body
-    &lt;/article&gt;
-    &lt;/div&gt;
-    &lt;FluentDialogProvider /&gt;
+        &lt;nav&gt;
+        :
+        &lt;/nav&gt;
+        &lt;div class=&quot;content&quot;&gt;
+            &lt;article id=&quot;article&quot;&gt;
+                @@Body
+            &lt;/article&gt;
+        &lt;/div&gt;
+        &lt;FluentDialogProvider /&gt;
     &lt;/main&gt;
 </CodeSnippet>
 
@@ -79,6 +79,12 @@
 <DemoSection Title="DialogService with IDialogReference" Component="@typeof(DialogServiceExample)" AdditionalFiles="@(new[] {"SimpleDialog.razor"})">
     <Description>
         This example shows how to use async methods to show a dialog and get the result back from it. 
+    </Description>
+</DemoSection>
+
+<DemoSection Title="HeaderTemplate and FooterTemplate" Component="@typeof(DialogCustomHeaderFooter)" AdditionalFiles="@(new[] {"SimpleFormInDialog.razor", "CustomHeader.razor", "CustomHeader.razor.cs", "CustomHeader.razor.css", "CustomFooter.razor", "CustomFooter.razor.cs", "CustomFooter.razor.css"})">
+    <Description>
+        This example shows how to use the HeaderTemplate and FooterTemplate dialog parameters. 
     </Description>
 </DemoSection>
 

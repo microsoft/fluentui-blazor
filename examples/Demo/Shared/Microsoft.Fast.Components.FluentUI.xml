@@ -1989,6 +1989,16 @@
             The value that labels an interactive element.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.HeaderTemplate">
+            <summary>
+            Template for the dialog header.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.FooterTemplate">
+            <summary>
+            Template for the dialog footer.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.ShowPrimaryAction">
             <summary>
             Gets whether the primary button is displayed or not. Depends on PrimaryAction having a value.
@@ -2248,12 +2258,6 @@
             <param name="component">The type of the component to show</param>
             <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent"/> that holds the content to display</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialogAsync``2(Microsoft.Fast.Components.FluentUI.DialogParameters{``1})">
-            <summary>
-            Shows a dialog with the component type as the body
-            </summary>
-            <param name="parameters">Parameters to pass to component being displayed.</param>
-        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSuccessAsync(System.String,System.String)">
             <summary>
             Shows a success message box. Does not have a callback function.
@@ -2322,6 +2326,12 @@
             Shows a panel with the dialog component type as the body
             </summary>
             <param name="dialogComponent">Type of component to display.</param>
+            <param name="parameters">Parameters to pass to component being displayed.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialogAsync``2(Microsoft.Fast.Components.FluentUI.DialogParameters{``1})">
+            <summary>
+            Shows a dialog with the component type as the body
+            </summary>
             <param name="parameters">Parameters to pass to component being displayed.</param>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialogAsync``1(System.Type,``0,Microsoft.Fast.Components.FluentUI.DialogParameters)">
@@ -5233,7 +5243,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.Overflow">
             <summary>
-            Gets if this component is out of panel.
+            If this tab is outside of vistible tab panel area.
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentTab.OnAfterRenderAsync(System.Boolean)">

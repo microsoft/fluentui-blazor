@@ -23,7 +23,7 @@
                 <FluentDialogHeader Title="@_parameters.Title" ShowDismiss="@_parameters.ShowDismiss" />
             }
 
-            <div class="fluent-dialog-body" nofooter="@(!HasButtons)" style="@(_parameters.DialogBodyStyle ?? null)">
+            <div class="fluent-dialog-body" nofooter="@(!HasButtons || FooterTemplate is null)" style="@(_parameters.DialogBodyStyle ?? null)">
                 @if (Instance is null)
                 {
                     @ChildContent
@@ -37,7 +37,7 @@
             {
                 @FooterTemplate
             }
-            else if (HasButtons)
+            else @if (HasButtons)
             {
                  <FluentDialogFooter Alignment="@_parameters.Alignment"
                                     PrimaryAction="@_parameters.PrimaryAction"

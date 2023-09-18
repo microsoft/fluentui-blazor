@@ -5,6 +5,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 public class DialogParameters : ComponentParameters, IDialogParameters
 {
     public string Id { get; set; } = Identifier.NewId();
+   
     /// <summary>
     /// Gets or sets the dialog position:
     /// left (full height), right (full height)
@@ -92,6 +93,16 @@ public class DialogParameters : ComponentParameters, IDialogParameters
     /// The value that labels an interactive element.
     /// </summary>
     public string? AriaLabel { get; set; }
+
+    /// <summary>
+    /// Template for the dialog header.
+    /// </summary>
+    public RenderFragment? HeaderTemplate { get; set; }
+
+    /// <summary>
+    /// Template for the dialog footer.
+    /// </summary>
+    public RenderFragment? FooterTemplate { get; set; }
 
     /// <summary>
     /// Gets whether the primary button is displayed or not. Depends on PrimaryAction having a value.

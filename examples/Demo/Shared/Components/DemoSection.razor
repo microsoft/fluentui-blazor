@@ -47,7 +47,7 @@
                 }
                 else
                 {
-                    label = Path.GetFileNameWithoutExtension(pair.Key);
+                    label = Path.GetFileName(pair.Key);
                     id = "tab-" + Regex.Replace(label, "[#|/|\\|$|*|^]", "").ToLower() + "-" + @_ariaId;
                 }
                 <FluentTab Id="@id" Label="@label" fixed>

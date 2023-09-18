@@ -1,0 +1,27 @@
+﻿@namespace FluentUI.Demo.Shared.Pages.Dialog.Examples
+@inherits FluentComponentBase
+
+<div class="custom-dialog-footer">
+    <FluentStack Orientation="Orientation.Horizontal"
+                 HorizontalAlignment="@(Dialog!.Instance.Parameters.Alignment == HorizontalAlignment.Center ? HorizontalAlignment.Left : HorizontalAlignment.Right)">
+
+        <FluentButton title="@PrimaryAction"
+                      @onclick="@OnPrimaryActionButtonClickAsync"
+                      Appearance="Appearance.Accent">
+            @PrimaryAction
+        </FluentButton>
+        <FluentButton title="@SecondaryAction"
+                      @onclick="@OnSecondaryActionButtonClickAsync"
+                      Appearance="Appearance.Neutral">
+            @SecondaryAction
+        </FluentButton>
+        <FluentSpacer />
+        <FluentButton title="@TertiaryAction"
+                      @onclick="@OnTertiaryActionButtonClickAsync"
+                      Appearance="Appearance.Neutral">
+            @TertiaryAction
+        </FluentButton>
+
+    </FluentStack>
+</div>
+
