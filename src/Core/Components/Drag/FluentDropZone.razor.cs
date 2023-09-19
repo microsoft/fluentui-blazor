@@ -16,7 +16,7 @@ public partial class FluentDropZone<TItem> : FluentComponentBase
     protected virtual string? ClassValue => new CssBuilder(Class).Build();
 
     /// <summary />
-    protected virtual string? StyleValue => new StyleBuilder().AddStyle(Style).Build();
+    protected virtual string? StyleValue => new StyleBuilder(Style).Build();
 
     /// <summary />
     [CascadingParameter]

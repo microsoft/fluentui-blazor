@@ -9,9 +9,8 @@ public partial class FluentNavMenuLink : FluentNavMenuItemBase, IDisposable
         .AddClass("navmenu-child-element")
         .Build();
 
-    protected string? StyleValue => new StyleBuilder()
+    protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("width", $"{Width}px", () => Width.HasValue)
-        .AddStyle(Style)
         .Build();
 
     public FluentNavMenuLink()

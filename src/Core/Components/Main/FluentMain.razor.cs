@@ -11,7 +11,7 @@ public partial class FluentMain: FluentComponentBase
         .AddClass("main")
         .Build();
 
-    protected string? StyleValue => new StyleBuilder()
+    protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("height", $"{Height}px", () => Height.HasValue)
         .Build();
 

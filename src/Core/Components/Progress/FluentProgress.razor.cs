@@ -8,8 +8,7 @@ public partial class FluentProgress : FluentComponentBase
     protected string? ClassValue => new CssBuilder(Class)
         .Build();
 
-    protected string? StyleValue => new StyleBuilder()
-        .AddStyle(Style)
+    protected string? StyleValue => new StyleBuilder(Style)
         .Build();
 
     /// <summary>

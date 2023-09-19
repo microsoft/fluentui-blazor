@@ -24,11 +24,10 @@ public partial class FluentCodeEditor : FluentComponentBase, IAsyncDisposable
     protected string? ClassValue => new CssBuilder(Class)
          .Build();
 
-    protected string? StyleValue => new StyleBuilder()
+    protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("height", Height, () => !string.IsNullOrEmpty(Height))
         .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
         .AddStyle("border: calc(var(--stroke-width) * 1px) solid var(--neutral-stroke-rest)")
-        .AddStyle(Style)
         .Build();
 
     /// <summary />

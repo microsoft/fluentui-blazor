@@ -18,7 +18,7 @@ public readonly struct StyleBuilder
     /// Initializes a new instance of the <see cref="StyleBuilder"/> class.
     /// </summary>
     /// <param name="userStyles">The user styles to include at the end.</param>
-    public StyleBuilder(string userStyles)
+    public StyleBuilder(string? userStyles)
     {
         _styles = new HashSet<string>();
         _userStyles = string.IsNullOrWhiteSpace(userStyles)

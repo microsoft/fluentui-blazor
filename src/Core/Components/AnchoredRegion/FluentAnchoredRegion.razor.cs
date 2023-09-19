@@ -7,8 +7,7 @@ public partial class FluentAnchoredRegion : FluentComponentBase
     protected string? ClassValue => new CssBuilder(Class)
         .Build();
 
-    protected string? StyleValue => new StyleBuilder()
-        .AddStyle(Style)
+    protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle($"z-index: {ZIndex.AnchoredRegion}")
         .AddStyle("background-color: var(--neutral-layer-floating)")
         .AddStyle("box-shadow", "var(--elevation-shadow-tooltip)", () => Shadow == ElevationShadow.Tooltip)

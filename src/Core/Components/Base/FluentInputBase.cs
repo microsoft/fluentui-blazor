@@ -264,9 +264,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     }
 
     /// <summary />
-    protected virtual string? StyleValue => new StyleBuilder()
-        .AddStyle(Style)
-        .Build();
+    protected virtual string? StyleValue => new StyleBuilder(Style).Build();
 
     /// <inheritdoc />
     public override Task SetParametersAsync(ParameterView parameters)

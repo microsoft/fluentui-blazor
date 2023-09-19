@@ -19,7 +19,7 @@ public readonly struct CssBuilder
     /// Initializes a new instance of the <see cref="CssBuilder"/> class.
     /// </summary>
     /// <param name="userClasses">The user classes to include at the end.</param>
-    public CssBuilder(string userClasses)
+    public CssBuilder(string? userClasses)
     {
         _classes = new HashSet<string>();
         _userClasses = string.IsNullOrWhiteSpace(userClasses)

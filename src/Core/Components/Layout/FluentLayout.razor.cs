@@ -11,9 +11,7 @@ public partial class FluentLayout : FluentComponentBase
         .AddClass("layout")
         .Build();
 
-    protected string? StyleValue => new StyleBuilder()
-        .AddStyle(Style)
-        .Build();
+    protected string? StyleValue => new StyleBuilder(Style).Build();
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.

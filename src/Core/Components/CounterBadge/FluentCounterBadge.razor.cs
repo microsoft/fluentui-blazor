@@ -16,11 +16,10 @@ public partial class FluentCounterBadge : FluentComponentBase, IDisposable
         .Build();
 
     /// <summary />
-    protected string? StyleValue => new StyleBuilder()
+    protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("left", $"{HorizontalPosition!.Value.ToString(CultureInfo.InvariantCulture)}%", () => HorizontalPosition.HasValue && GlobalState.Dir == LocalizationDirection.ltr)
         .AddStyle("right", $"{HorizontalPosition!.Value.ToString(CultureInfo.InvariantCulture)}%", () => HorizontalPosition.HasValue && GlobalState.Dir == LocalizationDirection.rtl)
         .AddStyle("bottom", $"{BottomPosition!.Value.ToString(CultureInfo.InvariantCulture)}%", () => BottomPosition.HasValue)
-        .AddStyle(Style)
         .AddStyle("background-color", GetBackgroundColor().ToAttributeValue())
         .AddStyle("color", GetFontColor().ToAttributeValue())
         .AddStyle("border", $"1px solid {GetBorderColor().ToAttributeValue()}")

@@ -7,9 +7,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentTimePicker : FluentInputBase<DateTime?>
 {
     /// <summary />
-    protected override string? StyleValue => new StyleBuilder()
-        .AddStyle(Style)
-        .Build();
+    protected override string? StyleValue => new StyleBuilder(Style).Build();
 
     /// <summary>
     /// Gets or sets the design of this input.
