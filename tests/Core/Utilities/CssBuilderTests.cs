@@ -20,6 +20,34 @@ public class CssBuilderTests : TestBase
     }
 
     [Fact]
+    public void CssBuilder_WithSimpleUserClass()
+    {
+        // Assert
+        var cssBuilder = new CssBuilder(".my-user-class");
+
+        // Act
+        cssBuilder.AddClass("class1");
+        cssBuilder.AddClass("class2");
+
+        // Assert - Values are sorted
+        Assert.Equal("class1 class2 .my-user-class", cssBuilder.Build());
+    }
+
+    [Fact]
+    public void CssBuilder_WithComplexUserClasses()
+    {
+        // Assert
+        var cssBuilder = new CssBuilder("  .my-user-class1  .my-user-class2  ");
+
+        // Act
+        cssBuilder.AddClass("class1");
+        cssBuilder.AddClass("class2");
+
+        // Assert - Values are sorted
+        Assert.Equal("class1 class2 .my-user-class1 .my-user-class2", cssBuilder.Build());
+    }
+
+    [Fact]
     public void CssBuilder_RawWithExtraSpaces()
     {
         // Assert

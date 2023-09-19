@@ -2,13 +2,29 @@
 
 public readonly struct StyleBuilder
 {
-    private readonly HashSet<string> _styles = new();
+    private readonly HashSet<string> _styles;
+    private readonly string? _userStyles;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="StyleBuilder"/> class.
     /// </summary>
     public StyleBuilder()
-    {       
+    {
+        _styles = new HashSet<string>();
+        _userStyles = null;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StyleBuilder"/> class.
+    /// </summary>
+    /// <param name="userStyles">The user styles to include at the end.</param>
+    public StyleBuilder(string userStyles)
+    {
+        _styles = new HashSet<string>();
+        _userStyles = string.IsNullOrWhiteSpace(userStyles)
+                    ? null
+                    : string.Join("; ", userStyles.Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                                                  .Where(i => !string.IsNullOrWhiteSpace(i)));
     }
 
     /// <summary>
@@ -49,12 +65,16 @@ public readonly struct StyleBuilder
     /// <returns>string</returns>
     public string? Build()
     {
-        if (!_styles.Any())
+        var allStyles = string.IsNullOrWhiteSpace(_userStyles)
+                      ? _styles
+                      : _styles.Union(new[] { _userStyles });
+
+        if (!allStyles.Any())
         {
             return null;
         }
 
-        return string.Concat(_styles.Select(s => $"{s}; ")).TrimEnd();
+        return string.Concat(allStyles.Select(s => $"{s}; ")).TrimEnd();
     }
 
     /// <summary>

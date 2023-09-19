@@ -2,21 +2,29 @@
 
 public readonly struct CssBuilder
 {
-    private readonly HashSet<string> _classes = new();
+    private readonly HashSet<string> _classes;
+    private readonly string? _userClasses;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CssBuilder"/> class.
     /// </summary>
+
     public CssBuilder()
     {
+        _classes = new HashSet<string>();
+        _userClasses = null;
     }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CssBuilder"/> class.
     /// </summary>
-    public CssBuilder(string? value)
+    /// <param name="userClasses">The user classes to include at the end.</param>
+    public CssBuilder(string userClasses)
     {
-        throw new NotImplementedException();
+        _classes = new HashSet<string>();
+        _userClasses = string.IsNullOrWhiteSpace(userClasses)
+                     ? null
+                     : string.Join(" ", userClasses.Split(' ', StringSplitOptions.RemoveEmptyEntries));
     }
 
     /// <summary>
@@ -48,12 +56,16 @@ public readonly struct CssBuilder
     /// <returns>string</returns>
     public string? Build()
     {
-        if (!_classes.Any())
+        var allClasses = string.IsNullOrWhiteSpace(_userClasses)
+                       ? _classes
+                       : _classes.Union(new[] { _userClasses });
+
+        if (!allClasses.Any())
         {
             return null;
         }
 
-        return string.Join(" ", _classes);
+        return string.Join(" ", allClasses);
     }
 
     /// <summary>

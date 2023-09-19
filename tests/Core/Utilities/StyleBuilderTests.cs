@@ -1,4 +1,5 @@
-﻿using Microsoft.Fast.Components.FluentUI.Utilities;
+﻿using System.Reflection.Emit;
+using Microsoft.Fast.Components.FluentUI.Utilities;
 using Xunit;
 
 namespace Microsoft.Fast.Components.FluentUI.Tests.Utilities;
@@ -41,8 +42,48 @@ public class StyleBuilderTests : TestBase
         // Act
         styleBuilder.AddStyle("color: red;");
 
-        // Assert - Keep the extra semicolon
+        // Assert - Remove the extra semicolon
         Assert.Equal("color: red;", styleBuilder.Build());
+    }
+
+    [Fact]
+    public void CssBuilder_WithSimpleUserStyle()
+    {
+        // Assert
+        var styleBuilder = new StyleBuilder("font-size: 12px;");
+
+        // Act
+        styleBuilder.AddStyle("color: red;");
+
+        // Assert - Values are sorted
+        Assert.Equal("color: red; font-size: 12px;", styleBuilder.Build());
+    }
+
+    [Fact]
+    public void CssBuilder_WithComplexUserStyle()
+    {
+        // Assert
+        var styleBuilder = new StyleBuilder("  font-size: 12px;;  font-name: courier;;  ");
+
+        // Act
+        styleBuilder.AddStyle("color: red;");
+
+        // Assert - Values are sorted
+        Assert.Equal("color: red; font-size: 12px; font-name: courier;", styleBuilder.Build());
+    }
+
+    [Fact]
+    public void CssBuilder_WithComplexUserClasses()
+    {
+        // Assert
+        var cssBuilder = new CssBuilder("  .my-user-class1  .my-user-class2  ");
+
+        // Act
+        cssBuilder.AddClass("class1");
+        cssBuilder.AddClass("class2");
+
+        // Assert - Values are sorted
+        Assert.Equal("class1 class2 .my-user-class1 .my-user-class2", cssBuilder.Build());
     }
 
     [Fact]
