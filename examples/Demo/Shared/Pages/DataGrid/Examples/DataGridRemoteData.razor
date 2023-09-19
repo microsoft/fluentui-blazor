@@ -4,12 +4,16 @@
 @inject NavigationManager NavManager
 
 <div style="height: 434px; overflow:auto;" tabindex="-1">
-    <FluentDataGrid ItemsProvider="foodRecallProvider" Virtualize="true" GenerateHeader="GenerateHeaderOption.Sticky" TGridItem="FoodRecall" >
+    <FluentDataGrid ItemsProvider="foodRecallProvider" Virtualize="true" ItemSize=46 GenerateHeader="GenerateHeaderOption.Sticky" TGridItem="FoodRecall" >
         <PropertyColumn Title="ID" Property="@(c => c!.Event_Id)" />
         <PropertyColumn Property="@(c => c!.State)" />
         <PropertyColumn Property="@(c => c!.City)" />
         <PropertyColumn Title="Company" Property="@(c => c!.Recalling_Firm)" />
         <PropertyColumn Property="@(c => c!.Status)" />
+        <TemplateColumn Title="Actions" Align="@Align.End">
+            <FluentButton IconEnd="@(new Icons.Regular.Size16.Edit())" OnClick="@(() => DemoLogger.WriteLine("Edit clicked"))" />
+            <FluentButton IconEnd="@(new Icons.Regular.Size16.Delete())" OnClick="@(() => DemoLogger.WriteLine("Delete clicked"))" />
+        </TemplateColumn>
     </FluentDataGrid>
 </div>
 

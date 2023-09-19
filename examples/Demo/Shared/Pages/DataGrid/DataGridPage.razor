@@ -44,12 +44,6 @@
     </table>
 </p>
 
-<ApiDocumentation Component="typeof(FluentDataGridCell<>)" GenericLabel="TGridItem" />
-
-<ApiDocumentation Component="typeof(FluentDataGridRow<>)" GenericLabel="TGridItem" />
-
-<ApiDocumentation Component="typeof(FluentDataGrid<>)" GenericLabel="TGridItem" />
-
 <h2>Examples</h2>
 
 <DemoSection Title="Get started" Component="@typeof(DataGridGetStarted)">
@@ -86,7 +80,8 @@
             Here is an example of connecting a grid to the public <a href="https://open.fda.gov/apis/food/enforcement/" target="_blank">OpenFDA Food Enforcement database</a>.
         </p>
         <p>
-            This grid is using a 'sticky' header (i.e. the header is always visible when scrolling).
+            This grid is using a 'sticky' header (i.e. the header is always visible when scrolling). The buttons in the last column disappear under the header when scrolling. 
+            In this example they don't relly do anything more than writting a message in the console log'
         </p>
     </Description>
 </DemoSection>
@@ -178,3 +173,9 @@
     </Description>
 </DemoSection>
 
+<h2>API Documentation</h2>
+<ApiDocumentation Component="typeof(FluentDataGridCell<>)" GenericLabel="TGridItem" />
+
+<ApiDocumentation Component="typeof(FluentDataGridRow<>)" GenericLabel="TGridItem" />
+
+<ApiDocumentation Component="typeof(FluentDataGrid<>)" GenericLabel="TGridItem" />
