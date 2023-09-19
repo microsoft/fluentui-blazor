@@ -16,7 +16,7 @@ public class StyleBuilderTests : TestBase
         styleBuilder.AddStyle("background-color: blue");
 
         // Assert - Values are sorted
-        Assert.Equal("background-color: blue; color: red;", styleBuilder.Build());
+        Assert.Equal("color: red; background-color: blue;", styleBuilder.Build());
     }
 
     [Fact]
@@ -42,7 +42,7 @@ public class StyleBuilderTests : TestBase
         styleBuilder.AddStyle("color: red;");
 
         // Assert - Keep the extra semicolon
-        Assert.Equal("color: red;;", styleBuilder.Build());
+        Assert.Equal("color: red;", styleBuilder.Build());
     }
 
     [Fact]
@@ -56,7 +56,7 @@ public class StyleBuilderTests : TestBase
         styleBuilder.AddStyle("background-color", "blue");
 
         // Assert
-        Assert.Equal("background-color: blue; color: red;", styleBuilder.Build());
+        Assert.Equal("color: red; background-color: blue;", styleBuilder.Build());
     }
 
     [Fact]

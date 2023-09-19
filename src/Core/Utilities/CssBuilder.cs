@@ -1,42 +1,22 @@
-﻿using System.Text;
-
-namespace Microsoft.Fast.Components.FluentUI.Utilities;
+﻿namespace Microsoft.Fast.Components.FluentUI.Utilities;
 
 public readonly struct CssBuilder
 {
-    private readonly StringBuilder? stringBuffer;
+    private readonly HashSet<string> _classes = new();
 
     /// <summary>
-    /// Creates a CssBuilder used to define conditional CSS classes used in a component.
-    /// Call Build() to return the completed CSS Classes as a string. 
+    /// Initializes a new instance of the <see cref="CssBuilder"/> class.
     /// </summary>
-    /// <param name="value"></param>
-    public static CssBuilder Default(string? value) => new(value);
-
-    /// <summary>
-    /// Creates an Empty CssBuilder used to define conditional CSS classes used in a component.
-    /// Call Build() to return the completed CSS Classes as a string. 
-    /// </summary>
-    public static CssBuilder Empty() => new();
-
-    public CssBuilder() => stringBuffer = new();
-
-    /// <summary>
-    /// Creates a CssBuilder used to define conditional CSS classes used in a component.
-    /// Call Build() to return the completed CSS Classes as a string. 
-    /// </summary>
-    /// <param name="value"></param>
-    public CssBuilder(string? value) => stringBuffer = new(value);
-
-    /// <summary>
-    /// Adds a raw string to the builder that will be concatenated with the next class or value added to the builder.
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns>CssBuilder</returns>
-    public CssBuilder AddValue(string? value)
+    public CssBuilder()
     {
-        stringBuffer?.Append(value);
-        return this;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CssBuilder"/> class.
+    /// </summary>
+    public CssBuilder(string? value)
+    {
+        throw new NotImplementedException();
     }
 
     /// <summary>
@@ -44,7 +24,7 @@ public readonly struct CssBuilder
     /// </summary>
     /// <param name="value">CSS Class to add</param>
     /// <returns>CssBuilder</returns>
-    public CssBuilder AddClass(string? value) => AddValue(" " + value);
+    public CssBuilder AddClass(string? value) => AddRaw(value);
 
     /// <summary>
     /// Adds a conditional CSS Class to the builder with space separator.
@@ -52,15 +32,7 @@ public readonly struct CssBuilder
     /// <param name="value">CSS Class to conditionally add.</param>
     /// <param name="when">Condition in which the CSS Class is added.</param>
     /// <returns>CssBuilder</returns>
-    public CssBuilder AddClass(string? value, bool when = true) => when ? this.AddClass(value) : this;
-
-    /// <summary>
-    /// Adds a conditional CSS Class to the builder with space separator.
-    /// </summary>
-    /// <param name="value">CSS Class to conditionally add.</param>
-    /// <param name="when">Nullable condition in which the CSS Class is added.</param>
-    /// <returns>CssBuilder</returns>
-    public CssBuilder AddClass(string? value, bool? when = true) => when == true ? this.AddClass(value) : this;
+    public CssBuilder AddClass(string? value, bool when = true) => when ? AddClass(value) : this;
 
     /// <summary>
     /// Adds a conditional CSS Class to the builder with space separator.
@@ -68,49 +40,7 @@ public readonly struct CssBuilder
     /// <param name="value">CSS Class to conditionally add.</param>
     /// <param name="when">Condition in which the CSS Class is added.</param>
     /// <returns>CssBuilder</returns>
-    public CssBuilder AddClass(string? value, Func<bool>? when = null) => this.AddClass(value, when != null && when());
-
-    /// <summary>
-    /// Adds a conditional CSS Class to the builder with space separator.
-    /// </summary>
-    /// <param name="value">Function that returns a CSS Class to conditionally add.</param>
-    /// <param name="when">Condition in which the CSS Class is added.</param>
-    /// <returns>CssBuilder</returns>
-    public CssBuilder AddClass(Func<string?> value, bool when = true) => when ? this.AddClass(value()) : this;
-
-    /// <summary>
-    /// Adds a conditional CSS Class to the builder with space separator.
-    /// </summary>
-    /// <param name="value">Function that returns a CSS Class to conditionally add.</param>
-    /// <param name="when">Condition in which the CSS Class is added.</param>
-    /// <returns>CssBuilder</returns>
-    public CssBuilder AddClass(Func<string?> value, Func<bool>? when = null) => this.AddClass(value, when != null && when());
-
-    /// <summary>
-    /// Adds a conditional nested CssBuilder to the builder with space separator.
-    /// </summary>
-    /// <param name="builder">CSS Class to conditionally add.</param>
-    /// <param name="when">Condition in which the CSS Class is added.</param>
-    /// <returns>CssBuilder</returns>
-    public CssBuilder AddClass(CssBuilder builder, bool when = true) => when ? this.AddClass(builder.Build()) : this;
-
-    /// <summary>
-    /// Adds a conditional CSS Class to the builder with space separator.
-    /// </summary>
-    /// <param name="builder">CSS Class to conditionally add.</param>
-    /// <param name="when">Condition in which the CSS Class is added.</param>
-    /// <returns>CssBuilder</returns>
-    public CssBuilder AddClass(CssBuilder builder, Func<bool>? when = null) => this.AddClass(builder, when != null && when());
-
-    /// <summary>
-    /// Adds a conditional CSS Class when it exists in a dictionary to the builder with space separator.
-    /// Null safe operation.
-    /// </summary>
-    /// <param name="additionalAttributes">Additional Attribute splat parameters</param>
-    /// <returns>CssBuilder</returns>
-    public CssBuilder AddClassFromAttributes(IReadOnlyDictionary<string, object> additionalAttributes) =>
-        additionalAttributes == null ? this :
-        additionalAttributes.TryGetValue("class", out var c) ? AddClass(c.ToString()) : this;
+    public CssBuilder AddClass(string? value, Func<bool>? when = null) => AddClass(value, when != null && when());
 
     /// <summary>
     /// Finalize the completed CSS Classes as a string.
@@ -118,15 +48,32 @@ public readonly struct CssBuilder
     /// <returns>string</returns>
     public string? Build()
     {
-        // String buffer finalization code
-        if (stringBuffer?.Length == 0)
+        if (!_classes.Any())
         {
             return null;
         }
-        return stringBuffer?.ToString().Trim();
+
+        return string.Join(" ", _classes);
     }
 
-    // ToString should only and always call Build to finalize the rendered string.
+    /// <summary>
+    /// ToString should only and always call Build to finalize the rendered string.
+    /// </summary>
+    /// <returns></returns>
     public override string? ToString() => Build();
 
+    /// <summary>
+    /// Adds a raw string to the builder that will be concatenated with the next classes or value added to the builder.
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns>StyleBuilder</returns>
+    private CssBuilder AddRaw(string? value)
+    {
+        if (!string.IsNullOrWhiteSpace(value))
+        {
+            _classes.Add(value.Trim());
+        }
+
+        return this;
+    }
 }

@@ -1,10 +1,8 @@
-﻿using System.Text;
-
-namespace Microsoft.Fast.Components.FluentUI.Utilities;
+﻿namespace Microsoft.Fast.Components.FluentUI.Utilities;
 
 public readonly struct StyleBuilder
 {
-    private readonly SortedSet<string> _styles = new();
+    private readonly HashSet<string> _styles = new();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="StyleBuilder"/> class.
@@ -74,7 +72,7 @@ public readonly struct StyleBuilder
     {
         if (!string.IsNullOrWhiteSpace(style))
         {
-            _styles.Add(style.Trim());
+            _styles.Add(style.Trim().TrimEnd(';'));
         }
         
         return this;
