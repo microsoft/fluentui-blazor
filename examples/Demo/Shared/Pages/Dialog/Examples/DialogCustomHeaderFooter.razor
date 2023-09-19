@@ -1,4 +1,5 @@
-﻿@inject IDialogService DialogService
+﻿@using Microsoft.AspNetCore.Components.Rendering
+@inject IDialogService DialogService
 
 
 <div style="margin-top: 1rem;">
@@ -8,9 +9,8 @@
 </div>
 
 @code {
-    private bool _trapFocus = true;
-    private bool _modal = true;
-    private IDialogReference dialog;
+
+    private IDialogReference dialog = default!;
 
     SimplePerson simplePerson = new()
         {
@@ -25,28 +25,12 @@
 
         DialogParameters<SimplePerson> parameters = new()
             {
-                HeaderTemplate = new RenderFragment(builder =>
-                {
-                    builder.OpenComponent<CustomHeader>(0);
-                    builder.AddAttribute(1, "Title", $"Hello {simplePerson.Firstname}");
-                    builder.AddAttribute(2, "ShowDismiss", true);
-                    builder.CloseComponent();
-                }),
-                FooterTemplate = new RenderFragment(builder =>
-                {
-                    builder.OpenComponent<CustomFooter>(0);
-                    builder.AddAttribute(1, "PrimaryAction", "Save");
-                    builder.AddAttribute(2, "SecondaryAction", "Cancel");
-                    builder.AddAttribute(3, "TertiaryAction", "Don't know yet");
-                    builder.AddAttribute(4, "OnTertiaryAction", EventCallback.Factory.Create(this, HandleMe));
-                    builder.CloseComponent();
-                }),
+                HeaderTemplate = @CustomHeader,
+                FooterTemplate = @CustomFooter,
                 Alignment = HorizontalAlignment.Left,
                 Width = "500px",
                 Height = "500px",
                 Content = simplePerson,
-                TrapFocus = _trapFocus,
-                Modal = _modal,
             };
 
         dialog = await DialogService.ShowDialogAsync<SimpleFormInDialog, SimplePerson>(parameters);
@@ -68,5 +52,47 @@
     {
         DemoLogger.WriteLine($"Tertiary action clicked");
         dialog.CloseAsync();
+    }
+
+    private void CustomHeader(RenderTreeBuilder __builder)
+    {
+        <div class="custom-dialog-header">
+            <FluentStack Orientation="Orientation.Horizontal" VerticalAlignment="VerticalAlignment.Center">
+
+                <FluentButton Appearance="Appearance.Stealth" @onclick="@(() => dialog.CloseAsync(DialogResult.Cancel()))">
+                    <FluentIcon Icon="Icons.Regular.Size24.Dismiss" Width="16px" />
+                </FluentButton>
+
+                <FluentLabel Typo="Typography.PaneHeader" Style="width: 100%; margin: 0px;">@($"Hello {simplePerson.Firstname}")</FluentLabel>
+
+                </FluentStack>
+            </div>
+    }            
+    
+    private void CustomFooter(RenderTreeBuilder __builder)
+    {
+        <div class="custom-dialog-footer">
+            <FluentStack Orientation="Orientation.Horizontal"
+                         HorizontalAlignment="@HorizontalAlignment.Left">
+
+                <FluentButton title="Save"
+                              OnClick="@(() => dialog.CloseAsync())"
+                              Appearance="Appearance.Accent">
+                    Save
+                </FluentButton>
+                <FluentButton title="Cancel"
+                              OnClick="@(() => dialog.CloseAsync(DialogResult.Cancel()))" 
+                              Appearance="Appearance.Neutral">
+                    Cancel
+                </FluentButton>
+                <FluentSpacer />
+                <FluentButton title="Don't know yet"
+                              Appearance="Appearance.Neutral"
+                              OnClick="HandleMe">
+                    Don't know yet
+                </FluentButton>
+
+            </FluentStack>
+        </div>
     }
 }

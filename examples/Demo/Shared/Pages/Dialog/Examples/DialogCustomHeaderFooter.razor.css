@@ -1,0 +1,13 @@
+.custom-dialog-header {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 20px;
+    width: calc(100% - 40px);
+}
+
+.custom-dialog-footer {
+    font-size: 14px;
+    font-weight: normal;
+    margin: 20px;
+    width: calc(100% - 40px);
+}

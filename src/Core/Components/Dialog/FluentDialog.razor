@@ -1,4 +1,5 @@
 @namespace Microsoft.Fast.Components.FluentUI
+@using Microsoft.AspNetCore.Components.Rendering
 @inherits FluentComponentBase
 
 <CascadingValue Value="this" IsFixed="true">
@@ -14,16 +15,8 @@
                    aria-label=@(_parameters.AriaLabel ?? AriaLabel)
                    @attributes=@AdditionalAttributes>
         <FluentStack Orientation="Orientation.Vertical" Class="fluent-dialog-content" Style="height:100%;">
-            @if (HeaderTemplate is not null)
-            {
-                @HeaderTemplate
-            }
-            else if (_parameters.ShowTitle && (_parameters.Title != null || _parameters.ShowDismiss))
-            {
-                <FluentDialogHeader Title="@_parameters.Title" ShowDismiss="@_parameters.ShowDismiss" />
-            }
-
-            <div class="fluent-dialog-body" nofooter="@(!HasButtons || FooterTemplate is null)" style="@(_parameters.DialogBodyStyle ?? null)">
+            @_renderDialogHeader
+            <div class="fluent-dialog-body" nofooter="@(!HasButtons && FooterTemplate is null)" style="@(_parameters.DialogBodyStyle ?? null)">
                 @if (Instance is null)
                 {
                     @ChildContent
@@ -33,19 +26,39 @@
                     <DynamicComponent Type="@Instance.ContentType" Parameters="Instance.GetParameterDictionary()" />
                 }
             </div>
-            @if (FooterTemplate is not null)
-            {
-                @FooterTemplate
-            }
-            else @if (HasButtons)
-            {
-                 <FluentDialogFooter Alignment="@_parameters.Alignment"
-                                    PrimaryAction="@_parameters.PrimaryAction"
-                                    PrimaryActionEnabled="@_parameters.PrimaryActionEnabled"
-                                    SecondaryAction="@_parameters.SecondaryAction"
-                                    SecondaryActionEnabled="@_parameters.SecondaryActionEnabled"/>
-               
-            }
+            @_renderDialogFooter
         </FluentStack>
     </fluent-dialog>
 </CascadingValue>
+
+@code {
+
+    private void RenderHeaderContent(RenderTreeBuilder __builder)
+    {
+        @if (HeaderTemplate is not null)
+        {
+            @HeaderTemplate
+        }
+        else if (_parameters.ShowTitle && (_parameters.Title != null || _parameters.ShowDismiss))
+        {
+            <FluentDialogHeader Title="@_parameters.Title" ShowDismiss="@_parameters.ShowDismiss" />
+        }
+    }
+
+    private void RenderFooterContent(RenderTreeBuilder __builder)
+    {
+        @if (FooterTemplate is not null)
+        {
+            @FooterTemplate
+        }
+        else if (HasButtons)
+        {
+            <FluentDialogFooter Alignment="@_parameters.Alignment"
+                                PrimaryAction="@_parameters.PrimaryAction"
+                                PrimaryActionEnabled="@_parameters.PrimaryActionEnabled"
+                                SecondaryAction="@_parameters.SecondaryAction"
+                                SecondaryActionEnabled="@_parameters.SecondaryActionEnabled" />
+
+        }
+    }
+}

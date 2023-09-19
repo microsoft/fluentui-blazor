@@ -25,17 +25,20 @@ public class DialogParameters : ComponentParameters, IDialogParameters
     public bool? Modal { get; set; } = true;
 
     /// <summary>
-    /// Indicates that the dialog should trap focus.
+    /// Indicates if dialog should trap focus.
+    /// Defaults to true.
     /// </summary>
     public bool? TrapFocus { get; set; } = true;
 
     /// <summary>
-    /// When true, shows the title in the header.
+    /// Show the title in the header.
+    /// Defaults to true.
     /// </summary>
     public bool ShowTitle { get; set; } = true;
 
     /// <summary>
-    /// When true, shows the dismiss button in the header.
+    /// Show the dismiss button in the header.
+    /// Defaults to true.
     /// </summary>
     public bool ShowDismiss { get; set; } = true;
 

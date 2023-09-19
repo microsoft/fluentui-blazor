@@ -12,6 +12,9 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
     private DialogParameters _parameters = default!;
     private bool _hidden;
 
+    private readonly RenderFragment _renderDialogHeader;
+    private readonly RenderFragment _renderDialogFooter;
+
     [CascadingParameter]
     private InternalDialogContext? DialogContext { get; set; } = default!;
 
@@ -83,12 +86,14 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
 
     /// <summary>
     /// Content to render in header.
+    /// If not provided, the default header will be rendered.
     /// </summary>
     [Parameter]
     public RenderFragment? HeaderTemplate { get; set; }
 
     /// <summary>
     /// Content to render in footer.
+    /// If not provided, the default footer will be rendered.
     /// </summary>
     [Parameter]
     public RenderFragment? FooterTemplate { get; set; }
@@ -118,7 +123,8 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogEventArgs))]
     public FluentDialog()
     {
-
+        _renderDialogHeader = RenderHeaderContent;
+        _renderDialogFooter = RenderFooterContent;
     }
 
     protected override void OnInitialized()

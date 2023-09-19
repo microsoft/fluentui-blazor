@@ -52,7 +52,7 @@
                 }
                 <FluentTab Id="@id" Label="@label" fixed>
                     <Content>
-                        <CodeSnippet Language="@TabLanguageClass(tab)">@pair.Value</CodeSnippet>
+                        <CodeSnippet Style="@(!string.IsNullOrEmpty(MaxHeight) ? $"max-height: {MaxHeight};" : null)" Language="@TabLanguageClass(tab)">@pair.Value</CodeSnippet>
                     </Content>
                 </FluentTab>
             }

@@ -1826,11 +1826,13 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.HeaderTemplate">
             <summary>
             Content to render in header.
+            If not provided, the default header will be rendered.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.FooterTemplate">
             <summary>
             Content to render in footer.
+            If not provided, the default footer will be rendered.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.OnDialogResult">
@@ -1925,17 +1927,20 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.TrapFocus">
             <summary>
-            Indicates that the dialog should trap focus.
+            Indicates if dialog should trap focus.
+            Defaults to true.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.ShowTitle">
             <summary>
-            When true, shows the title in the header.
+            Show the title in the header.
+            Defaults to true.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.ShowDismiss">
             <summary>
-            When true, shows the dismiss button in the header.
+            Show the dismiss button in the header.
+            Defaults to true.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.PrimaryAction">
