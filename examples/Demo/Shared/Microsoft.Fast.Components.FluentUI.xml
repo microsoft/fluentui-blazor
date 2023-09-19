@@ -4621,9 +4621,7 @@
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentOverlay.CheckRGBString">
             <remarks>
-            Pattern:<br/>
-            <code>^(?:#(?:[a-fA-F0-9]{6}|[a-fA-F0-9]{3}))</code><br/>
-            Explanation:<br/>
+            Pattern explanation:<br/>
             <code>
             ○ Match if at the beginning of the string.<br/>
             ○ Match '#'.<br/>
@@ -5233,7 +5231,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.Overflow">
             <summary>
-            Gets if this component is out of panel.
+            If this tab is outside of vistible tab panel area.
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentTab.OnAfterRenderAsync(System.Boolean)">
@@ -10758,43 +10756,16 @@
             <param name="untilNextBoundary">If true, splits until the next regex boundary</param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.Default(System.String,System.String)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.#ctor">
             <summary>
-            Creates a StyleBuilder used to define conditional in-line style used in a component. Call Build() to return the completed style as a string.
+            Initializes a new instance of the <see cref="T:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder"/> class.
             </summary>
-            <param name="prop"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.Default(System.String)">
-            <summary>
-            Creates a StyleBuilder used to define conditional in-line style used in a component. Call Build() to return the completed style as a string.
-            </summary>
-            <param name="style"></param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.Empty">
-            <summary>
-            Creates a StyleBuilder used to define conditional in-line style used in a component. Call Build() to return the completed style as a string.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.#ctor(System.String,System.String)">
-            <summary>
-            Creates a StyleBuilder used to define conditional in-line style used in a component. Call Build() to return the completed style as a string.
-            </summary>
-            <param name="prop"></param>
-            <param name="value"></param>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.AddStyle(System.String)">
             <summary>
             Adds a conditional in-line style to the builder with space separator and closing semicolon.
             </summary>
             <param name="style"></param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.AddRaw(System.String)">
-            <summary>
-            Adds a raw string to the builder that will be concatenated with the next style or value added to the builder.
-            </summary>
-            <param name="style"></param>
-            <returns>StyleBuilder</returns>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.AddStyle(System.String,System.String)">
             <summary>
@@ -10813,15 +10784,6 @@
             <param name="when">Condition in which the style is added.</param>
             <returns>StyleBuilder</returns>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.AddStyle(System.String,System.Func{System.String},System.Boolean)">
-            <summary>
-            Adds a conditional in-line style to the builder with space separator and closing semicolon..
-            </summary>
-            <param name="prop"></param>
-            <param name="value">Style to conditionally add.</param>
-            <param name="when">Condition in which the style is added.</param>
-            <returns></returns>
-        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.AddStyle(System.String,System.String,System.Func{System.Boolean})">
             <summary>
             Adds a conditional in-line style to the builder with space separator and closing semicolon..
@@ -10831,60 +10793,24 @@
             <param name="when">Condition in which the style is added.</param>
             <returns>StyleBuilder</returns>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.AddStyle(System.String,System.Func{System.String},System.Func{System.Boolean})">
-            <summary>
-            Adds a conditional in-line style to the builder with space separator and closing semicolon..
-            </summary>
-            <param name="prop"></param>
-            <param name="value">Style to conditionally add.</param>
-            <param name="when">Condition in which the style is added.</param>
-            <returns>StyleBuilder</returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.AddStyle(Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder)">
-            <summary>
-            Adds a conditional nested StyleBuilder to the builder with separator and closing semicolon.
-            </summary>
-            <param name="builder">Style Builder to conditionally add.</param>
-            <returns>StyleBuilder</returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.AddStyle(Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder,System.Boolean)">
-            <summary>
-            Adds a conditional nested StyleBuilder to the builder with separator and closing semicolon.
-            </summary>
-            <param name="builder">Style Builder to conditionally add.</param>
-            <param name="when">Condition in which the style is added.</param>
-            <returns>StyleBuilder</returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.AddStyle(Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder,System.Func{System.Boolean})">
-            <summary>
-            Adds a conditional in-line style to the builder with space separator and closing semicolon..
-            </summary>
-            <param name="builder">Style Builder to conditionally add.</param>
-            <param name="when">Condition in which the styles are added.</param>
-            <returns>StyleBuilder</returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.AddStyle(System.String,System.Action{Microsoft.Fast.Components.FluentUI.Utilities.ValueBuilder},System.Boolean)">
-            <summary>
-            Adds a conditional in-line style to the builder with space separator and closing semicolon..
-            A ValueBuilder action defines a complex set of values for the property.
-            </summary>
-            <param name="prop"></param>
-            <param name="builder"></param>
-            <param name="when"></param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.AddStyleFromAttributes(System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object})">
-            <summary>
-            Adds a conditional in-line style when it exists in a dictionary to the builder with separator.
-            Null safe operation.
-            </summary>
-            <param name="additionalAttributes">Additional Attribute splat parameters</param>
-            <returns>StyleBuilder</returns>
-        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.Build">
             <summary>
             Finalize the completed Style as a string.
             </summary>
             <returns>string</returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.ToString">
+            <summary>
+            ToString should only and always call Build to finalize the rendered string.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.AddRaw(System.String)">
+            <summary>
+            Adds a raw string to the builder that will be concatenated with the next style or value added to the builder.
+            </summary>
+            <param name="style"></param>
+            <returns>StyleBuilder</returns>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.ValueBuilder.AddValue(System.String,System.Boolean)">
             <summary>
