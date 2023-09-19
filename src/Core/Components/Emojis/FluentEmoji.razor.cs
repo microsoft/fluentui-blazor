@@ -17,11 +17,10 @@ public partial class FluentEmoji<Emoji> : FluentComponentBase
         .Build();
 
     /// <summary />
-    protected string? StyleValue => new StyleBuilder()
+    protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("width", Width ?? $"{_emoji.Width}px")
         .AddStyle("cursor", "pointer", OnClick.HasDelegate)
         .AddStyle("display", "inline-block", !ContainsSVG())
-        .AddStyle(Style)
         .Build();
 
     /// <summary>

@@ -8,7 +8,7 @@ public partial class FluentSkeleton : FluentComponentBase
     protected string? ClassValue => new CssBuilder(Class)
         .Build();
 
-    protected string? StyleValue => new StyleBuilder().AddStyle(Style)
+    protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("width", Width, () => !string.IsNullOrWhiteSpace(Width))
         .AddStyle("height", Height, () => !string.IsNullOrWhiteSpace(Height))
         .Build();

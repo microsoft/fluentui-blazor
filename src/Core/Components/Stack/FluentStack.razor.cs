@@ -11,7 +11,7 @@ public partial class FluentStack : FluentComponentBase
         .AddClass("stack-vertical", () => Orientation == Orientation.Vertical)
         .Build();
 
-    protected string? StyleValue => new StyleBuilder()
+    protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("align-items", GetHorizontalAlignment(), () => Orientation == Orientation.Vertical)
         .AddStyle("justify-content", GetVerticalAlignment(), () => Orientation == Orientation.Vertical)
 
@@ -23,7 +23,6 @@ public partial class FluentStack : FluentComponentBase
         .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
         .AddStyle("flex-wrap", "wrap", () => Wrap)
 
-        .AddStyle(Style)
         .Build();
 
     /// <summary>

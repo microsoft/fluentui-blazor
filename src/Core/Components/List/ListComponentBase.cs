@@ -21,9 +21,8 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
         .Build();
 
     /// <summary />
-    protected virtual string? StyleValue => new StyleBuilder()
+    protected virtual string? StyleValue => new StyleBuilder(Style)
         .AddStyle("width", Width, when: !string.IsNullOrEmpty(Width))
-        .AddStyle(Style)
         .Build();
 
     protected string? InternalValue

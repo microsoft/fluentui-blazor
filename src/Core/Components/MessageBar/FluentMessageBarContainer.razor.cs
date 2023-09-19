@@ -7,13 +7,10 @@ namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentMessageBarContainer : FluentComponentBase, IDisposable
 {
     /// <summary />
-    protected string? ClassValue => new CssBuilder(Class)
-        .Build();
+    protected string? ClassValue => new CssBuilder(Class).Build();
 
     /// <summary />
-    protected string? StyleValue => new StyleBuilder()
-        .AddStyle(Style)
-        .Build();
+    protected string? StyleValue => new StyleBuilder(Style).Build();
 
     /// <summary>
     /// Display only messages for this section.

@@ -17,12 +17,11 @@ public partial class FluentIcon<Icon> : FluentComponentBase
         .Build();
 
     /// <summary />
-    protected string? StyleValue => new StyleBuilder()
+    protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("width", Width ?? $"{_icon.Width}px")
         .AddStyle("fill", Color == FluentUI.Color.Custom ? CustomColor : Color.ToAttributeValue())
         .AddStyle("cursor", "pointer", OnClick.HasDelegate)
         .AddStyle("display", "inline-block", !ContainsSVG())
-        .AddStyle(Style)
         .Build();
 
     /// <summary>

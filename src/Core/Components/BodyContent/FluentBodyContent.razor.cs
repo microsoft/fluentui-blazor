@@ -10,9 +10,7 @@ public partial class FluentBodyContent : FluentComponentBase
         .AddClass("body-content")
         .Build();
 
-    protected string? StyleValue => new StyleBuilder()
-        .AddStyle(Style)
-        .Build();
+    protected string? StyleValue => new StyleBuilder(Style).Build();
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.

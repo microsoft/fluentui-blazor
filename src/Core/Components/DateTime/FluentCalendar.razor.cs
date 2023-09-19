@@ -19,9 +19,7 @@ public partial class FluentCalendar : FluentCalendarBase
     protected string? ClassValue => new CssBuilder(Class).AddClass("fluent-calendar").Build();
 
     /// <summary />
-    protected string? StyleValue => new StyleBuilder()
-        .AddStyle(Style)
-        .Build();
+    protected string? StyleValue => new StyleBuilder(Style).Build();
 
     /// <summary>
     /// The current month of the date picker (two-way bindable).
