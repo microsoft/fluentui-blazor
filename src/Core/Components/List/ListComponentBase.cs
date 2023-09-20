@@ -87,7 +87,8 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
     public virtual Func<TOption, string?> OptionText { get; set; }
 
     /// <summary>
-    /// Function used to determine which text to return for the selected item.
+    /// Function used to determine which value to return for the selected item.
+    /// Only for <see cref="FluentListbox{TOption}"/> and <see cref="FluentSelect{TOption}"/> components.
     /// </summary>
     [Parameter]
     public virtual Func<TOption, string?> OptionValue { get; set; }
