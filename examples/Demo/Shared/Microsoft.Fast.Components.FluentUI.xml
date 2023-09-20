@@ -3506,7 +3506,8 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.OptionValue">
             <summary>
-            Function used to determine which text to return for the selected item.
+            Function used to determine which value to return for the selected item.
+            Only for <see cref="T:Microsoft.Fast.Components.FluentUI.FluentListbox`1"/> and <see cref="T:Microsoft.Fast.Components.FluentUI.FluentSelect`1"/> components.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.OptionDisabled">
