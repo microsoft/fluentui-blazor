@@ -100,7 +100,7 @@ public class DialogParameters : ComponentParameters, IDialogParameters
     /// <summary>
     /// The type of dialog.
     /// </summary>
-    public DialogType DialogType { get; set; } = DialogType.Dialog;
+    internal DialogType DialogType { get; set; } = DialogType.Dialog;
 
     /// <summary>
     /// Gets whether the primary button is displayed or not. Depends on PrimaryAction having a value.
