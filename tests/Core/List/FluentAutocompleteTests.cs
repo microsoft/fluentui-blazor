@@ -209,7 +209,7 @@ public class FluentAutocompleteTests : TestBase
     {
         yield return new Customer(1, "Denis Voituron");
         yield return new Customer(2, "Vincent Baaij");
-        yield return new Customer(3, "Bill gates");
+        yield return new Customer(3, "Bill Gates");
     }
 
     private record Customer(int Id, string Name);
