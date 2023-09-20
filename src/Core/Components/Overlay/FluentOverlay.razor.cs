@@ -4,12 +4,15 @@ using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Fast.Components.FluentUI.Utilities;
+using Microsoft.JSInterop;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary />
-public partial class FluentOverlay
+public partial class FluentOverlay : IAsyncDisposable
 {
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.Fast.Components.FluentUI/Components/Overlay/FluentOverlay.razor.js";
+    
     private string? _color = null;
     private int _r, _g, _b;
 
@@ -22,6 +25,13 @@ public partial class FluentOverlay
         .AddStyle("position", "absolute", () => !FullScreen)
         .AddStyle("z-index", $"{ZIndex.Overlay}")
         .Build();
+
+    /// <summary />
+    [Inject]
+    private IJSRuntime JS { get; set; } = default!;
+
+    /// <summary />
+    private IJSObjectReference Module { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets if the overlay is visible.
@@ -84,33 +94,25 @@ public partial class FluentOverlay
     [Parameter]
     public string BackgroundColor { get; set; } = "#ffffff";
 
+    [Parameter]
+    public bool PreventScroll { get; set; } = false;
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    protected async Task OnCloseHandlerAsync(MouseEventArgs e)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (!Dismissable)
+        if (firstRender)
         {
-            return;
+            Module = await JS.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            if (Visible)
+            {
+                await Module.InvokeVoidAsync("disableBodyScroll");
+            }
         }
-
-        Visible = false;
-
-        if (VisibleChanged.HasDelegate)
-        {
-            await VisibleChanged.InvokeAsync(Visible);
-        }
-
-        if (OnClose.HasDelegate)
-        {
-            await OnClose.InvokeAsync(e);
-        }
-
-        return;
     }
 
-    protected override void OnParametersSet()
+    protected override async Task OnParametersSetAsync()
     {
         if (!Transparent && Opacity == 0)
         {
@@ -144,8 +146,52 @@ public partial class FluentOverlay
             {
                 _r = int.Parse(_color[0..1], NumberStyles.HexNumber);
                 _g = int.Parse(_color[1..2], NumberStyles.HexNumber);
-                _b = int.Parse(_color[2..],NumberStyles.HexNumber);
+                _b = int.Parse(_color[2..], NumberStyles.HexNumber);
             }
+        }
+
+        if (Visible && Module is not null)
+        {
+            await Module.InvokeVoidAsync("disableBodyScroll");
+        }
+    }
+
+    protected async Task OnCloseHandlerAsync(MouseEventArgs e)
+    {
+        if (!Dismissable)
+        {
+            return;
+        }
+
+        Visible = false;
+
+        if (VisibleChanged.HasDelegate)
+        {
+            await VisibleChanged.InvokeAsync(Visible);
+        }
+
+        if (OnClose.HasDelegate)
+        {
+            await OnClose.InvokeAsync(e);
+        }
+
+        await Module.InvokeVoidAsync("enableBodyScroll");
+
+        return;
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        try
+        {
+            if (Module is not null)
+            {
+                await Module!.InvokeVoidAsync("enableBodyScroll");
+                await Module.DisposeAsync();
+            }
+        }
+        catch (TaskCanceledException)
+        {
         }
     }
 

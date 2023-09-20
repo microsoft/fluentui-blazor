@@ -1777,6 +1777,17 @@
         <member name="T:Microsoft.Fast.Components.FluentUI.MessageBox">
             <summary />
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.JS">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.Module">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.PreventScroll">
+            <summary>
+            Prevents scrolling outside of the dialog while open.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.Modal">
             <summary>
             Indicates the element is modal. When modal, user mouse interaction will be limited to the contents of the element by a modal
@@ -4567,6 +4578,12 @@
             <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentOverlay.StyleValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOverlay.JS">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOverlay.Module">
             <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentOverlay.Visible">

@@ -1,11 +1,14 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Fast.Components.FluentUI.Utilities;
+using Microsoft.JSInterop;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentDialog : FluentComponentBase //, IDisposable
 {
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.Fast.Components.FluentUI/Components/Overlay/FluentOverlay.razor.js";
+
     private const string DEFAULT_DIALOG_WIDTH = "500px";
     private const string DEFAULT_PANEL_WIDTH = "340px";
     private const string DEFAULT_HEIGHT = "unset";
@@ -15,8 +18,20 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
     private readonly RenderFragment _renderDialogHeader;
     private readonly RenderFragment _renderDialogFooter;
 
+    /// <summary />
+    [Inject]
+    private IJSRuntime JS { get; set; } = default!;
+
+    /// <summary />
+    private IJSObjectReference Module { get; set; } = default!;
+
     [CascadingParameter]
     private InternalDialogContext? DialogContext { get; set; } = default!;
+
+    /// <summary>
+    /// Prevents scrolling outside of the dialog while open.
+    /// </summary>
+    public bool PreventScroll { get; set; } = true;
 
     /// <summary>
     /// Indicates the element is modal. When modal, user mouse interaction will be limited to the contents of the element by a modal
@@ -137,6 +152,11 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
         if (firstRender)
         {
             await Element.FocusAsync();
+            Module = await JS.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            if (PreventScroll && !_hidden)
+            {
+                await Module.InvokeVoidAsync("disableBodyScroll");
+            }
         }
     }
 
@@ -190,6 +210,10 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
         else
         {
             Hide();
+        }
+        if (PreventScroll && Module is not null) 
+        {
+            await Module.InvokeVoidAsync("enableBodyScroll");
         }
     }
 }
