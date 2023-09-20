@@ -110,8 +110,7 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
         .AddClass("left", () => _parameters.DialogType == DialogType.Panel && _parameters.Alignment == HorizontalAlignment.Left)
         .Build();
 
-    protected string? StyleValue => new StyleBuilder()
-        .AddStyle(Style)
+    protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("position", "absolute")
         .AddStyle("top", "50%", () => _parameters.Alignment == HorizontalAlignment.Center)
         .AddStyle("left", "50%", () => _parameters.Alignment == HorizontalAlignment.Center)

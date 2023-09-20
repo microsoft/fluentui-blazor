@@ -19,8 +19,7 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
         .Build();
 
     /// <summary />
-    internal string? StyleValue => new StyleBuilder()
-        .AddStyle(Style)
+    internal string? StyleValue => new StyleBuilder(Style)
         .AddStyle("min-width: max-content")
         .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
 

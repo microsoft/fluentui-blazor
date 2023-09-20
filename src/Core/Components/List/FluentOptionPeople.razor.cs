@@ -15,8 +15,7 @@ public partial class FluentOptionPeople : FluentComponentBase
 
     /// <summary />
     protected virtual string? StyleValue =>
-        new StyleBuilder().AddStyle(Style)
-                          .Build();
+        new StyleBuilder(Style).Build();
 
 
     /// <summary>

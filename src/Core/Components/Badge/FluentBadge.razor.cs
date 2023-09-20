@@ -13,8 +13,7 @@ public partial class FluentBadge : FluentComponentBase
     protected string? ClassValue => new CssBuilder(Class)
          .Build();
 
-    protected string? StyleValue => new StyleBuilder()
-        .AddStyle(Style)
+    protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
         .AddStyle("cursor", "pointer", () => OnClick.HasDelegate)
         .AddStyle($"--badge-fill-{Fill}", BackgroundColor, () => !string.IsNullOrEmpty(BackgroundColor))

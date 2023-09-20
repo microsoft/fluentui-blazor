@@ -18,3 +18,19 @@
     <FluentIcon Value="@(new Icons.Regular.Size32.Globe())" Color="Color.Error" Slot="start" />
     Button
 </FluentButton>
+
+<p>With icon and loading</p>
+<FluentButton IconStart="@(new Icons.Regular.Size16.ArrowClockwise())" Loading="@loading" OnClick="@StartLoadingAsync">
+    Refresh
+</FluentButton>
+
+@code {
+
+    bool loading = false;
+
+    async Task StartLoadingAsync()
+    {
+        loading = true;
+        await DataSource.WaitAsync(2000, () => loading = false);
+    }
+}

@@ -1,30 +1,21 @@
-﻿<div style="display: flex; column-gap: 10px;">
+﻿<FluentStack HorizontalGap="10">
     <FluentButton>Button</FluentButton>
     <FluentButton Appearance="Appearance.Accent">Accent</FluentButton>
-    @* <FluentButton Appearance="Appearance.Hypertext">Hypertext</FluentButton> *@
     <FluentButton Appearance="Appearance.Lightweight">Lightweight</FluentButton>
     <FluentButton Appearance="Appearance.Outline">Outline</FluentButton>
     <FluentButton Appearance="Appearance.Stealth">Stealth</FluentButton>
     <FluentButton Appearance="Appearance.Filled">Filled</FluentButton>
     <FluentButton BackgroundColor="var(--highlight-bg)" Color="var(--info)">Colored</FluentButton>
-    <FluentButton Loading=@loading OnClick="@((e) => loading = true)" Appearance="Appearance.Accent">Loading</FluentButton>
-</div>
-
-<p>Disabled</p>
-<div style="display: flex; column-gap: 10px;">
-    <FluentButton Disabled="true">Button</FluentButton>
-    <FluentButton Appearance="Appearance.Accent" Disabled="true">Accent</FluentButton>
-    @* <FluentButton Appearance="Appearance.Hypertext" Disabled="true">Hypertext</FluentButton>  *@
-    <FluentButton Appearance="Appearance.Lightweight" Disabled="true">Lightweight</FluentButton>
-    <FluentButton Appearance="Appearance.Outline" Disabled="true">Outline</FluentButton>
-    <FluentButton Appearance="Appearance.Stealth" Disabled="true">Stealth</FluentButton>
-    <FluentButton Appearance="Appearance.Filled" Disabled="true">Filled</FluentButton>
-    <FluentButton BackgroundColor="var(--highlight-bg)" Color="var(--info)" Disabled>Colored</FluentButton>
-</div>
-
+    <FluentButton Loading="@loading" OnClick="@StartLoadingAsync" Appearance="Appearance.Accent">Loading</FluentButton>
+</FluentStack>
 
 @code {
+
     bool loading = false;
+
+    async Task StartLoadingAsync()
+    {
+        loading = true;
+        await DataSource.WaitAsync(2000, () => loading = false);
+    }
 }
-
-

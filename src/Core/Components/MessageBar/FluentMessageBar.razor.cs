@@ -26,9 +26,7 @@ public partial class FluentMessageBar : FluentComponentBase, IDisposable
         .Build();
 
     /// <summary />
-    protected string? StyleValue => new StyleBuilder()
-        .AddStyle(Style)
-        .Build();
+    protected string? StyleValue => new StyleBuilder(Style).Build();
 
     /// <summary>
     /// The type of message bar. Default is MessageType.MessageBar. See <see cref="MessageType"/> for more details.

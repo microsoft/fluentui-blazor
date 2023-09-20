@@ -76,16 +76,9 @@
 
     private void RenderRow(RenderTreeBuilder __builder, int rowIndex, TGridItem item)
     {
-        string? _rowsDataSize = null;
-
         var rowClass = RowClass?.Invoke(item) ?? "";
 
-        if (Virtualize)
-        {
-            _rowsDataSize = $"height: {ItemSize}px";
-        }
-
-        <FluentDataGridRow @key="@(ItemKey(item))" GridTemplateColumns=@GridTemplateColumns aria-rowindex="@rowIndex" Class="@rowClass" Style="@_rowsDataSize" TGridItem="TGridItem" Item="@item">
+        <FluentDataGridRow @key="@(ItemKey(item))" GridTemplateColumns=@GridTemplateColumns aria-rowindex="@rowIndex" Class="@rowClass" TGridItem="TGridItem" Item="@item">
             @for (var colIndex = 0; colIndex < _columns.Count; colIndex++)
             {
                 var col = _columns[colIndex];

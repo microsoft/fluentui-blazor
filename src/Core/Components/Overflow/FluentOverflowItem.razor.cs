@@ -13,8 +13,7 @@ public partial class FluentOverflowItem
         .Build();
 
     /// <summary />
-    protected string? StyleValue => new StyleBuilder()
-        .AddStyle(Style)
+    protected string? StyleValue => new StyleBuilder(Style)
         .Build();
 
     /// <summary>

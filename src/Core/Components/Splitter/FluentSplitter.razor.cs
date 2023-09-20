@@ -13,8 +13,7 @@ public partial class FluentSplitter : FluentComponentBase
         .Build();
 
     /// <summary />
-    protected string? StyleValue => new StyleBuilder()
-        .AddStyle(Style)
+    protected string? StyleValue => new StyleBuilder(Style)
         .Build();
 
     /// <summary>

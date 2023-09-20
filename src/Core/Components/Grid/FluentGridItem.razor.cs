@@ -37,11 +37,8 @@ public partial class FluentGridItem : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary />
-    protected string? ClassValue => new CssBuilder(Class)
-        .Build();
+    protected string? ClassValue => new CssBuilder(Class).Build();
 
     /// <summary />
-    protected string? StyleValue => new StyleBuilder()
-        .AddStyle(Style)
-        .Build();
+    protected string? StyleValue => new StyleBuilder(Style).Build();
 }

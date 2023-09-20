@@ -22,11 +22,10 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
         .AddClass("navmenu-parent-element")
         .Build();
 
-    protected string? StyleValue => new StyleBuilder()
+    protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("width", $"{Width}px", () => Expanded && Width.HasValue)
         .AddStyle("width", WIDTH_COLLAPSED_MENU, () => !Expanded)
         .AddStyle("min-width", WIDTH_COLLAPSED_MENU, () => !Expanded)
-        .AddStyle(Style)
         .Build();
 
     /// <summary>

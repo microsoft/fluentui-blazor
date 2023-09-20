@@ -19,7 +19,7 @@ public partial class FluentDatePicker : FluentCalendarBase
     protected string? ClassValue => new CssBuilder(Class).AddClass("fluent-datepicker").Build();
 
     /// <summary />
-    protected string? StyleValue => new StyleBuilder().AddStyle(Style).Build();
+    protected string? StyleValue => new StyleBuilder(Style).Build();
 
     /// <summary>
     /// Gets or sets the design of this input.

@@ -46,9 +46,8 @@ public partial class FluentNavMenuGroup : FluentNavMenuItemBase, INavMenuItemsOw
         .AddClass("navmenu-child-element")
         .Build();
 
-    protected string? StyleValue => new StyleBuilder()
+    protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("width", $"{Width}px", () => Width.HasValue)
-        .AddStyle(Style)
         .Build();
 
     protected override async Task OnInitializedAsync()
