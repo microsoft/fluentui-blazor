@@ -98,16 +98,6 @@ public class DialogParameters : ComponentParameters, IDialogParameters
     public string? AriaLabel { get; set; }
 
     /// <summary>
-    /// Template for the dialog header.
-    /// </summary>
-    public RenderFragment? HeaderTemplate { get; set; }
-
-    /// <summary>
-    /// Template for the dialog footer.
-    /// </summary>
-    public RenderFragment? FooterTemplate { get; set; }
-
-    /// <summary>
     /// The type of dialog.
     /// </summary>
     public DialogType DialogType { get; set; } = DialogType.Dialog;

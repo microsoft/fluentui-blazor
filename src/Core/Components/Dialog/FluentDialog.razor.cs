@@ -85,20 +85,6 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Content to render in header.
-    /// If not provided, the default header will be rendered.
-    /// </summary>
-    [Parameter]
-    public RenderFragment? HeaderTemplate { get; set; }
-
-    /// <summary>
-    /// Content to render in footer.
-    /// If not provided, the default footer will be rendered.
-    /// </summary>
-    [Parameter]
-    public RenderFragment? FooterTemplate { get; set; }
-
-    /// <summary>
     /// The event callback invoked to return the dialog result.
     /// </summary>
     [Parameter]

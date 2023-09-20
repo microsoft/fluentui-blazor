@@ -35,11 +35,7 @@
 
     private void RenderHeaderContent(RenderTreeBuilder __builder)
     {
-        @if (HeaderTemplate is not null)
-        {
-            @HeaderTemplate
-        }
-        else if (_parameters.ShowTitle && (_parameters.Title != null || _parameters.ShowDismiss))
+        @if (_parameters.ShowTitle && (_parameters.Title != null || _parameters.ShowDismiss))
         {
             <FluentDialogHeader Title="@_parameters.Title" ShowDismiss="@_parameters.ShowDismiss" />
         }
@@ -47,11 +43,7 @@
 
     private void RenderFooterContent(RenderTreeBuilder __builder)
     {
-        @if (FooterTemplate is not null)
-        {
-            @FooterTemplate
-        }
-        else if (HasButtons)
+        @if (HasButtons)
         {
             <FluentDialogFooter Alignment="@_parameters.Alignment"
                                 PrimaryAction="@_parameters.PrimaryAction"
