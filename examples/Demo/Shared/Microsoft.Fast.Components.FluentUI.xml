@@ -1823,16 +1823,6 @@
             Used when not calling the <see cref="T:Microsoft.Fast.Components.FluentUI.DialogService" /> to show a dialog.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.HeaderTemplate">
-            <summary>
-            Content to render in header.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.FooterTemplate">
-            <summary>
-            Content to render in footer.
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.OnDialogResult">
             <summary>
             The event callback invoked to return the dialog result.
@@ -1925,17 +1915,20 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.TrapFocus">
             <summary>
-            Indicates that the dialog should trap focus.
+            Indicates if dialog should trap focus.
+            Defaults to true.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.ShowTitle">
             <summary>
-            When true, shows the title in the header.
+            Show the title in the header.
+            Defaults to true.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.ShowDismiss">
             <summary>
-            When true, shows the dismiss button in the header.
+            Show the dismiss button in the header.
+            Defaults to true.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.PrimaryAction">
@@ -1987,6 +1980,11 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.AriaLabel">
             <summary>
             The value that labels an interactive element.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.DialogType">
+            <summary>
+            The type of dialog.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.ShowPrimaryAction">
@@ -2248,12 +2246,6 @@
             <param name="component">The type of the component to show</param>
             <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent"/> that holds the content to display</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialogAsync``2(Microsoft.Fast.Components.FluentUI.DialogParameters{``1})">
-            <summary>
-            Shows a dialog with the component type as the body
-            </summary>
-            <param name="parameters">Parameters to pass to component being displayed.</param>
-        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSuccessAsync(System.String,System.String)">
             <summary>
             Shows a success message box. Does not have a callback function.
@@ -2322,6 +2314,12 @@
             Shows a panel with the dialog component type as the body
             </summary>
             <param name="dialogComponent">Type of component to display.</param>
+            <param name="parameters">Parameters to pass to component being displayed.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialogAsync``2(Microsoft.Fast.Components.FluentUI.DialogParameters{``1})">
+            <summary>
+            Shows a dialog with the component type as the body
+            </summary>
             <param name="parameters">Parameters to pass to component being displayed.</param>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialogAsync``1(System.Type,``0,Microsoft.Fast.Components.FluentUI.DialogParameters)">
@@ -9203,6 +9201,31 @@
             <summary>
             A sticky header row.
             </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.DialogType">
+            <summary>
+            The type of <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDialog"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.DialogType.Dialog">
+            <summary>
+            A normal dialog.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.DialogType.MessageBox">
+            <summary>
+            A dialog shown as a message box.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.DialogType.Panel">
+            <summary>
+            A dialog shown as a panel.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.DialogType.SplashScreen">
+            <summary>
+            A dialog shown as a splash screen.
+            </summary>  
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DividerRole">
             <summary>

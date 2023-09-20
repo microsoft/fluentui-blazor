@@ -5,6 +5,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 public class DialogParameters : ComponentParameters, IDialogParameters
 {
     public string Id { get; set; } = Identifier.NewId();
+   
     /// <summary>
     /// Gets or sets the dialog position:
     /// left (full height), right (full height)
@@ -24,17 +25,20 @@ public class DialogParameters : ComponentParameters, IDialogParameters
     public bool? Modal { get; set; } = true;
 
     /// <summary>
-    /// Indicates that the dialog should trap focus.
+    /// Indicates if dialog should trap focus.
+    /// Defaults to true.
     /// </summary>
     public bool? TrapFocus { get; set; } = true;
 
     /// <summary>
-    /// When true, shows the title in the header.
+    /// Show the title in the header.
+    /// Defaults to true.
     /// </summary>
     public bool ShowTitle { get; set; } = true;
 
     /// <summary>
-    /// When true, shows the dismiss button in the header.
+    /// Show the dismiss button in the header.
+    /// Defaults to true.
     /// </summary>
     public bool ShowDismiss { get; set; } = true;
 
@@ -92,6 +96,11 @@ public class DialogParameters : ComponentParameters, IDialogParameters
     /// The value that labels an interactive element.
     /// </summary>
     public string? AriaLabel { get; set; }
+
+    /// <summary>
+    /// The type of dialog.
+    /// </summary>
+    public DialogType DialogType { get; set; } = DialogType.Dialog;
 
     /// <summary>
     /// Gets whether the primary button is displayed or not. Depends on PrimaryAction having a value.
