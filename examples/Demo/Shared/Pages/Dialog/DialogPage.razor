@@ -76,6 +76,14 @@
 <p>
     Interaction with parent dialog can be made by injecting FluentDialog as Cascading Parameter. See <code>SimpleDialog.razor</code> for more details.
 </p>
+
+<DemoSection Title="Customized Dialog" Component="@typeof(DialogCustomizableExample)" AdditionalFiles="@(new[] {"CustomizedDialog.razor"})">
+    <Description>
+        This example shows how to open a Dialog using the <b>DialogService</b>.
+        The dialog is customized by specifying a custom header and footer.
+    </Description>
+</DemoSection>
+
 <DemoSection Title="DialogService with IDialogReference" Component="@typeof(DialogServiceExample)" AdditionalFiles="@(new[] {"SimpleDialog.razor"})">
     <Description>
         This example shows how to use async methods to show a dialog and get the result back from it. 

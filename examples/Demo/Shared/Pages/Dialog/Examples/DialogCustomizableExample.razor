@@ -1,0 +1,23 @@
+@inject IDialogService DialogService
+
+<FluentButton Appearance="Appearance.Accent" OnClick="@OpenAsync">Open dialog</FluentButton>
+
+<p>Name: @DialogData.Name</p>
+
+@code
+{
+    CustomizedDialog.MyData DialogData { get; set; } = new() { Name = "Bill", Age = 42 };
+
+    private async Task OpenAsync()
+    {
+        await Task.CompletedTask;
+        // var dialog = await DialogService.ShowDialogAsync(typeof(CustomizedDialog), DialogData, new DialogParameters()
+        //     {
+        //         Height = "300px",
+        //         Title = $"Hello {DialogData.Name}",
+        //     });
+
+        // var result = await dialog.Result;
+        // var data = result.Data as CustomizedDialog.MyData;
+    }
+}

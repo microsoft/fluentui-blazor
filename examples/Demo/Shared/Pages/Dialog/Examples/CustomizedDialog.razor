@@ -1,0 +1,38 @@
+@implements IDialogContentComponent<MyData>
+
+@* Header *@
+<FluentDialogHeader ShowDismiss="true" Style="padding: 10px;">
+    <FluentLabel Typo="Typography.PaneHeader">
+        @Dialog.Instance.Parameters.Title
+    </FluentLabel>
+</FluentDialogHeader>
+
+@* Footer *@
+<FluentDialogFooter Style="padding: 10px;">
+    <FluentButton Appearance="Appearance.Accent" OnClick="@SaveAsync">Close</FluentButton>
+</FluentDialogFooter>
+
+@* Body *@
+<FluentDialogBody Style="padding: 10px;">
+    <FluentTextField @bind-Value="@Content.Name">Name:</FluentTextField>
+    <FluentNumberField @bind-Value="@Content.Age">Age:</FluentNumberField>
+</FluentDialogBody>
+
+@code {
+    [Parameter]
+    public MyData Content { get; set; } = default!;
+
+    [CascadingParameter]
+    public FluentDialog Dialog { get; set; } = default!;
+
+    private async Task SaveAsync()
+    {
+        await Dialog.CloseAsync();
+    }
+
+    public class MyData
+    {
+        public string Name { get; set; } = string.Empty;
+        public int Age { get; set; } = 0;
+    }
+}
