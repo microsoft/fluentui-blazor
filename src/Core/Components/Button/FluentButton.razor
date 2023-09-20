@@ -8,7 +8,7 @@
 }
 
 
-@if (Loading)
+@if (Loading && IconStart == null && IconEnd == null)
 {
     <span class="loading-button">
         @_renderButton
@@ -49,12 +49,26 @@ else
                @attributes="AdditionalAttributes">
     @if (IconStart != null)
     {
-        <FluentIcon Value="@IconStart" Slot="@(ChildContent != null ? "start" : null)" />
+        if (Loading)
+        {
+            <FluentProgressRing slot="start" Style="@RingStyle(IconStart)" />
+        }
+        else
+        {
+            <FluentIcon Value="@IconStart" Slot="@(ChildContent != null ? "start" : null)" />
+        }
     }
     @ChildContent
     @if (IconEnd != null)
     {
-        <FluentIcon Value="@IconEnd" Slot="@(ChildContent != null ? "end" : null)" />
+        if (Loading && IconStart == null)
+        {
+            <FluentProgressRing slot="end" Style="@RingStyle(IconEnd)" />
+        }
+        else
+        {
+            <FluentIcon Value="@IconEnd" Slot="@(ChildContent != null ? "end" : null)" />
+        }
     }
 </fluent-button>
     }
