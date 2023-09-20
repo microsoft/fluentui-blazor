@@ -46,6 +46,7 @@ public class DialogService : IDialogService
     {
         DialogParameters dialogParameters = new()
         {
+            DialogType = DialogType.SplashScreen,
             Alignment = HorizontalAlignment.Center,
             Modal = false,
             ShowDismiss = false,
@@ -77,6 +78,7 @@ public class DialogService : IDialogService
             IconColor = Color.Success,
             Message = message,
         },
+        DialogType = DialogType.MessageBox,
         PrimaryAction = "Ok", /*DialogResources.ButtonOK,*/
         SecondaryAction = string.Empty,
     });
@@ -96,6 +98,7 @@ public class DialogService : IDialogService
             IconColor = Color.Warning,
             Message = message,
         },
+        DialogType = DialogType.MessageBox,
         PrimaryAction = "Ok", /*DialogResources.ButtonOK,*/
         SecondaryAction = string.Empty,
     });
@@ -115,6 +118,7 @@ public class DialogService : IDialogService
             IconColor = Color.Error,
             Message = message,
         },
+        DialogType = DialogType.MessageBox,
         PrimaryAction = "Ok", /*DialogResources.ButtonOK,*/
         SecondaryAction = string.Empty,
     });
@@ -134,6 +138,7 @@ public class DialogService : IDialogService
             IconColor = Color.Info,
             Message = message,
         },
+        DialogType = DialogType.MessageBox,
         PrimaryAction = "Ok", /*DialogResources.ButtonOK,*/
         SecondaryAction = string.Empty,
     });
@@ -159,6 +164,7 @@ public class DialogService : IDialogService
                 IconColor = Color.Success,
                 Message = message,
             },
+            DialogType = DialogType.MessageBox,
             PrimaryAction = primaryText, /*DialogResources.ButtonYes,*/
             SecondaryAction = secondaryText, /*DialogResources.ButtonNo,*/
             OnDialogResult = EventCallback.Factory.Create(receiver, callback)
@@ -173,6 +179,7 @@ public class DialogService : IDialogService
     {
         DialogParameters dialogParameters = new()
         {
+            DialogType = DialogType.MessageBox,
             Alignment = HorizontalAlignment.Center,
             Title = parameters.Content.Title,
             Modal = string.IsNullOrEmpty(parameters.SecondaryAction),
@@ -207,6 +214,7 @@ public class DialogService : IDialogService
     {
         DialogParameters dialogParameters = new()
         {
+            DialogType = DialogType.Panel,
             Alignment = parameters.Alignment,
             Title = parameters.Title,
             Modal = parameters.Modal,
@@ -232,7 +240,8 @@ public class DialogService : IDialogService
     {
         DialogParameters dialogParameters = new()
         {
-            Alignment = HorizontalAlignment.Center,
+            DialogType = parameters.DialogType,
+            Alignment = parameters.Alignment,
             Title = parameters.Title,
             Modal = parameters.Modal,
             ShowDismiss = parameters.ShowDismiss,
@@ -328,6 +337,7 @@ public class DialogService : IDialogService
     {
         DialogParameters dialogParameters = new()
         {
+            DialogType = DialogType.SplashScreen,
             Alignment = HorizontalAlignment.Center,
             Modal = false,
             ShowDismiss = false,
@@ -353,6 +363,7 @@ public class DialogService : IDialogService
     {
         DialogParameters dialogParameters = new()
         {
+            DialogType = DialogType.SplashScreen,
             Alignment = HorizontalAlignment.Center,
             Modal = false,
             ShowDismiss = false,
@@ -369,41 +380,12 @@ public class DialogService : IDialogService
     }
 
     /// <summary>
-    /// Shows a dialog with the component type as the body
-    /// </summary>
-    /// <param name="parameters">Parameters to pass to component being displayed.</param>
-    public async Task<IDialogReference> ShowDialogAsync<T, TContent>(DialogParameters<TContent> parameters)
-        where T : IDialogContentComponent<TContent>
-        where TContent : class
-    {
-        DialogParameters dialogParameters = new()
-        {
-            Id = parameters.Id,
-            Alignment = HorizontalAlignment.Center,
-            Title = parameters.Title,
-            Modal = parameters.Modal,
-            TrapFocus = parameters.TrapFocus,
-            ShowDismiss = parameters.ShowDismiss,
-            ShowTitle = parameters.ShowTitle,
-            PrimaryAction = parameters.PrimaryAction,
-            PrimaryActionEnabled = parameters.PrimaryActionEnabled,
-            SecondaryAction = parameters.SecondaryAction,
-            SecondaryActionEnabled = parameters.SecondaryActionEnabled,
-            Width = parameters.Width,
-            Height = parameters.Height,
-            AriaLabel = $"{parameters.Title}",
-            OnDialogResult = parameters.OnDialogResult,
-        };
-
-        return await ShowDialogAsync(typeof(T), parameters.Content, dialogParameters);
-    }
-
-    /// <summary>
     /// Shows a success message box. Does not have a callback function.
     /// </summary>
     /// <param name="message">The message to display.</param>
     /// <param name="title">The title to display on the dialog.</param>
-    public async Task<IDialogReference> ShowSuccessAsync(string message, string? title = null) => await ShowMessageBoxAsync(new DialogParameters<MessageBoxContent>()
+    public async Task<IDialogReference> ShowSuccessAsync(string message, string? title = null) 
+        => await ShowMessageBoxAsync(new DialogParameters<MessageBoxContent>()
     {
         Content = new MessageBoxContent()
         {
@@ -413,6 +395,7 @@ public class DialogService : IDialogService
             IconColor = Color.Success,
             Message = message,
         },
+        DialogType = DialogType.MessageBox,
         PrimaryAction = "Ok", /*DialogResources.ButtonOK,*/
         SecondaryAction = string.Empty,
     });
@@ -422,7 +405,8 @@ public class DialogService : IDialogService
     /// </summary>
     /// <param name="message">The message to display.</param>
     /// <param name="title">The title to display on the dialog.</param>
-    public async Task<IDialogReference> ShowWarningAsync(string message, string? title = null) => await ShowMessageBoxAsync(new DialogParameters<MessageBoxContent>()
+    public async Task<IDialogReference> ShowWarningAsync(string message, string? title = null) 
+        => await ShowMessageBoxAsync(new DialogParameters<MessageBoxContent>()
     {
         Content = new MessageBoxContent()
         {
@@ -432,6 +416,7 @@ public class DialogService : IDialogService
             IconColor = Color.Warning,
             Message = message,
         },
+        DialogType = DialogType.MessageBox,
         PrimaryAction = "Ok", /*DialogResources.ButtonOK,*/
         SecondaryAction = string.Empty,
     });
@@ -441,7 +426,8 @@ public class DialogService : IDialogService
     /// </summary>
     /// <param name="message">The message to display.</param>
     /// <param name="title">The title to display on the dialog.</param>
-    public async Task<IDialogReference> ShowErrorAsync(string message, string? title = null) => await ShowMessageBoxAsync(new DialogParameters<MessageBoxContent>()
+    public async Task<IDialogReference> ShowErrorAsync(string message, string? title = null) 
+        => await ShowMessageBoxAsync(new DialogParameters<MessageBoxContent>()
     {
         Content = new MessageBoxContent()
         {
@@ -451,6 +437,7 @@ public class DialogService : IDialogService
             IconColor = Color.Error,
             Message = message,
         },
+        DialogType = DialogType.MessageBox,
         PrimaryAction = "Ok", /*DialogResources.ButtonOK,*/
         SecondaryAction = string.Empty,
     });
@@ -460,7 +447,8 @@ public class DialogService : IDialogService
     /// </summary>
     /// <param name="message">The message to display.</param>
     /// <param name="title">The title to display on the dialog.</param>
-    public async Task<IDialogReference> ShowInfoAsync(string message, string? title = null) => await ShowMessageBoxAsync(new DialogParameters<MessageBoxContent>()
+    public async Task<IDialogReference> ShowInfoAsync(string message, string? title = null) 
+        => await ShowMessageBoxAsync(new DialogParameters<MessageBoxContent>()
     {
         Content = new MessageBoxContent()
         {
@@ -470,6 +458,7 @@ public class DialogService : IDialogService
             IconColor = Color.Info,
             Message = message,
         },
+        DialogType = DialogType.MessageBox,
         PrimaryAction = "Ok", /*DialogResources.ButtonOK,*/
         SecondaryAction = string.Empty,
     });
@@ -495,6 +484,7 @@ public class DialogService : IDialogService
                 IconColor = Color.Success,
                 Message = message,
             },
+            DialogType = DialogType.MessageBox,
             PrimaryAction = primaryText, /*DialogResources.ButtonYes,*/
             SecondaryAction = secondaryText, /*DialogResources.ButtonNo,*/
             OnDialogResult = EventCallback.Factory.Create(receiver, callback)
@@ -519,6 +509,7 @@ public class DialogService : IDialogService
                 IconColor = Color.Success,
                 Message = message,
             },
+            DialogType = DialogType.MessageBox,
             PrimaryAction = primaryText, /*DialogResources.ButtonYes,*/
             SecondaryAction = secondaryText, /*DialogResources.ButtonNo,*/
         });
@@ -532,6 +523,7 @@ public class DialogService : IDialogService
     {
         DialogParameters dialogParameters = new()
         {
+            DialogType = DialogType.MessageBox,
             Alignment = HorizontalAlignment.Center,
             Title = parameters.Content.Title,
             Modal = string.IsNullOrEmpty(parameters.SecondaryAction),
@@ -566,6 +558,7 @@ public class DialogService : IDialogService
     {
         DialogParameters dialogParameters = new()
         {
+            DialogType = DialogType.Panel,
             Alignment = parameters.Alignment,
             Title = parameters.Title,
             Modal = parameters.Modal,
@@ -579,6 +572,37 @@ public class DialogService : IDialogService
         };
 
         return await ShowDialogAsync(dialogComponent, parameters.Content, dialogParameters);
+    }
+
+    /// <summary>
+    /// Shows a dialog with the component type as the body
+    /// </summary>
+    /// <param name="parameters">Parameters to pass to component being displayed.</param>
+    public async Task<IDialogReference> ShowDialogAsync<T, TContent>(DialogParameters<TContent> parameters)
+        where T : IDialogContentComponent<TContent>
+        where TContent : class
+    {
+        DialogParameters dialogParameters = new()
+        {
+            DialogType = parameters.DialogType,
+            Id = parameters.Id,
+            Alignment = parameters.Alignment,
+            Title = parameters.Title,
+            Modal = parameters.Modal,
+            TrapFocus = parameters.TrapFocus,
+            ShowDismiss = parameters.ShowDismiss,
+            ShowTitle = parameters.ShowTitle,
+            PrimaryAction = parameters.PrimaryAction,
+            PrimaryActionEnabled = parameters.PrimaryActionEnabled,
+            SecondaryAction = parameters.SecondaryAction,
+            SecondaryActionEnabled = parameters.SecondaryActionEnabled,
+            Width = parameters.Width,
+            Height = parameters.Height,
+            AriaLabel = $"{parameters.Title}",
+            OnDialogResult = parameters.OnDialogResult,
+        };
+
+        return await ShowDialogAsync(typeof(T), parameters.Content, dialogParameters);
     }
 
     /// <summary>

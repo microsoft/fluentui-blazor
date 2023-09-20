@@ -1,13 +1,4 @@
-.fluent-dialog-footer-bottom {
-    font-size: 14px;
-    font-weight: normal;
-    margin: 20px;
-    width: calc(100% - 40px);
-    position: fixed;
-    bottom: 0px;
-}
-
-.fluent-dialog-footer-normal {
+.fluent-dialog-footer {
     font-size: 14px;
     font-weight: normal;
     margin: 20px;

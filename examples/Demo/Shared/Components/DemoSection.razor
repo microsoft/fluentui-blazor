@@ -47,12 +47,12 @@
                 }
                 else
                 {
-                    label = Path.GetFileNameWithoutExtension(pair.Key);
+                    label = Path.GetFileName(pair.Key);
                     id = "tab-" + Regex.Replace(label, "[#|/|\\|$|*|^]", "").ToLower() + "-" + @_ariaId;
                 }
                 <FluentTab Id="@id" Label="@label" fixed>
                     <Content>
-                        <CodeSnippet Language="@TabLanguageClass(tab)">@pair.Value</CodeSnippet>
+                        <CodeSnippet Style="@(!string.IsNullOrEmpty(MaxHeight) ? $"max-height: {MaxHeight};" : null)" Language="@TabLanguageClass(tab)">@pair.Value</CodeSnippet>
                     </Content>
                 </FluentTab>
             }

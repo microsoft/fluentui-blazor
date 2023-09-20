@@ -1,9 +1,9 @@
 ﻿@namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentComponentBase
 
-<div class="@(Alignment == HorizontalAlignment.Center ? "fluent-dialog-footer-normal" : "fluent-dialog-footer-bottom")">
+<div class="fluent-dialog-footer">
     <FluentStack Orientation="Orientation.Horizontal"
-                 HorizontalAlignment="@(Alignment == HorizontalAlignment.Center ? HorizontalAlignment.Right : HorizontalAlignment.Left)">
+                 HorizontalAlignment="@(Dialog!.Instance.Parameters.Alignment == HorizontalAlignment.Center ? HorizontalAlignment.Right : HorizontalAlignment.Left)">
         @if (ShowPrimaryAction)
         {
             <FluentButton title="@PrimaryAction"
