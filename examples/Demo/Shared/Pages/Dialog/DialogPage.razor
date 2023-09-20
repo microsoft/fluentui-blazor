@@ -76,7 +76,6 @@
 <p>
     Interaction with parent dialog can be made by injecting FluentDialog as Cascading Parameter. See <code>SimpleDialog.razor</code> for more details.
 </p>
-<DemoSection Title="DialogService with IDialogReference" MaxHeight="500px" Component="@typeof(DialogServiceExample)" AdditionalFiles="@(new[] {"SimpleDialog.razor"})">
 
 <DemoSection Title="Customized Dialog" Component="@typeof(DialogCustomizableExample)" AdditionalFiles="@(new[] {"CustomizedDialog.razor"})">
     <Description>
@@ -85,7 +84,7 @@
     </Description>
 </DemoSection>
 
-<DemoSection Title="DialogService with IDialogReference" Component="@typeof(DialogServiceExample)" AdditionalFiles="@(new[] {"SimpleDialog.razor"})">
+<DemoSection Title="DialogService with IDialogReference" MaxHeight="500px" Component="@typeof(DialogServiceExample)" AdditionalFiles="@(new[] {"SimpleDialog.razor"})">
     <Description>
         This example shows how to use async methods to show a dialog and get the result back from it. 
     </Description>
