@@ -2,22 +2,21 @@
 
 <FluentButton Appearance="Appearance.Accent" OnClick="@OpenAsync">Open dialog</FluentButton>
 
-<p>Name: @DialogData.Name</p>
+<p>Name: @DialogData.Firstname</p>
 
 @code
 {
-    CustomizedDialog.MyData DialogData { get; set; } = new() { Name = "Bill", Age = 42 };
+    SimplePerson DialogData { get; set; } = new() { Firstname = "Bill", Age = 42 };
 
     private async Task OpenAsync()
     {
-        await Task.CompletedTask;
-        // var dialog = await DialogService.ShowDialogAsync(typeof(CustomizedDialog), DialogData, new DialogParameters()
-        //     {
-        //         Height = "300px",
-        //         Title = $"Hello {DialogData.Name}",
-        //     });
+        var dialog = await DialogService.ShowDialogAsync(typeof(SimpleCustomizedDialog), DialogData, new DialogParameters()
+            {
+                Height = "300px",
+                Title = $"Hello {DialogData.Firstname}",
+            });
 
-        // var result = await dialog.Result;
-        // var data = result.Data as CustomizedDialog.MyData;
+        var result = await dialog.Result;
+        var data = result.Data as SimplePerson;
     }
 }

@@ -1,4 +1,15 @@
-﻿fluent-dialog[class~="right"]::part(control) {
+﻿fluent-dialog::part(control) {
+    height: var(--dialog-height);
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+        'dialog-header'
+        'dialog-body'
+        'dialog-footer';
+}
+
+fluent-dialog[class~="right"]::part(control) {
     position: absolute;
     right: 0;
     border-radius: unset;

@@ -1,4 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Fast.Components.FluentUI.Utilities;
 
@@ -11,9 +10,7 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
     private const string DEFAULT_HEIGHT = "unset";
     private DialogParameters _parameters = default!;
     private bool _hidden;
-
-    private readonly RenderFragment _renderDialogHeader;
-    private readonly RenderFragment _renderDialogFooter;
+    private bool _containsHeader = false;
 
     [CascadingParameter]
     private InternalDialogContext? DialogContext { get; set; } = default!;
@@ -105,13 +102,6 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
         .AddStyle("--dialog-height", _parameters.Height ?? DEFAULT_HEIGHT, () => _parameters.Alignment == HorizontalAlignment.Center)
         .Build();
 
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogEventArgs))]
-    public FluentDialog()
-    {
-        _renderDialogHeader = RenderHeaderContent;
-        _renderDialogFooter = RenderFooterContent;
-    }
-
     protected override void OnInitialized()
     {
         if (Instance is null)
@@ -191,5 +181,15 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
         {
             Hide();
         }
+    }
+
+    internal void SetContainsHeader(bool value)
+    {
+        if (value && _containsHeader)
+        {
+            throw new InvalidOperationException($"This {nameof(FluentDialog)} already contains a {nameof(FluentDialogHeader)}");
+        }
+
+        _containsHeader = value;
     }
 }

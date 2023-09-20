@@ -1,4 +1,4 @@
-@implements IDialogContentComponent<MyData>
+@implements IDialogContentComponent<SimplePerson>
 
 @* Header *@
 <FluentDialogHeader ShowDismiss="true" Style="padding: 10px;">
@@ -13,14 +13,14 @@
 </FluentDialogFooter>
 
 @* Body *@
-<FluentDialogBody Style="padding: 10px;">
-    <FluentTextField @bind-Value="@Content.Name">Name:</FluentTextField>
+<div style="padding: 10px;">
+    <FluentTextField @bind-Value="@Content.Firstname">FirstName:</FluentTextField>
     <FluentNumberField @bind-Value="@Content.Age">Age:</FluentNumberField>
-</FluentDialogBody>
+</div>
 
 @code {
     [Parameter]
-    public MyData Content { get; set; } = default!;
+    public SimplePerson Content { get; set; } = default!;
 
     [CascadingParameter]
     public FluentDialog Dialog { get; set; } = default!;
@@ -28,11 +28,5 @@
     private async Task SaveAsync()
     {
         await Dialog.CloseAsync();
-    }
-
-    public class MyData
-    {
-        public string Name { get; set; } = string.Empty;
-        public int Age { get; set; } = 0;
     }
 }

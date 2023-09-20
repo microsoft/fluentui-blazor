@@ -52,20 +52,26 @@ public partial class FluentDialogFooter : FluentComponentBase
     public EventCallback OnSecondaryAction { get; set; }
 
     /// <summary>
+    /// Gets or sets the content to be rendered inside the component.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
     /// Gets whether the primary button is displayed or not. Depends on PrimaryAction having a value.
     /// </summary>
-    private bool ShowPrimaryAction => !string.IsNullOrEmpty(PrimaryAction);
+    // private bool ShowPrimaryAction => !string.IsNullOrEmpty(PrimaryAction);
 
     /// <summary>
     /// Gets whether the secondary button is displayed or not. Depends on SecondaryAction having a value. 
     /// </summary>
-    private bool ShowSecondaryAction => !string.IsNullOrEmpty(SecondaryAction);
+    // private bool ShowSecondaryAction => !string.IsNullOrEmpty(SecondaryAction);
 
-    protected override void OnParametersSet()
+    protected override void OnInitialized()
     {
         if (Dialog is null)
         {
-            throw new ArgumentNullException(nameof(Dialog), "FluentDialogFooter must be used inside FluentDialog");
+            throw new ArgumentNullException(nameof(Dialog), $"{nameof(FluentDialogFooter)} must be used inside {nameof(FluentDialog)}");
         }
     }
 
