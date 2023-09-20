@@ -56,7 +56,7 @@ public partial class DemoSection : ComponentBase
     public string[]? AdditionalFiles { get; set; }
 
     [Parameter]
-    public bool New { get; set; }
+    public string MaxHeight { get; set; } = string.Empty;
 
     /// <summary>
     /// Show download links for the example sources
