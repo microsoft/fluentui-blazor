@@ -56,15 +56,15 @@
 </p>
 <CodeSnippet>
     &lt;main&gt;
-    &lt;nav&gt;
-    :
-    &lt;/nav&gt;
-    &lt;div class=&quot;content&quot;&gt;
-    &lt;article id=&quot;article&quot;&gt;
-    @@Body
-    &lt;/article&gt;
-    &lt;/div&gt;
-    &lt;FluentDialogProvider /&gt;
+        &lt;nav&gt;
+        :
+        &lt;/nav&gt;
+        &lt;div class=&quot;content&quot;&gt;
+            &lt;article id=&quot;article&quot;&gt;
+                @@Body
+            &lt;/article&gt;
+        &lt;/div&gt;
+        &lt;FluentDialogProvider /&gt;
     &lt;/main&gt;
 </CodeSnippet>
 
@@ -76,27 +76,27 @@
 <p>
     Interaction with parent dialog can be made by injecting FluentDialog as Cascading Parameter. See <code>SimpleDialog.razor</code> for more details.
 </p>
-<DemoSection Title="DialogService with IDialogReference" Component="@typeof(DialogServiceExample)" AdditionalFiles="@(new[] {"SimpleDialog.razor"})">
+<DemoSection Title="DialogService with IDialogReference" MaxHeight="500px" Component="@typeof(DialogServiceExample)" AdditionalFiles="@(new[] {"SimpleDialog.razor"})">
     <Description>
         This example shows how to use async methods to show a dialog and get the result back from it. 
     </Description>
 </DemoSection>
 
-<DemoSection Title="DialogService with EventCallback" Component="@typeof(DialogServiceCallbackExample)" AdditionalFiles="@(new[] {"SimpleDialog.razor"})">
+<DemoSection Title="DialogService with EventCallback" MaxHeight="500px" Component="@typeof(DialogServiceCallbackExample)" AdditionalFiles="@(new[] {"SimpleDialog.razor"})">
     <Description>
         This example shows how to use an <code>EventCallback</code> parameter to get data back from the dialog.
     </Description>
 </DemoSection>
 
 
-<DemoSection Title="Dialog without using DialogService" Component="@typeof(DialogDefault)" CollocatedFiles="@(new[] {"css"})">
+<DemoSection Title="Dialog without using DialogService" MaxHeight="500px" Component="@typeof(DialogDefault)" CollocatedFiles="@(new[] {"css"})">
     <Description>
         This example shows a simple dialog created by specifying it's content manually (see the Razor tab). Because of this, the dialog is not automatically styled.
         A CSS file has been added to set the width, heigth and padding of the dialog.
     </Description>
 </DemoSection>
 
-<DemoSection Title="SimpleDialog as component" Component="@typeof(DialogSimpleDialog)">
+<DemoSection Title="SimpleDialog as component" MaxHeight="500px" Component="@typeof(DialogSimpleDialog)">
     <Description>
         For a components to be useable in a dialog, it just needs to inherit from <code>IDialogContentComponent&lt;T&gt;</code>.
         They can still be used as a normal component as well. This example shows the <code>SimpleDialog</code> component from the

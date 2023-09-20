@@ -6,10 +6,14 @@ namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentDialog : FluentComponentBase //, IDisposable
 {
-    private const string DEFAULT_WIDTH = "500px";
+    private const string DEFAULT_DIALOG_WIDTH = "500px";
+    private const string DEFAULT_PANEL_WIDTH = "340px";
     private const string DEFAULT_HEIGHT = "unset";
     private DialogParameters _parameters = default!;
     private bool _hidden;
+
+    private readonly RenderFragment _renderDialogHeader;
+    private readonly RenderFragment _renderDialogFooter;
 
     [CascadingParameter]
     private InternalDialogContext? DialogContext { get; set; } = default!;
@@ -81,18 +85,6 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Content to render in header.
-    /// </summary>
-    [Parameter]
-    public RenderFragment? HeaderTemplate { get; set; }
-
-    /// <summary>
-    /// Content to render in footer.
-    /// </summary>
-    [Parameter]
-    public RenderFragment? FooterTemplate { get; set; }
-
-    /// <summary>
     /// The event callback invoked to return the dialog result.
     /// </summary>
     [Parameter]
@@ -100,22 +92,24 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("fluent-dialog-main")
-        .AddClass("right", () => _parameters.Alignment == HorizontalAlignment.Right)
-        .AddClass("left", () => _parameters.Alignment == HorizontalAlignment.Left)
+        .AddClass("right", () => _parameters.DialogType == DialogType.Panel && _parameters.Alignment == HorizontalAlignment.Right)
+        .AddClass("left", () => _parameters.DialogType == DialogType.Panel && _parameters.Alignment == HorizontalAlignment.Left)
         .Build();
 
     protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("position", "absolute")
         .AddStyle("top", "50%", () => _parameters.Alignment == HorizontalAlignment.Center)
         .AddStyle("left", "50%", () => _parameters.Alignment == HorizontalAlignment.Center)
-        .AddStyle("--dialog-width", _parameters.Width ?? DEFAULT_WIDTH, () => _parameters.Alignment == HorizontalAlignment.Center)
+        .AddStyle("--dialog-width", _parameters.Width ?? DEFAULT_DIALOG_WIDTH, () => _parameters.Alignment == HorizontalAlignment.Center)
+        .AddStyle("--dialog-width", _parameters.Width ?? DEFAULT_PANEL_WIDTH, () => _parameters.DialogType == DialogType.Panel)
         .AddStyle("--dialog-height", _parameters.Height ?? DEFAULT_HEIGHT, () => _parameters.Alignment == HorizontalAlignment.Center)
         .Build();
 
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogEventArgs))]
     public FluentDialog()
     {
-
+        _renderDialogHeader = RenderHeaderContent;
+        _renderDialogFooter = RenderFooterContent;
     }
 
     protected override void OnInitialized()
