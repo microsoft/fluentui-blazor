@@ -198,9 +198,11 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
         if (string.IsNullOrEmpty(localPath))
             localPath = "/";
 
+        
+        localPath = (localPath + "/").Replace("//", "/");   
         FluentNavMenuItemBase? menuItem = _allItems.Values
             .Where(x => !string.IsNullOrEmpty(x.Href))
-            .FirstOrDefault(x => x.Href != "/" && localPath.StartsWith(x.Href!, StringComparison.InvariantCultureIgnoreCase));
+            .FirstOrDefault(x => x.Href != "/" && localPath.StartsWith((x.Href! + "/").Replace("//", "/"), StringComparison.InvariantCultureIgnoreCase));
 
         if (menuItem is not null) 
         {
