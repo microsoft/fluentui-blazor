@@ -1823,18 +1823,6 @@
             Used when not calling the <see cref="T:Microsoft.Fast.Components.FluentUI.DialogService" /> to show a dialog.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.HeaderTemplate">
-            <summary>
-            Content to render in header.
-            If not provided, the default header will be rendered.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.FooterTemplate">
-            <summary>
-            Content to render in footer.
-            If not provided, the default footer will be rendered.
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.OnDialogResult">
             <summary>
             The event callback invoked to return the dialog result.
@@ -1992,16 +1980,6 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.AriaLabel">
             <summary>
             The value that labels an interactive element.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.HeaderTemplate">
-            <summary>
-            Template for the dialog header.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.FooterTemplate">
-            <summary>
-            Template for the dialog footer.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.DialogType">
@@ -3526,7 +3504,8 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.OptionValue">
             <summary>
-            Function used to determine which text to return for the selected item.
+            Function used to determine which value to return for the selected item.
+            Only for <see cref="T:Microsoft.Fast.Components.FluentUI.FluentListbox`1"/> and <see cref="T:Microsoft.Fast.Components.FluentUI.FluentSelect`1"/> components.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.OptionDisabled">

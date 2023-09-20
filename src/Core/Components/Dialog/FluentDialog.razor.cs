@@ -129,8 +129,6 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
         else
         {
             _parameters = Instance.Parameters;
-            HeaderTemplate = _parameters.HeaderTemplate;
-            FooterTemplate = _parameters.FooterTemplate;
         }
     }
 

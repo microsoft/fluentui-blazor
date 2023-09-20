@@ -254,8 +254,6 @@ public class DialogService : IDialogService
             Height = parameters.Height,
             AriaLabel = $"{parameters.Title}",
             OnDialogResult = parameters.OnDialogResult,
-            HeaderTemplate = parameters.HeaderTemplate,
-            FooterTemplate = parameters.FooterTemplate
         };
 
         ShowDialog(typeof(T), parameters.Content, dialogParameters);
@@ -602,8 +600,6 @@ public class DialogService : IDialogService
             Height = parameters.Height,
             AriaLabel = $"{parameters.Title}",
             OnDialogResult = parameters.OnDialogResult,
-            HeaderTemplate = parameters.HeaderTemplate,
-            FooterTemplate = parameters.FooterTemplate,
         };
 
         return await ShowDialogAsync(typeof(T), parameters.Content, dialogParameters);
