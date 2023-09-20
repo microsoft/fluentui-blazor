@@ -2,19 +2,29 @@
 @inherits FluentComponentBase
 
 <FluentStack Orientation="Orientation.Horizontal"
-             VerticalAlignment="VerticalAlignment.Center"
-             Style="@($"grid-area: dialog-header; width: 100%; {Style}")"
-             Class="@Class"
-             Id="@Id">
-    @if (ShowDismiss == true)
+                VerticalAlignment="VerticalAlignment.Top"
+                Style="@StyleValue"
+                Class="@ClassValue"
+                Id="@Id">
+    @if (ShowDismiss == true || ShowTitle == true)
     {
-        <div style="width: 100%">@ChildContent</div>
-        <FluentButton Appearance="Appearance.Stealth" @onclick="@(() => Dialog.CancelAsync())">
+        <div style="width: 100%;">
+            @if (ShowTitle == true && !string.IsNullOrEmpty(Title))
+            {
+                <FluentLabel Typo="Typography.PaneHeader">@Title</FluentLabel>
+            }
+            @ChildContent
+        </div>
+        <FluentButton Appearance="Appearance.Stealth" OnClick="@(() => Dialog.CancelAsync())">
             <FluentIcon Icon="CoreIcons.Regular.Size24.Dismiss" Width="16px" />
         </FluentButton>
     }
     else
     {
+        @if (ShowTitle == true && !string.IsNullOrEmpty(Title))
+        {
+            <FluentLabel Typo="Typography.PaneHeader">@Title</FluentLabel>
+        }
         @ChildContent
     }
 </FluentStack>

@@ -52,8 +52,6 @@ public class DialogParameters : ComponentParameters, IDialogParameters
     /// </summary>
     public bool PrimaryActionEnabled { get; set; } = true;
 
-    //public EventCallback<DialogResult>? OnPrimaryAction { get; set; } = default!;
-
     /// <summary>
     /// Text to display for the secondary action.
     /// </summary>
@@ -63,8 +61,6 @@ public class DialogParameters : ComponentParameters, IDialogParameters
     /// When true, secondary action's button is enabled.
     /// </summary>
     public bool SecondaryActionEnabled { get; set; } = true;
-
-    //public EventCallback<DialogResult>? OnSecondaryAction { get; set; } = default!;
 
     /// <summary>
     /// Width of the dialog. Must be a valid CSS width value like "600px" or "3em"

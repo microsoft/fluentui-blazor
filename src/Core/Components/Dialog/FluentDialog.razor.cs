@@ -10,7 +10,7 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
     private const string DEFAULT_HEIGHT = "unset";
     private DialogParameters _parameters = default!;
     private bool _hidden;
-    private bool _containsHeader = false;
+    internal FluentDialogHeader? _dialogHeader;
 
     [CascadingParameter]
     private InternalDialogContext? DialogContext { get; set; } = default!;
@@ -183,13 +183,19 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
         }
     }
 
-    internal void SetContainsHeader(bool value)
+    internal void SetContainsHeader(FluentDialogHeader header)
     {
-        if (value && _containsHeader)
+        if (_dialogHeader != null && !IsDefaultDialogHeader)
         {
             throw new InvalidOperationException($"This {nameof(FluentDialog)} already contains a {nameof(FluentDialogHeader)}");
         }
 
-        _containsHeader = value;
+        _dialogHeader = header;
+        StateHasChanged();
     }
+
+    /// <summary />
+    private bool IsDefaultDialogHeader => _dialogHeader == null ||
+                                           _dialogHeader?.Data?.ToString() == FluentDialogHeader.DefaultDialogHeaderIdentifier;
+
 }

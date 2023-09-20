@@ -1,6 +1,8 @@
 ﻿@implements IDialogContentComponent<SimplePerson>
 
-<FluentMessageBarContainer Section="@App.MESSAGES_DIALOG" MaxMessageCount="1" />
+Hello World
+
+@* <FluentMessageBarContainer Section="@App.MESSAGES_DIALOG" MaxMessageCount="1" />
 
 <p>Your lastname is @Content.Lastname and you are @Content.Age years young </p>
 
@@ -16,6 +18,7 @@
         <FluentButton OnClick="@(() => ToggleDialogPrimaryActionButton(false))">Disable Dialog Primary Action</FluentButton>
     </FluentStack>
 }
+*@
 
 @code {
     [Parameter]

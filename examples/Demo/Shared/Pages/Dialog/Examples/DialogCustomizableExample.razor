@@ -13,7 +13,7 @@
         var dialog = await DialogService.ShowDialogAsync(typeof(SimpleCustomizedDialog), DialogData, new DialogParameters()
             {
                 Height = "300px",
-                Title = $"Hello {DialogData.Firstname}",
+                Title = $"Edition of the {DialogData.Firstname} sheet",
             });
 
         var result = await dialog.Result;

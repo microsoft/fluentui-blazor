@@ -27,11 +27,11 @@ fluent-dialog[class~="left"]::part(control) {
     --dialog-height: 100%;
 }
 
-.fluent-dialog-main {
+/*.fluent-dialog-main {
     pointer-events: auto;
     z-index: 9999;
 }
-
+*/
 
 .fluent-dialog-content {
     font-family: var(--body-font);

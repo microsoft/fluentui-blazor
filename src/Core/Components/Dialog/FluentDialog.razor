@@ -15,6 +15,13 @@
                    aria-label=@(_parameters.AriaLabel ?? AriaLabel)
                    @attributes=@AdditionalAttributes>
 
+        @* Default header *@
+        @if (IsDefaultDialogHeader)
+        {
+            <FluentDialogHeader Data="@FluentDialogHeader.DefaultDialogHeaderIdentifier" />
+        }
+
+        @* Content *@
         @if (Instance is null)
         {
             @ChildContent

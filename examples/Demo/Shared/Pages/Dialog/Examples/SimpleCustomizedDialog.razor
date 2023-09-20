@@ -1,10 +1,13 @@
 @implements IDialogContentComponent<SimplePerson>
 
 @* Header *@
-<FluentDialogHeader ShowDismiss="true" Style="padding: 10px;">
-    <FluentLabel Typo="Typography.PaneHeader">
-        @Dialog.Instance.Parameters.Title
-    </FluentLabel>
+<FluentDialogHeader ShowDismiss="true" ShowTitle="false">
+    <FluentStack VerticalAlignment="VerticalAlignment.Center">
+        <FluentIcon Value="@(new Icons.Regular.Size24.WindowApps())" />
+        <FluentLabel Typo="Typography.PaneHeader">
+            @Dialog.Instance.Parameters.Title
+        </FluentLabel>
+    </FluentStack>
 </FluentDialogHeader>
 
 @* Footer *@
