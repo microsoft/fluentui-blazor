@@ -41,6 +41,12 @@ public partial class FluentDialogHeader : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary />
+    internal void Refresh()
+    {
+        StateHasChanged();
+    }
+
+    /// <summary />
     protected override void OnInitialized()
     {
         if (Dialog is null)

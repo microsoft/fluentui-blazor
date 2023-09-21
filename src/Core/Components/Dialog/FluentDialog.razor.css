@@ -61,32 +61,3 @@ fluent-dialog ::deep .fluent-dialog-body {
     width: 100%;
     padding: var(--dialog-padding) 0px 0px 0px !important;
 }
-
-/*.fluent-dialog-main {
-    pointer-events: auto;
-    z-index: 9999;
-}*/
-
-/*.fluent-dialog-content {
-    font-family: var(--body-font);
-    -webkit-font-smoothing: antialiased;
-    color: rgb(50, 49, 48);
-    line-height: 27px;
-    overflow-wrap: break-word;
-    word-break: break-word;
-    hyphens: auto;
-    overflow: hidden;
-}
-
-    .fluent-dialog-content .fluent-dialog-body {
-        height: calc(100% - 150px);
-        margin: 0px 20px 0px 20px;
-        width: calc(100% - 40px);
-        overflow: auto;
-    }
-
-    .fluent-dialog-content .fluent-dialog-body[nofooter] {
-        height: calc(100% - 80px);
-    }
-
-*/
