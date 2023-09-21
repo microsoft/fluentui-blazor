@@ -9,6 +9,9 @@
         dialog.
     </p>
     <p>
+        When 'Prevent scroll' is checked, the body of the page will not be scrollable when the dialog is shown. 
+    </p>
+    <p>
         Hidden is bound to dialog visibility. You can show/hide dialog by changing this property or calling <code>Show()</code> / <code>Hide()</code>
         on component reference.
     </p>
@@ -18,12 +21,15 @@
     <FluentCheckbox Name="trap" @bind-Value="_trapFocus">
         Trap focus
     </FluentCheckbox>
+    <FluentCheckbox Name="prevent" @bind-Value="_preventScroll">
+        Prevent scroll
+    </FluentCheckbox>
     <FluentCheckbox Name="hidden" @bind-Value="Hidden" Readonly="true">
         Hidden
     </FluentCheckbox>
 </div>
 <div>
-    <FluentDialog @ref="_myFluentDialog" @bind-Hidden="@Hidden" aria-label="Simple dialog" Modal=@_modal TrapFocus=@_trapFocus @ondialogdismiss=OnDismiss>
+    <FluentDialog @ref="_myFluentDialog" @bind-Hidden="@Hidden" aria-label="Simple dialog" Modal=@_modal TrapFocus=@_trapFocus PreventScroll=@_preventScroll @ondialogdismiss=OnDismiss>
         <h2>Just a simple dialog</h2>
         <p>The 'Close dialog' button is automatically focused.</p>
         <p>The 'Another button' doesn't do anything other than showing it can receive focus.</p>
@@ -41,6 +47,7 @@
     private FluentDialog? _myFluentDialog;
     private bool _trapFocus = true;
     private bool _modal = true;
+    private bool _preventScroll = true;
     private string? _status;
     private bool Hidden { get; set; } = true;
 
