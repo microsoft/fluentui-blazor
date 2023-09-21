@@ -1,7 +1,7 @@
 @implements IDialogContentComponent<SimplePerson>
 
 @* Header *@
-<FluentDialogHeader ShowDismiss="true" ShowTitle="false">
+<FluentDialogHeader ShowDismiss="true">
     <FluentStack VerticalAlignment="VerticalAlignment.Center">
         <FluentIcon Value="@(new Icons.Regular.Size24.WindowApps())" />
         <FluentLabel Typo="Typography.PaneHeader">
@@ -11,15 +11,15 @@
 </FluentDialogHeader>
 
 @* Footer *@
-<FluentDialogFooter Style="padding: 10px;">
+<FluentDialogFooter>
     <FluentButton Appearance="Appearance.Accent" OnClick="@SaveAsync">Close</FluentButton>
 </FluentDialogFooter>
 
 @* Body *@
-<div style="padding: 10px;">
+<FluentDialogBody>
     <FluentTextField @bind-Value="@Content.Firstname">FirstName:</FluentTextField>
     <FluentNumberField @bind-Value="@Content.Age">Age:</FluentNumberField>
-</div>
+</FluentDialogBody>
 
 @code {
     [Parameter]

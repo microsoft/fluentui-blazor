@@ -11,6 +11,7 @@ namespace Microsoft.Fast.Components.FluentUI
         bool? TrapFocus { get; set; }
         bool ShowTitle { get; set; }
         bool ShowDismiss { get; set; }
+        string? DismissTitle { get; set; }
         string? PrimaryAction { get; set; }
         bool PrimaryActionEnabled { get; set; }
         string? SecondaryAction { get; set; }
