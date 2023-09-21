@@ -5,7 +5,7 @@ using Microsoft.JSInterop;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentDialog : FluentComponentBase //, IDisposable
+public partial class FluentDialog : FluentComponentBase, IAsyncDisposable
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.Fast.Components.FluentUI/Components/Overlay/FluentOverlay.razor.js";
 
@@ -211,9 +211,20 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
         {
             Hide();
         }
-        if (PreventScroll && Module is not null) 
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        try
         {
-            await Module.InvokeVoidAsync("enableBodyScroll");
+            if (Module is not null && PreventScroll)
+            {
+                await Module!.InvokeVoidAsync("enableBodyScroll");
+                await Module.DisposeAsync();
+            }
+        }
+        catch (TaskCanceledException)
+        {
         }
     }
 }
