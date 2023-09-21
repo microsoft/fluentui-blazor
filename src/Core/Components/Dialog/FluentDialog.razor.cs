@@ -5,10 +5,8 @@ using Microsoft.JSInterop;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentDialog : FluentComponentBase, IAsyncDisposable
+public partial class FluentDialog : FluentComponentBase
 {
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.Fast.Components.FluentUI/Components/Overlay/FluentOverlay.razor.js";
-
     private const string DEFAULT_DIALOG_WIDTH = "500px";
     private const string DEFAULT_PANEL_WIDTH = "340px";
     private const string DEFAULT_HEIGHT = "unset";
@@ -18,20 +16,14 @@ public partial class FluentDialog : FluentComponentBase, IAsyncDisposable
     private readonly RenderFragment _renderDialogHeader;
     private readonly RenderFragment _renderDialogFooter;
 
-    /// <summary />
-    [Inject]
-    private IJSRuntime JS { get; set; } = default!;
-
-    /// <summary />
-    private IJSObjectReference Module { get; set; } = default!;
-
     [CascadingParameter]
     private InternalDialogContext? DialogContext { get; set; } = default!;
 
     /// <summary>
-    /// Prevents scrolling outside of the dialog while open.
+    /// Prevents scrolling outside of the dialog while it is shown.
     /// </summary>
-    public bool PreventScroll { get; set; } = true;
+    [Parameter]
+    public bool PreventScroll { get; set; } = false;
 
     /// <summary>
     /// Indicates the element is modal. When modal, user mouse interaction will be limited to the contents of the element by a modal
@@ -109,6 +101,7 @@ public partial class FluentDialog : FluentComponentBase, IAsyncDisposable
         .AddClass("fluent-dialog-main")
         .AddClass("right", () => _parameters.DialogType == DialogType.Panel && _parameters.Alignment == HorizontalAlignment.Right)
         .AddClass("left", () => _parameters.DialogType == DialogType.Panel && _parameters.Alignment == HorizontalAlignment.Left)
+        .AddClass("prevent-scroll", _parameters.PreventScroll)
         .Build();
 
     protected string? StyleValue => new StyleBuilder(Style)
@@ -152,11 +145,6 @@ public partial class FluentDialog : FluentComponentBase, IAsyncDisposable
         if (firstRender)
         {
             await Element.FocusAsync();
-            Module = await JS.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
-            if (PreventScroll && !_hidden)
-            {
-                await Module.InvokeVoidAsync("disableBodyScroll");
-            }
         }
     }
 
@@ -210,21 +198,6 @@ public partial class FluentDialog : FluentComponentBase, IAsyncDisposable
         else
         {
             Hide();
-        }
-    }
-
-    public async ValueTask DisposeAsync()
-    {
-        try
-        {
-            if (Module is not null && PreventScroll)
-            {
-                await Module!.InvokeVoidAsync("enableBodyScroll");
-                await Module.DisposeAsync();
-            }
-        }
-        catch (TaskCanceledException)
-        {
         }
     }
 }

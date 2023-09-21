@@ -100,7 +100,7 @@ public interface IDialogService
     Task<IDialogReference> UpdateDialogAsync<TContent>(string id, DialogParameters<TContent> parameters)
         where TContent : class;
 
-    public EventCallback<DialogResult> CreateDialogCallback(object receiver, Func<DialogResult, Task> callback);
+    EventCallback<DialogResult> CreateDialogCallback(object receiver, Func<DialogResult, Task> callback);
 
     Task CloseAsync(DialogReference dialog);
 

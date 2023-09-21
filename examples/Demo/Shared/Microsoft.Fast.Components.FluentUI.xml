@@ -1777,15 +1777,9 @@
         <member name="T:Microsoft.Fast.Components.FluentUI.MessageBox">
             <summary />
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.JS">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.Module">
-            <summary />
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.PreventScroll">
             <summary>
-            Prevents scrolling outside of the dialog while open.
+            Prevents scrolling outside of the dialog while it is shown.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.Modal">
@@ -1923,6 +1917,11 @@
             Determines if the dialog is modal. Defaults to true.
             When true, clicking outside the dialog will dismiss the dialog.
             </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.PreventScroll">
+            <summary>
+            Prevents scrolling outside of the dialog while it is shown.
+            </summary>to use
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.TrapFocus">
             <summary>
@@ -4577,13 +4576,10 @@
         <member name="T:Microsoft.Fast.Components.FluentUI.FluentOverlay">
             <summary />
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOverlay.ClassValue">
+            <summary />
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentOverlay.StyleValue">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOverlay.JS">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOverlay.Module">
             <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentOverlay.Visible">

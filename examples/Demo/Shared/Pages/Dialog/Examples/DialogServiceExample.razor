@@ -49,6 +49,7 @@
             Content = simplePerson,
             TrapFocus = _trapFocus,
             Modal = _modal,
+            PreventScroll = true 
         };
 
         IDialogReference dialog = await DialogService.ShowDialogAsync<SimpleDialog, SimplePerson>(parameters);

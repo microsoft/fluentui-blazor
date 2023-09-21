@@ -9,12 +9,15 @@ using Microsoft.JSInterop;
 namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary />
-public partial class FluentOverlay : IAsyncDisposable
+public partial class FluentOverlay
 {
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.Fast.Components.FluentUI/Components/Overlay/FluentOverlay.razor.js";
-    
     private string? _color = null;
     private int _r, _g, _b;
+
+    /// <summary />
+    protected string? ClassValue => new CssBuilder("fluent-overlay")
+        .AddClass("prevent-scroll", PreventScroll)
+        .Build();
 
     /// <summary />
     protected string? StyleValue => new StyleBuilder()
@@ -25,13 +28,6 @@ public partial class FluentOverlay : IAsyncDisposable
         .AddStyle("position", "absolute", () => !FullScreen)
         .AddStyle("z-index", $"{ZIndex.Overlay}")
         .Build();
-
-    /// <summary />
-    [Inject]
-    private IJSRuntime JS { get; set; } = default!;
-
-    /// <summary />
-    private IJSObjectReference Module { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets if the overlay is visible.
@@ -100,19 +96,8 @@ public partial class FluentOverlay : IAsyncDisposable
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            Module = await JS.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
-            if (Visible)
-            {
-                await Module.InvokeVoidAsync("disableBodyScroll");
-            }
-        }
-    }
-
-    protected override async Task OnParametersSetAsync()
+   
+    protected override void OnParametersSet()
     {
         if (!Transparent && Opacity == 0)
         {
@@ -149,11 +134,6 @@ public partial class FluentOverlay : IAsyncDisposable
                 _b = int.Parse(_color[2..], NumberStyles.HexNumber);
             }
         }
-
-        if (Visible && Module is not null)
-        {
-            await Module.InvokeVoidAsync("disableBodyScroll");
-        }
     }
 
     protected async Task OnCloseHandlerAsync(MouseEventArgs e)
@@ -175,24 +155,7 @@ public partial class FluentOverlay : IAsyncDisposable
             await OnClose.InvokeAsync(e);
         }
 
-        await Module.InvokeVoidAsync("enableBodyScroll");
-
         return;
-    }
-
-    public async ValueTask DisposeAsync()
-    {
-        try
-        {
-            if (Module is not null)
-            {
-                await Module!.InvokeVoidAsync("enableBodyScroll");
-                await Module.DisposeAsync();
-            }
-        }
-        catch (TaskCanceledException)
-        {
-        }
     }
 
 #if NET7_0_OR_GREATER

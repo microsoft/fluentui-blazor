@@ -70,12 +70,12 @@ public partial class FluentDialogProvider : IDisposable
         };
     }
 
-    private async Task<IDialogReference> UpdateDialogAsync(string? dialogId, DialogParameters parameters)
+    private async Task<IDialogReference?> UpdateDialogAsync(string? dialogId, DialogParameters parameters)
     {
         return await Task.Run(() =>
         {
-            IDialogReference reference = _internalDialogContext.References.SingleOrDefault(x => x.Id == dialogId)!;
-            DialogInstance? dialogInstance = reference.Instance;
+            IDialogReference? reference = _internalDialogContext.References.SingleOrDefault(x => x.Id == dialogId)!;
+            DialogInstance? dialogInstance = reference?.Instance;
 
             if (dialogInstance is not null)
             {
@@ -89,8 +89,8 @@ public partial class FluentDialogProvider : IDisposable
 
     internal void DismissInstance(string id, DialogResult result)
     {
-        var reference = GetDialogReference(id);
-        if (reference != null)
+       IDialogReference? reference = GetDialogReference(id);
+        if (reference is not null)
         {
             DismissInstance(reference, result);
         }

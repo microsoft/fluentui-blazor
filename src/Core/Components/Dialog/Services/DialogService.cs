@@ -72,14 +72,14 @@ public class DialogService : IDialogService
     {
         Content = new MessageBoxContent()
         {
-            Title = string.IsNullOrWhiteSpace(title) ? "Success!" /*DialogResources.TitleError*/ : title,
+            Title = string.IsNullOrWhiteSpace(title) ? "Success!" : title,
             Intent = MessageBoxIntent.Success,
             Icon = new CoreIcons.Filled.Size24.CheckmarkCircle(),
             IconColor = Color.Success,
             Message = message,
         },
         DialogType = DialogType.MessageBox,
-        PrimaryAction = "Ok", /*DialogResources.ButtonOK,*/
+        PrimaryAction = "Ok", 
         SecondaryAction = string.Empty,
     });
 
@@ -92,15 +92,16 @@ public class DialogService : IDialogService
     {
         Content = new MessageBoxContent()
         {
-            Title = string.IsNullOrWhiteSpace(title) ? "Warning!" /*DialogResources.TitleError*/ : title,
+            Title = string.IsNullOrWhiteSpace(title) ? "Warning!" : title,
             Intent = MessageBoxIntent.Warning,
             Icon = new CoreIcons.Filled.Size24.Warning(),
             IconColor = Color.Warning,
             Message = message,
         },
         DialogType = DialogType.MessageBox,
-        PrimaryAction = "Ok", /*DialogResources.ButtonOK,*/
+        PrimaryAction = "Ok", 
         SecondaryAction = string.Empty,
+        PreventScroll = true,
     });
 
     /// <summary>
@@ -112,14 +113,14 @@ public class DialogService : IDialogService
     {
         Content = new MessageBoxContent()
         {
-            Title = string.IsNullOrWhiteSpace(title) ? "Error!" /*DialogResources.TitleError*/ : title,
+            Title = string.IsNullOrWhiteSpace(title) ? "Error!" : title,
             Intent = MessageBoxIntent.Error,
             Icon = new CoreIcons.Filled.Size24.DismissCircle(),
             IconColor = Color.Error,
             Message = message,
         },
         DialogType = DialogType.MessageBox,
-        PrimaryAction = "Ok", /*DialogResources.ButtonOK,*/
+        PrimaryAction = "Ok", 
         SecondaryAction = string.Empty,
     });
 
@@ -132,14 +133,14 @@ public class DialogService : IDialogService
     {
         Content = new MessageBoxContent()
         {
-            Title = string.IsNullOrWhiteSpace(title) ? "Information" /*DialogResources.TitleInformation*/ : title,
+            Title = string.IsNullOrWhiteSpace(title) ? "Information" : title,
             Intent = MessageBoxIntent.Info,
             Icon = new CoreIcons.Filled.Size24.Info(),
             IconColor = Color.Info,
             Message = message,
         },
         DialogType = DialogType.MessageBox,
-        PrimaryAction = "Ok", /*DialogResources.ButtonOK,*/
+        PrimaryAction = "Ok", 
         SecondaryAction = string.Empty,
     });
 
@@ -165,8 +166,8 @@ public class DialogService : IDialogService
                 Message = message,
             },
             DialogType = DialogType.MessageBox,
-            PrimaryAction = primaryText, /*DialogResources.ButtonYes,*/
-            SecondaryAction = secondaryText, /*DialogResources.ButtonNo,*/
+            PrimaryAction = primaryText, 
+            SecondaryAction = secondaryText,
             OnDialogResult = EventCallback.Factory.Create(receiver, callback)
         });
 
@@ -183,6 +184,7 @@ public class DialogService : IDialogService
             Alignment = HorizontalAlignment.Center,
             Title = parameters.Content.Title,
             Modal = string.IsNullOrEmpty(parameters.SecondaryAction),
+            PreventScroll = parameters.PreventScroll,
             ShowDismiss = false,
             PrimaryAction = parameters.PrimaryAction,
             SecondaryAction = parameters.SecondaryAction,
@@ -244,6 +246,7 @@ public class DialogService : IDialogService
             Alignment = parameters.Alignment,
             Title = parameters.Title,
             Modal = parameters.Modal,
+            PreventScroll = parameters.PreventScroll,
             ShowDismiss = parameters.ShowDismiss,
             ShowTitle = parameters.ShowTitle,
             PrimaryAction = parameters.PrimaryAction,
@@ -252,7 +255,7 @@ public class DialogService : IDialogService
             SecondaryActionEnabled = parameters.SecondaryActionEnabled,
             Width = parameters.Width,
             Height = parameters.Height,
-            AriaLabel = $"{parameters.Title}",
+            AriaLabel = parameters.Title,
             OnDialogResult = parameters.OnDialogResult,
         };
 
@@ -389,14 +392,14 @@ public class DialogService : IDialogService
     {
         Content = new MessageBoxContent()
         {
-            Title = string.IsNullOrWhiteSpace(title) ? "Success!" /*DialogResources.TitleError*/ : title,
+            Title = string.IsNullOrWhiteSpace(title) ? "Success!" : title,
             Intent = MessageBoxIntent.Success,
             Icon = new CoreIcons.Filled.Size24.CheckmarkCircle(),
             IconColor = Color.Success,
             Message = message,
         },
         DialogType = DialogType.MessageBox,
-        PrimaryAction = "Ok", /*DialogResources.ButtonOK,*/
+        PrimaryAction = "Ok", 
         SecondaryAction = string.Empty,
     });
 
@@ -485,8 +488,8 @@ public class DialogService : IDialogService
                 Message = message,
             },
             DialogType = DialogType.MessageBox,
-            PrimaryAction = primaryText, /*DialogResources.ButtonYes,*/
-            SecondaryAction = secondaryText, /*DialogResources.ButtonNo,*/
+            PrimaryAction = primaryText, 
+            SecondaryAction = secondaryText,
             OnDialogResult = EventCallback.Factory.Create(receiver, callback)
         });
 
@@ -510,8 +513,8 @@ public class DialogService : IDialogService
                 Message = message,
             },
             DialogType = DialogType.MessageBox,
-            PrimaryAction = primaryText, /*DialogResources.ButtonYes,*/
-            SecondaryAction = secondaryText, /*DialogResources.ButtonNo,*/
+            PrimaryAction = primaryText, 
+            SecondaryAction = secondaryText,
         });
 
     /// <summary>
@@ -521,18 +524,20 @@ public class DialogService : IDialogService
     /// <param name="parameters">Parameters to pass to component being displayed.</param>
     public async Task<IDialogReference> ShowMessageBoxAsync(DialogParameters<MessageBoxContent> parameters)
     {
+
         DialogParameters dialogParameters = new()
         {
             DialogType = DialogType.MessageBox,
             Alignment = HorizontalAlignment.Center,
             Title = parameters.Content.Title,
             Modal = string.IsNullOrEmpty(parameters.SecondaryAction),
+            PreventScroll = parameters.PreventScroll,
             ShowDismiss = false,
             PrimaryAction = parameters.PrimaryAction,
             SecondaryAction = parameters.SecondaryAction,
             Width = parameters.Width,
             Height = parameters.Height,
-            AriaLabel = $"{parameters.Content.Title}",
+            AriaLabel = parameters.Content.Title,
             OnDialogResult = parameters.OnDialogResult,
         };
 
@@ -562,12 +567,13 @@ public class DialogService : IDialogService
             Alignment = parameters.Alignment,
             Title = parameters.Title,
             Modal = parameters.Modal,
+            PreventScroll = parameters.PreventScroll,
             ShowTitle = parameters.ShowTitle,
             ShowDismiss = parameters.ShowDismiss,
             PrimaryAction = parameters.PrimaryAction,
             SecondaryAction = parameters.SecondaryAction,
             Width = parameters.Width,
-            AriaLabel = $"{parameters.Title}",
+            AriaLabel = parameters.Title,
             OnDialogResult = parameters.OnDialogResult,
         };
 
@@ -589,6 +595,7 @@ public class DialogService : IDialogService
             Alignment = parameters.Alignment,
             Title = parameters.Title,
             Modal = parameters.Modal,
+            PreventScroll = parameters.PreventScroll,
             TrapFocus = parameters.TrapFocus,
             ShowDismiss = parameters.ShowDismiss,
             ShowTitle = parameters.ShowTitle,
@@ -598,7 +605,7 @@ public class DialogService : IDialogService
             SecondaryActionEnabled = parameters.SecondaryActionEnabled,
             Width = parameters.Width,
             Height = parameters.Height,
-            AriaLabel = $"{parameters.Title}",
+            AriaLabel = parameters.Title,
             OnDialogResult = parameters.OnDialogResult,
         };
 
