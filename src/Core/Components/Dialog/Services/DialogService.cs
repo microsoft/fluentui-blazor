@@ -79,7 +79,7 @@ public class DialogService : IDialogService
             Message = message,
         },
         DialogType = DialogType.MessageBox,
-        PrimaryAction = "Ok", /*DialogResources.ButtonOK,*/
+        PrimaryAction = "OK", /*DialogResources.ButtonOK,*/
         SecondaryAction = string.Empty,
     });
 
@@ -99,7 +99,7 @@ public class DialogService : IDialogService
             Message = message,
         },
         DialogType = DialogType.MessageBox,
-        PrimaryAction = "Ok", /*DialogResources.ButtonOK,*/
+        PrimaryAction = "OK", /*DialogResources.ButtonOK,*/
         SecondaryAction = string.Empty,
     });
 
@@ -119,7 +119,7 @@ public class DialogService : IDialogService
             Message = message,
         },
         DialogType = DialogType.MessageBox,
-        PrimaryAction = "Ok", /*DialogResources.ButtonOK,*/
+        PrimaryAction = "OK", /*DialogResources.ButtonOK,*/
         SecondaryAction = string.Empty,
     });
 
@@ -139,7 +139,7 @@ public class DialogService : IDialogService
             Message = message,
         },
         DialogType = DialogType.MessageBox,
-        PrimaryAction = "Ok", /*DialogResources.ButtonOK,*/
+        PrimaryAction = "OK", /*DialogResources.ButtonOK,*/
         SecondaryAction = string.Empty,
     });
 
@@ -396,7 +396,7 @@ public class DialogService : IDialogService
             Message = message,
         },
         DialogType = DialogType.MessageBox,
-        PrimaryAction = "Ok", /*DialogResources.ButtonOK,*/
+        PrimaryAction = "OK", /*DialogResources.ButtonOK,*/
         SecondaryAction = string.Empty,
     });
 
@@ -417,7 +417,7 @@ public class DialogService : IDialogService
             Message = message,
         },
         DialogType = DialogType.MessageBox,
-        PrimaryAction = "Ok", /*DialogResources.ButtonOK,*/
+        PrimaryAction = "OK", /*DialogResources.ButtonOK,*/
         SecondaryAction = string.Empty,
     });
 
@@ -438,7 +438,7 @@ public class DialogService : IDialogService
             Message = message,
         },
         DialogType = DialogType.MessageBox,
-        PrimaryAction = "Ok", /*DialogResources.ButtonOK,*/
+        PrimaryAction = "OK", /*DialogResources.ButtonOK,*/
         SecondaryAction = string.Empty,
     });
 
@@ -459,7 +459,7 @@ public class DialogService : IDialogService
             Message = message,
         },
         DialogType = DialogType.MessageBox,
-        PrimaryAction = "Ok", /*DialogResources.ButtonOK,*/
+        PrimaryAction = "OK", /*DialogResources.ButtonOK,*/
         SecondaryAction = string.Empty,
     });
 

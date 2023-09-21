@@ -4,6 +4,8 @@
     padding: 0px var(--dialog-padding);
     width: calc(var(--dialog-width) - 2 * var(--dialog-padding));
     height: calc(var(--dialog-height) - 2 * var(--dialog-padding));
+    max-width: 90%;
+    max-height: 90%;
 }
 
 fluent-dialog:has(div[class~="fluent-dialog-body"])::part(control) {
