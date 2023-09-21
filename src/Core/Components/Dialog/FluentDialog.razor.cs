@@ -179,21 +179,6 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
         RefreshHeaderFooter();
     }
 
-    private void RefreshHeaderFooter()
-    {
-        StateHasChanged();
-
-        if (_dialogHeader != null)
-        {
-            _dialogHeader.Refresh();
-        }
-
-        if (_dialogFooter != null)
-        {
-            _dialogFooter.Refresh();
-        }
-    }
-
     /// <summary>
     /// Closes the dialog with a cancel result.
     /// </summary>
@@ -261,6 +246,22 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
 
         _dialogFooter = footer;
         StateHasChanged();
+    }
+
+    /// <summary />
+    private void RefreshHeaderFooter()
+    {
+        StateHasChanged();
+
+        if (_dialogHeader != null)
+        {
+            _dialogHeader.Refresh();
+        }
+
+        if (_dialogFooter != null)
+        {
+            _dialogFooter.Refresh();
+        }
     }
 
     /// <summary />

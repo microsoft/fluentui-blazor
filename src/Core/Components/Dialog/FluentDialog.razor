@@ -37,17 +37,5 @@
             <FluentDialogFooter Data="@FluentDialogFooter.DefaultDialogFooterIdentifier" />
         }
 
-@*         <FluentStack Orientation="Orientation.Vertical" Class="fluent-dialog-content" Style="height:100%;">
-            <div class="fluent-dialog-body" nofooter="@(!HasButtons)" style="@(_parameters.DialogBodyStyle ?? null)">
-                @if (Instance is null)
-                {
-                    @ChildContent
-                }
-                else
-                {
-                    <DynamicComponent Type="@Instance.ContentType" Parameters="Instance.GetParameterDictionary()" />
-                }
-            </div>
-        </FluentStack>
- *@    </fluent-dialog>
+    </fluent-dialog>
 </CascadingValue>
