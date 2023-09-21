@@ -20,6 +20,13 @@ public partial class FluentDialogFooter : FluentComponentBase
     protected string? StyleValue => new StyleBuilder(Style)
         .Build();
 
+    /// <summary>
+    /// When true, the footer is visible.
+    /// Default is True.
+    /// </summary>
+    [Parameter]
+    public bool Visible { get; set; } = true;
+
     ///// <summary>
     ///// Text to display for the primary action.
     ///// </summary>

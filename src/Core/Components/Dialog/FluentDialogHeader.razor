@@ -1,26 +1,29 @@
 ﻿@namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentComponentBase
 
-<FluentStack Orientation="Orientation.Horizontal"
-             VerticalAlignment="VerticalAlignment.Top"
-             Style="@StyleValue"
-             Class="@ClassValue"
-             Id="@Id">
-    <div style="width: 100%;">
-        @if (@ChildContent == null && Dialog.Instance?.Parameters?.ShowTitle == true)
-        {
-            <FluentLabel Typo="Typography.PaneHeader">@Dialog.Instance?.Parameters?.Title</FluentLabel>
-        }
-        else
-        {
-            @ChildContent
-        }
-    </div>
+@if (Visible)
+{
+    <FluentStack Orientation="Orientation.Horizontal"
+                 VerticalAlignment="VerticalAlignment.Top"
+                 Style="@StyleValue"
+                 Class="@ClassValue"
+                 Id="@Id">
+        <div style="width: 100%;">
+            @if (@ChildContent == null && Dialog.Instance?.Parameters?.ShowTitle == true)
+            {
+                <FluentLabel Typo="Typography.PaneHeader">@Dialog.Instance?.Parameters?.Title</FluentLabel>
+            }
+            else
+            {
+                @ChildContent
+            }
+        </div>
 
-    @if (ShowDismiss == true)
-    {
-        <FluentButton Appearance="Appearance.Stealth" OnClick="@(() => Dialog.CancelAsync())" Title="@Dialog.Instance?.Parameters?.DismissTitle">
-            <FluentIcon Icon="CoreIcons.Regular.Size24.Dismiss" Width="16px" />
-        </FluentButton>
-    }
-</FluentStack>
+        @if (ShowDismiss == true)
+        {
+            <FluentButton Appearance="Appearance.Stealth" OnClick="@(() => Dialog.CancelAsync())" Title="@Dialog.Instance?.Parameters?.DismissTitle">
+                <FluentIcon Icon="CoreIcons.Regular.Size24.Dismiss" Width="16px" />
+            </FluentButton>
+        }
+    </FluentStack>
+}

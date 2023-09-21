@@ -21,6 +21,13 @@ public partial class FluentDialogHeader : FluentComponentBase
         .Build();
 
     /// <summary>
+    /// When true, the header is visible.
+    /// Default is True.
+    /// </summary>
+    [Parameter]
+    public bool Visible { get; set; } = true;
+
+    /// <summary>
     /// When true, shows the dismiss button in the header.
     /// If defined, this value will replace the one defined in the <see cref="DialogParameters"/>.
     /// </summary>
