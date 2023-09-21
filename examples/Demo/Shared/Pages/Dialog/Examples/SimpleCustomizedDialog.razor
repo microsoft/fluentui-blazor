@@ -11,15 +11,17 @@
 </FluentDialogHeader>
 
 @* Footer *@
-<FluentDialogFooter>
+<FluentDialogFooter Visible="false">
+    <FluentButton Appearance="Appearance.Accent" OnClick="@SaveAsync">Cancel</FluentButton>
+    <FluentButton Appearance="Appearance.Accent" OnClick="@SaveAsync">Close</FluentButton>
     <FluentButton Appearance="Appearance.Accent" OnClick="@SaveAsync">Close</FluentButton>
 </FluentDialogFooter>
 
 @* Body *@
-<div>
+<FluentDialogBody>
     <FluentTextField @bind-Value="@Content.Firstname">FirstName:</FluentTextField>
     <FluentNumberField @bind-Value="@Content.Age">Age:</FluentNumberField>
-</div>
+</FluentDialogBody>
 
 @code {
     [Parameter]

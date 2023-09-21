@@ -96,6 +96,7 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
 
     protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("position", "absolute")
+        .AddStyle("z-index", $"{ZIndex.Dialog}")
         .AddStyle("top", "50%", () => _parameters.Alignment == HorizontalAlignment.Center)
         .AddStyle("left", "50%", () => _parameters.Alignment == HorizontalAlignment.Center)
         .AddStyle("--dialog-width", _parameters.Width ?? DEFAULT_DIALOG_WIDTH, () => _parameters.Alignment == HorizontalAlignment.Center)
