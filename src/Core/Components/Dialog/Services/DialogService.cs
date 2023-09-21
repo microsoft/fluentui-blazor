@@ -72,7 +72,7 @@ public class DialogService : IDialogService
     {
         Content = new MessageBoxContent()
         {
-            Title = string.IsNullOrWhiteSpace(title) ? "Success!" /*DialogResources.TitleError*/ : title,
+            Title = string.IsNullOrWhiteSpace(title) ? "Success" /*DialogResources.TitleError*/ : title,
             Intent = MessageBoxIntent.Success,
             Icon = new CoreIcons.Filled.Size24.CheckmarkCircle(),
             IconColor = Color.Success,
@@ -92,7 +92,7 @@ public class DialogService : IDialogService
     {
         Content = new MessageBoxContent()
         {
-            Title = string.IsNullOrWhiteSpace(title) ? "Warning!" /*DialogResources.TitleError*/ : title,
+            Title = string.IsNullOrWhiteSpace(title) ? "Warning" /*DialogResources.TitleError*/ : title,
             Intent = MessageBoxIntent.Warning,
             Icon = new CoreIcons.Filled.Size24.Warning(),
             IconColor = Color.Warning,
@@ -112,7 +112,7 @@ public class DialogService : IDialogService
     {
         Content = new MessageBoxContent()
         {
-            Title = string.IsNullOrWhiteSpace(title) ? "Error!" /*DialogResources.TitleError*/ : title,
+            Title = string.IsNullOrWhiteSpace(title) ? "Error" /*DialogResources.TitleError*/ : title,
             Intent = MessageBoxIntent.Error,
             Icon = new CoreIcons.Filled.Size24.DismissCircle(),
             IconColor = Color.Error,
@@ -158,7 +158,7 @@ public class DialogService : IDialogService
         {
             Content = new MessageBoxContent()
             {
-                Title = string.IsNullOrWhiteSpace(title) ? "Confirm" /*DialogResources.TitleConfirmation*/ : title,
+                Title = string.IsNullOrWhiteSpace(title) ? "Confirmation" /*DialogResources.TitleConfirmation*/ : title,
                 Intent = MessageBoxIntent.Confirmation,
                 Icon = new CoreIcons.Regular.Size24.QuestionCircle(),
                 IconColor = Color.Success,
@@ -389,7 +389,7 @@ public class DialogService : IDialogService
     {
         Content = new MessageBoxContent()
         {
-            Title = string.IsNullOrWhiteSpace(title) ? "Success!" /*DialogResources.TitleError*/ : title,
+            Title = string.IsNullOrWhiteSpace(title) ? "Success" /*DialogResources.TitleError*/ : title,
             Intent = MessageBoxIntent.Success,
             Icon = new CoreIcons.Filled.Size24.CheckmarkCircle(),
             IconColor = Color.Success,
@@ -410,7 +410,7 @@ public class DialogService : IDialogService
     {
         Content = new MessageBoxContent()
         {
-            Title = string.IsNullOrWhiteSpace(title) ? "Warning!" /*DialogResources.TitleError*/ : title,
+            Title = string.IsNullOrWhiteSpace(title) ? "Warning" /*DialogResources.TitleError*/ : title,
             Intent = MessageBoxIntent.Warning,
             Icon = new CoreIcons.Filled.Size24.Warning(),
             IconColor = Color.Warning,
@@ -431,7 +431,7 @@ public class DialogService : IDialogService
     {
         Content = new MessageBoxContent()
         {
-            Title = string.IsNullOrWhiteSpace(title) ? "Error!" /*DialogResources.TitleError*/ : title,
+            Title = string.IsNullOrWhiteSpace(title) ? "Error" /*DialogResources.TitleError*/ : title,
             Intent = MessageBoxIntent.Error,
             Icon = new CoreIcons.Filled.Size24.DismissCircle(),
             IconColor = Color.Error,
