@@ -182,6 +182,12 @@ public partial class DialogService
         return await OnShowAsync!.Invoke(dialogReference, dialogComponent, parameters, content);
     }
 
+    public async Task<IDialogReference> ShowDialogAsync<T>(object data, DialogParameters parameters)
+         where T : IDialogContentComponent
+    {
+        return await ShowDialogAsync(typeof(T), data, parameters);
+    }
+
     /// <summary>
     /// Updates a dialog 
     /// </summary>

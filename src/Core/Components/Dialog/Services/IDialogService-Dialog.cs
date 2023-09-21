@@ -26,6 +26,9 @@ public partial interface IDialogService
     Task<IDialogReference> ShowDialogAsync<TData>(Type component, TData data, DialogParameters parameters)
         where TData : class;
 
+    Task<IDialogReference> ShowDialogAsync<T>(object data, DialogParameters parameters)
+         where T : IDialogContentComponent;
+    
     Task<IDialogReference> UpdateDialogAsync<TContent>(string id, DialogParameters<TContent> parameters)
         where TContent : class;
 

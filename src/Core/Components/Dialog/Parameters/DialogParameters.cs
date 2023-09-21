@@ -130,6 +130,4 @@ public class DialogParameters<TContent> : DialogParameters, IDialogParameters<TC
     /// Content to pass to and from the dialog.
     /// </summary>
     public TContent Content { get; set; } = default!;
-
-
 }

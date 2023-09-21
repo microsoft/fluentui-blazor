@@ -10,7 +10,7 @@
 
     private async Task OpenAsync()
     {
-        var dialog = await DialogService.ShowDialogAsync(typeof(SimpleCustomizedDialog), DialogData, new DialogParameters()
+        var dialog = await DialogService.ShowDialogAsync<SimpleCustomizedDialog>(DialogData, new DialogParameters()
             {
                 Height = "300px",
                 Title = $"Edition of the {DialogData.Firstname} sheet",
