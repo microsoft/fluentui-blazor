@@ -27,13 +27,29 @@ fluent-dialog[class~="left"]::part(control) {
     --dialog-height: 100%;
 }
 
+fluent-dialog ::deep .fluent-dialog-header {
+    grid-area: dialog-header;
+    width: 100%;
+    padding: 8px;
+}
+
+fluent-dialog ::deep .fluent-dialog-footer {
+    grid-area: dialog-footer;
+    padding: 8px;
+}
+
+fluent-dialog ::deep .fluent-dialog-body {
+    grid-area: dialog-body;
+    width: 100%;
+    padding: 0px 8px;
+}
+
 /*.fluent-dialog-main {
     pointer-events: auto;
     z-index: 9999;
-}
-*/
+}*/
 
-.fluent-dialog-content {
+/*.fluent-dialog-content {
     font-family: var(--body-font);
     -webkit-font-smoothing: antialiased;
     color: rgb(50, 49, 48);
@@ -55,3 +71,4 @@ fluent-dialog[class~="left"]::part(control) {
         height: calc(100% - 80px);
     }
 
+*/

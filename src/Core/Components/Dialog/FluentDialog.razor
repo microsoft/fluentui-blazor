@@ -15,8 +15,8 @@
                    aria-label=@(_parameters.AriaLabel ?? AriaLabel)
                    @attributes=@AdditionalAttributes>
 
-        @* Default header *@
-        @if (IsDefaultDialogHeader)
+        @* Default Header *@
+        @if (HasDefaultDialogHeader)
         {
             <FluentDialogHeader Data="@FluentDialogHeader.DefaultDialogHeaderIdentifier" />
         }
@@ -29,6 +29,12 @@
         else
         {
             <DynamicComponent Type="@Instance.ContentType" Parameters="Instance.GetParameterDictionary()" />
+        }
+
+        @* Default Footer *@
+        @if (HasDefaultDialogFooter)
+        {
+            <FluentDialogFooter Data="@FluentDialogFooter.DefaultDialogFooterIdentifier" />
         }
 
 @*         <FluentStack Orientation="Orientation.Vertical" Class="fluent-dialog-content" Style="height:100%;">

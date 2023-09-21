@@ -43,9 +43,15 @@ public class DialogParameters : ComponentParameters, IDialogParameters
     public bool ShowDismiss { get; set; } = true;
 
     /// <summary>
+    /// Title of the dismiss button, display in a tooltip.
+    /// Defaults to "Close".
+    /// </summary>
+    public string DismissTitle { get; set; } = "Close";
+
+    /// <summary>
     /// Text to display for the primary action.
     /// </summary>
-    public string? PrimaryAction { get; set; } = "Ok"; //DialogResources.ButtonPrimary;
+    public string? PrimaryAction { get; set; } = "OK"; //DialogResources.ButtonPrimary;
 
     /// <summary>
     /// When true, primary action's button is enabled.

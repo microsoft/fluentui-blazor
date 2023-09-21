@@ -2,29 +2,25 @@
 @inherits FluentComponentBase
 
 <FluentStack Orientation="Orientation.Horizontal"
-                VerticalAlignment="VerticalAlignment.Top"
-                Style="@StyleValue"
-                Class="@ClassValue"
-                Id="@Id">
-    @if (ShowDismiss == true || ShowTitle == true)
-    {
-        <div style="width: 100%;">
-            @if (ShowTitle == true && !string.IsNullOrEmpty(Title))
-            {
-                <FluentLabel Typo="Typography.PaneHeader">@Title</FluentLabel>
-            }
+             VerticalAlignment="VerticalAlignment.Top"
+             Style="@StyleValue"
+             Class="@ClassValue"
+             Id="@Id">
+    <div style="width: 100%;">
+        @if (@ChildContent == null && Dialog.Instance?.Parameters?.ShowTitle == true)
+        {
+            <FluentLabel Typo="Typography.PaneHeader">@Dialog.Instance?.Parameters?.Title</FluentLabel>
+        }
+        else
+        {
             @ChildContent
-        </div>
-        <FluentButton Appearance="Appearance.Stealth" OnClick="@(() => Dialog.CancelAsync())">
+        }
+    </div>
+
+    @if (ShowDismiss == true)
+    {
+        <FluentButton Appearance="Appearance.Stealth" OnClick="@(() => Dialog.CancelAsync())" Title="@Dialog.Instance?.Parameters?.DismissTitle">
             <FluentIcon Icon="CoreIcons.Regular.Size24.Dismiss" Width="16px" />
         </FluentButton>
-    }
-    else
-    {
-        @if (ShowTitle == true && !string.IsNullOrEmpty(Title))
-        {
-            <FluentLabel Typo="Typography.PaneHeader">@Title</FluentLabel>
-        }
-        @ChildContent
     }
 </FluentStack>

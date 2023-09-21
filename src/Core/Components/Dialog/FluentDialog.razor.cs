@@ -10,7 +10,8 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
     private const string DEFAULT_HEIGHT = "unset";
     private DialogParameters _parameters = default!;
     private bool _hidden;
-    internal FluentDialogHeader? _dialogHeader;
+    private FluentDialogHeader? _dialogHeader;
+    private FluentDialogFooter? _dialogFooter;
 
     [CascadingParameter]
     private InternalDialogContext? DialogContext { get; set; } = default!;
@@ -183,9 +184,9 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
         }
     }
 
-    internal void SetContainsHeader(FluentDialogHeader header)
+    internal void SetDialogHeader(FluentDialogHeader header)
     {
-        if (_dialogHeader != null && !IsDefaultDialogHeader)
+        if (_dialogHeader != null && !HasDefaultDialogHeader)
         {
             throw new InvalidOperationException($"This {nameof(FluentDialog)} already contains a {nameof(FluentDialogHeader)}");
         }
@@ -194,8 +195,25 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
         StateHasChanged();
     }
 
+    internal void SetDialogFooter(FluentDialogFooter footer)
+    {
+        if (_dialogFooter != null && !HasDefaultDialogFooter)
+        {
+            throw new InvalidOperationException($"This {nameof(FluentDialog)} already contains a {nameof(FluentDialogFooter)}");
+        }
+
+        _dialogFooter = footer;
+        StateHasChanged();
+    }
+
     /// <summary />
-    private bool IsDefaultDialogHeader => _dialogHeader == null ||
+    private bool HasDefaultDialogHeader => _dialogHeader == null ||
                                            _dialogHeader?.Data?.ToString() == FluentDialogHeader.DefaultDialogHeaderIdentifier;
 
+    /// <summary />
+    private bool HasDefaultDialogFooter => _dialogFooter == null ||
+                                           _dialogFooter?.Data?.ToString() == FluentDialogFooter.DefaultDialogFooterIdentifier;
+
+    /// <summary />
+    private bool IsCustomized => !HasDefaultDialogFooter && !HasDefaultDialogHeader;
 }
