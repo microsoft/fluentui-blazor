@@ -17,7 +17,7 @@ public class FluentOptionPeopleTests : TestBase
     public void FluentOptionPeople_Image()
     {
         // Arrange
-        var cut = TestContext.RenderComponent<FluentOptionPeople>(parameters =>
+        var cut = TestContext.RenderComponent<FluentPersona>(parameters =>
         {
             parameters.Add(p => p.Id, "myComponent");
             parameters.Add(p => p.Name, "Denis Voituron");
@@ -34,7 +34,7 @@ public class FluentOptionPeopleTests : TestBase
     public void FluentOptionPeople_Initials()
     {
         // Arrange
-        var cut = TestContext.RenderComponent<FluentOptionPeople>(parameters =>
+        var cut = TestContext.RenderComponent<FluentPersona>(parameters =>
         {
             parameters.Add(p => p.Id, "myComponent");
             parameters.Add(p => p.Name, "Denis Voituron");
