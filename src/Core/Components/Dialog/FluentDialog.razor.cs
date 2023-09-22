@@ -1,4 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Fast.Components.FluentUI.Utilities;
 using Microsoft.JSInterop;
@@ -12,13 +11,32 @@ public partial class FluentDialog : FluentComponentBase
     private const string DEFAULT_HEIGHT = "unset";
     private DialogParameters _parameters = default!;
     private bool _hidden;
+    private FluentDialogHeader? _dialogHeader;
+    private FluentDialogFooter? _dialogFooter;
 
-    private readonly RenderFragment _renderDialogHeader;
-    private readonly RenderFragment _renderDialogFooter;
-
+    /// <summary />
     [CascadingParameter]
     private InternalDialogContext? DialogContext { get; set; } = default!;
 
+    /// <summary />
+    protected string? ClassValue => new CssBuilder(Class)
+        .AddClass("fluent-dialog-main")
+        .AddClass("right", () => _parameters.DialogType == DialogType.Panel && _parameters.Alignment == HorizontalAlignment.Right)
+        .AddClass("left", () => _parameters.DialogType == DialogType.Panel && _parameters.Alignment == HorizontalAlignment.Left)
+        .AddClass("prevent-scroll", () => Instance is null ? (PreventScroll && !Hidden): _parameters.PreventScroll)
+        .Build();
+
+    /// <summary />
+    protected string? StyleValue => new StyleBuilder(Style)
+        .AddStyle("position", "absolute")
+        .AddStyle("z-index", $"{ZIndex.Dialog}")
+        .AddStyle("top", "50%", () => _parameters.Alignment == HorizontalAlignment.Center)
+        .AddStyle("left", "50%", () => _parameters.Alignment == HorizontalAlignment.Center)
+        .AddStyle("--dialog-width", _parameters.Width ?? DEFAULT_DIALOG_WIDTH, () => _parameters.Alignment == HorizontalAlignment.Center)
+        .AddStyle("--dialog-width", _parameters.Width ?? DEFAULT_PANEL_WIDTH, () => _parameters.DialogType == DialogType.Panel)
+        .AddStyle("--dialog-height", _parameters.Height ?? DEFAULT_HEIGHT, () => _parameters.Alignment == HorizontalAlignment.Center)
+        .Build();
+ 
     /// <summary>
     /// Prevents scrolling outside of the dialog while it is shown.
     /// </summary>
@@ -42,7 +60,10 @@ public partial class FluentDialog : FluentComponentBase
         set
         {
             if (value == _hidden)
+            {
                 return;
+            }
+
             _hidden = value;
             HiddenChanged.InvokeAsync(value);
         }
@@ -97,29 +118,8 @@ public partial class FluentDialog : FluentComponentBase
     [Parameter]
     public EventCallback<DialogResult> OnDialogResult { get; set; }
 
-    protected string? ClassValue => new CssBuilder(Class)
-        .AddClass("fluent-dialog-main")
-        .AddClass("right", () => _parameters.DialogType == DialogType.Panel && _parameters.Alignment == HorizontalAlignment.Right)
-        .AddClass("left", () => _parameters.DialogType == DialogType.Panel && _parameters.Alignment == HorizontalAlignment.Left)
-        .AddClass("prevent-scroll", () => Instance is null ? (PreventScroll && !Hidden): _parameters.PreventScroll)
-        .Build();
 
-    protected string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("position", "absolute")
-        .AddStyle("top", "50%", () => _parameters.Alignment == HorizontalAlignment.Center)
-        .AddStyle("left", "50%", () => _parameters.Alignment == HorizontalAlignment.Center)
-        .AddStyle("--dialog-width", _parameters.Width ?? DEFAULT_DIALOG_WIDTH, () => _parameters.Alignment == HorizontalAlignment.Center)
-        .AddStyle("--dialog-width", _parameters.Width ?? DEFAULT_PANEL_WIDTH, () => _parameters.DialogType == DialogType.Panel)
-        .AddStyle("--dialog-height", _parameters.Height ?? DEFAULT_HEIGHT, () => _parameters.Alignment == HorizontalAlignment.Center)
-        .Build();
-
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogEventArgs))]
-    public FluentDialog()
-    {
-        _renderDialogHeader = RenderHeaderContent;
-        _renderDialogFooter = RenderFooterContent;
-    }
-
+    /// <summary />
     protected override void OnInitialized()
     {
         if (Instance is null)
@@ -140,6 +140,7 @@ public partial class FluentDialog : FluentComponentBase
         }
     }
 
+    /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
@@ -148,38 +149,68 @@ public partial class FluentDialog : FluentComponentBase
         }
     }
 
-    private bool HasButtons => _parameters.ShowPrimaryAction || _parameters.ShowSecondaryAction;
-
+    /// <summary>
+    /// Shows the dialog
+    /// </summary>
     public void Show()
     {
         Hidden = false;
-        StateHasChanged();
+        RefreshHeaderFooter();
     }
 
+    /// <summary>
+    /// Hides the dialog
+    /// </summary>
     public void Hide()
     {
         Hidden = true;
-        StateHasChanged();
+        RefreshHeaderFooter();
     }
 
+    /// <summary>
+    /// Toggle the primary action button
+    /// </summary>
+    /// <param name="isEnabled"></param>
     public void TogglePrimaryActionButton(bool isEnabled)
     {
         _parameters.PrimaryActionEnabled = isEnabled;
-        StateHasChanged();
+        RefreshHeaderFooter();
     }
 
+    /// <summary>
+    /// Toggle the secondary action button
+    /// </summary>
+    /// <param name="isEnabled"></param>
     public void ToggleSecondaryActionButton(bool isEnabled)
     {
         _parameters.SecondaryActionEnabled = isEnabled;
-        StateHasChanged();
+        RefreshHeaderFooter();
     }
 
+    /// <summary>
+    /// Closes the dialog with a cancel result.
+    /// </summary>
+    /// <returns></returns>
     public async Task CancelAsync() => await CloseAsync(DialogResult.Cancel());
 
+    /// <summary>
+    /// Closes the dialog with a cancel result.
+    /// </summary>
+    /// <param name="returnValue"></param>
+    /// <returns></returns>
     public async Task CancelAsync<T>(T returnValue) => await CloseAsync(DialogResult.Cancel(returnValue));
 
+    /// <summary>
+    /// Closes the dialog with a OK result.
+    /// </summary>
+    /// <returns></returns>
     public async Task CloseAsync() => await CloseAsync(DialogResult.Ok<object?>(null));
 
+    /// <summary>
+    /// Closes the dialog with a OK result.
+    /// </summary>
+    /// <param name="returnValue"></param>
+    /// <returns></returns>
     public async Task CloseAsync<T>(T returnValue) => await CloseAsync(DialogResult.Ok(returnValue));
 
     /// <summary>
@@ -200,4 +231,55 @@ public partial class FluentDialog : FluentComponentBase
             Hide();
         }
     }
+
+    /// <summary />
+    internal void SetDialogHeader(FluentDialogHeader header)
+    {
+        if (_dialogHeader != null && !HasDefaultDialogHeader)
+        {
+            throw new InvalidOperationException($"This {nameof(FluentDialog)} already contains a {nameof(FluentDialogHeader)}");
+        }
+
+        _dialogHeader = header;
+        StateHasChanged();
+    }
+
+    /// <summary />
+    internal void SetDialogFooter(FluentDialogFooter footer)
+    {
+        if (_dialogFooter != null && !HasDefaultDialogFooter)
+        {
+            throw new InvalidOperationException($"This {nameof(FluentDialog)} already contains a {nameof(FluentDialogFooter)}");
+        }
+
+        _dialogFooter = footer;
+        StateHasChanged();
+    }
+
+    /// <summary />
+    private void RefreshHeaderFooter()
+    {
+        StateHasChanged();
+
+        if (_dialogHeader != null)
+        {
+            _dialogHeader.Refresh();
+        }
+
+        if (_dialogFooter != null)
+        {
+            _dialogFooter.Refresh();
+        }
+    }
+
+    /// <summary />
+    private bool HasDefaultDialogHeader => _dialogHeader == null ||
+                                           _dialogHeader?.Data?.ToString() == FluentDialogHeader.DefaultDialogHeaderIdentifier;
+
+    /// <summary />
+    private bool HasDefaultDialogFooter => _dialogFooter == null ||
+                                           _dialogFooter?.Data?.ToString() == FluentDialogFooter.DefaultDialogFooterIdentifier;
+
+    /// <summary />
+    private bool IsCustomized => !HasDefaultDialogFooter && !HasDefaultDialogHeader;
 }

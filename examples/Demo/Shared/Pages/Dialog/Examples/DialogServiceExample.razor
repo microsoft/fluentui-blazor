@@ -38,7 +38,7 @@
     {
         DemoLogger.WriteLine($"Open dialog centered");
 
-        DialogParameters<SimplePerson> parameters = new()
+        DialogParameters parameters = new()
         {
             Title = $"Hello {simplePerson.Firstname}",
             PrimaryAction = "Yes",
@@ -46,13 +46,12 @@
             SecondaryAction = "No",
             Width = "500px",
             Height = "500px",
-            Content = simplePerson,
             TrapFocus = _trapFocus,
             Modal = _modal,
             PreventScroll = true 
         };
 
-        IDialogReference dialog = await DialogService.ShowDialogAsync<SimpleDialog, SimplePerson>(parameters);
+        IDialogReference dialog = await DialogService.ShowDialogAsync<SimpleDialog>(simplePerson, parameters);
         DialogResult? result = await dialog.Result;
         
         

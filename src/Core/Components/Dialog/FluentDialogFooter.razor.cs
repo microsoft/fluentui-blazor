@@ -1,93 +1,68 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentDialogFooter : FluentComponentBase
 {
+    internal const string DefaultDialogFooterIdentifier = "__DefaultDialogFooter";
+
+    /// <summary />
     [CascadingParameter]
-    private FluentDialog? Dialog { get; set; }
+    private FluentDialog Dialog { get; set; } = default!;
+
+    /// <summary />
+    protected string? ClassValue => new CssBuilder(Class)
+        .AddClass("fluent-dialog-footer")
+        .Build();
+
+    /// <summary />
+    protected string? StyleValue => new StyleBuilder(Style)
+        .Build();
 
     /// <summary>
-    /// Gets or sets the dialog position:
-    /// left (full height), right (full height)
-    /// or screen middle (using Width and Height properties).
+    /// When true, the footer is visible.
+    /// Default is True.
     /// </summary>
     [Parameter]
-    public virtual HorizontalAlignment Alignment { get; set; } = HorizontalAlignment.Center;
+    public bool Visible { get; set; } = true;
 
     /// <summary>
-    /// Text to display for the primary action.
+    /// Gets or sets the content to be rendered inside the component.
     /// </summary>
     [Parameter]
-    public string? PrimaryAction { get; set; } = "Ok"; //DialogResources.ButtonPrimary;
+    public RenderFragment? ChildContent { get; set; }
 
-    /// <summary>
-    /// When true, primary action's button is enabled.
-    /// </summary>
-    [Parameter]
-    public bool PrimaryActionEnabled { get; set; } = true;
-
-    /// <summary>
-    /// The event callback invoked when primary button is clicked
-    /// </summary>
-    [Parameter]
-    public EventCallback OnPrimaryAction { get; set; }
-
-    /// <summary>
-    /// Text to display for the secondary action.
-    /// </summary>
-    [Parameter]
-    public string? SecondaryAction { get; set; } = "Cancel"; //DialogResources.ButtonSecondary;
-
-    /// <summary>
-    /// When true, secondary action's button is enabled.
-    /// </summary>
-    [Parameter]
-    public bool SecondaryActionEnabled { get; set; } = true;
-
-    /// <summary>
-    /// The event callback invoked when secondary button is clicked
-    /// </summary>
-    [Parameter]
-    public EventCallback OnSecondaryAction { get; set; }
-
-    /// <summary>
-    /// Gets whether the primary button is displayed or not. Depends on PrimaryAction having a value.
-    /// </summary>
-    private bool ShowPrimaryAction => !string.IsNullOrEmpty(PrimaryAction);
-
-    /// <summary>
-    /// Gets whether the secondary button is displayed or not. Depends on SecondaryAction having a value. 
-    /// </summary>
-    private bool ShowSecondaryAction => !string.IsNullOrEmpty(SecondaryAction);
-
-    protected override void OnParametersSet()
+    /// <summary />
+    protected override void OnInitialized()
     {
         if (Dialog is null)
         {
-            throw new ArgumentNullException(nameof(Dialog), "FluentDialogFooter must be used inside FluentDialog");
+            throw new ArgumentNullException(nameof(Dialog), $"{nameof(FluentDialogFooter)} must be used inside {nameof(FluentDialog)}");
         }
+
+        Dialog.SetDialogFooter(this);
     }
 
+    /// <summary />
+    internal void Refresh()
+    {
+        StateHasChanged();
+    }
+
+    /// <summary />
     private async Task OnPrimaryActionButtonClickAsync()
     {
-        if (OnPrimaryAction.HasDelegate)
-        {
-            await OnPrimaryAction.InvokeAsync();
-        }
-        else
+        if (Dialog.Instance?.Parameters?.PrimaryActionEnabled == true)
         {
             await Dialog!.CloseAsync(Dialog.Instance?.Content ?? true);
         }
     }
 
+    /// <summary />
     private async Task OnSecondaryActionButtonClickAsync()
     {
-        if (OnSecondaryAction.HasDelegate)
-        {
-            await OnSecondaryAction.InvokeAsync();
-        }
-        else
+        if (Dialog.Instance?.Parameters?.SecondaryActionEnabled == true)
         {
             await Dialog!.CancelAsync(Dialog.Instance?.Content ?? false);
         }
