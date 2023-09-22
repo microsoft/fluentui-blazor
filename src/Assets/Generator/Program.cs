@@ -54,7 +54,7 @@ internal class Program
                 }
                 else
                 {
-                    factoryIcons.GenerateMainIconsClass(assets);
+                    //factoryIcons.GenerateMainIconsClass(assets);
                     factoryIcons.GenerateClasses(assets);
                 }
 
