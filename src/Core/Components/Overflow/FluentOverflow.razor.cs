@@ -21,8 +21,7 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
         .Build();
 
     /// <summary />
-    protected string? StyleValue => new StyleBuilder()
-        .AddStyle(Style)
+    protected string? StyleValue => new StyleBuilder(Style)
         .Build();
 
     /// <summary />

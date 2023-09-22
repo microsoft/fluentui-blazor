@@ -1,7 +1,7 @@
 ﻿@inject DataSource Data
 
 
-<FluentDataGrid Items="@FilteredItems" ResizableColumns=true Pagination="@pagination" GridTemplateColumns="0.2fr 1fr 0.2fr 0.2fr 0.2fr 0.2fr" RowClass="@rowClass" style="height: 405px; overflow:auto;">
+<FluentDataGrid Items="@FilteredItems" ResizableColumns=true Pagination="@pagination" GridTemplateColumns="0.2fr 1fr 0.2fr 0.2fr 0.2fr 0.2fr" RowClass="@rowClass" Style="height: 405px; overflow:auto;">
     <TemplateColumn Title="Rank" SortBy="@rankSort" Align="Align.Center" InitialSortDirection="SortDirection.Ascending" IsDefaultSortColumn=true>
         <img class="flag" src="_content/FluentUI.Demo.Shared/flags/@(context.Code).svg" alt="Flag of @(context.Code)" />
     </TemplateColumn>
@@ -21,7 +21,14 @@
 
 <FluentPaginator State="@pagination" />
 
+<FluentSwitch @bind-Value="@_clearItems" 
+              AfterBindValue="ToggleItemsAsync" 
+              UncheckedMessage="Clear all results"
+              CheckedMessage="Restore all results">
+</FluentSwitch>
+
 @code {
+    bool _clearItems = false;
     IQueryable<Country>? items;
     PaginationState pagination = new PaginationState { ItemsPerPage = 10 };
     string nameFilter = string.Empty;
@@ -50,5 +57,17 @@
     private void HandleClear(string? value)
     {
         nameFilter = value ?? string.Empty;
+    }
+
+    private async Task ToggleItemsAsync()
+    {
+        if (_clearItems)
+		{
+			items = null;
+		}
+		else
+		{
+			items = (await Data.GetCountriesAsync()).AsQueryable();
+		}
     }
 }

@@ -10,8 +10,7 @@ public partial class FluentFooter : FluentComponentBase
         .AddClass("footer")
         .Build();
 
-    protected string? StyleValue => new StyleBuilder()
-       .Build();
+    protected string? StyleValue => new StyleBuilder(Style).Build();
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.

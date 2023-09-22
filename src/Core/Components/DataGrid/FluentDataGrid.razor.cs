@@ -122,6 +122,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// </summary>
     [Parameter] public Func<TGridItem, string>? RowClass { get; set; }
 
+    /// <summary>
+    /// If specified, grids render this fragment when there is no content.
+    /// </summary>
+    [Parameter] public RenderFragment? EmptyContent { get; set; }
+
     [Inject] private IServiceProvider Services { get; set; } = default!;
     [Inject] private IJSRuntime JS { get; set; } = default!;
 

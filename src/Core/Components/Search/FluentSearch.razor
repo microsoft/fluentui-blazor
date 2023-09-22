@@ -19,7 +19,8 @@
                name=@Name
                required="@Required"
                appearance="@Appearance.ToAttributeValue()"
-               @onchange=@(e => SetCurrentValue((string?)e.Value))
+               @onchange="@ChangeHandlerAsync"
+               @oninput="@InputHandlerAsync"
                @attributes="AdditionalAttributes">
     @ChildContent
 </fluent-search>

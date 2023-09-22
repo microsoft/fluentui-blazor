@@ -92,7 +92,8 @@ internal struct CalendarExtended
     /// <returns></returns>
     public string GetMonthName(DateTime date)
     {
-        return ToTitleCase(Culture.DateTimeFormat.MonthNames[date.Month - 1]);
+        var monthIndex = date.Month <= 1 ? 0 : date.Month - 1;
+        return ToTitleCase(Culture.DateTimeFormat.MonthNames[monthIndex]);
     }
 
     /// <summary>
@@ -101,7 +102,8 @@ internal struct CalendarExtended
     /// <returns></returns>
     public string GetMonthNameAndYear()
     {
-        return $"{ToTitleCase(Culture.DateTimeFormat.MonthNames[Date.Month - 1])} {Date.Year}";
+        var result = $"{GetMonthName(Date)} {Date.Year}";
+        return result;
     }
 
     /// <summary>

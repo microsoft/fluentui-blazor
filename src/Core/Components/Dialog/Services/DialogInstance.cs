@@ -12,14 +12,21 @@ public sealed class DialogInstance
 
     public string Id { get; }
 
-    public Type? ContentType { get; set; }
+    public Type? ContentType { get; }
 
-    public object Content { get; set; } = default!;
+    public object Content { get; } = default!;
 
-    public DialogParameters Parameters { get; set; }
+    public DialogParameters Parameters { get; internal set; }
 
-    public Dictionary<string, object> GetParameterDictionary()
+    internal Dictionary<string, object>? GetParameterDictionary()
     {
-        return new Dictionary<string, object> { { "Content", Content } };
+        if (Content is null)
+        {
+            return null;
+        }
+        else
+        {
+            return new Dictionary<string, object> { { "Content", Content } };
+        }
     }
 }

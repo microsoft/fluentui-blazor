@@ -19,7 +19,7 @@ public partial class FluentDatePicker : FluentCalendarBase
     protected string? ClassValue => new CssBuilder(Class).AddClass("fluent-datepicker").Build();
 
     /// <summary />
-    protected string? StyleValue => new StyleBuilder().AddStyle(Style).Build();
+    protected string? StyleValue => new StyleBuilder(Style).Build();
 
     /// <summary>
     /// Gets or sets the design of this input.
@@ -81,7 +81,7 @@ public partial class FluentDatePicker : FluentCalendarBase
 
             if (isValid)
             {
-                Value = newDate;
+                Value = newDate + (Value?.TimeOfDay ?? TimeSpan.Zero);
             }
             else
             {
@@ -108,7 +108,16 @@ public partial class FluentDatePicker : FluentCalendarBase
     protected Task OnSelectedDateAsync(DateTime? value)
     {
         Opened = false;
-        Value = value;
+
+        if (Value != null && Value?.TimeOfDay != TimeSpan.Zero)
+        {
+            DateTime currentValue = value ?? DateTime.MinValue;
+            Value = currentValue.Date + Value?.TimeOfDay;
+        }
+        else
+        {
+            Value = value;
+        }
 
         return Task.CompletedTask;
     }

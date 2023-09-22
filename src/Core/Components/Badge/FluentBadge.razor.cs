@@ -5,11 +5,15 @@ using Microsoft.Fast.Components.FluentUI.Utilities;
 namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentBadge : FluentComponentBase
 {
+    public FluentBadge()
+    {
+        Id = Identifier.NewId();
+    }
+
     protected string? ClassValue => new CssBuilder(Class)
          .Build();
 
-    protected string? StyleValue => new StyleBuilder()
-        .AddStyle(Style)
+    protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
         .AddStyle("cursor", "pointer", () => OnClick.HasDelegate)
         .AddStyle($"--badge-fill-{Fill}", BackgroundColor, () => !string.IsNullOrEmpty(BackgroundColor))
@@ -58,22 +62,42 @@ public partial class FluentBadge : FluentComponentBase
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    /// <summary>
+    /// Gets or sets the width of the component.
+    /// </summary>
     [Parameter]
     public string? Width { get; set; }
 
+    /// <summary>
+    /// Gets or sets the height of the component.
+    /// </summary>
     [Parameter]
     public string? Height { get; set; }
 
+    /// <summary>
+    /// Gets or sets the tooltip to display when hovering over the <see cref="DismissIcon"/> icon.
+    /// </summary>
+    [Parameter]
+    public string? DismissTitle { get; set; }
+
+    /// <summary>
+    /// Gets or sets the icon to be displayed when the badge is cancellable.
+    /// By default, a small cross icon is displayed.
+    /// </summary>
+    [Parameter]
+    public Icon? DismissIcon { get; set; }
+
+    /// <summary>
+    /// Event callback for when the badge is clicked.
+    /// </summary>
     [Parameter]
     public EventCallback<MouseEventArgs> OnClick { get; set; }
 
+    /// <summary>
+    /// Event callback for when the badge <see cref="DismissIcon"/> icon is clicked.
+    /// </summary>
     [Parameter]
     public EventCallback<MouseEventArgs> OnDismissClick { get; set; }
-
-    public FluentBadge()
-    {
-        Id = Identifier.NewId();
-    }
 
     protected override void OnParametersSet()
     {

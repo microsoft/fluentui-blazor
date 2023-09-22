@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
@@ -15,15 +14,11 @@ public partial class FluentPresenceBadge : FluentComponentBase, IDisposable
 
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
-        .AddClass("presencebadge")
+        .AddClass("fluent-presence-badge")
         .Build();
 
     /// <summary />
-    protected string? StyleValue => new StyleBuilder()
-        .AddStyle("left", $"{HorizontalPosition!.Value.ToString(CultureInfo.InvariantCulture)}%", () => HorizontalPosition.HasValue && GlobalState.Dir == LocalizationDirection.ltr)
-        .AddStyle("right", $"{HorizontalPosition!.Value.ToString(CultureInfo.InvariantCulture)}%", () => HorizontalPosition.HasValue && GlobalState.Dir == LocalizationDirection.rtl)
-        .AddStyle("bottom", $"{BottomPosition!.Value.ToString(CultureInfo.InvariantCulture)}%", () => BottomPosition.HasValue)
-        .AddStyle(Style)
+    protected string? StyleValue => new StyleBuilder(Style)
         .Build();
 
     /// <summary>
@@ -32,26 +27,25 @@ public partial class FluentPresenceBadge : FluentComponentBase, IDisposable
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+
+    /// <summary>
+    /// The title to show on hover the component.
+    /// If not provided, the <see cref="StatusTitle"/> will be used.
+    /// </summary>
+    [Parameter]
+    public string? Title { get; set; }
+
     /// <summary>
     /// The status to show. See <see cref="PresenceStatus"/> for options.
-    /// Default is Available
-    /// </summary>
-    [Parameter, EditorRequired]
-    public PresenceStatus Status { get; set; } = PresenceStatus.Available;
-
-    /// <summary>
-    /// Left position of the badge (percentage as number).
-    /// Default value is 50.
     /// </summary>
     [Parameter]
-    public int? HorizontalPosition { get; set; } = 50;
+    public PresenceStatus? Status { get; set; }
 
     /// <summary>
-    /// Bottom position of the badge (percentage as number).
-    /// Default value is -10.
+    /// The title to show on hover the status. If not provided, the status will be used.
     /// </summary>
     [Parameter]
-    public int? BottomPosition { get; set; } = -10;
+    public string? StatusTitle { get; set; }
 
     /// <summary>
     /// Modifies the display to indicate that the user is out of office. 
@@ -61,16 +55,11 @@ public partial class FluentPresenceBadge : FluentComponentBase, IDisposable
     public bool OutOfOffice { get; set; } = false;
 
     /// <summary>
-    /// Gets or sets the <see cref="PresenceBadgeSize"/> to use.
+    /// Gets or sets the <see cref="Status"/> size to use.
     /// Default is Small.
     /// </summary>
     [Parameter]
     public PresenceBadgeSize Size { get; set; } = PresenceBadgeSize.Small;
-
-    protected override Task OnParametersSetAsync()
-    {
-        return base.OnParametersSetAsync();
-    }
 
     protected override void OnInitialized()
     {

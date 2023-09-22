@@ -1,0 +1,204 @@
+﻿/* OneRow */
+
+.fluent-messagebar {
+    font-family: var(--body-font);
+    background-color: var(--neutral-layer-floating);
+    color: var(--neutral-foreground-rest);
+    display: grid;
+    grid-template-columns: 24px 1fr auto;
+    width: 100%;
+    padding: 0px 3px;
+    align-items: center;
+    min-height: 36px;
+    border-radius: calc(var(--control-corner-radius) * 1px);
+    padding: 0 12px;
+    column-gap: 8px;
+    animation: fade-out 1.5s;
+}
+
+.fluent-messagebar-container-action {
+    display: flex;
+    padding: 6px 0px;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+}
+
+    .fluent-messagebar.intent-info {
+        background-color: #f5f5f5; 
+        border: 1px solid #d1d1d1; 
+
+    }
+
+    .fluent-messagebar.dark.intent-info {
+        background-color: #141414;
+        border: 1px solid #666;
+    }
+
+    .fluent-messagebar.intent-warning {
+        background-color: #FDF6F3; 
+        border: 1px solid #f4bfab; 
+    }
+
+    .fluent-messagebar.dark.intent-warning {
+        background-color: #411200;
+        border: 1px solid #DA3B01;
+    }
+    .fluent-messagebar.intent-error {
+        background-color: #FDF3F4;
+        border: 1px solid #f1bbbc;
+    }
+
+    .fluent-messagebar.dark.intent-error {
+        background-color: #3F1011;
+        border: 1px solid #D13438;
+    }
+    .fluent-messagebar.intent-success {
+        background-color: #f1faf1;
+        border: 1px solid #9fd89f;
+    }
+
+    .fluent-messagebar.dark.intent-success {
+        background-color: #052505;
+        border: 1px solid #107C10;
+    }
+    .fluent-messagebar.intent-custom {
+        background-color: var(--neutral-layer-1);
+        border: 1px solid var(--neutral-stroke-layer-rest);
+    }
+
+.fluent-messagebar-icon {
+        grid-column: 1;
+        display: flex;
+        justify-content:center;
+    }
+
+.fluent-messagebar-message {
+    grid-column: 2;
+    padding: 10px 0;
+    align-self: center;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+
+}
+
+.fluent-messagebar-message .title{
+    font-weight: 600;
+    padding: 0 4px 0 0;
+
+}
+
+.fluent-messagebar-message ::deep fluent-anchor {
+        margin-inline-start: 5px;
+ }
+
+::deep .fluent-messagebar-action {
+    height: 24px;
+
+}
+
+.fluent-messagebar-close {
+    grid-column: 3;
+    padding: 4px;
+    justify-self: center;
+    align-self: center;
+    fill: var(--neutral-fill-strong-active);
+    cursor: pointer;
+    max-width: 16px;
+    max-height: 16px;
+}
+
+/* Notification */
+
+.fluent-messagebar-notification {
+    font-family: var(--body-font);
+    color: var(--neutral-foreground-rest);
+    display: grid;
+    grid-template-columns: 24px 1fr auto;
+    grid-template-rows: 36px 1fr auto;
+    width: 100%;
+    min-height: 36px;
+    padding: 0 12px;
+    column-gap: 8px;
+    animation: fade-out 1.5s;
+}
+
+    .fluent-messagebar-notification.intent-info {
+        fill: #797775; /* Gray */
+    }
+
+    .fluent-messagebar-notification.intent-warning {
+        fill: #d83b01; /* Orange */
+    }
+
+    .fluent-messagebar-notification.intent-error {
+        fill: #a80000; /* Red */
+    }
+
+    .fluent-messagebar-notification.intent-success {
+        fill: #107c10; /* Green */
+    }
+
+.fluent-messagebar-notification-icon {
+    grid-column: 1;
+    grid-row: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.fluent-messagebar-notification-message {
+    grid-column: 2;
+    grid-row: 1;
+    padding: 10px 0;
+    align-self: center;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.fluent-messagebar-notification-content {
+    grid-column: 1 / 4;
+    grid-row: 2;
+    padding: 6px 6px;
+}
+
+.fluent-messagebar-notification-content  ::deep fluent-anchor {
+    margin-inline-start: 5px;
+}
+
+::deep .fluent-messagebar-notification-action {
+    margin-left: 5px;
+}
+
+.fluent-messagebar-notification-close {
+    grid-column: 3;
+    grid-row: 1;
+    padding: 4px;
+    display: flex;
+    justify-content: center;
+    justify-self: center;
+    cursor: pointer;
+}
+
+.fluent-messagebar-notification-time {
+    grid-column: 2 / 4;
+    grid-row: 3;
+    font-size: 12px;
+    right: 10px;
+    text-align: right;
+    padding: 0px 4px 4px 0px;
+}
+
+keyframes fade-out {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}

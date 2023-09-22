@@ -5,6 +5,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 public class DialogParameters : ComponentParameters, IDialogParameters
 {
     public string Id { get; set; } = Identifier.NewId();
+   
     /// <summary>
     /// Gets or sets the dialog position:
     /// left (full height), right (full height)
@@ -24,31 +25,43 @@ public class DialogParameters : ComponentParameters, IDialogParameters
     public bool? Modal { get; set; } = true;
 
     /// <summary>
-    /// Indicates that the dialog should trap focus.
+    /// Prevents scrolling outside of the dialog while it is shown.
+    /// </summary>to use
+    public bool PreventScroll { get; set; } = true;
+
+    /// <summary>
+    /// Indicates if dialog should trap focus.
+    /// Defaults to true.
     /// </summary>
     public bool? TrapFocus { get; set; } = true;
 
     /// <summary>
-    /// When true, shows the title in the header.
+    /// Show the title in the header.
+    /// Defaults to true.
     /// </summary>
     public bool ShowTitle { get; set; } = true;
 
     /// <summary>
-    /// When true, shows the dismiss button in the header.
+    /// Show the dismiss button in the header.
+    /// Defaults to true.
     /// </summary>
     public bool ShowDismiss { get; set; } = true;
 
     /// <summary>
+    /// Title of the dismiss button, display in a tooltip.
+    /// Defaults to "Close".
+    /// </summary>
+    public string? DismissTitle { get; set; } = "Close";
+
+    /// <summary>
     /// Text to display for the primary action.
     /// </summary>
-    public string? PrimaryAction { get; set; } = "Ok"; //DialogResources.ButtonPrimary;
+    public string? PrimaryAction { get; set; } = "OK"; //DialogResources.ButtonPrimary;
 
     /// <summary>
     /// When true, primary action's button is enabled.
     /// </summary>
     public bool PrimaryActionEnabled { get; set; } = true;
-
-    //public EventCallback<DialogResult>? OnPrimaryAction { get; set; } = default!;
 
     /// <summary>
     /// Text to display for the secondary action.
@@ -59,8 +72,6 @@ public class DialogParameters : ComponentParameters, IDialogParameters
     /// When true, secondary action's button is enabled.
     /// </summary>
     public bool SecondaryActionEnabled { get; set; } = true;
-
-    //public EventCallback<DialogResult>? OnSecondaryAction { get; set; } = default!;
 
     /// <summary>
     /// Width of the dialog. Must be a valid CSS width value like "600px" or "3em"
@@ -94,6 +105,11 @@ public class DialogParameters : ComponentParameters, IDialogParameters
     public string? AriaLabel { get; set; }
 
     /// <summary>
+    /// The type of dialog.
+    /// </summary>
+    public DialogType DialogType { get; set; } = DialogType.Dialog;
+
+    /// <summary>
     /// Gets whether the primary button is displayed or not. Depends on PrimaryAction having a value.
     /// </summary>
     internal bool ShowPrimaryAction => !string.IsNullOrEmpty(PrimaryAction);
@@ -119,6 +135,4 @@ public class DialogParameters<TContent> : DialogParameters, IDialogParameters<TC
     /// Content to pass to and from the dialog.
     /// </summary>
     public TContent Content { get; set; } = default!;
-
-
 }

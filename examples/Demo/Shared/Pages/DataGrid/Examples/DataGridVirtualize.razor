@@ -1,16 +1,25 @@
 <div style="height: 400px; overflow-y: scroll;">
-    <FluentDataGrid Items=@items Virtualize="true" ItemSize="32" GridTemplateColumns="1fr 1fr 1fr 1fr">
-        <PropertyColumn Property="@(c => c.Item1)" Sortable="true">
-        </PropertyColumn>
-        <PropertyColumn Property="@(c => c.Item2)" />
-        <PropertyColumn Property="@(c => c.Item3)" Align="Align.Center" />
-        <PropertyColumn Property="@(c => c.Item4)" Align="Align.End">
-        </PropertyColumn>
+    <FluentDataGrid Style="height: 400px;" Items=@items Virtualize="true" ItemSize="32" GridTemplateColumns="1fr 1fr 1fr 1fr">
+        <ChildContent>
+            <PropertyColumn Property="@(c => c.Item1)" Sortable="true" />
+            <PropertyColumn Property="@(c => c.Item2)" />
+            <PropertyColumn Property="@(c => c.Item3)" Align="Align.Center" />
+            <PropertyColumn Property="@(c => c.Item4)" Align="Align.End" />
+        </ChildContent>
+        <EmptyContent><FluentIcon Icon="Icons.Filled.Size24.Crown" Color="@Color.Accent"/>&nbsp; Nothing to see here. Carry on!</EmptyContent>
     </FluentDataGrid>
 </div>
+<br />
+<FluentSwitch @bind-Value="@_clearItems" 
+              AfterBindValue="ToggleItems" 
+              UncheckedMessage="Clear all results"
+              CheckedMessage="Restore all results">
+</FluentSwitch>
+
 
 @code {
-    public record SampleGridData(string Item1, string Item2, string Item3, string Item4);   
+    bool _clearItems = false;
+    public record SampleGridData(string Item1, string Item2, string Item3, string Item4);
 
     IQueryable<SampleGridData>? items = Enumerable.Empty<SampleGridData>().AsQueryable();
 
@@ -27,5 +36,17 @@
     protected override void OnInitialized()
     {
         items = GenerateSampleGridData(5000);
+    }
+
+    private void ToggleItems()
+    {
+        if (_clearItems)
+		{
+			items = null;
+		}
+		else
+		{
+			items =GenerateSampleGridData(5000);;
+		}
     }
 }

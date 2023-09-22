@@ -10,7 +10,7 @@ public partial class FluentHeader : FluentComponentBase
         .AddClass("header")
         .Build();
 
-    protected string? StyleValue => new StyleBuilder()
+    protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("height", $"{Height}px", () => Height.HasValue)
         .Build();
 

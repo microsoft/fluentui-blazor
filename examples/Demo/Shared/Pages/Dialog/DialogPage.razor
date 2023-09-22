@@ -56,15 +56,15 @@
 </p>
 <CodeSnippet>
     &lt;main&gt;
-    &lt;nav&gt;
-    :
-    &lt;/nav&gt;
-    &lt;div class=&quot;content&quot;&gt;
-    &lt;article id=&quot;article&quot;&gt;
-    @@Body
-    &lt;/article&gt;
-    &lt;/div&gt;
-    &lt;FluentDialogProvider /&gt;
+        &lt;nav&gt;
+        :
+        &lt;/nav&gt;
+        &lt;div class=&quot;content&quot;&gt;
+            &lt;article id=&quot;article&quot;&gt;
+                @@Body
+            &lt;/article&gt;
+        &lt;/div&gt;
+        &lt;FluentDialogProvider /&gt;
     &lt;/main&gt;
 </CodeSnippet>
 
@@ -76,27 +76,35 @@
 <p>
     Interaction with parent dialog can be made by injecting FluentDialog as Cascading Parameter. See <code>SimpleDialog.razor</code> for more details.
 </p>
-<DemoSection Title="DialogService with IDialogReference" Component="@typeof(DialogServiceExample)" AdditionalFiles="@(new[] {"SimpleDialog.razor"})">
+
+<DemoSection Title="DialogService with IDialogReference" MaxHeight="500px" Component="@typeof(DialogServiceExample)" AdditionalFiles="@(new[] {"SimpleDialog.razor"})">
     <Description>
         This example shows how to use async methods to show a dialog and get the result back from it. 
     </Description>
 </DemoSection>
 
-<DemoSection Title="DialogService with EventCallback" Component="@typeof(DialogServiceCallbackExample)" AdditionalFiles="@(new[] {"SimpleDialog.razor"})">
+<DemoSection Title="Customized Dialog" Component="@typeof(DialogCustomizableExample)" AdditionalFiles="@(new[] {"SimpleCustomizedDialog.razor"})">
+    <Description>
+        This example shows how to open a Dialog using the <b>DialogService</b>.
+        The dialog is customized by specifying a custom header and footer: <b>FluentDialogHeader</b>, <b>FluentDialogFooter</b> and <b>FluentDialogBody</b>
+    </Description>
+</DemoSection>
+
+<DemoSection Title="DialogService with EventCallback" MaxHeight="500px" Component="@typeof(DialogServiceCallbackExample)" AdditionalFiles="@(new[] {"SimpleDialog.razor"})">
     <Description>
         This example shows how to use an <code>EventCallback</code> parameter to get data back from the dialog.
     </Description>
 </DemoSection>
 
 
-<DemoSection Title="Dialog without using DialogService" Component="@typeof(DialogDefault)" CollocatedFiles="@(new[] {"css"})">
+<DemoSection Title="Dialog without using DialogService" MaxHeight="500px" Component="@typeof(DialogDefault)" CollocatedFiles="@(new[] {"css"})">
     <Description>
         This example shows a simple dialog created by specifying it's content manually (see the Razor tab). Because of this, the dialog is not automatically styled.
         A CSS file has been added to set the width, heigth and padding of the dialog.
     </Description>
 </DemoSection>
 
-<DemoSection Title="SimpleDialog as component" Component="@typeof(DialogSimpleDialog)">
+<DemoSection Title="SimpleDialog as component" MaxHeight="500px" Component="@typeof(DialogSimpleDialog)">
     <Description>
         For a components to be useable in a dialog, it just needs to inherit from <code>IDialogContentComponent&lt;T&gt;</code>.
         They can still be used as a normal component as well. This example shows the <code>SimpleDialog</code> component from the
@@ -118,3 +126,39 @@
 
 <ApiDocumentation Component="typeof(DialogParameters<>)" GenericLabel="TData" />
 
+<h3>Dialog header and footer</h3>
+<p>The dialog header and footer can be changed by using the <code>FluentDialogHeader</code> and <code>FluentDialogFooter</code> component.</p>
+<p>
+    The default implementation uses the <code>FluentDialogHeader</code> and <code>FluentDialogFooter</code> components (see documentation below). 
+    You can use the content of these components as the base for your own implementation:
+</p>
+
+<h4>Default dialog header (simplified version)</h4>
+<CodeSnippet>
+    &lt;FluentStack Orientation="Orientation.Horizontal" VerticalAlignment="VerticalAlignment.Top">
+        &lt;div style="width: 100%;">
+            &lt;FluentLabel Typo="Typography.PaneHeader">&commat;Title&lt;/FluentLabel>
+        &lt;/div>
+        &lt;FluentButton Appearance="Appearance.Stealth">
+            &lt;FluentIcon Icon="CoreIcons.Regular.Size24.Dismiss" />
+        &lt;FluentButton>
+    &lt;/FluentStack>
+</CodeSnippet>
+
+<h4>Default dialog footer (simplified version)</h4>
+<CodeSnippet>
+    &lt;FluentStack Orientation="Orientation.Horizontal" HorizontalAlignment="HorizontalAlignment.Right" VerticalAlignment="VerticalAlignment.Bottom">
+        &lt;FluentButton Title="&commat;PrimaryAction" Appearance="Appearance.Accent" Disabled="&commat;PrimaryActionEnabled">
+            &commat;PrimaryAction
+        &lt;/FluentButton>
+        &lt;FluentButton Title="&commat;SecondaryAction" Appearance="Appearance.Neutral" Disabled="&commat;SecondaryActionEnabled">
+            &commat;SecondaryAction
+        &lt;/FluentButton>
+    &lt;/FluentStack>
+</CodeSnippet>
+
+<ApiDocumentation Component="typeof(FluentDialogHeader)" />
+
+<ApiDocumentation Component="typeof(FluentDialogFooter)" />
+
+<ApiDocumentation Component="typeof(FluentDialogBody)" />

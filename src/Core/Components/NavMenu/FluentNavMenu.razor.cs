@@ -22,11 +22,10 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
         .AddClass("navmenu-parent-element")
         .Build();
 
-    protected string? StyleValue => new StyleBuilder()
+    protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("width", $"{Width}px", () => Expanded && Width.HasValue)
         .AddStyle("width", WIDTH_COLLAPSED_MENU, () => !Expanded)
         .AddStyle("min-width", WIDTH_COLLAPSED_MENU, () => !Expanded)
-        .AddStyle(Style)
         .Build();
 
     /// <summary>
@@ -199,11 +198,22 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
         if (string.IsNullOrEmpty(localPath))
             localPath = "/";
 
+        
+        localPath = (localPath + "/").Replace("//", "/");   
         FluentNavMenuItemBase? menuItem = _allItems.Values
-            .FirstOrDefault(x => localPath.Equals(x.Href, StringComparison.InvariantCultureIgnoreCase));
+            .Where(x => !string.IsNullOrEmpty(x.Href))
+            .FirstOrDefault(x => x.Href != "/" && localPath.StartsWith((x.Href! + "/").Replace("//", "/"), StringComparison.InvariantCultureIgnoreCase));
 
-        if (menuItem is not null)
+        if (menuItem is not null) 
         {
+            _currentlySelectedTreeItem = menuItem.TreeItem;
+            _previousSuccessfullySelectedTreeItem = menuItem.TreeItem;
+            await _currentlySelectedTreeItem.SetSelectedAsync(true);
+        }
+        
+        if (menuItem is null && localPath == "/")
+        {
+            menuItem = _allItems.Values.First(x => x.Href == "/");
             _currentlySelectedTreeItem = menuItem.TreeItem;
             _previousSuccessfullySelectedTreeItem = menuItem.TreeItem;
             await _currentlySelectedTreeItem.SetSelectedAsync(true);

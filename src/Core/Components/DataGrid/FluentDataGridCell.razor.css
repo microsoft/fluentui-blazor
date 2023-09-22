@@ -5,6 +5,7 @@
 .multiline-text {
     white-space: inherit;
     overflow: auto;
+    word-break: break-word;
 }
 
 .column-header {

@@ -1,3 +1,8 @@
 ﻿.header {
     padding: 0;
+    z-index: 3;
+}
+
+.sticky-header {
+    z-index: 3;
 }

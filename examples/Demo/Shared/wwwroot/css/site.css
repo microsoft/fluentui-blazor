@@ -20,7 +20,7 @@ header {
     background-color: var(--neutral-layer-4);
     grid-area: header;
     display: grid;
-    grid-template-columns: 280px 1fr auto auto auto;
+    grid-template-columns: 280px 1fr auto auto;
     grid-template-rows: 1fr;
     align-items: center;
     justify-content: flex-start;
@@ -33,35 +33,30 @@ header {
         padding: 0 30px;
         grid-column: 1;
     }
-
-    header fluent-switch {
-        width: 9rem;
-    }
-
-    header .menugroup {
-        grid-column: 3;
-        display: flex;
-        align-items: center;
-    }
-
-    header .colorgroup {
-        grid-column: 4;
-        display: flex;
-        align-items: center;
-    }
-
-        header .colorgroup label {
-            margin-inline-end: calc(var(--design-unit) * 2px);
-        }
     
-    header .switches {
-        grid-column: 5;
+    header .notifications {
+        grid-column: 3;
         justify-self: end;
         padding: 0 20px 0 0;
         display: flex;
         align-items: center;
     }
 
+    header .settings {
+        grid-column: 4;
+        justify-self: end;
+        padding: 0 20px 0 0;
+        display: flex;
+        align-items: center;
+    }
+
+    [dir="rtl"] header .settings {
+        padding: 0 0 0 20px;
+    }
+    [dir="rtl"] header .notifications {
+        padding: 0 0 0 20px;
+    }
+    
 
 footer {
     display: grid;
@@ -168,7 +163,6 @@ article {
 aside {
     padding: 2rem 0.75rem;
     border-left: 1px solid var(--neutral-stroke-divider-rest);
-    grid-area: 1 / 2;
 }
 
 #menu-toggle {
@@ -411,10 +405,11 @@ code {
     fluent-select::part(control) {
         width: 150px;
     }
-   
+
     .content {
         display: grid;
         grid-template-columns: auto;
+        grid-template-rows: max-content;
     }
     aside {
         grid-area: 1 / 1 / 2 / 2;
@@ -495,5 +490,20 @@ code {
         padding-top: 0px;
         margin-inline-start: calc(env(viewport-segment-left 1 0) - env(viewport-segment-right 0 0)); /* hinge width */
         margin-inline-end: calc(100% - env(viewport-segment-left 1 0));
+    }
+}
+
+
+
+@media (min-width: 800px) {
+    .fluent-dialog-main {
+        --dialog-width: 340px;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .fluent-dialog-main {
+        --dialog-width: 100vw;
     }
 }

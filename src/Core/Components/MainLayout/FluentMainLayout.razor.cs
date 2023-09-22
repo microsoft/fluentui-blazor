@@ -9,7 +9,7 @@ public partial class FluentMainLayout : FluentComponentBase
     protected string? ClassValue => new CssBuilder(Class)
         .Build();
 
-    protected string? StyleValue => new StyleBuilder()
+    protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("--header-height", $"{HeaderHeight}px", () => HeaderHeight.HasValue)
         .AddStyle("height", $"calc(100% - {HeaderHeight}px)")
         .Build();

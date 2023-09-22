@@ -19,6 +19,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<CacheStorageAccessor>();
         services.AddScoped<IToastService, ToastService>();
         services.AddScoped<IDialogService, DialogService>();
+        services.AddScoped<IMessageService, MessageService>();
 
         if (configuration is not null)
         {

@@ -1,0 +1,35 @@
+@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentComponentBase
+
+<div id="@Id" class="@ClassValue" style="@StyleValue">
+    <div class="initials">
+        <FluentPresenceBadge Status="@Status" Size="@StatusSize" StatusTitle="@StatusTitle">
+            @if (string.IsNullOrEmpty(Image))
+            {
+                <div style="display: table-cell; vertical-align: middle; @GetImageSizeStyle()">
+                        @(Initials ?? GetDefaultInitials())
+                </div>
+            }
+            else
+            {
+                <img src="@Image" alt="@Name" title="@Name" style="@GetImageSizeStyle()" />
+            }
+        </FluentPresenceBadge>
+    </div>
+    <div class="name">
+        @if (@ChildContent is null)
+        {
+            @Name
+        }
+        else
+        {
+            @ChildContent
+        }
+    </div>
+    @if (OnDismissClick.HasDelegate)
+    {
+        <div class="close">
+            <FluentIcon Value="@(new CoreIcons.Regular.Size24.Dismiss())" Width="12px" Title="@DismissTitle" OnClick="OnDismissClick" />
+        </div>
+    }
+</div>

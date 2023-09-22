@@ -7,9 +7,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentTimePicker : FluentInputBase<DateTime?>
 {
     /// <summary />
-    protected override string? StyleValue => new StyleBuilder()
-        .AddStyle(Style)
-        .Build();
+    protected override string? StyleValue => new StyleBuilder(Style).Build();
 
     /// <summary>
     /// Gets or sets the design of this input.
@@ -20,13 +18,15 @@ public partial class FluentTimePicker : FluentInputBase<DateTime?>
     /// <summary />
     protected override bool TryParseValueFromString(string? value, out DateTime? result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
+        DateTime currentValue = Value ?? DateTime.MinValue;
+
         if (value != null && DateTime.TryParse(value, out var valueConverted))
         {
-            result = valueConverted;
+            result = currentValue.Date + valueConverted.TimeOfDay;
         }
         else
         {
-            result = null;
+            result = Value?.Date;
         }
 
         validationErrorMessage = null;

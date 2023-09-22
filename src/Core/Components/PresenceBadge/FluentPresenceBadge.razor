@@ -1,9 +1,15 @@
 ﻿@namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentComponentBase
 
-<div class="presencebadge-container">
+<div class="@ClassValue" style="@StyleValue" title="@(string.IsNullOrEmpty(Title) ? (string.IsNullOrEmpty(StatusTitle) ? Status.ToString() : StatusTitle) : Title)">
     @ChildContent
-    <div class="@ClassValue" style="@StyleValue" title="@Status.ToString()">
-        @GetIconInstance().ToMarkup(size: GetIconSize(), color: GetIconColor())
-    </div>
+    @if (Status is not null)
+    {
+        <FluentIcon Class="status"
+                    Value="@GetIconInstance()"
+                    Title="@(string.IsNullOrEmpty(StatusTitle) ? Status.ToString() : StatusTitle)"
+                    Color="Color.Custom"
+                    CustomColor="@GetIconColor()"
+                    Width="@GetIconSize()" />
+    }
 </div>

@@ -1,0 +1,146 @@
+@namespace Microsoft.Fast.Components.FluentUI
+@inherits ListComponentBase<TOption>
+@typeparam TOption
+
+<CascadingValue Value=@_internalListContext Name="ListContext" TValue="InternalListContext<TOption>" IsFixed=true>
+    <div class="@ClassValue fluent-autocomplete-multiselect"
+         style="@StyleValue">
+        <fluent-text-field role="combobox"
+                           id="@Id"
+                           appearance="@Appearance.ToAttributeValue()"
+                           disabled="@Disabled"
+                           placeholder="@(this.SelectedOptions?.Any() == false ? Placeholder : string.Empty)"
+                           aria-label="@(String.IsNullOrWhiteSpace(Title) ? Placeholder : Title)"
+                           aria-expanded="@(IsMultiSelectOpened ? "true" : "false")"
+                           aria-controls="@(IsMultiSelectOpened ? IdScroll : string.Empty)"
+                           current-value="@_valueText"
+                           @onclick="@OnDropDownExpandedAsync"
+                           @oninput="@InputHandlerAsync"
+                           @onkeydown="@KeyDownHandlerAsync"                           
+                           @onfocusout="@(e => { IsReachedMaxItems = false; })"
+                           style="@ComponentWidth">
+            @* Selected Items *@
+            @if (this.SelectedOptions?.Any() == true)
+            {
+                <fluent-horizontal-scroll id="@IdScroll" style="width: 100%;" slot="start">
+                    <fluent-flipper onclick="document.getElementById('@IdScroll').scrollToPrevious()"
+                                    slot="previous-flipper"
+                                    aria-hidden="false"
+                                    role="button"
+                                    tabindex="0"
+                                    class="previous fluent-autocomplete-previous"
+                                    direction="previous"></fluent-flipper>
+                    <fluent-flipper onclick="document.getElementById('@IdScroll').scrollToNext()"
+                                    slot="next-flipper"
+                                    aria-hidden="false"
+                                    role="button"
+                                    tabindex="0"
+                                    class="next fluent-autocomplete-next"
+                                    direction="next"></fluent-flipper>
+                    @foreach (var item in this.SelectedOptions)
+                    {
+                        if (SelectedOptionTemplate == null)
+                        {
+                            <FluentBadge Appearance="@FluentUI.Appearance.Neutral"
+                                         OnDismissClick="@(e => RemoveSelectedItemAsync(item))"
+                                         aria-label="@GetOptionText(item)">
+                                @GetOptionText(item)
+                            </FluentBadge>
+                        }
+                        else
+                        {
+                            @SelectedOptionTemplate(item)
+                        }
+                    }
+                    &nbsp;
+                </fluent-horizontal-scroll>
+            }
+            @if (!Disabled)
+            {
+                if (this.SelectedOptions?.Any() == true || !string.IsNullOrEmpty(_valueText))
+                {
+                    <FluentIcon Value="@(new CoreIcons.Regular.Size16.Dismiss())"
+                                Width="12px"
+                                Style="cursor: pointer;"
+                                Slot="end"
+                                Title="Clear"
+                                OnClick="@OnClearAsync" />
+                }
+                else
+                {
+                    <FluentIcon Value="@(new CoreIcons.Regular.Size16.Search())"
+                                Width="16px"
+                                Style="cursor: pointer;"
+                                Slot="end"
+                                Title="Search"
+                                OnClick="@OnDropDownExpandedAsync" />
+                }
+            }
+        </fluent-text-field>
+
+        @* List of available items *@
+        @if (IsMultiSelectOpened)
+        {
+            <FluentOverlay OnClose="@(e => IsMultiSelectOpened = false)" Visible="true" Transparent="true" FullScreen="true" />
+            <FluentAnchoredRegion Anchor="@Id"
+                                  HorizontalDefaultPosition="HorizontalPosition.Right"
+                                  HorizontalInset="true"
+                                  VerticalDefaultPosition="@VerticalPosition.Unset"
+                                  Style="margin-top: 10px; border-radius: calc(var(--control-corner-radius) * 2px); background-color: var(--neutral-layer-floating);"
+                                  Shadow="ElevationShadow.Flyout">
+                @if (HeaderContent != null)
+                {
+                    @HeaderContent(Items ?? Array.Empty<TOption>())
+                }
+
+                <div role="listbox" style="@ListStyleValue" aria-label="List">
+                    @if (Items != null)
+                    {
+                        var selectableItem = GetOptionValue(SelectableItem);
+                        foreach (TOption item in Items)
+                        {
+                            var value = GetOptionValue(item);
+                            <FluentOption TOption="TOption"
+                                          Value="@value"
+                                          Style="@OptionStyle"
+                                          Class="@OptionClass"
+                                          Selected="@GetOptionSelected(item)"
+                                          Disabled="@(GetOptionDisabled(item) ?? false)"
+                                          OnSelect="@OnSelectCallback(item)"
+                                          selectable="@(value == selectableItem)">
+                                @if (OptionTemplate == null)
+                                {
+                                    @GetOptionText(item)
+                                }
+                                else
+                                {
+                                    @OptionTemplate(item)
+                                }
+                            </FluentOption>
+                        }
+                    }
+                </div>
+
+                @if (FooterContent != null)
+                {
+                    @FooterContent(Items ?? Array.Empty<TOption>())
+                    ;
+                }
+            </FluentAnchoredRegion>
+        }
+
+        @* Tooltip *@
+        else if (IsReachedMaxItems && MaximumSelectedOptionsMessage != null)
+        {
+            <FluentOverlay OnClose="@(e => IsReachedMaxItems = false)" Visible="true" Transparent="true" FullScreen="true" />
+            <FluentAnchoredRegion Anchor="@Id"
+                                  HorizontalDefaultPosition="HorizontalPosition.Right"
+                                  HorizontalInset="true"
+                                  VerticalDefaultPosition="@VerticalPosition.Unset"
+                                  Style="margin-top: 10px; border-radius: calc(var(--control-corner-radius) * 2px); background-color: var(--neutral-layer-floating); padding: 10px;"
+                                  Shadow="ElevationShadow.Flyout">
+                @MaximumSelectedOptionsMessage
+            </FluentAnchoredRegion>
+        }
+    </div>
+</CascadingValue>

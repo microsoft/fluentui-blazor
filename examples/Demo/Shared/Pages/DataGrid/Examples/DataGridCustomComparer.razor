@@ -87,6 +87,6 @@
 
     private void HandleRowFocus(FluentDataGridRow<Country> row)
     {
-        Console.WriteLine($"Row focused: {row.RowIndex}");
+        Console.WriteLine($"Row focused: {row.Item?.Name}");
     }
 }
