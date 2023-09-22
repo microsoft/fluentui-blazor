@@ -63,5 +63,4 @@ fluent-dialog ::deep .fluent-dialog-body {
     width: 100%;
     padding: var(--dialog-padding) 0px 0px 0px;
     height: calc(100% - var(--dialog-padding) - ((var(--base-height-multiplier) + var(--density)) * var(--design-unit) * 1px));
-    overflow-y: auto;
 }
