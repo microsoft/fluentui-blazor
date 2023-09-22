@@ -198,11 +198,22 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
         if (string.IsNullOrEmpty(localPath))
             localPath = "/";
 
+        
+        localPath = (localPath + "/").Replace("//", "/");   
         FluentNavMenuItemBase? menuItem = _allItems.Values
-            .FirstOrDefault(x => localPath.Equals(x.Href, StringComparison.InvariantCultureIgnoreCase));
+            .Where(x => !string.IsNullOrEmpty(x.Href))
+            .FirstOrDefault(x => x.Href != "/" && localPath.StartsWith((x.Href! + "/").Replace("//", "/"), StringComparison.InvariantCultureIgnoreCase));
 
-        if (menuItem is not null)
+        if (menuItem is not null) 
         {
+            _currentlySelectedTreeItem = menuItem.TreeItem;
+            _previousSuccessfullySelectedTreeItem = menuItem.TreeItem;
+            await _currentlySelectedTreeItem.SetSelectedAsync(true);
+        }
+        
+        if (menuItem is null && localPath == "/")
+        {
+            menuItem = _allItems.Values.First(x => x.Href == "/");
             _currentlySelectedTreeItem = menuItem.TreeItem;
             _previousSuccessfullySelectedTreeItem = menuItem.TreeItem;
             await _currentlySelectedTreeItem.SetSelectedAsync(true);
