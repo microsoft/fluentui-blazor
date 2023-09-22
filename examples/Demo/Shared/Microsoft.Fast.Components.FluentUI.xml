@@ -1833,6 +1833,9 @@
             Closes the dialog
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.IsDefaultDialogHeader">
+            <summary />
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogFooter.Alignment">
             <summary>
             Gets or sets the dialog position:
@@ -1870,24 +1873,37 @@
             The event callback invoked when secondary button is clicked
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogFooter.ShowPrimaryAction">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogFooter.ChildContent">
             <summary>
-            Gets whether the primary button is displayed or not. Depends on PrimaryAction having a value.
+            Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogFooter.ShowSecondaryAction">
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDialogFooter.OnInitialized">
             <summary>
             Gets whether the secondary button is displayed or not. Depends on SecondaryAction having a value. 
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogHeader.Title">
             <summary>
-            Title of the dialog
+            Title of the dialog.
+            If defined, this value will replace the one defined in the <see cref="T:Microsoft.Fast.Components.FluentUI.DialogParameters"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogHeader.ShowTitle">
+            <summary>
+            When true, shows the title in the header.
+            If defined, this value will replace the one defined in the <see cref="T:Microsoft.Fast.Components.FluentUI.DialogParameters"/>.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogHeader.ShowDismiss">
             <summary>
             When true, shows the dismiss button in the header.
+            If defined, this value will replace the one defined in the <see cref="T:Microsoft.Fast.Components.FluentUI.DialogParameters"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogHeader.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentDialogProvider.#ctor">

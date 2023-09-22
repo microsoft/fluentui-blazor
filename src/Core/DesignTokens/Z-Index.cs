@@ -15,4 +15,6 @@ public static class ZIndex
     public static int ComboboxPopup { get; set; } = 9995;
     
     public static int SelectPopup { get; set; } = 9995;
+
+    public static int Dialog { get; set; } = 999;
 }

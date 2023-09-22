@@ -20,7 +20,7 @@ public partial class SiteSettings
             Title = "Site settings",
             Content = GlobalState,
             Alignment = HorizontalAlignment.Right,
-            PrimaryAction = "Ok",
+            PrimaryAction = "OK",
             SecondaryAction = null,
             ShowDismiss = true
         });

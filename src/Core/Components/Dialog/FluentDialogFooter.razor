@@ -1,27 +1,38 @@
 ﻿@namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentComponentBase
 
-<div class="fluent-dialog-footer">
+@if (Visible)
+{
     <FluentStack Orientation="Orientation.Horizontal"
-                 HorizontalAlignment="@(Dialog!.Instance.Parameters.Alignment == HorizontalAlignment.Center ? HorizontalAlignment.Right : HorizontalAlignment.Left)">
-        @if (ShowPrimaryAction)
+                 HorizontalAlignment="@(Dialog.Instance?.Parameters?.Alignment == HorizontalAlignment.Center ? HorizontalAlignment.Right : HorizontalAlignment.Left)"
+                 VerticalAlignment="VerticalAlignment.Bottom"
+                 Style="@StyleValue"
+                 Class="@ClassValue"
+                 Id="@Id">
+        @if (ChildContent == null)
         {
-            <FluentButton title="@PrimaryAction"
-                          @onclick="@OnPrimaryActionButtonClickAsync"
-                          Appearance="Appearance.Accent"
-                          Disabled="@(!PrimaryActionEnabled)">
-                @PrimaryAction
-            </FluentButton>
+            @if (Dialog.Instance?.Parameters?.ShowPrimaryAction == true)
+            {
+                <FluentButton Title="@Dialog.Instance?.Parameters?.PrimaryAction"
+                              OnClick="@OnPrimaryActionButtonClickAsync"
+                              Appearance="Appearance.Accent"
+                              Disabled="@(Dialog.Instance?.Parameters?.PrimaryActionEnabled == false)">
+                    @Dialog.Instance?.Parameters?.PrimaryAction
+                </FluentButton>
+            }
+            @if (Dialog.Instance?.Parameters?.ShowSecondaryAction == true)
+            {
+                <FluentButton Title="@Dialog.Instance?.Parameters?.SecondaryAction"
+                              OnClick="@OnSecondaryActionButtonClickAsync"
+                              Appearance="Appearance.Neutral"
+                              Disabled="@(Dialog.Instance?.Parameters?.SecondaryActionEnabled == false)">
+                    @Dialog.Instance?.Parameters?.SecondaryAction
+                </FluentButton>
+            }
         }
-        @if (ShowSecondaryAction)
+        else
         {
-            <FluentButton title="@SecondaryAction"
-                          @onclick="@OnSecondaryActionButtonClickAsync"
-                          Appearance="Appearance.Neutral"
-                          Disabled="@(!SecondaryActionEnabled)">
-                @SecondaryAction
-            </FluentButton>
+            @ChildContent
         }
     </FluentStack>
-</div>
-
+}
