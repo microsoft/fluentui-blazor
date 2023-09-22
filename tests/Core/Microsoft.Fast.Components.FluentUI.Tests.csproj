@@ -49,4 +49,13 @@
 
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="List\FluentPersonaTests.FluentOptionPeople_Initials.verified.html">
+      <DependentUpon>FluentPersonaTests.cs</DependentUpon>
+    </None>
+    <None Update="List\FluentPersonaTests.FluentOptionPeople_Image.verified.html">
+      <DependentUpon>FluentPersonaTests.cs</DependentUpon>
+    </None>
+  </ItemGroup>
+
 </Project>
