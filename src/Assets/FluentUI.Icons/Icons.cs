@@ -75,4 +75,13 @@ public static partial class Icons
 
         return Array.Empty<IconInfo>();
     }
+
+    /// <summary />
+    public static IEnumerable<IconInfo> AllIcons
+    {
+        get
+        {
+            return GetAllIcons();
+        }
+    }
 }
