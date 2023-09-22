@@ -1,4 +1,4 @@
-﻿.fluent-option-people {
+﻿.fluent-persona {
     display: flex;
     height: 100%;
     width: fit-content;
@@ -8,7 +8,7 @@
     text-overflow: ellipsis;
 }
 
-    .fluent-option-people .initials {
+    .fluent-persona .initials {
         display: flex;
         color: var(--fill-color);
         background: var(--accent-stroke-control-active);
@@ -20,18 +20,18 @@
         aspect-ratio: 1/1;
     }
 
-        .fluent-option-people .initials img {
+        .fluent-persona .initials img {
             border-radius: 50%;
             aspect-ratio: 1 / 1;
             height: 100%;
             width: 100%;
         }
 
-    .fluent-option-people .name {
+    .fluent-persona .name {
         margin-left: 16px;
     }
 
-    .fluent-option-people .close {
+    .fluent-persona .close {
         display: flex;
         text-align: center;
         align-items: center;

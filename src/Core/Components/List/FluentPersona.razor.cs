@@ -6,11 +6,11 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// <summary>
 /// People picker option component.
 /// </summary>
-public partial class FluentOptionPeople : FluentComponentBase
+public partial class FluentPersona : FluentComponentBase
 {
     /// <summary />
     protected virtual string? ClassValue =>
-        new CssBuilder(Class).AddClass("fluent-option-people")
+        new CssBuilder(Class).AddClass("fluent-persona")
                              .Build();
 
     /// <summary />
