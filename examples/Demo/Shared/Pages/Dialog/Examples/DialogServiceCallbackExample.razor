@@ -18,7 +18,7 @@
     </FluentCheckbox>
 </div>
 <div style="margin-top: 1rem;">
-    <FluentButton @onclick="@OpenDialog" Appearance="Appearance.Accent">
+    <FluentButton OnClick="@OpenDialogAsync" Appearance="Appearance.Accent">
         Open Dialog
     </FluentButton>
 </div>
@@ -34,11 +34,11 @@
             Age = 39,
         };
 
-    private void OpenDialog()
+    private async Task OpenDialogAsync()
     {
         DemoLogger.WriteLine($"Open dialog centered");
 
-        DialogParameters<SimplePerson> parameters = new()
+        await DialogService.ShowDialogAsync<SimpleDialog>(simplePerson, new DialogParameters()
             {
                 Title = $"Hello {simplePerson.Firstname}",
                 OnDialogResult = DialogService.CreateDialogCallback(this, HandleDialog),
@@ -47,11 +47,9 @@
                 SecondaryAction = "No",
                 Width = "500px",
                 Height = "500px",
-                Content = simplePerson,
                 TrapFocus = _trapFocus,
                 Modal = _modal,
-            };
-        DialogService.ShowDialog<SimpleDialog, SimplePerson>(parameters);
+            });
     }
 
     private async Task HandleDialog(DialogResult result)

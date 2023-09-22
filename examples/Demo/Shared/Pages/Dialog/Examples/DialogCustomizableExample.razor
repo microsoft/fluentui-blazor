@@ -12,8 +12,8 @@
     {
         var dialog = await DialogService.ShowDialogAsync<SimpleCustomizedDialog>(DialogData, new DialogParameters()
             {
-                Height = "300px",
-                Title = $"Edition of the {DialogData.Firstname} sheet",
+                Height = "200px",
+                Title = $"Updating the {DialogData.Firstname} sheet",
             });
 
         var result = await dialog.Result;

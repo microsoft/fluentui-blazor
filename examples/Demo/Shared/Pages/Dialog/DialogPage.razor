@@ -77,16 +77,16 @@
     Interaction with parent dialog can be made by injecting FluentDialog as Cascading Parameter. See <code>SimpleDialog.razor</code> for more details.
 </p>
 
-<DemoSection Title="Customized Dialog" Component="@typeof(DialogCustomizableExample)" AdditionalFiles="@(new[] {"SimpleCustomizedDialog.razor"})">
-    <Description>
-        This example shows how to open a Dialog using the <b>DialogService</b>.
-        The dialog is customized by specifying a custom header and footer.
-    </Description>
-</DemoSection>
-
 <DemoSection Title="DialogService with IDialogReference" MaxHeight="500px" Component="@typeof(DialogServiceExample)" AdditionalFiles="@(new[] {"SimpleDialog.razor"})">
     <Description>
         This example shows how to use async methods to show a dialog and get the result back from it. 
+    </Description>
+</DemoSection>
+
+<DemoSection Title="Customized Dialog" Component="@typeof(DialogCustomizableExample)" AdditionalFiles="@(new[] {"SimpleCustomizedDialog.razor"})">
+    <Description>
+        This example shows how to open a Dialog using the <b>DialogService</b>.
+        The dialog is customized by specifying a custom header and footer: <b>FluentDialogHeader</b>, <b>FluentDialogFooter</b> and <b>FluentDialogBody</b>
     </Description>
 </DemoSection>
 
@@ -127,56 +127,38 @@
 <ApiDocumentation Component="typeof(DialogParameters<>)" GenericLabel="TData" />
 
 <h3>Dialog header and footer</h3>
-<p>The dialog header and footer can be changed by using the <code>FluentDialog</code>'s <code>HeaderTemplate</code> and <code>FooterTemplate</code> parameters.</p>
+<p>The dialog header and footer can be changed by using the <code>FluentDialogHeader</code> and <code>FluentDialogFooter</code> component.</p>
 <p>
     The default implementation uses the <code>FluentDialogHeader</code> and <code>FluentDialogFooter</code> components (see documentation below). 
     You can use the content of these components as the base for your own implementation:
 </p>
 
-<h4>Default dialog header</h4>
+<h4>Default dialog header (simplified version)</h4>
 <CodeSnippet>
-&lt;div class=&quot;fluent-dialog-header&quot;&gt;
-    &lt;FluentStack Orientation=&quot;Orientation.Horizontal&quot; VerticalAlignment=&quot;VerticalAlignment.Center&quot;&gt;
-        &lt;FluentLabel Typo=&quot;Typography.PaneHeader&quot; Style=&quot;width: 100%; margin: 0px;&quot;&gt;@@Title&lt;/FluentLabel&gt;
-        @@if (ShowDismiss)
-        {
-            &lt;FluentButton Appearance = &quot; Appearance.Stealth &quot;
-                @@onclick= &quot;@@(() = &gt; Dialog!.CancelAsync())&quot; &gt;
-                &lt;FluentIcon Icon = &quot; CoreIcons.Regular.Size24.Dismiss & quot; Width = &quot; 16px & quot; / &gt;
-            &lt;/FluentButton &gt;
-        }
-    &lt;/FluentStack&gt;
-&lt;/div&gt;
+    &lt;FluentStack Orientation="Orientation.Horizontal" VerticalAlignment="VerticalAlignment.Top">
+        &lt;div style="width: 100%;">
+            &lt;FluentLabel Typo="Typography.PaneHeader">&commat;Title&lt;/FluentLabel>
+        &lt;/div>
+        &lt;FluentButton Appearance="Appearance.Stealth">
+            &lt;FluentIcon Icon="CoreIcons.Regular.Size24.Dismiss" />
+        &lt;FluentButton>
+    &lt;/FluentStack>
 </CodeSnippet>
 
-<h4>Default dialog footer</h4>
+<h4>Default dialog footer (simplified version)</h4>
 <CodeSnippet>
-&lt;div class=&quot;@@(Alignment == HorizontalAlignment.Center ? &quot;fluent-dialog-footer-normal&quot; : &quot;fluent-dialog-footer-bottom&quot;)&quot;&gt;
-    &lt;FluentStack Orientation=&quot;Orientation.Horizontal&quot;
-                 HorizontalAlignment=&quot;@@(Alignment == HorizontalAlignment.Center ? HorizontalAlignment.Right : HorizontalAlignment.Left)&quot;&gt;
-        @@if (ShowPrimaryAction)
-        {
-            &lt;FluentButton title=&quot;@@PrimaryAction&quot;
-                          @@onclick=&quot;@@OnPrimaryActionButtonClickAsync&quot;
-                          Appearance=&quot;Appearance.Accent&quot;
-                          Disabled=&quot;@@(!PrimaryActionEnabled)&quot;&gt;
-                @@PrimaryAction
-            &lt;/FluentButton&gt;
-        }
-        @@if (ShowSecondaryAction)
-        {
-            &lt;FluentButton title=&quot;@@SecondaryAction&quot;
-                          @@onclick=&quot;@@OnSecondaryActionButtonClickAsync&quot;
-                          Appearance=&quot;Appearance.Neutral&quot;
-                          Disabled=&quot;@@(!SecondaryActionEnabled)&quot;&gt;
-                @@SecondaryAction
-            &lt;/FluentButton&gt;
-        }
-    &lt;/FluentStack&gt;
-&lt;/div&gt;
+    &lt;FluentStack Orientation="Orientation.Horizontal" HorizontalAlignment="HorizontalAlignment.Right" VerticalAlignment="VerticalAlignment.Bottom">
+        &lt;FluentButton Title="&commat;PrimaryAction" Appearance="Appearance.Accent" Disabled="&commat;PrimaryActionEnabled">
+            &commat;PrimaryAction
+        &lt;/FluentButton>
+        &lt;FluentButton Title="&commat;SecondaryAction" Appearance="Appearance.Neutral" Disabled="&commat;SecondaryActionEnabled">
+            &commat;SecondaryAction
+        &lt;/FluentButton>
+    &lt;/FluentStack>
 </CodeSnippet>
 
 <ApiDocumentation Component="typeof(FluentDialogHeader)" />
 
 <ApiDocumentation Component="typeof(FluentDialogFooter)" />
 
+<ApiDocumentation Component="typeof(FluentDialogBody)" />
