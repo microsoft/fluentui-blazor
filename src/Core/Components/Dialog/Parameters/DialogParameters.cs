@@ -46,7 +46,7 @@ public class DialogParameters : ComponentParameters, IDialogParameters
     /// Title of the dismiss button, display in a tooltip.
     /// Defaults to "Close".
     /// </summary>
-    public string DismissTitle { get; set; } = "Close";
+    public string? DismissTitle { get; set; } = "Close";
 
     /// <summary>
     /// Text to display for the primary action.
