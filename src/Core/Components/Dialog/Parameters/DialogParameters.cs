@@ -25,6 +25,11 @@ public class DialogParameters : ComponentParameters, IDialogParameters
     public bool? Modal { get; set; } = true;
 
     /// <summary>
+    /// Prevents scrolling outside of the dialog while it is shown.
+    /// </summary>to use
+    public bool PreventScroll { get; set; } = true;
+
+    /// <summary>
     /// Indicates if dialog should trap focus.
     /// Defaults to true.
     /// </summary>

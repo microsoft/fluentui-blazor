@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Fast.Components.FluentUI.Utilities;
+using Microsoft.JSInterop;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
@@ -12,6 +13,11 @@ public partial class FluentOverlay
 {
     private string? _color = null;
     private int _r, _g, _b;
+
+    /// <summary />
+    protected string? ClassValue => new CssBuilder("fluent-overlay")
+        .AddClass("prevent-scroll", PreventScroll)
+        .Build();
 
     /// <summary />
     protected string? StyleValue => new StyleBuilder()
@@ -84,32 +90,13 @@ public partial class FluentOverlay
     [Parameter]
     public string BackgroundColor { get; set; } = "#ffffff";
 
+    [Parameter]
+    public bool PreventScroll { get; set; } = false;
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    protected async Task OnCloseHandlerAsync(MouseEventArgs e)
-    {
-        if (!Dismissable)
-        {
-            return;
-        }
-
-        Visible = false;
-
-        if (VisibleChanged.HasDelegate)
-        {
-            await VisibleChanged.InvokeAsync(Visible);
-        }
-
-        if (OnClose.HasDelegate)
-        {
-            await OnClose.InvokeAsync(e);
-        }
-
-        return;
-    }
-
+   
     protected override void OnParametersSet()
     {
         if (!Transparent && Opacity == 0)
@@ -144,9 +131,31 @@ public partial class FluentOverlay
             {
                 _r = int.Parse(_color[0..1], NumberStyles.HexNumber);
                 _g = int.Parse(_color[1..2], NumberStyles.HexNumber);
-                _b = int.Parse(_color[2..],NumberStyles.HexNumber);
+                _b = int.Parse(_color[2..], NumberStyles.HexNumber);
             }
         }
+    }
+
+    protected async Task OnCloseHandlerAsync(MouseEventArgs e)
+    {
+        if (!Dismissable)
+        {
+            return;
+        }
+
+        Visible = false;
+
+        if (VisibleChanged.HasDelegate)
+        {
+            await VisibleChanged.InvokeAsync(Visible);
+        }
+
+        if (OnClose.HasDelegate)
+        {
+            await OnClose.InvokeAsync(e);
+        }
+
+        return;
     }
 
 #if NET7_0_OR_GREATER

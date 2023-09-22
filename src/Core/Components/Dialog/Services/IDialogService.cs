@@ -21,5 +21,6 @@ public partial interface IDialogService
 
     public event Action<IDialogReference, DialogResult>? OnDialogCloseRequested;
 
+
     public EventCallback<DialogResult> CreateDialogCallback(object receiver, Func<DialogResult, Task> callback);
 }

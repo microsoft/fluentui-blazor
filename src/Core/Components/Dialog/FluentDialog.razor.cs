@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.Fast.Components.FluentUI.Utilities;
+using Microsoft.JSInterop;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentDialog : FluentComponentBase //, IDisposable
+public partial class FluentDialog : FluentComponentBase
 {
     private const string DEFAULT_DIALOG_WIDTH = "500px";
     private const string DEFAULT_PANEL_WIDTH = "340px";
@@ -22,6 +23,7 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
         .AddClass("fluent-dialog-main")
         .AddClass("right", () => _parameters.DialogType == DialogType.Panel && _parameters.Alignment == HorizontalAlignment.Right)
         .AddClass("left", () => _parameters.DialogType == DialogType.Panel && _parameters.Alignment == HorizontalAlignment.Left)
+        .AddClass("prevent-scroll", () => Instance is null ? (PreventScroll && !Hidden): _parameters.PreventScroll)
         .Build();
 
     /// <summary />
@@ -34,7 +36,12 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
         .AddStyle("--dialog-width", _parameters.Width ?? DEFAULT_PANEL_WIDTH, () => _parameters.DialogType == DialogType.Panel)
         .AddStyle("--dialog-height", _parameters.Height ?? DEFAULT_HEIGHT, () => _parameters.Alignment == HorizontalAlignment.Center)
         .Build();
-
+ 
+    /// <summary>
+    /// Prevents scrolling outside of the dialog while it is shown.
+    /// </summary>
+    [Parameter]
+    public bool PreventScroll { get; set; } = true;
 
     /// <summary>
     /// Indicates the element is modal. When modal, user mouse interaction will be limited to the contents of the element by a modal
@@ -110,6 +117,7 @@ public partial class FluentDialog : FluentComponentBase //, IDisposable
     /// </summary>
     [Parameter]
     public EventCallback<DialogResult> OnDialogResult { get; set; }
+
 
     /// <summary />
     protected override void OnInitialized()

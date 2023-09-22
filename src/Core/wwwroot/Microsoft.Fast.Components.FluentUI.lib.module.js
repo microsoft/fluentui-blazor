@@ -162,5 +162,11 @@ export function beforeStart(options, extensions) {
     wcScript.src = './_content/Microsoft.Fast.Components.FluentUI/js/web-components-v2.5.16.min.js';
     wcScript.async = true;
     document.head.appendChild(wcScript);
+
+    var libraryStyle = document.createElement('link');
+    libraryStyle.rel = 'stylesheet';
+    libraryStyle.type = 'text/css';
+    libraryStyle.href = './_content/Microsoft.Fast.Components.FluentUI/css/Microsoft.Fast.Components.FluentUI.css';
+    document.head.appendChild(libraryStyle);
 }
 
