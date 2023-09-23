@@ -23,7 +23,7 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     public int? RowIndex { get; set; }
 
     /// <summary>
-    /// String that gets applied to the the css gridTemplateColumns attribute for the row
+    /// String that gets applied to the css gridTemplateColumns attribute for the row
     /// </summary>
     [Parameter]
     public string? GridTemplateColumns { get; set; } = null;
