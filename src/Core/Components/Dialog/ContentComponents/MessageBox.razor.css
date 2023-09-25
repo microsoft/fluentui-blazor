@@ -1,11 +1,9 @@
 ﻿.fluent-messagebox {
     font-family: var(--body-font);
     -webkit-font-smoothing: antialiased;
-    background-color: var( --neutral-layer-floating);
     color: var( --neutral-foreground-rest);
     word-break: break-word;
     min-height: 80px;
-    padding-bottom: calc(16px + (var(--base-height-multiplier) + var(--density)) * var(--design-unit) * 1px);
 }
 
 .fluent-messagebox ::deep .icon {
