@@ -8,8 +8,8 @@
     ::deep fluent-data-grid {
         min-width: 1200px;
     }
+
     ::deep .docgrid {
         overflow-x: scroll;
-        
     }
 }
