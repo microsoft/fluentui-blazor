@@ -14,7 +14,7 @@ public partial class SiteSettings
     private async Task OpenSiteSettingsAsync()
     {
         DemoLogger.WriteLine($"Open site settings");
-        _dialog = await DialogService.ShowPanelAsync<SiteSettingsPanel, GlobalState>(new DialogParameters<GlobalState>()
+        _dialog = await DialogService.ShowPanelAsync<SiteSettingsPanel>(GlobalState, new DialogParameters<GlobalState>()
         {
             ShowTitle = true,
             Title = "Site settings",

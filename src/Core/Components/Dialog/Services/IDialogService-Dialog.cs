@@ -37,7 +37,7 @@ public partial interface IDialogService
     /// <typeparam name="TData">Type of content to pass to component being displayed.</typeparam>
     /// <param name="id">Id of the dialog to update.</param>
     /// <param name="parameters">Parameters to configure the dialog component.</param>
-    Task<IDialogReference> UpdateDialogAsync<TData>(string id, DialogParameters<TData> parameters)
+    Task<IDialogReference?> UpdateDialogAsync<TData>(string id, DialogParameters<TData> parameters)
         where TData : class;
 
     /// <summary>
