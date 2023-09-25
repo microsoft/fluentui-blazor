@@ -4,6 +4,7 @@
     padding: 0px var(--dialog-padding);
     width: calc(var(--dialog-width) - 2 * var(--dialog-padding));
     height: calc(var(--dialog-height) - 2 * var(--dialog-padding));
+    max-width: 80%;
 }
 
 fluent-dialog:has(div[class~="fluent-dialog-body"])::part(control) {
@@ -24,7 +25,7 @@ fluent-dialog[class~="right"]::part(control) {
     border-width: 0;
     max-height: 100%;
     --dialog-height: 100%;
-    height: 100%!important;
+    height: 100% !important;
 }
 
 fluent-dialog[class~="left"]::part(control) {
@@ -34,7 +35,7 @@ fluent-dialog[class~="left"]::part(control) {
     border-width: 0;
     max-height: 100%;
     --dialog-height: 100%;
-    height: 100%!important;
+    height: 100% !important;
 }
 
 fluent-dialog ::deep .fluent-dialog-header {
@@ -48,8 +49,6 @@ fluent-dialog ::deep .fluent-dialog-footer {
     margin-top: auto;
     padding: var(--dialog-padding) 0px;
     bottom: 0px;
-    /*right: var(--dialog-padding);*/
-    /*position: fixed;*/
     width: calc(100% - var(--dialog-padding) * 1px);
 }
 
@@ -64,7 +63,7 @@ fluent-dialog ::deep .fluent-dialog-body {
     grid-area: dialog-body;
     width: 100%;
     height: auto;
-    /*height: calc(100% - var(--dialog-padding) - ((var(--base-height-multiplier) + var(--density)) * var(--design-unit) * 1px));*/
+    min-height: 80px;
 }
 
 fluent-dialog:has(:not(div[class~="fluent-dialog-header"]))
