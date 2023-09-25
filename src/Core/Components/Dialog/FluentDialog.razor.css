@@ -47,7 +47,6 @@ fluent-dialog ::deep .fluent-dialog-footer {
     margin-top: auto;
     padding: var(--dialog-padding) 0px;
     bottom: 0px;
-    right: var(--dialog-padding);
     position: absolute;
 }
 
