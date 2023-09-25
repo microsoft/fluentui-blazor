@@ -1233,7 +1233,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGridRow`1.GridTemplateColumns">
             <summary>
-            String that gets applied to the the css gridTemplateColumns attribute for the row
+            String that gets applied to the css gridTemplateColumns attribute for the row
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGridRow`1.RowType">
@@ -2014,7 +2014,13 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.Modal">
             <summary>
             Determines if the dialog is modal. Defaults to true.
-            When true, clicking outside the dialog will dismiss the dialog.
+            Obscures the area around the dialog.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.PreventDismissOnOverlayClick">
+            <summary>
+            Determines if a modal dialog is dismissible by clicking
+            outside the dialog. Defaults to false.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.PreventScroll">
@@ -3575,6 +3581,9 @@
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentPersona.GetDefaultInitials">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSelect`1.InlineStyleValue">
             <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentSelect`1.Open">
@@ -10818,6 +10827,61 @@
             <summary>
             Adds a raw string to the builder that will be concatenated with the next classes or value added to the builder.
             </summary>
+            <param name="value"></param>
+            <returns>StyleBuilder</returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.InlineStyleBuilder.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Fast.Components.FluentUI.Utilities.InlineStyleBuilder"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.InlineStyleBuilder.AddStyle(System.String,System.String,System.String)">
+            <summary>
+            Adds a conditional in-line style to the builder with space separator and closing semicolon..
+            </summary>
+            <param name="name"></param>
+            <param name="prop"></param>
+            <param name="value">Style to add</param>
+            <returns>StyleBuilder</returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.InlineStyleBuilder.AddStyle(System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Adds a conditional in-line style to the builder with space separator and closing semicolon..
+            </summary>
+            <param name="name"></param>
+            <param name="prop"></param>
+            <param name="value">Style to conditionally add.</param>
+            <param name="when">Condition in which the style is added.</param>
+            <returns>StyleBuilder</returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.InlineStyleBuilder.AddStyle(System.String,System.String,System.String,System.Func{System.Boolean})">
+            <summary>
+            Adds a conditional in-line style to the builder with space separator and closing semicolon..
+            </summary>
+            <param name="name"></param>
+            <param name="prop"></param>
+            <param name="value">Style to conditionally add.</param>
+            <param name="when">Condition in which the style is added.</param>
+            <returns>StyleBuilder</returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.InlineStyleBuilder.Build(System.Boolean)">
+            <summary>
+            Finalize the completed Style as a string.
+            </summary>
+            <returns>string</returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.InlineStyleBuilder.BuildMarkupString">
+            <summary>
+            Finalize the completed Style as a string.
+            </summary>
+            <returns>string</returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.InlineStyleBuilder.AddRaw(System.String,System.String,System.String)">
+            <summary>
+            Adds a raw string to the builder that will be concatenated with the next style or value added to the builder.
+            </summary>
+            <param name="name"></param>
+            <param name="prop"></param>
             <param name="value"></param>
             <returns>StyleBuilder</returns>
         </member>
