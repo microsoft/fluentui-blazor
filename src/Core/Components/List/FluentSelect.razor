@@ -1,15 +1,8 @@
 @namespace Microsoft.Fast.Components.FluentUI
 @inherits ListComponentBase<TOption>
 @typeparam TOption
-@if (!String.IsNullOrEmpty(Height))
-{
-    <style>
-        @($"#{Id}::part(listbox) {{ max-height: {Height}; z-index: {ZIndex.SelectPopup} }}")
-        @($"#{Id}::part(selected-value) {{ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }}")
-        @($"fluent-anchored-region[anchor='{Id}'] div[role='listbox'] {{ height: {Height}; }}")
-    </style>
-}
 <CascadingValue Value="_internalListContext" Name="ListContext" TValue="InternalListContext<TOption>" IsFixed="true">
+    @InlineStyleValue
     <fluent-select @ref=Element
                    id=@Id
                    class="@ClassValue"
