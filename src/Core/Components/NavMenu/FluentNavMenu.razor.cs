@@ -9,7 +9,6 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
 {
     private const string WIDTH_COLLAPSED_MENU = "40px";
     private bool _disposed;
-    private bool _hasRouteParameters = false;
     private bool _hasChildIcons => ((INavMenuItemsOwner)this).HasChildIcons;
     private readonly Dictionary<string, FluentNavMenuItemBase> _allItems = new();
     private readonly List<FluentNavMenuItemBase> _childItems = new();
@@ -200,17 +199,13 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
             localPath = "/";
 
         
-        localPath = (localPath + "/").Replace("//", "/");   
+        string comparePath = (localPath + "/").Replace("//", "/");   
         FluentNavMenuItemBase? menuItem = _allItems.Values
             .Where(x => !string.IsNullOrEmpty(x.Href))
-            .FirstOrDefault(x => x.Href != "/" && localPath.StartsWith((x.Href! + "/").Replace("//", "/"), StringComparison.InvariantCultureIgnoreCase));
+            .FirstOrDefault(x => x.Href != "/" && comparePath.StartsWith((x.Href! + "/").Replace("//", "/"), StringComparison.InvariantCultureIgnoreCase));
 
         if (menuItem is not null) 
         {
-            if (menuItem.Href != localPath)
-            {
-                _hasRouteParameters = true;
-            }
             _currentlySelectedTreeItem = menuItem.TreeItem;
             _previousSuccessfullySelectedTreeItem = menuItem.TreeItem;
             await _currentlySelectedTreeItem.SetSelectedAsync(true);
@@ -342,12 +337,12 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
             await OnAction.InvokeAsync(actionArgs);
         }
 
-        if (!actionArgs.Handled && !_hasRouteParameters)
+        if (!actionArgs.Handled)
         {
             await menuItem.ExecuteAsync(actionArgs);
         }
 
-        if (actionArgs.Handled && !_hasRouteParameters)
+        if (actionArgs.Handled)
         {
             await menuItem.SetSelectedAsync(true);
         }

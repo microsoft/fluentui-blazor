@@ -133,7 +133,9 @@ public partial class DialogService
             OnDialogResult = parameters.OnDialogResult,
         };
 
+#pragma warning disable CS0618 // Type or member is obsolete
         ShowDialog(typeof(MessageBox), parameters.Content, dialogParameters);
+#pragma warning restore CS0618 // Type or member is obsolete
     }
 
     /// <summary>

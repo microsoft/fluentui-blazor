@@ -164,7 +164,7 @@ public abstract class FluentNavMenuItemBase : FluentComponentBase, IDisposable
 
     private bool NeedsNavigation()
     {
-        if (string.IsNullOrEmpty(Href) || NavigationManager.Uri.Equals(Href, StringComparison.InvariantCultureIgnoreCase))
+        if (string.IsNullOrEmpty(Href) || NavigationManager.Uri.Contains((Href + "/").Replace("//", "/"), StringComparison.InvariantCultureIgnoreCase))
         {
             return false;
         }
