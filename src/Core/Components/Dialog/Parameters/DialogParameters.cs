@@ -5,7 +5,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 public class DialogParameters : ComponentParameters, IDialogParameters
 {
     public string Id { get; set; } = Identifier.NewId();
-   
+
     /// <summary>
     /// Gets or sets the dialog position:
     /// left (full height), right (full height)
@@ -20,9 +20,15 @@ public class DialogParameters : ComponentParameters, IDialogParameters
 
     /// <summary>
     /// Determines if the dialog is modal. Defaults to true.
-    /// When true, clicking outside the dialog will dismiss the dialog.
+    /// Partially obscures the area around the dialog.
     /// </summary>
     public bool? Modal { get; set; } = true;
+
+    /// <summary>
+    /// Determines if a modal dialog is dismissible by clicking
+    /// outside the dialog. Defaults to false.
+    /// </summary>
+    public bool? InertModalOverlay { get; set; } = false;
 
     /// <summary>
     /// Prevents scrolling outside of the dialog while it is shown.
