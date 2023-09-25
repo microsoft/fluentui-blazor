@@ -18,11 +18,11 @@
                 @switch (_parameters.TopCTAType)
                 {
                     case ToastTopCTAType.Dismiss:
-                        <FluentIcon Icon="CoreIcons.Regular.Size24.Dismiss"
-                                          Width="12px"
-                                          Title="Close"
-                                          Color="@Color.FillInverse"
-                                          OnClick="@Close" />
+                        <FluentIcon Value="@(new CoreIcons.Regular.Size24.Dismiss())"
+                                    Width="12px"
+                                    Title="Close"
+                                    Color="@Color.FillInverse"
+                                    OnClick="@Close" />
                         break;
                     case ToastTopCTAType.Timestamp:
                         <span class="fluent-toast-small timestamp ">@_parameters.Timestamp.ToString("HH:mm tt")</span>
