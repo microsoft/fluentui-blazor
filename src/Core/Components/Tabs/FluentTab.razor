@@ -26,7 +26,7 @@
 
     @if (Owner.ShowClose)
     {
-        <FluentIcon Icon="CoreIcons.Regular.Size24.Dismiss" Width="12px" Class="fluent-tab-close" Title="Close" OnClick="CloseClickedAsync" />
+        <FluentIcon Value="@(new CoreIcons.Regular.Size24.Dismiss())" Width="12px" Class="fluent-tab-close" Title="Close" OnClick="CloseClickedAsync" />
     }
 </fluent-tab>
 <fluent-tab-panel style="@StyleValue" class="@ClassValue">

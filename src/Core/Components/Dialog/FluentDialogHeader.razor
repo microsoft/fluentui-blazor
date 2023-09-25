@@ -22,7 +22,7 @@
         @if (ShowDismiss == true)
         {
             <FluentButton Appearance="Appearance.Stealth" OnClick="@(() => Dialog.CancelAsync())" Title="@Dialog.Instance?.Parameters?.DismissTitle">
-                <FluentIcon Icon="CoreIcons.Regular.Size24.Dismiss" Width="16px" />
+                <FluentIcon Value="@(new CoreIcons.Regular.Size24.Dismiss())" Width="16px" />
             </FluentButton>
         }
     </FluentStack>
