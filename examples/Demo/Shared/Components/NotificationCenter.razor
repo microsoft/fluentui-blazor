@@ -43,7 +43,7 @@ else
     {
         DemoLogger.WriteLine($"Open notification center");
 
-        _dialog = await DialogService.ShowPanelAsync<NotificationCenterPanel, GlobalState>(new DialogParameters<GlobalState>()
+        _dialog = await DialogService.ShowPanelAsync<NotificationCenterPanel>(new DialogParameters<GlobalState>()
             {
                 Alignment = HorizontalAlignment.Right,
                 Title = $"Notifications",
