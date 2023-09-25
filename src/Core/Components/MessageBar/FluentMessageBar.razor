@@ -54,7 +54,7 @@
                         @SecondaryAction?.Text
                     </FluentButton>
                 }
-                <FluentIcon Icon="CoreIcons.Regular.Size16.Dismiss"
+                <FluentIcon Value="@(new CoreIcons.Regular.Size16.Dismiss())"
                             Color=@Color.Neutral
                             Class="fluent-messagebar-close"
                             OnClick="DismissClicked" />
@@ -83,7 +83,7 @@
             @* Close *@
             
                 <div class="fluent-messagebar-notification-close">
-                <FluentIcon Icon="CoreIcons.Regular.Size16.Dismiss"
+                <FluentIcon Value="@(new CoreIcons.Regular.Size16.Dismiss())"
                             Color=@Color.Neutral
                             Class="fluent-messagebar-notification-close"
                             OnClick="DismissClicked" />
