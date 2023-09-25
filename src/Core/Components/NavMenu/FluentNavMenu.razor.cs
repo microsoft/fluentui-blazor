@@ -9,6 +9,7 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
 {
     private const string WIDTH_COLLAPSED_MENU = "40px";
     private bool _disposed;
+    private bool _hasRouteParameters = false;
     private bool _hasChildIcons => ((INavMenuItemsOwner)this).HasChildIcons;
     private readonly Dictionary<string, FluentNavMenuItemBase> _allItems = new();
     private readonly List<FluentNavMenuItemBase> _childItems = new();
@@ -206,6 +207,10 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
 
         if (menuItem is not null) 
         {
+            if (menuItem.Href != localPath)
+            {
+                _hasRouteParameters = true;
+            }
             _currentlySelectedTreeItem = menuItem.TreeItem;
             _previousSuccessfullySelectedTreeItem = menuItem.TreeItem;
             await _currentlySelectedTreeItem.SetSelectedAsync(true);
@@ -337,15 +342,16 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
             await OnAction.InvokeAsync(actionArgs);
         }
 
-        if (!actionArgs.Handled)
+        if (!actionArgs.Handled && !_hasRouteParameters)
         {
             await menuItem.ExecuteAsync(actionArgs);
         }
 
-        if (actionArgs.Handled)
+        if (actionArgs.Handled && !_hasRouteParameters)
         {
             await menuItem.SetSelectedAsync(true);
         }
+
         return actionArgs.Handled;
     }
 

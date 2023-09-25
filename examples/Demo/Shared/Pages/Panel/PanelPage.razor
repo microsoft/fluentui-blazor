@@ -1,8 +1,11 @@
 @page "/Panel"
+@page "/Panel/{*panelroute}"
 
 @using FluentUI.Demo.Shared.Pages.Panel.Examples;
 
 <h1>Panel</h1>
+
+<p>Route: @PanelRoute </p>
 
 <p>
     A panel is a dialog that is anchored to the either left or right side of the screen. By implementing <code>IDialogContentComponent&lt;T&gt;</code>, 
@@ -48,3 +51,9 @@
 
 <h2>API Documentation</h2>
 <ApiDocumentation Component="typeof(DialogParameters<>)" InstanceType="typeof(string)" GenericLabel="TData" />
+
+@code {
+    [Parameter]
+    public string PanelRoute { get; set; }
+    
+}

@@ -2014,7 +2014,13 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.Modal">
             <summary>
             Determines if the dialog is modal. Defaults to true.
-            When true, clicking outside the dialog will dismiss the dialog.
+            Obscures the area around the dialog.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.PreventDismissOnOverlayClick">
+            <summary>
+            Determines if a modal dialog is dismissible by clicking
+            outside the dialog. Defaults to false.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.PreventScroll">
