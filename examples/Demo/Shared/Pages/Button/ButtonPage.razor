@@ -17,7 +17,12 @@
 
 
 <h2>Examples</h2>
-<DemoSection Title="Simple button examples" Component="@typeof(ButtonDefault)"></DemoSection>
+<DemoSection Title="Simple button examples" Component="@typeof(ButtonDefault)">
+    <Description>
+        Although it is possible to use Appearance.Hypertext on a button, this still renders a button due to a change in the underlying web component. 
+        We will remove this specific appearance value in a future version.
+    </Description>
+</DemoSection>
 
 <DemoSection Title="With content and icon" Component="@typeof(ButtonIcon)"></DemoSection>
 

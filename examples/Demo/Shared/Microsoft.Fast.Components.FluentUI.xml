@@ -848,6 +848,12 @@
             for this column.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.Style">
+            <summary>
+            An optional CSS style specification. If specified, this is included in the style attribute of header and grid cells
+            for this column.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.Align">
             <summary>
             If specified, controls the justification of header and grid cells for this column.
@@ -1164,6 +1170,11 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowClass">
             <summary>
             Optionally defines a class to be applied to a rendered row. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowStyle">
+            <summary>
+            Optionally defines a style to be applied to a rendered row. 
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.EmptyContent">

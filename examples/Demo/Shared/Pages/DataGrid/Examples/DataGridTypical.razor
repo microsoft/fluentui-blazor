@@ -1,11 +1,11 @@
 ﻿@inject DataSource Data
 
 
-<FluentDataGrid Items="@FilteredItems" ResizableColumns=true Pagination="@pagination" GridTemplateColumns="0.2fr 1fr 0.2fr 0.2fr 0.2fr 0.2fr" RowClass="@rowClass" Style="height: 405px; overflow:auto;">
+<FluentDataGrid Items="@FilteredItems" ResizableColumns=true Pagination="@pagination" GridTemplateColumns="0.2fr 1fr 0.2fr 0.2fr 0.2fr 0.2fr" RowClass="@rowClass" RowStyle="@rowStyle" Style="height: 405px; overflow:auto;">
     <TemplateColumn Tooltip="true" Title="Rank" SortBy="@rankSort" Align="Align.Center" InitialSortDirection="SortDirection.Ascending" IsDefaultSortColumn=true>
         <img class="flag" src="_content/FluentUI.Demo.Shared/flags/@(context.Code).svg" alt="Flag of @(context.Code)" />
     </TemplateColumn>
-    <PropertyColumn Property="@(c => c.Name)" Sortable="true" Tooltip="true">
+    <PropertyColumn Property="@(c => c.Name)" Sortable="true" Tooltip="true" Title="Name of the country">
         <ColumnOptions>
             <div class="search-box">
                 <FluentSearch type="search" Autofocus=true @bind-Value=nameFilter @oninput="HandleCountryFilter" AfterBindValue="HandleClear" Placeholder="Country name..." />
@@ -37,7 +37,9 @@
         .ByDescending(x => x.Medals.Gold)
         .ThenDescending(x => x.Medals.Silver)
         .ThenDescending(x => x.Medals.Bronze);
-    Func<Country, string> rowClass = x => x.Name.StartsWith("A") ? "highlighted-row" : string.Empty;
+    
+    Func<Country, string?> rowClass = x => x.Name.StartsWith("A") ? "highlighted-row" : null;
+    Func<Country, string?> rowStyle = x => x.Name.StartsWith("Au") ? "background-color: var(--highlight-bg);" : null;
 
     IQueryable<Country>? FilteredItems => items?.Where(x => x.Name.Contains(nameFilter, StringComparison.CurrentCultureIgnoreCase));
 

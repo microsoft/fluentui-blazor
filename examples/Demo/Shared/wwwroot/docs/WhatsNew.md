@@ -4,6 +4,7 @@
 Also addresses some other issues with FluentDialog variants introduced in 3.1.0
 - Fix [#755](https://github.com/microsoft/fluentui-blazor/issues/755): Icon throws exception when deployed to Azure
 - Feature [#782](https://github.com/microsoft/fluentui-blazor/issues/782) Add ability to prevent dismissing a modal dialog by clicking on the overlay
+- Added `Tooltip` and `Style` parameters to DataGrid's `PropertyColumn` and `TemplateColumn`. See [DataGrid](https://www.fluentui-blazor.net) page for examples.
 
 ## V3.1.
 

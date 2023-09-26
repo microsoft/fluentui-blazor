@@ -94,9 +94,9 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
 
 	/// <inheritdoc />
 	protected internal override void CellContent(RenderTreeBuilder builder, TGridItem item)
-		=> builder.AddContent(0, _cellTextFunc!(item));
+		=> builder.AddContent(0, _cellTextFunc?.Invoke(item));
 
     protected internal override string? RawCellContent(TGridItem item)
-        => _cellTextFunc!(item);
+        => _cellTextFunc?.Invoke(item);
 
 }

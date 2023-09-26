@@ -25,6 +25,12 @@ public abstract partial class ColumnBase<TGridItem>
     [Parameter] public string? Class { get; set; }
 
     /// <summary>
+    /// An optional CSS style specification. If specified, this is included in the style attribute of header and grid cells
+    /// for this column.
+    /// </summary>
+    [Parameter] public string? Style { get; set; }
+
+    /// <summary>
     /// If specified, controls the justification of header and grid cells for this column.
     /// </summary>
     [Parameter] public Align Align { get; set; }
