@@ -1,10 +1,14 @@
 ﻿## V3.1.1
 - Fix [#776](https://github.com/microsoft/fluentui-blazor/issues/776): Icon throws exception when deployed to Azure
-- Fix [#780](https://github.com/microsoft/fluentui-blazor/issues/780): 'OK' button rendered outside of panel for Site settings
-Also addresses some other issues with FluentDialog variants introduced in 3.1.0
 - Fix [#755](https://github.com/microsoft/fluentui-blazor/issues/755): Icon throws exception when deployed to Azure
+- Fix [#789](https://github.com/microsoft/fluentui-blazor/issues/789): Navigation to "/" crashes with FluentNavMenu
+- Fix [#780](https://github.com/microsoft/fluentui-blazor/issues/780): 'OK' button rendered outside of panel for Site settings
+Also addresses some other padding and layout issues with FluentDialog variants introduced in 3.1.0
 - Feature [#782](https://github.com/microsoft/fluentui-blazor/issues/782) Add ability to prevent dismissing a modal dialog by clicking on the overlay
 - Added `Tooltip` and `Style` parameters to DataGrid's `PropertyColumn` and `TemplateColumn`. See [DataGrid](https://www.fluentui-blazor.net) page for examples.
+- Add Icon.WithColor and update the Demo page
+- Update Button Icon Color depending of Button Appearance
+- Update the way to apply the Icon.Color in a Button
 
 ## V3.1.
 
