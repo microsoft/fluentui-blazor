@@ -55,7 +55,7 @@ else
         }
         else
         {
-            <FluentIcon Value="@IconStart" Slot="@(ChildContent != null ? "start" : null)" />
+            <FluentIcon Value="@IconStart" Slot="@(ChildContent != null ? "start" : null)" Color="@GetIconColor()" />
         }
     }
     @ChildContent
@@ -67,7 +67,7 @@ else
         }
         else
         {
-            <FluentIcon Value="@IconEnd" Slot="@(ChildContent != null ? "end" : null)" />
+            <FluentIcon Value="@IconEnd" Slot="@(ChildContent != null ? "end" : null)" Color="@GetIconColor()" />
         }
     }
 </fluent-button>

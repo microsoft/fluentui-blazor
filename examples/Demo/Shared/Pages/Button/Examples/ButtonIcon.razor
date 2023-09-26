@@ -1,12 +1,20 @@
-﻿<p>With icon at start</p>
-<FluentButton IconStart="@(new Icons.Regular.Size16.Globe())">
-    Button
-</FluentButton>
-
-<p>With icon at end</p>
-<FluentButton IconEnd="@(new Icons.Regular.Size16.Globe())">
-    Button
-</FluentButton>
+﻿<p>With icon at Start or End</p>
+<FluentStack>
+    <FluentButton IconStart="@(new Icons.Regular.Size16.Globe())">
+        Button
+    </FluentButton>
+    <FluentButton IconStart="@(new Icons.Regular.Size16.Globe())"
+                  Appearance="Appearance.Accent">
+        Button
+    </FluentButton>
+    <FluentButton IconEnd="@(new Icons.Regular.Size16.Globe())">
+        Button
+    </FluentButton>
+    <FluentButton IconEnd="@(new Icons.Regular.Size16.Globe())"
+                  Appearance="Appearance.Accent">
+        Button
+    </FluentButton>
+</FluentStack>
 
 <p>With icon in default slot</p>
 <FluentButton IconEnd="@(new Icons.Regular.Size16.Globe())"
@@ -20,9 +28,19 @@
 </FluentButton>
 
 <p>With icon and loading</p>
-<FluentButton IconStart="@(new Icons.Regular.Size16.ArrowClockwise())" Loading="@loading" OnClick="@StartLoadingAsync">
-    Refresh
-</FluentButton>
+<FluentStack>
+    <FluentButton IconStart="@(new Icons.Regular.Size16.ArrowClockwise())"
+                  Loading="@loading"
+                  OnClick="@StartLoadingAsync">
+        Refresh
+    </FluentButton>
+    <FluentButton IconStart="@(new Icons.Regular.Size16.ArrowClockwise())"
+                  Appearance="Appearance.Accent"
+                  Loading="@loading"
+                  OnClick="@StartLoadingAsync">
+        Refresh
+    </FluentButton>
+</FluentStack>
 
 @code {
 
