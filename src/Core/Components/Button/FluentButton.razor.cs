@@ -196,16 +196,4 @@ public partial class FluentButton : FluentComponentBase
 
         return $"width: {size}px; height: {size}px;{inverse}";
     }
-
-    private Color? GetIconColor()
-    {
-        switch (Appearance)
-        {
-            case FluentUI.Appearance.Accent:
-                return FluentUI.Color.Lightweight;
-
-            default:
-                return FluentUI.Color.Accent;
-        }
-    }
 }

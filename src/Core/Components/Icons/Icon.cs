@@ -64,6 +64,22 @@ public class Icon : IconInfo
     }
 
     /// <summary>
+    /// Inverse the color of the icon, if the <paramref name="accentContainer"/> is true,
+    /// and is not set (<see cref="Color"/> overrides this accent color).
+    /// </summary>
+    /// <param name="accentContainer"></param>
+    /// <returns></returns>
+    internal Icon InverseColor(bool accentContainer)
+    {
+        if (accentContainer && Color == null)
+        {
+            Color = FluentUI.Color.Lightweight.ToAttributeValue();
+        }
+
+        return this;
+    }
+
+    /// <summary>
     /// Gets the HTML markup of the icon.
     /// </summary>
     public virtual MarkupString ToMarkup(string? size = null, string? color = null)

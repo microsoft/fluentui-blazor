@@ -55,7 +55,8 @@ else
         }
         else
         {
-            <FluentIcon Value="@IconStart" Slot="@(ChildContent != null ? "start" : null)" Color="@GetIconColor()" />
+            <FluentIcon Value="@(IconStart.InverseColor(Appearance == FluentUI.Appearance.Accent))"
+                        Slot="@(ChildContent != null ? "start" : null)" />
         }
     }
     @ChildContent
@@ -67,7 +68,8 @@ else
         }
         else
         {
-            <FluentIcon Value="@IconEnd" Slot="@(ChildContent != null ? "end" : null)" Color="@GetIconColor()" />
+            <FluentIcon Value="@(IconEnd.InverseColor(Appearance == FluentUI.Appearance.Accent))"
+                        Slot="@(ChildContent != null ? "end" : null)" />
         }
     }
 </fluent-button>
