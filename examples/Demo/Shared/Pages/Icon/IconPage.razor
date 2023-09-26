@@ -35,6 +35,11 @@
     There is also a search capability available on this page wich allows you to browse to all the different icons.
 </p>
 
+<h2 id="explorer">Explore Icons</h2>
+<IconExplorer />
+<br />
+<br />
+
 <h2 id="overview">Overview</h2>
 
 <DemoSection Component="typeof(IconDefault)" Title="Icon examples">
@@ -45,16 +50,6 @@
         label in a <code>FluentButton</code> component.
     </Description>
 </DemoSection>
-
-<DemoSection Component="typeof(IconPlacement)" Title="Icon placement">
-    <Description>
-        A lot of the web components have named slots that declare locations in which content can be rendered.
-        FluentIcon leverages this capability through its <code>Slot</code> parameter. With this you can for
-        example render the icon in front (<code>Slot="start"</code>) or after (<code>Slot="end"</code>) a
-        label in a <code>FluentButton</code> component.
-    </Description>
-</DemoSection>
-
 
 <DemoSection Component="typeof(IconColors)" Title="Color options">
     <Description>
@@ -69,10 +64,7 @@
     
 
 
-<h2>Explore Icons</h2>
-<IconExplorer />
-<br />
-<br />
+
 
 <ApiDocumentation Component="typeof(FluentIcon<>)" InstanceTypes="@(new[] {typeof(Icon)})" GenericLabel="Icon">
     <Description>
