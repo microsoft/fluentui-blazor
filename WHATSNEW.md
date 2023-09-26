@@ -1,4 +1,4 @@
-﻿##V3.1.1
+﻿## V3.1.1
 - Fix [#776](https://github.com/microsoft/fluentui-blazor/issues/776): Icon throws exception when deployed to Azure
 - Fix [#780](https://github.com/microsoft/fluentui-blazor/issues/780): 'OK' button rendered outside of panel for Site settings
 Also addresses some other issues with FluentDialog variants introduced in 3.1.0
@@ -7,14 +7,14 @@ Also addresses some other issues with FluentDialog variants introduced in 3.1.0
 
 ## V3.1.
 
-## New components
+### New components
 * `FluentAutoComplete`
 * `FluentPersona`
 * `FluentMessageBar`
 
-## What's Changed
+### What's Changed
 
-### Components
+#### Components
 * [FluentButton] Update the Button.Loading when using with a Icon by @dvoituron in https://github.com/microsoft/fluentui-blazor/pull/752
 * [FluentCodeEditor] update docs by @vnbaaij in https://github.com/microsoft/fluentui-blazor/pull/692
 * [FluentCombobox, FluentSelect, FluentListbox] Add Width and Height property and associated styles by @dvoituron in https://github.com/microsoft/fluentui-blazor/pull/663
@@ -39,7 +39,7 @@ Also addresses some other issues with FluentDialog variants introduced in 3.1.0
 * [Multiple] Apply the Immediate property to "text" components by @dvoituron in https://github.com/microsoft/fluentui-blazor/pull/696
 * [Multiple] Set TextField.AutoComplete property to string type by @dvoituron in https://github.com/microsoft/fluentui-blazor/pull/682
 
-### General
+#### General
 * [CssBuilder and StyleBuilder] Fixing the built format and position of the custom styles by @dvoituron in https://github.com/microsoft/fluentui-blazor/pull/745
 * [Documentation] Add UnitTests markdown page by @dvoituron in https://github.com/microsoft/fluentui-blazor/pull/658
 * [Documentation] Update the Upgrade Guide and details on Icons by @dvoituron in https://github.com/microsoft/fluentui-blazor/pull/673
@@ -53,11 +53,11 @@ Also addresses some other issues with FluentDialog variants introduced in 3.1.0
 * Update CodeSetup.md by @LuohuaRain in https://github.com/microsoft/fluentui-blazor/pull/730
 * Update Fluent UI System Icons to 1.1.217  by @vnbaaij in https://github.com/microsoft/fluentui-blazor/pull/765
 
-### Templates
+#### Templates
 * Update templates by @vnbaaij in https://github.com/microsoft/fluentui-blazor/pull/688
 * Add missing usings Project template by @agriffard in https://github.com/microsoft/fluentui-blazor/pull/702
 
-## New Contributors
+#### New Contributors
 * @agriffard made their first contribution in https://github.com/microsoft/fluentui-blazor/pull/702
 * @hksalessio made their first contribution in https://github.com/microsoft/fluentui-blazor/pull/700
 * @ssccinng made their first contribution in https://github.com/microsoft/fluentui-blazor/pull/711
@@ -119,3 +119,6 @@ Thanks to all contributors!
 
 **Other changes**
 - Added initializersLoader.webview.js to work around Blazor Hybrid bug (see readme)
+
+## Archives
+See the [What's New](https://www.fluentui-blazor.net/WhatsNew) page on the documentation online to browse the archive

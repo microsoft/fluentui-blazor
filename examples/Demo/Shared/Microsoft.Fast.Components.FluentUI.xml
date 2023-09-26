@@ -853,6 +853,11 @@
             If specified, controls the justification of header and grid cells for this column.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.Tooltip">
+            <summary>
+            If true, generate a title attribute for the cell contents
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.HeaderCellItemTemplate">
             <summary>
             An optional template for this column's header cell. If not specified, the default header template
@@ -907,6 +912,12 @@
             Overridden by derived components to provide rendering logic for the column's cells.
             </summary>
             <param name="builder">The current <see cref="T:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder" />.</param>
+            <param name="item">The data for the row being rendered.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.ColumnBase`1.RawCellContent(`0)">
+            <summary>
+            Overridden by derived components to provide the raw content for the column's cells.
+            </summary>
             <param name="item">The data for the row being rendered.</param>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.HeaderContent">

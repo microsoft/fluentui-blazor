@@ -83,7 +83,13 @@
             {
                 var col = _columns[colIndex];
 
-                <FluentDataGridCell GridColumn=@(colIndex+1) Class="@ColumnClass(col)" @key="@col" TGridItem="TGridItem" Item="@item">
+                string? tooltip = null;
+                if (col.Tooltip)
+                {
+                    tooltip = @col.RawCellContent(item);
+                }
+
+                <FluentDataGridCell GridColumn=@(colIndex+1) Class="@ColumnClass(col)" @key="@col" TGridItem="TGridItem" Item="@item" title="@tooltip">
                     @((RenderFragment)(__builder => col.CellContent(__builder, item)))
                 </FluentDataGridCell>
             }
