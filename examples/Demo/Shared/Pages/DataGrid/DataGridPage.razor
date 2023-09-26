@@ -83,6 +83,11 @@
             This grid is using a 'sticky' header (i.e. the header is always visible when scrolling). The buttons in the last column disappear under the header when scrolling. 
             In this example they don't relly do anything more than writting a message in the console log'
         </p>
+        <p>
+            The second column has a custom <code>Style</code> parameter set and applied to it. The 4th column has it's <code>Tooltip</code> 
+            parameter set to true. This will show the full content of the cell when hovering over it. See the 'Razor' tab for how these 
+            parameters have been applied.
+        </p>
     </Description>
 </DemoSection>
 
@@ -174,8 +179,17 @@
 </DemoSection>
 
 <h2>API Documentation</h2>
-<ApiDocumentation Component="typeof(FluentDataGridCell<>)" GenericLabel="TGridItem" />
-
-<ApiDocumentation Component="typeof(FluentDataGridRow<>)" GenericLabel="TGridItem" />
-
 <ApiDocumentation Component="typeof(FluentDataGrid<>)" GenericLabel="TGridItem" />
+
+
+<ApiDocumentation Component="typeof(PropertyColumn<,>)" GenericLabel="TGridItem, TProp" InstanceTypes="@(new[] { typeof(string), typeof(string)  })" />
+
+<ApiDocumentation Component="typeof(TemplateColumn<>)" GenericLabel="TGridItem"  />
+
+<div class="demopanel">
+    <p>
+        <strong>The <code>FluentDataGridRow</code> and <code>FluentDataGridCell</code> API's are usually not used directely </strong>
+    </p>
+</div>
+<ApiDocumentation Component="typeof(FluentDataGridRow<>)" GenericLabel="TGridItem" />
+<ApiDocumentation Component="typeof(FluentDataGridCell<>)" GenericLabel="TGridItem" />

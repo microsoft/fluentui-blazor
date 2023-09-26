@@ -37,7 +37,7 @@ public partial class ApiDocumentation
     /// Default for this parameter is 'typeof(string)'
     /// </summary>
     [Parameter]
-    public Type InstanceType { get; set; } = typeof(string);
+    public Type[] InstanceTypes { get; set; } = new[] { typeof(string) };
 
     /// <summary>
     /// The label used for displaying the type parameter
@@ -50,7 +50,7 @@ public partial class ApiDocumentation
 
     protected override void OnParametersSet()
     {
-        _displayName = Component.Name.Replace("`1", $"<{GenericLabel}>") + " Class";
+        _displayName = Component.Name.Replace("`1", $"<{GenericLabel}>").Replace("`2", $"<{GenericLabel}>") + " Class";
         _id = _displayName.Replace(' ', '-').ToLowerInvariant();
     }
     private IEnumerable<MemberDescription> Properties => GetMembers(MemberTypes.Property);
@@ -71,11 +71,11 @@ public partial class ApiDocumentation
             object? obj;
             if (Component.IsGenericType)
             {
-                if (InstanceType is null)
-                    throw new ArgumentNullException(nameof(InstanceType), "InstanceType must be specified when Component is a generic type");
+                if (InstanceTypes is null)
+                    throw new ArgumentNullException(nameof(InstanceTypes), "InstanceTypes must be specified when Component is a generic type");
 
                 // Supply the type to create the generic instance with (needs to be an array)
-                Type[] typeArgs = { InstanceType };
+                Type[] typeArgs = InstanceTypes;
                 Type constructed = Component.MakeGenericType(typeArgs);
 
                 obj = Activator.CreateInstance(constructed);

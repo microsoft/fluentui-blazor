@@ -123,6 +123,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter] public Func<TGridItem, string>? RowClass { get; set; }
 
     /// <summary>
+    /// Optionally defines a style to be applied to a rendered row. 
+    /// </summary>
+    [Parameter] public Func<TGridItem, string>? RowStyle { get; set; }
+
+    /// <summary>
     /// If specified, grids render this fragment when there is no content.
     /// </summary>
     [Parameter] public RenderFragment? EmptyContent { get; set; }
@@ -442,8 +447,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         Align.Start => $"col-justify-start {column.Class}",
         Align.Center => $"col-justify-center {column.Class}",
         Align.End => $"col-justify-end {column.Class}",
-        //Align.Left => $"col-justify-left {column.Class}",
-        //Align.Right => $"col-justify-right {column.Class}",
         _ => column.Class,
     };
 
