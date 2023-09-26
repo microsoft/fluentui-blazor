@@ -19,7 +19,7 @@ public partial class FluentIcon<Icon> : FluentComponentBase
     /// <summary />
     protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("width", Width ?? $"{_icon.Width}px")
-        .AddStyle("fill", Color == FluentUI.Color.Custom ? CustomColor : Color.ToAttributeValue())
+        .AddStyle("fill", GetIconColor())
         .AddStyle("cursor", "pointer", OnClick.HasDelegate)
         .AddStyle("display", "inline-block", !ContainsSVG())
         .Build();
@@ -41,7 +41,7 @@ public partial class FluentIcon<Icon> : FluentComponentBase
     /// Value comes from the <see cref="FluentUI.Color"/> enumeration. Defaults to Accent.
     /// </summary>
     [Parameter]
-    public Color? Color { get; set; } = FluentUI.Color.Accent;
+    public Color? Color { get; set; }
 
     /// <summary>
     /// Gets or sets the icon drawing and fill color to a custom value.
@@ -111,5 +111,31 @@ public partial class FluentIcon<Icon> : FluentComponentBase
                 _icon.Content.StartsWith("<g ") ||
                 _icon.Content.StartsWith("<circle ") ||
                 _icon.Content.StartsWith("<mark "));
+    }
+
+    /// <summary>
+    /// Returns FluentIcon.CustomColor, or FluentIcon.Color, or Icon.Color.
+    /// </summary>
+    /// <returns></returns>
+    private string GetIconColor()
+    {
+        string defaultColor = FluentUI.Color.Accent.ToAttributeValue()!;
+
+        if (Color == FluentUI.Color.Custom && !string.IsNullOrEmpty(CustomColor))
+        {
+            return CustomColor;
+        }
+
+        if (Color != null)
+        {
+            return Color.ToAttributeValue() ?? defaultColor;
+        }
+        
+        if (!string.IsNullOrEmpty(_icon.Color))
+        {
+            return _icon.Color;
+        }
+
+        return defaultColor;
     }
 }

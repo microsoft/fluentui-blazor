@@ -37,12 +37,39 @@ public class Icon : IconInfo
     public virtual string Content { get; }
 
     /// <summary>
+    /// Gets the color of the icon (set.
+    /// </summary>
+    internal virtual string? Color { get; private set; }
+
+    /// <summary>
+    /// Sets the color of the icon.
+    /// </summary>
+    /// <param name="color"></param>
+    /// <returns></returns>
+    public virtual Icon WithColor(string color)
+    { 
+        Color = color;
+        return this;
+    }
+
+    /// <summary>
+    /// Sets the color of the icon.
+    /// </summary>
+    /// <param name="color"></param>
+    /// <returns></returns>
+    public virtual Icon WithColor(Color color)
+    {
+        Color = color.ToAttributeValue();
+        return this;
+    }
+
+    /// <summary>
     /// Gets the HTML markup of the icon.
     /// </summary>
     public virtual MarkupString ToMarkup(string? size = null, string? color = null)
     {
         var styleWidth = size ?? $"{(int)Size}px";
-        var styleColor = color ?? "var(--accent-fill-rest)";
+        var styleColor = color ?? Color ?? "var(--accent-fill-rest)";
         return new MarkupString($"<svg viewBox=\"0 0 {(int)Size} {(int)Size}\" fill=\"{styleColor}\" style=\"background-color: var(--neutral-layer-1); width: {styleWidth};\" aria-hidden=\"true\">{Content}</svg>");
     }
 
