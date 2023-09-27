@@ -3,17 +3,17 @@
     const string CustomColor = "#570078"; // like Purple color
 }
 <FluentGrid Style="align-items: center;">
-    <FluentGridItem xs="2" Style="font-weight: 600;" title="Color Enumeration value">Color&nbsp;Enum</FluentGridItem>
-    <FluentGridItem xs="4" Style="font-weight: 600;" title="Equivalent CSS variable">CSS variable</FluentGridItem>
-    <FluentGridItem xs="1" Style="font-weight: 600;" title="@AdaptedLightDark">Theme</FluentGridItem>
-    <FluentGridItem xs="5" Style="font-weight: 600;" title="Examples">Examples</FluentGridItem>
+    <FluentGridItem xs="2" title="Color Enumeration value">Color&nbsp;Enum</FluentGridItem>
+    <FluentGridItem xs="4" title="Equivalent CSS variable">CSS variable (*)</FluentGridItem>
+    <FluentGridItem xs="1" title="@AdaptedLightDark">Theme</FluentGridItem>
+    <FluentGridItem xs="5" title="Examples">Examples</FluentGridItem>
 
     @foreach (var color in Enum.GetValues(typeof(Color)).Cast<Color>())
     {
         var name = Enum.GetName<Color>(color);
         var css = color == Color.Custom ? CustomColor : color.ToAttributeValue();
 
-        <FluentGridItem xs="2" Style="font-weight: 600;">
+        <FluentGridItem xs="2">
             @name
         </FluentGridItem>
         <FluentGridItem xs="4">
@@ -53,22 +53,35 @@
         </FluentGridItem>
         <FluentGridItem xs="2" Style="background-color: var(--neutral-layer-3);">
             <FluentButton IconStart="@(new Icons.Filled.Size24.Alert().WithColor(css))"
-                          Title="@($"Button with an IconStart colorized using .WithColor(\"{css}\")")"
-                          Style="font-weight: 600;">
+                          Title="@($"Button with an IconStart colorized using .WithColor(\"{css}\")")">
                 OK
             </FluentButton>
         </FluentGridItem>
         <FluentGridItem xs="2" Style="background-color: var(--neutral-layer-3);">
             <FluentButton IconStart="@(new Icons.Filled.Size24.Alert().WithColor(css))"
                           Title="@($"Button with an IconStart colorized using .WithColor(\"{css}\")")"
-                          Appearance="Appearance.Accent"
-                          Style="font-weight: 600;">
+                          Appearance="Appearance.Accent">
                 OK
             </FluentButton>
         </FluentGridItem>
     }
 
 </FluentGrid>
+
+<style>
+    .fluent-grid > div:nth-of-type(-n+4) {
+        font-weight: 600;
+    }
+
+    .fluent-grid > div:not(:nth-of-type(-n+4)) {
+        height: 60px;
+        font-weight: 600;
+    }
+
+    .fluent-grid fluent-button {
+        font-weight: 600;
+    }
+</style>
 
 <p>
     With <code>Color.Custom</code>, supply your own color value through the <code>CustomColor</code> parameter. <br/>
@@ -80,5 +93,3 @@
     use Reboot, please add the <code>variables.css</code> file to your <code>index.html</code> or <code>_Layout.cshtml</code> file like this:
     (<em><strong>the color values will not be aplied if the CSS variables are not defined</strong></em>):
 <CodeSnippet Language="language-html">&lt;link href="_content/Microsoft.Fast.Components.FluentUI/css/variables.css" rel="stylesheet" /&gt;</CodeSnippet>
-<br />
-<strong>(**)</strong>: Background color has been set through inline style, otherwise icon would be (nearly) invisible.
