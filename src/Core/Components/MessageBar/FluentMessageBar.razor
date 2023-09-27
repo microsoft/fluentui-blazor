@@ -79,9 +79,12 @@
                 </div>
 
             @* Message *@
-            <div class="fluent-messagebar-notification-message" title="@Content">
-                @((MarkupString)Title)
-            </div>
+            @if (!String.IsNullOrEmpty(Title))
+            {
+                <div class="fluent-messagebar-notification-message" title="@Title">
+                    @((MarkupString)(Title))
+                </div>
+            }
 
             @* Close *@
             

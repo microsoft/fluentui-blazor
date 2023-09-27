@@ -22,7 +22,7 @@ public class MessageService : IMessageService, IDisposable
     }
 
     /// <summary />
-    public event Action? OnMessageItemsUpdated = default!;
+    public event Action OnMessageItemsUpdated = default!;
     /// <summary />
     public event Func<Task> OnMessageItemsUpdatedAsync = default!;
 
