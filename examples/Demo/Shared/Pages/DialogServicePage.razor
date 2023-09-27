@@ -31,7 +31,13 @@
         &lt;FluentDialogProvider /&gt;
     &lt;/main&gt;
 </CodeSnippet>
-
+<strong>IMPORTANT!!</strong>
+<p>
+    If you are using ASP.NET Core 8 or above with <strong>Server Side Rendering</strong> layout, you should add <code>rendermode</code> attribute like this:
+</p>
+<CodeSnippet>
+    &lt;FluentDialogProvider @@rendermode="@@RenderMode.Server" /&gt;
+</CodeSnippet>
 
 <p>
     See the following pages for examples on how to use the DialogService with the different types of dialogs.
