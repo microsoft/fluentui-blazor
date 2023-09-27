@@ -46,9 +46,12 @@ public class Icon : IconInfo
     /// </summary>
     /// <param name="color"></param>
     /// <returns></returns>
-    public virtual Icon WithColor(string color)
-    { 
-        Color = color;
+    public virtual Icon WithColor(string? color)
+    {
+        if (!string.IsNullOrEmpty(color))
+        {
+            Color = color;
+        }
         return this;
     }
 

@@ -4,7 +4,7 @@
 public interface IMessageService : IDisposable
 {
     /// <summary />
-    public event Action? OnMessageItemsUpdated;
+    public event Action OnMessageItemsUpdated;
     public event Func<Task> OnMessageItemsUpdatedAsync;
     /// <summary />
     IEnumerable<Message> AllMessages { get; }

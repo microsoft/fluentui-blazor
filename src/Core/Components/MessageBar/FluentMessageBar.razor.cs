@@ -104,7 +104,7 @@ public partial class FluentMessageBar : FluentComponentBase, IDisposable
     /// Most important info to be shown in the message bar.
     /// </summary>
     [Parameter]
-    public string Title
+    public string? Title
     {
         get
         {
