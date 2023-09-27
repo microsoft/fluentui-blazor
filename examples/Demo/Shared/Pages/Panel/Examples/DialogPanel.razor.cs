@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using FluentUI.Demo.Shared.SampleData;
 using Microsoft.Fast.Components.FluentUI;
 
@@ -16,6 +17,7 @@ namespace FluentUI.Demo.Shared.Pages.Panel.Examples
         {
             DemoLogger.WriteLine($"Open right panel");
 
+#pragma warning disable CS0618 // Type or member is obsolete
             DialogService.ShowPanel<SimplePanel, SimplePerson>(new DialogParameters<SimplePerson>()
             {
                 Content = simplePerson,
@@ -25,6 +27,7 @@ namespace FluentUI.Demo.Shared.Pages.Panel.Examples
                 PrimaryAction = "Yes",
                 SecondaryAction = "No",
             });
+#pragma warning restore CS0618 // Type or member is obsolete
         }
 
         private void OpenPanelLeft()
@@ -42,7 +45,9 @@ namespace FluentUI.Demo.Shared.Pages.Panel.Examples
                 SecondaryAction = "Cancel",
                 Width = "300px",
             };
+#pragma warning disable CS0618 // Type or member is obsolete
             DialogService.ShowPanel<SimplePanel, SimplePerson>(parameters);
+#pragma warning restore CS0618 // Type or member is obsolete
         }
 
         private async Task HandlePanel(DialogResult result)

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
+using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
@@ -23,7 +24,7 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     public int? RowIndex { get; set; }
 
     /// <summary>
-    /// String that gets applied to the the css gridTemplateColumns attribute for the row
+    /// String that gets applied to the css gridTemplateColumns attribute for the row
     /// </summary>
     [Parameter]
     public string? GridTemplateColumns { get; set; } = null;
@@ -49,20 +50,14 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     [CascadingParameter]
     private InternalGridContext<TGridItem> Owner { get; set; } = default!;
 
-    private string? _style = null;
+    protected string? StyleValue => new StyleBuilder(Style)
+       .AddStyle("height", $"{Owner.Grid.ItemSize}px", () => Owner.Grid.Virtualize && RowType == DataGridRowType.Default)
+       .AddStyle("align-items", "center", () => Owner.Grid.Virtualize && RowType == DataGridRowType.Default)
+       .Build();
 
     protected override void OnInitialized()
     {
         Owner.Register(this);
-    }
-
-    protected override void OnParametersSet()
-    {
-        if (Owner.Grid.Virtualize && RowType == DataGridRowType.Default)
-        {
-            _style = $"height: {Owner.Grid.ItemSize}px; align-items: center;";
-        }
-
     }
 
     public void Dispose() => Owner.Unregister(this);

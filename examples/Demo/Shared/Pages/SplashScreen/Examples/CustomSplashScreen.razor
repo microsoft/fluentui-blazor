@@ -1,26 +1,30 @@
 ﻿@using Microsoft.Fast.Components.FluentUI
 @implements IDialogContentComponent<SplashScreenContent>
 
-<FluentStack Orientation="Orientation.Vertical" HorizontalAlignment="HorizontalAlignment.Center" Class="my-splash">
-    <img class="icon" src="@Content.Logo" />
-    <p>@Content.Message</p>
-    <h3>
-        @Content.Title
-    </h3>
-    <h3>
-        @Content.SubTitle
-    </h3>
-    <div style="width: 340px;">
-        <FluentProgress/>
-    </div>
-    
-    <h3>
-        @Content.LoadingText
-    </h3>
-</FluentStack>
+<FluentDialogHeader Visible="false" />
+<FluentDialogBody>
+    <FluentStack Orientation="Orientation.Vertical" HorizontalAlignment="HorizontalAlignment.Center" Class="my-splash">
+        <img class="icon" src="@Content.Logo" />
+        <p>@Content.Message</p>
+        <h3>
+            @Content.Title
+        </h3>
+        <h3>
+            @Content.SubTitle
+        </h3>
+        <div style="width: 340px;">
+            <FluentProgress />
+        </div>
 
-@code{
-    
+        <h3>
+            @Content.LoadingText
+        </h3>
+    </FluentStack>
+</FluentDialogBody>
+<FluentDialogFooter Visible="false" />
+
+@code {
+
 
     [Parameter]
     public SplashScreenContent Content { get; set; } = default!;

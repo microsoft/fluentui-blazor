@@ -89,7 +89,7 @@ public partial class FluentDialogProvider : IDisposable
 
     internal void DismissInstance(string id, DialogResult result)
     {
-       IDialogReference? reference = GetDialogReference(id);
+        IDialogReference? reference = GetDialogReference(id);
         if (reference is not null)
         {
             DismissInstance(reference, result);
@@ -133,7 +133,10 @@ public partial class FluentDialogProvider : IDisposable
         if (args is not null && args.Reason is not null && args.Reason == "dismiss" && !string.IsNullOrWhiteSpace(args.Id))
         {
             IDialogReference? dialog = GetDialogReference(args.Id);
-            await dialog!.CloseAsync(DialogResult.Cancel());
+            if (dialog!.Instance.Parameters.PreventDismissOnOverlayClick == false)
+            {
+                await dialog!.CloseAsync(DialogResult.Cancel());
+            }
         }
     }
 

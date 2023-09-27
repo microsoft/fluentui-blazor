@@ -15,27 +15,29 @@
         }
         else
         {
+            string? tooltip = Tooltip ? Title : null;
+
             @if (ColumnOptions is not null && (Align == Align.Start || Align == Align.Center))
             {
                 <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="Filter this column">
-                    <FluentIcon Icon="CoreIcons.Regular.Size24.Filter" />
+                    <FluentIcon Value="@(new CoreIcons.Regular.Size24.Filter())" />
                 </FluentButton>
             }
             
             if (Sortable.HasValue ? Sortable.Value : IsSortableByDefault())
             {
                 <FluentButton Appearance="Appearance.Stealth" class="col-sort-button" @onclick="@(() => Grid.SortByColumnAsync(this))" aria-label="Sort on this column">
-                    <div class="col-title-text">@Title</div>
+                    <div class="col-title-text" title="@tooltip">@Title</div>
 
                     @if (Grid.SortByAscending.HasValue && ShowSortIcon)
                     {
                         if (Grid.SortByAscending == true)
                         {
-                            <FluentIcon Icon="CoreIcons.Regular.Size24.ArrowSortUp" Slot="@(Align == Align.End ? "start" : "end")" />
+                            <FluentIcon Value="@(new CoreIcons.Regular.Size24.ArrowSortUp())" Slot="@(Align == Align.End ? "start" : "end")" />
                         }
                         else
                         {
-                            <FluentIcon Icon="CoreIcons.Regular.Size24.ArrowSortDown" Slot="@(Align == Align.End ? "start" : "end")" />
+                            <FluentIcon Value="@(new CoreIcons.Regular.Size24.ArrowSortDown())" Slot="@(Align == Align.End ? "start" : "end")" />
                         }
                      }
 
@@ -44,14 +46,14 @@
             else
             {
                 <div class="col-title">
-                    <div class="col-title-text">@Title</div>
+                    <div class="col-title-text" title="@tooltip">@Title</div>
                 </div>
             }
             
             @if (ColumnOptions is not null && Align == Align.End)
             {
                 <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="Filter this column">
-                    <FluentIcon Icon="CoreIcons.Regular.Size24.Filter" />
+                    <FluentIcon Value="@(new CoreIcons.Regular.Size24.Filter())" />
                 </FluentButton>
             }
         }

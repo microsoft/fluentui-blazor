@@ -13,14 +13,14 @@ public partial class DialogService
     {
         Content = new MessageBoxContent()
         {
-            Title = string.IsNullOrWhiteSpace(title) ? "Success" /*DialogResources.TitleError*/ : title,
+            Title = string.IsNullOrWhiteSpace(title) ? "Success" : title,
             Intent = MessageBoxIntent.Success,
             Icon = new CoreIcons.Filled.Size24.CheckmarkCircle(),
             IconColor = Color.Success,
             Message = message,
         },
         DialogType = DialogType.MessageBox,
-        PrimaryAction = "OK", /*DialogResources.ButtonOK,*/
+        PrimaryAction = "OK", 
         SecondaryAction = string.Empty,
     });
 
@@ -33,14 +33,14 @@ public partial class DialogService
     {
         Content = new MessageBoxContent()
         {
-            Title = string.IsNullOrWhiteSpace(title) ? "Warning" /*DialogResources.TitleError*/ : title,
+            Title = string.IsNullOrWhiteSpace(title) ? "Warning" : title,
             Intent = MessageBoxIntent.Warning,
             Icon = new CoreIcons.Filled.Size24.Warning(),
             IconColor = Color.Warning,
             Message = message,
         },
         DialogType = DialogType.MessageBox,
-        PrimaryAction = "OK", /*DialogResources.ButtonOK,*/
+        PrimaryAction = "OK", 
         SecondaryAction = string.Empty,
     });
 
@@ -53,14 +53,14 @@ public partial class DialogService
     {
         Content = new MessageBoxContent()
         {
-            Title = string.IsNullOrWhiteSpace(title) ? "Error" /*DialogResources.TitleError*/ : title,
+            Title = string.IsNullOrWhiteSpace(title) ? "Error" : title,
             Intent = MessageBoxIntent.Error,
             Icon = new CoreIcons.Filled.Size24.DismissCircle(),
             IconColor = Color.Error,
             Message = message,
         },
         DialogType = DialogType.MessageBox,
-        PrimaryAction = "OK", /*DialogResources.ButtonOK,*/
+        PrimaryAction = "OK", 
         SecondaryAction = string.Empty,
     });
 
@@ -73,14 +73,14 @@ public partial class DialogService
     {
         Content = new MessageBoxContent()
         {
-            Title = string.IsNullOrWhiteSpace(title) ? "Information" /*DialogResources.TitleInformation*/ : title,
+            Title = string.IsNullOrWhiteSpace(title) ? "Information" : title,
             Intent = MessageBoxIntent.Info,
             Icon = new CoreIcons.Filled.Size24.Info(),
             IconColor = Color.Info,
             Message = message,
         },
         DialogType = DialogType.MessageBox,
-        PrimaryAction = "OK", /*DialogResources.ButtonOK,*/
+        PrimaryAction = "OK", 
         SecondaryAction = string.Empty,
     });
 
@@ -99,15 +99,15 @@ public partial class DialogService
         {
             Content = new MessageBoxContent()
             {
-                Title = string.IsNullOrWhiteSpace(title) ? "Confirmation" /*DialogResources.TitleConfirmation*/ : title,
+                Title = string.IsNullOrWhiteSpace(title) ? "Confirmation" : title,
                 Intent = MessageBoxIntent.Confirmation,
                 Icon = new CoreIcons.Regular.Size24.QuestionCircle(),
                 IconColor = Color.Success,
                 Message = message,
             },
             DialogType = DialogType.MessageBox,
-            PrimaryAction = primaryText, /*DialogResources.ButtonYes,*/
-            SecondaryAction = secondaryText, /*DialogResources.ButtonNo,*/
+            PrimaryAction = primaryText, 
+            SecondaryAction = secondaryText, 
             OnDialogResult = EventCallback.Factory.Create(receiver, callback)
         });
 
@@ -116,7 +116,7 @@ public partial class DialogService
     /// (true=PrimaryAction clicked, false=SecondaryAction clicked).
     /// </summary>
     /// <param name="parameters">Parameters to pass to component being displayed.</param>
-    public void ShowMessageBox(DialogParameters<MessageBoxContent> parameters)
+        public void ShowMessageBox(DialogParameters<MessageBoxContent> parameters)
     {
         DialogParameters dialogParameters = new()
         {
@@ -133,7 +133,9 @@ public partial class DialogService
             OnDialogResult = parameters.OnDialogResult,
         };
 
+#pragma warning disable CS0618 // Type or member is obsolete
         ShowDialog(typeof(MessageBox), parameters.Content, dialogParameters);
+#pragma warning restore CS0618 // Type or member is obsolete
     }
 
     /// <summary>
@@ -146,14 +148,14 @@ public partial class DialogService
         {
             Content = new MessageBoxContent()
             {
-                Title = string.IsNullOrWhiteSpace(title) ? "Success" /*DialogResources.TitleError*/ : title,
+                Title = string.IsNullOrWhiteSpace(title) ? "Success" : title,
                 Intent = MessageBoxIntent.Success,
                 Icon = new CoreIcons.Filled.Size24.CheckmarkCircle(),
                 IconColor = Color.Success,
                 Message = message,
             },
             DialogType = DialogType.MessageBox,
-            PrimaryAction = "OK", /*DialogResources.ButtonOK,*/
+            PrimaryAction = "OK", 
             SecondaryAction = string.Empty,
         });
 
@@ -167,14 +169,14 @@ public partial class DialogService
         {
             Content = new MessageBoxContent()
             {
-                Title = string.IsNullOrWhiteSpace(title) ? "Warning" /*DialogResources.TitleError*/ : title,
+                Title = string.IsNullOrWhiteSpace(title) ? "Warning" : title,
                 Intent = MessageBoxIntent.Warning,
                 Icon = new CoreIcons.Filled.Size24.Warning(),
                 IconColor = Color.Warning,
                 Message = message,
             },
             DialogType = DialogType.MessageBox,
-            PrimaryAction = "OK", /*DialogResources.ButtonOK,*/
+            PrimaryAction = "OK", 
             SecondaryAction = string.Empty,
         });
 
@@ -188,14 +190,14 @@ public partial class DialogService
         {
             Content = new MessageBoxContent()
             {
-                Title = string.IsNullOrWhiteSpace(title) ? "Error" /*DialogResources.TitleError*/ : title,
+                Title = string.IsNullOrWhiteSpace(title) ? "Error" : title,
                 Intent = MessageBoxIntent.Error,
                 Icon = new CoreIcons.Filled.Size24.DismissCircle(),
                 IconColor = Color.Error,
                 Message = message,
             },
             DialogType = DialogType.MessageBox,
-            PrimaryAction = "OK", /*DialogResources.ButtonOK,*/
+            PrimaryAction = "OK", 
             SecondaryAction = string.Empty,
         });
 
@@ -209,14 +211,14 @@ public partial class DialogService
         {
             Content = new MessageBoxContent()
             {
-                Title = string.IsNullOrWhiteSpace(title) ? "Information" /*DialogResources.TitleInformation*/ : title,
+                Title = string.IsNullOrWhiteSpace(title) ? "Information" : title,
                 Intent = MessageBoxIntent.Info,
                 Icon = new CoreIcons.Filled.Size24.Info(),
                 IconColor = Color.Info,
                 Message = message,
             },
             DialogType = DialogType.MessageBox,
-            PrimaryAction = "OK", /*DialogResources.ButtonOK,*/
+            PrimaryAction = "OK", 
             SecondaryAction = string.Empty,
         });
 
@@ -235,15 +237,15 @@ public partial class DialogService
         {
             Content = new MessageBoxContent()
             {
-                Title = string.IsNullOrWhiteSpace(title) ? "Confirm" /*DialogResources.TitleConfirmation*/ : title,
+                Title = string.IsNullOrWhiteSpace(title) ? "Confirm" : title,
                 Intent = MessageBoxIntent.Confirmation,
                 Icon = new CoreIcons.Regular.Size24.QuestionCircle(),
                 IconColor = Color.Success,
                 Message = message,
             },
             DialogType = DialogType.MessageBox,
-            PrimaryAction = primaryText, /*DialogResources.ButtonYes,*/
-            SecondaryAction = secondaryText, /*DialogResources.ButtonNo,*/
+            PrimaryAction = primaryText, 
+            SecondaryAction = secondaryText, 
             OnDialogResult = EventCallback.Factory.Create(receiver, callback)
         });
 
@@ -260,15 +262,15 @@ public partial class DialogService
         {
             Content = new MessageBoxContent()
             {
-                Title = string.IsNullOrWhiteSpace(title) ? "Confirm" /*DialogResources.TitleConfirmation*/ : title,
+                Title = string.IsNullOrWhiteSpace(title) ? "Confirm" : title,
                 Intent = MessageBoxIntent.Confirmation,
                 Icon = new CoreIcons.Regular.Size24.QuestionCircle(),
                 IconColor = Color.Success,
                 Message = message,
             },
             DialogType = DialogType.MessageBox,
-            PrimaryAction = primaryText, /*DialogResources.ButtonYes,*/
-            SecondaryAction = secondaryText, /*DialogResources.ButtonNo,*/
+            PrimaryAction = primaryText, 
+            SecondaryAction = secondaryText, 
         });
 
     /// <summary>
@@ -295,5 +297,4 @@ public partial class DialogService
 
         return await ShowDialogAsync(typeof(MessageBox), parameters.Content, dialogParameters);
     }
-
 }

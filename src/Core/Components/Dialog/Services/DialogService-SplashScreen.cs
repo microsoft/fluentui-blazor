@@ -49,7 +49,9 @@ public partial class DialogService
             OnDialogResult = EventCallback.Factory.Create(receiver, callback),
         };
 
+#pragma warning disable CS0618 // Type or member is obsolete
         ShowDialog(component, parameters.Content, dialogParameters);
+#pragma warning restore CS0618 // Type or member is obsolete
     }
 
     /// <summary>

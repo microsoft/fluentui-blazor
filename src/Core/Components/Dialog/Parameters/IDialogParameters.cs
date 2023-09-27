@@ -24,6 +24,7 @@ namespace Microsoft.Fast.Components.FluentUI
         string? AriaLabelledby { get; set; }
         DialogType DialogType { get; set; }
         bool PreventScroll { get; set; }
+        bool PreventDismissOnOverlayClick { get; set; }
         EventCallback<DialogResult> OnDialogResult { get; set; }
     }
 

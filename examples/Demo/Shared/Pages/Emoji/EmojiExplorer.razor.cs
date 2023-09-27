@@ -86,7 +86,7 @@ public partial class EmojiExplorer
         //Emojis.SmileysEmotion.Color.Default.RollingOnTheFloorLaughing
 
 
-        string Text = $$"""<FluentEmoji Emoji="Emojis.{{emoji.Group}}.{{emoji.Style}}.{{emoji.Skintone}}.{{emoji.Name}}" Width="{{(int)Criteria.Size!}}px" />""";
+        string Text = $$"""<FluentEmoji Value="@(new Emojis.{{emoji.Group}}.{{emoji.Style}}.{{emoji.Skintone}}.{{emoji.Name}}())" Width="{{(int)Criteria.Size!}}px" />""";
 
         if (_jsModule is not null)
         {

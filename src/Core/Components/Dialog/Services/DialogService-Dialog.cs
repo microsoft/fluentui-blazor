@@ -31,7 +31,7 @@ public partial class DialogService
     }
 
     /// <inheritdoc cref="IDialogService.UpdateDialogAsync{TData}(string, DialogParameters{TData})"/>/>
-    public async Task<IDialogReference> UpdateDialogAsync<TData>(string id, DialogParameters<TData> parameters)
+    public async Task<IDialogReference?> UpdateDialogAsync<TData>(string id, DialogParameters<TData> parameters)
         where TData : class
     {
         return await OnUpdateAsync!.Invoke(id, parameters);

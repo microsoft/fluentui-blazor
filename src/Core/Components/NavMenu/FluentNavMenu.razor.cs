@@ -149,8 +149,6 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
 
     protected override async Task OnInitializedAsync()
     {
-        await base.OnInitializedAsync();
-
         NavigationManager.LocationChanged += HandleNavigationManagerLocationChanged;
 
         if (InitiallyExpanded)
@@ -159,9 +157,8 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
         }
     }
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override void OnAfterRender(bool firstRender)
     {
-        await base.OnAfterRenderAsync(firstRender);
         if (firstRender)
         {
             SelectMenuItemForCurrentUrl();
@@ -194,26 +191,28 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
 
     private async void HandleNavigationManagerLocationChanged(object? sender, LocationChangedEventArgs e)
     {
+        FluentNavMenuItemBase? menuItem = null;
+
         string localPath = new Uri(NavigationManager.Uri).LocalPath;
         if (string.IsNullOrEmpty(localPath))
             localPath = "/";
 
-        
-        localPath = (localPath + "/").Replace("//", "/");   
-        FluentNavMenuItemBase? menuItem = _allItems.Values
-            .Where(x => !string.IsNullOrEmpty(x.Href))
-            .FirstOrDefault(x => x.Href != "/" && localPath.StartsWith((x.Href! + "/").Replace("//", "/"), StringComparison.InvariantCultureIgnoreCase));
 
+        if (localPath == "/")
+        {
+            if (_allItems.Count > 0)
+                menuItem = _allItems.Values.ElementAt(0);
+        }
+        else
+        {
+            string comparePath = (localPath + "/").Replace("//", "/");
+
+            menuItem = _allItems.Values
+                .Where(x => !string.IsNullOrEmpty(x.Href))
+                .FirstOrDefault(x => x.Href != "/" && comparePath.StartsWith((x.Href! + "/").Replace("//", "/"), StringComparison.InvariantCultureIgnoreCase));
+        }
         if (menuItem is not null) 
         {
-            _currentlySelectedTreeItem = menuItem.TreeItem;
-            _previousSuccessfullySelectedTreeItem = menuItem.TreeItem;
-            await _currentlySelectedTreeItem.SetSelectedAsync(true);
-        }
-        
-        if (menuItem is null && localPath == "/")
-        {
-            menuItem = _allItems.Values.First(x => x.Href == "/");
             _currentlySelectedTreeItem = menuItem.TreeItem;
             _previousSuccessfullySelectedTreeItem = menuItem.TreeItem;
             await _currentlySelectedTreeItem.SetSelectedAsync(true);
@@ -346,6 +345,7 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
         {
             await menuItem.SetSelectedAsync(true);
         }
+
         return actionArgs.Handled;
     }
 

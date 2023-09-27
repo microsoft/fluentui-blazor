@@ -164,13 +164,16 @@ public abstract class FluentNavMenuItemBase : FluentComponentBase, IDisposable
 
     private bool NeedsNavigation()
     {
-        if (string.IsNullOrEmpty(Href) || NavigationManager.Uri.Equals(Href, StringComparison.InvariantCultureIgnoreCase))
+        if (string.IsNullOrEmpty(Href) && Href != "/")
         {
-            return false;
+            if (NavigationManager.Uri.Contains((Href + "/").Replace("//", "/"), StringComparison.InvariantCultureIgnoreCase))
+            {
+                return false;
+            }
         }
 
-        Uri baseUri = new Uri(NavigationManager.BaseUri);
-        Uri currentUri = new Uri(NavigationManager.Uri);
+        Uri baseUri = new(NavigationManager.BaseUri);
+        Uri currentUri = new(NavigationManager.Uri);
         if (Uri.TryCreate(baseUri, Href, out Uri? comparisonUri) && comparisonUri.Equals(currentUri))
         {
             return false;

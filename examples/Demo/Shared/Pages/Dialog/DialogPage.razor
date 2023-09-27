@@ -85,8 +85,13 @@
 
 <DemoSection Title="Customized Dialog" Component="@typeof(DialogCustomizableExample)" AdditionalFiles="@(new[] {"SimpleCustomizedDialog.razor"})">
     <Description>
-        This example shows how to open a Dialog using the <b>DialogService</b>.
-        The dialog is customized by specifying a custom header and footer: <b>FluentDialogHeader</b>, <b>FluentDialogFooter</b> and <b>FluentDialogBody</b>
+        <p>
+            This example shows how to open a Dialog using the <code>DialogService</code>. The dialog is customized by specifying a header,
+            footer and body by leveraging the <code>FluentDialogHeader</code>, <code>FluentDialogFooter</code> and <code>FluentDialogBody</code> parameters.
+        </p>
+        <p>
+            The dialog can <b>not</b>t be dismissed by clicking on the overlay. This is achieved by setting the dialog parameter <code>PreventDismissOnOverlayClick</code> to <code>true</code>.
+        </p>
     </Description>
 </DemoSection>
 

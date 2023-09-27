@@ -76,14 +76,17 @@
 
     private void RenderRow(RenderTreeBuilder __builder, int rowIndex, TGridItem item)
     {
-        var rowClass = RowClass?.Invoke(item) ?? "";
+        var rowClass = RowClass?.Invoke(item) ?? null;
+        var rowStyle = RowStyle?.Invoke(item) ?? null;
 
-        <FluentDataGridRow @key="@(ItemKey(item))" GridTemplateColumns=@GridTemplateColumns aria-rowindex="@rowIndex" Class="@rowClass" TGridItem="TGridItem" Item="@item">
+        <FluentDataGridRow @key="@(ItemKey(item))" GridTemplateColumns=@GridTemplateColumns aria-rowindex="@rowIndex" Class="@rowClass" Style="@rowStyle" TGridItem="TGridItem" Item="@item">
             @for (var colIndex = 0; colIndex < _columns.Count; colIndex++)
             {
                 var col = _columns[colIndex];
 
-                <FluentDataGridCell GridColumn=@(colIndex+1) Class="@ColumnClass(col)" @key="@col" TGridItem="TGridItem" Item="@item">
+                string? tooltip = col.Tooltip ? @col.RawCellContent(item) : null;
+
+                <FluentDataGridCell GridColumn=@(colIndex+1) Class="@ColumnClass(col)" Style="@col.Style" @key="@col" TGridItem="TGridItem" Item="@item" title="@tooltip">
                     @((RenderFragment)(__builder => col.CellContent(__builder, item)))
                 </FluentDataGridCell>
             }
@@ -99,7 +102,7 @@
             {
                 var col = _columns[colIndex];
 
-                <FluentDataGridCell Class="@("grid-cell-placeholder " + @ColumnClass(col))" @key="@col" GridColumn=@(colIndex+1) TGridItem="TGridItem">
+                <FluentDataGridCell Class="@("grid-cell-placeholder " + @ColumnClass(col))" Style="@col.Style" @key="@col" GridColumn=@(colIndex+1) TGridItem="TGridItem">
                     @((RenderFragment)(__builder => col.RenderPlaceholderContent(__builder, placeholderContext)))
                 </FluentDataGridCell>
             }
@@ -118,7 +121,7 @@
             else
                 col.ShowSortIcon = false;
 
-            <FluentDataGridCell GridColumn=@(colIndex+1) CellType=DataGridCellType.ColumnHeader Class="@("column-header " + @ColumnHeaderClass(col))" aria-sort="@AriaSortValue(col)" @key="@col" scope="col" TGridItem="TGridItem">
+            <FluentDataGridCell GridColumn=@(colIndex+1) CellType=DataGridCellType.ColumnHeader Class="@("column-header " + @ColumnHeaderClass(col))" Style="@col.Style" aria-sort="@AriaSortValue(col)" @key="@col" scope="col" TGridItem="TGridItem">
                 @col.HeaderContent
                 @if (col == _displayOptionsForColumn)
                 {

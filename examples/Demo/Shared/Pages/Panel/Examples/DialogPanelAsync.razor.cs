@@ -18,7 +18,7 @@ namespace FluentUI.Demo.Shared.Pages.Panel.Examples
         {
             DemoLogger.WriteLine($"Open right panel");
 
-            _dialog = await DialogService.ShowPanelAsync<SimplePanel, SimplePerson>(new DialogParameters<SimplePerson>()
+            _dialog = await DialogService.ShowPanelAsync<SimplePanel>(simplePerson, new DialogParameters<SimplePerson>()
             {
                 Content = simplePerson,
                 Alignment = HorizontalAlignment.Right,
@@ -47,7 +47,7 @@ namespace FluentUI.Demo.Shared.Pages.Panel.Examples
                 SecondaryAction = "Cancel",
                 Width = "500px",
             };
-            _dialog = await DialogService.ShowPanelAsync<SimplePanel, SimplePerson>(parameters);
+            _dialog = await DialogService.ShowPanelAsync<SimplePanel>(simplePerson, parameters);
             DialogResult result = await _dialog.Result;
             HandlePanel(result);
         }

@@ -17,7 +17,7 @@ public partial interface IDialogService
 
     public event Action<string, DialogParameters>? OnUpdate;
     
-    public event Func<string, DialogParameters, Task<IDialogReference>>? OnUpdateAsync;
+    public event Func<string, DialogParameters, Task<IDialogReference?>>? OnUpdateAsync;
 
     public event Action<IDialogReference, DialogResult>? OnDialogCloseRequested;
 

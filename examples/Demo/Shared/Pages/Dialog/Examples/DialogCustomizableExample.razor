@@ -14,6 +14,8 @@
             {
                 Height = "200px",
                 Title = $"Updating the {DialogData.Firstname} sheet",
+                PreventDismissOnOverlayClick = true,
+                PreventScroll = true,
             });
 
         var result = await dialog.Result;

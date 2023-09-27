@@ -25,9 +25,21 @@ public abstract partial class ColumnBase<TGridItem>
     [Parameter] public string? Class { get; set; }
 
     /// <summary>
+    /// An optional CSS style specification. If specified, this is included in the style attribute of header and grid cells
+    /// for this column.
+    /// </summary>
+    [Parameter] public string? Style { get; set; }
+
+    /// <summary>
     /// If specified, controls the justification of header and grid cells for this column.
     /// </summary>
     [Parameter] public Align Align { get; set; }
+
+    /// <summary>
+    /// If true, generate a title attribute for the cell contents
+    /// </summary>
+    [Parameter] public bool Tooltip { get; set; } = false;
+
 
     /// <summary>
     /// An optional template for this column's header cell. If not specified, the default header template
@@ -84,6 +96,12 @@ public abstract partial class ColumnBase<TGridItem>
     /// <param name="builder">The current <see cref="RenderTreeBuilder" />.</param>
     /// <param name="item">The data for the row being rendered.</param>
     protected internal abstract void CellContent(RenderTreeBuilder builder, TGridItem item);
+
+    /// <summary>
+    /// Overridden by derived components to provide the raw content for the column's cells.
+    /// </summary>
+    /// <param name="item">The data for the row being rendered.</param>
+    protected internal virtual string? RawCellContent(TGridItem item) => null;
 
     /// <summary>
     /// Gets or sets a <see cref="RenderFragment" /> that will be rendered for this column's header cell.

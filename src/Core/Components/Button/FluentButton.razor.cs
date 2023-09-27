@@ -192,6 +192,8 @@ public partial class FluentButton : FluentComponentBase
     private string RingStyle(Icon icon)
     {
         int size = Convert.ToInt32(icon.Size);
-        return $"width: {size}px; height: {size}px;";
+        string inverse = Appearance == FluentUI.Appearance.Accent ? " filter: invert(1);" : string.Empty;
+
+        return $"width: {size}px; height: {size}px;{inverse}";
     }
 }
