@@ -33,7 +33,7 @@ public class Message
     /// <summary>
     /// Most important info to be shown in the message bar.
     /// </summary>
-    public string Title
+    public string? Title
     {
         get
         {

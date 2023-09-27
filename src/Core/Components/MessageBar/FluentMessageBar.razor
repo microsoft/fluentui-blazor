@@ -15,7 +15,10 @@
             
             @* Message *@
             <div class="fluent-messagebar-message">
-                <span class="title">@((MarkupString)Title)</span>
+                @if (!String.IsNullOrEmpty(Title))
+                {
+                    <span class="title">@((MarkupString)Title)</span>
+                }
                 @if (ChildContent is not null)
                 {
                     @ChildContent

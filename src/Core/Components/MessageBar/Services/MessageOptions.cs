@@ -22,7 +22,7 @@ public class MessageOptions
     /// <summary>
     /// Most important info to be shown in the message bar.
     /// </summary>
-    public string Title { get; set; } = string.Empty;
+    public string? Title { get; set; }
 
     /// <summary>
     /// Message to be shown in the message bar after the title.
@@ -32,7 +32,7 @@ public class MessageOptions
     /// <summary>
     /// Link to be shown in the message bar after the title/message. 
     /// </summary>
-    public ActionLink<Message>? Link { get; set; } = new ();
+    public ActionLink<Message>? Link { get; set; } 
 
     /// <summary>
     /// Action to be executed when the message bar is closed.
