@@ -1,8 +1,6 @@
-﻿@inject ILogger<TooltipDefault> logger;
+﻿<FluentIcon Id="myFirstButton" Icon="Icons.Regular.Size24.Notepad" />
 
-<FluentIcon Id="myFirstButton" Icon="Icons.Regular.Size24.Notepad" />
-
-<FluentTooltip Anchor="myFirstButton">
+<FluentTooltip Anchor="myFirstButton" OnDismissed="OnDismiss">
     Hello World <br />
     It is a <i>small</i> tootip.
 </FluentTooltip>
@@ -10,6 +8,6 @@
 @code {
     private void OnDismiss()
     {
-        logger.LogInformation("Tooltip dismissed!");
+        DemoLogger.WriteLine("Tooltip dismissed!");
     }
 }

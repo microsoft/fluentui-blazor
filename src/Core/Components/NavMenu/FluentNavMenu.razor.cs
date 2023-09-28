@@ -197,19 +197,26 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
         if (string.IsNullOrEmpty(localPath))
             localPath = "/";
 
-
         if (localPath == "/")
         {
-            if (_allItems.Count > 0)
-                menuItem = _allItems.Values.ElementAt(0);
+            if (_allItems.Count > 0) menuItem = _allItems.Values.ElementAt(0);
         }
         else
         {
-            string comparePath = (localPath + "/").Replace("//", "/");
-
+            /// This will match the first item that has a Href that matches the current URL exactly
             menuItem = _allItems.Values
                 .Where(x => !string.IsNullOrEmpty(x.Href))
-                .FirstOrDefault(x => x.Href != "/" && comparePath.StartsWith((x.Href! + "/").Replace("//", "/"), StringComparison.InvariantCultureIgnoreCase));
+                .FirstOrDefault(x => x.Href != "/" && localPath.Equals((x.Href!), StringComparison.InvariantCultureIgnoreCase));
+
+            // If not found, try to match the first item that has a Href (ending in a "/") that starts with the current URL 
+            // URL: https://.../Panel/Panel2 starts with Href: https://.../Panel + "/"  
+            // Extra "/" is needed to avoid matching https://.../Panels with https://.../Panel
+            if (menuItem is null)
+            {
+                menuItem = _allItems.Values
+                .Where(x => !string.IsNullOrEmpty(x.Href))
+                .FirstOrDefault(x => x.Href != "/" && localPath.StartsWith((x.Href! + "/"), StringComparison.InvariantCultureIgnoreCase));
+            }
         }
         if (menuItem is not null) 
         {

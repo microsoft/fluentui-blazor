@@ -107,7 +107,10 @@ public partial class FluentTooltip : FluentComponentBase, IDisposable
     /// <summary />
     private void HandleDismissed()
     {
-        OnDismissed.InvokeAsync(EventArgs.Empty);
+        if (OnDismissed.HasDelegate)
+        {
+            OnDismissed.InvokeAsync(EventArgs.Empty);
+        }
     }
 
     /// <summary />
