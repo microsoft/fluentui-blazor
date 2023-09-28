@@ -203,7 +203,7 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
         }
         else
         {
-            /// This will match the first item that has a Href that matches the current URL exactly
+            // This will match the first item that has a Href that matches the current URL exactly
             menuItem = _allItems.Values
                 .Where(x => !string.IsNullOrEmpty(x.Href))
                 .FirstOrDefault(x => x.Href != "/" && localPath.Equals((x.Href!), StringComparison.InvariantCultureIgnoreCase));

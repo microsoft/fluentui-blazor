@@ -20,11 +20,6 @@ public class TemplateColumn<TGridItem> : ColumnBase<TGridItem>
     /// <inheritdoc />
     [Parameter] public override GridSort<TGridItem>? SortBy { get; set; }
 
-    /// <summary>
-    /// The text to be shown as a tooltip for this cell
-    /// </summary>
-    [Parameter] public Expression<Func<TGridItem, string?>> TooltipText { get; set; } = default!;
-
     /// <inheritdoc />
     protected internal override void CellContent(RenderTreeBuilder builder, TGridItem item)
         => builder.AddContent(0, ChildContent(item));
