@@ -5,7 +5,7 @@ trigger:
 - main
 
 # Build.BuildNumber
-name: $(VersionMajor).$(Year:yy)$(DayOfYear).$(Rev:r)
+name: $(VersionMajor).$(VersionMinor).$(VersionPatch).$(Year:yy)$(DayOfYear).$(Rev:r)
 
 pool:
   vmImage: 'windows-2022'
