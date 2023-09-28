@@ -5,7 +5,7 @@ trigger: none # Disable push triggers.
 
 # Build.BuildNumber
 # use the variable "PublicVersion" to define a public version number (Ex. 2.3.6 or 3.0.0-preview.3)
-name: $(VersionMajor).$(Year:yy)$(DayOfYear).$(Rev:r)
+name: $(VersionMajor).$(VersionMinor).$(VersionPatch).$(Year:yy)$(DayOfYear).$(Rev:r)
 
 pool:
   vmImage: 'windows-2022'
