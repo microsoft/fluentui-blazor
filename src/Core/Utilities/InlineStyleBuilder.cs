@@ -80,10 +80,10 @@ public readonly struct InlineStyleBuilder
     /// Finalize the completed Style as a string.
     /// </summary>
     /// <returns>string</returns>
-    public MarkupString? BuildMarkupString()
+    public MarkupString BuildMarkupString()
     {
         var styles = Build();
-        return styles != null ? (MarkupString)styles : null;
+        return styles != null ? (MarkupString)styles : (MarkupString)string.Empty;
     }
 
     /// <summary>
