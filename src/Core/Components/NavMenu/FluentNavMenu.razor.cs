@@ -299,6 +299,8 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
         if (_currentlySelectedTreeItem?.Selected == false)
         {
             await _currentlySelectedTreeItem.SetSelectedAsync(true);
+            if (ReNavigate) 
+                await TryActivateMenuItemAsync(_currentlySelectedTreeItem, ReNavigate);
         }
 
         if (_currentlySelectedTreeItem?.Selected == true)
@@ -318,7 +320,7 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
         }
     }
 
-    private async ValueTask<bool> TryActivateMenuItemAsync(FluentTreeItem? treeItem)
+    private async ValueTask<bool> TryActivateMenuItemAsync(FluentTreeItem? treeItem, bool renavigate = false)
     {
         if (treeItem is null)
         {
@@ -330,7 +332,7 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
             return false;
         }
 
-        var actionArgs = new NavMenuActionArgs(target: menuItem);
+        NavMenuActionArgs? actionArgs = new NavMenuActionArgs(target: menuItem, renavigate: renavigate);
         if (OnAction.HasDelegate)
         {
             await OnAction.InvokeAsync(actionArgs);
