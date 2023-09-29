@@ -84,6 +84,12 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
     [Parameter]
     public bool InitiallyExpanded { get; set; }
 
+    /// <summary>
+    /// If true, the menu will re-navigate to the current page when the user clicks on the currently selected menu item.
+    /// </summary>
+    [Parameter]
+    public bool ReNavigate { get; set; } = false;
+
     /// <inheritdoc/>
     public bool Collapsed => !Expanded;
 
@@ -197,19 +203,26 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
         if (string.IsNullOrEmpty(localPath))
             localPath = "/";
 
-
         if (localPath == "/")
         {
-            if (_allItems.Count > 0)
-                menuItem = _allItems.Values.ElementAt(0);
+            if (_allItems.Count > 0) menuItem = _allItems.Values.ElementAt(0);
         }
         else
         {
-            string comparePath = (localPath + "/").Replace("//", "/");
-
+            // This will match the first item that has a Href that matches the current URL exactly
             menuItem = _allItems.Values
                 .Where(x => !string.IsNullOrEmpty(x.Href))
-                .FirstOrDefault(x => x.Href != "/" && comparePath.StartsWith((x.Href! + "/").Replace("//", "/"), StringComparison.InvariantCultureIgnoreCase));
+                .FirstOrDefault(x => x.Href != "/" && localPath.Equals((x.Href!), StringComparison.InvariantCultureIgnoreCase));
+
+            // If not found, try to match the first item that has a Href (ending in a "/") that starts with the current URL 
+            // URL: https://.../Panel/Panel2 starts with Href: https://.../Panel + "/"  
+            // Extra "/" is needed to avoid matching https://.../Panels with https://.../Panel
+            if (menuItem is null)
+            {
+                menuItem = _allItems.Values
+                .Where(x => !string.IsNullOrEmpty(x.Href))
+                .FirstOrDefault(x => x.Href != "/" && localPath.StartsWith((x.Href! + "/"), StringComparison.InvariantCultureIgnoreCase));
+            }
         }
         if (menuItem is not null) 
         {
@@ -256,14 +269,18 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
         // page and therefore do nothing.
         // But for a nav menu with custom actions like showing a dialog etc, it will
         // re-trigger and repeat that action.
-        bool itemWasClickedWhilstAlreadySelected =
-            treeItem?.Selected == false && treeItem == _previousSuccessfullySelectedTreeItem;
+        bool itemWasClickedWhilstAlreadySelected = treeItem?.Selected == false && treeItem == _previousSuccessfullySelectedTreeItem;
         if (itemWasClickedWhilstAlreadySelected)
         {
             await TryActivateMenuItemAsync(treeItem);
             return;
         }
 
+        if (treeItem is null && _previousSuccessfullySelectedTreeItem is not null && ReNavigate)
+        {
+            await TryActivateMenuItemAsync(_previousSuccessfullySelectedTreeItem);
+            return;
+        }
         // If the user has selected a different item, then it will not match the previously
         // selected item, and it will have Selected == true.
         // So try to activate the new one instead of the old one.

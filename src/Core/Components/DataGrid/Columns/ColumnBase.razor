@@ -26,7 +26,7 @@
             
             if (Sortable.HasValue ? Sortable.Value : IsSortableByDefault())
             {
-                <FluentButton Appearance="Appearance.Stealth" class="col-sort-button" @onclick="@(() => Grid.SortByColumnAsync(this))" aria-label="Sort on this column">
+                <FluentButton Appearance="Appearance.Stealth" class="col-sort-button" @onclick="@(() => Grid.SortByColumnAsync(this))" aria-label="@tooltip")" title="@tooltip">
                     <div class="col-title-text" title="@tooltip">@Title</div>
 
                     @if (Grid.SortByAscending.HasValue && ShowSortIcon)
