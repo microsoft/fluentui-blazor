@@ -84,6 +84,12 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
     [Parameter]
     public bool InitiallyExpanded { get; set; }
 
+    /// <summary>
+    /// If true, the menu will re-navigate to the current page when the user clicks on the currently selected menu item.
+    /// </summary>
+    [Parameter]
+    public bool ReNavigate { get; set; } = false;
+
     /// <inheritdoc/>
     public bool Collapsed => !Expanded;
 
@@ -263,14 +269,18 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
         // page and therefore do nothing.
         // But for a nav menu with custom actions like showing a dialog etc, it will
         // re-trigger and repeat that action.
-        bool itemWasClickedWhilstAlreadySelected =
-            treeItem?.Selected == false && treeItem == _previousSuccessfullySelectedTreeItem;
+        bool itemWasClickedWhilstAlreadySelected = treeItem?.Selected == false && treeItem == _previousSuccessfullySelectedTreeItem;
         if (itemWasClickedWhilstAlreadySelected)
         {
             await TryActivateMenuItemAsync(treeItem);
             return;
         }
 
+        if (treeItem is null && _previousSuccessfullySelectedTreeItem is not null && ReNavigate)
+        {
+            await TryActivateMenuItemAsync(_previousSuccessfullySelectedTreeItem);
+            return;
+        }
         // If the user has selected a different item, then it will not match the previously
         // selected item, and it will have Selected == true.
         // So try to activate the new one instead of the old one.
@@ -337,7 +347,7 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
             return false;
         }
 
-        var actionArgs = new NavMenuActionArgs(target: menuItem);
+        NavMenuActionArgs? actionArgs = new NavMenuActionArgs(target: menuItem, renavigate: ReNavigate);
         if (OnAction.HasDelegate)
         {
             await OnAction.InvokeAsync(actionArgs);

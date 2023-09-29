@@ -117,7 +117,7 @@ public abstract class FluentNavMenuItemBase : FluentComponentBase, IDisposable
         if (!string.IsNullOrEmpty(Href))
         {
             args.SetHandled();
-            if (NeedsNavigation())
+            if (args.ReNavigate || NeedsNavigation())
             {
                 NavigationManager.NavigateTo(Href);
             }
