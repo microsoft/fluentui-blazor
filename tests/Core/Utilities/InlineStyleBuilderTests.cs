@@ -44,5 +44,6 @@ public class InlineStyleBuilderTests : TestBase
 
         // Assert - Values are sorted
         Assert.Null(styleBuilder.Build(newLineSeparator: false));
+        Assert.Equal(string.Empty, styleBuilder.BuildMarkupString().Value);
     }
 }
