@@ -263,22 +263,25 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
     private async Task HandleCurrentSelectedChangedAsync(FluentTreeItem? treeItem)
     {
         // If an already activated menu item is clicked again, then it will
-        // it will match the previously selected one but have Selected == false.
+        // match the previously selected one but have Selected == false.
         // In this case, the user has indicated they wish to re-trigger
         // its action. For the case of a simple navigation, this will be the same
         // page and therefore do nothing.
         // But for a nav menu with custom actions like showing a dialog etc, it will
         // re-trigger and repeat that action.
-        bool itemWasClickedWhilstAlreadySelected = treeItem?.Selected == false && treeItem == _previousSuccessfullySelectedTreeItem;
-        if (itemWasClickedWhilstAlreadySelected)
-        {
-            await TryActivateMenuItemAsync(treeItem);
-            return;
-        }
+
+        // itemWasClickedWhilstAlreadySelected will never be true as treeItem is null when the treeItem is clicked again
+        // left the code in for now but this should probably be removed
+        //bool itemWasClickedWhilstAlreadySelected = treeItem?.Selected == false && treeItem == _previousSuccessfullySelectedTreeItem;
+        //if (itemWasClickedWhilstAlreadySelected)
+        //{
+        //    await TryActivateMenuItemAsync(treeItem);
+        //    return;
+        //}
 
         if (treeItem is null && _previousSuccessfullySelectedTreeItem is not null && ReNavigate)
         {
-            await TryActivateMenuItemAsync(_previousSuccessfullySelectedTreeItem);
+            await TryActivateMenuItemAsync(_previousSuccessfullySelectedTreeItem, true);
             return;
         }
         // If the user has selected a different item, then it will not match the previously
@@ -316,8 +319,6 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
         if (_currentlySelectedTreeItem?.Selected == false)
         {
             await _currentlySelectedTreeItem.SetSelectedAsync(true);
-            if (ReNavigate) 
-                await TryActivateMenuItemAsync(_currentlySelectedTreeItem, ReNavigate);
         }
 
         if (_currentlySelectedTreeItem?.Selected == true)
