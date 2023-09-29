@@ -16,7 +16,8 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
 
 	private Expression<Func<TGridItem, TProp>>? _lastAssignedProperty;
 	private Func<TGridItem, string?>? _cellTextFunc;
-	private GridSort<TGridItem>? _sortBuilder;
+    private Func<TGridItem, string?>? _cellTooltipTextFunc;
+    private GridSort<TGridItem>? _sortBuilder;
 
 
 	public PropertyInfo? PropertyInfo { get; private set; }
@@ -26,12 +27,12 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
 	/// </summary>
 	[Parameter, EditorRequired] public Expression<Func<TGridItem, TProp>> Property { get; set; } = default!;
 
-	/// <summary>
-	/// Optionally specifies a format string for the value.
-	///
-	/// Using this requires the <typeparamref name="TProp"/> type to implement <see cref="IFormattable" />.
-	/// </summary>
-	[Parameter] public string? Format { get; set; }
+    /// <summary>
+    /// Optionally specifies a format string for the value.
+    ///
+    /// Using this requires the <typeparamref name="TProp"/> type to implement <see cref="IFormattable" />.
+    /// </summary>
+    [Parameter] public string? Format { get; set; }
 
 	/// <summary>
 	/// Optionally specifies how to compare values in this column when sorting.
@@ -78,7 +79,13 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
 			_sortBuilder = Comparer is not null ? GridSort<TGridItem>.ByAscending(Property, Comparer) : GridSort<TGridItem>.ByAscending(Property);
 	    }
 
-		if (Property.Body is MemberExpression memberExpression)
+        Func<TGridItem, string?>? compiledTooltipTextExpression = TooltipText?.Compile();            
+        
+        _cellTooltipTextFunc = compiledTooltipTextExpression is not null 
+            ? (item => compiledTooltipTextExpression(item)?.ToString()) 
+            : _cellTextFunc;
+
+        if (Property.Body is MemberExpression memberExpression)
 		{
 			if (Title is null)
 			{
@@ -97,6 +104,6 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
 		=> builder.AddContent(0, _cellTextFunc?.Invoke(item));
 
     protected internal override string? RawCellContent(TGridItem item)
-        => _cellTextFunc?.Invoke(item);
+        => _cellTooltipTextFunc?.Invoke(item);
 
 }

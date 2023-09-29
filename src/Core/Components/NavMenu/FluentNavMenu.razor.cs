@@ -84,6 +84,12 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
     [Parameter]
     public bool InitiallyExpanded { get; set; }
 
+    /// <summary>
+    /// If true, the menu will re-navigate to the current page when the user clicks on the currently selected menu item.
+    /// </summary>
+    [Parameter]
+    public bool ReNavigate { get; set; } = false;
+
     /// <inheritdoc/>
     public bool Collapsed => !Expanded;
 
@@ -197,19 +203,26 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
         if (string.IsNullOrEmpty(localPath))
             localPath = "/";
 
-
         if (localPath == "/")
         {
-            if (_allItems.Count > 0)
-                menuItem = _allItems.Values.ElementAt(0);
+            if (_allItems.Count > 0) menuItem = _allItems.Values.ElementAt(0);
         }
         else
         {
-            string comparePath = (localPath + "/").Replace("//", "/");
-
+            // This will match the first item that has a Href that matches the current URL exactly
             menuItem = _allItems.Values
                 .Where(x => !string.IsNullOrEmpty(x.Href))
-                .FirstOrDefault(x => x.Href != "/" && comparePath.StartsWith((x.Href! + "/").Replace("//", "/"), StringComparison.InvariantCultureIgnoreCase));
+                .FirstOrDefault(x => x.Href != "/" && localPath.Equals((x.Href!), StringComparison.InvariantCultureIgnoreCase));
+
+            // If not found, try to match the first item that has a Href (ending in a "/") that starts with the current URL 
+            // URL: https://.../Panel/Panel2 starts with Href: https://.../Panel + "/"  
+            // Extra "/" is needed to avoid matching https://.../Panels with https://.../Panel
+            if (menuItem is null)
+            {
+                menuItem = _allItems.Values
+                .Where(x => !string.IsNullOrEmpty(x.Href))
+                .FirstOrDefault(x => x.Href != "/" && localPath.StartsWith((x.Href! + "/"), StringComparison.InvariantCultureIgnoreCase));
+            }
         }
         if (menuItem is not null) 
         {
@@ -250,20 +263,27 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
     private async Task HandleCurrentSelectedChangedAsync(FluentTreeItem? treeItem)
     {
         // If an already activated menu item is clicked again, then it will
-        // it will match the previously selected one but have Selected == false.
+        // match the previously selected one but have Selected == false.
         // In this case, the user has indicated they wish to re-trigger
         // its action. For the case of a simple navigation, this will be the same
         // page and therefore do nothing.
         // But for a nav menu with custom actions like showing a dialog etc, it will
         // re-trigger and repeat that action.
-        bool itemWasClickedWhilstAlreadySelected =
-            treeItem?.Selected == false && treeItem == _previousSuccessfullySelectedTreeItem;
-        if (itemWasClickedWhilstAlreadySelected)
+
+        // itemWasClickedWhilstAlreadySelected will never be true as treeItem is null when the treeItem is clicked again
+        // left the code in for now but this should probably be removed
+        //bool itemWasClickedWhilstAlreadySelected = treeItem?.Selected == false && treeItem == _previousSuccessfullySelectedTreeItem;
+        //if (itemWasClickedWhilstAlreadySelected)
+        //{
+        //    await TryActivateMenuItemAsync(treeItem);
+        //    return;
+        //}
+
+        if (treeItem is null && _previousSuccessfullySelectedTreeItem is not null && ReNavigate)
         {
-            await TryActivateMenuItemAsync(treeItem);
+            await TryActivateMenuItemAsync(_previousSuccessfullySelectedTreeItem, true);
             return;
         }
-
         // If the user has selected a different item, then it will not match the previously
         // selected item, and it will have Selected == true.
         // So try to activate the new one instead of the old one.
@@ -318,7 +338,7 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
         }
     }
 
-    private async ValueTask<bool> TryActivateMenuItemAsync(FluentTreeItem? treeItem)
+    private async ValueTask<bool> TryActivateMenuItemAsync(FluentTreeItem? treeItem, bool renavigate = false)
     {
         if (treeItem is null)
         {
@@ -330,7 +350,7 @@ public partial class FluentNavMenu : FluentComponentBase, INavMenuItemsOwner, ID
             return false;
         }
 
-        var actionArgs = new NavMenuActionArgs(target: menuItem);
+        NavMenuActionArgs? actionArgs = new NavMenuActionArgs(target: menuItem, renavigate: renavigate);
         if (OnAction.HasDelegate)
         {
             await OnAction.InvokeAsync(actionArgs);

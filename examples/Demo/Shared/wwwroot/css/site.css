@@ -1,4 +1,9 @@
-﻿@import '/_content/Microsoft.Fast.Components.FluentUI/css/reboot.css'; 
+﻿@import '/_content/Microsoft.Fast.Components.FluentUI/css/reboot.css';
+
+/* Hide any web components that haven't been started */
+:not(:defined), .before-started {
+    visibility: hidden;
+}
 
 body {
     height: 100%;
