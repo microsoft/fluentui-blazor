@@ -54,7 +54,19 @@
 
 <DemoSection Title="Typical usage" Component="@typeof(DataGridTypical)" CollocatedFiles="@(new[] {"css"})">
     <Description>
-        Here is an example of a data grid that uses in-memory data and enables features including pagination, sorting, filtering, column options, row highlighting and column resizing.
+        <p>
+            Here is an example of a data grid that uses in-memory data and enables features including pagination, sorting, filtering, column options, row highlighting and column resizing.
+        </p>
+        <p>
+            All columns, except 'Bronze', have a <code>Tooltip</code> parameter value of <code>true</code>.<br />
+            When using this for a <code>TemplateColumn</code> (like 'Rank' here), you need to also supply a value for the <code>TooltipText</code> parameter. <b>No value given equals no tooltip shown</b>.<br />
+            When using this for a <code>PropertyColumn</code>, a value for the <code>TooltipText</code> is <b>not</b> required. By default, the value given for <code>Property</code>
+            will be re-used for the tooltip. If you do supply a value for <code>TooltipText</code> it's outcome will be used instead.
+            <br />
+            <br />
+            <code>TooltipText</code> is a lambda function that takes the current item as input and returns the text to show in the tooltip (and <code>aria-label</code>).
+            Look at the Razor tab to see how this is done and how it can be customized.
+        </p>
     </Description>
 </DemoSection>
 
