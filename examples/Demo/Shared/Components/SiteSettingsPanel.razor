@@ -1,4 +1,4 @@
-﻿@implements IDialogContentComponent<GlobalState>
+﻿@implements IDialogContentComponent
 
 <div>
     <FluentStack Orientation="Orientation.Vertical" VerticalGap="8">
@@ -7,11 +7,10 @@
             <FluentSelect Id="color"
                           Items=@(Enum.GetValues<OfficeColor>())
                           OptionValue="@(c => c.ToAttributeValue())"
-                          OptionSelected="@(c => c == _selectedColorOption)"
+                          OptionSelected="@(c => c == ThemeService.SelectedAccentColor)"
                           TOption="OfficeColor"
                           Position="SelectPosition.Below"
-                          @bind-SelectedOption="@_selectedColorOption"
-                          @onchange="@(x => HandleColorChange(x))"
+                          @onchange="@(x => ThemeService.SetAccentColorAsync(x.Value!.ToString()!.GetEnumByDescription<OfficeColor>()))"
                           aria-label="Accent color selector" />
         </div>
 
