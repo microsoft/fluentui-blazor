@@ -26,32 +26,35 @@ public partial class DemoMainLayout : IAsyncDisposable
     ErrorBoundary? errorBoundary;
 
 
-    [Inject]
-    private GlobalState GlobalState { get; set; } = default!;
+    //[Inject]
+    //private GlobalState GlobalState { get; set; } = default!;
 
-    [Inject]
-    private IJSRuntime JSRuntime { get; set; } = default!;
+    //[Inject]
+    //private IJSRuntime JSRuntime { get; set; } = default!;
 
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
 
-    [Inject]
-    private BaseLayerLuminance BaseLayerLuminance { get; set; } = default!;
+    //[Inject]
+    //private BaseLayerLuminance BaseLayerLuminance { get; set; } = default!;
+
+    //[Inject]
+    //private AccentBaseColor AccentBaseColor { get; set; } = default!;
+
+    //[Inject]
+    //private Direction Direction { get; set; } = default!;
 
     [Inject]
-    private AccentBaseColor AccentBaseColor { get; set; } = default!;
-
-    [Inject]
-    private Direction Direction { get; set; } = default!;
+    IThemeService ThemeService { get; set; } = default!;
 
     protected override void OnInitialized()
     {
         _version = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
 
-        OfficeColor[] colors = Enum.GetValues<OfficeColor>();
-        _selectedColorOption = colors[new Random().Next(colors.Length)];
+        //OfficeColor[] colors = Enum.GetValues<OfficeColor>();
+        //_selectedColorOption = colors[new Random().Next(colors.Length)];
 
-        GlobalState.SetColor(_selectedColorOption.ToAttributeValue());
+        //GlobalState.SetColor(_selectedColorOption.ToAttributeValue());
 
         _prevUri = NavigationManager.Uri;
         NavigationManager.LocationChanged += LocationChanged;
@@ -67,15 +70,16 @@ public partial class DemoMainLayout : IAsyncDisposable
     {
         if (firstRender)
         {
-            GlobalState.SetContainer(container);
+            await ThemeService.InitializeAsync();
+            //GlobalState.SetContainer(container);
 
-            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-                 "./_content/FluentUI.Demo.Shared/Shared/DemoMainLayout.razor.js");
+            //_jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
+            //     "./_content/FluentUI.Demo.Shared/Shared/DemoMainLayout.razor.js");
 
-            _mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
+            //_mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
 
-            if (_selectedColorOption != OfficeColor.Default)
-                await AccentBaseColor.SetValueFor(container, _selectedColorOption.ToAttributeValue()!.ToSwatch());
+            //if (_selectedColorOption != OfficeColor.Default)
+            //    await AccentBaseColor.SetValueFor(container, _selectedColorOption.ToAttributeValue()!.ToSwatch());
         }
     }
 
