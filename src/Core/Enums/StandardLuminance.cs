@@ -25,4 +25,9 @@ public static class StandardLuminanceExtensions
     {
         return value == StandardLuminance.LightMode ? _lightmode : _darkmode;
     }
+
+    public static bool IsDarkMode(this StandardLuminance value)
+    {
+        return value is StandardLuminance.DarkMode;
+    }
 }
