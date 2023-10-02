@@ -1,0 +1,158 @@
+﻿/*
+    NavMenu
+*/
+.fluent-nav-menu {
+    flex-direction: column;
+    align-items: stretch;
+    min-width: fit-content;
+    font-size: 0px;
+}
+
+::deep .fluent-nav-item {
+    margin: calc(var(--design-unit) * 1px + 1px) 0;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+::deep .fluent-nav-menu .fluent-nav-group {
+    margin: calc(var(--design-unit) * 1px + 1px) 0;
+}
+
+
+
+    /*::deep .fluent-nav-item a {
+        color: var(--neutral-foreground-rest);
+    }*/
+
+
+    ::deep .fluent-nav-item:has(a:hover):not(.fluent-nav-link-disabled) {
+        cursor: pointer;
+        background: var(--neutral-fill-secondary-rest);
+    }
+
+
+    ::deep .fluent-nav-item:has(a.active) {
+        background: var(--neutral-fill-secondary-rest);
+    }
+
+
+        ::deep .fluent-nav-item:has(a.active)::before {
+            content: "";
+            display: block;
+            position: absolute;
+            width: 3px;
+            height: calc(((var(--base-height-multiplier) + var(--density)) * var(--design-unit) / 2) * 1px);
+            background: var(--accent-fill-rest);
+            border-radius: calc(var(--control-corner-radius) * 1px);
+            margin: calc(var(--design-unit) * 2px) 2px;
+            z-index: 5;
+        }
+
+/*
+    NavMenu expander
+*/
+::deep .navmenu-expander {
+    height: 32px;
+    background-color: var(--neutral-fill-stealth-rest);
+    margin: calc(var(--design-unit) * 2px) calc(var(--design-unit) * 2px) 0 calc(var(--design-unit) * 2px);
+    border-radius: calc(var(--control-corner-radius) * 1px);
+    user-select: none;
+}
+
+    ::deep .navmenu-expander:hover {
+        background-color: var(--neutral-fill-secondary-rest);
+    }
+
+    ::deep .navmenu-expander.selected::after {
+        display: none;
+    }
+
+
+
+/*
+    Child Elements (Groups and Items)
+*/
+
+
+
+
+/* 
+    Groups
+*/
+::deep .fluent-nav-group .content-region {
+    -webkit-user-select: none;
+    user-select: none;
+    /*margin-inline-start: calc(var(--design-unit) * 2px);*/
+    /*margin-inline-end: calc(var(--design-unit) * 2px);*/
+}
+
+::deep .content-region {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    width: 100%;
+    height: calc((var(--base-height-multiplier) + var(--density)) * var(--design-unit) * 1px);
+    margin-inline-start: calc(var(--design-unit) * 2px);
+    font-family: var(--body-font);
+    font-size: var(--type-ramp-base-font-size);
+    line-height: var(--type-ramp-base-line-height);
+    font-weight: initial;
+    font-variation-settings: var(--type-ramp-base-font-variations);
+}
+
+/*
+    Group items
+*/
+::deep .navmenu-group .navmenu-child-element::part(content-region) {
+    padding-inline-start: calc(var(--design-unit) * 2px);
+}
+
+/* Hide any items inside groups of a collapsed nav menu*/
+::deep .navmenu.collapsed > .navmenu-parent-element::part(items) {
+    display: none;
+}
+
+
+/*
+    Nav links
+*/
+::deep .fluent-nav-menu .fluent-nav-menu-item .content-region {
+    margin-inline-start: calc(var(--design-unit) * 2px);
+}
+
+/* 
+    Nav items
+*/
+
+::deep .fluent-nav-item .positioning-region {
+    display: flex;
+    position: relative;
+    box-sizing: border-box;
+    background: var(--neutral-fill-stealth-rest);
+    border: calc(var(--stroke-width) * 1px) solid transparent;
+    border-radius: calc(var(--control-corner-radius) * 1px);
+    height: calc(((var(--base-height-multiplier) + var(--density)) * var(--design-unit) + 1) * 1px);
+}
+
+::deep .fluent-nav-group {
+    margin-top: calc((var(--design-unit) * 2px) + 2px);
+}
+
+
+::deep .fluent-nav-group > .fluent-nav-item > .positioning-region {
+    padding-inline-start: 12px;
+}
+
+::deep .fluent-nav-group * .fluent-nav-menu > .fluent-nav-item > .positioning-region {
+    padding-inline-start: 24px;
+}
+
+::deep .fluent-nav-group * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item > .positioning-region {
+    padding-inline-start: 36px;
+}
+
+
+::deep .fluent-nav-group * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item > .positioning-region {
+    padding-inline-start: 48px;
+}
+

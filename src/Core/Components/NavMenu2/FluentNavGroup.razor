@@ -1,0 +1,61 @@
+﻿@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentComponentBase
+@using Microsoft.AspNetCore.Components.Rendering
+@using Microsoft.AspNetCore.Components.Routing
+
+<div @attributes="AdditionalAttributes" class="@Classname" disabled="@Disabled" style="@Style">
+    <div class="positioning-region">
+        <div class="content-region">
+            @if (!string.IsNullOrEmpty(Href))
+            {
+                <NavLink class="fluent-nav-link"
+                         @attributes="@Attributes"
+                         Match="NavLinkMatch.All"
+                         ActiveClass="@ActiveClass">
+                    @if (Icon is not null)
+                    {
+                        <FluentIcon Value="@Icon" Width="20px" Color="@IconColor" Class="fluent-nav-icon" />
+                    }
+                    <div class="fluent-nav-link-text">
+                        @Title
+                    </div>
+                    
+                </NavLink>
+                @_renderButton
+            }
+            else
+            {
+                <div class="fluent-nav-link">
+                    @if (Icon is not null)
+                    {
+                        <FluentIcon Value="@Icon" Width="20px" Color="@IconColor" Class="fluent-nav-icon" />
+                    }
+                    <div class="fluent-nav-text">
+                        @Title
+                    </div>
+                    @_renderButton
+                </div>
+            }
+        </div>
+    </div>
+    <FluentCollapsibleRegion @bind-Expanded="@Expanded" MaxHeight="@MaxHeight" Class="items" role="group">
+        <FluentNavMenu2>
+            @ChildContent
+        </FluentNavMenu2>
+    </FluentCollapsibleRegion>
+</div>
+
+@code {
+    private void RenderButton(RenderTreeBuilder __builder)
+    {
+        @if (!HideExpandIcon)
+        {
+            <div aria-hidden="true" class="@ButtonClassname" part="expand-collapse-button" @onclick="ExpandedToggleAsync" tabindex="0">
+
+                <FluentIcon Value="@(new CoreIcons.Regular.Size12.ChevronRight())" Color="Color.Neutral" />
+
+            </div>
+
+        }
+    }
+}

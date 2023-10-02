@@ -1,0 +1,31 @@
+.fluent-collapsible-region-container {
+    height: 0;
+    overflow: hidden;
+}
+
+
+
+
+.fluent-collapsible-region-entered {
+    overflow: initial;
+}
+
+
+.fluent-collapsible-region-exiting {
+}
+
+    .fluent-collapsible-region-exiting.fluent-navgroup-collapsible-region {
+        animation-duration: 300ms;
+    }
+
+.fluent-collapsible-region-hidden {
+    visibility: hidden;
+}
+
+.fluent-collapsible-region-wrapper {
+    display: flex;
+}
+
+.fluent-collapsible-region-wrapper-inner {
+    width: 100%;
+}

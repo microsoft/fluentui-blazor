@@ -1,0 +1,11 @@
+﻿@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentComponentBase
+@using System.Globalization
+
+<div @attributes="AdditionalAttributes" class="@ClassValue" style="@StyleValue">
+    <div @ref="_wrapper" class="fluent-collapsible-region-wrapper">
+        <div class="fluent-collapsible-region-wrapper-inner">
+            @ChildContent
+        </div>
+    </div>
+</div>
