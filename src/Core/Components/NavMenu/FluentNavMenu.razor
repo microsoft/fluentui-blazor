@@ -1,39 +1,32 @@
 ﻿@namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentComponentBase
 
-<div id="@Id">
-    <CascadingValue Value="this" IsFixed="true">
-        <CascadingValue TValue=INavMenuItemsOwner Value="@this" IsFixed>
-            <CascadingValue Value="@Expanded" Name="NavMenuExpanded">
-                <CascadingValue Value="@_hasChildIcons" Name="NavMenuItemSiblingHasIcon">
-                    <FluentTreeView Class="@ClassValue"
-                                    Style="@StyleValue"
-                                    CurrentSelected="@_currentlySelectedTreeItem"
-                                    CurrentSelectedChanged="@HandleCurrentSelectedChangedAsync">
-                        @if (Collapsible)
+<div id="@Id" @attributes="AdditionalAttributes" class="@ClassValue" style="@StyleValue">
+    <CascadingValue Value="@Expanded" Name="NavMenuExpanded">
+        @if (Collapsible)
+        {
+            <div aria-label="@Title"
+                 aria-expanded="@(Expanded.ToAttributeValue())"
+                 class="fluent-nav-item"
+                 tabindex="0"
+                 @onclick="@ToggleExpandedAsync"
+                 @onkeydown="@HandleExpandCollapseKeyDownAsync">
+                <div class="positioning-region">
+                    <div class="content-region">
+                        @if (ExpanderContent is not null)
                         {
-                            <FluentTreeItem aria-label="@Title"
-                                            aria-expanded="@Expanded.ToAttributeValue()"
-                                            Id="@_expandCollapseTreeItemId"
-                                            Class="navmenu-expander"
-                                            @onclick="@ToggleCollapsedAsync"
-                                            @onkeydown="@HandleExpandCollapseKeyDownAsync">
-                                @if (ExpanderContent is not null)
-                                {
-                                    <div>
-                                        @ExpanderContent
-                                    </div>
-                                }
-                                else
-                                {
-                                    <FluentIcon Value="@(new CoreIcons.Regular.Size24.Navigation())" Width="20px" />
-                                }
-                            </FluentTreeItem>
+
+                            @ExpanderContent
+
                         }
-                        @ChildContent
-                    </FluentTreeView>
-                </CascadingValue>
-            </CascadingValue>
-        </CascadingValue>
+                        else
+                        {
+                            <FluentIcon Value="@(new CoreIcons.Regular.Size24.Navigation())" Width="20px" />
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+        @ChildContent
     </CascadingValue>
 </div>

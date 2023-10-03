@@ -1,11 +1,10 @@
 @using System.Text;
-@namespace FluentUI.Demo.Shared
 
 <h2>Custom Actions Example</h2>
 
 <FluentStack Orientation="Orientation.Horizontal" Width="100%">
     <div>
-        <FluentNavMenu OnAction="@InterceptAtMenuLevel" Title="Custom actions demo">
+        <FluentNavMenuTree OnAction="@InterceptAtMenuLevel" Title="Custom actions demo">
             @*
             This item is handled by the MenuLevelHandler, which intercepts all items
             but will only handle ones with Id ending with _HandleAtMenuLevel
@@ -48,7 +47,7 @@
                  <FluentNavMenuLink Icon="@(new Icons.Regular.Size24.LeafOne())" Text="Item 3.1" />
                  <FluentNavMenuLink Icon="@(new Icons.Regular.Size24.LeafTwo())" Text="Item 3.2" />
              </FluentNavMenuGroup>
-        </FluentNavMenu>
+        </FluentNavMenuTree>
     </div>
     <div style="width: 100%;">
         <h2>Log</h2>

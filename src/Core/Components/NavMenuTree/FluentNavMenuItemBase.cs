@@ -67,7 +67,7 @@ public abstract class FluentNavMenuItemBase : FluentComponentBase, IDisposable
     public int? Width { get; set; }
 
     [CascadingParameter]
-    protected FluentNavMenu NavMenu { get; private set; } = default!;
+    protected FluentNavMenuTree NavMenu { get; private set; } = default!;
 
     [CascadingParameter(Name = "NavMenuExpanded")]
     protected bool NavMenuExpanded { get; private set; }

@@ -16,9 +16,9 @@ public partial class FluentCollapsibleRegion : FluentComponentBase
     }
 
     //internal double _height;
-    private bool _expanded, _isRendered, _updateHeight;
-    private ElementReference _wrapper;
-    internal CollapseState _state = CollapseState.Exited;
+    private bool _expanded, _isRendered;  //, _updateHeight;
+    //private ElementReference _wrapper;
+    //internal CollapseState _state = CollapseState.Exited;
 
     protected string? StyleValue =>
         new StyleBuilder()
@@ -30,9 +30,9 @@ public partial class FluentCollapsibleRegion : FluentComponentBase
 
     protected string? ClassValue =>
         new CssBuilder("fluent-collapsible-region-container")
-            .AddClass($"fluent-collapsible-region-entering", _state == CollapseState.Entering)
-            .AddClass($"fluent-collapsible-region-entered", _state == CollapseState.Entered)
-            .AddClass($"fluent-collapsible-region-exiting", _state == CollapseState.Exiting)
+            //.AddClass($"fluent-collapsible-region-entering", _state == CollapseState.Entering)
+            //.AddClass($"fluent-collapsible-region-entered", _state == CollapseState.Entered)
+            //.AddClass($"fluent-collapsible-region-exiting", _state == CollapseState.Exiting)
             .AddClass(Class)
             .Build();
 
@@ -51,13 +51,13 @@ public partial class FluentCollapsibleRegion : FluentComponentBase
 
             if (_isRendered)
             {
-                _state = _expanded ? CollapseState.Entering : CollapseState.Exiting;
+                //_state = _expanded ? CollapseState.Entering : CollapseState.Exiting;
                 //_ = UpdateHeight();
-                _updateHeight = true;
+                //_updateHeight = true;
             }
             else if (_expanded)
             {
-                _state = CollapseState.Entered;
+                //_state = CollapseState.Entered;
             }
 
             _ = ExpandedChanged.InvokeAsync(_expanded);
@@ -100,19 +100,12 @@ public partial class FluentCollapsibleRegion : FluentComponentBase
     //    }
     //}
 
-    //protected override async Task OnAfterRenderAsync(bool firstRender)
+    
     protected override void OnAfterRender(bool firstRender)
     {
         if (firstRender)
         {
             _isRendered = true;
-            //await UpdateHeight();
-        }
-        else if (_updateHeight && _state is CollapseState.Entering or CollapseState.Exiting)
-        {
-            _updateHeight = false;
-            //await UpdateHeight();
-            StateHasChanged();
         }
     }
 }

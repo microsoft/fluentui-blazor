@@ -1,14 +1,8 @@
 ::deep .fluent-nav-link {
-    width: 100%;
     font-weight: 400;
     color: inherit;
-    line-height: 1.75;
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    justify-content: flex-start;
-    background-color: transparent;
-   /* margin-inline-start: calc(var(--design-unit) * 2px);*/
-    /*margin-inline-end: calc(var(--design-unit) * 2px);*/
     text-decoration: none;
 }
 
@@ -26,13 +20,4 @@
 
 ::deep .fluent-nav-link.disabled .fluent-nav-icon {
     fill: var(--neutral-stroke-rest) !important;
-}
-
-
-::deep .fluent-nav-link .fluent-nav-text {
-    width: 100%;
-    text-align: start;
-    
-    margin-inline-end: unset;
-    letter-spacing: 0;
 }

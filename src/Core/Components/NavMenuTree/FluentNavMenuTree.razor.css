@@ -1,0 +1,94 @@
+﻿/*
+    NavMenu
+*/
+.navmenu {
+    background-color: var(--neutral-layer-1);
+}
+
+/*
+    NavMenu expander
+*/
+::deep .navmenu-expander::part(positioning-region) {
+    background-color: var(--neutral-fill-stealth-rest);
+}
+
+::deep .navmenu-expander::part(content-region) {
+    margin-inline-start: calc(var(--design-unit) * 2px);
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+::deep .navmenu-expander::part(positioning-region):hover {
+    background-color: var(--neutral-fill-secondary-rest);
+}
+
+::deep .navmenu-expander.selected::after {
+    display: none;
+}
+
+
+
+/*
+    Child Elements (Groups and Items)
+*/
+::deep .navmenu-child-element::part(content-region) {
+    -webkit-user-select: none;
+    user-select: none;
+    margin-inline-start: calc(var(--design-unit) * 2px);
+    margin-inline-end: calc(var(--design-unit) * 2px);
+}
+
+::deep .navmenu .treeitem-text, ::deep .navmenu fluent-tree-item.navmenu-child-element::part(start) {
+    pointer-events: none;
+}
+
+::deep .navmenu.collapsed .treeitem-text, ::deep .navmenu.collapsed fluent-tree-item.navmenu-child-element::part(expand-collapse-button) {
+    display: none;
+}
+
+
+
+/* 
+    Groups
+*/
+::deep .navmenu-group::part(content-region) {
+    margin-inline-end: var(--expand-collapse-button-size);
+}
+
+
+
+/*
+    Group expander
+*/
+::deep .navmenu .navmenu-group::part(expand-collapse-button) {
+    right: calc(var(--design-unit) * 2px);
+    left: unset;
+    margin-inline-end: calc(var(--expand-collapse-button-size) * -1);
+}
+
+[dir="rtl"] * ::deep .navmenu-group::part(expand-collapse-button) {
+    left: calc(var(--design-unit) * 2px);
+    right: unset;
+    margin-inline-start: calc(var(--expand-collapse-button-size) - (var(--design-unit) * 2px));
+}
+
+
+/*
+    Group items
+*/
+::deep .navmenu-group .navmenu-child-element::part(content-region) {
+    padding-inline-start: calc(var(--design-unit) * 2px);
+}
+
+/* Hide any items inside groups of a collapsed nav menu*/
+::deep .navmenu.collapsed > .navmenu-parent-element::part(items) {
+    display: none;
+}
+
+
+/*
+    Nav links
+*/
+::deep .navmenu .navmenu-link::part(content-region) {
+    margin-inline-start: calc(var(--design-unit) * 2px);
+}

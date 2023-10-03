@@ -1,10 +1,23 @@
-﻿## Breaking changes
- The `FluentDataGrid` component is, as you may know, a `QuickGrid` in disguise. We 
- aligned the underlying code even more to the productized version that will ship with 
- .NET 8. Where we previously aligned parameter names to the `fluent-datagrid` Web 
- Component, we will now align to the `QuickGrid` naming. This should make 
- integrating/copying `QuickGrid` component examples in your own environment easier and 
- will make it easier for us to keep the code up-to-date. Changes that need to be made in parameter names from v2 are:  
+﻿## Breaking changes v3.2.0
+
+The pre-v3.2 `FluentNavMenu` has been renamed to `FluentNavMenuTree`. If you want to upgrade your previous menu code, the following changes need to be made:
+
+* Change all occurrences of `<FluentNavMenuLink>` to `<FluentNavLink>`
+* Change `FluentNavMenuLink` from a self-closing tag to a tag with a closing tag
+* Move the `FluentNavMenuLink` `Text` parameters contents to in between the opening and closing tag
+* Change any `@onclick` occurences to `OnClick`
+
+* Change all occurences of `FluentNavMenuGroup` to `FluentNavGroup'
+* Replace the `Text` parameter with `Title`
+ 
+
+## Breaking changes v3.0.0
+The `FluentDataGrid` component is, as you may know, a `QuickGrid` in disguise. We 
+aligned the underlying code even more to the productized version that will ship with 
+.NET 8. Where we previously aligned parameter names to the `fluent-datagrid` Web 
+Component, we will now align to the `QuickGrid` naming. This should make 
+integrating/copying `QuickGrid` component examples in your own environment easier and 
+will make it easier for us to keep the code up-to-date. Changes that need to be made in parameter names from v2 are:  
 * RowsData -> Items 
 * RowsDataProvider -> ItemsProvider 
 * RowsDataSize -> ItemSize 

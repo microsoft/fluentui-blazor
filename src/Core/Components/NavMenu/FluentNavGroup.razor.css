@@ -2,50 +2,34 @@
     width: 100%;
     font-weight: 500;
     color: inherit;
-    line-height: 1.75;
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    justify-content: flex-start;
-    background-color: transparent;
-    /*margin-inline-start: calc(var(--design-unit) * 2px);*/
-    /*margin-inline-end: calc(var(--design-unit) * 2px);*/
     text-decoration: none;
 }
 
 ::deep .fluent-nav-icon {
-    margin-inline-end: calc(var(--design-unit) * 2px + 2px)
+    margin-inline-end: calc(var(--design-unit) * 2px + 2px);
+    min-width: 20px;
 }
 
 ::deep .fluent-nav-group.disabled {
     color: var(--neutral-fill-secondary-rest) !important;
-    cursor: not-allowed;
     pointer-events: none;
 }
-
 
     ::deep .fluent-nav-group.disabled .fluent-nav-icon {
         fill: var(--neutral-stroke-rest) !important;
     }
 
-    ::deep .fluent-nav-group .fluent-nav-text {
-        font-weight: 500;
-    }
 
-/*
-    Group expander
-*/
+/* Group expand/collapse */
 ::deep .expand-collapse-button {
     position: absolute;
     right: calc(var(--design-unit) * 2px);
     left: unset;
-    
-    
-    background: none;
-    border: none;
     border-radius: calc(var(--control-corner-radius) * 1px);
     width: calc((((var(--base-height-multiplier) / 2) * var(--design-unit)) + ((var(--design-unit) * var(--density)) / 2) + (var(--design-unit) * 2)) * 1px);
     height: calc((((var(--base-height-multiplier) / 2) * var(--design-unit)) + ((var(--design-unit) * var(--density)) / 2) + (var(--design-unit) * 2)) * 1px);
-    padding: 0px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -56,22 +40,21 @@
     position: absolute;
     left: calc(var(--design-unit) * 2px);
     right: unset;
-    margin-inline-start: calc(var(--expand-collapse-button-size) - (var(--design-unit) * 2px));
 }
 
 ::deep .expand-collapse-button:hover {
     background: var(--tree-item-expand-collapse-hover)
 }
 
-::deep svg {
+::deep .expand-collapse-button svg {
     transition: transform 0.1s linear 0s;
     pointer-events: none;
 }
 
-[dir="rtl"] ::deep svg {
+[dir="rtl"] * ::deep .expand-collapse-button svg {
     transform: rotate(180deg);
 }
 
-::deep .rotate svg {
+::deep .rotate.expand-collapse-button svg {
     transform: rotate(90deg);
 }
