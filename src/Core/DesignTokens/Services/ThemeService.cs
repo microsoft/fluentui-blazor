@@ -135,7 +135,9 @@ internal sealed class ThemeService : IThemeService
     {
         await Task.Delay(50);
 
-        if (!isRTL)
+        if (isRTL)
+            _selectedDirection = LocalizationDirection.rtl;
+        else
             _selectedDirection = LocalizationDirection.ltr;
 
         _globalState.Dir = SelectedDirection;
@@ -143,5 +145,7 @@ internal sealed class ThemeService : IThemeService
         await _direction.SetValueFor(ElementRef, SelectedDirection.ToAttributeValue());
 
         _globalState.SetDirection(SelectedDirection);
+
+        await _themeStorageService.ChangeDirection(isRTL);
     }
 }

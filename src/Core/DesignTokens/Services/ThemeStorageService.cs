@@ -117,11 +117,6 @@ internal sealed class ThemeStorageService : JSModule, IThemeStorageService
         try
         {
             await _jsRuntime.InvokeVoidAsync(ThemeConstant.SetItem, ThemeConstant.SelectedDirectionKey, isRTL.ToString());
-
-            LocalizationDirection dir = LocalizationDirection.rtl;
-
-            if(!isRTL)
-                await InvokeVoidAsync("switchDirection", dir.ToString());
         }
         catch (JSException ex)
         {
@@ -129,14 +124,16 @@ internal sealed class ThemeStorageService : JSModule, IThemeStorageService
         }
     }
 
-    public async ValueTask SetDirectionLocallyAsync(bool isRTL)
+    public async ValueTask ChangeDirection(bool isRTL)
     {
         try
         {
             LocalizationDirection dir = LocalizationDirection.rtl;
 
             if (!isRTL)
-                await InvokeVoidAsync("switchDirection", dir.ToString());
+                dir = LocalizationDirection.ltr;
+
+            await InvokeVoidAsync("switchDirection", dir.ToString());
         }
         catch (JSException ex)
         {

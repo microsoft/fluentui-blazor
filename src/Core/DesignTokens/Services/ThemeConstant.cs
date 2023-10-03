@@ -11,7 +11,7 @@ internal sealed class ThemeConstant
     internal const string ThemeStorageValidationKey = "Fluent_Storage_Validation";
     internal const string SelectedThemeKey = "Fluent_Theme";
     internal const string SelectedAccentColorKey = "Fluent_AccentColor";
-    internal const string SelectedDirectionKey = "Fluent_DirectionRight";
+    internal const string SelectedDirectionKey = "Fluent_DirectionRTL";
 
     // Data
     internal const string ThemeStorageValidationData = "This is a Storage Validation Data";

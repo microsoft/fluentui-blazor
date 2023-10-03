@@ -9,6 +9,6 @@ internal interface IThemeStorageService : IAsyncDisposable
     ValueTask<string?> GetAccentColorAsync();
     ValueTask SetAccentColorAsync(string color);
     ValueTask<bool?> GetDirectionAsync();
-    ValueTask SetDirectionLocallyAsync(bool isRTL);
+    ValueTask ChangeDirection(bool isRTL);
     ValueTask SetDirectionAsync(bool isRTL);
 }
