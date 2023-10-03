@@ -132,6 +132,11 @@ public partial class FluentInputFile : FluentComponentBase
     [Parameter]
     public EventCallback<IEnumerable<FluentInputFileEventArgs>> OnCompleted { get; set; }
 
+    /// <summary>
+    /// Identifier of the source component clickable by the end user.
+    /// </summary>
+    [Parameter]
+    public string AnchorId { get; set; } = string.Empty;
 
     public FluentInputFile()
     {
@@ -139,14 +144,26 @@ public partial class FluentInputFile : FluentComponentBase
     }
 
     /// <summary>
-    /// Open the dialogbox to select files.
+    /// Open the dialogbox to select files. This method doesn't work on Safari and iOS and will be removed in a future release.
     /// </summary>
     /// <returns></returns>
+    [Obsolete("Use AnchorId instead to specify the ID of the button (for example) on which the user should click. This method will be removed in a future release.")]
     public async Task ShowFilesDialogAsync()
     {
         Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
 
         await Module.InvokeVoidAsync("raiseFluentInputFile", Id);
+    }
+
+    /// <summary />
+    protected override async Task OnInitializedAsync()
+    {
+        if (!string.IsNullOrEmpty(AnchorId))
+        {
+            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+
+            await Module.InvokeVoidAsync("attachClickHandler", AnchorId, Id);
+        }
     }
 
     /// <summary />
