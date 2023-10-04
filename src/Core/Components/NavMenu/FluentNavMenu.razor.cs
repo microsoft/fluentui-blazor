@@ -86,6 +86,9 @@ public partial class FluentNavMenu : FluentComponentBase
     {
         Task handler = args.Code switch
         {
+            "NumpadEnter" => SetExpandedAsync(!Expanded),
+            "NumpadArrowRight" => SetExpandedAsync(true),
+            "NumpadArrowLeft" => SetExpandedAsync(false),
             "Enter" => SetExpandedAsync(value: !Expanded),
             "ArrowRight" => SetExpandedAsync(true),
             "ArrowLeft" => SetExpandedAsync(false),

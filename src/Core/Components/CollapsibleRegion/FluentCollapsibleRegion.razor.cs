@@ -9,31 +9,18 @@ using Microsoft.JSInterop;
 namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentCollapsibleRegion : FluentComponentBase
 {
-
-    internal enum CollapseState
-    {
-        Entering, Entered, Exiting, Exited
-    }
-
-    //internal double _height;
-    private bool _expanded, _isRendered;  //, _updateHeight;
-    //private ElementReference _wrapper;
-    //internal CollapseState _state = CollapseState.Exited;
+    private bool _expanded, _isRendered;  
 
     protected string? StyleValue =>
-        new StyleBuilder()
+        new StyleBuilder(Style)
             .AddStyle("max-height", MaxHeight, MaxHeight is not null)
             .AddStyle("height", "auto", Expanded)
             .AddStyle("height", "0", !Expanded)
-            .AddStyle(Style)
             .Build();
 
     protected string? ClassValue =>
-        new CssBuilder("fluent-collapsible-region-container")
-            //.AddClass($"fluent-collapsible-region-entering", _state == CollapseState.Entering)
-            //.AddClass($"fluent-collapsible-region-entered", _state == CollapseState.Entered)
-            //.AddClass($"fluent-collapsible-region-exiting", _state == CollapseState.Exiting)
-            .AddClass(Class)
+        new CssBuilder(Class)
+            .AddClass("fluent-collapsible-region-container")
             .Build();
 
     /// <summary>
@@ -46,20 +33,10 @@ public partial class FluentCollapsibleRegion : FluentComponentBase
         set
         {
             if (_expanded == value)
+            {
                 return;
+            }
             _expanded = value;
-
-            if (_isRendered)
-            {
-                //_state = _expanded ? CollapseState.Entering : CollapseState.Exiting;
-                //_ = UpdateHeight();
-                //_updateHeight = true;
-            }
-            else if (_expanded)
-            {
-                //_state = CollapseState.Entered;
-            }
-
             _ = ExpandedChanged.InvokeAsync(_expanded);
         }
     }
@@ -77,29 +54,7 @@ public partial class FluentCollapsibleRegion : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     [Parameter]
-    public EventCallback OnAnimationEnd { get; set; }
-
-    [Parameter]
     public EventCallback<bool> ExpandedChanged { get; set; }
-
-    
-    //internal async Task UpdateHeight()
-    //{
-    //    try
-    //    {
-    //        _height = (await _wrapper.MudGetBoundingClientRectAsync())?.Height ?? 0;
-    //    }
-    //    catch (Exception ex) when (ex is JSDisconnectedException or TaskCanceledException)
-    //    {
-    //        _height = 0;
-    //    }
-
-    //    if (_height > MaxHeight)
-    //    {
-    //        _height = MaxHeight.Value;
-    //    }
-    //}
-
     
     protected override void OnAfterRender(bool firstRender)
     {

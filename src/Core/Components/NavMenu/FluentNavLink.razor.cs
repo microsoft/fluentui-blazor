@@ -8,8 +8,8 @@ public partial class FluentNavLink : FluentNavBase
 {
     private readonly RenderFragment _renderContent;
 
-    internal string? ClassValue => new CssBuilder("fluent-nav-item")
-        .AddClass(Class)
+    internal string? ClassValue => new CssBuilder(Class)
+        .AddClass("fluent-nav-item")
         .Build();
 
     internal string? LinkClassValue => new CssBuilder("fluent-nav-link")

@@ -67,7 +67,7 @@ public abstract class FluentNavBase : FluentComponentBase
     /// <summary>
     /// Returns <see langword="true"/> if the item has an <see cref="Icon"/> set.
     /// </summary>
-    public bool HasIcon => Icon is not null;
+    internal bool HasIcon => Icon is not null;
 
     [Parameter]
     public EventCallback<MouseEventArgs> OnClick { get; set; }
@@ -84,7 +84,9 @@ public abstract class FluentNavBase : FluentComponentBase
     protected async Task OnClickHandler(MouseEventArgs ev)
     {
         if (Disabled)
+        {
             return;
+        }
         if (Href != null)
         {
             NavigationManager.NavigateTo(Href, ForceLoad);

@@ -72,6 +72,10 @@ public partial class FluentNavGroup : FluentNavBase
     /// </summary>
     [Parameter]
     public Icon ExpandIcon { get; set; } = new CoreIcons.Regular.Size12.ChevronRight();
+    
+    /// <summary>
+    /// Gets or sets a callback that is triggered whenever <see cref="Expanded"/> changes.
+    /// </summary>
 
     [Parameter]
     public EventCallback<bool> ExpandedChanged { get; set; }
@@ -88,6 +92,9 @@ public partial class FluentNavGroup : FluentNavBase
     {
         Task handler = args.Code switch
         {
+            "NumpadEnter" => SetExpandedAsync(!Expanded),
+            "NumpadArrowRight" => SetExpandedAsync(true),
+            "NumpadArrowLeft" => SetExpandedAsync(false),
             "Enter" => SetExpandedAsync(!Expanded),
             "ArrowRight" => SetExpandedAsync(true),
             "ArrowLeft" => SetExpandedAsync(false),
