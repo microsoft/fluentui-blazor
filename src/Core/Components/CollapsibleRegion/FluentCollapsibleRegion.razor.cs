@@ -9,7 +9,7 @@ using Microsoft.JSInterop;
 namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentCollapsibleRegion : FluentComponentBase
 {
-    private bool _expanded, _isRendered;  
+    private bool _expanded;  
 
     protected string? StyleValue =>
         new StyleBuilder(Style)
@@ -55,12 +55,5 @@ public partial class FluentCollapsibleRegion : FluentComponentBase
 
     [Parameter]
     public EventCallback<bool> ExpandedChanged { get; set; }
-    
-    protected override void OnAfterRender(bool firstRender)
-    {
-        if (firstRender)
-        {
-            _isRendered = true;
-        }
-    }
+   
 }
