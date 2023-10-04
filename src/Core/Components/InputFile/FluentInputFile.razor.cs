@@ -144,10 +144,11 @@ public partial class FluentInputFile : FluentComponentBase
     }
 
     /// <summary>
-    /// Open the dialogbox to select files. This method doesn't work on Safari and iOS and will be removed in a future release.
+    /// Open the dialogbox to select files.
+    /// Use <see cref="AnchorId"/> instead to specify the ID of the button (for example) on which the user should click.
+    /// ⚠️ This method doesn't work on Safari and iOS.
     /// </summary>
     /// <returns></returns>
-    [Obsolete("Use AnchorId instead to specify the ID of the button (for example) on which the user should click. This method will be removed in a future release.")]
     public async Task ShowFilesDialogAsync()
     {
         Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
