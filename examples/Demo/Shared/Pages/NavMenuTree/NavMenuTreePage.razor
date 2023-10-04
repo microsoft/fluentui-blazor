@@ -1,4 +1,5 @@
 ﻿@page "/NavMenuTree"
+#
 @using FluentUI.Demo.Shared.Pages.NavMenuTree.Examples
 
 <h1>NavMenuTree, NavMenuGroup and NavMenuLink</h1>
@@ -6,7 +7,8 @@
 <div class="demopanel" style="text-align:center; margin-bottom: 10px">
     <b>IMPORTANT</b>
     <p>
-        With version 3.2 a new, much improved, set of components to build side-bar menus has been added. 
+        With version 3.2 a new, much improved, set of components to build side-bar menus has been added. The demos shown here are using 
+        components which are marked obsolete and will be removed in a future version.
     </p>
     <p>
         <b>
@@ -34,11 +36,14 @@
     None of these components are particulary useful when used stand-alone.
 </p>
 
+<text>#pragma warning disable CS0618</text>
 <ApiDocumentation Component="typeof(FluentNavMenuTree)" />
 
 <ApiDocumentation Component="typeof(FluentNavMenuGroup)" />
 
 <ApiDocumentation Component="typeof(FluentNavMenuLink)" />
+
+<text>#pragma warning restore CS0618</text>
 
 <h2>Examples</h2>
 

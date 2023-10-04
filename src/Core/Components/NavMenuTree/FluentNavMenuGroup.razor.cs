@@ -3,6 +3,7 @@ using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
+//[Obsolete("This component has been replaced with the FluentNavGroup and will be removed in a future version.")]
 public partial class FluentNavMenuGroup : FluentNavMenuItemBase, INavMenuItemsOwner, IDisposable
 {
     private readonly List<FluentNavMenuItemBase> _childItems = new();
