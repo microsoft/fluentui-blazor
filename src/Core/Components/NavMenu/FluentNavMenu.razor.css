@@ -61,13 +61,13 @@
 }
 
 /* NavGroup margins */
-::deep .fluent-nav-group {
+/*::deep .fluent-nav-group .standout {
     margin: calc((var(--design-unit) * 2px) + 2px) 0;
 }
 
-::deep .fluent-nav-menu .fluent-nav-group {
+::deep .fluent-nav-menu .fluent-nav-group .standout {
     margin: calc((var(--design-unit) * 2px) + 2px) 0;
-}
+}*/
 
 ::deep .fluent-nav-group .fluent-nav-item:last-of-type, .fluent-nav-menu .fluent-nav-item:last-of-type {
     margin-bottom: 0;

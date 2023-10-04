@@ -6,7 +6,7 @@
 
 @if (NavMenuExpanded || HasIcon)
 {
-    <div @attributes="AdditionalAttributes" class="@ClassValue" disabled="@Disabled" style="@Style">
+    <div @attributes="AdditionalAttributes" class="@ClassValue" disabled="@Disabled" style="@StyleValue">
         <div class="positioning-region">
             <div class="content-region">
                 @if (!string.IsNullOrEmpty(Href))
