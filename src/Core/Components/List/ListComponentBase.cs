@@ -62,6 +62,12 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
     public string? Height { get; set; }
 
     /// <summary>
+    /// Text displayed just above the component
+    /// </summary>
+    [Parameter]
+    public string? Label { get; set; }
+
+    /// <summary>
     /// Text used on aria-label attribute.
     /// </summary>
     [Parameter]

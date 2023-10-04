@@ -10,6 +10,7 @@
 }
 
 <CascadingValue Value=@_internalListContext Name="ListContext" TValue="InternalListContext<TOption>" IsFixed=true>
+    <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@(string.IsNullOrWhiteSpace(Title) ? Placeholder : Title)" />
     <fluent-combobox @ref=Element
                      id="@Id"
                      class="@ClassValue"
@@ -21,9 +22,8 @@
                      position=@Position.ToAttributeValue()
                      disabled=@Disabled
                      appearance="@Appearance.ToAttributeValue()"
-                     aria-label="@(!string.IsNullOrWhiteSpace(Title) ? Title : "")"
                      @onchange="@OnChangedHandlerAsync"
-                     @attributes="AdditionalAttributes">
+                     @attributes="AdditionalAttributes">        
         @GetListOptions(Items)
     </fluent-combobox>
 </CascadingValue>
