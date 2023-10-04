@@ -2,7 +2,7 @@
 
 
 <FluentDataGrid Items="@FilteredItems" ResizableColumns=true Pagination="@pagination" GridTemplateColumns="0.2fr 1fr 0.2fr 0.2fr 0.2fr 0.2fr" RowClass="@rowClass" RowStyle="@rowStyle" Style="height: 405px; overflow:auto;">
-    <TemplateColumn Tooltip="true" Title="Rank" SortBy="@rankSort" Align="Align.Center" InitialSortDirection="SortDirection.Ascending" IsDefaultSortColumn=true>
+    <TemplateColumn Tooltip="true" TooltipText="@(c => "Flag of " + c.Name)" Title="Rank" SortBy="@rankSort" Align="Align.Center" InitialSortDirection="SortDirection.Ascending" IsDefaultSortColumn=true>
         <img class="flag" src="_content/FluentUI.Demo.Shared/flags/@(context.Code).svg" alt="Flag of @(context.Code)" />
     </TemplateColumn>
     <PropertyColumn Property="@(c => c.Name)" Sortable="true" Tooltip="true" Title="Name of the country">
@@ -12,10 +12,10 @@
             </div>
         </ColumnOptions>
     </PropertyColumn>
-    <PropertyColumn Property="@(c => c.Medals.Gold)" Sortable="true" Align="Align.Start" />
-    <PropertyColumn Property="@(c => c.Medals.Silver)" Sortable="true" Align="Align.Center" />
+    <PropertyColumn Property="@(c => c.Medals.Gold)" Sortable="true" Align="Align.Start" Tooltip="true" TooltipText="@(c => "That is " + c.Medals.Gold + " x GOLD!!")" />
+    <PropertyColumn Property="@(c => c.Medals.Silver)" Sortable="true" Align="Align.Center" Tooltip="true" />
     <PropertyColumn Property="@(c => c.Medals.Bronze)" Sortable="true" Align="Align.End" />
-    <PropertyColumn Property="@(c => c.Medals.Total)" Sortable="true" Align="Align.End" />
+    <PropertyColumn Property="@(c => c.Medals.Total)" Align="Align.End" Tooltip="true" />
 </FluentDataGrid>
 
 
