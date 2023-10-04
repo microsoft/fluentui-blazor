@@ -5,15 +5,17 @@
 <FluentLayout Class="@ClassValue" Style="@StyleValue">
     <FluentHeader Height="@HeaderHeight">
         @Header
-    </FluentHeader> 
-    
+    </FluentHeader>
+
     @SubHeader
-    
+
     <FluentStack Orientation="Orientation.Horizontal" style="height:calc(100% - var(--header-height))" HorizontalGap="0">
-        <FluentNavMenu Width="200" Collapsible="true" Class="main-layout-navmenu" Title="@NavMenuTitle">
-            @NavMenuContent
-        </FluentNavMenu>
-        
+        @if (NavMenuContent != null)
+        {
+            <FluentNavMenu Width="200" Collapsible="true" Class="main-layout-navmenu" Title="@NavMenuTitle">
+                @NavMenuContent
+            </FluentNavMenu>
+        }
         <FluentBodyContent>
             @Body
         </FluentBodyContent>
