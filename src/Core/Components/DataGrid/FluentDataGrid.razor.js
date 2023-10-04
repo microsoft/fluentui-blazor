@@ -1,4 +1,8 @@
 export function init(gridElement) {
+    if (gridElement === null) {
+        return;
+    };
+
     enableColumnResizing(gridElement);
 
     const bodyClickHandler = event => {
@@ -87,10 +91,6 @@ function enableColumnResizing(gridElement) {
     const columns = [];
     let headerBeingResized;
     let resizeHandle;
-
-    if (gridElement === null) {
-        return;
-    };
 
     gridElement.querySelectorAll('.column-header').forEach(header => {
         columns.push({ header });

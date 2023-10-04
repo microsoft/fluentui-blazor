@@ -1,8 +1,25 @@
 @implements IDialogContentComponent<SimplePerson>
 
-<FluentDialogHeader Visible="false" />
-<FluentDialogFooter Visible="false" />
-<FluentDialogBody>hello</FluentDialogBody>
+@* Header *@
+<FluentDialogHeader ShowDismiss="true">
+    <FluentStack VerticalAlignment="VerticalAlignment.Center">
+        <FluentIcon Value="@(new Icons.Regular.Size24.WindowApps())" />
+        <FluentLabel Typo="Typography.PaneHeader">
+            @Dialog.Instance.Parameters.Title
+        </FluentLabel>
+    </FluentStack>
+</FluentDialogHeader>
+
+@* Footer *@
+<FluentDialogFooter>
+    <FluentButton Appearance="Appearance.Accent" OnClick="@SaveAsync">Close</FluentButton>
+</FluentDialogFooter>
+
+@* Body *@
+<FluentDialogBody>
+    <FluentTextField @bind-Value="@Content.Firstname">FirstName:</FluentTextField>
+    <FluentNumberField @bind-Value="@Content.Age">Age:</FluentNumberField>
+</FluentDialogBody>
 
 @code {
     [Parameter]
