@@ -73,14 +73,13 @@ to your `index.html` or `_Layout.cshtml` file in the `<head>` section like this:
 
 The file contains a number of CSS variables that are required to be defined for the components to work correctly. 
 
-### Project file
-if you want to use icons and/or emoji, starting with version 2.1 you need add a `<PropertyGroup>` to your project file. Within this group you can specify which icons and emoji are made available for usage and publication. Please refer to the [project setup](https://www.fluentui-blazor.net/ProjectSetup) document for more information.
-
-
 ### Code
 Please refer to the [code setup](https://www.fluentui-blazor.net/CodeSetup) document to learn what needs to be included in your `Program.cs` file 
 so that all necessary services are available and setup in the correct way.
 
+## Working with Icons and Emoji
+We have additional packages available that include the complete Fluent UI System icons and Fluent UI Emoji collections. 
+Please refer to the [Icons and Emoji](https://www.fluentui-blazor.net/IconsAndEmoji) page for more information.
 
 ## Getting started by using project templates
 To make it easier to start a project that uses the Fluent UI Blazor components out of the box, we have created the

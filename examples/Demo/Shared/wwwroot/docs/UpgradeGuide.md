@@ -1,14 +1,20 @@
 ﻿## Breaking changes v3.2.0
 
-The pre-v3.2 `FluentNavMenu` has been renamed to `FluentNavMenuTree`. If you want to upgrade your previous menu code, the following changes need to be made:
+### The pre-v3.2 `FluentNavMenu` has been renamed to `FluentNavMenuTree` 
+A new `FluentNavMenu` component has been added. 
+
+If you want to **upgrade** your previous menu code, the following changes need to be made:
 
 * Change all occurrences of `<FluentNavMenuLink>` to `<FluentNavLink>`
 * Change `FluentNavMenuLink` from a self-closing tag to a tag with a closing tag
-* Move the `FluentNavMenuLink` `Text` parameters contents to in between the opening and closing tag
-* Change any `@onclick` occurences to `OnClick`
+* Move the `FluentNavMenuLink` `Text` parameter content to in between the opening and closing tag
+* Change any `@onclick` occurrences to `OnClick`
 
-* Change all occurences of `FluentNavMenuGroup` to `FluentNavGroup'
+* Change all occurrences of `FluentNavMenuGroup` to `FluentNavGroup'
 * Replace the `Text` parameter with `Title`
+
+If you want to **keep** your previous menu code, the following change needs to be made:
+* Rename `FluentNavMenu` to `FluentNavMenuTree`
  
 
 ## Breaking changes v3.0.0

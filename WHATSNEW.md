@@ -1,4 +1,7 @@
-﻿## V3.1.1
+﻿## V3.2.0
+- New NavMenu, NavGroup and NavLink components. **Breaking change** - See the [Upgrade guide](https://www.fluentui-blazor.net/UpgradeGuide) for details. See [NavMenu](https://www.fluentui-blazor.net/NavMenu) page for examples.
+
+## V3.1.1
 - Fix [#776](https://github.com/microsoft/fluentui-blazor/issues/776): Icon throws exception when deployed to Azure
 - Fix [#755](https://github.com/microsoft/fluentui-blazor/issues/755): Icon throws exception when deployed to Azure
 - Fix [#789](https://github.com/microsoft/fluentui-blazor/issues/789): Navigation to "/" crashes with FluentNavMenu
