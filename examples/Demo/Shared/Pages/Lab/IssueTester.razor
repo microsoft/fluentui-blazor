@@ -1,1 +1,29 @@
 ﻿@page "/IssueTester"
+
+
+@inject DataSource Data
+<label for="people-listbox">Select a person</label>
+<FluentSelect TOption="Person"
+              Items="@Data.People.WithVeryLongName()"
+              Id="people-listbox"
+              Width="200px"
+              Height="250px"
+              OptionValue="@(p => p.PersonId.ToString())"
+              OptionText="@(p => p.LastName + ", " + p.FirstName)"
+              Value="@SelectedValue"
+              ValueChanged="@ValueChangedHandler" />
+
+<p>
+    Selected value: @SelectedValue <br />
+</p>
+
+
+@code {
+    string? SelectedValue = "4";
+
+    async Task ValueChangedHandler(string? value)
+    {
+        Console.WriteLine($"Value: {value}");
+        SelectedValue = value;
+    }
+}

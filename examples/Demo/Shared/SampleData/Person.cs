@@ -1,6 +1,9 @@
 ﻿namespace FluentUI.Demo.Shared.SampleData;
 
-public record Person(int PersonId, string CountryCode, string FirstName, string LastName, DateOnly BirthDate, string Picture);
+public record Person(int PersonId, string CountryCode, string FirstName, string LastName, DateOnly BirthDate, string Picture)
+{
+    public override string ToString() => $"{FirstName} {LastName} ({BirthDate}, {CountryCode})";
+}
 
 public class SimplePerson
 {
