@@ -1,7 +1,17 @@
-﻿export function raiseFluentInputFile(id) {
-    var item = document.getElementById(id);
+﻿export function raiseFluentInputFile(fileInputId) {
+    var item = document.getElementById(fileInputId);
     if (!!item) {
         item.click();
+    }
+}
+
+export function attachClickHandler(buttonId, fileInputId) {
+    var button = document.getElementById(buttonId);
+    var fileInput = document.getElementById(fileInputId);
+    if (button && fileInput) {
+        button.addEventListener("click", function (e) {
+            fileInput.click();
+        });
     }
 }
 
