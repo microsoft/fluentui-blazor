@@ -70,7 +70,7 @@ public partial class FluentNavGroup : FluentNavBase
     /// Needs to be a valid CSS value. Defaults to 10px.
     /// </summary>
     [Parameter]
-    public string? Gap { get; set; } = "10px";
+    public string? Gap { get; set; }
 
     /// <summary>
     /// If set, overrides the default expand icon.

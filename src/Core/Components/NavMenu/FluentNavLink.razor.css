@@ -1,9 +1,10 @@
 ::deep .fluent-nav-link {
     font-weight: 400;
     color: inherit;
-    display: flex;
     align-items: center;
     text-decoration: none;
+    display: grid;
+    grid-template-columns: 30px auto 40px;
 }
 
 ::deep .fluent-nav-icon {

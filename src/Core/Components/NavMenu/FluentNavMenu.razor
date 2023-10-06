@@ -1,20 +1,7 @@
 ﻿@namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentComponentBase
 
-
-@{
-    string? title;
-    if (Collapsible)
-    {
-        title = null;
-    }
-    else 
-{
-        title = Title;
-    }
-}
-
-<div id="@Id" @attributes="AdditionalAttributes" class="@ClassValue" style="@StyleValue" aria-label="@title">
+<div id="@Id" @ref="@Element" @attributes="AdditionalAttributes" class="@ClassValue" style="@StyleValue" aria-label="@(Collapsible ? null : @Title)">
     <CascadingValue Value="@Expanded" Name="NavMenuExpanded">
         @if (Collapsible)
         {

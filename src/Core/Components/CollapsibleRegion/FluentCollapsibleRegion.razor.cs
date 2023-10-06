@@ -13,7 +13,7 @@ public partial class FluentCollapsibleRegion : FluentComponentBase
 
     protected string? StyleValue =>
         new StyleBuilder(Style)
-            .AddStyle("max-height", MaxHeight, MaxHeight is not null)
+            .AddStyle("max-height", MaxHeight, !string.IsNullOrEmpty(MaxHeight))
             .AddStyle("height", "auto", Expanded)
             .AddStyle("height", "0", !Expanded)
             .Build();
@@ -53,6 +53,9 @@ public partial class FluentCollapsibleRegion : FluentComponentBase
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    /// <summary>
+    /// Callback for when the Expanded property changes.
+    /// </summary>
     [Parameter]
     public EventCallback<bool> ExpandedChanged { get; set; }
    

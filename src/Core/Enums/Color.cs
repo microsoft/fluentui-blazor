@@ -72,6 +72,12 @@ public enum Color
     Lightweight,
 
     /// <summary>
+    ///  Use the --neutral-stroke-rest CSS variable color, adapts to light/dark mode.
+    /// </summary>
+    [Description("var(--neutral-stroke-rest)")]
+    Disabled,
+
+    /// <summary>
     /// Supply an HTML hex color string value (#rrggbb or #rgb) for the CustomColor parameter.
     /// </summary>
     [Description("var(--neutral-foreground-rest)")]

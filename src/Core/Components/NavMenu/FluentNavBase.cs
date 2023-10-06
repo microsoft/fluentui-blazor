@@ -42,9 +42,11 @@ public abstract class FluentNavBase : FluentComponentBase
     [Parameter]
     public bool Disabled { get; set; }
 
+    /// <summary>
+    /// Gets or sets the content to be shown.
+    /// </summary>  
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
-
 
     /// <summary>
     /// Class names to use to indicate the item is active, separated by space.
@@ -52,6 +54,9 @@ public abstract class FluentNavBase : FluentComponentBase
     [Parameter]
     public string ActiveClass { get; set; } = "active";
 
+    /// <summary>
+    /// Gets or sets how the link should be matched. Defaults to <see cref="NavLinkMatch.Prefix"/>.
+    /// </summary>
     [Parameter]
     public NavLinkMatch Match { get; set; } = NavLinkMatch.Prefix;
 
@@ -63,6 +68,9 @@ public abstract class FluentNavBase : FluentComponentBase
     /// </summary>
     internal bool HasIcon => Icon is not null;
 
+    /// <summary>
+    /// The callback to invoke when the item is clicked.
+    /// </summary>
     [Parameter]
     public EventCallback<MouseEventArgs> OnClick { get; set; }
 
@@ -81,7 +89,7 @@ public abstract class FluentNavBase : FluentComponentBase
         {
             return;
         }
-        if (Href != null)
+        if (!string.IsNullOrEmpty(Href))
         {
             NavigationManager.NavigateTo(Href, ForceLoad);
         }

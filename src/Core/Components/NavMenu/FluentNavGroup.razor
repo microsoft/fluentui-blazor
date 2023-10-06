@@ -6,7 +6,7 @@
 
 @if (NavMenuExpanded || HasIcon)
 {
-    <div @attributes="AdditionalAttributes" class="@ClassValue" disabled="@Disabled" style="@StyleValue">
+    <div id="@Id" @ref="@Element" @attributes="AdditionalAttributes" class="@ClassValue" disabled="@Disabled" style="@StyleValue">
         <div class="positioning-region">
             <div class="content-region">
                 @if (!string.IsNullOrEmpty(Href))
@@ -46,7 +46,7 @@
         {
             <span class="fluent-nav-icon" style="min-width: 20px;"></span>
         }
-        <div class="fluent-nav-text">
+        <div class="fluent-nav-text" title="@Title">
             @Title
             @TitleTemplate
         </div>
@@ -62,7 +62,7 @@
                  @onclick="ToggleExpandedAsync"
                  @onclick:stopPropagation="true"
                  @onkeydown="@HandleExpanderKeyDownAsync">
-                <FluentIcon Value="@ExpandIcon" Color="Color.Neutral" Class="@ExpandIconClassValue"/>
+                <FluentIcon Value="@ExpandIcon" Color="@(Disabled ? Color.Disabled : Color.Neutral)" Class="@ExpandIconClassValue"/>
             </div>
 
         }
