@@ -409,6 +409,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         else if (Items is not null)
         {
             int totalItemCount = _asyncQueryExecutor is null ? Items.Count() : await _asyncQueryExecutor.CountAsync(Items);
+            _ariaBodyRowCount = totalItemCount;
             IQueryable<TGridItem>? result = request.ApplySorting(Items).Skip(request.StartIndex);
             if (request.Count.HasValue)
             {
