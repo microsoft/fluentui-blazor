@@ -377,9 +377,9 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
         }
         if (ValueChanged.HasDelegate)
         {
-            await ValueChanged.InvokeAsync(InternalValue);
-            StateHasChanged();  
+            await ValueChanged.InvokeAsync(InternalValue);         
         }
+        StateHasChanged();
     }
 
     /// <summary />
