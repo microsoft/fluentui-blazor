@@ -79,7 +79,7 @@ public class DataSource
         new Person ( PersonId: 6, FirstName: "Bert", LastName: "de Vries", CountryCode: "NL", BirthDate: new DateOnly(1999, 6, 9), Picture: ImageFaces[5] ),
         new Person ( PersonId: 7, FirstName: "Jaques", LastName: "Martin", CountryCode: "BE", BirthDate: new DateOnly(2002, 10, 20), Picture: ImageFaces[6] ),
         new Person ( PersonId: 8, FirstName: "Elizabeth", LastName: "Johnson", CountryCode: "GB", BirthDate: new DateOnly(1971, 11, 24), Picture: ImageFaces[7] ),
-        new Person ( PersonId: 9, FirstName: "Jakob", LastName: "Berger", CountryCode: "D", BirthDate: new DateOnly(1971, 4, 21), Picture: string.Empty )
+        new Person ( PersonId: 9, FirstName: "Jakob", LastName: "Berger", CountryCode: "DE", BirthDate: new DateOnly(1971, 4, 21), Picture: string.Empty )
     };
 
     public class MonthItem

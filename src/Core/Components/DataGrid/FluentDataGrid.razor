@@ -29,7 +29,8 @@
                     @_renderColumnHeaders
                 </FluentDataGridRow>
             }
-            @if (Items?.Count() == 0 || _ariaBodyRowCount == 0)
+
+            @if (_ariaBodyRowCount == 0)
             {
                 <div class="empty-content">
                 @if (EmptyContent is null)
