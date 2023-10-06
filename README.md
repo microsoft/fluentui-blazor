@@ -41,7 +41,7 @@ unpredictable results.
 
 > **If you are upgrading from an earlier version please remove the script from your `index.html` or `_Layout.cshtml` file.**
 
-The script is added to the application automatically. This way we can safeguard that the you are always using the best matching script version.
+The script is added to the application automatically. This way we can safeguard that you are always using the best matching script version.
 
 
 ### Styles
