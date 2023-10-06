@@ -55,7 +55,10 @@ public partial class FluentOption<TOption> : FluentComponentBase, IDisposable
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender && Selected && InternalListContext != null && InternalListContext.ValueChanged.HasDelegate)
+        if (firstRender && Selected && 
+            InternalListContext != null && 
+            InternalListContext.ValueChanged.HasDelegate &&
+            InternalListContext.ListComponent.Multiple)
         {
             await InternalListContext.ValueChanged.InvokeAsync(Value);
         }
@@ -82,7 +85,8 @@ public partial class FluentOption<TOption> : FluentComponentBase, IDisposable
         else
         {
             if (InternalListContext != null &&
-                InternalListContext.ValueChanged.HasDelegate)
+                InternalListContext.ValueChanged.HasDelegate && 
+                InternalListContext.ListComponent.Items is null)
             {
                 await InternalListContext.ValueChanged.InvokeAsync(Value);
             }
