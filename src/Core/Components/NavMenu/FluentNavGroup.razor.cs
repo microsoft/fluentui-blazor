@@ -72,7 +72,15 @@ public partial class FluentNavGroup : FluentNavBase
     /// </summary>
     [Parameter]
     public Icon ExpandIcon { get; set; } = new CoreIcons.Regular.Size12.ChevronRight();
-    
+
+    /// <summary>
+    /// Allows for specific markup and styling to be applied for the group title 
+    /// When using this, the containded <see cref="FluentNavLink"/>s and <see cref="FluentNavGroup"/>s need to be placed in a ChildContent tag.
+    /// When specifying both Title and TitleTemplate, both will be rendered.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? TitleTemplate { get; set; } 
+
     /// <summary>
     /// Gets or sets a callback that is triggered whenever <see cref="Expanded"/> changes.
     /// </summary>

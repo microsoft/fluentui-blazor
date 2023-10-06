@@ -6,8 +6,11 @@
             <FluentNavLink Icon="@(new Icons.Regular.Size20.Home())" Href="/" Match="NavLinkMatch.All">Home</FluentNavLink>
             <FluentNavLink Href="/NavMenu">Item 2</FluentNavLink>
             <FluentNavGroup OnClick="OnClick" Title="Item 3" Icon="@(new Icons.Regular.Size20.EarthLeaf())">
-                <FluentNavLink OnClick="OnClick" Icon="@(new Icons.Regular.Size20.LeafOne())">Item 3.1</FluentNavLink>
-                <FluentNavLink OnClick="OnClick" Icon="@(new Icons.Regular.Size20.LeafTwo())">Item 3.2</FluentNavLink>
+                <TitleTemplate><h3>Item 3</h3></TitleTemplate>
+                <ChildContent>
+                    <FluentNavLink OnClick="OnClick" Icon="@(new Icons.Regular.Size20.LeafOne())">Item 3.1</FluentNavLink>
+                    <FluentNavLink OnClick="OnClick" Icon="@(new Icons.Regular.Size20.LeafTwo())">Item 3.2</FluentNavLink>
+                </ChildContent>
             </FluentNavGroup>
             <FluentNavLink Icon="@(new Icons.Regular.Size20.CalendarAgenda())" Disabled="true" Href="https://microsoft.com">Item 4</FluentNavLink>
             <FluentNavLink Icon="@(new Icons.Regular.Size20.Home())" Disabled="true">Item 5</FluentNavLink>

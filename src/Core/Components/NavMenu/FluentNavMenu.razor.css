@@ -57,7 +57,7 @@
     background: var(--neutral-fill-stealth-rest);
     border: calc(var(--stroke-width) * 1px) solid transparent;
     border-radius: calc(var(--control-corner-radius) * 1px);
-    height: calc(((var(--base-height-multiplier) + var(--density)) * var(--design-unit) + 1) * 1px);
+    min-height: calc(((var(--base-height-multiplier) + var(--density)) * var(--design-unit) + 1) * 1px);
 }
 
 /* NavGroup margins */

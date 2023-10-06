@@ -35,12 +35,6 @@
     None of these components are particulary useful when used stand-alone.
 </p>
 
-<ApiDocumentation Component="typeof(FluentNavMenu)" />
-
-<ApiDocumentation Component="typeof(FluentNavGroup)" />
-
-<ApiDocumentation Component="typeof(FluentNavLink)" />
-
 <h2>Examples</h2>
 
 <DemoSection Component="typeof(NavMenuDefault)" Title="Submenus, icons and plain">
@@ -48,7 +42,7 @@
         This demo shows 3 different versions of a <code>NavMenu</code> (with <code>FluentNavGroup</code>s and <code>FluentNavLink</code>)s.
         From left to right:
         <ul>
-            <li>Menu with several sub-menus, icons, etc</li>
+            <li>Menu with several sub-menus, icons, etc. The first group (Item 3) uses both the <code>Title</code> as the <code>TitleTemplate</code> parameters</li>
             <li>Menu without sub-menus but with icons</li>
             <li>Menu with just text links</li>
         </ul>
@@ -63,7 +57,13 @@
 
 <DemoSection Component="typeof(NavMenuDataBound)" Title="Data bound">
     <Description>
-        An example data binding the Expanded parameter.
+        An example of binding to the <code>Expanded</code> parameter.
     </Description>
 </DemoSection>
 
+<h2>API Documentation</h2>
+<ApiDocumentation Component="typeof(FluentNavMenu)" />
+
+<ApiDocumentation Component="typeof(FluentNavGroup)" />
+
+<ApiDocumentation Component="typeof(FluentNavLink)" />
