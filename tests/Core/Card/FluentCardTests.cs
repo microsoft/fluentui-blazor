@@ -19,6 +19,35 @@ public class FluentCardTests : TestBase
     }
 
     [Fact]
+    public void FluentCard_NotAreaRestricted()
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentCard>(parameters =>
+        {
+            parameters.Add(p => p.AreaRestricted, false);
+            parameters.AddChildContent("childcontent");
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCard_NotAreaRestricted_AdditionalStyle()
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentCard>(parameters =>
+        {
+            parameters.Add(p => p.AreaRestricted, false);
+            parameters.Add(p => p.Style, "background-color: red");
+            parameters.AddChildContent("childcontent");
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
     public void FluentCard_AdditionalCssClass()
     {
         // Arrange && Act

@@ -43,7 +43,7 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
 
                     Value = value;
                     // Raise Changed events in another thread
-                    Task.Run(() => RaiseChangedEventsAsync());
+                    RaiseChangedEventsAsync().ConfigureAwait(false);
                 }
             }
         }
@@ -258,7 +258,7 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
             {
                 return false;
             }
-            else if (OptionSelected != null)
+            else if (OptionSelected != null && _selectedOptions.Contains(item))
             {
                 return OptionSelected.Invoke(item);
             }
@@ -349,7 +349,10 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
                 AddSelectedItem(item);
                 await RaiseChangedEventsAsync();
             }
-
+            if (!Equals(item, SelectedOption))
+            {
+                SelectedOption = item;
+            }
         }
         else
         {
@@ -377,13 +380,11 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
             {
                 await SelectedOptionChanged.InvokeAsync(SelectedOption);
             }
-
-            if (ValueChanged.HasDelegate)
-            {
-                await ValueChanged.InvokeAsync(InternalValue);
-            }
         }
-
+        if (ValueChanged.HasDelegate)
+        {
+            await ValueChanged.InvokeAsync(InternalValue);         
+        }
         StateHasChanged();
     }
 
@@ -427,7 +428,7 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
                     }));
 
                     // Needed in fluent-listbox and fluent-select with mutliple select enabled
-                    if (this is FluentListbox<TOption> || 
+                    if (this is FluentListbox<TOption> ||
                        (this is FluentSelect<TOption> && Multiple) ||
                        (this is FluentAutocomplete<TOption> && Multiple))
                     {
