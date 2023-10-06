@@ -13,6 +13,7 @@ public partial class FluentCard
     /// <summary>
     /// By default, content in the card is restricted to the area of the card itself. 
     /// If you want content to be able to overflow the card, set this property to false.
+    /// </summary>
     [Parameter]
     public bool AreaRestricted { get; set; } = true;
 
