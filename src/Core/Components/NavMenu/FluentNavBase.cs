@@ -12,12 +12,6 @@ namespace Microsoft.Fast.Components.FluentUI;
 public abstract class FluentNavBase : FluentComponentBase
 {
     /// <summary>
-    /// The text to display for the group.
-    /// </summary>
-    [Parameter]
-    public string? Title { get; set; }
-
-    /// <summary>
     /// URL for the group.
     /// </summary>
     [Parameter]
@@ -62,7 +56,7 @@ public abstract class FluentNavBase : FluentComponentBase
     public NavLinkMatch Match { get; set; } = NavLinkMatch.Prefix;
 
     [CascadingParameter(Name = "NavMenuExpanded")]
-    protected bool NavMenuExpanded { get; private set; }
+    public bool NavMenuExpanded { get; private set; }
 
     /// <summary>
     /// Returns <see langword="true"/> if the item has an <see cref="Icon"/> set.

@@ -2,7 +2,7 @@
 
 <FluentStack Orientation="Orientation.Horizontal" >
     <div style="background: var(--neutral-layer-3); display: flex; padding: 10px;">
-        <FluentNavMenu @bind-Expanded="@expanded" Width="250" Title="Navigation menu">
+        <FluentNavMenu @bind-Expanded="@expanded" Width="250" Title="Custom navigation menu">
             <FluentNavLink Icon="@(new Icons.Regular.Size20.Home())" Href="/" Match="NavLinkMatch.All">Home</FluentNavLink>
             <FluentNavLink Href="/NavMenu">Item 2</FluentNavLink>
             <FluentNavGroup OnClick="OnClick" Title="Item 3" Icon="@(new Icons.Regular.Size20.EarthLeaf())">

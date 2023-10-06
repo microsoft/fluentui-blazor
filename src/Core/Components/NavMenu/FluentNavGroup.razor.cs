@@ -40,6 +40,11 @@ public partial class FluentNavGroup : FluentNavBase
             { "rel", !string.IsNullOrWhiteSpace(Target) ? "noopener noreferrer" : string.Empty }
         };
     }
+    /// <summary>
+    /// The text to display for the group.
+    /// </summary>
+    [Parameter]
+    public string? Title { get; set; }
 
     /// <summary>
     /// If true, expands the nav group, otherwise collapse it. 

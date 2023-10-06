@@ -30,8 +30,8 @@ public partial class FluentNavMenu : FluentComponentBase
     public RenderFragment? ExpanderContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the title of the navigation menu
-    /// Default to "Navigation menu"
+    /// Gets or sets the title of the navigation menu using the aria-label attribute.
+    /// Defaults to "Navigation menu"
     /// </summary>
     [Parameter]
     public string? Title { get; set; } = "Navigation menu";
