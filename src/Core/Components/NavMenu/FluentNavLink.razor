@@ -1,0 +1,45 @@
+﻿@namespace Microsoft.Fast.Components.FluentUI
+@inherits FluentNavBase
+@using Microsoft.AspNetCore.Components.Rendering
+@using Microsoft.AspNetCore.Components.Routing
+
+<div @attributes="AdditionalAttributes" class="@ClassValue" disabled="@Disabled" style="@Style">
+    <div class="positioning-region">
+        <div class="content-region">
+            @if (!OnClick.HasDelegate && !string.IsNullOrEmpty(Href))
+            {
+                <NavLink class="@LinkClassValue"
+                         @attributes="@Attributes"
+                         Match="@Match"
+                         ActiveClass="@ActiveClass">
+                   @_renderContent
+                </NavLink>
+            }
+            else
+            {
+                <div class="@LinkClassValue" @onclick="OnClickHandler">
+                   @_renderContent
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    private void RenderContent(RenderTreeBuilder __builder)
+    {
+        @if (Icon is not null)
+        {
+            <FluentIcon Value="@Icon" Width="20px" Color="@IconColor" Class="fluent-nav-icon" />
+        }
+        else
+        {
+            <span class="fluent-nav-icon" style="min-width: 20px;"></span>
+        }
+        <div class="fluent-nav-text">
+            @ChildContent
+        </div>
+
+       
+    }
+}

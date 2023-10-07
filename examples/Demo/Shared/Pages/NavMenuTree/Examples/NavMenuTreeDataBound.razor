@@ -1,0 +1,56 @@
+﻿<h2>Navigation Examples</h2>
+
+<FluentStack Orientation="Orientation.Horizontal">
+    <!-- Menu with sub-items and icons -->
+    <FluentNavMenuTree @bind-Expanded=MenuExpanded Title="Databound demo">
+        <FluentNavMenuGroup Id="Group1" Text="Item 1" @bind-Expanded=Item1Expanded Icon="@(new Icons.Regular.Size24.LeafOne())" Href="/NavMenu">
+            <FluentNavMenuLink Text="Item 1.1" Icon="@(new Icons.Regular.Size24.LeafOne())" @bind-Selected=Item1Point1Selected Href="/NavMenu" />
+            <FluentNavMenuLink Text="Item 1.2" Icon="@(new Icons.Regular.Size24.LeafTwo())" @bind-Selected=Item1Point2Selected Href="/NavMenu" />
+        </FluentNavMenuGroup>
+        <FluentNavMenuGroup Id="Group2" Text="Item 2" @bind-Expanded=Item2Expanded Icon="@(new Icons.Regular.Size24.LeafTwo())" Href="/NavMenu">
+            <FluentNavMenuLink Text="Item 2.1" Icon="@(new Icons.Regular.Size24.LeafOne())" @bind-Selected=Item2Point1Selected Href="/NavMenu" />
+            <FluentNavMenuLink Text="Item 2.2" Icon="@(new Icons.Regular.Size24.LeafTwo())" @bind-Selected=Item2Point2Selected Href="/NavMenu" />
+        </FluentNavMenuGroup>
+    </FluentNavMenuTree>
+    <FluentStack Orientation="Orientation.Vertical">
+
+        <h2>Expanded elements</h2>
+        <FluentCheckbox @bind-Value=MenuExpanded>
+            <span aria-label="Menu expanded">Menu</span>
+        </FluentCheckbox>
+        <FluentCheckbox @bind-Value=Item1Expanded>
+            <span aria-label="Item 1 expanded">Item 1</span>
+        </FluentCheckbox>
+        <FluentCheckbox @bind-Value=Item2Expanded>
+            <span aria-label="Item 2 expanded">Item 2</span>
+        </FluentCheckbox>
+
+        <h2>Selected elements</h2>
+        <FluentCheckbox @bind-Value=Item1Point1Selected>
+            <span aria-label="Item 1.1 selected">Item 1.1</span>
+        </FluentCheckbox>
+        <FluentCheckbox @bind-Value=Item1Point2Selected>
+            <span aria-label="Item 1.2 selected">Item 1.2</span>
+        </FluentCheckbox>
+        <FluentCheckbox @bind-Value=Item2Point1Selected>
+            <span aria-label="Item 2.1 selected">Item 2.1</span>
+        </FluentCheckbox>
+        <FluentCheckbox @bind-Value=Item2Point2Selected>
+            <span aria-label="Item 2.2 selected">Item 2.2</span>
+        </FluentCheckbox>
+
+    </FluentStack>
+</FluentStack>
+
+@code {
+    bool MenuExpanded = true;
+    bool Item1Expanded = true;
+    bool Item2Expanded = true;
+
+    bool Item1Point1Selected = false;
+    bool Item1Point2Selected = false;
+    bool Item2Point1Selected = false;
+    bool Item2Point2Selected = false;
+}
+
+

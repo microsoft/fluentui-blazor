@@ -1,0 +1,24 @@
+::deep .fluent-nav-link {
+    font-weight: 400;
+    color: inherit;
+    align-items: center;
+    text-decoration: none;
+    display: grid;
+    grid-template-columns: 30px auto 40px;
+}
+
+::deep .fluent-nav-icon {
+    margin-inline-end: calc(var(--design-unit) * 2px + 2px);
+    min-width: 20px;
+}
+
+::deep .fluent-nav-link.disabled {
+    color: var(--neutral-fill-secondary-rest) !important;
+    cursor: not-allowed ;
+    pointer-events: none;
+}
+
+
+::deep .fluent-nav-link.disabled .fluent-nav-icon {
+    fill: var(--neutral-stroke-rest) !important;
+}
