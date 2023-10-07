@@ -28,11 +28,11 @@ public partial class FluentInputLabel
     public string? Label { get; set; }
 
     /// <summary>
-    /// Gets or sets the text to be used as the `aria-label` attribute.
+    /// Gets or sets the text to be used as the `aria-label` attribute of the input.
     /// If not set, the <see cref="Label"/> will be used.
     /// </summary>
     [Parameter]
-    public string? AriaLabel { get; set; }
+    public string? Title { get; set; }
 
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -42,10 +42,12 @@ public partial class FluentInputLabel
         if (firstRender && ShouldRenderAriaLabel)
         {
             Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
-            await Module.InvokeVoidAsync("setInputAriaLabel", ForId, string.IsNullOrWhiteSpace(AriaLabel) ? Label : AriaLabel);
+            await Module.InvokeVoidAsync("setInputAriaLabel", ForId, string.IsNullOrWhiteSpace(Title) ? Label : Title);
         }
     }
 
     /// <summary />
-    private bool ShouldRenderAriaLabel => !string.IsNullOrWhiteSpace(ForId) && (!string.IsNullOrWhiteSpace(Label) || !string.IsNullOrWhiteSpace(AriaLabel));
+    private bool ShouldRenderAriaLabel => !string.IsNullOrWhiteSpace(ForId)
+                                       && (!string.IsNullOrWhiteSpace(Label) ||
+                                           !string.IsNullOrWhiteSpace(Title));
 }
