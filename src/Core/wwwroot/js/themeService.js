@@ -1,7 +1,3 @@
-export function isMobile() {
-    return /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini|mobile/i.test(navigator.userAgent);
-}
-
 export function switchHighlightStyle(dark) {
     if (dark) {
         document
