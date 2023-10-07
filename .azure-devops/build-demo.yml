@@ -32,11 +32,6 @@ steps:
         $package = "$($builds[0]).$($builds[1]).$($builds[2])-$($stage).$($stageId).$($builds[3]).$($builds[4])"
       }
       
-      # If PublicVersion is set, then we are building a public and signed version.
-      if ("$(PublicVersion)" -ne "")
-      {
-        $package = "$(PublicVersion)"
-      }
       # Set the output variable for use in other tasks.
       Write-Host "##vso[task.setvariable variable=VersionPackage]${package}"
     displayName: Compute VersionPackage
