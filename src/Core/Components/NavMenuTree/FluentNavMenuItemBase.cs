@@ -67,7 +67,9 @@ public abstract class FluentNavMenuItemBase : FluentComponentBase, IDisposable
     public int? Width { get; set; }
 
     [CascadingParameter]
-    protected FluentNavMenu NavMenu { get; private set; } = default!;
+#pragma warning disable CS0618 // Type or member is obsolete
+    protected FluentNavMenuTree NavMenu { get; private set; } = default!;
+#pragma warning restore CS0618 // Type or member is obsolete
 
     [CascadingParameter(Name = "NavMenuExpanded")]
     protected bool NavMenuExpanded { get; private set; }

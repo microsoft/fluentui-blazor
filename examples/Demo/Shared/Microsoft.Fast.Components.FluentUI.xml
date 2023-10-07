@@ -848,20 +848,9 @@
             for this column.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.Style">
-            <summary>
-            An optional CSS style specification. If specified, this is included in the style attribute of header and grid cells
-            for this column.
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.Align">
             <summary>
             If specified, controls the justification of header and grid cells for this column.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.Tooltip">
-            <summary>
-            If true, generate a title attribute for the cell contents
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.HeaderCellItemTemplate">
@@ -918,12 +907,6 @@
             Overridden by derived components to provide rendering logic for the column's cells.
             </summary>
             <param name="builder">The current <see cref="T:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder" />.</param>
-            <param name="item">The data for the row being rendered.</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ColumnBase`1.RawCellContent(`0)">
-            <summary>
-            Overridden by derived components to provide the raw content for the column's cells.
-            </summary>
             <param name="item">The data for the row being rendered.</param>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.HeaderContent">
@@ -1170,11 +1153,6 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowClass">
             <summary>
             Optionally defines a class to be applied to a rendered row. 
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowStyle">
-            <summary>
-            Optionally defines a style to be applied to a rendered row. 
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.EmptyContent">
@@ -2036,13 +2014,7 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.Modal">
             <summary>
             Determines if the dialog is modal. Defaults to true.
-            Obscures the area around the dialog.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.PreventDismissOnOverlayClick">
-            <summary>
-            Determines if a modal dialog is dismissible by clicking
-            outside the dialog. Defaults to false.
+            When true, clicking outside the dialog will dismiss the dialog.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.PreventScroll">

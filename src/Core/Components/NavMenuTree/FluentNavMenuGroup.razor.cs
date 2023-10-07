@@ -3,8 +3,11 @@ using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
+//[Obsolete("This component has been replaced with the FluentNavGroup and will be removed in a future version.")]
 public partial class FluentNavMenuGroup : FluentNavMenuItemBase, INavMenuItemsOwner, IDisposable
 {
+    internal const string ICON_WIDTH = "20px";
+
     private readonly List<FluentNavMenuItemBase> _childItems = new();
     private bool HasChildIcons => ((INavMenuItemsOwner)this).HasChildIcons;
     private bool Visible => NavMenu.Expanded || HasIcon;

@@ -17,11 +17,11 @@
                          Text="@Text">
                 @if (HasIcon)
                 {
-                    <FluentIcon Value="@Icon" Width="20px" Slot="start" />
+                    <FluentIcon Value="@Icon" Width="@(ICON_WIDTH)" Slot="start" />
                 }
                 else if (SiblingHasIcon)
                 {
-                    <span style="width:20px;" slot="start"></span>
+                    <span style="width: @ICON_WIDTH;" slot="start"></span>
                 }
                 @if (GetShouldRenderChildContent())
                 {

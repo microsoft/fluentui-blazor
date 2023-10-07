@@ -1,17 +1,15 @@
-﻿@namespace FluentUI.Demo.Shared
-
-<h2>Collapsible Navigation Example</h2>
+﻿<h2>Collapsible Navigation Example</h2>
 
 <FluentStack Orientation="Orientation.Horizontal" Width="100%">
     <div>
         <FluentNavMenu @bind-Expanded="@Expanded" Width="150" Collapsible="true" Title="Collapsible demo">
-            <FluentNavMenuLink Icon="@(new Icons.Regular.Size24.Home())" Text="Item 1" Href="/NavMenu" />
-            <FluentNavMenuLink Icon="@(new Icons.Regular.Size24.Cloud())" Text="Item 2" Href="/NavMenu" />
-            <FluentNavMenuGroup Text="Item 3" Icon="@(new Icons.Regular.Size24.EarthLeaf())" Href="/NavMenu">
-                <FluentNavMenuLink Icon="@(new Icons.Regular.Size24.LeafOne())" Text="Item 3.1" Href="/NavMenu" />
-                <FluentNavMenuLink Icon="@(new Icons.Regular.Size24.LeafTwo())" Text="Item 3.2" Href="/NavMenu" />
-            </FluentNavMenuGroup> 
-            <FluentNavMenuLink Icon="@(new Icons.Regular.Size24.CalendarAgenda())" Text="Item 4" Disabled="true" Href="https://microsoft.com" />
+            <FluentNavLink Icon="@(new Icons.Regular.Size24.Home())">Item 1</FluentNavLink>
+            <FluentNavLink Icon="@(new Icons.Regular.Size24.Cloud())">Item 2</FluentNavLink>
+            <FluentNavGroup Title="Item 3" Icon="@(new Icons.Regular.Size24.EarthLeaf())" >
+                <FluentNavLink Icon="@(new Icons.Regular.Size24.LeafOne())" >Item 3.1</FluentNavLink>
+                <FluentNavLink Icon="@(new Icons.Regular.Size24.LeafTwo())" >Item 3.2</FluentNavLink>
+            </FluentNavGroup> 
+            <FluentNavLink Icon="@(new Icons.Regular.Size24.CalendarAgenda())" Disabled="true" Href="https://microsoft.com">Item 4</FluentNavLink>
         </FluentNavMenu>
     </div>
     <div style="width: 100%;">

@@ -1,5 +1,4 @@
 ﻿@inject DataSource Data
-
 <h6>!!Experimental!!</h6>
 <p>All people whose first name starts with a "J" are initialy selected through the <code>OptionSelected</code> (Func delegate) parameter.</p>
 <p>All people with a birth year greater than 1990 are disabled through the <code>OptionDisabled</code> (Func delegate) parameter.</p>
@@ -21,6 +20,11 @@
 <p>
     Selected value: @SelectedValue <br />
     <em>Reflects the value of the first selected option</em><br />
+    <em><b>
+        This value is not always accurate as a user can potentially deselect all enabled options. A browser will not return the value
+        of a disabled item so the last selected non-disabled value will be returned even if it is not selected anymore!
+        </b>
+    </em>
 </p>
 <p>
     Selected options: @(SelectedOptions != null ? String.Join(", ", SelectedOptions.Select(i => i.FirstName)) : "")<br />

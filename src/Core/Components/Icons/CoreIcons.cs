@@ -56,6 +56,18 @@ internal static partial class CoreIcons
     internal static partial class Regular
     {
         [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+        internal static partial class Size12
+        {
+            public class ChevronDown : Icon { public ChevronDown() : base("ChevronDown", IconVariant.Regular, IconSize.Size12, "<path d=\"M2.15 4.65c.2-.2.5-.2.7 0L6 7.79l3.15-3.14a.5.5 0 1 1 .7.7l-3.5 3.5a.5.5 0 0 1-.7 0l-3.5-3.5a.5.5 0 0 1 0-.7Z\"/>") { } }
+            public class ChevronLeft : Icon { public ChevronLeft() : base("ChevronLeft", IconVariant.Regular, IconSize.Size12, "<path d=\"M7.35 2.15c.2.2.2.5 0 .7L4.21 6l3.14 3.15a.5.5 0 1 1-.7.7l-3.5-3.5a.5.5 0 0 1 0-.7l3.5-3.5c.2-.2.5-.2.7 0Z\"/>") { } }
+            public class ChevronRight : Icon { public ChevronRight() : base("ChevronRight", IconVariant.Regular, IconSize.Size12, "<path d=\"M4.65 2.15a.5.5 0 0 0 0 .7L7.79 6 4.65 9.15a.5.5 0 1 0 .7.7l3.5-3.5a.5.5 0 0 0 0-.7l-3.5-3.5a.5.5 0 0 0-.7 0Z\"/>") { } }
+            public class ChevronUp : Icon { public ChevronUp() : base("ChevronUp", IconVariant.Regular, IconSize.Size12, "<path d=\"M2.15 7.35c.2.2.5.2.7 0L6 4.21l3.15 3.14a.5.5 0 1 0 .7-.7l-3.5-3.5a.5.5 0 0 0-.7 0l-3.5 3.5a.5.5 0 0 0 0 .7Z\"/>") { } }
+
+        }
+    }
+    internal static partial class Regular
+    {
+        [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
         internal static partial class Size16
         {
             public class CheckmarkCircle : Icon { public CheckmarkCircle() : base("CheckmarkCircle", IconVariant.Regular, IconSize.Size16, "<path d=\"M8 2a6 6 0 1 1 0 12A6 6 0 0 1 8 2Zm0 1a5 5 0 1 0 0 10A5 5 0 0 0 8 3Zm-.75 6.04 2.87-2.88a.5.5 0 0 1 .77.64l-.06.07L7.6 10.1a.5.5 0 0 1-.63.06l-.07-.06-1.75-1.75a.5.5 0 0 1 .63-.76l.07.06 1.4 1.4 2.87-2.89-2.87 2.88Z\"/>") { } }

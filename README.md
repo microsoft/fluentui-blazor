@@ -14,7 +14,7 @@
 ## Introduction
 
 The `Microsoft.Fast.Components.FluentUI` package provides a set of [Blazor](https://blazor.net) components which you can use to build applications that have 
-the look and feel or modern Microsoft applications. Some of the componets are wrappers around Microsoft's official FluentUI Web Components. Others are components 
+the look and feel or modern Microsoft applications. Some of the components are wrappers around Microsoft's official FluentUI Web Components. Others are components 
 that leverage the Fluent UI design system or make it easier to work with Fluent UI. To get up and running with the library, see the 'Getting Started' section below.
 
 The source for the library is hosted in the [fluentui-blazor](https://github.com/microsoft/fluentui-blazor) repository at GitHub. Documentation on the components is available at the [demo site](https://www.fluentui-blazor.net) and at [docs.microsoft.com](https://docs.microsoft.com/en-us/fluent-ui/web-components/). 
@@ -41,7 +41,7 @@ unpredictable results.
 
 > **If you are upgrading from an earlier version please remove the script from your `index.html` or `_Layout.cshtml` file.**
 
-The script is added to the application automatically. This way we can safeguard that the you are always using the best matching script version.
+The script is added to the application automatically. This way we can safeguard that you are always using the best matching script version.
 
 
 ### Styles
@@ -73,14 +73,13 @@ to your `index.html` or `_Layout.cshtml` file in the `<head>` section like this:
 
 The file contains a number of CSS variables that are required to be defined for the components to work correctly. 
 
-### Project file
-if you want to use icons and/or emoji, starting with version 2.1 you need add a `<PropertyGroup>` to your project file. Within this group you can specify which icons and emoji are made available for usage and publication. Please refer to the [project setup](https://www.fluentui-blazor.net/ProjectSetup) document for more information.
-
-
 ### Code
 Please refer to the [code setup](https://www.fluentui-blazor.net/CodeSetup) document to learn what needs to be included in your `Program.cs` file 
 so that all necessary services are available and setup in the correct way.
 
+## Working with Icons and Emoji
+We have additional packages available that include the complete Fluent UI System icons and Fluent UI Emoji collections. 
+Please refer to the [Icons and Emoji](https://www.fluentui-blazor.net/IconsAndEmoji) page for more information.
 
 ## Getting started by using project templates
 To make it easier to start a project that uses the Fluent UI Blazor components out of the box, we have created the

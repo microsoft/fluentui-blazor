@@ -1,4 +1,5 @@
 ﻿<FluentInputFile @ref="@myFileByBuffer"
+                 AnchorId="MyUploadBuffer"
                  DragDropZoneVisible="false"
                  Mode="InputFileMode.Buffer"
                  Multiple="true"
@@ -12,8 +13,7 @@
     @progressTitle
 </FluentLabel>
 
-<FluentButton Appearance="Appearance.Accent"
-@onclick="@(async e => { IsCanceled = false; await myFileByBuffer!.ShowFilesDialogAsync(); })">
+<FluentButton Appearance="Appearance.Accent" Id="MyUploadBuffer">
     Upload files
 </FluentButton>
 

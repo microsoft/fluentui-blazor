@@ -1,0 +1,76 @@
+﻿@page "/NavMenuTree"
+
+@using FluentUI.Demo.Shared.Pages.NavMenuTree.Examples
+
+<h1>NavMenuTree, NavMenuGroup and NavMenuLink</h1>
+
+<div class="demopanel" style="text-align:center; margin-bottom: 10px">
+    <b>IMPORTANT</b>
+    <p>
+        With version 3.2 a new, much improved, set of components to build side-bar menus has been added. The demos shown here are using 
+        components which are marked obsolete and will be removed in a future version.
+    </p>
+    <p>
+        <b>
+            If you DO NOT want to upgrade to these new menu components, you can continue to use the pre-version 3.2 components. The only thing
+            you need to do is to change the name of the <code>FluentNavMenu</code> component in your application to <code>FluentNavMenuTree</code>.
+        </b>
+    </p>
+    <p>
+        Everything works exactely as before by changing the name of this <code>FluentNavMenu</code> component in your application. (This probably needs to be done 
+        in one place only). The <code>FluentNavMenuGroup</code> and <code>FluentNavMenuLink</code> components have not been changed and do not need to be altered.
+    </p>
+    <p>
+        We consider the <code>FluentNavMenuTree</code>, <code>FluentNavMenuGroup</code> and <code>FluentNavMenuLink</code> components as deprecated and will remove them in a future version.
+    </p>
+    <p>
+        If you wish to upgrade to the new menu components, please refer to the <a href="/UpgradeGuide">Upgrade guide</a> for more information.
+    </p>
+</div>
+<p>
+    The <code>FluentNavMenuGroup</code>, <code>FluentNavMenuLink</code> and <code>FluentNavMenu</code> components can be used to build
+    hierarchical, collapsible and expandable menus. They can range from simple 1-level deep lists to complex multi-level menu 
+    structures. 
+</p> 
+<p>
+    None of these components are particulary useful when used stand-alone.
+</p>
+
+<h2>Examples</h2>
+
+<DemoSection Component="typeof(NavMenuTreeDefault)" Title="Submenus, icons and plain">
+    <Description>
+        This demo shows 3 different versions of a <code>NavMenu</code> (with <code>FluentNavMenuGoups</code> and <code>FluentNavMenuLinks</code>).
+        From left to right:
+        <ul>
+            <li>Menu with several sub-menus, icons, etc</li>
+            <li>Menu without sub-menus but with icons</li>
+            <li>Menu with just text links</li>
+        </ul>
+    </Description>
+</DemoSection>
+
+<DemoSection Component="typeof(NavMenuTreeCollapsible)" Title="Collapsible navigation">
+    <Description>
+        More complete example which show how menu works with together with a text section when it collapses. 
+    </Description>
+</DemoSection>
+
+<DemoSection Component="typeof(NavMenuTreeDataBound)" Title="Data bound">
+    <Description>
+        An example data binding the Expanded parameter.
+    </Description>
+</DemoSection>
+
+<DemoSection Component="typeof(NavMenuTreeCustomActions)" Title="Custom actions">
+    <Description>
+        An example of intercepting menu actions to provide custom behavior.
+    </Description>
+</DemoSection>
+
+<h2>API Documentation</h2>
+<ApiDocumentation Component="typeof(FluentNavMenuTree)" />
+
+<ApiDocumentation Component="typeof(FluentNavMenuGroup)" />
+
+<ApiDocumentation Component="typeof(FluentNavMenuLink)" />

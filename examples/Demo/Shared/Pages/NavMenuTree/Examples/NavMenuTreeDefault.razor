@@ -1,0 +1,68 @@
+﻿<h2>Navigation Examples</h2>
+
+<FluentStack Orientation="Orientation.Horizontal" >
+    <!-- Menu with sub-items and icons -->
+    <FluentNavMenuTree Collapsible="false" Title="Navigation  demo">
+        <FluentNavMenuLink Text="Item 1" Icon="@(new Icons.Regular.Size24.Home())" Href="/NavMenu" />
+        <FluentNavMenuLink Text="Item 2" Href="/NavMenu" />
+        <FluentNavMenuGroup Text="Item 3" Href="/NavMenu">
+            <FluentNavMenuLink Text="Item 3.1" Icon="@(new Icons.Regular.Size24.LeafOne())" Href="/NavMenu" />
+            <FluentNavMenuLink Text="Item 3.2" Icon="@(new Icons.Regular.Size24.LeafTwo())" Href="/NavMenu" />
+        </FluentNavMenuGroup>
+        <FluentNavMenuGroup Text="Item 4" @onclick="OnClick" Href="/NavMenu">
+            <FluentNavMenuLink Text="Item 4.1" @onclick="OnClick" Href="/NavMenu" />
+            <FluentNavMenuLink Text="Item 4.2" @onclick="OnClick" Icon="@(new Icons.Regular.Size24.LeafOne())" Href="/NavMenu" />
+        </FluentNavMenuGroup>
+        <FluentNavMenuGroup Text="Item 5" @onclick="OnClick" Href="/NavMenu">
+            <FluentNavMenuLink Text="Item 5.1" @onclick="OnClick" Icon="@(new Icons.Regular.Size24.LeafTwo())" Href="/NavMenu" />
+            <FluentNavMenuGroup @onclick="OnClick" Text="Item 5.2" Href="/NavMenu">
+                <FluentNavMenuLink Text="Item 5.2.1" @onclick="OnClick" Href="/NavMenu" />
+                <FluentNavMenuLink Text="Item 5.2.2" @onclick="OnClick" Href="/NavMenu" />
+            </FluentNavMenuGroup>
+            <FluentNavMenuGroup @onclick="OnClick" Text="Item 5.3" Href="/NavMenu">
+                <FluentNavMenuLink Text="Item 5.3.1" @onclick="OnClick" Icon="@(new Icons.Regular.Size24.LeafOne())" Href="/NavMenu" />
+                <FluentNavMenuLink Text="Item 5.3.2" @onclick="OnClick" Href="/NavMenu" />
+            </FluentNavMenuGroup>
+        </FluentNavMenuGroup>
+        <FluentNavMenuGroup @onclick="OnClick" Text="Items with Href">
+            <FluentNavMenuLink Text="Go to Bing" @onclick="OnClick" Icon="@(new Icons.Regular.Size24.LeafOne())" Href="https://bing.com" />
+            <FluentNavMenuLink Text="Go to home page" @onclick="OnClick" Icon="@(new Icons.Regular.Size24.Home())" Href="/" />
+        </FluentNavMenuGroup>
+        <FluentNavMenuLink Text="Last item" @onclick="OnClick" Icon="@(new Icons.Regular.Size24.LeafThree())" Disabled="true" />
+    </FluentNavMenuTree>
+
+    <!-- Menu with icons -->
+    <FluentNavMenuTree>
+        <FluentNavMenuLink Text="Item 1" @onclick="OnClick" Icon="@(new Icons.Regular.Size24.Home())" Href="/NavMenu" />
+        <FluentNavMenuLink Text="Item 2" @onclick="OnClick" Href="/NavMenu" />
+        <FluentNavMenuLink Text="Item 3" @onclick="OnClick" Icon="@(new Icons.Regular.Size24.LeafOne())" Href="/NavMenu" />
+        <FluentNavMenuLink Text="Item 4" @onclick="OnClick" Href="/NavMenu" />
+    </FluentNavMenuTree>
+
+    <!-- Menu simple -->
+    <FluentNavMenuTree>
+        <FluentNavMenuLink Text="Item 1" @onclick="OnClick" Href="/NavMenu" />
+        <FluentNavMenuLink Text="Item 2" @onclick="OnClick" Href="/NavMenu" />
+        <FluentNavMenuLink Text="Item 3" @onclick="OnClick" Href="/NavMenu" />
+        <FluentNavMenuLink Text="Item 4" @onclick="OnClick" Href="/NavMenu" />
+    </FluentNavMenuTree>
+
+</FluentStack>
+@code
+{
+
+    void OnClick(MouseEventArgs e)
+    {
+        DemoLogger.WriteLine("NavMenuTree item clicked");
+    }
+
+    protected override void OnAfterRender(bool firstRender) {
+        if (firstRender) 
+        {
+            
+        }
+        base.OnAfterRender(firstRender);
+    }
+}
+
+
