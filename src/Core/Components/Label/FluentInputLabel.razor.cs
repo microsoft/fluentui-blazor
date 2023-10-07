@@ -34,6 +34,13 @@ public partial class FluentInputLabel
     [Parameter]
     public string? Title { get; set; }
 
+
+    /// <summary>
+    /// Gets or sets a collection of additional attributes that will be applied to the created element.
+    /// </summary>
+    [Parameter(CaptureUnmatchedValues = true)]
+    public virtual IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
+
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

@@ -1,17 +1,17 @@
 ﻿<p>Without label:</p>
-<FluentTextField @bind-Value=value1></FluentTextField>
+<FluentTextField @bind-Value=value1 Title="No label"></FluentTextField>
 <p>You entered: @value1</p>
 
 <p>With label:</p>
-<FluentTextField @bind-Value=value2>Label</FluentTextField>
+<FluentTextField @bind-Value=value2 Label="Label"></FluentTextField>
 <p>You entered: @value2</p>
 
 <h4>Minlength</h4>
-<FluentTextField @bind-Value=value3 Minlength="4">Minlength</FluentTextField>
+<FluentTextField @bind-Value=value3 Minlength="4" Label="Minlength"></FluentTextField>
 <p>You entered: @value3</p>
 
 <h4>Maxlength</h4>
-<FluentTextField @bind-Value=value4 Maxlength="4">Maxlength</FluentTextField>
+<FluentTextField @bind-Value=value4 Maxlength="4" Label="Maxlength"></FluentTextField>
 <p>You entered: @value4</p>
 
 @code {

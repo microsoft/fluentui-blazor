@@ -2,7 +2,9 @@
 @inherits FluentInputBase<TValue>
 @typeparam TValue
 <CascadingValue TValue="FluentRadioContext" Value="_context">
+    <FluentInputLabel ForId="@Id" Label="@Label" Title="@Title" />
     <fluent-radio-group @ref=Element
+                        id="@Id"
                         class="@ClassValue"
                         style="@StyleValue"
                         readonly=@Readonly

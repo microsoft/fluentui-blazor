@@ -48,6 +48,18 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     public string? Name { get; set; }
 
     /// <summary>
+    /// Text displayed just above the component
+    /// </summary>
+    [Parameter]
+    public string? Label { get; set; }
+
+    /// <summary>
+    /// Text used on aria-label attribute.
+    /// </summary>
+    [Parameter]
+    public virtual string? Title { get; set; }
+
+    /// <summary>
     /// Whether the element needs to have a value
     /// </summary>
     [Parameter]
@@ -218,6 +230,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     /// </summary>
     protected FluentInputBase()
     {
+        Id = Identifier.NewId();
         _validationStateChangedHandler = OnValidateStateChanged;
     }
 

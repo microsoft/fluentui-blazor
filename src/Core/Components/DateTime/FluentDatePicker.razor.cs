@@ -22,6 +22,18 @@ public partial class FluentDatePicker : FluentCalendarBase
     protected string? StyleValue => new StyleBuilder(Style).Build();
 
     /// <summary>
+    /// Text displayed just above the component
+    /// </summary>
+    [Parameter]
+    public string? Label { get; set; }
+
+    /// <summary>
+    /// Text used on aria-label attribute.
+    /// </summary>
+    [Parameter]
+    public virtual string? Title { get; set; }
+
+    /// <summary>
     /// Gets or sets the design of this input.
     /// </summary>
     [Parameter]

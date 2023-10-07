@@ -1,8 +1,5 @@
 ﻿<div>
-    <FluentRadioGroup Name="numbers" @bind-Value=value1>
-        <label style="color: --var(neutral-foreground-rest);" slot="label">
-            Numbers
-        </label>
+    <FluentRadioGroup Name="numbers" @bind-Value=value1 Label="Numbers">
         <FluentRadio Value=@("one")>One</FluentRadio>
         <FluentRadio Value=@("two")>Two</FluentRadio>
     </FluentRadioGroup>
@@ -10,10 +7,7 @@
 
 <h4>Single radio</h4>
 <div style="display: flex; flex-direction: column; margin-top: 12px;">
-    <FluentRadioGroup @bind-Value=value2 Name="players">
-        <label style="color: --var(neutral-foreground-rest);" slot="label">
-            Best basketball players
-        </label>
+    <FluentRadioGroup @bind-Value=value2 Name="players" Label="Best basketball players">
         <FluentRadio Value=@("airjordan")>Michael Jordan</FluentRadio>
     </FluentRadioGroup>
 </div>

@@ -2,6 +2,7 @@
 @inherits FluentInputBase<TValue>
 @typeparam TValue
 @attribute [CascadingTypeParameter(nameof(TValue))]
+<FluentInputLabel ForId="@Id" Label="@Label" Title="@Title" style="margin-bottom: calc(var(--design-unit) * 3px);" />
 <fluent-slider @ref=Element
                class="@ClassValue"
                style="@StyleValue"

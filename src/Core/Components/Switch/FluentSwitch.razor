@@ -9,10 +9,12 @@
                current-value=@CurrentValue
                disabled=@Disabled
                name=@Name
+               aria-label="@(string.IsNullOrEmpty(Title) ? Label : Title)"
                required=@Required
                current-checked="@CurrentValue"
                @onswitchcheckedchange="@((e) => CurrentValue = e.Checked)"
                @attributes="@AdditionalAttributes">
+    @Label
     @ChildContent
     @if (!string.IsNullOrEmpty(CheckedMessage))
     {

@@ -16,6 +16,11 @@ public partial class FluentRadioGroup<[DynamicallyAccessedMembers(DynamicallyAcc
     private readonly string _defaultGroupName = Identifier.NewId();
     private FluentRadioContext? _context;
 
+    public FluentRadioGroup()
+    {
+        Id = Identifier.NewId();
+    }
+
     /// <summary>
     /// Gets or sets the orientation of the group. See <see cref="FluentUI.Orientation"/>
     /// </summary>

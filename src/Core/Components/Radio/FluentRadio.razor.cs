@@ -17,6 +17,18 @@ public partial class FluentRadio<[DynamicallyAccessedMembers(DynamicallyAccessed
     public bool Readonly { get; set; }
 
     /// <summary>
+    /// Text displayed just above the component
+    /// </summary>
+    [Parameter]
+    public string? Label { get; set; }
+
+    /// <summary>
+    /// Text used on aria-label attribute.
+    /// </summary>
+    [Parameter]
+    public virtual string? Title { get; set; }
+
+    /// <summary>
     /// The value of the element
     /// </summary>
     [Parameter]

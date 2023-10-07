@@ -9,9 +9,11 @@
               disabled="@Disabled"
               name=@Context!.GroupName
               required="@Required"
+              aria-label="@(string.IsNullOrEmpty(Title) ? Label : Title)"
               checked="@Context.CurrentValue?.Equals(Value)"
               current-value="@BindConverter.FormatValue(Value?.ToString())"
               @attributes="AdditionalAttributes">
+    @Label
     @ChildContent
 </fluent-radio>
 

@@ -10,8 +10,8 @@
             inputElement.setAttribute("aria-label", value);
         }
 
-        // fluent-select
-        else if (element.nodeName === "FLUENT-SELECT") {
+        // Fluent element
+        else {
             element.setAttribute("aria-label", value);
         }
     }

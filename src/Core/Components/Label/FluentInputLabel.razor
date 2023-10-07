@@ -2,5 +2,5 @@
 
 @if (!string.IsNullOrWhiteSpace(Label))
 {
-    <label for="@ForId" class="fluent-input-label">@Label</label>
+    <label for="@ForId" class="fluent-input-label" @attributes="@AdditionalAttributes">@Label</label>
 }

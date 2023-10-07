@@ -1,8 +1,8 @@
-﻿<div style="display: flex; align-items: center; gap: 10px; margin: 1em 0;">
-    Without a label: <FluentSearch @bind-Value=value></FluentSearch>
+﻿<div>
+    Without a label: <FluentSearch @bind-Value=value Title="Search"/>
 </div>
-<div style="display: flex; align-items: center; gap: 10px; margin: 1em 0;">
-    With a label: <FluentSearch @bind-Value=value>Label</FluentSearch>
+<div>
+    <FluentSearch @bind-Value=value Label="With a label" />
 </div>
 @code {
     string? value;
