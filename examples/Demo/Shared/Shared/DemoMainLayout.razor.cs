@@ -44,8 +44,8 @@ public partial class DemoMainLayout : IAsyncDisposable
     //[Inject]
     //private Direction Direction { get; set; } = default!;
 
-    [Inject]
-    IThemeService ThemeService { get; set; } = default!;
+    //[Inject]
+    //IThemeService ThemeService { get; set; } = default!;
 
     protected override void OnInitialized()
     {
@@ -66,22 +66,22 @@ public partial class DemoMainLayout : IAsyncDisposable
         errorBoundary?.Recover();
     }
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await ThemeService.InitializeAsync();
-            //GlobalState.SetContainer(container);
+    //protected override async Task OnAfterRenderAsync(bool firstRender)
+    //{
+    //    if (firstRender)
+    //    {
+    //        //await ThemeService.InitializeAsync();
+    //        //GlobalState.SetContainer(container);
 
-            //_jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-            //     "./_content/FluentUI.Demo.Shared/Shared/DemoMainLayout.razor.js");
+    //        //_jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
+    //        //     "./_content/FluentUI.Demo.Shared/Shared/DemoMainLayout.razor.js");
 
-            //_mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
+    //        //_mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
 
-            //if (_selectedColorOption != OfficeColor.Default)
-            //    await AccentBaseColor.SetValueFor(container, _selectedColorOption.ToAttributeValue()!.ToSwatch());
-        }
-    }
+    //        //if (_selectedColorOption != OfficeColor.Default)
+    //        //    await AccentBaseColor.SetValueFor(container, _selectedColorOption.ToAttributeValue()!.ToSwatch());
+    //    }
+    //}
 
     public EventCallback OnRefreshTableOfContents => EventCallback.Factory.Create(this, RefreshTableOfContents);
 
