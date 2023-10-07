@@ -9,7 +9,7 @@
                current-value=@CurrentValue
                disabled=@Disabled
                name=@Name
-               aria-label="@(string.IsNullOrEmpty(Title) ? Label : Title)"
+               aria-label="@(string.IsNullOrEmpty(AriaLabel) ? Label : AriaLabel)"
                required=@Required
                current-checked="@CurrentValue"
                @onswitchcheckedchange="@((e) => CurrentValue = e.Checked)"

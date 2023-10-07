@@ -28,12 +28,6 @@ public partial class FluentInputLabel
     public string? Label { get; set; }
 
     /// <summary>
-    /// Content displayed just above the component
-    /// </summary>
-    [Parameter]
-    public RenderFragment? LabelTemplate { get; set; }
-
-    /// <summary>
     /// Gets or sets the content to be displayed as a label, just above the component.
     /// </summary>
     [Parameter]
@@ -44,8 +38,7 @@ public partial class FluentInputLabel
     /// If not set, the <see cref="Label"/> will be used.
     /// </summary>
     [Parameter]
-    public string? Title { get; set; }
-
+    public string? AriaLabel { get; set; }
 
     /// <summary>
     /// Gets or sets a collection of additional attributes that will be applied to the created element.
@@ -61,12 +54,12 @@ public partial class FluentInputLabel
         if (firstRender && ShouldRenderAriaLabel)
         {
             Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
-            await Module.InvokeVoidAsync("setInputAriaLabel", ForId, string.IsNullOrWhiteSpace(Title) ? Label : Title);
+            await Module.InvokeVoidAsync("setInputAriaLabel", ForId, string.IsNullOrWhiteSpace(AriaLabel) ? Label : AriaLabel);
         }
     }
 
     /// <summary />
     private bool ShouldRenderAriaLabel => !string.IsNullOrWhiteSpace(ForId)
                                        && (!string.IsNullOrWhiteSpace(Label) ||
-                                           !string.IsNullOrWhiteSpace(Title));
+                                           !string.IsNullOrWhiteSpace(AriaLabel));
 }

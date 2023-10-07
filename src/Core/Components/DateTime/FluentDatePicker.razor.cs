@@ -37,7 +37,7 @@ public partial class FluentDatePicker : FluentCalendarBase
     /// Text used on aria-label attribute.
     /// </summary>
     [Parameter]
-    public virtual string? Title { get; set; }
+    public virtual string? AriaLabel { get; set; }
 
     /// <summary>
     /// Gets or sets the design of this input.

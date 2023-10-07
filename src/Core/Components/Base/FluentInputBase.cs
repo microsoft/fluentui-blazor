@@ -63,7 +63,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     /// Text used on aria-label attribute.
     /// </summary>
     [Parameter]
-    public virtual string? Title { get; set; }
+    public virtual string? AriaLabel { get; set; }
 
     /// <summary>
     /// Whether the element needs to have a value

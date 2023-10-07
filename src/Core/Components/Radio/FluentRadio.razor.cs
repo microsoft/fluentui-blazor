@@ -32,7 +32,7 @@ public partial class FluentRadio<[DynamicallyAccessedMembers(DynamicallyAccessed
     /// Text used on aria-label attribute.
     /// </summary>
     [Parameter]
-    public virtual string? Title { get; set; }
+    public virtual string? AriaLabel { get; set; }
 
     /// <summary>
     /// The value of the element

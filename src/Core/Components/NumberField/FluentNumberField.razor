@@ -3,7 +3,7 @@
 @typeparam TValue where TValue : new()
 @using System.Globalization;
 @using System.Reflection;
-<FluentInputLabel ForId="@Id" Label="@Label" Title="@Title">@LabelTemplate</FluentInputLabel>
+<FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" ChildContent="@LabelTemplate" />
 <fluent-number-field @ref=Element
                      class="@ClassValue"
                      style="@StyleValue"

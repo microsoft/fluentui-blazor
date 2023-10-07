@@ -13,9 +13,9 @@
                  current-checked="@CurrentValue"
                  @oncheckedchange="@((e) => SetCurrentValue(e.Checked))"
                  @attributes="@AdditionalAttributes">
-    @if (!string.IsNullOrEmpty(Label) || !string.IsNullOrEmpty(Title) || LabelTemplate is null)
+    @if (!string.IsNullOrEmpty(Label) || !string.IsNullOrEmpty(AriaLabel) || LabelTemplate is not null)
     {
-        <span aria-label="@Title">
+        <span aria-label="@AriaLabel">
             @Label
             @LabelTemplate
         </span>    

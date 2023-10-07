@@ -1,5 +1,6 @@
 using Bunit;
 using FluentAssertions;
+using Microsoft.AspNetCore.Components;
 using Xunit;
 
 namespace Microsoft.Fast.Components.FluentUI.Tests.NumberField;
@@ -507,6 +508,41 @@ public class FluentNumberFieldTests : TestBase
             parameters.AddUnmatched("additional-parameter1-name", "additional-parameter1-value");
             parameters.AddUnmatched("additional-parameter2-name", "additional-parameter2-value");
             parameters.Bind(p => p.Value, currentValue, newValue => currentValue = 101);
+            parameters.AddChildContent("100");
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentNumberField_LabelTemplate()
+    {
+        int currentValue = 100;
+
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentNumberField<int>>(parameters =>
+        {
+            parameters.Bind(p => p.Value, currentValue, newValue => currentValue = 101);
+            parameters.Add(p => p.LabelTemplate, "<h1>My label</h1>");
+            parameters.AddChildContent("100");
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentNumberField_Label()
+    {
+        int currentValue = 100;
+        TestContext.JSInterop.Mode = JSRuntimeMode.Loose;
+
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentNumberField<int>>(parameters =>
+        {
+            parameters.Bind(p => p.Value, currentValue, newValue => currentValue = 101);
+            parameters.Add(p => p.Label, "My label");
             parameters.AddChildContent("100");
         });
 
