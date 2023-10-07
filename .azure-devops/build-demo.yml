@@ -18,7 +18,7 @@ variables:
       **/FluentUI.Demo.Client.csproj
 
 steps:
-   - powershell: |
+  - powershell: |
       $builds = "$(Build.BuildNumber)".Split('.')
       $stage = "$(VersionStage)"
       $stageId = "$(VersionStageId)"
@@ -47,7 +47,6 @@ steps:
       {
         $toTest = "true"
       }
-
       # Set the output variable for use in other tasks.
       Write-Host "##vso[task.setvariable variable=VersionPackage]${package}"
       Write-Host "##vso[task.setvariable variable=ShouldSign]${sign}"
