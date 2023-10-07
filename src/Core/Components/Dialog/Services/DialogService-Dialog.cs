@@ -12,8 +12,13 @@ public partial class DialogService
             throw new ArgumentException($"{dialogComponent.FullName} must be a Dialog Component");
         }
 
+        if (OnShowAsync is null)
+        {
+            throw new ArgumentNullException(nameof(OnShowAsync), "<FluentDialogProvider /> needs to be added to the main layout of your application/site.");
+        }
+
         IDialogReference? dialogReference = new DialogReference(parameters.Id, this);
-        return await OnShowAsync!.Invoke(dialogReference, dialogComponent, parameters, data);
+        return await OnShowAsync.Invoke(dialogReference, dialogComponent, parameters, data);
     }
 
     /// <inheritdoc cref="IDialogService.ShowDialogAsync{TDialog}(object, DialogParameters)"/>
