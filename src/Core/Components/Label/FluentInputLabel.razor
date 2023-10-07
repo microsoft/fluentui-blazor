@@ -1,6 +1,9 @@
 @namespace Microsoft.Fast.Components.FluentUI
 
-@if (!string.IsNullOrWhiteSpace(Label))
+@if (!string.IsNullOrWhiteSpace(Label) || ChildContent is not null)
 {
-    <label for="@ForId" class="fluent-input-label" @attributes="@AdditionalAttributes">@Label</label>
+    <label for="@ForId" class="fluent-input-label" @attributes="@AdditionalAttributes">
+        @Label
+        @ChildContent
+    </label>
 }

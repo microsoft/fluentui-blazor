@@ -15,6 +15,7 @@
                @onswitchcheckedchange="@((e) => CurrentValue = e.Checked)"
                @attributes="@AdditionalAttributes">
     @Label
+    @LabelTemplate
     @ChildContent
     @if (!string.IsNullOrEmpty(CheckedMessage))
     {

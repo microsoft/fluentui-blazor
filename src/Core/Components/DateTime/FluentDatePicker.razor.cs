@@ -28,6 +28,12 @@ public partial class FluentDatePicker : FluentCalendarBase
     public string? Label { get; set; }
 
     /// <summary>
+    /// Content displayed just above the component
+    /// </summary>
+    [Parameter]
+    public RenderFragment? LabelTemplate { get; set; }
+
+    /// <summary>
     /// Text used on aria-label attribute.
     /// </summary>
     [Parameter]

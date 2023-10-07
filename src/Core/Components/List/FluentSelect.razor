@@ -3,7 +3,7 @@
 @typeparam TOption
 <CascadingValue Value="_internalListContext" Name="ListContext" TValue="InternalListContext<TOption>" IsFixed="true">
     @InlineStyleValue
-    <FluentInputLabel ForId="@Id" Label="@Label" Title="@Title" />
+    <FluentInputLabel ForId="@Id" Label="@Label" Title="@Title">@LabelTemplate</FluentInputLabel>
     <fluent-select @ref=Element
                    id=@Id
                    class="@ClassValue"

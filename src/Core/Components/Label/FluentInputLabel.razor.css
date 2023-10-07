@@ -1,5 +1,5 @@
 ﻿.fluent-input-label {
-    display: block;
+    display: flex;
     color: var(--neutral-foreground-rest);
     cursor: pointer;
     font-family: var(--body-font);
@@ -8,4 +8,5 @@
     font-weight: initial;
     font-variation-settings: var(--type-ramp-base-font-variations);
     margin-bottom: calc(var(--design-unit) * 1px);
+    align-items: center;
 }

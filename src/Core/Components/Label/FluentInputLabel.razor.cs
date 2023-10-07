@@ -28,6 +28,18 @@ public partial class FluentInputLabel
     public string? Label { get; set; }
 
     /// <summary>
+    /// Content displayed just above the component
+    /// </summary>
+    [Parameter]
+    public RenderFragment? LabelTemplate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the content to be displayed as a label, just above the component.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
     /// Gets or sets the text to be used as the `aria-label` attribute of the input.
     /// If not set, the <see cref="Label"/> will be used.
     /// </summary>
