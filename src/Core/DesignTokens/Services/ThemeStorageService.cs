@@ -23,8 +23,10 @@ internal sealed class ThemeStorageService : JSModule, IThemeStorageService
             await _jsRuntime.InvokeVoidAsync(ThemeConstant.SetItem, ThemeConstant.ThemeStorageValidationKey, ThemeConstant.ThemeStorageValidationData);
             string? result = await _jsRuntime.InvokeAsync<string>(ThemeConstant.GetItem, ThemeConstant.ThemeStorageValidationKey);
 
-            if (result is not null && result == ThemeConstant.ThemeStorageValidationData) return true;
+            if (result != null && result == ThemeConstant.ThemeStorageValidationData) return true;
+
             _logger.LogWarning("Your browser doesn't support or disabled Storage Support that needed for Theme Persistency, Therefore Theme Persistency is Disabled");
+
             return false;
         }
         catch (JSException)
@@ -33,19 +35,6 @@ internal sealed class ThemeStorageService : JSModule, IThemeStorageService
             return false;
         }
         
-    }
-
-    public async ValueTask<bool> IsMobile()
-    {
-        try
-        {
-            return await InvokeAsync<bool>("isMobile");
-        }
-        catch (JSException ex)
-        {
-            _logger.LogWarning("Something went wrong on Getting Device Type, Reverting to Default {0}", ex.Message);
-            return false;
-        }
     }
     public async ValueTask<string?> GetAccentColorAsync()
     {
@@ -97,12 +86,27 @@ internal sealed class ThemeStorageService : JSModule, IThemeStorageService
         }
     }
 
+    public async ValueTask SetHighlightAsync(StandardLuminance highlight)
+    {
+        try
+        {
+            await InvokeVoidAsync("switchHighlightStyle", highlight == StandardLuminance.DarkMode);
+        }
+        catch (JSException ex)
+        {
+            _logger.LogWarning("Something went wrong on Setting Highlights, Recent Theme Changes Not Successfully Applied {message}", ex.Message);
+        }
+    }
+
     public async ValueTask<bool?> GetDirectionAsync()
     {
         try
         {
             var val = await _jsRuntime.InvokeAsync<string?>(ThemeConstant.GetItem, ThemeConstant.SelectedDirectionKey);
-            if (!string.IsNullOrEmpty(val)) return Convert.ToBoolean(val);
+
+            if (!string.IsNullOrEmpty(val)) 
+                return Convert.ToBoolean(val);
+
             return null;
         }
         catch (JSException ex)
@@ -140,4 +144,6 @@ internal sealed class ThemeStorageService : JSModule, IThemeStorageService
             _logger.LogWarning("Something went wrong on Setting Direction, Recent Direction Changes were not persisted {0}", ex.Message);
         }
     }
+
+   
 }

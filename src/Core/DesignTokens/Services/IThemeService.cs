@@ -4,7 +4,6 @@ namespace Microsoft.Fast.Components.FluentUI.DesignTokens;
 
 public interface IThemeService
 {
-    bool IsMobile { get; }
     StandardLuminance SelectedTheme { get; }
     OfficeColor SelectedAccentColor { get; }
     LocalizationDirection SelectedDirection { get; }

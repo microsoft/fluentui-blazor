@@ -20,15 +20,12 @@ internal sealed class ThemeService : IThemeService
         _direction = direction;
     }
 
-   
-    bool _isMobile = false;
     StandardLuminance _selectedTheme = StandardLuminance.LightMode;
     OfficeColor _selectedAccentColor = OfficeColor.Default;
     LocalizationDirection _selectedDirection = LocalizationDirection.rtl;
 
     bool _isInitialized = false;
     bool _isPersistent = false;
-    public bool IsMobile => _isMobile;
     public StandardLuminance SelectedTheme => _selectedTheme;
     public OfficeColor SelectedAccentColor => _selectedAccentColor;
     public ElementReference ElementRef { get; set; }
@@ -45,10 +42,7 @@ internal sealed class ThemeService : IThemeService
             await SetThemeForElementRefAsync(SelectedTheme.GetLuminanceValue());
         }
 
-        _isMobile = await _themeStorageService.IsMobile();
-
         string? accent = await _themeStorageService.GetAccentColorAsync();
-
         if (!string.IsNullOrEmpty(accent))
         {
             _selectedAccentColor = accent.GetEnumByDescription<OfficeColor>();
@@ -56,7 +50,6 @@ internal sealed class ThemeService : IThemeService
         }
 
         bool? direction = await _themeStorageService.GetDirectionAsync();
-
         if (direction.HasValue && direction.Value.GetDirectionFromBoolean() != SelectedDirection)
         {
             _selectedDirection = direction.Value.GetDirectionFromBoolean();
@@ -83,7 +76,6 @@ internal sealed class ThemeService : IThemeService
 
         if(_isPersistent)
             await _themeStorageService.SetAccentColorAsync(color);
-
     }
 
     private async Task SetAccentColorForRefAsync(string color)
@@ -98,8 +90,9 @@ internal sealed class ThemeService : IThemeService
 
     public async Task SetThemeAsync(StandardLuminance standardLuminance)
     {
-        await SetThemeForElementRefAsync(standardLuminance.GetLuminanceValue());
         _selectedTheme = standardLuminance;
+
+        await SetThemeForElementRefAsync(standardLuminance.GetLuminanceValue());
 
         if(_isPersistent)
             await _themeStorageService.SetThemeAsync(standardLuminance);
@@ -112,6 +105,8 @@ internal sealed class ThemeService : IThemeService
         if (isDarkMode)
             theme = StandardLuminance.DarkMode;
 
+        _selectedTheme = theme;
+
         await SetThemeForElementRefAsync(theme.GetLuminanceValue());
 
         if(_isPersistent)
@@ -123,6 +118,7 @@ internal sealed class ThemeService : IThemeService
         await Task.Delay(50);
         await _baseLayerLuminance.SetValueFor(ElementRef, theme);
         _globalState.SetLuminance(SelectedTheme);
+        await _themeStorageService.SetHighlightAsync(SelectedTheme);
     }
 
     public async Task SetDirectionAsync(bool isRTL)
