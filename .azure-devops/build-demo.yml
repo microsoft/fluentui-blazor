@@ -32,25 +32,13 @@ steps:
         $package = "$($builds[0]).$($builds[1]).$($builds[2])-$($stage).$($stageId).$($builds[3]).$($builds[4])"
       }
       
-      $sign = "false";
-      $toTest = "false";
-
       # If PublicVersion is set, then we are building a public and signed version.
       if ("$(PublicVersion)" -ne "")
       {
         $package = "$(PublicVersion)"
-        $sign = "true"
-      }
-
-      # If Tests is set, then we are testing these projects.
-      if ("${{ parameters.Tests }}" -ne "")
-      {
-        $toTest = "true"
       }
       # Set the output variable for use in other tasks.
       Write-Host "##vso[task.setvariable variable=VersionPackage]${package}"
-      Write-Host "##vso[task.setvariable variable=ShouldSign]${sign}"
-      Write-Host "##vso[task.setvariable variable=ShouldTest]${toTest}"
     displayName: Compute VersionPackage
   
   - task: NuGetToolInstaller@1
