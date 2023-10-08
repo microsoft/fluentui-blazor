@@ -5,7 +5,7 @@ using Microsoft.JSInterop;
 
 namespace Microsoft.Fast.Components.FluentUI.DesignTokens;
 
-internal sealed class ThemeService : JSModule, IThemeService
+public sealed class ThemeService : JSModule, IThemeService
 {
     private readonly ILogger<IThemeService> _logger;
     private readonly GlobalState _globalState;
