@@ -11,10 +11,10 @@ public partial class FluentThemeProvider
     public RenderFragment? ChildContent { get; set; }
 
     [Parameter]
-    public bool PersistTheme { get; set; } = true;
+    public Theme? InitialData { get; set; }
 
     protected async override Task OnInitializedAsync()
     {
-        await ThemeService.InitializeAsync(PersistTheme);
+        await ThemeService.InitializeAsync(InitialData);
     }
 }
