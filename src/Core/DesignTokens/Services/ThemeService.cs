@@ -14,7 +14,7 @@ public sealed class ThemeService : JSModule, IThemeService
     private readonly Direction _direction;
 
     public ThemeService(IJSRuntime jsRuntime, ILogger<IThemeService> logger, GlobalState globalState, AccentBaseColor accentBaseColor, BaseLayerLuminance baseLayerLuminance, Direction direction)
-        : base(jsRuntime, "./_content/Microsoft.Fast.Components.FluentUI/js/themeService.js")
+        : base(jsRuntime, "./_content/Microsoft.Fast.Components.FluentUI/DesignTokens/FluentThemeProvider.razor.js")
     {
         _logger = logger;
         _globalState = globalState;
