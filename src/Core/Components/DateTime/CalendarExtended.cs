@@ -128,7 +128,6 @@ internal struct CalendarExtended
         return Shift(dayNames, firstDayOfWeek);
     }
 
-
     /// <summary>
     /// Returns True if the specified date is in the current month of the <see cref="Date"/>.
     /// </summary>
