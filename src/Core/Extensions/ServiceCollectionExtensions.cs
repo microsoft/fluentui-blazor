@@ -17,7 +17,6 @@ public static class ServiceCollectionExtensions
     {
         services.AddScoped<GlobalState>();
         services.AddScoped<CacheStorageAccessor>();
-        services.AddScoped<IThemeStorageService, ThemeStorageService>();
         services.AddScoped<IThemeService, ThemeService>();
         services.AddScoped<IToastService, ToastService>();
         services.AddScoped<IDialogService, DialogService>();
