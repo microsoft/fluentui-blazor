@@ -110,17 +110,19 @@ internal struct CalendarExtended
     /// Returns a list of days, abbreviated and complete (Mon, Monday), ...,(Sun, Sunday) in the correct culture.
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<(string shortestDayName, string Name)> GetDayNames()
+    public IEnumerable<(string Abbreviated, string Shorted, string Name)> GetDayNames()
     {
         int firstDayOfWeek = (int)GetFirstDayOfWeek();
-        var shortestDayNames = Culture.DateTimeFormat.ShortestDayNames;
+        var abbreviated = Culture.DateTimeFormat.AbbreviatedDayNames;
         var names = Culture.DateTimeFormat.DayNames;
-        var dayNames = new (string ShortestDayName, string Name)[7];
+        var shorted = Culture.DateTimeFormat.ShortestDayNames;
+        var dayNames = new (string Abbreviated, string Shorted, string Name)[7];
 
         for (int i = 0; i < 7; i++)
         {
             dayNames[i].Name = ToTitleCase(names[i]);
-            dayNames[i].ShortestDayName = ToTitleCase(shortestDayNames[i]);
+            dayNames[i].Shorted = shorted[i];
+            dayNames[i].Abbreviated = ToTitleCase(abbreviated[i]);
         }
 
         return Shift(dayNames, firstDayOfWeek);
