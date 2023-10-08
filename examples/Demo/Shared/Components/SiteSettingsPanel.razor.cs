@@ -8,6 +8,7 @@ public partial class SiteSettingsPanel : IDialogContentComponent
 {
     private bool _inDarkMode;
     private bool _rtl;
+    private OfficeColor _selectedColorOption;
 
 
     [Inject]
@@ -15,21 +16,33 @@ public partial class SiteSettingsPanel : IDialogContentComponent
 
     protected override void OnInitialized()
     {
-        _rtl = ThemeService.SelectedDirection.IsRTL();
-        _inDarkMode = ThemeService.SelectedTheme.IsDarkMode();
+        _rtl = ThemeService.SelectedDirection == LocalizationDirection.rtl;
+        _inDarkMode = ThemeService.SelectedTheme == StandardLuminance.DarkMode;
+        _selectedColorOption = ThemeService.SelectedAccentColor.GetEnumByDescription<OfficeColor>() ?? OfficeColor.Default;
         base.OnInitialized();
     }
 
     public async Task UpdateDirection(bool direction)
     {
-
         await ThemeService.SetDirectionAsync(direction);
+        StateHasChanged();
+    }
+
+    public async Task HandleColorChange(ChangeEventArgs args)
+    {
+        string? value = args.Value?.ToString();
+
+        if (!string.IsNullOrEmpty(value))
+        {
+           await ThemeService.SetAccentColorAsync(value);
+        }
         StateHasChanged();
     }
 
     public async void UpdateTheme(bool isDarkMode)
     {
         StandardLuminance _baseLayerLuminance = StandardLuminance.LightMode;
+
         if (isDarkMode)
         {
             _baseLayerLuminance = StandardLuminance.DarkMode;

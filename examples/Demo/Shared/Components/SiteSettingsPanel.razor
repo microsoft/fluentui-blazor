@@ -7,10 +7,10 @@
             <FluentSelect Id="color"
                           Items=@(Enum.GetValues<OfficeColor>())
                           OptionValue="@(c => c.ToAttributeValue())"
-                          OptionSelected="@(c => c == ThemeService.SelectedAccentColor)"
+                          OptionSelected="@(c => c == _selectedColorOption)"
                           TOption="OfficeColor"
                           Position="SelectPosition.Below"
-                          @onchange="@(x => ThemeService.SetAccentColorAsync(x.Value!.ToString()!.GetEnumByDescription<OfficeColor>()))"
+                          @onchange="@(x => HandleColorChange(x))"
                           aria-label="Accent color selector" />
         </div>
 
@@ -21,8 +21,8 @@
         </FluentSwitch>
         <FluentSwitch @bind-Value="@_rtl" title="Switch direction" AfterBindValue="UpdateDirection">
             <span>Direction</span>
-            <span slot="unchecked-message">RTL</span>
-            <span slot="checked-message">LTR</span>
+            <span slot="unchecked-message">LTR</span>
+            <span slot="checked-message">RTL</span>
         </FluentSwitch>
         <p style="margin-top:48px;"><i>These settings are not (yet) persisted from one session to another.</i></p>
     </FluentStack>
