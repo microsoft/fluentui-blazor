@@ -110,21 +110,22 @@ internal struct CalendarExtended
     /// Returns a list of days, abbreviated and complete (Mon, Monday), ...,(Sun, Sunday) in the correct culture.
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<(string Abbreviated, string Name)> GetDayNames()
+    public IEnumerable<(char Abbreviated, string Name)> GetDayNames()
     {
         int firstDayOfWeek = (int)GetFirstDayOfWeek();
         var abbreviated = Culture.DateTimeFormat.AbbreviatedDayNames;
         var names = Culture.DateTimeFormat.DayNames;
-        var dayNames = new (string Abbreviated, string Name)[7];
+        var dayNames = new (char Abbreviated, string Name)[7];
 
         for (int i = 0; i < 7; i++)
         {
             dayNames[i].Name = ToTitleCase(names[i]);
-            dayNames[i].Abbreviated = ToTitleCase(abbreviated[i]);
+            dayNames[i].Abbreviated = ToAbbreviatedDisplay(ToTitleCase(abbreviated[i]));
         }
 
         return Shift(dayNames, firstDayOfWeek);
     }
+
 
     /// <summary>
     /// Returns True if the specified date is in the current month of the <see cref="Date"/>.
@@ -176,5 +177,20 @@ internal struct CalendarExtended
     private string ToTitleCase(string value)
     {
         return Culture.TextInfo.ToTitleCase(value);
+    }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="v"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    private char ToAbbreviatedDisplay(string value)
+    {
+        switch (Culture.Name)
+        {
+            case string x when x.StartsWith("zh-"):
+                return value[1];
+            default: return value[0];
+        }
     }
 }
