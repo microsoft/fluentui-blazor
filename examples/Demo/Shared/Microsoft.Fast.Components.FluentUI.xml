@@ -209,6 +209,16 @@
             Defaults to <seealso cref="F:Microsoft.Fast.Components.FluentUI.Appearance.Neutral"/>
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchor.IconStart">
+            <summary>
+            <see cref="T:Microsoft.Fast.Components.FluentUI.Icon"/> displayed at the start of anchor content.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchor.IconEnd">
+            <summary>
+            <see cref="T:Microsoft.Fast.Components.FluentUI.Icon"/> displayed at the end of anchor content.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchor.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
@@ -598,14 +608,30 @@
             Defaults to <seealso cref="F:Microsoft.Fast.Components.FluentUI.Appearance.Neutral"/>
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.BackgroundColor">
+            <summary>
+            Background color of this button (overrides the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentButton.Appearance"/> property).
+            Set the value "rgba(0, 0, 0, 0)" to display a transparent button.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.Color">
+            <summary>
+            Color of the font (overrides the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentButton.Appearance"/> property).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.Loading">
+            <summary>
+            Display a progress ring and disable the button.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.IconStart">
             <summary>
-            <see cref="T:Microsoft.Fast.Components.FluentUI.Icon"/> displayed to the left of button content.
+            <see cref="T:Microsoft.Fast.Components.FluentUI.Icon"/> displayed at the start of button content.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.IconEnd">
             <summary>
-            <see cref="T:Microsoft.Fast.Components.FluentUI.Icon"/> displayed to the right of button content.
+            <see cref="T:Microsoft.Fast.Components.FluentUI.Icon"/> displayed at the end of button content.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.Title">
@@ -621,6 +647,11 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.OnClick">
             <summary>
             Command executed when the user clicks on the button.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentButton.#ctor">
+            <summary>
+            Constructs an instance of <see cref="T:Microsoft.Fast.Components.FluentUI.FluentButton"/>.
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentButton.OnClickHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
@@ -642,7 +673,7 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentCodeEditor.JSRuntime">
             <summary />
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCodeEditor._jsModule">
+        <member name="F:Microsoft.Fast.Components.FluentUI.FluentCodeEditor._jsModule">
             <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentCodeEditor.Language">
@@ -1126,6 +1157,11 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.DisposeAsync">
             <inheritdoc />
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGridCell`1.Item">
+            <summary>
+            Gets or sets the reference to the item that holds this cell's values
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGridCell`1.CellType">
             <summary>
             Gets or sets the cell type. See <see cref="T:Microsoft.Fast.Components.FluentUI.DataGridCellType"/>
@@ -1148,9 +1184,15 @@
             Gets or sets the owning <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGridRow`1"/> component
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGridRow`1.Item">
+            <summary>
+            Gets or sets the reference to the item that holds this row's values
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGridRow`1.RowIndex">
             <summary>
             Gets or sets the index of this row
+            When FluentDataGrid is virtualized, this value is not used
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGridRow`1.GridTemplateColumns">
@@ -1750,7 +1792,7 @@
             Closes the dialog
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDialogContainer.#ctor">
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDialogProvider.#ctor">
             <summary>
             Constructs an instance of <see cref="T:Microsoft.Fast.Components.FluentUI.FluentToastContainer"/>.
             </summary>
@@ -1793,9 +1835,19 @@
             Text to display for the primary action.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.PrimaryActionEnabled">
+            <summary>
+            When true, primary action's button is enabled.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.SecondaryAction">
             <summary>
             Text to display for the secondary action.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.SecondaryActionEnabled">
+            <summary>
+            When true, secondary action's button is enabled.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.Width">
@@ -1940,7 +1992,7 @@
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreen(System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
             <summary>
-            Shows the standard <see cref="T:Microsoft.Fast.Components.FluentUI.FluentSplashScreen"/> with the given parameters."/>
+            Shows the standard <see cref="T:Microsoft.Fast.Components.FluentUI.FluentSplashScreen"/> with the given parameters.
             </summary>
             <param name="receiver">The componente that receives the callback</param>
             <param name="callback">Name of the callback function</param>
@@ -1948,7 +2000,7 @@
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreen``1(System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
             <summary>
-            Shows a custom splash screen dialog with the given parameters."/>
+            Shows a custom splash screen dialog with the given parameters.
             </summary>
             <param name="receiver">The componente that receives the callback</param>
             <param name="callback">Name of the callback function</param>
@@ -1956,7 +2008,7 @@
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreen(System.Type,System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
             <summary>
-            Shows a splash screen of the given type with the given parameters."/>
+            Shows a splash screen of the given type with the given parameters.
             </summary>
             <param name="component">The type of the component to show</param>
             <param name="receiver">The componente that receives the callback</param>
@@ -2012,33 +2064,172 @@
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowPanel``2(Microsoft.Fast.Components.FluentUI.DialogParameters{``1})">
             <summary>
-            Shows a panel with the dialog component type as the body,
-            passing the specified <paramref name="parameters "/>
+            Shows a panel with the dialog component type as the body
             </summary>
             <param name="parameters">Parameters to pass to component being displayed.</param>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowPanel``1(System.Type,Microsoft.Fast.Components.FluentUI.DialogParameters{``0})">
             <summary>
-            Shows a panel with the dialog component type as the body,
-            passing the specified <paramref name="parameters "/>
+            Shows a panel with the dialog component type as the body
             </summary>
             <param name="dialogComponent">Type of component to display.</param>
             <param name="parameters">Parameters to pass to component being displayed.</param>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialog``2(Microsoft.Fast.Components.FluentUI.DialogParameters{``1})">
             <summary>
-            Shows a dialog with the component type as the body,
-            passing the specified <paramref name="parameters "/>
+            Shows a dialog with the component type as the body
             </summary>
             <param name="parameters">Parameters to pass to component being displayed.</param>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialog``1(System.Type,``0,Microsoft.Fast.Components.FluentUI.DialogParameters)">
+            <summary>
+            Shows a dialog with the component type as the body
+            </summary>
+            <param name="dialogComponent">Type of component to display.</param>
+            <param name="content">Content to pass to component being displayed.</param>
+            <param name="parameters">Parameters to configure the dialog component.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.UpdateDialog``1(System.String,Microsoft.Fast.Components.FluentUI.DialogParameters{``0})">
+            <summary>
+            Updates a dialog 
+            </summary>
+            <param name="id">Id of the dialog to update.</param>
+            <param name="parameters">Parameters to configure the dialog component.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreenAsync(System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
+            <summary>
+            Shows the standard <see cref="T:Microsoft.Fast.Components.FluentUI.FluentSplashScreen"/> with the given parameters.
+            </summary>
+            <param name="receiver">The componente that receives the callback</param>
+            <param name="callback">Name of the callback function</param>
+            <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent"/> that holds the content to display</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreenAsync(Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
+            <summary>
+            Shows the standard <see cref="T:Microsoft.Fast.Components.FluentUI.FluentSplashScreen"/> with the given parameters.
+            </summary>
+            <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent"/> that holds the content to display</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreenAsync``1(System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
+            <summary>
+            Shows a custom splash screen dialog with the given parameters."/>
+            </summary>
+            <param name="receiver">The componente that receives the callback</param>
+            <param name="callback">Name of the callback function</param>
+            <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent"/> that holds the content to display</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreenAsync``1(Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
+            <summary>
+            Shows a custom splash screen dialog with the given parameters.
+            </summary>
+            <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent"/> that holds the content to display</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreenAsync(System.Type,System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
+            <summary>
+            Shows a splash screen of the given type with the given parameters.
+            </summary>
+            <param name="component">The type of the component to show</param>
+            <param name="receiver">The componente that receives the callback</param>
+            <param name="callback">Name of the callback function</param>
+            <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent"/> that holds the content to display</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreenAsync(System.Type,Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
+            <summary>
+            Shows a splash screen of the given type with the given parameters.
+            </summary>
+            <param name="component">The type of the component to show</param>
+            <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent"/> that holds the content to display</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialogAsync``2(Microsoft.Fast.Components.FluentUI.DialogParameters{``1})">
+            <summary>
+            Shows a dialog with the component type as the body
+            </summary>
+            <param name="parameters">Parameters to pass to component being displayed.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSuccessAsync(System.String,System.String)">
+            <summary>
+            Shows a success message box. Does not have a callback function.
+            </summary>
+            <param name="message">The message to display.</param>
+            <param name="title">The title to display on the dialog.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowWarningAsync(System.String,System.String)">
+            <summary>
+            Shows a warning message box. Does not have a callback function.
+            </summary>
+            <param name="message">The message to display.</param>
+            <param name="title">The title to display on the dialog.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowErrorAsync(System.String,System.String)">
+            <summary>
+            Shows an error message box. Does not have a callback function.
+            </summary>
+            <param name="message">The message to display.</param>
+            <param name="title">The title to display on the dialog.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowInfoAsync(System.String,System.String)">
+            <summary>
+            Shows an information message box. Does not have a callback function.
+            </summary>
+            <param name="message">The message to display.</param>
+            <param name="title">The title to display on the dialog.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowConfirmationAsync(System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},System.String,System.String,System.String,System.String)">
+            <summary>
+            Shows a confirmation message box. Has a callback function which returns boolean 
+            (true=PrimaryAction clicked, false=SecondaryAction clicked).
+            </summary>
+            <param name="receiver">The component that receives the callback function.</param>
+            <param name="callback">The callback function.</param>
+            <param name="message">The message to display.</param>
+            <param name="primaryText">The text to display on the primary button.</param>
+            <param name="secondaryText">The text to display on the secondary button.</param>
+            <param name="title">The title to display on the dialog.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowConfirmationAsync(System.String,System.String,System.String,System.String)">
+            <summary>
+            Shows a confirmation message box. Has no callback function
+            (true=PrimaryAction clicked, false=SecondaryAction clicked).
+            </summary>
+            <param name="message">The message to display.</param>
+            <param name="primaryText">The text to display on the primary button.</param>
+            <param name="secondaryText">The text to display on the secondary button.</param>
+            <param name="title">The title to display on the dialog.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowMessageBoxAsync(Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.MessageBoxContent})">
+            <summary>
+            Shows a custom message box. Has a callback function which returns boolean
+            (true=PrimaryAction clicked, false=SecondaryAction clicked).
+            </summary>
+            <param name="parameters">Parameters to pass to component being displayed.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowPanelAsync``2(Microsoft.Fast.Components.FluentUI.DialogParameters{``1})">
+            <summary>
+            Shows a panel with the dialog component type as the body
+            </summary>
+            <param name="parameters">Parameters to pass to component being displayed.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowPanelAsync``1(System.Type,Microsoft.Fast.Components.FluentUI.DialogParameters{``0})">
+            <summary>
+            Shows a panel with the dialog component type as the body
+            </summary>
+            <param name="dialogComponent">Type of component to display.</param>
+            <param name="parameters">Parameters to pass to component being displayed.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialogAsync``1(System.Type,``0,Microsoft.Fast.Components.FluentUI.DialogParameters)">
             <summary>
             Shows a dialog with the component type as the body,
             passing the specified <paramref name="content "/> 
             </summary>
             <param name="dialogComponent">Type of component to display.</param>
             <param name="content">Content to pass to component being displayed.</param>
+            <param name="parameters">Parameters to configure the dialog component.</param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.UpdateDialogAsync``1(System.String,Microsoft.Fast.Components.FluentUI.DialogParameters{``0})">
+            <summary>
+            Updates a dialog 
+            </summary>
+            <param name="id">Id of the dialog to update.</param>
             <param name="parameters">Parameters to configure the dialog component.</param>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.CreateDialogCallback(System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task})">
@@ -2213,8 +2404,14 @@
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.Emoji">
             <summary>
-            FluentUI Icon content.
+            FluentUI Emoji content.
             </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Emoji.#ctor">
+            <summary>
+            Please use the constructor including parameters.
+            </summary>
+            <exception cref="T:System.ArgumentNullException"></exception>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Emoji.#ctor(System.String,Microsoft.Fast.Components.FluentUI.EmojiSize,Microsoft.Fast.Components.FluentUI.EmojiGroup,Microsoft.Fast.Components.FluentUI.EmojiSkintone,Microsoft.Fast.Components.FluentUI.EmojiStyle,System.Byte[])">
             <summary>
@@ -2433,6 +2630,11 @@
             List of delimiters chars. Example: " ,;".
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentHighlighter.UntilNextBoundary">
+            <summary>
+            If true, highlights the text until the next regex boundary
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentHorizontalScroll.Speed">
             <summary>
             Description: Scroll speed in pixels per second
@@ -2529,6 +2731,12 @@
             <summary>
             FluentUI Icon content.
             </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Icon.#ctor">
+            <summary>
+            Please use the constructor including parameters.
+            </summary>
+            <exception cref="T:System.ArgumentNullException"></exception>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Icon.#ctor(System.String,Microsoft.Fast.Components.FluentUI.IconVariant,Microsoft.Fast.Components.FluentUI.IconSize,System.String)">
             <summary>
@@ -2885,20 +3093,13 @@
             Gets or sets the visual appearance. See <seealso cref="T:Microsoft.Fast.Components.FluentUI.Appearance"/>
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentListbox`1.Width">
-            <summary>
-            Width style
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentListbox`1.Height">
-            <summary>
-            Height style
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentListbox`1.Size">
             <summary>
             The maximum number of options that should be visible in the listbox scroll area.
             </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentListbox`1.BorderStyle">
+            <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentOption`1.Disabled">
             <summary>
@@ -2975,6 +3176,16 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.StyleValue">
             <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.Width">
+            <summary>
+            Width of the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.Height">
+            <summary>
+            Height of the component or of the popup panel.
+            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.Title">
             <summary>
@@ -3768,6 +3979,12 @@
             Gets or sets the id of the component the popover is positioned relative to
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPopover.HorizontalPosition">
+            <summary>
+            The default horizontal position of the region relative to the anchor element
+            Default is unset. See <seealso cref="P:Microsoft.Fast.Components.FluentUI.FluentPopover.HorizontalPosition"/>
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentPopover.Open">
             <summary>
             Gets or sets popover opened state
@@ -3972,6 +4189,12 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentRadioGroup`1.TryParseValueFromString(System.String,`0@,System.String@)">
             <inheritdoc />
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSearch.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSearch.Module">
+            <summary />
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentSearch.DataList">
             <summary>
             Allows associating a <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist">datalist</see> to the element by <see href="https://developer.mozilla.org/en-US/docs/Web/API/Element/id">id</see>.
@@ -4030,6 +4253,21 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentSkeleton.Shimmer">
             <summary>
             Gets or sets if the skeleton is shimmered
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSkeleton.Width">
+            <summary>
+            Gets or sets the width of the skeleton
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSkeleton.Height">
+            <summary>
+            Gets or sets the height of the skeleton
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSkeleton.Visible">
+            <summary>
+            Gets or sets whether the skeleton is visible
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentSkeleton.ChildContent">
@@ -4248,6 +4486,11 @@
             True to let the user edit the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentTab.Label"/> property.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.DeferredLoading">
+            <summary>
+            Render the tab content only when the tab is selected.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.Content">
             <summary>
             Customized content of this tab panel.
@@ -4431,6 +4674,12 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextField.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextField.Module">
+            <summary />
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextField.TextFieldType">
             <summary>
             Gets or sets the text filed type. See <see cref="T:Microsoft.Fast.Components.FluentUI.TextFieldType"/>
@@ -4474,6 +4723,12 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextField.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextField.AutoComplete">
+            <summary>
+            Specifies whether a form or an input field should have autocomplete "on" or "off" or another value.
+            An Id value must be set to use this property.
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.CommunicationToast.Close">
@@ -4843,6 +5098,31 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.ServiceProvider">
+            <summary>
+            Gets or sets a reference to the list of registered services.
+            </summary>
+            <remarks>
+            https://github.com/dotnet/aspnetcore/issues/24193
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.TooltipService">
+            <summary>
+            Gets a reference to the tooltip service (if registered).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.GlobalOptions">
+            <summary>
+            Gets the default tooltip options.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.UseTooltipService">
+            <summary>
+            Use ITooltipService to create the tooltip, if this service was injected.
+            If the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.ChildContent"/> is dynamic, set this to false.
+            Default, true.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.Visible">
             <summary>
             Gets or sets if the tooltip is visible
@@ -4850,17 +5130,23 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.Anchor">
             <summary>
-            Gets or sets the anchor
+            Required. Gets or sets the control identifier associated with the tooltip.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.Delay">
             <summary>
-            Gets or sets the delay (in miliseconds)
+            Gets or sets the delay (in milliseconds). Default is 300.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.Position">
             <summary>
-            Gets or sets the tooltip's position. See <see cref="T:Microsoft.Fast.Components.FluentUI.TooltipPosition"/>
+            Gets or sets the tooltip's position. See <see cref="T:Microsoft.Fast.Components.FluentUI.TooltipPosition"/>.
+            Don't set this if you want the tooltip to use the best position.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.MaxWidth">
+            <summary>
+            Gets or sets the maximum width of tooltip panel.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.AutoUpdateMode">
@@ -4872,12 +5158,12 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.HorizontalViewportLock">
             <summary>
-            Gets or sets wether the horizontal viewport is locked
+            Gets or sets whether the horizontal viewport is locked
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.VerticalViewportLock">
             <summary>
-            Gets or sets wether the vertical viewport is locked
+            Gets or sets whether the vertical viewport is locked
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.ChildContent">
@@ -4885,10 +5171,187 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.OnDissmissed">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.OnDismissed">
             <summary>
             Callback for when the tooltip is dismissed
             </summary>  
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.DrawTooltip">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentTooltip.HandleDismissed">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentTooltip.OnInitialized">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentTooltip.Dispose">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltipProvider.ClassValue">
+            <summary />
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService">
+            <summary>
+            Service for managing tooltips.
+            </summary>
+        </member>
+        <member name="E:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.OnTooltipUpdated">
+            <summary>
+            Action that is invoked when the tooltip list is updated.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.Tooltips">
+            <summary>
+            Gets the list of tooltips currently registered with the service.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.GlobalOptions">
+            <summary>
+            Gets the global options for tooltips.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.Add(Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipOptions)">
+            <summary>
+            Adds a tooltip to the service.
+            </summary>
+            <param name="options"></param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.Clear">
+            <summary>
+            clears all tooltips from the service.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.Remove(System.Guid)">
+            <summary>
+            removes a tooltip from the service.
+            </summary>
+            <param name="value">Identifier of the tooltip</param>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipGlobalOptions">
+            <summary>
+            Global options for tooltips.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipGlobalOptions.DefaultDelay">
+            <summary>
+            Default delay (in milliseconds).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipGlobalOptions.Delay">
+            <summary>
+            Gets or sets the delay (in milliseconds). Default is 300.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipGlobalOptions.Position">
+            <summary>
+            Gets or sets the default tooltip's position.
+            See <see cref="T:Microsoft.Fast.Components.FluentUI.TooltipPosition"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipGlobalOptions.MaxWidth">
+            <summary>
+            Gets or sets the default maximum width of tooltip panel.
+            Default is 500px.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipGlobalOptions.HorizontalViewportLock">
+            <summary>
+            Gets or sets whether the horizontal viewport is locked
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipGlobalOptions.VerticalViewportLock">
+            <summary>
+            Gets or sets whether the vertical viewport is locked
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipOptions">
+            <summary>
+            Options for a tooltip.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipOptions.Id">
+            <summary>
+            Gets or sets the unique identifier of the tooltip.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipOptions.Anchor">
+            <summary>
+            Gets or sets the anchor identifier of the tooltip.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipOptions.ChildContent">
+            <summary>
+            Gets or sets the tooltip content.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipOptions.MaxWidth">
+            <summary>
+            Gets or sets the tooltip panel width.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipOptions.Delay">
+            <summary>
+            Gets or sets the delay (in milliseconds). Default is 300.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipOptions.Position">
+            <summary>
+            Gets or sets the tooltip's position. See <see cref="T:Microsoft.Fast.Components.FluentUI.TooltipPosition"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipOptions.OnDismissed">
+            <summary>
+            Callback for when the tooltip is dismissed
+            </summary>  
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipOptions.Visible">
+            <summary>
+            Gets or sets if the tooltip is visible
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService">
+            <inheritdoc cref="T:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService"/>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService.#ctor(Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipGlobalOptions)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService"/> class.
+            </summary>
+            <param name="options">Default global options</param>
+        </member>
+        <member name="E:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService.OnTooltipUpdated">
+            <inheritdoc cref="E:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.OnTooltipUpdated"/>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService.GlobalOptions">
+            <inheritdoc cref="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.GlobalOptions"/>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService.Tooltips">
+            <inheritdoc cref="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.Tooltips"/>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService.TooltipList">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService.TooltipLock">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService.Add(Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipOptions)">
+            <inheritdoc cref="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.Add(Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipOptions)"/>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService.Clear">
+            <inheritdoc cref="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.Clear"/>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService.Dispose">
+            <summary>
+            Clears all tooltips from the service.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService.Remove(System.Guid)">
+            <inheritdoc cref="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.Remove(System.Guid)"/>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Text">
             <summary>
@@ -8302,27 +8765,32 @@
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.HorizontalPosition.Unset">
             <summary>
-            The anchored region position is unset.
+            No positions set.
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.HorizontalPosition.Start">
             <summary>
-            The anchored region is positioned at the start of the anchor.
+            Position at the start of the anchor.
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.HorizontalPosition.End">
             <summary>
-            The anchored region is positioned at the end of the anchor.
+            Position at the end of the anchor.
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.HorizontalPosition.Left">
             <summary>
-            The anchored region is positioned in the left of the anchor.
+            Position on the left of the anchor.
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.HorizontalPosition.Right">
             <summary>
-            The anchored region is positioned in the right of the anchor.
+            Position on the right of the anchor.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.HorizontalPosition.Center">
+            <summary>
+            Position at the center of the anchor.
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.HorizontalScrollView">
@@ -9043,17 +9511,22 @@
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.VerticalPosition.Unset">
             <summary>
-            No positioning set
+            No position set.
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.VerticalPosition.Top">
             <summary>
-            Position at the top
+            Position at the top.
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.VerticalPosition.Bottom">
             <summary>
-            Position at the bottom
+            Position at the bottom.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.VerticalPosition.Center">
+            <summary>
+            Position at the center.
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.NavMenuActionArgs">
@@ -9216,6 +9689,12 @@
         <member name="T:Microsoft.Fast.Components.FluentUI.LibraryConfiguration">
             <summary>
             Defines the global Fluent UI Blazor component library services configuration
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.LibraryConfiguration.UseTooltipServiceProvider">
+            <summary>
+            Gets or sets a value indicating whether the library should use the TooltipServiceProvider.
+            If set to true, add the FluentTooltipProvider component at end of the MainLayout.razor page.
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.Resources.FluentInputFileResource">
@@ -9460,7 +9939,7 @@
             </summary>
             <remarks>Inspired from https://github.com/MudBlazor</remarks>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.Splitter.GetFragments(System.String,System.Collections.Generic.IEnumerable{System.String},System.String@,System.Boolean)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.Splitter.GetFragments(System.String,System.Collections.Generic.IEnumerable{System.String},System.String@,System.Boolean,System.Boolean)">
             <summary>
             Splits the text into fragments, according to the
             text to be highlighted
@@ -9469,6 +9948,7 @@
             <param name="highlightedTexts">The texts to be highlighted</param>
             <param name="regex">Regex expression that was used to split fragments.</param>
             <param name="caseSensitive">Whether it's case sensitive or not</param>
+            <param name="untilNextBoundary">If true, splits until the next regex boundary</param>
             <returns></returns>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.Default(System.String,System.String)">
