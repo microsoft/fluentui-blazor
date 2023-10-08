@@ -15,16 +15,3 @@ public enum LocalizationDirection
     /// </summary>
     rtl
 }
-
-public static class LocalizationDirectionExtension
-{
-    public static bool IsRTL(this LocalizationDirection direction)
-    {
-        return direction is LocalizationDirection.rtl;
-    }
-
-    public static LocalizationDirection GetDirectionFromBoolean(this bool boolValue)
-    {
-        return boolValue ? LocalizationDirection.rtl : LocalizationDirection.ltr;
-    }
-}
