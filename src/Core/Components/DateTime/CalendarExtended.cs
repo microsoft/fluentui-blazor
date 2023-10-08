@@ -113,14 +113,14 @@ internal struct CalendarExtended
     public IEnumerable<(string Abbreviated, string Name)> GetDayNames()
     {
         int firstDayOfWeek = (int)GetFirstDayOfWeek();
-        var abbreviated = Culture.DateTimeFormat.AbbreviatedDayNames;
+        var abbreviated = Culture.DateTimeFormat.ShortestDayNames;
         var names = Culture.DateTimeFormat.DayNames;
         var dayNames = new (string Abbreviated, string Name)[7];
 
         for (int i = 0; i < 7; i++)
         {
             dayNames[i].Name = ToTitleCase(names[i]);
-            dayNames[i].Abbreviated = ToAbbreviatedDisplay(ToTitleCase(abbreviated[i]));
+            dayNames[i].Abbreviated = ToTitleCase(abbreviated[i]);
         }
 
         return Shift(dayNames, firstDayOfWeek);
@@ -184,13 +184,5 @@ internal struct CalendarExtended
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>
-    private string ToAbbreviatedDisplay(string value)
-    {
-        switch (Culture.Name)
-        {
-            case string x when x.StartsWith("zh-"):
-                return value[1].ToString();
-            default: return value[0].ToString();
-        }
-    }
+
 }
