@@ -36,16 +36,9 @@ public static class EnumExtensions
         return description;
     }
 
-    public static TEnum GetEnumByDescription<TEnum>(this string description) where TEnum : struct, Enum
+    public static TEnum? GetEnumByDescription<TEnum>(this string? description, bool ignoreCase = false) where TEnum : struct, Enum
     {
-        foreach (TEnum enumItem in Enum.GetValues(typeof(TEnum)))
-        {
-            string? result = GetDescription(enumItem);
-            if ( result != null && result == description)
-            {
-                return enumItem;
-            }
-        }
-        return default!;
+        return Enum.GetValues<TEnum>()
+                .FirstOrDefault(i => string.Compare(GetDescription(i), description, ignoreCase) == 0);
     }
 }
