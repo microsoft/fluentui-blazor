@@ -178,12 +178,12 @@ internal struct CalendarExtended
     {
         return Culture.TextInfo.ToTitleCase(value);
     }
+
     /// <summary>
-    /// 
+    /// Returns the string according to different cultures
     /// </summary>
-    /// <param name="v"></param>
+    /// <param name="value"></param>
     /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
     private char ToAbbreviatedDisplay(string value)
     {
         switch (Culture.Name)
