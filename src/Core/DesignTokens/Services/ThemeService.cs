@@ -1,84 +1,59 @@
-﻿using System.Drawing;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Logging;
+using Microsoft.Fast.Components.FluentUI.Utilities;
+using Microsoft.JSInterop;
 
 namespace Microsoft.Fast.Components.FluentUI.DesignTokens;
 
-internal sealed class ThemeService : IThemeService
+internal sealed class ThemeService : JSModule, IThemeService
 {
-    private readonly IThemeStorageService _themeStorageService;
+    private readonly ILogger<IThemeService> _logger;
     private readonly GlobalState _globalState;
     private readonly AccentBaseColor _accentBase;
     private readonly BaseLayerLuminance _baseLayerLuminance;
     private readonly Direction _direction;
 
-    public ThemeService(IThemeStorageService themeStorageService, GlobalState globalState, AccentBaseColor accentBaseColor, BaseLayerLuminance baseLayerLuminance, Direction direction)
+    public ThemeService(IJSRuntime jsRuntime, ILogger<IThemeService> logger, GlobalState globalState, AccentBaseColor accentBaseColor, BaseLayerLuminance baseLayerLuminance, Direction direction)
+        : base(jsRuntime, "./_content/Microsoft.Fast.Components.FluentUI/js/themeService.js")
     {
-        _themeStorageService = themeStorageService;
+        _logger = logger;
         _globalState = globalState;
         _baseLayerLuminance = baseLayerLuminance;
         _accentBase = accentBaseColor;
         _direction = direction;
     }
 
-    StandardLuminance _selectedTheme = StandardLuminance.LightMode;
-    OfficeColor _selectedAccentColor = OfficeColor.Default;
-    LocalizationDirection _selectedDirection = LocalizationDirection.rtl;
-
     bool _isInitialized = false;
-    bool _isPersistent = false;
-    public StandardLuminance SelectedTheme => _selectedTheme;
-    public OfficeColor SelectedAccentColor => _selectedAccentColor;
+    Theme _themeConfigs = default!;
+    public StandardLuminance SelectedTheme => _globalState.Luminance;
+    public string? SelectedAccentColor => _globalState.Color;
     public ElementReference ElementRef { get; set; }
-    public LocalizationDirection SelectedDirection => _selectedDirection;
+    public LocalizationDirection SelectedDirection => _globalState.Dir;
 
-    public async Task InitializeAsync(bool isPersistent = true)
+    public async Task InitializeAsync(Theme? initialData = null)
     {
-        if (_isInitialized && !isPersistent && !await _themeStorageService.IsStorageEnabledAndSupported()) return;
+        _globalState.SetContainer(ElementRef);
 
-        string? themeString = await _themeStorageService.GetThemeAsync();
-        if (!string.IsNullOrEmpty(themeString))
-        {
-            _selectedTheme = (StandardLuminance)Convert.ToInt32(themeString);
-            await SetThemeForElementRefAsync(SelectedTheme.GetLuminanceValue());
-        }
+        if (_isInitialized || initialData == null) return;
 
-        string? accent = await _themeStorageService.GetAccentColorAsync();
-        if (!string.IsNullOrEmpty(accent))
-        {
-            _selectedAccentColor = accent.GetEnumByDescription<OfficeColor>();
-            await SetAccentColorForRefAsync(SelectedAccentColor.GetDescription()!);
-        }
+        _themeConfigs = initialData;
 
-        bool? direction = await _themeStorageService.GetDirectionAsync();
-        if (direction.HasValue && direction.Value.GetDirectionFromBoolean() != SelectedDirection)
-        {
-            _selectedDirection = direction.Value.GetDirectionFromBoolean();
-            await SetDirectionForElementRefAsync(direction.Value);
-        }
+        await SetThemeAsync(_themeConfigs.SelectedTheme);
 
-        _isPersistent = isPersistent;
+        await SetAccentColorAsync(_themeConfigs.SelectedAccentColor ?? "default");
+
+        await SetDirectionAsync(_themeConfigs.SelectedDirection);
+
         _isInitialized = true;
-
     }
 
     public async Task SetAccentColorAsync(OfficeColor officeColor)
     {
         var color = officeColor.GetDescription()!;
-        await SetAccentColorForRefAsync(color);
-
-        if(_isPersistent)
-            await _themeStorageService.SetAccentColorAsync(color);
+        await SetAccentColorAsync(color);
     }
 
     public async Task SetAccentColorAsync(string color)
-    {
-        await SetAccentColorForRefAsync(color);
-
-        if(_isPersistent)
-            await _themeStorageService.SetAccentColorAsync(color);
-    }
-
-    private async Task SetAccentColorForRefAsync(string color)
     {
         if (string.IsNullOrEmpty(color)) return;
 
@@ -86,62 +61,80 @@ internal sealed class ThemeService : IThemeService
             await _accentBase.SetValueFor(ElementRef, color.ToSwatch());
         else
             await _accentBase.DeleteValueFor(ElementRef);
+
+        _globalState.SetColor(color);
     }
 
     public async Task SetThemeAsync(StandardLuminance standardLuminance)
     {
-        _selectedTheme = standardLuminance;
-
-        await SetThemeForElementRefAsync(standardLuminance.GetLuminanceValue());
-
-        if(_isPersistent)
-            await _themeStorageService.SetThemeAsync(standardLuminance);
+        await SetThemeAsync(standardLuminance == StandardLuminance.DarkMode);
     }
 
     public async Task SetThemeAsync(bool isDarkMode)
     {
-        StandardLuminance theme = StandardLuminance.LightMode;
+        await Task.Delay(50);
+
+        StandardLuminance theme;
 
         if (isDarkMode)
             theme = StandardLuminance.DarkMode;
+        else
+            theme = StandardLuminance.LightMode;
 
-        _selectedTheme = theme;
+        await _baseLayerLuminance.SetValueFor(ElementRef, theme.GetLuminanceValue());
 
-        await SetThemeForElementRefAsync(theme.GetLuminanceValue());
+        await SetHighlightAsync(isDarkMode);
 
-        if(_isPersistent)
-            await _themeStorageService.SetThemeAsync(theme);
-    }
-
-    private async Task SetThemeForElementRefAsync(float? theme)
-    {
-        await Task.Delay(50);
-        await _baseLayerLuminance.SetValueFor(ElementRef, theme);
-        _globalState.SetLuminance(SelectedTheme);
-        await _themeStorageService.SetHighlightAsync(SelectedTheme);
+        _globalState.SetLuminance(theme);
     }
 
     public async Task SetDirectionAsync(bool isRTL)
     {
-        await SetDirectionForElementRefAsync(isRTL);
-        await _themeStorageService.SetDirectionAsync(isRTL);
+        try
+        {
+            await Task.Delay(50);
+
+            LocalizationDirection dir;
+
+            if (isRTL)
+                dir = LocalizationDirection.rtl;
+            else
+                dir = LocalizationDirection.ltr;
+
+            _globalState.SetDirection(dir);
+
+            await InvokeVoidAsync("switchDirection", dir.ToString());
+
+            await _direction.SetValueFor(ElementRef, dir.ToAttributeValue());
+            
+        }
+        catch (JSException ex)
+        {
+            _logger.LogWarning("Something went wrong on Setting Direction, Recent Direction Changes were not applied {0}", ex.Message);
+        }
     }
 
-    private async Task SetDirectionForElementRefAsync(bool isRTL)
+    public async Task SetDirectionAsync(LocalizationDirection localizationDirection)
     {
-        await Task.Delay(50);
-
-        if (isRTL)
-            _selectedDirection = LocalizationDirection.rtl;
-        else
-            _selectedDirection = LocalizationDirection.ltr;
-
-        _globalState.Dir = SelectedDirection;
-
-        await _direction.SetValueFor(ElementRef, SelectedDirection.ToAttributeValue());
-
-        _globalState.SetDirection(SelectedDirection);
-
-        await _themeStorageService.ChangeDirection(isRTL);
+        await SetDirectionAsync(localizationDirection == LocalizationDirection.rtl);
     }
+
+    public async Task SetHighlightAsync(StandardLuminance highlight)
+    {
+        await SetHighlightAsync(highlight == StandardLuminance.DarkMode);
+    }
+
+    public async Task SetHighlightAsync(bool isDarkMode)
+    {
+        try
+        {
+            await InvokeVoidAsync("switchHighlightStyle", isDarkMode);
+        }
+        catch (JSException ex)
+        {
+            _logger.LogWarning("Something went wrong on Setting Highlights, Recent Theme Changes Not Successfully Applied {message}", ex.Message);
+        }
+    }
+
+
 }
