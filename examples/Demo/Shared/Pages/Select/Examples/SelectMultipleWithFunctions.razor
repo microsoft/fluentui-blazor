@@ -4,8 +4,8 @@
 <p>All people with a birth year greater than 1990 are disabled through the <code>OptionDisabled</code> (Func delegate) parameter.</p>
 
 <div style="display: block; height: 300px;">
-    <label for="people-listbox2">Select persons</label>
     <FluentSelect TOption="Person"
+                  Label="Select persons"
                   Items="@Data.People"
                   Id="people-listbox2"
                   Multiple="true"

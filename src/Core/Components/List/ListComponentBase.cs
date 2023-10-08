@@ -62,9 +62,28 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
     public string? Height { get; set; }
 
     /// <summary>
+    /// Text displayed just above the component
+    /// </summary>
+    [Parameter]
+    public string? Label { get; set; }
+
+    /// <summary>
+    /// Content displayed just above the component
+    /// </summary>
+    [Parameter]
+    public RenderFragment? LabelTemplate { get; set; }
+
+    /// <summary>
     /// Text used on aria-label attribute.
     /// </summary>
     [Parameter]
+    public virtual string? AriaLabel { get; set; }
+
+    /// <summary>
+    /// Text used on aria-label attribute.
+    /// </summary>
+    [Parameter]
+    [Obsolete("Use AriaLabel instead")]
     public virtual string? Title { get; set; }
 
     /// <summary>
@@ -486,5 +505,13 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
             return;
 
         _selectedOptions.Add(item);
+    }
+
+    /// <summary />
+    protected internal string? GetAriaLabel()
+    {
+#pragma warning disable CS0618 // Type or member is obsolete
+        return string.IsNullOrEmpty(AriaLabel) ? Title : AriaLabel;
+#pragma warning restore CS0618 // Type or member is obsolete
     }
 }

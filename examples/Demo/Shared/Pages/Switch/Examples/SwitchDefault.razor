@@ -1,15 +1,11 @@
 ﻿<div style="display: flex; flex-direction: column; gap: 0.5rem;">
-    <FluentSwitch @bind-Value=value1></FluentSwitch>
-    <FluentSwitch @bind-Value=value2>
-        Dark Mode
-    </FluentSwitch>
-    <FluentSwitch @bind-Value=@value3>
-        New Feature
+    <FluentSwitch @bind-Value=value1 AriaLabel="No label"></FluentSwitch>
+    <FluentSwitch @bind-Value=value2 Label=" Dark Mode" />
+    <FluentSwitch @bind-Value=@value3 Label="New Feature">
         <span slot="checked-message">On</span>
         <span slot="unchecked-message">Off</span>
     </FluentSwitch>
-    <FluentSwitch @bind-Value=value4>
-        Theme
+    <FluentSwitch @bind-Value=value4 Label="Theme">
         <span slot="checked-message">Dark</span>
         <span slot="unchecked-message">Light</span>
     </FluentSwitch>

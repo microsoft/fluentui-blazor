@@ -1,6 +1,6 @@
 ﻿@inject DataSource Data
-<label for="people-listbox">Select a person</label>
 <FluentSelect TOption="Person"
+              Label="Select a person"
               Items="@Data.People.WithVeryLongName()"
               Id="people-listbox"
               Width="200px"

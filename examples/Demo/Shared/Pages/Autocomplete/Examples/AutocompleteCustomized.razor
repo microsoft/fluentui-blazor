@@ -1,6 +1,5 @@
 @inject DataSource Data
 
-<label for="my-customized">Select a person</label>
 <FluentAutocomplete Id="my-customized"
                     @ref="ContactList"
                     TOption="Person"
@@ -11,6 +10,11 @@
                     OptionText="@(item => item.LastName)"
                     OptionStyle="min-height: 40px;"
                     @bind-SelectedOptions="@SelectedItems">
+
+    <LabelTemplate>        
+        Select a person
+        <FluentIcon Value="@(new Icons.Regular.Size20.Person())" Style="margin: 0 4px;" />
+    </LabelTemplate>
 
     @* Template used with each Selected items *@
     <SelectedOptionTemplate>

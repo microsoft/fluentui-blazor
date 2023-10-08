@@ -1,5 +1,5 @@
-<FluentDatePicker @bind-Value="@SelectedValue" ReadOnly />
-<FluentDatePicker @bind-Value="@SelectedValue" />
+<FluentDatePicker Label="Meeting date" @bind-Value="@SelectedValue" ReadOnly />
+<FluentDatePicker AriaLabel="To" @bind-Value="@SelectedValue" />
 <p>Selected Date: @(SelectedValue?.ToString("yyyy-MM-dd"))</p>
 @code
 {
