@@ -179,5 +179,4 @@ internal struct CalendarExtended
     {
         return Culture.TextInfo.ToTitleCase(value);
     }
-
 }
