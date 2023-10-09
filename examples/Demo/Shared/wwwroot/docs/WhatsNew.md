@@ -3,6 +3,8 @@
 - New FluentInputLabel component. 
 - FluentCard: Add AreaRestricted parameter to allow content to break out of card area.
 - Provide error message when FluentDialogProvider missing
+- It is now possible to add a tooltip to DataGridColumns
+- 
 - Fix [#796](https://github.com/microsoft/fluentui-blazor/pull/796): Fix IconColor doc page
 - Fix [#797](https://github.com/microsoft/fluentui-blazor/pull/797): Fix MessageBar issues
 - Fix [#805](https://github.com/microsoft/fluentui-blazor/pull/805): InlineStyleBuilder on .NET6
