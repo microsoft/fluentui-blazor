@@ -209,16 +209,6 @@
             Defaults to <seealso cref="F:Microsoft.Fast.Components.FluentUI.Appearance.Neutral"/>
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchor.IconStart">
-            <summary>
-            <see cref="T:Microsoft.Fast.Components.FluentUI.Icon"/> displayed at the start of anchor content.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchor.IconEnd">
-            <summary>
-            <see cref="T:Microsoft.Fast.Components.FluentUI.Icon"/> displayed at the end of anchor content.
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchor.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
@@ -256,37 +246,6 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentBadge.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentBadge.Width">
-            <summary>
-            Gets or sets the width of the component.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentBadge.Height">
-            <summary>
-            Gets or sets the height of the component.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentBadge.DismissTitle">
-            <summary>
-            Gets or sets the tooltip to display when hovering over the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentBadge.DismissIcon"/> icon.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentBadge.DismissIcon">
-            <summary>
-            Gets or sets the icon to be displayed when the badge is cancellable.
-            By default, a small cross icon is displayed.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentBadge.OnClick">
-            <summary>
-            Event callback for when the badge is clicked.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentBadge.OnDismissClick">
-            <summary>
-            Event callback for when the badge <see cref="P:Microsoft.Fast.Components.FluentUI.FluentBadge.DismissIcon"/> icon is clicked.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentComponentBase.Element">
@@ -639,30 +598,14 @@
             Defaults to <seealso cref="F:Microsoft.Fast.Components.FluentUI.Appearance.Neutral"/>
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.BackgroundColor">
-            <summary>
-            Background color of this button (overrides the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentButton.Appearance"/> property).
-            Set the value "rgba(0, 0, 0, 0)" to display a transparent button.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.Color">
-            <summary>
-            Color of the font (overrides the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentButton.Appearance"/> property).
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.Loading">
-            <summary>
-            Display a progress ring and disable the button.
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.IconStart">
             <summary>
-            <see cref="T:Microsoft.Fast.Components.FluentUI.Icon"/> displayed at the start of button content.
+            <see cref="T:Microsoft.Fast.Components.FluentUI.Icon"/> displayed to the left of button content.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.IconEnd">
             <summary>
-            <see cref="T:Microsoft.Fast.Components.FluentUI.Icon"/> displayed at the end of button content.
+            <see cref="T:Microsoft.Fast.Components.FluentUI.Icon"/> displayed to the right of button content.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.Title">
@@ -678,11 +621,6 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.OnClick">
             <summary>
             Command executed when the user clicks on the button.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentButton.#ctor">
-            <summary>
-            Constructs an instance of <see cref="T:Microsoft.Fast.Components.FluentUI.FluentButton"/>.
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentButton.OnClickHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
@@ -704,7 +642,7 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentCodeEditor.JSRuntime">
             <summary />
         </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.FluentCodeEditor._jsModule">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCodeEditor._jsModule">
             <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentCodeEditor.Language">
@@ -848,20 +786,9 @@
             for this column.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.Style">
-            <summary>
-            An optional CSS style specification. If specified, this is included in the style attribute of header and grid cells
-            for this column.
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.Align">
             <summary>
             If specified, controls the justification of header and grid cells for this column.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.Tooltip">
-            <summary>
-            If true, generate a title attribute for the cell contents
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.HeaderCellItemTemplate">
@@ -918,12 +845,6 @@
             Overridden by derived components to provide rendering logic for the column's cells.
             </summary>
             <param name="builder">The current <see cref="T:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder" />.</param>
-            <param name="item">The data for the row being rendered.</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ColumnBase`1.RawCellContent(`0)">
-            <summary>
-            Overridden by derived components to provide the raw content for the column's cells.
-            </summary>
             <param name="item">The data for the row being rendered.</param>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.HeaderContent">
@@ -1172,16 +1093,6 @@
             Optionally defines a class to be applied to a rendered row. 
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowStyle">
-            <summary>
-            Optionally defines a style to be applied to a rendered row. 
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.EmptyContent">
-            <summary>
-            If specified, grids render this fragment when there is no content.
-            </summary>
-        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.#ctor">
             <summary>
             Constructs an instance of <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/>.
@@ -1215,11 +1126,6 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.DisposeAsync">
             <inheritdoc />
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGridCell`1.Item">
-            <summary>
-            Gets or sets the reference to the item that holds this cell's values
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGridCell`1.CellType">
             <summary>
             Gets or sets the cell type. See <see cref="T:Microsoft.Fast.Components.FluentUI.DataGridCellType"/>
@@ -1242,20 +1148,14 @@
             Gets or sets the owning <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGridRow`1"/> component
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGridRow`1.Item">
-            <summary>
-            Gets or sets the reference to the item that holds this row's values
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGridRow`1.RowIndex">
             <summary>
             Gets or sets the index of this row
-            When FluentDataGrid is virtualized, this value is not used
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGridRow`1.GridTemplateColumns">
             <summary>
-            String that gets applied to the css gridTemplateColumns attribute for the row
+            String that gets applied to the the css gridTemplateColumns attribute for the row
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGridRow`1.RowType">
@@ -1605,7 +1505,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendarBase.DayFormat">
             <summary>
-            Type style for the day (numeric or 2-digits).
+            Format style for the day (numeric or 2-digits).
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentCalendarBase.Value">
@@ -1799,20 +1699,6 @@
         <member name="T:Microsoft.Fast.Components.FluentUI.MessageBox">
             <summary />
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.DialogContext">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.ClassValue">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.StyleValue">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.PreventScroll">
-            <summary>
-            Prevents scrolling outside of the dialog while it is shown.
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.Modal">
             <summary>
             Indicates the element is modal. When modal, user mouse interaction will be limited to the contents of the element by a modal
@@ -1822,11 +1708,6 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.Hidden">
             <summary>
             Gets or sets if the dialog is hidden
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.HiddenChanged">
-            <summary>
-            The event callback invoked when <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDialog.Hidden"/> change.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.TrapFocus">
@@ -1856,7 +1737,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.ChildContent">
             <summary>
-            Used when not calling the <see cref="T:Microsoft.Fast.Components.FluentUI.DialogService" /> to show a dialog.
+            Used when not calling the <see cref="T:Microsoft.Fast.Components.FluentUI.DialogService" /> to show a dialog
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.OnDialogResult">
@@ -1864,159 +1745,12 @@
             The event callback invoked to return the dialog result.
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDialog.OnInitialized">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDialog.OnAfterRenderAsync(System.Boolean)">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDialog.Show">
-            <summary>
-            Shows the dialog
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDialog.Hide">
-            <summary>
-            Hides the dialog
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDialog.TogglePrimaryActionButton(System.Boolean)">
-            <summary>
-            Toggle the primary action button
-            </summary>
-            <param name="isEnabled"></param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDialog.ToggleSecondaryActionButton(System.Boolean)">
-            <summary>
-            Toggle the secondary action button
-            </summary>
-            <param name="isEnabled"></param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDialog.CancelAsync">
-            <summary>
-            Closes the dialog with a cancel result.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDialog.CancelAsync``1(``0)">
-            <summary>
-            Closes the dialog with a cancel result.
-            </summary>
-            <param name="returnValue"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDialog.CloseAsync">
-            <summary>
-            Closes the dialog with a OK result.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDialog.CloseAsync``1(``0)">
-            <summary>
-            Closes the dialog with a OK result.
-            </summary>
-            <param name="returnValue"></param>
-            <returns></returns>
-        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentDialog.CloseAsync(Microsoft.Fast.Components.FluentUI.DialogResult)">
             <summary>
             Closes the dialog
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDialog.SetDialogHeader(Microsoft.Fast.Components.FluentUI.FluentDialogHeader)">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDialog.SetDialogFooter(Microsoft.Fast.Components.FluentUI.FluentDialogFooter)">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDialog.RefreshHeaderFooter">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.HasDefaultDialogHeader">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.HasDefaultDialogFooter">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialog.IsCustomized">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogBody.ClassValue">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogBody.StyleValue">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogBody.ChildContent">
-            <summary>
-            Gets or sets the content to be rendered inside the component.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogFooter.Dialog">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogFooter.ClassValue">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogFooter.StyleValue">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogFooter.Visible">
-            <summary>
-            When true, the footer is visible.
-            Default is True.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogFooter.ChildContent">
-            <summary>
-            Gets or sets the content to be rendered inside the component.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDialogFooter.OnInitialized">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDialogFooter.Refresh">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDialogFooter.OnPrimaryActionButtonClickAsync">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDialogFooter.OnSecondaryActionButtonClickAsync">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogHeader.Dialog">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogHeader.ClassValue">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogHeader.StyleValue">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogHeader.Visible">
-            <summary>
-            When true, the header is visible.
-            Default is True.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogHeader.ShowDismiss">
-            <summary>
-            When true, shows the dismiss button in the header.
-            If defined, this value will replace the one defined in the <see cref="T:Microsoft.Fast.Components.FluentUI.DialogParameters"/>.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDialogHeader.ChildContent">
-            <summary>
-            Gets or sets the content to be rendered inside the component.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDialogHeader.Refresh">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDialogHeader.OnInitialized">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDialogProvider.#ctor">
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDialogContainer.#ctor">
             <summary>
             Constructs an instance of <see cref="T:Microsoft.Fast.Components.FluentUI.FluentToastContainer"/>.
             </summary>
@@ -2036,42 +1770,22 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.Modal">
             <summary>
             Determines if the dialog is modal. Defaults to true.
-            Obscures the area around the dialog.
+            When true, clicking outside the dialog will dismiss the dialog.
             </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.PreventDismissOnOverlayClick">
-            <summary>
-            Determines if a modal dialog is dismissible by clicking
-            outside the dialog. Defaults to false.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.PreventScroll">
-            <summary>
-            Prevents scrolling outside of the dialog while it is shown.
-            </summary>to use
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.TrapFocus">
             <summary>
-            Indicates if dialog should trap focus.
-            Defaults to true.
+            Indicates that the dialog should trap focus.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.ShowTitle">
             <summary>
-            Show the title in the header.
-            Defaults to true.
+            When true, shows the title in the header.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.ShowDismiss">
             <summary>
-            Show the dismiss button in the header.
-            Defaults to true.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.DismissTitle">
-            <summary>
-            Title of the dismiss button, display in a tooltip.
-            Defaults to "Close".
+            When true, shows the dismiss button in the header.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.PrimaryAction">
@@ -2079,19 +1793,9 @@
             Text to display for the primary action.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.PrimaryActionEnabled">
-            <summary>
-            When true, primary action's button is enabled.
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.SecondaryAction">
             <summary>
             Text to display for the secondary action.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.SecondaryActionEnabled">
-            <summary>
-            When true, secondary action's button is enabled.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.Width">
@@ -2123,11 +1827,6 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.AriaLabel">
             <summary>
             The value that labels an interactive element.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.DialogType">
-            <summary>
-            The type of dialog.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.ShowPrimaryAction">
@@ -2234,50 +1933,35 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogResult.Cancel(System.Object)">
             <summary />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialogAsync``1(System.Type,``0,Microsoft.Fast.Components.FluentUI.DialogParameters)">
-            <inheritdoc cref="M:Microsoft.Fast.Components.FluentUI.IDialogService.ShowDialogAsync``1(System.Type,``0,Microsoft.Fast.Components.FluentUI.DialogParameters)"/>
+        <member name="E:Microsoft.Fast.Components.FluentUI.DialogService.OnShow">
+            <summary>
+            A event that will be invoked when showing a dialog with a custom component
+            </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialogAsync``1(System.Object,Microsoft.Fast.Components.FluentUI.DialogParameters)">
-            <inheritdoc cref="M:Microsoft.Fast.Components.FluentUI.IDialogService.ShowDialogAsync``1(System.Object,Microsoft.Fast.Components.FluentUI.DialogParameters)"/>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreen(System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
+            <summary>
+            Shows the standard <see cref="T:Microsoft.Fast.Components.FluentUI.FluentSplashScreen"/> with the given parameters."/>
+            </summary>
+            <param name="receiver">The componente that receives the callback</param>
+            <param name="callback">Name of the callback function</param>
+            <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent"/> that holds the content to display</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialogAsync``1(Microsoft.Fast.Components.FluentUI.DialogParameters)">
-            <inheritdoc cref="M:Microsoft.Fast.Components.FluentUI.IDialogService.ShowDialogAsync``1(Microsoft.Fast.Components.FluentUI.DialogParameters)"/>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreen``1(System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
+            <summary>
+            Shows a custom splash screen dialog with the given parameters."/>
+            </summary>
+            <param name="receiver">The componente that receives the callback</param>
+            <param name="callback">Name of the callback function</param>
+            <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent"/> that holds the content to display</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.UpdateDialogAsync``1(System.String,Microsoft.Fast.Components.FluentUI.DialogParameters{``0})">
-            <inheritdoc cref="M:Microsoft.Fast.Components.FluentUI.IDialogService.UpdateDialogAsync``1(System.String,Microsoft.Fast.Components.FluentUI.DialogParameters{``0})"/>/>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowPanelAsync``1(System.Type,``0,Microsoft.Fast.Components.FluentUI.DialogParameters)">
-            <inheritdoc cref="M:Microsoft.Fast.Components.FluentUI.IDialogService.ShowPanelAsync``1(System.Type,``0,Microsoft.Fast.Components.FluentUI.DialogParameters)"/>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowPanelAsync``1(System.Object,Microsoft.Fast.Components.FluentUI.DialogParameters)">
-            <inheritdoc cref="M:Microsoft.Fast.Components.FluentUI.IDialogService.ShowPanelAsync``1(System.Object,Microsoft.Fast.Components.FluentUI.DialogParameters)"/>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowPanelAsync``1(Microsoft.Fast.Components.FluentUI.DialogParameters)">
-            <inheritdoc cref="M:Microsoft.Fast.Components.FluentUI.IDialogService.ShowPanelAsync``1(Microsoft.Fast.Components.FluentUI.DialogParameters)"/>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialog``2(Microsoft.Fast.Components.FluentUI.DialogParameters{``1})">
-            <inheritdoc cref="M:Microsoft.Fast.Components.FluentUI.IDialogService.ShowDialog``2(Microsoft.Fast.Components.FluentUI.DialogParameters{``1})"/>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialog``1(System.Type,``0,Microsoft.Fast.Components.FluentUI.DialogParameters)">
-            <inheritdoc cref="M:Microsoft.Fast.Components.FluentUI.IDialogService.ShowDialog``1(System.Type,``0,Microsoft.Fast.Components.FluentUI.DialogParameters)"/>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialogAsync``2(Microsoft.Fast.Components.FluentUI.DialogParameters{``1})">
-            <inheritdoc cref="M:Microsoft.Fast.Components.FluentUI.IDialogService.ShowDialogAsync``2(Microsoft.Fast.Components.FluentUI.DialogParameters{``1})"/>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.UpdateDialog``1(System.String,Microsoft.Fast.Components.FluentUI.DialogParameters{``0})">
-            <inheritdoc cref="M:Microsoft.Fast.Components.FluentUI.IDialogService.UpdateDialog``1(System.String,Microsoft.Fast.Components.FluentUI.DialogParameters{``0})"/>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowPanel``1(System.Type,Microsoft.Fast.Components.FluentUI.DialogParameters{``0})">
-            <inheritdoc cref="M:Microsoft.Fast.Components.FluentUI.IDialogService.ShowPanelAsync``1(System.Type,Microsoft.Fast.Components.FluentUI.DialogParameters{``0})"/>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowPanel``2(Microsoft.Fast.Components.FluentUI.DialogParameters{``1})">
-            <inheritdoc cref="M:Microsoft.Fast.Components.FluentUI.IDialogService.ShowPanel``2(Microsoft.Fast.Components.FluentUI.DialogParameters{``1})"/>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowPanelAsync``2(Microsoft.Fast.Components.FluentUI.DialogParameters{``1})">
-            <inheritdoc cref="M:Microsoft.Fast.Components.FluentUI.IDialogService.ShowPanelAsync``2(Microsoft.Fast.Components.FluentUI.DialogParameters{``1})"/>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowPanelAsync``1(System.Type,Microsoft.Fast.Components.FluentUI.DialogParameters{``0})">
-            <inheritdoc cref="M:Microsoft.Fast.Components.FluentUI.IDialogService.ShowPanelAsync``1(System.Type,Microsoft.Fast.Components.FluentUI.DialogParameters{``0})"/>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreen(System.Type,System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
+            <summary>
+            Shows a splash screen of the given type with the given parameters."/>
+            </summary>
+            <param name="component">The type of the component to show</param>
+            <param name="receiver">The componente that receives the callback</param>
+            <param name="callback">Name of the callback function</param>
+            <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent"/> that holds the content to display</param>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSuccess(System.String,System.String)">
             <summary>
@@ -2326,131 +2010,36 @@
             </summary>
             <param name="parameters">Parameters to pass to component being displayed.</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSuccessAsync(System.String,System.String)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowPanel``2(Microsoft.Fast.Components.FluentUI.DialogParameters{``1})">
             <summary>
-            Shows a success message box. Does not have a callback function.
-            </summary>
-            <param name="message">The message to display.</param>
-            <param name="title">The title to display on the dialog.</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowWarningAsync(System.String,System.String)">
-            <summary>
-            Shows a warning message box. Does not have a callback function.
-            </summary>
-            <param name="message">The message to display.</param>
-            <param name="title">The title to display on the dialog.</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowErrorAsync(System.String,System.String)">
-            <summary>
-            Shows an error message box. Does not have a callback function.
-            </summary>
-            <param name="message">The message to display.</param>
-            <param name="title">The title to display on the dialog.</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowInfoAsync(System.String,System.String)">
-            <summary>
-            Shows an information message box. Does not have a callback function.
-            </summary>
-            <param name="message">The message to display.</param>
-            <param name="title">The title to display on the dialog.</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowConfirmationAsync(System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},System.String,System.String,System.String,System.String)">
-            <summary>
-            Shows a confirmation message box. Has a callback function which returns boolean 
-            (true=PrimaryAction clicked, false=SecondaryAction clicked).
-            </summary>
-            <param name="receiver">The component that receives the callback function.</param>
-            <param name="callback">The callback function.</param>
-            <param name="message">The message to display.</param>
-            <param name="primaryText">The text to display on the primary button.</param>
-            <param name="secondaryText">The text to display on the secondary button.</param>
-            <param name="title">The title to display on the dialog.</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowConfirmationAsync(System.String,System.String,System.String,System.String)">
-            <summary>
-            Shows a confirmation message box. Has no callback function
-            (true=PrimaryAction clicked, false=SecondaryAction clicked).
-            </summary>
-            <param name="message">The message to display.</param>
-            <param name="primaryText">The text to display on the primary button.</param>
-            <param name="secondaryText">The text to display on the secondary button.</param>
-            <param name="title">The title to display on the dialog.</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowMessageBoxAsync(Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.MessageBoxContent})">
-            <summary>
-            Shows a custom message box. Has a callback function which returns boolean
-            (true=PrimaryAction clicked, false=SecondaryAction clicked).
+            Shows a panel with the dialog component type as the body,
+            passing the specified <paramref name="parameters "/>
             </summary>
             <param name="parameters">Parameters to pass to component being displayed.</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreen(System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowPanel``1(System.Type,Microsoft.Fast.Components.FluentUI.DialogParameters{``0})">
             <summary>
-            Shows the standard <see cref="T:Microsoft.Fast.Components.FluentUI.FluentSplashScreen"/> with the given parameters.
+            Shows a panel with the dialog component type as the body,
+            passing the specified <paramref name="parameters "/>
             </summary>
-            <param name="receiver">The component that receives the callback</param>
-            <param name="callback">Name of the callback function</param>
-            <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent"/> that holds the content to display</param>
+            <param name="dialogComponent">Type of component to display.</param>
+            <param name="parameters">Parameters to pass to component being displayed.</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreen``1(System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialog``2(Microsoft.Fast.Components.FluentUI.DialogParameters{``1})">
             <summary>
-            Shows a custom splash screen dialog with the given parameters.
+            Shows a dialog with the component type as the body,
+            passing the specified <paramref name="parameters "/>
             </summary>
-            <param name="receiver">The component that receives the callback</param>
-            <param name="callback">Name of the callback function</param>
-            <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent"/> that holds the content to display</param>
+            <param name="parameters">Parameters to pass to component being displayed.</param>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreen(System.Type,System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowDialog``1(System.Type,``0,Microsoft.Fast.Components.FluentUI.DialogParameters)">
             <summary>
-            Shows a splash screen of the given type with the given parameters.
+            Shows a dialog with the component type as the body,
+            passing the specified <paramref name="content "/> 
             </summary>
-            <param name="component">The type of the component to show</param>
-            <param name="receiver">The component that receives the callback</param>
-            <param name="callback">Name of the callback function</param>
-            <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent"/> that holds the content to display</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreenAsync(System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
-            <summary>
-            Shows the standard <see cref="T:Microsoft.Fast.Components.FluentUI.FluentSplashScreen"/> with the given parameters.
-            </summary>
-            <param name="receiver">The component that receives the callback</param>
-            <param name="callback">Name of the callback function</param>
-            <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent"/> that holds the content to display</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreenAsync(Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
-            <summary>
-            Shows the standard <see cref="T:Microsoft.Fast.Components.FluentUI.FluentSplashScreen"/> with the given parameters.
-            </summary>
-            <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent"/> that holds the content to display</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreenAsync``1(System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
-            <summary>
-            Shows a custom splash screen dialog with the given parameters."/>
-            </summary>
-            <param name="receiver">The component that receives the callback</param>
-            <param name="callback">Name of the callback function</param>
-            <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent"/> that holds the content to display</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreenAsync``1(Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
-            <summary>
-            Shows a custom splash screen dialog with the given parameters.
-            </summary>
-            <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent"/> that holds the content to display</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreenAsync(System.Type,System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task},Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
-            <summary>
-            Shows a splash screen of the given type with the given parameters.
-            </summary>
-            <param name="component">The type of the component to show</param>
-            <param name="receiver">The component that receives the callback</param>
-            <param name="callback">Name of the callback function</param>
-            <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent"/> that holds the content to display</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.ShowSplashScreenAsync(System.Type,Microsoft.Fast.Components.FluentUI.DialogParameters{Microsoft.Fast.Components.FluentUI.SplashScreenContent})">
-            <summary>
-            Shows a splash screen of the given type with the given parameters.
-            </summary>
-            <param name="component">The type of the component to show</param>
-            <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent"/> that holds the content to display</param>
+            <param name="dialogComponent">Type of component to display.</param>
+            <param name="content">Content to pass to component being displayed.</param>
+            <param name="parameters">Parameters to configure the dialog component.</param>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.CreateDialogCallback(System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task})">
             <summary>
@@ -2460,69 +2049,6 @@
             <param name="receiver"></param>
             <param name="callback"></param>
             <returns></returns>
-        </member>
-        <member name="E:Microsoft.Fast.Components.FluentUI.DialogService.OnShow">
-            <summary>
-            A event that will be invoked when showing a dialog with a custom component
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IDialogService.ShowDialogAsync``1(System.Type,``0,Microsoft.Fast.Components.FluentUI.DialogParameters)">
-            <summary>
-            Shows a dialog with the component type as the body,
-            passing the specified <paramref name="data"/> 
-            </summary>
-            <typeparam name="TData">Type of content to pass to component being displayed.</typeparam>
-            <param name="dialogComponent">Type of component to display.</param>
-            <param name="data">Content to pass to component being displayed.</param>
-            <param name="parameters">Parameters to configure the dialog component.</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IDialogService.ShowDialogAsync``1(System.Object,Microsoft.Fast.Components.FluentUI.DialogParameters)">
-            <summary>
-            Shows a dialog with the component type as the body,
-            passing the specified <paramref name="data"/> 
-            </summary>
-            <typeparam name="TDialog">Type of component to display.</typeparam>
-            <param name="data">Content to pass to component being displayed.</param>
-            <param name="parameters">Parameters to configure the dialog component.</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IDialogService.ShowDialogAsync``1(Microsoft.Fast.Components.FluentUI.DialogParameters)">
-            <summary>
-            Shows a dialog with the component type as the body.
-            </summary>
-            <typeparam name="TDialog">Type of component to display.</typeparam>
-            <param name="parameters">Parameters to configure the dialog component.</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IDialogService.UpdateDialogAsync``1(System.String,Microsoft.Fast.Components.FluentUI.DialogParameters{``0})">
-            <summary>
-            Updates a dialog.
-            </summary>
-            <typeparam name="TData">Type of content to pass to component being displayed.</typeparam>
-            <param name="id">Id of the dialog to update.</param>
-            <param name="parameters">Parameters to configure the dialog component.</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IDialogService.ShowPanelAsync``1(System.Type,``0,Microsoft.Fast.Components.FluentUI.DialogParameters)">
-            <summary>
-            Shows a panel with the dialog component type as the body
-            </summary>
-            <typeparam name="TData">Type of content to pass to component being displayed.</typeparam>
-            <param name="dialogComponent">Type of component to display.</param>
-            <param name="data">Content to pass to component being displayed.</param>
-            <param name="parameters">Parameters to configure the dialog component.</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IDialogService.ShowPanelAsync``1(System.Object,Microsoft.Fast.Components.FluentUI.DialogParameters)">
-            <summary>
-            Shows a panel with the dialog component type as the body
-            </summary>
-            <typeparam name="TDialog">Type of component to display.</typeparam>
-            <param name="data">Content to pass to component being displayed.</param>
-            <param name="parameters">Parameters to configure the dialog component.</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IDialogService.ShowPanelAsync``1(Microsoft.Fast.Components.FluentUI.DialogParameters)">
-            <summary>
-            Shows a panel with the dialog component type as the body
-            </summary>
-            <typeparam name="TDialog">Type of component to display.</typeparam>
-            <param name="parameters">Parameters to configure the dialog component.</param>
         </member>
         <member name="E:Microsoft.Fast.Components.FluentUI.IDialogService.OnShow">
             <summary>
@@ -2687,14 +2213,8 @@
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.Emoji">
             <summary>
-            FluentUI Emoji content.
+            FluentUI Icon content.
             </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Emoji.#ctor">
-            <summary>
-            Please use the constructor including parameters.
-            </summary>
-            <exception cref="T:System.ArgumentNullException"></exception>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Emoji.#ctor(System.String,Microsoft.Fast.Components.FluentUI.EmojiSize,Microsoft.Fast.Components.FluentUI.EmojiGroup,Microsoft.Fast.Components.FluentUI.EmojiSkintone,Microsoft.Fast.Components.FluentUI.EmojiStyle,System.Byte[])">
             <summary>
@@ -2913,11 +2433,6 @@
             List of delimiters chars. Example: " ,;".
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentHighlighter.UntilNextBoundary">
-            <summary>
-            If true, highlights the text until the next regex boundary
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentHorizontalScroll.Speed">
             <summary>
             Description: Scroll speed in pixels per second
@@ -3014,12 +2529,6 @@
             <summary>
             FluentUI Icon content.
             </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Icon.#ctor">
-            <summary>
-            Please use the constructor including parameters.
-            </summary>
-            <exception cref="T:System.ArgumentNullException"></exception>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Icon.#ctor(System.String,Microsoft.Fast.Components.FluentUI.IconVariant,Microsoft.Fast.Components.FluentUI.IconSize,System.String)">
             <summary>
@@ -3350,128 +2859,6 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1"/> class.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.JS">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.Module">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.Placeholder">
-            <summary>
-            Sets the placeholder value of the element, generally used to provide a hint to the user.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.Multiple">
-            <summary>
-            For <see cref="T:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1"/>, this property must be True.
-            Set the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.MaximumSelectedOptions"/> property to 1 to select just one item.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.Appearance">
-            <summary>
-            Gets or sets the visual appearance. See <seealso cref="T:Microsoft.Fast.Components.FluentUI.Appearance"/>
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.OnOptionsSearch">
-            <summary>
-            Filter the list of options (items), using the text encoded by the user.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.OptionStyle">
-            <summary>
-            Gets or sets the style applied to all <see cref="T:Microsoft.Fast.Components.FluentUI.FluentOption`1"/> of the component.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.OptionClass">
-            <summary>
-            Gets or sets the css class applied to all <see cref="T:Microsoft.Fast.Components.FluentUI.FluentOption`1"/> of the component.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.MaximumOptionsSearch">
-            <summary>
-            Gets or sets the number of maximum options (items) returned by <see cref="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.OnOptionsSearch"/>.
-            Default value is 9.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.MaximumSelectedOptions">
-            <summary>
-            Gets or sets the maximum number of options (items) selected.
-            Exceeding this value, the user must delete some elements in order to select new ones.
-            See the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.MaximumSelectedOptionsMessage"/>.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.MaximumSelectedOptionsMessage">
-            <summary>
-            Gets or sets the message displayed when the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.MaximumSelectedOptions"/> is reached.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.OptionTemplate">
-            <summary>
-            Template for the <see cref="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.Items"/> items.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.SelectedOptionTemplate">
-            <summary>
-            Template for the <see cref="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.SelectedOptions"/> items.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.HeaderContent">
-            <summary>
-            Footer content, placed at the top of the popup panel.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.FooterContent">
-            <summary>
-            Footer content, placed at the bottom of the popup panel.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.ListStyleValue">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.ComponentWidth">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.IdScroll">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.IsMultiSelectOpened">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.IsReachedMaxItems">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.SelectableItem">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.InputHandlerAsync(Microsoft.AspNetCore.Components.ChangeEventArgs)">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.KeyDownHandlerAsync(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs)">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.OnAfterRenderAsync(System.Boolean)">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.OnDropDownExpandedAsync">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.OnClearAsync">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.OnSelectedItemChangedHandlerAsync(`0)">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.RemoveSelectedItemAsync(`0)">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.DisplayLastSelectedItemAsync">
-            <summary />
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentCombobox`1.Autocomplete">
             <summary>
             Gets or sets if the element is auto completes. See <seealso cref="T:Microsoft.Fast.Components.FluentUI.ComboboxAutocomplete"/>
@@ -3498,13 +2885,20 @@
             Gets or sets the visual appearance. See <seealso cref="T:Microsoft.Fast.Components.FluentUI.Appearance"/>
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentListbox`1.Width">
+            <summary>
+            Width style
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentListbox`1.Height">
+            <summary>
+            Height style
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentListbox`1.Size">
             <summary>
             The maximum number of options that should be visible in the listbox scroll area.
             </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentListbox`1.BorderStyle">
-            <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentOption`1.Disabled">
             <summary>
@@ -3537,75 +2931,6 @@
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentOption`1.OnSelectHandler">
-            <summary />
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.FluentPersona">
-            <summary>
-            People picker option component.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPersona.ClassValue">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPersona.StyleValue">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPersona.Initials">
-            <summary>
-            Gets or sets the initials to display if no image is provided.
-            Byt default, the first letters of the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentPersona.Name"/> is used.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPersona.Name">
-            <summary>
-            Gets or sets the name to display.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPersona.ChildContent">
-            <summary>
-            Gets or sets the content to display under the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentPersona.Name"/>.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPersona.Image">
-            <summary>
-            Gets or sets the image to display, in replacement of the initials.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPersona.ImageSize">
-            <summary>
-            Gets or sets the size of the image.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPersona.Status">
-            <summary>
-            / The status to show. See <see cref="T:Microsoft.Fast.Components.FluentUI.PresenceStatus"/> for options.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPersona.StatusTitle">
-            <summary>
-            The title to show on hover. If not provided, the status will be used.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPersona.StatusSize">
-            <summary>
-            Gets or sets the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentPersona.Status"/> size to use.
-            Default is ExtraSmall.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPersona.OnDismissClick">
-            <summary>
-            Gets or sets the event raised when the user clicks on the dismiss button.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPersona.DismissTitle">
-            <summary>
-            Gets or sets the title of the dismiss button.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentPersona.GetDefaultInitials">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSelect`1.InlineStyleValue">
             <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentSelect`1.Open">
@@ -3651,16 +2976,6 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.StyleValue">
             <summary />
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.Width">
-            <summary>
-            Width of the component.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.Height">
-            <summary>
-            Height of the component or of the popup panel.
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.Title">
             <summary>
             Text used on aria-label attribute.
@@ -3684,8 +2999,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.OptionValue">
             <summary>
-            Function used to determine which value to return for the selected item.
-            Only for <see cref="T:Microsoft.Fast.Components.FluentUI.FluentListbox`1"/> and <see cref="T:Microsoft.Fast.Components.FluentUI.FluentSelect`1"/> components.
+            Function used to determine which text to return for the selected item.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.OptionDisabled">
@@ -3763,7 +3077,7 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.OnSelectedItemChangedHandlerAsync(`0)">
             <summary />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.RaiseChangedEventsAsync">
+        <member name="M:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.RaiseChangedEvents">
             <summary />
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.GetListOptions(System.Collections.Generic.IEnumerable{`0})">
@@ -3775,27 +3089,8 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.RemoveSelectedItem(`0)">
             <summary />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.RemoveAllSelectedItems">
-            <summary />
-        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.AddSelectedItem(`0)">
             <summary />
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.OptionsSearchEventArgs`1">
-            <summary>
-            <see cref="T:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1"/> uses this event to return the list of items to display.
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.OptionsSearchEventArgs`1.Text">
-            <summary>
-            Text to search.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.OptionsSearchEventArgs`1.Items">
-            <summary>
-            List of items to display.
-            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMainLayout.Header">
             <summary>
@@ -3957,418 +3252,6 @@
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentMenuItem.OnClickHandlerAsync">
             <summary />
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.FluentMessageBar">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.ClassValue">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.StyleValue">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.Type">
-            <summary>
-            The type of message bar. Default is MessageType.MessageBar. See <see cref="T:Microsoft.Fast.Components.FluentUI.MessageType"/> for more details.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.Content">
-            <summary>
-            The actual message instance shown in the message bar.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.ChildContent">
-            <summary>
-            The message to be shown whennot using the MessageService methods
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.Intent">
-            <summary>
-            Intent of the message bar. Default is MessageIntent.Info. See <see cref="T:Microsoft.Fast.Components.FluentUI.MessageIntent"/> for more details.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.Icon">
-            <summary>
-            Icon to show in the message bar based on the intent of the message. See <see cref="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.Icon"/> for more details.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.Visible">
-            <summary>
-            Visibility of the message bar. Default is true.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.Title">
-            <summary>
-            Most important info to be shown in the message bar.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.Timestamp">
-            <summary>
-            Time on which the message was created. Default is DateTime.Now. Onlu used when MessageType is Notification.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.IconColor">
-            <summary>
-            The color of the icon. Only applied when intent is MessageBarIntent.Custom
-            Default is Color.Accent
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.Link">
-            <summary>
-            A link can be shown after the message. 
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.PrimaryAction">
-            <summary>
-            Button to show as primary action.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.SecondaryAction">
-            <summary>
-            Button to show as secondary action.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.ShowPrimaryAction">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.ShowSecondaryAction">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentMessageBar.LinkClickedAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentMessageBar.PrimaryActionClickedAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentMessageBar.DismissClicked">
-            <summary />
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.ClassValue">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.StyleValue">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.Section">
-            <summary>
-            Display only messages for this section.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.Type">
-            <summary>
-            Displays messages as a single line (with the message only)
-            or as a card (with the detailed message).
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.MaxMessageCount">
-            <summary>
-            Maximum number of messages displayed. Rest is stored in memory to be displayed when an shown message is closed.
-            Default value is 5
-            Set a value equal to or less than zero, to display all messages for this <see cref="P:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.Section" /> (or all categories if not set).
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.NewestOnTop">
-            <summary>
-            Display the newest messages on top (true) or on bottom (false).
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.ClearAfterNavigation">
-            <summary>
-            Clear all (shown and stored) messages when the user navigates to a new page.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.AllMessagesForCategory">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.MessagesToShow">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.OnInitialized">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.OnAlertUpdateHandler">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer.Dispose">
-            <summary />
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.Message">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Message.#ctor(Microsoft.Fast.Components.FluentUI.MessageOptions)">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.Message.Options">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.Message.Intent">
-            <summary>
-            Intent of the message bar. Default is MessageIntent.Info. 
-            See <see cref="T:Microsoft.Fast.Components.FluentUI.MessageIntent"/> for more details.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.Message.Section">
-            <summary>
-            Indication of in which message bar the message needs to be shown. Default is null.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.Message.Title">
-            <summary>
-            Most important info to be shown in the message bar.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.Message.Body">
-            <summary>
-            Message to be shown in the message bar.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.Message.Link">
-            <summary>
-            Link to be shown in the message bar (after the body).
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Message.Close">
-            <summary>
-            Close the message bar.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Message.Empty">
-            <summary />
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.IMessageService">
-            <summary />
-        </member>
-        <member name="E:Microsoft.Fast.Components.FluentUI.IMessageService.OnMessageItemsUpdated">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.IMessageService.AllMessages">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IMessageService.MessagesToShow(System.Int32,System.String)">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IMessageService.ShowMessageBar(System.Action{Microsoft.Fast.Components.FluentUI.MessageOptions})">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IMessageService.ShowMessageBar(System.String)">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IMessageService.ShowMessageBar(System.String,Microsoft.Fast.Components.FluentUI.MessageIntent)">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IMessageService.ShowMessageBar(System.String,Microsoft.Fast.Components.FluentUI.MessageIntent,System.String)">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IMessageService.ShowMessageBarAsync(System.Action{Microsoft.Fast.Components.FluentUI.MessageOptions})">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IMessageService.ShowMessageBarAsync(System.String)">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IMessageService.ShowMessageBarAsync(System.String,Microsoft.Fast.Components.FluentUI.MessageIntent)">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IMessageService.ShowMessageBarAsync(System.String,Microsoft.Fast.Components.FluentUI.MessageIntent,System.String)">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IMessageService.Clear(System.String)">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.IMessageService.Remove(Microsoft.Fast.Components.FluentUI.Message)">
-            <summary />
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.MessageOptions">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.Section">
-            <summary>
-            Identification of the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentMessageBarContainer"/> the message belongs to.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.Timestamp">
-            <summary>
-            The timestamp of the message.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.Icon">
-            <summary>
-            Icon to show in the message bar based on the intent of the message. See <see cref="P:Microsoft.Fast.Components.FluentUI.MessageOptions.Icon"/> for more details.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.Title">
-            <summary>
-            Most important info to be shown in the message bar.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.Body">
-            <summary>
-            Message to be shown in the message bar after the title.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.Link">
-            <summary>
-            Link to be shown in the message bar after the title/message. 
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.OnClose">
-            <summary>
-            Action to be executed when the message bar is closed.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.PrimaryAction">
-            <summary>
-            Action to be executed for the primary button.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.SecondaryAction">
-            <summary>
-            Action to be executed for the secondary button.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.Intent">
-            <summary>
-            Intent of the message bar. Default is MessageIntent.Info.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.ClearAfterNavigation">
-            <summary>
-            Remove the message bar after navigation.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.Timeout">
-            <summary>
-            Timeout in seconds after which the message bar is removed. Default is null.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.MessageService">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.#ctor">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.#ctor(Microsoft.AspNetCore.Components.NavigationManager)">
-            <summary />
-        </member>
-        <member name="E:Microsoft.Fast.Components.FluentUI.MessageService.OnMessageItemsUpdated">
-            <summary />
-        </member>
-        <member name="E:Microsoft.Fast.Components.FluentUI.MessageService.OnMessageItemsUpdatedAsync">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MessageService.MessageLock">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MessageService.MessageList">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.MessageService.AllMessages">
-            <summary>
-            Gets all messages.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.MessagesToShow(System.Int32,System.String)">
-            <summary>
-            Retrieve messages to show in the message bar.
-            </summary>
-            <param name="count">Number of messages to get (defaults to 5)</param>
-            <param name="section">Optional section to retrieve messages for</param>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.ShowMessageBar(System.String)">
-            <summary>
-            Show a message based on the provided parameters in a message bar.
-            </summary>
-            <param name="title">Main info</param>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.ShowMessageBar(System.String,Microsoft.Fast.Components.FluentUI.MessageIntent)">
-            <summary>
-            Show a message based on the provided parameters in a message bar.
-            </summary>
-            <param name="title">Main info</param>
-            <param name="intent">Intent of the message</param>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.ShowMessageBar(System.String,Microsoft.Fast.Components.FluentUI.MessageIntent,System.String)">
-            <summary>
-            Show a message based on the provided parameters in a message bar.
-            </summary>
-            <param name="title">Main info</param>
-            <param name="intent">Intent of the message</param>
-            <param name="section">Section to show the messagebar in </param>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.ShowMessageBar(System.Action{Microsoft.Fast.Components.FluentUI.MessageOptions})">
-            <summary>
-            Show a message based on the provided options in a message bar.
-            </summary>
-            <param name="options">Message options</param>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.ShowMessageBarAsync(System.String)">
-            <summary>
-            Show a message based on the provided parameters in a message bar.
-            </summary>
-            <param name="title">Main info</param>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.ShowMessageBarAsync(System.String,Microsoft.Fast.Components.FluentUI.MessageIntent)">
-            <summary>
-            Show a message based on the provided parameters in a message bar.
-            </summary>
-            <param name="title">Main info</param>
-            <param name="intent">Intent of the message</param>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.ShowMessageBarAsync(System.String,Microsoft.Fast.Components.FluentUI.MessageIntent,System.String)">
-            <summary>
-            Show a message based on the provided parameters in a message bar.
-            </summary>
-            <param name="title">Main info</param>
-            <param name="intent">Intent of the message</param>
-            <param name="section">Section to show the messagebar in </param>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.ShowMessageBarAsync(System.Action{Microsoft.Fast.Components.FluentUI.MessageOptions})">
-            <summary>
-            Show a message based on the provided message options in a message bar.
-            </summary>
-            <param name="options">Message options</param>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.Clear(System.String)">
-            <summary>
-            Clear all messages (per section, if provided) from the message bar.
-            </summary>
-            <param name="section">Optional section</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.Remove(Microsoft.Fast.Components.FluentUI.Message)">
-            <summary>
-            Remove a message from the message bar.
-            </summary>
-            <param name="message">Message to remove</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.NavigationManager_LocationChanged(System.Object,Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs)">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.Dispose">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.RemoveMessageItems(System.String)">
-            <summary>
-            Remove all messages (per section, if provided) from the message bar.
-            </summary>
-            <param name="section">Optional section</param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.Count(System.String)">
-            <summary>
-            Count the number of messages (per section, if provided) in the message bar .
-            </summary>
-            <param name="section">Optional section</param>
-            <returns>int</returns>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.ChildContent">
             <summary>
@@ -4746,9 +3629,6 @@
         <member name="T:Microsoft.Fast.Components.FluentUI.FluentOverlay">
             <summary />
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOverlay.ClassValue">
-            <summary />
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentOverlay.StyleValue">
             <summary />
         </member>
@@ -4888,12 +3768,6 @@
             Gets or sets the id of the component the popover is positioned relative to
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPopover.HorizontalPosition">
-            <summary>
-            The default horizontal position of the region relative to the anchor element
-            Default is unset. See <seealso cref="P:Microsoft.Fast.Components.FluentUI.FluentPopover.HorizontalPosition"/>
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentPopover.Open">
             <summary>
             Gets or sets popover opened state
@@ -4935,20 +3809,22 @@
             Child content of component, the content that the badge will be applied to.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPresenceBadge.Title">
-            <summary>
-            The title to show on hover the component.
-            If not provided, the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentPresenceBadge.StatusTitle"/> will be used.
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentPresenceBadge.Status">
             <summary>
             The status to show. See <see cref="T:Microsoft.Fast.Components.FluentUI.PresenceStatus"/> for options.
+            Default is Available
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPresenceBadge.StatusTitle">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPresenceBadge.HorizontalPosition">
             <summary>
-            The title to show on hover the status. If not provided, the status will be used.
+            Left position of the badge (percentage as number).
+            Default value is 50.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPresenceBadge.BottomPosition">
+            <summary>
+            Bottom position of the badge (percentage as number).
+            Default value is -10.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentPresenceBadge.OutOfOffice">
@@ -4959,7 +3835,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentPresenceBadge.Size">
             <summary>
-            Gets or sets the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentPresenceBadge.Status"/> size to use.
+            Gets or sets the <see cref="T:Microsoft.Fast.Components.FluentUI.PresenceBadgeSize"/> to use.
             Default is Small.
             </summary>
         </member>
@@ -5096,12 +3972,6 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentRadioGroup`1.TryParseValueFromString(System.String,`0@,System.String@)">
             <inheritdoc />
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSearch.JSRuntime">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSearch.Module">
-            <summary />
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentSearch.DataList">
             <summary>
             Allows associating a <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist">datalist</see> to the element by <see href="https://developer.mozilla.org/en-US/docs/Web/API/Element/id">id</see>.
@@ -5160,21 +4030,6 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentSkeleton.Shimmer">
             <summary>
             Gets or sets if the skeleton is shimmered
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSkeleton.Width">
-            <summary>
-            Gets or sets the width of the skeleton
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSkeleton.Height">
-            <summary>
-            Gets or sets the height of the skeleton
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSkeleton.Visible">
-            <summary>
-            Gets or sets whether the skeleton is visible
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentSkeleton.ChildContent">
@@ -5393,11 +4248,6 @@
             True to let the user edit the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentTab.Label"/> property.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.DeferredLoading">
-            <summary>
-            Render the tab content only when the tab is selected.
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.Content">
             <summary>
             Customized content of this tab panel.
@@ -5415,7 +4265,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.Overflow">
             <summary>
-            If this tab is outside of vistible tab panel area.
+            Gets if this component is out of panel.
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentTab.OnAfterRenderAsync(System.Boolean)">
@@ -5581,12 +4431,6 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextField.JSRuntime">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextField.Module">
-            <summary />
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextField.TextFieldType">
             <summary>
             Gets or sets the text filed type. See <see cref="T:Microsoft.Fast.Components.FluentUI.TextFieldType"/>
@@ -5630,12 +4474,6 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextField.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextField.AutoComplete">
-            <summary>
-            Specifies whether a form or an input field should have autocomplete "on" or "off" or another value.
-            An Id value must be set to use this property.
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.CommunicationToast.Close">
@@ -6005,31 +4843,6 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.ServiceProvider">
-            <summary>
-            Gets or sets a reference to the list of registered services.
-            </summary>
-            <remarks>
-            https://github.com/dotnet/aspnetcore/issues/24193
-            </remarks>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.TooltipService">
-            <summary>
-            Gets a reference to the tooltip service (if registered).
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.GlobalOptions">
-            <summary>
-            Gets the default tooltip options.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.UseTooltipService">
-            <summary>
-            Use ITooltipService to create the tooltip, if this service was injected.
-            If the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.ChildContent"/> is dynamic, set this to false.
-            Default, true.
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.Visible">
             <summary>
             Gets or sets if the tooltip is visible
@@ -6037,23 +4850,17 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.Anchor">
             <summary>
-            Required. Gets or sets the control identifier associated with the tooltip.
+            Gets or sets the anchor
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.Delay">
             <summary>
-            Gets or sets the delay (in milliseconds). Default is 300.
+            Gets or sets the delay (in miliseconds)
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.Position">
             <summary>
-            Gets or sets the tooltip's position. See <see cref="T:Microsoft.Fast.Components.FluentUI.TooltipPosition"/>.
-            Don't set this if you want the tooltip to use the best position.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.MaxWidth">
-            <summary>
-            Gets or sets the maximum width of tooltip panel.
+            Gets or sets the tooltip's position. See <see cref="T:Microsoft.Fast.Components.FluentUI.TooltipPosition"/>
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.AutoUpdateMode">
@@ -6065,12 +4872,12 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.HorizontalViewportLock">
             <summary>
-            Gets or sets whether the horizontal viewport is locked
+            Gets or sets wether the horizontal viewport is locked
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.VerticalViewportLock">
             <summary>
-            Gets or sets whether the vertical viewport is locked
+            Gets or sets wether the vertical viewport is locked
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.ChildContent">
@@ -6078,187 +4885,10 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.OnDismissed">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.OnDissmissed">
             <summary>
             Callback for when the tooltip is dismissed
             </summary>  
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.DrawTooltip">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentTooltip.HandleDismissed">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentTooltip.OnInitialized">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentTooltip.Dispose">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltipProvider.ClassValue">
-            <summary />
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService">
-            <summary>
-            Service for managing tooltips.
-            </summary>
-        </member>
-        <member name="E:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.OnTooltipUpdated">
-            <summary>
-            Action that is invoked when the tooltip list is updated.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.Tooltips">
-            <summary>
-            Gets the list of tooltips currently registered with the service.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.GlobalOptions">
-            <summary>
-            Gets the global options for tooltips.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.Add(Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipOptions)">
-            <summary>
-            Adds a tooltip to the service.
-            </summary>
-            <param name="options"></param>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.Clear">
-            <summary>
-            clears all tooltips from the service.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.Remove(System.Guid)">
-            <summary>
-            removes a tooltip from the service.
-            </summary>
-            <param name="value">Identifier of the tooltip</param>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipGlobalOptions">
-            <summary>
-            Global options for tooltips.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipGlobalOptions.DefaultDelay">
-            <summary>
-            Default delay (in milliseconds).
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipGlobalOptions.Delay">
-            <summary>
-            Gets or sets the delay (in milliseconds). Default is 300.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipGlobalOptions.Position">
-            <summary>
-            Gets or sets the default tooltip's position.
-            See <see cref="T:Microsoft.Fast.Components.FluentUI.TooltipPosition"/>
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipGlobalOptions.MaxWidth">
-            <summary>
-            Gets or sets the default maximum width of tooltip panel.
-            Default is 500px.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipGlobalOptions.HorizontalViewportLock">
-            <summary>
-            Gets or sets whether the horizontal viewport is locked
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipGlobalOptions.VerticalViewportLock">
-            <summary>
-            Gets or sets whether the vertical viewport is locked
-            </summary>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipOptions">
-            <summary>
-            Options for a tooltip.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipOptions.Id">
-            <summary>
-            Gets or sets the unique identifier of the tooltip.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipOptions.Anchor">
-            <summary>
-            Gets or sets the anchor identifier of the tooltip.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipOptions.ChildContent">
-            <summary>
-            Gets or sets the tooltip content.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipOptions.MaxWidth">
-            <summary>
-            Gets or sets the tooltip panel width.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipOptions.Delay">
-            <summary>
-            Gets or sets the delay (in milliseconds). Default is 300.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipOptions.Position">
-            <summary>
-            Gets or sets the tooltip's position. See <see cref="T:Microsoft.Fast.Components.FluentUI.TooltipPosition"/>
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipOptions.OnDismissed">
-            <summary>
-            Callback for when the tooltip is dismissed
-            </summary>  
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipOptions.Visible">
-            <summary>
-            Gets or sets if the tooltip is visible
-            </summary>
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService">
-            <inheritdoc cref="T:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService"/>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService"/> class.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService.#ctor(Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipGlobalOptions)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService"/> class.
-            </summary>
-            <param name="options">Default global options</param>
-        </member>
-        <member name="E:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService.OnTooltipUpdated">
-            <inheritdoc cref="E:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.OnTooltipUpdated"/>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService.GlobalOptions">
-            <inheritdoc cref="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.GlobalOptions"/>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService.Tooltips">
-            <inheritdoc cref="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.Tooltips"/>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService.TooltipList">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService.TooltipLock">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService.Add(Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipOptions)">
-            <inheritdoc cref="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.Add(Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipOptions)"/>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService.Clear">
-            <inheritdoc cref="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.Clear"/>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService.Dispose">
-            <summary>
-            Clears all tooltips from the service.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService.Remove(System.Guid)">
-            <inheritdoc cref="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.Remove(System.Guid)"/>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTreeItem.Text">
             <summary>
@@ -9385,31 +8015,6 @@
             A sticky header row.
             </summary>
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.DialogType">
-            <summary>
-            The type of <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDialog"/>.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.DialogType.Dialog">
-            <summary>
-            A normal dialog.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.DialogType.MessageBox">
-            <summary>
-            A dialog shown as a message box.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.DialogType.Panel">
-            <summary>
-            A dialog shown as a panel.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.DialogType.SplashScreen">
-            <summary>
-            A dialog shown as a splash screen.
-            </summary>  
-        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DividerRole">
             <summary>
             Defines the role of the divider.
@@ -9697,32 +8302,27 @@
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.HorizontalPosition.Unset">
             <summary>
-            No positions set.
+            The anchored region position is unset.
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.HorizontalPosition.Start">
             <summary>
-            Position at the start of the anchor.
+            The anchored region is positioned at the start of the anchor.
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.HorizontalPosition.End">
             <summary>
-            Position at the end of the anchor.
+            The anchored region is positioned at the end of the anchor.
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.HorizontalPosition.Left">
             <summary>
-            Position on the left of the anchor.
+            The anchored region is positioned in the left of the anchor.
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.HorizontalPosition.Right">
             <summary>
-            Position on the right of the anchor.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.HorizontalPosition.Center">
-            <summary>
-            Position at the center of the anchor.
+            The anchored region is positioned in the right of the anchor.
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.HorizontalScrollView">
@@ -9929,37 +8529,6 @@
             Informs about a custom event or operation. 
             </summary>
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.MessageIntent">
-            <summary />
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.MessageIntent.Info">
-            <summary />
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.MessageIntent.Warning">
-            <summary />
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.MessageIntent.Error">
-            <summary />
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.MessageIntent.Success">
-            <summary />
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.MessageIntent.Custom">
-            <summary />
-        </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.MessageType">
-            <summary />
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.MessageType.MessageBar">
-            <summary>
-            To be displayed in a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentMessageBar"/> at the top of screen, dialog or card.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.MessageType.Notification">
-            <summary>
-            To be displayed in a notification center.
-            </summary>
-        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.MouseButton">
             <summary>
              Defines the possible options for mouse buttons. 
@@ -10008,16 +8577,10 @@
         <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Access">
             <summary/>
         </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Booking">
-            <summary/>
-        </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Exchange">
             <summary/>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Excel">
-            <summary/>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.GroupMe">
             <summary/>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Office">
@@ -10029,22 +8592,13 @@
         <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.OneNote">
             <summary/>
         </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Outlook">
-            <summary />
-        </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Planner">
             <summary/>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.PowerApps">
             <summary/>
         </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.PowerBI">
-            <summary/>
-        </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.PowerPoint">
-            <summary/>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Project">
             <summary/>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Publisher">
@@ -10056,9 +8610,6 @@
         <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Skype">
             <summary/>
         </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Stream">
-            <summary/>
-        </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Sway">
             <summary/>
         </member>
@@ -10066,9 +8617,6 @@
             <summary/>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Visio">
-            <summary/>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Windows">
             <summary/>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.OfficeColor.Word">
@@ -10495,22 +9043,17 @@
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.VerticalPosition.Unset">
             <summary>
-            No position set.
+            No positioning set
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.VerticalPosition.Top">
             <summary>
-            Position at the top.
+            Position at the top
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.VerticalPosition.Bottom">
             <summary>
-            Position at the bottom.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Fast.Components.FluentUI.VerticalPosition.Center">
-            <summary>
-            Position at the center.
+            Position at the bottom
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.NavMenuActionArgs">
@@ -10525,6 +9068,30 @@
             <param name="y">The set to compare with</param>
             <remarks></remarks>
             <returns><c>true</c> if both sets render the same attributes; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.BuilderExtensions.NullIfEmpty(Microsoft.Fast.Components.FluentUI.Utilities.CssBuilder)">
+            <summary>
+            Used to convert a CssBuilder into a null when it is empty.
+            Usage: class=null causes the attribute to be excluded when rendered.
+            </summary>
+            <param name="builder"></param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.BuilderExtensions.NullIfEmpty(Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder)">
+            <summary>
+            Used to convert a StyleBuilder into a null when it is empty.
+            Usage: style=null causes the attribute to be excluded when rendered.
+            </summary>
+            <param name="builder"></param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.BuilderExtensions.NullIfEmpty(System.String)">
+            <summary>
+            Used to convert a string.IsNullOrEmpty into a null when it is empty.
+            Usage: attribute=null causes the attribute to be excluded when rendered.
+            </summary>
+            <param name="s"></param>
+            <returns>string</returns>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DateTimeExtensions">
             <summary>
@@ -10615,36 +9182,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ActionButton`1.Text">
-            <summary>
-            The text to show for the button
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ActionButton`1.OnClick">
-            <summary>
-            The function to call when the link is clicked
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ActionLink`1.Text">
-            <summary>
-            The text to show for the link
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ActionLink`1.Href">
-            <summary>
-            The address to navigate to when the link is clicked
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ActionLink`1.Target">
-            <summary>
-            The target window or frame to open the link in
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.ActionLink`1.OnClick">
-            <summary>
-            The function to call when the link is clicked
-            </summary>
-        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.Infrastructure.EventCallbackSubscribable`1">
             <summary>
             Represents an event that you may subscribe to. This differs from normal C# events in that the handlers
@@ -10679,12 +9216,6 @@
         <member name="T:Microsoft.Fast.Components.FluentUI.LibraryConfiguration">
             <summary>
             Defines the global Fluent UI Blazor component library services configuration
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.LibraryConfiguration.UseTooltipServiceProvider">
-            <summary>
-            Gets or sets a value indicating whether the library should use the TooltipServiceProvider.
-            If set to true, add the FluentTooltipProvider component at end of the MainLayout.razor page.
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.Resources.FluentInputFileResource">
@@ -10799,16 +9330,32 @@
               Looks up a localized string similar to {0} years ago.
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.CssBuilder.#ctor">
+        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.CssBuilder.Default(System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.Fast.Components.FluentUI.Utilities.CssBuilder"/> class.
+            Creates a CssBuilder used to define conditional CSS classes used in a component.
+            Call Build() to return the completed CSS Classes as a string. 
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.CssBuilder.Empty">
+            <summary>
+            Creates an Empty CssBuilder used to define conditional CSS classes used in a component.
+            Call Build() to return the completed CSS Classes as a string. 
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.CssBuilder.#ctor(System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.Fast.Components.FluentUI.Utilities.CssBuilder"/> class.
+            Creates a CssBuilder used to define conditional CSS classes used in a component.
+            Call Build() to return the completed CSS Classes as a string. 
             </summary>
-            <param name="userClasses">The user classes to include at the end.</param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.CssBuilder.AddValue(System.String)">
+            <summary>
+            Adds a raw string to the builder that will be concatenated with the next class or value added to the builder.
+            </summary>
+            <param name="value"></param>
+            <returns>CssBuilder</returns>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.CssBuilder.AddClass(System.String)">
             <summary>
@@ -10825,6 +9372,14 @@
             <param name="when">Condition in which the CSS Class is added.</param>
             <returns>CssBuilder</returns>
         </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.CssBuilder.AddClass(System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Adds a conditional CSS Class to the builder with space separator.
+            </summary>
+            <param name="value">CSS Class to conditionally add.</param>
+            <param name="when">Nullable condition in which the CSS Class is added.</param>
+            <returns>CssBuilder</returns>
+        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.CssBuilder.AddClass(System.String,System.Func{System.Boolean})">
             <summary>
             Adds a conditional CSS Class to the builder with space separator.
@@ -10833,79 +9388,51 @@
             <param name="when">Condition in which the CSS Class is added.</param>
             <returns>CssBuilder</returns>
         </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.CssBuilder.AddClass(System.Func{System.String},System.Boolean)">
+            <summary>
+            Adds a conditional CSS Class to the builder with space separator.
+            </summary>
+            <param name="value">Function that returns a CSS Class to conditionally add.</param>
+            <param name="when">Condition in which the CSS Class is added.</param>
+            <returns>CssBuilder</returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.CssBuilder.AddClass(System.Func{System.String},System.Func{System.Boolean})">
+            <summary>
+            Adds a conditional CSS Class to the builder with space separator.
+            </summary>
+            <param name="value">Function that returns a CSS Class to conditionally add.</param>
+            <param name="when">Condition in which the CSS Class is added.</param>
+            <returns>CssBuilder</returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.CssBuilder.AddClass(Microsoft.Fast.Components.FluentUI.Utilities.CssBuilder,System.Boolean)">
+            <summary>
+            Adds a conditional nested CssBuilder to the builder with space separator.
+            </summary>
+            <param name="builder">CSS Class to conditionally add.</param>
+            <param name="when">Condition in which the CSS Class is added.</param>
+            <returns>CssBuilder</returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.CssBuilder.AddClass(Microsoft.Fast.Components.FluentUI.Utilities.CssBuilder,System.Func{System.Boolean})">
+            <summary>
+            Adds a conditional CSS Class to the builder with space separator.
+            </summary>
+            <param name="builder">CSS Class to conditionally add.</param>
+            <param name="when">Condition in which the CSS Class is added.</param>
+            <returns>CssBuilder</returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.CssBuilder.AddClassFromAttributes(System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object})">
+            <summary>
+            Adds a conditional CSS Class when it exists in a dictionary to the builder with space separator.
+            Null safe operation.
+            </summary>
+            <param name="additionalAttributes">Additional Attribute splat parameters</param>
+            <returns>CssBuilder</returns>
+        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.CssBuilder.Build">
             <summary>
             Finalize the completed CSS Classes as a string.
             </summary>
             <returns>string</returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.CssBuilder.ToString">
-            <summary>
-            ToString should only and always call Build to finalize the rendered string.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.CssBuilder.AddRaw(System.String)">
-            <summary>
-            Adds a raw string to the builder that will be concatenated with the next classes or value added to the builder.
-            </summary>
-            <param name="value"></param>
-            <returns>StyleBuilder</returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.InlineStyleBuilder.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.Fast.Components.FluentUI.Utilities.InlineStyleBuilder"/> class.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.InlineStyleBuilder.AddStyle(System.String,System.String,System.String)">
-            <summary>
-            Adds a conditional in-line style to the builder with space separator and closing semicolon..
-            </summary>
-            <param name="name"></param>
-            <param name="prop"></param>
-            <param name="value">Style to add</param>
-            <returns>StyleBuilder</returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.InlineStyleBuilder.AddStyle(System.String,System.String,System.String,System.Boolean)">
-            <summary>
-            Adds a conditional in-line style to the builder with space separator and closing semicolon..
-            </summary>
-            <param name="name"></param>
-            <param name="prop"></param>
-            <param name="value">Style to conditionally add.</param>
-            <param name="when">Condition in which the style is added.</param>
-            <returns>StyleBuilder</returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.InlineStyleBuilder.AddStyle(System.String,System.String,System.String,System.Func{System.Boolean})">
-            <summary>
-            Adds a conditional in-line style to the builder with space separator and closing semicolon..
-            </summary>
-            <param name="name"></param>
-            <param name="prop"></param>
-            <param name="value">Style to conditionally add.</param>
-            <param name="when">Condition in which the style is added.</param>
-            <returns>StyleBuilder</returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.InlineStyleBuilder.Build(System.Boolean)">
-            <summary>
-            Finalize the completed Style as a string.
-            </summary>
-            <returns>string</returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.InlineStyleBuilder.BuildMarkupString">
-            <summary>
-            Finalize the completed Style as a string.
-            </summary>
-            <returns>string</returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.InlineStyleBuilder.AddRaw(System.String,System.String,System.String)">
-            <summary>
-            Adds a raw string to the builder that will be concatenated with the next style or value added to the builder.
-            </summary>
-            <param name="name"></param>
-            <param name="prop"></param>
-            <param name="value"></param>
-            <returns>StyleBuilder</returns>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.Utilities.LinkerFlags.JsonSerialized">
             <summary>
@@ -10933,7 +9460,7 @@
             </summary>
             <remarks>Inspired from https://github.com/MudBlazor</remarks>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.Splitter.GetFragments(System.String,System.Collections.Generic.IEnumerable{System.String},System.String@,System.Boolean,System.Boolean)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.Splitter.GetFragments(System.String,System.Collections.Generic.IEnumerable{System.String},System.String@,System.Boolean)">
             <summary>
             Splits the text into fragments, according to the
             text to be highlighted
@@ -10942,25 +9469,45 @@
             <param name="highlightedTexts">The texts to be highlighted</param>
             <param name="regex">Regex expression that was used to split fragments.</param>
             <param name="caseSensitive">Whether it's case sensitive or not</param>
-            <param name="untilNextBoundary">If true, splits until the next regex boundary</param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.#ctor">
+        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.Default(System.String,System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder"/> class.
+            Creates a StyleBuilder used to define conditional in-line style used in a component. Call Build() to return the completed style as a string.
+            </summary>
+            <param name="prop"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.Default(System.String)">
+            <summary>
+            Creates a StyleBuilder used to define conditional in-line style used in a component. Call Build() to return the completed style as a string.
+            </summary>
+            <param name="style"></param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.Empty">
+            <summary>
+            Creates a StyleBuilder used to define conditional in-line style used in a component. Call Build() to return the completed style as a string.
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.#ctor(System.String)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.#ctor(System.String,System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder"/> class.
+            Creates a StyleBuilder used to define conditional in-line style used in a component. Call Build() to return the completed style as a string.
             </summary>
-            <param name="userStyles">The user styles to include at the end.</param>
+            <param name="prop"></param>
+            <param name="value"></param>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.AddStyle(System.String)">
             <summary>
             Adds a conditional in-line style to the builder with space separator and closing semicolon.
             </summary>
             <param name="style"></param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.AddRaw(System.String)">
+            <summary>
+            Adds a raw string to the builder that will be concatenated with the next style or value added to the builder.
+            </summary>
+            <param name="style"></param>
+            <returns>StyleBuilder</returns>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.AddStyle(System.String,System.String)">
             <summary>
@@ -10979,6 +9526,15 @@
             <param name="when">Condition in which the style is added.</param>
             <returns>StyleBuilder</returns>
         </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.AddStyle(System.String,System.Func{System.String},System.Boolean)">
+            <summary>
+            Adds a conditional in-line style to the builder with space separator and closing semicolon..
+            </summary>
+            <param name="prop"></param>
+            <param name="value">Style to conditionally add.</param>
+            <param name="when">Condition in which the style is added.</param>
+            <returns></returns>
+        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.AddStyle(System.String,System.String,System.Func{System.Boolean})">
             <summary>
             Adds a conditional in-line style to the builder with space separator and closing semicolon..
@@ -10988,24 +9544,68 @@
             <param name="when">Condition in which the style is added.</param>
             <returns>StyleBuilder</returns>
         </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.AddStyle(System.String,System.Func{System.String},System.Func{System.Boolean})">
+            <summary>
+            Adds a conditional in-line style to the builder with space separator and closing semicolon..
+            </summary>
+            <param name="prop"></param>
+            <param name="value">Style to conditionally add.</param>
+            <param name="when">Condition in which the style is added.</param>
+            <returns>StyleBuilder</returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.AddStyle(Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder)">
+            <summary>
+            Adds a conditional nested StyleBuilder to the builder with separator and closing semicolon.
+            </summary>
+            <param name="builder">Style Builder to conditionally add.</param>
+            <returns>StyleBuilder</returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.AddStyle(Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder,System.Boolean)">
+            <summary>
+            Adds a conditional nested StyleBuilder to the builder with separator and closing semicolon.
+            </summary>
+            <param name="builder">Style Builder to conditionally add.</param>
+            <param name="when">Condition in which the style is added.</param>
+            <returns>StyleBuilder</returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.AddStyle(Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder,System.Func{System.Boolean})">
+            <summary>
+            Adds a conditional in-line style to the builder with space separator and closing semicolon..
+            </summary>
+            <param name="builder">Style Builder to conditionally add.</param>
+            <param name="when">Condition in which the styles are added.</param>
+            <returns>StyleBuilder</returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.AddStyle(System.String,System.Action{Microsoft.Fast.Components.FluentUI.Utilities.ValueBuilder},System.Boolean)">
+            <summary>
+            Adds a conditional in-line style to the builder with space separator and closing semicolon..
+            A ValueBuilder action defines a complex set of values for the property.
+            </summary>
+            <param name="prop"></param>
+            <param name="builder"></param>
+            <param name="when"></param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.AddStyleFromAttributes(System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object})">
+            <summary>
+            Adds a conditional in-line style when it exists in a dictionary to the builder with separator.
+            Null safe operation.
+            </summary>
+            <param name="additionalAttributes">Additional Attribute splat parameters</param>
+            <returns>StyleBuilder</returns>
+        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.Build">
             <summary>
             Finalize the completed Style as a string.
             </summary>
             <returns>string</returns>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.ToString">
+        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.ValueBuilder.AddValue(System.String,System.Boolean)">
             <summary>
-            ToString should only and always call Build to finalize the rendered string.
+            Adds a space separated conditional value to a property.
             </summary>
+            <param name="value"></param>
+            <param name="when"></param>
             <returns></returns>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.Utilities.StyleBuilder.AddRaw(System.String)">
-            <summary>
-            Adds a raw string to the builder that will be concatenated with the next style or value added to the builder.
-            </summary>
-            <param name="style"></param>
-            <returns>StyleBuilder</returns>
         </member>
         <member name="T:System.Text.RegularExpressions.Generated.CheckRGBString_0">
             <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the CheckRGBString method.</summary>

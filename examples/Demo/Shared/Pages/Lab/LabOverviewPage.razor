@@ -1,6 +1,12 @@
 ﻿@page "/Lab/Overview"
+@page "/Lab/Overview/{*routeparameters}"
+@inject NavigationManager NavigationManager
+
 
 <h1><FluentIcon Icon="Icons.Regular.Size24.Beaker" />Incubation Lab Overview</h1>
+
+
+<p>Route: @RouteParameters </p>
 
 <p>
     The incubation lab is were we test things out. Some of the expirements might make it into the library, others are offered here to copy 
@@ -38,4 +44,18 @@
     </ul>
 </p>
 
+<h3>Route testing</h3>
+<FluentStack>
+    <FluentButton @onclick="@(() => NavigationManager.NavigateTo("/Lab/Overview/123"))" Title="Route parameter(s)">123</FluentButton>
+    <FluentButton @onclick="@(() => NavigationManager.NavigateTo("/Lab/Overview/123/456"))" Title="Route parameter(s)">123/456</FluentButton>
+</FluentStack>
+
+<p style="padding-top: 10px;">Note that when clicking these button, the 'Incubation lab' navigation menu item stays selected.</p>
+
 <DemoSection Component="typeof(IssueTester)" Title="Testbed for issues reported on GH" />
+
+@code {
+    [Parameter]
+    public string? RouteParameters { get; set; }
+
+}

@@ -1,95 +1,107 @@
-﻿/*
-    NavMenu
-*/
-.navmenu {
-    background-color: var(--neutral-layer-1);
+﻿/*  NavMenu */
+.fluent-nav-menu {
+    flex-direction: column;
+    align-items: stretch;
 }
 
-
-/*
-    NavMenu expander
-*/
-::deep .navmenu-expander::part(positioning-region) {
-    background-color: var(--neutral-fill-stealth-rest);
-}
-
-::deep .navmenu-expander::part(content-region) {
-    margin-inline-start: calc(var(--design-unit) * 2px);
+::deep .fluent-nav-item {
+    margin: calc(var(--design-unit) * 1px + 1px) 0;
     -webkit-user-select: none;
     user-select: none;
 }
 
-::deep .navmenu-expander::part(positioning-region):hover {
-    background-color: var(--neutral-fill-secondary-rest);
-}
+    /* Hover and active highlighting */
+    ::deep .fluent-nav-item .positioning-region:hover:not(:has(.disabled)) {
+        cursor: pointer;
+        background: var(--neutral-fill-secondary-rest);
+    }
 
-::deep .navmenu-expander.selected::after {
-    display: none;
-}
+    ::deep .fluent-nav-item .positioning-region:has(a.active) {
+        background: var(--neutral-fill-secondary-rest);
+    }
 
+        /* Active item indicator */
+        ::deep .fluent-nav-item .positioning-region:has(a.active)::before {
+            content: "";
+            display: block;
+            position: absolute;
+            left: 0px;
+            right: unset;
+            width: 3px;
+            height: calc(((var(--base-height-multiplier) + var(--density)) * var(--design-unit) / 2) * 1px);
+            background: var(--accent-fill-rest);
+            border-radius: calc(var(--control-corner-radius) * 1px);
+            margin: calc(var(--design-unit) * 2px) 2px;
+            z-index: 5;
+        }
 
-
-/*
-    Child Elements (Groups and Items)
-*/
-::deep .navmenu-child-element::part(content-region) {
-    -webkit-user-select: none;
-    user-select: none;
-    margin-inline-start: calc(var(--design-unit) * 2px);
-    margin-inline-end: calc(var(--design-unit) * 2px);
-}
-
-::deep .navmenu .treeitem-text, ::deep .navmenu fluent-tree-item.navmenu-child-element::part(start) {
-    pointer-events: none;
-}
-
-::deep .navmenu.collapsed .treeitem-text, ::deep .navmenu.collapsed fluent-tree-item.navmenu-child-element::part(expand-collapse-button) {
-    display: none;
-}
-
-
-
-/* 
-    Groups
-*/
-::deep .navmenu-group::part(content-region) {
-    margin-inline-end: var(--expand-collapse-button-size);
-}
-
-
-
-/*
-    Group expander
-*/
-::deep .navmenu .navmenu-group::part(expand-collapse-button) {
-    right: calc(var(--design-unit) * 2px);
+[dir='rtl'] * ::deep .fluent-nav-item .positioning-region:has(a.active)::before {
     left: unset;
-    margin-inline-end: calc(var(--expand-collapse-button-size) * -1);
+    right: 0px;
 }
 
-[dir="rtl"] * ::deep .navmenu-group::part(expand-collapse-button) {
-    left: calc(var(--design-unit) * 2px);
-    right: unset;
-    margin-inline-start: calc(var(--expand-collapse-button-size) - (var(--design-unit) * 2px));
+::deep .content-region {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    width: 100%;
+    margin-inline-start: calc(var(--design-unit) * 2px);
 }
 
-
-/*
-    Group items
-*/
-::deep .navmenu-group .navmenu-child-element::part(content-region) {
-    padding-inline-start: calc(var(--design-unit) * 2px);
+/* Nav items */
+::deep .fluent-nav-item .positioning-region {
+    display: flex;
+    position: relative;
+    box-sizing: border-box;
+    background: var(--neutral-fill-stealth-rest);
+    border: calc(var(--stroke-width) * 1px) solid transparent;
+    border-radius: calc(var(--control-corner-radius) * 1px);
+    min-height: calc(((var(--base-height-multiplier) + var(--density)) * var(--design-unit) + 1) * 1px);
 }
 
-/* Hide any items inside groups of a collapsed nav menu*/
-::deep .navmenu.collapsed > .navmenu-parent-element::part(items) {
+::deep .fluent-nav-group .fluent-nav-item:last-of-type, .fluent-nav-menu .fluent-nav-item:last-of-type {
+    margin-bottom: 0;
+}
+
+/* level indenting */
+::deep .fluent-nav-group * .fluent-nav-menu > .fluent-nav-item > .positioning-region {
+    padding-inline-start: 24px;
+}
+
+::deep .fluent-nav-group * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item > .positioning-region {
+    padding-inline-start: 48px;
+}
+
+::deep .fluent-nav-group * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item > .positioning-region {
+    padding-inline-start: 72px;
+}
+
+::deep .fluent-nav-group * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item > .positioning-region {
+    padding-inline-start: 96px;
+}
+
+::deep .fluent-nav-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* collapsed */
+::deep.collapsed .fluent-nav-text {
     display: none;
 }
 
-
-/*
-    Nav links
-*/
-::deep .navmenu .navmenu-link::part(content-region) {
-    margin-inline-start: calc(var(--design-unit) * 2px);
+::deep.collapsed .expand-collapse-button {
+    display: none;
 }
+
+::deep.collapsed .fluent-nav-group * .fluent-nav-menu > .fluent-nav-item {
+    display: none;
+}
+
+    ::deep.collapsed .fluent-nav-group * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item {
+        display: none;
+    }
+
+        ::deep.collapsed .fluent-nav-group * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item {
+            display: none;
+        }

@@ -67,7 +67,9 @@ public abstract class FluentNavMenuItemBase : FluentComponentBase, IDisposable
     public int? Width { get; set; }
 
     [CascadingParameter]
-    protected FluentNavMenu NavMenu { get; private set; } = default!;
+#pragma warning disable CS0618 // Type or member is obsolete
+    protected FluentNavMenuTree NavMenu { get; private set; } = default!;
+#pragma warning restore CS0618 // Type or member is obsolete
 
     [CascadingParameter(Name = "NavMenuExpanded")]
     protected bool NavMenuExpanded { get; private set; }
@@ -117,7 +119,7 @@ public abstract class FluentNavMenuItemBase : FluentComponentBase, IDisposable
         if (!string.IsNullOrEmpty(Href))
         {
             args.SetHandled();
-            if (NeedsNavigation())
+            if (args.ReNavigate || NeedsNavigation())
             {
                 NavigationManager.NavigateTo(Href);
             }
@@ -164,9 +166,18 @@ public abstract class FluentNavMenuItemBase : FluentComponentBase, IDisposable
 
     private bool NeedsNavigation()
     {
-        if (string.IsNullOrEmpty(Href) && Href != "/")
+        if (!string.IsNullOrEmpty(Href) && Href != "/")
         {
-            if (NavigationManager.Uri.Contains((Href + "/").Replace("//", "/"), StringComparison.InvariantCultureIgnoreCase))
+            // If the current page is the same as the Href, don't navigate
+            if (new Uri(NavigationManager.Uri).LocalPath.Equals((Href), StringComparison.InvariantCultureIgnoreCase))
+            {
+                return false;
+            }
+
+            // If the local path starts with this Href (with an added "/"), don't navigate 
+            // Example local path: https://.../Panel/Panel2 starts with Href: https://.../Panel + "/"  
+            // Extra "/" is needed to avoid a match on http://.../Panel for https://.../Panels 
+            if (new Uri(NavigationManager.Uri).LocalPath.StartsWith((Href +"/" ), StringComparison.InvariantCultureIgnoreCase))
             {
                 return false;
             }

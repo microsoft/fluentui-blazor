@@ -19,7 +19,7 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
     public string? DataList { get; set; }
 
     /// <summary>
-    /// Gets or sets the maximum lenth
+    /// Gets or sets the maximum length
     /// </summary>
     [Parameter]
     public int MaxLength { get; set; } = 14;

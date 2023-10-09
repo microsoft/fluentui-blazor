@@ -90,7 +90,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
 
     /// <summary>
     /// Gets or sets the maximum number of options (items) selected.
-    /// Exceeding this value, the user must delete some elements in order to select new ones.
+    /// Exceeding this value requires the user to delete some elements in order to select new ones.
     /// See the <see cref="MaximumSelectedOptionsMessage"/>.
     /// </summary>
     [Parameter]
@@ -116,7 +116,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
 
 
     /// <summary>
-    /// Footer content, placed at the top of the popup panel.
+    /// Header content, placed at the top of the popup panel.
     /// </summary>
     [Parameter]
     public RenderFragment<IEnumerable<TOption>>? HeaderContent { get; set; }

@@ -13,5 +13,12 @@
                  current-checked="@CurrentValue"
                  @oncheckedchange="@((e) => SetCurrentValue(e.Checked))"
                  @attributes="@AdditionalAttributes">
+    @if (!string.IsNullOrEmpty(Label) || !string.IsNullOrEmpty(AriaLabel) || LabelTemplate is not null)
+    {
+        <span aria-label="@AriaLabel">
+            @Label
+            @LabelTemplate
+        </span>    
+    }
     @ChildContent
 </fluent-checkbox>

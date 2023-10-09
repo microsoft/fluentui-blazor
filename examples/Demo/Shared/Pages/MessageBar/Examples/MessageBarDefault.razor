@@ -32,7 +32,7 @@
     {
         var message = $"Simple message #{counter++}";
         var type = Enum.GetValues<MessageIntent>()[counter % 4];
-        MessageService.ShowMessageBar(message, type, App.MESSAGES_TOP);
+        MessageService.ShowMessageBarAsync(message, type, App.MESSAGES_TOP);
     }
 
     void AddInNotificationCenter()

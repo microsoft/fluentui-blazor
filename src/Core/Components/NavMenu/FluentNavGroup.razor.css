@@ -1,0 +1,60 @@
+::deep .fluent-nav-link {
+    width: 100%;
+    color: inherit;
+    align-items: center;
+    text-decoration: none;
+    display: grid;
+    grid-template-columns: 30px auto 40px;
+}
+
+::deep .fluent-nav-icon {
+    margin-inline-end: calc(var(--design-unit) * 2px + 2px);
+    min-width: 20px;
+}
+
+::deep .fluent-nav-group.disabled {
+    color: var(--neutral-fill-secondary-rest) !important;
+    pointer-events: none;
+}
+
+    ::deep .fluent-nav-group.disabled .fluent-nav-icon {
+        fill: var(--neutral-stroke-rest) !important;
+    }
+
+
+/* Group expand/collapse */
+::deep .expand-collapse-button {
+    position: absolute;
+    right: calc(var(--design-unit) * 2px);
+    left: unset;
+    border-radius: calc(var(--control-corner-radius) * 1px);
+    width: calc((((var(--base-height-multiplier) / 2) * var(--design-unit)) + ((var(--design-unit) * var(--density)) / 2) + (var(--design-unit) * 2)) * 1px);
+    height: calc((((var(--base-height-multiplier) / 2) * var(--design-unit)) + ((var(--design-unit) * var(--density)) / 2) + (var(--design-unit) * 2)) * 1px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+[dir="rtl"] * .expand-collapse-button {
+    position: absolute;
+    left: calc(var(--design-unit) * 2px);
+    right: unset;
+}
+
+::deep .expand-collapse-button:hover {
+    background: var(--tree-item-expand-collapse-hover)
+}
+
+::deep .expand-collapse-button svg {
+    transition: transform 0.1s linear 0s;
+    pointer-events: none;
+}
+
+[dir="rtl"] * ::deep .expand-collapse-button svg {
+    transform: rotate(180deg);
+}
+
+::deep .rotate.expand-collapse-button svg {
+    transform: rotate(90deg);
+}

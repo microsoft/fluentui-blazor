@@ -83,19 +83,29 @@ public partial class FluentMessageBarContainer : FluentComponentBase, IDisposabl
     /// <summary />
     protected override void OnInitialized()
     {
-        MessageService.OnMessageItemsUpdated += OnAlertUpdateHandler;
+        MessageService.OnMessageItemsUpdated += OnMessageItemsUpdatedHandler;
+        MessageService.OnMessageItemsUpdatedAsync += OnMessageItemsUpdatedHandlerAsync;
         base.OnInitialized();
     }
 
     /// <summary />
-    protected virtual void OnAlertUpdateHandler()
+    protected virtual void OnMessageItemsUpdatedHandler()
     {
         InvokeAsync(StateHasChanged); 
+    }
+
+    protected async virtual Task OnMessageItemsUpdatedHandlerAsync()
+    {
+        await Task.Run(() =>
+        {
+            InvokeAsync(StateHasChanged);
+        });
     }
 
     /// <summary />
     public void Dispose()
     {
-        MessageService.OnMessageItemsUpdated -= OnAlertUpdateHandler;
+        MessageService.OnMessageItemsUpdated -= OnMessageItemsUpdatedHandler;
+        MessageService.OnMessageItemsUpdatedAsync -= OnMessageItemsUpdatedHandlerAsync;
     }
 }

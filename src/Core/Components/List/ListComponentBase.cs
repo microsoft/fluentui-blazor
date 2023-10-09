@@ -43,7 +43,7 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
 
                     Value = value;
                     // Raise Changed events in another thread
-                    Task.Run(() => RaiseChangedEventsAsync());
+                    RaiseChangedEventsAsync().ConfigureAwait(false);
                 }
             }
         }
@@ -62,9 +62,28 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
     public string? Height { get; set; }
 
     /// <summary>
+    /// Text displayed just above the component
+    /// </summary>
+    [Parameter]
+    public string? Label { get; set; }
+
+    /// <summary>
+    /// Content displayed just above the component
+    /// </summary>
+    [Parameter]
+    public RenderFragment? LabelTemplate { get; set; }
+
+    /// <summary>
     /// Text used on aria-label attribute.
     /// </summary>
     [Parameter]
+    public virtual string? AriaLabel { get; set; }
+
+    /// <summary>
+    /// Text used on aria-label attribute.
+    /// </summary>
+    [Parameter]
+    [Obsolete("Use AriaLabel instead")]
     public virtual string? Title { get; set; }
 
     /// <summary>
@@ -187,28 +206,6 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
             _multiple = Multiple;
         }
 
-        if (Multiple)
-        {
-            if (SelectedOptions != null && _selectedOptions != SelectedOptions)
-            {
-                _selectedOptions = new List<TOption>(SelectedOptions);
-            }
-
-            if (SelectedOptions == null && Items != null && OptionSelected != null)
-            {
-                _selectedOptions.AddRange(Items.Where(item => OptionSelected.Invoke(item) && !_selectedOptions.Contains(item)));
-                InternalValue = GetOptionValue(_selectedOptions.FirstOrDefault());
-            }
-        }
-        else
-        {
-            if (SelectedOption == null && Items != null && OptionSelected != null)
-            {
-                TOption? item = Items.FirstOrDefault(i => OptionSelected.Invoke(i));
-                InternalValue = GetOptionValue(item);
-            }
-        }
-
         if (!string.IsNullOrEmpty(Height) && string.IsNullOrEmpty(Id))
         {
             Id = Identifier.NewId();
@@ -231,9 +228,29 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
             InternalValue = Value;
         }
 
+        if (Multiple)
+        {
+            if (SelectedOptions != null && _selectedOptions != SelectedOptions)
+            {
+                _selectedOptions = new List<TOption>(SelectedOptions);
+            }
 
+            if (SelectedOptions == null && Items != null && OptionSelected != null)
+            {
+                _selectedOptions.AddRange(Items.Where(item => OptionSelected.Invoke(item) && !_selectedOptions.Contains(item)));
+                InternalValue = GetOptionValue(_selectedOptions.FirstOrDefault());
+            }
+        }
+        else
+        {
+            if (SelectedOption == null && Items != null && OptionSelected != null)
+            {
+                TOption? item = Items.FirstOrDefault(i => OptionSelected.Invoke(i));
+                InternalValue = GetOptionValue(item);
+            }
+        }
 
-        base.OnParametersSet();
+       
     }
 
     /// <summary />
@@ -252,7 +269,7 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
             {
                 return false;
             }
-            else if (OptionSelected != null)
+            else if (OptionSelected != null && _selectedOptions.Contains(item))
             {
                 return OptionSelected.Invoke(item);
             }
@@ -343,7 +360,10 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
                 AddSelectedItem(item);
                 await RaiseChangedEventsAsync();
             }
-
+            if (!Equals(item, SelectedOption))
+            {
+                SelectedOption = item;
+            }
         }
         else
         {
@@ -371,13 +391,11 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
             {
                 await SelectedOptionChanged.InvokeAsync(SelectedOption);
             }
-
-            if (ValueChanged.HasDelegate)
-            {
-                await ValueChanged.InvokeAsync(InternalValue);
-            }
         }
-
+        if (ValueChanged.HasDelegate)
+        {
+            await ValueChanged.InvokeAsync(InternalValue);         
+        }
         StateHasChanged();
     }
 
@@ -421,7 +439,7 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
                     }));
 
                     // Needed in fluent-listbox and fluent-select with mutliple select enabled
-                    if (this is FluentListbox<TOption> || 
+                    if (this is FluentListbox<TOption> ||
                        (this is FluentSelect<TOption> && Multiple) ||
                        (this is FluentAutocomplete<TOption> && Multiple))
                     {
@@ -485,5 +503,13 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
             return;
 
         _selectedOptions.Add(item);
+    }
+
+    /// <summary />
+    protected internal string? GetAriaLabel()
+    {
+#pragma warning disable CS0618 // Type or member is obsolete
+        return string.IsNullOrEmpty(AriaLabel) ? Title : AriaLabel;
+#pragma warning restore CS0618 // Type or member is obsolete
     }
 }

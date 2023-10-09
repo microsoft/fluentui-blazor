@@ -18,6 +18,24 @@ variables:
       **/FluentUI.Demo.Client.csproj
 
 steps:
+  - powershell: |
+      $builds = "$(Build.BuildNumber)".Split('.')
+      $stage = "$(VersionStage)"
+      $stageId = "$(VersionStageId)"
+      
+      if ("$stageId" -eq "")
+      {
+        $package = "$($builds[0]).$($builds[1]).$($builds[2]).$($builds[3]).$($builds[4])"
+      }
+      else
+      {
+        $package = "$($builds[0]).$($builds[1]).$($builds[2])-$($stage).$($stageId).$($builds[3]).$($builds[4])"
+      }
+      
+      # Set the output variable for use in other tasks.
+      Write-Host "##vso[task.setvariable variable=VersionPackage]${package}"
+    displayName: Compute VersionPackage
+  
   - task: NuGetToolInstaller@1
     displayName: Install NuGet tools
 
@@ -26,7 +44,7 @@ steps:
     inputs:
       version: 8.0.x
       includePreviewVersions: true
-  
+
   # Set version number
   - task: Assembly-Info-NetCore@3
     displayName: 'Versioning $(Build.BuildNumber)'
@@ -39,7 +57,7 @@ steps:
       VersionNumber: '$(Build.BuildNumber)'
       FileVersionNumber: '$(Build.BuildNumber)'
       InformationalVersion: '$(Build.BuildNumber)'
-      PackageVersion: '$(Build.BuildNumber)'
+      PackageVersion: '$(VersionPackage)'
       LogLevel: 'verbose'
       FailOnWarning: false
       DisableTelemetry: false

@@ -12,12 +12,12 @@
 
 <h4>Disabled</h4>
 <FluentNumberField @bind-Value=value5 Disabled="true"></FluentNumberField>
-<FluentNumberField @bind-Value=value6 Disabled="true">label</FluentNumberField>
+<FluentNumberField @bind-Value=value6 Disabled="true" Label="label"></FluentNumberField>
 <FluentNumberField @bind-Value=value7 Disabled="true" Placeholder="placeholder"></FluentNumberField>
 
 <h4>Read only</h4>
 <FluentNumberField @bind-Value=value8 Readonly="true"></FluentNumberField>
-<FluentNumberField @bind-Value=value9 Readonly="true">label</FluentNumberField>
+<FluentNumberField @bind-Value=value9 Readonly="true" Label="label"></FluentNumberField>
 
 @code {
     int? value1, value2, value3, value4, value5, value6, value7, value8=1, value9=2;

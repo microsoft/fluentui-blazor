@@ -9,6 +9,7 @@
 }
 <CascadingValue Value="@_internalListContext" Name="ListContext" TValue="InternalListContext<TOption>" IsFixed="true">
     <div style="@BorderStyle.Build()">
+        <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" ChildContent="@LabelTemplate" />
         <fluent-listbox @ref="Element"
                         id="@Id"
                         class="@ClassValue"
@@ -17,7 +18,6 @@
                         size="@Size"
                         multiple="@Multiple"
                         selectedOptions="@(SelectedOptions != null && SelectedOptions.Any() ? string.Join(',', SelectedOptions.Select(i => GetOptionValue(i))) : null)"
-                        aria-label="@(!string.IsNullOrWhiteSpace(Title) ? Title : "")"
                         @onchange="@OnChangedHandlerAsync"
                         @attributes="AdditionalAttributes">
             @GetListOptions(Items)
