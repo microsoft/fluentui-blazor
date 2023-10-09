@@ -1,5 +1,17 @@
 ﻿## V3.2.0
-- New NavMenu, NavGroup and NavLink components. **Breaking change** -  See the [Upgrade guide](https://www.fluentui-blazor.net/UpgradeGuide) for details. See [NavMenu](https://www.fluentui-blazor.net/NavMenu) page for examples.
+- New NavMenu, NavGroup and NavLink components. **Breaking change** - See the [Upgrade guide](https://www.fluentui-blazor.net/UpgradeGuide) for details. See [NavMenu](https://www.fluentui-blazor.net/NavMenu) page for examples.
+- New FluentInputLabel component. 
+- FluentCard: Add AreaRestricted parameter to allow content to break out of card area.
+- Provide error message when FluentDialogProvider missing
+- Fix [#796](https://github.com/microsoft/fluentui-blazor/pull/796): Fix IconColor doc page
+- Fix [#797](https://github.com/microsoft/fluentui-blazor/pull/797): Fix MessageBar issues
+- Fix [#805](https://github.com/microsoft/fluentui-blazor/pull/805): InlineStyleBuilder on .NET6
+- Fix [#810](https://github.com/microsoft/fluentui-blazor/pull/810): FluentDataGrid error if page is quickly exited
+- Fix [#815](https://github.com/microsoft/fluentui-blazor/pull/815): Manual upload on iOS
+- Fix [#828](https://github.com/microsoft/fluentui-blazor/pull/828): FluentSelect: Fix ValueChanged fired twice
+- Fix [#801](https://github.com/microsoft/fluentui-blazor/pull/801): Remove direct call to Items.Count()
+- Fix [#834](https://github.com/microsoft/fluentui-blazor/pull/834): Chinese abbreviated day name in FluentCalendar
+- Fix [#836](https://github.com/microsoft/fluentui-blazor/pull/836): Setting SelectedOptions does not update FluentSelct
 
 ## V3.1.1
 - Fix [#776](https://github.com/microsoft/fluentui-blazor/issues/776): Icon throws exception when deployed to Azure
