@@ -1,4 +1,4 @@
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// A callback that provides data for a <see cref="FluentDataGrid{TGridItem}"/>.

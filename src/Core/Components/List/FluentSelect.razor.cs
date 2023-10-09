@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components;
-using Microsoft.Fast.Components.FluentUI.Utilities;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 [CascadingTypeParameter(nameof(TOption))]
 public partial class FluentSelect<TOption> : ListComponentBase<TOption>
@@ -24,13 +24,13 @@ public partial class FluentSelect<TOption> : ListComponentBase<TOption>
 
     /// <summary>
     /// Reflects the placement for the listbox when the select is open.
-    /// See <see cref="FluentUI.SelectPosition"/>
+    /// See <see cref="AspNetCore.Components.SelectPosition"/>
     /// </summary>
     [Parameter]
     public SelectPosition? Position { get; set; }
 
     /// <summary>
-    /// Gets or sets the visual appearance. See <seealso cref="FluentUI.Appearance"/>
+    /// Gets or sets the visual appearance. See <seealso cref="AspNetCore.Components.Appearance"/>
     /// </summary>
     [Parameter]
     public Appearance? Appearance { get; set; }

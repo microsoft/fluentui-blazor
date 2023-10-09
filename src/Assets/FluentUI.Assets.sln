@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.33808.371
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Fast.Components.FluentUI.Icons", "FluentUI.Icons\Microsoft.Fast.Components.FluentUI.Icons.csproj", "{DC366683-C48A-4506-9CB1-7C2AFEF5E35A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.FluentUI.AspNetCore.Components.Icons", "FluentUI.Icons\Microsoft.FluentUI.AspNetCore.Components.Icons.csproj", "{DC366683-C48A-4506-9CB1-7C2AFEF5E35A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Fast.Components.FluentUI.AssetsGenerator", "Generator\Microsoft.Fast.Components.FluentUI.AssetsGenerator.csproj", "{09CF3927-40A3-4138-9B07-8CD2BB18B005}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.FluentUI.AspNetCore.Components.AssetsGenerator", "Generator\Microsoft.FluentUI.AspNetCore.Components.AssetsGenerator.csproj", "{09CF3927-40A3-4138-9B07-8CD2BB18B005}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Fast.Components.FluentUI.AssetsSample", "Sample\Microsoft.Fast.Components.FluentUI.AssetsSample.csproj", "{DCA944C6-0EFF-44A5-8D9A-CCAFA83D5CCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.FluentUI.AspNetCore.Components.AssetsSample", "Sample\Microsoft.FluentUI.AspNetCore.Components.AssetsSample.csproj", "{DCA944C6-0EFF-44A5-8D9A-CCAFA83D5CCE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Fast.Components.FluentUI.Emojis", "FluentUI.Emojis\Microsoft.Fast.Components.FluentUI.Emojis.csproj", "{9F88D6E5-6D3B-4EBA-8009-2D496A3F918C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.FluentUI.AspNetCore.Components.Emojis", "FluentUI.Emojis\Microsoft.FluentUI.AspNetCore.Components.Emojis.csproj", "{9F88D6E5-6D3B-4EBA-8009-2D496A3F918C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace Microsoft.Fast.Components.FluentUI.Components.Tooltip;
+namespace Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip;
 
 /// <summary>
 /// Options for a tooltip.
@@ -34,7 +34,7 @@ public class TooltipOptions
     public int? Delay { get; set; } = TooltipGlobalOptions.DefaultDelay;
 
     /// <summary>
-    /// Gets or sets the tooltip's position. See <see cref="FluentUI.TooltipPosition"/>
+    /// Gets or sets the tooltip's position. See <see cref="TooltipPosition"/>
     /// </summary>
     [Parameter]
     public TooltipPosition? Position { get; set; }

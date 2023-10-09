@@ -1,6 +1,6 @@
 using System.ComponentModel;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// Describes alignment for a <see cref="FluentDataGrid{TGridItem}"/> column, <see cref="FluentOverlay"/> content, etc.

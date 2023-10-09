@@ -2,7 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentHorizontalScroll : FluentComponentBase, IAsyncDisposable
 {
@@ -34,7 +34,7 @@ public partial class FluentHorizontalScroll : FluentComponentBase, IAsyncDisposa
     /// View: default | mobile
     /// </summary>
     [Parameter]
-    public HorizontalScrollView? View { get; set; } = FluentUI.HorizontalScrollView.Default;
+    public HorizontalScrollView? View { get; set; } = AspNetCore.Components.HorizontalScrollView.Default;
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
@@ -57,7 +57,7 @@ public partial class FluentHorizontalScroll : FluentComponentBase, IAsyncDisposa
     {
         if (firstRender)
         {
-            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Microsoft.Fast.Components.FluentUI/Components/HorizontalScroll/FluentHorizontalScroll.razor.js");
+            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Microsoft.FluentUI.AspNetCore.Components./Components/HorizontalScroll/FluentHorizontalScroll.razor.js");
         }
     }
 

@@ -14,4 +14,4 @@ extends:
   template: common/template-to-build-projects.yml
   parameters:
       Projects: |
-       **/Microsoft.Fast.Components.FluentUI.Icons.csproj
+       **/Microsoft.FluentUI.AspNetCore.Components.Icons.csproj

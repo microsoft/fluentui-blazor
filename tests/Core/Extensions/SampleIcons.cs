@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Fast.Components.FluentUI.Tests.Extensions;
+﻿namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions;
 
 public static class SampleIcons
 {

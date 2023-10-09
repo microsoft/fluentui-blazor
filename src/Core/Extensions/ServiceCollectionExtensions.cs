@@ -1,10 +1,10 @@
 ﻿using System.Runtime.Versioning;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Fast.Components.FluentUI.Components.Tooltip;
-using Microsoft.Fast.Components.FluentUI.DesignTokens;
-using Microsoft.Fast.Components.FluentUI.Infrastructure;
+using Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip;
+using Microsoft.FluentUI.AspNetCore.Components.DesignTokens;
+using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public static class ServiceCollectionExtensions
 {

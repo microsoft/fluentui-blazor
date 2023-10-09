@@ -1,8 +1,8 @@
-using FluentUI.Demo.Shared;
-using FluentUI.Demo.Shared.SampleData;
+using AspNetCore.Components.Demo.Shared;
+using AspNetCore.Components.Demo.Shared.SampleData;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Fast.Components.FluentUI;
+using Microsoft.FluentUI.AspNetCore.Components;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");

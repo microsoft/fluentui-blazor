@@ -6,7 +6,7 @@ using Bunit.Rendering;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests;
 
 /* Add this configuration in Unit Tests .csproj file.
    to display all .verified and .received json files under the test class.

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Components.Routing;
 
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentToastContainer
 {

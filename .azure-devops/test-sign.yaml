@@ -14,7 +14,7 @@ parameters:
 - name: Projects		# List of projects to build
   type: string
   default: |
-    **/Microsoft.Fast.Components.FluentUI.Emojis.csproj
+    **/Microsoft.FluentUI.AspNetCore.Components.Emojis.csproj
 
 variables:
 - group: Versioning # These variables are in Azure DevOps / Pipelines / Library

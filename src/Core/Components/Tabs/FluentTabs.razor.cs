@@ -1,10 +1,10 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Fast.Components.FluentUI.Utilities;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentTabs : FluentComponentBase
 {
@@ -40,7 +40,7 @@ public partial class FluentTabs : FluentComponentBase
     private IJSRuntime JSRuntime { get; set; } = default!;
 
     /// <summary>
-    /// Gets or sets the tab's orentation. See <see cref="FluentUI.Orientation"/>
+    /// Gets or sets the tab's orentation. See <see cref="AspNetCore.Components.Orientation"/>
     /// </summary>
     [Parameter]
     public Orientation Orientation { get; set; } = Orientation.Horizontal;
@@ -146,7 +146,7 @@ public partial class FluentTabs : FluentComponentBase
             _dotNetHelper = DotNetObjectReference.Create(this);
             // Overflow
             _jsModuleOverflow = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-                "./_content/Microsoft.Fast.Components.FluentUI/Components/Overflow/FluentOverflow.razor.js");
+                "./_content/Microsoft.FluentUI.AspNetCore.Components./Components/Overflow/FluentOverflow.razor.js");
 
             bool horizontal = Orientation == Orientation.Horizontal;
             await _jsModuleOverflow.InvokeVoidAsync("FluentOverflowInitialize", _dotNetHelper, Id, horizontal, FLUENT_TAB_TAG);
@@ -241,7 +241,7 @@ public partial class FluentTabs : FluentComponentBase
     /// <summary />
     private async Task ResizeTabsForOverflowButtonAsync()
     {
-        bool horizontal = Orientation == FluentUI.Orientation.Horizontal;
+        bool horizontal = Orientation == Orientation.Horizontal;
         await _jsModuleOverflow.InvokeVoidAsync("FluentOverflowResized", _dotNetHelper, Id, horizontal, FLUENT_TAB_TAG);
     }
 

@@ -1,8 +1,8 @@
 using System.Net.Http.Headers;
 using System.Net;
-using FluentUI.Demo.Shared.SampleData;
+using AspNetCore.Components.Demo.Shared.SampleData;
 using Microsoft.AspNetCore.Hosting.StaticWebAssets;
-using Microsoft.Fast.Components.FluentUI;
+using Microsoft.FluentUI.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);

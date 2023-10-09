@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentAnchor : FluentComponentBase, IAsyncDisposable
 {
@@ -68,7 +68,7 @@ public partial class FluentAnchor : FluentComponentBase, IAsyncDisposable
     /// Defaults to <seealso cref="Appearance.Neutral"/>
     /// </summary>
     [Parameter]
-    public Appearance? Appearance { get; set; } = FluentUI.Appearance.Neutral;
+    public Appearance? Appearance { get; set; } = AspNetCore.Components.Appearance.Neutral;
 
     /// <summary>
     /// <see cref="Icon"/> displayed at the start of anchor content.
@@ -119,7 +119,7 @@ public partial class FluentAnchor : FluentComponentBase, IAsyncDisposable
         if (firstRender)
         {
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-                "./_content/Microsoft.Fast.Components.FluentUI/Components/Anchor/FluentAnchor.razor.js");
+                "./_content/Microsoft.FluentUI.AspNetCore.Components./Components/Anchor/FluentAnchor.razor.js");
         }
     }
 

@@ -1,3 +1,0 @@
-﻿body:has(.prevent-scroll) {
-    overflow: hidden;
-}

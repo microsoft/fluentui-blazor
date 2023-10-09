@@ -3,13 +3,13 @@ using System.Globalization;
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.Fast.Components.FluentUI.Utilities;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// A base class for fluent ui form input components. This base class automatically
-/// integrates with an <see cref="AspNetCore.Components.Forms.EditContext"/>, which must be supplied
+/// integrates with an <see cref="Microsoft.AspNetCore.Components.Forms.EditContext"/>, which must be supplied
 /// as a cascading parameter.
 /// </summary>
 public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDisposable
@@ -120,7 +120,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     public virtual string? Placeholder { get; set; }
 
     /// <summary>
-    /// Gets the associated <see cref="AspNetCore.Components.Forms.EditContext"/>.
+    /// Gets the associated <see cref="Microsoft.AspNetCore.Components.Forms.EditContext"/>.
     /// This property is uninitialized if the input does not have a parent <see cref="EditForm"/>.
     /// </summary>
     protected EditContext EditContext { get; set; } = default!;
@@ -318,7 +318,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
             // handlers for the previous one, and there's no strong use case. If a strong use case
             // emerges, we can consider changing this.
             throw new InvalidOperationException($"{GetType()} does not support changing the " +
-                $"{nameof(AspNetCore.Components.Forms.EditContext)} dynamically.");
+                $"{nameof(Microsoft.AspNetCore.Components.Forms.EditContext)} dynamically.");
         }
 
         UpdateAdditionalValidationAttributes();

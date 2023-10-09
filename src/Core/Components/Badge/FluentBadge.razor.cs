@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.Fast.Components.FluentUI.Utilities;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentBadge : FluentComponentBase
 {
     public FluentBadge()
@@ -50,11 +50,11 @@ public partial class FluentBadge : FluentComponentBase
     public bool Circular { get; set; } = false;
 
     /// <summary>
-    /// Gets or sets the visual appearance. See <seealso cref="FluentUI.Appearance"/>
+    /// Gets or sets the visual appearance. See <seealso cref="AspNetCore.Components.Appearance"/>
     /// Possible values are Accent, Neutral (default) or Lightweight
     /// </summary>
     [Parameter]
-    public Appearance? Appearance { get; set; } = FluentUI.Appearance.Neutral;
+    public Appearance? Appearance { get; set; } = AspNetCore.Components.Appearance.Neutral;
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
@@ -101,9 +101,9 @@ public partial class FluentBadge : FluentComponentBase
 
     protected override void OnParametersSet()
     {
-        if (Appearance != FluentUI.Appearance.Accent &&
-            Appearance != FluentUI.Appearance.Lightweight &&
-            Appearance != FluentUI.Appearance.Neutral)
+        if (Appearance != AspNetCore.Components.Appearance.Accent &&
+            Appearance != AspNetCore.Components.Appearance.Lightweight &&
+            Appearance != AspNetCore.Components.Appearance.Neutral)
         {
             throw new ArgumentException("FluentBadge Appearance needs to be one of Accent, Lightweight or Neutral.");
         }

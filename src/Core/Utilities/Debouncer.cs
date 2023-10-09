@@ -1,6 +1,6 @@
 ﻿using Timer = System.Timers.Timer;
 
-namespace Microsoft.Fast.Components.FluentUI.Utilities;
+namespace Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 internal sealed class Debouncer : IDisposable
 {

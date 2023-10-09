@@ -2,13 +2,13 @@
 using System.Reflection.Metadata;
 using System.Xml.Linq;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
 public static partial class Icons
 {
-    private const string Namespace = "Microsoft.Fast.Components.FluentUI";
-    private const string LibraryName = "Microsoft.Fast.Components.FluentUI.Icons.dll";
+    private const string Namespace = "Microsoft.FluentUI.AspNetCore.Components";
+    private const string LibraryName = "Microsoft.FluentUI.AspNetCore.Components.Icons.dll";
 
     /// <summary>
     /// Returns a new instance of the icon.

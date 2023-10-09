@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentFlipper : FluentComponentBase
 {
@@ -17,7 +17,7 @@ public partial class FluentFlipper : FluentComponentBase
     public bool? AriaHidden { get; set; }
 
     /// <summary>
-    /// Gets or sets the direction. See <see cref="FluentUI.FlipperDirection"/>
+    /// Gets or sets the direction. See <see cref="AspNetCore.Components.FlipperDirection"/>
     /// </summary>
 
     [Parameter]

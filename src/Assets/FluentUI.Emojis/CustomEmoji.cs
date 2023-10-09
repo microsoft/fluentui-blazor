@@ -1,7 +1,7 @@
 ﻿using System.IO.Compression;
 using System.Text;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// Custom emoji loaded from <see cref="Emojis.GetInstance(Microsoft.Fast.Components.FluentUI.EmojiInfo)"/>

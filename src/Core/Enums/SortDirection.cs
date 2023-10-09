@@ -1,4 +1,4 @@
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// Describes the direction in which a <see cref="FluentDataGrid{TGridItem}"/> column is sorted.

@@ -1,15 +1,15 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.Fast.Components.FluentUI.Utilities;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
 public partial class FluentCodeEditor : FluentComponentBase, IAsyncDisposable
 {
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.Fast.Components.FluentUI/Components/CodeEditor/FluentCodeEditor.razor.js";
-    private const string MONACO_VS_PATH = "./_content/Microsoft.Fast.Components.FluentUI/lib/monaco-editor/min/vs";
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components./Components/CodeEditor/FluentCodeEditor.razor.js";
+    private const string MONACO_VS_PATH = "./_content/Microsoft.FluentUI.AspNetCore.Components./lib/monaco-editor/min/vs";
 
     private DotNetObjectReference<FluentCodeEditor>? _dotNetHelper = null;
     private string _value = """

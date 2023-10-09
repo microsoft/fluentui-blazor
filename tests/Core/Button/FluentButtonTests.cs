@@ -1,9 +1,9 @@
 using Bunit;
 using FluentAssertions;
-using Microsoft.Fast.Components.FluentUI.Tests.Extensions;
+using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Button;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Button;
 
 public class FluentButtonTests : TestBase
 {

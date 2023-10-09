@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using Microsoft.Extensions.Configuration;
 
-namespace Microsoft.Fast.Components.FluentUI.AssetsGenerator;
+namespace Microsoft.FluentUI.AspNetCore.Components.AssetsGenerator;
 
 /// <summary>
 /// Configuration for the generator.

@@ -2,7 +2,7 @@ using Bunit;
 using FluentAssertions;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Badge;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Badge;
 
 public class FluentBadgeTests : TestBase
 {

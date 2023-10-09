@@ -1,4 +1,4 @@
-@namespace Microsoft.Fast.Components.FluentUI
+@namespace Microsoft.FluentUI.AspNetCore.Components
 @using Microsoft.AspNetCore.Components.Rendering;
 @inherits FluentComponentBase
 
@@ -55,7 +55,7 @@ else
         }
         else
         {
-            <FluentIcon Value="@(IconStart.InverseColor(Appearance == FluentUI.Appearance.Accent))"
+            <FluentIcon Value="@(IconStart.InverseColor(Appearance == AspNetCore.Components.Appearance.Accent))"
                         Slot="@(ChildContent != null ? "start" : null)" />
         }
     }
@@ -68,7 +68,7 @@ else
         }
         else
         {
-            <FluentIcon Value="@(IconEnd.InverseColor(Appearance == FluentUI.Appearance.Accent))"
+            <FluentIcon Value="@(IconEnd.InverseColor(Appearance == AspNetCore.Components.Appearance.Accent))"
                         Slot="@(ChildContent != null ? "end" : null)" />
         }
     }

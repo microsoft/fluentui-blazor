@@ -3,8 +3,8 @@ using FluentUI.Demo.Shared.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.Fast.Components.FluentUI;
-using Microsoft.Fast.Components.FluentUI.DesignTokens;
+using Microsoft.FluentUI.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.DesignTokens;
 using Microsoft.JSInterop;
 
 namespace FluentUI.Demo.Shared;
@@ -70,7 +70,7 @@ public partial class DemoMainLayout : IAsyncDisposable
             GlobalState.SetContainer(container);
 
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-                 "./_content/FluentUI.Demo.Shared/Shared/DemoMainLayout.razor.js");
+                 "./_content/AspNetCore.Components.Demo.Shared/Shared/DemoMainLayout.razor.js");
 
             _mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
 

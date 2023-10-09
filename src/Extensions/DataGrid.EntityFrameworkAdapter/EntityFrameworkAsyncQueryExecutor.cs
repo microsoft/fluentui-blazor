@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
-using Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
+using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 
-namespace Microsoft.Fast.Components.FluentUI.DataGrid.EntityFrameworkAdapter;
+namespace Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter;
 
 internal class EntityFrameworkAsyncQueryExecutor : IAsyncQueryExecutor
 {

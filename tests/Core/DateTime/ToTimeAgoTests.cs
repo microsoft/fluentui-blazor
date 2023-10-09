@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.DateTime;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.DateTime;
 
 public class ToTimeAgoTests : TestBase
 {

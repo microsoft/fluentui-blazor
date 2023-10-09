@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
-using Microsoft.Fast.Components.FluentUI;
+using Microsoft.FluentUI.AspNetCore.Components;
 using Microsoft.JSInterop;
 
 // Remember to replace the namespace below with your own project's namespace.
@@ -80,7 +80,7 @@ public partial class TableOfContents : IAsyncDisposable
         {
             // Remember to replace the location of the script with your own project specific location.
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-            "./_content/FluentUI.Demo.Shared/Components/TableOfContents.razor.js");
+            "./_content/AspNetCore.Components.Demo.Shared/Components/TableOfContents.razor.js");
             bool mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
 
             if (mobile)

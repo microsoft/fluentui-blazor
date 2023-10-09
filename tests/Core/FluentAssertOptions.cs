@@ -2,7 +2,7 @@
 using AngleSharp.Diffing.Core;
 using AngleSharp.Dom;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests;
 
 public class FluentAssertOptions
 {

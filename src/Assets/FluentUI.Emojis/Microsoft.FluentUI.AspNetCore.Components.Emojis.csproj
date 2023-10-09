@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<PropertyGroup>
+		<TargetFrameworks>net6.0</TargetFrameworks>
+		<LangVersion>latest</LangVersion>
+		<PackageId>Microsoft.FluentUI.AspNetCore.Components.Emojis</PackageId>
+		<AssemblyName>Microsoft.FluentUI.AspNetCore.Components.Emojis</AssemblyName>
+		<RootNamespace>Microsoft.FluentUI.AspNetCore.Components.Emojis</RootNamespace>
+		<Nullable>enable</Nullable>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<IsTrimmable>true</IsTrimmable>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+
+		<PackageId>Microsoft.FluentUI.AspNetCore.Components.Emojis</PackageId>
+		<Summary>A Blazor wrapper library for the official Microsoft Fluent UI Emoji set.</Summary>
+		<PackageTags>Emoji, Fluent UI, FAST, Blazor, .NET6, .NET7, .NET8</PackageTags>
+		<Title>A Blazor wrapper library for the official Microsoft Fluent UI Emoji set.</Title>
+		<Description>A Blazor wrapper library for the official Microsoft Fluent UI Emoji set.</Description>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageIcon>icon.png</PackageIcon>
+
+		<PackageOutputPath>..\..\..\artifacts</PackageOutputPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="README.md" Pack="true" PackagePath="\" />
+		<None Include="..\..\..\icon.png" Pack="true" PackagePath="\" />
+		<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.*-*" />
+	</ItemGroup>
+
+</Project>

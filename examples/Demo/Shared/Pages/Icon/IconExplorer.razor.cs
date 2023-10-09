@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.Fast.Components.FluentUI;
+using Microsoft.FluentUI.AspNetCore.Components;
 using Microsoft.JSInterop;
 
 namespace FluentUI.Demo.Shared.Pages.Icon;
@@ -24,7 +24,7 @@ public partial class IconExplorer
         if (firstRender)
         {
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-                 "./_content/FluentUI.Demo.Shared/Pages/Icon/IconExplorer.razor.js");
+                 "./_content/AspNetCore.Components.Demo.Shared/Pages/Icon/IconExplorer.razor.js");
         }
     }
 

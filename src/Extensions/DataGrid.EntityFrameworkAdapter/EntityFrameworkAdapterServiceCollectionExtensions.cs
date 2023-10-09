@@ -1,5 +1,5 @@
-using Microsoft.Fast.Components.FluentUI.DataGrid.EntityFrameworkAdapter;
-using Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
+using Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter;
+using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 
 namespace Microsoft.Extensions.DependencyInjection;
 

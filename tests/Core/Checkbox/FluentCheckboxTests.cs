@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Checkbox;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Checkbox;
 
 public class FluentCheckboxTests : TestBase
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.List;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.List;
 
 public class FluentPersonaTests : TestBase
 {

@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using Microsoft.AspNetCore.Components;
 
-namespace Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
+namespace Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 
 // One awkwardness of the way FluentDataGrid collects its list of child columns is that, during OnParametersSetAsync,
 // it only knows about the set of columns that were present on the *previous* render. If it's going to trigger a
@@ -31,7 +31,7 @@ namespace Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
 /// </summary>
 /// <typeparam name="TGridItem">For internal use only. Do not use.</typeparam>
 [EditorBrowsable(EditorBrowsableState.Never)]
-public sealed class ColumnsCollectedNotifier<TGridItem> : AspNetCore.Components.IComponent
+public sealed class ColumnsCollectedNotifier<TGridItem> : Microsoft.AspNetCore.Components.IComponent
 {
     private bool _isFirstRender = true;
 

@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<PropertyGroup>
+		<TargetFrameworks>net6.0</TargetFrameworks>
+		<LangVersion>latest</LangVersion>
+		<AssemblyName>Microsoft.FluentUI.AspNetCore.Components.Icons</AssemblyName>
+		<RootNamespace>Microsoft.FluentUI.AspNetCore.Components.Icons</RootNamespace>
+		<Nullable>enable</Nullable>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<IsTrimmable>true</IsTrimmable>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+
+		<PackageId>Microsoft.FluentUI.AspNetCore.Components.Icons</PackageId>
+		<Summary>A set of icons wrapping Microsoft’s official Fluent UI Icon library.</Summary>
+		<PackageTags>Icons, Fluent UI, FAST, Blazor, .NET6, .NET7, .NET8</PackageTags>
+		<Title>A set of icons wrapping Microsoft’s official Fluent UI Icon library.</Title>
+		<Description>A set of icons wrapping Microsoft’s official Fluent UI Icon library.</Description>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageIcon>icon.png</PackageIcon>
+
+		<PackageOutputPath>..\..\..\artifacts</PackageOutputPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="README.md" Pack="true" PackagePath="\" />
+		<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.*-*" />
+		<None Include="..\..\..\icon.png" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Icons\" />
+	</ItemGroup>
+
+</Project>

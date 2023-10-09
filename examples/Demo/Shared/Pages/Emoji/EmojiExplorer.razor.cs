@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.Fast.Components.FluentUI;
+using Microsoft.FluentUI.AspNetCore.Components;
 using Microsoft.JSInterop;
 
 namespace FluentUI.Demo.Shared.Pages.Emoji;
@@ -21,7 +21,7 @@ public partial class EmojiExplorer
         if (firstRender)
         {
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-                 "./_content/FluentUI.Demo.Shared/Pages/Emoji/EmojiExplorer.razor.js");
+                 "./_content/AspNetCore.Components.Demo.Shared/Pages/Emoji/EmojiExplorer.razor.js");
         }
     }
 

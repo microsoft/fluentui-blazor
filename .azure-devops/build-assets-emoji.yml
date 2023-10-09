@@ -14,5 +14,5 @@ extends:
   template: common/template-to-build-projects.yml
   parameters:
       Projects: |
-       **/Microsoft.Fast.Components.FluentUI.Emojis.csproj
+       **/Microsoft.FluentUI.AspNetCore.Components.Emojis.csproj
   

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentBreadcrumbItem : FluentComponentBase
 {
     /// <summary>
@@ -55,7 +55,7 @@ public partial class FluentBreadcrumbItem : FluentComponentBase
     public string? Type { get; set; }
     
     /// <summary>
-    /// Gets or sets the visual appearance. See <seealso cref="FluentUI.Appearance"/>
+    /// Gets or sets the visual appearance. See <seealso cref="AspNetCore.Components.Appearance"/>
     /// </summary>
     [Parameter]
     public Appearance? Appearance { get; set; }

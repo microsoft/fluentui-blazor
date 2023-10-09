@@ -18,6 +18,6 @@ extends:
   template: common/template-to-build-projects.yml
   parameters:
       Projects: |
-       **/Microsoft.Fast.Components.FluentUI.csproj
+       **/Microsoft.FluentUI.AspNetCore.Components.csproj
       Tests: |
-       **/Microsoft.Fast.Components.FluentUI.Tests.csproj
+       **/Microsoft.FluentUI.AspNetCore.Components.Tests.csproj
