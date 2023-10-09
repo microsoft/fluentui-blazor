@@ -12,8 +12,8 @@
 
 	 <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>	 
 	 
-	 <VersionFile>3.2.0</VersionFile>
-	 <VersionPrefix>3.2.0</VersionPrefix>
+	 <VersionFile>3.2.1</VersionFile>
+	 <VersionPrefix>3.2.1</VersionPrefix>
 	 <VersionSuffix></VersionSuffix> 
 	 
 	 <AssemblyVersion>$(VersionFile)</AssemblyVersion>
