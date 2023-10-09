@@ -1,4 +1,4 @@
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Fast.Components.FluentUI.Utilities;
@@ -90,7 +90,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
 
     /// <summary>
     /// Gets or sets the maximum number of options (items) selected.
-    /// Exceeding this value, the user must delete some elements in order to select new ones.
+    /// Exceeding this value requires the user to delete some elements in order to select new ones.
     /// See the <see cref="MaximumSelectedOptionsMessage"/>.
     /// </summary>
     [Parameter]
