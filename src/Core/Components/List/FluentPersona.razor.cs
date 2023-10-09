@@ -50,7 +50,7 @@ public partial class FluentPersona : FluentComponentBase
     public string? ImageSize { get; set; }
 
     /// <summary>
-    /// / The status to show. See <see cref="PresenceStatus"/> for options.
+    /// The status to show. See <see cref="PresenceStatus"/> for options.
     /// </summary>
     [Parameter]
     public PresenceStatus? Status { get; set; }
