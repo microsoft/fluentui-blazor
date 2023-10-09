@@ -206,28 +206,6 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
             _multiple = Multiple;
         }
 
-        if (Multiple)
-        {
-            if (SelectedOptions != null && _selectedOptions != SelectedOptions)
-            {
-                _selectedOptions = new List<TOption>(SelectedOptions);
-            }
-
-            if (SelectedOptions == null && Items != null && OptionSelected != null)
-            {
-                _selectedOptions.AddRange(Items.Where(item => OptionSelected.Invoke(item) && !_selectedOptions.Contains(item)));
-                InternalValue = GetOptionValue(_selectedOptions.FirstOrDefault());
-            }
-        }
-        else
-        {
-            if (SelectedOption == null && Items != null && OptionSelected != null)
-            {
-                TOption? item = Items.FirstOrDefault(i => OptionSelected.Invoke(i));
-                InternalValue = GetOptionValue(item);
-            }
-        }
-
         if (!string.IsNullOrEmpty(Height) && string.IsNullOrEmpty(Id))
         {
             Id = Identifier.NewId();
@@ -250,9 +228,29 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
             InternalValue = Value;
         }
 
+        if (Multiple)
+        {
+            if (SelectedOptions != null && _selectedOptions != SelectedOptions)
+            {
+                _selectedOptions = new List<TOption>(SelectedOptions);
+            }
 
+            if (SelectedOptions == null && Items != null && OptionSelected != null)
+            {
+                _selectedOptions.AddRange(Items.Where(item => OptionSelected.Invoke(item) && !_selectedOptions.Contains(item)));
+                InternalValue = GetOptionValue(_selectedOptions.FirstOrDefault());
+            }
+        }
+        else
+        {
+            if (SelectedOption == null && Items != null && OptionSelected != null)
+            {
+                TOption? item = Items.FirstOrDefault(i => OptionSelected.Invoke(i));
+                InternalValue = GetOptionValue(item);
+            }
+        }
 
-        base.OnParametersSet();
+       
     }
 
     /// <summary />
