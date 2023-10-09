@@ -67,7 +67,7 @@ public partial class FluentNavGroup : FluentNavBase
 
     /// <summary>
     /// Defines the vertical spacing between the NavGroup and adjecent items. 
-    /// Needs to be a valid CSS value. Defaults to 10px.
+    /// Needs to be a valid CSS value.
     /// </summary>
     [Parameter]
     public string? Gap { get; set; }
