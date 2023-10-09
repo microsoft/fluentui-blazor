@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Fast.Components.FluentUI.Utilities;
@@ -116,7 +116,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
 
 
     /// <summary>
-    /// Footer content, placed at the top of the popup panel.
+    /// Header content, placed at the top of the popup panel.
     /// </summary>
     [Parameter]
     public RenderFragment<IEnumerable<TOption>>? HeaderContent { get; set; }
