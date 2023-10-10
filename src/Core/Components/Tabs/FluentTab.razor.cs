@@ -120,7 +120,7 @@ public partial class FluentTab : FluentComponentBase
         if (firstRender)
         {
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-                "./_content/Microsoft.FluentUI.AspNetCore.Components./Components/Tabs/FluentTab.razor.js");
+                "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Tabs/FluentTab.razor.js");
             _dotNetHelper = DotNetObjectReference.Create(this);
 
             await _jsModule.InvokeVoidAsync("TabEditable_Changed", _dotNetHelper, $"#{Id} span[contenteditable='true']", Id);

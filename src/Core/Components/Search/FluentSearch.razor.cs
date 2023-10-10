@@ -6,7 +6,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentSearch : FluentInputBase<string?>
 {
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components./Components/Search/FluentSearch.razor.js";
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Search/FluentSearch.razor.js";
 
     /// <summary />
     [Inject]

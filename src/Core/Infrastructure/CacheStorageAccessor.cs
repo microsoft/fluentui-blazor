@@ -6,7 +6,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Infrastructure
     public class CacheStorageAccessor : JSModule
     {
         public CacheStorageAccessor(IJSRuntime js)
-            : base(js, "./_content/Microsoft.FluentUI.AspNetCore.Components./js/CacheStorageAccessor.js")
+            : base(js, "./_content/Microsoft.FluentUI.AspNetCore.Components/js/CacheStorageAccessor.js")
         {
         }
 

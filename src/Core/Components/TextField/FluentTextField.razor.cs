@@ -6,7 +6,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentTextField : FluentInputBase<string?>
 {
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components./Components/TextField/FluentTextField.razor.js";
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/TextField/FluentTextField.razor.js";
 
     /// <summary />
     [Inject]

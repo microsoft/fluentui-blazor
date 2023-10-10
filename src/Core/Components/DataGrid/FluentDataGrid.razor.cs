@@ -230,7 +230,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         if (firstRender)
         {
-            _jsModule = await JS.InvokeAsync<IJSObjectReference>("import", "./_content/Microsoft.FluentUI.AspNetCore.Components./Components/DataGrid/FluentDataGrid.razor.js");
+            _jsModule = await JS.InvokeAsync<IJSObjectReference>("import", "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/DataGrid/FluentDataGrid.razor.js");
             _jsEventDisposable = await _jsModule.InvokeAsync<IJSObjectReference>("init", _gridReference);
         }
 

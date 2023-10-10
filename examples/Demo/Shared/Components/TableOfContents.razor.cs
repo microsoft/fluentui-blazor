@@ -80,7 +80,7 @@ public partial class TableOfContents : IAsyncDisposable
         {
             // Remember to replace the location of the script with your own project specific location.
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-            "./_content/AspNetCore.Components.Demo.Shared/Components/TableOfContents.razor.js");
+            "./_content/FluentUI.Demo.Shared/Components/TableOfContents.razor.js");
             bool mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
 
             if (mobile)

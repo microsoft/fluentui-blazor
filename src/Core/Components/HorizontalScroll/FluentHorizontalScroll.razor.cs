@@ -57,7 +57,7 @@ public partial class FluentHorizontalScroll : FluentComponentBase, IAsyncDisposa
     {
         if (firstRender)
         {
-            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Microsoft.FluentUI.AspNetCore.Components./Components/HorizontalScroll/FluentHorizontalScroll.razor.js");
+            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/HorizontalScroll/FluentHorizontalScroll.razor.js");
         }
     }
 

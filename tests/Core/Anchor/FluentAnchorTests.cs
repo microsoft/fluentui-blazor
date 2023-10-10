@@ -6,7 +6,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Anchor;
 
 public class FluentAnchorTests : TestBase
 {
-    private const string FluentAnchorRazorJs = "./_content/Microsoft.FluentUI.AspNetCore.Components./Components/Anchor/FluentAnchor.razor.js";
+    private const string FluentAnchorRazorJs = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Anchor/FluentAnchor.razor.js";
 
     public FluentAnchorTests()
     {

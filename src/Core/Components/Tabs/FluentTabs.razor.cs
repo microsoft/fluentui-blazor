@@ -146,7 +146,7 @@ public partial class FluentTabs : FluentComponentBase
             _dotNetHelper = DotNetObjectReference.Create(this);
             // Overflow
             _jsModuleOverflow = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-                "./_content/Microsoft.FluentUI.AspNetCore.Components./Components/Overflow/FluentOverflow.razor.js");
+                "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Overflow/FluentOverflow.razor.js");
 
             bool horizontal = Orientation == Orientation.Horizontal;
             await _jsModuleOverflow.InvokeVoidAsync("FluentOverflowInitialize", _dotNetHelper, Id, horizontal, FLUENT_TAB_TAG);

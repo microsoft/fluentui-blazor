@@ -70,7 +70,7 @@ public partial class DemoMainLayout : IAsyncDisposable
             GlobalState.SetContainer(container);
 
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-                 "./_content/AspNetCore.Components.Demo.Shared/Shared/DemoMainLayout.razor.js");
+                 "./_content/FLuentUI.Demo.Shared/Shared/DemoMainLayout.razor.js");
 
             _mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
 

@@ -119,7 +119,7 @@ public partial class FluentAnchor : FluentComponentBase, IAsyncDisposable
         if (firstRender)
         {
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-                "./_content/Microsoft.FluentUI.AspNetCore.Components./Components/Anchor/FluentAnchor.razor.js");
+                "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Anchor/FluentAnchor.razor.js");
         }
     }
 

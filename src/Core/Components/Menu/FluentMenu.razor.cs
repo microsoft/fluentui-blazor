@@ -103,7 +103,7 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
             if (Trigger != MouseButton.None)
             {
                 _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-                    "./_content/Microsoft.FluentUI.AspNetCore.Components./Components/Menu/FluentMenu.razor.js");
+                    "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Menu/FluentMenu.razor.js");
 
                 _dotNetHelper = DotNetObjectReference.Create(this);
 

@@ -10,7 +10,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary />
 public partial class FluentInputFile : FluentComponentBase
 {
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components./Components/InputFile/FluentInputFile.razor.js";
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/InputFile/FluentInputFile.razor.js";
 
     /// <summary />
     [Inject]

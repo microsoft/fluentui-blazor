@@ -159,14 +159,14 @@ export function afterStarted(blazor) {
 export function beforeStart(options, extensions) {
     var wcScript = document.createElement('script');
     wcScript.type = 'module';
-    wcScript.src = './_content/Microsoft.Fast.Components.FluentUI/js/web-components-v2.5.16.min.js';
+    wcScript.src = './_content/Microsoft.FluentUI.AspNetCore.Components/js/web-components-v2.5.16.min.js';
     wcScript.async = true;
     document.head.appendChild(wcScript);
 
     var libraryStyle = document.createElement('link');
     libraryStyle.rel = 'stylesheet';
     libraryStyle.type = 'text/css';
-    libraryStyle.href = './_content/Microsoft.Fast.Components.FluentUI/css/Microsoft.Fast.Components.FluentUI.css';
+    libraryStyle.href = './_content/Microsoft.FluentUI.AspNetCore.Components/css/Microsoft.FluentUI.AspNetCore.Components.css';
     document.head.appendChild(libraryStyle);
 }
 
