@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.FluentUI.AspNetCo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.FluentUI.AspNetCore.Components.AssetsSample", "Sample\Microsoft.FluentUI.AspNetCore.Components.AssetsSample.csproj", "{DCA944C6-0EFF-44A5-8D9A-CCAFA83D5CCE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.FluentUI.AspNetCore.Components.Emojis", "FluentUI.Emojis\Microsoft.FluentUI.AspNetCore.Components.Emojis.csproj", "{9F88D6E5-6D3B-4EBA-8009-2D496A3F918C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.FluentUI.AspNetCore.Components.Emoji", "FluentUI.Emojis\Microsoft.FluentUI.AspNetCore.Components.Emoji.csproj", "{9F88D6E5-6D3B-4EBA-8009-2D496A3F918C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

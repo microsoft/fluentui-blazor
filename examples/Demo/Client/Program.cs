@@ -1,5 +1,5 @@
-using AspNetCore.Components.Demo.Shared;
-using AspNetCore.Components.Demo.Shared.SampleData;
+using FluentUI.Demo.Shared;
+using FluentUI.Demo.Shared.SampleData;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.FluentUI.AspNetCore.Components;

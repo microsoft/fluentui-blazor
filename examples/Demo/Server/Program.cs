@@ -1,9 +1,6 @@
-using System.Net.Http.Headers;
-using System.Net;
-using AspNetCore.Components.Demo.Shared.SampleData;
+using FluentUI.Demo.Shared.SampleData;
 using Microsoft.AspNetCore.Hosting.StaticWebAssets;
 using Microsoft.FluentUI.AspNetCore.Components;
-using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +12,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddHttpClient();
 builder.Services.AddServerSideBlazor();
 
-builder.Services.AddFluentUIComponents(options => 
+builder.Services.AddFluentUIComponents(options =>
 {
     options.HostingModel = BlazorHostingModel.Server;
 });

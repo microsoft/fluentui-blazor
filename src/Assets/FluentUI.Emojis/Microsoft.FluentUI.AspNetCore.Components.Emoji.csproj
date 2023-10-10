@@ -3,18 +3,17 @@
 	<PropertyGroup>
 		<TargetFrameworks>net8.0</TargetFrameworks>
 		<LangVersion>latest</LangVersion>
-		<PackageId>Microsoft.FluentUI.AspNetCore.Components.Emojis</PackageId>
-		<AssemblyName>Microsoft.FluentUI.AspNetCore.Components.Emojis</AssemblyName>
-		<RootNamespace>Microsoft.FluentUI.AspNetCore.Components.Emojis</RootNamespace>
+		<PackageId>Microsoft.FluentUI.AspNetCore.Components.Emoji</PackageId>
+		<AssemblyName>Microsoft.FluentUI.AspNetCore.Components.Emoji</AssemblyName>
+		<RootNamespace>Microsoft.FluentUI.AspNetCore.Components.Emoji</RootNamespace>
 		<Nullable>enable</Nullable>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<IsTrimmable>true</IsTrimmable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 
-		<PackageId>Microsoft.FluentUI.AspNetCore.Components.Emojis</PackageId>
 		<Summary>A Blazor wrapper library for the official Microsoft Fluent UI Emoji set.</Summary>
-		<PackageTags>Emoji, Fluent UI, FAST, Blazor, .NET6, .NET7, .NET8</PackageTags>
+		<PackageTags>Emoji, Fluent UI, FAST, Blazor, .NET8</PackageTags>
 		<Title>A Blazor wrapper library for the official Microsoft Fluent UI Emoji set.</Title>
 		<Description>A Blazor wrapper library for the official Microsoft Fluent UI Emoji set.</Description>
 		<PackageReadmeFile>README.md</PackageReadmeFile>

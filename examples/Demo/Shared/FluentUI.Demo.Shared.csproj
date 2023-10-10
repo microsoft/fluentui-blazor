@@ -2,7 +2,7 @@
 	<PropertyGroup>
 		<!-- Uncomment below line if you want to target all mentioned frameworks -->
 		<!-- Targeting just one framework will speed up build time -->
-		<!--<TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>-->
+		<!--<TargetFrameworks>net8.0;net9.0</TargetFrameworks>-->
 		<!-- Comment below line if you enable line above -->
 		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
@@ -32,24 +32,16 @@
 		<TrimmerRemoveSymbols>true</TrimmerRemoveSymbols>
 	</PropertyGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)'=='net6.0'">
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.22" />
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(TargetFramework)'=='net7.0'">
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.11" />
-	</ItemGroup>
-
 	<ItemGroup Condition="'$(TargetFramework)'=='net8.0'">
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.0-rc.1.*" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.0-rc.2.*" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\src\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" />
 		<ProjectReference Include="..\DocGenerator\FluentUI.Demo.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-		<PackageReference Include="Markdig" Version="0.31.0" />
-		<PackageReference Include="Microsoft.Fast.Components.FluentUI.Emojis" Version="3.*-*" />
-		<PackageReference Include="Microsoft.Fast.Components.FluentUI.Icons" version="3.0.1" />
+		<PackageReference Include="Markdig" Version="0.33.0" />
+		<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="4.*-*" />
+		<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" version="4.*-*" />
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
 		<TrimmerRootAssembly Include="Microsoft.Fast.Components.FluentUI" />
 	</ItemGroup>
