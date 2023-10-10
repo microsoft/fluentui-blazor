@@ -129,10 +129,9 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
 
     /// <summary />
     private string? ListStyleValue => new StyleBuilder()
-                                                .AddStyle("width", Width, when: !string.IsNullOrEmpty(Width))
-                                                .AddStyle("display", "none", when: (Items == null || !Items.Any()) && 
-                                                                                   (HeaderContent != null || FooterContent != null))
-                                                .Build();
+        .AddStyle("width", Width, when: !string.IsNullOrEmpty(Width))
+        .AddStyle("display", "none", when: (Items == null || !Items.Any()) && (HeaderContent != null || FooterContent != null))
+        .Build();
 
     /// <summary />
     private string ComponentWidth
