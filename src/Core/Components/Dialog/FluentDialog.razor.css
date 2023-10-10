@@ -7,7 +7,7 @@
     max-width: 80%;
 }
 
-fluent-dialog:has(div[class~="fluent-dialog-body"])::part(control) {
+fluent-dialog:has(div[class~="fluent-dialog-body"]):not(:is(fluent-dialog[class~="right"], fluent-dialog[class~="left"]) )::part(control) {
     height: auto;
     display: grid;
     grid-template-columns: 1fr;
@@ -18,24 +18,30 @@ fluent-dialog:has(div[class~="fluent-dialog-body"])::part(control) {
         'dialog-footer';
 }
 
+fluent-dialog[class~="right"]::part(control),
+fluent-dialog[class~="left"]::part(control) {
+    display: flex;
+    flex-direction: column;
+    border-radius: unset;
+    border-width: 0;
+    --dialog-height: 100dvh;
+    height: 100dvh;
+}
+
+:is(fluent-dialog[class~="right"], fluent-dialog[class~="left"]) ::deep .fluent-dialog-body {
+    flex-grow: 1;
+    overflow-y: scroll;
+}
+
 fluent-dialog[class~="right"]::part(control) {
     position: absolute;
     right: 0;
-    border-radius: unset;
-    border-width: 0;
-    max-height: 100%;
-    --dialog-height: 100%;
-    height: 100% !important;
 }
 
 fluent-dialog[class~="left"]::part(control) {
     position: absolute;
     left: 0;
-    border-radius: unset;
-    border-width: 0;
-    max-height: 100%;
-    --dialog-height: 100%;
-    height: 100% !important;
+    
 }
 
 fluent-dialog ::deep .fluent-dialog-header {
