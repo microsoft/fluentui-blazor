@@ -4,7 +4,7 @@ using System.Text;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Custom emoji loaded from <see cref="Emojis.GetInstance(Microsoft.Fast.Components.FluentUI.EmojiInfo)"/>
+/// Custom emoji loaded from <see cref="Emojis.GetInstance(Microsoft.FluentUI.AspNetCore.Components.EmojiInfo)"/>
 /// </summary>
 public class CustomEmoji : Emoji
 {
