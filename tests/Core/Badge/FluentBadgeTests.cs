@@ -1,5 +1,6 @@
 using Bunit;
 using FluentAssertions;
+using Microsoft.AspNetCore.Components.Web;
 using Xunit;
 
 namespace Microsoft.Fast.Components.FluentUI.Tests.Badge;
@@ -163,6 +164,23 @@ public class FluentBadgeTests : TestBase
         {
             parameters.AddUnmatched("additional-attribute1-name", "additional-attribute1-value");
             parameters.AddUnmatched("additional-attribute2-name", "additional-attribute2-value");
+            parameters.AddChildContent("childcontent");
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentBadge_WithOnClick()
+    {
+        // Arrange && Act
+        Action onSomethingHandler = () => { };
+        Action<MouseEventArgs> onClickHandler = _ => { };
+
+        var cut = TestContext.RenderComponent<FluentBadge>(parameters =>
+        {
+            parameters.Add(p => p.OnClick, onClickHandler);
             parameters.AddChildContent("childcontent");
         });
 

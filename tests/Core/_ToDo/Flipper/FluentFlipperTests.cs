@@ -9,8 +9,8 @@ public class FluentFlipperTests : TestBase
     {
         //Arrange
         string childContent = "<b>render me</b>";
-        bool? disabled = default!;
-        bool? ariaHidden = default!;
+        bool? disabled = false;
+        bool? ariaHidden = false;
         FlipperDirection? direction = FlipperDirection.Previous;
         var cut = TestContext.RenderComponent<FluentFlipper>(parameters => parameters
             .Add(p => p.Disabled, disabled)
@@ -30,7 +30,7 @@ public class FluentFlipperTests : TestBase
         //Arrange
         string childContent = "<b>render me</b>";
         bool? disabled = true;
-        bool? ariaHidden = default!;
+        bool? ariaHidden = true;
         FlipperDirection? direction = FlipperDirection.Next;
         var cut = TestContext.RenderComponent<FluentFlipper>(parameters => parameters
             .Add(p => p.Disabled, disabled)
