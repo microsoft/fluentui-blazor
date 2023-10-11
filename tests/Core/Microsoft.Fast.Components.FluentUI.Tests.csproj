@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFrameworks>net8.0</TargetFrameworks>
@@ -40,22 +40,25 @@
       <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
       <DependentUpon>%(ParentFile).cs</DependentUpon>
     </None>
+    
     <None Include="**\*.received.html" />
-
     <None Update="**\*.received.html">
       <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
       <DependentUpon>%(ParentFile).cs</DependentUpon>
     </None>
 
-  </ItemGroup>
+    <None Include="**\*.verified.razor.html" />
+    <None Update="**\*.verified.razor.html">
+      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
+      <DependentUpon>%(ParentFile).razor</DependentUpon>
+    </None>
+    
+    <None Include="**\*.received.razor.html" />
+    <None Update="**\*.received.razor.html">
+      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
+      <DependentUpon>%(ParentFile).razor</DependentUpon>
+    </None>
 
-  <ItemGroup>
-    <None Update="List\FluentPersonaTests.FluentOptionPeople_Initials.verified.html">
-      <DependentUpon>FluentPersonaTests.cs</DependentUpon>
-    </None>
-    <None Update="List\FluentPersonaTests.FluentOptionPeople_Image.verified.html">
-      <DependentUpon>FluentPersonaTests.cs</DependentUpon>
-    </None>
   </ItemGroup>
 
 </Project>
