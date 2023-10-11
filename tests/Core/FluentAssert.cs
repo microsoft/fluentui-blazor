@@ -47,21 +47,27 @@ public static class FluentAssert
     /// <param name="filename"></param>
     /// <param name="memberName"></param>
     /// <exception cref="ArgumentNullException"></exception>
-    public static void Verify(this IRenderedFragment actual,
+    public static void Verify(this IRenderedFragment? actual,
         Func<string, string>? received = null,
         [CallerFilePath] string? filename = "",
         [CallerMemberName] string? memberName = "",
         string? suffix = UndefinedSuffix)
     {
+        if (actual is null)
+        {
+            return;
+        }
+
         // Valid?
         ArgumentNullException.ThrowIfNull(filename, nameof(filename));
         ArgumentNullException.ThrowIfNull(memberName, nameof(memberName));
 
         // Files
         var file = new FileInfo(filename);
+        var isRazor = file.Extension == ".razor";
         var memberFullName = GetMemberFullName(memberName, suffix);
-        var expectedFile = file.GetTargetFile(memberFullName, Options.VerifiedExtension);
-        var receivedFile = file.GetTargetFile(memberFullName, Options.ReceivedExtension);
+        var expectedFile = file.GetTargetFile(memberFullName, isRazor ? Options.VerifiedRazorExtension : Options.VerifiedCSharpExtension);
+        var receivedFile = file.GetTargetFile(memberFullName, isRazor ? Options.ReceivedRazorExtension : Options.ReceivedCSharpExtension);
         var htmlParser = actual.Services.GetRequiredService<BunitHtmlParser>();
 
         // Load "verified.html" file
