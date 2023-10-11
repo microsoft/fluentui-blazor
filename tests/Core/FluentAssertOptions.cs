@@ -7,14 +7,28 @@ namespace Microsoft.Fast.Components.FluentUI.Tests;
 public class FluentAssertOptions
 {
     /// <summary>
-    /// Gets or sets default file extension used to identify an expected JSON file.
+    /// Gets or sets default file extension used to identify an expected HTML file,
+    /// generated from CS tests.
     /// </summary>
-    public string VerifiedExtension { get; set; } = ".verified.html";
+    public string VerifiedCSharpExtension { get; set; } = ".verified.html";
 
     /// <summary>
-    /// Gets or sets default file extension used to save a Card generated JSON file.
+    /// Gets or sets default file extension used to save a Card generated HTML file,
+    /// generated from CS tests.
     /// </summary>
-    public string ReceivedExtension { get; set; } = ".received.html";
+    public string ReceivedCSharpExtension { get; set; } = ".received.html";
+
+    /// <summary>
+    /// Gets or sets default file extension used to identify an expected HTML file,
+    /// generated from RAZOR tests.
+    /// </summary>
+    public string VerifiedRazorExtension { get; set; } = ".verified.razor.html";
+
+    /// <summary>
+    /// Gets or sets default file extension used to save a Card generated JSON file,
+    /// generated from RAZOR tests.
+    /// </summary>
+    public string ReceivedRazorExtension { get; set; } = ".received.razor.html";
 
     /// <summary>
     /// Scrub lines with an optional replace.

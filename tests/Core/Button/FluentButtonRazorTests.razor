@@ -1,0 +1,31 @@
+@using Xunit;
+@inherits TestContext
+@code
+{
+    [Fact]
+    public void FluentButton_Title()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton Title="My Title">My button</FluentButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentButton_OnClick()
+    {
+        bool clicked = false;
+
+        // Arrange
+        var cut = Render(@<FluentButton OnClick="@(e => { clicked = true; } )">
+                             My button
+                          </FluentButton>);
+
+        // Act
+        cut.Find("fluent-button").Click();
+
+        // Assert
+        Assert.True(clicked);
+    }
+}
