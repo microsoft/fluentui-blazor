@@ -61,4 +61,46 @@
 
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Badge\FluentBadgeTests.razor.FluentBadge_WithOnClick.verified.html">
+      <DependentUpon>FluentBadgeTests.razor.cs</DependentUpon>
+    </None>
+    <None Update="Badge\FluentBadgeTests.razor.FluentBadge_WithMultipleAdditionalAttributes.verified.html">
+      <DependentUpon>FluentBadgeTests.razor.cs</DependentUpon>
+    </None>
+    <None Update="Badge\FluentBadgeTests.razor.FluentBadge_WithAnAdditionalAttribute.verified.html">
+      <DependentUpon>FluentBadgeTests.razor.cs</DependentUpon>
+    </None>
+    <None Update="Badge\FluentBadgeTests.razor.FluentBadge_WithAdditionalStyle.verified.html">
+      <DependentUpon>FluentBadgeTests.razor.cs</DependentUpon>
+    </None>
+    <None Update="Badge\FluentBadgeTests.razor.FluentBadge_WithAdditionalCssClass.verified.html">
+      <DependentUpon>FluentBadgeTests.razor.cs</DependentUpon>
+    </None>
+    <None Update="Badge\FluentBadgeTests.razor.FluentBadge_FillAttribute.verified.html">
+      <DependentUpon>FluentBadgeTests.razor.cs</DependentUpon>
+    </None>
+    <None Update="Badge\FluentBadgeTests.razor.FluentBadge_DefaultAttributes.verified.html">
+      <DependentUpon>FluentBadgeTests.razor.cs</DependentUpon>
+    </None>
+    <None Update="Badge\FluentBadgeTests.razor.FluentBadge_ColorAttribute.verified.html">
+      <DependentUpon>FluentBadgeTests.razor.cs</DependentUpon>
+    </None>
+    <None Update="Badge\FluentBadgeTests.razor.FluentBadge_CircularAttribute.verified.html">
+      <DependentUpon>FluentBadgeTests.razor.cs</DependentUpon>
+    </None>
+    <None Update="Badge\FluentBadgeTests.razor.FluentBadge_AppearanceAttribute-Neutral.verified.html">
+      <DependentUpon>FluentBadgeTests.razor.cs</DependentUpon>
+    </None>
+    <None Update="Badge\FluentBadgeTests.razor.FluentBadge_AppearanceAttribute-Lightweight.verified.html">
+      <DependentUpon>FluentBadgeTests.razor.cs</DependentUpon>
+    </None>
+    <None Update="Badge\FluentBadgeTests.razor.FluentBadge_AppearanceAttribute-Accent.verified.html">
+      <DependentUpon>FluentBadgeTests.razor.cs</DependentUpon>
+    </None>
+    <None Update="Button\FluentButtonTests.FluentButton_Title.verified.razor.html">
+      <DependentUpon>FluentButtonTests.razor</DependentUpon>
+    </None>
+  </ItemGroup>
+
 </Project>
