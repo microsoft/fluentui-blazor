@@ -77,6 +77,12 @@ public class AdditionalAttributesExtensionsShould
                 new Dictionary<string,object?> { ["attr"] = "value", ["attr2"] = null },
                 true
             };
+            yield return new object?[]
+            {
+                new Dictionary<string,object> { ["attr"] = "value" },
+                null,
+                false
+            };
         }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
@@ -95,4 +101,20 @@ public class AdditionalAttributesExtensionsShould
         // Assert
         Assert.Equal(expected, actual);
     }
+
+    [Theory]
+    [ClassData(typeof(RenderedAttributesEqualityTestData))]
+    public void CompareProperly_RenderedAttributesOtherWayRound(
+       IReadOnlyDictionary<string, object>? x,
+       IReadOnlyDictionary<string, object>? y,
+       bool expected)
+    {
+        // Arrange && Act
+        var actual = y.RenderedAttributesEqual(x);
+
+        // Assert
+        Assert.Equal(expected, actual);
+    }
+
+    
 }

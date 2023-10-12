@@ -76,16 +76,42 @@ public class CssBuilderTests : TestBase
     }
 
     [Fact]
-    public void CssBuilder_WhenFunction()
+    public void CssBuilder_WhenFunctionTrue()
     {
         // Assert
         var cssBuilder = new CssBuilder();
 
         // Act
         cssBuilder.AddClass("my-class-1", when: () => true);
-        cssBuilder.AddClass("my-class-2", when: () => false);
 
         // Assert
         Assert.Equal("my-class-1", cssBuilder.Build());
     }
+
+    [Fact]
+    public void CssBuilder_WhenFunctionFalse()
+    {
+        // Assert
+        var cssBuilder = new CssBuilder();
+
+        // Act
+        cssBuilder.AddClass("my-class-2", when: () => false);
+
+        // Assert
+        Assert.Null(cssBuilder.Build());
+    }
+
+    [Fact]
+    public void StyleBuilder_ToString()
+    {
+        // Assert
+        var cssBuilder = new CssBuilder();
+
+        // Act
+        cssBuilder.AddClass("my-class");
+
+        // Assert
+        Assert.Equal("my-class", cssBuilder.ToString());
+    }
+
 }

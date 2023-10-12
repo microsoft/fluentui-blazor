@@ -151,4 +151,17 @@ public class StyleBuilderTests : TestBase
         // Assert
         Assert.Null(styleBuilder.Build());
     }
+
+    [Fact]
+    public void StyleBuilder_ToString()
+    {
+        // Assert
+        var styleBuilder = new StyleBuilder();
+
+        // Act
+        styleBuilder.AddStyle("color", "red");
+
+        // Assert
+        Assert.Equal("color: red;", styleBuilder.ToString());
+    }
 }

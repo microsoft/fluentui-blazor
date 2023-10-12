@@ -4,7 +4,7 @@ using Xunit;
 
 namespace Microsoft.Fast.Components.FluentUI.Tests.DateTime;
 
-public class FluentCalendarTests : TestBase
+public partial class FluentCalendarTests : TestContext
 {
     [Fact]
     public void FluentCalendar_Default()
@@ -237,5 +237,55 @@ public class FluentCalendarTests : TestBase
         // Assert
         var monthName = calendar.Find(".month").InnerHtml;
         Assert.Equal("July 2022", monthName);
+    }
+
+    [Fact]
+    public void FluentCalendar_GetDayOfMonthTwoDigit()
+    {
+        const string DAY = "2022-06-01";
+
+        // Arrange
+        using var ctx = new TestContext();
+
+        // Act
+        var calendar = ctx.RenderComponent<FluentCalendar>(parameters =>
+        {
+            parameters.Add(p => p.PickerMonth, System.DateTime.Parse(DAY));
+            parameters.Add(p => p.DayFormat, DayFormat.TwoDigit);
+        });
+
+        // Click to select 2022-06-24
+        var day = calendar.Find($"div[value='{DAY}']");
+        day?.Click();
+
+        // Assert
+        var selectedDay = calendar.Find($"div[value='{DAY}']");
+        
+        Assert.Equal("01", selectedDay.TextContent);
+    }
+
+    [Fact]
+    public void FluentCalendar_GetDayOfMonthNumeric()
+    {
+        const string DAY = "2022-06-01";
+
+        // Arrange
+        using var ctx = new TestContext();
+
+        // Act
+        var calendar = ctx.RenderComponent<FluentCalendar>(parameters =>
+        {
+            parameters.Add(p => p.PickerMonth, System.DateTime.Parse(DAY));
+            parameters.Add(p => p.DayFormat, DayFormat.Numeric);
+        });
+
+        // Click to select 2022-06-01
+        var day = calendar.Find($"div[value='{DAY}']");
+        day?.Click();
+
+        // Assert
+        var selectedDay = calendar.Find($"div[value='{DAY}']");
+
+        Assert.Equal("1", selectedDay.TextContent);
     }
 }
