@@ -10,10 +10,10 @@ public class FluentTreeViewTests : TestBase
         //Arrange
         string childContent = "<b>render me</b>";
         bool renderCollapsedNodes = default!;
-        Microsoft.Fast.Components.FluentUI.FluentTreeItem currentSelected = default!;
-        Action<Microsoft.Fast.Components.FluentUI.FluentTreeItem> currentSelectedChanged = _ => { };
-        Action<Microsoft.Fast.Components.FluentUI.FluentTreeItem> onSelectedChange = _ => { };
-        Action<Microsoft.Fast.Components.FluentUI.FluentTreeItem> onExpandedChange = _ => { };
+        FluentTreeItem currentSelected = default!;
+        Action<FluentTreeItem?> currentSelectedChanged = _ => { };
+        Action<FluentTreeItem> onSelectedChange = _ => { };
+        Action<FluentTreeItem> onExpandedChange = _ => { };
         var cut = TestContext.RenderComponent<FluentTreeView>(parameters => parameters
             .Add(p => p.RenderCollapsedNodes, renderCollapsedNodes)
             .Add(p => p.CurrentSelected, currentSelected)
@@ -25,7 +25,7 @@ public class FluentTreeViewTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
 
