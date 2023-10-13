@@ -1,5 +1,5 @@
 <div>
-    <FluentNavMenu Collapsible="true" Title="Main menu">
+    <FluentNavMenu Collapsible="false" Title="Main menu">
         <FluentNavLink Icon="@(new Icons.Regular.Size20.Home())" Href="/" Match="NavLinkMatch.All">
             <h3>Home</h3>
         </FluentNavLink>
@@ -11,7 +11,6 @@
             <ChildContent>
                 <FluentNavLink Href="/WhatsNew" Icon="@(new Icons.Regular.Size20.Info())">What's new</FluentNavLink>
                 <FluentNavLink Href="/UpgradeGuide" Icon="@(new Icons.Regular.Size20.ArrowUp())">Upgrade guide</FluentNavLink>
-             @* <FluentNavLink Href="/ProjectSetup" Icon="@(new Icons.Regular.Size20.DocumentToolbox())">Project setup</FluentNavLink> *@
                 <FluentNavLink Href="/CodeSetup" Icon="@(new Icons.Regular.Size20.DocumentOnePageSparkle())">Code setup</FluentNavLink>
                 <FluentNavLink Href="/DesignTokens" Icon="@(new Icons.Regular.Size20.DesignIdeas())">Design tokens</FluentNavLink>
                 <FluentNavLink Href="/Reboot" Icon="@(new Icons.Regular.Size20.ArrowReset())">Reboot</FluentNavLink>
