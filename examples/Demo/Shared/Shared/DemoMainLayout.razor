@@ -8,8 +8,6 @@
 <PageTitle>Fluent UI Blazor components demo page</PageTitle>
 
 <div id="container" @ref="container">
-    
-    
     <header>
         <div class="logo" role="presentation" aria-hidden="true" itemprop="logo" itemscope="itemscope">
             <svg xmlns="http://www.w3.org/2000/svg" width="108" height="23" viewBox="72 72 337 74" preserveAspectRatio="xMidYMin slice">
@@ -34,9 +32,7 @@
         <div class="settings">
             <SiteSettings />
         </div>
-        
     </header>
-
     <main>
         <input type="checkbox" id="menu-toggle" checked=@menuchecked @onclick=HandleChecked />
         <label for="menu-toggle" class="menu-icon">
@@ -67,9 +63,9 @@
             </aside>
         </div>
     </main>
-        <FluentToastContainer MaxToastCount="10"  />
-        <FluentDialogProvider />
-        <FluentTooltipProvider />
+    <FluentToastContainer MaxToastCount="10"  />
+    <FluentDialogProvider />
+    <FluentTooltipProvider />
     <footer>
         <div class="version">
             <small>
