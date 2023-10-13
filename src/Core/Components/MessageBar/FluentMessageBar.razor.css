@@ -193,7 +193,7 @@
     padding: 0px 4px 4px 0px;
 }
 
-keyframes fade-out {
+@keyframes fade-out {
     from {
         opacity: 1;
     }
