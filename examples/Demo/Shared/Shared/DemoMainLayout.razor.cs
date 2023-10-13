@@ -73,6 +73,9 @@ public partial class DemoMainLayout : IAsyncDisposable
 
             _mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
 
+            bool _dark = await _jsModule!.InvokeAsync<bool>("isDarkMode");
+            GlobalState.SetLuminance(_dark ? StandardLuminance.DarkMode: StandardLuminance.LightMode);
+
             if (_selectedColorOption != OfficeColor.Default)
                 await AccentBaseColor.SetValueFor(container, _selectedColorOption.ToAttributeValue()!.ToSwatch());            
         }
