@@ -8,6 +8,34 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <base href="~/" />
+    <style>
+        :root {
+            --neutral-fill-layer-rest: #ffffff;
+            color: #000000;
+        }
+
+        .loading-progress-text {
+            color: #000000;
+        }
+
+        @@media(prefers-color-scheme: dark) {
+            :root {
+                --neutral-fill-layer-rest: #464646;
+                color: #ffffff;
+            }
+
+            .loading-progress-text {
+                color: #ffffff;
+            }
+        }
+
+        body,
+        #container {
+            font: 14px "Segoe UI Variable", "Segoe UI", sans-serif;
+            color: var(--neutral-base-color);
+            background-color: var(--neutral-fill-layer-rest);
+        }
+    </style>
     <link href="_content/FluentUI.Demo.Shared/css/site.css" rel="stylesheet" />
     <link href="FluentUI.Demo.Server.styles.css" rel="stylesheet" />
     
@@ -19,13 +47,6 @@
     <link rel="stylesheet" title="dark" disabled="disabled" href="https://cdn.jsdelivr.net/npm/@@highlightjs/cdn-assets@@11.6.0/styles/vs2015.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlightjs-copy@@1.0.3/dist/highlightjs-copy.min.css">
     <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
-    <style>
-        @@media (prefers-color-scheme: dark) {
-            body {
-                background-color: #464646;
-            }
-        }
-    </style>
     <script>
         function switchDirection(dir) {
             document.dir = dir;
