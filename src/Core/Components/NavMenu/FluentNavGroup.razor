@@ -6,7 +6,7 @@
 
 @if (NavMenuExpanded || HasIcon)
 {
-    <div id="@Id" @ref="@Element" @attributes="AdditionalAttributes" class="@ClassValue" disabled="@Disabled" style="@StyleValue">
+    <div id="@Id" @ref="@Element" @attributes="AdditionalAttributes" class="@ClassValue" disabled="@Disabled" style="@StyleValue" role="menuitem">
         <div class="positioning-region">
             <div class="content-region">
                 @if (!string.IsNullOrEmpty(Href))
@@ -58,7 +58,7 @@
         {
             <div aria-hidden="true"
                  class="@ButtonClassValue"
-                 tabindex="0"
+                 tabindex="-1"
                  @onclick="ToggleExpandedAsync"
                  @onclick:stopPropagation="true"
                  @onkeydown="@HandleExpanderKeyDownAsync">
