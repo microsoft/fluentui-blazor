@@ -131,13 +131,13 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
     /// Title and Aria-Label for the Scroll to previous button.
     /// </summary>
     [Parameter]
-    public string TitleScrollToPrevious { get; set; } = "Scroll to previous";
+    public string TitleScrollToPrevious { get; set; } = "Previous";
 
     /// <summary>
     /// Title and Aria-Label for the Scroll to next button.
     /// </summary>
     [Parameter]
-    public string TitleScrollToNext { get; set; } = "Scroll to next";
+    public string TitleScrollToNext { get; set; } = "Next";
 
     /// <summary />
     private string? ListStyleValue => new StyleBuilder()
