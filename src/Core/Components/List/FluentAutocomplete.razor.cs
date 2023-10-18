@@ -286,6 +286,11 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
         // Enter
         async Task KeyDown_Enter()
         {
+            if (!IsMultiSelectOpened)
+            {
+                return;
+            }
+
             if (Items != null && Items.Any() && SelectableItem != null)
             {
                 await OnSelectedItemChangedHandlerAsync(SelectableItem);
