@@ -98,6 +98,13 @@ public static class FluentAssert
         }
 
         // Create a "received.json" file
+        else if (Options.UpdateVerifiedFiles)
+        {
+            var formattedReceivedHtml = NodePrintExtensions.ToMarkup((IEnumerable<INode>)receivedNodes);
+            File.WriteAllText(expectedFile.FullName, formattedReceivedHtml);
+        }
+
+        // Create a "received.json" file
         else
         {
             var formattedReceivedHtml = NodePrintExtensions.ToMarkup((IEnumerable<INode>)receivedNodes);

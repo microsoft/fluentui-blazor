@@ -127,6 +127,18 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
     [Parameter]
     public RenderFragment<IEnumerable<TOption>>? FooterContent { get; set; }
 
+    /// <summary>
+    /// Title and Aria-Label for the Scroll to previous button.
+    /// </summary>
+    [Parameter]
+    public string TitleScrollToPrevious { get; set; } = "Previous";
+
+    /// <summary>
+    /// Title and Aria-Label for the Scroll to next button.
+    /// </summary>
+    [Parameter]
+    public string TitleScrollToNext { get; set; } = "Next";
+
     /// <summary />
     private string? ListStyleValue => new StyleBuilder()
         .AddStyle("width", Width, when: !string.IsNullOrEmpty(Width))
@@ -158,6 +170,9 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
 
     /// <summary />
     private string IdScroll => $"{Id}-scroll";
+
+    /// <summary />
+    private string IdPopup => $"{Id}-popup";
 
     /// <summary />
     private bool IsMultiSelectOpened { get; set; } = false;
@@ -271,6 +286,11 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
         // Enter
         async Task KeyDown_Enter()
         {
+            if (!IsMultiSelectOpened)
+            {
+                return;
+            }
+
             if (Items != null && Items.Any() && SelectableItem != null)
             {
                 await OnSelectedItemChangedHandlerAsync(SelectableItem);

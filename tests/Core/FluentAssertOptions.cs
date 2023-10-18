@@ -31,6 +31,12 @@ public class FluentAssertOptions
     public string ReceivedRazorExtension { get; set; } = ".received.razor.html";
 
     /// <summary>
+    /// True to update the verified files with the received files.
+    /// No exceptions will be thrown.
+    /// </summary>
+    public bool UpdateVerifiedFiles => !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("UPDATE_VERIFIED_FILES"));
+
+    /// <summary>
     /// Scrub lines with an optional replace.
     /// Can return the input to ignore the line, or return a a different string to replace it.
     /// </summary>
