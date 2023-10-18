@@ -29,6 +29,17 @@
 
 <DemoSection Title="Default" Component="@typeof(GridDefault)" />
 
+<DemoSection Title="No breakpoints" Component="@typeof(GridMessage)">
+    <Description>
+        <p>You can resize the panel using the slider in the bottom right-hand corner.</p>
+        <p>
+            If no <strong>Breakpoints</strong> or if <code>xs="0"</code> is defined for a <code>FluentGridItem</code> component,
+            this style will be applied: <code>flex: 1; max-width: fit-content;</code>.<br />
+            In this example, the first item (the message) cannot be lower than 200px <code>min-width: 200px;</code>.
+            To avoid that, the second item (the buttons) will be moved to the next line.
+        </p>
+    </Description>
+</DemoSection>
 
 @code
 {
