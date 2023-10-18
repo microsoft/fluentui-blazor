@@ -1,6 +1,9 @@
 ﻿@page "/MessageBar"
+
 @using FluentUI.Demo.Shared.Pages.MessageBar.Examples
+
 <h1>MessageBar</h1>
+
 <strong>IMPORTANT!!</strong>
 <p>
     Messages are rendered by the <code>&lt;FluentMessageBarContainer /&gt;</code>. This component needs to be added to the layout of your application/site.
@@ -22,7 +25,7 @@
 </CodeSnippet>
 
 
-<h2>Examples</h2>
+<h2 id="example">Examples</h2>
 
 <DemoSection Title="Message Service" Component="typeof(MessageBarDefault)">
     <p>
@@ -60,11 +63,6 @@
     </p>
 </DemoSection>
 
-
-
-
-<h3></h3>
-
 <DemoSection Title="Notification Center" Component="typeof(FluentUI.Demo.Shared.Components.NotificationCenter)">
     <p>
         Copy of the button shown in the header which displays the number of notifications. Use the button in the first example to add notifications.
@@ -72,7 +70,7 @@
 </DemoSection>
 
 
-<h2>MessageBar container</h2>
+<h2 id="messagecontainer">MessageBar container</h2>
 
 <h4>Display the list of messages</h4>
 <p>
@@ -82,7 +80,8 @@
     @(@"<FluentMessageBarContainer Section=""MESSAGE_SECTION"" Format=""MessageFormat.Notification"" />")
 </CodeSnippet>
 
-<h2>API Documentation</h2>
+<h2 id="documentaiton">Documentation</h2>
+
 <ApiDocumentation Component="typeof(FluentMessageBarContainer)" />
 
 <ApiDocumentation Component="typeof(FluentMessageBar)" />
