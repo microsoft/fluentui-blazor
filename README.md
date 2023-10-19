@@ -134,7 +134,7 @@ builder.Services.AddFluentUIComponents(options =>
 });
 ```
 
-### Tempory workaround for MAUI/WPF/Windows Forms issues
+### Temporary workaround for MAUI/WPF/Windows Forms issues
 Currently when using the WebView to run Blazor (so all Hybrid variants) the web-components script is not imported automatically (see [#404](https://github.com/microsoft/fluentui-blazor/issues/404). 
 There is also an issue with loading the custom event handlers that are being configured by the web-components script. Until these are fixed on the WebView side, there is a workaround available, namely to intercept `'_framework/blazor.modules.json'` and provide proper JS initializers file (created by build). The needed	`initializersLoader.webview.js` has been added to the library and needs to be included with a script tag **before** the `_framework/blazor.webview.js` script tag:
 
