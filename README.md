@@ -86,7 +86,7 @@ To make it easier to start a project that uses the Fluent UI Blazor components o
 [Microsoft.Fast.Templates.FluentUI](https://www.nuget.org/packages/Microsoft.Fast.Templates.FluentUI/) template package.
 
 The package contains templates for creating Blazor Server and/or Blazor WebAssembly apps that mimic the regular Blazor 
-templates. The library is already set up (and all the Bootstrap styling removed). All components fromthe regular template have been 
+templates. The library is already set up (and all the Bootstrap styling removed). All components from the regular template have been 
 replaced with Fluent UI Blazor counterparts (and a few extra have been added). Please see the [documentation page](https://www.fluentui-blazor.net/Templates)
 for more information.
 
@@ -125,7 +125,7 @@ maintaining accessibility. This is accomplished through setting various "design 
 ## Blazor Hybrid
 You can use this library in Blazor Hybrid (MAUI/WPF/Windows Forms) projects. Setup is almost the same as described in the "Getting started" section above, but to get everything to work you'll need to take some extra steps (for now):
 
-1. You need to make some changes in your `{Type}Program.cs` file  
+1. You need to make some changes in your `{Type}Program.cs` file.
 Make sure the following is added before the `return builder.Build()` line:  
 ```csharp
 builder.Services.AddFluentUIComponents(options =>
