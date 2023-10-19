@@ -136,9 +136,7 @@ builder.Services.AddFluentUIComponents(options =>
 
 ### Tempory workaround for MAUI/WPF/Windows Forms issues
 Currently when using the WebView to run Blazor (so all Hybrid variants) the web-components script is not imported automatically (see [#404](https://github.com/microsoft/fluentui-blazor/issues/404). 
-There is also an isue with loading the custom event handlers that are being configured by the web-components script. Until these are fixed on the WebView side, there is 
-a workaround available, namely to intercept '_framework/blazor.modules.json' and provide proper JS initializers file (created by build). The needed	`initializersLoader.webview.js` has 
-been added to the library and needs to be included with a script tag **before** the `_framework/blazor.webview.js` script tag:
+There is also an issue with loading the custom event handlers that are being configured by the web-components script. Until these are fixed on the WebView side, there is a workaround available, namely to intercept `'_framework/blazor.modules.json'` and provide proper JS initializers file (created by build). The needed	`initializersLoader.webview.js` has been added to the library and needs to be included with a script tag **before** the `_framework/blazor.webview.js` script tag:
 
 ```xml
 <script app-name="{NAME OF YOUR APP}" src="./_content/Microsoft.Fast.Components.FluentUI/js/initializersLoader.webview.js"></script>
@@ -151,8 +149,7 @@ initializersLoader replaces standard `fetch` function with one which provides th
 For more information regarding the bug, see issue [15234](https://github.com/dotnet/maui/issues/15234) in the MAUI repo.
 	
 ## Use the DataGrid component with EF Core
-If you want to use the `<FluentDataGrid>` with data provided through EF Core, you need to install 
-an additional package so the grid knows how to resolve queries asynchronously for efficiency.  .
+If you want to use the `<FluentDataGrid>` with data provided through EF Core, you need to install an additional package so the grid knows how to resolve queries asynchronously for efficiency.  .
 
 ### Installation
 Install the package by running the command:
@@ -161,7 +158,7 @@ dotnet add package Microsoft.Fast.Components.FluentUI.DataGrid.EntityFrameworkAd
 ```
 
 ### Usage
-In your Program.cs file you need to add the following after the `builder.Services.AddFluentUIComponents(...);` lines:
+In your `Program.cs` file, you need to add the following after the `builder.Services.AddFluentUIComponents(...);` lines:
 ```csharp
 builder.Services.AddDataGridEntityFrameworkAdapter();
 ```
