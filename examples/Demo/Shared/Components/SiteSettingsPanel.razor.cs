@@ -64,7 +64,7 @@ public partial class SiteSettingsPanel : IDialogContentComponent<GlobalState>, I
         Content.Dir = _dir;
 
         await _jsModule!.InvokeVoidAsync("switchDirection", _dir.ToString());
-        await Direction.SetValueFor(_container, _dir.ToAttributeValue());
+        await Direction.WithDefault(_dir.ToAttributeValue());
 
         StateHasChanged();
     }
@@ -82,7 +82,7 @@ public partial class SiteSettingsPanel : IDialogContentComponent<GlobalState>, I
 
         Content.Luminance = _baseLayerLuminance;
         
-        await BaseLayerLuminance.SetValueFor(_container, _baseLayerLuminance.GetLuminanceValue());
+        await BaseLayerLuminance.WithDefault(_baseLayerLuminance.GetLuminanceValue());
         await _jsModule!.InvokeVoidAsync("switchHighlightStyle", _baseLayerLuminance == StandardLuminance.DarkMode);
     }
 
@@ -93,11 +93,13 @@ public partial class SiteSettingsPanel : IDialogContentComponent<GlobalState>, I
         {
             if (value != "default")
             {
-                await AccentBaseColor.SetValueFor(_container, value.ToSwatch());
+                await AccentBaseColor.WithDefault(value.ToSwatch());
             }
             else
             {
-                await AccentBaseColor.DeleteValueFor(_container);
+                // Default FluentUI value for AccentBaseColor from 
+                // https://github.com/microsoft/fluentui/blob/c0d3065982e1646c54ba00c1d524248b792dbcad/packages/web-components/src/color/utilities/color-constants.ts#L22C32-L22C39
+                await AccentBaseColor.WithDefault("#0078D4".ToSwatch());
             }
 
             Content.Color = value;
