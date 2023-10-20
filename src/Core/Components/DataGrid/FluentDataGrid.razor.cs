@@ -171,6 +171,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private int? _lastRefreshedPaginationStateHash;
     private object? _lastAssignedItemsOrProvider;
     private CancellationTokenSource? _pendingDataLoadCancellationTokenSource;
+    private bool _manualGrid;
 
     // If the PaginationState mutates, it raises this event. We use it to trigger a re-render.
     private readonly EventCallbackSubscriber<PaginationState> _currentPageItemsChanged;
@@ -207,7 +208,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             throw new InvalidOperationException($"FluentDataGrid requires one of {nameof(Items)} or {nameof(ItemsProvider)}, but both were specified.");
         }
-
+       
         // Perform a re-query only if the data source or something else has changed
         object? _newItemsOrItemsProvider = Items ?? (object?)ItemsProvider;
         bool dataSourceHasChanged = _newItemsOrItemsProvider != _lastAssignedItemsOrProvider;
@@ -232,6 +233,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             _jsModule = await JS.InvokeAsync<IJSObjectReference>("import", "./_content/Microsoft.Fast.Components.FluentUI/Components/DataGrid/FluentDataGrid.razor.js");
             _jsEventDisposable = await _jsModule.InvokeAsync<IJSObjectReference>("init", _gridReference);
+            
         }
 
         if (_checkColumnOptionsPosition && _displayOptionsForColumn is not null)
@@ -265,6 +267,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private void FinishCollectingColumns()
     {
         _collectingColumns = false;
+        if (_columns.Count == 0)
+        {
+            _manualGrid = true;
+        }
     }
 
     /// <summary>
