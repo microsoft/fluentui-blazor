@@ -5,7 +5,10 @@
 @typeparam TGridItem
 <CascadingValue TValue="InternalGridContext<TGridItem>" IsFixed="true" Value="@_internalGridContext">
     @{ StartCollectingColumns(); }
-    @ChildContent
+    @if (!_manualGrid)
+    {
+        @ChildContent
+    }
     <Defer>
         @{ FinishCollectingColumns(); }
         <ColumnsCollectedNotifier TGridItem="TGridItem" />
@@ -30,17 +33,19 @@
                 </FluentDataGridRow>
             }
 
-            @if (_ariaBodyRowCount == 0)
+            @if (_ariaBodyRowCount == 0 && !_manualGrid )
             {
-                <div class="empty-content">
-                @if (EmptyContent is null)
-                {
-                     @("No data to show!");
-                }
-                else
-                {
-                    @EmptyContent
-                }
+                <div class="empty-content" role="row">
+                    <div role="gridcell">
+                        @if (EmptyContent is null)
+                        {
+                            @("No data to show!");
+                        }
+                        else
+                        {
+                            @EmptyContent
+                        }
+                    </div>
                 </div>
             }
             else
@@ -59,7 +64,10 @@
                     @_renderNonVirtualizedRows
                 }
             }
-
+            @if (_manualGrid)
+            {
+                @ChildContent
+            }
         </fluent-data-grid>
     </Defer>
 </CascadingValue>
