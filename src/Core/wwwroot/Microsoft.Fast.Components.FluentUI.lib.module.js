@@ -150,7 +150,7 @@ export function afterStarted(blazor) {
     });
     blazor.registerCustomEventType('sizechanged', {
         browserEventName: 'sizechanged',
-        createEventArgs: event => {js
+        createEventArgs: event => {
             return event;
         }
     });
