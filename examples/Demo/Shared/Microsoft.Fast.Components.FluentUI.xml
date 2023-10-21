@@ -2938,10 +2938,24 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentGrid.StyleValue">
             <summary />
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentGridItem.Justify">
+            <summary>
+            Defines how the browser distributes space between and around content items.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentGridItem.Gap">
+            <summary>
+            Defines the gaps (gutters) between rows and columns.
+            See https://developer.mozilla.org/en-US/docs/Web/CSS/gap
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentGridItem.ClassValue">
             <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentGridItem.StyleValue">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentGridItem.NoBreakpointsDefined">
             <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentHeader.Height">

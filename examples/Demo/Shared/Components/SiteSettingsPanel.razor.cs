@@ -7,10 +7,14 @@ namespace FluentUI.Demo.Shared.Components;
 
 public partial class SiteSettingsPanel : IDialogContentComponent<GlobalState>, IAsyncDisposable
 {
+    private const string ThemeSettingSystem = "System";
+    private const string ThemeSettingDark = "Dark";
+    private const string ThemeSettingLight = "Light";
+
+    private string _currentTheme = ThemeSettingSystem;
     private LocalizationDirection _dir;
     private StandardLuminance _baseLayerLuminance = StandardLuminance.LightMode;
     private OfficeColor _selectedColorOption;
-    private bool _inDarkMode;
     private bool _rtl;
     private IJSObjectReference? _jsModule;
     private ElementReference _container;
@@ -32,7 +36,6 @@ public partial class SiteSettingsPanel : IDialogContentComponent<GlobalState>, I
 
     protected override void OnInitialized()
     {
-        _inDarkMode = Content.Luminance == StandardLuminance.DarkMode;
         _rtl = Content.Dir == LocalizationDirection.rtl;
         _container = Content.Container;
 
@@ -45,7 +48,6 @@ public partial class SiteSettingsPanel : IDialogContentComponent<GlobalState>, I
 
             Content.Color = _selectedColorOption.ToAttributeValue();
         }
-
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -53,11 +55,13 @@ public partial class SiteSettingsPanel : IDialogContentComponent<GlobalState>, I
         if (firstRender)
         {
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-                 "./_content/FluentUI.Demo.Shared/Shared/DemoMainLayout.razor.js");
+                 "./_content/FluentUI.Demo.Shared/js/theme.js");
+            _currentTheme = await _jsModule.InvokeAsync<string>("getThemeCookieValue");
+            StateHasChanged();
         }
     }
 
-    public async Task UpdateDirection()
+    public async Task UpdateDirectionAsync()
     {
         _dir = (_rtl ? LocalizationDirection.rtl : LocalizationDirection.ltr);
 
@@ -69,24 +73,21 @@ public partial class SiteSettingsPanel : IDialogContentComponent<GlobalState>, I
         StateHasChanged();
     }
 
-    public async void UpdateTheme()
+    private async Task UpdateThemeAsync(string newValue)
     {
-        if (_inDarkMode)
+        if (_jsModule is not null)
         {
-            _baseLayerLuminance = StandardLuminance.DarkMode;
-        }
-        else
-        {
-            _baseLayerLuminance = StandardLuminance.LightMode;
+            var newLuminance = await GetBaseLayerLuminanceForSetting(newValue);
+
+            await BaseLayerLuminance.WithDefault(newLuminance.GetLuminanceValue());
+            await _jsModule.InvokeVoidAsync("switchHighlightStyle", newLuminance == StandardLuminance.DarkMode);
+            await _jsModule.InvokeVoidAsync("setThemeCookie", newValue);
         }
 
-        Content.Luminance = _baseLayerLuminance;
-        
-        await BaseLayerLuminance.WithDefault(_baseLayerLuminance.GetLuminanceValue());
-        await _jsModule!.InvokeVoidAsync("switchHighlightStyle", _baseLayerLuminance == StandardLuminance.DarkMode);
+        _currentTheme = newValue;
     }
 
-    private async void HandleColorChange(ChangeEventArgs args)
+    private async Task UpdateColorAsync(ChangeEventArgs args)
     {
         string? value = args.Value?.ToString();
         if (!string.IsNullOrEmpty(value))
@@ -106,6 +107,35 @@ public partial class SiteSettingsPanel : IDialogContentComponent<GlobalState>, I
         }
     }
 
+    private Task<StandardLuminance> GetBaseLayerLuminanceForSetting(string setting)
+    {
+        if (setting == ThemeSettingLight)
+        {
+            return Task.FromResult(StandardLuminance.LightMode);
+        }
+        else if (setting == ThemeSettingDark)
+        {
+            return Task.FromResult(StandardLuminance.DarkMode);
+        }
+        else // "System"
+        {
+            return GetSystemThemeLuminance();
+        }
+    }
+
+    private async Task<StandardLuminance> GetSystemThemeLuminance()
+    {
+        if (_jsModule is not null)
+        {
+            var systemTheme = await _jsModule.InvokeAsync<string>("getSystemTheme");
+            if (systemTheme == ThemeSettingDark)
+            {
+                return StandardLuminance.DarkMode;
+            }
+        }
+
+        return StandardLuminance.LightMode;
+    }
     async ValueTask IAsyncDisposable.DisposeAsync()
     {
         try
