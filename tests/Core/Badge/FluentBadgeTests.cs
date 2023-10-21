@@ -1,11 +1,13 @@
 using Bunit;
 using FluentAssertions;
+using Microsoft.AspNetCore.Components.Web;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Badge;
 
-public class FluentBadgeTests : TestBase
+public partial class FluentBadgeTests : TestContext
 {
+    private TestContext TestContext => new(); // TODO: To remove and to use the `RenderComponent` inherited method.
 
     [Fact]
     public void FluentBadge_DefaultAttributes()

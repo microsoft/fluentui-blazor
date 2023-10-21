@@ -5,8 +5,10 @@ using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Button;
 
-public class FluentButtonTests : TestBase
+public partial class FluentButtonTests : TestContext
 {
+    private TestContext TestContext => new(); // TODO: To remove and to use the `RenderComponent` inherited method.
+
     [Fact]
     public void FluentButton_Default()
     {
@@ -391,39 +393,6 @@ public class FluentButtonTests : TestBase
 
         // Assert
         cut.Verify();
-    }
-
-    [Fact]
-    public void FluentButton_Title()
-    {
-        // Arrange && Act
-        var cut = TestContext.RenderComponent<FluentButton>(parameters =>
-        {
-            parameters.Add(p => p.Title, "My Title");
-            parameters.AddChildContent("My button");
-        });
-
-        // Assert
-        cut.Verify();
-    }
-
-    [Fact]
-    public void FluentButton_OnClick()
-    {
-        bool clicked = false;
-
-        // Arrange
-        var cut = TestContext.RenderComponent<FluentButton>(parameters =>
-        {
-            parameters.Add(p => p.OnClick, (e) => { clicked = true; });
-            parameters.AddChildContent("My button");
-        });
-
-        // Act
-        cut.Find("fluent-button").Click();
-
-        // Assert
-        Assert.True(clicked);
     }
 
     [Fact]

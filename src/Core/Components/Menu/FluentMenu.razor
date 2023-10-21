@@ -3,9 +3,9 @@
 <CascadingValue Value="this" IsFixed="true">
     @if (Open)
     {
-        <FluentOverlay @bind-Visible="@Open" OnClose="@CloseAsync" Transparent="true" FullScreen="true" />
         @if (Anchored)
         {
+            <FluentOverlay @bind-Visible="@Open" OnClose="@CloseAsync" Transparent="true" FullScreen="true" />
             <FluentAnchoredRegion Anchor="@Anchor"
                 HorizontalDefaultPosition="@HorizontalPosition"
                 HorizontalInset="true"

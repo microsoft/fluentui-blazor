@@ -8,6 +8,19 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <base href="~/" />
+    <style>
+        :root {
+            --neutral-fill-layer-rest: #ffffff;
+            color: #000000;
+        }
+
+        @@media(prefers-color-scheme: dark) {
+            :root {
+                --neutral-fill-layer-rest: #464646;
+                color: #ffffff;
+            }
+        }
+    </style>
     <link href="_content/FluentUI.Demo.Shared/css/site.css" rel="stylesheet" />
     <link href="FluentUI.Demo.Server.styles.css" rel="stylesheet" />
     
@@ -42,6 +55,7 @@
     
     <script src="_framework/blazor.server.js"></script>
     <script src="js/site.js"></script>
+    <script src="_content/FluentUI.Demo.Shared/js/theme.js" type="module"></script>
 
 
     <!-- Monaco Editor -->

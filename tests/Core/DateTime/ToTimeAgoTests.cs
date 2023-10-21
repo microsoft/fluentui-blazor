@@ -64,4 +64,14 @@ public class ToTimeAgoTests : TestBase
 
         Assert.Equal(expectedValue, delay.ToTimeAgo(options));
     }
+
+    [Theory]
+    [InlineData("000.00:00:02", "Just now")]
+    
+    public void ToTimeAgo_Ctor(string delayAsString, string expectedValue)
+    {
+        var delay = TimeSpan.ParseExact(delayAsString, @"ddd\.hh\:mm\:ss", null);
+
+        Assert.Equal(expectedValue, delay.ToTimeAgo(resources: null));
+    }
 }

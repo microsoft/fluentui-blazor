@@ -118,6 +118,11 @@
         flex-basis: 0;
     }
 
+    .fluent-grid ::deep > div[xs="0"] {
+        flex: 1;
+        max-width: fit-content;
+    }
+
     .fluent-grid ::deep > div[xs="1"] {
         flex-grow: 0;
         max-width: 8.33333333333333%;
@@ -205,6 +210,11 @@
         flex-grow: 1;
         max-width: 100%;
         flex-basis: 0;
+    }
+
+    .fluent-grid ::deep > div[sm="0"] {
+        flex: 1;
+        max-width: fit-content;
     }
 
     .fluent-grid ::deep > div[sm="1"] {
@@ -296,6 +306,11 @@
         flex-basis: 0;
     }
 
+    .fluent-grid ::deep > div[md="0"] {
+        flex: 1;
+        max-width: fit-content;
+    }
+
     .fluent-grid ::deep > div[md="1"] {
         flex-grow: 0;
         max-width: 8.33333333333333%;
@@ -383,6 +398,11 @@
         flex-grow: 1;
         max-width: 100%;
         flex-basis: 0;
+    }
+
+    .fluent-grid ::deep > div[lg="0"] {
+        flex: 1;
+        max-width: fit-content;
     }
 
     .fluent-grid ::deep > div[lg="1"] {
@@ -474,6 +494,11 @@
         flex-basis: 0;
     }
 
+    .fluent-grid ::deep > div[xl="0"] {
+        flex: 1;
+        max-width: fit-content;
+    }
+
     .fluent-grid ::deep > div[xl="1"] {
         flex-grow: 0;
         max-width: 8.33333333333333%;
@@ -561,6 +586,11 @@
         flex-grow: 1;
         max-width: 100%;
         flex-basis: 0;
+    }
+
+    .fluent-grid ::deep > div[xxl="0"] {
+        flex: 1;
+        max-width: fit-content;
     }
 
     .fluent-grid ::deep > div[xxl="1"] {

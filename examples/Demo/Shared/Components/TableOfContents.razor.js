@@ -12,29 +12,30 @@
             let elementId = anchorText.replaceAll(" ", "-", "/", "\\", "#", "$", "@", ":", ",").toLowerCase();
             element.id = elementId;
         }
-                
-        let anchor = {
-            "level": element.nodeName,
-            "text": element.innerText,
-            "href": "#" + element.id,
-            "anchors": new Array()
-        };
+        if (element.innerText) {
+            let anchor = {
+                "level": element.nodeName,
+                "text": element.innerText,
+                "href": "#" + element.id,
+                "anchors": new Array()
+            };
 
-        if ("H3" === element.nodeName) {
-            if (chapter) {
-                subchapter = anchor;
-                chapter.anchors.push(subchapter);
+            if ("H3" === element.nodeName) {
+                if (chapter) {
+                    subchapter = anchor;
+                    chapter.anchors.push(subchapter);
+
+                }
+            } else if ("H4" === element.nodeName) {
+                if (subchapter) {
+                    subchapter.anchors.push(anchor);
+                }
+            }
+            else {
+                chapter = anchor;
+                tocArray.push(chapter);
 
             }
-        } else if ("H4" === element.nodeName) {
-            if (subchapter) {
-                subchapter.anchors.push(anchor);
-            }
-        }
-        else {
-            chapter = anchor;
-            tocArray.push(chapter);
-
         }
     }
     return tocArray;

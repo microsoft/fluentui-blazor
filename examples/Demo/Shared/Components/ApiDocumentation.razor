@@ -9,7 +9,7 @@
     @if (Component.BaseType != null && Component.BaseType != typeof(FluentComponentBase) && Component.BaseType.Name.StartsWith("Fluent"))
     {
         <p>
-            Inherits from <a href="/@Component.BaseType.Name">@Component.BaseType.Name.Replace("`1", $"<{GenericLabel}>").Replace("`2", $"<{GenericLabel}>")</a>. <br />
+            Inherits from <a href="/@Component.BaseType.Name.Replace("`1", "").Replace("`2", "")">@Component.BaseType.Name.Replace("`1", $"<{GenericLabel}>").Replace("`2", $"<{GenericLabel}>")</a>. <br />
             <em>There might be parameters and/or methods shown here that are inherited from the component's base type but are not applicable to this component.</em>
         </p>
     }

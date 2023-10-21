@@ -1,4 +1,5 @@
 using Bunit;
+using Bunit.Rendering;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Accordion;
@@ -93,5 +94,22 @@ public class FluentAccordionTests : TestBase
 
         // Assert
         cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAccordion_Dispose()
+    {
+        // Arrange & Act
+        var cut = TestContext.RenderComponent<FluentAccordion>(parameters =>
+        {
+            parameters.Add(p => p.ExpandMode, AccordionExpandMode.Single);
+            parameters.AddChildContent<FluentAccordionItem>(itemParams => itemParams.Add(p => p.Expanded, true));
+            parameters.AddChildContent<FluentAccordionItem>(itemParams => itemParams.Add(p => p.Expanded, true));
+        });
+
+        TestContext.DisposeComponents();
+
+        // Assert
+        Assert.True(cut.IsDisposed);
     }
 }

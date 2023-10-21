@@ -1,0 +1,22 @@
+﻿@using Xunit
+@inherits TestContext
+
+@code
+{
+    [Fact]
+    public void FluentButton_OnClick()
+    {
+        bool clicked = false;
+
+        // Arrange
+        var cut = Render(@<FluentBadge OnClick="@(e => { clicked = true; } )">
+                 My badge
+                 </FluentBadge>);
+
+        // Act
+        cut.Find("fluent-badge").Click();
+
+        // Assert
+        Assert.True(clicked);
+    }
+}
