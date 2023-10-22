@@ -13,7 +13,6 @@ public partial class SiteSettingsPanel : IDialogContentComponent<GlobalState>, I
 
     private string _currentTheme = ThemeSettingSystem;
     private LocalizationDirection _dir;
-    private StandardLuminance _baseLayerLuminance = StandardLuminance.LightMode;
     private OfficeColor _selectedColorOption;
     private bool _rtl;
     private IJSObjectReference? _jsModule;
