@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Flipper;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Flipper;
 public class FluentFlipperTests : TestBase
 {
     [Fact]

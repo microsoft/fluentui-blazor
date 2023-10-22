@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Overlay;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Overlay;
 public class FluentOverlayTests : TestBase
 {
     [Fact]
@@ -14,8 +14,8 @@ public class FluentOverlayTests : TestBase
         Action<Microsoft.AspNetCore.Components.Web.MouseEventArgs> onClose = _ => { };
         bool transparent = default!;
         double? opacity = default!;
-        Microsoft.Fast.Components.FluentUI.Align alignment = default!;
-        Microsoft.Fast.Components.FluentUI.JustifyContent justification = default!;
+        Microsoft.FluentUI.AspNetCore.Components.Align alignment = default!;
+        Microsoft.FluentUI.AspNetCore.Components.JustifyContent justification = default!;
         bool fullScreen = default!;
         bool dismissable = default!;
         string backgroundColor = default!;

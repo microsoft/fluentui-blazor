@@ -2,7 +2,7 @@ using Bunit;
 using Microsoft.AspNetCore.Components;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Overflow;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Overflow;
 public class FluentOverflowTests : TestBase
 {
     public FluentOverflowTests()

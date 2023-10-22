@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Menu;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Menu;
 public class FluentMenuTests : TestBase
 {
     public FluentMenuTests()
@@ -15,9 +15,9 @@ public class FluentMenuTests : TestBase
         //Arrange
         string childContent = "<b>render me</b>";
         string anchor = default!;
-        Microsoft.Fast.Components.FluentUI.MouseButton trigger = default!;
+        Microsoft.FluentUI.AspNetCore.Components.MouseButton trigger = default!;
         bool open = default!;
-        Microsoft.Fast.Components.FluentUI.HorizontalPosition horizontalPosition = default!;
+        Microsoft.FluentUI.AspNetCore.Components.HorizontalPosition horizontalPosition = default!;
         string width = default!;
         Action<System.Boolean> openChanged = _ => { };
         bool anchored = default!;

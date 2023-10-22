@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Toast;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Toast;
 public class FluentToastContainerTests : TestBase
 {
     [Fact(Skip = "Need to figure out how to do this test")]
@@ -9,7 +9,7 @@ public class FluentToastContainerTests : TestBase
     {
         //Arrange
         //Services.AddSingleton<IToastService,/*Add implementation for IToastService*/>();
-        Microsoft.Fast.Components.FluentUI.ToastPosition position = default!;
+        Microsoft.FluentUI.AspNetCore.Components.ToastPosition position = default!;
         int timeout = default!;
         int maxToastCount = default!;
         bool removeToastsOnNavigation = default!;

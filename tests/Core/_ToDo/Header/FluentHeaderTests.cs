@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Header;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Header;
 public class FluentHeaderTests : TestBase
 {
     [Fact]

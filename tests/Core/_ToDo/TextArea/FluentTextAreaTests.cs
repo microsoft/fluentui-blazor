@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.TextArea;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.TextArea;
 public class FluentTextAreaTests : TestBase
 {
     [Fact]
@@ -9,7 +9,7 @@ public class FluentTextAreaTests : TestBase
     {
         //Arrange
         string childContent = "<b>render me</b>";
-        Microsoft.Fast.Components.FluentUI.TextAreaResize? resize = default!;
+        Microsoft.FluentUI.AspNetCore.Components.TextAreaResize? resize = default!;
         string form = default!;
         string dataList = default!;
         int? maxlength = default!;
@@ -17,7 +17,7 @@ public class FluentTextAreaTests : TestBase
         int? cols = default!;
         int? rows = default!;
         bool? spellcheck = default!;
-        Microsoft.Fast.Components.FluentUI.FluentInputAppearance appearance = default!;
+        Microsoft.FluentUI.AspNetCore.Components.FluentInputAppearance appearance = default!;
         var cut = TestContext.RenderComponent<FluentTextArea>(parameters => parameters
             .Add(p => p.Resize, resize)
             .Add(p => p.Form, form)

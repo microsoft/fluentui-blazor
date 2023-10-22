@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Microsoft.Fast.Components.FluentUI.Utilities;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Utilities;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Utilities;
 
 public class JSModuleTests
 {

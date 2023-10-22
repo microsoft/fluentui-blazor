@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Popover;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Popover;
 public class FluentPopoverTests : TestBase
 {
     [Fact]
@@ -12,7 +12,7 @@ public class FluentPopoverTests : TestBase
         string body = "<b>render me</b>";
         string footer = "<b>render me</b>";
         string anchorId = default!;
-        Microsoft.Fast.Components.FluentUI.HorizontalPosition? horizontalPosition = default!;
+        Microsoft.FluentUI.AspNetCore.Components.HorizontalPosition? horizontalPosition = default!;
         bool open = default!;
         Action<System.Boolean> openChanged = _ => { };
         var cut = TestContext.RenderComponent<FluentPopover>(parameters => parameters

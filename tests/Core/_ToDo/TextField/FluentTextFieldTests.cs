@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.TextField;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.TextField;
 public class FluentTextFieldTests : TestBase
 {
     [Fact]
@@ -9,14 +9,14 @@ public class FluentTextFieldTests : TestBase
     {
         //Arrange
         string childContent = "<b>render me</b>";
-        Microsoft.Fast.Components.FluentUI.TextFieldType? textFieldType = default!;
+        Microsoft.FluentUI.AspNetCore.Components.TextFieldType? textFieldType = default!;
         string dataList = default!;
         int? maxlength = default!;
         int? minlength = default!;
         string pattern = default!;
         int? size = default!;
         bool? spellcheck = default!;
-        Microsoft.Fast.Components.FluentUI.FluentInputAppearance appearance = default!;
+        Microsoft.FluentUI.AspNetCore.Components.FluentInputAppearance appearance = default!;
         string autoComplete = default!;
         var cut = TestContext.RenderComponent<FluentTextField>(parameters => parameters
             .Add(p => p.TextFieldType, textFieldType)

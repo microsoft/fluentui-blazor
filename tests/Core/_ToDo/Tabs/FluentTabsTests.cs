@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Tabs;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Tabs;
 public class FluentTabsTests : TestBase
 {
     public FluentTabsTests()
@@ -14,17 +14,17 @@ public class FluentTabsTests : TestBase
     {
         //Arrange
         string childContent = "<b>render me</b>";
-        Microsoft.Fast.Components.FluentUI.Orientation orientation = default!;
-        Action<Microsoft.Fast.Components.FluentUI.FluentTab> onTabSelect = _ => { };
-        Action<Microsoft.Fast.Components.FluentUI.FluentTab> onTabClose = _ => { };
+        Microsoft.FluentUI.AspNetCore.Components.Orientation orientation = default!;
+        Action<Microsoft.FluentUI.AspNetCore.Components.FluentTab> onTabSelect = _ => { };
+        Action<Microsoft.FluentUI.AspNetCore.Components.FluentTab> onTabClose = _ => { };
         bool showClose = default!;
-        Microsoft.Fast.Components.FluentUI.TabSize? size = default!;
+        Microsoft.FluentUI.AspNetCore.Components.TabSize? size = default!;
         string width = default!;
         string height = default!;
         string activeTabId = default!;
         Action<System.String> activeTabIdChanged = _ => { };
         bool showActiveIndicator = default!;
-        Action<Microsoft.Fast.Components.FluentUI.FluentTab> onTabChange = _ => { };
+        Action<Microsoft.FluentUI.AspNetCore.Components.FluentTab> onTabChange = _ => { };
         var cut = TestContext.RenderComponent<FluentTabs>(parameters => parameters
             .Add(p => p.Orientation, orientation)
             .Add(p => p.OnTabSelect, onTabSelect)

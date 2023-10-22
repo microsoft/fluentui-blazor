@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Pagination;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Pagination;
 public class FluentPaginatorTests : TestBase
 {
     [Fact(Skip = "Need to figure out how to do this test")]
@@ -10,7 +10,7 @@ public class FluentPaginatorTests : TestBase
         //Arrange
         string summaryTemplate = "<b>render me</b>";
         Action<System.Int32> currentPageIndexChanged = _ => { };
-        Microsoft.Fast.Components.FluentUI.PaginationState state = default!;
+        Microsoft.FluentUI.AspNetCore.Components.PaginationState state = default!;
         var cut = TestContext.RenderComponent<FluentPaginator>(parameters => parameters
             .Add(p => p.CurrentPageIndexChanged, currentPageIndexChanged)
             .Add(p => p.State, state)

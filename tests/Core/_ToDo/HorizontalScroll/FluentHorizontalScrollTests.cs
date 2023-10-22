@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.HorizontalScroll;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.HorizontalScroll;
 public class FluentHorizontalScrollTests : TestBase
 {
     public FluentHorizontalScrollTests()

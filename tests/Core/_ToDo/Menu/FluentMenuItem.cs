@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Menu;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Menu;
 public class FluentMenuItemTests : TestBase
 {
     [Fact(Skip = "Need to figure out how to do this test")]
@@ -13,10 +13,10 @@ public class FluentMenuItemTests : TestBase
         string label = default!;
         bool disabled = default!;
         bool expanded = default!;
-        Microsoft.Fast.Components.FluentUI.MenuItemRole? role = default!;
+        Microsoft.FluentUI.AspNetCore.Components.MenuItemRole? role = default!;
         bool Checked = default!;
         Action onClick = () => { };
-        Microsoft.Fast.Components.FluentUI.FluentMenu owner = default!;
+        Microsoft.FluentUI.AspNetCore.Components.FluentMenu owner = default!;
         var cut = TestContext.RenderComponent<FluentMenuItem>(parameters => parameters
             .Add(p => p.Label, label)
             .Add(p => p.Disabled, disabled)

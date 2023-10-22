@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Radio;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Radio;
 using Bunit;
 using Newtonsoft.Json.Linq;
 using Xunit;

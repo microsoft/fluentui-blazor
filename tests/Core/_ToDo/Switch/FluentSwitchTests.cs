@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Switch;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Switch;
 public class FluentSwitchTests : TestBase
 {
     [Fact]

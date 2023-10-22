@@ -3595,6 +3595,11 @@
             Title and Aria-Label for the Scroll to previous button.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.TitleScrollToNext">
+            <summary>
+            Title and Aria-Label for the Scroll to next button.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.ListStyleValue">
             <summary />
         </member>
@@ -3602,6 +3607,9 @@
             <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.IdScroll">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.IdPopup">
             <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.IsMultiSelectOpened">
