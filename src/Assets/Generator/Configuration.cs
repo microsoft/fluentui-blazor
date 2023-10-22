@@ -9,7 +9,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components.AssetsGenerator;
 /// </summary>
 internal class Configuration
 {
-    private const string DefaultNamespace = "Microsoft.Fast.Components.FluentUI";
+    private const string DefaultNamespace = "Microsoft.FluentUI.AspNetCore.Components";
     private const string DefaultLibrary = "icon";
     private const string DefaultSizes = ""; // All sizes
 
