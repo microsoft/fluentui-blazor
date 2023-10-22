@@ -7,7 +7,7 @@
 
 ## Introduction
 
-The [Microsoft.Fast.Components.FluentUI](https://github.com/microsoft/fluentui-blazor) package provides
+The [Microsoft.FluentUI.AspNetCore.Components](https://github.com/microsoft/fluentui-blazor) package provides
 a set of [Blazor](https://blazor.net) components which you can use to build applications
 that have the look and feel or modern Microsoft applications.
 
@@ -17,11 +17,11 @@ and offers a way to make the emoji usable in projects that use the Microsoft Flu
 ## Getting Started
 
 To get started using the **Fluent UI Emoji's** for Blazor, you will first need 
-to install the official [Nuget package](https://www.nuget.org/packages/Microsoft.Fast.Components.FluentUI.Emojis/)
+to install the official [Nuget package](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components.Emojis/)
 in the project you would like to use the library and components. You can use the following command:
 
 ```shell
-dotnet add package Microsoft.Fast.Components.FluentUI.Emojis
+dotnet add package Microsoft.FluentUI.AspNetCore.Components.Emojis
 ```
 
 ## Usage
@@ -29,7 +29,7 @@ dotnet add package Microsoft.Fast.Components.FluentUI.Emojis
 To use the emoji's, you will need to add the following using statement to your `_Imports.razor` file:
 
 ```razor
-@using Microsoft.Fast.Components.FluentUI
+@using Microsoft.FluentUI.AspNetCore.Components.Emojis
 ```
 
 Then you can use the emoji's in your Blazor components like this:

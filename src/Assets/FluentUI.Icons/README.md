@@ -7,7 +7,7 @@
 
 ## Introduction
 
-The [Microsoft.Fast.Components.FluentUI](https://github.com/microsoft/fluentui-blazor) package provides
+The [Microsoft.FluentUI.AspNetCore.Component](https://github.com/microsoft/fluentui-blazor) package provides
 a set of [Blazor](https://blazor.net) components which you can use to build applications
 that have the look and feel or modern Microsoft applications.
 
@@ -16,11 +16,11 @@ This library is a set of icons wrapping Microsoft’s official [Fluent UI Icon lib
 ## Getting Started
 
 To get started using the **Fluent UI Icons** for Blazor, you will first need 
-to install the official [Nuget package](https://www.nuget.org/packages/Microsoft.Fast.Components.FluentUI.Icons/)
+to install the official [Nuget package](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components.Icons/)
 in the project you would like to use the library and components. You can use the following command:
 
 ```shell
-dotnet add package Microsoft.Fast.Components.FluentUI.Icons
+dotnet add package Microsoft.FluentUI.AspNetCore.Components.Icons
 ```
 
 ## Usage
@@ -28,7 +28,7 @@ dotnet add package Microsoft.Fast.Components.FluentUI.Icons
 To use the icons, you will need to add the following using statement to your `_Imports.razor` file:
 
 ```razor
-@using Microsoft.Fast.Components.FluentUI
+@using Microsoft.FluentUI.AspNetCore.Components
 ```
 
 Then you can use the icons in your Blazor components like this:
