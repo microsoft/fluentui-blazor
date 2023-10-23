@@ -49,6 +49,7 @@ steps:
   #     Write-Host "##vso[task.setvariable variable=ShouldTest]${toTest}"
   #   displayName: Compute VersionPackage
 
+  # Compute VersionPackage
   - powershell: |
   
       # Example Build.BuildNumber = 1.2.4.23296.1
@@ -84,15 +85,17 @@ steps:
       Write-Host "##vso[task.setvariable variable=ShouldTest]${toTest}"
     displayName: Compute VersionPackage
 
+  # Display computed variables
   - script: |
-      echo 🔸 BuildNumber      = $(Build.BuildNumber)
+      echo 🔸 Build.BuildNumber      = $(Build.BuildNumber)
+      echo 🔸 Build.SourceBranch     = $(Build.SourceBranch)
       echo -----------------------------------------------
-      echo 🔸 BranchName       = $(BranchName)
-      echo 🔸 AssemblyVersion  = $(AssemblyVersion)
-      echo 🔸 PackageVersion   = $(PackageVersion)
+      echo 🔸 BranchName             = $(BranchName)
+      echo 🔸 AssemblyVersion        = $(AssemblyVersion)
+      echo 🔸 PackageVersion         = $(PackageVersion)
       echo -----------------------------------------------
-      echo 🔸 ShouldSign       = $(ShouldSign)
-      echo 🔸 ShouldTest       = $(ShouldTest)
+      echo 🔸 ShouldSign             = $(ShouldSign)
+      echo 🔸 ShouldTest             = $(ShouldTest)
     displayName: Display computed variables
 
   # - task: NuGetToolInstaller@1
