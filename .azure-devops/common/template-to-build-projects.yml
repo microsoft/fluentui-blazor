@@ -52,9 +52,11 @@ steps:
   # Compute VersionPackage
   - powershell: |
   
-      # Example Build.BuildNumber = 1.2.4.23296.1
-      #                           = $(FileVersion).$(Year:yy)$(DayOfYear).$(Rev:r)
+      # Example with FileVersion: "1.2.4" and PackageSuffix: "RC.1"
+      # Build.BuildNumber = 1.2.4.23296.1
+      #                   = $(FileVersion).$(Year:yy)$(DayOfYear).$(Rev:r)
 
+      # BranchName = dev, main or PR
       $branch = "PR"
       if ("$(Build.SourceBranch)" -eq "refs/heads/main")
       {
@@ -65,17 +67,45 @@ steps:
           $branch = "dev"
       }
 
+      # TODO: To remove (only for testing purpose)
+      if ("$(PublicVersion)" -ne "")
+      {
+          $branch = "$(PublicVersion)"
+      }
+
       # [1, 2, 4, 23296, 1]
       $builds = "$(Build.BuildNumber)".Split('.')
 
       # 1.2.4.23296
       $assembly = "$($builds[0]).$($builds[1]).$($builds[2]).$($builds[3])"
 
-      # 1.2.4-Preview-23296-1
-      $package = "$($builds[0]).$($builds[1]).$($builds[2]).$($builds[3])"
+      # 1.2.4-Preview-23296-1 (dev), 1.2.4-RC.1 (main), 1.2.4 (main)
+      $package = ""
 
-      $sign = "false";
-      $toTest = "false";
+      if ("$branch" -eq "dev")
+      {
+          # Dev: 1.2.4-Preview-23296-1
+          $package = "$($builds[0]).$($builds[1]).$($builds[2])-Preview-$($builds[3])-$($builds[4])"
+      }
+
+      if ("$branch" -eq "main")
+      {
+          # Main without PackageSuffix: 1.2.4
+          if ("$(PackageSuffix)" -ne "")
+          {
+              $package = "$($builds[0]).$($builds[1]).$($builds[2])"
+          }
+
+          # Main with PackageSuffix: 1.2.4-RC.1
+          else
+          {
+              $package = "$($builds[0]).$($builds[1]).$($builds[2])-$($builds[3])"
+          }
+      }
+
+      # To Sign and To Test
+      $sign = "false";      # TODO
+      $toTest = "false";    # TODO
   
       # Set the output variable for use in other tasks.
       Write-Host "##vso[task.setvariable variable=BranchName]${branch}"
