@@ -1,24 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+		<TargetFramework>net8.0;</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<IsPackable>true</IsPackable>
 	</PropertyGroup>
 
-	<ItemGroup Condition="$(TargetFramework)=='net6.0' ">
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.*" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.*" PrivateAssets="all" />
-	</ItemGroup>
-
-	<ItemGroup Condition="$(TargetFramework)=='net7.0' ">
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.*" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.*" PrivateAssets="all" />
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.*" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.*" PrivateAssets="all" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Fast.Components.FluentUI" Version="3.0.*" />
+		<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.0.*" />
 	</ItemGroup>
 
 </Project>
