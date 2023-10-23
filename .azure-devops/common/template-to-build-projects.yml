@@ -54,6 +54,15 @@ steps:
       # Example Build.BuildNumber = 1.2.4.23296.1
       #                           = $(FileVersion).$(Year:yy)$(DayOfYear).$(Rev:r)
 
+      $branch = "PR"
+      if ("$(Build.SourceBranch)" -eq "refs/heads/main")
+      {
+          $branch = "main"
+      }
+      if ("$(Build.SourceBranch)" -eq "refs/heads/dev")
+      {
+          $branch = "dev"
+      }
 
       # [1, 2, 4, 23296, 1]
       $builds = "$(Build.BuildNumber)".Split('.')
@@ -68,6 +77,7 @@ steps:
       $toTest = "false";
   
       # Set the output variable for use in other tasks.
+      Write-Host "##vso[task.setvariable variable=BranchName]${branch}"
       Write-Host "##vso[task.setvariable variable=AssemblyVersion]${assembly}"
       Write-Host "##vso[task.setvariable variable=PackageVersion]${package}"
       Write-Host "##vso[task.setvariable variable=ShouldSign]${sign}"
