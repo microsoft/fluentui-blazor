@@ -4,7 +4,7 @@
     <PackageId>Microsoft.FluentUI.AspNetCore.Components</PackageId>
 
     <Summary>A set of Blazor components wrapping Microsoft’s official Fluent UI Web Components. They implement the latest state of the Fluent design language, are built on FAST and work in every major browser.</Summary>
-    <PackageTags>Web Components, Fluent UI, FAST, Blazor, .NET6, .NET7, .NET8</PackageTags>
+    <PackageTags>Web Components, Fluent UI, FAST, Blazor, .NET8</PackageTags>
     <Title>Microsoft Fluent UI Web Components for Blazor</Title>
     <Description>A set of Blazor components wrapping Microsoft’s official Fluent UI Web Components. They implement the latest state of the Fluent design language, are built on FAST and work in every major browser.</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
