@@ -68,18 +68,18 @@ steps:
       $toTest = "false";
   
       # Set the output variable for use in other tasks.
-      Write-Host "##vso[task.setvariable variable=AssemblyVersion]${$assembly}"
-      Write-Host "##vso[task.setvariable variable=PackageVersion]${$package}"
+      Write-Host "##vso[task.setvariable variable=AssemblyVersion]${assembly}"
+      Write-Host "##vso[task.setvariable variable=PackageVersion]${package}"
       Write-Host "##vso[task.setvariable variable=ShouldSign]${sign}"
       Write-Host "##vso[task.setvariable variable=ShouldTest]${toTest}"
     displayName: Compute VersionPackage
 
   - script: |
-      echo 🔹 BuildNumber      = $(Build.BuildNumber)
-      echo 🔹 AssemblyVersion  = $(AssemblyVersion)
-      echo 🔹 PackageVersion   = $(PackageVersion)
-      echo 🔹 ShouldSign       = $(ShouldSign)
-      echo 🔹 ShouldTest       = $(ShouldTest)
+      echo 🔸 BuildNumber      = $(Build.BuildNumber)
+      echo 🔸 AssemblyVersion  = $(AssemblyVersion)
+      echo 🔸 PackageVersion   = $(PackageVersion)
+      echo 🔸 ShouldSign       = $(ShouldSign)
+      echo 🔸 ShouldTest       = $(ShouldTest)
     displayName: Display computed variables
 
   # - task: NuGetToolInstaller@1
