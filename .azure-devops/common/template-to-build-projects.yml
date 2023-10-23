@@ -50,21 +50,36 @@ steps:
   #   displayName: Compute VersionPackage
 
   - powershell: |
-      $package = ${FileVersion}
+  
+      # Example Build.BuildNumber = 1.2.4.23296.1
+      #                           = $(FileVersion).$(Year:yy)$(DayOfYear).$(Rev:r)
+
+
+      # [1, 2, 4, 23296, 1]
+      $builds = "$(Build.BuildNumber)".Split('.')
+
+      # 1.2.4.23296
+      $file = "$($builds[0]).$($builds[1]).$($builds[2]).$($builds[3])"
+
+      # 1.2.4-Preview-23296-1
+      $package = "$($builds[0]).$($builds[1]).$($builds[2]).$($builds[3])"
+
       $sign = "false";
       $toTest = "false";
   
       # Set the output variable for use in other tasks.
-      Write-Host "##vso[task.setvariable variable=VersionPackage]${package}"
+      Write-Host "##vso[task.setvariable variable=FileVersion]${file}"
+      Write-Host "##vso[task.setvariable variable=PackageVersion]${$package}"
       Write-Host "##vso[task.setvariable variable=ShouldSign]${sign}"
       Write-Host "##vso[task.setvariable variable=ShouldTest]${toTest}"
     displayName: Compute VersionPackage
 
   - script: |
-      echo "VersionPackage = $(VersionPackage)"
-      echo "BuildNumber    = $(Build.BuildNumber)"
-      echo "ShouldSign     = $(ShouldSign)"
-      echo "ShouldTest     = $(ShouldTest)"
+      echo BuildNumber    = $(Build.BuildNumber)
+      echo FileVersion    = $(PackageVersion)
+      echo VersionPackage = $(FileVersion)
+      echo ShouldSign     = $(ShouldSign)
+      echo ShouldTest     = $(ShouldTest)
     displayName: Display computed variables
 
   # - task: NuGetToolInstaller@1
