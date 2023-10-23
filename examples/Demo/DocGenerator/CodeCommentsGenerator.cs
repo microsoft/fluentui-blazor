@@ -116,7 +116,7 @@ namespace FluentUI.Demo.Generators
                         .Replace(Environment.NewLine + "</summary>", "")
                         .Replace(Environment.NewLine, "<br />")
                         .Replace("\"", "'")
-                        .Replace("Microsoft.Fast.Components.FluentUI.", "")
+                        .Replace("Microsoft.FluentUI.AspNetCore.Components.", "")
                         .Replace("FluentDataGrid`1.", "")
                         .Replace("System.Linq.", "")
                         .Replace("System.Linq.Queryable.", "")

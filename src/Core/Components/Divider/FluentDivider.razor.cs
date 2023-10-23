@@ -5,7 +5,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentDivider : FluentComponentBase
 {
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.Fast.Components.FluentUI/Components/Divider/FluentDivider.razor.js";
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Divider/FluentDivider.razor.js";
 
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
