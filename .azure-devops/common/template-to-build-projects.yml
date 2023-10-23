@@ -86,8 +86,11 @@ steps:
 
   - script: |
       echo 🔸 BuildNumber      = $(Build.BuildNumber)
+      echo -----------------------------------------------
+      echo 🔸 BranchName       = $(Build.BranchName)
       echo 🔸 AssemblyVersion  = $(AssemblyVersion)
       echo 🔸 PackageVersion   = $(PackageVersion)
+      echo -----------------------------------------------
       echo 🔸 ShouldSign       = $(ShouldSign)
       echo 🔸 ShouldTest       = $(ShouldTest)
     displayName: Display computed variables
