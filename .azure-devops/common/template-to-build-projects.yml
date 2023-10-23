@@ -80,7 +80,7 @@ steps:
       $assembly = "$($builds[0]).$($builds[1]).$($builds[2]).$($builds[3])"
 
       # 1.2.4-Preview-23296-1 (dev), 1.2.4-RC.1 (main), 1.2.4 (main)
-      $package = ""
+      $package = ""  # No package for PR (only Dev or Main)
 
       if ("$branch" -eq "dev")
       {
