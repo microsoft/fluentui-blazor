@@ -33,6 +33,19 @@ public partial class FluentGridItem : FluentComponentBase
 #pragma warning restore SA1300
 #pragma warning restore IDE1006
 
+    /// <summary>
+    /// Defines how the browser distributes space between and around content items.
+    /// </summary>
+    [Parameter]
+    public JustifyContent? Justify { get; set; }
+
+    /// <summary>
+    /// Defines the gaps (gutters) between rows and columns.
+    /// See https://developer.mozilla.org/en-US/docs/Web/CSS/gap
+    /// </summary>
+    [Parameter]
+    public string? Gap { get; set; }
+
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
@@ -40,5 +53,20 @@ public partial class FluentGridItem : FluentComponentBase
     protected string? ClassValue => new CssBuilder(Class).Build();
 
     /// <summary />
-    protected string? StyleValue => new StyleBuilder(Style).Build();
+    protected string? StyleValue => new StyleBuilder(Style)
+        .AddStyle("justify-content", Justify.ToAttributeValue(), when: Justify is not null)
+        .AddStyle("display", "flex", when: Justify is not null)
+        .AddStyle("gap", Gap, when: !string.IsNullOrEmpty(Gap))
+        .Build();
+
+    /// <summary />
+    private bool NoBreakpointsDefined()
+    {
+        return xs is null
+            && sm is null
+            && md is null
+            && lg is null
+            && xl is null
+            && xxl is null;
+    }
 }

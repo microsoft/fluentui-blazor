@@ -2,7 +2,7 @@
 // the before-started CSS class. Here we'll find the first web component
 // and wait for it to be upgraded. When it is, we'll remove that class
 // from the body. 
-console.log('site.js');
+
 const firstUndefinedElement = document.body.querySelector(":not(:defined)");
 
 if (firstUndefinedElement) {

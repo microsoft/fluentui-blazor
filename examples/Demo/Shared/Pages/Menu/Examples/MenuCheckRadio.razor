@@ -1,5 +1,4 @@
-﻿<FluentSwitch @bind-Value="@open">Show</FluentSwitch>
-<FluentMenu @bind-Open="@open">
+﻿<FluentMenu Open="true" Anchored="false">
     <FluentMenuItem>Menu item 1</FluentMenuItem>
     <FluentMenuItem>Menu item 2</FluentMenuItem>
     <FluentMenuItem>Menu item 3</FluentMenuItem>
@@ -13,7 +12,3 @@
     <FluentMenuItem Role="MenuItemRole.MenuItemRadio">Radio 1.1</FluentMenuItem>
     <FluentMenuItem Role="MenuItemRole.MenuItemRadio">Radio 1.2</FluentMenuItem>
 </FluentMenu>
-
-@code {
-    bool open = false;
-}

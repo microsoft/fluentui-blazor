@@ -2,7 +2,7 @@
 @inject IDialogService DialogService
 @inject IMessageService MessageService
 
-<FluentButton BackgroundColor="var(--neutral-layer-4)" OnClick="OpenNotificationCenterAsync">
+<FluentButton BackgroundColor="var(--neutral-layer-4)" OnClick="OpenNotificationCenterAsync" Title="Notification center">
 @if (MessageService.Count(App.MESSAGES_NOTIFICATION_CENTER) > 0)
 {
     <FluentCounterBadge Count="@MessageService.Count(App.MESSAGES_NOTIFICATION_CENTER)"

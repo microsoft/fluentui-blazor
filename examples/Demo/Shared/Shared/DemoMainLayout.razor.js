@@ -28,7 +28,7 @@ export function isDarkMode() {
         return true;
     else
         return false;
-}
+    }
 
 export function switchDirection(dir) {
     document.dir = dir;

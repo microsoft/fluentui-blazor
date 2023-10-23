@@ -5,5 +5,8 @@
     align-items: flex-start;
     height: 100%;
     width: 100%;
-    
+    font-family: var(--body-font);
+    font-weight: normal;
+    font-size: var(--type-ramp-base-font-size);
+    line-height: var(--type-ramp-base-line-height);
 }

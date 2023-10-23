@@ -1,7 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <TargetFrameworks>net8.0</TargetFrameworks>
+    <TargetFrameworks>net7.0</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
@@ -12,7 +12,7 @@
   <ItemGroup>
     <PackageReference Include="bunit" Version="1.20.8" />
     <PackageReference Include="FluentAssertions" Version="6.11.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
     <PackageReference Include="xunit" Version="2.4.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -40,21 +40,66 @@
       <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
       <DependentUpon>%(ParentFile).cs</DependentUpon>
     </None>
+    
     <None Include="**\*.received.html" />
-
     <None Update="**\*.received.html">
       <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
       <DependentUpon>%(ParentFile).cs</DependentUpon>
     </None>
 
+    <None Include="**\*.verified.razor.html" />
+    <None Update="**\*.verified.razor.html">
+      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
+      <DependentUpon>%(ParentFile).razor</DependentUpon>
+    </None>
+    
+    <None Include="**\*.received.razor.html" />
+    <None Update="**\*.received.razor.html">
+      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
+      <DependentUpon>%(ParentFile).razor</DependentUpon>
+    </None>
+
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="List\FluentPersonaTests.FluentOptionPeople_Initials.verified.html">
-      <DependentUpon>FluentPersonaTests.cs</DependentUpon>
+    <None Update="Badge\FluentBadgeTests.razor.FluentBadge_WithOnClick.verified.html">
+      <DependentUpon>FluentBadgeTests.razor.cs</DependentUpon>
     </None>
-    <None Update="List\FluentPersonaTests.FluentOptionPeople_Image.verified.html">
-      <DependentUpon>FluentPersonaTests.cs</DependentUpon>
+    <None Update="Badge\FluentBadgeTests.razor.FluentBadge_WithMultipleAdditionalAttributes.verified.html">
+      <DependentUpon>FluentBadgeTests.razor.cs</DependentUpon>
+    </None>
+    <None Update="Badge\FluentBadgeTests.razor.FluentBadge_WithAnAdditionalAttribute.verified.html">
+      <DependentUpon>FluentBadgeTests.razor.cs</DependentUpon>
+    </None>
+    <None Update="Badge\FluentBadgeTests.razor.FluentBadge_WithAdditionalStyle.verified.html">
+      <DependentUpon>FluentBadgeTests.razor.cs</DependentUpon>
+    </None>
+    <None Update="Badge\FluentBadgeTests.razor.FluentBadge_WithAdditionalCssClass.verified.html">
+      <DependentUpon>FluentBadgeTests.razor.cs</DependentUpon>
+    </None>
+    <None Update="Badge\FluentBadgeTests.razor.FluentBadge_FillAttribute.verified.html">
+      <DependentUpon>FluentBadgeTests.razor.cs</DependentUpon>
+    </None>
+    <None Update="Badge\FluentBadgeTests.razor.FluentBadge_DefaultAttributes.verified.html">
+      <DependentUpon>FluentBadgeTests.razor.cs</DependentUpon>
+    </None>
+    <None Update="Badge\FluentBadgeTests.razor.FluentBadge_ColorAttribute.verified.html">
+      <DependentUpon>FluentBadgeTests.razor.cs</DependentUpon>
+    </None>
+    <None Update="Badge\FluentBadgeTests.razor.FluentBadge_CircularAttribute.verified.html">
+      <DependentUpon>FluentBadgeTests.razor.cs</DependentUpon>
+    </None>
+    <None Update="Badge\FluentBadgeTests.razor.FluentBadge_AppearanceAttribute-Neutral.verified.html">
+      <DependentUpon>FluentBadgeTests.razor.cs</DependentUpon>
+    </None>
+    <None Update="Badge\FluentBadgeTests.razor.FluentBadge_AppearanceAttribute-Lightweight.verified.html">
+      <DependentUpon>FluentBadgeTests.razor.cs</DependentUpon>
+    </None>
+    <None Update="Badge\FluentBadgeTests.razor.FluentBadge_AppearanceAttribute-Accent.verified.html">
+      <DependentUpon>FluentBadgeTests.razor.cs</DependentUpon>
+    </None>
+    <None Update="Button\FluentButtonTests.FluentButton_Title.verified.razor.html">
+      <DependentUpon>FluentButtonTests.razor</DependentUpon>
     </None>
   </ItemGroup>
 

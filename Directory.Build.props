@@ -1,24 +1,30 @@
 <Project>
- <PropertyGroup>
-	 <Authors>Microsoft</Authors>
-	 <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
-	 <NeutralLanguage>en</NeutralLanguage>
-	 <Owners>Microsoft Corporation</Owners>
-	 <PackageProjectUrl>https://github.com/microsoft/fluentui-blazor</PackageProjectUrl>
-	 <PackageLicenseExpression>MIT</PackageLicenseExpression>
-	 <RepositoryUrl>https://github.com/microsoft/fluentui-blazor</RepositoryUrl>
-	 <RepositoryType>git</RepositoryType>
-	 <PublishRepositoryUrl>true</PublishRepositoryUrl>
+	<PropertyGroup>
+		<Authors>Microsoft</Authors>
+		<Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
+		<NeutralLanguage>en</NeutralLanguage>
+		<Owners>Microsoft Corporation</Owners>
+		<PackageProjectUrl>https://github.com/microsoft/fluentui-blazor</PackageProjectUrl>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<RepositoryUrl>https://github.com/microsoft/fluentui-blazor</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 
-	 <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>	 
-	 
-	 <VersionFile>3.2.0</VersionFile>
-	 <VersionPrefix>3.2.0</VersionPrefix>
-	 <VersionSuffix></VersionSuffix> 
-	 
-	 <AssemblyVersion>$(VersionFile)</AssemblyVersion>
-	 <FileVersion>$(VersionFile)</FileVersion>
-	 <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
-   <Version>$(VersionPrefix)$(VersionSuffix)</Version>     
- </PropertyGroup>
+		<SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
+
+		<VersionFile>3.2.1</VersionFile>
+		<VersionPrefix>3.2.1</VersionPrefix>
+		<VersionSuffix></VersionSuffix>
+
+		<AssemblyVersion>$(VersionFile)</AssemblyVersion>
+		<FileVersion>$(VersionFile)</FileVersion>
+		<AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
+		<Version>$(VersionPrefix)$(VersionSuffix)</Version>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+			<_Parameter1>Microsoft.Fast.Components.FluentUI.Tests</_Parameter1>
+		</AssemblyAttribute>
+	</ItemGroup>
 </Project>

@@ -13,7 +13,7 @@
     border-radius: calc(var(--control-corner-radius) * 1px);
     padding: 0 12px;
     column-gap: 8px;
-    animation: fade-out 1.5s;
+    animation: fadein 1.5s;
 }
 
 .fluent-messagebar-container-action {
@@ -121,7 +121,7 @@
     min-height: 36px;
     padding: 0 12px;
     column-gap: 8px;
-    animation: fade-out 1.5s;
+    animation: fadein 1.5s;
 }
 
     .fluent-messagebar-notification.intent-info {
@@ -193,12 +193,12 @@
     padding: 0px 4px 4px 0px;
 }
 
-keyframes fade-out {
+@keyframes fadein {
     from {
-        opacity: 1;
+        opacity: 0;
     }
 
     to {
-        opacity: 0;
+        opacity: 1;
     }
 }

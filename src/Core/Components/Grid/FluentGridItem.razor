@@ -1,6 +1,6 @@
 ﻿@namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentComponentBase
 
-<div class="@ClassValue" style="@StyleValue" xs=@xs sm=@sm md=@md lg=@lg xl=@xl xxl=@xxl @attributes="AdditionalAttributes">
+<div class="@ClassValue" style="@StyleValue" xs="@(NoBreakpointsDefined() ? 0 : xs)" sm=@sm md=@md lg=@lg xl=@xl xxl=@xxl @attributes="AdditionalAttributes">
     @ChildContent
 </div>

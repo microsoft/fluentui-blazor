@@ -12,7 +12,8 @@
                            disabled="@Disabled"
                            placeholder="@(this.SelectedOptions?.Any() == false ? Placeholder : string.Empty)"
                            aria-expanded="@(IsMultiSelectOpened ? "true" : "false")"
-                           aria-controls="@(IsMultiSelectOpened ? IdScroll : string.Empty)"
+                           aria-controls="@(IsMultiSelectOpened ? IdPopup : string.Empty)"
+                           aria-label="@(GetAriaLabel() ?? Label ?? Placeholder)"
                            current-value="@_valueText"
                            @onclick="@OnDropDownExpandedAsync"
                            @oninput="@InputHandlerAsync"
@@ -26,6 +27,8 @@
                     <fluent-flipper onclick="document.getElementById('@IdScroll').scrollToPrevious()"
                                     slot="previous-flipper"
                                     aria-hidden="false"
+                                    aria-label="@TitleScrollToPrevious"
+                                    title="@TitleScrollToPrevious"
                                     role="button"
                                     tabindex="0"
                                     class="previous fluent-autocomplete-previous"
@@ -33,6 +36,8 @@
                     <fluent-flipper onclick="document.getElementById('@IdScroll').scrollToNext()"
                                     slot="next-flipper"
                                     aria-hidden="false"
+                                    aria-label="@TitleScrollToNext"
+                                    title="@TitleScrollToNext"
                                     role="button"
                                     tabindex="0"
                                     class="next fluent-autocomplete-next"
@@ -82,7 +87,8 @@
         @if (IsMultiSelectOpened)
         {
             <FluentOverlay OnClose="@(e => IsMultiSelectOpened = false)" Visible="true" Transparent="true" FullScreen="true" />
-            <FluentAnchoredRegion Anchor="@Id"
+            <FluentAnchoredRegion Id="@IdPopup"
+                                  Anchor="@Id"
                                   HorizontalDefaultPosition="HorizontalPosition.Right"
                                   HorizontalInset="true"
                                   VerticalDefaultPosition="@VerticalPosition.Unset"

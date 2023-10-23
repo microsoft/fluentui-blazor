@@ -3,7 +3,6 @@
     -webkit-font-smoothing: antialiased;
     color: var( --neutral-foreground-rest);
     word-break: break-word;
-    min-height: 80px;
 }
 
 .fluent-messagebox ::deep .icon {

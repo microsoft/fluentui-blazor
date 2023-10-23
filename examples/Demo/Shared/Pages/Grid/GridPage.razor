@@ -4,15 +4,28 @@
 @using Microsoft.Fast.Components.FluentUI;
 
 <h1>Grid</h1>
+
 <p>
     The grid component helps keeping layout consistent across various screen resolutions and sizes. <code>FluentGrid</code> comes with a 12-point grid system and contains 5 types of breakpoints that are used for specific screen sizes.
 </p>
 
-<ApiDocumentation Component="typeof(FluentGrid)" />
+<h2 id="example">Examples</h2>
 
-<ApiDocumentation Component="typeof(FluentGridItem)" />
+<DemoSection Title="Default" Component="@typeof(GridDefault)" />
 
-<h2>Breakpoints</h2>
+<DemoSection Title="No breakpoints" Component="@typeof(GridMessage)">
+    <Description>
+        <p>You can resize the panel using the slider in the bottom right-hand corner.</p>
+        <p>
+            If no <strong>Breakpoints</strong> or if <code>xs="0"</code> is defined for a <code>FluentGridItem</code> component,
+            this style will be applied: <code>flex: 1; max-width: fit-content;</code>.<br />
+            In this example, the first item (the message) cannot be lower than 200px <code>min-width: 200px;</code>.
+            To avoid that, the second item (the buttons) will be moved to the next line.
+        </p>
+    </Description>
+</DemoSection>
+
+<h2 id="breakpoints">Breakpoints</h2>
 
 <p>
     Breakpoints help you control your layout based on windows size:
@@ -25,9 +38,11 @@
     </FluentDataGrid>
 </p>
 
-<h2>Examples</h2>
+<h2 id="documentation">Documentation</h2>
 
-<DemoSection Title="Default" Component="@typeof(GridDefault)" />
+<ApiDocumentation Component="typeof(FluentGrid)" />
+
+<ApiDocumentation Component="typeof(FluentGridItem)" />
 
 
 @code
