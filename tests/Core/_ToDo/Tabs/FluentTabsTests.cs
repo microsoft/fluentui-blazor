@@ -6,7 +6,7 @@ public class FluentTabsTests : TestBase
 {
     public FluentTabsTests()
     {
-        TestContext.JSInterop.SetupModule("./_content/Microsoft.Fast.Components.FluentUI/Components/Overflow/FluentOverflow.razor.js");
+        TestContext.JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNeCore.Components/Components/Overflow/FluentOverflow.razor.js");
     }
 
     [Fact(Skip = "Need to figure out how to do this test")]
@@ -14,17 +14,17 @@ public class FluentTabsTests : TestBase
     {
         //Arrange
         string childContent = "<b>render me</b>";
-        Microsoft.FluentUI.AspNetCore.Components.Orientation orientation = default!;
-        Action<Microsoft.FluentUI.AspNetCore.Components.FluentTab> onTabSelect = _ => { };
-        Action<Microsoft.FluentUI.AspNetCore.Components.FluentTab> onTabClose = _ => { };
+        Orientation orientation = default!;
+        Action<FluentTab> onTabSelect = _ => { };
+        Action<FluentTab> onTabClose = _ => { };
         bool showClose = default!;
-        Microsoft.FluentUI.AspNetCore.Components.TabSize? size = default!;
+        TabSize? size = default!;
         string width = default!;
         string height = default!;
         string activeTabId = default!;
         Action<System.String> activeTabIdChanged = _ => { };
         bool showActiveIndicator = default!;
-        Action<Microsoft.FluentUI.AspNetCore.Components.FluentTab> onTabChange = _ => { };
+        Action<FluentTab> onTabChange = _ => { };
         var cut = TestContext.RenderComponent<FluentTabs>(parameters => parameters
             .Add(p => p.Orientation, orientation)
             .Add(p => p.OnTabSelect, onTabSelect)

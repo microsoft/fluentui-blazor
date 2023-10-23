@@ -9,11 +9,11 @@ public class FluentLabelTests : TestBase
     {
         //Arrange
         string childContent = "<b>render me</b>";
-        Microsoft.FluentUI.AspNetCore.Components.Typography typo = default!;
+        Typography typo = default!;
         bool disabled = default!;
-        Microsoft.FluentUI.AspNetCore.Components.HorizontalAlignment? alignment = default!;
-        Microsoft.FluentUI.AspNetCore.Components.Color? color = default!;
-        Microsoft.FluentUI.AspNetCore.Components.FontWeight weight = default!;
+        HorizontalAlignment? alignment = default!;
+        Color? color = default!;
+        FontWeight weight = default!;
         string marginBlock = default!;
         var cut = TestContext.RenderComponent<FluentLabel>(parameters => parameters
             .Add(p => p.Typo, typo)

@@ -12,7 +12,7 @@ public class FluentPopoverTests : TestBase
         string body = "<b>render me</b>";
         string footer = "<b>render me</b>";
         string anchorId = default!;
-        Microsoft.FluentUI.AspNetCore.Components.HorizontalPosition? horizontalPosition = default!;
+        HorizontalPosition? horizontalPosition = default!;
         bool open = default!;
         Action<System.Boolean> openChanged = _ => { };
         var cut = TestContext.RenderComponent<FluentPopover>(parameters => parameters

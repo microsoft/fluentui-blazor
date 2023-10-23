@@ -9,14 +9,14 @@ public class FluentTextFieldTests : TestBase
     {
         //Arrange
         string childContent = "<b>render me</b>";
-        Microsoft.FluentUI.AspNetCore.Components.TextFieldType? textFieldType = default!;
+        TextFieldType? textFieldType = default!;
         string dataList = default!;
         int? maxlength = default!;
         int? minlength = default!;
         string pattern = default!;
         int? size = default!;
         bool? spellcheck = default!;
-        Microsoft.FluentUI.AspNetCore.Components.FluentInputAppearance appearance = default!;
+        FluentInputAppearance appearance = default!;
         string autoComplete = default!;
         var cut = TestContext.RenderComponent<FluentTextField>(parameters => parameters
             .Add(p => p.TextFieldType, textFieldType)

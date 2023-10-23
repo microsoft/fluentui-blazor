@@ -14,8 +14,8 @@ public class FluentOverlayTests : TestBase
         Action<Microsoft.AspNetCore.Components.Web.MouseEventArgs> onClose = _ => { };
         bool transparent = default!;
         double? opacity = default!;
-        Microsoft.FluentUI.AspNetCore.Components.Align alignment = default!;
-        Microsoft.FluentUI.AspNetCore.Components.JustifyContent justification = default!;
+        Align alignment = default!;
+        JustifyContent justification = default!;
         bool fullScreen = default!;
         bool dismissable = default!;
         string backgroundColor = default!;

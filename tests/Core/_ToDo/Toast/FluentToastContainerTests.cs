@@ -9,7 +9,7 @@ public class FluentToastContainerTests : TestBase
     {
         //Arrange
         //Services.AddSingleton<IToastService,/*Add implementation for IToastService*/>();
-        Microsoft.FluentUI.AspNetCore.Components.ToastPosition position = default!;
+        ToastPosition position = default!;
         int timeout = default!;
         int maxToastCount = default!;
         bool removeToastsOnNavigation = default!;

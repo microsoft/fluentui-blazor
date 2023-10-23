@@ -6,7 +6,7 @@ public class FluentHorizontalScrollTests : TestBase
 {
     public FluentHorizontalScrollTests()
     {
-        TestContext.JSInterop.SetupModule("./_content/Microsoft.Fast.Components.FluentUI/Components/HorizontalScroll/FluentHorizontalScroll.razor.js");
+        TestContext.JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/HorizontalScroll/FluentHorizontalScroll.razor.js");
     }
     [Fact]
     public void FluentHorizontalScroll_Default()

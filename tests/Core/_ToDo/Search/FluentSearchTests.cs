@@ -15,7 +15,7 @@ public class FluentSearchTests : TestBase
         string pattern = default!;
         int? size = default!;
         bool? spellcheck = default!;
-        Microsoft.FluentUI.AspNetCore.Components.FluentInputAppearance appearance = default!;
+        FluentInputAppearance appearance = default!;
         var cut = TestContext.RenderComponent<FluentSearch>(parameters => parameters
             .Add(p => p.DataList, dataList)
             .Add(p => p.Maxlength, maxlength)

@@ -6,7 +6,7 @@ public class FluentMenuTests : TestBase
 {
     public FluentMenuTests()
     {
-        TestContext.JSInterop.SetupModule("./_content/Microsoft.Fast.Components.FluentUI/Components/Menu/FluentMenu.razor.js");
+        TestContext.JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Menu/FluentMenu.razor.js");
     }
 
     [Fact]
@@ -15,9 +15,9 @@ public class FluentMenuTests : TestBase
         //Arrange
         string childContent = "<b>render me</b>";
         string anchor = default!;
-        Microsoft.FluentUI.AspNetCore.Components.MouseButton trigger = default!;
+        MouseButton trigger = default!;
         bool open = default!;
-        Microsoft.FluentUI.AspNetCore.Components.HorizontalPosition horizontalPosition = default!;
+        HorizontalPosition horizontalPosition = default!;
         string width = default!;
         Action<System.Boolean> openChanged = _ => { };
         bool anchored = default!;

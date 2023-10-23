@@ -10,7 +10,7 @@ public class FluentSkeletonTests : TestBase
         //Arrange
         string childContent = "<b>render me</b>";
         string fill = default!;
-        Microsoft.FluentUI.AspNetCore.Components.SkeletonShape? shape = default!;
+        SkeletonShape? shape = default!;
         string pattern = default!;
         bool? shimmer = default!;
         string width = default!;

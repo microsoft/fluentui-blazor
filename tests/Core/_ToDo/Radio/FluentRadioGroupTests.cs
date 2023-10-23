@@ -12,7 +12,7 @@ public class FluentRadioGroupTests: TestBase
     {
         //Arrange
         string childContent = "<b>render me</b>";
-        Microsoft.FluentUI.AspNetCore.Components.Orientation? orientation = default!;
+        Orientation? orientation = default!;
         
         var cut = TestContext.RenderComponent<FluentRadioGroup<bool>>(parameters => parameters
             .Add(p => p.Orientation, orientation)

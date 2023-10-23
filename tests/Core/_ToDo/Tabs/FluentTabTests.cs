@@ -16,10 +16,10 @@ public class FluentTabTests : TestBase
         Action<System.String> labelChanged = _ => { };
         string labelClass = default!;
         string labelStyle = default!;
-        Microsoft.FluentUI.AspNetCore.Components.Icon icon = default!;
+        Icon icon = default!;
         bool labelEditable = default!;
         bool deferredLoading = default!;
-        Microsoft.FluentUI.AspNetCore.Components.FluentTabs owner = default!;
+        FluentTabs owner = default!;
         var cut = TestContext.RenderComponent<FluentTab>(parameters => parameters
             .Add(p => p.Disabled, disabled)
             .Add(p => p.Label, label)

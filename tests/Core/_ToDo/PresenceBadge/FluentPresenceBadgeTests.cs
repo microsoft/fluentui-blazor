@@ -11,10 +11,10 @@ public class FluentPresenceBadgeTests : TestBase
         //Services.AddSingleton<GlobalState,/*Add implementation for GlobalState*/>();
         string childContent = "<b>render me</b>";
         string title = default!;
-        Microsoft.FluentUI.AspNetCore.Components.PresenceStatus? status = default!;
+        PresenceStatus? status = default!;
         string statusTitle = default!;
         bool outOfOffice = default!;
-        Microsoft.FluentUI.AspNetCore.Components.PresenceBadgeSize size = default!;
+        PresenceBadgeSize size = default!;
         var cut = TestContext.RenderComponent<FluentPresenceBadge>(parameters => parameters
             .AddChildContent(childContent)
             .Add(p => p.Title, title)

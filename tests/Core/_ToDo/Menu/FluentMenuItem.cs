@@ -13,10 +13,10 @@ public class FluentMenuItemTests : TestBase
         string label = default!;
         bool disabled = default!;
         bool expanded = default!;
-        Microsoft.FluentUI.AspNetCore.Components.MenuItemRole? role = default!;
+        MenuItemRole? role = default!;
         bool Checked = default!;
         Action onClick = () => { };
-        Microsoft.FluentUI.AspNetCore.Components.FluentMenu owner = default!;
+        FluentMenu owner = default!;
         var cut = TestContext.RenderComponent<FluentMenuItem>(parameters => parameters
             .Add(p => p.Label, label)
             .Add(p => p.Disabled, disabled)

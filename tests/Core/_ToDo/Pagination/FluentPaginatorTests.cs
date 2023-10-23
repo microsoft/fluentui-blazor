@@ -10,7 +10,7 @@ public class FluentPaginatorTests : TestBase
         //Arrange
         string summaryTemplate = "<b>render me</b>";
         Action<System.Int32> currentPageIndexChanged = _ => { };
-        Microsoft.FluentUI.AspNetCore.Components.PaginationState state = default!;
+        PaginationState state = default!;
         var cut = TestContext.RenderComponent<FluentPaginator>(parameters => parameters
             .Add(p => p.CurrentPageIndexChanged, currentPageIndexChanged)
             .Add(p => p.State, state)

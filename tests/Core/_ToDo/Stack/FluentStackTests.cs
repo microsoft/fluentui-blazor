@@ -9,9 +9,9 @@ public class FluentStackTests : TestBase
     {
         //Arrange
         string childContent = "<b>render me</b>";
-        Microsoft.FluentUI.AspNetCore.Components.HorizontalAlignment horizontalAlignment = default!;
-        Microsoft.FluentUI.AspNetCore.Components.VerticalAlignment verticalAlignment = default!;
-        Microsoft.FluentUI.AspNetCore.Components.Orientation orientation = default!;
+        HorizontalAlignment horizontalAlignment = default!;
+        VerticalAlignment verticalAlignment = default!;
+        Orientation orientation = default!;
         string width = default!;
         bool wrap = default!;
         int? horizontalGap = default!;

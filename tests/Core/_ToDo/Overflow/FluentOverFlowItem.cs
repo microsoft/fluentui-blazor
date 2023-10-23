@@ -9,7 +9,7 @@ public class FluentOverflowItemTests : TestBase
     {
         //Arrange
         string childContent = "<b>render me</b>";
-        Microsoft.FluentUI.AspNetCore.Components.FluentOverflow container = default!;
+        FluentOverflow container = default!;
         var cut = TestContext.RenderComponent<FluentOverflowItem>(parameters => parameters
             .AddChildContent(childContent)
             .Add(p => p.Container, container)
