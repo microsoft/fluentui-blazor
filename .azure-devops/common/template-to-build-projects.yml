@@ -87,7 +87,7 @@ steps:
   - script: |
       echo 🔸 BuildNumber      = $(Build.BuildNumber)
       echo -----------------------------------------------
-      echo 🔸 BranchName       = $(Build.BranchName)
+      echo 🔸 BranchName       = $(BranchName)
       echo 🔸 AssemblyVersion  = $(AssemblyVersion)
       echo 🔸 PackageVersion   = $(PackageVersion)
       echo -----------------------------------------------
