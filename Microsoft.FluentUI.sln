@@ -65,7 +65,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{9AAEFCC9-1D75-4294-B06F-C5959EC14055}"
 	ProjectSection(SolutionItems) = preProject
 		.azure-devops\common\template-to-build-projects.yml = .azure-devops\common\template-to-build-projects.yml
-		versioning.yml = versioning.yml
+		.azure-devops\common\versioning.yml = .azure-devops\common\versioning.yml
 	EndProjectSection
 EndProject
 Global
