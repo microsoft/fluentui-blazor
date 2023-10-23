@@ -3,12 +3,11 @@
 @using Microsoft.AspNetCore.Components
 @using System.Runtime.InteropServices
 @namespace FluentUI.Demo.Shared
-@inherits LayoutComponentBase
 
 <PageTitle>Fluent UI Blazor components demo page</PageTitle>
 
-<div id="container" @ref="container">
-    <header>
+<FluentLayout>
+    <FluentHeader>
         <div class="logo" role="presentation" aria-hidden="true" itemprop="logo" itemscope="itemscope">
             <svg xmlns="http://www.w3.org/2000/svg" width="108" height="23" viewBox="72 72 337 74" preserveAspectRatio="xMidYMin slice">
                 <g data-name="MS-symbol">
@@ -26,47 +25,57 @@
             </svg>
 
         </div>
+        <FluentSpacer />
         <div class="notifications">
             <NotificationCenter />
         </div>
         <div class="settings">
             <SiteSettings />
         </div>
-    </header>
-    <main>
-        <input type="checkbox" id="menu-toggle" checked=@menuchecked @onclick=HandleChecked />
+    </FluentHeader>
+
+    <FluentStack Orientation="Orientation.Horizontal" Width="100%">
         <label for="menu-toggle" class="menu-icon">
             <FluentIcon Icon="Icons.Regular.Size24.Navigation" />
-        </label>
-        <nav>
+        </label> 
+        <input type="checkbox" id="menu-toggle" checked=@menuchecked @onclick=HandleChecked />
+
+        <nav style="height: Calc(100vh - 90px);"
+             onclick="document.getElementById('menu-toggle').click()">
             <DemoNavMenu />
         </nav>
-        <div class="content">
-            <article id="article">
-                 
-                <FluentMessageBarContainer Section="@App.MESSAGES_TOP" />
-            
-                <ErrorBoundary @ref="errorBoundary">
-                    <ChildContent>
-                        <CascadingValue Value=@OnRefreshTableOfContents>
-                            @Body
-                        </CascadingValue>
-                    </ChildContent>
-                    <ErrorContent Context="ex">
-                        <div class="blazor-error-boundary">@ex.Message</div>
-                    </ErrorContent>
-                </ErrorBoundary>
-            </article>
-            <aside>
-                <TableOfContents @ref=_toc/>
-                <ConsoleLog />
-            </aside>
-        </div>
-    </main>
-    <FluentToastContainer MaxToastCount="10"  />
-    <FluentDialogProvider />
-    <FluentTooltipProvider />
-    <footer>
+
+        <FluentBodyContent Style="height: Calc(100dvh - 110px);">
+            <div class="content">
+                <article id="article">
+        
+                    <FluentMessageBarContainer Section="@App.MESSAGES_TOP" />
+        
+                    <ErrorBoundary @ref="errorBoundary">
+                        <ChildContent>
+                            <CascadingValue Value=@OnRefreshTableOfContents>
+                                @Body
+                            </CascadingValue>
+                        </ChildContent>
+                        <ErrorContent Context="ex">
+                            <div class="blazor-error-boundary">@ex.Message</div>
+                        </ErrorContent>
+                    </ErrorBoundary>
+                </article>
+                <aside>
+                    <TableOfContents @ref=_toc />
+                    <ConsoleLog />
+                </aside>
+        
+                <FluentToastContainer MaxToastCount="10" />
+                <FluentDialogProvider />
+                <FluentTooltipProvider />
+        
+            </div>
+        </FluentBodyContent>
+    </FluentStack>
+
+    <FluentFooter Style="@("height: 40px; color: white;")">
         <div class="version">
             <small>
                 Version: @_version
@@ -74,8 +83,10 @@
                 <a href="https://dotnet.microsoft.com/en-us/learn/aspnet/what-is-aspnet-core">Powered by @RuntimeInformation.FrameworkDescription</a>
             </small>
         </div>
+        <FluentSpacer />
         <div class="copy">
             <small>Microsoft © 2023. All rights reserved.</small>
         </div>
-    </footer>
-</div>
+    </FluentFooter>
+
+</FluentLayout>
