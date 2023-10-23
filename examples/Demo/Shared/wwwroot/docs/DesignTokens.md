@@ -284,6 +284,9 @@ if (firstRender)
 	//And change conrner radius as well
 	await ControlCornerRadius.SetValueFor(ref4!.Element, 15);
 
+	// If you would like to change the BaseLayerLuminance  value for the whole site, you can use the WithDefault method
+	await BaseLayerLuminance.WithDefault((float)0.15);
+
 	StateHasChanged();
 }
 
