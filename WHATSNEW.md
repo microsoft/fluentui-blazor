@@ -33,7 +33,7 @@
 - Fix [#848](https://github.com/microsoft/fluentui-blazor/issues/848): A11y issue in FluentDialogHeader
 - Fix [#847](https://github.com/microsoft/fluentui-blazor/issues/847): A11y issues in FluentNavMenu
 - Fix [#861](https://github.com/microsoft/fluentui-blazor/issues/861): A11y issue in FluentDataGrid EmptyContent
-- Fix [#859](https://github.com/microsoft/fluentui-blazor/issues/859): Fix FluentNavMenuGroup not clickable ouside of <a> tag
+- Fix [#859](https://github.com/microsoft/fluentui-blazor/issues/859): Fix FluentNavMenuGroup not clickable ouside of `<a>` tag
 - Fix [#857](https://github.com/microsoft/fluentui-blazor/issues/857): Fix copy Emoji code in search page
 - Fix [#841](https://github.com/microsoft/fluentui-blazor/issues/841): Overflow causes loss of background with Panel
 - Fix [#833](https://github.com/microsoft/fluentui-blazor/issues/833): Use correct abbreviation for day name in FluentCalendar (Chinese)
