@@ -2590,6 +2590,9 @@
             A event that will be invoked when showing a dialog with a custom component
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDivider.Module">
+            <summary />
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDivider.Role">
             <summary>
             The role of the element.

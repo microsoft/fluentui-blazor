@@ -80,7 +80,7 @@ public partial class DemoMainLayout : IAsyncDisposable
             GlobalState.SetLuminance(_dark ? StandardLuminance.DarkMode: StandardLuminance.LightMode);
 
             if (_selectedColorOption != OfficeColor.Default)
-                await AccentBaseColor.SetValueFor(container, _selectedColorOption.ToAttributeValue()!.ToSwatch());            
+                await AccentBaseColor.WithDefault(_selectedColorOption.ToAttributeValue()!.ToSwatch());            
         }
     }
 

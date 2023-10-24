@@ -1,4 +1,5 @@
 ﻿@page "/Toast"
+
 @inject IToastService ToastService
 
 @using FluentUI.Demo.Shared.Pages.Toast.Examples
@@ -18,15 +19,13 @@
     The information in a toast is useful and relevant but never critical.
 </p>
 
-<h2>Examples</h2>
+<h2 id="example">Examples</h2>
 
 <DemoSection Title="Default Toast" Component="typeof(ToastDefault)"></DemoSection>
 
 <DemoSection Title="Toast with options" Component="typeof(ToastDetailled)"></DemoSection>
 
-
 <DemoSection Title="Confirmation Toasts" Component="typeof(ToastConfirmationToasts)"></DemoSection>
-
 
 <DemoSection Title="Communication Toasts" Component="typeof(ToastCommunicationToasts)"></DemoSection>
 
@@ -43,7 +42,8 @@
 
 <DemoSection Title="Remove queued toasts" Component="typeof(ToastClearQueue)" ShowDownloads=false></DemoSection>
 
-<h2>Toast container</h2>
+<h2 id="toastcontainer">Toast container</h2>
+
 <strong>IMPORTANT!!</strong>
 <p>
     Toasts are rendered through the <code>&lt;FluentToastContainer /&gt;</code> component. This component needs to be added to the main layout of your application/site.
@@ -66,6 +66,10 @@
 <p>
     See the documentation below for more information about the <code>FluentToastContainer</code> parameters.
 </p>
+
+<h2 id="documentation">Documentation</h2>
+
 <ApiDocumentation Component="typeof(FluentToastContainer)" />
+
 <ApiDocumentation Component="typeof(FluentToast)" />
 

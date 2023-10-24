@@ -14,26 +14,11 @@
             color: #000000;
         }
 
-        .loading-progress-text {
-            color: #000000;
-        }
-
         @@media(prefers-color-scheme: dark) {
             :root {
                 --neutral-fill-layer-rest: #464646;
                 color: #ffffff;
             }
-
-            .loading-progress-text {
-                color: #ffffff;
-            }
-        }
-
-        body,
-        #container {
-            font: 14px "Segoe UI Variable", "Segoe UI", sans-serif;
-            color: var(--neutral-base-color);
-            background-color: var(--neutral-fill-layer-rest);
         }
     </style>
     <link href="FluentUI.Demo.Server.styles.css" rel="stylesheet" />
@@ -70,6 +55,7 @@
     
     <script src="_framework/blazor.server.js"></script>
     <script src="js/site.js"></script>
+    <script src="_content/FluentUI.Demo.Shared/js/theme.js" type="module"></script>
 
 
     <!-- Monaco Editor -->

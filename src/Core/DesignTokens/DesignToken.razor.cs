@@ -68,15 +68,16 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
     private async Task InitJSReference()
     {
         _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", 
-            "./_content/Microsoft.Fast.Components.FluentUI/js/web-components-v2.5.16-custom.min.js");
+            "./_content/Microsoft.Fast.Components.FluentUI/js/web-components-v2.5.16.min.js");
     }
 
     /// <summary>
     /// Sets the default value of this token
     /// </summary>
-    public DesignToken<T> WithDefault(T value)
+    public async ValueTask<DesignToken<T>> WithDefault(T value)
     {
-        //_defaultValue = value;
+        await InitJSReference();
+        await _jsModule.InvokeVoidAsync(Name + ".withDefault", value);
         return this;
     }
 
