@@ -106,14 +106,6 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     public virtual bool Autofocus { get; set; } = false;
 
     /// <summary>
-    /// An event that is called after the <see cref="Value"/> property has been changed
-    /// through data binding. This is equivalent to <code>@bind-Value:after</code> which is supported
-    /// from .Net 7, but not available in .Net 6.
-    /// </summary>
-    [Parameter]
-    public EventCallback<TValue> AfterBindValue { get; set; }
-
-    /// <summary>
     /// The short hint displayed in the input before the user enters a value.
     /// </summary>
     [Parameter]
@@ -156,10 +148,6 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
         if (FieldBound)
         {
             EditContext?.NotifyFieldChanged(FieldIdentifier);
-        }
-        if (AfterBindValue.HasDelegate)
-        {
-            await AfterBindValue.InvokeAsync(Value);
         }
     }
 
