@@ -15,8 +15,9 @@
 		<PackageTags>templates;fast;fast-blazor;blazor;fluentui;web-assembly</PackageTags>
 		<PackageType>Template</PackageType>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<Title>Microsoft FAST Fluent UI Blazor Templates</Title>
+		<Title>Microsoft Fluent UI Blazor Templates</Title>
 		<PackageIcon>icon.png</PackageIcon>
+		<PackageOutputPath>$(SolutionDir)artifacts</PackageOutputPath>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)'=='Release'">
@@ -26,13 +27,23 @@
 		<DebuggerSupport>false</DebuggerSupport>
 		<TrimmerRemoveSymbols>true</TrimmerRemoveSymbols>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<PackageOutputPath>$(SolutionDir)artifacts</PackageOutputPath>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<Content Include="Projects\**\*" Exclude="Projects\**\bin\**;Projects\**\obj\**" />
+		<Content Include="content\**\*" Exclude="content\**\bin\**;content\**\obj\**" />
 		<None Include="README.md" Pack="true" PackagePath="\" />
 		<None Include="..\..\icon.png" Pack="true" PackagePath="\" />
 		<Compile Remove="**\*" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="ComponentsWebAssembly-CSharp.csproj.in" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<GeneratedContent Include="BlazorWeb-CSharp.csproj.in" OutputPath="content/BlazorWeb-CSharp/BlazorWeb-CSharp/BlazorWeb-CSharp.csproj" />
+		<GeneratedContent Include="BlazorWeb-CSharp.Client.csproj.in" OutputPath="content/BlazorWeb-CSharp/BlazorWeb-CSharp.Client/BlazorWeb-CSharp.Client.csproj" />
+		<GeneratedContent Include="ComponentsWebAssembly-CSharp.csproj.in" OutputPath="content/ComponentsWebAssembly-CSharp/ComponentsWebAssembly-CSharp.csproj" />
 	</ItemGroup>
 </Project>
