@@ -72,18 +72,18 @@ public partial class SiteSettingsPanel : IDialogContentComponent<GlobalState>, I
         StateHasChanged();
     }
 
-    private async Task UpdateThemeAsync(string newValue)
+    private async Task UpdateThemeAsync()
     {
         if (_jsModule is not null)
         {
-            var newLuminance = await GetBaseLayerLuminanceForSetting(newValue);
+            StandardLuminance newLuminance = await GetBaseLayerLuminanceForSetting(_currentTheme);
 
             await BaseLayerLuminance.WithDefault(newLuminance.GetLuminanceValue());
             await _jsModule.InvokeVoidAsync("switchHighlightStyle", newLuminance == StandardLuminance.DarkMode);
-            await _jsModule.InvokeVoidAsync("setThemeCookie", newValue);
+            await _jsModule.InvokeVoidAsync("setThemeCookie", _currentTheme);
         }
 
-        _currentTheme = newValue;
+        //_currentTheme = newValue;
     }
 
     private async Task UpdateColorAsync(ChangeEventArgs args)

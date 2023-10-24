@@ -24,7 +24,7 @@ public partial class IconExplorer
         if (firstRender)
         {
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-                 "./_content/AspNetCore.Components.Demo.Shared/Pages/Icon/IconExplorer.razor.js");
+                 "./_content/FluentUI.Demo.Shared/Pages/Icon/IconExplorer.razor.js");
         }
     }
 

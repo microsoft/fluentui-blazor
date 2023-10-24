@@ -21,7 +21,7 @@ public partial class EmojiExplorer
         if (firstRender)
         {
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-                 "./_content/AspNetCore.Components.Demo.Shared/Pages/Emoji/EmojiExplorer.razor.js");
+                 "./_content/FluentUI.Demo.Shared/Pages/Emoji/EmojiExplorer.razor.js");
         }
     }
 
