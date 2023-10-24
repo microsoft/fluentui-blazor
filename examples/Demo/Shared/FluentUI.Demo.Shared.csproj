@@ -1,9 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 	<PropertyGroup>
-		<!-- Uncomment below line if you want to target all mentioned frameworks -->
-		<!-- Targeting just one framework will speed up build time -->
-		<!--<TargetFrameworks>net8.0;net9.0</TargetFrameworks>-->
-		<!-- Comment below line if you enable line above -->
 		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
@@ -32,17 +28,17 @@
 		<TrimmerRemoveSymbols>true</TrimmerRemoveSymbols>
 	</PropertyGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)'=='net8.0'">
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.0-rc.2.*" />
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" />
+		<PackageReference Include="Markdig" />
+		<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" />
+		<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\src\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" />
 		<ProjectReference Include="..\DocGenerator\FluentUI.Demo.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-		<PackageReference Include="Markdig" Version="0.33.0" />
-		<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="4.*-*" />
-		<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" version="4.*-*" />
-		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
 		<TrimmerRootAssembly Include="Microsoft.Fast.Components.FluentUI" />
 	</ItemGroup>
 

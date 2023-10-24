@@ -10,6 +10,8 @@
 [![Discord](https://img.shields.io/badge/chat%20on-discord-7289da.svg)](https://discord.gg/FcSNfg4)
 
 :star:  We appreciate your star, it helps!
+## V4.0 progress
+- v4.0.0-preview.2 is functionally equal to v3.2.2
 
 ## Introduction
 

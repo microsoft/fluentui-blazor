@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net8.0</TargetFrameworks>
+		<TargetFramework>net8.0</TargetFramework>
 		<Authors>Microsoft</Authors>
 		<ContentTargetFolders>Content</ContentTargetFolders>
 		<Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
@@ -16,8 +16,17 @@
 		<PackageType>Template</PackageType>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<Title>Microsoft FAST Fluent UI Blazor Templates</Title>
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageIcon>icon.png</PackageIcon>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
+		<IsShipping>true</IsShipping>
+		<Optimize>True</Optimize>
+		<NoWarn>1701;1702;8669;1591</NoWarn>
+		<DebuggerSupport>false</DebuggerSupport>
+		<TrimmerRemoveSymbols>true</TrimmerRemoveSymbols>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageOutputPath>$(SolutionDir)artifacts</PackageOutputPath>
 	</PropertyGroup>
 
 	<ItemGroup>

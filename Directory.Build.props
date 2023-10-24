@@ -14,7 +14,7 @@
 	 
 	 <VersionFile>4.0.0</VersionFile>
 	 <VersionPrefix>4.0.0</VersionPrefix>
-	 <VersionSuffix>-preview.1</VersionSuffix> 
+	 <VersionSuffix>-preview.2</VersionSuffix> 
 	 
 	 <AssemblyVersion>$(VersionFile)</AssemblyVersion>
 	 <FileVersion>$(VersionFile)</FileVersion>
