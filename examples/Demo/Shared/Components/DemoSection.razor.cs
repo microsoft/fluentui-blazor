@@ -113,7 +113,7 @@ public partial class DemoSection : ComponentBase
         {
             foreach (string source in _allFiles)
             {
-                string? result = await StaticAssetService.GetAsync($"./_content/AspNetCore.Components.Demo.Shared/sources/{source}.txt");
+                string? result = await StaticAssetService.GetAsync($"./_content/FluentUI.Demo.Shared/sources/{source}.txt");
                 _tabPanelsContent.Add(source, result ?? string.Empty);
             }
         }
