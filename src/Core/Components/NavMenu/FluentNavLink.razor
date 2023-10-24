@@ -4,25 +4,29 @@
 @using Microsoft.AspNetCore.Components.Routing
 
 <div @attributes="AdditionalAttributes" class="@ClassValue" disabled="@Disabled" style="@Style" role="menuitem">
-    <div class="positioning-region">
-        <div class="content-region">
-            @if (!OnClick.HasDelegate && !string.IsNullOrEmpty(Href))
-            {
-                <NavLink class="@LinkClassValue"
-                         @attributes="@Attributes"
-                         Match="@Match"
-                         ActiveClass="@ActiveClass">
-                   @_renderContent
-                </NavLink>
-            }
-            else
-            {
-                <div class="@LinkClassValue" @onclick="OnClickHandler">
-                   @_renderContent
+    @if (!OnClick.HasDelegate && !string.IsNullOrEmpty(Href))
+    {
+        <NavLink class="@LinkClassValue"
+                 @attributes="@Attributes"
+                 Match="@Match"
+                 ActiveClass="@ActiveClass">
+            <div class="positioning-region">
+                <div class="content-region">
+                    @_renderContent
                 </div>
-            }
+            </div>
+        </NavLink>
+    }
+    else
+    {
+        <div class="positioning-region">
+            <div class="content-region">
+                <div class="@LinkClassValue" @onclick="OnClickHandler">
+                    @_renderContent
+                </div>
+            </div>
         </div>
-    </div>
+    }
 </div>
 
 @code {
@@ -40,6 +44,6 @@
             @ChildContent
         </div>
 
-       
+
     }
 }
