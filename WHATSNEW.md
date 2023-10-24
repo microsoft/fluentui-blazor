@@ -1,4 +1,7 @@
-﻿## V3.2.1
+﻿## V3.2.2
+- Fix [#859](https://github.com/microsoft/fluentui-blazor/issues/859) and [#884](https://github.com/microsoft/fluentui-blazor/issues/859): Fix NavMenu for real by moving `<a>` tag up in the rendering tree
+
+## V3.2.1
 - Design Tokens WithDefault method implemented to allow setting a default value for a token. This is technically a breaking chage, but it is unlikely to affect anyone as the previous implementation did not do anything. See the `SiteSettingsPanel.razor.cs` in the demo site for an implementation example.
 - Fix [#872](https://github.com/microsoft/fluentui-blazor/issues/872): A11y issue in FluentDivider
 - Fix [#864](https://github.com/microsoft/fluentui-blazor/issues/864): A11y issue in FluentAutoComplete
@@ -6,7 +9,7 @@
 - Fix [#848](https://github.com/microsoft/fluentui-blazor/issues/848): A11y issue in FluentDialogHeader
 - Fix [#847](https://github.com/microsoft/fluentui-blazor/issues/847): A11y issues in FluentNavMenu
 - Fix [#861](https://github.com/microsoft/fluentui-blazor/issues/861): A11y issue in FluentDataGrid EmptyContent
-- Fix [#859](https://github.com/microsoft/fluentui-blazor/issues/859): Fix FluentNavMenuGroup not clickable ouside of <a> tag
+- Fix [#859](https://github.com/microsoft/fluentui-blazor/issues/859): Fix FluentNavMenuGroup not clickable ouside of `<a>` tag
 - Fix [#857](https://github.com/microsoft/fluentui-blazor/issues/857): Fix copy Emoji code in search page
 - Fix [#841](https://github.com/microsoft/fluentui-blazor/issues/841): Overflow causes loss of background with Panel
 - Fix [#833](https://github.com/microsoft/fluentui-blazor/issues/833): Use correct abbreviation for day name in FluentCalendar (Chinese)

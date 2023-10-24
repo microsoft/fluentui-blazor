@@ -3,8 +3,7 @@
     color: inherit;
     align-items: center;
     text-decoration: none;
-    display: grid;
-    grid-template-columns: 30px auto 40px;
+    display: flex;
 }
 
 ::deep .fluent-nav-icon {
