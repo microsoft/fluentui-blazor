@@ -35,11 +35,12 @@
 
             @if (_ariaBodyRowCount == 0 && !_manualGrid )
             {
-                <div class="empty-content" role="row">
-                    <div role="gridcell">
+                <div class="empty-content-row" role="row">
+                    <div class="empty-content-cell" role="gridcell">
                         @if (EmptyContent is null)
                         {
-                            @("No data to show!");
+                            @("No data to show!")
+                            ;
                         }
                         else
                         {
