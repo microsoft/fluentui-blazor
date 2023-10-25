@@ -10,7 +10,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// <summary />
 public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
 {
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Overflow/FluentOverflow.razor.js";
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.Fast.Components.FluentUI/Components/Overflow/FluentOverflow.razor.js";
     private readonly List<FluentOverflowItem> _items = new();
     private RenderFragment? _childContent = null;
     private DotNetObjectReference<FluentOverflow>? _dotNetHelper = null;
